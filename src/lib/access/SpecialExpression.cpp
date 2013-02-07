@@ -24,8 +24,8 @@ void SpecialExpression::walk(const std::vector<hyrise::storage::c_atable_ptr_t> 
   const auto& avs = _table->getAttributeVectors(_column);
   _vector = std::dynamic_pointer_cast<FixedLengthVector<value_id_t>>(avs.at(0).attribute_vector);
   _dict = std::dynamic_pointer_cast<OrderPreservingDictionary<hyrise_int_t>>(_table->dictionaryAt(_column));
+  if (!(_vector && _dict)) throw std::runtime_error("Could not extract proper structures");
   _valueid = _dict->getValueIdForValue(_value);
-  if (!(_vector && _dict)) throw std::runtime_error("fuck this");
 }
 
 }}
