@@ -1,3 +1,4 @@
+// Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "access/GroupByScan.h"
 #include "access/HashBuild.h"
 #include "io/shortcuts.h"

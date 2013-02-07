@@ -1,3 +1,4 @@
+// Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "storage/MutableVerticalTable.h"
 
 MutableVerticalTable::MutableVerticalTable(std::vector<std::vector<const ColumnMetadata *> *> metadata,

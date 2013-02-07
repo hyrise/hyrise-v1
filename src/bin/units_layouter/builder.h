@@ -1,3 +1,4 @@
+// Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 std::vector<std::vector<unsigned> > data{std::vector<unsigned>{2},
 std::vector<unsigned>{3},
 std::vector<unsigned>{4},

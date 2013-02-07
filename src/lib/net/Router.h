@@ -1,3 +1,4 @@
+// Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 /// This module implements a request parser registration facility for the ebb based server
 /// implemented in `AsyncConnection.h`.
 

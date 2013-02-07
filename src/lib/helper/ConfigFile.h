@@ -1,3 +1,4 @@
+// Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 // ConfigFile.h
 // Class for reading named values from configuration files
 // Richard J. Wagner  v2.1  24 May 2004  wagnerr@umich.edu

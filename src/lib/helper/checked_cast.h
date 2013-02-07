@@ -1,3 +1,4 @@
+// Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #ifndef SRC_LIB_HELPER_CHECKED_CAST_H_
 #define SRC_LIB_HELPER_CHECKED_CAST_H_
 

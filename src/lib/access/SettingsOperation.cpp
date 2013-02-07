@@ -1,3 +1,4 @@
+// Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "SettingsOperation.h"
 #include <access/QueryParser.h>
 #include <helper/Settings.h>

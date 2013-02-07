@@ -1,3 +1,4 @@
+// Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "GroupByScan.h"
 #include "QueryParser.h"
 #include <storage/HashTable.h>

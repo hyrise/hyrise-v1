@@ -1,3 +1,4 @@
+// Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "access/Distinct.h"
 #include <unordered_map>
 #include "access/BasicParser.h"

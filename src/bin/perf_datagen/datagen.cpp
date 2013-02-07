@@ -1,3 +1,4 @@
+// Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 /*
  * This file is released under the terms of the Artistic License.
  * Please see the file LICENSE, included in this package, for details.

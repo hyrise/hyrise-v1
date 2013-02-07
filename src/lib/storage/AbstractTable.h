@@ -1,3 +1,4 @@
+// Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 /** @file AbstractTable.h
  *
  * Contains the class definition of AbstractTable.

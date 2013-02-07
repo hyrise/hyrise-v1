@@ -1,3 +1,4 @@
+// Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include <boost/assign/list_of.hpp>
 #include <boost/assign/std/vector.hpp>
 #include <boost/assign.hpp>

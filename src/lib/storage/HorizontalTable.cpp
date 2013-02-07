@@ -1,3 +1,4 @@
+// Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "storage/HorizontalTable.h"
 
 HorizontalTable::HorizontalTable(std::vector< hyrise::storage::c_atable_ptr_t >& _parts) : parts(_parts) {

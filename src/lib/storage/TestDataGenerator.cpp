@@ -1,3 +1,4 @@
+// Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "TestDataGenerator.h"
 #include <helper/types.h>
 #include <storage/TableGenerator.h>

@@ -1,3 +1,4 @@
+// Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "access/ExpressionScan.h"
 #include "io/shortcuts.h"
 #include "testing/test.h"

@@ -1,3 +1,4 @@
+// Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #ifndef SRC_BIN_UNITS_STORAGE_TABLE_EQUAL_TEST_H
 #define SRC_BIN_UNITS_STORAGE_TABLE_EQUAL_TEST_H
 

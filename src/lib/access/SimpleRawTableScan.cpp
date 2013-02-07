@@ -1,3 +1,4 @@
+// Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "SimpleRawTableScan.h"
 
 #include <storage/meta_storage.h>

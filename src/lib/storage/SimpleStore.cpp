@@ -1,3 +1,4 @@
+// Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "SimpleStore.h"
 #include "TableMerger.h"
 #include "SimpleStoreMerger.h"
