@@ -109,15 +109,18 @@ alphabetical order :)
 
   * Alexander Franke
   * Christian Tinnefeld
+  * Clemens Frahnow
   * David Eickhoff
   * David Schwalb
   * Friedhelm Filler
+  * Georg Hoefer
   * Henning Lohse
   * Holger Pirk
   * Jan Oberst
   * Jens Krueger
   * Johannes Wust
   * Jonas Witt
+  * Karsten Tausche
   * Marco Hornung
   * Martin Boissier
   * Martin Faust
