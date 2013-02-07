@@ -51,22 +51,16 @@ all submodules are initialized correctly.
 
     git submodule init --update
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 Now copy the file `settings.mk.default` to `settings.mk` and if necessary
 modify settings to start the build. The most prominent one is `PRODUCTION` to
 disable the debug build and `HYRISE_ALLOCATOR` for using `tcmalloc` or
 `jemalloc` instead of the libc allocator.
 
-=======
->>>>>>> Preparing HYRISE for OS release
-=======
 Now copy the file `settings.mk.default` to `settings.mk` and if necessary
 modify settings to start the build. The most prominent one is `PRODUCTION` to
 disable the debug build and `HYRISE_ALLOCATOR` for using `tcmalloc` or
 `jemalloc` instead of the libc allocator.
 
->>>>>>> Updating README
 A simple build is executed by
 
     make
