@@ -1,0 +1,26 @@
+{
+    "operators": {
+	"-1" : {
+	    "type" : "TableLoad",
+	    "filename" : "tables/revenue_2009.tbl",
+	    "table" : "reference"
+	},
+	"0" : {
+	    "type" : "TableLoad",
+	    "filename" : "tables/revenue.tbl",
+	    "table" : "revenue"
+	},
+	"1" : {
+	    "type" : "SimpleTableScan",
+	    "instances" : 2,
+	    "predicates" : [
+		{"type" : "LT", "in" : 0, "f" : "year", "value" : 2010}
+	    ]
+	},
+	"2" : {
+	    "type" : "MaterializingScan",
+	    "memcpy" : true
+	}
+    },
+    "edges" : [["0","1"],["1","2"]]
+}

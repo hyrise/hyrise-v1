@@ -1,0 +1,14 @@
+{
+	"operators": {
+		"0": {
+			"type": "MySQLTableLoad",
+			"table": "students",
+			"database": "epic"
+		},
+		"1": {
+		    "type": "StrLenScan",
+		    "fields": ["name"]
+		}
+	},
+	"edges": [["0", "1"]]
+}

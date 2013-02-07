@@ -1,0 +1,47 @@
+{
+	"operators": {
+            "-1": {
+                "type": "TableLoad",
+                "table": "reference",
+                "filename": "edges_ref.tbl"
+            },
+		     "2" : {
+                "type" : "SimpleTableScan",
+                "input" : ["edges_table1"],
+                "predicates" : [
+				      {	"type" : 0, "in" : 0, "f" : 0, "vtype" : 0, "value": 1 }
+                ]
+		     },
+		     "0" : {
+                "type" : "JoinScan",
+                "input" : ["edges_table2"],
+                "predicates" : [{
+                    "type" : 3,
+                    "input_left" : 0,
+                    "field_left" : 0,
+                    "input_right" : 1,
+                    "field_right" : 2
+                }]
+		     },
+             "b" : {
+                "type" : "ProjectionScan",
+                "fields" : [2]
+		     },
+		     "1" : {
+                "type" : "JoinScan",
+                "input" : ["edges_table3"],
+                "predicates" : [{
+                    "type" : 3,
+                    "input_left" : 0,
+                    "field_left" : 0,
+                    "input_right" : 1,
+                    "field_right" : 0
+                }]
+		     },
+              "a" : {
+                "type" : "ProjectionScan",
+                "fields" : [1,2]
+		     }
+	},
+    "edges": [["2","0"],["0","b"],["b","1"],["1","a"]]
+}

@@ -1,0 +1,579 @@
+#include <json.h>
+#include <string>
+
+#include "helper.h"
+
+#include <access.h>
+
+#include "testing/test.h"
+
+#include <io.h>
+#include <io/shortcuts.h>
+
+#include <storage.h>
+
+namespace hyrise {
+namespace access {
+
+class SelectTests : public AccessTest {
+
+ public:
+
+  std::shared_ptr<AbstractTable> createRawTable() {
+    metadata_vec_t cols({ *ColumnMetadata::metadataFromString("INTEGER", "col1"),
+            *ColumnMetadata::metadataFromString("STRING", "col2"),
+            *ColumnMetadata::metadataFromString("FLOAT", "col3") });
+
+    auto main = std::make_shared<RawTable<>>(cols);
+    for (size_t i=0; i < 100; ++i) {
+      hyrise::storage::rawtable::RowHelper rh(cols);
+      rh.set<hyrise_int_t>(0, i);
+      rh.set<hyrise_string_t>(1, "MeinNameIstSlimShady" + std::to_string(i));
+      rh.set<hyrise_float_t>(2, 1.1*i);
+      unsigned char *data = rh.build();
+      main->appendRow(data);
+      free(data);
+    }
+    return main;
+  }
+
+
+};
+
+TEST_F(SelectTests, simple_projection_with_position) {
+  auto t = Loader::shortcuts::load("test/lin_xxs.tbl");
+  ProjectionScan gs;
+  gs.setProducesPositions(true);
+  gs.addInput(t);
+  gs.addField(0);
+
+  const auto& result = gs.execute()->getResultTable();
+  const auto& reference = Loader::shortcuts::load("test/reference/simple_projection.tbl");
+  ASSERT_TRUE(result->contentEquals(reference));
+}
+
+TEST_F(SelectTests, simple_projection_with_position_mat) {
+  auto t = Loader::shortcuts::load("test/lin_xxs.tbl");
+  ProjectionScan gs;
+  gs.setProducesPositions(true);
+  gs.addInput(t);
+  gs.addField(0);
+
+  auto result = gs.execute()->getResultTable();
+  MaterializingScan ms(false);
+  ms.addInput(result);
+  const auto& result2 = ms.execute()->getResultTable();
+  const auto& reference = Loader::shortcuts::load("test/reference/simple_projection.tbl");
+  ASSERT_TRUE(result2->contentEquals(reference));
+}
+
+TEST_F(SelectTests, simple_projection_with_position_all_mat) {
+  auto t = Loader::shortcuts::load("test/lin_xxxs.tbl");
+  ProjectionScan gs;
+  gs.setProducesPositions(true);
+  gs.addInput(t);
+  gs.addField(0);
+  gs.addField(1);
+
+  auto result = gs.execute()->getResultTable();
+  MaterializingScan ms(false);
+  ms.addInput(result);
+  const auto& result2 = ms.execute()->getResultTable();
+  const auto& reference = Loader::shortcuts::load("test/lin_xxxs.tbl");
+  ASSERT_TRUE(result2->contentEquals(reference));
+}
+
+
+
+TEST_F(SelectTests, simple_projection_with_position_mat_memcpy) {
+  auto t = Loader::shortcuts::load("test/lin_xxs.tbl");
+  ProjectionScan gs;
+  gs.setProducesPositions(true);
+  gs.addInput(t);
+  gs.addField(0);
+
+  ASSERT_EQ((unsigned) 10, t->columnCount());
+
+  auto result = gs.execute()->getResultTable();
+  MaterializingScan ms(true);
+  ms.addInput(result);
+  const auto& result2 = ms.execute()->getResultTable();
+
+  ASSERT_EQ((unsigned) 100, result2->size());
+  const auto& reference = Loader::shortcuts::load("test/reference/simple_projection.tbl");
+
+  ASSERT_TABLE_EQUAL(reference, result2);
+}
+
+
+TEST_F(SelectTests, simple_projection_with_position_mat_and_sample) {
+  auto t = Loader::shortcuts::load("test/lin_xxs.tbl");
+  ProjectionScan gs;
+  gs.setProducesPositions(true);
+  gs.addInput(t);
+  gs.addField(0);
+  auto result = gs.execute()->getResultTable();
+
+  MaterializingScan ms(false);
+  ms.addInput(result);
+  ms.setSamples(3);
+  const auto& result2 = ms.execute()->getResultTable();
+
+  ASSERT_EQ((unsigned) 3, result2->size());
+
+}
+
+
+TEST_F(SelectTests, simple_projection_with_materialization) {
+  auto t = Loader::shortcuts::load("test/lin_xxs.tbl");
+
+  ProjectionScan gs;
+  gs.addInput(t);
+  gs.setProducesPositions(false);
+  gs.addField(0);
+
+  const auto& result = gs.execute()->getResultTable();
+
+  const auto& reference = Loader::shortcuts::load("test/reference/simple_projection.tbl");
+  ASSERT_TRUE(result->contentEquals(reference));
+}
+
+TEST_F(SelectTests, simple_expression) {
+  auto t = Loader::shortcuts::load("test/lin_xxxs.tbl");
+
+  hyrise::access::ExpressionScan *es = new hyrise::access::ExpressionScan();
+  es->addInput(t);
+  hyrise::access::AddExp plus(t, 0, 1);
+  es->setExpression("plus", &plus);
+
+  const auto& result = es->execute()->getResultTable();
+
+  const auto& reference = Loader::shortcuts::load("test/reference/simple_expression.tbl");
+  ASSERT_TRUE(result->contentEquals(reference));
+}
+
+TEST_F(SelectTests, should_throw_without_predicates) {
+  Json::Value v(Json::objectValue);
+  v["type"] = "SimpleTableScan";
+  ASSERT_THROW(SimpleTableScan::parse(v), std::runtime_error);
+}
+
+
+TEST_F(SelectTests, simple_select) {
+  hyrise::storage::c_atable_ptr_t t = Loader::shortcuts::load("test/groupby_xs.tbl");
+
+  EqualsExpression<hyrise_int_t> *expr1 = new EqualsExpression<hyrise_int_t>(t, 0, 2009);
+  EqualsExpression<hyrise_int_t> *expr2 = new EqualsExpression<hyrise_int_t>(t, 1, 1);
+  CompoundExpression *expr3 = new CompoundExpression(expr1, expr2, OR);
+  CompoundExpression *expr4 = new CompoundExpression(NOT);
+  expr4->lhs = expr3;
+
+  auto scan = std::make_shared<SimpleTableScan>();
+  scan->addInput(t);
+  scan->setPredicate(expr4);
+  scan->setProducesPositions(true);
+  const auto& out = scan->execute()->getResultTable();
+  const auto& reference = Loader::shortcuts::load("test/reference/simple_select_1.tbl");
+
+  ASSERT_TRUE(out->contentEquals(reference));
+}
+
+TEST_F(SelectTests, simple_select_2) {
+  hyrise::storage::c_atable_ptr_t t = Loader::shortcuts::load("test/groupby_xs.tbl");
+
+  auto *expr5 = new LessThanExpression<hyrise_int_t>(t, 0, 2010);
+  auto scan = std::make_shared<SimpleTableScan>();
+  scan->addInput(t);
+  scan->setPredicate(expr5);
+  scan->setProducesPositions(true);
+
+  const auto& out = scan->execute()->getResultTable();
+  const auto& reference = Loader::shortcuts::load("test/reference/simple_select_2.tbl");
+
+  ASSERT_TRUE(out->contentEquals(reference));
+}
+
+
+TEST_F(SelectTests, simple_select_3) {
+  hyrise::storage::c_atable_ptr_t t = Loader::shortcuts::load("test/groupby_xs.tbl");
+
+  GreaterThanExpression<hyrise_int_t> *expr6 = new GreaterThanExpression<hyrise_int_t>(t, 0, 2009);
+  GreaterThanExpression<hyrise_int_t> *expr8 = new GreaterThanExpression<hyrise_int_t>(t, 0, 2008);
+  CompoundExpression *expr7 = new CompoundExpression(NOT);
+  expr7->lhs = expr6;
+
+  CompoundExpression *expr9 = new CompoundExpression(expr8, expr7, AND);
+  auto scan = std::make_shared<SimpleTableScan>();
+  scan->addInput(t);
+  scan->setPredicate(expr9);
+  scan->setProducesPositions(true);
+
+  const auto& out = scan->execute()->getResultTable();
+  const auto& reference = Loader::shortcuts::load("test/reference/simple_select_3.tbl");
+
+  ASSERT_TRUE(out->contentEquals(reference));
+
+}
+
+TEST_F(SelectTests, select_between) {
+  hyrise::storage::c_atable_ptr_t t = Loader::shortcuts::load("test/groupby_xs.tbl");
+
+  auto stc = std::make_shared<SimpleTableScan>();
+  BetweenExpression<hyrise_int_t> *between = new BetweenExpression<hyrise_int_t>(t, t->numberOfColumn("month"), 2, 4);
+  stc->addInput(t);
+  stc->setPredicate(between);
+
+  const auto& result = stc->execute()->getResultTable();
+  const auto& reference = Loader::shortcuts::load("test/reference/select_between.tbl");
+
+  ASSERT_TRUE(result->contentEquals(reference));
+
+}
+
+
+TEST_F(SelectTests,  select_multi_table) {
+
+  // Load raw data
+  hyrise::storage::atable_ptr_t t = Loader::shortcuts::load("test/groupby_xs_col.tbl");
+  const auto& comp = Loader::shortcuts::load("test/reference/multi_table_select.tbl");
+
+  // make it modifiable
+  const auto& s = std::make_shared<const Store>(t);
+  MultiTableEqualsExpression<hyrise_int_t> *mtee = new MultiTableEqualsExpression<hyrise_int_t>(s, 1, 2);
+
+  auto stc = std::make_shared<SimpleTableScan>();
+
+  stc->addInput(s);
+  stc->setPredicate(mtee);
+  stc->setProducesPositions(true);
+
+
+  const auto& result = stc->execute()->getResultTable();
+
+  ASSERT_TRUE(result->contentEquals(comp));
+
+}
+
+TEST_F(SelectTests,  select_multi_table_with_delta) {
+
+  // Load raw data
+  auto t = Loader::shortcuts::load("test/groupby_xs_col.tbl");
+  const auto& comp = Loader::shortcuts::load("test/reference/multi_table_select_delta.tbl");
+
+  // make it modifiable
+  auto s = std::make_shared<const Store>(t);
+
+  // Do the insert
+  s->getDeltaTable()->resize(2);
+  s->getDeltaTable()->setValue<hyrise_int_t>(0, 0, 2013);
+  s->getDeltaTable()->setValue<hyrise_int_t>(1, 0, 2);
+  s->getDeltaTable()->setValue<hyrise_int_t>(2, 0, 50);
+  s->getDeltaTable()->setValue<hyrise_int_t>(3, 0, 1);
+
+  s->getDeltaTable()->setValue<hyrise_int_t>(0, 1, 2014);
+  s->getDeltaTable()->setValue<hyrise_int_t>(1, 1, 2);
+  s->getDeltaTable()->setValue<hyrise_int_t>(2, 1, 10);
+  s->getDeltaTable()->setValue<hyrise_int_t>(3, 1, 1);
+
+
+  MultiTableEqualsExpression<hyrise_int_t> *mtee = new MultiTableEqualsExpression<hyrise_int_t>(s, 1, 2);
+
+  SimpleTableScan stc;
+
+  stc.addInput(s);
+  stc.setPredicate(mtee);
+  stc.setProducesPositions(true);
+
+
+  const auto& result = stc.execute()->getResultTable();
+
+
+  ASSERT_TRUE(result->contentEquals(comp));
+
+}
+
+TEST_F(SelectTests,  select_multi_table_with_delta_less_than) {
+  auto t = Loader::shortcuts::load("test/groupby_xs_col.tbl");
+  const auto& comp = Loader::shortcuts::load("test/reference/select_multi_table_with_delta_less_than.tbl");
+
+  // make it modifiable
+  auto s = std::make_shared<const Store>(t);
+
+  // Do the insert
+  s->getDeltaTable()->resize(2);
+  s->getDeltaTable()->setValue<hyrise_int_t>(0, 0, 2013);
+  s->getDeltaTable()->setValue<hyrise_int_t>(1, 0, 2);
+  s->getDeltaTable()->setValue<hyrise_int_t>(2, 0, 50);
+  s->getDeltaTable()->setValue<hyrise_int_t>(3, 0, 1);
+
+  s->getDeltaTable()->setValue<hyrise_int_t>(0, 1, 2014);
+  s->getDeltaTable()->setValue<hyrise_int_t>(1, 1, 2);
+  s->getDeltaTable()->setValue<hyrise_int_t>(2, 1, 10);
+  s->getDeltaTable()->setValue<hyrise_int_t>(3, 1, 1);
+
+
+  MultiTableLessThanExpression<hyrise_int_t> *mtee = new MultiTableLessThanExpression<hyrise_int_t>(s, 2, 20);
+
+  SimpleTableScan stc;
+
+  stc.addInput(s);
+  stc.setPredicate(mtee);
+  stc.setProducesPositions(true);
+
+  const auto& result = stc.execute()->getResultTable();
+  ASSERT_TRUE(result->contentEquals(comp));
+}
+
+TEST_F(SelectTests,  select_multi_table_with_delta_less_than_where_value_does_not_exist) {
+  auto t = Loader::shortcuts::load("test/groupby_xs_col.tbl");
+  const auto& comp = Loader::shortcuts::load("test/reference/select_multi_table_with_delta_less_than.tbl");
+
+  // make it modifiable
+  auto s = std::make_shared<const Store>(t);
+
+  // Do the insert
+  s->getDeltaTable()->resize(2);
+  s->getDeltaTable()->setValue<hyrise_int_t>(0, 0, 2013);
+  s->getDeltaTable()->setValue<hyrise_int_t>(1, 0, 2);
+  s->getDeltaTable()->setValue<hyrise_int_t>(2, 0, 50);
+  s->getDeltaTable()->setValue<hyrise_int_t>(3, 0, 1);
+
+  s->getDeltaTable()->setValue<hyrise_int_t>(0, 1, 2014);
+  s->getDeltaTable()->setValue<hyrise_int_t>(1, 1, 2);
+  s->getDeltaTable()->setValue<hyrise_int_t>(2, 1, 10);
+  s->getDeltaTable()->setValue<hyrise_int_t>(3, 1, 1);
+
+
+  MultiTableLessThanExpression<hyrise_int_t> *mtee = new MultiTableLessThanExpression<hyrise_int_t>(s, 2, 19);
+
+  SimpleTableScan stc;
+
+  stc.addInput(s);
+  stc.setPredicate(mtee);
+  stc.setProducesPositions(true);
+
+  const auto& result = stc.execute()->getResultTable();
+
+  ASSERT_TRUE(result->contentEquals(comp));
+
+}
+
+TEST_F(SelectTests, simple_projection_on_empty_table) {
+  hyrise::storage::c_atable_ptr_t t = Loader::shortcuts::load("test/empty.tbl");
+
+  ProjectionScan gs;
+  gs.setProducesPositions(true);
+  gs.addInput(t);
+  gs.addField(2);
+  gs.addField(3);
+  gs.addField(4);
+  gs.addField(5);
+  gs.addField(6);
+
+  const auto& result = gs.execute()->getResultTable();
+  const auto& reference = Loader::shortcuts::load("test/reference/empty_after_projection.tbl");
+  ASSERT_TRUE(result->contentEquals(reference));
+}
+
+TEST_F(SelectTests,  select_multi_table_with_delta_between) {
+  hyrise::storage::atable_ptr_t  t = Loader::shortcuts::load("test/groupby_xs_col.tbl");
+  const auto& comp = Loader::shortcuts::load("test/reference/select_multi_table_with_delta_between.tbl");
+
+  // make it modifiable
+  auto s = std::make_shared<const Store>(t);
+
+  // Do the insert
+  s->getDeltaTable()->resize(2);
+  s->getDeltaTable()->setValue<hyrise_int_t>(0, 0, 2013);
+  s->getDeltaTable()->setValue<hyrise_int_t>(1, 0, 2);
+  s->getDeltaTable()->setValue<hyrise_int_t>(2, 0, 50);
+  s->getDeltaTable()->setValue<hyrise_int_t>(3, 0, 1);
+
+  s->getDeltaTable()->setValue<hyrise_int_t>(0, 1, 2014);
+  s->getDeltaTable()->setValue<hyrise_int_t>(1, 1, 2);
+  s->getDeltaTable()->setValue<hyrise_int_t>(2, 1, 15);
+  s->getDeltaTable()->setValue<hyrise_int_t>(3, 1, 1);
+
+
+  MultiTableBetweenExpression<hyrise_int_t> *mtbe = new MultiTableBetweenExpression<hyrise_int_t>(s, 2, 10, 30);
+
+  SimpleTableScan stc;
+
+  stc.addInput(s);
+  stc.setPredicate(mtbe);
+  stc.setProducesPositions(true);
+
+  const auto& result = stc.execute()->getResultTable();
+
+  ASSERT_TRUE(result->contentEquals(comp));
+
+}
+
+TEST_F(SelectTests,  select_multi_table_with_delta_greater_than) {
+  hyrise::storage::atable_ptr_t t = Loader::shortcuts::load("test/groupby_xs_col.tbl");
+  const auto& comp = Loader::shortcuts::load("test/reference/select_multi_table_with_delta_greater_than.tbl");
+
+  // make it modifiable
+  auto s = std::make_shared<const Store>(t);
+
+  // Do the insert
+  s->getDeltaTable()->resize(2);
+  s->getDeltaTable()->setValue<hyrise_int_t>(0, 0, 2013);
+  s->getDeltaTable()->setValue<hyrise_int_t>(1, 0, 2);
+  s->getDeltaTable()->setValue<hyrise_int_t>(2, 0, 50);
+  s->getDeltaTable()->setValue<hyrise_int_t>(3, 0, 1);
+
+  s->getDeltaTable()->setValue<hyrise_int_t>(0, 1, 2014);
+  s->getDeltaTable()->setValue<hyrise_int_t>(1, 1, 2);
+  s->getDeltaTable()->setValue<hyrise_int_t>(2, 1, 15);
+  s->getDeltaTable()->setValue<hyrise_int_t>(3, 1, 1);
+
+
+  MultiTableGreaterThanExpression<hyrise_int_t> *mtbe = new MultiTableGreaterThanExpression<hyrise_int_t>(s, 2, 20);
+
+  SimpleTableScan stc;
+
+  stc.addInput(s);
+  stc.setPredicate(mtbe);
+  stc.setProducesPositions(true);
+
+
+  const auto& result = stc.execute()->getResultTable();
+
+  ASSERT_TRUE(result->contentEquals(comp));
+
+}
+
+
+TEST_F(SelectTests, select_after_insert_simple) {
+  hyrise::storage::atable_ptr_t t = Loader::shortcuts::load("test/lin_xxs.tbl");
+  auto s = std::make_shared<const Store>(t);
+
+  AbstractTable::SharedTablePtr data = s->copy_structure_modifiable(nullptr, s->size());
+  data->resize(1);
+  data->setValue<hyrise_int_t>("col_0", 0, 1000);
+  data->setValue<hyrise_int_t>("col_1", 0, 1001);
+  data->setValue<hyrise_int_t>("col_2", 0, 1002);
+  data->setValue<hyrise_int_t>("col_3", 0, 1003);
+  data->setValue<hyrise_int_t>("col_4", 0, 1004);
+  data->setValue<hyrise_int_t>("col_5", 0, 1005);
+  data->setValue<hyrise_int_t>("col_6", 0, 1006);
+  data->setValue<hyrise_int_t>("col_7", 0, 1007);
+  data->setValue<hyrise_int_t>("col_8", 0, 1008);
+  data->setValue<hyrise_int_t>("col_9", 0, 1009);
+
+  // insert data
+  InsertScan isc;
+  isc.addInput(s);
+  isc.setInputData(data);
+  isc.execute();
+
+
+  ASSERT_EQ(t->size() + 1, isc.getResultTable(0)->size());
+}
+
+
+TEST_F(SelectTests, simple_select_with_raw_table_fails_because_input_is_not_raw) {
+  hyrise::storage::c_atable_ptr_t t = Loader::shortcuts::load("test/groupby_xs.tbl");
+
+  EqualsExpression<hyrise_int_t> *expr1 = new EqualsExpression<hyrise_int_t>(t, 0, 2009);
+  auto scan = std::make_shared<SimpleRawTableScan>(expr1);
+  scan->addInput(t);
+
+  ASSERT_THROW(scan->execute(), std::runtime_error);
+}
+
+TEST_F(SelectTests, simple_select_with_raw_table_fails_because_predicate_is_wrong) {
+  hyrise::storage::c_atable_ptr_t t = Loader::shortcuts::load("test/groupby_xs.tbl");
+
+  EqualsExpression<hyrise_int_t> *expr1 = new EqualsExpression<hyrise_int_t>(t, 0, 2009);
+  auto scan = std::make_shared<SimpleRawTableScan>(expr1);
+  scan->addInput(t);
+
+  ASSERT_THROW(scan->execute(), std::runtime_error);
+}
+
+TEST_F(SelectTests, simple_select_with_raw_table_fails_due_to_equals_predicate_implementation) {
+  hyrise::storage::c_atable_ptr_t t = createRawTable();
+
+  EqualsExpression<hyrise_int_t> *expr1 = new EqualsExpression<hyrise_int_t>(t, 0, 2009);
+  auto scan = std::make_shared<SimpleRawTableScan>(expr1);
+  scan->addInput(t);
+
+  ASSERT_THROW(scan->execute(), std::runtime_error);
+}
+
+TEST_F(SelectTests, simple_select_with_raw_table_equals_predicate) {
+  hyrise::storage::c_atable_ptr_t t = createRawTable();
+
+  auto expr1 = new EqualsExpressionRaw<hyrise_int_t>(t, 0, 75);
+  auto scan = std::make_shared<SimpleRawTableScan>(expr1);
+  scan->addInput(t);
+  scan->execute();
+
+  ASSERT_EQ(1u, scan->getResultTable(0)->size());
+  const auto& out = scan->getResultTable();
+  const auto& reference = Loader::shortcuts::load("test/reference/simple_raw_select_integer.tbl");
+  ASSERT_TABLE_EQUAL(reference, out);
+}
+
+TEST_F(SelectTests, simple_select_with_raw_table_less_than_predicate) {
+  auto t = createRawTable();
+
+  auto expr1 = new LessThanExpressionRaw<hyrise_int_t>(t, 0, 3);
+  auto scan = std::make_shared<SimpleRawTableScan>(expr1);
+  scan->addInput(t);
+
+  scan->execute();
+  const auto& out = scan->getResultTable();
+  const auto& reference = Loader::shortcuts::load("test/reference/simple_raw_select_integer_less_than.tbl");
+  ASSERT_TABLE_EQUAL(reference, out);
+}
+
+TEST_F(SelectTests, simple_select_with_raw_table_greater_than_predicate) {
+  auto t = createRawTable();
+
+  auto expr1 = new GreaterThanExpressionRaw<hyrise_int_t>(t, 0, 98);
+  auto scan = std::make_shared<SimpleRawTableScan>(expr1);
+  scan->addInput(t);
+
+  scan->execute();
+  const auto& out = scan->getResultTable();
+  const auto& reference = Loader::shortcuts::load("test/reference/simple_raw_select_integer_greater_than.tbl");
+  ASSERT_TABLE_EQUAL(reference, out);
+}
+
+
+TEST_F(SelectTests, simple_select_with_raw_table_equals_predicate_string) {
+  auto t = createRawTable();
+
+  auto expr1 = new EqualsExpressionRaw<hyrise_string_t>(t, 1, "MeinNameIstSlimShady75");
+  auto scan = std::make_shared<SimpleRawTableScan>(expr1);
+  scan->addInput(t);
+
+  scan->execute();
+
+  ASSERT_EQ(1u, scan->getResultTable(0)->size());
+  const auto& out = scan->getResultTable();
+  const auto& reference = Loader::shortcuts::load("test/reference/simple_raw_select_integer.tbl");
+  ASSERT_TABLE_EQUAL(reference, out);
+}
+
+TEST_F(SelectTests, simple_select_with_raw_table_equals_predicate_float) {
+  auto t = createRawTable();
+
+  auto expr1 = new EqualsExpressionRaw<hyrise_float_t>(t, 2, 82.5);
+  auto scan = std::make_shared<SimpleRawTableScan>(expr1);
+  scan->addInput(t);
+
+  scan->execute();
+
+  ASSERT_EQ(1u, scan->getResultTable(0)->size());
+  const auto& out = scan->getResultTable();
+  const auto& reference = Loader::shortcuts::load("test/reference/simple_raw_select_integer.tbl");
+  ASSERT_TABLE_EQUAL(reference, out);
+}
+
+}
+}
+

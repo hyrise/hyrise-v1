@@ -1,0 +1,12 @@
+#########
+Proposals
+#########
+
+
+.. toctree::
+    :glob:
+
+    proposals/*
+    
+
+

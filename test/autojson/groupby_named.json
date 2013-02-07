@@ -1,0 +1,32 @@
+{
+    "operators": {
+        "-1": {
+            "type": "TableLoad",
+            "table": "reference",
+            "filename": "tables/employees_per_company_id.tbl"
+        },
+        "0": {
+            "type": "TableLoad",
+            "table": "employees",
+            "filename": "tables/employees.tbl"
+        },
+
+        "1": {
+            "type": "HashBuild",
+            "fields": ["employee_company_id"],
+	    "key": "groupby"
+        },
+        "2": {
+            "type": "GroupByScan",
+            "fields": ["employee_company_id"],
+            "functions": [
+                {"type": 1, /*COUNT*/ "field": "employee_company_id"}
+            ]
+        },
+        "3": {
+            "type": "SortScan",
+            "fields": [0]
+        }
+    },
+    "edges" : [["0", "1"], ["0", "2"], ["1", "2"], ["2", "3"]]
+}

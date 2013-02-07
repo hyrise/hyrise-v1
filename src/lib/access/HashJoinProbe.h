@@ -1,0 +1,80 @@
+#ifndef SRC_LIB_ACCESS_HASHJOINPROBE_H_
+#define SRC_LIB_ACCESS_HASHJOINPROBE_H_
+
+#include "access/PlanOperation.h"
+#include "helper/types.h"
+
+namespace hyrise {
+namespace access {
+
+/*!
+ *  The HashJoinProbe operator performs the probe phase of a hash join to
+ *  produce the join result.
+ *  It takes the build table's AbstractHashTable and the probe table as input.
+ */
+class HashJoinProbe : public _PlanOperation {
+  /*!
+   *  Explicitly points to the table used to build the input hash map.
+   */
+  hyrise::storage::c_atable_ptr_t _buildTable;
+  bool _selfjoin;
+
+  /*!
+   *  Hashes input table on-the-fly and probes hashed value against input
+   *  AbstractHashTable to write matching rows in given position lists.
+   */
+ public:
+  HashJoinProbe();
+
+  void setBuildTable(hyrise::storage::c_atable_ptr_t table);
+  hyrise::storage::c_atable_ptr_t getBuildTable() const;
+  hyrise::storage::c_atable_ptr_t getProbeTable() const;
+
+  /// {
+  ///     "operators": {
+  ///         "0": {
+  ///             "type": "TableLoad",
+  ///             "table": "table1",
+  ///             "filename": "..."
+  ///         },
+  ///         "1": {
+  ///             "type": "TableLoad",
+  ///             "table": "table2",
+  ///             "filename": "..."
+  ///         },
+  ///         "2": {
+  ///             "type": "HashBuild",
+  ///             "fields" : [1]
+  ///         },
+  ///         "3": {
+  ///             "type": "HashJoinProbe",
+  ///             "fields" : [0]
+  ///         }
+  ///     },
+  ///     "edges": [["0", "2"], ["2", "3"], ["1", "3"]]
+  /// }
+  static std::shared_ptr<_PlanOperation> parse(Json::Value &data);
+  const std::string vname();
+ protected:
+  virtual void setupPlanOperation();
+  virtual void executePlanOperation();
+ private:
+  /// Hashes input table on-the-fly and probes hashed value against input
+  /// AbstractHashTable to write matching rows in given position lists.
+  template<class HashTable>
+  void fetchPositions(
+      pos_list_t *buildTablePosList,
+      pos_list_t *probeTablePosList);
+
+  /*!
+   *  Constructs resulting table from given build and probe tables' rows.
+   */
+  AbstractTable::SharedTablePtr buildResultTable(
+      pos_list_t *buildTablePosList,
+      pos_list_t *probeTablePosList) const;
+};
+
+}
+}
+
+#endif  // SRC_LIB_ACCESS_HASHJOINPROBE_H_

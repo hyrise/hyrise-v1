@@ -1,0 +1,25 @@
+{
+    "operators": {
+        "0": {
+            "type": "LayoutSingleTable",
+            "operators": [
+            {
+                "type": "Select",
+                "weight": 1,
+                "selectivity": 0.03,
+                "attributes": ["employee_id"]
+            }
+            ],
+            "attributes": ["employee_id", "employee_company_id", "employee_name"],
+            "num_rows": 1000,
+            "layouter": "BaseLayouter"
+        },
+        "1": {
+            "type": "LayoutTableLoad",
+            "table": "emplyoees",
+            "filename": "tables/employees.data",
+            "input_row": 3
+        }
+    },
+    "edges": [["0", "1"]]
+}

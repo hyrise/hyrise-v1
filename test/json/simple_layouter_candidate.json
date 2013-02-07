@@ -1,0 +1,15 @@
+{
+    "operators" : {
+	"0" : {
+	    "type" : "LayoutSingleTable",
+	    "layouter" : "CandidateLayouter",
+	    "operators" : [
+		{ "type": "Select", "weight" : 1, "selectivity": 0.03, "attributes" : ["A"] }
+	    ],
+	    "attributes" : ["A", "B", "C"],
+	    "num_rows" : 1000,
+	    "max_results" : 10
+	}
+    },
+    "edges" : [["0", "0"]]
+}

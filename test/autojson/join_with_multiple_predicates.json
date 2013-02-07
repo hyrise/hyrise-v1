@@ -1,0 +1,49 @@
+{
+    "operators": {
+
+        "-1": {
+            "type": "TableLoad",
+            "table": "reference",
+            "filename": "jwmp_ref.tbl"
+        },
+        "0": {
+            "type": "TableLoad",
+            "table": "tableone",
+            "filename": "jwmp1.tbl"
+        },
+        "1": {
+            "type": "TableLoad",
+            "table": "tabletwo",
+            "filename": "jwmp2.tbl"
+        },
+        "2": {
+            "type": "JoinScan",
+            "predicates": [
+			{ "type" : 0 },
+			{ "type" : 0 },
+		    {
+		        "type": 3,
+		        "input_left": 0,
+		        "field_left": "a",
+		        "input_right": 1,
+		        "field_right": "d"
+		    },
+		    {
+		        "type": 3,
+		        "input_left": 0,
+		        "field_left": "b",
+		        "input_right": 1,
+		        "field_right": "e"
+		    },
+		    {
+		        "type": 3,
+		        "input_left": 0,
+		        "field_left": "c",
+		        "input_right": 1,
+		        "field_right": "f"
+		    }
+		    ]
+        }
+    },
+    "edges": [["0", "2"],["1","2"]]
+}

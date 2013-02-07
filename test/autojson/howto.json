@@ -1,0 +1,32 @@
+    /* Files in this folder are automatically picked up by
+    the test specified in src/bin/access/autojson.cpp and 
+    can be run without further definition of a specific test
+    case. To allow for this convenience, you need to do the 
+    following things: */
+
+{
+    "operators": {
+        /* First specify your reference table in a TableLoad
+           operation, it will be used by the test case to compare
+           against the last result returned, if you don't define a
+           reference table, the test will only check whether the 
+           plan successfully completed execution */
+        "-1": {
+            "type": "TableLoad",
+            "table": "reference",
+            "filename": "lin_xxxs.tbl"
+        },
+        /* Then define your plan as usual */
+        "0": {
+            "type": "TableLoad",
+            "table": "lin_xxs",
+            "filename": "lin_xxxs.tbl"
+        },
+        "1": {
+            "type": "ProjectionScan",
+            "fields": [0, 1]
+        }
+    },
+    "edges": [["0", "1"]]
+}
+/* Happy testing ;) */

@@ -1,0 +1,83 @@
+{
+    "operators": {
+  
+        "-1": {
+            "type": "TaskSchedulerAdjustment",
+            "size": 8
+        },
+
+	"100": {
+            "type": "MySQLTableLoad",
+	    "database" : "cbtr_jw",
+            "table": "KNA1"
+	   },
+
+	"101": {
+            "type": "MySQLTableLoad",
+	    "database" : "cbtr_jw",
+            "table": "VBAK"
+     	 },
+
+	 "102": {
+            "type": "MySQLTableLoad",
+	    "database" : "cbtr_jw",
+            "table": "VBAP"
+     	 },	
+
+        "103": {
+            "type": "HashBuild",
+            "fields" : ["KUNNR"]
+        },
+
+        "104": {
+            "type": "HashBuild",
+            "fields" : ["VBELN"]
+        },
+
+	"1045": {
+	    "type": "NoOp"
+	},
+
+	"105": {
+	     "type": "HashJoinProbe",
+	     "fields" : ["KUNNR"]
+	},
+
+
+	"106": {
+	     "type": "HashJoinProbe",
+	     "fields" : ["VBELN"]
+	},
+
+	"107": {
+	     "type": "HashBuild",
+	     "fields": ["VBELN"]
+	},
+		
+	"108": {
+	     "type": "HashJoinProbe",
+	     "fields" : ["VBELN"],
+	     "instances" : 4
+	},		
+
+	"109": {
+	     "type": "HashBuild",
+	     "fields": ["NAME1"]
+	},
+
+	"110": {
+	     "type": "GroupByScan",
+	     "fields": ["NAME1"],
+	     "functions": [
+	     		  {"type": 1, "field": 0}
+	     ] 
+	},
+	
+	"111": {
+	     "type": "ProjectionScan",
+	     "fields": ["NAME1", "COUNT(MANDT)"]
+	}
+     },
+    "edges": [["-1", "100"], ["-1", "101"], ["-1", "102"], ["101", "103"], ["101", "104"], ["103", "1045"],["104", "1045"], ["100", "1045"], ["101", "1045"],["102", "1045"], ["1045", "105"],["1045", "106"], ["100", "105"], ["103", "105"], ["102", "106"], ["104", "106"], ["105", "107"], ["106", "108"], ["107", "108"], ["108", "109"], ["109", "110"], ["108", "110"], ["110", "111"]]
+}
+

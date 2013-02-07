@@ -1,0 +1,30 @@
+#include "testing/test.h"
+
+#include "helper.h"
+#include "access/MergeTable.h"
+#include "access/LoadFile.h"
+#include "io/shortcuts.h"
+
+namespace hyrise {
+namespace access {
+
+class MergeTableOpTests : public AccessTest {};
+
+TEST_F(MergeTableOpTests, simple) {
+  LoadFile t1("tables/employees.tbl");
+  auto load_main = t1.execute()->getResultTable();
+
+  LoadFile t2("tables/employees_new_row.tbl");
+  auto load_delta = t2.execute()->getResultTable();
+
+  MergeTable mop;
+  mop.addInput(load_main);
+  mop.addInput(load_delta);
+  auto result = mop.execute()->getResultTable();
+
+  ASSERT_TABLE_EQUAL(Loader::shortcuts::load("test/tables/employees_revised.tbl"), result);
+}
+
+}
+}
+

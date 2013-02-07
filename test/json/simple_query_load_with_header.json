@@ -1,0 +1,15 @@
+{
+    "operators": {
+        "0" : {
+            "type" : "TableLoad",
+            "table" : "table_with_header",
+            "filename" : "header/data.tbl",
+            "header" : "header/header.data"
+        },
+        "1" : {
+            "type" : "ProjectionScan",
+            "fields" : ["col1_0", "col1_1"]
+        }
+    },
+    "edges" : [["0", "1"]]
+}

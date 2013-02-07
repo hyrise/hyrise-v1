@@ -1,0 +1,101 @@
+#ifndef SRC_LIB_ACCESS_QUERYPARSER_H_
+#define SRC_LIB_ACCESS_QUERYPARSER_H_
+
+#include <map>
+#include <memory>
+#include <vector>
+#include <string>
+#include <stdexcept>
+
+#include <json.h>
+
+#include <taskscheduler.h>
+
+const std::string autojsonReferenceTableId = "-1";
+
+class _PlanOperation;
+
+class QueryParserException : public std::runtime_error {
+ public:
+  explicit QueryParserException(const std::string &what): std::runtime_error(what)
+  {}
+};
+
+struct AbstractQueryParserFactory {
+  virtual std::shared_ptr<_PlanOperation> parse(Json::Value data) = 0;
+
+  virtual ~AbstractQueryParserFactory() {}
+};
+
+template<typename T>
+struct QueryParserFactory : public AbstractQueryParserFactory {
+
+  virtual std::shared_ptr<_PlanOperation> parse(Json::Value data) {
+    return T::parse(data);
+  }
+};
+
+/*
+ * The Query Parser parses a given Json Value to create a plan operation
+ *
+ */
+class QueryParser {
+  typedef std::map< std::string, AbstractQueryParserFactory * > factory_map_t;
+  typedef std::map< Json::Value, std::shared_ptr<Task> > task_map_t;
+
+  factory_map_t _factory;
+  QueryParser();
+
+  /*  Builds tasks based on query's specifications and collects them in
+      tasks and task_map for further processing. */
+  void buildTasks(
+      const Json::Value &query,
+      std::vector<std::shared_ptr<Task> > &tasks,
+      task_map_t &task_map) const;
+
+  /*  Defines operations input based on their types.  */
+  void setInputs(
+      std::shared_ptr<_PlanOperation> planOperation,
+      const Json::Value &planOperationSpec) const;
+
+  //  Returns PAPI event name, if specified.
+  std::string getPapiEventName(const Json::Value &query) const;
+
+  //  Builds tasks' dependencies based on task map.
+  void setDependencies(
+      const Json::Value &query,
+      task_map_t &task_map) const;
+
+  //  Output of task without successor is query's result.
+  std::shared_ptr<Task> getResultTask(
+      const task_map_t &task_map) const;
+
+ public:
+  ~QueryParser();
+
+  template<typename T>
+  static bool registerPlanOperation() {
+    QueryParser::instance()._factory[T::name()] = new QueryParserFactory<T>();
+    return true;
+  }
+
+  template<typename T>
+  static bool registerPlanOperation(const std::string& name) {
+    QueryParser::instance()._factory[name] = new QueryParserFactory<T>();
+    return true;
+  }
+
+  std::shared_ptr<_PlanOperation> parse(std::string name, Json::Value d);
+
+  static QueryParser &instance();
+
+  /*  Main method. Builds and returns executable _PlanOperation tasks based on the
+      query's specifications and constructs their dependency graph. The task
+      delivering the final result will be determined, too.   */
+  std::vector<std::shared_ptr<Task> > deserialize(
+      Json::Value query,
+      std::shared_ptr<Task> *result) const;
+};
+
+
+#endif  // SRC_LIB_ACCESS_QUERYPARSER_H_

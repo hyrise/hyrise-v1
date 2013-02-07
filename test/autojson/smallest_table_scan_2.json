@@ -1,0 +1,23 @@
+{
+    "operators": {
+        "-1": {
+            "type": "TableLoad",
+            "table": "reference",
+            "filename": "smallest_table_3.tbl"
+        },
+        "0": {
+            "type": "TableLoad",
+            "table": "smallest_table_3",
+            "filename": "smallest_table_3.tbl"
+        },
+        "1": {
+            "type": "TableLoad",
+            "table": "smallest_table_6",
+            "filename": "smallest_table_6.tbl"
+        },
+        "2": {
+            "type": "SmallestTableScan"
+        }
+    },
+    "edges": [["0", "2"],["1", "2"]]
+}

@@ -1,0 +1,29 @@
+{
+    "operators": {
+         "-1": {
+                "type": "TableLoad",
+                "table": "reference",
+                "filename": "reference/hash_join_construction_all.tbl"
+        },
+        "0": {
+            "type": "TableLoad",
+            "table": "smaller",
+            "filename": "tables/hash_table_test.tbl"
+        },
+        "1": {
+            "type": "TableLoad",
+            "table": "bigger",
+            "filename": "tables/hash_join_construction.tbl"
+        },
+        "2": {
+            "type": "HashBuild",
+            "fields" : [0, 1, 2],
+	    "key": "join"
+        },
+        "3": {
+            "type": "HashJoinProbe",
+            "fields" : [0, 1, 2]
+        }
+    },
+    "edges": [["1", "2"], ["0", "3"], ["2", "3"]]
+}

@@ -1,0 +1,42 @@
+{
+	"operators": {
+		     "0" : {
+                "type" : "SimpleTableScan",
+                "input" : ["edges_table1"],
+                "predicates" : [
+				      {	"type" : 0, "in" : 0, "f" : 0, "vtype" : 0, "value": 1 }
+                ]
+		     },
+		     "1" : {
+                "type" : "JoinScan",
+                "input" : ["edges_table2"],
+                "predicates" : [{
+                    "type" : 3,
+                    "input_left" : 0,
+                    "field_left" : 0,
+                    "input_right" : 1,
+                    "field_right" : 2
+                }]
+		     },
+             "2" : {
+                "type" : "ProjectionScan",
+                "fields" : [2]
+		     },
+		     "3" : {
+                "type" : "JoinScan",
+                "input" : ["edges_table3"],
+                "predicates" : [{
+                    "type" : 3,
+                    "input_left" : 0,
+                    "field_left" : 0,
+                    "input_right" : 1,
+                    "field_right" : 0
+                }]
+		     },
+              "4" : {
+                "type" : "ProjectionScan",
+                "fields" : [1,2]
+		     }
+	},
+    "edges": [["0","1"],["1","2"],["2","3"],["3","4"]]
+}

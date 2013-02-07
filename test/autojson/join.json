@@ -1,0 +1,30 @@
+{
+    "operators": {
+         "-1": {
+                "type": "TableLoad",
+                "table": "reference",
+                "filename": "tables/companies_employees_joined.tbl"
+            },
+        "0": {
+            "type": "TableLoad",
+            "table": "companies",
+            "filename": "tables/companies.tbl"
+        },
+        "1": {
+            "type": "TableLoad",
+            "table": "employees",
+            "filename": "tables/employees.tbl"
+        },
+        "2": {
+            "type": "JoinScan",
+            "predicates" : [{
+                "type" : 3, /* EXP_EQ */
+                "input_left" : 0,
+                "field_left" : "company_id",
+                "input_right" : 1,
+                "field_right" : "employee_company_id"
+            }]
+        }
+    },
+    "edges": [["0", "2"], ["1", "2"]]
+}

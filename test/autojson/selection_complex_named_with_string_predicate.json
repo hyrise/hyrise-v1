@@ -1,0 +1,24 @@
+{
+    "operators": {
+        "-1": {
+            "type": "TableLoad",
+            "table": "reference",
+            "filename": "tables/revenue_2009_except_q1.tbl"
+        },
+        "0": {
+            "type": "TableLoad",
+            "table": "revenue",
+            "filename": "tables/revenue.tbl"
+        },
+        "1": {
+            "type": "SimpleTableScan",
+            "predicates" : [
+                {"type": "AND"},
+                {"type": "EQ", "in": 0, "f": "year", "value": 2009},
+                {"type": "NOT"},
+                {"type": "EQ", "in": 0, "f": "quarter", "value": 1}
+            ]
+        }
+    },
+    "edges": [["0", "1"]]
+}

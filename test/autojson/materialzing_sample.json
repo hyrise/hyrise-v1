@@ -1,0 +1,18 @@
+{
+    "operators": {
+        "0": {
+            "type": "TableLoad",
+            "table": "lin_xxs",
+            "filename": "lin_xxxs.tbl"
+        },
+        "1": {
+            "type": "ProjectionScan",
+            "fields": ["*"]
+        },
+        "2": {
+            "type": "MaterializingScan",
+            "samples": 3
+        }
+    },
+    "edges": [["0", "1"],["1", "2"]]
+}

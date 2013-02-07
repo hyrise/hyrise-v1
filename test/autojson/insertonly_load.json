@@ -1,0 +1,13 @@
+{
+    "operators": {
+        "ioload": {
+            "type": "InsertOnlyLoad",    
+            "filename" : "tables/revenue.tbl"
+        },
+        "save": {
+            "type": "SetTable",
+            "table": "revenue"
+        }
+    },
+    "edges" : [["ioload", "save"]]
+}

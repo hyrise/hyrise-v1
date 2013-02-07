@@ -1,0 +1,18 @@
+{
+	"operators": {
+		"0": {
+			"type": "MySQLTableLoad",
+			"table": "students",
+			"database": "epic"
+		},
+		"1": {
+			"type": "SimpleTableScan",
+			"predicates": [
+				{"type": 6},
+				{"type": 0, "in": 0, "f": "wohnort", "vtype": 2, "value": "Berlin"},
+				{"type": 1, "in": 0, "f": "note","vtype": 1, "value": 2}
+			]
+		}
+	},
+	"edges": [["0", "1"]]
+}

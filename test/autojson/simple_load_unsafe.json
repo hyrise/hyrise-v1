@@ -1,0 +1,17 @@
+{
+    "operators": {
+        "-1" : {
+            "type": "TableLoad",    
+            "table": "reference",
+            "filename" : "tables/revenue.tbl" 
+        },
+        "0": {
+            "type": "TableLoad",    
+            "table": "revenue",
+            "unsafe" : false,
+            "filename" : "tables/revenue_data.tbl",
+            "header" : "header/revenue_header.tbl"
+        }
+    },
+    "edges" : [["0", "0"]]
+}

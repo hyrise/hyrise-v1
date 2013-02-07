@@ -1,0 +1,30 @@
+{
+    "operators": {
+         "-1": {
+                "type": "TableLoad",
+                "table": "reference",
+                "filename": "tables/companies_employees_joined.tbl"
+            },
+        "0": {
+            "type": "TableLoad",
+            "table": "employees",
+            "filename": "tables/employees.tbl"
+        },
+        "1": {
+            "type": "TableLoad",
+            "table": "companies",
+            "filename": "tables/companies.tbl"
+        },
+        "2": {
+            "type": "HashBuild",
+            "fields" : [1],
+	    "key": "join"
+        },
+        "3": {
+            "type": "HashJoinProbe",
+            "instances": 3,
+            "fields" : [0]
+        }
+    },
+    "edges": [["0", "2"], ["2", "3"], ["1", "3"]]
+}

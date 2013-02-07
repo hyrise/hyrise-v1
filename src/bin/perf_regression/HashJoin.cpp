@@ -1,0 +1,83 @@
+#include <gtest/gtest-bench.h>
+#include <gtest/gtest.h>
+#include <string>
+
+#include <helper/types.h>
+#include <access.h>
+#include <storage.h>
+#include <io.h>
+
+//HashJoinScan Benchmark similar to TPC-C Implementation of Stock-Level Transaction
+//See TPC-C Reference Chapter A.5
+
+class HashJoinBase : public ::testing::Benchmark {
+
+ protected:
+
+  StorageManager *sm;
+
+  hyrise::access::HashBuild *hb;
+  hyrise::access::HashJoinProbe *hjp;
+  hyrise::storage::c_atable_ptr_t t1;
+  hyrise::storage::c_atable_ptr_t t2;
+
+ public:
+  void BenchmarkSetUp() {
+    hb = new hyrise::access::HashBuild();
+    hjp = new hyrise::access::HashJoinProbe;
+    hjp->setEvent("NO_PAPI");
+    hb->setKey("join");
+    hb->setEvent("NO_PAPI");
+    sm = StorageManager::getInstance();
+
+    t1 = sm->getTable("stock");
+    t2 = sm->getTable("order_line");
+
+    hb->addInput(t1);
+    hb->addField(0);
+    hjp->addInput(t2);
+    hjp->addField(4);
+
+  }
+
+  void BenchmarkTearDown() {
+
+  }
+
+  HashJoinBase() {
+    SetNumIterations(10);
+    SetWarmUp(2);
+  }
+};
+
+BENCHMARK_F(HashJoinBase, stock_level_hash_join) {
+  auto hashedColumn = hb->execute()->getResultHashTable();
+  assert(hashedColumn != nullptr);
+  hjp->addInputHash(hashedColumn);
+  auto result = hjp->execute()->getResultTable();
+}
+
+BENCHMARK_F(HashJoinBase, stock_level_hash_join_mat) {
+  auto hashedColumn = hb->execute()->getResultHashTable();
+  hjp->addInputHash(hashedColumn);
+  auto result = hjp->execute()->getResultTable();
+
+  MaterializingScan *ms = new MaterializingScan(false);
+  ms->setEvent("NO_PAPI");
+  ms->addInput(result);
+
+  auto result_mat = ms->execute()->getResultTable();
+
+}
+
+BENCHMARK_F(HashJoinBase, stock_level_hash_join_mat_memcpy) {
+  auto hashedColumn = hb->execute()->getResultHashTable();
+  hjp->addInputHash(hashedColumn);
+  auto result = hjp->execute()->getResultTable();
+
+  MaterializingScan *ms = new MaterializingScan(true);
+  ms->setEvent("NO_PAPI");
+  ms->addInput(result);
+
+  auto result_mat = ms->execute()->getResultTable();
+}

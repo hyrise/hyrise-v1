@@ -1,0 +1,20 @@
+{
+    "operators": {
+	"-1": {
+            "type": "TableLoad",
+            "table": "reference",
+            "filename": "lin_xxs.tbl"
+        }, 
+        "0": {
+            "type": "TableLoad",
+            "table": "lin_xxs",
+            "filename": "lin_xxs.tbl"
+        }, 
+        "2" : {
+          "type" : "MaterializingScan",
+          "memcpy" : false
+        }
+
+    },
+    "edges": [["0", "2"]]
+}

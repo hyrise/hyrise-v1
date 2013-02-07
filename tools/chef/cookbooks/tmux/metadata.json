@@ -1,0 +1,29 @@
+{
+  "name": "tmux",
+  "description": "Installs tmux",
+  "long_description": "[![Build Status](https://secure.travis-ci.org/opscode-cookbooks/tmux.png?branch=master)](http://travis-ci.org/opscode-cookbooks/tmux)\n\ntmux\n====\n\nInstalls tmux, a terminal multiplexer.\n\nRequirements\n============\n\nPlatform with a package named 'tmux'. Does a source install on RHEL\nfamily.\n\nAttributes\n==========\n\n* `node['tmux']['install_method']` - source or package, uses the\n  appropriate recipe.\n* `node['tmux']['version']` - version of tmux to download and install\n  from source.\n* `node['tmux']['checksum']` - sha256 checksum of the tmux tarball\n\nUsage\n=====\n\nUse the recipe for the installation method you want to use, or set the\nattribute on the node to install from that recipe and use the default\nrecipe. The default recipe also manages `/etc/tmux.conf`.\n\nOn RHEL family, `node['tmux']['install_method']` is set to source by\ndefault. To install from package, the `yum::epel` recipe is required\nto get the tmux package, and the attribte would need to be set\nexplicitly.\n\nLicense and Author\n==================\n\n- Author: Joshua Timberman (<joshua@opscode.com>)\n\n- Copyright: 2009-2012, Opscode, Inc. (<legal@opscode.com>)\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n",
+  "maintainer": "Opscode, Inc.",
+  "maintainer_email": "cookbooks@opscode.com",
+  "license": "Apache 2.0",
+  "platforms": {
+  },
+  "dependencies": {
+  },
+  "recommendations": {
+  },
+  "suggestions": {
+  },
+  "conflicting": {
+  },
+  "providing": {
+  },
+  "replacing": {
+  },
+  "attributes": {
+  },
+  "groupings": {
+  },
+  "recipes": {
+  },
+  "version": "1.2.2"
+}

@@ -1,0 +1,14 @@
+{ 
+  "operators" : { 
+      "2": {
+	  "type": "TableLoad",
+	  "filename" : "tables/companies.tbl",
+	  "name" : "companies"
+      },
+    "3" : {
+      "samples" : 2,
+      "type" : "MaterializingScan",
+      "memcpy" : false
+   }},
+  "edges": [["2","3"]]
+}

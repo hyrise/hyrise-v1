@@ -1,0 +1,19 @@
+# Change the default delay:
+set -sg escape-time 1
+
+# Set the window and panes index
+set -g base-index 1
+setw -g pane-base-index 1
+
+# Send prefix to ohter apps:
+bind C-a send-prefix
+
+# Split windows with more logical keys
+bind | split-window -h
+bind - split-window -v
+
+# Remap movement keys
+bind h select-pane -L
+bind j select-pane -D
+bind k select-pane -U
+bind l select-pane -R

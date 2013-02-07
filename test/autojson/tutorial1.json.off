@@ -1,0 +1,16 @@
+{
+	"operators": {
+		"0": {
+			"type": "MySQLTableLoad",
+			"table": "students",
+			"database": "epic"
+		},
+		"1": {
+			"type": "SimpleTableScan",
+			"predicates": [
+				{"type": 2, "in": 0, "f": "matrikelnummer", "value": 703600}
+			]
+		}
+	},
+	"edges": [["0", "1"]]
+}

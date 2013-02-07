@@ -1,0 +1,25 @@
+{
+    "operators": {
+        "-1" : {
+            "type": "TableLoad",    
+            "table": "reference",
+            "filename" : "tables/companies.tbl" 
+        },
+        "0": {
+            "type": "TableLoad",    
+            "table": "companies",
+            "filename" : "tables/companies.tbl" 
+        }/*,
+        "1" :  {
+            "type": "TableDump",    
+            "filename" : "companies.bin" 
+        }*//*,
+        "2": {
+            "type": "TableLoad",
+            "filename": "companies.bin",
+            "table": "companies_binary",
+            "binary": true
+        }*/
+    },
+    "edges" : [["0", "0"]]/*, ["1", "2"]]*/
+}

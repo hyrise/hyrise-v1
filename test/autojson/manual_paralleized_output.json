@@ -1,0 +1,91 @@
+{
+	"edges" : 
+	[
+	    [ "0", "1" ],
+	    [ "1", "2" ],
+	    [ "2", "3_instance_0" ],
+	    [ "2", "3_instance_1" ],
+	    ["3_instance_0", "3_union"],
+	    ["3_instance_1", "3_union"]
+	],
+	"operators" : 
+	{
+		"0" : 
+		{
+			"input" : [ "edges_table1" ],
+			"positions" : true,
+			"predicates" : 
+			[
+				
+				{
+					"f" : 0,
+					"in" : 0,
+					"type" : 0,
+					"value" : 1,
+					"vtype" : 0
+				}
+			],
+			"type" : "SimpleTableScan"
+		},
+		"1" : 
+		{
+			"input" : [ "edges_table2" ],
+			"predicates" : 
+			[
+				
+				{
+					"field_left" : 0,
+					"field_right" : 2,
+					"input_left" : 0,
+					"input_right" : 1,
+					"type" : 3
+				}
+			],
+			"type" : "JoinScan"
+		},
+		"2" : 
+		{
+			"fields" : [ 2 ],
+			"type" : "ProjectionScan"
+		},
+		"3_instance_0" : 
+		{
+			"input" : [ "edges_table3" ],
+			"positions" : true,
+			"predicates" : 
+			[
+				
+				{
+					"field_left" : 0,
+					"field_right" : 0,
+					"input_left" : 0,
+					"input_right" : 1,
+					"type" : 3
+				}
+			],
+			"type" : "JoinScan"
+		},
+		"3_instance_1" : 
+		{
+			"input" : [ "edges_table3" ],
+			"positions" : true,
+			"predicates" : 
+			[
+				
+				{
+					"field_left" : 0,
+					"field_right" : 0,
+					"input_left" : 0,
+					"input_right" : 1,
+					"type" : 3
+				}
+			],
+			"type" : "JoinScan"
+		},
+		"3_union" : 
+		{
+			"positions" : true,
+			"type" : "UnionScan"
+		}
+	}
+}

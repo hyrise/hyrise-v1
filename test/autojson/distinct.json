@@ -1,0 +1,19 @@
+{
+  "operators": {
+    "-1": {
+      "type": "TableLoad",
+      "table": "reference",
+      "filename": "tables/employees_distinct.tbl"
+    },
+    "0": {
+      "type": "TableLoad",
+      "table": "employees",
+      "filename": "tables/employees.tbl"
+    },
+    "1": {
+      "type": "Distinct",
+      "fields": ["employee_company_id"]
+    }
+  },
+  "edges": [["0", "1"]]
+}

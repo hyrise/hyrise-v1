@@ -1,0 +1,74 @@
+{
+"operators" : {
+  "-1" : {
+    "type" : "TableLoad",
+    "filename" : "tables/employees_new_row.tbl",
+    "tablename": "reference"
+  },
+  "load" : {
+    "type" : "InsertOnlyLoad",
+    "filename" : "tables/employees.tbl"
+  },
+  "load_set" : {
+    "type" : "SetTable",
+    "name": "employees"
+  },
+  "load_new_row" : {
+    "type" : "LoadFile",
+    "filename" : "tables/employees_new_row.tbl"
+  },
+  "get"  : {
+    "type" : "GetTable",
+    "name": "employees"
+  },
+  /* MAIN HANDLING */
+  "filter_valid_main" : {
+    "type": "ValidPositionsMain"
+  },
+  "filter_id_main" : {
+    "type" : "SimpleTableScan",
+    "materializing" : false,
+    "predicates" : [{"type": "EQ", "in": 0, "f": "employee_id", "value": 1}]
+  },
+  /* DELTA HANDLING */
+  "extract_delta" : {
+    "type": "ExtractDelta"
+  },
+  "filter_valid_delta" : {
+    "type" : "ValidPositionsRaw"
+  },
+  "filter_id_delta" : {
+    "type" : "SimpleRawTableScan",
+    "materializing" : false,
+    "predicates" : [{"type": "EQ_R", "in": 0, "f": "employee_id", "value": 1}]
+  },
+  "intersect_delta" : {
+    "type" : "IntersectPositions"
+  },
+  /* UPDATE HANDLING */
+  "update" : {
+    "type" : "InsertOnlyUpdate"
+  },
+  "update_set" : {
+    "type": "SetTable",
+    "name": "employees2"
+  }
+}, 
+"edges" : [["load", "load_set"], 
+           ["load_set", "get"],
+           /* MAIN TABLE HANDLING */
+           ["get", "filter_valid_main"],
+           ["filter_valid_main", "filter_id_main"],
+           /* DELTA HANDLING */
+           ["get", "extract_delta"],
+           ["extract_delta", "filter_id_delta"],
+           ["get", "filter_valid_delta"],
+           ["filter_id_delta", "intersect_delta"],
+           ["filter_valid_delta", "intersect_delta"],
+           /* UPDATE HANDLING */
+           ["get", "update"],
+           ["load_new_row", "update"],
+           ["filter_id_main", "update"],
+           ["intersect_delta", "update"],
+           ["update", "update_set"]]
+}

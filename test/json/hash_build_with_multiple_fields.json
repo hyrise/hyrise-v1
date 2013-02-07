@@ -1,0 +1,15 @@
+{
+    "operators": {
+        "0": {
+            "type": "TableLoad",    
+            "table": "transaction",
+            "filename" : "join_transactions.tbl"
+            },
+        "1": {
+            "type": "HashBuild",
+            "fields": [0,1],
+            "key": "join"
+            }
+    },
+    "edges": [["0","1"]]
+}

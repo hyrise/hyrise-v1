@@ -1,0 +1,16 @@
+{
+    "operators": {
+        "-1" : {
+            "type": "TableLoad",    
+            "table": "reference",
+            "filename" : "tables/revenue.tbl" 
+        },
+        "0": {
+            "type": "TableLoad",    
+            "table": "revenue",
+            "filename" : "tables/revenue_data.tbl",
+            "header_string" : "year|quarter|amount\nINTEGER|INTEGER|INTEGER\n0_R | 1_R | 1_R"
+        }
+    },
+    "edges" : [["0", "0"]]
+}

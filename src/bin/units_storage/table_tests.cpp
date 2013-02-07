@@ -1,0 +1,139 @@
+#include "testing/test.h"
+
+#include "io/shortcuts.h"
+#include "memory/MemalignStrategy.h"
+#include "storage/AbstractTable.h"
+#include "storage/RawTable.h"
+#include "storage/SimpleStore.h"
+#include "storage/TableGenerator.h"
+
+class TableTests : public ::hyrise::Test {
+
+public:
+  metadata_list intList(size_t num=2) {
+    metadata_list result;
+    for(size_t i=0; i < num; ++i)
+      result.push_back(ColumnMetadata::metadataFromString("INTEGER", "col" + std::to_string(i)));
+    return result;
+  }
+
+  metadata_list intstringlist() {
+    metadata_list result;
+    result.push_back(ColumnMetadata::metadataFromString("INTEGER", "col1"));
+    result.push_back(ColumnMetadata::metadataFromString("STRING", "col1"));
+    return result;
+  }
+
+};
+
+TEST_F(TableTests, does_copy_structure_copy_structure) {
+  AbstractTable::SharedTablePtr  input = Loader::shortcuts::load("test/lin_xxs.tbl");
+  ASSERT_EQ(3u, input->sliceCount());
+
+  AbstractTable::SharedTablePtr  copy  = input->copy_structure();
+  ASSERT_EQ(3u, input->sliceCount()) << "Copied table should have the same number of containers";
+}
+
+TEST_F(TableTests, generate_generates_layout) {
+
+  TableGenerator tg;
+  AbstractTable::SharedTablePtr  input = tg.create_empty_table(0, 10);
+  ASSERT_EQ(10u, input->sliceCount());
+
+  std::vector<unsigned> l;
+  l.push_back(3);
+  l.push_back(7);
+
+  input = tg.create_empty_table(0, 10, l);
+  ASSERT_EQ(2u, input->sliceCount());
+
+  l.clear();
+  l.push_back(1);
+  l.push_back(1);
+  l.push_back(1);
+  l.push_back(1);
+  l.push_back(1);
+  l.push_back(1);
+  l.push_back(1);
+  l.push_back(1);
+  l.push_back(1);
+  l.push_back(1);
+
+  input = tg.create_empty_table(0, 10, l);
+  ASSERT_EQ(10u, input->sliceCount());
+}
+
+TEST_F(TableTests, number_of_column) {
+  AbstractTable::SharedTablePtr t = Loader::shortcuts::load("test/lin_xxs.tbl");
+  ASSERT_TRUE(t->numberOfColumn("col_0") == 0);
+  ASSERT_TRUE(t->numberOfColumn("col_2") == 2);
+  //ASSERT_TRUE( t->numberOfColumn("does_not_exist") == -1 );
+}
+
+TEST_F(TableTests, bit_compression_test) {
+  AbstractTable::SharedTablePtr main = Loader::shortcuts::load("test/bittest.tbl");
+
+  ASSERT_TRUE(main->getValue<hyrise_int_t>(0, 0) == 4);
+  ASSERT_TRUE(main->getValue<hyrise_int_t>(0, 1) == 0);
+  ASSERT_TRUE(main->getValue<hyrise_int_t>(0, 2) == 2);
+
+  ASSERT_TRUE(main->getValue<float>(1, 0) == (float) 1.1);
+  ASSERT_TRUE(main->getValue<float>(1, 1) == (float) 3.1);
+  ASSERT_TRUE(main->getValue<float>(1, 2) == (float) 2.1);
+
+  ASSERT_TRUE(main->getValue<std::string>(2, 0) == "doppelt");
+  ASSERT_TRUE(main->getValue<std::string>(2, 1) == "doppelt");
+  ASSERT_TRUE(main->getValue<std::string>(2, 2) == "acht");
+
+  size_t zero = 0, one = 1, two = 2;
+
+  ASSERT_TRUE(main->getValueId(zero, zero).valueId == 2);
+  ASSERT_TRUE(main->getValueId(zero,  one).valueId == 0);
+  ASSERT_TRUE(main->getValueId(zero,  two).valueId == 1);
+
+  ASSERT_TRUE(main->getValueId(one, zero).valueId == 0);
+  ASSERT_TRUE(main->getValueId(one,  one).valueId == 2);
+  ASSERT_TRUE(main->getValueId(one,  two).valueId == 1);
+
+  ASSERT_TRUE(main->getValueId(two, zero).valueId == 1);
+  ASSERT_TRUE(main->getValueId(two,  one).valueId == 1);
+  ASSERT_TRUE(main->getValueId(two,  two).valueId == 0);
+
+}
+
+TEST_F(TableTests, test_different_allocation_1) {
+  auto cols = intList(2);
+  Table<MemalignStrategy<64> > *main = new Table<MemalignStrategy<64> >(&cols);
+  delete main;
+}
+
+TEST_F(TableTests, test_modifiable_table) {
+  TableGenerator t;
+  AbstractTable::SharedTablePtr a = t.create_empty_table_modifiable(10, 2);
+  a->setValue<hyrise_int_t>(0, 0, 100);
+  a->setValue<hyrise_int_t>(0, 1, 200);
+  ASSERT_EQ(a->getValue<hyrise_int_t>(0, 0), 100);
+  ASSERT_EQ(a->getValue<hyrise_int_t>(0, 1), 200);
+}
+
+TEST_F(TableTests, test_modifiable_table2) {
+  TableGenerator t;
+  AbstractTable::SharedTablePtr a = t.create_empty_base_table_modifiable<MemalignStrategy<64> >(10, 2);
+  a->setValue<hyrise_int_t>(0, 0, 100);
+  a->setValue<hyrise_int_t>(0, 1, 200);
+  ASSERT_EQ(a->getValue<hyrise_int_t>(0, 0), 100);
+  ASSERT_EQ(a->getValue<hyrise_int_t>(0, 1), 200);
+}
+
+TEST_F(TableTests, test_table_copy) {
+  TableGenerator t;
+  AbstractTable::SharedTablePtr a = t.create_empty_base_table_modifiable<MemalignStrategy<64> >(10, 2);
+  a->setValue<hyrise_int_t>(0, 0, 100);
+  a->setValue<hyrise_int_t>(0, 1, 200);
+
+  AbstractTable::SharedTablePtr b = a->copy();
+  b->setValue<hyrise_int_t>(0, 0, 50);
+  b->setValue<hyrise_int_t>(0, 1, 100);
+
+}
+
