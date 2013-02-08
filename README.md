@@ -18,6 +18,29 @@ traditional storage models.
 
 This database provides the implementation to the above mentioned ideas. 
 
+## Current status
+
+This system is a research prototype and by no means meant to be used in
+production use and we cannot guarantee that it will work in such environments.
+The goal of an early version of HYRISe was to show that for in-memory databases
+the flexibility to choose from different physical layouts is of great
+importance. In addition, this system should provide the necessary framework for
+teaching advanced database techniques to students in an undergraduate and
+graduate level.
+
+Our goal is to improve the performance and the set of features to support more
+and more capabilities that you would expect from a traditional relational
+database. But no promises, when this will happen.
+
+The following features are currently implemented (not always optimal and convenient):
+
+  * Database loading from CSV, HYRISE text files, binary dumps 
+  * Most important database operators and indexes including re-compression and dump to disk
+  * Automatic layout calculation and layout switch as front-end accessible plan operations
+
+All plan operations are currently hand-coded in JSON an then queried against
+the database. SQL compilation is currently not available but somewhere on the
+road-map.
 
 ## Installation
 
