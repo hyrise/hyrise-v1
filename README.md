@@ -44,7 +44,7 @@ road-map.
 
 ## Continuous Integration
 
-Master status: [![Build Status](https://travis-ci.org/hyrise/hyrise.png?branch=master)](https://travis-ci.org/bastih/hyrise)
+Master status: [![Build Status](https://travis-ci.org/hyrise/hyrise.png?branch=master)](https://travis-ci.org/hyrise/hyrise)
 
 ## Installation
 
