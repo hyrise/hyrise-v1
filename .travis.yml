@@ -3,4 +3,6 @@ jdk:
   - oraclejdk7
 before_script: sudo sh -ex tools/autosetup/install.sh
 script: make ci_test
-
+env:
+  - PRODUCTION=1
+  - PRODUCTION=0
