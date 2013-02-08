@@ -121,7 +121,7 @@ If you have any questions feel free to contact the maintainers
 
   * Martin Grund ([@grundprinzip](https://github.com/grundprinzip))
   * Jens Krueger ([@jnkrueger](https://github.com/jnkrueger))
-  * Johannes Wust
+  * Johannes Wust ([@jwust](https://github.com/jwust))
   * David Schwalb ([@schwald](https://github.com/schwald))
   * Sebastian Hillig ([@bastih]((https://github.com/bastih))
 
