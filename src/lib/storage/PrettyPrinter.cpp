@@ -54,9 +54,10 @@ void special_print(T& input, std::ostream& outStream, const size_t& limit, const
   }
 
   if (limit < (size_t) - 1) {
-    std::cout << "(showing first " << limit << " rows)" << std::endl;
+    outStream << "(showing first " << limit << " rows)" << std::endl;
   }
 
+  tp.printTableName();
   tp.printHeader();
   for (size_t row = start; row < input->size() && row < limit; ++row) {
     tp << row;
@@ -70,7 +71,7 @@ void special_print(T& input, std::ostream& outStream, const size_t& limit, const
 void PrettyPrinter::printDiff(const storage::c_atable_ptr_t& input, const TableDiff& diff,
                               const std::string& tableName, std::ostream& outStream,
 			      const size_t& limit, const size_t& start) {
-  ftprinter::FTPrinter tp("unnamed", outStream);
+  ftprinter::FTPrinter tp(tableName, outStream);
   tp.addColumn("#rowid", 6);
   const size_t columns = input->columnCount();
 
@@ -93,10 +94,10 @@ void PrettyPrinter::printDiff(const storage::c_atable_ptr_t& input, const TableD
 
     tp.addColumn(name, width, format);
   }
-  std::cout << std::endl;
+  outStream << std::endl;
 
   if (limit < (size_t) - 1) {
-    std::cout << "(showing first " << limit << " rows)" << std::endl;
+    outStream << "(showing first " << limit << " rows)" << std::endl;
   }
 
   auto iWrong = diff.wrongRows.begin();
@@ -105,6 +106,7 @@ void PrettyPrinter::printDiff(const storage::c_atable_ptr_t& input, const TableD
   while (iWrong != diff.wrongRows.end() && *iWrong < start) iWrong++;
   while (iFalsePos != diff.falsePositionRows.end() && (*iFalsePos).first < start) iFalsePos++;
 
+  tp.printTableName();
   tp.printHeader();
 
   for (size_t row = start; row < input->size() && row < limit; ++row) {

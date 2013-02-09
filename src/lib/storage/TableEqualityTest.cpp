@@ -89,8 +89,9 @@ std::string rowPositionErrors(TableDiff diff, const char* baseRelationName, cons
 
   std::stringstream buf;
 
-  PrettyPrinter::printDiff(left, resultL2R, "1", buf);
-  PrettyPrinter::printDiff(right, resultR2L, "2", buf);
+  PrettyPrinter::printDiff(left, resultL2R, left_exp, buf);
+  buf << std::endl;
+  PrettyPrinter::printDiff(right, resultR2L, right_exp, buf);
 
   buf << "\"" << left_exp << "\""
       << "is not an equal relation to"
@@ -129,8 +130,9 @@ std::string rowPositionErrors(TableDiff diff, const char* baseRelationName, cons
 
   std::stringstream buf;
 
-  PrettyPrinter::printDiff(left, resultL2R, "3", buf);
-  PrettyPrinter::printDiff(right, resultR2L, "4", buf);
+  PrettyPrinter::printDiff(left, resultL2R, left_exp, buf);
+  buf << std::endl;
+  PrettyPrinter::printDiff(right, resultR2L, right_exp, buf);
 
   buf << "\"" << left_exp << "\""
       << "is not an equal sorted relation to"
