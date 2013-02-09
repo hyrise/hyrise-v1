@@ -87,16 +87,20 @@ std::string rowPositionErrors(TableDiff diff, const char* baseRelationName, cons
     return ::testing::AssertionSuccess();
   }
 
-  PrettyPrinter::printDiff(left, resultL2R);
-  PrettyPrinter::printDiff(right, resultR2L);
+  std::stringstream buf;
 
-  return ::testing::AssertionFailure() << "\"" << left_exp << "\""
-         << "is not an equal relation to"
-         << "\"" << right_exp << "\":" << std::endl
-	 << schemeErrors(resultL2R, left_exp, left)
-	 << schemeErrors(resultR2L, right_exp, right)
-         << rowErrors(resultL2R, left_exp, right_exp)
+  PrettyPrinter::printDiff(left, resultL2R, "1", buf);
+  PrettyPrinter::printDiff(right, resultR2L, "2", buf);
+
+  buf << "\"" << left_exp << "\""
+      << "is not an equal relation to"
+      << "\"" << right_exp << "\":" << std::endl
+      << schemeErrors(resultL2R, left_exp, left)
+      << schemeErrors(resultR2L, right_exp, right)
+      << rowErrors(resultL2R, left_exp, right_exp)
 	 << rowErrors(resultR2L, right_exp, left_exp);
+
+  return ::testing::AssertionFailure() << buf.str();
 }
 
 ::testing::AssertionResult RelationNotEquals(const char* left_exp,
@@ -123,20 +127,21 @@ std::string rowPositionErrors(TableDiff diff, const char* baseRelationName, cons
     return ::testing::AssertionSuccess();
   }
 
-  PrettyPrinter::printDiff(left, resultL2R);
-  PrettyPrinter::printDiff(right, resultR2L);
+  std::stringstream buf;
 
-  /*left->printDiff(resultL2R);
-    right->printDiff(resultR2L);*/
+  PrettyPrinter::printDiff(left, resultL2R, "3", buf);
+  PrettyPrinter::printDiff(right, resultR2L, "4", buf);
 
-  return ::testing::AssertionFailure() << "\"" << left_exp << "\""
-         << "is not an equal sorted relation to"
-         << "\"" << right_exp << "\"" << std::endl
-	 << schemeErrors(resultL2R, left_exp, left)
-	 << schemeErrors(resultR2L, right_exp, right)
-         << rowErrors(resultL2R, left_exp, right_exp)
-	 << rowErrors(resultR2L, right_exp, left_exp)
-	 << rowPositionErrors(resultL2R, left_exp, right_exp);
+  buf << "\"" << left_exp << "\""
+      << "is not an equal sorted relation to"
+      << "\"" << right_exp << "\"" << std::endl
+      << schemeErrors(resultL2R, left_exp, left)
+      << schemeErrors(resultR2L, right_exp, right)
+      << rowErrors(resultL2R, left_exp, right_exp)
+      << rowErrors(resultR2L, right_exp, left_exp)
+      << rowPositionErrors(resultL2R, left_exp, right_exp);
+
+  return ::testing::AssertionFailure() << buf.str();
 }
 
 ::testing::AssertionResult SortedRelationNotEquals(const char* left_exp,

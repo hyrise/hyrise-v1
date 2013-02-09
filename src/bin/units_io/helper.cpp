@@ -11,7 +11,10 @@
     return ::testing::AssertionSuccess();
   }
 
-  left->print();
-  right->print();
-  return ::testing::AssertionFailure() << "The content of " << left_exp << " does not equal the content of " << right_exp;
+  std::stringstream buf;
+
+  left->print(buf);
+  right->print(buf);
+  return ::testing::AssertionFailure() << buf.str()
+                                       << "The content of " << left_exp << " does not equal the content of " << right_exp;
 }

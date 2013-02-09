@@ -59,9 +59,9 @@ const AbstractTable::SharedDictionaryPtr& SimpleStore::dictionaryAt(const size_t
   return _main->dictionaryAt(column, row, table_id, of_delta);
 }
 
-void SimpleStore::print(const size_t limit) const {
-  _main->print();
-  _delta->print();
+void SimpleStore::print(std::ostream& outStream, const size_t limit) const {
+  _main->print(outStream, limit);
+  _delta->print(outStream, limit);
 }
 
 

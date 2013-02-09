@@ -215,8 +215,8 @@ size_t PointerCalculator::getOffsetInSlice(const size_t column) const {
   return 0;
 };
 
-void PointerCalculator::print(const size_t limit) const {
-  PrettyPrinter::print(this, limit);
+void PointerCalculator::print(std::ostream& outStream, const size_t limit) const {
+  PrettyPrinter::print(this, outStream, limit);
 }
 
 std::string PointerCalculator::printValue(const size_t column, const size_t row) const {

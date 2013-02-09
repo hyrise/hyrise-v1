@@ -1,7 +1,7 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "storage/PrettyPrinter.h"
 
-#include <iostream>
+#include <ostream>
 #include <sstream>
 #include <string>
 
@@ -35,8 +35,8 @@ std::string generateValue(T& input, const size_t& column, const size_t& row) {
 }
 
 template <typename T>
-void special_print(T& input, const size_t& limit, const size_t& start) {
-  ftprinter::FTPrinter tp(&std::cout);
+void special_print(T& input, std::ostream& outStream, const size_t& limit, const size_t& start) {
+  ftprinter::FTPrinter tp("unnamed", outStream);
   tp.addColumn("#rowid", 6);
   const size_t columns = input->columnCount();
   for (size_t column_index = 0; column_index < columns; ++column_index) {
@@ -67,8 +67,10 @@ void special_print(T& input, const size_t& limit, const size_t& start) {
   tp.printFooter();
 }
 
-void PrettyPrinter::printDiff(const storage::c_atable_ptr_t& input, const TableDiff& diff, const size_t& limit, const size_t& start) {
-  ftprinter::FTPrinter tp(&std::cout);
+void PrettyPrinter::printDiff(const storage::c_atable_ptr_t& input, const TableDiff& diff,
+                              const std::string& tableName, std::ostream& outStream,
+			      const size_t& limit, const size_t& start) {
+  ftprinter::FTPrinter tp("unnamed", outStream);
   tp.addColumn("#rowid", 6);
   const size_t columns = input->columnCount();
 
@@ -83,7 +85,7 @@ void PrettyPrinter::printDiff(const storage::c_atable_ptr_t& input, const TableD
                                      size_t sz = generateValue(input, column_index, row).size();
                                      return sz > max ? sz : max;
                                    });
-    ftprinter::PrintFormat format = ftprinter::format::none;
+    ftprinter::PrintFormat format = ftprinter::format::basic;
     if (diff.fields[column_index] == TableDiff::FieldWrong)
       format = ftprinter::format::red;
     else if(diff.fields[column_index] == TableDiff::FieldWrongType)
@@ -124,11 +126,11 @@ void PrettyPrinter::printDiff(const storage::c_atable_ptr_t& input, const TableD
   tp.printFooter();
 };
 
-void PrettyPrinter::print(const AbstractTable* const input, const size_t& limit, const size_t& start) {
+void PrettyPrinter::print(const AbstractTable* const input, std::ostream& outStream, const size_t& limit, const size_t& start) {
   const RawTable<>* r = dynamic_cast<const RawTable<>*>(input);
   if (r) {
-    special_print(r, limit, start);
+    special_print(r, outStream, limit, start);
   } else {
-    special_print(input, limit, start);
+    special_print(input, outStream, limit, start);
   }
 }
