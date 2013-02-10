@@ -2,9 +2,11 @@
 #ifndef SRC_LIB_ACCESS_JOINSCAN_H_
 #define SRC_LIB_ACCESS_JOINSCAN_H_
 
-#include "access/PlanOperation.h"
 #include <stack>
+
+#include "access/PlanOperation.h"
 #include "access/predicates.h"
+#include "helper/types.h"
 
 /// Defines the std::string appended to columns when renaming is necessary
 #define RENAMED_COLUMN_APPENDIX_LEFT "_0"
@@ -31,9 +33,9 @@ public:
 
   template<typename T>
   void addJoinClause(const size_t input_left,
-                     const field_t field_left,
+                     const storage::field_t field_left,
                      const size_t input_right,
-                     const field_t field_right);
+                     const storage::field_t field_right);
   template<typename T>
   void addJoinClause(const Json::Value &value);
   void addCombiningClause(const ExpressionType t);
@@ -52,9 +54,9 @@ private:
 
 template<typename T>
 void JoinScan::addJoinClause(const size_t input_left,
-                             const field_t field_left,
+                             const storage::field_t field_left,
                              const size_t input_right,
-                             const field_t field_right) {
+                             const storage::field_t field_right) {
   EqualsJoinExpression<T> *expr1 = new EqualsJoinExpression<T>(input_left,
                                                                field_left,
                                                                input_right,

@@ -1,5 +1,6 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "access/GetTable.h"
+
 #include "access/QueryParser.h"
 #include "io/StorageManager.h"
 

@@ -3,6 +3,7 @@
 
 #include "access/default_strategy.h"
 #include "access/QueryParser.h"
+#include "helper/types.h"
 #include "storage/storage_types.h"
 #include "storage/Table.h"
 #include "storage/storage_types.h"
@@ -17,23 +18,23 @@ namespace {
   /// auto _ = QueryParser::registerPlanOperation<ExpressionScan>("ExpressionScan");
 }
 
-ColumnExpression::ColumnExpression(AbstractTable::SharedTablePtr t) : _table(t) {
+ColumnExpression::ColumnExpression(storage::atable_ptr_t t) : _table(t) {
 }
 
 ColumnExpression::~ColumnExpression() {
 }
 
-AddExp::AddExp(AbstractTable::SharedTablePtr t,
-               const field_t field1,
-               const field_t field2) : ColumnExpression(t), _field1(field1), _field2(field2) {
+AddExp::AddExp(const storage::atable_ptr_t t,
+               const storage::field_t field1,
+               const storage::field_t field2) : ColumnExpression(t), _field1(field1), _field2(field2) {
 }
 
 AddExp::~AddExp() {
 }
 
-void AddExp::setResult(AbstractTable::SharedTablePtr result,
-                       const field_t column,
-                       const size_t row) const {
+void AddExp::setResult(const storage::atable_ptr_t result,
+                       const storage::field_t column,
+                       const storage::pos_t row) const {
   result->setValue<hyrise_int_t>(column, row, _table->getValue<hyrise_int_t>(_field1, row) + _table->getValue<hyrise_int_t>(_field2, row));
 }
 
@@ -51,7 +52,7 @@ ExpressionScan::ExpressionScan() : _PlanOperation() {
 ExpressionScan::~ExpressionScan() {
 }
 
-void ExpressionScan::setExpression(std::string name,
+void ExpressionScan::setExpression(const std::string &name,
                                    ColumnExpression *expression) {
   _expression = expression;
   _column_name = name;
@@ -64,8 +65,8 @@ void ExpressionScan::executePlanOperation() {
   ColumnMetadata *m = new ColumnMetadata(_column_name, _expression->getType());
   metadata.push_back(m);
 
-  std::vector<AbstractTable::SharedDictionaryPtr > dicts;
-  dicts.push_back(AbstractDictionary::dictionaryWithType<DictionaryFactory<OrderIndifferentDictionary> >(_expression->getType()));
+  std::vector<AbstractTable::SharedDictionaryPtr> dicts;
+  dicts.push_back(AbstractDictionary::dictionaryWithType<DictionaryFactory<OrderIndifferentDictionary>>(_expression->getType()));
 
   AbstractTable::SharedTablePtr exp_result = std::make_shared<Table<DEFAULT_STRATEGY>>(&metadata, &dicts, 0, false);
   exp_result->resize(input_size);

@@ -1,5 +1,6 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "access/HashJoinProbe.h"
+
 #include "access/QueryParser.h"
 #include "storage/HashTable.h"
 #include "storage/PointerCalculator.h"
@@ -10,12 +11,11 @@ namespace access {
 
 namespace {
   auto _ = QueryParser::registerPlanOperation<HashJoinProbe>("HashJoinProbe");
+  log4cxx::LoggerPtr logger(log4cxx::Logger::getLogger("access.plan._PlanOperation"));
 }
 
 HashJoinProbe::HashJoinProbe() : _PlanOperation() {
 }
-
-namespace { log4cxx::LoggerPtr logger(log4cxx::Logger::getLogger("access.plan._PlanOperation")); }
 
 void HashJoinProbe::setupPlanOperation() {
   computeDeferredIndexes();
@@ -34,14 +34,50 @@ void HashJoinProbe::executePlanOperation() {
   addResult(buildResultTable(buildTablePosList, probeTablePosList));
 }
 
+void HashJoinProbe::setBuildTable(const storage::c_atable_ptr_t table) {
+  _buildTable = table;
+}
+
+storage::c_atable_ptr_t HashJoinProbe::getBuildTable() const {
+  return _buildTable;
+}
+
+storage::c_atable_ptr_t HashJoinProbe::getProbeTable() const {
+  return getInputTable();
+}
+
 const std::string HashJoinProbe::vname() {
   return "HashJoinProbe";
 }
 
-template<class HashTable>
-void HashJoinProbe::fetchPositions(pos_list_t *buildTablePosList,
-                                   pos_list_t *probeTablePosList) {
+std::shared_ptr<_PlanOperation> HashJoinProbe::parse(Json::Value &data) {
+  std::shared_ptr<HashJoinProbe> instance = std::make_shared<HashJoinProbe>();
+  if (data.isMember("fields")) {
+    for (unsigned i = 0; i < data["fields"].size(); ++i) {
+      instance->addField(data["fields"][i]);
+    }
+  }
+  instance->_selfjoin = data["selfjoin"].asBool();
+  return instance;
+}
 
+storage::atable_ptr_t HashJoinProbe::buildResultTable(storage::pos_list_t *buildTablePosList,
+                                                      storage::pos_list_t *probeTablePosList) const {
+  std::vector<storage::atable_ptr_t> parts;
+
+  auto buildTableRows = PointerCalculatorFactory::createPointerCalculatorNonRef(getBuildTable(), nullptr, buildTablePosList);
+  auto probeTableRows = PointerCalculatorFactory::createPointerCalculatorNonRef(getProbeTable(), nullptr, probeTablePosList);
+
+  parts.push_back(probeTableRows);
+  parts.push_back(buildTableRows);
+
+  storage::atable_ptr_t result = std::make_shared<MutableVerticalTable>(parts);
+  return result;
+}
+
+template<class HashTable>
+void HashJoinProbe::fetchPositions(storage::pos_list_t *buildTablePosList,
+                                   storage::pos_list_t *probeTablePosList) {
   const auto& probeTable = getProbeTable();
   auto hash_table = std::dynamic_pointer_cast<HashTable>(getInputHashTable(0));
   assert(hash_table != nullptr);
@@ -49,8 +85,6 @@ void HashJoinProbe::fetchPositions(pos_list_t *buildTablePosList,
   LOG4CXX_DEBUG(logger, hash_table->stats());
   LOG4CXX_DEBUG(logger, "Probe Table Size: " << probeTable->size());
   LOG4CXX_DEBUG(logger, "Hash Table Size:  " << hash_table->size());
-
-  //probeTable->print(1);
 
   for (pos_t probeTableRow = 0; probeTableRow < probeTable->size(); ++probeTableRow) {
     pos_list_t matchingRows(hash_table->get(probeTable, _field_definition, probeTableRow));
@@ -64,44 +98,6 @@ void HashJoinProbe::fetchPositions(pos_list_t *buildTablePosList,
   LOG4CXX_DEBUG(logger, "Done Probing");
 }
 
-AbstractTable::SharedTablePtr HashJoinProbe::buildResultTable(
-  pos_list_t *buildTablePosList,
-  pos_list_t *probeTablePosList) const {
-  std::vector<AbstractTable::SharedTablePtr > parts;
-
-  auto
-  buildTableRows = PointerCalculatorFactory::createPointerCalculatorNonRef(getBuildTable(), nullptr, buildTablePosList),
-  probeTableRows = PointerCalculatorFactory::createPointerCalculatorNonRef(getProbeTable(), nullptr, probeTablePosList);
-
-  parts.push_back(probeTableRows);
-  parts.push_back(buildTableRows);
-
-  AbstractTable::SharedTablePtr result = std::make_shared<MutableVerticalTable>(parts);
-  return result;
-}
-
-void HashJoinProbe::setBuildTable(hyrise::storage::c_atable_ptr_t table) {
-  _buildTable = table;
-}
-
-hyrise::storage::c_atable_ptr_t HashJoinProbe::getBuildTable() const {
-  return _buildTable;
-}
-
-hyrise::storage::c_atable_ptr_t HashJoinProbe::getProbeTable() const {
-  return getInputTable();
-}
-
-std::shared_ptr<_PlanOperation> HashJoinProbe::parse(Json::Value &data) {
-  std::shared_ptr<HashJoinProbe> instance = std::make_shared<HashJoinProbe>();
-  if (data.isMember("fields")) {
-    for (unsigned i = 0; i < data["fields"].size(); ++i) {
-      instance->addField(data["fields"][i]);
-    }
-  }
-  instance->_selfjoin = data["selfjoin"].asBool();
-  return instance;
-}
 
 }
 }

@@ -36,10 +36,10 @@ void JoinScan::setupPlanOperation() {
 }
 
 void JoinScan::executePlanOperation() {
-  AbstractTable::SharedTablePtr left = input.getTable(0)->copy_structure(nullptr, true);
-  AbstractTable::SharedTablePtr right = input.getTable(1)->copy_structure(nullptr, true);
+  storage::atable_ptr_t left = input.getTable(0)->copy_structure(nullptr, true);
+  storage::atable_ptr_t right = input.getTable(1)->copy_structure(nullptr, true);
 
-  size_t result_row = 0;
+  storage::pos_t result_row = 0;
   size_t reserved = input.getTable(0)->size() > input.getTable(1)->size() ?
                     input.getTable(0)->size() : input.getTable(1)->size();
 
@@ -47,8 +47,8 @@ void JoinScan::executePlanOperation() {
   left->reserve(reserved);
   right->reserve(reserved);
 
-  for (size_t left_row = 0; left_row < input.getTable(0)->size(); left_row++) {
-    for (size_t right_row = 0; right_row < input.getTable(1)->size(); right_row++) {
+  for (storage::pos_t left_row = 0; left_row < input.getTable(0)->size(); left_row++) {
+    for (storage::pos_t right_row = 0; right_row < input.getTable(1)->size(); right_row++) {
       if (!_join_condition || (*_join_condition)(left_row, right_row)) {
         left->resize(result_row + 1);
         right->resize(result_row + 1);
@@ -59,7 +59,7 @@ void JoinScan::executePlanOperation() {
   }
 
   // Create one table
-  std::vector<AbstractTable::SharedTablePtr > vc;
+  std::vector<storage::atable_ptr_t > vc;
   vc.push_back(left);
   vc.push_back(right);
 

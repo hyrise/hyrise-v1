@@ -1,8 +1,11 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "access/Distinct.h"
+
 #include <unordered_map>
+
 #include "access/BasicParser.h"
 #include "access/QueryParser.h"
+#include "helper/types.h"
 #include "storage/storage_types.h"
 #include "storage/PointerCalculator.h"
 #include "storage/PointerCalculatorFactory.h"
@@ -40,7 +43,7 @@ void Distinct::executePlanOperation() {
   }
 
   //Build result list
-  AbstractTable::SharedTablePtr result;
+  storage::atable_ptr_t result;
   pos_list_t *pos = new pos_list_t;
   for (const auto & e : map)
     pos->push_back(e.second);

@@ -3,18 +3,19 @@
 #define SRC_LIB_ACCESS_EXPRESSIONSCAN_H_
 
 #include "access/PlanOperation.h"
+#include "helper/types.h"
 
 namespace hyrise {
 namespace access {
 
 class ColumnExpression {
 public:
-  explicit ColumnExpression(AbstractTable::SharedTablePtr t);
+  explicit ColumnExpression(storage::atable_ptr_t t);
   virtual ~ColumnExpression();
 
-  virtual void setResult(AbstractTable::SharedTablePtr result,
-                         const field_t column,
-                         const size_t row) const = 0;
+  virtual void setResult(const storage::atable_ptr_t result,
+                         const storage::field_t column,
+                         const storage::pos_t row) const = 0;
   virtual std::string getName() const = 0;
   virtual DataType getType() const = 0;
 
@@ -24,20 +25,20 @@ protected:
 
 class AddExp : public ColumnExpression {
 public:
-  AddExp(AbstractTable::SharedTablePtr t,
-         const field_t field1,
-         const field_t field2);
+  AddExp(storage::atable_ptr_t t,
+         const storage::field_t field1,
+         const storage::field_t field2);
   virtual ~AddExp();
 
-  virtual void setResult(AbstractTable::SharedTablePtr result,
-                         const field_t column,
-                         const size_t row) const;
+  virtual void setResult(const storage::atable_ptr_t result,
+                         const storage::field_t column,
+                         const storage::pos_t row) const;
   virtual std::string getName() const;
   virtual DataType getType() const;
 
 protected:
-  field_t _field1;
-  field_t _field2;
+  storage::field_t _field1;
+  storage::field_t _field2;
 };
 
 class ExpressionScan : public _PlanOperation {
@@ -45,7 +46,7 @@ public:
   ExpressionScan();
   virtual ~ExpressionScan();
 
-  virtual void setExpression(std::string name,
+  virtual void setExpression(const std::string &name,
                              ColumnExpression *expression);
   virtual void executePlanOperation();
   const std::string vname();

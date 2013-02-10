@@ -17,7 +17,7 @@ public:
    */
   static std::shared_ptr<_PlanOperation> parse(Json::Value &data);
   const std::string vname();
-  void setTableName(std::string t);
+  void setTableName(const std::string &t);
 
 protected:
   virtual void executePlanOperation();
