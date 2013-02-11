@@ -97,7 +97,7 @@ public:
    */
   void merge();
 
-  void print(std::ostream& outStream, const size_t limit = (size_t) - 1) const;
+  void print(std::ostream& outStream, const std::string tableName = "unnamed Store", const size_t limit = (size_t) - 1) const;
 
   /**
    * Sets the merger used for merging main tables with delta.

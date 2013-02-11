@@ -192,15 +192,16 @@ size_t Store::getOffsetInSlice(const size_t column) const {
 };
 
 
-void Store::print(std::ostream& outStream, const size_t limit) const {
+void Store::print(std::ostream& outStream, const std::string tableName, const size_t limit) const {
+  //TODO different names for tables?
   for (size_t main = 0; main < main_tables.size(); main++) {
-    std::cout << "== Main - Pos:" << main << ", Gen: " << main_tables[main]->generation() << " -" << std::endl;
-    main_tables[main]->print(outStream, limit);
+    outStream << "== Main - Pos:" << main << ", Gen: " << main_tables[main]->generation() << " -" << std::endl;
+    main_tables[main]->print(outStream, tableName, limit);
   }
 
   if (delta) {
-    std::cout << "== Delta:" << std::endl;
-    delta->print(outStream, limit);
+    outStream << "== Delta:" << std::endl;
+    delta->print(outStream, tableName, limit);
   }
 }
 

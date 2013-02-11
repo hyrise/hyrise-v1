@@ -29,7 +29,7 @@ public:
   // specific to TableRangeView
   table_id_t subtableCount() const;
   SharedTablePtr copy() const;
-  void print(std::ostream& outStream, const size_t limit = (size_t) -1) const;
+  void print(std::ostream& outStream, const std::string tableName = "unnamed table range", const size_t limit = (size_t) -1) const;
 
   // recalculated rows and routed to underlying table if necessary
   size_t size() const;

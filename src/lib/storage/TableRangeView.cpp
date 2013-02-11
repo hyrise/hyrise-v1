@@ -54,11 +54,11 @@ size_t TableRangeView::getOffsetInSlice(const size_t column) const{
   return _table->getOffsetInSlice(column);
 }
 
-void TableRangeView::print(std::ostream& outStream, const size_t limit) const{
+void TableRangeView::print(std::ostream& outStream, const std::string tableName, const size_t limit) const{
   size_t actual_limit = limit;
   if(limit > size())
     actual_limit = size();
-  PrettyPrinter::print(this, outStream, actual_limit, _start);
+  PrettyPrinter::print(this, tableName, outStream, actual_limit, _start);
 }
 
 void TableRangeView::sortDictionary(){

@@ -305,7 +305,7 @@ public:
   /**
    * Prints the table
    */
-  virtual void print(std::ostream& stream, const size_t limit = (size_t) -1) const;
+  virtual void print(std::ostream& stream, const std::string tableName = "unnamed table", const size_t limit = (size_t) -1) const;
 
   /**
    * Returns the number of horizontal subtables.

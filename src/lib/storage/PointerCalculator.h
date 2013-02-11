@@ -61,7 +61,7 @@ public:
 
   virtual size_t getOffsetInSlice(const size_t column) const;
 
-  void print(std::ostream& outStream, const size_t limit = (size_t) - 1) const;
+  void print(std::ostream& outStream, const std::string tableName = "unnamed pointer calculator", const size_t limit = (size_t) -1) const;
 
   void sortDictionary();
 

@@ -315,8 +315,8 @@ size_t AbstractTable::numberOfColumn(const std::string &column) const {
   throw MissingColumnException("Column " + column + " not found. Available: " + err);
 }
 
-void AbstractTable::print(std::ostream& outStream, const size_t limit) const {
-  PrettyPrinter::print(this, outStream, limit);
+void AbstractTable::print(std::ostream& outStream, const std::string tableName, const size_t limit) const {
+  PrettyPrinter::print(this, tableName, outStream, limit);
 }
 
 DataType AbstractTable::typeOfColumn(const size_t column) const {
