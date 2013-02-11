@@ -35,7 +35,7 @@ private:
   typedef std::vector<SharedDictionary, Allocator<SharedDictionary , Strategy> > DictionaryVector;
 
   typedef Table<Strategy, Allocator> table_type;
-  typedef std::vector<const ColumnMetadata *, Allocator<ColumnMetadata * , Strategy> > MetadataVector;
+  typedef std::vector<const ColumnMetadata *, Allocator<const ColumnMetadata * , Strategy> > MetadataVector;
 
 
   // The shared ptr to the attributes we store inside the table

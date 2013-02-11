@@ -24,6 +24,7 @@ CC_BUILD_FLAGS ?=
 CXX_BUILD_FLAGS ?=
 LINKER_FLAGS ?=
 LINKER_DIR ?=
+LD_LIBRARY_PATH ?=
 
 # Specify Allocator to use for HYRISE
 HYRISE_ALLOCATOR ?= 
@@ -58,7 +59,7 @@ else
 endif
 
 BUILD_FLAGS += -pipe -msse4.2 -Wall -Wextra -Wno-unused-parameter 
-CXX_BUILD_FLAGS += --std=c++0x
+CXX_BUILD_FLAGS += --std=c++11
 LINKER_FLAGS += 
 
 ifeq ($(PRODUCTION), 1)
@@ -108,7 +109,7 @@ LINKER_FLAGS += -llog4cxx -lpthread
 BUILD_DIR = $(IMH_PROJECT_PATH)/$(build_dir)/
 
 # Settings for the correct includes
-LINKER_DIR := $(BUILD_DIR) /usr/local/lib /usr/lib64
+LINKER_DIR += $(BUILD_DIR) /usr/local/lib /usr/lib64
 LD_LIBRARY_PATH := $(LD_LIBRARY_PATH):$(BUILD_DIR):/usr/local/lib:/usr/lib64
 
 CC_BUILD_FLAGS += $(BUILD_FLAGS)

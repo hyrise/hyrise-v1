@@ -243,7 +243,7 @@ public:
 
     template<typename R>
     std::string operator()() {
-      return hyrise::to_string(_table.getValue<R>(_col, _row));
+      return hyrise::to_string(_table.template getValue<R>(_col, _row));
     }
   };
 

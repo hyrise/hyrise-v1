@@ -21,8 +21,9 @@ Table<Strategy, Allocator>::Table(
   _compressed(compressed) {
 
   // Ownership change for meta data
-  for (size_t i = 0; i < width; i++)
+  for (size_t i = 0; i < width; i++) {
     _metadata[i] = new ColumnMetadata(*m->at(i));
+  }
 
   // If we pass dictionaries, reuses them
   if (d) {

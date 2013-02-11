@@ -71,7 +71,7 @@ $(lib_ebb):
 $(lib_helper):
 $(lib_memory):
 $(lib_taskscheduler): $(lib_helper)
-$(lib_storage): $(lib_helper) $(lib_memory) $(lib_ftprinter) $(ext_gtest)
+$(lib_storage): $(lib_helper) $(lib_memory) $(lib_ftprinter) $(ext_gtest) $(lib_ftprinter)
 $(lib_io): $(lib_storage) $(lib_helper)
 $(lib_access): $(lib_storage) $(lib_helper) $(lib_io) $(lib_layouter) $(json) $(lib_taskscheduler) $(lib_net)
 $(lib_testing): $(ext_gtest) $(lib_storage) $(lib_taskscheduler) $(lib_access)
@@ -79,17 +79,17 @@ $(lib_net): $(lib_helper) $(json) $(lib_taskscheduler) $(lib_ebb)
 
 $(server_hyrise): $(libraries)
 $(unit_tests_helper): $(libraries)
-$(unit_tests_io): $(lib_io) $(lib_storage)
-$(unit_tests_storage): $(lib_io) $(lib_storage)
-$(unit_tests_net): $(lib_net)
-$(unit_tests_access): $(lib_access)
-$(unit_tests_layouter): $(lib_layouter) $(lib_io) $(lib_storage)
-$(unit_tests_memory): $(lib_memory) $(lib_helper)
-$(all_test_suites): $(lib_testing) $(ext_gtest)
+$(unit_tests_io): $(libraries)
+$(unit_tests_storage): $(libraries)
+$(unit_tests_net): $(libraries)
+$(unit_tests_access): $(libraries)
+$(unit_tests_layouter): $(libraries)
+$(unit_tests_memory): $(libraries)
+$(all_test_suites): $(libraries)
 $(perf_regression): $(libraries)
 $(perf_datagen): $(libraries)
 $(binaries): $(libraries)
-$(test_relation_eq): $(lib_io) $(lib_ftprinter) $(lib_storage)
+$(test_relation_eq): $(libraries)
 
 # --- Hack: To make the execution of test tasks sensible to errors when
 # running taks `test_basic` or `test`, we set an env variable so the following

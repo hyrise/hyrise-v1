@@ -12,7 +12,7 @@ namespace {
   auto _ = QueryParser::registerPlanOperation<HashJoinProbe>("HashJoinProbe");
 }
 
-HashJoinProbe::HashJoinProbe() : _PlanOperation() {
+HashJoinProbe::HashJoinProbe() : _PlanOperation(), _selfjoin(false) {
 }
 
 namespace { log4cxx::LoggerPtr logger(log4cxx::Logger::getLogger("access.plan._PlanOperation")); }

@@ -7,7 +7,7 @@
 #include <io/CSVLoader.h>
 #include <storage/AbstractTable.h>
 
-#include "storage/TableEqualityTest.h"
+#include "testing/TableEqualityTest.h"
 
 
 int main (int argc, char** args) {

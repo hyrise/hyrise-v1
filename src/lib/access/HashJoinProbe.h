@@ -25,7 +25,7 @@ class HashJoinProbe : public _PlanOperation {
    *  AbstractHashTable to write matching rows in given position lists.
    */
  public:
-  HashJoinProbe();
+  explicit HashJoinProbe();
 
   void setBuildTable(hyrise::storage::c_atable_ptr_t table);
   hyrise::storage::c_atable_ptr_t getBuildTable() const;

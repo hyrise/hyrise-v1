@@ -3,7 +3,7 @@
 #include "access/HashBuild.h"
 #include "io/shortcuts.h"
 #include "testing/test.h"
-#include "storage/TableEqualityTest.h"
+#include "testing/TableEqualityTest.h"
 
 namespace hyrise {
 namespace access {
