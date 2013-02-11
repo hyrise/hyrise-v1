@@ -10,7 +10,7 @@ using boost::assign::push_back;
 class MySQLTests : public ::hyrise::Test {};
 
 TEST_F(MySQLTests, load_test) {
-  AbstractTable::SharedTablePtr  t = Loader::load(
+  hyrise::storage::atable_ptr_t  t = Loader::load(
       Loader::params().setInput(
           MySQLInput(
               MySQLInput::params()
@@ -30,7 +30,7 @@ TEST_F(MySQLTests, load_sap_schema) {
   push_back(tables)("KNA1")("VBAP")("VBAK");
 
   for(std::string table: tables) {
-    AbstractTable::SharedTablePtr  t = Loader::load(
+    hyrise::storage::atable_ptr_t  t = Loader::load(
         Loader::params().setInput(
             MySQLInput(
                 MySQLInput::params()
@@ -48,7 +48,7 @@ TEST_F(MySQLTests, convert_date_to_int) {
   system("sh -ex test/sap_data/load.sh");
 
   std::vector<const char *> tables;
-  AbstractTable::SharedTablePtr  t = Loader::load(
+  hyrise::storage::atable_ptr_t  t = Loader::load(
       Loader::params().setInput(
           MySQLInput(
               MySQLInput::params()

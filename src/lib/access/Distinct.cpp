@@ -40,7 +40,7 @@ void Distinct::executePlanOperation() {
   }
 
   //Build result list
-  AbstractTable::SharedTablePtr result;
+  hyrise::storage::atable_ptr_t result;
   pos_list_t *pos = new pos_list_t;
   for (const auto & e : map)
     pos->push_back(e.second);

@@ -11,7 +11,7 @@ public:
   int generate_call_cnt;
   MockTableFactory() : generate_call_cnt(0)  {}
   ~MockTableFactory() {}
-  AbstractTable::SharedTablePtr  generate(std::vector<const ColumnMetadata *> *m,
+  hyrise::storage::atable_ptr_t  generate(std::vector<const ColumnMetadata *> *m,
                                           std::vector<AbstractTable::SharedDictionaryPtr> *d = nullptr,
                                           size_t initial_size = 0,
                                           bool sorted = true,
@@ -25,7 +25,7 @@ public:
 
 TEST_F(LoaderFactoryTests, load_test) {
   MockTableFactory mf;
-  AbstractTable::SharedTablePtr  t = Loader::load(
+  hyrise::storage::atable_ptr_t  t = Loader::load(
                                        Loader::params().setHeader(CSVHeader("test/structured/1col_4rows.tbl"))
                                        .setFactory((AbstractTableFactory *) &mf)
                                      );

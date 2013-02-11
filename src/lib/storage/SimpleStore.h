@@ -23,7 +23,7 @@ public:
   typedef RawTable<> delta_table_t;
   typedef AbstractTable main_table_t;
 
-  explicit SimpleStore(AbstractTable::SharedTablePtr t);
+  explicit SimpleStore(hyrise::storage::atable_ptr_t t);
 
   virtual ~SimpleStore() {}
 
@@ -50,7 +50,7 @@ public:
   /**
    * @see AbstractTable
    */
-  AbstractTable::SharedTablePtr copy_structure_modifiable(const field_list_t *fields = nullptr, 
+  hyrise::storage::atable_ptr_t copy_structure_modifiable(const field_list_t *fields = nullptr, 
                                                                    const size_t initial_size = 0, 
                                                                    const bool with_containers = true) const {
     throw std::runtime_error("RawTable ("+ STORAGE_DEBUG_WHERE_WHAT(__FILE__, __LINE__) +") does not support copy structure modifiable"); 
@@ -128,12 +128,12 @@ public:
   std::shared_ptr<main_table_t> getMain() const { return _main; }
   ///////////////////////////////////////////////////////////////////////////////////////
   /// Disabled Methods
-  AbstractTable::SharedTablePtr copy() const;
+  hyrise::storage::atable_ptr_t copy() const;
 
   /**
    * @see AbstractTable
    */
-  AbstractTable::SharedTablePtr copy_structure(const field_list_t *fields = nullptr, 
+  hyrise::storage::atable_ptr_t copy_structure(const field_list_t *fields = nullptr, 
                                                         const bool reuse_dict = false, 
                                                         const size_t initial_size = 0, 
                                                         const bool with_containers = true, 

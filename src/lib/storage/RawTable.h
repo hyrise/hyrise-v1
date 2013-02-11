@@ -184,7 +184,7 @@ public:
     return 1;
   }
 
-  virtual AbstractTable::SharedTablePtr copy() const {
+  virtual hyrise::storage::atable_ptr_t copy() const {
     return nullptr;
   }
 
@@ -290,12 +290,12 @@ public:
   struct type_func {
     typedef void value_type;
 
-    const AbstractTable::SharedTablePtr& _source;
+    const hyrise::storage::atable_ptr_t& _source;
     hyrise::storage::rawtable::RowHelper& _rh;
     const size_t& _col;
     const size_t& _row;
 
-    type_func(const AbstractTable::SharedTablePtr& source,
+    type_func(const hyrise::storage::atable_ptr_t& source,
               hyrise::storage::rawtable::RowHelper& rh,
               const size_t& column,
               const size_t& row) : _source(source), _rh(rh), _col(column), _row(row) {}
@@ -306,7 +306,7 @@ public:
     }
   };
 
-  void appendRows(const AbstractTable::SharedTablePtr& rows) {
+  void appendRows(const hyrise::storage::atable_ptr_t& rows) {
     hyrise::storage::type_switch<hyrise_basic_types> ts;
     for(size_t row=0; row < rows->size(); ++row) {
       hyrise::storage::rawtable::RowHelper rh(_metadata);
@@ -321,7 +321,7 @@ public:
 
   ////////////////////////////////////////////////////////////////////////////////////////
   // Disabled Methods 
-  virtual AbstractTable::SharedTablePtr copy_structure(const field_list_t *fields = nullptr, 
+  virtual hyrise::storage::atable_ptr_t copy_structure(const field_list_t *fields = nullptr, 
                                                         const bool reuse_dict = false, 
                                                         const size_t initial_size = 0, 
                                                         const bool with_containers = true, 
@@ -329,7 +329,7 @@ public:
     STORAGE_NOT_IMPLEMENTED(RawTable, copy_structure());
   }
 
-  virtual AbstractTable::SharedTablePtr copy_structure_modifiable(const field_list_t *fields = nullptr, 
+  virtual hyrise::storage::atable_ptr_t copy_structure_modifiable(const field_list_t *fields = nullptr, 
                                                                    const size_t initial_size = 0, 
                                                                    const bool with_containers = true) const {
     STORAGE_NOT_IMPLEMENTED(RawTable, copy_structure_modifiable());

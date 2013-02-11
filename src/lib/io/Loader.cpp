@@ -92,7 +92,7 @@ Loader::params::~params() {
 std::shared_ptr<AbstractTable> Loader::generateValidityTable(std::shared_ptr<AbstractTable> intable,
                                                              hyrise::tx::transaction_id_t tx) {
   size_t result_size = intable->size();
-  std::vector<AbstractTable::SharedTablePtr> tables { intable, hyrise::insertonly::validityTableForTransaction(result_size, tx) };
+  std::vector<hyrise::storage::atable_ptr_t> tables { intable, hyrise::insertonly::validityTableForTransaction(result_size, tx) };
   return std::make_shared<MutableVerticalTable>(tables, result_size);
 }
 

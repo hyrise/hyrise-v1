@@ -70,7 +70,7 @@ class HashJoinProbe : public _PlanOperation {
   /*!
    *  Constructs resulting table from given build and probe tables' rows.
    */
-  AbstractTable::SharedTablePtr buildResultTable(
+  hyrise::storage::atable_ptr_t buildResultTable(
       pos_list_t *buildTablePosList,
       pos_list_t *probeTablePosList) const;
 };

@@ -11,5 +11,5 @@ TEST_F(TableFactoryTests, number_of_column) {
   TableFactory<MemalignStrategy<64> > t;
   std::vector<const ColumnMetadata *> meta;
   meta.push_back(new ColumnMetadata("basti", IntegerType));
-  AbstractTable::SharedTablePtr  table = t.generate(&meta);
+  hyrise::storage::atable_ptr_t  table = t.generate(&meta);
 }

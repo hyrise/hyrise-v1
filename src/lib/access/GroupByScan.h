@@ -107,7 +107,7 @@ class GroupByScan : public _PlanOperation {
 
  protected:
   void splitInput();
-  void writeGroupResult(AbstractTable::SharedTablePtr resultTab, std::shared_ptr<pos_list_t> hit, size_t row);
+  void writeGroupResult(hyrise::storage::atable_ptr_t resultTab, std::shared_ptr<pos_list_t> hit, size_t row);
 
 };
 

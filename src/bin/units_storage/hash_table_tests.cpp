@@ -9,7 +9,7 @@
 #include "storage/Store.h"
 
 template <typename HT>
-::testing::AssertionResult TestCoverage(const AbstractTable::SharedTablePtr &table,
+::testing::AssertionResult TestCoverage(const hyrise::storage::atable_ptr_t &table,
                                         const field_list_t &columns) {
   HT ht(table, columns);
   if (testHashTableFullCoverage(ht, table, columns)) {
@@ -22,7 +22,7 @@ template <typename HT>
 
 template <typename HT>
 bool testHashTableFullCoverage(const HT &hashTable,
-                               const AbstractTable::SharedTablePtr &table,
+                               const hyrise::storage::atable_ptr_t &table,
                                const field_list_t &columns) {
   bool result = true;
   for (pos_t row = 0; row < table->size(); ++row) {
@@ -85,7 +85,7 @@ TYPED_TEST(HashTableTest, load_key_test) {
 const std::vector<field_list_t> combinations {{0}, {1}, {2}, {0, 1}, {1, 2},  {0, 1, 2}};
 
 TYPED_TEST(HashTableTest, test_column_combinations) {
-  AbstractTable::SharedTablePtr table = Loader::shortcuts::load("test/tables/hash_table_test.tbl");
+  hyrise::storage::atable_ptr_t table = Loader::shortcuts::load("test/tables/hash_table_test.tbl");
 for (auto & cols: combinations) {
     SCOPED_TRACE(joinString(cols, ","));
     EXPECT_TRUE(TestCoverage<TypeParam>(table, cols));
@@ -93,7 +93,7 @@ for (auto & cols: combinations) {
 }
 
 TYPED_TEST(HashTableTest, test_column_combinations_store) {
-  AbstractTable::SharedTablePtr store = Loader::shortcuts::loadMainDelta("test/tables/hash_table_test_main.tbl",
+  hyrise::storage::atable_ptr_t store = Loader::shortcuts::loadMainDelta("test/tables/hash_table_test_main.tbl",
                                         "test/tables/hash_table_test_delta.tbl");
 for (auto & cols: combinations) {
     SCOPED_TRACE(joinString(cols, ","));
@@ -104,7 +104,7 @@ for (auto & cols: combinations) {
 template <typename T>
 class HashTableViewTest : public ::hyrise::Test {
 protected:
-  AbstractTable::SharedTablePtr table;
+  hyrise::storage::atable_ptr_t table;
   virtual void SetUp() {
     table = Loader::shortcuts::load("test/tables/hash_table_test.tbl");
   }

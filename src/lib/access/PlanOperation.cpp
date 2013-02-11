@@ -41,7 +41,7 @@ const hyrise::storage::c_atable_ptr_t _PlanOperation::getInputTable(size_t index
   return input.getTable(index);
 }
 
-static const AbstractTable::SharedTablePtr empty_result;
+static const hyrise::storage::atable_ptr_t empty_result;
 
 const hyrise::storage::c_atable_ptr_t _PlanOperation::getResultTable(size_t index) const {
   if (output.numberOfTables())

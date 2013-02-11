@@ -83,7 +83,7 @@ public:
     return part_count;
   }
 
-  virtual  AbstractTable::SharedTablePtr copy() const;
+  virtual  hyrise::storage::atable_ptr_t copy() const;
 
 };
 

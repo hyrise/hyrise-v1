@@ -4,7 +4,7 @@
 #include "storage/AbstractMerger.h"
 
 
-hyrise::storage::column_mapping_t identityMap(AbstractTable::SharedTablePtr input) {
+hyrise::storage::column_mapping_t identityMap(hyrise::storage::atable_ptr_t input) {
   hyrise::storage::column_mapping_t map;
   for (size_t column_index = 0; column_index < input->columnCount(); ++column_index)
     map[column_index] = column_index;
@@ -43,7 +43,7 @@ std::vector<hyrise::storage::atable_ptr_t> TableMerger::mergeToTable(hyrise::sto
 }
 
 std::vector<hyrise::storage::atable_ptr_t > TableMerger::merge(std::vector<hyrise::storage::c_atable_ptr_t > &input_tables) const {
-  AbstractTable::SharedTablePtr merged_table;
+  hyrise::storage::atable_ptr_t merged_table;
 
   // at least two tables
   if (input_tables.size() < 2) {

@@ -166,8 +166,8 @@ TEST_F(JSONTests, simple_parse) {
 }
 
 TEST_F(JSONTests, parse_projection) {
-  AbstractTable::SharedTablePtr t = Loader::shortcuts::load("test/lin_xxs.tbl");
-  AbstractTable::SharedTablePtr reference = Loader::shortcuts::load("test/reference/simple_projection.tbl");
+  hyrise::storage::atable_ptr_t t = Loader::shortcuts::load("test/lin_xxs.tbl");
+  hyrise::storage::atable_ptr_t reference = Loader::shortcuts::load("test/reference/simple_projection.tbl");
   std::string query = "{\"type\": \"ProjectionScan\", \"fields\": [0], \"inputs\": [\"table1\"] }";
 
   Json::Value root;
@@ -256,8 +256,8 @@ TEST_F(JSONTests, parse_predicate_string) {
 
 
 TEST_F(JSONTests, parse_selection) {
-  AbstractTable::SharedTablePtr t = Loader::shortcuts::load("test/groupby_xs.tbl");
-  AbstractTable::SharedTablePtr reference = Loader::shortcuts::load("test/reference/simple_select_1.tbl");
+  hyrise::storage::atable_ptr_t t = Loader::shortcuts::load("test/groupby_xs.tbl");
+  hyrise::storage::atable_ptr_t reference = Loader::shortcuts::load("test/reference/simple_select_1.tbl");
 
   std::string query = "{\"type\": \"SimpleTableScan\", \"predicates\":[{\"type\": 8},{\"type\": 7},{\"type\": 0, \"in\":0, \"f\":0, \"vtype\":0, \"value\":2009},{\"type\": 0, \"in\":0, \"f\":1, \"vtype\":0, \"value\":1}]}";
 

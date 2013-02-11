@@ -6,7 +6,7 @@
 class StringLoaderTests : public ::hyrise::Test {};
 
 TEST_F(StringLoaderTests, load_test) {
-  AbstractTable::SharedTablePtr  t = Loader::load(
+  hyrise::storage::atable_ptr_t  t = Loader::load(
       Loader::params()
       .setHeader(StringHeader("employee_id|employee_company_id|employee_name\n"
                               "INTEGER|INTEGER|STRING\n"
@@ -17,7 +17,7 @@ TEST_F(StringLoaderTests, load_test) {
 
 
 TEST_F(StringLoaderTests, load_test_typesafe) {
-  AbstractTable::SharedTablePtr  t = Loader::load(
+  hyrise::storage::atable_ptr_t  t = Loader::load(
       Loader::params()
       .setHeader(StringHeader("employee_id|employee_company_id|employee_name\n"
                               "INTEGER|INTEGER|STRING\n"

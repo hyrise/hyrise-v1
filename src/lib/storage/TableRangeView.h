@@ -28,7 +28,7 @@ public:
 
   // specific to TableRangeView
   table_id_t subtableCount() const;
-  SharedTablePtr copy() const;
+  hyrise::storage::atable_ptr_t copy() const;
   void print(const size_t limit = (size_t) - 1) const;
 
   // recalculated rows and routed to underlying table if necessary
@@ -48,7 +48,7 @@ public:
   size_t getSliceForColumn(const size_t column) const;
   size_t getOffsetInSlice(const size_t column) const;
   unsigned sliceCount() const;
-  SharedTablePtr copy_structure(const field_list_t *fields = nullptr, const bool reuse_dict = false, const size_t initial_size = 0, const bool with_containers = true, const bool compressed = false) const;
+  hyrise::storage::atable_ptr_t copy_structure(const field_list_t *fields = nullptr, const bool reuse_dict = false, const size_t initial_size = 0, const bool with_containers = true, const bool compressed = false) const;
   const SharedDictionaryPtr & dictionaryByTableId(const size_t column, const table_id_t table_id) const;
   DataType typeOfColumn(const size_t column) const;
   size_t columnCount() const;

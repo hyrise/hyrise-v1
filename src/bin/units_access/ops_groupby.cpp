@@ -26,7 +26,7 @@ class GroupByTests : public AccessTest {};
 
 /*
 TEST_F(GroupByTests, aggregate_group_by_scan_with_avg_on_integer) {
-  AbstractTable::SharedTablePtr t = Loader::shortcuts::load("test/tables/revenue.tbl");
+  hyrise::storage::atable_ptr_t t = Loader::shortcuts::load("test/tables/revenue.tbl");
 
   GroupByScanPro gs;
   auto average = new AverageAggregateFun("amount");
@@ -41,15 +41,15 @@ TEST_F(GroupByTests, aggregate_group_by_scan_with_avg_on_integer) {
   auto group_map = hs.execute()->getResultHashTable();
   gs.addInputHash(group_map);
 
-  AbstractTable::SharedTablePtr result = sort(gs.execute()->getResultTable());
+  hyrise::storage::atable_ptr_t result = sort(gs.execute()->getResultTable());
 
-  AbstractTable::SharedTablePtr reference = Loader::shortcuts::load("test/tables/revenue_average_per_year.tbl");
+  hyrise::storage::atable_ptr_t reference = Loader::shortcuts::load("test/tables/revenue_average_per_year.tbl");
   ASSERT_TABLE_EQUAL(result, reference);
 }
 
 
 TEST_F(GroupByTests, aggregate_group_by_scan_with_count) {
-  AbstractTable::SharedTablePtr t = Loader::shortcuts::load("test/10_30_group.tbl");
+  hyrise::storage::atable_ptr_t t = Loader::shortcuts::load("test/10_30_group.tbl");
 
   auto count = new CountAggregateFun(0);
 
@@ -65,18 +65,18 @@ TEST_F(GroupByTests, aggregate_group_by_scan_with_count) {
   auto group_map = hs.execute()->getResultHashTable();
   gs.addInputHash(group_map);
 
-  AbstractTable::SharedTablePtr result = gs.execute()->getResultTable();
-  AbstractTable::SharedTablePtr reference = Loader::shortcuts::load("test/reference/group_by_scan_with_count.tbl");
+  hyrise::storage::atable_ptr_t result = gs.execute()->getResultTable();
+  hyrise::storage::atable_ptr_t reference = Loader::shortcuts::load("test/reference/group_by_scan_with_count.tbl");
 
   SortScan so;
   so.addInput(result);
   so.setSortField(0);
-  AbstractTable::SharedTablePtr r2 = so.execute()->getResultTable();
+  hyrise::storage::atable_ptr_t r2 = so.execute()->getResultTable();
 
   SortScan so2;
   so2.addInput(reference);
   so2.setSortField(0);
-  AbstractTable::SharedTablePtr ref2 = so2.execute()->getResultTable();
+  hyrise::storage::atable_ptr_t ref2 = so2.execute()->getResultTable();
 
   ASSERT_TABLE_EQUAL(r2, ref2);
 
@@ -86,8 +86,8 @@ TEST_F(GroupByTests, aggregate_group_by_scan_with_count) {
 TEST_F(GroupByTests, aggregate_group_multi_table_with_delta_not_unique) {
 
   // Load raw data
-  AbstractTable::SharedTablePtr t = Loader::shortcuts::load("test/groupby_xs_col.tbl");
-  AbstractTable::SharedTablePtr reference = Loader::shortcuts::load("test/reference/group_by_delta_2.tbl");
+  hyrise::storage::atable_ptr_t t = Loader::shortcuts::load("test/groupby_xs_col.tbl");
+  hyrise::storage::atable_ptr_t reference = Loader::shortcuts::load("test/reference/group_by_delta_2.tbl");
 
   // make it modifiable
   auto s = std::make_shared< Store>(t);
@@ -117,17 +117,17 @@ TEST_F(GroupByTests, aggregate_group_multi_table_with_delta_not_unique) {
   auto group_map = hs.execute()->getResultHashTable();
   gs.addInputHash(group_map);
 
-  AbstractTable::SharedTablePtr result = gs.execute()->getResultTable();
+  hyrise::storage::atable_ptr_t result = gs.execute()->getResultTable();
 
   SortScan so;
   so.addInput(result);
   so.setSortField(0);
-  AbstractTable::SharedTablePtr r2 = so.execute()->getResultTable();
+  hyrise::storage::atable_ptr_t r2 = so.execute()->getResultTable();
 
   SortScan so2;
   so2.addInput(reference);
   so2.setSortField(0);
-  AbstractTable::SharedTablePtr ref2 = so2.execute()->getResultTable();
+  hyrise::storage::atable_ptr_t ref2 = so2.execute()->getResultTable();
 
   ASSERT_TABLE_EQUAL(r2, ref2);
 
@@ -135,7 +135,7 @@ TEST_F(GroupByTests, aggregate_group_multi_table_with_delta_not_unique) {
 
 
 TEST_F(GroupByTests, aggregated_group_by_scan_using_table_2) {
-  AbstractTable::SharedTablePtr t = Loader::shortcuts::load("test/10_30_group.tbl");
+  hyrise::storage::atable_ptr_t t = Loader::shortcuts::load("test/10_30_group.tbl");
 
   {
     auto gs = std::make_shared<GroupByScanPro>();
@@ -151,7 +151,7 @@ TEST_F(GroupByTests, aggregated_group_by_scan_using_table_2) {
 
     gs->addInputHash(group_map);
 
-    AbstractTable::SharedTablePtr result = gs->execute()->getResultTable();
+    hyrise::storage::atable_ptr_t result = gs->execute()->getResultTable();
 
     ASSERT_EQ(result->size(), t->size());
 
@@ -175,14 +175,14 @@ TEST_F(GroupByTests, aggregated_group_by_scan_using_table_2) {
 
 
     s.setSortField(0);
-    AbstractTable::SharedTablePtr r2 = s.execute()->getResultTable();
+    hyrise::storage::atable_ptr_t r2 = s.execute()->getResultTable();
 
-    AbstractTable::SharedTablePtr reference = Loader::shortcuts::load("test/reference/group_by_scan_using_table_2.tbl");
+    hyrise::storage::atable_ptr_t reference = Loader::shortcuts::load("test/reference/group_by_scan_using_table_2.tbl");
 
     SortScan s2;
     s2.addInput(reference);
     s2.setSortField(0);
-    AbstractTable::SharedTablePtr ref2 = s2.execute()->getResultTable();
+    hyrise::storage::atable_ptr_t ref2 = s2.execute()->getResultTable();
 
     ASSERT_TABLE_EQUAL(r2, ref2);
   }
@@ -198,7 +198,7 @@ TEST_F(GroupByTests, aggregated_group_by_scan_using_table_2) {
 
 
 TEST_F(GroupByTests, DISABLED_group_by_performance) {
-  AbstractTable::SharedTablePtr  t = Loader::shortcuts::load("test/test10k_12.tbl");
+  hyrise::storage::atable_ptr_t  t = Loader::shortcuts::load("test/test10k_12.tbl");
 
   hyrise::access::GroupByScan gs;
   gs.addInput(t);
@@ -220,7 +220,7 @@ TEST_F(GroupByTests, DISABLED_group_by_performance) {
 }
 
 TEST_F(GroupByTests, group_by_scan_using_table_2) {
-  AbstractTable::SharedTablePtr t = Loader::shortcuts::load("test/10_30_group.tbl");
+  hyrise::storage::atable_ptr_t t = Loader::shortcuts::load("test/10_30_group.tbl");
 
   {
     auto gs = std::make_shared<hyrise::access::GroupByScan>();
@@ -263,7 +263,7 @@ TEST_F(GroupByTests, group_by_scan_using_table_2) {
     s.setSortField(0);
     const auto& r2 = s.execute()->getResultTable();
 
-    AbstractTable::SharedTablePtr reference = Loader::shortcuts::load("test/reference/group_by_scan_using_table_2.tbl");
+    hyrise::storage::atable_ptr_t reference = Loader::shortcuts::load("test/reference/group_by_scan_using_table_2.tbl");
 
     SortScan s2;
     s2.addInput(reference);
@@ -276,7 +276,7 @@ TEST_F(GroupByTests, group_by_scan_using_table_2) {
 }
 
 TEST_F(GroupByTests, group_by_scan_using_table_multiple_fields) {
-  AbstractTable::SharedTablePtr t = Loader::shortcuts::load("test/10_30_group.tbl");
+  hyrise::storage::atable_ptr_t t = Loader::shortcuts::load("test/10_30_group.tbl");
 
   hyrise::access::GroupByScan gs;
   gs.addInput(t);
@@ -319,7 +319,7 @@ TEST_F(GroupByTests, group_by_scan_using_table_multiple_fields) {
 }
 
 TEST_F(GroupByTests, group_by_scan_with_count) {
-  AbstractTable::SharedTablePtr t = Loader::shortcuts::load("test/10_30_group.tbl");
+  hyrise::storage::atable_ptr_t t = Loader::shortcuts::load("test/10_30_group.tbl");
 
   auto count = new CountAggregateFun(0);
 
@@ -354,7 +354,7 @@ TEST_F(GroupByTests, group_by_scan_with_count) {
 }
 
 TEST_F(GroupByTests, group_by_scan_with_sum) {
-  AbstractTable::SharedTablePtr t = Loader::shortcuts::load("test/10_30_group.tbl");
+  hyrise::storage::atable_ptr_t t = Loader::shortcuts::load("test/10_30_group.tbl");
 
   hyrise::access::GroupByScan gs;
   auto count = new SumAggregateFun(0);
@@ -368,7 +368,7 @@ TEST_F(GroupByTests, group_by_scan_with_sum) {
 
 
 TEST_F(GroupByTests, group_by_scan_with_avg_on_integer) {
-  AbstractTable::SharedTablePtr t = Loader::shortcuts::load("test/tables/revenue.tbl");
+  hyrise::storage::atable_ptr_t t = Loader::shortcuts::load("test/tables/revenue.tbl");
 
   hyrise::access::GroupByScan gs;
   auto average = new AverageAggregateFun("amount");
@@ -391,7 +391,7 @@ TEST_F(GroupByTests, group_by_scan_with_avg_on_integer) {
 }
 
 TEST_F(GroupByTests, group_by_scan_with_avg_on_float) {
-  AbstractTable::SharedTablePtr t = Loader::shortcuts::load("test/tables/revenue_float.tbl");
+  hyrise::storage::atable_ptr_t t = Loader::shortcuts::load("test/tables/revenue_float.tbl");
 
   hyrise::access::GroupByScan gs;
   auto average = new AverageAggregateFun("amount");
@@ -414,7 +414,7 @@ TEST_F(GroupByTests, group_by_scan_with_avg_on_float) {
 }
 
 TEST_F(GroupByTests, group_by_scan_with_avg_on_string) {
-  AbstractTable::SharedTablePtr t = Loader::shortcuts::load("test/tables/companies.tbl");
+  hyrise::storage::atable_ptr_t t = Loader::shortcuts::load("test/tables/companies.tbl");
 
   hyrise::access::GroupByScan gs;
   auto average = new AverageAggregateFun(1);
@@ -436,7 +436,7 @@ TEST_F(GroupByTests, group_by_scan_with_avg_on_string) {
 }
 
 TEST_F(GroupByTests, group_by_scan_with_sum_and_two_args) {
-  AbstractTable::SharedTablePtr t = Loader::shortcuts::load("test/10_30_group.tbl");
+  hyrise::storage::atable_ptr_t t = Loader::shortcuts::load("test/10_30_group.tbl");
 
   hyrise::access::GroupByScan gs;
   auto count = new SumAggregateFun(0);
@@ -461,7 +461,7 @@ TEST_F(GroupByTests, group_by_scan_with_sum_and_two_args) {
 }
 
 TEST_F(GroupByTests, group_by_scan_with_count_and_two_args) {
-  AbstractTable::SharedTablePtr t = Loader::shortcuts::load("test/10_30_group.tbl");
+  hyrise::storage::atable_ptr_t t = Loader::shortcuts::load("test/10_30_group.tbl");
 
   hyrise::access::GroupByScan gs;
   auto count = new CountAggregateFun(0);
@@ -505,7 +505,7 @@ TEST_F(GroupByTests, group_by_scan_with_count_and_two_args) {
 
 
 TEST_F(GroupByTests, group_by_scan_with_sum_and_without_grouping_field) {
-  AbstractTable::SharedTablePtr t = Loader::shortcuts::load("test/10_30_group.tbl");
+  hyrise::storage::atable_ptr_t t = Loader::shortcuts::load("test/10_30_group.tbl");
 
   auto sum = new SumAggregateFun(0);
 
@@ -520,7 +520,7 @@ TEST_F(GroupByTests, group_by_scan_with_sum_and_without_grouping_field) {
 }
 
 TEST_F(GroupByTests, group_by_scan_with_sum_and_one_arg) {
-  AbstractTable::SharedTablePtr t = Loader::shortcuts::load("test/10_30_group.tbl");
+  hyrise::storage::atable_ptr_t t = Loader::shortcuts::load("test/10_30_group.tbl");
 
   auto sum = new SumAggregateFun(0);
 
@@ -558,8 +558,8 @@ TEST_F(GroupByTests, group_by_scan_with_sum_and_one_arg) {
 TEST_F(GroupByTests,  group_multi_table) {
 
   // Load raw data
-  AbstractTable::SharedTablePtr t = Loader::shortcuts::load("test/10_30_group.tbl");
-  AbstractTable::SharedTablePtr reference = Loader::shortcuts::load("test/reference/group_by_scan_with_sum_and_one_arg.tbl");
+  hyrise::storage::atable_ptr_t t = Loader::shortcuts::load("test/10_30_group.tbl");
+  hyrise::storage::atable_ptr_t reference = Loader::shortcuts::load("test/reference/group_by_scan_with_sum_and_one_arg.tbl");
 
   // make it modifiable
   auto s = std::make_shared<Store>(t);
@@ -599,8 +599,8 @@ TEST_F(GroupByTests,  group_multi_table) {
 TEST_F(GroupByTests, group_multi_table_with_delta) {
 
   // Load raw data
-  AbstractTable::SharedTablePtr t = Loader::shortcuts::load("test/groupby_xs_col.tbl");
-  AbstractTable::SharedTablePtr reference = Loader::shortcuts::load("test/reference/group_by_delta.tbl");
+  hyrise::storage::atable_ptr_t t = Loader::shortcuts::load("test/groupby_xs_col.tbl");
+  hyrise::storage::atable_ptr_t reference = Loader::shortcuts::load("test/reference/group_by_delta.tbl");
 
   // make it modifiable
   auto s = std::make_shared<Store>(t);
@@ -633,17 +633,17 @@ TEST_F(GroupByTests, group_multi_table_with_delta) {
   auto group_map = hs.execute()->getResultHashTable();
   gs.addInputHash(group_map);
 
-  AbstractTable::SharedTablePtr result = gs.execute()->getResultTable();
+  hyrise::storage::atable_ptr_t result = gs.execute()->getResultTable();
 
   SortScan so;
   so.addInput(result);
   so.setSortField(0);
-  AbstractTable::SharedTablePtr r2 = so.execute()->getResultTable();
+  hyrise::storage::atable_ptr_t r2 = so.execute()->getResultTable();
 
   SortScan so2;
   so2.addInput(reference);
   so2.setSortField(0);
-  AbstractTable::SharedTablePtr ref2 = so2.execute()->getResultTable();
+  hyrise::storage::atable_ptr_t ref2 = so2.execute()->getResultTable();
 
   ASSERT_TABLE_EQUAL(r2, ref2);
 
@@ -653,8 +653,8 @@ TEST_F(GroupByTests, group_multi_table_with_delta) {
 TEST_F(GroupByTests, group_multi_table_with_delta_not_unique) {
 
   // Load raw data
-  AbstractTable::SharedTablePtr t = Loader::shortcuts::load("test/groupby_xs_col.tbl");
-  AbstractTable::SharedTablePtr reference = Loader::shortcuts::load("test/reference/group_by_delta_2.tbl");
+  hyrise::storage::atable_ptr_t t = Loader::shortcuts::load("test/groupby_xs_col.tbl");
+  hyrise::storage::atable_ptr_t reference = Loader::shortcuts::load("test/reference/group_by_delta_2.tbl");
 
   // make it modifiable
   auto s = std::make_shared< Store>(t);
@@ -685,17 +685,17 @@ TEST_F(GroupByTests, group_multi_table_with_delta_not_unique) {
   auto group_map = hs.execute()->getResultHashTable();
   gs.addInputHash(group_map);
 
-  AbstractTable::SharedTablePtr result = gs.execute()->getResultTable();
+  hyrise::storage::atable_ptr_t result = gs.execute()->getResultTable();
 
   SortScan so;
   so.addInput(result);
   so.setSortField(0);
-  AbstractTable::SharedTablePtr r2 = so.execute()->getResultTable();
+  hyrise::storage::atable_ptr_t r2 = so.execute()->getResultTable();
 
   SortScan so2;
   so2.addInput(reference);
   so2.setSortField(0);
-  AbstractTable::SharedTablePtr ref2 = so2.execute()->getResultTable();
+  hyrise::storage::atable_ptr_t ref2 = so2.execute()->getResultTable();
 
   ASSERT_TABLE_EQUAL(r2, ref2);
 

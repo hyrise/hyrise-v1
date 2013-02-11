@@ -68,7 +68,6 @@ private:
 public:
 
   typedef std::shared_ptr<AbstractDictionary> SharedDictionaryPtr;
-  typedef std::shared_ptr<AbstractTable> SharedTablePtr;
 
   /**
    * Constructor.
@@ -108,7 +107,7 @@ public:
    * @param with_containers Only used by derived classes.
    * @param compressed      Sets the compressed storage for the new table
    */
-  virtual SharedTablePtr copy_structure(const field_list_t *fields = nullptr, const bool reuse_dict = false, const size_t initial_size = 0, const bool with_containers = true, const bool compressed = false) const;
+  virtual hyrise::storage::atable_ptr_t copy_structure(const field_list_t *fields = nullptr, const bool reuse_dict = false, const size_t initial_size = 0, const bool with_containers = true, const bool compressed = false) const;
 
 
   /**
@@ -122,7 +121,7 @@ public:
    * @param initial_size    Initial size of the returned table (default=0).
    * @param with_containers Only used by derived classes.
    */
-  SharedTablePtr copy_structure_modifiable(const field_list_t *fields = nullptr, const size_t initial_size = 0, const bool with_containers = true) const;
+  hyrise::storage::atable_ptr_t copy_structure_modifiable(const field_list_t *fields = nullptr, const size_t initial_size = 0, const bool with_containers = true) const;
 
 
   /**
@@ -559,7 +558,7 @@ public:
    * Create of copy of this table.
    * @note Must be implemented by any derived class!
    */
-  virtual SharedTablePtr copy() const = 0;
+  virtual hyrise::storage::atable_ptr_t copy() const = 0;
 
   /// get underlying attribute vectors for column
   virtual const attr_vectors_t getAttributeVectors(size_t column) const { throw std::runtime_error("should impl"); };

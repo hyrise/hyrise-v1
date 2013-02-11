@@ -12,6 +12,8 @@
 #include <vector>
 #include <memory>
 
+#include "helper/types.h"
+
 #include "storage/ColumnMetadata.h"
 #include "storage/AbstractTable.h"
 #include "storage/AbstractDictionary.h"
@@ -104,9 +106,9 @@ public:
 
   virtual void setDictionaryAt(AbstractTable::SharedDictionaryPtr dict, const size_t column, const size_t row = 0, const table_id_t table_id = 0);
 
-  virtual  AbstractTable::SharedTablePtr copy_structure(const field_list_t *fields = nullptr, const bool reuse_dict = false, const size_t initial_size = 0, const bool with_containers = true, const bool compressed = false) const;
+  virtual  hyrise::storage::atable_ptr_t copy_structure(const field_list_t *fields = nullptr, const bool reuse_dict = false, const size_t initial_size = 0, const bool with_containers = true, const bool compressed = false) const;
 
-  virtual  AbstractTable::SharedTablePtr copy_structure_modifiable(const field_list_t *fields = nullptr, const size_t initial_size = 0, const bool with_containers = true) const;
+  virtual  hyrise::storage::atable_ptr_t copy_structure_modifiable(const field_list_t *fields = nullptr, const size_t initial_size = 0, const bool with_containers = true) const;
 
 
   void setAttributes(SharedAttributeVector b);
@@ -128,7 +130,7 @@ public:
   }
 
 
-  virtual AbstractTable::SharedTablePtr copy() const;
+  virtual hyrise::storage::atable_ptr_t copy() const;
 
   virtual size_t getSliceForColumn(const size_t column) const {
     return 0;

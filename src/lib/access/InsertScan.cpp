@@ -6,7 +6,7 @@
 InsertScan::~InsertScan() {
 }
 
-void InsertScan::setInputData(AbstractTable::SharedTablePtr c) {
+void InsertScan::setInputData(hyrise::storage::atable_ptr_t c) {
   data = c;
 }
 

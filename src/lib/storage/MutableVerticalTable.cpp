@@ -70,7 +70,7 @@ for (const auto & c: tables) {
 MutableVerticalTable::~MutableVerticalTable() {
 }
 
-const AbstractTable::SharedTablePtr& MutableVerticalTable::containerAt(const size_t column_index, const bool for_writing) const {
+const hyrise::storage::atable_ptr_t& MutableVerticalTable::containerAt(const size_t column_index, const bool for_writing) const {
   return containers[container_for_column[column_index]];
 }
 
@@ -149,12 +149,12 @@ size_t MutableVerticalTable::getOffsetInSlice(const size_t column) const {
   return containers[container_for_column[column]]->getOffsetInSlice(internal_column);
 }
 
-AbstractTable::SharedTablePtr MutableVerticalTable::getContainer(const size_t c) const {
+hyrise::storage::atable_ptr_t MutableVerticalTable::getContainer(const size_t c) const {
   return containers[c];
 }
 
-AbstractTable::SharedTablePtr MutableVerticalTable::copy_structure(const field_list_t *fields, const bool reuse_dict, const size_t initial_size, const bool with_containers, const bool compressed) const {
-  std::vector< AbstractTable::SharedTablePtr > new_containers;
+hyrise::storage::atable_ptr_t MutableVerticalTable::copy_structure(const field_list_t *fields, const bool reuse_dict, const size_t initial_size, const bool with_containers, const bool compressed) const {
+  std::vector< hyrise::storage::atable_ptr_t > new_containers;
   size_t offset = 0;
   size_t i = 0;
 
@@ -179,18 +179,18 @@ AbstractTable::SharedTablePtr MutableVerticalTable::copy_structure(const field_l
     offset += containers[c]->columnCount();
 
     if (!temp_field_list.empty()) {
-      AbstractTable::SharedTablePtr new_table = containers[c]->copy_structure(&temp_field_list, reuse_dict, initial_size, with_containers, compressed);
+      hyrise::storage::atable_ptr_t new_table = containers[c]->copy_structure(&temp_field_list, reuse_dict, initial_size, with_containers, compressed);
       new_containers.push_back(new_table);
     }
   }
 
 
-  AbstractTable::SharedTablePtr r = std::make_shared<MutableVerticalTable>(new_containers, initial_size);
+  hyrise::storage::atable_ptr_t r = std::make_shared<MutableVerticalTable>(new_containers, initial_size);
   return r;
 }
 
-AbstractTable::SharedTablePtr MutableVerticalTable::copy_structure_modifiable(const field_list_t *fields, const size_t initial_size, const bool with_containers) const {
-  std::vector< AbstractTable::SharedTablePtr > new_containers;
+hyrise::storage::atable_ptr_t MutableVerticalTable::copy_structure_modifiable(const field_list_t *fields, const size_t initial_size, const bool with_containers) const {
+  std::vector< hyrise::storage::atable_ptr_t > new_containers;
   size_t offset = 0;
   size_t i = 0;
 
@@ -215,18 +215,18 @@ AbstractTable::SharedTablePtr MutableVerticalTable::copy_structure_modifiable(co
     offset += containers[c]->columnCount();
 
     if (!temp_field_list.empty()) {
-      AbstractTable::SharedTablePtr new_table = containers[c]->copy_structure_modifiable(&temp_field_list, initial_size, with_containers);
+      hyrise::storage::atable_ptr_t new_table = containers[c]->copy_structure_modifiable(&temp_field_list, initial_size, with_containers);
       new_containers.push_back(new_table);
     }
   }
 
-  AbstractTable::SharedTablePtr r = std::make_shared<MutableVerticalTable>(new_containers, initial_size);
+  hyrise::storage::atable_ptr_t r = std::make_shared<MutableVerticalTable>(new_containers, initial_size);
   return r;
 }
 
-AbstractTable::SharedTablePtr MutableVerticalTable::copy() const {
+hyrise::storage::atable_ptr_t MutableVerticalTable::copy() const {
   // copy containers
-  std::vector< AbstractTable::SharedTablePtr > cs;
+  std::vector< hyrise::storage::atable_ptr_t > cs;
 
   for (size_t i = 0; i < containers.size(); ++i) {
     cs.push_back(containers[i]->copy());

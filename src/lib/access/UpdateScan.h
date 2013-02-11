@@ -12,10 +12,10 @@
 #ifndef UPDATE_SCAN_INSERT_ONLY_H
 class UpdateFun {
  protected:
-  AbstractTable::SharedTablePtr table;
+  hyrise::storage::atable_ptr_t table;
 
  public:
-  explicit UpdateFun(AbstractTable::SharedTablePtr t) : table(t) {};
+  explicit UpdateFun(hyrise::storage::atable_ptr_t t) : table(t) {};
   virtual ~UpdateFun() {};
   virtual void updateRow(size_t row) {};
 };
@@ -26,7 +26,7 @@ class AddUpdateFun : public UpdateFun {
   field_t column;
   T value;
  public:
-  AddUpdateFun(AbstractTable::SharedTablePtr t, field_t f, T val) : UpdateFun(t), column(f), value(val) {};
+  AddUpdateFun(hyrise::storage::atable_ptr_t t, field_t f, T val) : UpdateFun(t), column(f), value(val) {};
   ~AddUpdateFun() {};
   void updateRow(size_t row) {
     table->setValue<T>(column, row, table->getValue<T>(column, row) + value);
@@ -39,7 +39,7 @@ class ColumnSetFun : public UpdateFun {
   field_t column;
   T value;
  public:
-  ColumnSetFun(AbstractTable::SharedTablePtr t, field_t f, T val) : UpdateFun(t), column(f), value(val) {};
+  ColumnSetFun(hyrise::storage::atable_ptr_t t, field_t f, T val) : UpdateFun(t), column(f), value(val) {};
   ~ColumnSetFun() {};
   void updateRow(size_t row) {
     table->setValue<T>(column, row, value);
@@ -54,7 +54,7 @@ class ColumnSetFun : public UpdateFun {
 class UpdateScan : public _PlanOperation {
  private:
   SimpleExpression *comparator;
-  AbstractTable::SharedTablePtr data;
+  hyrise::storage::atable_ptr_t data;
   UpdateFun *func;
  public:
   UpdateScan() : _PlanOperation() {
@@ -64,7 +64,7 @@ class UpdateScan : public _PlanOperation {
   }
   virtual ~UpdateScan();
 
-  void setUpdateTable(AbstractTable::SharedTablePtr c) {
+  void setUpdateTable(hyrise::storage::atable_ptr_t c) {
     data = c;
   };
   void setUpdateFunction(UpdateFun *f) {

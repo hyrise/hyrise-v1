@@ -36,7 +36,7 @@ std::shared_ptr<_PlanOperation> SimpleTableScan::parse(Json::Value &data) {
 
 void SimpleTableScan::executePlanOperation() {
   pos_list_t *pos_list = nullptr;
-  AbstractTable::SharedTablePtr result_table;
+  hyrise::storage::atable_ptr_t result_table;
 
   if (producesPositions) {
     pos_list = new pos_list_t();
@@ -65,7 +65,7 @@ void SimpleTableScan::executePlanOperation() {
     }
   }
 
-  AbstractTable::SharedTablePtr result;
+  hyrise::storage::atable_ptr_t result;
   // In case we are creating positions copy the pos
   // list
   if (producesPositions) {

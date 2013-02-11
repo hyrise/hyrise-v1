@@ -94,10 +94,10 @@ void TableGenerator::increment() {
   }
 }
 
-std::vector<AbstractTable::SharedTablePtr > TableGenerator::distinct_cols(size_t cols, size_t main_size, size_t delta_size) {
+std::vector<hyrise::storage::atable_ptr_t > TableGenerator::distinct_cols(size_t cols, size_t main_size, size_t delta_size) {
 
-  AbstractTable::SharedTablePtr main = create_empty_table(main_size, cols);
-  AbstractTable::SharedTablePtr delta = create_empty_table_modifiable(delta_size, cols);
+  hyrise::storage::atable_ptr_t main = create_empty_table(main_size, cols);
+  hyrise::storage::atable_ptr_t delta = create_empty_table_modifiable(delta_size, cols);
 
   for (size_t col = 0; col < cols; ++col) {
 
@@ -188,7 +188,7 @@ std::vector<AbstractTable::SharedTablePtr > TableGenerator::distinct_cols(size_t
 
   }
 
-  std::vector<AbstractTable::SharedTablePtr > v;
+  std::vector<hyrise::storage::atable_ptr_t > v;
   v.push_back(main);
   v.push_back(delta);
   return v;
@@ -229,12 +229,12 @@ std::vector<int64_t> *TableGenerator::create_dicts(size_t dict_size_main, size_t
   return v;
 }
 
-std::vector<AbstractTable::SharedTablePtr > TableGenerator::one_column_main_delta(size_t rows_main, size_t rows_delta, size_t dict_size_main, size_t dict_size_delta, size_t intersection, size_t tail) {
+std::vector<hyrise::storage::atable_ptr_t > TableGenerator::one_column_main_delta(size_t rows_main, size_t rows_delta, size_t dict_size_main, size_t dict_size_delta, size_t intersection, size_t tail) {
   std::vector<int64_t> *dict_values = create_dicts(dict_size_main, dict_size_delta, intersection, tail);
   TableGenerator table_generator;
 
-  AbstractTable::SharedTablePtr main = table_generator.create_empty_table(rows_main, 1);
-  AbstractTable::SharedTablePtr delta = table_generator.create_empty_table_modifiable(rows_delta, 1);
+  hyrise::storage::atable_ptr_t main = table_generator.create_empty_table(rows_main, 1);
+  hyrise::storage::atable_ptr_t delta = table_generator.create_empty_table_modifiable(rows_delta, 1);
 
   Progress p(rows_main + rows_delta);
 
@@ -283,7 +283,7 @@ for (const auto & i: ordered_main) {
     p.tick();
   }
 
-  std::vector<AbstractTable::SharedTablePtr > tables;
+  std::vector<hyrise::storage::atable_ptr_t > tables;
   tables.push_back(main);
   tables.push_back(delta);
   return tables;
@@ -292,12 +292,12 @@ for (const auto & i: ordered_main) {
 
 
 
-std::vector<AbstractTable::SharedTablePtr > TableGenerator::value_order_successively(size_t rows_main, size_t rows_delta, size_t dict_size_main, size_t dict_size_delta, size_t intersection, size_t tail) {
+std::vector<hyrise::storage::atable_ptr_t > TableGenerator::value_order_successively(size_t rows_main, size_t rows_delta, size_t dict_size_main, size_t dict_size_delta, size_t intersection, size_t tail) {
   std::vector<int64_t> *dict_values = create_dicts(dict_size_main, dict_size_delta, intersection, tail);
   TableGenerator table_generator;
 
-  AbstractTable::SharedTablePtr main = table_generator.create_empty_table(rows_main, 1);
-  AbstractTable::SharedTablePtr delta = table_generator.create_empty_table_modifiable(rows_delta, 1);
+  hyrise::storage::atable_ptr_t main = table_generator.create_empty_table(rows_main, 1);
+  hyrise::storage::atable_ptr_t delta = table_generator.create_empty_table_modifiable(rows_delta, 1);
 
   Progress p(rows_main + rows_delta);
 
@@ -345,7 +345,7 @@ for (const auto & i: ordered_main) {
     p.tick();
   }
 
-  std::vector<AbstractTable::SharedTablePtr > v;
+  std::vector<hyrise::storage::atable_ptr_t > v;
   v.push_back(main);
   v.push_back(delta);
   return v;
@@ -353,7 +353,7 @@ for (const auto & i: ordered_main) {
 
 
 
-AbstractTable::SharedTablePtr TableGenerator::create_empty_table(size_t rows, std::vector<std::string> names) {
+hyrise::storage::atable_ptr_t TableGenerator::create_empty_table(size_t rows, std::vector<std::string> names) {
   std::vector<std::vector<AbstractTable::SharedDictionaryPtr> *> dicts;
   std::vector<std::vector<const ColumnMetadata *> *> md;
   const auto& cols = names.size();
@@ -383,7 +383,7 @@ AbstractTable::SharedTablePtr TableGenerator::create_empty_table(size_t rows, st
   return new_table;
 }
 
-AbstractTable::SharedTablePtr TableGenerator::create_empty_table(size_t rows, size_t cols, std::vector<unsigned> containers) {
+hyrise::storage::atable_ptr_t TableGenerator::create_empty_table(size_t rows, size_t cols, std::vector<unsigned> containers) {
   std::vector<std::vector<const ColumnMetadata *> *> md;
 
   bool skip = containers.size() == 0 ? true : false;
@@ -423,7 +423,7 @@ for (const auto & vc: md) {
   return new_table;
 }
 
-AbstractTable::SharedTablePtr TableGenerator::create_empty_table_modifiable(size_t rows, size_t cols, std::vector<std::string> names) {
+hyrise::storage::atable_ptr_t TableGenerator::create_empty_table_modifiable(size_t rows, size_t cols, std::vector<std::string> names) {
   std::vector<std::vector<AbstractTable::SharedDictionaryPtr> *> dicts;
   std::vector<std::vector<const ColumnMetadata *> *> md;
 
@@ -455,13 +455,13 @@ AbstractTable::SharedTablePtr TableGenerator::create_empty_table_modifiable(size
 
 
 
-AbstractTable::SharedTablePtr TableGenerator::int_random_delta(size_t rows, size_t cols, size_t mod, std::vector<unsigned> layout) {
+hyrise::storage::atable_ptr_t TableGenerator::int_random_delta(size_t rows, size_t cols, size_t mod, std::vector<unsigned> layout) {
 
   start(rows, cols, rows * cols);
   unsigned seed = (unsigned) clock();
 
 
-  AbstractTable::SharedTablePtr new_table = create_empty_table(rows, cols, layout);
+  hyrise::storage::atable_ptr_t new_table = create_empty_table(rows, cols, layout);
 
 
   for (size_t col = 0; col < cols; ++col) {
@@ -504,13 +504,13 @@ AbstractTable::SharedTablePtr TableGenerator::int_random_delta(size_t rows, size
 }
 
 // create table with order preserving dict
-AbstractTable::SharedTablePtr TableGenerator::int_random(size_t rows, size_t cols, size_t mod, std::vector<unsigned> layout) {
+hyrise::storage::atable_ptr_t TableGenerator::int_random(size_t rows, size_t cols, size_t mod, std::vector<unsigned> layout) {
 
   start(rows, cols, rows * cols);
   srand(clock());
 
 
-  AbstractTable::SharedTablePtr new_table = create_empty_table(rows, cols, layout);
+  hyrise::storage::atable_ptr_t new_table = create_empty_table(rows, cols, layout);
 
 
   // if mod smaller than number of rows we have an infinite loop
@@ -581,13 +581,13 @@ std::string TableGenerator::random_string(const int len) {
   return s;
 }
 
-AbstractTable::SharedTablePtr TableGenerator::string_random(size_t rows, size_t cols, int string_length) {
+hyrise::storage::atable_ptr_t TableGenerator::string_random(size_t rows, size_t cols, int string_length) {
 
   start(rows, cols, rows * cols);
   srand(clock());
 
 
-  AbstractTable::SharedTablePtr new_table = create_empty_table(rows, cols);
+  hyrise::storage::atable_ptr_t new_table = create_empty_table(rows, cols);
 
   for (size_t col = 0; col < cols; ++col) {
     std::set<std::string> values;
@@ -630,12 +630,12 @@ for (const auto & i: values) {
   return new_table;
 }
 
-AbstractTable::SharedTablePtr TableGenerator::string_random_delta(size_t rows, size_t cols, int string_length) {
+hyrise::storage::atable_ptr_t TableGenerator::string_random_delta(size_t rows, size_t cols, int string_length) {
   start(rows, cols, rows * cols);
   srand(clock());
 
 
-  AbstractTable::SharedTablePtr new_table = create_empty_table(rows, cols);
+  hyrise::storage::atable_ptr_t new_table = create_empty_table(rows, cols);
 
 
   for (size_t col = 0; col < cols; ++col) {
@@ -685,9 +685,9 @@ for (const auto & i: values_vector) {
   return new_table;
 }
 
-//vector<AbstractTable::SharedTablePtr > TableGenerator::int_overlapping(size_t rows, size_t cols, size_t tables, size_t overlapping)
+//vector<hyrise::storage::atable_ptr_t > TableGenerator::int_overlapping(size_t rows, size_t cols, size_t tables, size_t overlapping)
 //{
-//    std::vector<AbstractTable::SharedTablePtr > r;
+//    std::vector<hyrise::storage::atable_ptr_t > r;
 //
 //    srand ( clock() );
 //
@@ -695,14 +695,14 @@ for (const auto & i: values_vector) {
 //    assert(overlapping <= 100);
 //    assert(tables > 1);
 //
-//    AbstractTable::SharedTablePtr ref_table = int_random(rows, cols);
+//    hyrise::storage::atable_ptr_t ref_table = int_random(rows, cols);
 //    r.push_back(ref_table);
 //
 //
 //    std::cout << "second table" << std::endl;
 //    for (size_t i = 0; i < tables - 1; ++i)
 //    {
-//        AbstractTable::SharedTablePtr new_table = create_empty_table(rows, cols);
+//        hyrise::storage::atable_ptr_t new_table = create_empty_table(rows, cols);
 //        start(rows, cols, rows * cols * (tables-1));
 //
 //        for (size_t col = 0; col < cols; ++col) {
@@ -732,11 +732,11 @@ for (const auto & i: values_vector) {
 //    return r;
 //}
 
-AbstractTable::SharedTablePtr TableGenerator::int_offset(size_t rows, size_t cols, size_t offset1, size_t offset2, size_t offset2_start, size_t factor, int big_value_at_end) {
+hyrise::storage::atable_ptr_t TableGenerator::int_offset(size_t rows, size_t cols, size_t offset1, size_t offset2, size_t offset2_start, size_t factor, int big_value_at_end) {
   start(rows, cols, rows * cols);
   srand(clock());
 
-  AbstractTable::SharedTablePtr new_table = create_empty_table(rows, cols);
+  hyrise::storage::atable_ptr_t new_table = create_empty_table(rows, cols);
 
   for (size_t col = 0; col < cols; ++col) {
     OrderPreservingDictionary<int64_t> *dict = new OrderPreservingDictionary<int64_t>();
@@ -774,11 +774,11 @@ AbstractTable::SharedTablePtr TableGenerator::int_offset(size_t rows, size_t col
 
 }
 
-AbstractTable::SharedTablePtr TableGenerator::int_offset_delta(size_t rows, size_t cols, size_t offset1, size_t offset2, size_t offset2_start, size_t factor, int big_value_at_end) {
+hyrise::storage::atable_ptr_t TableGenerator::int_offset_delta(size_t rows, size_t cols, size_t offset1, size_t offset2, size_t offset2_start, size_t factor, int big_value_at_end) {
   start(rows, cols, rows * cols);
   srand(clock());
 
-  AbstractTable::SharedTablePtr new_table = create_empty_table(rows, cols);
+  hyrise::storage::atable_ptr_t new_table = create_empty_table(rows, cols);
 
   for (size_t col = 0; col < cols; ++col) {
     OrderIndifferentDictionary<int64_t> *dict = new OrderIndifferentDictionary<int64_t>();
@@ -815,11 +815,11 @@ AbstractTable::SharedTablePtr TableGenerator::int_offset_delta(size_t rows, size
 
 }
 
-AbstractTable::SharedTablePtr TableGenerator::one_value_delta(size_t rows, size_t cols, int value) {
+hyrise::storage::atable_ptr_t TableGenerator::one_value_delta(size_t rows, size_t cols, int value) {
   start(rows, cols, rows * cols);
   srand(clock());
 
-  AbstractTable::SharedTablePtr new_table = create_empty_table(rows, cols);
+  hyrise::storage::atable_ptr_t new_table = create_empty_table(rows, cols);
 
   for (size_t col = 0; col < cols; ++col) {
     OrderIndifferentDictionary<int64_t> *dict = new OrderIndifferentDictionary<int64_t>();
@@ -843,11 +843,11 @@ AbstractTable::SharedTablePtr TableGenerator::one_value_delta(size_t rows, size_
   return new_table;
 }
 
-AbstractTable::SharedTablePtr TableGenerator::one_value(size_t rows, size_t cols, int value) {
+hyrise::storage::atable_ptr_t TableGenerator::one_value(size_t rows, size_t cols, int value) {
   start(rows, cols, rows * cols);
   srand(clock());
 
-  AbstractTable::SharedTablePtr new_table = create_empty_table(rows, cols);
+  hyrise::storage::atable_ptr_t new_table = create_empty_table(rows, cols);
 
   for (size_t col = 0; col < cols; ++col) {
     OrderPreservingDictionary<int64_t> *dict = new OrderPreservingDictionary<int64_t>();
@@ -871,7 +871,7 @@ AbstractTable::SharedTablePtr TableGenerator::one_value(size_t rows, size_t cols
 }
 
 // creates one table with distinct_count distinct values
-AbstractTable::SharedTablePtr TableGenerator::int_distinct(size_t row_count, size_t column_count, size_t distinct_count) {
+hyrise::storage::atable_ptr_t TableGenerator::int_distinct(size_t row_count, size_t column_count, size_t distinct_count) {
   size_t x = row_count / distinct_count;
   std::vector<hyrise::storage::c_atable_ptr_t > tables;
   const auto& base_table = int_random(distinct_count, column_count);
@@ -897,10 +897,10 @@ int TableGenerator::selfsimilar(int64_t n, double h) {
   return (int)(n * pow(rand_r(&seed), log(h) / log(1.0 - h)));
 }
 
-AbstractTable::SharedTablePtr TableGenerator::int_random_weighted(size_t rows, size_t cols, size_t n, size_t h) {
+hyrise::storage::atable_ptr_t TableGenerator::int_random_weighted(size_t rows, size_t cols, size_t n, size_t h) {
   unsigned seed = (unsigned) clock();
 
-  AbstractTable::SharedTablePtr new_table = create_empty_table(rows, cols);
+  hyrise::storage::atable_ptr_t new_table = create_empty_table(rows, cols);
 
   for (size_t col = 0; col < cols; ++col) {
     std::set<int64_t> values;
@@ -936,10 +936,10 @@ for (const auto & i: values) {
   return new_table;
 }
 
-AbstractTable::SharedTablePtr TableGenerator::int_random_weighted_delta(size_t rows, size_t cols, size_t n, size_t h) {
+hyrise::storage::atable_ptr_t TableGenerator::int_random_weighted_delta(size_t rows, size_t cols, size_t n, size_t h) {
   unsigned seed = (unsigned) clock();
 
-  AbstractTable::SharedTablePtr new_table = create_empty_table(rows, cols);
+  hyrise::storage::atable_ptr_t new_table = create_empty_table(rows, cols);
 
   for (size_t col = 0; col < cols; ++col) {
 

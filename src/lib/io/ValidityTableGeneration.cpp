@@ -9,7 +9,7 @@
 namespace hyrise {
 namespace insertonly {
 
-AbstractTable::SharedTablePtr validityTableForTransaction(const size_t& rows,
+hyrise::storage::atable_ptr_t validityTableForTransaction(const size_t& rows,
                                                           tx::transaction_id_t from_tid,
                                                           tx::transaction_id_t to_tid) {
   TableGenerator generateTab(true);

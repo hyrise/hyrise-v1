@@ -450,7 +450,7 @@ TEST_F(SelectTests, select_after_insert_simple) {
   hyrise::storage::atable_ptr_t t = Loader::shortcuts::load("test/lin_xxs.tbl");
   auto s = std::make_shared<const Store>(t);
 
-  AbstractTable::SharedTablePtr data = s->copy_structure_modifiable(nullptr, s->size());
+  hyrise::storage::atable_ptr_t data = s->copy_structure_modifiable(nullptr, s->size());
   data->resize(1);
   data->setValue<hyrise_int_t>("col_0", 0, 1000);
   data->setValue<hyrise_int_t>("col_1", 0, 1001);

@@ -16,8 +16,8 @@ class JoinScanBase : public ::testing::Benchmark {
 
   StorageManager *sm;
   std::shared_ptr<hyrise::access::JoinScan> js;
-  AbstractTable::SharedTablePtr t1;
-  AbstractTable::SharedTablePtr t2;
+  hyrise::storage::atable_ptr_t t1;
+  hyrise::storage::atable_ptr_t t2;
 
  public:
   void BenchmarkSetUp() {
@@ -46,5 +46,5 @@ class JoinScanBase : public ::testing::Benchmark {
   {
   js->addJoinClause<int>(0, 4, 1, 0);
 
-  AbstractTable::SharedTablePtr result = js->execute();
+  hyrise::storage::atable_ptr_t result = js->execute();
   }*/

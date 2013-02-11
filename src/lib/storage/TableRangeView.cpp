@@ -69,11 +69,11 @@ table_id_t TableRangeView::subtableCount() const{
   return 1;
 }
 
-AbstractTable::SharedTablePtr TableRangeView::copy() const{
+hyrise::storage::atable_ptr_t TableRangeView::copy() const{
   return std::make_shared<TableRangeView>(_table, _start, _end);
 }
 
-AbstractTable::SharedTablePtr TableRangeView::copy_structure(const field_list_t *fields, const bool reuse_dict, const size_t initial_size, const bool with_containers, const bool compressed) const{
+hyrise::storage::atable_ptr_t TableRangeView::copy_structure(const field_list_t *fields, const bool reuse_dict, const size_t initial_size, const bool with_containers, const bool compressed) const{
   return _table->copy_structure(fields, reuse_dict, initial_size, with_containers, compressed);
 }
 

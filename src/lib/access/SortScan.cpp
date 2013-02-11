@@ -103,7 +103,7 @@ void SortScan::executePlanOperation() {
     }
   }
 
-  AbstractTable::SharedTablePtr result;
+  hyrise::storage::atable_ptr_t result;
   if (producesPositions) {
     result = PointerCalculatorFactory::createPointerCalculatorNonRef(table, nullptr, sorted_pos);
   } else {
