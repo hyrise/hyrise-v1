@@ -59,7 +59,7 @@ else
 endif
 
 BUILD_FLAGS += -pipe -msse4.2 -Wall -Wextra -Wno-unused-parameter 
-CXX_BUILD_FLAGS += --std=c++11
+CXX_BUILD_FLAGS += --std=c++0x
 LINKER_FLAGS += 
 
 ifeq ($(PRODUCTION), 1)
