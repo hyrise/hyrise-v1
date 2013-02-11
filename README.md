@@ -42,6 +42,10 @@ All plan operations are currently hand-coded in JSON an then queried against
 the database. SQL compilation is currently not available but somewhere on the
 road-map.
 
+## Continuous Integration
+
+Master status: [![Build Status](https://travis-ci.org/hyrise/hyrise.png?branch=master)](https://travis-ci.org/hyrise/hyrise)
+
 ## Installation
 
 Currently only Linux systems are supported. Mac OS X could work, but you will
@@ -121,7 +125,7 @@ If you have any questions feel free to contact the maintainers
 
   * Martin Grund ([@grundprinzip](https://github.com/grundprinzip))
   * Jens Krueger ([@jnkrueger](https://github.com/jnkrueger))
-  * Johannes Wust
+  * Johannes Wust ([@jwust](https://github.com/jwust))
   * David Schwalb ([@schwald](https://github.com/schwald))
   * Sebastian Hillig ([@bastih]((https://github.com/bastih))
 
