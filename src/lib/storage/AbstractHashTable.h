@@ -29,6 +29,8 @@ public:
 
   virtual field_list_t getFields() const = 0;
 
+  virtual size_t getFieldCount() const = 0;
+
   virtual uint64_t numKeys() = 0;
 };
 

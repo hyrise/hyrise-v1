@@ -1,6 +1,7 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "access/HashBuild.h"
 #include "storage/HashTable.h"
+#include "storage/TableRangeView.h"
 
 namespace hyrise {
 namespace access {
@@ -16,11 +17,22 @@ HashBuild::~HashBuild() {
 }
 
 void HashBuild::executePlanOperation() {
-  if (_key == "groupby" || _key == "selfjoin" )
-    addResultHash(std::make_shared<AggregateHashTable>(getInputTable(), _field_definition));
-  else if (_key == "join")
-    addResultHash(std::make_shared<JoinHashTable>(getInputTable(), _field_definition));
-  else {
+  size_t row_offset = 0;
+  // check if table is a TableRangeView; if yes, provide the offset to HashTable 
+  auto input = std::dynamic_pointer_cast<const TableRangeView>(getInputTable());
+  if(input) 
+    row_offset = input->getStart();   
+  if (_key == "groupby" || _key == "selfjoin" ) {
+    if (_field_definition.size() == 1)
+        addResultHash(std::make_shared<SingleAggregateHashTable>(getInputTable(), _field_definition, row_offset));
+      else
+        addResultHash(std::make_shared<AggregateHashTable>(getInputTable(), _field_definition, row_offset));
+  } else if (_key == "join") {
+    if (_field_definition.size() == 1)
+      addResultHash(std::make_shared<SingleJoinHashTable>(getInputTable(), _field_definition, row_offset));      
+    else
+      addResultHash(std::make_shared<JoinHashTable>(getInputTable(), _field_definition, row_offset));
+  } else {
     throw std::runtime_error("Type in Plan operation HashBuild not supported; key: " + _key);
   }
 }
