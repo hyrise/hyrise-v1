@@ -4,7 +4,6 @@
 #include "storage/HashTable.h"
 #include "access/MergeHashTables.h"
 #include "storage/TableRangeView.h"
-#include "google/profiler.h"
 #include "helper.h"
 #include "io/shortcuts.h"
 
