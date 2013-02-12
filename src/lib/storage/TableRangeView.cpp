@@ -17,6 +17,9 @@ TableRangeView::~TableRangeView() {
   // TODO Auto-generated destructor stub
 }
 
+size_t TableRangeView::getStart() const{
+  return _start;
+}
 
 size_t TableRangeView::size() const {
   return _end-_start+1;

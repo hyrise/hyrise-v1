@@ -112,11 +112,11 @@ protected:
 private:
 
   // populates map with values
-  inline void populate_map() {
+  inline void populate_map(size_t row_offset = 0) {
     _dirty = true;
     for (pos_t row = 0; row < _table->size(); ++row) {
       key_t key = GroupKeyHash<key_t>::getGroupKey(_table, _fields, row);
-      _map.insert(typename map_t::value_type(key, row));
+      _map.insert(typename map_t::value_type(key, row + row_offset));
     }
   }
 
@@ -133,15 +133,23 @@ private:
     return positions;
   }
 
-
-
 public:
   HashTable() {}
 
-  /// Hash given table's columns directly into the new HashTable.
-  HashTable(hyrise::storage::c_atable_ptr_t t, const field_list_t &f)
+  // create a new HashTable based on a number of HashTables
+  explicit HashTable(std::vector<std::shared_ptr<AbstractHashTable> > hashTables) {
+    std::shared_ptr<HashTable<MAP, KEY> > ht;
+    _dirty = true;
+    for (auto & nextElement: hashTables) {
+      ht = std::dynamic_pointer_cast<HashTable<MAP, KEY> >(nextElement);
+      _map.insert(ht->getMapBegin(), ht->getMapEnd());
+    }
+  }
+
+  // Hash given table's columns directly into the new HashTable
+  HashTable(hyrise::storage::c_atable_ptr_t t, const field_list_t &f, size_t row_offset = 0)
     : _table(t), _fields(f), _numKeys(0), _dirty(true) {
-    populate_map();
+    populate_map(row_offset);
   }
 
   virtual ~HashTable() {}
