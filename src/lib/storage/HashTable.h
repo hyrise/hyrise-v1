@@ -21,6 +21,11 @@ typedef std::vector<value_id_t> aggregate_key_t;
 // Group of hashed values as key to an unordered map
 typedef std::vector<size_t> join_key_t;
 
+// Single Value ID as key to unordered map
+typedef value_id_t aggregate_single_key_t;
+// Single Hashed Value
+typedef size_t join_single_key_t;
+
 namespace {
 
 static size_t hash_value(const hyrise::storage::c_atable_ptr_t &source, const size_t &f, const ValueId &vid) {
@@ -48,6 +53,26 @@ inline typename aggregate_key_t::value_type extract<aggregate_key_t>(const hyris
   return vid.valueId;
 }
 
+// Helper Functions for Single Values
+template<typename HashResult>
+inline HashResult extractSingle(const hyrise::storage::c_atable_ptr_t &table,
+    const size_t &field,
+    const ValueId &vid);
+
+template <>
+inline join_single_key_t extractSingle<join_single_key_t>(const hyrise::storage::c_atable_ptr_t &table,
+    const size_t &field,
+    const ValueId &vid) {
+  return hash_value(table, field, vid);
+}
+
+template <>
+inline aggregate_single_key_t extractSingle<aggregate_single_key_t>(const hyrise::storage::c_atable_ptr_t &table,
+    const size_t &field,
+    const ValueId &vid) {
+  return vid.valueId;
+}
+
 }
 
 // hash function for aggregate_key_t
@@ -55,8 +80,9 @@ template<class T>
 class GroupKeyHash {
 public:
   size_t operator()(const T &key) const {
+    static auto hasher = std::hash<value_id_t>();
+
     std::size_t seed = 0;
-    auto hasher = std::hash<value_id_t>();
     for (size_t i = 0, key_size = key.size();
          i < key_size; ++i) {
       // compare boost hash_combine
@@ -77,14 +103,40 @@ public:
   }
 };
 
+// Simple Hash Function for single values
+template<class T>
+class SingleGroupKeyHash {
+public:
+  size_t operator()(const T &key) const {
+    static auto hasher = std::hash<value_id_t>();
+    return hasher(key);
+  }
 
+  static T getGroupKey(const hyrise::storage::c_atable_ptr_t &table,
+                       const field_list_t &columns,
+                       const size_t fieldCount,
+                       const pos_t row){
+    return extractSingle<T>(table, columns[0], table->getValueId(columns[0], row));
+  }
+};
+
+
+// Multi Keys
 typedef std::unordered_multimap<aggregate_key_t, pos_t, GroupKeyHash<aggregate_key_t> > aggregate_hash_map_t;
 typedef std::unordered_multimap<join_key_t, pos_t, GroupKeyHash<join_key_t> > join_hash_map_t;
+
+// Single Keys
+typedef std::unordered_multimap<aggregate_single_key_t, pos_t, SingleGroupKeyHash<aggregate_single_key_t> > aggregate_single_hash_map_t;
+typedef std::unordered_multimap<join_single_key_t, pos_t, SingleGroupKeyHash<join_single_key_t> > join_single_hash_map_t;
 
 /// HashTable based on a map; key specifies the key for the given map
 template<class MAP, class KEY> class HashTable;
 typedef HashTable<aggregate_hash_map_t, aggregate_key_t> AggregateHashTable;
 typedef HashTable<join_hash_map_t, join_key_t> JoinHashTable;
+
+// HashTables for single values
+typedef HashTable<aggregate_single_hash_map_t, aggregate_single_key_t> SingleAggregateHashTable;
+typedef HashTable<join_single_hash_map_t, join_single_key_t> SingleJoinHashTable;
 
 /// Uses valueIds of specified columns as key for an unordered_multimap
 template <class MAP, class KEY>
@@ -118,7 +170,7 @@ private:
     size_t fieldSize = _fields.size();
     size_t tableSize = _table->size();
     for (pos_t row = 0; row < tableSize; ++row) {
-      key_t key = GroupKeyHash<key_t>::getGroupKey(_table, _fields, fieldSize, row);
+      key_t key = MAP::hasher::getGroupKey(_table, _fields, fieldSize, row);
       _map.insert(typename map_t::value_type(key, row + row_offset));
     }
   }
@@ -180,7 +232,7 @@ public:
                          const field_list_t &columns,
                          const pos_t row) const {
     pos_list_t pos_list;
-    key_t key = GroupKeyHash<key_t>::getGroupKey(table, columns, columns.size(), row);
+    key_t key = MAP::hasher::getGroupKey(table, columns, columns.size(), row);
     auto range = _map.equal_range(key);
     return constructPositions(range);
   }
@@ -291,8 +343,7 @@ public:
 
     pos_list_t pos_list;
     // produce key
-    key_t key = GroupKeyHash<key_t>::getGroupKey(table, columns, columns.size(), row);
-
+    key_t key = MAP::hasher::getGroupKey(table, columns, columns.size(), row);
     for (typename hash_table_t::map_const_iterator_t it = _begin; it != _end; ++it) {
       if (it->first == key) {
         pos_list.push_back(it->second);
