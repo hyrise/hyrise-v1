@@ -67,10 +67,11 @@ public:
 
   static T getGroupKey(const hyrise::storage::c_atable_ptr_t &table,
                        const field_list_t &columns,
+                       const size_t columnCount,
                        const pos_t row) {
     ValueIdList value_list = table->copyValueIds(row, &columns);
     T key;
-    for (size_t i = 0, key_size = value_list.size(); i < key_size; i++)
+    for (size_t i = 0, key_size = columnCount; i < key_size; i++)
       key.push_back(extract<T>(table, columns[i], value_list[i]));
     return key;
   }
@@ -114,8 +115,9 @@ private:
   // populates map with values
   inline void populate_map(size_t row_offset = 0) {
     _dirty = true;
+    size_t columnCount = _table->columnCount();
     for (pos_t row = 0; row < _table->size(); ++row) {
-      key_t key = GroupKeyHash<key_t>::getGroupKey(_table, _fields, row);
+      key_t key = GroupKeyHash<key_t>::getGroupKey(_table, _fields, columnCount, row);
       _map.insert(typename map_t::value_type(key, row + row_offset));
     }
   }
@@ -176,7 +178,8 @@ public:
                          const field_list_t &columns,
                          const pos_t row) const {
     pos_list_t pos_list;
-    key_t key = GroupKeyHash<key_t>::getGroupKey(table, columns, row);
+    size_t columnCount = table->columnCount();
+    key_t key = GroupKeyHash<key_t>::getGroupKey(table, columns, columnCount, row);
     auto range = _map.equal_range(key);
     return constructPositions(range);
   }
@@ -189,7 +192,6 @@ public:
   map_const_iterator_t getMapEnd() const {
     return _map.end();
   }
-
 
   hyrise::storage::c_atable_ptr_t getTable() const {
     return _table;
@@ -222,7 +224,6 @@ public:
     return _numKeys;
   }
 };
-
 
 /// Maps table cells' hashed values of arbitrary columns to their rows.
 /// This subclass maps only a range of key value pairs of its underlying
@@ -289,7 +290,7 @@ public:
 
     pos_list_t pos_list;
     // produce key
-    key_t key = GroupKeyHash<key_t>::getGroupKey(table, columns, row);
+    key_t key = GroupKeyHash<key_t>::getGroupKey(table, columns, table->columnCount(), row);
 
     for (typename hash_table_t::map_const_iterator_t it = _begin; it != _end; ++it) {
       if (it->first == key) {

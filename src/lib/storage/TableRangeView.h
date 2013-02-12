@@ -21,6 +21,8 @@ class TableRangeView : public AbstractTable {
 
   size_t _start;
   size_t _end;
+  // store number of columns to avoid subsequent calls to table->columnCount()
+  size_t _columnCount;
 
 public:
   TableRangeView(hyrise::storage::atable_ptr_t t, size_t s, size_t e);
