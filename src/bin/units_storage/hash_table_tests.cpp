@@ -76,7 +76,7 @@ TYPED_TEST(HashTableTest, load_key_test) {
   field_list_t fields = {1, 2};
   pos_t row = 1;
   TypeParam htable(this->table, fields);
-  auto key = GroupKeyHash<typename TypeParam::key_t>::getGroupKey(this->table, fields, this->table->columnCount(), row);
+  auto key = GroupKeyHash<typename TypeParam::key_t>::getGroupKey(this->table, fields, fields.size(), row);
   auto pos_list = htable.get(key);
   EXPECT_EQ(pos_list.size(), 2u);
   EXPECT_TRUE(contains_all(pos_list, pos_list_t {0, 1}));
