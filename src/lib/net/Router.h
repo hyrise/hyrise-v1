@@ -5,6 +5,8 @@
 #ifndef SRC_LIB_NET_ROUTER_H_
 #define SRC_LIB_NET_ROUTER_H_
 
+#include <iostream>
+
 #include <memory>
 #include <unordered_map>
 #include <string>
