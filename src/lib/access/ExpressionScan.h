@@ -9,27 +9,27 @@ namespace access {
 
 class ColumnExpression {
 public:
-  explicit ColumnExpression(AbstractTable::SharedTablePtr t);
+  explicit ColumnExpression(hyrise::storage::atable_ptr_t t);
   virtual ~ColumnExpression();
 
-  virtual void setResult(AbstractTable::SharedTablePtr result,
+  virtual void setResult(hyrise::storage::atable_ptr_t result,
                          const field_t column,
                          const size_t row) const = 0;
   virtual std::string getName() const = 0;
   virtual DataType getType() const = 0;
 
 protected:
-  AbstractTable::SharedTablePtr _table;
+  hyrise::storage::atable_ptr_t _table;
 };
 
 class AddExp : public ColumnExpression {
 public:
-  AddExp(AbstractTable::SharedTablePtr t,
+  AddExp(hyrise::storage::atable_ptr_t t,
          const field_t field1,
          const field_t field2);
   virtual ~AddExp();
 
-  virtual void setResult(AbstractTable::SharedTablePtr result,
+  virtual void setResult(hyrise::storage::atable_ptr_t result,
                          const field_t column,
                          const size_t row) const;
   virtual std::string getName() const;

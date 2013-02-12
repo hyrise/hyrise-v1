@@ -14,7 +14,7 @@ class PointerCalcTests : public ::hyrise::StorageManagerTest {};
 
 TEST_F(PointerCalcTests, init_pc) {
   {
-    AbstractTable::SharedTablePtr t = Loader::shortcuts::load("test/lin_xxs.tbl");
+    hyrise::storage::atable_ptr_t t = Loader::shortcuts::load("test/lin_xxs.tbl");
     ASSERT_TRUE(t->columnCount() == 10);
 
 
@@ -37,7 +37,7 @@ TEST_F(PointerCalcTests, pc_from_vertical_table_slice_count) {
 
   sm->loadTable("mytab", params);
 
-  AbstractTable::SharedTablePtr  t = sm->getTable("mytab");
+  hyrise::storage::atable_ptr_t  t = sm->getTable("mytab");
 
 
 
@@ -50,7 +50,7 @@ TEST_F(PointerCalcTests, pc_from_vertical_table_slice_count) {
   tmp_fd->push_back(3);
   tmp_fd->push_back(4);
 
-  AbstractTable::SharedTablePtr  res = PointerCalculatorFactory::createPointerCalculatorNonRef(t, tmp_fd, nullptr);
+  hyrise::storage::atable_ptr_t  res = PointerCalculatorFactory::createPointerCalculatorNonRef(t, tmp_fd, nullptr);
   ASSERT_EQ((unsigned) 4, res->sliceCount());
 }
 
@@ -64,7 +64,7 @@ TEST_F(PointerCalcTests, pc_from_vertical_table_slice_count_4_groups) {
   params.setInput(CSVInput("tables/10_col_only_data.tbl", CSVInput::params().setUnsafe(true).setCSVParams(csv::HYRISE_FORMAT)));
   sm->loadTable("mytab", params);
 
-  AbstractTable::SharedTablePtr  t = sm->getTable("mytab");
+  hyrise::storage::atable_ptr_t  t = sm->getTable("mytab");
   ASSERT_EQ((unsigned) 5, t->sliceCount());
 
 
@@ -74,7 +74,7 @@ TEST_F(PointerCalcTests, pc_from_vertical_table_slice_count_4_groups) {
   tmp_fd->push_back(3);
   tmp_fd->push_back(4);
 
-  AbstractTable::SharedTablePtr  res = PointerCalculatorFactory::createPointerCalculatorNonRef(t, tmp_fd, nullptr);
+  hyrise::storage::atable_ptr_t  res = PointerCalculatorFactory::createPointerCalculatorNonRef(t, tmp_fd, nullptr);
   ASSERT_EQ((unsigned) 2, res->sliceCount());
 }
 
@@ -89,7 +89,7 @@ TEST_F(PointerCalcTests, pc_from_vertical_table_slice_count_1_group) {
 
   sm->loadTable("mytab", params);
 
-  AbstractTable::SharedTablePtr  t = sm->getTable("mytab");
+  hyrise::storage::atable_ptr_t  t = sm->getTable("mytab");
   ASSERT_EQ((unsigned) 5, t->sliceCount());
 
 
@@ -98,7 +98,7 @@ TEST_F(PointerCalcTests, pc_from_vertical_table_slice_count_1_group) {
   tmp_fd->push_back(2);
   tmp_fd->push_back(3);
 
-  AbstractTable::SharedTablePtr  res = PointerCalculatorFactory::createPointerCalculatorNonRef(t, tmp_fd, nullptr);
+  hyrise::storage::atable_ptr_t  res = PointerCalculatorFactory::createPointerCalculatorNonRef(t, tmp_fd, nullptr);
   ASSERT_EQ(1u, res->sliceCount());
 
   ASSERT_EQ(12u, res->getSliceWidth(0));
@@ -114,14 +114,14 @@ TEST_F(PointerCalcTests, pc_from_vertical_table_slice_count_1_group_projection) 
 
   sm->loadTable("mytab", params);
 
-  AbstractTable::SharedTablePtr  t = sm->getTable("mytab");
+  hyrise::storage::atable_ptr_t  t = sm->getTable("mytab");
   ASSERT_EQ((unsigned) 5, t->sliceCount());
 
 
   std::vector<field_t> *tmp_fd = new std::vector<field_t>;
   tmp_fd->push_back(1);
 
-  AbstractTable::SharedTablePtr  res = PointerCalculatorFactory::createPointerCalculatorNonRef(t, tmp_fd, nullptr);
+  hyrise::storage::atable_ptr_t  res = PointerCalculatorFactory::createPointerCalculatorNonRef(t, tmp_fd, nullptr);
   ASSERT_EQ(1u, res->sliceCount());
   ASSERT_EQ(4u, res->getSliceWidth(0));
 
@@ -129,7 +129,7 @@ TEST_F(PointerCalcTests, pc_from_vertical_table_slice_count_1_group_projection) 
 
 
 TEST_F(PointerCalcTests, pc_using_factory) {
-  AbstractTable::SharedTablePtr t = Loader::shortcuts::load("test/lin_xxs.tbl");
+  hyrise::storage::atable_ptr_t t = Loader::shortcuts::load("test/lin_xxs.tbl");
   auto pc = PointerCalculatorFactory::createPointerCalculatorNonRef(t);
 
   ASSERT_TRUE(pc->columnCount() == 10);
@@ -141,7 +141,7 @@ TEST_F(PointerCalcTests, pc_using_factory) {
 }
 
 TEST_F(PointerCalcTests, pc_in_vector) {
-  AbstractTable::SharedTablePtr t = Loader::shortcuts::load("test/lin_xxs.tbl");
+  hyrise::storage::atable_ptr_t t = Loader::shortcuts::load("test/lin_xxs.tbl");
   auto pc = PointerCalculatorFactory::createPointerCalculatorNonRef(t);
 
   ASSERT_TRUE(pc->columnCount() == 10);
@@ -161,7 +161,7 @@ TEST_F(PointerCalcTests, pc_in_vector) {
 }
 
 TEST_F(PointerCalcTests, pc_on_selected_columns) {
-  AbstractTable::SharedTablePtr t = Loader::shortcuts::load("test/lin_xxs.tbl");
+  hyrise::storage::atable_ptr_t t = Loader::shortcuts::load("test/lin_xxs.tbl");
 
   field_list_t field_definition;
   field_definition.push_back(1); // col_1

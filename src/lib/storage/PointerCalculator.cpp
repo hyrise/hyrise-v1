@@ -34,7 +34,7 @@ PointerCalculator::PointerCalculator(hyrise::storage::c_atable_ptr_t t, pos_list
   updateFieldMapping();
 }
 
-AbstractTable::SharedTablePtr PointerCalculator::copy() const {
+hyrise::storage::atable_ptr_t PointerCalculator::copy() const {
   return std::make_shared<PointerCalculator>(table, fields, pos_list);
 }
 
@@ -294,7 +294,7 @@ pos_list_t PointerCalculator::getActualTablePositions() const {
 
 
 //FIXME: Template this method
-AbstractTable::SharedTablePtr PointerCalculator::copy_structure(const field_list_t *fields, const bool reuse_dict, const size_t initial_size, const bool with_containers) const {
+hyrise::storage::atable_ptr_t PointerCalculator::copy_structure(const field_list_t *fields, const bool reuse_dict, const size_t initial_size, const bool with_containers) const {
   std::vector<const ColumnMetadata *> metadata;
   std::vector<AbstractTable::SharedDictionaryPtr> *dictionaries = nullptr;
 

@@ -1,5 +1,5 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#include "storage/TableEqualityTest.h"
+#include "TableEqualityTest.h"
 
 #include <storage/AbstractTable.h>
 #include <storage/TableDiff.h>

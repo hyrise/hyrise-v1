@@ -41,7 +41,7 @@ TEST_F(TableBuilderTest, build_table) {
   list.append().set_type("STRING").set_name("second");
 
 
-  AbstractTable::SharedTablePtr  result = TableBuilder::build(list);
+  hyrise::storage::atable_ptr_t  result = TableBuilder::build(list);
   ASSERT_TRUE((bool) result);
   ASSERT_EQ(2u, result->columnCount());
 }
@@ -58,7 +58,7 @@ TEST_F(TableBuilderTest, build_table_with_layout) {
   // Set the layout
   list.appendGroup(1).appendGroup(2);
 
-  AbstractTable::SharedTablePtr  result = TableBuilder::build(list);
+  hyrise::storage::atable_ptr_t  result = TableBuilder::build(list);
   ASSERT_TRUE((bool) result);
   ASSERT_EQ(3u, result->columnCount());
   ASSERT_EQ(2u, result->sliceCount());
@@ -75,7 +75,7 @@ TEST_F(TableBuilderTest, build_table_with_layout_all_columns) {
   // Set the layout
   list.appendGroup(1).appendGroup(1).appendGroup(1);
 
-  AbstractTable::SharedTablePtr  result = TableBuilder::build(list);
+  hyrise::storage::atable_ptr_t  result = TableBuilder::build(list);
   ASSERT_TRUE((bool) result);
   ASSERT_EQ(3u, result->columnCount());
   ASSERT_EQ(3u, result->sliceCount());
@@ -92,7 +92,7 @@ TEST_F(TableBuilderTest, build_table_with_layout_all_row) {
   // Set the layout
   list.appendGroup(3);
 
-  AbstractTable::SharedTablePtr  result = TableBuilder::build(list);
+  hyrise::storage::atable_ptr_t  result = TableBuilder::build(list);
   ASSERT_TRUE((bool) result);
   ASSERT_EQ(3u, result->columnCount());
   ASSERT_EQ(1u, result->sliceCount());
@@ -110,7 +110,7 @@ TEST_F(TableBuilderTest, build_table_with_layout_order_check) {
   // Set the layout
   list.appendGroup(1).appendGroup(2);
 
-  AbstractTable::SharedTablePtr  result = TableBuilder::build(list);
+  hyrise::storage::atable_ptr_t  result = TableBuilder::build(list);
   ASSERT_TRUE((bool) result);
   ASSERT_EQ(3u, result->columnCount());
   ASSERT_EQ(2u, result->sliceCount());

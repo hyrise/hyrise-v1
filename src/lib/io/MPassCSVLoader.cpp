@@ -203,7 +203,7 @@ void pass2(std::shared_ptr<AbstractTable> intable, hyrise::io::MPassLoader::para
 
 std::shared_ptr<AbstractTable> MPassCSVInput::load(std::shared_ptr<AbstractTable> intable, const compound_metadata_list *meta, const Loader::params &args) {
 
-  std::thread kThreads[intable->columnCount()];
+  std::vector<std::thread> kThreads(intable->columnCount());
   auto buckets = std::vector<hyrise::io::MPassLoader::parallel_data *>(intable->columnCount());
 
   // Each attribute as a file in the base directory that we read and map

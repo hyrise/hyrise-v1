@@ -13,16 +13,21 @@ namespace access {
 
 class ResponseTask;
 
-class RequestParseTask : public net::AbstractRequestHandler {
+class RequestParseTask {
  private:
   net::AbstractConnection *_connection;
   std::shared_ptr<ResponseTask> _responseTask;
  public:
   explicit RequestParseTask(net::AbstractConnection *connection);
+  
   virtual ~RequestParseTask();
+  
   std::shared_ptr<ResponseTask> getResponseTask() const;
+  
   virtual void operator()();
+
   static std::string name();
+  
   const std::string vname();
 };
 

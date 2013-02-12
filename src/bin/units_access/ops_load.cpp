@@ -85,7 +85,7 @@ TEST_F(LoadTests, load_exception) {
   std::string table_description = "Mobile | ID | Name | Mail | Company | Phone | Org\nINTEGER | INTEGER | INTEGER | INTEGER | INTEGER | INTEGER | INTEGER\n0_R | 1_R | 1_R | 1_R | 1_R | 1_R | 1_R";
   sm->loadTableFileWithStringHeader("mytab", "tables/10_col_only_data.tbl" , table_description, true);
 
-  AbstractTable::SharedTablePtr  t = sm->getTable("mytab");
+  hyrise::storage::atable_ptr_t  t = sm->getTable("mytab");
   ASSERT_EQ(2u, t->sliceCount());
   sm->removeAll();
   }

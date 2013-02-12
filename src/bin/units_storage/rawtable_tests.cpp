@@ -204,20 +204,20 @@ TEST_F(RawTableTests, test_raw_table_record_builder_with_1k_rows_and_get_value) 
 }
 
 TEST_F(RawTableTests, simple_store_initialize_and_should_behave_like_normal_table) {
-  AbstractTable::SharedTablePtr t = Loader::shortcuts::load("test/lin_xxs.tbl");
-  AbstractTable::SharedTablePtr tab = std::make_shared<hyrise::storage::SimpleStore>(t);
+  hyrise::storage::atable_ptr_t t = Loader::shortcuts::load("test/lin_xxs.tbl");
+  hyrise::storage::atable_ptr_t tab = std::make_shared<hyrise::storage::SimpleStore>(t);
   ASSERT_TABLE_EQUAL(tab, t);
 }
 
 TEST_F(RawTableTests, simple_store_throws_unsopported) {
-  AbstractTable::SharedTablePtr t = Loader::shortcuts::load("test/lin_xxs.tbl");
+  hyrise::storage::atable_ptr_t t = Loader::shortcuts::load("test/lin_xxs.tbl");
   hyrise::storage::SimpleStore tab(t);
 
   ASSERT_THROW(tab.copy(), std::runtime_error);
 }
 
 TEST_F(RawTableTests, simple_store_insert_new_row_in_delta) {
-  AbstractTable::SharedTablePtr t = Loader::shortcuts::load("test/lin_xxs.tbl");
+  hyrise::storage::atable_ptr_t t = Loader::shortcuts::load("test/lin_xxs.tbl");
   auto tab = std::make_shared<hyrise::storage::SimpleStore>(t);
   auto delta = tab->getDelta();
   auto meta = delta->metadata();
@@ -240,8 +240,8 @@ TEST_F(RawTableTests, simple_store_insert_new_row_in_delta) {
 
 
 TEST_F(RawTableTests, simple_store_insert_and_merge) {
-  AbstractTable::SharedTablePtr t = Loader::shortcuts::load("test/lin_xxs.tbl");
-  AbstractTable::SharedTablePtr ref = Loader::shortcuts::load("test/reference/lin_xxs_raw_merged.tbl");
+  hyrise::storage::atable_ptr_t t = Loader::shortcuts::load("test/lin_xxs.tbl");
+  hyrise::storage::atable_ptr_t ref = Loader::shortcuts::load("test/reference/lin_xxs_raw_merged.tbl");
 
   auto tab = std::make_shared<hyrise::storage::SimpleStore>(t);
   auto delta = tab->getDelta();
@@ -263,8 +263,8 @@ TEST_F(RawTableTests, simple_store_insert_and_merge) {
 }
 
 TEST_F(RawTableTests, simple_store_insert_and_merge_new_values) {
-  AbstractTable::SharedTablePtr t = Loader::shortcuts::load("test/lin_xxs.tbl");
-  AbstractTable::SharedTablePtr ref = Loader::shortcuts::load("test/reference/lin_xxs_raw_merged2.tbl");
+  hyrise::storage::atable_ptr_t t = Loader::shortcuts::load("test/lin_xxs.tbl");
+  hyrise::storage::atable_ptr_t ref = Loader::shortcuts::load("test/reference/lin_xxs_raw_merged2.tbl");
 
   auto tab = std::make_shared<hyrise::storage::SimpleStore>(t);
   auto delta = tab->getDelta();

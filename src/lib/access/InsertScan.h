@@ -16,7 +16,7 @@
 
 */
 class InsertScan : public _PlanOperation {
-  AbstractTable::SharedTablePtr data;
+  hyrise::storage::atable_ptr_t data;
 
  public:
 
@@ -33,7 +33,7 @@ class InsertScan : public _PlanOperation {
 
     @param data the row data - materialized
   */
-  void setInputData(AbstractTable::SharedTablePtr c);
+  void setInputData(hyrise::storage::atable_ptr_t c);
 
   /*
     Execute this planoperation.

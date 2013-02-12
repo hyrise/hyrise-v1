@@ -15,7 +15,7 @@
 namespace hyrise {
 namespace insertonly {
 
-AbstractTable::SharedTablePtr construct(std::string filename, const tx::transaction_id_t& from_tid) {
+hyrise::storage::atable_ptr_t construct(std::string filename, const tx::transaction_id_t& from_tid) {
   auto ret = Loader::load(Loader::params()
                       .setInsertOnly({true, from_tid})
                       .setHeader(CSVHeader(filename))

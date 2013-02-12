@@ -1,7 +1,8 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "storage/PrettyPrinter.h"
 
-#include <ostream>
+#include <numeric>
+#include <iostream>
 #include <sstream>
 #include <string>
 

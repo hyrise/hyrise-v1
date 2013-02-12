@@ -70,14 +70,14 @@ public:
    *
    * @param container_index Index of the container.
    */
-  AbstractTable::SharedTablePtr getContainer(const size_t container_index) const;
+  hyrise::storage::atable_ptr_t getContainer(const size_t container_index) const;
 
   /**
    * Returns the container for a given column.
    *
    * @param column_index Index of the column of which to retrieve the container.
    */
-  const AbstractTable::SharedTablePtr& containerAt(const size_t column_index, const bool for_writing = false) const;
+  const hyrise::storage::atable_ptr_t& containerAt(const size_t column_index, const bool for_writing = false) const;
 
   /**
    * Returns the offset of a certain column inside its container.
@@ -112,16 +112,16 @@ public:
 
   virtual size_t getSliceWidth(const size_t slice) const;
 
-  virtual  AbstractTable::SharedTablePtr copy_structure(const field_list_t *fields = nullptr, const bool reuse_dict = false, const size_t initial_size = 0, const bool with_containers = true, const bool compressed = false) const;
+  virtual  hyrise::storage::atable_ptr_t copy_structure(const field_list_t *fields = nullptr, const bool reuse_dict = false, const size_t initial_size = 0, const bool with_containers = true, const bool compressed = false) const;
 
-  virtual  AbstractTable::SharedTablePtr copy_structure_modifiable(const field_list_t *fields = nullptr, const size_t initial_size = 0, const bool with_containers = true) const;
+  virtual  hyrise::storage::atable_ptr_t copy_structure_modifiable(const field_list_t *fields = nullptr, const size_t initial_size = 0, const bool with_containers = true) const;
 
   virtual table_id_t subtableCount() const {
     return 1;
   }
 
 
-  virtual  AbstractTable::SharedTablePtr copy() const;
+  virtual  hyrise::storage::atable_ptr_t copy() const;
 
   virtual size_t getSliceForColumn(const size_t column) const;
 

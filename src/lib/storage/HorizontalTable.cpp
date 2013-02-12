@@ -73,7 +73,7 @@ size_t HorizontalTable::getOffsetInSlice(const size_t column) const {
   throw std::runtime_error("Not implemented");
 };
 
-AbstractTable::SharedTablePtr HorizontalTable::copy() const {
+hyrise::storage::atable_ptr_t HorizontalTable::copy() const {
   throw std::runtime_error("Not implemented");
 }
 

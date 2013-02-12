@@ -31,7 +31,7 @@ public:
 
   virtual ~PointerCalculator();
 
-  virtual  AbstractTable::SharedTablePtr copy() const;
+  virtual  hyrise::storage::atable_ptr_t copy() const;
 
   void setPositions(const pos_list_t pos);
 
@@ -81,7 +81,7 @@ public:
 
   pos_list_t getActualTablePositions() const;
 
-  virtual  AbstractTable::SharedTablePtr copy_structure(const field_list_t *fields = nullptr, const bool reuse_dict = false, const size_t initial_size = 0, const bool with_containers = true) const;
+  virtual  hyrise::storage::atable_ptr_t copy_structure(const field_list_t *fields = nullptr, const bool reuse_dict = false, const size_t initial_size = 0, const bool with_containers = true) const;
 
 
   std::shared_ptr<PointerCalculator> intersect(const std::shared_ptr<const PointerCalculator>& other) const;

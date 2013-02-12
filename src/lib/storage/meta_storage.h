@@ -27,7 +27,7 @@ struct type_switch {
   template<class F>
   inline typename F::value_type operator()(size_t i, F &f) {
     if (i == N) {
-      return f.operator()<typename boost::mpl::at_c< hyrise_basic_types, N>::type>();
+      return f.template operator()<typename boost::mpl::at_c< hyrise_basic_types, N>::type>();
     } else {
       type_switch < L, N + 1 > next;
       return next(i, f);

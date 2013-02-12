@@ -539,8 +539,8 @@ TEST_F(LayouterTests, layout_load_table_from_output) {
   Result r = executeSimpleQuery();
   std::string tmp = r.output();
 
-  AbstractTable::SharedTablePtr  t = Loader::shortcuts::loadWithStringHeader("test/tables/only_data.tbl", tmp);
-  AbstractTable::SharedTablePtr  res = Loader::shortcuts::loadWithHeader("test/tables/only_data.tbl", "test/header/layouter_simple.tbl");
+  hyrise::storage::atable_ptr_t  t = Loader::shortcuts::loadWithStringHeader("test/tables/only_data.tbl", tmp);
+  hyrise::storage::atable_ptr_t  res = Loader::shortcuts::loadWithHeader("test/tables/only_data.tbl", "test/header/layouter_simple.tbl");
 
   ASSERT_TABLE_EQUAL(t, res);
 }

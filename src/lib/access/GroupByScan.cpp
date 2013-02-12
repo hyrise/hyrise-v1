@@ -41,20 +41,20 @@ hyrise::storage::atable_ptr_t GroupByScan::createResultTableLayout() {
   metadata_list  metadata;
   std::vector<AbstractTable::SharedDictionaryPtr> dictionaries;
   //creating fields from grouping fields
-  AbstractTable::SharedTablePtr group_tab = getInputTable(0)->copy_structure_modifiable(&_field_definition);
+  hyrise::storage::atable_ptr_t group_tab = getInputTable(0)->copy_structure_modifiable(&_field_definition);
   //creating fields from aggregate functions
   for (const auto & fun: aggregate_functions) {
     ColumnMetadata *m = new ColumnMetadata(fun->columnName(getInputTable(0)->nameOfColumn(fun->getField())), fun->getType());
     metadata.push_back(m);
     dictionaries.push_back(AbstractDictionary::dictionaryWithType<DictionaryFactory<OrderIndifferentDictionary> >(fun->getType()));
   }
-  AbstractTable::SharedTablePtr agg_tab = std::make_shared<Table<DEFAULT_STRATEGY>>(&metadata, &dictionaries, 0, false);
+  hyrise::storage::atable_ptr_t agg_tab = std::make_shared<Table<DEFAULT_STRATEGY>>(&metadata, &dictionaries, 0, false);
 
   //Clean the metadata
   for (auto e : metadata)
     delete e;
 
-  std::vector<AbstractTable::SharedTablePtr > vc;
+  std::vector<hyrise::storage::atable_ptr_t > vc;
   if (_field_definition.size() == 0 && aggregate_functions.size() != 0) {
     return agg_tab;
   } else if (_field_definition.size() != 0 && aggregate_functions.size() == 0) {
@@ -62,7 +62,7 @@ hyrise::storage::atable_ptr_t GroupByScan::createResultTableLayout() {
   } else {
     vc.push_back(group_tab);
     vc.push_back(agg_tab);
-    AbstractTable::SharedTablePtr result = std::make_shared<MutableVerticalTable>(vc);
+    hyrise::storage::atable_ptr_t result = std::make_shared<MutableVerticalTable>(vc);
     return result;
   }
 }

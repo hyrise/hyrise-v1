@@ -15,9 +15,9 @@ class MergeTests : public ::hyrise::Test {};
 
 
 TEST_F(MergeTests, simple_merge_test_with_rows) {
-  AbstractTable::SharedTablePtr main = Loader::shortcuts::load("test/merge1_main_row.tbl");
-  AbstractTable::SharedTablePtr delta = Loader::shortcuts::load("test/merge1_delta.tbl"); // oader::params().setModifiable(true));
-  AbstractTable::SharedTablePtr correct_result = Loader::shortcuts::load("test/merge1_result.tbl");
+  hyrise::storage::atable_ptr_t main = Loader::shortcuts::load("test/merge1_main_row.tbl");
+  hyrise::storage::atable_ptr_t delta = Loader::shortcuts::load("test/merge1_delta.tbl"); // oader::params().setModifiable(true));
+  hyrise::storage::atable_ptr_t correct_result = Loader::shortcuts::load("test/merge1_result.tbl");
 
   std::vector<hyrise::storage::c_atable_ptr_t > tables;
   tables.push_back(main);
@@ -36,9 +36,9 @@ TEST_F(MergeTests, simple_merge_test_with_rows) {
 
 
 TEST_F(MergeTests, simple_merge_test) {
-  AbstractTable::SharedTablePtr main = Loader::shortcuts::load("test/merge1_main.tbl");
-  AbstractTable::SharedTablePtr delta = Loader::shortcuts::load("test/merge1_delta.tbl");
-  AbstractTable::SharedTablePtr correct_result = Loader::shortcuts::load("test/merge1_result.tbl");
+  hyrise::storage::atable_ptr_t main = Loader::shortcuts::load("test/merge1_main.tbl");
+  hyrise::storage::atable_ptr_t delta = Loader::shortcuts::load("test/merge1_delta.tbl");
+  hyrise::storage::atable_ptr_t correct_result = Loader::shortcuts::load("test/merge1_result.tbl");
 
   std::vector<hyrise::storage::c_atable_ptr_t > tables;
   tables.push_back(main);
@@ -57,8 +57,8 @@ TEST_F(MergeTests, simple_merge_test) {
 
 TEST_F(MergeTests, logarithmic_vs_simple_merge_test) {
   TableGenerator g(true);
-  AbstractTable::SharedTablePtr main = g.int_random(1000, 1);
-  AbstractTable::SharedTablePtr delta = g.int_random_delta(1000, 1);
+  hyrise::storage::atable_ptr_t main = g.int_random(1000, 1);
+  hyrise::storage::atable_ptr_t delta = g.int_random_delta(1000, 1);
 
   std::vector<hyrise::storage::c_atable_ptr_t > tables;
   tables.push_back(main);
@@ -75,8 +75,8 @@ TEST_F(MergeTests, logarithmic_vs_simple_merge_test) {
 
 TEST_F(MergeTests, row_wise_merger_vs_simple_merge_test) {
   TableGenerator g(true);
-  AbstractTable::SharedTablePtr main = g.int_random(1000, 3);
-  AbstractTable::SharedTablePtr delta = g.int_random_delta(1000, 3);
+  hyrise::storage::atable_ptr_t main = g.int_random(1000, 3);
+  hyrise::storage::atable_ptr_t delta = g.int_random_delta(1000, 3);
 
   std::vector<hyrise::storage::c_atable_ptr_t > tables;
   tables.push_back(main);
@@ -95,9 +95,9 @@ TEST_F(MergeTests, row_wise_merger_vs_simple_merge_test) {
 
 TEST_F(MergeTests, simple_merger_delta_test) {
   TableGenerator g(true);
-  AbstractTable::SharedTablePtr main1 = g.int_random(1000, 1);
-  AbstractTable::SharedTablePtr main2 = g.int_random(1000, 1);
-  AbstractTable::SharedTablePtr delta = g.create_empty_table_modifiable(1000, 1);
+  hyrise::storage::atable_ptr_t main1 = g.int_random(1000, 1);
+  hyrise::storage::atable_ptr_t main2 = g.int_random(1000, 1);
+  hyrise::storage::atable_ptr_t delta = g.create_empty_table_modifiable(1000, 1);
 
   // copy main2 into delta
   delta->resize(main2->size());
@@ -130,9 +130,9 @@ TEST_F(MergeTests, simple_merger_delta_test) {
 
 TEST_F(MergeTests, sequential_heap_merger_delta_test) {
   TableGenerator g(true);
-  AbstractTable::SharedTablePtr main1 = g.int_random(10, 1);
-  AbstractTable::SharedTablePtr main2 = g.int_random(10, 1);
-  AbstractTable::SharedTablePtr delta = g.create_empty_table_modifiable(10, 1);
+  hyrise::storage::atable_ptr_t main1 = g.int_random(10, 1);
+  hyrise::storage::atable_ptr_t main2 = g.int_random(10, 1);
+  hyrise::storage::atable_ptr_t delta = g.create_empty_table_modifiable(10, 1);
 
   // copy main2 into delta
   delta->resize(main2->size());
@@ -164,9 +164,9 @@ TEST_F(MergeTests, sequential_heap_merger_delta_test) {
 
 TEST_F(MergeTests, DISABLED_parallel_heap_merger_delta_test) {
   TableGenerator g(true);
-  AbstractTable::SharedTablePtr main1 = g.int_random(1000, 1);
-  AbstractTable::SharedTablePtr main2 = g.int_random(1000, 1);
-  AbstractTable::SharedTablePtr delta = g.create_empty_table_modifiable(1000, 1);
+  hyrise::storage::atable_ptr_t main1 = g.int_random(1000, 1);
+  hyrise::storage::atable_ptr_t main2 = g.int_random(1000, 1);
+  hyrise::storage::atable_ptr_t delta = g.create_empty_table_modifiable(1000, 1);
 
   // copy main2 into delta
   delta->resize(main2->size());
@@ -263,7 +263,7 @@ TEST_F(MergeTests, logarithmic_generation_2_test) {
   TableMerger merger(new LogarithmicMergeStrategy(2), new SequentialHeapMerger());
 
   for (int i = 1; i < runs; i++) {
-    AbstractTable::SharedTablePtr delta = Loader::shortcuts::load("test/merge1_delta.tbl");
+    hyrise::storage::atable_ptr_t delta = Loader::shortcuts::load("test/merge1_delta.tbl");
     tables.push_back(delta);
     const auto& result = merger.merge(tables);
     actual_generations[i] = result.size();
@@ -274,11 +274,11 @@ TEST_F(MergeTests, logarithmic_generation_2_test) {
 }
 
 TEST_F(MergeTests, merge_with_different_layout) {
-  AbstractTable::SharedTablePtr main = Loader::shortcuts::load("test/merge1_main.tbl");
-  AbstractTable::SharedTablePtr delta = Loader::shortcuts::load("test/merge1_delta.tbl"); //, Loader::params().set_modifiable(true));
-  AbstractTable::SharedTablePtr correct_result = Loader::shortcuts::load("test/merge1_result.tbl");
+  hyrise::storage::atable_ptr_t main = Loader::shortcuts::load("test/merge1_main.tbl");
+  hyrise::storage::atable_ptr_t delta = Loader::shortcuts::load("test/merge1_delta.tbl"); //, Loader::params().set_modifiable(true));
+  hyrise::storage::atable_ptr_t correct_result = Loader::shortcuts::load("test/merge1_result.tbl");
 
-  AbstractTable::SharedTablePtr dest = Loader::shortcuts::load("test/merge1_newlayout.tbl", Loader::params().setModifiableMutableVerticalTable(true));
+  hyrise::storage::atable_ptr_t dest = Loader::shortcuts::load("test/merge1_newlayout.tbl", Loader::params().setModifiableMutableVerticalTable(true));
 
   ASSERT_EQ(3u, main->sliceCount());
   ASSERT_EQ(1u, dest->sliceCount());
@@ -302,11 +302,11 @@ TEST_F(MergeTests, merge_with_different_layout) {
 }
 
 TEST_F(MergeTests, merge_with_different_layout_2) {
-  AbstractTable::SharedTablePtr main = Loader::shortcuts::load("test/merge1_main.tbl");
-  AbstractTable::SharedTablePtr delta = Loader::shortcuts::load("test/merge1_delta.tbl"); //, Loader::params().set_modifiable(true));
-  AbstractTable::SharedTablePtr correct_result = Loader::shortcuts::load("test/merge1_result.tbl");
+  hyrise::storage::atable_ptr_t main = Loader::shortcuts::load("test/merge1_main.tbl");
+  hyrise::storage::atable_ptr_t delta = Loader::shortcuts::load("test/merge1_delta.tbl"); //, Loader::params().set_modifiable(true));
+  hyrise::storage::atable_ptr_t correct_result = Loader::shortcuts::load("test/merge1_result.tbl");
 
-  AbstractTable::SharedTablePtr dest = Loader::shortcuts::load("test/merge1_newlayout_2.tbl", Loader::params().setModifiableMutableVerticalTable(true));
+  hyrise::storage::atable_ptr_t dest = Loader::shortcuts::load("test/merge1_newlayout_2.tbl", Loader::params().setModifiableMutableVerticalTable(true));
 
   ASSERT_EQ(3u, main->sliceCount());
   ASSERT_EQ(2u, dest->sliceCount());

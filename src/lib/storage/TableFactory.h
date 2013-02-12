@@ -4,6 +4,8 @@
 
 #include <memory>
 
+#include "helper/types.h"
+
 #include "AbstractTable.h"
 #include "Table.h"
 
@@ -11,7 +13,7 @@ class AbstractTableFactory {
 public:
   AbstractTableFactory();
   virtual ~AbstractTableFactory();
-  virtual AbstractTable::SharedTablePtr generate(std::vector<const ColumnMetadata*> *meta,
+  virtual hyrise::storage::atable_ptr_t generate(std::vector<const ColumnMetadata*> *meta,
       std::vector<AbstractTable::SharedDictionaryPtr> *d = nullptr,
       size_t initial_size = 0,
       bool sorted = true,
@@ -28,7 +30,7 @@ class TableFactory : public AbstractTableFactory {
 public:
   TableFactory();
   virtual ~TableFactory();
-  virtual AbstractTable::SharedTablePtr generate(std::vector<const ColumnMetadata *> *m,
+  virtual hyrise::storage::atable_ptr_t generate(std::vector<const ColumnMetadata *> *m,
       std::vector<AbstractTable::SharedDictionaryPtr> *d = nullptr,
       size_t initial_size = 0,
       bool sorted = true,
@@ -44,7 +46,7 @@ template<typename Strategy, template <typename T, typename S> class Allocator>
 TableFactory<Strategy, Allocator>::~TableFactory() {}
 
 template<typename Strategy, template <typename T, typename S> class Allocator>
-AbstractTable::SharedTablePtr TableFactory<Strategy, Allocator>::generate(std::vector<const ColumnMetadata *> *m,
+hyrise::storage::atable_ptr_t TableFactory<Strategy, Allocator>::generate(std::vector<const ColumnMetadata *> *m,
     std::vector<AbstractTable::SharedDictionaryPtr> *d,
     size_t initial_size,
     bool sorted,

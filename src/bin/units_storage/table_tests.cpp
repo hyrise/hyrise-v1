@@ -28,17 +28,17 @@ public:
 };
 
 TEST_F(TableTests, does_copy_structure_copy_structure) {
-  AbstractTable::SharedTablePtr  input = Loader::shortcuts::load("test/lin_xxs.tbl");
+  hyrise::storage::atable_ptr_t  input = Loader::shortcuts::load("test/lin_xxs.tbl");
   ASSERT_EQ(3u, input->sliceCount());
 
-  AbstractTable::SharedTablePtr  copy  = input->copy_structure();
+  hyrise::storage::atable_ptr_t  copy  = input->copy_structure();
   ASSERT_EQ(3u, input->sliceCount()) << "Copied table should have the same number of containers";
 }
 
 TEST_F(TableTests, generate_generates_layout) {
 
   TableGenerator tg;
-  AbstractTable::SharedTablePtr  input = tg.create_empty_table(0, 10);
+  hyrise::storage::atable_ptr_t  input = tg.create_empty_table(0, 10);
   ASSERT_EQ(10u, input->sliceCount());
 
   std::vector<unsigned> l;
@@ -65,14 +65,14 @@ TEST_F(TableTests, generate_generates_layout) {
 }
 
 TEST_F(TableTests, number_of_column) {
-  AbstractTable::SharedTablePtr t = Loader::shortcuts::load("test/lin_xxs.tbl");
+  hyrise::storage::atable_ptr_t t = Loader::shortcuts::load("test/lin_xxs.tbl");
   ASSERT_TRUE(t->numberOfColumn("col_0") == 0);
   ASSERT_TRUE(t->numberOfColumn("col_2") == 2);
   //ASSERT_TRUE( t->numberOfColumn("does_not_exist") == -1 );
 }
 
 TEST_F(TableTests, bit_compression_test) {
-  AbstractTable::SharedTablePtr main = Loader::shortcuts::load("test/bittest.tbl");
+  hyrise::storage::atable_ptr_t main = Loader::shortcuts::load("test/bittest.tbl");
 
   ASSERT_TRUE(main->getValue<hyrise_int_t>(0, 0) == 4);
   ASSERT_TRUE(main->getValue<hyrise_int_t>(0, 1) == 0);
@@ -110,7 +110,7 @@ TEST_F(TableTests, test_different_allocation_1) {
 
 TEST_F(TableTests, test_modifiable_table) {
   TableGenerator t;
-  AbstractTable::SharedTablePtr a = t.create_empty_table_modifiable(10, 2);
+  hyrise::storage::atable_ptr_t a = t.create_empty_table_modifiable(10, 2);
   a->setValue<hyrise_int_t>(0, 0, 100);
   a->setValue<hyrise_int_t>(0, 1, 200);
   ASSERT_EQ(a->getValue<hyrise_int_t>(0, 0), 100);
@@ -119,7 +119,7 @@ TEST_F(TableTests, test_modifiable_table) {
 
 TEST_F(TableTests, test_modifiable_table2) {
   TableGenerator t;
-  AbstractTable::SharedTablePtr a = t.create_empty_base_table_modifiable<MemalignStrategy<64> >(10, 2);
+  hyrise::storage::atable_ptr_t a = t.create_empty_base_table_modifiable<MemalignStrategy<64> >(10, 2);
   a->setValue<hyrise_int_t>(0, 0, 100);
   a->setValue<hyrise_int_t>(0, 1, 200);
   ASSERT_EQ(a->getValue<hyrise_int_t>(0, 0), 100);
@@ -128,11 +128,11 @@ TEST_F(TableTests, test_modifiable_table2) {
 
 TEST_F(TableTests, test_table_copy) {
   TableGenerator t;
-  AbstractTable::SharedTablePtr a = t.create_empty_base_table_modifiable<MemalignStrategy<64> >(10, 2);
+  hyrise::storage::atable_ptr_t a = t.create_empty_base_table_modifiable<MemalignStrategy<64> >(10, 2);
   a->setValue<hyrise_int_t>(0, 0, 100);
   a->setValue<hyrise_int_t>(0, 1, 200);
 
-  AbstractTable::SharedTablePtr b = a->copy();
+  hyrise::storage::atable_ptr_t b = a->copy();
   b->setValue<hyrise_int_t>(0, 0, 50);
   b->setValue<hyrise_int_t>(0, 1, 100);
 

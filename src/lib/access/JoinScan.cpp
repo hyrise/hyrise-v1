@@ -36,8 +36,8 @@ void JoinScan::setupPlanOperation() {
 }
 
 void JoinScan::executePlanOperation() {
-  AbstractTable::SharedTablePtr left = input.getTable(0)->copy_structure(nullptr, true);
-  AbstractTable::SharedTablePtr right = input.getTable(1)->copy_structure(nullptr, true);
+  hyrise::storage::atable_ptr_t left = input.getTable(0)->copy_structure(nullptr, true);
+  hyrise::storage::atable_ptr_t right = input.getTable(1)->copy_structure(nullptr, true);
 
   size_t result_row = 0;
   size_t reserved = input.getTable(0)->size() > input.getTable(1)->size() ?
@@ -59,11 +59,11 @@ void JoinScan::executePlanOperation() {
   }
 
   // Create one table
-  std::vector<AbstractTable::SharedTablePtr > vc;
+  std::vector<hyrise::storage::atable_ptr_t > vc;
   vc.push_back(left);
   vc.push_back(right);
 
-  AbstractTable::SharedTablePtr result = std::make_shared<MutableVerticalTable>(vc);
+  hyrise::storage::atable_ptr_t result = std::make_shared<MutableVerticalTable>(vc);
   addResult(result);
 }
 

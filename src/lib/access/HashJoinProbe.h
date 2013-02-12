@@ -25,7 +25,7 @@ class HashJoinProbe : public _PlanOperation {
    *  AbstractHashTable to write matching rows in given position lists.
    */
  public:
-  HashJoinProbe();
+  explicit HashJoinProbe();
 
   void setBuildTable(hyrise::storage::c_atable_ptr_t table);
   hyrise::storage::c_atable_ptr_t getBuildTable() const;
@@ -70,7 +70,7 @@ class HashJoinProbe : public _PlanOperation {
   /*!
    *  Constructs resulting table from given build and probe tables' rows.
    */
-  AbstractTable::SharedTablePtr buildResultTable(
+  hyrise::storage::atable_ptr_t buildResultTable(
       pos_list_t *buildTablePosList,
       pos_list_t *probeTablePosList) const;
 };

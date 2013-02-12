@@ -311,7 +311,7 @@ public:
     return _end;
   }
 
-  AbstractTable::SharedTablePtr getHashTable() const {
+  hyrise::storage::atable_ptr_t getHashTable() const {
     return _hashTable;
   }
 

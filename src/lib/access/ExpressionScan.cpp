@@ -17,13 +17,13 @@ namespace {
   /// auto _ = QueryParser::registerPlanOperation<ExpressionScan>("ExpressionScan");
 }
 
-ColumnExpression::ColumnExpression(AbstractTable::SharedTablePtr t) : _table(t) {
+ColumnExpression::ColumnExpression(hyrise::storage::atable_ptr_t t) : _table(t) {
 }
 
 ColumnExpression::~ColumnExpression() {
 }
 
-AddExp::AddExp(AbstractTable::SharedTablePtr t,
+AddExp::AddExp(hyrise::storage::atable_ptr_t t,
                const field_t field1,
                const field_t field2) : ColumnExpression(t), _field1(field1), _field2(field2) {
 }
@@ -31,7 +31,7 @@ AddExp::AddExp(AbstractTable::SharedTablePtr t,
 AddExp::~AddExp() {
 }
 
-void AddExp::setResult(AbstractTable::SharedTablePtr result,
+void AddExp::setResult(hyrise::storage::atable_ptr_t result,
                        const field_t column,
                        const size_t row) const {
   result->setValue<hyrise_int_t>(column, row, _table->getValue<hyrise_int_t>(_field1, row) + _table->getValue<hyrise_int_t>(_field2, row));
@@ -67,7 +67,7 @@ void ExpressionScan::executePlanOperation() {
   std::vector<AbstractTable::SharedDictionaryPtr > dicts;
   dicts.push_back(AbstractDictionary::dictionaryWithType<DictionaryFactory<OrderIndifferentDictionary> >(_expression->getType()));
 
-  AbstractTable::SharedTablePtr exp_result = std::make_shared<Table<DEFAULT_STRATEGY>>(&metadata, &dicts, 0, false);
+  hyrise::storage::atable_ptr_t exp_result = std::make_shared<Table<DEFAULT_STRATEGY>>(&metadata, &dicts, 0, false);
   exp_result->resize(input_size);
 
   for (size_t row = 0; row < input_size; ++row) {

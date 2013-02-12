@@ -48,7 +48,7 @@ public:
 
   explicit Store(std::vector<std::vector<const ColumnMetadata *> *> md);
 
-  explicit Store(AbstractTable::SharedTablePtr main_table);
+  explicit Store(hyrise::storage::atable_ptr_t main_table);
 
   Store();
 
@@ -57,12 +57,12 @@ public:
   /**
    * Returns a pointer to the main tables vector.
    */
-  std::vector< AbstractTable::SharedTablePtr > getMainTables() const;
+  std::vector< hyrise::storage::atable_ptr_t > getMainTables() const;
 
   /**
    * Returns a pointer to the delta store.
    */
-  AbstractTable::SharedTablePtr getDeltaTable() const;
+  hyrise::storage::atable_ptr_t getDeltaTable() const;
 
   const ColumnMetadata *metadataAt(const size_t column_index, const size_t row_index = 0, const table_id_t table_id = 0) const;
 
@@ -111,13 +111,13 @@ public:
    *
    * @param _delta New delta.
    */
-  void setDelta(AbstractTable::SharedTablePtr _delta);
+  void setDelta(hyrise::storage::atable_ptr_t _delta);
 
   virtual table_id_t subtableCount() const {
     return main_tables.size() + 1;
   }
 
-  virtual  AbstractTable::SharedTablePtr copy() const;
+  virtual  hyrise::storage::atable_ptr_t copy() const;
 
   virtual const attr_vectors_t getAttributeVectors(size_t column) const;
 };

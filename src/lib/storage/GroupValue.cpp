@@ -16,13 +16,13 @@ u_int64_t GroupValue::hash_vids(const ValueIdList &vids) {
   return h;
 }
 
-size_t GroupValue::hash_value(AbstractTable::SharedTablePtr source, size_t f, ValueId vid) {
+size_t GroupValue::hash_value(hyrise::storage::atable_ptr_t source, size_t f, ValueId vid) {
   hyrise::storage::hash_functor<size_t> fun(source.get(), f, vid);
   hyrise::storage::type_switch<hyrise_basic_types> ts;
   return ts(source->typeOfColumn(f), fun);
 }
 
-size_t GroupValue::hash_group_values(AbstractTable::SharedTablePtr source, const ValueIdList &vids, field_list_t &fields) {
+size_t GroupValue::hash_group_values(hyrise::storage::atable_ptr_t source, const ValueIdList &vids, field_list_t &fields) {
   // FIXME: When we use 0 as seed value, we tend to get early hash collisions, a real implementation would need to fix this...
   size_t seed = 0x9e3779b9 / 2;
 

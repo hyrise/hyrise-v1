@@ -12,7 +12,7 @@ namespace {
   auto _ = QueryParser::registerPlanOperation<HashJoinProbe>("HashJoinProbe");
 }
 
-HashJoinProbe::HashJoinProbe() : _PlanOperation() {
+HashJoinProbe::HashJoinProbe() : _PlanOperation(), _selfjoin(false) {
 }
 
 namespace { log4cxx::LoggerPtr logger(log4cxx::Logger::getLogger("access.plan._PlanOperation")); }
@@ -64,10 +64,10 @@ void HashJoinProbe::fetchPositions(pos_list_t *buildTablePosList,
   LOG4CXX_DEBUG(logger, "Done Probing");
 }
 
-AbstractTable::SharedTablePtr HashJoinProbe::buildResultTable(
+hyrise::storage::atable_ptr_t HashJoinProbe::buildResultTable(
   pos_list_t *buildTablePosList,
   pos_list_t *probeTablePosList) const {
-  std::vector<AbstractTable::SharedTablePtr > parts;
+  std::vector<hyrise::storage::atable_ptr_t > parts;
 
   auto
   buildTableRows = PointerCalculatorFactory::createPointerCalculatorNonRef(getBuildTable(), nullptr, buildTablePosList),
@@ -76,7 +76,7 @@ AbstractTable::SharedTablePtr HashJoinProbe::buildResultTable(
   parts.push_back(probeTableRows);
   parts.push_back(buildTableRows);
 
-  AbstractTable::SharedTablePtr result = std::make_shared<MutableVerticalTable>(parts);
+  hyrise::storage::atable_ptr_t result = std::make_shared<MutableVerticalTable>(parts);
   return result;
 }
 
