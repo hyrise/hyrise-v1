@@ -39,7 +39,7 @@ AggregateFun *parseAggregateFunction(const Json::Value &data) {
   }
 }
 
-void AggregateFun::walk(const AbstractTable &table) {
+void AggregateFun::walk(const hyrise::storage::DCMutableTable &table) {
   if (_field_name.size() > 0) {
     _field = table.numberOfColumn(_field_name);
   }

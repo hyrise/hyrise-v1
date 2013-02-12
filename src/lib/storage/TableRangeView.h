@@ -15,7 +15,7 @@
  * provides an interface to a sequential range of rows to a table defined by a start and end
  */
 
-class TableRangeView : public AbstractTable {
+class TableRangeView : public hyrise::storage::DCMutableTable {
 
   hyrise::storage::atable_ptr_t _table;
 

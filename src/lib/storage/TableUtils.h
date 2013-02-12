@@ -5,6 +5,8 @@
 #include <memory>
 #include <unordered_map>
 
+#include <helper/types.h>
+
 class AbstractTable;
 
 namespace hyrise {
@@ -12,12 +14,8 @@ namespace storage {
 
 typedef std::unordered_map<size_t, size_t> column_mapping_t;
 
-column_mapping_t calculateMapping(const std::shared_ptr<const AbstractTable> &input,
-                                  const std::shared_ptr<const AbstractTable> &dest);
-
-column_mapping_t calculateMapping(const AbstractTable &input,
-                                  const AbstractTable &dest);
-
+column_mapping_t calculateMapping(const hyrise::storage::c_atable_ptr_t &input,
+                                  const hyrise::storage::c_atable_ptr_t &dest);
 
 }}
 

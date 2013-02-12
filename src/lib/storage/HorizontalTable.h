@@ -21,7 +21,7 @@
  * more horizontal subtables spreading over a distinct number of rows. The subtables
  * can be any subclass of AbstractTable.
  */
-class HorizontalTable : public AbstractTable {
+class HorizontalTable : public hyrise::storage::DCMutableTable {
 private:
   //* Vector for storing the subtables
   std::vector< hyrise::storage::c_atable_ptr_t > parts;

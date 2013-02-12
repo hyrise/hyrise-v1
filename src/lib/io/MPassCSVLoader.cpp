@@ -13,7 +13,6 @@
 #include "boost/algorithm/string.hpp"
 
 #include "io/GenericCSV.h"
-#include "io/ColumnLoader.h"
 #include "io/MetadataCreation.h"
 
 #include "storage/AbstractTable.h"

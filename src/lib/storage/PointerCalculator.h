@@ -11,7 +11,7 @@
 #include "storage/AbstractTable.h"
 #include "storage/MutableVerticalTable.h"
 
-class PointerCalculator : public AbstractTable {
+class PointerCalculator : public hyrise::storage::DCMutableTable {
 private:
   hyrise::storage::c_atable_ptr_t table;
   pos_list_t *pos_list;

@@ -23,7 +23,7 @@
  * more vertical entities spreading over a distinct number of columns. The entities
  * can be any subclass of AbstractTable.
  */
-class MutableVerticalTable : public AbstractTable {
+class MutableVerticalTable : public hyrise::storage::DCMutableTable {
 private:
   //* Vector storing the containers
   std::vector<hyrise::storage::atable_ptr_t> containers;

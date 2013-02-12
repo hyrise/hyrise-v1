@@ -2,6 +2,8 @@
 #ifndef SRC_LIB_STORAGE_ABSTRACTALLOCATEDTABLE_H_
 #define SRC_LIB_STORAGE_ABSTRACTALLOCATEDTABLE_H_
 
+#include <helper/types.h>
+
 #include <memory/StrategizedAllocator.h>
 #include <memory/MallocStrategy.h>
 #include <memory/MemalignStrategy.h>
@@ -9,7 +11,7 @@
 class AbstractTable;
 
 template<typename Strategy, template <typename T, typename S> class Allocator, class AllocatedClass>
-class AbstractAllocatedTable : public AbstractTable {
+class AbstractAllocatedTable : public hyrise::storage::DCMutableTable {
   typedef AbstractAllocatedTable<Strategy, Allocator, AllocatedClass> ALLOCATION_TEMPLATE;
 public:
 

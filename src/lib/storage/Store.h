@@ -30,7 +30,7 @@ enum {
  * initialization via the delta store. It can be merged into the main
  * tables using a to-be-set merger.
  */
-class Store : public AbstractTable {
+class Store : public hyrise::storage::DCMutableTable {
 protected:
   //* Vector containing the main tables
   std::vector< hyrise::storage::atable_ptr_t > main_tables;

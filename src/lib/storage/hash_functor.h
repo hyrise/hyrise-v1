@@ -4,6 +4,7 @@
 
 #include <functional>
 
+#include "helper/types.h"
 #include "storage/storage_types.h"
 #include "storage/AbstractTable.h"
 
@@ -13,13 +14,13 @@ namespace storage {
 template<typename T>
 struct hash_functor {
   typedef T value_type;
-  const AbstractTable *table;
+  const hyrise::storage::DCMutableTable *table;
   size_t f;
   ValueId vid;
 
   hash_functor(): table(0) {}
 
-  hash_functor(const AbstractTable *t, const size_t f, const ValueId v): table(t), f(f), vid(v) {}
+  hash_functor(const hyrise::storage::DCMutableTable *t, const size_t f, const ValueId v): table(t), f(f), vid(v) {}
 
   template<typename R>
   T operator()() {

@@ -2,10 +2,13 @@
 #ifndef SRC_LIB_ACCESS_AGGEGATEFUNCTIONS_H_
 #define SRC_LIB_ACCESS_AGGEGATEFUNCTIONS_H_
 
+#include <helper/types.h>
+
 #include <storage/AbstractTable.h>
 #include <storage/HashTable.h>
 #include <storage/storage_types.h>
 #include <storage/meta_storage.h>
+
 #include <json.h>
 #include <vector>
 
@@ -134,7 +137,7 @@ class AggregateFun {
   explicit AggregateFun(field_t f): _field(f) {}
   explicit AggregateFun(field_name_t field_name): _field_name(field_name) {}
 
-  virtual void walk(const AbstractTable &table);
+  virtual void walk(const hyrise::storage::DCMutableTable &table);
   field_t getField() {
     return _field;
   };
@@ -175,7 +178,7 @@ class SumAggregateFun: public AggregateFun {
     return _datatype;
   }
 
-  virtual void walk(const AbstractTable &table) {
+  virtual void walk(const hyrise::storage::DCMutableTable &table) {
     AggregateFun::walk(table);
     _datatype = table.typeOfColumn(_field);
     if (_datatype == StringType) {
@@ -249,7 +252,7 @@ class AverageAggregateFun: public AggregateFun {
     return FloatType;
   }
 
-  virtual void walk(const AbstractTable &table) {
+  virtual void walk(const hyrise::storage::DCMutableTable &table) {
     AggregateFun::walk(table);
     _datatype = table.typeOfColumn(_field);
     if (_datatype == StringType) {

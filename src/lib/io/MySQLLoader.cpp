@@ -43,31 +43,31 @@ using namespace boost::assign;
   * sql::ResultSet* column access is 1-based, thus all accesses should use col+1
   */
 
-typedef void (*conversion_func)(MYSQL_ROW *, size_t, size_t, AbstractTable *);
+typedef void (*conversion_func)(MYSQL_ROW *, size_t, size_t, hyrise::storage::DCMutableTable *);
 
-void var_to_string(MYSQL_ROW *r, size_t col, size_t row, AbstractTable *t) {
+void var_to_string(MYSQL_ROW *r, size_t col, size_t row, hyrise::storage::DCMutableTable *t) {
   if ((*r)[col] == 0)
     t->setValue<hyrise_string_t>(col, row, "");
   else
     t->setValue<hyrise_string_t>(col, row, std::string((const char *)(*r)[col]));
 }
 
-void bigint_to_integer(MYSQL_ROW *r, size_t col, size_t row, AbstractTable *t) {
+void bigint_to_integer(MYSQL_ROW *r, size_t col, size_t row, hyrise::storage::DCMutableTable *t) {
   hyrise_int_t data = (*r)[col] == 0 ? 0 : atoll((*r)[col]);
   t->setValue<hyrise_int_t>(col, row, data);
 }
 
-void int_to_integer(MYSQL_ROW *r, size_t col, size_t row, AbstractTable *t) {
+void int_to_integer(MYSQL_ROW *r, size_t col, size_t row, hyrise::storage::DCMutableTable *t) {
   hyrise_int_t data = (*r)[col] == 0 ? 0 : atoi((*r)[col]);
   t->setValue<hyrise_int_t>(col, row, data);
 }
 
-void double_to_float(MYSQL_ROW *r, size_t col, size_t row, AbstractTable *t) {
+void double_to_float(MYSQL_ROW *r, size_t col, size_t row, hyrise::storage::DCMutableTable *t) {
   hyrise_float_t data = (*r)[col] == 0 ? 0 : atof((*r)[col]);
   t->setValue<hyrise_float_t>(col, row, data);
 }
 
-void date_to_int(MYSQL_ROW *r, size_t col, size_t row, AbstractTable *t) {
+void date_to_int(MYSQL_ROW *r, size_t col, size_t row, hyrise::storage::DCMutableTable *t) {
   // Replace dashes with nothing and we have the int
   if ((*r)[col] == 0)
     t->setValue<hyrise_int_t>(col, row, 1);// std::stoll(s));

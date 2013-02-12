@@ -11,7 +11,7 @@
 
 namespace hyrise { namespace storage {
 
-class SimpleStore : public AbstractTable {
+class SimpleStore : public hyrise::storage::DCMutableTable {
 
 private:
 
@@ -21,7 +21,7 @@ private:
 public:
 
   typedef RawTable<> delta_table_t;
-  typedef AbstractTable main_table_t;
+  typedef hyrise::storage::DCMutableTable main_table_t;
 
   explicit SimpleStore(hyrise::storage::atable_ptr_t t);
 

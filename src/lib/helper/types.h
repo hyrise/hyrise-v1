@@ -30,6 +30,9 @@ static const std::string VALID_FROM_COL_ID = "$valid_from";
 namespace storage {
 class SimpleStore;
 
+// Typedef from AbstractTable to Dictionary Compressed Mutable Table
+typedef AbstractTable DCMutableTable;
+
 typedef std::shared_ptr<AbstractTable> atable_ptr_t;
 typedef std::shared_ptr<const AbstractTable> c_atable_ptr_t;
 
