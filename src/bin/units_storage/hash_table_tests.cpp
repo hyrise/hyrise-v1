@@ -35,6 +35,32 @@ bool testHashTableFullCoverage(const HT &hashTable,
   return result;
 }
 
+template<typename T>
+class SingleHashTableTest : public ::hyrise::Test {
+public:
+  std::shared_ptr<AbstractTable> table;
+
+  virtual void SetUp() {
+    table = Loader::shortcuts::load("test/join_exchange.tbl");
+  }
+};
+
+typedef ::testing::Types<SingleJoinHashTable, SingleAggregateHashTable> single_hash_types;
+TYPED_TEST_CASE(SingleHashTableTest, single_hash_types);
+
+
+TYPED_TEST(SingleHashTableTest, sinlge_key_test) {
+  field_list_t fields {1};
+  pos_t row {1};
+
+  TypeParam htable(this->table, fields);
+  auto pos_list = htable.get(this->table, fields, row);
+  EXPECT_EQ(pos_list.size(), 2u);
+
+  pos_list = htable.get(this->table, fields, {3});
+  EXPECT_EQ(pos_list.size(), 3u);
+}
+
 template <typename T>
 class HashTableTest : public ::hyrise::Test {
 public:
@@ -44,6 +70,7 @@ public:
     table = Loader::shortcuts::load("test/join_exchange.tbl");
   }
 };
+
 
 typedef ::testing::Types<JoinHashTable, AggregateHashTable> hash_types;
 TYPED_TEST_CASE(HashTableTest, hash_types);
