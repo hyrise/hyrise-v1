@@ -82,6 +82,7 @@ TEST_F(HashBuildTest, merge_one_table_test) {
   mht.execute();
   auto hash2 = std::dynamic_pointer_cast<SingleAggregateHashTable >(mht.getResultHashTable());
 
+
   ASSERT_TRUE(check_equality(hash1, hash2));
 }
 

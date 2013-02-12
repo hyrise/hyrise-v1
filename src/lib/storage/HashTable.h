@@ -120,7 +120,6 @@ public:
   }
 };
 
-
 // Multi Keys
 typedef std::unordered_multimap<aggregate_key_t, pos_t, GroupKeyHash<aggregate_key_t> > aggregate_hash_map_t;
 typedef std::unordered_multimap<join_key_t, pos_t, GroupKeyHash<join_key_t> > join_hash_map_t;
