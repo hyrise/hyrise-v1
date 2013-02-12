@@ -4,13 +4,14 @@
 
 #include <access/PlanOperation.h>
 
-
+/**
+ * PlanOp that merges several hashtables. Primarily used tp execute HashBuild in parallel
+ */
 class MergeHashTables : public _PlanOperation {
 
  public:
 
-  MergeHashTables() : _PlanOperation() {
-    
+  MergeHashTables() : _PlanOperation() { 
   }
 
   virtual ~MergeHashTables() {
@@ -46,6 +47,5 @@ class MergeHashTables : public _PlanOperation {
 
   private:
     std::string _key;
-
 };
 #endif  // SRC_LIB_ACCESS_MERGEHASHTABLES_H_

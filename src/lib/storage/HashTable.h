@@ -150,6 +150,7 @@ public:
   }
 
   // Hash given table's columns directly into the new HashTable
+  // row_offset is used if t is a TableRangeView, so that the HashTable can build the pos_lists based on the row numbers of the original table
   HashTable(hyrise::storage::c_atable_ptr_t t, const field_list_t &f, size_t row_offset = 0)
     : _table(t), _fields(f), _numKeys(0), _dirty(true) {
     populate_map(row_offset);
