@@ -91,7 +91,6 @@ class Router {
                             route_t route = route_t::EXACT) {
     auto &router = Router::getInstance();
     handler_uptr factory(new RequestHandlerFactory<RequestHandlerClass>);
-    std::cout << "Adding route " << url << std::endl;
     router.addRoute(url, std::move(factory), route, RequestHandlerClass::name());
     return true;
   }
