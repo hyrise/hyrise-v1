@@ -14,7 +14,7 @@
 template<typename Strategy>
 hyrise::storage::atable_ptr_t TableGenerator::create_empty_base_table_modifiable(size_t rows, size_t cols) {
   typedef Table<Strategy> strategy_table;
-  auto dicts = new std::vector<AbstractTable::SharedDictionaryPtr>;
+  auto dicts = new std::vector<hyrise::storage::dict_ptr_t>;
   auto md = new metadata_list;
 
   for (size_t col = 0; col < cols; ++col) {

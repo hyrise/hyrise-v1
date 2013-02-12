@@ -67,8 +67,6 @@ private:
   
 public:
 
-  typedef std::shared_ptr<AbstractDictionary> SharedDictionaryPtr;
-
   /**
    * Constructor.
    */
@@ -163,7 +161,7 @@ public:
    * @param row      Row in that column (default=0).
    * @param table_id ID of the table from which to extract (default=0).
    */
-  virtual const SharedDictionaryPtr& dictionaryAt(const size_t column, const size_t row = 0, const table_id_t table_id = 0, const bool of_delta = false) const = 0;
+  virtual const hyrise::storage::dict_ptr_t& dictionaryAt(const size_t column, const size_t row = 0, const table_id_t table_id = 0, const bool of_delta = false) const = 0;
 
 
   /**
@@ -173,14 +171,14 @@ public:
    * @param column   Column from which to extract the dictionary.
    * @param table_id ID of the table from which to extract.
    */
-  virtual const SharedDictionaryPtr& dictionaryByTableId(const size_t column, const table_id_t table_id) const = 0;
+  virtual const hyrise::storage::dict_ptr_t& dictionaryByTableId(const size_t column, const table_id_t table_id) const = 0;
 
 
   /**
    * Get all dictionaries.
    *
    */
-  std::vector<SharedDictionaryPtr> *dictionaries() const;
+  std::vector<hyrise::storage::dict_ptr_t> *dictionaries() const;
 
 
   /**
@@ -192,7 +190,7 @@ public:
    * @param row      Row in that column (default=0).
    * @param table_id ID of the table (default=0).
    */
-  virtual void setDictionaryAt(SharedDictionaryPtr dict, const size_t column, const size_t row = 0, const table_id_t table_id = 0) = 0;
+  virtual void setDictionaryAt(hyrise::storage::dict_ptr_t dict, const size_t column, const size_t row = 0, const table_id_t table_id = 0) = 0;
 
 
   /**

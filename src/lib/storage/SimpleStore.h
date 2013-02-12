@@ -99,7 +99,7 @@ public:
   /**
    * @see AbstractTable
    */
-  const AbstractTable::SharedDictionaryPtr& dictionaryAt(const size_t column, 
+  const hyrise::storage::dict_ptr_t& dictionaryAt(const size_t column, 
                                                   const size_t row = 0, 
                                                   const table_id_t table_id = 0, 
                                                   const bool of_delta = false) const;
@@ -107,13 +107,13 @@ public:
   /**
    * @see AbstractTable
    */
-  const AbstractTable::SharedDictionaryPtr& dictionaryByTableId(const size_t column, 
+  const hyrise::storage::dict_ptr_t& dictionaryByTableId(const size_t column, 
                                                          const table_id_t table_id) const;
 
   /**
    * @see AbstractTable
    */
-  void setDictionaryAt(AbstractTable::SharedDictionaryPtr dict, 
+  void setDictionaryAt(hyrise::storage::dict_ptr_t dict, 
                        const size_t column, const size_t row = 0, const table_id_t table_id = 0);
 
   unsigned int sliceCount() const;

@@ -58,7 +58,7 @@ const ColumnMetadata *Store::metadataAt(const size_t column_index, const size_t 
   return delta->metadataAt(column_index, row_index - offset, table_id);
 }
 
-void Store::setDictionaryAt(AbstractTable::SharedDictionaryPtr dict, const size_t column, const size_t row, const table_id_t table_id) {
+void Store::setDictionaryAt(hyrise::storage::dict_ptr_t dict, const size_t column, const size_t row, const table_id_t table_id) {
   size_t offset = 0;
 
   for (size_t main = 0; main < main_tables.size(); main++)
@@ -73,7 +73,7 @@ void Store::setDictionaryAt(AbstractTable::SharedDictionaryPtr dict, const size_
   delta->setDictionaryAt(dict, column, row - offset, table_id);
 }
 
-const AbstractTable::SharedDictionaryPtr& Store::dictionaryAt(const size_t column, const size_t row, const table_id_t table_id, const bool of_delta) const {
+const hyrise::storage::dict_ptr_t& Store::dictionaryAt(const size_t column, const size_t row, const table_id_t table_id, const bool of_delta) const {
   if (!row) {
     return this->dictionaryByTableId(column, table_id);
   }
@@ -99,7 +99,7 @@ const AbstractTable::SharedDictionaryPtr& Store::dictionaryAt(const size_t colum
   return delta->dictionaryAt(column, row - offset);
 }
 
-const AbstractTable::SharedDictionaryPtr& Store::dictionaryByTableId(const size_t column, const table_id_t table_id) const {
+const hyrise::storage::dict_ptr_t& Store::dictionaryByTableId(const size_t column, const table_id_t table_id) const {
   assert(table_id <= main_tables.size());
 
   if (table_id < main_tables.size()) {

@@ -40,18 +40,18 @@ size_t SimpleStore::columnCount() const {
   return _main->columnCount();
 }
 
-void SimpleStore::setDictionaryAt(AbstractTable::SharedDictionaryPtr dict,
+void SimpleStore::setDictionaryAt(hyrise::storage::dict_ptr_t dict,
                      const size_t column, const size_t row, const table_id_t table_id) {
   _main->setDictionaryAt(dict, column, row, table_id);
 }
 
-const AbstractTable::SharedDictionaryPtr& SimpleStore::dictionaryByTableId(const size_t column, 
+const hyrise::storage::dict_ptr_t& SimpleStore::dictionaryByTableId(const size_t column, 
                                                          const table_id_t table_id) const {
   if (table_id > 0) STORAGE_NOT_IMPLEMENTED(SimpleStore, dictionaryByTableId());
   return _main->dictionaryByTableId(column, table_id);
 }
 
-const AbstractTable::SharedDictionaryPtr& SimpleStore::dictionaryAt(const size_t column, 
+const hyrise::storage::dict_ptr_t& SimpleStore::dictionaryAt(const size_t column, 
                                                 const size_t row, 
                                                 const table_id_t table_id, 
                                                 const bool of_delta) const {

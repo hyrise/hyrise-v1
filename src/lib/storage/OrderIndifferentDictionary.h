@@ -105,7 +105,7 @@ public:
     return _value_list.size();
   }
 
-  std::shared_ptr<AbstractDictionary> copy() {
+  hyrise::storage::dict_ptr_t copy() {
     // FIXME
     auto res = std::make_shared<OrderIndifferentDictionary<T, Strategy, Allocator>>();
     res->_index = _index;

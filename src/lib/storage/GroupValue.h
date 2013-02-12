@@ -3,6 +3,7 @@
 #define SRC_LIB_STORAGE_GROUPVALUE_H_
 
 #include "helper/hash.h"
+#include "helper/types.h"
 #include <storage/storage_types.h>
 #include <memory>
 

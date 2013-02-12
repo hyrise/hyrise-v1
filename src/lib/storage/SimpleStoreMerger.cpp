@@ -25,7 +25,7 @@ struct MergeDictFunctor {
 
   struct result {
     std::vector<value_id_t> mapping;
-    std::shared_ptr<AbstractDictionary> dict;
+    hyrise::storage::dict_ptr_t dict;
   };
 
   // Result type value definition
@@ -97,12 +97,12 @@ struct MapValueForValueId {
   typedef void value_type;
 
   hyrise::storage::atable_ptr_t _main;
-  std::shared_ptr<AbstractDictionary> _dict;
+  hyrise::storage::dict_ptr_t _dict;
   std::shared_ptr<const SimpleStore::delta_table_t> _delta;
   field_t _col;
   field_t _dstCol;
 
-  void prepare(hyrise::storage::atable_ptr_t m, field_t dst, std::shared_ptr<AbstractDictionary> d, 
+  void prepare(hyrise::storage::atable_ptr_t m, field_t dst, hyrise::storage::dict_ptr_t d, 
                size_t col, std::shared_ptr<const SimpleStore::delta_table_t> de) {
     _main = m;
     _dstCol = dst;

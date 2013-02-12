@@ -21,7 +21,7 @@ private:
   template <typename T>
   void mergeValues(const std::vector<hyrise::storage::c_atable_ptr_t > &input_tables, size_t source_index, 
     size_t column_index, hyrise::storage::atable_ptr_t merged_table,
-    std::vector<std::vector<value_id_t> > &m, std::vector<AbstractTable::SharedDictionaryPtr> &d);
+    std::vector<std::vector<value_id_t> > &m, std::vector<hyrise::storage::dict_ptr_t> &d);
 
   void copyValuesRowWise(const std::vector<hyrise::storage::c_atable_ptr_t > &input_tables, 
     hyrise::storage::atable_ptr_t merged_table, std::vector<std::vector<std::vector<value_id_t> > > &mappings,
@@ -31,8 +31,8 @@ private:
     hyrise::storage::atable_ptr_t &merged_table, std::vector<std::vector<value_id_t> > &value_id_mapping);
 
   template <typename T>
-  AbstractTable::SharedDictionaryPtr createNewDict(const std::vector<hyrise::storage::c_atable_ptr_t > &input_tables, 
-    std::vector<AbstractTable::SharedDictionaryPtr > &value_id_maps, std::vector<std::vector<value_id_t> > &value_id_mapping);
+  hyrise::storage::dict_ptr_t createNewDict(const std::vector<hyrise::storage::c_atable_ptr_t > &input_tables, 
+    std::vector<hyrise::storage::dict_ptr_t > &value_id_maps, std::vector<std::vector<value_id_t> > &value_id_mapping);
 
 };
 

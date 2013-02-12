@@ -130,7 +130,7 @@ std::vector<hyrise::storage::atable_ptr_t > TableGenerator::distinct_cols(size_t
       p.tick();
     }
 
-    main->setDictionaryAt(AbstractTable::SharedDictionaryPtr(main_dict), col);
+    main->setDictionaryAt(hyrise::storage::dict_ptr_t(main_dict), col);
 
     // create delta dict
     Progress p1(dict_size_delta);
@@ -141,7 +141,7 @@ std::vector<hyrise::storage::atable_ptr_t > TableGenerator::distinct_cols(size_t
       p1.tick();
     }
 
-    delta->setDictionaryAt(AbstractTable::SharedDictionaryPtr(delta_dict), col);
+    delta->setDictionaryAt(hyrise::storage::dict_ptr_t(delta_dict), col);
 
     delete dict_values;
   }
@@ -250,7 +250,7 @@ for (const auto & i: ordered_main) {
     main_dict->addValue(i);
   }
 
-  main->setDictionaryAt(AbstractTable::SharedDictionaryPtr(main_dict), 0);
+  main->setDictionaryAt(hyrise::storage::dict_ptr_t(main_dict), 0);
 
 
   // create delta dict
@@ -262,7 +262,7 @@ for (const auto & i: ordered_main) {
     p1.tick();
   }
 
-  delta->setDictionaryAt(AbstractTable::SharedDictionaryPtr(delta_dict), 0);
+  delta->setDictionaryAt(hyrise::storage::dict_ptr_t(delta_dict), 0);
   main->resize(rows_main);
   delta->resize(rows_main);
 
@@ -313,7 +313,7 @@ for (const auto & i: ordered_main) {
     main_dict->addValue(i);
   }
 
-  main->setDictionaryAt(AbstractTable::SharedDictionaryPtr(main_dict), 0);
+  main->setDictionaryAt(hyrise::storage::dict_ptr_t(main_dict), 0);
 
 
   // create delta dict
@@ -325,7 +325,7 @@ for (const auto & i: ordered_main) {
     p1.tick();
   }
 
-  delta->setDictionaryAt(AbstractTable::SharedDictionaryPtr(delta_dict), 0);
+  delta->setDictionaryAt(hyrise::storage::dict_ptr_t(delta_dict), 0);
   main->resize(rows_main);
   delta->resize(rows_delta);
 
@@ -354,7 +354,7 @@ for (const auto & i: ordered_main) {
 
 
 hyrise::storage::atable_ptr_t TableGenerator::create_empty_table(size_t rows, std::vector<std::string> names) {
-  std::vector<std::vector<AbstractTable::SharedDictionaryPtr> *> dicts;
+  std::vector<std::vector<hyrise::storage::dict_ptr_t> *> dicts;
   std::vector<std::vector<const ColumnMetadata *> *> md;
   const auto& cols = names.size();
   for (size_t col = 0; col < cols; ++col) {
@@ -363,7 +363,7 @@ hyrise::storage::atable_ptr_t TableGenerator::create_empty_table(size_t rows, st
     m->push_back(new ColumnMetadata(colname, IntegerType));
     md.push_back(m);
 
-    auto d = new std::vector<AbstractTable::SharedDictionaryPtr>;
+    auto d = new std::vector<hyrise::storage::dict_ptr_t>;
     auto new_dict = AbstractDictionary::dictionaryWithType<DictionaryFactory<OrderPreservingDictionary> >(IntegerType);
     d->push_back(new_dict);
     dicts.push_back(d);
@@ -424,7 +424,7 @@ for (const auto & vc: md) {
 }
 
 hyrise::storage::atable_ptr_t TableGenerator::create_empty_table_modifiable(size_t rows, size_t cols, std::vector<std::string> names) {
-  std::vector<std::vector<AbstractTable::SharedDictionaryPtr> *> dicts;
+  std::vector<std::vector<hyrise::storage::dict_ptr_t> *> dicts;
   std::vector<std::vector<const ColumnMetadata *> *> md;
 
   for (size_t col = 0; col < cols; ++col) {
@@ -433,7 +433,7 @@ hyrise::storage::atable_ptr_t TableGenerator::create_empty_table_modifiable(size
     m->push_back(new ColumnMetadata(colname, IntegerType));
     md.push_back(m);
 
-    auto d = new std::vector<AbstractTable::SharedDictionaryPtr>;
+    auto d = new std::vector<hyrise::storage::dict_ptr_t>;
     auto new_dict = AbstractDictionary::dictionaryWithType<DictionaryFactory<OrderIndifferentDictionary> >(IntegerType);
     d->push_back(new_dict);
     dicts.push_back(d);
@@ -480,7 +480,7 @@ hyrise::storage::atable_ptr_t TableGenerator::int_random_delta(size_t rows, size
       increment();
     }
 
-    new_table->setDictionaryAt(AbstractTable::SharedDictionaryPtr(dict), col);
+    new_table->setDictionaryAt(hyrise::storage::dict_ptr_t(dict), col);
   }
   new_table->resize(rows);
 
@@ -530,7 +530,7 @@ hyrise::storage::atable_ptr_t TableGenerator::int_random(size_t rows, size_t col
       increment();
     }
 
-    new_table->setDictionaryAt(AbstractTable::SharedDictionaryPtr(dict), col);
+    new_table->setDictionaryAt(hyrise::storage::dict_ptr_t(dict), col);
   }
 
   // Resize the table correctly
@@ -601,7 +601,7 @@ hyrise::storage::atable_ptr_t TableGenerator::string_random(size_t rows, size_t 
 for (const auto & i: values) {
       dict->addValue(i);
     }
-    new_table->setDictionaryAt(AbstractTable::SharedDictionaryPtr(dict), col);
+    new_table->setDictionaryAt(hyrise::storage::dict_ptr_t(dict), col);
   }
 
   new_table->resize(rows);
@@ -654,7 +654,7 @@ hyrise::storage::atable_ptr_t TableGenerator::string_random_delta(size_t rows, s
 for (const auto & i: values_vector) {
       dict->addValue(i);
     }
-    new_table->setDictionaryAt(AbstractTable::SharedDictionaryPtr(dict), col);
+    new_table->setDictionaryAt(hyrise::storage::dict_ptr_t(dict), col);
 
   }
 
@@ -740,7 +740,7 @@ hyrise::storage::atable_ptr_t TableGenerator::int_offset(size_t rows, size_t col
 
   for (size_t col = 0; col < cols; ++col) {
     OrderPreservingDictionary<int64_t> *dict = new OrderPreservingDictionary<int64_t>();
-    new_table->setDictionaryAt(AbstractTable::SharedDictionaryPtr(dict), col);
+    new_table->setDictionaryAt(hyrise::storage::dict_ptr_t(dict), col);
     for (size_t row = 0; row < rows; ++row) {
       int value = row * factor + offset1;
 
@@ -782,7 +782,7 @@ hyrise::storage::atable_ptr_t TableGenerator::int_offset_delta(size_t rows, size
 
   for (size_t col = 0; col < cols; ++col) {
     OrderIndifferentDictionary<int64_t> *dict = new OrderIndifferentDictionary<int64_t>();
-    new_table->setDictionaryAt(AbstractTable::SharedDictionaryPtr(dict), col);
+    new_table->setDictionaryAt(hyrise::storage::dict_ptr_t(dict), col);
     for (size_t row = 0; row < rows; ++row) {
       int value = row * factor + offset1;
 
@@ -823,7 +823,7 @@ hyrise::storage::atable_ptr_t TableGenerator::one_value_delta(size_t rows, size_
 
   for (size_t col = 0; col < cols; ++col) {
     OrderIndifferentDictionary<int64_t> *dict = new OrderIndifferentDictionary<int64_t>();
-    new_table->setDictionaryAt(AbstractTable::SharedDictionaryPtr(dict), col);
+    new_table->setDictionaryAt(hyrise::storage::dict_ptr_t(dict), col);
 
     dict->addValue(value);
   }
@@ -851,7 +851,7 @@ hyrise::storage::atable_ptr_t TableGenerator::one_value(size_t rows, size_t cols
 
   for (size_t col = 0; col < cols; ++col) {
     OrderPreservingDictionary<int64_t> *dict = new OrderPreservingDictionary<int64_t>();
-    new_table->setDictionaryAt(AbstractTable::SharedDictionaryPtr(dict), col);
+    new_table->setDictionaryAt(hyrise::storage::dict_ptr_t(dict), col);
 
     dict->addValue(value);
   }
@@ -915,7 +915,7 @@ hyrise::storage::atable_ptr_t TableGenerator::int_random_weighted(size_t rows, s
 for (const auto & i: values) {
       dict->addValue(i);
     }
-    new_table->setDictionaryAt(AbstractTable::SharedDictionaryPtr(dict), col);
+    new_table->setDictionaryAt(hyrise::storage::dict_ptr_t(dict), col);
   }
 
   new_table->resize(rows);
@@ -951,7 +951,7 @@ hyrise::storage::atable_ptr_t TableGenerator::int_random_weighted_delta(size_t r
       dict->addValue(r);
     }
 
-    new_table->setDictionaryAt(AbstractTable::SharedDictionaryPtr(dict), col);
+    new_table->setDictionaryAt(hyrise::storage::dict_ptr_t(dict), col);
   }
   new_table->resize(rows);
   for (size_t col = 0; col < cols; ++col) {

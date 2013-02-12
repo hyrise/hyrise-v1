@@ -134,7 +134,7 @@ for (const auto & q: _queries) {
   vc.push_back(ColumnMetadata::metadataFromString("FLOAT", "rowCost"));
 
 
-  std::vector<AbstractTable::SharedDictionaryPtr > vd;
+  std::vector<hyrise::storage::dict_ptr_t > vd;
   vd.push_back(DictionaryFactory<OrderIndifferentDictionary>::build(StringType));
   vd.push_back(DictionaryFactory<OrderIndifferentDictionary>::build(IntegerType));
   vd.push_back(DictionaryFactory<OrderIndifferentDictionary>::build(FloatType));

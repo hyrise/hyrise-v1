@@ -100,11 +100,11 @@ public:
 
   virtual const ColumnMetadata *metadataAt(const size_t column, const size_t row = 0, const table_id_t table_id = 0) const;
 
-  virtual const AbstractTable::SharedDictionaryPtr& dictionaryAt(const size_t column, const size_t row = 0, const table_id_t table_id = 0, const bool of_delta = false) const;
+  virtual const hyrise::storage::dict_ptr_t& dictionaryAt(const size_t column, const size_t row = 0, const table_id_t table_id = 0, const bool of_delta = false) const;
 
-  virtual const AbstractTable::SharedDictionaryPtr& dictionaryByTableId(const size_t column, const table_id_t table_id) const;
+  virtual const hyrise::storage::dict_ptr_t& dictionaryByTableId(const size_t column, const table_id_t table_id) const;
 
-  virtual void setDictionaryAt(AbstractTable::SharedDictionaryPtr dict, const size_t column, const size_t row = 0, const table_id_t table_id = 0);
+  virtual void setDictionaryAt(hyrise::storage::dict_ptr_t dict, const size_t column, const size_t row = 0, const table_id_t table_id = 0);
 
   virtual  hyrise::storage::atable_ptr_t copy_structure(const field_list_t *fields = nullptr, const bool reuse_dict = false, const size_t initial_size = 0, const bool with_containers = true, const bool compressed = false) const;
 

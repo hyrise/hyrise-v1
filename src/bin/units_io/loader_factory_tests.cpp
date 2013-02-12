@@ -12,7 +12,7 @@ public:
   MockTableFactory() : generate_call_cnt(0)  {}
   ~MockTableFactory() {}
   hyrise::storage::atable_ptr_t  generate(std::vector<const ColumnMetadata *> *m,
-                                          std::vector<AbstractTable::SharedDictionaryPtr> *d = nullptr,
+                                          std::vector<hyrise::storage::dict_ptr_t> *d = nullptr,
                                           size_t initial_size = 0,
                                           bool sorted = true,
                                           bool compressed = false,

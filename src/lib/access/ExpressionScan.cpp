@@ -64,7 +64,7 @@ void ExpressionScan::executePlanOperation() {
   ColumnMetadata *m = new ColumnMetadata(_column_name, _expression->getType());
   metadata.push_back(m);
 
-  std::vector<AbstractTable::SharedDictionaryPtr > dicts;
+  std::vector<hyrise::storage::dict_ptr_t > dicts;
   dicts.push_back(AbstractDictionary::dictionaryWithType<DictionaryFactory<OrderIndifferentDictionary> >(_expression->getType()));
 
   hyrise::storage::atable_ptr_t exp_result = std::make_shared<Table<DEFAULT_STRATEGY>>(&metadata, &dicts, 0, false);

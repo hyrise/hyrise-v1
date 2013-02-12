@@ -352,19 +352,19 @@ public:
     STORAGE_NOT_IMPLEMENTED(RawTable, getSliceWidth());
   }
 
-  virtual const AbstractTable::SharedDictionaryPtr& dictionaryAt(const size_t column, 
+  virtual const hyrise::storage::dict_ptr_t& dictionaryAt(const size_t column, 
                                                           const size_t row = 0, 
                                                           const table_id_t table_id = 0, 
                                                           const bool of_delta = false) const { 
     STORAGE_NOT_IMPLEMENTED(RawTable, getSliceWidth());
   }
 
-  virtual const AbstractTable::SharedDictionaryPtr& dictionaryByTableId(const size_t column, 
+  virtual const hyrise::storage::dict_ptr_t& dictionaryByTableId(const size_t column, 
                                                                  const table_id_t table_id) const { 
     STORAGE_NOT_IMPLEMENTED(RawTable, dictionaryByTableId());
   }
 
-  virtual void setDictionaryAt(AbstractTable::SharedDictionaryPtr dict, 
+  virtual void setDictionaryAt(hyrise::storage::dict_ptr_t dict, 
                                const size_t column, const size_t row = 0, const table_id_t table_id = 0) {
     STORAGE_NOT_IMPLEMENTED(RawTable, dictionaryAt());
   }

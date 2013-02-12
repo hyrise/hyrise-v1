@@ -13,6 +13,8 @@ class Store;
 class MutableVerticalTable;
 class PointerCalculator;
 
+class AbstractDictionary;
+
 namespace hyrise {
 
 namespace tx {
@@ -33,8 +35,8 @@ class SimpleStore;
 // Typedef from AbstractTable to Dictionary Compressed Mutable Table
 typedef AbstractTable DCMutableTable;
 
-typedef std::shared_ptr<AbstractTable> atable_ptr_t;
-typedef std::shared_ptr<const AbstractTable> c_atable_ptr_t;
+typedef std::shared_ptr<DCMutableTable> atable_ptr_t;
+typedef std::shared_ptr<const DCMutableTable> c_atable_ptr_t;
 
 typedef std::shared_ptr<MutableVerticalTable> vtable_ptr_t;
 typedef std::shared_ptr<const MutableVerticalTable> c_vtable_ptr_t;
@@ -47,6 +49,9 @@ typedef std::shared_ptr<const PointerCalculator> c_calc_ptr_t;
 
 typedef std::shared_ptr<SimpleStore> simplestore_ptr_t;
 typedef std::shared_ptr<const SimpleStore> c_simplestore_ptr_t;
+
+typedef std::shared_ptr<AbstractDictionary> dict_ptr_t;
+typedef std::shared_ptr<const AbstractDictionary> c_dict_ptr_t;
 
 typedef int64_t hyrise_int_t;
 typedef float hyrise_float_t;

@@ -68,10 +68,10 @@ ALLOC_FUNC_TEMPLATE
 hyrise::storage::atable_ptr_t Table<Strategy, Allocator>::copy_structure(const field_list_t *fields, const bool reuse_dict, const size_t initial_size, const bool with_containers, const bool compressed) const {
 
   std::vector<const ColumnMetadata *> metadata;
-  std::vector<AbstractTable::SharedDictionaryPtr> *dictionaries = nullptr;
+  std::vector<hyrise::storage::dict_ptr_t> *dictionaries = nullptr;
 
   if (reuse_dict) {
-    dictionaries = new std::vector<AbstractTable::SharedDictionaryPtr>();
+    dictionaries = new std::vector<hyrise::storage::dict_ptr_t>();
   }
 
   if (fields != nullptr) {
@@ -103,7 +103,7 @@ ALLOC_FUNC_TEMPLATE
 hyrise::storage::atable_ptr_t Table<Strategy, Allocator>::copy_structure_modifiable(const field_list_t *fields, const size_t initial_size, const bool with_containers) const {
 
   std::vector<const ColumnMetadata *> metadata;
-  std::vector<AbstractTable::SharedDictionaryPtr > *dictionaries = new std::vector<AbstractTable::SharedDictionaryPtr >;
+  std::vector<hyrise::storage::dict_ptr_t > *dictionaries = new std::vector<hyrise::storage::dict_ptr_t >;
 
   if (fields != nullptr) {
 for (const field_t & field: *fields) {
@@ -176,17 +176,17 @@ const ColumnMetadata *Table<Strategy, Allocator>::metadataAt(const size_t column
 }
 
 ALLOC_FUNC_TEMPLATE
-const AbstractTable::SharedDictionaryPtr& Table<Strategy, Allocator>::dictionaryAt(const size_t column, const size_t row, const table_id_t table_id, const bool of_delta) const {
+const hyrise::storage::dict_ptr_t& Table<Strategy, Allocator>::dictionaryAt(const size_t column, const size_t row, const table_id_t table_id, const bool of_delta) const {
   return _dictionaries[column];
 }
 
 ALLOC_FUNC_TEMPLATE
-const AbstractTable::SharedDictionaryPtr& Table<Strategy, Allocator>::dictionaryByTableId(const size_t column, const table_id_t table_id) const {
+const hyrise::storage::dict_ptr_t& Table<Strategy, Allocator>::dictionaryByTableId(const size_t column, const table_id_t table_id) const {
   return _dictionaries[column];
 }
 
 ALLOC_FUNC_TEMPLATE
-void Table<Strategy, Allocator>::setDictionaryAt(AbstractTable::SharedDictionaryPtr dict, const size_t column, const size_t row, const table_id_t table_id) {
+void Table<Strategy, Allocator>::setDictionaryAt(hyrise::storage::dict_ptr_t dict, const size_t column, const size_t row, const table_id_t table_id) {
 
   // Swap the dictionaries
   if (_dictionaries[column] == nullptr || _dictionaries[column]->size() != dict->size()) {

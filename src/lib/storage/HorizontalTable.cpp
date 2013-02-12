@@ -19,16 +19,16 @@ const ColumnMetadata *HorizontalTable::metadataAt(const size_t column_index, con
   return parts[table_id]->metadataAt(column_index);
 }
 
-const AbstractTable::SharedDictionaryPtr& HorizontalTable::dictionaryAt(const size_t column, const size_t row, const table_id_t table_id, const bool of_delta) const {
+const hyrise::storage::dict_ptr_t& HorizontalTable::dictionaryAt(const size_t column, const size_t row, const table_id_t table_id, const bool of_delta) const {
   size_t part = partForRow(row);
   return parts[part]->dictionaryAt(column, row - offsets[part], table_id, of_delta);
 }
 
-const AbstractTable::SharedDictionaryPtr& HorizontalTable::dictionaryByTableId(const size_t column, const table_id_t table_id) const {
+const hyrise::storage::dict_ptr_t& HorizontalTable::dictionaryByTableId(const size_t column, const table_id_t table_id) const {
   return parts[table_id]->dictionaryByTableId(column, 0);
 }
 
-void HorizontalTable::setDictionaryAt(AbstractTable::SharedDictionaryPtr dict, const size_t column, const size_t row, const table_id_t table_id) {
+void HorizontalTable::setDictionaryAt(hyrise::storage::dict_ptr_t dict, const size_t column, const size_t row, const table_id_t table_id) {
   throw std::runtime_error("Cannot set dictionary for HorizontalTable");
 }
 

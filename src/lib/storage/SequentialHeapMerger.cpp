@@ -51,8 +51,8 @@ void SequentialHeapMerger::mergeValues(const std::vector<hyrise::storage::c_atab
                                        size_t destination_column_index,
                                        value_id_mapping_t &value_id_mapping) {
 
-  std::vector<AbstractTable::SharedDictionaryPtr > value_id_maps;
-  AbstractTable::SharedDictionaryPtr new_dict;
+  std::vector<hyrise::storage::dict_ptr_t > value_id_maps;
+  hyrise::storage::dict_ptr_t new_dict;
 
   // shortcut for dicts
   value_id_maps.reserve(input_tables.size());
@@ -74,8 +74,8 @@ void SequentialHeapMerger::mergeValues(const std::vector<hyrise::storage::c_atab
 }
 
 template <typename T>
-AbstractTable::SharedDictionaryPtr SequentialHeapMerger::createNewDict(const std::vector<hyrise::storage::c_atable_ptr_t > &input_tables, std::vector<AbstractTable::SharedDictionaryPtr > &value_id_maps, std::vector<std::vector<value_id_t> > &value_id_mapping) {
-  AbstractTable::SharedDictionaryPtr new_dict;
+hyrise::storage::dict_ptr_t SequentialHeapMerger::createNewDict(const std::vector<hyrise::storage::c_atable_ptr_t > &input_tables, std::vector<hyrise::storage::dict_ptr_t > &value_id_maps, std::vector<std::vector<value_id_t> > &value_id_mapping) {
+  hyrise::storage::dict_ptr_t new_dict;
   std::priority_queue<DictionaryPosition<T> > p_queue;
   size_t new_dict_max_size = 0;
   T last_value;

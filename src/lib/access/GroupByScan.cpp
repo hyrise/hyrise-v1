@@ -39,7 +39,7 @@ for (auto e : aggregate_functions)
 
 hyrise::storage::atable_ptr_t GroupByScan::createResultTableLayout() {
   metadata_list  metadata;
-  std::vector<AbstractTable::SharedDictionaryPtr> dictionaries;
+  std::vector<hyrise::storage::dict_ptr_t> dictionaries;
   //creating fields from grouping fields
   hyrise::storage::atable_ptr_t group_tab = getInputTable(0)->copy_structure_modifiable(&_field_definition);
   //creating fields from aggregate functions

@@ -20,10 +20,10 @@
 
 hyrise::storage::atable_ptr_t AbstractTable::copy_structure(const field_list_t *fields, const bool reuse_dict, const size_t initial_size, const bool with_containers, const bool compressed) const {
   std::vector<const ColumnMetadata *> metadata;
-  std::vector<AbstractTable::SharedDictionaryPtr> *dictionaries = nullptr;
+  std::vector<hyrise::storage::dict_ptr_t> *dictionaries = nullptr;
 
   if (reuse_dict) {
-    dictionaries = new std::vector<AbstractTable::SharedDictionaryPtr>();
+    dictionaries = new std::vector<hyrise::storage::dict_ptr_t>();
   }
 
   if (fields != nullptr) {
@@ -51,7 +51,7 @@ for (const field_t & field: *fields) {
 
 hyrise::storage::atable_ptr_t AbstractTable::copy_structure_modifiable(const field_list_t *fields, const size_t initial_size, const bool with_containers) const {
   std::vector<const ColumnMetadata *> metadata;
-  std::vector<AbstractTable::SharedDictionaryPtr > *dictionaries = new std::vector<AbstractTable::SharedDictionaryPtr >;
+  std::vector<hyrise::storage::dict_ptr_t > *dictionaries = new std::vector<hyrise::storage::dict_ptr_t >;
 
   if (fields != nullptr) {
 for (const field_t & field: *fields) {
@@ -71,8 +71,8 @@ for (const field_t & field: *fields) {
   return result;
 }
 
-std::vector<AbstractTable::SharedDictionaryPtr> *AbstractTable::dictionaries() const {
-  auto result = new std::vector<AbstractTable::SharedDictionaryPtr>();
+std::vector<hyrise::storage::dict_ptr_t> *AbstractTable::dictionaries() const {
+  auto result = new std::vector<hyrise::storage::dict_ptr_t>();
 
   for (size_t c = 0; c < columnCount(); c++) {
     result->push_back(dictionaryAt(c));

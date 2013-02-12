@@ -56,7 +56,7 @@ public:
     table and the table below.
   */
   MutableVerticalTable(std::vector<std::vector<const ColumnMetadata *> *> metadata,
-                std::vector<std::vector<AbstractTable::SharedDictionaryPtr> *> *dictionaries = nullptr,
+                std::vector<std::vector<hyrise::storage::dict_ptr_t> *> *dictionaries = nullptr,
                 size_t size = 0, bool sorted = true, AbstractTableFactory *factory = nullptr, bool compressed = true);
 
   MutableVerticalTable(std::vector<hyrise::storage::atable_ptr_t> &cs, size_t size = 0);
@@ -88,11 +88,11 @@ public:
 
   const ColumnMetadata *metadataAt(const size_t column_index, const size_t row_index = 0, const table_id_t table_id = 0) const;
 
-  const AbstractTable::SharedDictionaryPtr& dictionaryAt(const size_t column, const size_t row = 0, const table_id_t table_id = 0, const bool of_delta = false) const;
+  const hyrise::storage::dict_ptr_t& dictionaryAt(const size_t column, const size_t row = 0, const table_id_t table_id = 0, const bool of_delta = false) const;
 
-  virtual const AbstractTable::SharedDictionaryPtr& dictionaryByTableId(const size_t column, const table_id_t table_id) const;
+  virtual const hyrise::storage::dict_ptr_t& dictionaryByTableId(const size_t column, const table_id_t table_id) const;
 
-  virtual void setDictionaryAt(AbstractTable::SharedDictionaryPtr dict, const size_t column, const size_t row = 0, const table_id_t table_id = 0);
+  virtual void setDictionaryAt(hyrise::storage::dict_ptr_t dict, const size_t column, const size_t row = 0, const table_id_t table_id = 0);
 
   size_t size() const;
 

@@ -70,7 +70,7 @@ public:
   void reserve(size_t size);
   size_t size();
 
-  std::shared_ptr<AbstractDictionary> copy();
+  hyrise::storage::dict_ptr_t copy();
   
   bool isOrdered();
 
@@ -195,7 +195,7 @@ size_t OrderPreservingDictionary<T, Strategy, Allocator>::size() {
 }
 
 template <typename T, class Strategy, template <typename K, typename S> class Allocator>
-std::shared_ptr<AbstractDictionary> OrderPreservingDictionary<T, Strategy, Allocator>::copy() {
+hyrise::storage::dict_ptr_t OrderPreservingDictionary<T, Strategy, Allocator>::copy() {
   throw std::runtime_error("Dictionaries cannot be copied");
 }
 

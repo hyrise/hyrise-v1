@@ -6,9 +6,12 @@
 #include <string>
 #include <memory>
 
+#include <helper/types.h>
+
 #include <memory/StrategizedAllocator.h>
 #include <memory/MallocStrategy.h>
 #include <memory/MemalignStrategy.h>
+
 #include <storage/storage_types.h>
 
 class AbstractDictionary;
@@ -17,7 +20,7 @@ template < template<typename T, typename S, template<typename A, typename K> cla
          class Strategy = MallocStrategy,
          template<typename A, typename K> class Allocator = StrategizedAllocator >
 struct DictionaryFactory {
-  static std::shared_ptr<AbstractDictionary> build(DataType type, size_t size = 0) {
+  static hyrise::storage::dict_ptr_t build(DataType type, size_t size = 0) {
     switch (type) {
       case IntegerType:
         return std::make_shared<D<hyrise_int_t, Strategy, Allocator>>(size);
@@ -47,14 +50,14 @@ public:
   virtual bool isOrdered() = 0;
 
   template< class Factory >
-  static std::shared_ptr<AbstractDictionary> dictionaryWithType(DataType type, size_t size = 0) {
+  static hyrise::storage::dict_ptr_t dictionaryWithType(DataType type, size_t size = 0) {
     return Factory::build(type, size);
   }
 
   virtual void reserve(size_t size) = 0;
 
-  virtual std::shared_ptr<AbstractDictionary> copy() = 0;
-  virtual std::shared_ptr<AbstractDictionary> copy_empty() = 0;
+  virtual hyrise::storage::dict_ptr_t copy() = 0;
+  virtual hyrise::storage::dict_ptr_t copy_empty() = 0;
   virtual size_t size() = 0;
 
   virtual void shrink() = 0;

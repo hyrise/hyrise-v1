@@ -16,7 +16,7 @@ class BaseAllocatedDictionary : public BaseDictionary<DictionaryType> {
 
   virtual ~BaseAllocatedDictionary() {}; // When the destructor is virtual, static operators behave like virtual
 
-  std::shared_ptr<AbstractDictionary> copy_empty() { return std::make_shared<AllocatedClass>(); }
+  hyrise::storage::dict_ptr_t copy_empty() { return std::make_shared<AllocatedClass>(); }
   
   void *operator new(size_t sz) {
     return Strategy::allocate(sz);

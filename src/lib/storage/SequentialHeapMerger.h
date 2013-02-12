@@ -35,8 +35,8 @@ private:
                   std::vector<std::vector<value_id_t> > &value_id_mapping);
 
   template <typename T>
-  AbstractTable::SharedDictionaryPtr createNewDict(const std::vector<hyrise::storage::c_atable_ptr_t > &input_tables,
-      std::vector<AbstractTable::SharedDictionaryPtr > &value_id_maps,
+  hyrise::storage::dict_ptr_t createNewDict(const std::vector<hyrise::storage::c_atable_ptr_t > &input_tables,
+      std::vector<hyrise::storage::dict_ptr_t > &value_id_maps,
       std::vector<std::vector<value_id_t> > &value_id_mapping);
 
 };

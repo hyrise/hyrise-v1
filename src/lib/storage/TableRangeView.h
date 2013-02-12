@@ -9,6 +9,7 @@
 #ifndef TABLERANGEVIEW_H_
 #define TABLERANGEVIEW_H_
 
+#include "helper/types.h"
 #include "storage/AbstractTable.h"
 
 /*
@@ -37,10 +38,10 @@ public:
   ValueId getValueId(const size_t column, const size_t row) const;
   void *atSlice(const size_t slice, const size_t row) const;
   const ColumnMetadata *metadataAt(const size_t column, const size_t row = 0, const table_id_t table_id = 0) const;
-  const SharedDictionaryPtr & dictionaryAt(const size_t column, const size_t row = 0, const table_id_t table_id = 0, const bool of_delta = false) const;
+  const hyrise::storage::dict_ptr_t & dictionaryAt(const size_t column, const size_t row = 0, const table_id_t table_id = 0, const bool of_delta = false) const;
 
   // throw exceptions if called
-  void setDictionaryAt(SharedDictionaryPtr dict, const size_t column, const size_t row = 0, const table_id_t table_id = 0);
+  void setDictionaryAt(hyrise::storage::dict_ptr_t dict, const size_t column, const size_t row = 0, const table_id_t table_id = 0);
   void sortDictionary();
 
   // just routed to underlying table
@@ -49,7 +50,7 @@ public:
   size_t getOffsetInSlice(const size_t column) const;
   unsigned sliceCount() const;
   hyrise::storage::atable_ptr_t copy_structure(const field_list_t *fields = nullptr, const bool reuse_dict = false, const size_t initial_size = 0, const bool with_containers = true, const bool compressed = false) const;
-  const SharedDictionaryPtr & dictionaryByTableId(const size_t column, const table_id_t table_id) const;
+  const hyrise::storage::dict_ptr_t & dictionaryByTableId(const size_t column, const table_id_t table_id) const;
   DataType typeOfColumn(const size_t column) const;
   size_t columnCount() const;
   std::string nameOfColumn(const size_t column) const;
