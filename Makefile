@@ -73,9 +73,9 @@ $(lib_memory):
 $(lib_taskscheduler): $(lib_helper)
 $(lib_storage): $(lib_helper) $(lib_memory) $(lib_ftprinter) $(ext_gtest) $(lib_ftprinter)
 $(lib_io): $(lib_storage) $(lib_helper)
-$(lib_access): $(lib_storage) $(lib_helper) $(lib_io) $(lib_layouter) $(json) $(lib_taskscheduler) $(lib_net)
+$(lib_access): $(lib_storage) $(lib_helper) $(lib_io) $(lib_layouter) $(json) $(lib_taskscheduler)
 $(lib_testing): $(ext_gtest) $(lib_storage) $(lib_taskscheduler) $(lib_access)
-$(lib_net): $(lib_helper) $(json) $(lib_taskscheduler) $(lib_ebb)
+$(lib_net): $(lib_helper) $(json) $(lib_taskscheduler) $(lib_ebb) $(lib_access)
 
 $(server_hyrise): $(libraries)
 $(unit_tests_helper): $(libraries)
