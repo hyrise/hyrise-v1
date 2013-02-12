@@ -39,22 +39,15 @@ TEST_F(GroupByScanTests, group_by_with_multiple_fields) {
   HashBuild hb1;
   hb1.addInput(t);
   hb1.addField(0);
+  hb1.addField(1);
   hb1.setKey("groupby");
   hb1.execute();
 
-  HashBuild hb2;
-  hb2.addInput(t);
-  hb2.addField(1);
-  hb2.setKey("groupby");
-  hb2.execute();
-
   auto hash1 = hb1.getResultHashTable();
-  auto hash2 = hb2.getResultHashTable();
-
+  
   GroupByScan gs;
   gs.addInput(t);
   gs.addInputHash(hash1);
-  gs.addInputHash(hash2);
   gs.addField(0);
   gs.addField(1);
   gs.execute();
