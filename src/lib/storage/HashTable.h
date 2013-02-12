@@ -70,7 +70,7 @@ public:
                        const pos_t row) {
     ValueIdList value_list = table->copyValueIds(row, &columns);
     T key;
-    for (size_t i = 0; i < value_list.size(); i++)
+    for (size_t i = 0, key_size = value_list.size(); i < key_size; i++)
       key.push_back(extract<T>(table, columns[i], value_list[i]));
     return key;
   }
