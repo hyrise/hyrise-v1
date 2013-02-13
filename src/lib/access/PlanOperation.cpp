@@ -190,7 +190,6 @@ void _PlanOperation::splitInput() {
   if (_count > 0 && !input.getTables().empty()) {
     u_int64_t first, last;
     distribute(tables[0]->size(), first, last);
-    _row_offset = first;
     tables[0] = TableRangeViewFactory::createView(std::const_pointer_cast<AbstractTable>(tables[0]), first, last);
   }
 }
