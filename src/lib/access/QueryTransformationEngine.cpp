@@ -6,7 +6,8 @@
 
 const std::string
 QueryTransformationEngine::parallelInstanceInfix = "_instance_",
-  QueryTransformationEngine::unionSuffix           = "_union";
+  QueryTransformationEngine::unionSuffix           = "_union",
+  QueryTransformationEngine::mergeSuffix           = "_merge";
 
 Json::Value &QueryTransformationEngine::transform(Json::Value &query) const {
   parallelizeOperators(query);
@@ -26,9 +27,6 @@ void QueryTransformationEngine::parallelizeOperators(Json::Value &query) const {
 bool QueryTransformationEngine::requestsParallelization(
     Json::Value &operatorConfiguration) const {
   const bool parallelize = operatorConfiguration["instances"] >= 2;
-  if (parallelize && operatorConfiguration["type"] == "HashBuild") {
-    throw std::runtime_error("Cannot parallelize HashBuild operator!");
-  }
   return parallelize;
 }
 
@@ -36,23 +34,33 @@ void QueryTransformationEngine::applyParallelizationTo(
     Json::Value &operatorConfiguration,
     const std::string &operatorId,
     Json::Value &query) const {
-  std::string unionOperatorId = unionIdFor(operatorId);
-  Json::Value unionOperator = this->unionOperator();
-  query["operators"][unionOperatorId] = unionOperator;
+
+  std::string consolidateOperatorId;
+  Json::Value consolidateOperator;
+
+  if (operatorConfiguration["type"] == "HashBuild") {
+    consolidateOperatorId = mergeIdFor(operatorId);
+    consolidateOperator = this->mergeOperator(operatorConfiguration["key"].asString());
+  } else {
+    consolidateOperatorId = unionIdFor(operatorId);
+    consolidateOperator = this->unionOperator();
+  }
+  query["operators"][consolidateOperatorId] = consolidateOperator;
   const size_t numberOfInitialEdges = query["edges"].size();
 
   std::vector<std::string> *instanceIds = buildInstances(
-      query, operatorConfiguration, operatorId, unionOperatorId);
-  replaceOperatorWithInstances(
-      operatorId, *instanceIds, unionOperatorId, query, numberOfInitialEdges);
+        query, operatorConfiguration, operatorId, consolidateOperatorId);
+    replaceOperatorWithInstances(
+        operatorId, *instanceIds, consolidateOperatorId, query, numberOfInitialEdges);
   delete instanceIds;
+  
 }
 
 std::vector<std::string> *QueryTransformationEngine::buildInstances(
     Json::Value &query,
     Json::Value &operatorConfiguration,
     const std::string &operatorId,
-    const std::string &unionOperatorId) const {
+    const std::string &consolidateOperatorId) const {
   const size_t numberOfCores = operatorConfiguration["cores"].size();
   const size_t numberOfInstances = operatorConfiguration["instances"].asInt();
   std::vector<std::string> *instanceIds = new std::vector<std::string>;
@@ -90,16 +98,24 @@ Json::Value QueryTransformationEngine::unionOperator() const {
   return unionOperator;
 }
 
+Json::Value QueryTransformationEngine::mergeOperator(const std::string &key) const {
+  Json::Value mergeOperator(Json::objectValue);
+  mergeOperator["type"] = "MergeHashTables";
+  mergeOperator["positions"] = true;
+  mergeOperator["key"] = key;
+  return mergeOperator;
+}
+
 void QueryTransformationEngine::replaceOperatorWithInstances(
     const std::string &operatorId,
     const std::vector<std::string> &instanceIds,
-    const std::string &unionOperatorId,
+    const std::string &consolidateOperatorId,
     Json::Value &query,
     const size_t numberOfInitialEdges) const {
   appendInstancesDstNodeEdges(
       operatorId, instanceIds, query, numberOfInitialEdges);
-  appendUnionSrcNodeEdges(
-      operatorId, instanceIds, unionOperatorId, query, numberOfInitialEdges);
+  appendConsolidateSrcNodeEdges(
+      operatorId, instanceIds, consolidateOperatorId, query, numberOfInitialEdges);
   removeOperatorNodes(query, operatorId);
 }
 
@@ -117,20 +133,20 @@ void QueryTransformationEngine::appendInstancesDstNodeEdges(
       }
 }
 
-void QueryTransformationEngine::appendUnionSrcNodeEdges(
+void QueryTransformationEngine::appendConsolidateSrcNodeEdges(
     const std::string &operatorId,
     const std::vector<std::string> &instanceIds,
-    const std::string &unionOperatorId,
+    const std::string &consolidateOperatorId,
     Json::Value &query,
     const size_t numberOfInitialEdges) const {
   Json::Value edges = query["edges"];
   for (const auto& instanceId: instanceIds)
-      appendEdge(instanceId, unionOperatorId, query);
+      appendEdge(instanceId, consolidateOperatorId, query);
 
   for (unsigned i = 0; i < numberOfInitialEdges; ++i) {
     Json::Value currentEdge = edges[i];
     if (currentEdge[0u].asString() == operatorId) {
-      appendEdge(unionOperatorId, currentEdge[1u].asString(), query);
+      appendEdge(consolidateOperatorId, currentEdge[1u].asString(), query);
     }
   }
 }
@@ -172,5 +188,10 @@ std::string QueryTransformationEngine::instanceIdFor(
 std::string QueryTransformationEngine::unionIdFor(
     const std::string &operatorId) const {
   return operatorId + unionSuffix;
+}
+
+std::string QueryTransformationEngine::mergeIdFor(
+    const std::string &operatorId) const {
+  return operatorId + mergeSuffix;
 }
 

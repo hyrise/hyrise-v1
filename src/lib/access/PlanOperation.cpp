@@ -175,7 +175,6 @@ void _PlanOperation::refreshInput() {
     input.mergeWith(dependency->output, true);
     }
   */
-
   size_t numberOfDependencies = _dependencies.size();
   std::shared_ptr<_PlanOperation> dependency;
   for (size_t i = 0; i < numberOfDependencies; ++i) {
@@ -191,6 +190,7 @@ void _PlanOperation::splitInput() {
   if (_count > 0 && !input.getTables().empty()) {
     u_int64_t first, last;
     distribute(tables[0]->size(), first, last);
+    _row_offset = first;
     tables[0] = TableRangeViewFactory::createView(std::const_pointer_cast<AbstractTable>(tables[0]), first, last);
   }
 }

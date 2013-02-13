@@ -24,6 +24,8 @@ class _PlanOperation : public OutputTask {
   OperationData input;
   OperationData output;
 
+  size_t _row_offset;
+
   void addResult(hyrise::storage::c_atable_ptr_t result) {
     output.add(result);
   }

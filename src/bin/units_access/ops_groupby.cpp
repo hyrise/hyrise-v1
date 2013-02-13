@@ -286,20 +286,11 @@ TEST_F(GroupByTests, group_by_scan_using_table_multiple_fields) {
   hyrise::access::HashBuild hs;
   hs.addInput(t);
   hs.addField(0);
+  hs.addField(1);
   hs.setKey("groupby");
 
-  hyrise::access::HashBuild hs2;
-  hs2.addInput(t);
-  hs2.addField(1);
-  hs2.setKey("groupby");
-
   auto group_map = hs.execute()->getResultHashTable();
-  auto group_map2 = hs2.execute()->getResultHashTable();
-
   gs.addInputHash(group_map);
-  gs.addInputHash(group_map2);
-
-
   const auto& result = gs.execute()->getResultTable();
 
   SortScan so;
@@ -473,21 +464,14 @@ TEST_F(GroupByTests, group_by_scan_with_count_and_two_args) {
   hyrise::access::HashBuild hs;
   hs.addInput(t);
   hs.addField(0);
+  hs.addField(1);
   hs.setKey("groupby");
 
-  hyrise::access::HashBuild hs2;
-  hs2.addInput(t);
-  hs2.addField(1);
-  hs2.setKey("groupby");
-
+  
   auto group_map = hs.execute()->getResultHashTable();
-  auto group_map2 = hs2.execute()->getResultHashTable();
-
   gs.addInputHash(group_map);
-  gs.addInputHash(group_map2);
 
   const auto& result = gs.execute()->getResultTable();
-
   const auto& reference = Loader::shortcuts::load("test/reference/group_by_scan_with_count_and_two_args.tbl");
 
   SortScan so;
