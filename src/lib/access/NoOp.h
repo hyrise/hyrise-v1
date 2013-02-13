@@ -4,7 +4,15 @@
 
 #include "PlanOperation.h"
 
+namespace hyrise {
+namespace access {
+  // used to test protected methods
+  class ParallelExecutionTest_data_distribution_Test;
+}
+}
+
 class NoOp : public _PlanOperation {
+     friend class hyrise::access::ParallelExecutionTest_data_distribution_Test;
  public:
 
   NoOp() {

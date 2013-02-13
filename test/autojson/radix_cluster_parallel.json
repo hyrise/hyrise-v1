@@ -1,0 +1,98 @@
+{
+  "operators" : {
+    "load" : {
+      "type": "TableLoad",
+      "table": "hasher",
+      "filename": "tables/hash_table_test.tbl"
+    },
+    "hist1" : {
+      "type" : "Histogram",
+      "fields": [0],
+      "bits": 2,
+      "part": 0,
+      "numParts" : 2
+    },
+    "hist2" : {
+      "type" : "Histogram",
+      "fields": [0],
+      "bits": 2,
+      "part": 1,
+      "numParts" : 2
+    },
+
+
+    "prefix1" : {
+      "type" : "PrefixSum",
+      "part": 0,
+      "numParts" : 2
+    },
+    "prefix2" : {
+      "type" : "PrefixSum",
+      "part": 0,
+      "numParts" : 2
+    },
+
+
+    "create" : {
+      "type" : "CreateRadixTable"
+    },
+
+    "radix_p1" : {
+      "type" : "RadixCluster",
+      "bits" : 2,
+      "fields" : [0],
+      "part": 0,
+      "numParts": 2
+    },
+    "radix_p2" : {
+      "type" : "RadixCluster",
+      "bits" : 2,
+      "fields" : [0],
+      "part": 1,
+      "numParts": 2
+    },/*
+    "hist2" : {
+      "type" : "Histogram2ndPass",
+      "fields": [0],
+      "bits": 1,
+      "sig": 2
+    },
+    "prefix2" : {
+      "type" : "PrefixSum"
+    },
+    "radix2" : {
+      "type" : "RadixCluster2ndPass",
+      "bits" : 1,
+      "sig": 2
+    },*/
+    "nop" : {
+      "type" : "NoOp"
+    }
+  },
+  "edges" : [["load", "hist1"], 
+             ["hist1", "prefix1"], 
+             ["load", "hist2"], 
+             ["hist2", "prefix2"], 
+
+             ["load", "create"],
+             
+             ["load",   "radix_p1"], 
+             ["create", "radix_p1"],
+             ["prefix1", "radix_p1"],
+
+             ["load",   "radix_p2"], 
+             ["create", "radix_p2"],
+             ["prefix2", "radix_p2"],
+
+             /*["radix_p1", "hist2"],
+             ["prefix1",   "hist2"],
+             ["prefix2",   "hist2"],
+             ["radix_p2", "hist2"],
+
+             ["hist2", "prefix2"],
+             ["radix_p1", "radix2"],
+             ["prefix2", "radix2"],
+             ["radix2", "nop"]]*/
+             ["radix_p1", "nop"],
+             ["radix_p2", "nop"]]
+}

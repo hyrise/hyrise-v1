@@ -20,6 +20,22 @@ struct TestType {
 };
 
 
+TEST( FixedLengthVectorTest, increment_test ) {
+  size_t cols = 1;
+  size_t rows = 3;
+
+  auto tuples = std::dynamic_pointer_cast<FixedLengthVector<value_id_t>>(
+    AttributeVectorFactory::getAttributeVector2<value_id_t, StrategizedAllocator<uint, MallocStrategy>>(cols,rows, false));
+
+  tuples->resize(rows);
+
+  EXPECT_EQ(0u, tuples->get(0,0));
+  EXPECT_EQ(0u, tuples->inc(0,0));
+  EXPECT_EQ(1u, tuples->get(0,0));
+  EXPECT_EQ(1u, tuples->atomic_inc(0,0));
+  EXPECT_EQ(2u, tuples->get(0,0));
+}
+
 static const std::vector<uint64_t> bits = std::vector<uint64_t> {2, 3};
 
 using testing::Types;
