@@ -1,0 +1,113 @@
+{
+  "operators" : {
+    "reference" :{
+      "type": "TableLoad",
+      "table": "reference",
+      "filename": "tables/hash_table_test_ref.tbl"
+    },
+    "lload" : {
+      "type": "TableLoad",
+      "table": "hasher",
+      "filename": "tables/hash_table_test2.tbl"
+    },
+    "lhist" : {
+      "type" : "Histogram",
+      "fields": [0],
+      "bits": 2
+    },
+    "lprefix" : {
+      "type" : "PrefixSum"
+    },
+    "lcreate" : {
+      "type" : "CreateRadixTable"
+    },
+    "lcreate2" : {
+      "type" : "CreateRadixTable"
+    },
+    "lradix" : {
+      "type" : "RadixCluster",
+      "bits" : 2,
+      "fields" : [0]
+    },
+    "lhist2" : {
+      "type" : "Histogram2ndPass",
+      "fields": [0],
+      "bits": 2,
+      "sig": 0,
+      "bits2": 1,
+      "sig2" : 2
+    },
+    "lprefix2" : {
+      "type" : "PrefixSum"
+    },
+    "lradix2" : {
+      "type" : "RadixCluster2ndPass",
+      "bits": 2,
+      "sig": 0,
+      "bits2": 1,
+      "sig2" : 2
+    },
+    
+    "rload" : {
+      "type": "TableLoad",
+      "table": "hasher2",
+      "filename": "tables/hash_table_test.tbl"
+    },
+    "rhist" : {
+      "type" : "Histogram",
+      "fields": [0],
+      "bits": 2
+    },
+    "rprefix" : {
+      "type" : "PrefixSum"
+    },
+    "rcreate" : {
+      "type" : "CreateRadixTable"
+    },
+    "rradix" : {
+      "type" : "RadixCluster",
+      "bits" : 2,
+      "fields" : [0]
+    },
+    "join" : {
+      "type" : "NestedLoopEquiJoin",
+      "bits1": 2,
+      "bits2": 1,
+      "partitions": [0, 1, 2, 3]
+    }
+  },
+  "edges" : [["lload", "lhist"], 
+             ["lhist", "lprefix"],
+
+             ["lload", "lcreate"],
+             ["lload", "lcreate2"],
+             
+             ["lload", "lradix"], 
+             ["lcreate", "lradix"],
+             ["lprefix", "lradix"],
+
+             ["lradix", "lhist2"],
+
+             ["lhist2", "lprefix2"],
+
+             ["lradix", "lradix2"],
+             ["lcreate2", "lradix2"],
+             ["lprefix2", "lradix2"],
+             
+             ["rload", "rhist"], 
+             ["rhist", "rprefix"], 
+             ["rload", "rcreate"],
+             
+             ["rload", "rradix"], 
+             ["rcreate", "rradix"],
+             ["rprefix", "rradix"],
+
+             ["rload", "join"],
+             ["rradix", "join"],
+             ["rprefix", "join"],
+             
+             ["lload", "join"],
+             ["lradix2", "join"],
+             ["lprefix2", "join"]           
+             ]
+}

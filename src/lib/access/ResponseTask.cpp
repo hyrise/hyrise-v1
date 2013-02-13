@@ -43,6 +43,7 @@ Json::Value generateRowsJsonT(const T& table, const size_t transmitLimit) {
   json_functor<T> fun(table);
   Json::Value rows(Json::arrayValue);
   for (size_t row = 0; row < table->size(); ++row) {
+
     fun.row = row;
     Json::Value json_row(Json::arrayValue);
     for (size_t col = 0; col < table->columnCount(); ++col) {
@@ -99,7 +100,8 @@ void ResponseTask::operator()() {
         }
 
         // Copy the complete result
-        response["rows"] = generateRowsJson(result, _transmitLimit);
+        response["real_size"] = result->size();
+        //response["rows"] = generateRowsJson(result, _transmitLimit);
         response["header"] = json_header;
       }
 

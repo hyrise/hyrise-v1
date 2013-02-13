@@ -60,6 +60,7 @@ def  build(operators)
         svg.rect :y => x, :x => y, :height => width, :width => 40, :style => "fill:rgb(#{duration_color},89,0); stroke-width:1; stroke:rgb(0,0,0);"    
         
         svg.text "#{operator["name"]} (#{duration.round} ms)", :y => x + 10, :x => y + 50, :style => "font-size: 8pt", :transform => "rotate(0 #{y + 10} #{x + 2})"
+        svg.text "#{operator["id"]}", :y => x + 30, :x => y + 50, :style => "font-size: 8pt", :transform => "rotate(0 #{y + 10} #{x + 2})"
       }
     end
     buffer

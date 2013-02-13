@@ -1,0 +1,421 @@
+{
+  "operators": {
+    "reference": {
+      "type": "TableLoad",
+      "table": "reference",
+      "filename": "tables/hash_table_test_ref.tbl"
+    },
+    "lload": {
+      "type": "TableLoad",
+      "table": "hasher",
+      "filename": "tables/hash_table_test.tbl"
+    },
+    "rload": {
+      "type": "TableLoad",
+      "table": "hasher2",
+      "filename": "tables/hash_table_test2.tbl"
+    },
+    "nop": {
+      "type": "Barrier",
+      "fields": [
+        0
+      ]
+    },
+    "join_probe__histogram__0": {
+      "type": "Histogram",
+      "fields": [
+        0
+      ],
+      "bits": 2,
+      "part": 0,
+      "numParts": 2
+    },
+    "join_probe__histogram__1": {
+      "type": "Histogram",
+      "fields": [
+        0
+      ],
+      "bits": 2,
+      "part": 1,
+      "numParts": 2
+    },
+    "join_probe__prefix_sum__0": {
+      "type": "PrefixSum",
+      "part": 0,
+      "numParts": 2
+    },
+    "join_probe__prefix_sum__1": {
+      "type": "PrefixSum",
+      "part": 1,
+      "numParts": 2
+    },
+    "join_probe__radix_cluster_p1__0": {
+      "type": "RadixCluster",
+      "fields": [
+        0
+      ],
+      "bits": 2,
+      "part": 0,
+      "numParts": 2
+    },
+    "join_probe__radix_cluster_p1__1": {
+      "type": "RadixCluster",
+      "fields": [
+        0
+      ],
+      "bits": 2,
+      "part": 1,
+      "numParts": 2
+    },
+    "join_probe__create_radix_table": {
+      "type": "CreateRadixTable"
+    },
+    "join_probe__merge_prefix_sum": {
+      "type": "MergePrefixSum"
+    },
+    "join_probe__barrier": {
+      "type": "Barrier",
+      "fields": [
+        0
+      ]
+    },
+    "join_hash__histogram__0": {
+      "type": "Histogram",
+      "fields": [
+        0
+      ],
+      "bits": 2,
+      "part": 0,
+      "numParts": 2
+    },
+    "join_hash__histogram__1": {
+      "type": "Histogram",
+      "fields": [
+        0
+      ],
+      "bits": 2,
+      "part": 1,
+      "numParts": 2
+    },
+    "join_hash__prefix_sum__0": {
+      "type": "PrefixSum",
+      "part": 0,
+      "numParts": 2
+    },
+    "join_hash__prefix_sum__1": {
+      "type": "PrefixSum",
+      "part": 1,
+      "numParts": 2
+    },
+    "join_hash__radix_cluster_p1__0": {
+      "type": "RadixCluster",
+      "fields": [
+        0
+      ],
+      "bits": 2,
+      "part": 0,
+      "numParts": 2
+    },
+    "join_hash__radix_cluster_p1__1": {
+      "type": "RadixCluster",
+      "fields": [
+        0
+      ],
+      "bits": 2,
+      "part": 1,
+      "numParts": 2
+    },
+    "join_hash__histogram_p2__0": {
+      "type": "Histogram2ndPass",
+      "fields": [
+        0
+      ],
+      "bits": 2,
+      "bits2": 1,
+      "sig2": 2,
+      "part": 0,
+      "numParts": 2
+    },
+    "join_hash__histogram_p2__1": {
+      "type": "Histogram2ndPass",
+      "fields": [
+        0
+      ],
+      "bits": 2,
+      "bits2": 1,
+      "sig2": 2,
+      "part": 1,
+      "numParts": 2
+    },
+    "join_hash__prefix_sum_p2__0": {
+      "type": "PrefixSum",
+      "part": 0,
+      "numParts": 2
+    },
+    "join_hash__prefix_sum_p2__1": {
+      "type": "PrefixSum",
+      "part": 1,
+      "numParts": 2
+    },
+    "join_hash__radix_cluster_p2__0": {
+      "type": "RadixCluster2ndPass",
+      "bits": 2,
+      "bits2": 1,
+      "sig2": 2,
+      "part": 0,
+      "numParts": 2
+    },
+    "join_hash__radix_cluster_p2__1": {
+      "type": "RadixCluster2ndPass",
+      "bits": 2,
+      "bits2": 1,
+      "sig2": 2,
+      "part": 1,
+      "numParts": 2
+    },
+    "join_hash__merge_prefix_sum": {
+      "type": "MergePrefixSum"
+    },
+    "join_hash__create_radix_table": {
+      "type": "CreateRadixTable"
+    },
+    "join_hash__create_radix_table2": {
+      "type": "CreateRadixTable"
+    },
+    "join_hash__barrier": {
+      "type": "Barrier",
+      "fields": [
+        0
+      ]
+    },
+    "RadixJoin_join": {
+      "type": "NestedLoopEquiJoin",
+      "bits1": 2,
+      "bits2": 1,
+      "partitions": [
+        0,
+        1,
+        2,
+        3
+      ]
+    }
+  },
+  "edges": [
+    [
+      "lload",
+      "join_probe__create_radix_table"
+    ],
+    [
+      "lload",
+      "join_probe__histogram__0"
+    ],
+    [
+      "join_probe__histogram__0",
+      "join_probe__prefix_sum__0"
+    ],
+    [
+      "join_probe__histogram__0",
+      "join_probe__prefix_sum__1"
+    ],
+    [
+      "lload",
+      "join_probe__radix_cluster_p1__0"
+    ],
+    [
+      "join_probe__create_radix_table",
+      "join_probe__radix_cluster_p1__0"
+    ],
+    [
+      "join_probe__prefix_sum__0",
+      "join_probe__radix_cluster_p1__0"
+    ],
+    [
+      "join_probe__prefix_sum__0",
+      "join_probe__merge_prefix_sum"
+    ],
+    [
+      "join_probe__radix_cluster_p1__0",
+      "join_probe__barrier"
+    ],
+    [
+      "lload",
+      "join_probe__histogram__1"
+    ],
+    [
+      "join_probe__histogram__1",
+      "join_probe__prefix_sum__0"
+    ],
+    [
+      "join_probe__histogram__1",
+      "join_probe__prefix_sum__1"
+    ],
+    [
+      "lload",
+      "join_probe__radix_cluster_p1__1"
+    ],
+    [
+      "join_probe__create_radix_table",
+      "join_probe__radix_cluster_p1__1"
+    ],
+    [
+      "join_probe__prefix_sum__1",
+      "join_probe__radix_cluster_p1__1"
+    ],
+    [
+      "join_probe__prefix_sum__1",
+      "join_probe__merge_prefix_sum"
+    ],
+    [
+      "join_probe__radix_cluster_p1__1",
+      "join_probe__barrier"
+    ],
+    [
+      "rload",
+      "join_hash__create_radix_table"
+    ],
+    [
+      "rload",
+      "join_hash__create_radix_table2"
+    ],
+    [
+      "rload",
+      "join_hash__histogram__0"
+    ],
+    [
+      "join_hash__histogram__0",
+      "join_hash__prefix_sum__0"
+    ],
+    [
+      "join_hash__histogram__0",
+      "join_hash__prefix_sum__1"
+    ],
+    [
+      "rload",
+      "join_hash__radix_cluster_p1__0"
+    ],
+    [
+      "join_hash__create_radix_table",
+      "join_hash__radix_cluster_p1__0"
+    ],
+    [
+      "join_hash__prefix_sum__0",
+      "join_hash__radix_cluster_p1__0"
+    ],
+    [
+      "join_hash__radix_cluster_p1__0",
+      "join_hash__histogram_p2__0"
+    ],
+    [
+      "join_hash__histogram_p2__0",
+      "join_hash__prefix_sum_p2__0"
+    ],
+    [
+      "join_hash__histogram_p2__0",
+      "join_hash__prefix_sum_p2__1"
+    ],
+    [
+      "join_hash__radix_cluster_p1__0",
+      "join_hash__radix_cluster_p2__0"
+    ],
+    [
+      "join_hash__create_radix_table2",
+      "join_hash__radix_cluster_p2__0"
+    ],
+    [
+      "join_hash__prefix_sum_p2__0",
+      "join_hash__radix_cluster_p2__0"
+    ],
+    [
+      "join_hash__prefix_sum_p2__0",
+      "join_hash__merge_prefix_sum"
+    ],
+    [
+      "join_hash__radix_cluster_p2__0",
+      "join_hash__barrier"
+    ],
+    [
+      "rload",
+      "join_hash__histogram__1"
+    ],
+    [
+      "join_hash__histogram__1",
+      "join_hash__prefix_sum__0"
+    ],
+    [
+      "join_hash__histogram__1",
+      "join_hash__prefix_sum__1"
+    ],
+    [
+      "rload",
+      "join_hash__radix_cluster_p1__1"
+    ],
+    [
+      "join_hash__create_radix_table",
+      "join_hash__radix_cluster_p1__1"
+    ],
+    [
+      "join_hash__prefix_sum__1",
+      "join_hash__radix_cluster_p1__1"
+    ],
+    [
+      "join_hash__radix_cluster_p1__1",
+      "join_hash__histogram_p2__1"
+    ],
+    [
+      "join_hash__histogram_p2__1",
+      "join_hash__prefix_sum_p2__0"
+    ],
+    [
+      "join_hash__histogram_p2__1",
+      "join_hash__prefix_sum_p2__1"
+    ],
+    [
+      "join_hash__radix_cluster_p1__1",
+      "join_hash__radix_cluster_p2__1"
+    ],
+    [
+      "join_hash__create_radix_table2",
+      "join_hash__radix_cluster_p2__1"
+    ],
+    [
+      "join_hash__prefix_sum_p2__1",
+      "join_hash__radix_cluster_p2__1"
+    ],
+    [
+      "join_hash__prefix_sum_p2__1",
+      "join_hash__merge_prefix_sum"
+    ],
+    [
+      "join_hash__radix_cluster_p2__1",
+      "join_hash__barrier"
+    ],
+    [
+      "lload",
+      "RadixJoin_join"
+    ],
+    [
+      "join_probe__barrier",
+      "RadixJoin_join"
+    ],
+    [
+      "join_probe__merge_prefix_sum",
+      "RadixJoin_join"
+    ],
+    [
+      "rload",
+      "RadixJoin_join"
+    ],
+    [
+      "join_hash__barrier",
+      "RadixJoin_join"
+    ],
+    [
+      "join_hash__merge_prefix_sum",
+      "RadixJoin_join"
+    ],
+    [
+      "RadixJoin_join",
+      "nop"
+    ]
+  ]
+}
