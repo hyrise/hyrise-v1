@@ -27,6 +27,11 @@ static const std::string VALID_TO_COL_ID = "$valid_to";
 static const std::string VALID_FROM_COL_ID = "$valid_from";
 }
 
+namespace access {
+class AbstractExpression;
+typedef std::unique_ptr<AbstractExpression> expression_uptr_t;
+}
+
 namespace storage {
 class SimpleStore;
 
