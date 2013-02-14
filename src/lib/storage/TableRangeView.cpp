@@ -11,12 +11,16 @@
 
 
 TableRangeView::TableRangeView(hyrise::storage::atable_ptr_t t, size_t s, size_t e): _table(t), _start(s), _end(e) {
+  _columnCount = _table->columnCount();
 }
 
 TableRangeView::~TableRangeView() {
   // TODO Auto-generated destructor stub
 }
 
+size_t TableRangeView::getStart() const{
+  return _start;
+}
 
 size_t TableRangeView::size() const {
   return _end-_start+1;
@@ -104,7 +108,7 @@ DataType TableRangeView::typeOfColumn(const size_t column) const{
 }
 
 size_t TableRangeView::columnCount() const{
-  return _table->columnCount();
+  return _columnCount;
 }
 
 std::string TableRangeView::nameOfColumn(const size_t column) const {

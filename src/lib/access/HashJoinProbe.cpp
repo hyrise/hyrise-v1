@@ -26,10 +26,17 @@ void HashJoinProbe::executePlanOperation() {
   pos_list_t *buildTablePosList = new pos_list_t;
   pos_list_t *probeTablePosList = new pos_list_t;
 
-  if (_selfjoin)
-    fetchPositions<AggregateHashTable>(buildTablePosList, probeTablePosList);
-  else
-    fetchPositions<JoinHashTable>(buildTablePosList, probeTablePosList);
+  if (_selfjoin) {
+    if (_field_definition.size() == 1)
+      fetchPositions<SingleAggregateHashTable>(buildTablePosList, probeTablePosList);
+    else  
+      fetchPositions<AggregateHashTable>(buildTablePosList, probeTablePosList);
+  } else {
+    if (_field_definition.size() == 1) 
+      fetchPositions<SingleJoinHashTable>(buildTablePosList, probeTablePosList);
+    else
+      fetchPositions<JoinHashTable>(buildTablePosList, probeTablePosList);
+  }
 
   addResult(buildResultTable(buildTablePosList, probeTablePosList));
 }

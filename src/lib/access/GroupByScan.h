@@ -109,6 +109,10 @@ class GroupByScan : public _PlanOperation {
   void splitInput();
   void writeGroupResult(hyrise::storage::atable_ptr_t resultTab, std::shared_ptr<pos_list_t> hit, size_t row);
 
+  /// Depending on the number of fields to group by choose the appropriate map type
+  template<typename HashTableType, typename MapType, typename KeyType>
+  void executeGroupBy();
+
 };
 
 }

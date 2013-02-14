@@ -113,6 +113,33 @@ TEST_F(JSONTests, append_instances_nodes) {
   ASSERT_TRUE(isEdgeEqual(query["edges"], 2, srcNode, dstNodeInstance2));
 }
 
+TEST_F(JSONTests, append_merge_node) {
+  std::string
+      srcNode = "0",
+      dstNode = "1";
+  std::string
+      srcNodeInstance1 = QueryTransformationEngine::getInstance()->
+      instanceIdFor(srcNode, 0),
+      srcNodeInstance2 = QueryTransformationEngine::getInstance()->
+      instanceIdFor(srcNode, 1),
+      srcMergeNode = QueryTransformationEngine::getInstance()->
+      mergeIdFor(srcNode);
+  std::vector<std::string> instanceIds;
+  instanceIds.push_back(srcNodeInstance1);
+  instanceIds.push_back(srcNodeInstance2);
+  Json::Value query(Json::objectValue);
+  query["edges"] = EdgesBuilder().
+      appendEdge(srcNode, dstNode).
+      getEdges();
+
+  QueryTransformationEngine::getInstance()->appendConsolidateSrcNodeEdges(
+      srcNode, instanceIds, srcMergeNode, query, 1);
+  ASSERT_TRUE(isEdgeEqual(query["edges"], 0, srcNode, dstNode));
+  ASSERT_TRUE(isEdgeEqual(query["edges"], 1, srcNodeInstance1, srcMergeNode));
+  ASSERT_TRUE(isEdgeEqual(query["edges"], 2, srcNodeInstance2, srcMergeNode));
+  ASSERT_TRUE(isEdgeEqual(query["edges"], 3, srcMergeNode, dstNode));
+}
+
 TEST_F(JSONTests, append_union_node) {
   std::string
       srcNode = "0",
@@ -132,7 +159,7 @@ TEST_F(JSONTests, append_union_node) {
       appendEdge(srcNode, dstNode).
       getEdges();
 
-  QueryTransformationEngine::getInstance()->appendUnionSrcNodeEdges(
+  QueryTransformationEngine::getInstance()->appendConsolidateSrcNodeEdges(
       srcNode, instanceIds, srcUnionNode, query, 1);
   ASSERT_TRUE(isEdgeEqual(query["edges"], 0, srcNode, dstNode));
   ASSERT_TRUE(isEdgeEqual(query["edges"], 1, srcNodeInstance1, srcUnionNode));
