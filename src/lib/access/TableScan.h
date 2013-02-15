@@ -2,23 +2,27 @@
 #ifndef SRC_LIB_ACCESS_TABLESCAN_H_
 #define SRC_LIB_ACCESS_TABLESCAN_H_
 
+#include <memory>
 #include "access/PlanOperation.h"
-
-class SimpleExpression;
 
 namespace hyrise { namespace access {
 
+class AbstractExpression;
+
+/// Implements registration based expression scan
 class TableScan : public _PlanOperation {
  public:
-  explicit TableScan(SimpleExpression* expr);
-  ~TableScan();
-
+  /// Construct TableScan for a specific expression, take
+  /// ownership of passed in expression
+  explicit TableScan(std::unique_ptr<AbstractExpression> expr);
+  /// Parse TableScan from 
   static std::shared_ptr<_PlanOperation> parse(Json::Value& data);
+  const std::string vname() { return "me"; }
+ protected:
   void setupPlanOperation();
   void executePlanOperation();
-  const std::string vname() { return "me"; }
  private:
-  SimpleExpression* _expr;
+  std::unique_ptr<AbstractExpression> _expr;
 };
 
 }}

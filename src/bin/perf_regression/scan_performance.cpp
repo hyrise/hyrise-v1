@@ -14,9 +14,11 @@
 #include "io/StringLoader.h"
 #include "io/Loader.h"
 
+#include "helper/make_unique.h"
+
 #include "storage/AbstractTable.h"
 
-#include "access/SpecialExpression.h"
+#include "access/ExampleExpression.h"
 //#include "gperftools/profiler.h"
 
 namespace hyrise {
@@ -58,15 +60,14 @@ class ScanBench : public ::testing::Benchmark {
     _value = _data[_data.size()-1];
   }
 
-  void BenchmarkSetUp() {
-    auto eq1 = new EqualsExpression<hyrise_int_t>(0, 0, _value);
-    auto eq2 = new SpecialExpression(0, _value);
 
-    _tablescanNormal = std::make_shared<TableScan>(eq1);
+  
+  void BenchmarkSetUp() {
+    _tablescanNormal = std::make_shared<TableScan>(make_unique<EqualsExpression<hyrise_int_t>>(0, 0, _value));
     _tablescanNormal->setEvent("NO_PAPI");
     _tablescanNormal->addInput(_table);
 
-    _tablescanSpecial = std::make_shared<TableScan>(eq2);
+    _tablescanSpecial = std::make_shared<TableScan>(make_unique<ExampleExpression>(0, _value));
     _tablescanSpecial->setEvent("NO_PAPI");
     _tablescanSpecial->addInput(_table);
   }
