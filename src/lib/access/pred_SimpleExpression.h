@@ -4,12 +4,10 @@
 
 #include "storage/storage_types.h"
 #include "helper/types.h"
+#include "access/AbstractExpression.h"
 
-class SimpleExpression {
+class SimpleExpression : public hyrise::access::AbstractExpression {
  public:
-  SimpleExpression() { }
-  virtual ~SimpleExpression() { }
-
   virtual void walk(const std::vector<hyrise::storage::c_atable_ptr_t> &l) = 0;
 
   virtual pos_list_t* match(const size_t start, const size_t stop) {

@@ -1,0 +1,20 @@
+{
+    "operators": {
+        "reference" :  {
+            "type": "TableLoad",
+            "table": "reference",
+            "filename" : "tables/companies_apple_only.tbl" 
+        },
+        "load" : {
+            "type": "LoadFile",
+            "filename": "tables/companies.tbl"
+        },
+	"special" : {
+	    "type" : "TableScan",
+            "expression" : "hyrise::example",
+            "column" : 0,
+            "value" : 1
+	}
+    },
+    "edges" : [["load", "special"]]
+}
