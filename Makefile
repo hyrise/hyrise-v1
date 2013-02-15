@@ -113,11 +113,17 @@ else
 	$@ --gtest_list_tests > /dev/null
 endif
 
+python_test:
+	python tools/test_server.py
+
+basic_test_targets := $(basic_test_binaries)
+all_test_targets := $(all_test_binaries) python_test
+
 # Test invocation rules
 test: unit_test_params = --minimal
-test: $(basic_test_binaries) 
-test_verbose: $(basic_test_binaries)
-test_all: $(all_test_binaries)
+test: $(basic_test_targets)
+test_verbose: $(basic_test_targets)
+test_all: $(all_test_targets)
 
 include makefiles/*.mk
 

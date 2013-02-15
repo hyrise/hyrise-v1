@@ -1,6 +1,6 @@
 # Build invocation
 ci_test: unit_test_params = --gtest_output=xml:$(subst $(build_dir)/,,$@).xml
-ci_test: all $(all_test_binaries)
+ci_test: all $(all_test_targets)
 
 ci_build_not_parallel: coverage lint sloc duplicates
 
