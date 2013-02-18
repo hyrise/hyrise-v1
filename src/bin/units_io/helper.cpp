@@ -1,6 +1,7 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "helper.h"
 #include "storage/AbstractTable.h"
+#include "storage/PrettyPrinter.h"
 
 
 ::testing::AssertionResult AssertTableContentEquals(const char *left_exp,
@@ -13,8 +14,8 @@
 
   std::stringstream buf;
 
-  left->print(buf);
-  right->print(buf);
+  PrettyPrinter::print(left.get(), buf, left_exp);
+  PrettyPrinter::print(right.get(), buf, right_exp);
   return ::testing::AssertionFailure() << buf.str()
                                        << "The content of " << left_exp << " does not equal the content of " << right_exp;
 }

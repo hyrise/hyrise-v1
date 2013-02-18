@@ -78,8 +78,7 @@ std::string rowPositionErrors(TableDiff diff, const char* baseRelationName, cons
 
 ::testing::AssertionResult RelationEquals(const char* left_exp,
     const char* right_exp,
-    tblptr left,
-    tblptr right) {
+    tblptr left, tblptr right) {
   auto resultL2R = TableDiff::diffTables(left.get(),  right.get());
   auto resultR2L = TableDiff::diffTables(right.get(), left.get());
 
@@ -89,9 +88,9 @@ std::string rowPositionErrors(TableDiff diff, const char* baseRelationName, cons
 
   std::stringstream buf;
 
-  PrettyPrinter::printDiff(left, resultL2R, left_exp, buf);
+  PrettyPrinter::printDiff(left, resultL2R, buf, left_exp);
   buf << std::endl;
-  PrettyPrinter::printDiff(right, resultR2L, right_exp, buf);
+  PrettyPrinter::printDiff(right, resultR2L, buf, right_exp);
 
   buf << "\"" << left_exp << "\""
       << "is not an equal relation to"
@@ -99,7 +98,7 @@ std::string rowPositionErrors(TableDiff diff, const char* baseRelationName, cons
       << schemeErrors(resultL2R, left_exp, left)
       << schemeErrors(resultR2L, right_exp, right)
       << rowErrors(resultL2R, left_exp, right_exp)
-	 << rowErrors(resultR2L, right_exp, left_exp);
+      << rowErrors(resultR2L, right_exp, left_exp);
 
   return ::testing::AssertionFailure() << buf.str();
 }
@@ -130,9 +129,9 @@ std::string rowPositionErrors(TableDiff diff, const char* baseRelationName, cons
 
   std::stringstream buf;
 
-  PrettyPrinter::printDiff(left, resultL2R, left_exp, buf);
+  PrettyPrinter::printDiff(left, resultL2R, buf, left_exp);
   buf << std::endl;
-  PrettyPrinter::printDiff(right, resultR2L, right_exp, buf);
+  PrettyPrinter::printDiff(right, resultR2L, buf, right_exp);
 
   buf << "\"" << left_exp << "\""
       << "is not an equal sorted relation to"

@@ -36,7 +36,7 @@ std::string generateValue(T& input, const size_t& column, const size_t& row) {
 }
 
 template <typename T>
-void special_print(T& input, const std::string tableName, std::ostream& outStream, const size_t& limit, const size_t& start) {
+void special_print(T& input, std::ostream& outStream, const std::string tableName, const size_t& limit, const size_t& start) {
   ftprinter::FTPrinter tp(tableName, outStream);
   tp.addColumn("#rowid", 6);
   const size_t columns = input->columnCount();
@@ -58,7 +58,8 @@ void special_print(T& input, const std::string tableName, std::ostream& outStrea
     outStream << "(showing first " << limit << " rows)" << std::endl;
   }
 
-  tp.printTableName();
+  if (tableName.size() > 0)
+    tp.printTableName();
   tp.printHeader();
   for (size_t row = start; row < input->size() && row < limit; ++row) {
     tp << row;
@@ -70,7 +71,7 @@ void special_print(T& input, const std::string tableName, std::ostream& outStrea
 }
 
 void PrettyPrinter::printDiff(const storage::c_atable_ptr_t& input, const TableDiff& diff,
-                              const std::string tableName, std::ostream& outStream,
+                              std::ostream& outStream, const std::string tableName,
 			      const size_t& limit, const size_t& start) {
   ftprinter::FTPrinter tp(tableName, outStream);
   tp.addColumn("#rowid", 6);
@@ -107,7 +108,8 @@ void PrettyPrinter::printDiff(const storage::c_atable_ptr_t& input, const TableD
   while (iWrong != diff.wrongRows.end() && *iWrong < start) iWrong++;
   while (iFalsePos != diff.falsePositionRows.end() && (*iFalsePos).first < start) iFalsePos++;
 
-  tp.printTableName();
+  if (tableName.size() > 0)
+    tp.printTableName();
   tp.printHeader();
 
   for (size_t row = start; row < input->size() && row < limit; ++row) {
@@ -129,11 +131,11 @@ void PrettyPrinter::printDiff(const storage::c_atable_ptr_t& input, const TableD
   tp.printFooter();
 };
 
-void PrettyPrinter::print(const AbstractTable* const input, const std::string tableName, std::ostream& outStream, const size_t& limit, const size_t& start) {
+void PrettyPrinter::print(const AbstractTable* const input, std::ostream& outStream, const std::string tableName, const size_t& limit, const size_t& start) {
   const RawTable<>* r = dynamic_cast<const RawTable<>*>(input);
   if (r) {
-    special_print(r, tableName, outStream, limit, start);
+    special_print(r, outStream, tableName, limit, start);
   } else {
-    special_print(input, tableName, outStream, limit, start);
+    special_print(input, outStream, tableName, limit, start);
   }
 }

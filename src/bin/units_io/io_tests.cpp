@@ -59,7 +59,7 @@ TEST_F(IoTest, wrong_header3) {
 
 TEST_F(IoTest, wrong_file) {
   ASSERT_THROW( {
-      Loader::shortcuts::loadWithStringHeader(fail_file_3, "themen | epic\nINTEGER|INTEGER\n0_R|0_R")->print(std::cout);
+      Loader::shortcuts::loadWithStringHeader(fail_file_3, "themen | epic\nINTEGER|INTEGER\n0_R|0_R")->print();
     }, Loader::Error);
 
   // ASSERT_THROW({

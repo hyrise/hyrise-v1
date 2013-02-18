@@ -143,7 +143,7 @@ public:
 
   void merge();
   void mergeWith(std::unique_ptr<TableMerger> merger);
-  virtual void print(std::ostream& outStream, const std::string tableName = "unnamed simple store", const size_t limit = (size_t) -1) const;
+  virtual void print(const size_t limit = (size_t) -1) const;
 
 private:
 
