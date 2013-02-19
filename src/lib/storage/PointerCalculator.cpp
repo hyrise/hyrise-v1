@@ -216,7 +216,7 @@ size_t PointerCalculator::getOffsetInSlice(const size_t column) const {
 };
 
 void PointerCalculator::print(const size_t limit) const {
-  PrettyPrinter::print(this, limit);
+  PrettyPrinter::print(this, std::cout, "unnamed pointer calculator", limit);
 }
 
 std::string PointerCalculator::printValue(const size_t column, const size_t row) const {

@@ -60,8 +60,8 @@ const AbstractTable::SharedDictionaryPtr& SimpleStore::dictionaryAt(const size_t
 }
 
 void SimpleStore::print(const size_t limit) const {
-  _main->print();
-  _delta->print();
+  _main->print(limit);
+  _delta->print(limit);
 }
 
 

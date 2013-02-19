@@ -61,7 +61,7 @@ public:
 
   virtual size_t getOffsetInSlice(const size_t column) const;
 
-  void print(const size_t limit = (size_t) - 1) const;
+  void print(const size_t limit = (size_t) -1) const;
 
   void sortDictionary();
 
