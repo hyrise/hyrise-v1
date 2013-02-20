@@ -23,7 +23,7 @@ size_t TableRangeView::getStart() const{
 }
 
 size_t TableRangeView::size() const {
-  return _end-_start+1;
+  return _end-_start;
 }
 
 void TableRangeView::setValueId(const size_t column, const size_t row, const ValueId valueId){

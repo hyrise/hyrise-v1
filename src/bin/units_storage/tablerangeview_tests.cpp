@@ -16,7 +16,7 @@ TEST_F(TableRangeViewTests, init_pc) {
   {
     hyrise::storage::atable_ptr_t t = Loader::shortcuts::load("test/lin_xxs.tbl");
 
-    TableRangeView *trv = new TableRangeView(t, 0, t->size()-1);
+    TableRangeView *trv = new TableRangeView(t, 0, t->size());
     ASSERT_EQ(t->size(), trv->size());
 
     size_t row = 2;
@@ -39,7 +39,7 @@ TEST_F(TableRangeViewTests, pc_using_factory) {
 
   auto trv = TableRangeViewFactory::createView(t, start, end);
 
-  ASSERT_EQ(trv->size(), (end-start+1));
+  ASSERT_EQ(trv->size(), (end-start));
 
   ValueId i = trv->getValueId(column, row-start);
   ValueId i2 = t->getValueId(column,row);
