@@ -24,7 +24,6 @@ std::shared_ptr<_PlanOperation> NestedLoopEquiJoin::parse(Json::Value &data) {
   }
   return instance;
 }
-
 void NestedLoopEquiJoin::executePlanOperation() {
   // get the two input tables and its hashmaps
   // First part is the probe table
@@ -74,9 +73,7 @@ void NestedLoopEquiJoin::executePlanOperation() {
 
   register auto multiplier = 1 << bits2();
   register auto shift_right = bits1();
-
-  std::chrono::time_point<std::chrono::system_clock> t1,t2;
-
+  
   // iterate over partitions -> partition gives the offset into the prefix table
   // The number of partitions depends on the number of bits used for the partitioning
   for(size_t i = 0, partitions_count = _partitions.size(); i < partitions_count; i++){
@@ -111,6 +108,7 @@ void NestedLoopEquiJoin::executePlanOperation() {
     }
   }
 
+  
   // create PointerCalculator and pos_lists for output
   auto loutput = PointerCalculatorFactory::createPointerCalculator(left, nullptr, lpos_list);
   auto routput = PointerCalculatorFactory::createPointerCalculator(right, nullptr, rpos_list);

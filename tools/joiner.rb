@@ -16,7 +16,7 @@ class Joiner
       # Get all infos
       probe_par = join["probe_par"]
       hash_par = join["hash_par"]
-      join_par = 16
+      join_par = 32
       bits1 = join["bits1"]
       bits2 = join["bits2"]
       fields = join["fields"]

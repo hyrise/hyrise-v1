@@ -36,44 +36,14 @@ std::shared_ptr<Table<>> Histogram::createOutputTable(size_t size) {
 // The histogram basically works by iterating over the table and the requested 
 // field, hashing the value and incresing the count for this entry
 void Histogram::executePlanOperation() {
-  auto tab = getInputTable();
-  auto tableSize = getInputTable()->size();
-  const auto field = _field_definition[0];
-
-  // radix_hash_value<size_t> fun(tab, field);
-  // hyrise::storage::type_switch<hyrise_basic_types> ts;
-  // auto tpe = tab->typeOfColumn(field);
-  
-  //Prepare mask
-  auto mask = ((1 << bits()) - 1) << significantOffset();
-
-  // Prepare Output Table
-  auto result = createOutputTable(1 << bits());
-  auto pair = getDataVector(result);
-
-  // Iterate and hash based on the part description
-  size_t start=0, stop=tableSize;
-  if (_count > 0) {
-    start = (tableSize / _count) * _part;
-    stop = (_count -1) == _part ? tableSize : (tableSize/_count) * (_part + 1);
+  switch(getInputTable()->typeOfColumn(_field_definition[0])) {
+    case IntegerType:
+      return executeHistogram<hyrise_int_t>();
+    case FloatType:
+      return executeHistogram<hyrise_float_t>();
+    case StringType:
+      return executeHistogram<hyrise_string_t>();
   }
-
-  auto ipair = getDataVector(tab);
-  const auto& ivec = ipair.first;
-
-  const auto& dict = std::dynamic_pointer_cast<OrderPreservingDictionary<hyrise_int_t>>(tab->dictionaryAt(field));
-  const auto& offset = field + ipair.second;
-
-  auto hasher = std::hash<value_id_t>();
-  for(decltype(tableSize) row = start; row < stop; ++row) {
-    //fun.setRow(row);
-    auto hash_value  = hasher(dict->getValueForValueId(ivec->get(offset, row)));
-    pair.first->inc(0, (hash_value & mask) >> significantOffset());    
-  }
-
-  //std::cout << pair.first->print();
-
-  addResult(result);  
 }
 
 

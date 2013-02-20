@@ -22,46 +22,10 @@ inline std::pair<std::shared_ptr<VectorType>, size_t> _getDataVector(Table tab, 
   return {data, avs.at(0).attribute_offset};
 }
 
-// template<typename VectorType=FixedLengthVector<value_id_t> >
-// inline std::pair<std::shared_ptr<VectorType>, size_t> getDataVector(hyrise::storage::atable_ptr_t tab, size_t column=0) {
-//   return _getDataVector<decltype(tab), VectorType>(tab, column);
-// }
-
 template<typename VectorType=FixedLengthVector<value_id_t> >
 inline std::pair<std::shared_ptr<VectorType>, size_t> getDataVector(const hyrise::storage::c_atable_ptr_t& tab, size_t column=0) {
   return _getDataVector<decltype(tab), VectorType>(tab, column);
 }
-
-/*
-* Multi fast join hash_value calculator
-*/
-template<typename T>
-struct radix_hash_value {
-
-  typedef T value_type;
-  std::shared_ptr<FixedLengthVector<value_id_t>> vector;
-
-  // WARNING: if the input data is a store, this can be tricky if there is data in the delta
-  const std::shared_ptr<AbstractDictionary>& dict;
-  field_t f;
-  size_t row;
-
-  inline void setRow(size_t r) {
-    row = r;
-  }
-
-  radix_hash_value(const hyrise::storage::c_atable_ptr_t t, const size_t field) : dict(t->dictionaryAt(field)) {
-    auto pair = getDataVector(t, field);
-    vector = pair.first;
-    f = pair.second;    
-  }
-
-  template<typename R>
-  T operator()() {
-    return std::hash<R>()(std::dynamic_pointer_cast<OrderPreservingDictionary<R>>(dict)->getValueForValueId(vector->get(f, row)));
-  }
-};
-
 
 
 
@@ -78,6 +42,9 @@ public:
   virtual ~Histogram();
 
   virtual void executePlanOperation();
+
+  template<typename T>
+  void executeHistogram();
   
   /**
   * Parses the JSON string to create the plan operation, parameters
@@ -125,6 +92,43 @@ protected:
   size_t _part;
   size_t _count;
 };
+
+template<typename T>
+void Histogram::executeHistogram() {
+  auto tab = getInputTable();
+  auto tableSize = getInputTable()->size();
+  const auto field = _field_definition[0];
+
+  //Prepare mask
+  auto mask = ((1 << bits()) - 1) << significantOffset();
+
+  // Prepare Output Table
+  auto result = createOutputTable(1 << bits());
+  auto pair = getDataVector(result);
+
+  // Iterate and hash based on the part description
+  size_t start=0, stop=tableSize;
+  if (_count > 0) {
+    start = (tableSize / _count) * _part;
+    stop = (_count -1) == _part ? tableSize : (tableSize/_count) * (_part + 1);
+  }
+
+  auto ipair = getDataVector(tab);
+  const auto& ivec = ipair.first;
+
+  const auto& dict = std::dynamic_pointer_cast<OrderPreservingDictionary<T>>(tab->dictionaryAt(field));
+  const auto& offset = field + ipair.second;
+
+  auto hasher = std::hash<T>();
+  for(decltype(tableSize) row = start; row < stop; ++row) {
+    //fun.setRow(row);
+    auto hash_value  = hasher(dict->getValueForValueId(ivec->get(offset, row)));
+    pair.first->inc(0, (hash_value & mask) >> significantOffset());    
+  }
+
+  addResult(result);  
+}
+
 
 class Histogram2ndPass : public Histogram
 {

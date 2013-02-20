@@ -29,6 +29,20 @@ TEST_F(HistogramTest, 2bit_test) {
   EXPECT_EQ(0u, result->getValueId(0,3).valueId);
 }
 
+TEST_F(HistogramTest, 2bit_test_string) {
+	
+  hyrise::access::Histogram hst;
+  hst.setBits(2);
+  hst.addField(1);
+  hst.addInput(_table);
+  const auto& result = hst.execute()->getResultTable();
+
+  EXPECT_EQ(3u, result->getValueId(0,0).valueId);
+  EXPECT_EQ(0u, result->getValueId(0,1).valueId);
+  EXPECT_EQ(5u, result->getValueId(0,2).valueId);
+  EXPECT_EQ(0u, result->getValueId(0,3).valueId);
+}
+
 TEST_F(HistogramTest, 1bit_test) {
 	
   hyrise::access::Histogram hst;

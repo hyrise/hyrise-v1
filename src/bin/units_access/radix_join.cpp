@@ -324,6 +324,58 @@ TEST_F(RadixJoinTest, hist_prefix_radix_cluster) {
   
 }
 
+TEST_F(RadixJoinTest, hist_prefix_radix_cluster_string) {
+
+  auto table = Loader::shortcuts::load("test/tables/hash_table_test.tbl");
+  hyrise::access::Histogram hst;
+  hst.setBits(2);
+  hst.addField(1);
+  hst.addInput(table);
+  hst.execute();
+
+  auto result = hst.getResultTable();
+  EXPECT_EQ(3u, result->getValueId(0,0).valueId);
+  EXPECT_EQ(0u, result->getValueId(0,1).valueId);
+  EXPECT_EQ(5u, result->getValueId(0,2).valueId);
+  EXPECT_EQ(0u, result->getValueId(0,3).valueId);
+
+  PrefixSum ps;
+  ps.addInput(hst.getResultTable());
+  ps.execute();
+
+  result = ps.getResultTable();
+  EXPECT_EQ(0u, result->getValueId(0,0).valueId);
+  EXPECT_EQ(3u, result->getValueId(0,1).valueId);
+  EXPECT_EQ(3u, result->getValueId(0,2).valueId);
+  EXPECT_EQ(8u, result->getValueId(0,3).valueId);
+
+  CreateRadixTable c;
+  c.addInput(table);
+  c.execute();
+  auto restab = c.getResultTable();
+
+  RadixCluster rx;
+  rx.setBits(2);
+  rx.addField(1);
+  rx.addInput(table);
+  rx.addInput(restab);
+  rx.addInput(ps.getResultTable());
+  rx.execute();
+
+  result = rx.getResultTable();
+  
+  EXPECT_EQ(table->size(), result->size());
+  EXPECT_EQ((value_id_t)std::hash<std::string>()("B"), result->getValueId(0,0).valueId);
+  EXPECT_EQ((value_id_t)std::hash<std::string>()("B"), result->getValueId(0,1).valueId);
+  EXPECT_EQ((value_id_t)std::hash<std::string>()("B"), result->getValueId(0,2).valueId);
+  EXPECT_EQ((value_id_t)std::hash<std::string>()("A"), result->getValueId(0,3).valueId);
+  EXPECT_EQ((value_id_t)std::hash<std::string>()("A"), result->getValueId(0,4).valueId);
+  EXPECT_EQ((value_id_t)std::hash<std::string>()("A"), result->getValueId(0,5).valueId);
+  EXPECT_EQ((value_id_t)std::hash<std::string>()("C"), result->getValueId(0,6).valueId);
+  EXPECT_EQ((value_id_t)std::hash<std::string>()("A"), result->getValueId(0,7).valueId);
+  
+}
+
 TEST_F(RadixJoinTest, multi_pass_radix_cluster) {
   auto table = Loader::shortcuts::load("test/tables/radix_cluster_mpass.tbl");
 
