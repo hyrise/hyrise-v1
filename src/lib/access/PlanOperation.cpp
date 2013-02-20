@@ -156,13 +156,12 @@ void _PlanOperation::distribute(
     const u_int64_t numberOfElements,
     u_int64_t &first,
     u_int64_t &last) const {
+
   const u_int64_t
-      elementsPerPart     = numberOfElements / _count,
-      remainingElements   = numberOfElements - elementsPerPart * _count,
-      extraElements       = _part <= remainingElements ? _part : remainingElements,
-      partsExtraElement   = _part < remainingElements ? 1 : 0;
-  first                   = elementsPerPart * _part + extraElements;
-  last                    = first + elementsPerPart + partsExtraElement - 1;
+      elementsPerPart     = numberOfElements / _count;
+
+  first = elementsPerPart * _part;
+  last = _part + 1 == _count ? numberOfElements : elementsPerPart * (_part + 1);
 }
 
 void _PlanOperation::refreshInput() {

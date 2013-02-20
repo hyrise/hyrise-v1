@@ -97,8 +97,8 @@ TEST_F(HashBuildTest, merge_two_tables_test) {
   auto hash = std::dynamic_pointer_cast<SingleAggregateHashTable >(hb.getResultHashTable());
 
   //test to merge two tables
-  auto t1 = std::make_shared<TableRangeView>(t, 0, 4);
-  auto t2 = std::make_shared<TableRangeView>(t, 5, 9);
+  auto t1 = std::make_shared<TableRangeView>(t, 0, 5);
+  auto t2 = std::make_shared<TableRangeView>(t, 5, 10);
   
   HashBuild hb1;
   hb1.addInput(t1);
