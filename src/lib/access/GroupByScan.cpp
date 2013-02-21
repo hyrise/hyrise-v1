@@ -74,9 +74,9 @@ void GroupByScan::splitInput() {
     distribute(hashTables[0]->numKeys(), first, last);
 
     if ((_indexed_field_definition.size() + _named_field_definition.size()) == 1)
-      hashTables[0] = std::dynamic_pointer_cast<SingleAggregateHashTable>(hashTables[0])->view(first, last + 1);
+      hashTables[0] = std::dynamic_pointer_cast<SingleAggregateHashTable>(hashTables[0])->view(first, last);
     else
-      hashTables[0] = std::dynamic_pointer_cast<AggregateHashTable>(hashTables[0])->view(first, last + 1);
+      hashTables[0] = std::dynamic_pointer_cast<AggregateHashTable>(hashTables[0])->view(first, last);
   }
 }
 
