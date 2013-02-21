@@ -9,26 +9,26 @@
 namespace hyrise {
 namespace access {
 
+typedef struct ops_and_edges{
+  std::vector<std::pair<std::string, Json::Value>> ops;
+  std::vector<Json::Value> edges;
+} ops_and_edges_t;
+
  /*
   * This class transforms a virtual operator RadixJoin into a set of operators that perform the radix join.
   * The transformation is based on a Json query that is rewritten; the actual operators are instatiated at a later stage.
   * Currently only sequential plans are supported!!!
   */
 class RadixJoinTransformation: public AbstractPlanOpTransformation {
-  static bool is_registered;
+  static bool transformation_is_registered;
   
+  Json::Value createEdge(std::string in, std::string out);
   void appendEdge(const std::string &srcId,const std::string &dstId,Json::Value &query) const;
   void removeOperator(Json::Value &query,const Json::Value &operatorId) const;
-  std::vector<Json::Value> createFirstPass(const Json::Value &radix);
-  std::vector<Json::Value> createSecondPass(const Json::Value &radix);
-  Json::Value createJoin(const Json::Value &radix);
-  void connectFirstPassWithInput(std::vector<std::string> &pass, std::string input, Json::Value &query);
-  void connectFirstPass(std::vector<std::string> &pass, Json::Value &query);
-  void connectSecondPass(std::vector<std::string> &pass, Json::Value &query);
-  void connectFirstAndSecondPass(std::vector<std::string> &firstpass, std::vector<std::string> &secondpass, Json::Value &query);
-  void connectFirstPassWithJoin(std::vector<std::string> &pass, std::string join, Json::Value &query);
-  void connectSecondPassWithJoin(std::vector<std::string> &pass, std::string join, Json::Value &query);
-  void connectJoinWithInput(std::string input, std::string join, Json::Value &query);
+  std::vector<std::string> getInputIds(const std::string &id, const Json::Value &query);
+  std::vector<std::string> getOutputIds(const std::string &id, const Json::Value &query);
+  ops_and_edges_t build_hash_side(std::string prefix, Json::Value &fields, int hash_par, Json::Value & bits1, Json::Value & bits2, std::string in_id);
+  ops_and_edges_t build_probe_side(std::string prefix, Json::Value &fields, int probe_par, Json::Value & bits1, Json::Value & bits2, std::string in_id);
 
 public:
   RadixJoinTransformation(){};
