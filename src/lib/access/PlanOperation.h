@@ -11,6 +11,9 @@
 
 #include "json.h"
 
+
+
+
 /**
  * This is the default interface for a plan operation. Our basic assumption is
  * that a plan operation has multiple input data structures and exactly one
@@ -23,8 +26,6 @@ class _PlanOperation : public OutputTask {
    */
   OperationData input;
   OperationData output;
-
-  size_t _row_offset;
 
   void addResult(hyrise::storage::c_atable_ptr_t result) {
     output.add(result);
