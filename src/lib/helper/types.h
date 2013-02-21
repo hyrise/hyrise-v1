@@ -10,6 +10,7 @@
 
 class AbstractResource;
 class AbstractTable;
+class AbstractHashTable;
 class Store;
 class MutableVerticalTable;
 class PointerCalculator;
@@ -41,6 +42,9 @@ typedef std::shared_ptr<const AbstractResource> c_aresource_ptr_t;
 
 typedef std::shared_ptr<AbstractTable> atable_ptr_t;
 typedef std::shared_ptr<const AbstractTable> c_atable_ptr_t;
+
+typedef std::shared_ptr<AbstractHashTable> ahashtable_ptr_t;
+typedef std::shared_ptr<const AbstractHashTable> c_ahashtable_ptr_t;
 
 typedef std::shared_ptr<MutableVerticalTable> vtable_ptr_t;
 typedef std::shared_ptr<const MutableVerticalTable> c_vtable_ptr_t;

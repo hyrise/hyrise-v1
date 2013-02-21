@@ -33,7 +33,7 @@ public:
 
   virtual size_t getFieldCount() const = 0;
 
-  virtual uint64_t numKeys() = 0;
+  virtual uint64_t numKeys() const = 0;
 };
 
 #endif  // SRC_LIB_STORAGE_ABSTRACTHASHTABLE_H_

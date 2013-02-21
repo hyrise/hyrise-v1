@@ -3,8 +3,8 @@
 
 #include "storage/HashTable.h"
 
-OperationData::~OperationData() {
-}
+namespace hyrise {
+namespace access {
 
 const table_list_t &OperationData::getTables() const {
   return tables;
@@ -23,15 +23,23 @@ void OperationData::add(hyrise::storage::c_atable_ptr_t input) {
   tables.push_back(input);
 }
 
-void OperationData::addHash(std::shared_ptr<AbstractHashTable> input) {
+void OperationData::addHash(storage::c_ahashtable_ptr_t input) {
   hashTables.push_back(input);
+}
+
+void OperationData::setTable(storage::c_atable_ptr_t input, size_t index) {
+  tables[index] = input;
+}
+
+void OperationData::setHash(storage::c_ahashtable_ptr_t input, size_t index) {
+  hashTables[index] = input;
 }
 
 hyrise::storage::c_atable_ptr_t OperationData::getTable(const size_t index) const {
   return tables.at(index);
 }
 
-std::shared_ptr<AbstractHashTable> OperationData::getHashTable(const size_t index) const {
+storage::c_ahashtable_ptr_t OperationData::getHashTable(const size_t index) const {
   return hashTables.at(index);
 }
 
@@ -55,8 +63,8 @@ bool OperationData::emptyHashTables() const {
 
 template <class T>
 void OperationData::merge(
-  const std::vector<std::shared_ptr<T>> &ownElements,
-  const std::vector<std::shared_ptr<T>> &otherElements,
+  const std::vector<std::shared_ptr<const T>> &ownElements,
+  const std::vector<std::shared_ptr<const T>> &otherElements,
   const bool retain) {
 for (const auto & nextElement: otherElements) {
     if (find(ownElements.begin(), ownElements.end(), nextElement)
@@ -78,3 +86,4 @@ for (const auto& nextElement: other.getTables()) {
 
 }
 
+}}
