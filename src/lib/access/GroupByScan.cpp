@@ -68,15 +68,15 @@ hyrise::storage::atable_ptr_t GroupByScan::createResultTableLayout() {
 }
 
 void GroupByScan::splitInput() {
-  hash_table_list_t& hashTables = input.getHashTables();  
+  hash_table_list_t hashTables = input.getHashTables();  
   if (_count > 0 && !hashTables.empty()) {
     u_int64_t first, last;
     distribute(hashTables[0]->numKeys(), first, last);
 
     if ((_indexed_field_definition.size() + _named_field_definition.size()) == 1)
-      hashTables[0] = std::dynamic_pointer_cast<SingleAggregateHashTable>(hashTables[0])->view(first, last);
+      input.setHash(std::dynamic_pointer_cast<const SingleAggregateHashTable>(hashTables[0])->view(first, last), 0);
     else
-      hashTables[0] = std::dynamic_pointer_cast<AggregateHashTable>(hashTables[0])->view(first, last);
+      input.setHash(std::dynamic_pointer_cast<const AggregateHashTable>(hashTables[0])->view(first, last), 0);
   }
 }
 
@@ -113,11 +113,11 @@ void GroupByScan::executeGroupBy() {
   // set iterators: in the sequential case, getInputTable() returns an AggregateHashTable, in the parallel case a HashTableView<>
   // Alternatively, a common type could be introduced
   if (_count < 1) {
-    auto aggregateHashTable = std::dynamic_pointer_cast<HashTableType>(groupResults);
+    auto aggregateHashTable = std::dynamic_pointer_cast<const HashTableType>(groupResults);
     it1 = aggregateHashTable->getMapBegin();
     end = aggregateHashTable->getMapEnd();
   } else {
-    auto hashTableView = std::dynamic_pointer_cast<HashTableView<MapType, KeyType> >(groupResults);
+    auto hashTableView = std::dynamic_pointer_cast<const HashTableView<MapType, KeyType> >(groupResults);
     it1 = hashTableView->getMapBegin();
     end = hashTableView->getMapEnd();
   }

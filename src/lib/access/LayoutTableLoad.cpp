@@ -7,6 +7,7 @@
 #include <io/CSVLoader.h>
 #include <io/StringLoader.h>
 #include <io/Loader.h>
+#include <storage/AbstractTable.h>
 #include <helper/stringhelpers.h>
 
 #include <boost/lexical_cast.hpp>

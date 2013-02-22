@@ -2,11 +2,13 @@
 #ifndef SRC_LIB_STORAGE_HASHTABLE_H_
 #define SRC_LIB_STORAGE_HASHTABLE_H_
 
+#include <atomic>
 #include <set>
 #include <unordered_map>
 #include <memory>
 
 #include "helper/types.h"
+#include "helper/checked_cast.h"
 
 #include "storage/AbstractHashTable.h"
 #include "storage/AbstractTable.h"
@@ -158,8 +160,8 @@ protected:
   const field_list_t _fields;
 
   // Cached num keys
-  uint64_t _numKeys;
-  bool _dirty;
+  mutable std::atomic<uint64_t> _numKeys;
+  mutable std::atomic<bool> _dirty;
 
 private:
 
@@ -191,11 +193,10 @@ public:
   HashTable() {}
 
   // create a new HashTable based on a number of HashTables
-  explicit HashTable(std::vector<std::shared_ptr<AbstractHashTable> > hashTables) {
-    std::shared_ptr<HashTable<MAP, KEY> > ht;
+  explicit HashTable(const std::vector<std::shared_ptr<const AbstractHashTable> >& hashTables) {
     _dirty = true;
     for (auto & nextElement: hashTables) {
-      ht = std::dynamic_pointer_cast<HashTable<MAP, KEY> >(nextElement);
+      const auto& ht = checked_pointer_cast<const HashTable<MAP, KEY>>(nextElement);
       _map.insert(ht->getMapBegin(), ht->getMapEnd());
     }
   }
@@ -209,7 +210,7 @@ public:
 
   virtual ~HashTable() {}
 
-  std::string stats() {
+  std::string stats() const {
     std::stringstream s;
     s << "Load Factor " << _map.load_factor() << " / ";
     s << "Max Load Factor " << _map.max_load_factor() << " / ";
@@ -217,7 +218,7 @@ public:
     return s.str();
   }
 
-  std::shared_ptr<HashTableView<MAP, KEY> > view(size_t first, size_t last) {
+  std::shared_ptr<HashTableView<MAP, KEY> > view(size_t first, size_t last) const {
     return std::make_shared<HashTableView<MAP, KEY>>(this->shared_from_this(), first, last);
   }
 
@@ -266,7 +267,7 @@ public:
     return constructPositions(range);
   }
 
-  uint64_t numKeys() {
+  uint64_t numKeys() const {
     if (_dirty) {
       uint64_t result = 0;
       for (map_const_iterator_t it1 = _map.begin(), it2 = it1, end = _map.end(); it1 != end; it1 = it2) {
@@ -290,18 +291,18 @@ public:
   typedef HashTable<MAP, KEY> hash_table_t;
 
 protected:
-  std::shared_ptr<hash_table_t> _hashTable;
+  std::shared_ptr<const hash_table_t> _hashTable;
   typename hash_table_t::map_const_iterator_t _begin;
   typename hash_table_t::map_const_iterator_t _end;
   typedef KEY key_t;
 
-  uint64_t _numKeys;
-  bool _dirty;
+  mutable std::atomic<uint64_t> _numKeys;
+  mutable std::atomic<bool> _dirty;
 
 public:
   /// Given a HashTable and a range, only the n-ths key value pairs of the
   /// given HashTable corresponding to the range will be mapped by this view.
-  HashTableView(std::shared_ptr<hash_table_t> tab,
+  HashTableView(const std::shared_ptr<const hash_table_t>& tab,
                 const size_t start,
                 const size_t end) :
   _hashTable(tab), _begin(_hashTable->getMapBegin()), _end(_hashTable->getMapBegin()), _numKeys(0), _dirty(true) {
@@ -392,7 +393,7 @@ public:
     return _hashTable->getTable();
   }
 
-  uint64_t numKeys() {
+  uint64_t numKeys() const {
     if (_dirty) {
       uint64_t result = 0;
       for (typename hash_table_t::map_const_iterator_t it1 = _begin, it2 = it1, end = _end; it1 != end; it1 = it2) {
