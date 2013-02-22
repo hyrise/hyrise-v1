@@ -563,7 +563,7 @@ public:
   virtual hyrise::storage::atable_ptr_t copy() const = 0;
 
   /// get underlying attribute vectors for column
-  virtual const attr_vectors_t getAttributeVectors(size_t column) const { throw std::runtime_error("should impl"); };
+  virtual const attr_vectors_t getAttributeVectors(size_t column) const;
 };
 
 #endif  // SRC_LIB_STORAGE_ABSTRACTTABLE_H_
