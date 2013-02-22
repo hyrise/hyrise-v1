@@ -11,8 +11,11 @@
 
 class AbstractHashTable;
 
-typedef std::vector<hyrise::storage::c_atable_ptr_t >     table_list_t;
-typedef std::vector<std::shared_ptr<AbstractHashTable> > hash_table_list_t;
+typedef std::vector<hyrise::storage::c_atable_ptr_t>     table_list_t;
+typedef std::vector<hyrise::storage::c_ahashtable_ptr_t> hash_table_list_t;
+
+namespace hyrise {
+namespace access {
 
 /*!
  *  Data container for operator input/output handling.
@@ -28,34 +31,19 @@ protected:
    */
   template <class T>
   void merge(
-    const std::vector<std::shared_ptr<T>> &ownElements,
-    const std::vector<std::shared_ptr<T>> &otherElements,
+    const std::vector<std::shared_ptr<const T>> &ownElements,
+    const std::vector<std::shared_ptr<const T>> &otherElements,
     const bool retain = false);
 
 public:
-  OperationData()
-    : tables(table_list_t()),
-      hashTables(hash_table_list_t())
-  {}
-
-  /*
-    Make the object self contained and release all inputs and outputs
-  */
-  virtual ~OperationData();
-
-  /*!
-   *  Add and retrieve elements of member lists.
-   */
-
-  void addHash(std::shared_ptr<AbstractHashTable> input);
-  void add(hyrise::storage::c_atable_ptr_t input);
-
-  hyrise::storage::c_atable_ptr_t getTable(const size_t index = 0) const;
-  std::shared_ptr<AbstractHashTable> getHashTable(const size_t index = 0) const;
-
-  /*!
-   *  Member list size methods.
-   */
+  void addHash(storage::c_ahashtable_ptr_t input);
+  void add(storage::c_atable_ptr_t input);
+  void setHash(storage::c_ahashtable_ptr_t input, size_t index);
+  void setTable(storage::c_atable_ptr_t input, size_t index);
+  
+  storage::c_atable_ptr_t getTable(const size_t index = 0) const;
+  storage::c_ahashtable_ptr_t getHashTable(const size_t index = 0) const;
+  
   size_t numberOfTables() const;
   size_t numberOfHashTables() const;
   bool emptyTables() const;
@@ -77,7 +65,7 @@ public:
     const bool retain = false);
 };
 
-
+}}
 
 #endif  // SRC_LIB_ACCESS_OPERATIONDATA_H_
 

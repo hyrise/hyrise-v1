@@ -1,5 +1,7 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include <access/UnionScan.h>
+
+#include <storage/AbstractTable.h>
 #include <storage/HorizontalTable.h>
 
 #include "QueryParser.h"

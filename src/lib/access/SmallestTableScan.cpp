@@ -2,6 +2,8 @@
 #include "SmallestTableScan.h"
 #include "QueryParser.h"
 
+#include "storage/AbstractTable.h"
+
 bool SmallestTableScan::is_registered = QueryParser::registerPlanOperation<SmallestTableScan>();
 
 void SmallestTableScan::setupPlanOperation() {

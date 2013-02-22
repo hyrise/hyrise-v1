@@ -50,7 +50,7 @@ void HashJoinProbe::fetchPositions(pos_list_t *buildTablePosList,
                                    pos_list_t *probeTablePosList) {
 
   const auto& probeTable = getProbeTable();
-  auto hash_table = std::dynamic_pointer_cast<HashTable>(getInputHashTable(0));
+  const auto& hash_table = std::dynamic_pointer_cast<const HashTable>(getInputHashTable(0));
   assert(hash_table != nullptr);
 
   LOG4CXX_DEBUG(logger, hash_table->stats());
