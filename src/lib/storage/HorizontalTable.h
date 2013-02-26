@@ -36,7 +36,7 @@ private:
   std::vector<size_t> offsets;
 
 public:
-  explicit HorizontalTable(std::vector< hyrise::storage::c_atable_ptr_t > &_parts);
+  explicit HorizontalTable(const std::vector<hyrise::storage::c_atable_ptr_t > &_parts);
 
   virtual ~HorizontalTable();
 

@@ -233,7 +233,7 @@ TEST_F(GroupByTests, group_by_scan_using_table_2) {
     hs->setKey("groupby");
 
     auto group_map = hs->execute()->getResultHashTable();
-
+    
     gs->addInputHash(group_map);
 
     const auto& result = gs->execute()->getResultTable();

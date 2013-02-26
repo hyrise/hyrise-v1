@@ -17,9 +17,11 @@
 
 #include "helper/types.h"
 
+#include <storage/AbstractResource.h>
 #include <storage/storage_types.h>
 #include <storage/ColumnMetadata.h>
 #include <storage/ValueIdMap.hpp>
+
 
 template<typename Strategy, template<class T, class S> class Allocator> class Table;
 class Store;
@@ -57,7 +59,7 @@ public:
  * in many different ways, in containers, plain tables, intermediate results
  * and more.
  */
-class AbstractTable {
+class AbstractTable : public AbstractResource {
 
   friend class Store;
 
@@ -561,7 +563,7 @@ public:
   virtual hyrise::storage::atable_ptr_t copy() const = 0;
 
   /// get underlying attribute vectors for column
-  virtual const attr_vectors_t getAttributeVectors(size_t column) const { throw std::runtime_error("should impl"); };
+  virtual const attr_vectors_t getAttributeVectors(size_t column) const;
 };
 
 #endif  // SRC_LIB_STORAGE_ABSTRACTTABLE_H_

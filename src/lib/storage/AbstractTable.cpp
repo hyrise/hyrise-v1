@@ -334,3 +334,6 @@ metadata_vec_t AbstractTable::metadata() const {
   return result;
 }
 
+const attr_vectors_t AbstractTable::getAttributeVectors(size_t column) const {
+  throw std::runtime_error("getAttributeVectors not implemented");
+}

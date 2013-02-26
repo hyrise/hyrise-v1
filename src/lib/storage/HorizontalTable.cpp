@@ -1,7 +1,7 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "storage/HorizontalTable.h"
 
-HorizontalTable::HorizontalTable(std::vector< hyrise::storage::c_atable_ptr_t >& _parts) : parts(_parts) {
+HorizontalTable::HorizontalTable(const std::vector< hyrise::storage::c_atable_ptr_t >& _parts) : parts(_parts) {
   part_count = parts.size();
   offsets.resize(part_count);
   total_size = 0;
