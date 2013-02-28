@@ -120,9 +120,10 @@ void bindToNode(int node) {
     char *str;
     int error = errno;
     hwloc_bitmap_asprintf(&str, obj->nodeset);
-    printf("Couldn't bind memory to cpuset %s: %s\n", str, strerror(error));
+    fprintf(stderr, "Couldn't membind to nodeset  %s: %s\n", str, strerror(error));
+    fprintf(stderr, "Continuing as normal, however, no guarantees\n");
     free(str);
-    throw std::runtime_error(strerror(error));
+    //throw std::runtime_error(strerror(error));
   }
 }
 
