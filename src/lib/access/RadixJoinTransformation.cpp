@@ -262,6 +262,20 @@ ops_and_edges_t RadixJoinTransformation::build_hash_side(std::string prefix,
   return hash_side;
 }
 
+void RadixJoinTransformation::distributePartitions(
+				  const int partitions,
+				  const int join_count,
+				  const int current_join,
+				  int &first,
+				  int &last) const {
+  const int
+    partitionsPerJoin     = partitions / join_count,
+    remainingElements   = partitions - partitionsPerJoin * join_count,
+    extraElements       = current_join <= remainingElements ? current_join : remainingElements,
+    partsExtraElement   = current_join < remainingElements ? 1 : 0;
+  first                   = partitionsPerJoin * current_join + extraElements;
+  last                    = first + partitionsPerJoin + partsExtraElement - 1;
+}
 
 void RadixJoinTransformation::transform(Json::Value &op, const std::string &operatorId, Json::Value &query){
   int probe_par = op["probe_par"].asInt();
@@ -352,12 +366,13 @@ void RadixJoinTransformation::transform(Json::Value &op, const std::string &oper
     if(join_par > partitions)
       join_par = partitions;
     for(int i = 0; i < join_par;  i++){
-      join_name = operatorId + "_join_" + std::to_string(i);
+      join_name = operatorId + "_join_" + std::to_string(i);/*
       first = (partitions / join_par) * i;
       if(i + 1 < join_par)
         last = ((partitions / join_par) * (i + 1)) - 1;
       else
-        last = partitions - 1;
+      last = partitions - 1;*/
+      distributePartitions(partitions, join_par, i, first, last);
       // create join
 
       Json::Value join(Json::objectValue);
