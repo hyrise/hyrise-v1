@@ -347,8 +347,11 @@ void RadixJoinTransformation::transform(Json::Value &op, const std::string &oper
     for(int i = 0; i < output_edges.size(); i++)
       appendEdge(unionId, output_edges[i], query);
 
+    // calculate partitions that need to be worked by join
+    // if join_par > partitions, set join_par to partitions
+    if(join_par > partitions)
+      join_par = partitions;
     for(int i = 0; i < join_par;  i++){
-      // calculate partitions that need to be worked by join
       join_name = operatorId + "_join_" + std::to_string(i);
       first = (partitions / join_par) * i;
       if(i + 1 < join_par)

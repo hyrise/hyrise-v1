@@ -94,11 +94,11 @@ void NestedLoopEquiJoin::executePlanOperation() {
       // determine partition in right prefix
       rpart = ((lhash & mask1) * (multiplier)) + ((lhash & mask2) >> shift_right);
       right_begin = rprefixvector->get(0, rpart);
-      right_end = i < (rprefixvector_size - 1) ? rprefixvector->get(0,rpart +1) : right_size;
+      right_end = rpart < (rprefixvector_size - 1) ? rprefixvector->get(0,rpart +1) : right_size;
         
       // iterate over all potentially matching positions in right relation
       for (size_t right_row = right_begin; right_row < right_end; right_row++) {
-        // compare hashes
+	// compare hashes
         if (lhash == rhvector->get(0, right_row)) {
           // remeber matching positions
           lpos_list->push_back(lpvector->get(0, left_row));
