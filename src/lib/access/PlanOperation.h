@@ -131,6 +131,7 @@ class _PlanOperation : public OutputTask {
   void setPlanOperationName(const std::string& name);
 
   virtual void operator()() noexcept;
+  virtual const std::string vname();
   const _PlanOperation *execute();
 };
 

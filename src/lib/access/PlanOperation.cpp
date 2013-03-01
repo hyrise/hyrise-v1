@@ -287,3 +287,7 @@ const std::string& _PlanOperation::planOperationName() const {
 void _PlanOperation::setPlanOperationName(const std::string& name) {
   _planOperationName = name;
 }
+
+const std::string _PlanOperation::vname() {
+  return planOperationName();
+}
