@@ -72,7 +72,7 @@ void IndexScan::executePlanOperation() {
 
 std::shared_ptr<_PlanOperation> IndexScan::parse(Json::Value &data) {
   std::shared_ptr<IndexScan> s = BasicParser<IndexScan>::parse(data);
-  hyrise::storage::type_switch<hyrise_basic_types> ts;
+  storage::type_switch<hyrise_basic_types> ts;
   CreateIndexValueFunctor civf(data);
   s->_value = ts(data["vtype"].asUInt(), civf);
   s->_indexName = data["index"].asString();
@@ -81,6 +81,10 @@ std::shared_ptr<_PlanOperation> IndexScan::parse(Json::Value &data) {
 
 const std::string IndexScan::vname() {
   return "IndexScan";
+}
+
+void IndexScan::setIndexName(const std::string &name) {
+  _indexName = name;
 }
 
 namespace {

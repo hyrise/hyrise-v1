@@ -26,6 +26,14 @@ public:
   void executePlanOperation();
   static std::shared_ptr<_PlanOperation> parse(Json::Value &data);
   const std::string vname();
+  void setIndexName(const std::string &name);
+
+  template<typename T>
+  void setValue(const T value) {
+    auto val = new IndexValue<T>();
+    val->value = value;
+    _value = static_cast<AbstractIndexValue*>(val);
+  }
 
 private:
   std::string _indexName;
