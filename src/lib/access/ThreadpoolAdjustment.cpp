@@ -1,7 +1,7 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "ThreadpoolAdjustment.h"
 #include <helper/Settings.h>
-#include "taskscheduler/SimpleTaskScheduler.h"
+#include "taskscheduler/AbstractTaskScheduler.h"
 
 bool ThreadpoolAdjustment::is_registered = QueryParser::registerPlanOperation<ThreadpoolAdjustment>();
 

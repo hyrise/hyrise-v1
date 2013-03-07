@@ -1,32 +1,85 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-/*
- * taskscheduler.cpp
- *
- *  Created on: Feb 16, 2012
- *      Author: jwust
- */
+#include <iostream>
+#include <algorithm>
+#include <iterator>
 
 #include "testing/test.h"
 #include "helper.h"
+
 #include "access.h"
 #include "access/NoOp.h"
 #include "access/TaskSchedulerAdjustment.h"
-#include <io/StorageManager.h>
-#include <io.h>
-#include <io/shortcuts.h>
-#include <cstdlib>
+#include "access/PlanOperation.h"
+#include "io/TransactionManager.h"
 #include "taskscheduler.h"
-#include <vector>
-#include <memory>
 #include <ctime>
 #include <sys/time.h>
 #include "helper/HwlocHelper.h"
 
+
 namespace hyrise {
-namespace access {
 
-class SchedulerTests : public AccessTest {};
+#if GTEST_HAS_PARAM_TEST
 
+using ::testing::TestWithParam;
+using ::testing::ValuesIn;
+
+// list schedulers to be tested
+std::vector<std::string> getSchedulersToTest() {
+  std::vector<std::string> result;
+  result.push_back("WSSimpleTaskScheduler");
+  result.push_back("SimpleTaskScheduler");
+  return result;
+}
+
+class SchedulerTest : public TestWithParam<std::string> {
+ public:
+  SchedulerTest() {
+    sm = StorageManager::getInstance();
+  }
+  virtual ~SchedulerTest() { }
+
+  virtual void SetUp() {
+    scheduler_name = GetParam();
+    sm->removeAll(); // Make sure old tables don't bleed into these tests
+    tx::TransactionManager::getInstance().reset();
+  }
+
+  virtual void TearDown() {
+    scheduler_name = "";
+  }
+
+ protected:
+  std::string scheduler_name;
+  StorageManager *sm;
+};
+
+INSTANTIATE_TEST_CASE_P(
+    Scheduler,
+    SchedulerTest,
+    ValuesIn(getSchedulersToTest()));
+
+TEST_P(SchedulerTest, setScheduler) {
+  SharedScheduler::getInstance().resetScheduler("SimpleTaskScheduler");
+  AbstractTaskScheduler * scheduler = SharedScheduler::getInstance().getScheduler();
+  SimpleTaskScheduler<CoreBoundTaskQueue> * simple_task_scheduler = dynamic_cast<SimpleTaskScheduler<CoreBoundTaskQueue> *>(scheduler);
+  bool test = (simple_task_scheduler == NULL);
+  ASSERT_EQ(test, false);
+
+  SharedScheduler::getInstance().resetScheduler(scheduler_name);
+  scheduler = SharedScheduler::getInstance().getScheduler();
+  scheduler->resize(getNumberOfCoresOnSystem());
+}
+
+TEST_P(SchedulerTest, wait_task_test) {
+  if(!SharedScheduler::getInstance().isInitialized())
+    SharedScheduler::getInstance().init(scheduler_name);
+  AbstractTaskScheduler * scheduler = SharedScheduler::getInstance().getScheduler();
+
+  std::shared_ptr<WaitTask> waiter = std::make_shared<WaitTask>();
+  scheduler->schedule(waiter);
+  waiter->wait();
+}
 
 long int getTimeInMillis() {
   /* Linux */
@@ -38,18 +91,6 @@ long int getTimeInMillis() {
   /* Adds the seconds (10^0) after converting them to milliseconds (10^-3) */
   ret += (tv.tv_sec * 1000);
   return ret;
-}
-
-TEST_F(SchedulerTests, setScheduler) {
-  SharedScheduler::getInstance().resetScheduler("SimpleTaskScheduler");
-  AbstractTaskScheduler * scheduler = SharedScheduler::getInstance().getScheduler();
-  SimpleTaskScheduler<CoreBoundTaskQueue> * simple_task_scheduler = dynamic_cast<SimpleTaskScheduler<CoreBoundTaskQueue> *>(scheduler);
-  bool test = (simple_task_scheduler == NULL);
-  ASSERT_EQ(test, false);
-
-  SharedScheduler::getInstance().resetScheduler("SimpleTaskScheduler");
-  scheduler = SharedScheduler::getInstance().getScheduler();
-  scheduler->resize(getNumberOfCoresOnSystem());
 }
 
 bool long_block_test(AbstractTaskScheduler * scheduler){
@@ -103,7 +144,7 @@ bool long_block_test(AbstractTaskScheduler * scheduler){
     return (diff < upperLimit);
 }
 
-TEST_F(SchedulerTests, dont_block_test) {
+TEST_P(SchedulerTest, dont_block_test) {
   /* we assign a long running task and a number of smaller tasks with a think time to the queues -
      the scheduler should realize that one queue is blocked and assign tasks to other queues / steal work from that queue */
 
@@ -113,21 +154,14 @@ TEST_F(SchedulerTests, dont_block_test) {
   ASSERT_TRUE(long_block_test(scheduler));
   delete scheduler;
 
+  scheduler = new WSSimpleTaskScheduler<WSCoreBoundTaskQueue>();
+  ASSERT_TRUE(long_block_test(scheduler));
+  delete scheduler;
 }
 
-TEST_F(SchedulerTests, wait_task_test) {
+TEST_P(SchedulerTest, sync_task_test) {
   if(!SharedScheduler::getInstance().isInitialized())
-    SharedScheduler::getInstance().init("SimpleTaskScheduler");
-  AbstractTaskScheduler * scheduler = SharedScheduler::getInstance().getScheduler();
-
-  std::shared_ptr<WaitTask> waiter = std::make_shared<WaitTask>();
-  scheduler->schedule(waiter);
-  waiter->wait();
-}
-
-TEST_F(SchedulerTests, sync_task_test) {
-  if(!SharedScheduler::getInstance().isInitialized())
-    SharedScheduler::getInstance().init("SimpleTaskScheduler");
+    SharedScheduler::getInstance().init(scheduler_name);
   AbstractTaskScheduler * scheduler = SharedScheduler::getInstance().getScheduler();
 
   //scheduler->resize(2);
@@ -146,14 +180,14 @@ TEST_F(SchedulerTests, sync_task_test) {
   waiter->wait();
 }
 
-TEST_F(SchedulerTests, million_dependencies_test) {
+TEST_P(SchedulerTest, million_dependencies_test) {
 #ifdef EXPENSIVE_TESTS
   int tasks_group1 = 1000;
   int tasks_group2 = 1000;
   std::vector<std::shared_ptr<NoOp> > vtasks1;
   std::vector<std::shared_ptr<NoOp> > vtasks2;
   if(!SharedScheduler::getInstance().isInitialized())
-    SharedScheduler::getInstance().init("SimpleTaskScheduler");
+    SharedScheduler::getInstance().init(scheduler_name);
   AbstractTaskScheduler * scheduler = SharedScheduler::getInstance().getScheduler();
 
   //scheduler->resize(threads1);
@@ -182,13 +216,13 @@ TEST_F(SchedulerTests, million_dependencies_test) {
 #endif
 }
 
-TEST_F(SchedulerTests, million_noops_test) {
+TEST_P(SchedulerTest, million_noops_test) {
 #ifdef EXPENSIVE_TESTS
   //chaned to 10.000, 1.000.000 takes too long on small computers
   int tasks_group1 = 10000;
   std::vector<std::shared_ptr<NoOp> > vtasks1;
   if(!SharedScheduler::getInstance().isInitialized())
-    SharedScheduler::getInstance().init("SimpleTaskScheduler");
+    SharedScheduler::getInstance().init(scheduler_name);
   AbstractTaskScheduler * scheduler = SharedScheduler::getInstance().getScheduler();
 
   //scheduler->resize(threads1);
@@ -206,9 +240,9 @@ TEST_F(SchedulerTests, million_noops_test) {
 #endif
 }
 
-TEST_F(SchedulerTests, wait_dependency_task_test) {
+TEST_P(SchedulerTest, wait_dependency_task_test) {
   if(!SharedScheduler::getInstance().isInitialized())
-    SharedScheduler::getInstance().init("SimpleTaskScheduler");
+    SharedScheduler::getInstance().init(scheduler_name);
   AbstractTaskScheduler * scheduler = SharedScheduler::getInstance().getScheduler();
 
   //scheduler->resize(2);
@@ -220,7 +254,7 @@ TEST_F(SchedulerTests, wait_dependency_task_test) {
   waiter->wait();
 }
 
-TEST_F(SchedulerTests, resize_test) {
+TEST_P(SchedulerTest, resize_simple_test) {
 #ifdef EXPENSIVE_TESTS
   int threads1 = 4;
   int threads2 = 2;
@@ -228,8 +262,8 @@ TEST_F(SchedulerTests, resize_test) {
   //in microsecons
   int sleeptime = 50;
 
-  AbstractTaskScheduler * scheduler = new SimpleTaskScheduler<CoreBoundTaskQueue>();
-
+  SharedScheduler::getInstance().resetScheduler(scheduler_name);
+  AbstractTaskScheduler * scheduler = SharedScheduler::getInstance().getScheduler();
   scheduler->resize(threads1);
 
   std::shared_ptr<WaitTask> waiter = std::make_shared<WaitTask>();
@@ -247,23 +281,20 @@ TEST_F(SchedulerTests, resize_test) {
   ASSERT_EQ(static_cast<int>(scheduler->getNumberOfWorker()), threads2);
   waiter->wait();
 
-  delete scheduler;
   //std::cout << " Test done " << std::endl;
   //usleep(1000);
 
 #endif
-
 }
 
-
-TEST_F(SchedulerTests, wait_set_test) {
+TEST_P(SchedulerTest, wait_set_test) {
   //int threads1 = 4;
   int tasks = 100;
   //in microseconds
   int sleeptime = 50;
 
   if(!SharedScheduler::getInstance().isInitialized())
-    SharedScheduler::getInstance().init("SimpleTaskScheduler");
+    SharedScheduler::getInstance().init(scheduler_name);
   AbstractTaskScheduler * scheduler = SharedScheduler::getInstance().getScheduler();
 
   //scheduler->resize(threads1);
@@ -283,12 +314,12 @@ TEST_F(SchedulerTests, wait_set_test) {
   waiter->wait();
 }
 
-TEST_F(SchedulerTests, settings_test) {
+TEST_P(SchedulerTest, settings_test) {
   int threads1 = getNumberOfCoresOnSystem() - 1;
   int threads2 = getNumberOfCoresOnSystem();
 
   if(!SharedScheduler::getInstance().isInitialized())
-     SharedScheduler::getInstance().init("SimpleTaskScheduler");
+     SharedScheduler::getInstance().init(scheduler_name);
    AbstractTaskScheduler * scheduler = SharedScheduler::getInstance().getScheduler();
 
   //std::cout << " Number of queues: " << scheduler->getNumberOfWorker() << std::endl;
@@ -309,25 +340,25 @@ TEST_F(SchedulerTests, settings_test) {
   scheduler->resize(getNumberOfCoresOnSystem());
 }
 
-TEST_F(SchedulerTests, singleton_test) {
+TEST_P(SchedulerTest, singleton_test) {
   int queues1 = getNumberOfCoresOnSystem();
   int queues2 = getNumberOfCoresOnSystem() - 1;
 
   if(!SharedScheduler::getInstance().isInitialized())
-    SharedScheduler::getInstance().init("SimpleTaskScheduler");
+    SharedScheduler::getInstance().init(scheduler_name);
   AbstractTaskScheduler * scheduler1 = SharedScheduler::getInstance().getScheduler();
 
   scheduler1->resize(queues1);
 
   if(!SharedScheduler::getInstance().isInitialized())
-    SharedScheduler::getInstance().init("SimpleTaskScheduler");
+    SharedScheduler::getInstance().init(scheduler_name);
   AbstractTaskScheduler * scheduler2 = SharedScheduler::getInstance().getScheduler();
 
   ASSERT_EQ(queues1, static_cast<int>(scheduler2->getNumberOfWorker()));
   ASSERT_EQ(scheduler1, scheduler2);
 
   if(!SharedScheduler::getInstance().isInitialized())
-    SharedScheduler::getInstance().init("SimpleTaskScheduler");
+    SharedScheduler::getInstance().init(scheduler_name);
   AbstractTaskScheduler * scheduler3 = SharedScheduler::getInstance().getScheduler();
 
   ASSERT_EQ(scheduler1, scheduler3);
@@ -336,9 +367,9 @@ TEST_F(SchedulerTests, singleton_test) {
   scheduler3->resize(getNumberOfCoresOnSystem());
 }
 
-TEST_F(SchedulerTests, avoid_too_many_threads_test) {
+TEST_P(SchedulerTest, avoid_too_many_threads_test) {
   if(!SharedScheduler::getInstance().isInitialized())
-    SharedScheduler::getInstance().init("SimpleTaskScheduler");
+    SharedScheduler::getInstance().init(scheduler_name);
   AbstractTaskScheduler * scheduler = SharedScheduler::getInstance().getScheduler();
 
   if (scheduler == NULL) {
@@ -349,6 +380,8 @@ TEST_F(SchedulerTests, avoid_too_many_threads_test) {
   }
 }
 
+#endif
+
 }
-}
+
 
