@@ -146,8 +146,7 @@ int main(int argc, char *argv[]) {
   desc.add_options()("help", "Shows this help message")
   ("port,p", po::value<size_t>(&port)->default_value(DEFAULT_PORT), "Server Port")
   ("logdef,l", po::value<std::string>(&logPropertyFile)->default_value("build/log.properties"), "Log4CXX Log Properties File")
-  ("scheduler,s", po::value<std::string>(&scheduler_name)->default_value("SimpleTaskScheduler"), "Name of the scheduler to use");
-  
+  ("scheduler,s", po::value<std::string>(&scheduler_name)->default_value("WSSimpleTaskScheduler"), "Name of the scheduler to use");
   po::variables_map vm;
   po::store(po::parse_command_line(argc, argv, desc), vm);
   po::notify(vm);
