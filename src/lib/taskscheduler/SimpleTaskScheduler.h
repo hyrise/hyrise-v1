@@ -72,8 +72,7 @@ protected:
       }
 
       this->_taskQueues[this->_nextQueue]->push(task);
-      //std::cout << "Task " << std::hex << (void * )task.get() << std::dec << " pushed to queue " << _nextQueue << std::endl;
-
+      //std::cout << "Task " <<  task->vname() << "; hex " << std::hex << &task << std::dec << " pushed to queue " << this->_nextQueue << std::endl;
       //round robin on cores
       this->_nextQueue = (this->_nextQueue + 1) % this->_queues;
     }

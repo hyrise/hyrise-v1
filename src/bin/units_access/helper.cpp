@@ -144,7 +144,7 @@ hyrise::storage::c_atable_ptr_t executeAndWait(
   std::unique_ptr<MockedConnection> conn(new MockedConnection("query="+httpQuery));
 
   if(!SharedScheduler::getInstance().isInitialized())
-    SharedScheduler::getInstance().init("SimpleTaskScheduler");
+    SharedScheduler::getInstance().init("WSSimpleTaskScheduler");
   AbstractTaskScheduler * scheduler = SharedScheduler::getInstance().getScheduler();
   scheduler->resize(poolSize);
 
