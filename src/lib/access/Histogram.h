@@ -10,6 +10,7 @@
 #include <helper/types.h>
 #include <storage/FixedLengthVector.h>
 #include <storage/OrderPreservingDictionary.h>
+#include <storage/PointerCalculator.h>
 
 namespace hyrise { namespace access {
 
@@ -112,20 +113,36 @@ void Histogram::executeHistogram() {
     start = (tableSize / _count) * _part;
     stop = (_count -1) == _part ? tableSize : (tableSize/_count) * (_part + 1);
   }
+  // check if tab is PointerCalculator; if yes, get underlying table and actual rows and columns
+  auto p = std::dynamic_pointer_cast<const PointerCalculator>(tab);
+  if (p) {
+    auto ipair = getDataVector(p->getActualTable());
+    const auto& ivec = ipair.first;
 
-  auto ipair = getDataVector(tab);
-  const auto& ivec = ipair.first;
+    const auto& dict = std::dynamic_pointer_cast<OrderPreservingDictionary<T>>(tab->dictionaryAt(p->getTableColumnForColumn(field)));
+    const auto& offset = p->getTableColumnForColumn(field) + ipair.second;
 
-  const auto& dict = std::dynamic_pointer_cast<OrderPreservingDictionary<T>>(tab->dictionaryAt(field));
-  const auto& offset = field + ipair.second;
+    auto hasher = std::hash<T>();
+    for(decltype(tableSize) row = start; row < stop; ++row) {
+      //fun.setRow(row);
+      auto hash_value  = hasher(dict->getValueForValueId(ivec->get(offset, p->getTableRowForRow(row))));
 
-  auto hasher = std::hash<T>();
-  for(decltype(tableSize) row = start; row < stop; ++row) {
-    //fun.setRow(row);
-    auto hash_value  = hasher(dict->getValueForValueId(ivec->get(offset, row)));
-    pair.first->inc(0, (hash_value & mask) >> significantOffset());    
+      pair.first->inc(0, (hash_value & mask) >> significantOffset());
+    }
+  } else {
+
+    auto ipair = getDataVector(tab);
+    const auto& ivec = ipair.first;
+    const auto& dict = std::dynamic_pointer_cast<OrderPreservingDictionary<T>>(tab->dictionaryAt(field));
+    const auto& offset = field + ipair.second;
+
+    auto hasher = std::hash<T>();
+    for(decltype(tableSize) row = start; row < stop; ++row) {
+      //fun.setRow(row);
+      auto hash_value  = hasher(dict->getValueForValueId(ivec->get(offset, row)));
+      pair.first->inc(0, (hash_value & mask) >> significantOffset());
+    }
   }
-
   addResult(result);  
 }
 

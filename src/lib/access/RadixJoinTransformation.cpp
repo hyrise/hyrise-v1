@@ -74,9 +74,11 @@ ops_and_edges_t RadixJoinTransformation::build_probe_side(std::string prefix,
   ops_and_edges_t probe_side;
 
   Json::Value histogram_p1, prefixsum_p1, createradixtable_p1, radixcluster_p1, merge_prefix_sum, barrier;
+  Json::Value null_field;
+  null_field.append(0);
 
   histogram_p1["type"] = "Histogram";
-  histogram_p1["fields"] = fields;
+  histogram_p1["fields"] = null_field;
   histogram_p1["bits"] = bits1;
 
   prefixsum_p1["type"] = "PrefixSum";
@@ -84,13 +86,13 @@ ops_and_edges_t RadixJoinTransformation::build_probe_side(std::string prefix,
   createradixtable_p1["type"] = "CreateRadixTable";
 
   radixcluster_p1["type"] = "RadixCluster";
-  radixcluster_p1["fields"] = fields;
+  radixcluster_p1["fields"] = null_field;
   radixcluster_p1["bits"] = bits1;
 
   merge_prefix_sum["type"] = "MergePrefixSum";
 
   barrier["type"] = "Barrier";
-  barrier["fields"] = fields;
+  barrier["fields"] = null_field;
 
   // First define the plan ops
   // add parallel ops
@@ -154,9 +156,11 @@ ops_and_edges_t RadixJoinTransformation::build_hash_side(std::string prefix,
   ops_and_edges_t hash_side;
 
   Json::Value histogram_p1, prefixsum_p1, createradixtable_p1, radixcluster_p1, histogram_p2, prefixsum_p2, createradixtable_p2, radixcluster_p2, merge_prefix_sum, barrier;
+  Json::Value null_field;
+  null_field.append(0);
 
   histogram_p1["type"] = "Histogram";
-  histogram_p1["fields"] = fields;
+  histogram_p1["fields"] = null_field;
   histogram_p1["bits"] = bits1;
 
   prefixsum_p1["type"] = "PrefixSum";
@@ -164,11 +168,12 @@ ops_and_edges_t RadixJoinTransformation::build_hash_side(std::string prefix,
   createradixtable_p1["type"] = "CreateRadixTable";
 
   radixcluster_p1["type"] = "RadixCluster";
-  radixcluster_p1["fields"] = fields;
+  radixcluster_p1["fields"] = null_field;
   radixcluster_p1["bits"] = bits1;
 
+
   histogram_p2["type"] = "Histogram2ndPass";
-  histogram_p2["fields"] = fields;
+  histogram_p2["fields"] = null_field;
   histogram_p2["bits"] = bits1;
   histogram_p2["bits2"] = bits2;
   histogram_p2["sig2"] = bits1;
@@ -185,7 +190,7 @@ ops_and_edges_t RadixJoinTransformation::build_hash_side(std::string prefix,
   merge_prefix_sum["type"] = "MergePrefixSum";
 
   barrier["type"] = "Barrier";
-  barrier["fields"] = fields;
+  barrier["fields"] = null_field;
 
   // add parallel ops
   for(int i = 0; i < hash_par; i++){

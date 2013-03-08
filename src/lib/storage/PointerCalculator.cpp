@@ -244,17 +244,50 @@ void PointerCalculator::sortDictionary() {
 size_t PointerCalculator::getRowForTableRow(const size_t row) const
 
 {
+
   auto p = std::dynamic_pointer_cast<const PointerCalculator>(table);
-
+  size_t table_row;
   if (!p) {
-    return row;
+    table_row = row;
+  } else {
+    table_row = p->getRowForTableRow(row);
   }
-
-  size_t table_row = p->getRowForTableRow(row);
-
   pos_list_t::const_iterator lb = std::lower_bound(pos_list->begin(), pos_list->end(), table_row);
 
   return lb - pos_list->begin();
+}
+
+size_t PointerCalculator::getTableRowForRow(const size_t row) const
+{
+  size_t actual_row;
+  // resolve mapping of THIS pointer calculator
+  if (pos_list) {
+      actual_row = pos_list->at(row);
+  } else {
+      actual_row = row;
+  }
+  // if underlying table is PointerCalculator, resolve recursively
+  auto p = std::dynamic_pointer_cast<const PointerCalculator>(table);
+  if (p)
+    actual_row = p->getTableRowForRow(actual_row);
+
+  return actual_row;
+}
+
+size_t PointerCalculator::getTableColumnForColumn(const size_t column) const
+{
+  size_t actual_column;
+  // resolve field mapping of THIS pointer calculator
+  if (fields) {
+    actual_column = fields->at(column);
+  } else {
+    actual_column = column;
+  }
+  // if underlying table is PointerCalculator, resolve recursively
+  auto p = std::dynamic_pointer_cast<const PointerCalculator>(table);
+  if (p)
+    actual_column = p->getTableColumnForColumn(actual_column);
+  return actual_column;
 }
 
 hyrise::storage::c_atable_ptr_t PointerCalculator::getTable() const {

@@ -73,6 +73,10 @@ public:
 
   size_t getRowForTableRow(const size_t row) const;
 
+  size_t getTableRowForRow(const size_t row) const;
+
+  size_t getTableColumnForColumn(const size_t column) const;
+
   hyrise::storage::c_atable_ptr_t getTable() const;
 
   hyrise::storage::c_atable_ptr_t getActualTable() const;
