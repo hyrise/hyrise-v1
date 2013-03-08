@@ -104,13 +104,6 @@ void RadixCluster::executeClustering() {
   
   //Prepare mask
   auto mask = ((1 << bits()) - 1) << significantOffset();
-
-  auto ipair = getDataVector(tab);
-  const auto& ivec = ipair.first;
-
-  const auto& dict = std::dynamic_pointer_cast<OrderPreservingDictionary<T>>(tab->dictionaryAt(field));
-  const auto& offset = field + ipair.second;
-
   
   // Cast the vectors to the lowest part in the hierarchy
   const auto& data_hash = getDataVector(result).first;
@@ -123,17 +116,45 @@ void RadixCluster::executeClustering() {
     _stop = (_count -1) == _part ? tableSize : (tableSize/_count) * (_part + 1);
   }
 
-  std::hash<T> hasher;
-  for(decltype(tableSize) row = _start; row < _stop; ++row) {
-    // Calculate and increment the position
-    register auto hash_value  = hasher(dict->getValueForValueId(ivec->get(offset, row)));//ts(tpe, fun);
-    register auto offset = (hash_value & mask) >> _significantOffset;
-    register auto pos_to_write = data_prefix_sum->inc(0, offset);
+  // check if tab is PointerCalculator; if yes, get underlying table and actual rows and columns
+    auto p = std::dynamic_pointer_cast<const PointerCalculator>(tab);
+    if (p) {
+      auto ipair = getDataVector(p->getActualTable());
+      const auto& ivec = ipair.first;
 
-    // Perform the clustering
-    data_hash->set(0, pos_to_write, hash_value);
-    data_pos->set(0, pos_to_write, row);
-  }
+      const auto& dict = std::dynamic_pointer_cast<OrderPreservingDictionary<T>>(tab->dictionaryAt(p->getTableColumnForColumn(field)));
+      const auto& offset = p->getTableColumnForColumn(field) + ipair.second;
+
+      auto hasher = std::hash<T>();
+      for(decltype(tableSize) row = _start; row < _stop; ++row) {
+        // Calculate and increment the position
+        register auto hash_value  = hasher(dict->getValueForValueId(ivec->get(offset, p->getTableRowForRow(row))));//ts(tpe, fun);
+        register auto offset = (hash_value & mask) >> _significantOffset;
+        register auto pos_to_write = data_prefix_sum->inc(0, offset);
+
+        // Perform the clustering
+        data_hash->set(0, pos_to_write, hash_value);
+        data_pos->set(0, pos_to_write, p->getTableRowForRow(row));
+      }
+    } else {
+      auto ipair = getDataVector(tab);
+      const auto& ivec = ipair.first;
+
+      const auto& dict = std::dynamic_pointer_cast<OrderPreservingDictionary<T>>(tab->dictionaryAt(field));
+      const auto& offset = field + ipair.second;
+
+      std::hash<T> hasher;
+      for(decltype(tableSize) row = _start; row < _stop; ++row) {
+        // Calculate and increment the position
+        register auto hash_value  = hasher(dict->getValueForValueId(ivec->get(offset, row)));//ts(tpe, fun);
+        register auto offset = (hash_value & mask) >> _significantOffset;
+        register auto pos_to_write = data_prefix_sum->inc(0, offset);
+
+        // Perform the clustering
+        data_hash->set(0, pos_to_write, hash_value);
+        data_pos->set(0, pos_to_write, row);
+      }
+    }
   addResult(result);
 }
 

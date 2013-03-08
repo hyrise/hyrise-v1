@@ -12,20 +12,6 @@ class ParallelExecutionTest : public AccessTest {};
 // test data distribution method applied to PlanOp input
 TEST_F(ParallelExecutionTest, data_distribution){
 
-  //void _PlanOperation::distribute(
-  //  const u_int64_t numberOfElements,
-  //  u_int64_t &first,
-  //  u_int64_t &last) const {
-  //const u_int64_t
-  //    elementsPerPart     = numberOfElements / _count,
-  //    remainingElements   = numberOfElements - elementsPerPart * _count,
-  //    extraElements       = _part <= remainingElements ? _part : remainingElements,
-  //    partsExtraElement   = _part < remainingElements ? 1 : 0;
-  //first                   = elementsPerPart * _part + extraElements;
-  //last                    = first + elementsPerPart + partsExtraElement - 1;
-  //}
-
-
   NoOp nop;
   u_int64_t first = 0, last = 0;
 
@@ -33,18 +19,18 @@ TEST_F(ParallelExecutionTest, data_distribution){
   nop.setPart(0);
   nop.distribute(2000, first, last);
   EXPECT_EQ(0u, first);
-  EXPECT_EQ(999u, last);
+  EXPECT_EQ(1000u, last);
 
   nop.setPart(1);
   nop.distribute(2000, first, last);
   EXPECT_EQ(1000u, first);
-  EXPECT_EQ(1999u, last);
+  EXPECT_EQ(2000u, last);
 
   nop.setCount(5);
   nop.setPart(3);
   nop.distribute(5000, first, last);
   EXPECT_EQ(3000u, first);
-  EXPECT_EQ(3999u, last);
+  EXPECT_EQ(4000u, last);
 
   nop.setCount(5);
   nop.setPart(0);
@@ -55,26 +41,26 @@ TEST_F(ParallelExecutionTest, data_distribution){
   nop.setCount(5);
   nop.setPart(1);
   nop.distribute(5002, first, last);
-  EXPECT_EQ(1001u, first);
-  EXPECT_EQ(2001u, last);
+  EXPECT_EQ(1000u, first);
+  EXPECT_EQ(2000u, last);
 
   nop.setCount(5);
   nop.setPart(2);
   nop.distribute(5002, first, last);
-  EXPECT_EQ(2002u, first);
-  EXPECT_EQ(3001u, last);
+  EXPECT_EQ(2000u, first);
+  EXPECT_EQ(3000u, last);
 
   nop.setCount(5);
   nop.setPart(3);
   nop.distribute(5002, first, last);
-  EXPECT_EQ(3002u, first);
-  EXPECT_EQ(4001u, last);
+  EXPECT_EQ(3000u, first);
+  EXPECT_EQ(4000u, last);
 
   nop.setCount(5);
   nop.setPart(4);
   nop.distribute(5002, first, last);
-  EXPECT_EQ(4002u, first);
-  EXPECT_EQ(5001u, last);
+  EXPECT_EQ(4000u, first);
+  EXPECT_EQ(5002u, last);
 
 }
 
