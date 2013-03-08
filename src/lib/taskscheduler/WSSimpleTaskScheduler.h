@@ -10,12 +10,13 @@
 template<class TaskQueue>
 class WSSimpleTaskScheduler : public AbstractQueueBasedTaskScheduler<TaskQueue> {
 protected:
-  typedef typename AbstractQueueBasedTaskScheduler<TaskQueue>::task_queue_t task_queue_t;
-  typedef typename AbstractQueueBasedTaskScheduler<TaskQueue>::task_queues_t task_queues_t;
+
 
   static bool registered;
 
 public:
+  typedef typename AbstractQueueBasedTaskScheduler<TaskQueue>::task_queues_t task_queues_t;
+  typedef typename AbstractQueueBasedTaskScheduler<TaskQueue>::task_queue_t task_queue_t;
 
   typedef typename AbstractQueueBasedTaskScheduler<TaskQueue>::scheduler_status_t scheduler_status_t;
 

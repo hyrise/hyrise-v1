@@ -76,7 +76,7 @@ std::shared_ptr<_PlanOperation> Histogram2ndPass::parse(Json::Value &data) {
 void Histogram2ndPass::executePlanOperation() {
   auto tab = getInputTable();
   auto tableSize = getInputTable()->size();
-  const auto field = _field_definition[0];
+  const auto field = 0;//_field_definition[0];
 
   //Prepare mask
   auto mask = ((1 << bits()) - 1) << significantOffset();
@@ -95,7 +95,6 @@ void Histogram2ndPass::executePlanOperation() {
     start = (tableSize / _count) * _part;
     stop = (_count -1) == _part ? tableSize : (tableSize/_count) * (_part + 1);
   } 
-
   for(decltype(tableSize) row = start; row < stop; ++row) {
     auto hash_value = i_data->get(field, row);
     auto offset = (hash_value & mask) * (1<<_bits2) + ((hash_value & mask2) >> _significantOffset2);
