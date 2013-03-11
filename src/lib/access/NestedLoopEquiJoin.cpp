@@ -72,11 +72,6 @@ void NestedLoopEquiJoin::executePlanOperation() {
 
   register auto multiplier = 1 << bits2();
   register auto shift_right = bits1();
-  
-  // check whether input tables are PointerCalculators
-  auto rp = std::dynamic_pointer_cast<const PointerCalculator>(right);
-  auto lp = std::dynamic_pointer_cast<const PointerCalculator>(left);
-  size_t left_pos, right_pos;
 
   // iterate over partitions -> partition gives the offset into the prefix table
   // The number of partitions depends on the number of bits used for the partitioning
@@ -105,18 +100,21 @@ void NestedLoopEquiJoin::executePlanOperation() {
         // compare hashes
         if (lhash == rhvector->get(0, right_row)) {
           // remeber matching positions
-          left_pos = lpvector->get(0, left_row);
-          right_pos = rpvector->get(0, right_row);
-          if(lp)
-            left_pos = lp->getRowForTableRow(left_pos);
-          if(rp)
-            right_pos = rp->getRowForTableRow(right_pos);
-          lpos_list->push_back(left_pos);
-          rpos_list->push_back(right_pos);
+          lpos_list->push_back(lpvector->get(0, left_row));
+          rpos_list->push_back(rpvector->get(0, right_row));
         }
       }
     }
   }
+
+  // if underlying table is pointer calc, get Actual Table as base for output pointer calc
+  auto rp = std::dynamic_pointer_cast<const PointerCalculator>(right);
+  auto lp = std::dynamic_pointer_cast<const PointerCalculator>(left);
+
+  if(lp)
+    left = lp->getActualTable();
+  if(rp)
+    right = rp->getActualTable();
 
   // create PointerCalculator and pos_lists for output
   auto loutput = PointerCalculatorFactory::createPointerCalculator(left, nullptr, lpos_list);

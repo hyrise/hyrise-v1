@@ -71,8 +71,6 @@ public:
     return 1;
   }
 
-  size_t getRowForTableRow(const size_t row) const;
-
   size_t getTableRowForRow(const size_t row) const;
 
   size_t getTableColumnForColumn(const size_t column) const;

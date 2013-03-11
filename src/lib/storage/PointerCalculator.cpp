@@ -241,22 +241,6 @@ void PointerCalculator::sortDictionary() {
   throw std::runtime_error("Can't sort PointerCalculator dictionary");
 }
 
-size_t PointerCalculator::getRowForTableRow(const size_t row) const
-
-{
-
-  auto p = std::dynamic_pointer_cast<const PointerCalculator>(table);
-  size_t table_row;
-  if (!p) {
-    table_row = row;
-  } else {
-    table_row = p->getRowForTableRow(row);
-  }
-  pos_list_t::const_iterator lb = std::lower_bound(pos_list->begin(), pos_list->end(), table_row);
-
-  return lb - pos_list->begin();
-}
-
 size_t PointerCalculator::getTableRowForRow(const size_t row) const
 {
   size_t actual_row;
