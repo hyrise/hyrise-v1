@@ -152,8 +152,6 @@ ops_and_edges_t RadixJoinTransformation::build_hash_side(std::string prefix,
                                                          Json::Value & bits2,
                                                          std::string in_id){
   ops_and_edges_t hash_side;
-  Json::Value null_fields;
-  null_fields.append(0);
 
   Json::Value histogram_p1, prefixsum_p1, createradixtable_p1, radixcluster_p1, histogram_p2, prefixsum_p2, createradixtable_p2, radixcluster_p2, merge_prefix_sum, barrier;
 
@@ -171,7 +169,6 @@ ops_and_edges_t RadixJoinTransformation::build_hash_side(std::string prefix,
 
 
   histogram_p2["type"] = "Histogram2ndPass";
-  histogram_p2["fields"] = null_fields;
   histogram_p2["bits"] = bits1;
   histogram_p2["bits2"] = bits2;
   histogram_p2["sig2"] = bits1;
@@ -288,6 +285,10 @@ void RadixJoinTransformation::transform(Json::Value &op, const std::string &oper
   Json::Value bits2 = op["bits2"];
   Json::Value fields = op["fields"];
 
+  Json::Value probe_field, hash_field;
+  probe_field.append(fields[0]);
+  hash_field.append(fields[1]);
+
   std::vector<std::string> input_edges = getInputIds(operatorId, query);
   std::vector<std::string> output_edges = getOutputIds(operatorId, query);
 
@@ -295,7 +296,7 @@ void RadixJoinTransformation::transform(Json::Value &op, const std::string &oper
   removeOperator(query, operatorId);
 
   // create ops and edges for probe side
-  ops_and_edges_t probe_side = build_probe_side(operatorId + "_probe", fields, probe_par, bits1, bits2, input_edges[0]);
+  ops_and_edges_t probe_side = build_probe_side(operatorId + "_probe", probe_field, probe_par, bits1, bits2, input_edges[0]);
   // add ops from probe side to query
   for(size_t i = 0; i < probe_side.ops.size(); i++)
     query["operators"][probe_side.ops.at(i).first] = probe_side.ops.at(i).second;
@@ -304,7 +305,7 @@ void RadixJoinTransformation::transform(Json::Value &op, const std::string &oper
     query["edges"].append(probe_side.edges.at(i));
 
   // create ops and edges for hash side
-  ops_and_edges_t hash_side = build_hash_side(operatorId + "_hash", fields, hash_par, bits1, bits2, input_edges[1]);
+  ops_and_edges_t hash_side = build_hash_side(operatorId + "_hash", hash_field, hash_par, bits1, bits2, input_edges[1]);
   // add ops from hash side to query
   for(size_t i = 0; i < hash_side.ops.size(); i++)
     query["operators"][hash_side.ops.at(i).first] = hash_side.ops.at(i).second;
