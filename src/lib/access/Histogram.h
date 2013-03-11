@@ -116,11 +116,11 @@ void Histogram::executeHistogram() {
   // check if tab is PointerCalculator; if yes, get underlying table and actual rows and columns
   auto p = std::dynamic_pointer_cast<const PointerCalculator>(tab);
   if (p) {
-    auto ipair = getDataVector(p->getActualTable());
+    auto ipair = getDataVector(p->getActualTable(), p->getTableColumnForColumn(field));
     const auto& ivec = ipair.first;
 
     const auto& dict = std::dynamic_pointer_cast<OrderPreservingDictionary<T>>(tab->dictionaryAt(p->getTableColumnForColumn(field)));
-    const auto& offset = p->getTableColumnForColumn(field) + ipair.second;
+    const auto& offset = ipair.second;
 
     auto hasher = std::hash<T>();
     for(decltype(tableSize) row = start; row < stop; ++row) {
@@ -129,10 +129,10 @@ void Histogram::executeHistogram() {
       pair.first->inc(0, (hash_value & mask) >> significantOffset());
     }
   } else {
-    auto ipair = getDataVector(tab);
+    auto ipair = getDataVector(tab, field);
     const auto& ivec = ipair.first;
     const auto& dict = std::dynamic_pointer_cast<OrderPreservingDictionary<T>>(tab->dictionaryAt(field));
-    const auto& offset = field + ipair.second;
+    const auto& offset =  ipair.second;
 
     auto hasher = std::hash<T>();
     for(decltype(tableSize) row = start; row < stop; ++row) {
