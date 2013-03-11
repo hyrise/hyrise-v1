@@ -21,6 +21,7 @@ Json::Value &QueryTransformationEngine::transform(Json::Value &query) {
     if (requestsParallelization(operatorConfiguration))
       applyParallelizationTo(operatorConfiguration, operatorIds[i], query);
   }
+  //std::cout << query.toStyledString()<< std::endl;
   return query;
 }
 

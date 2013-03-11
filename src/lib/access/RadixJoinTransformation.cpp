@@ -152,6 +152,8 @@ ops_and_edges_t RadixJoinTransformation::build_hash_side(std::string prefix,
                                                          Json::Value & bits2,
                                                          std::string in_id){
   ops_and_edges_t hash_side;
+  Json::Value null_fields;
+  null_fields.append(0);
 
   Json::Value histogram_p1, prefixsum_p1, createradixtable_p1, radixcluster_p1, histogram_p2, prefixsum_p2, createradixtable_p2, radixcluster_p2, merge_prefix_sum, barrier;
 
@@ -169,7 +171,7 @@ ops_and_edges_t RadixJoinTransformation::build_hash_side(std::string prefix,
 
 
   histogram_p2["type"] = "Histogram2ndPass";
-  histogram_p2["fields"] = fields;
+  histogram_p2["fields"] = null_fields;
   histogram_p2["bits"] = bits1;
   histogram_p2["bits2"] = bits2;
   histogram_p2["sig2"] = bits1;

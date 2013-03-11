@@ -126,11 +126,9 @@ void Histogram::executeHistogram() {
     for(decltype(tableSize) row = start; row < stop; ++row) {
       //fun.setRow(row);
       auto hash_value  = hasher(dict->getValueForValueId(ivec->get(offset, p->getTableRowForRow(row))));
-
       pair.first->inc(0, (hash_value & mask) >> significantOffset());
     }
   } else {
-
     auto ipair = getDataVector(tab);
     const auto& ivec = ipair.first;
     const auto& dict = std::dynamic_pointer_cast<OrderPreservingDictionary<T>>(tab->dictionaryAt(field));

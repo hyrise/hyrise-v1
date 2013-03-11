@@ -38,8 +38,8 @@ void WSCoreBoundTaskQueue::executeTask() {
       if (task) {
         //LOG4CXX_DEBUG(logger, "Started executing task" << std::hex << &task << std::dec << " on core " << _core);
         // run task
-        //std::cout << "Executed task " << task->vname() << "; hex " << std::hex << &task << std::dec << " on core " << _core<< std::endl;
         (*task)();
+        //std::cout << "Executed task " << task->vname() << "; hex " << std::hex << &task << std::dec << " on core " << _core<< std::endl;
         LOG4CXX_DEBUG(logger, "Executed task " << std::hex << &task << std::dec << " on core " << _core);
         // notify done observers that task is done
         task->notifyDoneObservers();
