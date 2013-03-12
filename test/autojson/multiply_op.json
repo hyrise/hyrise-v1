@@ -1,0 +1,27 @@
+{
+	"operators" : {
+		"-1" : {
+			"type": "TableLoad",
+            "table": "reference",
+            "filename": "reference/multiply_reference.tbl"
+		},
+		"loaddict" : {
+			"type": "TableLoad",
+            "table": "dict",
+            "filename": "tables/revenue_mult.tbl"
+		},
+		"loadref" : {
+			"type": "TableLoad",
+            "table": "reftab",
+            "filename": "tables/multiply.tbl"
+		},		
+        "multiply" : {
+        	"type" : "MultiplyRefField",
+        	"fields" : ["ref", "val"]
+        }
+	},
+	"edges" : [
+	["loadref", "multiply"],
+	["loaddict", "multiply"]
+	]
+}

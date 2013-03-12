@@ -9,6 +9,7 @@
 #include <ostream>
 
 #include "boost/mpl/vector.hpp"
+#include "boost/mpl/map.hpp"
 
 #include <boost/lexical_cast.hpp>
 
