@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>HYRISE Web Query</title>
+  <!-- Loading Bootstrap -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <!-- Loading Flat UI -->
+  <link href="/static/webq/css/flat-ui.css" rel="stylesheet">
+  <link href="/static/webq/css/hyrise.css" rel="stylesheet">
+	<script src="/static/webq/js/jquery-1.8.2.min.js"></script>
+  <script src="/static/webq/js/bootstrap.min.js"></script>
+	<script src="/static/webq/js/hyrise.js"></script>
+</head>
+<body>
+
+<div class="container">
+  <h1>HYRISE Web Query Interface</h1>
+  <h2>Query</h2>
+  <div id="standard">
+    <form action="/query" method="POST" id="query_form">
+      <textarea id="txtquery" name="query" rows="2" style="width:100%;"></textarea>
+      <div class="control-group">
+        <label class="control-label" for="txt_limit">Limit</label>
+        <div class="controls">
+        <input type="text" id="txt_limit" name="limit" placeholder="-1"/>
+        </div>
+      </div>
+      <div class="control-group">
+        <input id="btn_submit" type="submit" class="btn btn-primary" data-loading-text="Executing..." value="Submit" />
+        <p class="text-success" id="msg"></p>
+      </div>
+    </form>
+  </div>
+
+  <div id="json_result"></div>
+
+</div>
+  <script>
+  $(document).ready(function(){
+    $("#query_form").submit(runQuery);
+    $("#txtquery").focus(function(){
+      $("#txtquery").attr("rows", 15);
+    })
+  });
+  </script>
+
+</body>
+</html>

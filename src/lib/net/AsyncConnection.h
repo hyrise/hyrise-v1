@@ -39,6 +39,11 @@ class AsyncConnection : public AbstractConnection {
 
   bool closed;
 
+  // HTPP Code used to send to the client
+  size_t code;
+
+  std::string contentType;
+
   AsyncConnection();
 
   ~AsyncConnection();
