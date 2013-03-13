@@ -165,7 +165,7 @@ void on_close(ebb_connection *connection) {
 }
 
 AsyncConnection::AsyncConnection() :
-  request(nullptr), path(nullptr), body(nullptr), response(nullptr), write_buffer(nullptr), closed(false), code(0) {
+    request(nullptr), path(nullptr), body(nullptr), body_len(0), response(nullptr), write_buffer(nullptr), closed(false), code(0) {
 }
 
 AsyncConnection::~AsyncConnection() {
