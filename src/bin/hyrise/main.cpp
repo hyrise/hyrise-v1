@@ -128,11 +128,7 @@ void bindToNode(int node) {
 }
 
 
-#include <access/RequestParseTask.h>
-
 int main(int argc, char *argv[]) {
-
-  //hyrise::access::RequestParseTask::registerURL();
 
   // Bind the program to the first NUMA node
   bindToNode(0);
