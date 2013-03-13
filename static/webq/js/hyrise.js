@@ -7,12 +7,26 @@ window.result = {
 };
 
 
+function simpleFormat(number, traling) {
+	return Math.round(number * Math.pow(10, traling)) / Math.pow(10, traling);
+}
+
 function parsePerformanceData(data) {
 	var result = {};
 	$.each(data, function(i, v){
 		result[v["id"]] = v["endTime"] - v["startTime"];
 	});
 	return result;
+}
+
+function totalTime(data) {
+	var result = 0.0;
+	$.each(data, function(i, v){
+		console.log(v["id"]);
+		if (v["id"] == "respond")
+			result = v["endTime"];
+	});
+	return simpleFormat(result, 2);
 }
 
 function runQuery() {
@@ -44,6 +58,9 @@ function runQuery() {
 
 			// Do the dot transformation
 			var performance = parsePerformanceData(d["performanceData"]);
+
+			$("#msg").append(" " + totalTime(d["performanceData"]) + "ms");
+
 			var svg = Viz(toDot(JSON.parse($("#txtquery").val()), performance), "svg");
 			if (svg) {
 				$("#query_plan").html(svg);
@@ -127,9 +144,6 @@ function makeKey(key) {
 	return key + "";
 }
 
-function simpleFormat(number, traling) {
-	return Math.round(number * Math.pow(10, traling)) / Math.pow(10, traling);
-}
 
 function maxPerf(performance) {
 	var result  = 0;
