@@ -12,8 +12,10 @@
   <link href="/static/webq/css/flat-ui.css" rel="stylesheet">
   <link href="/static/webq/css/hyrise.css" rel="stylesheet">
 	<script src="/static/webq/js/jquery-1.8.2.min.js"></script>
+  <script src="/static/webq/js/jquery.bootpag.min.js"></script>
   <script src="/static/webq/js/bootstrap.min.js"></script>
 	<script src="/static/webq/js/hyrise.js"></script>
+  <script src="/static/webq/js/graphviz/viz.js"></script>
 </head>
 <body>
 
@@ -32,19 +34,48 @@
       <div class="control-group">
         <input id="btn_submit" type="submit" class="btn btn-primary" data-loading-text="Executing..." value="Submit" />
         <p class="text-success" id="msg"></p>
+        <p class="text-error" id="msg_error"></p>
       </div>
     </form>
   </div>
 
-  <div id="json_result"></div>
-
+</div>
+<div class="container" id="result_view">
+  <h2>Result View</h2>
+  <div class="btn-group">
+    <button class="btn" id="btn_result">Result</button>
+    <button class="btn" id="btn_plan">Plan</button>
+  </div>
+  <div id="result_cont">
+    <h3>Result</h3>
+    <div id="json_result"></div>
+    <div id="page-selection"></div>
+  </div> 
+  <div id="plan_cont">
+    <h3>Query Plan</h3>
+    <div id="query_plan"></div>
+  </div>
 </div>
   <script>
   $(document).ready(function(){
+    $("#result_view").hide();
+    $("#plan_cont").hide();    
+
+
     $("#query_form").submit(runQuery);
     $("#txtquery").focus(function(){
       $("#txtquery").attr("rows", 15);
     })
+
+    $("#btn_result").click(function(){
+      $("#result_cont").show();
+      $("#plan_cont").hide();
+    });
+    
+    $("#btn_plan").click(function(){
+      $("#result_cont").hide();
+      $("#plan_cont").show();
+    });
   });
   </script>
 
