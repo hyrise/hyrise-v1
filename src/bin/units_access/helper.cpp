@@ -12,7 +12,6 @@
 
 #include <access.h>
 #include <io.h>
-#include <net/QueryRequestHandler.h>
 #include <storage.h>
 #include <taskscheduler.h>
 
@@ -148,7 +147,7 @@ hyrise::storage::c_atable_ptr_t executeAndWait(
   AbstractTaskScheduler * scheduler = SharedScheduler::getInstance().getScheduler();
   scheduler->resize(poolSize);
 
-  auto request = std::make_shared<net::QueryRequestHandler>(conn.get());
+  auto request = std::make_shared<access::RequestParseTask>(conn.get());
   auto response = request->getResponseTask();
 
   auto wait = std::make_shared<WaitTask>();

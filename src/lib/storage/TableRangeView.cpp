@@ -23,7 +23,7 @@ size_t TableRangeView::getStart() const{
 }
 
 size_t TableRangeView::size() const {
-  return _end-_start+1;
+  return _end-_start;
 }
 
 void TableRangeView::setValueId(const size_t column, const size_t row, const ValueId valueId){
@@ -62,7 +62,7 @@ void TableRangeView::print(const size_t limit) const{
   size_t actual_limit = limit;
   if(limit > size())
     actual_limit = size();
-  PrettyPrinter::print(this, actual_limit, _start);
+  PrettyPrinter::print(this, std::cout, "unnamed table range view", actual_limit, _start);
 }
 
 void TableRangeView::sortDictionary(){

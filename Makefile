@@ -73,9 +73,9 @@ $(lib_memory):
 $(lib_taskscheduler): $(lib_helper)
 $(lib_storage): $(lib_helper) $(lib_memory) $(lib_ftprinter) $(ext_gtest) $(lib_ftprinter)
 $(lib_io): $(lib_storage) $(lib_helper)
-$(lib_access): $(lib_storage) $(lib_helper) $(lib_io) $(lib_layouter) $(json) $(lib_taskscheduler)
+$(lib_access): $(lib_storage) $(lib_helper) $(lib_io) $(lib_layouter) $(json) $(lib_taskscheduler) $(lib_net)
 $(lib_testing): $(ext_gtest) $(lib_storage) $(lib_taskscheduler) $(lib_access)
-$(lib_net): $(lib_helper) $(json) $(lib_taskscheduler) $(lib_ebb) $(lib_access)
+$(lib_net): $(lib_helper) $(json) $(lib_taskscheduler) $(lib_ebb)
 
 $(server_hyrise): $(libraries)
 $(unit_tests_helper): $(libraries)
@@ -113,11 +113,17 @@ else
 	$@ --gtest_list_tests > /dev/null
 endif
 
+python_test:
+	python tools/test_server.py
+
+basic_test_targets := $(basic_test_binaries)
+all_test_targets := $(all_test_binaries) python_test
+
 # Test invocation rules
 test: unit_test_params = --minimal
-test: $(basic_test_binaries) 
-test_verbose: $(basic_test_binaries)
-test_all: $(all_test_binaries)
+test: $(basic_test_targets)
+test_verbose: $(basic_test_targets)
+test_all: $(all_test_targets)
 
 include makefiles/*.mk
 

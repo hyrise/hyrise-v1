@@ -5,13 +5,15 @@
 #include <cstdint>
 #include <memory>
 
+
 #include "helper/types.h"
+#include "storage/AbstractResource.h"
 #include "storage/storage_types.h"
 
 class AbstractTable;
 
 /// HashTable that maps table cells' hashed values of arbitrary columns to their rows.
-class AbstractHashTable {
+class AbstractHashTable : public AbstractResource {
 public:
   AbstractHashTable() {}
 
@@ -31,7 +33,7 @@ public:
 
   virtual size_t getFieldCount() const = 0;
 
-  virtual uint64_t numKeys() = 0;
+  virtual uint64_t numKeys() const = 0;
 };
 
 #endif  // SRC_LIB_STORAGE_ABSTRACTHASHTABLE_H_

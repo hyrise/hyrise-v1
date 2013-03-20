@@ -316,7 +316,7 @@ size_t AbstractTable::numberOfColumn(const std::string &column) const {
 }
 
 void AbstractTable::print(const size_t limit) const {
-  PrettyPrinter::print(this, limit);
+  PrettyPrinter::print(this, std::cout, "unnamed abstract table", limit);
 }
 
 DataType AbstractTable::typeOfColumn(const size_t column) const {
@@ -334,3 +334,6 @@ metadata_vec_t AbstractTable::metadata() const {
   return result;
 }
 
+const attr_vectors_t AbstractTable::getAttributeVectors(size_t column) const {
+  throw std::runtime_error("getAttributeVectors not implemented");
+}

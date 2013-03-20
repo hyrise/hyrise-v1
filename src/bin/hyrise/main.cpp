@@ -27,6 +27,7 @@ using namespace log4cxx;
 using namespace log4cxx::helpers;
 
 const char *PID_FILE = "./hyrise_server.pid";
+const char *PORT_FILE = "./hyrise_server.port";
 const size_t DEFAULT_PORT = 5000;
 
 // Global EBB Server instance
@@ -34,21 +35,59 @@ static ebb_server server;
 
 LoggerPtr logger(Logger::getLogger("hyrise"));
 
-void writePidFile() {
-  std::ofstream pidf(PID_FILE);
-  pidf << getpid();
-}
 
-void removePidFile() {
-  if (remove(PID_FILE) != 0)
-    perror("unlink");
-}
+/// To prevent multiple hyrise instances from using the same port
+/// we initialize
+class PortResource {
+ public:
+  PortResource(size_t start, size_t end, ebb_server& s) : _current(0) {
+    assert((start < end) && "start must be smaller than end");
+    for (size_t current = start; current < end; ++current) {
+      if (ebb_server_listen_on_port(&s, current) != -1) {
+          _current = current;
+          break;
+      } else {
+        std::cout << "Port " << current << " already in use, retrying" << std::endl;
+      }
+    }
+    if (_current == 0) {
+      std::cout << "no port available in range [" + std::to_string(start) + ", " + std::to_string(end) + "]" <<std::endl;
+      std::exit(1);
+    }
+    std::ofstream port_file(PORT_FILE);
+    port_file << _current;
+  }
+
+  ~PortResource() {
+    if (remove(PORT_FILE) != 0)
+      perror("unlink portfile");
+  }
+  
+  size_t getPort() {
+    return _current;
+  }
+  
+ private:
+  size_t _current;
+};
+
+class PidFile {
+ public:
+  PidFile() {
+    std::ofstream pidf(PID_FILE);
+    pidf << getpid();
+  }
+
+  ~PidFile() {
+    if (remove(PID_FILE) != 0)
+      perror("unlink pidfile");
+  }
+};
 
 void shutdown(int sig) {
   std::cout << "Graceful stop" << std::endl;
-  removePidFile();
   StorageManager::getInstance()->removeAll();
-  sleep(4);
+  sleep(1);
   ebb_server_unlisten(&server);
 }
 
@@ -81,18 +120,15 @@ void bindToNode(int node) {
     char *str;
     int error = errno;
     hwloc_bitmap_asprintf(&str, obj->nodeset);
-    printf("Couldn't bind memory to cpuset %s: %s\n", str, strerror(error));
+    fprintf(stderr, "Couldn't membind to nodeset  %s: %s\n", str, strerror(error));
+    fprintf(stderr, "Continuing as normal, however, no guarantees\n");
     free(str);
-    throw std::runtime_error(strerror(error));
+    //throw std::runtime_error(strerror(error));
   }
 }
 
 
-#include <access/RequestParseTask.h>
-
 int main(int argc, char *argv[]) {
-
-  //hyrise::access::RequestParseTask::registerURL();
 
   // Bind the program to the first NUMA node
   bindToNode(0);
@@ -120,9 +156,7 @@ int main(int argc, char *argv[]) {
   // Log File Configuration
   PropertyConfigurator::configure(logPropertyFile);
 
-  // System Setup
-  writePidFile();
-
+  
   SharedScheduler::getInstance().init(scheduler_name);
   AbstractTaskScheduler *scheduler = SharedScheduler::getInstance().getScheduler();
   if (scheduler != NULL) {
@@ -136,17 +170,17 @@ int main(int argc, char *argv[]) {
   // Initialize server based on libev event loop
   ebb_server_init(&server, loop);
 
+  
   // Define handler for ebb
   server.new_connection = net::new_connection;
 
-  // Start listening
-  if (port <= 0 || port >= 65536)
-    port = DEFAULT_PORT;
-  ebb_server_listen_on_port(&server, port);
-  LOG4CXX_INFO(logger, "Started server on port " << port);
+  PidFile pi;
+  PortResource pa(port, port+100, server);
+  
+  //ebb_server_listen_on_port(&server, port);
+  LOG4CXX_INFO(logger, "Started server on port " << pa.getPort());
   ev_loop(loop, 0);
   LOG4CXX_INFO(logger, "Stopping Server...");
-  removePidFile();
 
   return 0;
 }

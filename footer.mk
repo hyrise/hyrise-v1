@@ -35,10 +35,10 @@ VPATH := $(src_dir)
 all:: $(lib) $(bin)
 
 $(bin): $(objects)
-	$(call echo_cmd,BINARY $@) $(LD) -o $@ $(objects) $(lib_dependencies) $(LINKER_FLAGS)  $(linker_dir_flags)
+	$(call echo_cmd,BINARY $@) $(LD) -o $@ $(objects) $(LINKER_FLAGS) $(lib_dependencies)   $(linker_dir_flags)
 
 $(lib): $(objects) 
-	$(call echo_cmd,LINK $@) $(LD) $(SHARED_LIB) -o $@ $(objects) $(lib_dependencies) $(LINKER_FLAGS) $(linker_dir_flags)
+	$(call echo_cmd,LINK $@) $(LD) $(SHARED_LIB) -o $@ $(objects) $(LINKER_FLAGS) $(lib_dependencies) $(linker_dir_flags)
 
 %.o: %.cpp $(makefiles)
 	$(call echo_cmd,CXX $<) $(CXX) $(CXX_BUILD_FLAGS) $(include_flags) -c -o $@ $< 
