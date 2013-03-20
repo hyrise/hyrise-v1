@@ -7,6 +7,11 @@
 #include <storage/AttributeVectorFactory.h>
 #include <memory/strategies.h>
 
+#include <storage/DefaultDictVector.hpp>
+
+
+#include <iostream>
+
 template <typename T>
 class AttributeVectorTests : public ::hyrise::Test {
 public:
@@ -19,22 +24,6 @@ struct TestType {
   typedef A Allocator;
 };
 
-
-TEST( FixedLengthVectorTest, increment_test ) {
-  size_t cols = 1;
-  size_t rows = 3;
-
-  auto tuples = std::dynamic_pointer_cast<FixedLengthVector<value_id_t>>(
-    AttributeVectorFactory::getAttributeVector2<value_id_t, StrategizedAllocator<uint, MallocStrategy>>(cols,rows, false));
-
-  tuples->resize(rows);
-
-  EXPECT_EQ(0u, tuples->get(0,0));
-  EXPECT_EQ(0u, tuples->inc(0,0));
-  EXPECT_EQ(1u, tuples->get(0,0));
-  EXPECT_EQ(1u, tuples->atomic_inc(0,0));
-  EXPECT_EQ(2u, tuples->get(0,0));
-}
 
 static const std::vector<uint64_t> bits = std::vector<uint64_t> {2, 3};
 
@@ -175,3 +164,51 @@ TYPED_TEST(AttributeVectorTests, empty_size_does_not_change_with_reserve) {
 
 }
 
+TYPED_TEST(AttributeVectorTests, default_bit_vector) {
+
+  #define MAX 100000
+  DefaultDictVector< hyrise_int_t > d(1);
+
+  int i = 0;
+  for (DefaultDictVectorIterator<hyrise_int_t> it = d.begin(); it != d.end(); ++it)  {
+    ++i;
+  }
+  ASSERT_EQ(0,i);
+
+  d.push_back(true);
+  for (DefaultDictVectorIterator<hyrise_int_t> it = d.begin(); it != d.end(); ++it)  {
+    ASSERT_EQ(1,*it);
+    ++i;
+  }
+  ASSERT_EQ(1,i);
+
+
+  for(i=1;i<MAX;++i){
+    int nb = i % 10;
+    if(nb == 5) {
+      d.push_back(false);
+    } else {
+      d.push_back(true);
+    }
+  }
+
+  for(i=0;i<(long)d.size();++i) {
+    ASSERT_EQ(hyrise_int_t((i%10)!=5),d[i]);
+    ASSERT_EQ(d[i],*d.iterator(i));
+  }
+
+  i = 0;
+  for (DefaultDictVectorIterator<hyrise_int_t> it = d.begin(); it != d.end(); ++it) {
+    ASSERT_EQ(d[i],*it);
+    ++i;
+  }
+
+  ASSERT_EQ(MAX,i);
+
+
+  i = 0;
+  for (DefaultDictVectorIterator<hyrise_int_t> it = d.begin(); it != d.end(); ++it) {
+    ASSERT_EQ(d[i],*it);
+    ++i;
+  }
+}
