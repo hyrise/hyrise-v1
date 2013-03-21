@@ -59,7 +59,7 @@ BENCHMARK_F(HashValueJoinBase, stock_level_hash_value_join_mat) {
 
   auto result = hs->execute()->getResultTable();
 
-  MaterializingScan ms(false);
+  hyrise::access::MaterializingScan ms(false);
   ms.setEvent("NO_PAPI");
   ms.addInput(result);
 
@@ -74,7 +74,7 @@ BENCHMARK_F(HashValueJoinBase, stock_level_hash_value_join_mat_memcpy) {
 
   auto result = hs->execute()->getResultTable();
 
-  MaterializingScan ms(true);
+  hyrise::access::MaterializingScan ms(true);
   ms.setEvent("NO_PAPI");
   ms.addInput(result);
 

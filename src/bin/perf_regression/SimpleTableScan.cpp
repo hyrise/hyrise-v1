@@ -98,7 +98,7 @@ BENCHMARK_F(SimpleTableScanBase, table_scan_order_status_cust_tpcc_mat) {
 
   auto result = ts->execute()->getResultTable();
 
-  MaterializingScan ms(false);
+  hyrise::access::MaterializingScan ms(false);
   ms.setEvent("NO_PAPI");
   ms.addInput(result);
 
@@ -112,7 +112,7 @@ BENCHMARK_F(SimpleTableScanBase, table_scan_order_status_cust_tpcc_mat_memcpy) {
 
   auto result = ts->execute()->getResultTable();
 
-  MaterializingScan ms(true);
+  hyrise::access::MaterializingScan ms(true);
   ms.setEvent("NO_PAPI");
   ms.addInput(result);
 

@@ -51,7 +51,7 @@ BENCHMARK_F(GroupByScanBase, group_by_tpc_c_delivery) {
 BENCHMARK_F(GroupByScanBase, group_by_tpc_c_delivery_mat) {
   auto result = gs->execute()->getResultTable();
 
-  MaterializingScan *ms = new MaterializingScan(false);
+  hyrise::access::MaterializingScan *ms = new hyrise::access::MaterializingScan(false);
   ms->setEvent("NO_PAPI");
   ms->addInput(result);
 
@@ -61,7 +61,7 @@ BENCHMARK_F(GroupByScanBase, group_by_tpc_c_delivery_mat) {
 BENCHMARK_F(GroupByScanBase, group_by_tpc_c_delivery_mat_memcpy) {
   auto result = gs->execute()->getResultTable();
 
-  MaterializingScan *ms = new MaterializingScan(true);
+  hyrise::access::MaterializingScan *ms = new hyrise::access::MaterializingScan(true);
   ms->setEvent("NO_PAPI");
   ms->addInput(result);
 
@@ -113,7 +113,7 @@ BENCHMARK_F(GroupByScanBase, group_by_scan_multiple_fieds_mat) {
 
   auto result = gs2.execute()->getResultTable();
 
-  MaterializingScan ms(false);
+  hyrise::access::MaterializingScan ms(false);
   ms.setEvent("NO_PAPI");
   ms.addInput(result);
 
@@ -142,7 +142,7 @@ BENCHMARK_F(GroupByScanBase, group_by_scan_multiple_fields_mat_memcpy) {
 
   auto result = gs2.execute()->getResultTable();
 
-  MaterializingScan ms(true);
+  hyrise::access::MaterializingScan ms(true);
   ms.setEvent("NO_PAPI");
   ms.addInput(result);
 

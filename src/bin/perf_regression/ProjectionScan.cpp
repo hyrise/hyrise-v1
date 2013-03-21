@@ -49,7 +49,7 @@ BENCHMARK_F(ProjectionScanBase, project_new_order_tpcc_district_mat) {
   //materialized
   auto result = ps->execute()->getResultTable();
 
-  MaterializingScan *ms = new MaterializingScan(false);
+  hyrise::access::MaterializingScan *ms = new hyrise::access::MaterializingScan(false);
   ms->setEvent("NO_PAPI");
   ms->addInput(result);
 
@@ -63,7 +63,7 @@ BENCHMARK_F(ProjectionScanBase, project_new_order_tpcc_district_mat_memcpy) {
 
   auto result = ps->execute()->getResultTable();
 
-  MaterializingScan *ms = new MaterializingScan(true);
+  hyrise::access::MaterializingScan *ms = new hyrise::access::MaterializingScan(true);
   ms->setEvent("NO_PAPI");
   ms->addInput(result);
 
