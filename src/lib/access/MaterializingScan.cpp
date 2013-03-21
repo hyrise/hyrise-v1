@@ -15,7 +15,7 @@ namespace {
   auto _ = QueryParser::registerPlanOperation<MaterializingScan>("MaterializingScan");
 }
 
-MaterializingScan::MaterializingScan(const bool use_memcpy = true) :
+MaterializingScan::MaterializingScan(const bool use_memcpy) :
                                      _use_memcpy(use_memcpy),
                                      _copy_values(false),
                                      _num_samples(0) {

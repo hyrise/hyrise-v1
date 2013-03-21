@@ -9,7 +9,7 @@ namespace access {
 
 class MaterializingScan : public _PlanOperation {
 public:
-  explicit MaterializingScan(const bool use_memcpy);
+  explicit MaterializingScan(const bool use_memcpy = true);
   virtual ~MaterializingScan();
 
   virtual void setupPlanOperation();
