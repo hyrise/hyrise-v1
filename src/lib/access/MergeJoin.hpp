@@ -2,32 +2,26 @@
 #ifndef SRC_LIB_ACCESS_MERGEJOIN_HPP_
 #define SRC_LIB_ACCESS_MERGEJOIN_HPP_
 
-#include <helper/types.h>
-#include <storage/AbstractTable.h>
-#include <access/PlanOperation.h>
-#include <access/predicates.h>
-#include <storage/PointerCalculator.h>
-#include <storage/PointerCalculatorFactory.h>
+#include "access/PlanOperation.h"
+#include "access/predicates.h"
+#include "helper/types.h"
+#include "storage/AbstractTable.h"
+#include "storage/MutableVerticalTable.h"
+#include "storage/PointerCalculator.h"
+#include "storage/PointerCalculatorFactory.h"
+
+namespace hyrise {
+namespace access {
 
 template <typename T>
 class MergeJoin : public _PlanOperation {
- public:
+public:
+  MergeJoin() {}
+  virtual ~MergeJoin() {}
 
-  MergeJoin() {
-    
-  }
-
-  virtual ~MergeJoin() {
-    
-  }
-
-  /*
-   * Expects two inputs
-   * @return in the return value, returns the second input and the resulting positions
-   */
   void executePlanOperation() {
     if (!producesPositions) {
-      throw std::runtime_error("MergeJoin execute() not supported with generatesPositions == false");
+      throw std::runtime_error("MergeJoin execute() not supported with producesPositions == false");
     }
 
     size_t left_input_size = input.getTable(0)->size();
@@ -92,17 +86,20 @@ class MergeJoin : public _PlanOperation {
       }
     }
 
-    std::vector<hyrise::storage::c_atable_ptr_t> parts({
-      std::dynamic_pointer_cast<const AbstractTable>(PointerCalculatorFactory::createPointerCalculatorNonRef(input.getTable(0), nullptr, left_pos)),
-      std::dynamic_pointer_cast<const AbstractTable>(PointerCalculatorFactory::createPointerCalculatorNonRef(input.getTable(1), nullptr, right_pos))
+    std::vector<hyrise::storage::atable_ptr_t> parts({
+      std::dynamic_pointer_cast<AbstractTable>(PointerCalculatorFactory::createPointerCalculatorNonRef(input.getTable(0), nullptr, left_pos)),
+      std::dynamic_pointer_cast<AbstractTable>(PointerCalculatorFactory::createPointerCalculatorNonRef(input.getTable(1), nullptr, right_pos))
     });
-    addResult(std::make_shared<const MutableVerticalTable>(parts));
+
+    addResult(std::make_shared<MutableVerticalTable>(parts));
   }
 
   const std::string vname() {
     return "MergeJoin";
   }
-
 };
-#endif  // SRC_LIB_ACCESS_MERGEJOIN_HPP_
 
+}
+}
+
+#endif  // SRC_LIB_ACCESS_MERGEJOIN_HPP_
