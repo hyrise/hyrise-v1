@@ -167,22 +167,39 @@ TYPED_TEST(AttributeVectorTests, empty_size_does_not_change_with_reserve) {
 TYPED_TEST(AttributeVectorTests, default_bit_vector) {
 
   #define MAX 100000
-  DefaultDictVector< hyrise_int_t > d(1);
-
+  #define COLS 4
+  DefaultDictVector< hyrise_int_t > d(COLS,10);
+  //FixedLengthVector< hyrise_int_t > f(4,10);
+  
   int i = 0;
-  for (DefaultDictVectorIterator<hyrise_int_t> it = d.begin(); it != d.end(); ++it)  {
-    ++i;
-  }
-  ASSERT_EQ(0,i);
+  int j = 0;
 
-  d.push_back(true);
-  for (DefaultDictVectorIterator<hyrise_int_t> it = d.begin(); it != d.end(); ++it)  {
-    ASSERT_EQ(1,*it);
-    ++i;
-  }
-  ASSERT_EQ(1,i);
+  d.resize(9);
+
+  for (j = 0; j<d.size();++j)
+    for (i = 0; i<COLS; ++i)
+      d.set(i,j,(i*COLS+j)*((i+j)%2));
+  
+  for (j = 0; j<d.size();++j)
+    for (i = 0; i<COLS; ++i)
+      ASSERT_EQ(d.get(i,j),(i*COLS+j)*((i+j)%2));
+  
 
 
+
+  //for (DefaultDictVectorIterator<hyrise_int_t> it = d.begin(); it != d.end(); ++it)  {
+  //  ++i;
+ // }
+ // ASSERT_EQ(0,i);
+
+ // d.push_back(true);
+ // for (DefaultDictVectorIterator<hyrise_int_t> it = d.begin(); it != d.end(); ++it)  {
+ //   ASSERT_EQ(1,*it);
+ //   ++i;
+ // }
+ // ASSERT_EQ(1,i);
+
+/*
   for(i=1;i<MAX;++i){
     int nb = i % 10;
     if(nb == 5) {
@@ -210,5 +227,5 @@ TYPED_TEST(AttributeVectorTests, default_bit_vector) {
   for (DefaultDictVectorIterator<hyrise_int_t> it = d.begin(); it != d.end(); ++it) {
     ASSERT_EQ(d[i],*it);
     ++i;
-  }
+  }*/
 }
