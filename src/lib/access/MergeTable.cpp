@@ -1,23 +1,21 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "access/MergeTable.h"
-#include "access/QueryParser.h"
 
+#include "access/QueryParser.h"
 #include "helper/types.h"
 #include "storage/Store.h"
 
+namespace hyrise {
+namespace access {
 
-static auto registered = QueryParser::registerPlanOperation<MergeTable>("MergeTable");
-
-MergeTable::MergeTable() {}
-
-MergeTable::~MergeTable() {}
-
-const std::string MergeTable::vname() {
-  return "MergeTable";
+namespace {
+  auto _ = QueryParser::registerPlanOperation<MergeTable>("MergeTable");
 }
 
-std::shared_ptr<_PlanOperation> MergeTable::parse(Json::Value& data) {
-  return std::make_shared<MergeTable>();
+MergeTable::MergeTable() {
+}
+
+MergeTable::~MergeTable() {
 }
 
 void MergeTable::executePlanOperation() {
@@ -44,3 +42,13 @@ void MergeTable::executePlanOperation() {
   output.add(result);
 }
 
+std::shared_ptr<_PlanOperation> MergeTable::parse(Json::Value& data) {
+  return std::make_shared<MergeTable>();
+}
+
+const std::string MergeTable::vname() {
+  return "MergeTable";
+}
+
+}
+}
