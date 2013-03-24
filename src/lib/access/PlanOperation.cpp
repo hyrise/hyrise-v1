@@ -29,10 +29,6 @@ _PlanOperation::_PlanOperation() :
 _PlanOperation::~_PlanOperation() {
 }
 
-void _PlanOperation::addResult(hyrise::storage::c_atable_ptr_t result) {
-  output.add(result);
-}
-
 void _PlanOperation::addResultHash(hyrise::storage::c_ahashtable_ptr_t result) {
     output.addHash(result);
 }
@@ -200,8 +196,7 @@ void _PlanOperation::splitInput() {
   if (_count > 0 && !tables.empty()) {
     u_int64_t first, last;
     distribute(tables[0]->size(), first, last);
-    _row_offset = first;
-    input.setTable(TableRangeViewFactory::createView(std::const_pointer_cast<AbstractTable>(tables[0]), first, last), 0);
+    input.setTable( TableRangeViewFactory::createView(std::const_pointer_cast<AbstractTable>(tables[0]), first, last), 0);
   }
 }
 
@@ -291,4 +286,8 @@ const std::string& _PlanOperation::planOperationName() const {
 }
 void _PlanOperation::setPlanOperationName(const std::string& name) {
   _planOperationName = name;
+}
+
+const std::string _PlanOperation::vname() {
+  return planOperationName();
 }

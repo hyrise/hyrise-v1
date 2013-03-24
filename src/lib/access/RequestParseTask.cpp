@@ -19,18 +19,15 @@
 #include "io/TransactionManager.h"
 #include "net/Router.h"
 #include "net/AbstractConnection.h"
-#include "taskscheduler/SimpleTaskScheduler.h"
+#include "taskscheduler/AbstractTaskScheduler.h"
 
-#include <iostream>
-
-namespace {
-log4cxx::LoggerPtr _logger(log4cxx::Logger::getLogger("hyrise.access"));
-log4cxx::LoggerPtr _query_logger(log4cxx::Logger::getLogger("hyrise.access.queries"));
-}
 
 namespace hyrise {
 namespace access {
 
+bool registered = net::Router::registerRoute<RequestParseTask>(
+    "/query/",
+    net::Router::route_t::CATCH_ALL);
 
 RequestParseTask::RequestParseTask(net::AbstractConnection* connection)
     : _connection(connection),
@@ -46,7 +43,10 @@ const std::string RequestParseTask::vname() {
   return "RequestParseTask";
 }
 
-
+namespace {
+log4cxx::LoggerPtr _logger(log4cxx::Logger::getLogger("hyrise.access"));
+log4cxx::LoggerPtr _query_logger(log4cxx::Logger::getLogger("hyrise.access.queries"));
+}
 
 std::string hash(const Json::Value &v) {
   const std::string jsonData(v.toStyledString());

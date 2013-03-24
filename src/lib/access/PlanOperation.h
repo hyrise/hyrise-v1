@@ -12,6 +12,9 @@
 
 #include "json.h"
 
+
+
+
 /**
  * This is the default interface for a plan operation. Our basic assumption is
  * that a plan operation has multiple input data structures and exactly one
@@ -25,10 +28,9 @@ class _PlanOperation : public OutputTask {
   hyrise::access::OperationData input;
   hyrise::access::OperationData output;
 
-  size_t _row_offset;
-
-  void addResult(hyrise::storage::c_atable_ptr_t result);
-
+  void addResult(hyrise::storage::c_atable_ptr_t result) {
+    output.add(result);
+  }
   void addResultHash(hyrise::storage::c_ahashtable_ptr_t result);
 
   // Limits the number of rows read
@@ -129,6 +131,7 @@ class _PlanOperation : public OutputTask {
   void setPlanOperationName(const std::string& name);
 
   virtual void operator()() noexcept;
+  virtual const std::string vname();
   const _PlanOperation *execute();
 };
 

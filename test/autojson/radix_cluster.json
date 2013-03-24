@@ -1,0 +1,66 @@
+{
+  "operators" : {
+    "load" : {
+      "type": "TableLoad",
+      "table": "hasher",
+      "filename": "tables/hash_table_test.tbl"
+    },
+    "hist" : {
+      "type" : "Histogram",
+      "fields": [0],
+      "bits": 2
+    },
+    "prefix" : {
+      "type" : "PrefixSum"
+    },
+    "create" : {
+      "type" : "CreateRadixTable"
+    },
+    "create2" : {
+      "type" : "CreateRadixTable"
+    },
+    "radix" : {
+      "type" : "RadixCluster",
+      "bits" : 2,
+      "fields" : [0]
+    },
+    "hist2" : {
+      "type" : "Histogram2ndPass",
+      "fields": [0],
+      "bits" : 2,
+      "sig": 0,
+      "bits2": 1,
+      "sig2": 2
+    },
+    "prefix2" : {
+      "type" : "PrefixSum"
+    },
+    "radix2" : {
+      "type" : "RadixCluster2ndPass",
+      "bits" : 1,
+      "sig": 0,
+      "bits2" : 1,
+      "sig2": 2
+    },
+    "nop" : {
+      "type" : "NoOp"
+    }
+  },
+  "edges" : [["load", "hist"], 
+             ["hist", "prefix"], 
+             ["load", "create"],
+             ["load", "create2"],
+             
+             ["load", "radix"], 
+             ["create", "radix"],
+             ["prefix", "radix"],
+             
+             ["radix", "hist2"],
+             ["prefix", "hist2"],
+             ["hist2", "prefix2"],
+
+             ["radix", "radix2"],
+             ["create2", "radix2"],
+             ["prefix2", "radix2"],
+             ["radix2", "nop"]]
+}

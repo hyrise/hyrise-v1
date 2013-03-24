@@ -128,7 +128,13 @@ void write_cb(struct ev_loop *loop, struct ev_async *w, int revents) {
     conn->write_buffer_len = 0;
 
     // Copy the http status code
-    conn->write_buffer_len += snprintf((char *)conn->write_buffer, max_header_length, "HTTP/1.1 200 OK\r\nContent-Type: application/json\r\nContent-Length: %lu\r\nConnection: close\r\n\r\n", conn->response_length);
+    conn->code = conn->code == 0 ? 200 : conn->code;
+    conn->contentType = conn->contentType.size() == 0 ? "application/json" : conn->contentType;
+    conn->write_buffer_len += snprintf((char *)conn->write_buffer, max_header_length, 
+      "HTTP/1.1 %lu OK\r\nContent-Type: %s\r\nContent-Length: %lu\r\nConnection: close\r\n\r\n", 
+      conn->code, 
+      conn->contentType.c_str(),
+      conn->response_length);
 
     // Append the response
     memcpy(conn->write_buffer + conn->write_buffer_len, conn->response, conn->response_length);
@@ -159,7 +165,7 @@ void on_close(ebb_connection *connection) {
 }
 
 AsyncConnection::AsyncConnection() :
-  request(nullptr), path(nullptr), body(nullptr), response(nullptr), write_buffer(nullptr), closed(false) {
+    request(nullptr), path(nullptr), body(nullptr), body_len(0), response(nullptr), write_buffer(nullptr), closed(false), code(0) {
 }
 
 AsyncConnection::~AsyncConnection() {

@@ -59,7 +59,7 @@ std::string Router::getHandlerNameForRoute(const std::string &url) const {
 Router::handler_ptr Router::getHandler(const std::string &url) const {
   for (const auto & kv: _route) {
     auto route_url = kv.first;
-    if (route_url.compare(0, route_url.size(), url) == 0) {
+    if (url.find(route_url) != std::string::npos) {
       return kv.second.get();
     }
   }

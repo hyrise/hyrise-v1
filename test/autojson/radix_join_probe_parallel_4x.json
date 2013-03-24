@@ -1,0 +1,415 @@
+{
+  "operators": {
+    "reference": {
+      "type": "TableLoad",
+      "table": "reference",
+      "filename": "tables/hash_table_test_ref.tbl"
+    },
+    "lload": {
+      "type": "TableLoad",
+      "table": "hasher",
+      "filename": "tables/hash_table_test2.tbl"
+    },
+    "lhist": {
+      "type": "Histogram",
+      "fields": [
+        0
+      ],
+      "bits": 2
+    },
+    "lprefix": {
+      "type": "PrefixSum"
+    },
+    "lcreate": {
+      "type": "CreateRadixTable"
+    },
+    "lcreate2": {
+      "type": "CreateRadixTable"
+    },
+    "lradix": {
+      "type": "RadixCluster",
+      "bits": 2,
+      "fields": [
+        0
+      ]
+    },
+    "lhist2": {
+      "type": "Histogram2ndPass",
+      "fields": [
+        0
+      ],
+      "bits": 2,
+      "sig": 0,
+      "bits2": 1,
+      "sig2": 2
+    },
+    "lprefix2": {
+      "type": "PrefixSum"
+    },
+    "lradix2": {
+      "type": "RadixCluster2ndPass",
+      "bits": 2,
+      "sig": 0,
+      "bits2": 1,
+      "sig2": 2
+    },
+    "rload": {
+      "type": "TableLoad",
+      "table": "hasher2",
+      "filename": "tables/hash_table_test.tbl"
+    },
+    "rcreate": {
+      "type": "CreateRadixTable"
+    },
+    "join": {
+      "type": "NestedLoopEquiJoin",
+      "bits1": 2,
+      "bits2": 1,
+      "partitions": [
+        0,
+        1,
+        2,
+        3
+      ]
+    },
+    "rhist_0": {
+      "type": "Histogram",
+      "fields": [
+        0
+      ],
+      "bits": 2,
+      "part": 0,
+      "numParts": 4
+    },
+    "rhist_1": {
+      "type": "Histogram",
+      "fields": [
+        0
+      ],
+      "bits": 2,
+      "part": 1,
+      "numParts": 4
+    },
+    "rhist_2": {
+      "type": "Histogram",
+      "fields": [
+        0
+      ],
+      "bits": 2,
+      "part": 2,
+      "numParts": 4
+    },
+    "rhist_3": {
+      "type": "Histogram",
+      "fields": [
+        0
+      ],
+      "bits": 2,
+      "part": 3,
+      "numParts": 4
+    },
+    "rprefix_0": {
+      "type": "PrefixSum",
+      "part": 0,
+      "numParts": 4
+    },
+    "rprefix_1": {
+      "type": "PrefixSum",
+      "part": 1,
+      "numParts": 4
+    },
+    "rprefix_2": {
+      "type": "PrefixSum",
+      "part": 2,
+      "numParts": 4
+    },
+    "rprefix_3": {
+      "type": "PrefixSum",
+      "part": 3,
+      "numParts": 4
+    },
+    "rradix_0": {
+      "type": "RadixCluster",
+      "bits": 2,
+      "fields": [
+        0
+      ],
+      "part": 0,
+      "numParts": 4
+    },
+    "rradix_1": {
+      "type": "RadixCluster",
+      "bits": 2,
+      "fields": [
+        0
+      ],
+      "part": 1,
+      "numParts": 4
+    },
+    "rradix_2": {
+      "type": "RadixCluster",
+      "bits": 2,
+      "fields": [
+        0
+      ],
+      "part": 2,
+      "numParts": 4
+    },
+    "rradix_3": {
+      "type": "RadixCluster",
+      "bits": 2,
+      "fields": [
+        0
+      ],
+      "part": 3,
+      "numParts": 4
+    },
+    "merge_prefix_sum_probe_0": {
+      "type": "MergePrefixSum"
+    },
+    "barrier_probe_0": {
+      "type": "Barrier",
+      "fields": [
+        0
+      ]
+    }
+  },
+  "edges": [
+    [
+      "lload",
+      "lhist"
+    ],
+    [
+      "lhist",
+      "lprefix"
+    ],
+    [
+      "lload",
+      "lcreate"
+    ],
+    [
+      "lload",
+      "lcreate2"
+    ],
+    [
+      "lload",
+      "lradix"
+    ],
+    [
+      "lcreate",
+      "lradix"
+    ],
+    [
+      "lprefix",
+      "lradix"
+    ],
+    [
+      "lradix",
+      "lhist2"
+    ],
+    [
+      "lhist2",
+      "lprefix2"
+    ],
+    [
+      "lradix",
+      "lradix2"
+    ],
+    [
+      "lcreate2",
+      "lradix2"
+    ],
+    [
+      "lprefix2",
+      "lradix2"
+    ],
+    [
+      "rload",
+      "rcreate"
+    ],
+    [
+      "rload",
+      "join"
+    ],
+    [
+      "rload",
+      "rhist_0"
+    ],
+    [
+      "rload",
+      "rhist_1"
+    ],
+    [
+      "rload",
+      "rhist_2"
+    ],
+    [
+      "rload",
+      "rhist_3"
+    ],
+    [
+      "rhist_0",
+      "rprefix_0"
+    ],
+    [
+      "rhist_0",
+      "rprefix_1"
+    ],
+    [
+      "rhist_0",
+      "rprefix_2"
+    ],
+    [
+      "rhist_0",
+      "rprefix_3"
+    ],
+    [
+      "rhist_1",
+      "rprefix_0"
+    ],
+    [
+      "rhist_1",
+      "rprefix_1"
+    ],
+    [
+      "rhist_1",
+      "rprefix_2"
+    ],
+    [
+      "rhist_1",
+      "rprefix_3"
+    ],
+    [
+      "rhist_2",
+      "rprefix_0"
+    ],
+    [
+      "rhist_2",
+      "rprefix_1"
+    ],
+    [
+      "rhist_2",
+      "rprefix_2"
+    ],
+    [
+      "rhist_2",
+      "rprefix_3"
+    ],
+    [
+      "rhist_3",
+      "rprefix_0"
+    ],
+    [
+      "rhist_3",
+      "rprefix_1"
+    ],
+    [
+      "rhist_3",
+      "rprefix_2"
+    ],
+    [
+      "rhist_3",
+      "rprefix_3"
+    ],
+    [
+      "rload",
+      "rradix_0"
+    ],
+    [
+      "rcreate",
+      "rradix_0"
+    ],
+    [
+      "rprefix_0",
+      "rradix_0"
+    ],
+    [
+      "rradix_0",
+      "barrier_probe_0"
+    ],
+    [
+      "rload",
+      "rradix_1"
+    ],
+    [
+      "rcreate",
+      "rradix_1"
+    ],
+    [
+      "rprefix_1",
+      "rradix_1"
+    ],
+    [
+      "rradix_1",
+      "barrier_probe_0"
+    ],
+    [
+      "rload",
+      "rradix_2"
+    ],
+    [
+      "rcreate",
+      "rradix_2"
+    ],
+    [
+      "rprefix_2",
+      "rradix_2"
+    ],
+    [
+      "rradix_2",
+      "barrier_probe_0"
+    ],
+    [
+      "rload",
+      "rradix_3"
+    ],
+    [
+      "rcreate",
+      "rradix_3"
+    ],
+    [
+      "rprefix_3",
+      "rradix_3"
+    ],
+    [
+      "rradix_3",
+      "barrier_probe_0"
+    ],
+    [
+      "rprefix_0",
+      "merge_prefix_sum_probe_0"
+    ],
+    [
+      "rprefix_1",
+      "merge_prefix_sum_probe_0"
+    ],
+    [
+      "rprefix_2",
+      "merge_prefix_sum_probe_0"
+    ],
+    [
+      "rprefix_3",
+      "merge_prefix_sum_probe_0"
+    ],
+    [
+      "barrier_probe_0",
+      "join"
+    ],
+    [
+      "merge_prefix_sum_probe_0",
+      "join"
+    ],
+    [
+      "lload",
+      "join"
+    ],
+    [
+      "lradix2",
+      "join"
+    ],
+    [
+      "lprefix2",
+      "join"
+    ]
+  ]
+}

@@ -19,7 +19,11 @@ struct hash_functor {
 
   hash_functor(): table(0) {}
 
-  hash_functor(const AbstractTable *t, const size_t f, const ValueId v): table(t), f(f), vid(v) {}
+  void setValueId(ValueId v) {
+    vid = vid;
+  }
+
+  hash_functor(const AbstractTable *t, const size_t f, const ValueId v=ValueId()): table(t), f(f), vid(v) {}
 
   template<typename R>
   T operator()() {

@@ -11,6 +11,7 @@ def main():
     try:
         assert("/query/" in op)
         assert("/urls/" in op)
+        assert("/static/" in op)
         print "=====> No errors <====="
     finally:
         p.send_signal(signal.SIGINT)

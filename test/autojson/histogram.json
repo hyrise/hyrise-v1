@@ -1,0 +1,18 @@
+{
+	"operators" : {
+		"load" : {
+			"type": "TableLoad",
+			"table": "hasher",
+			"filename": "tables/hash_table_test.tbl"
+		},
+		"hist" : {
+			"type" : "Histogram",
+			"fields": [0],
+			"bits": 2
+		},
+		"nop" : {
+			"type" : "NoOp"
+		}
+	},
+	"edges" : [["load", "hist"], ["hist", "nop"]]
+}

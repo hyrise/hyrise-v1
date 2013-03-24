@@ -7,6 +7,8 @@
 #include <string>
 #include <vector>
 #include <json.h>
+#include <memory>
+#include "access/AbstractPlanOpTransformation.h"
 
 namespace hyrise {
 namespace access {
@@ -31,6 +33,10 @@ class QueryTransformationEngine {
   static const std::string parallelInstanceInfix;
   static const std::string unionSuffix;
   static const std::string mergeSuffix;
+
+
+  typedef std::map< std::string, hyrise::access::AbstractPlanOpTransformation * > factory_map_t;
+  factory_map_t _factory;
 
   QueryTransformationEngine() {}
 
@@ -121,9 +127,21 @@ class QueryTransformationEngine {
  public:
   ~QueryTransformationEngine() {}
 
+  template<typename T>
+  static bool registerTransformation() {
+    QueryTransformationEngine::getInstance()->_factory[T::name()] = new T();
+    return true;
+  }
+
+  template<typename T>
+  static bool registerPlanOperation(const std::string& name) {
+    QueryTransformationEngine::getInstance()->_factory[name] = new T();
+    return true;
+  }
+
   /*  Main method. Transforms a query based on its operators' configurations.
       The resulting query is meant to be directly parsable/executable. */
-  Json::Value &transform(Json::Value &query) const;
+  Json::Value &transform(Json::Value &query);
 
   static QueryTransformationEngine *getInstance() {
     static QueryTransformationEngine *p = nullptr;

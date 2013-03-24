@@ -15,5 +15,8 @@
 #include <taskscheduler/Task.h>
 #include <taskscheduler/CoreBoundTaskQueue.h>
 #include <taskscheduler/AbstractTaskQueue.h>
+#include <taskscheduler/WSCoreBoundTaskQueue.h>
+#include <taskscheduler/WSSimpleTaskScheduler.h>
+
 
 #endif  // SRC_LIB_TASKSCHEDULER_H_
