@@ -188,7 +188,7 @@ class AbstractQueueBasedTaskScheduler : public AbstractTaskScheduler, public Tas
   /*
    * notify scheduler that a given task is ready
    */
-  void notifyReady(std::shared_ptr<Task> task) {
+  virtual void notifyReady(std::shared_ptr<Task> task) {
     // remove task from wait set
     _setMutex.lock();
     int tmp = _waitSet.erase(task);

@@ -16,6 +16,7 @@
 #include <string>
 
 #define NO_PREFERRED_CORE -1
+#define NO_PREFERRED_NODE -1
 
 class Task;
 
@@ -60,6 +61,10 @@ protected:
   std::mutex _notifyMutex;
   // indicates on which core the task should run
   int _preferredCore;
+  // indicates on which node the task should run
+  int _preferredNode;
+  // indicates on which node the task should run
+  int _actualNode;
 
 public:
   Task();
@@ -126,6 +131,22 @@ public:
    */
   void lockForNotifications();
   void unlockForNotifications();
+
+  int getActualNode() const {
+    return _actualNode;
+  }
+
+  void setActualNode(int actualNode) {
+    _actualNode = actualNode;
+  }
+
+  int getPreferredNode() const {
+    return _preferredNode;
+  }
+
+  void setPreferredNode(int preferredNode) {
+    _preferredNode = preferredNode;
+  }
 };
 
 class WaitTask : public Task {

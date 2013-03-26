@@ -77,8 +77,6 @@ for (const auto & nextElement: otherElements) {
 void OperationData::mergeWith(OperationData &other, const bool retain) {
 
 for (const auto& nextElement: other.getTables()) {
-    if (find(getTables().begin(), getTables().end(), nextElement)
-        ==  getTables().end())
       add(nextElement);
   }
 
