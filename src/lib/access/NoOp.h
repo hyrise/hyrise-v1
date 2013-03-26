@@ -2,7 +2,7 @@
 #ifndef SRC_LIB_ACCESS_NOOP_H_
 #define SRC_LIB_ACCESS_NOOP_H_
 
-#include "PlanOperation.h"
+#include "access/PlanOperation.h"
 
 namespace hyrise {
 namespace access {
