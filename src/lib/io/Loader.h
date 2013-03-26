@@ -41,6 +41,8 @@ private:
   param_member(bool, Compressed);
   /// Reference table used for type detection
   param_member(hyrise::storage::c_atable_ptr_t , ReferenceTable);
+  /// use DefaultDictVector as AttributeVector
+  param_member(bool , isDefaultDictVector);
 public:
   params();
   ~params();

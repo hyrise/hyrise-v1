@@ -20,7 +20,8 @@ for (const auto & i: args.groups())
 
 hyrise::storage::atable_ptr_t TableBuilder::createTable(param_list::param_list_t::const_iterator begin,
     param_list::param_list_t::const_iterator end,
-    const bool compressed) {
+    const bool compressed,
+    const bool isDefaultDictVector) {
   // Meta data container
   std::vector<const ColumnMetadata *> vc;
   std::vector<AbstractTable::SharedDictionaryPtr > vd;
@@ -31,7 +32,7 @@ hyrise::storage::atable_ptr_t TableBuilder::createTable(param_list::param_list_t
       DictionaryFactory<OrderIndifferentDictionary>::build(vc.back()->getType()));
   }
 
-  auto tmp = std::make_shared<Table<>>(&vc, &vd, 0, 0, 0, 64, compressed);
+  auto tmp = std::make_shared<Table<>>(&vc, &vd, 0, 0, 0, 64, compressed, isDefaultDictVector);
 
 for (const auto & column_meta: vc)
     delete column_meta;
@@ -51,7 +52,7 @@ hyrise::storage::atable_ptr_t TableBuilder::build(param_list args, const bool co
   for (size_t g = 0; g < args.groups().size(); ++g) {
     // Calculate the upper bound for the current layout
     end = args.groups().size() > g + 1 ? args.groups()[g + 1] : args.size();
-    base.push_back(createTable(args.params().begin() + begin, args.params().begin() + end, compressed));
+    base.push_back(createTable(args.params().begin() + begin, args.params().begin() + end, compressed, args.groupTypes()[g]));
     begin = end;
   }
 

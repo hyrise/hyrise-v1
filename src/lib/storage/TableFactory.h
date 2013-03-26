@@ -19,7 +19,8 @@ public:
       bool sorted = true,
       bool compressed = false,
       size_t padding_size = STORAGE_ALIGNMENT_SIZE,
-      size_t _align_size = STORAGE_ALIGNMENT_SIZE) = 0;
+      size_t _align_size = STORAGE_ALIGNMENT_SIZE,
+      bool isDefaultDictVector = false) = 0;
 };
 
 /**
@@ -36,7 +37,8 @@ public:
       bool sorted = true,
       bool compressed = true,
       size_t padding_size = STORAGE_ALIGNMENT_SIZE,
-      size_t _align_size = STORAGE_ALIGNMENT_SIZE);
+      size_t _align_size = STORAGE_ALIGNMENT_SIZE,
+      bool isDefaultDictVector = false);
 };
 
 template<typename Strategy, template <typename T, typename S> class Allocator>
@@ -52,8 +54,9 @@ hyrise::storage::atable_ptr_t TableFactory<Strategy, Allocator>::generate(std::v
     bool sorted,
     bool compressed,
     size_t padding_size,
-    size_t _align_size) {
-  return std::make_shared<Table<Strategy, Allocator>>(m, d, initial_size, sorted, padding_size, _align_size, compressed);
+    size_t _align_size,
+    bool isDefaultDictVector) {
+  return std::make_shared<Table<Strategy, Allocator>>(m, d, initial_size, sorted, padding_size, _align_size, compressed, isDefaultDictVector);
 }
 
 #endif  // SRC_LIB_STORAGE_TABLEFACTORY_H_

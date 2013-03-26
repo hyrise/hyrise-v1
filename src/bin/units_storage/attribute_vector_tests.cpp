@@ -7,8 +7,9 @@
 #include <storage/AttributeVectorFactory.h>
 #include <memory/strategies.h>
 
-#include <storage/DefaultDictVector.hpp>
+#include "io/shortcuts.h"
 
+#include <storage/DefaultDictVector.hpp>
 
 #include <iostream>
 
@@ -166,66 +167,35 @@ TYPED_TEST(AttributeVectorTests, empty_size_does_not_change_with_reserve) {
 
 TYPED_TEST(AttributeVectorTests, default_bit_vector) {
 
-  #define MAX 100000
-  #define COLS 4
-  DefaultDictVector< hyrise_int_t > d(COLS,10);
-  //FixedLengthVector< hyrise_int_t > f(4,10);
+  size_t cols = 4;
+  size_t rows = 100;
+  DefaultDictVector< hyrise_int_t > d(cols,rows);
   
-  int i = 0;
-  int j = 0;
+  size_t i = 0;
+  size_t j = 0;
 
-  d.resize(9);
+  d.resize(rows-10);
 
   for (j = 0; j<d.size();++j)
-    for (i = 0; i<COLS; ++i)
-      d.set(i,j,(i*COLS+j)*((i+j)%2));
+    for (i = 0; i<cols; ++i)
+      d.set(i,j,(i*cols+j)*((i+j)%2));
   
   for (j = 0; j<d.size();++j)
-    for (i = 0; i<COLS; ++i)
-      ASSERT_EQ(d.get(i,j),(i*COLS+j)*((i+j)%2));
-  
+    for (i = 0; i<cols; ++i)
+      ASSERT_EQ(d.get(i,j),static_cast<hyrise_int_t>((i*cols+j)*((i+j)%2)));
 
+  Loader::params p;
+  p.setisDefaultDictVector(true);
+  p.setReturnsMutableVerticalTable(true);
+  p.setModifiableMutableVerticalTable(true);
+  hyrise::storage::atable_ptr_t table = Loader::shortcuts::load("test/lin_xxs.tbl", p);
 
-
-  //for (DefaultDictVectorIterator<hyrise_int_t> it = d.begin(); it != d.end(); ++it)  {
-  //  ++i;
- // }
- // ASSERT_EQ(0,i);
-
- // d.push_back(true);
- // for (DefaultDictVectorIterator<hyrise_int_t> it = d.begin(); it != d.end(); ++it)  {
- //   ASSERT_EQ(1,*it);
- //   ++i;
- // }
- // ASSERT_EQ(1,i);
-
-/*
-  for(i=1;i<MAX;++i){
-    int nb = i % 10;
-    if(nb == 5) {
-      d.push_back(false);
-    } else {
-      d.push_back(true);
+  for (j = 0; j<table->columnCount(); ++j)
+    for (i = 0; i<table->size(); ++i) {
+      table->setValue<hyrise_int_t>(j, i, static_cast<hyrise_int_t>(j*10000+i));
     }
-  }
+  for (j = 0; j<table->columnCount(); ++j)
+    for (i = 0; i<table->size(); ++i)
+      ASSERT_EQ(table->getValue<hyrise_int_t>(j, i), static_cast<hyrise_int_t>(j*10000+i));
 
-  for(i=0;i<(long)d.size();++i) {
-    ASSERT_EQ(hyrise_int_t((i%10)!=5),d[i]);
-    ASSERT_EQ(d[i],*d.iterator(i));
-  }
-
-  i = 0;
-  for (DefaultDictVectorIterator<hyrise_int_t> it = d.begin(); it != d.end(); ++it) {
-    ASSERT_EQ(d[i],*it);
-    ++i;
-  }
-
-  ASSERT_EQ(MAX,i);
-
-
-  i = 0;
-  for (DefaultDictVectorIterator<hyrise_int_t> it = d.begin(); it != d.end(); ++it) {
-    ASSERT_EQ(d[i],*it);
-    ++i;
-  }*/
 }

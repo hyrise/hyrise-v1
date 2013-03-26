@@ -99,7 +99,7 @@ public:
     return getValueAt(n);
   }*/
 
-  T default_value (size_t column) {
+  T default_value (size_t column) const {
     checkColumnAccess(column);
     return _default_dict_table[column].default_value;
   }
@@ -121,7 +121,6 @@ public:
 
   inline void set(size_t column, size_t row, T value) {
     checkAccess(column,row);
-
     auto& def_bits(_default_dict_table[column].default_bit_vector);
     auto& ex_pos(_default_dict_table[column].exception_positions);
     auto& ex_val(_default_dict_table[column].exception_values);
@@ -186,7 +185,7 @@ private:
 #endif
   }
 
-  inline void checkColumnAccess(const size_t& column) const {
+inline void checkColumnAccess(const size_t& column) const {
 #ifdef EXPENSIVE_ASSERTIONS
     if (column >= _columns) {
       throw std::out_of_range("Trying to access column '"
@@ -255,7 +254,7 @@ void DefaultDictVector<T, Allocator>::reserve(size_t rows) {
   if (_default_dict_table[0].default_bit_vector.size() >= rows)
     return;
 
-  for (size_t c; c<_columns; ++c)
+  for (size_t c=0; c<_columns; ++c)
     _default_dict_table[c].default_bit_vector.resize(rows, true);
 }
 

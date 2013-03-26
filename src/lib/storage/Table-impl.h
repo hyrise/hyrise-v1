@@ -13,7 +13,8 @@ Table<Strategy, Allocator>::Table(
   bool sorted,
   size_t padding_size,
   size_t _align_size,
-  bool compressed) :
+  bool compressed,
+  bool isDefaultDictVector) :
   _metadata(m->size()),
   _dictionaries(m->size()),
   width(m->size()),
@@ -52,7 +53,7 @@ Table<Strategy, Allocator>::Table(
 
   /** Build the attribute vector */
   if (!sorted)
-    tuples = AttributeVectorFactory::getAttributeVector<value_id_t, Allocator<value_id_t, Strategy> >(width, initial_size);
+    tuples = AttributeVectorFactory::getAttributeVector<value_id_t, Allocator<value_id_t, Strategy> >(width, initial_size, 1, false, isDefaultDictVector);
   else {
     std::vector<uint64_t> bits(_dictionaries.size(), 0);
     if (d) {
