@@ -19,7 +19,7 @@ MergeTable::~MergeTable() {
 }
 
 void MergeTable::executePlanOperation() {
-  std::vector<hyrise::storage::c_atable_ptr_t> tables;
+  std::vector<storage::c_atable_ptr_t> tables;
   // Add all tables to the game
   for (auto& table: input.getTables()) {
     if (auto store = std::dynamic_pointer_cast<const Store>(table)) {
