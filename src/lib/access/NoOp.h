@@ -4,27 +4,20 @@
 
 #include "PlanOperation.h"
 
+namespace hyrise {
+namespace access {
+
 class NoOp : public _PlanOperation {
- public:
-
-  NoOp() {
-    
-  }
-
-  virtual ~NoOp() {
-  }
+public:
+  NoOp();
+  virtual ~NoOp();
 
   void executePlanOperation();
-
   static std::shared_ptr<_PlanOperation> parse(Json::Value &data);
-  static bool is_registered;
-  static std::string name() {
-    return "NoOp";
-  }
-  const std::string vname() {
-    return "NoOp";
-  }
+  const std::string vname();
 };
 
-#endif  // SRC_LIB_ACCESS_NOOP_H_
+}
+}
 
+#endif  // SRC_LIB_ACCESS_NOOP_H_
