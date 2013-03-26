@@ -12,12 +12,12 @@ class ProjectionScanBase : public ::testing::Benchmark {
  protected:
 
   StorageManager *sm;
-  ProjectionScan *ps;
+  hyrise::access::ProjectionScan *ps;
   AbstractTable::SharedTablePtr t;
 
  public:
   void BenchmarkSetUp() {
-    ps = new ProjectionScan();
+    ps = new hyrise::access::ProjectionScan();
     ps->setEvent("NO_PAPI");
 
     sm = StorageManager::getInstance();
