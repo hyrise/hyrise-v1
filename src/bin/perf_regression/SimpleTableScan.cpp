@@ -14,13 +14,13 @@ class SimpleTableScanBase : public ::testing::Benchmark {
  protected:
 
   StorageManager *sm;
-  SimpleTableScan *ts;
+  hyrise::access::SimpleTableScan *ts;
   hyrise::storage::c_atable_ptr_t order_line;
   hyrise::storage::c_atable_ptr_t customer;
 
  public:
   void BenchmarkSetUp() {
-    ts = new SimpleTableScan();
+    ts = new hyrise::access::SimpleTableScan();
     ts->setEvent("NO_PAPI");
 
     sm = StorageManager::getInstance();
