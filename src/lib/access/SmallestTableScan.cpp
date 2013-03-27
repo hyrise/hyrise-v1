@@ -1,8 +1,20 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#include "SmallestTableScan.h"
-#include "QueryParser.h"
+#include "access/SmallestTableScan.h"
 
-bool SmallestTableScan::is_registered = QueryParser::registerPlanOperation<SmallestTableScan>();
+#include "access/QueryParser.h"
+
+namespace hyrise {
+namespace access {
+
+namespace {
+  auto _ = QueryParser::registerPlanOperation<SmallestTableScan>("SmallestTableScan");
+}
+
+SmallestTableScan::SmallestTableScan() {
+}
+
+SmallestTableScan::~SmallestTableScan() {
+}
 
 void SmallestTableScan::setupPlanOperation() {
   computeDeferredIndexes();
@@ -23,3 +35,9 @@ std::shared_ptr<_PlanOperation> SmallestTableScan::parse(Json::Value &data) {
   return std::make_shared<SmallestTableScan>();
 }
 
+const std::string SmallestTableScan::vname() {
+  return "SmallestTableScan";
+}
+
+}
+}
