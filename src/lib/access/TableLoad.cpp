@@ -1,29 +1,29 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#include <access/TableLoad.h>
+#include "access/TableLoad.h"
+
+#include "access/QueryParser.h"
+
+#include "io/loaders.h"
+#include "io/shortcuts.h"
+#include "io/StorageManager.h"
 
 #include "log4cxx/logger.h"
 
-#include <io/loaders.h>
-#include <io/shortcuts.h>
-#include <io/StorageManager.h>
+namespace hyrise {
+namespace access {
 
-#include <access/QueryParser.h>
-bool TableLoad::is_registered = QueryParser::registerPlanOperation<TableLoad>();
+namespace {
+  auto _ = QueryParser::registerPlanOperation<TableLoad>("TableLoad");
+  log4cxx::LoggerPtr logger(log4cxx::Logger::getLogger("access.plan._PlanOperation"));
+}
 
-namespace { log4cxx::LoggerPtr logger(log4cxx::Logger::getLogger("access.plan._PlanOperation")); }
+TableLoad::TableLoad(): _hasDelimiter(false),
+                        _binary(false),
+                        _unsafe(false),
+                        _raw(false) {
+}
 
-std::shared_ptr<_PlanOperation> TableLoad::parse(Json::Value &data) {
-  std::shared_ptr<TableLoad> s = std::make_shared<TableLoad>();
-  s->setTableName(data["table"].asString());
-  s->setFileName(data["filename"].asString());
-  s->setHeaderFileName(data["header"].asString());
-  s->setHeaderString(data["header_string"].asString());
-  s->setUnsafe(data["unsafe"].asBool());
-  s->setRaw(data["raw"].asBool());
-  if (data.isMember("delimiter")) {
-    s->setDelimiter(data["delimiter"].asString());
-  }
-  return s;
+TableLoad::~TableLoad() {
 }
 
 void TableLoad::executePlanOperation() {
@@ -34,7 +34,7 @@ void TableLoad::executePlanOperation() {
     if (_raw) {
       Loader::params p;
       p.setHeader(CSVHeader(_file_name));
-      p.setInput(hyrise::io::RawTableLoader(_file_name));
+      p.setInput(io::RawTableLoader(_file_name));
       sm->loadTable(_table_name, p);
 
     } else if (!_header_string.empty()) {
@@ -66,4 +66,58 @@ void TableLoad::executePlanOperation() {
   auto _table = sm->getTable(_table_name);
   LOG4CXX_DEBUG(logger, "Loaded Table Size" << _table->size());
   addResult(_table);
+}
+
+std::shared_ptr<_PlanOperation> TableLoad::parse(Json::Value &data) {
+  std::shared_ptr<TableLoad> s = std::make_shared<TableLoad>();
+  s->setTableName(data["table"].asString());
+  s->setFileName(data["filename"].asString());
+  s->setHeaderFileName(data["header"].asString());
+  s->setHeaderString(data["header_string"].asString());
+  s->setUnsafe(data["unsafe"].asBool());
+  s->setRaw(data["raw"].asBool());
+  if (data.isMember("delimiter")) {
+    s->setDelimiter(data["delimiter"].asString());
+  }
+  return s;
+}
+
+const std::string TableLoad::vname() {
+  return "TableLoad";
+}
+
+void TableLoad::setTableName(const std::string &tablename) {
+  _table_name = tablename;
+}
+
+void TableLoad::setFileName(const std::string &filename) {
+  _file_name = filename;
+}
+
+void TableLoad::setHeaderFileName(const std::string &filename) {
+  _header_file_name = filename;
+}
+
+void TableLoad::setHeaderString(const std::string &header) {
+  _header_string = header;
+}
+
+void TableLoad::setBinary(const bool binary) {
+  _binary = binary;
+}
+
+void TableLoad::setUnsafe(const bool unsafe) {
+  _unsafe = unsafe;
+}
+
+void TableLoad::setRaw(const bool raw) {
+  _raw = raw;
+}
+
+void TableLoad::setDelimiter(const std::string &d) {
+  _delimiter = d;
+  _hasDelimiter = true;
+}
+
+}
 }
