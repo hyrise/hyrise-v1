@@ -130,9 +130,6 @@ void bindToNode(int node) {
 
 int main(int argc, char *argv[]) {
 
-  // Bind the program to the first NUMA node
-  bindToNode(0);
-
   size_t port = 0;
   std::string logPropertyFile;
   std::string scheduler_name;
@@ -152,6 +149,11 @@ int main(int argc, char *argv[]) {
     std::cout << desc << std::endl;
     return EXIT_SUCCESS;
   }
+
+
+  //Bind the program to the first NUMA node for schedulers that have core bound threads
+  if((scheduler_name == "WSSimpleTaskScheduler") || (scheduler_name == "SimpleTaskScheduler"))
+    bindToNode(0);
 
   // Log File Configuration
   PropertyConfigurator::configure(logPropertyFile);

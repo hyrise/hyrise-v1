@@ -27,7 +27,6 @@ NumaNodeWSCoreBoundTaskQueue::~NumaNodeWSCoreBoundTaskQueue() {
 }
 
 void NumaNodeWSCoreBoundTaskQueue::executeTask() {
-
   //infinite thread loop
   while (1) {
     std::shared_ptr<Task> task;
@@ -46,36 +45,42 @@ void NumaNodeWSCoreBoundTaskQueue::executeTask() {
       task = _runQueue.front();
       _runQueue.pop_front();
       ul.unlock();
-      if (task) {
-        //LOG4CXX_DEBUG(logger, "Started executing task" << std::hex << &task << std::dec << " on core " << _core);
-        // run task
-        task->setActualNode(_node);
-        (*task)();
-        //std::cout << "Executed task " << task->vname() << "; hex " << std::hex << &task << std::dec << " on core " << _core << " in node " << _node << std::endl;
-        LOG4CXX_DEBUG(logger, "Executed task " << std::hex << &task << std::dec << " on core " << _core);
-        // notify done observers that task is done
-        task->notifyDoneObservers();
-      }
+
       // no task in runQueue -> try to steal task from other queue, otherwise sleep and wait for new tasks
     } else {
       // try to steal work
       ul.unlock();
-      if (stealTasks() != NULL)
-        continue;
-      ul.lock();
-      //if queue still empty go to sleep and wait until new tasks have been arrived
-      if (_runQueue.size() < 1) {
-        {
-          //check if queue was suspended
+      task = stealTasks();
+
+      if (task == NULL){
+
+        ul.lock();
+        //if queue still empty go to sleep and wait until new tasks have been arrived
+        if (_runQueue.size() < 1) {
           {
-            std::lock_guard<std::mutex> lk1(_threadStatusMutex);
-            if (_status != RUN)
-              continue;
+            //check if queue was suspended
+            {
+              std::lock_guard<std::mutex> lk1(_threadStatusMutex);
+              if (_status != RUN)
+                continue;
+            }
+            //std::cout << "queue " << _core << " sleeping " << std::endl;
+            _condition.wait(ul);
           }
-          //std::cout << "queue " << _core << " sleeping " << std::endl;
-          _condition.wait(ul);
         }
       }
+    }
+    if (task) {
+      //LOG4CXX_DEBUG(logger, "Started executing task" << std::hex << &task << std::dec << " on core " << _core);
+      // run task
+      //std::cout << "Running task " << task->vname() << "; hex " << std::hex << &task << std::dec << " on core " << _core<< std::endl;
+      task->setActualNode(_node);
+      (*task)();
+      //std::cout << "Executed task " << task->vname() << "; hex " << std::hex << &task << std::dec << " on core " << _core<< std::endl;
+
+      LOG4CXX_DEBUG(logger, "Executed task " << std::hex << &task << std::dec << " on core " << _core);
+      // notify done observers that task is done
+      task->notifyDoneObservers();
     }
   }
 }
@@ -154,9 +159,8 @@ std::shared_ptr<Task> NumaNodeWSCoreBoundTaskQueue::stealTasks() {
         queue = queues.at(i);
         if(queue->getCore() != _core){
           task = static_cast<NumaNodeWSCoreBoundTaskQueue *>(queue)->stealTask();
-          if (task != NULL) {
-            push(task);
-            //std::cout << "Queue " << _core << " stole Task " <<  task->vname() << "; hex " << std::hex << &task << std::dec << " from queue " << queue->getCore() << std::endl;
+          if (task != NULL){
+            //std::cout << "Queue " << _core << " stole Task " <<  task->vname() << "; hex " << std::hex << &task << std::dec << " from queue " << i << std::endl;
             break;
           }
         }
@@ -170,7 +174,7 @@ std::shared_ptr<Task> NumaNodeWSCoreBoundTaskQueue::stealTasks() {
         for (int i = 0; i < number_of_queues; i++) {
           task = static_cast<NumaNodeWSCoreBoundTaskQueue *>(queues.at(i))->stealTask();
           if (task != NULL) {
-            push(task);
+            //push(task);
             //std::cout << "Queue " << _core << " stole Task " <<  task->vname() << "; hex " << std::hex << &task << std::dec << " from queue " << queues.at(i)->getCore() << "(other numa node)"<< std::endl;
             break;
           }

@@ -25,6 +25,20 @@
 class AbstractTaskScheduler {
 
  public:
+
+  /*
+   * definition of queue status, can be used to sync actions in queue, like work stealing, with scheduler status (e.g. to avoid stealing tasks from queue, while resizing)
+   */
+ public:
+  typedef enum {
+    START_UP = -1,
+    RUN = 0,
+    RESIZING = 1,
+    TO_STOP = 2,
+    STOPPED = 3
+  } scheduler_status_t;
+
+
   virtual ~AbstractTaskScheduler() {};
   /*
    * schedule a task for execution
@@ -44,25 +58,20 @@ class AbstractTaskScheduler {
   virtual size_t getNumberOfWorker() const = 0;
 };
 
+/*
+ * task scheduler that does not have a central, but thread-level queues
+ */
 template <class TaskQueue>
 class AbstractQueueBasedTaskScheduler : public AbstractTaskScheduler, public TaskReadyObserver{
 
-  /*
-   * definition of queue status, can be used to sync actions in queue, like work stealing, with scheduler status (e.g. to avoid stealing tasks from queue, while resizing)
-   */
- public:
-  typedef enum {
-    START_UP = -1,
-    RUN = 0,
-    RESIZING = 1,
-    TO_STOP = 2,
-    STOPPED = 3
-  } scheduler_status_t;
 
- protected:
+
+public:
   typedef TaskQueue task_queue_t;
   typedef std::unordered_set<std::shared_ptr<Task> > waiting_tasks_t;
   typedef std::vector<task_queue_t *> task_queues_t;
+
+protected:
   // set for tasks with open dependencies
   waiting_tasks_t _waitSet;
   // task queues to dispatch tasks to

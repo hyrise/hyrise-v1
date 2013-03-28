@@ -46,7 +46,7 @@ public:
 class Task : public TaskDoneObserver, public std::enable_shared_from_this<Task> {
 
 public:
-
+  static const int DEFAULT_PRIORITY = 0;
 protected:
   std::vector<std::shared_ptr<Task> > _dependencies;
   std::vector<TaskReadyObserver *> _readyObservers;
@@ -65,6 +65,8 @@ protected:
   int _preferredNode;
   // indicates on which node the task should run
   int _actualNode;
+  // priority
+  int priority;
 
 public:
   Task();
@@ -147,6 +149,24 @@ public:
   void setPreferredNode(int preferredNode) {
     _preferredNode = preferredNode;
   }
+
+  int getPriority() const {
+    return priority;
+  }
+
+  void setPriority(int priority) {
+    this->priority = priority;
+  }
+};
+
+class CompareTaskPtr {
+    public:
+    bool operator()(const std::shared_ptr<Task> & t1, const std::shared_ptr<Task> & t2) // Returns true if t1 is higher priority than t2
+    {
+       if (t1->getPriority() > t2->getPriority()) return true;
+       else
+         return false;
+    };
 };
 
 class WaitTask : public Task {

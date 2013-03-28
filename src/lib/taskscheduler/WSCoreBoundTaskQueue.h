@@ -10,6 +10,7 @@
 
 #include <taskscheduler/AbstractTaskQueue.h>
 #include <taskscheduler/WSSimpleTaskScheduler.h>
+#include <queue>
 
 template <class TaskQueue>
 class WSSimpleTaskScheduler;

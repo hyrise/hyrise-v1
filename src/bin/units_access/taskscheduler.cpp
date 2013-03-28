@@ -29,6 +29,7 @@ std::vector<std::string> getSchedulersToTest() {
   std::vector<std::string> result;
   result.push_back("WSSimpleTaskScheduler");
   result.push_back("SimpleTaskScheduler");
+  result.push_back("CentralScheduler");
   return result;
 }
 
