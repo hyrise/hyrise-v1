@@ -12,14 +12,14 @@ class SortScanBase : public ::testing::Benchmark {
  protected:
 
   StorageManager *sm;
-  SortScan *sc;
+  hyrise::access::SortScan *sc;
   hyrise::storage::c_atable_ptr_t t;
 
  public:
   void BenchmarkSetUp() {
     sm = StorageManager::getInstance();
 
-    sc = new SortScan();
+    sc = new hyrise::access::SortScan();
     sc->setEvent("NO_PAPI");
 
     t = sm->getTable("item");
