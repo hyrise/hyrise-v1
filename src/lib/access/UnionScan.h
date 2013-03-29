@@ -2,36 +2,22 @@
 #ifndef SRC_LIB_ACCESS_UNIONSCAN_H_
 #define SRC_LIB_ACCESS_UNIONSCAN_H_
 
-#include <access/PlanOperation.h>
+#include "access/PlanOperation.h"
 
+namespace hyrise {
+namespace access {
 
 class UnionScan : public _PlanOperation {
-
- public:
-
-  UnionScan() : _PlanOperation() {
-    
-  }
-
-  virtual ~UnionScan() {
-    
-  }
+public:
+  UnionScan();
+  virtual ~UnionScan();
 
   void executePlanOperation();
-
-  static std::shared_ptr<_PlanOperation> parse(Json::Value &data) {
-    return std::make_shared<UnionScan>();
-  }
-
-  static bool is_registered;
-
-  static std::string name() {
-    return "UnionScan";
-  }
-
-  const std::string vname() {
-    return "UnionScan";
-  }
-
+  static std::shared_ptr<_PlanOperation> parse(Json::Value &data);
+  const std::string vname();
 };
+
+}
+}
+
 #endif  // SRC_LIB_ACCESS_UNIONSCAN_H_
