@@ -12,7 +12,7 @@ class UnionScanBase : public ::testing::Benchmark {
 
  protected:
 
-  UnionScan *us;
+  hyrise::access::UnionScan *us;
   StorageManager *sm;
   hyrise::storage::c_atable_ptr_t t1;
   hyrise::storage::c_atable_ptr_t t2;
@@ -21,7 +21,7 @@ class UnionScanBase : public ::testing::Benchmark {
   void BenchmarkSetUp() {
     sm = StorageManager::getInstance();
 
-    us = new UnionScan();
+    us = new hyrise::access::UnionScan();
     us->setEvent("NO_PAPI");
 
     t1 = sm->getTable("district");
