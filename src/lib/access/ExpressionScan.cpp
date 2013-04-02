@@ -4,8 +4,6 @@
 #include "access/default_strategy.h"
 #include "access/QueryParser.h"
 
-#include "helper/types.h"
-
 #include "storage/MutableVerticalTable.h"
 #include "storage/Table.h"
 

@@ -20,7 +20,7 @@ public:
   virtual DataType getType() const = 0;
 
 protected:
-  AbstractTable::SharedTablePtr _table;
+  storage::atable_ptr_t _table;
 };
 
 class AddExp : public ColumnExpression {
@@ -36,7 +36,7 @@ public:
   std::string getName() const;
   DataType getType() const;
 
-protected:
+private:
   storage::field_t _field1;
   storage::field_t _field2;
 };
