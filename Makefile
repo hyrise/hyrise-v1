@@ -15,10 +15,10 @@ lib_memory  := $(lib_dir)/memory
 lib_taskscheduler	:= $(lib_dir)/taskscheduler
 
 # third party dependencies
-json	    := $(build_dir)/jsoncpp
-ext_gtest := $(build_dir)/gtest
-lib_ebb     := $(lib_dir)/ebb
-lib_ftprinter := $(lib_dir)/ftprinter
+json		:= $(build_dir)/jsoncpp
+ext_gtest	:= $(build_dir)/gtest
+lib_ebb		:= $(lib_dir)/ebb
+lib_ftprinter	:= $(lib_dir)/ftprinter
 
 # a list of all libraries
 libraries := $(json) $(lib_helper) $(lib_storage) $(lib_access) $(lib_io) $(lib_testing) $(lib_net) $(lib_layouter) $(lib_ebb) $(lib_memory) $(ext_gtest) $(lib_taskscheduler) $(lib_ftprinter)

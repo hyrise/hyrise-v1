@@ -102,8 +102,9 @@ ifeq ($(WITH_MYSQL), 1)
 endif
 
 
-JSON_PATH := $(IMH_PROJECT_PATH)/third_party/jsoncpp
-PROJECT_INCLUDE += $(IMH_PROJECT_PATH)/src/lib $(IMH_PROJECT_PATH)/third_party $(IMH_PROJECT_PATH)/third_party/libvarbit $(IMH_PROJECT_PATH)/third_party/ftprinter/include $(JSON_PATH)
+JSON_PATH	:=	$(IMH_PROJECT_PATH)/third_party/jsoncpp
+BACKTRACE_PATH	:=	$(IMH_PROJECT_PATH)/third_party/backtrace
+PROJECT_INCLUDE += $(IMH_PROJECT_PATH)/src/lib $(IMH_PROJECT_PATH)/third_party $(IMH_PROJECT_PATH)/third_party/libvarbit $(IMH_PROJECT_PATH)/third_party/ftprinter/include $(JSON_PATH) $(BACKTRACE_PATH)
 LINKER_FLAGS += -llog4cxx -lpthread
 
 BUILD_DIR = $(IMH_PROJECT_PATH)/$(build_dir)/
