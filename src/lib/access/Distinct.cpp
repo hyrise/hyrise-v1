@@ -5,8 +5,9 @@
 
 #include "access/BasicParser.h"
 #include "access/QueryParser.h"
+
 #include "helper/types.h"
-#include "storage/storage_types.h"
+
 #include "storage/PointerCalculator.h"
 #include "storage/PointerCalculatorFactory.h"
 
@@ -17,9 +18,6 @@ namespace {
   auto _ = QueryParser::registerPlanOperation<Distinct>("Distinct");
 }
 
-Distinct::Distinct() {
-}
-
 Distinct::~Distinct() {
 }
 
@@ -27,11 +25,11 @@ Distinct::~Distinct() {
 // Execution with horizontal tables results in undefined behavior
 void Distinct::executePlanOperation() {
   // Map to cache values
-  std::unordered_map<value_id_t, pos_t> map;
-  uint32_t distinct = _field_definition[0];
+  std::unordered_map<storage::value_id_t, storage::pos_t> map;
+  auto distinct = _field_definition[0];
 
   // iterate over all rows
-  const auto& in = input.getTable(0);
+  const auto &in = input.getTable(0);
   uint64_t numRows = in->size();
   ValueId val;
 
@@ -44,8 +42,8 @@ void Distinct::executePlanOperation() {
 
   //Build result list
   storage::atable_ptr_t result;
-  pos_list_t *pos = new pos_list_t;
-  for (const auto & e : map)
+  auto pos = new storage::pos_list_t;
+  for (const auto &e : map)
     pos->push_back(e.second);
 
   // Return pointer calculator
