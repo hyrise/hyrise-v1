@@ -2,38 +2,28 @@
 #ifndef SRC_LIB_ACCESS_SETTINGSOPERATION_H_
 #define SRC_LIB_ACCESS_SETTINGSOPERATION_H_
 
-#include <access/PlanOperation.h>
+#include "access/PlanOperation.h"
 
-/*  This operation is used to configure global settings as long as dedicated
-    units handling such decisions are not implemented.  */
+namespace hyrise {
+namespace access {
+
+/// This operation is used to configure global settings as long as dedicated
+/// units handling such decisions are not implemented.
 class SettingsOperation : public _PlanOperation {
-  size_t threadpoolSize;
- public:
-  static bool is_registered;
-
-  SettingsOperation() :
-      threadpoolSize(1) {
-    
-  }
-
-  virtual ~SettingsOperation() {
-    
-  }
-
-  static std::string name() {
-    return "SettingsOperation";
-  }
-  const std::string vname() {
-    return "SettingsOperation";
-  }
-
-  static std::shared_ptr<_PlanOperation> parse(Json::Value &data);
+public:
+  SettingsOperation();
+  virtual ~SettingsOperation();
 
   void executePlanOperation();
-
-  //  Set the maximum number of parallel executable operation tasks.
+  static std::shared_ptr<_PlanOperation> parse(Json::Value &data);
+  const std::string vname();
   void setThreadpoolSize(const size_t newSize);
+
+private:
+  size_t _threadpoolSize;
 };
 
-#endif  // SRC_LIB_ACCESS_SETTINGSOPERATION_H_
+}
+}
 
+#endif  // SRC_LIB_ACCESS_SETTINGSOPERATION_H_
