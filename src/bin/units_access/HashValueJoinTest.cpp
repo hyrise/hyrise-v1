@@ -1,6 +1,5 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "access/HashValueJoin.hpp"
-#include "helper/types.h"
 #include "io/shortcuts.h"
 #include "storage/MutableVerticalTable.h"
 #include "storage/PointerCalculator.h"
