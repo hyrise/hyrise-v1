@@ -22,7 +22,6 @@ public:
   /// }
   static std::shared_ptr<_PlanOperation> parse(Json::Value &data);
   const std::string vname();
-
   void setDatabaseName(const std::string &databaseName);
   void setTableName(const std::string &tablename);
   void setLoadLimit(const uint64_t l);

@@ -1,7 +1,6 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "access/MySQLTableLoad.h"
 
-#include "helper/types.h"
 #include "io/Loader.h"
 #include "io/MySQLLoader.h"
 #include "io/StorageManager.h"
