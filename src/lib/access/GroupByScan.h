@@ -16,14 +16,15 @@ namespace storage {
 struct write_group_functor {
 public:
   typedef void value_type;
-  write_group_functor(const c_atable_ptr_t& t,
-                      atable_ptr_t& tg,
-                      pos_t sourceRow,
-                      field_t column,
-                      pos_t toRow);
+  write_group_functor(const c_atable_ptr_t &t,
+                      atable_ptr_t &tg,
+                      const pos_t sourceRow,
+                      const field_t column,
+                      const pos_t toRow);
 
   template <typename R>
   void operator()();
+
 private:
   const c_atable_ptr_t &_input;
   atable_ptr_t &_target;
@@ -37,17 +38,11 @@ private:
 namespace access {
 
 class GroupByScan : public _PlanOperation {
- public:
-  GroupByScan();
+public:
   virtual ~GroupByScan();
 
-  /// creates output result table layout using _field_definitions
-  /// and added aggregate functions (aggregate_functions)
-  /// _field_definitions member of _PlanOperation holds
-  /// added (grouping) fields
-  storage::atable_ptr_t createResultTableLayout();
   void setupPlanOperation();
-  virtual void executePlanOperation();
+  void executePlanOperation();
   /// Reacts to
   /// fields in either integer-list notation or std::string-list notation
   /// functions as a list of {"type": (int|str), "field": (int|str)
@@ -72,14 +67,20 @@ class GroupByScan : public _PlanOperation {
   ///  }
   static std::shared_ptr<_PlanOperation> parse(Json::Value &v);
   const std::string vname();
+  /// creates output result table layout using _field_definitions
+  /// and added aggregate functions (aggregate_functions)
+  /// _field_definitions member of _PlanOperation holds
+  /// added (grouping) fields
+  storage::atable_ptr_t createResultTableLayout();
   /// adds a given AggregateFunction to group by scan instance SUM or COUNT
   void addFunction(AggregateFun *fun);
 
- protected:
-  void splitInput();
-  void writeGroupResult(storage::atable_ptr_t resultTab, std::shared_ptr<storage::pos_list_t> hit, size_t row);
-
 private:
+  void splitInput();
+  void writeGroupResult(storage::atable_ptr_t &resultTab,
+                        const std::shared_ptr<storage::pos_list_t> &hit,
+                        const size_t row);
+
   std::vector<AggregateFun *> _aggregate_functions;
 };
 
