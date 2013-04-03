@@ -27,7 +27,6 @@ public:
   static std::shared_ptr<_PlanOperation> parse(Json::Value &data);
   const std::string vname();
   void setIndexName(const std::string &name);
-
   template<typename T>
   void setValue(const T value) {
     auto val = new IndexValue<T>();
@@ -43,6 +42,8 @@ private:
 
 class MergeIndexScan : public _PlanOperation {
 public:
+  virtual ~MergeIndexScan();
+
   void executePlanOperation();
   static std::shared_ptr<_PlanOperation> parse(Json::Value &data);
   const std::string vname();

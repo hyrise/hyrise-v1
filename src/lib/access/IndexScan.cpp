@@ -6,7 +6,9 @@
 #include "access/BasicParser.h"
 #include "access/json_converters.h"
 #include "access/QueryParser.h"
+
 #include "io/StorageManager.h"
+
 #include "storage/InvertedIndex.h"
 #include "storage/meta_storage.h"
 #include "storage/PointerCalculator.h"
@@ -89,6 +91,9 @@ void IndexScan::setIndexName(const std::string &name) {
 
 namespace {
   auto _2 = QueryParser::registerPlanOperation<MergeIndexScan>("MergeIndexScan");
+}
+
+MergeIndexScan::~MergeIndexScan() {
 }
 
 void MergeIndexScan::executePlanOperation() {

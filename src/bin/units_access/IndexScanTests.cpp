@@ -10,7 +10,7 @@ namespace access {
 
 class IndexScanTests : public AccessTest {
 public:
-  IndexScanTests() : AccessTest() {
+  IndexScanTests() {
     t = Loader::shortcuts::load("test/index_test.tbl");
     CreateIndex ci;
     ci.addInput(t);
@@ -34,7 +34,7 @@ TEST_F(IndexScanTests, basic_index_scan_test) {
 
   auto result = is.getResultTable();
 
-  ASSERT_TRUE(result->contentEquals(reference));
+  ASSERT_TABLE_EQUAL(result, reference);
 }
 
 }
