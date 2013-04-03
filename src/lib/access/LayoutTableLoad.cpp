@@ -2,9 +2,11 @@
 #include "access/LayoutTableLoad.h"
 
 #include "access/QueryParser.h"
+
 #include "helper/stringhelpers.h"
-#include "io/StorageManager.h"
+
 #include "io/CSVLoader.h"
+#include "io/StorageManager.h"
 #include "io/StringLoader.h"
 
 namespace hyrise {
@@ -12,9 +14,6 @@ namespace access {
 
 namespace {
   auto _ = QueryParser::registerPlanOperation<LayoutTableLoad>("LayoutTableLoad");
-}
-
-LayoutTableLoad::LayoutTableLoad() {
 }
 
 LayoutTableLoad::~LayoutTableLoad() {
@@ -64,6 +63,10 @@ std::shared_ptr<_PlanOperation> LayoutTableLoad::parse(Json::Value &data) {
   return s;
 }
 
+const std::string LayoutTableLoad::vname() {
+  return "LayoutTableLoad";
+}
+
 void LayoutTableLoad::setTableName(const std::string &tablename) {
   _table_name = tablename;
 }
@@ -82,10 +85,6 @@ void LayoutTableLoad::setInputRow(const size_t row) {
 
 void LayoutTableLoad::setUnsafe(const bool unsafe) {
   _unsafe = unsafe;
-}
-
-const std::string LayoutTableLoad::vname() {
-  return "LayoutTableLoad";
 }
 
 }

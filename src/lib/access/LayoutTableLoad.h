@@ -9,17 +9,16 @@ namespace access {
 
 class LayoutTableLoad : public _PlanOperation {
 public:
-  LayoutTableLoad();
   virtual ~LayoutTableLoad();
 
   void executePlanOperation();
   static std::shared_ptr<_PlanOperation> parse(Json::Value &data);
+  const std::string vname();
   void setTableName(const std::string &tablename);
   void setFileName(const std::string &filename);
   void setOverrideGroup(const std::string &group);
   void setInputRow(const size_t row);
   void setUnsafe(const bool unsafe);
-  const std::string vname();
 
 private:
   std::string _table_name;
