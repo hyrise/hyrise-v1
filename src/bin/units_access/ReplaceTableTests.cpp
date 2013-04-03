@@ -15,13 +15,13 @@ TEST_F(ReplaceTableTests, basic_replace_table_test) {
   auto sm = StorageManager::getInstance();
   sm->loadTable("replaceMe", t1);
 
-  ASSERT_TRUE(t1->contentEquals(sm->getTable("replaceMe")));
+  ASSERT_TABLE_EQUAL(t1, sm->getTable("replaceMe"));
 
   ReplaceTable rt("replaceMe");
   rt.addInput(t2);
   rt.execute();
 
-  ASSERT_TRUE(t2->contentEquals(sm->getTable("replaceMe")));
+  ASSERT_TABLE_EQUAL(t2, sm->getTable("replaceMe"));
 }
 
 }
