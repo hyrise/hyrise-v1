@@ -27,8 +27,9 @@ public:
 
   void executePlanOperation();
   static std::shared_ptr<_PlanOperation> parse(Json::Value &data);
-  void addFieldName(const std::string n);
-  void addQuery(const BaseQuery q);
+  const std::string vname();
+  void addFieldName(const std::string &n);
+  void addQuery(const BaseQuery &q);
   /// Use the candidate layouter instead of calculating cost for all
   /// possible layouts
   void setLayouter(const layouter_type c);
@@ -37,14 +38,13 @@ public:
   /// plan op. All additional layouts are added as new rows to the
   /// result table.
   void setMaxResults(const size_t n);
-  const std::string vname();
 
 private:
   typedef std::vector<std::string> names_list_t;
   typedef std::vector<unsigned> size_list_t;
   typedef std::vector<BaseQuery> query_list_t;
 
-  layouter::Query *parseQuery(const BaseQuery q);
+  layouter::Query *parseQuery(const BaseQuery &q);
 
   names_list_t _names;
   size_list_t _atts;

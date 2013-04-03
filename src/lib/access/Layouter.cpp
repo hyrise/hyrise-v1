@@ -2,6 +2,7 @@
 #include "access/Layouter.h"
 
 #include "access/QueryParser.h"
+
 #include "storage/OrderIndifferentDictionary.h"
 #include "storage/Table.h"
 
@@ -157,14 +158,18 @@ std::shared_ptr<_PlanOperation> LayoutSingleTable::parse(Json::Value &data) {
   return s;
 }
 
-void LayoutSingleTable::addFieldName(const std::string n) {
+const std::string LayoutSingleTable::vname() {
+  return "LayoutSingleTable";
+}
+
+void LayoutSingleTable::addFieldName(const std::string &n) {
   _names.push_back(n);
 
   // TODO suport different attribute sizes
   _atts.push_back(4);
 }
 
-void LayoutSingleTable::addQuery(const BaseQuery q) {
+void LayoutSingleTable::addQuery(const BaseQuery &q) {
   _queries.push_back(q);
 }
 
@@ -180,11 +185,7 @@ void LayoutSingleTable::setMaxResults(const size_t n) {
   _maxResults = n;
 }
 
-const std::string LayoutSingleTable::vname() {
-  return "LayoutSingleTable";
-}
-
-layouter::Query *LayoutSingleTable::parseQuery(const BaseQuery q) {
+layouter::Query *LayoutSingleTable::parseQuery(const BaseQuery &q) {
   layouter::LayouterConfiguration::access_type_t t = (q.selectivity == 1.0 ?
       layouter::LayouterConfiguration::access_type_fullprojection :
       layouter::LayouterConfiguration::access_type_outoforder);
