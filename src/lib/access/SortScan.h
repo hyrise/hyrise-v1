@@ -9,7 +9,6 @@ namespace access {
 
 class SortScan : public _PlanOperation {
 public:
-  SortScan();
   virtual ~SortScan();
 
   void executePlanOperation();

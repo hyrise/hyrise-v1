@@ -5,9 +5,6 @@
 
 #include "access/QueryParser.h"
 
-#include "helper/types.h"
-
-#include "storage/storage_types.h"
 #include "storage/AbstractTable.h"
 #include "storage/PointerCalculator.h"
 #include "storage/PointerCalculatorFactory.h"
@@ -74,9 +71,6 @@ public:
 
 namespace {
   auto _ = QueryParser::registerPlanOperation<SortScan>("SortScan");
-}
-
-SortScan::SortScan() {
 }
 
 SortScan::~SortScan() {
