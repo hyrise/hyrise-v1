@@ -2,6 +2,7 @@
 #include "access/HashJoinProbe.h"
 
 #include "access/QueryParser.h"
+
 #include "storage/HashTable.h"
 #include "storage/PointerCalculator.h"
 #include "storage/PointerCalculatorFactory.h"
@@ -14,7 +15,7 @@ namespace {
   log4cxx::LoggerPtr logger(log4cxx::Logger::getLogger("access.plan._PlanOperation"));
 }
 
-HashJoinProbe::HashJoinProbe() : _PlanOperation() {
+HashJoinProbe::~HashJoinProbe() {
 }
 
 void HashJoinProbe::setupPlanOperation() {
@@ -23,8 +24,8 @@ void HashJoinProbe::setupPlanOperation() {
 }
 
 void HashJoinProbe::executePlanOperation() {
-  pos_list_t *buildTablePosList = new pos_list_t;
-  pos_list_t *probeTablePosList = new pos_list_t;
+  storage::pos_list_t *buildTablePosList = new pos_list_t;
+  storage::pos_list_t *probeTablePosList = new pos_list_t;
 
   if (_selfjoin)
     fetchPositions<AggregateHashTable>(buildTablePosList, probeTablePosList);
@@ -32,22 +33,6 @@ void HashJoinProbe::executePlanOperation() {
     fetchPositions<JoinHashTable>(buildTablePosList, probeTablePosList);
 
   addResult(buildResultTable(buildTablePosList, probeTablePosList));
-}
-
-void HashJoinProbe::setBuildTable(const storage::c_atable_ptr_t table) {
-  _buildTable = table;
-}
-
-storage::c_atable_ptr_t HashJoinProbe::getBuildTable() const {
-  return _buildTable;
-}
-
-storage::c_atable_ptr_t HashJoinProbe::getProbeTable() const {
-  return getInputTable();
-}
-
-const std::string HashJoinProbe::vname() {
-  return "HashJoinProbe";
 }
 
 std::shared_ptr<_PlanOperation> HashJoinProbe::parse(Json::Value &data) {
@@ -59,6 +44,22 @@ std::shared_ptr<_PlanOperation> HashJoinProbe::parse(Json::Value &data) {
   }
   instance->_selfjoin = data["selfjoin"].asBool();
   return instance;
+}
+
+const std::string HashJoinProbe::vname() {
+  return "HashJoinProbe";
+}
+
+void HashJoinProbe::setBuildTable(const storage::c_atable_ptr_t &table) {
+  _buildTable = table;
+}
+
+storage::c_atable_ptr_t HashJoinProbe::getBuildTable() const {
+  return _buildTable;
+}
+
+storage::c_atable_ptr_t HashJoinProbe::getProbeTable() const {
+  return getInputTable();
 }
 
 storage::atable_ptr_t HashJoinProbe::buildResultTable(storage::pos_list_t *buildTablePosList,

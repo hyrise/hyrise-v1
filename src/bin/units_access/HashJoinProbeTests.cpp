@@ -24,7 +24,7 @@ TEST_F(HashJoinProbeTests, DISABLED_basic_hash_join_probe_test) {
   hb.setKey("join");
   hb.execute();
 
-  auto right_hash = hb.getResultHashTable();
+  const auto &right_hash = hb.getResultHashTable();
 
   HashJoinProbe hjp;
   hjp.addInput(left);
@@ -32,7 +32,7 @@ TEST_F(HashJoinProbeTests, DISABLED_basic_hash_join_probe_test) {
   hjp.addInputHash(right_hash);
   hjp.execute();
 
-  auto result = hjp.getResultTable();
+  const auto &result = hjp.getResultTable();
 
   EXPECT_RELATION_EQ(result, reference);
 }

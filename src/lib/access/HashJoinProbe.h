@@ -13,14 +13,10 @@ namespace access {
 /// It takes the build table's AbstractHashTable and the probe table as input.
 class HashJoinProbe : public _PlanOperation {
 public:
-  HashJoinProbe();
+  virtual ~HashJoinProbe();
 
   void setupPlanOperation();
   void executePlanOperation();
-  void setBuildTable(const storage::c_atable_ptr_t table);
-  storage::c_atable_ptr_t getBuildTable() const;
-  storage::c_atable_ptr_t getProbeTable() const;
-
   /// {
   ///     "operators": {
   ///         "0": {
@@ -46,6 +42,9 @@ public:
   /// }
   static std::shared_ptr<_PlanOperation> parse(Json::Value &data);
   const std::string vname();
+  void setBuildTable(const storage::c_atable_ptr_t &table);
+  storage::c_atable_ptr_t getBuildTable() const;
+  storage::c_atable_ptr_t getProbeTable() const;
 
 private:
   /// Hashes input table on-the-fly and probes hashed value against input
