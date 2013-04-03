@@ -4,6 +4,7 @@
 #include <stdexcept>
 
 #include "access/QueryParser.h"
+
 #include "io/shortcuts.h"
 #include "io/StorageManager.h"
 
@@ -15,6 +16,9 @@ namespace {
 }
 
 LoadFile::LoadFile(const std::string &filename) : _filename(filename) {
+}
+
+LoadFile::~LoadFile() {
 }
 
 void LoadFile::executePlanOperation() {

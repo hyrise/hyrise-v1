@@ -14,9 +14,9 @@ TEST_F(LoadFileTests, basic_load_file_test) {
   LoadFile lf("tables/employees.tbl");
   lf.execute();
 
-  auto result = lf.getResultTable();
+  const auto &result = lf.getResultTable();
 
-  ASSERT_TRUE(result->contentEquals(t));
+  ASSERT_TABLE_EQUAL(result, t);
 }
 
 }

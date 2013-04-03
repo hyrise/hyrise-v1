@@ -10,6 +10,7 @@ namespace access {
 class LoadFile : public _PlanOperation {
 public:
   explicit LoadFile(const std::string &filename);
+  virtual ~LoadFile();
 
   void executePlanOperation();
   static std::shared_ptr<_PlanOperation> parse(Json::Value &data);
