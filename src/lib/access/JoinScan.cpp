@@ -1,7 +1,9 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "access/JoinScan.h"
+
 #include "access/expression_types.h"
 #include "access/QueryParser.h"
+
 #include "storage/PointerCalculator.h"
 #include "storage/PointerCalculatorFactory.h"
 
@@ -19,16 +21,6 @@ JoinScan::JoinScan(const JoinType::type t) :
 
 JoinScan::~JoinScan() {
   delete _join_condition;
-}
-
-void JoinScan::addCombiningClause(const ExpressionType etype) {
-  CompoundJoinExpression *c = new CompoundJoinExpression(etype);
-  if (_join_condition == nullptr) {
-    _join_condition = c;
-  } else {
-    _compound_stack.top()->rhs = c;
-  }
-  _compound_stack.push(c);
 }
 
 void JoinScan::setupPlanOperation() {
@@ -85,6 +77,16 @@ std::shared_ptr<_PlanOperation> JoinScan::parse(const Json::Value &v) {
 
 const std::string JoinScan::vname() {
   return "JoinScan";
+}
+
+void JoinScan::addCombiningClause(const ExpressionType etype) {
+  CompoundJoinExpression *c = new CompoundJoinExpression(etype);
+  if (_join_condition == nullptr) {
+    _join_condition = c;
+  } else {
+    _compound_stack.top()->rhs = c;
+  }
+  _compound_stack.push(c);
 }
 
 void JoinScan::addJoinExpression(JoinExpression *expression) {

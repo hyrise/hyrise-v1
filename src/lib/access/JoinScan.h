@@ -2,9 +2,10 @@
 #ifndef SRC_LIB_ACCESS_JOINSCAN_H_
 #define SRC_LIB_ACCESS_JOINSCAN_H_
 
+#include "access/PlanOperation.h"
+
 #include <stack>
 
-#include "access/PlanOperation.h"
 #include "access/predicates.h"
 #include "helper/types.h"
 
@@ -31,6 +32,11 @@ public:
   JoinScan(const JoinType::type t);
   virtual ~JoinScan();
 
+  void setupPlanOperation();
+  void executePlanOperation();
+  /// { type: "JoinScan", jtype: "EQUI", predicates: [{type: 0}, {type: 3, in: 0, f:0}, {type: "3"] }
+  static std::shared_ptr<_PlanOperation> parse(const Json::Value &v);
+  const std::string vname();
   template<typename T>
   void addJoinClause(const size_t input_left,
                      const storage::field_t field_left,
@@ -39,11 +45,6 @@ public:
   template<typename T>
   void addJoinClause(const Json::Value &value);
   void addCombiningClause(const ExpressionType t);
-  virtual void setupPlanOperation();
-  virtual void executePlanOperation();
-  /// { type: "JoinScan", jtype: "EQUI", predicates: [{type: 0}, {type: 3, in: 0, f:0}, {type: "3"] }
-  static std::shared_ptr<_PlanOperation> parse(const Json::Value &v);
-  const std::string vname();
 
 private:
   void addJoinExpression(JoinExpression *);
@@ -57,10 +58,10 @@ void JoinScan::addJoinClause(const size_t input_left,
                              const storage::field_t field_left,
                              const size_t input_right,
                              const storage::field_t field_right) {
-  EqualsJoinExpression<T> *expr1 = new EqualsJoinExpression<T>(input_left,
-                                                               field_left,
-                                                               input_right,
-                                                               field_right);
+  auto expr1 = new EqualsJoinExpression<T>(input_left,
+                                           field_left,
+                                           input_right,
+                                           field_right);
   addJoinExpression(expr1);
 }
 
