@@ -9,7 +9,6 @@ namespace access {
 
 class UnionScan : public _PlanOperation {
 public:
-  UnionScan();
   virtual ~UnionScan();
 
   void executePlanOperation();

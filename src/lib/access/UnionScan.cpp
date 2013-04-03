@@ -12,9 +12,6 @@ namespace {
   auto _ = QueryParser::registerPlanOperation<UnionScan>("UnionScan");
 }
 
-UnionScan::UnionScan() {
-}
-
 UnionScan::~UnionScan() {
 }
 
