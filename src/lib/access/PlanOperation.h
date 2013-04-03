@@ -28,9 +28,7 @@ class _PlanOperation : public OutputTask {
   hyrise::access::OperationData input;
   hyrise::access::OperationData output;
 
-  void addResult(hyrise::storage::c_atable_ptr_t result) {
-    output.add(result);
-  }
+  void addResult(hyrise::storage::c_atable_ptr_t result);
   void addResultHash(hyrise::storage::c_ahashtable_ptr_t result);
 
   // Limits the number of rows read
