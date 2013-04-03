@@ -2,25 +2,25 @@
 #ifndef SRC_LIB_ACCESS_HASHVALUEJOIN_HPP_
 #define SRC_LIB_ACCESS_HASHVALUEJOIN_HPP_
 
+#include "access/PlanOperation.h"
+
 #include <unordered_map>
 #include <memory>
 
-#include <helper/types.h>
-#include <storage/AbstractTable.h>
-#include <access/PlanOperation.h>
-#include <storage/PointerCalculatorFactory.h>
+#include "helper/types.h"
+
+#include "storage/AbstractTable.h"
+#include "storage/PointerCalculatorFactory.h"
 
 namespace hyrise {
 namespace access {
 
 template <typename T>
 class HashValueJoin : public _PlanOperation {
- public:
+public:
   typedef std::unordered_multimap<T, pos_t> map_type;
 
-  HashValueJoin() {
-  }
-  ~HashValueJoin() {
+  virtual ~HashValueJoin() {
   }
 
   /// Expects two inputs
@@ -31,8 +31,8 @@ class HashValueJoin : public _PlanOperation {
     }
 
     map_type hash;
-    std::vector<pos_t> *build_pos = new std::vector<pos_t>();
-    std::vector<pos_t> *probe_pos = new std::vector<pos_t>();
+    auto build_pos = new std::vector<storage::pos_t>();
+    auto probe_pos = new std::vector<storage::pos_t>();
 
     T value;
 
@@ -78,7 +78,7 @@ class HashValueJoin : public _PlanOperation {
 
     // input.getTable(0) will always be the left part of our output, no matter
     // if it's the build table or not
-    std::vector<storage::atable_ptr_t > parts;
+    std::vector<storage::atable_ptr_t> parts;
     // FIXME: Worst stuff ever
     auto build_pc = std::const_pointer_cast<AbstractTable>(std::dynamic_pointer_cast<const AbstractTable>(PointerCalculatorFactory::createPointerCalculatorNonRef(build_table, nullptr, build_pos)));
     auto probe_pc = std::const_pointer_cast<AbstractTable>(std::dynamic_pointer_cast<const AbstractTable>(PointerCalculatorFactory::createPointerCalculatorNonRef(probe_table, nullptr, probe_pos)));
