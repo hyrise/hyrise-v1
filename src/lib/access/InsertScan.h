@@ -3,19 +3,17 @@
 #define SRC_LIB_ACCESS_INSERTSCAN_H_
 
 #include "access/PlanOperation.h"
-#include "helper/types.h"
 
 namespace hyrise {
 namespace access {
 
 class InsertScan : public _PlanOperation {
 public:
-  InsertScan();
   virtual ~InsertScan();
 
-  void setInputData(const storage::atable_ptr_t c);
-  virtual void executePlanOperation();
+  void executePlanOperation();
   const std::string vname();
+  void setInputData(const storage::atable_ptr_t &c);
 
 private:
   storage::atable_ptr_t _data;

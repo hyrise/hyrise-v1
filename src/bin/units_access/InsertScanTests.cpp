@@ -1,6 +1,5 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "access/InsertScan.h"
-#include "helper/types.h"
 #include "io/shortcuts.h"
 #include "storage/Store.h"
 #include "testing/test.h"
@@ -19,9 +18,9 @@ TEST_F(InsertScanTests, basic_insert_scan_test) {
   is.setInputData(row);
   is.execute();
 
-  auto result = std::dynamic_pointer_cast<const Store>(is.getResultTable());
+  const auto &result = std::dynamic_pointer_cast<const Store>(is.getResultTable());
 
-  ASSERT_TRUE(result->getDeltaTable()->contentEquals(row));
+  ASSERT_TABLE_EQUAL(result->getDeltaTable(), row);
 }
 
 }

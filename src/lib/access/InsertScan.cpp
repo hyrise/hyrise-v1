@@ -1,18 +1,12 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "access/InsertScan.h"
+
 #include "storage/Store.h"
 
 namespace hyrise {
 namespace access {
 
-InsertScan::InsertScan() : _PlanOperation() {
-}
-
 InsertScan::~InsertScan() {
-}
-
-void InsertScan::setInputData(const storage::atable_ptr_t c) {
-  _data = c;
 }
 
 void InsertScan::executePlanOperation() {
@@ -30,6 +24,10 @@ void InsertScan::executePlanOperation() {
 
 const std::string InsertScan::vname() {
   return "InsertScan";
+}
+
+void InsertScan::setInputData(const storage::atable_ptr_t &c) {
+  _data = c;
 }
 
 }
