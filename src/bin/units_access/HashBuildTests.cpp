@@ -18,7 +18,7 @@ TEST_F(HashBuildTests, basic_hash_build_for_groupby_test) {
   hb.setKey("groupby");
   hb.execute();
 
-  auto result = std::dynamic_pointer_cast<AggregateHashTable>(hb.getResultHashTable());
+  const auto &result = std::dynamic_pointer_cast<AggregateHashTable>(hb.getResultHashTable());
 
   ASSERT_NE(result.get(), (AggregateHashTable *) NULL);
 }
@@ -32,7 +32,7 @@ TEST_F(HashBuildTests, basic_hash_build_for_join_test) {
   hb.setKey("join");
   hb.execute();
 
-  auto result = hb.getResultHashTable();
+  const auto &result = hb.getResultHashTable();
 
   ASSERT_NE(result.get(), (JoinHashTable *) NULL);
 }

@@ -10,9 +10,6 @@ namespace {
   auto _ = QueryParser::registerPlanOperation<HashBuild>("HashBuild");
 }
 
-HashBuild::HashBuild() : _PlanOperation() {
-}
-
 HashBuild::~HashBuild() {
 }
 
@@ -39,16 +36,16 @@ std::shared_ptr<_PlanOperation> HashBuild::parse(Json::Value &data) {
   return instance;
 }
 
+const std::string HashBuild::vname() {
+  return "HashBuild";
+}
+
 void HashBuild::setKey(const std::string &key) {
   _key = key;
 }
 
 const std::string HashBuild::getKey() const {
   return _key;
-}
-
-const std::string HashBuild::vname() {
-  return "HashBuild";
 }
 
 }
