@@ -12,8 +12,8 @@ public:
   explicit MaterializingScan(const bool use_memcpy = true);
   virtual ~MaterializingScan();
 
-  virtual void setupPlanOperation();
-  virtual void executePlanOperation();
+  void setupPlanOperation();
+  void executePlanOperation();
   static std::shared_ptr<_PlanOperation> parse(Json::Value &v);
   const std::string vname();
   void setSamples(const unsigned s);

@@ -20,7 +20,7 @@ TEST_F(MaterializingScanTests, basic_materializing_scan_test) {
   ps.setProducesPositions(true);
   ps.execute();
 
-  auto t2 = ps.getResultTable();
+  const auto &t2 = ps.getResultTable();
   ASSERT_NE(no_p, dynamic_cast<const PointerCalculator*>(t2.get()));
 
   MaterializingScan ms;
@@ -30,8 +30,8 @@ TEST_F(MaterializingScanTests, basic_materializing_scan_test) {
 
   const auto &result = ms.getResultTable();
   ASSERT_EQ(no_p, dynamic_cast<const PointerCalculator*>(result.get()));
-  ASSERT_EQ((unsigned)100, result->size());
-  ASSERT_EQ((unsigned)1, result->columnCount());
+  ASSERT_EQ(100u, result->size());
+  ASSERT_EQ(1u, result->columnCount());
 }
 
 }

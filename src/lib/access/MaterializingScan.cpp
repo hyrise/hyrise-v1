@@ -6,6 +6,7 @@
 
 #include "access/BasicParser.h"
 #include "access/QueryParser.h"
+
 #include "storage/Table.h"
 
 namespace hyrise {
