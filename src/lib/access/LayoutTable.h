@@ -3,7 +3,6 @@
 #define SRC_LIB_ACCESS_LAYOUTTABLEOP_H_
 
 #include "access/PlanOperation.h"
-#include "helper/types.h"
 
 namespace hyrise {
 namespace access {
