@@ -12,9 +12,6 @@ namespace {
   auto _ = QueryParser::registerPlanOperation<TableUnload>("TableUnload");
 }
 
-TableUnload::TableUnload() {
-}
-
 TableUnload::~TableUnload() {
 }
 

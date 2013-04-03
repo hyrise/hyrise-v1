@@ -9,7 +9,6 @@ namespace access {
 
 class TableUnload : public _PlanOperation {
 public:
-  TableUnload();
   virtual ~TableUnload();
 
   void executePlanOperation();
