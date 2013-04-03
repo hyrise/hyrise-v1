@@ -15,10 +15,10 @@ namespace {
   auto _ = QueryParser::registerPlanOperation<ProjectionScan>("ProjectionScan");
 }
 
-ProjectionScan::ProjectionScan(): _PlanOperation() {
+ProjectionScan::ProjectionScan() {
 }
 
-ProjectionScan::ProjectionScan(field_list_t *fields): _PlanOperation() {
+ProjectionScan::ProjectionScan(storage::field_list_t *fields): _PlanOperation() {
   setFields(fields);
 }
 
@@ -33,7 +33,7 @@ void ProjectionScan::executePlanOperation() {
   _limit = _limit == 0 ? input.getTable(0)->size() : _limit;
   _limit = _limit > input.getTable(0)->size() ? input.getTable(0)->size() : _limit;
 
-  pos_list_t *pos_list = nullptr;
+  storage::pos_list_t *pos_list = nullptr;
 
   if (_limit != input.getTable(0)->size()) {
     pos_list = new pos_list_t();
