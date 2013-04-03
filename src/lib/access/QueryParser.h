@@ -12,6 +12,8 @@
 
 #include <taskscheduler.h>
 
+#include "access/BasicParser.h"
+
 const std::string autojsonReferenceTableId = "-1";
 
 class _PlanOperation;
@@ -23,7 +25,7 @@ class QueryParserException : public std::runtime_error {
 };
 
 struct AbstractQueryParserFactory {
-  virtual std::shared_ptr<_PlanOperation> parse(Json::Value data) = 0;
+  virtual std::shared_ptr<_PlanOperation> parse(Json::Value& data) = 0;
 
   virtual ~AbstractQueryParserFactory() {}
 };
@@ -37,15 +39,16 @@ struct QueryParserFactory;
 template<typename T>
 struct QueryParserFactory<T, parse_construct> : public AbstractQueryParserFactory {
 
-  virtual std::shared_ptr<_PlanOperation> parse(Json::Value data) {
+  virtual std::shared_ptr<_PlanOperation> parse(Json::Value& data) {
     return T::parse(data);
   }
 };
 
 template<typename T>
 struct QueryParserFactory<T, default_construct> : public AbstractQueryParserFactory {
-  virtual std::shared_ptr<_PlanOperation> parse(Json::Value data) {
-    return std::make_shared<T>();
+  virtual std::shared_ptr<_PlanOperation> parse(Json::Value& data) {
+    typedef ::BasicParser<T> parser_t;
+    return parser_t::parse(data);
   }
 };
 
