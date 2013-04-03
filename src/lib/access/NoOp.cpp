@@ -10,9 +10,6 @@ namespace {
   auto _ = QueryParser::registerPlanOperation<NoOp>("NoOp");
 }
 
-NoOp::NoOp() {
-}
-
 NoOp::~NoOp() {
 }
 

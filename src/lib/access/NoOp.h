@@ -9,7 +9,6 @@ namespace access {
 
 class NoOp : public _PlanOperation {
 public:
-  NoOp();
   virtual ~NoOp();
 
   void executePlanOperation();
