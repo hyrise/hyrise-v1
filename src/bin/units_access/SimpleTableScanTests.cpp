@@ -1,7 +1,6 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "access/SimpleTableScan.h"
 #include "access/predicates.h"
-#include "helper/types.h"
 #include "io/shortcuts.h"
 #include "testing/test.h"
 
@@ -21,8 +20,8 @@ TEST_F(SimpleTableScanTests, basic_simple_table_scan_test) {
 
   const auto &result = sts.getResultTable();
 
-  ASSERT_EQ((unsigned) 1, result->size());
-  ASSERT_EQ((storage::hyrise_int_t) 100, result->getValue<storage::hyrise_int_t>(0, 0));
+  ASSERT_EQ(1u, result->size());
+  ASSERT_EQ(100, result->getValue<storage::hyrise_int_t>(0, 0));
 }
 
 }

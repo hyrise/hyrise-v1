@@ -2,7 +2,7 @@
 #include "access/SimpleTableScan.h"
 
 #include "access/pred_buildExpression.h"
-#include "helper/types.h"
+
 #include "storage/PointerCalculator.h"
 #include "storage/PointerCalculatorFactory.h"
 
@@ -13,8 +13,7 @@ namespace {
   auto _ = QueryParser::registerPlanOperation<SimpleTableScan>("SimpleTableScan");
 }
 
-SimpleTableScan::SimpleTableScan(): _PlanOperation(),
-                                    _comparator(nullptr) {
+SimpleTableScan::SimpleTableScan(): _comparator(nullptr) {
 }
 
 SimpleTableScan::~SimpleTableScan() {
