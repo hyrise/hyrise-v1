@@ -18,7 +18,7 @@ TEST_F(SetTableTests, basic_SetTable_test) {
   st.addInput(t);
   st.execute();
 
-  ASSERT_TRUE(sm->getTable("myTable")->contentEquals(t));
+  ASSERT_TABLE_EQUAL(sm->getTable("myTable"), t);
 }
 
 }

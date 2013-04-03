@@ -2,6 +2,7 @@
 #include "access/SetTable.h"
 
 #include "access/QueryParser.h"
+
 #include "io/StorageManager.h"
 
 namespace hyrise {
