@@ -51,8 +51,9 @@ datagen_binaries    := $(subst bin/,,$(regression_datagen))
 
 # - other binaries
 server_hyrise 		:= $(bin_dir)/hyrise
+bin_dummy := $(bin_dir)/dummy
 
-binaries :=  $(server_hyrise)
+binaries :=  $(server_hyrise) $(bin_dummy)
 # list all build targets
 
 tgts :=  $(libraries) $(binaries) $(all_test_suites) $(regression_suite) $(regression_datagen) 
