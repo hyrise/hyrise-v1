@@ -9,7 +9,6 @@ namespace access {
 
 class MergeTable : public _PlanOperation {
 public:
-  MergeTable();
   virtual ~MergeTable();
 
   void executePlanOperation();

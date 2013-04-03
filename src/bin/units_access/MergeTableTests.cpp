@@ -13,8 +13,8 @@ TEST_F(MergeTableTests, basic_merge_table_test) {
   auto s = Loader::shortcuts::loadMainDelta("test/merge1_main.tbl", "test/merge1_delta.tbl");
   auto reference = Loader::shortcuts::load("test/merge1_result.tbl");
 
-  ASSERT_EQ((unsigned) 4, s->getMainTables()[0]->size());
-  ASSERT_EQ((unsigned) 5, s->getDeltaTable()->size());
+  ASSERT_EQ(4u, s->getMainTables()[0]->size());
+  ASSERT_EQ(5u, s->getDeltaTable()->size());
 
   MergeTable mt;
   mt.addInput(s);
@@ -22,8 +22,8 @@ TEST_F(MergeTableTests, basic_merge_table_test) {
 
   const auto &result = mt.getResultTable();
 
-  ASSERT_EQ((unsigned) 9, result->size());
-  ASSERT_TRUE(result->contentEquals(reference));
+  ASSERT_EQ(9u, result->size());
+  ASSERT_TABLE_EQUAL(result, reference);
 }
 
 }

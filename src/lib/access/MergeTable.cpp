@@ -2,7 +2,7 @@
 #include "access/MergeTable.h"
 
 #include "access/QueryParser.h"
-#include "helper/types.h"
+
 #include "storage/Store.h"
 
 namespace hyrise {
@@ -10,9 +10,6 @@ namespace access {
 
 namespace {
   auto _ = QueryParser::registerPlanOperation<MergeTable>("MergeTable");
-}
-
-MergeTable::MergeTable() {
 }
 
 MergeTable::~MergeTable() {
@@ -37,7 +34,7 @@ void MergeTable::executePlanOperation() {
 
   // Switch the tables
   auto merged_tables = merger.mergeToTable(new_table, tables);
-  const auto& result = std::make_shared<Store>(new_table);
+  const auto &result = std::make_shared<Store>(new_table);
 
   output.add(result);
 }
