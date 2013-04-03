@@ -12,9 +12,6 @@ namespace {
   auto _ = QueryParser::registerPlanOperation<UnloadAll>("UnloadAll");
 }
 
-UnloadAll::UnloadAll() {
-}
-
 UnloadAll::~UnloadAll() {
 }
 

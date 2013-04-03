@@ -9,7 +9,6 @@ namespace access {
 
 class UnloadAll : public _PlanOperation {
 public:
-  UnloadAll();
   virtual ~UnloadAll();
 
   void executePlanOperation();
