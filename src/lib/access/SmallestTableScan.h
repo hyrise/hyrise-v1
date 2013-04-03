@@ -9,7 +9,6 @@ namespace access {
 
 class SmallestTableScan : public _PlanOperation {
 public:
-  SmallestTableScan();
   ~SmallestTableScan();
 
   void setupPlanOperation();

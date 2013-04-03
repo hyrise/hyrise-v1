@@ -10,9 +10,6 @@ namespace {
   auto _ = QueryParser::registerPlanOperation<SmallestTableScan>("SmallestTableScan");
 }
 
-SmallestTableScan::SmallestTableScan() {
-}
-
 SmallestTableScan::~SmallestTableScan() {
 }
 

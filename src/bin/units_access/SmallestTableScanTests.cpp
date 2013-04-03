@@ -21,7 +21,7 @@ TEST_F(SmallestTableScanTests, basic_smallest_table_scan_test) {
 
   const auto &result = stc.getResultTable();
 
-  ASSERT_TRUE(result->contentEquals(t3));
+  ASSERT_TABLE_EQUAL(result, t3);
 }
 
 }
