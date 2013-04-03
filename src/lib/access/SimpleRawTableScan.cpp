@@ -3,10 +3,7 @@
 
 #include "access/pred_buildExpression.h"
 
-#include "helper/types.h"
-
 #include "storage/meta_storage.h"
-#include "storage/storage_types.h"
 #include "storage/PointerCalculator.h"
 #include "storage/PointerCalculatorFactory.h"
 #include "storage/RawTable.h"
@@ -59,7 +56,7 @@ namespace {
 }
 
 SimpleRawTableScan::SimpleRawTableScan(SimpleExpression* comp,
-                                       bool materializing) :
+                                       const bool materializing) :
                                        _PlanOperation(),
                                        _comparator(comp),
                                        _materializing(materializing) {
@@ -73,7 +70,7 @@ void SimpleRawTableScan::setupPlanOperation() {
 }
 
 void SimpleRawTableScan::executePlanOperation() {
-  std::shared_ptr<const RawTable<>> table = std::dynamic_pointer_cast<const RawTable<>>(input.getTable(0));
+  auto table = std::dynamic_pointer_cast<const RawTable<>>(input.getTable(0));
   if (!table)
     throw std::runtime_error("Input table is no uncompressed raw table");
 
@@ -92,7 +89,7 @@ void SimpleRawTableScan::executePlanOperation() {
   // Prepare the copy operator
   storage::copy_value_functor_raw_table fun(result, table);
   storage::type_switch<hyrise_basic_types> ts;
-  auto positions = new pos_list_t;
+  auto positions = new storage::pos_list_t;
 
   size_t tabSize = table->size();
   for(size_t row=0; row < tabSize; ++row) {
@@ -113,7 +110,9 @@ void SimpleRawTableScan::executePlanOperation() {
   if (_materializing) {
     addResult(result);
   } else {
-    addResult(PointerCalculatorFactory::createPointerCalculatorNonRef(table, nullptr, positions));
+    addResult(PointerCalculatorFactory::createPointerCalculatorNonRef(table,
+                                                                      nullptr,
+                                                                      positions));
   }
 }
 

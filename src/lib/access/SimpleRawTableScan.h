@@ -11,7 +11,7 @@ namespace access {
 class SimpleRawTableScan : public _PlanOperation {
 public:
   SimpleRawTableScan(SimpleExpression *comp,
-                     bool materializing = true);
+                     const bool materializing = true);
   virtual ~SimpleRawTableScan();
 
   void setupPlanOperation();

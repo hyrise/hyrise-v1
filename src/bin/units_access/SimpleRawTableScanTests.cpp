@@ -1,10 +1,8 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "access/SimpleRawTableScan.h"
 #include "access/predicates.h"
-#include "helper/types.h"
 #include "io/shortcuts.h"
 #include "storage/RawTable.h"
-#include "storage/storage_types.h"
 #include "testing/test.h"
 
 namespace hyrise {
@@ -43,8 +41,8 @@ TEST_F(SimpleRawTableScanTests, basic_simple_raw_table_scan_test) {
 
   const auto &result = srts.getResultTable();
 
-  ASSERT_EQ((unsigned) 1, result->size());
-  ASSERT_EQ((storage::hyrise_int_t) 5, result->getValue<storage::hyrise_int_t>(0, 0));
+  ASSERT_EQ(1u, result->size());
+  ASSERT_EQ(5u, result->getValue<storage::hyrise_int_t>(0, 0));
 }
 
 TEST_F(SimpleRawTableScanTests, simple_raw_table_scan_fail_on_not_raw_test) {
