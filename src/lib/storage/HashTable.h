@@ -2,11 +2,13 @@
 #ifndef SRC_LIB_STORAGE_HASHTABLE_H_
 #define SRC_LIB_STORAGE_HASHTABLE_H_
 
+#include <atomic>
 #include <set>
 #include <unordered_map>
 #include <memory>
 
 #include "helper/types.h"
+#include "helper/checked_cast.h"
 
 #include "storage/AbstractHashTable.h"
 #include "storage/AbstractTable.h"
@@ -20,6 +22,11 @@ template<class MAP, class KEY> class HashTableView;
 typedef std::vector<value_id_t> aggregate_key_t;
 // Group of hashed values as key to an unordered map
 typedef std::vector<size_t> join_key_t;
+
+// Single Value ID as key to unordered map
+typedef value_id_t aggregate_single_key_t;
+// Single Hashed Value
+typedef size_t join_single_key_t;
 
 namespace {
 
@@ -48,6 +55,26 @@ inline typename aggregate_key_t::value_type extract<aggregate_key_t>(const hyris
   return vid.valueId;
 }
 
+// Helper Functions for Single Values
+template<typename HashResult>
+inline HashResult extractSingle(const hyrise::storage::c_atable_ptr_t &table,
+    const size_t &field,
+    const ValueId &vid);
+
+template <>
+inline join_single_key_t extractSingle<join_single_key_t>(const hyrise::storage::c_atable_ptr_t &table,
+    const size_t &field,
+    const ValueId &vid) {
+  return hash_value(table, field, vid);
+}
+
+template <>
+inline aggregate_single_key_t extractSingle<aggregate_single_key_t>(const hyrise::storage::c_atable_ptr_t &table,
+    const size_t &field,
+    const ValueId &vid) {
+  return vid.valueId;
+}
+
 }
 
 // hash function for aggregate_key_t
@@ -55,8 +82,9 @@ template<class T>
 class GroupKeyHash {
 public:
   size_t operator()(const T &key) const {
+    static auto hasher = std::hash<value_id_t>();
+
     std::size_t seed = 0;
-    auto hasher = std::hash<value_id_t>();
     for (size_t i = 0, key_size = key.size();
          i < key_size; ++i) {
       // compare boost hash_combine
@@ -67,23 +95,49 @@ public:
 
   static T getGroupKey(const hyrise::storage::c_atable_ptr_t &table,
                        const field_list_t &columns,
+                       const size_t fieldCount,
                        const pos_t row) {
     ValueIdList value_list = table->copyValueIds(row, &columns);
     T key;
-    for (size_t i = 0; i < value_list.size(); i++)
+    for (size_t i = 0, key_size = fieldCount; i < key_size; i++)
       key.push_back(extract<T>(table, columns[i], value_list[i]));
     return key;
   }
 };
 
+// Simple Hash Function for single values
+template<class T>
+class SingleGroupKeyHash {
+public:
+  size_t operator()(const T &key) const {
+    static auto hasher = std::hash<value_id_t>();
+    return hasher(key);
+  }
 
+  static T getGroupKey(const hyrise::storage::c_atable_ptr_t &table,
+                       const field_list_t &columns,
+                       const size_t fieldCount,
+                       const pos_t row){
+    return extractSingle<T>(table, columns[0], table->getValueId(columns[0], row));
+  }
+};
+
+// Multi Keys
 typedef std::unordered_multimap<aggregate_key_t, pos_t, GroupKeyHash<aggregate_key_t> > aggregate_hash_map_t;
 typedef std::unordered_multimap<join_key_t, pos_t, GroupKeyHash<join_key_t> > join_hash_map_t;
+
+// Single Keys
+typedef std::unordered_multimap<aggregate_single_key_t, pos_t, SingleGroupKeyHash<aggregate_single_key_t> > aggregate_single_hash_map_t;
+typedef std::unordered_multimap<join_single_key_t, pos_t, SingleGroupKeyHash<join_single_key_t> > join_single_hash_map_t;
 
 /// HashTable based on a map; key specifies the key for the given map
 template<class MAP, class KEY> class HashTable;
 typedef HashTable<aggregate_hash_map_t, aggregate_key_t> AggregateHashTable;
 typedef HashTable<join_hash_map_t, join_key_t> JoinHashTable;
+
+// HashTables for single values
+typedef HashTable<aggregate_single_hash_map_t, aggregate_single_key_t> SingleAggregateHashTable;
+typedef HashTable<join_single_hash_map_t, join_single_key_t> SingleJoinHashTable;
 
 /// Uses valueIds of specified columns as key for an unordered_multimap
 template <class MAP, class KEY>
@@ -106,17 +160,19 @@ protected:
   const field_list_t _fields;
 
   // Cached num keys
-  uint64_t _numKeys;
-  bool _dirty;
+  mutable std::atomic<uint64_t> _numKeys;
+  mutable std::atomic<bool> _dirty;
 
 private:
 
   // populates map with values
-  inline void populate_map() {
+  inline void populate_map(size_t row_offset = 0) {
     _dirty = true;
-    for (pos_t row = 0; row < _table->size(); ++row) {
-      key_t key = GroupKeyHash<key_t>::getGroupKey(_table, _fields, row);
-      _map.insert(typename map_t::value_type(key, row));
+    size_t fieldSize = _fields.size();
+    size_t tableSize = _table->size();
+    for (pos_t row = 0; row < tableSize; ++row) {
+      key_t key = MAP::hasher::getGroupKey(_table, _fields, fieldSize, row);
+      _map.insert(typename map_t::value_type(key, row + row_offset));
     }
   }
 
@@ -133,20 +189,28 @@ private:
     return positions;
   }
 
-
-
 public:
   HashTable() {}
 
-  /// Hash given table's columns directly into the new HashTable.
-  HashTable(hyrise::storage::c_atable_ptr_t t, const field_list_t &f)
+  // create a new HashTable based on a number of HashTables
+  explicit HashTable(const std::vector<std::shared_ptr<const AbstractHashTable> >& hashTables) {
+    _dirty = true;
+    for (auto & nextElement: hashTables) {
+      const auto& ht = checked_pointer_cast<const HashTable<MAP, KEY>>(nextElement);
+      _map.insert(ht->getMapBegin(), ht->getMapEnd());
+    }
+  }
+
+  // Hash given table's columns directly into the new HashTable
+  // row_offset is used if t is a TableRangeView, so that the HashTable can build the pos_lists based on the row numbers of the original table
+  HashTable(hyrise::storage::c_atable_ptr_t t, const field_list_t &f, size_t row_offset = 0)
     : _table(t), _fields(f), _numKeys(0), _dirty(true) {
-    populate_map();
+    populate_map(row_offset);
   }
 
   virtual ~HashTable() {}
 
-  std::string stats() {
+  std::string stats() const {
     std::stringstream s;
     s << "Load Factor " << _map.load_factor() << " / ";
     s << "Max Load Factor " << _map.max_load_factor() << " / ";
@@ -154,7 +218,7 @@ public:
     return s.str();
   }
 
-  std::shared_ptr<HashTableView<MAP, KEY> > view(size_t first, size_t last) {
+  std::shared_ptr<HashTableView<MAP, KEY> > view(size_t first, size_t last) const {
     return std::make_shared<HashTableView<MAP, KEY>>(this->shared_from_this(), first, last);
   }
 
@@ -168,7 +232,7 @@ public:
                          const field_list_t &columns,
                          const pos_t row) const {
     pos_list_t pos_list;
-    key_t key = GroupKeyHash<key_t>::getGroupKey(table, columns, row);
+    key_t key = MAP::hasher::getGroupKey(table, columns, columns.size(), row);
     auto range = _map.equal_range(key);
     return constructPositions(range);
   }
@@ -182,13 +246,16 @@ public:
     return _map.end();
   }
 
-
   hyrise::storage::c_atable_ptr_t getTable() const {
     return _table;
   }
 
   field_list_t getFields() const {
     return _fields;
+  }
+
+  size_t getFieldCount() const {
+    return _fields.size();
   }
 
   map_t &getMap() {
@@ -200,7 +267,7 @@ public:
     return constructPositions(range);
   }
 
-  uint64_t numKeys() {
+  uint64_t numKeys() const {
     if (_dirty) {
       uint64_t result = 0;
       for (map_const_iterator_t it1 = _map.begin(), it2 = it1, end = _map.end(); it1 != end; it1 = it2) {
@@ -215,7 +282,6 @@ public:
   }
 };
 
-
 /// Maps table cells' hashed values of arbitrary columns to their rows.
 /// This subclass maps only a range of key value pairs of its underlying
 /// HashTable for an easy splitting
@@ -225,18 +291,18 @@ public:
   typedef HashTable<MAP, KEY> hash_table_t;
 
 protected:
-  std::shared_ptr<hash_table_t> _hashTable;
+  std::shared_ptr<const hash_table_t> _hashTable;
   typename hash_table_t::map_const_iterator_t _begin;
   typename hash_table_t::map_const_iterator_t _end;
   typedef KEY key_t;
 
-  uint64_t _numKeys;
-  bool _dirty;
+  mutable std::atomic<uint64_t> _numKeys;
+  mutable std::atomic<bool> _dirty;
 
 public:
   /// Given a HashTable and a range, only the n-ths key value pairs of the
   /// given HashTable corresponding to the range will be mapped by this view.
-  HashTableView(std::shared_ptr<hash_table_t> tab,
+  HashTableView(const std::shared_ptr<const hash_table_t>& tab,
                 const size_t start,
                 const size_t end) :
   _hashTable(tab), _begin(_hashTable->getMapBegin()), _end(_hashTable->getMapBegin()), _numKeys(0), _dirty(true) {
@@ -281,7 +347,7 @@ public:
 
     pos_list_t pos_list;
     // produce key
-    key_t key = GroupKeyHash<key_t>::getGroupKey(table, columns, row);
+    key_t key = MAP::hasher::getGroupKey(table, columns, columns.size(), row);
 
     for (typename hash_table_t::map_const_iterator_t it = _begin; it != _end; ++it) {
       if (it->first == key) {
@@ -311,7 +377,7 @@ public:
     return _end;
   }
 
-  AbstractTable::SharedTablePtr getHashTable() const {
+  hyrise::storage::atable_ptr_t getHashTable() const {
     return _hashTable;
   }
 
@@ -319,11 +385,15 @@ public:
     return _hashTable->getFields();
   }
 
+  size_t getFieldCount() const {
+    return _hashTable->getFieldCount();
+  }
+
   hyrise::storage::c_atable_ptr_t getTable() const {
     return _hashTable->getTable();
   }
 
-  uint64_t numKeys() {
+  uint64_t numKeys() const {
     if (_dirty) {
       uint64_t result = 0;
       for (typename hash_table_t::map_const_iterator_t it1 = _begin, it2 = it1, end = _end; it1 != end; it1 = it2) {

@@ -19,7 +19,7 @@
 #include "io/TransactionManager.h"
 #include "net/Router.h"
 #include "net/AbstractConnection.h"
-#include "taskscheduler/SimpleTaskScheduler.h"
+#include "taskscheduler/AbstractTaskScheduler.h"
 
 
 namespace hyrise {

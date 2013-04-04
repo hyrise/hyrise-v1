@@ -4,7 +4,6 @@
 
 #include "access/PlanOperation.h"
 #include "access/AggregateFunctions.h"
-#include "helper/types.h"
 
 namespace hyrise {
 namespace storage {
@@ -34,7 +33,9 @@ private:
 };
 
 }
+}
 
+namespace hyrise {
 namespace access {
 
 class GroupByScan : public _PlanOperation {
@@ -80,10 +81,13 @@ private:
   void writeGroupResult(storage::atable_ptr_t &resultTab,
                         const std::shared_ptr<storage::pos_list_t> &hit,
                         const size_t row);
-
+  /// Depending on the number of fields to group by choose the appropriate map type
+  template<typename HashTableType, typename MapType, typename KeyType>
+  void executeGroupBy();
   std::vector<AggregateFun *> _aggregate_functions;
 };
 
 }
 }
+
 #endif  // SRC_LIB_ACCESS_GROUPBYSCAN_H_

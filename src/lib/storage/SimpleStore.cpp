@@ -13,7 +13,7 @@ void SimpleStore::createDelta() {
   _delta = std::make_shared<delta_table_t>(_main->metadata());
 }
 
-SimpleStore::SimpleStore(AbstractTable::SharedTablePtr t) : _main(t) {
+SimpleStore::SimpleStore(hyrise::storage::atable_ptr_t t) : _main(t) {
   createDelta();
   _merger = std::unique_ptr<TableMerger>(new TableMerger(new LogarithmicMergeStrategy(0), new SimpleStoreMerger()));
 }
@@ -60,8 +60,8 @@ const AbstractTable::SharedDictionaryPtr& SimpleStore::dictionaryAt(const size_t
 }
 
 void SimpleStore::print(const size_t limit) const {
-  _main->print();
-  _delta->print();
+  _main->print(limit);
+  _delta->print(limit);
 }
 
 
@@ -93,7 +93,7 @@ size_t SimpleStore::getOffsetInSlice(size_t c) const {
   return _main->getOffsetInSlice(c);
 }
 
-AbstractTable::SharedTablePtr SimpleStore::copy() const {
+hyrise::storage::atable_ptr_t SimpleStore::copy() const {
   STORAGE_NOT_IMPLEMENTED(SimpleStore, copy());
 }
 

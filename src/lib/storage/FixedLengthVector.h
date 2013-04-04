@@ -2,6 +2,7 @@
 #ifndef SRC_LIB_STORAGE_FIXEDLENGTHVECTOR_H_
 #define SRC_LIB_STORAGE_FIXEDLENGTHVECTOR_H_
 
+#include <atomic>
 #include <errno.h>
 #include <math.h>
 
@@ -9,6 +10,7 @@
 #include <mutex>
 #include <string>
 #include <stdexcept>
+#include <sstream>
 
 #include <boost/iterator/iterator_facade.hpp>
 
@@ -46,11 +48,17 @@ public:
     _rows = s;
   }
 
-  T get(size_t column, size_t row) const;
+  inline T get(size_t column, size_t row) const {
+    checkAccess(column, row);
+    return _values[row * _columns + column];
+  }
 
   const T& getRef(size_t column, size_t row) const;
 
-  void set(size_t column, size_t row, T value);
+  inline void set(size_t column, size_t row, T value) {
+     checkAccess(column, row);
+     _values[row * _columns + column] = value;
+  }
 
   void reserve(size_t rows);
 
@@ -71,6 +79,32 @@ public:
   }
 
   std::shared_ptr<BaseAttributeVector<T>> copy();
+
+  // Increment the value by 1
+  T inc(size_t column, size_t row) {
+    checkAccess(column, row);
+    return _values[row * _columns + column]++;
+  }
+
+  // Atomic Increment the value by one
+  T atomic_inc(size_t column, size_t row) {
+    checkAccess(column, row);
+    return __sync_fetch_and_add(&_values[row * _columns + column], 1);
+  }
+
+
+  const std::string print() {
+    std::stringstream buf;
+    buf << "Table: " << this << " --- " << std::endl;
+    for(size_t i=0; i < size(); ++i) {
+      buf << "| ";
+      for(size_t j=0; j < _columns; ++j)
+        buf << get(j, i) << " |";
+      buf << std::endl;
+    }
+    buf << this << " ---" << std::endl;;
+    return buf.str();
+  }
 
   typedef T value_type;
 
@@ -107,23 +141,11 @@ FixedLengthVector<T, Allocator>::~FixedLengthVector() {
 }
 
 template <typename T, typename Allocator>
-T FixedLengthVector<T, Allocator>::get(size_t column, size_t row) const {
-  checkAccess(column, row);
-  return _values[row * _columns + column];
-}
-
-template <typename T, typename Allocator>
 const T& FixedLengthVector<T, Allocator>::getRef(size_t column, size_t row) const {
   checkAccess(column, row);
   return _values[row * _columns + column];
 }
 
-
-template <typename T, typename Allocator>
-void FixedLengthVector<T, Allocator>::set(size_t column, size_t row, T value) {
-  checkAccess(column, row);
-  _values[row * _columns + column] = value;
-}
 
 template <typename T, typename Allocator>
 void FixedLengthVector<T, Allocator>::reserve(size_t rows) {
@@ -147,6 +169,9 @@ void FixedLengthVector<T, Allocator>::allocate(size_t bytes) {
 
   if (bytes != _allocated_bytes) {
     void *new_values = Allocator::Strategy::reallocate(_values, bytes, _allocated_bytes);
+    
+    if (bytes > _allocated_bytes)
+      memset(((char*) new_values) + _allocated_bytes, 0, bytes - _allocated_bytes);
 
     if (new_values == nullptr) {
       ///std::cerr << strerror(errno) << std::endl;

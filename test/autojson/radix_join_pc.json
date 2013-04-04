@@ -1,0 +1,48 @@
+{
+    "operators": {
+        // Load the tables
+	"reference":{
+		"type": "TableLoad",
+      		"table": "reference",
+      		"filename": "tables/hash_table_test_ref.tbl"
+	},
+        "0": {
+            "type": "TableLoad",
+            "filename": "tables/hash_table_test4.tbl",
+            "table": "hasher"
+        },
+	"1" : {
+          "type": "TableLoad",
+          "table": "hasher2",
+          "filename": "tables/hash_table_test3.tbl"
+        },
+        "2": {
+            "type": "SimpleTableScan",
+            "predicates" : [
+                {"type": "LT", "in": 0, "f": "D", "value": 3}
+            ]
+        },
+        "3": {
+            "type": "SimpleTableScan",
+            "predicates" : [
+                {"type": "LT", "in": 0, "f": "A", "value": 3}
+            ]
+        },
+        "4": {
+            "type": "RadixJoin",
+            "bits1": 7,
+            "bits2": 2,
+            "hash_par": 8,
+            "probe_par":8,
+            "join_par": 8,
+            "fields": [0,0] // "field_names": ["VBELN"], // Left and right
+        }
+    },
+
+    "edges" : [
+        ["0","2"],
+        ["1","3"],
+        ["2","4"],
+        ["3","4"]
+    ]
+}

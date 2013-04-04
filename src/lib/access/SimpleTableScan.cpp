@@ -58,6 +58,7 @@ void SimpleTableScan::executePlanOperation() {
 
   storage::atable_ptr_t result;
 
+  // In case we are creating positions copy the pos_list
   if (producesPositions) {
     if (!pos_list->empty()) {
       result = PointerCalculatorFactory::createPointerCalculatorNonRef(input.getTable(), nullptr, pos_list);

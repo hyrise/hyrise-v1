@@ -7,11 +7,11 @@
 #include <io/CSVLoader.h>
 #include <storage/AbstractTable.h>
 
-#include "storage/TableEqualityTest.h"
+#include "testing/TableEqualityTest.h"
 
 
 int main (int argc, char** args) {
-  AbstractTable::SharedTablePtr  t = Loader::load(
+  hyrise::storage::atable_ptr_t  t = Loader::load(
     Loader::params()
       .setHeader(CSVHeader("employees.tbl"))
       .setInput(CSVInput("employees.tbl"))
@@ -19,7 +19,7 @@ int main (int argc, char** args) {
 
   std::vector<std::string> tables { "wrong1.tbl", "wrong2.tbl", "wrong3.tbl" };
 
-  AbstractTable::SharedTablePtr tw;
+  hyrise::storage::atable_ptr_t tw;
 
   std::cout << std::endl;
   std::cout << "++++++++++++++++++++++++++++++++++++++++++++++++" << std::endl;

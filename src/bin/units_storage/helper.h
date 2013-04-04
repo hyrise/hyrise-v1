@@ -10,7 +10,7 @@
 #include <algorithm>
 
 template <typename HT>
-::testing::AssertionResult AssertHashTableFully(AbstractTable::SharedTablePtr table,
+::testing::AssertionResult AssertHashTableFully(hyrise::storage::atable_ptr_t table,
     const field_list_t &columns) {
   HT ht(table, columns);
   if (testHashTableFullCoverage(ht, table, columns)) {
@@ -23,7 +23,7 @@ template <typename HT>
 
 template <typename HT>
 bool testHashTableFullCoverage(const HT &hashTable,
-                               AbstractTable::SharedTablePtr table,
+                               hyrise::storage::atable_ptr_t table,
                                const field_list_t &columns) {
   bool result = true;
   for (pos_t row = 0; row < table->size(); ++row) {

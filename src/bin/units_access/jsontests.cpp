@@ -8,7 +8,7 @@
 #include <storage.h>
 
 #include <io/shortcuts.h>
-#include "taskscheduler/SimpleTaskScheduler.h"
+#include "taskscheduler/WSSimpleTaskScheduler.h"
 
 namespace hyrise {
 namespace access {
@@ -29,7 +29,7 @@ TEST_F(JSONTests, DISABLED_threadpool_adjust_configuration) {
   ASSERT_EQ(settings->getThreadpoolSize(), newThreadpoolSize);
 
   if(!SharedScheduler::getInstance().isInitialized())
-    SharedScheduler::getInstance().init("SimpleTaskScheduler");
+    SharedScheduler::getInstance().init("WSSimpleTaskScheduler");
   AbstractTaskScheduler * scheduler = SharedScheduler::getInstance().getScheduler();
 
   if (dynamic_cast<AbstractQueueBasedTaskScheduler<AbstractTaskQueue> *>(scheduler) != NULL) {
@@ -113,6 +113,33 @@ TEST_F(JSONTests, append_instances_nodes) {
   ASSERT_TRUE(isEdgeEqual(query["edges"], 2, srcNode, dstNodeInstance2));
 }
 
+TEST_F(JSONTests, append_merge_node) {
+  std::string
+      srcNode = "0",
+      dstNode = "1";
+  std::string
+      srcNodeInstance1 = QueryTransformationEngine::getInstance()->
+      instanceIdFor(srcNode, 0),
+      srcNodeInstance2 = QueryTransformationEngine::getInstance()->
+      instanceIdFor(srcNode, 1),
+      srcMergeNode = QueryTransformationEngine::getInstance()->
+      mergeIdFor(srcNode);
+  std::vector<std::string> instanceIds;
+  instanceIds.push_back(srcNodeInstance1);
+  instanceIds.push_back(srcNodeInstance2);
+  Json::Value query(Json::objectValue);
+  query["edges"] = EdgesBuilder().
+      appendEdge(srcNode, dstNode).
+      getEdges();
+
+  QueryTransformationEngine::getInstance()->appendConsolidateSrcNodeEdges(
+      srcNode, instanceIds, srcMergeNode, query, 1);
+  ASSERT_TRUE(isEdgeEqual(query["edges"], 0, srcNode, dstNode));
+  ASSERT_TRUE(isEdgeEqual(query["edges"], 1, srcNodeInstance1, srcMergeNode));
+  ASSERT_TRUE(isEdgeEqual(query["edges"], 2, srcNodeInstance2, srcMergeNode));
+  ASSERT_TRUE(isEdgeEqual(query["edges"], 3, srcMergeNode, dstNode));
+}
+
 TEST_F(JSONTests, append_union_node) {
   std::string
       srcNode = "0",
@@ -132,7 +159,7 @@ TEST_F(JSONTests, append_union_node) {
       appendEdge(srcNode, dstNode).
       getEdges();
 
-  QueryTransformationEngine::getInstance()->appendUnionSrcNodeEdges(
+  QueryTransformationEngine::getInstance()->appendConsolidateSrcNodeEdges(
       srcNode, instanceIds, srcUnionNode, query, 1);
   ASSERT_TRUE(isEdgeEqual(query["edges"], 0, srcNode, dstNode));
   ASSERT_TRUE(isEdgeEqual(query["edges"], 1, srcNodeInstance1, srcUnionNode));
@@ -166,8 +193,8 @@ TEST_F(JSONTests, simple_parse) {
 }
 
 TEST_F(JSONTests, parse_projection) {
-  AbstractTable::SharedTablePtr t = Loader::shortcuts::load("test/lin_xxs.tbl");
-  AbstractTable::SharedTablePtr reference = Loader::shortcuts::load("test/reference/simple_projection.tbl");
+  hyrise::storage::atable_ptr_t t = Loader::shortcuts::load("test/lin_xxs.tbl");
+  hyrise::storage::atable_ptr_t reference = Loader::shortcuts::load("test/reference/simple_projection.tbl");
   std::string query = "{\"type\": \"ProjectionScan\", \"fields\": [0], \"inputs\": [\"table1\"] }";
 
   Json::Value root;
@@ -256,8 +283,8 @@ TEST_F(JSONTests, parse_predicate_string) {
 
 
 TEST_F(JSONTests, parse_selection) {
-  AbstractTable::SharedTablePtr t = Loader::shortcuts::load("test/groupby_xs.tbl");
-  AbstractTable::SharedTablePtr reference = Loader::shortcuts::load("test/reference/simple_select_1.tbl");
+  hyrise::storage::atable_ptr_t t = Loader::shortcuts::load("test/groupby_xs.tbl");
+  hyrise::storage::atable_ptr_t reference = Loader::shortcuts::load("test/reference/simple_select_1.tbl");
 
   std::string query = "{\"type\": \"SimpleTableScan\", \"predicates\":[{\"type\": 8},{\"type\": 7},{\"type\": 0, \"in\":0, \"f\":0, \"vtype\":0, \"value\":2009},{\"type\": 0, \"in\":0, \"f\":1, \"vtype\":0, \"value\":1}]}";
 

@@ -21,15 +21,18 @@ class TableRangeView : public AbstractTable {
 
   size_t _start;
   size_t _end;
+  // store number of columns to avoid subsequent calls to table->columnCount()
+  size_t _columnCount;
 
 public:
   TableRangeView(hyrise::storage::atable_ptr_t t, size_t s, size_t e);
   virtual ~TableRangeView();
 
+  size_t getStart() const;
   // specific to TableRangeView
   table_id_t subtableCount() const;
-  SharedTablePtr copy() const;
-  void print(const size_t limit = (size_t) - 1) const;
+  hyrise::storage::atable_ptr_t copy() const;
+  void print(const size_t limit = (size_t) -1) const;
 
   // recalculated rows and routed to underlying table if necessary
   size_t size() const;
@@ -48,7 +51,7 @@ public:
   size_t getSliceForColumn(const size_t column) const;
   size_t getOffsetInSlice(const size_t column) const;
   unsigned sliceCount() const;
-  SharedTablePtr copy_structure(const field_list_t *fields = nullptr, const bool reuse_dict = false, const size_t initial_size = 0, const bool with_containers = true, const bool compressed = false) const;
+  hyrise::storage::atable_ptr_t copy_structure(const field_list_t *fields = nullptr, const bool reuse_dict = false, const size_t initial_size = 0, const bool with_containers = true, const bool compressed = false) const;
   const SharedDictionaryPtr & dictionaryByTableId(const size_t column, const table_id_t table_id) const;
   DataType typeOfColumn(const size_t column) const;
   size_t columnCount() const;

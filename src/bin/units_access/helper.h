@@ -9,7 +9,7 @@
 
 //  Joins specified columns of a single table using hash join.
 hyrise::storage::c_atable_ptr_t hashJoinSameTable(
-    AbstractTable::SharedTablePtr table,
+    hyrise::storage::atable_ptr_t table,
     field_list_t &columns);
 
 //  Used for message chaining to improve code readability when building edges maps

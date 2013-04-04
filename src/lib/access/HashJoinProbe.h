@@ -13,6 +13,7 @@ namespace access {
 /// It takes the build table's AbstractHashTable and the probe table as input.
 class HashJoinProbe : public _PlanOperation {
 public:
+  HashJoinProbe();
   virtual ~HashJoinProbe();
 
   void setupPlanOperation();
@@ -52,7 +53,6 @@ private:
   template<class HashTable>
   void fetchPositions(storage::pos_list_t *buildTablePosList,
                       storage::pos_list_t *probeTablePosList);
-
   /// Constructs resulting table from given build and probe tables' rows.
   storage::atable_ptr_t buildResultTable(storage::pos_list_t *buildTablePosList,
                                          storage::pos_list_t *probeTablePosList) const;

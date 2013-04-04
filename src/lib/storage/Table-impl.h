@@ -21,8 +21,9 @@ Table<Strategy, Allocator>::Table(
   _compressed(compressed) {
 
   // Ownership change for meta data
-  for (size_t i = 0; i < width; i++)
+  for (size_t i = 0; i < width; i++) {
     _metadata[i] = new ColumnMetadata(*m->at(i));
+  }
 
   // If we pass dictionaries, reuses them
   if (d) {
@@ -64,7 +65,7 @@ Table<Strategy, Allocator>::Table(
 
 
 ALLOC_FUNC_TEMPLATE
-AbstractTable::SharedTablePtr Table<Strategy, Allocator>::copy_structure(const field_list_t *fields, const bool reuse_dict, const size_t initial_size, const bool with_containers, const bool compressed) const {
+hyrise::storage::atable_ptr_t Table<Strategy, Allocator>::copy_structure(const field_list_t *fields, const bool reuse_dict, const size_t initial_size, const bool with_containers, const bool compressed) const {
 
   std::vector<const ColumnMetadata *> metadata;
   std::vector<AbstractTable::SharedDictionaryPtr> *dictionaries = nullptr;
@@ -99,7 +100,7 @@ AbstractTable::SharedTablePtr Table<Strategy, Allocator>::copy_structure(const f
 }
 
 ALLOC_FUNC_TEMPLATE
-AbstractTable::SharedTablePtr Table<Strategy, Allocator>::copy_structure_modifiable(const field_list_t *fields, const size_t initial_size, const bool with_containers) const {
+hyrise::storage::atable_ptr_t Table<Strategy, Allocator>::copy_structure_modifiable(const field_list_t *fields, const size_t initial_size, const bool with_containers) const {
 
   std::vector<const ColumnMetadata *> metadata;
   std::vector<AbstractTable::SharedDictionaryPtr > *dictionaries = new std::vector<AbstractTable::SharedDictionaryPtr >;
@@ -202,7 +203,7 @@ void Table<Strategy, Allocator>::setAttributes(SharedAttributeVector doc) {
 }
 
 ALLOC_FUNC_TEMPLATE
-AbstractTable::SharedTablePtr Table<Strategy, Allocator>::copy() const {
+hyrise::storage::atable_ptr_t Table<Strategy, Allocator>::copy() const {
   auto new_table = std::make_shared<table_type>(new std::vector<const ColumnMetadata *>(_metadata.begin(), _metadata.end()));
 
   new_table->width = width;

@@ -37,6 +37,7 @@ void CoreBoundTaskQueue::executeTask() {
         _blocked = true;
         //LOG4CXX_DEBUG(logger, "Started executing task" << std::hex << &task << std::dec << " on core " << _core);
         // run task
+        //std::cout << "Executed task " << task->vname() << "; hex " << std::hex << &task << std::dec << " on core " << _core<< std::endl;
         (*task)();
         LOG4CXX_DEBUG(logger, "Executed task " << task->vname() << "; hex " << std::hex << &task << std::dec << " on core " << _core);
         // notify done observers that task is done

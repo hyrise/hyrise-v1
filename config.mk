@@ -18,12 +18,13 @@ COLOR_TTY ?= 1
 WITH_MYSQL ?= 0
 FLTO ?= 0
 
-PROJECT_INCLUDE:= 
-BUILD_FLAGS:= 
-CC_BUILD_FLAGS:= 
-CXX_BUILD_FLAGS:=
-LINKER_FLAGS:=
-LINKER_DIR:=
+PROJECT_INCLUDE ?= 
+BUILD_FLAGS ?= 
+CC_BUILD_FLAGS ?= 
+CXX_BUILD_FLAGS ?=
+LINKER_FLAGS ?=
+LINKER_DIR ?=
+LD_LIBRARY_PATH ?=
 
 # Specify Allocator to use for HYRISE
 HYRISE_ALLOCATOR ?= 
@@ -108,7 +109,7 @@ LINKER_FLAGS += -llog4cxx -lpthread
 BUILD_DIR = $(IMH_PROJECT_PATH)/$(build_dir)/
 
 # Settings for the correct includes
-LINKER_DIR := $(BUILD_DIR) /usr/local/lib /usr/lib64
+LINKER_DIR += $(BUILD_DIR) /usr/local/lib /usr/lib64
 LD_LIBRARY_PATH := $(LD_LIBRARY_PATH):$(BUILD_DIR):/usr/local/lib:/usr/lib64
 
 CC_BUILD_FLAGS += $(BUILD_FLAGS)

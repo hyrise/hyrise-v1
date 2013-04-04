@@ -2,7 +2,7 @@
 #include "access/GroupByScan.h"
 #include "access/HashBuild.h"
 #include "io/shortcuts.h"
-#include "storage/TableEqualityTest.h"
+#include "testing/TableEqualityTest.h"
 #include "testing/test.h"
 
 namespace hyrise {
@@ -39,9 +39,11 @@ TEST_F(GroupByScanTests, group_by_with_multiple_fields) {
   HashBuild hb1;
   hb1.addInput(t);
   hb1.addField(0);
+  hb1.addField(1);
   hb1.setKey("groupby");
   hb1.execute();
 
+//<<<<<<< HEAD
   HashBuild hb2;
   hb2.addInput(t);
   hb2.addField(1);
@@ -51,6 +53,10 @@ TEST_F(GroupByScanTests, group_by_with_multiple_fields) {
   const auto &hash1 = hb1.getResultHashTable();
   const auto &hash2 = hb2.getResultHashTable();
 
+/*=======
+  auto hash1 = hb1.getResultHashTable();
+
+>>>>>>> master*/
   GroupByScan gs;
   gs.addInput(t);
   gs.addInputHash(hash1);

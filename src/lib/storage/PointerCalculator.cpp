@@ -34,7 +34,7 @@ PointerCalculator::PointerCalculator(hyrise::storage::c_atable_ptr_t t, pos_list
   updateFieldMapping();
 }
 
-AbstractTable::SharedTablePtr PointerCalculator::copy() const {
+hyrise::storage::atable_ptr_t PointerCalculator::copy() const {
   return std::make_shared<PointerCalculator>(table, fields, pos_list);
 }
 
@@ -216,7 +216,7 @@ size_t PointerCalculator::getOffsetInSlice(const size_t column) const {
 };
 
 void PointerCalculator::print(const size_t limit) const {
-  PrettyPrinter::print(this, limit);
+  PrettyPrinter::print(this, std::cout, "unnamed pointer calculator", limit);
 }
 
 std::string PointerCalculator::printValue(const size_t column, const size_t row) const {
@@ -241,20 +241,37 @@ void PointerCalculator::sortDictionary() {
   throw std::runtime_error("Can't sort PointerCalculator dictionary");
 }
 
-size_t PointerCalculator::getRowForTableRow(const size_t row) const
-
+size_t PointerCalculator::getTableRowForRow(const size_t row) const
 {
-  auto p = std::dynamic_pointer_cast<const PointerCalculator>(table);
-
-  if (!p) {
-    return row;
+  size_t actual_row;
+  // resolve mapping of THIS pointer calculator
+  if (pos_list) {
+      actual_row = pos_list->at(row);
+  } else {
+      actual_row = row;
   }
+  // if underlying table is PointerCalculator, resolve recursively
+  auto p = std::dynamic_pointer_cast<const PointerCalculator>(table);
+  if (p)
+    actual_row = p->getTableRowForRow(actual_row);
 
-  size_t table_row = p->getRowForTableRow(row);
+  return actual_row;
+}
 
-  pos_list_t::const_iterator lb = std::lower_bound(pos_list->begin(), pos_list->end(), table_row);
-
-  return lb - pos_list->begin();
+size_t PointerCalculator::getTableColumnForColumn(const size_t column) const
+{
+  size_t actual_column;
+  // resolve field mapping of THIS pointer calculator
+  if (fields) {
+    actual_column = fields->at(column);
+  } else {
+    actual_column = column;
+  }
+  // if underlying table is PointerCalculator, resolve recursively
+  auto p = std::dynamic_pointer_cast<const PointerCalculator>(table);
+  if (p)
+    actual_column = p->getTableColumnForColumn(actual_column);
+  return actual_column;
 }
 
 hyrise::storage::c_atable_ptr_t PointerCalculator::getTable() const {
@@ -294,7 +311,7 @@ pos_list_t PointerCalculator::getActualTablePositions() const {
 
 
 //FIXME: Template this method
-AbstractTable::SharedTablePtr PointerCalculator::copy_structure(const field_list_t *fields, const bool reuse_dict, const size_t initial_size, const bool with_containers) const {
+hyrise::storage::atable_ptr_t PointerCalculator::copy_structure(const field_list_t *fields, const bool reuse_dict, const size_t initial_size, const bool with_containers) const {
   std::vector<const ColumnMetadata *> metadata;
   std::vector<AbstractTable::SharedDictionaryPtr> *dictionaries = nullptr;
 

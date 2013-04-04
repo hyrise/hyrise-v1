@@ -3,7 +3,7 @@
 
 #include "io/shortcuts.h"
 #include "storage/AbstractTable.h"
-#include "storage/TableEqualityTest.h"
+#include "testing/TableEqualityTest.h"
 
 class TableEqualityTests : public ::testing::Test {};
 

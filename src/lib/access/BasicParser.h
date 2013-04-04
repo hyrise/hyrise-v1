@@ -2,7 +2,9 @@
 #ifndef SRC_LIB_ACCESS_BASICPARSER_H_
 #define SRC_LIB_ACCESS_BASICPARSER_H_
 
-#include "PlanOperation.h"
+#include <stdexcept>
+#include <memory>
+#include "json.h"
 
 class BasicParsingException : public std::runtime_error {
  public:

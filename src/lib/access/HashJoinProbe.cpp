@@ -15,22 +15,32 @@ namespace {
   log4cxx::LoggerPtr logger(log4cxx::Logger::getLogger("access.plan._PlanOperation"));
 }
 
+HashJoinProbe::HashJoinProbe() : _selfjoin(false) {
+}
+
 HashJoinProbe::~HashJoinProbe() {
 }
 
 void HashJoinProbe::setupPlanOperation() {
-  computeDeferredIndexes();
-  setBuildTable(input.getHashTable()->getTable());
+  _PlanOperation::setupPlanOperation();
+  setBuildTable(getInputHashTable()->getTable());
 }
 
 void HashJoinProbe::executePlanOperation() {
   storage::pos_list_t *buildTablePosList = new pos_list_t;
   storage::pos_list_t *probeTablePosList = new pos_list_t;
 
-  if (_selfjoin)
-    fetchPositions<AggregateHashTable>(buildTablePosList, probeTablePosList);
-  else
-    fetchPositions<JoinHashTable>(buildTablePosList, probeTablePosList);
+  if (_selfjoin) {
+    if (_field_definition.size() == 1)
+      fetchPositions<SingleAggregateHashTable>(buildTablePosList, probeTablePosList);
+    else
+      fetchPositions<AggregateHashTable>(buildTablePosList, probeTablePosList);
+  } else {
+    if (_field_definition.size() == 1)
+      fetchPositions<SingleJoinHashTable>(buildTablePosList, probeTablePosList);
+    else
+      fetchPositions<JoinHashTable>(buildTablePosList, probeTablePosList);
+  }
 
   addResult(buildResultTable(buildTablePosList, probeTablePosList));
 }
@@ -62,25 +72,11 @@ storage::c_atable_ptr_t HashJoinProbe::getProbeTable() const {
   return getInputTable();
 }
 
-storage::atable_ptr_t HashJoinProbe::buildResultTable(storage::pos_list_t *buildTablePosList,
-                                                      storage::pos_list_t *probeTablePosList) const {
-  std::vector<storage::atable_ptr_t> parts;
-
-  auto buildTableRows = PointerCalculatorFactory::createPointerCalculatorNonRef(getBuildTable(), nullptr, buildTablePosList);
-  auto probeTableRows = PointerCalculatorFactory::createPointerCalculatorNonRef(getProbeTable(), nullptr, probeTablePosList);
-
-  parts.push_back(probeTableRows);
-  parts.push_back(buildTableRows);
-
-  storage::atable_ptr_t result = std::make_shared<MutableVerticalTable>(parts);
-  return result;
-}
-
 template<class HashTable>
 void HashJoinProbe::fetchPositions(storage::pos_list_t *buildTablePosList,
                                    storage::pos_list_t *probeTablePosList) {
   const auto& probeTable = getProbeTable();
-  auto hash_table = std::dynamic_pointer_cast<HashTable>(getInputHashTable(0));
+  const auto& hash_table = std::dynamic_pointer_cast<const HashTable>(getInputHashTable(0));
   assert(hash_table != nullptr);
 
   LOG4CXX_DEBUG(logger, hash_table->stats());
@@ -99,6 +95,19 @@ void HashJoinProbe::fetchPositions(storage::pos_list_t *buildTablePosList,
   LOG4CXX_DEBUG(logger, "Done Probing");
 }
 
+storage::atable_ptr_t HashJoinProbe::buildResultTable(storage::pos_list_t *buildTablePosList,
+                                                      storage::pos_list_t *probeTablePosList) const {
+  std::vector<storage::atable_ptr_t> parts;
+
+  auto buildTableRows = PointerCalculatorFactory::createPointerCalculatorNonRef(getBuildTable(), nullptr, buildTablePosList);
+  auto probeTableRows = PointerCalculatorFactory::createPointerCalculatorNonRef(getProbeTable(), nullptr, probeTablePosList);
+
+  parts.push_back(probeTableRows);
+  parts.push_back(buildTableRows);
+
+  storage::atable_ptr_t result = std::make_shared<MutableVerticalTable>(parts);
+  return result;
+}
 
 }
 }

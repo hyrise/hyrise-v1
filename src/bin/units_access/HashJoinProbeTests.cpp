@@ -2,7 +2,7 @@
 #include "access/HashJoinProbe.h"
 #include "access/HashBuild.h"
 #include "io/shortcuts.h"
-#include "storage/TableEqualityTest.h"
+#include "testing/TableEqualityTest.h"
 #include "testing/test.h"
 
 namespace hyrise {

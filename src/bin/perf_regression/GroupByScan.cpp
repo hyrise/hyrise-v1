@@ -16,7 +16,7 @@ class GroupByScanBase : public ::testing::Benchmark {
 
   StorageManager *sm;
   std::shared_ptr<hyrise::access::GroupByScan> gs;
-  AbstractTable::SharedTablePtr t;
+  hyrise::storage::atable_ptr_t t;
   SumAggregateFun *sum;
 
  public:

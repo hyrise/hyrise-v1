@@ -15,8 +15,8 @@ namespace access {
 class UpdateFun {
 public:
   explicit UpdateFun(const storage::atable_ptr_t &t) : _table(t) {};
-  virtual ~UpdateFun() {};
-  virtual void updateRow(size_t row) {};
+  virtual ~UpdateFun() {}
+  virtual void updateRow(size_t row) {}
 
 protected:
   storage::atable_ptr_t _table;
@@ -30,8 +30,8 @@ public:
                const T &val) :
                UpdateFun(t),
                _column(f),
-               _value(val) {};
-  ~AddUpdateFun() {};
+               _value(val) {}
+  ~AddUpdateFun() {}
   void updateRow(const size_t row) {
     _table->setValue<T>(_column, row, _table->getValue<T>(_column, row) + _value);
   }

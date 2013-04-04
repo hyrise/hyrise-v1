@@ -10,6 +10,9 @@
 #include "helper/epoch.h"
 #include "helper/PapiTracer.h"
 #include "io/StorageManager.h"
+#include "storage/AbstractResource.h"
+#include "storage/AbstractHashTable.h"
+#include "storage/AbstractTable.h"
 #include "storage/TableRangeViewFactory.h"
 #include "storage/TableRangeView.h"
 
@@ -26,12 +29,20 @@ _PlanOperation::_PlanOperation() :
 _PlanOperation::~_PlanOperation() {
 }
 
-void _PlanOperation::addInput(std::vector< hyrise::storage::c_atable_ptr_t > *input_list) {
+void _PlanOperation::addResult(hyrise::storage::c_atable_ptr_t result) {
+  output.add(result);
+}
+
+void _PlanOperation::addResultHash(hyrise::storage::c_ahashtable_ptr_t result) {
+  output.addHash(result);
+}
+
+void _PlanOperation::addInput(std::vector<hyrise::storage::c_atable_ptr_t> *input_list) {
   for (const auto& t: *input_list)
       addInput(t);
 }
 
-void _PlanOperation::addInput(std::vector<std::shared_ptr<AbstractHashTable> > *input_list) {
+void _PlanOperation::addInput(std::vector<hyrise::storage::c_ahashtable_ptr_t> *input_list) {
   for (const auto& t: *input_list)
       addInputHash(t);
 }
@@ -41,20 +52,20 @@ const hyrise::storage::c_atable_ptr_t _PlanOperation::getInputTable(size_t index
   return input.getTable(index);
 }
 
-static const AbstractTable::SharedTablePtr empty_result;
+static const hyrise::storage::atable_ptr_t empty_result;
 
 const hyrise::storage::c_atable_ptr_t _PlanOperation::getResultTable(size_t index) const {
   if (output.numberOfTables())
     return output.getTable(index);
   else
-    return empty_result;
+     return empty_result;
 }
 
-std::shared_ptr<AbstractHashTable> _PlanOperation::getInputHashTable(size_t index) const {
+hyrise::storage::c_ahashtable_ptr_t _PlanOperation::getInputHashTable(size_t index) const {
   return input.getHashTable(index);
 }
 
-std::shared_ptr<AbstractHashTable> _PlanOperation::getResultHashTable(size_t index) const {
+hyrise::storage::c_ahashtable_ptr_t _PlanOperation::getResultHashTable(size_t index) const {
   return output.getHashTable(index);
 }
 
@@ -114,7 +125,7 @@ void _PlanOperation::addField(const Json::Value &field) {
 
 /* This method only returns the column number in each table, assuming the operation knows how to handle positions */
 unsigned int _PlanOperation::findColumn(const std::string &col) {
-  assert(!input.getTables().empty());
+  //assert(!input.getTables().empty());
   for (const auto& table: input.getTables()) {
     try {
       return table->numberOfColumn(col);
@@ -123,7 +134,7 @@ unsigned int _PlanOperation::findColumn(const std::string &col) {
   throw MissingColumnException(col);
 }
 
-size_t widthOfInputs(std::vector<hyrise::storage::c_atable_ptr_t > &inputs) {
+size_t widthOfInputs(const std::vector<hyrise::storage::c_atable_ptr_t > &inputs) {
   size_t result = 0;
   for (const auto& table: inputs) {
     result += table->columnCount();
@@ -156,13 +167,12 @@ void _PlanOperation::distribute(
     const u_int64_t numberOfElements,
     u_int64_t &first,
     u_int64_t &last) const {
+
   const u_int64_t
-      elementsPerPart     = numberOfElements / _count,
-      remainingElements   = numberOfElements - elementsPerPart * _count,
-      extraElements       = _part <= remainingElements ? _part : remainingElements,
-      partsExtraElement   = _part < remainingElements ? 1 : 0;
-  first                   = elementsPerPart * _part + extraElements;
-  last                    = first + elementsPerPart + partsExtraElement - 1;
+      elementsPerPart     = numberOfElements / _count;
+
+  first = elementsPerPart * _part;
+  last = _part + 1 == _count ? numberOfElements : elementsPerPart * (_part + 1);
 }
 
 void _PlanOperation::refreshInput() {
@@ -175,23 +185,21 @@ void _PlanOperation::refreshInput() {
     input.mergeWith(dependency->output, true);
     }
   */
-
   size_t numberOfDependencies = _dependencies.size();
-  std::shared_ptr<_PlanOperation> dependency;
   for (size_t i = 0; i < numberOfDependencies; ++i) {
-    dependency = std::dynamic_pointer_cast<_PlanOperation>(_dependencies[i]);
-    input.mergeWith(dependency->output, true);
+    const auto& dependency = std::dynamic_pointer_cast<_PlanOperation>(_dependencies[i]);
+    input.mergeWith(dependency->output);
   }
 
   splitInput();
 }
 
 void _PlanOperation::splitInput() {
-  table_list_t &tables = input.getTables();
-  if (_count > 0 && !input.getTables().empty()) {
+  const auto& tables = input.getTables();
+  if (_count > 0 && !tables.empty()) {
     u_int64_t first, last;
     distribute(tables[0]->size(), first, last);
-    tables[0] = TableRangeViewFactory::createView(std::const_pointer_cast<AbstractTable>(tables[0]), first, last);
+    input.setTable( TableRangeViewFactory::createView(std::const_pointer_cast<AbstractTable>(tables[0]), first, last), 0);
   }
 }
 
@@ -254,10 +262,11 @@ void _PlanOperation::setProducesPositions(bool p) {
 void _PlanOperation::setTransactionId(hyrise::tx::transaction_id_t tid) {
   _transaction_id = tid;
 }
-void _PlanOperation::addInput( hyrise::storage::c_atable_ptr_t t) {
+
+void _PlanOperation::addInput(hyrise::storage::c_atable_ptr_t t) {
   input.add(t);
 }
-void _PlanOperation::addInputHash(std::shared_ptr<AbstractHashTable> t) {
+void _PlanOperation::addInputHash(hyrise::storage::c_ahashtable_ptr_t t) {
   input.addHash(t);
 }
 
@@ -280,4 +289,8 @@ const std::string& _PlanOperation::planOperationName() const {
 }
 void _PlanOperation::setPlanOperationName(const std::string& name) {
   _planOperationName = name;
+}
+
+const std::string _PlanOperation::vname() {
+  return planOperationName();
 }

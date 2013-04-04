@@ -1,0 +1,16 @@
+{
+    "operators": {
+        "0": {
+            "type": "TableLoad",
+            "table": "prefix_sum",
+            "filename": "prefix_sum.tbl"
+        },
+        "1": {
+            "type": "PrefixSum"
+        },
+	"2": {
+	    "type": "NoOp"
+	}
+    },
+    "edges": [["0", "1"], ["1", "2"]]
+}

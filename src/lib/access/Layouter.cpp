@@ -53,7 +53,7 @@ void LayoutSingleTable::executePlanOperation() {
   r = bl->getNBestResults(_maxResults);
   size = bl->count();
 
-  AbstractTable::SharedTablePtr result;
+  storage::atable_ptr_t result;
   metadata_list vc;
   vc.push_back(ColumnMetadata::metadataFromString("STRING", "content"));
   vc.push_back(ColumnMetadata::metadataFromString("INTEGER", "numResults"));

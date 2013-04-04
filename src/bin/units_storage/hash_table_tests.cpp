@@ -9,7 +9,7 @@
 #include "storage/Store.h"
 
 template <typename HT>
-::testing::AssertionResult TestCoverage(const AbstractTable::SharedTablePtr &table,
+::testing::AssertionResult TestCoverage(const hyrise::storage::atable_ptr_t &table,
                                         const field_list_t &columns) {
   HT ht(table, columns);
   if (testHashTableFullCoverage(ht, table, columns)) {
@@ -22,7 +22,7 @@ template <typename HT>
 
 template <typename HT>
 bool testHashTableFullCoverage(const HT &hashTable,
-                               const AbstractTable::SharedTablePtr &table,
+                               const hyrise::storage::atable_ptr_t &table,
                                const field_list_t &columns) {
   bool result = true;
   for (pos_t row = 0; row < table->size(); ++row) {
@@ -35,6 +35,32 @@ bool testHashTableFullCoverage(const HT &hashTable,
   return result;
 }
 
+template<typename T>
+class SingleHashTableTest : public ::hyrise::Test {
+public:
+  std::shared_ptr<AbstractTable> table;
+
+  virtual void SetUp() {
+    table = Loader::shortcuts::load("test/join_exchange.tbl");
+  }
+};
+
+typedef ::testing::Types<SingleJoinHashTable, SingleAggregateHashTable> single_hash_types;
+TYPED_TEST_CASE(SingleHashTableTest, single_hash_types);
+
+
+TYPED_TEST(SingleHashTableTest, sinlge_key_test) {
+  field_list_t fields {1};
+  pos_t row {1};
+
+  TypeParam htable(this->table, fields);
+  auto pos_list = htable.get(this->table, fields, row);
+  EXPECT_EQ(pos_list.size(), 2u);
+
+  pos_list = htable.get(this->table, fields, {3});
+  EXPECT_EQ(pos_list.size(), 3u);
+}
+
 template <typename T>
 class HashTableTest : public ::hyrise::Test {
 public:
@@ -44,6 +70,7 @@ public:
     table = Loader::shortcuts::load("test/join_exchange.tbl");
   }
 };
+
 
 typedef ::testing::Types<JoinHashTable, AggregateHashTable> hash_types;
 TYPED_TEST_CASE(HashTableTest, hash_types);
@@ -76,7 +103,7 @@ TYPED_TEST(HashTableTest, load_key_test) {
   field_list_t fields = {1, 2};
   pos_t row = 1;
   TypeParam htable(this->table, fields);
-  auto key = GroupKeyHash<typename TypeParam::key_t>::getGroupKey(this->table, fields, row);
+  auto key = GroupKeyHash<typename TypeParam::key_t>::getGroupKey(this->table, fields, fields.size(), row);
   auto pos_list = htable.get(key);
   EXPECT_EQ(pos_list.size(), 2u);
   EXPECT_TRUE(contains_all(pos_list, pos_list_t {0, 1}));
@@ -85,7 +112,7 @@ TYPED_TEST(HashTableTest, load_key_test) {
 const std::vector<field_list_t> combinations {{0}, {1}, {2}, {0, 1}, {1, 2},  {0, 1, 2}};
 
 TYPED_TEST(HashTableTest, test_column_combinations) {
-  AbstractTable::SharedTablePtr table = Loader::shortcuts::load("test/tables/hash_table_test.tbl");
+  hyrise::storage::atable_ptr_t table = Loader::shortcuts::load("test/tables/hash_table_test.tbl");
 for (auto & cols: combinations) {
     SCOPED_TRACE(joinString(cols, ","));
     EXPECT_TRUE(TestCoverage<TypeParam>(table, cols));
@@ -93,7 +120,7 @@ for (auto & cols: combinations) {
 }
 
 TYPED_TEST(HashTableTest, test_column_combinations_store) {
-  AbstractTable::SharedTablePtr store = Loader::shortcuts::loadMainDelta("test/tables/hash_table_test_main.tbl",
+  hyrise::storage::atable_ptr_t store = Loader::shortcuts::loadMainDelta("test/tables/hash_table_test_main.tbl",
                                         "test/tables/hash_table_test_delta.tbl");
 for (auto & cols: combinations) {
     SCOPED_TRACE(joinString(cols, ","));
@@ -104,7 +131,7 @@ for (auto & cols: combinations) {
 template <typename T>
 class HashTableViewTest : public ::hyrise::Test {
 protected:
-  AbstractTable::SharedTablePtr table;
+  hyrise::storage::atable_ptr_t table;
   virtual void SetUp() {
     table = Loader::shortcuts::load("test/tables/hash_table_test.tbl");
   }

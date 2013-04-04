@@ -31,7 +31,7 @@ class TPCCHQ1Scan : public _PlanOperation {
 
       *pointers[0] += widths[0];
     }
-    AbstractTable::SharedTablePtr result =
+    hyrise::storage::atable_ptr_t result =
         PointerCalculatorFactory::createPointerCalculator(input.getTable(), nullptr, pos_list);
 
     addResult(result);

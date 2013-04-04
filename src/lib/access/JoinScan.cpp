@@ -55,7 +55,7 @@ void JoinScan::executePlanOperation() {
   vc.push_back(left);
   vc.push_back(right);
 
-  AbstractTable::SharedTablePtr result = std::make_shared<MutableVerticalTable>(vc);
+  storage::atable_ptr_t result = std::make_shared<MutableVerticalTable>(vc);
   addResult(result);
 }
 

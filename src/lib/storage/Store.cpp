@@ -13,7 +13,7 @@ Store::Store() :
   merger(nullptr) {
 }
 
-Store::Store(AbstractTable::SharedTablePtr main_table) :
+Store::Store(hyrise::storage::atable_ptr_t main_table) :
   delta(main_table->copy_structure_modifiable()),
   merger(nullptr) {
   main_tables.push_back(main_table);
@@ -28,7 +28,7 @@ void Store::merge() {
     throw std::runtime_error("No Merger set.");
   }
 
-  AbstractTable::SharedTablePtr new_delta = delta->copy_structure_modifiable();
+  hyrise::storage::atable_ptr_t new_delta = delta->copy_structure_modifiable();
   std::vector<hyrise::storage::c_atable_ptr_t> tmp(main_tables.begin(), main_tables.end());
   tmp.push_back(delta);
   main_tables = merger->merge(tmp);
@@ -36,11 +36,11 @@ void Store::merge() {
 }
 
 
-std::vector< AbstractTable::SharedTablePtr > Store::getMainTables() const {
+std::vector< hyrise::storage::atable_ptr_t > Store::getMainTables() const {
   return main_tables;
 }
 
-AbstractTable::SharedTablePtr Store::getDeltaTable() const {
+hyrise::storage::atable_ptr_t Store::getDeltaTable() const {
   return delta;
 }
 
@@ -209,11 +209,11 @@ void Store::setMerger(TableMerger *_merger) {
 }
 
 
-void Store::setDelta(AbstractTable::SharedTablePtr _delta) {
+void Store::setDelta(hyrise::storage::atable_ptr_t _delta) {
   delta = _delta;
 }
 
-AbstractTable::SharedTablePtr Store::copy() const {
+hyrise::storage::atable_ptr_t Store::copy() const {
   std::shared_ptr<Store> new_store = std::make_shared<Store>();
 
   for (size_t i = 0; i < main_tables.size(); ++i) {

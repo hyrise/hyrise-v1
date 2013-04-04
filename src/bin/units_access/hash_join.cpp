@@ -10,7 +10,7 @@
 #include "storage/AbstractTable.h"
 #include "storage/Store.h"
 
-#include "storage/TableEqualityTest.h"
+#include "testing/TableEqualityTest.h"
 
 typedef std::shared_ptr<AbstractTable> tbl_ptr;
 
@@ -21,12 +21,12 @@ hyrise::storage::c_atable_ptr_t join(const tbl_ptr &left,
   hyrise::access::HashBuild hashBuild;
   hashBuild.addInput(left);
   hashBuild.setKey("join");
-for (auto & field_left: fields_left) hashBuild.addField(field_left);
+  for (auto & field_left: fields_left) hashBuild.addField(field_left);
   auto hashes = hashBuild.execute()->getResultHashTable();
 
-  hyrise::access::HashJoinProbe hjp;
+  hyrise::access::HashJoinProbe hjp;  
   hjp.addInput(right);
-for (auto & field_right: fields_right) hjp.addField(field_right);
+  for (auto & field_right: fields_right) hjp.addField(field_right);
   hjp.addInputHash(hashes);
 
   return hjp.execute()->getResultTable();

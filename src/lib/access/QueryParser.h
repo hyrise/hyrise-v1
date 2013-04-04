@@ -12,6 +12,8 @@
 
 #include <taskscheduler.h>
 
+#include "access/BasicParser.h"
+
 const std::string autojsonReferenceTableId = "-1";
 
 class _PlanOperation;
@@ -23,16 +25,30 @@ class QueryParserException : public std::runtime_error {
 };
 
 struct AbstractQueryParserFactory {
-  virtual std::shared_ptr<_PlanOperation> parse(Json::Value data) = 0;
+  virtual std::shared_ptr<_PlanOperation> parse(Json::Value& data) = 0;
 
   virtual ~AbstractQueryParserFactory() {}
 };
 
-template<typename T>
-struct QueryParserFactory : public AbstractQueryParserFactory {
+struct parse_construct {};
+struct default_construct {};
 
-  virtual std::shared_ptr<_PlanOperation> parse(Json::Value data) {
+template <typename T, typename parse_construction>
+struct QueryParserFactory;
+
+template<typename T>
+struct QueryParserFactory<T, parse_construct> : public AbstractQueryParserFactory {
+
+  virtual std::shared_ptr<_PlanOperation> parse(Json::Value& data) {
     return T::parse(data);
+  }
+};
+
+template<typename T>
+struct QueryParserFactory<T, default_construct> : public AbstractQueryParserFactory {
+  virtual std::shared_ptr<_PlanOperation> parse(Json::Value& data) {
+    typedef ::BasicParser<T> parser_t;
+    return parser_t::parse(data);
   }
 };
 
@@ -76,16 +92,22 @@ class QueryParser {
 
   template<typename T>
   static bool registerPlanOperation() {
-    QueryParser::instance()._factory[T::name()] = new QueryParserFactory<T>();
+    QueryParser::instance()._factory[T::name()] = new QueryParserFactory<T, parse_construct>();
     return true;
   }
 
   template<typename T>
   static bool registerPlanOperation(const std::string& name) {
-    QueryParser::instance()._factory[name] = new QueryParserFactory<T>();
+    QueryParser::instance()._factory[name] = new QueryParserFactory<T, parse_construct>();
     return true;
   }
 
+  template<typename T>
+  static bool registerTrivialPlanOperation(const std::string& name) {
+    QueryParser::instance()._factory[name] = new QueryParserFactory<T, default_construct>();
+    return true;
+  }
+  
   std::shared_ptr<_PlanOperation> parse(std::string name, Json::Value d);
 
   static QueryParser &instance();

@@ -10,7 +10,7 @@
 
 #include "access/PlanOperation.h"
 #include "io/TransactionManager.h"
-#include "storage/TableEqualityTest.h"
+#include "testing/TableEqualityTest.h"
 
 namespace hyrise {
 

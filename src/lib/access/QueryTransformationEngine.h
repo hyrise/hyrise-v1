@@ -7,6 +7,8 @@
 #include <string>
 #include <vector>
 #include <json.h>
+#include <memory>
+#include "access/AbstractPlanOpTransformation.h"
 
 namespace hyrise {
 namespace access {
@@ -14,6 +16,7 @@ class JSONTests_operator_replacement_Test;
 class JSONTests_apply_operator_parallelization_Test;
 class JSONTests_append_instances_nodes_Test;
 class JSONTests_append_union_node_Test;
+class JSONTests_append_merge_node_Test;
 class JSONTests_remove_operator_nodes_Test;
 }
 }
@@ -23,11 +26,17 @@ class QueryTransformationEngine {
   friend class hyrise::access::JSONTests_apply_operator_parallelization_Test;
   friend class hyrise::access::JSONTests_append_instances_nodes_Test;
   friend class hyrise::access::JSONTests_append_union_node_Test;
+  friend class hyrise::access::JSONTests_append_merge_node_Test;
   friend class hyrise::access::JSONTests_remove_operator_nodes_Test;
 
   //  List of affixes for IDs of new or transformed operators.
   static const std::string parallelInstanceInfix;
   static const std::string unionSuffix;
+  static const std::string mergeSuffix;
+
+
+  typedef std::map< std::string, hyrise::access::AbstractPlanOpTransformation * > factory_map_t;
+  factory_map_t _factory;
 
   QueryTransformationEngine() {}
 
@@ -64,6 +73,10 @@ class QueryTransformationEngine {
       instances' results. */
   Json::Value unionOperator() const;
 
+    /*  Constructs the configuration of the merge operator merging the parallel
+      instances' results. */
+  Json::Value mergeOperator(const std::string &key) const;
+
   /*  Modifies the query plan's edges. The operator to-be-parallelized will be
       replaced by its parallel instances. */
   void replaceOperatorWithInstances(
@@ -84,7 +97,7 @@ class QueryTransformationEngine {
   /*  For all edges where the original operator is the source node,
       append a similar edge with the parallelization's final union
       operator. */
-  void appendUnionSrcNodeEdges(
+  void appendConsolidateSrcNodeEdges(
       const std::string &operatorId,
       const std::vector<std::string> &instanceIds,
       const std::string &unionOperatorId,
@@ -108,13 +121,27 @@ class QueryTransformationEngine {
       const std::string operatorId,
       const size_t instanceId) const;
   std::string unionIdFor(const std::string &operatorId) const;
+  std::string mergeIdFor(const std::string &operatorId) const;
+
 
  public:
   ~QueryTransformationEngine() {}
 
+  template<typename T>
+  static bool registerTransformation() {
+    QueryTransformationEngine::getInstance()->_factory[T::name()] = new T();
+    return true;
+  }
+
+  template<typename T>
+  static bool registerPlanOperation(const std::string& name) {
+    QueryTransformationEngine::getInstance()->_factory[name] = new T();
+    return true;
+  }
+
   /*  Main method. Transforms a query based on its operators' configurations.
       The resulting query is meant to be directly parsable/executable. */
-  Json::Value &transform(Json::Value &query) const;
+  Json::Value &transform(Json::Value &query);
 
   static QueryTransformationEngine *getInstance() {
     static QueryTransformationEngine *p = nullptr;

@@ -13,7 +13,7 @@ class ProjectionScanBase : public ::testing::Benchmark {
 
   StorageManager *sm;
   hyrise::access::ProjectionScan *ps;
-  AbstractTable::SharedTablePtr t;
+  hyrise::storage::atable_ptr_t t;
 
  public:
   void BenchmarkSetUp() {
