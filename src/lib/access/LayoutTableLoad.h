@@ -1,40 +1,26 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #ifndef SRC_LIB_ACCESS_LAYOUTTABLELOAD_H_
 #define SRC_LIB_ACCESS_LAYOUTTABLELOAD_H_
-#include "PlanOperation.h"
+
+#include "access/PlanOperation.h"
+
+namespace hyrise {
+namespace access {
 
 class LayoutTableLoad : public _PlanOperation {
- public:
-  LayoutTableLoad();
+public:
   virtual ~LayoutTableLoad();
 
   void executePlanOperation();
-
   static std::shared_ptr<_PlanOperation> parse(Json::Value &data);
-  static bool is_registered;
-  void setTableName(std::string tablename) {
-    _table_name = tablename;
-  }
-  void setFileName(std::string filename) {
-    _file_name = filename;
-  }
-  void setOverrideGroup(std::string group) {
-    _override_group = group;
-  }
-  void setInputRow(size_t row) {
-    _input_row = row;
-  }
-  void setUnsafe(bool unsafe) {
-    _unsafe = unsafe;
-  }
+  const std::string vname();
+  void setTableName(const std::string &tablename);
+  void setFileName(const std::string &filename);
+  void setOverrideGroup(const std::string &group);
+  void setInputRow(const size_t row);
+  void setUnsafe(const bool unsafe);
 
-  static std::string name() {
-    return "LayoutTableLoad";
-  }
-  const std::string vname() {
-    return "LayoutTableLoad";
-  }
- private:
+private:
   std::string _table_name;
   std::string _file_name;
   std::string _override_group;
@@ -42,5 +28,7 @@ class LayoutTableLoad : public _PlanOperation {
   bool _unsafe;
 };
 
-#endif  // SRC_LIB_ACCESS_LAYOUTTABLELOAD_H_
+}
+}
 
+#endif  // SRC_LIB_ACCESS_LAYOUTTABLELOAD_H_
