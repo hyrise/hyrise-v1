@@ -1,15 +1,29 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#include <boost/random.hpp>
+#include "access/MaterializingScan.h"
 
+#include <random>
 #include <set>
 
-#include <access/MaterializingScan.h>
-#include <storage/Table.h>
+#include "access/BasicParser.h"
+#include "access/QueryParser.h"
 
-#include "QueryParser.h"
+#include "storage/Table.h"
 
-bool MaterializingScan::is_registered = QueryParser::registerPlanOperation<MaterializingScan>();
+namespace hyrise {
+namespace access {
 
+namespace {
+  auto _ = QueryParser::registerPlanOperation<MaterializingScan>("MaterializingScan");
+}
+
+MaterializingScan::MaterializingScan(const bool use_memcpy) :
+                                     _use_memcpy(use_memcpy),
+                                     _copy_values(false),
+                                     _num_samples(0) {
+}
+
+MaterializingScan::~MaterializingScan() {
+}
 
 void MaterializingScan::setupPlanOperation() {
   // Call super impl
@@ -17,15 +31,13 @@ void MaterializingScan::setupPlanOperation() {
 
   // build sample
   if (_num_samples > 0) {
-    boost::mt19937 gen;
+    std::mt19937 gen;
     gen.seed(static_cast<unsigned int>(std::time(0)));
-
-    boost::uniform_int<> dist(0, input.getTable(0)->size() - 1);
-    boost::variate_generator<boost::mt19937 &, boost::uniform_int<> > die(gen, dist);
+    std::uniform_int_distribution<unsigned> dist(0, input.getTable(0)->size() - 1);
 
     std::set<unsigned> base;
     while (base.size() < _num_samples) {
-      unsigned val = die();
+      unsigned val = dist(gen);
       std::pair<std::set<unsigned>::iterator, bool> tmp = base.insert(val);
       if (tmp.second)
         _samples.push_back(val);
@@ -33,12 +45,9 @@ void MaterializingScan::setupPlanOperation() {
   }
 }
 
-
 void MaterializingScan::executePlanOperation() {
-
   const auto& in = input.getTable(0);
   auto result = std::dynamic_pointer_cast<Table<>>(in->copy_structure(nullptr, true, in->size(), false));
-
 
   if (_num_samples == 0) {
     result->resize(in->size());
@@ -55,3 +64,33 @@ void MaterializingScan::executePlanOperation() {
   addResult(result);
 }
 
+std::shared_ptr<_PlanOperation> MaterializingScan::parse(Json::Value &v) {
+  std::shared_ptr<MaterializingScan> pop = std::dynamic_pointer_cast<MaterializingScan>(BasicParser<MaterializingScan>::parse(v));
+  if (v.isMember("samples"))
+    pop->setSamples(v["samples"].asUInt());
+
+  if (v.isMember("memcpy"))
+    pop->_use_memcpy = v["memcpy"].asBool();
+  else
+    pop->_use_memcpy = false;
+
+  if (v.isMember("copyValues"))
+    pop->setCopyValues(v["copyValues"].asBool());
+
+  return pop;
+}
+
+const std::string MaterializingScan::vname() {
+  return "MaterializingScan";
+}
+
+void MaterializingScan::setSamples(const unsigned s) {
+  _num_samples = s;
+}
+
+void MaterializingScan::setCopyValues(const bool v) {
+  _copy_values = v;
+}
+
+}
+}
