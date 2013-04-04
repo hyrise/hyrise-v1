@@ -18,8 +18,8 @@ HashJoinProbe::HashJoinProbe() : _PlanOperation(), _selfjoin(false) {
 namespace { log4cxx::LoggerPtr logger(log4cxx::Logger::getLogger("access.plan._PlanOperation")); }
 
 void HashJoinProbe::setupPlanOperation() {
-  computeDeferredIndexes();
-  setBuildTable(input.getHashTable()->getTable());
+  _PlanOperation::setupPlanOperation();
+  setBuildTable(getInputHashTable()->getTable());
 }
 
 void HashJoinProbe::executePlanOperation() {
