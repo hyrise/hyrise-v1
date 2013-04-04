@@ -17,6 +17,7 @@ VERBOSE_BUILD ?= 0
 COLOR_TTY ?= 1
 WITH_MYSQL ?= 0
 FLTO ?= 0
+USE_BACKWARD ?= 1
 
 PROJECT_INCLUDE ?= 
 BUILD_FLAGS ?= 
@@ -101,11 +102,14 @@ ifeq ($(WITH_MYSQL), 1)
 	LINKER_FLAGS += -lmysqlclient
 endif
 
+ifeq ($(USE_BACKWARD), 1)
+	BUILD_FLAGS += -D BACKWARD_HAS_BFD
+	LINKER_FLAGS += -lbfd
+endif
 
 JSON_PATH	:=	$(IMH_PROJECT_PATH)/third_party/jsoncpp
-BACKWARD_PATH	:=	$(IMH_PROJECT_PATH)/third_party/backward
 FTPRINTER_PATH	:=	$(IMH_PROJECT_PATH)/third_party/ftprinter/include
-PROJECT_INCLUDE += $(IMH_PROJECT_PATH)/src/lib $(IMH_PROJECT_PATH)/third_party $(IMH_PROJECT_PATH)/third_party/libvarbit $(FTPRINTER_PATH) $(JSON_PATH) $(BACKWARD_PATH)
+PROJECT_INCLUDE += $(IMH_PROJECT_PATH)/src/lib $(IMH_PROJECT_PATH)/third_party $(IMH_PROJECT_PATH)/third_party/libvarbit $(FTPRINTER_PATH) $(JSON_PATH)
 LINKER_FLAGS += -llog4cxx -lpthread
 
 BUILD_DIR = $(IMH_PROJECT_PATH)/$(build_dir)/

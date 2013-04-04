@@ -52,11 +52,12 @@ datagen_binaries    := $(subst bin/,,$(regression_datagen))
 # - other binaries
 server_hyrise 		:= $(bin_dir)/hyrise
 bin_dummy := $(bin_dir)/dummy
+backward	:= $(bin_dir)/backward
 
 binaries :=  $(server_hyrise) $(bin_dummy)
 # list all build targets
 
-tgts :=  $(libraries) $(binaries) $(all_test_suites) $(regression_suite) $(regression_datagen) 
+tgts :=  $(libraries) $(binaries) $(all_test_suites) $(regression_suite) $(regression_datagen) $(backward)
 
 .PHONY: all $(tgts) tags test test_basic hudson_build hudson_test $(all_test_binaries) doxygen docs
 
@@ -89,8 +90,10 @@ $(unit_tests_memory): $(libraries)
 $(all_test_suites): $(libraries)
 $(perf_regression): $(libraries)
 $(perf_datagen): $(libraries)
-$(binaries): $(libraries)
 $(test_relation_eq): $(libraries)
+
+$(binaries): $(libraries) $(backward)
+$(all_test_suites): $(backward)
 
 # --- Hack: To make the execution of test tasks sensible to errors when
 # running taks `test_basic` or `test`, we set an env variable so the following
