@@ -36,31 +36,18 @@ TEST_F(GroupByScanTests, group_by_with_multiple_fields) {
   auto t = Loader::shortcuts::load("test/10_30_group.tbl");
   auto reference = Loader::shortcuts::load("test/10_30_group_multi_result.tbl");
 
-  HashBuild hb1;
-  hb1.addInput(t);
-  hb1.addField(0);
-  hb1.addField(1);
-  hb1.setKey("groupby");
-  hb1.execute();
+  HashBuild hb;
+  hb.addInput(t);
+  hb.addField(0);
+  hb.addField(1);
+  hb.setKey("groupby");
+  hb.execute();
 
-//<<<<<<< HEAD
-  HashBuild hb2;
-  hb2.addInput(t);
-  hb2.addField(1);
-  hb2.setKey("groupby");
-  hb2.execute();
+  const auto &hash = hb.getResultHashTable();
 
-  const auto &hash1 = hb1.getResultHashTable();
-  const auto &hash2 = hb2.getResultHashTable();
-
-/*=======
-  auto hash1 = hb1.getResultHashTable();
-
->>>>>>> master*/
   GroupByScan gs;
   gs.addInput(t);
-  gs.addInputHash(hash1);
-  gs.addInputHash(hash2);
+  gs.addInputHash(hash);
   gs.addField(0);
   gs.addField(1);
   gs.execute();
