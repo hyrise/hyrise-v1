@@ -4,14 +4,23 @@
 
 #include "access/PlanOperation.h"
 
+namespace hyrise {
+namespace access {
+
 class LoadFile : public _PlanOperation {
- public:
-  explicit LoadFile(const std::string& filename);
+public:
+  explicit LoadFile(const std::string &filename);
+  virtual ~LoadFile();
+
   void executePlanOperation();
+  static std::shared_ptr<_PlanOperation> parse(Json::Value &data);
   const std::string vname();
-  static std::shared_ptr<_PlanOperation> parse(Json::Value& data);
- private:
+
+private:
   const std::string _filename;
 };
+
+}
+}
 
 #endif /* SRC_LIB_ACCESS_LOADFILE_H_ */
