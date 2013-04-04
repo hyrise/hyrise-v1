@@ -1,27 +1,22 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "access/MergeTable.h"
+
 #include "access/QueryParser.h"
 
-#include "helper/types.h"
 #include "storage/Store.h"
 
+namespace hyrise {
+namespace access {
 
-static auto registered = QueryParser::registerPlanOperation<MergeTable>("MergeTable");
-
-MergeTable::MergeTable() {}
-
-MergeTable::~MergeTable() {}
-
-const std::string MergeTable::vname() {
-  return "MergeTable";
+namespace {
+  auto _ = QueryParser::registerPlanOperation<MergeTable>("MergeTable");
 }
 
-std::shared_ptr<_PlanOperation> MergeTable::parse(Json::Value& data) {
-  return std::make_shared<MergeTable>();
+MergeTable::~MergeTable() {
 }
 
 void MergeTable::executePlanOperation() {
-  std::vector<hyrise::storage::c_atable_ptr_t> tables;
+  std::vector<storage::c_atable_ptr_t> tables;
   // Add all tables to the game
   for (auto& table: input.getTables()) {
     if (auto store = std::dynamic_pointer_cast<const Store>(table)) {
@@ -39,8 +34,18 @@ void MergeTable::executePlanOperation() {
 
   // Switch the tables
   auto merged_tables = merger.mergeToTable(new_table, tables);
-  const auto& result = std::make_shared<Store>(new_table);
+  const auto &result = std::make_shared<Store>(new_table);
 
   output.add(result);
 }
 
+std::shared_ptr<_PlanOperation> MergeTable::parse(Json::Value& data) {
+  return std::make_shared<MergeTable>();
+}
+
+const std::string MergeTable::vname() {
+  return "MergeTable";
+}
+
+}
+}
