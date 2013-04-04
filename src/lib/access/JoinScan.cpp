@@ -1,7 +1,9 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "access/JoinScan.h"
+
 #include "access/expression_types.h"
 #include "access/QueryParser.h"
+
 #include "storage/PointerCalculator.h"
 #include "storage/PointerCalculatorFactory.h"
 
@@ -21,25 +23,15 @@ JoinScan::~JoinScan() {
   delete _join_condition;
 }
 
-void JoinScan::addCombiningClause(const ExpressionType etype) {
-  CompoundJoinExpression *c = new CompoundJoinExpression(etype);
-  if (_join_condition == nullptr) {
-    _join_condition = c;
-  } else {
-    _compound_stack.top()->rhs = c;
-  }
-  _compound_stack.push(c);
-}
-
 void JoinScan::setupPlanOperation() {
   _join_condition->walk(input.getTables());
 }
 
 void JoinScan::executePlanOperation() {
-  hyrise::storage::atable_ptr_t left = input.getTable(0)->copy_structure(nullptr, true);
-  hyrise::storage::atable_ptr_t right = input.getTable(1)->copy_structure(nullptr, true);
+  storage::atable_ptr_t left = input.getTable(0)->copy_structure(nullptr, true);
+  storage::atable_ptr_t right = input.getTable(1)->copy_structure(nullptr, true);
 
-  size_t result_row = 0;
+  storage::pos_t result_row = 0;
   size_t reserved = input.getTable(0)->size() > input.getTable(1)->size() ?
                     input.getTable(0)->size() : input.getTable(1)->size();
 
@@ -47,8 +39,8 @@ void JoinScan::executePlanOperation() {
   left->reserve(reserved);
   right->reserve(reserved);
 
-  for (size_t left_row = 0; left_row < input.getTable(0)->size(); left_row++) {
-    for (size_t right_row = 0; right_row < input.getTable(1)->size(); right_row++) {
+  for (storage::pos_t left_row = 0; left_row < input.getTable(0)->size(); left_row++) {
+    for (storage::pos_t right_row = 0; right_row < input.getTable(1)->size(); right_row++) {
       if (!_join_condition || (*_join_condition)(left_row, right_row)) {
         left->resize(result_row + 1);
         right->resize(result_row + 1);
@@ -59,11 +51,11 @@ void JoinScan::executePlanOperation() {
   }
 
   // Create one table
-  std::vector<hyrise::storage::atable_ptr_t > vc;
+  std::vector<storage::atable_ptr_t > vc;
   vc.push_back(left);
   vc.push_back(right);
 
-  hyrise::storage::atable_ptr_t result = std::make_shared<MutableVerticalTable>(vc);
+  storage::atable_ptr_t result = std::make_shared<MutableVerticalTable>(vc);
   addResult(result);
 }
 
@@ -85,6 +77,16 @@ std::shared_ptr<_PlanOperation> JoinScan::parse(const Json::Value &v) {
 
 const std::string JoinScan::vname() {
   return "JoinScan";
+}
+
+void JoinScan::addCombiningClause(const ExpressionType etype) {
+  CompoundJoinExpression *c = new CompoundJoinExpression(etype);
+  if (_join_condition == nullptr) {
+    _join_condition = c;
+  } else {
+    _compound_stack.top()->rhs = c;
+  }
+  _compound_stack.push(c);
 }
 
 void JoinScan::addJoinExpression(JoinExpression *expression) {
