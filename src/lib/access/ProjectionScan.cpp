@@ -1,19 +1,25 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#include "ProjectionScan.h"
+#include "access/ProjectionScan.h"
+
+#include "access/QueryParser.h"
+#include "access/BasicParser.h"
 
 #include "storage/storage_types.h"
 #include "storage/PointerCalculator.h"
 #include "storage/PointerCalculatorFactory.h"
 
-#include "access/QueryParser.h"
-#include "access/BasicParser.h"
+namespace hyrise {
+namespace access {
 
-// Register plan operation for Parsing
-bool ProjectionScan::is_registered = QueryParser::registerPlanOperation<ProjectionScan>();
+namespace {
+  auto _ = QueryParser::registerPlanOperation<ProjectionScan>("ProjectionScan");
+}
 
-std::shared_ptr<_PlanOperation> ProjectionScan::parse(Json::Value &data) {
-  std::shared_ptr<_PlanOperation> p = BasicParser<ProjectionScan>::parse(data);
-  return p;
+ProjectionScan::ProjectionScan() {
+}
+
+ProjectionScan::ProjectionScan(storage::field_list_t *fields): _PlanOperation() {
+  setFields(fields);
 }
 
 ProjectionScan::~ProjectionScan() {
@@ -25,10 +31,9 @@ void ProjectionScan::setupPlanOperation() {
 
 void ProjectionScan::executePlanOperation() {
   _limit = _limit == 0 ? input.getTable(0)->size() : _limit;
-
   _limit = _limit > input.getTable(0)->size() ? input.getTable(0)->size() : _limit;
 
-  pos_list_t *pos_list = nullptr;
+  storage::pos_list_t *pos_list = nullptr;
 
   if (_limit != input.getTable(0)->size()) {
     pos_list = new pos_list_t();
@@ -43,3 +48,14 @@ void ProjectionScan::executePlanOperation() {
   addResult(PointerCalculatorFactory::createPointerCalculatorNonRef(input.getTable(0), tmp_fd, pos_list));
 }
 
+std::shared_ptr<_PlanOperation> ProjectionScan::parse(Json::Value &data) {
+  std::shared_ptr<_PlanOperation> p = BasicParser<ProjectionScan>::parse(data);
+  return p;
+}
+
+const std::string ProjectionScan::vname() {
+  return "ProjectionScan";
+}
+
+}
+}
