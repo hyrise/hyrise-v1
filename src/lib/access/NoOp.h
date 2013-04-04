@@ -2,37 +2,26 @@
 #ifndef SRC_LIB_ACCESS_NOOP_H_
 #define SRC_LIB_ACCESS_NOOP_H_
 
-#include "PlanOperation.h"
+#include "access/PlanOperation.h"
 
 namespace hyrise {
 namespace access {
-  // used to test protected methods
-  class ParallelExecutionTest_data_distribution_Test;
-}
-}
+
+// used to test protected methods
+class ParallelExecutionTest_data_distribution_Test;
 
 class NoOp : public _PlanOperation {
-     friend class hyrise::access::ParallelExecutionTest_data_distribution_Test;
- public:
+  friend class ParallelExecutionTest_data_distribution_Test;
 
-  NoOp() {
-    
-  }
-
-  virtual ~NoOp() {
-  }
+public:
+  virtual ~NoOp();
 
   void executePlanOperation();
-
   static std::shared_ptr<_PlanOperation> parse(Json::Value &data);
-  static bool is_registered;
-  static std::string name() {
-    return "NoOp";
-  }
-  const std::string vname() {
-    return "NoOp";
-  }
+  const std::string vname();
 };
 
-#endif  // SRC_LIB_ACCESS_NOOP_H_
+}
+}
 
+#endif  // SRC_LIB_ACCESS_NOOP_H_
