@@ -2,80 +2,51 @@
 #ifndef SRC_LIB_ACCESS_GROUPBYSCAN_H_
 #define SRC_LIB_ACCESS_GROUPBYSCAN_H_
 
-#include <storage/PointerCalculator.h>
+#include "access/PlanOperation.h"
+#include "access/AggregateFunctions.h"
 
-#include "helper/types.h"
-
-#include "PlanOperation.h"
-#include "predicates.h"
-#include "AggregateFunctions.h"
-#include "GroupByScan.h"
-
+namespace hyrise {
+namespace storage {
 
 /// helper construct to avoid excessive use
 /// of switch case in executePlanOperation
 /// uses templated type_switch in src/lib/storage/meta_storage.h
 /// and calls the the correct templated operator implemented below
-
-namespace hyrise {
-namespace storage {
 struct write_group_functor {
+public:
   typedef void value_type;
-
-  const hyrise::storage::c_atable_ptr_t& input;
-  hyrise::storage::atable_ptr_t& target;
-  pos_t sourceRow;
-  size_t columnNr;
-  size_t row;
-
-  write_group_functor(const hyrise::storage::c_atable_ptr_t& t,
-                      hyrise::storage::atable_ptr_t& tg,
-                      pos_t sourceRow,
-                      size_t column,
-                      size_t toRow): input(t), target(tg), sourceRow(sourceRow), columnNr(column), row(toRow) {};
+  write_group_functor(const c_atable_ptr_t &t,
+                      atable_ptr_t &tg,
+                      const pos_t sourceRow,
+                      const field_t column,
+                      const pos_t toRow);
 
   template <typename R>
-  void operator()() {
-    target->setValue<R>(input->nameOfColumn(columnNr), row, input->getValue<R>(columnNr, sourceRow));
-  }
+  void operator()();
+
+private:
+  const c_atable_ptr_t &_input;
+  atable_ptr_t &_target;
+  pos_t _sourceRow;
+  field_t _columnNr;
+  pos_t _row;
 };
+
+}
 }
 
+namespace hyrise {
 namespace access {
 
 class GroupByScan : public _PlanOperation {
-  std::vector<AggregateFun *> aggregate_functions;
-
- public:
-  static bool is_registered;
-  GroupByScan();
-
-  /// adds a given AggregateFunction to group by scan instance SUM or COUNT
-  void addFunction(AggregateFun *fun) {
-    this->aggregate_functions.push_back(fun);
-  }
-
+public:
   virtual ~GroupByScan();
 
-  /// creates output result table layout using _field_definitions
-  /// and added aggregate functions (aggregate_functions)
-  /// _field_definitions member of _PlanOperation holds
-  /// added (grouping) fields
-  hyrise::storage::atable_ptr_t createResultTableLayout();
-
-  virtual void executePlanOperation();
-
-  /// Sets up PlanOperation before execution
-  /// throws std::runtime_error when no grouping fields are defined but hash input
-  /// is available
   void setupPlanOperation();
-
-  /// Parses a GroupByScan
-  ///
+  void executePlanOperation();
   /// Reacts to
   /// fields in either integer-list notation or std::string-list notation
   /// functions as a list of {"type": (int|str), "field": (int|str)
-  ///
   /// Use the GroupByScan always in conjunction with a HashBuild:
   /// {
   ///     "operators": {
@@ -96,25 +67,27 @@ class GroupByScan : public _PlanOperation {
   ///      "edges": [["0", "1"], ["0", "2"], ["1", "2"]]
   ///  }
   static std::shared_ptr<_PlanOperation> parse(Json::Value &v);
+  const std::string vname();
+  /// creates output result table layout using _field_definitions
+  /// and added aggregate functions (aggregate_functions)
+  /// _field_definitions member of _PlanOperation holds
+  /// added (grouping) fields
+  storage::atable_ptr_t createResultTableLayout();
+  /// adds a given AggregateFunction to group by scan instance SUM or COUNT
+  void addFunction(AggregateFun *fun);
 
-  static const std::string name() {
-    return "GroupByScan";
-  }
-
-  const std::string vname() {
-    return "GroupByScan";
-  }
-
- protected:
+private:
   void splitInput();
-  void writeGroupResult(hyrise::storage::atable_ptr_t resultTab, std::shared_ptr<pos_list_t> hit, size_t row);
-
+  void writeGroupResult(storage::atable_ptr_t &resultTab,
+                        const std::shared_ptr<storage::pos_list_t> &hit,
+                        const size_t row);
   /// Depending on the number of fields to group by choose the appropriate map type
   template<typename HashTableType, typename MapType, typename KeyType>
   void executeGroupBy();
-
+  std::vector<AggregateFun *> _aggregate_functions;
 };
 
 }
 }
+
 #endif  // SRC_LIB_ACCESS_GROUPBYSCAN_H_
