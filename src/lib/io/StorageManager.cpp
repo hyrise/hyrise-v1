@@ -13,6 +13,7 @@
 #include <vector>
 
 #include "helper/stringhelpers.h"
+#include "helper/Environment.h"
 #include "io/CSVLoader.h"
 #include "storage/AbstractTable.h"
 #include "storage/TableBuilder.h"
@@ -108,12 +109,7 @@ std::mutex instance_mtx;
 void StorageManager::setupSystem() {
   std::lock_guard<std::mutex> lock(instance_mtx);
   if (!_initialized) {
-    char *data_path;
-    data_path = getenv("HYRISE_DB_PATH");
-    if (data_path != nullptr)
-      _root_path = std::string(data_path);
-    else
-      _root_path = "";
+    _root_path = getEnv("HYRISE_DB_PATH", "");
     // add the statistics table
     addStorageTable(SYS_STATISTICS, buildStatisticsTable());
     _initialized = true;
