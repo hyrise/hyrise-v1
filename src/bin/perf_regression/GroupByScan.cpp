@@ -7,6 +7,9 @@
 #include <storage.h>
 #include <io.h>
 
+namespace hyrise {
+namespace access {
+
 // GroupByScan as derived from TPC-C Delivery Transaction
 // See TPC-C Reference Section A.4
 
@@ -15,8 +18,8 @@ class GroupByScanBase : public ::testing::Benchmark {
  protected:
 
   StorageManager *sm;
-  std::shared_ptr<hyrise::access::GroupByScan> gs;
-  hyrise::storage::atable_ptr_t t;
+  std::shared_ptr<GroupByScan> gs;
+  storage::atable_ptr_t t;
   SumAggregateFun *sum;
 
  public:
@@ -26,7 +29,7 @@ class GroupByScanBase : public ::testing::Benchmark {
 
     t = sm->getTable("order_line");
 
-    gs = std::make_shared<hyrise::access::GroupByScan>();
+    gs = std::make_shared<GroupByScan>();
     gs->setEvent("NO_PAPI");
     gs->addInput(t);
 
@@ -69,14 +72,14 @@ BENCHMARK_F(GroupByScanBase, group_by_tpc_c_delivery_mat_memcpy) {
 }
 
 BENCHMARK_F(GroupByScanBase, group_by_scan_multiple_fields) {
-  hyrise::access::GroupByScan gs2;
+  GroupByScan gs2;
   gs2.setEvent("NO_PAPI");
   gs2.addField(0);
   gs2.addField(1);
 
   gs2.addInput(t);
 
-  hyrise::access::HashBuild hs;
+  HashBuild hs;
   hs.setEvent("NO_PAPI");
   hs.setKey("groupby");
   hs.addInput(t);
@@ -92,14 +95,14 @@ BENCHMARK_F(GroupByScanBase, group_by_scan_multiple_fields) {
 }
 
 BENCHMARK_F(GroupByScanBase, group_by_scan_multiple_fieds_mat) {
-  hyrise::access::GroupByScan gs2;
+  GroupByScan gs2;
   gs2.setEvent("NO_PAPI");
   gs2.addField(0);
   gs2.addField(1);
 
   gs2.addInput(t);
 
-  hyrise::access::HashBuild hs;
+  HashBuild hs;
   hs.setEvent("NO_PAPI");
   hs.setKey("groupby");
   hs.addInput(t);
@@ -121,14 +124,14 @@ BENCHMARK_F(GroupByScanBase, group_by_scan_multiple_fieds_mat) {
 }
 
 BENCHMARK_F(GroupByScanBase, group_by_scan_multiple_fields_mat_memcpy) {
-  hyrise::access::GroupByScan gs2;
+  GroupByScan gs2;
   gs2.setEvent("NO_PAPI");
   gs2.addField(0);
   gs2.addField(1);
 
   gs2.addInput(t);
 
-  hyrise::access::HashBuild hs;
+  HashBuild hs;
   hs.setEvent("NO_PAPI");
   hs.setKey("groupby");
   hs.addInput(t);
@@ -150,3 +153,5 @@ BENCHMARK_F(GroupByScanBase, group_by_scan_multiple_fields_mat_memcpy) {
 
 }
 
+}
+}
