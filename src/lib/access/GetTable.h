@@ -11,12 +11,12 @@ namespace access {
 /// from StorageManager for use in subsequent steps
 class GetTable : public _PlanOperation {
 public:
-  GetTable(const std::string& name);
+  GetTable(const std::string &name);
   virtual ~GetTable();
 
   void executePlanOperation();
-  const std::string vname();
   static std::shared_ptr<_PlanOperation> parse(Json::Value &data);
+  const std::string vname();
 
 private:
   const std::string _name;
