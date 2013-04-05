@@ -12,7 +12,6 @@ namespace access {
 /// all distinct valueIds and builds the result.
 class Distinct : public _PlanOperation {
 public:
-  Distinct();
   virtual ~Distinct();
 
   void executePlanOperation();
