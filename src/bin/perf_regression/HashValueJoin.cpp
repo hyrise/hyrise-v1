@@ -7,11 +7,11 @@
 #include <storage.h>
 #include <io.h>
 
-//HashValueJoin Benchmark similar to TPC-C Implementation of Stock-Level Transaction
-//See TPC-C Reference Chapter A.5
-
 namespace hyrise {
 namespace access {
+
+//HashValueJoin Benchmark similar to TPC-C Implementation of Stock-Level Transaction
+//See TPC-C Reference Chapter A.5
 
 class HashValueJoinBase : public ::testing::Benchmark {
 
