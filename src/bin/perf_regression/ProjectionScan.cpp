@@ -7,13 +7,16 @@
 #include <storage.h>
 #include <io.h>
 
+namespace hyrise {
+namespace access {
+
 class ProjectionScanBase : public ::testing::Benchmark {
 
  protected:
 
   StorageManager *sm;
   ProjectionScan *ps;
-  hyrise::storage::atable_ptr_t t;
+  storage::atable_ptr_t t;
 
  public:
   void BenchmarkSetUp() {
@@ -68,4 +71,7 @@ BENCHMARK_F(ProjectionScanBase, project_new_order_tpcc_district_mat_memcpy) {
   ms->addInput(result);
 
   auto result_mat = ms->execute()->getResultTable();
+}
+
+}
 }
