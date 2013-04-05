@@ -4,38 +4,23 @@
 
 #include <access/PlanOperation.h>
 
+namespace hyrise {
+namespace access {
 
 class SortScan : public _PlanOperation {
- public:
-
-  SortScan() {
-    
-  }
-
-  virtual ~SortScan() {
-  }
-
-  void setSortField(unsigned s) {
-    _sort_field = s;
-  }
+public:
+  virtual ~SortScan();
 
   void executePlanOperation();
-
-
   static std::shared_ptr<_PlanOperation> parse(Json::Value &data);
-  static bool is_registered;
-  static std::string name() {
-    return "SortScan";
-  }
+  const std::string vname();
+  void setSortField(const unsigned s);
 
-  const std::string vname() {
-    return "SortScan";
-  }
-
- private:
-
+private:
   unsigned _sort_field;
 };
 
-#endif  // SRC_LIB_ACCESS_SORTSCAN_H_
+}
+}
 
+#endif  // SRC_LIB_ACCESS_SORTSCAN_H_
