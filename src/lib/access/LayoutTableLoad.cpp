@@ -1,51 +1,38 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#include "LayoutTableLoad.h"
+#include "access/LayoutTableLoad.h"
 
-#include "QueryParser.h"
+#include "access/QueryParser.h"
 
-#include <io/StorageManager.h>
-#include <io/CSVLoader.h>
-#include <io/StringLoader.h>
-#include <io/Loader.h>
-#include <storage/AbstractTable.h>
-#include <helper/stringhelpers.h>
+#include "helper/stringhelpers.h"
 
-#include <boost/lexical_cast.hpp>
+#include "io/CSVLoader.h"
+#include "io/StorageManager.h"
+#include "io/StringLoader.h"
 
+namespace hyrise {
+namespace access {
 
-
-
-bool LayoutTableLoad::is_registered = QueryParser::registerPlanOperation<LayoutTableLoad>();
-LayoutTableLoad::LayoutTableLoad() {
+namespace {
+  auto _ = QueryParser::registerPlanOperation<LayoutTableLoad>("LayoutTableLoad");
 }
 
 LayoutTableLoad::~LayoutTableLoad() {
 }
 
-std::shared_ptr<_PlanOperation> LayoutTableLoad::parse(Json::Value &data) {
-  std::shared_ptr<LayoutTableLoad> s = std::make_shared<LayoutTableLoad>();
-  s->setTableName(data["table"].asString());
-  s->setFileName(data["filename"].asString());
-  s->setOverrideGroup(data["override_group"].asString());
-  s->setInputRow(data["input_row"].asUInt());
-  s->setUnsafe(data["unsafe"].asBool());
-  return s;
-}
-
 void LayoutTableLoad::executePlanOperation() {
-  const auto& input = this->input.getTable(0);
-  if ((input->columnCount() >= 1) &&
-      (input->size() >= _input_row)) {
-
+  const auto &input = this->input.getTable(0);
+  if ((input->columnCount() >= 1) && (input->size() >= _input_row)) {
     std::string tmp_table_description = input->getValue<std::string>(0, _input_row);
+
     std::vector<std::string> description_lines;
     splitString(description_lines, tmp_table_description, "\n");
+
     if (_override_group != "") {
       std::vector<std::string> group_lines;
       splitString(group_lines, description_lines[2], "|");
       for (size_t index = 0; index < group_lines.size(); ++index) {
         if (_override_group == "C")
-          group_lines[index] = boost::lexical_cast<std::string>(index) + "_C";
+          group_lines[index] = std::to_string(index) + "_C";
         else if (_override_group == "R")
           group_lines[index] = "0_R";
         else
@@ -66,5 +53,39 @@ void LayoutTableLoad::executePlanOperation() {
   }
 }
 
+std::shared_ptr<_PlanOperation> LayoutTableLoad::parse(Json::Value &data) {
+  std::shared_ptr<LayoutTableLoad> s = std::make_shared<LayoutTableLoad>();
+  s->setTableName(data["table"].asString());
+  s->setFileName(data["filename"].asString());
+  s->setOverrideGroup(data["override_group"].asString());
+  s->setInputRow(data["input_row"].asUInt());
+  s->setUnsafe(data["unsafe"].asBool());
+  return s;
+}
 
+const std::string LayoutTableLoad::vname() {
+  return "LayoutTableLoad";
+}
 
+void LayoutTableLoad::setTableName(const std::string &tablename) {
+  _table_name = tablename;
+}
+
+void LayoutTableLoad::setFileName(const std::string &filename) {
+  _file_name = filename;
+}
+
+void LayoutTableLoad::setOverrideGroup(const std::string &group) {
+  _override_group = group;
+}
+
+void LayoutTableLoad::setInputRow(const size_t row) {
+  _input_row = row;
+}
+
+void LayoutTableLoad::setUnsafe(const bool unsafe) {
+  _unsafe = unsafe;
+}
+
+}
+}
