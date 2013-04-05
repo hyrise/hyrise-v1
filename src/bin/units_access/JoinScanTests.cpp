@@ -10,9 +10,9 @@ namespace access {
 class JoinScanTests : public AccessTest {};
 
 TEST_F(JoinScanTests, basic_join_scan_test) {
-  std::shared_ptr<AbstractTable> t1 = Loader::shortcuts::load("test/join_transactions.tbl");
-  std::shared_ptr<AbstractTable> t2 = Loader::shortcuts::load("test/join_exchange.tbl");
-  std::shared_ptr<AbstractTable> reference = Loader::shortcuts::load("test/reference/join_result.tbl");
+  auto t1 = Loader::shortcuts::load("test/join_transactions.tbl");
+  auto t2 = Loader::shortcuts::load("test/join_exchange.tbl");
+  auto reference = Loader::shortcuts::load("test/reference/join_result.tbl");
 
   JoinScan js(JoinType::EQUI);
   js.addInput(t1);
@@ -22,9 +22,9 @@ TEST_F(JoinScanTests, basic_join_scan_test) {
   js.addJoinClause<std::string>(0,1,1,1);
   js.execute();
 
-  auto result = js.getResultTable();
+  const auto &result = js.getResultTable();
 
-  ASSERT_TRUE(result->contentEquals(reference));
+  ASSERT_TABLE_EQUAL(result, reference);
 }
 
 }

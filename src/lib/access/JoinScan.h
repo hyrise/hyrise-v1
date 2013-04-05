@@ -3,8 +3,11 @@
 #define SRC_LIB_ACCESS_JOINSCAN_H_
 
 #include "access/PlanOperation.h"
+
 #include <stack>
+
 #include "access/predicates.h"
+#include "helper/types.h"
 
 /// Defines the std::string appended to columns when renaming is necessary
 #define RENAMED_COLUMN_APPENDIX_LEFT "_0"
@@ -29,19 +32,19 @@ public:
   JoinScan(const JoinType::type t);
   virtual ~JoinScan();
 
-  template<typename T>
-  void addJoinClause(const size_t input_left,
-                     const field_t field_left,
-                     const size_t input_right,
-                     const field_t field_right);
-  template<typename T>
-  void addJoinClause(const Json::Value &value);
-  void addCombiningClause(const ExpressionType t);
-  virtual void setupPlanOperation();
-  virtual void executePlanOperation();
+  void setupPlanOperation();
+  void executePlanOperation();
   /// { type: "JoinScan", jtype: "EQUI", predicates: [{type: 0}, {type: 3, in: 0, f:0}, {type: "3"] }
   static std::shared_ptr<_PlanOperation> parse(const Json::Value &v);
   const std::string vname();
+  template<typename T>
+  void addJoinClause(const size_t input_left,
+                     const storage::field_t field_left,
+                     const size_t input_right,
+                     const storage::field_t field_right);
+  template<typename T>
+  void addJoinClause(const Json::Value &value);
+  void addCombiningClause(const ExpressionType t);
 
 private:
   void addJoinExpression(JoinExpression *);
@@ -52,13 +55,13 @@ private:
 
 template<typename T>
 void JoinScan::addJoinClause(const size_t input_left,
-                             const field_t field_left,
+                             const storage::field_t field_left,
                              const size_t input_right,
-                             const field_t field_right) {
-  EqualsJoinExpression<T> *expr1 = new EqualsJoinExpression<T>(input_left,
-                                                               field_left,
-                                                               input_right,
-                                                               field_right);
+                             const storage::field_t field_right) {
+  auto expr1 = new EqualsJoinExpression<T>(input_left,
+                                           field_left,
+                                           input_right,
+                                           field_right);
   addJoinExpression(expr1);
 }
 
