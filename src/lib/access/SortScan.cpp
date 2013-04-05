@@ -1,38 +1,35 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#include <access/SortScan.h>
+#include "access/SortScan.h"
 
 #include <algorithm>
 
 #include "access/QueryParser.h"
 
-#include "helper/types.h"
-
-#include "storage/storage_types.h"
 #include "storage/AbstractTable.h"
 #include "storage/PointerCalculator.h"
 #include "storage/PointerCalculatorFactory.h"
 #include "storage/Table.h"
 
-bool SortScan::is_registered = QueryParser::registerPlanOperation<SortScan>();
+namespace hyrise {
+namespace access {
 
 template <typename T>
 struct ExtractValue {
-  static inline T extractValue(const hyrise::storage::c_atable_ptr_t& table,
-                               const size_t& col,
-                               const size_t& row) {
+  static inline T extractValue(const storage::c_atable_ptr_t &table,
+                               const size_t &col,
+                               const size_t &row) {
     return table->getValue<T>(col, row);
   }
 };
 
 template <typename T>
 struct ExtractValueId {
-  static inline ValueId extractValue(const hyrise::storage::c_atable_ptr_t& table,
-                                        const size_t& col,
-                                        const size_t& row) {
+  static inline ValueId extractValue(const storage::c_atable_ptr_t &table,
+                                     const size_t &col,
+                                     const size_t &row) {
     return table->getValueId(col, row);
   }
 };
-
 
 template <typename T, template<typename T> class ExtractFunctor>
 class ColumnSorter {
@@ -41,11 +38,14 @@ class ColumnSorter {
       size_t row;
   } pair_t;
 
-  const hyrise::storage::c_atable_ptr_t& _t;
+  const storage::c_atable_ptr_t &_t;
   field_t _f;
 
- public:
-  ColumnSorter(const hyrise::storage::c_atable_ptr_t& t, field_t f): _t(t), _f(f) {
+public:
+  ColumnSorter(const storage::c_atable_ptr_t &t,
+               const field_t f):
+               _t(t),
+               _f(f) {
   }
 
   std::vector<pos_t>* sort() const {
@@ -69,12 +69,12 @@ class ColumnSorter {
   }
 };
 
-std::shared_ptr<_PlanOperation> SortScan::parse(Json::Value &data) {
-  std::shared_ptr<SortScan> s = std::make_shared<SortScan>();
-  s->setSortField(data["fields"][0u].asUInt());
-  return s;
+namespace {
+  auto _ = QueryParser::registerPlanOperation<SortScan>("SortScan");
 }
 
+SortScan::~SortScan() {
+}
 
 void SortScan::executePlanOperation() {
   const auto& table = input.getTable(0);
@@ -103,7 +103,8 @@ void SortScan::executePlanOperation() {
     }
   }
 
-  hyrise::storage::atable_ptr_t result;
+  storage::atable_ptr_t result;
+
   if (producesPositions) {
     result = PointerCalculatorFactory::createPointerCalculatorNonRef(table, nullptr, sorted_pos);
   } else {
@@ -117,3 +118,18 @@ void SortScan::executePlanOperation() {
   addResult(result);
 }
 
+std::shared_ptr<_PlanOperation> SortScan::parse(Json::Value &data) {
+  std::shared_ptr<SortScan> s = std::make_shared<SortScan>();
+  s->setSortField(data["fields"][0u].asUInt());
+  return s;
+}
+
+const std::string SortScan::vname() {
+  return "SortScan";
+}
+void SortScan::setSortField(const unsigned s) {
+  _sort_field = s;
+}
+
+}
+}

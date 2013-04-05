@@ -9,7 +9,6 @@ namespace access {
 
 class HashBuild : public _PlanOperation {
 public:
-  HashBuild();
   virtual ~HashBuild();
 
   void executePlanOperation();

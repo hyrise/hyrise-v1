@@ -2,83 +2,84 @@
 #ifndef SRC_LIB_ACCESS_UPDATESCAN_H_
 #define SRC_LIB_ACCESS_UPDATESCAN_H_
 
-#include <access/PlanOperation.h>
-#include <access/predicates.h>
+#include "access/PlanOperation.h"
+#include "access/pred_SimpleExpression.h"
 
-#include <storage/PointerCalculator.h>
-#include <storage/Table.h>
+#include "helper/types.h"
 
+namespace hyrise {
+namespace access {
 
 #ifndef UPDATE_SCAN_INSERT_ONLY_H
+
 class UpdateFun {
- protected:
-  hyrise::storage::atable_ptr_t table;
+public:
+  explicit UpdateFun(const storage::atable_ptr_t &t) : _table(t) {};
+  virtual ~UpdateFun() {}
+  virtual void updateRow(size_t row) {}
 
- public:
-  explicit UpdateFun(hyrise::storage::atable_ptr_t t) : table(t) {};
-  virtual ~UpdateFun() {};
-  virtual void updateRow(size_t row) {};
+protected:
+  storage::atable_ptr_t _table;
 };
 
-template < typename T >
+template <typename T>
 class AddUpdateFun : public UpdateFun {
- private:
-  field_t column;
-  T value;
- public:
-  AddUpdateFun(hyrise::storage::atable_ptr_t t, field_t f, T val) : UpdateFun(t), column(f), value(val) {};
-  ~AddUpdateFun() {};
-  void updateRow(size_t row) {
-    table->setValue<T>(column, row, table->getValue<T>(column, row) + value);
+public:
+  AddUpdateFun(const storage::atable_ptr_t &t,
+               const storage::field_t f,
+               const T &val) :
+               UpdateFun(t),
+               _column(f),
+               _value(val) {}
+  ~AddUpdateFun() {}
+  void updateRow(const size_t row) {
+    _table->setValue<T>(_column, row, _table->getValue<T>(_column, row) + _value);
   }
+
+private:
+  const field_t _column;
+  const T _value;
 };
 
-template < typename T >
+template <typename T>
 class ColumnSetFun : public UpdateFun {
- private:
-  field_t column;
-  T value;
- public:
-  ColumnSetFun(hyrise::storage::atable_ptr_t t, field_t f, T val) : UpdateFun(t), column(f), value(val) {};
+public:
+  ColumnSetFun(const storage::atable_ptr_t &t,
+               const field_t f,
+               const T &val) :
+               UpdateFun(t),
+               _column(f),
+               _value(val) {};
   ~ColumnSetFun() {};
-  void updateRow(size_t row) {
-    table->setValue<T>(column, row, value);
+  void updateRow(const size_t row) {
+    _table->setValue<T>(_column, row, _value);
   }
+
+private:
+  field_t _column;
+  T _value;
 };
-#endif
 
+#endif // UPDATE_SCAN_INSERT_ONLY_H
 
-/*
-  @brief The UpdateScan allows to update rows in a table
-*/
 class UpdateScan : public _PlanOperation {
- private:
-  SimpleExpression *comparator;
-  hyrise::storage::atable_ptr_t data;
-  UpdateFun *func;
- public:
-  UpdateScan() : _PlanOperation() {
-    
-    comparator = nullptr;
-    func = nullptr;
-  }
+public:
+  UpdateScan();
   virtual ~UpdateScan();
 
-  void setUpdateTable(hyrise::storage::atable_ptr_t c) {
-    data = c;
-  };
-  void setUpdateFunction(UpdateFun *f) {
-    func = f;
-  };
-  void setPredicate(SimpleExpression *e) {
-    comparator = e;
-  };
-
   void executePlanOperation();
+  const std::string vname();
+  void setUpdateTable(const storage::atable_ptr_t &c);
+  void setUpdateFunction(UpdateFun *f);
+  void setPredicate(SimpleExpression *e);
 
-  const std::string vname() {
-    return "UpdateScan";
-  }
+private:
+  SimpleExpression *_comparator;
+  storage::atable_ptr_t _data;
+  UpdateFun *_func;
 };
-#endif  // SRC_LIB_ACCESS_UPDATESCAN_H_
 
+}
+}
+
+#endif  // SRC_LIB_ACCESS_UPDATESCAN_H_
