@@ -1,13 +1,22 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#include "TaskSchedulerAdjustment.h"
-#include <helper/Settings.h>
+#include "access/TaskSchedulerAdjustment.h"
 
-bool TaskSchedulerAdjustment::is_registered = QueryParser::registerPlanOperation<TaskSchedulerAdjustment>();
+#include "helper/Settings.h"
 
-std::shared_ptr<_PlanOperation> TaskSchedulerAdjustment::parse(Json::Value &data) {
-  std::shared_ptr<TaskSchedulerAdjustment> taskSchedulerAdjustmentOp = std::make_shared<TaskSchedulerAdjustment>();
-  taskSchedulerAdjustmentOp->_size = data["size"].asUInt();
-  return taskSchedulerAdjustmentOp;
+#include "taskscheduler/AbstractTaskScheduler.h"
+#include "taskscheduler/SharedScheduler.h"
+
+namespace hyrise {
+namespace access {
+
+namespace {
+  auto _ = QueryParser::registerPlanOperation<TaskSchedulerAdjustment>("TaskSchedulerAdjustment");
+}
+
+TaskSchedulerAdjustment::TaskSchedulerAdjustment() : _size(1) {
+}
+
+TaskSchedulerAdjustment::~TaskSchedulerAdjustment() {
 }
 
 void TaskSchedulerAdjustment::executePlanOperation() {
@@ -21,7 +30,19 @@ void TaskSchedulerAdjustment::executePlanOperation() {
   }
 }
 
+std::shared_ptr<_PlanOperation> TaskSchedulerAdjustment::parse(Json::Value &data) {
+  std::shared_ptr<TaskSchedulerAdjustment> taskSchedulerAdjustmentOp = std::make_shared<TaskSchedulerAdjustment>();
+  taskSchedulerAdjustmentOp->_size = data["size"].asUInt();
+  return taskSchedulerAdjustmentOp;
+}
+
+const std::string TaskSchedulerAdjustment::vname() {
+  return "TaskSchedulerAdjustment";
+}
+
 void TaskSchedulerAdjustment::setThreadpoolSize(const size_t newSize) {
   _size = newSize;
 }
 
+}
+}
