@@ -8,6 +8,9 @@
 #include <storage.h>
 #include <io.h>
 
+namespace hyrise {
+namespace access {
+
 //HashJoinScan Benchmark similar to TPC-C Implementation of Stock-Level Transaction
 //See TPC-C Reference Chapter A.5
 
@@ -17,15 +20,15 @@ class HashJoinBase : public ::testing::Benchmark {
 
   StorageManager *sm;
 
-  hyrise::access::HashBuild *hb;
-  hyrise::access::HashJoinProbe *hjp;
-  hyrise::storage::c_atable_ptr_t t1;
-  hyrise::storage::c_atable_ptr_t t2;
+  HashBuild *hb;
+  HashJoinProbe *hjp;
+  storage::c_atable_ptr_t t1;
+  storage::c_atable_ptr_t t2;
 
  public:
   void BenchmarkSetUp() {
-    hb = new hyrise::access::HashBuild();
-    hjp = new hyrise::access::HashJoinProbe;
+    hb = new HashBuild();
+    hjp = new HashJoinProbe;
     hjp->setEvent("NO_PAPI");
     hb->setKey("join");
     hb->setEvent("NO_PAPI");
@@ -81,4 +84,7 @@ BENCHMARK_F(HashJoinBase, stock_level_hash_join_mat_memcpy) {
   ms->addInput(result);
 
   auto result_mat = ms->execute()->getResultTable();
+}
+
+}
 }

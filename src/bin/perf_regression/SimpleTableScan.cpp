@@ -7,6 +7,9 @@
 #include <storage.h>
 #include <io.h>
 
+namespace hyrise {
+namespace access {
+
 //See TPC-C reference Page 108 Chapter A.3 (New-Order Transaction)
 //Skipping projection since this is benchmarked in ProjectionScan.cpp
 class SimpleTableScanBase : public ::testing::Benchmark {
@@ -15,8 +18,8 @@ class SimpleTableScanBase : public ::testing::Benchmark {
 
   StorageManager *sm;
   SimpleTableScan *ts;
-  hyrise::storage::c_atable_ptr_t order_line;
-  hyrise::storage::c_atable_ptr_t customer;
+  storage::c_atable_ptr_t order_line;
+  storage::c_atable_ptr_t customer;
 
  public:
   void BenchmarkSetUp() {
@@ -201,4 +204,7 @@ BENCHMARK_F(SimpleTableScanBase, table_scan_order_status_line_tpcc_mat_memcpy) {
   ts->setProducesPositions(true);
 
   auto result = ts->execute()->getResultTable();
+}
+
+}
 }
