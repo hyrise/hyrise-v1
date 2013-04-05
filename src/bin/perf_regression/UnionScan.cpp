@@ -12,7 +12,7 @@ class UnionScanBase : public ::testing::Benchmark {
 
  protected:
 
-  UnionScan *us;
+  hyrise::access::UnionScan *us;
   StorageManager *sm;
   hyrise::storage::c_atable_ptr_t t1;
   hyrise::storage::c_atable_ptr_t t2;
@@ -21,7 +21,7 @@ class UnionScanBase : public ::testing::Benchmark {
   void BenchmarkSetUp() {
     sm = StorageManager::getInstance();
 
-    us = new UnionScan();
+    us = new hyrise::access::UnionScan();
     us->setEvent("NO_PAPI");
 
     t1 = sm->getTable("district");
@@ -51,7 +51,7 @@ BENCHMARK_F(UnionScanBase, standard_union_with_pos) {
 BENCHMARK_F(UnionScanBase, standard_union_mat) {
   auto result = us->execute()->getResultTable();
 
-  MaterializingScan *ms = new MaterializingScan(false);
+  hyrise::access::MaterializingScan *ms = new hyrise::access::MaterializingScan(false);
   ms->setEvent("NO_PAPI");
   ms->addInput(result);
 
@@ -62,7 +62,7 @@ BENCHMARK_F(UnionScanBase, standard_union_mat) {
 BENCHMARK_F(UnionScanBase, standard_union_mat_memcpy) {
   auto result = us->execute()->getResultTable();
 
-  MaterializingScan *ms = new MaterializingScan(true);
+  hyrise::access::MaterializingScan *ms = new hyrise::access::MaterializingScan(true);
   ms->setEvent("NO_PAPI");
   ms->addInput(result);
 

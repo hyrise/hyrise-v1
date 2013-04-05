@@ -19,7 +19,7 @@
 hyrise::storage::c_atable_ptr_t sortTable(hyrise::storage::c_atable_ptr_t table){
   size_t c = table->columnCount();
   for(size_t f = 0; f < c; f++){
-    SortScan so;
+    hyrise::access::SortScan so;
     so.addInput(table);
     so.setSortField(f);
     table = so.execute()->getResultTable();

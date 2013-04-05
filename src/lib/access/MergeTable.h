@@ -4,13 +4,19 @@
 
 #include "access/PlanOperation.h"
 
+namespace hyrise {
+namespace access {
+
 class MergeTable : public _PlanOperation {
- public:
-  MergeTable();
+public:
   virtual ~MergeTable();
-  const std::string vname();
-  static std::shared_ptr<_PlanOperation> parse(Json::Value& data);
+
   void executePlanOperation();
+  static std::shared_ptr<_PlanOperation> parse(Json::Value& data);
+  const std::string vname();
 };
+
+}
+}
 
 #endif /* SRC_LIB_ACCESS_MERGETABLE_H_ */

@@ -1,74 +1,76 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#include "SimpleRawTableScan.h"
+#include "access/SimpleRawTableScan.h"
 
-#include <storage/meta_storage.h>
-#include <storage/storage_types.h>
-#include <storage/PointerCalculator.h>
-#include <storage/PointerCalculatorFactory.h>
-#include <storage/RawTable.h>
-#include <storage/MutableVerticalTable.h>
+#include "access/pred_buildExpression.h"
 
-#include "pred_buildExpression.h"
+#include "storage/meta_storage.h"
+#include "storage/PointerCalculator.h"
+#include "storage/PointerCalculatorFactory.h"
+#include "storage/RawTable.h"
+#include "storage/MutableVerticalTable.h"
 
-namespace hyrise { namespace storage {
+namespace hyrise {
+namespace storage {
 
-/**
- * Simple functor that copies all values from the src raw table to the
- * destination table. The only requirement is that the source table is
- * really an uncompressed table otherwise this will fail with a seg
- * fault.
- */
+/// Simple functor that copies all values from the src raw table to the
+/// destination table. The only requirement is that the source table is
+/// really an uncompressed table otherwise this will fail with a seg
+/// fault.
 struct copy_value_functor_raw_table {
   typedef void value_type;
 
-  std::shared_ptr<AbstractTable> _dest;
+  atable_ptr_t _dest;
   std::shared_ptr<const RawTable<>> _src;
-  
+
   size_t _srcRow;
   size_t _destRow;
   size_t _field;
 
-  copy_value_functor_raw_table(std::shared_ptr<AbstractTable> d, 
-                     std::shared_ptr<const RawTable<>> s) : _dest(d), _src(s) {
+  copy_value_functor_raw_table(atable_ptr_t d,
+                               std::shared_ptr<const RawTable<>> s) :
+                               _dest(d),
+                               _src(s) {
   }
 
-  void setValues(size_t destRow, size_t srcRow, size_t field ) {
+  void setValues(const size_t destRow,
+                 const size_t srcRow,
+                 const size_t field ) {
     _destRow = destRow;
     _srcRow = srcRow; _field = field;
   }
 
-  template<typename R> 
+  template<typename R>
   void operator()() {
     _dest->setValue<R>(_field, _destRow, _src->getValue<R>(_field, _srcRow));
   }
 };
-}}
 
-static log4cxx::LoggerPtr logger;
+}
+}
 
-namespace { bool _ = QueryParser::registerPlanOperation<SimpleRawTableScan>("SimpleRawTableScan"); }
+namespace hyrise {
+namespace access {
 
-SimpleRawTableScan::SimpleRawTableScan(SimpleExpression* comp, bool materializing)
-  : _PlanOperation(), _comparator(comp), _materializing(materializing) {}
+namespace {
+  auto _ = QueryParser::registerPlanOperation<SimpleRawTableScan>("SimpleRawTableScan");
+}
+
+SimpleRawTableScan::SimpleRawTableScan(SimpleExpression* comp,
+                                       const bool materializing) :
+                                       _PlanOperation(),
+                                       _comparator(comp),
+                                       _materializing(materializing) {
+}
+
+SimpleRawTableScan::~SimpleRawTableScan() {
+}
 
 void SimpleRawTableScan::setupPlanOperation() {
   _comparator->walk(input.getTables());
 }
 
-const std::string SimpleRawTableScan::vname() {
-  return "SimpleRawTableScan";
-}
-std::shared_ptr<_PlanOperation> SimpleRawTableScan::parse(Json::Value &data) {
-  if (!data.isMember("predicates")) {
-    throw std::runtime_error("There is no reason for a Selection without predicates");
-  }
-  bool mat = data.isMember("materializing") ? data["materializing"].asBool() : true;
-  // defaults to materializing
-  return std::make_shared<SimpleRawTableScan>(buildExpression(data["predicates"]), mat);
-}
-
 void SimpleRawTableScan::executePlanOperation() {
-  std::shared_ptr<const RawTable<>> table = std::dynamic_pointer_cast<const RawTable<>>(input.getTable(0));
+  auto table = std::dynamic_pointer_cast<const RawTable<>>(input.getTable(0));
   if (!table)
     throw std::runtime_error("Input table is no uncompressed raw table");
 
@@ -85,9 +87,9 @@ void SimpleRawTableScan::executePlanOperation() {
                                           false /* compressed */);
 
   // Prepare the copy operator
-  hyrise::storage::copy_value_functor_raw_table fun(result, table);
-  hyrise::storage::type_switch<hyrise_basic_types> ts;
-  auto positions = new pos_list_t;
+  storage::copy_value_functor_raw_table fun(result, table);
+  storage::type_switch<hyrise_basic_types> ts;
+  auto positions = new storage::pos_list_t;
 
   size_t tabSize = table->size();
   for(size_t row=0; row < tabSize; ++row) {
@@ -104,9 +106,28 @@ void SimpleRawTableScan::executePlanOperation() {
       }
     }
   }
+
   if (_materializing) {
     addResult(result);
   } else {
-    addResult(PointerCalculatorFactory::createPointerCalculatorNonRef(table, nullptr, positions));
+    addResult(PointerCalculatorFactory::createPointerCalculatorNonRef(table,
+                                                                      nullptr,
+                                                                      positions));
   }
+}
+
+std::shared_ptr<_PlanOperation> SimpleRawTableScan::parse(Json::Value &data) {
+  if (!data.isMember("predicates")) {
+    throw std::runtime_error("There is no reason for a Selection without predicates");
+  }
+  bool mat = data.isMember("materializing") ? data["materializing"].asBool() : true;
+  // defaults to materializing
+  return std::make_shared<SimpleRawTableScan>(buildExpression(data["predicates"]), mat);
+}
+
+const std::string SimpleRawTableScan::vname() {
+  return "SimpleRawTableScan";
+}
+
+}
 }

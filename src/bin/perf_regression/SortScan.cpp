@@ -12,14 +12,14 @@ class SortScanBase : public ::testing::Benchmark {
  protected:
 
   StorageManager *sm;
-  SortScan *sc;
+  hyrise::access::SortScan *sc;
   hyrise::storage::c_atable_ptr_t t;
 
  public:
   void BenchmarkSetUp() {
     sm = StorageManager::getInstance();
 
-    sc = new SortScan();
+    sc = new hyrise::access::SortScan();
     sc->setEvent("NO_PAPI");
 
     t = sm->getTable("item");
@@ -59,7 +59,7 @@ BENCHMARK_F(SortScanBase, simple_sort_scan_int_mat) {
   sc->setSortField(1);
   auto result = sc->execute()->getResultTable();
 
-  MaterializingScan *ms = new MaterializingScan(false);
+  hyrise::access::MaterializingScan *ms = new hyrise::access::MaterializingScan(false);
   ms->setEvent("NO_PAPI");
 
   ms->addInput(result);
@@ -72,7 +72,7 @@ BENCHMARK_F(SortScanBase, simple_sort_scan_int_mat_memcpy) {
   sc->setSortField(1);
   auto result = sc->execute()->getResultTable();
 
-  MaterializingScan *ms = new MaterializingScan(true);
+  hyrise::access::MaterializingScan *ms = new hyrise::access::MaterializingScan(true);
   ms->setEvent("NO_PAPI");
   ms->addInput(result);
 
@@ -84,7 +84,7 @@ BENCHMARK_F(SortScanBase, simple_sort_scan_string_mat) {
   sc->setSortField(4);
   auto result = sc->execute()->getResultTable();
 
-  MaterializingScan *ms = new MaterializingScan(false);
+  hyrise::access::MaterializingScan *ms = new hyrise::access::MaterializingScan(false);
   ms->setEvent("NO_PAPI");
   ms->addInput(result);
 
@@ -96,7 +96,7 @@ BENCHMARK_F(SortScanBase, simple_sort_scan_string_mat_memcpy) {
   sc->setSortField(4);
   auto result = sc->execute()->getResultTable();
 
-  MaterializingScan *ms = new MaterializingScan(true);
+  hyrise::access::MaterializingScan *ms = new hyrise::access::MaterializingScan(true);
   ms->setEvent("NO_PAPI");
   ms->addInput(result);
 
@@ -108,7 +108,7 @@ BENCHMARK_F(SortScanBase, simple_sort_scan_sorted_int_mat) {
   sc->setSortField(0);
   auto result = sc->execute()->getResultTable();
 
-  MaterializingScan *ms = new MaterializingScan(false);
+  hyrise::access::MaterializingScan *ms = new hyrise::access::MaterializingScan(false);
   ms->setEvent("NO_PAPI");
   ms->addInput(result);
 
@@ -119,7 +119,7 @@ BENCHMARK_F(SortScanBase, simple_sort_scan_sorted_int_mat_memcpy) {
   sc->setSortField(0);
   auto result = sc->execute()->getResultTable();
 
-  MaterializingScan *ms = new MaterializingScan(true);
+  hyrise::access::MaterializingScan *ms = new hyrise::access::MaterializingScan(true);
   ms->setEvent("NO_PAPI");
   ms->addInput(result);
 

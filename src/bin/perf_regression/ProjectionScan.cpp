@@ -12,12 +12,12 @@ class ProjectionScanBase : public ::testing::Benchmark {
  protected:
 
   StorageManager *sm;
-  ProjectionScan *ps;
+  hyrise::access::ProjectionScan *ps;
   hyrise::storage::atable_ptr_t t;
 
  public:
   void BenchmarkSetUp() {
-    ps = new ProjectionScan();
+    ps = new hyrise::access::ProjectionScan();
     ps->setEvent("NO_PAPI");
 
     sm = StorageManager::getInstance();
@@ -49,7 +49,7 @@ BENCHMARK_F(ProjectionScanBase, project_new_order_tpcc_district_mat) {
   //materialized
   auto result = ps->execute()->getResultTable();
 
-  MaterializingScan *ms = new MaterializingScan(false);
+  hyrise::access::MaterializingScan *ms = new hyrise::access::MaterializingScan(false);
   ms->setEvent("NO_PAPI");
   ms->addInput(result);
 
@@ -63,7 +63,7 @@ BENCHMARK_F(ProjectionScanBase, project_new_order_tpcc_district_mat_memcpy) {
 
   auto result = ps->execute()->getResultTable();
 
-  MaterializingScan *ms = new MaterializingScan(true);
+  hyrise::access::MaterializingScan *ms = new hyrise::access::MaterializingScan(true);
   ms->setEvent("NO_PAPI");
   ms->addInput(result);
 

@@ -15,13 +15,13 @@ class HashValueJoinBase : public ::testing::Benchmark {
  protected:
 
   StorageManager *sm;
-  HashValueJoin<int> *hs;
+  hyrise::access::HashValueJoin<int> *hs;
   hyrise::storage::c_atable_ptr_t t1;
   hyrise::storage::c_atable_ptr_t t2;
 
  public:
   void BenchmarkSetUp() {
-    hs = new HashValueJoin<int>();
+    hs = new hyrise::access::HashValueJoin<int>();
     hs->setEvent("NO_PAPI");
 
     sm = StorageManager::getInstance();
@@ -48,7 +48,7 @@ BENCHMARK_F(HashValueJoinBase, stock_level_hash_value_join) {
   hs->addInput(t2);
   hs->addField(4);
 
-  const auto& result = hs->execute()->getResultTable();
+  /*const auto& result =*/ hs->execute()->getResultTable();
 }
 
 BENCHMARK_F(HashValueJoinBase, stock_level_hash_value_join_mat) {
@@ -59,11 +59,11 @@ BENCHMARK_F(HashValueJoinBase, stock_level_hash_value_join_mat) {
 
   auto result = hs->execute()->getResultTable();
 
-  MaterializingScan ms(false);
+  hyrise::access::MaterializingScan ms(false);
   ms.setEvent("NO_PAPI");
   ms.addInput(result);
 
-  const auto& result_mat = ms.execute()->getResultTable();
+  /*const auto& result_mat =*/ ms.execute()->getResultTable();
 }
 
 BENCHMARK_F(HashValueJoinBase, stock_level_hash_value_join_mat_memcpy) {
@@ -74,9 +74,9 @@ BENCHMARK_F(HashValueJoinBase, stock_level_hash_value_join_mat_memcpy) {
 
   auto result = hs->execute()->getResultTable();
 
-  MaterializingScan ms(true);
+  hyrise::access::MaterializingScan ms(true);
   ms.setEvent("NO_PAPI");
   ms.addInput(result);
 
-  const auto& result_mat = ms.execute()->getResultTable();
+  /*const auto& result_mat =*/ ms.execute()->getResultTable();
 }

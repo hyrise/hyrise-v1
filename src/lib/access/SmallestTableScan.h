@@ -4,29 +4,20 @@
 
 #include "PlanOperation.h"
 
+namespace hyrise {
+namespace access {
+
 class SmallestTableScan : public _PlanOperation {
- public:
-
-  SmallestTableScan() {
-    
-  }
-
-  ~SmallestTableScan() {
-    
-  }
+public:
+  ~SmallestTableScan();
 
   void setupPlanOperation();
   void executePlanOperation();
-
   static std::shared_ptr<_PlanOperation> parse(Json::Value &data);
-  static bool is_registered;
-  static std::string name() {
-    return "SmallestTableScan";
-  }
-  const std::string vname() {
-    return "SmallestTableScan";
-  }
+  const std::string vname();
 };
 
-#endif  // SRC_LIB_ACCESS_SMALLESTTABLESCAN_H_
+}
+}
 
+#endif  // SRC_LIB_ACCESS_SMALLESTTABLESCAN_H_

@@ -1,20 +1,32 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#include "UnloadAll.h"
+#include "access/UnloadAll.h"
 
-#include <storage/storage_types.h>
-#include <io/StorageManager.h>
-#include <json.h>
+#include "access/QueryParser.h"
 
-#include "QueryParser.h"
-bool UnloadAll::is_registered = QueryParser::registerPlanOperation<UnloadAll>();
+#include "io/StorageManager.h"
 
+namespace hyrise {
+namespace access {
 
+namespace {
+  auto _ = QueryParser::registerPlanOperation<UnloadAll>("UnloadAll");
+}
+
+UnloadAll::~UnloadAll() {
+}
+
+void UnloadAll::executePlanOperation() {
+  StorageManager::getInstance()->removeAll();
+}
 
 std::shared_ptr<_PlanOperation> UnloadAll::parse(Json::Value &data) {
   std::shared_ptr<UnloadAll> s = std::make_shared<UnloadAll>();
   return s;
 }
 
-void UnloadAll::executePlanOperation() {
-  StorageManager::getInstance()->removeAll();
+const std::string UnloadAll::vname() {
+  return "UnloadAll";
+}
+
+}
 }
