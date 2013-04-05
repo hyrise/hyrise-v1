@@ -2,50 +2,28 @@
 #ifndef SRC_LIB_ACCESS_SIMPLETABLESCAN_H_
 #define SRC_LIB_ACCESS_SIMPLETABLESCAN_H_
 
-#include "PlanOperation.h"
-#include "pred_SimpleExpression.h"
+#include "access/PlanOperation.h"
+#include "access/pred_SimpleExpression.h"
+
+namespace hyrise {
+namespace access {
 
 class SimpleTableScan : public _PlanOperation {
- public:
-  SimpleTableScan(): _PlanOperation(), _comparator(nullptr) {
-    
-  }
-
-  virtual ~SimpleTableScan() {
-    if (_comparator)
-      delete _comparator;
-  }
-
-  void setPredicate(SimpleExpression *c) {
-    _comparator = c;
-  }
+public:
+  SimpleTableScan();
+  virtual ~SimpleTableScan();
 
   void setupPlanOperation();
-
   void executePlanOperation();
-
-  static std::string name() {
-    return "SimpleTableScan";
-  }
-
-  const std::string vname() {
-
-    return "SimpleTableScan";
-  }
-
-  static bool is_registered;
-
   static std::shared_ptr<_PlanOperation> parse(Json::Value &data);
+  const std::string vname();
+  void setPredicate(SimpleExpression *c);
 
-
- private:
-
-  // Static logger for this class
-  static log4cxx::LoggerPtr logger;
-
-  // Comparison Field
+private:
   SimpleExpression *_comparator;
 };
 
-#endif  // SRC_LIB_ACCESS_SIMPLETABLESCAN_H_
+}
+}
 
+#endif  // SRC_LIB_ACCESS_SIMPLETABLESCAN_H_
