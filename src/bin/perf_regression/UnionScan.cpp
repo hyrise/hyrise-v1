@@ -7,6 +7,8 @@
 #include <storage.h>
 #include <io.h>
 
+namespace hyrise {
+namespace access {
 
 class UnionScanBase : public ::testing::Benchmark {
 
@@ -14,8 +16,8 @@ class UnionScanBase : public ::testing::Benchmark {
 
   UnionScan *us;
   StorageManager *sm;
-  hyrise::storage::c_atable_ptr_t t1;
-  hyrise::storage::c_atable_ptr_t t2;
+  storage::c_atable_ptr_t t1;
+  storage::c_atable_ptr_t t2;
 
  public:
   void BenchmarkSetUp() {
@@ -68,4 +70,7 @@ BENCHMARK_F(UnionScanBase, standard_union_mat_memcpy) {
 
   auto result_mat = ms->execute()->getResultTable();
 
+}
+
+}
 }
