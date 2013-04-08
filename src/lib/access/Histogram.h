@@ -2,102 +2,71 @@
 #ifndef SRC_LIB_ACCESS_HISTOGRAM_H_
 #define SRC_LIB_ACCESS_HISTOGRAM_H_
 
-#include "PlanOperation.h"
+#include "access/PlanOperation.h"
 
-#include <cstdint>
-#include <utility>
+#include "storage/FixedLengthVector.h"
+#include "storage/OrderPreservingDictionary.h"
+#include "storage/PointerCalculator.h"
 
-#include <helper/types.h>
-#include <storage/FixedLengthVector.h>
-#include <storage/OrderPreservingDictionary.h>
-#include <storage/PointerCalculator.h>
-
-namespace hyrise { namespace access {
+namespace hyrise {
+namespace access {
 
 // Extracts the AV from the table at given column
-template<typename Table, typename VectorType=FixedLengthVector<value_id_t> >
-inline std::pair<std::shared_ptr<VectorType>, size_t> _getDataVector(Table tab, size_t column=0) {
-  const auto& avs = tab->getAttributeVectors(column);
+template<typename Table, typename VectorType=FixedLengthVector<value_id_t>>
+inline std::pair<std::shared_ptr<VectorType>, size_t> _getDataVector(const Table &tab,
+                                                                     const size_t column = 0) {
+  const auto &avs = tab->getAttributeVectors(column);
   const auto data = std::dynamic_pointer_cast<VectorType>(avs.at(0).attribute_vector);
   assert(data != nullptr);
   return {data, avs.at(0).attribute_offset};
 }
 
 template<typename VectorType=FixedLengthVector<value_id_t> >
-inline std::pair<std::shared_ptr<VectorType>, size_t> getDataVector(const hyrise::storage::c_atable_ptr_t& tab, size_t column=0) {
+inline std::pair<std::shared_ptr<VectorType>, size_t> getDataVector(const storage::c_atable_ptr_t &tab,
+                                                                    const size_t column = 0) {
   return _getDataVector<decltype(tab), VectorType>(tab, column);
 }
 
-
-
-/**
-  * This is a Histogram Plan Operation that calculates the number
-  * occurences of a single value based on a hash function and a number
-  * of significant bits. This Operation is used for the Radix Join
-  * implementation
-  */
+/// This is a Histogram Plan Operation that calculates the number
+/// occurences of a single value based on a hash function and a number
+/// of significant bits. This Operation is used for the Radix Join
+/// implementation
 class Histogram : public _PlanOperation {
 public:
   Histogram();
 
-  virtual ~Histogram();
-
-  virtual void executePlanOperation();
-
+  void executePlanOperation();
+  /// Parses the JSON string to create the plan operation, parameters
+  /// to the json are:
+  ///  - bits: to set the number of used bits for the histogram
+  static std::shared_ptr<_PlanOperation> parse(Json::Value &data);
+  const std::string vname();
   template<typename T>
   void executeHistogram();
-  
-  /**
-  * Parses the JSON string to create the plan operation, parameters
-  * to the json are:
-  * 
-  *  - bits: to set the number of used bits for the histogram
-  */
-  static std::shared_ptr<_PlanOperation> parse(Json::Value &data);
+  void setPart(const size_t p);
+  void setCount(const size_t c);
+  void setBits(const uint32_t b,
+               const uint32_t sig = 0);
+  void setBits2(const uint32_t b,
+                const uint32_t sig=0);
+  uint32_t bits() const;
+  uint32_t significantOffset() const;
 
-  const std::string vname() { return "Histogram"; }
-
-  inline void setBits(uint32_t b, uint32_t sig=0) {
-    _bits = b;
-    _significantOffset = sig;
-  }
-
-  inline void setBits2(uint32_t b, uint32_t sig=0) {
-    _bits2 = b;
-    _significantOffset2 = sig;
-  }
-
-  inline uint32_t bits() const { return _bits; }
-  inline uint32_t significantOffset() const { return _significantOffset; }
-
-  inline void setPart(size_t p) { _part = p; }
-  inline void setCount(size_t c) { _count = c; }
-
-
-  void splitInput(){};
 protected:
+  std::shared_ptr<Table<>> createOutputTable(const size_t size) const;
 
-  static bool is_registered;
-
-  // Create the output table
-  std::shared_ptr<Table<>> createOutputTable(size_t size);
-
-  // First Pass
   uint32_t _bits;
   uint32_t _significantOffset;
-
-  //Second pass
   uint32_t _bits2;
   uint32_t _significantOffset2;
-  
   size_t _part;
   size_t _count;
 };
 
 template<typename T>
 void Histogram::executeHistogram() {
-  auto tab = getInputTable();
-  auto tableSize = getInputTable()->size();
+  const auto &tab = getInputTable();
+  const auto tableSize = getInputTable()->size();
   const auto field = _field_definition[0];
 
   //Prepare mask
@@ -117,51 +86,39 @@ void Histogram::executeHistogram() {
   auto p = std::dynamic_pointer_cast<const PointerCalculator>(tab);
   if (p) {
     auto ipair = getDataVector(p->getActualTable(), p->getTableColumnForColumn(field));
-    const auto& ivec = ipair.first;
-
-    const auto& dict = std::dynamic_pointer_cast<OrderPreservingDictionary<T>>(tab->dictionaryAt(p->getTableColumnForColumn(field)));
-    const auto& offset = ipair.second;
+    const auto &ivec = ipair.first;
+    const auto &dict = std::dynamic_pointer_cast<OrderPreservingDictionary<T>>(tab->dictionaryAt(p->getTableColumnForColumn(field)));
+    const auto &offset = ipair.second;
 
     auto hasher = std::hash<T>();
-    for(decltype(tableSize) row = start; row < stop; ++row) {
-      //fun.setRow(row);
+    for(size_t row = start; row < stop; ++row) {
       auto hash_value  = hasher(dict->getValueForValueId(ivec->get(offset, p->getTableRowForRow(row))));
       pair.first->inc(0, (hash_value & mask) >> significantOffset());
     }
   } else {
     auto ipair = getDataVector(tab, field);
-    const auto& ivec = ipair.first;
-    const auto& dict = std::dynamic_pointer_cast<OrderPreservingDictionary<T>>(tab->dictionaryAt(field));
-    const auto& offset =  ipair.second;
+    const auto &ivec = ipair.first;
+    const auto &dict = std::dynamic_pointer_cast<OrderPreservingDictionary<T>>(tab->dictionaryAt(field));
+    const auto &offset =  ipair.second;
 
     auto hasher = std::hash<T>();
-    for(decltype(tableSize) row = start; row < stop; ++row) {
-      //fun.setRow(row);
+    for(size_t row = start; row < stop; ++row) {
       auto hash_value  = hasher(dict->getValueForValueId(ivec->get(offset, row)));
       pair.first->inc(0, (hash_value & mask) >> significantOffset());
     }
   }
-  addResult(result);  
+  addResult(result);
 }
-
 
 class Histogram2ndPass : public Histogram
 {
-
-  static bool is_registered;  
-
 public:
-  Histogram2ndPass();
-  virtual ~Histogram2ndPass();
-
   void executePlanOperation();
-
   static std::shared_ptr<_PlanOperation> parse(Json::Value &data);
-
-  const std::string vname() { return "Histogram2ndPass"; }
-
+  const std::string vname();
 };
 
-}}
+}
+}
 
 #endif //SRC_LIB_ACCESS_HISTOGRAM_H_
