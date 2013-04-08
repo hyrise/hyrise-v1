@@ -1,42 +1,33 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#include "SimpleTableScan.h"
+#include "access/SimpleTableScan.h"
 
-#include <storage/meta_storage.h>
-#include <storage/storage_types.h>
-#include <storage/PointerCalculator.h>
-#include <storage/PointerCalculatorFactory.h>
-#include <storage/Table.h>
-#include <storage/MutableVerticalTable.h>
+#include "access/pred_buildExpression.h"
 
-#include "pred_buildExpression.h"
+#include "storage/PointerCalculator.h"
+#include "storage/PointerCalculatorFactory.h"
 
-bool SimpleTableScan::is_registered = QueryParser::registerPlanOperation<SimpleTableScan>();
+namespace hyrise {
+namespace access {
+
+namespace {
+  auto _ = QueryParser::registerPlanOperation<SimpleTableScan>("SimpleTableScan");
+}
+
+SimpleTableScan::SimpleTableScan(): _comparator(nullptr) {
+}
+
+SimpleTableScan::~SimpleTableScan() {
+  if (_comparator)
+    delete _comparator;
+}
 
 void SimpleTableScan::setupPlanOperation() {
   _comparator->walk(input.getTables());
 }
 
-
-std::shared_ptr<_PlanOperation> SimpleTableScan::parse(Json::Value &data) {
-  std::shared_ptr<SimpleTableScan> pop = std::make_shared<SimpleTableScan>();
-
-  if (data.isMember("materializing"))
-    pop->setProducesPositions(!data["materializing"].asBool());
-
-
-  // Get the tree from the builder
-  if (!data.isMember("predicates")) {
-    throw std::runtime_error("There is no reason for a Selection without predicates");
-  }
-
-  pop->setPredicate(buildExpression(data["predicates"]));
-
-  return pop;
-}
-
 void SimpleTableScan::executePlanOperation() {
-  pos_list_t *pos_list = nullptr;
-  hyrise::storage::atable_ptr_t result_table;
+  storage::pos_list_t *pos_list = nullptr;
+  storage::atable_ptr_t result_table;
 
   if (producesPositions) {
     pos_list = new pos_list_t();
@@ -65,9 +56,9 @@ void SimpleTableScan::executePlanOperation() {
     }
   }
 
-  hyrise::storage::atable_ptr_t result;
-  // In case we are creating positions copy the pos
-  // list
+  storage::atable_ptr_t result;
+
+  // In case we are creating positions copy the pos_list
   if (producesPositions) {
     if (!pos_list->empty()) {
       result = PointerCalculatorFactory::createPointerCalculatorNonRef(input.getTable(), nullptr, pos_list);
@@ -80,3 +71,27 @@ void SimpleTableScan::executePlanOperation() {
   addResult(result);
 }
 
+std::shared_ptr<_PlanOperation> SimpleTableScan::parse(Json::Value &data) {
+  std::shared_ptr<SimpleTableScan> pop = std::make_shared<SimpleTableScan>();
+
+  if (data.isMember("materializing"))
+    pop->setProducesPositions(!data["materializing"].asBool());
+
+  if (!data.isMember("predicates")) {
+    throw std::runtime_error("There is no reason for a Selection without predicates");
+  }
+  pop->setPredicate(buildExpression(data["predicates"]));
+
+  return pop;
+}
+
+const std::string SimpleTableScan::vname() {
+  return "SimpleTableScan";
+}
+
+void SimpleTableScan::setPredicate(SimpleExpression *c) {
+  _comparator = c;
+}
+
+}
+}

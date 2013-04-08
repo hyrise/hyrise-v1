@@ -2,32 +2,26 @@
 #ifndef SRC_LIB_ACCESS_MERGEJOIN_HPP_
 #define SRC_LIB_ACCESS_MERGEJOIN_HPP_
 
-#include <helper/types.h>
-#include <storage/AbstractTable.h>
-#include <access/PlanOperation.h>
-#include <access/predicates.h>
-#include <storage/PointerCalculator.h>
-#include <storage/PointerCalculatorFactory.h>
+#include "access/PlanOperation.h"
+
+#include "access/predicates.h"
+
+#include "storage/AbstractTable.h"
+#include "storage/MutableVerticalTable.h"
+#include "storage/PointerCalculator.h"
+#include "storage/PointerCalculatorFactory.h"
+
+namespace hyrise {
+namespace access {
 
 template <typename T>
 class MergeJoin : public _PlanOperation {
- public:
+public:
+  virtual ~MergeJoin() {}
 
-  MergeJoin() {
-    
-  }
-
-  virtual ~MergeJoin() {
-    
-  }
-
-  /*
-   * Expects two inputs
-   * @return in the return value, returns the second input and the resulting positions
-   */
   void executePlanOperation() {
     if (!producesPositions) {
-      throw std::runtime_error("MergeJoin execute() not supported with generatesPositions == false");
+      throw std::runtime_error("MergeJoin execute() not supported with producesPositions == false");
     }
 
     size_t left_input_size = input.getTable(0)->size();
@@ -36,30 +30,30 @@ class MergeJoin : public _PlanOperation {
     T value;
 
     for (pos_t row = 0; row < left_input_size; row++) {
-      const auto& t = input.getTable(0);
+      const auto &t = input.getTable(0);
       value = t->getValue<T>(_field_definition[0], row);
-      left_values.push_back(std::pair<T, pos_t>(value, row));
+      left_values.push_back(std::pair<T, storage::pos_t>(value, row));
     }
 
     std::sort(left_values.begin(), left_values.end());
 
     size_t right_input_size = input.getTable(1)->size();
-    std::vector<std::pair<T, pos_t> > right_values;
+    std::vector<std::pair<T, storage::pos_t> > right_values;
 
     for (pos_t row = 0; row < right_input_size; row++) {
       const auto& t = input.getTable(1);
       value = t->getValue<T>(_field_definition[1], row);
-      right_values.push_back(std::pair<T, pos_t>(value, row));
+      right_values.push_back(std::pair<T, storage::pos_t>(value, row));
     }
 
     std::sort(right_values.begin(), right_values.end());
 
-    std::vector<pos_t> *left_pos = new std::vector<pos_t>();
-    std::vector<pos_t> *right_pos = new std::vector<pos_t>();
+    std::vector<storage::pos_t> *left_pos = new std::vector<storage::pos_t>();
+    std::vector<storage::pos_t> *right_pos = new std::vector<storage::pos_t>();
 
     pos_t left_i = 0, right_i = 0;
-    std::pair<T, pos_t> left_value = left_values[0];
-    std::pair<T, pos_t> right_value = right_values[0];
+    std::pair<T, storage::pos_t> left_value = left_values[0];
+    std::pair<T, storage::pos_t> right_value = right_values[0];
 
     while (left_i < left_input_size && right_i < right_input_size) {
       if (right_value.first == left_value.first) {
@@ -92,17 +86,20 @@ class MergeJoin : public _PlanOperation {
       }
     }
 
-    std::vector<hyrise::storage::c_atable_ptr_t> parts({
-      std::dynamic_pointer_cast<const AbstractTable>(PointerCalculatorFactory::createPointerCalculatorNonRef(input.getTable(0), nullptr, left_pos)),
-      std::dynamic_pointer_cast<const AbstractTable>(PointerCalculatorFactory::createPointerCalculatorNonRef(input.getTable(1), nullptr, right_pos))
+    std::vector<storage::atable_ptr_t> parts({
+      std::dynamic_pointer_cast<AbstractTable>(PointerCalculatorFactory::createPointerCalculatorNonRef(input.getTable(0), nullptr, left_pos)),
+      std::dynamic_pointer_cast<AbstractTable>(PointerCalculatorFactory::createPointerCalculatorNonRef(input.getTable(1), nullptr, right_pos))
     });
-    addResult(std::make_shared<const MutableVerticalTable>(parts));
+
+    addResult(std::make_shared<MutableVerticalTable>(parts));
   }
 
   const std::string vname() {
     return "MergeJoin";
   }
-
 };
-#endif  // SRC_LIB_ACCESS_MERGEJOIN_HPP_
 
+}
+}
+
+#endif  // SRC_LIB_ACCESS_MERGEJOIN_HPP_

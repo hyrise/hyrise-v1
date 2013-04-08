@@ -5,18 +5,27 @@
 #include "access/PlanOperation.h"
 #include "access/pred_SimpleExpression.h"
 
+namespace hyrise {
+namespace access {
+
 class SimpleRawTableScan : public _PlanOperation {
- public:
-  SimpleRawTableScan(SimpleExpression* comp, bool materializing=true);
+public:
+  SimpleRawTableScan(SimpleExpression *comp,
+                     const bool materializing = true);
+  virtual ~SimpleRawTableScan();
+
   void setupPlanOperation();
   void executePlanOperation();
-  const std::string vname();
   static std::shared_ptr<_PlanOperation> parse(Json::Value &data);
- private:
+  const std::string vname();
+
+private:
   // Comparison Field
   std::unique_ptr<SimpleExpression> _comparator;
   const bool _materializing;
 };
 
-#endif  // SRC_LIB_ACCESS_SIMPLERAWTABLESCAN_H_
+}
+}
 
+#endif  // SRC_LIB_ACCESS_SIMPLERAWTABLESCAN_H_

@@ -8,29 +8,16 @@
 namespace hyrise {
 namespace access {
 
-/*!
- *  The HashJoinProbe operator performs the probe phase of a hash join to
- *  produce the join result.
- *  It takes the build table's AbstractHashTable and the probe table as input.
- */
+/// The HashJoinProbe operator performs the probe phase of a hash join to
+/// produce the join result.
+/// It takes the build table's AbstractHashTable and the probe table as input.
 class HashJoinProbe : public _PlanOperation {
-  /*!
-   *  Explicitly points to the table used to build the input hash map.
-   */
-  hyrise::storage::c_atable_ptr_t _buildTable;
-  bool _selfjoin;
+public:
+  HashJoinProbe();
+  virtual ~HashJoinProbe();
 
-  /*!
-   *  Hashes input table on-the-fly and probes hashed value against input
-   *  AbstractHashTable to write matching rows in given position lists.
-   */
- public:
-  explicit HashJoinProbe();
-
-  void setBuildTable(hyrise::storage::c_atable_ptr_t table);
-  hyrise::storage::c_atable_ptr_t getBuildTable() const;
-  hyrise::storage::c_atable_ptr_t getProbeTable() const;
-
+  void setupPlanOperation();
+  void executePlanOperation();
   /// {
   ///     "operators": {
   ///         "0": {
@@ -56,23 +43,21 @@ class HashJoinProbe : public _PlanOperation {
   /// }
   static std::shared_ptr<_PlanOperation> parse(Json::Value &data);
   const std::string vname();
- protected:
-  virtual void setupPlanOperation();
-  virtual void executePlanOperation();
- private:
+  void setBuildTable(const storage::c_atable_ptr_t &table);
+  storage::c_atable_ptr_t getBuildTable() const;
+  storage::c_atable_ptr_t getProbeTable() const;
+
+private:
   /// Hashes input table on-the-fly and probes hashed value against input
   /// AbstractHashTable to write matching rows in given position lists.
   template<class HashTable>
-  void fetchPositions(
-      pos_list_t *buildTablePosList,
-      pos_list_t *probeTablePosList);
-
-  /*!
-   *  Constructs resulting table from given build and probe tables' rows.
-   */
-  hyrise::storage::atable_ptr_t buildResultTable(
-      pos_list_t *buildTablePosList,
-      pos_list_t *probeTablePosList) const;
+  void fetchPositions(storage::pos_list_t *buildTablePosList,
+                      storage::pos_list_t *probeTablePosList);
+  /// Constructs resulting table from given build and probe tables' rows.
+  storage::atable_ptr_t buildResultTable(storage::pos_list_t *buildTablePosList,
+                                         storage::pos_list_t *probeTablePosList) const;
+  storage::c_atable_ptr_t _buildTable;
+  bool _selfjoin;
 };
 
 }

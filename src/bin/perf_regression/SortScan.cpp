@@ -7,13 +7,16 @@
 #include <storage.h>
 #include <io.h>
 
+namespace hyrise {
+namespace access {
+
 class SortScanBase : public ::testing::Benchmark {
 
  protected:
 
   StorageManager *sm;
   SortScan *sc;
-  hyrise::storage::c_atable_ptr_t t;
+  storage::c_atable_ptr_t t;
 
  public:
   void BenchmarkSetUp() {
@@ -125,4 +128,7 @@ BENCHMARK_F(SortScanBase, simple_sort_scan_sorted_int_mat_memcpy) {
 
   auto result_mat = ms->execute()->getResultTable();
 
+}
+
+}
 }

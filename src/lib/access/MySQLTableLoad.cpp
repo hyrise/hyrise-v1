@@ -1,53 +1,28 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
+#include "access/MySQLTableLoad.h"
+
+#include "io/Loader.h"
+#include "io/MySQLLoader.h"
+#include "io/StorageManager.h"
+
 #ifdef WITH_MYSQL
 
-#include <io/Loader.h>
-#include <io/MySQLLoader.h>
-#include <io/StorageManager.h>
-#include "MySQLTableLoad.h"
+namespace hyrise {
+namespace access {
 
-bool MySQLTableLoad::is_registered = QueryParser::registerPlanOperation<MySQLTableLoad>();
-
-namespace { log4cxx::LoggerPtr logger(log4cxx::Logger::getLogger("access.plan._PlanOperation")); }
+namespace {
+  auto _ = QueryParser::registerPlanOperation<MySQLTableLoad>("MySQLTableLoad");
+}
 
 MySQLTableLoad::MySQLTableLoad(): _load_limit(0) {
-
 }
 
 MySQLTableLoad::~MySQLTableLoad() {
-  LOG4CXX_DEBUG(logger, "~MySQL Load Table");
-}
-
-void MySQLTableLoad::setDatabaseName(std::string databaseName) {
-  _database_name = databaseName;
-}
-
-void MySQLTableLoad::setTableName(std::string tablename) {
-  _table_name = tablename;
-}
-
-
-std::string MySQLTableLoad::name() {
-  return "MySQLTableLoad";
-}
-
-const std::string MySQLTableLoad::vname() {
-  return "MySQLTableLoad";
-}
-
-
-std::shared_ptr<_PlanOperation> MySQLTableLoad::parse(Json::Value &data) {
-  std::shared_ptr<MySQLTableLoad> s = std::make_shared<MySQLTableLoad>();
-  s->setTableName(data["table"].asString());
-  s->setDatabaseName(data["database"].asString());
-  if (data.isMember("limit"))
-    s->setLoadLimit(data["limit"].asUInt64());
-  return s;
 }
 
 void MySQLTableLoad::executePlanOperation() {
   StorageManager *sm = StorageManager::getInstance();
-  std::shared_ptr<AbstractTable> t;
+  storage::atable_ptr_t t;
   if (sm->exists(_table_name)) {
     t = sm->getTable(_table_name);
     addResult(t);
@@ -64,6 +39,34 @@ void MySQLTableLoad::executePlanOperation() {
     sm->loadTable(_table_name, t);
     addResult(t);
   }
+}
+
+std::shared_ptr<_PlanOperation> MySQLTableLoad::parse(Json::Value &data) {
+  std::shared_ptr<MySQLTableLoad> s = std::make_shared<MySQLTableLoad>();
+  s->setTableName(data["table"].asString());
+  s->setDatabaseName(data["database"].asString());
+  if (data.isMember("limit"))
+    s->setLoadLimit(data["limit"].asUInt64());
+  return s;
+}
+
+const std::string MySQLTableLoad::vname() {
+  return "MySQLTableLoad";
+}
+
+void MySQLTableLoad::setDatabaseName(const std::string &databaseName) {
+  _database_name = databaseName;
+}
+
+void MySQLTableLoad::setTableName(const std::string &tablename) {
+  _table_name = tablename;
+}
+
+void MySQLTableLoad::setLoadLimit(const uint64_t l) {
+  _load_limit = l;
+}
+
+}
 }
 
 #endif
