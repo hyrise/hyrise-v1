@@ -1,22 +1,22 @@
-#include "MultiplyRefField.h"
+// Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
+#include "access/MultiplyRefField.h"
 
 #include "access/BasicParser.h"
 #include "access/QueryParser.h"
 
-namespace hyrise { namespace access {
+namespace hyrise {
+namespace access {
 
-bool MultiplyRefField::isRegistered = QueryParser::registerPlanOperation<MultiplyRefField>("MultiplyRefField");
-
-MultiplyRefField::MultiplyRefField() {
-
+namespace {
+  auto _ = QueryParser::registerPlanOperation<MultiplyRefField>("MultiplyRefField");
 }
 
 void MultiplyRefField::executePlanOperation() {
   switch(getInputTable()->typeOfColumn(_field_definition[1])) {
     case IntegerType:
-      return executeMultiply<hyrise_int_t, IntegerType>();
+      return executeMultiply<storage::hyrise_int_t, IntegerType>();
     case FloatType:
-      return executeMultiply<hyrise_float_t, FloatType>();
+      return executeMultiply<storage::hyrise_float_t, FloatType>();
     default:
       throw std::runtime_error("The data type of the given field is not supported in MultiplyRefField");
   }
@@ -31,5 +31,5 @@ const std::string MultiplyRefField::vname() {
   return "MultiplyRefField";
 }
 
-
-}}
+}
+}
