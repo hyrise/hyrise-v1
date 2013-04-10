@@ -1,55 +1,42 @@
-#include "Histogram.h"
+// Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
+#include "access/Histogram.h"
 
 #include "access/BasicParser.h"
 #include "access/QueryParser.h"
 
-#include "helper/types.h"
-
 #include "storage/ColumnMetadata.h"
-#include "storage/meta_storage.h"
-#include "storage/hash_functor.h"
-#include "storage/storage_types.h"
 
-#include <sstream>
+namespace hyrise {
+namespace access {
 
-namespace hyrise { namespace access {
-
-bool Histogram::is_registered = QueryParser::registerPlanOperation<Histogram>("Histogram");
-bool Histogram2ndPass::is_registered = QueryParser::registerPlanOperation<Histogram2ndPass>("Histogram2ndPass");
-
-Histogram::Histogram() : _bits(0), _significantOffset(0), _bits2(0), _significantOffset2(0), _part(0), _count(0) {
-
+namespace {
+  auto _ = QueryParser::registerPlanOperation<Histogram>("Histogram");
 }
 
-Histogram::~Histogram() {
-
+Histogram::Histogram() : _bits(0),
+                         _significantOffset(0),
+                         _bits2(0),
+                         _significantOffset2(0),
+                         _part(0),
+                         _count(0) {
 }
 
-std::shared_ptr<Table<>> Histogram::createOutputTable(size_t size) {
-  std::vector<const ColumnMetadata*> meta {ColumnMetadata::metadataFromString(hyrise::types::integer_t, "count")};
-  auto result = std::make_shared<Table<>>(&meta, nullptr, size, true, 0, 0, false);
-  result->resize(size);
-  return result;
-}
-
-
-// The histogram basically works by iterating over the table and the requested 
+// The histogram basically works by iterating over the table and the requested
 // field, hashing the value and incresing the count for this entry
 void Histogram::executePlanOperation() {
   switch(getInputTable()->typeOfColumn(_field_definition[0])) {
     case IntegerType:
-      return executeHistogram<hyrise_int_t>();
+      return executeHistogram<storage::hyrise_int_t>();
     case FloatType:
-      return executeHistogram<hyrise_float_t>();
+      return executeHistogram<storage::hyrise_float_t>();
     case StringType:
-      return executeHistogram<hyrise_string_t>();
+      return executeHistogram<storage::hyrise_string_t>();
   }
 }
 
-
 std::shared_ptr<_PlanOperation> Histogram::parse(Json::Value &data) {
   auto hst = BasicParser<Histogram>::parse(data);
-  hst->setBits(data["bits"].asUInt(), data["sig"].asUInt());  
+  hst->setBits(data["bits"].asUInt(), data["sig"].asUInt());
   if (data.isMember("numParts")) {
     hst->_part = data["part"].asInt();
     hst->_count = data["numParts"].asInt();
@@ -57,25 +44,52 @@ std::shared_ptr<_PlanOperation> Histogram::parse(Json::Value &data) {
   return hst;
 }
 
-Histogram2ndPass::Histogram2ndPass(): Histogram() { 
+const std::string Histogram::vname() {
+  return "Histogram";
 }
 
-Histogram2ndPass::~Histogram2ndPass() {}
+void Histogram::setPart(const size_t p) {
+  _part = p;
+}
 
-std::shared_ptr<_PlanOperation> Histogram2ndPass::parse(Json::Value &data) {
-  auto hst = BasicParser<Histogram2ndPass>::parse(data);
-  hst->setBits(data["bits"].asUInt(), data["sig"].asUInt());
-  hst->setBits2(data["bits2"].asUInt(), data["sig2"].asUInt());
-  if (data.isMember("numParts")) {
-    hst->setPart(data["part"].asInt());
-    hst->setCount(data["numParts"].asInt());
-  }
-  return hst;
+void Histogram::setCount(const size_t c) {
+  _count = c;
+}
+
+void Histogram::setBits(const uint32_t b,
+                        const uint32_t sig) {
+  _bits = b;
+  _significantOffset = sig;
+}
+
+void Histogram::setBits2(const uint32_t b,
+                         const uint32_t sig) {
+  _bits2 = b;
+  _significantOffset2 = sig;
+}
+
+uint32_t Histogram::bits() const {
+  return _bits;
+}
+
+uint32_t Histogram::significantOffset() const {
+  return _significantOffset;
+}
+
+std::shared_ptr<Table<>> Histogram::createOutputTable(const size_t size) const {
+  std::vector<const ColumnMetadata*> meta {ColumnMetadata::metadataFromString(types::integer_t, "count")};
+  auto result = std::make_shared<Table<>>(&meta, nullptr, size, true, 0, 0, false);
+  result->resize(size);
+  return result;
+}
+
+namespace {
+  auto _2 = QueryParser::registerPlanOperation<Histogram2ndPass>("Histogram2ndPass");
 }
 
 void Histogram2ndPass::executePlanOperation() {
-  auto tab = getInputTable();
-  auto tableSize = getInputTable()->size();
+  const auto &tab = getInputTable();
+  const auto tableSize = getInputTable()->size();
   const auto field = 0;//_field_definition[0];
 
   //Prepare mask
@@ -94,14 +108,30 @@ void Histogram2ndPass::executePlanOperation() {
   if (_count > 0) {
     start = (tableSize / _count) * _part;
     stop = (_count -1) == _part ? tableSize : (tableSize/_count) * (_part + 1);
-  } 
-  for(decltype(tableSize) row = start; row < stop; ++row) {
+  }
+  for(size_t row = start; row < stop; ++row) {
     auto hash_value = i_data->get(field, row);
     auto offset = (hash_value & mask) * (1<<_bits2) + ((hash_value & mask2) >> _significantOffset2);
-    o_data->inc(0, offset);    
+    o_data->inc(0, offset);
   }
 
   addResult(result);
 }
-  
-}}
+
+std::shared_ptr<_PlanOperation> Histogram2ndPass::parse(Json::Value &data) {
+  auto hst = BasicParser<Histogram2ndPass>::parse(data);
+  hst->setBits(data["bits"].asUInt(), data["sig"].asUInt());
+  hst->setBits2(data["bits2"].asUInt(), data["sig2"].asUInt());
+  if (data.isMember("numParts")) {
+    hst->setPart(data["part"].asInt());
+    hst->setCount(data["numParts"].asInt());
+  }
+  return hst;
+}
+
+const std::string Histogram2ndPass::vname() {
+  return "Histogram2ndPass";
+}
+
+}
+}
