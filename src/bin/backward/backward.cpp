@@ -2,6 +2,8 @@
 #define PACKAGE
 #define PACKAGE_VERSION
 
+#ifdef USE_BACKWARD
+
 #include "backward/backward.hpp"
 
 namespace backward {
@@ -16,3 +18,5 @@ backward::SignalHandling sh({
 
 
 } // namespace backward
+
+#endif 
