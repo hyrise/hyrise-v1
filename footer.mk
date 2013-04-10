@@ -25,12 +25,6 @@ sources ?= $(shell find $(src_dir) -type f -name "*.c" -or -name "*.cpp" -and -n
 objects ?= $(subst $(src_dir)/,,$(subst .c,.o,$(subst .cpp,.o,$(sources))))
 dependencies ?= $(subst .o,.d,$(objects))
 
-ifeq ($(USE_BACKWARD), 1)
-	ifdef bin
-		objects += $(BUILD_DIR)bin/backward/backward.o
-	endif
-endif
-
 include_flags = $(addprefix -I, $(include_dirs))
 linker_dir_flags = $(addprefix -L, $(linker_dirs))
 
@@ -38,10 +32,10 @@ makefiles := $(shell find $(BUILD_DIR) -type f -name Makefile) $(IMH_PROJECT_PAT
 
 VPATH := $(src_dir)
 
-all:: $(lib) $(bin) $(other)
+all:: $(lib) $(bin)
 
 $(bin): $(objects)
-	$(call echo_cmd,BINARY $@) $(LD) -o $@ $(objects) $(LINKER_FLAGS) $(lib_dependencies) $(linker_dir_flags)
+	$(call echo_cmd,BINARY $@) $(LD) -o $@ $(objects) $(LINKER_FLAGS) $(BINARY_LINKER_FLAGS) $(lib_dependencies) $(linker_dir_flags)
 
 $(lib): $(objects) 
 	$(call echo_cmd,LINK $@) $(LD) $(SHARED_LIB) -o $@ $(objects) $(LINKER_FLAGS) $(lib_dependencies) $(linker_dir_flags)

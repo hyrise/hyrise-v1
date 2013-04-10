@@ -111,6 +111,7 @@ JSON_PATH	:=	$(IMH_PROJECT_PATH)/third_party/jsoncpp
 FTPRINTER_PATH	:=	$(IMH_PROJECT_PATH)/third_party/ftprinter/include
 PROJECT_INCLUDE += $(IMH_PROJECT_PATH)/src/lib $(IMH_PROJECT_PATH)/third_party $(IMH_PROJECT_PATH)/third_party/libvarbit $(FTPRINTER_PATH) $(JSON_PATH)
 LINKER_FLAGS += -llog4cxx -lpthread
+BINARY_LINKER_FLAGS += -lbackward-hyr
 
 BUILD_DIR = $(IMH_PROJECT_PATH)/$(build_dir)/
 
