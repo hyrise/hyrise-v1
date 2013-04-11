@@ -2,4 +2,21 @@
 #define PACKAGE
 #define PACKAGE_VERSION
 
-#include <backward/backward.cpp>
+#ifdef USE_BACKWARD
+
+#include "backward/backward.hpp"
+
+namespace backward {
+
+backward::SignalHandling sh({
+    SIGILL,
+        SIGABRT,
+        SIGFPE,
+        SIGSEGV,
+        SIGBUS,
+        });
+
+
+} // namespace backward
+
+#endif 

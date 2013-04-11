@@ -1,5 +1,4 @@
 src_dir := $(IMH_PROJECT_PATH)/src/bin/backward
-
-other += backward.o
+libname := backward-hyr
 
 include $(IMH_PROJECT_PATH)/footer.mk
