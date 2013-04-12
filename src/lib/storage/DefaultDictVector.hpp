@@ -10,6 +10,8 @@
 #include <memory/MallocStrategy.h>
 #include <helper/types.h>
 
+#include <iostream>
+
 
 // Template classes for iterators
 //template <typename T> class DefaultDictVectorIterator;
@@ -256,6 +258,11 @@ void DefaultDictVector<T, Allocator>::reserve(size_t rows) {
 
   for (size_t c=0; c<_columns; ++c)
     _default_dict_table[c].default_bit_vector.resize(rows, true);
+
+  size_t i = 0;
+  for(i=0;i<_rows;i++)
+    if(1 == _default_dict_table[0].default_bit_vector[i])
+      std::cout << i << std::endl;
 }
 
 

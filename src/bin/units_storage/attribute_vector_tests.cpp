@@ -167,35 +167,26 @@ TYPED_TEST(AttributeVectorTests, empty_size_does_not_change_with_reserve) {
 
 TYPED_TEST(AttributeVectorTests, default_bit_vector) {
 
-  size_t cols = 4;
-  size_t rows = 100;
-  DefaultDictVector< hyrise_int_t > d(cols,rows);
-  
-  size_t i = 0;
-  size_t j = 0;
-
-  d.resize(rows-10);
-
-  for (j = 0; j<d.size();++j)
-    for (i = 0; i<cols; ++i)
-      d.set(i,j,(i*cols+j)*((i+j)%2));
-  
-  for (j = 0; j<d.size();++j)
-    for (i = 0; i<cols; ++i)
-      ASSERT_EQ(d.get(i,j),static_cast<hyrise_int_t>((i*cols+j)*((i+j)%2)));
+  size_t iCol = 0;
+  size_t iRow = 0;
 
   Loader::params p;
   p.setisDefaultDictVector(true);
   p.setReturnsMutableVerticalTable(true);
   p.setModifiableMutableVerticalTable(true);
-  hyrise::storage::atable_ptr_t table = Loader::shortcuts::load("test/lin_xxs.tbl", p);
+  hyrise::storage::atable_ptr_t vegiTable = Loader::shortcuts::load("test/tables/VegiTable.csv", p);
 
-  for (j = 0; j<table->columnCount(); ++j)
-    for (i = 0; i<table->size(); ++i) {
-      table->setValue<hyrise_int_t>(j, i, static_cast<hyrise_int_t>(j*10000+i));
+  vegiTable->resize(30);
+
+  for (iCol = 0; iCol<vegiTable->columnCount(); ++iCol)
+    for (iRow = 0; iRow<vegiTable->size(); ++iRow) {
+      vegiTable->setValue<hyrise_int_t>(iCol, iRow, static_cast<hyrise_int_t>(iCol*10000+iRow));
     }
-  for (j = 0; j<table->columnCount(); ++j)
-    for (i = 0; i<table->size(); ++i)
-      ASSERT_EQ(table->getValue<hyrise_int_t>(j, i), static_cast<hyrise_int_t>(j*10000+i));
 
+  vegiTable->print();
+
+  for (iCol = 0; iCol<vegiTable->columnCount(); ++iCol)
+    for (iRow = 0; iRow<vegiTable->size(); ++iRow)
+      ASSERT_EQ(vegiTable->getValue<hyrise_int_t>(iCol, iRow), static_cast<hyrise_int_t>(iCol*10000+iRow));
 }
+
