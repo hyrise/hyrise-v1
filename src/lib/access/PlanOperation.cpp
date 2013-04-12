@@ -70,12 +70,6 @@ hyrise::storage::c_ahashtable_ptr_t _PlanOperation::getResultHashTable(size_t in
 }
 
 bool _PlanOperation::allDependenciesSuccessful() {
-  /*size_t numberOfDependencies = getDependencyCount();
-    for (size_t i = 0; i < numberOfDependencies; ++i)
-    {
-    if (getDependency<OutputTask>(i)->getState() == OpFail) return false;
-    }
-    return true;*/
   for (size_t i = 0; i < _dependencies.size(); ++i) {
     if (std::dynamic_pointer_cast<OutputTask>(_dependencies[i])->getState() == OpFail) return false;
   }
@@ -85,14 +79,6 @@ bool _PlanOperation::allDependenciesSuccessful() {
 std::string _PlanOperation::getDependencyErrorMessages() {
   std::string result;
 
-  /*
-    size_t numberOfDependencies = getDependencyCount();
-    for (size_t i = 0; i < numberOfDependencies; ++i)
-    {
-    OutputTask* task = getDependency<OutputTask>(i);
-    if (task->getState() == OpFail) result += task->getErrorMessage() + "\n";
-    }
-  */
   std::shared_ptr<OutputTask> task;
   for (size_t i = 0; i < _dependencies.size(); ++i) {
     task = std::dynamic_pointer_cast<OutputTask>(_dependencies[i]);
@@ -125,7 +111,6 @@ void _PlanOperation::addField(const Json::Value &field) {
 
 /* This method only returns the column number in each table, assuming the operation knows how to handle positions */
 unsigned int _PlanOperation::findColumn(const std::string &col) {
-  //assert(!input.getTables().empty());
   for (const auto& table: input.getTables()) {
     try {
       return table->numberOfColumn(col);
@@ -176,15 +161,6 @@ void _PlanOperation::distribute(
 }
 
 void _PlanOperation::refreshInput() {
-  /*
-    size_t numberOfDependencies = getDependencyCount();
-    addDependencyPerformanceData(numberOfDependencies);
-    for (size_t i = 0; i < numberOfDependencies; ++i)
-    {
-    _PlanOperation *dependency = getDependency<_PlanOperation>(i);
-    input.mergeWith(dependency->output, true);
-    }
-  */
   size_t numberOfDependencies = _dependencies.size();
   for (size_t i = 0; i < numberOfDependencies; ++i) {
     const auto& dependency = std::dynamic_pointer_cast<_PlanOperation>(_dependencies[i]);
