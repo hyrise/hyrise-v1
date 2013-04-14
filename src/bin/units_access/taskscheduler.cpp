@@ -18,6 +18,7 @@
 
 
 namespace hyrise {
+namespace access {
 
 #if GTEST_HAS_PARAM_TEST
 
@@ -384,5 +385,4 @@ TEST_P(SchedulerTest, avoid_too_many_threads_test) {
 #endif
 
 }
-
-
+}

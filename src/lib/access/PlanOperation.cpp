@@ -29,8 +29,12 @@ _PlanOperation::_PlanOperation() :
 _PlanOperation::~_PlanOperation() {
 }
 
+void _PlanOperation::addResult(hyrise::storage::c_atable_ptr_t result) {
+  output.add(result);
+}
+
 void _PlanOperation::addResultHash(hyrise::storage::c_ahashtable_ptr_t result) {
-    output.addHash(result);
+  output.addHash(result);
 }
 
 void _PlanOperation::addInput(std::vector<hyrise::storage::c_atable_ptr_t> *input_list) {
@@ -121,7 +125,7 @@ void _PlanOperation::addField(const Json::Value &field) {
 
 /* This method only returns the column number in each table, assuming the operation knows how to handle positions */
 unsigned int _PlanOperation::findColumn(const std::string &col) {
-  assert(!input.getTables().empty());
+  //assert(!input.getTables().empty());
   for (const auto& table: input.getTables()) {
     try {
       return table->numberOfColumn(col);
@@ -182,9 +186,8 @@ void _PlanOperation::refreshInput() {
     }
   */
   size_t numberOfDependencies = _dependencies.size();
-  std::shared_ptr<_PlanOperation> dependency;
   for (size_t i = 0; i < numberOfDependencies; ++i) {
-    dependency = std::dynamic_pointer_cast<_PlanOperation>(_dependencies[i]);
+    const auto& dependency = std::dynamic_pointer_cast<_PlanOperation>(_dependencies[i]);
     input.mergeWith(dependency->output);
   }
 
