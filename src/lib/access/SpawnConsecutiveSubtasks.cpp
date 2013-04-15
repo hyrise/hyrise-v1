@@ -3,6 +3,7 @@
 
 #include "access/BasicParser.h"
 #include "access/QueryParser.h"
+#include "access/ResponseTask.h"
 
 #include "helper/types.h"
 
@@ -38,8 +39,10 @@ void SpawnConsecutiveSubtasks::executePlanOperation() {
   for (auto successor : successors)
     successor->addDependency(children.back());
 
-  for (auto child : children)
+  for (auto child : children) {
+    getResponseTask()->registerOperation(child.get());
     scheduler->schedule(child);
+  }
 }
 
 void SpawnConsecutiveSubtasks::setNumberOfSpawns(const size_t number)

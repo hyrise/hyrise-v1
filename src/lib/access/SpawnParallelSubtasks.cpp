@@ -3,6 +3,7 @@
 
 #include "access/BasicParser.h"
 #include "access/QueryParser.h"
+#include "access/ResponseTask.h"
 
 #include "helper/types.h"
 
@@ -29,14 +30,16 @@ void SpawnParallelSubtasks::executePlanOperation() {
   }
 
   for (size_t i = 0; i < m_numberOfSpawns; ++i) {
-    children.push_back(QueryParser::instance().parse("SpawnedTask", Json::Value()));
-    
+    children.push_back(QueryParser::instance().parse("SpawnedTask", Json::Value())); 
+    getResponseTask()->registerOperation(children[i].get());
+
     for (auto successor : successors)
       successor->addDependency(children[i]);
   }
 
-  for (auto child : children)
-      scheduler->schedule(child);
+  for (auto child : children) {
+    scheduler->schedule(child);
+  }
 
 }
 

@@ -19,6 +19,12 @@
 
 class Task;
 
+namespace hyrise {
+namespace access {
+class ResponseTask;
+}
+}
+
 class TaskReadyObserver {
   /*
    * notify that task has changed state
@@ -126,6 +132,16 @@ public:
    */
   void lockForNotifications();
   void unlockForNotifications();
+
+  void setResponseTask(hyrise::access::ResponseTask* responseTask) {
+    _responseTask = responseTask;
+  }
+  hyrise::access::ResponseTask* getResponseTask() const {
+    return _responseTask;
+  }
+
+private:
+  hyrise::access::ResponseTask* _responseTask;
 };
 
 class WaitTask : public Task {
