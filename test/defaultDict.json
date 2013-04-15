@@ -1,0 +1,26 @@
+{
+    "papi": "PAPI_L1_DCA",
+    "operators" : {
+        "0": {
+            "type": "LoadWithDefaultDict",
+            "table": "companies",
+            "filename" : "tables/companies.tbl"
+        },
+        "1" : {
+            "type" : "SimpleTableScan",
+            "positions" : true,
+            "predicates":[
+            { "type": 7 },
+            { "type" : 2, "in" : 0, "f" : "company_id", "vtype" : 0, "value": 2 },
+            { "type" : 0, "in" : 0, "f" : "company_name", "vtype" : 2, "value": "Microsoft" }
+            ]
+        },
+        "2" : {
+            "type" : "ProjectionScan",
+            "fields" : [
+            "company_id","company_name"
+            ]
+        }
+    },
+    "edges": [["0","1"],["1","2"]]
+}
