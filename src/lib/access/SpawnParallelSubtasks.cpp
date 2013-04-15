@@ -36,10 +36,12 @@ void SpawnParallelSubtasks::executePlanOperation() {
     for (auto successor : successors)
       successor->addDependency(children[i]);
 
-    scheduler->schedule(children[i]);
-
     std::cout << "created subtask (" << i << ")" << std::endl;
   }
+
+  for (auto child : children)
+      scheduler->schedule(child);
+
 }
 
 void SpawnParallelSubtasks::setNumberOfSpawns(const size_t number) {

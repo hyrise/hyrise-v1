@@ -32,14 +32,18 @@ void SpawnConsecutiveSubtasks::executePlanOperation() {
 
   for (size_t i = 0; i < m_numberOfSpawns; ++i) {
     children.push_back(QueryParser::instance().parse("SpawnedTask", Json::Value()));
-    
-    for (auto successor : successors)
-      successor->addDependency(children[i]);
 
-    scheduler->schedule(children[i]);
+    if (i != 0)
+      children[i]->addDependency(children[i-1]);
 
     std::cout << "created subtask (" << i << ")" << std::endl;
   }
+    
+  for (auto successor : successors)
+    successor->addDependency(children.back());
+
+  for (auto child : children)
+    scheduler->schedule(child);
 }
 
 void SpawnConsecutiveSubtasks::setNumberOfSpawns(const size_t number)

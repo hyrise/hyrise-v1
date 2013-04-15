@@ -1,7 +1,8 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "access/SpawnedTask.h"
 
-#include <iostream>
+#include <thread>
+#include <random>
 
 #include "access/BasicParser.h"
 #include "access/QueryParser.h"
@@ -21,7 +22,10 @@ SpawnedTask::~SpawnedTask() {
 // Executing this on a store with delta results in undefined behavior
 // Execution with horizontal tables results in undefined behavior
 void SpawnedTask::executePlanOperation() {
-  std::cout << "spawned task execution" << std::endl;
+  static std::default_random_engine e((unsigned int)time(0));
+  size_t time = e() % 150;
+  std::this_thread::sleep_for(std::chrono::milliseconds(time));
+
 }
 
 std::shared_ptr<_PlanOperation> SpawnedTask::parse(Json::Value &data) {
