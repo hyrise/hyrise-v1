@@ -1,5 +1,5 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#include "access/SpawnParallelSubtasks.h"
+#include "access/SpawnConsecutiveSubtasks.h"
 
 #include <iostream>
 
@@ -12,15 +12,15 @@ namespace hyrise {
 namespace access {
 
 namespace {
-  auto _ = QueryParser::registerPlanOperation<SpawnParallelSubtasks>("SpawnParallelSubtasks");
+  auto _ = QueryParser::registerPlanOperation<SpawnConsecutiveSubtasks>("SpawnConsecutiveSubtasks");
 }
 
-SpawnParallelSubtasks::~SpawnParallelSubtasks() {
+SpawnConsecutiveSubtasks::~SpawnConsecutiveSubtasks() {
 }
 
 // Executing this on a store with delta results in undefined behavior
 // Execution with horizontal tables results in undefined behavior
-void SpawnParallelSubtasks::executePlanOperation() {
+void SpawnConsecutiveSubtasks::executePlanOperation() {
   std::vector<std::shared_ptr<_PlanOperation>> children;
   std::vector<Task*> successors;
   auto scheduler = SharedScheduler::getInstance().getScheduler();
@@ -42,18 +42,19 @@ void SpawnParallelSubtasks::executePlanOperation() {
   }
 }
 
-void SpawnParallelSubtasks::setNumberOfSpawns(const size_t number) {
+void SpawnConsecutiveSubtasks::setNumberOfSpawns(const size_t number)
+{
   m_numberOfSpawns = number;
 }
 
-std::shared_ptr<_PlanOperation> SpawnParallelSubtasks::parse(Json::Value &data) {
-  auto planOp =  std::make_shared<SpawnParallelSubtasks>();
+std::shared_ptr<_PlanOperation> SpawnConsecutiveSubtasks::parse(Json::Value &data) {
+  auto planOp = std::make_shared<SpawnConsecutiveSubtasks>();
   planOp->setNumberOfSpawns(data["amount"].asInt());
   return planOp;
 }
 
-const std::string SpawnParallelSubtasks::vname() {
-  return "SpawnParallelSubtasks";
+const std::string SpawnConsecutiveSubtasks::vname() {
+  return "SpawnConsecutiveSubtasks";
 }
 
 }

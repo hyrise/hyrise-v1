@@ -1,6 +1,6 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#ifndef SRC_LIB_ACCESS_SPAWNPARALLELSUBTASKS_H
-#define SRC_LIB_ACCESS_SPAWNPARALLELSUBTASKS_H
+#ifndef SRC_LIB_ACCESS_SPAWNCONSECUTIVESUBTASKS_H
+#define SRC_LIB_ACCESS_SPAWNCONSECUTIVESUBTASKS_H
 
 #include "access/PlanOperation.h"
 
@@ -10,9 +10,9 @@ namespace access {
 /// This class implements the distinct operator for any kind of input table.
 /// It has linear complexity since it scans the attribute and retrieves
 /// all distinct valueIds and builds the result.
-class SpawnParallelSubtasks : public _PlanOperation {
+class SpawnConsecutiveSubtasks : public _PlanOperation {
 public:
-  virtual ~SpawnParallelSubtasks();
+  virtual ~SpawnConsecutiveSubtasks();
 
   void executePlanOperation();
   static std::shared_ptr<_PlanOperation> parse(Json::Value &data);
@@ -27,4 +27,4 @@ private:
 }
 }
 
-#endif // SRC_LIB_ACCESS_SPAWNPARALLELSUBTASKS_H
+#endif // SRC_LIB_ACCESS_SPAWNCONSECUTIVESUBTASKS_H
