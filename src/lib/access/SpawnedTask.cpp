@@ -23,7 +23,7 @@ SpawnedTask::~SpawnedTask() {
 // Execution with horizontal tables results in undefined behavior
 void SpawnedTask::executePlanOperation() {
   static std::default_random_engine e((unsigned int)time(0));
-  size_t time = e() % 150;
+  size_t time = e() % 25;
   std::this_thread::sleep_for(std::chrono::milliseconds(time));
 
 }
