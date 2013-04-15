@@ -1,8 +1,6 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "access/SpawnConsecutiveSubtasks.h"
 
-#include <iostream>
-
 #include "access/BasicParser.h"
 #include "access/QueryParser.h"
 
@@ -35,8 +33,6 @@ void SpawnConsecutiveSubtasks::executePlanOperation() {
 
     if (i != 0)
       children[i]->addDependency(children[i-1]);
-
-    std::cout << "created subtask (" << i << ")" << std::endl;
   }
     
   for (auto successor : successors)

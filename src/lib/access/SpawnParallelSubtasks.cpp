@@ -1,8 +1,6 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "access/SpawnParallelSubtasks.h"
 
-#include <iostream>
-
 #include "access/BasicParser.h"
 #include "access/QueryParser.h"
 
@@ -35,8 +33,6 @@ void SpawnParallelSubtasks::executePlanOperation() {
     
     for (auto successor : successors)
       successor->addDependency(children[i]);
-
-    std::cout << "created subtask (" << i << ")" << std::endl;
   }
 
   for (auto child : children)
