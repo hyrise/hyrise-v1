@@ -1,26 +1,46 @@
 {
     "papi": "PAPI_L1_DCA",
     "operators" : {
-        "0": {
-            "type": "LoadWithDefaultDict",
-            "table": "companies",
-            "filename" : "tables/companies.tbl"
+        "00" : {
+            "type": "TableLoad",
+            "table": "numbers",
+            "filename" : "tables/defaultDictTable.tbl"
         },
-        "1" : {
+        "10" : {
+            "type": "LoadWithDefaultDict",
+            "table": "numbers",
+            "filename" : "tables/defaultDictTable.tbl"
+        },
+        "01" : {
             "type" : "SimpleTableScan",
             "positions" : true,
             "predicates":[
-            { "type": 7 },
-            { "type" : 2, "in" : 0, "f" : "company_id", "vtype" : 0, "value": 2 },
-            { "type" : 0, "in" : 0, "f" : "company_name", "vtype" : 2, "value": "Microsoft" }
+            { "type": "AND" },
+            { "type" : "LT", "in" : 0, "f" : "numbers", "vtype" : 0, "value": 10000000 },
+            { "type" : "EQ", "in" : 0, "f" : "mostlyDefault", "vtype" : 0, "value": 0 }
             ]
         },
-        "2" : {
+        "02" : {
             "type" : "ProjectionScan",
             "fields" : [
-            "company_id","company_name"
+            "numbers","mostlyDefault"
+            ]
+        },
+        "11" : {
+            "type" : "SimpleTableScan",
+            "positions" : true,
+            "predicates":[
+            { "type": "AND" },
+            { "type" : "LT", "in" : 0, "f" : "numbers", "vtype" : 0, "value": 10000000 },
+            { "type" : "EQ", "in" : 0, "f" : "mostlyDefault", "vtype" : 0, "value": 0 }
+            ]
+        },
+        "12" : {
+            "type" : "ProjectionScan",
+            "fields" : [
+            "numbers","mostlyDefault"
             ]
         }
     },
-    "edges": [["0","1"],["1","2"]]
+    "edges": [["00","01"],["01","02"], ["10","11"],["11","12"]]
 }
