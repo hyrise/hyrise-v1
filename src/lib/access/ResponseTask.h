@@ -27,6 +27,8 @@ class ResponseTask : public Task {
   }
 
   virtual ~ResponseTask() {
+    for (auto& perf : performance_data)
+      delete perf;
   }
 
   const std::string vname();
