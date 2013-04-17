@@ -67,7 +67,8 @@ void RequestParseTask::operator()() {
   _responseTask->setPreferredCore(0);
 
   OutputTask::performance_vector& performance_data = _responseTask->getPerformanceData();
-  // make room for at leas *this* operator
+
+  // the performance attribute for this operation (at [0])
   performance_data.push_back(std::unique_ptr<OutputTask::performance_attributes_t>(new OutputTask::performance_attributes_t));
   
   epoch_t queryStart = get_epoch_nanoseconds();
@@ -110,7 +111,6 @@ void RequestParseTask::operator()() {
           task->setPlanId(final_hash);
           task->setTransactionId(tid);
 	  _responseTask->registerPlanOperation(task);
-	  task->setResponseTask(_responseTask);
           if (!task->hasSuccessors()) {
             // The response has to depend on all tasks, ie. we don't want to respond
             // before all tasks finished running, even if they don't contribute to the result
