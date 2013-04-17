@@ -137,7 +137,7 @@ class _PlanOperation : public OutputTask {
   virtual const std::string vname();
   const _PlanOperation *execute();
 
-  void setResponseTask(std::shared_ptr<hyrise::access::ResponseTask> responseTask);
+  void setResponseTask(const std::shared_ptr<hyrise::access::ResponseTask>& responseTask);
   std::shared_ptr<hyrise::access::ResponseTask> getResponseTask() const;
 };
 

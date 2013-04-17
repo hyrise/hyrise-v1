@@ -72,7 +72,7 @@ const std::string ResponseTask::vname() {
   return "ResponseTask";
 }
 
-void ResponseTask::registerPlanOperation(std::shared_ptr<_PlanOperation> planOp) {
+void ResponseTask::registerPlanOperation(const std::shared_ptr<_PlanOperation>& planOp) {
   OutputTask::performance_attributes_t* perf = new OutputTask::performance_attributes_t;
   planOp->setPerformanceData(perf);
 

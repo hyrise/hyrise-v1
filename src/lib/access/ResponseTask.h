@@ -34,7 +34,7 @@ class ResponseTask : public Task {
     return queryStart;
   }
 
-  void registerPlanOperation(std::shared_ptr<_PlanOperation> planOp);
+  void registerPlanOperation(const std::shared_ptr<_PlanOperation>& planOp);
 
   void setQueryStart(epoch_t start) {
     queryStart = start;

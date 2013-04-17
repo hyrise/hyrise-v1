@@ -294,7 +294,7 @@ const std::string _PlanOperation::vname() {
   return planOperationName();
 }
 
-void _PlanOperation::setResponseTask(std::shared_ptr<hyrise::access::ResponseTask> responseTask) {
+void _PlanOperation::setResponseTask(const std::shared_ptr<hyrise::access::ResponseTask>& responseTask) {
   _responseTask = responseTask;
 }
 
