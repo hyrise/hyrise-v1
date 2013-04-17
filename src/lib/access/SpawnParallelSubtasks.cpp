@@ -1,20 +1,14 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "access/SpawnParallelSubtasks.h"
 
-#include "access/BasicParser.h"
 #include "access/QueryParser.h"
 #include "access/ResponseTask.h"
-
-#include "helper/types.h"
 
 namespace hyrise {
 namespace access {
 
 namespace {
   auto _ = QueryParser::registerPlanOperation<SpawnParallelSubtasks>("SpawnParallelSubtasks");
-}
-
-SpawnParallelSubtasks::~SpawnParallelSubtasks() {
 }
 
 // Executing this on a store with delta results in undefined behavior
@@ -59,3 +53,4 @@ const std::string SpawnParallelSubtasks::vname() {
 
 }
 }
+
