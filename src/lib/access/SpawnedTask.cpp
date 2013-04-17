@@ -22,8 +22,8 @@ SpawnedTask::~SpawnedTask() {
 // Executing this on a store with delta results in undefined behavior
 // Execution with horizontal tables results in undefined behavior
 void SpawnedTask::executePlanOperation() {
-  static std::default_random_engine e((unsigned int)time(0));
-  size_t time = e() % 25;
+  static std::default_random_engine e((time_t) time(0));
+  time_t time = e() % 25;
   std::this_thread::sleep_for(std::chrono::milliseconds(time));
 
 }

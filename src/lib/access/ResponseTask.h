@@ -26,10 +26,7 @@ class ResponseTask : public Task {
       connection(connection), _transmitLimit(0), queryStart(0) {
   }
 
-  virtual ~ResponseTask() {
-    for (auto& perf : performance_data)
-      delete perf;
-  }
+  virtual ~ResponseTask() {}
 
   const std::string vname();
 
@@ -37,7 +34,7 @@ class ResponseTask : public Task {
     return queryStart;
   }
 
-  void registerOperation(OutputTask* task);
+  void registerPlanOperation(std::shared_ptr<_PlanOperation> planOp);
 
   void setQueryStart(epoch_t start) {
     queryStart = start;

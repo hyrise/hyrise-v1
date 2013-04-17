@@ -31,7 +31,7 @@ void SpawnParallelSubtasks::executePlanOperation() {
 
   for (size_t i = 0; i < m_numberOfSpawns; ++i) {
     children.push_back(QueryParser::instance().parse("SpawnedTask", Json::Value())); 
-    getResponseTask()->registerOperation(children[i].get());
+    getResponseTask()->registerPlanOperation(children[i]);
 
     for (auto successor : successors)
       successor->addDependency(children[i]);

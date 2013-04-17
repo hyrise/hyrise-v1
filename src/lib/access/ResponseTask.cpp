@@ -2,6 +2,7 @@
 #include "access/ResponseTask.h"
 
 #include <thread>
+#include <iostream>
 
 #include "json.h"
 #include "log4cxx/logger.h"
@@ -72,11 +73,13 @@ const std::string ResponseTask::vname() {
   return "ResponseTask";
 }
 
-void ResponseTask::registerOperation(OutputTask* const task) {
+void ResponseTask::registerPlanOperation(std::shared_ptr<_PlanOperation> planOp) {
   OutputTask::performance_attributes_t* perf = new OutputTask::performance_attributes_t;
+  planOp->setPerformanceData(perf);
+  planOp->setPlanOperationName(planOp->vname());
+
   perfMutex.lock();
-  performance_data.push_back(perf);
-  task->setPerformanceData(perf);
+  performance_data.push_back(std::unique_ptr<OutputTask::performance_attributes_t>(perf));
   perfMutex.unlock();
 }
 
@@ -118,7 +121,15 @@ void ResponseTask::operator()() {
       // Copy Performance Data
       Json::Value json_perf(Json::arrayValue);
       for (const auto & attr: performance_data) {
-        Json::Value element;
+        std::cout << "(name: " << attr->name
+		<< ";\tpapi_event: " << attr->papiEvent
+		<< ";\tduration: " << attr->duration
+		<< ";\tdata: " << attr->data
+		<< ";\tstart: " << attr->startTime
+		<< ";\tend: " << attr->endTime
+		<< ";\texec thread: " << attr->executingThread << std::endl;
+	
+	Json::Value element;
         element["papi_event"] = Json::Value(attr->papiEvent);
         element["duration"] = Json::Value((Json::UInt64) attr->duration);
         element["data"] = Json::Value((Json::UInt64) attr->data);

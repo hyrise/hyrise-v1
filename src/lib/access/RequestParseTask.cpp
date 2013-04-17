@@ -67,7 +67,8 @@ void RequestParseTask::operator()() {
   _responseTask->setPreferredCore(0);
 
   OutputTask::performance_vector& performance_data = _responseTask->getPerformanceData();
-  performance_data.push_back(new OutputTask::performance_attributes_t); // make room for at leas *this* operator
+  // make room for at leas *this* operator
+  performance_data.push_back(std::unique_ptr<OutputTask::performance_attributes_t>(new OutputTask::performance_attributes_t));
   
   epoch_t queryStart = get_epoch_nanoseconds();
   std::vector<std::shared_ptr<Task> > tasks;
@@ -108,8 +109,8 @@ void RequestParseTask::operator()() {
         if (auto task = std::dynamic_pointer_cast<_PlanOperation>(func)) {
           task->setPlanId(final_hash);
           task->setTransactionId(tid);
-	  _responseTask->registerOperation(task.get());
-	  task->setResponseTask(_responseTask.get());
+	  _responseTask->registerPlanOperation(task);
+	  task->setResponseTask(_responseTask);
           if (!task->hasSuccessors()) {
             // The response has to depend on all tasks, ie. we don't want to respond
             // before all tasks finished running, even if they don't contribute to the result

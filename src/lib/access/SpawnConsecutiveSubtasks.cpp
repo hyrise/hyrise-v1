@@ -40,7 +40,7 @@ void SpawnConsecutiveSubtasks::executePlanOperation() {
     successor->addDependency(children.back());
 
   for (auto child : children) {
-    getResponseTask()->registerOperation(child.get());
+    getResponseTask()->registerPlanOperation(child);
     scheduler->schedule(child);
   }
 }
