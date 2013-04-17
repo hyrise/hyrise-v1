@@ -37,8 +37,7 @@ void SpawnConsecutiveSubtasks::executePlanOperation() {
   }
 }
 
-void SpawnConsecutiveSubtasks::setNumberOfSpawns(const size_t number)
-{
+void SpawnConsecutiveSubtasks::setNumberOfSpawns(const size_t number) {
   m_numberOfSpawns = number;
 }
 
