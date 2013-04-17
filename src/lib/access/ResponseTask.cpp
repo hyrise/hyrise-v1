@@ -2,7 +2,6 @@
 #include "access/ResponseTask.h"
 
 #include <thread>
-#include <iostream>
 
 #include "json.h"
 #include "log4cxx/logger.h"
@@ -120,14 +119,6 @@ void ResponseTask::operator()() {
       // Copy Performance Data
       Json::Value json_perf(Json::arrayValue);
       for (const auto & attr: performance_data) {
-        std::cout << "(name: " << attr->name
-		<< ";\tpapi_event: " << attr->papiEvent
-		<< ";\tduration: " << attr->duration
-		<< ";\tdata: " << attr->data
-		<< ";\tstart: " << attr->startTime
-		<< ";\tend: " << attr->endTime
-		<< ";\texec thread: " << attr->executingThread << std::endl;
-	
 	Json::Value element;
         element["papi_event"] = Json::Value(attr->papiEvent);
         element["duration"] = Json::Value((Json::UInt64) attr->duration);
