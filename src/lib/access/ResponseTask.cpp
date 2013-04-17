@@ -119,7 +119,7 @@ void ResponseTask::operator()() {
       // Copy Performance Data
       Json::Value json_perf(Json::arrayValue);
       for (const auto & attr: performance_data) {
-	Json::Value element;
+        Json::Value element;
         element["papi_event"] = Json::Value(attr->papiEvent);
         element["duration"] = Json::Value((Json::UInt64) attr->duration);
         element["data"] = Json::Value((Json::UInt64) attr->data);
