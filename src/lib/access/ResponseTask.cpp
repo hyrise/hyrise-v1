@@ -76,7 +76,6 @@ const std::string ResponseTask::vname() {
 void ResponseTask::registerPlanOperation(std::shared_ptr<_PlanOperation> planOp) {
   OutputTask::performance_attributes_t* perf = new OutputTask::performance_attributes_t;
   planOp->setPerformanceData(perf);
-  planOp->setPlanOperationName(planOp->vname());
 
   perfMutex.lock();
   performance_data.push_back(std::unique_ptr<OutputTask::performance_attributes_t>(perf));
