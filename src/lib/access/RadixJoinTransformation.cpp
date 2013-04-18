@@ -358,7 +358,7 @@ void RadixJoinTransformation::transform(Json::Value &op, const std::string &oper
     // case 2: parallel join -> we do need a union and have to connect the output edges to union
 
     Json::Value unionOperator(Json::objectValue);
-    unionOperator["type"] = "UnionScan";
+    unionOperator["type"] = "UnionAll";
     std::string unionId = operatorId + "_union";
     query["operators"][unionId] = unionOperator;
     // build output edges for union
