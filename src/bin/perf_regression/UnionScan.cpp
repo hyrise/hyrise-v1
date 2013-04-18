@@ -7,6 +7,8 @@
 #include <storage.h>
 #include <io.h>
 
+#include "access/UnionAll.h"
+
 namespace hyrise {
 namespace access {
 
@@ -14,7 +16,7 @@ class UnionScanBase : public ::testing::Benchmark {
 
  protected:
 
-  UnionScan *us;
+  UnionAll *us;
   StorageManager *sm;
   storage::c_atable_ptr_t t1;
   storage::c_atable_ptr_t t2;
@@ -23,7 +25,7 @@ class UnionScanBase : public ::testing::Benchmark {
   void BenchmarkSetUp() {
     sm = StorageManager::getInstance();
 
-    us = new UnionScan();
+    us = new UnionAll();
     us->setEvent("NO_PAPI");
 
     t1 = sm->getTable("district");
