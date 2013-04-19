@@ -27,8 +27,8 @@ using ::testing::ValuesIn;
 // list schedulers to be tested
 std::vector<std::string> getSchedulersToTest() {
   std::vector<std::string> result;
-  result.push_back("WSSimpleTaskScheduler");
-  result.push_back("SimpleTaskScheduler");
+  result.push_back("WSCoreBoundQueuesScheduler");
+  result.push_back("CoreBoundQueuesScheduler");
   return result;
 }
 
@@ -60,9 +60,9 @@ INSTANTIATE_TEST_CASE_P(
     ValuesIn(getSchedulersToTest()));
 
 TEST_P(SchedulerTest, setScheduler) {
-  SharedScheduler::getInstance().resetScheduler("SimpleTaskScheduler");
+  SharedScheduler::getInstance().resetScheduler("CoreBoundQueuesScheduler");
   AbstractTaskScheduler * scheduler = SharedScheduler::getInstance().getScheduler();
-  SimpleTaskScheduler<CoreBoundTaskQueue> * simple_task_scheduler = dynamic_cast<SimpleTaskScheduler<CoreBoundTaskQueue> *>(scheduler);
+  CoreBoundQueuesScheduler * simple_task_scheduler = dynamic_cast<CoreBoundQueuesScheduler *>(scheduler);
   bool test = (simple_task_scheduler == NULL);
   ASSERT_EQ(test, false);
 
@@ -150,11 +150,11 @@ TEST_P(SchedulerTest, dont_block_test) {
 
   AbstractTaskScheduler *scheduler;
 
-  scheduler = new SimpleTaskScheduler<CoreBoundTaskQueue>();
+  scheduler = new CoreBoundQueuesScheduler();
   ASSERT_TRUE(long_block_test(scheduler));
   delete scheduler;
 
-  scheduler = new WSSimpleTaskScheduler<WSCoreBoundTaskQueue>();
+  scheduler = new WSCoreBoundQueuesScheduler  ();
   ASSERT_TRUE(long_block_test(scheduler));
   delete scheduler;
 }

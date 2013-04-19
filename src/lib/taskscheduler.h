@@ -10,13 +10,13 @@
 #define SRC_LIB_TASKSCHEDULER_H_
 
 #include <taskscheduler/AbstractTaskScheduler.h>
-#include <taskscheduler/SimpleTaskScheduler.h>
 #include <taskscheduler/SharedScheduler.h>
 #include <taskscheduler/Task.h>
-#include <taskscheduler/CoreBoundTaskQueue.h>
 #include <taskscheduler/AbstractTaskQueue.h>
-#include <taskscheduler/WSCoreBoundTaskQueue.h>
-#include <taskscheduler/WSSimpleTaskScheduler.h>
-
+#include <taskscheduler/AbstractCoreBoundQueue.h>
+#include <taskscheduler/AbstractCoreBoundQueuesScheduler.h>
+#include <taskscheduler/AbstractTaskQueue.h>
+#include <taskscheduler/CoreBoundQueuesScheduler.h>
+#include <taskscheduler/WSCoreBoundQueuesScheduler.h>
 
 #endif  // SRC_LIB_TASKSCHEDULER_H_

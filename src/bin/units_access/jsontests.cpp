@@ -8,7 +8,7 @@
 #include <storage.h>
 
 #include <io/shortcuts.h>
-#include "taskscheduler/WSSimpleTaskScheduler.h"
+#include "taskscheduler.h"
 
 namespace hyrise {
 namespace access {
@@ -29,12 +29,9 @@ TEST_F(JSONTests, DISABLED_threadpool_adjust_configuration) {
   ASSERT_EQ(settings->getThreadpoolSize(), newThreadpoolSize);
 
   if(!SharedScheduler::getInstance().isInitialized())
-    SharedScheduler::getInstance().init("WSSimpleTaskScheduler");
+    SharedScheduler::getInstance().init("WSCoreBoundQueuesScheduler");
   AbstractTaskScheduler * scheduler = SharedScheduler::getInstance().getScheduler();
-
-  if (dynamic_cast<AbstractQueueBasedTaskScheduler<AbstractTaskQueue> *>(scheduler) != NULL) {
-     ASSERT_EQ(dynamic_cast<AbstractQueueBasedTaskScheduler<AbstractTaskQueue> *>(scheduler)->getNumberOfWorker(), newThreadpoolSize);
-   }
+  ASSERT_EQ(scheduler->getNumberOfWorker(), newThreadpoolSize);
 }
 
 TEST_F(JSONTests, apply_operator_parallelization) {

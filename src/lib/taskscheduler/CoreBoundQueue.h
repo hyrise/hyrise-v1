@@ -1,23 +1,21 @@
-// Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 /*
- * CoreBoundTaskQueue.h
+ * CoreBoundQueue.h
  *
- *  Created on: Feb 15, 2012
+ *  Created on: Apr 4, 2013
  *      Author: jwust
  */
 
-#ifndef SRC_LIB_TASKSCHEDULER_COREBOUNDTASKQUEUE_H_
-#define SRC_LIB_TASKSCHEDULER_COREBOUNDTASKQUEUE_H_
+#ifndef COREBOUNDQUEUE_H_
+#define COREBOUNDQUEUE_H_
 
-#include <thread>
+#include "AbstractCoreBoundQueue.h"
+#include <vector>
 #include <queue>
-#include <taskscheduler/AbstractTaskQueue.h>
-
 
 /*
  * A queue with a dedicated worker thread; used by SimpleTaskScheduler to run tasks
  */
-class CoreBoundTaskQueue : public AbstractCoreBoundTaskQueue {
+class CoreBoundQueue : public AbstractCoreBoundQueue {
   std::queue<std::shared_ptr<Task> > _runQueue;
   bool _blocked;
 
@@ -25,8 +23,8 @@ class CoreBoundTaskQueue : public AbstractCoreBoundTaskQueue {
   /*
    * intializes a task queue and pins created thread to given core
    */
-  CoreBoundTaskQueue(int core);
-  ~CoreBoundTaskQueue();
+  CoreBoundQueue(int core);
+  ~CoreBoundQueue();
   /*
    * Is executed by dedicated thread to work the queue
    */
@@ -38,12 +36,12 @@ class CoreBoundTaskQueue : public AbstractCoreBoundTaskQueue {
   /*
    * stop queue and return remaining tasks; allows resizing the number of threads used by a task pool
    */
-  std::queue<std::shared_ptr<Task> > stopQueue();
+  std::vector<std::shared_ptr<Task> > stopQueue();
 
   /**
    * empty queue
    */
-  std::queue<std::shared_ptr<Task> > emptyQueue();
+  std::vector<std::shared_ptr<Task> > emptyQueue();
   /*
    * check whether queue is blocked / queue is blocked if it is currently executing a task
    */
@@ -52,4 +50,4 @@ class CoreBoundTaskQueue : public AbstractCoreBoundTaskQueue {
   }
 };
 
-#endif  // SRC_LIB_TASKSCHEDULER_COREBOUNDTASKQUEUE_H_
+#endif /* COREBOUNDQUEUE_H_ */

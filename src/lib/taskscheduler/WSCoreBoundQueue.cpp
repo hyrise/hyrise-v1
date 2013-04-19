@@ -1,21 +1,24 @@
 /*
- * WSCoreBoundTaskQueue.cpp
+ * WSCoreBoundQueue.cpp
  *
- *  Created on: Feb 15, 2012
+ *  Created on: Apr 4, 2013
  *      Author: jwust
  */
 
-#include "taskscheduler/WSCoreBoundTaskQueue.h"
-#include "access/PlanOperation.h"
-#include <thread>
-#include <queue>
-#include <pthread.h>
-#include <iostream>
-#include <errno.h>
-#include <string.h>
-#include <cstdlib>
+#include "WSCoreBoundQueue.h"
 
-void WSCoreBoundTaskQueue::executeTask() {
+WSCoreBoundQueue::WSCoreBoundQueue(int core, WSCoreBoundQueuesScheduler *scheduler): AbstractCoreBoundQueue() {
+  _core = core;
+  _scheduler = scheduler;
+  launchThread(_core);
+}
+
+WSCoreBoundQueue::~WSCoreBoundQueue() {
+  if (_thread != NULL) stopQueue();
+}
+
+
+void WSCoreBoundQueue::executeTask() {
 
   //infinite thread loop
   while (1) {
@@ -68,20 +71,19 @@ void WSCoreBoundTaskQueue::executeTask() {
   }
 }
 
-std::shared_ptr<Task> WSCoreBoundTaskQueue::stealTasks() {
+std::shared_ptr<Task> WSCoreBoundQueue::stealTasks() {
   std::shared_ptr<Task> task = NULL;
   //check scheduler status
-  WSSimpleTaskScheduler<WSCoreBoundTaskQueue>::scheduler_status_t status = _scheduler->getSchedulerStatus();
-  if (status == WSSimpleTaskScheduler<WSCoreBoundTaskQueue>::RUN) {
-    typedef typename WSSimpleTaskScheduler<WSCoreBoundTaskQueue>::task_queues_t task_queues_t;
-    const task_queues_t *queues = _scheduler->getTaskQueues();
+  WSCoreBoundQueuesScheduler::scheduler_status_t status = _scheduler->getSchedulerStatus();
+  if (status == WSCoreBoundQueuesScheduler::RUN) {
+    auto *queues = _scheduler->getTaskQueues();
     if (queues != NULL) {
       int number_of_queues = queues->size();
       if(number_of_queues > 1){
         // steal from the next queue (we only check number_of_queues -1, as we do not have to check the queue taht wants to steal)
         for (int i = 1; i < number_of_queues; i++) {
-	  // we steal relative from the current queue to distribute stealing over queues
-	  task = static_cast<WSCoreBoundTaskQueue *>(queues->at((i + _core) % number_of_queues))->stealTask();
+          // we steal relative from the current queue to distribute stealing over queues
+          task = static_cast<WSCoreBoundQueue *>(queues->at((i + _core) % number_of_queues))->stealTask();
           if (task != NULL) {
             push(task);
             //std::cout << "Queue " << _core << " stole Task " <<  task->vname() << "; hex " << std::hex << &task << std::dec << " from queue " << i << std::endl;
@@ -94,7 +96,7 @@ std::shared_ptr<Task> WSCoreBoundTaskQueue::stealTasks() {
   return task;
 }
 
-std::shared_ptr<Task> WSCoreBoundTaskQueue::stealTask() {
+std::shared_ptr<Task> WSCoreBoundQueue::stealTask() {
   std::shared_ptr<Task> task = NULL;
   // first check if status of thread is still ok; hold queueMutex, to avoid race conditions
   std::lock_guard<std::mutex> lk1(_queueMutex);
@@ -111,19 +113,14 @@ std::shared_ptr<Task> WSCoreBoundTaskQueue::stealTask() {
   return task;
 }
 
-WSCoreBoundTaskQueue::WSCoreBoundTaskQueue(int core, WSSimpleTaskScheduler<WSCoreBoundTaskQueue> *scheduler): AbstractCoreBoundTaskQueue() {
-  _core = core;
-  _scheduler = scheduler;
-  launchThread(_core);
-}
 
-void WSCoreBoundTaskQueue::push(std::shared_ptr<Task> task) {
+void WSCoreBoundQueue::push(std::shared_ptr<Task> task) {
   std::lock_guard<std::mutex> lk(_queueMutex);
   _runQueue.push_back(task);
   _condition.notify_one();
 }
 
-WSCoreBoundTaskQueue::run_queue_t WSCoreBoundTaskQueue::stopQueue() {
+std::vector<std::shared_ptr<Task> > WSCoreBoundQueue::stopQueue() {
   if (_status != STOPPED) {
     // the thread to be stopped is either executing a task, or waits for the condition variable
     // set status to "TO_STOP" so that the thread either quits after executing the task, or after having been notified by the condition variable
@@ -144,19 +141,10 @@ WSCoreBoundTaskQueue::run_queue_t WSCoreBoundTaskQueue::stopQueue() {
   return emptyQueue();
 }
 
-WSCoreBoundTaskQueue::run_queue_t WSCoreBoundTaskQueue::emptyQueue() {
-  // create empty queue
-  WSCoreBoundTaskQueue::run_queue_t tmp;
+std::vector<std::shared_ptr<Task> > WSCoreBoundQueue::emptyQueue() {
+  std::vector<std::shared_ptr<Task> > tmp;
   std::lock_guard<std::mutex> lk(_queueMutex);
-  //swap empty queue and _runQueue
-  std::swap(tmp, _runQueue);
-  // return empty queue
+  for(auto it = _runQueue.begin(); it != _runQueue.end(); it++)
+    tmp.push_back(*it);
   return tmp;
 }
-
-WSCoreBoundTaskQueue::~WSCoreBoundTaskQueue() {
-  if (_thread != NULL) stopQueue();
-}
-
-
-

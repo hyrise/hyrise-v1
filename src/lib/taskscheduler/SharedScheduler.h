@@ -10,8 +10,6 @@
 #define SRC_LIB_TASKSCHEDULER_SHAREDSCHEDULER_H_
 
 #include <taskscheduler/AbstractTaskScheduler.h>
-#include <taskscheduler/SimpleTaskScheduler.h>
-#include <taskscheduler/CoreBoundTaskQueue.h>
 #include <stdexcept>
 
 struct AbstractTaskSchedulerFactory {

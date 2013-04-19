@@ -1,29 +1,39 @@
-// Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 /*
- * AbstractTaskQueue.cpp
+ * AbstractCoreBoundQueue.cpp
  *
- *  Created on: Jun 13, 2012
+ *  Created on: Apr 4, 2013
  *      Author: jwust
  */
 
+#include "AbstractCoreBoundQueue.h"
 #include <pthread.h>
 #include <cstdlib>
-#include <taskscheduler/AbstractTaskQueue.h>
+#include <taskscheduler/AbstractCoreBoundQueue.h>
 #include <errno.h>
 #include <string.h>
 #include <iostream>
 #include <helper/HwlocHelper.h>
 
-log4cxx::LoggerPtr AbstractCoreBoundTaskQueue::logger(log4cxx::Logger::getLogger("taskscheduler.AbstractCoreBoundTaskQueue"));
+log4cxx::LoggerPtr AbstractCoreBoundQueue::logger(log4cxx::Logger::getLogger("taskscheduler.AbstractCoreBoundQueue"));
 
-void AbstractCoreBoundTaskQueue::join() {
+
+AbstractCoreBoundQueue::AbstractCoreBoundQueue(): _status(RUN){
+  // TODO Auto-generated constructor stub
+
+}
+
+AbstractCoreBoundQueue::~AbstractCoreBoundQueue() {
+  // TODO Auto-generated destructor stub
+}
+
+void AbstractCoreBoundQueue::join() {
   _threadStatusMutex.lock();
   _status = RUN_UNTIL_DONE;
   _threadStatusMutex.unlock();
   _thread->join();
 }
 
-void AbstractCoreBoundTaskQueue::launchThread(int core) {
+void AbstractCoreBoundQueue::launchThread(int core) {
   //get the number of cores on system
   int NUM_PROCS = getNumberOfCoresOnSystem();
 
