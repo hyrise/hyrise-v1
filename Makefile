@@ -36,6 +36,7 @@ unit_tests_net	        := $(bin_dir)/units_net
 perf_regression		:= $(bin_dir)/perf_regression
 perf_datagen            := $(bin_dir)/perf_datagen
 test_relation_eq	:= $(bin_dir)/test_relation_eq
+sql_parser		:= $(bin_dir)/sql-parser
 
 basic_test_suites := $(unit_tests_helper) $(unit_tests_io) $(unit_tests_storage) $(unit_tests_layouter) $(unit_tests_access) $(unit_tests_memory) $(unit_tests_net) 
 aux_test_suites := $(test_relation_eq)
@@ -54,7 +55,7 @@ datagen_binaries    := $(subst bin/,,$(regression_datagen))
 server_hyrise 		:= $(bin_dir)/hyrise
 bin_dummy := $(bin_dir)/dummy
 
-binaries :=  $(server_hyrise) $(bin_dummy)
+binaries :=  $(server_hyrise) $(bin_dummy) $(sql_parser)
 # list all build targets
 
 tgts :=  $(libraries) $(binaries) $(all_test_suites) $(regression_suite) $(regression_datagen)
