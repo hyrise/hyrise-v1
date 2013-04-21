@@ -4,6 +4,8 @@
 #include <sstream>
 #include <string>
 
+#include "Statement.h"
+
 namespace {
   std::string argsToStr(const int argc, char** const args) {
     std::stringstream buf;
