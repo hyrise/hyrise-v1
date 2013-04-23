@@ -22,7 +22,6 @@ AbstractCoreBoundQueuesScheduler::~AbstractCoreBoundQueuesScheduler() {
 
 
 AbstractCoreBoundQueuesScheduler::scheduler_status_t AbstractCoreBoundQueuesScheduler::getSchedulerStatus() {
-  std::lock_guard<std::mutex> lk2(_statusMutex);
   return _status;
 }
 /*
@@ -58,11 +57,7 @@ void AbstractCoreBoundQueuesScheduler::schedule(std::shared_ptr<Task> task, int 
  */
 void AbstractCoreBoundQueuesScheduler::resize(const size_t queues) {
   // set status to RESIZING
-  // lock scheduler
-  _statusMutex.lock();
   _status = RESIZING;
-  _statusMutex.unlock();
-
   if (queues > _queues) {
     //set _queues to queues after new queues have been created to new tasks to be assigned to new queues
     // lock _queue mutex as queues are manipulated
@@ -97,9 +92,7 @@ void AbstractCoreBoundQueuesScheduler::resize(const size_t queues) {
       }
     }
   }
-  _statusMutex.lock();
   _status = RUN;
-  _statusMutex.unlock();
 }
 /*
  * notify scheduler that a given task is ready
@@ -146,13 +139,9 @@ void AbstractCoreBoundQueuesScheduler::stopQueueAndRedistributeTasks(task_queue_
 }
 
 void AbstractCoreBoundQueuesScheduler::shutdown() {
-  _statusMutex.lock();
   _status = TO_STOP;
-  _statusMutex.unlock();
   for (unsigned i = 0; i < _taskQueues.size(); ++i) {
     _taskQueues[i]->stopQueue();
   }
-  _statusMutex.lock();
   _status = STOPPED;
-  _statusMutex.unlock();
 }

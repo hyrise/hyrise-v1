@@ -12,7 +12,6 @@
 #include "access/ResponseTask.h"
 #include "access/PlanOperation.h"
 #include "access/QueryTransformationEngine.h"
-#include "helper/epoch.h"
 #include "helper/HttpHelper.h"
 #include "helper/PapiTracer.h"
 #include "helper/sha1.h"
@@ -68,8 +67,6 @@ void RequestParseTask::operator()() {
 
   OutputTask::performance_vector& performance_data = _responseTask->getPerformanceData();
   performance_data.resize(1); // make room for at leas *this* operator
-  
-  epoch_t queryStart = get_epoch_nanoseconds();
   std::vector<std::shared_ptr<Task> > tasks;
 
   if (_connection->hasBody()) {
@@ -83,6 +80,12 @@ void RequestParseTask::operator()() {
       LOG4CXX_DEBUG(_query_logger, request_data);
       std::string final_hash = hash(request_data);
       std::shared_ptr<Task> result = nullptr;
+      int priority;
+      if(request_data.isMember("priority"))
+        priority = request_data["priority"].asInt();
+      else
+        priority = Task::DEFAULT_PRIORITY;
+      _responseTask->setPriority(priority);
       try {
         tasks = QueryParser::instance().deserialize(
                   QueryTransformationEngine::getInstance()->transform(request_data),
@@ -110,6 +113,7 @@ void RequestParseTask::operator()() {
       size_t i = 1;
       for (const auto & func: tasks) {
         if (auto task = std::dynamic_pointer_cast<_PlanOperation>(func)) {
+          task->setPriority(priority);
           task->setPlanId(final_hash);
           task->setTransactionId(tid);
           task->setPerformanceData(&(performance_data.at(i++)));
@@ -138,8 +142,8 @@ void RequestParseTask::operator()() {
     scheduler->schedule(task);
   }
 
-  performance_data[0] = { 0, 0, "NO_PAPI", "RequestParseTask", "requestParse", queryStart, get_epoch_nanoseconds(), boost::lexical_cast<std::string>(std::this_thread::get_id()) };
-  _responseTask->setQueryStart(queryStart);
+  performance_data[0] = { 0, 0, "NO_PAPI", "RequestParseTask", "requestParse", _queryStart, get_epoch_nanoseconds(), boost::lexical_cast<std::string>(std::this_thread::get_id()) };
+  _responseTask->setQueryStart(_queryStart);
   scheduler->schedule(_responseTask);
   _responseTask.reset();  // yield responsibility
 }

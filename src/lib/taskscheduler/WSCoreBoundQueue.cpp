@@ -17,56 +17,57 @@ WSCoreBoundQueue::~WSCoreBoundQueue() {
   if (_thread != NULL) stopQueue();
 }
 
-
 void WSCoreBoundQueue::executeTask() {
 
   //infinite thread loop
   while (1) {
-    std::shared_ptr<Task> task;
-
     //block protected by _threadStatusMutex
-    {
-      std::lock_guard<std::mutex> lk1(_threadStatusMutex);
-      if (_status == TO_STOP)
-        break;
-    }
+    if (_status == TO_STOP)
+      break;
     // lock queue to get task
     std::unique_lock<std::mutex> ul(_queueMutex);
+
+    std::shared_ptr<Task> task;
     // get task and execute
     if (_runQueue.size() > 0) {
       // get first task
       task = _runQueue.front();
       _runQueue.pop_front();
       ul.unlock();
-      if (task) {
-        //LOG4CXX_DEBUG(logger, "Started executing task" << std::hex << &task << std::dec << " on core " << _core);
-        // run task
-        (*task)();
-        //std::cout << "Executed task " << task->vname() << "; hex " << std::hex << &task << std::dec << " on core " << _core<< std::endl;
-        LOG4CXX_DEBUG(logger, "Executed task " << std::hex << &task << std::dec << " on core " << _core);
-        // notify done observers that task is done
-        task->notifyDoneObservers();
-      }
+
       // no task in runQueue -> try to steal task from other queue, otherwise sleep and wait for new tasks
     } else {
       // try to steal work
       ul.unlock();
-      if (stealTasks() != NULL)
-        continue;
-      ul.lock();
-      //if queue still empty go to sleep and wait until new tasks have been arrived
-      if (_runQueue.size() < 1) {
-        {
-          //check if queue was suspended
+      task = stealTasks();
+
+      if (!task){
+
+        ul.lock();
+        //if queue still empty go to sleep and wait until new tasks have been arrived
+        if (_runQueue.size() < 1) {
           {
-            std::lock_guard<std::mutex> lk1(_threadStatusMutex);
+            //check if queue was suspended
+
             if (_status != RUN)
               continue;
+
+            //std::cout << "queue " << _core << " sleeping " << std::endl;
+            _condition.wait(ul);
           }
-          //std::cout << "queue " << _core << " sleeping " << std::endl;
-          _condition.wait(ul);
         }
       }
+    }
+    if (task) {
+      //LOG4CXX_DEBUG(logger, "Started executing task" << std::hex << &task << std::dec << " on core " << _core);
+      // run task
+      //std::cout << "Running task " << task->vname() << "; hex " << std::hex << &task << std::dec << " on core " << _core<< std::endl;
+      (*task)();
+      //std::cout << "Executed task " << task->vname() << "; hex " << std::hex << &task << std::dec << " on core " << _core<< std::endl;
+
+      LOG4CXX_DEBUG(logger, "Executed task " << std::hex << &task << std::dec << " on core " << _core);
+      // notify done observers that task is done
+      task->notifyDoneObservers();
     }
   }
 }
@@ -85,7 +86,7 @@ std::shared_ptr<Task> WSCoreBoundQueue::stealTasks() {
           // we steal relative from the current queue to distribute stealing over queues
           task = static_cast<WSCoreBoundQueue *>(queues->at((i + _core) % number_of_queues))->stealTask();
           if (task != NULL) {
-            push(task);
+            //push(task);
             //std::cout << "Queue " << _core << " stole Task " <<  task->vname() << "; hex " << std::hex << &task << std::dec << " from queue " << i << std::endl;
             break;
           }
@@ -100,8 +101,6 @@ std::shared_ptr<Task> WSCoreBoundQueue::stealTask() {
   std::shared_ptr<Task> task = NULL;
   // first check if status of thread is still ok; hold queueMutex, to avoid race conditions
   std::lock_guard<std::mutex> lk1(_queueMutex);
-  // gather _threadStatusMutex, so thread cannot go to sleep
-  std::lock_guard<std::mutex> lk2(_threadStatusMutex);
   // dont steal tasks if thread is about to stop
   if (_status == RUN) {
     // acquire queue mutex to check size and pop task
@@ -127,7 +126,6 @@ std::vector<std::shared_ptr<Task> > WSCoreBoundQueue::stopQueue() {
     {
       std::lock_guard<std::mutex> lk(_queueMutex);
       {
-        std::lock_guard<std::mutex> lk(_threadStatusMutex);
         _status = TO_STOP;
       }
       //wake up thread in case thread is sleeping

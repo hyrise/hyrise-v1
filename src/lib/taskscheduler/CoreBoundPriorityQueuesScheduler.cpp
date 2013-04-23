@@ -1,0 +1,67 @@
+/*
+ * CoreBoundPriorityQueuesScheduler.cpp
+ *
+ *  Created on: Apr 4, 2013
+ *      Author: jwust
+ */
+
+#include "CoreBoundPriorityQueuesScheduler.h"
+#include "helper/HwlocHelper.h"
+#include "SharedScheduler.h"
+#include <memory>
+
+// register Scheduler at SharedScheduler
+namespace {
+bool registered  =
+    SharedScheduler::registerScheduler<CoreBoundPriorityQueuesScheduler>("CoreBoundPriorityQueuesScheduler");
+}
+
+CoreBoundPriorityQueuesScheduler::CoreBoundPriorityQueuesScheduler(const int queues): AbstractCoreBoundQueuesScheduler(){
+  // call resizeQueues here and not in AbstractQueueBasedTaskScheduler, as resizeQueue calls virtual createTaskQueue
+  this->resize(queues);
+}
+
+CoreBoundPriorityQueuesScheduler::~CoreBoundPriorityQueuesScheduler() {
+  std::lock_guard<std::mutex> lk2(this->_queuesMutex);
+  task_queue_t *queue;
+  for (unsigned i = 0; i < this->_taskQueues.size(); ++i) {
+    queue =   this->_taskQueues[i];
+    queue->stopQueue();
+    delete queue;
+  }
+}
+
+CoreBoundPriorityQueuesScheduler::task_queue_t *CoreBoundPriorityQueuesScheduler::createTaskQueue(int core) {
+  return new CoreBoundPriorityQueue(core);
+}
+
+void CoreBoundPriorityQueuesScheduler::pushToQueue(std::shared_ptr<Task> task)
+{
+  // check if task should be scheduled on specific core
+  int core = task->getPreferredCore();
+  if (core >= 0 && core < static_cast<int>(this->_queues)) {
+    //potentially assigns task to a queue blocked by long running task
+    this->_taskQueues[core]->push(task);
+    LOG4CXX_DEBUG(this->_logger,  "Task " << std::hex << (void *)task.get() << std::dec << " pushed to queue " << core);
+  } else if (core == NO_PREFERRED_CORE || core >= static_cast<int>(this->_queues)) {
+
+    if (core < NO_PREFERRED_CORE || core >= static_cast<int>(this->_queues))
+      // Tried to assign task to core which is not assigned to scheduler; assigned to other core, log warning
+      LOG4CXX_WARN(this->_logger, "Tried to assign task " << std::hex << (void *)task.get() << std::dec << " to core " << std::to_string(core) << " which is not assigned to scheduler; assigned it to next available core");
+
+    // simple strategy to avoid blocking of queues; check if queue is blocked - try a couple of times, otherwise schedule on next queue
+    size_t retries = 0;
+    while (static_cast<CoreBoundPriorityQueue *>(this->_taskQueues[this->_nextQueue])->blocked() && retries < 100) {
+      this->_nextQueue = (this->_nextQueue + 1) % this->_queues;
+      ++retries;
+    }
+    // lock queuesMutex to sync pushing to queue and incrementing next queue
+    {
+      std::lock_guard<std::mutex> lk2(this->_queuesMutex);
+      this->_taskQueues[this->_nextQueue]->push(task);
+      //std::cout << "Task " <<  task->vname() << "; hex " << std::hex << &task << std::dec << " pushed to queue " << this->_nextQueue << std::endl;
+      //round robin on cores
+      this->_nextQueue = (this->_nextQueue + 1) % this->_queues;
+    }
+  }
+}

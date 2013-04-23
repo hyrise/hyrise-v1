@@ -9,6 +9,7 @@
 #define ABSTRACTCOREBOUNDQUEUE_H_
 
 #include "taskscheduler/AbstractTaskQueue.h"
+#include <atomic>
 
 class AbstractCoreBoundQueue : public AbstractTaskQueue{
 
@@ -16,7 +17,7 @@ protected:
   // worker thread
   std::thread *_thread;
   // the core the thread should run on
-  queue_status_t _status;
+  std::atomic<queue_status_t> _status;
   // specific core thread is bound to
   int _core;
   // mutex to protect the queue

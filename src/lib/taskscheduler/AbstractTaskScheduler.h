@@ -27,7 +27,7 @@ class AbstractTaskScheduler {
    * definition of scheduler status, can be used to sync actions in queue, like work stealing, with scheduler status (e.g. to avoid stealing tasks from queue, while resizing)
    */
  public:
-  typedef enum {
+  typedef enum status {
     START_UP = -1,
     RUN = 0,
     RESIZING = 1,

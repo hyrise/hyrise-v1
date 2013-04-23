@@ -3,8 +3,11 @@
 
 #include <io/StorageManager.h>
 #include <access/PlanOperation.h>
+#include <helper/HwlocHelper.h>
 
 QueryParser::QueryParser() {
+  _nodes = getNumberOfNodes(getHWTopology());
+  _nextNode = 0;
 }
 
 QueryParser::~QueryParser() {
@@ -14,7 +17,7 @@ QueryParser::~QueryParser() {
 
 std::vector<std::shared_ptr<Task> > QueryParser::deserialize(
     Json::Value query,
-    std::shared_ptr<Task> *result) const {
+    std::shared_ptr<Task> *result) {
   std::vector<std::shared_ptr<Task> > tasks;
   task_map_t task_map;
 
@@ -28,10 +31,9 @@ std::vector<std::shared_ptr<Task> > QueryParser::deserialize(
 void QueryParser::buildTasks(
     const Json::Value &query,
     std::vector<std::shared_ptr<Task> > &tasks,
-    task_map_t &task_map) const {
+    task_map_t &task_map) {
   Json::Value::Members members = query["operators"].getMemberNames();
   for (unsigned i = 0; i < members.size(); ++i) {
-
     Json::Value planOperationSpec = query["operators"][members[i]];
     std::string typeName = planOperationSpec["type"].asString();
     std::shared_ptr<_PlanOperation> planOperation = QueryParser::instance().parse(
@@ -44,6 +46,12 @@ void QueryParser::buildTasks(
     planOperation->setOperatorId(members[i]);
     if (planOperationSpec.isMember("core"))
       planOperation->setPreferredCore(planOperationSpec["core"].asInt());
+    if (planOperationSpec.isMember("node")){
+      planOperation->setPreferredNode(planOperationSpec["node"].asInt());
+    }
+    else{
+      planOperation->setPreferredNode(_nextNode);
+    }
     // check for materialization strategy
     if (planOperationSpec.isMember("positions"))
       planOperation->setProducesPositions(!planOperationSpec["positions"].asBool());
@@ -51,6 +59,7 @@ void QueryParser::buildTasks(
     tasks.push_back(planOperation);
     task_map[members[i]] = planOperation;
   }
+  _nextNode = (_nextNode + 1) % _nodes;
 }
 
 void QueryParser::setInputs(

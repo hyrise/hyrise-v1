@@ -10,6 +10,7 @@
 
 #include "AbstractTaskScheduler.h"
 #include "AbstractCoreBoundQueue.h"
+#include <atomic>
 
 class AbstractCoreBoundQueuesScheduler : public AbstractTaskScheduler, public TaskReadyObserver{
 
@@ -28,15 +29,13 @@ class AbstractCoreBoundQueuesScheduler : public AbstractTaskScheduler, public Ta
   // number of queues
   size_t _queues;
   // scheduler status
-  scheduler_status_t _status;
+  std::atomic<scheduler_status_t> _status;
   // mutex to protect waitset
   std::mutex _setMutex;
-  // mutex to protect status
-  std::mutex _statusMutex;
   // mutex to protect task queues
   std::mutex _queuesMutex;
   // holds the queue that gets the next task (simple roundrobin, first)
-  size_t _nextQueue;
+  std::atomic<size_t> _nextQueue;
 
   static log4cxx::LoggerPtr _logger;
 
@@ -75,7 +74,7 @@ class AbstractCoreBoundQueuesScheduler : public AbstractTaskScheduler, public Ta
   /* change the number of threads the task scheduler uses for running tasks;
    *
    */
-  void resize(const size_t queues);
+  virtual void resize(const size_t queues);
   /*
    * notify scheduler that a given task is ready
    */

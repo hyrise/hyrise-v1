@@ -22,6 +22,11 @@ size_t TableRangeView::getStart() const{
   return _start;
 }
 
+hyrise::storage::c_atable_ptr_t TableRangeView::getTable() const{
+  return _table;
+}
+
+
 size_t TableRangeView::size() const {
   return _end-_start;
 }

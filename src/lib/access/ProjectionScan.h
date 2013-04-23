@@ -2,57 +2,24 @@
 #ifndef SRC_LIB_ACCESS_PROJECTIONSCAN_H_
 #define SRC_LIB_ACCESS_PROJECTIONSCAN_H_
 
-#include "PlanOperation.h"
+#include "access/PlanOperation.h"
 
-/**
- * @brief This class implements the Projection Operator from the relational algebra.
- *
- * Allows to specify a list of fields that will be part of the results.
- */
+namespace hyrise {
+namespace access {
+
 class ProjectionScan : public _PlanOperation {
- public:
-
-  /**
-   * The constructor for the projection that takes the expected
-   * field list as a parameter
-   *
-   * @param fields the field list
-   */
-  explicit ProjectionScan(field_list_t *fields): _PlanOperation() {
-    
-    setFields(fields);
-  }
-
-  /**
-   * Default constructor
-   */
-  explicit ProjectionScan(): _PlanOperation() {
-    
-  }
-
+public:
+  ProjectionScan();
+  explicit ProjectionScan(storage::field_list_t *fields);
   virtual ~ProjectionScan();
 
- protected:
-
   void setupPlanOperation();
-  virtual void executePlanOperation();
-  // virtual void teardownPlanOperation();
-
- public:
+  void executePlanOperation();
   static std::shared_ptr<_PlanOperation> parse(Json::Value &data);
-
-  static std::string name() {
-    return "ProjectionScan";
-  }
-
-  const std::string vname() {
-    return "ProjectionScan";
-  }
-
-  static bool is_registered;
-
+  const std::string vname();
 };
 
+}
+}
 
 #endif  // SRC_LIB_ACCESS_PROJECTIONSCAN_H_
-

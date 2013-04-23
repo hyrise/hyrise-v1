@@ -38,4 +38,3 @@ public:
 };
 
 #endif /* COREBOUNDQUEUESSCHEDULER_H_ */
-

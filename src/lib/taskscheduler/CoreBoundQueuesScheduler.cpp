@@ -40,8 +40,6 @@ void CoreBoundQueuesScheduler::pushToQueue(std::shared_ptr<Task> task)
   // check if task should be scheduled on specific core
   int core = task->getPreferredCore();
 
-  // lock queuesMutex to manipulate queues
-  std::lock_guard<std::mutex> lk2(this->_queuesMutex);
   if (core >= 0 && core < static_cast<int>(this->_queues)) {
     //potentially assigns task to a queue blocked by long running task
     this->_taskQueues[core]->push(task);
@@ -58,11 +56,14 @@ void CoreBoundQueuesScheduler::pushToQueue(std::shared_ptr<Task> task)
       this->_nextQueue = (this->_nextQueue + 1) % this->_queues;
       ++retries;
     }
-
-    this->_taskQueues[this->_nextQueue]->push(task);
-    //std::cout << "Task " <<  task->vname() << "; hex " << std::hex << &task << std::dec << " pushed to queue " << this->_nextQueue << std::endl;
-    //round robin on cores
-    this->_nextQueue = (this->_nextQueue + 1) % this->_queues;
+    // lock queuesMutex to sync pushing to queue and incrementing next queue
+    {
+      std::lock_guard<std::mutex> lk2(this->_queuesMutex);
+      this->_taskQueues[this->_nextQueue]->push(task);
+      //std::cout << "Task " <<  task->vname() << "; hex " << std::hex << &task << std::dec << " pushed to queue " << this->_nextQueue << std::endl;
+      //round robin on cores
+      this->_nextQueue = (this->_nextQueue + 1) % this->_queues;
+    }
   }
 }
 

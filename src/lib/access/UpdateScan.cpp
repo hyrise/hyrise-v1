@@ -1,29 +1,32 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#include <access/UpdateScan.h>
-#include <storage/storage_types.h>
-#include <storage/Store.h>
+#include "access/UpdateScan.h"
+
+#include "storage/Store.h"
+
+namespace hyrise {
+namespace access {
+
+UpdateScan::UpdateScan() {
+  _comparator = nullptr;
+  _func = nullptr;
+}
 
 UpdateScan::~UpdateScan() {
-
 }
 
 void UpdateScan::executePlanOperation() {
-  // Iterate over the data
-  assert(comparator != nullptr);
-  assert(data || func != nullptr);
-
   size_t input_size = input.getTable(0)->size();
   std::map<int, int> mapping;
 
-  if (data) {
-    size_t data_size = data->size();
+  if (_data) {
+    size_t data_size = _data->size();
 
     if (data_size != 1) {
       throw std::runtime_error("Too many rows in update data");
     }
 
-    for (size_t i = 0; i < data->columnCount(); i++) {
-      auto src_field = data->metadataAt(i);
+    for (size_t i = 0; i < _data->columnCount(); i++) {
+      auto src_field = _data->metadataAt(i);
 
       for (size_t j = 0; i < input.getTable(0)->columnCount(); j++) {
         auto tgt_field = input.getTable(0)->metadataAt(j);
@@ -52,10 +55,9 @@ void UpdateScan::executePlanOperation() {
 
   for (size_t row = 0; row < input_size; ++row) {
     // Execute the predicate on the list
-    if ((*comparator)(row)) {
-
-      if (func != nullptr) {
-        func->updateRow(row);
+    if ((*_comparator)(row)) {
+      if (_func != nullptr) {
+        _func->updateRow(row);
       } else {
         for (it = mapping.begin(); it != mapping.end(); it++) {
           int src = (*it).first;
@@ -63,14 +65,30 @@ void UpdateScan::executePlanOperation() {
 
           // Update the delta
           s->getDeltaTable()->copyRowFrom(s, row, delta_row, true);
-          s->getDeltaTable()->copyValueFrom(data, src, 0, tgt, delta_row++);
+          s->getDeltaTable()->copyValueFrom(_data, src, 0, tgt, delta_row++);
         }
       }
     }
   }
 
-  // Since we hand the input table through we have to retain the
-  // table, because otherwise our internal retain count would be
-  // negative
   addResult(input.getTable(0));
+}
+
+const std::string UpdateScan::vname() {
+  return "UpdateScan";
+}
+
+void UpdateScan::setUpdateTable(const storage::atable_ptr_t &c) {
+  _data = c;
+}
+
+void UpdateScan::setUpdateFunction(UpdateFun *f) {
+  _func = f;
+}
+
+void UpdateScan::setPredicate(SimpleExpression *e) {
+  _comparator = e;
+}
+
+}
 }

@@ -25,6 +25,7 @@ class AbstractTaskQueue {
     RUN_UNTIL_DONE = 2,
     TO_STOP = 3,
     STOPPED = 4,
+    RESIZING = 5,
   } queue_status_t;
 
   virtual ~AbstractTaskQueue() {};

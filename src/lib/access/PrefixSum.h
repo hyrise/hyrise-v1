@@ -3,6 +3,7 @@
 #define SRC_LIB_ACCESS_PREFIXSUM_H_
 
 #include "PlanOperation.h"
+#include "storage/FixedLengthVector.h"
 
 namespace hyrise {
 namespace access {

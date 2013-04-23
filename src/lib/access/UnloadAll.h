@@ -2,34 +2,21 @@
 #ifndef SRC_LIB_ACCESS_UNLOADALL_H_
 #define SRC_LIB_ACCESS_UNLOADALL_H_
 
-#include <iostream>
-#include <access/PlanOperation.h>
+#include "access/PlanOperation.h"
+
+namespace hyrise {
+namespace access {
 
 class UnloadAll : public _PlanOperation {
- public:
-
-  UnloadAll() {
-    
-  }
-
-  virtual ~UnloadAll() {
-  }
+public:
+  virtual ~UnloadAll();
 
   void executePlanOperation();
-
   static std::shared_ptr<_PlanOperation> parse(Json::Value &data);
-
-  static bool is_registered;
-
-  static std::string name() {
-    return "UnloadAll";
-  }
-
-  const std::string vname() {
-    return "UnloadAll";
-  }
-
+  const std::string vname();
 };
 
-#endif  // SRC_LIB_ACCESS_UNLOADALL_H_
+}
+}
 
+#endif  // SRC_LIB_ACCESS_UNLOADALL_H_

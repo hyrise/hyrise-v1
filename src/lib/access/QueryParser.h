@@ -8,6 +8,7 @@
 #include <string>
 #include <stdexcept>
 
+
 #include <json.h>
 
 #include <taskscheduler.h>
@@ -60,6 +61,9 @@ class QueryParser {
   typedef std::map< std::string, AbstractQueryParserFactory * > factory_map_t;
   typedef std::map< Json::Value, std::shared_ptr<Task> > task_map_t;
 
+  unsigned _nodes;
+  unsigned _nextNode;
+
   factory_map_t _factory;
   QueryParser();
 
@@ -68,7 +72,7 @@ class QueryParser {
   void buildTasks(
       const Json::Value &query,
       std::vector<std::shared_ptr<Task> > &tasks,
-      task_map_t &task_map) const;
+      task_map_t &task_map) ;
 
   /*  Defines operations input based on their types.  */
   void setInputs(
@@ -117,7 +121,7 @@ class QueryParser {
       delivering the final result will be determined, too.   */
   std::vector<std::shared_ptr<Task> > deserialize(
       Json::Value query,
-      std::shared_ptr<Task> *result) const;
+      std::shared_ptr<Task> *result) ;
 };
 
 

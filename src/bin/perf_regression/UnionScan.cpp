@@ -7,21 +7,25 @@
 #include <storage.h>
 #include <io.h>
 
+#include "access/UnionAll.h"
+
+namespace hyrise {
+namespace access {
 
 class UnionScanBase : public ::testing::Benchmark {
 
  protected:
 
-  UnionScan *us;
+  UnionAll *us;
   StorageManager *sm;
-  hyrise::storage::c_atable_ptr_t t1;
-  hyrise::storage::c_atable_ptr_t t2;
+  storage::c_atable_ptr_t t1;
+  storage::c_atable_ptr_t t2;
 
  public:
   void BenchmarkSetUp() {
     sm = StorageManager::getInstance();
 
-    us = new UnionScan();
+    us = new UnionAll();
     us->setEvent("NO_PAPI");
 
     t1 = sm->getTable("district");
@@ -68,4 +72,7 @@ BENCHMARK_F(UnionScanBase, standard_union_mat_memcpy) {
 
   auto result_mat = ms->execute()->getResultTable();
 
+}
+
+}
 }

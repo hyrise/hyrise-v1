@@ -30,11 +30,8 @@ CentralScheduler::~CentralScheduler() {
 void WorkerThread::operator()(){
   //infinite thread loop
   while (1) {
-    //block protected by _threadStatusMutex
-    {
-      std::lock_guard<std::mutex> lk1(scheduler._statusMutex);
-      if (scheduler._status == scheduler.TO_STOP)
-        break;
+    if (scheduler._status == scheduler.TO_STOP){
+      break;
     }
     // lock queue to get task
     std::unique_lock<std::mutex> ul(scheduler._queueMutex);
@@ -56,11 +53,10 @@ void WorkerThread::operator()(){
       //if queue still empty go to sleep and wait until new tasks have been arrived
       if (scheduler._runQueue.size() < 1) {
         // if thread is about to stop, break execution loop
-        {
-          std::lock_guard<std::mutex> lk1(scheduler._statusMutex);
-          if (scheduler._status != scheduler.RUN)
-            continue;
-        }
+
+        if (scheduler._status != scheduler.RUN)
+          continue;
+
         scheduler._condition.wait(ul);
       }
     }
@@ -93,12 +89,17 @@ void CentralScheduler::schedule(std::shared_ptr<Task> task){
  * shutdown task scheduler; makes sure all underlying threads are stopped
  */
 void CentralScheduler::shutdown(){
-  _statusMutex.lock();
-  _status = TO_STOP;
-  _statusMutex.unlock();
-  _condition.notify_all();
-  for(size_t i = 0; i < _worker_threads.size(); i++)
+  {
+    std::lock_guard<std::mutex> lk(_queueMutex);
+    {
+      _status = TO_STOP;
+    }
+    //wake up thread in case thread is sleeping
+    _condition.notify_all();
+  }
+  for(size_t i = 0; i < _worker_threads.size(); i++){
     _worker_threads[i]->join();
+  }
   _worker_threads.clear();
 }
 /*
@@ -106,24 +107,20 @@ void CentralScheduler::shutdown(){
  */
 void CentralScheduler::resize(const size_t threads){
   // set status to RESIZING
-  // lock scheduler
-  _statusMutex.lock();
   _status = RESIZING;
-  _statusMutex.unlock();
   if (threads > _worker_threads.size()) {
+    std::lock_guard<std::mutex> lk(_queueMutex);
     size_t addiditional_threads = threads - _worker_threads.size();
     for(size_t i = 0; i < addiditional_threads; i++)
       _worker_threads.push_back(new std::thread(WorkerThread(*this)));
   } else if (threads < _worker_threads.size()) {
     // hack: stop all, start new, otherwise complicated to stop selected threads
     shutdown();
+    std::lock_guard<std::mutex> lk(_queueMutex);
     for(size_t i = 0; i < threads; i++)
       _worker_threads.push_back(new std::thread(WorkerThread(*this)));
-
   }
-  _statusMutex.lock();
   _status = RUN;
-  _statusMutex.unlock();
 }
 /**
  * get number of worker
