@@ -87,7 +87,12 @@ public:
 
 
   std::shared_ptr<PointerCalculator> intersect(const std::shared_ptr<const PointerCalculator>& other) const;
+  std::shared_ptr<PointerCalculator> unite(const std::shared_ptr<const PointerCalculator>& other) const;
+  std::shared_ptr<PointerCalculator> concatenate(const std::shared_ptr<const PointerCalculator>& other) const;
 
+  typedef std::vector<std::shared_ptr<const PointerCalculator> > pc_vector;
+  static std::shared_ptr<const PointerCalculator> unite_many(pc_vector::const_iterator it, pc_vector::const_iterator it_end);
+  static std::shared_ptr<const PointerCalculator> concatenate_many(pc_vector::const_iterator it, pc_vector::const_iterator it_end);
 };
 
 #endif  // SRC_LIB_STORAGE_POINTERCALCULATOR_H_
