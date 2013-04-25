@@ -44,7 +44,7 @@ class Task : public TaskDoneObserver, public std::enable_shared_from_this<Task> 
 
 public:
   static const int DEFAULT_PRIORITY = 999;
-  static const int HIGH_PRIORITY = 999;
+  static const int HIGH_PRIORITY = 1;
   static const int NO_PREFERRED_CORE = -1;
   static const int NO_PREFERRED_NODE = -1;
 
