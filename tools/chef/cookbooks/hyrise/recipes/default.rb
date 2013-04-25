@@ -7,7 +7,7 @@
 # All rights reserved - Do Not Redistribute
 #
 
-packages = %w{ sphinx-common curl bzip2 ccache cmake doxygen doxygen-latex emacs gdb git gnuplot imagemagick liblog4cxx10 liblog4cxx10-dev libmysqlclient-dev libnuma-dev mysql-common libunwind8-dev libunwind8 libev-dev} 
+packages = %w{ sphinx-common curl binutils-dev bzip2 ccache cmake doxygen doxygen-latex emacs gdb git gnuplot imagemagick liblog4cxx10 liblog4cxx10-dev libmysqlclient-dev libnuma-dev mysql-common libunwind8-dev libunwind8 libev-dev} 
 
 #Install dependencies
 packages.each do |pkg|
