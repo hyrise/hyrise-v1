@@ -6,15 +6,13 @@
 
 #include "storage/PrettyPrinter.h"
 #include "storage/Store.h"
-
-
+#include "storage/TableRangeView.h"
 
 PointerCalculator::PointerCalculator(hyrise::storage::c_atable_ptr_t t, pos_list_t *pos, field_list_t *f) : table(t), pos_list(pos), fields(f) {
   // prevent nested pos_list/fields: if the input table is a
   // PointerCalculator instance, combine the old and new
   // pos_list/fields lists
-  auto p = std::dynamic_pointer_cast<const PointerCalculator>(t);
-  if (p) {
+  if (auto p = std::dynamic_pointer_cast<const PointerCalculator>(t)) {
     if (pos_list != nullptr && p->pos_list != NULL) {
       pos_list = new pos_list_t(pos->size());
       for (size_t i = 0; i < pos->size(); i++) {
@@ -30,6 +28,15 @@ PointerCalculator::PointerCalculator(hyrise::storage::c_atable_ptr_t t, pos_list
       }
       table = p->table;
     }
+  }
+  if (auto trv = std::dynamic_pointer_cast<const TableRangeView>(t)){
+    const auto start =  trv->getStart();
+    if (pos_list != nullptr && start != 0) {
+      for (size_t i = 0; i < pos->size(); i++) {
+        (*pos_list)[i] += start;
+      }
+    }
+    table = trv->getTable();
   }
   updateFieldMapping();
 }
