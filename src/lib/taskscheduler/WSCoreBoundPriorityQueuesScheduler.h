@@ -29,9 +29,6 @@ public:
   virtual ~WSCoreBoundPriorityQueuesScheduler();
 
   const std::vector<AbstractCoreBoundQueue *> *getTaskQueues();
-
-  void resize(const size_t queues);
-
 };
 
 

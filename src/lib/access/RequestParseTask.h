@@ -27,9 +27,6 @@ class RequestParseTask : public net::AbstractRequestHandler {
   virtual void operator()();
   static std::string name();
   const std::string vname();
-  void setQueryStart(){
-    _queryStart = get_epoch_nanoseconds();
-  }
 };
 
 }

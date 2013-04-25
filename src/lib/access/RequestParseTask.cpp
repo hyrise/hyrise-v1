@@ -30,7 +30,8 @@ bool registered = net::Router::registerRoute<RequestParseTask>(
 
 RequestParseTask::RequestParseTask(net::AbstractConnection* connection)
     : _connection(connection),
-      _responseTask(std::make_shared<ResponseTask>(connection)) {}
+      _responseTask(std::make_shared<ResponseTask>(connection)),
+      _queryStart(get_epoch_nanoseconds()){}
 
 RequestParseTask::~RequestParseTask() {}
 

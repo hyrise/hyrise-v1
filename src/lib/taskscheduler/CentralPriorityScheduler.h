@@ -69,10 +69,6 @@ public:
    * shutdown task scheduler; makes sure all underlying threads are stopped
    */
   void shutdown();
-  /*
-   * resize the number of worker threads/queues
-   */
-  void resize(const size_t queues);
   /**
    * get number of worker
    */
