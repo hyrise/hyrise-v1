@@ -407,7 +407,7 @@ std::shared_ptr<PointerCalculator> PointerCalculator::concatenate(const std::sha
   }
 
   return std::make_shared<PointerCalculator>(table, result, copy_vec(fields));
-<<<<<<< HEAD
+
 }
 
 std::shared_ptr<const PointerCalculator> PointerCalculator::unite_many(pc_vector::const_iterator it, pc_vector::const_iterator it_end){
@@ -422,22 +422,6 @@ std::shared_ptr<const PointerCalculator> PointerCalculator::unite_many(pc_vector
   return base;
 }
 
-=======
-}
-
-std::shared_ptr<const PointerCalculator> PointerCalculator::unite_many(pc_vector::const_iterator it, pc_vector::const_iterator it_end){
-  std::shared_ptr<const PointerCalculator> base = nullptr;
-  for (;it != it_end; ++it) {
-    if (!base) {
-      base = *it;
-    } else {
-      base = base->unite(*it);
-    }
-  }
-  return base;
-}
-
->>>>>>> upstream/master
 std::shared_ptr<const PointerCalculator> PointerCalculator::concatenate_many(pc_vector::const_iterator it, pc_vector::const_iterator it_end){
   std::shared_ptr<const PointerCalculator> base = nullptr;
   for (;it != it_end; ++it) {
