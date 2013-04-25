@@ -75,7 +75,7 @@ void request_complete(ebb_request *request) {
   // Always map the first task to the first core
   task->setPreferredCore(0);
   // give RequestParseTask high priority
-  task->setPriority(1);
+  task->setPriority(Task::HIGH_PRIORITY);
   SharedScheduler::getInstance().getScheduler()->schedule(task);
 }
 

@@ -30,7 +30,6 @@ int test_hwloc(void)
     char string[128];
     int topodepth;
     hwloc_topology_t topology;
-    hwloc_cpuset_t cpuset;
     hwloc_obj_t obj;
 
     /* Allocate and initialize topology object. */
@@ -121,7 +120,6 @@ TEST_F(HwLocHelperTest, number_of_nodes){
 }
 
 TEST_F(HwLocHelperTest, get_node_for_core){
-  int cores = getNumberOfCoresOnSystem();
   std::vector<unsigned> cores2;
   unsigned nodes = hwloc_get_nbobjs_by_type(getHWTopology(), HWLOC_OBJ_NODE);
   for(unsigned i = 0; i < nodes; i++){
