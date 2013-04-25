@@ -102,26 +102,7 @@ void CentralScheduler::shutdown(){
   }
   _worker_threads.clear();
 }
-/*
- * resize the number of worker threads/queues
- */
-void CentralScheduler::resize(const size_t threads){
-  // set status to RESIZING
-  _status = RESIZING;
-  if (threads > _worker_threads.size()) {
-    std::lock_guard<std::mutex> lk(_queueMutex);
-    size_t addiditional_threads = threads - _worker_threads.size();
-    for(size_t i = 0; i < addiditional_threads; i++)
-      _worker_threads.push_back(new std::thread(WorkerThread(*this)));
-  } else if (threads < _worker_threads.size()) {
-    // hack: stop all, start new, otherwise complicated to stop selected threads
-    shutdown();
-    std::lock_guard<std::mutex> lk(_queueMutex);
-    for(size_t i = 0; i < threads; i++)
-      _worker_threads.push_back(new std::thread(WorkerThread(*this)));
-  }
-  _status = RUN;
-}
+
 /**
  * get number of worker
  */

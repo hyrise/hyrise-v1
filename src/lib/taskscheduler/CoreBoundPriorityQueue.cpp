@@ -18,10 +18,8 @@ void CoreBoundPriorityQueue::executeTask() {
   //infinite thread loop
   while (1) {
     //block protected by _threadStatusMutex
-
     if (_status == TO_STOP)
       break;
-
     // get task and execute
     std::shared_ptr<Task> task;
     _runQueue.try_pop(task);
@@ -41,10 +39,8 @@ void CoreBoundPriorityQueue::executeTask() {
       //if queue still empty go to sleep and wait until new tasks have been arrived
       if (_runQueue.size() < 1) {
         // if thread is about to stop, break execution loop
-
-        if (_status != RUN)
-          continue;
-
+        if(_status != RUN)
+          break;
         //std::cout << "queue " << _core << " sleeping " << std::endl;
         std::unique_lock<std::mutex> ul(_queueMutex);
         _condition.wait(ul);

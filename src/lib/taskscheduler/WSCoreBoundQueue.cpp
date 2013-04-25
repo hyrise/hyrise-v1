@@ -47,12 +47,9 @@ void WSCoreBoundQueue::executeTask() {
         //if queue still empty go to sleep and wait until new tasks have been arrived
         if (_runQueue.size() < 1) {
           {
-            //check if queue was suspended
-
-            if (_status != RUN)
-              continue;
-
-            //std::cout << "queue " << _core << " sleeping " << std::endl;
+            // if thread is about to stop, break execution loop
+            if(_status != RUN)
+              break;
             _condition.wait(ul);
           }
         }
@@ -112,7 +109,6 @@ std::shared_ptr<Task> WSCoreBoundQueue::stealTask() {
   return task;
 }
 
-
 void WSCoreBoundQueue::push(std::shared_ptr<Task> task) {
   std::lock_guard<std::mutex> lk(_queueMutex);
   _runQueue.push_back(task);
@@ -123,11 +119,10 @@ std::vector<std::shared_ptr<Task> > WSCoreBoundQueue::stopQueue() {
   if (_status != STOPPED) {
     // the thread to be stopped is either executing a task, or waits for the condition variable
     // set status to "TO_STOP" so that the thread either quits after executing the task, or after having been notified by the condition variable
+    // we need the mutex here, otherwise, we might call notify prior to the thread going to sleep
     {
       std::lock_guard<std::mutex> lk(_queueMutex);
-      {
-        _status = TO_STOP;
-      }
+      _status = TO_STOP;
       //wake up thread in case thread is sleeping
       _condition.notify_one();
     }

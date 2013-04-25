@@ -49,12 +49,8 @@ void CoreBoundQueue::executeTask() {
       //if queue still empty go to sleep and wait until new tasks have been arrived
       if (_runQueue.size() < 1) {
         // if thread is about to stop, break execution loop
-        {
-          std::lock_guard<std::mutex> lk1(_threadStatusMutex);
-          if (_status != RUN)
-            continue;
-        }
-        //std::cout << "queue " << _core << " sleeping " << std::endl;
+        if(_status != RUN)
+          break;
         _condition.wait(ul);
       }
     }

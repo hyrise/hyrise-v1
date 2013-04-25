@@ -39,8 +39,6 @@ public:
 
   virtual ~AbstractCoreBoundQueue();
 
-  virtual std::vector<std::shared_ptr<Task> > stopQueue() = 0;
-
   /**
    * empty queue
    */
@@ -50,6 +48,11 @@ public:
    * wait until all tasks are done
    */
   void join();
+
+  /*
+   * stops queue w/o waiting until all tasks are done
+   */
+  virtual std::vector<std::shared_ptr<Task> > stopQueue() = 0;
 
   // getter/setter
   int getCore() const{

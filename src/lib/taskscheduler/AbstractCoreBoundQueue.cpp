@@ -27,9 +27,8 @@ AbstractCoreBoundQueue::~AbstractCoreBoundQueue() {
 }
 
 void AbstractCoreBoundQueue::join() {
-  _threadStatusMutex.lock();
   _status = RUN_UNTIL_DONE;
-  _threadStatusMutex.unlock();
+  _condition.notify_one();
   _thread->join();
 }
 

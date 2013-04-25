@@ -142,10 +142,8 @@ hyrise::storage::c_atable_ptr_t executeAndWait(
   using namespace hyrise;
   std::unique_ptr<MockedConnection> conn(new MockedConnection("query="+httpQuery));
 
-  if(!SharedScheduler::getInstance().isInitialized())
-    SharedScheduler::getInstance().init("WSCoreBoundQueuesScheduler");
+  SharedScheduler::getInstance().resetScheduler("WSCoreBoundQueuesScheduler", poolSize);
   AbstractTaskScheduler * scheduler = SharedScheduler::getInstance().getScheduler();
-  scheduler->resize(poolSize);
 
   auto request = std::make_shared<access::RequestParseTask>(conn.get());
   auto response = request->getResponseTask();

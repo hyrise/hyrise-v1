@@ -20,12 +20,10 @@ class AbstractTaskQueue {
 
  public:
   typedef enum status {
-    STARTUP = 0,
     RUN = 1,
     RUN_UNTIL_DONE = 2,
     TO_STOP = 3,
     STOPPED = 4,
-    RESIZING = 5,
   } queue_status_t;
 
   virtual ~AbstractTaskQueue() {};
@@ -35,7 +33,6 @@ class AbstractTaskQueue {
    * push a new task to the queue, tasks are expected to have no unmet dependencies
    */
   virtual void push(std::shared_ptr<Task> task) = 0;
-
   /*
    * wait until all tasks are done
    */

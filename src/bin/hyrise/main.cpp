@@ -158,11 +158,8 @@ int main(int argc, char *argv[]) {
   PropertyConfigurator::configure(logPropertyFile);
 
   
-  SharedScheduler::getInstance().init(scheduler_name);
+  SharedScheduler::getInstance().init(scheduler_name, getNumberOfCoresOnSystem());
   AbstractTaskScheduler *scheduler = SharedScheduler::getInstance().getScheduler();
-  if (scheduler != NULL) {
-    scheduler->resize(getNumberOfCoresOnSystem());
-  }
 
   signal(SIGINT, &shutdown);
   // MainS erver Loop

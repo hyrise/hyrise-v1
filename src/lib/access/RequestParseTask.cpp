@@ -116,6 +116,7 @@ void RequestParseTask::operator()() {
           task->setPriority(priority);
           task->setPlanId(final_hash);
           task->setTransactionId(tid);
+          task->setId(tid);
           task->setPerformanceData(&(performance_data.at(i++)));
           if (!task->hasSuccessors()) {
             // The response has to depend on all tasks, ie. we don't want to respond

@@ -8,7 +8,6 @@
 
 #include "access.h"
 #include "access/NoOp.h"
-#include "access/TaskSchedulerAdjustment.h"
 #include "access/PlanOperation.h"
 #include "io/TransactionManager.h"
 #include "taskscheduler.h"
@@ -32,8 +31,8 @@ std::vector<std::string> getSchedulersToTest() {
   result.push_back("CoreBoundQueuesScheduler");
   result.push_back("CentralScheduler");
   result.push_back("CentralPriorityScheduler");
-  result.push_back("CoreBoundPriorityScheduler");
-  result.push_back("WSCoreBoundPriorityScheduler");
+  result.push_back("CoreBoundPriorityQueuesScheduler");
+  result.push_back("WSCoreBoundPriorityQueuesScheduler");
 
   return result;
 }
@@ -72,9 +71,7 @@ TEST_P(SchedulerTest, setScheduler) {
   bool test = (simple_task_scheduler == NULL);
   ASSERT_EQ(test, false);
 
-  SharedScheduler::getInstance().resetScheduler(scheduler_name);
-  scheduler = SharedScheduler::getInstance().getScheduler();
-  scheduler->resize(getNumberOfCoresOnSystem());
+  SharedScheduler::getInstance().resetScheduler(scheduler_name, getNumberOfCoresOnSystem());
 }
 
 TEST_P(SchedulerTest, wait_task_test) {
@@ -108,8 +105,6 @@ bool long_block_test(AbstractTaskScheduler * scheduler){
     int waittime = shortSleepTime;
 
     int upperLimit = longSleepTime / 1000 + (shortSleepTime * shortSleepTasks / (threads1 * 1000)) + waittime/1000;
-
-    scheduler->resize(threads1);
 
     std::vector<std::shared_ptr<SleepTask> > longTasks;
     std::vector<std::shared_ptr<SleepTask> > shortTasks;
@@ -155,11 +150,11 @@ TEST_P(SchedulerTest, dont_block_test) {
 
   AbstractTaskScheduler *scheduler;
 
-  scheduler = new CoreBoundQueuesScheduler();
+  scheduler = new CoreBoundQueuesScheduler(2);
   ASSERT_TRUE(long_block_test(scheduler));
   delete scheduler;
 
-  scheduler = new WSCoreBoundQueuesScheduler  ();
+  scheduler = new WSCoreBoundQueuesScheduler(2);
   ASSERT_TRUE(long_block_test(scheduler));
   delete scheduler;
 }
@@ -257,12 +252,13 @@ TEST_P(SchedulerTest, wait_dependency_task_test) {
   waiter->wait();
 }
 
+/*
 TEST_P(SchedulerTest, resize_simple_test) {
 #ifdef EXPENSIVE_TESTS
   int threads1 = 4;
   int threads2 = 2;
   int tasks = 10;
-  //in microsecons
+  //in microseconds
   int sleeptime = 50;
 
   SharedScheduler::getInstance().resetScheduler(scheduler_name);
@@ -270,11 +266,11 @@ TEST_P(SchedulerTest, resize_simple_test) {
   scheduler->resize(threads1);
 
   std::shared_ptr<WaitTask> waiter = std::make_shared<WaitTask>();
-  //std::cout << "Waiter: " << std::hex << (void * )waiter.get() << std::dec << std::endl;
+ // std::cout << "Waiter: " << std::hex << (void * )waiter.get() << std::dec << std::endl;
   std::vector<std::shared_ptr<SleepTask> > vtasks;
   for (int i = 0; i < tasks; ++i) {
     vtasks.push_back(std::make_shared<SleepTask>(sleeptime));
-    //std::cout << "Task " << i << " :"<< std::hex << (void * )vtasks[i].get() << std::dec << std::endl;
+   // std::cout << "Task " << i << " :"<< std::hex << (void * )vtasks[i].get() << std::dec << std::endl;
     waiter->addDependency(vtasks[i]);
     scheduler->schedule(vtasks[i]);
   }
@@ -288,7 +284,7 @@ TEST_P(SchedulerTest, resize_simple_test) {
   //usleep(1000);
 
 #endif
-}
+}*/
 
 TEST_P(SchedulerTest, wait_set_test) {
   //int threads1 = 4;
@@ -315,7 +311,7 @@ TEST_P(SchedulerTest, wait_set_test) {
   scheduler->schedule(waiter);
   waiter->wait();
 }
-
+/*
 TEST_P(SchedulerTest, settings_test) {
   int threads1 = getNumberOfCoresOnSystem() - 1;
   int threads2 = getNumberOfCoresOnSystem();
@@ -379,7 +375,7 @@ TEST_P(SchedulerTest, avoid_too_many_threads_test) {
     // scheduler should have only as many queues as existing cores
     ASSERT_EQ(getNumberOfCoresOnSystem(), static_cast<int>(scheduler->getNumberOfWorker()));
   }
-}
+}*/
 
 #endif
 

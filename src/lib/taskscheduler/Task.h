@@ -15,9 +15,6 @@
 #include <condition_variable>
 #include <string>
 
-#define NO_PREFERRED_CORE -1
-#define NO_PREFERRED_NODE -1
-
 class Task;
 
 class TaskReadyObserver {
@@ -47,6 +44,9 @@ class Task : public TaskDoneObserver, public std::enable_shared_from_this<Task> 
 
 public:
   static const int DEFAULT_PRIORITY = 999;
+  static const int NO_PREFERRED_CORE = -1;
+  static const int NO_PREFERRED_NODE = -1;
+
 protected:
   std::vector<std::shared_ptr<Task> > _dependencies;
   std::vector<TaskReadyObserver *> _readyObservers;
@@ -66,7 +66,9 @@ protected:
   // indicates on which node the task should run
   int _actualNode;
   // priority
-  int priority;
+  int _priority;
+  // id
+  int _id;
 
 public:
   Task();
@@ -151,19 +153,29 @@ public:
   }
 
   int getPriority() const {
-    return priority;
+    return _priority;
   }
 
   void setPriority(int priority) {
-    this->priority = priority;
+    this->_priority = priority;
   }
+
+  int getId() const {
+    return _id;
+  }
+
+  void setId(int id) {
+    this->_id = id;
+
+  };
 };
 
 class CompareTaskPtr {
     public:
-    bool operator()(const std::shared_ptr<Task> & t1, const std::shared_ptr<Task> & t2) // Returns true if t1 is higher priority than t2
+    bool operator()(const std::shared_ptr<Task> & t1, const std::shared_ptr<Task> & t2) // Returns true if t1 is lower priority than t2
     {
-       if (t1->getPriority() < t2->getPriority()) return true;
+       if (t1->getPriority() > t2->getPriority()) return true;
+       else if((t1->getPriority() == t2->getPriority()) && t1->getId() > t2->getId()) return true;
        else
          return false;
     };

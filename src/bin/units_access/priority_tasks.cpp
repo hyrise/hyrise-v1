@@ -5,6 +5,7 @@
 #include "access/NoOp.h"
 #include <memory>
 #include <queue>
+#include "helper.h"
 
 
 namespace hyrise {

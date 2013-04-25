@@ -35,7 +35,7 @@ class AbstractCoreBoundQueuesScheduler : public AbstractTaskScheduler, public Ta
   // mutex to protect task queues
   std::mutex _queuesMutex;
   // holds the queue that gets the next task (simple roundrobin, first)
-  std::atomic<size_t> _nextQueue;
+  size_t _nextQueue;
 
   static log4cxx::LoggerPtr _logger;
 
@@ -44,10 +44,6 @@ class AbstractCoreBoundQueuesScheduler : public AbstractTaskScheduler, public Ta
    */
   virtual void pushToQueue(std::shared_ptr<Task> task) = 0;
 
-  /*
-   * stop a specific queue and redistribute tasks to other queues
-   */
-  virtual void stopQueueAndRedistributeTasks(task_queue_t *queue, int queues);
   /*
    * create a new task queue
    */
@@ -70,16 +66,10 @@ class AbstractCoreBoundQueuesScheduler : public AbstractTaskScheduler, public Ta
    *
    */
   void schedule(std::shared_ptr<Task> task, int core);
-
-  /* change the number of threads the task scheduler uses for running tasks;
-   *
-   */
-  virtual void resize(const size_t queues);
   /*
    * notify scheduler that a given task is ready
    */
   void notifyReady(std::shared_ptr<Task> task);
-
   /*
    * waits for all tasks to finish
    */
