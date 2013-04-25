@@ -18,7 +18,6 @@ WSCoreBoundQueue::~WSCoreBoundQueue() {
 }
 
 void WSCoreBoundQueue::executeTask() {
-
   //infinite thread loop
   while (1) {
     //block protected by _threadStatusMutex
@@ -40,9 +39,7 @@ void WSCoreBoundQueue::executeTask() {
       // try to steal work
       ul.unlock();
       task = stealTasks();
-
       if (!task){
-
         ul.lock();
         //if queue still empty go to sleep and wait until new tasks have been arrived
         if (_runQueue.size() < 1) {
@@ -96,15 +93,12 @@ std::shared_ptr<Task> WSCoreBoundQueue::stealTasks() {
 
 std::shared_ptr<Task> WSCoreBoundQueue::stealTask() {
   std::shared_ptr<Task> task = NULL;
-  // first check if status of thread is still ok; hold queueMutex, to avoid race conditions
+  // hold queueMutex, to avoid race conditions
   std::lock_guard<std::mutex> lk1(_queueMutex);
   // dont steal tasks if thread is about to stop
-  if (_status == RUN) {
-    // acquire queue mutex to check size and pop task
-    if (_runQueue.size() >= 1) {
+  if (_status == RUN && _runQueue.size() >= 1) {
       task = _runQueue.back();
       _runQueue.pop_back();
-    }
   }
   return task;
 }

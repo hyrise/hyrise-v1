@@ -7,7 +7,6 @@
 
 #include "WSCoreBoundPriorityQueue.h"
 
-
 WSCoreBoundPriorityQueue::WSCoreBoundPriorityQueue(int core, WSCoreBoundPriorityQueuesScheduler *scheduler): AbstractCoreBoundQueue(), _allQueues(NULL) {
   _core = core;
   _scheduler = scheduler;

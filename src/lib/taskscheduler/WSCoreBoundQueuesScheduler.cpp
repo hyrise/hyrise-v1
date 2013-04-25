@@ -32,7 +32,6 @@ WSCoreBoundQueuesScheduler::WSCoreBoundQueuesScheduler(const int queues) : Abstr
     }
     _queues = getNumberOfCoresOnSystem();
   }
-
   _status = RUN;
 
 }
