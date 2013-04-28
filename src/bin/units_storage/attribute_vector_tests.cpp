@@ -10,6 +10,7 @@
 #include "io/shortcuts.h"
 
 #include <storage/DefaultDictVector.hpp>
+#include <storage/ColumnProperties.h>
 
 #include <iostream>
 
@@ -170,10 +171,15 @@ TYPED_TEST(AttributeVectorTests, default_bit_vector) {
   size_t iCol = 0;
   size_t iRow = 0;
 
+  ColumnProperties colProp;
+
+  colProp.defaultType = ColDefaultDictVector;
+
   Loader::params p;
-  p.setisDefaultDictVector(true);
+  p.setColProperties(&colProp);
   p.setReturnsMutableVerticalTable(true);
   p.setModifiableMutableVerticalTable(true);
+
   hyrise::storage::atable_ptr_t vegiTable = Loader::shortcuts::load("test/tables/VegiTable.csv", p);
 
   vegiTable->resize(30);

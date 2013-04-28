@@ -27,7 +27,7 @@ param_member_impl(Loader::params, bool, ModifiableMutableVerticalTable)
 param_member_impl(Loader::params, bool, ReturnsMutableVerticalTable)
 param_member_impl(Loader::params, bool, Compressed)
 param_member_impl(Loader::params, hyrise::storage::c_atable_ptr_t, ReferenceTable)
-param_member_impl(Loader::params, bool, isDefaultDictVector)
+param_member_impl(Loader::params, PColumnProperties, ColProperties)
 
 Loader::params::params() :
   Input(nullptr),
@@ -39,7 +39,7 @@ Loader::params::params() :
   ReturnsMutableVerticalTable(false),
   Compressed(false),
   ReferenceTable(),
-  isDefaultDictVector(false)
+  ColProperties(nullptr)
 {}
 
 Loader::params::params(const Loader::params &other) :
@@ -48,17 +48,18 @@ Loader::params::params(const Loader::params &other) :
   InsertOnly(other.getInsertOnly()),
   ModifiableMutableVerticalTable(other.getModifiableMutableVerticalTable()),
   ReturnsMutableVerticalTable(other.getReturnsMutableVerticalTable()),
-  Compressed(other.getCompressed()),
-  isDefaultDictVector(other.getisDefaultDictVector()) {
+  Compressed(other.getCompressed()) {
   if (other.Input != nullptr) Input = other.Input->clone();
   if (other.Header != nullptr) Header = other.Header->clone();
   if (other.ReferenceTable != nullptr) ReferenceTable = other.ReferenceTable;
+  if (other.ColProperties != nullptr) ColProperties = new ColumnProperties(*other.ColProperties);
 }
 
 Loader::params &Loader::params::operator= (const Loader::params &other) {
   if (this != &other) { // protect against invalid self-assignment
     if (Input != nullptr) delete Input;
     if (Header != nullptr) delete Header;
+    if (ColProperties != nullptr) delete ColProperties;
     Input = other.getInput()->clone();
     Header = other.getHeader()->clone();
     setBasePath(other.getBasePath());
@@ -68,7 +69,8 @@ Loader::params &Loader::params::operator= (const Loader::params &other) {
     setModifiableMutableVerticalTable(other.getModifiableMutableVerticalTable());
     setCompressed(other.getCompressed());
     setReferenceTable(other.getReferenceTable());
-    setisDefaultDictVector(other.getisDefaultDictVector());
+    if (other.ColProperties != nullptr)
+      setColProperties(new ColumnProperties(*other.ColProperties));
   }
   // by convention, always return *this
   return *this;
@@ -85,7 +87,8 @@ Loader::params *Loader::params::clone() const {
   p->setModifiableMutableVerticalTable(ModifiableMutableVerticalTable);
   p->setReferenceTable(ReferenceTable);
   p->setCompressed(Compressed);
-  p->setisDefaultDictVector(isDefaultDictVector);
+  if (ColProperties != nullptr)
+    p->setColProperties( new ColumnProperties(*getColProperties()));
   return p;
 }
 
@@ -126,7 +129,7 @@ std::shared_ptr<AbstractTable> Loader::load(const params &args) {
 
   std::shared_ptr<AbstractTable>
   result, //initialize empty
-  table = std::make_shared<MutableVerticalTable>(*meta, nullptr, 0, false, factory, args.getCompressed(), args.getisDefaultDictVector());
+  table = std::make_shared<MutableVerticalTable>(*meta, nullptr, 0, false, factory, args.getCompressed(), args.getColProperties());
 
   LOG4CXX_DEBUG(logger, "Loading data");
   try {

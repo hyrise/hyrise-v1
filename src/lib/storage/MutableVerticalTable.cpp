@@ -7,12 +7,17 @@ MutableVerticalTable::MutableVerticalTable(std::vector<std::vector<const ColumnM
                              bool sorted,
                              AbstractTableFactory *factory,
                              bool compressed,
-                             bool isDefaultDictVector) : containers() {
+                             ColumnProperties *colProperties) : containers() {
   for (size_t i = 0; i < metadata.size(); i++) {
     std::vector<AbstractTable::SharedDictionaryPtr> *dict = nullptr;
 
     if (dictionaries)
       dict = dictionaries->at(i);
+
+    bool isDefaultDictVector = false;
+    // check type for each column (if ColumnProperties is given), or do not use defaultDictVector...
+    if (colProperties)
+      isDefaultDictVector = (colProperties->getType(i) == ColDefaultDictVector);
 
     if (factory)
       containers.push_back(factory->generate(metadata[i], dict, size, sorted, compressed, STORAGE_ALIGNMENT_SIZE, STORAGE_ALIGNMENT_SIZE, isDefaultDictVector));

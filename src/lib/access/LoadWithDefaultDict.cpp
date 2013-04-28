@@ -8,6 +8,8 @@
 #include "io/shortcuts.h"
 #include "io/StorageManager.h"
 
+#include "storage/ColumnProperties.h"
+
 namespace hyrise {
 namespace access {
 
@@ -25,8 +27,10 @@ LoadWithDefaultDict::~LoadWithDefaultDict() {
 }
 
 void LoadWithDefaultDict::executePlanOperation() {
+  ColumnProperties colProps;
+  colProps.defaultType = ColDefaultDictVector;
   Loader::params p;
-  p.setisDefaultDictVector(true);
+  p.setColProperties(&colProps);
   if (_forceMutable) {
     p.setReturnsMutableVerticalTable(_forceMutable);
     p.setModifiableMutableVerticalTable(_forceMutable);
