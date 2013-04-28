@@ -38,7 +38,6 @@ void QueryParser::buildTasks(
         typeName, planOperationSpec);
     planOperation->setEvent(getPapiEventName(query));
     setInputs(planOperation, planOperationSpec);
-    planOperation->setPlanOperationName(typeName);
     planOperation->setPart(planOperationSpec["part"].asUInt());
     planOperation->setCount(planOperationSpec["count"].asUInt());
     planOperation->setOperatorId(members[i]);
