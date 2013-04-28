@@ -73,9 +73,7 @@ bool OperationData::emptyHashTables() const {
 void OperationData::mergeWith(OperationData &other) {
   const auto& other_res = other._resources;
   for (const auto& nextElement: other_res) {
-    if (find(begin(_resources), end(_resources), nextElement) == end(_resources)) {
-      addResource(nextElement);
-    }
+    addResource(nextElement);
   }
 }
 

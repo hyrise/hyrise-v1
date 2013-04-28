@@ -29,6 +29,7 @@ public:
   virtual ~TableRangeView();
 
   size_t getStart() const;
+  hyrise::storage::c_atable_ptr_t getTable() const;
   // specific to TableRangeView
   table_id_t subtableCount() const;
   hyrise::storage::atable_ptr_t copy() const;

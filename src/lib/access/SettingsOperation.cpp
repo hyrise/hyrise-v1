@@ -1,26 +1,40 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#include "SettingsOperation.h"
-#include <access/QueryParser.h>
-#include <helper/Settings.h>
+#include "access/SettingsOperation.h"
 
-bool SettingsOperation::is_registered = QueryParser::registerPlanOperation<SettingsOperation>();
+#include "access/QueryParser.h"
 
-bool aaa_cmp(unsigned char *p, unsigned int i) {
-  return *((unsigned int *) p) == i;
+#include "helper/Settings.h"
+
+namespace hyrise {
+namespace access {
+
+namespace {
+  auto _ = QueryParser::registerPlanOperation<SettingsOperation>("SettingsOperation");
 }
 
+SettingsOperation::SettingsOperation() : _threadpoolSize(1) {
+}
 
-std::shared_ptr<_PlanOperation> SettingsOperation::parse(Json::Value &data) {
-  std::shared_ptr<SettingsOperation> settingsOp = std::make_shared<SettingsOperation>();
-  settingsOp->threadpoolSize = data["threadpoolSize"].asUInt();
-  return settingsOp;
+SettingsOperation::~SettingsOperation() {
 }
 
 void SettingsOperation::executePlanOperation() {
-  Settings::getInstance()->setThreadpoolSize(this->threadpoolSize);
+  Settings::getInstance()->setThreadpoolSize(_threadpoolSize);
+}
+
+std::shared_ptr<_PlanOperation> SettingsOperation::parse(Json::Value &data) {
+  std::shared_ptr<SettingsOperation> settingsOp = std::make_shared<SettingsOperation>();
+  settingsOp->setThreadpoolSize(data["threadpoolSize"].asUInt());
+  return settingsOp;
+}
+
+const std::string SettingsOperation::vname() {
+  return "SettingsOperation";
 }
 
 void SettingsOperation::setThreadpoolSize(const size_t newSize) {
-  this->threadpoolSize = newSize;
+  _threadpoolSize = newSize;
 }
 
+}
+}
