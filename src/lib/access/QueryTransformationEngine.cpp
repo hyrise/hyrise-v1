@@ -94,7 +94,7 @@ Json::Value QueryTransformationEngine::nextInstanceOf(
 
 Json::Value QueryTransformationEngine::unionOperator() const {
   Json::Value unionOperator(Json::objectValue);
-  unionOperator["type"] = "UnionScan";
+  unionOperator["type"] = "UnionAll";
   unionOperator["positions"] = true;
   return unionOperator;
 }
