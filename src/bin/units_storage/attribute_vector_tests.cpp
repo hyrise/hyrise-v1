@@ -183,8 +183,6 @@ TYPED_TEST(AttributeVectorTests, default_bit_vector) {
       vegiTable->setValue<hyrise_int_t>(iCol, iRow, static_cast<hyrise_int_t>(iCol*10000+iRow));
     }
 
-  vegiTable->print();
-
   for (iCol = 0; iCol<vegiTable->columnCount(); ++iCol)
     for (iRow = 0; iRow<vegiTable->size(); ++iRow)
       ASSERT_EQ(vegiTable->getValue<hyrise_int_t>(iCol, iRow), static_cast<hyrise_int_t>(iCol*10000+iRow));

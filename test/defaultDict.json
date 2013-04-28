@@ -4,43 +4,31 @@
         "00" : {
             "type": "TableLoad",
             "table": "numbers",
-            "filename" : "tables/defaultDictTable.tbl"
-        },
-        "10" : {
-            "type": "LoadWithDefaultDict",
-            "table": "numbers",
-            "filename" : "tables/defaultDictTable.tbl"
+            "filename" : "tables/defaultDictTable95.tbl"
         },
         "01" : {
             "type" : "SimpleTableScan",
             "positions" : true,
             "predicates":[
-            { "type": "AND" },
-            { "type" : "LT", "in" : 0, "f" : "numbers", "vtype" : 0, "value": 10000000 },
+            { "type": "OR" },
+            { "type" : "EQ", "in" : 0, "f" : "mostlyDefault", "vtype" : 0, "value": 0 },
             { "type" : "EQ", "in" : 0, "f" : "mostlyDefault", "vtype" : 0, "value": 0 }
             ]
         },
-        "02" : {
-            "type" : "ProjectionScan",
-            "fields" : [
-            "numbers","mostlyDefault"
-            ]
+        "10" : {
+            "type": "LoadWithDefaultDict",
+            "table": "numbers",
+            "filename" : "tables/defaultDictTable95.tbl"
         },
         "11" : {
             "type" : "SimpleTableScan",
             "positions" : true,
             "predicates":[
-            { "type": "AND" },
-            { "type" : "LT", "in" : 0, "f" : "numbers", "vtype" : 0, "value": 10000000 },
+            { "type": "OR" },
+            { "type" : "EQ", "in" : 0, "f" : "mostlyDefault", "vtype" : 0, "value": 0 },
             { "type" : "EQ", "in" : 0, "f" : "mostlyDefault", "vtype" : 0, "value": 0 }
-            ]
-        },
-        "12" : {
-            "type" : "ProjectionScan",
-            "fields" : [
-            "numbers","mostlyDefault"
             ]
         }
     },
-    "edges": [["00","01"],["01","02"], ["10","11"],["11","12"]]
+    "edges": [["00","01"], ["10","11"]]
 }

@@ -27,9 +27,11 @@ LoadWithDefaultDict::~LoadWithDefaultDict() {
 void LoadWithDefaultDict::executePlanOperation() {
   Loader::params p;
   p.setisDefaultDictVector(true);
-  p.setReturnsMutableVerticalTable(_forceMutable);
-  p.setModifiableMutableVerticalTable(_forceMutable);
-  output.add(Loader::shortcuts::load(
+  if (_forceMutable) {
+    p.setReturnsMutableVerticalTable(_forceMutable);
+    p.setModifiableMutableVerticalTable(_forceMutable);
+  }
+  addResult(Loader::shortcuts::load(
         StorageManager::getInstance()->makePath(_filename),
         p));
 }

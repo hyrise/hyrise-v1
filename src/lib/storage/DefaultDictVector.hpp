@@ -13,18 +13,19 @@
 #include <iostream>
 
 
-// Template classes for iterators
-//template <typename T> class DefaultDictVectorIterator;
-//template <typename T> class DefaultDictVectorBufferedIterator;
-
-
 template <typename T>
 struct DefaultDictColumn {
   T default_value;
+  bool defaultValueIsSet;
 
   boost::dynamic_bitset<> default_bit_vector;
-  std::vector< size_t >    exception_positions;
+  std::vector< size_t >   exception_positions;
   std::vector< T >        exception_values;
+};
+
+enum defaultDictValues {
+  defaultDict_default_value     = true,
+  defaultDict_non_default_value = false
 };
 
 
@@ -36,70 +37,21 @@ private:
   
   size_t _columns;
   size_t _rows;
-
-  /*
-  inline T getValueAt(pos_t position) const {
-    if (_default_bit_vector[position]) {
-      return _default_value;
-    }
-    else {
-      // binary search on exception list
-      auto low = std::lower_bound(
-        _exception_positions.begin(),
-        _exception_positions.end(),
-        position);
-        // assert (*low == position);
-        return _exception_values[
-          ( low - _exception_positions.begin() )];
-    }
-  }*/
   
 public:    
-  //typedef DefaultDictVectorIterator<T> Iterator;
-  //typedef DefaultDictVectorBufferedIterator<T> BufferedIterator;
-  
   explicit DefaultDictVector(size_t columns, size_t rows);
   ~DefaultDictVector();
-  /*
-  Iterator begin() {
-    return Iterator(
-      this->_default_bit_vector,
-      this->_exception_positions,
-      this->_exception_values,
-      this->_default_value);
-  };
-  Iterator end() {
-    return Iterator(
-      this->_default_bit_vector,
-      this->_exception_positions,
-      this->_exception_values,
-      this->_default_value,
-      this->size());
-  }
-  Iterator iterator(pos_t position) {
-    return Iterator(
-      this->_default_bit_vector,
-      this->_exception_positions,
-      this->_exception_values,
-      this->_default_value,
-      position);
-  }*/
 
   void *data() {
-    return nullptr;
+    throw std::runtime_error("Direct data access not allowed");
   }
 
   void setNumRows(size_t rows) {
-    _rows = rows;
+    //_rows = rows;
+    throw std::runtime_error("Direct data access not allowed");
   }
   
   size_t allocated_bytes();
-  
-  //void push_back(T value);
-  
-  /*T operator[] (size_t n) {
-    return getValueAt(n);
-  }*/
 
   T default_value (size_t column) const {
     checkColumnAccess(column);
@@ -126,23 +78,28 @@ public:
     auto& def_bits(_default_dict_table[column].default_bit_vector);
     auto& ex_pos(_default_dict_table[column].exception_positions);
     auto& ex_val(_default_dict_table[column].exception_values);
-    auto def_val = _default_dict_table[column].default_value;
+    auto& def_val(_default_dict_table[column].default_value);
 
-    if ((def_bits[row]) and (value == def_val))
+    if (! _default_dict_table[column].defaultValueIsSet) {
+      _default_dict_table[column].defaultValueIsSet = true;
+      def_val = value;
+    }
+
+    if ((def_bits[row]==defaultDict_default_value) and (value == def_val))
       return;
 
     size_t pos = std::lower_bound(ex_pos.begin(),ex_pos.end(),row) - ex_pos.begin();
 
     //value is not default value but old value was
     if (def_bits[row]) {
-      def_bits[row] = false;
+      def_bits[row] = defaultDict_non_default_value;
       auto ex_it = ex_pos.begin();
       ex_pos.insert(ex_it+pos,row);
       auto val_it = ex_val.begin();
       ex_val.insert(val_it+pos,value);
     } else {
       if (value == def_val) {
-        def_bits[row] = true;
+        def_bits[row] = defaultDict_default_value;
         ex_pos.erase(ex_pos.begin()+pos);
         ex_val.erase(ex_val.begin()+pos);
       } else {
@@ -207,6 +164,7 @@ DefaultDictVector<T, Allocator>::DefaultDictVector(size_t columns, size_t rows) 
 
   DefaultDictColumn<T> column;
   for (size_t c = 0; c<_columns; ++c) {
+    column.defaultValueIsSet = false;
     column.default_value = T(0);
     column.default_bit_vector.resize(rows, true);
     _default_dict_table.push_back(column);
@@ -217,24 +175,10 @@ template <typename T, typename Allocator>
 DefaultDictVector<T, Allocator>::~DefaultDictVector() {
 }
 
-/*
-template <typename T, typename Allocator>
-void DefaultDictVector<T, Allocator>::push_back (T value) {
-  if (value == this->_default_value) {
-    _default_bit_vector.push_back(true);
-  }
-  else {
-    _default_bit_vector.push_back(false);
-    _exception_positions.push_back( this->_rows );
-    _exception_values.push_back( value );
-  }
-  ++this->_rows;
-}
-*/
-
 template <typename T, typename Allocator>
 void DefaultDictVector<T, Allocator>::clear() {
   for(size_t c = 0; c<_columns; ++c) {
+    _default_dict_table[c].defaultValueIsSet = false;
     _default_dict_table[c].default_value = T(0);
     _default_dict_table[c].default_bit_vector.clear();
     _default_dict_table[c].exception_positions.clear();
@@ -258,135 +202,4 @@ void DefaultDictVector<T, Allocator>::reserve(size_t rows) {
 
   for (size_t c=0; c<_columns; ++c)
     _default_dict_table[c].default_bit_vector.resize(rows, true);
-
-  size_t i = 0;
-  for(i=0;i<_rows;i++)
-    if(1 == _default_dict_table[0].default_bit_vector[i])
-      std::cout << i << std::endl;
 }
-
-
-
-//iterator begins
-
-/*
-
-template <typename T>
-class DefaultDictVectorIterator : 
-public std::iterator< std::input_iterator_tag, int>
-{
-  boost::dynamic_bitset<>& _default_bit_vector;
-  std::vector< pos_t >&    _exception_positions;
-  std::vector< T >&        _exception_values;
-
-  T _default_value;
-  pos_t _my_position;
-  pos_t _pos_in_exception_list;
-
-public:
-  DefaultDictVectorIterator(
-    boost::dynamic_bitset<>& default_bit_vector,
-    std::vector<pos_t>&      exception_positions, 
-    std::vector<T>&          exception_values,
-    T                        default_value);
-
-  DefaultDictVectorIterator(
-    boost::dynamic_bitset<>& default_bit_vector,
-    std::vector<pos_t>&      exception_positions, 
-    std::vector<T>&          exception_values,
-    T                        default_value,
-    pos_t                    position);
-
-  DefaultDictVectorIterator& operator++() {
-    if (!_default_bit_vector[_my_position])
-      ++_pos_in_exception_list;
-    ++_my_position;
-    return *this;
-  }
-  
-  inline T& operator*() {
-    if (_default_bit_vector[_my_position]) {
-      return _default_value;
-    } else {
-      return _exception_values[_pos_in_exception_list];      
-    }
-  }
-  
-  bool operator==(const DefaultDictVectorIterator& rhs) const {
-    return _my_position==rhs._my_position;
-  }
-  
-  bool operator!=(const DefaultDictVectorIterator& rhs) const {
-    return _my_position!=rhs._my_position;
-  }
-
-  bool operator<(const DefaultDictVectorIterator& rhs) const {
-    return _my_position<rhs._my_position;
-  }
-  
-  bool operator>(const DefaultDictVectorIterator& rhs) const {
-    return _my_position>rhs._my_position;
-  }
-
-  bool operator<=(const DefaultDictVectorIterator& rhs) const {
-    return _my_position<=rhs._my_position;
-  }
-  
-  bool operator>=(const DefaultDictVectorIterator& rhs) const {
-    return _my_position>=rhs._my_position;
-  }
-  DefaultDictVectorIterator operator+(pos_t position) const {
-    return DefaultDictVectorIterator(
-      this->_default_bit_vector,
-      this->_exception_positions,
-      this->_exception_values,
-      this->_default_value,
-      this->_my_position + position);
-  }
-  DefaultDictVectorIterator operator-(pos_t position) const {
-    return DefaultDictVectorIterator(
-      this->_default_bit_vector,
-      this->_exception_positions,
-      this->_exception_values,
-      this->_default_value,
-      this->_my_position - position);
-  }
-};
-
-
-
-template <typename T>
-DefaultDictVectorIterator<T>::DefaultDictVectorIterator (
-  boost::dynamic_bitset<>& default_bit_vector,
-  std::vector<pos_t>& exception_positions, 
-  std::vector<T>&     exception_values,
-  T default_value) :
-    _default_bit_vector(default_bit_vector),
-    _exception_positions(exception_positions),
-    _exception_values(exception_values),
-    _default_value(default_value),
-    _my_position(0),
-    _pos_in_exception_list(0)
-{ }
-
-
-template <typename T>
-DefaultDictVectorIterator<T>::DefaultDictVectorIterator (
-  boost::dynamic_bitset<>& default_bit_vector,
-  std::vector<pos_t>& exception_positions, 
-  std::vector<T>&     exception_values,
-  T default_value,
-  pos_t position) :
-    _default_bit_vector(default_bit_vector),
-    _exception_positions(exception_positions),
-    _exception_values(exception_values),
-    _default_value(default_value),
-    _my_position(position),
-    _pos_in_exception_list(0)
-{
-  if (_my_position and (_my_position < _default_bit_vector.size())) {
-    _pos_in_exception_list = std::lower_bound(_exception_positions.begin(), 
-        _exception_positions.end(), _my_position) - _exception_positions.begin(); 
-  }
-}
-*/
