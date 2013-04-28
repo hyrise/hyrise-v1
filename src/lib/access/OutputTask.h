@@ -41,7 +41,7 @@ class OutputTask : public Task {
 
   } performance_attributes_t;
 
-  typedef std::vector<performance_attributes_t> performance_vector;
+  typedef std::vector<std::unique_ptr<performance_attributes_t> > performance_vector;
 
  protected:
   performance_attributes_t *_performance_attr;

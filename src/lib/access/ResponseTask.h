@@ -2,6 +2,8 @@
 #ifndef SRC_LIB_ACCESS_RESPONSETASK_H_
 #define SRC_LIB_ACCESS_RESPONSETASK_H_
 
+#include <mutex>
+
 #include "helper/epoch.h"
 #include "access/OutputTask.h"
 #include "net/AbstractConnection.h"
@@ -17,19 +19,22 @@ class ResponseTask : public Task {
   size_t _transmitLimit; // Used for serialization only
   epoch_t queryStart;
   OutputTask::performance_vector performance_data;
+  std::mutex perfMutex;
+
  public:
   explicit ResponseTask(net::AbstractConnection *connection) :
       connection(connection), _transmitLimit(0), queryStart(0) {
   }
 
-  virtual ~ResponseTask() {
-  }
+  virtual ~ResponseTask() {}
 
   const std::string vname();
 
   epoch_t getQueryStart() {
     return queryStart;
   }
+
+  void registerPlanOperation(const std::shared_ptr<_PlanOperation>& planOp);
 
   void setQueryStart(epoch_t start) {
     queryStart = start;

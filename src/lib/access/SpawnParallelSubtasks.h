@@ -7,13 +7,10 @@
 namespace hyrise {
 namespace access {
 
-/// This class implements the distinct operator for any kind of input table.
-/// It has linear complexity since it scans the attribute and retrieves
-/// all distinct valueIds and builds the result.
+///This class implements an operation that spawns a number of subtasks for testing purposes.
+///The successor tasks will be executed after all spawned tasks are done
 class SpawnParallelSubtasks : public _PlanOperation {
 public:
-  virtual ~SpawnParallelSubtasks();
-
   void executePlanOperation();
   static std::shared_ptr<_PlanOperation> parse(Json::Value &data);
   const std::string vname();

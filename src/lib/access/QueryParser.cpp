@@ -109,7 +109,9 @@ std::shared_ptr<Task>  QueryParser::getResultTask(
 std::shared_ptr<_PlanOperation> QueryParser::parse(std::string name, Json::Value d) {
   if (_factory.count(name) == 0)
     throw std::runtime_error("Operator of type " + name + " not supported");
-  return _factory[name]->parse(d);
+  auto op = _factory[name]->parse(d);
+  op->setPlanOperationName(name);
+  return op;
 }
 
 

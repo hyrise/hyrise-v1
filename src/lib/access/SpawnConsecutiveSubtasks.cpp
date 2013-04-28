@@ -1,10 +1,8 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "access/SpawnConsecutiveSubtasks.h"
 
-#include "access/BasicParser.h"
 #include "access/QueryParser.h"
-
-#include "helper/types.h"
+#include "access/ResponseTask.h"
 
 namespace hyrise {
 namespace access {
@@ -13,11 +11,6 @@ namespace {
   auto _ = QueryParser::registerPlanOperation<SpawnConsecutiveSubtasks>("SpawnConsecutiveSubtasks");
 }
 
-SpawnConsecutiveSubtasks::~SpawnConsecutiveSubtasks() {
-}
-
-// Executing this on a store with delta results in undefined behavior
-// Execution with horizontal tables results in undefined behavior
 void SpawnConsecutiveSubtasks::executePlanOperation() {
   std::vector<std::shared_ptr<_PlanOperation>> children;
   std::vector<Task*> successors;
@@ -38,12 +31,13 @@ void SpawnConsecutiveSubtasks::executePlanOperation() {
   for (auto successor : successors)
     successor->addDependency(children.back());
 
-  for (auto child : children)
+  for (auto child : children) {
+    getResponseTask()->registerPlanOperation(child);
     scheduler->schedule(child);
+  }
 }
 
-void SpawnConsecutiveSubtasks::setNumberOfSpawns(const size_t number)
-{
+void SpawnConsecutiveSubtasks::setNumberOfSpawns(const size_t number) {
   m_numberOfSpawns = number;
 }
 
@@ -59,3 +53,4 @@ const std::string SpawnConsecutiveSubtasks::vname() {
 
 }
 }
+
