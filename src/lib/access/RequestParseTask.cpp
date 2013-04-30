@@ -64,7 +64,7 @@ void RequestParseTask::operator()() {
   assert((_responseTask != nullptr) && "Response needs to be set");
   AbstractTaskScheduler *scheduler = SharedScheduler::getInstance().getScheduler();
   // MG response always on the same core
-  _responseTask->setPreferredCore(0);
+  // _responseTask->setPreferredCore(0);
 
   OutputTask::performance_vector& performance_data = _responseTask->getPerformanceData();
   performance_data.resize(1); // make room for at leas *this* operator
