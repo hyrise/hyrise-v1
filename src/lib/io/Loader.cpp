@@ -52,7 +52,10 @@ Loader::params::params(const Loader::params &other) :
   if (other.Input != nullptr) Input = other.Input->clone();
   if (other.Header != nullptr) Header = other.Header->clone();
   if (other.ReferenceTable != nullptr) ReferenceTable = other.ReferenceTable;
-  if (other.ColProperties != nullptr) ColProperties = new ColumnProperties(*other.ColProperties);
+  if (other.ColProperties != nullptr)
+    ColProperties = new ColumnProperties(*other.ColProperties);
+  else
+    ColProperties = nullptr;
 }
 
 Loader::params &Loader::params::operator= (const Loader::params &other) {
@@ -71,6 +74,8 @@ Loader::params &Loader::params::operator= (const Loader::params &other) {
     setReferenceTable(other.getReferenceTable());
     if (other.ColProperties != nullptr)
       setColProperties(new ColumnProperties(*other.ColProperties));
+    else
+      setColProperties(nullptr);
   }
   // by convention, always return *this
   return *this;
@@ -89,12 +94,16 @@ Loader::params *Loader::params::clone() const {
   p->setCompressed(Compressed);
   if (ColProperties != nullptr)
     p->setColProperties( new ColumnProperties(*getColProperties()));
+  else
+    p->setColProperties(nullptr);
   return p;
 }
 
 Loader::params::~params() {
   if (Input != nullptr) delete Input;
-  if (Input != nullptr) delete Header;
+  if (Header != nullptr) delete Header;
+  // TODO: why does the destructor fail?
+  // if (ColProperties != nullptr) delete ColProperties;
 }
 
 
@@ -125,7 +134,6 @@ std::shared_ptr<AbstractTable> Loader::load(const params &args) {
   LOG4CXX_DEBUG(logger, "Loading header");
   compound_metadata_list *meta = header->load(args);
   LOG4CXX_DEBUG(logger, "Header done");
-
 
   std::shared_ptr<AbstractTable>
   result, //initialize empty

@@ -1,6 +1,15 @@
 #include "ColumnProperties.h"
 
 
+ColumnProperties::ColumnProperties() : 
+  defaultType(ColDefaultType),
+  _types(std::vector<ColumnType>())
+{
+}
+
+ColumnProperties::~ColumnProperties()
+{ 
+}
 
 void ColumnProperties::setType(size_t column, ColumnType type) {
   // expand types vector, if needed

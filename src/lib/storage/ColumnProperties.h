@@ -8,7 +8,7 @@ typedef ColumnProperties* PColumnProperties;
 
 enum ColumnType {
   ColDefaultType = 0,
-  // BitCompressed, FixedLength ...
+  // TODO: BitCompressed, FixedLength ...
   ColDefaultDictVector
 };
 
@@ -19,7 +19,8 @@ enum ColumnType {
 // Use default values, if types are not set.
 class ColumnProperties {
 public:
-  ColumnProperties() : defaultType(ColDefaultType) {}
+  ColumnProperties();
+  virtual ~ColumnProperties();
 
   ColumnType defaultType;
   void setType(size_t column, ColumnType type);

@@ -16,7 +16,7 @@ MutableVerticalTable::MutableVerticalTable(std::vector<std::vector<const ColumnM
 
     bool isDefaultDictVector = false;
     // check type for each column (if ColumnProperties is given), or do not use defaultDictVector...
-    if (colProperties)
+    if (colProperties != nullptr)
       isDefaultDictVector = (colProperties->getType(i) == ColDefaultDictVector);
 
     if (factory)
