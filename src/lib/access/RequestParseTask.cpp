@@ -70,6 +70,9 @@ void RequestParseTask::operator()() {
   performance_data.resize(1); // make room for at leas *this* operator
   std::vector<std::shared_ptr<Task> > tasks;
 
+  int priority = Task::DEFAULT_PRIORITY;
+
+
   if (_connection->hasBody()) {
     // The body is a wellformed HTTP Post body, with key value pairs
     std::string body(_connection->getBody());
@@ -81,11 +84,8 @@ void RequestParseTask::operator()() {
       LOG4CXX_DEBUG(_query_logger, request_data);
       std::string final_hash = hash(request_data);
       std::shared_ptr<Task> result = nullptr;
-      int priority;
       if(request_data.isMember("priority"))
         priority = request_data["priority"].asInt();
-      else
-        priority = Task::DEFAULT_PRIORITY;
       _responseTask->setPriority(priority);
       try {
         tasks = QueryParser::instance().deserialize(
@@ -140,14 +140,39 @@ void RequestParseTask::operator()() {
     LOG4CXX_WARN(_logger, "no body received!");
   }
 
-  for (const auto& task: tasks) {
-    scheduler->schedule(task);
-  }
+  // high priority tasks are expected to be scheduled sequentially
+  if(priority == Task::HIGH_PRIORITY){
+    performance_data[0] = { 0, 0, "NO_PAPI", "RequestParseTask", "requestParse", _queryStart, get_epoch_nanoseconds(), boost::lexical_cast<std::string>(std::this_thread::get_id()) };
+    int number_of_tasks = tasks.size();
+    bool * isExecuted = new bool[number_of_tasks];
+    std::fill_n(isExecuted,number_of_tasks,false);
+    int executedTasks = 0;
+    while(executedTasks < number_of_tasks){
+      for(int i = 0; i < number_of_tasks; i++){
+        if(!isExecuted[i] && tasks[i]->isReady()){
+          (*tasks[i])();
+          tasks[i]->notifyDoneObservers();
+          executedTasks++;
+          isExecuted[i] = true;
+        }
+      }
+    }
+    delete[] isExecuted;
 
-  performance_data[0] = { 0, 0, "NO_PAPI", "RequestParseTask", "requestParse", _queryStart, get_epoch_nanoseconds(), boost::lexical_cast<std::string>(std::this_thread::get_id()) };
-  _responseTask->setQueryStart(_queryStart);
-  scheduler->schedule(_responseTask);
-  _responseTask.reset();  // yield responsibility
+    _responseTask->setQueryStart(_queryStart);
+    (*_responseTask)();
+    _responseTask.reset();  // yield responsibility
+
+  } else {
+    for (const auto& task: tasks) {
+      scheduler->schedule(task);
+    }
+
+    performance_data[0] = { 0, 0, "NO_PAPI", "RequestParseTask", "requestParse", _queryStart, get_epoch_nanoseconds(), boost::lexical_cast<std::string>(std::this_thread::get_id()) };
+    _responseTask->setQueryStart(_queryStart);
+    scheduler->schedule(_responseTask);
+    _responseTask.reset();  // yield responsibility
+  }
 }
 
 std::shared_ptr<ResponseTask> RequestParseTask::getResponseTask() const {
