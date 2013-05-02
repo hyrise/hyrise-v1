@@ -3,6 +3,7 @@
 
 #include <io/StorageManager.h>
 #include <access/PlanOperation.h>
+#include <taskscheduler.h>
 
 QueryParser::QueryParser() {
 }

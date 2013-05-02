@@ -18,6 +18,8 @@
 
 #include "storage/AbstractTable.h"
 
+#include "taskscheduler/SharedScheduler.h"
+
 #include "testing/test.h"
 
 hyrise::storage::c_atable_ptr_t sortTable(hyrise::storage::c_atable_ptr_t table){

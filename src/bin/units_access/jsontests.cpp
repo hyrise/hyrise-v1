@@ -8,6 +8,7 @@
 #include <storage.h>
 
 #include <io/shortcuts.h>
+#include "taskscheduler/SharedScheduler.h"
 #include "taskscheduler/WSSimpleTaskScheduler.h"
 
 namespace hyrise {
