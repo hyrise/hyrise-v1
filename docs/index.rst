@@ -1,6 +1,18 @@
 Welcome to HYRISE's documentation!
 ==================================
 
+.. toctree::
+   :glob:
+   :maxdepth: 1
+
+   getting_started
+   architecture   
+   query_execution
+   developing
+   faq
+   proposals
+   doxygen
+
 What is HYRISE
 --------------
 
@@ -189,16 +201,7 @@ exclusion of all liabilities which is not possible in Germany.
 
 Contents:
 
-.. toctree::
-   :glob:
-   :maxdepth: 2
 
-   getting_started
-   architecture   
-   query_execution
-   developing
-   faq
-   proposals
 
 Indices and tables
 ==================

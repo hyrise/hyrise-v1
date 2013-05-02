@@ -3,7 +3,7 @@ MySQL Loader
 
 .. note::
     MySQLInput is only available when compiled with WITH_MYSQL as
-    described in :doc:`/developing/build_environment`.
+    described in :doc:`../../developing/build_environment`.
 
 .. _sqldep:
 
