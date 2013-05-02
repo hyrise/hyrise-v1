@@ -2,11 +2,9 @@
 #ifndef SRC_BIN_UNITS_LAYOUTER_HELPER_H_
 #define SRC_BIN_UNITS_LAYOUTER_HELPER_H_
 
-#include <gtest/gtest.h>
-#include <helper/types.h>
-#include <storage.h>
-#include <iostream>
+#include "gtest/gtest.h"
 
+#include "helper/types.h"
 
 ::testing::AssertionResult AssertTableContentEquals(const char *left_exp,
                                                     const char *right_exp,

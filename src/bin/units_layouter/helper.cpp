@@ -1,8 +1,10 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "helper.h"
+
 #include <fstream>
 
-#include <storage/PrettyPrinter.h>
+#include "storage/AbstractTable.h"
+#include "storage/PrettyPrinter.h"
 
 ::testing::AssertionResult AssertTableContentEquals(const char *left_exp,
                                                     const char *right_exp,
