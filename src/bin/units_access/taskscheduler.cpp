@@ -6,7 +6,6 @@
 #include "testing/test.h"
 #include "helper.h"
 
-#include "access.h"
 #include "access/NoOp.h"
 #include "access/TaskSchedulerAdjustment.h"
 #include "access/PlanOperation.h"
