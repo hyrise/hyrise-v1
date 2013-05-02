@@ -5,16 +5,20 @@
 #include <fstream>
 #include <memory>
 
+#include "access/HashBuild.h"
+#include "access/HashJoinProbe.h"
+#include "access/RequestParseTask.h"
+#include "access/ResponseTask.h"
+#include "access/SortScan.h"
+
 #include "helper/HttpHelper.h"
 #include "helper/types.h"
 
-#include <testing/test.h>
+#include "net/AbstractConnection.h"
 
-#include <access.h>
-#include <io.h>
-#include <storage.h>
-#include <taskscheduler.h>
+#include "storage/AbstractTable.h"
 
+#include "testing/test.h"
 
 hyrise::storage::c_atable_ptr_t sortTable(hyrise::storage::c_atable_ptr_t table){
   size_t c = table->columnCount();
@@ -98,11 +102,6 @@ std::string loadFromFile(std::string path) {
   data_file.close();
   return result;
 }
-
-#include "net/AbstractConnection.h"
-#include "access/RequestParseTask.h"
-#include "access/PlanOperation.h"
-#include "access/ResponseTask.h"
 
 class MockedConnection : public hyrise::net::AbstractConnection {
  public:
