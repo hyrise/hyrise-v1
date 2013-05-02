@@ -2,6 +2,8 @@
 #include <iostream>
 #include <algorithm>
 #include <iterator>
+#include <ctime>
+#include <sys/time.h>
 
 #include "testing/test.h"
 #include "helper.h"
@@ -10,9 +12,11 @@
 #include "access/TaskSchedulerAdjustment.h"
 #include "access/PlanOperation.h"
 #include "io/TransactionManager.h"
-#include "taskscheduler.h"
-#include <ctime>
-#include <sys/time.h>
+#include "taskscheduler/SimpleTaskScheduler.h"
+#include "taskscheduler/SharedScheduler.h"
+#include "taskscheduler/WSSimpleTaskScheduler.h"
+
+
 #include "helper/HwlocHelper.h"
 
 
