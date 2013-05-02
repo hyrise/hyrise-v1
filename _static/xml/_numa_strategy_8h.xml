@@ -1,0 +1,129 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="_numa_strategy_8h" kind="file">
+    <compoundname>NumaStrategy.h</compoundname>
+    <includes local="no">stdlib.h</includes>
+    <includes local="no">iostream</includes>
+    <includedby refid="_numa_strategy2_8h" local="yes">src/lib/memory/NumaStrategy2.h</includedby>
+    <includedby refid="strategies_8h" local="yes">src/lib/memory/strategies.h</includedby>
+    <includedby refid="memory_8h" local="yes">src/lib/memory.h</includedby>
+    <includedby refid="_abstract_table_8cpp" local="no">src/lib/storage/AbstractTable.cpp</includedby>
+    <incdepgraph>
+      <node id="16426">
+        <label>stdlib.h</label>
+      </node>
+      <node id="16425">
+        <label>src/lib/memory/NumaStrategy.h</label>
+        <link refid="NumaStrategy.h"/>
+        <childnode refid="16426" relation="include">
+        </childnode>
+        <childnode refid="16427" relation="include">
+        </childnode>
+      </node>
+      <node id="16427">
+        <label>iostream</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="16429">
+        <label>src/lib/memory/NumaStrategy2.h</label>
+        <link refid="_numa_strategy2_8h"/>
+        <childnode refid="16430" relation="include">
+        </childnode>
+        <childnode refid="16431" relation="include">
+        </childnode>
+      </node>
+      <node id="16428">
+        <label>src/lib/memory/NumaStrategy.h</label>
+        <link refid="NumaStrategy.h"/>
+        <childnode refid="16429" relation="include">
+        </childnode>
+        <childnode refid="16430" relation="include">
+        </childnode>
+        <childnode refid="16431" relation="include">
+        </childnode>
+        <childnode refid="16432" relation="include">
+        </childnode>
+      </node>
+      <node id="16432">
+        <label>src/lib/storage/AbstractTable.cpp</label>
+        <link refid="_abstract_table_8cpp"/>
+      </node>
+      <node id="16430">
+        <label>src/lib/memory/strategies.h</label>
+        <link refid="strategies_8h"/>
+      </node>
+      <node id="16431">
+        <label>src/lib/memory.h</label>
+        <link refid="memory_8h"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="class_numa_config" prot="public">NumaConfig</innerclass>
+    <innerclass refid="class_numa_node_strategy" prot="public">NumaNodeStrategy</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>2012<sp/>Hasso-Plattner-Institut<sp/>fuer<sp/>Softwaresystemtechnik<sp/>GmbH.<sp/>All<sp/>rights<sp/>reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SRC_LIB_MEMORY_NUMASTRATEGY_H_</highlight></codeline>
+<codeline lineno="3"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SRC_LIB_MEMORY_NUMASTRATEGY_H_</highlight></codeline>
+<codeline lineno="4"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdlib.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;iostream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>WITH_NUMA</highlight></codeline>
+<codeline lineno="9"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&lt;numa.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="11"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12" refid="class_numa_config" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_numa_config" kindref="compound">NumaConfig</ref><sp/>{</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="14" refid="class_numa_config_1a4f4e2074037dc2a8bf57294c2bc1ad9e" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="class_numa_config_1a4f4e2074037dc2a8bf57294c2bc1ad9e" kindref="member">node</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="15"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>config&gt;</highlight></codeline>
+<codeline lineno="20" refid="class_numa_node_strategy" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_numa_node_strategy" kindref="compound">NumaNodeStrategy</ref><sp/>{</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>WITH_NUMA</highlight></codeline>
+<codeline lineno="23"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*<ref refid="class_numa_node_strategy_1acf2ea63aad05fbf7f3229c0d14495fa7" kindref="member">allocate</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>sz)<sp/>{</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/>numa_set_bind_policy(1);</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/>numa_set_preferred(config::node);</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*r<sp/>=<sp/>numa_alloc(sz);<sp/></highlight><highlight class="comment">//numa_alloc_onnode(sz,<sp/>config::node);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/>numa_set_preferred(-1);</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/>numa_set_bind_policy(0);</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>r;</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/>};</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*<ref refid="class_numa_node_strategy_1a3017ad1cc349a00cb578c35053e9b40a" kindref="member">reallocate</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*old,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>sz,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>old_sz)<sp/>{</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(old<sp/>==<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="class_numa_node_strategy_1acf2ea63aad05fbf7f3229c0d14495fa7" kindref="member">allocate</ref>(sz);</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>numa_realloc(old,<sp/>old_sz,<sp/>sz);</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/>};</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_numa_node_strategy_1af5ec53ed5a3082ca7633ed8b4af6b4c3" kindref="member">deallocate</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*p,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>sz)<sp/>{</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/>numa_free(p,<sp/>sz);</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/>};</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="44" refid="class_numa_node_strategy_1acf2ea63aad05fbf7f3229c0d14495fa7" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*<ref refid="class_numa_node_strategy_1acf2ea63aad05fbf7f3229c0d14495fa7" kindref="member">allocate</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>sz)<sp/>{</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>malloc(sz);</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/>};</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48" refid="class_numa_node_strategy_1a3017ad1cc349a00cb578c35053e9b40a" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*<ref refid="class_numa_node_strategy_1a3017ad1cc349a00cb578c35053e9b40a" kindref="member">reallocate</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*old,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>sz,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/></highlight><highlight class="comment">/*old_sz*/</highlight><highlight class="normal">)<sp/>{</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>realloc(old,<sp/>sz);</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/>};</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52" refid="class_numa_node_strategy_1af5ec53ed5a3082ca7633ed8b4af6b4c3" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_numa_node_strategy_1af5ec53ed5a3082ca7633ed8b4af6b4c3" kindref="member">deallocate</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*p,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>sz)<sp/>{</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/>free(p);</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/>};</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/>//WITH_NUMA</highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor"></highlight><highlight class="normal">};</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/>//<sp/>SRC_LIB_MEMORY_NUMASTRATEGY_H_</highlight></codeline>
+    </programlisting>
+    <location file="/home/grund/hyrise/src/lib/memory/NumaStrategy.h"/>
+  </compounddef>
+</doxygen>

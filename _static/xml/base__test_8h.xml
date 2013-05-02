@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="base__test_8h" kind="file">
+    <compoundname>base_test.h</compoundname>
+    <includes local="no">gtest/gtest.h</includes>
+    <includedby refid="test_8h" local="yes">src/lib/testing/test.h</includedby>
+    <incdepgraph>
+      <node id="25874">
+        <label>gtest/gtest.h</label>
+      </node>
+      <node id="25873">
+        <label>src/lib/testing/base_test.h</label>
+        <link refid="base_test.h"/>
+        <childnode refid="25874" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="25877">
+        <label>src/lib/testing/test.cpp</label>
+        <link refid="test_8cpp"/>
+      </node>
+      <node id="25875">
+        <label>src/lib/testing/base_test.h</label>
+        <link refid="base_test.h"/>
+        <childnode refid="25876" relation="include">
+        </childnode>
+      </node>
+      <node id="25876">
+        <label>src/lib/testing/test.h</label>
+        <link refid="test_8h"/>
+        <childnode refid="25877" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="classhyrise_1_1_test" prot="public">hyrise::Test</innerclass>
+    <innernamespace refid="namespacehyrise">hyrise</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>2012<sp/>Hasso-Plattner-Institut<sp/>fuer<sp/>Softwaresystemtechnik<sp/>GmbH.<sp/>All<sp/>rights<sp/>reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SRC_LIB_TESTING_BASE_TEST_H_</highlight></codeline>
+<codeline lineno="3"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SRC_LIB_TESTING_BASE_TEST_H_</highlight></codeline>
+<codeline lineno="4"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;gtest/gtest.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">hyrise<sp/>{</highlight></codeline>
+<codeline lineno="8" refid="classhyrise_1_1_test" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classhyrise_1_1_test" kindref="compound">Test</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/>::testing::Test<sp/>{</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="10" refid="classhyrise_1_1_test_1a4c4428c827b896d656ce1581c6ec6690" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1_test_1a4c4428c827b896d656ce1581c6ec6690" kindref="member">~Test</ref>()<sp/>{};</highlight></codeline>
+<codeline lineno="11" refid="classhyrise_1_1_test_1aaac5bc70057c86e1e410c1fb4d9d2ab7" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1_test_1aaac5bc70057c86e1e410c1fb4d9d2ab7" kindref="member">SetUp</ref>()<sp/>{}</highlight></codeline>
+<codeline lineno="12" refid="classhyrise_1_1_test_1ab53bb550586018dfac2b0e347a4c2752" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1_test_1ab53bb550586018dfac2b0e347a4c2752" kindref="member">TearDown</ref>()<sp/>{}</highlight></codeline>
+<codeline lineno="13"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="14"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="/home/grund/hyrise/src/lib/testing/base_test.h"/>
+  </compounddef>
+</doxygen>

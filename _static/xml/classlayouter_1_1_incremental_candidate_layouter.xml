@@ -1,0 +1,260 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="classlayouter_1_1_incremental_candidate_layouter" kind="class" prot="public">
+    <compoundname>layouter::IncrementalCandidateLayouter</compoundname>
+    <basecompoundref refid="classlayouter_1_1_candidate_layouter" prot="public" virt="non-virtual">layouter::CandidateLayouter</basecompoundref>
+    <includes refid="incremental_8h" local="no">incremental.h</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classlayouter_1_1_incremental_candidate_layouter_1a67aa417928fe430b541ea3ca51caba4c" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; <ref refid="namespacelayouter_1a9779582085930cc6fb80f4f2b27dfd9e" kindref="member">subset_t</ref> &gt;</type>
+        <definition>std::vector&lt;subset_t&gt; layouter::IncrementalCandidateLayouter::_splittedSets</definition>
+        <argsstring></argsstring>
+        <name>_splittedSets</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/layouter/incremental.h" line="20" bodyfile="/home/grund/hyrise/src/lib/layouter/incremental.h" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classlayouter_1_1_incremental_candidate_layouter_1a87fb05f48225f7ed38ecc0fafaa6b3a7" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; <ref refid="namespacelayouter_1a9779582085930cc6fb80f4f2b27dfd9e" kindref="member">subset_t</ref> &gt;</type>
+        <definition>std::vector&lt;subset_t&gt; layouter::IncrementalCandidateLayouter::_unusedPartitions</definition>
+        <argsstring></argsstring>
+        <name>_unusedPartitions</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/layouter/incremental.h" line="21" bodyfile="/home/grund/hyrise/src/lib/layouter/incremental.h" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classlayouter_1_1_incremental_candidate_layouter_1af8b0fef2c5ff96280a8c14d190622de2" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; double &gt;</type>
+        <definition>std::vector&lt;double&gt; layouter::IncrementalCandidateLayouter::_unusedCostForPartitions</definition>
+        <argsstring></argsstring>
+        <name>_unusedCostForPartitions</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/layouter/incremental.h" line="23" bodyfile="/home/grund/hyrise/src/lib/layouter/incremental.h" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classlayouter_1_1_incremental_candidate_layouter_1ae2cb5a4b1f0bb0ebbc8bbe8c78bb3c3c" prot="private" static="no" mutable="no">
+        <type>std::map&lt; unsigned, unsigned &gt;</type>
+        <definition>std::map&lt;unsigned, unsigned&gt; layouter::IncrementalCandidateLayouter::_query_conversion</definition>
+        <argsstring></argsstring>
+        <name>_query_conversion</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/layouter/incremental.h" line="25" bodyfile="/home/grund/hyrise/src/lib/layouter/incremental.h" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classlayouter_1_1_incremental_candidate_layouter_1a639e0d0399a4d2abb099827457d5a462" prot="private" static="no" mutable="no">
+        <type>std::map&lt; unsigned, unsigned &gt;</type>
+        <definition>std::map&lt;unsigned, unsigned&gt; layouter::IncrementalCandidateLayouter::_reverse_query_conversion</definition>
+        <argsstring></argsstring>
+        <name>_reverse_query_conversion</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/layouter/incremental.h" line="26" bodyfile="/home/grund/hyrise/src/lib/layouter/incremental.h" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classlayouter_1_1_incremental_candidate_layouter_1abcaffe7b32eae9c85339b6ccff752193" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void layouter::IncrementalCandidateLayouter::clearState</definition>
+        <argsstring>()</argsstring>
+        <name>clearState</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/layouter/incremental.h" line="28" bodyfile="/home/grund/hyrise/src/lib/layouter/incremental.cpp" bodystart="10" bodyend="16"/>
+      </memberdef>
+      <memberdef kind="function" id="classlayouter_1_1_incremental_candidate_layouter_1a74d110df85320a48a2ecf3da0abc628a" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classlayouter_1_1_schema" kindref="compound">Schema</ref></type>
+        <definition>Schema layouter::IncrementalCandidateLayouter::buildSchema</definition>
+        <argsstring>(subset_t attributes, Query *q)</argsstring>
+        <name>buildSchema</name>
+        <param>
+          <type><ref refid="namespacelayouter_1a9779582085930cc6fb80f4f2b27dfd9e" kindref="member">subset_t</ref></type>
+          <declname>attributes</declname>
+        </param>
+        <param>
+          <type><ref refid="classlayouter_1_1_query" kindref="compound">Query</ref> *</type>
+          <declname>q</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/layouter/incremental.h" line="34" bodyfile="/home/grund/hyrise/src/lib/layouter/incremental.cpp" bodystart="54" bodyend="94"/>
+      </memberdef>
+      <memberdef kind="function" id="classlayouter_1_1_incremental_candidate_layouter_1a8d2210b84f8679bfddb5915c4942bfe0" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classlayouter_1_1_result" kindref="compound">Result</ref></type>
+        <definition>Result layouter::IncrementalCandidateLayouter::rewriteResult</definition>
+        <argsstring>(Result affectedBest)</argsstring>
+        <name>rewriteResult</name>
+        <param>
+          <type><ref refid="classlayouter_1_1_result" kindref="compound">Result</ref></type>
+          <declname>affectedBest</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/layouter/incremental.h" line="43" bodyfile="/home/grund/hyrise/src/lib/layouter/incremental.cpp" bodystart="96" bodyend="129"/>
+      </memberdef>
+      <memberdef kind="function" id="classlayouter_1_1_incremental_candidate_layouter_1aac8551ac4c440f55a34cf2eb0fa322c4" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void layouter::IncrementalCandidateLayouter::detectAffectedPartitions</definition>
+        <argsstring>(Query *q)</argsstring>
+        <name>detectAffectedPartitions</name>
+        <param>
+          <type><ref refid="classlayouter_1_1_query" kindref="compound">Query</ref> *</type>
+          <declname>q</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/layouter/incremental.h" line="51" bodyfile="/home/grund/hyrise/src/lib/layouter/incremental.cpp" bodystart="18" bodyend="52"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classlayouter_1_1_incremental_candidate_layouter_1abfa4bf2689eb20ba0419a5cb4437cf4e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void layouter::IncrementalCandidateLayouter::incrementalLayout</definition>
+        <argsstring>(Query *q)</argsstring>
+        <name>incrementalLayout</name>
+        <param>
+          <type><ref refid="classlayouter_1_1_query" kindref="compound">Query</ref> *</type>
+          <declname>q</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/layouter/incremental.h" line="56" bodyfile="/home/grund/hyrise/src/lib/layouter/incremental.cpp" bodystart="131" bodyend="166"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2051">
+        <label>layouter::BaseLayouter</label>
+        <link refid="classlayouter_1_1_base_layouter"/>
+      </node>
+      <node id="2050">
+        <label>layouter::CandidateLayouter</label>
+        <link refid="classlayouter_1_1_candidate_layouter"/>
+        <childnode refid="2051" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2049">
+        <label>layouter::IncrementalCandidateLayouter</label>
+        <link refid="classlayouter_1_1_incremental_candidate_layouter"/>
+        <childnode refid="2050" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2054">
+        <label>layouter::BaseLayouter</label>
+        <link refid="classlayouter_1_1_base_layouter"/>
+        <childnode refid="2055" relation="usage">
+          <edgelabel>schema</edgelabel>
+        </childnode>
+      </node>
+      <node id="2055">
+        <label>layouter::Schema</label>
+        <link refid="classlayouter_1_1_schema"/>
+      </node>
+      <node id="2053">
+        <label>layouter::CandidateLayouter</label>
+        <link refid="classlayouter_1_1_candidate_layouter"/>
+        <childnode refid="2054" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2052">
+        <label>layouter::IncrementalCandidateLayouter</label>
+        <link refid="classlayouter_1_1_incremental_candidate_layouter"/>
+        <childnode refid="2053" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/layouter/incremental.h" line="18" bodyfile="/home/grund/hyrise/src/lib/layouter/incremental.h" bodystart="18" bodyend="58"/>
+    <listofallmembers>
+      <member refid="classlayouter_1_1_candidate_layouter_1acc320f5cf0b1c9f41fee1e0e66ca8349" prot="protected" virt="non-virtual"><scope>layouter::IncrementalCandidateLayouter</scope><name>_candidateList</name></member>
+      <member refid="classlayouter_1_1_incremental_candidate_layouter_1ae2cb5a4b1f0bb0ebbc8bbe8c78bb3c3c" prot="private" virt="non-virtual"><scope>layouter::IncrementalCandidateLayouter</scope><name>_query_conversion</name></member>
+      <member refid="classlayouter_1_1_incremental_candidate_layouter_1a639e0d0399a4d2abb099827457d5a462" prot="private" virt="non-virtual"><scope>layouter::IncrementalCandidateLayouter</scope><name>_reverse_query_conversion</name></member>
+      <member refid="classlayouter_1_1_incremental_candidate_layouter_1a67aa417928fe430b541ea3ca51caba4c" prot="private" virt="non-virtual"><scope>layouter::IncrementalCandidateLayouter</scope><name>_splittedSets</name></member>
+      <member refid="classlayouter_1_1_incremental_candidate_layouter_1af8b0fef2c5ff96280a8c14d190622de2" prot="private" virt="non-virtual"><scope>layouter::IncrementalCandidateLayouter</scope><name>_unusedCostForPartitions</name></member>
+      <member refid="classlayouter_1_1_incremental_candidate_layouter_1a87fb05f48225f7ed38ecc0fafaa6b3a7" prot="private" virt="non-virtual"><scope>layouter::IncrementalCandidateLayouter</scope><name>_unusedPartitions</name></member>
+      <member refid="classlayouter_1_1_base_layouter_1ab4d68f4aa3fbaa8e01a1c53121158874" prot="public" virt="non-virtual"><scope>layouter::IncrementalCandidateLayouter</scope><name>BaseLayouter</name></member>
+      <member refid="classlayouter_1_1_incremental_candidate_layouter_1a74d110df85320a48a2ecf3da0abc628a" prot="private" virt="non-virtual"><scope>layouter::IncrementalCandidateLayouter</scope><name>buildSchema</name></member>
+      <member refid="classlayouter_1_1_candidate_layouter_1a26f4565f706b8b97e54c270d8006fcd1" prot="public" virt="non-virtual"><scope>layouter::IncrementalCandidateLayouter</scope><name>CandidateLayouter</name></member>
+      <member refid="classlayouter_1_1_candidate_layouter_1a21ad32fc96394959824cfc060e440d31" prot="protected" virt="non-virtual"><scope>layouter::IncrementalCandidateLayouter</scope><name>candidateMergePath</name></member>
+      <member refid="classlayouter_1_1_base_layouter_1a5525bc6bcd2c7c69e56c83d2dc87c7cd" prot="protected" virt="non-virtual"><scope>layouter::IncrementalCandidateLayouter</scope><name>checkLowerBound</name></member>
+      <member refid="classlayouter_1_1_incremental_candidate_layouter_1abcaffe7b32eae9c85339b6ccff752193" prot="private" virt="non-virtual"><scope>layouter::IncrementalCandidateLayouter</scope><name>clearState</name></member>
+      <member refid="classlayouter_1_1_candidate_layouter_1ab751daba06fbc2c442ea3e650388cf71" prot="public" virt="non-virtual"><scope>layouter::IncrementalCandidateLayouter</scope><name>combineCandidates</name></member>
+      <member refid="classlayouter_1_1_base_layouter_1af8584fae815274d94e7c86766abb8b01" prot="public" virt="non-virtual"><scope>layouter::IncrementalCandidateLayouter</scope><name>costModel</name></member>
+      <member refid="classlayouter_1_1_base_layouter_1a6e76630eaf8939a9365cc8a795e41e73" prot="public" virt="non-virtual"><scope>layouter::IncrementalCandidateLayouter</scope><name>count</name></member>
+      <member refid="classlayouter_1_1_incremental_candidate_layouter_1aac8551ac4c440f55a34cf2eb0fa322c4" prot="private" virt="non-virtual"><scope>layouter::IncrementalCandidateLayouter</scope><name>detectAffectedPartitions</name></member>
+      <member refid="classlayouter_1_1_base_layouter_1a50096c37d22f587066425a8b52dacee2" prot="protected" virt="non-virtual"><scope>layouter::IncrementalCandidateLayouter</scope><name>eliminateInvalidSubsets</name></member>
+      <member refid="classlayouter_1_1_candidate_layouter_1a467445f4ad85a20c8e62bfd7bfb2f2f2" prot="public" virt="non-virtual"><scope>layouter::IncrementalCandidateLayouter</scope><name>externalCombineCandidates</name></member>
+      <member refid="classlayouter_1_1_base_layouter_1a11820adc0ef25896a3ffca6b904296cc" prot="public" virt="non-virtual"><scope>layouter::IncrementalCandidateLayouter</scope><name>externalGenerateSubSetsK</name></member>
+      <member refid="classlayouter_1_1_base_layouter_1ab740de467fd38450c920877b05e20dfb" prot="public" virt="non-virtual"><scope>layouter::IncrementalCandidateLayouter</scope><name>findEqualLayout</name></member>
+      <member refid="classlayouter_1_1_candidate_layouter_1ab59af9130dfba12e39f36a1d68c2717c" prot="public" virt="non-virtual"><scope>layouter::IncrementalCandidateLayouter</scope><name>generateCandidateList</name></member>
+      <member refid="classlayouter_1_1_base_layouter_1a4e8799c8c0368bd7b34813ddb52505da" prot="public" virt="non-virtual"><scope>layouter::IncrementalCandidateLayouter</scope><name>generateLayouts</name></member>
+      <member refid="classlayouter_1_1_base_layouter_1ac2efd16b7897f7bbe7f50458003f19e1" prot="public" virt="non-virtual"><scope>layouter::IncrementalCandidateLayouter</scope><name>generateSet</name></member>
+      <member refid="classlayouter_1_1_base_layouter_1a3a68ce4cc4c40dff36c65bd83eb218ef" prot="public" virt="non-virtual"><scope>layouter::IncrementalCandidateLayouter</scope><name>generateSubSets</name></member>
+      <member refid="classlayouter_1_1_base_layouter_1a014d0a4cb191c1c6354e12ef974a9018" prot="public" virt="non-virtual"><scope>layouter::IncrementalCandidateLayouter</scope><name>generateSubSetsK</name></member>
+      <member refid="classlayouter_1_1_base_layouter_1a51af2b313475ef25d5ceed137b72cdb5" prot="public" virt="non-virtual"><scope>layouter::IncrementalCandidateLayouter</scope><name>getAttributeNames</name></member>
+      <member refid="classlayouter_1_1_base_layouter_1a9419bfcfa6a9429f58b7aacc881470c6" prot="public" virt="non-virtual"><scope>layouter::IncrementalCandidateLayouter</scope><name>getBestResult</name></member>
+      <member refid="classlayouter_1_1_base_layouter_1a45906ffddd07523044763e595a55478c" prot="public" virt="non-virtual"><scope>layouter::IncrementalCandidateLayouter</scope><name>getColumnCost</name></member>
+      <member refid="classlayouter_1_1_base_layouter_1acca0ce7d35a66394254e27a5f28e1787" prot="public" virt="non-virtual"><scope>layouter::IncrementalCandidateLayouter</scope><name>getCost</name></member>
+      <member refid="classlayouter_1_1_base_layouter_1a0db2c2bb60319c1670e78f5879127fec" prot="public" virt="non-virtual"><scope>layouter::IncrementalCandidateLayouter</scope><name>getNBestResults</name></member>
+      <member refid="classlayouter_1_1_base_layouter_1abff4bb07aa7d440fd584f12c2f0099c2" prot="public" virt="non-virtual"><scope>layouter::IncrementalCandidateLayouter</scope><name>getNewCostForBestLayout</name></member>
+      <member refid="classlayouter_1_1_base_layouter_1ada6abee7e1e05668f188f0366657dbea" prot="public" virt="non-virtual"><scope>layouter::IncrementalCandidateLayouter</scope><name>getResult</name></member>
+      <member refid="classlayouter_1_1_base_layouter_1ac2db931313133cefbd1102ed0d5be068" prot="public" virt="non-virtual"><scope>layouter::IncrementalCandidateLayouter</scope><name>getRowCost</name></member>
+      <member refid="classlayouter_1_1_incremental_candidate_layouter_1abfa4bf2689eb20ba0419a5cb4437cf4e" prot="public" virt="non-virtual"><scope>layouter::IncrementalCandidateLayouter</scope><name>incrementalLayout</name></member>
+      <member refid="classlayouter_1_1_base_layouter_1a060ca333d617512dad105ed8b8ac31aa" prot="protected" virt="non-virtual"><scope>layouter::IncrementalCandidateLayouter</scope><name>iterateLayoutSubsets</name></member>
+      <member refid="classlayouter_1_1_base_layouter_1aa7efefed6cf84ffb1dae1cb4eb783a18" prot="public" virt="non-virtual"><scope>layouter::IncrementalCandidateLayouter</scope><name>iterateThroughLayouts</name></member>
+      <member refid="classlayouter_1_1_base_layouter_1a007c85e2e986eab1f9372d45a4aaca8b" prot="public" virt="non-virtual"><scope>layouter::IncrementalCandidateLayouter</scope><name>iterateThroughLayoutSubsetsFast</name></member>
+      <member refid="classlayouter_1_1_candidate_layouter_1af28114f3cd74d47b40ecdd0f06aadc15" prot="public" virt="virtual"><scope>layouter::IncrementalCandidateLayouter</scope><name>layout</name></member>
+      <member refid="classlayouter_1_1_base_layouter_1ab092b7f07c99e88e6b7d9689caef70fe" prot="public" virt="non-virtual"><scope>layouter::IncrementalCandidateLayouter</scope><name>nbLayouts</name></member>
+      <member refid="classlayouter_1_1_base_layouter_1a0655d7dff96b8eff715a053b1e46737b" prot="public" virt="non-virtual"><scope>layouter::IncrementalCandidateLayouter</scope><name>results</name></member>
+      <member refid="classlayouter_1_1_incremental_candidate_layouter_1a8d2210b84f8679bfddb5915c4942bfe0" prot="private" virt="non-virtual"><scope>layouter::IncrementalCandidateLayouter</scope><name>rewriteResult</name></member>
+      <member refid="classlayouter_1_1_base_layouter_1add31da0cb128c19ccd33d08b2b876a07" prot="public" virt="non-virtual"><scope>layouter::IncrementalCandidateLayouter</scope><name>schema</name></member>
+      <member refid="classlayouter_1_1_base_layouter_1ad52e710aa81331ff2c1a2caddde0f2de" prot="public" virt="non-virtual"><scope>layouter::IncrementalCandidateLayouter</scope><name>subsets</name></member>
+      <member refid="classlayouter_1_1_base_layouter_1a6c1996c2ed452c0f8ea3bd11db07771b" prot="public" virt="non-virtual"><scope>layouter::IncrementalCandidateLayouter</scope><name>tryToAddSubset</name></member>
+      <member refid="classlayouter_1_1_base_layouter_1a646f4edc71e82e76e41604da77248ea2" prot="public" virt="virtual"><scope>layouter::IncrementalCandidateLayouter</scope><name>~BaseLayouter</name></member>
+      <member refid="classlayouter_1_1_candidate_layouter_1a297d998841bb020a0eba6b4bf4ca98d1" prot="public" virt="virtual"><scope>layouter::IncrementalCandidateLayouter</scope><name>~CandidateLayouter</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

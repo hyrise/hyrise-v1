@@ -1,0 +1,165 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="class_c_s_v_header" kind="class" prot="public">
+    <compoundname>CSVHeader</compoundname>
+    <basecompoundref refid="class_abstract_header" prot="public" virt="non-virtual">AbstractHeader</basecompoundref>
+    <includes refid="_c_s_v_loader_8h" local="no">CSVLoader.h</includes>
+    <innerclass refid="class_c_s_v_header_1_1params" prot="public">CSVHeader::params</innerclass>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_c_s_v_header_1a65920ff13bec67338683ab8a859779d3" prot="private" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string CSVHeader::_filename</definition>
+        <argsstring></argsstring>
+        <name>_filename</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/CSVLoader.h" line="60" bodyfile="/home/grund/hyrise/src/lib/io/CSVLoader.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_s_v_header_1ac57450ad9b38088556439de56762a64e" prot="private" static="no" mutable="no">
+        <type><ref refid="class_c_s_v_header_1_1params" kindref="compound">params</ref></type>
+        <definition>params CSVHeader::_parameters</definition>
+        <argsstring></argsstring>
+        <name>_parameters</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/CSVLoader.h" line="61" bodyfile="/home/grund/hyrise/src/lib/io/CSVLoader.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_c_s_v_header_1a6b4ae0703d395cc746e25722493248ed" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>CSVHeader::CSVHeader</definition>
+        <argsstring>(std::string filename, const params &amp;parameters=params())</argsstring>
+        <name>CSVHeader</name>
+        <param>
+          <type>std::string</type>
+          <declname>filename</declname>
+        </param>
+        <param>
+          <type>const <ref refid="class_c_s_v_header_1_1params" kindref="compound">params</ref> &amp;</type>
+          <declname>parameters</declname>
+          <defval><ref refid="class_c_s_v_header_1_1params" kindref="compound">params</ref>()</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/CSVLoader.h" line="55" bodyfile="/home/grund/hyrise/src/lib/io/CSVLoader.h" bodystart="55" bodyend="56"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_s_v_header_1a3ef905a22a8a473b67dc90abee6e15b8" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type><ref refid="storage__types_8h_1ab1a41784d413aa539cdda0391757965c" kindref="member">compound_metadata_list</ref> *</type>
+        <definition>compound_metadata_list * CSVHeader::load</definition>
+        <argsstring>(const Loader::params &amp;args)</argsstring>
+        <name>load</name>
+        <reimplements refid="class_abstract_header_1a9d4ba3ed1cd5ebe89a21c5c39e41a9fa">load</reimplements>
+        <param>
+          <type>const <ref refid="class_loader_1_1params" kindref="compound">Loader::params</ref> &amp;</type>
+          <declname>args</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Construct metadata. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>args</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="namespace_loader" kindref="compound">Loader</ref> arguments that may influence header creation </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/CSVLoader.h" line="57" bodyfile="/home/grund/hyrise/src/lib/io/CSVLoader.cpp" bodystart="120" bodyend="130"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_s_v_header_1ad2beb5076a9837df3b96da3f21352267" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type><ref refid="class_c_s_v_header" kindref="compound">CSVHeader</ref> *</type>
+        <definition>CSVHeader * CSVHeader::clone</definition>
+        <argsstring>() const </argsstring>
+        <name>clone</name>
+        <reimplements refid="class_abstract_header_1ad962760f46e46deedfa3f00242713697">clone</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/CSVLoader.h" line="58" bodyfile="/home/grund/hyrise/src/lib/io/CSVLoader.cpp" bodystart="116" bodyend="118"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1704">
+        <label>CSVHeader</label>
+        <link refid="class_c_s_v_header"/>
+        <childnode refid="1705" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1706">
+        <label>cloneable</label>
+        <link refid="classcloneable"/>
+      </node>
+      <node id="1705">
+        <label>AbstractHeader</label>
+        <link refid="class_abstract_header"/>
+        <childnode refid="1706" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1707">
+        <label>CSVHeader</label>
+        <link refid="class_c_s_v_header"/>
+        <childnode refid="1708" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1710" relation="usage">
+          <edgelabel>_parameters</edgelabel>
+        </childnode>
+      </node>
+      <node id="1710">
+        <label>CSVHeader::params</label>
+        <link refid="class_c_s_v_header_1_1params"/>
+        <childnode refid="1711" relation="usage">
+          <edgelabel>CSVParams</edgelabel>
+        </childnode>
+      </node>
+      <node id="1711">
+        <label>csv::params</label>
+        <link refid="classcsv_1_1params"/>
+      </node>
+      <node id="1709">
+        <label>cloneable</label>
+        <link refid="classcloneable"/>
+      </node>
+      <node id="1708">
+        <label>AbstractHeader</label>
+        <link refid="class_abstract_header"/>
+        <childnode refid="1709" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/io/CSVLoader.h" line="46" bodyfile="/home/grund/hyrise/src/lib/io/CSVLoader.h" bodystart="46" bodyend="62"/>
+    <listofallmembers>
+      <member refid="class_c_s_v_header_1a65920ff13bec67338683ab8a859779d3" prot="private" virt="non-virtual"><scope>CSVHeader</scope><name>_filename</name></member>
+      <member refid="class_c_s_v_header_1ac57450ad9b38088556439de56762a64e" prot="private" virt="non-virtual"><scope>CSVHeader</scope><name>_parameters</name></member>
+      <member refid="class_c_s_v_header_1ad2beb5076a9837df3b96da3f21352267" prot="public" virt="virtual"><scope>CSVHeader</scope><name>clone</name></member>
+      <member refid="class_c_s_v_header_1a6b4ae0703d395cc746e25722493248ed" prot="public" virt="non-virtual"><scope>CSVHeader</scope><name>CSVHeader</name></member>
+      <member refid="class_c_s_v_header_1a3ef905a22a8a473b67dc90abee6e15b8" prot="public" virt="virtual"><scope>CSVHeader</scope><name>load</name></member>
+      <member refid="class_abstract_header_1af99f853c7aa7105400d4536de51808fd" prot="public" virt="virtual"><scope>CSVHeader</scope><name>~AbstractHeader</name></member>
+      <member refid="classcloneable_1a31ff0906763d17093098d05207e2184c" prot="public" virt="virtual"><scope>CSVHeader</scope><name>~cloneable</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

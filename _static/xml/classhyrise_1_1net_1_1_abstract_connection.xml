@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="classhyrise_1_1net_1_1_abstract_connection" kind="class" prot="public">
+    <compoundname>hyrise::net::AbstractConnection</compoundname>
+    <derivedcompoundref refid="classhyrise_1_1net_1_1_async_connection" prot="public" virt="non-virtual">hyrise::net::AsyncConnection</derivedcompoundref>
+    <includes refid="_abstract_connection_8h" local="no">AbstractConnection.h</includes>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classhyrise_1_1net_1_1_abstract_connection_1a3fc4173962a9e072e67c621a1db701b3" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>hyrise::net::AbstractConnection::~AbstractConnection</definition>
+        <argsstring>()</argsstring>
+        <name>~AbstractConnection</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/net/AbstractConnection.h" line="12" bodyfile="/home/grund/hyrise/src/lib/net/AbstractConnection.cpp" bodystart="7" bodyend="7"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1net_1_1_abstract_connection_1a7054f7b8b3bb9558c69873e6d73f93b9" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>std::string</type>
+        <definition>virtual std::string hyrise::net::AbstractConnection::getBody</definition>
+        <argsstring>() const =0</argsstring>
+        <name>getBody</name>
+        <reimplementedby refid="classhyrise_1_1net_1_1_async_connection_1a660af612f4f3b31421766f308eefc0bd">getBody</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/net/AbstractConnection.h" line="13"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1net_1_1_abstract_connection_1a3b68facdf3cec81e8bbc54cce83fc0d5" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>bool</type>
+        <definition>virtual bool hyrise::net::AbstractConnection::hasBody</definition>
+        <argsstring>() const =0</argsstring>
+        <name>hasBody</name>
+        <reimplementedby refid="classhyrise_1_1net_1_1_async_connection_1ac362ffda7cd86f3ced15562ed4d98fee">hasBody</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/net/AbstractConnection.h" line="14"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1net_1_1_abstract_connection_1ac00041b72a3ea6f5e36b587199750e06" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void hyrise::net::AbstractConnection::respond</definition>
+        <argsstring>(const std::string &amp;)=0</argsstring>
+        <name>respond</name>
+        <reimplementedby refid="classhyrise_1_1net_1_1_async_connection_1a4ae1cc8c2cc46f4df71614ebf42fb9c6">respond</reimplementedby>
+        <param>
+          <type>const std::string &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/net/AbstractConnection.h" line="15"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1303">
+        <label>hyrise::net::AsyncConnection</label>
+        <link refid="classhyrise_1_1net_1_1_async_connection"/>
+        <childnode refid="1302" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1302">
+        <label>hyrise::net::AbstractConnection</label>
+        <link refid="classhyrise_1_1net_1_1_abstract_connection"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1304">
+        <label>hyrise::net::AbstractConnection</label>
+        <link refid="classhyrise_1_1net_1_1_abstract_connection"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/net/AbstractConnection.h" line="10" bodyfile="/home/grund/hyrise/src/lib/net/AbstractConnection.h" bodystart="10" bodyend="16"/>
+    <listofallmembers>
+      <member refid="classhyrise_1_1net_1_1_abstract_connection_1a7054f7b8b3bb9558c69873e6d73f93b9" prot="public" virt="pure-virtual"><scope>hyrise::net::AbstractConnection</scope><name>getBody</name></member>
+      <member refid="classhyrise_1_1net_1_1_abstract_connection_1a3b68facdf3cec81e8bbc54cce83fc0d5" prot="public" virt="pure-virtual"><scope>hyrise::net::AbstractConnection</scope><name>hasBody</name></member>
+      <member refid="classhyrise_1_1net_1_1_abstract_connection_1ac00041b72a3ea6f5e36b587199750e06" prot="public" virt="pure-virtual"><scope>hyrise::net::AbstractConnection</scope><name>respond</name></member>
+      <member refid="classhyrise_1_1net_1_1_abstract_connection_1a3fc4173962a9e072e67c621a1db701b3" prot="public" virt="virtual"><scope>hyrise::net::AbstractConnection</scope><name>~AbstractConnection</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

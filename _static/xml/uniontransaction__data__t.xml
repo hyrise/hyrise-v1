@@ -1,0 +1,162 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="uniontransaction__data__t" kind="union" prot="public">
+    <compoundname>transaction_data_t</compoundname>
+    <includes refid="transaction__data_8h" local="no">transaction_data.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="uniontransaction__data__t_1a4b0b5f2c968db95828087c10570e504b" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="structdelivery__t" kindref="compound">delivery_t</ref></type>
+        <definition>struct delivery_t transaction_data_t::delivery</definition>
+        <argsstring></argsstring>
+        <name>delivery</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/transaction_data.h" line="141" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/transaction_data.h" bodystart="141" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="uniontransaction__data__t_1aa94bb2d7f55eedc8fcd58e9cc37ecc9e" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="structnew__order__t" kindref="compound">new_order_t</ref></type>
+        <definition>struct new_order_t transaction_data_t::new_order</definition>
+        <argsstring></argsstring>
+        <name>new_order</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/transaction_data.h" line="142" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/transaction_data.h" bodystart="142" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="uniontransaction__data__t_1ade3a05e5f3802ff40750ed5d335c6797" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="structorder__status__t" kindref="compound">order_status_t</ref></type>
+        <definition>struct order_status_t transaction_data_t::order_status</definition>
+        <argsstring></argsstring>
+        <name>order_status</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/transaction_data.h" line="143" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/transaction_data.h" bodystart="143" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="uniontransaction__data__t_1afabe326ef475ab3b33cc57c50dda2ab2" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="structpayment__t" kindref="compound">payment_t</ref></type>
+        <definition>struct payment_t transaction_data_t::payment</definition>
+        <argsstring></argsstring>
+        <name>payment</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/transaction_data.h" line="144" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/transaction_data.h" bodystart="144" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="uniontransaction__data__t_1a00aa03baa1ffd9414c390be7038e933b" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="structstock__level__t" kindref="compound">stock_level_t</ref></type>
+        <definition>struct stock_level_t transaction_data_t::stock_level</definition>
+        <argsstring></argsstring>
+        <name>stock_level</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/transaction_data.h" line="145" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/transaction_data.h" bodystart="145" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="uniontransaction__data__t_1a3d6b5bdd887a75370aade92f608c566a" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="structintegrity__t" kindref="compound">integrity_t</ref></type>
+        <definition>struct integrity_t transaction_data_t::integrity</definition>
+        <argsstring></argsstring>
+        <name>integrity</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/transaction_data.h" line="146" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/transaction_data.h" bodystart="146" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="3292">
+        <label>stock_level_t</label>
+        <link refid="structstock__level__t"/>
+      </node>
+      <node id="3287">
+        <label>transaction_data_t</label>
+        <link refid="uniontransaction__data__t"/>
+        <childnode refid="3288" relation="usage">
+          <edgelabel>new_order</edgelabel>
+        </childnode>
+        <childnode refid="3290" relation="usage">
+          <edgelabel>order_status</edgelabel>
+        </childnode>
+        <childnode refid="3292" relation="usage">
+          <edgelabel>stock_level</edgelabel>
+        </childnode>
+        <childnode refid="3293" relation="usage">
+          <edgelabel>payment</edgelabel>
+        </childnode>
+        <childnode refid="3294" relation="usage">
+          <edgelabel>integrity</edgelabel>
+        </childnode>
+        <childnode refid="3295" relation="usage">
+          <edgelabel>delivery</edgelabel>
+        </childnode>
+      </node>
+      <node id="3290">
+        <label>order_status_t</label>
+        <link refid="structorder__status__t"/>
+        <childnode refid="3291" relation="usage">
+          <edgelabel>order_line</edgelabel>
+        </childnode>
+      </node>
+      <node id="3295">
+        <label>delivery_t</label>
+        <link refid="structdelivery__t"/>
+      </node>
+      <node id="3289">
+        <label>no_order_line_t</label>
+        <link refid="structno__order__line__t"/>
+      </node>
+      <node id="3293">
+        <label>payment_t</label>
+        <link refid="structpayment__t"/>
+      </node>
+      <node id="3291">
+        <label>os_order_line_t</label>
+        <link refid="structos__order__line__t"/>
+      </node>
+      <node id="3294">
+        <label>integrity_t</label>
+        <link refid="structintegrity__t"/>
+      </node>
+      <node id="3288">
+        <label>new_order_t</label>
+        <link refid="structnew__order__t"/>
+        <childnode refid="3289" relation="usage">
+          <edgelabel>order_line</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/bin/perf_datagen/transaction_data.h" line="140" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/transaction_data.h" bodystart="140" bodyend="147"/>
+    <listofallmembers>
+      <member refid="uniontransaction__data__t_1a4b0b5f2c968db95828087c10570e504b" prot="public" virt="non-virtual"><scope>transaction_data_t</scope><name>delivery</name></member>
+      <member refid="uniontransaction__data__t_1a3d6b5bdd887a75370aade92f608c566a" prot="public" virt="non-virtual"><scope>transaction_data_t</scope><name>integrity</name></member>
+      <member refid="uniontransaction__data__t_1aa94bb2d7f55eedc8fcd58e9cc37ecc9e" prot="public" virt="non-virtual"><scope>transaction_data_t</scope><name>new_order</name></member>
+      <member refid="uniontransaction__data__t_1ade3a05e5f3802ff40750ed5d335c6797" prot="public" virt="non-virtual"><scope>transaction_data_t</scope><name>order_status</name></member>
+      <member refid="uniontransaction__data__t_1afabe326ef475ab3b33cc57c50dda2ab2" prot="public" virt="non-virtual"><scope>transaction_data_t</scope><name>payment</name></member>
+      <member refid="uniontransaction__data__t_1a00aa03baa1ffd9414c390be7038e933b" prot="public" virt="non-virtual"><scope>transaction_data_t</scope><name>stock_level</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

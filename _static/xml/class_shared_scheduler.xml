@@ -1,0 +1,230 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="class_shared_scheduler" kind="class" prot="public">
+    <compoundname>SharedScheduler</compoundname>
+    <includes refid="_shared_scheduler_8h" local="no">SharedScheduler.h</includes>
+      <sectiondef kind="private-type">
+      <memberdef kind="typedef" id="class_shared_scheduler_1ac8d03cefb98838b557730a8ce9408f49" prot="private" static="no">
+        <type>std::map&lt; std::string, <ref refid="struct_abstract_task_scheduler_factory" kindref="compound">AbstractTaskSchedulerFactory</ref> * &gt;</type>
+        <definition>typedef std::map&lt; std::string, AbstractTaskSchedulerFactory * &gt; SharedScheduler::factory_map_t</definition>
+        <argsstring></argsstring>
+        <name>factory_map_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/taskscheduler/SharedScheduler.h" line="40" bodyfile="/home/grund/hyrise/src/lib/taskscheduler/SharedScheduler.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_shared_scheduler_1a4ae504aea1a1f953190e6e85b0622cc3" prot="private" static="no" mutable="no">
+        <type><ref refid="class_shared_scheduler_1ac8d03cefb98838b557730a8ce9408f49" kindref="member">factory_map_t</ref></type>
+        <definition>factory_map_t SharedScheduler::_schedulers</definition>
+        <argsstring></argsstring>
+        <name>_schedulers</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/taskscheduler/SharedScheduler.h" line="41" bodyfile="/home/grund/hyrise/src/lib/taskscheduler/SharedScheduler.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_shared_scheduler_1aafdf047bfd43a65f3ad3db6f8c02575d" prot="private" static="no" mutable="no">
+        <type><ref refid="class_abstract_task_scheduler" kindref="compound">AbstractTaskScheduler</ref> *</type>
+        <definition>AbstractTaskScheduler* SharedScheduler::_sharedScheduler</definition>
+        <argsstring></argsstring>
+        <name>_sharedScheduler</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/taskscheduler/SharedScheduler.h" line="42" bodyfile="/home/grund/hyrise/src/lib/taskscheduler/SharedScheduler.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_shared_scheduler_1aef0da1bac016b1dd4bf65cbb0f660b25" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>SharedScheduler::SharedScheduler</definition>
+        <argsstring>()</argsstring>
+        <name>SharedScheduler</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/taskscheduler/SharedScheduler.h" line="44" bodyfile="/home/grund/hyrise/src/lib/taskscheduler/SharedScheduler.h" bodystart="44" bodyend="46"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_shared_scheduler_1a5ae5c9aea9e1d9d9db4e90c5f97cccd9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>SharedScheduler::~SharedScheduler</definition>
+        <argsstring>()</argsstring>
+        <name>~SharedScheduler</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/taskscheduler/SharedScheduler.h" line="50" bodyfile="/home/grund/hyrise/src/lib/taskscheduler/SharedScheduler.h" bodystart="50" bodyend="53"/>
+      </memberdef>
+      <memberdef kind="function" id="class_shared_scheduler_1a9824d616ade198f080ca24585159cdc2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void SharedScheduler::addScheduler</definition>
+        <argsstring>(const std::string &amp;scheduler, AbstractTaskSchedulerFactory *factory)</argsstring>
+        <name>addScheduler</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>scheduler</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_abstract_task_scheduler_factory" kindref="compound">AbstractTaskSchedulerFactory</ref> *</type>
+          <declname>factory</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/taskscheduler/SharedScheduler.h" line="63" bodyfile="/home/grund/hyrise/src/lib/taskscheduler/SharedScheduler.h" bodystart="63" bodyend="65"/>
+      </memberdef>
+      <memberdef kind="function" id="class_shared_scheduler_1abf2a6e9583cd5ae12aff86f85dbee891" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool SharedScheduler::isInitialized</definition>
+        <argsstring>()</argsstring>
+        <name>isInitialized</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/taskscheduler/SharedScheduler.h" line="67" bodyfile="/home/grund/hyrise/src/lib/taskscheduler/SharedScheduler.h" bodystart="67" bodyend="69"/>
+      </memberdef>
+      <memberdef kind="function" id="class_shared_scheduler_1a52fee000d5c42f616db9b65454b743bf" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void SharedScheduler::init</definition>
+        <argsstring>(const std::string &amp;scheduler)</argsstring>
+        <name>init</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>scheduler</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/taskscheduler/SharedScheduler.h" line="71" bodyfile="/home/grund/hyrise/src/lib/taskscheduler/SharedScheduler.h" bodystart="71" bodyend="79"/>
+      </memberdef>
+      <memberdef kind="function" id="class_shared_scheduler_1a4b456d627f654799bc60f97ec383bbda" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void SharedScheduler::resetScheduler</definition>
+        <argsstring>(const std::string &amp;scheduler)</argsstring>
+        <name>resetScheduler</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>scheduler</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/taskscheduler/SharedScheduler.h" line="84" bodyfile="/home/grund/hyrise/src/lib/taskscheduler/SharedScheduler.h" bodystart="84" bodyend="91"/>
+      </memberdef>
+      <memberdef kind="function" id="class_shared_scheduler_1a10e97e4f3ccc5046ff9844d855ee0c9c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class_abstract_task_scheduler" kindref="compound">AbstractTaskScheduler</ref> *</type>
+        <definition>AbstractTaskScheduler* SharedScheduler::getScheduler</definition>
+        <argsstring>()</argsstring>
+        <name>getScheduler</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/taskscheduler/SharedScheduler.h" line="93" bodyfile="/home/grund/hyrise/src/lib/taskscheduler/SharedScheduler.h" bodystart="93" bodyend="95"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="class_shared_scheduler_1a289f87a7badc079ee676accc9551321f" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename TaskSchedulerClass</type>
+          </param>
+        </templateparamlist>
+        <type>bool</type>
+        <definition>static bool SharedScheduler::registerScheduler</definition>
+        <argsstring>(const std::string &amp;scheduler)</argsstring>
+        <name>registerScheduler</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>scheduler</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/taskscheduler/SharedScheduler.h" line="56" bodyfile="/home/grund/hyrise/src/lib/taskscheduler/SharedScheduler.h" bodystart="56" bodyend="61"/>
+      </memberdef>
+      <memberdef kind="function" id="class_shared_scheduler_1a8339d8db9b226ca95bca5dcc31f216f5" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class_shared_scheduler" kindref="compound">SharedScheduler</ref> &amp;</type>
+        <definition>static SharedScheduler&amp; SharedScheduler::getInstance</definition>
+        <argsstring>()</argsstring>
+        <name>getInstance</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/taskscheduler/SharedScheduler.h" line="97" bodyfile="/home/grund/hyrise/src/lib/taskscheduler/SharedScheduler.h" bodystart="97" bodyend="100"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2820">
+        <label>SharedScheduler</label>
+        <link refid="class_shared_scheduler"/>
+        <childnode refid="2821" relation="usage">
+          <edgelabel>_sharedScheduler</edgelabel>
+        </childnode>
+      </node>
+      <node id="2821">
+        <label>AbstractTaskScheduler</label>
+        <link refid="class_abstract_task_scheduler"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/taskscheduler/SharedScheduler.h" line="39" bodyfile="/home/grund/hyrise/src/lib/taskscheduler/SharedScheduler.h" bodystart="39" bodyend="101"/>
+    <listofallmembers>
+      <member refid="class_shared_scheduler_1a4ae504aea1a1f953190e6e85b0622cc3" prot="private" virt="non-virtual"><scope>SharedScheduler</scope><name>_schedulers</name></member>
+      <member refid="class_shared_scheduler_1aafdf047bfd43a65f3ad3db6f8c02575d" prot="private" virt="non-virtual"><scope>SharedScheduler</scope><name>_sharedScheduler</name></member>
+      <member refid="class_shared_scheduler_1a9824d616ade198f080ca24585159cdc2" prot="public" virt="non-virtual"><scope>SharedScheduler</scope><name>addScheduler</name></member>
+      <member refid="class_shared_scheduler_1ac8d03cefb98838b557730a8ce9408f49" prot="private" virt="non-virtual"><scope>SharedScheduler</scope><name>factory_map_t</name></member>
+      <member refid="class_shared_scheduler_1a8339d8db9b226ca95bca5dcc31f216f5" prot="public" virt="non-virtual"><scope>SharedScheduler</scope><name>getInstance</name></member>
+      <member refid="class_shared_scheduler_1a10e97e4f3ccc5046ff9844d855ee0c9c" prot="public" virt="non-virtual"><scope>SharedScheduler</scope><name>getScheduler</name></member>
+      <member refid="class_shared_scheduler_1a52fee000d5c42f616db9b65454b743bf" prot="public" virt="non-virtual"><scope>SharedScheduler</scope><name>init</name></member>
+      <member refid="class_shared_scheduler_1abf2a6e9583cd5ae12aff86f85dbee891" prot="public" virt="non-virtual"><scope>SharedScheduler</scope><name>isInitialized</name></member>
+      <member refid="class_shared_scheduler_1a289f87a7badc079ee676accc9551321f" prot="public" virt="non-virtual"><scope>SharedScheduler</scope><name>registerScheduler</name></member>
+      <member refid="class_shared_scheduler_1a4b456d627f654799bc60f97ec383bbda" prot="public" virt="non-virtual"><scope>SharedScheduler</scope><name>resetScheduler</name></member>
+      <member refid="class_shared_scheduler_1aef0da1bac016b1dd4bf65cbb0f660b25" prot="private" virt="non-virtual"><scope>SharedScheduler</scope><name>SharedScheduler</name></member>
+      <member refid="class_shared_scheduler_1a5ae5c9aea9e1d9d9db4e90c5f97cccd9" prot="public" virt="non-virtual"><scope>SharedScheduler</scope><name>~SharedScheduler</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

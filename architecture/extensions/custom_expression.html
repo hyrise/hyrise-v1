@@ -1,0 +1,248 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Custom expressions &mdash; HYRISE latest documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/breathe.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     'latest',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="HYRISE latest documentation" href="../../index.html" />
+    <link rel="up" title="Extension points" href="../extension_points.html" />
+    <link rel="next" title="Writing a custom operator" href="custom_operator.html" />
+    <link rel="prev" title="Extension points" href="../extension_points.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="custom_operator.html" title="Writing a custom operator"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../extension_points.html" title="Extension points"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../index.html">HYRISE latest documentation</a> &raquo;</li>
+          <li><a href="../../architecture.html" >Implementation Details</a> &raquo;</li>
+          <li><a href="../extension_points.html" accesskey="U">Extension points</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/hyrise.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../architecture.html">Implementation Details</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../architecture.html">Create Modifiable Tables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../layouter.html">HYRISE Layouter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../loading.html">Loading</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../statistics.html">Query Statistics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../planops.html">Plan Operations</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../extension_points.html">Extension points</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="">Custom expressions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#why-write-a-custom-expression">Why write a custom expression?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#abstractexpression-interface"><cite>AbstractExpression</cite> interface</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#walk-method"><cite>walk</cite> method</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#match-method"><cite>match</cite> method</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#registration-and-usage">Registration and usage</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#registering">Registering</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#parsing">Parsing</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#using-registered-expressions">Using registered expressions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="custom_operator.html">Writing a custom operator</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../routing.html">Routing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../query_execution.html">HYRISE Query Execution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developing.html">Developing with HYRISE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">HYRISE &amp; Development FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../proposals.html">Proposals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../doxygen.html">Doxygen Documentation</a></li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../extension_points.html"
+                        title="previous chapter">Extension points</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="custom_operator.html"
+                        title="next chapter">Writing a custom operator</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/architecture/extensions/custom_expression.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="custom-expressions">
+<h1>Custom expressions<a class="headerlink" href="#custom-expressions" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="why-write-a-custom-expression">
+<h2>Why write a custom expression?<a class="headerlink" href="#why-write-a-custom-expression" title="Permalink to this headline">¶</a></h2>
+<p>Writing custom expressions allows implementing an expression evaluation
+type that is not yet (or will ever be) supported. Only a vector of
+matching row numbers needs to be returned, thus allowing for
+relatively simple custom implementations. Custom expression may also
+collapse complex expression trees into closed functions, allowing for
+higher performance in evaluating complex expressions where needed.</p>
+<p>For more complex needs, see <a class="reference internal" href="custom_operator.html"><em>Writing a custom operator</em></a>.</p>
+<p><cite>TableScan</cite> implements a registration-based expression evaluation for
+custom implementations of expressions. The idea for custom expressions
+is that they follow the expression protocoll set forth in
+<cite>AbstractExpression</cite> and register via
+<cite>Expressions::add&lt;...&gt;(&#8220;callsign&#8221;)</cite>. An example can be found in
+<cite>src/lib/access/ExampleExpression.(h|cpp)</cite>.</p>
+</div>
+<div class="section" id="abstractexpression-interface">
+<h2><cite>AbstractExpression</cite> interface<a class="headerlink" href="#abstractexpression-interface" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="walk-method">
+<h3><cite>walk</cite> method<a class="headerlink" href="#walk-method" title="Permalink to this headline">¶</a></h3>
+<p>This method is called once the input table has been determined in
+<cite>TableScan::setupPlanOperation</cite>. The input table is then passed a
+shared pointer to an <cite>AbstractTable</cite>. At this point, we can take full
+control and start to recover type information and &#8220;peel off&#8221; layers of
+abstraction in order to allow for more efficient expression
+processing. To find out more about how to &#8220;peel off&#8221; abstraction layers
+in HYRISE, head over to <tt class="xref doc docutils literal"><span class="pre">architecture/peel_off_abstraction</span></tt>.</p>
+<p>After <cite>walk</cite> is done, you should have recovered all the necessary data
+structures to process your query: The already mentioned
+<cite>ExampleExpression</cite> extracts the underlying attribute vectors and
+dictionaries and ensures the correct type of the retrieved data
+structures.</p>
+</div>
+<div class="section" id="match-method">
+<h3><cite>match</cite> method<a class="headerlink" href="#match-method" title="Permalink to this headline">¶</a></h3>
+<p>Then, in a second step, the actual scan is executed via calling <cite>match</cite> on
+the operator. The interface basically assumes that <cite>match</cite> returns a
+list of positions that can be consumed by a <cite>PointerCalculator</cite>.
+In its simplest form, the match method will just iterate over its
+given inputs and add a row number for each matching rows. More complex
+match methods may spawn extra threads or use different schemes of
+iterating over extracted data structures from the <cite>walk</cite> method.</p>
+</div>
+</div>
+<div class="section" id="registration-and-usage">
+<h2>Registration and usage<a class="headerlink" href="#registration-and-usage" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="registering">
+<h3>Registering<a class="headerlink" href="#registering" title="Permalink to this headline">¶</a></h3>
+<p>A new expression can be added by placing the following code into an
+implementation file:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="k">namespace</span> <span class="p">{</span>
+  <span class="k">auto</span> <span class="n">_</span> <span class="o">=</span> <span class="n">Expressions</span><span class="o">::</span><span class="n">add</span><span class="o">&lt;</span><span class="n">ExampleExpression</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;hyrise::example&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><cite>hyrise::example</cite> is a unique expression identifier that we may later
+use to refer to <cite>ExampleExpression</cite>. When implementing your
+expression, we suggest to use sufficiently unique identifiers to avoid
+future colisions with either hyrise-implemented expressions or other
+extensions by namespacing your expressions similarly to the above example.</p>
+</div>
+<div class="section" id="parsing">
+<h3>Parsing<a class="headerlink" href="#parsing" title="Permalink to this headline">¶</a></h3>
+<p>Since custom expressions may need custom parameters and very different
+handling from HYRISE&#8217;s built-in expressions, they have to implement a
+custom static <cite>parse</cite> method, which allows them to arbitrarily extend the
+JSON syntax of the <cite>TableScan</cite> operator with their own fields.</p>
+<p>The minimum implementations may look something like:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">MyExpression</span><span class="o">&gt;</span> <span class="n">ExampleExpression</span><span class="o">::</span><span class="n">parse</span><span class="p">(</span><span class="k">const</span> <span class="n">Json</span><span class="o">::</span><span class="n">Value</span><span class="o">&amp;</span> <span class="n">data</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="n">make_unique</span><span class="o">&lt;</span><span class="n">ExpressionExpression</span><span class="o">&gt;</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="using-registered-expressions">
+<h3>Using registered expressions<a class="headerlink" href="#using-registered-expressions" title="Permalink to this headline">¶</a></h3>
+<p>Once registered, an expression may be used through the <cite>TableScan</cite>
+operator in JSON plans through using the <cite>&#8220;expression&#8221;:</cite> parameter:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="p">{</span>
+<span class="s">&quot;operators&quot;</span><span class="o">:</span> <span class="p">{</span>
+  <span class="s">&quot;scan&quot;</span> <span class="o">:</span> <span class="p">{</span>
+    <span class="s">&quot;type&quot;</span><span class="o">:</span> <span class="s">&quot;TableScan&quot;</span><span class="p">,</span>
+    <span class="s">&quot;expression&quot;</span><span class="o">:</span> <span class="s">&quot;hyrise::example&quot;</span>
+    <span class="cm">/*...*/</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>See an example for the usage of <cite>hyrise::example</cite> in <cite>test/autojson/example_expression.json</cite>.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="custom_operator.html" title="Writing a custom operator"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../extension_points.html" title="Extension points"
+             >previous</a> |</li>
+        <li><a href="../../index.html">HYRISE latest documentation</a> &raquo;</li>
+          <li><a href="../../architecture.html" >Implementation Details</a> &raquo;</li>
+          <li><a href="../extension_points.html" >Extension points</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010-2013, Martin Grund et al.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+  </body>
+</html>

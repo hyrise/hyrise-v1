@@ -1,0 +1,110 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="classhyrise_1_1access_1_1_update_fun" kind="class" prot="public">
+    <compoundname>hyrise::access::UpdateFun</compoundname>
+    <derivedcompoundref refid="classhyrise_1_1access_1_1_add_update_fun" prot="public" virt="non-virtual">hyrise::access::AddUpdateFun&lt; T &gt;</derivedcompoundref>
+    <derivedcompoundref refid="classhyrise_1_1access_1_1_column_set_fun" prot="public" virt="non-virtual">hyrise::access::ColumnSetFun&lt; T &gt;</derivedcompoundref>
+    <includes refid="_update_scan_8h" local="no">UpdateScan.h</includes>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classhyrise_1_1access_1_1_update_fun_1ab6e51cf1fe73c3c78620383e4db0099f" prot="protected" static="no" mutable="no">
+        <type><ref refid="namespacehyrise_1_1storage_1a21d5e900c20019710828c453eaded1ee" kindref="member">storage::atable_ptr_t</ref></type>
+        <definition>storage::atable_ptr_t hyrise::access::UpdateFun::_table</definition>
+        <argsstring></argsstring>
+        <name>_table</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/UpdateScan.h" line="22" bodyfile="/home/grund/hyrise/src/lib/access/UpdateScan.h" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classhyrise_1_1access_1_1_update_fun_1ac5f0ce64d6f87b12d282890a158e4c66" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>hyrise::access::UpdateFun::UpdateFun</definition>
+        <argsstring>(const storage::atable_ptr_t &amp;t)</argsstring>
+        <name>UpdateFun</name>
+        <param>
+          <type>const <ref refid="namespacehyrise_1_1storage_1a21d5e900c20019710828c453eaded1ee" kindref="member">storage::atable_ptr_t</ref> &amp;</type>
+          <declname>t</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/UpdateScan.h" line="17" bodyfile="/home/grund/hyrise/src/lib/access/UpdateScan.h" bodystart="17" bodyend="17"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1access_1_1_update_fun_1a261303ac47153b6c1c099b992068c698" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual hyrise::access::UpdateFun::~UpdateFun</definition>
+        <argsstring>()</argsstring>
+        <name>~UpdateFun</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/UpdateScan.h" line="18" bodyfile="/home/grund/hyrise/src/lib/access/UpdateScan.h" bodystart="18" bodyend="18"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1access_1_1_update_fun_1ac6f72ff30fc5b495a6da805af960e10d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void hyrise::access::UpdateFun::updateRow</definition>
+        <argsstring>(size_t row)</argsstring>
+        <name>updateRow</name>
+        <reimplementedby refid="classhyrise_1_1access_1_1_add_update_fun_1a62ccb69c405a295ec5ada493375db553">updateRow</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_column_set_fun_1a7e000ecb9f1be66752cc1a727cc4a155">updateRow</reimplementedby>
+        <param>
+          <type>size_t</type>
+          <declname>row</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/UpdateScan.h" line="19" bodyfile="/home/grund/hyrise/src/lib/access/UpdateScan.h" bodystart="19" bodyend="19"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="3348">
+        <label>hyrise::access::UpdateFun</label>
+        <link refid="classhyrise_1_1access_1_1_update_fun"/>
+      </node>
+      <node id="3349">
+        <label>hyrise::access::AddUpdateFun&lt; T &gt;</label>
+        <link refid="classhyrise_1_1access_1_1_add_update_fun"/>
+        <childnode refid="3348" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3350">
+        <label>hyrise::access::ColumnSetFun&lt; T &gt;</label>
+        <link refid="classhyrise_1_1access_1_1_column_set_fun"/>
+        <childnode refid="3348" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="3351">
+        <label>hyrise::access::UpdateFun</label>
+        <link refid="classhyrise_1_1access_1_1_update_fun"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/access/UpdateScan.h" line="15" bodyfile="/home/grund/hyrise/src/lib/access/UpdateScan.h" bodystart="15" bodyend="23"/>
+    <listofallmembers>
+      <member refid="classhyrise_1_1access_1_1_update_fun_1ab6e51cf1fe73c3c78620383e4db0099f" prot="protected" virt="non-virtual"><scope>hyrise::access::UpdateFun</scope><name>_table</name></member>
+      <member refid="classhyrise_1_1access_1_1_update_fun_1ac5f0ce64d6f87b12d282890a158e4c66" prot="public" virt="non-virtual"><scope>hyrise::access::UpdateFun</scope><name>UpdateFun</name></member>
+      <member refid="classhyrise_1_1access_1_1_update_fun_1ac6f72ff30fc5b495a6da805af960e10d" prot="public" virt="virtual"><scope>hyrise::access::UpdateFun</scope><name>updateRow</name></member>
+      <member refid="classhyrise_1_1access_1_1_update_fun_1a261303ac47153b6c1c099b992068c698" prot="public" virt="virtual"><scope>hyrise::access::UpdateFun</scope><name>~UpdateFun</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

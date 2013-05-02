@@ -1,0 +1,936 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="_histogram_8cpp" kind="file">
+    <compoundname>Histogram.cpp</compoundname>
+    <includes refid="_histogram_8h" local="yes">access/Histogram.h</includes>
+    <includes refid="_basic_parser_8h" local="yes">access/BasicParser.h</includes>
+    <includes refid="_query_parser_8h" local="yes">access/QueryParser.h</includes>
+    <includes refid="_column_metadata_8h" local="yes">storage/ColumnMetadata.h</includes>
+    <incdepgraph>
+      <node id="4561">
+        <label>list</label>
+      </node>
+      <node id="4581">
+        <label>atomic</label>
+      </node>
+      <node id="4586">
+        <label>storage/BaseAllocatedAttributeVector.h</label>
+        <link refid="_base_allocated_attribute_vector_8h"/>
+        <childnode refid="4585" relation="include">
+        </childnode>
+        <childnode refid="4566" relation="include">
+        </childnode>
+      </node>
+      <node id="4531">
+        <label>boost/mpl/vector.hpp</label>
+      </node>
+      <node id="4544">
+        <label>queue</label>
+      </node>
+      <node id="4527">
+        <label>limits</label>
+      </node>
+      <node id="4579">
+        <label>boost/functional/hash.hpp</label>
+      </node>
+      <node id="4590">
+        <label>storage/AbstractAllocatedTable.h</label>
+        <link refid="_abstract_allocated_table_8h"/>
+        <childnode refid="4558" relation="include">
+        </childnode>
+        <childnode refid="4562" relation="include">
+        </childnode>
+        <childnode refid="4564" relation="include">
+        </childnode>
+      </node>
+      <node id="4556">
+        <label>assert.h</label>
+      </node>
+      <node id="4533">
+        <label>boost/lexical_cast.hpp</label>
+      </node>
+      <node id="4571">
+        <label>boost/iterator/iterator_facade.hpp</label>
+      </node>
+      <node id="4526">
+        <label>cstdint</label>
+      </node>
+      <node id="4588">
+        <label>storage/MutableVerticalTable.h</label>
+        <link refid="_mutable_vertical_table_8h"/>
+        <childnode refid="4514" relation="include">
+        </childnode>
+        <childnode refid="4523" relation="include">
+        </childnode>
+        <childnode refid="4525" relation="include">
+        </childnode>
+        <childnode refid="4589" relation="include">
+        </childnode>
+        <childnode refid="4595" relation="include">
+        </childnode>
+        <childnode refid="4553" relation="include">
+        </childnode>
+        <childnode refid="4551" relation="include">
+        </childnode>
+      </node>
+      <node id="4580">
+        <label>storage/FixedLengthVector.h</label>
+        <link refid="_fixed_length_vector_8h"/>
+        <childnode refid="4581" relation="include">
+        </childnode>
+        <childnode refid="4565" relation="include">
+        </childnode>
+        <childnode refid="4582" relation="include">
+        </childnode>
+        <childnode refid="4521" relation="include">
+        </childnode>
+        <childnode refid="4520" relation="include">
+        </childnode>
+        <childnode refid="4523" relation="include">
+        </childnode>
+        <childnode refid="4529" relation="include">
+        </childnode>
+        <childnode refid="4583" relation="include">
+        </childnode>
+        <childnode refid="4571" relation="include">
+        </childnode>
+        <childnode refid="4584" relation="include">
+        </childnode>
+        <childnode refid="4585" relation="include">
+        </childnode>
+        <childnode refid="4586" relation="include">
+        </childnode>
+        <childnode refid="4558" relation="include">
+        </childnode>
+        <childnode refid="4562" relation="include">
+        </childnode>
+      </node>
+      <node id="4568">
+        <label>storage/BaseDictionary.h</label>
+        <link refid="_base_dictionary_8h"/>
+        <childnode refid="4528" relation="include">
+        </childnode>
+        <childnode refid="4557" relation="include">
+        </childnode>
+        <childnode refid="4569" relation="include">
+        </childnode>
+      </node>
+      <node id="4591">
+        <label>storage/AttributeVectorFactory.h</label>
+        <link refid="_attribute_vector_factory_8h"/>
+        <childnode refid="4521" relation="include">
+        </childnode>
+        <childnode refid="4585" relation="include">
+        </childnode>
+        <childnode refid="4580" relation="include">
+        </childnode>
+        <childnode refid="4592" relation="include">
+        </childnode>
+      </node>
+      <node id="4512">
+        <label>stdint.h</label>
+      </node>
+      <node id="4567">
+        <label>stdlib.h</label>
+      </node>
+      <node id="4507">
+        <label>src/lib/access/Histogram.cpp</label>
+        <link refid="Histogram.cpp"/>
+        <childnode refid="4508" relation="include">
+        </childnode>
+        <childnode refid="4550" relation="include">
+        </childnode>
+        <childnode refid="4534" relation="include">
+        </childnode>
+        <childnode refid="4553" relation="include">
+        </childnode>
+      </node>
+      <node id="4594">
+        <label>cmath</label>
+      </node>
+      <node id="4565">
+        <label>errno.h</label>
+      </node>
+      <node id="4518">
+        <label>helper/epoch.h</label>
+        <link refid="epoch_8h"/>
+        <childnode refid="4512" relation="include">
+        </childnode>
+      </node>
+      <node id="4529">
+        <label>stdexcept</label>
+      </node>
+      <node id="4541">
+        <label>helper/HwlocHelper.h</label>
+        <link refid="_hwloc_helper_8h"/>
+        <childnode refid="4542" relation="include">
+        </childnode>
+      </node>
+      <node id="4523">
+        <label>string</label>
+      </node>
+      <node id="4535">
+        <label>taskscheduler.h</label>
+        <link refid="taskscheduler_8h"/>
+        <childnode refid="4536" relation="include">
+        </childnode>
+        <childnode refid="4543" relation="include">
+        </childnode>
+        <childnode refid="4546" relation="include">
+        </childnode>
+        <childnode refid="4519" relation="include">
+        </childnode>
+        <childnode refid="4545" relation="include">
+        </childnode>
+        <childnode refid="4537" relation="include">
+        </childnode>
+        <childnode refid="4547" relation="include">
+        </childnode>
+        <childnode refid="4548" relation="include">
+        </childnode>
+      </node>
+      <node id="4543">
+        <label>taskscheduler/SimpleTaskScheduler.h</label>
+        <link refid="_simple_task_scheduler_8h"/>
+        <childnode refid="4536" relation="include">
+        </childnode>
+        <childnode refid="4539" relation="include">
+        </childnode>
+        <childnode refid="4514" relation="include">
+        </childnode>
+        <childnode refid="4544" relation="include">
+        </childnode>
+        <childnode refid="4520" relation="include">
+        </childnode>
+        <childnode refid="4511" relation="include">
+        </childnode>
+        <childnode refid="4519" relation="include">
+        </childnode>
+        <childnode refid="4545" relation="include">
+        </childnode>
+        <childnode refid="4541" relation="include">
+        </childnode>
+      </node>
+      <node id="4515">
+        <label>map</label>
+      </node>
+      <node id="4519">
+        <label>taskscheduler/Task.h</label>
+        <link refid="_task_8h"/>
+        <childnode refid="4514" relation="include">
+        </childnode>
+        <childnode refid="4520" relation="include">
+        </childnode>
+        <childnode refid="4521" relation="include">
+        </childnode>
+        <childnode refid="4522" relation="include">
+        </childnode>
+        <childnode refid="4523" relation="include">
+        </childnode>
+      </node>
+      <node id="4539">
+        <label>unordered_set</label>
+      </node>
+      <node id="4554">
+        <label>storage/ValueIdMap.hpp</label>
+        <link refid="_value_id_map_8hpp"/>
+        <childnode refid="4555" relation="include">
+        </childnode>
+        <childnode refid="4573" relation="include">
+        </childnode>
+      </node>
+      <node id="4564">
+        <label>memory/MemalignStrategy.h</label>
+        <link refid="_memalign_strategy_8h"/>
+        <childnode refid="4565" relation="include">
+        </childnode>
+        <childnode refid="4566" relation="include">
+        </childnode>
+        <childnode refid="4567" relation="include">
+        </childnode>
+      </node>
+      <node id="4542">
+        <label>hwloc.h</label>
+      </node>
+      <node id="4576">
+        <label>exception</label>
+      </node>
+      <node id="4510">
+        <label>access/OutputTask.h</label>
+        <link refid="_output_task_8h"/>
+        <childnode refid="4511" relation="include">
+        </childnode>
+        <childnode refid="4512" relation="include">
+        </childnode>
+        <childnode refid="4513" relation="include">
+        </childnode>
+        <childnode refid="4514" relation="include">
+        </childnode>
+        <childnode refid="4515" relation="include">
+        </childnode>
+        <childnode refid="4516" relation="include">
+        </childnode>
+        <childnode refid="4517" relation="include">
+        </childnode>
+        <childnode refid="4518" relation="include">
+        </childnode>
+        <childnode refid="4519" relation="include">
+        </childnode>
+      </node>
+      <node id="4559">
+        <label>stddef.h</label>
+      </node>
+      <node id="4545">
+        <label>taskscheduler/CoreBoundTaskQueue.h</label>
+        <link refid="_core_bound_task_queue_8h"/>
+        <childnode refid="4538" relation="include">
+        </childnode>
+        <childnode refid="4544" relation="include">
+        </childnode>
+        <childnode refid="4537" relation="include">
+        </childnode>
+      </node>
+      <node id="4573">
+        <label>storage/OrderIndifferentDictionary.h</label>
+        <link refid="_order_indifferent_dictionary_8h"/>
+        <childnode refid="4528" relation="include">
+        </childnode>
+        <childnode refid="4557" relation="include">
+        </childnode>
+        <childnode refid="4568" relation="include">
+        </childnode>
+        <childnode refid="4569" relation="include">
+        </childnode>
+        <childnode refid="4574" relation="include">
+        </childnode>
+        <childnode refid="4572" relation="include">
+        </childnode>
+        <childnode refid="4576" relation="include">
+        </childnode>
+        <childnode refid="4514" relation="include">
+        </childnode>
+        <childnode refid="4515" relation="include">
+        </childnode>
+        <childnode refid="4521" relation="include">
+        </childnode>
+        <childnode refid="4577" relation="include">
+        </childnode>
+        <childnode refid="4578" relation="include">
+        </childnode>
+        <childnode refid="4579" relation="include">
+        </childnode>
+      </node>
+      <node id="4530">
+        <label>ostream</label>
+      </node>
+      <node id="4517">
+        <label>json.h</label>
+      </node>
+      <node id="4577">
+        <label>limits.h</label>
+      </node>
+      <node id="4569">
+        <label>storage/DictionaryIterator.h</label>
+        <link refid="_dictionary_iterator_8h"/>
+        <childnode refid="4570" relation="include">
+        </childnode>
+        <childnode refid="4571" relation="include">
+        </childnode>
+      </node>
+      <node id="4557">
+        <label>storage/AbstractDictionary.h</label>
+        <link refid="_abstract_dictionary_8h"/>
+        <childnode refid="4514" relation="include">
+        </childnode>
+        <childnode refid="4523" relation="include">
+        </childnode>
+        <childnode refid="4521" relation="include">
+        </childnode>
+        <childnode refid="4558" relation="include">
+        </childnode>
+        <childnode refid="4562" relation="include">
+        </childnode>
+        <childnode refid="4564" relation="include">
+        </childnode>
+        <childnode refid="4528" relation="include">
+        </childnode>
+      </node>
+      <node id="4589">
+        <label>storage/Table.h</label>
+        <link refid="_table_8h"/>
+        <childnode refid="4523" relation="include">
+        </childnode>
+        <childnode refid="4514" relation="include">
+        </childnode>
+        <childnode refid="4521" relation="include">
+        </childnode>
+        <childnode refid="4525" relation="include">
+        </childnode>
+        <childnode refid="4553" relation="include">
+        </childnode>
+        <childnode refid="4551" relation="include">
+        </childnode>
+        <childnode refid="4557" relation="include">
+        </childnode>
+        <childnode refid="4590" relation="include">
+        </childnode>
+        <childnode refid="4585" relation="include">
+        </childnode>
+        <childnode refid="4591" relation="include">
+        </childnode>
+        <childnode refid="4593" relation="include">
+        </childnode>
+      </node>
+      <node id="4522">
+        <label>condition_variable</label>
+      </node>
+      <node id="4508">
+        <label>access/Histogram.h</label>
+        <link refid="_histogram_8h"/>
+        <childnode refid="4509" relation="include">
+        </childnode>
+        <childnode refid="4580" relation="include">
+        </childnode>
+        <childnode refid="4555" relation="include">
+        </childnode>
+        <childnode refid="4587" relation="include">
+        </childnode>
+      </node>
+      <node id="4575">
+        <label>string.h</label>
+      </node>
+      <node id="4550">
+        <label>access/BasicParser.h</label>
+        <link refid="_basic_parser_8h"/>
+        <childnode refid="4529" relation="include">
+        </childnode>
+        <childnode refid="4521" relation="include">
+        </childnode>
+        <childnode refid="4517" relation="include">
+        </childnode>
+      </node>
+      <node id="4551">
+        <label>storage/AbstractTable.h</label>
+        <link refid="_abstract_table_8h"/>
+        <childnode refid="4527" relation="include">
+        </childnode>
+        <childnode refid="4521" relation="include">
+        </childnode>
+        <childnode refid="4529" relation="include">
+        </childnode>
+        <childnode refid="4514" relation="include">
+        </childnode>
+        <childnode refid="4523" relation="include">
+        </childnode>
+        <childnode refid="4525" relation="include">
+        </childnode>
+        <childnode refid="4552" relation="include">
+        </childnode>
+        <childnode refid="4528" relation="include">
+        </childnode>
+        <childnode refid="4553" relation="include">
+        </childnode>
+        <childnode refid="4554" relation="include">
+        </childnode>
+      </node>
+      <node id="4547">
+        <label>taskscheduler/WSCoreBoundTaskQueue.h</label>
+        <link refid="_w_s_core_bound_task_queue_8h"/>
+        <childnode refid="4537" relation="include">
+        </childnode>
+        <childnode refid="4548" relation="include">
+        </childnode>
+      </node>
+      <node id="4552">
+        <label>storage/AbstractResource.h</label>
+        <link refid="_abstract_resource_8h"/>
+      </node>
+      <node id="4595">
+        <label>storage/TableFactory.h</label>
+        <link refid="_table_factory_8h"/>
+        <childnode refid="4521" relation="include">
+        </childnode>
+        <childnode refid="4525" relation="include">
+        </childnode>
+        <childnode refid="4551" relation="include">
+        </childnode>
+        <childnode refid="4589" relation="include">
+        </childnode>
+      </node>
+      <node id="4578">
+        <label>boost/unordered_map.hpp</label>
+      </node>
+      <node id="4514">
+        <label>vector</label>
+      </node>
+      <node id="4546">
+        <label>taskscheduler/SharedScheduler.h</label>
+        <link refid="_shared_scheduler_8h"/>
+        <childnode refid="4536" relation="include">
+        </childnode>
+        <childnode refid="4543" relation="include">
+        </childnode>
+        <childnode refid="4545" relation="include">
+        </childnode>
+        <childnode refid="4529" relation="include">
+        </childnode>
+      </node>
+      <node id="4516">
+        <label>utility</label>
+      </node>
+      <node id="4525">
+        <label>helper/types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="4526" relation="include">
+        </childnode>
+        <childnode refid="4523" relation="include">
+        </childnode>
+        <childnode refid="4527" relation="include">
+        </childnode>
+        <childnode refid="4521" relation="include">
+        </childnode>
+        <childnode refid="4514" relation="include">
+        </childnode>
+      </node>
+      <node id="4537">
+        <label>taskscheduler/AbstractTaskQueue.h</label>
+        <link refid="_abstract_task_queue_8h"/>
+        <childnode refid="4521" relation="include">
+        </childnode>
+        <childnode refid="4520" relation="include">
+        </childnode>
+        <childnode refid="4538" relation="include">
+        </childnode>
+        <childnode refid="4522" relation="include">
+        </childnode>
+        <childnode refid="4511" relation="include">
+        </childnode>
+        <childnode refid="4519" relation="include">
+        </childnode>
+      </node>
+      <node id="4583">
+        <label>sstream</label>
+      </node>
+      <node id="4587">
+        <label>storage/PointerCalculator.h</label>
+        <link refid="_pointer_calculator_8h"/>
+        <childnode refid="4514" relation="include">
+        </childnode>
+        <childnode refid="4583" relation="include">
+        </childnode>
+        <childnode refid="4560" relation="include">
+        </childnode>
+        <childnode refid="4525" relation="include">
+        </childnode>
+        <childnode refid="4551" relation="include">
+        </childnode>
+        <childnode refid="4588" relation="include">
+        </childnode>
+      </node>
+      <node id="4570">
+        <label>storage/BaseIterator.h</label>
+        <link refid="_base_iterator_8h"/>
+      </node>
+      <node id="4558">
+        <label>memory/StrategizedAllocator.h</label>
+        <link refid="_strategized_allocator_8h"/>
+        <childnode refid="4559" relation="include">
+        </childnode>
+        <childnode refid="4560" relation="include">
+        </childnode>
+        <childnode refid="4561" relation="include">
+        </childnode>
+        <childnode refid="4529" relation="include">
+        </childnode>
+      </node>
+      <node id="4534">
+        <label>access/QueryParser.h</label>
+        <link refid="_query_parser_8h"/>
+        <childnode refid="4515" relation="include">
+        </childnode>
+        <childnode refid="4521" relation="include">
+        </childnode>
+        <childnode refid="4514" relation="include">
+        </childnode>
+        <childnode refid="4523" relation="include">
+        </childnode>
+        <childnode refid="4529" relation="include">
+        </childnode>
+        <childnode refid="4517" relation="include">
+        </childnode>
+        <childnode refid="4535" relation="include">
+        </childnode>
+        <childnode refid="4550" relation="include">
+        </childnode>
+      </node>
+      <node id="4524">
+        <label>access/OperationData.h</label>
+        <link refid="_operation_data_8h"/>
+        <childnode refid="4514" relation="include">
+        </childnode>
+        <childnode refid="4525" relation="include">
+        </childnode>
+        <childnode refid="4528" relation="include">
+        </childnode>
+      </node>
+      <node id="4513">
+        <label>time.h</label>
+      </node>
+      <node id="4582">
+        <label>math.h</label>
+      </node>
+      <node id="4540">
+        <label>iostream</label>
+      </node>
+      <node id="4553">
+        <label>storage/ColumnMetadata.h</label>
+        <link refid="_column_metadata_8h"/>
+        <childnode refid="4528" relation="include">
+        </childnode>
+        <childnode refid="4523" relation="include">
+        </childnode>
+        <childnode refid="4529" relation="include">
+        </childnode>
+      </node>
+      <node id="4536">
+        <label>taskscheduler/AbstractTaskScheduler.h</label>
+        <link refid="_abstract_task_scheduler_8h"/>
+        <childnode refid="4519" relation="include">
+        </childnode>
+        <childnode refid="4537" relation="include">
+        </childnode>
+        <childnode refid="4521" relation="include">
+        </childnode>
+        <childnode refid="4539" relation="include">
+        </childnode>
+        <childnode refid="4540" relation="include">
+        </childnode>
+        <childnode refid="4511" relation="include">
+        </childnode>
+        <childnode refid="4541" relation="include">
+        </childnode>
+      </node>
+      <node id="4584">
+        <label>storage/AbstractAttributeVector.h</label>
+        <link refid="_abstract_attribute_vector_8h"/>
+      </node>
+      <node id="4549">
+        <label>deque</label>
+      </node>
+      <node id="4532">
+        <label>boost/mpl/map.hpp</label>
+      </node>
+      <node id="4548">
+        <label>taskscheduler/WSSimpleTaskScheduler.h</label>
+        <link refid="_w_s_simple_task_scheduler_8h"/>
+        <childnode refid="4536" relation="include">
+        </childnode>
+        <childnode refid="4547" relation="include">
+        </childnode>
+        <childnode refid="4549" relation="include">
+        </childnode>
+        <childnode refid="4540" relation="include">
+        </childnode>
+        <childnode refid="4541" relation="include">
+        </childnode>
+      </node>
+      <node id="4520">
+        <label>mutex</label>
+      </node>
+      <node id="4572">
+        <label>storage/AbstractAllocatedDictionary.h</label>
+        <link refid="_abstract_allocated_dictionary_8h"/>
+      </node>
+      <node id="4538">
+        <label>thread</label>
+      </node>
+      <node id="4593">
+        <label>Table-impl.h</label>
+        <link refid="_table-impl_8h"/>
+        <childnode refid="4594" relation="include">
+        </childnode>
+        <childnode refid="4591" relation="include">
+        </childnode>
+      </node>
+      <node id="4592">
+        <label>storage/BitCompressedVector.h</label>
+        <link refid="_bit_compressed_vector_8h"/>
+        <childnode refid="4582" relation="include">
+        </childnode>
+        <childnode refid="4512" relation="include">
+        </childnode>
+        <childnode refid="4563" relation="include">
+        </childnode>
+        <childnode refid="4520" relation="include">
+        </childnode>
+        <childnode refid="4523" relation="include">
+        </childnode>
+        <childnode refid="4529" relation="include">
+        </childnode>
+        <childnode refid="4584" relation="include">
+        </childnode>
+        <childnode refid="4585" relation="include">
+        </childnode>
+      </node>
+      <node id="4585">
+        <label>storage/BaseAttributeVector.h</label>
+        <link refid="_base_attribute_vector_8h"/>
+        <childnode refid="4521" relation="include">
+        </childnode>
+        <childnode refid="4529" relation="include">
+        </childnode>
+        <childnode refid="4584" relation="include">
+        </childnode>
+      </node>
+      <node id="4562">
+        <label>memory/MallocStrategy.h</label>
+        <link refid="_malloc_strategy_8h"/>
+        <childnode refid="4540" relation="include">
+        </childnode>
+        <childnode refid="4526" relation="include">
+        </childnode>
+        <childnode refid="4563" relation="include">
+        </childnode>
+      </node>
+      <node id="4555">
+        <label>storage/OrderPreservingDictionary.h</label>
+        <link refid="_order_preserving_dictionary_8h"/>
+        <childnode refid="4556" relation="include">
+        </childnode>
+        <childnode refid="4540" relation="include">
+        </childnode>
+        <childnode refid="4521" relation="include">
+        </childnode>
+        <childnode refid="4528" relation="include">
+        </childnode>
+        <childnode refid="4557" relation="include">
+        </childnode>
+        <childnode refid="4568" relation="include">
+        </childnode>
+        <childnode refid="4569" relation="include">
+        </childnode>
+        <childnode refid="4572" relation="include">
+        </childnode>
+        <childnode refid="4570" relation="include">
+        </childnode>
+      </node>
+      <node id="4509">
+        <label>access/PlanOperation.h</label>
+        <link refid="_plan_operation_8h"/>
+        <childnode refid="4510" relation="include">
+        </childnode>
+        <childnode refid="4524" relation="include">
+        </childnode>
+        <childnode refid="4534" relation="include">
+        </childnode>
+        <childnode refid="4528" relation="include">
+        </childnode>
+        <childnode refid="4525" relation="include">
+        </childnode>
+        <childnode refid="4551" relation="include">
+        </childnode>
+        <childnode refid="4517" relation="include">
+        </childnode>
+      </node>
+      <node id="4560">
+        <label>algorithm</label>
+      </node>
+      <node id="4511">
+        <label>log4cxx/logger.h</label>
+      </node>
+      <node id="4566">
+        <label>stdio.h</label>
+      </node>
+      <node id="4563">
+        <label>cstring</label>
+      </node>
+      <node id="4574">
+        <label>storage/csb_tree.h</label>
+        <link refid="csb__tree_8h"/>
+        <childnode refid="4514" relation="include">
+        </childnode>
+        <childnode refid="4540" relation="include">
+        </childnode>
+        <childnode refid="4561" relation="include">
+        </childnode>
+        <childnode refid="4521" relation="include">
+        </childnode>
+        <childnode refid="4575" relation="include">
+        </childnode>
+        <childnode refid="4556" relation="include">
+        </childnode>
+        <childnode refid="4571" relation="include">
+        </childnode>
+      </node>
+      <node id="4521">
+        <label>memory</label>
+      </node>
+      <node id="4528">
+        <label>storage/storage_types.h</label>
+        <link refid="storage__types_8h"/>
+        <childnode refid="4514" relation="include">
+        </childnode>
+        <childnode refid="4523" relation="include">
+        </childnode>
+        <childnode refid="4529" relation="include">
+        </childnode>
+        <childnode refid="4512" relation="include">
+        </childnode>
+        <childnode refid="4530" relation="include">
+        </childnode>
+        <childnode refid="4531" relation="include">
+        </childnode>
+        <childnode refid="4532" relation="include">
+        </childnode>
+        <childnode refid="4533" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <innernamespace refid="namespacehyrise">hyrise</innernamespace>
+    <innernamespace refid="namespacehyrise_1_1access">hyrise::access</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>2012<sp/>Hasso-Plattner-Institut<sp/>fuer<sp/>Softwaresystemtechnik<sp/>GmbH.<sp/>All<sp/>rights<sp/>reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_histogram_8h" kindref="compound">access/Histogram.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_basic_parser_8h" kindref="compound">access/BasicParser.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_query_parser_8h" kindref="compound">access/QueryParser.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_column_metadata_8h" kindref="compound">storage/ColumnMetadata.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">hyrise<sp/>{</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">access<sp/>{</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>_<sp/>=<sp/>QueryParser::registerPlanOperation&lt;Histogram&gt;(</highlight><highlight class="stringliteral">&quot;Histogram&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="14"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16" refid="classhyrise_1_1access_1_1_histogram_1a4d5619675d82061021b854b39906f8d2" refkind="member"><highlight class="normal"><ref refid="classhyrise_1_1access_1_1_histogram_1a4d5619675d82061021b854b39906f8d2" kindref="member">Histogram::Histogram</ref>()<sp/>:<sp/>_bits(0),</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>_significantOffset(0),</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>_bits2(0),</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>_significantOffset2(0),</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>_part(0),</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>_count(0)<sp/>{</highlight></codeline>
+<codeline lineno="22"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="comment">//<sp/>The<sp/>histogram<sp/>basically<sp/>works<sp/>by<sp/>iterating<sp/>over<sp/>the<sp/>table<sp/>and<sp/>the<sp/>requested</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="comment">//<sp/>field,<sp/>hashing<sp/>the<sp/>value<sp/>and<sp/>incresing<sp/>the<sp/>count<sp/>for<sp/>this<sp/>entry</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26" refid="classhyrise_1_1access_1_1_histogram_1ad1da82eb00898239db07331458ba2302" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1access_1_1_histogram_1ad1da82eb00898239db07331458ba2302" kindref="member">Histogram::executePlanOperation</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal">(<ref refid="class___plan_operation_1acb39b2c0280f5f81f337c106d2485c26" kindref="member">getInputTable</ref>()-&gt;typeOfColumn(<ref refid="class___plan_operation_1aecccffa96d058ec8bead4d2c2a39e0e0" kindref="member">_field_definition</ref>[0]))<sp/>{</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="storage__types_8h_1ad8ed01ff3ff33333d8e19db4d2818bb6a90453dde1506c63dbaaa7a1a363a06a9" kindref="member">IntegerType</ref>:</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>executeHistogram&lt;storage::hyrise_int_t&gt;();</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="storage__types_8h_1ad8ed01ff3ff33333d8e19db4d2818bb6a866d24e407b4ee66d3efe59486be6db4" kindref="member">FloatType</ref>:</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>executeHistogram&lt;storage::hyrise_float_t&gt;();</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="storage__types_8h_1ad8ed01ff3ff33333d8e19db4d2818bb6a83ccab8dfcfc3a9e8656224313fb61f3" kindref="member">StringType</ref>:</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>executeHistogram&lt;storage::hyrise_string_t&gt;();</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="35"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37" refid="classhyrise_1_1access_1_1_histogram_1aa8d356b7b25e1976e90328529529a872" refkind="member"><highlight class="normal">std::shared_ptr&lt;_PlanOperation&gt;<sp/><ref refid="classhyrise_1_1access_1_1_histogram_1aa8d356b7b25e1976e90328529529a872" kindref="member">Histogram::parse</ref>(Json::Value<sp/>&amp;data)<sp/>{</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>hst<sp/>=<sp/><ref refid="classhyrise_1_1access_1_1_histogram_1aa8d356b7b25e1976e90328529529a872" kindref="member">BasicParser&lt;Histogram&gt;::parse</ref>(data);</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/>hst-&gt;setBits(data[</highlight><highlight class="stringliteral">&quot;bits&quot;</highlight><highlight class="normal">].asUInt(),<sp/>data[</highlight><highlight class="stringliteral">&quot;sig&quot;</highlight><highlight class="normal">].asUInt());</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(data.isMember(</highlight><highlight class="stringliteral">&quot;numParts&quot;</highlight><highlight class="normal">))<sp/>{</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/>hst-&gt;_part<sp/>=<sp/>data[</highlight><highlight class="stringliteral">&quot;part&quot;</highlight><highlight class="normal">].asInt();</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/>hst-&gt;_count<sp/>=<sp/>data[</highlight><highlight class="stringliteral">&quot;numParts&quot;</highlight><highlight class="normal">].asInt();</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>hst;</highlight></codeline>
+<codeline lineno="45"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47" refid="classhyrise_1_1access_1_1_histogram_1ab7868a9f22654d90599c6f9a6f19647d" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/><ref refid="classhyrise_1_1access_1_1_histogram_1ab7868a9f22654d90599c6f9a6f19647d" kindref="member">Histogram::vname</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;Histogram&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="49"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51" refid="classhyrise_1_1access_1_1_histogram_1a88d8ea3db4ca2057d7430e49549d26bd" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1access_1_1_histogram_1a88d8ea3db4ca2057d7430e49549d26bd" kindref="member">Histogram::setPart</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>p)<sp/>{</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><ref refid="classhyrise_1_1access_1_1_histogram_1a89b0e7cc5b5f697ffb4db7babac97a45" kindref="member">_part</ref><sp/>=<sp/>p;</highlight></codeline>
+<codeline lineno="53"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55" refid="classhyrise_1_1access_1_1_histogram_1add0663a66bbe9a7de95c1690571d955f" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1access_1_1_histogram_1add0663a66bbe9a7de95c1690571d955f" kindref="member">Histogram::setCount</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>c)<sp/>{</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><ref refid="classhyrise_1_1access_1_1_histogram_1a7eec8e94c352fbf60a048a37c320f979" kindref="member">_count</ref><sp/>=<sp/>c;</highlight></codeline>
+<codeline lineno="57"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59" refid="classhyrise_1_1access_1_1_histogram_1a89a227db1000edca581155655d02ccd1" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1access_1_1_histogram_1a89a227db1000edca581155655d02ccd1" kindref="member">Histogram::setBits</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>uint32_t<sp/>b,</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>uint32_t<sp/>sig)<sp/>{</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><ref refid="classhyrise_1_1access_1_1_histogram_1a629b7133efa42103dff42a294c4b167d" kindref="member">_bits</ref><sp/>=<sp/>b;</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><ref refid="classhyrise_1_1access_1_1_histogram_1a1ec808b1d10c75c89b5f292c25528a9b" kindref="member">_significantOffset</ref><sp/>=<sp/>sig;</highlight></codeline>
+<codeline lineno="63"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65" refid="classhyrise_1_1access_1_1_histogram_1a45a2a93bc292220104389995669ecf35" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1access_1_1_histogram_1a45a2a93bc292220104389995669ecf35" kindref="member">Histogram::setBits2</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>uint32_t<sp/>b,</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>uint32_t<sp/>sig)<sp/>{</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><ref refid="classhyrise_1_1access_1_1_histogram_1a18b193b93b81c11a3bd90fe47df7799c" kindref="member">_bits2</ref><sp/>=<sp/>b;</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><ref refid="classhyrise_1_1access_1_1_histogram_1a8b691e565a73cc406a35d6c63c3f5600" kindref="member">_significantOffset2</ref><sp/>=<sp/>sig;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71" refid="classhyrise_1_1access_1_1_histogram_1a1678262260ab89717729c0212c8be5d8" refkind="member"><highlight class="normal">uint32_t<sp/><ref refid="classhyrise_1_1access_1_1_histogram_1a1678262260ab89717729c0212c8be5d8" kindref="member">Histogram::bits</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1access_1_1_histogram_1a629b7133efa42103dff42a294c4b167d" kindref="member">_bits</ref>;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75" refid="classhyrise_1_1access_1_1_histogram_1ac149879ae8ee44cd22ef9bdef1568aee" refkind="member"><highlight class="normal">uint32_t<sp/><ref refid="classhyrise_1_1access_1_1_histogram_1ac149879ae8ee44cd22ef9bdef1568aee" kindref="member">Histogram::significantOffset</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1access_1_1_histogram_1a1ec808b1d10c75c89b5f292c25528a9b" kindref="member">_significantOffset</ref>;</highlight></codeline>
+<codeline lineno="77"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79" refid="classhyrise_1_1access_1_1_histogram_1a1054f614526df3bb89db878141930255" refkind="member"><highlight class="normal">std::shared_ptr&lt;Table&lt;&gt;&gt;<sp/><ref refid="classhyrise_1_1access_1_1_histogram_1a1054f614526df3bb89db878141930255" kindref="member">Histogram::createOutputTable</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>size)</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/>std::vector&lt;const<sp/>ColumnMetadata*&gt;<sp/>meta<sp/>{<ref refid="class_column_metadata_1a1e177822c3086d242f1ec9dc180220cc" kindref="member">ColumnMetadata::metadataFromString</ref>(<ref refid="namespacehyrise_1_1types_1ac76e2caf2685fc6dc28916cae531fc64" kindref="member">types::integer_t</ref>,<sp/></highlight><highlight class="stringliteral">&quot;count&quot;</highlight><highlight class="normal">)};</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>result<sp/>=<sp/>std::make_shared&lt;Table&lt;&gt;&gt;(&amp;meta,<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">,<sp/>size,<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">,<sp/>0,<sp/>0,<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/>result-&gt;resize(size);</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>result;</highlight></codeline>
+<codeline lineno="84"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>_2<sp/>=<sp/>QueryParser::registerPlanOperation&lt;Histogram2ndPass&gt;(</highlight><highlight class="stringliteral">&quot;Histogram2ndPass&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="88"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90" refid="classhyrise_1_1access_1_1_histogram2nd_pass_1aac4901a291af9fde938c9277c0f05fc6" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1access_1_1_histogram2nd_pass_1aac4901a291af9fde938c9277c0f05fc6" kindref="member">Histogram2ndPass::executePlanOperation</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>&amp;tab<sp/>=<sp/><ref refid="class___plan_operation_1acb39b2c0280f5f81f337c106d2485c26" kindref="member">getInputTable</ref>();</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>tableSize<sp/>=<sp/><ref refid="class___plan_operation_1acb39b2c0280f5f81f337c106d2485c26" kindref="member">getInputTable</ref>()-&gt;size();</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>field<sp/>=<sp/>0;</highlight><highlight class="comment">//_field_definition[0];</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//Prepare<sp/>mask</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>mask<sp/>=<sp/>((1<sp/>&lt;&lt;<sp/><ref refid="classhyrise_1_1access_1_1_histogram_1a1678262260ab89717729c0212c8be5d8" kindref="member">bits</ref>())<sp/>-<sp/>1)<sp/>&lt;&lt;<sp/><ref refid="classhyrise_1_1access_1_1_histogram_1ac149879ae8ee44cd22ef9bdef1568aee" kindref="member">significantOffset</ref>();</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>mask2<sp/>=<sp/>((<sp/>1<sp/>&lt;&lt;<sp/><ref refid="classhyrise_1_1access_1_1_histogram_1a18b193b93b81c11a3bd90fe47df7799c" kindref="member">_bits2</ref><sp/>)<sp/>-<sp/>1)<sp/>&lt;&lt;<sp/><ref refid="classhyrise_1_1access_1_1_histogram_1a8b691e565a73cc406a35d6c63c3f5600" kindref="member">_significantOffset2</ref>;</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Prepare<sp/>Output<sp/>Table</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>result<sp/>=<sp/><ref refid="classhyrise_1_1access_1_1_histogram_1a1054f614526df3bb89db878141930255" kindref="member">createOutputTable</ref>((1&lt;&lt;<ref refid="classhyrise_1_1access_1_1_histogram_1a18b193b93b81c11a3bd90fe47df7799c" kindref="member">_bits2</ref>)<sp/>*<sp/>(1<sp/>&lt;&lt;<sp/><ref refid="classhyrise_1_1access_1_1_histogram_1a629b7133efa42103dff42a294c4b167d" kindref="member">_bits</ref>));</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>o_data<sp/>=<sp/><ref refid="namespacehyrise_1_1access_1a4404e068d2d41f60782ad1b04e842e03" kindref="member">getDataVector</ref>(result).first;</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Get<sp/>input<sp/>vector</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>i_data<sp/>=<sp/><ref refid="namespacehyrise_1_1access_1a4404e068d2d41f60782ad1b04e842e03" kindref="member">getDataVector</ref>(tab).first;</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Iterate<sp/>and<sp/>hash<sp/>based<sp/>on<sp/>the<sp/>part<sp/>description</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>start=0,<sp/>stop=tableSize;</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="classhyrise_1_1access_1_1_histogram_1a7eec8e94c352fbf60a048a37c320f979" kindref="member">_count</ref><sp/>&gt;<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/>start<sp/>=<sp/>(tableSize<sp/>/<sp/><ref refid="classhyrise_1_1access_1_1_histogram_1a7eec8e94c352fbf60a048a37c320f979" kindref="member">_count</ref>)<sp/>*<sp/><ref refid="classhyrise_1_1access_1_1_histogram_1a89b0e7cc5b5f697ffb4db7babac97a45" kindref="member">_part</ref>;</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/>stop<sp/>=<sp/>(<ref refid="classhyrise_1_1access_1_1_histogram_1a7eec8e94c352fbf60a048a37c320f979" kindref="member">_count</ref><sp/>-1)<sp/>==<sp/><ref refid="classhyrise_1_1access_1_1_histogram_1a89b0e7cc5b5f697ffb4db7babac97a45" kindref="member">_part</ref><sp/>?<sp/>tableSize<sp/>:<sp/>(tableSize/<ref refid="classhyrise_1_1access_1_1_histogram_1a7eec8e94c352fbf60a048a37c320f979" kindref="member">_count</ref>)<sp/>*<sp/>(<ref refid="classhyrise_1_1access_1_1_histogram_1a89b0e7cc5b5f697ffb4db7babac97a45" kindref="member">_part</ref><sp/>+<sp/>1);</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal">(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>row<sp/>=<sp/>start;<sp/>row<sp/>&lt;<sp/>stop;<sp/>++row)<sp/>{</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>hash_value<sp/>=<sp/>i_data-&gt;get(field,<sp/>row);</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>offset<sp/>=<sp/>(hash_value<sp/>&amp;<sp/>mask)<sp/>*<sp/>(1&lt;&lt;<ref refid="classhyrise_1_1access_1_1_histogram_1a18b193b93b81c11a3bd90fe47df7799c" kindref="member">_bits2</ref>)<sp/>+<sp/>((hash_value<sp/>&amp;<sp/>mask2)<sp/>&gt;&gt;<sp/><ref refid="classhyrise_1_1access_1_1_histogram_1a8b691e565a73cc406a35d6c63c3f5600" kindref="member">_significantOffset2</ref>);</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/>o_data-&gt;inc(0,<sp/>offset);</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><ref refid="class___plan_operation_1aa6fad4a2bf49850d1947ab2d8c2f9931" kindref="member">addResult</ref>(result);</highlight></codeline>
+<codeline lineno="119"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight></codeline>
+<codeline lineno="121" refid="classhyrise_1_1access_1_1_histogram2nd_pass_1a2e27d31f95b27d1a6e0d6b5e74d12283" refkind="member"><highlight class="normal">std::shared_ptr&lt;_PlanOperation&gt;<sp/><ref refid="classhyrise_1_1access_1_1_histogram2nd_pass_1a2e27d31f95b27d1a6e0d6b5e74d12283" kindref="member">Histogram2ndPass::parse</ref>(Json::Value<sp/>&amp;data)<sp/>{</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>hst<sp/>=<sp/><ref refid="classhyrise_1_1access_1_1_histogram2nd_pass_1a2e27d31f95b27d1a6e0d6b5e74d12283" kindref="member">BasicParser&lt;Histogram2ndPass&gt;::parse</ref>(data);</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/>hst-&gt;setBits(data[</highlight><highlight class="stringliteral">&quot;bits&quot;</highlight><highlight class="normal">].asUInt(),<sp/>data[</highlight><highlight class="stringliteral">&quot;sig&quot;</highlight><highlight class="normal">].asUInt());</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/>hst-&gt;setBits2(data[</highlight><highlight class="stringliteral">&quot;bits2&quot;</highlight><highlight class="normal">].asUInt(),<sp/>data[</highlight><highlight class="stringliteral">&quot;sig2&quot;</highlight><highlight class="normal">].asUInt());</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(data.isMember(</highlight><highlight class="stringliteral">&quot;numParts&quot;</highlight><highlight class="normal">))<sp/>{</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/>hst-&gt;setPart(data[</highlight><highlight class="stringliteral">&quot;part&quot;</highlight><highlight class="normal">].asInt());</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/>hst-&gt;setCount(data[</highlight><highlight class="stringliteral">&quot;numParts&quot;</highlight><highlight class="normal">].asInt());</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>hst;</highlight></codeline>
+<codeline lineno="130"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight></codeline>
+<codeline lineno="132" refid="classhyrise_1_1access_1_1_histogram2nd_pass_1a8da236ddb9e626b00bdddd215338ea1c" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/><ref refid="classhyrise_1_1access_1_1_histogram2nd_pass_1a8da236ddb9e626b00bdddd215338ea1c" kindref="member">Histogram2ndPass::vname</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;Histogram2ndPass&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="134"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="137"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/home/grund/hyrise/src/lib/access/Histogram.cpp"/>
+  </compounddef>
+</doxygen>

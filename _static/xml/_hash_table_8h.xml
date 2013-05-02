@@ -1,0 +1,1120 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="_hash_table_8h" kind="file">
+    <compoundname>HashTable.h</compoundname>
+    <includes local="no">atomic</includes>
+    <includes local="no">set</includes>
+    <includes local="no">unordered_map</includes>
+    <includes local="no">memory</includes>
+    <includes refid="types_8h" local="yes">helper/types.h</includes>
+    <includes refid="checked__cast_8h" local="yes">helper/checked_cast.h</includes>
+    <includes refid="_abstract_hash_table_8h" local="yes">storage/AbstractHashTable.h</includes>
+    <includes refid="_abstract_table_8h" local="yes">storage/AbstractTable.h</includes>
+    <includes refid="meta__storage_8h" local="yes">storage/meta_storage.h</includes>
+    <includes refid="hash__functor_8h" local="yes">storage/hash_functor.h</includes>
+    <includes refid="storage__types_8h" local="yes">storage/storage_types.h</includes>
+    <includedby refid="_aggregate_functions_8h" local="no">src/lib/access/AggregateFunctions.h</includedby>
+    <includedby refid="lib_2access_2_group_by_scan_8cpp" local="yes">src/lib/access/GroupByScan.cpp</includedby>
+    <includedby refid="_hash_build_8cpp" local="yes">src/lib/access/HashBuild.cpp</includedby>
+    <includedby refid="_hash_join_probe_8cpp" local="yes">src/lib/access/HashJoinProbe.cpp</includedby>
+    <includedby refid="_merge_hash_tables_8cpp" local="yes">src/lib/access/MergeHashTables.cpp</includedby>
+    <includedby refid="_operation_data_8cpp" local="yes">src/lib/access/OperationData.cpp</includedby>
+    <includedby refid="storage_8h" local="no">src/lib/storage.h</includedby>
+    <incdepgraph>
+      <node id="20206">
+        <label>list</label>
+      </node>
+      <node id="20229">
+        <label>boost/mpl/size.hpp</label>
+      </node>
+      <node id="20177">
+        <label>atomic</label>
+      </node>
+      <node id="20193">
+        <label>boost/mpl/vector.hpp</label>
+      </node>
+      <node id="20231">
+        <label>functional</label>
+      </node>
+      <node id="20184">
+        <label>limits</label>
+      </node>
+      <node id="20225">
+        <label>boost/functional/hash.hpp</label>
+      </node>
+      <node id="20200">
+        <label>assert.h</label>
+      </node>
+      <node id="20195">
+        <label>boost/lexical_cast.hpp</label>
+      </node>
+      <node id="20216">
+        <label>boost/iterator/iterator_facade.hpp</label>
+      </node>
+      <node id="20182">
+        <label>cstdint</label>
+      </node>
+      <node id="20230">
+        <label>storage/hash_functor.h</label>
+        <link refid="hash__functor_8h"/>
+        <childnode refid="20231" relation="include">
+        </childnode>
+        <childnode refid="20189" relation="include">
+        </childnode>
+        <childnode refid="20196" relation="include">
+        </childnode>
+      </node>
+      <node id="20213">
+        <label>storage/BaseDictionary.h</label>
+        <link refid="_base_dictionary_8h"/>
+        <childnode refid="20189" relation="include">
+        </childnode>
+        <childnode refid="20202" relation="include">
+        </childnode>
+        <childnode refid="20214" relation="include">
+        </childnode>
+      </node>
+      <node id="20186">
+        <label>helper/checked_cast.h</label>
+        <link refid="checked__cast_8h"/>
+        <childnode refid="20180" relation="include">
+        </childnode>
+      </node>
+      <node id="20191">
+        <label>stdint.h</label>
+      </node>
+      <node id="20212">
+        <label>stdlib.h</label>
+      </node>
+      <node id="20176">
+        <label>src/lib/storage/HashTable.h</label>
+        <link refid="HashTable.h"/>
+        <childnode refid="20177" relation="include">
+        </childnode>
+        <childnode refid="20178" relation="include">
+        </childnode>
+        <childnode refid="20179" relation="include">
+        </childnode>
+        <childnode refid="20180" relation="include">
+        </childnode>
+        <childnode refid="20181" relation="include">
+        </childnode>
+        <childnode refid="20186" relation="include">
+        </childnode>
+        <childnode refid="20187" relation="include">
+        </childnode>
+        <childnode refid="20196" relation="include">
+        </childnode>
+        <childnode refid="20226" relation="include">
+        </childnode>
+        <childnode refid="20230" relation="include">
+        </childnode>
+        <childnode refid="20189" relation="include">
+        </childnode>
+      </node>
+      <node id="20210">
+        <label>errno.h</label>
+      </node>
+      <node id="20190">
+        <label>stdexcept</label>
+      </node>
+      <node id="20183">
+        <label>string</label>
+      </node>
+      <node id="20227">
+        <label>boost/mpl/at.hpp</label>
+      </node>
+      <node id="20222">
+        <label>map</label>
+      </node>
+      <node id="20198">
+        <label>storage/ValueIdMap.hpp</label>
+        <link refid="_value_id_map_8hpp"/>
+        <childnode refid="20199" relation="include">
+        </childnode>
+        <childnode refid="20218" relation="include">
+        </childnode>
+      </node>
+      <node id="20209">
+        <label>memory/MemalignStrategy.h</label>
+        <link refid="_memalign_strategy_8h"/>
+        <childnode refid="20210" relation="include">
+        </childnode>
+        <childnode refid="20211" relation="include">
+        </childnode>
+        <childnode refid="20212" relation="include">
+        </childnode>
+      </node>
+      <node id="20221">
+        <label>exception</label>
+      </node>
+      <node id="20204">
+        <label>stddef.h</label>
+      </node>
+      <node id="20218">
+        <label>storage/OrderIndifferentDictionary.h</label>
+        <link refid="_order_indifferent_dictionary_8h"/>
+        <childnode refid="20189" relation="include">
+        </childnode>
+        <childnode refid="20202" relation="include">
+        </childnode>
+        <childnode refid="20213" relation="include">
+        </childnode>
+        <childnode refid="20214" relation="include">
+        </childnode>
+        <childnode refid="20219" relation="include">
+        </childnode>
+        <childnode refid="20217" relation="include">
+        </childnode>
+        <childnode refid="20221" relation="include">
+        </childnode>
+        <childnode refid="20185" relation="include">
+        </childnode>
+        <childnode refid="20222" relation="include">
+        </childnode>
+        <childnode refid="20180" relation="include">
+        </childnode>
+        <childnode refid="20223" relation="include">
+        </childnode>
+        <childnode refid="20224" relation="include">
+        </childnode>
+        <childnode refid="20225" relation="include">
+        </childnode>
+      </node>
+      <node id="20192">
+        <label>ostream</label>
+      </node>
+      <node id="20223">
+        <label>limits.h</label>
+      </node>
+      <node id="20214">
+        <label>storage/DictionaryIterator.h</label>
+        <link refid="_dictionary_iterator_8h"/>
+        <childnode refid="20215" relation="include">
+        </childnode>
+        <childnode refid="20216" relation="include">
+        </childnode>
+      </node>
+      <node id="20202">
+        <label>storage/AbstractDictionary.h</label>
+        <link refid="_abstract_dictionary_8h"/>
+        <childnode refid="20185" relation="include">
+        </childnode>
+        <childnode refid="20183" relation="include">
+        </childnode>
+        <childnode refid="20180" relation="include">
+        </childnode>
+        <childnode refid="20203" relation="include">
+        </childnode>
+        <childnode refid="20207" relation="include">
+        </childnode>
+        <childnode refid="20209" relation="include">
+        </childnode>
+        <childnode refid="20189" relation="include">
+        </childnode>
+      </node>
+      <node id="20220">
+        <label>string.h</label>
+      </node>
+      <node id="20196">
+        <label>storage/AbstractTable.h</label>
+        <link refid="_abstract_table_8h"/>
+        <childnode refid="20184" relation="include">
+        </childnode>
+        <childnode refid="20180" relation="include">
+        </childnode>
+        <childnode refid="20190" relation="include">
+        </childnode>
+        <childnode refid="20185" relation="include">
+        </childnode>
+        <childnode refid="20183" relation="include">
+        </childnode>
+        <childnode refid="20181" relation="include">
+        </childnode>
+        <childnode refid="20188" relation="include">
+        </childnode>
+        <childnode refid="20189" relation="include">
+        </childnode>
+        <childnode refid="20197" relation="include">
+        </childnode>
+        <childnode refid="20198" relation="include">
+        </childnode>
+      </node>
+      <node id="20188">
+        <label>storage/AbstractResource.h</label>
+        <link refid="_abstract_resource_8h"/>
+      </node>
+      <node id="20224">
+        <label>boost/unordered_map.hpp</label>
+      </node>
+      <node id="20187">
+        <label>storage/AbstractHashTable.h</label>
+        <link refid="_abstract_hash_table_8h"/>
+        <childnode refid="20182" relation="include">
+        </childnode>
+        <childnode refid="20180" relation="include">
+        </childnode>
+        <childnode refid="20181" relation="include">
+        </childnode>
+        <childnode refid="20188" relation="include">
+        </childnode>
+        <childnode refid="20189" relation="include">
+        </childnode>
+      </node>
+      <node id="20185">
+        <label>vector</label>
+      </node>
+      <node id="20228">
+        <label>boost/mpl/int.hpp</label>
+      </node>
+      <node id="20181">
+        <label>helper/types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="20182" relation="include">
+        </childnode>
+        <childnode refid="20183" relation="include">
+        </childnode>
+        <childnode refid="20184" relation="include">
+        </childnode>
+        <childnode refid="20180" relation="include">
+        </childnode>
+        <childnode refid="20185" relation="include">
+        </childnode>
+      </node>
+      <node id="20226">
+        <label>storage/meta_storage.h</label>
+        <link refid="meta__storage_8h"/>
+        <childnode refid="20190" relation="include">
+        </childnode>
+        <childnode refid="20227" relation="include">
+        </childnode>
+        <childnode refid="20228" relation="include">
+        </childnode>
+        <childnode refid="20229" relation="include">
+        </childnode>
+        <childnode refid="20189" relation="include">
+        </childnode>
+      </node>
+      <node id="20215">
+        <label>storage/BaseIterator.h</label>
+        <link refid="_base_iterator_8h"/>
+      </node>
+      <node id="20203">
+        <label>memory/StrategizedAllocator.h</label>
+        <link refid="_strategized_allocator_8h"/>
+        <childnode refid="20204" relation="include">
+        </childnode>
+        <childnode refid="20205" relation="include">
+        </childnode>
+        <childnode refid="20206" relation="include">
+        </childnode>
+        <childnode refid="20190" relation="include">
+        </childnode>
+      </node>
+      <node id="20201">
+        <label>iostream</label>
+      </node>
+      <node id="20197">
+        <label>storage/ColumnMetadata.h</label>
+        <link refid="_column_metadata_8h"/>
+        <childnode refid="20189" relation="include">
+        </childnode>
+        <childnode refid="20183" relation="include">
+        </childnode>
+        <childnode refid="20190" relation="include">
+        </childnode>
+      </node>
+      <node id="20179">
+        <label>unordered_map</label>
+      </node>
+      <node id="20194">
+        <label>boost/mpl/map.hpp</label>
+      </node>
+      <node id="20217">
+        <label>storage/AbstractAllocatedDictionary.h</label>
+        <link refid="_abstract_allocated_dictionary_8h"/>
+      </node>
+      <node id="20207">
+        <label>memory/MallocStrategy.h</label>
+        <link refid="_malloc_strategy_8h"/>
+        <childnode refid="20201" relation="include">
+        </childnode>
+        <childnode refid="20182" relation="include">
+        </childnode>
+        <childnode refid="20208" relation="include">
+        </childnode>
+      </node>
+      <node id="20178">
+        <label>set</label>
+      </node>
+      <node id="20199">
+        <label>storage/OrderPreservingDictionary.h</label>
+        <link refid="_order_preserving_dictionary_8h"/>
+        <childnode refid="20200" relation="include">
+        </childnode>
+        <childnode refid="20201" relation="include">
+        </childnode>
+        <childnode refid="20180" relation="include">
+        </childnode>
+        <childnode refid="20189" relation="include">
+        </childnode>
+        <childnode refid="20202" relation="include">
+        </childnode>
+        <childnode refid="20213" relation="include">
+        </childnode>
+        <childnode refid="20214" relation="include">
+        </childnode>
+        <childnode refid="20217" relation="include">
+        </childnode>
+        <childnode refid="20215" relation="include">
+        </childnode>
+      </node>
+      <node id="20205">
+        <label>algorithm</label>
+      </node>
+      <node id="20211">
+        <label>stdio.h</label>
+      </node>
+      <node id="20208">
+        <label>cstring</label>
+      </node>
+      <node id="20219">
+        <label>storage/csb_tree.h</label>
+        <link refid="csb__tree_8h"/>
+        <childnode refid="20185" relation="include">
+        </childnode>
+        <childnode refid="20201" relation="include">
+        </childnode>
+        <childnode refid="20206" relation="include">
+        </childnode>
+        <childnode refid="20180" relation="include">
+        </childnode>
+        <childnode refid="20220" relation="include">
+        </childnode>
+        <childnode refid="20200" relation="include">
+        </childnode>
+        <childnode refid="20216" relation="include">
+        </childnode>
+      </node>
+      <node id="20180">
+        <label>memory</label>
+      </node>
+      <node id="20189">
+        <label>storage/storage_types.h</label>
+        <link refid="storage__types_8h"/>
+        <childnode refid="20185" relation="include">
+        </childnode>
+        <childnode refid="20183" relation="include">
+        </childnode>
+        <childnode refid="20190" relation="include">
+        </childnode>
+        <childnode refid="20191" relation="include">
+        </childnode>
+        <childnode refid="20192" relation="include">
+        </childnode>
+        <childnode refid="20193" relation="include">
+        </childnode>
+        <childnode refid="20194" relation="include">
+        </childnode>
+        <childnode refid="20195" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="20250">
+        <label>src/lib/storage.h</label>
+        <link refid="storage_8h"/>
+        <childnode refid="20238" relation="include">
+        </childnode>
+        <childnode refid="20239" relation="include">
+        </childnode>
+        <childnode refid="20240" relation="include">
+        </childnode>
+        <childnode refid="20241" relation="include">
+        </childnode>
+        <childnode refid="20242" relation="include">
+        </childnode>
+        <childnode refid="20243" relation="include">
+        </childnode>
+        <childnode refid="20244" relation="include">
+        </childnode>
+        <childnode refid="20245" relation="include">
+        </childnode>
+      </node>
+      <node id="20249">
+        <label>src/lib/access/OperationData.cpp</label>
+        <link refid="_operation_data_8cpp"/>
+      </node>
+      <node id="20247">
+        <label>src/lib/access/HashJoinProbe.cpp</label>
+        <link refid="_hash_join_probe_8cpp"/>
+      </node>
+      <node id="20246">
+        <label>src/lib/access/HashBuild.cpp</label>
+        <link refid="_hash_build_8cpp"/>
+      </node>
+      <node id="20235">
+        <label>src/lib/access/GroupByScan.h</label>
+        <link refid="_group_by_scan_8h"/>
+        <childnode refid="20236" relation="include">
+        </childnode>
+        <childnode refid="20237" relation="include">
+        </childnode>
+      </node>
+      <node id="20245">
+        <label>src/bin/perf_regression/UnionScan.cpp</label>
+        <link refid="bin_2perf__regression_2_union_scan_8cpp"/>
+      </node>
+      <node id="20232">
+        <label>src/lib/storage/HashTable.h</label>
+        <link refid="HashTable.h"/>
+        <childnode refid="20233" relation="include">
+        </childnode>
+        <childnode refid="20236" relation="include">
+        </childnode>
+        <childnode refid="20246" relation="include">
+        </childnode>
+        <childnode refid="20247" relation="include">
+        </childnode>
+        <childnode refid="20248" relation="include">
+        </childnode>
+        <childnode refid="20249" relation="include">
+        </childnode>
+        <childnode refid="20250" relation="include">
+        </childnode>
+      </node>
+      <node id="20236">
+        <label>src/lib/access/GroupByScan.cpp</label>
+        <link refid="lib_2access_2_group_by_scan_8cpp"/>
+      </node>
+      <node id="20241">
+        <label>src/bin/perf_regression/JoinScan.cpp</label>
+        <link refid="bin_2perf__regression_2_join_scan_8cpp"/>
+      </node>
+      <node id="20248">
+        <label>src/lib/access/MergeHashTables.cpp</label>
+        <link refid="_merge_hash_tables_8cpp"/>
+      </node>
+      <node id="20234">
+        <label>src/lib/access/AggregateFunctions.cpp</label>
+        <link refid="_aggregate_functions_8cpp"/>
+      </node>
+      <node id="20244">
+        <label>src/bin/perf_regression/SortScan.cpp</label>
+        <link refid="bin_2perf__regression_2_sort_scan_8cpp"/>
+      </node>
+      <node id="20238">
+        <label>src/bin/perf_regression/GroupByScan.cpp</label>
+        <link refid="bin_2perf__regression_2_group_by_scan_8cpp"/>
+      </node>
+      <node id="20242">
+        <label>src/bin/perf_regression/ProjectionScan.cpp</label>
+        <link refid="bin_2perf__regression_2_projection_scan_8cpp"/>
+      </node>
+      <node id="20239">
+        <label>src/bin/perf_regression/HashJoin.cpp</label>
+        <link refid="_hash_join_8cpp"/>
+      </node>
+      <node id="20240">
+        <label>src/bin/perf_regression/HashValueJoin.cpp</label>
+        <link refid="_hash_value_join_8cpp"/>
+      </node>
+      <node id="20237">
+        <label>src/lib/access.h</label>
+        <link refid="access_8h"/>
+        <childnode refid="20238" relation="include">
+        </childnode>
+        <childnode refid="20239" relation="include">
+        </childnode>
+        <childnode refid="20240" relation="include">
+        </childnode>
+        <childnode refid="20241" relation="include">
+        </childnode>
+        <childnode refid="20242" relation="include">
+        </childnode>
+        <childnode refid="20243" relation="include">
+        </childnode>
+        <childnode refid="20244" relation="include">
+        </childnode>
+        <childnode refid="20245" relation="include">
+        </childnode>
+      </node>
+      <node id="20243">
+        <label>src/bin/perf_regression/SimpleTableScan.cpp</label>
+        <link refid="bin_2perf__regression_2_simple_table_scan_8cpp"/>
+      </node>
+      <node id="20233">
+        <label>src/lib/access/AggregateFunctions.h</label>
+        <link refid="_aggregate_functions_8h"/>
+        <childnode refid="20234" relation="include">
+        </childnode>
+        <childnode refid="20235" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="class_group_key_hash" prot="public">GroupKeyHash</innerclass>
+    <innerclass refid="class_single_group_key_hash" prot="public">SingleGroupKeyHash</innerclass>
+    <innerclass refid="class_hash_table" prot="public">HashTable</innerclass>
+    <innerclass refid="class_hash_table_view" prot="public">HashTableView</innerclass>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="_hash_table_8h_1a60e693d2bbe5e49472d43346ec2209c7" prot="public" static="no">
+        <type>std::vector&lt; <ref refid="storage__types_8h_1a2552a37cd3427c39d92cb8fd23c90408" kindref="member">value_id_t</ref> &gt;</type>
+        <definition>typedef std::vector&lt;value_id_t&gt; aggregate_key_t</definition>
+        <argsstring></argsstring>
+        <name>aggregate_key_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/HashTable.h" line="22" bodyfile="/home/grund/hyrise/src/lib/storage/HashTable.h" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="_hash_table_8h_1ae4b0eac206665c86e85740d5fdb4a590" prot="public" static="no">
+        <type>std::vector&lt; size_t &gt;</type>
+        <definition>typedef std::vector&lt;size_t&gt; join_key_t</definition>
+        <argsstring></argsstring>
+        <name>join_key_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/HashTable.h" line="24" bodyfile="/home/grund/hyrise/src/lib/storage/HashTable.h" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="_hash_table_8h_1a98bc3fde19157e563874e441914eb756" prot="public" static="no">
+        <type><ref refid="storage__types_8h_1a2552a37cd3427c39d92cb8fd23c90408" kindref="member">value_id_t</ref></type>
+        <definition>typedef value_id_t aggregate_single_key_t</definition>
+        <argsstring></argsstring>
+        <name>aggregate_single_key_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/HashTable.h" line="27" bodyfile="/home/grund/hyrise/src/lib/storage/HashTable.h" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="_hash_table_8h_1a06321f5478b1436d5e12f948a5dced76" prot="public" static="no">
+        <type>size_t</type>
+        <definition>typedef size_t join_single_key_t</definition>
+        <argsstring></argsstring>
+        <name>join_single_key_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/HashTable.h" line="29" bodyfile="/home/grund/hyrise/src/lib/storage/HashTable.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="_hash_table_8h_1a0b2bdc5f2c640615cb1a2c969ac03dca" prot="public" static="no">
+        <type>std::unordered_multimap&lt; <ref refid="_hash_table_8h_1a60e693d2bbe5e49472d43346ec2209c7" kindref="member">aggregate_key_t</ref>, <ref refid="storage__types_8h_1a866dd5ae291f599db49986f6aa5ba77a" kindref="member">pos_t</ref>, <ref refid="class_group_key_hash" kindref="compound">GroupKeyHash</ref>&lt; <ref refid="_hash_table_8h_1a60e693d2bbe5e49472d43346ec2209c7" kindref="member">aggregate_key_t</ref> &gt; &gt;</type>
+        <definition>typedef std::unordered_multimap&lt;aggregate_key_t, pos_t, GroupKeyHash&lt;aggregate_key_t&gt; &gt; aggregate_hash_map_t</definition>
+        <argsstring></argsstring>
+        <name>aggregate_hash_map_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/HashTable.h" line="126" bodyfile="/home/grund/hyrise/src/lib/storage/HashTable.h" bodystart="126" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="_hash_table_8h_1abd09893a4d98e480ee7f21ac5e584cee" prot="public" static="no">
+        <type>std::unordered_multimap&lt; <ref refid="_hash_table_8h_1ae4b0eac206665c86e85740d5fdb4a590" kindref="member">join_key_t</ref>, <ref refid="storage__types_8h_1a866dd5ae291f599db49986f6aa5ba77a" kindref="member">pos_t</ref>, <ref refid="class_group_key_hash" kindref="compound">GroupKeyHash</ref>&lt; <ref refid="_hash_table_8h_1ae4b0eac206665c86e85740d5fdb4a590" kindref="member">join_key_t</ref> &gt; &gt;</type>
+        <definition>typedef std::unordered_multimap&lt;join_key_t, pos_t, GroupKeyHash&lt;join_key_t&gt; &gt; join_hash_map_t</definition>
+        <argsstring></argsstring>
+        <name>join_hash_map_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/HashTable.h" line="127" bodyfile="/home/grund/hyrise/src/lib/storage/HashTable.h" bodystart="127" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="_hash_table_8h_1ab37b9c3129ada7b5c1ff7521398baf9e" prot="public" static="no">
+        <type>std::unordered_multimap&lt; <ref refid="_hash_table_8h_1a98bc3fde19157e563874e441914eb756" kindref="member">aggregate_single_key_t</ref>, <ref refid="storage__types_8h_1a866dd5ae291f599db49986f6aa5ba77a" kindref="member">pos_t</ref>, <ref refid="class_single_group_key_hash" kindref="compound">SingleGroupKeyHash</ref>&lt; <ref refid="_hash_table_8h_1a98bc3fde19157e563874e441914eb756" kindref="member">aggregate_single_key_t</ref> &gt; &gt;</type>
+        <definition>typedef std::unordered_multimap&lt;aggregate_single_key_t, pos_t, SingleGroupKeyHash&lt;aggregate_single_key_t&gt; &gt; aggregate_single_hash_map_t</definition>
+        <argsstring></argsstring>
+        <name>aggregate_single_hash_map_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/HashTable.h" line="130" bodyfile="/home/grund/hyrise/src/lib/storage/HashTable.h" bodystart="130" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="_hash_table_8h_1a895f1d62c2569c39c3e7fac9b70e0987" prot="public" static="no">
+        <type>std::unordered_multimap&lt; <ref refid="_hash_table_8h_1a06321f5478b1436d5e12f948a5dced76" kindref="member">join_single_key_t</ref>, <ref refid="storage__types_8h_1a866dd5ae291f599db49986f6aa5ba77a" kindref="member">pos_t</ref>, <ref refid="class_single_group_key_hash" kindref="compound">SingleGroupKeyHash</ref>&lt; <ref refid="_hash_table_8h_1a06321f5478b1436d5e12f948a5dced76" kindref="member">join_single_key_t</ref> &gt; &gt;</type>
+        <definition>typedef std::unordered_multimap&lt;join_single_key_t, pos_t, SingleGroupKeyHash&lt;join_single_key_t&gt; &gt; join_single_hash_map_t</definition>
+        <argsstring></argsstring>
+        <name>join_single_hash_map_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/HashTable.h" line="131" bodyfile="/home/grund/hyrise/src/lib/storage/HashTable.h" bodystart="131" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="_hash_table_8h_1aa8ccb42a2efc1f5be0729302755a8726" prot="public" static="no">
+        <type><ref refid="class_hash_table" kindref="compound">HashTable</ref>&lt; <ref refid="_hash_table_8h_1a0b2bdc5f2c640615cb1a2c969ac03dca" kindref="member">aggregate_hash_map_t</ref>, <ref refid="_hash_table_8h_1a60e693d2bbe5e49472d43346ec2209c7" kindref="member">aggregate_key_t</ref> &gt;</type>
+        <definition>typedef HashTable&lt;aggregate_hash_map_t, aggregate_key_t&gt; AggregateHashTable</definition>
+        <argsstring></argsstring>
+        <name>AggregateHashTable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/HashTable.h" line="135" bodyfile="/home/grund/hyrise/src/lib/storage/HashTable.h" bodystart="134" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="_hash_table_8h_1aa72ab2e62e6d9a19d0f72406e197a127" prot="public" static="no">
+        <type><ref refid="class_hash_table" kindref="compound">HashTable</ref>&lt; <ref refid="_hash_table_8h_1abd09893a4d98e480ee7f21ac5e584cee" kindref="member">join_hash_map_t</ref>, <ref refid="_hash_table_8h_1ae4b0eac206665c86e85740d5fdb4a590" kindref="member">join_key_t</ref> &gt;</type>
+        <definition>typedef HashTable&lt;join_hash_map_t, join_key_t&gt; JoinHashTable</definition>
+        <argsstring></argsstring>
+        <name>JoinHashTable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/HashTable.h" line="136" bodyfile="/home/grund/hyrise/src/lib/storage/HashTable.h" bodystart="136" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="_hash_table_8h_1a229912eaa7ae399dd08a69c3084bffbb" prot="public" static="no">
+        <type><ref refid="class_hash_table" kindref="compound">HashTable</ref>&lt; <ref refid="_hash_table_8h_1ab37b9c3129ada7b5c1ff7521398baf9e" kindref="member">aggregate_single_hash_map_t</ref>, <ref refid="_hash_table_8h_1a98bc3fde19157e563874e441914eb756" kindref="member">aggregate_single_key_t</ref> &gt;</type>
+        <definition>typedef HashTable&lt;aggregate_single_hash_map_t, aggregate_single_key_t&gt; SingleAggregateHashTable</definition>
+        <argsstring></argsstring>
+        <name>SingleAggregateHashTable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/HashTable.h" line="139" bodyfile="/home/grund/hyrise/src/lib/storage/HashTable.h" bodystart="139" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="_hash_table_8h_1a61bc67a9344e19133ab44293374fab7f" prot="public" static="no">
+        <type><ref refid="class_hash_table" kindref="compound">HashTable</ref>&lt; <ref refid="_hash_table_8h_1a895f1d62c2569c39c3e7fac9b70e0987" kindref="member">join_single_hash_map_t</ref>, <ref refid="_hash_table_8h_1a06321f5478b1436d5e12f948a5dced76" kindref="member">join_single_key_t</ref> &gt;</type>
+        <definition>typedef HashTable&lt;join_single_hash_map_t, join_single_key_t&gt; SingleJoinHashTable</definition>
+        <argsstring></argsstring>
+        <name>SingleJoinHashTable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/HashTable.h" line="140" bodyfile="/home/grund/hyrise/src/lib/storage/HashTable.h" bodystart="140" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>2012<sp/>Hasso-Plattner-Institut<sp/>fuer<sp/>Softwaresystemtechnik<sp/>GmbH.<sp/>All<sp/>rights<sp/>reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SRC_LIB_STORAGE_HASHTABLE_H_</highlight></codeline>
+<codeline lineno="3"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SRC_LIB_STORAGE_HASHTABLE_H_</highlight></codeline>
+<codeline lineno="4"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;atomic&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;set&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;unordered_map&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;memory&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="types_8h" kindref="compound">helper/types.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="checked__cast_8h" kindref="compound">helper/checked_cast.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_abstract_hash_table_8h" kindref="compound">storage/AbstractHashTable.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_abstract_table_8h" kindref="compound">storage/AbstractTable.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="meta__storage_8h" kindref="compound">storage/meta_storage.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="hash__functor_8h" kindref="compound">storage/hash_functor.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="storage__types_8h" kindref="compound">storage/storage_types.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19" refid="_hash_table_8h_1a60e693d2bbe5e49472d43346ec2209c7" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>MAP,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>KEY&gt;<sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_hash_table_view" kindref="compound">HashTableView</ref>;</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Group<sp/>of<sp/>value_ids<sp/>as<sp/>key<sp/>to<sp/>an<sp/>unordered<sp/>map</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>std::vector&lt;value_id_t&gt;<sp/><ref refid="_hash_table_8h_1a60e693d2bbe5e49472d43346ec2209c7" kindref="member">aggregate_key_t</ref>;</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Group<sp/>of<sp/>hashed<sp/>values<sp/>as<sp/>key<sp/>to<sp/>an<sp/>unordered<sp/>map</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24" refid="_hash_table_8h_1ae4b0eac206665c86e85740d5fdb4a590" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>std::vector&lt;size_t&gt;<sp/><ref refid="_hash_table_8h_1ae4b0eac206665c86e85740d5fdb4a590" kindref="member">join_key_t</ref>;</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Single<sp/>Value<sp/>ID<sp/>as<sp/>key<sp/>to<sp/>unordered<sp/>map</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27" refid="_hash_table_8h_1a98bc3fde19157e563874e441914eb756" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/><ref refid="storage__types_8h_1a2552a37cd3427c39d92cb8fd23c90408" kindref="member">value_id_t</ref><sp/><ref refid="_hash_table_8h_1a98bc3fde19157e563874e441914eb756" kindref="member">aggregate_single_key_t</ref>;</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="comment">// Single<sp/>Hashed<sp/>Value</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29" refid="_hash_table_8h_1a06321f5478b1436d5e12f948a5dced76" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="_hash_table_8h_1a06321f5478b1436d5e12f948a5dced76" kindref="member">join_single_key_t</ref>;</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>hash_value(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref><sp/>&amp;source,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>&amp;f,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="class_value_id" kindref="compound">ValueId</ref><sp/>&amp;vid)<sp/>{</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><ref refid="structhyrise_1_1storage_1_1hash__functor" kindref="compound">hyrise::storage::hash_functor&lt;size_t&gt;</ref><sp/>fun(source.get(),<sp/>f,<sp/>vid);</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><ref refid="structhyrise_1_1storage_1_1type__switch" kindref="compound">hyrise::storage::type_switch&lt;hyrise_basic_types&gt;</ref><sp/>ts;</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>ts(source-&gt;typeOfColumn(f),<sp/>fun);</highlight></codeline>
+<codeline lineno="37"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>HashResult&gt;</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>HashResult::value_type<sp/>extract(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref><sp/>&amp;table,</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>&amp;field,</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="class_value_id" kindref="compound">ValueId</ref><sp/>&amp;vid);</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;&gt;</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>join_key_t::value_type<sp/>extract&lt;join_key_t&gt;(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref><sp/>&amp;table,</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>&amp;field,</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="class_value_id" kindref="compound">ValueId</ref><sp/>&amp;vid)<sp/>{</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>hash_value(table,<sp/>field,<sp/>vid);</highlight></codeline>
+<codeline lineno="49"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;&gt;</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>aggregate_key_t::value_type<sp/>extract&lt;aggregate_key_t&gt;(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref><sp/>&amp;table,</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>&amp;field,</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="class_value_id" kindref="compound">ValueId</ref><sp/>&amp;vid)<sp/>{</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>vid.<ref refid="class_value_id_1aba4b7fbd1c7acac6ae904e2e5862c7af" kindref="member">valueId</ref>;</highlight></codeline>
+<codeline lineno="56"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Helper<sp/>Functions<sp/>for<sp/>Single<sp/>Values</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>HashResult&gt;</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>HashResult<sp/>extractSingle(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref><sp/>&amp;table,</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>&amp;field,</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="class_value_id" kindref="compound">ValueId</ref><sp/>&amp;vid);</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;&gt;</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/><ref refid="_hash_table_8h_1a06321f5478b1436d5e12f948a5dced76" kindref="member">join_single_key_t</ref><sp/>extractSingle&lt;join_single_key_t&gt;(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref><sp/>&amp;table,</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>&amp;field,</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="class_value_id" kindref="compound">ValueId</ref><sp/>&amp;vid)<sp/>{</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>hash_value(table,<sp/>field,<sp/>vid);</highlight></codeline>
+<codeline lineno="69"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;&gt;</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/><ref refid="_hash_table_8h_1a98bc3fde19157e563874e441914eb756" kindref="member">aggregate_single_key_t</ref><sp/>extractSingle&lt;aggregate_single_key_t&gt;(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref><sp/>&amp;table,</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>&amp;field,</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="class_value_id" kindref="compound">ValueId</ref><sp/>&amp;vid)<sp/>{</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>vid.<ref refid="class_value_id_1aba4b7fbd1c7acac6ae904e2e5862c7af" kindref="member">valueId</ref>;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight><highlight class="comment">//<sp/>hash<sp/>function<sp/>for<sp/>aggregate_key_t</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
+<codeline lineno="82" refid="class_group_key_hash" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_group_key_hash" kindref="compound">GroupKeyHash</ref><sp/>{</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="84" refid="class_group_key_hash_1a69d1f05769517e55e9b023a5c6795231" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="class_group_key_hash_1a69d1f05769517e55e9b023a5c6795231" kindref="member">operator()</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>T<sp/>&amp;key)</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>hasher<sp/>=<sp/>std::hash&lt;value_id_t&gt;();</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/>std::size_t<sp/>seed<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0,<sp/><ref refid="namespacehyrise_1_1index_1a6cc7ae44ec076f2a65677c1e42025e0f" kindref="member">key_size</ref><sp/>=<sp/>key.size();</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>i<sp/>&lt;<sp/><ref refid="namespacehyrise_1_1index_1a6cc7ae44ec076f2a65677c1e42025e0f" kindref="member">key_size</ref>;<sp/>++i)<sp/>{</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>compare<sp/>boost<sp/>hash_combine</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>seed<sp/>^=<sp/>hasher(key[i])<sp/>+<sp/>0x9e3779b9<sp/>+<sp/>(seed<sp/>&lt;&lt;<sp/>6)<sp/>+<sp/>(seed<sp/>&gt;&gt;<sp/>2);</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>seed;</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96" refid="class_group_key_hash_1a7c2b389683d8ff91780e28f0bb278736" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>T<sp/><ref refid="class_group_key_hash_1a7c2b389683d8ff91780e28f0bb278736" kindref="member">getGroupKey</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref><sp/>&amp;table,</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="storage__types_8h_1a36fbc31395a53b7ece189846e4d3253c" kindref="member">field_list_t</ref><sp/>&amp;columns,</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>fieldCount,</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="storage__types_8h_1a866dd5ae291f599db49986f6aa5ba77a" kindref="member">pos_t</ref><sp/>row)<sp/>{</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="storage__types_8h_1aa70e7ba5eb63399a65e9cfb52c2bd86e" kindref="member">ValueIdList</ref><sp/>value_list<sp/>=<sp/>table-&gt;copyValueIds(row,<sp/>&amp;columns);</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/>T<sp/>key;</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0,<sp/><ref refid="namespacehyrise_1_1index_1a6cc7ae44ec076f2a65677c1e42025e0f" kindref="member">key_size</ref><sp/>=<sp/>fieldCount;<sp/>i<sp/>&lt;<sp/><ref refid="namespacehyrise_1_1index_1a6cc7ae44ec076f2a65677c1e42025e0f" kindref="member">key_size</ref>;<sp/>i++)</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>key.push_back(extract&lt;T&gt;(table,<sp/>columns[i],<sp/>value_list[i]));</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>key;</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="106"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Simple<sp/>Hash<sp/>Function<sp/>for<sp/>single<sp/>values</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
+<codeline lineno="110" refid="class_single_group_key_hash" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_single_group_key_hash" kindref="compound">SingleGroupKeyHash</ref><sp/>{</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="112" refid="class_single_group_key_hash_1ac32621e39834c7d036ff0363337bd90f" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="class_single_group_key_hash_1ac32621e39834c7d036ff0363337bd90f" kindref="member">operator()</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>T<sp/>&amp;key)</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>hasher<sp/>=<sp/>std::hash&lt;value_id_t&gt;();</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>hasher(key);</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight></codeline>
+<codeline lineno="117" refid="class_single_group_key_hash_1a52706a5b2d55da1acd4c6abb8f9644eb" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>T<sp/><ref refid="class_single_group_key_hash_1a52706a5b2d55da1acd4c6abb8f9644eb" kindref="member">getGroupKey</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref><sp/>&amp;table,</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="storage__types_8h_1a36fbc31395a53b7ece189846e4d3253c" kindref="member">field_list_t</ref><sp/>&amp;columns,</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>fieldCount,</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="storage__types_8h_1a866dd5ae291f599db49986f6aa5ba77a" kindref="member">pos_t</ref><sp/>row){</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>extractSingle&lt;T&gt;(table,<sp/>columns[0],<sp/>table-&gt;getValueId(columns[0],<sp/>row));</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="123"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Multi<sp/>Keys</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="126" refid="_hash_table_8h_1a0b2bdc5f2c640615cb1a2c969ac03dca" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>std::unordered_multimap&lt;aggregate_key_t,<sp/>pos_t,<sp/>GroupKeyHash&lt;aggregate_key_t&gt;<sp/>&gt;<sp/><ref refid="_hash_table_8h_1a0b2bdc5f2c640615cb1a2c969ac03dca" kindref="member">aggregate_hash_map_t</ref>;</highlight></codeline>
+<codeline lineno="127" refid="_hash_table_8h_1abd09893a4d98e480ee7f21ac5e584cee" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>std::unordered_multimap&lt;join_key_t,<sp/>pos_t,<sp/>GroupKeyHash&lt;join_key_t&gt;<sp/>&gt;<sp/><ref refid="_hash_table_8h_1abd09893a4d98e480ee7f21ac5e584cee" kindref="member">join_hash_map_t</ref>;</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Single<sp/>Keys</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="130" refid="_hash_table_8h_1ab37b9c3129ada7b5c1ff7521398baf9e" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>std::unordered_multimap&lt;aggregate_single_key_t,<sp/>pos_t,<sp/>SingleGroupKeyHash&lt;aggregate_single_key_t&gt;<sp/>&gt;<sp/><ref refid="_hash_table_8h_1ab37b9c3129ada7b5c1ff7521398baf9e" kindref="member">aggregate_single_hash_map_t</ref>;</highlight></codeline>
+<codeline lineno="131" refid="_hash_table_8h_1a895f1d62c2569c39c3e7fac9b70e0987" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>std::unordered_multimap&lt;join_single_key_t,<sp/>pos_t,<sp/>SingleGroupKeyHash&lt;join_single_key_t&gt;<sp/>&gt;<sp/><ref refid="_hash_table_8h_1a895f1d62c2569c39c3e7fac9b70e0987" kindref="member">join_single_hash_map_t</ref>;</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight></codeline>
+<codeline lineno="134" refid="_hash_table_8h_1aa8ccb42a2efc1f5be0729302755a8726" refkind="member"><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>MAP,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>KEY&gt;<sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_hash_table" kindref="compound" tooltip="Uses valueIds of specified columns as key for an unordered_multimap.">HashTable</ref>;</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/><ref refid="class_hash_table" kindref="compound" tooltip="Uses valueIds of specified columns as key for an unordered_multimap.">HashTable&lt;aggregate_hash_map_t, aggregate_key_t&gt;</ref><sp/><ref refid="_hash_table_8h_1aa8ccb42a2efc1f5be0729302755a8726" kindref="member">AggregateHashTable</ref>;</highlight></codeline>
+<codeline lineno="136" refid="_hash_table_8h_1aa72ab2e62e6d9a19d0f72406e197a127" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/><ref refid="class_hash_table" kindref="compound" tooltip="Uses valueIds of specified columns as key for an unordered_multimap.">HashTable&lt;join_hash_map_t, join_key_t&gt;</ref><sp/><ref refid="_hash_table_8h_1aa72ab2e62e6d9a19d0f72406e197a127" kindref="member">JoinHashTable</ref>;</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight><highlight class="comment">//<sp/>HashTables<sp/>for<sp/>single<sp/>values</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="139" refid="_hash_table_8h_1a229912eaa7ae399dd08a69c3084bffbb" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/><ref refid="class_hash_table" kindref="compound" tooltip="Uses valueIds of specified columns as key for an unordered_multimap.">HashTable&lt;aggregate_single_hash_map_t, aggregate_single_key_t&gt;</ref><sp/><ref refid="_hash_table_8h_1a229912eaa7ae399dd08a69c3084bffbb" kindref="member">SingleAggregateHashTable</ref>;</highlight></codeline>
+<codeline lineno="140" refid="_hash_table_8h_1a61bc67a9344e19133ab44293374fab7f" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/><ref refid="class_hash_table" kindref="compound" tooltip="Uses valueIds of specified columns as key for an unordered_multimap.">HashTable&lt;join_single_hash_map_t, join_single_key_t&gt;</ref><sp/><ref refid="_hash_table_8h_1a61bc67a9344e19133ab44293374fab7f" kindref="member">SingleJoinHashTable</ref>;</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight></codeline>
+<codeline lineno="143"><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>MAP,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>KEY&gt;</highlight></codeline>
+<codeline lineno="144" refid="class_hash_table" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_hash_table" kindref="compound" tooltip="Uses valueIds of specified columns as key for an unordered_multimap.">HashTable</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="class_abstract_hash_table" kindref="compound" tooltip="HashTable that maps table cells&amp;#39; hashed values of arbitrary columns to their rows.">AbstractHashTable</ref>,<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/>std::enable_shared_from_this&lt;HashTable&lt;MAP,<sp/>KEY&gt;<sp/>&gt;<sp/>{</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="146" refid="class_hash_table_1a047f73842d92769b3142558cac69843f" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>KEY<sp/><ref refid="class_hash_table_1a047f73842d92769b3142558cac69843f" kindref="member">key_t</ref>;</highlight></codeline>
+<codeline lineno="147" refid="class_hash_table_1a0179f9c43ff6437197c40b484d6b02ea" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>MAP<sp/><ref refid="class_hash_table_1a0179f9c43ff6437197c40b484d6b02ea" kindref="member">map_t</ref>;</highlight></codeline>
+<codeline lineno="148" refid="class_hash_table_1aa83d31bd3275b48e9358d0cd34891cef" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>map_t::const_iterator<sp/><ref refid="class_hash_table_1aa83d31bd3275b48e9358d0cd34891cef" kindref="member">map_const_iterator_t</ref>;</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/><ref refid="class_hash_table_1aaedf16cbd982dd5ab0e24cb565cf0efb" kindref="member">decltype</ref>(std::declval&lt;const<sp/>map_t&gt;().equal_range(<ref refid="class_hash_table_1a047f73842d92769b3142558cac69843f" kindref="member">key_t</ref>()))<sp/>map_const_range_t;</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal">protected:</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Underlaying<sp/>storage<sp/>type</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="154" refid="class_hash_table_1a28b5a2062cba58dcd811ecbee0007132" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="class_hash_table_1a0179f9c43ff6437197c40b484d6b02ea" kindref="member">map_t</ref><sp/><ref refid="class_hash_table_1a28b5a2062cba58dcd811ecbee0007132" kindref="member">_map</ref>;</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"></highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Reference<sp/>to<sp/>the<sp/>table</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="157" refid="class_hash_table_1a72f59a84b9d3795a1a97a42fd83ac50a" refkind="member"><highlight class="normal"><sp/><sp/>hyrise::storage::<ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">c_atable_ptr_t</ref><sp/><ref refid="class_hash_table_1a72f59a84b9d3795a1a97a42fd83ac50a" kindref="member">_table</ref>;</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Fields<sp/>in<sp/>map</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="160" refid="class_hash_table_1a0e812b3071f373f0798c6dd033e89f8a" refkind="member"><highlight class="normal"><sp/><sp/>const<sp/><ref refid="storage__types_8h_1a36fbc31395a53b7ece189846e4d3253c" kindref="member">field_list_t</ref><sp/><ref refid="class_hash_table_1a0e812b3071f373f0798c6dd033e89f8a" kindref="member">_fields</ref>;</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Cached<sp/>num<sp/>keys</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="163" refid="class_hash_table_1a23d442692770a917367237e2acb5aea7" refkind="member"><highlight class="normal"><sp/><sp/>mutable<sp/>std::atomic&lt;uint64_t&gt;<sp/><ref refid="class_hash_table_1a23d442692770a917367237e2acb5aea7" kindref="member">_numKeys</ref>;</highlight></codeline>
+<codeline lineno="164" refid="class_hash_table_1acc6e591c0d7f4bb20bfd93baf6005198" refkind="member"><highlight class="normal"><sp/><sp/>mutable<sp/>std::atomic&lt;</highlight><highlight class="keywordtype">bool</highlight><highlight class="normal">&gt;<sp/><ref refid="class_hash_table_1acc6e591c0d7f4bb20bfd93baf6005198" kindref="member">_dirty</ref>;</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="normal">private:</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>populates<sp/>map<sp/>with<sp/>values</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="169" refid="class_hash_table_1aead2bdc1f9f6ec2139110e50a8021424" refkind="member"><highlight class="normal"><sp/><sp/>inline<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_hash_table_1aead2bdc1f9f6ec2139110e50a8021424" kindref="member">populate_map</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>row_offset<sp/>=<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/>_dirty<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>fieldSize<sp/>=<sp/>_fields.size();</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>tableSize<sp/>=<sp/>_table-&gt;size();</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(<ref refid="storage__types_8h_1a866dd5ae291f599db49986f6aa5ba77a" kindref="member">pos_t</ref><sp/>row<sp/>=<sp/>0;<sp/>row<sp/>&lt;<sp/>tableSize;<sp/>++row)<sp/>{</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_hash_table_1a047f73842d92769b3142558cac69843f" kindref="member">key_t</ref><sp/>key<sp/>=<sp/>MAP::hasher::getGroupKey(_table,<sp/>_fields,<sp/>fieldSize,<sp/>row);</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>_map.insert(</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>map_t::value_type(key,<sp/>row<sp/>+<sp/>row_offset));</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"></highlight></codeline>
+<codeline lineno="179" refid="class_hash_table_1aac1bc729a636819f08a2e4b8d7867fb7" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="storage__types_8h_1a543d59ef56384af4a7af9aa551bc6825" kindref="member">pos_list_t</ref><sp/><ref refid="class_hash_table_1aac1bc729a636819f08a2e4b8d7867fb7" kindref="member">constructPositions</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>map_const_range_t<sp/>&amp;range)</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="class_hash_table_1aac1bc729a636819f08a2e4b8d7867fb7" kindref="member">constructPositions</ref>(range.first,<sp/>range.second);</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"></highlight></codeline>
+<codeline lineno="183" refid="class_hash_table_1a9d5811f231f76eb79030140ca774072f" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="storage__types_8h_1a543d59ef56384af4a7af9aa551bc6825" kindref="member">pos_list_t</ref><sp/><ref refid="class_hash_table_1a9d5811f231f76eb79030140ca774072f" kindref="member">constructPositions</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="class_hash_table_1aa83d31bd3275b48e9358d0cd34891cef" kindref="member">map_const_iterator_t</ref><sp/>&amp;begin,<sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="class_hash_table_1aa83d31bd3275b48e9358d0cd34891cef" kindref="member">map_const_iterator_t</ref><sp/>&amp;end)</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="storage__types_8h_1a543d59ef56384af4a7af9aa551bc6825" kindref="member">pos_list_t</ref><sp/>positions(std::distance(begin,<sp/>end));</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>decltype(*range.first)<sp/>returns<sp/>the<sp/>type<sp/>of<sp/>iterator<sp/>elements</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/>std::transform(begin,<sp/>end,<sp/>positions.begin(),<sp/>[&amp;](<ref refid="class_hash_table_1aaedf16cbd982dd5ab0e24cb565cf0efb" kindref="member">decltype</ref>(*begin)&amp;<sp/>value)<sp/>{</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>value.second;</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/>});</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>positions;</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"></highlight></codeline>
+<codeline lineno="192"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="193" refid="class_hash_table_1a0b0283bbc499ed01295071c50083da8e" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="class_hash_table_1a0b0283bbc499ed01295071c50083da8e" kindref="member">HashTable</ref>()<sp/>{}</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"></highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>create<sp/>a<sp/>new<sp/>HashTable<sp/>based<sp/>on<sp/>a<sp/>number<sp/>of<sp/>HashTables</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="196" refid="class_hash_table_1a07c15700be1f198a139d2791b6a3d8c8" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">explicit</highlight><highlight class="normal"><sp/><ref refid="class_hash_table_1a07c15700be1f198a139d2791b6a3d8c8" kindref="member">HashTable</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;std::shared_ptr&lt;const<sp/>AbstractHashTable&gt;<sp/>&gt;&amp;<sp/>hashTables)<sp/>{</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_hash_table_1acc6e591c0d7f4bb20bfd93baf6005198" kindref="member">_dirty</ref><sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>&amp;<sp/>nextElement:<sp/>hashTables)<sp/>{</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal">&amp;<sp/>ht<sp/>=<sp/><ref refid="checked__cast_8h_1ab1a6688a6284640c3040705ab0ff138c" kindref="member">checked_pointer_cast</ref>&lt;</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="class_hash_table" kindref="compound" tooltip="Uses valueIds of specified columns as key for an unordered_multimap.">HashTable&lt;MAP, KEY&gt;</ref>&gt;(nextElement);</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_hash_table_1a28b5a2062cba58dcd811ecbee0007132" kindref="member">_map</ref>.insert(ht-&gt;getMapBegin(),<sp/>ht-&gt;getMapEnd());</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"></highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Hash<sp/>given<sp/>table&apos;s<sp/>columns<sp/>directly<sp/>into<sp/>the<sp/>new<sp/>HashTable</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>row_offset<sp/>is<sp/>used<sp/>if<sp/>t<sp/>is<sp/>a<sp/>TableRangeView,<sp/>so<sp/>that<sp/>the<sp/>HashTable<sp/>can<sp/>build<sp/>the<sp/>pos_lists<sp/>based<sp/>on<sp/>the<sp/>row<sp/>numbers<sp/>of<sp/>the<sp/>original<sp/>table</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="206" refid="class_hash_table_1a69b666ff1c489fbf6b9e2e3d5977d4ae" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="class_hash_table_1a0b0283bbc499ed01295071c50083da8e" kindref="member">HashTable</ref>(<ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref><sp/>t,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="storage__types_8h_1a36fbc31395a53b7ece189846e4d3253c" kindref="member">field_list_t</ref><sp/>&amp;f,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>row_offset<sp/>=<sp/>0)</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/>:<sp/><ref refid="class_hash_table_1a72f59a84b9d3795a1a97a42fd83ac50a" kindref="member">_table</ref>(t),<sp/><ref refid="class_hash_table_1a0e812b3071f373f0798c6dd033e89f8a" kindref="member">_fields</ref>(f),<sp/><ref refid="class_hash_table_1a23d442692770a917367237e2acb5aea7" kindref="member">_numKeys</ref>(0),<sp/><ref refid="class_hash_table_1acc6e591c0d7f4bb20bfd93baf6005198" kindref="member">_dirty</ref>(true)<sp/>{</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_hash_table_1aead2bdc1f9f6ec2139110e50a8021424" kindref="member">populate_map</ref>(row_offset);</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"></highlight></codeline>
+<codeline lineno="211" refid="class_hash_table_1ab0460688ef0e3076a41e1543c5b45330" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="class_hash_table_1ab0460688ef0e3076a41e1543c5b45330" kindref="member">~HashTable</ref>()<sp/>{}</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"></highlight></codeline>
+<codeline lineno="213" refid="class_hash_table_1af51bb677e3b94cef0c0ce5751fdf6504" refkind="member"><highlight class="normal"><sp/><sp/>std::string<sp/><ref refid="class_hash_table_1af51bb677e3b94cef0c0ce5751fdf6504" kindref="member">stats</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/>std::stringstream<sp/>s;</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/>s<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Load<sp/>Factor<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/><ref refid="class_hash_table_1a28b5a2062cba58dcd811ecbee0007132" kindref="member">_map</ref>.load_factor()<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>/<sp/>&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/>s<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Max<sp/>Load<sp/>Factor<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/><ref refid="class_hash_table_1a28b5a2062cba58dcd811ecbee0007132" kindref="member">_map</ref>.max_load_factor()<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>/<sp/>&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/>s<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Bucket<sp/>Count<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/><ref refid="class_hash_table_1a28b5a2062cba58dcd811ecbee0007132" kindref="member">_map</ref>.bucket_count();</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>s.str();</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"></highlight></codeline>
+<codeline lineno="221" refid="class_hash_table_1a6717e1c80546e1a7ca30cc8f74876c1d" refkind="member"><highlight class="normal"><sp/><sp/>std::shared_ptr&lt;HashTableView&lt;MAP,<sp/>KEY&gt;<sp/>&gt;<sp/><ref refid="class_hash_table_1a6717e1c80546e1a7ca30cc8f74876c1d" kindref="member">view</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>first,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>last)</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>std::make_shared&lt;HashTableView&lt;MAP,<sp/>KEY&gt;&gt;(this-&gt;shared_from_this(),<sp/>first,<sp/>last);</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"></highlight></codeline>
+<codeline lineno="226" refid="class_hash_table_1a789cc85d0fd1dbe33e1ba1004cef1861" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="class_hash_table_1a789cc85d0fd1dbe33e1ba1004cef1861" kindref="member" tooltip="Returns the number of key value pairs of underlying hash map structure.">size</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="class_hash_table_1a28b5a2062cba58dcd811ecbee0007132" kindref="member">_map</ref>.size();</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"></highlight></codeline>
+<codeline lineno="231" refid="class_hash_table_1a1013d1003d3ca319c35b50b69348b4db" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="storage__types_8h_1a543d59ef56384af4a7af9aa551bc6825" kindref="member">pos_list_t</ref><sp/></highlight><highlight class="keyword">get</highlight><highlight class="normal">(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref><sp/>&amp;table,</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="storage__types_8h_1a36fbc31395a53b7ece189846e4d3253c" kindref="member">field_list_t</ref><sp/>&amp;columns,</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="storage__types_8h_1a866dd5ae291f599db49986f6aa5ba77a" kindref="member">pos_t</ref><sp/>row)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="storage__types_8h_1a543d59ef56384af4a7af9aa551bc6825" kindref="member">pos_list_t</ref><sp/>pos_list;</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_hash_table_1a047f73842d92769b3142558cac69843f" kindref="member">key_t</ref><sp/>key<sp/>=<sp/>MAP::hasher::getGroupKey(table,<sp/>columns,<sp/>columns.size(),<sp/>row);</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>range<sp/>=<sp/><ref refid="class_hash_table_1a28b5a2062cba58dcd811ecbee0007132" kindref="member">_map</ref>.equal_range(key);</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="class_hash_table_1aac1bc729a636819f08a2e4b8d7867fb7" kindref="member">constructPositions</ref>(range);</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"></highlight></codeline>
+<codeline lineno="241" refid="class_hash_table_1a64a39ec2649be4b31aac793a0c51dc30" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="class_hash_table_1aa83d31bd3275b48e9358d0cd34891cef" kindref="member">map_const_iterator_t</ref><sp/><ref refid="class_hash_table_1a64a39ec2649be4b31aac793a0c51dc30" kindref="member" tooltip="Get const interators to underlying map&amp;#39;s begin or end.">getMapBegin</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="class_hash_table_1a28b5a2062cba58dcd811ecbee0007132" kindref="member">_map</ref>.begin();</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"></highlight></codeline>
+<codeline lineno="245" refid="class_hash_table_1a76ddc6e9290e7d493ea7f8df5b938643" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="class_hash_table_1aa83d31bd3275b48e9358d0cd34891cef" kindref="member">map_const_iterator_t</ref><sp/><ref refid="class_hash_table_1a76ddc6e9290e7d493ea7f8df5b938643" kindref="member">getMapEnd</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="class_hash_table_1a28b5a2062cba58dcd811ecbee0007132" kindref="member">_map</ref>.end();</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"></highlight></codeline>
+<codeline lineno="249" refid="class_hash_table_1aa2da956e6578c5d4803ef650ed285e34" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref><sp/><ref refid="class_hash_table_1aa2da956e6578c5d4803ef650ed285e34" kindref="member">getTable</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="class_hash_table_1a72f59a84b9d3795a1a97a42fd83ac50a" kindref="member">_table</ref>;</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"></highlight></codeline>
+<codeline lineno="253" refid="class_hash_table_1a1f2680e15591d1c3a225095aded3f771" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="storage__types_8h_1a36fbc31395a53b7ece189846e4d3253c" kindref="member">field_list_t</ref><sp/><ref refid="class_hash_table_1a1f2680e15591d1c3a225095aded3f771" kindref="member">getFields</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="class_hash_table_1a0e812b3071f373f0798c6dd033e89f8a" kindref="member">_fields</ref>;</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"></highlight></codeline>
+<codeline lineno="257" refid="class_hash_table_1aafcd0c51583ec85d75e038cd51933679" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="class_hash_table_1aafcd0c51583ec85d75e038cd51933679" kindref="member">getFieldCount</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="class_hash_table_1a0e812b3071f373f0798c6dd033e89f8a" kindref="member">_fields</ref>.size();</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"></highlight></codeline>
+<codeline lineno="261" refid="class_hash_table_1aad9965955442642d63a8f451677ccc68" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="class_hash_table_1a0179f9c43ff6437197c40b484d6b02ea" kindref="member">map_t</ref><sp/>&amp;<ref refid="class_hash_table_1aad9965955442642d63a8f451677ccc68" kindref="member">getMap</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="class_hash_table_1a28b5a2062cba58dcd811ecbee0007132" kindref="member">_map</ref>;</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"></highlight></codeline>
+<codeline lineno="265" refid="class_hash_table_1a559a3ca37809d0f3c22b85d31ffaa300" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="storage__types_8h_1a543d59ef56384af4a7af9aa551bc6825" kindref="member">pos_list_t</ref><sp/></highlight><highlight class="keyword">get</highlight><highlight class="normal">(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="class_hash_table_1a047f73842d92769b3142558cac69843f" kindref="member">key_t</ref><sp/>&amp;key)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>range<sp/>=<sp/><ref refid="class_hash_table_1a28b5a2062cba58dcd811ecbee0007132" kindref="member">_map</ref>.equal_range(key);</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="class_hash_table_1aac1bc729a636819f08a2e4b8d7867fb7" kindref="member">constructPositions</ref>(range);</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"></highlight></codeline>
+<codeline lineno="270" refid="class_hash_table_1a95083fe63df1590a5e37852ad232b71c" refkind="member"><highlight class="normal"><sp/><sp/>uint64_t<sp/><ref refid="class_hash_table_1a95083fe63df1590a5e37852ad232b71c" kindref="member">numKeys</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="class_hash_table_1acc6e591c0d7f4bb20bfd93baf6005198" kindref="member">_dirty</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>uint64_t<sp/>result<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(<ref refid="class_hash_table_1aa83d31bd3275b48e9358d0cd34891cef" kindref="member">map_const_iterator_t</ref><sp/>it1<sp/>=<sp/><ref refid="class_hash_table_1a28b5a2062cba58dcd811ecbee0007132" kindref="member">_map</ref>.begin(),<sp/>it2<sp/>=<sp/>it1,<sp/>end<sp/>=<sp/><ref refid="class_hash_table_1a28b5a2062cba58dcd811ecbee0007132" kindref="member">_map</ref>.end();<sp/>it1<sp/>!=<sp/>end;<sp/>it1<sp/>=<sp/>it2)<sp/>{</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(;<sp/>(it2<sp/>!=<sp/>end)<sp/>&amp;&amp;<sp/>(it1-&gt;first<sp/>==<sp/>it2-&gt;first);<sp/>++it2);</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>++result;</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"></highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_hash_table_1a23d442692770a917367237e2acb5aea7" kindref="member">_numKeys</ref><sp/>=<sp/>result;</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_hash_table_1acc6e591c0d7f4bb20bfd93baf6005198" kindref="member">_dirty</ref><sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="class_hash_table_1a23d442692770a917367237e2acb5aea7" kindref="member">_numKeys</ref>;</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="283"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"></highlight></codeline>
+<codeline lineno="288"><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>MAP,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>KEY&gt;</highlight></codeline>
+<codeline lineno="289" refid="class_hash_table_view" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_hash_table_view" kindref="compound">HashTableView</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="class_abstract_hash_table" kindref="compound" tooltip="HashTable that maps table cells&amp;#39; hashed values of arbitrary columns to their rows.">AbstractHashTable</ref><sp/>{</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="291" refid="class_hash_table_view_1a57b693f2548be8e3f90085a255722ac7" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/><ref refid="class_hash_table" kindref="compound" tooltip="Uses valueIds of specified columns as key for an unordered_multimap.">HashTable&lt;MAP, KEY&gt;</ref><sp/><ref refid="class_hash_table_view_1a57b693f2548be8e3f90085a255722ac7" kindref="member">hash_table_t</ref>;</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"></highlight></codeline>
+<codeline lineno="293"><highlight class="normal"></highlight><highlight class="keyword">protected</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="294" refid="class_hash_table_view_1a34ff1f2ddb062a8217002926ccc5577b" refkind="member"><highlight class="normal"><sp/><sp/>std::shared_ptr&lt;const<sp/>hash_table_t&gt;<sp/><ref refid="class_hash_table_view_1a34ff1f2ddb062a8217002926ccc5577b" kindref="member">_hashTable</ref>;</highlight></codeline>
+<codeline lineno="295" refid="class_hash_table_view_1a22c1b2214b46d80447699cde40de0e31" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/><ref refid="class_hash_table_1aa83d31bd3275b48e9358d0cd34891cef" kindref="member">hash_table_t::map_const_iterator_t</ref><sp/><ref refid="class_hash_table_view_1a22c1b2214b46d80447699cde40de0e31" kindref="member">_begin</ref>;</highlight></codeline>
+<codeline lineno="296" refid="class_hash_table_view_1ae72f80f5864fa4fc916e3ed8bdb80d66" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/><ref refid="class_hash_table_1aa83d31bd3275b48e9358d0cd34891cef" kindref="member">hash_table_t::map_const_iterator_t</ref><sp/><ref refid="class_hash_table_view_1ae72f80f5864fa4fc916e3ed8bdb80d66" kindref="member">_end</ref>;</highlight></codeline>
+<codeline lineno="297" refid="class_hash_table_view_1a547beadb6fa926d9f757fd433e3d19b1" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>KEY<sp/><ref refid="class_hash_table_view_1a547beadb6fa926d9f757fd433e3d19b1" kindref="member">key_t</ref>;</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"></highlight></codeline>
+<codeline lineno="299" refid="class_hash_table_view_1a89aeb1b76ebc3b1cebca36714df14274" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">mutable</highlight><highlight class="normal"><sp/>std::atomic&lt;uint64_t&gt;<sp/><ref refid="class_hash_table_view_1a89aeb1b76ebc3b1cebca36714df14274" kindref="member">_numKeys</ref>;</highlight></codeline>
+<codeline lineno="300" refid="class_hash_table_view_1a6bfb7fbe96af28c5f00573a2c778e850" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">mutable</highlight><highlight class="normal"><sp/>std::atomic&lt;bool&gt;<sp/><ref refid="class_hash_table_view_1a6bfb7fbe96af28c5f00573a2c778e850" kindref="member">_dirty</ref>;</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"></highlight></codeline>
+<codeline lineno="302"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="305" refid="class_hash_table_view_1a04d2163c790b3298b05904bb84dea294" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="class_hash_table_view_1a04d2163c790b3298b05904bb84dea294" kindref="member">HashTableView</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::shared_ptr&lt;const<sp/>hash_table_t&gt;&amp;<sp/>tab,</highlight></codeline>
+<codeline lineno="306"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>start,</highlight></codeline>
+<codeline lineno="307"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>end)<sp/>:</highlight></codeline>
+<codeline lineno="308"><highlight class="normal"><sp/><sp/><ref refid="class_hash_table_view_1a34ff1f2ddb062a8217002926ccc5577b" kindref="member">_hashTable</ref>(tab),<sp/><ref refid="class_hash_table_view_1a22c1b2214b46d80447699cde40de0e31" kindref="member">_begin</ref>(<ref refid="class_hash_table_view_1a34ff1f2ddb062a8217002926ccc5577b" kindref="member">_hashTable</ref>-&gt;<ref refid="class_hash_table_view_1a620d51823168c91c0a72e9723af0c04d" kindref="member" tooltip="Get const interators to underlying map&amp;#39;s begin or end.">getMapBegin</ref>()),<sp/><ref refid="class_hash_table_view_1ae72f80f5864fa4fc916e3ed8bdb80d66" kindref="member">_end</ref>(<ref refid="class_hash_table_view_1a34ff1f2ddb062a8217002926ccc5577b" kindref="member">_hashTable</ref>-&gt;<ref refid="class_hash_table_view_1a620d51823168c91c0a72e9723af0c04d" kindref="member" tooltip="Get const interators to underlying map&amp;#39;s begin or end.">getMapBegin</ref>()),<sp/><ref refid="class_hash_table_view_1a89aeb1b76ebc3b1cebca36714df14274" kindref="member">_numKeys</ref>(0),<sp/><ref refid="class_hash_table_view_1a6bfb7fbe96af28c5f00573a2c778e850" kindref="member">_dirty</ref>(true)<sp/>{</highlight></codeline>
+<codeline lineno="309"><highlight class="normal"></highlight></codeline>
+<codeline lineno="310"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_hash_table_view_1a22c1b2214b46d80447699cde40de0e31" kindref="member">_begin</ref><sp/>=<sp/><ref refid="class_hash_table_view_1a000fcca0d6ad68131f8c733d6383b928" kindref="member">advance</ref>(start);</highlight></codeline>
+<codeline lineno="311"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_hash_table_view_1ae72f80f5864fa4fc916e3ed8bdb80d66" kindref="member">_end</ref><sp/>=<sp/><ref refid="class_hash_table_view_1a000fcca0d6ad68131f8c733d6383b928" kindref="member">advance</ref>(end);</highlight></codeline>
+<codeline lineno="312"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="313"><highlight class="normal"></highlight></codeline>
+<codeline lineno="314"><highlight class="normal"></highlight></codeline>
+<codeline lineno="315" refid="class_hash_table_view_1a000fcca0d6ad68131f8c733d6383b928" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/><ref refid="class_hash_table_1aa83d31bd3275b48e9358d0cd34891cef" kindref="member">hash_table_t::map_const_iterator_t</ref><sp/><ref refid="class_hash_table_view_1a000fcca0d6ad68131f8c733d6383b928" kindref="member">advance</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>val)<sp/>{</highlight></codeline>
+<codeline lineno="316"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>counter<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="317"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(val<sp/>==<sp/>0)</highlight></codeline>
+<codeline lineno="318"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="class_hash_table_view_1a34ff1f2ddb062a8217002926ccc5577b" kindref="member">_hashTable</ref>-&gt;getMapBegin();</highlight></codeline>
+<codeline lineno="319"><highlight class="normal"></highlight></codeline>
+<codeline lineno="320"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/><ref refid="class_hash_table_1aa83d31bd3275b48e9358d0cd34891cef" kindref="member">hash_table_t::map_const_iterator_t</ref><sp/>it1<sp/>=<sp/><ref refid="class_hash_table_view_1a34ff1f2ddb062a8217002926ccc5577b" kindref="member">_hashTable</ref>-&gt;getMapBegin(),<sp/>it2<sp/>=<sp/>it1,<sp/>end<sp/>=<sp/><ref refid="class_hash_table_view_1a34ff1f2ddb062a8217002926ccc5577b" kindref="member">_hashTable</ref>-&gt;getMapEnd();<sp/></highlight></codeline>
+<codeline lineno="321"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>it1<sp/>!=<sp/>end;<sp/>it1<sp/>=<sp/>it2)<sp/>{</highlight></codeline>
+<codeline lineno="322"><highlight class="normal"></highlight></codeline>
+<codeline lineno="323"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Skip<sp/>to<sp/>next<sp/>key-value<sp/>pair</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="324"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(;<sp/>(it2<sp/>!=<sp/>end)<sp/>&amp;&amp;<sp/>(it1-&gt;first<sp/>==<sp/>it2-&gt;first);<sp/>++it2);</highlight></codeline>
+<codeline lineno="325"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(++counter<sp/>==<sp/>val)</highlight></codeline>
+<codeline lineno="326"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>it2;</highlight></codeline>
+<codeline lineno="327"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="328"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//if<sp/>(counter<sp/>==<sp/>val)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="329"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="class_hash_table_view_1a34ff1f2ddb062a8217002926ccc5577b" kindref="member">_hashTable</ref>-&gt;getMapEnd();</highlight></codeline>
+<codeline lineno="330"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//throw<sp/>std::runtime_error(&quot;Could<sp/>not<sp/>advance<sp/>to<sp/>position&quot;);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="331"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="332"><highlight class="normal"></highlight></codeline>
+<codeline lineno="333"><highlight class="normal"></highlight></codeline>
+<codeline lineno="334" refid="class_hash_table_view_1ad5fa10400db1f316557cb1cf7eec3642" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="class_hash_table_view_1ad5fa10400db1f316557cb1cf7eec3642" kindref="member">~HashTableView</ref>()<sp/>{}</highlight></codeline>
+<codeline lineno="335"><highlight class="normal"></highlight></codeline>
+<codeline lineno="337" refid="class_hash_table_view_1acacbdda6b09ed83a400f1426d5308264" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="class_hash_table_view_1acacbdda6b09ed83a400f1426d5308264" kindref="member" tooltip="Returns the number of key value pairs of underlying hash map structure.">size</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="338"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>std::distance(<ref refid="class_hash_table_view_1a22c1b2214b46d80447699cde40de0e31" kindref="member">_begin</ref>,<sp/><ref refid="class_hash_table_view_1ae72f80f5864fa4fc916e3ed8bdb80d66" kindref="member">_end</ref>);</highlight></codeline>
+<codeline lineno="339"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="340"><highlight class="normal"></highlight></codeline>
+<codeline lineno="343" refid="class_hash_table_view_1a1247a1c80f97cd0dfc43b768c4cc2388" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="storage__types_8h_1a543d59ef56384af4a7af9aa551bc6825" kindref="member">pos_list_t</ref><sp/></highlight><highlight class="keyword">get</highlight><highlight class="normal">(</highlight></codeline>
+<codeline lineno="344"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref><sp/>&amp;table,</highlight></codeline>
+<codeline lineno="345"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="storage__types_8h_1a36fbc31395a53b7ece189846e4d3253c" kindref="member">field_list_t</ref><sp/>&amp;columns,</highlight></codeline>
+<codeline lineno="346"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="storage__types_8h_1a866dd5ae291f599db49986f6aa5ba77a" kindref="member">pos_t</ref><sp/>row)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="347"><highlight class="normal"></highlight></codeline>
+<codeline lineno="348"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="storage__types_8h_1a543d59ef56384af4a7af9aa551bc6825" kindref="member">pos_list_t</ref><sp/>pos_list;</highlight></codeline>
+<codeline lineno="349"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>produce<sp/>key</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="350"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_hash_table_view_1a547beadb6fa926d9f757fd433e3d19b1" kindref="member">key_t</ref><sp/>key<sp/>=<sp/>MAP::hasher::getGroupKey(table,<sp/>columns,<sp/>columns.size(),<sp/>row);</highlight></codeline>
+<codeline lineno="351"><highlight class="normal"></highlight></codeline>
+<codeline lineno="352"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/><ref refid="class_hash_table_1aa83d31bd3275b48e9358d0cd34891cef" kindref="member">hash_table_t::map_const_iterator_t</ref><sp/>it<sp/>=<sp/><ref refid="class_hash_table_view_1a22c1b2214b46d80447699cde40de0e31" kindref="member">_begin</ref>;<sp/>it<sp/>!=<sp/><ref refid="class_hash_table_view_1ae72f80f5864fa4fc916e3ed8bdb80d66" kindref="member">_end</ref>;<sp/>++it)<sp/>{</highlight></codeline>
+<codeline lineno="353"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(it-&gt;first<sp/>==<sp/>key)<sp/>{</highlight></codeline>
+<codeline lineno="354"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pos_list.push_back(it-&gt;second);</highlight></codeline>
+<codeline lineno="355"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="356"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="357"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>pos_list;</highlight></codeline>
+<codeline lineno="358"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="359"><highlight class="normal"></highlight></codeline>
+<codeline lineno="360" refid="class_hash_table_view_1a8b6b8f9ad9986329aa4ba8353df039d5" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="storage__types_8h_1a543d59ef56384af4a7af9aa551bc6825" kindref="member">pos_list_t</ref><sp/></highlight><highlight class="keyword">get</highlight><highlight class="normal">(<ref refid="class_hash_table_view_1a547beadb6fa926d9f757fd433e3d19b1" kindref="member">key_t</ref><sp/>key)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="361"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="storage__types_8h_1a543d59ef56384af4a7af9aa551bc6825" kindref="member">pos_list_t</ref><sp/>pos_list;</highlight></codeline>
+<codeline lineno="362"><highlight class="normal"></highlight></codeline>
+<codeline lineno="363"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/><ref refid="class_hash_table_1aa83d31bd3275b48e9358d0cd34891cef" kindref="member">hash_table_t::map_const_iterator_t</ref><sp/>it<sp/>=<sp/><ref refid="class_hash_table_view_1a22c1b2214b46d80447699cde40de0e31" kindref="member">_begin</ref>;<sp/>it<sp/>!=<sp/><ref refid="class_hash_table_view_1ae72f80f5864fa4fc916e3ed8bdb80d66" kindref="member">_end</ref>;<sp/>++it)<sp/>{</highlight></codeline>
+<codeline lineno="364"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(it-&gt;first<sp/>==<sp/>key)<sp/>{</highlight></codeline>
+<codeline lineno="365"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pos_list.push_back(it-&gt;second);</highlight></codeline>
+<codeline lineno="366"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="367"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="368"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>pos_list;</highlight></codeline>
+<codeline lineno="369"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="370"><highlight class="normal"></highlight></codeline>
+<codeline lineno="371"><highlight class="normal"></highlight></codeline>
+<codeline lineno="373" refid="class_hash_table_view_1a620d51823168c91c0a72e9723af0c04d" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/><ref refid="class_hash_table_1aa83d31bd3275b48e9358d0cd34891cef" kindref="member">hash_table_t::map_const_iterator_t</ref><sp/><ref refid="class_hash_table_view_1a620d51823168c91c0a72e9723af0c04d" kindref="member" tooltip="Get const interators to underlying map&amp;#39;s begin or end.">getMapBegin</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="374"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="class_hash_table_view_1a22c1b2214b46d80447699cde40de0e31" kindref="member">_begin</ref>;</highlight></codeline>
+<codeline lineno="375"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="376" refid="class_hash_table_view_1ac437cca59ee881f25eb73ad640834d24" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/><ref refid="class_hash_table_1aa83d31bd3275b48e9358d0cd34891cef" kindref="member">hash_table_t::map_const_iterator_t</ref><sp/><ref refid="class_hash_table_view_1ac437cca59ee881f25eb73ad640834d24" kindref="member">getMapEnd</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="377"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="class_hash_table_view_1ae72f80f5864fa4fc916e3ed8bdb80d66" kindref="member">_end</ref>;</highlight></codeline>
+<codeline lineno="378"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="379"><highlight class="normal"></highlight></codeline>
+<codeline lineno="380" refid="class_hash_table_view_1a65392fe31de70aaa6560d956d021efdb" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="namespacehyrise_1_1storage_1a21d5e900c20019710828c453eaded1ee" kindref="member">hyrise::storage::atable_ptr_t</ref><sp/><ref refid="class_hash_table_view_1a65392fe31de70aaa6560d956d021efdb" kindref="member">getHashTable</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="381"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="class_hash_table_view_1a34ff1f2ddb062a8217002926ccc5577b" kindref="member">_hashTable</ref>;</highlight></codeline>
+<codeline lineno="382"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="383"><highlight class="normal"></highlight></codeline>
+<codeline lineno="384" refid="class_hash_table_view_1a2f9443d1f52dacaf270159d156ff2a4d" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="storage__types_8h_1a36fbc31395a53b7ece189846e4d3253c" kindref="member">field_list_t</ref><sp/><ref refid="class_hash_table_view_1a2f9443d1f52dacaf270159d156ff2a4d" kindref="member">getFields</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="385"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="class_hash_table_view_1a34ff1f2ddb062a8217002926ccc5577b" kindref="member">_hashTable</ref>-&gt;getFields();</highlight></codeline>
+<codeline lineno="386"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="387"><highlight class="normal"></highlight></codeline>
+<codeline lineno="388" refid="class_hash_table_view_1a583ae5cdd214967a654d703d6ac50545" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="class_hash_table_view_1a583ae5cdd214967a654d703d6ac50545" kindref="member">getFieldCount</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="389"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="class_hash_table_view_1a34ff1f2ddb062a8217002926ccc5577b" kindref="member">_hashTable</ref>-&gt;getFieldCount();</highlight></codeline>
+<codeline lineno="390"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="391"><highlight class="normal"></highlight></codeline>
+<codeline lineno="392" refid="class_hash_table_view_1afc9c195c10bb0945e01b32bb9b082b7d" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref><sp/><ref refid="class_hash_table_view_1afc9c195c10bb0945e01b32bb9b082b7d" kindref="member">getTable</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="393"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="class_hash_table_view_1a34ff1f2ddb062a8217002926ccc5577b" kindref="member">_hashTable</ref>-&gt;getTable();</highlight></codeline>
+<codeline lineno="394"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="395"><highlight class="normal"></highlight></codeline>
+<codeline lineno="396" refid="class_hash_table_view_1a93731ab4b2d7bd0b2c2dcc5f94cea2d5" refkind="member"><highlight class="normal"><sp/><sp/>uint64_t<sp/><ref refid="class_hash_table_view_1a93731ab4b2d7bd0b2c2dcc5f94cea2d5" kindref="member">numKeys</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="397"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="class_hash_table_view_1a6bfb7fbe96af28c5f00573a2c778e850" kindref="member">_dirty</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="398"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>uint64_t<sp/>result<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="399"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/><ref refid="class_hash_table_1aa83d31bd3275b48e9358d0cd34891cef" kindref="member">hash_table_t::map_const_iterator_t</ref><sp/>it1<sp/>=<sp/><ref refid="class_hash_table_view_1a22c1b2214b46d80447699cde40de0e31" kindref="member">_begin</ref>,<sp/>it2<sp/>=<sp/>it1,<sp/>end<sp/>=<sp/><ref refid="class_hash_table_view_1ae72f80f5864fa4fc916e3ed8bdb80d66" kindref="member">_end</ref>;<sp/>it1<sp/>!=<sp/>end;<sp/>it1<sp/>=<sp/>it2)<sp/>{</highlight></codeline>
+<codeline lineno="400"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(;<sp/>(it2<sp/>!=<sp/>end)<sp/>&amp;&amp;<sp/>(it1-&gt;first<sp/>==<sp/>it2-&gt;first);<sp/>++it2);</highlight></codeline>
+<codeline lineno="401"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>++result;</highlight></codeline>
+<codeline lineno="402"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="403"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="class_hash_table_view_1a89aeb1b76ebc3b1cebca36714df14274" kindref="member">_numKeys</ref><sp/>=<sp/>result;</highlight></codeline>
+<codeline lineno="404"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="405"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="class_hash_table_view_1a89aeb1b76ebc3b1cebca36714df14274" kindref="member">_numKeys</ref>;</highlight></codeline>
+<codeline lineno="406"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="407"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="408"><highlight class="normal"></highlight></codeline>
+<codeline lineno="409"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/>//<sp/>SRC_LIB_STORAGE_HASHTABLE_H_</highlight></codeline>
+    </programlisting>
+    <location file="/home/grund/hyrise/src/lib/storage/HashTable.h"/>
+  </compounddef>
+</doxygen>

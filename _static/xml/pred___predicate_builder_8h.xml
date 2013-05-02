@@ -1,0 +1,559 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="pred___predicate_builder_8h" kind="file">
+    <compoundname>pred_PredicateBuilder.h</compoundname>
+    <includes local="no">stack</includes>
+    <includes refid="pred__common_8h" local="yes">pred_common.h</includes>
+    <includes refid="pred___compound_expression_8h" local="yes">pred_CompoundExpression.h</includes>
+    <includedby refid="predicates_8h" local="yes">src/lib/access/predicates.h</includedby>
+    <includedby refid="pred___predicate_builder_8cpp" local="yes">src/lib/access/pred_PredicateBuilder.cpp</includedby>
+    <incdepgraph>
+      <node id="9421">
+        <label>list</label>
+      </node>
+      <node id="9407">
+        <label>boost/mpl/vector.hpp</label>
+      </node>
+      <node id="9402">
+        <label>limits</label>
+      </node>
+      <node id="9439">
+        <label>boost/functional/hash.hpp</label>
+      </node>
+      <node id="9415">
+        <label>assert.h</label>
+      </node>
+      <node id="9409">
+        <label>boost/lexical_cast.hpp</label>
+      </node>
+      <node id="9430">
+        <label>boost/iterator/iterator_facade.hpp</label>
+      </node>
+      <node id="9400">
+        <label>cstdint</label>
+      </node>
+      <node id="9440">
+        <label>expression_types.h</label>
+        <link refid="expression__types_8h"/>
+        <childnode refid="9436" relation="include">
+        </childnode>
+        <childnode refid="9401" relation="include">
+        </childnode>
+        <childnode refid="9441" relation="include">
+        </childnode>
+      </node>
+      <node id="9446">
+        <label>pred_CompoundExpression.h</label>
+        <link refid="pred___compound_expression_8h"/>
+        <childnode refid="9395" relation="include">
+        </childnode>
+      </node>
+      <node id="9427">
+        <label>storage/BaseDictionary.h</label>
+        <link refid="_base_dictionary_8h"/>
+        <childnode refid="9404" relation="include">
+        </childnode>
+        <childnode refid="9417" relation="include">
+        </childnode>
+        <childnode refid="9428" relation="include">
+        </childnode>
+      </node>
+      <node id="9405">
+        <label>stdint.h</label>
+      </node>
+      <node id="9426">
+        <label>stdlib.h</label>
+      </node>
+      <node id="9425">
+        <label>errno.h</label>
+      </node>
+      <node id="9397">
+        <label>stdexcept</label>
+      </node>
+      <node id="9401">
+        <label>string</label>
+      </node>
+      <node id="9395">
+        <label>pred_common.h</label>
+        <link refid="pred__common_8h"/>
+        <childnode refid="9396" relation="include">
+        </childnode>
+        <childnode refid="9397" relation="include">
+        </childnode>
+        <childnode refid="9398" relation="include">
+        </childnode>
+        <childnode refid="9399" relation="include">
+        </childnode>
+        <childnode refid="9404" relation="include">
+        </childnode>
+        <childnode refid="9410" relation="include">
+        </childnode>
+        <childnode refid="9413" relation="include">
+        </childnode>
+        <childnode refid="9440" relation="include">
+        </childnode>
+        <childnode refid="9442" relation="include">
+        </childnode>
+        <childnode refid="9443" relation="include">
+        </childnode>
+        <childnode refid="9445" relation="include">
+        </childnode>
+      </node>
+      <node id="9436">
+        <label>map</label>
+      </node>
+      <node id="9413">
+        <label>storage/ValueIdMap.hpp</label>
+        <link refid="_value_id_map_8hpp"/>
+        <childnode refid="9414" relation="include">
+        </childnode>
+        <childnode refid="9432" relation="include">
+        </childnode>
+      </node>
+      <node id="9424">
+        <label>memory/MemalignStrategy.h</label>
+        <link refid="_memalign_strategy_8h"/>
+        <childnode refid="9425" relation="include">
+        </childnode>
+        <childnode refid="9398" relation="include">
+        </childnode>
+        <childnode refid="9426" relation="include">
+        </childnode>
+      </node>
+      <node id="9435">
+        <label>exception</label>
+      </node>
+      <node id="9419">
+        <label>stddef.h</label>
+      </node>
+      <node id="9432">
+        <label>storage/OrderIndifferentDictionary.h</label>
+        <link refid="_order_indifferent_dictionary_8h"/>
+        <childnode refid="9404" relation="include">
+        </childnode>
+        <childnode refid="9417" relation="include">
+        </childnode>
+        <childnode refid="9427" relation="include">
+        </childnode>
+        <childnode refid="9428" relation="include">
+        </childnode>
+        <childnode refid="9433" relation="include">
+        </childnode>
+        <childnode refid="9431" relation="include">
+        </childnode>
+        <childnode refid="9435" relation="include">
+        </childnode>
+        <childnode refid="9396" relation="include">
+        </childnode>
+        <childnode refid="9436" relation="include">
+        </childnode>
+        <childnode refid="9403" relation="include">
+        </childnode>
+        <childnode refid="9437" relation="include">
+        </childnode>
+        <childnode refid="9438" relation="include">
+        </childnode>
+        <childnode refid="9439" relation="include">
+        </childnode>
+      </node>
+      <node id="9406">
+        <label>ostream</label>
+      </node>
+      <node id="9441">
+        <label>json.h</label>
+      </node>
+      <node id="9437">
+        <label>limits.h</label>
+      </node>
+      <node id="9428">
+        <label>storage/DictionaryIterator.h</label>
+        <link refid="_dictionary_iterator_8h"/>
+        <childnode refid="9429" relation="include">
+        </childnode>
+        <childnode refid="9430" relation="include">
+        </childnode>
+      </node>
+      <node id="9417">
+        <label>storage/AbstractDictionary.h</label>
+        <link refid="_abstract_dictionary_8h"/>
+        <childnode refid="9396" relation="include">
+        </childnode>
+        <childnode refid="9401" relation="include">
+        </childnode>
+        <childnode refid="9403" relation="include">
+        </childnode>
+        <childnode refid="9418" relation="include">
+        </childnode>
+        <childnode refid="9422" relation="include">
+        </childnode>
+        <childnode refid="9424" relation="include">
+        </childnode>
+        <childnode refid="9404" relation="include">
+        </childnode>
+      </node>
+      <node id="9444">
+        <label>access/AbstractExpression.h</label>
+        <link refid="_abstract_expression_8h"/>
+        <childnode refid="9396" relation="include">
+        </childnode>
+        <childnode refid="9399" relation="include">
+        </childnode>
+      </node>
+      <node id="9434">
+        <label>string.h</label>
+      </node>
+      <node id="9410">
+        <label>storage/AbstractTable.h</label>
+        <link refid="_abstract_table_8h"/>
+        <childnode refid="9402" relation="include">
+        </childnode>
+        <childnode refid="9403" relation="include">
+        </childnode>
+        <childnode refid="9397" relation="include">
+        </childnode>
+        <childnode refid="9396" relation="include">
+        </childnode>
+        <childnode refid="9401" relation="include">
+        </childnode>
+        <childnode refid="9399" relation="include">
+        </childnode>
+        <childnode refid="9411" relation="include">
+        </childnode>
+        <childnode refid="9404" relation="include">
+        </childnode>
+        <childnode refid="9412" relation="include">
+        </childnode>
+        <childnode refid="9413" relation="include">
+        </childnode>
+      </node>
+      <node id="9411">
+        <label>storage/AbstractResource.h</label>
+        <link refid="_abstract_resource_8h"/>
+      </node>
+      <node id="9438">
+        <label>boost/unordered_map.hpp</label>
+      </node>
+      <node id="9396">
+        <label>vector</label>
+      </node>
+      <node id="9394">
+        <label>stack</label>
+      </node>
+      <node id="9442">
+        <label>join_predicates.h</label>
+        <link refid="join__predicates_8h"/>
+        <childnode refid="9399" relation="include">
+        </childnode>
+        <childnode refid="9440" relation="include">
+        </childnode>
+      </node>
+      <node id="9399">
+        <label>helper/types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="9400" relation="include">
+        </childnode>
+        <childnode refid="9401" relation="include">
+        </childnode>
+        <childnode refid="9402" relation="include">
+        </childnode>
+        <childnode refid="9403" relation="include">
+        </childnode>
+        <childnode refid="9396" relation="include">
+        </childnode>
+      </node>
+      <node id="9443">
+        <label>pred_SimpleExpression.h</label>
+        <link refid="pred___simple_expression_8h"/>
+        <childnode refid="9404" relation="include">
+        </childnode>
+        <childnode refid="9399" relation="include">
+        </childnode>
+        <childnode refid="9444" relation="include">
+        </childnode>
+      </node>
+      <node id="9429">
+        <label>storage/BaseIterator.h</label>
+        <link refid="_base_iterator_8h"/>
+      </node>
+      <node id="9418">
+        <label>memory/StrategizedAllocator.h</label>
+        <link refid="_strategized_allocator_8h"/>
+        <childnode refid="9419" relation="include">
+        </childnode>
+        <childnode refid="9420" relation="include">
+        </childnode>
+        <childnode refid="9421" relation="include">
+        </childnode>
+        <childnode refid="9397" relation="include">
+        </childnode>
+      </node>
+      <node id="9416">
+        <label>iostream</label>
+      </node>
+      <node id="9412">
+        <label>storage/ColumnMetadata.h</label>
+        <link refid="_column_metadata_8h"/>
+        <childnode refid="9404" relation="include">
+        </childnode>
+        <childnode refid="9401" relation="include">
+        </childnode>
+        <childnode refid="9397" relation="include">
+        </childnode>
+      </node>
+      <node id="9408">
+        <label>boost/mpl/map.hpp</label>
+      </node>
+      <node id="9431">
+        <label>storage/AbstractAllocatedDictionary.h</label>
+        <link refid="_abstract_allocated_dictionary_8h"/>
+      </node>
+      <node id="9422">
+        <label>memory/MallocStrategy.h</label>
+        <link refid="_malloc_strategy_8h"/>
+        <childnode refid="9416" relation="include">
+        </childnode>
+        <childnode refid="9400" relation="include">
+        </childnode>
+        <childnode refid="9423" relation="include">
+        </childnode>
+      </node>
+      <node id="9445">
+        <label>pred_SimpleFieldExpression.h</label>
+        <link refid="pred___simple_field_expression_8h"/>
+        <childnode refid="9399" relation="include">
+        </childnode>
+        <childnode refid="9395" relation="include">
+        </childnode>
+      </node>
+      <node id="9414">
+        <label>storage/OrderPreservingDictionary.h</label>
+        <link refid="_order_preserving_dictionary_8h"/>
+        <childnode refid="9415" relation="include">
+        </childnode>
+        <childnode refid="9416" relation="include">
+        </childnode>
+        <childnode refid="9403" relation="include">
+        </childnode>
+        <childnode refid="9404" relation="include">
+        </childnode>
+        <childnode refid="9417" relation="include">
+        </childnode>
+        <childnode refid="9427" relation="include">
+        </childnode>
+        <childnode refid="9428" relation="include">
+        </childnode>
+        <childnode refid="9431" relation="include">
+        </childnode>
+        <childnode refid="9429" relation="include">
+        </childnode>
+      </node>
+      <node id="9420">
+        <label>algorithm</label>
+      </node>
+      <node id="9398">
+        <label>stdio.h</label>
+      </node>
+      <node id="9423">
+        <label>cstring</label>
+      </node>
+      <node id="9433">
+        <label>storage/csb_tree.h</label>
+        <link refid="csb__tree_8h"/>
+        <childnode refid="9396" relation="include">
+        </childnode>
+        <childnode refid="9416" relation="include">
+        </childnode>
+        <childnode refid="9421" relation="include">
+        </childnode>
+        <childnode refid="9403" relation="include">
+        </childnode>
+        <childnode refid="9434" relation="include">
+        </childnode>
+        <childnode refid="9415" relation="include">
+        </childnode>
+        <childnode refid="9430" relation="include">
+        </childnode>
+      </node>
+      <node id="9393">
+        <label>src/lib/access/pred_PredicateBuilder.h</label>
+        <link refid="pred_PredicateBuilder.h"/>
+        <childnode refid="9394" relation="include">
+        </childnode>
+        <childnode refid="9395" relation="include">
+        </childnode>
+        <childnode refid="9446" relation="include">
+        </childnode>
+      </node>
+      <node id="9403">
+        <label>memory</label>
+      </node>
+      <node id="9404">
+        <label>storage/storage_types.h</label>
+        <link refid="storage__types_8h"/>
+        <childnode refid="9396" relation="include">
+        </childnode>
+        <childnode refid="9401" relation="include">
+        </childnode>
+        <childnode refid="9397" relation="include">
+        </childnode>
+        <childnode refid="9405" relation="include">
+        </childnode>
+        <childnode refid="9406" relation="include">
+        </childnode>
+        <childnode refid="9407" relation="include">
+        </childnode>
+        <childnode refid="9408" relation="include">
+        </childnode>
+        <childnode refid="9409" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="9459">
+        <label>src/bin/perf_regression/UnionScan.cpp</label>
+        <link refid="bin_2perf__regression_2_union_scan_8cpp"/>
+      </node>
+      <node id="9460">
+        <label>src/lib/access/MergeJoin.hpp</label>
+        <link refid="_merge_join_8hpp"/>
+        <childnode refid="9451" relation="include">
+        </childnode>
+      </node>
+      <node id="9461">
+        <label>src/lib/access/pred_buildExpression.cpp</label>
+        <link refid="pred__build_expression_8cpp"/>
+      </node>
+      <node id="9455">
+        <label>src/bin/perf_regression/JoinScan.cpp</label>
+        <link refid="bin_2perf__regression_2_join_scan_8cpp"/>
+      </node>
+      <node id="9458">
+        <label>src/bin/perf_regression/SortScan.cpp</label>
+        <link refid="bin_2perf__regression_2_sort_scan_8cpp"/>
+      </node>
+      <node id="9452">
+        <label>src/bin/perf_regression/GroupByScan.cpp</label>
+        <link refid="bin_2perf__regression_2_group_by_scan_8cpp"/>
+      </node>
+      <node id="9456">
+        <label>src/bin/perf_regression/ProjectionScan.cpp</label>
+        <link refid="bin_2perf__regression_2_projection_scan_8cpp"/>
+      </node>
+      <node id="9463">
+        <label>src/lib/access/pred_PredicateBuilder.cpp</label>
+        <link refid="pred___predicate_builder_8cpp"/>
+      </node>
+      <node id="9453">
+        <label>src/bin/perf_regression/HashJoin.cpp</label>
+        <link refid="_hash_join_8cpp"/>
+      </node>
+      <node id="9454">
+        <label>src/bin/perf_regression/HashValueJoin.cpp</label>
+        <link refid="_hash_value_join_8cpp"/>
+      </node>
+      <node id="9451">
+        <label>src/lib/access.h</label>
+        <link refid="access_8h"/>
+        <childnode refid="9452" relation="include">
+        </childnode>
+        <childnode refid="9453" relation="include">
+        </childnode>
+        <childnode refid="9454" relation="include">
+        </childnode>
+        <childnode refid="9455" relation="include">
+        </childnode>
+        <childnode refid="9456" relation="include">
+        </childnode>
+        <childnode refid="9457" relation="include">
+        </childnode>
+        <childnode refid="9458" relation="include">
+        </childnode>
+        <childnode refid="9459" relation="include">
+        </childnode>
+      </node>
+      <node id="9448">
+        <label>src/lib/access/predicates.h</label>
+        <link refid="predicates_8h"/>
+        <childnode refid="9449" relation="include">
+        </childnode>
+        <childnode refid="9460" relation="include">
+        </childnode>
+        <childnode refid="9461" relation="include">
+        </childnode>
+        <childnode refid="9462" relation="include">
+        </childnode>
+        <childnode refid="9451" relation="include">
+        </childnode>
+      </node>
+      <node id="9457">
+        <label>src/bin/perf_regression/SimpleTableScan.cpp</label>
+        <link refid="bin_2perf__regression_2_simple_table_scan_8cpp"/>
+      </node>
+      <node id="9449">
+        <label>src/lib/access/JoinScan.h</label>
+        <link refid="_join_scan_8h"/>
+        <childnode refid="9450" relation="include">
+        </childnode>
+        <childnode refid="9451" relation="include">
+        </childnode>
+      </node>
+      <node id="9450">
+        <label>src/lib/access/JoinScan.cpp</label>
+        <link refid="lib_2access_2_join_scan_8cpp"/>
+      </node>
+      <node id="9447">
+        <label>src/lib/access/pred_PredicateBuilder.h</label>
+        <link refid="pred_PredicateBuilder.h"/>
+        <childnode refid="9448" relation="include">
+        </childnode>
+        <childnode refid="9463" relation="include">
+        </childnode>
+      </node>
+      <node id="9462">
+        <label>src/lib/access/pred_expression_factory.h</label>
+        <link refid="pred__expression__factory_8h"/>
+        <childnode refid="9461" relation="include">
+        </childnode>
+        <childnode refid="9448" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="class_predicate_builder" prot="public">PredicateBuilder</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>2012<sp/>Hasso-Plattner-Institut<sp/>fuer<sp/>Softwaresystemtechnik<sp/>GmbH.<sp/>All<sp/>rights<sp/>reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SRC_LIB_ACCESS_PRED_PREDICATEBUILDER_H_</highlight></codeline>
+<codeline lineno="3"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SRC_LIB_ACCESS_PRED_PREDICATEBUILDER_H_</highlight></codeline>
+<codeline lineno="4"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&lt;stack&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="pred__common_8h" kindref="compound">pred_common.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="pred___compound_expression_8h" kindref="compound">pred_CompoundExpression.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="10"><highlight class="comment"><sp/>*<sp/>@brief<sp/>Creates<sp/>the<sp/>predicate<sp/>tree<sp/>required<sp/>for<sp/>Selections</highlight></codeline>
+<codeline lineno="11"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="12"><highlight class="comment"><sp/>*<sp/>All<sp/>predicates<sp/>both<sp/>SimpleFieldExpression<sp/>and<sp/>CompoundExpression</highlight></codeline>
+<codeline lineno="13"><highlight class="comment"><sp/>*<sp/>have<sp/>to<sp/>be<sp/>added<sp/>in<sp/>the<sp/>correct<sp/>execution<sp/>order<sp/>using<sp/>prefix</highlight></codeline>
+<codeline lineno="14"><highlight class="comment"><sp/>*<sp/>notation.</highlight></codeline>
+<codeline lineno="15"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight></codeline>
+<codeline lineno="17" refid="class_predicate_builder" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_predicate_builder" kindref="compound">PredicateBuilder</ref><sp/>{</highlight></codeline>
+<codeline lineno="18" refid="class_predicate_builder_1a115ed5db1167ec899219d3f683f42712" refkind="member"><highlight class="normal"><sp/><sp/>std::stack&lt;CompoundExpression<sp/>*&gt;<sp/><ref refid="class_predicate_builder_1a115ed5db1167ec899219d3f683f42712" kindref="member">previous</ref>;</highlight></codeline>
+<codeline lineno="19" refid="class_predicate_builder_1ae8ddaace1008e2996815ef73e7f3e0f1" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="class_simple_expression" kindref="compound">SimpleExpression</ref><sp/>*<ref refid="class_predicate_builder_1ae8ddaace1008e2996815ef73e7f3e0f1" kindref="member">root</ref>;</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><ref refid="class_predicate_builder_1ab28f367d90f0edb3e624d3f980061112" kindref="member">PredicateBuilder</ref>();</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="class_predicate_builder_1a8642e80d6945743fb76b635ee7742caf" kindref="member">~PredicateBuilder</ref>();</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_predicate_builder_1aa31b28dc516d1022a6043f71d384655b" kindref="member">add</ref>(<ref refid="class_simple_field_expression" kindref="compound">SimpleFieldExpression</ref><sp/>*exp);</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_predicate_builder_1aa31b28dc516d1022a6043f71d384655b" kindref="member">add</ref>(<ref refid="class_compound_expression" kindref="compound">CompoundExpression</ref><sp/>*exp);</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><ref refid="class_simple_expression" kindref="compound">SimpleExpression</ref><sp/>*<ref refid="class_predicate_builder_1a79a44caefa8c4c6abaa717dfe29126dc" kindref="member">build</ref>();</highlight></codeline>
+<codeline lineno="27"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/>//<sp/>SRC_LIB_ACCESS_PRED_PREDICATEBUILDER_H_</highlight></codeline>
+    </programlisting>
+    <location file="/home/grund/hyrise/src/lib/access/pred_PredicateBuilder.h"/>
+  </compounddef>
+</doxygen>

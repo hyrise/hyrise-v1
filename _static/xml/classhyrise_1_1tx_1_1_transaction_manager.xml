@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="classhyrise_1_1tx_1_1_transaction_manager" kind="class" prot="public">
+    <compoundname>hyrise::tx::TransactionManager</compoundname>
+    <includes refid="_transaction_manager_8h" local="no">TransactionManager.h</includes>
+      <sectiondef kind="private-static-attrib">
+      <memberdef kind="variable" id="classhyrise_1_1tx_1_1_transaction_manager_1a1cb6ebd30649bf77301da46c6d02fa15" prot="private" static="yes" mutable="no">
+        <type>std::atomic&lt; <ref refid="namespacehyrise_1_1tx_1a3f8f9dae75e3e1872247b082f80ffd77" kindref="member">transaction_id_t</ref> &gt;</type>
+        <definition>std::atomic&lt; transaction_id_t &gt; hyrise::tx::TransactionManager::_transactionCount</definition>
+        <argsstring></argsstring>
+        <name>_transactionCount</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/TransactionManager.h" line="14" bodyfile="/home/grund/hyrise/src/lib/io/TransactionManager.h" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classhyrise_1_1tx_1_1_transaction_manager_1a7d18ac2a3ae9dcd70301d715070798a2" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classhyrise_1_1tx_1_1_transaction_manager" kindref="compound">TransactionManager</ref> &amp;</type>
+        <definition>TransactionManager &amp; hyrise::tx::TransactionManager::getInstance</definition>
+        <argsstring>()</argsstring>
+        <name>getInstance</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/TransactionManager.h" line="16" bodyfile="/home/grund/hyrise/src/lib/io/TransactionManager.cpp" bodystart="11" bodyend="14"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classhyrise_1_1tx_1_1_transaction_manager_1a4e8596f09fae6189a3734e334e660045" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="namespacehyrise_1_1tx_1a3f8f9dae75e3e1872247b082f80ffd77" kindref="member">transaction_id_t</ref></type>
+        <definition>transaction_id_t hyrise::tx::TransactionManager::getTransactionId</definition>
+        <argsstring>()</argsstring>
+        <name>getTransactionId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/TransactionManager.h" line="17" bodyfile="/home/grund/hyrise/src/lib/io/TransactionManager.cpp" bodystart="16" bodyend="22"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1tx_1_1_transaction_manager_1a9deffa2f04e07a194e0a0f6a204d7fa9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hyrise::tx::TransactionManager::reset</definition>
+        <argsstring>()</argsstring>
+        <name>reset</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/TransactionManager.h" line="18" bodyfile="/home/grund/hyrise/src/lib/io/TransactionManager.cpp" bodystart="24" bodyend="26"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Basic transaction manager. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="3297">
+        <label>hyrise::tx::TransactionManager</label>
+        <link refid="classhyrise_1_1tx_1_1_transaction_manager"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/io/TransactionManager.h" line="13" bodyfile="/home/grund/hyrise/src/lib/io/TransactionManager.h" bodystart="13" bodyend="19"/>
+    <listofallmembers>
+      <member refid="classhyrise_1_1tx_1_1_transaction_manager_1a1cb6ebd30649bf77301da46c6d02fa15" prot="private" virt="non-virtual"><scope>hyrise::tx::TransactionManager</scope><name>_transactionCount</name></member>
+      <member refid="classhyrise_1_1tx_1_1_transaction_manager_1a7d18ac2a3ae9dcd70301d715070798a2" prot="public" virt="non-virtual"><scope>hyrise::tx::TransactionManager</scope><name>getInstance</name></member>
+      <member refid="classhyrise_1_1tx_1_1_transaction_manager_1a4e8596f09fae6189a3734e334e660045" prot="public" virt="non-virtual"><scope>hyrise::tx::TransactionManager</scope><name>getTransactionId</name></member>
+      <member refid="classhyrise_1_1tx_1_1_transaction_manager_1a9deffa2f04e07a194e0a0f6a204d7fa9" prot="public" virt="non-virtual"><scope>hyrise::tx::TransactionManager</scope><name>reset</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

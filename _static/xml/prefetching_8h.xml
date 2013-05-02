@@ -1,0 +1,214 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="prefetching_8h" kind="file">
+    <compoundname>prefetching.h</compoundname>
+    <includes local="no">stdint.h</includes>
+    <includedby refid="prefetching_8cpp" local="yes">src/lib/helper/prefetching.cpp</includedby>
+    <incdepgraph>
+      <node id="14044">
+        <label>stdint.h</label>
+      </node>
+      <node id="14043">
+        <label>src/lib/helper/prefetching.h</label>
+        <link refid="prefetching.h"/>
+        <childnode refid="14044" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="14046">
+        <label>src/lib/helper/prefetching.cpp</label>
+        <link refid="prefetching_8cpp"/>
+      </node>
+      <node id="14045">
+        <label>src/lib/helper/prefetching.h</label>
+        <link refid="prefetching.h"/>
+        <childnode refid="14046" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="prefetching_8h_1a83c715592c62e13ef67313d7de5e2b88" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint64_t</type>
+        <definition>uint64_t read_prefetch</definition>
+        <argsstring>(int cpu)</argsstring>
+        <name>read_prefetch</name>
+        <param>
+          <type>int</type>
+          <declname>cpu</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/prefetching.h" line="7" bodyfile="/home/grund/hyrise/src/lib/helper/prefetching.cpp" bodystart="23" bodyend="50"/>
+      </memberdef>
+      <memberdef kind="function" id="prefetching_8h_1a8f747fb377f1eaa18fb7d29b262d91a5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void write_prefetch</definition>
+        <argsstring>(int cpu, uint64_t data)</argsstring>
+        <name>write_prefetch</name>
+        <param>
+          <type>int</type>
+          <declname>cpu</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/prefetching.h" line="9" bodyfile="/home/grund/hyrise/src/lib/helper/prefetching.cpp" bodystart="52" bodyend="74"/>
+      </memberdef>
+      <memberdef kind="function" id="prefetching_8h_1a0b6dc372d0df72d5bee3b0790e07b8e3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int lock_process_to_cpu</definition>
+        <argsstring>(int cpu)</argsstring>
+        <name>lock_process_to_cpu</name>
+        <param>
+          <type>int</type>
+          <declname>cpu</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/prefetching.h" line="11" bodyfile="/home/grund/hyrise/src/lib/helper/prefetching.cpp" bodystart="76" bodyend="91"/>
+      </memberdef>
+      <memberdef kind="function" id="prefetching_8h_1a3dc9f7be60162728026092d49b62e399" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int lock_process_to_random_cpu</definition>
+        <argsstring>()</argsstring>
+        <name>lock_process_to_random_cpu</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/prefetching.h" line="13" bodyfile="/home/grund/hyrise/src/lib/helper/prefetching.cpp" bodystart="93" bodyend="109"/>
+      </memberdef>
+      <memberdef kind="function" id="prefetching_8h_1ae34b14c978a1814e6ced3a9c5b37e2c8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void unlock_process</definition>
+        <argsstring>()</argsstring>
+        <name>unlock_process</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/prefetching.h" line="15" bodyfile="/home/grund/hyrise/src/lib/helper/prefetching.cpp" bodystart="111" bodyend="126"/>
+      </memberdef>
+      <memberdef kind="function" id="prefetching_8h_1ac148f2b81a65a09be85c049cd52f023b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void prefetch_all_off</definition>
+        <argsstring>(int cpu)</argsstring>
+        <name>prefetch_all_off</name>
+        <param>
+          <type>int</type>
+          <declname>cpu</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/prefetching.h" line="17" bodyfile="/home/grund/hyrise/src/lib/helper/prefetching.cpp" bodystart="129" bodyend="132"/>
+      </memberdef>
+      <memberdef kind="function" id="prefetching_8h_1ae73bda5eeee8d31338a1960cbed646b2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void prefetch_l2_off</definition>
+        <argsstring>(int cpu)</argsstring>
+        <name>prefetch_l2_off</name>
+        <param>
+          <type>int</type>
+          <declname>cpu</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/prefetching.h" line="19" bodyfile="/home/grund/hyrise/src/lib/helper/prefetching.cpp" bodystart="134" bodyend="137"/>
+      </memberdef>
+      <memberdef kind="function" id="prefetching_8h_1abec1f5c82c2db0307591949f0dc64360" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void prefetch_data_logic</definition>
+        <argsstring>(int cpu)</argsstring>
+        <name>prefetch_data_logic</name>
+        <param>
+          <type>int</type>
+          <declname>cpu</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/prefetching.h" line="21" bodyfile="/home/grund/hyrise/src/lib/helper/prefetching.cpp" bodystart="139" bodyend="142"/>
+      </memberdef>
+      <memberdef kind="function" id="prefetching_8h_1a48bef0a6de2c76ea47c26e4ca75a655e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void prefetch_stream</definition>
+        <argsstring>(int cpu)</argsstring>
+        <name>prefetch_stream</name>
+        <param>
+          <type>int</type>
+          <declname>cpu</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/prefetching.h" line="23" bodyfile="/home/grund/hyrise/src/lib/helper/prefetching.cpp" bodystart="144" bodyend="147"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>2012<sp/>Hasso-Plattner-Institut<sp/>fuer<sp/>Softwaresystemtechnik<sp/>GmbH.<sp/>All<sp/>rights<sp/>reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SRC_LIB_HELPER_PREFETCHING_H_</highlight></codeline>
+<codeline lineno="3"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SRC_LIB_HELPER_PREFETCHING_H_</highlight></codeline>
+<codeline lineno="4"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdint.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal">uint64_t<sp/><ref refid="prefetching_8cpp_1a83c715592c62e13ef67313d7de5e2b88" kindref="member">read_prefetch</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>cpu);</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="prefetching_8cpp_1a8f747fb377f1eaa18fb7d29b262d91a5" kindref="member">write_prefetch</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>cpu,<sp/>uint64_t<sp/>data);</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="prefetching_8cpp_1a0b6dc372d0df72d5bee3b0790e07b8e3" kindref="member">lock_process_to_cpu</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>cpu);</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="prefetching_8cpp_1a3dc9f7be60162728026092d49b62e399" kindref="member">lock_process_to_random_cpu</ref>();</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="prefetching_8cpp_1ae34b14c978a1814e6ced3a9c5b37e2c8" kindref="member">unlock_process</ref>();</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="prefetching_8cpp_1ac148f2b81a65a09be85c049cd52f023b" kindref="member">prefetch_all_off</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>cpu);</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="prefetching_8cpp_1ae73bda5eeee8d31338a1960cbed646b2" kindref="member">prefetch_l2_off</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>cpu);</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="prefetching_8cpp_1abec1f5c82c2db0307591949f0dc64360" kindref="member">prefetch_data_logic</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>cpu);</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="prefetching_8cpp_1a48bef0a6de2c76ea47c26e4ca75a655e" kindref="member">prefetch_stream</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>cpu);</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/>//<sp/>SRC_LIB_HELPER_PREFETCHING_H_</highlight></codeline>
+    </programlisting>
+    <location file="/home/grund/hyrise/src/lib/helper/prefetching.h"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,215 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="structhyrise_1_1storage_1_1rawtable_1_1_row_helper" kind="struct" prot="public">
+    <compoundname>hyrise::storage::rawtable::RowHelper</compoundname>
+    <includes refid="_raw_table_8h" local="no">RawTable.h</includes>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="structhyrise_1_1storage_1_1rawtable_1_1_row_helper_1abba35dfeb3dff277f8242ce0fbaa8822" prot="public" static="no">
+        <type>unsigned char</type>
+        <definition>typedef unsigned char hyrise::storage::rawtable::RowHelper::byte</definition>
+        <argsstring></argsstring>
+        <name>byte</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/RawTable.h" line="26" bodyfile="/home/grund/hyrise/src/lib/storage/RawTable.h" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structhyrise_1_1storage_1_1rawtable_1_1_row_helper_1a160b5e26cbdca42f461b27d4e6e0732b" prot="public" static="no" mutable="no">
+        <type><ref refid="structhyrise_1_1storage_1_1rawtable_1_1record__header" kindref="compound">record_header</ref></type>
+        <definition>record_header hyrise::storage::rawtable::RowHelper::_header</definition>
+        <argsstring></argsstring>
+        <name>_header</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/RawTable.h" line="28" bodyfile="/home/grund/hyrise/src/lib/storage/RawTable.h" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structhyrise_1_1storage_1_1rawtable_1_1_row_helper_1ab459bd0658fe869d06411615555eb23f" prot="public" static="no" mutable="no">
+        <type>const <ref refid="storage__types_8h_1a8776c82cf4ebeb0f86f0e83709870655" kindref="member">metadata_vec_t</ref> &amp;</type>
+        <definition>const metadata_vec_t&amp; hyrise::storage::rawtable::RowHelper::_m</definition>
+        <argsstring></argsstring>
+        <name>_m</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/RawTable.h" line="29" bodyfile="/home/grund/hyrise/src/lib/storage/RawTable.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structhyrise_1_1storage_1_1rawtable_1_1_row_helper_1a4da70547008af3b4827d0892d8e6e9b2" prot="public" static="no" mutable="no">
+        <type>std::vector&lt; <ref refid="structhyrise_1_1storage_1_1rawtable_1_1_row_helper_1abba35dfeb3dff277f8242ce0fbaa8822" kindref="member">byte</ref> * &gt;</type>
+        <definition>std::vector&lt;byte*&gt; hyrise::storage::rawtable::RowHelper::_tempData</definition>
+        <argsstring></argsstring>
+        <name>_tempData</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/RawTable.h" line="30" bodyfile="/home/grund/hyrise/src/lib/storage/RawTable.h" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structhyrise_1_1storage_1_1rawtable_1_1_row_helper_1abc9b11ecb8c8ad33d85e593ab458bd5e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void hyrise::storage::rawtable::RowHelper::reset</definition>
+        <argsstring>()</argsstring>
+        <name>reset</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/RawTable.h" line="32" bodyfile="/home/grund/hyrise/src/lib/storage/RawTable.h" bodystart="32" bodyend="37"/>
+      </memberdef>
+      <memberdef kind="function" id="structhyrise_1_1storage_1_1rawtable_1_1_row_helper_1a119ddc1ea815a113813802ea585b3c8f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>hyrise::storage::rawtable::RowHelper::RowHelper</definition>
+        <argsstring>(const metadata_vec_t &amp;m)</argsstring>
+        <name>RowHelper</name>
+        <param>
+          <type>const <ref refid="storage__types_8h_1a8776c82cf4ebeb0f86f0e83709870655" kindref="member">metadata_vec_t</ref> &amp;</type>
+          <declname>m</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/RawTable.h" line="39" bodyfile="/home/grund/hyrise/src/lib/storage/RawTable.h" bodystart="39" bodyend="41"/>
+      </memberdef>
+      <memberdef kind="function" id="structhyrise_1_1storage_1_1rawtable_1_1_row_helper_1a809c4c4189053e753acb991c4119cd7f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void hyrise::storage::rawtable::RowHelper::set</definition>
+        <argsstring>(size_t index, T val)</argsstring>
+        <name>set</name>
+        <param>
+          <type>size_t</type>
+          <declname>index</declname>
+        </param>
+        <param>
+          <type>T</type>
+          <declname>val</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Based on the value type add an intermediate memory location and store this until we finalize the record. This method has some special handling for string types </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/RawTable.h" line="49" bodyfile="/home/grund/hyrise/src/lib/storage/RawTable.h" bodystart="49" bodyend="53"/>
+      </memberdef>
+      <memberdef kind="function" id="structhyrise_1_1storage_1_1rawtable_1_1_row_helper_1adc29b8319b87312f8ea7667bf871210d" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="structhyrise_1_1storage_1_1rawtable_1_1_row_helper_1abba35dfeb3dff277f8242ce0fbaa8822" kindref="member">byte</ref> *</type>
+        <definition>byte* hyrise::storage::rawtable::RowHelper::build</definition>
+        <argsstring>() const </argsstring>
+        <name>build</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>This helper method builds the actual data stream that represents the row as a binary block. All fixed length values are encoded using 8 bytes, while strings are encoded using a two byte lenght identifier followed by the actual string.</para><para>The return value is allocate in this method and memory handling is returned to the caller </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/RawTable.h" line="64" bodyfile="/home/grund/hyrise/src/lib/storage/RawTable.h" bodystart="64" bodyend="89"/>
+      </memberdef>
+      <memberdef kind="function" id="structhyrise_1_1storage_1_1rawtable_1_1_row_helper_1ac60537e8dda54ce0eae9ea2ed1cb8392" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void hyrise::storage::rawtable::RowHelper::set</definition>
+        <argsstring>(size_t index, std::string val)</argsstring>
+        <name>set</name>
+        <param>
+          <type>size_t</type>
+          <declname>index</declname>
+        </param>
+        <param>
+          <type>std::string</type>
+          <declname>val</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/RawTable.cpp" line="25" bodyfile="/home/grund/hyrise/src/lib/storage/RawTable.cpp" bodystart="25" bodyend="30"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="structhyrise_1_1storage_1_1rawtable_1_1_row_helper_1a2ffb8c50eba528ca5ac3b691018c729b" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+        </templateparamlist>
+        <type>T</type>
+        <definition>std::string hyrise::storage::rawtable::RowHelper::convert</definition>
+        <argsstring>(const byte *data, DataType t)</argsstring>
+        <name>convert</name>
+        <param>
+          <type>const <ref refid="structhyrise_1_1storage_1_1rawtable_1_1_row_helper_1abba35dfeb3dff277f8242ce0fbaa8822" kindref="member">byte</ref> *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type><ref refid="storage__types_8h_1ad8ed01ff3ff33333d8e19db4d2818bb6" kindref="member">DataType</ref></type>
+          <declname>t</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/RawTable.h" line="92" bodyfile="/home/grund/hyrise/src/lib/storage/RawTable.h" bodystart="92" bodyend="96"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2761">
+        <label>hyrise::storage::rawtable::record_header</label>
+        <link refid="structhyrise_1_1storage_1_1rawtable_1_1record__header"/>
+      </node>
+      <node id="2760">
+        <label>hyrise::storage::rawtable::RowHelper</label>
+        <link refid="structhyrise_1_1storage_1_1rawtable_1_1_row_helper"/>
+        <childnode refid="2761" relation="usage">
+          <edgelabel>_header</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/storage/RawTable.h" line="25" bodyfile="/home/grund/hyrise/src/lib/storage/RawTable.h" bodystart="25" bodyend="97"/>
+    <listofallmembers>
+      <member refid="structhyrise_1_1storage_1_1rawtable_1_1_row_helper_1a160b5e26cbdca42f461b27d4e6e0732b" prot="public" virt="non-virtual"><scope>hyrise::storage::rawtable::RowHelper</scope><name>_header</name></member>
+      <member refid="structhyrise_1_1storage_1_1rawtable_1_1_row_helper_1ab459bd0658fe869d06411615555eb23f" prot="public" virt="non-virtual"><scope>hyrise::storage::rawtable::RowHelper</scope><name>_m</name></member>
+      <member refid="structhyrise_1_1storage_1_1rawtable_1_1_row_helper_1a4da70547008af3b4827d0892d8e6e9b2" prot="public" virt="non-virtual"><scope>hyrise::storage::rawtable::RowHelper</scope><name>_tempData</name></member>
+      <member refid="structhyrise_1_1storage_1_1rawtable_1_1_row_helper_1adc29b8319b87312f8ea7667bf871210d" prot="public" virt="non-virtual"><scope>hyrise::storage::rawtable::RowHelper</scope><name>build</name></member>
+      <member refid="structhyrise_1_1storage_1_1rawtable_1_1_row_helper_1abba35dfeb3dff277f8242ce0fbaa8822" prot="public" virt="non-virtual"><scope>hyrise::storage::rawtable::RowHelper</scope><name>byte</name></member>
+      <member refid="structhyrise_1_1storage_1_1rawtable_1_1_row_helper_1a2ffb8c50eba528ca5ac3b691018c729b" prot="public" virt="non-virtual"><scope>hyrise::storage::rawtable::RowHelper</scope><name>convert</name></member>
+      <member refid="structhyrise_1_1storage_1_1rawtable_1_1_row_helper_1abc9b11ecb8c8ad33d85e593ab458bd5e" prot="public" virt="non-virtual"><scope>hyrise::storage::rawtable::RowHelper</scope><name>reset</name></member>
+      <member refid="structhyrise_1_1storage_1_1rawtable_1_1_row_helper_1a119ddc1ea815a113813802ea585b3c8f" prot="public" virt="non-virtual"><scope>hyrise::storage::rawtable::RowHelper</scope><name>RowHelper</name></member>
+      <member refid="structhyrise_1_1storage_1_1rawtable_1_1_row_helper_1a809c4c4189053e753acb991c4119cd7f" prot="public" virt="non-virtual"><scope>hyrise::storage::rawtable::RowHelper</scope><name>set</name></member>
+      <member refid="structhyrise_1_1storage_1_1rawtable_1_1_row_helper_1ac60537e8dda54ce0eae9ea2ed1cb8392" prot="public" virt="non-virtual"><scope>hyrise::storage::rawtable::RowHelper</scope><name>set</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

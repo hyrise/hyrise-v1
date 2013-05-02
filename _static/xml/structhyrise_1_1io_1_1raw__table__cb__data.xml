@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="structhyrise_1_1io_1_1raw__table__cb__data" kind="struct" prot="public">
+    <compoundname>hyrise::io::raw_table_cb_data</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structhyrise_1_1io_1_1raw__table__cb__data_1a06a996860144d8993e4f64a7f516c2bc" prot="public" static="no" mutable="no">
+        <type>std::shared_ptr&lt; RawTable&lt;&gt; &gt;</type>
+        <definition>std::shared_ptr&lt;RawTable&lt;&gt; &gt; hyrise::io::raw_table_cb_data::table</definition>
+        <argsstring></argsstring>
+        <name>table</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/RawTableLoader.cpp" line="13" bodyfile="/home/grund/hyrise/src/lib/io/RawTableLoader.cpp" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structhyrise_1_1io_1_1raw__table__cb__data_1a7179e425a014b5906d1fb4f9affd99ea" prot="public" static="no" mutable="no">
+        <type><ref refid="structhyrise_1_1storage_1_1rawtable_1_1_row_helper" kindref="compound">hyrise::storage::rawtable::RowHelper</ref></type>
+        <definition>hyrise::storage::rawtable::RowHelper hyrise::io::raw_table_cb_data::rh</definition>
+        <argsstring></argsstring>
+        <name>rh</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/RawTableLoader.cpp" line="14" bodyfile="/home/grund/hyrise/src/lib/io/RawTableLoader.cpp" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structhyrise_1_1io_1_1raw__table__cb__data_1a89eec5245ff68e8158e98adaf6ab828d" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t hyrise::io::raw_table_cb_data::column</definition>
+        <argsstring></argsstring>
+        <name>column</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/RawTableLoader.cpp" line="15" bodyfile="/home/grund/hyrise/src/lib/io/RawTableLoader.cpp" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structhyrise_1_1io_1_1raw__table__cb__data_1a643e3b84ed8645c383130447df5e53fe" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>hyrise::io::raw_table_cb_data::raw_table_cb_data</definition>
+        <argsstring>(const metadata_vec_t &amp;meta)</argsstring>
+        <name>raw_table_cb_data</name>
+        <param>
+          <type>const <ref refid="storage__types_8h_1a8776c82cf4ebeb0f86f0e83709870655" kindref="member">metadata_vec_t</ref> &amp;</type>
+          <declname>meta</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/RawTableLoader.cpp" line="17" bodyfile="/home/grund/hyrise/src/lib/io/RawTableLoader.cpp" bodystart="17" bodyend="18"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2693">
+        <label>hyrise::io::raw_table_cb_data</label>
+        <link refid="structhyrise_1_1io_1_1raw__table__cb__data"/>
+        <childnode refid="2694" relation="usage">
+          <edgelabel>rh</edgelabel>
+        </childnode>
+      </node>
+      <node id="2695">
+        <label>hyrise::storage::rawtable::record_header</label>
+        <link refid="structhyrise_1_1storage_1_1rawtable_1_1record__header"/>
+      </node>
+      <node id="2694">
+        <label>hyrise::storage::rawtable::RowHelper</label>
+        <link refid="structhyrise_1_1storage_1_1rawtable_1_1_row_helper"/>
+        <childnode refid="2695" relation="usage">
+          <edgelabel>_header</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/io/RawTableLoader.cpp" line="12" bodyfile="/home/grund/hyrise/src/lib/io/RawTableLoader.cpp" bodystart="12" bodyend="19"/>
+    <listofallmembers>
+      <member refid="structhyrise_1_1io_1_1raw__table__cb__data_1a89eec5245ff68e8158e98adaf6ab828d" prot="public" virt="non-virtual"><scope>hyrise::io::raw_table_cb_data</scope><name>column</name></member>
+      <member refid="structhyrise_1_1io_1_1raw__table__cb__data_1a643e3b84ed8645c383130447df5e53fe" prot="public" virt="non-virtual"><scope>hyrise::io::raw_table_cb_data</scope><name>raw_table_cb_data</name></member>
+      <member refid="structhyrise_1_1io_1_1raw__table__cb__data_1a7179e425a014b5906d1fb4f9affd99ea" prot="public" virt="non-virtual"><scope>hyrise::io::raw_table_cb_data</scope><name>rh</name></member>
+      <member refid="structhyrise_1_1io_1_1raw__table__cb__data_1a06a996860144d8993e4f64a7f516c2bc" prot="public" virt="non-virtual"><scope>hyrise::io::raw_table_cb_data</scope><name>table</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

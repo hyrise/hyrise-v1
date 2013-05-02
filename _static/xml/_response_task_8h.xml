@@ -1,0 +1,186 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="_response_task_8h" kind="file">
+    <compoundname>ResponseTask.h</compoundname>
+    <includes refid="epoch_8h" local="yes">helper/epoch.h</includes>
+    <includes refid="_output_task_8h" local="yes">access/OutputTask.h</includes>
+    <includes refid="_abstract_connection_8h" local="yes">net/AbstractConnection.h</includes>
+    <includedby refid="_request_parse_task_8cpp" local="yes">src/lib/access/RequestParseTask.cpp</includedby>
+    <includedby refid="_response_task_8cpp" local="yes">src/lib/access/ResponseTask.cpp</includedby>
+    <incdepgraph>
+      <node id="11174">
+        <label>net/AbstractConnection.h</label>
+        <link refid="_abstract_connection_8h"/>
+        <childnode refid="11173" relation="include">
+        </childnode>
+      </node>
+      <node id="11161">
+        <label>stdint.h</label>
+      </node>
+      <node id="11160">
+        <label>helper/epoch.h</label>
+        <link refid="epoch_8h"/>
+        <childnode refid="11161" relation="include">
+        </childnode>
+      </node>
+      <node id="11173">
+        <label>string</label>
+      </node>
+      <node id="11166">
+        <label>map</label>
+      </node>
+      <node id="11169">
+        <label>taskscheduler/Task.h</label>
+        <link refid="_task_8h"/>
+        <childnode refid="11165" relation="include">
+        </childnode>
+        <childnode refid="11170" relation="include">
+        </childnode>
+        <childnode refid="11171" relation="include">
+        </childnode>
+        <childnode refid="11172" relation="include">
+        </childnode>
+        <childnode refid="11173" relation="include">
+        </childnode>
+      </node>
+      <node id="11159">
+        <label>src/lib/access/ResponseTask.h</label>
+        <link refid="ResponseTask.h"/>
+        <childnode refid="11160" relation="include">
+        </childnode>
+        <childnode refid="11162" relation="include">
+        </childnode>
+        <childnode refid="11174" relation="include">
+        </childnode>
+      </node>
+      <node id="11162">
+        <label>access/OutputTask.h</label>
+        <link refid="_output_task_8h"/>
+        <childnode refid="11163" relation="include">
+        </childnode>
+        <childnode refid="11161" relation="include">
+        </childnode>
+        <childnode refid="11164" relation="include">
+        </childnode>
+        <childnode refid="11165" relation="include">
+        </childnode>
+        <childnode refid="11166" relation="include">
+        </childnode>
+        <childnode refid="11167" relation="include">
+        </childnode>
+        <childnode refid="11168" relation="include">
+        </childnode>
+        <childnode refid="11160" relation="include">
+        </childnode>
+        <childnode refid="11169" relation="include">
+        </childnode>
+      </node>
+      <node id="11168">
+        <label>json.h</label>
+      </node>
+      <node id="11172">
+        <label>condition_variable</label>
+      </node>
+      <node id="11165">
+        <label>vector</label>
+      </node>
+      <node id="11167">
+        <label>utility</label>
+      </node>
+      <node id="11164">
+        <label>time.h</label>
+      </node>
+      <node id="11170">
+        <label>mutex</label>
+      </node>
+      <node id="11163">
+        <label>log4cxx/logger.h</label>
+      </node>
+      <node id="11171">
+        <label>memory</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="11177">
+        <label>src/lib/access/ResponseTask.cpp</label>
+        <link refid="_response_task_8cpp"/>
+      </node>
+      <node id="11175">
+        <label>src/lib/access/ResponseTask.h</label>
+        <link refid="ResponseTask.h"/>
+        <childnode refid="11176" relation="include">
+        </childnode>
+        <childnode refid="11177" relation="include">
+        </childnode>
+      </node>
+      <node id="11176">
+        <label>src/lib/access/RequestParseTask.cpp</label>
+        <link refid="_request_parse_task_8cpp"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="classhyrise_1_1access_1_1_response_task" prot="public">hyrise::access::ResponseTask</innerclass>
+    <innernamespace refid="namespacehyrise">hyrise</innernamespace>
+    <innernamespace refid="namespacehyrise_1_1access">hyrise::access</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>2012<sp/>Hasso-Plattner-Institut<sp/>fuer<sp/>Softwaresystemtechnik<sp/>GmbH.<sp/>All<sp/>rights<sp/>reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SRC_LIB_ACCESS_RESPONSETASK_H_</highlight></codeline>
+<codeline lineno="3"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SRC_LIB_ACCESS_RESPONSETASK_H_</highlight></codeline>
+<codeline lineno="4"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="epoch_8h" kindref="compound">helper/epoch.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_output_task_8h" kindref="compound">access/OutputTask.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_abstract_connection_8h" kindref="compound">net/AbstractConnection.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class___plan_operation" kindref="compound">_PlanOperation</ref>;</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">hyrise<sp/>{</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">access<sp/>{</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14" refid="classhyrise_1_1access_1_1_response_task" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classhyrise_1_1access_1_1_response_task" kindref="compound">ResponseTask</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="class_task" kindref="compound">Task</ref><sp/>{</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="16" refid="classhyrise_1_1access_1_1_response_task_1a7117627a706b8872164794175e7e5fc4" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="classhyrise_1_1net_1_1_abstract_connection" kindref="compound">net::AbstractConnection</ref><sp/>*<ref refid="classhyrise_1_1access_1_1_response_task_1a7117627a706b8872164794175e7e5fc4" kindref="member">connection</ref>;</highlight></codeline>
+<codeline lineno="17" refid="classhyrise_1_1access_1_1_response_task_1a0abad40f4049a39eb8863d5373d65d06" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1access_1_1_response_task_1a0abad40f4049a39eb8863d5373d65d06" kindref="member">_transmitLimit</ref>;<sp/></highlight><highlight class="comment">//<sp/>Used<sp/>for<sp/>serialization<sp/>only</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18" refid="classhyrise_1_1access_1_1_response_task_1a586b132f9836f0d670dd5b78949b6995" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="epoch_8h_1a18c258fe5c1fdd9c998d1c4bc0d39560" kindref="member">epoch_t</ref><sp/><ref refid="classhyrise_1_1access_1_1_response_task_1a586b132f9836f0d670dd5b78949b6995" kindref="member">queryStart</ref>;</highlight></codeline>
+<codeline lineno="19" refid="classhyrise_1_1access_1_1_response_task_1abfaad5430e988a4d0ce79f6b7b4d46d7" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="class_output_task_1a23221020b56a6ec2748980118e1d9d0f" kindref="member">OutputTask::performance_vector</ref><sp/><ref refid="classhyrise_1_1access_1_1_response_task_1abfaad5430e988a4d0ce79f6b7b4d46d7" kindref="member">performance_data</ref>;</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="21" refid="classhyrise_1_1access_1_1_response_task_1a85bda4189177bac5b92c8af45690ff04" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">explicit</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1access_1_1_response_task_1a85bda4189177bac5b92c8af45690ff04" kindref="member">ResponseTask</ref>(<ref refid="classhyrise_1_1net_1_1_abstract_connection" kindref="compound">net::AbstractConnection</ref><sp/>*<ref refid="classhyrise_1_1access_1_1_response_task_1a7117627a706b8872164794175e7e5fc4" kindref="member">connection</ref>)<sp/>:</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>connection(connection),<sp/><ref refid="classhyrise_1_1access_1_1_response_task_1a0abad40f4049a39eb8863d5373d65d06" kindref="member">_transmitLimit</ref>(0),<sp/><ref refid="classhyrise_1_1access_1_1_response_task_1a586b132f9836f0d670dd5b78949b6995" kindref="member">queryStart</ref>(0)<sp/>{</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight></codeline>
+<codeline lineno="25" refid="classhyrise_1_1access_1_1_response_task_1ad02e2a1a31b2c04a74a8302591b1853e" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1access_1_1_response_task_1ad02e2a1a31b2c04a74a8302591b1853e" kindref="member">~ResponseTask</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/><ref refid="classhyrise_1_1access_1_1_response_task_1af970af7fef8deccf059fd6bc2f7310c0" kindref="member">vname</ref>();</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30" refid="classhyrise_1_1access_1_1_response_task_1ab1aae04cd875aec3ee1862cc94a9c21e" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="epoch_8h_1a18c258fe5c1fdd9c998d1c4bc0d39560" kindref="member">epoch_t</ref><sp/><ref refid="classhyrise_1_1access_1_1_response_task_1ab1aae04cd875aec3ee1862cc94a9c21e" kindref="member">getQueryStart</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1access_1_1_response_task_1a586b132f9836f0d670dd5b78949b6995" kindref="member">queryStart</ref>;</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34" refid="classhyrise_1_1access_1_1_response_task_1a009fed47e811efa0a2cf7e7eca5d4122" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1access_1_1_response_task_1a009fed47e811efa0a2cf7e7eca5d4122" kindref="member">setQueryStart</ref>(<ref refid="epoch_8h_1a18c258fe5c1fdd9c998d1c4bc0d39560" kindref="member">epoch_t</ref><sp/>start)<sp/>{</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhyrise_1_1access_1_1_response_task_1a586b132f9836f0d670dd5b78949b6995" kindref="member">queryStart</ref><sp/>=<sp/>start;</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38" refid="classhyrise_1_1access_1_1_response_task_1a653a87b80234090315fec0cf0ff1a5b9" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1access_1_1_response_task_1a653a87b80234090315fec0cf0ff1a5b9" kindref="member">setTransmitLimit</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>l)<sp/>{</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhyrise_1_1access_1_1_response_task_1a0abad40f4049a39eb8863d5373d65d06" kindref="member">_transmitLimit</ref><sp/>=<sp/>l;</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42" refid="classhyrise_1_1access_1_1_response_task_1ae5f646e49d8fb7add4862447bceda57f" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="class_output_task_1a23221020b56a6ec2748980118e1d9d0f" kindref="member">OutputTask::performance_vector</ref>&amp;<sp/><ref refid="classhyrise_1_1access_1_1_response_task_1ae5f646e49d8fb7add4862447bceda57f" kindref="member">getPerformanceData</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1access_1_1_response_task_1abfaad5430e988a4d0ce79f6b7b4d46d7" kindref="member">performance_data</ref>;</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/>std::shared_ptr&lt;_PlanOperation&gt;<sp/><ref refid="classhyrise_1_1access_1_1_response_task_1a31e755ff777efdda5c8e3e3111def441" kindref="member">getResultTask</ref>();</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1access_1_1_response_task_1a104128290c6abeaae5a94d71bb46c68f" kindref="member">operator()</ref>();</highlight></codeline>
+<codeline lineno="49"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="52"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/>//<sp/>SRC_LIB_ACCESS_RESPONSETASK_H_</highlight></codeline>
+    </programlisting>
+    <location file="/home/grund/hyrise/src/lib/access/ResponseTask.h"/>
+  </compounddef>
+</doxygen>

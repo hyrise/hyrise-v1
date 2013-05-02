@@ -1,0 +1,199 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="pred___multi_table_greater_than_expression_8h" kind="file">
+    <compoundname>pred_MultiTableGreaterThanExpression.h</compoundname>
+    <includedby refid="predicates_8h" local="yes">src/lib/access/predicates.h</includedby>
+    <invincdepgraph>
+      <node id="9265">
+        <label>src/bin/perf_regression/UnionScan.cpp</label>
+        <link refid="bin_2perf__regression_2_union_scan_8cpp"/>
+      </node>
+      <node id="9266">
+        <label>src/lib/access/MergeJoin.hpp</label>
+        <link refid="_merge_join_8hpp"/>
+        <childnode refid="9257" relation="include">
+        </childnode>
+      </node>
+      <node id="9267">
+        <label>src/lib/access/pred_buildExpression.cpp</label>
+        <link refid="pred__build_expression_8cpp"/>
+      </node>
+      <node id="9261">
+        <label>src/bin/perf_regression/JoinScan.cpp</label>
+        <link refid="bin_2perf__regression_2_join_scan_8cpp"/>
+      </node>
+      <node id="9264">
+        <label>src/bin/perf_regression/SortScan.cpp</label>
+        <link refid="bin_2perf__regression_2_sort_scan_8cpp"/>
+      </node>
+      <node id="9258">
+        <label>src/bin/perf_regression/GroupByScan.cpp</label>
+        <link refid="bin_2perf__regression_2_group_by_scan_8cpp"/>
+      </node>
+      <node id="9262">
+        <label>src/bin/perf_regression/ProjectionScan.cpp</label>
+        <link refid="bin_2perf__regression_2_projection_scan_8cpp"/>
+      </node>
+      <node id="9259">
+        <label>src/bin/perf_regression/HashJoin.cpp</label>
+        <link refid="_hash_join_8cpp"/>
+      </node>
+      <node id="9260">
+        <label>src/bin/perf_regression/HashValueJoin.cpp</label>
+        <link refid="_hash_value_join_8cpp"/>
+      </node>
+      <node id="9257">
+        <label>src/lib/access.h</label>
+        <link refid="access_8h"/>
+        <childnode refid="9258" relation="include">
+        </childnode>
+        <childnode refid="9259" relation="include">
+        </childnode>
+        <childnode refid="9260" relation="include">
+        </childnode>
+        <childnode refid="9261" relation="include">
+        </childnode>
+        <childnode refid="9262" relation="include">
+        </childnode>
+        <childnode refid="9263" relation="include">
+        </childnode>
+        <childnode refid="9264" relation="include">
+        </childnode>
+        <childnode refid="9265" relation="include">
+        </childnode>
+      </node>
+      <node id="9254">
+        <label>src/lib/access/predicates.h</label>
+        <link refid="predicates_8h"/>
+        <childnode refid="9255" relation="include">
+        </childnode>
+        <childnode refid="9266" relation="include">
+        </childnode>
+        <childnode refid="9267" relation="include">
+        </childnode>
+        <childnode refid="9268" relation="include">
+        </childnode>
+        <childnode refid="9257" relation="include">
+        </childnode>
+      </node>
+      <node id="9263">
+        <label>src/bin/perf_regression/SimpleTableScan.cpp</label>
+        <link refid="bin_2perf__regression_2_simple_table_scan_8cpp"/>
+      </node>
+      <node id="9255">
+        <label>src/lib/access/JoinScan.h</label>
+        <link refid="_join_scan_8h"/>
+        <childnode refid="9256" relation="include">
+        </childnode>
+        <childnode refid="9257" relation="include">
+        </childnode>
+      </node>
+      <node id="9256">
+        <label>src/lib/access/JoinScan.cpp</label>
+        <link refid="lib_2access_2_join_scan_8cpp"/>
+      </node>
+      <node id="9253">
+        <label>src/lib/access/pred_MultiTableGreaterThanExpression.h</label>
+        <link refid="pred_MultiTableGreaterThanExpression.h"/>
+        <childnode refid="9254" relation="include">
+        </childnode>
+      </node>
+      <node id="9268">
+        <label>src/lib/access/pred_expression_factory.h</label>
+        <link refid="pred__expression__factory_8h"/>
+        <childnode refid="9267" relation="include">
+        </childnode>
+        <childnode refid="9254" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="class_multi_table_greater_than_expression" prot="public">MultiTableGreaterThanExpression</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>2012<sp/>Hasso-Plattner-Institut<sp/>fuer<sp/>Softwaresystemtechnik<sp/>GmbH.<sp/>All<sp/>rights<sp/>reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SRC_LIB_ACCESS_PRED_MULTITABLEGREATERTHANEXPRESSION_H_</highlight></codeline>
+<codeline lineno="3"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SRC_LIB_ACCESS_PRED_MULTITABLEGREATERTHANEXPRESSION_H_</highlight></codeline>
+<codeline lineno="4"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
+<codeline lineno="6" refid="class_multi_table_greater_than_expression" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_multi_table_greater_than_expression" kindref="compound">MultiTableGreaterThanExpression</ref>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="class_simple_field_expression" kindref="compound">SimpleFieldExpression</ref><sp/>{</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"><sp/></highlight><highlight class="keyword">protected</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10" refid="class_multi_table_greater_than_expression_1ac0616c9a1c7cf4b92c44500193626229" refkind="member"><highlight class="normal"><sp/><sp/>std::vector&lt;ValueId&gt;<sp/><ref refid="class_multi_table_greater_than_expression_1ac0616c9a1c7cf4b92c44500193626229" kindref="member">ids</ref>;</highlight></codeline>
+<codeline lineno="11" refid="class_multi_table_greater_than_expression_1a0e5523fa07b3ed576768ee12bbf3e7f7" refkind="member"><highlight class="normal"><sp/><sp/>std::vector&lt;bool&gt;<sp/><ref refid="class_multi_table_greater_than_expression_1a0e5523fa07b3ed576768ee12bbf3e7f7" kindref="member">has_vid</ref>;</highlight></codeline>
+<codeline lineno="12" refid="class_multi_table_greater_than_expression_1a9865a888e2d8f88fdc482a5c04ceb7bc" refkind="member"><highlight class="normal"><sp/><sp/>T<sp/><ref refid="class_multi_table_greater_than_expression_1a9865a888e2d8f88fdc482a5c04ceb7bc" kindref="member">value</ref>;</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14" refid="class_multi_table_greater_than_expression_1a377e4b6177090a7266c121a2f2683996" refkind="member"><highlight class="normal"><sp/><sp/>std::vector&lt;bool&gt;<sp/><ref refid="class_multi_table_greater_than_expression_1a377e4b6177090a7266c121a2f2683996" kindref="member">_sorteds</ref>;</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18" refid="class_multi_table_greater_than_expression_1aff2e8f81c94ba3c27c179304e04dd6ad" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="class_multi_table_greater_than_expression_1aff2e8f81c94ba3c27c179304e04dd6ad" kindref="member">MultiTableGreaterThanExpression</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>i,<sp/><ref refid="storage__types_8h_1a5ce4ecb27464dc24ba394527510dd89b" kindref="member">field_t</ref><sp/>f,<sp/>T<sp/>_value):</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_simple_field_expression" kindref="compound">SimpleFieldExpression</ref>(i,<sp/>f),<sp/><ref refid="class_multi_table_greater_than_expression_1a9865a888e2d8f88fdc482a5c04ceb7bc" kindref="member">value</ref>(_value)</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/>{}</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight></codeline>
+<codeline lineno="22" refid="class_multi_table_greater_than_expression_1a31ed03ce177f2a728ea1f0e4898f8067" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="class_multi_table_greater_than_expression_1aff2e8f81c94ba3c27c179304e04dd6ad" kindref="member">MultiTableGreaterThanExpression</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>i,<sp/><ref refid="storage__types_8h_1ad64b8c8026a86f643d173acbb694b4f8" kindref="member">field_name_t</ref><sp/>f,<sp/>T<sp/>_value):</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_simple_field_expression" kindref="compound">SimpleFieldExpression</ref>(i,<sp/>f),<sp/><ref refid="class_multi_table_greater_than_expression_1a9865a888e2d8f88fdc482a5c04ceb7bc" kindref="member">value</ref>(_value)</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/>{}</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27" refid="class_multi_table_greater_than_expression_1a1bba4a8d7d36f512c4c3d3a9319d5c05" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="class_multi_table_greater_than_expression_1aff2e8f81c94ba3c27c179304e04dd6ad" kindref="member">MultiTableGreaterThanExpression</ref>(<ref refid="namespacehyrise_1_1storage_1a15bf8f029e789356b9d72cd53e9973ec" kindref="member">hyrise::storage::c_store_ptr_t</ref><sp/>_table,<sp/><ref refid="storage__types_8h_1a5ce4ecb27464dc24ba394527510dd89b" kindref="member">field_t</ref><sp/>_field,<sp/>T<sp/>_value):</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_simple_field_expression" kindref="compound">SimpleFieldExpression</ref>(std::dynamic_pointer_cast&lt;const<sp/><ref refid="class_abstract_table" kindref="compound">AbstractTable</ref>&gt;(_table),<sp/>_field),<sp/><ref refid="class_multi_table_greater_than_expression_1a9865a888e2d8f88fdc482a5c04ceb7bc" kindref="member">value</ref>(_value)</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/>{}</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31" refid="class_multi_table_greater_than_expression_1adbeaea80740a6e55b09bbba1cd8d59dd" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_multi_table_greater_than_expression_1adbeaea80740a6e55b09bbba1cd8d59dd" kindref="member">walk</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;hyrise::storage::c_atable_ptr_t<sp/>&gt;<sp/>&amp;l)<sp/>{</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_multi_table_greater_than_expression_1adbeaea80740a6e55b09bbba1cd8d59dd" kindref="member">SimpleFieldExpression::walk</ref>(l);</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>subtables<sp/>=<sp/><ref refid="class_simple_field_expression_1a8da8d230fd7e416f692da42a666625ec" kindref="member">table</ref>-&gt;subtableCount();</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_multi_table_greater_than_expression_1a377e4b6177090a7266c121a2f2683996" kindref="member">_sorteds</ref>.assign(subtables,<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Reserve<sp/>the<sp/>values<sp/>for<sp/>the<sp/>value<sp/>id<sp/>and<sp/>for<sp/>the</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>bool<sp/>list</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_value_id" kindref="compound">ValueId</ref><sp/>vid;</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_multi_table_greater_than_expression_1ac0616c9a1c7cf4b92c44500193626229" kindref="member">ids</ref>.assign(subtables,<sp/>vid);</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_multi_table_greater_than_expression_1a0e5523fa07b3ed576768ee12bbf3e7f7" kindref="member">has_vid</ref>.assign(subtables,<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(<ref refid="storage__types_8h_1ab1b21fbdc9fcb935021666db9c910755" kindref="member">table_id_t</ref><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>subtables;<sp/>++i)<sp/>{</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_multi_table_greater_than_expression_1a377e4b6177090a7266c121a2f2683996" kindref="member">_sorteds</ref>[i]<sp/>=<sp/><ref refid="class_simple_field_expression_1a8da8d230fd7e416f692da42a666625ec" kindref="member">table</ref>-&gt;dictionaryByTableId(<ref refid="class_simple_field_expression_1ac17522bcc3e92592ed34b84d460909a7" kindref="member">field</ref>,<sp/>i)-&gt;isOrdered();</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="class_simple_field_expression_1a8da8d230fd7e416f692da42a666625ec" kindref="member">table</ref>-&gt;valueExists(<ref refid="class_simple_field_expression_1ac17522bcc3e92592ed34b84d460909a7" kindref="member">field</ref>,<sp/><ref refid="class_multi_table_greater_than_expression_1a9865a888e2d8f88fdc482a5c04ceb7bc" kindref="member">value</ref>,<sp/>i))<sp/>{</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_multi_table_greater_than_expression_1ac0616c9a1c7cf4b92c44500193626229" kindref="member">ids</ref>[i]<sp/>=<sp/><ref refid="class_simple_field_expression_1a8da8d230fd7e416f692da42a666625ec" kindref="member">table</ref>-&gt;getValueIdForValueByTableId(<ref refid="class_simple_field_expression_1ac17522bcc3e92592ed34b84d460909a7" kindref="member">field</ref>,<sp/><ref refid="class_multi_table_greater_than_expression_1a9865a888e2d8f88fdc482a5c04ceb7bc" kindref="member">value</ref>,<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">,<sp/>i);</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_multi_table_greater_than_expression_1a0e5523fa07b3ed576768ee12bbf3e7f7" kindref="member">has_vid</ref>[i]<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="class_multi_table_greater_than_expression_1a377e4b6177090a7266c121a2f2683996" kindref="member">_sorteds</ref>[i])<sp/>{</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>If<sp/>the<sp/>value<sp/>does<sp/>not<sp/>exist<sp/>we<sp/>have<sp/>to<sp/>find<sp/>the<sp/>first<sp/>value<sp/>smaller</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_value_id" kindref="compound">ValueId</ref><sp/>v2;</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>v2.<ref refid="class_value_id_1aba4b7fbd1c7acac6ae904e2e5862c7af" kindref="member">valueId</ref><sp/>=<sp/>std::dynamic_pointer_cast&lt;<ref refid="class_base_dictionary" kindref="compound">BaseDictionary&lt;T&gt;</ref>&gt;(<ref refid="class_simple_field_expression_1a8da8d230fd7e416f692da42a666625ec" kindref="member">table</ref>-&gt;dictionaryByTableId(<ref refid="class_simple_field_expression_1ac17522bcc3e92592ed34b84d460909a7" kindref="member">field</ref>,<sp/>i))-&gt;getValueIdForValueSmaller(<ref refid="class_multi_table_greater_than_expression_1a9865a888e2d8f88fdc482a5c04ceb7bc" kindref="member">value</ref>);</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>v2.<ref refid="class_value_id_1acb1b09f9c1ba2d8866a5886afed1a13d" kindref="member">table</ref><sp/>=<sp/>i;</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_multi_table_greater_than_expression_1ac0616c9a1c7cf4b92c44500193626229" kindref="member">ids</ref>[i]<sp/>=<sp/>v2;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight></codeline>
+<codeline lineno="62" refid="class_multi_table_greater_than_expression_1a5dfb2d164925a511fa0f18093de96058" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="class_multi_table_greater_than_expression_1a5dfb2d164925a511fa0f18093de96058" kindref="member">operator()</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>row)<sp/>{</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_value_id" kindref="compound">ValueId</ref><sp/>v<sp/>=<sp/><ref refid="class_simple_field_expression_1a8da8d230fd7e416f692da42a666625ec" kindref="member">table</ref>-&gt;getValueId(this-&gt;<ref refid="class_simple_field_expression_1ac17522bcc3e92592ed34b84d460909a7" kindref="member">field</ref>,<sp/>row);</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="class_multi_table_greater_than_expression_1a377e4b6177090a7266c121a2f2683996" kindref="member">_sorteds</ref>[v.<ref refid="class_value_id_1acb1b09f9c1ba2d8866a5886afed1a13d" kindref="member">table</ref>])<sp/>{</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>T<sp/>tt<sp/>=<sp/><ref refid="class_simple_field_expression_1a8da8d230fd7e416f692da42a666625ec" kindref="member">table</ref>-&gt;getValueForValueId&lt;T&gt;(this-&gt;<ref refid="class_simple_field_expression_1ac17522bcc3e92592ed34b84d460909a7" kindref="member">field</ref>,<sp/>v);</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>tt<sp/>&gt;<sp/>this-&gt;<ref refid="class_multi_table_greater_than_expression_1a9865a888e2d8f88fdc482a5c04ceb7bc" kindref="member">value</ref>;</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(this-&gt;<ref refid="class_multi_table_greater_than_expression_1a0e5523fa07b3ed576768ee12bbf3e7f7" kindref="member">has_vid</ref>[v.<ref refid="class_value_id_1acb1b09f9c1ba2d8866a5886afed1a13d" kindref="member">table</ref>]<sp/>&amp;&amp;<sp/><sp/>v.<ref refid="class_value_id_1aba4b7fbd1c7acac6ae904e2e5862c7af" kindref="member">valueId</ref><sp/>&gt;<sp/>this-&gt;ids[v.<ref refid="class_value_id_1acb1b09f9c1ba2d8866a5886afed1a13d" kindref="member">table</ref>].valueId)<sp/>{</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!this-&gt;<ref refid="class_multi_table_greater_than_expression_1a0e5523fa07b3ed576768ee12bbf3e7f7" kindref="member">has_vid</ref>[v.<ref refid="class_value_id_1acb1b09f9c1ba2d8866a5886afed1a13d" kindref="member">table</ref>]<sp/>&amp;&amp;<sp/><sp/>v.<ref refid="class_value_id_1aba4b7fbd1c7acac6ae904e2e5862c7af" kindref="member">valueId</ref><sp/>&gt;<sp/>this-&gt;ids[v.<ref refid="class_value_id_1acb1b09f9c1ba2d8866a5886afed1a13d" kindref="member">table</ref>].valueId)<sp/>{</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="79"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/>//<sp/>SRC_LIB_ACCESS_PRED_MULTITABLEGREATERTHANEXPRESSION_H_</highlight></codeline>
+    </programlisting>
+    <location file="/home/grund/hyrise/src/lib/access/pred_MultiTableGreaterThanExpression.h"/>
+  </compounddef>
+</doxygen>

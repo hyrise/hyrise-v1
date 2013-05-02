@@ -1,0 +1,392 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="prefetching_8cpp" kind="file">
+    <compoundname>prefetching.cpp</compoundname>
+    <includes refid="prefetching_8h" local="yes">prefetching.h</includes>
+    <includes local="no">asm/msr.h</includes>
+    <includes local="no">sched.h</includes>
+    <includes local="no">fcntl.h</includes>
+    <includes local="no">sys/types.h</includes>
+    <includes local="no">iostream</includes>
+    <includes local="no">unistd.h</includes>
+    <includes local="no">stdio.h</includes>
+    <includes local="no">stdlib.h</includes>
+    <incdepgraph>
+      <node id="14033">
+        <label>stdint.h</label>
+      </node>
+      <node id="14041">
+        <label>stdlib.h</label>
+      </node>
+      <node id="14036">
+        <label>fcntl.h</label>
+      </node>
+      <node id="14031">
+        <label>src/lib/helper/prefetching.cpp</label>
+        <link refid="prefetching.cpp"/>
+        <childnode refid="14032" relation="include">
+        </childnode>
+        <childnode refid="14034" relation="include">
+        </childnode>
+        <childnode refid="14035" relation="include">
+        </childnode>
+        <childnode refid="14036" relation="include">
+        </childnode>
+        <childnode refid="14037" relation="include">
+        </childnode>
+        <childnode refid="14038" relation="include">
+        </childnode>
+        <childnode refid="14039" relation="include">
+        </childnode>
+        <childnode refid="14040" relation="include">
+        </childnode>
+        <childnode refid="14041" relation="include">
+        </childnode>
+      </node>
+      <node id="14032">
+        <label>prefetching.h</label>
+        <link refid="prefetching_8h"/>
+        <childnode refid="14033" relation="include">
+        </childnode>
+      </node>
+      <node id="14034">
+        <label>asm/msr.h</label>
+      </node>
+      <node id="14037">
+        <label>sys/types.h</label>
+      </node>
+      <node id="14039">
+        <label>unistd.h</label>
+      </node>
+      <node id="14038">
+        <label>iostream</label>
+      </node>
+      <node id="14035">
+        <label>sched.h</label>
+      </node>
+      <node id="14040">
+        <label>stdio.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="prefetching_8cpp_1aa94416add5ae5d0ed75efb6665e4a54c" prot="public" static="no">
+        <name>_CPU_COUNT</name>
+        <initializer>8</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/prefetching.cpp" line="20" bodyfile="/home/grund/hyrise/src/lib/helper/prefetching.cpp" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="prefetching_8cpp_1a83c715592c62e13ef67313d7de5e2b88" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint64_t</type>
+        <definition>uint64_t read_prefetch</definition>
+        <argsstring>(int cpu)</argsstring>
+        <name>read_prefetch</name>
+        <param>
+          <type>int</type>
+          <declname>cpu</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/prefetching.cpp" line="23" bodyfile="/home/grund/hyrise/src/lib/helper/prefetching.cpp" bodystart="23" bodyend="50"/>
+      </memberdef>
+      <memberdef kind="function" id="prefetching_8cpp_1a8f747fb377f1eaa18fb7d29b262d91a5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void write_prefetch</definition>
+        <argsstring>(int cpu, uint64_t data)</argsstring>
+        <name>write_prefetch</name>
+        <param>
+          <type>int</type>
+          <declname>cpu</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/prefetching.cpp" line="52" bodyfile="/home/grund/hyrise/src/lib/helper/prefetching.cpp" bodystart="52" bodyend="74"/>
+      </memberdef>
+      <memberdef kind="function" id="prefetching_8cpp_1a0b6dc372d0df72d5bee3b0790e07b8e3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int lock_process_to_cpu</definition>
+        <argsstring>(int cpu)</argsstring>
+        <name>lock_process_to_cpu</name>
+        <param>
+          <type>int</type>
+          <declname>cpu</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/prefetching.cpp" line="76" bodyfile="/home/grund/hyrise/src/lib/helper/prefetching.cpp" bodystart="76" bodyend="91"/>
+      </memberdef>
+      <memberdef kind="function" id="prefetching_8cpp_1a3dc9f7be60162728026092d49b62e399" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int lock_process_to_random_cpu</definition>
+        <argsstring>()</argsstring>
+        <name>lock_process_to_random_cpu</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/prefetching.cpp" line="93" bodyfile="/home/grund/hyrise/src/lib/helper/prefetching.cpp" bodystart="93" bodyend="109"/>
+      </memberdef>
+      <memberdef kind="function" id="prefetching_8cpp_1ae34b14c978a1814e6ced3a9c5b37e2c8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void unlock_process</definition>
+        <argsstring>()</argsstring>
+        <name>unlock_process</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/prefetching.cpp" line="111" bodyfile="/home/grund/hyrise/src/lib/helper/prefetching.cpp" bodystart="111" bodyend="126"/>
+      </memberdef>
+      <memberdef kind="function" id="prefetching_8cpp_1ac148f2b81a65a09be85c049cd52f023b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void prefetch_all_off</definition>
+        <argsstring>(int cpu)</argsstring>
+        <name>prefetch_all_off</name>
+        <param>
+          <type>int</type>
+          <declname>cpu</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/prefetching.cpp" line="129" bodyfile="/home/grund/hyrise/src/lib/helper/prefetching.cpp" bodystart="129" bodyend="132"/>
+      </memberdef>
+      <memberdef kind="function" id="prefetching_8cpp_1ae73bda5eeee8d31338a1960cbed646b2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void prefetch_l2_off</definition>
+        <argsstring>(int cpu)</argsstring>
+        <name>prefetch_l2_off</name>
+        <param>
+          <type>int</type>
+          <declname>cpu</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/prefetching.cpp" line="134" bodyfile="/home/grund/hyrise/src/lib/helper/prefetching.cpp" bodystart="134" bodyend="137"/>
+      </memberdef>
+      <memberdef kind="function" id="prefetching_8cpp_1abec1f5c82c2db0307591949f0dc64360" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void prefetch_data_logic</definition>
+        <argsstring>(int cpu)</argsstring>
+        <name>prefetch_data_logic</name>
+        <param>
+          <type>int</type>
+          <declname>cpu</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/prefetching.cpp" line="139" bodyfile="/home/grund/hyrise/src/lib/helper/prefetching.cpp" bodystart="139" bodyend="142"/>
+      </memberdef>
+      <memberdef kind="function" id="prefetching_8cpp_1a48bef0a6de2c76ea47c26e4ca75a655e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void prefetch_stream</definition>
+        <argsstring>(int cpu)</argsstring>
+        <name>prefetch_stream</name>
+        <param>
+          <type>int</type>
+          <declname>cpu</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/prefetching.cpp" line="144" bodyfile="/home/grund/hyrise/src/lib/helper/prefetching.cpp" bodystart="144" bodyend="147"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>2012<sp/>Hasso-Plattner-Institut<sp/>fuer<sp/>Softwaresystemtechnik<sp/>GmbH.<sp/>All<sp/>rights<sp/>reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="prefetching_8h" kindref="compound">prefetching.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>NO_PREFETCHING</highlight></codeline>
+<codeline lineno="5"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&lt;asm/msr.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;sched.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="8"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;fcntl.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;sys/types.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;iostream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;unistd.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdio.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdlib.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>_CPU_COUNT</highlight></codeline>
+<codeline lineno="20" refid="prefetching_8cpp_1aa94416add5ae5d0ed75efb6665e4a54c" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>_CPU_COUNT<sp/>8</highlight></codeline>
+<codeline lineno="21"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="22"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23" refid="prefetching_8h_1a83c715592c62e13ef67313d7de5e2b88" refkind="member"><highlight class="normal">uint64_t<sp/><ref refid="prefetching_8cpp_1a83c715592c62e13ef67313d7de5e2b88" kindref="member">read_prefetch</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>cpu)<sp/>{</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>NO_PREFETCHING</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>msr_file_name[64];</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>fd;</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/>snprintf(msr_file_name,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(msr_file_name),<sp/></highlight><highlight class="stringliteral">&quot;/dev/cpu/%d/msr&quot;</highlight><highlight class="normal">,<sp/>cpu);</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/>fd<sp/>=<sp/>open(msr_file_name,<sp/>O_RDONLY);</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(fd<sp/>&lt;<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Something<sp/>went<sp/>totally<sp/>wrong<sp/>when<sp/>reading<sp/>the<sp/>MSR&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/>exit(2);</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/>uint64_t<sp/>data;</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(pread(fd,<sp/>&amp;data,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(data),<sp/>MSR_IA32_MISC_ENABLE)<sp/>!=<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(data))<sp/>{</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Could<sp/>not<sp/>read<sp/>from<sp/>MSR<sp/>for<sp/>CPU&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/>exit(2);</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/>close(fd);</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>data;</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52" refid="prefetching_8h_1a8f747fb377f1eaa18fb7d29b262d91a5" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="prefetching_8cpp_1a8f747fb377f1eaa18fb7d29b262d91a5" kindref="member">write_prefetch</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>cpu,<sp/>uint64_t<sp/>data)<sp/>{</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>NO_PREFETCHING</highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>msr_file_name[64];</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>fd;</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/>snprintf(msr_file_name,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(msr_file_name),<sp/></highlight><highlight class="stringliteral">&quot;/dev/cpu/%d/msr&quot;</highlight><highlight class="normal">,<sp/>cpu);</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/>fd<sp/>=<sp/>open(msr_file_name,<sp/>O_WRONLY);</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(fd<sp/>&lt;<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Something<sp/>went<sp/>totally<sp/>wrong<sp/>when<sp/>writing<sp/>the<sp/>MSR&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/>msr_file_name<sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/>fd<sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/>exit(2);</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(pwrite(fd,<sp/>&amp;data,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(data),<sp/>MSR_IA32_MISC_ENABLE)<sp/>!=<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(data))<sp/>{</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Could<sp/>not<sp/>write<sp/>to<sp/>MSR<sp/>for<sp/>CPU&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/>exit(2);</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/>close(fd);</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="74"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76" refid="prefetching_8h_1a0b6dc372d0df72d5bee3b0790e07b8e3" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="prefetching_8cpp_1a0b6dc372d0df72d5bee3b0790e07b8e3" kindref="member">lock_process_to_cpu</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>cpu)<sp/>{</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>NO_PREFETCHING</highlight></codeline>
+<codeline lineno="78"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/>cpu_set_t<sp/>m;</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/>CPU_ZERO(&amp;m);</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/>CPU_SET(cpu,<sp/>&amp;m);</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(sched_setaffinity(getpid(),<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(m),<sp/>&amp;m)<sp/>&lt;<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Sched<sp/>Affin<sp/>Error<sp/>(lock)&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/>exit(3);</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>cpu;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="89"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="91"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight></codeline>
+<codeline lineno="93" refid="prefetching_8h_1a3dc9f7be60162728026092d49b62e399" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="prefetching_8cpp_1a3dc9f7be60162728026092d49b62e399" kindref="member">lock_process_to_random_cpu</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>NO_PREFETCHING</highlight></codeline>
+<codeline lineno="95"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/>cpu_set_t<sp/>m;</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/>CPU_ZERO(&amp;m);</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>cpu<sp/>=<sp/>random()<sp/>%<sp/><ref refid="prefetching_8cpp_1aa94416add5ae5d0ed75efb6665e4a54c" kindref="member">_CPU_COUNT</ref>;</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/>CPU_SET(cpu,<sp/>&amp;m);</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(sched_setaffinity(getpid(),<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(m),<sp/>&amp;m)<sp/>&lt;<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Sched<sp/>Affin<sp/>Error<sp/>(lock)&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/>exit(3);</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>cpu;</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="107"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="109"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight></codeline>
+<codeline lineno="111" refid="prefetching_8h_1ae34b14c978a1814e6ced3a9c5b37e2c8" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="prefetching_8cpp_1ae34b14c978a1814e6ced3a9c5b37e2c8" kindref="member">unlock_process</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>NO_PREFETCHING</highlight></codeline>
+<codeline lineno="113"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/>cpu_set_t<sp/>m;</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/>CPU_ZERO(&amp;m);</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/><ref refid="prefetching_8cpp_1aa94416add5ae5d0ed75efb6665e4a54c" kindref="member">_CPU_COUNT</ref>;<sp/>++i)<sp/>{</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/>CPU_SET(i,<sp/>&amp;m);</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(sched_setaffinity(getpid(),<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(m),<sp/>&amp;m)<sp/>&lt;<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Sched<sp/>Affin<sp/>Error<sp/>(unlock)&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/>exit(3);</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="126"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight></codeline>
+<codeline lineno="129" refid="prefetching_8h_1ac148f2b81a65a09be85c049cd52f023b" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="prefetching_8cpp_1ac148f2b81a65a09be85c049cd52f023b" kindref="member">prefetch_all_off</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>cpu)<sp/>{</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/>uint64_t<sp/>value<sp/>=<sp/>0xe4628c0289;</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><ref refid="prefetching_8cpp_1a8f747fb377f1eaa18fb7d29b262d91a5" kindref="member">write_prefetch</ref>(cpu,<sp/>value);</highlight></codeline>
+<codeline lineno="132"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight></codeline>
+<codeline lineno="134" refid="prefetching_8h_1ae73bda5eeee8d31338a1960cbed646b2" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="prefetching_8cpp_1ae73bda5eeee8d31338a1960cbed646b2" kindref="member">prefetch_l2_off</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>cpu)<sp/>{</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/>uint64_t<sp/>value<sp/>=<sp/>0x44628c0289;</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><ref refid="prefetching_8cpp_1a8f747fb377f1eaa18fb7d29b262d91a5" kindref="member">write_prefetch</ref>(cpu,<sp/>value);</highlight></codeline>
+<codeline lineno="137"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight></codeline>
+<codeline lineno="139" refid="prefetching_8h_1abec1f5c82c2db0307591949f0dc64360" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="prefetching_8cpp_1abec1f5c82c2db0307591949f0dc64360" kindref="member">prefetch_data_logic</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>cpu)<sp/>{</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/>uint64_t<sp/>value<sp/>=<sp/>0x44628c0089;</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><ref refid="prefetching_8cpp_1a8f747fb377f1eaa18fb7d29b262d91a5" kindref="member">write_prefetch</ref>(cpu,<sp/>value);</highlight></codeline>
+<codeline lineno="142"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight></codeline>
+<codeline lineno="144" refid="prefetching_8h_1a48bef0a6de2c76ea47c26e4ca75a655e" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="prefetching_8cpp_1a48bef0a6de2c76ea47c26e4ca75a655e" kindref="member">prefetch_stream</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>cpu)<sp/>{</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/>uint64_t<sp/>value<sp/>=<sp/>0x4462840089;</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><ref refid="prefetching_8cpp_1a8f747fb377f1eaa18fb7d29b262d91a5" kindref="member">write_prefetch</ref>(cpu,<sp/>value);</highlight></codeline>
+<codeline lineno="147"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/home/grund/hyrise/src/lib/helper/prefetching.cpp"/>
+  </compounddef>
+</doxygen>

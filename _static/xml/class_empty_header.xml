@@ -1,0 +1,111 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="class_empty_header" kind="class" prot="public">
+    <compoundname>EmptyHeader</compoundname>
+    <basecompoundref refid="class_abstract_header" prot="public" virt="non-virtual">AbstractHeader</basecompoundref>
+    <includes refid="_empty_loader_8h" local="no">EmptyLoader.h</includes>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_empty_header_1af5b694714c0664119898e683b17bb0a1" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>EmptyHeader::EmptyHeader</definition>
+        <argsstring>()</argsstring>
+        <name>EmptyHeader</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/EmptyLoader.h" line="19" bodyfile="/home/grund/hyrise/src/lib/io/EmptyLoader.h" bodystart="19" bodyend="20"/>
+      </memberdef>
+      <memberdef kind="function" id="class_empty_header_1a34e0d856670890098d754d7ef9ac707c" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type><ref refid="class_empty_header" kindref="compound">EmptyHeader</ref> *</type>
+        <definition>EmptyHeader * EmptyHeader::clone</definition>
+        <argsstring>() const </argsstring>
+        <name>clone</name>
+        <reimplements refid="class_abstract_header_1ad962760f46e46deedfa3f00242713697">clone</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/EmptyLoader.h" line="21" bodyfile="/home/grund/hyrise/src/lib/io/EmptyLoader.cpp" bodystart="17" bodyend="19"/>
+      </memberdef>
+      <memberdef kind="function" id="class_empty_header_1a4f3c177c31cff586fbe9abe558c0473b" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type><ref refid="storage__types_8h_1ab1a41784d413aa539cdda0391757965c" kindref="member">compound_metadata_list</ref> *</type>
+        <definition>compound_metadata_list * EmptyHeader::load</definition>
+        <argsstring>(const Loader::params &amp;args)</argsstring>
+        <name>load</name>
+        <reimplements refid="class_abstract_header_1a9d4ba3ed1cd5ebe89a21c5c39e41a9fa">load</reimplements>
+        <param>
+          <type>const <ref refid="class_loader_1_1params" kindref="compound">Loader::params</ref> &amp;</type>
+          <declname>args</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Construct metadata. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>args</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="namespace_loader" kindref="compound">Loader</ref> arguments that may influence header creation </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/EmptyLoader.h" line="22" bodyfile="/home/grund/hyrise/src/lib/io/EmptyLoader.cpp" bodystart="12" bodyend="15"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1783">
+        <label>cloneable</label>
+        <link refid="classcloneable"/>
+      </node>
+      <node id="1782">
+        <label>AbstractHeader</label>
+        <link refid="class_abstract_header"/>
+        <childnode refid="1783" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1781">
+        <label>EmptyHeader</label>
+        <link refid="class_empty_header"/>
+        <childnode refid="1782" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1786">
+        <label>cloneable</label>
+        <link refid="classcloneable"/>
+      </node>
+      <node id="1785">
+        <label>AbstractHeader</label>
+        <link refid="class_abstract_header"/>
+        <childnode refid="1786" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1784">
+        <label>EmptyHeader</label>
+        <link refid="class_empty_header"/>
+        <childnode refid="1785" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/io/EmptyLoader.h" line="17" bodyfile="/home/grund/hyrise/src/lib/io/EmptyLoader.h" bodystart="17" bodyend="23"/>
+    <listofallmembers>
+      <member refid="class_empty_header_1a34e0d856670890098d754d7ef9ac707c" prot="public" virt="virtual"><scope>EmptyHeader</scope><name>clone</name></member>
+      <member refid="class_empty_header_1af5b694714c0664119898e683b17bb0a1" prot="public" virt="non-virtual"><scope>EmptyHeader</scope><name>EmptyHeader</name></member>
+      <member refid="class_empty_header_1a4f3c177c31cff586fbe9abe558c0473b" prot="public" virt="virtual"><scope>EmptyHeader</scope><name>load</name></member>
+      <member refid="class_abstract_header_1af99f853c7aa7105400d4536de51808fd" prot="public" virt="virtual"><scope>EmptyHeader</scope><name>~AbstractHeader</name></member>
+      <member refid="classcloneable_1a31ff0906763d17093098d05207e2184c" prot="public" virt="virtual"><scope>EmptyHeader</scope><name>~cloneable</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

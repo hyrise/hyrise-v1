@@ -1,0 +1,189 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="_task_8cpp" kind="file">
+    <compoundname>Task.cpp</compoundname>
+    <includes refid="_task_8h" local="yes">taskscheduler/Task.h</includes>
+    <includes local="no">iostream</includes>
+    <includes local="no">thread</includes>
+    <incdepgraph>
+      <node id="25351">
+        <label>string</label>
+      </node>
+      <node id="25346">
+        <label>taskscheduler/Task.h</label>
+        <link refid="_task_8h"/>
+        <childnode refid="25347" relation="include">
+        </childnode>
+        <childnode refid="25348" relation="include">
+        </childnode>
+        <childnode refid="25349" relation="include">
+        </childnode>
+        <childnode refid="25350" relation="include">
+        </childnode>
+        <childnode refid="25351" relation="include">
+        </childnode>
+      </node>
+      <node id="25350">
+        <label>condition_variable</label>
+      </node>
+      <node id="25347">
+        <label>vector</label>
+      </node>
+      <node id="25345">
+        <label>src/lib/taskscheduler/Task.cpp</label>
+        <link refid="Task.cpp"/>
+        <childnode refid="25346" relation="include">
+        </childnode>
+        <childnode refid="25352" relation="include">
+        </childnode>
+        <childnode refid="25353" relation="include">
+        </childnode>
+      </node>
+      <node id="25352">
+        <label>iostream</label>
+      </node>
+      <node id="25348">
+        <label>mutex</label>
+      </node>
+      <node id="25353">
+        <label>thread</label>
+      </node>
+      <node id="25349">
+        <label>memory</label>
+      </node>
+    </incdepgraph>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>2012<sp/>Hasso-Plattner-Institut<sp/>fuer<sp/>Softwaresystemtechnik<sp/>GmbH.<sp/>All<sp/>rights<sp/>reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*<sp/>Task.cpp</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*<sp/><sp/>Created<sp/>on:<sp/>Feb<sp/>15,<sp/>2012</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>Author:<sp/>jwust</highlight></codeline>
+<codeline lineno="7"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_task_8h" kindref="compound">taskscheduler/Task.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;iostream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;thread&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14" refid="class_task_1aeb0d741352700686296e742bc21e4362" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_task_1aeb0d741352700686296e742bc21e4362" kindref="member">Task::lockForNotifications</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><ref refid="class_task_1a778ed5c766f4098184c31a656fe471ed" kindref="member">_notifyMutex</ref>.lock();</highlight></codeline>
+<codeline lineno="16"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18" refid="class_task_1a35af9de734c94c39981a2b199790e288" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_task_1a35af9de734c94c39981a2b199790e288" kindref="member">Task::unlockForNotifications</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><ref refid="class_task_1a778ed5c766f4098184c31a656fe471ed" kindref="member">_notifyMutex</ref>.unlock();</highlight></codeline>
+<codeline lineno="20"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight></codeline>
+<codeline lineno="22" refid="class_task_1a793f3db3f39a9ea7352078f235ee7843" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_task_1a793f3db3f39a9ea7352078f235ee7843" kindref="member">Task::notifyReadyObservers</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/>std::lock_guard&lt;std::mutex&gt;<sp/>lk(<ref refid="class_task_1a6a0d1fa3b37cb2e7896ea23049798b36" kindref="member">_observerMutex</ref>);</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/>std::vector&lt;TaskReadyObserver<sp/>*&gt;::iterator<sp/>itr;</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(itr<sp/>=<sp/><ref refid="class_task_1a7f7f81090a389fd5cf79747e165fe0f4" kindref="member">_readyObservers</ref>.begin();<sp/>itr<sp/>!=<sp/><ref refid="class_task_1a7f7f81090a389fd5cf79747e165fe0f4" kindref="member">_readyObservers</ref>.end();<sp/>++itr)<sp/>{</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/>(*itr)-&gt;notifyReady(shared_from_this());</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="28"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30" refid="class_task_1a82157fda3766f4331966baf74e8206fa" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_task_1a82157fda3766f4331966baf74e8206fa" kindref="member">Task::notifyDoneObservers</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/>std::lock_guard&lt;std::mutex&gt;<sp/>lk(<ref refid="class_task_1a6a0d1fa3b37cb2e7896ea23049798b36" kindref="member">_observerMutex</ref>);</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/>std::vector&lt;TaskDoneObserver<sp/>*&gt;::iterator<sp/>itr;</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(itr<sp/>=<sp/><ref refid="class_task_1af277c65727e285efbf965633851ec9d8" kindref="member">_doneObservers</ref>.begin();<sp/>itr<sp/>!=<sp/><ref refid="class_task_1af277c65727e285efbf965633851ec9d8" kindref="member">_doneObservers</ref>.end();<sp/>++itr)<sp/>{</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/>(*itr)-&gt;notifyDone(shared_from_this());</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="36"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38" refid="class_task_1a0ca53354bdc006762a0fda68c64f7608" refkind="member"><highlight class="normal"><ref refid="class_task_1a0ca53354bdc006762a0fda68c64f7608" kindref="member">Task::Task</ref>():<sp/>_dependencyWaitCount(0),<sp/>_preferredCore(<ref refid="_task_8h_1a3e04105e127998342e017c1f6608cd28" kindref="member">NO_PREFERRED_CORE</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="39"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41" refid="class_task_1aa9e65a15e122de040bb914ab144577b8" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_task_1aa9e65a15e122de040bb914ab144577b8" kindref="member">Task::addDependency</ref>(std::shared_ptr&lt;Task&gt;<sp/>dependency)<sp/>{</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/>std::lock_guard&lt;std::mutex&gt;<sp/>lk(<ref refid="class_task_1a10259a6dde7645e32c32262818339c8c" kindref="member">_depMutex</ref>);</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_task_1ab25d10a171c2efc2dcdf4ec7b81d148d" kindref="member">_dependencies</ref>.push_back(dependency);</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/>++<ref refid="class_task_1a432b54ea5cdbf8f875c756c70710b69e" kindref="member">_dependencyWaitCount</ref>;</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/>dependency-&gt;addDoneObserver(</highlight><highlight class="keyword">this</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51" refid="class_task_1a9726ca1f4c6712a3516cb05121479f25" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_task_1a9726ca1f4c6712a3516cb05121479f25" kindref="member">Task::addReadyObserver</ref>(<ref refid="class_task_ready_observer" kindref="compound">TaskReadyObserver</ref><sp/>*observer)<sp/>{</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/>std::lock_guard&lt;std::mutex&gt;<sp/>lk(<ref refid="class_task_1a6a0d1fa3b37cb2e7896ea23049798b36" kindref="member">_observerMutex</ref>);</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><ref refid="class_task_1a7f7f81090a389fd5cf79747e165fe0f4" kindref="member">_readyObservers</ref>.push_back(observer);</highlight></codeline>
+<codeline lineno="55"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57" refid="class_task_1a0e4ebf7ad5313f027aa16d250685604a" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_task_1a0e4ebf7ad5313f027aa16d250685604a" kindref="member">Task::addDoneObserver</ref>(<ref refid="class_task_done_observer" kindref="compound">TaskDoneObserver</ref><sp/>*observer)<sp/>{</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/>std::lock_guard&lt;std::mutex&gt;<sp/>lk(<ref refid="class_task_1a6a0d1fa3b37cb2e7896ea23049798b36" kindref="member">_observerMutex</ref>);</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><ref refid="class_task_1af277c65727e285efbf965633851ec9d8" kindref="member">_doneObservers</ref>.push_back(observer);</highlight></codeline>
+<codeline lineno="61"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63" refid="class_task_1aa729cd30e7135f2851dd625679aa8556" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_task_1aa729cd30e7135f2851dd625679aa8556" kindref="member">Task::notifyDone</ref>(std::shared_ptr&lt;Task&gt;<sp/>task)<sp/>{</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><ref refid="class_task_1a10259a6dde7645e32c32262818339c8c" kindref="member">_depMutex</ref>.lock();</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>t<sp/>=<sp/>--<ref refid="class_task_1a432b54ea5cdbf8f875c756c70710b69e" kindref="member">_dependencyWaitCount</ref>;</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><ref refid="class_task_1a10259a6dde7645e32c32262818339c8c" kindref="member">_depMutex</ref>.unlock();</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(t<sp/>==<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/>std::lock_guard&lt;std::mutex&gt;<sp/>lk(<ref refid="class_task_1a778ed5c766f4098184c31a656fe471ed" kindref="member">_notifyMutex</ref>);</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_task_1a793f3db3f39a9ea7352078f235ee7843" kindref="member">notifyReadyObservers</ref>();</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="72"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74" refid="class_task_1ab7307de77d5baf3dfec0269996d81543" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="class_task_1ab7307de77d5baf3dfec0269996d81543" kindref="member">Task::isReady</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/>std::lock_guard&lt;std::mutex&gt;<sp/>lk(<ref refid="class_task_1a10259a6dde7645e32c32262818339c8c" kindref="member">_depMutex</ref>);</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(<ref refid="class_task_1a432b54ea5cdbf8f875c756c70710b69e" kindref="member">_dependencyWaitCount</ref><sp/>==<sp/>0);</highlight></codeline>
+<codeline lineno="77"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79" refid="class_task_1a75f0a4940cdd338c2ba538200bfcdddf" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="class_task_1a75f0a4940cdd338c2ba538200bfcdddf" kindref="member">Task::getDependencyCount</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="class_task_1ab25d10a171c2efc2dcdf4ec7b81d148d" kindref="member">_dependencies</ref>.size();</highlight></codeline>
+<codeline lineno="81"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight><highlight class="comment">//<sp/>TODO<sp/>make<sp/>nicer;<sp/>method<sp/>needed<sp/>to<sp/>identify<sp/>result<sp/>task<sp/>of<sp/>a<sp/>query</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight><highlight class="comment">//<sp/>in<sp/>the<sp/>query<sp/>tree,<sp/>we<sp/>have<sp/>no<sp/>successor<sp/>if<sp/>we<sp/>have<sp/>no<sp/>doneObserver</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="85" refid="class_task_1a769a8fb688ddaed2870faeea61d84ca0" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="class_task_1a769a8fb688ddaed2870faeea61d84ca0" kindref="member">Task::hasSuccessors</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(<ref refid="class_task_1af277c65727e285efbf965633851ec9d8" kindref="member">_doneObservers</ref>.size()<sp/>&gt;<sp/>0);</highlight></codeline>
+<codeline lineno="87"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="89" refid="class_task_1a1b8e520f60e9f41a3c1331e4e9e4b3ca" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_task_1a1b8e520f60e9f41a3c1331e4e9e4b3ca" kindref="member">Task::setPreferredCore</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>core)<sp/>{</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><ref refid="class_task_1aa7b21c6482b905c04f354c738341beb3" kindref="member">_preferredCore</ref><sp/>=<sp/>core;</highlight></codeline>
+<codeline lineno="91"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight></codeline>
+<codeline lineno="93" refid="class_task_1a4a3f6f336369d8e2d6a92fae0690c143" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="class_task_1a4a3f6f336369d8e2d6a92fae0690c143" kindref="member">Task::getPreferredCore</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="class_task_1aa7b21c6482b905c04f354c738341beb3" kindref="member">_preferredCore</ref>;</highlight></codeline>
+<codeline lineno="95"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight></codeline>
+<codeline lineno="97" refid="class_wait_task_1a810d4b67d0d07c30cdcac74b181c69f6" refkind="member"><highlight class="normal"><ref refid="class_wait_task_1a810d4b67d0d07c30cdcac74b181c69f6" kindref="member">WaitTask::WaitTask</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><ref refid="class_wait_task_1af043adab7cc596e4ba6c012a9fada90a" kindref="member">_finished</ref><sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="99"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight></codeline>
+<codeline lineno="101" refid="class_wait_task_1aea03a94ba580a71727e52e7f74547400" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_wait_task_1aea03a94ba580a71727e52e7f74547400" kindref="member">WaitTask::operator()</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/>std::lock_guard&lt;std::mutex&gt;<sp/>lock(<ref refid="class_wait_task_1a5a940881c985d45a655b94f5c9bed36b" kindref="member">_mut</ref>);</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_wait_task_1af043adab7cc596e4ba6c012a9fada90a" kindref="member">_finished</ref><sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><ref refid="class_wait_task_1a7739e3f9abc5f1af6745f3ea47d00817" kindref="member">_cond</ref>.notify_one();</highlight></codeline>
+<codeline lineno="107"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight></codeline>
+<codeline lineno="109" refid="class_wait_task_1a0bdc080ee122d2afa75bfdcb114ed997" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_wait_task_1a0bdc080ee122d2afa75bfdcb114ed997" kindref="member">WaitTask::wait</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/>std::unique_lock&lt;std::mutex&gt;<sp/>ul(<ref refid="class_wait_task_1a5a940881c985d45a655b94f5c9bed36b" kindref="member">_mut</ref>);</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(!<ref refid="class_wait_task_1af043adab7cc596e4ba6c012a9fada90a" kindref="member">_finished</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_wait_task_1a7739e3f9abc5f1af6745f3ea47d00817" kindref="member">_cond</ref>.wait(ul);</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="114"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight></codeline>
+<codeline lineno="116" refid="class_sleep_task_1ad8fe65cfbaaa000b464fbdfa93364cd4" refkind="member"><highlight class="normal"><ref refid="class_sleep_task_1ad8fe65cfbaaa000b464fbdfa93364cd4" kindref="member">SleepTask::SleepTask</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>microseconds)<sp/>{</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><ref refid="class_sleep_task_1a5d70866227d7776bfd3041f7473bf468" kindref="member">_microseconds</ref><sp/>=<sp/>microseconds;</highlight></codeline>
+<codeline lineno="118"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight></codeline>
+<codeline lineno="120" refid="class_sleep_task_1a15906e45427ac76e8785bf2f16d1ba5e" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_sleep_task_1a15906e45427ac76e8785bf2f16d1ba5e" kindref="member">SleepTask::operator()</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/>std::this_thread::sleep_for(std::chrono::microseconds(<ref refid="class_sleep_task_1a5d70866227d7776bfd3041f7473bf468" kindref="member">_microseconds</ref>));</highlight></codeline>
+<codeline lineno="122"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight></codeline>
+<codeline lineno="124" refid="class_sync_task_1ac3b5a52cb759a0f1a92c41d21065a17f" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_sync_task_1ac3b5a52cb759a0f1a92c41d21065a17f" kindref="member">SyncTask::operator()</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//do<sp/>nothing</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/home/grund/hyrise/src/lib/taskscheduler/Task.cpp"/>
+  </compounddef>
+</doxygen>

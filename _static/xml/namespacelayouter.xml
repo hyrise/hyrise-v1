@@ -1,0 +1,140 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="namespacelayouter" kind="namespace">
+    <compoundname>layouter</compoundname>
+    <innerclass refid="classlayouter_1_1_schema" prot="public">layouter::Schema</innerclass>
+    <innerclass refid="classlayouter_1_1_query" prot="public">layouter::Query</innerclass>
+    <innerclass refid="classlayouter_1_1_layout" prot="public">layouter::Layout</innerclass>
+    <innerclass refid="classlayouter_1_1_result" prot="public">layouter::Result</innerclass>
+    <innerclass refid="classlayouter_1_1_base_layouter" prot="public">layouter::BaseLayouter</innerclass>
+    <innerclass refid="classlayouter_1_1_candidate_layouter" prot="public">layouter::CandidateLayouter</innerclass>
+    <innerclass refid="classlayouter_1_1_fast_candidate_layouter" prot="public">layouter::FastCandidateLayouter</innerclass>
+    <innerclass refid="classlayouter_1_1_divide_and_conquer_layouter" prot="public">layouter::DivideAndConquerLayouter</innerclass>
+    <innerclass refid="structlayouter_1_1_layouter_configuration" prot="public">layouter::LayouterConfiguration</innerclass>
+    <innerclass refid="classlayouter_1_1_incremental_candidate_layouter" prot="public">layouter::IncrementalCandidateLayouter</innerclass>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="namespacelayouter_1a9779582085930cc6fb80f4f2b27dfd9e" prot="public" static="no">
+        <type>std::vector&lt; unsigned &gt;</type>
+        <definition>typedef std::vector&lt;unsigned&gt; layouter::subset_t</definition>
+        <argsstring></argsstring>
+        <name>subset_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/layouter/layout_utils.h" line="10" bodyfile="/home/grund/hyrise/src/lib/layouter/layout_utils.h" bodystart="10" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="namespacelayouter_1aec12d8e69cf2bd6fc00d80094a3a0fd0" prot="public" static="no">
+        <type>std::set&lt; unsigned &gt;</type>
+        <definition>typedef std::set&lt;unsigned&gt; layouter::set_subset_t</definition>
+        <argsstring></argsstring>
+        <name>set_subset_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/layouter/layout_utils.h" line="11" bodyfile="/home/grund/hyrise/src/lib/layouter/layout_utils.h" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="namespacelayouter_1a8fe7d9ecbfd0b9a1690bca4e2a544fd0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void layouter::print</definition>
+        <argsstring>(std::set&lt; unsigned &gt; x)</argsstring>
+        <name>print</name>
+        <param>
+          <type>std::set&lt; unsigned &gt;</type>
+          <declname>x</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/layouter/layout_utils.h" line="16" bodyfile="/home/grund/hyrise/src/lib/layouter/layout_utils.cpp" bodystart="26" bodyend="31"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacelayouter_1ae88f5877c8cf47832c8ec736ed0df4b0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void layouter::print</definition>
+        <argsstring>(std::vector&lt; unsigned &gt; x)</argsstring>
+        <name>print</name>
+        <param>
+          <type>std::vector&lt; unsigned &gt;</type>
+          <declname>x</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/layouter/layout_utils.h" line="17" bodyfile="/home/grund/hyrise/src/lib/layouter/layout_utils.cpp" bodystart="19" bodyend="24"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacelayouter_1a2a52694287321d9934674095bad4ccbb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void layouter::print</definition>
+        <argsstring>(std::vector&lt; std::vector&lt; unsigned &gt; &gt; x)</argsstring>
+        <name>print</name>
+        <param>
+          <type>std::vector&lt; std::vector&lt; unsigned &gt; &gt;</type>
+          <declname>x</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/layouter/layout_utils.h" line="18" bodyfile="/home/grund/hyrise/src/lib/layouter/layout_utils.cpp" bodystart="8" bodyend="17"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacelayouter_1a7809de6ee62450fc784078111479fb3f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void layouter::print</definition>
+        <argsstring>(std::vector&lt; double &gt; x)</argsstring>
+        <name>print</name>
+        <param>
+          <type>std::vector&lt; double &gt;</type>
+          <declname>x</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/layouter/layout_utils.h" line="19" bodyfile="/home/grund/hyrise/src/lib/layouter/layout_utils.cpp" bodystart="40" bodyend="45"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacelayouter_1a3e837005becd52a996181c47d629eabe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void layouter::print</definition>
+        <argsstring>(int *x, int s)</argsstring>
+        <name>print</name>
+        <param>
+          <type>int *</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>s</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/layouter/layout_utils.h" line="20" bodyfile="/home/grund/hyrise/src/lib/layouter/layout_utils.cpp" bodystart="33" bodyend="38"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/grund/hyrise/src/lib/layouter/base.h" line="19"/>
+  </compounddef>
+</doxygen>

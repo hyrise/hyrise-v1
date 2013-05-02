@@ -1,0 +1,352 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Group By Scan &mdash; HYRISE latest documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/breathe.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     'latest',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="HYRISE latest documentation" href="../../index.html" />
+    <link rel="up" title="Plan Operations" href="../planops.html" />
+    <link rel="next" title="HashJoin" href="hashjoin.html" />
+    <link rel="prev" title="PlanOperation" href="planop.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="hashjoin.html" title="HashJoin"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="planop.html" title="PlanOperation"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../index.html">HYRISE latest documentation</a> &raquo;</li>
+          <li><a href="../../architecture.html" >Implementation Details</a> &raquo;</li>
+          <li><a href="../planops.html" accesskey="U">Plan Operations</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/hyrise.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../architecture.html">Implementation Details</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../architecture.html">Create Modifiable Tables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../layouter.html">HYRISE Layouter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../loading.html">Loading</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../statistics.html">Query Statistics</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../planops.html">Plan Operations</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="planop.html">PlanOperation</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="">Group By Scan</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#useage">Useage</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#executeplanoperation">executePlanOperation()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#aggregate-scan-count-and-sum">Aggregate Scan (Count and Sum)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#parallelization">Parallelization</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="hashjoin.html">HashJoin</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../extension_points.html">Extension points</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routing.html">Routing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../query_execution.html">HYRISE Query Execution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developing.html">Developing with HYRISE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">HYRISE &amp; Development FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../proposals.html">Proposals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../doxygen.html">Doxygen Documentation</a></li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="planop.html"
+                        title="previous chapter">PlanOperation</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="hashjoin.html"
+                        title="next chapter">HashJoin</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/architecture/planops/groupby.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="group-by-scan">
+<h1>Group By Scan<a class="headerlink" href="#group-by-scan" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="useage">
+<h2>Useage<a class="headerlink" href="#useage" title="Permalink to this headline">¶</a></h2>
+<p>For implementing the group by scan we use hashing. Therefore, it is necessary that
+every GroupBy instance has the source table itself, a hash map, the grouping fields
+as well as possible grouping functions (sum or count) as input.</p>
+<p>The interface for this PlanOperation is straight-forward:</p>
+<p>Example:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">StorageManager</span> <span class="o">*</span><span class="n">sm</span> <span class="o">=</span> <span class="n">StorageManager</span><span class="o">::</span><span class="n">getInstance</span><span class="p">();</span>
+
+<span class="n">AbstractTable</span> <span class="o">*</span><span class="n">source</span> <span class="o">=</span> <span class="n">sm</span><span class="o">-&gt;</span><span class="n">getTable</span><span class="p">(</span><span class="s">&quot;stock_level&quot;</span><span class="p">);</span>
+
+<span class="n">GroupByScan</span> <span class="n">gs</span><span class="p">;</span>
+<span class="n">gs</span><span class="p">.</span><span class="n">addInput</span><span class="p">(</span><span class="n">source</span><span class="p">);</span>
+
+<span class="c1">//third column as grouping field</span>
+<span class="n">gs</span><span class="p">.</span><span class="n">addField</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+
+<span class="n">HashBuild</span> <span class="n">hs</span><span class="p">;</span>
+<span class="n">hs</span><span class="p">.</span><span class="n">addInput</span><span class="p">(</span><span class="n">source</span><span class="p">);</span>
+
+<span class="c1">//third column is grouping field - hash it</span>
+<span class="n">hs</span><span class="p">.</span><span class="n">addField</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+
+<span class="n">AbstractHashedColumn</span> <span class="o">*</span><span class="n">group_map</span> <span class="o">=</span> <span class="n">hs</span><span class="p">.</span><span class="n">execute</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getResultHashedColumn</span><span class="p">();</span>
+
+<span class="n">gs</span><span class="p">.</span><span class="n">addInput</span><span class="p">(</span><span class="n">group_map</span><span class="p">);</span>
+
+<span class="n">AbstractTable</span> <span class="o">*</span><span class="n">result</span> <span class="o">=</span> <span class="n">gs</span><span class="p">.</span><span class="n">execute</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getResultTable</span><span class="p">();</span>
+
+<span class="n">result</span><span class="o">-&gt;</span><span class="n">release</span><span class="p">();</span>
+<span class="n">group_map</span><span class="o">-&gt;</span><span class="n">release</span><span class="p">();</span>
+<span class="n">source</span><span class="o">-&gt;</span><span class="n">release</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>If more than one column is part of the grouping expression, just add more fields to the the GroupByScan instance and HashBuild-Operation.
+The implementation of <em>HashBuild</em> and <em>HashedColumn</em> takes care of building the correct hash group.</p>
+</div>
+<div class="section" id="executeplanoperation">
+<h2>executePlanOperation()<a class="headerlink" href="#executeplanoperation" title="Permalink to this headline">¶</a></h2>
+<p>Commented Code:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="cm">/* the result table layout is created with the help of the</span>
+<span class="cm"> * added grouping fields and attached aggregate functions</span>
+<span class="cm"> */</span>
+
+<span class="n">AbstractTable</span> <span class="o">*</span><span class="n">resultTab</span> <span class="o">=</span> <span class="n">createResultTableLayout</span><span class="p">();</span>
+<span class="n">AbstractHashedColumn</span> <span class="o">*</span><span class="n">groupResults</span> <span class="o">=</span> <span class="n">getInputHashedColumn</span><span class="p">();</span>
+
+<span class="n">AbstractTable</span> <span class="o">*</span><span class="n">input</span> <span class="o">=</span> <span class="n">getInputTable</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+
+<span class="cm">/* if there are grouping fields there has to be a hash map in the input</span>
+<span class="cm"> * else just consider attached aggregate functions</span>
+<span class="cm"> */</span>
+
+<span class="k">if</span><span class="p">(</span><span class="n">_field_definition</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">!=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">groupResults</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="cm">/* starting with first group */</span>
+    <span class="kt">size_t</span> <span class="n">row</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="cm">/* get hash map iterator from groupResults input</span>
+<span class="cm">     * iterating over all available hash keys</span>
+<span class="cm">     * each key represents a single group</span>
+<span class="cm">     */</span>
+
+    <span class="k">for</span><span class="p">(</span><span class="n">AbstractHashedColumn</span><span class="o">::</span><span class="kt">map_const_iterator_t</span> <span class="n">hit</span> <span class="o">=</span> <span class="n">groupResults</span><span class="o">-&gt;</span><span class="n">getMapBegin</span><span class="p">();</span> <span class="n">hit</span> <span class="o">!=</span> <span class="n">groupResults</span><span class="o">-&gt;</span><span class="n">getMapEnd</span><span class="p">();</span> <span class="o">++</span><span class="n">hit</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="cm">/* For each columnNr in added grouping fields</span>
+<span class="cm">         * write its grouping result to the result table</span>
+<span class="cm">         */</span>
+
+        <span class="n">BOOST_FOREACH</span><span class="p">(</span><span class="kt">field_t</span> <span class="n">columnNr</span><span class="p">,</span> <span class="n">_field_definition</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="cm">/* To avoid excessive use of switch case statements</span>
+<span class="cm">             * we use a template based type switch (src/lib/storage/meta_storage.h)</span>
+<span class="cm">             * this will call the correct typed setValue method on resultTab</span>
+<span class="cm">             * and writes the result in the row represented by the &quot;row&quot; variable</span>
+<span class="cm">             */</span>
+
+            <span class="n">hyrise</span><span class="o">::</span><span class="n">storage</span><span class="o">::</span><span class="n">write_group_functor</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">fun</span><span class="p">(</span><span class="n">input</span><span class="p">,</span> <span class="n">resultTab</span><span class="p">,</span> <span class="n">hit</span><span class="p">,</span> <span class="p">(</span><span class="kt">size_t</span><span class="p">)</span><span class="n">columnNr</span><span class="p">,</span> <span class="n">row</span><span class="p">);</span>
+            <span class="n">hyrise</span><span class="o">::</span><span class="n">storage</span><span class="o">::</span><span class="n">type_switch</span><span class="o">&lt;</span><span class="n">hyrise_basic_types</span><span class="o">&gt;</span> <span class="n">ts</span><span class="p">;</span>
+
+            <span class="n">ts</span><span class="p">(</span><span class="n">input</span><span class="o">-&gt;</span><span class="n">typeOfColumn</span><span class="p">(</span><span class="n">columnNr</span><span class="p">),</span> <span class="n">fun</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="cm">/* If there are attached aggregate functions (count or sum)</span>
+<span class="cm">         * we execute the function but only consider the rows that</span>
+<span class="cm">         * build the identified group (&quot;hit-&gt;second&quot;).</span>
+<span class="cm">         * processValuesForRows is implemented in AggregateFunctions.h</span>
+<span class="cm">        */</span>
+
+        <span class="n">BOOST_FOREACH</span><span class="p">(</span><span class="n">AggregateFun</span> <span class="o">*</span><span class="n">funct</span><span class="p">,</span> <span class="n">aggregate_functions</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">funct</span><span class="o">-&gt;</span><span class="n">processValuesForRows</span><span class="p">(</span><span class="n">input</span><span class="p">,</span> <span class="n">hit</span><span class="o">-&gt;</span><span class="n">second</span><span class="p">,</span> <span class="n">resultTab</span><span class="p">,</span> <span class="n">row</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="cm">/* proceed with next group */</span>
+        <span class="n">row</span><span class="o">++</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="k">else</span>
+<span class="p">{</span>
+    <span class="cm">/* There are no grouping fields, we only need to execute</span>
+<span class="cm">     * all attached aggregate functions (if any).</span>
+<span class="cm">     * processValuesForRows will execute the function on all rows</span>
+<span class="cm">     * if second parameter is NULL</span>
+<span class="cm">    */</span>
+
+    <span class="n">BOOST_FOREACH</span><span class="p">(</span><span class="n">AggregateFun</span> <span class="o">*</span><span class="n">funct</span><span class="p">,</span> <span class="n">aggregate_functions</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">funct</span><span class="o">-&gt;</span><span class="n">processValuesForRows</span><span class="p">(</span><span class="n">input</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="n">resultTab</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="cm">/*adding the result to output*/</span>
+<span class="k">this</span><span class="o">-&gt;</span><span class="n">addResult</span><span class="p">(</span><span class="n">resultTab</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="aggregate-scan-count-and-sum">
+<h2>Aggregate Scan (Count and Sum)<a class="headerlink" href="#aggregate-scan-count-and-sum" title="Permalink to this headline">¶</a></h2>
+<p>HYRISE supports two different aggregate functions so far.</p>
+<p><em>SumAggregateFun</em> calculates the sum of a given float or integer column.
+<em>CountAggregateFun</em> counts the values in a given column.
+<em>processValuesForRows</em> can be called in two different ways.</p>
+<p>In AggregateFunctions.h:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="k">virtual</span> <span class="kt">void</span> <span class="n">processValuesForRows</span><span class="p">(</span><span class="n">AbstractTable</span> <span class="o">*</span><span class="n">t</span><span class="p">,</span> <span class="kt">pos_list_t</span> <span class="o">*</span><span class="n">rows</span><span class="p">,</span> <span class="n">AbstractTable</span> <span class="o">*</span><span class="n">target</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">targetRow</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>The first is to provide a <em>pos_list_t vector</em> in order to take a subset of all values into account.
+If this parameter is <em>NULL</em> the given <em>AggregateFun</em> will compute the result using
+all values.</p>
+<p>The result is directly written to <em>target</em> in row <em>targetRow</em>. <em>AbstractTable *t</em> is the input table of the calling
+GroupByScan instance.</p>
+</div>
+<div class="section" id="parallelization">
+<h2>Parallelization<a class="headerlink" href="#parallelization" title="Permalink to this headline">¶</a></h2>
+<p>In order to parallelize the group by scan following the HYRISE typical parallelization approach (input distribution)
+we introduced two new classes: <em>AbstractHashTable</em> and <em>HashTableView</em>. <em>HashTableView</em> and <em>HashTable</em> both inherit
+from <em>AbstractHashTable</em>.</p>
+<p>The <em>HashTableView</em> subclass maps only a range of key value pairs of its underlying HashTable for an easy splitting.</p>
+<p>Similar to <em>AbstractTable::view</em> the AbstractHashTable implements a view method returning a new HashTableView
+as described above:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">AbstractHashTable</span> <span class="o">*</span><span class="n">AbstractHashTable</span><span class="o">::</span><span class="n">view</span><span class="p">(</span><span class="kt">size_t</span> <span class="n">first</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">last</span><span class="p">)</span>
+<span class="p">{</span>
+   <span class="k">return</span> <span class="k">new</span> <span class="n">HashTableView</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="n">first</span><span class="p">,</span> <span class="n">last</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The parameters first and last are computed in GroupByScan::splitInput():</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="kt">void</span> <span class="n">GroupByScan</span><span class="o">::</span><span class="n">splitInput</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="kt">hash_table_list_t</span> <span class="o">&amp;</span><span class="n">hashTables</span> <span class="o">=</span> <span class="n">input</span><span class="p">.</span><span class="n">getHashTables</span><span class="p">();</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">_count</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">hashTables</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span>
+    <span class="p">{</span>
+       <span class="kt">u_int64_t</span> <span class="n">first</span><span class="p">,</span> <span class="n">last</span><span class="p">;</span>
+       <span class="n">distribute</span><span class="p">(</span><span class="n">hashTables</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">(),</span> <span class="n">first</span><span class="p">,</span> <span class="n">last</span><span class="p">);</span>
+       <span class="n">replace</span><span class="p">(</span><span class="n">hashTables</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">hashTables</span><span class="p">.</span><span class="n">begin</span><span class="p">()</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">hashTables</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">hashTables</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">view</span><span class="p">(</span><span class="n">first</span><span class="p">,</span> <span class="n">last</span><span class="o">+</span><span class="mi">1</span><span class="p">));</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>If there is more than one GroupByScan instance and a HashTable is available (since it is mandatory for our GroupByScan)
+we calculate a distribution for a given GroupByScan instance and copy its begin and end to the variables first and last.
+After that, we replace the original complete HashTable in the operations input by a new <em>HashTableView</em> providing the
+correct iterator pair for a given instance. After all instances have completed their grouping tasks the HYRISE
+QueryTransformationEngine automatically attaches a UnionScan writing the results of all instances into one table.</p>
+<p>A parallel GroupByScan can be executed with the HYRISE JSON interface as follows:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="p">{</span>
+  <span class="s">&quot;operators&quot;</span><span class="o">:</span> <span class="p">{</span>
+      <span class="s">&quot;-1&quot;</span><span class="o">:</span> <span class="p">{</span>
+          <span class="s">&quot;type&quot;</span><span class="o">:</span> <span class="s">&quot;TableLoad&quot;</span><span class="p">,</span>
+          <span class="s">&quot;table&quot;</span><span class="o">:</span> <span class="s">&quot;reference&quot;</span><span class="p">,</span>
+          <span class="s">&quot;filename&quot;</span><span class="o">:</span> <span class="s">&quot;tables/employees_per_company_id.tbl&quot;</span>
+      <span class="p">},</span>
+      <span class="s">&quot;0&quot;</span><span class="o">:</span> <span class="p">{</span>
+          <span class="s">&quot;type&quot;</span><span class="o">:</span> <span class="s">&quot;TableLoad&quot;</span><span class="p">,</span>
+          <span class="s">&quot;table&quot;</span><span class="o">:</span> <span class="s">&quot;employees&quot;</span><span class="p">,</span>
+          <span class="s">&quot;filename&quot;</span><span class="o">:</span> <span class="s">&quot;tables/employees.tbl&quot;</span>
+      <span class="p">},</span>
+      <span class="s">&quot;1&quot;</span><span class="o">:</span> <span class="p">{</span>
+          <span class="s">&quot;type&quot;</span><span class="o">:</span> <span class="s">&quot;HashBuild&quot;</span><span class="p">,</span>
+          <span class="s">&quot;fields&quot;</span><span class="o">:</span> <span class="p">[</span><span class="s">&quot;employee_company_id&quot;</span><span class="p">]</span>
+      <span class="p">},</span>
+      <span class="s">&quot;2&quot;</span><span class="o">:</span> <span class="p">{</span>
+          <span class="s">&quot;type&quot;</span><span class="o">:</span> <span class="s">&quot;GroupByScan&quot;</span><span class="p">,</span>
+          <span class="s">&quot;fields&quot;</span><span class="o">:</span> <span class="p">[</span><span class="s">&quot;employee_company_id&quot;</span><span class="p">],</span>
+          <span class="s">&quot;instances&quot;</span> <span class="o">:</span> <span class="mi">3</span><span class="p">,</span>
+          <span class="s">&quot;functions&quot;</span><span class="o">:</span> <span class="p">[</span>
+              <span class="p">{</span><span class="s">&quot;type&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="cm">/*COUNT*/</span> <span class="s">&quot;field&quot;</span><span class="o">:</span> <span class="s">&quot;employee_company_id&quot;</span><span class="p">}</span>
+          <span class="p">]</span>
+      <span class="p">},</span>
+      <span class="s">&quot;3&quot;</span><span class="o">:</span> <span class="p">{</span>
+          <span class="s">&quot;type&quot;</span><span class="o">:</span> <span class="s">&quot;SortScan&quot;</span><span class="p">,</span>
+          <span class="s">&quot;fields&quot;</span><span class="o">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+      <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="s">&quot;edges&quot;</span> <span class="o">:</span> <span class="p">[[</span><span class="s">&quot;0&quot;</span><span class="p">,</span> <span class="s">&quot;1&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s">&quot;0&quot;</span><span class="p">,</span> <span class="s">&quot;2&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s">&quot;1&quot;</span><span class="p">,</span> <span class="s">&quot;2&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s">&quot;2&quot;</span><span class="p">,</span> <span class="s">&quot;3&quot;</span><span class="p">]]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The result is a parallel execution of a GroupBy operation resulting in a table describing
+the number of employees per company.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="hashjoin.html" title="HashJoin"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="planop.html" title="PlanOperation"
+             >previous</a> |</li>
+        <li><a href="../../index.html">HYRISE latest documentation</a> &raquo;</li>
+          <li><a href="../../architecture.html" >Implementation Details</a> &raquo;</li>
+          <li><a href="../planops.html" >Plan Operations</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010-2013, Martin Grund et al.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,184 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Query Statistics &mdash; HYRISE latest documentation</title>
+    
+    <link rel="stylesheet" href="../_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/breathe.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     'latest',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="HYRISE latest documentation" href="../index.html" />
+    <link rel="up" title="Implementation Details" href="../architecture.html" />
+    <link rel="next" title="Plan Operations" href="planops.html" />
+    <link rel="prev" title="MySQL Loader" href="loading/mysql.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="planops.html" title="Plan Operations"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="loading/mysql.html" title="MySQL Loader"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">HYRISE latest documentation</a> &raquo;</li>
+          <li><a href="../architecture.html" accesskey="U">Implementation Details</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/hyrise.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../architecture.html">Implementation Details</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="architecture.html">Create Modifiable Tables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="layouter.html">HYRISE Layouter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="loading.html">Loading</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Query Statistics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#statistic-table">Statistic Table</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="planops.html">Plan Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="extension_points.html">Extension points</a></li>
+<li class="toctree-l2"><a class="reference internal" href="routing.html">Routing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../query_execution.html">HYRISE Query Execution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developing.html">Developing with HYRISE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">HYRISE &amp; Development FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../proposals.html">Proposals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doxygen.html">Doxygen Documentation</a></li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="loading/mysql.html"
+                        title="previous chapter">MySQL Loader</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="planops.html"
+                        title="next chapter">Plan Operations</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/architecture/statistics.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="query-statistics">
+<h1>Query Statistics<a class="headerlink" href="#query-statistics" title="Permalink to this headline">¶</a></h1>
+<p>The goal of query statistics is to keep track of what is happening in
+the system. To achieve this, information about the execution of each
+plan operation is stored in a special statistics table.</p>
+<p>To avoid contention when writing to the plan statistics table each
+plan operation primarily operates on a special thread local
+storage. Since only one plan operation can be executed by a single
+thread at a time no additional locks are needed.</p>
+<p>From time to time this information is merged into the central
+statistics table, but it is not guaranteed that each query will
+appear. We assume that if a single query might not be recorded this
+information will have no impact on the overall workload.</p>
+<div class="section" id="statistic-table">
+<h2>Statistic Table<a class="headerlink" href="#statistic-table" title="Permalink to this headline">¶</a></h2>
+<p>The table for the query statistics has the following columns &#8212;
+independent if it is the global or thread local table.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="17%" />
+<col width="83%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>plan_id</td>
+<td>The sha1 hash of the plan for further identification</td>
+</tr>
+<tr class="row-odd"><td>operator</td>
+<td>The vname() of the operator</td>
+</tr>
+<tr class="row-even"><td>detail</td>
+<td>n/a</td>
+</tr>
+<tr class="row-odd"><td>selectivity</td>
+<td>The selectivity of the operator</td>
+</tr>
+<tr class="row-even"><td>start</td>
+<td>The start timestamp of the plan operator</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="planops.html" title="Plan Operations"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="loading/mysql.html" title="MySQL Loader"
+             >previous</a> |</li>
+        <li><a href="../index.html">HYRISE latest documentation</a> &raquo;</li>
+          <li><a href="../architecture.html" >Implementation Details</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010-2013, Martin Grund et al.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+  </body>
+</html>

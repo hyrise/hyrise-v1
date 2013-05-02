@@ -1,0 +1,171 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>PlanOperation &mdash; HYRISE latest documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/breathe.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     'latest',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="HYRISE latest documentation" href="../../index.html" />
+    <link rel="up" title="Plan Operations" href="../planops.html" />
+    <link rel="next" title="Group By Scan" href="groupby.html" />
+    <link rel="prev" title="Plan Operations" href="../planops.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="groupby.html" title="Group By Scan"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../planops.html" title="Plan Operations"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../index.html">HYRISE latest documentation</a> &raquo;</li>
+          <li><a href="../../architecture.html" >Implementation Details</a> &raquo;</li>
+          <li><a href="../planops.html" accesskey="U">Plan Operations</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/hyrise.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../architecture.html">Implementation Details</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../architecture.html">Create Modifiable Tables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../layouter.html">HYRISE Layouter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../loading.html">Loading</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../statistics.html">Query Statistics</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../planops.html">Plan Operations</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="">PlanOperation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#input-output-handling">Input/output handling</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="groupby.html">Group By Scan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hashjoin.html">HashJoin</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../extension_points.html">Extension points</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routing.html">Routing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../query_execution.html">HYRISE Query Execution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developing.html">Developing with HYRISE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">HYRISE &amp; Development FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../proposals.html">Proposals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../doxygen.html">Doxygen Documentation</a></li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../planops.html"
+                        title="previous chapter">Plan Operations</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="groupby.html"
+                        title="next chapter">Group By Scan</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/architecture/planops/planop.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="planoperation">
+<h1>PlanOperation<a class="headerlink" href="#planoperation" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="input-output-handling">
+<h2>Input/output handling<a class="headerlink" href="#input-output-handling" title="Permalink to this headline">¶</a></h2>
+<p>PlanOperations accept multiple data types as input and output data. Though most operations perform on AbstractTable so far, the HashJoinProbe for example expects a HashTable as an input. The HashBuild operator produces HashTables. Therefore, all PlanOperations store their input and output data in OperationalData containers:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="k">class</span> <span class="nc">_PlanOperation</span> <span class="o">:</span> <span class="k">public</span> <span class="n">OutputTask</span>
+<span class="p">{</span>
+<span class="nl">protected:</span>
+        <span class="n">OperationalData</span> <span class="n">input</span><span class="p">;</span>
+        <span class="n">OperationalData</span> <span class="n">output</span><span class="p">;</span>
+<span class="p">...</span>
+</pre></div>
+</div>
+<p>These simply hold lists of data:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="k">class</span> <span class="nc">OperationalData</span>
+<span class="p">{</span>
+<span class="nl">protected:</span>
+        <span class="n">vector</span><span class="o">&lt;</span><span class="n">AbstractTable</span> <span class="o">*&gt;</span> <span class="n">tables</span><span class="p">;</span>
+        <span class="n">vector</span><span class="o">&lt;</span><span class="n">HashTable</span> <span class="o">*&gt;</span>     <span class="n">hashTables</span><span class="p">;</span>
+<span class="p">...</span>
+</pre></div>
+</div>
+<p>To implement more data types, add additional lists and implement their corresponding interfaces. (get, add etc.) Interfaces have to be implemented on the PlanOperation as well, e.g. addInput, getInput(size_t index) or addResult etc.</p>
+<p>During query execution, these containers are passed between dependent operators. On execution, PlanOperation::refreshInput is called to fetch output data of predecessors. Override setupPlanOperation to implement additional processing behaviour.</p>
+<p>Always keep an eye on retain counting correctness to prevent memory leaks or to prevent fetching deleted objects!</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="groupby.html" title="Group By Scan"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../planops.html" title="Plan Operations"
+             >previous</a> |</li>
+        <li><a href="../../index.html">HYRISE latest documentation</a> &raquo;</li>
+          <li><a href="../../architecture.html" >Implementation Details</a> &raquo;</li>
+          <li><a href="../planops.html" >Plan Operations</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010-2013, Martin Grund et al.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+  </body>
+</html>

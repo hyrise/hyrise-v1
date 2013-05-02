@@ -1,0 +1,224 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="classhyrise_1_1net_1_1_static_request_handler" kind="class" prot="public">
+    <compoundname>hyrise::net::StaticRequestHandler</compoundname>
+    <basecompoundref refid="classhyrise_1_1net_1_1_abstract_request_handler" prot="public" virt="non-virtual">hyrise::net::AbstractRequestHandler</basecompoundref>
+    <includes refid="_static_request_handler_8h" local="no">StaticRequestHandler.h</includes>
+      <sectiondef kind="private-static-attrib">
+      <memberdef kind="variable" id="classhyrise_1_1net_1_1_static_request_handler_1a404a55bf8c66477156ad80b21147ec77" prot="private" static="yes" mutable="no">
+        <type>bool</type>
+        <definition>bool hyrise::net::StaticRequestHandler::_registered</definition>
+        <argsstring></argsstring>
+        <name>_registered</name>
+        <initializer> <ref refid="classhyrise_1_1net_1_1_router_1a847346a8882c7d5e3ed7f2bc8d1acbae" kindref="member">Router::registerRoute</ref>&lt;<ref refid="classhyrise_1_1net_1_1_static_request_handler" kindref="compound">StaticRequestHandler</ref>&gt;(&quot;/static/&quot;)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/net/StaticRequestHandler.h" line="18" bodyfile="/home/grund/hyrise/src/lib/net/StaticRequestHandler.h" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classhyrise_1_1net_1_1_static_request_handler_1a84ab022ac72ca57e537f76a419fa0034" prot="private" static="no" mutable="no">
+        <type><ref refid="classhyrise_1_1net_1_1_abstract_connection" kindref="compound">AbstractConnection</ref> *</type>
+        <definition>AbstractConnection* hyrise::net::StaticRequestHandler::_connection</definition>
+        <argsstring></argsstring>
+        <name>_connection</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/net/StaticRequestHandler.h" line="19" bodyfile="/home/grund/hyrise/src/lib/net/StaticRequestHandler.h" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhyrise_1_1net_1_1_static_request_handler_1acc8fb8db4c626c3dc826256c5be1843f" prot="private" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string hyrise::net::StaticRequestHandler::_rootPath</definition>
+        <argsstring></argsstring>
+        <name>_rootPath</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/net/StaticRequestHandler.h" line="20" bodyfile="/home/grund/hyrise/src/lib/net/StaticRequestHandler.h" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classhyrise_1_1net_1_1_static_request_handler_1af68af5d91ab058bff4ea12af564a3aa4" prot="public" static="no" const="no" explicit="yes" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>hyrise::net::StaticRequestHandler::StaticRequestHandler</definition>
+        <argsstring>(net::AbstractConnection *connection)</argsstring>
+        <name>StaticRequestHandler</name>
+        <param>
+          <type><ref refid="classhyrise_1_1net_1_1_abstract_connection" kindref="compound">net::AbstractConnection</ref> *</type>
+          <declname>connection</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/net/StaticRequestHandler.h" line="24" bodyfile="/home/grund/hyrise/src/lib/net/StaticRequestHandler.cpp" bodystart="20" bodyend="29"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1net_1_1_static_request_handler_1a04261a9ce0c3f6babf84d64416ba2b67" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual hyrise::net::StaticRequestHandler::~StaticRequestHandler</definition>
+        <argsstring>()</argsstring>
+        <name>~StaticRequestHandler</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/net/StaticRequestHandler.h" line="26" bodyfile="/home/grund/hyrise/src/lib/net/StaticRequestHandler.h" bodystart="26" bodyend="26"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1net_1_1_static_request_handler_1ab5bff0a1f49e8bfc47fd4008a895bdc7" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void hyrise::net::StaticRequestHandler::operator()</definition>
+        <argsstring>()</argsstring>
+        <name>operator()</name>
+        <reimplements refid="class_task_1ae3a87b98fa47e03ab2f48b53aa257b69">operator()</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/net/StaticRequestHandler.h" line="28" bodyfile="/home/grund/hyrise/src/lib/net/StaticRequestHandler.cpp" bodystart="63" bodyend="93"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1net_1_1_static_request_handler_1a5f024b6af5e4e93616b4c842147ae051" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>const std::string</type>
+        <definition>const std::string hyrise::net::StaticRequestHandler::vname</definition>
+        <argsstring>()</argsstring>
+        <name>vname</name>
+        <reimplements refid="class_task_1a091bff6c1c11bfc202e53280b5af62e7">vname</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/net/StaticRequestHandler.h" line="32" bodyfile="/home/grund/hyrise/src/lib/net/StaticRequestHandler.h" bodystart="32" bodyend="32"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classhyrise_1_1net_1_1_static_request_handler_1abf3025d38ac3a45b31846a01363d511b" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::string</type>
+        <definition>static std::string hyrise::net::StaticRequestHandler::name</definition>
+        <argsstring>()</argsstring>
+        <name>name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/net/StaticRequestHandler.h" line="30" bodyfile="/home/grund/hyrise/src/lib/net/StaticRequestHandler.h" bodystart="30" bodyend="30"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2959">
+        <label>hyrise::net::AbstractRequestHandler</label>
+        <link refid="classhyrise_1_1net_1_1_abstract_request_handler"/>
+        <childnode refid="2960" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2958">
+        <label>hyrise::net::StaticRequestHandler</label>
+        <link refid="classhyrise_1_1net_1_1_static_request_handler"/>
+        <childnode refid="2959" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2961">
+        <label>TaskDoneObserver</label>
+        <link refid="class_task_done_observer"/>
+      </node>
+      <node id="2960">
+        <label>Task</label>
+        <link refid="class_task"/>
+        <childnode refid="2961" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2963">
+        <label>hyrise::net::AbstractRequestHandler</label>
+        <link refid="classhyrise_1_1net_1_1_abstract_request_handler"/>
+        <childnode refid="2964" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2962">
+        <label>hyrise::net::StaticRequestHandler</label>
+        <link refid="classhyrise_1_1net_1_1_static_request_handler"/>
+        <childnode refid="2963" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2966" relation="usage">
+          <edgelabel>_connection</edgelabel>
+        </childnode>
+      </node>
+      <node id="2965">
+        <label>TaskDoneObserver</label>
+        <link refid="class_task_done_observer"/>
+      </node>
+      <node id="2966">
+        <label>hyrise::net::AbstractConnection</label>
+        <link refid="classhyrise_1_1net_1_1_abstract_connection"/>
+      </node>
+      <node id="2964">
+        <label>Task</label>
+        <link refid="class_task"/>
+        <childnode refid="2965" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/net/StaticRequestHandler.h" line="16" bodyfile="/home/grund/hyrise/src/lib/net/StaticRequestHandler.h" bodystart="16" bodyend="34"/>
+    <listofallmembers>
+      <member refid="classhyrise_1_1net_1_1_static_request_handler_1a84ab022ac72ca57e537f76a419fa0034" prot="private" virt="non-virtual"><scope>hyrise::net::StaticRequestHandler</scope><name>_connection</name></member>
+      <member refid="class_task_1ab25d10a171c2efc2dcdf4ec7b81d148d" prot="protected" virt="non-virtual"><scope>hyrise::net::StaticRequestHandler</scope><name>_dependencies</name></member>
+      <member refid="class_task_1a432b54ea5cdbf8f875c756c70710b69e" prot="protected" virt="non-virtual"><scope>hyrise::net::StaticRequestHandler</scope><name>_dependencyWaitCount</name></member>
+      <member refid="class_task_1a10259a6dde7645e32c32262818339c8c" prot="protected" virt="non-virtual"><scope>hyrise::net::StaticRequestHandler</scope><name>_depMutex</name></member>
+      <member refid="class_task_1af277c65727e285efbf965633851ec9d8" prot="protected" virt="non-virtual"><scope>hyrise::net::StaticRequestHandler</scope><name>_doneObservers</name></member>
+      <member refid="class_task_1a778ed5c766f4098184c31a656fe471ed" prot="protected" virt="non-virtual"><scope>hyrise::net::StaticRequestHandler</scope><name>_notifyMutex</name></member>
+      <member refid="class_task_1a6a0d1fa3b37cb2e7896ea23049798b36" prot="protected" virt="non-virtual"><scope>hyrise::net::StaticRequestHandler</scope><name>_observerMutex</name></member>
+      <member refid="class_task_1aa7b21c6482b905c04f354c738341beb3" prot="protected" virt="non-virtual"><scope>hyrise::net::StaticRequestHandler</scope><name>_preferredCore</name></member>
+      <member refid="class_task_1a7f7f81090a389fd5cf79747e165fe0f4" prot="protected" virt="non-virtual"><scope>hyrise::net::StaticRequestHandler</scope><name>_readyObservers</name></member>
+      <member refid="classhyrise_1_1net_1_1_static_request_handler_1a404a55bf8c66477156ad80b21147ec77" prot="private" virt="non-virtual"><scope>hyrise::net::StaticRequestHandler</scope><name>_registered</name></member>
+      <member refid="classhyrise_1_1net_1_1_static_request_handler_1acc8fb8db4c626c3dc826256c5be1843f" prot="private" virt="non-virtual"><scope>hyrise::net::StaticRequestHandler</scope><name>_rootPath</name></member>
+      <member refid="class_task_1aa9e65a15e122de040bb914ab144577b8" prot="public" virt="non-virtual"><scope>hyrise::net::StaticRequestHandler</scope><name>addDependency</name></member>
+      <member refid="class_task_1a0e4ebf7ad5313f027aa16d250685604a" prot="public" virt="non-virtual"><scope>hyrise::net::StaticRequestHandler</scope><name>addDoneObserver</name></member>
+      <member refid="class_task_1a9726ca1f4c6712a3516cb05121479f25" prot="public" virt="non-virtual"><scope>hyrise::net::StaticRequestHandler</scope><name>addReadyObserver</name></member>
+      <member refid="class_task_1a75f0a4940cdd338c2ba538200bfcdddf" prot="public" virt="non-virtual"><scope>hyrise::net::StaticRequestHandler</scope><name>getDependencyCount</name></member>
+      <member refid="class_task_1a4a3f6f336369d8e2d6a92fae0690c143" prot="public" virt="non-virtual"><scope>hyrise::net::StaticRequestHandler</scope><name>getPreferredCore</name></member>
+      <member refid="class_task_1a1a5953e7f9dfc732ce1f3d8a914439b4" prot="public" virt="virtual"><scope>hyrise::net::StaticRequestHandler</scope><name>getQueryDuration</name></member>
+      <member refid="class_task_1a769a8fb688ddaed2870faeea61d84ca0" prot="public" virt="non-virtual"><scope>hyrise::net::StaticRequestHandler</scope><name>hasSuccessors</name></member>
+      <member refid="class_task_1ab7307de77d5baf3dfec0269996d81543" prot="public" virt="non-virtual"><scope>hyrise::net::StaticRequestHandler</scope><name>isReady</name></member>
+      <member refid="class_task_1aeb0d741352700686296e742bc21e4362" prot="public" virt="non-virtual"><scope>hyrise::net::StaticRequestHandler</scope><name>lockForNotifications</name></member>
+      <member refid="classhyrise_1_1net_1_1_static_request_handler_1abf3025d38ac3a45b31846a01363d511b" prot="public" virt="non-virtual"><scope>hyrise::net::StaticRequestHandler</scope><name>name</name></member>
+      <member refid="class_task_1aa729cd30e7135f2851dd625679aa8556" prot="public" virt="virtual"><scope>hyrise::net::StaticRequestHandler</scope><name>notifyDone</name></member>
+      <member refid="class_task_1a82157fda3766f4331966baf74e8206fa" prot="public" virt="non-virtual"><scope>hyrise::net::StaticRequestHandler</scope><name>notifyDoneObservers</name></member>
+      <member refid="class_task_1a793f3db3f39a9ea7352078f235ee7843" prot="public" virt="non-virtual"><scope>hyrise::net::StaticRequestHandler</scope><name>notifyReadyObservers</name></member>
+      <member refid="classhyrise_1_1net_1_1_static_request_handler_1ab5bff0a1f49e8bfc47fd4008a895bdc7" prot="public" virt="virtual"><scope>hyrise::net::StaticRequestHandler</scope><name>operator()</name></member>
+      <member refid="class_task_1a1b8e520f60e9f41a3c1331e4e9e4b3ca" prot="public" virt="non-virtual"><scope>hyrise::net::StaticRequestHandler</scope><name>setPreferredCore</name></member>
+      <member refid="classhyrise_1_1net_1_1_abstract_request_handler_1a22c7c6e6ea6e7cedb23196f5871b5aca" prot="public" virt="non-virtual"><scope>hyrise::net::StaticRequestHandler</scope><name>SharedPtr</name></member>
+      <member refid="classhyrise_1_1net_1_1_static_request_handler_1af68af5d91ab058bff4ea12af564a3aa4" prot="public" virt="non-virtual"><scope>hyrise::net::StaticRequestHandler</scope><name>StaticRequestHandler</name></member>
+      <member refid="class_task_1a0ca53354bdc006762a0fda68c64f7608" prot="public" virt="non-virtual"><scope>hyrise::net::StaticRequestHandler</scope><name>Task</name></member>
+      <member refid="class_task_1a35af9de734c94c39981a2b199790e288" prot="public" virt="non-virtual"><scope>hyrise::net::StaticRequestHandler</scope><name>unlockForNotifications</name></member>
+      <member refid="classhyrise_1_1net_1_1_static_request_handler_1a5f024b6af5e4e93616b4c842147ae051" prot="public" virt="virtual"><scope>hyrise::net::StaticRequestHandler</scope><name>vname</name></member>
+      <member refid="classhyrise_1_1net_1_1_abstract_request_handler_1afe4d99aa43e91ffd9df791076cde3741" prot="public" virt="virtual"><scope>hyrise::net::StaticRequestHandler</scope><name>~AbstractRequestHandler</name></member>
+      <member refid="classhyrise_1_1net_1_1_static_request_handler_1a04261a9ce0c3f6babf84d64416ba2b67" prot="public" virt="virtual"><scope>hyrise::net::StaticRequestHandler</scope><name>~StaticRequestHandler</name></member>
+      <member refid="class_task_1a7bff79cc05fa4511c72048d33591503b" prot="public" virt="virtual"><scope>hyrise::net::StaticRequestHandler</scope><name>~Task</name></member>
+      <member refid="class_task_done_observer_1a9b5fa53c4893dfc998aedca72b8dd278" prot="public" virt="virtual"><scope>hyrise::net::StaticRequestHandler</scope><name>~TaskDoneObserver</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

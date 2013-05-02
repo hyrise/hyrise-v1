@@ -1,0 +1,366 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="_config_file_8h" kind="file">
+    <compoundname>ConfigFile.h</compoundname>
+    <includes local="no">string</includes>
+    <includes local="no">map</includes>
+    <includes local="no">iostream</includes>
+    <includes local="no">fstream</includes>
+    <includes local="no">sstream</includes>
+    <includedby refid="_config_file_8cpp" local="yes">src/lib/helper/ConfigFile.cpp</includedby>
+    <incdepgraph>
+      <node id="13657">
+        <label>string</label>
+      </node>
+      <node id="13658">
+        <label>map</label>
+      </node>
+      <node id="13660">
+        <label>fstream</label>
+      </node>
+      <node id="13661">
+        <label>sstream</label>
+      </node>
+      <node id="13656">
+        <label>src/lib/helper/ConfigFile.h</label>
+        <link refid="ConfigFile.h"/>
+        <childnode refid="13657" relation="include">
+        </childnode>
+        <childnode refid="13658" relation="include">
+        </childnode>
+        <childnode refid="13659" relation="include">
+        </childnode>
+        <childnode refid="13660" relation="include">
+        </childnode>
+        <childnode refid="13661" relation="include">
+        </childnode>
+      </node>
+      <node id="13659">
+        <label>iostream</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="13663">
+        <label>src/lib/helper/ConfigFile.cpp</label>
+        <link refid="_config_file_8cpp"/>
+      </node>
+      <node id="13662">
+        <label>src/lib/helper/ConfigFile.h</label>
+        <link refid="ConfigFile.h"/>
+        <childnode refid="13663" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="class_config_file" prot="public">ConfigFile</innerclass>
+    <innerclass refid="struct_config_file_1_1file__not__found" prot="public">ConfigFile::file_not_found</innerclass>
+    <innerclass refid="struct_config_file_1_1key__not__found" prot="public">ConfigFile::key_not_found</innerclass>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="_config_file_8h_1ac06080c7330cd4dc2961a9362e52affc" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+        </templateparamlist>
+        <type>std::string</type>
+        <definition>std::string ConfigFile::string_as_T&lt; std::string &gt;</definition>
+        <argsstring>(const std::string &amp;s)</argsstring>
+        <name>ConfigFile::string_as_T&lt; std::string &gt;</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>s</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/ConfigFile.h" line="160" bodyfile="/home/grund/hyrise/src/lib/helper/ConfigFile.h" bodystart="160" bodyend="164"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>2012<sp/>Hasso-Plattner-Institut<sp/>fuer<sp/>Softwaresystemtechnik<sp/>GmbH.<sp/>All<sp/>rights<sp/>reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="comment">//<sp/>ConfigFile.h</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Class<sp/>for<sp/>reading<sp/>named<sp/>values<sp/>from<sp/>configuration<sp/>files</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Richard<sp/>J.<sp/>Wagner<sp/><sp/>v2.1<sp/><sp/>24<sp/>May<sp/>2004<sp/><sp/>wagnerr@umich.edu</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>2004<sp/>Richard<sp/>J.<sp/>Wagner</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">//</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Permission<sp/>is<sp/>hereby<sp/>granted,<sp/>free<sp/>of<sp/>charge,<sp/>to<sp/>any<sp/>person<sp/>obtaining<sp/>a<sp/>copy</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="comment">//<sp/>of<sp/>this<sp/>software<sp/>and<sp/>associated<sp/>documentation<sp/>files<sp/>(the<sp/>&quot;Software&quot;),<sp/>to</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="comment">//<sp/>deal<sp/>in<sp/>the<sp/>Software<sp/>without<sp/>restriction,<sp/>including<sp/>without<sp/>limitation<sp/>the</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="comment">//<sp/>rights<sp/>to<sp/>use,<sp/>copy,<sp/>modify,<sp/>merge,<sp/>publish,<sp/>distribute,<sp/>sublicense,<sp/>and/or</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="comment">//<sp/>sell<sp/>copies<sp/>of<sp/>the<sp/>Software,<sp/>and<sp/>to<sp/>permit<sp/>persons<sp/>to<sp/>whom<sp/>the<sp/>Software<sp/>is</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="comment">//<sp/>furnished<sp/>to<sp/>do<sp/>so,<sp/>subject<sp/>to<sp/>the<sp/>following<sp/>conditions:</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="comment">//</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="comment">//<sp/>The<sp/>above<sp/>copyright<sp/>notice<sp/>and<sp/>this<sp/>permission<sp/>notice<sp/>shall<sp/>be<sp/>included<sp/>in</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="comment">//<sp/>all<sp/>copies<sp/>or<sp/>substantial<sp/>portions<sp/>of<sp/>the<sp/>Software.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="comment">//</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="comment">//<sp/>THE<sp/>SOFTWARE<sp/>IS<sp/>PROVIDED<sp/>&quot;AS<sp/>IS&quot;,<sp/>WITHOUT<sp/>WARRANTY<sp/>OF<sp/>ANY<sp/>KIND,<sp/>EXPRESS<sp/>OR</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="comment">//<sp/>IMPLIED,<sp/>INCLUDING<sp/>BUT<sp/>NOT<sp/>LIMITED<sp/>TO<sp/>THE<sp/>WARRANTIES<sp/>OF<sp/>MERCHANTABILITY,</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="comment">//<sp/>FITNESS<sp/>FOR<sp/>A<sp/>PARTICULAR<sp/>PURPOSE<sp/>AND<sp/>NONINFRINGEMENT.<sp/>IN<sp/>NO<sp/>EVENT<sp/>SHALL<sp/>THE</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="comment">//<sp/>AUTHORS<sp/>OR<sp/>COPYRIGHT<sp/>HOLDERS<sp/>BE<sp/>LIABLE<sp/>FOR<sp/>ANY<sp/>CLAIM,<sp/>DAMAGES<sp/>OR<sp/>OTHER</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="comment">//<sp/>LIABILITY,<sp/>WHETHER<sp/>IN<sp/>AN<sp/>ACTION<sp/>OF<sp/>CONTRACT,<sp/>TORT<sp/>OR<sp/>OTHERWISE,<sp/>ARISING</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="comment">//<sp/>FROM,<sp/>OUT<sp/>OF<sp/>OR<sp/>IN<sp/>CONNECTION<sp/>WITH<sp/>THE<sp/>SOFTWARE<sp/>OR<sp/>THE<sp/>USE<sp/>OR<sp/>OTHER<sp/>DEALINGS</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="comment">//<sp/>IN<sp/>THE<sp/>SOFTWARE.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Typical<sp/>usage</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="comment">//<sp/>-------------</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="comment">//</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Given<sp/>a<sp/>configuration<sp/>file<sp/>&quot;settings.inp&quot;:</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/>atoms<sp/><sp/>=<sp/>25</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/>length<sp/>=<sp/>8.0<sp/><sp/>#<sp/>nanometers</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/>name<sp/>=<sp/>Reece<sp/>Surcher</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="comment">//</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Named<sp/>values<sp/>are<sp/>read<sp/>in<sp/>various<sp/>ways,<sp/>with<sp/>or<sp/>without<sp/>default<sp/>values:</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/>ConfigFile<sp/>config(<sp/>&quot;settings.inp&quot;<sp/>);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/>int<sp/>atoms<sp/>=<sp/>config.read&lt;int&gt;(<sp/>&quot;atoms&quot;<sp/>);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/>double<sp/>length<sp/>=<sp/>config.read(<sp/>&quot;length&quot;,<sp/>10.0<sp/>);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/>std::string<sp/>author,<sp/>title;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/>config.readInto(<sp/>author,<sp/>&quot;name&quot;<sp/>);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/>config.readInto(<sp/>title,<sp/>&quot;title&quot;,<sp/>std::string(&quot;Untitled&quot;)<sp/>);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">//</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">//<sp/>See<sp/>file<sp/>example.cpp<sp/>for<sp/>more<sp/>examples.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SRC_LIB_HELPER_CONFIGFILE_H_</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SRC_LIB_HELPER_CONFIGFILE_H_</highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;map&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;iostream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;fstream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;sstream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55" refid="class_config_file" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_config_file" kindref="compound">ConfigFile</ref><sp/>{</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Data</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/></highlight><highlight class="keyword">protected</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="58" refid="class_config_file_1aeb72a2ec8d7ccb6972282da647a997dd" refkind="member"><highlight class="normal"><sp/><sp/>std::string<sp/><ref refid="class_config_file_1aeb72a2ec8d7ccb6972282da647a997dd" kindref="member">myDelimiter</ref>;<sp/><sp/></highlight><highlight class="comment">//<sp/>separator<sp/>between<sp/>key<sp/>and<sp/>value</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59" refid="class_config_file_1ae0b972b31567ef5d4b6c2af3fadd3cde" refkind="member"><highlight class="normal"><sp/><sp/>std::string<sp/><ref refid="class_config_file_1ae0b972b31567ef5d4b6c2af3fadd3cde" kindref="member">myComment</ref>;<sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>separator<sp/>between<sp/>value<sp/>and<sp/>comments</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60" refid="class_config_file_1a3863157de510c8470c2e118d7252959b" refkind="member"><highlight class="normal"><sp/><sp/>std::string<sp/><ref refid="class_config_file_1a3863157de510c8470c2e118d7252959b" kindref="member">mySentry</ref>;<sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>optional<sp/>std::string<sp/>to<sp/>signal<sp/>end<sp/>of<sp/>file</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61" refid="class_config_file_1aaa87b38d9c6995c7ea3dc2076c8d6a6b" refkind="member"><highlight class="normal"><sp/><sp/>std::map&lt;std::string,<sp/>std::string&gt;<sp/><ref refid="class_config_file_1aaa87b38d9c6995c7ea3dc2076c8d6a6b" kindref="member">myContents</ref>;<sp/></highlight><highlight class="comment">//<sp/>extracted<sp/>keys<sp/>and<sp/>values</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63" refid="class_config_file_1afefba14908e29d87fface0d4fb9ebe02" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>std::map&lt;std::string,<sp/>std::string&gt;::iterator<sp/><ref refid="class_config_file_1afefba14908e29d87fface0d4fb9ebe02" kindref="member">mapi</ref>;</highlight></codeline>
+<codeline lineno="64" refid="class_config_file_1a6b3721290af4615221a2b316cd61f736" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>std::map&lt;std::string,<sp/>std::string&gt;::const_iterator<sp/><ref refid="class_config_file_1a6b3721290af4615221a2b316cd61f736" kindref="member">mapci</ref>;</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Methods</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><ref refid="class_config_file_1a9ce259defdfaabeedb2455849ca6bd1e" kindref="member">ConfigFile</ref>(std::string<sp/>filename,</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::string<sp/><ref refid="datagen_8cpp_1a2d937314efe2f7ab8dfda68ccd6815bf" kindref="member">delimiter</ref><sp/>=<sp/></highlight><highlight class="stringliteral">&quot;=&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::string<sp/>comment<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;#&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::string<sp/>sentry<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;EndConfigFile&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><ref refid="class_config_file_1a9ce259defdfaabeedb2455849ca6bd1e" kindref="member">ConfigFile</ref>();</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>std::string<sp/><ref refid="class_config_file_1af51bd60972759d10ca3a5628ee4d7719" kindref="member">getExecutable</ref>(std::string,<sp/>std::string<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;config.cfg&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Search<sp/>for<sp/>key<sp/>and<sp/>read<sp/>value<sp/>or<sp/>optional<sp/>default<sp/>value</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>T&gt;<sp/>T<sp/><ref refid="class_config_file_1a35c40aab7967e537893ea10c7b6ccdec" kindref="member">read</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;key)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;<sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>call<sp/>as<sp/>read&lt;T&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>T&gt;<sp/>T<sp/><ref refid="class_config_file_1a35c40aab7967e537893ea10c7b6ccdec" kindref="member">read</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;key,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>T<sp/>&amp;value)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>T&gt;<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="class_config_file_1ae4d36a3d103938c05966025d968c2d83" kindref="member">readInto</ref>(T<sp/>&amp;var,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;key)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="class_config_file_1ae4d36a3d103938c05966025d968c2d83" kindref="member">readInto</ref>(T<sp/>&amp;var,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;key,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>T<sp/>&amp;value)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Modify<sp/>keys<sp/>and<sp/>values</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>T&gt;<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_config_file_1a1430f2ca412e2d1993656d462e126bb4" kindref="member">add</ref>(std::string<sp/>key,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>T<sp/>&amp;value);</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">remove</highlight><highlight class="normal">(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;key);</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Check<sp/>whether<sp/>key<sp/>exists<sp/>in<sp/>configuration</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="class_config_file_1a42a7166e347c027eb34191572d1dd515" kindref="member">keyExists</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;key)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Check<sp/>or<sp/>change<sp/>configuration<sp/>syntax</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="90" refid="class_config_file_1ac632dacf1e6cf9d7f534fdf1fb706bce" refkind="member"><highlight class="normal"><sp/><sp/>std::string<sp/><ref refid="class_config_file_1ac632dacf1e6cf9d7f534fdf1fb706bce" kindref="member">getDelimiter</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="class_config_file_1aeb72a2ec8d7ccb6972282da647a997dd" kindref="member">myDelimiter</ref>;</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="93" refid="class_config_file_1a41a0bc05664c2845150a20528e6fa903" refkind="member"><highlight class="normal"><sp/><sp/>std::string<sp/><ref refid="class_config_file_1a41a0bc05664c2845150a20528e6fa903" kindref="member">getComment</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="class_config_file_1ae0b972b31567ef5d4b6c2af3fadd3cde" kindref="member">myComment</ref>;</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="96" refid="class_config_file_1a67a802d117297ca1527f34488a67c2cf" refkind="member"><highlight class="normal"><sp/><sp/>std::string<sp/><ref refid="class_config_file_1a67a802d117297ca1527f34488a67c2cf" kindref="member">getSentry</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="class_config_file_1a3863157de510c8470c2e118d7252959b" kindref="member">mySentry</ref>;</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="99" refid="class_config_file_1ae12b42f3525af6c3f92a090d5c3da7ee" refkind="member"><highlight class="normal"><sp/><sp/>std::string<sp/><ref refid="class_config_file_1ae12b42f3525af6c3f92a090d5c3da7ee" kindref="member">setDelimiter</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;s)<sp/>{</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/>old<sp/>=<sp/><ref refid="class_config_file_1aeb72a2ec8d7ccb6972282da647a997dd" kindref="member">myDelimiter</ref>;</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_config_file_1aeb72a2ec8d7ccb6972282da647a997dd" kindref="member">myDelimiter</ref><sp/>=<sp/>s;</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>old;</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="104" refid="class_config_file_1a872a8493aab3e567a1d2e70db8b1a4bb" refkind="member"><highlight class="normal"><sp/><sp/>std::string<sp/><ref refid="class_config_file_1a872a8493aab3e567a1d2e70db8b1a4bb" kindref="member">setComment</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;s)<sp/>{</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/>old<sp/>=<sp/><ref refid="class_config_file_1ae0b972b31567ef5d4b6c2af3fadd3cde" kindref="member">myComment</ref>;</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_config_file_1ae0b972b31567ef5d4b6c2af3fadd3cde" kindref="member">myComment</ref><sp/>=<sp/>s;</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>old;</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Write<sp/>or<sp/>read<sp/>configuration</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">friend</highlight><highlight class="normal"><sp/>std::ostream<sp/>&amp;<ref refid="class_config_file_1a8ccacbc37db1992a5515e2c72fc83ce6" kindref="member">operator&lt;&lt;</ref>(std::ostream<sp/>&amp;os,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="class_config_file" kindref="compound">ConfigFile</ref><sp/>&amp;cf);</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">friend</highlight><highlight class="normal"><sp/>std::istream<sp/>&amp;<ref refid="class_config_file_1a25042475439039e70f90febe7d0e63ec" kindref="member">operator&gt;&gt;</ref>(std::istream<sp/>&amp;is,<sp/><ref refid="class_config_file" kindref="compound">ConfigFile</ref><sp/>&amp;cf);</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/></highlight><highlight class="keyword">protected</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>T&gt;<sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>std::string<sp/><ref refid="class_config_file_1ab7defa329497140458a88cbf29ddc0bd" kindref="member">T_as_string</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>T<sp/>&amp;t);</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>T&gt;<sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>T<sp/><ref refid="class_config_file_1a010bc8d405bf113c216fd126eddfe7a6" kindref="member">string_as_T</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;s);</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_config_file_1ad03cd7e9641490c0caa673b725391b28" kindref="member">trim</ref>(std::string<sp/>&amp;s);</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Exception<sp/>types</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="122" refid="struct_config_file_1_1file__not__found" refkind="compound"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_config_file_1_1file__not__found" kindref="compound">file_not_found</ref><sp/>{</highlight></codeline>
+<codeline lineno="123" refid="struct_config_file_1_1file__not__found_1a2c8a23361f96802a8d53b238e61db73b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/><ref refid="struct_config_file_1_1file__not__found_1a2c8a23361f96802a8d53b238e61db73b" kindref="member">filename</ref>;</highlight></codeline>
+<codeline lineno="124" refid="struct_config_file_1_1file__not__found_1a575e9d282841b2ea605144e76fa61530" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_config_file_1_1file__not__found_1a575e9d282841b2ea605144e76fa61530" kindref="member">file_not_found</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;filename_<sp/>=<sp/>std::string())</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/><ref refid="struct_config_file_1_1file__not__found_1a2c8a23361f96802a8d53b238e61db73b" kindref="member">filename</ref>(filename_)<sp/>{}</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/>};</highlight></codeline>
+<codeline lineno="127" refid="struct_config_file_1_1key__not__found" refkind="compound"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_config_file_1_1key__not__found" kindref="compound">key_not_found</ref><sp/>{<sp/><sp/></highlight><highlight class="comment">//<sp/>thrown<sp/>only<sp/>by<sp/>T<sp/>read(key)<sp/>variant<sp/>of<sp/>read()</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="128" refid="struct_config_file_1_1key__not__found_1aacb68da5d33c129a1f717df4c0ac6413" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/><ref refid="struct_config_file_1_1key__not__found_1aacb68da5d33c129a1f717df4c0ac6413" kindref="member">key</ref>;</highlight></codeline>
+<codeline lineno="129" refid="struct_config_file_1_1key__not__found_1a69a7c3e92e783f9f8e97c8b84e0b70b2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_config_file_1_1key__not__found_1a69a7c3e92e783f9f8e97c8b84e0b70b2" kindref="member">key_not_found</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;key_<sp/>=<sp/>std::string())</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/><ref refid="struct_config_file_1_1key__not__found_1aacb68da5d33c129a1f717df4c0ac6413" kindref="member">key</ref>(key_)<sp/>{}</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/>};</highlight></codeline>
+<codeline lineno="132"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>static<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
+<codeline lineno="137" refid="class_config_file_1ab7defa329497140458a88cbf29ddc0bd" refkind="member"><highlight class="normal">std::string<sp/><ref refid="class_config_file_1ab7defa329497140458a88cbf29ddc0bd" kindref="member">ConfigFile::T_as_string</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>T<sp/>&amp;t)<sp/>{</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Convert<sp/>from<sp/>a<sp/>T<sp/>to<sp/>a<sp/>std::string</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Type<sp/>T<sp/>must<sp/>support<sp/>&lt;&lt;<sp/>operator</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/>std::ostringstream<sp/>ost;</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/>ost<sp/>&lt;&lt;<sp/>t;</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>ost.str();</highlight></codeline>
+<codeline lineno="143"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>static<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
+<codeline lineno="148" refid="class_config_file_1a010bc8d405bf113c216fd126eddfe7a6" refkind="member"><highlight class="normal">T<sp/><ref refid="class_config_file_1a010bc8d405bf113c216fd126eddfe7a6" kindref="member">ConfigFile::string_as_T</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;s)<sp/>{</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Convert<sp/>from<sp/>a<sp/>std::string<sp/>to<sp/>a<sp/>T</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Type<sp/>T<sp/>must<sp/>support<sp/>&gt;&gt;<sp/>operator</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/>T<sp/>t;</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/>std::istringstream<sp/>ist(s);</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/>ist<sp/>&gt;&gt;<sp/>t;</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>t;</highlight></codeline>
+<codeline lineno="155"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"></highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>static<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;&gt;</highlight></codeline>
+<codeline lineno="160" refid="_config_file_8h_1ac06080c7330cd4dc2961a9362e52affc" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>std::string<sp/>ConfigFile::string_as_T&lt;std::string&gt;(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;s)<sp/>{</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Convert<sp/>from<sp/>a<sp/>std::string<sp/>to<sp/>a<sp/>std::string</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>In<sp/>other<sp/>words,<sp/>do<sp/>nothing</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>s;</highlight></codeline>
+<codeline lineno="164"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>static<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;&gt;</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>ConfigFile::string_as_T&lt;bool&gt;(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;s)<sp/>{</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Convert<sp/>from<sp/>a<sp/>std::string<sp/>to<sp/>a<sp/>bool</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Interpret<sp/>&quot;false&quot;,<sp/>&quot;F&quot;,<sp/>&quot;no&quot;,<sp/>&quot;n&quot;,<sp/>&quot;0&quot;<sp/>as<sp/>false</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Interpret<sp/>&quot;true&quot;,<sp/>&quot;T&quot;,<sp/>&quot;yes&quot;,<sp/>&quot;y&quot;,<sp/>&quot;1&quot;,<sp/>&quot;-1&quot;,<sp/>or<sp/>anything<sp/>else<sp/>as<sp/>true</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>b<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/>std::string<sp/>sup<sp/>=<sp/>s;</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"></highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(std::string::iterator<sp/>p<sp/>=<sp/>sup.begin();<sp/>p<sp/>!=<sp/>sup.end();<sp/>++p)<sp/>{</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/>*p<sp/>=<sp/>toupper(*p);<sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>make<sp/>std::string<sp/>all<sp/>caps</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"></highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(sup<sp/>==<sp/>std::string(</highlight><highlight class="stringliteral">&quot;FALSE&quot;</highlight><highlight class="normal">)<sp/>||<sp/>sup<sp/>==<sp/>std::string(</highlight><highlight class="stringliteral">&quot;F&quot;</highlight><highlight class="normal">)<sp/>||</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>sup<sp/>==<sp/>std::string(</highlight><highlight class="stringliteral">&quot;NO&quot;</highlight><highlight class="normal">)<sp/>||<sp/>sup<sp/>==<sp/>std::string(</highlight><highlight class="stringliteral">&quot;N&quot;</highlight><highlight class="normal">)<sp/>||</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>sup<sp/>==<sp/>std::string(</highlight><highlight class="stringliteral">&quot;0&quot;</highlight><highlight class="normal">)<sp/>||<sp/>sup<sp/>==<sp/>std::string(</highlight><highlight class="stringliteral">&quot;NONE&quot;</highlight><highlight class="normal">))<sp/>{</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/>b<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"></highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>b;</highlight></codeline>
+<codeline lineno="187"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"></highlight></codeline>
+<codeline lineno="189"><highlight class="normal"></highlight></codeline>
+<codeline lineno="190"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
+<codeline lineno="191" refid="class_config_file_1a35c40aab7967e537893ea10c7b6ccdec" refkind="member"><highlight class="normal">T<sp/><ref refid="class_config_file_1a35c40aab7967e537893ea10c7b6ccdec" kindref="member">ConfigFile::read</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;key)</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Read<sp/>the<sp/>value<sp/>corresponding<sp/>to<sp/>key</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><ref refid="class_config_file_1a6b3721290af4615221a2b316cd61f736" kindref="member">mapci</ref><sp/>p<sp/>=<sp/><ref refid="class_config_file_1aaa87b38d9c6995c7ea3dc2076c8d6a6b" kindref="member">myContents</ref>.find(key);</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"></highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(p<sp/>==<sp/><ref refid="class_config_file_1aaa87b38d9c6995c7ea3dc2076c8d6a6b" kindref="member">myContents</ref>.end())<sp/>{</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/><ref refid="struct_config_file_1_1key__not__found" kindref="compound">key_not_found</ref>(key);</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"></highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>string_as_T&lt;T&gt;(p-&gt;second);</highlight></codeline>
+<codeline lineno="200"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"></highlight></codeline>
+<codeline lineno="202"><highlight class="normal"></highlight></codeline>
+<codeline lineno="203"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
+<codeline lineno="204" refid="class_config_file_1a0a14ab22462787b23196cce979a3a69f" refkind="member"><highlight class="normal">T<sp/><ref refid="class_config_file_1a35c40aab7967e537893ea10c7b6ccdec" kindref="member">ConfigFile::read</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;key,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>T<sp/>&amp;value)</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Return<sp/>the<sp/>value<sp/>corresponding<sp/>to<sp/>key<sp/>or<sp/>given<sp/>default<sp/>value</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>if<sp/>key<sp/>is<sp/>not<sp/>found</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><ref refid="class_config_file_1a6b3721290af4615221a2b316cd61f736" kindref="member">mapci</ref><sp/>p<sp/>=<sp/><ref refid="class_config_file_1aaa87b38d9c6995c7ea3dc2076c8d6a6b" kindref="member">myContents</ref>.find(key);</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"></highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(p<sp/>==<sp/><ref refid="class_config_file_1aaa87b38d9c6995c7ea3dc2076c8d6a6b" kindref="member">myContents</ref>.end())<sp/>{</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>value;</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"></highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>string_as_T&lt;T&gt;(p-&gt;second);</highlight></codeline>
+<codeline lineno="214"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"></highlight></codeline>
+<codeline lineno="216"><highlight class="normal"></highlight></codeline>
+<codeline lineno="217"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
+<codeline lineno="218" refid="class_config_file_1ae4d36a3d103938c05966025d968c2d83" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="class_config_file_1ae4d36a3d103938c05966025d968c2d83" kindref="member">ConfigFile::readInto</ref>(T<sp/>&amp;var,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;key)</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Get<sp/>the<sp/>value<sp/>corresponding<sp/>to<sp/>key<sp/>and<sp/>store<sp/>in<sp/>var</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Return<sp/>true<sp/>if<sp/>key<sp/>is<sp/>found</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Otherwise<sp/>leave<sp/>var<sp/>untouched</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><ref refid="class_config_file_1a6b3721290af4615221a2b316cd61f736" kindref="member">mapci</ref><sp/>p<sp/>=<sp/><ref refid="class_config_file_1aaa87b38d9c6995c7ea3dc2076c8d6a6b" kindref="member">myContents</ref>.find(key);</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>found<sp/>=<sp/>(p<sp/>!=<sp/><ref refid="class_config_file_1aaa87b38d9c6995c7ea3dc2076c8d6a6b" kindref="member">myContents</ref>.end());</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"></highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(found)<sp/>{</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/>var<sp/>=<sp/>string_as_T&lt;T&gt;(p-&gt;second);</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"></highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>found;</highlight></codeline>
+<codeline lineno="230"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"></highlight></codeline>
+<codeline lineno="232"><highlight class="normal"></highlight></codeline>
+<codeline lineno="233"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
+<codeline lineno="234" refid="class_config_file_1ad9e7f979b7f2b49dce71343aa278dfcd" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="class_config_file_1ae4d36a3d103938c05966025d968c2d83" kindref="member">ConfigFile::readInto</ref>(T<sp/>&amp;var,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;key,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>T<sp/>&amp;value)</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Get<sp/>the<sp/>value<sp/>corresponding<sp/>to<sp/>key<sp/>and<sp/>store<sp/>in<sp/>var</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Return<sp/>true<sp/>if<sp/>key<sp/>is<sp/>found</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Otherwise<sp/>set<sp/>var<sp/>to<sp/>given<sp/>default</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><ref refid="class_config_file_1a6b3721290af4615221a2b316cd61f736" kindref="member">mapci</ref><sp/>p<sp/>=<sp/><ref refid="class_config_file_1aaa87b38d9c6995c7ea3dc2076c8d6a6b" kindref="member">myContents</ref>.find(key);</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>found<sp/>=<sp/>(p<sp/>!=<sp/><ref refid="class_config_file_1aaa87b38d9c6995c7ea3dc2076c8d6a6b" kindref="member">myContents</ref>.end());</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"></highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(found)<sp/>{</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/>var<sp/>=<sp/>string_as_T&lt;T&gt;(p-&gt;second);</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/>var<sp/>=<sp/>value;</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"></highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>found;</highlight></codeline>
+<codeline lineno="248"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"></highlight></codeline>
+<codeline lineno="250"><highlight class="normal"></highlight></codeline>
+<codeline lineno="251"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
+<codeline lineno="252" refid="class_config_file_1a1430f2ca412e2d1993656d462e126bb4" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_config_file_1a1430f2ca412e2d1993656d462e126bb4" kindref="member">ConfigFile::add</ref>(std::string<sp/>key,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>T<sp/>&amp;value)<sp/>{</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Add<sp/>a<sp/>key<sp/>with<sp/>given<sp/>value</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/>std::string<sp/>v<sp/>=<sp/><ref refid="class_config_file_1ab7defa329497140458a88cbf29ddc0bd" kindref="member">T_as_string</ref>(value);</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><ref refid="class_config_file_1ad03cd7e9641490c0caa673b725391b28" kindref="member">trim</ref>(key);</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><ref refid="class_config_file_1ad03cd7e9641490c0caa673b725391b28" kindref="member">trim</ref>(v);</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><ref refid="class_config_file_1aaa87b38d9c6995c7ea3dc2076c8d6a6b" kindref="member">myContents</ref>[key]<sp/>=<sp/>v;</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="259"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"></highlight></codeline>
+<codeline lineno="261"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/>//<sp/>SRC_LIB_HELPER_CONFIGFILE_H_</highlight></codeline>
+<codeline lineno="262"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="263"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Release<sp/>notes:</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="264"><highlight class="normal"></highlight><highlight class="comment">//<sp/>v1.0<sp/><sp/>21<sp/>May<sp/>1999</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="265"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/>+<sp/>First<sp/>release</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="266"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/>+<sp/>Template<sp/>read()<sp/>access<sp/>only<sp/>through<sp/>non-member<sp/>readConfigFile()</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="267"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/>+<sp/>ConfigurationFileBool<sp/>is<sp/>only<sp/>built-in<sp/>helper<sp/>class</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="268"><highlight class="normal"></highlight><highlight class="comment">//</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="269"><highlight class="normal"></highlight><highlight class="comment">//<sp/>v2.0<sp/><sp/>3<sp/>May<sp/>2002</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="270"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/>+<sp/>Shortened<sp/>name<sp/>from<sp/>ConfigurationFile<sp/>to<sp/>ConfigFile</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="271"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/>+<sp/>Implemented<sp/>template<sp/>member<sp/>functions</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="272"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/>+<sp/>Changed<sp/>default<sp/>comment<sp/>separator<sp/>from<sp/>%<sp/>to<sp/>#</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="273"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/>+<sp/>Enabled<sp/>reading<sp/>of<sp/>multiple-line<sp/>values</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="274"><highlight class="normal"></highlight><highlight class="comment">//</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="275"><highlight class="normal"></highlight><highlight class="comment">//<sp/>v2.1<sp/><sp/>24<sp/>May<sp/>2004</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="276"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/>+<sp/>Made<sp/>template<sp/>specializations<sp/>inline<sp/>to<sp/>avoid<sp/>compiler-dependent<sp/>linkage</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="277"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/>+<sp/>Allowed<sp/>comments<sp/>within<sp/>multiple-line<sp/>values</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="278"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/>+<sp/>Enabled<sp/>blank<sp/>line<sp/>termination<sp/>for<sp/>multiple-line<sp/>values</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="279"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/>+<sp/>Added<sp/>optional<sp/>sentry<sp/>to<sp/>detect<sp/>end<sp/>of<sp/>configuration<sp/>file</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="280"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/>+<sp/>Rewrote<sp/>messy<sp/>trimWhitespace()<sp/>function<sp/>as<sp/>elegant<sp/>trim()</highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/home/grund/hyrise/src/lib/helper/ConfigFile.h"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,245 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Writing a custom operator &mdash; HYRISE latest documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/breathe.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     'latest',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="HYRISE latest documentation" href="../../index.html" />
+    <link rel="up" title="Extension points" href="../extension_points.html" />
+    <link rel="next" title="Routing" href="../routing.html" />
+    <link rel="prev" title="Custom expressions" href="custom_expression.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../routing.html" title="Routing"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="custom_expression.html" title="Custom expressions"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../index.html">HYRISE latest documentation</a> &raquo;</li>
+          <li><a href="../../architecture.html" >Implementation Details</a> &raquo;</li>
+          <li><a href="../extension_points.html" accesskey="U">Extension points</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/hyrise.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../architecture.html">Implementation Details</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../architecture.html">Create Modifiable Tables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../layouter.html">HYRISE Layouter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../loading.html">Loading</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../statistics.html">Query Statistics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../planops.html">Plan Operations</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../extension_points.html">Extension points</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="custom_expression.html">Custom expressions</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="">Writing a custom operator</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#writing-a-trivial-operator">Writing a <cite>trivial</cite> operator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#writing-a-complex-operator">Writing a <cite>complex</cite> operator</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../routing.html">Routing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../query_execution.html">HYRISE Query Execution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developing.html">Developing with HYRISE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">HYRISE &amp; Development FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../proposals.html">Proposals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../doxygen.html">Doxygen Documentation</a></li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="custom_expression.html"
+                        title="previous chapter">Custom expressions</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../routing.html"
+                        title="next chapter">Routing</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/architecture/extensions/custom_operator.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="writing-a-custom-operator">
+<h1>Writing a custom operator<a class="headerlink" href="#writing-a-custom-operator" title="Permalink to this headline">¶</a></h1>
+<p>HYRISE allows for the implementation and registration of custom
+operators to fit specific user needs that are not met by the built-in
+operators.</p>
+<p>We currently distinguish two kinds of operators: <cite>trivial</cite> and
+<cite>complex</cite> ones. A trivial operator does not need any special
+construction from the JSON plan whereas a complex operator needs to do
+custom parsing of JSON parameters. Trivial operators take inputs and
+do something with them without any further parameterization.</p>
+<div class="section" id="writing-a-trivial-operator">
+<h2>Writing a <cite>trivial</cite> operator<a class="headerlink" href="#writing-a-trivial-operator" title="Permalink to this headline">¶</a></h2>
+<p>A trivial operator looks as follows in an execution plan:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="p">{</span> <span class="s">&quot;type&quot;</span> <span class="o">:</span> <span class="s">&quot;MyTrivialOperator&quot;</span> <span class="p">}</span>
+</pre></div>
+</div>
+<p>An implementation of <cite>MyTrivialOperator</cite> may look as follows.</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="c1">// MyTrivialOperator.h</span>
+
+<span class="cp">#ifndef MYTRIVIALOPERATOR_H</span>
+<span class="cp">#define MYTRIVIALOPERATOR_H</span>
+
+<span class="cp">#include &quot;access/PlanOperation.h&quot;</span>
+
+<span class="k">class</span> <span class="nc">MyTrivialOperator</span> <span class="o">:</span> <span class="k">public</span> <span class="n">_PlanOperation</span> <span class="p">{</span>
+   <span class="kt">void</span> <span class="n">executePlanOperation</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="cp">#endif</span>
+
+<span class="c1">// MyTrivialOperator.cpp</span>
+
+<span class="cp">#include &quot;MyTrivialOperator.h&quot;</span>
+
+<span class="k">namespace</span> <span class="p">{</span> <span class="k">const</span> <span class="k">auto</span> <span class="n">_</span> <span class="o">=</span>
+  <span class="n">QueryParser</span><span class="o">::</span><span class="n">registerTrivialPlanOperation</span><span class="o">&lt;</span><span class="n">MyTrivialOperator</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;MyTrivialOperator&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">MyTrivialOperator</span><span class="o">::</span><span class="n">executePlanOperation</span><span class="p">()</span> <span class="p">{</span>
+  <span class="c1">// work your magic</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>An example for such an operator could be an operator that takes all
+its inputs and concatenates them. Such an operation needs no special
+parameters.</p>
+<p>In order to be able to register a trivial operation, the class must be
+default-constructable.</p>
+</div>
+<div class="section" id="writing-a-complex-operator">
+<h2>Writing a <cite>complex</cite> operator<a class="headerlink" href="#writing-a-complex-operator" title="Permalink to this headline">¶</a></h2>
+<p>In contrast to a <cite>trivial</cite> operator, a  <cite>complex</cite> operator may define
+its own parsing routine, so it can access additional parameters
+defined in the JSON execution plan:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="p">{</span> <span class="s">&quot;type&quot;</span> <span class="o">:</span> <span class="s">&quot;MyComplexOperator&quot;</span><span class="p">,</span>
+  <span class="s">&quot;param&quot;</span> <span class="o">:</span> <span class="s">&quot;test&quot;</span> <span class="p">}</span>
+</pre></div>
+</div>
+<p>Such a complex operator may be constructed as follows:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="c1">// MyComplexOperator.h</span>
+
+<span class="cp">#ifndef MYCOMPLEXOPERATOR_H</span>
+<span class="cp">#define MYCOMPLEXOPERATOR_H</span>
+
+<span class="cp">#include &quot;access/PlanOperation.h&quot;</span>
+
+<span class="k">class</span> <span class="nc">MyComplexOperator</span> <span class="o">:</span> <span class="k">public</span> <span class="n">_PlanOperation</span> <span class="p">{</span>
+   <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">_param</span><span class="p">;</span>
+   <span class="kt">void</span> <span class="nf">executePlanOperation</span><span class="p">();</span>
+<span class="nl">public:</span>
+   <span class="n">MyComplexOperator</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">param</span><span class="p">);</span>
+   <span class="k">static</span> <span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">_PlanOperation</span><span class="o">&gt;</span> <span class="n">parse</span><span class="p">(</span><span class="n">Json</span><span class="o">::</span><span class="n">Value</span><span class="o">&amp;</span> <span class="n">data</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="cp">#endif</span>
+
+<span class="c1">// MyComplexOperator.cpp</span>
+
+<span class="cp">#include &quot;MyComplexOperator.h&quot;</span>
+
+<span class="k">namespace</span> <span class="p">{</span> <span class="k">const</span> <span class="k">auto</span> <span class="n">_</span> <span class="o">=</span>
+  <span class="n">QueryParser</span><span class="o">::</span><span class="n">registerPlanOperation</span><span class="o">&lt;</span><span class="n">MyComplexOperator</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;MyComplexOperator&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="n">MyComplexOperator</span><span class="o">::</span><span class="n">MyComplexOperator</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">param</span><span class="p">)</span> <span class="o">:</span>
+   <span class="n">_param</span><span class="p">(</span><span class="n">param</span><span class="p">)</span> <span class="p">{}</span>
+
+<span class="kt">void</span> <span class="n">MyComplexOperator</span><span class="o">::</span><span class="n">executePlanOperation</span><span class="p">()</span> <span class="p">{</span>
+  <span class="c1">// work your magic</span>
+<span class="p">}</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">_PlanOperation</span><span class="o">&gt;</span> <span class="n">MyComplexOperator</span><span class="o">::</span><span class="n">parse</span><span class="p">(</span><span class="n">Json</span><span class="o">::</span><span class="n">Value</span><span class="o">&amp;</span> <span class="n">data</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">MyComplexOperator</span><span class="o">&gt;</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s">&quot;param&quot;</span><span class="p">].</span><span class="n">asString</span><span class="p">());</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The query parser will call the <cite>parse</cite> method and pass the operators
+JSON for custom parsing. The method has to return an instance of the
+operator to be executed.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../routing.html" title="Routing"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="custom_expression.html" title="Custom expressions"
+             >previous</a> |</li>
+        <li><a href="../../index.html">HYRISE latest documentation</a> &raquo;</li>
+          <li><a href="../../architecture.html" >Implementation Details</a> &raquo;</li>
+          <li><a href="../extension_points.html" >Extension points</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010-2013, Martin Grund et al.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+  </body>
+</html>

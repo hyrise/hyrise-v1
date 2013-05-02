@@ -1,0 +1,131 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="class_string_header" kind="class" prot="public">
+    <compoundname>StringHeader</compoundname>
+    <basecompoundref refid="class_abstract_header" prot="public" virt="non-virtual">AbstractHeader</basecompoundref>
+    <includes refid="_string_loader_8h" local="no">StringLoader.h</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_string_header_1aaf51b3254bb7e209e4fdd32df96ae94f" prot="private" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string StringHeader::_header</definition>
+        <argsstring></argsstring>
+        <name>_header</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/StringLoader.h" line="15" bodyfile="/home/grund/hyrise/src/lib/io/StringLoader.h" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_string_header_1acc4ad6279c5eb79a819f6c9e8dc9c4f2" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>StringHeader::StringHeader</definition>
+        <argsstring>(std::string header)</argsstring>
+        <name>StringHeader</name>
+        <param>
+          <type>std::string</type>
+          <declname>header</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/StringLoader.h" line="10" bodyfile="/home/grund/hyrise/src/lib/io/StringLoader.h" bodystart="9" bodyend="11"/>
+      </memberdef>
+      <memberdef kind="function" id="class_string_header_1a7d0521eab05ab6878c13dd9ce4ad9529" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type><ref refid="storage__types_8h_1ab1a41784d413aa539cdda0391757965c" kindref="member">compound_metadata_list</ref> *</type>
+        <definition>compound_metadata_list * StringHeader::load</definition>
+        <argsstring>(const Loader::params &amp;args)</argsstring>
+        <name>load</name>
+        <reimplements refid="class_abstract_header_1a9d4ba3ed1cd5ebe89a21c5c39e41a9fa">load</reimplements>
+        <param>
+          <type>const <ref refid="class_loader_1_1params" kindref="compound">Loader::params</ref> &amp;</type>
+          <declname>args</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Construct metadata. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>args</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="namespace_loader" kindref="compound">Loader</ref> arguments that may influence header creation </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/StringLoader.h" line="12" bodyfile="/home/grund/hyrise/src/lib/io/StringLoader.cpp" bodystart="9" bodyend="13"/>
+      </memberdef>
+      <memberdef kind="function" id="class_string_header_1a99b24cd3b1167f5cd9f22d4803508d38" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type><ref refid="class_string_header" kindref="compound">StringHeader</ref> *</type>
+        <definition>StringHeader * StringHeader::clone</definition>
+        <argsstring>() const </argsstring>
+        <name>clone</name>
+        <reimplements refid="class_abstract_header_1ad962760f46e46deedfa3f00242713697">clone</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/StringLoader.h" line="13" bodyfile="/home/grund/hyrise/src/lib/io/StringLoader.cpp" bodystart="15" bodyend="17"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2994">
+        <label>StringHeader</label>
+        <link refid="class_string_header"/>
+        <childnode refid="2995" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2996">
+        <label>cloneable</label>
+        <link refid="classcloneable"/>
+      </node>
+      <node id="2995">
+        <label>AbstractHeader</label>
+        <link refid="class_abstract_header"/>
+        <childnode refid="2996" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2997">
+        <label>StringHeader</label>
+        <link refid="class_string_header"/>
+        <childnode refid="2998" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2999">
+        <label>cloneable</label>
+        <link refid="classcloneable"/>
+      </node>
+      <node id="2998">
+        <label>AbstractHeader</label>
+        <link refid="class_abstract_header"/>
+        <childnode refid="2999" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/io/StringLoader.h" line="7" bodyfile="/home/grund/hyrise/src/lib/io/StringLoader.h" bodystart="7" bodyend="16"/>
+    <listofallmembers>
+      <member refid="class_string_header_1aaf51b3254bb7e209e4fdd32df96ae94f" prot="private" virt="non-virtual"><scope>StringHeader</scope><name>_header</name></member>
+      <member refid="class_string_header_1a99b24cd3b1167f5cd9f22d4803508d38" prot="public" virt="virtual"><scope>StringHeader</scope><name>clone</name></member>
+      <member refid="class_string_header_1a7d0521eab05ab6878c13dd9ce4ad9529" prot="public" virt="virtual"><scope>StringHeader</scope><name>load</name></member>
+      <member refid="class_string_header_1acc4ad6279c5eb79a819f6c9e8dc9c4f2" prot="public" virt="non-virtual"><scope>StringHeader</scope><name>StringHeader</name></member>
+      <member refid="class_abstract_header_1af99f853c7aa7105400d4536de51808fd" prot="public" virt="virtual"><scope>StringHeader</scope><name>~AbstractHeader</name></member>
+      <member refid="classcloneable_1a31ff0906763d17093098d05207e2184c" prot="public" virt="virtual"><scope>StringHeader</scope><name>~cloneable</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

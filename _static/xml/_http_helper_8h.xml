@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="_http_helper_8h" kind="file">
+    <compoundname>HttpHelper.h</compoundname>
+    <includes local="no">map</includes>
+    <includes local="no">string</includes>
+    <includedby refid="_request_parse_task_8cpp" local="yes">src/lib/access/RequestParseTask.cpp</includedby>
+    <includedby refid="_http_helper_8cpp" local="yes">src/lib/helper/HttpHelper.cpp</includedby>
+    <incdepgraph>
+      <node id="13847">
+        <label>string</label>
+      </node>
+      <node id="13846">
+        <label>map</label>
+      </node>
+      <node id="13845">
+        <label>src/lib/helper/HttpHelper.h</label>
+        <link refid="HttpHelper.h"/>
+        <childnode refid="13846" relation="include">
+        </childnode>
+        <childnode refid="13847" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="13850">
+        <label>src/lib/helper/HttpHelper.cpp</label>
+        <link refid="_http_helper_8cpp"/>
+      </node>
+      <node id="13848">
+        <label>src/lib/helper/HttpHelper.h</label>
+        <link refid="HttpHelper.h"/>
+        <childnode refid="13849" relation="include">
+        </childnode>
+        <childnode refid="13850" relation="include">
+        </childnode>
+      </node>
+      <node id="13849">
+        <label>src/lib/access/RequestParseTask.cpp</label>
+        <link refid="_request_parse_task_8cpp"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="_http_helper_8h_1aa8a5690c50b61d649290c125e4db7375" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::map&lt; std::string, std::string &gt;</type>
+        <definition>std::map&lt;std::string, std::string&gt; parseHTTPFormData</definition>
+        <argsstring>(std::string formData, const std::string elem_sep=&quot;&amp;&quot;)</argsstring>
+        <name>parseHTTPFormData</name>
+        <param>
+          <type>std::string</type>
+          <declname>formData</declname>
+        </param>
+        <param>
+          <type>const std::string</type>
+          <declname>elem_sep</declname>
+          <defval>&quot;&amp;&quot;</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/HttpHelper.h" line="5" bodyfile="/home/grund/hyrise/src/lib/helper/HttpHelper.cpp" bodystart="8" bodyend="26"/>
+      </memberdef>
+      <memberdef kind="function" id="_http_helper_8h_1a8d2bbb788b9834259677fa54a8a17592" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string urldecode</definition>
+        <argsstring>(const std::string &amp;input)</argsstring>
+        <name>urldecode</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>input</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/HttpHelper.h" line="7" bodyfile="/home/grund/hyrise/src/lib/helper/HttpHelper.cpp" bodystart="50" bodyend="54"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>2012<sp/>Hasso-Plattner-Institut<sp/>fuer<sp/>Softwaresystemtechnik<sp/>GmbH.<sp/>All<sp/>rights<sp/>reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;map&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal">std::map&lt;std::string,<sp/>std::string&gt;<sp/><ref refid="_http_helper_8cpp_1a195eba3966f1778aecd561bc65ea4307" kindref="member">parseHTTPFormData</ref>(std::string<sp/>formData,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>elem_sep<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;&amp;&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal">std::string<sp/><ref refid="_http_helper_8cpp_1a8d2bbb788b9834259677fa54a8a17592" kindref="member">urldecode</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;input);</highlight></codeline>
+    </programlisting>
+    <location file="/home/grund/hyrise/src/lib/helper/HttpHelper.h"/>
+  </compounddef>
+</doxygen>

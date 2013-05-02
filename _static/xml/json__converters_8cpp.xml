@@ -1,0 +1,134 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="json__converters_8cpp" kind="file">
+    <compoundname>json_converters.cpp</compoundname>
+    <includes refid="json__converters_8h" local="yes">json_converters.h</includes>
+    <includes refid="storage__types_8h" local="no">storage/storage_types.h</includes>
+    <includes local="no">stdexcept</includes>
+    <incdepgraph>
+      <node id="5849">
+        <label>boost/mpl/vector.hpp</label>
+      </node>
+      <node id="5840">
+        <label>src/lib/access/json_converters.cpp</label>
+        <link refid="json_converters.cpp"/>
+        <childnode refid="5841" relation="include">
+        </childnode>
+        <childnode refid="5843" relation="include">
+        </childnode>
+        <childnode refid="5846" relation="include">
+        </childnode>
+      </node>
+      <node id="5851">
+        <label>boost/lexical_cast.hpp</label>
+      </node>
+      <node id="5847">
+        <label>stdint.h</label>
+      </node>
+      <node id="5841">
+        <label>json_converters.h</label>
+        <link refid="json__converters_8h"/>
+        <childnode refid="5842" relation="include">
+        </childnode>
+      </node>
+      <node id="5846">
+        <label>stdexcept</label>
+      </node>
+      <node id="5845">
+        <label>string</label>
+      </node>
+      <node id="5848">
+        <label>ostream</label>
+      </node>
+      <node id="5842">
+        <label>json.h</label>
+      </node>
+      <node id="5844">
+        <label>vector</label>
+      </node>
+      <node id="5850">
+        <label>boost/mpl/map.hpp</label>
+      </node>
+      <node id="5843">
+        <label>storage/storage_types.h</label>
+        <link refid="storage__types_8h"/>
+        <childnode refid="5844" relation="include">
+        </childnode>
+        <childnode refid="5845" relation="include">
+        </childnode>
+        <childnode refid="5846" relation="include">
+        </childnode>
+        <childnode refid="5847" relation="include">
+        </childnode>
+        <childnode refid="5848" relation="include">
+        </childnode>
+        <childnode refid="5849" relation="include">
+        </childnode>
+        <childnode refid="5850" relation="include">
+        </childnode>
+        <childnode refid="5851" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="json__converters_8cpp_1af4c4a8d8228b660dfb1f7a68f3217e72" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+        </templateparamlist>
+        <type>std::string</type>
+        <definition>std::string json_converter::convert&lt; std::string &gt;</definition>
+        <argsstring>(Json::Value v)</argsstring>
+        <name>json_converter::convert&lt; std::string &gt;</name>
+        <param>
+          <type>Json::Value</type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/json_converters.cpp" line="29" bodyfile="/home/grund/hyrise/src/lib/access/json_converters.cpp" bodystart="29" bodyend="31"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>2012<sp/>Hasso-Plattner-Institut<sp/>fuer<sp/>Softwaresystemtechnik<sp/>GmbH.<sp/>All<sp/>rights<sp/>reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="json__converters_8h" kindref="compound">json_converters.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="storage__types_8h" kindref="compound">storage/storage_types.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdexcept&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
+<codeline lineno="8" refid="structjson__converter_1a16c58f11f662812484aa62f83828daf4" refkind="member"><highlight class="normal">T<sp/><ref refid="structjson__converter_1a16c58f11f662812484aa62f83828daf4" kindref="member">json_converter::convert</ref>(Json::Value<sp/>v)<sp/>{</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/>std::runtime_error(</highlight><highlight class="stringliteral">&quot;DataType<sp/>not<sp/>supported!&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="10"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;&gt;</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>json_converter::convert&lt;int&gt;(Json::Value<sp/>v)<sp/>{</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>v.asInt();</highlight></codeline>
+<codeline lineno="15"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;&gt;</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><ref refid="storage__types_8h_1a72c5f9ba0685142ffc747d0a586a5d8a" kindref="member">hyrise_int_t</ref><sp/>json_converter::convert&lt;hyrise_int_t&gt;(Json::Value<sp/>v)<sp/>{</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>v.asInt64();</highlight></codeline>
+<codeline lineno="20"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;&gt;</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>json_converter::convert&lt;float&gt;(Json::Value<sp/>v)<sp/>{</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>v.asDouble();</highlight></codeline>
+<codeline lineno="26"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;&gt;</highlight></codeline>
+<codeline lineno="29" refid="json__converters_8cpp_1af4c4a8d8228b660dfb1f7a68f3217e72" refkind="member"><highlight class="normal">std::string<sp/>json_converter::convert&lt;std::string&gt;(Json::Value<sp/>v)<sp/>{</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>v.asString();</highlight></codeline>
+<codeline lineno="31"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/home/grund/hyrise/src/lib/access/json_converters.cpp"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,308 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Writing Performance Regressions &mdash; HYRISE latest documentation</title>
+    
+    <link rel="stylesheet" href="../_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/breathe.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     'latest',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="HYRISE latest documentation" href="../index.html" />
+    <link rel="up" title="Developing with HYRISE" href="../developing.html" />
+    <link rel="next" title="HYRISE &amp; Development FAQ" href="../faq.html" />
+    <link rel="prev" title="Writing plan operations" href="writing_plan_operations.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../faq.html" title="HYRISE &amp; Development FAQ"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="writing_plan_operations.html" title="Writing plan operations"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">HYRISE latest documentation</a> &raquo;</li>
+          <li><a href="../developing.html" accesskey="U">Developing with HYRISE</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/hyrise.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture.html">Implementation Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../query_execution.html">HYRISE Query Execution</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../developing.html">Developing with HYRISE</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="git.html">Repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build_environment.html">Setup Build Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="building.html">Building the project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="code_style.html">Code style</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_organization.html">File organization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="code_reviews.html">Code reviews</a></li>
+<li class="toctree-l2"><a class="reference internal" href="continuous_integration.html">Continuous Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="writing_plan_operations.html">Writing plan operations</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Writing Performance Regressions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#the-performance-test-data">The Performance Test Data</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#generating-data">Generating Data</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#hyrise-performance-regressions">HYRISE Performance Regressions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#writing-a-simple-regression">Writing a Simple Regression</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#writing-a-regression-fixture">Writing a Regression Fixture</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#output-handler">Output Handler</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#executing-performance-regressions">Executing Performance Regressions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#publishing-results-to-codespeed">Publishing Results to Codespeed</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">HYRISE &amp; Development FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../proposals.html">Proposals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doxygen.html">Doxygen Documentation</a></li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="writing_plan_operations.html"
+                        title="previous chapter">Writing plan operations</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../faq.html"
+                        title="next chapter">HYRISE &amp; Development FAQ</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/developing/writing_performance_regressions.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="writing-performance-regressions">
+<h1>Writing Performance Regressions<a class="headerlink" href="#writing-performance-regressions" title="Permalink to this headline">¶</a></h1>
+<p>Performance regressions are used to keep track of the systems
+performance by defining a set of (micro-)benchmarks that execute
+specici scenarios relevant to your application. The result of these
+benchmarks is then compared over time and gives better understanding
+of how architectural changes impact the overall performance.</p>
+<div class="section" id="the-performance-test-data">
+<h2>The Performance Test Data<a class="headerlink" href="#the-performance-test-data" title="Permalink to this headline">¶</a></h2>
+<p>None of the performance test data is checked into the code repository.
+Therefore, the test data needs to be generated before executing
+performance regressions. Basically, generated data that is derived from the
+standard TPC-C reference is used. The HYRISE StorageManager loads this test
+data by reading it&#8217;s environment variable <tt class="docutils literal"><span class="pre">$HYRISE_DB_PATH</span></tt>. This variable has
+to be set to the path that the data generator used as ouput folder - otherwise
+the performance regression suite will abort.</p>
+<div class="section" id="generating-data">
+<h3>Generating Data<a class="headerlink" href="#generating-data" title="Permalink to this headline">¶</a></h3>
+<p>For generating data a patched version of the open source DBT-2 TPC-C datagen is used.
+The compiled binary is located at <tt class="docutils literal"><span class="pre">./build/perf_datagen</span></tt>.</p>
+<p>The usage is as follows:</p>
+<div class="highlight-c++"><pre>./build/perf_datagen -w # [-c #] [-i #] [-o #] [-s #] [-n #] -d &lt;str&gt; --hyrise
+   -&gt; -w =&gt; warehouse cardinality
+   -&gt; -c =&gt; customer cardinality (default: 3000)
+   -&gt; -i =&gt; item cardinality (default: 100000)
+   -&gt; -o =&gt; order cardinality (default: 3000)
+   -&gt; -n =&gt; new_order cardinality (default: 900)
+   -&gt; -d =&gt; output path for generated tables (default: .)</pre>
+</div>
+<p>Generating a table structure with one warehouse entry would look like the following:
+<tt class="docutils literal"><span class="pre">./build/perf_datagen</span> <span class="pre">-w</span> <span class="pre">1</span> <span class="pre">-d</span> <span class="pre">/tmp/</span> <span class="pre">--hyrise</span></tt>
+The cardinality for the other tables is set by default as described above.</p>
+</div>
+</div>
+<div class="section" id="hyrise-performance-regressions">
+<h2>HYRISE Performance Regressions<a class="headerlink" href="#hyrise-performance-regressions" title="Permalink to this headline">¶</a></h2>
+<p>HYRISE uses a patched version of Google Testing Framework to allow
+benchmarking. Basically all features of standard fixtures are allowed,
+however the method chain is slightly different for a benchmark. In the
+normal Google Testing Framework the <tt class="docutils literal"><span class="pre">TEST_F</span></tt> macro defines a class
+where the body of the method <tt class="docutils literal"><span class="pre">TestBody()</span></tt> is implemented. For a
+benchmark, we use a pre-defined <tt class="docutils literal"><span class="pre">TestBody</span></tt> implementation that
+allows to execute a test multiple times with a given number of warm up
+iterations. The Code that is associated to the <tt class="docutils literal"><span class="pre">BENCHMARK</span></tt> macro is
+executed and measured.</p>
+<div class="section" id="writing-a-simple-regression">
+<h3>Writing a Simple Regression<a class="headerlink" href="#writing-a-simple-regression" title="Permalink to this headline">¶</a></h3>
+<p>One of the easiest possibe performance regressions is defined below:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">BENCHMARK</span><span class="p">(</span><span class="n">Simple</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+    <span class="n">srand</span><span class="p">(</span><span class="mi">99</span><span class="p">);</span>
+    <span class="n">usleep</span><span class="p">(</span><span class="mi">500000</span> <span class="o">+</span> <span class="n">rand</span><span class="p">()</span> <span class="o">%</span> <span class="mi">200000</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>and the output of the example run with a simple printer looks like the
+following:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="p">[</span> <span class="n">RUN</span>      <span class="p">]</span>  <span class="n">ProjectionBase</span><span class="p">.</span><span class="n">Simple</span>
+<span class="p">[</span>      <span class="n">MSG</span> <span class="p">]</span> <span class="n">MIN</span> <span class="o">:</span> <span class="mi">20</span>
+<span class="p">[</span>      <span class="n">MSG</span> <span class="p">]</span> <span class="n">MAX</span> <span class="o">:</span> <span class="mi">35</span>
+<span class="p">[</span>      <span class="n">MSG</span> <span class="p">]</span> <span class="n">AVG</span> <span class="o">:</span> <span class="mf">26.6</span>
+<span class="p">[</span>      <span class="n">MSG</span> <span class="p">]</span> <span class="n">STDDEV</span> <span class="o">:</span> <span class="mf">4.32563</span>
+<span class="p">[</span>       <span class="n">OK</span> <span class="p">]</span>
+</pre></div>
+</div>
+<p>Here the output lists all kinds of statistical values that help to
+identify the robustness and timely errors of an implementation.</p>
+</div>
+<div class="section" id="writing-a-regression-fixture">
+<h3>Writing a Regression Fixture<a class="headerlink" href="#writing-a-regression-fixture" title="Permalink to this headline">¶</a></h3>
+<p>Regression fixtures follow the same principle as testing fixtures and
+can be seen as such. The only requirement is that a regression fixture
+must derive form <tt class="docutils literal"><span class="pre">::testing::Benchmark</span></tt>. A simple example is defined
+below:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="k">class</span> <span class="nc">MyFixture</span> <span class="o">:</span> <span class="k">public</span> <span class="o">::</span><span class="n">testing</span><span class="o">::</span><span class="n">Benchmark</span>
+<span class="p">{</span>
+
+    <span class="n">BenchmarkSetUp</span><span class="p">()</span>
+    <span class="p">{</span>
+    <span class="p">}</span>
+
+    <span class="n">BenchmarkTearDown</span><span class="p">()</span>
+    <span class="p">{</span>
+    <span class="p">}</span>
+
+
+    <span class="n">MyFixture</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">SetNumIterations</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+        <span class="n">SetWarmUp</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+
+<span class="n">BENCHMARK_F</span><span class="p">(</span><span class="n">MyFixture</span><span class="p">,</span> <span class="n">simple2</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+    <span class="n">srand</span><span class="p">(</span><span class="mi">99</span><span class="p">);</span>
+    <span class="n">usleep</span><span class="p">(</span><span class="mi">500000</span> <span class="o">+</span> <span class="n">rand</span><span class="p">()</span> <span class="o">%</span> <span class="mi">200000</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>It is important to mention that all member variables of <tt class="docutils literal"><span class="pre">MyFixture</span></tt>
+should be declared at least as <tt class="docutils literal"><span class="pre">protected</span></tt> so that they are
+accessible by the subclass created by the <tt class="docutils literal"><span class="pre">BENCHMARK_</span></tt> macro.</p>
+<p>It is possible to define <tt class="docutils literal"><span class="pre">BenchmarkSetUp</span></tt> and <tt class="docutils literal"><span class="pre">BenchmarkTearDown</span></tt>
+methods that will be called before each iteration. The global
+<tt class="docutils literal"><span class="pre">SetUp</span></tt> and <tt class="docutils literal"><span class="pre">TearDown</span></tt> method from the parent test object are
+accessible as well but will be executed only _once_ in each regresion
+execution.</p>
+</div>
+<div class="section" id="output-handler">
+<h3>Output Handler<a class="headerlink" href="#output-handler" title="Permalink to this headline">¶</a></h3>
+<p>The output of the regression tests is controlled by so called
+<tt class="docutils literal"><span class="pre">TestEventListener</span></tt> classes. Each of theses interfaces provides
+hooks to implement different test events. Since the Benchmark is a
+unit test, we need to implement these listeners as well. The current
+class <tt class="docutils literal"><span class="pre">BenchmarkPrinter</span></tt> is only able to print some of the
+statistical values, but will not output a JMeter compatible XML
+format.</p>
+<p>Since GTF is not as configurable as we might want, we have to write an
+own event listener that will output the required XML. The easiest way
+to do this is to copy most of the functionality of the
+<tt class="docutils literal"><span class="pre">::testing::XmlUnitTestResultPrinter</span></tt> defined in
+<tt class="docutils literal"><span class="pre">third_party/gtest/gtest-all.cpp</span></tt>.</p>
+</div>
+<div class="section" id="executing-performance-regressions">
+<h3>Executing Performance Regressions<a class="headerlink" href="#executing-performance-regressions" title="Permalink to this headline">¶</a></h3>
+<p>Once the test data has been generated successfully you need to set the hyrise
+data source environment variable accordingly. According to the example described
+above this is to be done the following:</p>
+<p><tt class="docutils literal"><span class="pre">export</span> <span class="pre">HYRISE_DB_PATH=/tmp</span></tt></p>
+<p>All performance regressions that are implemented in src/bin/perf_regressions
+can be executed by simply running their executable:</p>
+<p><tt class="docutils literal"><span class="pre">./build/perf_regression</span></tt></p>
+<p>The ouput of the performance regressions execution is as described above.</p>
+</div>
+<div class="section" id="publishing-results-to-codespeed">
+<h3>Publishing Results to Codespeed<a class="headerlink" href="#publishing-results-to-codespeed" title="Permalink to this headline">¶</a></h3>
+<p>In order to keep track of the results of the performance benchmarks,
+we set up a Codespeed Center that allows us to plot and analyse
+benchmark results on a revision basis. The Jenkins build script used
+on our CI-Server is taking care of publishing the results to the speed
+center each time a new build is triggered. Nevertheless, it is possible
+to publish results manually. New results can be committed to codespeed
+using the standard JSON output format. Therefore, the performance regression binary
+executing all benchmarks is equipped with a parameter <tt class="docutils literal"><span class="pre">--toCodespeed</span></tt> to produce
+JSON output. To publish this results to the Codespeed web interface we use a python
+script located at <tt class="docutils literal"><span class="pre">./third_party/codespeed/publish_results.py</span></tt> executing an HTTP POST.</p>
+<p>A possible usage looks like the following:</p>
+<div class="highlight-c++"><pre>./build/perf_regression --toCodespeed | tee perf_regression_out.json\n
+ &amp;&amp;
+ python third_party/codespeed/publish_results.py perf_regression_out.json</pre>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../faq.html" title="HYRISE &amp; Development FAQ"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="writing_plan_operations.html" title="Writing plan operations"
+             >previous</a> |</li>
+        <li><a href="../index.html">HYRISE latest documentation</a> &raquo;</li>
+          <li><a href="../developing.html" >Developing with HYRISE</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010-2013, Martin Grund et al.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+  </body>
+</html>

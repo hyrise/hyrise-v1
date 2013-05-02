@@ -1,0 +1,140 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="classhyrise_1_1access_1_1_column_expression" kind="class" prot="public">
+    <compoundname>hyrise::access::ColumnExpression</compoundname>
+    <derivedcompoundref refid="classhyrise_1_1access_1_1_add_exp" prot="public" virt="non-virtual">hyrise::access::AddExp</derivedcompoundref>
+    <includes refid="_expression_scan_8h" local="no">ExpressionScan.h</includes>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classhyrise_1_1access_1_1_column_expression_1a1b3429d044655ac9eb36f2b944e21149" prot="protected" static="no" mutable="no">
+        <type><ref refid="namespacehyrise_1_1storage_1a21d5e900c20019710828c453eaded1ee" kindref="member">storage::atable_ptr_t</ref></type>
+        <definition>storage::atable_ptr_t hyrise::access::ColumnExpression::_table</definition>
+        <argsstring></argsstring>
+        <name>_table</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/ExpressionScan.h" line="23" bodyfile="/home/grund/hyrise/src/lib/access/ExpressionScan.h" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classhyrise_1_1access_1_1_column_expression_1afd73089b0f2a02f93a20bfd3735da9dc" prot="public" static="no" const="no" explicit="yes" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>hyrise::access::ColumnExpression::ColumnExpression</definition>
+        <argsstring>(const storage::atable_ptr_t &amp;t)</argsstring>
+        <name>ColumnExpression</name>
+        <param>
+          <type>const <ref refid="namespacehyrise_1_1storage_1a21d5e900c20019710828c453eaded1ee" kindref="member">storage::atable_ptr_t</ref> &amp;</type>
+          <declname>t</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/ExpressionScan.h" line="13" bodyfile="/home/grund/hyrise/src/lib/access/ExpressionScan.cpp" bodystart="13" bodyend="14"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1access_1_1_column_expression_1a6f0869ed5e20b9313d848b44cdf77e55" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>hyrise::access::ColumnExpression::~ColumnExpression</definition>
+        <argsstring>()</argsstring>
+        <name>~ColumnExpression</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/ExpressionScan.h" line="14" bodyfile="/home/grund/hyrise/src/lib/access/ExpressionScan.cpp" bodystart="16" bodyend="17"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1access_1_1_column_expression_1a460d8e3b72477e84b9c0c7a742d19c18" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void hyrise::access::ColumnExpression::setResult</definition>
+        <argsstring>(const storage::atable_ptr_t &amp;result, const storage::field_t column, const storage::pos_t row) const =0</argsstring>
+        <name>setResult</name>
+        <reimplementedby refid="classhyrise_1_1access_1_1_add_exp_1a819be1364c19c0bf0885c65f576ed5c1">setResult</reimplementedby>
+        <param>
+          <type>const <ref refid="namespacehyrise_1_1storage_1a21d5e900c20019710828c453eaded1ee" kindref="member">storage::atable_ptr_t</ref> &amp;</type>
+          <declname>result</declname>
+        </param>
+        <param>
+          <type>const <ref refid="namespacehyrise_1_1storage_1a5a47ffe4fe6daf66aeeaec19ed0ea5ec" kindref="member">storage::field_t</ref></type>
+          <declname>column</declname>
+        </param>
+        <param>
+          <type>const <ref refid="namespacehyrise_1_1storage_1adf2f7735f8bc6e8bd84d1242ae680cf0" kindref="member">storage::pos_t</ref></type>
+          <declname>row</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/ExpressionScan.h" line="18"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1access_1_1_column_expression_1aa9529859c8c40e06d100b063f837c77c" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>std::string</type>
+        <definition>virtual std::string hyrise::access::ColumnExpression::getName</definition>
+        <argsstring>() const =0</argsstring>
+        <name>getName</name>
+        <reimplementedby refid="classhyrise_1_1access_1_1_add_exp_1ac70db88df5b7becc7ef6a24a8d9788f5">getName</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/ExpressionScan.h" line="19"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1access_1_1_column_expression_1aed20030337524de9a769d614ba2c940c" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type><ref refid="storage__types_8h_1ad8ed01ff3ff33333d8e19db4d2818bb6" kindref="member">DataType</ref></type>
+        <definition>virtual DataType hyrise::access::ColumnExpression::getType</definition>
+        <argsstring>() const =0</argsstring>
+        <name>getType</name>
+        <reimplementedby refid="classhyrise_1_1access_1_1_add_exp_1a07e16bc193b54feffc01101a86f93466">getType</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/ExpressionScan.h" line="20"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1620">
+        <label>hyrise::access::AddExp</label>
+        <link refid="classhyrise_1_1access_1_1_add_exp"/>
+        <childnode refid="1619" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1619">
+        <label>hyrise::access::ColumnExpression</label>
+        <link refid="classhyrise_1_1access_1_1_column_expression"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1621">
+        <label>hyrise::access::ColumnExpression</label>
+        <link refid="classhyrise_1_1access_1_1_column_expression"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/access/ExpressionScan.h" line="11" bodyfile="/home/grund/hyrise/src/lib/access/ExpressionScan.h" bodystart="11" bodyend="24"/>
+    <listofallmembers>
+      <member refid="classhyrise_1_1access_1_1_column_expression_1a1b3429d044655ac9eb36f2b944e21149" prot="protected" virt="non-virtual"><scope>hyrise::access::ColumnExpression</scope><name>_table</name></member>
+      <member refid="classhyrise_1_1access_1_1_column_expression_1afd73089b0f2a02f93a20bfd3735da9dc" prot="public" virt="non-virtual"><scope>hyrise::access::ColumnExpression</scope><name>ColumnExpression</name></member>
+      <member refid="classhyrise_1_1access_1_1_column_expression_1aa9529859c8c40e06d100b063f837c77c" prot="public" virt="pure-virtual"><scope>hyrise::access::ColumnExpression</scope><name>getName</name></member>
+      <member refid="classhyrise_1_1access_1_1_column_expression_1aed20030337524de9a769d614ba2c940c" prot="public" virt="pure-virtual"><scope>hyrise::access::ColumnExpression</scope><name>getType</name></member>
+      <member refid="classhyrise_1_1access_1_1_column_expression_1a460d8e3b72477e84b9c0c7a742d19c18" prot="public" virt="pure-virtual"><scope>hyrise::access::ColumnExpression</scope><name>setResult</name></member>
+      <member refid="classhyrise_1_1access_1_1_column_expression_1a6f0869ed5e20b9313d848b44cdf77e55" prot="public" virt="virtual"><scope>hyrise::access::ColumnExpression</scope><name>~ColumnExpression</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,358 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="classhyrise_1_1access_1_1_radix_join_transformation" kind="class" prot="public">
+    <compoundname>hyrise::access::RadixJoinTransformation</compoundname>
+    <basecompoundref refid="classhyrise_1_1access_1_1_abstract_plan_op_transformation" prot="public" virt="non-virtual">hyrise::access::AbstractPlanOpTransformation</basecompoundref>
+    <includes refid="_radix_join_transformation_8h" local="no">RadixJoinTransformation.h</includes>
+      <sectiondef kind="private-static-attrib">
+      <memberdef kind="variable" id="classhyrise_1_1access_1_1_radix_join_transformation_1a8b3d6f659c443b19f95e2ff1e04abe5a" prot="private" static="yes" mutable="no">
+        <type>bool</type>
+        <definition>bool hyrise::access::RadixJoinTransformation::transformation_is_registered</definition>
+        <argsstring></argsstring>
+        <name>transformation_is_registered</name>
+        <initializer> <ref refid="class_query_transformation_engine_1aedb873321addbff07bd27581fa663e7c" kindref="member">QueryTransformationEngine::registerTransformation</ref>&lt;<ref refid="classhyrise_1_1access_1_1_radix_join_transformation" kindref="compound">RadixJoinTransformation</ref>&gt;()</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/RadixJoinTransformation.h" line="23" bodyfile="/home/grund/hyrise/src/lib/access/RadixJoinTransformation.h" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classhyrise_1_1access_1_1_radix_join_transformation_1a7e3d3e6c51df360f08cc1f3b96f87414" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>Json::Value</type>
+        <definition>Json::Value hyrise::access::RadixJoinTransformation::createEdge</definition>
+        <argsstring>(std::string in, std::string out)</argsstring>
+        <name>createEdge</name>
+        <param>
+          <type>std::string</type>
+          <declname>in</declname>
+        </param>
+        <param>
+          <type>std::string</type>
+          <declname>out</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/RadixJoinTransformation.h" line="25" bodyfile="/home/grund/hyrise/src/lib/access/RadixJoinTransformation.cpp" bodystart="21" bodyend="26"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1access_1_1_radix_join_transformation_1a96af34ded202dd50a0a6bf93244917e2" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hyrise::access::RadixJoinTransformation::appendEdge</definition>
+        <argsstring>(const std::string &amp;srcId, const std::string &amp;dstId, Json::Value &amp;query) const </argsstring>
+        <name>appendEdge</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>srcId</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>dstId</declname>
+        </param>
+        <param>
+          <type>Json::Value &amp;</type>
+          <declname>query</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/RadixJoinTransformation.h" line="26" bodyfile="/home/grund/hyrise/src/lib/access/RadixJoinTransformation.cpp" bodystart="11" bodyend="19"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1access_1_1_radix_join_transformation_1af436b63d1403a5baa3588d587cbafa89" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hyrise::access::RadixJoinTransformation::removeOperator</definition>
+        <argsstring>(Json::Value &amp;query, const Json::Value &amp;operatorId) const </argsstring>
+        <name>removeOperator</name>
+        <param>
+          <type>Json::Value &amp;</type>
+          <declname>query</declname>
+        </param>
+        <param>
+          <type>const Json::Value &amp;</type>
+          <declname>operatorId</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/RadixJoinTransformation.h" line="27" bodyfile="/home/grund/hyrise/src/lib/access/RadixJoinTransformation.cpp" bodystart="28" bodyend="42"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1access_1_1_radix_join_transformation_1abe64f43186e1b3406dc04a89e0b432ee" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; std::string &gt;</type>
+        <definition>std::vector&lt; std::string &gt; hyrise::access::RadixJoinTransformation::getInputIds</definition>
+        <argsstring>(const std::string &amp;id, const Json::Value &amp;query)</argsstring>
+        <name>getInputIds</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>id</declname>
+        </param>
+        <param>
+          <type>const Json::Value &amp;</type>
+          <declname>query</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/RadixJoinTransformation.h" line="28" bodyfile="/home/grund/hyrise/src/lib/access/RadixJoinTransformation.cpp" bodystart="44" bodyend="54"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1access_1_1_radix_join_transformation_1aa141fe56d494993ce1688bfef6be45e0" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; std::string &gt;</type>
+        <definition>std::vector&lt; std::string &gt; hyrise::access::RadixJoinTransformation::getOutputIds</definition>
+        <argsstring>(const std::string &amp;id, const Json::Value &amp;query)</argsstring>
+        <name>getOutputIds</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>id</declname>
+        </param>
+        <param>
+          <type>const Json::Value &amp;</type>
+          <declname>query</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/RadixJoinTransformation.h" line="29" bodyfile="/home/grund/hyrise/src/lib/access/RadixJoinTransformation.cpp" bodystart="56" bodyend="66"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1access_1_1_radix_join_transformation_1ac3e3f4553bc81dbcc6b66d64dbf160d6" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="namespacehyrise_1_1access_1a32ae7da090962cbd3e1cbfcff1518b0d" kindref="member">ops_and_edges_t</ref></type>
+        <definition>ops_and_edges_t hyrise::access::RadixJoinTransformation::build_hash_side</definition>
+        <argsstring>(std::string prefix, Json::Value &amp;fields, int hash_par, Json::Value &amp;bits1, Json::Value &amp;bits2, std::string in_id)</argsstring>
+        <name>build_hash_side</name>
+        <param>
+          <type>std::string</type>
+          <declname>prefix</declname>
+        </param>
+        <param>
+          <type>Json::Value &amp;</type>
+          <declname>fields</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>hash_par</declname>
+        </param>
+        <param>
+          <type>Json::Value &amp;</type>
+          <declname>bits1</declname>
+        </param>
+        <param>
+          <type>Json::Value &amp;</type>
+          <declname>bits2</declname>
+        </param>
+        <param>
+          <type>std::string</type>
+          <declname>in_id</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/RadixJoinTransformation.h" line="30" bodyfile="/home/grund/hyrise/src/lib/access/RadixJoinTransformation.cpp" bodystart="148" bodyend="263"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1access_1_1_radix_join_transformation_1a77c6a6ffcf754ce0e7279fc2e1f49c0d" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="namespacehyrise_1_1access_1a32ae7da090962cbd3e1cbfcff1518b0d" kindref="member">ops_and_edges_t</ref></type>
+        <definition>ops_and_edges_t hyrise::access::RadixJoinTransformation::build_probe_side</definition>
+        <argsstring>(std::string prefix, Json::Value &amp;fields, int probe_par, Json::Value &amp;bits1, Json::Value &amp;bits2, std::string in_id)</argsstring>
+        <name>build_probe_side</name>
+        <param>
+          <type>std::string</type>
+          <declname>prefix</declname>
+        </param>
+        <param>
+          <type>Json::Value &amp;</type>
+          <declname>fields</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>probe_par</declname>
+        </param>
+        <param>
+          <type>Json::Value &amp;</type>
+          <declname>bits1</declname>
+        </param>
+        <param>
+          <type>Json::Value &amp;</type>
+          <declname>bits2</declname>
+        </param>
+        <param>
+          <type>std::string</type>
+          <declname>in_id</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/RadixJoinTransformation.h" line="31" bodyfile="/home/grund/hyrise/src/lib/access/RadixJoinTransformation.cpp" bodystart="68" bodyend="146"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1access_1_1_radix_join_transformation_1a15ac0fcdf0897a61086539bf2f5e9cf9" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hyrise::access::RadixJoinTransformation::distributePartitions</definition>
+        <argsstring>(const int partitions, const int join_count, const int current_join, int &amp;first, int &amp;last) const </argsstring>
+        <name>distributePartitions</name>
+        <param>
+          <type>const int</type>
+          <declname>partitions</declname>
+        </param>
+        <param>
+          <type>const int</type>
+          <declname>join_count</declname>
+        </param>
+        <param>
+          <type>const int</type>
+          <declname>current_join</declname>
+        </param>
+        <param>
+          <type>int &amp;</type>
+          <declname>first</declname>
+        </param>
+        <param>
+          <type>int &amp;</type>
+          <declname>last</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/RadixJoinTransformation.h" line="32" bodyfile="/home/grund/hyrise/src/lib/access/RadixJoinTransformation.cpp" bodystart="265" bodyend="278"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classhyrise_1_1access_1_1_radix_join_transformation_1ab3a0278213d4ccfa6e9bfa6d31f73699" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>hyrise::access::RadixJoinTransformation::RadixJoinTransformation</definition>
+        <argsstring>()</argsstring>
+        <name>RadixJoinTransformation</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/RadixJoinTransformation.h" line="35" bodyfile="/home/grund/hyrise/src/lib/access/RadixJoinTransformation.h" bodystart="35" bodyend="35"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1access_1_1_radix_join_transformation_1ae39d5fdea742fad701092f7fb3266d17" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual hyrise::access::RadixJoinTransformation::~RadixJoinTransformation</definition>
+        <argsstring>()</argsstring>
+        <name>~RadixJoinTransformation</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/RadixJoinTransformation.h" line="36" bodyfile="/home/grund/hyrise/src/lib/access/RadixJoinTransformation.h" bodystart="36" bodyend="36"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1access_1_1_radix_join_transformation_1a60842d5ef9079f66731548c98d856d92" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void hyrise::access::RadixJoinTransformation::transform</definition>
+        <argsstring>(Json::Value &amp;op, const std::string &amp;operatorId, Json::Value &amp;query)</argsstring>
+        <name>transform</name>
+        <reimplements refid="classhyrise_1_1access_1_1_abstract_plan_op_transformation_1a4e6ea8718b481e5bcd70c2e4157b3013">transform</reimplements>
+        <param>
+          <type>Json::Value &amp;</type>
+          <declname>op</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>operatorId</declname>
+        </param>
+        <param>
+          <type>Json::Value &amp;</type>
+          <declname>query</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/RadixJoinTransformation.h" line="38" bodyfile="/home/grund/hyrise/src/lib/access/RadixJoinTransformation.cpp" bodystart="280" bodyend="411"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classhyrise_1_1access_1_1_radix_join_transformation_1a86545055d1589c198239c773a2d37167" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>const std::string</type>
+        <definition>static const std::string hyrise::access::RadixJoinTransformation::name</definition>
+        <argsstring>()</argsstring>
+        <name>name</name>
+        <reimplements refid="classhyrise_1_1access_1_1_abstract_plan_op_transformation_1a39ec6deb47b5f3daf5663b1b7fa67648">name</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/RadixJoinTransformation.h" line="40" bodyfile="/home/grund/hyrise/src/lib/access/RadixJoinTransformation.h" bodystart="40" bodyend="42"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2687">
+        <label>hyrise::access::AbstractPlanOpTransformation</label>
+        <link refid="classhyrise_1_1access_1_1_abstract_plan_op_transformation"/>
+      </node>
+      <node id="2686">
+        <label>hyrise::access::RadixJoinTransformation</label>
+        <link refid="classhyrise_1_1access_1_1_radix_join_transformation"/>
+        <childnode refid="2687" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2689">
+        <label>hyrise::access::AbstractPlanOpTransformation</label>
+        <link refid="classhyrise_1_1access_1_1_abstract_plan_op_transformation"/>
+      </node>
+      <node id="2688">
+        <label>hyrise::access::RadixJoinTransformation</label>
+        <link refid="classhyrise_1_1access_1_1_radix_join_transformation"/>
+        <childnode refid="2689" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/access/RadixJoinTransformation.h" line="22" bodyfile="/home/grund/hyrise/src/lib/access/RadixJoinTransformation.h" bodystart="22" bodyend="44"/>
+    <listofallmembers>
+      <member refid="classhyrise_1_1access_1_1_abstract_plan_op_transformation_1ae90276370ebf92a4c7205219b1c576e8" prot="public" virt="non-virtual"><scope>hyrise::access::RadixJoinTransformation</scope><name>AbstractPlanOpTransformation</name></member>
+      <member refid="classhyrise_1_1access_1_1_radix_join_transformation_1a96af34ded202dd50a0a6bf93244917e2" prot="private" virt="non-virtual"><scope>hyrise::access::RadixJoinTransformation</scope><name>appendEdge</name></member>
+      <member refid="classhyrise_1_1access_1_1_radix_join_transformation_1ac3e3f4553bc81dbcc6b66d64dbf160d6" prot="private" virt="non-virtual"><scope>hyrise::access::RadixJoinTransformation</scope><name>build_hash_side</name></member>
+      <member refid="classhyrise_1_1access_1_1_radix_join_transformation_1a77c6a6ffcf754ce0e7279fc2e1f49c0d" prot="private" virt="non-virtual"><scope>hyrise::access::RadixJoinTransformation</scope><name>build_probe_side</name></member>
+      <member refid="classhyrise_1_1access_1_1_radix_join_transformation_1a7e3d3e6c51df360f08cc1f3b96f87414" prot="private" virt="non-virtual"><scope>hyrise::access::RadixJoinTransformation</scope><name>createEdge</name></member>
+      <member refid="classhyrise_1_1access_1_1_radix_join_transformation_1a15ac0fcdf0897a61086539bf2f5e9cf9" prot="private" virt="non-virtual"><scope>hyrise::access::RadixJoinTransformation</scope><name>distributePartitions</name></member>
+      <member refid="classhyrise_1_1access_1_1_radix_join_transformation_1abe64f43186e1b3406dc04a89e0b432ee" prot="private" virt="non-virtual"><scope>hyrise::access::RadixJoinTransformation</scope><name>getInputIds</name></member>
+      <member refid="classhyrise_1_1access_1_1_radix_join_transformation_1aa141fe56d494993ce1688bfef6be45e0" prot="private" virt="non-virtual"><scope>hyrise::access::RadixJoinTransformation</scope><name>getOutputIds</name></member>
+      <member refid="classhyrise_1_1access_1_1_radix_join_transformation_1a86545055d1589c198239c773a2d37167" prot="public" virt="non-virtual"><scope>hyrise::access::RadixJoinTransformation</scope><name>name</name></member>
+      <member refid="classhyrise_1_1access_1_1_radix_join_transformation_1ab3a0278213d4ccfa6e9bfa6d31f73699" prot="public" virt="non-virtual"><scope>hyrise::access::RadixJoinTransformation</scope><name>RadixJoinTransformation</name></member>
+      <member refid="classhyrise_1_1access_1_1_radix_join_transformation_1af436b63d1403a5baa3588d587cbafa89" prot="private" virt="non-virtual"><scope>hyrise::access::RadixJoinTransformation</scope><name>removeOperator</name></member>
+      <member refid="classhyrise_1_1access_1_1_radix_join_transformation_1a60842d5ef9079f66731548c98d856d92" prot="public" virt="virtual"><scope>hyrise::access::RadixJoinTransformation</scope><name>transform</name></member>
+      <member refid="classhyrise_1_1access_1_1_radix_join_transformation_1a8b3d6f659c443b19f95e2ff1e04abe5a" prot="private" virt="non-virtual"><scope>hyrise::access::RadixJoinTransformation</scope><name>transformation_is_registered</name></member>
+      <member refid="classhyrise_1_1access_1_1_abstract_plan_op_transformation_1a1b7d895b92419a39bf86e427a343dcd7" prot="public" virt="virtual"><scope>hyrise::access::RadixJoinTransformation</scope><name>~AbstractPlanOpTransformation</name></member>
+      <member refid="classhyrise_1_1access_1_1_radix_join_transformation_1ae39d5fdea742fad701092f7fb3266d17" prot="public" virt="virtual"><scope>hyrise::access::RadixJoinTransformation</scope><name>~RadixJoinTransformation</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

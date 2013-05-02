@@ -1,0 +1,120 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="class_malloc_strategy" kind="class" prot="public">
+    <compoundname>MallocStrategy</compoundname>
+    <includes refid="_malloc_strategy_8h" local="no">MallocStrategy.h</includes>
+      <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="class_malloc_strategy_1a109e60e1b05e0869c3e2c987e76fa834" prot="public" static="yes" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t MallocStrategy::allocated</definition>
+        <argsstring></argsstring>
+        <name>allocated</name>
+        <initializer> 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/memory/MallocStrategy.h" line="12" bodyfile="/home/grund/hyrise/src/lib/memory/MallocStrategy.h" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_malloc_strategy_1aa1e2dc782d29a66e7b9c979341c02b16" prot="public" static="yes" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t MallocStrategy::deallocated</definition>
+        <argsstring></argsstring>
+        <name>deallocated</name>
+        <initializer> 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/memory/MallocStrategy.h" line="13" bodyfile="/home/grund/hyrise/src/lib/memory/MallocStrategy.h" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="class_malloc_strategy_1aed2dafa1ba2aa4c4c13cf0f5675ff1b8" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void *</type>
+        <definition>static void* MallocStrategy::allocate</definition>
+        <argsstring>(size_t sz)</argsstring>
+        <name>allocate</name>
+        <param>
+          <type>size_t</type>
+          <declname>sz</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/memory/MallocStrategy.h" line="16" bodyfile="/home/grund/hyrise/src/lib/memory/MallocStrategy.h" bodystart="16" bodyend="18"/>
+      </memberdef>
+      <memberdef kind="function" id="class_malloc_strategy_1a797e8a5871256ce249165e2c72b24318" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void *</type>
+        <definition>static void* MallocStrategy::reallocate</definition>
+        <argsstring>(void *old, size_t sz, size_t osz)</argsstring>
+        <name>reallocate</name>
+        <param>
+          <type>void *</type>
+          <declname>old</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>sz</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>osz</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/memory/MallocStrategy.h" line="20" bodyfile="/home/grund/hyrise/src/lib/memory/MallocStrategy.h" bodystart="20" bodyend="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_malloc_strategy_1ad6e105af6a69d5770c8dc01abee6a0a6" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void MallocStrategy::deallocate</definition>
+        <argsstring>(void *p, size_t sz)</argsstring>
+        <name>deallocate</name>
+        <param>
+          <type>void *</type>
+          <declname>p</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>sz</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/memory/MallocStrategy.h" line="24" bodyfile="/home/grund/hyrise/src/lib/memory/MallocStrategy.h" bodystart="24" bodyend="26"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2235">
+        <label>MallocStrategy</label>
+        <link refid="class_malloc_strategy"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/memory/MallocStrategy.h" line="9" bodyfile="/home/grund/hyrise/src/lib/memory/MallocStrategy.h" bodystart="9" bodyend="27"/>
+    <listofallmembers>
+      <member refid="class_malloc_strategy_1aed2dafa1ba2aa4c4c13cf0f5675ff1b8" prot="public" virt="non-virtual"><scope>MallocStrategy</scope><name>allocate</name></member>
+      <member refid="class_malloc_strategy_1a109e60e1b05e0869c3e2c987e76fa834" prot="public" virt="non-virtual"><scope>MallocStrategy</scope><name>allocated</name></member>
+      <member refid="class_malloc_strategy_1ad6e105af6a69d5770c8dc01abee6a0a6" prot="public" virt="non-virtual"><scope>MallocStrategy</scope><name>deallocate</name></member>
+      <member refid="class_malloc_strategy_1aa1e2dc782d29a66e7b9c979341c02b16" prot="public" virt="non-virtual"><scope>MallocStrategy</scope><name>deallocated</name></member>
+      <member refid="class_malloc_strategy_1a797e8a5871256ce249165e2c72b24318" prot="public" virt="non-virtual"><scope>MallocStrategy</scope><name>reallocate</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

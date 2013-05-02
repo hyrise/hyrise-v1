@@ -1,0 +1,248 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="class_compound_expression" kind="class" prot="public">
+    <compoundname>CompoundExpression</compoundname>
+    <basecompoundref refid="class_simple_expression" prot="public" virt="non-virtual">SimpleExpression</basecompoundref>
+    <includes refid="pred___compound_expression_8h" local="no">pred_CompoundExpression.h</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_compound_expression_1a7f95e8dfc5a3557b1c7e4b95ffbc7883" prot="private" static="no" mutable="no">
+        <type><ref refid="expression__types_8h_1a51ad9989dafb48362f7e9354d68fe720" kindref="member">ExpressionType</ref></type>
+        <definition>ExpressionType CompoundExpression::type</definition>
+        <argsstring></argsstring>
+        <name>type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/pred_CompoundExpression.h" line="10" bodyfile="/home/grund/hyrise/src/lib/access/pred_CompoundExpression.h" bodystart="10" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="class_compound_expression_1a07c2797f040ad44c1db2e0005f6e0df3" prot="public" static="no" mutable="no">
+        <type><ref refid="class_simple_expression" kindref="compound">SimpleExpression</ref> *</type>
+        <definition>SimpleExpression* CompoundExpression::lhs</definition>
+        <argsstring></argsstring>
+        <name>lhs</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/pred_CompoundExpression.h" line="14" bodyfile="/home/grund/hyrise/src/lib/access/pred_CompoundExpression.h" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_compound_expression_1acf6d7cf98e83dbff144eb6c497d34383" prot="public" static="no" mutable="no">
+        <type><ref refid="class_simple_expression" kindref="compound">SimpleExpression</ref> *</type>
+        <definition>SimpleExpression* CompoundExpression::rhs</definition>
+        <argsstring></argsstring>
+        <name>rhs</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/pred_CompoundExpression.h" line="15" bodyfile="/home/grund/hyrise/src/lib/access/pred_CompoundExpression.h" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_compound_expression_1aeec560e352fd26d723c504f97b8f07fd" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool CompoundExpression::one_leg</definition>
+        <argsstring></argsstring>
+        <name>one_leg</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/pred_CompoundExpression.h" line="18" bodyfile="/home/grund/hyrise/src/lib/access/pred_CompoundExpression.h" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_compound_expression_1aa5a3c08d9d4590deb1d7ae49be1b33b8" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>CompoundExpression::CompoundExpression</definition>
+        <argsstring>(ExpressionType t)</argsstring>
+        <name>CompoundExpression</name>
+        <param>
+          <type><ref refid="expression__types_8h_1a51ad9989dafb48362f7e9354d68fe720" kindref="member">ExpressionType</ref></type>
+          <declname>t</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/pred_CompoundExpression.h" line="22" bodyfile="/home/grund/hyrise/src/lib/access/pred_CompoundExpression.h" bodystart="20" bodyend="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_compound_expression_1a35a79e6a8d5cb39c98c19065ea0eaf57" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>CompoundExpression::CompoundExpression</definition>
+        <argsstring>(SimpleExpression *_lhs, SimpleExpression *_rhs, ExpressionType _type)</argsstring>
+        <name>CompoundExpression</name>
+        <param>
+          <type><ref refid="class_simple_expression" kindref="compound">SimpleExpression</ref> *</type>
+          <declname>_lhs</declname>
+        </param>
+        <param>
+          <type><ref refid="class_simple_expression" kindref="compound">SimpleExpression</ref> *</type>
+          <declname>_rhs</declname>
+        </param>
+        <param>
+          <type><ref refid="expression__types_8h_1a51ad9989dafb48362f7e9354d68fe720" kindref="member">ExpressionType</ref></type>
+          <declname>_type</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/pred_CompoundExpression.h" line="26" bodyfile="/home/grund/hyrise/src/lib/access/pred_CompoundExpression.h" bodystart="24" bodyend="26"/>
+      </memberdef>
+      <memberdef kind="function" id="class_compound_expression_1afbcdcf8497e12d6a055ca68699162ac1" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual CompoundExpression::~CompoundExpression</definition>
+        <argsstring>()</argsstring>
+        <name>~CompoundExpression</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/pred_CompoundExpression.h" line="28" bodyfile="/home/grund/hyrise/src/lib/access/pred_CompoundExpression.h" bodystart="28" bodyend="34"/>
+      </memberdef>
+      <memberdef kind="function" id="class_compound_expression_1a0f5f6b8d94d03b6f10cdfebdfef44801" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void CompoundExpression::walk</definition>
+        <argsstring>(const std::vector&lt; hyrise::storage::c_atable_ptr_t &gt; &amp;l)</argsstring>
+        <name>walk</name>
+        <reimplements refid="class_simple_expression_1a059a1058d13c3e746d645404544c586c">walk</reimplements>
+        <param>
+          <type>const std::vector&lt; <ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref> &gt; &amp;</type>
+          <declname>l</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/pred_CompoundExpression.h" line="36" bodyfile="/home/grund/hyrise/src/lib/access/pred_CompoundExpression.h" bodystart="36" bodyend="42"/>
+      </memberdef>
+      <memberdef kind="function" id="class_compound_expression_1a033ed9bf277aa174dfc4ef8892471961" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool CompoundExpression::operator()</definition>
+        <argsstring>(size_t row)</argsstring>
+        <name>operator()</name>
+        <reimplements refid="class_simple_expression_1a0910401328b20cde7ea3493a02a957cc">operator()</reimplements>
+        <param>
+          <type>size_t</type>
+          <declname>row</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/pred_CompoundExpression.h" line="44" bodyfile="/home/grund/hyrise/src/lib/access/pred_CompoundExpression.h" bodystart="44" bodyend="62"/>
+      </memberdef>
+      <memberdef kind="function" id="class_compound_expression_1a7eef48e2ab07218592008d8e37450b9f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void CompoundExpression::add</definition>
+        <argsstring>(SimpleExpression *e)</argsstring>
+        <name>add</name>
+        <param>
+          <type><ref refid="class_simple_expression" kindref="compound">SimpleExpression</ref> *</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/pred_CompoundExpression.h" line="64" bodyfile="/home/grund/hyrise/src/lib/access/pred_CompoundExpression.h" bodystart="64" bodyend="68"/>
+      </memberdef>
+      <memberdef kind="function" id="class_compound_expression_1a1f7c60a769af6648ef765e14f183425c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool CompoundExpression::isSetup</definition>
+        <argsstring>()</argsstring>
+        <name>isSetup</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/pred_CompoundExpression.h" line="70" bodyfile="/home/grund/hyrise/src/lib/access/pred_CompoundExpression.h" bodystart="70" bodyend="72"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1637">
+        <label>SimpleExpression</label>
+        <link refid="class_simple_expression"/>
+        <childnode refid="1638" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1638">
+        <label>hyrise::access::AbstractExpression</label>
+        <link refid="classhyrise_1_1access_1_1_abstract_expression"/>
+      </node>
+      <node id="1636">
+        <label>CompoundExpression</label>
+        <link refid="class_compound_expression"/>
+        <childnode refid="1637" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1640">
+        <label>SimpleExpression</label>
+        <link refid="class_simple_expression"/>
+        <childnode refid="1641" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1641">
+        <label>hyrise::access::AbstractExpression</label>
+        <link refid="classhyrise_1_1access_1_1_abstract_expression"/>
+      </node>
+      <node id="1639">
+        <label>CompoundExpression</label>
+        <link refid="class_compound_expression"/>
+        <childnode refid="1640" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1640" relation="usage">
+          <edgelabel>lhs</edgelabel>
+          <edgelabel>rhs</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/access/pred_CompoundExpression.h" line="7" bodyfile="/home/grund/hyrise/src/lib/access/pred_CompoundExpression.h" bodystart="7" bodyend="73"/>
+    <listofallmembers>
+      <member refid="class_compound_expression_1a7eef48e2ab07218592008d8e37450b9f" prot="public" virt="non-virtual"><scope>CompoundExpression</scope><name>add</name></member>
+      <member refid="class_compound_expression_1aa5a3c08d9d4590deb1d7ae49be1b33b8" prot="public" virt="non-virtual"><scope>CompoundExpression</scope><name>CompoundExpression</name></member>
+      <member refid="class_compound_expression_1a35a79e6a8d5cb39c98c19065ea0eaf57" prot="public" virt="non-virtual"><scope>CompoundExpression</scope><name>CompoundExpression</name></member>
+      <member refid="class_compound_expression_1a1f7c60a769af6648ef765e14f183425c" prot="public" virt="non-virtual"><scope>CompoundExpression</scope><name>isSetup</name></member>
+      <member refid="class_compound_expression_1a07c2797f040ad44c1db2e0005f6e0df3" prot="public" virt="non-virtual"><scope>CompoundExpression</scope><name>lhs</name></member>
+      <member refid="class_simple_expression_1ae06428047fe77732ef121f42b1ee6ce2" prot="public" virt="virtual"><scope>CompoundExpression</scope><name>match</name></member>
+      <member refid="class_compound_expression_1aeec560e352fd26d723c504f97b8f07fd" prot="public" virt="non-virtual"><scope>CompoundExpression</scope><name>one_leg</name></member>
+      <member refid="class_compound_expression_1a033ed9bf277aa174dfc4ef8892471961" prot="public" virt="virtual"><scope>CompoundExpression</scope><name>operator()</name></member>
+      <member refid="class_compound_expression_1acf6d7cf98e83dbff144eb6c497d34383" prot="public" virt="non-virtual"><scope>CompoundExpression</scope><name>rhs</name></member>
+      <member refid="class_compound_expression_1a7f95e8dfc5a3557b1c7e4b95ffbc7883" prot="private" virt="non-virtual"><scope>CompoundExpression</scope><name>type</name></member>
+      <member refid="class_compound_expression_1a0f5f6b8d94d03b6f10cdfebdfef44801" prot="public" virt="virtual"><scope>CompoundExpression</scope><name>walk</name></member>
+      <member refid="classhyrise_1_1access_1_1_abstract_expression_1aae15725c08628e3785e90f496b75144e" prot="public" virt="pure-virtual" ambiguityscope="hyrise::access::AbstractExpression::"><scope>CompoundExpression</scope><name>walk</name></member>
+      <member refid="classhyrise_1_1access_1_1_abstract_expression_1ae0b45f17103a1dc5006832d243574d83" prot="public" virt="virtual"><scope>CompoundExpression</scope><name>~AbstractExpression</name></member>
+      <member refid="class_compound_expression_1afbcdcf8497e12d6a055ca68699162ac1" prot="public" virt="virtual"><scope>CompoundExpression</scope><name>~CompoundExpression</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

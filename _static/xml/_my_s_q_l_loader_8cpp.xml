@@ -1,0 +1,165 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="_my_s_q_l_loader_8cpp" kind="file">
+    <compoundname>MySQLLoader.cpp</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>2012<sp/>Hasso-Plattner-Institut<sp/>fuer<sp/>Softwaresystemtechnik<sp/>GmbH.<sp/>All<sp/>rights<sp/>reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>WITH_MYSQL</highlight></codeline>
+<codeline lineno="3"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_my_s_q_l_loader_8h" kindref="compound">io/MySQLLoader.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;iostream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;limits&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;map&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;boost/assign.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;boost/algorithm/string/erase.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;mysql/mysql.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_column_metadata_8h" kindref="compound">storage/ColumnMetadata.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_mutable_vertical_table_8h" kindref="compound">storage/MutableVerticalTable.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="storage__types_8h" kindref="compound">storage/storage_types.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="storage__types_8h" kindref="compound">storage/storage_types.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_table_builder_8h" kindref="compound">storage/TableBuilder.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><ref refid="_c_s_v_loader_8h_1a7dd726b83c37b5eb2e3fa5fba8e27c9d" kindref="member">param_member_impl</ref>(MySQLInput::params,<sp/>std::string,<sp/>Host);</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><ref refid="_c_s_v_loader_8h_1a7dd726b83c37b5eb2e3fa5fba8e27c9d" kindref="member">param_member_impl</ref>(MySQLInput::params,<sp/>std::string,<sp/>Port);</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><ref refid="_c_s_v_loader_8h_1a7dd726b83c37b5eb2e3fa5fba8e27c9d" kindref="member">param_member_impl</ref>(MySQLInput::params,<sp/>std::string,<sp/>User);</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><ref refid="_c_s_v_loader_8h_1a7dd726b83c37b5eb2e3fa5fba8e27c9d" kindref="member">param_member_impl</ref>(MySQLInput::params,<sp/>std::string,<sp/>Password);</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><ref refid="_c_s_v_loader_8h_1a7dd726b83c37b5eb2e3fa5fba8e27c9d" kindref="member">param_member_impl</ref>(MySQLInput::params,<sp/>std::string,<sp/>Schema);</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><ref refid="_c_s_v_loader_8h_1a7dd726b83c37b5eb2e3fa5fba8e27c9d" kindref="member">param_member_impl</ref>(MySQLInput::params,<sp/>std::string,<sp/>Table);</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><ref refid="_c_s_v_loader_8h_1a7dd726b83c37b5eb2e3fa5fba8e27c9d" kindref="member">param_member_impl</ref>(MySQLInput::params,<sp/>uint64_t,<sp/>Limit);</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/>std::string<sp/>name;</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/>std::string<sp/>type;</highlight></codeline>
+<codeline lineno="33"><highlight class="normal">}<sp/>column_meta;</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>std::vector&lt;column_meta&gt;<sp/>table_meta;</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="keyword">using<sp/>namespace<sp/></highlight><highlight class="normal"><ref refid="_strategized_allocator_8h_1a0a91a387ec91571f97c04fd98b23af1a" kindref="member">boost::assign</ref>;</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>void<sp/>(*conversion_func)(MYSQL_ROW<sp/>*,<sp/>size_t,<sp/>size_t,<sp/><ref refid="class_abstract_table" kindref="compound">AbstractTable</ref><sp/>*);</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>var_to_string(MYSQL_ROW<sp/>*r,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>col,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>row,<sp/><ref refid="class_abstract_table" kindref="compound">AbstractTable</ref><sp/>*t)<sp/>{</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((*r)[col]<sp/>==<sp/>0)</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/>t-&gt;<ref refid="class_abstract_table_1a50d0ce6998606d864a429002f86ae654" kindref="member">setValue</ref>&lt;<ref refid="storage__types_8h_1af37c27a8a9ec58aee21fbec32a793509" kindref="member">hyrise_string_t</ref>&gt;(col,<sp/>row,<sp/></highlight><highlight class="stringliteral">&quot;&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/>t-&gt;<ref refid="class_abstract_table_1a50d0ce6998606d864a429002f86ae654" kindref="member">setValue</ref>&lt;<ref refid="storage__types_8h_1af37c27a8a9ec58aee21fbec32a793509" kindref="member">hyrise_string_t</ref>&gt;(col,<sp/>row,<sp/>std::string((</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*)(*r)[col]));</highlight></codeline>
+<codeline lineno="53"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>bigint_to_integer(MYSQL_ROW<sp/>*r,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>col,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>row,<sp/><ref refid="class_abstract_table" kindref="compound">AbstractTable</ref><sp/>*t)<sp/>{</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><ref refid="storage__types_8h_1a72c5f9ba0685142ffc747d0a586a5d8a" kindref="member">hyrise_int_t</ref><sp/>data<sp/>=<sp/>(*r)[col]<sp/>==<sp/>0<sp/>?<sp/>0<sp/>:<sp/>atoll((*r)[col]);</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/>t-&gt;<ref refid="class_abstract_table_1a50d0ce6998606d864a429002f86ae654" kindref="member">setValue</ref>&lt;<ref refid="storage__types_8h_1a72c5f9ba0685142ffc747d0a586a5d8a" kindref="member">hyrise_int_t</ref>&gt;(col,<sp/>row,<sp/>data);</highlight></codeline>
+<codeline lineno="58"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>int_to_integer(MYSQL_ROW<sp/>*r,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>col,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>row,<sp/><ref refid="class_abstract_table" kindref="compound">AbstractTable</ref><sp/>*t)<sp/>{</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><ref refid="storage__types_8h_1a72c5f9ba0685142ffc747d0a586a5d8a" kindref="member">hyrise_int_t</ref><sp/>data<sp/>=<sp/>(*r)[col]<sp/>==<sp/>0<sp/>?<sp/>0<sp/>:<sp/>atoi((*r)[col]);</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/>t-&gt;<ref refid="class_abstract_table_1a50d0ce6998606d864a429002f86ae654" kindref="member">setValue</ref>&lt;<ref refid="storage__types_8h_1a72c5f9ba0685142ffc747d0a586a5d8a" kindref="member">hyrise_int_t</ref>&gt;(col,<sp/>row,<sp/>data);</highlight></codeline>
+<codeline lineno="63"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>double_to_float(MYSQL_ROW<sp/>*r,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>col,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>row,<sp/><ref refid="class_abstract_table" kindref="compound">AbstractTable</ref><sp/>*t)<sp/>{</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><ref refid="storage__types_8h_1ae1d9f03fd6d4a12d5c63accb4233a2ec" kindref="member">hyrise_float_t</ref><sp/>data<sp/>=<sp/>(*r)[col]<sp/>==<sp/>0<sp/>?<sp/>0<sp/>:<sp/>atof((*r)[col]);</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/>t-&gt;<ref refid="class_abstract_table_1a50d0ce6998606d864a429002f86ae654" kindref="member">setValue</ref>&lt;<ref refid="storage__types_8h_1ae1d9f03fd6d4a12d5c63accb4233a2ec" kindref="member">hyrise_float_t</ref>&gt;(col,<sp/>row,<sp/>data);</highlight></codeline>
+<codeline lineno="68"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>date_to_int(MYSQL_ROW<sp/>*r,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>col,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>row,<sp/><ref refid="class_abstract_table" kindref="compound">AbstractTable</ref><sp/>*t)<sp/>{</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Replace<sp/>dashes<sp/>with<sp/>nothing<sp/>and<sp/>we<sp/>have<sp/>the<sp/>int</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((*r)[col]<sp/>==<sp/>0)</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/>t-&gt;<ref refid="class_abstract_table_1a50d0ce6998606d864a429002f86ae654" kindref="member">setValue</ref>&lt;<ref refid="storage__types_8h_1a72c5f9ba0685142ffc747d0a586a5d8a" kindref="member">hyrise_int_t</ref>&gt;(col,<sp/>row,<sp/>1);</highlight><highlight class="comment">//<sp/>std::stoll(s));</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/>s((</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*)(*r)[col]);</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/>boost::algorithm::erase_all(s,<sp/></highlight><highlight class="stringliteral">&quot;-&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/>t-&gt;<ref refid="class_abstract_table_1a50d0ce6998606d864a429002f86ae654" kindref="member">setValue</ref>&lt;<ref refid="storage__types_8h_1a72c5f9ba0685142ffc747d0a586a5d8a" kindref="member">hyrise_int_t</ref>&gt;(col,<sp/>row,<sp/>std::stoll(s));</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="79"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal">std::map&lt;std::string,<sp/>std::pair&lt;hyrise::types::type_t,<sp/>conversion_func&gt;<sp/>&gt;<sp/>translations<sp/>=<sp/>map_list_of</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/>(</highlight><highlight class="stringliteral">&quot;varchar&quot;</highlight><highlight class="normal">,<sp/><sp/>make_pair(<ref refid="namespacehyrise_1_1types_1afeebc86251ddc26b11d8fc52aababb7f" kindref="member">hyrise::types::string_t</ref>,<sp/>var_to_string))</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/>(</highlight><highlight class="stringliteral">&quot;char&quot;</highlight><highlight class="normal">,<sp/><sp/><sp/><sp/><sp/>make_pair(<ref refid="namespacehyrise_1_1types_1afeebc86251ddc26b11d8fc52aababb7f" kindref="member">hyrise::types::string_t</ref>,<sp/>var_to_string))</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/>(</highlight><highlight class="stringliteral">&quot;bigint&quot;</highlight><highlight class="normal">,<sp/><sp/><sp/>make_pair(<ref refid="namespacehyrise_1_1types_1ac76e2caf2685fc6dc28916cae531fc64" kindref="member">hyrise::types::integer_t</ref>,<sp/>bigint_to_integer))</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/>(</highlight><highlight class="stringliteral">&quot;int&quot;</highlight><highlight class="normal">,<sp/><sp/><sp/><sp/><sp/><sp/>make_pair(<ref refid="namespacehyrise_1_1types_1ac76e2caf2685fc6dc28916cae531fc64" kindref="member">hyrise::types::integer_t</ref>,<sp/>int_to_integer))</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/>(</highlight><highlight class="stringliteral">&quot;smallint&quot;</highlight><highlight class="normal">,<sp/>make_pair(<ref refid="namespacehyrise_1_1types_1ac76e2caf2685fc6dc28916cae531fc64" kindref="member">hyrise::types::integer_t</ref>,<sp/>int_to_integer))</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/>(</highlight><highlight class="stringliteral">&quot;double&quot;</highlight><highlight class="normal">,<sp/><sp/><sp/>make_pair(<ref refid="namespacehyrise_1_1types_1a1d64e8103627a64c2239c710a9b22d4c" kindref="member">hyrise::types::float_t</ref>,<sp/>double_to_float))</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/>(</highlight><highlight class="stringliteral">&quot;date&quot;</highlight><highlight class="normal">,<sp/><sp/><sp/><sp/><sp/>make_pair(<ref refid="namespacehyrise_1_1types_1ac76e2caf2685fc6dc28916cae531fc64" kindref="member">hyrise::types::integer_t</ref>,<sp/>date_to_int))</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/>(</highlight><highlight class="stringliteral">&quot;time&quot;</highlight><highlight class="normal">,<sp/><sp/><sp/><sp/><sp/>make_pair(<ref refid="namespacehyrise_1_1types_1afeebc86251ddc26b11d8fc52aababb7f" kindref="member">hyrise::types::string_t</ref>,<sp/>var_to_string))</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/>(</highlight><highlight class="stringliteral">&quot;datetime&quot;</highlight><highlight class="normal">,<sp/>make_pair(<ref refid="namespacehyrise_1_1types_1afeebc86251ddc26b11d8fc52aababb7f" kindref="member">hyrise::types::string_t</ref>,<sp/>var_to_string));</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal">std::shared_ptr&lt;AbstractTable&gt;<sp/><ref refid="namespace_loader_1a371700be700b02ac0f08306734213028" kindref="member">MySQLInput::load</ref>(</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/>std::shared_ptr&lt;AbstractTable&gt;<sp/>intable,</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="storage__types_8h_1ab1a41784d413aa539cdda0391757965c" kindref="member">compound_metadata_list</ref><sp/>*meta,</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="class_loader_1_1params" kindref="compound">Loader::params</ref><sp/>&amp;args)<sp/>{</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/>MYSQL<sp/>*conn<sp/>=<sp/>mysql_init(NULL);</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!mysql_real_connect(conn,<sp/>_parameters.getHost().c_str(),</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>_parameters.getUser().c_str(),</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>_parameters.getPassword().c_str(),<sp/></highlight><highlight class="stringliteral">&quot;information_schema&quot;</highlight><highlight class="normal">,<sp/>0,<sp/>NULL,<sp/>0))<sp/>{</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//throw<sp/>std::runtime_error(&quot;mysql<sp/>connection<sp/>failed<sp/>&quot;<sp/>+<sp/>strerror(errno));</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/>std::string<sp/>q1<sp/>=<sp/>(</highlight><highlight class="stringliteral">&quot;SELECT<sp/>COLUMN_NAME,<sp/>DATA_TYPE<sp/>FROM<sp/>COLUMNS<sp/>WHERE<sp/>TABLE_NAME=&apos;&quot;</highlight><highlight class="normal"><sp/>+<sp/>_parameters.getTable()<sp/>+<sp/></highlight><highlight class="stringliteral">&quot;&apos;<sp/>AND<sp/>TABLE_SCHEMA=&apos;&quot;</highlight><highlight class="normal"><sp/>+<sp/>_parameters.getSchema()<sp/>+<sp/></highlight><highlight class="stringliteral">&quot;&apos;&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/>mysql_query(conn,<sp/>q1.c_str());</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/>MYSQL_RES<sp/>*res<sp/>=<sp/>mysql_use_result(conn);</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/>MYSQL_ROW<sp/>row;</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Build<sp/>the<sp/>table</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><ref refid="struct_table_builder_1_1param__list" kindref="compound">TableBuilder::param_list</ref><sp/>list;</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/>std::vector&lt;std::string&gt;<sp/>typeList;</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>((row<sp/>=<sp/>mysql_fetch_row(res))<sp/>!=<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/>typeList.push_back(std::string(row[1]));</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/>list.<ref refid="struct_table_builder_1_1param__list_1a0d23255bbddef12023d027f27f597ec3" kindref="member">append</ref>().<ref refid="struct_table_builder_1_1param_1a634ce05cbe22d6cde33c4cc2dcdd4b87" kindref="member">set_type</ref>(translations[typeList.back()].first).set_name(std::string(row[0]));</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/>mysql_free_result(res);</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>t<sp/>=<sp/><ref refid="class_table_builder_1a95831e39786c88a88aa18aa45bddf120" kindref="member">TableBuilder::build</ref>(list,<sp/>args.<ref refid="class_loader_1_1params_1ad456094e037c3a73b7d55a74d92dff6c" kindref="member">getCompressed</ref>());</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/>mysql_query(conn,<sp/>(</highlight><highlight class="stringliteral">&quot;USE<sp/>&quot;</highlight><highlight class="normal"><sp/>+<sp/>_parameters.getSchema()).c_str());</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/>uint64_t<sp/>totalSize;</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/>mysql_query(conn,<sp/>(</highlight><highlight class="stringliteral">&quot;SELECT<sp/>count(*)<sp/>as<sp/>count<sp/>FROM<sp/>&quot;</highlight><highlight class="normal"><sp/>+<sp/>_parameters.getTable()).c_str());</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/>res<sp/>=<sp/>mysql_use_result(conn);</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/>row<sp/>=<sp/>mysql_fetch_row(res);</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/>totalSize<sp/>=<sp/>atol(row[0]);</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/>mysql_free_result(res);</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/>totalSize<sp/>=<sp/>_parameters.getLimit()<sp/>==<sp/>0<sp/>||<sp/>totalSize<sp/>&lt;<sp/>_parameters.getLimit()<sp/>?<sp/>totalSize<sp/>:<sp/>_parameters.getLimit();</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/>t-&gt;<ref refid="class_abstract_table_1a2c284b3bc7d1ee8522cd02be2fffa3be" kindref="member">resize</ref>(totalSize);</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/>mysql_query(conn,<sp/>(</highlight><highlight class="stringliteral">&quot;SELECT<sp/>*<sp/>FROM<sp/>&quot;</highlight><highlight class="normal"><sp/>+<sp/>_parameters.getTable()<sp/>+<sp/></highlight><highlight class="stringliteral">&quot;<sp/>LIMIT<sp/>&quot;</highlight><highlight class="normal"><sp/>+<sp/><ref refid="namespacehyrise_1aec58f00f171c12aa4ef29682158b9fc2" kindref="member">std::to_string</ref>(totalSize)).c_str());</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/>res<sp/>=<sp/>mysql_use_result(conn);</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>rownum<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>column<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>((row<sp/>=<sp/>mysql_fetch_row(res))<sp/>!=<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>typeList.size();<sp/>++i)<sp/>{</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>translations[typeList[i]].second(&amp;row,<sp/>column,<sp/>rownum,<sp/>t.get());</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>++column;</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/>column<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/>++rownum;</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/>mysql_free_result(res);</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/>mysql_close(conn);</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>t;</highlight></codeline>
+<codeline lineno="165"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight></codeline>
+<codeline lineno="167"><highlight class="normal">MySQLInput<sp/>*MySQLInput::clone()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/>MySQLInput(*</highlight><highlight class="keyword">this</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="169"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"></highlight></codeline>
+<codeline lineno="171"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="/home/grund/hyrise/src/lib/io/MySQLLoader.cpp"/>
+  </compounddef>
+</doxygen>

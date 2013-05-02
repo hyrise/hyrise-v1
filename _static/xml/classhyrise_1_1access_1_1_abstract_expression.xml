@@ -1,0 +1,176 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="classhyrise_1_1access_1_1_abstract_expression" kind="class" prot="public">
+    <compoundname>hyrise::access::AbstractExpression</compoundname>
+    <derivedcompoundref refid="classhyrise_1_1access_1_1_example_expression" prot="public" virt="non-virtual">hyrise::access::ExampleExpression</derivedcompoundref>
+    <derivedcompoundref refid="class_simple_expression" prot="public" virt="non-virtual">SimpleExpression</derivedcompoundref>
+    <includes refid="_abstract_expression_8h" local="no">AbstractExpression.h</includes>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classhyrise_1_1access_1_1_abstract_expression_1ae0b45f17103a1dc5006832d243574d83" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual hyrise::access::AbstractExpression::~AbstractExpression</definition>
+        <argsstring>()</argsstring>
+        <name>~AbstractExpression</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/AbstractExpression.h" line="12" bodyfile="/home/grund/hyrise/src/lib/access/AbstractExpression.h" bodystart="12" bodyend="12"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1access_1_1_abstract_expression_1aae15725c08628e3785e90f496b75144e" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void hyrise::access::AbstractExpression::walk</definition>
+        <argsstring>(const std::vector&lt; storage::c_atable_ptr_t &gt; &amp;l)=0</argsstring>
+        <name>walk</name>
+        <param>
+          <type>const std::vector&lt; <ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">storage::c_atable_ptr_t</ref> &gt; &amp;</type>
+          <declname>l</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/AbstractExpression.h" line="13"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1access_1_1_abstract_expression_1a5d1aba6a95938962ab0af27e088e564b" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type><ref refid="namespacehyrise_1_1storage_1a82124b84ebfac47beba542ec17d56471" kindref="member">storage::pos_list_t</ref> *</type>
+        <definition>virtual storage::pos_list_t* hyrise::access::AbstractExpression::match</definition>
+        <argsstring>(const size_t start, const size_t stop)=0</argsstring>
+        <name>match</name>
+        <reimplementedby refid="class_simple_expression_1ae06428047fe77732ef121f42b1ee6ce2">match</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_example_expression_1af65177adf8b38acf419dc8bd075c5530">match</reimplementedby>
+        <param>
+          <type>const size_t</type>
+          <declname>start</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>stop</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/AbstractExpression.h" line="14"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Abstract expression interface. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1327">
+        <label>EqualsExpressionRaw&lt; T &gt;</label>
+        <link refid="class_equals_expression_raw"/>
+        <childnode refid="1324" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1324">
+        <label>SimpleFieldExpression</label>
+        <link refid="class_simple_field_expression"/>
+        <childnode refid="1322" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1328">
+        <label>GreaterThanExpression&lt; T &gt;</label>
+        <link refid="class_greater_than_expression"/>
+        <childnode refid="1324" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1329">
+        <label>GreaterThanExpressionRaw&lt; T &gt;</label>
+        <link refid="class_greater_than_expression_raw"/>
+        <childnode refid="1324" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1332">
+        <label>MultiTableBetweenExpression&lt; T &gt;</label>
+        <link refid="class_multi_table_between_expression"/>
+        <childnode refid="1324" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1335">
+        <label>MultiTableLessThanExpression&lt; T &gt;</label>
+        <link refid="class_multi_table_less_than_expression"/>
+        <childnode refid="1324" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1325">
+        <label>BetweenExpression&lt; T &gt;</label>
+        <link refid="class_between_expression"/>
+        <childnode refid="1324" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1334">
+        <label>MultiTableGreaterThanExpression&lt; T &gt;</label>
+        <link refid="class_multi_table_greater_than_expression"/>
+        <childnode refid="1324" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1326">
+        <label>EqualsExpression&lt; T &gt;</label>
+        <link refid="class_equals_expression"/>
+        <childnode refid="1324" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1333">
+        <label>MultiTableEqualsExpression&lt; T &gt;</label>
+        <link refid="class_multi_table_equals_expression"/>
+        <childnode refid="1324" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1322">
+        <label>SimpleExpression</label>
+        <link refid="class_simple_expression"/>
+        <childnode refid="1320" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1320">
+        <label>hyrise::access::AbstractExpression</label>
+        <link refid="classhyrise_1_1access_1_1_abstract_expression"/>
+      </node>
+      <node id="1331">
+        <label>LessThanExpressionRaw&lt; T &gt;</label>
+        <link refid="class_less_than_expression_raw"/>
+        <childnode refid="1324" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1330">
+        <label>LessThanExpression&lt; T &gt;</label>
+        <link refid="class_less_than_expression"/>
+        <childnode refid="1324" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1323">
+        <label>CompoundExpression</label>
+        <link refid="class_compound_expression"/>
+        <childnode refid="1322" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1321">
+        <label>hyrise::access::ExampleExpression</label>
+        <link refid="classhyrise_1_1access_1_1_example_expression"/>
+        <childnode refid="1320" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1336">
+        <label>hyrise::access::AbstractExpression</label>
+        <link refid="classhyrise_1_1access_1_1_abstract_expression"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/access/AbstractExpression.h" line="10" bodyfile="/home/grund/hyrise/src/lib/access/AbstractExpression.h" bodystart="10" bodyend="15"/>
+    <listofallmembers>
+      <member refid="classhyrise_1_1access_1_1_abstract_expression_1a5d1aba6a95938962ab0af27e088e564b" prot="public" virt="pure-virtual"><scope>hyrise::access::AbstractExpression</scope><name>match</name></member>
+      <member refid="classhyrise_1_1access_1_1_abstract_expression_1aae15725c08628e3785e90f496b75144e" prot="public" virt="pure-virtual"><scope>hyrise::access::AbstractExpression</scope><name>walk</name></member>
+      <member refid="classhyrise_1_1access_1_1_abstract_expression_1ae0b45f17103a1dc5006832d243574d83" prot="public" virt="virtual"><scope>hyrise::access::AbstractExpression</scope><name>~AbstractExpression</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

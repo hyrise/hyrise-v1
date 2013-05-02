@@ -1,0 +1,444 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="join__predicates_8h" kind="file">
+    <compoundname>join_predicates.h</compoundname>
+    <includes refid="types_8h" local="no">helper/types.h</includes>
+    <includes refid="expression__types_8h" local="yes">expression_types.h</includes>
+    <includedby refid="pred__common_8h" local="yes">src/lib/access/pred_common.h</includedby>
+    <incdepgraph>
+      <node id="5692">
+        <label>limits</label>
+      </node>
+      <node id="5690">
+        <label>cstdint</label>
+      </node>
+      <node id="5695">
+        <label>expression_types.h</label>
+        <link refid="expression__types_8h"/>
+        <childnode refid="5696" relation="include">
+        </childnode>
+        <childnode refid="5691" relation="include">
+        </childnode>
+        <childnode refid="5697" relation="include">
+        </childnode>
+      </node>
+      <node id="5691">
+        <label>string</label>
+      </node>
+      <node id="5696">
+        <label>map</label>
+      </node>
+      <node id="5697">
+        <label>json.h</label>
+      </node>
+      <node id="5694">
+        <label>vector</label>
+      </node>
+      <node id="5688">
+        <label>src/lib/access/join_predicates.h</label>
+        <link refid="join_predicates.h"/>
+        <childnode refid="5689" relation="include">
+        </childnode>
+        <childnode refid="5695" relation="include">
+        </childnode>
+      </node>
+      <node id="5689">
+        <label>helper/types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="5690" relation="include">
+        </childnode>
+        <childnode refid="5691" relation="include">
+        </childnode>
+        <childnode refid="5692" relation="include">
+        </childnode>
+        <childnode refid="5693" relation="include">
+        </childnode>
+        <childnode refid="5694" relation="include">
+        </childnode>
+      </node>
+      <node id="5693">
+        <label>memory</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="5720">
+        <label>src/lib/access/pred_CompoundExpression.h</label>
+        <link refid="pred___compound_expression_8h"/>
+        <childnode refid="5701" relation="include">
+        </childnode>
+        <childnode refid="5721" relation="include">
+        </childnode>
+      </node>
+      <node id="5712">
+        <label>src/bin/perf_regression/UnionScan.cpp</label>
+        <link refid="bin_2perf__regression_2_union_scan_8cpp"/>
+      </node>
+      <node id="5713">
+        <label>src/lib/access/MergeJoin.hpp</label>
+        <link refid="_merge_join_8hpp"/>
+        <childnode refid="5704" relation="include">
+        </childnode>
+      </node>
+      <node id="5714">
+        <label>src/lib/access/pred_buildExpression.cpp</label>
+        <link refid="pred__build_expression_8cpp"/>
+      </node>
+      <node id="5717">
+        <label>src/lib/access/pred_buildExpression.h</label>
+        <link refid="pred__build_expression_8h"/>
+        <childnode refid="5714" relation="include">
+        </childnode>
+        <childnode refid="5701" relation="include">
+        </childnode>
+        <childnode refid="5718" relation="include">
+        </childnode>
+        <childnode refid="5719" relation="include">
+        </childnode>
+      </node>
+      <node id="5699">
+        <label>src/lib/access/pred_common.h</label>
+        <link refid="pred__common_8h"/>
+        <childnode refid="5700" relation="include">
+        </childnode>
+        <childnode refid="5716" relation="include">
+        </childnode>
+        <childnode refid="5717" relation="include">
+        </childnode>
+        <childnode refid="5720" relation="include">
+        </childnode>
+        <childnode refid="5723" relation="include">
+        </childnode>
+        <childnode refid="5725" relation="include">
+        </childnode>
+        <childnode refid="5726" relation="include">
+        </childnode>
+        <childnode refid="5727" relation="include">
+        </childnode>
+        <childnode refid="5728" relation="include">
+        </childnode>
+        <childnode refid="5729" relation="include">
+        </childnode>
+        <childnode refid="5721" relation="include">
+        </childnode>
+      </node>
+      <node id="5700">
+        <label>src/lib/access/pred_BetweenOperation.h</label>
+        <link refid="pred___between_operation_8h"/>
+        <childnode refid="5701" relation="include">
+        </childnode>
+      </node>
+      <node id="5708">
+        <label>src/bin/perf_regression/JoinScan.cpp</label>
+        <link refid="bin_2perf__regression_2_join_scan_8cpp"/>
+      </node>
+      <node id="5724">
+        <label>src/bin/perf_regression/scan_performance.cpp</label>
+        <link refid="scan__performance_8cpp"/>
+      </node>
+      <node id="5725">
+        <label>src/lib/access/pred_GreaterThanExpression.h</label>
+        <link refid="pred___greater_than_expression_8h"/>
+        <childnode refid="5701" relation="include">
+        </childnode>
+      </node>
+      <node id="5711">
+        <label>src/bin/perf_regression/SortScan.cpp</label>
+        <link refid="bin_2perf__regression_2_sort_scan_8cpp"/>
+      </node>
+      <node id="5705">
+        <label>src/bin/perf_regression/GroupByScan.cpp</label>
+        <link refid="bin_2perf__regression_2_group_by_scan_8cpp"/>
+      </node>
+      <node id="5709">
+        <label>src/bin/perf_regression/ProjectionScan.cpp</label>
+        <link refid="bin_2perf__regression_2_projection_scan_8cpp"/>
+      </node>
+      <node id="5722">
+        <label>src/lib/access/pred_PredicateBuilder.cpp</label>
+        <link refid="pred___predicate_builder_8cpp"/>
+      </node>
+      <node id="5706">
+        <label>src/bin/perf_regression/HashJoin.cpp</label>
+        <link refid="_hash_join_8cpp"/>
+      </node>
+      <node id="5698">
+        <label>src/lib/access/join_predicates.h</label>
+        <link refid="join_predicates.h"/>
+        <childnode refid="5699" relation="include">
+        </childnode>
+      </node>
+      <node id="5718">
+        <label>src/lib/access/SimpleRawTableScan.cpp</label>
+        <link refid="_simple_raw_table_scan_8cpp"/>
+      </node>
+      <node id="5707">
+        <label>src/bin/perf_regression/HashValueJoin.cpp</label>
+        <link refid="_hash_value_join_8cpp"/>
+      </node>
+      <node id="5704">
+        <label>src/lib/access.h</label>
+        <link refid="access_8h"/>
+        <childnode refid="5705" relation="include">
+        </childnode>
+        <childnode refid="5706" relation="include">
+        </childnode>
+        <childnode refid="5707" relation="include">
+        </childnode>
+        <childnode refid="5708" relation="include">
+        </childnode>
+        <childnode refid="5709" relation="include">
+        </childnode>
+        <childnode refid="5710" relation="include">
+        </childnode>
+        <childnode refid="5711" relation="include">
+        </childnode>
+        <childnode refid="5712" relation="include">
+        </childnode>
+      </node>
+      <node id="5701">
+        <label>src/lib/access/predicates.h</label>
+        <link refid="predicates_8h"/>
+        <childnode refid="5702" relation="include">
+        </childnode>
+        <childnode refid="5713" relation="include">
+        </childnode>
+        <childnode refid="5714" relation="include">
+        </childnode>
+        <childnode refid="5715" relation="include">
+        </childnode>
+        <childnode refid="5704" relation="include">
+        </childnode>
+      </node>
+      <node id="5728">
+        <label>src/lib/access/pred_MultiTableEqualsExpression.h</label>
+        <link refid="pred___multi_table_equals_expression_8h"/>
+        <childnode refid="5701" relation="include">
+        </childnode>
+      </node>
+      <node id="5727">
+        <label>src/lib/access/pred_MultiTableBetweenExpression.h</label>
+        <link refid="pred___multi_table_between_expression_8h"/>
+        <childnode refid="5701" relation="include">
+        </childnode>
+      </node>
+      <node id="5710">
+        <label>src/bin/perf_regression/SimpleTableScan.cpp</label>
+        <link refid="bin_2perf__regression_2_simple_table_scan_8cpp"/>
+      </node>
+      <node id="5723">
+        <label>src/lib/access/pred_EqualsExpression.h</label>
+        <link refid="pred___equals_expression_8h"/>
+        <childnode refid="5724" relation="include">
+        </childnode>
+        <childnode refid="5701" relation="include">
+        </childnode>
+      </node>
+      <node id="5719">
+        <label>src/lib/access/SimpleTableScan.cpp</label>
+        <link refid="lib_2access_2_simple_table_scan_8cpp"/>
+      </node>
+      <node id="5729">
+        <label>src/lib/access/pred_MultiTableLessThanExpression.h</label>
+        <link refid="pred___multi_table_less_than_expression_8h"/>
+        <childnode refid="5701" relation="include">
+        </childnode>
+      </node>
+      <node id="5716">
+        <label>src/lib/access/pred_SimpleFieldExpression.h</label>
+        <link refid="pred___simple_field_expression_8h"/>
+        <childnode refid="5699" relation="include">
+        </childnode>
+        <childnode refid="5701" relation="include">
+        </childnode>
+      </node>
+      <node id="5702">
+        <label>src/lib/access/JoinScan.h</label>
+        <link refid="_join_scan_8h"/>
+        <childnode refid="5703" relation="include">
+        </childnode>
+        <childnode refid="5704" relation="include">
+        </childnode>
+      </node>
+      <node id="5703">
+        <label>src/lib/access/JoinScan.cpp</label>
+        <link refid="lib_2access_2_join_scan_8cpp"/>
+      </node>
+      <node id="5726">
+        <label>src/lib/access/pred_LessThanExpression.h</label>
+        <link refid="pred___less_than_expression_8h"/>
+        <childnode refid="5701" relation="include">
+        </childnode>
+      </node>
+      <node id="5721">
+        <label>src/lib/access/pred_PredicateBuilder.h</label>
+        <link refid="pred___predicate_builder_8h"/>
+        <childnode refid="5701" relation="include">
+        </childnode>
+        <childnode refid="5722" relation="include">
+        </childnode>
+      </node>
+      <node id="5715">
+        <label>src/lib/access/pred_expression_factory.h</label>
+        <link refid="pred__expression__factory_8h"/>
+        <childnode refid="5714" relation="include">
+        </childnode>
+        <childnode refid="5701" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="class_join_expression" prot="public">JoinExpression</innerclass>
+    <innerclass refid="class_compound_join_expression" prot="public">CompoundJoinExpression</innerclass>
+    <innerclass refid="class_equals_join_expression" prot="public">EqualsJoinExpression</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>2012<sp/>Hasso-Plattner-Institut<sp/>fuer<sp/>Softwaresystemtechnik<sp/>GmbH.<sp/>All<sp/>rights<sp/>reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SRC_LIB_ACCESS_JOIN_PREDICATES_H_</highlight></codeline>
+<codeline lineno="3"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SRC_LIB_ACCESS_JOIN_PREDICATES_H_</highlight></codeline>
+<codeline lineno="4"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="types_8h" kindref="compound">helper/types.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="expression__types_8h" kindref="compound">expression_types.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="9"><highlight class="comment"><sp/>*<sp/>@brief<sp/>Basice<sp/>Join<sp/>Expression<sp/>like<sp/>left.a<sp/>==<sp/>right.b</highlight></codeline>
+<codeline lineno="10"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11" refid="class_join_expression" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_join_expression" kindref="compound">JoinExpression</ref><sp/>{</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="13" refid="class_join_expression_1aae263d8f422eadac4b618fa56f27e5fb" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="class_join_expression_1aae263d8f422eadac4b618fa56f27e5fb" kindref="member">JoinExpression</ref>()<sp/>{<sp/>}</highlight></codeline>
+<codeline lineno="14" refid="class_join_expression_1a31712a50b5ae7bb19a03837e25ce232d" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="class_join_expression_1a31712a50b5ae7bb19a03837e25ce232d" kindref="member">~JoinExpression</ref>()<sp/>{<sp/>}</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_join_expression_1a858a33ac5267ee7649b5aa6ef95ef939" kindref="member">walk</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;hyrise::storage::c_atable_ptr_t<sp/>&gt;<sp/>&amp;i)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18" refid="class_join_expression_1a26ef21192d89d2a264c1b92f4b24e6c7" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="class_join_expression_1a26ef21192d89d2a264c1b92f4b24e6c7" kindref="member">operator()</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>left_row,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>right_row)<sp/>{</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/>std::runtime_error(</highlight><highlight class="stringliteral">&quot;Cannot<sp/>call<sp/>base<sp/>class&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="21"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="24"><highlight class="comment"><sp/>*<sp/>@brief<sp/>compound<sp/>expression<sp/>to<sp/>allow<sp/>multiple<sp/>join<sp/>expressions<sp/>in</highlight></codeline>
+<codeline lineno="25"><highlight class="comment"><sp/>*<sp/>one<sp/>clause</highlight></codeline>
+<codeline lineno="26"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27" refid="class_compound_join_expression" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_compound_join_expression" kindref="compound">CompoundJoinExpression</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="class_join_expression" kindref="compound">JoinExpression</ref><sp/>{</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29" refid="class_compound_join_expression_1a9f5d7af6f9e792f006b833ff0d6be872" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="expression__types_8h_1a51ad9989dafb48362f7e9354d68fe720" kindref="member">ExpressionType</ref><sp/><ref refid="class_compound_join_expression_1a9f5d7af6f9e792f006b833ff0d6be872" kindref="member">type</ref>;</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33" refid="class_compound_join_expression_1a75bf4b829f314f4cc6813e6b7685a780" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="class_join_expression" kindref="compound">JoinExpression</ref><sp/>*<ref refid="class_compound_join_expression_1a75bf4b829f314f4cc6813e6b7685a780" kindref="member">lhs</ref>;</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35" refid="class_compound_join_expression_1a2a122a538725a8f952bc459d83ac4aa2" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="class_join_expression" kindref="compound">JoinExpression</ref><sp/>*<ref refid="class_compound_join_expression_1a2a122a538725a8f952bc459d83ac4aa2" kindref="member">rhs</ref>;</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37" refid="class_compound_join_expression_1ac8c70428f2e2ac0d488e75ff4c838ddd" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="class_compound_join_expression_1ac8c70428f2e2ac0d488e75ff4c838ddd" kindref="member">~CompoundJoinExpression</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">delete</highlight><highlight class="normal"><sp/><ref refid="class_compound_join_expression_1a75bf4b829f314f4cc6813e6b7685a780" kindref="member">lhs</ref>;</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">delete</highlight><highlight class="normal"><sp/><ref refid="class_compound_join_expression_1a2a122a538725a8f952bc459d83ac4aa2" kindref="member">rhs</ref>;</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43" refid="class_compound_join_expression_1aac05678407642c7f1ce611a26b0bde19" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="class_compound_join_expression_1aac05678407642c7f1ce611a26b0bde19" kindref="member">CompoundJoinExpression</ref>(<ref refid="class_join_expression" kindref="compound">JoinExpression</ref><sp/>*_lhs,<sp/><ref refid="class_join_expression" kindref="compound">JoinExpression</ref><sp/>*_rhs,<sp/><ref refid="expression__types_8h_1a51ad9989dafb48362f7e9354d68fe720" kindref="member">ExpressionType</ref><sp/>_type)<sp/>:<sp/><ref refid="class_compound_join_expression_1a9f5d7af6f9e792f006b833ff0d6be872" kindref="member">type</ref>(_type),<sp/><ref refid="class_compound_join_expression_1a75bf4b829f314f4cc6813e6b7685a780" kindref="member">lhs</ref>(_lhs),<sp/><ref refid="class_compound_join_expression_1a2a122a538725a8f952bc459d83ac4aa2" kindref="member">rhs</ref>(_rhs)<sp/>{<sp/>}</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45" refid="class_compound_join_expression_1ab3e54191cf851fe457b972ed02141d2f" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">explicit</highlight><highlight class="normal"><sp/><ref refid="class_compound_join_expression_1aac05678407642c7f1ce611a26b0bde19" kindref="member">CompoundJoinExpression</ref>(<ref refid="expression__types_8h_1a51ad9989dafb48362f7e9354d68fe720" kindref="member">ExpressionType</ref><sp/>t):<sp/><ref refid="class_compound_join_expression_1a9f5d7af6f9e792f006b833ff0d6be872" kindref="member">type</ref>(t),<sp/><ref refid="class_compound_join_expression_1a75bf4b829f314f4cc6813e6b7685a780" kindref="member">lhs</ref>(<ref refid="csb__tree_8cpp_1ab979d9d4b4923f7c54d6caa6e1a61936" kindref="member">nullptr</ref>),<sp/><ref refid="class_compound_join_expression_1a2a122a538725a8f952bc459d83ac4aa2" kindref="member">rhs</ref>(NULL)</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/>{}</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48" refid="class_compound_join_expression_1a7248b9c82a104d770e86027a37488e36" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_compound_join_expression_1a7248b9c82a104d770e86027a37488e36" kindref="member">walk</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;hyrise::storage::c_atable_ptr_t<sp/>&gt;<sp/>&amp;i)<sp/>{</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_compound_join_expression_1a75bf4b829f314f4cc6813e6b7685a780" kindref="member">lhs</ref>-&gt;<ref refid="class_join_expression_1a858a33ac5267ee7649b5aa6ef95ef939" kindref="member">walk</ref>(i);</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_compound_join_expression_1a2a122a538725a8f952bc459d83ac4aa2" kindref="member">rhs</ref>-&gt;<ref refid="class_join_expression_1a858a33ac5267ee7649b5aa6ef95ef939" kindref="member">walk</ref>(i);</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53" refid="class_compound_join_expression_1a4474e41ad753a71508714ace061a0e89" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="class_compound_join_expression_1a4474e41ad753a71508714ace061a0e89" kindref="member">operator()</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>left_row,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>right_row)<sp/>{</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>(<ref refid="class_compound_join_expression_1a9f5d7af6f9e792f006b833ff0d6be872" kindref="member">type</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="expression__types_8h_1a51ad9989dafb48362f7e9354d68fe720a865555c9f2e0458a7078486aa1b3254f" kindref="member">AND</ref>:</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(*<ref refid="class_compound_join_expression_1a75bf4b829f314f4cc6813e6b7685a780" kindref="member">lhs</ref>)(left_row,<sp/>right_row)<sp/>&amp;&amp;<sp/>(*<ref refid="class_compound_join_expression_1a2a122a538725a8f952bc459d83ac4aa2" kindref="member">rhs</ref>)(left_row,<sp/>right_row);</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="expression__types_8h_1a51ad9989dafb48362f7e9354d68fe720a96727447c0ad447987df1c6415aef074" kindref="member">OR</ref>:</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(*<ref refid="class_compound_join_expression_1a75bf4b829f314f4cc6813e6b7685a780" kindref="member">lhs</ref>)(left_row,<sp/>right_row)<sp/>||<sp/>(*<ref refid="class_compound_join_expression_1a2a122a538725a8f952bc459d83ac4aa2" kindref="member">rhs</ref>)(left_row,<sp/>right_row);</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/>std::runtime_error(</highlight><highlight class="stringliteral">&quot;Bad<sp/>Expression<sp/>Type&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="68"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="71"><highlight class="comment"><sp/>*<sp/>@brief<sp/>Equals<sp/>Expression<sp/>to<sp/>be<sp/>used<sp/>by<sp/>joins</highlight></codeline>
+<codeline lineno="72"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="73"><highlight class="comment"><sp/>*<sp/>Type<sp/>based<sp/>join<sp/>expression<sp/>based<sp/>on<sp/>two<sp/>tables.<sp/>Either<sp/>the<sp/>tables</highlight></codeline>
+<codeline lineno="74"><highlight class="comment"><sp/>*<sp/>are<sp/>directly<sp/>set<sp/>when<sp/>constructing<sp/>the<sp/>object<sp/>or<sp/>they<sp/>are<sp/>later<sp/>on</highlight></codeline>
+<codeline lineno="75"><highlight class="comment"><sp/>*<sp/>injected<sp/>during<sp/>the<sp/>query<sp/>execution.</highlight></codeline>
+<codeline lineno="76"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
+<codeline lineno="78" refid="class_equals_join_expression" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_equals_join_expression" kindref="compound">EqualsJoinExpression</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="class_join_expression" kindref="compound">JoinExpression</ref><sp/>{</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="80" refid="class_equals_join_expression_1ad673a854903332487e349b2574aff4a7" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref><sp/><ref refid="class_equals_join_expression_1ad673a854903332487e349b2574aff4a7" kindref="member">left</ref>;</highlight></codeline>
+<codeline lineno="81" refid="class_equals_join_expression_1a5a5a0fa1cd0f2ff1942f170fe848ba9e" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref><sp/><ref refid="class_equals_join_expression_1a5a5a0fa1cd0f2ff1942f170fe848ba9e" kindref="member">right</ref>;</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83" refid="class_equals_join_expression_1a13209c2774b2900288149a939fe7baef" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="storage__types_8h_1a5ce4ecb27464dc24ba394527510dd89b" kindref="member">field_t</ref><sp/><ref refid="class_equals_join_expression_1a13209c2774b2900288149a939fe7baef" kindref="member">left_field</ref>;</highlight></codeline>
+<codeline lineno="84" refid="class_equals_join_expression_1afe7c23b5ae38a05c2cbaa46ca3b8cb51" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="storage__types_8h_1a5ce4ecb27464dc24ba394527510dd89b" kindref="member">field_t</ref><sp/><ref refid="class_equals_join_expression_1afe7c23b5ae38a05c2cbaa46ca3b8cb51" kindref="member">right_field</ref>;</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight></codeline>
+<codeline lineno="86" refid="class_equals_join_expression_1a8dbb1e37d2727288e43ae1be58474504" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="storage__types_8h_1ad64b8c8026a86f643d173acbb694b4f8" kindref="member">field_name_t</ref><sp/><ref refid="class_equals_join_expression_1a8dbb1e37d2727288e43ae1be58474504" kindref="member">_left_field_name</ref>;</highlight></codeline>
+<codeline lineno="87" refid="class_equals_join_expression_1a3ce97556dc9feed1e0c7f87a99fba99e" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="storage__types_8h_1ad64b8c8026a86f643d173acbb694b4f8" kindref="member">field_name_t</ref><sp/><ref refid="class_equals_join_expression_1a3ce97556dc9feed1e0c7f87a99fba99e" kindref="member">_right_field_name</ref>;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="89" refid="class_equals_join_expression_1a899401ffef76defa4b6a99323006eda1" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="class_equals_join_expression_1a899401ffef76defa4b6a99323006eda1" kindref="member">left_input</ref>;</highlight></codeline>
+<codeline lineno="90" refid="class_equals_join_expression_1acd2dabca0c1e8a5c80b3dd7d1c9f4bc1" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="class_equals_join_expression_1acd2dabca0c1e8a5c80b3dd7d1c9f4bc1" kindref="member">right_input</ref>;</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight></codeline>
+<codeline lineno="94" refid="class_equals_join_expression_1a2fe931788477abf76040f7a8dec8097e" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="class_equals_join_expression_1a2fe931788477abf76040f7a8dec8097e" kindref="member">EqualsJoinExpression</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>l,<sp/><ref refid="storage__types_8h_1a5ce4ecb27464dc24ba394527510dd89b" kindref="member">field_t</ref><sp/>_left,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>r,<sp/><ref refid="storage__types_8h_1a5ce4ecb27464dc24ba394527510dd89b" kindref="member">field_t</ref><sp/><ref refid="class_equals_join_expression_1a5a5a0fa1cd0f2ff1942f170fe848ba9e" kindref="member">right</ref>):</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_equals_join_expression_1a13209c2774b2900288149a939fe7baef" kindref="member">left_field</ref>(_left),<sp/><ref refid="class_equals_join_expression_1afe7c23b5ae38a05c2cbaa46ca3b8cb51" kindref="member">right_field</ref>(right),<sp/><ref refid="class_equals_join_expression_1a899401ffef76defa4b6a99323006eda1" kindref="member">left_input</ref>(l),</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_equals_join_expression_1acd2dabca0c1e8a5c80b3dd7d1c9f4bc1" kindref="member">right_input</ref>(r)</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/>{}</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight></codeline>
+<codeline lineno="99" refid="class_equals_join_expression_1a683f9a2c0e316d6ddc246fc330e1f192" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="class_equals_join_expression_1a2fe931788477abf76040f7a8dec8097e" kindref="member">EqualsJoinExpression</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>l,<sp/><ref refid="storage__types_8h_1ad64b8c8026a86f643d173acbb694b4f8" kindref="member">field_name_t</ref><sp/>_left,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>r,<sp/><ref refid="storage__types_8h_1ad64b8c8026a86f643d173acbb694b4f8" kindref="member">field_name_t</ref><sp/><ref refid="class_equals_join_expression_1a5a5a0fa1cd0f2ff1942f170fe848ba9e" kindref="member">right</ref>):</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_equals_join_expression_1a8dbb1e37d2727288e43ae1be58474504" kindref="member">_left_field_name</ref>(_left),<sp/><ref refid="class_equals_join_expression_1a3ce97556dc9feed1e0c7f87a99fba99e" kindref="member">_right_field_name</ref>(right),<sp/><ref refid="class_equals_join_expression_1a899401ffef76defa4b6a99323006eda1" kindref="member">left_input</ref>(l),</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_equals_join_expression_1acd2dabca0c1e8a5c80b3dd7d1c9f4bc1" kindref="member">right_input</ref>(r)</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/>{}</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight></codeline>
+<codeline lineno="104" refid="class_equals_join_expression_1a972177b1e053ac90fc51125d2eedb93b" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="class_equals_join_expression_1a2fe931788477abf76040f7a8dec8097e" kindref="member">EqualsJoinExpression</ref>(<ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref><sp/>_left,</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="storage__types_8h_1a5ce4ecb27464dc24ba394527510dd89b" kindref="member">field_t</ref><sp/>_left_field,</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref><sp/>_right,</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="storage__types_8h_1a5ce4ecb27464dc24ba394527510dd89b" kindref="member">field_t</ref><sp/>_right_field)<sp/>:</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_equals_join_expression_1ad673a854903332487e349b2574aff4a7" kindref="member">left</ref>(_left),<sp/><ref refid="class_equals_join_expression_1a5a5a0fa1cd0f2ff1942f170fe848ba9e" kindref="member">right</ref>(_right),<sp/><ref refid="class_equals_join_expression_1a13209c2774b2900288149a939fe7baef" kindref="member">left_field</ref>(_left_field),<sp/><ref refid="class_equals_join_expression_1afe7c23b5ae38a05c2cbaa46ca3b8cb51" kindref="member">right_field</ref>(_right_field)<sp/>{<sp/>}</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight></codeline>
+<codeline lineno="111" refid="class_equals_join_expression_1a3f282c1a0b406e79f663968d64750d51" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="class_equals_join_expression_1a3f282c1a0b406e79f663968d64750d51" kindref="member">~EqualsJoinExpression</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight></codeline>
+<codeline lineno="114" refid="class_equals_join_expression_1a18444ba40c5979e24727e8f36b85f418" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_equals_join_expression_1a18444ba40c5979e24727e8f36b85f418" kindref="member">walk</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;hyrise::storage::c_atable_ptr_t<sp/>&gt;<sp/>&amp;i)<sp/>{</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_equals_join_expression_1ad673a854903332487e349b2574aff4a7" kindref="member">left</ref><sp/>=<sp/>i[<ref refid="class_equals_join_expression_1a899401ffef76defa4b6a99323006eda1" kindref="member">left_input</ref>];</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_equals_join_expression_1a5a5a0fa1cd0f2ff1942f170fe848ba9e" kindref="member">right</ref><sp/>=<sp/>i[<ref refid="class_equals_join_expression_1acd2dabca0c1e8a5c80b3dd7d1c9f4bc1" kindref="member">right_input</ref>];</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="class_equals_join_expression_1a8dbb1e37d2727288e43ae1be58474504" kindref="member">_left_field_name</ref>.size()<sp/>&gt;<sp/>0)<sp/><ref refid="class_equals_join_expression_1a13209c2774b2900288149a939fe7baef" kindref="member">left_field</ref><sp/>=<sp/><ref refid="class_equals_join_expression_1ad673a854903332487e349b2574aff4a7" kindref="member">left</ref>-&gt;numberOfColumn(<ref refid="class_equals_join_expression_1a8dbb1e37d2727288e43ae1be58474504" kindref="member">_left_field_name</ref>);</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="class_equals_join_expression_1a3ce97556dc9feed1e0c7f87a99fba99e" kindref="member">_right_field_name</ref>.size()<sp/>&gt;<sp/>0)<sp/><ref refid="class_equals_join_expression_1afe7c23b5ae38a05c2cbaa46ca3b8cb51" kindref="member">right_field</ref><sp/>=<sp/><ref refid="class_equals_join_expression_1a5a5a0fa1cd0f2ff1942f170fe848ba9e" kindref="member">right</ref>-&gt;numberOfColumn(<ref refid="class_equals_join_expression_1a3ce97556dc9feed1e0c7f87a99fba99e" kindref="member">_right_field_name</ref>);</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight></codeline>
+<codeline lineno="122" refid="class_equals_join_expression_1a60bdd75916ede9ea1391999bf54a1724" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="class_equals_join_expression_1a60bdd75916ede9ea1391999bf54a1724" kindref="member">operator()</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>left_row,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>right_row)<sp/>{</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="class_equals_join_expression_1ad673a854903332487e349b2574aff4a7" kindref="member">left</ref>-&gt;getValue&lt;T&gt;(<ref refid="class_equals_join_expression_1a13209c2774b2900288149a939fe7baef" kindref="member">left_field</ref>,<sp/>left_row)<sp/>==<sp/><ref refid="class_equals_join_expression_1a5a5a0fa1cd0f2ff1942f170fe848ba9e" kindref="member">right</ref>-&gt;getValue&lt;T&gt;(<ref refid="class_equals_join_expression_1afe7c23b5ae38a05c2cbaa46ca3b8cb51" kindref="member">right_field</ref>,<sp/>right_row);</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight></codeline>
+<codeline lineno="126" refid="class_equals_join_expression_1a6c4edded843c64f855e84a30ecc2c624" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="class_equals_join_expression" kindref="compound">EqualsJoinExpression&lt;T&gt;</ref><sp/>*<ref refid="class_equals_join_expression_1a6c4edded843c64f855e84a30ecc2c624" kindref="member">parse</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Json::Value<sp/>&amp;value)<sp/>{</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(value[</highlight><highlight class="stringliteral">&quot;field_right&quot;</highlight><highlight class="normal">].isNumeric())<sp/>{</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/><ref refid="class_equals_join_expression" kindref="compound">EqualsJoinExpression&lt;T&gt;</ref>(value[</highlight><highlight class="stringliteral">&quot;input_left&quot;</highlight><highlight class="normal">].asUInt(),</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>value[</highlight><highlight class="stringliteral">&quot;field_left&quot;</highlight><highlight class="normal">].asUInt(),</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>value[</highlight><highlight class="stringliteral">&quot;input_right&quot;</highlight><highlight class="normal">].asUInt(),</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>value[</highlight><highlight class="stringliteral">&quot;field_right&quot;</highlight><highlight class="normal">].asUInt());</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(value[</highlight><highlight class="stringliteral">&quot;field_right&quot;</highlight><highlight class="normal">].isString())<sp/><sp/>{</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/><ref refid="class_equals_join_expression" kindref="compound">EqualsJoinExpression&lt;T&gt;</ref>(value[</highlight><highlight class="stringliteral">&quot;input_left&quot;</highlight><highlight class="normal">].asUInt(),</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>value[</highlight><highlight class="stringliteral">&quot;field_left&quot;</highlight><highlight class="normal">].asString(),</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>value[</highlight><highlight class="stringliteral">&quot;input_right&quot;</highlight><highlight class="normal">].asUInt(),</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>value[</highlight><highlight class="stringliteral">&quot;field_right&quot;</highlight><highlight class="normal">].asString());</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/>std::runtime_error(</highlight><highlight class="stringliteral">&quot;Failed<sp/>to<sp/>parse<sp/>EqualsExpression&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="141"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/>//<sp/>SRC_LIB_ACCESS_JOIN_PREDICATES_H_</highlight></codeline>
+    </programlisting>
+    <location file="/home/grund/hyrise/src/lib/access/join_predicates.h"/>
+  </compounddef>
+</doxygen>

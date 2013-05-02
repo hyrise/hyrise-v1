@@ -1,0 +1,2141 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="_order_preserving_dictionary_8h" kind="file">
+    <compoundname>OrderPreservingDictionary.h</compoundname>
+    <includes local="no">assert.h</includes>
+    <includes local="no">iostream</includes>
+    <includes local="no">memory</includes>
+    <includes refid="storage__types_8h" local="no">storage/storage_types.h</includes>
+    <includes refid="_abstract_dictionary_8h" local="no">storage/AbstractDictionary.h</includes>
+    <includes refid="_base_dictionary_8h" local="no">storage/BaseDictionary.h</includes>
+    <includes refid="_dictionary_iterator_8h" local="no">storage/DictionaryIterator.h</includes>
+    <includes refid="_abstract_allocated_dictionary_8h" local="no">storage/AbstractAllocatedDictionary.h</includes>
+    <includes refid="_base_iterator_8h" local="no">storage/BaseIterator.h</includes>
+    <includedby refid="_example_expression_8h" local="yes">src/lib/access/ExampleExpression.h</includedby>
+    <includedby refid="_histogram_8h" local="yes">src/lib/access/Histogram.h</includedby>
+    <includedby refid="_m_pass_c_s_v_loader_8cpp" local="yes">src/lib/io/MPassCSVLoader.cpp</includedby>
+    <includedby refid="_simple_store_merger_8cpp" local="yes">src/lib/storage/SimpleStoreMerger.cpp</includedby>
+    <includedby refid="_value_id_map_8hpp" local="no">src/lib/storage/ValueIdMap.hpp</includedby>
+    <incdepgraph>
+      <node id="21061">
+        <label>list</label>
+      </node>
+      <node id="21054">
+        <label>boost/mpl/vector.hpp</label>
+      </node>
+      <node id="21045">
+        <label>assert.h</label>
+      </node>
+      <node id="21056">
+        <label>boost/lexical_cast.hpp</label>
+      </node>
+      <node id="21072">
+        <label>boost/iterator/iterator_facade.hpp</label>
+      </node>
+      <node id="21063">
+        <label>cstdint</label>
+      </node>
+      <node id="21069">
+        <label>storage/BaseDictionary.h</label>
+        <link refid="_base_dictionary_8h"/>
+        <childnode refid="21048" relation="include">
+        </childnode>
+        <childnode refid="21057" relation="include">
+        </childnode>
+        <childnode refid="21070" relation="include">
+        </childnode>
+      </node>
+      <node id="21052">
+        <label>stdint.h</label>
+      </node>
+      <node id="21068">
+        <label>stdlib.h</label>
+      </node>
+      <node id="21066">
+        <label>errno.h</label>
+      </node>
+      <node id="21051">
+        <label>stdexcept</label>
+      </node>
+      <node id="21050">
+        <label>string</label>
+      </node>
+      <node id="21065">
+        <label>memory/MemalignStrategy.h</label>
+        <link refid="_memalign_strategy_8h"/>
+        <childnode refid="21066" relation="include">
+        </childnode>
+        <childnode refid="21067" relation="include">
+        </childnode>
+        <childnode refid="21068" relation="include">
+        </childnode>
+      </node>
+      <node id="21059">
+        <label>stddef.h</label>
+      </node>
+      <node id="21053">
+        <label>ostream</label>
+      </node>
+      <node id="21070">
+        <label>storage/DictionaryIterator.h</label>
+        <link refid="_dictionary_iterator_8h"/>
+        <childnode refid="21071" relation="include">
+        </childnode>
+        <childnode refid="21072" relation="include">
+        </childnode>
+      </node>
+      <node id="21057">
+        <label>storage/AbstractDictionary.h</label>
+        <link refid="_abstract_dictionary_8h"/>
+        <childnode refid="21049" relation="include">
+        </childnode>
+        <childnode refid="21050" relation="include">
+        </childnode>
+        <childnode refid="21047" relation="include">
+        </childnode>
+        <childnode refid="21058" relation="include">
+        </childnode>
+        <childnode refid="21062" relation="include">
+        </childnode>
+        <childnode refid="21065" relation="include">
+        </childnode>
+        <childnode refid="21048" relation="include">
+        </childnode>
+      </node>
+      <node id="21049">
+        <label>vector</label>
+      </node>
+      <node id="21071">
+        <label>storage/BaseIterator.h</label>
+        <link refid="_base_iterator_8h"/>
+      </node>
+      <node id="21058">
+        <label>memory/StrategizedAllocator.h</label>
+        <link refid="_strategized_allocator_8h"/>
+        <childnode refid="21059" relation="include">
+        </childnode>
+        <childnode refid="21060" relation="include">
+        </childnode>
+        <childnode refid="21061" relation="include">
+        </childnode>
+        <childnode refid="21051" relation="include">
+        </childnode>
+      </node>
+      <node id="21046">
+        <label>iostream</label>
+      </node>
+      <node id="21055">
+        <label>boost/mpl/map.hpp</label>
+      </node>
+      <node id="21073">
+        <label>storage/AbstractAllocatedDictionary.h</label>
+        <link refid="_abstract_allocated_dictionary_8h"/>
+      </node>
+      <node id="21062">
+        <label>memory/MallocStrategy.h</label>
+        <link refid="_malloc_strategy_8h"/>
+        <childnode refid="21046" relation="include">
+        </childnode>
+        <childnode refid="21063" relation="include">
+        </childnode>
+        <childnode refid="21064" relation="include">
+        </childnode>
+      </node>
+      <node id="21044">
+        <label>src/lib/storage/OrderPreservingDictionary.h</label>
+        <link refid="OrderPreservingDictionary.h"/>
+        <childnode refid="21045" relation="include">
+        </childnode>
+        <childnode refid="21046" relation="include">
+        </childnode>
+        <childnode refid="21047" relation="include">
+        </childnode>
+        <childnode refid="21048" relation="include">
+        </childnode>
+        <childnode refid="21057" relation="include">
+        </childnode>
+        <childnode refid="21069" relation="include">
+        </childnode>
+        <childnode refid="21070" relation="include">
+        </childnode>
+        <childnode refid="21073" relation="include">
+        </childnode>
+        <childnode refid="21071" relation="include">
+        </childnode>
+      </node>
+      <node id="21060">
+        <label>algorithm</label>
+      </node>
+      <node id="21067">
+        <label>stdio.h</label>
+      </node>
+      <node id="21064">
+        <label>cstring</label>
+      </node>
+      <node id="21047">
+        <label>memory</label>
+      </node>
+      <node id="21048">
+        <label>storage/storage_types.h</label>
+        <link refid="storage__types_8h"/>
+        <childnode refid="21049" relation="include">
+        </childnode>
+        <childnode refid="21050" relation="include">
+        </childnode>
+        <childnode refid="21051" relation="include">
+        </childnode>
+        <childnode refid="21052" relation="include">
+        </childnode>
+        <childnode refid="21053" relation="include">
+        </childnode>
+        <childnode refid="21054" relation="include">
+        </childnode>
+        <childnode refid="21055" relation="include">
+        </childnode>
+        <childnode refid="21056" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="21135">
+        <label>src/lib/access/Distinct.h</label>
+        <link refid="_distinct_8h"/>
+        <childnode refid="21136" relation="include">
+        </childnode>
+      </node>
+      <node id="21237">
+        <label>src/lib/storage.h</label>
+        <link refid="storage_8h"/>
+        <childnode refid="21093" relation="include">
+        </childnode>
+        <childnode refid="21094" relation="include">
+        </childnode>
+        <childnode refid="21095" relation="include">
+        </childnode>
+        <childnode refid="21096" relation="include">
+        </childnode>
+        <childnode refid="21097" relation="include">
+        </childnode>
+        <childnode refid="21098" relation="include">
+        </childnode>
+        <childnode refid="21099" relation="include">
+        </childnode>
+        <childnode refid="21100" relation="include">
+        </childnode>
+      </node>
+      <node id="21223">
+        <label>src/lib/io/shortcuts.cpp</label>
+        <link refid="shortcuts_8cpp"/>
+      </node>
+      <node id="21195">
+        <label>src/lib/access/SmallestTableScan.cpp</label>
+        <link refid="_smallest_table_scan_8cpp"/>
+      </node>
+      <node id="21205">
+        <label>src/lib/access/ThreadpoolAdjustment.h</label>
+        <link refid="_threadpool_adjustment_8h"/>
+        <childnode refid="21206" relation="include">
+        </childnode>
+        <childnode refid="21092" relation="include">
+        </childnode>
+      </node>
+      <node id="21279">
+        <label>src/lib/storage/TableRangeViewFactory.h</label>
+        <link refid="_table_range_view_factory_8h"/>
+        <childnode refid="21176" relation="include">
+        </childnode>
+        <childnode refid="21280" relation="include">
+        </childnode>
+      </node>
+      <node id="21151">
+        <label>src/lib/access/InsertScan.cpp</label>
+        <link refid="_insert_scan_8cpp"/>
+      </node>
+      <node id="21155">
+        <label>src/lib/access/Layouter.cpp</label>
+        <link refid="_layouter_8cpp"/>
+      </node>
+      <node id="21236">
+        <label>src/lib/storage/Store.cpp</label>
+        <link refid="_store_8cpp"/>
+      </node>
+      <node id="21244">
+        <label>src/lib/storage/SimpleStore.cpp</label>
+        <link refid="_simple_store_8cpp"/>
+      </node>
+      <node id="21267">
+        <label>src/lib/io/RawTableLoader.cpp</label>
+        <link refid="_raw_table_loader_8cpp"/>
+      </node>
+      <node id="21218">
+        <label>src/lib/access/OperationData.cpp</label>
+        <link refid="_operation_data_8cpp"/>
+      </node>
+      <node id="21181">
+        <label>src/lib/access/RadixJoin.h</label>
+        <link refid="_radix_join_8h"/>
+        <childnode refid="21182" relation="include">
+        </childnode>
+        <childnode refid="21131" relation="include">
+        </childnode>
+      </node>
+      <node id="21241">
+        <label>src/lib/storage/SequentialHeapMergerRow.cpp</label>
+        <link refid="_sequential_heap_merger_row_8cpp"/>
+      </node>
+      <node id="21235">
+        <label>src/lib/storage/PointerCalculator.cpp</label>
+        <link refid="_pointer_calculator_8cpp"/>
+      </node>
+      <node id="21207">
+        <label>src/lib/access/UnionAll.h</label>
+        <link refid="_union_all_8h"/>
+        <childnode refid="21100" relation="include">
+        </childnode>
+        <childnode refid="21208" relation="include">
+        </childnode>
+      </node>
+      <node id="21270">
+        <label>src/lib/storage/Table.cpp</label>
+        <link refid="_table_8cpp"/>
+      </node>
+      <node id="21229">
+        <label>src/lib/access/insertonly_merger.h</label>
+        <link refid="insertonly__merger_8h"/>
+        <childnode refid="21217" relation="include">
+        </childnode>
+        <childnode refid="21230" relation="include">
+        </childnode>
+      </node>
+      <node id="21272">
+        <label>src/lib/storage/TableFactory.cpp</label>
+        <link refid="_table_factory_8cpp"/>
+      </node>
+      <node id="21220">
+        <label>src/lib/io/CSVLoader.cpp</label>
+        <link refid="_c_s_v_loader_8cpp"/>
+      </node>
+      <node id="21276">
+        <label>src/lib/storage/TableDiff.cpp</label>
+        <link refid="_table_diff_8cpp"/>
+      </node>
+      <node id="21183">
+        <label>src/lib/access/ReplaceTable.h</label>
+        <link refid="_replace_table_8h"/>
+        <childnode refid="21184" relation="include">
+        </childnode>
+      </node>
+      <node id="21197">
+        <label>src/lib/access/SortScan.cpp</label>
+        <link refid="lib_2access_2_sort_scan_8cpp"/>
+      </node>
+      <node id="21159">
+        <label>src/lib/access/LayoutTableLoad.cpp</label>
+        <link refid="_layout_table_load_8cpp"/>
+      </node>
+      <node id="21274">
+        <label>src/lib/storage/TableGenerator.h</label>
+        <link refid="_table_generator_8h"/>
+        <childnode refid="21221" relation="include">
+        </childnode>
+        <childnode refid="21226" relation="include">
+        </childnode>
+        <childnode refid="21238" relation="include">
+        </childnode>
+        <childnode refid="21239" relation="include">
+        </childnode>
+        <childnode refid="21237" relation="include">
+        </childnode>
+      </node>
+      <node id="21144">
+        <label>src/lib/access/HashJoinProbe.cpp</label>
+        <link refid="_hash_join_probe_8cpp"/>
+      </node>
+      <node id="21081">
+        <label>src/lib/access/PrefixSum.cpp</label>
+        <link refid="_prefix_sum_8cpp"/>
+      </node>
+      <node id="21214">
+        <label>src/lib/access/UpdateScan.cpp</label>
+        <link refid="_update_scan_8cpp"/>
+      </node>
+      <node id="21259">
+        <label>src/lib/storage/MutableVerticalTable.h</label>
+        <link refid="_mutable_vertical_table_8h"/>
+        <childnode refid="21138" relation="include">
+        </childnode>
+        <childnode refid="21101" relation="include">
+        </childnode>
+        <childnode refid="21168" relation="include">
+        </childnode>
+        <childnode refid="21173" relation="include">
+        </childnode>
+        <childnode refid="21083" relation="include">
+        </childnode>
+        <childnode refid="21187" relation="include">
+        </childnode>
+        <childnode refid="21106" relation="include">
+        </childnode>
+        <childnode refid="21221" relation="include">
+        </childnode>
+        <childnode refid="21234" relation="include">
+        </childnode>
+        <childnode refid="21260" relation="include">
+        </childnode>
+        <childnode refid="21261" relation="include">
+        </childnode>
+        <childnode refid="21263" relation="include">
+        </childnode>
+        <childnode refid="21233" relation="include">
+        </childnode>
+        <childnode refid="21264" relation="include">
+        </childnode>
+        <childnode refid="21238" relation="include">
+        </childnode>
+        <childnode refid="21237" relation="include">
+        </childnode>
+      </node>
+      <node id="21254">
+        <label>src/lib/storage/hash_functor.h</label>
+        <link refid="hash__functor_8h"/>
+        <childnode refid="21252" relation="include">
+        </childnode>
+        <childnode refid="21255" relation="include">
+        </childnode>
+      </node>
+      <node id="21148">
+        <label>src/lib/access/InsertOnlyOperators.h</label>
+        <link refid="_insert_only_operators_8h"/>
+        <childnode refid="21149" relation="include">
+        </childnode>
+      </node>
+      <node id="21142">
+        <label>src/lib/access/HashBuild.cpp</label>
+        <link refid="_hash_build_8cpp"/>
+      </node>
+      <node id="21260">
+        <label>src/lib/storage/MutableVerticalTable.cpp</label>
+        <link refid="_mutable_vertical_table_8cpp"/>
+      </node>
+      <node id="21168">
+        <label>src/lib/access/MultiplyRefField.h</label>
+        <link refid="_multiply_ref_field_8h"/>
+        <childnode refid="21169" relation="include">
+        </childnode>
+      </node>
+      <node id="21078">
+        <label>src/lib/access/TableScan.cpp</label>
+        <link refid="_table_scan_8cpp"/>
+      </node>
+      <node id="21108">
+        <label>src/lib/access/pred_CompoundExpression.h</label>
+        <link refid="pred___compound_expression_8h"/>
+        <childnode refid="21089" relation="include">
+        </childnode>
+        <childnode refid="21109" relation="include">
+        </childnode>
+      </node>
+      <node id="21177">
+        <label>src/lib/access/PrefixSum.h</label>
+        <link refid="_prefix_sum_8h"/>
+        <childnode refid="21081" relation="include">
+        </childnode>
+      </node>
+      <node id="21250">
+        <label>src/lib/storage/cast_functor.h</label>
+        <link refid="cast__functor_8h"/>
+        <childnode refid="21251" relation="include">
+        </childnode>
+      </node>
+      <node id="21209">
+        <label>src/lib/access/UnionScan.h</label>
+        <link refid="_union_scan_8h"/>
+        <childnode refid="21210" relation="include">
+        </childnode>
+        <childnode refid="21092" relation="include">
+        </childnode>
+      </node>
+      <node id="21257">
+        <label>src/lib/storage/HorizontalTable.cpp</label>
+        <link refid="_horizontal_table_8cpp"/>
+      </node>
+      <node id="21122">
+        <label>src/lib/access/GroupByScan.h</label>
+        <link refid="_group_by_scan_8h"/>
+        <childnode refid="21123" relation="include">
+        </childnode>
+        <childnode refid="21092" relation="include">
+        </childnode>
+      </node>
+      <node id="21188">
+        <label>src/lib/access/SetTable.h</label>
+        <link refid="_set_table_8h"/>
+        <childnode refid="21189" relation="include">
+        </childnode>
+      </node>
+      <node id="21100">
+        <label>src/bin/perf_regression/UnionScan.cpp</label>
+        <link refid="bin_2perf__regression_2_union_scan_8cpp"/>
+      </node>
+      <node id="21184">
+        <label>src/lib/access/ReplaceTable.cpp</label>
+        <link refid="_replace_table_8cpp"/>
+      </node>
+      <node id="21140">
+        <label>src/lib/access/GetTable.cpp</label>
+        <link refid="_get_table_8cpp"/>
+      </node>
+      <node id="21282">
+        <label>src/lib/testing/TableEqualityTest.cpp</label>
+        <link refid="_table_equality_test_8cpp"/>
+      </node>
+      <node id="21198">
+        <label>src/lib/access/TableLoad.h</label>
+        <link refid="_table_load_8h"/>
+        <childnode refid="21199" relation="include">
+        </childnode>
+        <childnode refid="21092" relation="include">
+        </childnode>
+      </node>
+      <node id="21170">
+        <label>src/lib/access/MySQLTableLoad.h</label>
+        <link refid="_my_s_q_l_table_load_8h"/>
+        <childnode refid="21171" relation="include">
+        </childnode>
+      </node>
+      <node id="21101">
+        <label>src/lib/access/MergeJoin.hpp</label>
+        <link refid="_merge_join_8hpp"/>
+        <childnode refid="21092" relation="include">
+        </childnode>
+      </node>
+      <node id="21203">
+        <label>src/lib/access/TaskSchedulerAdjustment.h</label>
+        <link refid="_task_scheduler_adjustment_8h"/>
+        <childnode refid="21204" relation="include">
+        </childnode>
+        <childnode refid="21092" relation="include">
+        </childnode>
+      </node>
+      <node id="21255">
+        <label>src/lib/storage/HashTable.h</label>
+        <link refid="_hash_table_8h"/>
+        <childnode refid="21120" relation="include">
+        </childnode>
+        <childnode refid="21123" relation="include">
+        </childnode>
+        <childnode refid="21142" relation="include">
+        </childnode>
+        <childnode refid="21144" relation="include">
+        </childnode>
+        <childnode refid="21165" relation="include">
+        </childnode>
+        <childnode refid="21218" relation="include">
+        </childnode>
+        <childnode refid="21237" relation="include">
+        </childnode>
+      </node>
+      <node id="21080">
+        <label>src/lib/access/Histogram.cpp</label>
+        <link refid="_histogram_8cpp"/>
+      </node>
+      <node id="21176">
+        <label>src/lib/access/PlanOperation.cpp</label>
+        <link refid="_plan_operation_8cpp"/>
+      </node>
+      <node id="21082">
+        <label>src/lib/access/RadixCluster.h</label>
+        <link refid="_radix_cluster_8h"/>
+        <childnode refid="21083" relation="include">
+        </childnode>
+      </node>
+      <node id="21166">
+        <label>src/lib/access/MergeTable.h</label>
+        <link refid="_merge_table_8h"/>
+        <childnode refid="21167" relation="include">
+        </childnode>
+      </node>
+      <node id="21129">
+        <label>src/lib/access/RadixJoinTransformation.cpp</label>
+        <link refid="_radix_join_transformation_8cpp"/>
+      </node>
+      <node id="21083">
+        <label>src/lib/access/RadixCluster.cpp</label>
+        <link refid="_radix_cluster_8cpp"/>
+      </node>
+      <node id="21225">
+        <label>src/lib/io/TableDump.cpp</label>
+        <link refid="_table_dump_8cpp"/>
+      </node>
+      <node id="21185">
+        <label>src/lib/access/ResponseTask.cpp</label>
+        <link refid="_response_task_8cpp"/>
+      </node>
+      <node id="21187">
+        <label>src/lib/access/ScriptOperation.cpp</label>
+        <link refid="_script_operation_8cpp"/>
+      </node>
+      <node id="21102">
+        <label>src/lib/access/pred_buildExpression.cpp</label>
+        <link refid="pred__build_expression_8cpp"/>
+      </node>
+      <node id="21123">
+        <label>src/lib/access/GroupByScan.cpp</label>
+        <link refid="lib_2access_2_group_by_scan_8cpp"/>
+      </node>
+      <node id="21105">
+        <label>src/lib/access/pred_buildExpression.h</label>
+        <link refid="pred__build_expression_8h"/>
+        <childnode refid="21102" relation="include">
+        </childnode>
+        <childnode refid="21089" relation="include">
+        </childnode>
+        <childnode refid="21106" relation="include">
+        </childnode>
+        <childnode refid="21107" relation="include">
+        </childnode>
+      </node>
+      <node id="21132">
+        <label>src/lib/access/Barrier.h</label>
+        <link refid="_barrier_8h"/>
+        <childnode refid="21133" relation="include">
+        </childnode>
+      </node>
+      <node id="21075">
+        <label>src/lib/access/ExampleExpression.h</label>
+        <link refid="_example_expression_8h"/>
+        <childnode refid="21076" relation="include">
+        </childnode>
+        <childnode refid="21077" relation="include">
+        </childnode>
+        <childnode refid="21078" relation="include">
+        </childnode>
+      </node>
+      <node id="21246">
+        <label>src/lib/storage/SimpleStoreMerger.h</label>
+        <link refid="_simple_store_merger_8h"/>
+        <childnode refid="21244" relation="include">
+        </childnode>
+        <childnode refid="21085" relation="include">
+        </childnode>
+      </node>
+      <node id="21169">
+        <label>src/lib/access/MultiplyRefField.cpp</label>
+        <link refid="_multiply_ref_field_8cpp"/>
+      </node>
+      <node id="21127">
+        <label>src/lib/access/QueryTransformationEngine.h</label>
+        <link refid="_query_transformation_engine_8h"/>
+        <childnode refid="21128" relation="include">
+        </childnode>
+        <childnode refid="21129" relation="include">
+        </childnode>
+        <childnode refid="21130" relation="include">
+        </childnode>
+        <childnode refid="21092" relation="include">
+        </childnode>
+      </node>
+      <node id="21087">
+        <label>src/lib/access/pred_common.h</label>
+        <link refid="pred__common_8h"/>
+        <childnode refid="21088" relation="include">
+        </childnode>
+        <childnode refid="21104" relation="include">
+        </childnode>
+        <childnode refid="21105" relation="include">
+        </childnode>
+        <childnode refid="21108" relation="include">
+        </childnode>
+        <childnode refid="21111" relation="include">
+        </childnode>
+        <childnode refid="21112" relation="include">
+        </childnode>
+        <childnode refid="21113" relation="include">
+        </childnode>
+        <childnode refid="21114" relation="include">
+        </childnode>
+        <childnode refid="21115" relation="include">
+        </childnode>
+        <childnode refid="21116" relation="include">
+        </childnode>
+        <childnode refid="21109" relation="include">
+        </childnode>
+      </node>
+      <node id="21088">
+        <label>src/lib/access/pred_BetweenOperation.h</label>
+        <link refid="pred___between_operation_8h"/>
+        <childnode refid="21089" relation="include">
+        </childnode>
+      </node>
+      <node id="21178">
+        <label>src/lib/access/ProjectionScan.h</label>
+        <link refid="_projection_scan_8h"/>
+        <childnode refid="21179" relation="include">
+        </childnode>
+        <childnode refid="21092" relation="include">
+        </childnode>
+      </node>
+      <node id="21174">
+        <label>src/lib/access/NoOp.h</label>
+        <link refid="_no_op_8h"/>
+        <childnode refid="21175" relation="include">
+        </childnode>
+      </node>
+      <node id="21096">
+        <label>src/bin/perf_regression/JoinScan.cpp</label>
+        <link refid="bin_2perf__regression_2_join_scan_8cpp"/>
+      </node>
+      <node id="21263">
+        <label>src/lib/storage/PointerCalculatorFactory.cpp</label>
+        <link refid="_pointer_calculator_factory_8cpp"/>
+      </node>
+      <node id="21216">
+        <label>src/lib/testing/test.cpp</label>
+        <link refid="test_8cpp"/>
+      </node>
+      <node id="21131">
+        <label>src/lib/access/RadixJoinTransformation.h</label>
+        <link refid="_radix_join_transformation_8h"/>
+        <childnode refid="21129" relation="include">
+        </childnode>
+      </node>
+      <node id="21277">
+        <label>src/lib/storage/TableRangeView.h</label>
+        <link refid="_table_range_view_8h"/>
+        <childnode refid="21142" relation="include">
+        </childnode>
+        <childnode refid="21176" relation="include">
+        </childnode>
+        <childnode refid="21235" relation="include">
+        </childnode>
+        <childnode refid="21278" relation="include">
+        </childnode>
+        <childnode refid="21279" relation="include">
+        </childnode>
+      </node>
+      <node id="21086">
+        <label>src/lib/storage/ValueIdMap.hpp</label>
+        <link refid="_value_id_map_8hpp"/>
+        <childnode refid="21087" relation="include">
+        </childnode>
+        <childnode refid="21117" relation="include">
+        </childnode>
+        <childnode refid="21231" relation="include">
+        </childnode>
+        <childnode refid="21240" relation="include">
+        </childnode>
+        <childnode refid="21237" relation="include">
+        </childnode>
+      </node>
+      <node id="21126">
+        <label>src/lib/access/AbstractPlanOpTransformation.h</label>
+        <link refid="_abstract_plan_op_transformation_8h"/>
+        <childnode refid="21127" relation="include">
+        </childnode>
+        <childnode refid="21131" relation="include">
+        </childnode>
+      </node>
+      <node id="21119">
+        <label>src/bin/test_relation_eq/main.cpp</label>
+        <link refid="bin_2test__relation__eq_2main_8cpp"/>
+      </node>
+      <node id="21162">
+        <label>src/lib/access/MaterializingScan.h</label>
+        <link refid="_materializing_scan_8h"/>
+        <childnode refid="21163" relation="include">
+        </childnode>
+        <childnode refid="21092" relation="include">
+        </childnode>
+      </node>
+      <node id="21076">
+        <label>src/bin/perf_regression/scan_performance.cpp</label>
+        <link refid="scan__performance_8cpp"/>
+      </node>
+      <node id="21266">
+        <label>src/lib/storage/RawTable.h</label>
+        <link refid="_raw_table_8h"/>
+        <childnode refid="21230" relation="include">
+        </childnode>
+        <childnode refid="21111" relation="include">
+        </childnode>
+        <childnode refid="21106" relation="include">
+        </childnode>
+        <childnode refid="21267" relation="include">
+        </childnode>
+        <childnode refid="21265" relation="include">
+        </childnode>
+        <childnode refid="21268" relation="include">
+        </childnode>
+        <childnode refid="21243" relation="include">
+        </childnode>
+        <childnode refid="21085" relation="include">
+        </childnode>
+        <childnode refid="21237" relation="include">
+        </childnode>
+      </node>
+      <node id="21165">
+        <label>src/lib/access/MergeHashTables.cpp</label>
+        <link refid="_merge_hash_tables_8cpp"/>
+      </node>
+      <node id="21206">
+        <label>src/lib/access/ThreadpoolAdjustment.cpp</label>
+        <link refid="_threadpool_adjustment_8cpp"/>
+      </node>
+      <node id="21275">
+        <label>src/lib/storage/TableBuilder.h</label>
+        <link refid="_table_builder_8h"/>
+        <childnode refid="21187" relation="include">
+        </childnode>
+        <childnode refid="21224" relation="include">
+        </childnode>
+        <childnode refid="21264" relation="include">
+        </childnode>
+      </node>
+      <node id="21121">
+        <label>src/lib/access/AggregateFunctions.cpp</label>
+        <link refid="_aggregate_functions_8cpp"/>
+      </node>
+      <node id="21112">
+        <label>src/lib/access/pred_GreaterThanExpression.h</label>
+        <link refid="pred___greater_than_expression_8h"/>
+        <childnode refid="21089" relation="include">
+        </childnode>
+      </node>
+      <node id="21179">
+        <label>src/lib/access/ProjectionScan.cpp</label>
+        <link refid="lib_2access_2_projection_scan_8cpp"/>
+      </node>
+      <node id="21227">
+        <label>src/lib/io/VectorLoader.cpp</label>
+        <link refid="_vector_loader_8cpp"/>
+      </node>
+      <node id="21230">
+        <label>src/lib/access/insertonly_merger.cpp</label>
+        <link refid="insertonly__merger_8cpp"/>
+      </node>
+      <node id="21084">
+        <label>src/lib/io/MPassCSVLoader.cpp</label>
+        <link refid="_m_pass_c_s_v_loader_8cpp"/>
+      </node>
+      <node id="21247">
+        <label>src/lib/storage/AbstractMergeStrategy.h</label>
+        <link refid="_abstract_merge_strategy_8h"/>
+        <childnode refid="21248" relation="include">
+        </childnode>
+        <childnode refid="21242" relation="include">
+        </childnode>
+        <childnode refid="21237" relation="include">
+        </childnode>
+      </node>
+      <node id="21204">
+        <label>src/lib/access/TaskSchedulerAdjustment.cpp</label>
+        <link refid="_task_scheduler_adjustment_8cpp"/>
+      </node>
+      <node id="21173">
+        <label>src/lib/access/NestedLoopEquiJoin.cpp</label>
+        <link refid="_nested_loop_equi_join_8cpp"/>
+      </node>
+      <node id="21249">
+        <label>src/lib/storage/LogarithmicMergeStrategy.cpp</label>
+        <link refid="_logarithmic_merge_strategy_8cpp"/>
+      </node>
+      <node id="21252">
+        <label>src/lib/storage/GroupValue.cpp</label>
+        <link refid="_group_value_8cpp"/>
+      </node>
+      <node id="21099">
+        <label>src/bin/perf_regression/SortScan.cpp</label>
+        <link refid="bin_2perf__regression_2_sort_scan_8cpp"/>
+      </node>
+      <node id="21221">
+        <label>src/lib/io/Loader.cpp</label>
+        <link refid="_loader_8cpp"/>
+      </node>
+      <node id="21233">
+        <label>src/lib/storage/Store.h</label>
+        <link refid="_store_8h"/>
+        <childnode refid="21151" relation="include">
+        </childnode>
+        <childnode refid="21157" relation="include">
+        </childnode>
+        <childnode refid="21167" relation="include">
+        </childnode>
+        <childnode refid="21214" relation="include">
+        </childnode>
+        <childnode refid="21221" relation="include">
+        </childnode>
+        <childnode refid="21084" relation="include">
+        </childnode>
+        <childnode refid="21223" relation="include">
+        </childnode>
+        <childnode refid="21225" relation="include">
+        </childnode>
+        <childnode refid="21234" relation="include">
+        </childnode>
+        <childnode refid="21235" relation="include">
+        </childnode>
+        <childnode refid="21236" relation="include">
+        </childnode>
+        <childnode refid="21237" relation="include">
+        </childnode>
+      </node>
+      <node id="21262">
+        <label>src/lib/access/insertonly_valid.h</label>
+        <link refid="insertonly__valid_8h"/>
+        <childnode refid="21217" relation="include">
+        </childnode>
+        <childnode refid="21230" relation="include">
+        </childnode>
+      </node>
+      <node id="21269">
+        <label>src/lib/storage/Table.h</label>
+        <link refid="_table_8h"/>
+        <childnode refid="21138" relation="include">
+        </childnode>
+        <childnode refid="21155" relation="include">
+        </childnode>
+        <childnode refid="21163" relation="include">
+        </childnode>
+        <childnode refid="21081" relation="include">
+        </childnode>
+        <childnode refid="21197" relation="include">
+        </childnode>
+        <childnode refid="21234" relation="include">
+        </childnode>
+        <childnode refid="21252" relation="include">
+        </childnode>
+        <childnode refid="21256" relation="include">
+        </childnode>
+        <childnode refid="21259" relation="include">
+        </childnode>
+        <childnode refid="21270" relation="include">
+        </childnode>
+        <childnode refid="21264" relation="include">
+        </childnode>
+        <childnode refid="21271" relation="include">
+        </childnode>
+        <childnode refid="21273" relation="include">
+        </childnode>
+        <childnode refid="21237" relation="include">
+        </childnode>
+      </node>
+      <node id="21150">
+        <label>src/lib/access/InsertScan.h</label>
+        <link refid="_insert_scan_8h"/>
+        <childnode refid="21151" relation="include">
+        </childnode>
+        <childnode refid="21092" relation="include">
+        </childnode>
+      </node>
+      <node id="21200">
+        <label>src/lib/access/TableScan.h</label>
+        <link refid="_table_scan_8h"/>
+        <childnode refid="21076" relation="include">
+        </childnode>
+        <childnode refid="21078" relation="include">
+        </childnode>
+      </node>
+      <node id="21232">
+        <label>src/lib/storage/SequentialHeapMerger.cpp</label>
+        <link refid="_sequential_heap_merger_8cpp"/>
+      </node>
+      <node id="21079">
+        <label>src/lib/access/Histogram.h</label>
+        <link refid="_histogram_8h"/>
+        <childnode refid="21080" relation="include">
+        </childnode>
+        <childnode refid="21081" relation="include">
+        </childnode>
+        <childnode refid="21082" relation="include">
+        </childnode>
+      </node>
+      <node id="21093">
+        <label>src/bin/perf_regression/GroupByScan.cpp</label>
+        <link refid="bin_2perf__regression_2_group_by_scan_8cpp"/>
+      </node>
+      <node id="21097">
+        <label>src/bin/perf_regression/ProjectionScan.cpp</label>
+        <link refid="bin_2perf__regression_2_projection_scan_8cpp"/>
+      </node>
+      <node id="21085">
+        <label>src/lib/storage/SimpleStoreMerger.cpp</label>
+        <link refid="_simple_store_merger_8cpp"/>
+      </node>
+      <node id="21110">
+        <label>src/lib/access/pred_PredicateBuilder.cpp</label>
+        <link refid="pred___predicate_builder_8cpp"/>
+      </node>
+      <node id="21281">
+        <label>src/lib/storage/TableUtils.cpp</label>
+        <link refid="_table_utils_8cpp"/>
+      </node>
+      <node id="21156">
+        <label>src/lib/access/LayoutTable.h</label>
+        <link refid="_layout_table_8h"/>
+        <childnode refid="21157" relation="include">
+        </childnode>
+      </node>
+      <node id="21117">
+        <label>src/lib/storage/AbstractTable.h</label>
+        <link refid="_abstract_table_8h"/>
+        <childnode refid="21118" relation="include">
+        </childnode>
+        <childnode refid="21076" relation="include">
+        </childnode>
+        <childnode refid="21119" relation="include">
+        </childnode>
+        <childnode refid="21120" relation="include">
+        </childnode>
+        <childnode refid="21124" relation="include">
+        </childnode>
+        <childnode refid="21077" relation="include">
+        </childnode>
+        <childnode refid="21125" relation="include">
+        </childnode>
+        <childnode refid="21145" relation="include">
+        </childnode>
+        <childnode refid="21217" relation="include">
+        </childnode>
+        <childnode refid="21101" relation="include">
+        </childnode>
+        <childnode refid="21218" relation="include">
+        </childnode>
+        <childnode refid="21176" relation="include">
+        </childnode>
+        <childnode refid="21087" relation="include">
+        </childnode>
+        <childnode refid="21185" relation="include">
+        </childnode>
+        <childnode refid="21197" relation="include">
+        </childnode>
+        <childnode refid="21078" relation="include">
+        </childnode>
+        <childnode refid="21219" relation="include">
+        </childnode>
+        <childnode refid="21220" relation="include">
+        </childnode>
+        <childnode refid="21221" relation="include">
+        </childnode>
+        <childnode refid="21222" relation="include">
+        </childnode>
+        <childnode refid="21084" relation="include">
+        </childnode>
+        <childnode refid="21223" relation="include">
+        </childnode>
+        <childnode refid="21224" relation="include">
+        </childnode>
+        <childnode refid="21225" relation="include">
+        </childnode>
+        <childnode refid="21226" relation="include">
+        </childnode>
+        <childnode refid="21227" relation="include">
+        </childnode>
+        <childnode refid="21228" relation="include">
+        </childnode>
+        <childnode refid="21247" relation="include">
+        </childnode>
+        <childnode refid="21234" relation="include">
+        </childnode>
+        <childnode refid="21250" relation="include">
+        </childnode>
+        <childnode refid="21254" relation="include">
+        </childnode>
+        <childnode refid="21255" relation="include">
+        </childnode>
+        <childnode refid="21256" relation="include">
+        </childnode>
+        <childnode refid="21258" relation="include">
+        </childnode>
+        <childnode refid="21248" relation="include">
+        </childnode>
+        <childnode refid="21259" relation="include">
+        </childnode>
+        <childnode refid="21261" relation="include">
+        </childnode>
+        <childnode refid="21265" relation="include">
+        </childnode>
+        <childnode refid="21266" relation="include">
+        </childnode>
+        <childnode refid="21231" relation="include">
+        </childnode>
+        <childnode refid="21240" relation="include">
+        </childnode>
+        <childnode refid="21243" relation="include">
+        </childnode>
+        <childnode refid="21242" relation="include">
+        </childnode>
+        <childnode refid="21233" relation="include">
+        </childnode>
+        <childnode refid="21269" relation="include">
+        </childnode>
+        <childnode refid="21264" relation="include">
+        </childnode>
+        <childnode refid="21275" relation="include">
+        </childnode>
+        <childnode refid="21276" relation="include">
+        </childnode>
+        <childnode refid="21271" relation="include">
+        </childnode>
+        <childnode refid="21238" relation="include">
+        </childnode>
+        <childnode refid="21274" relation="include">
+        </childnode>
+        <childnode refid="21277" relation="include">
+        </childnode>
+        <childnode refid="21279" relation="include">
+        </childnode>
+        <childnode refid="21281" relation="include">
+        </childnode>
+        <childnode refid="21237" relation="include">
+        </childnode>
+        <childnode refid="21282" relation="include">
+        </childnode>
+      </node>
+      <node id="21256">
+        <label>src/lib/storage/HorizontalTable.h</label>
+        <link refid="_horizontal_table_8h"/>
+        <childnode refid="21208" relation="include">
+        </childnode>
+        <childnode refid="21210" relation="include">
+        </childnode>
+        <childnode refid="21257" relation="include">
+        </childnode>
+      </node>
+      <node id="21239">
+        <label>src/lib/storage/TestDataGenerator.cpp</label>
+        <link refid="_test_data_generator_8cpp"/>
+      </node>
+      <node id="21271">
+        <label>src/lib/storage/TableFactory.h</label>
+        <link refid="_table_factory_8h"/>
+        <childnode refid="21221" relation="include">
+        </childnode>
+        <childnode refid="21259" relation="include">
+        </childnode>
+        <childnode refid="21272" relation="include">
+        </childnode>
+        <childnode refid="21237" relation="include">
+        </childnode>
+      </node>
+      <node id="21217">
+        <label>src/lib/access/insertonly.cpp</label>
+        <link refid="insertonly_8cpp"/>
+      </node>
+      <node id="21137">
+        <label>src/lib/access/ExpressionScan.h</label>
+        <link refid="_expression_scan_8h"/>
+        <childnode refid="21138" relation="include">
+        </childnode>
+        <childnode refid="21092" relation="include">
+        </childnode>
+      </node>
+      <node id="21253">
+        <label>src/lib/storage/storage_types_helper.cpp</label>
+        <link refid="storage__types__helper_8cpp"/>
+      </node>
+      <node id="21228">
+        <label>src/lib/storage/AbstractMerger.h</label>
+        <link refid="_abstract_merger_8h"/>
+        <childnode refid="21229" relation="include">
+        </childnode>
+        <childnode refid="21231" relation="include">
+        </childnode>
+        <childnode refid="21240" relation="include">
+        </childnode>
+        <childnode refid="21242" relation="include">
+        </childnode>
+        <childnode refid="21246" relation="include">
+        </childnode>
+        <childnode refid="21245" relation="include">
+        </childnode>
+        <childnode refid="21237" relation="include">
+        </childnode>
+      </node>
+      <node id="21094">
+        <label>src/bin/perf_regression/HashJoin.cpp</label>
+        <link refid="_hash_join_8cpp"/>
+      </node>
+      <node id="21192">
+        <label>src/lib/access/SimpleRawTableScan.h</label>
+        <link refid="_simple_raw_table_scan_8h"/>
+        <childnode refid="21106" relation="include">
+        </childnode>
+        <childnode refid="21092" relation="include">
+        </childnode>
+      </node>
+      <node id="21280">
+        <label>src/lib/storage/TableRangeViewFactory.cpp</label>
+        <link refid="_table_range_view_factory_8cpp"/>
+      </node>
+      <node id="21139">
+        <label>src/lib/access/GetTable.h</label>
+        <link refid="_get_table_8h"/>
+        <childnode refid="21140" relation="include">
+        </childnode>
+      </node>
+      <node id="21180">
+        <label>src/lib/access/QueryParser.cpp</label>
+        <link refid="_query_parser_8cpp"/>
+      </node>
+      <node id="21248">
+        <label>src/lib/storage/LogarithmicMergeStrategy.h</label>
+        <link refid="_logarithmic_merge_strategy_8h"/>
+        <childnode refid="21217" relation="include">
+        </childnode>
+        <childnode refid="21221" relation="include">
+        </childnode>
+        <childnode refid="21249" relation="include">
+        </childnode>
+        <childnode refid="21244" relation="include">
+        </childnode>
+        <childnode refid="21233" relation="include">
+        </childnode>
+        <childnode refid="21238" relation="include">
+        </childnode>
+        <childnode refid="21239" relation="include">
+        </childnode>
+        <childnode refid="21237" relation="include">
+        </childnode>
+      </node>
+      <node id="21171">
+        <label>src/lib/access/MySQLTableLoad.cpp</label>
+        <link refid="_my_s_q_l_table_load_8cpp"/>
+      </node>
+      <node id="21202">
+        <label>src/lib/access/TableUnload.cpp</label>
+        <link refid="_table_unload_8cpp"/>
+      </node>
+      <node id="21143">
+        <label>src/lib/access/HashJoinProbe.h</label>
+        <link refid="_hash_join_probe_8h"/>
+        <childnode refid="21144" relation="include">
+        </childnode>
+        <childnode refid="21092" relation="include">
+        </childnode>
+      </node>
+      <node id="21160">
+        <label>src/lib/access/LoadFile.h</label>
+        <link refid="_load_file_8h"/>
+        <childnode refid="21161" relation="include">
+        </childnode>
+      </node>
+      <node id="21196">
+        <label>src/lib/access/SortScan.h</label>
+        <link refid="_sort_scan_8h"/>
+        <childnode refid="21197" relation="include">
+        </childnode>
+        <childnode refid="21092" relation="include">
+        </childnode>
+      </node>
+      <node id="21186">
+        <label>src/lib/access/ScriptOperation.h</label>
+        <link refid="_script_operation_8h"/>
+        <childnode refid="21187" relation="include">
+        </childnode>
+      </node>
+      <node id="21243">
+        <label>src/lib/storage/SimpleStore.h</label>
+        <link refid="_simple_store_8h"/>
+        <childnode refid="21217" relation="include">
+        </childnode>
+        <childnode refid="21230" relation="include">
+        </childnode>
+        <childnode refid="21149" relation="include">
+        </childnode>
+        <childnode refid="21185" relation="include">
+        </childnode>
+        <childnode refid="21221" relation="include">
+        </childnode>
+        <childnode refid="21244" relation="include">
+        </childnode>
+        <childnode refid="21085" relation="include">
+        </childnode>
+        <childnode refid="21237" relation="include">
+        </childnode>
+      </node>
+      <node id="21191">
+        <label>src/lib/access/SettingsOperation.cpp</label>
+        <link refid="_settings_operation_8cpp"/>
+      </node>
+      <node id="21141">
+        <label>src/lib/access/HashBuild.h</label>
+        <link refid="_hash_build_8h"/>
+        <childnode refid="21142" relation="include">
+        </childnode>
+        <childnode refid="21092" relation="include">
+        </childnode>
+      </node>
+      <node id="21258">
+        <label>src/lib/storage/InvertedIndex.h</label>
+        <link refid="_inverted_index_8h"/>
+        <childnode refid="21124" relation="include">
+        </childnode>
+        <childnode refid="21147" relation="include">
+        </childnode>
+        <childnode refid="21237" relation="include">
+        </childnode>
+      </node>
+      <node id="21234">
+        <label>src/lib/storage/AbstractTable.cpp</label>
+        <link refid="_abstract_table_8cpp"/>
+      </node>
+      <node id="21210">
+        <label>src/lib/access/UnionScan.cpp</label>
+        <link refid="lib_2access_2_union_scan_8cpp"/>
+      </node>
+      <node id="21199">
+        <label>src/lib/access/TableLoad.cpp</label>
+        <link refid="_table_load_8cpp"/>
+      </node>
+      <node id="21161">
+        <label>src/lib/access/LoadFile.cpp</label>
+        <link refid="_load_file_8cpp"/>
+      </node>
+      <node id="21219">
+        <label>src/lib/io/ColumnLoader.h</label>
+        <link refid="_column_loader_8h"/>
+        <childnode refid="21084" relation="include">
+        </childnode>
+      </node>
+      <node id="21261">
+        <label>src/lib/storage/PointerCalculator.h</label>
+        <link refid="_pointer_calculator_8h"/>
+        <childnode refid="21124" relation="include">
+        </childnode>
+        <childnode refid="21136" relation="include">
+        </childnode>
+        <childnode refid="21123" relation="include">
+        </childnode>
+        <childnode refid="21144" relation="include">
+        </childnode>
+        <childnode refid="21079" relation="include">
+        </childnode>
+        <childnode refid="21147" relation="include">
+        </childnode>
+        <childnode refid="21217" relation="include">
+        </childnode>
+        <childnode refid="21262" relation="include">
+        </childnode>
+        <childnode refid="21149" relation="include">
+        </childnode>
+        <childnode refid="21153" relation="include">
+        </childnode>
+        <childnode refid="21091" relation="include">
+        </childnode>
+        <childnode refid="21101" relation="include">
+        </childnode>
+        <childnode refid="21168" relation="include">
+        </childnode>
+        <childnode refid="21173" relation="include">
+        </childnode>
+        <childnode refid="21179" relation="include">
+        </childnode>
+        <childnode refid="21187" relation="include">
+        </childnode>
+        <childnode refid="21106" relation="include">
+        </childnode>
+        <childnode refid="21107" relation="include">
+        </childnode>
+        <childnode refid="21197" relation="include">
+        </childnode>
+        <childnode refid="21078" relation="include">
+        </childnode>
+        <childnode refid="21208" relation="include">
+        </childnode>
+        <childnode refid="21210" relation="include">
+        </childnode>
+        <childnode refid="21235" relation="include">
+        </childnode>
+        <childnode refid="21263" relation="include">
+        </childnode>
+        <childnode refid="21251" relation="include">
+        </childnode>
+        <childnode refid="21237" relation="include">
+        </childnode>
+      </node>
+      <node id="21231">
+        <label>src/lib/storage/SequentialHeapMerger.h</label>
+        <link refid="_sequential_heap_merger_8h"/>
+        <childnode refid="21157" relation="include">
+        </childnode>
+        <childnode refid="21221" relation="include">
+        </childnode>
+        <childnode refid="21232" relation="include">
+        </childnode>
+        <childnode refid="21233" relation="include">
+        </childnode>
+        <childnode refid="21238" relation="include">
+        </childnode>
+        <childnode refid="21239" relation="include">
+        </childnode>
+        <childnode refid="21237" relation="include">
+        </childnode>
+      </node>
+      <node id="21193">
+        <label>src/lib/access/SimpleTableScan.h</label>
+        <link refid="_simple_table_scan_8h"/>
+        <childnode refid="21107" relation="include">
+        </childnode>
+        <childnode refid="21092" relation="include">
+        </childnode>
+      </node>
+      <node id="21251">
+        <label>src/lib/storage/storage_types_helper.h</label>
+        <link refid="storage__types__helper_8h"/>
+        <childnode refid="21225" relation="include">
+        </childnode>
+        <childnode refid="21234" relation="include">
+        </childnode>
+        <childnode refid="21252" relation="include">
+        </childnode>
+        <childnode refid="21253" relation="include">
+        </childnode>
+      </node>
+      <node id="21145">
+        <label>src/lib/access/HashValueJoin.hpp</label>
+        <link refid="_hash_value_join_8hpp"/>
+        <childnode refid="21092" relation="include">
+        </childnode>
+      </node>
+      <node id="21106">
+        <label>src/lib/access/SimpleRawTableScan.cpp</label>
+        <link refid="_simple_raw_table_scan_8cpp"/>
+      </node>
+      <node id="21273">
+        <label>src/lib/storage/TableGenerator-impl.h</label>
+        <link refid="_table_generator-impl_8h"/>
+        <childnode refid="21274" relation="include">
+        </childnode>
+      </node>
+      <node id="21172">
+        <label>src/lib/access/NestedLoopEquiJoin.h</label>
+        <link refid="_nested_loop_equi_join_8h"/>
+        <childnode refid="21173" relation="include">
+        </childnode>
+      </node>
+      <node id="21208">
+        <label>src/lib/access/UnionAll.cpp</label>
+        <link refid="_union_all_8cpp"/>
+      </node>
+      <node id="21212">
+        <label>src/lib/access/UnloadAll.cpp</label>
+        <link refid="_unload_all_8cpp"/>
+      </node>
+      <node id="21095">
+        <label>src/bin/perf_regression/HashValueJoin.cpp</label>
+        <link refid="_hash_value_join_8cpp"/>
+      </node>
+      <node id="21157">
+        <label>src/lib/access/LayoutTable.cpp</label>
+        <link refid="_layout_table_8cpp"/>
+      </node>
+      <node id="21264">
+        <label>src/lib/storage/TableBuilder.cpp</label>
+        <link refid="_table_builder_8cpp"/>
+      </node>
+      <node id="21242">
+        <label>src/lib/storage/TableMerger.h</label>
+        <link refid="_table_merger_8h"/>
+        <childnode refid="21243" relation="include">
+        </childnode>
+        <childnode refid="21244" relation="include">
+        </childnode>
+        <childnode refid="21233" relation="include">
+        </childnode>
+        <childnode refid="21238" relation="include">
+        </childnode>
+        <childnode refid="21245" relation="include">
+        </childnode>
+        <childnode refid="21239" relation="include">
+        </childnode>
+        <childnode refid="21237" relation="include">
+        </childnode>
+      </node>
+      <node id="21092">
+        <label>src/lib/access.h</label>
+        <link refid="access_8h"/>
+        <childnode refid="21093" relation="include">
+        </childnode>
+        <childnode refid="21094" relation="include">
+        </childnode>
+        <childnode refid="21095" relation="include">
+        </childnode>
+        <childnode refid="21096" relation="include">
+        </childnode>
+        <childnode refid="21097" relation="include">
+        </childnode>
+        <childnode refid="21098" relation="include">
+        </childnode>
+        <childnode refid="21099" relation="include">
+        </childnode>
+        <childnode refid="21100" relation="include">
+        </childnode>
+      </node>
+      <node id="21268">
+        <label>src/lib/storage/RawTable.cpp</label>
+        <link refid="_raw_table_8cpp"/>
+      </node>
+      <node id="21128">
+        <label>src/lib/access/QueryTransformationEngine.cpp</label>
+        <link refid="_query_transformation_engine_8cpp"/>
+      </node>
+      <node id="21089">
+        <label>src/lib/access/predicates.h</label>
+        <link refid="predicates_8h"/>
+        <childnode refid="21090" relation="include">
+        </childnode>
+        <childnode refid="21101" relation="include">
+        </childnode>
+        <childnode refid="21102" relation="include">
+        </childnode>
+        <childnode refid="21103" relation="include">
+        </childnode>
+        <childnode refid="21092" relation="include">
+        </childnode>
+      </node>
+      <node id="21222">
+        <label>src/lib/io/MetadataCreation.cpp</label>
+        <link refid="_metadata_creation_8cpp"/>
+      </node>
+      <node id="21115">
+        <label>src/lib/access/pred_MultiTableEqualsExpression.h</label>
+        <link refid="pred___multi_table_equals_expression_8h"/>
+        <childnode refid="21089" relation="include">
+        </childnode>
+      </node>
+      <node id="21213">
+        <label>src/lib/access/UpdateScan.h</label>
+        <link refid="_update_scan_8h"/>
+        <childnode refid="21214" relation="include">
+        </childnode>
+        <childnode refid="21092" relation="include">
+        </childnode>
+      </node>
+      <node id="21226">
+        <label>src/lib/io/ValidityTableGeneration.cpp</label>
+        <link refid="_validity_table_generation_8cpp"/>
+      </node>
+      <node id="21138">
+        <label>src/lib/access/ExpressionScan.cpp</label>
+        <link refid="_expression_scan_8cpp"/>
+      </node>
+      <node id="21114">
+        <label>src/lib/access/pred_MultiTableBetweenExpression.h</label>
+        <link refid="pred___multi_table_between_expression_8h"/>
+        <childnode refid="21089" relation="include">
+        </childnode>
+      </node>
+      <node id="21238">
+        <label>src/lib/storage/TableGenerator.cpp</label>
+        <link refid="_table_generator_8cpp"/>
+      </node>
+      <node id="21098">
+        <label>src/bin/perf_regression/SimpleTableScan.cpp</label>
+        <link refid="bin_2perf__regression_2_simple_table_scan_8cpp"/>
+      </node>
+      <node id="21111">
+        <label>src/lib/access/pred_EqualsExpression.h</label>
+        <link refid="pred___equals_expression_8h"/>
+        <childnode refid="21076" relation="include">
+        </childnode>
+        <childnode refid="21089" relation="include">
+        </childnode>
+      </node>
+      <node id="21118">
+        <label>src/bin/perf_regression/Loading.cpp</label>
+        <link refid="_loading_8cpp"/>
+      </node>
+      <node id="21149">
+        <label>src/lib/access/InsertOnlyOperators.cpp</label>
+        <link refid="_insert_only_operators_8cpp"/>
+      </node>
+      <node id="21167">
+        <label>src/lib/access/MergeTable.cpp</label>
+        <link refid="_merge_table_8cpp"/>
+      </node>
+      <node id="21107">
+        <label>src/lib/access/SimpleTableScan.cpp</label>
+        <link refid="lib_2access_2_simple_table_scan_8cpp"/>
+      </node>
+      <node id="21077">
+        <label>src/lib/access/ExampleExpression.cpp</label>
+        <link refid="_example_expression_8cpp"/>
+      </node>
+      <node id="21146">
+        <label>src/lib/access/IndexScan.h</label>
+        <link refid="_index_scan_8h"/>
+        <childnode refid="21147" relation="include">
+        </childnode>
+      </node>
+      <node id="21158">
+        <label>src/lib/access/LayoutTableLoad.h</label>
+        <link refid="_layout_table_load_8h"/>
+        <childnode refid="21159" relation="include">
+        </childnode>
+      </node>
+      <node id="21116">
+        <label>src/lib/access/pred_MultiTableLessThanExpression.h</label>
+        <link refid="pred___multi_table_less_than_expression_8h"/>
+        <childnode refid="21089" relation="include">
+        </childnode>
+      </node>
+      <node id="21182">
+        <label>src/lib/access/RadixJoin.cpp</label>
+        <link refid="_radix_join_8cpp"/>
+      </node>
+      <node id="21130">
+        <label>src/lib/access/RequestParseTask.cpp</label>
+        <link refid="_request_parse_task_8cpp"/>
+      </node>
+      <node id="21201">
+        <label>src/lib/access/TableUnload.h</label>
+        <link refid="_table_unload_8h"/>
+        <childnode refid="21202" relation="include">
+        </childnode>
+        <childnode refid="21092" relation="include">
+        </childnode>
+      </node>
+      <node id="21190">
+        <label>src/lib/access/SettingsOperation.h</label>
+        <link refid="_settings_operation_8h"/>
+        <childnode refid="21191" relation="include">
+        </childnode>
+        <childnode refid="21092" relation="include">
+        </childnode>
+      </node>
+      <node id="21240">
+        <label>src/lib/storage/SequentialHeapMergerRow.h</label>
+        <link refid="_sequential_heap_merger_row_8h"/>
+        <childnode refid="21241" relation="include">
+        </childnode>
+        <childnode refid="21237" relation="include">
+        </childnode>
+      </node>
+      <node id="21211">
+        <label>src/lib/access/UnloadAll.h</label>
+        <link refid="_unload_all_8h"/>
+        <childnode refid="21212" relation="include">
+        </childnode>
+        <childnode refid="21092" relation="include">
+        </childnode>
+      </node>
+      <node id="21278">
+        <label>src/lib/storage/TableRangeView.cpp</label>
+        <link refid="_table_range_view_8cpp"/>
+      </node>
+      <node id="21265">
+        <label>src/lib/storage/PrettyPrinter.cpp</label>
+        <link refid="_pretty_printer_8cpp"/>
+      </node>
+      <node id="21164">
+        <label>src/lib/access/MergeHashTables.h</label>
+        <link refid="_merge_hash_tables_8h"/>
+        <childnode refid="21165" relation="include">
+        </childnode>
+      </node>
+      <node id="21194">
+        <label>src/lib/access/SmallestTableScan.h</label>
+        <link refid="_smallest_table_scan_8h"/>
+        <childnode refid="21195" relation="include">
+        </childnode>
+        <childnode refid="21092" relation="include">
+        </childnode>
+      </node>
+      <node id="21104">
+        <label>src/lib/access/pred_SimpleFieldExpression.h</label>
+        <link refid="pred___simple_field_expression_8h"/>
+        <childnode refid="21087" relation="include">
+        </childnode>
+        <childnode refid="21089" relation="include">
+        </childnode>
+      </node>
+      <node id="21074">
+        <label>src/lib/storage/OrderPreservingDictionary.h</label>
+        <link refid="OrderPreservingDictionary.h"/>
+        <childnode refid="21075" relation="include">
+        </childnode>
+        <childnode refid="21079" relation="include">
+        </childnode>
+        <childnode refid="21084" relation="include">
+        </childnode>
+        <childnode refid="21085" relation="include">
+        </childnode>
+        <childnode refid="21086" relation="include">
+        </childnode>
+      </node>
+      <node id="21090">
+        <label>src/lib/access/JoinScan.h</label>
+        <link refid="_join_scan_8h"/>
+        <childnode refid="21091" relation="include">
+        </childnode>
+        <childnode refid="21092" relation="include">
+        </childnode>
+      </node>
+      <node id="21147">
+        <label>src/lib/access/IndexScan.cpp</label>
+        <link refid="_index_scan_8cpp"/>
+      </node>
+      <node id="21224">
+        <label>src/lib/io/StorageManager.cpp</label>
+        <link refid="_storage_manager_8cpp"/>
+      </node>
+      <node id="21175">
+        <label>src/lib/access/NoOp.cpp</label>
+        <link refid="_no_op_8cpp"/>
+      </node>
+      <node id="21163">
+        <label>src/lib/access/MaterializingScan.cpp</label>
+        <link refid="_materializing_scan_8cpp"/>
+      </node>
+      <node id="21125">
+        <label>src/lib/access/PlanOperation.h</label>
+        <link refid="_plan_operation_8h"/>
+        <childnode refid="21126" relation="include">
+        </childnode>
+        <childnode refid="21132" relation="include">
+        </childnode>
+        <childnode refid="21134" relation="include">
+        </childnode>
+        <childnode refid="21135" relation="include">
+        </childnode>
+        <childnode refid="21137" relation="include">
+        </childnode>
+        <childnode refid="21139" relation="include">
+        </childnode>
+        <childnode refid="21122" relation="include">
+        </childnode>
+        <childnode refid="21141" relation="include">
+        </childnode>
+        <childnode refid="21143" relation="include">
+        </childnode>
+        <childnode refid="21145" relation="include">
+        </childnode>
+        <childnode refid="21079" relation="include">
+        </childnode>
+        <childnode refid="21146" relation="include">
+        </childnode>
+        <childnode refid="21148" relation="include">
+        </childnode>
+        <childnode refid="21150" relation="include">
+        </childnode>
+        <childnode refid="21152" relation="include">
+        </childnode>
+        <childnode refid="21090" relation="include">
+        </childnode>
+        <childnode refid="21154" relation="include">
+        </childnode>
+        <childnode refid="21156" relation="include">
+        </childnode>
+        <childnode refid="21158" relation="include">
+        </childnode>
+        <childnode refid="21160" relation="include">
+        </childnode>
+        <childnode refid="21162" relation="include">
+        </childnode>
+        <childnode refid="21164" relation="include">
+        </childnode>
+        <childnode refid="21101" relation="include">
+        </childnode>
+        <childnode refid="21166" relation="include">
+        </childnode>
+        <childnode refid="21168" relation="include">
+        </childnode>
+        <childnode refid="21170" relation="include">
+        </childnode>
+        <childnode refid="21172" relation="include">
+        </childnode>
+        <childnode refid="21174" relation="include">
+        </childnode>
+        <childnode refid="21176" relation="include">
+        </childnode>
+        <childnode refid="21177" relation="include">
+        </childnode>
+        <childnode refid="21178" relation="include">
+        </childnode>
+        <childnode refid="21180" relation="include">
+        </childnode>
+        <childnode refid="21082" relation="include">
+        </childnode>
+        <childnode refid="21181" relation="include">
+        </childnode>
+        <childnode refid="21183" relation="include">
+        </childnode>
+        <childnode refid="21130" relation="include">
+        </childnode>
+        <childnode refid="21185" relation="include">
+        </childnode>
+        <childnode refid="21186" relation="include">
+        </childnode>
+        <childnode refid="21188" relation="include">
+        </childnode>
+        <childnode refid="21190" relation="include">
+        </childnode>
+        <childnode refid="21192" relation="include">
+        </childnode>
+        <childnode refid="21193" relation="include">
+        </childnode>
+        <childnode refid="21194" relation="include">
+        </childnode>
+        <childnode refid="21196" relation="include">
+        </childnode>
+        <childnode refid="21198" relation="include">
+        </childnode>
+        <childnode refid="21200" relation="include">
+        </childnode>
+        <childnode refid="21201" relation="include">
+        </childnode>
+        <childnode refid="21203" relation="include">
+        </childnode>
+        <childnode refid="21205" relation="include">
+        </childnode>
+        <childnode refid="21207" relation="include">
+        </childnode>
+        <childnode refid="21209" relation="include">
+        </childnode>
+        <childnode refid="21211" relation="include">
+        </childnode>
+        <childnode refid="21213" relation="include">
+        </childnode>
+        <childnode refid="21092" relation="include">
+        </childnode>
+        <childnode refid="21215" relation="include">
+        </childnode>
+      </node>
+      <node id="21245">
+        <label>src/lib/storage/TableMerger.cpp</label>
+        <link refid="_table_merger_8cpp"/>
+      </node>
+      <node id="21153">
+        <label>src/lib/access/IntersectPositions.cpp</label>
+        <link refid="_intersect_positions_8cpp"/>
+      </node>
+      <node id="21136">
+        <label>src/lib/access/Distinct.cpp</label>
+        <link refid="_distinct_8cpp"/>
+      </node>
+      <node id="21091">
+        <label>src/lib/access/JoinScan.cpp</label>
+        <link refid="lib_2access_2_join_scan_8cpp"/>
+      </node>
+      <node id="21134">
+        <label>src/lib/access/CreateIndex.h</label>
+        <link refid="_create_index_8h"/>
+        <childnode refid="21124" relation="include">
+        </childnode>
+      </node>
+      <node id="21133">
+        <label>src/lib/access/Barrier.cpp</label>
+        <link refid="_barrier_8cpp"/>
+      </node>
+      <node id="21215">
+        <label>src/lib/testing/test.h</label>
+        <link refid="test_8h"/>
+        <childnode refid="21216" relation="include">
+        </childnode>
+      </node>
+      <node id="21189">
+        <label>src/lib/access/SetTable.cpp</label>
+        <link refid="_set_table_8cpp"/>
+      </node>
+      <node id="21120">
+        <label>src/lib/access/AggregateFunctions.h</label>
+        <link refid="_aggregate_functions_8h"/>
+        <childnode refid="21121" relation="include">
+        </childnode>
+        <childnode refid="21122" relation="include">
+        </childnode>
+      </node>
+      <node id="21113">
+        <label>src/lib/access/pred_LessThanExpression.h</label>
+        <link refid="pred___less_than_expression_8h"/>
+        <childnode refid="21089" relation="include">
+        </childnode>
+      </node>
+      <node id="21124">
+        <label>src/lib/access/CreateIndex.cpp</label>
+        <link refid="_create_index_8cpp"/>
+      </node>
+      <node id="21109">
+        <label>src/lib/access/pred_PredicateBuilder.h</label>
+        <link refid="pred___predicate_builder_8h"/>
+        <childnode refid="21089" relation="include">
+        </childnode>
+        <childnode refid="21110" relation="include">
+        </childnode>
+      </node>
+      <node id="21152">
+        <label>src/lib/access/IntersectPositions.h</label>
+        <link refid="_intersect_positions_8h"/>
+        <childnode refid="21153" relation="include">
+        </childnode>
+      </node>
+      <node id="21154">
+        <label>src/lib/access/Layouter.h</label>
+        <link refid="_layouter_8h"/>
+        <childnode refid="21155" relation="include">
+        </childnode>
+        <childnode refid="21092" relation="include">
+        </childnode>
+      </node>
+      <node id="21103">
+        <label>src/lib/access/pred_expression_factory.h</label>
+        <link refid="pred__expression__factory_8h"/>
+        <childnode refid="21102" relation="include">
+        </childnode>
+        <childnode refid="21089" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="class_order_preserving_dictionary" prot="public">OrderPreservingDictionary</innerclass>
+    <innerclass refid="class_order_preserving_dictionary_iterator" prot="public">OrderPreservingDictionaryIterator</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>2012<sp/>Hasso-Plattner-Institut<sp/>fuer<sp/>Softwaresystemtechnik<sp/>GmbH.<sp/>All<sp/>rights<sp/>reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SRC_LIB_STORAGE_ORDERPRESERVINGDICTIONARY_H_</highlight></codeline>
+<codeline lineno="3"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SRC_LIB_STORAGE_ORDERPRESERVINGDICTIONARY_H_</highlight></codeline>
+<codeline lineno="4"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;assert.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;iostream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;memory&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="storage__types_8h" kindref="compound">storage/storage_types.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="_abstract_dictionary_8h" kindref="compound">storage/AbstractDictionary.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="_base_dictionary_8h" kindref="compound">storage/BaseDictionary.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="_dictionary_iterator_8h" kindref="compound">storage/DictionaryIterator.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="_abstract_allocated_dictionary_8h" kindref="compound">storage/AbstractAllocatedDictionary.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="_base_iterator_8h" kindref="compound">storage/BaseIterator.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="_dictionary_iterator_8h" kindref="compound">storage/DictionaryIterator.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>Strategy,<sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>A,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>B&gt;<sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">Allocator&gt;</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_order_preserving_dictionary_iterator" kindref="compound">OrderPreservingDictionaryIterator</ref>;</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T,</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">Strategy<sp/>=<sp/><ref refid="class_malloc_strategy" kindref="compound">MallocStrategy</ref>,</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>K,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>S&gt;<sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">Allocator<sp/>=<sp/><ref refid="class_strategized_allocator" kindref="compound">StrategizedAllocator</ref></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&gt;</highlight></codeline>
+<codeline lineno="25" refid="class_order_preserving_dictionary" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_order_preserving_dictionary" kindref="compound">OrderPreservingDictionary</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="class_base_allocated_dictionary" kindref="compound">BaseAllocatedDictionary</ref><sp/>&lt;<sp/>T,</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/>Strategy,</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/>Allocator,</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/>OrderPreservingDictionary&lt;T,<sp/>Strategy,<sp/>Allocator&gt;<sp/>&gt;<sp/>{</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="31" refid="class_order_preserving_dictionary_1af1bc25d808c25328b8dded37bf5b0fe1" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>std::vector&lt;T,<sp/>Allocator&lt;T,<sp/>Strategy&gt;<sp/>&gt;<sp/><ref refid="class_order_preserving_dictionary_1af1bc25d808c25328b8dded37bf5b0fe1" kindref="member">vector_type</ref>;</highlight></codeline>
+<codeline lineno="32" refid="class_order_preserving_dictionary_1a8f8872724b84cc179cfe020eb8f8999d" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>std::shared_ptr&lt;vector_type&gt;<sp/><ref refid="class_order_preserving_dictionary_1a8f8872724b84cc179cfe020eb8f8999d" kindref="member">shared_vector_type</ref>;</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36" refid="class_order_preserving_dictionary_1a88928efc159867c53f0e471d85b0ef69" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="class_order_preserving_dictionary_1a8f8872724b84cc179cfe020eb8f8999d" kindref="member">shared_vector_type</ref><sp/><ref refid="class_order_preserving_dictionary_1a88928efc159867c53f0e471d85b0ef69" kindref="member">_values</ref>;</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="keyword">protected</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>This<sp/>constructor<sp/>is<sp/>only<sp/>used<sp/>for<sp/>copying<sp/>purposes</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">explicit</highlight><highlight class="normal"><sp/><ref refid="class_order_preserving_dictionary_1a1e5300b388d501ecaf3ebcce96c15ea0" kindref="member">OrderPreservingDictionary</ref>(<ref refid="class_order_preserving_dictionary_1af1bc25d808c25328b8dded37bf5b0fe1" kindref="member">vector_type</ref><sp/>values);</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><ref refid="class_order_preserving_dictionary_1a1e5300b388d501ecaf3ebcce96c15ea0" kindref="member">OrderPreservingDictionary</ref>();</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">explicit</highlight><highlight class="normal"><sp/><ref refid="class_order_preserving_dictionary_1a1e5300b388d501ecaf3ebcce96c15ea0" kindref="member">OrderPreservingDictionary</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="class_order_preserving_dictionary_1a027b7d8daf2c16de47068ad702c96aa9" kindref="member">size</ref>);</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48" refid="class_order_preserving_dictionary_1ade074097a05829cf357e4176cdc7a524" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="class_order_preserving_dictionary_1ade074097a05829cf357e4176cdc7a524" kindref="member">~OrderPreservingDictionary</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51" refid="class_order_preserving_dictionary_1ad42cb37be7dafa2a70e2f91f519b61d9" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_order_preserving_dictionary_1ad42cb37be7dafa2a70e2f91f519b61d9" kindref="member">shrink</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_order_preserving_dictionary_1a88928efc159867c53f0e471d85b0ef69" kindref="member">_values</ref>-&gt;shrink_to_fit();</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><ref refid="storage__types_8h_1a2552a37cd3427c39d92cb8fd23c90408" kindref="member">value_id_t</ref><sp/><ref refid="class_order_preserving_dictionary_1a50a90db56215dd5ea18ab1134cf815af" kindref="member">addValue</ref>(T<sp/>value);</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/>T<sp/><ref refid="class_order_preserving_dictionary_1a313239ffcc4f5622cadf2b02b208beff" kindref="member">getValueForValueId</ref>(<ref refid="storage__types_8h_1a2552a37cd3427c39d92cb8fd23c90408" kindref="member">value_id_t</ref><sp/>value_id);</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><ref refid="storage__types_8h_1a2552a37cd3427c39d92cb8fd23c90408" kindref="member">value_id_t</ref><sp/><ref refid="class_order_preserving_dictionary_1a4188a48fdb96109cc1d2589fda627880" kindref="member">getValueIdForValue</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>T<sp/>&amp;value)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><ref refid="storage__types_8h_1a2552a37cd3427c39d92cb8fd23c90408" kindref="member">value_id_t</ref><sp/><ref refid="class_order_preserving_dictionary_1a7ccfab9eea7b5d83477bf39a530e9b52" kindref="member">getValueIdForValueSmaller</ref>(T<sp/>other);</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><ref refid="storage__types_8h_1a2552a37cd3427c39d92cb8fd23c90408" kindref="member">value_id_t</ref><sp/><ref refid="class_order_preserving_dictionary_1a5162c542f89a0d941e6098d584decf77" kindref="member">getValueIdForValueGreater</ref>(T<sp/>other);</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>T<sp/><ref refid="class_order_preserving_dictionary_1a01786c759263bfd5408e9bcd9f4e216f" kindref="member">getSmallestValue</ref>();</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>T<sp/><ref refid="class_order_preserving_dictionary_1a49192d7b8408584a8be518c5b1884968" kindref="member">getGreatestValue</ref>();</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="class_order_preserving_dictionary_1ad45d95fcefd00298ec837108e422b8f9" kindref="member">isValueIdValid</ref>(<ref refid="storage__types_8h_1a2552a37cd3427c39d92cb8fd23c90408" kindref="member">value_id_t</ref><sp/>value_id);</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="class_order_preserving_dictionary_1a230dc6ece1fbedb3e95182509dac7249" kindref="member">valueExists</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>T<sp/>&amp;value)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_order_preserving_dictionary_1a9427a4ea7d5778cc25373eb87238ba12" kindref="member">reserve</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="class_order_preserving_dictionary_1a027b7d8daf2c16de47068ad702c96aa9" kindref="member">size</ref>);</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="class_order_preserving_dictionary_1a027b7d8daf2c16de47068ad702c96aa9" kindref="member">size</ref>();</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/>std::shared_ptr&lt;AbstractDictionary&gt;<sp/><ref refid="class_order_preserving_dictionary_1a6611970acc861038fe1cc6f7eed44f23" kindref="member">copy</ref>();</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="class_order_preserving_dictionary_1a21f77be611c0f2a062d632c43a476779" kindref="member">isOrdered</ref>();</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77" refid="class_order_preserving_dictionary_1a5e4f0e692a0350db270a485d280a0108" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/><ref refid="class_dictionary_iterator" kindref="compound">DictionaryIterator&lt;T&gt;</ref><sp/><ref refid="class_order_preserving_dictionary_1a5e4f0e692a0350db270a485d280a0108" kindref="member">iterator</ref>;</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79" refid="class_order_preserving_dictionary_1a1723d753092bd01c460d177b539f2546" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="class_dictionary_iterator" kindref="compound">iterator</ref><sp/><ref refid="class_order_preserving_dictionary_1a1723d753092bd01c460d177b539f2546" kindref="member">begin</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="class_order_preserving_dictionary_1a5e4f0e692a0350db270a485d280a0108" kindref="member">iterator</ref>(</highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/><ref refid="class_order_preserving_dictionary_iterator" kindref="compound">OrderPreservingDictionaryIterator&lt;T, Strategy, Allocator&gt;</ref>(<ref refid="class_order_preserving_dictionary_1a88928efc159867c53f0e471d85b0ef69" kindref="member">_values</ref>,<sp/>0));</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83" refid="class_order_preserving_dictionary_1ae8b901d726403b04cea75061193c5045" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="class_dictionary_iterator" kindref="compound">iterator</ref><sp/><ref refid="class_order_preserving_dictionary_1ae8b901d726403b04cea75061193c5045" kindref="member">end</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="class_order_preserving_dictionary_1a5e4f0e692a0350db270a485d280a0108" kindref="member">iterator</ref>(</highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/><ref refid="class_order_preserving_dictionary_iterator" kindref="compound">OrderPreservingDictionaryIterator&lt;T, Strategy, Allocator&gt;</ref>(<ref refid="class_order_preserving_dictionary_1a88928efc159867c53f0e471d85b0ef69" kindref="member">_values</ref>,<sp/><ref refid="class_order_preserving_dictionary_1a88928efc159867c53f0e471d85b0ef69" kindref="member">_values</ref>-&gt;size()));</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>Strategy,<sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>K,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>S&gt;<sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">Allocator&gt;</highlight></codeline>
+<codeline lineno="91" refid="class_order_preserving_dictionary_1a1e5300b388d501ecaf3ebcce96c15ea0" refkind="member"><highlight class="normal"><ref refid="class_order_preserving_dictionary_1a1e5300b388d501ecaf3ebcce96c15ea0" kindref="member">OrderPreservingDictionary&lt;T, Strategy, Allocator&gt;::OrderPreservingDictionary</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/>_values<sp/>=<sp/>std::make_shared&lt;vector_type&gt;();</highlight></codeline>
+<codeline lineno="93"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>Strategy,<sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>K,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>S&gt;<sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">Allocator&gt;</highlight></codeline>
+<codeline lineno="96" refid="class_order_preserving_dictionary_1a7dd5812131eceb05002c833752dc607c" refkind="member"><highlight class="normal"><ref refid="class_order_preserving_dictionary_1a1e5300b388d501ecaf3ebcce96c15ea0" kindref="member">OrderPreservingDictionary&lt;T, Strategy, Allocator&gt;::OrderPreservingDictionary</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>size)<sp/>{</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/>_values<sp/>=<sp/>std::make_shared&lt;vector_type&gt;();</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/>_values-&gt;reserve(size);</highlight></codeline>
+<codeline lineno="99"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>Strategy,<sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>K,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>S&gt;<sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">Allocator&gt;</highlight></codeline>
+<codeline lineno="102" refid="class_order_preserving_dictionary_1a899b9dbe0754bbbe8bd0a11257802991" refkind="member"><highlight class="normal"><ref refid="class_order_preserving_dictionary_1a1e5300b388d501ecaf3ebcce96c15ea0" kindref="member">OrderPreservingDictionary&lt;T, Strategy, Allocator&gt;::OrderPreservingDictionary</ref>(<ref refid="class_order_preserving_dictionary_1af1bc25d808c25328b8dded37bf5b0fe1" kindref="member">vector_type</ref><sp/>values)<sp/>{</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/>_values<sp/>=<sp/>std::make_shared&lt;vector_type&gt;();</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/>std::copy(values.begin(),<sp/>values.end(),<sp/>values-&gt;begin());</highlight></codeline>
+<codeline lineno="105"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>Strategy,<sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>K,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>S&gt;<sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">Allocator&gt;</highlight></codeline>
+<codeline lineno="114" refid="class_order_preserving_dictionary_1a50a90db56215dd5ea18ab1134cf815af" refkind="member"><highlight class="normal"><ref refid="storage__types_8h_1a2552a37cd3427c39d92cb8fd23c90408" kindref="member">value_id_t</ref><sp/><ref refid="class_order_preserving_dictionary_1a50a90db56215dd5ea18ab1134cf815af" kindref="member">OrderPreservingDictionary&lt;T, Strategy, Allocator&gt;::addValue</ref>(T<sp/>value)<sp/>{</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>EXPENSIVE_ASSERTIONS</highlight></codeline>
+<codeline lineno="116"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((_values-&gt;size()<sp/>&gt;<sp/>0)<sp/>&amp;&amp;<sp/>(value<sp/>&lt;=<sp/>_values-&gt;back()))</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/>std::runtime_error(</highlight><highlight class="stringliteral">&quot;Can&apos;t<sp/>insert<sp/>value<sp/>smaller<sp/>than<sp/>last<sp/>value&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="119"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/>_values-&gt;push_back(value);</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>_values-&gt;size()<sp/>-<sp/>1;</highlight></codeline>
+<codeline lineno="121"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>Strategy,<sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>K,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>S&gt;<sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">Allocator&gt;</highlight></codeline>
+<codeline lineno="130" refid="class_order_preserving_dictionary_1a313239ffcc4f5622cadf2b02b208beff" refkind="member"><highlight class="normal">T<sp/><ref refid="class_order_preserving_dictionary_1a313239ffcc4f5622cadf2b02b208beff" kindref="member">OrderPreservingDictionary&lt;T, Strategy, Allocator&gt;::getValueForValueId</ref>(<ref refid="storage__types_8h_1a2552a37cd3427c39d92cb8fd23c90408" kindref="member">value_id_t</ref><sp/>value_id)<sp/>{</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>EXPENSIVE_ASSERTIONS</highlight></codeline>
+<codeline lineno="132"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(value_id<sp/>&gt;=<sp/>_values-&gt;size())</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/>std::runtime_error(</highlight><highlight class="stringliteral">&quot;Trying<sp/>to<sp/>access<sp/>value_id<sp/>larger<sp/>than<sp/>available<sp/>values&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="135"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(*_values)[value_id];</highlight></codeline>
+<codeline lineno="136"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>Strategy,<sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>K,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>S&gt;<sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">Allocator&gt;</highlight></codeline>
+<codeline lineno="139" refid="class_order_preserving_dictionary_1a7ccfab9eea7b5d83477bf39a530e9b52" refkind="member"><highlight class="normal"><ref refid="storage__types_8h_1a2552a37cd3427c39d92cb8fd23c90408" kindref="member">value_id_t</ref><sp/><ref refid="class_order_preserving_dictionary_1a7ccfab9eea7b5d83477bf39a530e9b52" kindref="member">OrderPreservingDictionary&lt;T, Strategy, Allocator&gt;::getValueIdForValueSmaller</ref>(T<sp/>other)<sp/>{</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>binary_search<sp/>=<sp/>lower_bound(_values-&gt;begin(),<sp/>_values-&gt;end(),<sp/>other);</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>index<sp/>=<sp/>binary_search<sp/>-<sp/>_values-&gt;begin();</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/>assert(index<sp/>&gt;<sp/>0);</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>index<sp/>-<sp/>1;</highlight></codeline>
+<codeline lineno="145"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>Strategy,<sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>K,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>S&gt;<sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">Allocator&gt;</highlight></codeline>
+<codeline lineno="148" refid="class_order_preserving_dictionary_1a5162c542f89a0d941e6098d584decf77" refkind="member"><highlight class="normal"><ref refid="storage__types_8h_1a2552a37cd3427c39d92cb8fd23c90408" kindref="member">value_id_t</ref><sp/><ref refid="class_order_preserving_dictionary_1a5162c542f89a0d941e6098d584decf77" kindref="member">OrderPreservingDictionary&lt;T, Strategy, Allocator&gt;::getValueIdForValueGreater</ref>(T<sp/>other)<sp/>{</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>binary_search<sp/>=<sp/>upper_bound(_values-&gt;begin(),<sp/>_values-&gt;end(),<sp/>other);</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>index<sp/>=<sp/>binary_search<sp/>-<sp/>_values-&gt;begin();</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>index;</highlight></codeline>
+<codeline lineno="153"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>Strategy,<sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>K,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>S&gt;<sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">Allocator&gt;</highlight></codeline>
+<codeline lineno="156" refid="class_order_preserving_dictionary_1a01786c759263bfd5408e9bcd9f4e216f" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>T<sp/><ref refid="class_order_preserving_dictionary_1a01786c759263bfd5408e9bcd9f4e216f" kindref="member">OrderPreservingDictionary&lt;T, Strategy, Allocator&gt;::getSmallestValue</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/>assert(_values-&gt;size()<sp/>&gt;<sp/>0);</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(*_values)[0];</highlight></codeline>
+<codeline lineno="160"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>Strategy,<sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>K,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>S&gt;<sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">Allocator&gt;</highlight></codeline>
+<codeline lineno="163" refid="class_order_preserving_dictionary_1a49192d7b8408584a8be518c5b1884968" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>T<sp/><ref refid="class_order_preserving_dictionary_1a49192d7b8408584a8be518c5b1884968" kindref="member">OrderPreservingDictionary&lt;T, Strategy, Allocator&gt;::getGreatestValue</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/>assert(_values-&gt;size()<sp/>&gt;<sp/>0);</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(*_values)[_values-&gt;size()<sp/>-<sp/>1];</highlight></codeline>
+<codeline lineno="167"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>Strategy,<sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>K,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>S&gt;<sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">Allocator&gt;</highlight></codeline>
+<codeline lineno="170" refid="class_order_preserving_dictionary_1a4188a48fdb96109cc1d2589fda627880" refkind="member"><highlight class="normal"><ref refid="storage__types_8h_1a2552a37cd3427c39d92cb8fd23c90408" kindref="member">value_id_t</ref><sp/><ref refid="class_order_preserving_dictionary_1a4188a48fdb96109cc1d2589fda627880" kindref="member">OrderPreservingDictionary&lt;T, Strategy, Allocator&gt;::getValueIdForValue</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>T<sp/>&amp;value)</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>needs<sp/>refactoring</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>binary_search<sp/>=<sp/>lower_bound(_values-&gt;begin(),<sp/>_values-&gt;end(),<sp/>value);</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>index<sp/>=<sp/>binary_search<sp/>-<sp/>_values-&gt;begin();</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>index;</highlight></codeline>
+<codeline lineno="175"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"></highlight></codeline>
+<codeline lineno="177"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>Strategy,<sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>K,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>S&gt;<sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">Allocator&gt;</highlight></codeline>
+<codeline lineno="178" refid="class_order_preserving_dictionary_1ad45d95fcefd00298ec837108e422b8f9" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="class_order_preserving_dictionary_1ad45d95fcefd00298ec837108e422b8f9" kindref="member">OrderPreservingDictionary&lt;T, Strategy, Allocator&gt;::isValueIdValid</ref>(<ref refid="storage__types_8h_1a2552a37cd3427c39d92cb8fd23c90408" kindref="member">value_id_t</ref><sp/>value_id)<sp/>{</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>value_id<sp/>&lt;<sp/>_values-&gt;size();</highlight></codeline>
+<codeline lineno="180"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"></highlight></codeline>
+<codeline lineno="182"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>Strategy,<sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>K,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>S&gt;<sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">Allocator&gt;</highlight></codeline>
+<codeline lineno="183" refid="class_order_preserving_dictionary_1a230dc6ece1fbedb3e95182509dac7249" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="class_order_preserving_dictionary_1a230dc6ece1fbedb3e95182509dac7249" kindref="member">OrderPreservingDictionary&lt;T, Strategy, Allocator&gt;::valueExists</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>T<sp/>&amp;value)</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>binary_search(_values-&gt;begin(),<sp/>_values-&gt;end(),<sp/>value);</highlight></codeline>
+<codeline lineno="185"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"></highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>Strategy,<sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>K,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>S&gt;<sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">Allocator&gt;</highlight></codeline>
+<codeline lineno="188" refid="class_order_preserving_dictionary_1a9427a4ea7d5778cc25373eb87238ba12" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_order_preserving_dictionary_1a9427a4ea7d5778cc25373eb87238ba12" kindref="member">OrderPreservingDictionary&lt;T, Strategy, Allocator&gt;::reserve</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>size)<sp/>{</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/>_values-&gt;reserve(size);</highlight></codeline>
+<codeline lineno="190"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"></highlight></codeline>
+<codeline lineno="192"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>Strategy,<sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>K,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>S&gt;<sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">Allocator&gt;</highlight></codeline>
+<codeline lineno="193" refid="class_order_preserving_dictionary_1a027b7d8daf2c16de47068ad702c96aa9" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="class_order_preserving_dictionary_1a027b7d8daf2c16de47068ad702c96aa9" kindref="member">OrderPreservingDictionary&lt;T, Strategy, Allocator&gt;::size</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>_values-&gt;size();</highlight></codeline>
+<codeline lineno="195"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"></highlight></codeline>
+<codeline lineno="197"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>Strategy,<sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>K,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>S&gt;<sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">Allocator&gt;</highlight></codeline>
+<codeline lineno="198" refid="class_order_preserving_dictionary_1a6611970acc861038fe1cc6f7eed44f23" refkind="member"><highlight class="normal">std::shared_ptr&lt;AbstractDictionary&gt;<sp/><ref refid="class_order_preserving_dictionary_1a6611970acc861038fe1cc6f7eed44f23" kindref="member">OrderPreservingDictionary&lt;T, Strategy, Allocator&gt;::copy</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/>std::runtime_error(</highlight><highlight class="stringliteral">&quot;Dictionaries<sp/>cannot<sp/>be<sp/>copied&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="200"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"></highlight></codeline>
+<codeline lineno="202"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>Strategy,<sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>K,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>S&gt;<sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">Allocator&gt;</highlight></codeline>
+<codeline lineno="203" refid="class_order_preserving_dictionary_1a21f77be611c0f2a062d632c43a476779" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="class_order_preserving_dictionary_1a21f77be611c0f2a062d632c43a476779" kindref="member">OrderPreservingDictionary&lt;T, Strategy, Allocator&gt;::isOrdered</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="205"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"></highlight></codeline>
+<codeline lineno="207"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="208"><highlight class="comment"><sp/>*<sp/>This<sp/>is<sp/>the<sp/>Iterator<sp/>class<sp/>that<sp/>is<sp/>used<sp/>by<sp/>the<sp/>dictionary.<sp/>It<sp/>has<sp/>a</highlight></codeline>
+<codeline lineno="209"><highlight class="comment"><sp/>*<sp/>shared<sp/>public<sp/>interface<sp/>to<sp/>be<sp/>able<sp/>to<sp/>differentiate<sp/>between<sp/>the</highlight></codeline>
+<codeline lineno="210"><highlight class="comment"><sp/>*<sp/>different<sp/>dictionary<sp/>types<sp/>and<sp/>to<sp/>abstract<sp/>from<sp/>data<sp/>types.</highlight></codeline>
+<codeline lineno="211"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="212"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="213"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>Strategy<sp/>=<sp/>MallocStrategy,<sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>A,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>B&gt;<sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">Allocator<sp/>=<sp/><ref refid="class_strategized_allocator" kindref="compound">StrategizedAllocator</ref>&gt;</highlight></codeline>
+<codeline lineno="214" refid="class_order_preserving_dictionary_iterator" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_order_preserving_dictionary_iterator" kindref="compound">OrderPreservingDictionaryIterator</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="class_base_iterator" kindref="compound">BaseIterator</ref>&lt;T&gt;<sp/>{</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"></highlight></codeline>
+<codeline lineno="216" refid="class_order_preserving_dictionary_iterator_1af30329b8c3446967f98c8eeb2ad80cff" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/><ref refid="class_order_preserving_dictionary" kindref="compound">OrderPreservingDictionary&lt;T, Strategy, Allocator&gt;</ref><sp/><ref refid="class_order_preserving_dictionary_iterator_1af30329b8c3446967f98c8eeb2ad80cff" kindref="member">dictionary_type</ref>;</highlight></codeline>
+<codeline lineno="217" refid="class_order_preserving_dictionary_iterator_1a385a803891cc6cf641daa9e7c98ffe42" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/><ref refid="class_order_preserving_dictionary_1a8f8872724b84cc179cfe020eb8f8999d" kindref="member">dictionary_type::shared_vector_type</ref><sp/><ref refid="class_order_preserving_dictionary_iterator_1a385a803891cc6cf641daa9e7c98ffe42" kindref="member">vector_type</ref>;</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"></highlight></codeline>
+<codeline lineno="219"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"></highlight></codeline>
+<codeline lineno="221"><highlight class="normal"></highlight></codeline>
+<codeline lineno="222" refid="class_order_preserving_dictionary_iterator_1aeecd9f21d883933db72141922c65438f" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="class_order_preserving_dictionary_iterator_1a385a803891cc6cf641daa9e7c98ffe42" kindref="member">vector_type</ref><sp/><ref refid="class_order_preserving_dictionary_iterator_1aeecd9f21d883933db72141922c65438f" kindref="member">_values</ref>;</highlight></codeline>
+<codeline lineno="223" refid="class_order_preserving_dictionary_iterator_1a922ac52e13a1a7e787a60f3607c7079a" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="class_order_preserving_dictionary_iterator_1a922ac52e13a1a7e787a60f3607c7079a" kindref="member">_index</ref>;</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"></highlight></codeline>
+<codeline lineno="225" refid="class_order_preserving_dictionary_iterator_1afc9023c79617e3ad6e51b5490b2ecd74" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">explicit</highlight><highlight class="normal"><sp/><ref refid="class_order_preserving_dictionary_iterator_1afc9023c79617e3ad6e51b5490b2ecd74" kindref="member">OrderPreservingDictionaryIterator</ref>(<ref refid="class_order_preserving_dictionary_iterator_1a385a803891cc6cf641daa9e7c98ffe42" kindref="member">vector_type</ref><sp/>values):<sp/><ref refid="class_order_preserving_dictionary_iterator_1aeecd9f21d883933db72141922c65438f" kindref="member">_values</ref>(values),<sp/><ref refid="class_order_preserving_dictionary_iterator_1a922ac52e13a1a7e787a60f3607c7079a" kindref="member">_index</ref>(0)<sp/>{}</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"></highlight></codeline>
+<codeline lineno="227" refid="class_order_preserving_dictionary_iterator_1aa89694ed915dbd23a4ed6990f3efe493" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="class_order_preserving_dictionary_iterator_1aa89694ed915dbd23a4ed6990f3efe493" kindref="member">OrderPreservingDictionaryIterator</ref>(<ref refid="class_order_preserving_dictionary_iterator_1a385a803891cc6cf641daa9e7c98ffe42" kindref="member">vector_type</ref><sp/>values,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>index):<sp/><ref refid="class_order_preserving_dictionary_iterator_1aeecd9f21d883933db72141922c65438f" kindref="member">_values</ref>(values),<sp/><ref refid="class_order_preserving_dictionary_iterator_1a922ac52e13a1a7e787a60f3607c7079a" kindref="member">_index</ref>(index)<sp/>{}</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"></highlight></codeline>
+<codeline lineno="229" refid="class_order_preserving_dictionary_iterator_1a985f1894385cb97fc6999f3543dafb05" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="class_order_preserving_dictionary_iterator_1a985f1894385cb97fc6999f3543dafb05" kindref="member">~OrderPreservingDictionaryIterator</ref>()<sp/>{<sp/>}</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"></highlight></codeline>
+<codeline lineno="231" refid="class_order_preserving_dictionary_iterator_1a8ebce732de8f4ac8eba5cd7c5253db18" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_order_preserving_dictionary_iterator_1a8ebce732de8f4ac8eba5cd7c5253db18" kindref="member">increment</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/>++<ref refid="class_order_preserving_dictionary_iterator_1a922ac52e13a1a7e787a60f3607c7079a" kindref="member">_index</ref>;</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"></highlight></codeline>
+<codeline lineno="235" refid="class_order_preserving_dictionary_iterator_1a61e4241ae89b383b857a9a8161353f03" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="class_order_preserving_dictionary_iterator_1a61e4241ae89b383b857a9a8161353f03" kindref="member">equal</ref>(<ref refid="class_base_iterator" kindref="compound">BaseIterator&lt;T&gt;</ref><sp/>*other)</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="class_order_preserving_dictionary_iterator_1aeecd9f21d883933db72141922c65438f" kindref="member">_values</ref>.get()<sp/>==<sp/>((<ref refid="class_order_preserving_dictionary_iterator" kindref="compound">OrderPreservingDictionaryIterator&lt;T, Strategy, Allocator&gt;</ref><sp/>*)<sp/>other)-&gt;_values.get()<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_order_preserving_dictionary_iterator_1a922ac52e13a1a7e787a60f3607c7079a" kindref="member">_index</ref><sp/><sp/>==<sp/>((<ref refid="class_order_preserving_dictionary_iterator" kindref="compound">OrderPreservingDictionaryIterator&lt;T, Strategy, Allocator&gt;</ref><sp/>*)<sp/>other)-&gt;_index;</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"></highlight></codeline>
+<codeline lineno="240" refid="class_order_preserving_dictionary_iterator_1a81b2123d36dff6a5b376e69dcadb9fb0" refkind="member"><highlight class="normal"><sp/><sp/>T<sp/>&amp;<ref refid="class_order_preserving_dictionary_iterator_1a81b2123d36dff6a5b376e69dcadb9fb0" kindref="member">dereference</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(*<ref refid="class_order_preserving_dictionary_iterator_1aeecd9f21d883933db72141922c65438f" kindref="member">_values</ref>)[<ref refid="class_order_preserving_dictionary_iterator_1a922ac52e13a1a7e787a60f3607c7079a" kindref="member">_index</ref>];</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"></highlight></codeline>
+<codeline lineno="244" refid="class_order_preserving_dictionary_iterator_1a77a133fe4abecf8f7abb359f5138d742" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="storage__types_8h_1a2552a37cd3427c39d92cb8fd23c90408" kindref="member">value_id_t</ref><sp/><ref refid="class_order_preserving_dictionary_iterator_1a77a133fe4abecf8f7abb359f5138d742" kindref="member">getValueId</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="class_order_preserving_dictionary_iterator_1a922ac52e13a1a7e787a60f3607c7079a" kindref="member">_index</ref>;</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"></highlight></codeline>
+<codeline lineno="248" refid="class_order_preserving_dictionary_iterator_1af57c8c3e4d9a3b621ece5202add5be90" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="class_base_iterator" kindref="compound">BaseIterator&lt;T&gt;</ref><sp/>*<ref refid="class_order_preserving_dictionary_iterator_1af57c8c3e4d9a3b621ece5202add5be90" kindref="member">clone</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/><ref refid="class_order_preserving_dictionary_iterator" kindref="compound">OrderPreservingDictionaryIterator&lt;T, Strategy, Allocator&gt;</ref>(*this);</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"></highlight></codeline>
+<codeline lineno="252"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"></highlight></codeline>
+<codeline lineno="254"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/>//<sp/>SRC_LIB_STORAGE_ORDERPRESERVINGDICTIONARY_H_</highlight></codeline>
+    </programlisting>
+    <location file="/home/grund/hyrise/src/lib/storage/OrderPreservingDictionary.h"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,116 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="classhyrise_1_1access_1_1_column_sorter" kind="class" prot="public">
+    <compoundname>hyrise::access::ColumnSorter</compoundname>
+    <innerclass refid="structhyrise_1_1access_1_1_column_sorter_1_1pair" prot="private">hyrise::access::ColumnSorter::pair</innerclass>
+    <templateparamlist>
+      <param>
+        <type>typename</type>
+        <declname>T</declname>
+        <defname>T</defname>
+      </param>
+      <param>
+        <type>template&lt; typename T &gt; class</type>
+        <declname>ExtractFunctor</declname>
+        <defname>ExtractFunctor</defname>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="private-type">
+      <memberdef kind="typedef" id="classhyrise_1_1access_1_1_column_sorter_1a4351b10f00fedc430059d189f1eef2a9" prot="private" static="no">
+        <type>struct <ref refid="structhyrise_1_1access_1_1_column_sorter_1_1pair" kindref="compound">hyrise::access::ColumnSorter::pair</ref></type>
+        <definition>typedef struct hyrise::access::ColumnSorter::pair  hyrise::access::ColumnSorter&lt; T, ExtractFunctor &gt;::pair_t</definition>
+        <argsstring></argsstring>
+        <name>pair_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/SortScan.cpp" line="39"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classhyrise_1_1access_1_1_column_sorter_1a0e2c5dec5a5c4257bacc847a469c4537" prot="private" static="no" mutable="no">
+        <type>const <ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">storage::c_atable_ptr_t</ref> &amp;</type>
+        <definition>const storage::c_atable_ptr_t&amp; hyrise::access::ColumnSorter&lt; T, ExtractFunctor &gt;::_t</definition>
+        <argsstring></argsstring>
+        <name>_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/SortScan.cpp" line="41" bodyfile="/home/grund/hyrise/src/lib/access/SortScan.cpp" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhyrise_1_1access_1_1_column_sorter_1a85fb23f2d4546b8ae1f6e8b1e09e9729" prot="private" static="no" mutable="no">
+        <type><ref refid="storage__types_8h_1a5ce4ecb27464dc24ba394527510dd89b" kindref="member">field_t</ref></type>
+        <definition>field_t hyrise::access::ColumnSorter&lt; T, ExtractFunctor &gt;::_f</definition>
+        <argsstring></argsstring>
+        <name>_f</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/SortScan.cpp" line="42" bodyfile="/home/grund/hyrise/src/lib/access/SortScan.cpp" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classhyrise_1_1access_1_1_column_sorter_1a13f352d775e1aeaa4a5730869ec6a131" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>hyrise::access::ColumnSorter&lt; T, ExtractFunctor &gt;::ColumnSorter</definition>
+        <argsstring>(const storage::c_atable_ptr_t &amp;t, const field_t f)</argsstring>
+        <name>ColumnSorter</name>
+        <param>
+          <type>const <ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">storage::c_atable_ptr_t</ref> &amp;</type>
+          <declname>t</declname>
+        </param>
+        <param>
+          <type>const <ref refid="storage__types_8h_1a5ce4ecb27464dc24ba394527510dd89b" kindref="member">field_t</ref></type>
+          <declname>f</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/SortScan.cpp" line="48" bodyfile="/home/grund/hyrise/src/lib/access/SortScan.cpp" bodystart="45" bodyend="49"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1access_1_1_column_sorter_1ae5deca4b1a1c2b2433f13d848fe8e9e0" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::vector&lt; <ref refid="storage__types_8h_1a866dd5ae291f599db49986f6aa5ba77a" kindref="member">pos_t</ref> &gt; *</type>
+        <definition>std::vector&lt;pos_t&gt;* hyrise::access::ColumnSorter&lt; T, ExtractFunctor &gt;::sort</definition>
+        <argsstring>() const </argsstring>
+        <name>sort</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/SortScan.cpp" line="51" bodyfile="/home/grund/hyrise/src/lib/access/SortScan.cpp" bodystart="51" bodyend="69"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1635">
+        <label>hyrise::access::ColumnSorter&lt; T, ExtractFunctor &gt;</label>
+        <link refid="classhyrise_1_1access_1_1_column_sorter"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/access/SortScan.cpp" line="35" bodyfile="/home/grund/hyrise/src/lib/access/SortScan.cpp" bodystart="35" bodyend="70"/>
+    <listofallmembers>
+      <member refid="classhyrise_1_1access_1_1_column_sorter_1a85fb23f2d4546b8ae1f6e8b1e09e9729" prot="private" virt="non-virtual"><scope>hyrise::access::ColumnSorter</scope><name>_f</name></member>
+      <member refid="classhyrise_1_1access_1_1_column_sorter_1a0e2c5dec5a5c4257bacc847a469c4537" prot="private" virt="non-virtual"><scope>hyrise::access::ColumnSorter</scope><name>_t</name></member>
+      <member refid="classhyrise_1_1access_1_1_column_sorter_1a13f352d775e1aeaa4a5730869ec6a131" prot="public" virt="non-virtual"><scope>hyrise::access::ColumnSorter</scope><name>ColumnSorter</name></member>
+      <member refid="classhyrise_1_1access_1_1_column_sorter_1a4351b10f00fedc430059d189f1eef2a9" prot="private" virt="non-virtual"><scope>hyrise::access::ColumnSorter</scope><name>pair_t</name></member>
+      <member refid="classhyrise_1_1access_1_1_column_sorter_1ae5deca4b1a1c2b2433f13d848fe8e9e0" prot="public" virt="non-virtual"><scope>hyrise::access::ColumnSorter</scope><name>sort</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

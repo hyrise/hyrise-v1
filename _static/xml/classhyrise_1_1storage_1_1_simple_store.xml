@@ -1,0 +1,749 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="classhyrise_1_1storage_1_1_simple_store" kind="class" prot="public">
+    <compoundname>hyrise::storage::SimpleStore</compoundname>
+    <basecompoundref refid="class_abstract_table" prot="public" virt="non-virtual">AbstractTable</basecompoundref>
+    <includes refid="_simple_store_8h" local="no">SimpleStore.h</includes>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classhyrise_1_1storage_1_1_simple_store_1a799c62c65580c7d3319a909e62cf4a06" prot="public" static="no">
+        <type>RawTable</type>
+        <definition>typedef RawTable hyrise::storage::SimpleStore::delta_table_t</definition>
+        <argsstring></argsstring>
+        <name>delta_table_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/SimpleStore.h" line="23" bodyfile="/home/grund/hyrise/src/lib/storage/SimpleStore.h" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classhyrise_1_1storage_1_1_simple_store_1a16abce8ae71f807b56495851c0bd358a" prot="public" static="no">
+        <type><ref refid="class_abstract_table" kindref="compound">AbstractTable</ref></type>
+        <definition>typedef AbstractTable hyrise::storage::SimpleStore::main_table_t</definition>
+        <argsstring></argsstring>
+        <name>main_table_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/SimpleStore.h" line="24" bodyfile="/home/grund/hyrise/src/lib/storage/SimpleStore.h" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classhyrise_1_1storage_1_1_simple_store_1a02a793bf9164b29c44a98f339313a6ce" prot="private" static="no" mutable="no">
+        <type><ref refid="namespacehyrise_1_1storage_1a21d5e900c20019710828c453eaded1ee" kindref="member">hyrise::storage::atable_ptr_t</ref></type>
+        <definition>hyrise::storage::atable_ptr_t hyrise::storage::SimpleStore::_main</definition>
+        <argsstring></argsstring>
+        <name>_main</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/SimpleStore.h" line="18" bodyfile="/home/grund/hyrise/src/lib/storage/SimpleStore.h" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhyrise_1_1storage_1_1_simple_store_1a6c258e9134eb3957d531e6e176e4ac1c" prot="private" static="no" mutable="no">
+        <type>std::shared_ptr&lt; RawTable&lt;&gt; &gt;</type>
+        <definition>std::shared_ptr&lt;RawTable&lt;&gt; &gt; hyrise::storage::SimpleStore::_delta</definition>
+        <argsstring></argsstring>
+        <name>_delta</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/SimpleStore.h" line="19" bodyfile="/home/grund/hyrise/src/lib/storage/SimpleStore.h" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhyrise_1_1storage_1_1_simple_store_1ab3bf3741ce726bb157c0612844c92b4d" prot="private" static="no" mutable="no">
+        <type>std::unique_ptr&lt; <ref refid="class_table_merger" kindref="compound">TableMerger</ref> &gt;</type>
+        <definition>std::unique_ptr&lt;TableMerger&gt; hyrise::storage::SimpleStore::_merger</definition>
+        <argsstring></argsstring>
+        <name>_merger</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/SimpleStore.h" line="155" bodyfile="/home/grund/hyrise/src/lib/storage/SimpleStore.h" bodystart="155" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classhyrise_1_1storage_1_1_simple_store_1a75afd6cde8cab89760cd4fa24ccb8308" prot="public" static="no" const="no" explicit="yes" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>hyrise::storage::SimpleStore::SimpleStore</definition>
+        <argsstring>(hyrise::storage::atable_ptr_t t)</argsstring>
+        <name>SimpleStore</name>
+        <param>
+          <type><ref refid="namespacehyrise_1_1storage_1a21d5e900c20019710828c453eaded1ee" kindref="member">hyrise::storage::atable_ptr_t</ref></type>
+          <declname>t</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/SimpleStore.h" line="26" bodyfile="/home/grund/hyrise/src/lib/storage/SimpleStore.cpp" bodystart="16" bodyend="19"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1storage_1_1_simple_store_1ac83e35b300b00752aeb4943caec3a5f7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual hyrise::storage::SimpleStore::~SimpleStore</definition>
+        <argsstring>()</argsstring>
+        <name>~SimpleStore</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/SimpleStore.h" line="28" bodyfile="/home/grund/hyrise/src/lib/storage/SimpleStore.h" bodystart="28" bodyend="28"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1storage_1_1_simple_store_1aac60eebabc154fadd77d2b1eae49e4e2" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>size_t</type>
+        <definition>size_t hyrise::storage::SimpleStore::columnCount</definition>
+        <argsstring>() const </argsstring>
+        <name>columnCount</name>
+        <reimplements refid="class_abstract_table_1a9ba326d4ed695ff02dcdc0dd125fd16c">columnCount</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="see"><para><ref refid="class_abstract_table" kindref="compound">AbstractTable</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/SimpleStore.h" line="33" bodyfile="/home/grund/hyrise/src/lib/storage/SimpleStore.cpp" bodystart="39" bodyend="41"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1storage_1_1_simple_store_1a2e8a3b054c6cfd99a5b970870823380e" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>size_t</type>
+        <definition>size_t hyrise::storage::SimpleStore::size</definition>
+        <argsstring>() const </argsstring>
+        <name>size</name>
+        <reimplements refid="class_abstract_table_1a2b3fde5fb0c70f288eda47c4c66bb151">size</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="see"><para><ref refid="class_abstract_table" kindref="compound">AbstractTable</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/SimpleStore.h" line="38" bodyfile="/home/grund/hyrise/src/lib/storage/SimpleStore.cpp" bodystart="35" bodyend="37"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1storage_1_1_simple_store_1a14d67dbdaf5635c9470590519644ce19" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type><ref refid="namespacehyrise_1_1storage_1a5a738eaf9cb0a700c3f988e48cfe05d3" kindref="member">table_id_t</ref></type>
+        <definition>table_id_t hyrise::storage::SimpleStore::subtableCount</definition>
+        <argsstring>() const </argsstring>
+        <name>subtableCount</name>
+        <reimplements refid="class_abstract_table_1af5330c0a617946ad538cacea21ba7639">subtableCount</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="see"><para><ref refid="class_abstract_table" kindref="compound">AbstractTable</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/SimpleStore.h" line="43" bodyfile="/home/grund/hyrise/src/lib/storage/SimpleStore.h" bodystart="43" bodyend="43"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1storage_1_1_simple_store_1aab14539cc8f384c354d1b10ff63c62f2" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>const <ref refid="class_column_metadata" kindref="compound">ColumnMetadata</ref> *</type>
+        <definition>const ColumnMetadata* hyrise::storage::SimpleStore::metadataAt</definition>
+        <argsstring>(size_t c, size_t r, table_id_t t) const </argsstring>
+        <name>metadataAt</name>
+        <reimplements refid="class_abstract_table_1a7a16a970c5e9229616b984972d1b44b9">metadataAt</reimplements>
+        <param>
+          <type>size_t</type>
+          <declname>c</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>r</declname>
+        </param>
+        <param>
+          <type><ref refid="namespacehyrise_1_1storage_1a5a738eaf9cb0a700c3f988e48cfe05d3" kindref="member">table_id_t</ref></type>
+          <declname>t</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="see"><para><ref refid="class_abstract_table" kindref="compound">AbstractTable</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/SimpleStore.h" line="48" bodyfile="/home/grund/hyrise/src/lib/storage/SimpleStore.h" bodystart="48" bodyend="48"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1storage_1_1_simple_store_1aabafdeebf9458fbdcd917c00479dc07e" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="namespacehyrise_1_1storage_1a21d5e900c20019710828c453eaded1ee" kindref="member">hyrise::storage::atable_ptr_t</ref></type>
+        <definition>hyrise::storage::atable_ptr_t hyrise::storage::SimpleStore::copy_structure_modifiable</definition>
+        <argsstring>(const field_list_t *fields=nullptr, const size_t initial_size=0, const bool with_containers=true) const </argsstring>
+        <name>copy_structure_modifiable</name>
+        <reimplements refid="class_abstract_table_1ab2e5350c658908dc343dd2b8c36eed14">copy_structure_modifiable</reimplements>
+        <param>
+          <type>const <ref refid="namespacehyrise_1_1storage_1aa2c4369081de5fd9f081ba05ae7531f7" kindref="member">field_list_t</ref> *</type>
+          <declname>fields</declname>
+          <defval><ref refid="csb__tree_8cpp_1ab979d9d4b4923f7c54d6caa6e1a61936" kindref="member">nullptr</ref></defval>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>initial_size</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>const bool</type>
+          <declname>with_containers</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="see"><para><ref refid="class_abstract_table" kindref="compound">AbstractTable</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/SimpleStore.h" line="55" bodyfile="/home/grund/hyrise/src/lib/storage/SimpleStore.h" bodystart="53" bodyend="57"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1storage_1_1_simple_store_1ae449c9db44cadd5d4120856fc8f9b0ac" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void hyrise::storage::SimpleStore::setValue</definition>
+        <argsstring>(const size_t &amp;column, const size_t &amp;row, const T &amp;value)</argsstring>
+        <name>setValue</name>
+        <param>
+          <type>const size_t &amp;</type>
+          <declname>column</declname>
+        </param>
+        <param>
+          <type>const size_t &amp;</type>
+          <declname>row</declname>
+        </param>
+        <param>
+          <type>const T &amp;</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/SimpleStore.h" line="60" bodyfile="/home/grund/hyrise/src/lib/storage/SimpleStore.h" bodystart="60" bodyend="67"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1storage_1_1_simple_store_1a5e8704607538f7222f991684a93d4eb4" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+        </templateparamlist>
+        <type>T</type>
+        <definition>T hyrise::storage::SimpleStore::getValue</definition>
+        <argsstring>(const size_t &amp;column, const size_t &amp;row) const </argsstring>
+        <name>getValue</name>
+        <param>
+          <type>const size_t &amp;</type>
+          <declname>column</declname>
+        </param>
+        <param>
+          <type>const size_t &amp;</type>
+          <declname>row</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/SimpleStore.h" line="70" bodyfile="/home/grund/hyrise/src/lib/storage/SimpleStore.h" bodystart="70" bodyend="77"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1storage_1_1_simple_store_1a988d95545a47b56ad9f3eb560bf1756c" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type><ref refid="class_value_id" kindref="compound">ValueId</ref></type>
+        <definition>ValueId hyrise::storage::SimpleStore::getValueId</definition>
+        <argsstring>(const size_t column, const size_t row) const </argsstring>
+        <name>getValueId</name>
+        <reimplements refid="class_abstract_table_1ab0dc4d8eaa3d5b2022d2f0ba1d873a14">getValueId</reimplements>
+        <param>
+          <type>const size_t</type>
+          <declname>column</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>row</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="see"><para><ref refid="class_abstract_table" kindref="compound">AbstractTable</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/SimpleStore.h" line="82" bodyfile="/home/grund/hyrise/src/lib/storage/SimpleStore.cpp" bodystart="68" bodyend="70"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1storage_1_1_simple_store_1a99c4d0b57761231933baef127b97337e" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void hyrise::storage::SimpleStore::setValueId</definition>
+        <argsstring>(const size_t column, const size_t row, const ValueId valueId)</argsstring>
+        <name>setValueId</name>
+        <reimplements refid="class_abstract_table_1ad7fabd72d657d48f1f4380132515b451">setValueId</reimplements>
+        <param>
+          <type>const size_t</type>
+          <declname>column</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>row</declname>
+        </param>
+        <param>
+          <type>const <ref refid="class_value_id" kindref="compound">ValueId</ref></type>
+          <declname>valueId</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="see"><para><ref refid="class_abstract_table" kindref="compound">AbstractTable</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/SimpleStore.h" line="87" bodyfile="/home/grund/hyrise/src/lib/storage/SimpleStore.cpp" bodystart="72" bodyend="74"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1storage_1_1_simple_store_1ae2c66cfa03e9bc8de4586b9c2d072227" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>void *</type>
+        <definition>void * hyrise::storage::SimpleStore::atSlice</definition>
+        <argsstring>(const size_t slice, const size_t row) const </argsstring>
+        <name>atSlice</name>
+        <reimplements refid="class_abstract_table_1a472d2a3dc19e99e640d2b65e81a6d052">atSlice</reimplements>
+        <param>
+          <type>const size_t</type>
+          <declname>slice</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>row</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="see"><para><ref refid="class_abstract_table" kindref="compound">AbstractTable</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/SimpleStore.h" line="92" bodyfile="/home/grund/hyrise/src/lib/storage/SimpleStore.cpp" bodystart="76" bodyend="78"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1storage_1_1_simple_store_1ad20f3053105d46db45b6fd99fdbf0069" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>size_t</type>
+        <definition>size_t hyrise::storage::SimpleStore::getSliceWidth</definition>
+        <argsstring>(const size_t slice) const </argsstring>
+        <name>getSliceWidth</name>
+        <reimplements refid="class_abstract_table_1a560af7bf02ed631dd359b22a62e0bed7">getSliceWidth</reimplements>
+        <param>
+          <type>const size_t</type>
+          <declname>slice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="see"><para><ref refid="class_abstract_table" kindref="compound">AbstractTable</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/SimpleStore.h" line="97" bodyfile="/home/grund/hyrise/src/lib/storage/SimpleStore.cpp" bodystart="80" bodyend="82"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1storage_1_1_simple_store_1ad640c4027bf876c96e4a6ba2f5359fb0" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>const <ref refid="class_abstract_table_1af76ff827deb697db8077a90c450381ab" kindref="member">AbstractTable::SharedDictionaryPtr</ref> &amp;</type>
+        <definition>const AbstractTable::SharedDictionaryPtr &amp; hyrise::storage::SimpleStore::dictionaryAt</definition>
+        <argsstring>(const size_t column, const size_t row=0, const table_id_t table_id=0, const bool of_delta=false) const </argsstring>
+        <name>dictionaryAt</name>
+        <reimplements refid="class_abstract_table_1a001566ba79ef4dfcde544b4867dd69e7">dictionaryAt</reimplements>
+        <param>
+          <type>const size_t</type>
+          <declname>column</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>row</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>const <ref refid="namespacehyrise_1_1storage_1a5a738eaf9cb0a700c3f988e48cfe05d3" kindref="member">table_id_t</ref></type>
+          <declname>table_id</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>const bool</type>
+          <declname>of_delta</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="see"><para><ref refid="class_abstract_table" kindref="compound">AbstractTable</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/SimpleStore.h" line="105" bodyfile="/home/grund/hyrise/src/lib/storage/SimpleStore.cpp" bodystart="54" bodyend="60"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1storage_1_1_simple_store_1affe55ed8a3d5fbab52cce5457344c41a" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>const <ref refid="class_abstract_table_1af76ff827deb697db8077a90c450381ab" kindref="member">AbstractTable::SharedDictionaryPtr</ref> &amp;</type>
+        <definition>const AbstractTable::SharedDictionaryPtr &amp; hyrise::storage::SimpleStore::dictionaryByTableId</definition>
+        <argsstring>(const size_t column, const table_id_t table_id) const </argsstring>
+        <name>dictionaryByTableId</name>
+        <reimplements refid="class_abstract_table_1aa2833dbbbabb49737922e5172f0efff9">dictionaryByTableId</reimplements>
+        <param>
+          <type>const size_t</type>
+          <declname>column</declname>
+        </param>
+        <param>
+          <type>const <ref refid="namespacehyrise_1_1storage_1a5a738eaf9cb0a700c3f988e48cfe05d3" kindref="member">table_id_t</ref></type>
+          <declname>table_id</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="see"><para><ref refid="class_abstract_table" kindref="compound">AbstractTable</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/SimpleStore.h" line="111" bodyfile="/home/grund/hyrise/src/lib/storage/SimpleStore.cpp" bodystart="48" bodyend="52"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1storage_1_1_simple_store_1a14b32151f2728839601cd62c548007be" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void hyrise::storage::SimpleStore::setDictionaryAt</definition>
+        <argsstring>(AbstractTable::SharedDictionaryPtr dict, const size_t column, const size_t row=0, const table_id_t table_id=0)</argsstring>
+        <name>setDictionaryAt</name>
+        <reimplements refid="class_abstract_table_1a15c7e879e77c9586460488e6e442566c">setDictionaryAt</reimplements>
+        <param>
+          <type><ref refid="class_abstract_table_1af76ff827deb697db8077a90c450381ab" kindref="member">AbstractTable::SharedDictionaryPtr</ref></type>
+          <declname>dict</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>column</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>row</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>const <ref refid="namespacehyrise_1_1storage_1a5a738eaf9cb0a700c3f988e48cfe05d3" kindref="member">table_id_t</ref></type>
+          <declname>table_id</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="see"><para><ref refid="class_abstract_table" kindref="compound">AbstractTable</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/SimpleStore.h" line="117" bodyfile="/home/grund/hyrise/src/lib/storage/SimpleStore.cpp" bodystart="43" bodyend="46"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1storage_1_1_simple_store_1a3f3cbaded1d0886b141adac1c6658c52" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>unsigned int</type>
+        <definition>unsigned int hyrise::storage::SimpleStore::sliceCount</definition>
+        <argsstring>() const </argsstring>
+        <name>sliceCount</name>
+        <reimplements refid="class_abstract_table_1a593d49b1ae5ca4a47e5c5c43c1eeb4c8">sliceCount</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Returns the number of slices. <simplesect kind="note"><para>Must be implemented by any derived class! </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/SimpleStore.h" line="119" bodyfile="/home/grund/hyrise/src/lib/storage/SimpleStore.cpp" bodystart="84" bodyend="86"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1storage_1_1_simple_store_1af258b7973507f2eac02a3a51ff7c446d" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>size_t</type>
+        <definition>size_t hyrise::storage::SimpleStore::getSliceForColumn</definition>
+        <argsstring>(size_t) const </argsstring>
+        <name>getSliceForColumn</name>
+        <reimplements refid="class_abstract_table_1a964f6a039d706144a0f07b6e96acac10">getSliceForColumn</reimplements>
+        <param>
+          <type>size_t</type>
+          <defname>column</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/SimpleStore.h" line="121" bodyfile="/home/grund/hyrise/src/lib/storage/SimpleStore.cpp" bodystart="88" bodyend="90"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1storage_1_1_simple_store_1a20835ded347646560df28f074894fe9e" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>size_t</type>
+        <definition>size_t hyrise::storage::SimpleStore::getOffsetInSlice</definition>
+        <argsstring>(size_t) const </argsstring>
+        <name>getOffsetInSlice</name>
+        <reimplements refid="class_abstract_table_1a87503e254e2ec4ad43aa198f254a35e0">getOffsetInSlice</reimplements>
+        <param>
+          <type>size_t</type>
+          <defname>c</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/SimpleStore.h" line="123" bodyfile="/home/grund/hyrise/src/lib/storage/SimpleStore.cpp" bodystart="92" bodyend="94"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1storage_1_1_simple_store_1aaa3485814afde550da1163bb5059d265" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::shared_ptr&lt; <ref refid="classhyrise_1_1storage_1_1_simple_store_1a799c62c65580c7d3319a909e62cf4a06" kindref="member">delta_table_t</ref> &gt;</type>
+        <definition>std::shared_ptr&lt;delta_table_t&gt; hyrise::storage::SimpleStore::getDelta</definition>
+        <argsstring>() const </argsstring>
+        <name>getDelta</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Delta Methods </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/SimpleStore.h" line="127" bodyfile="/home/grund/hyrise/src/lib/storage/SimpleStore.h" bodystart="127" bodyend="127"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1storage_1_1_simple_store_1ac9ecf81bb102579db538c86ab2a382cb" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::shared_ptr&lt; <ref refid="classhyrise_1_1storage_1_1_simple_store_1a16abce8ae71f807b56495851c0bd358a" kindref="member">main_table_t</ref> &gt;</type>
+        <definition>std::shared_ptr&lt;main_table_t&gt; hyrise::storage::SimpleStore::getMain</definition>
+        <argsstring>() const </argsstring>
+        <name>getMain</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/SimpleStore.h" line="128" bodyfile="/home/grund/hyrise/src/lib/storage/SimpleStore.h" bodystart="128" bodyend="128"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1storage_1_1_simple_store_1a542554a914a1ef379f9c4172f4676a41" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type><ref refid="namespacehyrise_1_1storage_1a21d5e900c20019710828c453eaded1ee" kindref="member">hyrise::storage::atable_ptr_t</ref></type>
+        <definition>hyrise::storage::atable_ptr_t hyrise::storage::SimpleStore::copy</definition>
+        <argsstring>() const </argsstring>
+        <name>copy</name>
+        <reimplements refid="class_abstract_table_1a87134964b75abb36c49d0c44455d23e2">copy</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Disabled Methods </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/SimpleStore.h" line="131" bodyfile="/home/grund/hyrise/src/lib/storage/SimpleStore.cpp" bodystart="96" bodyend="98"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1storage_1_1_simple_store_1aecf3f597b161a4750901206edce9ca0e" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type><ref refid="namespacehyrise_1_1storage_1a21d5e900c20019710828c453eaded1ee" kindref="member">hyrise::storage::atable_ptr_t</ref></type>
+        <definition>hyrise::storage::atable_ptr_t hyrise::storage::SimpleStore::copy_structure</definition>
+        <argsstring>(const field_list_t *fields=nullptr, const bool reuse_dict=false, const size_t initial_size=0, const bool with_containers=true, const bool compressed=false) const </argsstring>
+        <name>copy_structure</name>
+        <reimplements refid="class_abstract_table_1a0439c8c9642d0a5dbbbf2d3e37c690fc">copy_structure</reimplements>
+        <param>
+          <type>const <ref refid="namespacehyrise_1_1storage_1aa2c4369081de5fd9f081ba05ae7531f7" kindref="member">field_list_t</ref> *</type>
+          <declname>fields</declname>
+          <defval><ref refid="csb__tree_8cpp_1ab979d9d4b4923f7c54d6caa6e1a61936" kindref="member">nullptr</ref></defval>
+        </param>
+        <param>
+          <type>const bool</type>
+          <declname>reuse_dict</declname>
+          <defval>false</defval>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>initial_size</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>const bool</type>
+          <declname>with_containers</declname>
+          <defval>true</defval>
+        </param>
+        <param>
+          <type>const bool</type>
+          <declname>compressed</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="see"><para><ref refid="class_abstract_table" kindref="compound">AbstractTable</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/SimpleStore.h" line="140" bodyfile="/home/grund/hyrise/src/lib/storage/SimpleStore.h" bodystart="136" bodyend="142"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1storage_1_1_simple_store_1a5b17a8ec8af1166bba51ce5e7248d1bf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hyrise::storage::SimpleStore::merge</definition>
+        <argsstring>()</argsstring>
+        <name>merge</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/SimpleStore.h" line="144" bodyfile="/home/grund/hyrise/src/lib/storage/SimpleStore.cpp" bodystart="21" bodyend="26"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1storage_1_1_simple_store_1a97c8911ba5b7d5d895a54a1fc94af43d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hyrise::storage::SimpleStore::mergeWith</definition>
+        <argsstring>(std::unique_ptr&lt; TableMerger &gt; merger)</argsstring>
+        <name>mergeWith</name>
+        <param>
+          <type>std::unique_ptr&lt; <ref refid="class_table_merger" kindref="compound">TableMerger</ref> &gt;</type>
+          <declname>merger</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/SimpleStore.h" line="145" bodyfile="/home/grund/hyrise/src/lib/storage/SimpleStore.cpp" bodystart="28" bodyend="33"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1storage_1_1_simple_store_1a25465773b2ade0b731684630f0113a69" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void hyrise::storage::SimpleStore::print</definition>
+        <argsstring>(const size_t limit=(size_t)-1) const </argsstring>
+        <name>print</name>
+        <reimplements refid="class_abstract_table_1a64faa3ae981d0b077787fbd60c46ede1">print</reimplements>
+        <param>
+          <type>const size_t</type>
+          <declname>limit</declname>
+          <defval>(size_t)-1</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Prints the table </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/SimpleStore.h" line="146" bodyfile="/home/grund/hyrise/src/lib/storage/SimpleStore.cpp" bodystart="62" bodyend="65"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classhyrise_1_1storage_1_1_simple_store_1a0432f5337e50e5950f6a8434e9b112cd" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hyrise::storage::SimpleStore::createDelta</definition>
+        <argsstring>()</argsstring>
+        <name>createDelta</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Create the delta partition based on the structure of the main table </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/SimpleStore.h" line="153" bodyfile="/home/grund/hyrise/src/lib/storage/SimpleStore.cpp" bodystart="12" bodyend="14"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2869">
+        <label>AbstractTable</label>
+        <link refid="class_abstract_table"/>
+        <childnode refid="2870" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2870">
+        <label>AbstractResource</label>
+        <link refid="class_abstract_resource"/>
+      </node>
+      <node id="2868">
+        <label>hyrise::storage::SimpleStore</label>
+        <link refid="classhyrise_1_1storage_1_1_simple_store"/>
+        <childnode refid="2869" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2872">
+        <label>AbstractTable</label>
+        <link refid="class_abstract_table"/>
+        <childnode refid="2873" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2873">
+        <label>AbstractResource</label>
+        <link refid="class_abstract_resource"/>
+      </node>
+      <node id="2871">
+        <label>hyrise::storage::SimpleStore</label>
+        <link refid="classhyrise_1_1storage_1_1_simple_store"/>
+        <childnode refid="2872" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/storage/SimpleStore.h" line="14" bodyfile="/home/grund/hyrise/src/lib/storage/SimpleStore.h" bodystart="14" bodyend="157"/>
+    <listofallmembers>
+      <member refid="classhyrise_1_1storage_1_1_simple_store_1a6c258e9134eb3957d531e6e176e4ac1c" prot="private" virt="non-virtual"><scope>hyrise::storage::SimpleStore</scope><name>_delta</name></member>
+      <member refid="classhyrise_1_1storage_1_1_simple_store_1a02a793bf9164b29c44a98f339313a6ce" prot="private" virt="non-virtual"><scope>hyrise::storage::SimpleStore</scope><name>_main</name></member>
+      <member refid="classhyrise_1_1storage_1_1_simple_store_1ab3bf3741ce726bb157c0612844c92b4d" prot="private" virt="non-virtual"><scope>hyrise::storage::SimpleStore</scope><name>_merger</name></member>
+      <member refid="class_abstract_table_1a0d4b411db86931d15cc643a2883ffe59" prot="public" virt="non-virtual"><scope>hyrise::storage::SimpleStore</scope><name>AbstractTable</name></member>
+      <member refid="classhyrise_1_1storage_1_1_simple_store_1ae2c66cfa03e9bc8de4586b9c2d072227" prot="public" virt="virtual"><scope>hyrise::storage::SimpleStore</scope><name>atSlice</name></member>
+      <member refid="classhyrise_1_1storage_1_1_simple_store_1aac60eebabc154fadd77d2b1eae49e4e2" prot="public" virt="virtual"><scope>hyrise::storage::SimpleStore</scope><name>columnCount</name></member>
+      <member refid="class_abstract_table_1af716c04f38a6ab47b277911baf050c9d" prot="public" virt="non-virtual"><scope>hyrise::storage::SimpleStore</scope><name>contentEquals</name></member>
+      <member refid="classhyrise_1_1storage_1_1_simple_store_1a542554a914a1ef379f9c4172f4676a41" prot="public" virt="virtual"><scope>hyrise::storage::SimpleStore</scope><name>copy</name></member>
+      <member refid="classhyrise_1_1storage_1_1_simple_store_1aecf3f597b161a4750901206edce9ca0e" prot="public" virt="virtual"><scope>hyrise::storage::SimpleStore</scope><name>copy_structure</name></member>
+      <member refid="classhyrise_1_1storage_1_1_simple_store_1aabafdeebf9458fbdcd917c00479dc07e" prot="public" virt="non-virtual"><scope>hyrise::storage::SimpleStore</scope><name>copy_structure_modifiable</name></member>
+      <member refid="class_abstract_table_1afbbf69e94a282a71fb1ecedd72ca8824" prot="public" virt="non-virtual"><scope>hyrise::storage::SimpleStore</scope><name>copyRowFrom</name></member>
+      <member refid="class_abstract_table_1a4361f683288a0d1360227b309ca625f6" prot="public" virt="non-virtual"><scope>hyrise::storage::SimpleStore</scope><name>copyValueFrom</name></member>
+      <member refid="class_abstract_table_1a0e1dd83cf4622413949542ecc0604bb7" prot="public" virt="non-virtual"><scope>hyrise::storage::SimpleStore</scope><name>copyValueFrom</name></member>
+      <member refid="class_abstract_table_1ae66e82c1f4eb0001f747af5bcf8a4ef1" prot="public" virt="non-virtual"><scope>hyrise::storage::SimpleStore</scope><name>copyValueFrom</name></member>
+      <member refid="class_abstract_table_1a85b7d9471c86bd31879c0f6378071b9c" prot="public" virt="non-virtual"><scope>hyrise::storage::SimpleStore</scope><name>copyValueIds</name></member>
+      <member refid="classhyrise_1_1storage_1_1_simple_store_1a0432f5337e50e5950f6a8434e9b112cd" prot="private" virt="non-virtual"><scope>hyrise::storage::SimpleStore</scope><name>createDelta</name></member>
+      <member refid="classhyrise_1_1storage_1_1_simple_store_1a799c62c65580c7d3319a909e62cf4a06" prot="public" virt="non-virtual"><scope>hyrise::storage::SimpleStore</scope><name>delta_table_t</name></member>
+      <member refid="class_abstract_table_1ab1d04fdc926954e4027fb883abab1d73" prot="public" virt="non-virtual"><scope>hyrise::storage::SimpleStore</scope><name>dictionaries</name></member>
+      <member refid="classhyrise_1_1storage_1_1_simple_store_1ad640c4027bf876c96e4a6ba2f5359fb0" prot="public" virt="virtual"><scope>hyrise::storage::SimpleStore</scope><name>dictionaryAt</name></member>
+      <member refid="classhyrise_1_1storage_1_1_simple_store_1affe55ed8a3d5fbab52cce5457344c41a" prot="public" virt="virtual"><scope>hyrise::storage::SimpleStore</scope><name>dictionaryByTableId</name></member>
+      <member refid="class_abstract_table_1a1d792fb6711c4ea00e4662576c1c3dc8" prot="public" virt="non-virtual"><scope>hyrise::storage::SimpleStore</scope><name>generation</name></member>
+      <member refid="class_abstract_table_1a3467bc6159aa361db993c3fc56584789" prot="public" virt="virtual"><scope>hyrise::storage::SimpleStore</scope><name>getAttributeVectors</name></member>
+      <member refid="classhyrise_1_1storage_1_1_simple_store_1aaa3485814afde550da1163bb5059d265" prot="public" virt="non-virtual"><scope>hyrise::storage::SimpleStore</scope><name>getDelta</name></member>
+      <member refid="classhyrise_1_1storage_1_1_simple_store_1ac9ecf81bb102579db538c86ab2a382cb" prot="public" virt="non-virtual"><scope>hyrise::storage::SimpleStore</scope><name>getMain</name></member>
+      <member refid="classhyrise_1_1storage_1_1_simple_store_1a20835ded347646560df28f074894fe9e" prot="public" virt="virtual"><scope>hyrise::storage::SimpleStore</scope><name>getOffsetInSlice</name></member>
+      <member refid="classhyrise_1_1storage_1_1_simple_store_1af258b7973507f2eac02a3a51ff7c446d" prot="public" virt="virtual"><scope>hyrise::storage::SimpleStore</scope><name>getSliceForColumn</name></member>
+      <member refid="classhyrise_1_1storage_1_1_simple_store_1ad20f3053105d46db45b6fd99fdbf0069" prot="public" virt="virtual"><scope>hyrise::storage::SimpleStore</scope><name>getSliceWidth</name></member>
+      <member refid="classhyrise_1_1storage_1_1_simple_store_1a5e8704607538f7222f991684a93d4eb4" prot="public" virt="non-virtual"><scope>hyrise::storage::SimpleStore</scope><name>getValue</name></member>
+      <member refid="class_abstract_table_1a6648aba614a398c3243a60b18d5d7dbf" prot="public" virt="non-virtual" ambiguityscope="AbstractTable::"><scope>hyrise::storage::SimpleStore</scope><name>getValue</name></member>
+      <member refid="class_abstract_table_1aac6e3940c4b756a4c627ece2c008782c" prot="public" virt="non-virtual" ambiguityscope="AbstractTable::"><scope>hyrise::storage::SimpleStore</scope><name>getValue</name></member>
+      <member refid="class_abstract_table_1af380b8fd7715abe5988f53b885920e0c" prot="public" virt="non-virtual"><scope>hyrise::storage::SimpleStore</scope><name>getValueForValueId</name></member>
+      <member refid="classhyrise_1_1storage_1_1_simple_store_1a988d95545a47b56ad9f3eb560bf1756c" prot="public" virt="virtual"><scope>hyrise::storage::SimpleStore</scope><name>getValueId</name></member>
+      <member refid="class_abstract_table_1aefae5f6a831167c3d5669be5ba9d87bc" prot="public" virt="non-virtual"><scope>hyrise::storage::SimpleStore</scope><name>getValueIdForValue</name></member>
+      <member refid="class_abstract_table_1acd7ea07c9b1605ca53c7608c7c3b2ea5" prot="public" virt="non-virtual"><scope>hyrise::storage::SimpleStore</scope><name>getValueIdForValueByTableId</name></member>
+      <member refid="classhyrise_1_1storage_1_1_simple_store_1a16abce8ae71f807b56495851c0bd358a" prot="public" virt="non-virtual"><scope>hyrise::storage::SimpleStore</scope><name>main_table_t</name></member>
+      <member refid="classhyrise_1_1storage_1_1_simple_store_1a5b17a8ec8af1166bba51ce5e7248d1bf" prot="public" virt="non-virtual"><scope>hyrise::storage::SimpleStore</scope><name>merge</name></member>
+      <member refid="classhyrise_1_1storage_1_1_simple_store_1a97c8911ba5b7d5d895a54a1fc94af43d" prot="public" virt="non-virtual"><scope>hyrise::storage::SimpleStore</scope><name>mergeWith</name></member>
+      <member refid="class_abstract_table_1a8b854b19026e75eebc02942499a82a21" prot="public" virt="non-virtual"><scope>hyrise::storage::SimpleStore</scope><name>metadata</name></member>
+      <member refid="classhyrise_1_1storage_1_1_simple_store_1aab14539cc8f384c354d1b10ff63c62f2" prot="public" virt="virtual"><scope>hyrise::storage::SimpleStore</scope><name>metadataAt</name></member>
+      <member refid="class_abstract_table_1aa126cb17995eef9d0833ff2a4a673853" prot="public" virt="non-virtual"><scope>hyrise::storage::SimpleStore</scope><name>nameOfColumn</name></member>
+      <member refid="class_abstract_table_1aaea606e4fd8c92a43febced405de1c6c" prot="public" virt="non-virtual"><scope>hyrise::storage::SimpleStore</scope><name>numberOfColumn</name></member>
+      <member refid="classhyrise_1_1storage_1_1_simple_store_1a25465773b2ade0b731684630f0113a69" prot="public" virt="virtual"><scope>hyrise::storage::SimpleStore</scope><name>print</name></member>
+      <member refid="class_abstract_table_1ae2f20cf55374dc8560dc4d2e8c4623ec" prot="public" virt="non-virtual"><scope>hyrise::storage::SimpleStore</scope><name>printValue</name></member>
+      <member refid="class_abstract_table_1acf25e9092735089d88c0fd9a1cb02984" prot="public" virt="virtual"><scope>hyrise::storage::SimpleStore</scope><name>reserve</name></member>
+      <member refid="class_abstract_table_1a2c284b3bc7d1ee8522cd02be2fffa3be" prot="public" virt="virtual"><scope>hyrise::storage::SimpleStore</scope><name>resize</name></member>
+      <member refid="classhyrise_1_1storage_1_1_simple_store_1a14b32151f2728839601cd62c548007be" prot="public" virt="virtual"><scope>hyrise::storage::SimpleStore</scope><name>setDictionaryAt</name></member>
+      <member refid="class_abstract_table_1a583da7847c5f08de7ee4288cec78e187" prot="public" virt="non-virtual"><scope>hyrise::storage::SimpleStore</scope><name>setGeneration</name></member>
+      <member refid="classhyrise_1_1storage_1_1_simple_store_1ae449c9db44cadd5d4120856fc8f9b0ac" prot="public" virt="non-virtual"><scope>hyrise::storage::SimpleStore</scope><name>setValue</name></member>
+      <member refid="class_abstract_table_1a50d0ce6998606d864a429002f86ae654" prot="public" virt="non-virtual" ambiguityscope="AbstractTable::"><scope>hyrise::storage::SimpleStore</scope><name>setValue</name></member>
+      <member refid="class_abstract_table_1a453b25a7f8ebe971d82cd5790d4183dd" prot="public" virt="non-virtual" ambiguityscope="AbstractTable::"><scope>hyrise::storage::SimpleStore</scope><name>setValue</name></member>
+      <member refid="classhyrise_1_1storage_1_1_simple_store_1a99c4d0b57761231933baef127b97337e" prot="public" virt="virtual"><scope>hyrise::storage::SimpleStore</scope><name>setValueId</name></member>
+      <member refid="class_abstract_table_1af76ff827deb697db8077a90c450381ab" prot="public" virt="non-virtual"><scope>hyrise::storage::SimpleStore</scope><name>SharedDictionaryPtr</name></member>
+      <member refid="classhyrise_1_1storage_1_1_simple_store_1a75afd6cde8cab89760cd4fa24ccb8308" prot="public" virt="non-virtual"><scope>hyrise::storage::SimpleStore</scope><name>SimpleStore</name></member>
+      <member refid="classhyrise_1_1storage_1_1_simple_store_1a2e8a3b054c6cfd99a5b970870823380e" prot="public" virt="virtual"><scope>hyrise::storage::SimpleStore</scope><name>size</name></member>
+      <member refid="classhyrise_1_1storage_1_1_simple_store_1a3f3cbaded1d0886b141adac1c6658c52" prot="public" virt="virtual"><scope>hyrise::storage::SimpleStore</scope><name>sliceCount</name></member>
+      <member refid="classhyrise_1_1storage_1_1_simple_store_1a14d67dbdaf5635c9470590519644ce19" prot="public" virt="virtual"><scope>hyrise::storage::SimpleStore</scope><name>subtableCount</name></member>
+      <member refid="class_abstract_table_1ad6de2b7c7b99098e9766b060b4d4b8c7" prot="public" virt="non-virtual"><scope>hyrise::storage::SimpleStore</scope><name>typeOfColumn</name></member>
+      <member refid="class_abstract_table_1a55de3a5a31acf6898fb9ddd287b760e3" prot="public" virt="non-virtual"><scope>hyrise::storage::SimpleStore</scope><name>valueExists</name></member>
+      <member refid="class_abstract_table_1a8e1d6f1b61390fc3e6954fbaa1f7745f" prot="public" virt="non-virtual"><scope>hyrise::storage::SimpleStore</scope><name>write</name></member>
+      <member refid="class_abstract_resource_1a4299feff952f974409aaaf52082deadb" prot="public" virt="virtual"><scope>hyrise::storage::SimpleStore</scope><name>~AbstractResource</name></member>
+      <member refid="class_abstract_table_1a957e2dc86a1aa6ffa19b2d8585a1ee91" prot="public" virt="virtual"><scope>hyrise::storage::SimpleStore</scope><name>~AbstractTable</name></member>
+      <member refid="classhyrise_1_1storage_1_1_simple_store_1ac83e35b300b00752aeb4943caec3a5f7" prot="public" virt="virtual"><scope>hyrise::storage::SimpleStore</scope><name>~SimpleStore</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

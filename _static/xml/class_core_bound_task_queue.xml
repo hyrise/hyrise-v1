@@ -1,0 +1,211 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="class_core_bound_task_queue" kind="class" prot="public">
+    <compoundname>CoreBoundTaskQueue</compoundname>
+    <basecompoundref refid="class_abstract_core_bound_task_queue" prot="public" virt="non-virtual">AbstractCoreBoundTaskQueue</basecompoundref>
+    <includes refid="_core_bound_task_queue_8h" local="no">CoreBoundTaskQueue.h</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_core_bound_task_queue_1a83f12fe7f6ff2095118f445aafc6d393" prot="private" static="no" mutable="no">
+        <type>std::queue&lt; std::shared_ptr&lt; <ref refid="class_task" kindref="compound">Task</ref> &gt; &gt;</type>
+        <definition>std::queue&lt;std::shared_ptr&lt;Task&gt; &gt; CoreBoundTaskQueue::_runQueue</definition>
+        <argsstring></argsstring>
+        <name>_runQueue</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/taskscheduler/CoreBoundTaskQueue.h" line="21" bodyfile="/home/grund/hyrise/src/lib/taskscheduler/CoreBoundTaskQueue.h" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_core_bound_task_queue_1a677ebf02dd3904eade429b4f6964b651" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool CoreBoundTaskQueue::_blocked</definition>
+        <argsstring></argsstring>
+        <name>_blocked</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/taskscheduler/CoreBoundTaskQueue.h" line="22" bodyfile="/home/grund/hyrise/src/lib/taskscheduler/CoreBoundTaskQueue.h" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_core_bound_task_queue_1a4171f72e693d78fd1378f380f254dfc9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>CoreBoundTaskQueue::CoreBoundTaskQueue</definition>
+        <argsstring>(int core)</argsstring>
+        <name>CoreBoundTaskQueue</name>
+        <param>
+          <type>int</type>
+          <declname>core</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/taskscheduler/CoreBoundTaskQueue.h" line="28" bodyfile="/home/grund/hyrise/src/lib/taskscheduler/CoreBoundTaskQueue.cpp" bodystart="65" bodyend="68"/>
+      </memberdef>
+      <memberdef kind="function" id="class_core_bound_task_queue_1a0475c2e3b673b5f35f1901b0438405ad" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>CoreBoundTaskQueue::~CoreBoundTaskQueue</definition>
+        <argsstring>()</argsstring>
+        <name>~CoreBoundTaskQueue</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/taskscheduler/CoreBoundTaskQueue.h" line="29" bodyfile="/home/grund/hyrise/src/lib/taskscheduler/CoreBoundTaskQueue.cpp" bodystart="111" bodyend="113"/>
+      </memberdef>
+      <memberdef kind="function" id="class_core_bound_task_queue_1a6ff3c15e3fce5d44042f844cc8f06aac" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void CoreBoundTaskQueue::executeTask</definition>
+        <argsstring>()</argsstring>
+        <name>executeTask</name>
+        <reimplements refid="class_abstract_task_queue_1aecd09a5005f34494694c7c40df1bfd40">executeTask</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/taskscheduler/CoreBoundTaskQueue.h" line="33" bodyfile="/home/grund/hyrise/src/lib/taskscheduler/CoreBoundTaskQueue.cpp" bodystart="17" bodyend="63"/>
+      </memberdef>
+      <memberdef kind="function" id="class_core_bound_task_queue_1a344ae5fc2a5b8dfdf31340dbcdc2a102" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void CoreBoundTaskQueue::push</definition>
+        <argsstring>(std::shared_ptr&lt; Task &gt; task)</argsstring>
+        <name>push</name>
+        <reimplements refid="class_abstract_task_queue_1aed7b0329d177e98b522170e2777b08d0">push</reimplements>
+        <param>
+          <type>std::shared_ptr&lt; <ref refid="class_task" kindref="compound">Task</ref> &gt;</type>
+          <declname>task</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/taskscheduler/CoreBoundTaskQueue.h" line="37" bodyfile="/home/grund/hyrise/src/lib/taskscheduler/CoreBoundTaskQueue.cpp" bodystart="70" bodyend="75"/>
+      </memberdef>
+      <memberdef kind="function" id="class_core_bound_task_queue_1acd98c00e7aa7a1f777aa4feaabca30b7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::queue&lt; std::shared_ptr&lt; <ref refid="class_task" kindref="compound">Task</ref> &gt; &gt;</type>
+        <definition>std::queue&lt; std::shared_ptr&lt; Task &gt; &gt; CoreBoundTaskQueue::stopQueue</definition>
+        <argsstring>()</argsstring>
+        <name>stopQueue</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/taskscheduler/CoreBoundTaskQueue.h" line="41" bodyfile="/home/grund/hyrise/src/lib/taskscheduler/CoreBoundTaskQueue.cpp" bodystart="77" bodyend="99"/>
+      </memberdef>
+      <memberdef kind="function" id="class_core_bound_task_queue_1a478b4226181547d12db55b79e0f60815" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::queue&lt; std::shared_ptr&lt; <ref refid="class_task" kindref="compound">Task</ref> &gt; &gt;</type>
+        <definition>std::queue&lt; std::shared_ptr&lt; Task &gt; &gt; CoreBoundTaskQueue::emptyQueue</definition>
+        <argsstring>()</argsstring>
+        <name>emptyQueue</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>empty queue </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/taskscheduler/CoreBoundTaskQueue.h" line="46" bodyfile="/home/grund/hyrise/src/lib/taskscheduler/CoreBoundTaskQueue.cpp" bodystart="101" bodyend="109"/>
+      </memberdef>
+      <memberdef kind="function" id="class_core_bound_task_queue_1a485f11bd67dbc6219b81bc30041bc446" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool CoreBoundTaskQueue::blocked</definition>
+        <argsstring>()</argsstring>
+        <name>blocked</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/taskscheduler/CoreBoundTaskQueue.h" line="50" bodyfile="/home/grund/hyrise/src/lib/taskscheduler/CoreBoundTaskQueue.h" bodystart="50" bodyend="52"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1651">
+        <label>AbstractCoreBoundTaskQueue</label>
+        <link refid="class_abstract_core_bound_task_queue"/>
+        <childnode refid="1652" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1650">
+        <label>CoreBoundTaskQueue</label>
+        <link refid="class_core_bound_task_queue"/>
+        <childnode refid="1651" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1652">
+        <label>AbstractTaskQueue</label>
+        <link refid="class_abstract_task_queue"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1654">
+        <label>AbstractCoreBoundTaskQueue</label>
+        <link refid="class_abstract_core_bound_task_queue"/>
+        <childnode refid="1655" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1653">
+        <label>CoreBoundTaskQueue</label>
+        <link refid="class_core_bound_task_queue"/>
+        <childnode refid="1654" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1655">
+        <label>AbstractTaskQueue</label>
+        <link refid="class_abstract_task_queue"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/taskscheduler/CoreBoundTaskQueue.h" line="20" bodyfile="/home/grund/hyrise/src/lib/taskscheduler/CoreBoundTaskQueue.h" bodystart="20" bodyend="53"/>
+    <listofallmembers>
+      <member refid="class_core_bound_task_queue_1a677ebf02dd3904eade429b4f6964b651" prot="private" virt="non-virtual"><scope>CoreBoundTaskQueue</scope><name>_blocked</name></member>
+      <member refid="class_abstract_core_bound_task_queue_1a215cead7ca0dc21485d9821dfe7497ec" prot="protected" virt="non-virtual"><scope>CoreBoundTaskQueue</scope><name>_condition</name></member>
+      <member refid="class_abstract_core_bound_task_queue_1aa3dd9778a9e7d1786838364f021589e1" prot="protected" virt="non-virtual"><scope>CoreBoundTaskQueue</scope><name>_core</name></member>
+      <member refid="class_abstract_core_bound_task_queue_1a62a15a3f133da500f9d5b76160e22923" prot="protected" virt="non-virtual"><scope>CoreBoundTaskQueue</scope><name>_queueMutex</name></member>
+      <member refid="class_core_bound_task_queue_1a83f12fe7f6ff2095118f445aafc6d393" prot="private" virt="non-virtual"><scope>CoreBoundTaskQueue</scope><name>_runQueue</name></member>
+      <member refid="class_abstract_core_bound_task_queue_1a005e7155ee34b50422c840d224f64af4" prot="protected" virt="non-virtual"><scope>CoreBoundTaskQueue</scope><name>_status</name></member>
+      <member refid="class_abstract_core_bound_task_queue_1a8720b7ed791a548eaba58107f75f3471" prot="protected" virt="non-virtual"><scope>CoreBoundTaskQueue</scope><name>_thread</name></member>
+      <member refid="class_abstract_core_bound_task_queue_1a995e365dc19c0a554f8dcee5ab185718" prot="protected" virt="non-virtual"><scope>CoreBoundTaskQueue</scope><name>_threadStatusMutex</name></member>
+      <member refid="class_abstract_core_bound_task_queue_1af57347498228714b52e47ff26fe26a4e" prot="protected" virt="non-virtual"><scope>CoreBoundTaskQueue</scope><name>AbstractCoreBoundTaskQueue</name></member>
+      <member refid="class_core_bound_task_queue_1a485f11bd67dbc6219b81bc30041bc446" prot="public" virt="non-virtual"><scope>CoreBoundTaskQueue</scope><name>blocked</name></member>
+      <member refid="class_core_bound_task_queue_1a4171f72e693d78fd1378f380f254dfc9" prot="public" virt="non-virtual"><scope>CoreBoundTaskQueue</scope><name>CoreBoundTaskQueue</name></member>
+      <member refid="class_core_bound_task_queue_1a478b4226181547d12db55b79e0f60815" prot="public" virt="non-virtual"><scope>CoreBoundTaskQueue</scope><name>emptyQueue</name></member>
+      <member refid="class_core_bound_task_queue_1a6ff3c15e3fce5d44042f844cc8f06aac" prot="public" virt="virtual"><scope>CoreBoundTaskQueue</scope><name>executeTask</name></member>
+      <member refid="class_abstract_core_bound_task_queue_1a0cdba0f11717761a48738a15d21abc79" prot="public" virt="non-virtual"><scope>CoreBoundTaskQueue</scope><name>getCore</name></member>
+      <member refid="class_abstract_core_bound_task_queue_1a42352e74b46328e6d16c569f7c2546f6" prot="public" virt="virtual"><scope>CoreBoundTaskQueue</scope><name>join</name></member>
+      <member refid="class_abstract_core_bound_task_queue_1a85d4f9c3023494d3bebc5db8c1be0e32" prot="protected" virt="non-virtual"><scope>CoreBoundTaskQueue</scope><name>launchThread</name></member>
+      <member refid="class_abstract_core_bound_task_queue_1a4af14b478ad97a5d7b5ede1bff3767ed" prot="protected" virt="non-virtual"><scope>CoreBoundTaskQueue</scope><name>logger</name></member>
+      <member refid="class_core_bound_task_queue_1a344ae5fc2a5b8dfdf31340dbcdc2a102" prot="public" virt="virtual"><scope>CoreBoundTaskQueue</scope><name>push</name></member>
+      <member refid="class_abstract_task_queue_1add650c1369aeae30a60974a0fd77c8b0" prot="public" virt="non-virtual"><scope>CoreBoundTaskQueue</scope><name>queue_status_t</name></member>
+      <member refid="class_abstract_task_queue_1a29d1a49db34f9e5e5d83f0d657f6517babbf46a2afa080c3f9d355c407beaa902" prot="public" virt="non-virtual"><scope>CoreBoundTaskQueue</scope><name>RUN</name></member>
+      <member refid="class_abstract_task_queue_1a29d1a49db34f9e5e5d83f0d657f6517badf73f3cfd7d9d951bad5386fb341026e" prot="public" virt="non-virtual"><scope>CoreBoundTaskQueue</scope><name>RUN_UNTIL_DONE</name></member>
+      <member refid="class_abstract_task_queue_1a29d1a49db34f9e5e5d83f0d657f6517ba34b422f4936efbfaec6b980a8fde370e" prot="public" virt="non-virtual"><scope>CoreBoundTaskQueue</scope><name>STARTUP</name></member>
+      <member refid="class_abstract_task_queue_1a29d1a49db34f9e5e5d83f0d657f6517b" prot="public" virt="non-virtual"><scope>CoreBoundTaskQueue</scope><name>status</name></member>
+      <member refid="class_abstract_task_queue_1a29d1a49db34f9e5e5d83f0d657f6517ba16003f747b26f2b4d59ec96bdbe5d3ed" prot="public" virt="non-virtual"><scope>CoreBoundTaskQueue</scope><name>STOPPED</name></member>
+      <member refid="class_core_bound_task_queue_1acd98c00e7aa7a1f777aa4feaabca30b7" prot="public" virt="non-virtual"><scope>CoreBoundTaskQueue</scope><name>stopQueue</name></member>
+      <member refid="class_abstract_task_queue_1a29d1a49db34f9e5e5d83f0d657f6517bab5b55d5fec71f3976fb1767477475a69" prot="public" virt="non-virtual"><scope>CoreBoundTaskQueue</scope><name>TO_STOP</name></member>
+      <member refid="class_abstract_core_bound_task_queue_1a6f7b72ca3a2df66a3f5248ef5bc8ac0c" prot="public" virt="virtual"><scope>CoreBoundTaskQueue</scope><name>~AbstractCoreBoundTaskQueue</name></member>
+      <member refid="class_abstract_task_queue_1af4b704999acefc71422beb78904865bb" prot="public" virt="virtual"><scope>CoreBoundTaskQueue</scope><name>~AbstractTaskQueue</name></member>
+      <member refid="class_core_bound_task_queue_1a0475c2e3b673b5f35f1901b0438405ad" prot="public" virt="non-virtual"><scope>CoreBoundTaskQueue</scope><name>~CoreBoundTaskQueue</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

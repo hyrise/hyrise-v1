@@ -1,0 +1,184 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Installing Hyrise &mdash; HYRISE latest documentation</title>
+    
+    <link rel="stylesheet" href="../_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/breathe.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     'latest',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="HYRISE latest documentation" href="../index.html" />
+    <link rel="up" title="Getting Started" href="../getting_started.html" />
+    <link rel="next" title="Loading from MySQL" href="tutorial_mysql_load.html" />
+    <link rel="prev" title="Getting Started" href="../getting_started.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="tutorial_mysql_load.html" title="Loading from MySQL"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../getting_started.html" title="Getting Started"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">HYRISE latest documentation</a> &raquo;</li>
+          <li><a href="../getting_started.html" accesskey="U">Getting Started</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/hyrise.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../getting_started.html">Getting Started</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="">Installing Hyrise</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#linux-ubuntu-initial-setup">Linux(Ubuntu) - Initial Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#linux-ubuntu-installation">Linux(Ubuntu) - Installation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#build-the-project">Build the project</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#first-steps">First steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_mysql_load.html">Loading from MySQL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_querying.html">JSON Queries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_write_ops.html">Writing your own PlanOperation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture.html">Implementation Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../query_execution.html">HYRISE Query Execution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developing.html">Developing with HYRISE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">HYRISE &amp; Development FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../proposals.html">Proposals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doxygen.html">Doxygen Documentation</a></li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../getting_started.html"
+                        title="previous chapter">Getting Started</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="tutorial_mysql_load.html"
+                        title="next chapter">Loading from MySQL</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/gettingstarted/installing_hyrise.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="installing-hyrise">
+<h1>Installing Hyrise<a class="headerlink" href="#installing-hyrise" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="linux-ubuntu-initial-setup">
+<h2>Linux(Ubuntu) - Initial Setup<a class="headerlink" href="#linux-ubuntu-initial-setup" title="Permalink to this headline">¶</a></h2>
+<p>Install base requisites via:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">openssh</span><span class="o">-</span><span class="n">server</span> <span class="n">git</span><span class="o">-</span><span class="n">core</span>
+</pre></div>
+</div>
+<p>Initial git setup:</p>
+<div class="highlight-c++"><pre>git config --global user.name "Your Name"
+git config --global user.email your@emailAdress.com</pre>
+</div>
+<p>Now you can create your own copy of hyrise on your local disk. This command will create a new folder &#8220;hyrise&#8221; containing the project.:</p>
+<div class="highlight-c++"><pre>git clone git@github.com:hyrise/hyrise.git</pre>
+</div>
+<p>Now change to the new directory epic-hyrise and initialize and update submodules:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">cd</span> <span class="n">hyrise</span>
+<span class="n">git</span> <span class="n">submodule</span> <span class="n">update</span> <span class="o">--</span><span class="n">init</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="linux-ubuntu-installation">
+<h2>Linux(Ubuntu) - Installation<a class="headerlink" href="#linux-ubuntu-installation" title="Permalink to this headline">¶</a></h2>
+<p>For Ubuntu, we provide a set of automatic scripts to install all necessary dependencies:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">cd</span> <span class="n">tools</span><span class="o">/</span><span class="n">autosetup</span>
+<span class="p">.</span><span class="o">/</span><span class="n">install</span><span class="p">.</span><span class="n">sh</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="build-the-project">
+<h2>Build the project<a class="headerlink" href="#build-the-project" title="Permalink to this headline">¶</a></h2>
+<p>Go back to the main directory and build the project:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">cd</span> <span class="p">..</span><span class="o">/</span><span class="p">..</span><span class="o">/</span>
+<span class="n">make</span>
+</pre></div>
+</div>
+<p>You should see something akin to:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="kt">DIR</span> <span class="n">build</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">helper</span>
+<span class="p">...</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="first-steps">
+<h2>First steps<a class="headerlink" href="#first-steps" title="Permalink to this headline">¶</a></h2>
+<p>Having build HYRISE, you should now head over to <tt class="xref doc docutils literal"><span class="pre">json_queries</span></tt></p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="tutorial_mysql_load.html" title="Loading from MySQL"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../getting_started.html" title="Getting Started"
+             >previous</a> |</li>
+        <li><a href="../index.html">HYRISE latest documentation</a> &raquo;</li>
+          <li><a href="../getting_started.html" >Getting Started</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010-2013, Martin Grund et al.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+  </body>
+</html>

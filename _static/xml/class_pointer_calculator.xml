@@ -1,0 +1,1035 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="class_pointer_calculator" kind="class" prot="public">
+    <compoundname>PointerCalculator</compoundname>
+    <basecompoundref refid="class_abstract_table" prot="public" virt="non-virtual">AbstractTable</basecompoundref>
+    <includes refid="_pointer_calculator_8h" local="no">PointerCalculator.h</includes>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="class_pointer_calculator_1a117a79caba738a178fdf65e43d8e93a5" prot="public" static="no">
+        <type>std::vector&lt; std::shared_ptr&lt; const <ref refid="class_pointer_calculator" kindref="compound">PointerCalculator</ref> &gt; &gt;</type>
+        <definition>typedef std::vector&lt;std::shared_ptr&lt;const PointerCalculator&gt; &gt; PointerCalculator::pc_vector</definition>
+        <argsstring></argsstring>
+        <name>pc_vector</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/PointerCalculator.h" line="93" bodyfile="/home/grund/hyrise/src/lib/storage/PointerCalculator.h" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_pointer_calculator_1a1f408af8ac5043755573b931699876b0" prot="private" static="no" mutable="no">
+        <type><ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref></type>
+        <definition>hyrise::storage::c_atable_ptr_t PointerCalculator::table</definition>
+        <argsstring></argsstring>
+        <name>table</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/PointerCalculator.h" line="16" bodyfile="/home/grund/hyrise/src/lib/storage/PointerCalculator.h" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_pointer_calculator_1aeefc9c692462aaa827cebde4d89c20b6" prot="private" static="no" mutable="no">
+        <type><ref refid="storage__types_8h_1a543d59ef56384af4a7af9aa551bc6825" kindref="member">pos_list_t</ref> *</type>
+        <definition>pos_list_t* PointerCalculator::pos_list</definition>
+        <argsstring></argsstring>
+        <name>pos_list</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/PointerCalculator.h" line="17" bodyfile="/home/grund/hyrise/src/lib/storage/PointerCalculator.h" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_pointer_calculator_1a76ce6e192192101c99ec79374eaf661c" prot="private" static="no" mutable="no">
+        <type><ref refid="storage__types_8h_1a36fbc31395a53b7ece189846e4d3253c" kindref="member">field_list_t</ref> *</type>
+        <definition>field_list_t* PointerCalculator::fields</definition>
+        <argsstring></argsstring>
+        <name>fields</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/PointerCalculator.h" line="18" bodyfile="/home/grund/hyrise/src/lib/storage/PointerCalculator.h" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_pointer_calculator_1ac7f1e2be36bca6fc5119fa3b46231401" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; size_t &gt;</type>
+        <definition>std::vector&lt;size_t&gt; PointerCalculator::slice_for_slice</definition>
+        <argsstring></argsstring>
+        <name>slice_for_slice</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/PointerCalculator.h" line="20" bodyfile="/home/grund/hyrise/src/lib/storage/PointerCalculator.h" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_pointer_calculator_1ab640d0f4071a2d93b6d2936b53483a9f" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; size_t &gt;</type>
+        <definition>std::vector&lt;size_t&gt; PointerCalculator::offset_in_slice</definition>
+        <argsstring></argsstring>
+        <name>offset_in_slice</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/PointerCalculator.h" line="21" bodyfile="/home/grund/hyrise/src/lib/storage/PointerCalculator.h" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_pointer_calculator_1aa095ee7598447699d7c34eaa1c7e4a8f" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; size_t &gt;</type>
+        <definition>std::vector&lt;size_t&gt; PointerCalculator::width_for_slice</definition>
+        <argsstring></argsstring>
+        <name>width_for_slice</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/PointerCalculator.h" line="22" bodyfile="/home/grund/hyrise/src/lib/storage/PointerCalculator.h" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_pointer_calculator_1af973df64326820f2f123fd9b1fc357be" prot="private" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t PointerCalculator::slice_count</definition>
+        <argsstring></argsstring>
+        <name>slice_count</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/PointerCalculator.h" line="23" bodyfile="/home/grund/hyrise/src/lib/storage/PointerCalculator.h" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="class_pointer_calculator_1aafe8c79a4a56ff66a813fb6a817dd47b" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void PointerCalculator::updateFieldMapping</definition>
+        <argsstring>()</argsstring>
+        <name>updateFieldMapping</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/PointerCalculator.h" line="26" bodyfile="/home/grund/hyrise/src/lib/storage/PointerCalculator.cpp" bodystart="53" bodyend="92"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_pointer_calculator_1a021e0ab6ecef3f167c53fa16f26b5028" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>PointerCalculator::PointerCalculator</definition>
+        <argsstring>(hyrise::storage::c_atable_ptr_t t, pos_list_t *pos=nullptr, field_list_t *f=nullptr)</argsstring>
+        <name>PointerCalculator</name>
+        <param>
+          <type><ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref></type>
+          <declname>t</declname>
+        </param>
+        <param>
+          <type><ref refid="storage__types_8h_1a543d59ef56384af4a7af9aa551bc6825" kindref="member">pos_list_t</ref> *</type>
+          <declname>pos</declname>
+          <defval><ref refid="csb__tree_8cpp_1ab979d9d4b4923f7c54d6caa6e1a61936" kindref="member">nullptr</ref></defval>
+        </param>
+        <param>
+          <type><ref refid="storage__types_8h_1a36fbc31395a53b7ece189846e4d3253c" kindref="member">field_list_t</ref> *</type>
+          <declname>f</declname>
+          <defval><ref refid="csb__tree_8cpp_1ab979d9d4b4923f7c54d6caa6e1a61936" kindref="member">nullptr</ref></defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/PointerCalculator.h" line="30" bodyfile="/home/grund/hyrise/src/lib/storage/PointerCalculator.cpp" bodystart="11" bodyend="42"/>
+      </memberdef>
+      <memberdef kind="function" id="class_pointer_calculator_1a582d20194dfa2ff7dbf98455bceed545" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>PointerCalculator::~PointerCalculator</definition>
+        <argsstring>()</argsstring>
+        <name>~PointerCalculator</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/PointerCalculator.h" line="32" bodyfile="/home/grund/hyrise/src/lib/storage/PointerCalculator.cpp" bodystart="48" bodyend="51"/>
+      </memberdef>
+      <memberdef kind="function" id="class_pointer_calculator_1a3cf1d2a7ffa72ff0a2764cdb63b0d4a8" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type><ref refid="namespacehyrise_1_1storage_1a21d5e900c20019710828c453eaded1ee" kindref="member">hyrise::storage::atable_ptr_t</ref></type>
+        <definition>hyrise::storage::atable_ptr_t PointerCalculator::copy</definition>
+        <argsstring>() const </argsstring>
+        <name>copy</name>
+        <reimplements refid="class_abstract_table_1a87134964b75abb36c49d0c44455d23e2">copy</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Create of copy of this table. <simplesect kind="note"><para>Must be implemented by any derived class! </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/PointerCalculator.h" line="34" bodyfile="/home/grund/hyrise/src/lib/storage/PointerCalculator.cpp" bodystart="44" bodyend="46"/>
+      </memberdef>
+      <memberdef kind="function" id="class_pointer_calculator_1a815d82d98a040d150c7040cfc07936de" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void PointerCalculator::setPositions</definition>
+        <argsstring>(const pos_list_t pos)</argsstring>
+        <name>setPositions</name>
+        <param>
+          <type>const <ref refid="storage__types_8h_1a543d59ef56384af4a7af9aa551bc6825" kindref="member">pos_list_t</ref></type>
+          <declname>pos</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/PointerCalculator.h" line="36" bodyfile="/home/grund/hyrise/src/lib/storage/PointerCalculator.cpp" bodystart="94" bodyend="98"/>
+      </memberdef>
+      <memberdef kind="function" id="class_pointer_calculator_1a41061e503e0c43feb1425a47904e5387" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void PointerCalculator::setFields</definition>
+        <argsstring>(const field_list_t f)</argsstring>
+        <name>setFields</name>
+        <param>
+          <type>const <ref refid="storage__types_8h_1a36fbc31395a53b7ece189846e4d3253c" kindref="member">field_list_t</ref></type>
+          <declname>f</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/PointerCalculator.h" line="38" bodyfile="/home/grund/hyrise/src/lib/storage/PointerCalculator.cpp" bodystart="100" bodyend="103"/>
+      </memberdef>
+      <memberdef kind="function" id="class_pointer_calculator_1a655597623a292ec245e5404886effeec" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>const <ref refid="class_column_metadata" kindref="compound">ColumnMetadata</ref> *</type>
+        <definition>const ColumnMetadata * PointerCalculator::metadataAt</definition>
+        <argsstring>(const size_t column_index, const size_t row_index=0, const table_id_t table_id=0) const </argsstring>
+        <name>metadataAt</name>
+        <reimplements refid="class_abstract_table_1a7a16a970c5e9229616b984972d1b44b9">metadataAt</reimplements>
+        <param>
+          <type>const size_t</type>
+          <declname>column</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>row</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>const <ref refid="storage__types_8h_1ab1b21fbdc9fcb935021666db9c910755" kindref="member">table_id_t</ref></type>
+          <declname>table_id</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get the metadata for a certain column. Returns a pointer to a <ref refid="class_column_metadata" kindref="compound">ColumnMetadata</ref> object for a specified column. <simplesect kind="note"><para>Must be implemented by any derived class!</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>column</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Column for which to return the metadata. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>row</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Row in that column (default=0). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>table_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ID of the table from which to extract (default=0). </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/PointerCalculator.h" line="40" bodyfile="/home/grund/hyrise/src/lib/storage/PointerCalculator.cpp" bodystart="105" bodyend="115"/>
+      </memberdef>
+      <memberdef kind="function" id="class_pointer_calculator_1a8659ecf4c3887c5ab74958dc038c16b2" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>const <ref refid="class_abstract_table_1af76ff827deb697db8077a90c450381ab" kindref="member">AbstractTable::SharedDictionaryPtr</ref> &amp;</type>
+        <definition>const AbstractTable::SharedDictionaryPtr &amp; PointerCalculator::dictionaryAt</definition>
+        <argsstring>(const size_t column, const size_t row=0, const table_id_t table_id=0, const bool of_delta=false) const </argsstring>
+        <name>dictionaryAt</name>
+        <reimplements refid="class_abstract_table_1a001566ba79ef4dfcde544b4867dd69e7">dictionaryAt</reimplements>
+        <param>
+          <type>const size_t</type>
+          <declname>column</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>row</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>const <ref refid="storage__types_8h_1ab1b21fbdc9fcb935021666db9c910755" kindref="member">table_id_t</ref></type>
+          <declname>table_id</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>const bool</type>
+          <declname>of_delta</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get the dictionary for a certain column. <simplesect kind="note"><para>Must be implemented by any derived class!</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>column</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Column from which to extract the dictionary. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>row</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Row in that column (default=0). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>table_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ID of the table from which to extract (default=0). </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/PointerCalculator.h" line="42" bodyfile="/home/grund/hyrise/src/lib/storage/PointerCalculator.cpp" bodystart="121" bodyend="137"/>
+      </memberdef>
+      <memberdef kind="function" id="class_pointer_calculator_1a9702060150878b8235ae142439d372e9" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>const <ref refid="class_abstract_table_1af76ff827deb697db8077a90c450381ab" kindref="member">AbstractTable::SharedDictionaryPtr</ref> &amp;</type>
+        <definition>const AbstractTable::SharedDictionaryPtr &amp; PointerCalculator::dictionaryByTableId</definition>
+        <argsstring>(const size_t column, const table_id_t table_id) const </argsstring>
+        <name>dictionaryByTableId</name>
+        <reimplements refid="class_abstract_table_1aa2833dbbbabb49737922e5172f0efff9">dictionaryByTableId</reimplements>
+        <param>
+          <type>const size_t</type>
+          <declname>column</declname>
+        </param>
+        <param>
+          <type>const <ref refid="storage__types_8h_1ab1b21fbdc9fcb935021666db9c910755" kindref="member">table_id_t</ref></type>
+          <declname>table_id</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get the dictionary for a certain column by table ID. <simplesect kind="note"><para>Must be implemented by any derived class!</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>column</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Column from which to extract the dictionary. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>table_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ID of the table from which to extract. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/PointerCalculator.h" line="44" bodyfile="/home/grund/hyrise/src/lib/storage/PointerCalculator.cpp" bodystart="139" bodyend="149"/>
+      </memberdef>
+      <memberdef kind="function" id="class_pointer_calculator_1a410bbd966c46044d32cd19cc897efaa8" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void PointerCalculator::setDictionaryAt</definition>
+        <argsstring>(AbstractTable::SharedDictionaryPtr dict, const size_t column, const size_t row=0, const table_id_t table_id=0)</argsstring>
+        <name>setDictionaryAt</name>
+        <reimplements refid="class_abstract_table_1a15c7e879e77c9586460488e6e442566c">setDictionaryAt</reimplements>
+        <param>
+          <type><ref refid="class_abstract_table_1af76ff827deb697db8077a90c450381ab" kindref="member">AbstractTable::SharedDictionaryPtr</ref></type>
+          <declname>dict</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>column</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>row</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>const <ref refid="storage__types_8h_1ab1b21fbdc9fcb935021666db9c910755" kindref="member">table_id_t</ref></type>
+          <declname>table_id</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Sets the dictionary for a certain column. <simplesect kind="note"><para>Must be implemented by any derived class!</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>dict</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Dictionary to be used. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>column</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Column for which to set the dictionary. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>row</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Row in that column (default=0). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>table_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ID of the table (default=0). </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/PointerCalculator.h" line="46" bodyfile="/home/grund/hyrise/src/lib/storage/PointerCalculator.cpp" bodystart="117" bodyend="119"/>
+      </memberdef>
+      <memberdef kind="function" id="class_pointer_calculator_1a03f11ce31722ff5591c99d7a9dc07aea" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>size_t</type>
+        <definition>size_t PointerCalculator::size</definition>
+        <argsstring>() const </argsstring>
+        <name>size</name>
+        <reimplements refid="class_abstract_table_1a2b3fde5fb0c70f288eda47c4c66bb151">size</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Returns the number of rows in the table <simplesect kind="note"><para>Must be implemented by any derived class! </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/PointerCalculator.h" line="48" bodyfile="/home/grund/hyrise/src/lib/storage/PointerCalculator.cpp" bodystart="151" bodyend="157"/>
+      </memberdef>
+      <memberdef kind="function" id="class_pointer_calculator_1a6cdc6cb26d098bd1366a1a8dd94585db" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>size_t</type>
+        <definition>size_t PointerCalculator::columnCount</definition>
+        <argsstring>() const </argsstring>
+        <name>columnCount</name>
+        <reimplements refid="class_abstract_table_1a9ba326d4ed695ff02dcdc0dd125fd16c">columnCount</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Returns the number of columns. <simplesect kind="note"><para>Must be implemented by any derived class! </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/PointerCalculator.h" line="50" bodyfile="/home/grund/hyrise/src/lib/storage/PointerCalculator.cpp" bodystart="159" bodyend="165"/>
+      </memberdef>
+      <memberdef kind="function" id="class_pointer_calculator_1a4f55ba417b3bda67e0f2028f0fee19c5" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type><ref refid="class_value_id" kindref="compound">ValueId</ref></type>
+        <definition>ValueId PointerCalculator::getValueId</definition>
+        <argsstring>(const size_t column, const size_t row) const </argsstring>
+        <name>getValueId</name>
+        <reimplements refid="class_abstract_table_1ab0dc4d8eaa3d5b2022d2f0ba1d873a14">getValueId</reimplements>
+        <param>
+          <type>const size_t</type>
+          <declname>column</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>row</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Returns the value-ID of a cell. <simplesect kind="note"><para>Must be implemented by any derived class!</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>column</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Column number of the cell. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>row</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Row number of the cell. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/PointerCalculator.h" line="52" bodyfile="/home/grund/hyrise/src/lib/storage/PointerCalculator.cpp" bodystart="167" bodyend="183"/>
+      </memberdef>
+      <memberdef kind="function" id="class_pointer_calculator_1a331fbe7225488eff461f03afe2af1385" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>unsigned</type>
+        <definition>unsigned PointerCalculator::sliceCount</definition>
+        <argsstring>() const </argsstring>
+        <name>sliceCount</name>
+        <reimplements refid="class_abstract_table_1a593d49b1ae5ca4a47e5c5c43c1eeb4c8">sliceCount</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Returns the number of slices. <simplesect kind="note"><para>Must be implemented by any derived class! </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/PointerCalculator.h" line="54" bodyfile="/home/grund/hyrise/src/lib/storage/PointerCalculator.cpp" bodystart="185" bodyend="187"/>
+      </memberdef>
+      <memberdef kind="function" id="class_pointer_calculator_1a6ece7c8d2952d31d65549a106a044003" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>void *</type>
+        <definition>void * PointerCalculator::atSlice</definition>
+        <argsstring>(const size_t slice, const size_t row) const </argsstring>
+        <name>atSlice</name>
+        <reimplements refid="class_abstract_table_1a472d2a3dc19e99e640d2b65e81a6d052">atSlice</reimplements>
+        <param>
+          <type>const size_t</type>
+          <declname>slice</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>row</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Returns a pointer to the memory area of a slice. <simplesect kind="note"><para>Must be implemented by any derived class!</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>slice</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The slice of interest. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>row</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Row in that slice. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_width</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/PointerCalculator.h" line="56" bodyfile="/home/grund/hyrise/src/lib/storage/PointerCalculator.cpp" bodystart="189" bodyend="205"/>
+      </memberdef>
+      <memberdef kind="function" id="class_pointer_calculator_1ae803514afac300057aeeb6ddac347e5a" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>size_t</type>
+        <definition>size_t PointerCalculator::getSliceWidth</definition>
+        <argsstring>(const size_t slice) const </argsstring>
+        <name>getSliceWidth</name>
+        <reimplements refid="class_abstract_table_1a560af7bf02ed631dd359b22a62e0bed7">getSliceWidth</reimplements>
+        <param>
+          <type>const size_t</type>
+          <declname>slice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Returns the width of a slice. <simplesect kind="note"><para>Must be implemented by any derived class!</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>slice</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The slice of interest. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/PointerCalculator.h" line="58" bodyfile="/home/grund/hyrise/src/lib/storage/PointerCalculator.cpp" bodystart="207" bodyend="214"/>
+      </memberdef>
+      <memberdef kind="function" id="class_pointer_calculator_1a98e5c48c56c0ec985d6bc8f1040f22e4" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>size_t</type>
+        <definition>size_t PointerCalculator::getSliceForColumn</definition>
+        <argsstring>(const size_t column) const </argsstring>
+        <name>getSliceForColumn</name>
+        <reimplements refid="class_abstract_table_1a964f6a039d706144a0f07b6e96acac10">getSliceForColumn</reimplements>
+        <param>
+          <type>const size_t</type>
+          <declname>column</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/PointerCalculator.h" line="60" bodyfile="/home/grund/hyrise/src/lib/storage/PointerCalculator.cpp" bodystart="217" bodyend="219"/>
+      </memberdef>
+      <memberdef kind="function" id="class_pointer_calculator_1ac5be7fd6a21ad4cb0ab490e70c06c3ff" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>size_t</type>
+        <definition>size_t PointerCalculator::getOffsetInSlice</definition>
+        <argsstring>(const size_t column) const </argsstring>
+        <name>getOffsetInSlice</name>
+        <reimplements refid="class_abstract_table_1a87503e254e2ec4ad43aa198f254a35e0">getOffsetInSlice</reimplements>
+        <param>
+          <type>const size_t</type>
+          <declname>column</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/PointerCalculator.h" line="62" bodyfile="/home/grund/hyrise/src/lib/storage/PointerCalculator.cpp" bodystart="221" bodyend="223"/>
+      </memberdef>
+      <memberdef kind="function" id="class_pointer_calculator_1abd3140888535aae9047d32b6aca61a56" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void PointerCalculator::print</definition>
+        <argsstring>(const size_t limit=(size_t)-1) const </argsstring>
+        <name>print</name>
+        <reimplements refid="class_abstract_table_1a64faa3ae981d0b077787fbd60c46ede1">print</reimplements>
+        <param>
+          <type>const size_t</type>
+          <declname>limit</declname>
+          <defval>(size_t)-1</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Prints the table </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/PointerCalculator.h" line="64" bodyfile="/home/grund/hyrise/src/lib/storage/PointerCalculator.cpp" bodystart="225" bodyend="227"/>
+      </memberdef>
+      <memberdef kind="function" id="class_pointer_calculator_1a0d4656a36cc61ef2df05622f75c10e7c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void PointerCalculator::sortDictionary</definition>
+        <argsstring>()</argsstring>
+        <name>sortDictionary</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/PointerCalculator.h" line="66" bodyfile="/home/grund/hyrise/src/lib/storage/PointerCalculator.cpp" bodystart="247" bodyend="249"/>
+      </memberdef>
+      <memberdef kind="function" id="class_pointer_calculator_1ad77124460946ed32d18c134b7bf61c00" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string PointerCalculator::printValue</definition>
+        <argsstring>(const size_t column, const size_t row) const </argsstring>
+        <name>printValue</name>
+        <reimplements refid="class_abstract_table_1ae2f20cf55374dc8560dc4d2e8c4623ec">printValue</reimplements>
+        <param>
+          <type>const size_t</type>
+          <declname>column</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>row</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Print the value.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>column</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Column of the cell containing the value. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>row</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Row of the cell containing the value. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/PointerCalculator.h" line="68" bodyfile="/home/grund/hyrise/src/lib/storage/PointerCalculator.cpp" bodystart="229" bodyend="245"/>
+      </memberdef>
+      <memberdef kind="function" id="class_pointer_calculator_1abf54f1ebce9c17b8dcd21f9a725857b9" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type><ref refid="storage__types_8h_1ab1b21fbdc9fcb935021666db9c910755" kindref="member">table_id_t</ref></type>
+        <definition>virtual table_id_t PointerCalculator::subtableCount</definition>
+        <argsstring>() const </argsstring>
+        <name>subtableCount</name>
+        <reimplements refid="class_abstract_table_1af5330c0a617946ad538cacea21ba7639">subtableCount</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Returns the number of horizontal subtables. <simplesect kind="note"><para>Must be implemented by any derived class! </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/PointerCalculator.h" line="70" bodyfile="/home/grund/hyrise/src/lib/storage/PointerCalculator.h" bodystart="70" bodyend="72"/>
+      </memberdef>
+      <memberdef kind="function" id="class_pointer_calculator_1a79728be6c875bba8731be2e42253571a" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t PointerCalculator::getTableRowForRow</definition>
+        <argsstring>(const size_t row) const </argsstring>
+        <name>getTableRowForRow</name>
+        <param>
+          <type>const size_t</type>
+          <declname>row</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/PointerCalculator.h" line="74" bodyfile="/home/grund/hyrise/src/lib/storage/PointerCalculator.cpp" bodystart="251" bodyend="266"/>
+      </memberdef>
+      <memberdef kind="function" id="class_pointer_calculator_1abca668c527de684e3d4df071934d1da9" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t PointerCalculator::getTableColumnForColumn</definition>
+        <argsstring>(const size_t column) const </argsstring>
+        <name>getTableColumnForColumn</name>
+        <param>
+          <type>const size_t</type>
+          <declname>column</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/PointerCalculator.h" line="76" bodyfile="/home/grund/hyrise/src/lib/storage/PointerCalculator.cpp" bodystart="268" bodyend="282"/>
+      </memberdef>
+      <memberdef kind="function" id="class_pointer_calculator_1aeebfa9bef9ec2989eefa2030abbb4fe3" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref></type>
+        <definition>hyrise::storage::c_atable_ptr_t PointerCalculator::getTable</definition>
+        <argsstring>() const </argsstring>
+        <name>getTable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/PointerCalculator.h" line="78" bodyfile="/home/grund/hyrise/src/lib/storage/PointerCalculator.cpp" bodystart="284" bodyend="286"/>
+      </memberdef>
+      <memberdef kind="function" id="class_pointer_calculator_1acbea3ac67f01befefecab60dd8a53bcd" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref></type>
+        <definition>hyrise::storage::c_atable_ptr_t PointerCalculator::getActualTable</definition>
+        <argsstring>() const </argsstring>
+        <name>getActualTable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/PointerCalculator.h" line="80" bodyfile="/home/grund/hyrise/src/lib/storage/PointerCalculator.cpp" bodystart="288" bodyend="296"/>
+      </memberdef>
+      <memberdef kind="function" id="class_pointer_calculator_1a6f57168d74f28df50b332b47917457ca" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>const <ref refid="storage__types_8h_1a543d59ef56384af4a7af9aa551bc6825" kindref="member">pos_list_t</ref> *</type>
+        <definition>const pos_list_t * PointerCalculator::getPositions</definition>
+        <argsstring>() const </argsstring>
+        <name>getPositions</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/PointerCalculator.h" line="82" bodyfile="/home/grund/hyrise/src/lib/storage/PointerCalculator.cpp" bodystart="298" bodyend="300"/>
+      </memberdef>
+      <memberdef kind="function" id="class_pointer_calculator_1a1d3eab6e902f044fc387c43781b91862" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="storage__types_8h_1a543d59ef56384af4a7af9aa551bc6825" kindref="member">pos_list_t</ref></type>
+        <definition>pos_list_t PointerCalculator::getActualTablePositions</definition>
+        <argsstring>() const </argsstring>
+        <name>getActualTablePositions</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/PointerCalculator.h" line="84" bodyfile="/home/grund/hyrise/src/lib/storage/PointerCalculator.cpp" bodystart="302" bodyend="317"/>
+      </memberdef>
+      <memberdef kind="function" id="class_pointer_calculator_1ab11a09122223b8a6af083cc86c839bb9" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type><ref refid="namespacehyrise_1_1storage_1a21d5e900c20019710828c453eaded1ee" kindref="member">hyrise::storage::atable_ptr_t</ref></type>
+        <definition>hyrise::storage::atable_ptr_t PointerCalculator::copy_structure</definition>
+        <argsstring>(const field_list_t *fields=nullptr, const bool reuse_dict=false, const size_t initial_size=0, const bool with_containers=true) const </argsstring>
+        <name>copy_structure</name>
+        <param>
+          <type>const <ref refid="storage__types_8h_1a36fbc31395a53b7ece189846e4d3253c" kindref="member">field_list_t</ref> *</type>
+          <declname>fields</declname>
+          <defval><ref refid="csb__tree_8cpp_1ab979d9d4b4923f7c54d6caa6e1a61936" kindref="member">nullptr</ref></defval>
+        </param>
+        <param>
+          <type>const bool</type>
+          <declname>reuse_dict</declname>
+          <defval>false</defval>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>initial_size</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>const bool</type>
+          <declname>with_containers</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/PointerCalculator.h" line="86" bodyfile="/home/grund/hyrise/src/lib/storage/PointerCalculator.cpp" bodystart="321" bodyend="350"/>
+      </memberdef>
+      <memberdef kind="function" id="class_pointer_calculator_1ae09ea05b16fc99093a4c03a69442f9c9" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>std::shared_ptr&lt; <ref refid="class_pointer_calculator" kindref="compound">PointerCalculator</ref> &gt;</type>
+        <definition>std::shared_ptr&lt; PointerCalculator &gt; PointerCalculator::intersect</definition>
+        <argsstring>(const std::shared_ptr&lt; const PointerCalculator &gt; &amp;other) const </argsstring>
+        <name>intersect</name>
+        <param>
+          <type>const std::shared_ptr&lt; const <ref refid="class_pointer_calculator" kindref="compound">PointerCalculator</ref> &gt; &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/PointerCalculator.h" line="89" bodyfile="/home/grund/hyrise/src/lib/storage/PointerCalculator.cpp" bodystart="352" bodyend="361"/>
+      </memberdef>
+      <memberdef kind="function" id="class_pointer_calculator_1aa297910421ea0308cd6c355164cf1f14" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>std::shared_ptr&lt; <ref refid="class_pointer_calculator" kindref="compound">PointerCalculator</ref> &gt;</type>
+        <definition>std::shared_ptr&lt; PointerCalculator &gt; PointerCalculator::unite</definition>
+        <argsstring>(const std::shared_ptr&lt; const PointerCalculator &gt; &amp;other) const </argsstring>
+        <name>unite</name>
+        <param>
+          <type>const std::shared_ptr&lt; const <ref refid="class_pointer_calculator" kindref="compound">PointerCalculator</ref> &gt; &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/PointerCalculator.h" line="90" bodyfile="/home/grund/hyrise/src/lib/storage/PointerCalculator.cpp" bodystart="369" bodyend="384"/>
+      </memberdef>
+      <memberdef kind="function" id="class_pointer_calculator_1a3b27cda2c208fbed0c7556f1f8ad8651" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>std::shared_ptr&lt; <ref refid="class_pointer_calculator" kindref="compound">PointerCalculator</ref> &gt;</type>
+        <definition>std::shared_ptr&lt; PointerCalculator &gt; PointerCalculator::concatenate</definition>
+        <argsstring>(const std::shared_ptr&lt; const PointerCalculator &gt; &amp;other) const </argsstring>
+        <name>concatenate</name>
+        <param>
+          <type>const std::shared_ptr&lt; const <ref refid="class_pointer_calculator" kindref="compound">PointerCalculator</ref> &gt; &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/PointerCalculator.h" line="91" bodyfile="/home/grund/hyrise/src/lib/storage/PointerCalculator.cpp" bodystart="386" bodyend="406"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="class_pointer_calculator_1ab6ea533aa9ab978a180e1140cd029c43" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::shared_ptr&lt; const <ref refid="class_pointer_calculator" kindref="compound">PointerCalculator</ref> &gt;</type>
+        <definition>std::shared_ptr&lt; const PointerCalculator &gt; PointerCalculator::unite_many</definition>
+        <argsstring>(pc_vector::const_iterator it, pc_vector::const_iterator it_end)</argsstring>
+        <name>unite_many</name>
+        <param>
+          <type>pc_vector::const_iterator</type>
+          <declname>it</declname>
+        </param>
+        <param>
+          <type>pc_vector::const_iterator</type>
+          <declname>it_end</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/PointerCalculator.h" line="94" bodyfile="/home/grund/hyrise/src/lib/storage/PointerCalculator.cpp" bodystart="408" bodyend="418"/>
+      </memberdef>
+      <memberdef kind="function" id="class_pointer_calculator_1ac11c4292f416fbaf332b621d5a697042" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::shared_ptr&lt; const <ref refid="class_pointer_calculator" kindref="compound">PointerCalculator</ref> &gt;</type>
+        <definition>std::shared_ptr&lt; const PointerCalculator &gt; PointerCalculator::concatenate_many</definition>
+        <argsstring>(pc_vector::const_iterator it, pc_vector::const_iterator it_end)</argsstring>
+        <name>concatenate_many</name>
+        <param>
+          <type>pc_vector::const_iterator</type>
+          <declname>it</declname>
+        </param>
+        <param>
+          <type>pc_vector::const_iterator</type>
+          <declname>it_end</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/PointerCalculator.h" line="95" bodyfile="/home/grund/hyrise/src/lib/storage/PointerCalculator.cpp" bodystart="420" bodyend="430"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2578">
+        <label>AbstractTable</label>
+        <link refid="class_abstract_table"/>
+        <childnode refid="2579" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2579">
+        <label>AbstractResource</label>
+        <link refid="class_abstract_resource"/>
+      </node>
+      <node id="2577">
+        <label>PointerCalculator</label>
+        <link refid="class_pointer_calculator"/>
+        <childnode refid="2578" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2581">
+        <label>AbstractTable</label>
+        <link refid="class_abstract_table"/>
+        <childnode refid="2582" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2582">
+        <label>AbstractResource</label>
+        <link refid="class_abstract_resource"/>
+      </node>
+      <node id="2580">
+        <label>PointerCalculator</label>
+        <link refid="class_pointer_calculator"/>
+        <childnode refid="2581" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/storage/PointerCalculator.h" line="14" bodyfile="/home/grund/hyrise/src/lib/storage/PointerCalculator.h" bodystart="14" bodyend="96"/>
+    <listofallmembers>
+      <member refid="class_abstract_table_1a0d4b411db86931d15cc643a2883ffe59" prot="public" virt="non-virtual"><scope>PointerCalculator</scope><name>AbstractTable</name></member>
+      <member refid="class_pointer_calculator_1a6ece7c8d2952d31d65549a106a044003" prot="public" virt="virtual"><scope>PointerCalculator</scope><name>atSlice</name></member>
+      <member refid="class_pointer_calculator_1a6cdc6cb26d098bd1366a1a8dd94585db" prot="public" virt="virtual"><scope>PointerCalculator</scope><name>columnCount</name></member>
+      <member refid="class_pointer_calculator_1a3b27cda2c208fbed0c7556f1f8ad8651" prot="public" virt="non-virtual"><scope>PointerCalculator</scope><name>concatenate</name></member>
+      <member refid="class_pointer_calculator_1ac11c4292f416fbaf332b621d5a697042" prot="public" virt="non-virtual"><scope>PointerCalculator</scope><name>concatenate_many</name></member>
+      <member refid="class_abstract_table_1af716c04f38a6ab47b277911baf050c9d" prot="public" virt="non-virtual"><scope>PointerCalculator</scope><name>contentEquals</name></member>
+      <member refid="class_pointer_calculator_1a3cf1d2a7ffa72ff0a2764cdb63b0d4a8" prot="public" virt="virtual"><scope>PointerCalculator</scope><name>copy</name></member>
+      <member refid="class_pointer_calculator_1ab11a09122223b8a6af083cc86c839bb9" prot="public" virt="virtual"><scope>PointerCalculator</scope><name>copy_structure</name></member>
+      <member refid="class_abstract_table_1a0439c8c9642d0a5dbbbf2d3e37c690fc" prot="public" virt="virtual" ambiguityscope="AbstractTable::"><scope>PointerCalculator</scope><name>copy_structure</name></member>
+      <member refid="class_abstract_table_1ab2e5350c658908dc343dd2b8c36eed14" prot="public" virt="non-virtual"><scope>PointerCalculator</scope><name>copy_structure_modifiable</name></member>
+      <member refid="class_abstract_table_1afbbf69e94a282a71fb1ecedd72ca8824" prot="public" virt="non-virtual"><scope>PointerCalculator</scope><name>copyRowFrom</name></member>
+      <member refid="class_abstract_table_1a4361f683288a0d1360227b309ca625f6" prot="public" virt="non-virtual"><scope>PointerCalculator</scope><name>copyValueFrom</name></member>
+      <member refid="class_abstract_table_1a0e1dd83cf4622413949542ecc0604bb7" prot="public" virt="non-virtual"><scope>PointerCalculator</scope><name>copyValueFrom</name></member>
+      <member refid="class_abstract_table_1ae66e82c1f4eb0001f747af5bcf8a4ef1" prot="public" virt="non-virtual"><scope>PointerCalculator</scope><name>copyValueFrom</name></member>
+      <member refid="class_abstract_table_1a85b7d9471c86bd31879c0f6378071b9c" prot="public" virt="non-virtual"><scope>PointerCalculator</scope><name>copyValueIds</name></member>
+      <member refid="class_abstract_table_1ab1d04fdc926954e4027fb883abab1d73" prot="public" virt="non-virtual"><scope>PointerCalculator</scope><name>dictionaries</name></member>
+      <member refid="class_pointer_calculator_1a8659ecf4c3887c5ab74958dc038c16b2" prot="public" virt="virtual"><scope>PointerCalculator</scope><name>dictionaryAt</name></member>
+      <member refid="class_pointer_calculator_1a9702060150878b8235ae142439d372e9" prot="public" virt="virtual"><scope>PointerCalculator</scope><name>dictionaryByTableId</name></member>
+      <member refid="class_pointer_calculator_1a76ce6e192192101c99ec79374eaf661c" prot="private" virt="non-virtual"><scope>PointerCalculator</scope><name>fields</name></member>
+      <member refid="class_abstract_table_1a1d792fb6711c4ea00e4662576c1c3dc8" prot="public" virt="non-virtual"><scope>PointerCalculator</scope><name>generation</name></member>
+      <member refid="class_pointer_calculator_1acbea3ac67f01befefecab60dd8a53bcd" prot="public" virt="non-virtual"><scope>PointerCalculator</scope><name>getActualTable</name></member>
+      <member refid="class_pointer_calculator_1a1d3eab6e902f044fc387c43781b91862" prot="public" virt="non-virtual"><scope>PointerCalculator</scope><name>getActualTablePositions</name></member>
+      <member refid="class_abstract_table_1a3467bc6159aa361db993c3fc56584789" prot="public" virt="virtual"><scope>PointerCalculator</scope><name>getAttributeVectors</name></member>
+      <member refid="class_pointer_calculator_1ac5be7fd6a21ad4cb0ab490e70c06c3ff" prot="public" virt="virtual"><scope>PointerCalculator</scope><name>getOffsetInSlice</name></member>
+      <member refid="class_pointer_calculator_1a6f57168d74f28df50b332b47917457ca" prot="public" virt="non-virtual"><scope>PointerCalculator</scope><name>getPositions</name></member>
+      <member refid="class_pointer_calculator_1a98e5c48c56c0ec985d6bc8f1040f22e4" prot="public" virt="virtual"><scope>PointerCalculator</scope><name>getSliceForColumn</name></member>
+      <member refid="class_pointer_calculator_1ae803514afac300057aeeb6ddac347e5a" prot="public" virt="virtual"><scope>PointerCalculator</scope><name>getSliceWidth</name></member>
+      <member refid="class_pointer_calculator_1aeebfa9bef9ec2989eefa2030abbb4fe3" prot="public" virt="non-virtual"><scope>PointerCalculator</scope><name>getTable</name></member>
+      <member refid="class_pointer_calculator_1abca668c527de684e3d4df071934d1da9" prot="public" virt="non-virtual"><scope>PointerCalculator</scope><name>getTableColumnForColumn</name></member>
+      <member refid="class_pointer_calculator_1a79728be6c875bba8731be2e42253571a" prot="public" virt="non-virtual"><scope>PointerCalculator</scope><name>getTableRowForRow</name></member>
+      <member refid="class_abstract_table_1a6648aba614a398c3243a60b18d5d7dbf" prot="public" virt="non-virtual"><scope>PointerCalculator</scope><name>getValue</name></member>
+      <member refid="class_abstract_table_1aac6e3940c4b756a4c627ece2c008782c" prot="public" virt="non-virtual"><scope>PointerCalculator</scope><name>getValue</name></member>
+      <member refid="class_abstract_table_1af380b8fd7715abe5988f53b885920e0c" prot="public" virt="non-virtual"><scope>PointerCalculator</scope><name>getValueForValueId</name></member>
+      <member refid="class_pointer_calculator_1a4f55ba417b3bda67e0f2028f0fee19c5" prot="public" virt="virtual"><scope>PointerCalculator</scope><name>getValueId</name></member>
+      <member refid="class_abstract_table_1aefae5f6a831167c3d5669be5ba9d87bc" prot="public" virt="non-virtual"><scope>PointerCalculator</scope><name>getValueIdForValue</name></member>
+      <member refid="class_abstract_table_1acd7ea07c9b1605ca53c7608c7c3b2ea5" prot="public" virt="non-virtual"><scope>PointerCalculator</scope><name>getValueIdForValueByTableId</name></member>
+      <member refid="class_pointer_calculator_1ae09ea05b16fc99093a4c03a69442f9c9" prot="public" virt="non-virtual"><scope>PointerCalculator</scope><name>intersect</name></member>
+      <member refid="class_abstract_table_1a8b854b19026e75eebc02942499a82a21" prot="public" virt="non-virtual"><scope>PointerCalculator</scope><name>metadata</name></member>
+      <member refid="class_pointer_calculator_1a655597623a292ec245e5404886effeec" prot="public" virt="virtual"><scope>PointerCalculator</scope><name>metadataAt</name></member>
+      <member refid="class_abstract_table_1aa126cb17995eef9d0833ff2a4a673853" prot="public" virt="non-virtual"><scope>PointerCalculator</scope><name>nameOfColumn</name></member>
+      <member refid="class_abstract_table_1aaea606e4fd8c92a43febced405de1c6c" prot="public" virt="non-virtual"><scope>PointerCalculator</scope><name>numberOfColumn</name></member>
+      <member refid="class_pointer_calculator_1ab640d0f4071a2d93b6d2936b53483a9f" prot="private" virt="non-virtual"><scope>PointerCalculator</scope><name>offset_in_slice</name></member>
+      <member refid="class_pointer_calculator_1a117a79caba738a178fdf65e43d8e93a5" prot="public" virt="non-virtual"><scope>PointerCalculator</scope><name>pc_vector</name></member>
+      <member refid="class_pointer_calculator_1a021e0ab6ecef3f167c53fa16f26b5028" prot="public" virt="non-virtual"><scope>PointerCalculator</scope><name>PointerCalculator</name></member>
+      <member refid="class_pointer_calculator_1aeefc9c692462aaa827cebde4d89c20b6" prot="private" virt="non-virtual"><scope>PointerCalculator</scope><name>pos_list</name></member>
+      <member refid="class_pointer_calculator_1abd3140888535aae9047d32b6aca61a56" prot="public" virt="virtual"><scope>PointerCalculator</scope><name>print</name></member>
+      <member refid="class_pointer_calculator_1ad77124460946ed32d18c134b7bf61c00" prot="public" virt="non-virtual"><scope>PointerCalculator</scope><name>printValue</name></member>
+      <member refid="class_abstract_table_1acf25e9092735089d88c0fd9a1cb02984" prot="public" virt="virtual"><scope>PointerCalculator</scope><name>reserve</name></member>
+      <member refid="class_abstract_table_1a2c284b3bc7d1ee8522cd02be2fffa3be" prot="public" virt="virtual"><scope>PointerCalculator</scope><name>resize</name></member>
+      <member refid="class_pointer_calculator_1a410bbd966c46044d32cd19cc897efaa8" prot="public" virt="virtual"><scope>PointerCalculator</scope><name>setDictionaryAt</name></member>
+      <member refid="class_pointer_calculator_1a41061e503e0c43feb1425a47904e5387" prot="public" virt="non-virtual"><scope>PointerCalculator</scope><name>setFields</name></member>
+      <member refid="class_abstract_table_1a583da7847c5f08de7ee4288cec78e187" prot="public" virt="non-virtual"><scope>PointerCalculator</scope><name>setGeneration</name></member>
+      <member refid="class_pointer_calculator_1a815d82d98a040d150c7040cfc07936de" prot="public" virt="non-virtual"><scope>PointerCalculator</scope><name>setPositions</name></member>
+      <member refid="class_abstract_table_1a50d0ce6998606d864a429002f86ae654" prot="public" virt="non-virtual"><scope>PointerCalculator</scope><name>setValue</name></member>
+      <member refid="class_abstract_table_1a453b25a7f8ebe971d82cd5790d4183dd" prot="public" virt="non-virtual"><scope>PointerCalculator</scope><name>setValue</name></member>
+      <member refid="class_abstract_table_1ad7fabd72d657d48f1f4380132515b451" prot="public" virt="virtual"><scope>PointerCalculator</scope><name>setValueId</name></member>
+      <member refid="class_abstract_table_1af76ff827deb697db8077a90c450381ab" prot="public" virt="non-virtual"><scope>PointerCalculator</scope><name>SharedDictionaryPtr</name></member>
+      <member refid="class_pointer_calculator_1a03f11ce31722ff5591c99d7a9dc07aea" prot="public" virt="virtual"><scope>PointerCalculator</scope><name>size</name></member>
+      <member refid="class_pointer_calculator_1af973df64326820f2f123fd9b1fc357be" prot="private" virt="non-virtual"><scope>PointerCalculator</scope><name>slice_count</name></member>
+      <member refid="class_pointer_calculator_1ac7f1e2be36bca6fc5119fa3b46231401" prot="private" virt="non-virtual"><scope>PointerCalculator</scope><name>slice_for_slice</name></member>
+      <member refid="class_pointer_calculator_1a331fbe7225488eff461f03afe2af1385" prot="public" virt="virtual"><scope>PointerCalculator</scope><name>sliceCount</name></member>
+      <member refid="class_pointer_calculator_1a0d4656a36cc61ef2df05622f75c10e7c" prot="public" virt="non-virtual"><scope>PointerCalculator</scope><name>sortDictionary</name></member>
+      <member refid="class_pointer_calculator_1abf54f1ebce9c17b8dcd21f9a725857b9" prot="public" virt="virtual"><scope>PointerCalculator</scope><name>subtableCount</name></member>
+      <member refid="class_pointer_calculator_1a1f408af8ac5043755573b931699876b0" prot="private" virt="non-virtual"><scope>PointerCalculator</scope><name>table</name></member>
+      <member refid="class_abstract_table_1ad6de2b7c7b99098e9766b060b4d4b8c7" prot="public" virt="non-virtual"><scope>PointerCalculator</scope><name>typeOfColumn</name></member>
+      <member refid="class_pointer_calculator_1aa297910421ea0308cd6c355164cf1f14" prot="public" virt="non-virtual"><scope>PointerCalculator</scope><name>unite</name></member>
+      <member refid="class_pointer_calculator_1ab6ea533aa9ab978a180e1140cd029c43" prot="public" virt="non-virtual"><scope>PointerCalculator</scope><name>unite_many</name></member>
+      <member refid="class_pointer_calculator_1aafe8c79a4a56ff66a813fb6a817dd47b" prot="protected" virt="non-virtual"><scope>PointerCalculator</scope><name>updateFieldMapping</name></member>
+      <member refid="class_abstract_table_1a55de3a5a31acf6898fb9ddd287b760e3" prot="public" virt="non-virtual"><scope>PointerCalculator</scope><name>valueExists</name></member>
+      <member refid="class_pointer_calculator_1aa095ee7598447699d7c34eaa1c7e4a8f" prot="private" virt="non-virtual"><scope>PointerCalculator</scope><name>width_for_slice</name></member>
+      <member refid="class_abstract_table_1a8e1d6f1b61390fc3e6954fbaa1f7745f" prot="public" virt="non-virtual"><scope>PointerCalculator</scope><name>write</name></member>
+      <member refid="class_abstract_resource_1a4299feff952f974409aaaf52082deadb" prot="public" virt="virtual"><scope>PointerCalculator</scope><name>~AbstractResource</name></member>
+      <member refid="class_abstract_table_1a957e2dc86a1aa6ffa19b2d8585a1ee91" prot="public" virt="virtual"><scope>PointerCalculator</scope><name>~AbstractTable</name></member>
+      <member refid="class_pointer_calculator_1a582d20194dfa2ff7dbf98455bceed545" prot="public" virt="virtual"><scope>PointerCalculator</scope><name>~PointerCalculator</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

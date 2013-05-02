@@ -1,0 +1,325 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="_table_equality_test_8h" kind="file">
+    <compoundname>TableEqualityTest.h</compoundname>
+    <includes local="yes">gtest/gtest.h</includes>
+    <includes refid="types_8h" local="yes">helper/types.h</includes>
+    <includedby refid="bin_2test__relation__eq_2main_8cpp" local="yes">src/bin/test_relation_eq/main.cpp</includedby>
+    <includedby refid="_table_equality_test_8cpp" local="yes">src/lib/testing/TableEqualityTest.cpp</includedby>
+    <incdepgraph>
+      <node id="25951">
+        <label>limits</label>
+      </node>
+      <node id="25949">
+        <label>cstdint</label>
+      </node>
+      <node id="25950">
+        <label>string</label>
+      </node>
+      <node id="25946">
+        <label>src/lib/testing/TableEqualityTest.h</label>
+        <link refid="TableEqualityTest.h"/>
+        <childnode refid="25947" relation="include">
+        </childnode>
+        <childnode refid="25948" relation="include">
+        </childnode>
+      </node>
+      <node id="25953">
+        <label>vector</label>
+      </node>
+      <node id="25947">
+        <label>gtest/gtest.h</label>
+      </node>
+      <node id="25948">
+        <label>helper/types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="25949" relation="include">
+        </childnode>
+        <childnode refid="25950" relation="include">
+        </childnode>
+        <childnode refid="25951" relation="include">
+        </childnode>
+        <childnode refid="25952" relation="include">
+        </childnode>
+        <childnode refid="25953" relation="include">
+        </childnode>
+      </node>
+      <node id="25952">
+        <label>memory</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="25956">
+        <label>src/lib/testing/TableEqualityTest.cpp</label>
+        <link refid="_table_equality_test_8cpp"/>
+      </node>
+      <node id="25954">
+        <label>src/lib/testing/TableEqualityTest.h</label>
+        <link refid="TableEqualityTest.h"/>
+        <childnode refid="25955" relation="include">
+        </childnode>
+        <childnode refid="25956" relation="include">
+        </childnode>
+      </node>
+      <node id="25955">
+        <label>src/bin/test_relation_eq/main.cpp</label>
+        <link refid="bin_2test__relation__eq_2main_8cpp"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="_table_equality_test_8h_1ac00f18695844489219135a8d85402964" prot="public" static="no">
+        <name>EXPECT_RELATION_EQ</name>
+        <param><defname>a</defname></param>
+        <param><defname>b</defname></param>
+        <initializer>EXPECT_PRED_FORMAT2(<ref refid="_table_equality_test_8h_1a8fe2efef865d866c1999d0c7a2389ab7" kindref="member">RelationEquals</ref>, a, b)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/testing/TableEqualityTest.h" line="36" bodyfile="/home/grund/hyrise/src/lib/testing/TableEqualityTest.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_table_equality_test_8h_1a080f6e0bad366b6e65165b5bf76ff278" prot="public" static="no">
+        <name>EXPECT_RELATION_NEQ</name>
+        <param><defname>a</defname></param>
+        <param><defname>b</defname></param>
+        <initializer>EXPECT_PRED_FORMAT2(<ref refid="_table_equality_test_8h_1ac97be1916956016ba3035fd0ed073184" kindref="member">RelationNotEquals</ref>, a, b)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/testing/TableEqualityTest.h" line="37" bodyfile="/home/grund/hyrise/src/lib/testing/TableEqualityTest.h" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_table_equality_test_8h_1a18ab677afa9251e63c1ff8b77b8ebff4" prot="public" static="no">
+        <name>EXPECT_SORTED_RELATION_EQ</name>
+        <initializer>EXPECT_PRED_FORMAT2(<ref refid="_table_equality_test_8h_1a2b3a7ff93e79a3f0fe731eee1ff46a50" kindref="member">SortedRelationEquals</ref>, a, b)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/testing/TableEqualityTest.h" line="49" bodyfile="/home/grund/hyrise/src/lib/testing/TableEqualityTest.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_table_equality_test_8h_1aeffeab6f1347f605a0bbbc7240c77892" prot="public" static="no">
+        <name>EXPECT_SORTED_RELATION_NEQ</name>
+        <initializer>EXPECT_PRED_FORMAT2(<ref refid="_table_equality_test_8h_1a2b3a7ff93e79a3f0fe731eee1ff46a50" kindref="member">SortedRelationEquals</ref>, a, b)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/testing/TableEqualityTest.h" line="50" bodyfile="/home/grund/hyrise/src/lib/testing/TableEqualityTest.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="_table_equality_test_8h_1a941f39a6ea86947b47e38546819cbfed" prot="public" static="no">
+        <type>const <ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref> &amp;</type>
+        <definition>typedef const hyrise::storage::c_atable_ptr_t&amp; tblptr</definition>
+        <argsstring></argsstring>
+        <name>tblptr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/testing/TableEqualityTest.h" line="8" bodyfile="/home/grund/hyrise/src/lib/testing/TableEqualityTest.h" bodystart="8" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="_table_equality_test_8h_1a8fe2efef865d866c1999d0c7a2389ab7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>::testing::AssertionResult</type>
+        <definition>::testing::AssertionResult RelationEquals</definition>
+        <argsstring>(const char *left_exp, const char *right_exp, tblptr left, tblptr right)</argsstring>
+        <name>RelationEquals</name>
+        <param>
+          <type>const char *</type>
+          <declname>left_exp</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>right_exp</declname>
+        </param>
+        <param>
+          <type><ref refid="_table_equality_test_8h_1a941f39a6ea86947b47e38546819cbfed" kindref="member">tblptr</ref></type>
+          <declname>left</declname>
+        </param>
+        <param>
+          <type><ref refid="_table_equality_test_8h_1a941f39a6ea86947b47e38546819cbfed" kindref="member">tblptr</ref></type>
+          <declname>right</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Compare two relations (i.e. tables) for value equality</para><para>Compares relations whether they have equal contents. handles tables from a relational standpoint, thus order is not important.</para><para>EXPECT_RELATION_[N]EQ compares from a relational standpoint, thus order of rows and the order of fields is not checked EXPECT_SORTED_RELATION_[N]EQ also considers the order of the rows.</para><para>Use via: <ref refid="_table_equality_test_8h_1ac00f18695844489219135a8d85402964" kindref="member">EXPECT_RELATION_EQ(result, reference)</ref>; or: <ref refid="_table_equality_test_8h_1a18ab677afa9251e63c1ff8b77b8ebff4" kindref="member">EXPECT_SORTED_RELATION_EQ(result, reference)</ref>;</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">left_exp</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Left expression string </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">right_exp</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Right expression string </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">left</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Table to compare </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">right</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Table to compare </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/testing/TableEqualityTest.h" line="29" bodyfile="/home/grund/hyrise/src/lib/testing/TableEqualityTest.cpp" bodystart="79" bodyend="104"/>
+      </memberdef>
+      <memberdef kind="function" id="_table_equality_test_8h_1ac97be1916956016ba3035fd0ed073184" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>::testing::AssertionResult</type>
+        <definition>::testing::AssertionResult RelationNotEquals</definition>
+        <argsstring>(const char *left_exp, const char *right_exp, tblptr left, tblptr right)</argsstring>
+        <name>RelationNotEquals</name>
+        <param>
+          <type>const char *</type>
+          <declname>left_exp</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>right_exp</declname>
+        </param>
+        <param>
+          <type><ref refid="_table_equality_test_8h_1a941f39a6ea86947b47e38546819cbfed" kindref="member">tblptr</ref></type>
+          <declname>left</declname>
+        </param>
+        <param>
+          <type><ref refid="_table_equality_test_8h_1a941f39a6ea86947b47e38546819cbfed" kindref="member">tblptr</ref></type>
+          <declname>right</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/testing/TableEqualityTest.h" line="34" bodyfile="/home/grund/hyrise/src/lib/testing/TableEqualityTest.cpp" bodystart="106" bodyend="117"/>
+      </memberdef>
+      <memberdef kind="function" id="_table_equality_test_8h_1a2b3a7ff93e79a3f0fe731eee1ff46a50" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>::testing::AssertionResult</type>
+        <definition>::testing::AssertionResult SortedRelationEquals</definition>
+        <argsstring>(const char *left_exp, const char *right_exp, tblptr left, tblptr right)</argsstring>
+        <name>SortedRelationEquals</name>
+        <param>
+          <type>const char *</type>
+          <declname>left_exp</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>right_exp</declname>
+        </param>
+        <param>
+          <type><ref refid="_table_equality_test_8h_1a941f39a6ea86947b47e38546819cbfed" kindref="member">tblptr</ref></type>
+          <declname>left</declname>
+        </param>
+        <param>
+          <type><ref refid="_table_equality_test_8h_1a941f39a6ea86947b47e38546819cbfed" kindref="member">tblptr</ref></type>
+          <declname>right</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/testing/TableEqualityTest.h" line="42" bodyfile="/home/grund/hyrise/src/lib/testing/TableEqualityTest.cpp" bodystart="119" bodyend="146"/>
+      </memberdef>
+      <memberdef kind="function" id="_table_equality_test_8h_1a14b6dfdc9d70ded5227acfaa254e600d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>::testing::AssertionResult</type>
+        <definition>::testing::AssertionResult SortedRelationNotEquals</definition>
+        <argsstring>(const char *left_exp, const char *right_exp, tblptr left, tblptr right)</argsstring>
+        <name>SortedRelationNotEquals</name>
+        <param>
+          <type>const char *</type>
+          <declname>left_exp</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>right_exp</declname>
+        </param>
+        <param>
+          <type><ref refid="_table_equality_test_8h_1a941f39a6ea86947b47e38546819cbfed" kindref="member">tblptr</ref></type>
+          <declname>left</declname>
+        </param>
+        <param>
+          <type><ref refid="_table_equality_test_8h_1a941f39a6ea86947b47e38546819cbfed" kindref="member">tblptr</ref></type>
+          <declname>right</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/testing/TableEqualityTest.h" line="47" bodyfile="/home/grund/hyrise/src/lib/testing/TableEqualityTest.cpp" bodystart="148" bodyend="159"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>2012<sp/>Hasso-Plattner-Institut<sp/>fuer<sp/>Softwaresystemtechnik<sp/>GmbH.<sp/>All<sp/>rights<sp/>reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SRC_BIN_UNITS_STORAGE_TABLE_EQUAL_TEST_H</highlight></codeline>
+<codeline lineno="3"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SRC_BIN_UNITS_STORAGE_TABLE_EQUAL_TEST_H</highlight></codeline>
+<codeline lineno="4"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;gtest/gtest.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="types_8h" kindref="compound">helper/types.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8" refid="_table_equality_test_8h_1a941f39a6ea86947b47e38546819cbfed" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref>&amp;<sp/><ref refid="_table_equality_test_8h_1a941f39a6ea86947b47e38546819cbfed" kindref="member">tblptr</ref>;</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal">::testing::AssertionResult<sp/><ref refid="_table_equality_test_8cpp_1a8fe2efef865d866c1999d0c7a2389ab7" kindref="member">RelationEquals</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*left_exp,</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*right_exp,</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="_table_equality_test_8h_1a941f39a6ea86947b47e38546819cbfed" kindref="member">tblptr</ref><sp/>left,</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="_table_equality_test_8h_1a941f39a6ea86947b47e38546819cbfed" kindref="member">tblptr</ref><sp/>right);</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal">::testing::AssertionResult<sp/><ref refid="_table_equality_test_8cpp_1ac97be1916956016ba3035fd0ed073184" kindref="member">RelationNotEquals</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*left_exp,</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*right_exp,</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="_table_equality_test_8h_1a941f39a6ea86947b47e38546819cbfed" kindref="member">tblptr</ref><sp/>left,</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="_table_equality_test_8h_1a941f39a6ea86947b47e38546819cbfed" kindref="member">tblptr</ref><sp/>right);</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36" refid="_table_equality_test_8h_1ac00f18695844489219135a8d85402964" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>EXPECT_RELATION_EQ(a,b)<sp/>EXPECT_PRED_FORMAT2(RelationEquals,<sp/>a,<sp/>b)</highlight></codeline>
+<codeline lineno="37" refid="_table_equality_test_8h_1a080f6e0bad366b6e65165b5bf76ff278" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>EXPECT_RELATION_NEQ(a,b)<sp/>EXPECT_PRED_FORMAT2(RelationNotEquals,<sp/>a,<sp/>b)</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal">::testing::AssertionResult<sp/><ref refid="_table_equality_test_8cpp_1a2b3a7ff93e79a3f0fe731eee1ff46a50" kindref="member">SortedRelationEquals</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*left_exp,</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*right_exp,</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="_table_equality_test_8h_1a941f39a6ea86947b47e38546819cbfed" kindref="member">tblptr</ref><sp/>left,</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="_table_equality_test_8h_1a941f39a6ea86947b47e38546819cbfed" kindref="member">tblptr</ref><sp/>right);</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal">::testing::AssertionResult<sp/><ref refid="_table_equality_test_8cpp_1a14b6dfdc9d70ded5227acfaa254e600d" kindref="member">SortedRelationNotEquals</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*left_exp,</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*right_exp,</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="_table_equality_test_8h_1a941f39a6ea86947b47e38546819cbfed" kindref="member">tblptr</ref><sp/>left,</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="_table_equality_test_8h_1a941f39a6ea86947b47e38546819cbfed" kindref="member">tblptr</ref><sp/>right);</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49" refid="_table_equality_test_8h_1a18ab677afa9251e63c1ff8b77b8ebff4" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>EXPECT_SORTED_RELATION_EQ<sp/>EXPECT_PRED_FORMAT2(SortedRelationEquals,<sp/>a,<sp/>b)</highlight></codeline>
+<codeline lineno="50" refid="_table_equality_test_8h_1aeffeab6f1347f605a0bbbc7240c77892" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>EXPECT_SORTED_RELATION_NEQ<sp/>EXPECT_PRED_FORMAT2(SortedRelationEquals,<sp/>a,<sp/>b)</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/>//SRC_BIN_UNITS_STORAGE_TABLE_EQUAL_TEST_H</highlight></codeline>
+    </programlisting>
+    <location file="/home/grund/hyrise/src/lib/testing/TableEqualityTest.h"/>
+  </compounddef>
+</doxygen>

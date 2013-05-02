@@ -1,0 +1,147 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="class_base_iterator" kind="class" prot="public">
+    <compoundname>BaseIterator</compoundname>
+    <derivedcompoundref refid="class_order_indifferent_dictionary_iterator" prot="public" virt="non-virtual">OrderIndifferentDictionaryIterator&lt; T &gt;</derivedcompoundref>
+    <derivedcompoundref refid="class_order_preserving_dictionary_iterator" prot="public" virt="non-virtual">OrderPreservingDictionaryIterator&lt; T, Strategy, Allocator &gt;</derivedcompoundref>
+    <includes refid="_base_iterator_8h" local="no">BaseIterator.h</includes>
+    <templateparamlist>
+      <param>
+        <type>typename</type>
+        <declname>T</declname>
+        <defname>T</defname>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_base_iterator_1aa649fbcbbe9be3f3271f1eab7a16a836" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual BaseIterator&lt; T &gt;::~BaseIterator</definition>
+        <argsstring>()</argsstring>
+        <name>~BaseIterator</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/BaseIterator.h" line="10" bodyfile="/home/grund/hyrise/src/lib/storage/BaseIterator.h" bodystart="10" bodyend="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_base_iterator_1ab67003b78b7a1f6dc499dd881ab9a7fd" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type><ref refid="class_base_iterator" kindref="compound">BaseIterator</ref>&lt; T &gt; *</type>
+        <definition>virtual BaseIterator&lt;T&gt;* BaseIterator&lt; T &gt;::clone</definition>
+        <argsstring>()=0</argsstring>
+        <name>clone</name>
+        <reimplementedby refid="class_order_indifferent_dictionary_iterator_1adb07bcc64a0bdcb8102c163311534a24">clone</reimplementedby>
+        <reimplementedby refid="class_order_preserving_dictionary_iterator_1af57c8c3e4d9a3b621ece5202add5be90">clone</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/BaseIterator.h" line="12"/>
+      </memberdef>
+      <memberdef kind="function" id="class_base_iterator_1a98e36beca643de943b55ac8befbfb88b" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void BaseIterator&lt; T &gt;::increment</definition>
+        <argsstring>()=0</argsstring>
+        <name>increment</name>
+        <reimplementedby refid="class_order_indifferent_dictionary_iterator_1a61c5a1d30c3c9535a2f696e718a6c90a">increment</reimplementedby>
+        <reimplementedby refid="class_order_preserving_dictionary_iterator_1a8ebce732de8f4ac8eba5cd7c5253db18">increment</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/BaseIterator.h" line="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_base_iterator_1af3c95d99d90524cae54ed45fb8fb131c" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>T &amp;</type>
+        <definition>virtual T&amp; BaseIterator&lt; T &gt;::dereference</definition>
+        <argsstring>() const =0</argsstring>
+        <name>dereference</name>
+        <reimplementedby refid="class_order_indifferent_dictionary_iterator_1a182f154be3058eb8ecff94b8cd0d1f12">dereference</reimplementedby>
+        <reimplementedby refid="class_order_preserving_dictionary_iterator_1a81b2123d36dff6a5b376e69dcadb9fb0">dereference</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/BaseIterator.h" line="16"/>
+      </memberdef>
+      <memberdef kind="function" id="class_base_iterator_1a8cb371fd8ff2ac629ac27c0090dde6b5" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>bool</type>
+        <definition>virtual bool BaseIterator&lt; T &gt;::equal</definition>
+        <argsstring>(BaseIterator&lt; T &gt; *other) const =0</argsstring>
+        <name>equal</name>
+        <reimplementedby refid="class_order_indifferent_dictionary_iterator_1ac6f8985ad33b0e770827f49ad63142f0">equal</reimplementedby>
+        <reimplementedby refid="class_order_preserving_dictionary_iterator_1a61e4241ae89b383b857a9a8161353f03">equal</reimplementedby>
+        <param>
+          <type><ref refid="class_base_iterator" kindref="compound">BaseIterator</ref>&lt; T &gt; *</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/BaseIterator.h" line="18"/>
+      </memberdef>
+      <memberdef kind="function" id="class_base_iterator_1aeb6be9aecd2e6de7aa5b8739b7842cd6" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type><ref refid="storage__types_8h_1a2552a37cd3427c39d92cb8fd23c90408" kindref="member">value_id_t</ref></type>
+        <definition>virtual value_id_t BaseIterator&lt; T &gt;::getValueId</definition>
+        <argsstring>() const =0</argsstring>
+        <name>getValueId</name>
+        <reimplementedby refid="class_order_indifferent_dictionary_iterator_1a44cb88e3f551e530094c33b9894922b1">getValueId</reimplementedby>
+        <reimplementedby refid="class_order_preserving_dictionary_iterator_1a77a133fe4abecf8f7abb359f5138d742">getValueId</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/BaseIterator.h" line="20"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1545">
+        <label>OrderIndifferentDictionaryIterator&lt; T &gt;</label>
+        <link refid="class_order_indifferent_dictionary_iterator"/>
+        <childnode refid="1544" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1546">
+        <label>OrderPreservingDictionaryIterator&lt; T &gt;</label>
+        <link refid="class_order_preserving_dictionary_iterator"/>
+        <childnode refid="1544" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1544">
+        <label>BaseIterator&lt; T &gt;</label>
+        <link refid="class_base_iterator"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1547">
+        <label>BaseIterator&lt; T &gt;</label>
+        <link refid="class_base_iterator"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/storage/BaseIterator.h" line="6" bodyfile="/home/grund/hyrise/src/lib/storage/BaseIterator.h" bodystart="6" bodyend="22"/>
+    <listofallmembers>
+      <member refid="class_base_iterator_1ab67003b78b7a1f6dc499dd881ab9a7fd" prot="public" virt="pure-virtual"><scope>BaseIterator</scope><name>clone</name></member>
+      <member refid="class_base_iterator_1af3c95d99d90524cae54ed45fb8fb131c" prot="public" virt="pure-virtual"><scope>BaseIterator</scope><name>dereference</name></member>
+      <member refid="class_base_iterator_1a8cb371fd8ff2ac629ac27c0090dde6b5" prot="public" virt="pure-virtual"><scope>BaseIterator</scope><name>equal</name></member>
+      <member refid="class_base_iterator_1aeb6be9aecd2e6de7aa5b8739b7842cd6" prot="public" virt="pure-virtual"><scope>BaseIterator</scope><name>getValueId</name></member>
+      <member refid="class_base_iterator_1a98e36beca643de943b55ac8befbfb88b" prot="public" virt="pure-virtual"><scope>BaseIterator</scope><name>increment</name></member>
+      <member refid="class_base_iterator_1aa649fbcbbe9be3f3271f1eab7a16a836" prot="public" virt="virtual"><scope>BaseIterator</scope><name>~BaseIterator</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

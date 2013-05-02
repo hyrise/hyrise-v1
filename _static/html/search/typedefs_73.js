@@ -1,0 +1,20 @@
+var searchData=
+[
+  ['scheduler_5fstatus_5ft',['scheduler_status_t',['../class_w_s_simple_task_scheduler.html#a2298dff79fae69532b88b0191bcf81a7',1,'WSSimpleTaskScheduler']]],
+  ['schema_5fmap_5ft',['schema_map_t',['../classhyrise_1_1io_1_1_storage_manager.html#a349f32a17bb7072207233a1c937e968d',1,'hyrise::io::StorageManager']]],
+  ['set_5fsubset_5ft',['set_subset_t',['../namespacelayouter.html#aec12d8e69cf2bd6fc00d80094a3a0fd0',1,'layouter']]],
+  ['shared_5fvector_5ftype',['shared_vector_type',['../class_order_preserving_dictionary.html#a8f8872724b84cc179cfe020eb8f8999d',1,'OrderPreservingDictionary']]],
+  ['shareddictionaryptr',['SharedDictionaryPtr',['../class_abstract_table.html#af76ff827deb697db8077a90c450381ab',1,'AbstractTable']]],
+  ['sharedptr',['SharedPtr',['../classhyrise_1_1net_1_1_abstract_request_handler.html#a22c7c6e6ea6e7cedb23196f5871b5aca',1,'hyrise::net::AbstractRequestHandler']]],
+  ['simplestore_5fptr_5ft',['simplestore_ptr_t',['../namespacehyrise_1_1storage.html#aeb438c358c9803bdc572c5b7ba74843a',1,'hyrise::storage']]],
+  ['singleaggregatehashtable',['SingleAggregateHashTable',['../_hash_table_8h.html#a229912eaa7ae399dd08a69c3084bffbb',1,'HashTable.h']]],
+  ['singlejoinhashtable',['SingleJoinHashTable',['../_hash_table_8h.html#a61bc67a9344e19133ab44293374fab7f',1,'HashTable.h']]],
+  ['size_5flist_5ft',['size_list_t',['../classhyrise_1_1access_1_1_layout_single_table.html#a5f8fbd18e793150626119da30f3b0e64',1,'hyrise::access::LayoutSingleTable']]],
+  ['size_5ftype',['size_type',['../class_strategized_allocator.html#a2618c6ec6bb90275a7a24f7984a84952',1,'StrategizedAllocator']]],
+  ['storage_5ft',['storage_t',['../class_bit_compressed_vector.html#a046582544a93f2edafea02ec75802ea6',1,'BitCompressedVector']]],
+  ['storagemanager',['StorageManager',['../_storage_manager_8h.html#a035405eab2792b84d5f2aca8c3d1a67a',1,'StorageManager.h']]],
+  ['store_5fptr_5ft',['store_ptr_t',['../namespacehyrise_1_1storage.html#a567b68bb9a070f6b7b74bff6b21b7bf0',1,'hyrise::storage']]],
+  ['strategy',['Strategy',['../class_strategized_allocator.html#a5b37cf7490122777b1331c53280ba8b2',1,'StrategizedAllocator::Strategy()'],['../class_strategized_allocator.html#a522b6284435ae171e4db78425f791bee',1,'StrategizedAllocator::strategy()']]],
+  ['strategy_5ftype',['strategy_type',['../class_order_indifferent_dictionary.html#a8adb8c3cd05e631513c2e1d4145119ce',1,'OrderIndifferentDictionary']]],
+  ['subset_5ft',['subset_t',['../namespacelayouter.html#a9779582085930cc6fb80f4f2b27dfd9e',1,'layouter']]]
+];

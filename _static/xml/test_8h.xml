@@ -1,0 +1,823 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="test_8h" kind="file">
+    <compoundname>test.h</compoundname>
+    <includes local="no">gtest/gtest.h</includes>
+    <includes refid="base__test_8h" local="yes">testing/base_test.h</includes>
+    <includes refid="_plan_operation_8h" local="yes">access/PlanOperation.h</includes>
+    <includes refid="_storage_manager_8h" local="yes">io/StorageManager.h</includes>
+    <includes refid="types_8h" local="yes">helper/types.h</includes>
+    <includes refid="stringhelpers_8h" local="yes">helper/stringhelpers.h</includes>
+    <includedby refid="test_8cpp" local="yes">src/lib/testing/test.cpp</includedby>
+    <incdepgraph>
+      <node id="26095">
+        <label>list</label>
+      </node>
+      <node id="26115">
+        <label>atomic</label>
+      </node>
+      <node id="26065">
+        <label>boost/mpl/vector.hpp</label>
+      </node>
+      <node id="26078">
+        <label>queue</label>
+      </node>
+      <node id="26061">
+        <label>limits</label>
+      </node>
+      <node id="26113">
+        <label>boost/functional/hash.hpp</label>
+      </node>
+      <node id="26090">
+        <label>assert.h</label>
+      </node>
+      <node id="26067">
+        <label>boost/lexical_cast.hpp</label>
+      </node>
+      <node id="26105">
+        <label>boost/iterator/iterator_facade.hpp</label>
+      </node>
+      <node id="26060">
+        <label>cstdint</label>
+      </node>
+      <node id="26102">
+        <label>storage/BaseDictionary.h</label>
+        <link refid="_base_dictionary_8h"/>
+        <childnode refid="26062" relation="include">
+        </childnode>
+        <childnode refid="26091" relation="include">
+        </childnode>
+        <childnode refid="26103" relation="include">
+        </childnode>
+      </node>
+      <node id="26046">
+        <label>stdint.h</label>
+      </node>
+      <node id="26101">
+        <label>stdlib.h</label>
+      </node>
+      <node id="26099">
+        <label>errno.h</label>
+      </node>
+      <node id="26052">
+        <label>helper/epoch.h</label>
+        <link refid="epoch_8h"/>
+        <childnode refid="26046" relation="include">
+        </childnode>
+      </node>
+      <node id="26063">
+        <label>stdexcept</label>
+      </node>
+      <node id="26075">
+        <label>helper/HwlocHelper.h</label>
+        <link refid="_hwloc_helper_8h"/>
+        <childnode refid="26076" relation="include">
+        </childnode>
+      </node>
+      <node id="26057">
+        <label>string</label>
+      </node>
+      <node id="26069">
+        <label>taskscheduler.h</label>
+        <link refid="taskscheduler_8h"/>
+        <childnode refid="26070" relation="include">
+        </childnode>
+        <childnode refid="26077" relation="include">
+        </childnode>
+        <childnode refid="26080" relation="include">
+        </childnode>
+        <childnode refid="26053" relation="include">
+        </childnode>
+        <childnode refid="26079" relation="include">
+        </childnode>
+        <childnode refid="26071" relation="include">
+        </childnode>
+        <childnode refid="26081" relation="include">
+        </childnode>
+        <childnode refid="26082" relation="include">
+        </childnode>
+      </node>
+      <node id="26077">
+        <label>taskscheduler/SimpleTaskScheduler.h</label>
+        <link refid="_simple_task_scheduler_8h"/>
+        <childnode refid="26070" relation="include">
+        </childnode>
+        <childnode refid="26073" relation="include">
+        </childnode>
+        <childnode refid="26048" relation="include">
+        </childnode>
+        <childnode refid="26078" relation="include">
+        </childnode>
+        <childnode refid="26054" relation="include">
+        </childnode>
+        <childnode refid="26045" relation="include">
+        </childnode>
+        <childnode refid="26053" relation="include">
+        </childnode>
+        <childnode refid="26079" relation="include">
+        </childnode>
+        <childnode refid="26075" relation="include">
+        </childnode>
+      </node>
+      <node id="26049">
+        <label>map</label>
+      </node>
+      <node id="26053">
+        <label>taskscheduler/Task.h</label>
+        <link refid="_task_8h"/>
+        <childnode refid="26048" relation="include">
+        </childnode>
+        <childnode refid="26054" relation="include">
+        </childnode>
+        <childnode refid="26055" relation="include">
+        </childnode>
+        <childnode refid="26056" relation="include">
+        </childnode>
+        <childnode refid="26057" relation="include">
+        </childnode>
+      </node>
+      <node id="26073">
+        <label>unordered_set</label>
+      </node>
+      <node id="26088">
+        <label>storage/ValueIdMap.hpp</label>
+        <link refid="_value_id_map_8hpp"/>
+        <childnode refid="26089" relation="include">
+        </childnode>
+        <childnode refid="26107" relation="include">
+        </childnode>
+      </node>
+      <node id="26098">
+        <label>memory/MemalignStrategy.h</label>
+        <link refid="_memalign_strategy_8h"/>
+        <childnode refid="26099" relation="include">
+        </childnode>
+        <childnode refid="26100" relation="include">
+        </childnode>
+        <childnode refid="26101" relation="include">
+        </childnode>
+      </node>
+      <node id="26076">
+        <label>hwloc.h</label>
+      </node>
+      <node id="26110">
+        <label>exception</label>
+      </node>
+      <node id="26044">
+        <label>access/OutputTask.h</label>
+        <link refid="_output_task_8h"/>
+        <childnode refid="26045" relation="include">
+        </childnode>
+        <childnode refid="26046" relation="include">
+        </childnode>
+        <childnode refid="26047" relation="include">
+        </childnode>
+        <childnode refid="26048" relation="include">
+        </childnode>
+        <childnode refid="26049" relation="include">
+        </childnode>
+        <childnode refid="26050" relation="include">
+        </childnode>
+        <childnode refid="26051" relation="include">
+        </childnode>
+        <childnode refid="26052" relation="include">
+        </childnode>
+        <childnode refid="26053" relation="include">
+        </childnode>
+      </node>
+      <node id="26093">
+        <label>stddef.h</label>
+      </node>
+      <node id="26079">
+        <label>taskscheduler/CoreBoundTaskQueue.h</label>
+        <link refid="_core_bound_task_queue_8h"/>
+        <childnode refid="26072" relation="include">
+        </childnode>
+        <childnode refid="26078" relation="include">
+        </childnode>
+        <childnode refid="26071" relation="include">
+        </childnode>
+      </node>
+      <node id="26118">
+        <label>helper/stringhelpers.h</label>
+        <link refid="stringhelpers_8h"/>
+        <childnode refid="26057" relation="include">
+        </childnode>
+        <childnode refid="26119" relation="include">
+        </childnode>
+      </node>
+      <node id="26107">
+        <label>storage/OrderIndifferentDictionary.h</label>
+        <link refid="_order_indifferent_dictionary_8h"/>
+        <childnode refid="26062" relation="include">
+        </childnode>
+        <childnode refid="26091" relation="include">
+        </childnode>
+        <childnode refid="26102" relation="include">
+        </childnode>
+        <childnode refid="26103" relation="include">
+        </childnode>
+        <childnode refid="26108" relation="include">
+        </childnode>
+        <childnode refid="26106" relation="include">
+        </childnode>
+        <childnode refid="26110" relation="include">
+        </childnode>
+        <childnode refid="26048" relation="include">
+        </childnode>
+        <childnode refid="26049" relation="include">
+        </childnode>
+        <childnode refid="26055" relation="include">
+        </childnode>
+        <childnode refid="26111" relation="include">
+        </childnode>
+        <childnode refid="26112" relation="include">
+        </childnode>
+        <childnode refid="26113" relation="include">
+        </childnode>
+      </node>
+      <node id="26064">
+        <label>ostream</label>
+      </node>
+      <node id="26051">
+        <label>json.h</label>
+      </node>
+      <node id="26111">
+        <label>limits.h</label>
+      </node>
+      <node id="26103">
+        <label>storage/DictionaryIterator.h</label>
+        <link refid="_dictionary_iterator_8h"/>
+        <childnode refid="26104" relation="include">
+        </childnode>
+        <childnode refid="26105" relation="include">
+        </childnode>
+      </node>
+      <node id="26091">
+        <label>storage/AbstractDictionary.h</label>
+        <link refid="_abstract_dictionary_8h"/>
+        <childnode refid="26048" relation="include">
+        </childnode>
+        <childnode refid="26057" relation="include">
+        </childnode>
+        <childnode refid="26055" relation="include">
+        </childnode>
+        <childnode refid="26092" relation="include">
+        </childnode>
+        <childnode refid="26096" relation="include">
+        </childnode>
+        <childnode refid="26098" relation="include">
+        </childnode>
+        <childnode refid="26062" relation="include">
+        </childnode>
+      </node>
+      <node id="26056">
+        <label>condition_variable</label>
+      </node>
+      <node id="26109">
+        <label>string.h</label>
+      </node>
+      <node id="26084">
+        <label>access/BasicParser.h</label>
+        <link refid="_basic_parser_8h"/>
+        <childnode refid="26063" relation="include">
+        </childnode>
+        <childnode refid="26055" relation="include">
+        </childnode>
+        <childnode refid="26051" relation="include">
+        </childnode>
+      </node>
+      <node id="26085">
+        <label>storage/AbstractTable.h</label>
+        <link refid="_abstract_table_8h"/>
+        <childnode refid="26061" relation="include">
+        </childnode>
+        <childnode refid="26055" relation="include">
+        </childnode>
+        <childnode refid="26063" relation="include">
+        </childnode>
+        <childnode refid="26048" relation="include">
+        </childnode>
+        <childnode refid="26057" relation="include">
+        </childnode>
+        <childnode refid="26059" relation="include">
+        </childnode>
+        <childnode refid="26086" relation="include">
+        </childnode>
+        <childnode refid="26062" relation="include">
+        </childnode>
+        <childnode refid="26087" relation="include">
+        </childnode>
+        <childnode refid="26088" relation="include">
+        </childnode>
+      </node>
+      <node id="26081">
+        <label>taskscheduler/WSCoreBoundTaskQueue.h</label>
+        <link refid="_w_s_core_bound_task_queue_8h"/>
+        <childnode refid="26071" relation="include">
+        </childnode>
+        <childnode refid="26082" relation="include">
+        </childnode>
+      </node>
+      <node id="26086">
+        <label>storage/AbstractResource.h</label>
+        <link refid="_abstract_resource_8h"/>
+      </node>
+      <node id="26112">
+        <label>boost/unordered_map.hpp</label>
+      </node>
+      <node id="26048">
+        <label>vector</label>
+      </node>
+      <node id="26041">
+        <label>gtest/gtest.h</label>
+      </node>
+      <node id="26080">
+        <label>taskscheduler/SharedScheduler.h</label>
+        <link refid="_shared_scheduler_8h"/>
+        <childnode refid="26070" relation="include">
+        </childnode>
+        <childnode refid="26077" relation="include">
+        </childnode>
+        <childnode refid="26079" relation="include">
+        </childnode>
+        <childnode refid="26063" relation="include">
+        </childnode>
+      </node>
+      <node id="26050">
+        <label>utility</label>
+      </node>
+      <node id="26059">
+        <label>helper/types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="26060" relation="include">
+        </childnode>
+        <childnode refid="26057" relation="include">
+        </childnode>
+        <childnode refid="26061" relation="include">
+        </childnode>
+        <childnode refid="26055" relation="include">
+        </childnode>
+        <childnode refid="26048" relation="include">
+        </childnode>
+      </node>
+      <node id="26071">
+        <label>taskscheduler/AbstractTaskQueue.h</label>
+        <link refid="_abstract_task_queue_8h"/>
+        <childnode refid="26055" relation="include">
+        </childnode>
+        <childnode refid="26054" relation="include">
+        </childnode>
+        <childnode refid="26072" relation="include">
+        </childnode>
+        <childnode refid="26056" relation="include">
+        </childnode>
+        <childnode refid="26045" relation="include">
+        </childnode>
+        <childnode refid="26053" relation="include">
+        </childnode>
+      </node>
+      <node id="26119">
+        <label>sstream</label>
+      </node>
+      <node id="26116">
+        <label>io/Loader.h</label>
+        <link refid="_loader_8h"/>
+        <childnode refid="26055" relation="include">
+        </childnode>
+        <childnode refid="26057" relation="include">
+        </childnode>
+        <childnode refid="26059" relation="include">
+        </childnode>
+        <childnode refid="26062" relation="include">
+        </childnode>
+        <childnode refid="26117" relation="include">
+        </childnode>
+      </node>
+      <node id="26114">
+        <label>io/StorageManager.h</label>
+        <link refid="_storage_manager_8h"/>
+        <childnode refid="26115" relation="include">
+        </childnode>
+        <childnode refid="26049" relation="include">
+        </childnode>
+        <childnode refid="26055" relation="include">
+        </childnode>
+        <childnode refid="26054" relation="include">
+        </childnode>
+        <childnode refid="26057" relation="include">
+        </childnode>
+        <childnode refid="26048" relation="include">
+        </childnode>
+        <childnode refid="26116" relation="include">
+        </childnode>
+      </node>
+      <node id="26104">
+        <label>storage/BaseIterator.h</label>
+        <link refid="_base_iterator_8h"/>
+      </node>
+      <node id="26092">
+        <label>memory/StrategizedAllocator.h</label>
+        <link refid="_strategized_allocator_8h"/>
+        <childnode refid="26093" relation="include">
+        </childnode>
+        <childnode refid="26094" relation="include">
+        </childnode>
+        <childnode refid="26095" relation="include">
+        </childnode>
+        <childnode refid="26063" relation="include">
+        </childnode>
+      </node>
+      <node id="26068">
+        <label>access/QueryParser.h</label>
+        <link refid="_query_parser_8h"/>
+        <childnode refid="26049" relation="include">
+        </childnode>
+        <childnode refid="26055" relation="include">
+        </childnode>
+        <childnode refid="26048" relation="include">
+        </childnode>
+        <childnode refid="26057" relation="include">
+        </childnode>
+        <childnode refid="26063" relation="include">
+        </childnode>
+        <childnode refid="26051" relation="include">
+        </childnode>
+        <childnode refid="26069" relation="include">
+        </childnode>
+        <childnode refid="26084" relation="include">
+        </childnode>
+      </node>
+      <node id="26058">
+        <label>access/OperationData.h</label>
+        <link refid="_operation_data_8h"/>
+        <childnode refid="26048" relation="include">
+        </childnode>
+        <childnode refid="26059" relation="include">
+        </childnode>
+        <childnode refid="26062" relation="include">
+        </childnode>
+      </node>
+      <node id="26047">
+        <label>time.h</label>
+      </node>
+      <node id="26074">
+        <label>iostream</label>
+      </node>
+      <node id="26087">
+        <label>storage/ColumnMetadata.h</label>
+        <link refid="_column_metadata_8h"/>
+        <childnode refid="26062" relation="include">
+        </childnode>
+        <childnode refid="26057" relation="include">
+        </childnode>
+        <childnode refid="26063" relation="include">
+        </childnode>
+      </node>
+      <node id="26070">
+        <label>taskscheduler/AbstractTaskScheduler.h</label>
+        <link refid="_abstract_task_scheduler_8h"/>
+        <childnode refid="26053" relation="include">
+        </childnode>
+        <childnode refid="26071" relation="include">
+        </childnode>
+        <childnode refid="26055" relation="include">
+        </childnode>
+        <childnode refid="26073" relation="include">
+        </childnode>
+        <childnode refid="26074" relation="include">
+        </childnode>
+        <childnode refid="26045" relation="include">
+        </childnode>
+        <childnode refid="26075" relation="include">
+        </childnode>
+      </node>
+      <node id="26083">
+        <label>deque</label>
+      </node>
+      <node id="26066">
+        <label>boost/mpl/map.hpp</label>
+      </node>
+      <node id="26082">
+        <label>taskscheduler/WSSimpleTaskScheduler.h</label>
+        <link refid="_w_s_simple_task_scheduler_8h"/>
+        <childnode refid="26070" relation="include">
+        </childnode>
+        <childnode refid="26081" relation="include">
+        </childnode>
+        <childnode refid="26083" relation="include">
+        </childnode>
+        <childnode refid="26074" relation="include">
+        </childnode>
+        <childnode refid="26075" relation="include">
+        </childnode>
+      </node>
+      <node id="26054">
+        <label>mutex</label>
+      </node>
+      <node id="26042">
+        <label>testing/base_test.h</label>
+        <link refid="base__test_8h"/>
+        <childnode refid="26041" relation="include">
+        </childnode>
+      </node>
+      <node id="26106">
+        <label>storage/AbstractAllocatedDictionary.h</label>
+        <link refid="_abstract_allocated_dictionary_8h"/>
+      </node>
+      <node id="26072">
+        <label>thread</label>
+      </node>
+      <node id="26096">
+        <label>memory/MallocStrategy.h</label>
+        <link refid="_malloc_strategy_8h"/>
+        <childnode refid="26074" relation="include">
+        </childnode>
+        <childnode refid="26060" relation="include">
+        </childnode>
+        <childnode refid="26097" relation="include">
+        </childnode>
+      </node>
+      <node id="26089">
+        <label>storage/OrderPreservingDictionary.h</label>
+        <link refid="_order_preserving_dictionary_8h"/>
+        <childnode refid="26090" relation="include">
+        </childnode>
+        <childnode refid="26074" relation="include">
+        </childnode>
+        <childnode refid="26055" relation="include">
+        </childnode>
+        <childnode refid="26062" relation="include">
+        </childnode>
+        <childnode refid="26091" relation="include">
+        </childnode>
+        <childnode refid="26102" relation="include">
+        </childnode>
+        <childnode refid="26103" relation="include">
+        </childnode>
+        <childnode refid="26106" relation="include">
+        </childnode>
+        <childnode refid="26104" relation="include">
+        </childnode>
+      </node>
+      <node id="26043">
+        <label>access/PlanOperation.h</label>
+        <link refid="_plan_operation_8h"/>
+        <childnode refid="26044" relation="include">
+        </childnode>
+        <childnode refid="26058" relation="include">
+        </childnode>
+        <childnode refid="26068" relation="include">
+        </childnode>
+        <childnode refid="26062" relation="include">
+        </childnode>
+        <childnode refid="26059" relation="include">
+        </childnode>
+        <childnode refid="26085" relation="include">
+        </childnode>
+        <childnode refid="26051" relation="include">
+        </childnode>
+      </node>
+      <node id="26094">
+        <label>algorithm</label>
+      </node>
+      <node id="26045">
+        <label>log4cxx/logger.h</label>
+      </node>
+      <node id="26040">
+        <label>src/lib/testing/test.h</label>
+        <link refid="test.h"/>
+        <childnode refid="26041" relation="include">
+        </childnode>
+        <childnode refid="26042" relation="include">
+        </childnode>
+        <childnode refid="26043" relation="include">
+        </childnode>
+        <childnode refid="26114" relation="include">
+        </childnode>
+        <childnode refid="26059" relation="include">
+        </childnode>
+        <childnode refid="26118" relation="include">
+        </childnode>
+      </node>
+      <node id="26100">
+        <label>stdio.h</label>
+      </node>
+      <node id="26097">
+        <label>cstring</label>
+      </node>
+      <node id="26108">
+        <label>storage/csb_tree.h</label>
+        <link refid="csb__tree_8h"/>
+        <childnode refid="26048" relation="include">
+        </childnode>
+        <childnode refid="26074" relation="include">
+        </childnode>
+        <childnode refid="26095" relation="include">
+        </childnode>
+        <childnode refid="26055" relation="include">
+        </childnode>
+        <childnode refid="26109" relation="include">
+        </childnode>
+        <childnode refid="26090" relation="include">
+        </childnode>
+        <childnode refid="26105" relation="include">
+        </childnode>
+      </node>
+      <node id="26055">
+        <label>memory</label>
+      </node>
+      <node id="26062">
+        <label>storage/storage_types.h</label>
+        <link refid="storage__types_8h"/>
+        <childnode refid="26048" relation="include">
+        </childnode>
+        <childnode refid="26057" relation="include">
+        </childnode>
+        <childnode refid="26063" relation="include">
+        </childnode>
+        <childnode refid="26046" relation="include">
+        </childnode>
+        <childnode refid="26064" relation="include">
+        </childnode>
+        <childnode refid="26065" relation="include">
+        </childnode>
+        <childnode refid="26066" relation="include">
+        </childnode>
+        <childnode refid="26067" relation="include">
+        </childnode>
+      </node>
+      <node id="26117">
+        <label>parameters.inc</label>
+        <link refid="parameters_8inc"/>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="26121">
+        <label>src/lib/testing/test.cpp</label>
+        <link refid="test_8cpp"/>
+      </node>
+      <node id="26120">
+        <label>src/lib/testing/test.h</label>
+        <link refid="test.h"/>
+        <childnode refid="26121" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="classhyrise_1_1_storage_manager_test" prot="public">hyrise::StorageManagerTest</innerclass>
+    <innerclass refid="classhyrise_1_1access_1_1_access_test" prot="public">hyrise::access::AccessTest</innerclass>
+    <innernamespace refid="namespacehyrise">hyrise</innernamespace>
+    <innernamespace refid="namespacehyrise_1_1access">hyrise::access</innernamespace>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="test_8h_1ac6e446d82fdcf25e105f252b90a96dff" prot="public" static="no">
+        <name>ASSERT_TABLE_EQUAL</name>
+        <param><defname>a</defname></param>
+        <param><defname>b</defname></param>
+        <initializer>EXPECT_PRED_FORMAT2(<ref refid="test_8h_1a2b1493c44d14c0125b8a536ea5df6a0b" kindref="member">AssertTableContentEquals</ref>, a, b)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/testing/test.h" line="36" bodyfile="/home/grund/hyrise/src/lib/testing/test.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="test_8h_1ade43fe2c5985f24d1797d89eefa1a015" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename It1</type>
+          </param>
+          <param>
+            <type>typename It2</type>
+          </param>
+        </templateparamlist>
+        <type>::testing::AssertionResult</type>
+        <definition>::testing::AssertionResult contains_all</definition>
+        <argsstring>(const It1 a, const It2 b)</argsstring>
+        <name>contains_all</name>
+        <param>
+          <type>const It1</type>
+          <declname>a</declname>
+        </param>
+        <param>
+          <type>const It2</type>
+          <declname>b</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/testing/test.h" line="15" bodyfile="/home/grund/hyrise/src/lib/testing/test.h" bodystart="15" bodyend="28"/>
+      </memberdef>
+      <memberdef kind="function" id="test_8h_1a2b1493c44d14c0125b8a536ea5df6a0b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>::testing::AssertionResult</type>
+        <definition>::testing::AssertionResult AssertTableContentEquals</definition>
+        <argsstring>(const char *left_exp, const char *right_exp, const hyrise::storage::c_atable_ptr_t left, const hyrise::storage::c_atable_ptr_t right)</argsstring>
+        <name>AssertTableContentEquals</name>
+        <param>
+          <type>const char *</type>
+          <declname>left_exp</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>right_exp</declname>
+        </param>
+        <param>
+          <type>const <ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref></type>
+          <declname>left</declname>
+        </param>
+        <param>
+          <type>const <ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref></type>
+          <declname>right</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/testing/test.h" line="34" bodyfile="/home/grund/hyrise/src/lib/testing/test.cpp" bodystart="6" bodyend="20"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>2012<sp/>Hasso-Plattner-Institut<sp/>fuer<sp/>Softwaresystemtechnik<sp/>GmbH.<sp/>All<sp/>rights<sp/>reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SRC_LIB_TESTING_TEST_H_</highlight></codeline>
+<codeline lineno="3"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SRC_LIB_TESTING_TEST_H_</highlight></codeline>
+<codeline lineno="4"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;gtest/gtest.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="base__test_8h" kindref="compound">testing/base_test.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_plan_operation_8h" kindref="compound">access/PlanOperation.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_storage_manager_8h" kindref="compound">io/StorageManager.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="types_8h" kindref="compound">helper/types.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="stringhelpers_8h" kindref="compound">helper/stringhelpers.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>It1,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>It2&gt;</highlight></codeline>
+<codeline lineno="15" refid="test_8h_1ade43fe2c5985f24d1797d89eefa1a015" refkind="member"><highlight class="normal">::testing::AssertionResult<sp/><ref refid="test_8h_1ade43fe2c5985f24d1797d89eefa1a015" kindref="member">contains_all</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>It1<sp/>a,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>It2<sp/>b)<sp/>{</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//static_assert(std::is_same&lt;typename<sp/>It1::value_type,<sp/>typename<sp/>It2::value_type&gt;::value<sp/>==<sp/>true);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>It1::value_type<sp/>vt;</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/>std::vector&lt;vt&gt;<sp/>unmatched_items;</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>&amp;<sp/>item:<sp/>b)<sp/>{</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(std::find(begin(a),<sp/>end(a),<sp/>item)<sp/>==<sp/>end(a))<sp/>{</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>unmatched_items.push_back(item);</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(unmatched_items.size()<sp/>==<sp/>0)</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/>return<sp/>::testing::AssertionSuccess();</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/>return<sp/>::testing::AssertionFailure()<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Missing<sp/>elements<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/><ref refid="stringhelpers_8h_1a9d6658fdfba931db8a145b18f63c89a3" kindref="member">joinString</ref>(unmatched_items,<sp/></highlight><highlight class="stringliteral">&quot;,&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="28"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal">::testing::AssertionResult<sp/><ref refid="test_8cpp_1a2b1493c44d14c0125b8a536ea5df6a0b" kindref="member">AssertTableContentEquals</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*left_exp,</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*right_exp,</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref><sp/>left,</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref><sp/>right);</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36" refid="test_8h_1ac6e446d82fdcf25e105f252b90a96dff" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ASSERT_TABLE_EQUAL(a,b)<sp/>EXPECT_PRED_FORMAT2(AssertTableContentEquals,<sp/>a,<sp/>b)</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">hyrise<sp/>{</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42" refid="classhyrise_1_1_storage_manager_test" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classhyrise_1_1_storage_manager_test" kindref="compound">StorageManagerTest</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1_test" kindref="compound">Test</ref><sp/>{</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="44" refid="classhyrise_1_1_storage_manager_test_1ab4b0e66791b16d8520ba5f30a4745ca6" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1_storage_manager_test_1ab4b0e66791b16d8520ba5f30a4745ca6" kindref="member">~StorageManagerTest</ref>()<sp/>{};</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46" refid="classhyrise_1_1_storage_manager_test_1a9d9d997d123397dac2fe30193da63097" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1_storage_manager_test_1a9d9d997d123397dac2fe30193da63097" kindref="member">SetUp</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhyrise_1_1io_1_1_storage_manager" kindref="compound" tooltip="Central holder of schema information.">StorageManager</ref><sp/>*sm<sp/>=<sp/><ref refid="classhyrise_1_1io_1_1_storage_manager_1a73b12a097673a0afa604a22dd401a1bb" kindref="member" tooltip="Retrieve singleton storage-manager instance.">StorageManager::getInstance</ref>();</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/>sm-&gt;<ref refid="classhyrise_1_1io_1_1_storage_manager_1a8ae4677060c29dd5b6fed2871e557b5b" kindref="member">removeAll</ref>();</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51" refid="classhyrise_1_1_storage_manager_test_1ab2d292443cadb863d7f3f7c3917a69f8" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1_storage_manager_test_1ab2d292443cadb863d7f3f7c3917a69f8" kindref="member">TearDown</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="53"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">access<sp/>{</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57" refid="classhyrise_1_1access_1_1_access_test" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classhyrise_1_1access_1_1_access_test" kindref="compound">AccessTest</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1_test" kindref="compound">Test</ref><sp/>{</highlight></codeline>
+<codeline lineno="58" refid="classhyrise_1_1access_1_1_access_test_1a81a90668ff4f1562891f55edc66d1037" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1access_1_1_access_test_1a81a90668ff4f1562891f55edc66d1037" kindref="member">SetUp</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhyrise_1_1io_1_1_storage_manager" kindref="compound" tooltip="Central holder of schema information.">StorageManager</ref><sp/>*sm<sp/>=<sp/><ref refid="classhyrise_1_1io_1_1_storage_manager_1a73b12a097673a0afa604a22dd401a1bb" kindref="member" tooltip="Retrieve singleton storage-manager instance.">StorageManager::getInstance</ref>();</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/>sm-&gt;<ref refid="classhyrise_1_1io_1_1_storage_manager_1a8ae4677060c29dd5b6fed2871e557b5b" kindref="member">removeAll</ref>();</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63" refid="classhyrise_1_1access_1_1_access_test_1ad92cd9639eb78de9785bdd8495046d50" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1access_1_1_access_test_1ad92cd9639eb78de9785bdd8495046d50" kindref="member">TearDown</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="65"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="68"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/>//<sp/>SRC_LIB_TESTING_TEST_H_</highlight></codeline>
+    </programlisting>
+    <location file="/home/grund/hyrise/src/lib/testing/test.h"/>
+  </compounddef>
+</doxygen>

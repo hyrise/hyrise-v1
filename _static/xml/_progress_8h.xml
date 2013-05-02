@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="_progress_8h" kind="file">
+    <compoundname>Progress.h</compoundname>
+    <includedby refid="_table_generator_8cpp" local="no">src/lib/storage/TableGenerator.cpp</includedby>
+    <invincdepgraph>
+      <node id="14048">
+        <label>src/lib/helper/Progress.h</label>
+        <link refid="Progress.h"/>
+        <childnode refid="14049" relation="include">
+        </childnode>
+      </node>
+      <node id="14049">
+        <label>src/lib/storage/TableGenerator.cpp</label>
+        <link refid="_table_generator_8cpp"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="class_progress" prot="public">Progress</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>2012<sp/>Hasso-Plattner-Institut<sp/>fuer<sp/>Softwaresystemtechnik<sp/>GmbH.<sp/>All<sp/>rights<sp/>reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SRC_LIB_HELPER_PROGRESS_H_</highlight></codeline>
+<codeline lineno="4"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SRC_LIB_HELPER_PROGRESS_H_</highlight></codeline>
+<codeline lineno="5"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7" refid="class_progress" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_progress" kindref="compound">Progress</ref><sp/>{</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"><sp/></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="10" refid="class_progress_1a931d8bb8bc537a066ac3b6885d36196b" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="class_progress_1a931d8bb8bc537a066ac3b6885d36196b" kindref="member">_steps</ref>;</highlight></codeline>
+<codeline lineno="11" refid="class_progress_1a2682d0ef39a177ac9b3a3d663b7ab2f9" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="class_progress_1a2682d0ef39a177ac9b3a3d663b7ab2f9" kindref="member">_current_step</ref>;</highlight></codeline>
+<codeline lineno="12" refid="class_progress_1aa415ff8509e6fdca586a962cd3dbb336" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="class_progress_1aa415ff8509e6fdca586a962cd3dbb336" kindref="member">_current_tick</ref>;</highlight></codeline>
+<codeline lineno="13" refid="class_progress_1a29e72c87e8fbcb2fe5afd57286d1deeb" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="class_progress_1a29e72c87e8fbcb2fe5afd57286d1deeb" kindref="member">_ticks</ref>;</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight></codeline>
+<codeline lineno="17" refid="class_progress_1a52844132c4fc32b67ca15f5bd95d2d80" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">explicit</highlight><highlight class="normal"><sp/><ref refid="class_progress_1a52844132c4fc32b67ca15f5bd95d2d80" kindref="member">Progress</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>ticks)<sp/>:<sp/><ref refid="class_progress_1a931d8bb8bc537a066ac3b6885d36196b" kindref="member">_steps</ref>(50),<sp/><ref refid="class_progress_1a2682d0ef39a177ac9b3a3d663b7ab2f9" kindref="member">_current_step</ref>(0),<sp/><ref refid="class_progress_1aa415ff8509e6fdca586a962cd3dbb336" kindref="member">_current_tick</ref>(0),<sp/><sp/><ref refid="class_progress_1a29e72c87e8fbcb2fe5afd57286d1deeb" kindref="member">_ticks</ref>(ticks)<sp/>{</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ticks<sp/>&lt;<sp/><ref refid="class_progress_1a931d8bb8bc537a066ac3b6885d36196b" kindref="member">_steps</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_progress_1a931d8bb8bc537a066ac3b6885d36196b" kindref="member">_steps</ref><sp/>=<sp/>ticks;</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ticks<sp/>==<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_progress_1a2682d0ef39a177ac9b3a3d663b7ab2f9" kindref="member">_current_step</ref><sp/>=<sp/>100;</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_progress_1a63613f838e6a97cc745a5d7cbf96ccdc" kindref="member">tick</ref>();</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29" refid="class_progress_1a63613f838e6a97cc745a5d7cbf96ccdc" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_progress_1a63613f838e6a97cc745a5d7cbf96ccdc" kindref="member">tick</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_progress_1aa415ff8509e6fdca586a962cd3dbb336" kindref="member">_current_tick</ref>++;</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="class_progress_1aa415ff8509e6fdca586a962cd3dbb336" kindref="member">_current_tick</ref><sp/>&gt;=<sp/><ref refid="class_progress_1a2682d0ef39a177ac9b3a3d663b7ab2f9" kindref="member">_current_step</ref><sp/>*<sp/><ref refid="class_progress_1a29e72c87e8fbcb2fe5afd57286d1deeb" kindref="member">_ticks</ref><sp/>/<sp/>100)<sp/>{</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/><ref refid="class_progress_1a2682d0ef39a177ac9b3a3d663b7ab2f9" kindref="member">_current_step</ref><sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;.&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>std::flush;</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="class_progress_1a2682d0ef39a177ac9b3a3d663b7ab2f9" kindref="member">_current_step</ref><sp/>==<sp/>100)<sp/>{</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_progress_1a2682d0ef39a177ac9b3a3d663b7ab2f9" kindref="member">_current_step</ref><sp/>+=<sp/>100<sp/>/<sp/><ref refid="class_progress_1a931d8bb8bc537a066ac3b6885d36196b" kindref="member">_steps</ref>;</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/>//<sp/>SRC_LIB_HELPER_PROGRESS_H_</highlight></codeline>
+    </programlisting>
+    <location file="/home/grund/hyrise/src/lib/helper/Progress.h"/>
+  </compounddef>
+</doxygen>

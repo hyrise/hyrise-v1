@@ -1,0 +1,140 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="classhyrise_1_1testing_1_1_minimalist_printer" kind="class" prot="public">
+    <compoundname>hyrise::testing::MinimalistPrinter</compoundname>
+    <includes refid="_minimalist_printer_8h" local="no">MinimalistPrinter.h</includes>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classhyrise_1_1testing_1_1_minimalist_printer_1a0a87b52ec84f78a6323f20e22a35ebfc" prot="public" static="no">
+        <type>::testing::TestPartResult</type>
+        <definition>typedef ::testing::TestPartResult hyrise::testing::MinimalistPrinter::test_part_t</definition>
+        <argsstring></argsstring>
+        <name>test_part_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/testing/MinimalistPrinter.h" line="21" bodyfile="/home/grund/hyrise/src/lib/testing/MinimalistPrinter.h" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classhyrise_1_1testing_1_1_minimalist_printer_1aa3785117cc9d6e4047d0116ff6b8f64f" prot="private" static="no" mutable="no">
+        <type>std::unique_ptr&lt; <ref refid="structhyrise_1_1testing_1_1_printer_impl" kindref="compound">PrinterImpl</ref> &gt;</type>
+        <definition>std::unique_ptr&lt;PrinterImpl&gt; hyrise::testing::MinimalistPrinter::_impl</definition>
+        <argsstring></argsstring>
+        <name>_impl</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/testing/MinimalistPrinter.h" line="17" bodyfile="/home/grund/hyrise/src/lib/testing/MinimalistPrinter.h" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classhyrise_1_1testing_1_1_minimalist_printer_1ad94bda62b8c0e53aa5f2e919b718e193" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>hyrise::testing::MinimalistPrinter::MinimalistPrinter</definition>
+        <argsstring>()</argsstring>
+        <name>MinimalistPrinter</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/testing/MinimalistPrinter.h" line="20" bodyfile="/home/grund/hyrise/src/lib/testing/MinimalistPrinter.cpp" bodystart="19" bodyend="20"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1testing_1_1_minimalist_printer_1a6e026d3954acaf71d954d20abd4cb8e7" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void hyrise::testing::MinimalistPrinter::OnTestStart</definition>
+        <argsstring>(const ::testing::TestInfo &amp;test_info)</argsstring>
+        <name>OnTestStart</name>
+        <param>
+          <type>const ::testing::TestInfo &amp;</type>
+          <declname>test_info</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/testing/MinimalistPrinter.h" line="22" bodyfile="/home/grund/hyrise/src/lib/testing/MinimalistPrinter.cpp" bodystart="22" bodyend="31"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1testing_1_1_minimalist_printer_1ad5ecca3f667754350a8e7f0498829155" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void hyrise::testing::MinimalistPrinter::OnTestPartResult</definition>
+        <argsstring>(const ::testing::TestPartResult &amp;test_part_result)</argsstring>
+        <name>OnTestPartResult</name>
+        <param>
+          <type>const ::testing::TestPartResult &amp;</type>
+          <declname>test_part_result</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/testing/MinimalistPrinter.h" line="23" bodyfile="/home/grund/hyrise/src/lib/testing/MinimalistPrinter.cpp" bodystart="33" bodyend="37"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1testing_1_1_minimalist_printer_1ae952b86f7f962dbca188ea81ae6b2a3f" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void hyrise::testing::MinimalistPrinter::OnTestEnd</definition>
+        <argsstring>(const ::testing::TestInfo &amp;test_info)</argsstring>
+        <name>OnTestEnd</name>
+        <param>
+          <type>const ::testing::TestInfo &amp;</type>
+          <declname>test_info</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/testing/MinimalistPrinter.h" line="24" bodyfile="/home/grund/hyrise/src/lib/testing/MinimalistPrinter.cpp" bodystart="39" bodyend="48"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1testing_1_1_minimalist_printer_1a011ef01f6c7509755bedc06e9d93e6bd" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void hyrise::testing::MinimalistPrinter::OnTestProgramEnd</definition>
+        <argsstring>(const ::testing::UnitTest &amp;unit)</argsstring>
+        <name>OnTestProgramEnd</name>
+        <param>
+          <type>const ::testing::UnitTest &amp;</type>
+          <declname>unit</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/testing/MinimalistPrinter.h" line="25" bodyfile="/home/grund/hyrise/src/lib/testing/MinimalistPrinter.cpp" bodystart="50" bodyend="68"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Minimalistic printing features for gtest testrunner. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2329">
+        <label>hyrise::testing::MinimalistPrinter</label>
+        <link refid="classhyrise_1_1testing_1_1_minimalist_printer"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/testing/MinimalistPrinter.h" line="16" bodyfile="/home/grund/hyrise/src/lib/testing/MinimalistPrinter.h" bodystart="16" bodyend="26"/>
+    <listofallmembers>
+      <member refid="classhyrise_1_1testing_1_1_minimalist_printer_1aa3785117cc9d6e4047d0116ff6b8f64f" prot="private" virt="non-virtual"><scope>hyrise::testing::MinimalistPrinter</scope><name>_impl</name></member>
+      <member refid="classhyrise_1_1testing_1_1_minimalist_printer_1ad94bda62b8c0e53aa5f2e919b718e193" prot="public" virt="non-virtual"><scope>hyrise::testing::MinimalistPrinter</scope><name>MinimalistPrinter</name></member>
+      <member refid="classhyrise_1_1testing_1_1_minimalist_printer_1ae952b86f7f962dbca188ea81ae6b2a3f" prot="public" virt="virtual"><scope>hyrise::testing::MinimalistPrinter</scope><name>OnTestEnd</name></member>
+      <member refid="classhyrise_1_1testing_1_1_minimalist_printer_1ad5ecca3f667754350a8e7f0498829155" prot="public" virt="virtual"><scope>hyrise::testing::MinimalistPrinter</scope><name>OnTestPartResult</name></member>
+      <member refid="classhyrise_1_1testing_1_1_minimalist_printer_1a011ef01f6c7509755bedc06e9d93e6bd" prot="public" virt="virtual"><scope>hyrise::testing::MinimalistPrinter</scope><name>OnTestProgramEnd</name></member>
+      <member refid="classhyrise_1_1testing_1_1_minimalist_printer_1a6e026d3954acaf71d954d20abd4cb8e7" prot="public" virt="virtual"><scope>hyrise::testing::MinimalistPrinter</scope><name>OnTestStart</name></member>
+      <member refid="classhyrise_1_1testing_1_1_minimalist_printer_1a0a87b52ec84f78a6323f20e22a35ebfc" prot="public" virt="non-virtual"><scope>hyrise::testing::MinimalistPrinter</scope><name>test_part_t</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

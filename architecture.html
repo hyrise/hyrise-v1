@@ -1,0 +1,225 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Implementation Details &mdash; HYRISE latest documentation</title>
+    
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/breathe.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     'latest',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="HYRISE latest documentation" href="index.html" />
+    <link rel="next" title="Create Modifiable Tables" href="architecture/architecture.html" />
+    <link rel="prev" title="Writing your own PlanOperation" href="gettingstarted/tutorial_write_ops.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="architecture/architecture.html" title="Create Modifiable Tables"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="gettingstarted/tutorial_write_ops.html" title="Writing your own PlanOperation"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">HYRISE latest documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/hyrise.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Implementation Details</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="architecture/architecture.html">Create Modifiable Tables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/layouter.html">HYRISE Layouter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/loading.html">Loading</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/statistics.html">Query Statistics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/planops.html">Plan Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/extension_points.html">Extension points</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/routing.html">Routing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="query_execution.html">HYRISE Query Execution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developing.html">Developing with HYRISE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">HYRISE &amp; Development FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="proposals.html">Proposals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="doxygen.html">Doxygen Documentation</a></li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="gettingstarted/tutorial_write_ops.html"
+                        title="previous chapter">Writing your own PlanOperation</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="architecture/architecture.html"
+                        title="next chapter">Create Modifiable Tables</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/architecture.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="implementation-details">
+<h1>Implementation Details<a class="headerlink" href="#implementation-details" title="Permalink to this headline">¶</a></h1>
+<p>This part describes selected implementation details that should help
+to maintain and increase the quality of the code in HYRISE and explain
+certain architectural decisions.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="architecture/architecture.html">Create Modifiable Tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture/layouter.html">HYRISE Layouter</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="architecture/layouter.html#layout-engines">Layout Engines</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="architecture/loading.html">Loading</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="architecture/loading.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/loading.html#abstract-overview">Abstract Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/loading.html#how-to-load-data">How to load data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/loading.html#shortcuts">Shortcuts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/loading.html#loaders">Loaders</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="architecture/loading/index.html">EmptyLoader</a></li>
+<li class="toctree-l3"><a class="reference internal" href="architecture/loading/index.html#csvloader">CSVLoader</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="architecture/loading/index.html#usage">Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="architecture/loading/index.html#parameters">Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="architecture/loading/index.html#generic-csv-parameters">Generic CSV parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="architecture/loading/index.html#stringloader">StringLoader</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="architecture/loading/index.html#id1">Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="architecture/loading/index.html#id2">Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="architecture/loading/mysql.html">MySQL Loader</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="architecture/loading/mysql.html#additional-dependencies">Additional dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="architecture/loading/mysql.html#environment-variables">Environment Variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="architecture/loading/mysql.html#parameters">Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="architecture/loading/mysql.html#usage">Usage</a></li>
+<li class="toctree-l4"><a class="reference internal" href="architecture/loading/mysql.html#implementation-details">Implementation details</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="architecture/statistics.html">Query Statistics</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="architecture/statistics.html#statistic-table">Statistic Table</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="architecture/planops.html">Plan Operations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="architecture/planops/planop.html">PlanOperation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="architecture/planops/planop.html#input-output-handling">Input/output handling</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/planops/groupby.html">Group By Scan</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="architecture/planops/groupby.html#useage">Useage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="architecture/planops/groupby.html#executeplanoperation">executePlanOperation()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="architecture/planops/groupby.html#aggregate-scan-count-and-sum">Aggregate Scan (Count and Sum)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="architecture/planops/groupby.html#parallelization">Parallelization</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/planops/hashjoin.html">HashJoin</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="architecture/planops/hashjoin.html#build-phase-hashbuild">Build Phase: HashBuild</a></li>
+<li class="toctree-l3"><a class="reference internal" href="architecture/planops/hashjoin.html#probe-phase-hashjoinprobe">Probe Phase: HashJoinProbe</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="architecture/extension_points.html">Extension points</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="architecture/extensions/custom_expression.html">Custom expressions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="architecture/extensions/custom_expression.html#why-write-a-custom-expression">Why write a custom expression?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="architecture/extensions/custom_expression.html#abstractexpression-interface"><cite>AbstractExpression</cite> interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="architecture/extensions/custom_expression.html#walk-method"><cite>walk</cite> method</a></li>
+<li class="toctree-l4"><a class="reference internal" href="architecture/extensions/custom_expression.html#match-method"><cite>match</cite> method</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="architecture/extensions/custom_expression.html#registration-and-usage">Registration and usage</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="architecture/extensions/custom_expression.html#registering">Registering</a></li>
+<li class="toctree-l4"><a class="reference internal" href="architecture/extensions/custom_expression.html#parsing">Parsing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="architecture/extensions/custom_expression.html#using-registered-expressions">Using registered expressions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/extensions/custom_operator.html">Writing a custom operator</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="architecture/extensions/custom_operator.html#writing-a-trivial-operator">Writing a <cite>trivial</cite> operator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="architecture/extensions/custom_operator.html#writing-a-complex-operator">Writing a <cite>complex</cite> operator</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="architecture/routing.html">Routing</a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="architecture/architecture.html" title="Create Modifiable Tables"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="gettingstarted/tutorial_write_ops.html" title="Writing your own PlanOperation"
+             >previous</a> |</li>
+        <li><a href="index.html">HYRISE latest documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010-2013, Martin Grund et al.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+  </body>
+</html>

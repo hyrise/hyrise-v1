@@ -1,0 +1,156 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="_vector_loader_8h" kind="file">
+    <compoundname>VectorLoader.h</compoundname>
+    <includes refid="_abstract_loader_8h" local="yes">io/AbstractLoader.h</includes>
+    <includedby refid="scan__performance_8cpp" local="yes">src/bin/perf_regression/scan_performance.cpp</includedby>
+    <includedby refid="_vector_loader_8cpp" local="yes">src/lib/io/VectorLoader.cpp</includedby>
+    <incdepgraph>
+      <node id="15763">
+        <label>src/lib/io/VectorLoader.h</label>
+        <link refid="VectorLoader.h"/>
+        <childnode refid="15764" relation="include">
+        </childnode>
+      </node>
+      <node id="15776">
+        <label>boost/mpl/vector.hpp</label>
+      </node>
+      <node id="15770">
+        <label>limits</label>
+      </node>
+      <node id="15778">
+        <label>boost/lexical_cast.hpp</label>
+      </node>
+      <node id="15769">
+        <label>cstdint</label>
+      </node>
+      <node id="15774">
+        <label>stdint.h</label>
+      </node>
+      <node id="15773">
+        <label>stdexcept</label>
+      </node>
+      <node id="15767">
+        <label>string</label>
+      </node>
+      <node id="15775">
+        <label>ostream</label>
+      </node>
+      <node id="15771">
+        <label>vector</label>
+      </node>
+      <node id="15768">
+        <label>helper/types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="15769" relation="include">
+        </childnode>
+        <childnode refid="15767" relation="include">
+        </childnode>
+        <childnode refid="15770" relation="include">
+        </childnode>
+        <childnode refid="15766" relation="include">
+        </childnode>
+        <childnode refid="15771" relation="include">
+        </childnode>
+      </node>
+      <node id="15765">
+        <label>io/Loader.h</label>
+        <link refid="_loader_8h"/>
+        <childnode refid="15766" relation="include">
+        </childnode>
+        <childnode refid="15767" relation="include">
+        </childnode>
+        <childnode refid="15768" relation="include">
+        </childnode>
+        <childnode refid="15772" relation="include">
+        </childnode>
+        <childnode refid="15779" relation="include">
+        </childnode>
+      </node>
+      <node id="15764">
+        <label>io/AbstractLoader.h</label>
+        <link refid="_abstract_loader_8h"/>
+        <childnode refid="15765" relation="include">
+        </childnode>
+        <childnode refid="15772" relation="include">
+        </childnode>
+      </node>
+      <node id="15777">
+        <label>boost/mpl/map.hpp</label>
+      </node>
+      <node id="15766">
+        <label>memory</label>
+      </node>
+      <node id="15772">
+        <label>storage/storage_types.h</label>
+        <link refid="storage__types_8h"/>
+        <childnode refid="15771" relation="include">
+        </childnode>
+        <childnode refid="15767" relation="include">
+        </childnode>
+        <childnode refid="15773" relation="include">
+        </childnode>
+        <childnode refid="15774" relation="include">
+        </childnode>
+        <childnode refid="15775" relation="include">
+        </childnode>
+        <childnode refid="15776" relation="include">
+        </childnode>
+        <childnode refid="15777" relation="include">
+        </childnode>
+        <childnode refid="15778" relation="include">
+        </childnode>
+      </node>
+      <node id="15779">
+        <label>parameters.inc</label>
+        <link refid="parameters_8inc"/>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="15780">
+        <label>src/lib/io/VectorLoader.h</label>
+        <link refid="VectorLoader.h"/>
+        <childnode refid="15781" relation="include">
+        </childnode>
+        <childnode refid="15782" relation="include">
+        </childnode>
+      </node>
+      <node id="15781">
+        <label>src/bin/perf_regression/scan_performance.cpp</label>
+        <link refid="scan__performance_8cpp"/>
+      </node>
+      <node id="15782">
+        <label>src/lib/io/VectorLoader.cpp</label>
+        <link refid="_vector_loader_8cpp"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="class_vector_input" prot="public">VectorInput</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>2012<sp/>Hasso-Plattner-Institut<sp/>fuer<sp/>Softwaresystemtechnik<sp/>GmbH.<sp/>All<sp/>rights<sp/>reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SRC_LIB_IO_VECTORLOADER_H_</highlight></codeline>
+<codeline lineno="3"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SRC_LIB_IO_VECTORLOADER_H_</highlight></codeline>
+<codeline lineno="4"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_abstract_loader_8h" kindref="compound">io/AbstractLoader.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7" refid="class_vector_input" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_vector_input" kindref="compound">VectorInput</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="class_abstract_input" kindref="compound" tooltip="Interface for implementing a data source for loading data into a table.">AbstractInput</ref><sp/>{</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="9" refid="class_vector_input_1a66203b5313b5ca6acaa6a3d3a59c699f" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>std::vector&lt;std::uint64_t&gt;<sp/><ref refid="class_vector_input_1a66203b5313b5ca6acaa6a3d3a59c699f" kindref="member">value_vec_t</ref>;</highlight></codeline>
+<codeline lineno="10" refid="class_vector_input_1a39127193afa13f110644d033c0bf7285" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>std::vector&lt;value_vec_t&gt;<sp/><ref refid="class_vector_input_1a39127193afa13f110644d033c0bf7285" kindref="member">value_vectors_t</ref>;</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"><sp/><sp/><ref refid="class_vector_input_1ae1547a8be3b2bfefa800a6e3d063f777" kindref="member">VectorInput</ref>(<ref refid="class_vector_input_1a39127193afa13f110644d033c0bf7285" kindref="member">value_vectors_t</ref><sp/>vectors);</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/><ref refid="class_vector_input" kindref="compound">VectorInput</ref><sp/>*<ref refid="class_vector_input_1a2b7b9cbdb1749f674cbecd664ab708ec" kindref="member">clone</ref>()<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/>std::shared_ptr&lt;AbstractTable&gt;<sp/><ref refid="class_vector_input_1a71ceee51e14a22c564afc9ea850622ae" kindref="member">load</ref>(std::shared_ptr&lt;AbstractTable&gt;,</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="storage__types_8h_1ab1a41784d413aa539cdda0391757965c" kindref="member">compound_metadata_list</ref><sp/>*,</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="class_loader_1_1params" kindref="compound">Loader::params</ref><sp/>&amp;args);</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="17" refid="class_vector_input_1a01acd6f2eeb72abefec07e26942a5066" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="class_vector_input_1a39127193afa13f110644d033c0bf7285" kindref="member">value_vectors_t</ref><sp/><ref refid="class_vector_input_1a01acd6f2eeb72abefec07e26942a5066" kindref="member">_vectors</ref>;</highlight></codeline>
+<codeline lineno="18"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="/home/grund/hyrise/src/lib/io/VectorLoader.h"/>
+  </compounddef>
+</doxygen>

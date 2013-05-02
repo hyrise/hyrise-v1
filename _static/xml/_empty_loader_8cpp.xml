@@ -1,0 +1,142 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="_empty_loader_8cpp" kind="file">
+    <compoundname>EmptyLoader.cpp</compoundname>
+    <includes refid="_empty_loader_8h" local="yes">io/EmptyLoader.h</includes>
+    <incdepgraph>
+      <node id="14586">
+        <label>boost/mpl/vector.hpp</label>
+      </node>
+      <node id="14580">
+        <label>limits</label>
+      </node>
+      <node id="14588">
+        <label>boost/lexical_cast.hpp</label>
+      </node>
+      <node id="14579">
+        <label>cstdint</label>
+      </node>
+      <node id="14584">
+        <label>stdint.h</label>
+      </node>
+      <node id="14573">
+        <label>io/EmptyLoader.h</label>
+        <link refid="_empty_loader_8h"/>
+        <childnode refid="14574" relation="include">
+        </childnode>
+        <childnode refid="14575" relation="include">
+        </childnode>
+      </node>
+      <node id="14583">
+        <label>stdexcept</label>
+      </node>
+      <node id="14577">
+        <label>string</label>
+      </node>
+      <node id="14585">
+        <label>ostream</label>
+      </node>
+      <node id="14581">
+        <label>vector</label>
+      </node>
+      <node id="14578">
+        <label>helper/types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="14579" relation="include">
+        </childnode>
+        <childnode refid="14577" relation="include">
+        </childnode>
+        <childnode refid="14580" relation="include">
+        </childnode>
+        <childnode refid="14574" relation="include">
+        </childnode>
+        <childnode refid="14581" relation="include">
+        </childnode>
+      </node>
+      <node id="14576">
+        <label>io/Loader.h</label>
+        <link refid="_loader_8h"/>
+        <childnode refid="14574" relation="include">
+        </childnode>
+        <childnode refid="14577" relation="include">
+        </childnode>
+        <childnode refid="14578" relation="include">
+        </childnode>
+        <childnode refid="14582" relation="include">
+        </childnode>
+        <childnode refid="14589" relation="include">
+        </childnode>
+      </node>
+      <node id="14575">
+        <label>io/AbstractLoader.h</label>
+        <link refid="_abstract_loader_8h"/>
+        <childnode refid="14576" relation="include">
+        </childnode>
+        <childnode refid="14582" relation="include">
+        </childnode>
+      </node>
+      <node id="14587">
+        <label>boost/mpl/map.hpp</label>
+      </node>
+      <node id="14572">
+        <label>src/lib/io/EmptyLoader.cpp</label>
+        <link refid="EmptyLoader.cpp"/>
+        <childnode refid="14573" relation="include">
+        </childnode>
+      </node>
+      <node id="14574">
+        <label>memory</label>
+      </node>
+      <node id="14582">
+        <label>storage/storage_types.h</label>
+        <link refid="storage__types_8h"/>
+        <childnode refid="14581" relation="include">
+        </childnode>
+        <childnode refid="14577" relation="include">
+        </childnode>
+        <childnode refid="14583" relation="include">
+        </childnode>
+        <childnode refid="14584" relation="include">
+        </childnode>
+        <childnode refid="14585" relation="include">
+        </childnode>
+        <childnode refid="14586" relation="include">
+        </childnode>
+        <childnode refid="14587" relation="include">
+        </childnode>
+        <childnode refid="14588" relation="include">
+        </childnode>
+      </node>
+      <node id="14589">
+        <label>parameters.inc</label>
+        <link refid="parameters_8inc"/>
+      </node>
+    </incdepgraph>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>2012<sp/>Hasso-Plattner-Institut<sp/>fuer<sp/>Softwaresystemtechnik<sp/>GmbH.<sp/>All<sp/>rights<sp/>reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_empty_loader_8h" kindref="compound">io/EmptyLoader.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4" refid="class_empty_input_1a7d0391c1f2a3189ee29ac39ca97978e1" refkind="member"><highlight class="normal">std::shared_ptr&lt;AbstractTable&gt;<sp/><ref refid="class_empty_input_1a7d0391c1f2a3189ee29ac39ca97978e1" kindref="member">EmptyInput::load</ref>(std::shared_ptr&lt;AbstractTable&gt;<sp/>table,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="storage__types_8h_1ab1a41784d413aa539cdda0391757965c" kindref="member">compound_metadata_list</ref><sp/>*t,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="class_loader_1_1params" kindref="compound">Loader::params</ref><sp/>&amp;args)<sp/>{</highlight></codeline>
+<codeline lineno="5"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>table;</highlight></codeline>
+<codeline lineno="6"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8" refid="class_empty_input_1aa65432e58e1495b59266c9c4934c1441" refkind="member"><highlight class="normal"><ref refid="class_empty_input" kindref="compound">EmptyInput</ref><sp/>*<ref refid="class_empty_input_1aa65432e58e1495b59266c9c4934c1441" kindref="member">EmptyInput::clone</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/><ref refid="class_empty_input_1a2e0e62676a42d7150f384a6ab2c7a904" kindref="member">EmptyInput</ref>(*</highlight><highlight class="keyword">this</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="10"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12" refid="class_empty_header_1a4f3c177c31cff586fbe9abe558c0473b" refkind="member"><highlight class="normal"><ref refid="storage__types_8h_1ab1a41784d413aa539cdda0391757965c" kindref="member">compound_metadata_list</ref><sp/>*<ref refid="class_empty_header_1a4f3c177c31cff586fbe9abe558c0473b" kindref="member">EmptyHeader::load</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="class_loader_1_1params" kindref="compound">Loader::params</ref><sp/>&amp;args)<sp/>{</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><ref refid="storage__types_8h_1ab1a41784d413aa539cdda0391757965c" kindref="member">compound_metadata_list</ref><sp/>*l<sp/>=<sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/><ref refid="storage__types_8h_1ab1a41784d413aa539cdda0391757965c" kindref="member">compound_metadata_list</ref>();</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>l;</highlight></codeline>
+<codeline lineno="15"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight></codeline>
+<codeline lineno="17" refid="class_empty_header_1a34e0d856670890098d754d7ef9ac707c" refkind="member"><highlight class="normal"><ref refid="class_empty_header" kindref="compound">EmptyHeader</ref><sp/>*<ref refid="class_empty_header_1a34e0d856670890098d754d7ef9ac707c" kindref="member">EmptyHeader::clone</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/><ref refid="class_empty_header_1af5b694714c0664119898e683b17bb0a1" kindref="member">EmptyHeader</ref>(*</highlight><highlight class="keyword">this</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="19"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/home/grund/hyrise/src/lib/io/EmptyLoader.cpp"/>
+  </compounddef>
+</doxygen>

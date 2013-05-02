@@ -1,0 +1,126 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="_pretty_printer_8h" kind="file">
+    <compoundname>PrettyPrinter.h</compoundname>
+    <includes refid="types_8h" local="yes">helper/types.h</includes>
+    <includedby refid="_abstract_table_8cpp" local="no">src/lib/storage/AbstractTable.cpp</includedby>
+    <includedby refid="_pointer_calculator_8cpp" local="yes">src/lib/storage/PointerCalculator.cpp</includedby>
+    <includedby refid="_pretty_printer_8cpp" local="yes">src/lib/storage/PrettyPrinter.cpp</includedby>
+    <includedby refid="_store_8cpp" local="yes">src/lib/storage/Store.cpp</includedby>
+    <includedby refid="_table_range_view_8cpp" local="yes">src/lib/storage/TableRangeView.cpp</includedby>
+    <includedby refid="_table_equality_test_8cpp" local="no">src/lib/testing/TableEqualityTest.cpp</includedby>
+    <includedby refid="test_8cpp" local="no">src/lib/testing/test.cpp</includedby>
+    <incdepgraph>
+      <node id="21634">
+        <label>limits</label>
+      </node>
+      <node id="21632">
+        <label>cstdint</label>
+      </node>
+      <node id="21633">
+        <label>string</label>
+      </node>
+      <node id="21630">
+        <label>src/lib/storage/PrettyPrinter.h</label>
+        <link refid="PrettyPrinter.h"/>
+        <childnode refid="21631" relation="include">
+        </childnode>
+      </node>
+      <node id="21636">
+        <label>vector</label>
+      </node>
+      <node id="21631">
+        <label>helper/types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="21632" relation="include">
+        </childnode>
+        <childnode refid="21633" relation="include">
+        </childnode>
+        <childnode refid="21634" relation="include">
+        </childnode>
+        <childnode refid="21635" relation="include">
+        </childnode>
+        <childnode refid="21636" relation="include">
+        </childnode>
+      </node>
+      <node id="21635">
+        <label>memory</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="21641">
+        <label>src/lib/storage/Store.cpp</label>
+        <link refid="_store_8cpp"/>
+      </node>
+      <node id="21639">
+        <label>src/lib/storage/PointerCalculator.cpp</label>
+        <link refid="_pointer_calculator_8cpp"/>
+      </node>
+      <node id="21643">
+        <label>src/lib/testing/TableEqualityTest.cpp</label>
+        <link refid="_table_equality_test_8cpp"/>
+      </node>
+      <node id="21644">
+        <label>src/lib/testing/test.cpp</label>
+        <link refid="test_8cpp"/>
+      </node>
+      <node id="21637">
+        <label>src/lib/storage/PrettyPrinter.h</label>
+        <link refid="PrettyPrinter.h"/>
+        <childnode refid="21638" relation="include">
+        </childnode>
+        <childnode refid="21639" relation="include">
+        </childnode>
+        <childnode refid="21640" relation="include">
+        </childnode>
+        <childnode refid="21641" relation="include">
+        </childnode>
+        <childnode refid="21642" relation="include">
+        </childnode>
+        <childnode refid="21643" relation="include">
+        </childnode>
+        <childnode refid="21644" relation="include">
+        </childnode>
+      </node>
+      <node id="21638">
+        <label>src/lib/storage/AbstractTable.cpp</label>
+        <link refid="_abstract_table_8cpp"/>
+      </node>
+      <node id="21642">
+        <label>src/lib/storage/TableRangeView.cpp</label>
+        <link refid="_table_range_view_8cpp"/>
+      </node>
+      <node id="21640">
+        <label>src/lib/storage/PrettyPrinter.cpp</label>
+        <link refid="_pretty_printer_8cpp"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="class_pretty_printer" prot="public">PrettyPrinter</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>2012<sp/>Hasso-Plattner-Institut<sp/>fuer<sp/>Softwaresystemtechnik<sp/>GmbH.<sp/>All<sp/>rights<sp/>reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SRC_LIB_STORAGE_PRETTYPRINTER_H_</highlight></codeline>
+<codeline lineno="3"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SRC_LIB_STORAGE_PRETTYPRINTER_H_</highlight></codeline>
+<codeline lineno="4"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="types_8h" kindref="compound">helper/types.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_table_diff" kindref="compound">TableDiff</ref>;</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9" refid="class_pretty_printer" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_pretty_printer" kindref="compound">PrettyPrinter</ref><sp/>{</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_pretty_printer_1ac0cd959b205b2ab198dac35c83424e9b" kindref="member">print</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="class_abstract_table" kindref="compound">AbstractTable</ref>*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>input,</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::ostream&amp;<sp/>outStream,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>tableName<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal">&amp;<sp/>limit<sp/>=<sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal">)<sp/>-1,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal">&amp;<sp/>start<sp/>=<sp/>0);</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_pretty_printer_1adbdaff3783e854cd32188e01251355a8" kindref="member">printDiff</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref>&amp;<sp/>input,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="class_table_diff" kindref="compound">TableDiff</ref>&amp;<sp/>diff,</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::ostream&amp;<sp/>outStream,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>tableName<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal">&amp;<sp/>limit<sp/>=<sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal">)<sp/>-1,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal">&amp;<sp/>start<sp/>=<sp/>0);</highlight></codeline>
+<codeline lineno="17"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/>//<sp/>SRC_LIB_STORAGE_PRETTYPRINTER_H_</highlight></codeline>
+    </programlisting>
+    <location file="/home/grund/hyrise/src/lib/storage/PrettyPrinter.h"/>
+  </compounddef>
+</doxygen>

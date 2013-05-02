@@ -1,0 +1,292 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="class_w_s_core_bound_task_queue" kind="class" prot="public">
+    <compoundname>WSCoreBoundTaskQueue</compoundname>
+    <basecompoundref refid="class_abstract_core_bound_task_queue" prot="public" virt="non-virtual">AbstractCoreBoundTaskQueue</basecompoundref>
+    <includes refid="_w_s_core_bound_task_queue_8h" local="no">WSCoreBoundTaskQueue.h</includes>
+      <sectiondef kind="private-type">
+      <memberdef kind="typedef" id="class_w_s_core_bound_task_queue_1a07b0fbcc80691bd9a138210a54bd44c9" prot="private" static="no">
+        <type>std::deque&lt; std::shared_ptr&lt; <ref refid="class_task" kindref="compound">Task</ref> &gt; &gt;</type>
+        <definition>typedef std::deque&lt;std::shared_ptr&lt;Task&gt; &gt; WSCoreBoundTaskQueue::run_queue_t</definition>
+        <argsstring></argsstring>
+        <name>run_queue_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/taskscheduler/WSCoreBoundTaskQueue.h" line="22" bodyfile="/home/grund/hyrise/src/lib/taskscheduler/WSCoreBoundTaskQueue.h" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_w_s_core_bound_task_queue_1ab6c2f8098cb86c73234dfb529cce0dc9" prot="private" static="no" mutable="no">
+        <type><ref refid="class_w_s_core_bound_task_queue_1a07b0fbcc80691bd9a138210a54bd44c9" kindref="member">run_queue_t</ref></type>
+        <definition>run_queue_t WSCoreBoundTaskQueue::_runQueue</definition>
+        <argsstring></argsstring>
+        <name>_runQueue</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/taskscheduler/WSCoreBoundTaskQueue.h" line="23" bodyfile="/home/grund/hyrise/src/lib/taskscheduler/WSCoreBoundTaskQueue.h" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_w_s_core_bound_task_queue_1ad8016914481fc240478830f4065af071" prot="private" static="no" mutable="no">
+        <type><ref refid="class_w_s_simple_task_scheduler" kindref="compound">WSSimpleTaskScheduler</ref>&lt; <ref refid="class_w_s_core_bound_task_queue" kindref="compound">WSCoreBoundTaskQueue</ref> &gt; *</type>
+        <definition>WSSimpleTaskScheduler&lt;WSCoreBoundTaskQueue&gt;* WSCoreBoundTaskQueue::_scheduler</definition>
+        <argsstring></argsstring>
+        <name>_scheduler</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/taskscheduler/WSCoreBoundTaskQueue.h" line="24" bodyfile="/home/grund/hyrise/src/lib/taskscheduler/WSCoreBoundTaskQueue.h" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_w_s_core_bound_task_queue_1af4f2575b3d03cc80c6445fe5830cc80e" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::shared_ptr&lt; <ref refid="class_task" kindref="compound">Task</ref> &gt;</type>
+        <definition>std::shared_ptr&lt; Task &gt; WSCoreBoundTaskQueue::stealTasks</definition>
+        <argsstring>()</argsstring>
+        <name>stealTasks</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/taskscheduler/WSCoreBoundTaskQueue.h" line="27" bodyfile="/home/grund/hyrise/src/lib/taskscheduler/WSCoreBoundTaskQueue.cpp" bodystart="71" bodyend="95"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_w_s_core_bound_task_queue_1a5783e764f668df86e2e88a249a86a2c6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>WSCoreBoundTaskQueue::WSCoreBoundTaskQueue</definition>
+        <argsstring>(int core, WSSimpleTaskScheduler&lt; WSCoreBoundTaskQueue &gt; *scheduler)</argsstring>
+        <name>WSCoreBoundTaskQueue</name>
+        <param>
+          <type>int</type>
+          <declname>core</declname>
+        </param>
+        <param>
+          <type><ref refid="class_w_s_simple_task_scheduler" kindref="compound">WSSimpleTaskScheduler</ref>&lt; <ref refid="class_w_s_core_bound_task_queue" kindref="compound">WSCoreBoundTaskQueue</ref> &gt; *</type>
+          <declname>scheduler</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/taskscheduler/WSCoreBoundTaskQueue.h" line="34" bodyfile="/home/grund/hyrise/src/lib/taskscheduler/WSCoreBoundTaskQueue.cpp" bodystart="114" bodyend="118"/>
+      </memberdef>
+      <memberdef kind="function" id="class_w_s_core_bound_task_queue_1a388694f33609e50006242eee0e76a793" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>WSCoreBoundTaskQueue::~WSCoreBoundTaskQueue</definition>
+        <argsstring>()</argsstring>
+        <name>~WSCoreBoundTaskQueue</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/taskscheduler/WSCoreBoundTaskQueue.h" line="35" bodyfile="/home/grund/hyrise/src/lib/taskscheduler/WSCoreBoundTaskQueue.cpp" bodystart="157" bodyend="159"/>
+      </memberdef>
+      <memberdef kind="function" id="class_w_s_core_bound_task_queue_1a559aa61adcdcced67ae4e5c44e6ff19e" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void WSCoreBoundTaskQueue::executeTask</definition>
+        <argsstring>()</argsstring>
+        <name>executeTask</name>
+        <reimplements refid="class_abstract_task_queue_1aecd09a5005f34494694c7c40df1bfd40">executeTask</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/taskscheduler/WSCoreBoundTaskQueue.h" line="39" bodyfile="/home/grund/hyrise/src/lib/taskscheduler/WSCoreBoundTaskQueue.cpp" bodystart="18" bodyend="69"/>
+      </memberdef>
+      <memberdef kind="function" id="class_w_s_core_bound_task_queue_1a274f7163aaee6c7915b6342506b7e5e2" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void WSCoreBoundTaskQueue::push</definition>
+        <argsstring>(std::shared_ptr&lt; Task &gt; task)</argsstring>
+        <name>push</name>
+        <reimplements refid="class_abstract_task_queue_1aed7b0329d177e98b522170e2777b08d0">push</reimplements>
+        <param>
+          <type>std::shared_ptr&lt; <ref refid="class_task" kindref="compound">Task</ref> &gt;</type>
+          <declname>task</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/taskscheduler/WSCoreBoundTaskQueue.h" line="43" bodyfile="/home/grund/hyrise/src/lib/taskscheduler/WSCoreBoundTaskQueue.cpp" bodystart="120" bodyend="124"/>
+      </memberdef>
+      <memberdef kind="function" id="class_w_s_core_bound_task_queue_1a0312248308abe23fecdb6bd9c17a95e1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_w_s_core_bound_task_queue_1a07b0fbcc80691bd9a138210a54bd44c9" kindref="member">WSCoreBoundTaskQueue::run_queue_t</ref></type>
+        <definition>WSCoreBoundTaskQueue::run_queue_t WSCoreBoundTaskQueue::stopQueue</definition>
+        <argsstring>()</argsstring>
+        <name>stopQueue</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/taskscheduler/WSCoreBoundTaskQueue.h" line="47" bodyfile="/home/grund/hyrise/src/lib/taskscheduler/WSCoreBoundTaskQueue.cpp" bodystart="126" bodyend="145"/>
+      </memberdef>
+      <memberdef kind="function" id="class_w_s_core_bound_task_queue_1a0f7c568387c285c14521845bf35387d5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_w_s_core_bound_task_queue_1a07b0fbcc80691bd9a138210a54bd44c9" kindref="member">WSCoreBoundTaskQueue::run_queue_t</ref></type>
+        <definition>WSCoreBoundTaskQueue::run_queue_t WSCoreBoundTaskQueue::emptyQueue</definition>
+        <argsstring>()</argsstring>
+        <name>emptyQueue</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>empty queue </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/taskscheduler/WSCoreBoundTaskQueue.h" line="52" bodyfile="/home/grund/hyrise/src/lib/taskscheduler/WSCoreBoundTaskQueue.cpp" bodystart="147" bodyend="155"/>
+      </memberdef>
+      <memberdef kind="function" id="class_w_s_core_bound_task_queue_1ad029ebc27bc948d99ca75f9d998937f6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::shared_ptr&lt; <ref refid="class_task" kindref="compound">Task</ref> &gt;</type>
+        <definition>std::shared_ptr&lt; Task &gt; WSCoreBoundTaskQueue::stealTask</definition>
+        <argsstring>()</argsstring>
+        <name>stealTask</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/taskscheduler/WSCoreBoundTaskQueue.h" line="56" bodyfile="/home/grund/hyrise/src/lib/taskscheduler/WSCoreBoundTaskQueue.cpp" bodystart="97" bodyend="112"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="3425">
+        <label>WSCoreBoundTaskQueue</label>
+        <link refid="class_w_s_core_bound_task_queue"/>
+        <childnode refid="3426" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3426">
+        <label>AbstractCoreBoundTaskQueue</label>
+        <link refid="class_abstract_core_bound_task_queue"/>
+        <childnode refid="3427" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3427">
+        <label>AbstractTaskQueue</label>
+        <link refid="class_abstract_task_queue"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="3435">
+        <label>AbstractQueueBasedTaskScheduler&lt; TaskQueue &gt;</label>
+        <link refid="class_abstract_queue_based_task_scheduler"/>
+        <childnode refid="3433" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3434" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3431">
+        <label>WSSimpleTaskScheduler&lt; WSCoreBoundTaskQueue &gt;</label>
+        <link refid="class_w_s_simple_task_scheduler"/>
+        <childnode refid="3432" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3436" relation="template-instance">
+          <edgelabel>&lt; WSCoreBoundTaskQueue &gt;</edgelabel>
+        </childnode>
+      </node>
+      <node id="3428">
+        <label>WSCoreBoundTaskQueue</label>
+        <link refid="class_w_s_core_bound_task_queue"/>
+        <childnode refid="3429" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3431" relation="usage">
+          <edgelabel>_scheduler</edgelabel>
+        </childnode>
+      </node>
+      <node id="3429">
+        <label>AbstractCoreBoundTaskQueue</label>
+        <link refid="class_abstract_core_bound_task_queue"/>
+        <childnode refid="3430" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3430">
+        <label>AbstractTaskQueue</label>
+        <link refid="class_abstract_task_queue"/>
+      </node>
+      <node id="3433">
+        <label>AbstractTaskScheduler</label>
+        <link refid="class_abstract_task_scheduler"/>
+      </node>
+      <node id="3434">
+        <label>TaskReadyObserver</label>
+        <link refid="class_task_ready_observer"/>
+      </node>
+      <node id="3436">
+        <label>WSSimpleTaskScheduler&lt; TaskQueue &gt;</label>
+        <link refid="class_w_s_simple_task_scheduler"/>
+        <childnode refid="3435" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3432">
+        <label>AbstractQueueBasedTaskScheduler&lt; WSCoreBoundTaskQueue &gt;</label>
+        <link refid="class_abstract_queue_based_task_scheduler"/>
+        <childnode refid="3433" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3434" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3435" relation="template-instance">
+          <edgelabel>&lt; WSCoreBoundTaskQueue &gt;</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/taskscheduler/WSCoreBoundTaskQueue.h" line="21" bodyfile="/home/grund/hyrise/src/lib/taskscheduler/WSCoreBoundTaskQueue.h" bodystart="21" bodyend="57"/>
+    <listofallmembers>
+      <member refid="class_abstract_core_bound_task_queue_1a215cead7ca0dc21485d9821dfe7497ec" prot="protected" virt="non-virtual"><scope>WSCoreBoundTaskQueue</scope><name>_condition</name></member>
+      <member refid="class_abstract_core_bound_task_queue_1aa3dd9778a9e7d1786838364f021589e1" prot="protected" virt="non-virtual"><scope>WSCoreBoundTaskQueue</scope><name>_core</name></member>
+      <member refid="class_abstract_core_bound_task_queue_1a62a15a3f133da500f9d5b76160e22923" prot="protected" virt="non-virtual"><scope>WSCoreBoundTaskQueue</scope><name>_queueMutex</name></member>
+      <member refid="class_w_s_core_bound_task_queue_1ab6c2f8098cb86c73234dfb529cce0dc9" prot="private" virt="non-virtual"><scope>WSCoreBoundTaskQueue</scope><name>_runQueue</name></member>
+      <member refid="class_w_s_core_bound_task_queue_1ad8016914481fc240478830f4065af071" prot="private" virt="non-virtual"><scope>WSCoreBoundTaskQueue</scope><name>_scheduler</name></member>
+      <member refid="class_abstract_core_bound_task_queue_1a005e7155ee34b50422c840d224f64af4" prot="protected" virt="non-virtual"><scope>WSCoreBoundTaskQueue</scope><name>_status</name></member>
+      <member refid="class_abstract_core_bound_task_queue_1a8720b7ed791a548eaba58107f75f3471" prot="protected" virt="non-virtual"><scope>WSCoreBoundTaskQueue</scope><name>_thread</name></member>
+      <member refid="class_abstract_core_bound_task_queue_1a995e365dc19c0a554f8dcee5ab185718" prot="protected" virt="non-virtual"><scope>WSCoreBoundTaskQueue</scope><name>_threadStatusMutex</name></member>
+      <member refid="class_abstract_core_bound_task_queue_1af57347498228714b52e47ff26fe26a4e" prot="protected" virt="non-virtual"><scope>WSCoreBoundTaskQueue</scope><name>AbstractCoreBoundTaskQueue</name></member>
+      <member refid="class_w_s_core_bound_task_queue_1a0f7c568387c285c14521845bf35387d5" prot="public" virt="non-virtual"><scope>WSCoreBoundTaskQueue</scope><name>emptyQueue</name></member>
+      <member refid="class_w_s_core_bound_task_queue_1a559aa61adcdcced67ae4e5c44e6ff19e" prot="public" virt="virtual"><scope>WSCoreBoundTaskQueue</scope><name>executeTask</name></member>
+      <member refid="class_abstract_core_bound_task_queue_1a0cdba0f11717761a48738a15d21abc79" prot="public" virt="non-virtual"><scope>WSCoreBoundTaskQueue</scope><name>getCore</name></member>
+      <member refid="class_abstract_core_bound_task_queue_1a42352e74b46328e6d16c569f7c2546f6" prot="public" virt="virtual"><scope>WSCoreBoundTaskQueue</scope><name>join</name></member>
+      <member refid="class_abstract_core_bound_task_queue_1a85d4f9c3023494d3bebc5db8c1be0e32" prot="protected" virt="non-virtual"><scope>WSCoreBoundTaskQueue</scope><name>launchThread</name></member>
+      <member refid="class_abstract_core_bound_task_queue_1a4af14b478ad97a5d7b5ede1bff3767ed" prot="protected" virt="non-virtual"><scope>WSCoreBoundTaskQueue</scope><name>logger</name></member>
+      <member refid="class_w_s_core_bound_task_queue_1a274f7163aaee6c7915b6342506b7e5e2" prot="public" virt="virtual"><scope>WSCoreBoundTaskQueue</scope><name>push</name></member>
+      <member refid="class_abstract_task_queue_1add650c1369aeae30a60974a0fd77c8b0" prot="public" virt="non-virtual"><scope>WSCoreBoundTaskQueue</scope><name>queue_status_t</name></member>
+      <member refid="class_abstract_task_queue_1a29d1a49db34f9e5e5d83f0d657f6517babbf46a2afa080c3f9d355c407beaa902" prot="public" virt="non-virtual"><scope>WSCoreBoundTaskQueue</scope><name>RUN</name></member>
+      <member refid="class_w_s_core_bound_task_queue_1a07b0fbcc80691bd9a138210a54bd44c9" prot="private" virt="non-virtual"><scope>WSCoreBoundTaskQueue</scope><name>run_queue_t</name></member>
+      <member refid="class_abstract_task_queue_1a29d1a49db34f9e5e5d83f0d657f6517badf73f3cfd7d9d951bad5386fb341026e" prot="public" virt="non-virtual"><scope>WSCoreBoundTaskQueue</scope><name>RUN_UNTIL_DONE</name></member>
+      <member refid="class_abstract_task_queue_1a29d1a49db34f9e5e5d83f0d657f6517ba34b422f4936efbfaec6b980a8fde370e" prot="public" virt="non-virtual"><scope>WSCoreBoundTaskQueue</scope><name>STARTUP</name></member>
+      <member refid="class_abstract_task_queue_1a29d1a49db34f9e5e5d83f0d657f6517b" prot="public" virt="non-virtual"><scope>WSCoreBoundTaskQueue</scope><name>status</name></member>
+      <member refid="class_w_s_core_bound_task_queue_1ad029ebc27bc948d99ca75f9d998937f6" prot="public" virt="non-virtual"><scope>WSCoreBoundTaskQueue</scope><name>stealTask</name></member>
+      <member refid="class_w_s_core_bound_task_queue_1af4f2575b3d03cc80c6445fe5830cc80e" prot="private" virt="non-virtual"><scope>WSCoreBoundTaskQueue</scope><name>stealTasks</name></member>
+      <member refid="class_abstract_task_queue_1a29d1a49db34f9e5e5d83f0d657f6517ba16003f747b26f2b4d59ec96bdbe5d3ed" prot="public" virt="non-virtual"><scope>WSCoreBoundTaskQueue</scope><name>STOPPED</name></member>
+      <member refid="class_w_s_core_bound_task_queue_1a0312248308abe23fecdb6bd9c17a95e1" prot="public" virt="non-virtual"><scope>WSCoreBoundTaskQueue</scope><name>stopQueue</name></member>
+      <member refid="class_abstract_task_queue_1a29d1a49db34f9e5e5d83f0d657f6517bab5b55d5fec71f3976fb1767477475a69" prot="public" virt="non-virtual"><scope>WSCoreBoundTaskQueue</scope><name>TO_STOP</name></member>
+      <member refid="class_w_s_core_bound_task_queue_1a5783e764f668df86e2e88a249a86a2c6" prot="public" virt="non-virtual"><scope>WSCoreBoundTaskQueue</scope><name>WSCoreBoundTaskQueue</name></member>
+      <member refid="class_abstract_core_bound_task_queue_1a6f7b72ca3a2df66a3f5248ef5bc8ac0c" prot="public" virt="virtual"><scope>WSCoreBoundTaskQueue</scope><name>~AbstractCoreBoundTaskQueue</name></member>
+      <member refid="class_abstract_task_queue_1af4b704999acefc71422beb78904865bb" prot="public" virt="virtual"><scope>WSCoreBoundTaskQueue</scope><name>~AbstractTaskQueue</name></member>
+      <member refid="class_w_s_core_bound_task_queue_1a388694f33609e50006242eee0e76a793" prot="public" virt="non-virtual"><scope>WSCoreBoundTaskQueue</scope><name>~WSCoreBoundTaskQueue</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

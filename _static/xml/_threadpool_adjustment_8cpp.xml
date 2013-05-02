@@ -1,0 +1,664 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="_threadpool_adjustment_8cpp" kind="file">
+    <compoundname>ThreadpoolAdjustment.cpp</compoundname>
+    <includes refid="_threadpool_adjustment_8h" local="yes">access/ThreadpoolAdjustment.h</includes>
+    <includes refid="_settings_8h" local="yes">helper/Settings.h</includes>
+    <includes refid="_abstract_task_scheduler_8h" local="yes">taskscheduler/AbstractTaskScheduler.h</includes>
+    <includes refid="_shared_scheduler_8h" local="yes">taskscheduler/SharedScheduler.h</includes>
+    <incdepgraph>
+      <node id="12892">
+        <label>list</label>
+      </node>
+      <node id="12839">
+        <label>access/ThreadpoolAdjustment.h</label>
+        <link refid="_threadpool_adjustment_8h"/>
+        <childnode refid="12840" relation="include">
+        </childnode>
+      </node>
+      <node id="12862">
+        <label>boost/mpl/vector.hpp</label>
+      </node>
+      <node id="12875">
+        <label>queue</label>
+      </node>
+      <node id="12858">
+        <label>limits</label>
+      </node>
+      <node id="12910">
+        <label>boost/functional/hash.hpp</label>
+      </node>
+      <node id="12887">
+        <label>assert.h</label>
+      </node>
+      <node id="12864">
+        <label>boost/lexical_cast.hpp</label>
+      </node>
+      <node id="12911">
+        <label>helper/Settings.h</label>
+        <link refid="_settings_8h"/>
+        <childnode refid="12912" relation="include">
+        </childnode>
+        <childnode refid="12854" relation="include">
+        </childnode>
+      </node>
+      <node id="12902">
+        <label>boost/iterator/iterator_facade.hpp</label>
+      </node>
+      <node id="12857">
+        <label>cstdint</label>
+      </node>
+      <node id="12899">
+        <label>storage/BaseDictionary.h</label>
+        <link refid="_base_dictionary_8h"/>
+        <childnode refid="12859" relation="include">
+        </childnode>
+        <childnode refid="12888" relation="include">
+        </childnode>
+        <childnode refid="12900" relation="include">
+        </childnode>
+      </node>
+      <node id="12843">
+        <label>stdint.h</label>
+      </node>
+      <node id="12898">
+        <label>stdlib.h</label>
+      </node>
+      <node id="12896">
+        <label>errno.h</label>
+      </node>
+      <node id="12849">
+        <label>helper/epoch.h</label>
+        <link refid="epoch_8h"/>
+        <childnode refid="12843" relation="include">
+        </childnode>
+      </node>
+      <node id="12860">
+        <label>stdexcept</label>
+      </node>
+      <node id="12872">
+        <label>helper/HwlocHelper.h</label>
+        <link refid="_hwloc_helper_8h"/>
+        <childnode refid="12873" relation="include">
+        </childnode>
+      </node>
+      <node id="12854">
+        <label>string</label>
+      </node>
+      <node id="12866">
+        <label>taskscheduler.h</label>
+        <link refid="taskscheduler_8h"/>
+        <childnode refid="12867" relation="include">
+        </childnode>
+        <childnode refid="12874" relation="include">
+        </childnode>
+        <childnode refid="12877" relation="include">
+        </childnode>
+        <childnode refid="12850" relation="include">
+        </childnode>
+        <childnode refid="12876" relation="include">
+        </childnode>
+        <childnode refid="12868" relation="include">
+        </childnode>
+        <childnode refid="12878" relation="include">
+        </childnode>
+        <childnode refid="12879" relation="include">
+        </childnode>
+      </node>
+      <node id="12874">
+        <label>taskscheduler/SimpleTaskScheduler.h</label>
+        <link refid="_simple_task_scheduler_8h"/>
+        <childnode refid="12867" relation="include">
+        </childnode>
+        <childnode refid="12870" relation="include">
+        </childnode>
+        <childnode refid="12845" relation="include">
+        </childnode>
+        <childnode refid="12875" relation="include">
+        </childnode>
+        <childnode refid="12851" relation="include">
+        </childnode>
+        <childnode refid="12842" relation="include">
+        </childnode>
+        <childnode refid="12850" relation="include">
+        </childnode>
+        <childnode refid="12876" relation="include">
+        </childnode>
+        <childnode refid="12872" relation="include">
+        </childnode>
+      </node>
+      <node id="12846">
+        <label>map</label>
+      </node>
+      <node id="12850">
+        <label>taskscheduler/Task.h</label>
+        <link refid="_task_8h"/>
+        <childnode refid="12845" relation="include">
+        </childnode>
+        <childnode refid="12851" relation="include">
+        </childnode>
+        <childnode refid="12852" relation="include">
+        </childnode>
+        <childnode refid="12853" relation="include">
+        </childnode>
+        <childnode refid="12854" relation="include">
+        </childnode>
+      </node>
+      <node id="12870">
+        <label>unordered_set</label>
+      </node>
+      <node id="12885">
+        <label>storage/ValueIdMap.hpp</label>
+        <link refid="_value_id_map_8hpp"/>
+        <childnode refid="12886" relation="include">
+        </childnode>
+        <childnode refid="12904" relation="include">
+        </childnode>
+      </node>
+      <node id="12838">
+        <label>src/lib/access/ThreadpoolAdjustment.cpp</label>
+        <link refid="ThreadpoolAdjustment.cpp"/>
+        <childnode refid="12839" relation="include">
+        </childnode>
+        <childnode refid="12911" relation="include">
+        </childnode>
+        <childnode refid="12867" relation="include">
+        </childnode>
+        <childnode refid="12877" relation="include">
+        </childnode>
+      </node>
+      <node id="12895">
+        <label>memory/MemalignStrategy.h</label>
+        <link refid="_memalign_strategy_8h"/>
+        <childnode refid="12896" relation="include">
+        </childnode>
+        <childnode refid="12897" relation="include">
+        </childnode>
+        <childnode refid="12898" relation="include">
+        </childnode>
+      </node>
+      <node id="12873">
+        <label>hwloc.h</label>
+      </node>
+      <node id="12907">
+        <label>exception</label>
+      </node>
+      <node id="12841">
+        <label>access/OutputTask.h</label>
+        <link refid="_output_task_8h"/>
+        <childnode refid="12842" relation="include">
+        </childnode>
+        <childnode refid="12843" relation="include">
+        </childnode>
+        <childnode refid="12844" relation="include">
+        </childnode>
+        <childnode refid="12845" relation="include">
+        </childnode>
+        <childnode refid="12846" relation="include">
+        </childnode>
+        <childnode refid="12847" relation="include">
+        </childnode>
+        <childnode refid="12848" relation="include">
+        </childnode>
+        <childnode refid="12849" relation="include">
+        </childnode>
+        <childnode refid="12850" relation="include">
+        </childnode>
+      </node>
+      <node id="12890">
+        <label>stddef.h</label>
+      </node>
+      <node id="12876">
+        <label>taskscheduler/CoreBoundTaskQueue.h</label>
+        <link refid="_core_bound_task_queue_8h"/>
+        <childnode refid="12869" relation="include">
+        </childnode>
+        <childnode refid="12875" relation="include">
+        </childnode>
+        <childnode refid="12868" relation="include">
+        </childnode>
+      </node>
+      <node id="12904">
+        <label>storage/OrderIndifferentDictionary.h</label>
+        <link refid="_order_indifferent_dictionary_8h"/>
+        <childnode refid="12859" relation="include">
+        </childnode>
+        <childnode refid="12888" relation="include">
+        </childnode>
+        <childnode refid="12899" relation="include">
+        </childnode>
+        <childnode refid="12900" relation="include">
+        </childnode>
+        <childnode refid="12905" relation="include">
+        </childnode>
+        <childnode refid="12903" relation="include">
+        </childnode>
+        <childnode refid="12907" relation="include">
+        </childnode>
+        <childnode refid="12845" relation="include">
+        </childnode>
+        <childnode refid="12846" relation="include">
+        </childnode>
+        <childnode refid="12852" relation="include">
+        </childnode>
+        <childnode refid="12908" relation="include">
+        </childnode>
+        <childnode refid="12909" relation="include">
+        </childnode>
+        <childnode refid="12910" relation="include">
+        </childnode>
+      </node>
+      <node id="12861">
+        <label>ostream</label>
+      </node>
+      <node id="12848">
+        <label>json.h</label>
+      </node>
+      <node id="12908">
+        <label>limits.h</label>
+      </node>
+      <node id="12900">
+        <label>storage/DictionaryIterator.h</label>
+        <link refid="_dictionary_iterator_8h"/>
+        <childnode refid="12901" relation="include">
+        </childnode>
+        <childnode refid="12902" relation="include">
+        </childnode>
+      </node>
+      <node id="12888">
+        <label>storage/AbstractDictionary.h</label>
+        <link refid="_abstract_dictionary_8h"/>
+        <childnode refid="12845" relation="include">
+        </childnode>
+        <childnode refid="12854" relation="include">
+        </childnode>
+        <childnode refid="12852" relation="include">
+        </childnode>
+        <childnode refid="12889" relation="include">
+        </childnode>
+        <childnode refid="12893" relation="include">
+        </childnode>
+        <childnode refid="12895" relation="include">
+        </childnode>
+        <childnode refid="12859" relation="include">
+        </childnode>
+      </node>
+      <node id="12853">
+        <label>condition_variable</label>
+      </node>
+      <node id="12906">
+        <label>string.h</label>
+      </node>
+      <node id="12881">
+        <label>access/BasicParser.h</label>
+        <link refid="_basic_parser_8h"/>
+        <childnode refid="12860" relation="include">
+        </childnode>
+        <childnode refid="12852" relation="include">
+        </childnode>
+        <childnode refid="12848" relation="include">
+        </childnode>
+      </node>
+      <node id="12882">
+        <label>storage/AbstractTable.h</label>
+        <link refid="_abstract_table_8h"/>
+        <childnode refid="12858" relation="include">
+        </childnode>
+        <childnode refid="12852" relation="include">
+        </childnode>
+        <childnode refid="12860" relation="include">
+        </childnode>
+        <childnode refid="12845" relation="include">
+        </childnode>
+        <childnode refid="12854" relation="include">
+        </childnode>
+        <childnode refid="12856" relation="include">
+        </childnode>
+        <childnode refid="12883" relation="include">
+        </childnode>
+        <childnode refid="12859" relation="include">
+        </childnode>
+        <childnode refid="12884" relation="include">
+        </childnode>
+        <childnode refid="12885" relation="include">
+        </childnode>
+      </node>
+      <node id="12878">
+        <label>taskscheduler/WSCoreBoundTaskQueue.h</label>
+        <link refid="_w_s_core_bound_task_queue_8h"/>
+        <childnode refid="12868" relation="include">
+        </childnode>
+        <childnode refid="12879" relation="include">
+        </childnode>
+      </node>
+      <node id="12883">
+        <label>storage/AbstractResource.h</label>
+        <link refid="_abstract_resource_8h"/>
+      </node>
+      <node id="12909">
+        <label>boost/unordered_map.hpp</label>
+      </node>
+      <node id="12845">
+        <label>vector</label>
+      </node>
+      <node id="12877">
+        <label>taskscheduler/SharedScheduler.h</label>
+        <link refid="_shared_scheduler_8h"/>
+        <childnode refid="12867" relation="include">
+        </childnode>
+        <childnode refid="12874" relation="include">
+        </childnode>
+        <childnode refid="12876" relation="include">
+        </childnode>
+        <childnode refid="12860" relation="include">
+        </childnode>
+      </node>
+      <node id="12847">
+        <label>utility</label>
+      </node>
+      <node id="12856">
+        <label>helper/types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="12857" relation="include">
+        </childnode>
+        <childnode refid="12854" relation="include">
+        </childnode>
+        <childnode refid="12858" relation="include">
+        </childnode>
+        <childnode refid="12852" relation="include">
+        </childnode>
+        <childnode refid="12845" relation="include">
+        </childnode>
+      </node>
+      <node id="12868">
+        <label>taskscheduler/AbstractTaskQueue.h</label>
+        <link refid="_abstract_task_queue_8h"/>
+        <childnode refid="12852" relation="include">
+        </childnode>
+        <childnode refid="12851" relation="include">
+        </childnode>
+        <childnode refid="12869" relation="include">
+        </childnode>
+        <childnode refid="12853" relation="include">
+        </childnode>
+        <childnode refid="12842" relation="include">
+        </childnode>
+        <childnode refid="12850" relation="include">
+        </childnode>
+      </node>
+      <node id="12901">
+        <label>storage/BaseIterator.h</label>
+        <link refid="_base_iterator_8h"/>
+      </node>
+      <node id="12889">
+        <label>memory/StrategizedAllocator.h</label>
+        <link refid="_strategized_allocator_8h"/>
+        <childnode refid="12890" relation="include">
+        </childnode>
+        <childnode refid="12891" relation="include">
+        </childnode>
+        <childnode refid="12892" relation="include">
+        </childnode>
+        <childnode refid="12860" relation="include">
+        </childnode>
+      </node>
+      <node id="12865">
+        <label>access/QueryParser.h</label>
+        <link refid="_query_parser_8h"/>
+        <childnode refid="12846" relation="include">
+        </childnode>
+        <childnode refid="12852" relation="include">
+        </childnode>
+        <childnode refid="12845" relation="include">
+        </childnode>
+        <childnode refid="12854" relation="include">
+        </childnode>
+        <childnode refid="12860" relation="include">
+        </childnode>
+        <childnode refid="12848" relation="include">
+        </childnode>
+        <childnode refid="12866" relation="include">
+        </childnode>
+        <childnode refid="12881" relation="include">
+        </childnode>
+      </node>
+      <node id="12855">
+        <label>access/OperationData.h</label>
+        <link refid="_operation_data_8h"/>
+        <childnode refid="12845" relation="include">
+        </childnode>
+        <childnode refid="12856" relation="include">
+        </childnode>
+        <childnode refid="12859" relation="include">
+        </childnode>
+      </node>
+      <node id="12844">
+        <label>time.h</label>
+      </node>
+      <node id="12871">
+        <label>iostream</label>
+      </node>
+      <node id="12884">
+        <label>storage/ColumnMetadata.h</label>
+        <link refid="_column_metadata_8h"/>
+        <childnode refid="12859" relation="include">
+        </childnode>
+        <childnode refid="12854" relation="include">
+        </childnode>
+        <childnode refid="12860" relation="include">
+        </childnode>
+      </node>
+      <node id="12867">
+        <label>taskscheduler/AbstractTaskScheduler.h</label>
+        <link refid="_abstract_task_scheduler_8h"/>
+        <childnode refid="12850" relation="include">
+        </childnode>
+        <childnode refid="12868" relation="include">
+        </childnode>
+        <childnode refid="12852" relation="include">
+        </childnode>
+        <childnode refid="12870" relation="include">
+        </childnode>
+        <childnode refid="12871" relation="include">
+        </childnode>
+        <childnode refid="12842" relation="include">
+        </childnode>
+        <childnode refid="12872" relation="include">
+        </childnode>
+      </node>
+      <node id="12912">
+        <label>cstddef</label>
+      </node>
+      <node id="12880">
+        <label>deque</label>
+      </node>
+      <node id="12863">
+        <label>boost/mpl/map.hpp</label>
+      </node>
+      <node id="12879">
+        <label>taskscheduler/WSSimpleTaskScheduler.h</label>
+        <link refid="_w_s_simple_task_scheduler_8h"/>
+        <childnode refid="12867" relation="include">
+        </childnode>
+        <childnode refid="12878" relation="include">
+        </childnode>
+        <childnode refid="12880" relation="include">
+        </childnode>
+        <childnode refid="12871" relation="include">
+        </childnode>
+        <childnode refid="12872" relation="include">
+        </childnode>
+      </node>
+      <node id="12851">
+        <label>mutex</label>
+      </node>
+      <node id="12903">
+        <label>storage/AbstractAllocatedDictionary.h</label>
+        <link refid="_abstract_allocated_dictionary_8h"/>
+      </node>
+      <node id="12869">
+        <label>thread</label>
+      </node>
+      <node id="12893">
+        <label>memory/MallocStrategy.h</label>
+        <link refid="_malloc_strategy_8h"/>
+        <childnode refid="12871" relation="include">
+        </childnode>
+        <childnode refid="12857" relation="include">
+        </childnode>
+        <childnode refid="12894" relation="include">
+        </childnode>
+      </node>
+      <node id="12886">
+        <label>storage/OrderPreservingDictionary.h</label>
+        <link refid="_order_preserving_dictionary_8h"/>
+        <childnode refid="12887" relation="include">
+        </childnode>
+        <childnode refid="12871" relation="include">
+        </childnode>
+        <childnode refid="12852" relation="include">
+        </childnode>
+        <childnode refid="12859" relation="include">
+        </childnode>
+        <childnode refid="12888" relation="include">
+        </childnode>
+        <childnode refid="12899" relation="include">
+        </childnode>
+        <childnode refid="12900" relation="include">
+        </childnode>
+        <childnode refid="12903" relation="include">
+        </childnode>
+        <childnode refid="12901" relation="include">
+        </childnode>
+      </node>
+      <node id="12840">
+        <label>access/PlanOperation.h</label>
+        <link refid="_plan_operation_8h"/>
+        <childnode refid="12841" relation="include">
+        </childnode>
+        <childnode refid="12855" relation="include">
+        </childnode>
+        <childnode refid="12865" relation="include">
+        </childnode>
+        <childnode refid="12859" relation="include">
+        </childnode>
+        <childnode refid="12856" relation="include">
+        </childnode>
+        <childnode refid="12882" relation="include">
+        </childnode>
+        <childnode refid="12848" relation="include">
+        </childnode>
+      </node>
+      <node id="12891">
+        <label>algorithm</label>
+      </node>
+      <node id="12842">
+        <label>log4cxx/logger.h</label>
+      </node>
+      <node id="12897">
+        <label>stdio.h</label>
+      </node>
+      <node id="12894">
+        <label>cstring</label>
+      </node>
+      <node id="12905">
+        <label>storage/csb_tree.h</label>
+        <link refid="csb__tree_8h"/>
+        <childnode refid="12845" relation="include">
+        </childnode>
+        <childnode refid="12871" relation="include">
+        </childnode>
+        <childnode refid="12892" relation="include">
+        </childnode>
+        <childnode refid="12852" relation="include">
+        </childnode>
+        <childnode refid="12906" relation="include">
+        </childnode>
+        <childnode refid="12887" relation="include">
+        </childnode>
+        <childnode refid="12902" relation="include">
+        </childnode>
+      </node>
+      <node id="12852">
+        <label>memory</label>
+      </node>
+      <node id="12859">
+        <label>storage/storage_types.h</label>
+        <link refid="storage__types_8h"/>
+        <childnode refid="12845" relation="include">
+        </childnode>
+        <childnode refid="12854" relation="include">
+        </childnode>
+        <childnode refid="12860" relation="include">
+        </childnode>
+        <childnode refid="12843" relation="include">
+        </childnode>
+        <childnode refid="12861" relation="include">
+        </childnode>
+        <childnode refid="12862" relation="include">
+        </childnode>
+        <childnode refid="12863" relation="include">
+        </childnode>
+        <childnode refid="12864" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <innernamespace refid="namespacehyrise">hyrise</innernamespace>
+    <innernamespace refid="namespacehyrise_1_1access">hyrise::access</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>2012<sp/>Hasso-Plattner-Institut<sp/>fuer<sp/>Softwaresystemtechnik<sp/>GmbH.<sp/>All<sp/>rights<sp/>reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_threadpool_adjustment_8h" kindref="compound">access/ThreadpoolAdjustment.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_settings_8h" kindref="compound">helper/Settings.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_abstract_task_scheduler_8h" kindref="compound">taskscheduler/AbstractTaskScheduler.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_shared_scheduler_8h" kindref="compound">taskscheduler/SharedScheduler.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">hyrise<sp/>{</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">access<sp/>{</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>_<sp/>=<sp/>QueryParser::registerPlanOperation&lt;ThreadpoolAdjustment&gt;(</highlight><highlight class="stringliteral">&quot;ThreadpoolAdjustment&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="14"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16" refid="classhyrise_1_1access_1_1_threadpool_adjustment_1a9f57eee693101db42b93b5532875151b" refkind="member"><highlight class="normal"><ref refid="classhyrise_1_1access_1_1_threadpool_adjustment_1a9f57eee693101db42b93b5532875151b" kindref="member">ThreadpoolAdjustment::ThreadpoolAdjustment</ref>()<sp/>:<sp/>_size(1)<sp/>{</highlight></codeline>
+<codeline lineno="17"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19" refid="classhyrise_1_1access_1_1_threadpool_adjustment_1ad966e27262e0799f7cfafabaf1fbd6ef" refkind="member"><highlight class="normal"><ref refid="classhyrise_1_1access_1_1_threadpool_adjustment_1ad966e27262e0799f7cfafabaf1fbd6ef" kindref="member">ThreadpoolAdjustment::~ThreadpoolAdjustment</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="20"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight></codeline>
+<codeline lineno="22" refid="classhyrise_1_1access_1_1_threadpool_adjustment_1ae4b386d7503226e5725c348c9e25e384" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1access_1_1_threadpool_adjustment_1ae4b386d7503226e5725c348c9e25e384" kindref="member">ThreadpoolAdjustment::executePlanOperation</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><ref refid="class_abstract_task_scheduler" kindref="compound">AbstractTaskScheduler</ref><sp/>*scheduler<sp/>=<sp/><ref refid="class_shared_scheduler_1a8339d8db9b226ca95bca5dcc31f216f5" kindref="member">SharedScheduler::getInstance</ref>().<ref refid="class_shared_scheduler_1a10e97e4f3ccc5046ff9844d855ee0c9c" kindref="member">getScheduler</ref>();</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(scheduler<sp/>!=<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/>scheduler-&gt;<ref refid="class_abstract_task_scheduler_1a7144f23ea3f7de43152baca16e9a1658" kindref="member">resize</ref>(<ref refid="classhyrise_1_1access_1_1_threadpool_adjustment_1abbf6607dc8682c9a81747da809baaa7f" kindref="member">_size</ref>);</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_settings_1a1d30c7fd15c578e94f3c87212c2340da" kindref="member">Settings::getInstance</ref>()-&gt;<ref refid="class_settings_1a006f96037617fed1169c155ca9f7b3d6" kindref="member">setThreadpoolSize</ref>(<ref refid="classhyrise_1_1access_1_1_threadpool_adjustment_1abbf6607dc8682c9a81747da809baaa7f" kindref="member">_size</ref>);</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_output_task_1a010e04ee2e3e5e04a61f6e63a8cd75e9" kindref="member">setState</ref>(<ref refid="_output_task_8h_1a5a9890eed40e5443406f9221cc5e12fea67c2cad320b42cfaccdb10cc0356fafb" kindref="member">OpFail</ref>);</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_output_task_1aba6bee898300f3069d3f64bb333c6d4a" kindref="member">setErrorMessage</ref>(</highlight><highlight class="stringliteral">&quot;TaskScheduler<sp/>is<sp/>not<sp/>of<sp/>Type<sp/>AbstractQueueBasedTaskScheduler<sp/>and<sp/>cannot<sp/>be<sp/>resized&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="31"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33" refid="classhyrise_1_1access_1_1_threadpool_adjustment_1ad0d8767aa3eae61c2381694eabc00d0c" refkind="member"><highlight class="normal">std::shared_ptr&lt;_PlanOperation&gt;<sp/><ref refid="classhyrise_1_1access_1_1_threadpool_adjustment_1ad0d8767aa3eae61c2381694eabc00d0c" kindref="member">ThreadpoolAdjustment::parse</ref>(Json::Value<sp/>&amp;data)<sp/>{</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/>std::shared_ptr&lt;ThreadpoolAdjustment&gt;<sp/>threadpoolAdjustmentOp<sp/>=<sp/>std::make_shared&lt;ThreadpoolAdjustment&gt;();</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/>threadpoolAdjustmentOp-&gt;_size<sp/>=<sp/>data[</highlight><highlight class="stringliteral">&quot;size&quot;</highlight><highlight class="normal">].asUInt();</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>threadpoolAdjustmentOp;</highlight></codeline>
+<codeline lineno="37"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39" refid="classhyrise_1_1access_1_1_threadpool_adjustment_1a0efc92c4c192102ee1076122a2e47005" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/><ref refid="classhyrise_1_1access_1_1_threadpool_adjustment_1a0efc92c4c192102ee1076122a2e47005" kindref="member">ThreadpoolAdjustment::vname</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;ThreadpoolAdjustment&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="41"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43" refid="classhyrise_1_1access_1_1_threadpool_adjustment_1a28e41799ee647fce41f6a00f2cb2ce3b" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1access_1_1_threadpool_adjustment_1a28e41799ee647fce41f6a00f2cb2ce3b" kindref="member">ThreadpoolAdjustment::setThreadpoolSize</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>newSize)<sp/>{</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><ref refid="classhyrise_1_1access_1_1_threadpool_adjustment_1abbf6607dc8682c9a81747da809baaa7f" kindref="member">_size</ref><sp/>=<sp/>newSize;</highlight></codeline>
+<codeline lineno="45"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="48"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/home/grund/hyrise/src/lib/access/ThreadpoolAdjustment.cpp"/>
+  </compounddef>
+</doxygen>

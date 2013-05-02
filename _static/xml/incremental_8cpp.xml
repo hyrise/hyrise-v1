@@ -1,0 +1,295 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="incremental_8cpp" kind="file">
+    <compoundname>incremental.cpp</compoundname>
+    <includes refid="layouter_2base_8h" local="yes">base.h</includes>
+    <includes refid="incremental_8h" local="yes">incremental.h</includes>
+    <includes local="no">boost/foreach.hpp</includes>
+    <includes local="no">map</includes>
+    <incdepgraph>
+      <node id="15859">
+        <label>list</label>
+      </node>
+      <node id="15848">
+        <label>src/lib/layouter/incremental.cpp</label>
+        <link refid="incremental.cpp"/>
+        <childnode refid="15849" relation="include">
+        </childnode>
+        <childnode refid="15863" relation="include">
+        </childnode>
+        <childnode refid="15865" relation="include">
+        </childnode>
+        <childnode refid="15864" relation="include">
+        </childnode>
+      </node>
+      <node id="15852">
+        <label>assert.h</label>
+      </node>
+      <node id="15851">
+        <label>matrix.h</label>
+        <link refid="matrix_8h"/>
+        <childnode refid="15852" relation="include">
+        </childnode>
+        <childnode refid="15853" relation="include">
+        </childnode>
+        <childnode refid="15854" relation="include">
+        </childnode>
+        <childnode refid="15855" relation="include">
+        </childnode>
+        <childnode refid="15856" relation="include">
+        </childnode>
+      </node>
+      <node id="15849">
+        <label>base.h</label>
+        <link refid="layouter_2base_8h"/>
+        <childnode refid="15850" relation="include">
+        </childnode>
+        <childnode refid="15851" relation="include">
+        </childnode>
+        <childnode refid="15857" relation="include">
+        </childnode>
+        <childnode refid="15854" relation="include">
+        </childnode>
+        <childnode refid="15859" relation="include">
+        </childnode>
+        <childnode refid="15858" relation="include">
+        </childnode>
+        <childnode refid="15860" relation="include">
+        </childnode>
+        <childnode refid="15856" relation="include">
+        </childnode>
+        <childnode refid="15861" relation="include">
+        </childnode>
+        <childnode refid="15862" relation="include">
+        </childnode>
+      </node>
+      <node id="15853">
+        <label>stdlib.h</label>
+      </node>
+      <node id="15865">
+        <label>boost/foreach.hpp</label>
+      </node>
+      <node id="15857">
+        <label>layout_utils.h</label>
+        <link refid="layout__utils_8h"/>
+        <childnode refid="15858" relation="include">
+        </childnode>
+        <childnode refid="15856" relation="include">
+        </childnode>
+      </node>
+      <node id="15860">
+        <label>string</label>
+      </node>
+      <node id="15864">
+        <label>map</label>
+      </node>
+      <node id="15850">
+        <label>config.h</label>
+        <link refid="config_8h"/>
+      </node>
+      <node id="15862">
+        <label>boost/unordered_map.hpp</label>
+      </node>
+      <node id="15856">
+        <label>vector</label>
+      </node>
+      <node id="15863">
+        <label>incremental.h</label>
+        <link refid="incremental_8h"/>
+        <childnode refid="15849" relation="include">
+        </childnode>
+        <childnode refid="15856" relation="include">
+        </childnode>
+        <childnode refid="15864" relation="include">
+        </childnode>
+      </node>
+      <node id="15855">
+        <label>sstream</label>
+      </node>
+      <node id="15854">
+        <label>iostream</label>
+      </node>
+      <node id="15858">
+        <label>set</label>
+      </node>
+      <node id="15861">
+        <label>algorithm</label>
+      </node>
+    </incdepgraph>
+    <innernamespace refid="namespacelayouter">layouter</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>2012<sp/>Hasso-Plattner-Institut<sp/>fuer<sp/>Softwaresystemtechnik<sp/>GmbH.<sp/>All<sp/>rights<sp/>reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="layouter_2base_8h" kindref="compound">base.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="incremental_8h" kindref="compound">incremental.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;boost/foreach.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;map&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">layouter<sp/>{</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10" refid="classlayouter_1_1_incremental_candidate_layouter_1abcaffe7b32eae9c85339b6ccff752193" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classlayouter_1_1_incremental_candidate_layouter_1abcaffe7b32eae9c85339b6ccff752193" kindref="member">IncrementalCandidateLayouter::clearState</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"><sp/><sp/><ref refid="classlayouter_1_1_incremental_candidate_layouter_1a67aa417928fe430b541ea3ca51caba4c" kindref="member">_splittedSets</ref>.clear();</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/><ref refid="classlayouter_1_1_incremental_candidate_layouter_1a87fb05f48225f7ed38ecc0fafaa6b3a7" kindref="member">_unusedPartitions</ref>.clear();</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><ref refid="classlayouter_1_1_incremental_candidate_layouter_1ae2cb5a4b1f0bb0ebbc8bbe8c78bb3c3c" kindref="member">_query_conversion</ref><sp/>=<sp/>std::map&lt;unsigned,<sp/>unsigned&gt;();</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><ref refid="classlayouter_1_1_incremental_candidate_layouter_1a639e0d0399a4d2abb099827457d5a462" kindref="member">_reverse_query_conversion</ref><sp/>=<sp/>std::map&lt;unsigned,<sp/>unsigned&gt;();</highlight></codeline>
+<codeline lineno="16"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18" refid="classlayouter_1_1_incremental_candidate_layouter_1aac8551ac4c440f55a34cf2eb0fa322c4" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classlayouter_1_1_incremental_candidate_layouter_1aac8551ac4c440f55a34cf2eb0fa322c4" kindref="member">IncrementalCandidateLayouter::detectAffectedPartitions</ref>(<ref refid="classlayouter_1_1_query" kindref="compound">Query</ref><sp/>*q)<sp/>{</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Now<sp/>get<sp/>all<sp/>containers<sp/>and<sp/>compare<sp/>to<sp/>the<sp/>best<sp/>original</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>layout</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><ref refid="classlayouter_1_1_result" kindref="compound">Result</ref><sp/>currentBest<sp/>=<sp/><ref refid="classlayouter_1_1_base_layouter_1a9419bfcfa6a9429f58b7aacc881470c6" kindref="member">getBestResult</ref>();</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><ref refid="classlayouter_1_1_layout_1a42a9858dbe687a701d19de4b592ef06b" kindref="member">Layout::internal_layout_t</ref><sp/>currentLayout<sp/>=<sp/>currentBest.<ref refid="classlayouter_1_1_result_1ab87c970ea77a33f924db11f4b3a84ea9" kindref="member">layout</ref>.<ref refid="classlayouter_1_1_layout_1a1072a36ac9df7b58746bde578da18713" kindref="member">raw</ref>();</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Create<sp/>a<sp/>set<sp/>for<sp/>easier<sp/>deletion</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><ref refid="namespacelayouter_1aec12d8e69cf2bd6fc00d80094a3a0fd0" kindref="member">set_subset_t</ref><sp/>current<sp/>=<sp/><ref refid="namespacelayouter_1aec12d8e69cf2bd6fc00d80094a3a0fd0" kindref="member">set_subset_t</ref>(q-&gt;<ref refid="classlayouter_1_1_query_1a65bede58b78d50e778068c0b195b882b" kindref="member">queryAttributes</ref>.begin(),<sp/>q-&gt;<ref refid="classlayouter_1_1_query_1a65bede58b78d50e778068c0b195b882b" kindref="member">queryAttributes</ref>.end());</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Compare<sp/>the<sp/>current<sp/>query<sp/>set<sp/>against<sp/>all<sp/>others</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>j<sp/>=<sp/>0;<sp/>j<sp/>&lt;<sp/>currentLayout.size();<sp/>++j)<sp/>{</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacelayouter_1a9779582085930cc6fb80f4f2b27dfd9e" kindref="member">subset_t</ref><sp/>base<sp/>=<sp/>currentLayout[j];</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>found<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/>BOOST_FOREACH(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/>baseAttr,<sp/>base)<sp/>{</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>BOOST_FOREACH(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/>queryAttr,<sp/>current)<sp/>{</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(baseAttr<sp/>==<sp/>queryAttr)<sp/>{</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>current.erase(queryAttr);</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>found<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;<sp/></highlight><highlight class="comment">//<sp/>exit<sp/>to<sp/>container</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(found)<sp/>{</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classlayouter_1_1_incremental_candidate_layouter_1a67aa417928fe430b541ea3ca51caba4c" kindref="member">_splittedSets</ref>.push_back(base);</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;<sp/></highlight><highlight class="comment">//<sp/>exit<sp/>to<sp/>next<sp/>container</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Capture<sp/>all<sp/>unsused<sp/>partitions</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!found)<sp/>{</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classlayouter_1_1_incremental_candidate_layouter_1a87fb05f48225f7ed38ecc0fafaa6b3a7" kindref="member">_unusedPartitions</ref>.push_back(base);</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="52"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54" refid="classlayouter_1_1_incremental_candidate_layouter_1a74d110df85320a48a2ecf3da0abc628a" refkind="member"><highlight class="normal"><ref refid="classlayouter_1_1_schema" kindref="compound">Schema</ref><sp/><ref refid="classlayouter_1_1_incremental_candidate_layouter_1a74d110df85320a48a2ecf3da0abc628a" kindref="member">IncrementalCandidateLayouter::buildSchema</ref>(<ref refid="namespacelayouter_1a9779582085930cc6fb80f4f2b27dfd9e" kindref="member">subset_t</ref><sp/>attributes,<sp/><ref refid="classlayouter_1_1_query" kindref="compound">Query</ref><sp/>*q)<sp/>{</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Modify<sp/>Schema</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><ref refid="classlayouter_1_1_schema" kindref="compound">Schema</ref><sp/>s<sp/>=<sp/><ref refid="classlayouter_1_1_base_layouter_1add31da0cb128c19ccd33d08b2b876a07" kindref="member">schema</ref>;</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/>s.<ref refid="classlayouter_1_1_schema_1a22777663c2ab937a63349ecbbdf46260" kindref="member">attributes</ref><sp/>=<sp/>attributes;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/>s.<ref refid="classlayouter_1_1_schema_1a42edf8cfb82aecc5827980be5d5a5205" kindref="member">nbAttributes</ref><sp/>=<sp/>attributes.size();</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Add<sp/>new<sp/>queries</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/>s.<ref refid="classlayouter_1_1_schema_1a2aea30a3e87f6045a38fcfcc8720952a" kindref="member">queries</ref>.push_back(q);</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><ref refid="classlayouter_1_1_incremental_candidate_layouter_1af8b0fef2c5ff96280a8c14d190622de2" kindref="member">_unusedCostForPartitions</ref><sp/>=<sp/>std::vector&lt;double&gt;(s.<ref refid="classlayouter_1_1_schema_1a2aea30a3e87f6045a38fcfcc8720952a" kindref="member">queries</ref>.size(),<sp/>0.0);</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>remove<sp/>all<sp/>queries<sp/>that<sp/>are<sp/>not<sp/>used<sp/>and<sp/>rewrite<sp/>the<sp/>uesed</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>ones<sp/>to<sp/>the<sp/>new<sp/>layout</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/>std::vector&lt;Query<sp/>*&gt;<sp/>newQueries;</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>j<sp/>=<sp/>0;<sp/>j<sp/>&lt;<sp/>s.<ref refid="classlayouter_1_1_schema_1a2aea30a3e87f6045a38fcfcc8720952a" kindref="member">queries</ref>.size();<sp/>++j)<sp/>{</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classlayouter_1_1_query" kindref="compound">Query</ref><sp/>*newQ<sp/>=<sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/><ref refid="classlayouter_1_1_query" kindref="compound">Query</ref>(*s.<ref refid="classlayouter_1_1_schema_1a2aea30a3e87f6045a38fcfcc8720952a" kindref="member">queries</ref>[j]);</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>we<sp/>have<sp/>to<sp/>check<sp/>if<sp/>this<sp/>accesses<sp/>the<sp/>original</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>attributes</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>found<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>newQ-&gt;<ref refid="classlayouter_1_1_query_1a65bede58b78d50e778068c0b195b882b" kindref="member">queryAttributes</ref>.size();<sp/>++i)<sp/>{</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="classlayouter_1_1_incremental_candidate_layouter_1ae2cb5a4b1f0bb0ebbc8bbe8c78bb3c3c" kindref="member">_query_conversion</ref>.count(newQ-&gt;<ref refid="classlayouter_1_1_query_1a65bede58b78d50e778068c0b195b882b" kindref="member">queryAttributes</ref>[i])<sp/>&gt;<sp/>0)</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>found<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>newQ-&gt;<ref refid="classlayouter_1_1_query_1a65bede58b78d50e778068c0b195b882b" kindref="member">queryAttributes</ref>[i]<sp/>=<sp/><ref refid="classlayouter_1_1_incremental_candidate_layouter_1ae2cb5a4b1f0bb0ebbc8bbe8c78bb3c3c" kindref="member">_query_conversion</ref>[newQ-&gt;<ref refid="classlayouter_1_1_query_1a65bede58b78d50e778068c0b195b882b" kindref="member">queryAttributes</ref>[i]];</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(found)</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>newQueries.push_back(newQ);</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Cache<sp/>the<sp/>cost<sp/>for<sp/>the<sp/>query</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>TODO<sp/>check<sp/>if<sp/>the<sp/>last<sp/>query<sp/>may<sp/>not<sp/>be<sp/>part<sp/>of<sp/>this<sp/>check</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classlayouter_1_1_incremental_candidate_layouter_1af8b0fef2c5ff96280a8c14d190622de2" kindref="member">_unusedCostForPartitions</ref>[j]<sp/>=<sp/><ref refid="classlayouter_1_1_base_layouter_1a9419bfcfa6a9429f58b7aacc881470c6" kindref="member">getBestResult</ref>().<ref refid="classlayouter_1_1_result_1a86cc3b6d894483710b6ebeed89851bc6" kindref="member">cost</ref>[j];</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">delete</highlight><highlight class="normal"><sp/>newQ;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/>s.<ref refid="classlayouter_1_1_schema_1a2aea30a3e87f6045a38fcfcc8720952a" kindref="member">queries</ref><sp/>=<sp/>newQueries;</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>s;</highlight></codeline>
+<codeline lineno="94"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96" refid="classlayouter_1_1_incremental_candidate_layouter_1a8d2210b84f8679bfddb5915c4942bfe0" refkind="member"><highlight class="normal"><ref refid="classlayouter_1_1_result" kindref="compound">Result</ref><sp/><ref refid="classlayouter_1_1_incremental_candidate_layouter_1a8d2210b84f8679bfddb5915c4942bfe0" kindref="member">IncrementalCandidateLayouter::rewriteResult</ref>(<ref refid="classlayouter_1_1_result" kindref="compound">Result</ref><sp/>affectedBest)<sp/>{</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Results<sp/>contain<sp/>only<sp/>those<sp/>parts<sp/>that<sp/>were<sp/>modified,<sp/>we</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>need<sp/>to<sp/>attach<sp/>the<sp/>rest.<sp/>Since<sp/>we<sp/>rewrote<sp/>the<sp/>original</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>queries<sp/>and<sp/>containers,<sp/>we<sp/>have<sp/>to<sp/>reverse<sp/>this</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><ref refid="classlayouter_1_1_layout" kindref="compound">Layout</ref><sp/>rewritten;</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/>BOOST_FOREACH(<ref refid="namespacelayouter_1a9779582085930cc6fb80f4f2b27dfd9e" kindref="member">subset_t</ref><sp/>t,<sp/>affectedBest.<ref refid="classlayouter_1_1_result_1ab87c970ea77a33f924db11f4b3a84ea9" kindref="member">layout</ref>.<ref refid="classlayouter_1_1_layout_1a1072a36ac9df7b58746bde578da18713" kindref="member">raw</ref>())<sp/>{</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacelayouter_1a9779582085930cc6fb80f4f2b27dfd9e" kindref="member">subset_t</ref><sp/>newContainer;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/>BOOST_FOREACH(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/>i,<sp/>t)<sp/>{</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>newContainer.push_back(<ref refid="classlayouter_1_1_incremental_candidate_layouter_1a639e0d0399a4d2abb099827457d5a462" kindref="member">_reverse_query_conversion</ref>[i]);</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/>rewritten.<ref refid="classlayouter_1_1_layout_1ad4a744f4467b5f1b457fc51f47a10f78" kindref="member">add</ref>(newContainer);</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Add<sp/>the<sp/>unused<sp/>partitions<sp/>to<sp/>the<sp/>new<sp/>result<sp/>layout</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/>BOOST_FOREACH(<ref refid="namespacelayouter_1a9779582085930cc6fb80f4f2b27dfd9e" kindref="member">subset_t</ref><sp/>t,<sp/><ref refid="classlayouter_1_1_incremental_candidate_layouter_1a87fb05f48225f7ed38ecc0fafaa6b3a7" kindref="member">_unusedPartitions</ref>)</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>rewritten.<ref refid="classlayouter_1_1_layout_1ad4a744f4467b5f1b457fc51f47a10f78" kindref="member">add</ref>(t);</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>SInce<sp/>we<sp/>cached<sp/>the<sp/>cost<sp/>for<sp/>all<sp/>queries<sp/>(including<sp/>the<sp/>new</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>one)<sp/>we<sp/>can<sp/>now<sp/>insert<sp/>the<sp/>modified<sp/>cost<sp/>at<sp/>the<sp/>slots<sp/>where</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>the<sp/>cost<sp/>are<sp/>0<sp/>because<sp/>the<sp/>query<sp/>is<sp/>not<sp/>part<sp/>of<sp/>the<sp/>cached</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>ones</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0,<sp/>j<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/><ref refid="classlayouter_1_1_incremental_candidate_layouter_1af8b0fef2c5ff96280a8c14d190622de2" kindref="member">_unusedCostForPartitions</ref>.size();<sp/>++i)<sp/>{</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="classlayouter_1_1_incremental_candidate_layouter_1af8b0fef2c5ff96280a8c14d190622de2" kindref="member">_unusedCostForPartitions</ref>[i]<sp/>==<sp/>0.0)<sp/>{</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classlayouter_1_1_incremental_candidate_layouter_1af8b0fef2c5ff96280a8c14d190622de2" kindref="member">_unusedCostForPartitions</ref>[i]<sp/>=<sp/>affectedBest.<ref refid="classlayouter_1_1_result_1a86cc3b6d894483710b6ebeed89851bc6" kindref="member">cost</ref>[j++];</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Recalculate<sp/>cost</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//Result<sp/>newresult(rewritten,<sp/>getCost(rewritten));</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><ref refid="classlayouter_1_1_result" kindref="compound">Result</ref><sp/>newresult(rewritten,<sp/><ref refid="classlayouter_1_1_incremental_candidate_layouter_1af8b0fef2c5ff96280a8c14d190622de2" kindref="member">_unusedCostForPartitions</ref>);</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>newresult;</highlight></codeline>
+<codeline lineno="129"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight></codeline>
+<codeline lineno="131" refid="classlayouter_1_1_incremental_candidate_layouter_1abfa4bf2689eb20ba0419a5cb4437cf4e" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classlayouter_1_1_incremental_candidate_layouter_1abfa4bf2689eb20ba0419a5cb4437cf4e" kindref="member">IncrementalCandidateLayouter::incrementalLayout</ref>(<ref refid="classlayouter_1_1_query" kindref="compound">Query</ref><sp/>*q)<sp/>{</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><ref refid="classlayouter_1_1_incremental_candidate_layouter_1abcaffe7b32eae9c85339b6ccff752193" kindref="member">clearState</ref>();</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><ref refid="classlayouter_1_1_incremental_candidate_layouter_1aac8551ac4c440f55a34cf2eb0fa322c4" kindref="member">detectAffectedPartitions</ref>(q);</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Perform<sp/>layout<sp/>for<sp/>each<sp/>of<sp/>the<sp/>queries<sp/>for<sp/>the<sp/>layout</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>subset</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><ref refid="namespacelayouter_1a9779582085930cc6fb80f4f2b27dfd9e" kindref="member">subset_t</ref><sp/>qa;</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/>counter<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/>BOOST_FOREACH(<ref refid="namespacelayouter_1a9779582085930cc6fb80f4f2b27dfd9e" kindref="member">subset_t</ref><sp/>i,<sp/><ref refid="classlayouter_1_1_incremental_candidate_layouter_1a67aa417928fe430b541ea3ca51caba4c" kindref="member">_splittedSets</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/>BOOST_FOREACH(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/>j,<sp/>i)<sp/>{</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Width<sp/>of<sp/>an<sp/>attribute</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>qa.push_back(4);</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classlayouter_1_1_incremental_candidate_layouter_1ae2cb5a4b1f0bb0ebbc8bbe8c78bb3c3c" kindref="member">_query_conversion</ref>[j]<sp/>=<sp/>counter;</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classlayouter_1_1_incremental_candidate_layouter_1a639e0d0399a4d2abb099827457d5a462" kindref="member">_reverse_query_conversion</ref>[counter++]<sp/>=<sp/>j;</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Now<sp/>we<sp/>instantiate<sp/>a<sp/>new<sp/>base<sp/>layouter<sp/>and<sp/>find<sp/>all</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>matching<sp/>layouts</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><ref refid="classlayouter_1_1_candidate_layouter" kindref="compound">CandidateLayouter</ref><sp/>bl;</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><ref refid="classlayouter_1_1_schema" kindref="compound">Schema</ref><sp/>mappedSchema<sp/>=<sp/><ref refid="classlayouter_1_1_incremental_candidate_layouter_1a74d110df85320a48a2ecf3da0abc628a" kindref="member">buildSchema</ref>(qa,<sp/>q);</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/>bl.<ref refid="classlayouter_1_1_candidate_layouter_1af28114f3cd74d47b40ecdd0f06aadc15" kindref="member">layout</ref>(mappedSchema,<sp/><ref refid="config_8h_1a8ff5142b8f9e0750772cdf9b00a8ea7c" kindref="member">HYRISE_COST</ref>);</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>//<sp/>update<sp/>my<sp/>schema<sp/>etc</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><ref refid="classlayouter_1_1_base_layouter_1add31da0cb128c19ccd33d08b2b876a07" kindref="member">schema</ref>.<ref refid="classlayouter_1_1_schema_1a2aea30a3e87f6045a38fcfcc8720952a" kindref="member">queries</ref>.push_back(q);</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>//<sp/>clear<sp/>all<sp/>results</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><ref refid="classlayouter_1_1_base_layouter_1a0655d7dff96b8eff715a053b1e46737b" kindref="member">results</ref>.clear();</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"></highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>//<sp/>TODO<sp/>iterate<sp/>over<sp/>all<sp/>results<sp/>and<sp/>add<sp/>them</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><ref refid="classlayouter_1_1_result" kindref="compound">Result</ref><sp/>mappedBest<sp/>=<sp/>bl.<ref refid="classlayouter_1_1_base_layouter_1a9419bfcfa6a9429f58b7aacc881470c6" kindref="member">getBestResult</ref>();</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><ref refid="classlayouter_1_1_result" kindref="compound">Result</ref><sp/>best<sp/>=<sp/><ref refid="classlayouter_1_1_incremental_candidate_layouter_1a8d2210b84f8679bfddb5915c4942bfe0" kindref="member">rewriteResult</ref>(mappedBest);</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><ref refid="classlayouter_1_1_base_layouter_1a0655d7dff96b8eff715a053b1e46737b" kindref="member">results</ref>.push_back(best);</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="167"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/home/grund/hyrise/src/lib/layouter/incremental.cpp"/>
+  </compounddef>
+</doxygen>

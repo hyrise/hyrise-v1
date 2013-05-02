@@ -1,0 +1,131 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="class_abstract_attribute_vector" kind="class" prot="public">
+    <compoundname>AbstractAttributeVector</compoundname>
+    <derivedcompoundref refid="class_base_attribute_vector" prot="public" virt="non-virtual">BaseAttributeVector&lt; T &gt;</derivedcompoundref>
+    <derivedcompoundref refid="class_base_attribute_vector" prot="public" virt="non-virtual">BaseAttributeVector&lt; Allocator::value_type &gt;</derivedcompoundref>
+    <includes refid="_abstract_attribute_vector_8h" local="no">AbstractAttributeVector.h</includes>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_abstract_attribute_vector_1aed37fff9aff69e7e3c7037e8f1f0518d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual AbstractAttributeVector::~AbstractAttributeVector</definition>
+        <argsstring>()</argsstring>
+        <name>~AbstractAttributeVector</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/AbstractAttributeVector.h" line="8" bodyfile="/home/grund/hyrise/src/lib/storage/AbstractAttributeVector.h" bodystart="8" bodyend="8"/>
+      </memberdef>
+      <memberdef kind="function" id="class_abstract_attribute_vector_1aa9b187475305f322958e9e70f5da7b38" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void *</type>
+        <definition>virtual void* AbstractAttributeVector::data</definition>
+        <argsstring>()=0</argsstring>
+        <name>data</name>
+        <reimplementedby refid="class_fixed_length_vector_1a313ffe404c12360ef1b27fbb12176b30">data</reimplementedby>
+        <reimplementedby refid="class_bit_compressed_vector_1a94906155ced7106a651f7749be5ab40d">data</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/AbstractAttributeVector.h" line="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_abstract_attribute_vector_1ad46f27571b5f25653ae8a5fa95404eff" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void AbstractAttributeVector::setNumRows</definition>
+        <argsstring>(size_t s)=0</argsstring>
+        <name>setNumRows</name>
+        <reimplementedby refid="class_fixed_length_vector_1adf129ec11f1c754038a6bca3412adec5">setNumRows</reimplementedby>
+        <reimplementedby refid="class_bit_compressed_vector_1a405f98126d3ec1b81f2ddf6829547764">setNumRows</reimplementedby>
+        <param>
+          <type>size_t</type>
+          <declname>s</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/AbstractAttributeVector.h" line="11"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1291">
+        <label>BaseAttributeVector&lt; T &gt;</label>
+        <link refid="class_base_attribute_vector"/>
+        <childnode refid="1290" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1293">
+        <label>BaseAllocatedAttributeVector&lt; AllocatedClass, Allocator &gt;</label>
+        <link refid="class_base_allocated_attribute_vector"/>
+        <childnode refid="1292" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1296">
+        <label>BaseAllocatedAttributeVector&lt; BitCompressedVector&lt; T, Allocator &gt;, Allocator &gt;</label>
+        <link refid="class_base_allocated_attribute_vector"/>
+        <childnode refid="1293" relation="template-instance">
+          <edgelabel>&lt; BitCompressedVector&lt; T, Allocator &gt;, Allocator &gt;</edgelabel>
+        </childnode>
+        <childnode refid="1292" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1297">
+        <label>BitCompressedVector&lt; T, Allocator &gt;</label>
+        <link refid="class_bit_compressed_vector"/>
+        <childnode refid="1296" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1292">
+        <label>BaseAttributeVector&lt; Allocator::value_type &gt;</label>
+        <link refid="class_base_attribute_vector"/>
+        <childnode refid="1291" relation="template-instance">
+          <edgelabel>&lt; Allocator::value_type &gt;</edgelabel>
+        </childnode>
+        <childnode refid="1290" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1294">
+        <label>BaseAllocatedAttributeVector&lt; FixedLengthVector&lt; T, Allocator &gt;, Allocator &gt;</label>
+        <link refid="class_base_allocated_attribute_vector"/>
+        <childnode refid="1293" relation="template-instance">
+          <edgelabel>&lt; FixedLengthVector&lt; T, Allocator &gt;, Allocator &gt;</edgelabel>
+        </childnode>
+        <childnode refid="1292" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1290">
+        <label>AbstractAttributeVector</label>
+        <link refid="class_abstract_attribute_vector"/>
+      </node>
+      <node id="1295">
+        <label>FixedLengthVector&lt; T, Allocator &gt;</label>
+        <link refid="class_fixed_length_vector"/>
+        <childnode refid="1294" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1298">
+        <label>AbstractAttributeVector</label>
+        <link refid="class_abstract_attribute_vector"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/storage/AbstractAttributeVector.h" line="5" bodyfile="/home/grund/hyrise/src/lib/storage/AbstractAttributeVector.h" bodystart="5" bodyend="13"/>
+    <listofallmembers>
+      <member refid="class_abstract_attribute_vector_1aa9b187475305f322958e9e70f5da7b38" prot="public" virt="pure-virtual"><scope>AbstractAttributeVector</scope><name>data</name></member>
+      <member refid="class_abstract_attribute_vector_1ad46f27571b5f25653ae8a5fa95404eff" prot="public" virt="pure-virtual"><scope>AbstractAttributeVector</scope><name>setNumRows</name></member>
+      <member refid="class_abstract_attribute_vector_1aed37fff9aff69e7e3c7037e8f1f0518d" prot="public" virt="virtual"><scope>AbstractAttributeVector</scope><name>~AbstractAttributeVector</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

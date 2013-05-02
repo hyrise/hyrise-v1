@@ -1,0 +1,1516 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="class___plan_operation" kind="class" prot="public">
+    <compoundname>_PlanOperation</compoundname>
+    <basecompoundref refid="class_output_task" prot="public" virt="non-virtual">OutputTask</basecompoundref>
+    <derivedcompoundref refid="class_hash_value_join" prot="public" virt="non-virtual">HashValueJoin&lt; T &gt;</derivedcompoundref>
+    <derivedcompoundref refid="class_hash_value_join" prot="public" virt="non-virtual">HashValueJoin&lt; int &gt;</derivedcompoundref>
+    <derivedcompoundref refid="classhyrise_1_1access_1_1_barrier" prot="public" virt="non-virtual">hyrise::access::Barrier</derivedcompoundref>
+    <derivedcompoundref refid="classhyrise_1_1access_1_1_create_index" prot="public" virt="non-virtual">hyrise::access::CreateIndex</derivedcompoundref>
+    <derivedcompoundref refid="classhyrise_1_1access_1_1_create_radix_table" prot="public" virt="non-virtual">hyrise::access::CreateRadixTable</derivedcompoundref>
+    <derivedcompoundref refid="classhyrise_1_1access_1_1_distinct" prot="public" virt="non-virtual">hyrise::access::Distinct</derivedcompoundref>
+    <derivedcompoundref refid="classhyrise_1_1access_1_1_expression_scan" prot="public" virt="non-virtual">hyrise::access::ExpressionScan</derivedcompoundref>
+    <derivedcompoundref refid="classhyrise_1_1access_1_1_get_table" prot="public" virt="non-virtual">hyrise::access::GetTable</derivedcompoundref>
+    <derivedcompoundref refid="classhyrise_1_1access_1_1_group_by_scan" prot="public" virt="non-virtual">hyrise::access::GroupByScan</derivedcompoundref>
+    <derivedcompoundref refid="classhyrise_1_1access_1_1_hash_build" prot="public" virt="non-virtual">hyrise::access::HashBuild</derivedcompoundref>
+    <derivedcompoundref refid="classhyrise_1_1access_1_1_hash_join_probe" prot="public" virt="non-virtual">hyrise::access::HashJoinProbe</derivedcompoundref>
+    <derivedcompoundref refid="classhyrise_1_1access_1_1_histogram" prot="public" virt="non-virtual">hyrise::access::Histogram</derivedcompoundref>
+    <derivedcompoundref refid="classhyrise_1_1access_1_1_index_scan" prot="public" virt="non-virtual">hyrise::access::IndexScan</derivedcompoundref>
+    <derivedcompoundref refid="classhyrise_1_1access_1_1_insert_scan" prot="public" virt="non-virtual">hyrise::access::InsertScan</derivedcompoundref>
+    <derivedcompoundref refid="classhyrise_1_1access_1_1_intersect_positions" prot="public" virt="non-virtual">hyrise::access::IntersectPositions</derivedcompoundref>
+    <derivedcompoundref refid="classhyrise_1_1access_1_1_join_scan" prot="public" virt="non-virtual">hyrise::access::JoinScan</derivedcompoundref>
+    <derivedcompoundref refid="classhyrise_1_1access_1_1_layout_single_table" prot="public" virt="non-virtual">hyrise::access::LayoutSingleTable</derivedcompoundref>
+    <derivedcompoundref refid="classhyrise_1_1access_1_1_layout_table" prot="public" virt="non-virtual">hyrise::access::LayoutTable</derivedcompoundref>
+    <derivedcompoundref refid="classhyrise_1_1access_1_1_layout_table_load" prot="public" virt="non-virtual">hyrise::access::LayoutTableLoad</derivedcompoundref>
+    <derivedcompoundref refid="classhyrise_1_1access_1_1_load_file" prot="public" virt="non-virtual">hyrise::access::LoadFile</derivedcompoundref>
+    <derivedcompoundref refid="classhyrise_1_1access_1_1_materializing_scan" prot="public" virt="non-virtual">hyrise::access::MaterializingScan</derivedcompoundref>
+    <derivedcompoundref refid="classhyrise_1_1access_1_1_merge_hash_tables" prot="public" virt="non-virtual">hyrise::access::MergeHashTables</derivedcompoundref>
+    <derivedcompoundref refid="classhyrise_1_1access_1_1_merge_index_scan" prot="public" virt="non-virtual">hyrise::access::MergeIndexScan</derivedcompoundref>
+    <derivedcompoundref refid="classhyrise_1_1access_1_1_merge_join" prot="public" virt="non-virtual">hyrise::access::MergeJoin&lt; T &gt;</derivedcompoundref>
+    <derivedcompoundref refid="classhyrise_1_1access_1_1_merge_prefix_sum" prot="public" virt="non-virtual">hyrise::access::MergePrefixSum</derivedcompoundref>
+    <derivedcompoundref refid="classhyrise_1_1access_1_1_merge_table" prot="public" virt="non-virtual">hyrise::access::MergeTable</derivedcompoundref>
+    <derivedcompoundref refid="classhyrise_1_1access_1_1_multiply_ref_field" prot="public" virt="non-virtual">hyrise::access::MultiplyRefField</derivedcompoundref>
+    <derivedcompoundref refid="classhyrise_1_1access_1_1_nested_loop_equi_join" prot="public" virt="non-virtual">hyrise::access::NestedLoopEquiJoin</derivedcompoundref>
+    <derivedcompoundref refid="classhyrise_1_1access_1_1_no_op" prot="public" virt="non-virtual">hyrise::access::NoOp</derivedcompoundref>
+    <derivedcompoundref refid="classhyrise_1_1access_1_1_prefix_sum" prot="public" virt="non-virtual">hyrise::access::PrefixSum</derivedcompoundref>
+    <derivedcompoundref refid="classhyrise_1_1access_1_1_projection_scan" prot="public" virt="non-virtual">hyrise::access::ProjectionScan</derivedcompoundref>
+    <derivedcompoundref refid="classhyrise_1_1access_1_1_radix_cluster" prot="public" virt="non-virtual">hyrise::access::RadixCluster</derivedcompoundref>
+    <derivedcompoundref refid="classhyrise_1_1access_1_1_radix_cluster2nd_pass" prot="public" virt="non-virtual">hyrise::access::RadixCluster2ndPass</derivedcompoundref>
+    <derivedcompoundref refid="classhyrise_1_1access_1_1_radix_join" prot="public" virt="non-virtual">hyrise::access::RadixJoin</derivedcompoundref>
+    <derivedcompoundref refid="classhyrise_1_1access_1_1_replace_table" prot="public" virt="non-virtual">hyrise::access::ReplaceTable</derivedcompoundref>
+    <derivedcompoundref refid="classhyrise_1_1access_1_1_script_operation" prot="public" virt="non-virtual">hyrise::access::ScriptOperation</derivedcompoundref>
+    <derivedcompoundref refid="classhyrise_1_1access_1_1_set_table" prot="public" virt="non-virtual">hyrise::access::SetTable</derivedcompoundref>
+    <derivedcompoundref refid="classhyrise_1_1access_1_1_settings_operation" prot="public" virt="non-virtual">hyrise::access::SettingsOperation</derivedcompoundref>
+    <derivedcompoundref refid="classhyrise_1_1access_1_1_simple_raw_table_scan" prot="public" virt="non-virtual">hyrise::access::SimpleRawTableScan</derivedcompoundref>
+    <derivedcompoundref refid="classhyrise_1_1access_1_1_simple_table_scan" prot="public" virt="non-virtual">hyrise::access::SimpleTableScan</derivedcompoundref>
+    <derivedcompoundref refid="classhyrise_1_1access_1_1_smallest_table_scan" prot="public" virt="non-virtual">hyrise::access::SmallestTableScan</derivedcompoundref>
+    <derivedcompoundref refid="classhyrise_1_1access_1_1_sort_scan" prot="public" virt="non-virtual">hyrise::access::SortScan</derivedcompoundref>
+    <derivedcompoundref refid="classhyrise_1_1access_1_1_table_load" prot="public" virt="non-virtual">hyrise::access::TableLoad</derivedcompoundref>
+    <derivedcompoundref refid="classhyrise_1_1access_1_1_table_scan" prot="public" virt="non-virtual">hyrise::access::TableScan</derivedcompoundref>
+    <derivedcompoundref refid="classhyrise_1_1access_1_1_table_unload" prot="public" virt="non-virtual">hyrise::access::TableUnload</derivedcompoundref>
+    <derivedcompoundref refid="classhyrise_1_1access_1_1_task_scheduler_adjustment" prot="public" virt="non-virtual">hyrise::access::TaskSchedulerAdjustment</derivedcompoundref>
+    <derivedcompoundref refid="classhyrise_1_1access_1_1_threadpool_adjustment" prot="public" virt="non-virtual">hyrise::access::ThreadpoolAdjustment</derivedcompoundref>
+    <derivedcompoundref refid="classhyrise_1_1access_1_1_union_all" prot="public" virt="non-virtual">hyrise::access::UnionAll</derivedcompoundref>
+    <derivedcompoundref refid="classhyrise_1_1access_1_1_union_scan" prot="public" virt="non-virtual">hyrise::access::UnionScan</derivedcompoundref>
+    <derivedcompoundref refid="classhyrise_1_1access_1_1_unload_all" prot="public" virt="non-virtual">hyrise::access::UnloadAll</derivedcompoundref>
+    <derivedcompoundref refid="classhyrise_1_1access_1_1_update_scan" prot="public" virt="non-virtual">hyrise::access::UpdateScan</derivedcompoundref>
+    <derivedcompoundref refid="classhyrise_1_1insertonly_1_1_delete_op" prot="public" virt="non-virtual">hyrise::insertonly::DeleteOp</derivedcompoundref>
+    <derivedcompoundref refid="classhyrise_1_1insertonly_1_1_extract_delta" prot="public" virt="non-virtual">hyrise::insertonly::ExtractDelta</derivedcompoundref>
+    <derivedcompoundref refid="classhyrise_1_1insertonly_1_1_insert_op" prot="public" virt="non-virtual">hyrise::insertonly::InsertOp</derivedcompoundref>
+    <derivedcompoundref refid="classhyrise_1_1insertonly_1_1_load_op" prot="public" virt="non-virtual">hyrise::insertonly::LoadOp</derivedcompoundref>
+    <derivedcompoundref refid="classhyrise_1_1insertonly_1_1_update_op" prot="public" virt="non-virtual">hyrise::insertonly::UpdateOp</derivedcompoundref>
+    <derivedcompoundref refid="classhyrise_1_1insertonly_1_1_valid_positions_main_op" prot="public" virt="non-virtual">hyrise::insertonly::ValidPositionsMainOp</derivedcompoundref>
+    <derivedcompoundref refid="classhyrise_1_1insertonly_1_1_valid_positions_raw_op" prot="public" virt="non-virtual">hyrise::insertonly::ValidPositionsRawOp</derivedcompoundref>
+    <derivedcompoundref refid="class_t_p_c_c_h_q1_scan" prot="public" virt="non-virtual">TPCCHQ1Scan</derivedcompoundref>
+    <includes refid="_plan_operation_8h" local="no">PlanOperation.h</includes>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="class___plan_operation_1a12e425b31715103245faeb2bb7b8b8b8" prot="protected" static="no" mutable="no">
+        <type><ref refid="classhyrise_1_1access_1_1_operation_data" kindref="compound">hyrise::access::OperationData</ref></type>
+        <definition>hyrise::access::OperationData _PlanOperation::input</definition>
+        <argsstring></argsstring>
+        <name>input</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Container to store and handle input/output or rather result data. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/PlanOperation.h" line="28" bodyfile="/home/grund/hyrise/src/lib/access/PlanOperation.h" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class___plan_operation_1a407e061ef25b0ce402c02889f14f9475" prot="protected" static="no" mutable="no">
+        <type><ref refid="classhyrise_1_1access_1_1_operation_data" kindref="compound">hyrise::access::OperationData</ref></type>
+        <definition>hyrise::access::OperationData _PlanOperation::output</definition>
+        <argsstring></argsstring>
+        <name>output</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/PlanOperation.h" line="29" bodyfile="/home/grund/hyrise/src/lib/access/PlanOperation.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class___plan_operation_1a2bcb5f99fd47d086834274d8f355744b" prot="protected" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t _PlanOperation::_limit</definition>
+        <argsstring></argsstring>
+        <name>_limit</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/PlanOperation.h" line="35" bodyfile="/home/grund/hyrise/src/lib/access/PlanOperation.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class___plan_operation_1ac4bc5e5a900c679cb5c4d5d5133b51d4" prot="protected" static="no" mutable="no">
+        <type><ref refid="namespacehyrise_1_1tx_1a3f8f9dae75e3e1872247b082f80ffd77" kindref="member">hyrise::tx::transaction_id_t</ref></type>
+        <definition>hyrise::tx::transaction_id_t _PlanOperation::_transaction_id</definition>
+        <argsstring></argsstring>
+        <name>_transaction_id</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/PlanOperation.h" line="38" bodyfile="/home/grund/hyrise/src/lib/access/PlanOperation.h" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class___plan_operation_1aecccffa96d058ec8bead4d2c2a39e0e0" prot="protected" static="no" mutable="no">
+        <type><ref refid="storage__types_8h_1a36fbc31395a53b7ece189846e4d3253c" kindref="member">field_list_t</ref></type>
+        <definition>field_list_t _PlanOperation::_field_definition</definition>
+        <argsstring></argsstring>
+        <name>_field_definition</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>The fields used in the projection etc. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/PlanOperation.h" line="43" bodyfile="/home/grund/hyrise/src/lib/access/PlanOperation.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class___plan_operation_1a83baf80dca3394fa835085e4aa711fc5" prot="protected" static="no" mutable="no">
+        <type><ref refid="storage__types_8h_1aa3f52f6d55495211cc3aa95bcd3113a3" kindref="member">field_name_list_t</ref></type>
+        <definition>field_name_list_t _PlanOperation::_named_field_definition</definition>
+        <argsstring></argsstring>
+        <name>_named_field_definition</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/PlanOperation.h" line="44" bodyfile="/home/grund/hyrise/src/lib/access/PlanOperation.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class___plan_operation_1a6001c5f28644bcb3f111e16e058b355e" prot="protected" static="no" mutable="no">
+        <type><ref refid="storage__types_8h_1a36fbc31395a53b7ece189846e4d3253c" kindref="member">field_list_t</ref></type>
+        <definition>field_list_t _PlanOperation::_indexed_field_definition</definition>
+        <argsstring></argsstring>
+        <name>_indexed_field_definition</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/PlanOperation.h" line="45" bodyfile="/home/grund/hyrise/src/lib/access/PlanOperation.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class___plan_operation_1afd4c1eff49ceadab8a2f3016704628e9" prot="protected" static="no" mutable="no">
+        <type>std::vector&lt; int &gt;</type>
+        <definition>std::vector&lt;int&gt; _PlanOperation::container_list</definition>
+        <argsstring></argsstring>
+        <name>container_list</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/PlanOperation.h" line="48" bodyfile="/home/grund/hyrise/src/lib/access/PlanOperation.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class___plan_operation_1a94d06a35b4b9eafe16c01eb5b0ff293a" prot="protected" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t _PlanOperation::_part</definition>
+        <argsstring></argsstring>
+        <name>_part</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/PlanOperation.h" line="54" bodyfile="/home/grund/hyrise/src/lib/access/PlanOperation.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class___plan_operation_1acef20de057343580d24d6ccb2e35f975" prot="protected" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t _PlanOperation::_count</definition>
+        <argsstring></argsstring>
+        <name>_count</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/PlanOperation.h" line="55" bodyfile="/home/grund/hyrise/src/lib/access/PlanOperation.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class___plan_operation_1a77bc4ab6926bfefd6b4550239ea0ed33" prot="protected" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool _PlanOperation::producesPositions</definition>
+        <argsstring></argsstring>
+        <name>producesPositions</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/PlanOperation.h" line="57" bodyfile="/home/grund/hyrise/src/lib/access/PlanOperation.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class___plan_operation_1af0b2cf5d20cd3f393489b6fa0893c9ce" prot="protected" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string _PlanOperation::_planId</definition>
+        <argsstring></argsstring>
+        <name>_planId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/PlanOperation.h" line="59" bodyfile="/home/grund/hyrise/src/lib/access/PlanOperation.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class___plan_operation_1af3f58f2579f7a2b9d80a90856dd0d5ef" prot="protected" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string _PlanOperation::_operatorId</definition>
+        <argsstring></argsstring>
+        <name>_operatorId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/PlanOperation.h" line="60" bodyfile="/home/grund/hyrise/src/lib/access/PlanOperation.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class___plan_operation_1ab514f69bd5c84f539385337811a6a1f7" prot="protected" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string _PlanOperation::_planOperationName</definition>
+        <argsstring></argsstring>
+        <name>_planOperationName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/PlanOperation.h" line="61" bodyfile="/home/grund/hyrise/src/lib/access/PlanOperation.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="class___plan_operation_1aa6fad4a2bf49850d1947ab2d8c2f9931" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void _PlanOperation::addResult</definition>
+        <argsstring>(hyrise::storage::c_atable_ptr_t result)</argsstring>
+        <name>addResult</name>
+        <param>
+          <type><ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref></type>
+          <declname>result</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/PlanOperation.h" line="31" bodyfile="/home/grund/hyrise/src/lib/access/PlanOperation.cpp" bodystart="32" bodyend="34"/>
+      </memberdef>
+      <memberdef kind="function" id="class___plan_operation_1ab7123ccb3703ca24de2b9a69a3f5b387" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void _PlanOperation::addResultHash</definition>
+        <argsstring>(hyrise::storage::c_ahashtable_ptr_t result)</argsstring>
+        <name>addResultHash</name>
+        <param>
+          <type><ref refid="namespacehyrise_1_1storage_1a53a798623aa803822a0edaef21f4d608" kindref="member">hyrise::storage::c_ahashtable_ptr_t</ref></type>
+          <declname>result</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/PlanOperation.h" line="32" bodyfile="/home/grund/hyrise/src/lib/access/PlanOperation.cpp" bodystart="36" bodyend="38"/>
+      </memberdef>
+      <memberdef kind="function" id="class___plan_operation_1ac5c36f7961eb206f6de68d88a35e9423" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>unsigned int</type>
+        <definition>unsigned int _PlanOperation::findColumn</definition>
+        <argsstring>(const std::string &amp;)</argsstring>
+        <name>findColumn</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <defname>col</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/PlanOperation.h" line="50" bodyfile="/home/grund/hyrise/src/lib/access/PlanOperation.cpp" bodystart="113" bodyend="120"/>
+      </memberdef>
+      <memberdef kind="function" id="class___plan_operation_1a6a5a5c229439bfdfc68c8b301a6376cc" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void _PlanOperation::computeDeferredIndexes</definition>
+        <argsstring>()</argsstring>
+        <name>computeDeferredIndexes</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/PlanOperation.h" line="52" bodyfile="/home/grund/hyrise/src/lib/access/PlanOperation.cpp" bodystart="130" bodyend="145"/>
+      </memberdef>
+      <memberdef kind="function" id="class___plan_operation_1a08c05ed6e130546cdcd5ba24b0cb9422" prot="protected" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void _PlanOperation::distribute</definition>
+        <argsstring>(const u_int64_t numberOfElements, u_int64_t &amp;first, u_int64_t &amp;last) const </argsstring>
+        <name>distribute</name>
+        <param>
+          <type>const u_int64_t</type>
+          <declname>numberOfElements</declname>
+        </param>
+        <param>
+          <type>u_int64_t &amp;</type>
+          <declname>first</declname>
+        </param>
+        <param>
+          <type>u_int64_t &amp;</type>
+          <declname>last</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Uses _part and _count member as specification for the enumeration of parallel instances to distribute the number of elements between all instances. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/PlanOperation.h" line="71" bodyfile="/home/grund/hyrise/src/lib/access/PlanOperation.cpp" bodystart="151" bodyend="161"/>
+      </memberdef>
+      <memberdef kind="function" id="class___plan_operation_1af2e8cdb76b25db935130736ddad6f2da" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void _PlanOperation::refreshInput</definition>
+        <argsstring>()</argsstring>
+        <name>refreshInput</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Fetches output data of dependencies as input data. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/PlanOperation.h" line="77" bodyfile="/home/grund/hyrise/src/lib/access/PlanOperation.cpp" bodystart="163" bodyend="171"/>
+      </memberdef>
+      <memberdef kind="function" id="class___plan_operation_1afdf0ad34a8592a055c53c611d11ef6b6" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void _PlanOperation::splitInput</definition>
+        <argsstring>()</argsstring>
+        <name>splitInput</name>
+        <reimplementedby refid="classhyrise_1_1access_1_1_prefix_sum_1ac024b392a2da61db7e85db7f50b3f747">splitInput</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>If operator is supposed to be a parallel instance of an operator, separate input data based on instance enumeration. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/PlanOperation.h" line="83" bodyfile="/home/grund/hyrise/src/lib/access/PlanOperation.cpp" bodystart="173" bodyend="180"/>
+      </memberdef>
+      <memberdef kind="function" id="class___plan_operation_1a43dc116b72ab5e10d6ccbf2b8c05fd89" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void _PlanOperation::setupPlanOperation</definition>
+        <argsstring>()</argsstring>
+        <name>setupPlanOperation</name>
+        <reimplementedby refid="classhyrise_1_1access_1_1_smallest_table_scan_1acd60c89c87e815c9667bf52fb2ff55a8">setupPlanOperation</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_materializing_scan_1aff0033e4cd850c2a413555e210725a7e">setupPlanOperation</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_simple_table_scan_1a7880487455256d8e673a84d24e472b60">setupPlanOperation</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_projection_scan_1a6cfdfde3f5ea57823ee0277e51354c60">setupPlanOperation</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_simple_raw_table_scan_1aa8ec413b1aad7e80a253fd4ff93b1bf5">setupPlanOperation</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_hash_join_probe_1a28dbd7c84ce678513f6748b6cced7c22">setupPlanOperation</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_table_scan_1a74105cc37106cac66e079deced6fd8c4">setupPlanOperation</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_join_scan_1a872fa61d4fe5e8a64f0d223e2f1a1f14">setupPlanOperation</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_group_by_scan_1a9dc17ae6190c37fc7208b63735e7a685">setupPlanOperation</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/PlanOperation.h" line="85" bodyfile="/home/grund/hyrise/src/lib/access/PlanOperation.cpp" bodystart="147" bodyend="149"/>
+      </memberdef>
+      <memberdef kind="function" id="class___plan_operation_1a9c21af0bffdbe2bc0b4f152239202665" prot="protected" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void _PlanOperation::executePlanOperation</definition>
+        <argsstring>()=0</argsstring>
+        <name>executePlanOperation</name>
+        <reimplementedby refid="classhyrise_1_1access_1_1_union_all_1aa5e3f8d1d73c419757f08f01b51709ba">executePlanOperation</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_union_scan_1a7f0572417fb61f7848233c54ac5cdf19">executePlanOperation</reimplementedby>
+        <reimplementedby refid="class_t_p_c_c_h_q1_scan_1a4b3181d5245d8d5eac09cf21a2c97887">executePlanOperation</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_radix_join_1ae0e10659b937b75496fba576d52bd2b7">executePlanOperation</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_barrier_1ad169c1e04b990a5d717d854782970513">executePlanOperation</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_merge_hash_tables_1af7c5deac906ba543fc6af48669bd18c8">executePlanOperation</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_unload_all_1a463b6d0f08ece075f935a8214f682f07">executePlanOperation</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_table_unload_1a71b33dcfeaf50c02cf0aff8e7d0df0d4">executePlanOperation</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_sort_scan_1a27c4f9dda35fba77090505d817ea733e">executePlanOperation</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_create_radix_table_1a426517c57be34ba21377fc3d17b7e896">executePlanOperation</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_prefix_sum_1a8664f3d32ac86ce68b650ef47fc0784a">executePlanOperation</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_merge_table_1ae1ce268f1f8e28284ae56200bd79bdf0">executePlanOperation</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_layout_table_load_1a2f3e87df9af13681b88c59916c685cd3">executePlanOperation</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_insert_scan_1aed354de121870954f693029cec567663">executePlanOperation</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_hash_build_1a0f7635e73215ce74bc4d9df15aaf64dc">executePlanOperation</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_create_index_1a1642b8486a531c18de916f70ffa3890a">executePlanOperation</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_smallest_table_scan_1a9178311bc67f515c4a605ebb5cee02d7">executePlanOperation</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_load_file_1a1e4d67d8d7c4b6f482c3849c47db997a">executePlanOperation</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_replace_table_1ab7857d3d704ac3f01bbe0fd9df44a0e8">executePlanOperation</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_materializing_scan_1a29bfbcd80a3c65b0ecbe8c28782d3d55">executePlanOperation</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_threadpool_adjustment_1ae4b386d7503226e5725c348c9e25e384">executePlanOperation</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_task_scheduler_adjustment_1a68b33a278fecdc69f96ed21a0ef032f7">executePlanOperation</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_simple_table_scan_1a254d6ff5601450fb2ac08a87beb9b52f">executePlanOperation</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_settings_operation_1af6f08116c83f3dd1160343a79090b442">executePlanOperation</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_set_table_1a4482775195711cb92e5e08d84cdc2044">executePlanOperation</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_projection_scan_1a2abb726fa85c698df381025ace0b0dd8">executePlanOperation</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_layout_table_1aa6b81c1571dce1f85dbb803ca9306a1a">executePlanOperation</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1insertonly_1_1_load_op_1a287ff8592bfb6acb071139cf44d49d33">executePlanOperation</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_get_table_1aa517d23b29106f5a4e45a49049d35c32">executePlanOperation</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_distinct_1acdc99d6e7221f3f2e12727a60063e11b">executePlanOperation</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_simple_raw_table_scan_1a945235fd2fcc2463edbfb87a31cdfbd0">executePlanOperation</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_no_op_1a5f6b3d433f67960fbf73505cd92e65cf">executePlanOperation</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_hash_join_probe_1a38fb8f801a258048e9dfb387e665860c">executePlanOperation</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_table_load_1a7efc2c957423268cb88dde6610ecf52b">executePlanOperation</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_merge_join_1a13810b1d1e95f6337b9ff91dc235c9d8">executePlanOperation</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_table_scan_1af72fbfebb7cdfffa533072d2fb8dfea7">executePlanOperation</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_intersect_positions_1af03be14b37591725454116063b6485b2">executePlanOperation</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_multiply_ref_field_1a63873650fa2a6afe919c00a9fc6af669">executePlanOperation</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_index_scan_1abe0f7a1140b2ae143e941d8fdafc3b3e">executePlanOperation</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_script_operation_1aff8cc8a610fb4e44f643bdd6bec7073d">executePlanOperation</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_radix_cluster_1aa2144b6b45e640ef6920f815c1ad9ee3">executePlanOperation</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_nested_loop_equi_join_1ade39fde17f19068c23fcf55bc4f6a5bb">executePlanOperation</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_layout_single_table_1a009a48c6bd818d881d474fcc977e5bf9">executePlanOperation</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_merge_prefix_sum_1abf9184633bb40ac46c5e0a8b3b074b71">executePlanOperation</reimplementedby>
+        <reimplementedby refid="class_hash_value_join_1acda5441cde585f4482f5edc439bf1056">executePlanOperation</reimplementedby>
+        <reimplementedby refid="class_hash_value_join_1acda5441cde585f4482f5edc439bf1056">executePlanOperation</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1insertonly_1_1_insert_op_1ad40a968af85d1119d0b09c5a44b0ed54">executePlanOperation</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_join_scan_1a82b323bf721de97dd21d7bd8fc45590a">executePlanOperation</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_histogram_1ad1da82eb00898239db07331458ba2302">executePlanOperation</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_group_by_scan_1aababec4357ba8d0c10e3f5fbc7278ce1">executePlanOperation</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_merge_index_scan_1a78a131cacf2ff71cdb9b370f075aece9">executePlanOperation</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_expression_scan_1a9f986791d7645c2ce2672cd35f853967">executePlanOperation</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1insertonly_1_1_update_op_1ac7f317c2a2740f1aa483f08ff766da8e">executePlanOperation</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_update_scan_1a2fb86b7183d40006e83ee9be59da6496">executePlanOperation</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1insertonly_1_1_delete_op_1abe9416aadf39d2d0e87ff04396dcd440">executePlanOperation</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1insertonly_1_1_valid_positions_raw_op_1a25699625254e074ebb23e2c0e963750b">executePlanOperation</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1insertonly_1_1_valid_positions_main_op_1a31c6f9a13d2bd0b9b293596848a3d839">executePlanOperation</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1insertonly_1_1_extract_delta_1aa92d128b86801b56d84dee5cf337c301">executePlanOperation</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_histogram2nd_pass_1aac4901a291af9fde938c9277c0f05fc6">executePlanOperation</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_radix_cluster2nd_pass_1a70c6fbbd084add82c46e6cf5e8a93c10">executePlanOperation</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/PlanOperation.h" line="86"/>
+      </memberdef>
+      <memberdef kind="function" id="class___plan_operation_1a258c353a64fa26187d13363b97c6e341" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void _PlanOperation::teardownPlanOperation</definition>
+        <argsstring>()</argsstring>
+        <name>teardownPlanOperation</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/PlanOperation.h" line="87" bodyfile="/home/grund/hyrise/src/lib/access/PlanOperation.h" bodystart="87" bodyend="87"/>
+      </memberdef>
+      <memberdef kind="function" id="class___plan_operation_1a84ed020376c414c95797858f12133f96" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool _PlanOperation::allDependenciesSuccessful</definition>
+        <argsstring>()</argsstring>
+        <name>allDependenciesSuccessful</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/PlanOperation.h" line="90" bodyfile="/home/grund/hyrise/src/lib/access/PlanOperation.cpp" bodystart="72" bodyend="77"/>
+      </memberdef>
+      <memberdef kind="function" id="class___plan_operation_1abe0fe0f9b3eca729443dc27a898b530d" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string _PlanOperation::getDependencyErrorMessages</definition>
+        <argsstring>()</argsstring>
+        <name>getDependencyErrorMessages</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/PlanOperation.h" line="93" bodyfile="/home/grund/hyrise/src/lib/access/PlanOperation.cpp" bodystart="79" bodyend="89"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class___plan_operation_1ac86c0da0cbc645bfdf5e2c68c6104ba5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>_PlanOperation::_PlanOperation</definition>
+        <argsstring>()</argsstring>
+        <name>_PlanOperation</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/PlanOperation.h" line="102" bodyfile="/home/grund/hyrise/src/lib/access/PlanOperation.cpp" bodystart="21" bodyend="27"/>
+      </memberdef>
+      <memberdef kind="function" id="class___plan_operation_1ae63172ffde1a0e38b458de3aac06c837" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>_PlanOperation::~_PlanOperation</definition>
+        <argsstring>()</argsstring>
+        <name>~_PlanOperation</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/PlanOperation.h" line="103" bodyfile="/home/grund/hyrise/src/lib/access/PlanOperation.cpp" bodystart="29" bodyend="30"/>
+      </memberdef>
+      <memberdef kind="function" id="class___plan_operation_1aa350fbfedb0c6fd9175700d4b8b302ae" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void _PlanOperation::setLimit</definition>
+        <argsstring>(uint64_t l)</argsstring>
+        <name>setLimit</name>
+        <param>
+          <type>uint64_t</type>
+          <declname>l</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/PlanOperation.h" line="105" bodyfile="/home/grund/hyrise/src/lib/access/PlanOperation.cpp" bodystart="230" bodyend="232"/>
+      </memberdef>
+      <memberdef kind="function" id="class___plan_operation_1a9dc36552379146945a30d719041a9633" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void _PlanOperation::setProducesPositions</definition>
+        <argsstring>(bool p)</argsstring>
+        <name>setProducesPositions</name>
+        <param>
+          <type>bool</type>
+          <declname>p</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/PlanOperation.h" line="106" bodyfile="/home/grund/hyrise/src/lib/access/PlanOperation.cpp" bodystart="234" bodyend="236"/>
+      </memberdef>
+      <memberdef kind="function" id="class___plan_operation_1ae3d3d19a258a3b610421bf65400a702e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void _PlanOperation::setTransactionId</definition>
+        <argsstring>(hyrise::tx::transaction_id_t tid)</argsstring>
+        <name>setTransactionId</name>
+        <param>
+          <type><ref refid="namespacehyrise_1_1tx_1a3f8f9dae75e3e1872247b082f80ffd77" kindref="member">hyrise::tx::transaction_id_t</ref></type>
+          <declname>tid</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/PlanOperation.h" line="107" bodyfile="/home/grund/hyrise/src/lib/access/PlanOperation.cpp" bodystart="238" bodyend="240"/>
+      </memberdef>
+      <memberdef kind="function" id="class___plan_operation_1ac403c092d541701bb38389ba19ae60e9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void _PlanOperation::addInput</definition>
+        <argsstring>(hyrise::storage::c_atable_ptr_t t)</argsstring>
+        <name>addInput</name>
+        <param>
+          <type><ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref></type>
+          <declname>t</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/PlanOperation.h" line="109" bodyfile="/home/grund/hyrise/src/lib/access/PlanOperation.cpp" bodystart="242" bodyend="244"/>
+      </memberdef>
+      <memberdef kind="function" id="class___plan_operation_1afd25e43e568c339af441bb704639eea9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void _PlanOperation::addInputHash</definition>
+        <argsstring>(hyrise::storage::c_ahashtable_ptr_t t)</argsstring>
+        <name>addInputHash</name>
+        <param>
+          <type><ref refid="namespacehyrise_1_1storage_1a53a798623aa803822a0edaef21f4d608" kindref="member">hyrise::storage::c_ahashtable_ptr_t</ref></type>
+          <declname>t</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/PlanOperation.h" line="110" bodyfile="/home/grund/hyrise/src/lib/access/PlanOperation.cpp" bodystart="245" bodyend="247"/>
+      </memberdef>
+      <memberdef kind="function" id="class___plan_operation_1af50e7e668650340fe69bfeda5482cdd7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void _PlanOperation::addInput</definition>
+        <argsstring>(std::vector&lt; hyrise::storage::c_atable_ptr_t &gt; *input_list)</argsstring>
+        <name>addInput</name>
+        <param>
+          <type>std::vector&lt; <ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref> &gt; *</type>
+          <declname>input_list</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/PlanOperation.h" line="111" bodyfile="/home/grund/hyrise/src/lib/access/PlanOperation.cpp" bodystart="40" bodyend="43"/>
+      </memberdef>
+      <memberdef kind="function" id="class___plan_operation_1a0fd39768a0dce4f920c8cdab7c91aea3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void _PlanOperation::addInput</definition>
+        <argsstring>(std::vector&lt; hyrise::storage::c_ahashtable_ptr_t &gt; *input_list)</argsstring>
+        <name>addInput</name>
+        <param>
+          <type>std::vector&lt; <ref refid="namespacehyrise_1_1storage_1a53a798623aa803822a0edaef21f4d608" kindref="member">hyrise::storage::c_ahashtable_ptr_t</ref> &gt; *</type>
+          <declname>input_list</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/PlanOperation.h" line="112" bodyfile="/home/grund/hyrise/src/lib/access/PlanOperation.cpp" bodystart="45" bodyend="48"/>
+      </memberdef>
+      <memberdef kind="function" id="class___plan_operation_1acb39b2c0280f5f81f337c106d2485c26" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>const <ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref></type>
+        <definition>const hyrise::storage::c_atable_ptr_t _PlanOperation::getInputTable</definition>
+        <argsstring>(size_t index=0) const </argsstring>
+        <name>getInputTable</name>
+        <param>
+          <type>size_t</type>
+          <declname>index</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/PlanOperation.h" line="114" bodyfile="/home/grund/hyrise/src/lib/access/PlanOperation.cpp" bodystart="51" bodyend="53"/>
+      </memberdef>
+      <memberdef kind="function" id="class___plan_operation_1a32f4a28eede73c294834525da8aabdfa" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>const <ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref></type>
+        <definition>const hyrise::storage::c_atable_ptr_t _PlanOperation::getResultTable</definition>
+        <argsstring>(size_t index=0) const </argsstring>
+        <name>getResultTable</name>
+        <param>
+          <type>size_t</type>
+          <declname>index</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/PlanOperation.h" line="115" bodyfile="/home/grund/hyrise/src/lib/access/PlanOperation.cpp" bodystart="57" bodyend="62"/>
+      </memberdef>
+      <memberdef kind="function" id="class___plan_operation_1a2866bb8fee8631bbac52c5d48a66f5d9" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="namespacehyrise_1_1storage_1a53a798623aa803822a0edaef21f4d608" kindref="member">hyrise::storage::c_ahashtable_ptr_t</ref></type>
+        <definition>hyrise::storage::c_ahashtable_ptr_t _PlanOperation::getInputHashTable</definition>
+        <argsstring>(size_t index=0) const </argsstring>
+        <name>getInputHashTable</name>
+        <param>
+          <type>size_t</type>
+          <declname>index</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/PlanOperation.h" line="116" bodyfile="/home/grund/hyrise/src/lib/access/PlanOperation.cpp" bodystart="64" bodyend="66"/>
+      </memberdef>
+      <memberdef kind="function" id="class___plan_operation_1adab066601cf9434182bda9742159480d" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="namespacehyrise_1_1storage_1a53a798623aa803822a0edaef21f4d608" kindref="member">hyrise::storage::c_ahashtable_ptr_t</ref></type>
+        <definition>hyrise::storage::c_ahashtable_ptr_t _PlanOperation::getResultHashTable</definition>
+        <argsstring>(size_t index=0) const </argsstring>
+        <name>getResultHashTable</name>
+        <param>
+          <type>size_t</type>
+          <declname>index</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/PlanOperation.h" line="117" bodyfile="/home/grund/hyrise/src/lib/access/PlanOperation.cpp" bodystart="68" bodyend="70"/>
+      </memberdef>
+      <memberdef kind="function" id="class___plan_operation_1aee400d6b4e72326a1edef6f55ceebb31" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void _PlanOperation::setFields</definition>
+        <argsstring>(field_list_t *fields)</argsstring>
+        <name>setFields</name>
+        <param>
+          <type><ref refid="storage__types_8h_1a36fbc31395a53b7ece189846e4d3253c" kindref="member">field_list_t</ref> *</type>
+          <declname>fields</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/PlanOperation.h" line="119" bodyfile="/home/grund/hyrise/src/lib/access/PlanOperation.cpp" bodystart="91" bodyend="93"/>
+      </memberdef>
+      <memberdef kind="function" id="class___plan_operation_1a30a3617644b8912495249dc06f610da0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void _PlanOperation::addField</definition>
+        <argsstring>(field_t field)</argsstring>
+        <name>addField</name>
+        <param>
+          <type><ref refid="storage__types_8h_1a5ce4ecb27464dc24ba394527510dd89b" kindref="member">field_t</ref></type>
+          <declname>field</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/PlanOperation.h" line="120" bodyfile="/home/grund/hyrise/src/lib/access/PlanOperation.cpp" bodystart="95" bodyend="97"/>
+      </memberdef>
+      <memberdef kind="function" id="class___plan_operation_1af425b074061007a58921dadb619beabc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void _PlanOperation::addField</definition>
+        <argsstring>(const Json::Value &amp;field)</argsstring>
+        <name>addField</name>
+        <param>
+          <type>const Json::Value &amp;</type>
+          <declname>field</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/PlanOperation.h" line="121" bodyfile="/home/grund/hyrise/src/lib/access/PlanOperation.cpp" bodystart="104" bodyend="110"/>
+      </memberdef>
+      <memberdef kind="function" id="class___plan_operation_1abeef31eca3f3a224fcb56dd5a6645107" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void _PlanOperation::addNamedField</definition>
+        <argsstring>(const field_name_t &amp;field)</argsstring>
+        <name>addNamedField</name>
+        <param>
+          <type>const <ref refid="storage__types_8h_1ad64b8c8026a86f643d173acbb694b4f8" kindref="member">field_name_t</ref> &amp;</type>
+          <declname>field</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/PlanOperation.h" line="122" bodyfile="/home/grund/hyrise/src/lib/access/PlanOperation.cpp" bodystart="100" bodyend="102"/>
+      </memberdef>
+      <memberdef kind="function" id="class___plan_operation_1a7e5670b235f78c8cccfda506bdbe858b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void _PlanOperation::setPart</definition>
+        <argsstring>(size_t part)</argsstring>
+        <name>setPart</name>
+        <reimplementedby refid="classhyrise_1_1access_1_1_radix_cluster_1a0c73cba309400da7c8cd9b1dd9b45425">setPart</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_histogram_1a88d8ea3db4ca2057d7430e49549d26bd">setPart</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_radix_cluster2nd_pass_1a0f48e71ad3fff674f3accb83383c184d">setPart</reimplementedby>
+        <param>
+          <type>size_t</type>
+          <declname>part</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/PlanOperation.h" line="124" bodyfile="/home/grund/hyrise/src/lib/access/PlanOperation.cpp" bodystart="249" bodyend="251"/>
+      </memberdef>
+      <memberdef kind="function" id="class___plan_operation_1a13118f7cfb71feda982a74638a7837e5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void _PlanOperation::setCount</definition>
+        <argsstring>(size_t count)</argsstring>
+        <name>setCount</name>
+        <reimplementedby refid="classhyrise_1_1access_1_1_radix_cluster_1a77583f4e92f0ff914ef6678c65f0f370">setCount</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_histogram_1add0663a66bbe9a7de95c1690571d955f">setCount</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_radix_cluster2nd_pass_1acfaff707be910de0a3347a51a36cb3ad">setCount</reimplementedby>
+        <param>
+          <type>size_t</type>
+          <declname>count</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/PlanOperation.h" line="125" bodyfile="/home/grund/hyrise/src/lib/access/PlanOperation.cpp" bodystart="252" bodyend="254"/>
+      </memberdef>
+      <memberdef kind="function" id="class___plan_operation_1af4c41d3cffcc65b716accc87aeb9e203" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void _PlanOperation::setPlanId</definition>
+        <argsstring>(std::string i)</argsstring>
+        <name>setPlanId</name>
+        <param>
+          <type>std::string</type>
+          <declname>i</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/PlanOperation.h" line="126" bodyfile="/home/grund/hyrise/src/lib/access/PlanOperation.cpp" bodystart="256" bodyend="258"/>
+      </memberdef>
+      <memberdef kind="function" id="class___plan_operation_1a1be25f6cd68a52e6d739271d27705854" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void _PlanOperation::setOperatorId</definition>
+        <argsstring>(std::string i)</argsstring>
+        <name>setOperatorId</name>
+        <param>
+          <type>std::string</type>
+          <declname>i</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/PlanOperation.h" line="127" bodyfile="/home/grund/hyrise/src/lib/access/PlanOperation.cpp" bodystart="259" bodyend="261"/>
+      </memberdef>
+      <memberdef kind="function" id="class___plan_operation_1a6be9662a136359b31e819f2f5abfc9af" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>const std::string &amp;</type>
+        <definition>const std::string &amp; _PlanOperation::planOperationName</definition>
+        <argsstring>() const </argsstring>
+        <name>planOperationName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/PlanOperation.h" line="128" bodyfile="/home/grund/hyrise/src/lib/access/PlanOperation.cpp" bodystart="263" bodyend="265"/>
+      </memberdef>
+      <memberdef kind="function" id="class___plan_operation_1a59f927351ea3450515c0e78c6a909a72" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void _PlanOperation::setPlanOperationName</definition>
+        <argsstring>(const std::string &amp;name)</argsstring>
+        <name>setPlanOperationName</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/PlanOperation.h" line="129" bodyfile="/home/grund/hyrise/src/lib/access/PlanOperation.cpp" bodystart="266" bodyend="268"/>
+      </memberdef>
+      <memberdef kind="function" id="class___plan_operation_1a6c54c54b895e36405b2c9a741bf9c6e2" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void _PlanOperation::operator()</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>operator()</name>
+        <reimplements refid="class_output_task_1ac6f78dee41c2f4c8a1ae7aa75d27f93c">operator()</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/PlanOperation.h" line="131" bodyfile="/home/grund/hyrise/src/lib/access/PlanOperation.cpp" bodystart="183" bodyend="199"/>
+      </memberdef>
+      <memberdef kind="function" id="class___plan_operation_1a97ddcea42846545e269358cc97d05a54" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>const std::string</type>
+        <definition>const std::string _PlanOperation::vname</definition>
+        <argsstring>()</argsstring>
+        <name>vname</name>
+        <reimplements refid="class_task_1a091bff6c1c11bfc202e53280b5af62e7">vname</reimplements>
+        <reimplementedby refid="classhyrise_1_1access_1_1_radix_join_1a16fd091c38d05aeb6ace10ba420a61ab">vname</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_barrier_1a81a0a1fc40d6c2dc15887faf3897eb63">vname</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_merge_hash_tables_1a53d63b5530ce6a3d9e0cb7cd7c2cec88">vname</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_insert_scan_1aa8d99dacb60d984585236717f8f4844b">vname</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1insertonly_1_1_load_op_1a9fb212f034afdc55d77d7039ed9a0198">vname</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_unload_all_1a08a44316d3b2aa19f9cfb9061289546f">vname</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_table_unload_1a889c6fad7b68e0869cd0ee5c943b630d">vname</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_sort_scan_1a30639736823f361d93e1a6fea636418b">vname</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_create_radix_table_1a8e8c8482473370b920dee430a646c3f7">vname</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_prefix_sum_1a9c6ab0e23aa10cb042c362e3ccfdf305">vname</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_merge_table_1a9f9e6890dbf4227898188430fabb9414">vname</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_layout_table_load_1ac6e33aa67b47c4c159e94f560e766008">vname</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_smallest_table_scan_1adabe3bdaa5118947e566ebaf5b232d94">vname</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_replace_table_1abcec25dcf29be25eef118907c35bf747">vname</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_load_file_1a267e4b3e3f938f29cdfe1aa15306079c">vname</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_materializing_scan_1a5fc661aa0ade646cb773ae586ff437d0">vname</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_threadpool_adjustment_1a0efc92c4c192102ee1076122a2e47005">vname</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_task_scheduler_adjustment_1ac4fa706fa0d8c36a77c8234326fe37ff">vname</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_simple_table_scan_1aa65dcb40c824cdeb0c6a7151a454127d">vname</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_settings_operation_1a36623757e01797ba93e1ebc767c6728f">vname</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_set_table_1a9057707c0418b2c033c6191acbaf34a1">vname</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_projection_scan_1aa07cf7b35fcc21c9976ec36ccc0d887b">vname</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_get_table_1a446c1cf188722c01ac927f519e6e70d3">vname</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_distinct_1a0de57169832458856dc08c97c43ade4e">vname</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_table_scan_1a34715439538cebd07c72150da466bde6">vname</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_simple_raw_table_scan_1a9d5b748cc01f2d46351d1aa3bf6c6cec">vname</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_no_op_1ae63b3fd97cb322b1b76f0159c68cec5e">vname</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_layout_table_1ae12ddc8d8394a80528c2ab5341e4fe54">vname</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_table_load_1a322287a70239ec6f7ed0a06fb31a8d96">vname</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_intersect_positions_1a406430e70dcbbb8ac2552e82f54b1b87">vname</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1insertonly_1_1_insert_op_1a4af03ccc1a69f576e4c75fd49cec5eb6">vname</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_index_scan_1aa368e43a0dda88a5e792aec38b7737cf">vname</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_radix_cluster_1afafbac487407d0789412a58a654ddbef">vname</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_nested_loop_equi_join_1afad5334d444177f5d2a8f51ab3e8b0cf">vname</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_layout_single_table_1a167284d6e06034167bb52d6bd141e10e">vname</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_hash_build_1ab4796b44557f92bb6b4b368bd97e9e1d">vname</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_merge_prefix_sum_1a6ab4f0ebd84fb649333107aaf650a380">vname</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_multiply_ref_field_1a6ab919e78c5732b3370261626072bd61">vname</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_join_scan_1a36cf27adb59e3b65b9889260e91cc89a">vname</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1insertonly_1_1_update_op_1a1a31803c5e4214fae818a77a85aa4ce2">vname</reimplementedby>
+        <reimplementedby refid="class_t_p_c_c_h_q1_scan_1a3edac7a89c34583df29c7ceff4f57e3d">vname</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_histogram_1ab7868a9f22654d90599c6f9a6f19647d">vname</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_hash_join_probe_1a54e429e7f9aef4422a93348bc536aa87">vname</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_merge_index_scan_1acc649bca69471145e20c29687e98dbad">vname</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_expression_scan_1ad7edf973544afa99b7d2c553ee359f74">vname</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1insertonly_1_1_delete_op_1aaf5ca93c41caeb92fd307c4ac0bcb657">vname</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_group_by_scan_1a4c5eff0de829ab0665c38c18693acd0d">vname</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_update_scan_1a60a70e820110ee1d2a7112f7ccb37269">vname</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1insertonly_1_1_valid_positions_raw_op_1a2bd24c7bdba39ac9b16c764dfe0851d3">vname</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1insertonly_1_1_valid_positions_main_op_1a3541a213815657ced8b825eb4c1c637f">vname</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_merge_join_1a3b3b1ee43edca5b11e00bfcb4017e48a">vname</reimplementedby>
+        <reimplementedby refid="class_hash_value_join_1a067fe740e129dc679e628766542de417">vname</reimplementedby>
+        <reimplementedby refid="class_hash_value_join_1a067fe740e129dc679e628766542de417">vname</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1insertonly_1_1_extract_delta_1ad694485d0bc3745f1ec19ddf3e037d53">vname</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_histogram2nd_pass_1a8da236ddb9e626b00bdddd215338ea1c">vname</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1access_1_1_radix_cluster2nd_pass_1ab8a668db9f820c550e60704f80227327">vname</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/PlanOperation.h" line="132" bodyfile="/home/grund/hyrise/src/lib/access/PlanOperation.cpp" bodystart="270" bodyend="272"/>
+      </memberdef>
+      <memberdef kind="function" id="class___plan_operation_1a1436548eb8885b1602e7f1960143892d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const <ref refid="class___plan_operation" kindref="compound">_PlanOperation</ref> *</type>
+        <definition>const _PlanOperation * _PlanOperation::execute</definition>
+        <argsstring>()</argsstring>
+        <name>execute</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/PlanOperation.h" line="133" bodyfile="/home/grund/hyrise/src/lib/access/PlanOperation.cpp" bodystart="201" bodyend="228"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>This is the default interface for a plan operation. Our basic assumption is that a plan operation has multiple input data structures and exactly one output data structure. </para>    </detaileddescription>
+    <inheritancegraph>
+      <node id="1263">
+        <label>hyrise::access::TableUnload</label>
+        <link refid="classhyrise_1_1access_1_1_table_unload"/>
+        <childnode refid="1214" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1255">
+        <label>hyrise::access::SetTable</label>
+        <link refid="classhyrise_1_1access_1_1_set_table"/>
+        <childnode refid="1214" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1228">
+        <label>hyrise::access::HashJoinProbe</label>
+        <link refid="classhyrise_1_1access_1_1_hash_join_probe"/>
+        <childnode refid="1214" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1271">
+        <label>hyrise::insertonly::ExtractDelta</label>
+        <link refid="classhyrise_1_1insertonly_1_1_extract_delta"/>
+        <childnode refid="1214" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1222">
+        <label>hyrise::access::CreateRadixTable</label>
+        <link refid="classhyrise_1_1access_1_1_create_radix_table"/>
+        <childnode refid="1214" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1221">
+        <label>hyrise::access::CreateIndex</label>
+        <link refid="classhyrise_1_1access_1_1_create_index"/>
+        <childnode refid="1214" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1265">
+        <label>hyrise::access::ThreadpoolAdjustment</label>
+        <link refid="classhyrise_1_1access_1_1_threadpool_adjustment"/>
+        <childnode refid="1214" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1217">
+        <label>TaskDoneObserver</label>
+        <link refid="class_task_done_observer"/>
+      </node>
+      <node id="1214">
+        <label>_PlanOperation</label>
+        <link refid="class___plan_operation"/>
+        <childnode refid="1215" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1275">
+        <label>hyrise::insertonly::ValidPositionsMainOp</label>
+        <link refid="classhyrise_1_1insertonly_1_1_valid_positions_main_op"/>
+        <childnode refid="1214" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1277">
+        <label>TPCCHQ1Scan</label>
+        <link refid="class_t_p_c_c_h_q1_scan"/>
+        <childnode refid="1214" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1233">
+        <label>hyrise::access::IntersectPositions</label>
+        <link refid="classhyrise_1_1access_1_1_intersect_positions"/>
+        <childnode refid="1214" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1245">
+        <label>hyrise::access::MultiplyRefField</label>
+        <link refid="classhyrise_1_1access_1_1_multiply_ref_field"/>
+        <childnode refid="1214" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1266">
+        <label>hyrise::access::UnionAll</label>
+        <link refid="classhyrise_1_1access_1_1_union_all"/>
+        <childnode refid="1214" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1247">
+        <label>hyrise::access::NoOp</label>
+        <link refid="classhyrise_1_1access_1_1_no_op"/>
+        <childnode refid="1214" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1251">
+        <label>hyrise::access::RadixCluster2ndPass</label>
+        <link refid="classhyrise_1_1access_1_1_radix_cluster2nd_pass"/>
+        <childnode refid="1214" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1256">
+        <label>hyrise::access::SettingsOperation</label>
+        <link refid="classhyrise_1_1access_1_1_settings_operation"/>
+        <childnode refid="1214" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1230">
+        <label>hyrise::access::Histogram2ndPass</label>
+        <link refid="classhyrise_1_1access_1_1_histogram2nd_pass"/>
+        <childnode refid="1229" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1270">
+        <label>hyrise::insertonly::DeleteOp</label>
+        <link refid="classhyrise_1_1insertonly_1_1_delete_op"/>
+        <childnode refid="1214" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1218">
+        <label>HashValueJoin&lt; T &gt;</label>
+        <link refid="class_hash_value_join"/>
+        <childnode refid="1214" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1258">
+        <label>hyrise::access::SimpleTableScan</label>
+        <link refid="classhyrise_1_1access_1_1_simple_table_scan"/>
+        <childnode refid="1214" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1249">
+        <label>hyrise::access::ProjectionScan</label>
+        <link refid="classhyrise_1_1access_1_1_projection_scan"/>
+        <childnode refid="1214" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1238">
+        <label>hyrise::access::LoadFile</label>
+        <link refid="classhyrise_1_1access_1_1_load_file"/>
+        <childnode refid="1214" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1219">
+        <label>HashValueJoin&lt; int &gt;</label>
+        <link refid="class_hash_value_join"/>
+        <childnode refid="1218" relation="template-instance">
+          <edgelabel>&lt; int &gt;</edgelabel>
+        </childnode>
+        <childnode refid="1214" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1235">
+        <label>hyrise::access::LayoutSingleTable</label>
+        <link refid="classhyrise_1_1access_1_1_layout_single_table"/>
+        <childnode refid="1214" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1253">
+        <label>hyrise::access::ReplaceTable</label>
+        <link refid="classhyrise_1_1access_1_1_replace_table"/>
+        <childnode refid="1214" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1236">
+        <label>hyrise::access::LayoutTable</label>
+        <link refid="classhyrise_1_1access_1_1_layout_table"/>
+        <childnode refid="1214" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1232">
+        <label>hyrise::access::InsertScan</label>
+        <link refid="classhyrise_1_1access_1_1_insert_scan"/>
+        <childnode refid="1214" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1225">
+        <label>hyrise::access::GetTable</label>
+        <link refid="classhyrise_1_1access_1_1_get_table"/>
+        <childnode refid="1214" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1226">
+        <label>hyrise::access::GroupByScan</label>
+        <link refid="classhyrise_1_1access_1_1_group_by_scan"/>
+        <childnode refid="1214" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1220">
+        <label>hyrise::access::Barrier</label>
+        <link refid="classhyrise_1_1access_1_1_barrier"/>
+        <childnode refid="1214" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1246">
+        <label>hyrise::access::NestedLoopEquiJoin</label>
+        <link refid="classhyrise_1_1access_1_1_nested_loop_equi_join"/>
+        <childnode refid="1214" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1243">
+        <label>hyrise::access::MergePrefixSum</label>
+        <link refid="classhyrise_1_1access_1_1_merge_prefix_sum"/>
+        <childnode refid="1214" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1227">
+        <label>hyrise::access::HashBuild</label>
+        <link refid="classhyrise_1_1access_1_1_hash_build"/>
+        <childnode refid="1214" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1240">
+        <label>hyrise::access::MergeHashTables</label>
+        <link refid="classhyrise_1_1access_1_1_merge_hash_tables"/>
+        <childnode refid="1214" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1268">
+        <label>hyrise::access::UnloadAll</label>
+        <link refid="classhyrise_1_1access_1_1_unload_all"/>
+        <childnode refid="1214" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1216">
+        <label>Task</label>
+        <link refid="class_task"/>
+        <childnode refid="1217" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1262">
+        <label>hyrise::access::TableScan</label>
+        <link refid="classhyrise_1_1access_1_1_table_scan"/>
+        <childnode refid="1214" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1257">
+        <label>hyrise::access::SimpleRawTableScan</label>
+        <link refid="classhyrise_1_1access_1_1_simple_raw_table_scan"/>
+        <childnode refid="1214" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1224">
+        <label>hyrise::access::ExpressionScan</label>
+        <link refid="classhyrise_1_1access_1_1_expression_scan"/>
+        <childnode refid="1214" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1260">
+        <label>hyrise::access::SortScan</label>
+        <link refid="classhyrise_1_1access_1_1_sort_scan"/>
+        <childnode refid="1214" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1274">
+        <label>hyrise::insertonly::UpdateOp</label>
+        <link refid="classhyrise_1_1insertonly_1_1_update_op"/>
+        <childnode refid="1214" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1244">
+        <label>hyrise::access::MergeTable</label>
+        <link refid="classhyrise_1_1access_1_1_merge_table"/>
+        <childnode refid="1214" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1237">
+        <label>hyrise::access::LayoutTableLoad</label>
+        <link refid="classhyrise_1_1access_1_1_layout_table_load"/>
+        <childnode refid="1214" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1264">
+        <label>hyrise::access::TaskSchedulerAdjustment</label>
+        <link refid="classhyrise_1_1access_1_1_task_scheduler_adjustment"/>
+        <childnode refid="1214" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1276">
+        <label>hyrise::insertonly::ValidPositionsRawOp</label>
+        <link refid="classhyrise_1_1insertonly_1_1_valid_positions_raw_op"/>
+        <childnode refid="1214" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1248">
+        <label>hyrise::access::PrefixSum</label>
+        <link refid="classhyrise_1_1access_1_1_prefix_sum"/>
+        <childnode refid="1214" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1223">
+        <label>hyrise::access::Distinct</label>
+        <link refid="classhyrise_1_1access_1_1_distinct"/>
+        <childnode refid="1214" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1234">
+        <label>hyrise::access::JoinScan</label>
+        <link refid="classhyrise_1_1access_1_1_join_scan"/>
+        <childnode refid="1214" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1254">
+        <label>hyrise::access::ScriptOperation</label>
+        <link refid="classhyrise_1_1access_1_1_script_operation"/>
+        <childnode refid="1214" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1215">
+        <label>OutputTask</label>
+        <link refid="class_output_task"/>
+        <childnode refid="1216" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1259">
+        <label>hyrise::access::SmallestTableScan</label>
+        <link refid="classhyrise_1_1access_1_1_smallest_table_scan"/>
+        <childnode refid="1214" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1250">
+        <label>hyrise::access::RadixCluster</label>
+        <link refid="classhyrise_1_1access_1_1_radix_cluster"/>
+        <childnode refid="1214" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1231">
+        <label>hyrise::access::IndexScan</label>
+        <link refid="classhyrise_1_1access_1_1_index_scan"/>
+        <childnode refid="1214" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1269">
+        <label>hyrise::access::UpdateScan</label>
+        <link refid="classhyrise_1_1access_1_1_update_scan"/>
+        <childnode refid="1214" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1267">
+        <label>hyrise::access::UnionScan</label>
+        <link refid="classhyrise_1_1access_1_1_union_scan"/>
+        <childnode refid="1214" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1261">
+        <label>hyrise::access::TableLoad</label>
+        <link refid="classhyrise_1_1access_1_1_table_load"/>
+        <childnode refid="1214" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1229">
+        <label>hyrise::access::Histogram</label>
+        <link refid="classhyrise_1_1access_1_1_histogram"/>
+        <childnode refid="1214" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1242">
+        <label>hyrise::access::MergeJoin&lt; T &gt;</label>
+        <link refid="classhyrise_1_1access_1_1_merge_join"/>
+        <childnode refid="1214" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1272">
+        <label>hyrise::insertonly::InsertOp</label>
+        <link refid="classhyrise_1_1insertonly_1_1_insert_op"/>
+        <childnode refid="1214" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1273">
+        <label>hyrise::insertonly::LoadOp</label>
+        <link refid="classhyrise_1_1insertonly_1_1_load_op"/>
+        <childnode refid="1214" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1252">
+        <label>hyrise::access::RadixJoin</label>
+        <link refid="classhyrise_1_1access_1_1_radix_join"/>
+        <childnode refid="1214" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1239">
+        <label>hyrise::access::MaterializingScan</label>
+        <link refid="classhyrise_1_1access_1_1_materializing_scan"/>
+        <childnode refid="1214" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1241">
+        <label>hyrise::access::MergeIndexScan</label>
+        <link refid="classhyrise_1_1access_1_1_merge_index_scan"/>
+        <childnode refid="1214" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1281">
+        <label>TaskDoneObserver</label>
+        <link refid="class_task_done_observer"/>
+      </node>
+      <node id="1278">
+        <label>_PlanOperation</label>
+        <link refid="class___plan_operation"/>
+        <childnode refid="1279" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1283" relation="usage">
+          <edgelabel>output</edgelabel>
+          <edgelabel>input</edgelabel>
+        </childnode>
+      </node>
+      <node id="1282">
+        <label>OutputTask::performance_attributes_t</label>
+        <link refid="struct_output_task_1_1performance__attributes__t"/>
+      </node>
+      <node id="1280">
+        <label>Task</label>
+        <link refid="class_task"/>
+        <childnode refid="1281" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1283">
+        <label>hyrise::access::OperationData</label>
+        <link refid="classhyrise_1_1access_1_1_operation_data"/>
+      </node>
+      <node id="1279">
+        <label>OutputTask</label>
+        <link refid="class_output_task"/>
+        <childnode refid="1280" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1282" relation="usage">
+          <edgelabel>_performance_attr</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/access/PlanOperation.h" line="23" bodyfile="/home/grund/hyrise/src/lib/access/PlanOperation.h" bodystart="23" bodyend="134"/>
+    <listofallmembers>
+      <member refid="class___plan_operation_1acef20de057343580d24d6ccb2e35f975" prot="protected" virt="non-virtual"><scope>_PlanOperation</scope><name>_count</name></member>
+      <member refid="class_task_1ab25d10a171c2efc2dcdf4ec7b81d148d" prot="protected" virt="non-virtual"><scope>_PlanOperation</scope><name>_dependencies</name></member>
+      <member refid="class_task_1a432b54ea5cdbf8f875c756c70710b69e" prot="protected" virt="non-virtual"><scope>_PlanOperation</scope><name>_dependencyWaitCount</name></member>
+      <member refid="class_task_1a10259a6dde7645e32c32262818339c8c" prot="protected" virt="non-virtual"><scope>_PlanOperation</scope><name>_depMutex</name></member>
+      <member refid="class_task_1af277c65727e285efbf965633851ec9d8" prot="protected" virt="non-virtual"><scope>_PlanOperation</scope><name>_doneObservers</name></member>
+      <member refid="class_output_task_1a288dc748d95403d6dccd29a03670ec72" prot="protected" virt="non-virtual"><scope>_PlanOperation</scope><name>_error_message</name></member>
+      <member refid="class___plan_operation_1aecccffa96d058ec8bead4d2c2a39e0e0" prot="protected" virt="non-virtual"><scope>_PlanOperation</scope><name>_field_definition</name></member>
+      <member refid="class___plan_operation_1a6001c5f28644bcb3f111e16e058b355e" prot="protected" virt="non-virtual"><scope>_PlanOperation</scope><name>_indexed_field_definition</name></member>
+      <member refid="class___plan_operation_1a2bcb5f99fd47d086834274d8f355744b" prot="protected" virt="non-virtual"><scope>_PlanOperation</scope><name>_limit</name></member>
+      <member refid="class___plan_operation_1a83baf80dca3394fa835085e4aa711fc5" prot="protected" virt="non-virtual"><scope>_PlanOperation</scope><name>_named_field_definition</name></member>
+      <member refid="class_task_1a778ed5c766f4098184c31a656fe471ed" prot="protected" virt="non-virtual"><scope>_PlanOperation</scope><name>_notifyMutex</name></member>
+      <member refid="class_task_1a6a0d1fa3b37cb2e7896ea23049798b36" prot="protected" virt="non-virtual"><scope>_PlanOperation</scope><name>_observerMutex</name></member>
+      <member refid="class___plan_operation_1af3f58f2579f7a2b9d80a90856dd0d5ef" prot="protected" virt="non-virtual"><scope>_PlanOperation</scope><name>_operatorId</name></member>
+      <member refid="class_output_task_1a4b85dab3e5aa4917807522e66ecea10b" prot="protected" virt="non-virtual"><scope>_PlanOperation</scope><name>_papiEvent</name></member>
+      <member refid="class___plan_operation_1a94d06a35b4b9eafe16c01eb5b0ff293a" prot="protected" virt="non-virtual"><scope>_PlanOperation</scope><name>_part</name></member>
+      <member refid="class_output_task_1a2dd0e1b069abf1f788e359f2ce0dc40d" prot="protected" virt="non-virtual"><scope>_PlanOperation</scope><name>_performance_attr</name></member>
+      <member refid="class___plan_operation_1af0b2cf5d20cd3f393489b6fa0893c9ce" prot="protected" virt="non-virtual"><scope>_PlanOperation</scope><name>_planId</name></member>
+      <member refid="class___plan_operation_1ac86c0da0cbc645bfdf5e2c68c6104ba5" prot="public" virt="non-virtual"><scope>_PlanOperation</scope><name>_PlanOperation</name></member>
+      <member refid="class___plan_operation_1ab514f69bd5c84f539385337811a6a1f7" prot="protected" virt="non-virtual"><scope>_PlanOperation</scope><name>_planOperationName</name></member>
+      <member refid="class_task_1aa7b21c6482b905c04f354c738341beb3" prot="protected" virt="non-virtual"><scope>_PlanOperation</scope><name>_preferredCore</name></member>
+      <member refid="class_task_1a7f7f81090a389fd5cf79747e165fe0f4" prot="protected" virt="non-virtual"><scope>_PlanOperation</scope><name>_readyObservers</name></member>
+      <member refid="class_output_task_1a4a898c5577949ec25783a32ba97c8b2e" prot="protected" virt="non-virtual"><scope>_PlanOperation</scope><name>_state</name></member>
+      <member refid="class___plan_operation_1ac4bc5e5a900c679cb5c4d5d5133b51d4" prot="protected" virt="non-virtual"><scope>_PlanOperation</scope><name>_transaction_id</name></member>
+      <member refid="class_task_1aa9e65a15e122de040bb914ab144577b8" prot="public" virt="non-virtual"><scope>_PlanOperation</scope><name>addDependency</name></member>
+      <member refid="class_task_1a0e4ebf7ad5313f027aa16d250685604a" prot="public" virt="non-virtual"><scope>_PlanOperation</scope><name>addDoneObserver</name></member>
+      <member refid="class___plan_operation_1a30a3617644b8912495249dc06f610da0" prot="public" virt="non-virtual"><scope>_PlanOperation</scope><name>addField</name></member>
+      <member refid="class___plan_operation_1af425b074061007a58921dadb619beabc" prot="public" virt="non-virtual"><scope>_PlanOperation</scope><name>addField</name></member>
+      <member refid="class___plan_operation_1ac403c092d541701bb38389ba19ae60e9" prot="public" virt="non-virtual"><scope>_PlanOperation</scope><name>addInput</name></member>
+      <member refid="class___plan_operation_1af50e7e668650340fe69bfeda5482cdd7" prot="public" virt="non-virtual"><scope>_PlanOperation</scope><name>addInput</name></member>
+      <member refid="class___plan_operation_1a0fd39768a0dce4f920c8cdab7c91aea3" prot="public" virt="non-virtual"><scope>_PlanOperation</scope><name>addInput</name></member>
+      <member refid="class___plan_operation_1afd25e43e568c339af441bb704639eea9" prot="public" virt="non-virtual"><scope>_PlanOperation</scope><name>addInputHash</name></member>
+      <member refid="class___plan_operation_1abeef31eca3f3a224fcb56dd5a6645107" prot="public" virt="non-virtual"><scope>_PlanOperation</scope><name>addNamedField</name></member>
+      <member refid="class_task_1a9726ca1f4c6712a3516cb05121479f25" prot="public" virt="non-virtual"><scope>_PlanOperation</scope><name>addReadyObserver</name></member>
+      <member refid="class___plan_operation_1aa6fad4a2bf49850d1947ab2d8c2f9931" prot="protected" virt="non-virtual"><scope>_PlanOperation</scope><name>addResult</name></member>
+      <member refid="class___plan_operation_1ab7123ccb3703ca24de2b9a69a3f5b387" prot="protected" virt="non-virtual"><scope>_PlanOperation</scope><name>addResultHash</name></member>
+      <member refid="class___plan_operation_1a84ed020376c414c95797858f12133f96" prot="protected" virt="non-virtual"><scope>_PlanOperation</scope><name>allDependenciesSuccessful</name></member>
+      <member refid="class___plan_operation_1a6a5a5c229439bfdfc68c8b301a6376cc" prot="protected" virt="virtual"><scope>_PlanOperation</scope><name>computeDeferredIndexes</name></member>
+      <member refid="class___plan_operation_1afd4c1eff49ceadab8a2f3016704628e9" prot="protected" virt="non-virtual"><scope>_PlanOperation</scope><name>container_list</name></member>
+      <member refid="class___plan_operation_1a08c05ed6e130546cdcd5ba24b0cb9422" prot="protected" virt="non-virtual"><scope>_PlanOperation</scope><name>distribute</name></member>
+      <member refid="class___plan_operation_1a1436548eb8885b1602e7f1960143892d" prot="public" virt="non-virtual"><scope>_PlanOperation</scope><name>execute</name></member>
+      <member refid="class___plan_operation_1a9c21af0bffdbe2bc0b4f152239202665" prot="protected" virt="pure-virtual"><scope>_PlanOperation</scope><name>executePlanOperation</name></member>
+      <member refid="class___plan_operation_1ac5c36f7961eb206f6de68d88a35e9423" prot="protected" virt="non-virtual"><scope>_PlanOperation</scope><name>findColumn</name></member>
+      <member refid="class_task_1a75f0a4940cdd338c2ba538200bfcdddf" prot="public" virt="non-virtual"><scope>_PlanOperation</scope><name>getDependencyCount</name></member>
+      <member refid="class___plan_operation_1abe0fe0f9b3eca729443dc27a898b530d" prot="protected" virt="non-virtual"><scope>_PlanOperation</scope><name>getDependencyErrorMessages</name></member>
+      <member refid="class_output_task_1a30a12c8e502fdace15f8ae1434e63270" prot="public" virt="non-virtual"><scope>_PlanOperation</scope><name>getErrorMessage</name></member>
+      <member refid="class_output_task_1a68a2fb3c67f6a32f7b2a9039185ed0f5" prot="public" virt="non-virtual"><scope>_PlanOperation</scope><name>getEvent</name></member>
+      <member refid="class___plan_operation_1a2866bb8fee8631bbac52c5d48a66f5d9" prot="public" virt="non-virtual"><scope>_PlanOperation</scope><name>getInputHashTable</name></member>
+      <member refid="class___plan_operation_1acb39b2c0280f5f81f337c106d2485c26" prot="public" virt="non-virtual"><scope>_PlanOperation</scope><name>getInputTable</name></member>
+      <member refid="class_output_task_1a1814dc0b9d7c5b51fe5f88bcc0f87b2e" prot="public" virt="non-virtual"><scope>_PlanOperation</scope><name>getPerformanceData</name></member>
+      <member refid="class_task_1a4a3f6f336369d8e2d6a92fae0690c143" prot="public" virt="non-virtual"><scope>_PlanOperation</scope><name>getPreferredCore</name></member>
+      <member refid="class_task_1a1a5953e7f9dfc732ce1f3d8a914439b4" prot="public" virt="virtual"><scope>_PlanOperation</scope><name>getQueryDuration</name></member>
+      <member refid="class___plan_operation_1adab066601cf9434182bda9742159480d" prot="public" virt="non-virtual"><scope>_PlanOperation</scope><name>getResultHashTable</name></member>
+      <member refid="class___plan_operation_1a32f4a28eede73c294834525da8aabdfa" prot="public" virt="non-virtual"><scope>_PlanOperation</scope><name>getResultTable</name></member>
+      <member refid="class_output_task_1ac42c2ba54d18dd826a74db6664931ccc" prot="public" virt="non-virtual"><scope>_PlanOperation</scope><name>getState</name></member>
+      <member refid="class_task_1a769a8fb688ddaed2870faeea61d84ca0" prot="public" virt="non-virtual"><scope>_PlanOperation</scope><name>hasSuccessors</name></member>
+      <member refid="class___plan_operation_1a12e425b31715103245faeb2bb7b8b8b8" prot="protected" virt="non-virtual"><scope>_PlanOperation</scope><name>input</name></member>
+      <member refid="class_task_1ab7307de77d5baf3dfec0269996d81543" prot="public" virt="non-virtual"><scope>_PlanOperation</scope><name>isReady</name></member>
+      <member refid="class_task_1aeb0d741352700686296e742bc21e4362" prot="public" virt="non-virtual"><scope>_PlanOperation</scope><name>lockForNotifications</name></member>
+      <member refid="class_task_1aa729cd30e7135f2851dd625679aa8556" prot="public" virt="virtual"><scope>_PlanOperation</scope><name>notifyDone</name></member>
+      <member refid="class_task_1a82157fda3766f4331966baf74e8206fa" prot="public" virt="non-virtual"><scope>_PlanOperation</scope><name>notifyDoneObservers</name></member>
+      <member refid="class_task_1a793f3db3f39a9ea7352078f235ee7843" prot="public" virt="non-virtual"><scope>_PlanOperation</scope><name>notifyReadyObservers</name></member>
+      <member refid="class___plan_operation_1a6c54c54b895e36405b2c9a741bf9c6e2" prot="public" virt="virtual"><scope>_PlanOperation</scope><name>operator()</name></member>
+      <member refid="class___plan_operation_1a407e061ef25b0ce402c02889f14f9475" prot="protected" virt="non-virtual"><scope>_PlanOperation</scope><name>output</name></member>
+      <member refid="class_output_task_1a97005fefa5ad10a2fa465851c66003aa" prot="public" virt="non-virtual"><scope>_PlanOperation</scope><name>OutputTask</name></member>
+      <member refid="class_output_task_1a23221020b56a6ec2748980118e1d9d0f" prot="public" virt="non-virtual"><scope>_PlanOperation</scope><name>performance_vector</name></member>
+      <member refid="class___plan_operation_1a6be9662a136359b31e819f2f5abfc9af" prot="public" virt="non-virtual"><scope>_PlanOperation</scope><name>planOperationName</name></member>
+      <member refid="class___plan_operation_1a77bc4ab6926bfefd6b4550239ea0ed33" prot="protected" virt="non-virtual"><scope>_PlanOperation</scope><name>producesPositions</name></member>
+      <member refid="class___plan_operation_1af2e8cdb76b25db935130736ddad6f2da" prot="protected" virt="virtual"><scope>_PlanOperation</scope><name>refreshInput</name></member>
+      <member refid="class___plan_operation_1a13118f7cfb71feda982a74638a7837e5" prot="public" virt="non-virtual"><scope>_PlanOperation</scope><name>setCount</name></member>
+      <member refid="class_output_task_1aba6bee898300f3069d3f64bb333c6d4a" prot="public" virt="non-virtual"><scope>_PlanOperation</scope><name>setErrorMessage</name></member>
+      <member refid="class_output_task_1a677ba21e5aacaced950d3939c1c609b6" prot="public" virt="non-virtual"><scope>_PlanOperation</scope><name>setEvent</name></member>
+      <member refid="class___plan_operation_1aee400d6b4e72326a1edef6f55ceebb31" prot="public" virt="non-virtual"><scope>_PlanOperation</scope><name>setFields</name></member>
+      <member refid="class___plan_operation_1aa350fbfedb0c6fd9175700d4b8b302ae" prot="public" virt="non-virtual"><scope>_PlanOperation</scope><name>setLimit</name></member>
+      <member refid="class___plan_operation_1a1be25f6cd68a52e6d739271d27705854" prot="public" virt="non-virtual"><scope>_PlanOperation</scope><name>setOperatorId</name></member>
+      <member refid="class___plan_operation_1a7e5670b235f78c8cccfda506bdbe858b" prot="public" virt="non-virtual"><scope>_PlanOperation</scope><name>setPart</name></member>
+      <member refid="class_output_task_1a85de7c1cf957e63f2bd1e82516679fec" prot="public" virt="non-virtual"><scope>_PlanOperation</scope><name>setPerformanceData</name></member>
+      <member refid="class___plan_operation_1af4c41d3cffcc65b716accc87aeb9e203" prot="public" virt="non-virtual"><scope>_PlanOperation</scope><name>setPlanId</name></member>
+      <member refid="class___plan_operation_1a59f927351ea3450515c0e78c6a909a72" prot="public" virt="non-virtual"><scope>_PlanOperation</scope><name>setPlanOperationName</name></member>
+      <member refid="class_task_1a1b8e520f60e9f41a3c1331e4e9e4b3ca" prot="public" virt="non-virtual"><scope>_PlanOperation</scope><name>setPreferredCore</name></member>
+      <member refid="class___plan_operation_1a9dc36552379146945a30d719041a9633" prot="public" virt="non-virtual"><scope>_PlanOperation</scope><name>setProducesPositions</name></member>
+      <member refid="class_output_task_1a010e04ee2e3e5e04a61f6e63a8cd75e9" prot="public" virt="non-virtual"><scope>_PlanOperation</scope><name>setState</name></member>
+      <member refid="class___plan_operation_1ae3d3d19a258a3b610421bf65400a702e" prot="public" virt="non-virtual"><scope>_PlanOperation</scope><name>setTransactionId</name></member>
+      <member refid="class___plan_operation_1a43dc116b72ab5e10d6ccbf2b8c05fd89" prot="protected" virt="virtual"><scope>_PlanOperation</scope><name>setupPlanOperation</name></member>
+      <member refid="class___plan_operation_1afdf0ad34a8592a055c53c611d11ef6b6" prot="protected" virt="virtual"><scope>_PlanOperation</scope><name>splitInput</name></member>
+      <member refid="class_task_1a0ca53354bdc006762a0fda68c64f7608" prot="public" virt="non-virtual"><scope>_PlanOperation</scope><name>Task</name></member>
+      <member refid="class___plan_operation_1a258c353a64fa26187d13363b97c6e341" prot="protected" virt="virtual"><scope>_PlanOperation</scope><name>teardownPlanOperation</name></member>
+      <member refid="class_task_1a35af9de734c94c39981a2b199790e288" prot="public" virt="non-virtual"><scope>_PlanOperation</scope><name>unlockForNotifications</name></member>
+      <member refid="class___plan_operation_1a97ddcea42846545e269358cc97d05a54" prot="public" virt="virtual"><scope>_PlanOperation</scope><name>vname</name></member>
+      <member refid="class___plan_operation_1ae63172ffde1a0e38b458de3aac06c837" prot="public" virt="virtual"><scope>_PlanOperation</scope><name>~_PlanOperation</name></member>
+      <member refid="class_output_task_1a52238f97363ee5f7a9f837722cf4cd50" prot="public" virt="virtual"><scope>_PlanOperation</scope><name>~OutputTask</name></member>
+      <member refid="class_task_1a7bff79cc05fa4511c72048d33591503b" prot="public" virt="virtual"><scope>_PlanOperation</scope><name>~Task</name></member>
+      <member refid="class_task_done_observer_1a9b5fa53c4893dfc998aedca72b8dd278" prot="public" virt="virtual"><scope>_PlanOperation</scope><name>~TaskDoneObserver</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

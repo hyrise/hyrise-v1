@@ -1,0 +1,865 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="class_table_range_view" kind="class" prot="public">
+    <compoundname>TableRangeView</compoundname>
+    <basecompoundref refid="class_abstract_table" prot="public" virt="non-virtual">AbstractTable</basecompoundref>
+    <includes refid="_table_range_view_8h" local="no">TableRangeView.h</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_table_range_view_1af6ef6631cec7f6085b642241f0d0f33d" prot="private" static="no" mutable="no">
+        <type><ref refid="namespacehyrise_1_1storage_1a21d5e900c20019710828c453eaded1ee" kindref="member">hyrise::storage::atable_ptr_t</ref></type>
+        <definition>hyrise::storage::atable_ptr_t TableRangeView::_table</definition>
+        <argsstring></argsstring>
+        <name>_table</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableRangeView.h" line="20" bodyfile="/home/grund/hyrise/src/lib/storage/TableRangeView.h" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_table_range_view_1a5ce25a426bb01acf5cc2ed9034ef5a58" prot="private" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t TableRangeView::_start</definition>
+        <argsstring></argsstring>
+        <name>_start</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableRangeView.h" line="22" bodyfile="/home/grund/hyrise/src/lib/storage/TableRangeView.h" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_table_range_view_1a2e92dd56301ee153d53d021fb586d5b3" prot="private" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t TableRangeView::_end</definition>
+        <argsstring></argsstring>
+        <name>_end</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableRangeView.h" line="23" bodyfile="/home/grund/hyrise/src/lib/storage/TableRangeView.h" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_table_range_view_1ad5e1d36e6a196c3ab9b79d28cd7c6120" prot="private" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t TableRangeView::_columnCount</definition>
+        <argsstring></argsstring>
+        <name>_columnCount</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableRangeView.h" line="25" bodyfile="/home/grund/hyrise/src/lib/storage/TableRangeView.h" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_table_range_view_1a1a72ef91a6ed7293829676a2028f8919" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TableRangeView::TableRangeView</definition>
+        <argsstring>(hyrise::storage::atable_ptr_t t, size_t s, size_t e)</argsstring>
+        <name>TableRangeView</name>
+        <param>
+          <type><ref refid="namespacehyrise_1_1storage_1a21d5e900c20019710828c453eaded1ee" kindref="member">hyrise::storage::atable_ptr_t</ref></type>
+          <declname>t</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>s</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>e</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableRangeView.h" line="28" bodyfile="/home/grund/hyrise/src/lib/storage/TableRangeView.cpp" bodystart="13" bodyend="15"/>
+      </memberdef>
+      <memberdef kind="function" id="class_table_range_view_1a5ca858be42c7f7b3ee9ade4716a67767" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>TableRangeView::~TableRangeView</definition>
+        <argsstring>()</argsstring>
+        <name>~TableRangeView</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableRangeView.h" line="29" bodyfile="/home/grund/hyrise/src/lib/storage/TableRangeView.cpp" bodystart="17" bodyend="19"/>
+      </memberdef>
+      <memberdef kind="function" id="class_table_range_view_1adadc53fefc96a8744ef315f601e8c519" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t TableRangeView::getStart</definition>
+        <argsstring>() const </argsstring>
+        <name>getStart</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableRangeView.h" line="31" bodyfile="/home/grund/hyrise/src/lib/storage/TableRangeView.cpp" bodystart="21" bodyend="23"/>
+      </memberdef>
+      <memberdef kind="function" id="class_table_range_view_1ad74389d9ae0b209ca01889420eea9a3a" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref></type>
+        <definition>hyrise::storage::c_atable_ptr_t TableRangeView::getTable</definition>
+        <argsstring>() const </argsstring>
+        <name>getTable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableRangeView.h" line="32" bodyfile="/home/grund/hyrise/src/lib/storage/TableRangeView.cpp" bodystart="25" bodyend="27"/>
+      </memberdef>
+      <memberdef kind="function" id="class_table_range_view_1a8a7123013aa9d75abd2acdbe781fc2ed" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type><ref refid="storage__types_8h_1ab1b21fbdc9fcb935021666db9c910755" kindref="member">table_id_t</ref></type>
+        <definition>table_id_t TableRangeView::subtableCount</definition>
+        <argsstring>() const </argsstring>
+        <name>subtableCount</name>
+        <reimplements refid="class_abstract_table_1af5330c0a617946ad538cacea21ba7639">subtableCount</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Returns the number of horizontal subtables. <simplesect kind="note"><para>Must be implemented by any derived class! </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableRangeView.h" line="34" bodyfile="/home/grund/hyrise/src/lib/storage/TableRangeView.cpp" bodystart="76" bodyend="78"/>
+      </memberdef>
+      <memberdef kind="function" id="class_table_range_view_1a499d79bc4beb0536a34b5a2e1d3af426" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type><ref refid="namespacehyrise_1_1storage_1a21d5e900c20019710828c453eaded1ee" kindref="member">hyrise::storage::atable_ptr_t</ref></type>
+        <definition>hyrise::storage::atable_ptr_t TableRangeView::copy</definition>
+        <argsstring>() const </argsstring>
+        <name>copy</name>
+        <reimplements refid="class_abstract_table_1a87134964b75abb36c49d0c44455d23e2">copy</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Create of copy of this table. <simplesect kind="note"><para>Must be implemented by any derived class! </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableRangeView.h" line="35" bodyfile="/home/grund/hyrise/src/lib/storage/TableRangeView.cpp" bodystart="80" bodyend="82"/>
+      </memberdef>
+      <memberdef kind="function" id="class_table_range_view_1ad00e3c1b1393b1908b370e1bbe8b69c9" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void TableRangeView::print</definition>
+        <argsstring>(const size_t limit=(size_t)-1) const </argsstring>
+        <name>print</name>
+        <reimplements refid="class_abstract_table_1a64faa3ae981d0b077787fbd60c46ede1">print</reimplements>
+        <param>
+          <type>const size_t</type>
+          <declname>limit</declname>
+          <defval>(size_t)-1</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Prints the table </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableRangeView.h" line="36" bodyfile="/home/grund/hyrise/src/lib/storage/TableRangeView.cpp" bodystart="65" bodyend="70"/>
+      </memberdef>
+      <memberdef kind="function" id="class_table_range_view_1a71e4c6588f1003ff0c0a91af156f9558" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>size_t</type>
+        <definition>size_t TableRangeView::size</definition>
+        <argsstring>() const </argsstring>
+        <name>size</name>
+        <reimplements refid="class_abstract_table_1a2b3fde5fb0c70f288eda47c4c66bb151">size</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Returns the number of rows in the table <simplesect kind="note"><para>Must be implemented by any derived class! </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableRangeView.h" line="39" bodyfile="/home/grund/hyrise/src/lib/storage/TableRangeView.cpp" bodystart="29" bodyend="31"/>
+      </memberdef>
+      <memberdef kind="function" id="class_table_range_view_1a3036856a404aab61631733942b4ab69c" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void TableRangeView::setValueId</definition>
+        <argsstring>(const size_t column, const size_t row, const ValueId valueId)</argsstring>
+        <name>setValueId</name>
+        <reimplements refid="class_abstract_table_1ad7fabd72d657d48f1f4380132515b451">setValueId</reimplements>
+        <param>
+          <type>const size_t</type>
+          <declname>column</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>row</declname>
+        </param>
+        <param>
+          <type>const <ref refid="class_value_id" kindref="compound">ValueId</ref></type>
+          <declname>valueId</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Sets the value ID of a cell. <simplesect kind="note"><para>Should be implemented in derived classes or throws runtime error!</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>column</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Column number of the cell. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>row</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Row number of the cell. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>valueId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>New value-ID of the cell. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableRangeView.h" line="40" bodyfile="/home/grund/hyrise/src/lib/storage/TableRangeView.cpp" bodystart="33" bodyend="38"/>
+      </memberdef>
+      <memberdef kind="function" id="class_table_range_view_1a8b08e5c9e811a36f4f92ea9fa6658886" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type><ref refid="class_value_id" kindref="compound">ValueId</ref></type>
+        <definition>ValueId TableRangeView::getValueId</definition>
+        <argsstring>(const size_t column, const size_t row) const </argsstring>
+        <name>getValueId</name>
+        <reimplements refid="class_abstract_table_1ab0dc4d8eaa3d5b2022d2f0ba1d873a14">getValueId</reimplements>
+        <param>
+          <type>const size_t</type>
+          <declname>column</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>row</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Returns the value-ID of a cell. <simplesect kind="note"><para>Must be implemented by any derived class!</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>column</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Column number of the cell. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>row</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Row number of the cell. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableRangeView.h" line="41" bodyfile="/home/grund/hyrise/src/lib/storage/TableRangeView.cpp" bodystart="40" bodyend="45"/>
+      </memberdef>
+      <memberdef kind="function" id="class_table_range_view_1a5b53dd9edafc099143022bf29051b713" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>void *</type>
+        <definition>void * TableRangeView::atSlice</definition>
+        <argsstring>(const size_t slice, const size_t row) const </argsstring>
+        <name>atSlice</name>
+        <reimplements refid="class_abstract_table_1a472d2a3dc19e99e640d2b65e81a6d052">atSlice</reimplements>
+        <param>
+          <type>const size_t</type>
+          <declname>slice</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>row</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Returns a pointer to the memory area of a slice. <simplesect kind="note"><para>Must be implemented by any derived class!</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>slice</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The slice of interest. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>row</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Row in that slice. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_width</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableRangeView.h" line="42" bodyfile="/home/grund/hyrise/src/lib/storage/TableRangeView.cpp" bodystart="47" bodyend="51"/>
+      </memberdef>
+      <memberdef kind="function" id="class_table_range_view_1a9595f3901d0c7b328e5c3ce2d6d5104b" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>const <ref refid="class_column_metadata" kindref="compound">ColumnMetadata</ref> *</type>
+        <definition>const ColumnMetadata * TableRangeView::metadataAt</definition>
+        <argsstring>(const size_t column, const size_t row=0, const table_id_t table_id=0) const </argsstring>
+        <name>metadataAt</name>
+        <reimplements refid="class_abstract_table_1a7a16a970c5e9229616b984972d1b44b9">metadataAt</reimplements>
+        <param>
+          <type>const size_t</type>
+          <declname>column</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>row</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>const <ref refid="storage__types_8h_1ab1b21fbdc9fcb935021666db9c910755" kindref="member">table_id_t</ref></type>
+          <declname>table_id</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get the metadata for a certain column. Returns a pointer to a <ref refid="class_column_metadata" kindref="compound">ColumnMetadata</ref> object for a specified column. <simplesect kind="note"><para>Must be implemented by any derived class!</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>column</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Column for which to return the metadata. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>row</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Row in that column (default=0). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>table_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ID of the table from which to extract (default=0). </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableRangeView.h" line="43" bodyfile="/home/grund/hyrise/src/lib/storage/TableRangeView.cpp" bodystart="88" bodyend="93"/>
+      </memberdef>
+      <memberdef kind="function" id="class_table_range_view_1ab558885d0ad4114de419066325ef6df2" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>const <ref refid="class_abstract_table_1af76ff827deb697db8077a90c450381ab" kindref="member">SharedDictionaryPtr</ref> &amp;</type>
+        <definition>const AbstractTable::SharedDictionaryPtr &amp; TableRangeView::dictionaryAt</definition>
+        <argsstring>(const size_t column, const size_t row=0, const table_id_t table_id=0, const bool of_delta=false) const </argsstring>
+        <name>dictionaryAt</name>
+        <reimplements refid="class_abstract_table_1a001566ba79ef4dfcde544b4867dd69e7">dictionaryAt</reimplements>
+        <param>
+          <type>const size_t</type>
+          <declname>column</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>row</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>const <ref refid="storage__types_8h_1ab1b21fbdc9fcb935021666db9c910755" kindref="member">table_id_t</ref></type>
+          <declname>table_id</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>const bool</type>
+          <declname>of_delta</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get the dictionary for a certain column. <simplesect kind="note"><para>Must be implemented by any derived class!</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>column</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Column from which to extract the dictionary. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>row</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Row in that column (default=0). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>table_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ID of the table from which to extract (default=0). </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableRangeView.h" line="44" bodyfile="/home/grund/hyrise/src/lib/storage/TableRangeView.cpp" bodystart="95" bodyend="100"/>
+      </memberdef>
+      <memberdef kind="function" id="class_table_range_view_1ab47f1551ff4dd7689f74b145ed10a5c2" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void TableRangeView::setDictionaryAt</definition>
+        <argsstring>(SharedDictionaryPtr dict, const size_t column, const size_t row=0, const table_id_t table_id=0)</argsstring>
+        <name>setDictionaryAt</name>
+        <reimplements refid="class_abstract_table_1a15c7e879e77c9586460488e6e442566c">setDictionaryAt</reimplements>
+        <param>
+          <type><ref refid="class_abstract_table_1af76ff827deb697db8077a90c450381ab" kindref="member">SharedDictionaryPtr</ref></type>
+          <declname>dict</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>column</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>row</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>const <ref refid="storage__types_8h_1ab1b21fbdc9fcb935021666db9c910755" kindref="member">table_id_t</ref></type>
+          <declname>table_id</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Sets the dictionary for a certain column. <simplesect kind="note"><para>Must be implemented by any derived class!</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>dict</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Dictionary to be used. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>column</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Column for which to set the dictionary. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>row</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Row in that column (default=0). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>table_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ID of the table (default=0). </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableRangeView.h" line="47" bodyfile="/home/grund/hyrise/src/lib/storage/TableRangeView.cpp" bodystart="106" bodyend="108"/>
+      </memberdef>
+      <memberdef kind="function" id="class_table_range_view_1a6984e3e1f14f043fab5cbe4e461af302" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void TableRangeView::sortDictionary</definition>
+        <argsstring>()</argsstring>
+        <name>sortDictionary</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableRangeView.h" line="48" bodyfile="/home/grund/hyrise/src/lib/storage/TableRangeView.cpp" bodystart="72" bodyend="74"/>
+      </memberdef>
+      <memberdef kind="function" id="class_table_range_view_1a2a1f2995b660497b51d194d91d66a683" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>size_t</type>
+        <definition>size_t TableRangeView::getSliceWidth</definition>
+        <argsstring>(const size_t slice) const </argsstring>
+        <name>getSliceWidth</name>
+        <reimplements refid="class_abstract_table_1a560af7bf02ed631dd359b22a62e0bed7">getSliceWidth</reimplements>
+        <param>
+          <type>const size_t</type>
+          <declname>slice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Returns the width of a slice. <simplesect kind="note"><para>Must be implemented by any derived class!</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>slice</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The slice of interest. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableRangeView.h" line="51" bodyfile="/home/grund/hyrise/src/lib/storage/TableRangeView.cpp" bodystart="53" bodyend="55"/>
+      </memberdef>
+      <memberdef kind="function" id="class_table_range_view_1a0f33846434886fbbd14272481fc29a23" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>size_t</type>
+        <definition>size_t TableRangeView::getSliceForColumn</definition>
+        <argsstring>(const size_t column) const </argsstring>
+        <name>getSliceForColumn</name>
+        <reimplements refid="class_abstract_table_1a964f6a039d706144a0f07b6e96acac10">getSliceForColumn</reimplements>
+        <param>
+          <type>const size_t</type>
+          <declname>column</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableRangeView.h" line="52" bodyfile="/home/grund/hyrise/src/lib/storage/TableRangeView.cpp" bodystart="57" bodyend="59"/>
+      </memberdef>
+      <memberdef kind="function" id="class_table_range_view_1ad16edfb4bc9f57383b09981ba68bc4d8" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>size_t</type>
+        <definition>size_t TableRangeView::getOffsetInSlice</definition>
+        <argsstring>(const size_t column) const </argsstring>
+        <name>getOffsetInSlice</name>
+        <reimplements refid="class_abstract_table_1a87503e254e2ec4ad43aa198f254a35e0">getOffsetInSlice</reimplements>
+        <param>
+          <type>const size_t</type>
+          <declname>column</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableRangeView.h" line="53" bodyfile="/home/grund/hyrise/src/lib/storage/TableRangeView.cpp" bodystart="61" bodyend="63"/>
+      </memberdef>
+      <memberdef kind="function" id="class_table_range_view_1abc41ec08ec08caa10c0261665320adaf" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>unsigned</type>
+        <definition>unsigned TableRangeView::sliceCount</definition>
+        <argsstring>() const </argsstring>
+        <name>sliceCount</name>
+        <reimplements refid="class_abstract_table_1a593d49b1ae5ca4a47e5c5c43c1eeb4c8">sliceCount</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Returns the number of slices. <simplesect kind="note"><para>Must be implemented by any derived class! </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableRangeView.h" line="54" bodyfile="/home/grund/hyrise/src/lib/storage/TableRangeView.cpp" bodystart="122" bodyend="124"/>
+      </memberdef>
+      <memberdef kind="function" id="class_table_range_view_1aa6f05c782ea927eecf0e465a7939e996" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type><ref refid="namespacehyrise_1_1storage_1a21d5e900c20019710828c453eaded1ee" kindref="member">hyrise::storage::atable_ptr_t</ref></type>
+        <definition>hyrise::storage::atable_ptr_t TableRangeView::copy_structure</definition>
+        <argsstring>(const field_list_t *fields=nullptr, const bool reuse_dict=false, const size_t initial_size=0, const bool with_containers=true, const bool compressed=false) const </argsstring>
+        <name>copy_structure</name>
+        <reimplements refid="class_abstract_table_1a0439c8c9642d0a5dbbbf2d3e37c690fc">copy_structure</reimplements>
+        <param>
+          <type>const <ref refid="storage__types_8h_1a36fbc31395a53b7ece189846e4d3253c" kindref="member">field_list_t</ref> *</type>
+          <declname>fields</declname>
+          <defval><ref refid="csb__tree_8cpp_1ab979d9d4b4923f7c54d6caa6e1a61936" kindref="member">nullptr</ref></defval>
+        </param>
+        <param>
+          <type>const bool</type>
+          <declname>reuse_dict</declname>
+          <defval>false</defval>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>initial_size</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>const bool</type>
+          <declname>with_containers</declname>
+          <defval>true</defval>
+        </param>
+        <param>
+          <type>const bool</type>
+          <declname>compressed</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Copy the table&apos;s structure. Returns a pointer to an <ref refid="class_abstract_table" kindref="compound">AbstractTable</ref> with a copy of the current table&apos;s structure, containing all fields specified in the first parameter or all if left empty, as well as the current table&apos;s dictionary for those fields in case reuse_dict is set to true.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>fields</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>List of fields to be copied (all if empty or nullptr). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>reuse_dict</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Also copy the table&apos;s dictionary (default=false). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>initial_size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Initial size of the returned table (default=0). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>with_containers</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Only used by derived classes. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>compressed</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Sets the compressed storage for the new table </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableRangeView.h" line="55" bodyfile="/home/grund/hyrise/src/lib/storage/TableRangeView.cpp" bodystart="84" bodyend="86"/>
+      </memberdef>
+      <memberdef kind="function" id="class_table_range_view_1a77104382e7ed373335c75d4b3fa030b6" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>const <ref refid="class_abstract_table_1af76ff827deb697db8077a90c450381ab" kindref="member">SharedDictionaryPtr</ref> &amp;</type>
+        <definition>const AbstractTable::SharedDictionaryPtr &amp; TableRangeView::dictionaryByTableId</definition>
+        <argsstring>(const size_t column, const table_id_t table_id) const </argsstring>
+        <name>dictionaryByTableId</name>
+        <reimplements refid="class_abstract_table_1aa2833dbbbabb49737922e5172f0efff9">dictionaryByTableId</reimplements>
+        <param>
+          <type>const size_t</type>
+          <declname>column</declname>
+        </param>
+        <param>
+          <type>const <ref refid="storage__types_8h_1ab1b21fbdc9fcb935021666db9c910755" kindref="member">table_id_t</ref></type>
+          <declname>table_id</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get the dictionary for a certain column by table ID. <simplesect kind="note"><para>Must be implemented by any derived class!</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>column</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Column from which to extract the dictionary. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>table_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ID of the table from which to extract. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableRangeView.h" line="56" bodyfile="/home/grund/hyrise/src/lib/storage/TableRangeView.cpp" bodystart="102" bodyend="104"/>
+      </memberdef>
+      <memberdef kind="function" id="class_table_range_view_1a0828c169d5e89b9fd408b0c16dbf26b2" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="storage__types_8h_1ad8ed01ff3ff33333d8e19db4d2818bb6" kindref="member">DataType</ref></type>
+        <definition>DataType TableRangeView::typeOfColumn</definition>
+        <argsstring>(const size_t column) const </argsstring>
+        <name>typeOfColumn</name>
+        <reimplements refid="class_abstract_table_1ad6de2b7c7b99098e9766b060b4d4b8c7">typeOfColumn</reimplements>
+        <param>
+          <type>const size_t</type>
+          <declname>column</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Returns the type of the column. <simplesect kind="note"><para>Must be implemented by any derived class!</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>column</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Column from which to extract the type. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableRangeView.h" line="57" bodyfile="/home/grund/hyrise/src/lib/storage/TableRangeView.cpp" bodystart="110" bodyend="112"/>
+      </memberdef>
+      <memberdef kind="function" id="class_table_range_view_1a0c370a6e3acb90373b7725ae9d6b89bd" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>size_t</type>
+        <definition>size_t TableRangeView::columnCount</definition>
+        <argsstring>() const </argsstring>
+        <name>columnCount</name>
+        <reimplements refid="class_abstract_table_1a9ba326d4ed695ff02dcdc0dd125fd16c">columnCount</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Returns the number of columns. <simplesect kind="note"><para>Must be implemented by any derived class! </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableRangeView.h" line="58" bodyfile="/home/grund/hyrise/src/lib/storage/TableRangeView.cpp" bodystart="114" bodyend="116"/>
+      </memberdef>
+      <memberdef kind="function" id="class_table_range_view_1a1e607893fa60d8ebb63a54f588503b33" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string TableRangeView::nameOfColumn</definition>
+        <argsstring>(const size_t column) const </argsstring>
+        <name>nameOfColumn</name>
+        <reimplements refid="class_abstract_table_1aa126cb17995eef9d0833ff2a4a673853">nameOfColumn</reimplements>
+        <param>
+          <type>const size_t</type>
+          <declname>column</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Returns the name of a column by its number.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>column</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of the column as numeric value. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableRangeView.h" line="59" bodyfile="/home/grund/hyrise/src/lib/storage/TableRangeView.cpp" bodystart="118" bodyend="120"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="3050">
+        <label>TableRangeView</label>
+        <link refid="class_table_range_view"/>
+        <childnode refid="3051" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3051">
+        <label>AbstractTable</label>
+        <link refid="class_abstract_table"/>
+        <childnode refid="3052" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3052">
+        <label>AbstractResource</label>
+        <link refid="class_abstract_resource"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="3053">
+        <label>TableRangeView</label>
+        <link refid="class_table_range_view"/>
+        <childnode refid="3054" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3054">
+        <label>AbstractTable</label>
+        <link refid="class_abstract_table"/>
+        <childnode refid="3055" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3055">
+        <label>AbstractResource</label>
+        <link refid="class_abstract_resource"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/storage/TableRangeView.h" line="18" bodyfile="/home/grund/hyrise/src/lib/storage/TableRangeView.h" bodystart="18" bodyend="60"/>
+    <listofallmembers>
+      <member refid="class_table_range_view_1ad5e1d36e6a196c3ab9b79d28cd7c6120" prot="private" virt="non-virtual"><scope>TableRangeView</scope><name>_columnCount</name></member>
+      <member refid="class_table_range_view_1a2e92dd56301ee153d53d021fb586d5b3" prot="private" virt="non-virtual"><scope>TableRangeView</scope><name>_end</name></member>
+      <member refid="class_table_range_view_1a5ce25a426bb01acf5cc2ed9034ef5a58" prot="private" virt="non-virtual"><scope>TableRangeView</scope><name>_start</name></member>
+      <member refid="class_table_range_view_1af6ef6631cec7f6085b642241f0d0f33d" prot="private" virt="non-virtual"><scope>TableRangeView</scope><name>_table</name></member>
+      <member refid="class_abstract_table_1a0d4b411db86931d15cc643a2883ffe59" prot="public" virt="non-virtual"><scope>TableRangeView</scope><name>AbstractTable</name></member>
+      <member refid="class_table_range_view_1a5b53dd9edafc099143022bf29051b713" prot="public" virt="virtual"><scope>TableRangeView</scope><name>atSlice</name></member>
+      <member refid="class_table_range_view_1a0c370a6e3acb90373b7725ae9d6b89bd" prot="public" virt="virtual"><scope>TableRangeView</scope><name>columnCount</name></member>
+      <member refid="class_abstract_table_1af716c04f38a6ab47b277911baf050c9d" prot="public" virt="non-virtual"><scope>TableRangeView</scope><name>contentEquals</name></member>
+      <member refid="class_table_range_view_1a499d79bc4beb0536a34b5a2e1d3af426" prot="public" virt="virtual"><scope>TableRangeView</scope><name>copy</name></member>
+      <member refid="class_table_range_view_1aa6f05c782ea927eecf0e465a7939e996" prot="public" virt="virtual"><scope>TableRangeView</scope><name>copy_structure</name></member>
+      <member refid="class_abstract_table_1ab2e5350c658908dc343dd2b8c36eed14" prot="public" virt="non-virtual"><scope>TableRangeView</scope><name>copy_structure_modifiable</name></member>
+      <member refid="class_abstract_table_1afbbf69e94a282a71fb1ecedd72ca8824" prot="public" virt="non-virtual"><scope>TableRangeView</scope><name>copyRowFrom</name></member>
+      <member refid="class_abstract_table_1a4361f683288a0d1360227b309ca625f6" prot="public" virt="non-virtual"><scope>TableRangeView</scope><name>copyValueFrom</name></member>
+      <member refid="class_abstract_table_1a0e1dd83cf4622413949542ecc0604bb7" prot="public" virt="non-virtual"><scope>TableRangeView</scope><name>copyValueFrom</name></member>
+      <member refid="class_abstract_table_1ae66e82c1f4eb0001f747af5bcf8a4ef1" prot="public" virt="non-virtual"><scope>TableRangeView</scope><name>copyValueFrom</name></member>
+      <member refid="class_abstract_table_1a85b7d9471c86bd31879c0f6378071b9c" prot="public" virt="non-virtual"><scope>TableRangeView</scope><name>copyValueIds</name></member>
+      <member refid="class_abstract_table_1ab1d04fdc926954e4027fb883abab1d73" prot="public" virt="non-virtual"><scope>TableRangeView</scope><name>dictionaries</name></member>
+      <member refid="class_table_range_view_1ab558885d0ad4114de419066325ef6df2" prot="public" virt="virtual"><scope>TableRangeView</scope><name>dictionaryAt</name></member>
+      <member refid="class_table_range_view_1a77104382e7ed373335c75d4b3fa030b6" prot="public" virt="virtual"><scope>TableRangeView</scope><name>dictionaryByTableId</name></member>
+      <member refid="class_abstract_table_1a1d792fb6711c4ea00e4662576c1c3dc8" prot="public" virt="non-virtual"><scope>TableRangeView</scope><name>generation</name></member>
+      <member refid="class_abstract_table_1a3467bc6159aa361db993c3fc56584789" prot="public" virt="virtual"><scope>TableRangeView</scope><name>getAttributeVectors</name></member>
+      <member refid="class_table_range_view_1ad16edfb4bc9f57383b09981ba68bc4d8" prot="public" virt="virtual"><scope>TableRangeView</scope><name>getOffsetInSlice</name></member>
+      <member refid="class_table_range_view_1a0f33846434886fbbd14272481fc29a23" prot="public" virt="virtual"><scope>TableRangeView</scope><name>getSliceForColumn</name></member>
+      <member refid="class_table_range_view_1a2a1f2995b660497b51d194d91d66a683" prot="public" virt="virtual"><scope>TableRangeView</scope><name>getSliceWidth</name></member>
+      <member refid="class_table_range_view_1adadc53fefc96a8744ef315f601e8c519" prot="public" virt="non-virtual"><scope>TableRangeView</scope><name>getStart</name></member>
+      <member refid="class_table_range_view_1ad74389d9ae0b209ca01889420eea9a3a" prot="public" virt="non-virtual"><scope>TableRangeView</scope><name>getTable</name></member>
+      <member refid="class_abstract_table_1a6648aba614a398c3243a60b18d5d7dbf" prot="public" virt="non-virtual"><scope>TableRangeView</scope><name>getValue</name></member>
+      <member refid="class_abstract_table_1aac6e3940c4b756a4c627ece2c008782c" prot="public" virt="non-virtual"><scope>TableRangeView</scope><name>getValue</name></member>
+      <member refid="class_abstract_table_1af380b8fd7715abe5988f53b885920e0c" prot="public" virt="non-virtual"><scope>TableRangeView</scope><name>getValueForValueId</name></member>
+      <member refid="class_table_range_view_1a8b08e5c9e811a36f4f92ea9fa6658886" prot="public" virt="virtual"><scope>TableRangeView</scope><name>getValueId</name></member>
+      <member refid="class_abstract_table_1aefae5f6a831167c3d5669be5ba9d87bc" prot="public" virt="non-virtual"><scope>TableRangeView</scope><name>getValueIdForValue</name></member>
+      <member refid="class_abstract_table_1acd7ea07c9b1605ca53c7608c7c3b2ea5" prot="public" virt="non-virtual"><scope>TableRangeView</scope><name>getValueIdForValueByTableId</name></member>
+      <member refid="class_abstract_table_1a8b854b19026e75eebc02942499a82a21" prot="public" virt="non-virtual"><scope>TableRangeView</scope><name>metadata</name></member>
+      <member refid="class_table_range_view_1a9595f3901d0c7b328e5c3ce2d6d5104b" prot="public" virt="virtual"><scope>TableRangeView</scope><name>metadataAt</name></member>
+      <member refid="class_table_range_view_1a1e607893fa60d8ebb63a54f588503b33" prot="public" virt="non-virtual"><scope>TableRangeView</scope><name>nameOfColumn</name></member>
+      <member refid="class_abstract_table_1aaea606e4fd8c92a43febced405de1c6c" prot="public" virt="non-virtual"><scope>TableRangeView</scope><name>numberOfColumn</name></member>
+      <member refid="class_table_range_view_1ad00e3c1b1393b1908b370e1bbe8b69c9" prot="public" virt="virtual"><scope>TableRangeView</scope><name>print</name></member>
+      <member refid="class_abstract_table_1ae2f20cf55374dc8560dc4d2e8c4623ec" prot="public" virt="non-virtual"><scope>TableRangeView</scope><name>printValue</name></member>
+      <member refid="class_abstract_table_1acf25e9092735089d88c0fd9a1cb02984" prot="public" virt="virtual"><scope>TableRangeView</scope><name>reserve</name></member>
+      <member refid="class_abstract_table_1a2c284b3bc7d1ee8522cd02be2fffa3be" prot="public" virt="virtual"><scope>TableRangeView</scope><name>resize</name></member>
+      <member refid="class_table_range_view_1ab47f1551ff4dd7689f74b145ed10a5c2" prot="public" virt="virtual"><scope>TableRangeView</scope><name>setDictionaryAt</name></member>
+      <member refid="class_abstract_table_1a583da7847c5f08de7ee4288cec78e187" prot="public" virt="non-virtual"><scope>TableRangeView</scope><name>setGeneration</name></member>
+      <member refid="class_abstract_table_1a50d0ce6998606d864a429002f86ae654" prot="public" virt="non-virtual"><scope>TableRangeView</scope><name>setValue</name></member>
+      <member refid="class_abstract_table_1a453b25a7f8ebe971d82cd5790d4183dd" prot="public" virt="non-virtual"><scope>TableRangeView</scope><name>setValue</name></member>
+      <member refid="class_table_range_view_1a3036856a404aab61631733942b4ab69c" prot="public" virt="virtual"><scope>TableRangeView</scope><name>setValueId</name></member>
+      <member refid="class_abstract_table_1af76ff827deb697db8077a90c450381ab" prot="public" virt="non-virtual"><scope>TableRangeView</scope><name>SharedDictionaryPtr</name></member>
+      <member refid="class_table_range_view_1a71e4c6588f1003ff0c0a91af156f9558" prot="public" virt="virtual"><scope>TableRangeView</scope><name>size</name></member>
+      <member refid="class_table_range_view_1abc41ec08ec08caa10c0261665320adaf" prot="public" virt="virtual"><scope>TableRangeView</scope><name>sliceCount</name></member>
+      <member refid="class_table_range_view_1a6984e3e1f14f043fab5cbe4e461af302" prot="public" virt="non-virtual"><scope>TableRangeView</scope><name>sortDictionary</name></member>
+      <member refid="class_table_range_view_1a8a7123013aa9d75abd2acdbe781fc2ed" prot="public" virt="virtual"><scope>TableRangeView</scope><name>subtableCount</name></member>
+      <member refid="class_table_range_view_1a1a72ef91a6ed7293829676a2028f8919" prot="public" virt="non-virtual"><scope>TableRangeView</scope><name>TableRangeView</name></member>
+      <member refid="class_table_range_view_1a0828c169d5e89b9fd408b0c16dbf26b2" prot="public" virt="non-virtual"><scope>TableRangeView</scope><name>typeOfColumn</name></member>
+      <member refid="class_abstract_table_1a55de3a5a31acf6898fb9ddd287b760e3" prot="public" virt="non-virtual"><scope>TableRangeView</scope><name>valueExists</name></member>
+      <member refid="class_abstract_table_1a8e1d6f1b61390fc3e6954fbaa1f7745f" prot="public" virt="non-virtual"><scope>TableRangeView</scope><name>write</name></member>
+      <member refid="class_abstract_resource_1a4299feff952f974409aaaf52082deadb" prot="public" virt="virtual"><scope>TableRangeView</scope><name>~AbstractResource</name></member>
+      <member refid="class_abstract_table_1a957e2dc86a1aa6ffa19b2d8585a1ee91" prot="public" virt="virtual"><scope>TableRangeView</scope><name>~AbstractTable</name></member>
+      <member refid="class_table_range_view_1a5ca858be42c7f7b3ee9ade4716a67767" prot="public" virt="virtual"><scope>TableRangeView</scope><name>~TableRangeView</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

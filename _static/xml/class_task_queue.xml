@@ -1,0 +1,278 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="class_task_queue" kind="class" prot="public">
+    <compoundname>TaskQueue</compoundname>
+    <includes refid="_task_queue_8h" local="no">TaskQueue.h</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_task_queue_1a520f9ccec8b6a059af693436811f6506" prot="private" static="no" mutable="no">
+        <type>std::queue&lt; std::shared_ptr&lt; <ref refid="class_task" kindref="compound">Task</ref> &gt; &gt;</type>
+        <definition>std::queue&lt;std::shared_ptr&lt;Task&gt; &gt; TaskQueue::_runQueue</definition>
+        <argsstring></argsstring>
+        <name>_runQueue</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/taskscheduler/TaskQueue.h" line="32" bodyfile="/home/grund/hyrise/src/lib/taskscheduler/TaskQueue.h" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_task_queue_1ae70819edbde21542e764ff9b574dba2c" prot="private" static="no" mutable="no">
+        <type>std::thread *</type>
+        <definition>std::thread* TaskQueue::_thread</definition>
+        <argsstring></argsstring>
+        <name>_thread</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/taskscheduler/TaskQueue.h" line="33" bodyfile="/home/grund/hyrise/src/lib/taskscheduler/TaskQueue.h" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_task_queue_1afd512fd77c9206f1be9c726d00b56c3f" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int TaskQueue::_core</definition>
+        <argsstring></argsstring>
+        <name>_core</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/taskscheduler/TaskQueue.h" line="35" bodyfile="/home/grund/hyrise/src/lib/taskscheduler/TaskQueue.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_task_queue_1afedbad0c26166e82065ebc13dfae3818" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool TaskQueue::_blocked</definition>
+        <argsstring></argsstring>
+        <name>_blocked</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/taskscheduler/TaskQueue.h" line="36" bodyfile="/home/grund/hyrise/src/lib/taskscheduler/TaskQueue.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_task_queue_1a3e15edfb262ee392c183d8f4a308adff" prot="private" static="no" mutable="no">
+        <type><ref refid="_task_queue_8h_1a015eb90e0de9f16e87bd149d4b9ce959" kindref="member">status</ref></type>
+        <definition>status TaskQueue::_status</definition>
+        <argsstring></argsstring>
+        <name>_status</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/taskscheduler/TaskQueue.h" line="37" bodyfile="/home/grund/hyrise/src/lib/taskscheduler/TaskQueue.h" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_task_queue_1a0d5c41a2b59d100dd31b5300d0df308a" prot="private" static="no" mutable="no">
+        <type>std::mutex</type>
+        <definition>std::mutex TaskQueue::_queueMutex</definition>
+        <argsstring></argsstring>
+        <name>_queueMutex</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/taskscheduler/TaskQueue.h" line="38" bodyfile="/home/grund/hyrise/src/lib/taskscheduler/TaskQueue.h" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_task_queue_1af824ff28e4a4f775cb930db504d6b588" prot="private" static="no" mutable="no">
+        <type>std::mutex</type>
+        <definition>std::mutex TaskQueue::_threadStatusMutex</definition>
+        <argsstring></argsstring>
+        <name>_threadStatusMutex</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/taskscheduler/TaskQueue.h" line="39" bodyfile="/home/grund/hyrise/src/lib/taskscheduler/TaskQueue.h" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_task_queue_1a585da29de9236ce30b25f88f9cbf6ca4" prot="private" static="no" mutable="no">
+        <type>std::condition_variable</type>
+        <definition>std::condition_variable TaskQueue::_condition</definition>
+        <argsstring></argsstring>
+        <name>_condition</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/taskscheduler/TaskQueue.h" line="40" bodyfile="/home/grund/hyrise/src/lib/taskscheduler/TaskQueue.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="class_task_queue_1a58561b1397e43198d24a8189886ecc25" prot="public" static="yes" mutable="no">
+        <type>log4cxx::LoggerPtr</type>
+        <definition>log4cxx::LoggerPtr TaskQueue::logger</definition>
+        <argsstring></argsstring>
+        <name>logger</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/taskscheduler/TaskQueue.h" line="45" bodyfile="/home/grund/hyrise/src/lib/taskscheduler/TaskQueue.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_task_queue_1a4958f7e6a24de1fe1f61ce2e19d84624" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void TaskQueue::launchThread</definition>
+        <argsstring>(int core)</argsstring>
+        <name>launchThread</name>
+        <param>
+          <type>int</type>
+          <declname>core</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/taskscheduler/TaskQueue.h" line="42" bodyfile="/home/grund/hyrise/src/lib/taskscheduler/TaskQueue.cpp" bodystart="24" bodyend="59"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_task_queue_1a33f17ef628e07a1e358da7b63e42df58" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TaskQueue::TaskQueue</definition>
+        <argsstring>(int core)</argsstring>
+        <name>TaskQueue</name>
+        <param>
+          <type>int</type>
+          <declname>core</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/taskscheduler/TaskQueue.h" line="49" bodyfile="/home/grund/hyrise/src/lib/taskscheduler/TaskQueue.cpp" bodystart="105" bodyend="108"/>
+      </memberdef>
+      <memberdef kind="function" id="class_task_queue_1a80e3df38cc5af6574d5b3fa44726caca" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TaskQueue::~TaskQueue</definition>
+        <argsstring>()</argsstring>
+        <name>~TaskQueue</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/taskscheduler/TaskQueue.h" line="50" bodyfile="/home/grund/hyrise/src/lib/taskscheduler/TaskQueue.cpp" bodystart="143" bodyend="145"/>
+      </memberdef>
+      <memberdef kind="function" id="class_task_queue_1af6f7fec4908b3e2eedbc95764cd03ecf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void TaskQueue::executeTask</definition>
+        <argsstring>()</argsstring>
+        <name>executeTask</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/taskscheduler/TaskQueue.h" line="54" bodyfile="/home/grund/hyrise/src/lib/taskscheduler/TaskQueue.cpp" bodystart="61" bodyend="103"/>
+      </memberdef>
+      <memberdef kind="function" id="class_task_queue_1a3cee861d1e4a9c834c973f7d7f157ac8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void TaskQueue::push</definition>
+        <argsstring>(std::shared_ptr&lt; Task &gt; task)</argsstring>
+        <name>push</name>
+        <param>
+          <type>std::shared_ptr&lt; <ref refid="class_task" kindref="compound">Task</ref> &gt;</type>
+          <declname>task</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/taskscheduler/TaskQueue.h" line="58" bodyfile="/home/grund/hyrise/src/lib/taskscheduler/TaskQueue.cpp" bodystart="110" bodyend="114"/>
+      </memberdef>
+      <memberdef kind="function" id="class_task_queue_1a3760fa6b01564a746e7674d2837f8d9d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::queue&lt; std::shared_ptr&lt; <ref refid="class_task" kindref="compound">Task</ref> &gt; &gt; *</type>
+        <definition>std::queue&lt; std::shared_ptr&lt; Task &gt; &gt; * TaskQueue::stopQueue</definition>
+        <argsstring>()</argsstring>
+        <name>stopQueue</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/taskscheduler/TaskQueue.h" line="62" bodyfile="/home/grund/hyrise/src/lib/taskscheduler/TaskQueue.cpp" bodystart="116" bodyend="134"/>
+      </memberdef>
+      <memberdef kind="function" id="class_task_queue_1afed1f7e2fe75d65a2c2aa01f9762862f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void TaskQueue::join</definition>
+        <argsstring>()</argsstring>
+        <name>join</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/taskscheduler/TaskQueue.h" line="66" bodyfile="/home/grund/hyrise/src/lib/taskscheduler/TaskQueue.cpp" bodystart="136" bodyend="141"/>
+      </memberdef>
+      <memberdef kind="function" id="class_task_queue_1ac393d72eb075c68e7e6fcf4c589c3428" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool TaskQueue::blocked</definition>
+        <argsstring>()</argsstring>
+        <name>blocked</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/taskscheduler/TaskQueue.h" line="70" bodyfile="/home/grund/hyrise/src/lib/taskscheduler/TaskQueue.h" bodystart="70" bodyend="72"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="3230">
+        <label>TaskQueue</label>
+        <link refid="class_task_queue"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/taskscheduler/TaskQueue.h" line="31" bodyfile="/home/grund/hyrise/src/lib/taskscheduler/TaskQueue.h" bodystart="31" bodyend="73"/>
+    <listofallmembers>
+      <member refid="class_task_queue_1afedbad0c26166e82065ebc13dfae3818" prot="private" virt="non-virtual"><scope>TaskQueue</scope><name>_blocked</name></member>
+      <member refid="class_task_queue_1a585da29de9236ce30b25f88f9cbf6ca4" prot="private" virt="non-virtual"><scope>TaskQueue</scope><name>_condition</name></member>
+      <member refid="class_task_queue_1afd512fd77c9206f1be9c726d00b56c3f" prot="private" virt="non-virtual"><scope>TaskQueue</scope><name>_core</name></member>
+      <member refid="class_task_queue_1a0d5c41a2b59d100dd31b5300d0df308a" prot="private" virt="non-virtual"><scope>TaskQueue</scope><name>_queueMutex</name></member>
+      <member refid="class_task_queue_1a520f9ccec8b6a059af693436811f6506" prot="private" virt="non-virtual"><scope>TaskQueue</scope><name>_runQueue</name></member>
+      <member refid="class_task_queue_1a3e15edfb262ee392c183d8f4a308adff" prot="private" virt="non-virtual"><scope>TaskQueue</scope><name>_status</name></member>
+      <member refid="class_task_queue_1ae70819edbde21542e764ff9b574dba2c" prot="private" virt="non-virtual"><scope>TaskQueue</scope><name>_thread</name></member>
+      <member refid="class_task_queue_1af824ff28e4a4f775cb930db504d6b588" prot="private" virt="non-virtual"><scope>TaskQueue</scope><name>_threadStatusMutex</name></member>
+      <member refid="class_task_queue_1ac393d72eb075c68e7e6fcf4c589c3428" prot="public" virt="non-virtual"><scope>TaskQueue</scope><name>blocked</name></member>
+      <member refid="class_task_queue_1af6f7fec4908b3e2eedbc95764cd03ecf" prot="public" virt="non-virtual"><scope>TaskQueue</scope><name>executeTask</name></member>
+      <member refid="class_task_queue_1afed1f7e2fe75d65a2c2aa01f9762862f" prot="public" virt="non-virtual"><scope>TaskQueue</scope><name>join</name></member>
+      <member refid="class_task_queue_1a4958f7e6a24de1fe1f61ce2e19d84624" prot="private" virt="non-virtual"><scope>TaskQueue</scope><name>launchThread</name></member>
+      <member refid="class_task_queue_1a58561b1397e43198d24a8189886ecc25" prot="public" virt="non-virtual"><scope>TaskQueue</scope><name>logger</name></member>
+      <member refid="class_task_queue_1a3cee861d1e4a9c834c973f7d7f157ac8" prot="public" virt="non-virtual"><scope>TaskQueue</scope><name>push</name></member>
+      <member refid="class_task_queue_1a3760fa6b01564a746e7674d2837f8d9d" prot="public" virt="non-virtual"><scope>TaskQueue</scope><name>stopQueue</name></member>
+      <member refid="class_task_queue_1a33f17ef628e07a1e358da7b63e42df58" prot="public" virt="non-virtual"><scope>TaskQueue</scope><name>TaskQueue</name></member>
+      <member refid="class_task_queue_1a80e3df38cc5af6574d5b3fa44726caca" prot="public" virt="non-virtual"><scope>TaskQueue</scope><name>~TaskQueue</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

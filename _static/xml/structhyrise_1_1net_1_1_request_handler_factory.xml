@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="structhyrise_1_1net_1_1_request_handler_factory" kind="struct" prot="public">
+    <compoundname>hyrise::net::RequestHandlerFactory</compoundname>
+    <basecompoundref refid="structhyrise_1_1net_1_1_abstract_request_handler_factory" prot="public" virt="non-virtual">hyrise::net::AbstractRequestHandlerFactory</basecompoundref>
+    <includes refid="_router_8h" local="no">Router.h</includes>
+    <templateparamlist>
+      <param>
+        <type>typename T</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structhyrise_1_1net_1_1_request_handler_factory_1a8591e12cfe99e082e52accd1866d72d4" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type><ref refid="classhyrise_1_1net_1_1_abstract_request_handler_1a22c7c6e6ea6e7cedb23196f5871b5aca" kindref="member">AbstractRequestHandler::SharedPtr</ref></type>
+        <definition>AbstractRequestHandler::SharedPtr hyrise::net::RequestHandlerFactory&lt; T &gt;::create</definition>
+        <argsstring>(AbstractConnection *connection) const </argsstring>
+        <name>create</name>
+        <reimplements refid="structhyrise_1_1net_1_1_abstract_request_handler_factory_1a44c47936bbe4ff0d27bd75e34aa9c8b6">create</reimplements>
+        <param>
+          <type><ref refid="classhyrise_1_1net_1_1_abstract_connection" kindref="compound">AbstractConnection</ref> *</type>
+          <declname>connection</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/net/Router.h" line="33" bodyfile="/home/grund/hyrise/src/lib/net/Router.h" bodystart="33" bodyend="35"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Factory for request handlers, implements abstract factory pattern. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2719">
+        <label>hyrise::net::AbstractRequestHandlerFactory</label>
+        <link refid="structhyrise_1_1net_1_1_abstract_request_handler_factory"/>
+      </node>
+      <node id="2718">
+        <label>hyrise::net::RequestHandlerFactory&lt; T &gt;</label>
+        <link refid="structhyrise_1_1net_1_1_request_handler_factory"/>
+        <childnode refid="2719" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2721">
+        <label>hyrise::net::AbstractRequestHandlerFactory</label>
+        <link refid="structhyrise_1_1net_1_1_abstract_request_handler_factory"/>
+      </node>
+      <node id="2720">
+        <label>hyrise::net::RequestHandlerFactory&lt; T &gt;</label>
+        <link refid="structhyrise_1_1net_1_1_request_handler_factory"/>
+        <childnode refid="2721" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/net/Router.h" line="32" bodyfile="/home/grund/hyrise/src/lib/net/Router.h" bodystart="32" bodyend="36"/>
+    <listofallmembers>
+      <member refid="structhyrise_1_1net_1_1_request_handler_factory_1a8591e12cfe99e082e52accd1866d72d4" prot="public" virt="virtual"><scope>hyrise::net::RequestHandlerFactory</scope><name>create</name></member>
+      <member refid="structhyrise_1_1net_1_1_abstract_request_handler_factory_1a21c4090bf6e7428d8994dcc4f22eb0a5" prot="public" virt="virtual"><scope>hyrise::net::RequestHandlerFactory</scope><name>~AbstractRequestHandlerFactory</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

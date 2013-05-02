@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="struct_dictionary_factory" kind="struct" prot="public">
+    <compoundname>DictionaryFactory</compoundname>
+    <includes refid="_abstract_dictionary_8h" local="no">AbstractDictionary.h</includes>
+    <templateparamlist>
+      <param>
+        <type>template&lt; typename T, typename S, template&lt; typename A, typename K &gt; class A &gt; class</type>
+        <declname>D</declname>
+        <defname>D</defname>
+      </param>
+      <param>
+        <type>class Strategy</type>
+        <defval><ref refid="class_malloc_strategy" kindref="compound">MallocStrategy</ref></defval>
+      </param>
+      <param>
+        <type>template&lt; typename A, typename K &gt; class</type>
+        <declname>Allocator</declname>
+        <defname>Allocator</defname>
+        <defval><ref refid="class_strategized_allocator" kindref="compound">StrategizedAllocator</ref></defval>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="struct_dictionary_factory_1a1ec667d6630fb3c8a33159e497b30677" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::shared_ptr&lt; <ref refid="class_abstract_dictionary" kindref="compound">AbstractDictionary</ref> &gt;</type>
+        <definition>static std::shared_ptr&lt;AbstractDictionary&gt; DictionaryFactory&lt; D, Strategy, Allocator &gt;::build</definition>
+        <argsstring>(DataType type, size_t size=0)</argsstring>
+        <name>build</name>
+        <param>
+          <type><ref refid="storage__types_8h_1ad8ed01ff3ff33333d8e19db4d2818bb6" kindref="member">DataType</ref></type>
+          <declname>type</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>size</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/AbstractDictionary.h" line="20" bodyfile="/home/grund/hyrise/src/lib/storage/AbstractDictionary.h" bodystart="20" bodyend="37"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1750">
+        <label>DictionaryFactory&lt; D, Strategy, Allocator &gt;</label>
+        <link refid="struct_dictionary_factory"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/storage/AbstractDictionary.h" line="19" bodyfile="/home/grund/hyrise/src/lib/storage/AbstractDictionary.h" bodystart="19" bodyend="38"/>
+    <listofallmembers>
+      <member refid="struct_dictionary_factory_1a1ec667d6630fb3c8a33159e497b30677" prot="public" virt="non-virtual"><scope>DictionaryFactory</scope><name>build</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

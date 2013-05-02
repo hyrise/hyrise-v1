@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="struct_abstract_query_parser_factory" kind="struct" prot="public">
+    <compoundname>AbstractQueryParserFactory</compoundname>
+    <derivedcompoundref refid="struct_query_parser_factory_3_01_t_00_01default__construct_01_4" prot="public" virt="non-virtual">QueryParserFactory&lt; T, default_construct &gt;</derivedcompoundref>
+    <derivedcompoundref refid="struct_query_parser_factory_3_01_t_00_01parse__construct_01_4" prot="public" virt="non-virtual">QueryParserFactory&lt; T, parse_construct &gt;</derivedcompoundref>
+    <includes refid="_query_parser_8h" local="no">QueryParser.h</includes>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="struct_abstract_query_parser_factory_1ac31fe3b05ffa05bac3f2af778de31519" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>std::shared_ptr&lt; <ref refid="class___plan_operation" kindref="compound">_PlanOperation</ref> &gt;</type>
+        <definition>virtual std::shared_ptr&lt;_PlanOperation&gt; AbstractQueryParserFactory::parse</definition>
+        <argsstring>(Json::Value &amp;data)=0</argsstring>
+        <name>parse</name>
+        <reimplementedby refid="struct_query_parser_factory_3_01_t_00_01parse__construct_01_4_1a7283f3c603050b3060001e439e7bea91">parse</reimplementedby>
+        <reimplementedby refid="struct_query_parser_factory_3_01_t_00_01default__construct_01_4_1a4cec92cb550a5dae5a6f2e65fd141cba">parse</reimplementedby>
+        <param>
+          <type>Json::Value &amp;</type>
+          <declname>data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/QueryParser.h" line="28"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_abstract_query_parser_factory_1acf650458cdac961266975eab0fccb2a2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual AbstractQueryParserFactory::~AbstractQueryParserFactory</definition>
+        <argsstring>()</argsstring>
+        <name>~AbstractQueryParserFactory</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/QueryParser.h" line="30" bodyfile="/home/grund/hyrise/src/lib/access/QueryParser.h" bodystart="30" bodyend="30"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1381">
+        <label>AbstractQueryParserFactory</label>
+        <link refid="struct_abstract_query_parser_factory"/>
+      </node>
+      <node id="1383">
+        <label>QueryParserFactory&lt; T, parse_construct &gt;</label>
+        <link refid="struct_query_parser_factory_3_01_t_00_01parse__construct_01_4"/>
+        <childnode refid="1381" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1382">
+        <label>QueryParserFactory&lt; T, default_construct &gt;</label>
+        <link refid="struct_query_parser_factory_3_01_t_00_01default__construct_01_4"/>
+        <childnode refid="1381" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1384">
+        <label>AbstractQueryParserFactory</label>
+        <link refid="struct_abstract_query_parser_factory"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/access/QueryParser.h" line="27" bodyfile="/home/grund/hyrise/src/lib/access/QueryParser.h" bodystart="27" bodyend="31"/>
+    <listofallmembers>
+      <member refid="struct_abstract_query_parser_factory_1ac31fe3b05ffa05bac3f2af778de31519" prot="public" virt="pure-virtual"><scope>AbstractQueryParserFactory</scope><name>parse</name></member>
+      <member refid="struct_abstract_query_parser_factory_1acf650458cdac961266975eab0fccb2a2" prot="public" virt="virtual"><scope>AbstractQueryParserFactory</scope><name>~AbstractQueryParserFactory</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,137 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="_settings_8h" kind="file">
+    <compoundname>Settings.h</compoundname>
+    <includes local="no">cstddef</includes>
+    <includes local="no">string</includes>
+    <includedby refid="_script_operation_8cpp" local="no">src/lib/access/ScriptOperation.cpp</includedby>
+    <includedby refid="_settings_operation_8cpp" local="yes">src/lib/access/SettingsOperation.cpp</includedby>
+    <includedby refid="_task_scheduler_adjustment_8cpp" local="yes">src/lib/access/TaskSchedulerAdjustment.cpp</includedby>
+    <includedby refid="_threadpool_adjustment_8cpp" local="yes">src/lib/access/ThreadpoolAdjustment.cpp</includedby>
+    <includedby refid="_settings_8cpp" local="yes">src/lib/helper/Settings.cpp</includedby>
+    <incdepgraph>
+      <node id="14059">
+        <label>src/lib/helper/Settings.h</label>
+        <link refid="Settings.h"/>
+        <childnode refid="14060" relation="include">
+        </childnode>
+        <childnode refid="14061" relation="include">
+        </childnode>
+      </node>
+      <node id="14061">
+        <label>string</label>
+      </node>
+      <node id="14060">
+        <label>cstddef</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="14062">
+        <label>src/lib/helper/Settings.h</label>
+        <link refid="Settings.h"/>
+        <childnode refid="14063" relation="include">
+        </childnode>
+        <childnode refid="14064" relation="include">
+        </childnode>
+        <childnode refid="14065" relation="include">
+        </childnode>
+        <childnode refid="14066" relation="include">
+        </childnode>
+        <childnode refid="14067" relation="include">
+        </childnode>
+      </node>
+      <node id="14063">
+        <label>src/lib/access/ScriptOperation.cpp</label>
+        <link refid="_script_operation_8cpp"/>
+      </node>
+      <node id="14066">
+        <label>src/lib/access/ThreadpoolAdjustment.cpp</label>
+        <link refid="_threadpool_adjustment_8cpp"/>
+      </node>
+      <node id="14065">
+        <label>src/lib/access/TaskSchedulerAdjustment.cpp</label>
+        <link refid="_task_scheduler_adjustment_8cpp"/>
+      </node>
+      <node id="14067">
+        <label>src/lib/helper/Settings.cpp</label>
+        <link refid="_settings_8cpp"/>
+      </node>
+      <node id="14064">
+        <label>src/lib/access/SettingsOperation.cpp</label>
+        <link refid="_settings_operation_8cpp"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="class_settings" prot="public">Settings</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="_settings_8h_1a691136c2dd55796865c23c493ef75921" prot="public" static="no">
+        <name>ADD_MEMBER</name>
+        <param><defname>type</defname></param>
+        <param><defname>member</defname></param>
+        <initializer>private: \
+  type _##member; \
+  public: \
+  type get##member() const { return _##member;} \
+  void set##member(const type nm ) { _##member = nm;}\</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/Settings.h" line="13" bodyfile="/home/grund/hyrise/src/lib/helper/Settings.h" bodystart="8" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>2012<sp/>Hasso-Plattner-Institut<sp/>fuer<sp/>Softwaresystemtechnik<sp/>GmbH.<sp/>All<sp/>rights<sp/>reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SRC_LIB_HELPER_SETTINGS_H_</highlight></codeline>
+<codeline lineno="3"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SRC_LIB_HELPER_SETTINGS_H_</highlight></codeline>
+<codeline lineno="4"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;cstddef&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8" refid="_settings_8h_1a691136c2dd55796865c23c493ef75921" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ADD_MEMBER(type,<sp/>member)<sp/>private:<sp/>\</highlight></codeline>
+<codeline lineno="9"><highlight class="preprocessor"><sp/><sp/>type<sp/>_##member;<sp/>\</highlight></codeline>
+<codeline lineno="10"><highlight class="preprocessor"><sp/><sp/>public:<sp/>\</highlight></codeline>
+<codeline lineno="11"><highlight class="preprocessor"><sp/><sp/>type<sp/>get##member()<sp/>const<sp/>{<sp/>return<sp/>_##member;}<sp/>\</highlight></codeline>
+<codeline lineno="12"><highlight class="preprocessor"><sp/><sp/>void<sp/>set##member(const<sp/>type<sp/>nm<sp/>)<sp/>{<sp/>_##member<sp/>=<sp/>nm;}\</highlight></codeline>
+<codeline lineno="13"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="14"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="comment">/*<sp/><sp/>Singleton<sp/>data<sp/>container<sp/>class<sp/>for<sp/>global<sp/>settings.</highlight></codeline>
+<codeline lineno="17"><highlight class="comment"><sp/><sp/><sp/><sp/>Use<sp/>SettingsOperation<sp/>to<sp/>manipulate<sp/>global<sp/>settings<sp/>as<sp/>long<sp/>as<sp/>units</highlight></codeline>
+<codeline lineno="18"><highlight class="comment"><sp/><sp/><sp/><sp/>implementing<sp/>certain<sp/>decisions<sp/>are<sp/>missing.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20" refid="class_settings" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_settings" kindref="compound">Settings</ref><sp/>{</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/></highlight></codeline>
+<codeline lineno="22" refid="class_settings_1a5d52832fc0d2bfb7e9aa906249514059" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="class_settings_1a5d52832fc0d2bfb7e9aa906249514059" kindref="member">threadpoolSize</ref>;</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight></codeline>
+<codeline lineno="24" refid="class_settings_1a015bc092a24516a9b54852b570cec081" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="_settings_8h_1a691136c2dd55796865c23c493ef75921" kindref="member">ADD_MEMBER</ref>(std::string,<sp/>ScriptPath);</highlight></codeline>
+<codeline lineno="25" refid="class_settings_1abb355e64fb0eb900c5a90e40ec397500" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="_settings_8h_1a691136c2dd55796865c23c493ef75921" kindref="member">ADD_MEMBER</ref>(std::string,<sp/>DBPath);</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><ref refid="class_settings_1ab7169a6eefce79566dd07db3b1e5e967" kindref="member">Settings</ref>();</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31" refid="class_settings_1a4a65be5921dfc9fddc476e5320541d89" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="class_settings_1a4a65be5921dfc9fddc476e5320541d89" kindref="member">~Settings</ref>()<sp/>{}</highlight></codeline>
+<codeline lineno="32" refid="class_settings_1a1d30c7fd15c578e94f3c87212c2340da" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="class_settings" kindref="compound">Settings</ref><sp/>*<ref refid="class_settings_1a1d30c7fd15c578e94f3c87212c2340da" kindref="member">getInstance</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="class_settings" kindref="compound">Settings</ref><sp/>*instance<sp/>=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(instance<sp/>==<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>instance<sp/>=<sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/><ref refid="class_settings_1ab7169a6eefce79566dd07db3b1e5e967" kindref="member">Settings</ref>();</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>instance;</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/>Control<sp/>the<sp/>maximum<sp/>number<sp/>of<sp/>parallel<sp/>executable<sp/>operation<sp/>tasks.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="class_settings_1aeb137cc24125712f33a7606d60ebe14a" kindref="member">getThreadpoolSize</ref>()<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_settings_1a006f96037617fed1169c155ca9f7b3d6" kindref="member">setThreadpoolSize</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>newSize);</highlight></codeline>
+<codeline lineno="42"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/>//<sp/>SRC_LIB_HELPER_SETTINGS_H_</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/home/grund/hyrise/src/lib/helper/Settings.h"/>
+  </compounddef>
+</doxygen>

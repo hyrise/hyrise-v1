@@ -1,0 +1,212 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="classhyrise_1_1storage_1_1_simple_table_dump" kind="class" prot="public">
+    <compoundname>hyrise::storage::SimpleTableDump</compoundname>
+    <includes refid="_table_dump_8h" local="no">TableDump.h</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classhyrise_1_1storage_1_1_simple_table_dump_1a488363f638153e397ff99c34cde67e82" prot="private" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string hyrise::storage::SimpleTableDump::_baseDirectory</definition>
+        <argsstring></argsstring>
+        <name>_baseDirectory</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/TableDump.h" line="29" bodyfile="/home/grund/hyrise/src/lib/io/TableDump.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classhyrise_1_1storage_1_1_simple_table_dump_1a3743702d7881604a5902d5771c1d57d0" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hyrise::storage::SimpleTableDump::prepare</definition>
+        <argsstring>(std::string name)</argsstring>
+        <name>prepare</name>
+        <param>
+          <type>std::string</type>
+          <declname>name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Create all required directories; </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/TableDump.h" line="34" bodyfile="/home/grund/hyrise/src/lib/io/TableDump.cpp" bodystart="104" bodyend="115"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1storage_1_1_simple_table_dump_1afef0b09addca552ee87168f954064b28" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hyrise::storage::SimpleTableDump::dumpDictionary</definition>
+        <argsstring>(std::string name, std::shared_ptr&lt; AbstractTable &gt; t, size_t col)</argsstring>
+        <name>dumpDictionary</name>
+        <param>
+          <type>std::string</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>std::shared_ptr&lt; <ref refid="class_abstract_table" kindref="compound">AbstractTable</ref> &gt;</type>
+          <declname>t</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>col</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Dumps the dictionary and performs simple conversion based on the ofstream structure </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/TableDump.h" line="40" bodyfile="/home/grund/hyrise/src/lib/io/TableDump.cpp" bodystart="117" bodyend="133"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1storage_1_1_simple_table_dump_1aee7780e294e2d0195e68617e3a4fb70f" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hyrise::storage::SimpleTableDump::dumpAttribute</definition>
+        <argsstring>(std::string name, std::shared_ptr&lt; AbstractTable &gt; t, size_t col)</argsstring>
+        <name>dumpAttribute</name>
+        <param>
+          <type>std::string</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>std::shared_ptr&lt; <ref refid="class_abstract_table" kindref="compound">AbstractTable</ref> &gt;</type>
+          <declname>t</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>col</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Dumps the attrbite but writes the attribute data binary since its all value_id_t </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/TableDump.h" line="46" bodyfile="/home/grund/hyrise/src/lib/io/TableDump.cpp" bodystart="135" bodyend="144"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1storage_1_1_simple_table_dump_1aea6a41e0c88a33939e711aa49bca35bb" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hyrise::storage::SimpleTableDump::dumpMetaData</definition>
+        <argsstring>(std::string name, std::shared_ptr&lt; AbstractTable &gt; t)</argsstring>
+        <name>dumpMetaData</name>
+        <param>
+          <type>std::string</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>std::shared_ptr&lt; <ref refid="class_abstract_table" kindref="compound">AbstractTable</ref> &gt;</type>
+          <declname>t</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/TableDump.h" line="50" bodyfile="/home/grund/hyrise/src/lib/io/TableDump.cpp" bodystart="182" bodyend="187"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1storage_1_1_simple_table_dump_1a1536d950b5785da2a7d3731c2a370cf6" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hyrise::storage::SimpleTableDump::dumpHeader</definition>
+        <argsstring>(std::string name, std::shared_ptr&lt; AbstractTable &gt; t)</argsstring>
+        <name>dumpHeader</name>
+        <param>
+          <type>std::string</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>std::shared_ptr&lt; <ref refid="class_abstract_table" kindref="compound">AbstractTable</ref> &gt;</type>
+          <declname>t</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/TableDump.h" line="54" bodyfile="/home/grund/hyrise/src/lib/io/TableDump.cpp" bodystart="146" bodyend="180"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1storage_1_1_simple_table_dump_1af24730e306b5a0ddce5994871a6f092c" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hyrise::storage::SimpleTableDump::verify</definition>
+        <argsstring>(std::shared_ptr&lt; AbstractTable &gt;)</argsstring>
+        <name>verify</name>
+        <param>
+          <type>std::shared_ptr&lt; <ref refid="class_abstract_table" kindref="compound">AbstractTable</ref> &gt;</type>
+          <defname>table</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Check if the file is a store and not a horizontal table </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/TableDump.h" line="59" bodyfile="/home/grund/hyrise/src/lib/io/TableDump.cpp" bodystart="189" bodyend="195"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classhyrise_1_1storage_1_1_simple_table_dump_1a0f0c81b861384051df80ea359764ed83" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>hyrise::storage::SimpleTableDump::SimpleTableDump</definition>
+        <argsstring>(std::string outputDir)</argsstring>
+        <name>SimpleTableDump</name>
+        <param>
+          <type>std::string</type>
+          <declname>outputDir</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/TableDump.h" line="64" bodyfile="/home/grund/hyrise/src/lib/io/TableDump.h" bodystart="64" bodyend="65"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1storage_1_1_simple_table_dump_1a97163355e9a636845e8e862955f66d6f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool hyrise::storage::SimpleTableDump::dump</definition>
+        <argsstring>(std::string name, std::shared_ptr&lt; AbstractTable &gt; table)</argsstring>
+        <name>dump</name>
+        <param>
+          <type>std::string</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>std::shared_ptr&lt; <ref refid="class_abstract_table" kindref="compound">AbstractTable</ref> &gt;</type>
+          <declname>table</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>For a table identified by name and table perform the dump </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/TableDump.h" line="70" bodyfile="/home/grund/hyrise/src/lib/io/TableDump.cpp" bodystart="197" bodyend="211"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>This is the class that allows dumping a table instance in a very simple way directly to the file system without using a third party library or anything else.</para><para>The idea behind this method is that, for a given table a directory is created and inside the directory all information is stored. This means that for all attributes a single file is created that persists all valueIds of the attribute. In addition for each dictionary a file is created that stores all dictionary values in a sorted order. As a last part the metadata of the table is stored in two files. The first file contains the layout for the table and the second table contains the size information for the table. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="2879">
+        <label>hyrise::storage::SimpleTableDump</label>
+        <link refid="classhyrise_1_1storage_1_1_simple_table_dump"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/io/TableDump.h" line="28" bodyfile="/home/grund/hyrise/src/lib/io/TableDump.h" bodystart="28" bodyend="71"/>
+    <listofallmembers>
+      <member refid="classhyrise_1_1storage_1_1_simple_table_dump_1a488363f638153e397ff99c34cde67e82" prot="private" virt="non-virtual"><scope>hyrise::storage::SimpleTableDump</scope><name>_baseDirectory</name></member>
+      <member refid="classhyrise_1_1storage_1_1_simple_table_dump_1a97163355e9a636845e8e862955f66d6f" prot="public" virt="non-virtual"><scope>hyrise::storage::SimpleTableDump</scope><name>dump</name></member>
+      <member refid="classhyrise_1_1storage_1_1_simple_table_dump_1aee7780e294e2d0195e68617e3a4fb70f" prot="private" virt="non-virtual"><scope>hyrise::storage::SimpleTableDump</scope><name>dumpAttribute</name></member>
+      <member refid="classhyrise_1_1storage_1_1_simple_table_dump_1afef0b09addca552ee87168f954064b28" prot="private" virt="non-virtual"><scope>hyrise::storage::SimpleTableDump</scope><name>dumpDictionary</name></member>
+      <member refid="classhyrise_1_1storage_1_1_simple_table_dump_1a1536d950b5785da2a7d3731c2a370cf6" prot="private" virt="non-virtual"><scope>hyrise::storage::SimpleTableDump</scope><name>dumpHeader</name></member>
+      <member refid="classhyrise_1_1storage_1_1_simple_table_dump_1aea6a41e0c88a33939e711aa49bca35bb" prot="private" virt="non-virtual"><scope>hyrise::storage::SimpleTableDump</scope><name>dumpMetaData</name></member>
+      <member refid="classhyrise_1_1storage_1_1_simple_table_dump_1a3743702d7881604a5902d5771c1d57d0" prot="private" virt="non-virtual"><scope>hyrise::storage::SimpleTableDump</scope><name>prepare</name></member>
+      <member refid="classhyrise_1_1storage_1_1_simple_table_dump_1a0f0c81b861384051df80ea359764ed83" prot="public" virt="non-virtual"><scope>hyrise::storage::SimpleTableDump</scope><name>SimpleTableDump</name></member>
+      <member refid="classhyrise_1_1storage_1_1_simple_table_dump_1af24730e306b5a0ddce5994871a6f092c" prot="private" virt="non-virtual"><scope>hyrise::storage::SimpleTableDump</scope><name>verify</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

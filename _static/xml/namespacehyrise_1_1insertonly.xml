@@ -1,0 +1,644 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="namespacehyrise_1_1insertonly" kind="namespace">
+    <compoundname>hyrise::insertonly</compoundname>
+    <innerclass refid="structhyrise_1_1insertonly_1_1_merge_dict_functor" prot="public">hyrise::insertonly::MergeDictFunctor</innerclass>
+    <innerclass refid="structhyrise_1_1insertonly_1_1_map_value_for_value_id" prot="public">hyrise::insertonly::MapValueForValueId</innerclass>
+    <innerclass refid="classhyrise_1_1insertonly_1_1_discarding_merger" prot="public">hyrise::insertonly::DiscardingMerger</innerclass>
+    <innerclass refid="classhyrise_1_1insertonly_1_1_load_op" prot="public">hyrise::insertonly::LoadOp</innerclass>
+    <innerclass refid="classhyrise_1_1insertonly_1_1_insert_op" prot="public">hyrise::insertonly::InsertOp</innerclass>
+    <innerclass refid="classhyrise_1_1insertonly_1_1_update_op" prot="public">hyrise::insertonly::UpdateOp</innerclass>
+    <innerclass refid="classhyrise_1_1insertonly_1_1_delete_op" prot="public">hyrise::insertonly::DeleteOp</innerclass>
+    <innerclass refid="classhyrise_1_1insertonly_1_1_valid_positions_raw_op" prot="public">hyrise::insertonly::ValidPositionsRawOp</innerclass>
+    <innerclass refid="classhyrise_1_1insertonly_1_1_valid_positions_main_op" prot="public">hyrise::insertonly::ValidPositionsMainOp</innerclass>
+    <innerclass refid="classhyrise_1_1insertonly_1_1_extract_delta" prot="public">hyrise::insertonly::ExtractDelta</innerclass>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="namespacehyrise_1_1insertonly_1a750260dec71a2b00d7f463812c90e8cf" prot="public" static="yes" mutable="no">
+        <type>const <ref refid="namespacehyrise_1_1tx_1a3f8f9dae75e3e1872247b082f80ffd77" kindref="member">tx::transaction_id_t</ref></type>
+        <definition>const tx::transaction_id_t hyrise::insertonly::VISIBLE</definition>
+        <argsstring></argsstring>
+        <name>VISIBLE</name>
+        <initializer> 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/types.h" line="27" bodyfile="/home/grund/hyrise/src/lib/helper/types.h" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacehyrise_1_1insertonly_1a2ebc7d70a749bdc6136e57929875ba89" prot="public" static="yes" mutable="no">
+        <type>const std::string</type>
+        <definition>const std::string hyrise::insertonly::VALID_TO_COL_ID</definition>
+        <argsstring></argsstring>
+        <name>VALID_TO_COL_ID</name>
+        <initializer>&quot;$valid_to&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/types.h" line="28" bodyfile="/home/grund/hyrise/src/lib/helper/types.h" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacehyrise_1_1insertonly_1aa2aa121375daa1ace2f744349a867273" prot="public" static="yes" mutable="no">
+        <type>const std::string</type>
+        <definition>const std::string hyrise::insertonly::VALID_FROM_COL_ID</definition>
+        <argsstring></argsstring>
+        <name>VALID_FROM_COL_ID</name>
+        <initializer>&quot;$valid_from&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/types.h" line="29" bodyfile="/home/grund/hyrise/src/lib/helper/types.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="namespacehyrise_1_1insertonly_1ab52c5872241bbd4071080217b3422119" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="namespacehyrise_1_1storage_1a21d5e900c20019710828c453eaded1ee" kindref="member">hyrise::storage::atable_ptr_t</ref></type>
+        <definition>storage::atable_ptr_t hyrise::insertonly::construct</definition>
+        <argsstring>(std::string filename, const tx::transaction_id_t &amp;from_tid)</argsstring>
+        <name>construct</name>
+        <param>
+          <type>std::string</type>
+          <declname>filename</declname>
+        </param>
+        <param>
+          <type>const <ref refid="namespacehyrise_1_1tx_1a3f8f9dae75e3e1872247b082f80ffd77" kindref="member">tx::transaction_id_t</ref> &amp;</type>
+          <declname>tid</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>InsertOnly implementation</para><para>Note: the current implementation only works for single-threaded workloads</para><para>An InsertOnly table is constructed by attaching 2 extra columns to the original table, named &quot;$FROM&quot; and &quot;$TO&quot;. The implementation closely follows the idea of <computeroutput>interval representation</computeroutput> insert only.</para><para>A key difference to most interval representations in our implementation lies in currently using a magic value (0) to represent visibility in the $TO column. This leads to an extra comparison per row when creating the valid view of a column but allows us to use the sorted dictionary backing columns instead of resorting to an unsorted dictionary. Create an insert only table from a csv file <simplesect kind="return"><para>table that fulfills insert-only criteria </para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">filename</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>path to file </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">tid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>transaction id to specify when the table was loaded </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/insertonly.cpp" line="18" bodyfile="/home/grund/hyrise/src/lib/access/insertonly.cpp" bodystart="18" bodyend="25"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehyrise_1_1insertonly_1ac743e21838ca5a0b3ba856633c22e5c1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool hyrise::insertonly::columnExists</definition>
+        <argsstring>(const storage::c_atable_ptr_t &amp;table, const std::string &amp;col)</argsstring>
+        <name>columnExists</name>
+        <param>
+          <type>const <ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">storage::c_atable_ptr_t</ref> &amp;</type>
+          <declname>table</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>col</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/insertonly.cpp" line="28" bodyfile="/home/grund/hyrise/src/lib/access/insertonly.cpp" bodystart="27" bodyend="35"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehyrise_1_1insertonly_1ae69bf8a9aa8dca9c5a16a85adbe20e43" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="namespacehyrise_1_1storage_1a628c87324ef2791f2a91c0db21c20748" kindref="member">storage::c_simplestore_ptr_t</ref></type>
+        <definition>storage::c_simplestore_ptr_t hyrise::insertonly::isInsertOnly</definition>
+        <argsstring>(const storage::c_atable_ptr_t &amp;table)</argsstring>
+        <name>isInsertOnly</name>
+        <param>
+          <type>const <ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">storage::c_atable_ptr_t</ref> &amp;</type>
+          <declname>table</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Check whether a table is actually an insert only table <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">table</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>table to check </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>pointer to table when table is indeed insert only, otherwise nullptr </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/insertonly.cpp" line="37" bodyfile="/home/grund/hyrise/src/lib/access/insertonly.cpp" bodystart="37" bodyend="45"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehyrise_1_1insertonly_1a022cb4fe03fd6fbde6cac258d10854dc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="namespacehyrise_1_1storage_1aeb438c358c9803bdc572c5b7ba74843a" kindref="member">storage::simplestore_ptr_t</ref></type>
+        <definition>storage::simplestore_ptr_t hyrise::insertonly::assureInsertOnly</definition>
+        <argsstring>(const storage::c_atable_ptr_t &amp;table)</argsstring>
+        <name>assureInsertOnly</name>
+        <param>
+          <type>const <ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">storage::c_atable_ptr_t</ref> &amp;</type>
+          <declname>table</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Assures an insertonly table is used, throws exception <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">table</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>to check </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>pointer to table </para></simplesect>
+<parameterlist kind="exception"><parameteritem>
+<parameternamelist>
+<parametername>std::runtime</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>error when a non-insert-only table is passed </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/insertonly.cpp" line="47" bodyfile="/home/grund/hyrise/src/lib/access/insertonly.cpp" bodystart="47" bodyend="51"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehyrise_1_1insertonly_1a2bf00078e6d1b194911807d59f9bfd39" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hyrise::insertonly::insertRows</definition>
+        <argsstring>(const storage::simplestore_ptr_t &amp;store, const storage::c_atable_ptr_t &amp;rows, const tx::transaction_id_t &amp;tid)</argsstring>
+        <name>insertRows</name>
+        <param>
+          <type>const <ref refid="namespacehyrise_1_1storage_1aeb438c358c9803bdc572c5b7ba74843a" kindref="member">storage::simplestore_ptr_t</ref> &amp;</type>
+          <declname>store</declname>
+        </param>
+        <param>
+          <type>const <ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">storage::c_atable_ptr_t</ref> &amp;</type>
+          <declname>rows</declname>
+        </param>
+        <param>
+          <type>const <ref refid="namespacehyrise_1_1tx_1a3f8f9dae75e3e1872247b082f80ffd77" kindref="member">tx::transaction_id_t</ref> &amp;</type>
+          <declname>tid</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Insert rows into a table that fulfills criteria of an insert-only table <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">store</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>table is extended with data defined in rows </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">rows</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>table that is used to extend store - has to have all data columns of store </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">tid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>transaction id at which rows are inserted </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/insertonly.cpp" line="55" bodyfile="/home/grund/hyrise/src/lib/access/insertonly.cpp" bodystart="53" bodyend="62"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehyrise_1_1insertonly_1ad6ea462bc3115f98e2a4b8158dde8c4a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hyrise::insertonly::deleteRows</definition>
+        <argsstring>(const storage::simplestore_ptr_t &amp;store, const storage::pos_list_t &amp;positions, const tx::transaction_id_t &amp;tid)</argsstring>
+        <name>deleteRows</name>
+        <param>
+          <type>const <ref refid="namespacehyrise_1_1storage_1aeb438c358c9803bdc572c5b7ba74843a" kindref="member">storage::simplestore_ptr_t</ref> &amp;</type>
+          <declname>store</declname>
+        </param>
+        <param>
+          <type>const <ref refid="namespacehyrise_1_1storage_1a82124b84ebfac47beba542ec17d56471" kindref="member">storage::pos_list_t</ref> &amp;</type>
+          <declname>positions</declname>
+        </param>
+        <param>
+          <type>const <ref refid="namespacehyrise_1_1tx_1a3f8f9dae75e3e1872247b082f80ffd77" kindref="member">tx::transaction_id_t</ref> &amp;</type>
+          <declname>tid</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Delete rows from a table that fulfills criteria of an insert-only table <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">store</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>table is extended with data defined in rows </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">positions</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>list of positions that will be made invisible from tid on </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">tid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>transaction id at which rows are made invisible </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/insertonly.cpp" line="66" bodyfile="/home/grund/hyrise/src/lib/access/insertonly.cpp" bodystart="64" bodyend="71"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehyrise_1_1insertonly_1a5670241c6710971b73916292cde25e68" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void hyrise::insertonly::invalidate</definition>
+        <argsstring>(const T &amp;store, const size_t &amp;valid_to_position, const storage::pos_list_t &amp;positions, const tx::transaction_id_t &amp;tid)</argsstring>
+        <name>invalidate</name>
+        <param>
+          <type>const T &amp;</type>
+          <declname>store</declname>
+        </param>
+        <param>
+          <type>const size_t &amp;</type>
+          <declname>valid_to_position</declname>
+        </param>
+        <param>
+          <type>const <ref refid="namespacehyrise_1_1storage_1a82124b84ebfac47beba542ec17d56471" kindref="member">storage::pos_list_t</ref> &amp;</type>
+          <declname>positions</declname>
+        </param>
+        <param>
+          <type>const <ref refid="namespacehyrise_1_1tx_1a3f8f9dae75e3e1872247b082f80ffd77" kindref="member">tx::transaction_id_t</ref> &amp;</type>
+          <declname>tid</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/insertonly.cpp" line="74" bodyfile="/home/grund/hyrise/src/lib/access/insertonly.cpp" bodystart="74" bodyend="78"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehyrise_1_1insertonly_1add4e4d84eb222b9a71eb0f385c542790" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hyrise::insertonly::deleteRows</definition>
+        <argsstring>(const storage::simplestore_ptr_t &amp;store, const storage::pos_list_t &amp;positions_main, const storage::pos_list_t &amp;positions_delta, const tx::transaction_id_t &amp;tid)</argsstring>
+        <name>deleteRows</name>
+        <param>
+          <type>const <ref refid="namespacehyrise_1_1storage_1aeb438c358c9803bdc572c5b7ba74843a" kindref="member">storage::simplestore_ptr_t</ref> &amp;</type>
+          <declname>store</declname>
+        </param>
+        <param>
+          <type>const <ref refid="namespacehyrise_1_1storage_1a82124b84ebfac47beba542ec17d56471" kindref="member">storage::pos_list_t</ref> &amp;</type>
+          <declname>positions_main</declname>
+        </param>
+        <param>
+          <type>const <ref refid="namespacehyrise_1_1storage_1a82124b84ebfac47beba542ec17d56471" kindref="member">storage::pos_list_t</ref> &amp;</type>
+          <declname>positions_delta</declname>
+        </param>
+        <param>
+          <type>const <ref refid="namespacehyrise_1_1tx_1a3f8f9dae75e3e1872247b082f80ffd77" kindref="member">tx::transaction_id_t</ref> &amp;</type>
+          <declname>tid</declname>
+        </param>
+        <briefdescription>
+<para>This version allows for separately accessing main and delta. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/insertonly.cpp" line="83" bodyfile="/home/grund/hyrise/src/lib/access/insertonly.cpp" bodystart="80" bodyend="87"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehyrise_1_1insertonly_1a7532625927e50ac93d580e46a82fb587" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hyrise::insertonly::updateRows</definition>
+        <argsstring>(const storage::simplestore_ptr_t &amp;store, const storage::c_atable_ptr_t &amp;rows, const storage::pos_list_t &amp;update_positions_main, const storage::pos_list_t &amp;update_positions_delta, const tx::transaction_id_t &amp;tid)</argsstring>
+        <name>updateRows</name>
+        <param>
+          <type>const <ref refid="namespacehyrise_1_1storage_1aeb438c358c9803bdc572c5b7ba74843a" kindref="member">storage::simplestore_ptr_t</ref> &amp;</type>
+          <declname>store</declname>
+        </param>
+        <param>
+          <type>const <ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">storage::c_atable_ptr_t</ref> &amp;</type>
+          <declname>rows</declname>
+        </param>
+        <param>
+          <type>const <ref refid="storage__types_8h_1a543d59ef56384af4a7af9aa551bc6825" kindref="member">pos_list_t</ref> &amp;</type>
+          <declname>invalidate_positions_main</declname>
+        </param>
+        <param>
+          <type>const <ref refid="storage__types_8h_1a543d59ef56384af4a7af9aa551bc6825" kindref="member">pos_list_t</ref> &amp;</type>
+          <declname>invalidate_positions_delta</declname>
+        </param>
+        <param>
+          <type>const <ref refid="namespacehyrise_1_1tx_1a3f8f9dae75e3e1872247b082f80ffd77" kindref="member">tx::transaction_id_t</ref> &amp;</type>
+          <declname>tid</declname>
+        </param>
+        <briefdescription>
+<para>This version allows for separately updating main and delta. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/insertonly.cpp" line="93" bodyfile="/home/grund/hyrise/src/lib/access/insertonly.cpp" bodystart="89" bodyend="96"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehyrise_1_1insertonly_1a78e649a99efbb86c5ef3c4a93c85dd92" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hyrise::insertonly::updateRows</definition>
+        <argsstring>(const storage::simplestore_ptr_t &amp;store, const storage::c_atable_ptr_t &amp;rows, const pos_list_t &amp;update_positions, const tx::transaction_id_t &amp;tid)</argsstring>
+        <name>updateRows</name>
+        <param>
+          <type>const <ref refid="namespacehyrise_1_1storage_1aeb438c358c9803bdc572c5b7ba74843a" kindref="member">storage::simplestore_ptr_t</ref> &amp;</type>
+          <declname>store</declname>
+        </param>
+        <param>
+          <type>const <ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">storage::c_atable_ptr_t</ref> &amp;</type>
+          <declname>rows</declname>
+        </param>
+        <param>
+          <type>const <ref refid="namespacehyrise_1_1storage_1a82124b84ebfac47beba542ec17d56471" kindref="member">storage::pos_list_t</ref> &amp;</type>
+          <declname>update_positions</declname>
+        </param>
+        <param>
+          <type>const <ref refid="namespacehyrise_1_1tx_1a3f8f9dae75e3e1872247b082f80ffd77" kindref="member">tx::transaction_id_t</ref> &amp;</type>
+          <declname>tid</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Update rows in a table that fulfills criteria of an insert-only table <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">store</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>table is extended with data defined in rows </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">rows</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>table that is used to extend store - has to have all data columns of store </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">update_positions</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>list of positions that will be made invisible from tid on </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">tid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>transaction id at which rows are made invisible </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/insertonly.cpp" line="101" bodyfile="/home/grund/hyrise/src/lib/access/insertonly.cpp" bodystart="98" bodyend="104"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehyrise_1_1insertonly_1a219c89bf343f0dcb6a519023e7bcdc98" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="namespacehyrise_1_1storage_1a21d5e900c20019710828c453eaded1ee" kindref="member">storage::atable_ptr_t</ref></type>
+        <definition>storage::atable_ptr_t hyrise::insertonly::filterValid</definition>
+        <argsstring>(const storage::simplestore_ptr_t &amp;store, const tx::transaction_id_t &amp;tid)</argsstring>
+        <name>filterValid</name>
+        <param>
+          <type>const <ref refid="namespacehyrise_1_1storage_1aeb438c358c9803bdc572c5b7ba74843a" kindref="member">storage::simplestore_ptr_t</ref> &amp;</type>
+          <declname>store</declname>
+        </param>
+        <param>
+          <type>const <ref refid="namespacehyrise_1_1tx_1a3f8f9dae75e3e1872247b082f80ffd77" kindref="member">tx::transaction_id_t</ref> &amp;</type>
+          <declname>tid</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Return valid view on insert-only table <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">store</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>table to be filtered for valid entries </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">tid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>transaction id to be used as world state </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A table only containing visible entries </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/insertonly.cpp" line="108" bodyfile="/home/grund/hyrise/src/lib/access/insertonly.cpp" bodystart="107" bodyend="110"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehyrise_1_1insertonly_1afa67eac08808ac0be18b95273e6d3566" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="namespacehyrise_1_1storage_1a21d5e900c20019710828c453eaded1ee" kindref="member">storage::atable_ptr_t</ref></type>
+        <definition>storage::atable_ptr_t hyrise::insertonly::validPositionsDelta</definition>
+        <argsstring>(const storage::simplestore_ptr_t &amp;store, const tx::transaction_id_t &amp;tid)</argsstring>
+        <name>validPositionsDelta</name>
+        <param>
+          <type>const <ref refid="namespacehyrise_1_1storage_1aeb438c358c9803bdc572c5b7ba74843a" kindref="member">storage::simplestore_ptr_t</ref> &amp;</type>
+          <declname>store</declname>
+        </param>
+        <param>
+          <type>const <ref refid="namespacehyrise_1_1tx_1a3f8f9dae75e3e1872247b082f80ffd77" kindref="member">tx::transaction_id_t</ref> &amp;</type>
+          <declname>tid</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Return valid positions of delta part of store (as pointer calculator) <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">store</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>table to extract delta from </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">tid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>transaction id to be used as world state </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>a pointer calculator on delta (that cannot be used) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/insertonly.cpp" line="113" bodyfile="/home/grund/hyrise/src/lib/access/insertonly.cpp" bodystart="112" bodyend="115"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehyrise_1_1insertonly_1aa59214a531c07dc88eb4f7836a887ea9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="namespacehyrise_1_1storage_1a21d5e900c20019710828c453eaded1ee" kindref="member">storage::atable_ptr_t</ref></type>
+        <definition>storage::atable_ptr_t hyrise::insertonly::validPositionsMain</definition>
+        <argsstring>(const storage::simplestore_ptr_t &amp;store, const tx::transaction_id_t &amp;tid)</argsstring>
+        <name>validPositionsMain</name>
+        <param>
+          <type>const <ref refid="namespacehyrise_1_1storage_1aeb438c358c9803bdc572c5b7ba74843a" kindref="member">storage::simplestore_ptr_t</ref> &amp;</type>
+          <declname>store</declname>
+        </param>
+        <param>
+          <type>const <ref refid="namespacehyrise_1_1tx_1a3f8f9dae75e3e1872247b082f80ffd77" kindref="member">tx::transaction_id_t</ref> &amp;</type>
+          <declname>tid</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Return valid positions of main part of store (as pointer calculator) <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">store</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>table to extract delta from </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">tid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>transaction id to be used as world state </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>a pointer calculator on delta (that cannot be used) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/insertonly.cpp" line="118" bodyfile="/home/grund/hyrise/src/lib/access/insertonly.cpp" bodystart="117" bodyend="120"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehyrise_1_1insertonly_1a3ec79ea9f125a7eca652aa5926a9503a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="namespacehyrise_1_1storage_1a21d5e900c20019710828c453eaded1ee" kindref="member">storage::atable_ptr_t</ref></type>
+        <definition>storage::atable_ptr_t hyrise::insertonly::merge</definition>
+        <argsstring>(const storage::simplestore_ptr_t &amp;store, const tx::transaction_id_t &amp;tid)</argsstring>
+        <name>merge</name>
+        <param>
+          <type>const <ref refid="namespacehyrise_1_1storage_1aeb438c358c9803bdc572c5b7ba74843a" kindref="member">storage::simplestore_ptr_t</ref> &amp;</type>
+          <declname>store</declname>
+        </param>
+        <param>
+          <type>const <ref refid="namespacehyrise_1_1tx_1a3f8f9dae75e3e1872247b082f80ffd77" kindref="member">tx::transaction_id_t</ref> &amp;</type>
+          <declname>tid</declname>
+        </param>
+        <briefdescription>
+<para>Merges a store to a specific transaction id. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/insertonly.cpp" line="123" bodyfile="/home/grund/hyrise/src/lib/access/insertonly.cpp" bodystart="122" bodyend="126"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehyrise_1_1insertonly_1a0b5bb10399c25fd4476602dfa47ee44d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+        </templateparamlist>
+        <type><ref refid="namespacehyrise_1_1storage_1a82124b84ebfac47beba542ec17d56471" kindref="member">storage::pos_list_t</ref></type>
+        <definition>storage::pos_list_t hyrise::insertonly::validPositions</definition>
+        <argsstring>(const T &amp;store, const tx::transaction_id_t &amp;tid)</argsstring>
+        <name>validPositions</name>
+        <param>
+          <type>const T &amp;</type>
+          <declname>store</declname>
+        </param>
+        <param>
+          <type>const <ref refid="namespacehyrise_1_1tx_1a3f8f9dae75e3e1872247b082f80ffd77" kindref="member">tx::transaction_id_t</ref> &amp;</type>
+          <declname>tid</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Computation of valid positions [in] store store to extract valid positions from [in] tid transaction id at which validity is computed <simplesect kind="return"><para>position list </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/insertonly_valid.h" line="16" bodyfile="/home/grund/hyrise/src/lib/access/insertonly_valid.h" bodystart="16" bodyend="28"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehyrise_1_1insertonly_1abf4f64f733e0d29fc2f3bbeee0de10fa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+        </templateparamlist>
+        <type><ref refid="namespacehyrise_1_1storage_1a21d5e900c20019710828c453eaded1ee" kindref="member">storage::atable_ptr_t</ref></type>
+        <definition>storage::atable_ptr_t hyrise::insertonly::validPointerCalculator</definition>
+        <argsstring>(const T &amp;store, const tx::transaction_id_t &amp;tid)</argsstring>
+        <name>validPointerCalculator</name>
+        <param>
+          <type>const T &amp;</type>
+          <declname>store</declname>
+        </param>
+        <param>
+          <type>const <ref refid="namespacehyrise_1_1tx_1a3f8f9dae75e3e1872247b082f80ffd77" kindref="member">tx::transaction_id_t</ref> &amp;</type>
+          <declname>tid</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Computation of valid position calculator on store [in] store store to extract valid positions from [in] tid transaction id at which validity is computed <simplesect kind="return"><para>Position Calculator that wraps positions </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/insertonly_valid.h" line="35" bodyfile="/home/grund/hyrise/src/lib/access/insertonly_valid.h" bodystart="35" bodyend="38"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehyrise_1_1insertonly_1aabd1aa1df6d5b21734695a9d370c903b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="namespacehyrise_1_1storage_1a21d5e900c20019710828c453eaded1ee" kindref="member">hyrise::storage::atable_ptr_t</ref></type>
+        <definition>storage::atable_ptr_t hyrise::insertonly::validityTableForTransaction</definition>
+        <argsstring>(const size_t &amp;rows, tx::transaction_id_t from_tid, tx::transaction_id_t to_tid)</argsstring>
+        <name>validityTableForTransaction</name>
+        <param>
+          <type>const size_t &amp;</type>
+          <declname>rows</declname>
+        </param>
+        <param>
+          <type><ref refid="namespacehyrise_1_1tx_1a3f8f9dae75e3e1872247b082f80ffd77" kindref="member">tx::transaction_id_t</ref></type>
+          <declname>from_tid</declname>
+        </param>
+        <param>
+          <type><ref refid="namespacehyrise_1_1tx_1a3f8f9dae75e3e1872247b082f80ffd77" kindref="member">tx::transaction_id_t</ref></type>
+          <declname>to_tid</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/ValidityTableGeneration.cpp" line="14" bodyfile="/home/grund/hyrise/src/lib/io/ValidityTableGeneration.cpp" bodystart="12" bodyend="22"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/grund/hyrise/src/lib/access/insertonly.cpp" line="16"/>
+  </compounddef>
+</doxygen>

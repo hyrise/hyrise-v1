@@ -1,0 +1,575 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="_sequential_heap_merger_8h" kind="file">
+    <compoundname>SequentialHeapMerger.h</compoundname>
+    <includes refid="_value_id_map_8hpp" local="no">storage/ValueIdMap.hpp</includes>
+    <includes refid="_abstract_table_8h" local="no">storage/AbstractTable.h</includes>
+    <includes refid="_abstract_merger_8h" local="no">storage/AbstractMerger.h</includes>
+    <includes refid="_dictionary_position_8h" local="no">storage/DictionaryPosition.h</includes>
+    <includedby refid="_layout_table_8cpp" local="yes">src/lib/access/LayoutTable.cpp</includedby>
+    <includedby refid="_loader_8cpp" local="yes">src/lib/io/Loader.cpp</includedby>
+    <includedby refid="_sequential_heap_merger_8cpp" local="no">src/lib/storage/SequentialHeapMerger.cpp</includedby>
+    <includedby refid="_store_8h" local="no">src/lib/storage/Store.h</includedby>
+    <includedby refid="_table_generator_8cpp" local="no">src/lib/storage/TableGenerator.cpp</includedby>
+    <includedby refid="_test_data_generator_8cpp" local="no">src/lib/storage/TestDataGenerator.cpp</includedby>
+    <includedby refid="storage_8h" local="no">src/lib/storage.h</includedby>
+    <incdepgraph>
+      <node id="21849">
+        <label>list</label>
+      </node>
+      <node id="21842">
+        <label>boost/mpl/vector.hpp</label>
+      </node>
+      <node id="21871">
+        <label>limits</label>
+      </node>
+      <node id="21869">
+        <label>boost/functional/hash.hpp</label>
+      </node>
+      <node id="21833">
+        <label>assert.h</label>
+      </node>
+      <node id="21844">
+        <label>boost/lexical_cast.hpp</label>
+      </node>
+      <node id="21860">
+        <label>boost/iterator/iterator_facade.hpp</label>
+      </node>
+      <node id="21851">
+        <label>cstdint</label>
+      </node>
+      <node id="21857">
+        <label>storage/BaseDictionary.h</label>
+        <link refid="_base_dictionary_8h"/>
+        <childnode refid="21836" relation="include">
+        </childnode>
+        <childnode refid="21845" relation="include">
+        </childnode>
+        <childnode refid="21858" relation="include">
+        </childnode>
+      </node>
+      <node id="21840">
+        <label>stdint.h</label>
+      </node>
+      <node id="21856">
+        <label>stdlib.h</label>
+      </node>
+      <node id="21854">
+        <label>errno.h</label>
+      </node>
+      <node id="21839">
+        <label>stdexcept</label>
+      </node>
+      <node id="21838">
+        <label>string</label>
+      </node>
+      <node id="21866">
+        <label>map</label>
+      </node>
+      <node id="21831">
+        <label>storage/ValueIdMap.hpp</label>
+        <link refid="_value_id_map_8hpp"/>
+        <childnode refid="21832" relation="include">
+        </childnode>
+        <childnode refid="21862" relation="include">
+        </childnode>
+      </node>
+      <node id="21853">
+        <label>memory/MemalignStrategy.h</label>
+        <link refid="_memalign_strategy_8h"/>
+        <childnode refid="21854" relation="include">
+        </childnode>
+        <childnode refid="21855" relation="include">
+        </childnode>
+        <childnode refid="21856" relation="include">
+        </childnode>
+      </node>
+      <node id="21865">
+        <label>exception</label>
+      </node>
+      <node id="21847">
+        <label>stddef.h</label>
+      </node>
+      <node id="21862">
+        <label>storage/OrderIndifferentDictionary.h</label>
+        <link refid="_order_indifferent_dictionary_8h"/>
+        <childnode refid="21836" relation="include">
+        </childnode>
+        <childnode refid="21845" relation="include">
+        </childnode>
+        <childnode refid="21857" relation="include">
+        </childnode>
+        <childnode refid="21858" relation="include">
+        </childnode>
+        <childnode refid="21863" relation="include">
+        </childnode>
+        <childnode refid="21861" relation="include">
+        </childnode>
+        <childnode refid="21865" relation="include">
+        </childnode>
+        <childnode refid="21837" relation="include">
+        </childnode>
+        <childnode refid="21866" relation="include">
+        </childnode>
+        <childnode refid="21835" relation="include">
+        </childnode>
+        <childnode refid="21867" relation="include">
+        </childnode>
+        <childnode refid="21868" relation="include">
+        </childnode>
+        <childnode refid="21869" relation="include">
+        </childnode>
+      </node>
+      <node id="21841">
+        <label>ostream</label>
+      </node>
+      <node id="21867">
+        <label>limits.h</label>
+      </node>
+      <node id="21858">
+        <label>storage/DictionaryIterator.h</label>
+        <link refid="_dictionary_iterator_8h"/>
+        <childnode refid="21859" relation="include">
+        </childnode>
+        <childnode refid="21860" relation="include">
+        </childnode>
+      </node>
+      <node id="21845">
+        <label>storage/AbstractDictionary.h</label>
+        <link refid="_abstract_dictionary_8h"/>
+        <childnode refid="21837" relation="include">
+        </childnode>
+        <childnode refid="21838" relation="include">
+        </childnode>
+        <childnode refid="21835" relation="include">
+        </childnode>
+        <childnode refid="21846" relation="include">
+        </childnode>
+        <childnode refid="21850" relation="include">
+        </childnode>
+        <childnode refid="21853" relation="include">
+        </childnode>
+        <childnode refid="21836" relation="include">
+        </childnode>
+      </node>
+      <node id="21864">
+        <label>string.h</label>
+      </node>
+      <node id="21870">
+        <label>storage/AbstractTable.h</label>
+        <link refid="_abstract_table_8h"/>
+        <childnode refid="21871" relation="include">
+        </childnode>
+        <childnode refid="21835" relation="include">
+        </childnode>
+        <childnode refid="21839" relation="include">
+        </childnode>
+        <childnode refid="21837" relation="include">
+        </childnode>
+        <childnode refid="21838" relation="include">
+        </childnode>
+        <childnode refid="21872" relation="include">
+        </childnode>
+        <childnode refid="21873" relation="include">
+        </childnode>
+        <childnode refid="21836" relation="include">
+        </childnode>
+        <childnode refid="21874" relation="include">
+        </childnode>
+        <childnode refid="21831" relation="include">
+        </childnode>
+      </node>
+      <node id="21873">
+        <label>storage/AbstractResource.h</label>
+        <link refid="_abstract_resource_8h"/>
+      </node>
+      <node id="21875">
+        <label>storage/AbstractMerger.h</label>
+        <link refid="_abstract_merger_8h"/>
+        <childnode refid="21837" relation="include">
+        </childnode>
+        <childnode refid="21876" relation="include">
+        </childnode>
+        <childnode refid="21872" relation="include">
+        </childnode>
+        <childnode refid="21870" relation="include">
+        </childnode>
+        <childnode refid="21877" relation="include">
+        </childnode>
+      </node>
+      <node id="21868">
+        <label>boost/unordered_map.hpp</label>
+      </node>
+      <node id="21837">
+        <label>vector</label>
+      </node>
+      <node id="21872">
+        <label>helper/types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="21851" relation="include">
+        </childnode>
+        <childnode refid="21838" relation="include">
+        </childnode>
+        <childnode refid="21871" relation="include">
+        </childnode>
+        <childnode refid="21835" relation="include">
+        </childnode>
+        <childnode refid="21837" relation="include">
+        </childnode>
+      </node>
+      <node id="21878">
+        <label>storage/DictionaryPosition.h</label>
+        <link refid="_dictionary_position_8h"/>
+      </node>
+      <node id="21830">
+        <label>src/lib/storage/SequentialHeapMerger.h</label>
+        <link refid="SequentialHeapMerger.h"/>
+        <childnode refid="21831" relation="include">
+        </childnode>
+        <childnode refid="21870" relation="include">
+        </childnode>
+        <childnode refid="21875" relation="include">
+        </childnode>
+        <childnode refid="21878" relation="include">
+        </childnode>
+      </node>
+      <node id="21859">
+        <label>storage/BaseIterator.h</label>
+        <link refid="_base_iterator_8h"/>
+      </node>
+      <node id="21846">
+        <label>memory/StrategizedAllocator.h</label>
+        <link refid="_strategized_allocator_8h"/>
+        <childnode refid="21847" relation="include">
+        </childnode>
+        <childnode refid="21848" relation="include">
+        </childnode>
+        <childnode refid="21849" relation="include">
+        </childnode>
+        <childnode refid="21839" relation="include">
+        </childnode>
+      </node>
+      <node id="21834">
+        <label>iostream</label>
+      </node>
+      <node id="21874">
+        <label>storage/ColumnMetadata.h</label>
+        <link refid="_column_metadata_8h"/>
+        <childnode refid="21836" relation="include">
+        </childnode>
+        <childnode refid="21838" relation="include">
+        </childnode>
+        <childnode refid="21839" relation="include">
+        </childnode>
+      </node>
+      <node id="21876">
+        <label>unordered_map</label>
+      </node>
+      <node id="21843">
+        <label>boost/mpl/map.hpp</label>
+      </node>
+      <node id="21877">
+        <label>storage/TableUtils.h</label>
+        <link refid="_table_utils_8h"/>
+        <childnode refid="21835" relation="include">
+        </childnode>
+        <childnode refid="21876" relation="include">
+        </childnode>
+      </node>
+      <node id="21861">
+        <label>storage/AbstractAllocatedDictionary.h</label>
+        <link refid="_abstract_allocated_dictionary_8h"/>
+      </node>
+      <node id="21850">
+        <label>memory/MallocStrategy.h</label>
+        <link refid="_malloc_strategy_8h"/>
+        <childnode refid="21834" relation="include">
+        </childnode>
+        <childnode refid="21851" relation="include">
+        </childnode>
+        <childnode refid="21852" relation="include">
+        </childnode>
+      </node>
+      <node id="21832">
+        <label>storage/OrderPreservingDictionary.h</label>
+        <link refid="_order_preserving_dictionary_8h"/>
+        <childnode refid="21833" relation="include">
+        </childnode>
+        <childnode refid="21834" relation="include">
+        </childnode>
+        <childnode refid="21835" relation="include">
+        </childnode>
+        <childnode refid="21836" relation="include">
+        </childnode>
+        <childnode refid="21845" relation="include">
+        </childnode>
+        <childnode refid="21857" relation="include">
+        </childnode>
+        <childnode refid="21858" relation="include">
+        </childnode>
+        <childnode refid="21861" relation="include">
+        </childnode>
+        <childnode refid="21859" relation="include">
+        </childnode>
+      </node>
+      <node id="21848">
+        <label>algorithm</label>
+      </node>
+      <node id="21855">
+        <label>stdio.h</label>
+      </node>
+      <node id="21852">
+        <label>cstring</label>
+      </node>
+      <node id="21863">
+        <label>storage/csb_tree.h</label>
+        <link refid="csb__tree_8h"/>
+        <childnode refid="21837" relation="include">
+        </childnode>
+        <childnode refid="21834" relation="include">
+        </childnode>
+        <childnode refid="21849" relation="include">
+        </childnode>
+        <childnode refid="21835" relation="include">
+        </childnode>
+        <childnode refid="21864" relation="include">
+        </childnode>
+        <childnode refid="21833" relation="include">
+        </childnode>
+        <childnode refid="21860" relation="include">
+        </childnode>
+      </node>
+      <node id="21835">
+        <label>memory</label>
+      </node>
+      <node id="21836">
+        <label>storage/storage_types.h</label>
+        <link refid="storage__types_8h"/>
+        <childnode refid="21837" relation="include">
+        </childnode>
+        <childnode refid="21838" relation="include">
+        </childnode>
+        <childnode refid="21839" relation="include">
+        </childnode>
+        <childnode refid="21840" relation="include">
+        </childnode>
+        <childnode refid="21841" relation="include">
+        </childnode>
+        <childnode refid="21842" relation="include">
+        </childnode>
+        <childnode refid="21843" relation="include">
+        </childnode>
+        <childnode refid="21844" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="21893">
+        <label>src/lib/storage.h</label>
+        <link refid="storage_8h"/>
+        <childnode refid="21894" relation="include">
+        </childnode>
+        <childnode refid="21895" relation="include">
+        </childnode>
+        <childnode refid="21896" relation="include">
+        </childnode>
+        <childnode refid="21897" relation="include">
+        </childnode>
+        <childnode refid="21898" relation="include">
+        </childnode>
+        <childnode refid="21899" relation="include">
+        </childnode>
+        <childnode refid="21900" relation="include">
+        </childnode>
+        <childnode refid="21901" relation="include">
+        </childnode>
+      </node>
+      <node id="21888">
+        <label>src/lib/io/shortcuts.cpp</label>
+        <link refid="shortcuts_8cpp"/>
+      </node>
+      <node id="21884">
+        <label>src/lib/access/InsertScan.cpp</label>
+        <link refid="_insert_scan_8cpp"/>
+      </node>
+      <node id="21892">
+        <label>src/lib/storage/Store.cpp</label>
+        <link refid="_store_8cpp"/>
+      </node>
+      <node id="21891">
+        <label>src/lib/storage/PointerCalculator.cpp</label>
+        <link refid="_pointer_calculator_8cpp"/>
+      </node>
+      <node id="21886">
+        <label>src/lib/access/UpdateScan.cpp</label>
+        <link refid="_update_scan_8cpp"/>
+      </node>
+      <node id="21901">
+        <label>src/bin/perf_regression/UnionScan.cpp</label>
+        <link refid="bin_2perf__regression_2_union_scan_8cpp"/>
+      </node>
+      <node id="21889">
+        <label>src/lib/io/TableDump.cpp</label>
+        <link refid="_table_dump_8cpp"/>
+      </node>
+      <node id="21897">
+        <label>src/bin/perf_regression/JoinScan.cpp</label>
+        <link refid="bin_2perf__regression_2_join_scan_8cpp"/>
+      </node>
+      <node id="21887">
+        <label>src/lib/io/MPassCSVLoader.cpp</label>
+        <link refid="_m_pass_c_s_v_loader_8cpp"/>
+      </node>
+      <node id="21900">
+        <label>src/bin/perf_regression/SortScan.cpp</label>
+        <link refid="bin_2perf__regression_2_sort_scan_8cpp"/>
+      </node>
+      <node id="21881">
+        <label>src/lib/io/Loader.cpp</label>
+        <link refid="_loader_8cpp"/>
+      </node>
+      <node id="21883">
+        <label>src/lib/storage/Store.h</label>
+        <link refid="_store_8h"/>
+        <childnode refid="21884" relation="include">
+        </childnode>
+        <childnode refid="21880" relation="include">
+        </childnode>
+        <childnode refid="21885" relation="include">
+        </childnode>
+        <childnode refid="21886" relation="include">
+        </childnode>
+        <childnode refid="21881" relation="include">
+        </childnode>
+        <childnode refid="21887" relation="include">
+        </childnode>
+        <childnode refid="21888" relation="include">
+        </childnode>
+        <childnode refid="21889" relation="include">
+        </childnode>
+        <childnode refid="21890" relation="include">
+        </childnode>
+        <childnode refid="21891" relation="include">
+        </childnode>
+        <childnode refid="21892" relation="include">
+        </childnode>
+        <childnode refid="21893" relation="include">
+        </childnode>
+      </node>
+      <node id="21882">
+        <label>src/lib/storage/SequentialHeapMerger.cpp</label>
+        <link refid="_sequential_heap_merger_8cpp"/>
+      </node>
+      <node id="21894">
+        <label>src/bin/perf_regression/GroupByScan.cpp</label>
+        <link refid="bin_2perf__regression_2_group_by_scan_8cpp"/>
+      </node>
+      <node id="21898">
+        <label>src/bin/perf_regression/ProjectionScan.cpp</label>
+        <link refid="bin_2perf__regression_2_projection_scan_8cpp"/>
+      </node>
+      <node id="21903">
+        <label>src/lib/storage/TestDataGenerator.cpp</label>
+        <link refid="_test_data_generator_8cpp"/>
+      </node>
+      <node id="21895">
+        <label>src/bin/perf_regression/HashJoin.cpp</label>
+        <link refid="_hash_join_8cpp"/>
+      </node>
+      <node id="21890">
+        <label>src/lib/storage/AbstractTable.cpp</label>
+        <link refid="_abstract_table_8cpp"/>
+      </node>
+      <node id="21879">
+        <label>src/lib/storage/SequentialHeapMerger.h</label>
+        <link refid="SequentialHeapMerger.h"/>
+        <childnode refid="21880" relation="include">
+        </childnode>
+        <childnode refid="21881" relation="include">
+        </childnode>
+        <childnode refid="21882" relation="include">
+        </childnode>
+        <childnode refid="21883" relation="include">
+        </childnode>
+        <childnode refid="21902" relation="include">
+        </childnode>
+        <childnode refid="21903" relation="include">
+        </childnode>
+        <childnode refid="21893" relation="include">
+        </childnode>
+      </node>
+      <node id="21896">
+        <label>src/bin/perf_regression/HashValueJoin.cpp</label>
+        <link refid="_hash_value_join_8cpp"/>
+      </node>
+      <node id="21880">
+        <label>src/lib/access/LayoutTable.cpp</label>
+        <link refid="_layout_table_8cpp"/>
+      </node>
+      <node id="21902">
+        <label>src/lib/storage/TableGenerator.cpp</label>
+        <link refid="_table_generator_8cpp"/>
+      </node>
+      <node id="21899">
+        <label>src/bin/perf_regression/SimpleTableScan.cpp</label>
+        <link refid="bin_2perf__regression_2_simple_table_scan_8cpp"/>
+      </node>
+      <node id="21885">
+        <label>src/lib/access/MergeTable.cpp</label>
+        <link refid="_merge_table_8cpp"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="class_sequential_heap_merger" prot="public">SequentialHeapMerger</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>2012<sp/>Hasso-Plattner-Institut<sp/>fuer<sp/>Softwaresystemtechnik<sp/>GmbH.<sp/>All<sp/>rights<sp/>reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SRC_LIB_STORAGE_SEQUENTIALHEAPMERGER_H_</highlight></codeline>
+<codeline lineno="3"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SRC_LIB_STORAGE_SEQUENTIALHEAPMERGER_H_</highlight></codeline>
+<codeline lineno="4"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="_value_id_map_8hpp" kindref="compound">storage/ValueIdMap.hpp</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="_abstract_table_8h" kindref="compound">storage/AbstractTable.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="_abstract_merger_8h" kindref="compound">storage/AbstractMerger.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="_dictionary_position_8h" kindref="compound">storage/DictionaryPosition.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10" refid="class_sequential_heap_merger" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_sequential_heap_merger" kindref="compound">SequentialHeapMerger</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="class_abstract_merger" kindref="compound">AbstractMerger</ref><sp/>{</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_sequential_heap_merger_1a85f8bb15c2231be98f2db8e66a530a60" kindref="member">mergeValues</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;hyrise::storage::c_atable_ptr_t<sp/>&gt;<sp/>&amp;input_tables,</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehyrise_1_1storage_1a21d5e900c20019710828c453eaded1ee" kindref="member">hyrise::storage::atable_ptr_t</ref><sp/>merged_table,</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="namespacehyrise_1_1storage_1a8addaea8b5301cc30c8f8f634b531127" kindref="member">hyrise::storage::column_mapping_t</ref><sp/>&amp;column_mapping,</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>uint64_t<sp/>newSize);</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="class_abstract_merger" kindref="compound">AbstractMerger</ref><sp/>*<ref refid="class_sequential_heap_merger_1ad36db87cfd64e6f44baa329cca58cafc" kindref="member">copy</ref>();</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21" refid="class_sequential_heap_merger_1a4e7cb331dfb367e2a1d479f833d4b1db" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>std::vector&lt;std::vector&lt;value_id_t&gt;<sp/>&gt;<sp/><ref refid="class_sequential_heap_merger_1a4e7cb331dfb367e2a1d479f833d4b1db" kindref="member">value_id_mapping_t</ref>;</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_sequential_heap_merger_1a85f8bb15c2231be98f2db8e66a530a60" kindref="member">mergeValues</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;hyrise::storage::c_atable_ptr_t<sp/>&gt;<sp/>&amp;input_tables,</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>source_column_index,</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehyrise_1_1storage_1a21d5e900c20019710828c453eaded1ee" kindref="member">hyrise::storage::atable_ptr_t</ref><sp/><sp/>merged_table,</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>destination_column,</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_sequential_heap_merger_1a4e7cb331dfb367e2a1d479f833d4b1db" kindref="member">value_id_mapping_t</ref><sp/>&amp;mapping);</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_sequential_heap_merger_1a187771b8a7231ae0f76bbc3f49d98ac9" kindref="member">copyValues</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;hyrise::storage::c_atable_ptr_t<sp/>&gt;<sp/>&amp;input_tables,</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>source_column_index,</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehyrise_1_1storage_1a21d5e900c20019710828c453eaded1ee" kindref="member">hyrise::storage::atable_ptr_t</ref><sp/><sp/>&amp;merged_table,</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>destination_column_index,</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::vector&lt;std::vector&lt;value_id_t&gt;<sp/>&gt;<sp/>&amp;value_id_mapping);</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><ref refid="class_abstract_table_1af76ff827deb697db8077a90c450381ab" kindref="member">AbstractTable::SharedDictionaryPtr</ref><sp/><ref refid="class_sequential_heap_merger_1aa2cb3f51b2874948224d45dd423c2f76" kindref="member">createNewDict</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;hyrise::storage::c_atable_ptr_t<sp/>&gt;<sp/>&amp;input_tables,</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>std::vector&lt;AbstractTable::SharedDictionaryPtr<sp/>&gt;<sp/>&amp;value_id_maps,</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>std::vector&lt;std::vector&lt;value_id_t&gt;<sp/>&gt;<sp/>&amp;value_id_mapping);</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/>//<sp/>SRC_LIB_STORAGE_SEQUENTIALHEAPMERGER_H_</highlight></codeline>
+    </programlisting>
+    <location file="/home/grund/hyrise/src/lib/storage/SequentialHeapMerger.h"/>
+  </compounddef>
+</doxygen>

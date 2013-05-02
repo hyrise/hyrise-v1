@@ -1,0 +1,455 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="class_strategized_allocator" kind="class" prot="public">
+    <compoundname>StrategizedAllocator</compoundname>
+    <includes refid="_strategized_allocator_8h" local="no">StrategizedAllocator.h</includes>
+    <innerclass refid="struct_strategized_allocator_1_1rebind" prot="public">StrategizedAllocator::rebind</innerclass>
+    <templateparamlist>
+      <param>
+        <type>typename T</type>
+      </param>
+      <param>
+        <type>typename S</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="class_strategized_allocator_1a874e5b39b73e071595e4db8481761613" prot="public" static="no">
+        <type>T *</type>
+        <definition>typedef T* StrategizedAllocator&lt; T, S &gt;::pointer</definition>
+        <argsstring></argsstring>
+        <name>pointer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/memory/StrategizedAllocator.h" line="16" bodyfile="/home/grund/hyrise/src/lib/memory/StrategizedAllocator.h" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="class_strategized_allocator_1a8ad27145f9f8a06fd0a80eb7675f24b8" prot="public" static="no">
+        <type>const T *</type>
+        <definition>typedef const T* StrategizedAllocator&lt; T, S &gt;::const_pointer</definition>
+        <argsstring></argsstring>
+        <name>const_pointer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/memory/StrategizedAllocator.h" line="17" bodyfile="/home/grund/hyrise/src/lib/memory/StrategizedAllocator.h" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="class_strategized_allocator_1a1533c1563209a47047a5ddbf56bc2054" prot="public" static="no">
+        <type>T &amp;</type>
+        <definition>typedef T&amp; StrategizedAllocator&lt; T, S &gt;::reference</definition>
+        <argsstring></argsstring>
+        <name>reference</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/memory/StrategizedAllocator.h" line="18" bodyfile="/home/grund/hyrise/src/lib/memory/StrategizedAllocator.h" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="class_strategized_allocator_1a6a00ec3856b37f75819ad2a941a96162" prot="public" static="no">
+        <type>const T &amp;</type>
+        <definition>typedef const T&amp; StrategizedAllocator&lt; T, S &gt;::const_reference</definition>
+        <argsstring></argsstring>
+        <name>const_reference</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/memory/StrategizedAllocator.h" line="19" bodyfile="/home/grund/hyrise/src/lib/memory/StrategizedAllocator.h" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="class_strategized_allocator_1a0bd19e3a0d395c77439ea4020e1ef94b" prot="public" static="no">
+        <type>T</type>
+        <definition>typedef T StrategizedAllocator&lt; T, S &gt;::value_type</definition>
+        <argsstring></argsstring>
+        <name>value_type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/memory/StrategizedAllocator.h" line="20" bodyfile="/home/grund/hyrise/src/lib/memory/StrategizedAllocator.h" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="class_strategized_allocator_1a2618c6ec6bb90275a7a24f7984a84952" prot="public" static="no">
+        <type>size_t</type>
+        <definition>typedef size_t StrategizedAllocator&lt; T, S &gt;::size_type</definition>
+        <argsstring></argsstring>
+        <name>size_type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/memory/StrategizedAllocator.h" line="21" bodyfile="/home/grund/hyrise/src/lib/memory/StrategizedAllocator.h" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="class_strategized_allocator_1a49dc52dd652525b17618f34085241e13" prot="public" static="no">
+        <type>ptrdiff_t</type>
+        <definition>typedef ptrdiff_t StrategizedAllocator&lt; T, S &gt;::difference_type</definition>
+        <argsstring></argsstring>
+        <name>difference_type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/memory/StrategizedAllocator.h" line="22" bodyfile="/home/grund/hyrise/src/lib/memory/StrategizedAllocator.h" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="class_strategized_allocator_1a522b6284435ae171e4db78425f791bee" prot="public" static="no">
+        <type>S</type>
+        <definition>typedef S StrategizedAllocator&lt; T, S &gt;::strategy</definition>
+        <argsstring></argsstring>
+        <name>strategy</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/memory/StrategizedAllocator.h" line="23" bodyfile="/home/grund/hyrise/src/lib/memory/StrategizedAllocator.h" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="class_strategized_allocator_1a5b37cf7490122777b1331c53280ba8b2" prot="public" static="no">
+        <type>S</type>
+        <definition>typedef S StrategizedAllocator&lt; T, S &gt;::Strategy</definition>
+        <argsstring></argsstring>
+        <name>Strategy</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/memory/StrategizedAllocator.h" line="24" bodyfile="/home/grund/hyrise/src/lib/memory/StrategizedAllocator.h" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_strategized_allocator_1acb0f2568e08c9a71d5caed7309b928a0" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>T *</type>
+        <definition>T* StrategizedAllocator&lt; T, S &gt;::address</definition>
+        <argsstring>(T &amp;r) const </argsstring>
+        <name>address</name>
+        <param>
+          <type>T &amp;</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/memory/StrategizedAllocator.h" line="26" bodyfile="/home/grund/hyrise/src/lib/memory/StrategizedAllocator.h" bodystart="26" bodyend="28"/>
+      </memberdef>
+      <memberdef kind="function" id="class_strategized_allocator_1ab2e1ae7c4ec808b24d74a70404238eb5" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const T *</type>
+        <definition>const T* StrategizedAllocator&lt; T, S &gt;::address</definition>
+        <argsstring>(const T &amp;s) const </argsstring>
+        <name>address</name>
+        <param>
+          <type>const T &amp;</type>
+          <declname>s</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/memory/StrategizedAllocator.h" line="30" bodyfile="/home/grund/hyrise/src/lib/memory/StrategizedAllocator.h" bodystart="30" bodyend="32"/>
+      </memberdef>
+      <memberdef kind="function" id="class_strategized_allocator_1acb6302c9cf75d843379719fbe004491d" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t StrategizedAllocator&lt; T, S &gt;::max_size</definition>
+        <argsstring>() const </argsstring>
+        <name>max_size</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/memory/StrategizedAllocator.h" line="34" bodyfile="/home/grund/hyrise/src/lib/memory/StrategizedAllocator.h" bodystart="34" bodyend="36"/>
+      </memberdef>
+      <memberdef kind="function" id="class_strategized_allocator_1a13f49b5d1a55527c25d5e26b93663e0c" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool StrategizedAllocator&lt; T, S &gt;::operator!=</definition>
+        <argsstring>(const StrategizedAllocator &amp;other) const </argsstring>
+        <name>operator!=</name>
+        <param>
+          <type>const <ref refid="class_strategized_allocator" kindref="compound">StrategizedAllocator</ref> &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/memory/StrategizedAllocator.h" line="42" bodyfile="/home/grund/hyrise/src/lib/memory/StrategizedAllocator.h" bodystart="42" bodyend="44"/>
+      </memberdef>
+      <memberdef kind="function" id="class_strategized_allocator_1a9bdadfece7914adc86f09fa0653e7551" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void StrategizedAllocator&lt; T, S &gt;::construct</definition>
+        <argsstring>(T *const p, const T &amp;t) const </argsstring>
+        <name>construct</name>
+        <param>
+          <type>T *const</type>
+          <declname>p</declname>
+        </param>
+        <param>
+          <type>const T &amp;</type>
+          <declname>t</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/memory/StrategizedAllocator.h" line="46" bodyfile="/home/grund/hyrise/src/lib/memory/StrategizedAllocator.h" bodystart="46" bodyend="49"/>
+      </memberdef>
+      <memberdef kind="function" id="class_strategized_allocator_1ab1a4cc961a0168625cb831f3f4c2d7fa" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void StrategizedAllocator&lt; T, S &gt;::construct</definition>
+        <argsstring>(T *p) const </argsstring>
+        <name>construct</name>
+        <param>
+          <type>T *</type>
+          <declname>p</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/memory/StrategizedAllocator.h" line="51" bodyfile="/home/grund/hyrise/src/lib/memory/StrategizedAllocator.h" bodystart="51" bodyend="53"/>
+      </memberdef>
+      <memberdef kind="function" id="class_strategized_allocator_1a2840ed2a1e16c71f665cd7c191dbdb58" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void StrategizedAllocator&lt; T, S &gt;::destroy</definition>
+        <argsstring>(T *const p) const </argsstring>
+        <name>destroy</name>
+        <param>
+          <type>T *const</type>
+          <declname>p</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/memory/StrategizedAllocator.h" line="55" bodyfile="/home/grund/hyrise/src/lib/memory/StrategizedAllocator.h" bodystart="108" bodyend="110"/>
+      </memberdef>
+      <memberdef kind="function" id="class_strategized_allocator_1a5d062b92f592a61c6d940fe3317c9a2e" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool StrategizedAllocator&lt; T, S &gt;::operator==</definition>
+        <argsstring>(const StrategizedAllocator &amp;other) const </argsstring>
+        <name>operator==</name>
+        <param>
+          <type>const <ref refid="class_strategized_allocator" kindref="compound">StrategizedAllocator</ref> &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/memory/StrategizedAllocator.h" line="60" bodyfile="/home/grund/hyrise/src/lib/memory/StrategizedAllocator.h" bodystart="60" bodyend="62"/>
+      </memberdef>
+      <memberdef kind="function" id="class_strategized_allocator_1a61059730f6ffba63b54e8b37c016e8ed" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>StrategizedAllocator&lt; T, S &gt;::StrategizedAllocator</definition>
+        <argsstring>()</argsstring>
+        <name>StrategizedAllocator</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/memory/StrategizedAllocator.h" line="67" bodyfile="/home/grund/hyrise/src/lib/memory/StrategizedAllocator.h" bodystart="67" bodyend="67"/>
+      </memberdef>
+      <memberdef kind="function" id="class_strategized_allocator_1ab2451ea5a83cdf2887ce6fb65ddc0e84" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>StrategizedAllocator&lt; T, S &gt;::StrategizedAllocator</definition>
+        <argsstring>(const StrategizedAllocator &amp;)</argsstring>
+        <name>StrategizedAllocator</name>
+        <param>
+          <type>const <ref refid="class_strategized_allocator" kindref="compound">StrategizedAllocator</ref> &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/memory/StrategizedAllocator.h" line="69" bodyfile="/home/grund/hyrise/src/lib/memory/StrategizedAllocator.h" bodystart="69" bodyend="69"/>
+      </memberdef>
+      <memberdef kind="function" id="class_strategized_allocator_1acc8a7f480cf0e1ea71976216f1e1339f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename U</type>
+          </param>
+        </templateparamlist>
+        <type></type>
+        <definition>StrategizedAllocator&lt; T, S &gt;::StrategizedAllocator</definition>
+        <argsstring>(const StrategizedAllocator&lt; U, S &gt; &amp;)</argsstring>
+        <name>StrategizedAllocator</name>
+        <param>
+          <type>const <ref refid="class_strategized_allocator" kindref="compound">StrategizedAllocator</ref>&lt; U, S &gt; &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/memory/StrategizedAllocator.h" line="71" bodyfile="/home/grund/hyrise/src/lib/memory/StrategizedAllocator.h" bodystart="71" bodyend="71"/>
+      </memberdef>
+      <memberdef kind="function" id="class_strategized_allocator_1a0b7394993b9c9e42d623c2302a99f95b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>StrategizedAllocator&lt; T, S &gt;::~StrategizedAllocator</definition>
+        <argsstring>()</argsstring>
+        <name>~StrategizedAllocator</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/memory/StrategizedAllocator.h" line="73" bodyfile="/home/grund/hyrise/src/lib/memory/StrategizedAllocator.h" bodystart="73" bodyend="73"/>
+      </memberdef>
+      <memberdef kind="function" id="class_strategized_allocator_1ae106fdd8ae94da38d60a627ff5fe9874" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>T *</type>
+        <definition>T* StrategizedAllocator&lt; T, S &gt;::allocate</definition>
+        <argsstring>(const size_t n) const </argsstring>
+        <name>allocate</name>
+        <param>
+          <type>const size_t</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/memory/StrategizedAllocator.h" line="76" bodyfile="/home/grund/hyrise/src/lib/memory/StrategizedAllocator.h" bodystart="76" bodyend="92"/>
+      </memberdef>
+      <memberdef kind="function" id="class_strategized_allocator_1adfc2b37b201ced0eacb0bc694a548e94" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void StrategizedAllocator&lt; T, S &gt;::deallocate</definition>
+        <argsstring>(T *const p, const size_t n) const </argsstring>
+        <name>deallocate</name>
+        <param>
+          <type>T *const</type>
+          <declname>p</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/memory/StrategizedAllocator.h" line="94" bodyfile="/home/grund/hyrise/src/lib/memory/StrategizedAllocator.h" bodystart="94" bodyend="96"/>
+      </memberdef>
+      <memberdef kind="function" id="class_strategized_allocator_1ad98c9698ef1d0b8313385d9e7a73af09" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename U</type>
+          </param>
+        </templateparamlist>
+        <type>T *</type>
+        <definition>T* StrategizedAllocator&lt; T, S &gt;::allocate</definition>
+        <argsstring>(const size_t n, const U *) const </argsstring>
+        <name>allocate</name>
+        <param>
+          <type>const size_t</type>
+          <declname>n</declname>
+        </param>
+        <param>
+          <type>const U *</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/memory/StrategizedAllocator.h" line="99" bodyfile="/home/grund/hyrise/src/lib/memory/StrategizedAllocator.h" bodystart="99" bodyend="101"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_strategized_allocator_1a41112012bec8dacc4b2394e09931ced8" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_strategized_allocator" kindref="compound">StrategizedAllocator</ref> &amp;</type>
+        <definition>StrategizedAllocator&amp; StrategizedAllocator&lt; T, S &gt;::operator=</definition>
+        <argsstring>(const StrategizedAllocator &amp;)</argsstring>
+        <name>operator=</name>
+        <param>
+          <type>const <ref refid="class_strategized_allocator" kindref="compound">StrategizedAllocator</ref> &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/memory/StrategizedAllocator.h" line="103"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2993">
+        <label>StrategizedAllocator&lt; T, S &gt;</label>
+        <link refid="class_strategized_allocator"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/memory/StrategizedAllocator.h" line="12" bodyfile="/home/grund/hyrise/src/lib/memory/StrategizedAllocator.h" bodystart="12" bodyend="104"/>
+    <listofallmembers>
+      <member refid="class_strategized_allocator_1acb0f2568e08c9a71d5caed7309b928a0" prot="public" virt="non-virtual"><scope>StrategizedAllocator</scope><name>address</name></member>
+      <member refid="class_strategized_allocator_1ab2e1ae7c4ec808b24d74a70404238eb5" prot="public" virt="non-virtual"><scope>StrategizedAllocator</scope><name>address</name></member>
+      <member refid="class_strategized_allocator_1ae106fdd8ae94da38d60a627ff5fe9874" prot="public" virt="non-virtual"><scope>StrategizedAllocator</scope><name>allocate</name></member>
+      <member refid="class_strategized_allocator_1ad98c9698ef1d0b8313385d9e7a73af09" prot="public" virt="non-virtual"><scope>StrategizedAllocator</scope><name>allocate</name></member>
+      <member refid="class_strategized_allocator_1a8ad27145f9f8a06fd0a80eb7675f24b8" prot="public" virt="non-virtual"><scope>StrategizedAllocator</scope><name>const_pointer</name></member>
+      <member refid="class_strategized_allocator_1a6a00ec3856b37f75819ad2a941a96162" prot="public" virt="non-virtual"><scope>StrategizedAllocator</scope><name>const_reference</name></member>
+      <member refid="class_strategized_allocator_1a9bdadfece7914adc86f09fa0653e7551" prot="public" virt="non-virtual"><scope>StrategizedAllocator</scope><name>construct</name></member>
+      <member refid="class_strategized_allocator_1ab1a4cc961a0168625cb831f3f4c2d7fa" prot="public" virt="non-virtual"><scope>StrategizedAllocator</scope><name>construct</name></member>
+      <member refid="class_strategized_allocator_1adfc2b37b201ced0eacb0bc694a548e94" prot="public" virt="non-virtual"><scope>StrategizedAllocator</scope><name>deallocate</name></member>
+      <member refid="class_strategized_allocator_1a2840ed2a1e16c71f665cd7c191dbdb58" prot="public" virt="non-virtual"><scope>StrategizedAllocator</scope><name>destroy</name></member>
+      <member refid="class_strategized_allocator_1a49dc52dd652525b17618f34085241e13" prot="public" virt="non-virtual"><scope>StrategizedAllocator</scope><name>difference_type</name></member>
+      <member refid="class_strategized_allocator_1acb6302c9cf75d843379719fbe004491d" prot="public" virt="non-virtual"><scope>StrategizedAllocator</scope><name>max_size</name></member>
+      <member refid="class_strategized_allocator_1a13f49b5d1a55527c25d5e26b93663e0c" prot="public" virt="non-virtual"><scope>StrategizedAllocator</scope><name>operator!=</name></member>
+      <member refid="class_strategized_allocator_1a41112012bec8dacc4b2394e09931ced8" prot="private" virt="non-virtual"><scope>StrategizedAllocator</scope><name>operator=</name></member>
+      <member refid="class_strategized_allocator_1a5d062b92f592a61c6d940fe3317c9a2e" prot="public" virt="non-virtual"><scope>StrategizedAllocator</scope><name>operator==</name></member>
+      <member refid="class_strategized_allocator_1a874e5b39b73e071595e4db8481761613" prot="public" virt="non-virtual"><scope>StrategizedAllocator</scope><name>pointer</name></member>
+      <member refid="class_strategized_allocator_1a1533c1563209a47047a5ddbf56bc2054" prot="public" virt="non-virtual"><scope>StrategizedAllocator</scope><name>reference</name></member>
+      <member refid="class_strategized_allocator_1a2618c6ec6bb90275a7a24f7984a84952" prot="public" virt="non-virtual"><scope>StrategizedAllocator</scope><name>size_type</name></member>
+      <member refid="class_strategized_allocator_1a61059730f6ffba63b54e8b37c016e8ed" prot="public" virt="non-virtual"><scope>StrategizedAllocator</scope><name>StrategizedAllocator</name></member>
+      <member refid="class_strategized_allocator_1ab2451ea5a83cdf2887ce6fb65ddc0e84" prot="public" virt="non-virtual"><scope>StrategizedAllocator</scope><name>StrategizedAllocator</name></member>
+      <member refid="class_strategized_allocator_1acc8a7f480cf0e1ea71976216f1e1339f" prot="public" virt="non-virtual"><scope>StrategizedAllocator</scope><name>StrategizedAllocator</name></member>
+      <member refid="class_strategized_allocator_1a522b6284435ae171e4db78425f791bee" prot="public" virt="non-virtual"><scope>StrategizedAllocator</scope><name>strategy</name></member>
+      <member refid="class_strategized_allocator_1a5b37cf7490122777b1331c53280ba8b2" prot="public" virt="non-virtual"><scope>StrategizedAllocator</scope><name>Strategy</name></member>
+      <member refid="class_strategized_allocator_1a0bd19e3a0d395c77439ea4020e1ef94b" prot="public" virt="non-virtual"><scope>StrategizedAllocator</scope><name>value_type</name></member>
+      <member refid="class_strategized_allocator_1a0b7394993b9c9e42d623c2302a99f95b" prot="public" virt="non-virtual"><scope>StrategizedAllocator</scope><name>~StrategizedAllocator</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

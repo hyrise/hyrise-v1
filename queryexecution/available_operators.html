@@ -1,0 +1,176 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Available Operators &mdash; HYRISE latest documentation</title>
+    
+    <link rel="stylesheet" href="../_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/breathe.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     'latest',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="HYRISE latest documentation" href="../index.html" />
+    <link rel="up" title="HYRISE Query Execution" href="../query_execution.html" />
+    <link rel="next" title="Parallelization" href="parallelization.html" />
+    <link rel="prev" title="JSON Queries" href="json_queries.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="parallelization.html" title="Parallelization"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="json_queries.html" title="JSON Queries"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">HYRISE latest documentation</a> &raquo;</li>
+          <li><a href="../query_execution.html" accesskey="U">HYRISE Query Execution</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/hyrise.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture.html">Implementation Details</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../query_execution.html">HYRISE Query Execution</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="json_query_execution.html">JSON Query Execution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="json_queries.html">JSON Queries</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Available Operators</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#singletablelayout">SingleTableLayout</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="parallelization.html">Parallelization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="json_plan_operations.html">Plan Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="v8ops.html">Integrating Google V8</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../developing.html">Developing with HYRISE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">HYRISE &amp; Development FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../proposals.html">Proposals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doxygen.html">Doxygen Documentation</a></li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="json_queries.html"
+                        title="previous chapter">JSON Queries</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="parallelization.html"
+                        title="next chapter">Parallelization</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/queryexecution/available_operators.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="available-operators">
+<h1>Available Operators<a class="headerlink" href="#available-operators" title="Permalink to this headline">¶</a></h1>
+<p>Currently the following plan operators support remote execution</p>
+<ul class="simple">
+<li>SimpleTableScan</li>
+<li>ProjectionScan</li>
+<li>HashJoin</li>
+<li>GroupByScan</li>
+<li>TableLoad</li>
+<li>TableUnload</li>
+<li>TableDump</li>
+</ul>
+<p>Each operator accepts input and output data of multiple types, e.g. tables, hash maps etc.
+Handling this data is implemented in <tt class="docutils literal"><span class="pre">OperationalData</span></tt> and <tt class="docutils literal"><span class="pre">PlanOperation</span></tt> classes.</p>
+<div class="section" id="singletablelayout">
+<h2>SingleTableLayout<a class="headerlink" href="#singletablelayout" title="Permalink to this headline">¶</a></h2>
+<p>The goal of the <strong>SingleTableLayout</strong> plan operation is to perform a
+layout decision for a given workload. Therefore it has multiple
+required input parameters. An example of the input is shown below:</p>
+<p>The runtime of the layouter plan operation depends heavily on the
+algorithm that is used to find the best layout. There are three
+different engines available:</p>
+<ol class="arabic simple">
+<li><tt class="docutils literal"><span class="pre">BaseLayouter</span></tt> - Exhaustively iterate over the problem space</li>
+<li><tt class="docutils literal"><span class="pre">CandidateLayouter</span></tt> - Perform early pruning of combinations based on primary partitions</li>
+<li><tt class="docutils literal"><span class="pre">DivideAndConquerLayouter</span></tt> - Before merging candidates, partition the problem space based on an access graph</li>
+</ol>
+<p>The layout engine that is used during the execution is set using the
+<tt class="docutils literal"><span class="pre">layouter</span></tt> member of the plan operation.</p>
+<p>The most important options for the plan operator are setting the
+number of rows for the input table (which is used to calcualte the
+correct cost for selectivities).</p>
+<p>Furthermore it is possible to specify how many possible results the
+layouter should return. This option can be used to present multiple
+layouts in a UI.</p>
+<p>The meta data that is required to generate the best possible layout
+are the attributes of the table and the list of operations that is
+executed on this table.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="parallelization.html" title="Parallelization"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="json_queries.html" title="JSON Queries"
+             >previous</a> |</li>
+        <li><a href="../index.html">HYRISE latest documentation</a> &raquo;</li>
+          <li><a href="../query_execution.html" >HYRISE Query Execution</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010-2013, Martin Grund et al.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+  </body>
+</html>

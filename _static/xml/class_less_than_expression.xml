@@ -1,0 +1,277 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="class_less_than_expression" kind="class" prot="public">
+    <compoundname>LessThanExpression</compoundname>
+    <basecompoundref refid="class_simple_field_expression" prot="public" virt="non-virtual">SimpleFieldExpression</basecompoundref>
+    <includes refid="pred___less_than_expression_8h" local="no">pred_LessThanExpression.h</includes>
+    <templateparamlist>
+      <param>
+        <type>typename T</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_less_than_expression_1a25fb192acf6b493b4884dbfb518cd993" prot="private" static="no" mutable="no">
+        <type><ref refid="class_value_id" kindref="compound">ValueId</ref></type>
+        <definition>ValueId LessThanExpression&lt; T &gt;::lower_bound</definition>
+        <argsstring></argsstring>
+        <name>lower_bound</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/pred_LessThanExpression.h" line="10" bodyfile="/home/grund/hyrise/src/lib/access/pred_LessThanExpression.h" bodystart="10" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_less_than_expression_1a03a1140920de2e6cefd45f04b6ec1fa8" prot="private" static="no" mutable="no">
+        <type>T</type>
+        <definition>T LessThanExpression&lt; T &gt;::value</definition>
+        <argsstring></argsstring>
+        <name>value</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/pred_LessThanExpression.h" line="11" bodyfile="/home/grund/hyrise/src/lib/access/pred_LessThanExpression.h" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_less_than_expression_1a223a02ce7965a36e3442120b006a65d1" prot="private" static="no" mutable="no">
+        <type>std::shared_ptr&lt; <ref refid="class_base_dictionary" kindref="compound">BaseDictionary</ref>&lt; T &gt; &gt;</type>
+        <definition>std::shared_ptr&lt;BaseDictionary&lt;T&gt; &gt; LessThanExpression&lt; T &gt;::valueIdMap</definition>
+        <argsstring></argsstring>
+        <name>valueIdMap</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/pred_LessThanExpression.h" line="12" bodyfile="/home/grund/hyrise/src/lib/access/pred_LessThanExpression.h" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_less_than_expression_1ab3047d0d7ed6a51f5de252b72c19878f" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool LessThanExpression&lt; T &gt;::value_exists</definition>
+        <argsstring></argsstring>
+        <name>value_exists</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/pred_LessThanExpression.h" line="13" bodyfile="/home/grund/hyrise/src/lib/access/pred_LessThanExpression.h" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_less_than_expression_1ac49d8ea81c548e4440458eb033d796c6" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>LessThanExpression&lt; T &gt;::LessThanExpression</definition>
+        <argsstring>(size_t i, field_t f, T _value)</argsstring>
+        <name>LessThanExpression</name>
+        <param>
+          <type>size_t</type>
+          <declname>i</declname>
+        </param>
+        <param>
+          <type><ref refid="storage__types_8h_1a5ce4ecb27464dc24ba394527510dd89b" kindref="member">field_t</ref></type>
+          <declname>f</declname>
+        </param>
+        <param>
+          <type>T</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/pred_LessThanExpression.h" line="19" bodyfile="/home/grund/hyrise/src/lib/access/pred_LessThanExpression.h" bodystart="17" bodyend="19"/>
+      </memberdef>
+      <memberdef kind="function" id="class_less_than_expression_1ada49be59aeb3a0807718e9b6578871c4" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>LessThanExpression&lt; T &gt;::LessThanExpression</definition>
+        <argsstring>(size_t i, field_name_t f, T _value)</argsstring>
+        <name>LessThanExpression</name>
+        <param>
+          <type>size_t</type>
+          <declname>i</declname>
+        </param>
+        <param>
+          <type><ref refid="storage__types_8h_1ad64b8c8026a86f643d173acbb694b4f8" kindref="member">field_name_t</ref></type>
+          <declname>f</declname>
+        </param>
+        <param>
+          <type>T</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/pred_LessThanExpression.h" line="23" bodyfile="/home/grund/hyrise/src/lib/access/pred_LessThanExpression.h" bodystart="21" bodyend="23"/>
+      </memberdef>
+      <memberdef kind="function" id="class_less_than_expression_1aa703e3032566912c3d55a3977652e4ea" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>LessThanExpression&lt; T &gt;::LessThanExpression</definition>
+        <argsstring>(hyrise::storage::c_atable_ptr_t _table, field_t _field, T _value)</argsstring>
+        <name>LessThanExpression</name>
+        <param>
+          <type><ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref></type>
+          <declname>_table</declname>
+        </param>
+        <param>
+          <type><ref refid="storage__types_8h_1a5ce4ecb27464dc24ba394527510dd89b" kindref="member">field_t</ref></type>
+          <declname>_field</declname>
+        </param>
+        <param>
+          <type>T</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/pred_LessThanExpression.h" line="27" bodyfile="/home/grund/hyrise/src/lib/access/pred_LessThanExpression.h" bodystart="25" bodyend="27"/>
+      </memberdef>
+      <memberdef kind="function" id="class_less_than_expression_1ad7e656f6a6272c302fc9c484c5aca3cc" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void LessThanExpression&lt; T &gt;::walk</definition>
+        <argsstring>(const std::vector&lt; hyrise::storage::c_atable_ptr_t &gt; &amp;l)</argsstring>
+        <name>walk</name>
+        <reimplements refid="class_simple_field_expression_1a2b9be48219459a784de03b6298b56966">walk</reimplements>
+        <param>
+          <type>const std::vector&lt; <ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref> &gt; &amp;</type>
+          <declname>l</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/pred_LessThanExpression.h" line="29" bodyfile="/home/grund/hyrise/src/lib/access/pred_LessThanExpression.h" bodystart="29" bodyend="36"/>
+      </memberdef>
+      <memberdef kind="function" id="class_less_than_expression_1a9181a45f93c713c7e0466254377373ae" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual LessThanExpression&lt; T &gt;::~LessThanExpression</definition>
+        <argsstring>()</argsstring>
+        <name>~LessThanExpression</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/pred_LessThanExpression.h" line="38" bodyfile="/home/grund/hyrise/src/lib/access/pred_LessThanExpression.h" bodystart="38" bodyend="38"/>
+      </memberdef>
+      <memberdef kind="function" id="class_less_than_expression_1aaf0bb475ae01bae2adc386fda3d4db1d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool LessThanExpression&lt; T &gt;::operator()</definition>
+        <argsstring>(size_t row)</argsstring>
+        <name>operator()</name>
+        <reimplements refid="class_simple_field_expression_1adcbedd75f7652d48f58256eefe09c5fe">operator()</reimplements>
+        <param>
+          <type>size_t</type>
+          <declname>row</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/pred_LessThanExpression.h" line="40" bodyfile="/home/grund/hyrise/src/lib/access/pred_LessThanExpression.h" bodystart="40" bodyend="46"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2188">
+        <label>SimpleFieldExpression</label>
+        <link refid="class_simple_field_expression"/>
+        <childnode refid="2189" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2189">
+        <label>SimpleExpression</label>
+        <link refid="class_simple_expression"/>
+        <childnode refid="2190" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2190">
+        <label>hyrise::access::AbstractExpression</label>
+        <link refid="classhyrise_1_1access_1_1_abstract_expression"/>
+      </node>
+      <node id="2187">
+        <label>LessThanExpression&lt; T &gt;</label>
+        <link refid="class_less_than_expression"/>
+        <childnode refid="2188" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2192">
+        <label>SimpleFieldExpression</label>
+        <link refid="class_simple_field_expression"/>
+        <childnode refid="2193" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2195">
+        <label>ValueId</label>
+        <link refid="class_value_id"/>
+      </node>
+      <node id="2193">
+        <label>SimpleExpression</label>
+        <link refid="class_simple_expression"/>
+        <childnode refid="2194" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2194">
+        <label>hyrise::access::AbstractExpression</label>
+        <link refid="classhyrise_1_1access_1_1_abstract_expression"/>
+      </node>
+      <node id="2191">
+        <label>LessThanExpression&lt; T &gt;</label>
+        <link refid="class_less_than_expression"/>
+        <childnode refid="2192" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2195" relation="usage">
+          <edgelabel>lower_bound</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/access/pred_LessThanExpression.h" line="8" bodyfile="/home/grund/hyrise/src/lib/access/pred_LessThanExpression.h" bodystart="8" bodyend="47"/>
+    <listofallmembers>
+      <member refid="class_simple_field_expression_1ac17522bcc3e92592ed34b84d460909a7" prot="protected" virt="non-virtual"><scope>LessThanExpression</scope><name>field</name></member>
+      <member refid="class_simple_field_expression_1ac25373119e8937fa84ac763c264a7756" prot="protected" virt="non-virtual"><scope>LessThanExpression</scope><name>field_name</name></member>
+      <member refid="class_simple_field_expression_1a2e95b8194489dc5d79bc2e070bfcdb24" prot="protected" virt="non-virtual"><scope>LessThanExpression</scope><name>input</name></member>
+      <member refid="class_less_than_expression_1ac49d8ea81c548e4440458eb033d796c6" prot="public" virt="non-virtual"><scope>LessThanExpression</scope><name>LessThanExpression</name></member>
+      <member refid="class_less_than_expression_1ada49be59aeb3a0807718e9b6578871c4" prot="public" virt="non-virtual"><scope>LessThanExpression</scope><name>LessThanExpression</name></member>
+      <member refid="class_less_than_expression_1aa703e3032566912c3d55a3977652e4ea" prot="public" virt="non-virtual"><scope>LessThanExpression</scope><name>LessThanExpression</name></member>
+      <member refid="class_less_than_expression_1a25fb192acf6b493b4884dbfb518cd993" prot="private" virt="non-virtual"><scope>LessThanExpression</scope><name>lower_bound</name></member>
+      <member refid="class_simple_expression_1ae06428047fe77732ef121f42b1ee6ce2" prot="public" virt="virtual"><scope>LessThanExpression</scope><name>match</name></member>
+      <member refid="class_less_than_expression_1aaf0bb475ae01bae2adc386fda3d4db1d" prot="public" virt="virtual"><scope>LessThanExpression</scope><name>operator()</name></member>
+      <member refid="class_simple_field_expression_1a53fb1bfcb3b90cced5a6a5d150acb750" prot="public" virt="non-virtual"><scope>LessThanExpression</scope><name>SimpleFieldExpression</name></member>
+      <member refid="class_simple_field_expression_1ad9a94013df2c3521382fac2ea68a3813" prot="public" virt="non-virtual"><scope>LessThanExpression</scope><name>SimpleFieldExpression</name></member>
+      <member refid="class_simple_field_expression_1a64fefbe7ec640b832ccc2e1cc33b4817" prot="public" virt="non-virtual"><scope>LessThanExpression</scope><name>SimpleFieldExpression</name></member>
+      <member refid="class_simple_field_expression_1ac95fe343f1a1dc8e470427f6629fb4ca" prot="public" virt="non-virtual"><scope>LessThanExpression</scope><name>SimpleFieldExpression</name></member>
+      <member refid="class_simple_field_expression_1a8da8d230fd7e416f692da42a666625ec" prot="protected" virt="non-virtual"><scope>LessThanExpression</scope><name>table</name></member>
+      <member refid="class_less_than_expression_1a03a1140920de2e6cefd45f04b6ec1fa8" prot="private" virt="non-virtual"><scope>LessThanExpression</scope><name>value</name></member>
+      <member refid="class_less_than_expression_1ab3047d0d7ed6a51f5de252b72c19878f" prot="private" virt="non-virtual"><scope>LessThanExpression</scope><name>value_exists</name></member>
+      <member refid="class_less_than_expression_1a223a02ce7965a36e3442120b006a65d1" prot="private" virt="non-virtual"><scope>LessThanExpression</scope><name>valueIdMap</name></member>
+      <member refid="class_less_than_expression_1ad7e656f6a6272c302fc9c484c5aca3cc" prot="public" virt="virtual"><scope>LessThanExpression</scope><name>walk</name></member>
+      <member refid="classhyrise_1_1access_1_1_abstract_expression_1aae15725c08628e3785e90f496b75144e" prot="public" virt="pure-virtual" ambiguityscope="hyrise::access::AbstractExpression::"><scope>LessThanExpression</scope><name>walk</name></member>
+      <member refid="classhyrise_1_1access_1_1_abstract_expression_1ae0b45f17103a1dc5006832d243574d83" prot="public" virt="virtual"><scope>LessThanExpression</scope><name>~AbstractExpression</name></member>
+      <member refid="class_less_than_expression_1a9181a45f93c713c7e0466254377373ae" prot="public" virt="virtual"><scope>LessThanExpression</scope><name>~LessThanExpression</name></member>
+      <member refid="class_simple_field_expression_1acdf860b623a41c93c85f1cea991c9252" prot="public" virt="virtual"><scope>LessThanExpression</scope><name>~SimpleFieldExpression</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

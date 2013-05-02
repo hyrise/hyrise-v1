@@ -1,0 +1,155 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="_table_diff_8h" kind="file">
+    <compoundname>TableDiff.h</compoundname>
+    <includes local="no">vector</includes>
+    <includes local="no">map</includes>
+    <includes local="no">memory</includes>
+    <includes refid="storage__types_8h" local="no">storage/storage_types.h</includes>
+    <includedby refid="_abstract_table_8cpp" local="no">src/lib/storage/AbstractTable.cpp</includedby>
+    <includedby refid="_pretty_printer_8cpp" local="yes">src/lib/storage/PrettyPrinter.cpp</includedby>
+    <includedby refid="_table_diff_8cpp" local="yes">src/lib/storage/TableDiff.cpp</includedby>
+    <includedby refid="_table_equality_test_8cpp" local="no">src/lib/testing/TableEqualityTest.cpp</includedby>
+    <incdepgraph>
+      <node id="23279">
+        <label>boost/mpl/vector.hpp</label>
+      </node>
+      <node id="23281">
+        <label>boost/lexical_cast.hpp</label>
+      </node>
+      <node id="23277">
+        <label>stdint.h</label>
+      </node>
+      <node id="23276">
+        <label>stdexcept</label>
+      </node>
+      <node id="23275">
+        <label>string</label>
+      </node>
+      <node id="23272">
+        <label>map</label>
+      </node>
+      <node id="23278">
+        <label>ostream</label>
+      </node>
+      <node id="23270">
+        <label>src/lib/storage/TableDiff.h</label>
+        <link refid="TableDiff.h"/>
+        <childnode refid="23271" relation="include">
+        </childnode>
+        <childnode refid="23272" relation="include">
+        </childnode>
+        <childnode refid="23273" relation="include">
+        </childnode>
+        <childnode refid="23274" relation="include">
+        </childnode>
+      </node>
+      <node id="23271">
+        <label>vector</label>
+      </node>
+      <node id="23280">
+        <label>boost/mpl/map.hpp</label>
+      </node>
+      <node id="23273">
+        <label>memory</label>
+      </node>
+      <node id="23274">
+        <label>storage/storage_types.h</label>
+        <link refid="storage__types_8h"/>
+        <childnode refid="23271" relation="include">
+        </childnode>
+        <childnode refid="23275" relation="include">
+        </childnode>
+        <childnode refid="23276" relation="include">
+        </childnode>
+        <childnode refid="23277" relation="include">
+        </childnode>
+        <childnode refid="23278" relation="include">
+        </childnode>
+        <childnode refid="23279" relation="include">
+        </childnode>
+        <childnode refid="23280" relation="include">
+        </childnode>
+        <childnode refid="23281" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="23285">
+        <label>src/lib/storage/TableDiff.cpp</label>
+        <link refid="_table_diff_8cpp"/>
+      </node>
+      <node id="23286">
+        <label>src/lib/testing/TableEqualityTest.cpp</label>
+        <link refid="_table_equality_test_8cpp"/>
+      </node>
+      <node id="23282">
+        <label>src/lib/storage/TableDiff.h</label>
+        <link refid="TableDiff.h"/>
+        <childnode refid="23283" relation="include">
+        </childnode>
+        <childnode refid="23284" relation="include">
+        </childnode>
+        <childnode refid="23285" relation="include">
+        </childnode>
+        <childnode refid="23286" relation="include">
+        </childnode>
+      </node>
+      <node id="23283">
+        <label>src/lib/storage/AbstractTable.cpp</label>
+        <link refid="_abstract_table_8cpp"/>
+      </node>
+      <node id="23284">
+        <label>src/lib/storage/PrettyPrinter.cpp</label>
+        <link refid="_pretty_printer_8cpp"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="class_table_diff" prot="public">TableDiff</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>2012<sp/>Hasso-Plattner-Institut<sp/>fuer<sp/>Softwaresystemtechnik<sp/>GmbH.<sp/>All<sp/>rights<sp/>reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SRC_LIB_STORAGE_TABLEDIFF_H_</highlight></codeline>
+<codeline lineno="3"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SRC_LIB_STORAGE_TABLEDIFF_H_</highlight></codeline>
+<codeline lineno="4"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;vector&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;map&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;memory&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="storage__types_8h" kindref="compound">storage/storage_types.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_abstract_table" kindref="compound">AbstractTable</ref>;</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13" refid="class_table_diff" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_table_diff" kindref="compound">TableDiff</ref><sp/>{</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="16" refid="class_table_diff_1afb3c1ba4da3387f3441a2baad8ca6a4f" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/><ref refid="class_table_diff_1afb3c1ba4da3387f3441a2baad8ca6a4f" kindref="member">RelationEqType</ref><sp/>{<ref refid="class_table_diff_1afb3c1ba4da3387f3441a2baad8ca6a4fa4a016008eb4c31a3a8c647851403f4de" kindref="member">RelationEq</ref>,<sp/><ref refid="class_table_diff_1afb3c1ba4da3387f3441a2baad8ca6a4fa69fdf704e360dac18621929ec9b0931d" kindref="member">RelationEqSorted</ref>};</highlight></codeline>
+<codeline lineno="17" refid="class_table_diff_1a9d12bc57dc56ca5498e945912afb1879a18bfca2f3d97c9d43380a85a7bf498eb" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/><ref refid="class_table_diff_1a9d12bc57dc56ca5498e945912afb1879" kindref="member">FieldCorrectness</ref><sp/>{<ref refid="class_table_diff_1a9d12bc57dc56ca5498e945912afb1879ae9cfc8f658090daf11e84f27bac57879" kindref="member">FieldCorrect</ref>,<sp/><ref refid="class_table_diff_1a9d12bc57dc56ca5498e945912afb1879a18bfca2f3d97c9d43380a85a7bf498eb" kindref="member">FieldWrongType</ref>,<sp/><ref refid="class_table_diff_1a9d12bc57dc56ca5498e945912afb1879a99322223dea5df7571561dc3f63b2dee" kindref="member">FieldWrong</ref>};</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19" refid="class_table_diff_1a0fe0dacb67818623c1c52eb7d5a7dc27" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="class_table_diff_1a0fe0dacb67818623c1c52eb7d5a7dc27" kindref="member">TableDiff</ref>()<sp/>{}</highlight></codeline>
+<codeline lineno="20" refid="class_table_diff_1a5e311f899bde8522c17f33a7b9c5cf97" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="class_table_diff_1a5e311f899bde8522c17f33a7b9c5cf97" kindref="member">~TableDiff</ref>()<sp/>{}</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="class_table_diff_1aec3f42e05ab23f5d24075a65f8a120ff" kindref="member">compare</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="class_table_diff_1afb3c1ba4da3387f3441a2baad8ca6a4f" kindref="member">RelationEqType</ref><sp/>eqType<sp/>=<sp/><ref refid="class_table_diff_1afb3c1ba4da3387f3441a2baad8ca6a4fa4a016008eb4c31a3a8c647851403f4de" kindref="member">RelationEq</ref>)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="class_table_diff_1aabd53adc062850ae461747d7fcf55828" kindref="member">equal</ref>()<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="class_table_diff_1aa1fbaf4083a5ec99ca3f6da73b292d1c" kindref="member">equalSorted</ref>()<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="class_table_diff_1a67b4394614a4131e58640bdb2fd99c70" kindref="member">schemesMatched</ref>()<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="class_table_diff_1af3c16ebe9ae6ddaea7dc8570746f1fa6" kindref="member">rowsMatched</ref>()<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="class_table_diff_1a6ff83efeb648c0cd9f37b03d884756a2" kindref="member">rowsMatchedSorted</ref>()<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="class_table_diff" kindref="compound">TableDiff</ref><sp/><ref refid="class_table_diff_1a6b883a5406b2f00a527e9e2b708d8ce5" kindref="member">diffTables</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="class_abstract_table" kindref="compound">AbstractTable</ref>*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>left,</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="class_abstract_table" kindref="compound">AbstractTable</ref>*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>right);</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33" refid="class_table_diff_1abd2d1d75c9d5a0e0b97a9abfe3bcff56" refkind="member"><highlight class="normal"><sp/><sp/>std::vector&lt;FieldCorrectness&gt;<sp/><ref refid="class_table_diff_1abd2d1d75c9d5a0e0b97a9abfe3bcff56" kindref="member">fields</ref>;</highlight></codeline>
+<codeline lineno="34" refid="class_table_diff_1ac1c038a5d4ad5bdf7679d6c1894ef54c" refkind="member"><highlight class="normal"><sp/><sp/>std::vector&lt;size_t&gt;<sp/><ref refid="class_table_diff_1ac1c038a5d4ad5bdf7679d6c1894ef54c" kindref="member">wrongRows</ref>;</highlight></codeline>
+<codeline lineno="35" refid="class_table_diff_1a4be97a2ae477903c0c85972bda950860" refkind="member"><highlight class="normal"><sp/><sp/>std::map&lt;size_t,size_t&gt;<sp/><ref refid="class_table_diff_1a4be97a2ae477903c0c85972bda950860" kindref="member">falsePositionRows</ref>;</highlight></codeline>
+<codeline lineno="36"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/>//SRC_LIB_STORAGE_TABLEDIFF_H_</highlight></codeline>
+    </programlisting>
+    <location file="/home/grund/hyrise/src/lib/storage/TableDiff.h"/>
+  </compounddef>
+</doxygen>

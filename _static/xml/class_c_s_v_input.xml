@@ -1,0 +1,190 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="class_c_s_v_input" kind="class" prot="public">
+    <compoundname>CSVInput</compoundname>
+    <basecompoundref refid="class_abstract_input" prot="public" virt="non-virtual">AbstractInput</basecompoundref>
+    <includes refid="_c_s_v_loader_8h" local="no">CSVLoader.h</includes>
+    <innerclass refid="class_c_s_v_input_1_1params" prot="public">CSVInput::params</innerclass>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_c_s_v_input_1a300a10e95fff9816b2a3e9f118853453" prot="private" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string CSVInput::_filename</definition>
+        <argsstring></argsstring>
+        <name>_filename</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/CSVLoader.h" line="42" bodyfile="/home/grund/hyrise/src/lib/io/CSVLoader.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_s_v_input_1acacc1e122f7f57804ce37f2163c51014" prot="private" static="no" mutable="no">
+        <type><ref refid="class_c_s_v_input_1_1params" kindref="compound">params</ref></type>
+        <definition>params CSVInput::_parameters</definition>
+        <argsstring></argsstring>
+        <name>_parameters</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/CSVLoader.h" line="43" bodyfile="/home/grund/hyrise/src/lib/io/CSVLoader.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_c_s_v_input_1a72a8e2f37b1acb128a3d66f04a1df422" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>CSVInput::CSVInput</definition>
+        <argsstring>(std::string filename, const params &amp;parameters=params())</argsstring>
+        <name>CSVInput</name>
+        <param>
+          <type>std::string</type>
+          <declname>filename</declname>
+        </param>
+        <param>
+          <type>const <ref refid="class_c_s_v_input_1_1params" kindref="compound">params</ref> &amp;</type>
+          <declname>parameters</declname>
+          <defval><ref refid="class_c_s_v_input_1_1params" kindref="compound">params</ref>()</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/CSVLoader.h" line="36" bodyfile="/home/grund/hyrise/src/lib/io/CSVLoader.h" bodystart="32" bodyend="36"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_s_v_input_1a1ce24ee1a25f2093ffe28defad30de0a" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>std::shared_ptr&lt; <ref refid="class_abstract_table" kindref="compound">AbstractTable</ref> &gt;</type>
+        <definition>std::shared_ptr&lt; AbstractTable &gt; CSVInput::load</definition>
+        <argsstring>(std::shared_ptr&lt; AbstractTable &gt;, const compound_metadata_list *, const Loader::params &amp;args)</argsstring>
+        <name>load</name>
+        <reimplements refid="class_abstract_input_1a9d31015659ecff402c529df0f5339b60">load</reimplements>
+        <param>
+          <type>std::shared_ptr&lt; <ref refid="class_abstract_table" kindref="compound">AbstractTable</ref> &gt;</type>
+          <declname>intable</declname>
+        </param>
+        <param>
+          <type>const <ref refid="storage__types_8h_1ab1a41784d413aa539cdda0391757965c" kindref="member">compound_metadata_list</ref> *</type>
+          <declname>metadata</declname>
+        </param>
+        <param>
+          <type>const <ref refid="class_loader_1_1params" kindref="compound">Loader::params</ref> &amp;</type>
+          <declname>args</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Loads data.<itemizedlist>
+<listitem><para>Load data into a table</para></listitem><listitem><para>Creates and returns an AbstractTable*</para></listitem><listitem><para>Has to release intable in case it isn&apos;t used.</para></listitem></itemizedlist>
+</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>intable</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The <ref refid="namespace_loader_1a371700be700b02ac0f08306734213028" kindref="member">Loader::load</ref> interface creates an initial <ref refid="class_mutable_vertical_table" kindref="compound">MutableVerticalTable</ref>, loader may choose to use it or not </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>metadata</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The original metadata </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>args</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="namespace_loader" kindref="compound">Loader</ref> arguments that may influence loading </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/CSVLoader.h" line="38" bodyfile="/home/grund/hyrise/src/lib/io/CSVLoader.cpp" bodystart="88" bodyend="110"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_s_v_input_1a2b4a587a087b70a65d6e13ea77e8089a" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type><ref refid="class_c_s_v_input" kindref="compound">CSVInput</ref> *</type>
+        <definition>CSVInput * CSVInput::clone</definition>
+        <argsstring>() const </argsstring>
+        <name>clone</name>
+        <reimplements refid="class_abstract_input_1ae24e23d7100a832b9bd67b161ceb7215">clone</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/CSVLoader.h" line="40" bodyfile="/home/grund/hyrise/src/lib/io/CSVLoader.cpp" bodystart="112" bodyend="114"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1712">
+        <label>CSVInput</label>
+        <link refid="class_c_s_v_input"/>
+        <childnode refid="1713" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1713">
+        <label>AbstractInput</label>
+        <link refid="class_abstract_input"/>
+        <childnode refid="1714" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1714">
+        <label>cloneable</label>
+        <link refid="classcloneable"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1715">
+        <label>CSVInput</label>
+        <link refid="class_c_s_v_input"/>
+        <childnode refid="1716" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1718" relation="usage">
+          <edgelabel>_parameters</edgelabel>
+        </childnode>
+      </node>
+      <node id="1716">
+        <label>AbstractInput</label>
+        <link refid="class_abstract_input"/>
+        <childnode refid="1717" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1719">
+        <label>csv::params</label>
+        <link refid="classcsv_1_1params"/>
+      </node>
+      <node id="1717">
+        <label>cloneable</label>
+        <link refid="classcloneable"/>
+      </node>
+      <node id="1718">
+        <label>CSVInput::params</label>
+        <link refid="class_c_s_v_input_1_1params"/>
+        <childnode refid="1719" relation="usage">
+          <edgelabel>CSVParams</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/io/CSVLoader.h" line="23" bodyfile="/home/grund/hyrise/src/lib/io/CSVLoader.h" bodystart="23" bodyend="44"/>
+    <listofallmembers>
+      <member refid="class_c_s_v_input_1a300a10e95fff9816b2a3e9f118853453" prot="private" virt="non-virtual"><scope>CSVInput</scope><name>_filename</name></member>
+      <member refid="class_c_s_v_input_1acacc1e122f7f57804ce37f2163c51014" prot="private" virt="non-virtual"><scope>CSVInput</scope><name>_parameters</name></member>
+      <member refid="class_c_s_v_input_1a2b4a587a087b70a65d6e13ea77e8089a" prot="public" virt="virtual"><scope>CSVInput</scope><name>clone</name></member>
+      <member refid="class_c_s_v_input_1a72a8e2f37b1acb128a3d66f04a1df422" prot="public" virt="non-virtual"><scope>CSVInput</scope><name>CSVInput</name></member>
+      <member refid="class_c_s_v_input_1a1ce24ee1a25f2093ffe28defad30de0a" prot="public" virt="virtual"><scope>CSVInput</scope><name>load</name></member>
+      <member refid="class_abstract_input_1a58bee53c3e07a02dace728ba96daa81f" prot="public" virt="virtual"><scope>CSVInput</scope><name>needs_store_wrap</name></member>
+      <member refid="class_abstract_input_1a24438a83d3e56183859bc5f04394b7d1" prot="public" virt="virtual"><scope>CSVInput</scope><name>~AbstractInput</name></member>
+      <member refid="classcloneable_1a31ff0906763d17093098d05207e2184c" prot="public" virt="virtual"><scope>CSVInput</scope><name>~cloneable</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,1 +1,309 @@
-HYRISE GitHub Page
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Welcome to HYRISE’s documentation! &mdash; HYRISE latest documentation</title>
+    
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/breathe.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     'latest',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="HYRISE latest documentation" href="#" />
+    <link rel="next" title="Getting Started" href="getting_started.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="getting_started.html" title="Getting Started"
+             accesskey="N">next</a> |</li>
+        <li><a href="#">HYRISE latest documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="#">
+              <img class="logo" src="_static/hyrise.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="#">Table Of Contents</a></h3>
+  <ul>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">Implementation Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="query_execution.html">HYRISE Query Execution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developing.html">Developing with HYRISE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">HYRISE &amp; Development FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="proposals.html">Proposals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="doxygen.html">Doxygen Documentation</a></li>
+</ul>
+
+  <h4>Next topic</h4>
+  <p class="topless"><a href="getting_started.html"
+                        title="next chapter">Getting Started</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/index.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="welcome-to-hyrise-s-documentation">
+<h1>Welcome to HYRISE&#8217;s documentation!<a class="headerlink" href="#welcome-to-hyrise-s-documentation" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">Implementation Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="query_execution.html">HYRISE Query Execution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developing.html">Developing with HYRISE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">HYRISE &amp; Development FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="proposals.html">Proposals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="doxygen.html">Doxygen Documentation</a></li>
+</ul>
+</div>
+<div class="section" id="what-is-hyrise">
+<h2>What is HYRISE<a class="headerlink" href="#what-is-hyrise" title="Permalink to this headline">¶</a></h2>
+<p>raditional databases are separated into ones for current data from the day-to-
+day business processes and ones for reporting and analytics. For fast moving
+businesses moving data from one silo to another is cumbersome and takes too
+much time. As a result the new data arriving in the reporting system is already
+old by the time it is loaded. HYRISE proposes a new way to solve this problem:
+It analyzes the query input and reorganizes the stored data in different
+dimensions.</p>
+<p>In detail, HYRISE partitions the layout of the underlying tables in a vertical
+and horizontal manner depending on the input to this layout management
+component. The workload is specified as a set of queries and weights and is
+processed by calculating the layout dependent costs for those queries. Based on
+our cost-model we can now calculate the best set of partitions for this input
+workload. This optimization allows great speed improvements compared to
+traditional storage models.</p>
+<p>This database provides the implementation to the above mentioned ideas.</p>
+</div>
+<div class="section" id="current-status">
+<h2>Current status<a class="headerlink" href="#current-status" title="Permalink to this headline">¶</a></h2>
+<p>This system is a research prototype and by no means meant to be used in
+production use and we cannot guarantee that it will work in such environments.
+The goal of an early version of HYRISe was to show that for in-memory databases
+the flexibility to choose from different physical layouts is of great
+importance. In addition, this system should provide the necessary framework for
+teaching advanced database techniques to students in an undergraduate and
+graduate level.</p>
+<p>Our goal is to improve the performance and the set of features to support more
+and more capabilities that you would expect from a traditional relational
+database. But no promises, when this will happen.</p>
+<p>The following features are currently implemented (not always optimal and convenient):</p>
+<blockquote>
+<div><ul class="simple">
+<li>Database loading from CSV, HYRISE text files, binary dumps</li>
+<li>Most important database operators and indexes including re-compression and dump to disk</li>
+<li>Automatic layout calculation and layout switch as front-end accessible plan operations</li>
+</ul>
+</div></blockquote>
+<p>All plan operations are currently hand-coded in JSON an then queried against
+the database. SQL compilation is currently not available but somewhere on the
+road-map.</p>
+</div>
+<div class="section" id="quick-start">
+<h2>Quick Start<a class="headerlink" href="#quick-start" title="Permalink to this headline">¶</a></h2>
+<p>Currently only Linux systems are supported. Mac OS X could work, but you will
+need a more recent compiler than GCC 4.2. Best is to update the compiler using
+the homebrew-dupes repository.</p>
+<p>Other than that standard build environment should suffice.</p>
+<div class="section" id="automatic-dependency-installation">
+<h3>Automatic Dependency Installation<a class="headerlink" href="#automatic-dependency-installation" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="vagrant">
+<h4>Vagrant<a class="headerlink" href="#vagrant" title="Permalink to this headline">¶</a></h4>
+<p>Using vagrant and VirtualBox you can have a fully working HYRISE development
+setup in the matter of minutes without having to worry about anything. This is
+currently our recommendation to setup. If you have installed VirtualBox and
+Vagrant you should be able to run the init script simply by calling:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">vagrant</span> <span class="n">up</span>
+</pre></div>
+</div>
+<p>from the command line.</p>
+</div>
+<div class="section" id="ubuntu">
+<h4>Ubuntu<a class="headerlink" href="#ubuntu" title="Permalink to this headline">¶</a></h4>
+<p>If you are on Ubuntu it should be sufficient to run the <tt class="docutils literal"><span class="pre">install.sh</span></tt> script from the <tt class="docutils literal"><span class="pre">tools/autosetup</span></tt> folder.</p>
+</div>
+</div>
+<div class="section" id="building">
+<h3>Building<a class="headerlink" href="#building" title="Permalink to this headline">¶</a></h3>
+<p>To start the build you will only need to execute a simple command line command
+to start. The given make file provides all necessary targets. First check if
+all submodules are initialized correctly.:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">git</span> <span class="n">submodule</span> <span class="n">init</span> <span class="o">--</span><span class="n">update</span>
+</pre></div>
+</div>
+<p>Now copy the file <tt class="docutils literal"><span class="pre">settings.mk.default</span></tt> to <tt class="docutils literal"><span class="pre">settings.mk</span></tt> and if necessary
+modify settings to start the build. The most prominent one is <tt class="docutils literal"><span class="pre">PRODUCTION</span></tt> to
+disable the debug build and <cite>HYRISE_ALLOCATOR</cite> for using <tt class="docutils literal"><span class="pre">tcmalloc</span></tt> or
+<tt class="docutils literal"><span class="pre">jemalloc</span></tt> instead of the libc allocator.</p>
+<p>Now copy the file <cite>settings.mk.default</cite> to <tt class="docutils literal"><span class="pre">settings.mk</span></tt> and if necessary
+modify settings to start the build. The most prominent one is <cite>PRODUCTION</cite> to
+disable the debug build and <tt class="docutils literal"><span class="pre">HYRISE_ALLOCATOR</span></tt> for using <tt class="docutils literal"><span class="pre">tcmalloc</span></tt> or
+<tt class="docutils literal"><span class="pre">jemalloc</span></tt> instead of the libc allocator.</p>
+<p>A simple build is executed by:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">make</span>
+</pre></div>
+</div>
+<p>To build and execute the test suites using predefined tables issue:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">make</span> <span class="n">test</span>
+</pre></div>
+</div>
+<p>The smaller test-suite can be executed using:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">make</span> <span class="n">test_basic</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="documentation">
+<h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h2>
+<p>The project provides some documentation about how to develop and use HYRISE.
+The documentation can be build using.:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">make</span> <span class="n">docs</span>
+</pre></div>
+</div>
+<p>The documentation contains information about how to use HYRISE and how to
+implement own plan operations and table types etc. If you have any questions
+feel free to post in:</p>
+<div class="highlight-c++"><pre>hyrise-dev@googlegroups.com</pre>
+</div>
+<p>To contact fellow hyrise developers.</p>
+</div>
+<div class="section" id="how-to-contribute">
+<h2>How to Contribute<a class="headerlink" href="#how-to-contribute" title="Permalink to this headline">¶</a></h2>
+<p>Pull requests and issues reports are always welcome. The easiest way to
+participate is to clone HYRISE and submit patches that we can merge including
+tests.</p>
+<p>If you have any questions feel free to contact the maintainers</p>
+<blockquote>
+<div><ul class="simple">
+<li>Martin Grund (<a class="reference external" href="https://github.com/grundprinzip">&#64;grundprinzip</a>)</li>
+<li>Jens Krueger (<a class="reference external" href="https://github.com/jnkrueger">&#64;jnkrueger</a>)</li>
+<li>Johannes Wust (<a class="reference external" href="https://github.com/jwust">&#64;jwust</a>)</li>
+<li>David Schwalb (<a class="reference external" href="https://github.com/schwald">&#64;schwald</a>)</li>
+<li>Sebastian Hillig (<a class="reference external" href="https://github.com/bastih">&#64;bastih</a>)</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="contributers">
+<h2>Contributers<a class="headerlink" href="#contributers" title="Permalink to this headline">¶</a></h2>
+<p>The following people contributed to HYRISE in various forms listed in
+alphabetical order :)</p>
+<blockquote>
+<div><ul class="simple">
+<li>Alexander Franke</li>
+<li>Christian Tinnefeld</li>
+<li>Clemens Frahnow</li>
+<li>David Eickhoff</li>
+<li>David Schwalb</li>
+<li>Friedhelm Filler</li>
+<li>Georg Hoefer</li>
+<li>Henning Lohse</li>
+<li>Holger Pirk</li>
+<li>Jan Oberst</li>
+<li>Jens Krueger</li>
+<li>Johannes Wust</li>
+<li>Jonas Witt</li>
+<li>Karsten Tausche</li>
+<li>Marco Hornung</li>
+<li>Martin Boissier</li>
+<li>Martin Faust</li>
+<li>Martin Grund</li>
+<li>Martin Linkhorst</li>
+<li>Marvin Killing</li>
+<li>Matthias Lleine</li>
+<li>Maximilian Schneider</li>
+<li>Robert Strobl</li>
+<li>Sebastian Blessing</li>
+<li>Sebastian Hillig</li>
+<li>Sebastian Klose</li>
+<li>Tim Berning</li>
+<li>Tim Zimmermann</li>
+<li>Uwe Hartmann</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="license">
+<h2>License<a class="headerlink" href="#license" title="Permalink to this headline">¶</a></h2>
+<p>HYRISE is licensed as open source after the OpenSource &#8220;Licence of the Hasso-Plattner Institute&#8221; declared in the LICENSE file of this project.</p>
+<p>Question: Why does HYRISE not use MIT or BSD or XX license. The reason for our
+approach comes with the German copyright law. Common BSD and MIT licenses are
+not necessarily compatible and thus can potentially lead to problems. To
+overcome this problem this project uses an specifically designed open source
+license to be compatible with German law. The most prominent difference is the
+exclusion of all liabilities which is not possible in Germany.</p>
+<p>Contents:</p>
+</div>
+</div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><a class="reference internal" href="genindex.html"><em>Index</em></a></li>
+<li><a class="reference internal" href="py-modindex.html"><em>Module Index</em></a></li>
+<li><a class="reference internal" href="search.html"><em>Search Page</em></a></li>
+</ul>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="getting_started.html" title="Getting Started"
+             >next</a> |</li>
+        <li><a href="#">HYRISE latest documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010-2013, Martin Grund et al.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+  </body>
+</html>

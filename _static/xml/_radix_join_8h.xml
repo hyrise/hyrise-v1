@@ -1,0 +1,645 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="_radix_join_8h" kind="file">
+    <compoundname>RadixJoin.h</compoundname>
+    <includes refid="_plan_operation_8h" local="yes">access/PlanOperation.h</includes>
+    <includedby refid="_radix_join_8cpp" local="yes">src/lib/access/RadixJoin.cpp</includedby>
+    <includedby refid="_radix_join_transformation_8h" local="yes">src/lib/access/RadixJoinTransformation.h</includedby>
+    <incdepgraph>
+      <node id="10633">
+        <label>list</label>
+      </node>
+      <node id="10603">
+        <label>boost/mpl/vector.hpp</label>
+      </node>
+      <node id="10616">
+        <label>queue</label>
+      </node>
+      <node id="10599">
+        <label>limits</label>
+      </node>
+      <node id="10651">
+        <label>boost/functional/hash.hpp</label>
+      </node>
+      <node id="10580">
+        <label>src/lib/access/RadixJoin.h</label>
+        <link refid="RadixJoin.h"/>
+        <childnode refid="10581" relation="include">
+        </childnode>
+      </node>
+      <node id="10628">
+        <label>assert.h</label>
+      </node>
+      <node id="10605">
+        <label>boost/lexical_cast.hpp</label>
+      </node>
+      <node id="10643">
+        <label>boost/iterator/iterator_facade.hpp</label>
+      </node>
+      <node id="10598">
+        <label>cstdint</label>
+      </node>
+      <node id="10640">
+        <label>storage/BaseDictionary.h</label>
+        <link refid="_base_dictionary_8h"/>
+        <childnode refid="10600" relation="include">
+        </childnode>
+        <childnode refid="10629" relation="include">
+        </childnode>
+        <childnode refid="10641" relation="include">
+        </childnode>
+      </node>
+      <node id="10584">
+        <label>stdint.h</label>
+      </node>
+      <node id="10639">
+        <label>stdlib.h</label>
+      </node>
+      <node id="10637">
+        <label>errno.h</label>
+      </node>
+      <node id="10590">
+        <label>helper/epoch.h</label>
+        <link refid="epoch_8h"/>
+        <childnode refid="10584" relation="include">
+        </childnode>
+      </node>
+      <node id="10601">
+        <label>stdexcept</label>
+      </node>
+      <node id="10613">
+        <label>helper/HwlocHelper.h</label>
+        <link refid="_hwloc_helper_8h"/>
+        <childnode refid="10614" relation="include">
+        </childnode>
+      </node>
+      <node id="10595">
+        <label>string</label>
+      </node>
+      <node id="10607">
+        <label>taskscheduler.h</label>
+        <link refid="taskscheduler_8h"/>
+        <childnode refid="10608" relation="include">
+        </childnode>
+        <childnode refid="10615" relation="include">
+        </childnode>
+        <childnode refid="10618" relation="include">
+        </childnode>
+        <childnode refid="10591" relation="include">
+        </childnode>
+        <childnode refid="10617" relation="include">
+        </childnode>
+        <childnode refid="10609" relation="include">
+        </childnode>
+        <childnode refid="10619" relation="include">
+        </childnode>
+        <childnode refid="10620" relation="include">
+        </childnode>
+      </node>
+      <node id="10615">
+        <label>taskscheduler/SimpleTaskScheduler.h</label>
+        <link refid="_simple_task_scheduler_8h"/>
+        <childnode refid="10608" relation="include">
+        </childnode>
+        <childnode refid="10611" relation="include">
+        </childnode>
+        <childnode refid="10586" relation="include">
+        </childnode>
+        <childnode refid="10616" relation="include">
+        </childnode>
+        <childnode refid="10592" relation="include">
+        </childnode>
+        <childnode refid="10583" relation="include">
+        </childnode>
+        <childnode refid="10591" relation="include">
+        </childnode>
+        <childnode refid="10617" relation="include">
+        </childnode>
+        <childnode refid="10613" relation="include">
+        </childnode>
+      </node>
+      <node id="10587">
+        <label>map</label>
+      </node>
+      <node id="10591">
+        <label>taskscheduler/Task.h</label>
+        <link refid="_task_8h"/>
+        <childnode refid="10586" relation="include">
+        </childnode>
+        <childnode refid="10592" relation="include">
+        </childnode>
+        <childnode refid="10593" relation="include">
+        </childnode>
+        <childnode refid="10594" relation="include">
+        </childnode>
+        <childnode refid="10595" relation="include">
+        </childnode>
+      </node>
+      <node id="10611">
+        <label>unordered_set</label>
+      </node>
+      <node id="10626">
+        <label>storage/ValueIdMap.hpp</label>
+        <link refid="_value_id_map_8hpp"/>
+        <childnode refid="10627" relation="include">
+        </childnode>
+        <childnode refid="10645" relation="include">
+        </childnode>
+      </node>
+      <node id="10636">
+        <label>memory/MemalignStrategy.h</label>
+        <link refid="_memalign_strategy_8h"/>
+        <childnode refid="10637" relation="include">
+        </childnode>
+        <childnode refid="10638" relation="include">
+        </childnode>
+        <childnode refid="10639" relation="include">
+        </childnode>
+      </node>
+      <node id="10614">
+        <label>hwloc.h</label>
+      </node>
+      <node id="10648">
+        <label>exception</label>
+      </node>
+      <node id="10582">
+        <label>access/OutputTask.h</label>
+        <link refid="_output_task_8h"/>
+        <childnode refid="10583" relation="include">
+        </childnode>
+        <childnode refid="10584" relation="include">
+        </childnode>
+        <childnode refid="10585" relation="include">
+        </childnode>
+        <childnode refid="10586" relation="include">
+        </childnode>
+        <childnode refid="10587" relation="include">
+        </childnode>
+        <childnode refid="10588" relation="include">
+        </childnode>
+        <childnode refid="10589" relation="include">
+        </childnode>
+        <childnode refid="10590" relation="include">
+        </childnode>
+        <childnode refid="10591" relation="include">
+        </childnode>
+      </node>
+      <node id="10631">
+        <label>stddef.h</label>
+      </node>
+      <node id="10617">
+        <label>taskscheduler/CoreBoundTaskQueue.h</label>
+        <link refid="_core_bound_task_queue_8h"/>
+        <childnode refid="10610" relation="include">
+        </childnode>
+        <childnode refid="10616" relation="include">
+        </childnode>
+        <childnode refid="10609" relation="include">
+        </childnode>
+      </node>
+      <node id="10645">
+        <label>storage/OrderIndifferentDictionary.h</label>
+        <link refid="_order_indifferent_dictionary_8h"/>
+        <childnode refid="10600" relation="include">
+        </childnode>
+        <childnode refid="10629" relation="include">
+        </childnode>
+        <childnode refid="10640" relation="include">
+        </childnode>
+        <childnode refid="10641" relation="include">
+        </childnode>
+        <childnode refid="10646" relation="include">
+        </childnode>
+        <childnode refid="10644" relation="include">
+        </childnode>
+        <childnode refid="10648" relation="include">
+        </childnode>
+        <childnode refid="10586" relation="include">
+        </childnode>
+        <childnode refid="10587" relation="include">
+        </childnode>
+        <childnode refid="10593" relation="include">
+        </childnode>
+        <childnode refid="10649" relation="include">
+        </childnode>
+        <childnode refid="10650" relation="include">
+        </childnode>
+        <childnode refid="10651" relation="include">
+        </childnode>
+      </node>
+      <node id="10602">
+        <label>ostream</label>
+      </node>
+      <node id="10589">
+        <label>json.h</label>
+      </node>
+      <node id="10649">
+        <label>limits.h</label>
+      </node>
+      <node id="10641">
+        <label>storage/DictionaryIterator.h</label>
+        <link refid="_dictionary_iterator_8h"/>
+        <childnode refid="10642" relation="include">
+        </childnode>
+        <childnode refid="10643" relation="include">
+        </childnode>
+      </node>
+      <node id="10629">
+        <label>storage/AbstractDictionary.h</label>
+        <link refid="_abstract_dictionary_8h"/>
+        <childnode refid="10586" relation="include">
+        </childnode>
+        <childnode refid="10595" relation="include">
+        </childnode>
+        <childnode refid="10593" relation="include">
+        </childnode>
+        <childnode refid="10630" relation="include">
+        </childnode>
+        <childnode refid="10634" relation="include">
+        </childnode>
+        <childnode refid="10636" relation="include">
+        </childnode>
+        <childnode refid="10600" relation="include">
+        </childnode>
+      </node>
+      <node id="10594">
+        <label>condition_variable</label>
+      </node>
+      <node id="10647">
+        <label>string.h</label>
+      </node>
+      <node id="10622">
+        <label>access/BasicParser.h</label>
+        <link refid="_basic_parser_8h"/>
+        <childnode refid="10601" relation="include">
+        </childnode>
+        <childnode refid="10593" relation="include">
+        </childnode>
+        <childnode refid="10589" relation="include">
+        </childnode>
+      </node>
+      <node id="10623">
+        <label>storage/AbstractTable.h</label>
+        <link refid="_abstract_table_8h"/>
+        <childnode refid="10599" relation="include">
+        </childnode>
+        <childnode refid="10593" relation="include">
+        </childnode>
+        <childnode refid="10601" relation="include">
+        </childnode>
+        <childnode refid="10586" relation="include">
+        </childnode>
+        <childnode refid="10595" relation="include">
+        </childnode>
+        <childnode refid="10597" relation="include">
+        </childnode>
+        <childnode refid="10624" relation="include">
+        </childnode>
+        <childnode refid="10600" relation="include">
+        </childnode>
+        <childnode refid="10625" relation="include">
+        </childnode>
+        <childnode refid="10626" relation="include">
+        </childnode>
+      </node>
+      <node id="10619">
+        <label>taskscheduler/WSCoreBoundTaskQueue.h</label>
+        <link refid="_w_s_core_bound_task_queue_8h"/>
+        <childnode refid="10609" relation="include">
+        </childnode>
+        <childnode refid="10620" relation="include">
+        </childnode>
+      </node>
+      <node id="10624">
+        <label>storage/AbstractResource.h</label>
+        <link refid="_abstract_resource_8h"/>
+      </node>
+      <node id="10650">
+        <label>boost/unordered_map.hpp</label>
+      </node>
+      <node id="10586">
+        <label>vector</label>
+      </node>
+      <node id="10618">
+        <label>taskscheduler/SharedScheduler.h</label>
+        <link refid="_shared_scheduler_8h"/>
+        <childnode refid="10608" relation="include">
+        </childnode>
+        <childnode refid="10615" relation="include">
+        </childnode>
+        <childnode refid="10617" relation="include">
+        </childnode>
+        <childnode refid="10601" relation="include">
+        </childnode>
+      </node>
+      <node id="10588">
+        <label>utility</label>
+      </node>
+      <node id="10597">
+        <label>helper/types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="10598" relation="include">
+        </childnode>
+        <childnode refid="10595" relation="include">
+        </childnode>
+        <childnode refid="10599" relation="include">
+        </childnode>
+        <childnode refid="10593" relation="include">
+        </childnode>
+        <childnode refid="10586" relation="include">
+        </childnode>
+      </node>
+      <node id="10609">
+        <label>taskscheduler/AbstractTaskQueue.h</label>
+        <link refid="_abstract_task_queue_8h"/>
+        <childnode refid="10593" relation="include">
+        </childnode>
+        <childnode refid="10592" relation="include">
+        </childnode>
+        <childnode refid="10610" relation="include">
+        </childnode>
+        <childnode refid="10594" relation="include">
+        </childnode>
+        <childnode refid="10583" relation="include">
+        </childnode>
+        <childnode refid="10591" relation="include">
+        </childnode>
+      </node>
+      <node id="10642">
+        <label>storage/BaseIterator.h</label>
+        <link refid="_base_iterator_8h"/>
+      </node>
+      <node id="10630">
+        <label>memory/StrategizedAllocator.h</label>
+        <link refid="_strategized_allocator_8h"/>
+        <childnode refid="10631" relation="include">
+        </childnode>
+        <childnode refid="10632" relation="include">
+        </childnode>
+        <childnode refid="10633" relation="include">
+        </childnode>
+        <childnode refid="10601" relation="include">
+        </childnode>
+      </node>
+      <node id="10606">
+        <label>access/QueryParser.h</label>
+        <link refid="_query_parser_8h"/>
+        <childnode refid="10587" relation="include">
+        </childnode>
+        <childnode refid="10593" relation="include">
+        </childnode>
+        <childnode refid="10586" relation="include">
+        </childnode>
+        <childnode refid="10595" relation="include">
+        </childnode>
+        <childnode refid="10601" relation="include">
+        </childnode>
+        <childnode refid="10589" relation="include">
+        </childnode>
+        <childnode refid="10607" relation="include">
+        </childnode>
+        <childnode refid="10622" relation="include">
+        </childnode>
+      </node>
+      <node id="10596">
+        <label>access/OperationData.h</label>
+        <link refid="_operation_data_8h"/>
+        <childnode refid="10586" relation="include">
+        </childnode>
+        <childnode refid="10597" relation="include">
+        </childnode>
+        <childnode refid="10600" relation="include">
+        </childnode>
+      </node>
+      <node id="10585">
+        <label>time.h</label>
+      </node>
+      <node id="10612">
+        <label>iostream</label>
+      </node>
+      <node id="10625">
+        <label>storage/ColumnMetadata.h</label>
+        <link refid="_column_metadata_8h"/>
+        <childnode refid="10600" relation="include">
+        </childnode>
+        <childnode refid="10595" relation="include">
+        </childnode>
+        <childnode refid="10601" relation="include">
+        </childnode>
+      </node>
+      <node id="10608">
+        <label>taskscheduler/AbstractTaskScheduler.h</label>
+        <link refid="_abstract_task_scheduler_8h"/>
+        <childnode refid="10591" relation="include">
+        </childnode>
+        <childnode refid="10609" relation="include">
+        </childnode>
+        <childnode refid="10593" relation="include">
+        </childnode>
+        <childnode refid="10611" relation="include">
+        </childnode>
+        <childnode refid="10612" relation="include">
+        </childnode>
+        <childnode refid="10583" relation="include">
+        </childnode>
+        <childnode refid="10613" relation="include">
+        </childnode>
+      </node>
+      <node id="10621">
+        <label>deque</label>
+      </node>
+      <node id="10604">
+        <label>boost/mpl/map.hpp</label>
+      </node>
+      <node id="10620">
+        <label>taskscheduler/WSSimpleTaskScheduler.h</label>
+        <link refid="_w_s_simple_task_scheduler_8h"/>
+        <childnode refid="10608" relation="include">
+        </childnode>
+        <childnode refid="10619" relation="include">
+        </childnode>
+        <childnode refid="10621" relation="include">
+        </childnode>
+        <childnode refid="10612" relation="include">
+        </childnode>
+        <childnode refid="10613" relation="include">
+        </childnode>
+      </node>
+      <node id="10592">
+        <label>mutex</label>
+      </node>
+      <node id="10644">
+        <label>storage/AbstractAllocatedDictionary.h</label>
+        <link refid="_abstract_allocated_dictionary_8h"/>
+      </node>
+      <node id="10610">
+        <label>thread</label>
+      </node>
+      <node id="10634">
+        <label>memory/MallocStrategy.h</label>
+        <link refid="_malloc_strategy_8h"/>
+        <childnode refid="10612" relation="include">
+        </childnode>
+        <childnode refid="10598" relation="include">
+        </childnode>
+        <childnode refid="10635" relation="include">
+        </childnode>
+      </node>
+      <node id="10627">
+        <label>storage/OrderPreservingDictionary.h</label>
+        <link refid="_order_preserving_dictionary_8h"/>
+        <childnode refid="10628" relation="include">
+        </childnode>
+        <childnode refid="10612" relation="include">
+        </childnode>
+        <childnode refid="10593" relation="include">
+        </childnode>
+        <childnode refid="10600" relation="include">
+        </childnode>
+        <childnode refid="10629" relation="include">
+        </childnode>
+        <childnode refid="10640" relation="include">
+        </childnode>
+        <childnode refid="10641" relation="include">
+        </childnode>
+        <childnode refid="10644" relation="include">
+        </childnode>
+        <childnode refid="10642" relation="include">
+        </childnode>
+      </node>
+      <node id="10581">
+        <label>access/PlanOperation.h</label>
+        <link refid="_plan_operation_8h"/>
+        <childnode refid="10582" relation="include">
+        </childnode>
+        <childnode refid="10596" relation="include">
+        </childnode>
+        <childnode refid="10606" relation="include">
+        </childnode>
+        <childnode refid="10600" relation="include">
+        </childnode>
+        <childnode refid="10597" relation="include">
+        </childnode>
+        <childnode refid="10623" relation="include">
+        </childnode>
+        <childnode refid="10589" relation="include">
+        </childnode>
+      </node>
+      <node id="10632">
+        <label>algorithm</label>
+      </node>
+      <node id="10583">
+        <label>log4cxx/logger.h</label>
+      </node>
+      <node id="10638">
+        <label>stdio.h</label>
+      </node>
+      <node id="10635">
+        <label>cstring</label>
+      </node>
+      <node id="10646">
+        <label>storage/csb_tree.h</label>
+        <link refid="csb__tree_8h"/>
+        <childnode refid="10586" relation="include">
+        </childnode>
+        <childnode refid="10612" relation="include">
+        </childnode>
+        <childnode refid="10633" relation="include">
+        </childnode>
+        <childnode refid="10593" relation="include">
+        </childnode>
+        <childnode refid="10647" relation="include">
+        </childnode>
+        <childnode refid="10628" relation="include">
+        </childnode>
+        <childnode refid="10643" relation="include">
+        </childnode>
+      </node>
+      <node id="10593">
+        <label>memory</label>
+      </node>
+      <node id="10600">
+        <label>storage/storage_types.h</label>
+        <link refid="storage__types_8h"/>
+        <childnode refid="10586" relation="include">
+        </childnode>
+        <childnode refid="10595" relation="include">
+        </childnode>
+        <childnode refid="10601" relation="include">
+        </childnode>
+        <childnode refid="10584" relation="include">
+        </childnode>
+        <childnode refid="10602" relation="include">
+        </childnode>
+        <childnode refid="10603" relation="include">
+        </childnode>
+        <childnode refid="10604" relation="include">
+        </childnode>
+        <childnode refid="10605" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="10652">
+        <label>src/lib/access/RadixJoin.h</label>
+        <link refid="RadixJoin.h"/>
+        <childnode refid="10653" relation="include">
+        </childnode>
+        <childnode refid="10654" relation="include">
+        </childnode>
+      </node>
+      <node id="10655">
+        <label>src/lib/access/RadixJoinTransformation.cpp</label>
+        <link refid="_radix_join_transformation_8cpp"/>
+      </node>
+      <node id="10654">
+        <label>src/lib/access/RadixJoinTransformation.h</label>
+        <link refid="_radix_join_transformation_8h"/>
+        <childnode refid="10655" relation="include">
+        </childnode>
+      </node>
+      <node id="10653">
+        <label>src/lib/access/RadixJoin.cpp</label>
+        <link refid="_radix_join_8cpp"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="classhyrise_1_1access_1_1_radix_join" prot="public">hyrise::access::RadixJoin</innerclass>
+    <innernamespace refid="namespacehyrise">hyrise</innernamespace>
+    <innernamespace refid="namespacehyrise_1_1access">hyrise::access</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>2012<sp/>Hasso-Plattner-Institut<sp/>fuer<sp/>Softwaresystemtechnik<sp/>GmbH.<sp/>All<sp/>rights<sp/>reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SRC_LIB_ACCESS_RADIXJOIN_H_</highlight></codeline>
+<codeline lineno="3"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SRC_LIB_ACCESS_RADIXJOIN_H_</highlight></codeline>
+<codeline lineno="4"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_plan_operation_8h" kindref="compound">access/PlanOperation.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">hyrise<sp/>{</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">access<sp/>{</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10" refid="classhyrise_1_1access_1_1_radix_join" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classhyrise_1_1access_1_1_radix_join" kindref="compound">RadixJoin</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="class___plan_operation" kindref="compound">_PlanOperation</ref><sp/>{</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1access_1_1_radix_join_1ae0e10659b937b75496fba576d52bd2b7" kindref="member">executePlanOperation</ref>();</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>std::shared_ptr&lt;_PlanOperation&gt;<sp/><ref refid="classhyrise_1_1access_1_1_radix_join_1a3406f7bc18e8183bbfa2ca9420501fc5" kindref="member">parse</ref>(Json::Value<sp/>&amp;data);</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/><ref refid="classhyrise_1_1access_1_1_radix_join_1a16fd091c38d05aeb6ace10ba420a61ab" kindref="member">vname</ref>();</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1access_1_1_radix_join_1ac73b730612cc64ab793694c14f0e2796" kindref="member">setBits1</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>uint32_t<sp/>b);</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1access_1_1_radix_join_1a93fd9424fa89f81553693f19fd6c24d1" kindref="member">setBits2</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>uint32_t<sp/>b);</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/>uint32_t<sp/><ref refid="classhyrise_1_1access_1_1_radix_join_1a081ade6296671e7434b72804c83c6436" kindref="member">bits1</ref>()<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/>uint32_t<sp/><ref refid="classhyrise_1_1access_1_1_radix_join_1aa2f898521ba1ea6ede66c5878786bcd5" kindref="member">bits2</ref>()<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="21" refid="classhyrise_1_1access_1_1_radix_join_1afb660a17ec9a4016b0e7d381af1447dd" refkind="member"><highlight class="normal"><sp/><sp/>uint32_t<sp/><ref refid="classhyrise_1_1access_1_1_radix_join_1afb660a17ec9a4016b0e7d381af1447dd" kindref="member">_bits1</ref>;</highlight></codeline>
+<codeline lineno="22" refid="classhyrise_1_1access_1_1_radix_join_1a427313157bf124c587677edf4d576870" refkind="member"><highlight class="normal"><sp/><sp/>uint32_t<sp/><ref refid="classhyrise_1_1access_1_1_radix_join_1a427313157bf124c587677edf4d576870" kindref="member">_bits2</ref>;</highlight></codeline>
+<codeline lineno="23"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="26"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/>//<sp/>SRC_LIB_ACCESS_RADIXJOIN_H_</highlight></codeline>
+    </programlisting>
+    <location file="/home/grund/hyrise/src/lib/access/RadixJoin.h"/>
+  </compounddef>
+</doxygen>

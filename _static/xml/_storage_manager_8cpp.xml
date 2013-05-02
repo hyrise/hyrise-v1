@@ -1,0 +1,819 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="_storage_manager_8cpp" kind="file">
+    <compoundname>StorageManager.cpp</compoundname>
+    <includes refid="_storage_manager_8h" local="yes">io/StorageManager.h</includes>
+    <includes local="no">dirent.h</includes>
+    <includes local="no">sys/stat.h</includes>
+    <includes local="no">sys/types.h</includes>
+    <includes local="no">unistd.h</includes>
+    <includes local="no">algorithm</includes>
+    <includes local="no">map</includes>
+    <includes local="no">sstream</includes>
+    <includes local="no">string</includes>
+    <includes local="no">vector</includes>
+    <includes refid="stringhelpers_8h" local="yes">helper/stringhelpers.h</includes>
+    <includes refid="_environment_8h" local="yes">helper/Environment.h</includes>
+    <includes refid="_c_s_v_loader_8h" local="yes">io/CSVLoader.h</includes>
+    <includes refid="_abstract_table_8h" local="yes">storage/AbstractTable.h</includes>
+    <includes refid="_table_builder_8h" local="yes">storage/TableBuilder.h</includes>
+    <incdepgraph>
+      <node id="15358">
+        <label>sys/stat.h</label>
+      </node>
+      <node id="15381">
+        <label>list</label>
+      </node>
+      <node id="15339">
+        <label>atomic</label>
+      </node>
+      <node id="15353">
+        <label>boost/mpl/vector.hpp</label>
+      </node>
+      <node id="15348">
+        <label>limits</label>
+      </node>
+      <node id="15399">
+        <label>boost/functional/hash.hpp</label>
+      </node>
+      <node id="15376">
+        <label>assert.h</label>
+      </node>
+      <node id="15367">
+        <label>io/GenericCSV.h</label>
+        <link refid="_generic_c_s_v_8h"/>
+        <childnode refid="15368" relation="include">
+        </childnode>
+        <childnode refid="15350" relation="include">
+        </childnode>
+        <childnode refid="15343" relation="include">
+        </childnode>
+        <childnode refid="15344" relation="include">
+        </childnode>
+        <childnode refid="15369" relation="include">
+        </childnode>
+        <childnode refid="15349" relation="include">
+        </childnode>
+        <childnode refid="15356" relation="include">
+        </childnode>
+      </node>
+      <node id="15355">
+        <label>boost/lexical_cast.hpp</label>
+      </node>
+      <node id="15391">
+        <label>boost/iterator/iterator_facade.hpp</label>
+      </node>
+      <node id="15347">
+        <label>cstdint</label>
+      </node>
+      <node id="15388">
+        <label>storage/BaseDictionary.h</label>
+        <link refid="_base_dictionary_8h"/>
+        <childnode refid="15349" relation="include">
+        </childnode>
+        <childnode refid="15378" relation="include">
+        </childnode>
+        <childnode refid="15389" relation="include">
+        </childnode>
+      </node>
+      <node id="15351">
+        <label>stdint.h</label>
+      </node>
+      <node id="15387">
+        <label>stdlib.h</label>
+      </node>
+      <node id="15385">
+        <label>errno.h</label>
+      </node>
+      <node id="15350">
+        <label>stdexcept</label>
+      </node>
+      <node id="15343">
+        <label>string</label>
+      </node>
+      <node id="15340">
+        <label>map</label>
+      </node>
+      <node id="15365">
+        <label>io/CSVLoader.h</label>
+        <link refid="_c_s_v_loader_8h"/>
+        <childnode refid="15341" relation="include">
+        </childnode>
+        <childnode refid="15366" relation="include">
+        </childnode>
+        <childnode refid="15367" relation="include">
+        </childnode>
+        <childnode refid="15370" relation="include">
+        </childnode>
+        <childnode refid="15356" relation="include">
+        </childnode>
+      </node>
+      <node id="15374">
+        <label>storage/ValueIdMap.hpp</label>
+        <link refid="_value_id_map_8hpp"/>
+        <childnode refid="15375" relation="include">
+        </childnode>
+        <childnode refid="15393" relation="include">
+        </childnode>
+      </node>
+      <node id="15384">
+        <label>memory/MemalignStrategy.h</label>
+        <link refid="_memalign_strategy_8h"/>
+        <childnode refid="15385" relation="include">
+        </childnode>
+        <childnode refid="15386" relation="include">
+        </childnode>
+        <childnode refid="15387" relation="include">
+        </childnode>
+      </node>
+      <node id="15400">
+        <label>storage/TableBuilder.h</label>
+        <link refid="_table_builder_8h"/>
+        <childnode refid="15380" relation="include">
+        </childnode>
+        <childnode refid="15343" relation="include">
+        </childnode>
+        <childnode refid="15344" relation="include">
+        </childnode>
+        <childnode refid="15350" relation="include">
+        </childnode>
+        <childnode refid="15346" relation="include">
+        </childnode>
+        <childnode refid="15371" relation="include">
+        </childnode>
+      </node>
+      <node id="15396">
+        <label>exception</label>
+      </node>
+      <node id="15380">
+        <label>stddef.h</label>
+      </node>
+      <node id="15363">
+        <label>helper/stringhelpers.h</label>
+        <link refid="stringhelpers_8h"/>
+        <childnode refid="15343" relation="include">
+        </childnode>
+        <childnode refid="15362" relation="include">
+        </childnode>
+      </node>
+      <node id="15393">
+        <label>storage/OrderIndifferentDictionary.h</label>
+        <link refid="_order_indifferent_dictionary_8h"/>
+        <childnode refid="15349" relation="include">
+        </childnode>
+        <childnode refid="15378" relation="include">
+        </childnode>
+        <childnode refid="15388" relation="include">
+        </childnode>
+        <childnode refid="15389" relation="include">
+        </childnode>
+        <childnode refid="15394" relation="include">
+        </childnode>
+        <childnode refid="15392" relation="include">
+        </childnode>
+        <childnode refid="15396" relation="include">
+        </childnode>
+        <childnode refid="15344" relation="include">
+        </childnode>
+        <childnode refid="15340" relation="include">
+        </childnode>
+        <childnode refid="15341" relation="include">
+        </childnode>
+        <childnode refid="15397" relation="include">
+        </childnode>
+        <childnode refid="15398" relation="include">
+        </childnode>
+        <childnode refid="15399" relation="include">
+        </childnode>
+      </node>
+      <node id="15352">
+        <label>ostream</label>
+      </node>
+      <node id="15397">
+        <label>limits.h</label>
+      </node>
+      <node id="15389">
+        <label>storage/DictionaryIterator.h</label>
+        <link refid="_dictionary_iterator_8h"/>
+        <childnode refid="15390" relation="include">
+        </childnode>
+        <childnode refid="15391" relation="include">
+        </childnode>
+      </node>
+      <node id="15369">
+        <label>libcsv/csv.h</label>
+      </node>
+      <node id="15378">
+        <label>storage/AbstractDictionary.h</label>
+        <link refid="_abstract_dictionary_8h"/>
+        <childnode refid="15344" relation="include">
+        </childnode>
+        <childnode refid="15343" relation="include">
+        </childnode>
+        <childnode refid="15341" relation="include">
+        </childnode>
+        <childnode refid="15379" relation="include">
+        </childnode>
+        <childnode refid="15382" relation="include">
+        </childnode>
+        <childnode refid="15384" relation="include">
+        </childnode>
+        <childnode refid="15349" relation="include">
+        </childnode>
+      </node>
+      <node id="15359">
+        <label>sys/types.h</label>
+      </node>
+      <node id="15395">
+        <label>string.h</label>
+      </node>
+      <node id="15371">
+        <label>storage/AbstractTable.h</label>
+        <link refid="_abstract_table_8h"/>
+        <childnode refid="15348" relation="include">
+        </childnode>
+        <childnode refid="15341" relation="include">
+        </childnode>
+        <childnode refid="15350" relation="include">
+        </childnode>
+        <childnode refid="15344" relation="include">
+        </childnode>
+        <childnode refid="15343" relation="include">
+        </childnode>
+        <childnode refid="15346" relation="include">
+        </childnode>
+        <childnode refid="15372" relation="include">
+        </childnode>
+        <childnode refid="15349" relation="include">
+        </childnode>
+        <childnode refid="15373" relation="include">
+        </childnode>
+        <childnode refid="15374" relation="include">
+        </childnode>
+      </node>
+      <node id="15372">
+        <label>storage/AbstractResource.h</label>
+        <link refid="_abstract_resource_8h"/>
+      </node>
+      <node id="15398">
+        <label>boost/unordered_map.hpp</label>
+      </node>
+      <node id="15360">
+        <label>unistd.h</label>
+      </node>
+      <node id="15344">
+        <label>vector</label>
+      </node>
+      <node id="15346">
+        <label>helper/types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="15347" relation="include">
+        </childnode>
+        <childnode refid="15343" relation="include">
+        </childnode>
+        <childnode refid="15348" relation="include">
+        </childnode>
+        <childnode refid="15341" relation="include">
+        </childnode>
+        <childnode refid="15344" relation="include">
+        </childnode>
+      </node>
+      <node id="15362">
+        <label>sstream</label>
+      </node>
+      <node id="15345">
+        <label>io/Loader.h</label>
+        <link refid="_loader_8h"/>
+        <childnode refid="15341" relation="include">
+        </childnode>
+        <childnode refid="15343" relation="include">
+        </childnode>
+        <childnode refid="15346" relation="include">
+        </childnode>
+        <childnode refid="15349" relation="include">
+        </childnode>
+        <childnode refid="15356" relation="include">
+        </childnode>
+      </node>
+      <node id="15338">
+        <label>io/StorageManager.h</label>
+        <link refid="_storage_manager_8h"/>
+        <childnode refid="15339" relation="include">
+        </childnode>
+        <childnode refid="15340" relation="include">
+        </childnode>
+        <childnode refid="15341" relation="include">
+        </childnode>
+        <childnode refid="15342" relation="include">
+        </childnode>
+        <childnode refid="15343" relation="include">
+        </childnode>
+        <childnode refid="15344" relation="include">
+        </childnode>
+        <childnode refid="15345" relation="include">
+        </childnode>
+      </node>
+      <node id="15390">
+        <label>storage/BaseIterator.h</label>
+        <link refid="_base_iterator_8h"/>
+      </node>
+      <node id="15379">
+        <label>memory/StrategizedAllocator.h</label>
+        <link refid="_strategized_allocator_8h"/>
+        <childnode refid="15380" relation="include">
+        </childnode>
+        <childnode refid="15361" relation="include">
+        </childnode>
+        <childnode refid="15381" relation="include">
+        </childnode>
+        <childnode refid="15350" relation="include">
+        </childnode>
+      </node>
+      <node id="15366">
+        <label>io/AbstractLoader.h</label>
+        <link refid="_abstract_loader_8h"/>
+        <childnode refid="15345" relation="include">
+        </childnode>
+        <childnode refid="15349" relation="include">
+        </childnode>
+      </node>
+      <node id="15368">
+        <label>iosfwd</label>
+      </node>
+      <node id="15377">
+        <label>iostream</label>
+      </node>
+      <node id="15370">
+        <label>io/LoaderException.h</label>
+        <link refid="_loader_exception_8h"/>
+        <childnode refid="15350" relation="include">
+        </childnode>
+        <childnode refid="15343" relation="include">
+        </childnode>
+      </node>
+      <node id="15373">
+        <label>storage/ColumnMetadata.h</label>
+        <link refid="_column_metadata_8h"/>
+        <childnode refid="15349" relation="include">
+        </childnode>
+        <childnode refid="15343" relation="include">
+        </childnode>
+        <childnode refid="15350" relation="include">
+        </childnode>
+      </node>
+      <node id="15354">
+        <label>boost/mpl/map.hpp</label>
+      </node>
+      <node id="15342">
+        <label>mutex</label>
+      </node>
+      <node id="15392">
+        <label>storage/AbstractAllocatedDictionary.h</label>
+        <link refid="_abstract_allocated_dictionary_8h"/>
+      </node>
+      <node id="15382">
+        <label>memory/MallocStrategy.h</label>
+        <link refid="_malloc_strategy_8h"/>
+        <childnode refid="15377" relation="include">
+        </childnode>
+        <childnode refid="15347" relation="include">
+        </childnode>
+        <childnode refid="15383" relation="include">
+        </childnode>
+      </node>
+      <node id="15375">
+        <label>storage/OrderPreservingDictionary.h</label>
+        <link refid="_order_preserving_dictionary_8h"/>
+        <childnode refid="15376" relation="include">
+        </childnode>
+        <childnode refid="15377" relation="include">
+        </childnode>
+        <childnode refid="15341" relation="include">
+        </childnode>
+        <childnode refid="15349" relation="include">
+        </childnode>
+        <childnode refid="15378" relation="include">
+        </childnode>
+        <childnode refid="15388" relation="include">
+        </childnode>
+        <childnode refid="15389" relation="include">
+        </childnode>
+        <childnode refid="15392" relation="include">
+        </childnode>
+        <childnode refid="15390" relation="include">
+        </childnode>
+      </node>
+      <node id="15337">
+        <label>src/lib/io/StorageManager.cpp</label>
+        <link refid="StorageManager.cpp"/>
+        <childnode refid="15338" relation="include">
+        </childnode>
+        <childnode refid="15357" relation="include">
+        </childnode>
+        <childnode refid="15358" relation="include">
+        </childnode>
+        <childnode refid="15359" relation="include">
+        </childnode>
+        <childnode refid="15360" relation="include">
+        </childnode>
+        <childnode refid="15361" relation="include">
+        </childnode>
+        <childnode refid="15340" relation="include">
+        </childnode>
+        <childnode refid="15362" relation="include">
+        </childnode>
+        <childnode refid="15343" relation="include">
+        </childnode>
+        <childnode refid="15344" relation="include">
+        </childnode>
+        <childnode refid="15363" relation="include">
+        </childnode>
+        <childnode refid="15364" relation="include">
+        </childnode>
+        <childnode refid="15365" relation="include">
+        </childnode>
+        <childnode refid="15371" relation="include">
+        </childnode>
+        <childnode refid="15400" relation="include">
+        </childnode>
+      </node>
+      <node id="15361">
+        <label>algorithm</label>
+      </node>
+      <node id="15386">
+        <label>stdio.h</label>
+      </node>
+      <node id="15364">
+        <label>helper/Environment.h</label>
+        <link refid="_environment_8h"/>
+        <childnode refid="15343" relation="include">
+        </childnode>
+      </node>
+      <node id="15383">
+        <label>cstring</label>
+      </node>
+      <node id="15394">
+        <label>storage/csb_tree.h</label>
+        <link refid="csb__tree_8h"/>
+        <childnode refid="15344" relation="include">
+        </childnode>
+        <childnode refid="15377" relation="include">
+        </childnode>
+        <childnode refid="15381" relation="include">
+        </childnode>
+        <childnode refid="15341" relation="include">
+        </childnode>
+        <childnode refid="15395" relation="include">
+        </childnode>
+        <childnode refid="15376" relation="include">
+        </childnode>
+        <childnode refid="15391" relation="include">
+        </childnode>
+      </node>
+      <node id="15341">
+        <label>memory</label>
+      </node>
+      <node id="15349">
+        <label>storage/storage_types.h</label>
+        <link refid="storage__types_8h"/>
+        <childnode refid="15344" relation="include">
+        </childnode>
+        <childnode refid="15343" relation="include">
+        </childnode>
+        <childnode refid="15350" relation="include">
+        </childnode>
+        <childnode refid="15351" relation="include">
+        </childnode>
+        <childnode refid="15352" relation="include">
+        </childnode>
+        <childnode refid="15353" relation="include">
+        </childnode>
+        <childnode refid="15354" relation="include">
+        </childnode>
+        <childnode refid="15355" relation="include">
+        </childnode>
+      </node>
+      <node id="15356">
+        <label>parameters.inc</label>
+        <link refid="parameters_8inc"/>
+      </node>
+      <node id="15357">
+        <label>dirent.h</label>
+      </node>
+    </incdepgraph>
+    <innernamespace refid="namespacehyrise">hyrise</innernamespace>
+    <innernamespace refid="namespacehyrise_1_1io">hyrise::io</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>2012<sp/>Hasso-Plattner-Institut<sp/>fuer<sp/>Softwaresystemtechnik<sp/>GmbH.<sp/>All<sp/>rights<sp/>reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_storage_manager_8h" kindref="compound">io/StorageManager.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;dirent.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;sys/stat.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;sys/types.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;unistd.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;algorithm&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;map&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;sstream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;vector&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="stringhelpers_8h" kindref="compound">helper/stringhelpers.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_environment_8h" kindref="compound">helper/Environment.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_c_s_v_loader_8h" kindref="compound">io/CSVLoader.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_abstract_table_8h" kindref="compound">storage/AbstractTable.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_table_builder_8h" kindref="compound">storage/TableBuilder.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">hyrise<sp/>{</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">io<sp/>{</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1io_1_1_storage_manager_1abd85f7a5ae686e64d8e826afa55f3450" kindref="member">StorageManager::SYS_STATISTICS</ref>[]<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;sys:statistics&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26" refid="namespacehyrise_1_1io_1a2a0e2b8f048cd5ed9cb3fb23bc310d6d" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="namespacehyrise_1_1io_1a2a0e2b8f048cd5ed9cb3fb23bc310d6d" kindref="member">TABNS</ref>[]<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;STAB&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="27" refid="namespacehyrise_1_1io_1a14a791a616e9e8b2380ff27b5514050c" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="namespacehyrise_1_1io_1a14a791a616e9e8b2380ff27b5514050c" kindref="member">MGRNS</ref>[]<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;SMGR&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29" refid="classhyrise_1_1io_1_1_storage_table_1ac99ff09c71fc89d223e83a505b715188" refkind="member"><highlight class="normal"><ref refid="classhyrise_1_1io_1_1_storage_table_1ac99ff09c71fc89d223e83a505b715188" kindref="member">StorageTable::StorageTable</ref>()<sp/>{}</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31" refid="classhyrise_1_1io_1_1_storage_table_1aae3a697a4e39fb25b713bd1cfb7158f7" refkind="member"><highlight class="normal"><ref refid="classhyrise_1_1io_1_1_storage_table_1ac99ff09c71fc89d223e83a505b715188" kindref="member">StorageTable::StorageTable</ref>(std::string<sp/>table_name)</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/>:<sp/>_name(table_name),</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>_parameters(<ref refid="csb__tree_8cpp_1ab979d9d4b4923f7c54d6caa6e1a61936" kindref="member">nullptr</ref>)<sp/>{}</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35" refid="classhyrise_1_1io_1_1_storage_table_1a540247a8f38ed3d3992819f62cc717b4" refkind="member"><highlight class="normal"><ref refid="classhyrise_1_1io_1_1_storage_table_1ac99ff09c71fc89d223e83a505b715188" kindref="member">StorageTable::StorageTable</ref>(std::string<sp/>table_name,<sp/>std::shared_ptr&lt;AbstractTable&gt;<sp/>table)</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/>:<sp/>_name(table_name),</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>_table(table),</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>_parameters(<ref refid="csb__tree_8cpp_1ab979d9d4b4923f7c54d6caa6e1a61936" kindref="member">nullptr</ref>)<sp/>{}</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40" refid="classhyrise_1_1io_1_1_storage_table_1a5757ebe97688f6235a0bc7c4fb89373a" refkind="member"><highlight class="normal"><ref refid="classhyrise_1_1io_1_1_storage_table_1ac99ff09c71fc89d223e83a505b715188" kindref="member">StorageTable::StorageTable</ref>(std::string<sp/>table_name,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="class_loader_1_1params" kindref="compound">Loader::params</ref><sp/>&amp;parameters)</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/>:<sp/>_name(table_name),</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>_table(<ref refid="csb__tree_8cpp_1ab979d9d4b4923f7c54d6caa6e1a61936" kindref="member">nullptr</ref>),</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>_parameters(parameters.clone())<sp/>{}</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45" refid="classhyrise_1_1io_1_1_storage_table_1a79f3896ef3eb6a577944eafb96d33cbe" refkind="member"><highlight class="normal"><ref refid="classhyrise_1_1io_1_1_storage_table_1ac99ff09c71fc89d223e83a505b715188" kindref="member">StorageTable::StorageTable</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1io_1_1_storage_table" kindref="compound" tooltip="Storage class that holds tables that might not be loaded yet.">StorageTable</ref><sp/>&amp;st)</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/>:<sp/>_name(st._name),</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>_table(st._table),</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>_parameters(st._parameters<sp/>?<sp/>st._parameters-&gt;clone()<sp/>:<sp/><ref refid="csb__tree_8cpp_1ab979d9d4b4923f7c54d6caa6e1a61936" kindref="member">nullptr</ref>)<sp/>{}</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50" refid="classhyrise_1_1io_1_1_storage_table_1a6b93c93e1092146640325ada5af9a61e" refkind="member"><highlight class="normal"><ref refid="classhyrise_1_1io_1_1_storage_table_1a6b93c93e1092146640325ada5af9a61e" kindref="member">StorageTable::~StorageTable</ref>()<sp/>{}</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52" refid="classhyrise_1_1io_1_1_storage_table_1af0ccfca95b6085e04b72042518b7d673" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1io_1_1_storage_table_1af0ccfca95b6085e04b72042518b7d673" kindref="member">StorageTable::load</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/>std::lock_guard&lt;std::mutex&gt;<sp/>lock(<ref refid="classhyrise_1_1io_1_1_storage_table_1a60d085c88757b3e64b48264713e3d179" kindref="member">_table_mutex</ref>);</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="classhyrise_1_1io_1_1_storage_table_1a7ac1d6f6972d0525f53ce54f5e4e14c7" kindref="member">isLoaded</ref>())<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="classhyrise_1_1io_1_1_storage_table_1a0bb0575468b48cb35bce721d851ef36b" kindref="member">isLoadable</ref>())<sp/>{</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhyrise_1_1io_1_1_storage_table_1a196fd11986f4cf83a9e0db66e58a1f2d" kindref="member">_table</ref><sp/>=<sp/><ref refid="classhyrise_1_1io_1_1_storage_table_1af0ccfca95b6085e04b72042518b7d673" kindref="member">Loader::load</ref>(*<ref refid="classhyrise_1_1io_1_1_storage_table_1ac2f1d80cdebc654414870e0e7e703482" kindref="member">_parameters</ref>);</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1io_1_1_storage_manager_exception" kindref="compound">StorageManagerException</ref>(</highlight><highlight class="stringliteral">&quot;Could<sp/>not<sp/>load<sp/>table<sp/>&apos;&quot;</highlight><highlight class="normal"><sp/>+<sp/><ref refid="classhyrise_1_1io_1_1_storage_table_1a6d4871550e31fa56a7ea4b26476fb00d" kindref="member">_name</ref><sp/>+<sp/></highlight><highlight class="stringliteral">&quot;&apos;&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="61"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63" refid="classhyrise_1_1io_1_1_storage_table_1a26ba9229e87a55234c16c0ed9bb3161a" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1io_1_1_storage_table_1a26ba9229e87a55234c16c0ed9bb3161a" kindref="member">StorageTable::unload</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/>std::lock_guard&lt;std::mutex&gt;<sp/>lock(<ref refid="classhyrise_1_1io_1_1_storage_table_1a60d085c88757b3e64b48264713e3d179" kindref="member">_table_mutex</ref>);</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><ref refid="classhyrise_1_1io_1_1_storage_table_1a196fd11986f4cf83a9e0db66e58a1f2d" kindref="member">_table</ref>.reset();</highlight></codeline>
+<codeline lineno="66"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68" refid="classhyrise_1_1io_1_1_storage_table_1ad5929720df0bb448a5e36bdb39013129" refkind="member"><highlight class="normal">std::shared_ptr&lt;AbstractTable&gt;<sp/><ref refid="classhyrise_1_1io_1_1_storage_table_1ad5929720df0bb448a5e36bdb39013129" kindref="member">StorageTable::getTable</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="classhyrise_1_1io_1_1_storage_table_1a7ac1d6f6972d0525f53ce54f5e4e14c7" kindref="member">isLoaded</ref>())</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhyrise_1_1io_1_1_storage_table_1af0ccfca95b6085e04b72042518b7d673" kindref="member">load</ref>();</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1io_1_1_storage_table_1a196fd11986f4cf83a9e0db66e58a1f2d" kindref="member">_table</ref>;</highlight></codeline>
+<codeline lineno="72"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74" refid="classhyrise_1_1io_1_1_storage_table_1adc4546843fdc274216e0f2e4238b6550" refkind="member"><highlight class="normal">std::shared_ptr&lt;AbstractTable&gt;<sp/><ref refid="classhyrise_1_1io_1_1_storage_table_1ad5929720df0bb448a5e36bdb39013129" kindref="member">StorageTable::getTable</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1io_1_1_storage_table_1a196fd11986f4cf83a9e0db66e58a1f2d" kindref="member">_table</ref>;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78" refid="classhyrise_1_1io_1_1_storage_table_1a1ce9683b1d4f0425af6f7299e448b05a" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1io_1_1_storage_table_1a1ce9683b1d4f0425af6f7299e448b05a" kindref="member">StorageTable::setTable</ref>(std::shared_ptr&lt;AbstractTable&gt;<sp/>table)<sp/>{</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/>std::lock_guard&lt;std::mutex&gt;<sp/>lock(<ref refid="classhyrise_1_1io_1_1_storage_table_1a60d085c88757b3e64b48264713e3d179" kindref="member">_table_mutex</ref>);</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><ref refid="classhyrise_1_1io_1_1_storage_table_1a196fd11986f4cf83a9e0db66e58a1f2d" kindref="member">_table</ref><sp/>=<sp/>table;</highlight></codeline>
+<codeline lineno="81"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83" refid="classhyrise_1_1io_1_1_storage_table_1a7ac1d6f6972d0525f53ce54f5e4e14c7" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1io_1_1_storage_table_1a7ac1d6f6972d0525f53ce54f5e4e14c7" kindref="member">StorageTable::isLoaded</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1io_1_1_storage_table_1a196fd11986f4cf83a9e0db66e58a1f2d" kindref="member">_table</ref><sp/>!=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="85"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight></codeline>
+<codeline lineno="87" refid="classhyrise_1_1io_1_1_storage_table_1a0bb0575468b48cb35bce721d851ef36b" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1io_1_1_storage_table_1a0bb0575468b48cb35bce721d851ef36b" kindref="member">StorageTable::isLoadable</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(<ref refid="classhyrise_1_1io_1_1_storage_table_1ac2f1d80cdebc654414870e0e7e703482" kindref="member">_parameters</ref><sp/>!=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="89"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91" refid="classhyrise_1_1io_1_1_storage_manager_1ae85aa08225ed58df08247dd2cd460052" refkind="member"><highlight class="normal"><ref refid="classhyrise_1_1io_1_1_storage_manager_1ae85aa08225ed58df08247dd2cd460052" kindref="member">StorageManager::StorageManager</ref>()</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/>:<sp/>_root_path(</highlight><highlight class="stringliteral">&quot;.&quot;</highlight><highlight class="normal">)<sp/>{}</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight></codeline>
+<codeline lineno="94" refid="classhyrise_1_1io_1_1_storage_manager_1ae65afbf9c02bb1f98170f53ce5d10541" refkind="member"><highlight class="normal"><ref refid="classhyrise_1_1io_1_1_storage_manager_1ae65afbf9c02bb1f98170f53ce5d10541" kindref="member">StorageManager::~StorageManager</ref>()<sp/>{}</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96" refid="classhyrise_1_1io_1_1_storage_manager_1ad1a8a88b8d180a1a477d36321154d961" refkind="member"><highlight class="normal">std::shared_ptr&lt;AbstractTable&gt;<sp/><sp/><ref refid="classhyrise_1_1io_1_1_storage_manager_1ad1a8a88b8d180a1a477d36321154d961" kindref="member">StorageManager::buildStatisticsTable</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Prepare<sp/>statistics<sp/>table</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><ref refid="struct_table_builder_1_1param__list" kindref="compound">TableBuilder::param_list</ref><sp/>list;</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/>list.<ref refid="struct_table_builder_1_1param__list_1a0d23255bbddef12023d027f27f597ec3" kindref="member">append</ref>().<ref refid="struct_table_builder_1_1param_1a634ce05cbe22d6cde33c4cc2dcdd4b87" kindref="member">set_type</ref>(</highlight><highlight class="stringliteral">&quot;STRING&quot;</highlight><highlight class="normal">).<ref refid="struct_table_builder_1_1param_1a00edde06b54402651f38d9511aa5a74d" kindref="member">set_name</ref>(</highlight><highlight class="stringliteral">&quot;query_id&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/>list.<ref refid="struct_table_builder_1_1param__list_1a0d23255bbddef12023d027f27f597ec3" kindref="member">append</ref>().<ref refid="struct_table_builder_1_1param_1a634ce05cbe22d6cde33c4cc2dcdd4b87" kindref="member">set_type</ref>(</highlight><highlight class="stringliteral">&quot;STRING&quot;</highlight><highlight class="normal">).<ref refid="struct_table_builder_1_1param_1a00edde06b54402651f38d9511aa5a74d" kindref="member">set_name</ref>(</highlight><highlight class="stringliteral">&quot;operator&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/>list.<ref refid="struct_table_builder_1_1param__list_1a0d23255bbddef12023d027f27f597ec3" kindref="member">append</ref>().<ref refid="struct_table_builder_1_1param_1a634ce05cbe22d6cde33c4cc2dcdd4b87" kindref="member">set_type</ref>(</highlight><highlight class="stringliteral">&quot;STRING&quot;</highlight><highlight class="normal">).<ref refid="struct_table_builder_1_1param_1a00edde06b54402651f38d9511aa5a74d" kindref="member">set_name</ref>(</highlight><highlight class="stringliteral">&quot;detail&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/>list.<ref refid="struct_table_builder_1_1param__list_1a0d23255bbddef12023d027f27f597ec3" kindref="member">append</ref>().<ref refid="struct_table_builder_1_1param_1a634ce05cbe22d6cde33c4cc2dcdd4b87" kindref="member">set_type</ref>(</highlight><highlight class="stringliteral">&quot;FLOAT&quot;</highlight><highlight class="normal">).<ref refid="struct_table_builder_1_1param_1a00edde06b54402651f38d9511aa5a74d" kindref="member">set_name</ref>(</highlight><highlight class="stringliteral">&quot;selectivity&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/>list.<ref refid="struct_table_builder_1_1param__list_1a0d23255bbddef12023d027f27f597ec3" kindref="member">append</ref>().<ref refid="struct_table_builder_1_1param_1a634ce05cbe22d6cde33c4cc2dcdd4b87" kindref="member">set_type</ref>(</highlight><highlight class="stringliteral">&quot;INTEGER&quot;</highlight><highlight class="normal">).<ref refid="struct_table_builder_1_1param_1a00edde06b54402651f38d9511aa5a74d" kindref="member">set_name</ref>(</highlight><highlight class="stringliteral">&quot;start&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="class_table_builder_1a95831e39786c88a88aa18aa45bddf120" kindref="member">TableBuilder::build</ref>(list);</highlight></codeline>
+<codeline lineno="105"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight></codeline>
+<codeline lineno="107" refid="namespacehyrise_1_1io_1ab48b30d233be1a01684094d163b06ce3" refkind="member"><highlight class="normal">std::mutex<sp/><ref refid="namespacehyrise_1_1io_1ab48b30d233be1a01684094d163b06ce3" kindref="member">instance_mtx</ref>;</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight></codeline>
+<codeline lineno="109" refid="classhyrise_1_1io_1_1_storage_manager_1a0b9dd3f8fbf11a063cb37d9d15704050" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1io_1_1_storage_manager_1a0b9dd3f8fbf11a063cb37d9d15704050" kindref="member" tooltip="Create all systems base tables require to run.">StorageManager::setupSystem</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/>std::lock_guard&lt;std::mutex&gt;<sp/>lock(<ref refid="namespacehyrise_1_1io_1ab48b30d233be1a01684094d163b06ce3" kindref="member">instance_mtx</ref>);</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="classhyrise_1_1io_1_1_storage_manager_1a81db5a53edcdcadcf1039577cc687034" kindref="member" tooltip="Assures that we only initialize once.">_initialized</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhyrise_1_1io_1_1_storage_manager_1ab598183fb4eabc0f04cbd353433a6bd7" kindref="member" tooltip="Base path for loading.">_root_path</ref><sp/>=<sp/><ref refid="_environment_8cpp_1a45002ad3fba8b017d20e5e05d550c765" kindref="member">getEnv</ref>(</highlight><highlight class="stringliteral">&quot;HYRISE_DB_PATH&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>add<sp/>the<sp/>statistics<sp/>table</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhyrise_1_1io_1_1_storage_manager_1a21d12aa6912be028a8bea2da5d436817" kindref="member">addStorageTable</ref>(<ref refid="classhyrise_1_1io_1_1_storage_manager_1abd85f7a5ae686e64d8e826afa55f3450" kindref="member">SYS_STATISTICS</ref>,<sp/><ref refid="classhyrise_1_1io_1_1_storage_manager_1ad1a8a88b8d180a1a477d36321154d961" kindref="member">buildStatisticsTable</ref>());</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhyrise_1_1io_1_1_storage_manager_1a81db5a53edcdcadcf1039577cc687034" kindref="member" tooltip="Assures that we only initialize once.">_initialized</ref><sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="117"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight></codeline>
+<codeline lineno="119" refid="classhyrise_1_1io_1_1_storage_manager_1a73b12a097673a0afa604a22dd401a1bb" refkind="member"><highlight class="normal"><ref refid="classhyrise_1_1io_1_1_storage_manager" kindref="compound" tooltip="Central holder of schema information.">StorageManager</ref><sp/>*<ref refid="classhyrise_1_1io_1_1_storage_manager_1a73b12a097673a0afa604a22dd401a1bb" kindref="member" tooltip="Retrieve singleton storage-manager instance.">StorageManager::getInstance</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1io_1_1_storage_manager" kindref="compound" tooltip="Central holder of schema information.">StorageManager</ref><sp/>instance;</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/>instance.<ref refid="classhyrise_1_1io_1_1_storage_manager_1a0b9dd3f8fbf11a063cb37d9d15704050" kindref="member" tooltip="Create all systems base tables require to run.">setupSystem</ref>();</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>&amp;instance;</highlight></codeline>
+<codeline lineno="123"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight></codeline>
+<codeline lineno="125" refid="classhyrise_1_1io_1_1_storage_manager_1a67c03891e94ed361f3787926f5493f52" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1io_1_1_storage_manager_1a4cca0a38b69106ab9faf0193285e7468" kindref="member">StorageManager::loadTable</ref>(std::string<sp/>name,<sp/>std::shared_ptr&lt;AbstractTable&gt;<sp/>table)<sp/>{</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><ref refid="classhyrise_1_1io_1_1_storage_manager_1a21d12aa6912be028a8bea2da5d436817" kindref="member">addStorageTable</ref>(name,<sp/>table);</highlight></codeline>
+<codeline lineno="127"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight></codeline>
+<codeline lineno="129" refid="classhyrise_1_1io_1_1_storage_manager_1a383140d54f4460aa46a8321b452afce7" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1io_1_1_storage_manager_1a383140d54f4460aa46a8321b452afce7" kindref="member">StorageManager::replaceTable</ref>(std::string<sp/>name,<sp/>std::shared_ptr&lt;AbstractTable&gt;<sp/>table)<sp/>{</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><ref refid="classhyrise_1_1io_1_1_storage_manager_1a30628f463321141caedd8064c4de3809" kindref="member" tooltip="The actual schema.">_schema</ref>.at(name).setTable(table);</highlight></codeline>
+<codeline lineno="131"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight></codeline>
+<codeline lineno="133" refid="classhyrise_1_1io_1_1_storage_manager_1a4cca0a38b69106ab9faf0193285e7468" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1io_1_1_storage_manager_1a4cca0a38b69106ab9faf0193285e7468" kindref="member">StorageManager::loadTable</ref>(std::string<sp/>name,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="class_loader_1_1params" kindref="compound">Loader::params</ref><sp/>&amp;parameters)<sp/>{</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><ref refid="class_loader_1_1params" kindref="compound">Loader::params</ref><sp/>*p<sp/>=<sp/>parameters.<ref refid="class_loader_1_1params_1abc7ddb248816894fe0f2108d68426f90" kindref="member">clone</ref>();</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/>p-&gt;<ref refid="class_loader_1_1params_1a57dc6dde7b33886ed624c37a9c42258b" kindref="member">setBasePath</ref>(<ref refid="classhyrise_1_1io_1_1_storage_manager_1ab598183fb4eabc0f04cbd353433a6bd7" kindref="member" tooltip="Base path for loading.">_root_path</ref><sp/>+<sp/></highlight><highlight class="stringliteral">&quot;/&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><ref refid="classhyrise_1_1io_1_1_storage_manager_1a21d12aa6912be028a8bea2da5d436817" kindref="member">addStorageTable</ref>(name,<sp/>*p);</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">delete</highlight><highlight class="normal"><sp/>p;</highlight></codeline>
+<codeline lineno="138"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight></codeline>
+<codeline lineno="140" refid="classhyrise_1_1io_1_1_storage_manager_1aab92f5b4adb68c72c7ef35201c748a6a" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1io_1_1_storage_manager_1aab92f5b4adb68c72c7ef35201c748a6a" kindref="member">StorageManager::loadTableFile</ref>(std::string<sp/>name,<sp/>std::string<sp/>filename)<sp/>{</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><ref refid="class_c_s_v_input" kindref="compound">CSVInput</ref><sp/>input(<ref refid="classhyrise_1_1io_1_1_storage_manager_1a93b8db74c2d6fe2024c592c2e45c0c53" kindref="member">makePath</ref>(filename));</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><ref refid="class_c_s_v_header" kindref="compound">CSVHeader</ref><sp/>header(<ref refid="classhyrise_1_1io_1_1_storage_manager_1a93b8db74c2d6fe2024c592c2e45c0c53" kindref="member">makePath</ref>(filename));</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><ref refid="class_loader_1_1params" kindref="compound">Loader::params</ref><sp/>p;</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/>p.<ref refid="class_loader_1_1params_1ae15c0a2850566717b84eb89310f15da0" kindref="member">setInput</ref>(input);</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/>p.<ref refid="class_loader_1_1params_1a2689b03528610b0191689ac2d2dfd11c" kindref="member">setHeader</ref>(header);</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><ref refid="classhyrise_1_1io_1_1_storage_manager_1a21d12aa6912be028a8bea2da5d436817" kindref="member">addStorageTable</ref>(name,<sp/>p);</highlight></codeline>
+<codeline lineno="147"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight></codeline>
+<codeline lineno="149" refid="classhyrise_1_1io_1_1_storage_manager_1a7517b956a5d4de7f3e4f50fc89c2e343" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1io_1_1_storage_manager_1a7517b956a5d4de7f3e4f50fc89c2e343" kindref="member">StorageManager::loadTableFileWithHeader</ref>(std::string<sp/>name,<sp/>std::string<sp/>datafilename,</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::string<sp/>headerfilename)<sp/>{</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><ref refid="class_c_s_v_input" kindref="compound">CSVInput</ref><sp/>input(<ref refid="classhyrise_1_1io_1_1_storage_manager_1a93b8db74c2d6fe2024c592c2e45c0c53" kindref="member">makePath</ref>(datafilename));</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><ref refid="class_c_s_v_header" kindref="compound">CSVHeader</ref><sp/>header(<ref refid="classhyrise_1_1io_1_1_storage_manager_1a93b8db74c2d6fe2024c592c2e45c0c53" kindref="member">makePath</ref>(headerfilename));</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><ref refid="class_loader_1_1params" kindref="compound">Loader::params</ref><sp/>p;</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/>p.<ref refid="class_loader_1_1params_1ae15c0a2850566717b84eb89310f15da0" kindref="member">setInput</ref>(input);</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/>p.<ref refid="class_loader_1_1params_1a2689b03528610b0191689ac2d2dfd11c" kindref="member">setHeader</ref>(header);</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><ref refid="classhyrise_1_1io_1_1_storage_manager_1a21d12aa6912be028a8bea2da5d436817" kindref="member">addStorageTable</ref>(name,<sp/>p);</highlight></codeline>
+<codeline lineno="157"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight></codeline>
+<codeline lineno="159" refid="classhyrise_1_1io_1_1_storage_manager_1a93b8db74c2d6fe2024c592c2e45c0c53" refkind="member"><highlight class="normal">std::string<sp/><ref refid="classhyrise_1_1io_1_1_storage_manager_1a93b8db74c2d6fe2024c592c2e45c0c53" kindref="member">StorageManager::makePath</ref>(std::string<sp/>filename)<sp/>{</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1io_1_1_storage_manager_1ab598183fb4eabc0f04cbd353433a6bd7" kindref="member" tooltip="Base path for loading.">_root_path</ref><sp/>+<sp/></highlight><highlight class="stringliteral">&quot;/&quot;</highlight><highlight class="normal"><sp/>+<sp/>filename;</highlight></codeline>
+<codeline lineno="161"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight></codeline>
+<codeline lineno="163" refid="classhyrise_1_1io_1_1_storage_manager_1a8bb48ae560cc146e47abbe1275898359" refkind="member"><highlight class="normal">std::shared_ptr&lt;AbstractTable&gt;<sp/><ref refid="classhyrise_1_1io_1_1_storage_manager_1a8bb48ae560cc146e47abbe1275898359" kindref="member">StorageManager::getTable</ref>(std::string<sp/>name)<sp/>{</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="classhyrise_1_1io_1_1_storage_manager_1a7565211b901c48322d601b0dd2377b21" kindref="member">exists</ref>(name))<sp/>{</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/>tbl_file<sp/>=<sp/><ref refid="classhyrise_1_1io_1_1_storage_manager_1ab598183fb4eabc0f04cbd353433a6bd7" kindref="member" tooltip="Base path for loading.">_root_path</ref><sp/>+<sp/></highlight><highlight class="stringliteral">&quot;/&quot;</highlight><highlight class="normal"><sp/>+<sp/>name<sp/>+<sp/></highlight><highlight class="stringliteral">&quot;.tbl&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">stat<sp/>stFileInfo;</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(stat(tbl_file.c_str(),<sp/>&amp;stFileInfo)<sp/>==<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classhyrise_1_1io_1_1_storage_manager_1aab92f5b4adb68c72c7ef35201c748a6a" kindref="member">loadTableFile</ref>(name,<sp/>name<sp/>+<sp/></highlight><highlight class="stringliteral">&quot;.tbl&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1io_1_1_storage_manager_exception" kindref="compound">StorageManagerException</ref>(</highlight><highlight class="stringliteral">&quot;StorageManager:<sp/>Table<sp/>&apos;&quot;</highlight><highlight class="normal"><sp/>+<sp/>name<sp/>+<sp/></highlight><highlight class="stringliteral">&quot;&apos;<sp/>does<sp/>not<sp/>exist&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1io_1_1_storage_manager_1a30628f463321141caedd8064c4de3809" kindref="member" tooltip="The actual schema.">_schema</ref>[name].getTable();</highlight></codeline>
+<codeline lineno="175"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"></highlight></codeline>
+<codeline lineno="177" refid="classhyrise_1_1io_1_1_storage_manager_1a7565211b901c48322d601b0dd2377b21" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1io_1_1_storage_manager_1a7565211b901c48322d601b0dd2377b21" kindref="member">StorageManager::exists</ref>(std::string<sp/>name)</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1io_1_1_storage_manager_1a30628f463321141caedd8064c4de3809" kindref="member" tooltip="The actual schema.">_schema</ref>.count(name)<sp/>==<sp/>1;</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/>}</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"></highlight></codeline>
+<codeline lineno="181" refid="classhyrise_1_1io_1_1_storage_manager_1ab88e19d97d8478af01d8afe76f5cc77a" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1io_1_1_storage_manager_1ab88e19d97d8478af01d8afe76f5cc77a" kindref="member">StorageManager::assureExists</ref>(std::string<sp/>name)</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="classhyrise_1_1io_1_1_storage_manager_1a7565211b901c48322d601b0dd2377b21" kindref="member">exists</ref>(name))<sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1io_1_1_storage_manager_exception" kindref="compound">StorageManagerException</ref>(</highlight><highlight class="stringliteral">&quot;Table<sp/>&apos;&quot;</highlight><highlight class="normal"><sp/>+<sp/>name<sp/>+<sp/></highlight><highlight class="stringliteral">&quot;&apos;<sp/>does<sp/>not<sp/>exist&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="183"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"></highlight></codeline>
+<codeline lineno="185" refid="classhyrise_1_1io_1_1_storage_manager_1a4ac880fb5c8e9f3b5e2f113b805426e4" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1io_1_1_storage_manager_1a4ac880fb5c8e9f3b5e2f113b805426e4" kindref="member">StorageManager::preloadTable</ref>(std::string<sp/>name)<sp/>{</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><ref refid="classhyrise_1_1io_1_1_storage_manager_1ab88e19d97d8478af01d8afe76f5cc77a" kindref="member">assureExists</ref>(name);</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><ref refid="classhyrise_1_1io_1_1_storage_manager_1a30628f463321141caedd8064c4de3809" kindref="member" tooltip="The actual schema.">_schema</ref>[name].load();</highlight></codeline>
+<codeline lineno="188"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"></highlight></codeline>
+<codeline lineno="190" refid="classhyrise_1_1io_1_1_storage_manager_1a98e7868bc9b0b2b0baaca57985860c84" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1io_1_1_storage_manager_1a98e7868bc9b0b2b0baaca57985860c84" kindref="member">StorageManager::unloadTable</ref>(std::string<sp/>name)<sp/>{</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><ref refid="classhyrise_1_1io_1_1_storage_manager_1ab88e19d97d8478af01d8afe76f5cc77a" kindref="member">assureExists</ref>(name);</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><ref refid="classhyrise_1_1io_1_1_storage_manager_1a30628f463321141caedd8064c4de3809" kindref="member" tooltip="The actual schema.">_schema</ref>[name].unload();</highlight></codeline>
+<codeline lineno="193"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"></highlight></codeline>
+<codeline lineno="195" refid="classhyrise_1_1io_1_1_storage_manager_1a5308344c51f8ee6519741dc54453d0cc" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1io_1_1_storage_manager_1a5308344c51f8ee6519741dc54453d0cc" kindref="member">StorageManager::removeTable</ref>(std::string<sp/>name)<sp/>{</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="classhyrise_1_1io_1_1_storage_manager_1a7565211b901c48322d601b0dd2377b21" kindref="member">exists</ref>(name))<sp/>{</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhyrise_1_1io_1_1_storage_manager_1a30628f463321141caedd8064c4de3809" kindref="member" tooltip="The actual schema.">_schema</ref>[name].unload();</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/>std::lock_guard&lt;std::mutex&gt;<sp/>lock(<ref refid="classhyrise_1_1io_1_1_storage_manager_1ad4b64b9cbd3f9006f54dc573091dba3f" kindref="member" tooltip="Mutex protecting the _schema map.">_schema_mutex</ref>);</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhyrise_1_1io_1_1_storage_manager_1a30628f463321141caedd8064c4de3809" kindref="member" tooltip="The actual schema.">_schema</ref>.erase(name);</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="201"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"></highlight></codeline>
+<codeline lineno="203" refid="classhyrise_1_1io_1_1_storage_manager_1a55e3d822bf3b1e2f807bee52a65cdf4b" refkind="member"><highlight class="normal">std::vector&lt;std::string&gt;<sp/><ref refid="classhyrise_1_1io_1_1_storage_manager_1a55e3d822bf3b1e2f807bee52a65cdf4b" kindref="member" tooltip="Retrieve all table names.">StorageManager::getTableNames</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/>std::vector&lt;std::string&gt;<sp/>ret;</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>&amp;<sp/>kv<sp/>:<sp/><ref refid="classhyrise_1_1io_1_1_storage_manager_1a30628f463321141caedd8064c4de3809" kindref="member" tooltip="The actual schema.">_schema</ref>)</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/>ret.push_back(kv.first);</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>ret;</highlight></codeline>
+<codeline lineno="208"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"></highlight></codeline>
+<codeline lineno="210" refid="namespacehyrise_1_1io_1a60a7bca81b51b605fe5b3567bd737aae" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/><ref refid="namespacehyrise_1_1io_1a60a7bca81b51b605fe5b3567bd737aae" kindref="member">SYSTEM_PREFIX</ref><sp/>=<sp/></highlight><highlight class="stringliteral">&quot;sys:&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"></highlight></codeline>
+<codeline lineno="212" refid="namespacehyrise_1_1io_1ae6fc5da6b4da14efade7d7940fbaad35" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="namespacehyrise_1_1io_1ae6fc5da6b4da14efade7d7940fbaad35" kindref="member">is_not_sys_table</ref>(StorageManager::schema_map_t::value_type<sp/>i)<sp/>{</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>!(i.first.compare(0,<sp/><ref refid="namespacehyrise_1_1io_1a60a7bca81b51b605fe5b3567bd737aae" kindref="member">SYSTEM_PREFIX</ref>.size(),<sp/><ref refid="namespacehyrise_1_1io_1a60a7bca81b51b605fe5b3567bd737aae" kindref="member">SYSTEM_PREFIX</ref>)<sp/>==<sp/>0);</highlight></codeline>
+<codeline lineno="214"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"></highlight></codeline>
+<codeline lineno="216" refid="classhyrise_1_1io_1_1_storage_manager_1a969c13b916886526bcd89db6aefbee7b" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1io_1_1_storage_manager_1a969c13b916886526bcd89db6aefbee7b" kindref="member" tooltip="Retrieve number of tables.">StorageManager::size</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>std::count_if(<ref refid="classhyrise_1_1io_1_1_storage_manager_1a30628f463321141caedd8064c4de3809" kindref="member" tooltip="The actual schema.">_schema</ref>.cbegin(),<sp/><ref refid="classhyrise_1_1io_1_1_storage_manager_1a30628f463321141caedd8064c4de3809" kindref="member" tooltip="The actual schema.">_schema</ref>.cend(),<sp/><ref refid="namespacehyrise_1_1io_1ae6fc5da6b4da14efade7d7940fbaad35" kindref="member">is_not_sys_table</ref>);</highlight></codeline>
+<codeline lineno="218"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"></highlight></codeline>
+<codeline lineno="220" refid="classhyrise_1_1io_1_1_storage_manager_1a5d36ac1b1eddd52dcf02073197d24218" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1io_1_1_storage_manager_1a5d36ac1b1eddd52dcf02073197d24218" kindref="member" tooltip="unloads all tables">StorageManager::unloadAll</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>&amp;<sp/>kv<sp/>:<sp/><ref refid="classhyrise_1_1io_1_1_storage_manager_1a30628f463321141caedd8064c4de3809" kindref="member" tooltip="The actual schema.">_schema</ref>)</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/>kv.second.unload();</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Clear<sp/>state</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><ref refid="classhyrise_1_1io_1_1_storage_manager_1a81db5a53edcdcadcf1039577cc687034" kindref="member" tooltip="Assures that we only initialize once.">_initialized</ref><sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="225"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"></highlight></codeline>
+<codeline lineno="227" refid="classhyrise_1_1io_1_1_storage_manager_1a66e6c06f6516b19d4675baff48b528bf" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1io_1_1_storage_manager_1a66e6c06f6516b19d4675baff48b528bf" kindref="member">StorageManager::preloadAll</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>&amp;<sp/>kv<sp/>:<sp/><ref refid="classhyrise_1_1io_1_1_storage_manager_1a30628f463321141caedd8064c4de3809" kindref="member" tooltip="The actual schema.">_schema</ref>)</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/>kv.second.load();</highlight></codeline>
+<codeline lineno="230"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"></highlight></codeline>
+<codeline lineno="232" refid="classhyrise_1_1io_1_1_storage_manager_1a8ae4677060c29dd5b6fed2871e557b5b" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1io_1_1_storage_manager_1a8ae4677060c29dd5b6fed2871e557b5b" kindref="member">StorageManager::removeAll</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/>std::lock_guard&lt;std::mutex&gt;<sp/>lock(<ref refid="classhyrise_1_1io_1_1_storage_manager_1ad4b64b9cbd3f9006f54dc573091dba3f" kindref="member" tooltip="Mutex protecting the _schema map.">_schema_mutex</ref>);</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><ref refid="classhyrise_1_1io_1_1_storage_manager_1a5d36ac1b1eddd52dcf02073197d24218" kindref="member" tooltip="unloads all tables">unloadAll</ref>();</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><ref refid="classhyrise_1_1io_1_1_storage_manager_1a30628f463321141caedd8064c4de3809" kindref="member" tooltip="The actual schema.">_schema</ref>.clear();</highlight></codeline>
+<codeline lineno="236"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"></highlight></codeline>
+<codeline lineno="238" refid="classhyrise_1_1io_1_1_storage_manager_1a38e4a28aa4f82b3f02d0fea3374968b9" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1io_1_1_storage_manager_1a38e4a28aa4f82b3f02d0fea3374968b9" kindref="member" tooltip="Prints the complete schema.">StorageManager::printSchema</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;=======<sp/>Schema<sp/>=======&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>&amp;<sp/>kv<sp/>:<sp/><ref refid="classhyrise_1_1io_1_1_storage_manager_1a30628f463321141caedd8064c4de3809" kindref="member" tooltip="The actual schema.">_schema</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>&amp;name<sp/>=<sp/>kv.first;</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>&amp;storage_table<sp/>=<sp/>kv.second;</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Table<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>name<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"></highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(storage_table.isLoaded())<sp/>{</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>t<sp/>=<sp/>storage_table.getTable();</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;[Loaded]<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&lt;&lt;<sp/>t-&gt;size()<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>rows<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&lt;&lt;<sp/>t-&gt;columnCount()<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>columns&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&lt;&lt;<sp/>std::endl</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/><sp/><sp/><sp/>Columns:&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"></highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(<ref refid="storage__types_8h_1a5ce4ecb27464dc24ba394527510dd89b" kindref="member">field_t</ref><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>!=<sp/>t-&gt;columnCount();<sp/>i++)<sp/>{</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>t-&gt;metadataAt(i)-&gt;getName();</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"></highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(storage_table.isLoadable())<sp/>{</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>[Loadable]&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>[Dead]&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;====================&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="267"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"></highlight></codeline>
+<codeline lineno="269" refid="namespacehyrise_1_1io_1acdc4764126100cf188b53da1d6f4b350" refkind="member"><highlight class="normal">std::vector&lt;std::string&gt;<sp/><ref refid="namespacehyrise_1_1io_1acdc4764126100cf188b53da1d6f4b350" kindref="member">listDirectory</ref>(std::string<sp/>dir)<sp/>{</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/>std::vector&lt;std::string&gt;<sp/>files;</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/>DIR<sp/>*dp;</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">dirent<sp/>*dirp;</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"></highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((dp<sp/><sp/>=<sp/>opendir(dir.c_str()))<sp/>==<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">)<sp/>{</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1io_1_1_storage_manager_exception" kindref="compound">StorageManagerException</ref>(</highlight><highlight class="stringliteral">&quot;Error<sp/>opening<sp/>directory:<sp/>&apos;&quot;</highlight><highlight class="normal"><sp/>+<sp/>dir<sp/>+<sp/></highlight><highlight class="stringliteral">&quot;&apos;&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"></highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>((dirp<sp/>=<sp/>readdir(dp))<sp/>!=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">)<sp/>{</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"><sp/><sp/><sp/><sp/>files.push_back(std::string(dirp-&gt;d_name));</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"></highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/>closedir(dp);</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>files;</highlight></codeline>
+<codeline lineno="284"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"></highlight></codeline>
+<codeline lineno="286" refid="classhyrise_1_1io_1_1_storage_manager_1a62adc195d9d60ed67d85f40e28bd44bd" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1io_1_1_storage_manager_1a62adc195d9d60ed67d85f40e28bd44bd" kindref="member" tooltip="saves the inverted index using the name table_name.">StorageManager::addInvertedIndex</ref>(std::string<sp/>table_name,<sp/>std::shared_ptr&lt;AbstractIndex&gt;<sp/>_index)<sp/>{</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="classhyrise_1_1io_1_1_storage_manager_1a7565211b901c48322d601b0dd2377b21" kindref="member">exists</ref>(table_name))<sp/>{</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhyrise_1_1io_1_1_storage_manager_1a68fe3c044f2aed7f63adc9ace1def7e5" kindref="member" tooltip="Indices map.">_indices</ref>[table_name]<sp/>=<sp/>_index;</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//overwrite<sp/>as<sp/>of<sp/>now</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="291"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhyrise_1_1io_1_1_storage_manager_1a68fe3c044f2aed7f63adc9ace1def7e5" kindref="member" tooltip="Indices map.">_indices</ref>[table_name]<sp/>=<sp/>_index;</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="293"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="294"><highlight class="normal"></highlight></codeline>
+<codeline lineno="295" refid="classhyrise_1_1io_1_1_storage_manager_1ad36858874b54d3fc1f00928ecf891155" refkind="member"><highlight class="normal">std::shared_ptr&lt;AbstractIndex&gt;<sp/><ref refid="classhyrise_1_1io_1_1_storage_manager_1ad36858874b54d3fc1f00928ecf891155" kindref="member" tooltip="returns the index stored under name table_name.">StorageManager::getInvertedIndex</ref>(std::string<sp/>table_name)<sp/>{</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/>indices_t::iterator<sp/>it<sp/>=<sp/><ref refid="classhyrise_1_1io_1_1_storage_manager_1a68fe3c044f2aed7f63adc9ace1def7e5" kindref="member" tooltip="Indices map.">_indices</ref>.find(table_name);</highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(it<sp/>!=<sp/><ref refid="classhyrise_1_1io_1_1_storage_manager_1a68fe3c044f2aed7f63adc9ace1def7e5" kindref="member" tooltip="Indices map.">_indices</ref>.end())<sp/>{</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>it-&gt;second;</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1io_1_1_missing_index_exception" kindref="compound">MissingIndexException</ref>(</highlight><highlight class="stringliteral">&quot;No<sp/>such<sp/>index<sp/>found<sp/>for<sp/>table:<sp/>&quot;</highlight><highlight class="normal"><sp/>+<sp/>table_name);</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="302"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="303"><highlight class="normal"></highlight></codeline>
+<codeline lineno="304"><highlight class="normal">}}<sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>hyrise::io</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="305"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/home/grund/hyrise/src/lib/io/StorageManager.cpp"/>
+  </compounddef>
+</doxygen>

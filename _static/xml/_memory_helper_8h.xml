@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="_memory_helper_8h" kind="file">
+    <compoundname>MemoryHelper.h</compoundname>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="_memory_helper_8h_1ad5c378c97c3f2334917b7a984334beca" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void *</type>
+        <definition>void* realloc_and_fill</definition>
+        <argsstring>(size_t fill, void *pBuffer, size_t oldSize, size_t newSize)</argsstring>
+        <name>realloc_and_fill</name>
+        <param>
+          <type>size_t</type>
+          <declname>fill</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>pBuffer</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>oldSize</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>newSize</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/MemoryHelper.h" line="6" bodyfile="/home/grund/hyrise/src/lib/helper/MemoryHelper.h" bodystart="6" bodyend="16"/>
+      </memberdef>
+      <memberdef kind="function" id="_memory_helper_8h_1a4b8259ba174a2fe7e19c6baf1c916d92" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t round_to_8</definition>
+        <argsstring>(size_t bits)</argsstring>
+        <name>round_to_8</name>
+        <param>
+          <type>size_t</type>
+          <declname>bits</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/MemoryHelper.h" line="19" bodyfile="/home/grund/hyrise/src/lib/helper/MemoryHelper.h" bodystart="19" bodyend="25"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>2012<sp/>Hasso-Plattner-Institut<sp/>fuer<sp/>Softwaresystemtechnik<sp/>GmbH.<sp/>All<sp/>rights<sp/>reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SRC_LIB_HELPER_MEMORYHELPER_H_</highlight></codeline>
+<codeline lineno="3"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SRC_LIB_HELPER_MEMORYHELPER_H_</highlight></codeline>
+<codeline lineno="4"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>reallocs<sp/>space<sp/>and<sp/>fills<sp/>with<sp/>value<sp/>if<sp/>needed<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6" refid="_memory_helper_8h_1ad5c378c97c3f2334917b7a984334beca" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*<ref refid="_memory_helper_8h_1ad5c378c97c3f2334917b7a984334beca" kindref="member">realloc_and_fill</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>fill,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*pBuffer,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>oldSize,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>newSize)<sp/>{</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*pNew<sp/>=<sp/>realloc(pBuffer,<sp/>newSize);</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(newSize<sp/>&gt;<sp/>oldSize<sp/>&amp;&amp;<sp/>pNew)<sp/>{</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>diff<sp/>=<sp/>newSize<sp/>-<sp/>oldSize;</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*pStart<sp/>=<sp/>((</highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*)pNew)<sp/>+<sp/>oldSize;</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/><sp/>memset(pStart,<sp/>fill,<sp/>diff);</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>pNew;</highlight></codeline>
+<codeline lineno="16"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>round<sp/>up<sp/>to<sp/>the<sp/>nearest<sp/>multiple<sp/>of<sp/>8<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19" refid="_memory_helper_8h_1a4b8259ba174a2fe7e19c6baf1c916d92" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="_memory_helper_8h_1a4b8259ba174a2fe7e19c6baf1c916d92" kindref="member">round_to_8</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>bits)<sp/>{</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(bits<sp/>%<sp/>8<sp/>!=<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/>bits<sp/>+=<sp/>8<sp/>-<sp/>(bits<sp/>%<sp/>8);</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>bits;</highlight></codeline>
+<codeline lineno="25"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/>//<sp/>SRC_LIB_HELPER_MEMORYHELPER_H_</highlight></codeline>
+    </programlisting>
+    <location file="/home/grund/hyrise/src/lib/helper/MemoryHelper.h"/>
+  </compounddef>
+</doxygen>

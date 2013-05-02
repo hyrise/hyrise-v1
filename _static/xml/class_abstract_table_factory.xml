@@ -1,0 +1,112 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="class_abstract_table_factory" kind="class" prot="public">
+    <compoundname>AbstractTableFactory</compoundname>
+    <derivedcompoundref refid="class_table_factory" prot="public" virt="non-virtual">TableFactory&lt; Strategy, Allocator &gt;</derivedcompoundref>
+    <includes refid="_table_factory_8h" local="no">TableFactory.h</includes>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_abstract_table_factory_1a9abf29e28b3318d6ede6167a7dcedfbc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>AbstractTableFactory::AbstractTableFactory</definition>
+        <argsstring>()</argsstring>
+        <name>AbstractTableFactory</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableFactory.h" line="14" bodyfile="/home/grund/hyrise/src/lib/storage/TableFactory.cpp" bodystart="4" bodyend="4"/>
+      </memberdef>
+      <memberdef kind="function" id="class_abstract_table_factory_1ad6fe88375433943ff15789c29cd6e7c9" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>AbstractTableFactory::~AbstractTableFactory</definition>
+        <argsstring>()</argsstring>
+        <name>~AbstractTableFactory</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableFactory.h" line="15" bodyfile="/home/grund/hyrise/src/lib/storage/TableFactory.cpp" bodystart="6" bodyend="6"/>
+      </memberdef>
+      <memberdef kind="function" id="class_abstract_table_factory_1a1d3b0ec6b2d1a4cd1fa961664347c0f3" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type><ref refid="namespacehyrise_1_1storage_1a21d5e900c20019710828c453eaded1ee" kindref="member">hyrise::storage::atable_ptr_t</ref></type>
+        <definition>virtual hyrise::storage::atable_ptr_t AbstractTableFactory::generate</definition>
+        <argsstring>(std::vector&lt; const ColumnMetadata * &gt; *meta, std::vector&lt; AbstractTable::SharedDictionaryPtr &gt; *d=nullptr, size_t initial_size=0, bool sorted=true, bool compressed=false, size_t padding_size=0, size_t _align_size=0)=0</argsstring>
+        <name>generate</name>
+        <reimplementedby refid="class_table_factory_1a31ca1b1cfe6fb069f0dac1d88b001cab">generate</reimplementedby>
+        <param>
+          <type>std::vector&lt; const <ref refid="class_column_metadata" kindref="compound">ColumnMetadata</ref> * &gt; *</type>
+          <declname>meta</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; <ref refid="class_abstract_table_1af76ff827deb697db8077a90c450381ab" kindref="member">AbstractTable::SharedDictionaryPtr</ref> &gt; *</type>
+          <declname>d</declname>
+          <defval><ref refid="csb__tree_8cpp_1ab979d9d4b4923f7c54d6caa6e1a61936" kindref="member">nullptr</ref></defval>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>initial_size</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>sorted</declname>
+          <defval>true</defval>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>compressed</declname>
+          <defval>false</defval>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>padding_size</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>_align_size</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableFactory.h" line="22"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1432">
+        <label>TableFactory&lt; Strategy, Allocator &gt;</label>
+        <link refid="class_table_factory"/>
+        <childnode refid="1431" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1431">
+        <label>AbstractTableFactory</label>
+        <link refid="class_abstract_table_factory"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1433">
+        <label>AbstractTableFactory</label>
+        <link refid="class_abstract_table_factory"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/storage/TableFactory.h" line="12" bodyfile="/home/grund/hyrise/src/lib/storage/TableFactory.h" bodystart="12" bodyend="23"/>
+    <listofallmembers>
+      <member refid="class_abstract_table_factory_1a9abf29e28b3318d6ede6167a7dcedfbc" prot="public" virt="non-virtual"><scope>AbstractTableFactory</scope><name>AbstractTableFactory</name></member>
+      <member refid="class_abstract_table_factory_1a1d3b0ec6b2d1a4cd1fa961664347c0f3" prot="public" virt="pure-virtual"><scope>AbstractTableFactory</scope><name>generate</name></member>
+      <member refid="class_abstract_table_factory_1ad6fe88375433943ff15789c29cd6e7c9" prot="public" virt="virtual"><scope>AbstractTableFactory</scope><name>~AbstractTableFactory</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

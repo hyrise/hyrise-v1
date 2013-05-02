@@ -1,0 +1,440 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="_logarithmic_merge_strategy_8cpp" kind="file">
+    <compoundname>LogarithmicMergeStrategy.cpp</compoundname>
+    <includes refid="_logarithmic_merge_strategy_8h" local="yes">storage/LogarithmicMergeStrategy.h</includes>
+    <incdepgraph>
+      <node id="20460">
+        <label>list</label>
+      </node>
+      <node id="20448">
+        <label>boost/mpl/vector.hpp</label>
+      </node>
+      <node id="20438">
+        <label>limits</label>
+      </node>
+      <node id="20479">
+        <label>boost/functional/hash.hpp</label>
+      </node>
+      <node id="20454">
+        <label>assert.h</label>
+      </node>
+      <node id="20450">
+        <label>boost/lexical_cast.hpp</label>
+      </node>
+      <node id="20470">
+        <label>boost/iterator/iterator_facade.hpp</label>
+      </node>
+      <node id="20436">
+        <label>cstdint</label>
+      </node>
+      <node id="20467">
+        <label>storage/BaseDictionary.h</label>
+        <link refid="_base_dictionary_8h"/>
+        <childnode refid="20445" relation="include">
+        </childnode>
+        <childnode refid="20456" relation="include">
+        </childnode>
+        <childnode refid="20468" relation="include">
+        </childnode>
+      </node>
+      <node id="20446">
+        <label>stdint.h</label>
+      </node>
+      <node id="20466">
+        <label>stdlib.h</label>
+      </node>
+      <node id="20464">
+        <label>errno.h</label>
+      </node>
+      <node id="20443">
+        <label>stdexcept</label>
+      </node>
+      <node id="20437">
+        <label>string</label>
+      </node>
+      <node id="20476">
+        <label>map</label>
+      </node>
+      <node id="20452">
+        <label>storage/ValueIdMap.hpp</label>
+        <link refid="_value_id_map_8hpp"/>
+        <childnode refid="20453" relation="include">
+        </childnode>
+        <childnode refid="20472" relation="include">
+        </childnode>
+      </node>
+      <node id="20463">
+        <label>memory/MemalignStrategy.h</label>
+        <link refid="_memalign_strategy_8h"/>
+        <childnode refid="20464" relation="include">
+        </childnode>
+        <childnode refid="20465" relation="include">
+        </childnode>
+        <childnode refid="20466" relation="include">
+        </childnode>
+      </node>
+      <node id="20475">
+        <label>exception</label>
+      </node>
+      <node id="20458">
+        <label>stddef.h</label>
+      </node>
+      <node id="20472">
+        <label>storage/OrderIndifferentDictionary.h</label>
+        <link refid="_order_indifferent_dictionary_8h"/>
+        <childnode refid="20445" relation="include">
+        </childnode>
+        <childnode refid="20456" relation="include">
+        </childnode>
+        <childnode refid="20467" relation="include">
+        </childnode>
+        <childnode refid="20468" relation="include">
+        </childnode>
+        <childnode refid="20473" relation="include">
+        </childnode>
+        <childnode refid="20471" relation="include">
+        </childnode>
+        <childnode refid="20475" relation="include">
+        </childnode>
+        <childnode refid="20440" relation="include">
+        </childnode>
+        <childnode refid="20476" relation="include">
+        </childnode>
+        <childnode refid="20439" relation="include">
+        </childnode>
+        <childnode refid="20477" relation="include">
+        </childnode>
+        <childnode refid="20478" relation="include">
+        </childnode>
+        <childnode refid="20479" relation="include">
+        </childnode>
+      </node>
+      <node id="20447">
+        <label>ostream</label>
+      </node>
+      <node id="20441">
+        <label>storage/AbstractMergeStrategy.h</label>
+        <link refid="_abstract_merge_strategy_8h"/>
+        <childnode refid="20440" relation="include">
+        </childnode>
+        <childnode refid="20442" relation="include">
+        </childnode>
+      </node>
+      <node id="20477">
+        <label>limits.h</label>
+      </node>
+      <node id="20433">
+        <label>src/lib/storage/LogarithmicMergeStrategy.cpp</label>
+        <link refid="LogarithmicMergeStrategy.cpp"/>
+        <childnode refid="20434" relation="include">
+        </childnode>
+      </node>
+      <node id="20468">
+        <label>storage/DictionaryIterator.h</label>
+        <link refid="_dictionary_iterator_8h"/>
+        <childnode refid="20469" relation="include">
+        </childnode>
+        <childnode refid="20470" relation="include">
+        </childnode>
+      </node>
+      <node id="20456">
+        <label>storage/AbstractDictionary.h</label>
+        <link refid="_abstract_dictionary_8h"/>
+        <childnode refid="20440" relation="include">
+        </childnode>
+        <childnode refid="20437" relation="include">
+        </childnode>
+        <childnode refid="20439" relation="include">
+        </childnode>
+        <childnode refid="20457" relation="include">
+        </childnode>
+        <childnode refid="20461" relation="include">
+        </childnode>
+        <childnode refid="20463" relation="include">
+        </childnode>
+        <childnode refid="20445" relation="include">
+        </childnode>
+      </node>
+      <node id="20474">
+        <label>string.h</label>
+      </node>
+      <node id="20442">
+        <label>storage/AbstractTable.h</label>
+        <link refid="_abstract_table_8h"/>
+        <childnode refid="20438" relation="include">
+        </childnode>
+        <childnode refid="20439" relation="include">
+        </childnode>
+        <childnode refid="20443" relation="include">
+        </childnode>
+        <childnode refid="20440" relation="include">
+        </childnode>
+        <childnode refid="20437" relation="include">
+        </childnode>
+        <childnode refid="20435" relation="include">
+        </childnode>
+        <childnode refid="20444" relation="include">
+        </childnode>
+        <childnode refid="20445" relation="include">
+        </childnode>
+        <childnode refid="20451" relation="include">
+        </childnode>
+        <childnode refid="20452" relation="include">
+        </childnode>
+      </node>
+      <node id="20444">
+        <label>storage/AbstractResource.h</label>
+        <link refid="_abstract_resource_8h"/>
+      </node>
+      <node id="20478">
+        <label>boost/unordered_map.hpp</label>
+      </node>
+      <node id="20440">
+        <label>vector</label>
+      </node>
+      <node id="20434">
+        <label>storage/LogarithmicMergeStrategy.h</label>
+        <link refid="_logarithmic_merge_strategy_8h"/>
+        <childnode refid="20435" relation="include">
+        </childnode>
+        <childnode refid="20441" relation="include">
+        </childnode>
+        <childnode refid="20442" relation="include">
+        </childnode>
+      </node>
+      <node id="20435">
+        <label>helper/types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="20436" relation="include">
+        </childnode>
+        <childnode refid="20437" relation="include">
+        </childnode>
+        <childnode refid="20438" relation="include">
+        </childnode>
+        <childnode refid="20439" relation="include">
+        </childnode>
+        <childnode refid="20440" relation="include">
+        </childnode>
+      </node>
+      <node id="20469">
+        <label>storage/BaseIterator.h</label>
+        <link refid="_base_iterator_8h"/>
+      </node>
+      <node id="20457">
+        <label>memory/StrategizedAllocator.h</label>
+        <link refid="_strategized_allocator_8h"/>
+        <childnode refid="20458" relation="include">
+        </childnode>
+        <childnode refid="20459" relation="include">
+        </childnode>
+        <childnode refid="20460" relation="include">
+        </childnode>
+        <childnode refid="20443" relation="include">
+        </childnode>
+      </node>
+      <node id="20455">
+        <label>iostream</label>
+      </node>
+      <node id="20451">
+        <label>storage/ColumnMetadata.h</label>
+        <link refid="_column_metadata_8h"/>
+        <childnode refid="20445" relation="include">
+        </childnode>
+        <childnode refid="20437" relation="include">
+        </childnode>
+        <childnode refid="20443" relation="include">
+        </childnode>
+      </node>
+      <node id="20449">
+        <label>boost/mpl/map.hpp</label>
+      </node>
+      <node id="20471">
+        <label>storage/AbstractAllocatedDictionary.h</label>
+        <link refid="_abstract_allocated_dictionary_8h"/>
+      </node>
+      <node id="20461">
+        <label>memory/MallocStrategy.h</label>
+        <link refid="_malloc_strategy_8h"/>
+        <childnode refid="20455" relation="include">
+        </childnode>
+        <childnode refid="20436" relation="include">
+        </childnode>
+        <childnode refid="20462" relation="include">
+        </childnode>
+      </node>
+      <node id="20453">
+        <label>storage/OrderPreservingDictionary.h</label>
+        <link refid="_order_preserving_dictionary_8h"/>
+        <childnode refid="20454" relation="include">
+        </childnode>
+        <childnode refid="20455" relation="include">
+        </childnode>
+        <childnode refid="20439" relation="include">
+        </childnode>
+        <childnode refid="20445" relation="include">
+        </childnode>
+        <childnode refid="20456" relation="include">
+        </childnode>
+        <childnode refid="20467" relation="include">
+        </childnode>
+        <childnode refid="20468" relation="include">
+        </childnode>
+        <childnode refid="20471" relation="include">
+        </childnode>
+        <childnode refid="20469" relation="include">
+        </childnode>
+      </node>
+      <node id="20459">
+        <label>algorithm</label>
+      </node>
+      <node id="20465">
+        <label>stdio.h</label>
+      </node>
+      <node id="20462">
+        <label>cstring</label>
+      </node>
+      <node id="20473">
+        <label>storage/csb_tree.h</label>
+        <link refid="csb__tree_8h"/>
+        <childnode refid="20440" relation="include">
+        </childnode>
+        <childnode refid="20455" relation="include">
+        </childnode>
+        <childnode refid="20460" relation="include">
+        </childnode>
+        <childnode refid="20439" relation="include">
+        </childnode>
+        <childnode refid="20474" relation="include">
+        </childnode>
+        <childnode refid="20454" relation="include">
+        </childnode>
+        <childnode refid="20470" relation="include">
+        </childnode>
+      </node>
+      <node id="20439">
+        <label>memory</label>
+      </node>
+      <node id="20445">
+        <label>storage/storage_types.h</label>
+        <link refid="storage__types_8h"/>
+        <childnode refid="20440" relation="include">
+        </childnode>
+        <childnode refid="20437" relation="include">
+        </childnode>
+        <childnode refid="20443" relation="include">
+        </childnode>
+        <childnode refid="20446" relation="include">
+        </childnode>
+        <childnode refid="20447" relation="include">
+        </childnode>
+        <childnode refid="20448" relation="include">
+        </childnode>
+        <childnode refid="20449" relation="include">
+        </childnode>
+        <childnode refid="20450" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>2012<sp/>Hasso-Plattner-Institut<sp/>fuer<sp/>Softwaresystemtechnik<sp/>GmbH.<sp/>All<sp/>rights<sp/>reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_logarithmic_merge_strategy_8h" kindref="compound">storage/LogarithmicMergeStrategy.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4" refid="class_logarithmic_merge_strategy_1a2fc6277acc6fbfa1948c95c6a22ba9c2" refkind="member"><highlight class="normal"><ref refid="class_logarithmic_merge_strategy_1a2fc6277acc6fbfa1948c95c6a22ba9c2" kindref="member">LogarithmicMergeStrategy::LogarithmicMergeStrategy</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>max_generation_count)<sp/>:</highlight></codeline>
+<codeline lineno="5"><highlight class="normal"><sp/><sp/><sp/><sp/>_max_generation_count(max_generation_count)<sp/>{</highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9" refid="class_logarithmic_merge_strategy_1ac162d62ad799887c5a9646936a9e8b71" refkind="member"><highlight class="normal"><ref refid="class_logarithmic_merge_strategy_1ac162d62ad799887c5a9646936a9e8b71" kindref="member">LogarithmicMergeStrategy::~LogarithmicMergeStrategy</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="comment">//<sp/>calculate<sp/>new<sp/>size<sp/>-<sp/>insert<sp/>only</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14" refid="class_logarithmic_merge_strategy_1a1f213fe5a34679eea224eebb5ef8734d" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="class_logarithmic_merge_strategy_1a1f213fe5a34679eea224eebb5ef8734d" kindref="member">LogarithmicMergeStrategy::calculateNewSize</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;hyrise::storage::c_atable_ptr_t<sp/>&gt;&amp;<sp/>input_tables)</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>new_size<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>table<sp/>=<sp/>0;<sp/>table<sp/>&lt;<sp/>input_tables.size();<sp/>table++)<sp/>{</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/>new_size<sp/>+=<sp/>input_tables[table]-&gt;size();</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>new_size;</highlight></codeline>
+<codeline lineno="22"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="comment">//<sp/>all<sp/>tables<sp/>that<sp/>should<sp/>be<sp/>merged<sp/>are<sp/>moved<sp/>to<sp/>tables_to_merge</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="comment">//<sp/>the<sp/>rest<sp/>stays<sp/>in<sp/>input_tables</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26" refid="class_logarithmic_merge_strategy_1a12a4d345a071168de45e7bd9ed18b95d" refkind="member"><highlight class="normal"><ref refid="struct__merge__tables" kindref="compound">merge_tables</ref><sp/><ref refid="class_logarithmic_merge_strategy_1a12a4d345a071168de45e7bd9ed18b95d" kindref="member">LogarithmicMergeStrategy::determineTablesToMerge</ref>(std::vector&lt;hyrise::storage::c_atable_ptr_t<sp/>&gt;<sp/>&amp;input_tables)</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/>std::vector&lt;hyrise::storage::c_atable_ptr_t<sp/>&gt;<sp/>tables_to_merge,<sp/>tables_not_to_merge;</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="class_logarithmic_merge_strategy_1a50a9564f465fe61bd7a2db499c15a863" kindref="member">_max_generation_count</ref><sp/>==<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>this<sp/>is<sp/>the<sp/>immediate<sp/>merge<sp/>strategy</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>we<sp/>always<sp/>merge<sp/>all<sp/>tables</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/>tables_to_merge<sp/>=<sp/>input_tables;</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>generation_count<sp/>=<sp/>0,<sp/>carry<sp/>=<sp/>0,<sp/>merge_count<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>input_tables<sp/>is<sp/>sorted<sp/>descending<sp/>by<sp/>generation</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>step<sp/>through<sp/>it<sp/>backwards<sp/>and<sp/>add<sp/>all<sp/>tables<sp/>which<sp/>violate</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>_max_generation_count<sp/>to<sp/>tables_to_merge</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>input_tables.size();<sp/>i<sp/>&gt;<sp/>0;<sp/>i--)<sp/>{</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>calculate<sp/>size<sp/>of<sp/>block<sp/>with<sp/>tables<sp/>with<sp/>same<sp/>generation</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>generation_count++;</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(i<sp/>==<sp/>1<sp/>||<sp/>input_tables[i<sp/>-<sp/>1]-&gt;generation()<sp/>!=<sp/>input_tables[i<sp/>-<sp/>2]-&gt;generation())<sp/>{</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>we<sp/>are<sp/>at<sp/>the<sp/>end<sp/>of<sp/>one<sp/>block</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(generation_count<sp/>+<sp/>carry<sp/>&gt;<sp/><ref refid="class_logarithmic_merge_strategy_1a50a9564f465fe61bd7a2db499c15a863" kindref="member">_max_generation_count</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>the<sp/>block<sp/>ist<sp/>to<sp/>big<sp/>an<sp/>needs<sp/>to<sp/>be<sp/>merged</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>merge_count<sp/>+=<sp/>generation_count;</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(generation_count<sp/>&gt;<sp/><ref refid="class_logarithmic_merge_strategy_1a50a9564f465fe61bd7a2db499c15a863" kindref="member">_max_generation_count</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>carry++;</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>generation_count<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>is<sp/>there<sp/>a<sp/>gap<sp/>in<sp/>generations?</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(i<sp/>&gt;<sp/>1<sp/>&amp;&amp;<sp/>(input_tables[i<sp/>-<sp/>1]-&gt;generation()<sp/>+<sp/>1<sp/>&lt;<sp/>input_tables[i<sp/>-<sp/>2]-&gt;generation()))<sp/>{</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>add<sp/>tables<sp/>that<sp/>need<sp/>to<sp/>be<sp/>merged</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/>tables_to_merge.reserve(merge_count);</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>input_tables.size()<sp/>-<sp/>merge_count;<sp/>i++)<sp/>{</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>tables_not_to_merge.push_back(input_tables[i]);</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>input_tables.size()<sp/>-<sp/>merge_count;<sp/>i<sp/>&lt;<sp/>input_tables.size();<sp/>i++)<sp/>{</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>tables_to_merge.push_back(input_tables[i]);</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="struct__merge__tables" kindref="compound">_merge_tables</ref>(tables_to_merge,<sp/>tables_not_to_merge);</highlight></codeline>
+<codeline lineno="79"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="81" refid="class_logarithmic_merge_strategy_1ae1cd1f74267b82d043d0286c95614d93" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_logarithmic_merge_strategy_1ae1cd1f74267b82d043d0286c95614d93" kindref="member">LogarithmicMergeStrategy::setMaxGenerationCount</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>max_generation_count)<sp/>{</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><ref refid="class_logarithmic_merge_strategy_1a50a9564f465fe61bd7a2db499c15a863" kindref="member">_max_generation_count</ref><sp/>=<sp/>max_generation_count;</highlight></codeline>
+<codeline lineno="83"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight></codeline>
+<codeline lineno="85" refid="class_logarithmic_merge_strategy_1a27df563df1227fab9b0dc614041808cd" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="class_logarithmic_merge_strategy_1a27df563df1227fab9b0dc614041808cd" kindref="member">LogarithmicMergeStrategy::getMaxGenerationCount</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="class_logarithmic_merge_strategy_1a50a9564f465fe61bd7a2db499c15a863" kindref="member">_max_generation_count</ref>;</highlight></codeline>
+<codeline lineno="87"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90" refid="class_logarithmic_merge_strategy_1ad921da71c07927a90089f1f4b048209e" refkind="member"><highlight class="normal"><ref refid="class_abstract_merge_strategy" kindref="compound">AbstractMergeStrategy</ref><sp/>*<ref refid="class_logarithmic_merge_strategy_1ad921da71c07927a90089f1f4b048209e" kindref="member">LogarithmicMergeStrategy::copy</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/><ref refid="class_logarithmic_merge_strategy_1a2fc6277acc6fbfa1948c95c6a22ba9c2" kindref="member">LogarithmicMergeStrategy</ref>(<ref refid="class_logarithmic_merge_strategy_1a50a9564f465fe61bd7a2db499c15a863" kindref="member">_max_generation_count</ref>);</highlight></codeline>
+<codeline lineno="92"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/home/grund/hyrise/src/lib/storage/LogarithmicMergeStrategy.cpp"/>
+  </compounddef>
+</doxygen>

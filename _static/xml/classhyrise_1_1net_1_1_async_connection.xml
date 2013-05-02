@@ -1,0 +1,361 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="classhyrise_1_1net_1_1_async_connection" kind="class" prot="public">
+    <compoundname>hyrise::net::AsyncConnection</compoundname>
+    <basecompoundref refid="classhyrise_1_1net_1_1_abstract_connection" prot="public" virt="non-virtual">hyrise::net::AbstractConnection</basecompoundref>
+    <includes refid="_async_connection_8h" local="no">AsyncConnection.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classhyrise_1_1net_1_1_async_connection_1ab98ecb402d885e2c54930b5572ba644f" prot="public" static="no" mutable="no">
+        <type>ev_async</type>
+        <definition>ev_async hyrise::net::AsyncConnection::ev_write</definition>
+        <argsstring></argsstring>
+        <name>ev_write</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/net/AsyncConnection.h" line="23" bodyfile="/home/grund/hyrise/src/lib/net/AsyncConnection.h" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhyrise_1_1net_1_1_async_connection_1a28501fb77ca8653a3d4f0e8eef0c7747" prot="public" static="no" mutable="no">
+        <type>struct ev_loop *</type>
+        <definition>struct ev_loop* hyrise::net::AsyncConnection::ev_loop</definition>
+        <argsstring></argsstring>
+        <name>ev_loop</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/net/AsyncConnection.h" line="24" bodyfile="/home/grund/hyrise/src/lib/net/AsyncConnection.h" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhyrise_1_1net_1_1_async_connection_1a164675f5230da7d4bb23c47746f21344" prot="public" static="no" mutable="no">
+        <type>ebb_connection *</type>
+        <definition>ebb_connection* hyrise::net::AsyncConnection::connection</definition>
+        <argsstring></argsstring>
+        <name>connection</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/net/AsyncConnection.h" line="25" bodyfile="/home/grund/hyrise/src/lib/net/AsyncConnection.h" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhyrise_1_1net_1_1_async_connection_1af2cf9fbe16da9bcc25a5e361f7170ebf" prot="public" static="no" mutable="no">
+        <type>ebb_request *</type>
+        <definition>ebb_request* hyrise::net::AsyncConnection::request</definition>
+        <argsstring></argsstring>
+        <name>request</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/net/AsyncConnection.h" line="26" bodyfile="/home/grund/hyrise/src/lib/net/AsyncConnection.h" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhyrise_1_1net_1_1_async_connection_1a3853a724d9e28230f5b3fce504a86794" prot="public" static="no" mutable="no">
+        <type>struct sockaddr_in</type>
+        <definition>struct sockaddr_in hyrise::net::AsyncConnection::addr</definition>
+        <argsstring></argsstring>
+        <name>addr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/net/AsyncConnection.h" line="27" bodyfile="/home/grund/hyrise/src/lib/net/AsyncConnection.h" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhyrise_1_1net_1_1_async_connection_1a6a11dd4fd22d3c21d622360475bfc074" prot="public" static="no" mutable="no">
+        <type>struct timeval</type>
+        <definition>struct timeval hyrise::net::AsyncConnection::starttime</definition>
+        <argsstring></argsstring>
+        <name>starttime</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/net/AsyncConnection.h" line="28" bodyfile="/home/grund/hyrise/src/lib/net/AsyncConnection.h" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhyrise_1_1net_1_1_async_connection_1afbefac1b8e5cd8cd30f89481be3061b3" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* hyrise::net::AsyncConnection::path</definition>
+        <argsstring></argsstring>
+        <name>path</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/net/AsyncConnection.h" line="29" bodyfile="/home/grund/hyrise/src/lib/net/AsyncConnection.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhyrise_1_1net_1_1_async_connection_1a3059a70a479546b6168079588d5e768c" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* hyrise::net::AsyncConnection::body</definition>
+        <argsstring></argsstring>
+        <name>body</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/net/AsyncConnection.h" line="31" bodyfile="/home/grund/hyrise/src/lib/net/AsyncConnection.h" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhyrise_1_1net_1_1_async_connection_1a4dd9d40a058be9c94e5ad143e2722beb" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t hyrise::net::AsyncConnection::body_len</definition>
+        <argsstring></argsstring>
+        <name>body_len</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/net/AsyncConnection.h" line="32" bodyfile="/home/grund/hyrise/src/lib/net/AsyncConnection.h" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhyrise_1_1net_1_1_async_connection_1abde3da5888a4a530dbae7766bc4fdc54" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* hyrise::net::AsyncConnection::response</definition>
+        <argsstring></argsstring>
+        <name>response</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/net/AsyncConnection.h" line="34" bodyfile="/home/grund/hyrise/src/lib/net/AsyncConnection.h" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhyrise_1_1net_1_1_async_connection_1aa7115480000b28182e6666991d63d016" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t hyrise::net::AsyncConnection::response_length</definition>
+        <argsstring></argsstring>
+        <name>response_length</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/net/AsyncConnection.h" line="35" bodyfile="/home/grund/hyrise/src/lib/net/AsyncConnection.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhyrise_1_1net_1_1_async_connection_1ae7fe570398d3c149b5331c13bc888dea" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* hyrise::net::AsyncConnection::write_buffer</definition>
+        <argsstring></argsstring>
+        <name>write_buffer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/net/AsyncConnection.h" line="37" bodyfile="/home/grund/hyrise/src/lib/net/AsyncConnection.h" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhyrise_1_1net_1_1_async_connection_1a027fab5d823a03f0957fb5d51459fbc5" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t hyrise::net::AsyncConnection::write_buffer_len</definition>
+        <argsstring></argsstring>
+        <name>write_buffer_len</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/net/AsyncConnection.h" line="38" bodyfile="/home/grund/hyrise/src/lib/net/AsyncConnection.h" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhyrise_1_1net_1_1_async_connection_1a0bb1e05de4bfee30e855f9ab45c20401" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool hyrise::net::AsyncConnection::closed</definition>
+        <argsstring></argsstring>
+        <name>closed</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/net/AsyncConnection.h" line="40" bodyfile="/home/grund/hyrise/src/lib/net/AsyncConnection.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhyrise_1_1net_1_1_async_connection_1ad1a130f1bae2e17a12f22e3e534cee84" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t hyrise::net::AsyncConnection::code</definition>
+        <argsstring></argsstring>
+        <name>code</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/net/AsyncConnection.h" line="43" bodyfile="/home/grund/hyrise/src/lib/net/AsyncConnection.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhyrise_1_1net_1_1_async_connection_1a354c0ec350dd646fdcab302f5cb0a82e" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string hyrise::net::AsyncConnection::contentType</definition>
+        <argsstring></argsstring>
+        <name>contentType</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/net/AsyncConnection.h" line="45" bodyfile="/home/grund/hyrise/src/lib/net/AsyncConnection.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classhyrise_1_1net_1_1_async_connection_1ae42656016a1e47dec385ad2e8ecad6ee" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>hyrise::net::AsyncConnection::AsyncConnection</definition>
+        <argsstring>()</argsstring>
+        <name>AsyncConnection</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/net/AsyncConnection.h" line="47" bodyfile="/home/grund/hyrise/src/lib/net/AsyncConnection.cpp" bodystart="167" bodyend="169"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1net_1_1_async_connection_1ac58ebcf94cd893cc4371dab17f3e8e85" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>hyrise::net::AsyncConnection::~AsyncConnection</definition>
+        <argsstring>()</argsstring>
+        <name>~AsyncConnection</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/net/AsyncConnection.h" line="49" bodyfile="/home/grund/hyrise/src/lib/net/AsyncConnection.cpp" bodystart="171" bodyend="177"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1net_1_1_async_connection_1a660af612f4f3b31421766f308eefc0bd" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>std::string</type>
+        <definition>std::string hyrise::net::AsyncConnection::getBody</definition>
+        <argsstring>() const </argsstring>
+        <name>getBody</name>
+        <reimplements refid="classhyrise_1_1net_1_1_abstract_connection_1a7054f7b8b3bb9558c69873e6d73f93b9">getBody</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/net/AsyncConnection.h" line="51" bodyfile="/home/grund/hyrise/src/lib/net/AsyncConnection.cpp" bodystart="211" bodyend="213"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1net_1_1_async_connection_1ac362ffda7cd86f3ced15562ed4d98fee" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>bool hyrise::net::AsyncConnection::hasBody</definition>
+        <argsstring>() const </argsstring>
+        <name>hasBody</name>
+        <reimplements refid="classhyrise_1_1net_1_1_abstract_connection_1a3b68facdf3cec81e8bbc54cce83fc0d5">hasBody</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/net/AsyncConnection.h" line="52" bodyfile="/home/grund/hyrise/src/lib/net/AsyncConnection.cpp" bodystart="207" bodyend="209"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1net_1_1_async_connection_1a4ae1cc8c2cc46f4df71614ebf42fb9c6" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void hyrise::net::AsyncConnection::respond</definition>
+        <argsstring>(const std::string &amp;message)</argsstring>
+        <name>respond</name>
+        <reimplements refid="classhyrise_1_1net_1_1_abstract_connection_1ac00041b72a3ea6f5e36b587199750e06">respond</reimplements>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>message</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/net/AsyncConnection.h" line="53" bodyfile="/home/grund/hyrise/src/lib/net/AsyncConnection.cpp" bodystart="179" bodyend="186"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classhyrise_1_1net_1_1_async_connection_1a26de50f0c5b7eaea45696624fa14ba2e" prot="private" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void hyrise::net::AsyncConnection::send_response</definition>
+        <argsstring>()</argsstring>
+        <name>send_response</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/net/AsyncConnection.h" line="56" bodyfile="/home/grund/hyrise/src/lib/net/AsyncConnection.cpp" bodystart="203" bodyend="205"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1474">
+        <label>hyrise::net::AsyncConnection</label>
+        <link refid="classhyrise_1_1net_1_1_async_connection"/>
+        <childnode refid="1475" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1475">
+        <label>hyrise::net::AbstractConnection</label>
+        <link refid="classhyrise_1_1net_1_1_abstract_connection"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1476">
+        <label>hyrise::net::AsyncConnection</label>
+        <link refid="classhyrise_1_1net_1_1_async_connection"/>
+        <childnode refid="1477" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1477">
+        <label>hyrise::net::AbstractConnection</label>
+        <link refid="classhyrise_1_1net_1_1_abstract_connection"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/net/AsyncConnection.h" line="21" bodyfile="/home/grund/hyrise/src/lib/net/AsyncConnection.h" bodystart="21" bodyend="57"/>
+    <listofallmembers>
+      <member refid="classhyrise_1_1net_1_1_async_connection_1a3853a724d9e28230f5b3fce504a86794" prot="public" virt="non-virtual"><scope>hyrise::net::AsyncConnection</scope><name>addr</name></member>
+      <member refid="classhyrise_1_1net_1_1_async_connection_1ae42656016a1e47dec385ad2e8ecad6ee" prot="public" virt="non-virtual"><scope>hyrise::net::AsyncConnection</scope><name>AsyncConnection</name></member>
+      <member refid="classhyrise_1_1net_1_1_async_connection_1a3059a70a479546b6168079588d5e768c" prot="public" virt="non-virtual"><scope>hyrise::net::AsyncConnection</scope><name>body</name></member>
+      <member refid="classhyrise_1_1net_1_1_async_connection_1a4dd9d40a058be9c94e5ad143e2722beb" prot="public" virt="non-virtual"><scope>hyrise::net::AsyncConnection</scope><name>body_len</name></member>
+      <member refid="classhyrise_1_1net_1_1_async_connection_1a0bb1e05de4bfee30e855f9ab45c20401" prot="public" virt="non-virtual"><scope>hyrise::net::AsyncConnection</scope><name>closed</name></member>
+      <member refid="classhyrise_1_1net_1_1_async_connection_1ad1a130f1bae2e17a12f22e3e534cee84" prot="public" virt="non-virtual"><scope>hyrise::net::AsyncConnection</scope><name>code</name></member>
+      <member refid="classhyrise_1_1net_1_1_async_connection_1a164675f5230da7d4bb23c47746f21344" prot="public" virt="non-virtual"><scope>hyrise::net::AsyncConnection</scope><name>connection</name></member>
+      <member refid="classhyrise_1_1net_1_1_async_connection_1a354c0ec350dd646fdcab302f5cb0a82e" prot="public" virt="non-virtual"><scope>hyrise::net::AsyncConnection</scope><name>contentType</name></member>
+      <member refid="classhyrise_1_1net_1_1_async_connection_1a28501fb77ca8653a3d4f0e8eef0c7747" prot="public" virt="non-virtual"><scope>hyrise::net::AsyncConnection</scope><name>ev_loop</name></member>
+      <member refid="classhyrise_1_1net_1_1_async_connection_1ab98ecb402d885e2c54930b5572ba644f" prot="public" virt="non-virtual"><scope>hyrise::net::AsyncConnection</scope><name>ev_write</name></member>
+      <member refid="classhyrise_1_1net_1_1_async_connection_1a660af612f4f3b31421766f308eefc0bd" prot="public" virt="virtual"><scope>hyrise::net::AsyncConnection</scope><name>getBody</name></member>
+      <member refid="classhyrise_1_1net_1_1_async_connection_1ac362ffda7cd86f3ced15562ed4d98fee" prot="public" virt="virtual"><scope>hyrise::net::AsyncConnection</scope><name>hasBody</name></member>
+      <member refid="classhyrise_1_1net_1_1_async_connection_1afbefac1b8e5cd8cd30f89481be3061b3" prot="public" virt="non-virtual"><scope>hyrise::net::AsyncConnection</scope><name>path</name></member>
+      <member refid="classhyrise_1_1net_1_1_async_connection_1af2cf9fbe16da9bcc25a5e361f7170ebf" prot="public" virt="non-virtual"><scope>hyrise::net::AsyncConnection</scope><name>request</name></member>
+      <member refid="classhyrise_1_1net_1_1_async_connection_1a4ae1cc8c2cc46f4df71614ebf42fb9c6" prot="public" virt="virtual"><scope>hyrise::net::AsyncConnection</scope><name>respond</name></member>
+      <member refid="classhyrise_1_1net_1_1_async_connection_1abde3da5888a4a530dbae7766bc4fdc54" prot="public" virt="non-virtual"><scope>hyrise::net::AsyncConnection</scope><name>response</name></member>
+      <member refid="classhyrise_1_1net_1_1_async_connection_1aa7115480000b28182e6666991d63d016" prot="public" virt="non-virtual"><scope>hyrise::net::AsyncConnection</scope><name>response_length</name></member>
+      <member refid="classhyrise_1_1net_1_1_async_connection_1a26de50f0c5b7eaea45696624fa14ba2e" prot="private" virt="virtual"><scope>hyrise::net::AsyncConnection</scope><name>send_response</name></member>
+      <member refid="classhyrise_1_1net_1_1_async_connection_1a6a11dd4fd22d3c21d622360475bfc074" prot="public" virt="non-virtual"><scope>hyrise::net::AsyncConnection</scope><name>starttime</name></member>
+      <member refid="classhyrise_1_1net_1_1_async_connection_1ae7fe570398d3c149b5331c13bc888dea" prot="public" virt="non-virtual"><scope>hyrise::net::AsyncConnection</scope><name>write_buffer</name></member>
+      <member refid="classhyrise_1_1net_1_1_async_connection_1a027fab5d823a03f0957fb5d51459fbc5" prot="public" virt="non-virtual"><scope>hyrise::net::AsyncConnection</scope><name>write_buffer_len</name></member>
+      <member refid="classhyrise_1_1net_1_1_abstract_connection_1a3fc4173962a9e072e67c621a1db701b3" prot="public" virt="virtual"><scope>hyrise::net::AsyncConnection</scope><name>~AbstractConnection</name></member>
+      <member refid="classhyrise_1_1net_1_1_async_connection_1ac58ebcf94cd893cc4371dab17f3e8e85" prot="public" virt="non-virtual"><scope>hyrise::net::AsyncConnection</scope><name>~AsyncConnection</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

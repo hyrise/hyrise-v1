@@ -1,0 +1,542 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="class_order_preserving_dictionary" kind="class" prot="public">
+    <compoundname>OrderPreservingDictionary</compoundname>
+    <basecompoundref refid="class_base_allocated_dictionary" prot="public" virt="non-virtual">BaseAllocatedDictionary&lt; T, Strategy, Allocator, OrderPreservingDictionary&lt; T, Strategy, Allocator &gt; &gt;</basecompoundref>
+    <includes refid="_order_preserving_dictionary_8h" local="no">OrderPreservingDictionary.h</includes>
+    <templateparamlist>
+      <param>
+        <type>typename</type>
+        <declname>T</declname>
+        <defname>T</defname>
+      </param>
+      <param>
+        <type>class</type>
+        <declname>Strategy</declname>
+        <defname>Strategy</defname>
+        <defval><ref refid="class_malloc_strategy" kindref="compound">MallocStrategy</ref></defval>
+      </param>
+      <param>
+        <type>template&lt; typename K, typename S &gt; class</type>
+        <declname>Allocator</declname>
+        <defname>Allocator</defname>
+        <defval><ref refid="class_strategized_allocator" kindref="compound">StrategizedAllocator</ref></defval>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="class_order_preserving_dictionary_1af1bc25d808c25328b8dded37bf5b0fe1" prot="public" static="no">
+        <type>std::vector&lt; T, Allocator&lt; T, Strategy &gt; &gt;</type>
+        <definition>typedef std::vector&lt;T, Allocator&lt;T, Strategy&gt; &gt; OrderPreservingDictionary&lt; T, Strategy, Allocator &gt;::vector_type</definition>
+        <argsstring></argsstring>
+        <name>vector_type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/OrderPreservingDictionary.h" line="31" bodyfile="/home/grund/hyrise/src/lib/storage/OrderPreservingDictionary.h" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="class_order_preserving_dictionary_1a8f8872724b84cc179cfe020eb8f8999d" prot="public" static="no">
+        <type>std::shared_ptr&lt; <ref refid="class_order_preserving_dictionary_1af1bc25d808c25328b8dded37bf5b0fe1" kindref="member">vector_type</ref> &gt;</type>
+        <definition>typedef std::shared_ptr&lt;vector_type&gt; OrderPreservingDictionary&lt; T, Strategy, Allocator &gt;::shared_vector_type</definition>
+        <argsstring></argsstring>
+        <name>shared_vector_type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/OrderPreservingDictionary.h" line="32" bodyfile="/home/grund/hyrise/src/lib/storage/OrderPreservingDictionary.h" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="class_order_preserving_dictionary_1a5e4f0e692a0350db270a485d280a0108" prot="public" static="no">
+        <type><ref refid="class_dictionary_iterator" kindref="compound">DictionaryIterator</ref>&lt; T &gt;</type>
+        <definition>typedef DictionaryIterator&lt;T&gt; OrderPreservingDictionary&lt; T, Strategy, Allocator &gt;::iterator</definition>
+        <argsstring></argsstring>
+        <name>iterator</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/OrderPreservingDictionary.h" line="77" bodyfile="/home/grund/hyrise/src/lib/storage/OrderPreservingDictionary.h" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_order_preserving_dictionary_1a88928efc159867c53f0e471d85b0ef69" prot="private" static="no" mutable="no">
+        <type><ref refid="class_order_preserving_dictionary_1a8f8872724b84cc179cfe020eb8f8999d" kindref="member">shared_vector_type</ref></type>
+        <definition>shared_vector_type OrderPreservingDictionary&lt; T, Strategy, Allocator &gt;::_values</definition>
+        <argsstring></argsstring>
+        <name>_values</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/OrderPreservingDictionary.h" line="36" bodyfile="/home/grund/hyrise/src/lib/storage/OrderPreservingDictionary.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="class_order_preserving_dictionary_1a899b9dbe0754bbbe8bd0a11257802991" prot="protected" static="no" const="no" explicit="yes" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>OrderPreservingDictionary&lt; T, Strategy, Allocator &gt;::OrderPreservingDictionary</definition>
+        <argsstring>(vector_type values)</argsstring>
+        <name>OrderPreservingDictionary</name>
+        <param>
+          <type><ref refid="class_order_preserving_dictionary_1af1bc25d808c25328b8dded37bf5b0fe1" kindref="member">vector_type</ref></type>
+          <declname>values</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/OrderPreservingDictionary.h" line="41" bodyfile="/home/grund/hyrise/src/lib/storage/OrderPreservingDictionary.h" bodystart="102" bodyend="105"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_order_preserving_dictionary_1a1e5300b388d501ecaf3ebcce96c15ea0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>OrderPreservingDictionary&lt; T, Strategy, Allocator &gt;::OrderPreservingDictionary</definition>
+        <argsstring>()</argsstring>
+        <name>OrderPreservingDictionary</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/OrderPreservingDictionary.h" line="45" bodyfile="/home/grund/hyrise/src/lib/storage/OrderPreservingDictionary.h" bodystart="91" bodyend="93"/>
+      </memberdef>
+      <memberdef kind="function" id="class_order_preserving_dictionary_1a7dd5812131eceb05002c833752dc607c" prot="public" static="no" const="no" explicit="yes" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>OrderPreservingDictionary&lt; T, Strategy, Allocator &gt;::OrderPreservingDictionary</definition>
+        <argsstring>(size_t size)</argsstring>
+        <name>OrderPreservingDictionary</name>
+        <param>
+          <type>size_t</type>
+          <declname>size</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/OrderPreservingDictionary.h" line="46" bodyfile="/home/grund/hyrise/src/lib/storage/OrderPreservingDictionary.h" bodystart="96" bodyend="99"/>
+      </memberdef>
+      <memberdef kind="function" id="class_order_preserving_dictionary_1ade074097a05829cf357e4176cdc7a524" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual OrderPreservingDictionary&lt; T, Strategy, Allocator &gt;::~OrderPreservingDictionary</definition>
+        <argsstring>()</argsstring>
+        <name>~OrderPreservingDictionary</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/OrderPreservingDictionary.h" line="48" bodyfile="/home/grund/hyrise/src/lib/storage/OrderPreservingDictionary.h" bodystart="48" bodyend="49"/>
+      </memberdef>
+      <memberdef kind="function" id="class_order_preserving_dictionary_1ad42cb37be7dafa2a70e2f91f519b61d9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>void OrderPreservingDictionary&lt; T, Strategy, Allocator &gt;::shrink</definition>
+        <argsstring>()</argsstring>
+        <name>shrink</name>
+        <reimplements refid="class_abstract_dictionary_1acce31627df9551d83eab518366ea7cc8">shrink</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/OrderPreservingDictionary.h" line="51" bodyfile="/home/grund/hyrise/src/lib/storage/OrderPreservingDictionary.h" bodystart="51" bodyend="53"/>
+      </memberdef>
+      <memberdef kind="function" id="class_order_preserving_dictionary_1a50a90db56215dd5ea18ab1134cf815af" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type><ref refid="storage__types_8h_1a2552a37cd3427c39d92cb8fd23c90408" kindref="member">value_id_t</ref></type>
+        <definition>value_id_t OrderPreservingDictionary&lt; T, Strategy, Allocator &gt;::addValue</definition>
+        <argsstring>(T value)</argsstring>
+        <name>addValue</name>
+        <reimplements refid="class_base_dictionary_1a6dc6677f03d2432c0d00d7bcf9d3b58d">addValue</reimplements>
+        <param>
+          <type>T</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Return value of given value id</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the value id </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>value of the value id </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/OrderPreservingDictionary.h" line="55" bodyfile="/home/grund/hyrise/src/lib/storage/OrderPreservingDictionary.h" bodystart="114" bodyend="121"/>
+      </memberdef>
+      <memberdef kind="function" id="class_order_preserving_dictionary_1a313239ffcc4f5622cadf2b02b208beff" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>T</type>
+        <definition>T OrderPreservingDictionary&lt; T, Strategy, Allocator &gt;::getValueForValueId</definition>
+        <argsstring>(value_id_t value_id)</argsstring>
+        <name>getValueForValueId</name>
+        <reimplements refid="class_base_dictionary_1aac9adb0a35bc6fd101daaeaa8413d02e">getValueForValueId</reimplements>
+        <param>
+          <type><ref refid="storage__types_8h_1a2552a37cd3427c39d92cb8fd23c90408" kindref="member">value_id_t</ref></type>
+          <declname>value_id</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Return value of given value id</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the value id </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>value of the value </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/OrderPreservingDictionary.h" line="57" bodyfile="/home/grund/hyrise/src/lib/storage/OrderPreservingDictionary.h" bodystart="130" bodyend="136"/>
+      </memberdef>
+      <memberdef kind="function" id="class_order_preserving_dictionary_1a4188a48fdb96109cc1d2589fda627880" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type><ref refid="storage__types_8h_1a2552a37cd3427c39d92cb8fd23c90408" kindref="member">value_id_t</ref></type>
+        <definition>value_id_t OrderPreservingDictionary&lt; T, Strategy, Allocator &gt;::getValueIdForValue</definition>
+        <argsstring>(const T &amp;value) const </argsstring>
+        <name>getValueIdForValue</name>
+        <reimplements refid="class_base_dictionary_1a10968f793c177bf112e075806801fcda">getValueIdForValue</reimplements>
+        <param>
+          <type>const T &amp;</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/OrderPreservingDictionary.h" line="58" bodyfile="/home/grund/hyrise/src/lib/storage/OrderPreservingDictionary.h" bodystart="170" bodyend="175"/>
+      </memberdef>
+      <memberdef kind="function" id="class_order_preserving_dictionary_1a7ccfab9eea7b5d83477bf39a530e9b52" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type><ref refid="storage__types_8h_1a2552a37cd3427c39d92cb8fd23c90408" kindref="member">value_id_t</ref></type>
+        <definition>value_id_t OrderPreservingDictionary&lt; T, Strategy, Allocator &gt;::getValueIdForValueSmaller</definition>
+        <argsstring>(T other)</argsstring>
+        <name>getValueIdForValueSmaller</name>
+        <reimplements refid="class_base_dictionary_1a1e342e5bf2086c71b04c4315467137f7">getValueIdForValueSmaller</reimplements>
+        <param>
+          <type>T</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/OrderPreservingDictionary.h" line="60" bodyfile="/home/grund/hyrise/src/lib/storage/OrderPreservingDictionary.h" bodystart="139" bodyend="145"/>
+      </memberdef>
+      <memberdef kind="function" id="class_order_preserving_dictionary_1a5162c542f89a0d941e6098d584decf77" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type><ref refid="storage__types_8h_1a2552a37cd3427c39d92cb8fd23c90408" kindref="member">value_id_t</ref></type>
+        <definition>value_id_t OrderPreservingDictionary&lt; T, Strategy, Allocator &gt;::getValueIdForValueGreater</definition>
+        <argsstring>(T other)</argsstring>
+        <name>getValueIdForValueGreater</name>
+        <reimplements refid="class_base_dictionary_1a54690a4f2e564a84b79e1d26f04f5e7a">getValueIdForValueGreater</reimplements>
+        <param>
+          <type>T</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/OrderPreservingDictionary.h" line="61" bodyfile="/home/grund/hyrise/src/lib/storage/OrderPreservingDictionary.h" bodystart="148" bodyend="153"/>
+      </memberdef>
+      <memberdef kind="function" id="class_order_preserving_dictionary_1a01786c759263bfd5408e9bcd9f4e216f" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>const T</type>
+        <definition>const T OrderPreservingDictionary&lt; T, Strategy, Allocator &gt;::getSmallestValue</definition>
+        <argsstring>()</argsstring>
+        <name>getSmallestValue</name>
+        <reimplements refid="class_base_dictionary_1a9039e0936f936561754300eea075ddc4">getSmallestValue</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/OrderPreservingDictionary.h" line="63" bodyfile="/home/grund/hyrise/src/lib/storage/OrderPreservingDictionary.h" bodystart="156" bodyend="160"/>
+      </memberdef>
+      <memberdef kind="function" id="class_order_preserving_dictionary_1a49192d7b8408584a8be518c5b1884968" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>const T</type>
+        <definition>const T OrderPreservingDictionary&lt; T, Strategy, Allocator &gt;::getGreatestValue</definition>
+        <argsstring>()</argsstring>
+        <name>getGreatestValue</name>
+        <reimplements refid="class_base_dictionary_1ab90f493d26980c624f773d7cad05a3d5">getGreatestValue</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/OrderPreservingDictionary.h" line="64" bodyfile="/home/grund/hyrise/src/lib/storage/OrderPreservingDictionary.h" bodystart="163" bodyend="167"/>
+      </memberdef>
+      <memberdef kind="function" id="class_order_preserving_dictionary_1ad45d95fcefd00298ec837108e422b8f9" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>bool OrderPreservingDictionary&lt; T, Strategy, Allocator &gt;::isValueIdValid</definition>
+        <argsstring>(value_id_t value_id)</argsstring>
+        <name>isValueIdValid</name>
+        <reimplements refid="class_base_dictionary_1a738cb5130f6e458c0107df6b508e05a9">isValueIdValid</reimplements>
+        <param>
+          <type><ref refid="storage__types_8h_1a2552a37cd3427c39d92cb8fd23c90408" kindref="member">value_id_t</ref></type>
+          <declname>value_id</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/OrderPreservingDictionary.h" line="66" bodyfile="/home/grund/hyrise/src/lib/storage/OrderPreservingDictionary.h" bodystart="178" bodyend="180"/>
+      </memberdef>
+      <memberdef kind="function" id="class_order_preserving_dictionary_1a230dc6ece1fbedb3e95182509dac7249" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>bool OrderPreservingDictionary&lt; T, Strategy, Allocator &gt;::valueExists</definition>
+        <argsstring>(const T &amp;value) const </argsstring>
+        <name>valueExists</name>
+        <reimplements refid="class_base_dictionary_1abdeceaa40e819367debaebaff293a463">valueExists</reimplements>
+        <param>
+          <type>const T &amp;</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/OrderPreservingDictionary.h" line="68" bodyfile="/home/grund/hyrise/src/lib/storage/OrderPreservingDictionary.h" bodystart="183" bodyend="185"/>
+      </memberdef>
+      <memberdef kind="function" id="class_order_preserving_dictionary_1a9427a4ea7d5778cc25373eb87238ba12" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void OrderPreservingDictionary&lt; T, Strategy, Allocator &gt;::reserve</definition>
+        <argsstring>(size_t size)</argsstring>
+        <name>reserve</name>
+        <reimplements refid="class_base_dictionary_1ae3c53d970ee95b00169dd6b784902174">reserve</reimplements>
+        <param>
+          <type>size_t</type>
+          <declname>size</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/OrderPreservingDictionary.h" line="70" bodyfile="/home/grund/hyrise/src/lib/storage/OrderPreservingDictionary.h" bodystart="188" bodyend="190"/>
+      </memberdef>
+      <memberdef kind="function" id="class_order_preserving_dictionary_1a027b7d8daf2c16de47068ad702c96aa9" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>size_t</type>
+        <definition>size_t OrderPreservingDictionary&lt; T, Strategy, Allocator &gt;::size</definition>
+        <argsstring>()</argsstring>
+        <name>size</name>
+        <reimplements refid="class_base_dictionary_1a335a2ad8aff598b74704829f35adbfc6">size</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/OrderPreservingDictionary.h" line="71" bodyfile="/home/grund/hyrise/src/lib/storage/OrderPreservingDictionary.h" bodystart="193" bodyend="195"/>
+      </memberdef>
+      <memberdef kind="function" id="class_order_preserving_dictionary_1a6611970acc861038fe1cc6f7eed44f23" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>std::shared_ptr&lt; <ref refid="class_abstract_dictionary" kindref="compound">AbstractDictionary</ref> &gt;</type>
+        <definition>std::shared_ptr&lt; AbstractDictionary &gt; OrderPreservingDictionary&lt; T, Strategy, Allocator &gt;::copy</definition>
+        <argsstring>()</argsstring>
+        <name>copy</name>
+        <reimplements refid="class_base_dictionary_1af5993ae21b2e5b32fa8e4c6c2387d889">copy</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/OrderPreservingDictionary.h" line="73" bodyfile="/home/grund/hyrise/src/lib/storage/OrderPreservingDictionary.h" bodystart="198" bodyend="200"/>
+      </memberdef>
+      <memberdef kind="function" id="class_order_preserving_dictionary_1a21f77be611c0f2a062d632c43a476779" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>bool OrderPreservingDictionary&lt; T, Strategy, Allocator &gt;::isOrdered</definition>
+        <argsstring>()</argsstring>
+        <name>isOrdered</name>
+        <reimplements refid="class_base_dictionary_1a3c7dd2234656fbda5531fa9de29ffc81">isOrdered</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/OrderPreservingDictionary.h" line="75" bodyfile="/home/grund/hyrise/src/lib/storage/OrderPreservingDictionary.h" bodystart="203" bodyend="205"/>
+      </memberdef>
+      <memberdef kind="function" id="class_order_preserving_dictionary_1a1723d753092bd01c460d177b539f2546" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type><ref refid="class_base_dictionary_1a281b6dcb1f909d44ab7eb8b3718694d2" kindref="member">iterator</ref></type>
+        <definition>iterator OrderPreservingDictionary&lt; T, Strategy, Allocator &gt;::begin</definition>
+        <argsstring>()</argsstring>
+        <name>begin</name>
+        <reimplements refid="class_base_dictionary_1af295f8b12e4c22aba395c23d4df71ef5">begin</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/OrderPreservingDictionary.h" line="79" bodyfile="/home/grund/hyrise/src/lib/storage/OrderPreservingDictionary.h" bodystart="79" bodyend="81"/>
+      </memberdef>
+      <memberdef kind="function" id="class_order_preserving_dictionary_1ae8b901d726403b04cea75061193c5045" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type><ref refid="class_base_dictionary_1a281b6dcb1f909d44ab7eb8b3718694d2" kindref="member">iterator</ref></type>
+        <definition>iterator OrderPreservingDictionary&lt; T, Strategy, Allocator &gt;::end</definition>
+        <argsstring>()</argsstring>
+        <name>end</name>
+        <reimplements refid="class_base_dictionary_1a61461dc90085108337b8930923755870">end</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/OrderPreservingDictionary.h" line="83" bodyfile="/home/grund/hyrise/src/lib/storage/OrderPreservingDictionary.h" bodystart="83" bodyend="85"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2457">
+        <label>AbstractDictionary</label>
+        <link refid="class_abstract_dictionary"/>
+      </node>
+      <node id="2454">
+        <label>OrderPreservingDictionary&lt; T, Strategy, Allocator &gt;</label>
+        <link refid="class_order_preserving_dictionary"/>
+        <childnode refid="2455" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2459">
+        <label>BaseDictionary&lt; DictionaryType &gt;</label>
+        <link refid="class_base_dictionary"/>
+        <childnode refid="2457" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2456" relation="template-instance">
+          <edgelabel>&lt; DictionaryType &gt;</edgelabel>
+        </childnode>
+      </node>
+      <node id="2455">
+        <label>BaseAllocatedDictionary&lt; T, Strategy, Allocator, OrderPreservingDictionary&lt; T, Strategy, Allocator &gt; &gt;</label>
+        <link refid="class_base_allocated_dictionary"/>
+        <childnode refid="2456" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2458" relation="template-instance">
+          <edgelabel>&lt; T, Strategy, Allocator, OrderPreservingDictionary&lt; T, Strategy, Allocator &gt; &gt;</edgelabel>
+        </childnode>
+      </node>
+      <node id="2456">
+        <label>BaseDictionary&lt; T &gt;</label>
+        <link refid="class_base_dictionary"/>
+        <childnode refid="2457" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2458">
+        <label>BaseAllocatedDictionary&lt; DictionaryType, Strategy, Allocator, AllocatedClass &gt;</label>
+        <link refid="class_base_allocated_dictionary"/>
+        <childnode refid="2459" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2463">
+        <label>AbstractDictionary</label>
+        <link refid="class_abstract_dictionary"/>
+      </node>
+      <node id="2460">
+        <label>OrderPreservingDictionary&lt; T, Strategy, Allocator &gt;</label>
+        <link refid="class_order_preserving_dictionary"/>
+        <childnode refid="2461" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2465">
+        <label>BaseDictionary&lt; DictionaryType &gt;</label>
+        <link refid="class_base_dictionary"/>
+        <childnode refid="2463" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2462" relation="template-instance">
+          <edgelabel>&lt; DictionaryType &gt;</edgelabel>
+        </childnode>
+      </node>
+      <node id="2461">
+        <label>BaseAllocatedDictionary&lt; T, Strategy, Allocator, OrderPreservingDictionary&lt; T, Strategy, Allocator &gt; &gt;</label>
+        <link refid="class_base_allocated_dictionary"/>
+        <childnode refid="2462" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2464" relation="template-instance">
+          <edgelabel>&lt; T, Strategy, Allocator, OrderPreservingDictionary&lt; T, Strategy, Allocator &gt; &gt;</edgelabel>
+        </childnode>
+      </node>
+      <node id="2462">
+        <label>BaseDictionary&lt; T &gt;</label>
+        <link refid="class_base_dictionary"/>
+        <childnode refid="2463" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2464">
+        <label>BaseAllocatedDictionary&lt; DictionaryType, Strategy, Allocator, AllocatedClass &gt;</label>
+        <link refid="class_base_allocated_dictionary"/>
+        <childnode refid="2465" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/storage/OrderPreservingDictionary.h" line="28" bodyfile="/home/grund/hyrise/src/lib/storage/OrderPreservingDictionary.h" bodystart="25" bodyend="87"/>
+    <listofallmembers>
+      <member refid="class_order_preserving_dictionary_1a88928efc159867c53f0e471d85b0ef69" prot="private" virt="non-virtual"><scope>OrderPreservingDictionary</scope><name>_values</name></member>
+      <member refid="class_order_preserving_dictionary_1a50a90db56215dd5ea18ab1134cf815af" prot="public" virt="virtual"><scope>OrderPreservingDictionary</scope><name>addValue</name></member>
+      <member refid="class_order_preserving_dictionary_1a1723d753092bd01c460d177b539f2546" prot="public" virt="virtual"><scope>OrderPreservingDictionary</scope><name>begin</name></member>
+      <member refid="class_order_preserving_dictionary_1a6611970acc861038fe1cc6f7eed44f23" prot="public" virt="virtual"><scope>OrderPreservingDictionary</scope><name>copy</name></member>
+      <member refid="class_base_allocated_dictionary_1acfac3763bf4f277cdbe9cd91c621aa4f" prot="public" virt="virtual"><scope>OrderPreservingDictionary</scope><name>copy_empty</name></member>
+      <member refid="class_abstract_dictionary_1a051863f8c78b2312e92705eb3554f156" prot="public" virt="non-virtual"><scope>OrderPreservingDictionary</scope><name>dictionaryWithType</name></member>
+      <member refid="class_order_preserving_dictionary_1ae8b901d726403b04cea75061193c5045" prot="public" virt="virtual"><scope>OrderPreservingDictionary</scope><name>end</name></member>
+      <member refid="class_order_preserving_dictionary_1a49192d7b8408584a8be518c5b1884968" prot="public" virt="virtual"><scope>OrderPreservingDictionary</scope><name>getGreatestValue</name></member>
+      <member refid="class_order_preserving_dictionary_1a01786c759263bfd5408e9bcd9f4e216f" prot="public" virt="virtual"><scope>OrderPreservingDictionary</scope><name>getSmallestValue</name></member>
+      <member refid="class_order_preserving_dictionary_1a313239ffcc4f5622cadf2b02b208beff" prot="public" virt="virtual"><scope>OrderPreservingDictionary</scope><name>getValueForValueId</name></member>
+      <member refid="class_order_preserving_dictionary_1a4188a48fdb96109cc1d2589fda627880" prot="public" virt="virtual"><scope>OrderPreservingDictionary</scope><name>getValueIdForValue</name></member>
+      <member refid="class_order_preserving_dictionary_1a5162c542f89a0d941e6098d584decf77" prot="public" virt="virtual"><scope>OrderPreservingDictionary</scope><name>getValueIdForValueGreater</name></member>
+      <member refid="class_order_preserving_dictionary_1a7ccfab9eea7b5d83477bf39a530e9b52" prot="public" virt="virtual"><scope>OrderPreservingDictionary</scope><name>getValueIdForValueSmaller</name></member>
+      <member refid="class_order_preserving_dictionary_1a21f77be611c0f2a062d632c43a476779" prot="public" virt="virtual"><scope>OrderPreservingDictionary</scope><name>isOrdered</name></member>
+      <member refid="class_order_preserving_dictionary_1ad45d95fcefd00298ec837108e422b8f9" prot="public" virt="virtual"><scope>OrderPreservingDictionary</scope><name>isValueIdValid</name></member>
+      <member refid="class_order_preserving_dictionary_1a5e4f0e692a0350db270a485d280a0108" prot="public" virt="non-virtual"><scope>OrderPreservingDictionary</scope><name>iterator</name></member>
+      <member refid="class_base_allocated_dictionary_1a8ecdd99957e54834661192975e800b0c" prot="public" virt="non-virtual"><scope>OrderPreservingDictionary</scope><name>operator delete</name></member>
+      <member refid="class_base_allocated_dictionary_1a0c55d6ffb02250144685b32e2441bf89" prot="public" virt="non-virtual"><scope>OrderPreservingDictionary</scope><name>operator new</name></member>
+      <member refid="class_order_preserving_dictionary_1a899b9dbe0754bbbe8bd0a11257802991" prot="protected" virt="non-virtual"><scope>OrderPreservingDictionary</scope><name>OrderPreservingDictionary</name></member>
+      <member refid="class_order_preserving_dictionary_1a1e5300b388d501ecaf3ebcce96c15ea0" prot="public" virt="non-virtual"><scope>OrderPreservingDictionary</scope><name>OrderPreservingDictionary</name></member>
+      <member refid="class_order_preserving_dictionary_1a7dd5812131eceb05002c833752dc607c" prot="public" virt="non-virtual"><scope>OrderPreservingDictionary</scope><name>OrderPreservingDictionary</name></member>
+      <member refid="class_order_preserving_dictionary_1a9427a4ea7d5778cc25373eb87238ba12" prot="public" virt="virtual"><scope>OrderPreservingDictionary</scope><name>reserve</name></member>
+      <member refid="class_order_preserving_dictionary_1a8f8872724b84cc179cfe020eb8f8999d" prot="public" virt="non-virtual"><scope>OrderPreservingDictionary</scope><name>shared_vector_type</name></member>
+      <member refid="class_order_preserving_dictionary_1ad42cb37be7dafa2a70e2f91f519b61d9" prot="public" virt="virtual"><scope>OrderPreservingDictionary</scope><name>shrink</name></member>
+      <member refid="class_order_preserving_dictionary_1a027b7d8daf2c16de47068ad702c96aa9" prot="public" virt="virtual"><scope>OrderPreservingDictionary</scope><name>size</name></member>
+      <member refid="class_order_preserving_dictionary_1a230dc6ece1fbedb3e95182509dac7249" prot="public" virt="virtual"><scope>OrderPreservingDictionary</scope><name>valueExists</name></member>
+      <member refid="class_order_preserving_dictionary_1af1bc25d808c25328b8dded37bf5b0fe1" prot="public" virt="non-virtual"><scope>OrderPreservingDictionary</scope><name>vector_type</name></member>
+      <member refid="class_abstract_dictionary_1a9a9216aed0689529a55c572b3ef69bcf" prot="public" virt="virtual"><scope>OrderPreservingDictionary</scope><name>~AbstractDictionary</name></member>
+      <member refid="class_base_allocated_dictionary_1ac26ce465e38fd42bd30bb29cdfea015b" prot="public" virt="virtual"><scope>OrderPreservingDictionary</scope><name>~BaseAllocatedDictionary</name></member>
+      <member refid="class_order_preserving_dictionary_1ade074097a05829cf357e4176cdc7a524" prot="public" virt="virtual"><scope>OrderPreservingDictionary</scope><name>~OrderPreservingDictionary</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

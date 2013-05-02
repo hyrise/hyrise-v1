@@ -1,0 +1,388 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="class_hash_table_view" kind="class" prot="public">
+    <compoundname>HashTableView</compoundname>
+    <basecompoundref refid="class_abstract_hash_table" prot="public" virt="non-virtual">AbstractHashTable</basecompoundref>
+    <includes refid="_hash_table_8h" local="no">HashTable.h</includes>
+    <templateparamlist>
+      <param>
+        <type>class MAP</type>
+      </param>
+      <param>
+        <type>class KEY</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="class_hash_table_view_1a57b693f2548be8e3f90085a255722ac7" prot="public" static="no">
+        <type><ref refid="class_hash_table" kindref="compound">HashTable</ref>&lt; MAP, KEY &gt;</type>
+        <definition>typedef HashTable&lt;MAP, KEY&gt; HashTableView&lt; MAP, KEY &gt;::hash_table_t</definition>
+        <argsstring></argsstring>
+        <name>hash_table_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/HashTable.h" line="291" bodyfile="/home/grund/hyrise/src/lib/storage/HashTable.h" bodystart="291" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-type">
+      <memberdef kind="typedef" id="class_hash_table_view_1a547beadb6fa926d9f757fd433e3d19b1" prot="protected" static="no">
+        <type>KEY</type>
+        <definition>typedef KEY HashTableView&lt; MAP, KEY &gt;::key_t</definition>
+        <argsstring></argsstring>
+        <name>key_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/HashTable.h" line="297" bodyfile="/home/grund/hyrise/src/lib/storage/HashTable.h" bodystart="297" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="class_hash_table_view_1a34ff1f2ddb062a8217002926ccc5577b" prot="protected" static="no" mutable="no">
+        <type>std::shared_ptr&lt; const <ref refid="class_hash_table_view_1a57b693f2548be8e3f90085a255722ac7" kindref="member">hash_table_t</ref> &gt;</type>
+        <definition>std::shared_ptr&lt;const hash_table_t&gt; HashTableView&lt; MAP, KEY &gt;::_hashTable</definition>
+        <argsstring></argsstring>
+        <name>_hashTable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/HashTable.h" line="294" bodyfile="/home/grund/hyrise/src/lib/storage/HashTable.h" bodystart="294" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_hash_table_view_1a22c1b2214b46d80447699cde40de0e31" prot="protected" static="no" mutable="no">
+        <type><ref refid="class_hash_table_1aa83d31bd3275b48e9358d0cd34891cef" kindref="member">hash_table_t::map_const_iterator_t</ref></type>
+        <definition>hash_table_t::map_const_iterator_t HashTableView&lt; MAP, KEY &gt;::_begin</definition>
+        <argsstring></argsstring>
+        <name>_begin</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/HashTable.h" line="295" bodyfile="/home/grund/hyrise/src/lib/storage/HashTable.h" bodystart="295" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_hash_table_view_1ae72f80f5864fa4fc916e3ed8bdb80d66" prot="protected" static="no" mutable="no">
+        <type><ref refid="class_hash_table_1aa83d31bd3275b48e9358d0cd34891cef" kindref="member">hash_table_t::map_const_iterator_t</ref></type>
+        <definition>hash_table_t::map_const_iterator_t HashTableView&lt; MAP, KEY &gt;::_end</definition>
+        <argsstring></argsstring>
+        <name>_end</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/HashTable.h" line="296" bodyfile="/home/grund/hyrise/src/lib/storage/HashTable.h" bodystart="296" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_hash_table_view_1a89aeb1b76ebc3b1cebca36714df14274" prot="protected" static="no" mutable="yes">
+        <type>std::atomic&lt; uint64_t &gt;</type>
+        <definition>std::atomic&lt;uint64_t&gt; HashTableView&lt; MAP, KEY &gt;::_numKeys</definition>
+        <argsstring></argsstring>
+        <name>_numKeys</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/HashTable.h" line="299" bodyfile="/home/grund/hyrise/src/lib/storage/HashTable.h" bodystart="299" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_hash_table_view_1a6bfb7fbe96af28c5f00573a2c778e850" prot="protected" static="no" mutable="yes">
+        <type>std::atomic&lt; bool &gt;</type>
+        <definition>std::atomic&lt;bool&gt; HashTableView&lt; MAP, KEY &gt;::_dirty</definition>
+        <argsstring></argsstring>
+        <name>_dirty</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/HashTable.h" line="300" bodyfile="/home/grund/hyrise/src/lib/storage/HashTable.h" bodystart="300" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_hash_table_view_1a04d2163c790b3298b05904bb84dea294" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>HashTableView&lt; MAP, KEY &gt;::HashTableView</definition>
+        <argsstring>(const std::shared_ptr&lt; const hash_table_t &gt; &amp;tab, const size_t start, const size_t end)</argsstring>
+        <name>HashTableView</name>
+        <param>
+          <type>const std::shared_ptr&lt; const <ref refid="class_hash_table_view_1a57b693f2548be8e3f90085a255722ac7" kindref="member">hash_table_t</ref> &gt; &amp;</type>
+          <declname>tab</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>start</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>end</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Given a <ref refid="class_hash_table" kindref="compound">HashTable</ref> and a range, only the n-ths key value pairs of the given <ref refid="class_hash_table" kindref="compound">HashTable</ref> corresponding to the range will be mapped by this view. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/HashTable.h" line="308" bodyfile="/home/grund/hyrise/src/lib/storage/HashTable.h" bodystart="305" bodyend="312"/>
+      </memberdef>
+      <memberdef kind="function" id="class_hash_table_view_1a000fcca0d6ad68131f8c733d6383b928" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class_hash_table_1aa83d31bd3275b48e9358d0cd34891cef" kindref="member">hash_table_t::map_const_iterator_t</ref></type>
+        <definition>hash_table_t::map_const_iterator_t HashTableView&lt; MAP, KEY &gt;::advance</definition>
+        <argsstring>(size_t val)</argsstring>
+        <name>advance</name>
+        <param>
+          <type>size_t</type>
+          <declname>val</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/HashTable.h" line="315" bodyfile="/home/grund/hyrise/src/lib/storage/HashTable.h" bodystart="315" bodyend="331"/>
+      </memberdef>
+      <memberdef kind="function" id="class_hash_table_view_1ad5fa10400db1f316557cb1cf7eec3642" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual HashTableView&lt; MAP, KEY &gt;::~HashTableView</definition>
+        <argsstring>()</argsstring>
+        <name>~HashTableView</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/HashTable.h" line="334" bodyfile="/home/grund/hyrise/src/lib/storage/HashTable.h" bodystart="334" bodyend="334"/>
+      </memberdef>
+      <memberdef kind="function" id="class_hash_table_view_1acacbdda6b09ed83a400f1426d5308264" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>size_t</type>
+        <definition>size_t HashTableView&lt; MAP, KEY &gt;::size</definition>
+        <argsstring>() const </argsstring>
+        <name>size</name>
+        <reimplements refid="class_abstract_hash_table_1a2471ef406179e248fb6c8aab0ddccb31">size</reimplements>
+        <briefdescription>
+<para>Returns the number of key value pairs of underlying hash map structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/HashTable.h" line="337" bodyfile="/home/grund/hyrise/src/lib/storage/HashTable.h" bodystart="337" bodyend="339"/>
+      </memberdef>
+      <memberdef kind="function" id="class_hash_table_view_1a1247a1c80f97cd0dfc43b768c4cc2388" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type><ref refid="storage__types_8h_1a543d59ef56384af4a7af9aa551bc6825" kindref="member">pos_list_t</ref></type>
+        <definition>virtual pos_list_t HashTableView&lt; MAP, KEY &gt;::get</definition>
+        <argsstring>(const hyrise::storage::c_atable_ptr_t &amp;table, const field_list_t &amp;columns, const pos_t row) const </argsstring>
+        <name>get</name>
+        <reimplements refid="class_abstract_hash_table_1a776a8d2944780e89f4622c08ff9453b3">get</reimplements>
+        <param>
+          <type>const <ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref> &amp;</type>
+          <declname>table</declname>
+        </param>
+        <param>
+          <type>const <ref refid="storage__types_8h_1a36fbc31395a53b7ece189846e4d3253c" kindref="member">field_list_t</ref> &amp;</type>
+          <declname>columns</declname>
+        </param>
+        <param>
+          <type>const <ref refid="storage__types_8h_1a866dd5ae291f599db49986f6aa5ba77a" kindref="member">pos_t</ref></type>
+          <declname>row</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get positions for values in the table cells of given row and columns. TODO: check whether copy to new unordered_map and search via equal_range is faster </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/HashTable.h" line="346" bodyfile="/home/grund/hyrise/src/lib/storage/HashTable.h" bodystart="343" bodyend="358"/>
+      </memberdef>
+      <memberdef kind="function" id="class_hash_table_view_1a8b6b8f9ad9986329aa4ba8353df039d5" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="storage__types_8h_1a543d59ef56384af4a7af9aa551bc6825" kindref="member">pos_list_t</ref></type>
+        <definition>pos_list_t HashTableView&lt; MAP, KEY &gt;::get</definition>
+        <argsstring>(key_t key) const </argsstring>
+        <name>get</name>
+        <param>
+          <type><ref refid="class_hash_table_view_1a547beadb6fa926d9f757fd433e3d19b1" kindref="member">key_t</ref></type>
+          <declname>key</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/HashTable.h" line="360" bodyfile="/home/grund/hyrise/src/lib/storage/HashTable.h" bodystart="360" bodyend="369"/>
+      </memberdef>
+      <memberdef kind="function" id="class_hash_table_view_1a620d51823168c91c0a72e9723af0c04d" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class_hash_table_1aa83d31bd3275b48e9358d0cd34891cef" kindref="member">hash_table_t::map_const_iterator_t</ref></type>
+        <definition>hash_table_t::map_const_iterator_t HashTableView&lt; MAP, KEY &gt;::getMapBegin</definition>
+        <argsstring>() const </argsstring>
+        <name>getMapBegin</name>
+        <briefdescription>
+<para>Get const interators to underlying map&apos;s begin or end. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/HashTable.h" line="373" bodyfile="/home/grund/hyrise/src/lib/storage/HashTable.h" bodystart="373" bodyend="375"/>
+      </memberdef>
+      <memberdef kind="function" id="class_hash_table_view_1ac437cca59ee881f25eb73ad640834d24" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class_hash_table_1aa83d31bd3275b48e9358d0cd34891cef" kindref="member">hash_table_t::map_const_iterator_t</ref></type>
+        <definition>hash_table_t::map_const_iterator_t HashTableView&lt; MAP, KEY &gt;::getMapEnd</definition>
+        <argsstring>() const </argsstring>
+        <name>getMapEnd</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/HashTable.h" line="376" bodyfile="/home/grund/hyrise/src/lib/storage/HashTable.h" bodystart="376" bodyend="378"/>
+      </memberdef>
+      <memberdef kind="function" id="class_hash_table_view_1a65392fe31de70aaa6560d956d021efdb" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="namespacehyrise_1_1storage_1a21d5e900c20019710828c453eaded1ee" kindref="member">hyrise::storage::atable_ptr_t</ref></type>
+        <definition>hyrise::storage::atable_ptr_t HashTableView&lt; MAP, KEY &gt;::getHashTable</definition>
+        <argsstring>() const </argsstring>
+        <name>getHashTable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/HashTable.h" line="380" bodyfile="/home/grund/hyrise/src/lib/storage/HashTable.h" bodystart="380" bodyend="382"/>
+      </memberdef>
+      <memberdef kind="function" id="class_hash_table_view_1a2f9443d1f52dacaf270159d156ff2a4d" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type><ref refid="storage__types_8h_1a36fbc31395a53b7ece189846e4d3253c" kindref="member">field_list_t</ref></type>
+        <definition>field_list_t HashTableView&lt; MAP, KEY &gt;::getFields</definition>
+        <argsstring>() const </argsstring>
+        <name>getFields</name>
+        <reimplements refid="class_abstract_hash_table_1a32bc7efd002483e9e24444f318f95fef">getFields</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/HashTable.h" line="384" bodyfile="/home/grund/hyrise/src/lib/storage/HashTable.h" bodystart="384" bodyend="386"/>
+      </memberdef>
+      <memberdef kind="function" id="class_hash_table_view_1a583ae5cdd214967a654d703d6ac50545" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>size_t</type>
+        <definition>size_t HashTableView&lt; MAP, KEY &gt;::getFieldCount</definition>
+        <argsstring>() const </argsstring>
+        <name>getFieldCount</name>
+        <reimplements refid="class_abstract_hash_table_1a18b22788f88b9c0c93e626b61b2f560a">getFieldCount</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/HashTable.h" line="388" bodyfile="/home/grund/hyrise/src/lib/storage/HashTable.h" bodystart="388" bodyend="390"/>
+      </memberdef>
+      <memberdef kind="function" id="class_hash_table_view_1afc9c195c10bb0945e01b32bb9b082b7d" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type><ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref></type>
+        <definition>hyrise::storage::c_atable_ptr_t HashTableView&lt; MAP, KEY &gt;::getTable</definition>
+        <argsstring>() const </argsstring>
+        <name>getTable</name>
+        <reimplements refid="class_abstract_hash_table_1afb9c101f896b539b13ffb12d30c4a5b4">getTable</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/HashTable.h" line="392" bodyfile="/home/grund/hyrise/src/lib/storage/HashTable.h" bodystart="392" bodyend="394"/>
+      </memberdef>
+      <memberdef kind="function" id="class_hash_table_view_1a93731ab4b2d7bd0b2c2dcc5f94cea2d5" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>uint64_t</type>
+        <definition>uint64_t HashTableView&lt; MAP, KEY &gt;::numKeys</definition>
+        <argsstring>() const </argsstring>
+        <name>numKeys</name>
+        <reimplements refid="class_abstract_hash_table_1a73f98f60a9f403db71d8b47911d1a49d">numKeys</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/HashTable.h" line="396" bodyfile="/home/grund/hyrise/src/lib/storage/HashTable.h" bodystart="396" bodyend="406"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Maps table cells&apos; hashed values of arbitrary columns to their rows. This subclass maps only a range of key value pairs of its underlying <ref refid="class_hash_table" kindref="compound">HashTable</ref> for an easy splitting </para>    </detaileddescription>
+    <inheritancegraph>
+      <node id="1985">
+        <label>AbstractHashTable</label>
+        <link refid="class_abstract_hash_table"/>
+        <childnode refid="1986" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1984">
+        <label>HashTableView&lt; MAP, KEY &gt;</label>
+        <link refid="class_hash_table_view"/>
+        <childnode refid="1985" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1986">
+        <label>AbstractResource</label>
+        <link refid="class_abstract_resource"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1988">
+        <label>AbstractHashTable</label>
+        <link refid="class_abstract_hash_table"/>
+        <childnode refid="1989" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1987">
+        <label>HashTableView&lt; MAP, KEY &gt;</label>
+        <link refid="class_hash_table_view"/>
+        <childnode refid="1988" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1989">
+        <label>AbstractResource</label>
+        <link refid="class_abstract_resource"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/storage/HashTable.h" line="289" bodyfile="/home/grund/hyrise/src/lib/storage/HashTable.h" bodystart="289" bodyend="407"/>
+    <listofallmembers>
+      <member refid="class_hash_table_view_1a22c1b2214b46d80447699cde40de0e31" prot="protected" virt="non-virtual"><scope>HashTableView</scope><name>_begin</name></member>
+      <member refid="class_hash_table_view_1a6bfb7fbe96af28c5f00573a2c778e850" prot="protected" virt="non-virtual"><scope>HashTableView</scope><name>_dirty</name></member>
+      <member refid="class_hash_table_view_1ae72f80f5864fa4fc916e3ed8bdb80d66" prot="protected" virt="non-virtual"><scope>HashTableView</scope><name>_end</name></member>
+      <member refid="class_hash_table_view_1a34ff1f2ddb062a8217002926ccc5577b" prot="protected" virt="non-virtual"><scope>HashTableView</scope><name>_hashTable</name></member>
+      <member refid="class_hash_table_view_1a89aeb1b76ebc3b1cebca36714df14274" prot="protected" virt="non-virtual"><scope>HashTableView</scope><name>_numKeys</name></member>
+      <member refid="class_abstract_hash_table_1adb93bf241dfec8ea49da3ae71fd2a48b" prot="public" virt="non-virtual"><scope>HashTableView</scope><name>AbstractHashTable</name></member>
+      <member refid="class_hash_table_view_1a000fcca0d6ad68131f8c733d6383b928" prot="public" virt="non-virtual"><scope>HashTableView</scope><name>advance</name></member>
+      <member refid="class_hash_table_view_1a1247a1c80f97cd0dfc43b768c4cc2388" prot="public" virt="virtual"><scope>HashTableView</scope><name>get</name></member>
+      <member refid="class_hash_table_view_1a8b6b8f9ad9986329aa4ba8353df039d5" prot="public" virt="non-virtual"><scope>HashTableView</scope><name>get</name></member>
+      <member refid="class_hash_table_view_1a583ae5cdd214967a654d703d6ac50545" prot="public" virt="virtual"><scope>HashTableView</scope><name>getFieldCount</name></member>
+      <member refid="class_hash_table_view_1a2f9443d1f52dacaf270159d156ff2a4d" prot="public" virt="virtual"><scope>HashTableView</scope><name>getFields</name></member>
+      <member refid="class_hash_table_view_1a65392fe31de70aaa6560d956d021efdb" prot="public" virt="non-virtual"><scope>HashTableView</scope><name>getHashTable</name></member>
+      <member refid="class_hash_table_view_1a620d51823168c91c0a72e9723af0c04d" prot="public" virt="non-virtual"><scope>HashTableView</scope><name>getMapBegin</name></member>
+      <member refid="class_hash_table_view_1ac437cca59ee881f25eb73ad640834d24" prot="public" virt="non-virtual"><scope>HashTableView</scope><name>getMapEnd</name></member>
+      <member refid="class_hash_table_view_1afc9c195c10bb0945e01b32bb9b082b7d" prot="public" virt="virtual"><scope>HashTableView</scope><name>getTable</name></member>
+      <member refid="class_hash_table_view_1a57b693f2548be8e3f90085a255722ac7" prot="public" virt="non-virtual"><scope>HashTableView</scope><name>hash_table_t</name></member>
+      <member refid="class_hash_table_view_1a04d2163c790b3298b05904bb84dea294" prot="public" virt="non-virtual"><scope>HashTableView</scope><name>HashTableView</name></member>
+      <member refid="class_hash_table_view_1a547beadb6fa926d9f757fd433e3d19b1" prot="protected" virt="non-virtual"><scope>HashTableView</scope><name>key_t</name></member>
+      <member refid="class_hash_table_view_1a93731ab4b2d7bd0b2c2dcc5f94cea2d5" prot="public" virt="virtual"><scope>HashTableView</scope><name>numKeys</name></member>
+      <member refid="class_hash_table_view_1acacbdda6b09ed83a400f1426d5308264" prot="public" virt="virtual"><scope>HashTableView</scope><name>size</name></member>
+      <member refid="class_abstract_hash_table_1a53f1b06964770253eb5cc89ee900a0fd" prot="public" virt="virtual"><scope>HashTableView</scope><name>~AbstractHashTable</name></member>
+      <member refid="class_abstract_resource_1a4299feff952f974409aaaf52082deadb" prot="public" virt="virtual"><scope>HashTableView</scope><name>~AbstractResource</name></member>
+      <member refid="class_hash_table_view_1ad5fa10400db1f316557cb1cf7eec3642" prot="public" virt="virtual"><scope>HashTableView</scope><name>~HashTableView</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

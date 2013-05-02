@@ -1,0 +1,93 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="class_table_builder" kind="class" prot="public">
+    <compoundname>TableBuilder</compoundname>
+    <includes refid="_table_builder_8h" local="no">TableBuilder.h</includes>
+    <innerclass refid="struct_table_builder_1_1param" prot="public">TableBuilder::param</innerclass>
+    <innerclass refid="struct_table_builder_1_1param__list" prot="public">TableBuilder::param_list</innerclass>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="class_table_builder_1a95831e39786c88a88aa18aa45bddf120" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="namespacehyrise_1_1storage_1a21d5e900c20019710828c453eaded1ee" kindref="member">hyrise::storage::atable_ptr_t</ref></type>
+        <definition>hyrise::storage::atable_ptr_t TableBuilder::build</definition>
+        <argsstring>(param_list args, const bool compressed=false)</argsstring>
+        <name>build</name>
+        <param>
+          <type><ref refid="struct_table_builder_1_1param__list" kindref="compound">param_list</ref></type>
+          <declname>args</declname>
+        </param>
+        <param>
+          <type>const bool</type>
+          <declname>compressed</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableBuilder.h" line="98" bodyfile="/home/grund/hyrise/src/lib/storage/TableBuilder.cpp" bodystart="42" bodyend="59"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-static-func">
+      <memberdef kind="function" id="class_table_builder_1a962dbb52e18a096f9a26ceb3815b7f9f" prot="private" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="namespacehyrise_1_1storage_1a21d5e900c20019710828c453eaded1ee" kindref="member">hyrise::storage::atable_ptr_t</ref></type>
+        <definition>hyrise::storage::atable_ptr_t TableBuilder::createTable</definition>
+        <argsstring>(param_list::param_list_t::const_iterator b, param_list::param_list_t::const_iterator e, const bool compressed)</argsstring>
+        <name>createTable</name>
+        <param>
+          <type>param_list::param_list_t::const_iterator</type>
+          <declname>b</declname>
+        </param>
+        <param>
+          <type>param_list::param_list_t::const_iterator</type>
+          <declname>e</declname>
+        </param>
+        <param>
+          <type>const bool</type>
+          <declname>compressed</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableBuilder.h" line="108" bodyfile="/home/grund/hyrise/src/lib/storage/TableBuilder.cpp" bodystart="21" bodyend="40"/>
+      </memberdef>
+      <memberdef kind="function" id="class_table_builder_1a02dbb3daed02ac8e2d459e382cbcd9ee" prot="private" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void TableBuilder::checkParams</definition>
+        <argsstring>(const param_list &amp;args)</argsstring>
+        <name>checkParams</name>
+        <param>
+          <type>const <ref refid="struct_table_builder_1_1param__list" kindref="compound">param_list</ref> &amp;</type>
+          <declname>args</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableBuilder.h" line="116" bodyfile="/home/grund/hyrise/src/lib/storage/TableBuilder.cpp" bodystart="8" bodyend="19"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="3017">
+        <label>TableBuilder</label>
+        <link refid="class_table_builder"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/storage/TableBuilder.h" line="29" bodyfile="/home/grund/hyrise/src/lib/storage/TableBuilder.h" bodystart="29" bodyend="118"/>
+    <listofallmembers>
+      <member refid="class_table_builder_1a95831e39786c88a88aa18aa45bddf120" prot="public" virt="non-virtual"><scope>TableBuilder</scope><name>build</name></member>
+      <member refid="class_table_builder_1a02dbb3daed02ac8e2d459e382cbcd9ee" prot="private" virt="non-virtual"><scope>TableBuilder</scope><name>checkParams</name></member>
+      <member refid="class_table_builder_1a962dbb52e18a096f9a26ceb3815b7f9f" prot="private" virt="non-virtual"><scope>TableBuilder</scope><name>createTable</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,302 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="class_base_attribute_vector" kind="class" prot="public">
+    <compoundname>BaseAttributeVector</compoundname>
+    <basecompoundref refid="class_abstract_attribute_vector" prot="public" virt="non-virtual">AbstractAttributeVector</basecompoundref>
+    <includes refid="_base_attribute_vector_8h" local="no">BaseAttributeVector.h</includes>
+    <templateparamlist>
+      <param>
+        <type>typename</type>
+        <declname>T</declname>
+        <defname>T</defname>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="class_base_attribute_vector_1a5074ae3dbf99e9c4dd3a0fd3b929e8ab" prot="public" static="no">
+        <type>T</type>
+        <definition>typedef T BaseAttributeVector&lt; T &gt;::value_type</definition>
+        <argsstring></argsstring>
+        <name>value_type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/BaseAttributeVector.h" line="17" bodyfile="/home/grund/hyrise/src/lib/storage/BaseAttributeVector.h" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_base_attribute_vector_1a8e9a3b24c3c21480db901b35829cb7cb" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual BaseAttributeVector&lt; T &gt;::~BaseAttributeVector</definition>
+        <argsstring>()</argsstring>
+        <name>~BaseAttributeVector</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/BaseAttributeVector.h" line="19" bodyfile="/home/grund/hyrise/src/lib/storage/BaseAttributeVector.h" bodystart="19" bodyend="20"/>
+      </memberdef>
+      <memberdef kind="function" id="class_base_attribute_vector_1a46402c4cda1e8b0b9f2a4eae283cbc49" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>T</type>
+        <definition>virtual T BaseAttributeVector&lt; T &gt;::get</definition>
+        <argsstring>(size_t column, size_t row) const =0</argsstring>
+        <name>get</name>
+        <reimplementedby refid="class_fixed_length_vector_1a2959a5e85b497671085be18aebd67333">get</reimplementedby>
+        <reimplementedby refid="class_bit_compressed_vector_1a36d28dac4401f8e3a3b1ccf87346137b">get</reimplementedby>
+        <param>
+          <type>size_t</type>
+          <declname>column</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>row</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/BaseAttributeVector.h" line="27"/>
+      </memberdef>
+      <memberdef kind="function" id="class_base_attribute_vector_1a9fadea1c74dd07ac58bcf29b5799ab46" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void BaseAttributeVector&lt; T &gt;::set</definition>
+        <argsstring>(size_t column, size_t row, T value)=0</argsstring>
+        <name>set</name>
+        <param>
+          <type>size_t</type>
+          <declname>column</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>row</declname>
+        </param>
+        <param>
+          <type>T</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/BaseAttributeVector.h" line="32"/>
+      </memberdef>
+      <memberdef kind="function" id="class_base_attribute_vector_1a49761020b6ff22ea15e43e846e34e867" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void BaseAttributeVector&lt; T &gt;::reserve</definition>
+        <argsstring>(size_t rows)=0</argsstring>
+        <name>reserve</name>
+        <reimplementedby refid="class_fixed_length_vector_1ae5af76653e782e01fc70dfbb7485bd89">reserve</reimplementedby>
+        <reimplementedby refid="class_bit_compressed_vector_1a12db405ab418f2f5a16e7d9eb0021453">reserve</reimplementedby>
+        <param>
+          <type>size_t</type>
+          <declname>rows</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/BaseAttributeVector.h" line="37"/>
+      </memberdef>
+      <memberdef kind="function" id="class_base_attribute_vector_1a5f190deb098511d9de05da0ade39c846" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void BaseAttributeVector&lt; T &gt;::resize</definition>
+        <argsstring>(size_t rows)=0</argsstring>
+        <name>resize</name>
+        <reimplementedby refid="class_fixed_length_vector_1aab44a5f3dc7fd5b12cb2a98b02fc5a05">resize</reimplementedby>
+        <reimplementedby refid="class_bit_compressed_vector_1a03cf285f793cda8b25908455d2a781dc">resize</reimplementedby>
+        <param>
+          <type>size_t</type>
+          <declname>rows</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/BaseAttributeVector.h" line="44"/>
+      </memberdef>
+      <memberdef kind="function" id="class_base_attribute_vector_1ad30d47e2a2f0890875c225d7d0567cd6" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>uint64_t</type>
+        <definition>virtual uint64_t BaseAttributeVector&lt; T &gt;::capacity</definition>
+        <argsstring>()=0</argsstring>
+        <name>capacity</name>
+        <reimplementedby refid="class_fixed_length_vector_1a1abf2d0f2f9b56aac7ef64b4c88de96f">capacity</reimplementedby>
+        <reimplementedby refid="class_bit_compressed_vector_1aff6233b0d55ec50a25d3b2192169ba89">capacity</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/BaseAttributeVector.h" line="46"/>
+      </memberdef>
+      <memberdef kind="function" id="class_base_attribute_vector_1a77f5fdb728bbdbef70882e474c6b0a05" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void BaseAttributeVector&lt; T &gt;::clear</definition>
+        <argsstring>()=0</argsstring>
+        <name>clear</name>
+        <reimplementedby refid="class_fixed_length_vector_1acfeeb818ea4391fc7daa3143c75abd7a">clear</reimplementedby>
+        <reimplementedby refid="class_bit_compressed_vector_1a17c265d81dd5af5b5cab47aa8f1c654f">clear</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/BaseAttributeVector.h" line="48"/>
+      </memberdef>
+      <memberdef kind="function" id="class_base_attribute_vector_1a370a4796980b8bdf5fa252e3f2c63c37" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>size_t</type>
+        <definition>virtual size_t BaseAttributeVector&lt; T &gt;::size</definition>
+        <argsstring>()=0</argsstring>
+        <name>size</name>
+        <reimplementedby refid="class_fixed_length_vector_1a98af98094d2fa27569002e2151154490">size</reimplementedby>
+        <reimplementedby refid="class_bit_compressed_vector_1a0f51137244c84835c5b3e45b8b27b5de">size</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/BaseAttributeVector.h" line="50"/>
+      </memberdef>
+      <memberdef kind="function" id="class_base_attribute_vector_1aff09a848bc4955f7edd5b3ed7ddd4601" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>std::shared_ptr&lt; <ref refid="class_base_attribute_vector" kindref="compound">BaseAttributeVector</ref>&lt; T &gt; &gt;</type>
+        <definition>virtual std::shared_ptr&lt;BaseAttributeVector&lt;T&gt; &gt; BaseAttributeVector&lt; T &gt;::copy</definition>
+        <argsstring>()=0</argsstring>
+        <name>copy</name>
+        <reimplementedby refid="class_fixed_length_vector_1a06d8fb329941a9ff1dd345c31e7b3696">copy</reimplementedby>
+        <reimplementedby refid="class_bit_compressed_vector_1a949adbaee3213b75409530bea76e5ffc">copy</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/BaseAttributeVector.h" line="52"/>
+      </memberdef>
+      <memberdef kind="function" id="class_base_attribute_vector_1a7d4e5e6574e73f49f923ff92a072bca0" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void BaseAttributeVector&lt; T &gt;::rewriteColumn</definition>
+        <argsstring>(const size_t column, const size_t bits)=0</argsstring>
+        <name>rewriteColumn</name>
+        <reimplementedby refid="class_fixed_length_vector_1a7df930f2c2a15ff0a88f9cc4f0d3d092">rewriteColumn</reimplementedby>
+        <reimplementedby refid="class_bit_compressed_vector_1a60f2a7afba641a34381c71fcc9bbad1d">rewriteColumn</reimplementedby>
+        <param>
+          <type>const size_t</type>
+          <declname>column</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>bits</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/BaseAttributeVector.h" line="54"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1524">
+        <label>BaseAttributeVector&lt; T &gt;</label>
+        <link refid="class_base_attribute_vector"/>
+        <childnode refid="1525" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1527">
+        <label>BaseAllocatedAttributeVector&lt; AllocatedClass, Allocator &gt;</label>
+        <link refid="class_base_allocated_attribute_vector"/>
+        <childnode refid="1526" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1530">
+        <label>BaseAllocatedAttributeVector&lt; BitCompressedVector&lt; T, Allocator &gt;, Allocator &gt;</label>
+        <link refid="class_base_allocated_attribute_vector"/>
+        <childnode refid="1527" relation="template-instance">
+          <edgelabel>&lt; BitCompressedVector&lt; T, Allocator &gt;, Allocator &gt;</edgelabel>
+        </childnode>
+        <childnode refid="1526" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1531">
+        <label>BitCompressedVector&lt; T, Allocator &gt;</label>
+        <link refid="class_bit_compressed_vector"/>
+        <childnode refid="1530" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1526">
+        <label>BaseAttributeVector&lt; Allocator::value_type &gt;</label>
+        <link refid="class_base_attribute_vector"/>
+        <childnode refid="1524" relation="template-instance">
+          <edgelabel>&lt; Allocator::value_type &gt;</edgelabel>
+        </childnode>
+      </node>
+      <node id="1528">
+        <label>BaseAllocatedAttributeVector&lt; FixedLengthVector&lt; T, Allocator &gt;, Allocator &gt;</label>
+        <link refid="class_base_allocated_attribute_vector"/>
+        <childnode refid="1527" relation="template-instance">
+          <edgelabel>&lt; FixedLengthVector&lt; T, Allocator &gt;, Allocator &gt;</edgelabel>
+        </childnode>
+        <childnode refid="1526" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1525">
+        <label>AbstractAttributeVector</label>
+        <link refid="class_abstract_attribute_vector"/>
+      </node>
+      <node id="1529">
+        <label>FixedLengthVector&lt; T, Allocator &gt;</label>
+        <link refid="class_fixed_length_vector"/>
+        <childnode refid="1528" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1532">
+        <label>BaseAttributeVector&lt; T &gt;</label>
+        <link refid="class_base_attribute_vector"/>
+        <childnode refid="1533" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1533">
+        <label>AbstractAttributeVector</label>
+        <link refid="class_abstract_attribute_vector"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/storage/BaseAttributeVector.h" line="15" bodyfile="/home/grund/hyrise/src/lib/storage/BaseAttributeVector.h" bodystart="15" bodyend="56"/>
+    <listofallmembers>
+      <member refid="class_base_attribute_vector_1ad30d47e2a2f0890875c225d7d0567cd6" prot="public" virt="pure-virtual"><scope>BaseAttributeVector</scope><name>capacity</name></member>
+      <member refid="class_base_attribute_vector_1a77f5fdb728bbdbef70882e474c6b0a05" prot="public" virt="pure-virtual"><scope>BaseAttributeVector</scope><name>clear</name></member>
+      <member refid="class_base_attribute_vector_1aff09a848bc4955f7edd5b3ed7ddd4601" prot="public" virt="pure-virtual"><scope>BaseAttributeVector</scope><name>copy</name></member>
+      <member refid="class_abstract_attribute_vector_1aa9b187475305f322958e9e70f5da7b38" prot="public" virt="pure-virtual"><scope>BaseAttributeVector</scope><name>data</name></member>
+      <member refid="class_base_attribute_vector_1a46402c4cda1e8b0b9f2a4eae283cbc49" prot="public" virt="pure-virtual"><scope>BaseAttributeVector</scope><name>get</name></member>
+      <member refid="class_base_attribute_vector_1a49761020b6ff22ea15e43e846e34e867" prot="public" virt="pure-virtual"><scope>BaseAttributeVector</scope><name>reserve</name></member>
+      <member refid="class_base_attribute_vector_1a5f190deb098511d9de05da0ade39c846" prot="public" virt="pure-virtual"><scope>BaseAttributeVector</scope><name>resize</name></member>
+      <member refid="class_base_attribute_vector_1a7d4e5e6574e73f49f923ff92a072bca0" prot="public" virt="pure-virtual"><scope>BaseAttributeVector</scope><name>rewriteColumn</name></member>
+      <member refid="class_base_attribute_vector_1a9fadea1c74dd07ac58bcf29b5799ab46" prot="public" virt="pure-virtual"><scope>BaseAttributeVector</scope><name>set</name></member>
+      <member refid="class_abstract_attribute_vector_1ad46f27571b5f25653ae8a5fa95404eff" prot="public" virt="pure-virtual"><scope>BaseAttributeVector</scope><name>setNumRows</name></member>
+      <member refid="class_base_attribute_vector_1a370a4796980b8bdf5fa252e3f2c63c37" prot="public" virt="pure-virtual"><scope>BaseAttributeVector</scope><name>size</name></member>
+      <member refid="class_base_attribute_vector_1a5074ae3dbf99e9c4dd3a0fd3b929e8ab" prot="public" virt="non-virtual"><scope>BaseAttributeVector</scope><name>value_type</name></member>
+      <member refid="class_abstract_attribute_vector_1aed37fff9aff69e7e3c7037e8f1f0518d" prot="public" virt="virtual"><scope>BaseAttributeVector</scope><name>~AbstractAttributeVector</name></member>
+      <member refid="class_base_attribute_vector_1a8e9a3b24c3c21480db901b35829cb7cb" prot="public" virt="virtual"><scope>BaseAttributeVector</scope><name>~BaseAttributeVector</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

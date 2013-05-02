@@ -1,0 +1,109 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="epoch_8cpp" kind="file">
+    <compoundname>epoch.cpp</compoundname>
+    <includes refid="epoch_8h" local="yes">epoch.h</includes>
+    <includes local="no">time.h</includes>
+    <includes local="no">sys/time.h</includes>
+    <includes local="no">features.h</includes>
+    <incdepgraph>
+      <node id="13685">
+        <label>stdint.h</label>
+      </node>
+      <node id="13684">
+        <label>epoch.h</label>
+        <link refid="epoch_8h"/>
+        <childnode refid="13685" relation="include">
+        </childnode>
+      </node>
+      <node id="13688">
+        <label>features.h</label>
+      </node>
+      <node id="13683">
+        <label>src/lib/helper/epoch.cpp</label>
+        <link refid="epoch.cpp"/>
+        <childnode refid="13684" relation="include">
+        </childnode>
+        <childnode refid="13686" relation="include">
+        </childnode>
+        <childnode refid="13687" relation="include">
+        </childnode>
+        <childnode refid="13688" relation="include">
+        </childnode>
+      </node>
+      <node id="13686">
+        <label>time.h</label>
+      </node>
+      <node id="13687">
+        <label>sys/time.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="epoch_8cpp_1a1ebaf5c8f80fb2e6168da879e70f1ed5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="epoch_8h_1a18c258fe5c1fdd9c998d1c4bc0d39560" kindref="member">epoch_t</ref></type>
+        <definition>epoch_t get_epoch_nanoseconds</definition>
+        <argsstring>()</argsstring>
+        <name>get_epoch_nanoseconds</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/epoch.cpp" line="13" bodyfile="/home/grund/hyrise/src/lib/helper/epoch.cpp" bodystart="13" bodyend="45"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>2012<sp/>Hasso-Plattner-Institut<sp/>fuer<sp/>Softwaresystemtechnik<sp/>GmbH.<sp/>All<sp/>rights<sp/>reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="epoch_8h" kindref="compound">epoch.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__APPLE__</highlight></codeline>
+<codeline lineno="6"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&lt;mach/mach_time.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="8"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&lt;time.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;sys/time.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;features.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="12"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13" refid="epoch_8h_1a1ebaf5c8f80fb2e6168da879e70f1ed5" refkind="member"><highlight class="normal"><ref refid="epoch_8h_1a18c258fe5c1fdd9c998d1c4bc0d39560" kindref="member">epoch_t</ref><sp/><ref refid="epoch_8cpp_1a1ebaf5c8f80fb2e6168da879e70f1ed5" kindref="member">get_epoch_nanoseconds</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><ref refid="epoch_8h_1a18c258fe5c1fdd9c998d1c4bc0d39560" kindref="member">epoch_t</ref><sp/>epoch<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__APPLE__</highlight></codeline>
+<codeline lineno="17"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/>mach_timebase_info_data_t<sp/>info;</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/>mach_timebase_info(&amp;info);</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/>uint64_t<sp/>start<sp/>=<sp/>mach_absolute_time();</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/>start<sp/>*=<sp/>info.numer;</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/>start<sp/>/=<sp/>info.denom;</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/>epoch<sp/>=<sp/>start;</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>_POSIX_C_SOURCE<sp/>&gt;=<sp/>199309L</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">timespec<sp/>time;</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/>clock_gettime(CLOCK_MONOTONIC,<sp/>&amp;time);</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/>epoch<sp/>=<sp/>time.tv_nsec<sp/>+<sp/>time.tv_sec<sp/>*<sp/>1000000000;</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">timeval<sp/>time;</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/>gettimeofday(&amp;time,<sp/>0);</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/>epoch<sp/>=<sp/>(time.tv_usec<sp/>+<sp/>time.tv_sec<sp/>*<sp/>1000000)<sp/>*<sp/>1000;</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>epoch;</highlight></codeline>
+<codeline lineno="45"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/home/grund/hyrise/src/lib/helper/epoch.cpp"/>
+  </compounddef>
+</doxygen>

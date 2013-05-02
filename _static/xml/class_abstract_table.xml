@@ -1,0 +1,1945 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="class_abstract_table" kind="class" prot="public">
+    <compoundname>AbstractTable</compoundname>
+    <basecompoundref refid="class_abstract_resource" prot="public" virt="non-virtual">AbstractResource</basecompoundref>
+    <derivedcompoundref refid="class_abstract_allocated_table" prot="public" virt="non-virtual">AbstractAllocatedTable&lt; Strategy, Allocator, AllocatedClass &gt;</derivedcompoundref>
+    <derivedcompoundref refid="class_horizontal_table" prot="public" virt="non-virtual">HorizontalTable</derivedcompoundref>
+    <derivedcompoundref refid="classhyrise_1_1storage_1_1_simple_store" prot="public" virt="non-virtual">hyrise::storage::SimpleStore</derivedcompoundref>
+    <derivedcompoundref refid="class_mutable_vertical_table" prot="public" virt="non-virtual">MutableVerticalTable</derivedcompoundref>
+    <derivedcompoundref refid="class_pointer_calculator" prot="public" virt="non-virtual">PointerCalculator</derivedcompoundref>
+    <derivedcompoundref refid="class_store" prot="public" virt="non-virtual">Store</derivedcompoundref>
+    <derivedcompoundref refid="class_table_range_view" prot="public" virt="non-virtual">TableRangeView</derivedcompoundref>
+    <includes refid="_abstract_table_8h" local="no">AbstractTable.h</includes>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="class_abstract_table_1af76ff827deb697db8077a90c450381ab" prot="public" static="no">
+        <type>std::shared_ptr&lt; <ref refid="class_abstract_dictionary" kindref="compound">AbstractDictionary</ref> &gt;</type>
+        <definition>typedef std::shared_ptr&lt;AbstractDictionary&gt; AbstractTable::SharedDictionaryPtr</definition>
+        <argsstring></argsstring>
+        <name>SharedDictionaryPtr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/AbstractTable.h" line="72" bodyfile="/home/grund/hyrise/src/lib/storage/AbstractTable.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="friend">
+      <memberdef kind="friend" id="class_abstract_table_1a54c7f40a7fc1c6c94650adfb95968a7f" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>friend class</type>
+        <definition>friend class Store</definition>
+        <argsstring></argsstring>
+        <name>Store</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/AbstractTable.h" line="64" bodyfile="/home/grund/hyrise/src/lib/storage/AbstractTable.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_abstract_table_1a58903bbdb672c10f8ad4252c0c356fc0" prot="private" static="no" mutable="no">
+        <type>unsigned</type>
+        <definition>unsigned AbstractTable::_generation</definition>
+        <argsstring></argsstring>
+        <name>_generation</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/AbstractTable.h" line="68" bodyfile="/home/grund/hyrise/src/lib/storage/AbstractTable.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_abstract_table_1a0d4b411db86931d15cc643a2883ffe59" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>AbstractTable::AbstractTable</definition>
+        <argsstring>()</argsstring>
+        <name>AbstractTable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Constructor. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/AbstractTable.h" line="77" bodyfile="/home/grund/hyrise/src/lib/storage/AbstractTable.h" bodystart="77" bodyend="77"/>
+      </memberdef>
+      <memberdef kind="function" id="class_abstract_table_1a957e2dc86a1aa6ffa19b2d8585a1ee91" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual AbstractTable::~AbstractTable</definition>
+        <argsstring>()</argsstring>
+        <name>~AbstractTable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Destructor. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/AbstractTable.h" line="83" bodyfile="/home/grund/hyrise/src/lib/storage/AbstractTable.h" bodystart="83" bodyend="83"/>
+      </memberdef>
+      <memberdef kind="function" id="class_abstract_table_1a1d792fb6711c4ea00e4662576c1c3dc8" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>unsigned</type>
+        <definition>unsigned AbstractTable::generation</definition>
+        <argsstring>() const </argsstring>
+        <name>generation</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Returns the generation value. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/AbstractTable.h" line="89" bodyfile="/home/grund/hyrise/src/lib/storage/AbstractTable.cpp" bodystart="104" bodyend="106"/>
+      </memberdef>
+      <memberdef kind="function" id="class_abstract_table_1a583da7847c5f08de7ee4288cec78e187" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void AbstractTable::setGeneration</definition>
+        <argsstring>(const unsigned generation)</argsstring>
+        <name>setGeneration</name>
+        <param>
+          <type>const unsigned</type>
+          <declname>generation</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Sets the generation value.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>generation</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The generation. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/AbstractTable.h" line="97" bodyfile="/home/grund/hyrise/src/lib/storage/AbstractTable.cpp" bodystart="100" bodyend="102"/>
+      </memberdef>
+      <memberdef kind="function" id="class_abstract_table_1a0439c8c9642d0a5dbbbf2d3e37c690fc" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type><ref refid="namespacehyrise_1_1storage_1a21d5e900c20019710828c453eaded1ee" kindref="member">hyrise::storage::atable_ptr_t</ref></type>
+        <definition>hyrise::storage::atable_ptr_t AbstractTable::copy_structure</definition>
+        <argsstring>(const field_list_t *fields=nullptr, const bool reuse_dict=false, const size_t initial_size=0, const bool with_containers=true, const bool compressed=false) const </argsstring>
+        <name>copy_structure</name>
+        <reimplementedby refid="class_table_range_view_1aa6f05c782ea927eecf0e465a7939e996">copy_structure</reimplementedby>
+        <reimplementedby refid="class_mutable_vertical_table_1ab83f1c327f6d4fd49ef8b5b35d4355e0">copy_structure</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1storage_1_1_simple_store_1aecf3f597b161a4750901206edce9ca0e">copy_structure</reimplementedby>
+        <param>
+          <type>const <ref refid="storage__types_8h_1a36fbc31395a53b7ece189846e4d3253c" kindref="member">field_list_t</ref> *</type>
+          <declname>fields</declname>
+          <defval><ref refid="csb__tree_8cpp_1ab979d9d4b4923f7c54d6caa6e1a61936" kindref="member">nullptr</ref></defval>
+        </param>
+        <param>
+          <type>const bool</type>
+          <declname>reuse_dict</declname>
+          <defval>false</defval>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>initial_size</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>const bool</type>
+          <declname>with_containers</declname>
+          <defval>true</defval>
+        </param>
+        <param>
+          <type>const bool</type>
+          <declname>compressed</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Copy the table&apos;s structure. Returns a pointer to an <ref refid="class_abstract_table" kindref="compound">AbstractTable</ref> with a copy of the current table&apos;s structure, containing all fields specified in the first parameter or all if left empty, as well as the current table&apos;s dictionary for those fields in case reuse_dict is set to true.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>fields</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>List of fields to be copied (all if empty or nullptr). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>reuse_dict</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Also copy the table&apos;s dictionary (default=false). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>initial_size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Initial size of the returned table (default=0). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>with_containers</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Only used by derived classes. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>compressed</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Sets the compressed storage for the new table </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/AbstractTable.h" line="112" bodyfile="/home/grund/hyrise/src/lib/storage/AbstractTable.cpp" bodystart="21" bodyend="50"/>
+      </memberdef>
+      <memberdef kind="function" id="class_abstract_table_1ab2e5350c658908dc343dd2b8c36eed14" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="namespacehyrise_1_1storage_1a21d5e900c20019710828c453eaded1ee" kindref="member">hyrise::storage::atable_ptr_t</ref></type>
+        <definition>hyrise::storage::atable_ptr_t AbstractTable::copy_structure_modifiable</definition>
+        <argsstring>(const field_list_t *fields=nullptr, const size_t initial_size=0, const bool with_containers=true) const </argsstring>
+        <name>copy_structure_modifiable</name>
+        <reimplementedby refid="classhyrise_1_1storage_1_1_simple_store_1aabafdeebf9458fbdcd917c00479dc07e">copy_structure_modifiable</reimplementedby>
+        <reimplementedby refid="class_mutable_vertical_table_1a1a9a6883fd58a563ca025b2954c31526">copy_structure_modifiable</reimplementedby>
+        <param>
+          <type>const <ref refid="storage__types_8h_1a36fbc31395a53b7ece189846e4d3253c" kindref="member">field_list_t</ref> *</type>
+          <declname>fields</declname>
+          <defval><ref refid="csb__tree_8cpp_1ab979d9d4b4923f7c54d6caa6e1a61936" kindref="member">nullptr</ref></defval>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>initial_size</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>const bool</type>
+          <declname>with_containers</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Copy the table&apos;s structure modifiable. Returns a pointer to an <ref refid="class_abstract_table" kindref="compound">AbstractTable</ref> with a copy of the current table&apos;s structure, containing all fields specified in the first parameter or all if left empty, as well as the current table&apos;s dictionary-type for each field, without values for future modification.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>fields</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>List of fields to be copied (all if empty or nullptr). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>initial_size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Initial size of the returned table (default=0). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>with_containers</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Only used by derived classes. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/AbstractTable.h" line="126" bodyfile="/home/grund/hyrise/src/lib/storage/AbstractTable.cpp" bodystart="52" bodyend="72"/>
+      </memberdef>
+      <memberdef kind="function" id="class_abstract_table_1a85b7d9471c86bd31879c0f6378071b9c" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="storage__types_8h_1aa70e7ba5eb63399a65e9cfb52c2bd86e" kindref="member">ValueIdList</ref></type>
+        <definition>ValueIdList AbstractTable::copyValueIds</definition>
+        <argsstring>(const size_t row, const field_list_t *fields=nullptr) const </argsstring>
+        <name>copyValueIds</name>
+        <param>
+          <type>const size_t</type>
+          <declname>row</declname>
+        </param>
+        <param>
+          <type>const <ref refid="storage__types_8h_1a36fbc31395a53b7ece189846e4d3253c" kindref="member">field_list_t</ref> *</type>
+          <declname>fields</declname>
+          <defval><ref refid="csb__tree_8cpp_1ab979d9d4b4923f7c54d6caa6e1a61936" kindref="member">nullptr</ref></defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get the value-IDs for a certain row. Returns a ValueIdList object containing a vector of ValueIds for all specified fields in a given row.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>row</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Row from which to extract the ValueIDs. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>fields</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>List of respected fields (all if empty). </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/AbstractTable.h" line="137" bodyfile="/home/grund/hyrise/src/lib/storage/AbstractTable.cpp" bodystart="84" bodyend="98"/>
+      </memberdef>
+      <memberdef kind="function" id="class_abstract_table_1a7a16a970c5e9229616b984972d1b44b9" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>const <ref refid="class_column_metadata" kindref="compound">ColumnMetadata</ref> *</type>
+        <definition>virtual const ColumnMetadata* AbstractTable::metadataAt</definition>
+        <argsstring>(const size_t column, const size_t row=0, const table_id_t table_id=0) const =0</argsstring>
+        <name>metadataAt</name>
+        <reimplementedby refid="class_pointer_calculator_1a655597623a292ec245e5404886effeec">metadataAt</reimplementedby>
+        <reimplementedby refid="class_table_range_view_1a9595f3901d0c7b328e5c3ce2d6d5104b">metadataAt</reimplementedby>
+        <reimplementedby refid="class_horizontal_table_1aa4b9fbe87afa35826cf3c7c4e3d84e92">metadataAt</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1storage_1_1_simple_store_1aab14539cc8f384c354d1b10ff63c62f2">metadataAt</reimplementedby>
+        <reimplementedby refid="class_store_1a6d5749cca0eeeb84fcc7476e6bdbfc9f">metadataAt</reimplementedby>
+        <reimplementedby refid="class_mutable_vertical_table_1a53599361bfad6cfed8bd12da0bfd58f6">metadataAt</reimplementedby>
+        <param>
+          <type>const size_t</type>
+          <declname>column</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>row</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>const <ref refid="storage__types_8h_1ab1b21fbdc9fcb935021666db9c910755" kindref="member">table_id_t</ref></type>
+          <declname>table_id</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get the metadata for a certain column. Returns a pointer to a <ref refid="class_column_metadata" kindref="compound">ColumnMetadata</ref> object for a specified column. <simplesect kind="note"><para>Must be implemented by any derived class!</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>column</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Column for which to return the metadata. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>row</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Row in that column (default=0). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>table_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ID of the table from which to extract (default=0). </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/AbstractTable.h" line="149"/>
+      </memberdef>
+      <memberdef kind="function" id="class_abstract_table_1a8b854b19026e75eebc02942499a82a21" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="storage__types_8h_1a8776c82cf4ebeb0f86f0e83709870655" kindref="member">metadata_vec_t</ref></type>
+        <definition>metadata_vec_t AbstractTable::metadata</definition>
+        <argsstring>() const </argsstring>
+        <name>metadata</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Returs a list of references to metadata of this table.</para><para>The list is newly created for all calls to this method, but the references stay the same. Thus calling this method incurrs a linear cost to the width of the table. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/AbstractTable.h" line="158" bodyfile="/home/grund/hyrise/src/lib/storage/AbstractTable.cpp" bodystart="330" bodyend="335"/>
+      </memberdef>
+      <memberdef kind="function" id="class_abstract_table_1a001566ba79ef4dfcde544b4867dd69e7" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>const <ref refid="class_abstract_table_1af76ff827deb697db8077a90c450381ab" kindref="member">SharedDictionaryPtr</ref> &amp;</type>
+        <definition>virtual const SharedDictionaryPtr&amp; AbstractTable::dictionaryAt</definition>
+        <argsstring>(const size_t column, const size_t row=0, const table_id_t table_id=0, const bool of_delta=false) const =0</argsstring>
+        <name>dictionaryAt</name>
+        <reimplementedby refid="class_pointer_calculator_1a8659ecf4c3887c5ab74958dc038c16b2">dictionaryAt</reimplementedby>
+        <reimplementedby refid="class_table_range_view_1ab558885d0ad4114de419066325ef6df2">dictionaryAt</reimplementedby>
+        <reimplementedby refid="class_horizontal_table_1a0a5b8b82d5bd701bc745fa01d4e7c1ec">dictionaryAt</reimplementedby>
+        <reimplementedby refid="class_store_1ac99a49efd57349d2fdb4642e3c1ffb85">dictionaryAt</reimplementedby>
+        <reimplementedby refid="class_mutable_vertical_table_1a881d9ae8d8de90c649fe5800720096f1">dictionaryAt</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1storage_1_1_simple_store_1ad640c4027bf876c96e4a6ba2f5359fb0">dictionaryAt</reimplementedby>
+        <param>
+          <type>const size_t</type>
+          <declname>column</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>row</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>const <ref refid="storage__types_8h_1ab1b21fbdc9fcb935021666db9c910755" kindref="member">table_id_t</ref></type>
+          <declname>table_id</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>const bool</type>
+          <declname>of_delta</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get the dictionary for a certain column. <simplesect kind="note"><para>Must be implemented by any derived class!</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>column</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Column from which to extract the dictionary. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>row</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Row in that column (default=0). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>table_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ID of the table from which to extract (default=0). </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/AbstractTable.h" line="168"/>
+      </memberdef>
+      <memberdef kind="function" id="class_abstract_table_1aa2833dbbbabb49737922e5172f0efff9" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>const <ref refid="class_abstract_table_1af76ff827deb697db8077a90c450381ab" kindref="member">SharedDictionaryPtr</ref> &amp;</type>
+        <definition>virtual const SharedDictionaryPtr&amp; AbstractTable::dictionaryByTableId</definition>
+        <argsstring>(const size_t column, const table_id_t table_id) const =0</argsstring>
+        <name>dictionaryByTableId</name>
+        <reimplementedby refid="class_pointer_calculator_1a9702060150878b8235ae142439d372e9">dictionaryByTableId</reimplementedby>
+        <reimplementedby refid="class_horizontal_table_1aadc38d9b453ba62e435df6703f13c631">dictionaryByTableId</reimplementedby>
+        <reimplementedby refid="class_table_range_view_1a77104382e7ed373335c75d4b3fa030b6">dictionaryByTableId</reimplementedby>
+        <reimplementedby refid="class_store_1a897f1aaea02ea049f9687e0bbe821b19">dictionaryByTableId</reimplementedby>
+        <reimplementedby refid="class_mutable_vertical_table_1ae72ba0d3d273f96739789634fe607c01">dictionaryByTableId</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1storage_1_1_simple_store_1affe55ed8a3d5fbab52cce5457344c41a">dictionaryByTableId</reimplementedby>
+        <param>
+          <type>const size_t</type>
+          <declname>column</declname>
+        </param>
+        <param>
+          <type>const <ref refid="storage__types_8h_1ab1b21fbdc9fcb935021666db9c910755" kindref="member">table_id_t</ref></type>
+          <declname>table_id</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get the dictionary for a certain column by table ID. <simplesect kind="note"><para>Must be implemented by any derived class!</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>column</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Column from which to extract the dictionary. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>table_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ID of the table from which to extract. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/AbstractTable.h" line="178"/>
+      </memberdef>
+      <memberdef kind="function" id="class_abstract_table_1ab1d04fdc926954e4027fb883abab1d73" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; <ref refid="class_abstract_table_1af76ff827deb697db8077a90c450381ab" kindref="member">SharedDictionaryPtr</ref> &gt; *</type>
+        <definition>std::vector&lt; AbstractTable::SharedDictionaryPtr &gt; * AbstractTable::dictionaries</definition>
+        <argsstring>() const </argsstring>
+        <name>dictionaries</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get all dictionaries. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/AbstractTable.h" line="185" bodyfile="/home/grund/hyrise/src/lib/storage/AbstractTable.cpp" bodystart="74" bodyend="82"/>
+      </memberdef>
+      <memberdef kind="function" id="class_abstract_table_1a15c7e879e77c9586460488e6e442566c" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void AbstractTable::setDictionaryAt</definition>
+        <argsstring>(SharedDictionaryPtr dict, const size_t column, const size_t row=0, const table_id_t table_id=0)=0</argsstring>
+        <name>setDictionaryAt</name>
+        <reimplementedby refid="class_pointer_calculator_1a410bbd966c46044d32cd19cc897efaa8">setDictionaryAt</reimplementedby>
+        <reimplementedby refid="class_table_range_view_1ab47f1551ff4dd7689f74b145ed10a5c2">setDictionaryAt</reimplementedby>
+        <reimplementedby refid="class_horizontal_table_1a5b9a868adeca482c0e5022032d32e278">setDictionaryAt</reimplementedby>
+        <reimplementedby refid="class_store_1a46770db9f688639313b1c8da39d7994f">setDictionaryAt</reimplementedby>
+        <reimplementedby refid="class_mutable_vertical_table_1a7b31752a7b4114dffa0cef6f98fefa90">setDictionaryAt</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1storage_1_1_simple_store_1a14b32151f2728839601cd62c548007be">setDictionaryAt</reimplementedby>
+        <param>
+          <type><ref refid="class_abstract_table_1af76ff827deb697db8077a90c450381ab" kindref="member">SharedDictionaryPtr</ref></type>
+          <declname>dict</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>column</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>row</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>const <ref refid="storage__types_8h_1ab1b21fbdc9fcb935021666db9c910755" kindref="member">table_id_t</ref></type>
+          <declname>table_id</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Sets the dictionary for a certain column. <simplesect kind="note"><para>Must be implemented by any derived class!</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>dict</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Dictionary to be used. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>column</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Column for which to set the dictionary. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>row</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Row in that column (default=0). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>table_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ID of the table (default=0). </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/AbstractTable.h" line="197"/>
+      </memberdef>
+      <memberdef kind="function" id="class_abstract_table_1ad6de2b7c7b99098e9766b060b4d4b8c7" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="storage__types_8h_1ad8ed01ff3ff33333d8e19db4d2818bb6" kindref="member">DataType</ref></type>
+        <definition>DataType AbstractTable::typeOfColumn</definition>
+        <argsstring>(const size_t column) const </argsstring>
+        <name>typeOfColumn</name>
+        <reimplementedby refid="class_table_range_view_1a0828c169d5e89b9fd408b0c16dbf26b2">typeOfColumn</reimplementedby>
+        <param>
+          <type>const size_t</type>
+          <declname>column</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Returns the type of the column. <simplesect kind="note"><para>Must be implemented by any derived class!</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>column</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Column from which to extract the type. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/AbstractTable.h" line="206" bodyfile="/home/grund/hyrise/src/lib/storage/AbstractTable.cpp" bodystart="322" bodyend="324"/>
+      </memberdef>
+      <memberdef kind="function" id="class_abstract_table_1a2b3fde5fb0c70f288eda47c4c66bb151" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>size_t</type>
+        <definition>virtual size_t AbstractTable::size</definition>
+        <argsstring>() const =0</argsstring>
+        <name>size</name>
+        <reimplementedby refid="classhyrise_1_1storage_1_1_simple_store_1a2e8a3b054c6cfd99a5b970870823380e">size</reimplementedby>
+        <reimplementedby refid="class_table_range_view_1a71e4c6588f1003ff0c0a91af156f9558">size</reimplementedby>
+        <reimplementedby refid="class_pointer_calculator_1a03f11ce31722ff5591c99d7a9dc07aea">size</reimplementedby>
+        <reimplementedby refid="class_horizontal_table_1a735453012f0363f897a58cfd00f019d4">size</reimplementedby>
+        <reimplementedby refid="class_store_1a7a16ab17df15f50f605a4243d993d928">size</reimplementedby>
+        <reimplementedby refid="class_mutable_vertical_table_1a3ae55fdb096903babf43b016de5d3f71">size</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Returns the number of rows in the table <simplesect kind="note"><para>Must be implemented by any derived class! </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/AbstractTable.h" line="213"/>
+      </memberdef>
+      <memberdef kind="function" id="class_abstract_table_1a9ba326d4ed695ff02dcdc0dd125fd16c" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>size_t</type>
+        <definition>virtual size_t AbstractTable::columnCount</definition>
+        <argsstring>() const =0</argsstring>
+        <name>columnCount</name>
+        <reimplementedby refid="classhyrise_1_1storage_1_1_simple_store_1aac60eebabc154fadd77d2b1eae49e4e2">columnCount</reimplementedby>
+        <reimplementedby refid="class_pointer_calculator_1a6cdc6cb26d098bd1366a1a8dd94585db">columnCount</reimplementedby>
+        <reimplementedby refid="class_horizontal_table_1a43b2e35e554773740670d719e03ab210">columnCount</reimplementedby>
+        <reimplementedby refid="class_table_range_view_1a0c370a6e3acb90373b7725ae9d6b89bd">columnCount</reimplementedby>
+        <reimplementedby refid="class_store_1ae255c50f218def7b1f74b131b13b031c">columnCount</reimplementedby>
+        <reimplementedby refid="class_mutable_vertical_table_1a4a6c605b27d848ca5d5110f8afe2c9e0">columnCount</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Returns the number of columns. <simplesect kind="note"><para>Must be implemented by any derived class! </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/AbstractTable.h" line="220"/>
+      </memberdef>
+      <memberdef kind="function" id="class_abstract_table_1aaea606e4fd8c92a43febced405de1c6c" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="storage__types_8h_1a5ce4ecb27464dc24ba394527510dd89b" kindref="member">field_t</ref></type>
+        <definition>size_t AbstractTable::numberOfColumn</definition>
+        <argsstring>(const std::string &amp;column) const </argsstring>
+        <name>numberOfColumn</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>column</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Returns the number of a column by its name.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>column</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Name of the column as String. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/AbstractTable.h" line="227" bodyfile="/home/grund/hyrise/src/lib/storage/AbstractTable.cpp" bodystart="302" bodyend="316"/>
+      </memberdef>
+      <memberdef kind="function" id="class_abstract_table_1aa126cb17995eef9d0833ff2a4a673853" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string AbstractTable::nameOfColumn</definition>
+        <argsstring>(const size_t column) const </argsstring>
+        <name>nameOfColumn</name>
+        <reimplementedby refid="class_table_range_view_1a1e607893fa60d8ebb63a54f588503b33">nameOfColumn</reimplementedby>
+        <param>
+          <type>const size_t</type>
+          <declname>column</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Returns the name of a column by its number.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>column</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of the column as numeric value. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/AbstractTable.h" line="234" bodyfile="/home/grund/hyrise/src/lib/storage/AbstractTable.cpp" bodystart="326" bodyend="328"/>
+      </memberdef>
+      <memberdef kind="function" id="class_abstract_table_1ab0dc4d8eaa3d5b2022d2f0ba1d873a14" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type><ref refid="class_value_id" kindref="compound">ValueId</ref></type>
+        <definition>virtual ValueId AbstractTable::getValueId</definition>
+        <argsstring>(const size_t column, const size_t row) const =0</argsstring>
+        <name>getValueId</name>
+        <reimplementedby refid="class_table_range_view_1a8b08e5c9e811a36f4f92ea9fa6658886">getValueId</reimplementedby>
+        <reimplementedby refid="class_pointer_calculator_1a4f55ba417b3bda67e0f2028f0fee19c5">getValueId</reimplementedby>
+        <reimplementedby refid="class_horizontal_table_1aebbc8bb575230385d76158661a9ce649">getValueId</reimplementedby>
+        <reimplementedby refid="class_store_1a87540e0c8654a91fc01e3cc6925aa823">getValueId</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1storage_1_1_simple_store_1a988d95545a47b56ad9f3eb560bf1756c">getValueId</reimplementedby>
+        <reimplementedby refid="class_mutable_vertical_table_1ac17d068581c51692cec89cb51119981b">getValueId</reimplementedby>
+        <param>
+          <type>const size_t</type>
+          <declname>column</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>row</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Returns the value-ID of a cell. <simplesect kind="note"><para>Must be implemented by any derived class!</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>column</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Column number of the cell. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>row</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Row number of the cell. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/AbstractTable.h" line="244"/>
+      </memberdef>
+      <memberdef kind="function" id="class_abstract_table_1ad7fabd72d657d48f1f4380132515b451" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void AbstractTable::setValueId</definition>
+        <argsstring>(const size_t column, const size_t row, const ValueId valueId)</argsstring>
+        <name>setValueId</name>
+        <reimplementedby refid="class_table_range_view_1a3036856a404aab61631733942b4ab69c">setValueId</reimplementedby>
+        <reimplementedby refid="class_horizontal_table_1a31e315988855b9ee776a14bca3f3c190">setValueId</reimplementedby>
+        <reimplementedby refid="class_store_1adb053acbcbb215a46324a083ecb5f23f">setValueId</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1storage_1_1_simple_store_1a99c4d0b57761231933baef127b97337e">setValueId</reimplementedby>
+        <reimplementedby refid="class_mutable_vertical_table_1a5043d8fc47639507379f1d79d5931e4a">setValueId</reimplementedby>
+        <param>
+          <type>const size_t</type>
+          <declname>column</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>row</declname>
+        </param>
+        <param>
+          <type>const <ref refid="class_value_id" kindref="compound">ValueId</ref></type>
+          <declname>valueId</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Sets the value ID of a cell. <simplesect kind="note"><para>Should be implemented in derived classes or throws runtime error!</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>column</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Column number of the cell. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>row</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Row number of the cell. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>valueId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>New value-ID of the cell. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/AbstractTable.h" line="255" bodyfile="/home/grund/hyrise/src/lib/storage/AbstractTable.cpp" bodystart="184" bodyend="186"/>
+      </memberdef>
+      <memberdef kind="function" id="class_abstract_table_1acf25e9092735089d88c0fd9a1cb02984" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void AbstractTable::reserve</definition>
+        <argsstring>(const size_t nr_of_values)</argsstring>
+        <name>reserve</name>
+        <reimplementedby refid="class_mutable_vertical_table_1a32f948742c23f845f2b644f0dc3de112">reserve</reimplementedby>
+        <param>
+          <type>const size_t</type>
+          <declname>nr_of_values</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Reorganizes the bit vector of a certain column. <simplesect kind="warning"><para>Throws runtime error if not implemented!</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>nr_of_values</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Total number of values that must fit. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/AbstractTable.h" line="264" bodyfile="/home/grund/hyrise/src/lib/storage/AbstractTable.cpp" bodystart="188" bodyend="190"/>
+      </memberdef>
+      <memberdef kind="function" id="class_abstract_table_1a2c284b3bc7d1ee8522cd02be2fffa3be" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void AbstractTable::resize</definition>
+        <argsstring>(const size_t rows)</argsstring>
+        <name>resize</name>
+        <reimplementedby refid="class_mutable_vertical_table_1a066dba630bf39bd9b9439d7307c8fd01">resize</reimplementedby>
+        <param>
+          <type>const size_t</type>
+          <declname>rows</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Resize the table to the given number of rows based on the parameter <simplesect kind="warning"><para>Throws runtime error if not implemented</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>rows</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The new number of rows in this table </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/AbstractTable.h" line="273" bodyfile="/home/grund/hyrise/src/lib/storage/AbstractTable.cpp" bodystart="192" bodyend="194"/>
+      </memberdef>
+      <memberdef kind="function" id="class_abstract_table_1a593d49b1ae5ca4a47e5c5c43c1eeb4c8" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>unsigned</type>
+        <definition>virtual unsigned AbstractTable::sliceCount</definition>
+        <argsstring>() const =0</argsstring>
+        <name>sliceCount</name>
+        <reimplementedby refid="class_table_range_view_1abc41ec08ec08caa10c0261665320adaf">sliceCount</reimplementedby>
+        <reimplementedby refid="class_pointer_calculator_1a331fbe7225488eff461f03afe2af1385">sliceCount</reimplementedby>
+        <reimplementedby refid="class_horizontal_table_1af274eed5a68af5f71f2094cbc7180736">sliceCount</reimplementedby>
+        <reimplementedby refid="class_store_1a5985b78449c324e9c5000a8e076696ce">sliceCount</reimplementedby>
+        <reimplementedby refid="class_mutable_vertical_table_1a97b36a60c808a10cb9489f24fc8da7bf">sliceCount</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1storage_1_1_simple_store_1a3f3cbaded1d0886b141adac1c6658c52">sliceCount</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Returns the number of slices. <simplesect kind="note"><para>Must be implemented by any derived class! </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/AbstractTable.h" line="279"/>
+      </memberdef>
+      <memberdef kind="function" id="class_abstract_table_1a472d2a3dc19e99e640d2b65e81a6d052" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>void *</type>
+        <definition>virtual void* AbstractTable::atSlice</definition>
+        <argsstring>(const size_t slice, const size_t row) const =0</argsstring>
+        <name>atSlice</name>
+        <reimplementedby refid="class_table_range_view_1a5b53dd9edafc099143022bf29051b713">atSlice</reimplementedby>
+        <reimplementedby refid="class_pointer_calculator_1a6ece7c8d2952d31d65549a106a044003">atSlice</reimplementedby>
+        <reimplementedby refid="class_horizontal_table_1a25d4dea406221468eb2e6df655c821d8">atSlice</reimplementedby>
+        <reimplementedby refid="class_store_1a46d326a26cebe6fd98a69016d5a34795">atSlice</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1storage_1_1_simple_store_1ae2c66cfa03e9bc8de4586b9c2d072227">atSlice</reimplementedby>
+        <reimplementedby refid="class_mutable_vertical_table_1a4da208b8ee5fd37aceacc35de74f407a">atSlice</reimplementedby>
+        <param>
+          <type>const size_t</type>
+          <declname>slice</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>row</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Returns a pointer to the memory area of a slice. <simplesect kind="note"><para>Must be implemented by any derived class!</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>slice</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The slice of interest. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>row</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Row in that slice. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_width</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/AbstractTable.h" line="290"/>
+      </memberdef>
+      <memberdef kind="function" id="class_abstract_table_1a560af7bf02ed631dd359b22a62e0bed7" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>size_t</type>
+        <definition>virtual size_t AbstractTable::getSliceWidth</definition>
+        <argsstring>(const size_t slice) const =0</argsstring>
+        <name>getSliceWidth</name>
+        <reimplementedby refid="class_table_range_view_1a2a1f2995b660497b51d194d91d66a683">getSliceWidth</reimplementedby>
+        <reimplementedby refid="class_pointer_calculator_1ae803514afac300057aeeb6ddac347e5a">getSliceWidth</reimplementedby>
+        <reimplementedby refid="class_horizontal_table_1a5cf65c406d5024414ba40e308bbc63b7">getSliceWidth</reimplementedby>
+        <reimplementedby refid="class_store_1a7073045d76aa1aea7e1b58c551d701fe">getSliceWidth</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1storage_1_1_simple_store_1ad20f3053105d46db45b6fd99fdbf0069">getSliceWidth</reimplementedby>
+        <reimplementedby refid="class_mutable_vertical_table_1abc6756e510dfd943ac93608a46103a44">getSliceWidth</reimplementedby>
+        <param>
+          <type>const size_t</type>
+          <declname>slice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Returns the width of a slice. <simplesect kind="note"><para>Must be implemented by any derived class!</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>slice</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The slice of interest. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/AbstractTable.h" line="299"/>
+      </memberdef>
+      <memberdef kind="function" id="class_abstract_table_1a964f6a039d706144a0f07b6e96acac10" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>size_t</type>
+        <definition>virtual size_t AbstractTable::getSliceForColumn</definition>
+        <argsstring>(const size_t column) const =0</argsstring>
+        <name>getSliceForColumn</name>
+        <reimplementedby refid="class_table_range_view_1a0f33846434886fbbd14272481fc29a23">getSliceForColumn</reimplementedby>
+        <reimplementedby refid="class_pointer_calculator_1a98e5c48c56c0ec985d6bc8f1040f22e4">getSliceForColumn</reimplementedby>
+        <reimplementedby refid="class_horizontal_table_1a03dac4588f81f0606a44b7088a29d8aa">getSliceForColumn</reimplementedby>
+        <reimplementedby refid="class_store_1a20f897fce9ff1cd3aeb587f187d222ab">getSliceForColumn</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1storage_1_1_simple_store_1af258b7973507f2eac02a3a51ff7c446d">getSliceForColumn</reimplementedby>
+        <reimplementedby refid="class_mutable_vertical_table_1aa15bd1cfad6fc0218587f850acf42566">getSliceForColumn</reimplementedby>
+        <param>
+          <type>const size_t</type>
+          <declname>column</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/AbstractTable.h" line="302"/>
+      </memberdef>
+      <memberdef kind="function" id="class_abstract_table_1a87503e254e2ec4ad43aa198f254a35e0" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>size_t</type>
+        <definition>virtual size_t AbstractTable::getOffsetInSlice</definition>
+        <argsstring>(const size_t column) const =0</argsstring>
+        <name>getOffsetInSlice</name>
+        <reimplementedby refid="class_table_range_view_1ad16edfb4bc9f57383b09981ba68bc4d8">getOffsetInSlice</reimplementedby>
+        <reimplementedby refid="class_pointer_calculator_1ac5be7fd6a21ad4cb0ab490e70c06c3ff">getOffsetInSlice</reimplementedby>
+        <reimplementedby refid="class_horizontal_table_1a42c0ccab7262ae8827de096233b94b1a">getOffsetInSlice</reimplementedby>
+        <reimplementedby refid="class_store_1a5851ddb6f0c531ea59a93c4afff87bd1">getOffsetInSlice</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1storage_1_1_simple_store_1a20835ded347646560df28f074894fe9e">getOffsetInSlice</reimplementedby>
+        <reimplementedby refid="class_mutable_vertical_table_1a823e775a9b9e1005280fffa78abac9cb">getOffsetInSlice</reimplementedby>
+        <param>
+          <type>const size_t</type>
+          <declname>column</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/AbstractTable.h" line="303"/>
+      </memberdef>
+      <memberdef kind="function" id="class_abstract_table_1a64faa3ae981d0b077787fbd60c46ede1" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void AbstractTable::print</definition>
+        <argsstring>(const size_t limit=(size_t)-1) const </argsstring>
+        <name>print</name>
+        <reimplementedby refid="class_table_range_view_1ad00e3c1b1393b1908b370e1bbe8b69c9">print</reimplementedby>
+        <reimplementedby refid="class_pointer_calculator_1abd3140888535aae9047d32b6aca61a56">print</reimplementedby>
+        <reimplementedby refid="class_store_1a03268df852e96dd93ef68f5da9395ab2">print</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1storage_1_1_simple_store_1a25465773b2ade0b731684630f0113a69">print</reimplementedby>
+        <param>
+          <type>const size_t</type>
+          <declname>limit</declname>
+          <defval>(size_t)-1</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Prints the table </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/AbstractTable.h" line="309" bodyfile="/home/grund/hyrise/src/lib/storage/AbstractTable.cpp" bodystart="318" bodyend="320"/>
+      </memberdef>
+      <memberdef kind="function" id="class_abstract_table_1af5330c0a617946ad538cacea21ba7639" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type><ref refid="storage__types_8h_1ab1b21fbdc9fcb935021666db9c910755" kindref="member">table_id_t</ref></type>
+        <definition>virtual table_id_t AbstractTable::subtableCount</definition>
+        <argsstring>() const =0</argsstring>
+        <name>subtableCount</name>
+        <reimplementedby refid="class_table_range_view_1a8a7123013aa9d75abd2acdbe781fc2ed">subtableCount</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1storage_1_1_simple_store_1a14d67dbdaf5635c9470590519644ce19">subtableCount</reimplementedby>
+        <reimplementedby refid="class_pointer_calculator_1abf54f1ebce9c17b8dcd21f9a725857b9">subtableCount</reimplementedby>
+        <reimplementedby refid="class_horizontal_table_1af86f5b208cff490df0fcd0f55aa43a37">subtableCount</reimplementedby>
+        <reimplementedby refid="class_store_1a9dbb346cc7d85fe55a9d49bd5f8a2725">subtableCount</reimplementedby>
+        <reimplementedby refid="class_mutable_vertical_table_1ae81b8a3a0aef5210edbff390bd1c57e4">subtableCount</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Returns the number of horizontal subtables. <simplesect kind="note"><para>Must be implemented by any derived class! </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/AbstractTable.h" line="315"/>
+      </memberdef>
+      <memberdef kind="function" id="class_abstract_table_1aefae5f6a831167c3d5669be5ba9d87bc" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+        </templateparamlist>
+        <type><ref refid="class_value_id" kindref="compound">ValueId</ref></type>
+        <definition>ValueId AbstractTable::getValueIdForValue</definition>
+        <argsstring>(const size_t column, const T &amp;value, const bool create=false, const table_id_t table_id=0) const </argsstring>
+        <name>getValueIdForValue</name>
+        <param>
+          <type>const size_t</type>
+          <declname>column</declname>
+        </param>
+        <param>
+          <type>const T &amp;</type>
+          <declname>value</declname>
+        </param>
+        <param>
+          <type>const bool</type>
+          <declname>create</declname>
+          <defval>false</defval>
+        </param>
+        <param>
+          <type>const <ref refid="storage__types_8h_1ab1b21fbdc9fcb935021666db9c910755" kindref="member">table_id_t</ref></type>
+          <declname>table_id</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Templated method to retrieve the value-ID for a given value.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>column</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Column containing the value. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The value. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>create</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Create the value if it is not existing (default=false) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>table_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ID of the table containing the value (default=0). </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/AbstractTable.h" line="327" bodyfile="/home/grund/hyrise/src/lib/storage/AbstractTable.h" bodystart="327" bodyend="351"/>
+      </memberdef>
+      <memberdef kind="function" id="class_abstract_table_1acd7ea07c9b1605ca53c7608c7c3b2ea5" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+        </templateparamlist>
+        <type><ref refid="class_value_id" kindref="compound">ValueId</ref></type>
+        <definition>ValueId AbstractTable::getValueIdForValueByTableId</definition>
+        <argsstring>(const size_t column, const T value, const bool create=false, const table_id_t table_id=0) const </argsstring>
+        <name>getValueIdForValueByTableId</name>
+        <param>
+          <type>const size_t</type>
+          <declname>column</declname>
+        </param>
+        <param>
+          <type>const T</type>
+          <declname>value</declname>
+        </param>
+        <param>
+          <type>const bool</type>
+          <declname>create</declname>
+          <defval>false</defval>
+        </param>
+        <param>
+          <type>const <ref refid="storage__types_8h_1ab1b21fbdc9fcb935021666db9c910755" kindref="member">table_id_t</ref></type>
+          <declname>table_id</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Templated method to retrieve the value-ID for a given value. Calls dictionaryByTableId(...) instead of dictionaryAt(...)</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>column</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Column containing the value. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The value. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>create</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Create the value if it is not existing (default=false) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>table_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ID of the table containing the value (default=0). </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/AbstractTable.h" line="364" bodyfile="/home/grund/hyrise/src/lib/storage/AbstractTable.h" bodystart="364" bodyend="386"/>
+      </memberdef>
+      <memberdef kind="function" id="class_abstract_table_1a55de3a5a31acf6898fb9ddd287b760e3" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+        </templateparamlist>
+        <type>bool</type>
+        <definition>bool AbstractTable::valueExists</definition>
+        <argsstring>(const field_t column, const T value, const table_id_t table_id=0) const </argsstring>
+        <name>valueExists</name>
+        <param>
+          <type>const <ref refid="storage__types_8h_1a5ce4ecb27464dc24ba394527510dd89b" kindref="member">field_t</ref></type>
+          <declname>column</declname>
+        </param>
+        <param>
+          <type>const T</type>
+          <declname>value</declname>
+        </param>
+        <param>
+          <type>const <ref refid="storage__types_8h_1ab1b21fbdc9fcb935021666db9c910755" kindref="member">table_id_t</ref></type>
+          <declname>table_id</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Templated method, checks whether or not a value is contained in a column.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>column</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Column to check. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Value to look for. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>table_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ID of the table (default=0). </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/AbstractTable.h" line="397" bodyfile="/home/grund/hyrise/src/lib/storage/AbstractTable.h" bodystart="397" bodyend="400"/>
+      </memberdef>
+      <memberdef kind="function" id="class_abstract_table_1a50d0ce6998606d864a429002f86ae654" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void AbstractTable::setValue</definition>
+        <argsstring>(const size_t column, const size_t row, const T &amp;value)</argsstring>
+        <name>setValue</name>
+        <param>
+          <type>const size_t</type>
+          <declname>column</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>row</declname>
+        </param>
+        <param>
+          <type>const T &amp;</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Templated base method for setting a value.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>column</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Column of the cell. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>row</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Row of the cell. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Value to be assigned to the cell. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/AbstractTable.h" line="410" bodyfile="/home/grund/hyrise/src/lib/storage/AbstractTable.h" bodystart="410" bodyend="414"/>
+      </memberdef>
+      <memberdef kind="function" id="class_abstract_table_1a453b25a7f8ebe971d82cd5790d4183dd" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void AbstractTable::setValue</definition>
+        <argsstring>(const field_name_t &amp;column_name, const size_t row, const T value)</argsstring>
+        <name>setValue</name>
+        <param>
+          <type>const <ref refid="storage__types_8h_1ad64b8c8026a86f643d173acbb694b4f8" kindref="member">field_name_t</ref> &amp;</type>
+          <declname>column_name</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>row</declname>
+        </param>
+        <param>
+          <type>const T</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Templated base method for setting a value using column name.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>column</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Name of the cell&apos;s column. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>row</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Row of the cell. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Value to be assigned to the cell. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/AbstractTable.h" line="425" bodyfile="/home/grund/hyrise/src/lib/storage/AbstractTable.h" bodystart="425" bodyend="428"/>
+      </memberdef>
+      <memberdef kind="function" id="class_abstract_table_1af380b8fd7715abe5988f53b885920e0c" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+        </templateparamlist>
+        <type>T</type>
+        <definition>T AbstractTable::getValueForValueId</definition>
+        <argsstring>(const field_t column, const ValueId valueId) const </argsstring>
+        <name>getValueForValueId</name>
+        <param>
+          <type>const <ref refid="storage__types_8h_1a5ce4ecb27464dc24ba394527510dd89b" kindref="member">field_t</ref></type>
+          <declname>column</declname>
+        </param>
+        <param>
+          <type>const <ref refid="class_value_id" kindref="compound">ValueId</ref></type>
+          <declname>valueId</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Templated method for retrieving a value by its ID.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>column</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Column containing the value. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>valueId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ID of the value to be returned. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/AbstractTable.h" line="438" bodyfile="/home/grund/hyrise/src/lib/storage/AbstractTable.h" bodystart="438" bodyend="445"/>
+      </memberdef>
+      <memberdef kind="function" id="class_abstract_table_1a6648aba614a398c3243a60b18d5d7dbf" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+        </templateparamlist>
+        <type>T</type>
+        <definition>T AbstractTable::getValue</definition>
+        <argsstring>(const field_t column, const size_t row) const </argsstring>
+        <name>getValue</name>
+        <param>
+          <type>const <ref refid="storage__types_8h_1a5ce4ecb27464dc24ba394527510dd89b" kindref="member">field_t</ref></type>
+          <declname>column</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>row</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Templated method for retrieving a value from a cell.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>column</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Column of the cell. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>row</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Row of the cell. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/AbstractTable.h" line="455" bodyfile="/home/grund/hyrise/src/lib/storage/AbstractTable.h" bodystart="455" bodyend="465"/>
+      </memberdef>
+      <memberdef kind="function" id="class_abstract_table_1aac6e3940c4b756a4c627ece2c008782c" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+        </templateparamlist>
+        <type>T</type>
+        <definition>T AbstractTable::getValue</definition>
+        <argsstring>(const field_name_t &amp;column_name, const size_t row) const </argsstring>
+        <name>getValue</name>
+        <param>
+          <type>const <ref refid="storage__types_8h_1ad64b8c8026a86f643d173acbb694b4f8" kindref="member">field_name_t</ref> &amp;</type>
+          <declname>column_name</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>row</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Templated method for retrieving a value from a cell.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>column</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Column of the cell. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>row</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Row of the cell. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/AbstractTable.h" line="475" bodyfile="/home/grund/hyrise/src/lib/storage/AbstractTable.h" bodystart="475" bodyend="478"/>
+      </memberdef>
+      <memberdef kind="function" id="class_abstract_table_1ae2f20cf55374dc8560dc4d2e8c4623ec" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string AbstractTable::printValue</definition>
+        <argsstring>(const size_t column, const size_t row) const </argsstring>
+        <name>printValue</name>
+        <reimplementedby refid="class_pointer_calculator_1ad77124460946ed32d18c134b7bf61c00">printValue</reimplementedby>
+        <param>
+          <type>const size_t</type>
+          <declname>column</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>row</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Print the value.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>column</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Column of the cell containing the value. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>row</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Row of the cell containing the value. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/AbstractTable.h" line="487" bodyfile="/home/grund/hyrise/src/lib/storage/AbstractTable.cpp" bodystart="108" bodyend="110"/>
+      </memberdef>
+      <memberdef kind="function" id="class_abstract_table_1a4361f683288a0d1360227b309ca625f6" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void AbstractTable::copyValueFrom</definition>
+        <argsstring>(const hyrise::storage::c_atable_ptr_t &amp;source, const size_t src_col, const size_t src_row, const size_t dst_col, const size_t dst_row)</argsstring>
+        <name>copyValueFrom</name>
+        <param>
+          <type>const <ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref> &amp;</type>
+          <declname>source</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>src_col</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>src_row</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>dst_col</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>dst_row</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Templated method for copying a value from another table.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>source</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Table from which to copy the value. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>src_col</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Column of the source cell. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>src_row</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Row of the source cell. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>dst_col</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Column of the target cell. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>dst_row</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Row of the target cell. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/AbstractTable.h" line="500" bodyfile="/home/grund/hyrise/src/lib/storage/AbstractTable.h" bodystart="500" bodyend="503"/>
+      </memberdef>
+      <memberdef kind="function" id="class_abstract_table_1a0e1dd83cf4622413949542ecc0604bb7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void AbstractTable::copyValueFrom</definition>
+        <argsstring>(const hyrise::storage::c_atable_ptr_t &amp;source, const size_t src_col, const size_t src_row, const size_t dst_col, const size_t dst_row)</argsstring>
+        <name>copyValueFrom</name>
+        <param>
+          <type>const <ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref> &amp;</type>
+          <declname>source</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>src_col</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>src_row</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>dst_col</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>dst_row</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Copies a value from another table by column and row.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>source</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Table from which to copy the value. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>src_col</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Column of the source cell. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>src_row</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Row of the source cell. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>dst_col</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Column of the target cell. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>dst_row</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Row of the target cell. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/AbstractTable.h" line="515"/>
+      </memberdef>
+      <memberdef kind="function" id="class_abstract_table_1ae66e82c1f4eb0001f747af5bcf8a4ef1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void AbstractTable::copyValueFrom</definition>
+        <argsstring>(const hyrise::storage::c_atable_ptr_t &amp;source, const size_t src_col, const ValueId vid, const size_t dst_col, const size_t dst_row)</argsstring>
+        <name>copyValueFrom</name>
+        <param>
+          <type>const <ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref> &amp;</type>
+          <declname>source</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>src_col</declname>
+        </param>
+        <param>
+          <type>const <ref refid="class_value_id" kindref="compound">ValueId</ref></type>
+          <declname>vid</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>dst_col</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>dst_row</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Copies a value from another table by column and value-ID.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>source</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Table from which to copy the value. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>src_col</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Column of the source cell. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>vid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Value-ID in the source Column. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>dst_col</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Column of the target cell. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>dst_row</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Row of the target cell. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/AbstractTable.h" line="527" bodyfile="/home/grund/hyrise/src/lib/storage/AbstractTable.cpp" bodystart="131" bodyend="148"/>
+      </memberdef>
+      <memberdef kind="function" id="class_abstract_table_1afbbf69e94a282a71fb1ecedd72ca8824" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void AbstractTable::copyRowFrom</definition>
+        <argsstring>(const hyrise::storage::c_atable_ptr_t &amp;source, const size_t src_row, const size_t dst_row, const bool copy_values=true, const bool use_memcpy=true)</argsstring>
+        <name>copyRowFrom</name>
+        <param>
+          <type>const <ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref> &amp;</type>
+          <declname>source</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>src_row</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>dst_row</declname>
+        </param>
+        <param>
+          <type>const bool</type>
+          <declname>copy_values</declname>
+          <defval>true</defval>
+        </param>
+        <param>
+          <type>const bool</type>
+          <declname>use_memcpy</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Copies a row from another table with or without values.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>source</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Table from which to copy the value. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>src_row</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Row in the source table. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>dst_row</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Row in the target table. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>copy_values</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Also copy the values (default=true). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>use_memcpy</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Use memcpy for the copying (default=true). </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/AbstractTable.h" line="539" bodyfile="/home/grund/hyrise/src/lib/storage/AbstractTable.cpp" bodystart="150" bodyend="182"/>
+      </memberdef>
+      <memberdef kind="function" id="class_abstract_table_1a8e1d6f1b61390fc3e6954fbaa1f7745f" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void AbstractTable::write</definition>
+        <argsstring>(const std::string &amp;filename) const </argsstring>
+        <name>write</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>filename</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Write the table data into a file as-is.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>filename</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Name of the file to be written to. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/AbstractTable.h" line="547" bodyfile="/home/grund/hyrise/src/lib/storage/AbstractTable.cpp" bodystart="197" bodyend="247"/>
+      </memberdef>
+      <memberdef kind="function" id="class_abstract_table_1af716c04f38a6ab47b277911baf050c9d" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool AbstractTable::contentEquals</definition>
+        <argsstring>(const hyrise::storage::c_atable_ptr_t &amp;other) const </argsstring>
+        <name>contentEquals</name>
+        <param>
+          <type>const <ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref> &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Test for equality of this table&apos;s content with another table&apos;s.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>other</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Table to compare content to. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/AbstractTable.h" line="556" bodyfile="/home/grund/hyrise/src/lib/storage/AbstractTable.cpp" bodystart="250" bodyend="300"/>
+      </memberdef>
+      <memberdef kind="function" id="class_abstract_table_1a87134964b75abb36c49d0c44455d23e2" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type><ref refid="namespacehyrise_1_1storage_1a21d5e900c20019710828c453eaded1ee" kindref="member">hyrise::storage::atable_ptr_t</ref></type>
+        <definition>virtual hyrise::storage::atable_ptr_t AbstractTable::copy</definition>
+        <argsstring>() const =0</argsstring>
+        <name>copy</name>
+        <reimplementedby refid="class_pointer_calculator_1a3cf1d2a7ffa72ff0a2764cdb63b0d4a8">copy</reimplementedby>
+        <reimplementedby refid="class_table_range_view_1a499d79bc4beb0536a34b5a2e1d3af426">copy</reimplementedby>
+        <reimplementedby refid="class_horizontal_table_1a1bb7a48cce192cdf7363857a3e7b0971">copy</reimplementedby>
+        <reimplementedby refid="class_store_1a85c3ab730b3d083f79eeacc5110ddf49">copy</reimplementedby>
+        <reimplementedby refid="class_mutable_vertical_table_1a1a406d769b179605d326a956c087f15e">copy</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1storage_1_1_simple_store_1a542554a914a1ef379f9c4172f4676a41">copy</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Create of copy of this table. <simplesect kind="note"><para>Must be implemented by any derived class! </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/AbstractTable.h" line="563"/>
+      </memberdef>
+      <memberdef kind="function" id="class_abstract_table_1a3467bc6159aa361db993c3fc56584789" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>const <ref refid="_abstract_table_8h_1ae3a004c859daed205eb7639b1e993ce4" kindref="member">attr_vectors_t</ref></type>
+        <definition>const attr_vectors_t AbstractTable::getAttributeVectors</definition>
+        <argsstring>(size_t column) const </argsstring>
+        <name>getAttributeVectors</name>
+        <reimplementedby refid="class_store_1a35355e41ebb792f40f9f4cfd02100922">getAttributeVectors</reimplementedby>
+        <reimplementedby refid="class_mutable_vertical_table_1abfb1083cc34203ae7f0f04adb5657db4">getAttributeVectors</reimplementedby>
+        <param>
+          <type>size_t</type>
+          <declname>column</declname>
+        </param>
+        <briefdescription>
+<para>get underlying attribute vectors for column </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/AbstractTable.h" line="566" bodyfile="/home/grund/hyrise/src/lib/storage/AbstractTable.cpp" bodystart="337" bodyend="339"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Abstract table is the magic base class for all data storages, it is used in many different ways, in containers, plain tables, intermediate results and more. </para>    </detaileddescription>
+    <inheritancegraph>
+      <node id="1428">
+        <label>TableRangeView</label>
+        <link refid="class_table_range_view"/>
+        <childnode refid="1420" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1423">
+        <label>HorizontalTable</label>
+        <link refid="class_horizontal_table"/>
+        <childnode refid="1420" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1420">
+        <label>AbstractTable</label>
+        <link refid="class_abstract_table"/>
+        <childnode refid="1421" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1421">
+        <label>AbstractResource</label>
+        <link refid="class_abstract_resource"/>
+      </node>
+      <node id="1425">
+        <label>MutableVerticalTable</label>
+        <link refid="class_mutable_vertical_table"/>
+        <childnode refid="1420" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1422">
+        <label>AbstractAllocatedTable&lt; Strategy, Allocator, AllocatedClass &gt;</label>
+        <link refid="class_abstract_allocated_table"/>
+        <childnode refid="1420" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1426">
+        <label>PointerCalculator</label>
+        <link refid="class_pointer_calculator"/>
+        <childnode refid="1420" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1424">
+        <label>hyrise::storage::SimpleStore</label>
+        <link refid="classhyrise_1_1storage_1_1_simple_store"/>
+        <childnode refid="1420" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1427">
+        <label>Store</label>
+        <link refid="class_store"/>
+        <childnode refid="1420" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1429">
+        <label>AbstractTable</label>
+        <link refid="class_abstract_table"/>
+        <childnode refid="1430" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1430">
+        <label>AbstractResource</label>
+        <link refid="class_abstract_resource"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/storage/AbstractTable.h" line="62" bodyfile="/home/grund/hyrise/src/lib/storage/AbstractTable.h" bodystart="62" bodyend="567"/>
+    <listofallmembers>
+      <member refid="class_abstract_table_1a58903bbdb672c10f8ad4252c0c356fc0" prot="private" virt="non-virtual"><scope>AbstractTable</scope><name>_generation</name></member>
+      <member refid="class_abstract_table_1a0d4b411db86931d15cc643a2883ffe59" prot="public" virt="non-virtual"><scope>AbstractTable</scope><name>AbstractTable</name></member>
+      <member refid="class_abstract_table_1a472d2a3dc19e99e640d2b65e81a6d052" prot="public" virt="pure-virtual"><scope>AbstractTable</scope><name>atSlice</name></member>
+      <member refid="class_abstract_table_1a9ba326d4ed695ff02dcdc0dd125fd16c" prot="public" virt="pure-virtual"><scope>AbstractTable</scope><name>columnCount</name></member>
+      <member refid="class_abstract_table_1af716c04f38a6ab47b277911baf050c9d" prot="public" virt="non-virtual"><scope>AbstractTable</scope><name>contentEquals</name></member>
+      <member refid="class_abstract_table_1a87134964b75abb36c49d0c44455d23e2" prot="public" virt="pure-virtual"><scope>AbstractTable</scope><name>copy</name></member>
+      <member refid="class_abstract_table_1a0439c8c9642d0a5dbbbf2d3e37c690fc" prot="public" virt="virtual"><scope>AbstractTable</scope><name>copy_structure</name></member>
+      <member refid="class_abstract_table_1ab2e5350c658908dc343dd2b8c36eed14" prot="public" virt="non-virtual"><scope>AbstractTable</scope><name>copy_structure_modifiable</name></member>
+      <member refid="class_abstract_table_1afbbf69e94a282a71fb1ecedd72ca8824" prot="public" virt="non-virtual"><scope>AbstractTable</scope><name>copyRowFrom</name></member>
+      <member refid="class_abstract_table_1a4361f683288a0d1360227b309ca625f6" prot="public" virt="non-virtual"><scope>AbstractTable</scope><name>copyValueFrom</name></member>
+      <member refid="class_abstract_table_1a0e1dd83cf4622413949542ecc0604bb7" prot="public" virt="non-virtual"><scope>AbstractTable</scope><name>copyValueFrom</name></member>
+      <member refid="class_abstract_table_1ae66e82c1f4eb0001f747af5bcf8a4ef1" prot="public" virt="non-virtual"><scope>AbstractTable</scope><name>copyValueFrom</name></member>
+      <member refid="class_abstract_table_1a85b7d9471c86bd31879c0f6378071b9c" prot="public" virt="non-virtual"><scope>AbstractTable</scope><name>copyValueIds</name></member>
+      <member refid="class_abstract_table_1ab1d04fdc926954e4027fb883abab1d73" prot="public" virt="non-virtual"><scope>AbstractTable</scope><name>dictionaries</name></member>
+      <member refid="class_abstract_table_1a001566ba79ef4dfcde544b4867dd69e7" prot="public" virt="pure-virtual"><scope>AbstractTable</scope><name>dictionaryAt</name></member>
+      <member refid="class_abstract_table_1aa2833dbbbabb49737922e5172f0efff9" prot="public" virt="pure-virtual"><scope>AbstractTable</scope><name>dictionaryByTableId</name></member>
+      <member refid="class_abstract_table_1a1d792fb6711c4ea00e4662576c1c3dc8" prot="public" virt="non-virtual"><scope>AbstractTable</scope><name>generation</name></member>
+      <member refid="class_abstract_table_1a3467bc6159aa361db993c3fc56584789" prot="public" virt="virtual"><scope>AbstractTable</scope><name>getAttributeVectors</name></member>
+      <member refid="class_abstract_table_1a87503e254e2ec4ad43aa198f254a35e0" prot="public" virt="pure-virtual"><scope>AbstractTable</scope><name>getOffsetInSlice</name></member>
+      <member refid="class_abstract_table_1a964f6a039d706144a0f07b6e96acac10" prot="public" virt="pure-virtual"><scope>AbstractTable</scope><name>getSliceForColumn</name></member>
+      <member refid="class_abstract_table_1a560af7bf02ed631dd359b22a62e0bed7" prot="public" virt="pure-virtual"><scope>AbstractTable</scope><name>getSliceWidth</name></member>
+      <member refid="class_abstract_table_1a6648aba614a398c3243a60b18d5d7dbf" prot="public" virt="non-virtual"><scope>AbstractTable</scope><name>getValue</name></member>
+      <member refid="class_abstract_table_1aac6e3940c4b756a4c627ece2c008782c" prot="public" virt="non-virtual"><scope>AbstractTable</scope><name>getValue</name></member>
+      <member refid="class_abstract_table_1af380b8fd7715abe5988f53b885920e0c" prot="public" virt="non-virtual"><scope>AbstractTable</scope><name>getValueForValueId</name></member>
+      <member refid="class_abstract_table_1ab0dc4d8eaa3d5b2022d2f0ba1d873a14" prot="public" virt="pure-virtual"><scope>AbstractTable</scope><name>getValueId</name></member>
+      <member refid="class_abstract_table_1aefae5f6a831167c3d5669be5ba9d87bc" prot="public" virt="non-virtual"><scope>AbstractTable</scope><name>getValueIdForValue</name></member>
+      <member refid="class_abstract_table_1acd7ea07c9b1605ca53c7608c7c3b2ea5" prot="public" virt="non-virtual"><scope>AbstractTable</scope><name>getValueIdForValueByTableId</name></member>
+      <member refid="class_abstract_table_1a8b854b19026e75eebc02942499a82a21" prot="public" virt="non-virtual"><scope>AbstractTable</scope><name>metadata</name></member>
+      <member refid="class_abstract_table_1a7a16a970c5e9229616b984972d1b44b9" prot="public" virt="pure-virtual"><scope>AbstractTable</scope><name>metadataAt</name></member>
+      <member refid="class_abstract_table_1aa126cb17995eef9d0833ff2a4a673853" prot="public" virt="non-virtual"><scope>AbstractTable</scope><name>nameOfColumn</name></member>
+      <member refid="class_abstract_table_1aaea606e4fd8c92a43febced405de1c6c" prot="public" virt="non-virtual"><scope>AbstractTable</scope><name>numberOfColumn</name></member>
+      <member refid="class_abstract_table_1a64faa3ae981d0b077787fbd60c46ede1" prot="public" virt="virtual"><scope>AbstractTable</scope><name>print</name></member>
+      <member refid="class_abstract_table_1ae2f20cf55374dc8560dc4d2e8c4623ec" prot="public" virt="non-virtual"><scope>AbstractTable</scope><name>printValue</name></member>
+      <member refid="class_abstract_table_1acf25e9092735089d88c0fd9a1cb02984" prot="public" virt="virtual"><scope>AbstractTable</scope><name>reserve</name></member>
+      <member refid="class_abstract_table_1a2c284b3bc7d1ee8522cd02be2fffa3be" prot="public" virt="virtual"><scope>AbstractTable</scope><name>resize</name></member>
+      <member refid="class_abstract_table_1a15c7e879e77c9586460488e6e442566c" prot="public" virt="pure-virtual"><scope>AbstractTable</scope><name>setDictionaryAt</name></member>
+      <member refid="class_abstract_table_1a583da7847c5f08de7ee4288cec78e187" prot="public" virt="non-virtual"><scope>AbstractTable</scope><name>setGeneration</name></member>
+      <member refid="class_abstract_table_1a50d0ce6998606d864a429002f86ae654" prot="public" virt="non-virtual"><scope>AbstractTable</scope><name>setValue</name></member>
+      <member refid="class_abstract_table_1a453b25a7f8ebe971d82cd5790d4183dd" prot="public" virt="non-virtual"><scope>AbstractTable</scope><name>setValue</name></member>
+      <member refid="class_abstract_table_1ad7fabd72d657d48f1f4380132515b451" prot="public" virt="virtual"><scope>AbstractTable</scope><name>setValueId</name></member>
+      <member refid="class_abstract_table_1af76ff827deb697db8077a90c450381ab" prot="public" virt="non-virtual"><scope>AbstractTable</scope><name>SharedDictionaryPtr</name></member>
+      <member refid="class_abstract_table_1a2b3fde5fb0c70f288eda47c4c66bb151" prot="public" virt="pure-virtual"><scope>AbstractTable</scope><name>size</name></member>
+      <member refid="class_abstract_table_1a593d49b1ae5ca4a47e5c5c43c1eeb4c8" prot="public" virt="pure-virtual"><scope>AbstractTable</scope><name>sliceCount</name></member>
+      <member refid="class_abstract_table_1a54c7f40a7fc1c6c94650adfb95968a7f" prot="private" virt="non-virtual"><scope>AbstractTable</scope><name>Store</name></member>
+      <member refid="class_abstract_table_1af5330c0a617946ad538cacea21ba7639" prot="public" virt="pure-virtual"><scope>AbstractTable</scope><name>subtableCount</name></member>
+      <member refid="class_abstract_table_1ad6de2b7c7b99098e9766b060b4d4b8c7" prot="public" virt="non-virtual"><scope>AbstractTable</scope><name>typeOfColumn</name></member>
+      <member refid="class_abstract_table_1a55de3a5a31acf6898fb9ddd287b760e3" prot="public" virt="non-virtual"><scope>AbstractTable</scope><name>valueExists</name></member>
+      <member refid="class_abstract_table_1a8e1d6f1b61390fc3e6954fbaa1f7745f" prot="public" virt="non-virtual"><scope>AbstractTable</scope><name>write</name></member>
+      <member refid="class_abstract_resource_1a4299feff952f974409aaaf52082deadb" prot="public" virt="virtual"><scope>AbstractTable</scope><name>~AbstractResource</name></member>
+      <member refid="class_abstract_table_1a957e2dc86a1aa6ffa19b2d8585a1ee91" prot="public" virt="virtual"><scope>AbstractTable</scope><name>~AbstractTable</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

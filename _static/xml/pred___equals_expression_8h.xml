@@ -1,0 +1,654 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="pred___equals_expression_8h" kind="file">
+    <compoundname>pred_EqualsExpression.h</compoundname>
+    <includes refid="types_8h" local="yes">helper/types.h</includes>
+    <includes refid="pred__common_8h" local="yes">pred_common.h</includes>
+    <includes refid="_raw_table_8h" local="no">storage/RawTable.h</includes>
+    <includedby refid="scan__performance_8cpp" local="yes">src/bin/perf_regression/scan_performance.cpp</includedby>
+    <includedby refid="predicates_8h" local="yes">src/lib/access/predicates.h</includedby>
+    <incdepgraph>
+      <node id="8845">
+        <label>list</label>
+      </node>
+      <node id="8874">
+        <label>boost/mpl/size.hpp</label>
+      </node>
+      <node id="8831">
+        <label>boost/mpl/vector.hpp</label>
+      </node>
+      <node id="8822">
+        <label>limits</label>
+      </node>
+      <node id="8863">
+        <label>boost/functional/hash.hpp</label>
+      </node>
+      <node id="8875">
+        <label>storage/AbstractAllocatedTable.h</label>
+        <link refid="_abstract_allocated_table_8h"/>
+        <childnode refid="8842" relation="include">
+        </childnode>
+        <childnode refid="8846" relation="include">
+        </childnode>
+        <childnode refid="8848" relation="include">
+        </childnode>
+      </node>
+      <node id="8839">
+        <label>assert.h</label>
+      </node>
+      <node id="8833">
+        <label>boost/lexical_cast.hpp</label>
+      </node>
+      <node id="8854">
+        <label>boost/iterator/iterator_facade.hpp</label>
+      </node>
+      <node id="8820">
+        <label>cstdint</label>
+      </node>
+      <node id="8864">
+        <label>expression_types.h</label>
+        <link refid="expression__types_8h"/>
+        <childnode refid="8860" relation="include">
+        </childnode>
+        <childnode refid="8821" relation="include">
+        </childnode>
+        <childnode refid="8865" relation="include">
+        </childnode>
+      </node>
+      <node id="8851">
+        <label>storage/BaseDictionary.h</label>
+        <link refid="_base_dictionary_8h"/>
+        <childnode refid="8828" relation="include">
+        </childnode>
+        <childnode refid="8841" relation="include">
+        </childnode>
+        <childnode refid="8852" relation="include">
+        </childnode>
+      </node>
+      <node id="8829">
+        <label>stdint.h</label>
+      </node>
+      <node id="8850">
+        <label>stdlib.h</label>
+      </node>
+      <node id="8849">
+        <label>errno.h</label>
+      </node>
+      <node id="8826">
+        <label>stdexcept</label>
+      </node>
+      <node id="8821">
+        <label>string</label>
+      </node>
+      <node id="8872">
+        <label>boost/mpl/at.hpp</label>
+      </node>
+      <node id="8825">
+        <label>pred_common.h</label>
+        <link refid="pred__common_8h"/>
+        <childnode refid="8824" relation="include">
+        </childnode>
+        <childnode refid="8826" relation="include">
+        </childnode>
+        <childnode refid="8827" relation="include">
+        </childnode>
+        <childnode refid="8819" relation="include">
+        </childnode>
+        <childnode refid="8828" relation="include">
+        </childnode>
+        <childnode refid="8834" relation="include">
+        </childnode>
+        <childnode refid="8837" relation="include">
+        </childnode>
+        <childnode refid="8864" relation="include">
+        </childnode>
+        <childnode refid="8866" relation="include">
+        </childnode>
+        <childnode refid="8867" relation="include">
+        </childnode>
+        <childnode refid="8869" relation="include">
+        </childnode>
+      </node>
+      <node id="8860">
+        <label>map</label>
+      </node>
+      <node id="8837">
+        <label>storage/ValueIdMap.hpp</label>
+        <link refid="_value_id_map_8hpp"/>
+        <childnode refid="8838" relation="include">
+        </childnode>
+        <childnode refid="8856" relation="include">
+        </childnode>
+      </node>
+      <node id="8870">
+        <label>storage/RawTable.h</label>
+        <link refid="_raw_table_8h"/>
+        <childnode refid="8826" relation="include">
+        </childnode>
+        <childnode refid="8824" relation="include">
+        </childnode>
+        <childnode refid="8829" relation="include">
+        </childnode>
+        <childnode refid="8828" relation="include">
+        </childnode>
+        <childnode refid="8871" relation="include">
+        </childnode>
+        <childnode refid="8834" relation="include">
+        </childnode>
+        <childnode refid="8875" relation="include">
+        </childnode>
+        <childnode refid="8836" relation="include">
+        </childnode>
+      </node>
+      <node id="8848">
+        <label>memory/MemalignStrategy.h</label>
+        <link refid="_memalign_strategy_8h"/>
+        <childnode refid="8849" relation="include">
+        </childnode>
+        <childnode refid="8827" relation="include">
+        </childnode>
+        <childnode refid="8850" relation="include">
+        </childnode>
+      </node>
+      <node id="8859">
+        <label>exception</label>
+      </node>
+      <node id="8843">
+        <label>stddef.h</label>
+      </node>
+      <node id="8856">
+        <label>storage/OrderIndifferentDictionary.h</label>
+        <link refid="_order_indifferent_dictionary_8h"/>
+        <childnode refid="8828" relation="include">
+        </childnode>
+        <childnode refid="8841" relation="include">
+        </childnode>
+        <childnode refid="8851" relation="include">
+        </childnode>
+        <childnode refid="8852" relation="include">
+        </childnode>
+        <childnode refid="8857" relation="include">
+        </childnode>
+        <childnode refid="8855" relation="include">
+        </childnode>
+        <childnode refid="8859" relation="include">
+        </childnode>
+        <childnode refid="8824" relation="include">
+        </childnode>
+        <childnode refid="8860" relation="include">
+        </childnode>
+        <childnode refid="8823" relation="include">
+        </childnode>
+        <childnode refid="8861" relation="include">
+        </childnode>
+        <childnode refid="8862" relation="include">
+        </childnode>
+        <childnode refid="8863" relation="include">
+        </childnode>
+      </node>
+      <node id="8830">
+        <label>ostream</label>
+      </node>
+      <node id="8865">
+        <label>json.h</label>
+      </node>
+      <node id="8861">
+        <label>limits.h</label>
+      </node>
+      <node id="8852">
+        <label>storage/DictionaryIterator.h</label>
+        <link refid="_dictionary_iterator_8h"/>
+        <childnode refid="8853" relation="include">
+        </childnode>
+        <childnode refid="8854" relation="include">
+        </childnode>
+      </node>
+      <node id="8841">
+        <label>storage/AbstractDictionary.h</label>
+        <link refid="_abstract_dictionary_8h"/>
+        <childnode refid="8824" relation="include">
+        </childnode>
+        <childnode refid="8821" relation="include">
+        </childnode>
+        <childnode refid="8823" relation="include">
+        </childnode>
+        <childnode refid="8842" relation="include">
+        </childnode>
+        <childnode refid="8846" relation="include">
+        </childnode>
+        <childnode refid="8848" relation="include">
+        </childnode>
+        <childnode refid="8828" relation="include">
+        </childnode>
+      </node>
+      <node id="8868">
+        <label>access/AbstractExpression.h</label>
+        <link refid="_abstract_expression_8h"/>
+        <childnode refid="8824" relation="include">
+        </childnode>
+        <childnode refid="8819" relation="include">
+        </childnode>
+      </node>
+      <node id="8858">
+        <label>string.h</label>
+      </node>
+      <node id="8834">
+        <label>storage/AbstractTable.h</label>
+        <link refid="_abstract_table_8h"/>
+        <childnode refid="8822" relation="include">
+        </childnode>
+        <childnode refid="8823" relation="include">
+        </childnode>
+        <childnode refid="8826" relation="include">
+        </childnode>
+        <childnode refid="8824" relation="include">
+        </childnode>
+        <childnode refid="8821" relation="include">
+        </childnode>
+        <childnode refid="8819" relation="include">
+        </childnode>
+        <childnode refid="8835" relation="include">
+        </childnode>
+        <childnode refid="8828" relation="include">
+        </childnode>
+        <childnode refid="8836" relation="include">
+        </childnode>
+        <childnode refid="8837" relation="include">
+        </childnode>
+      </node>
+      <node id="8835">
+        <label>storage/AbstractResource.h</label>
+        <link refid="_abstract_resource_8h"/>
+      </node>
+      <node id="8862">
+        <label>boost/unordered_map.hpp</label>
+      </node>
+      <node id="8824">
+        <label>vector</label>
+      </node>
+      <node id="8866">
+        <label>join_predicates.h</label>
+        <link refid="join__predicates_8h"/>
+        <childnode refid="8819" relation="include">
+        </childnode>
+        <childnode refid="8864" relation="include">
+        </childnode>
+      </node>
+      <node id="8873">
+        <label>boost/mpl/int.hpp</label>
+      </node>
+      <node id="8819">
+        <label>helper/types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="8820" relation="include">
+        </childnode>
+        <childnode refid="8821" relation="include">
+        </childnode>
+        <childnode refid="8822" relation="include">
+        </childnode>
+        <childnode refid="8823" relation="include">
+        </childnode>
+        <childnode refid="8824" relation="include">
+        </childnode>
+      </node>
+      <node id="8871">
+        <label>storage/meta_storage.h</label>
+        <link refid="meta__storage_8h"/>
+        <childnode refid="8826" relation="include">
+        </childnode>
+        <childnode refid="8872" relation="include">
+        </childnode>
+        <childnode refid="8873" relation="include">
+        </childnode>
+        <childnode refid="8874" relation="include">
+        </childnode>
+        <childnode refid="8828" relation="include">
+        </childnode>
+      </node>
+      <node id="8867">
+        <label>pred_SimpleExpression.h</label>
+        <link refid="pred___simple_expression_8h"/>
+        <childnode refid="8828" relation="include">
+        </childnode>
+        <childnode refid="8819" relation="include">
+        </childnode>
+        <childnode refid="8868" relation="include">
+        </childnode>
+      </node>
+      <node id="8853">
+        <label>storage/BaseIterator.h</label>
+        <link refid="_base_iterator_8h"/>
+      </node>
+      <node id="8842">
+        <label>memory/StrategizedAllocator.h</label>
+        <link refid="_strategized_allocator_8h"/>
+        <childnode refid="8843" relation="include">
+        </childnode>
+        <childnode refid="8844" relation="include">
+        </childnode>
+        <childnode refid="8845" relation="include">
+        </childnode>
+        <childnode refid="8826" relation="include">
+        </childnode>
+      </node>
+      <node id="8840">
+        <label>iostream</label>
+      </node>
+      <node id="8836">
+        <label>storage/ColumnMetadata.h</label>
+        <link refid="_column_metadata_8h"/>
+        <childnode refid="8828" relation="include">
+        </childnode>
+        <childnode refid="8821" relation="include">
+        </childnode>
+        <childnode refid="8826" relation="include">
+        </childnode>
+      </node>
+      <node id="8832">
+        <label>boost/mpl/map.hpp</label>
+      </node>
+      <node id="8818">
+        <label>src/lib/access/pred_EqualsExpression.h</label>
+        <link refid="pred_EqualsExpression.h"/>
+        <childnode refid="8819" relation="include">
+        </childnode>
+        <childnode refid="8825" relation="include">
+        </childnode>
+        <childnode refid="8870" relation="include">
+        </childnode>
+      </node>
+      <node id="8855">
+        <label>storage/AbstractAllocatedDictionary.h</label>
+        <link refid="_abstract_allocated_dictionary_8h"/>
+      </node>
+      <node id="8846">
+        <label>memory/MallocStrategy.h</label>
+        <link refid="_malloc_strategy_8h"/>
+        <childnode refid="8840" relation="include">
+        </childnode>
+        <childnode refid="8820" relation="include">
+        </childnode>
+        <childnode refid="8847" relation="include">
+        </childnode>
+      </node>
+      <node id="8869">
+        <label>pred_SimpleFieldExpression.h</label>
+        <link refid="pred___simple_field_expression_8h"/>
+        <childnode refid="8819" relation="include">
+        </childnode>
+        <childnode refid="8825" relation="include">
+        </childnode>
+      </node>
+      <node id="8838">
+        <label>storage/OrderPreservingDictionary.h</label>
+        <link refid="_order_preserving_dictionary_8h"/>
+        <childnode refid="8839" relation="include">
+        </childnode>
+        <childnode refid="8840" relation="include">
+        </childnode>
+        <childnode refid="8823" relation="include">
+        </childnode>
+        <childnode refid="8828" relation="include">
+        </childnode>
+        <childnode refid="8841" relation="include">
+        </childnode>
+        <childnode refid="8851" relation="include">
+        </childnode>
+        <childnode refid="8852" relation="include">
+        </childnode>
+        <childnode refid="8855" relation="include">
+        </childnode>
+        <childnode refid="8853" relation="include">
+        </childnode>
+      </node>
+      <node id="8844">
+        <label>algorithm</label>
+      </node>
+      <node id="8827">
+        <label>stdio.h</label>
+      </node>
+      <node id="8847">
+        <label>cstring</label>
+      </node>
+      <node id="8857">
+        <label>storage/csb_tree.h</label>
+        <link refid="csb__tree_8h"/>
+        <childnode refid="8824" relation="include">
+        </childnode>
+        <childnode refid="8840" relation="include">
+        </childnode>
+        <childnode refid="8845" relation="include">
+        </childnode>
+        <childnode refid="8823" relation="include">
+        </childnode>
+        <childnode refid="8858" relation="include">
+        </childnode>
+        <childnode refid="8839" relation="include">
+        </childnode>
+        <childnode refid="8854" relation="include">
+        </childnode>
+      </node>
+      <node id="8823">
+        <label>memory</label>
+      </node>
+      <node id="8828">
+        <label>storage/storage_types.h</label>
+        <link refid="storage__types_8h"/>
+        <childnode refid="8824" relation="include">
+        </childnode>
+        <childnode refid="8821" relation="include">
+        </childnode>
+        <childnode refid="8826" relation="include">
+        </childnode>
+        <childnode refid="8829" relation="include">
+        </childnode>
+        <childnode refid="8830" relation="include">
+        </childnode>
+        <childnode refid="8831" relation="include">
+        </childnode>
+        <childnode refid="8832" relation="include">
+        </childnode>
+        <childnode refid="8833" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="8889">
+        <label>src/bin/perf_regression/UnionScan.cpp</label>
+        <link refid="bin_2perf__regression_2_union_scan_8cpp"/>
+      </node>
+      <node id="8890">
+        <label>src/lib/access/MergeJoin.hpp</label>
+        <link refid="_merge_join_8hpp"/>
+        <childnode refid="8881" relation="include">
+        </childnode>
+      </node>
+      <node id="8891">
+        <label>src/lib/access/pred_buildExpression.cpp</label>
+        <link refid="pred__build_expression_8cpp"/>
+      </node>
+      <node id="8885">
+        <label>src/bin/perf_regression/JoinScan.cpp</label>
+        <link refid="bin_2perf__regression_2_join_scan_8cpp"/>
+      </node>
+      <node id="8877">
+        <label>src/bin/perf_regression/scan_performance.cpp</label>
+        <link refid="scan__performance_8cpp"/>
+      </node>
+      <node id="8888">
+        <label>src/bin/perf_regression/SortScan.cpp</label>
+        <link refid="bin_2perf__regression_2_sort_scan_8cpp"/>
+      </node>
+      <node id="8882">
+        <label>src/bin/perf_regression/GroupByScan.cpp</label>
+        <link refid="bin_2perf__regression_2_group_by_scan_8cpp"/>
+      </node>
+      <node id="8886">
+        <label>src/bin/perf_regression/ProjectionScan.cpp</label>
+        <link refid="bin_2perf__regression_2_projection_scan_8cpp"/>
+      </node>
+      <node id="8883">
+        <label>src/bin/perf_regression/HashJoin.cpp</label>
+        <link refid="_hash_join_8cpp"/>
+      </node>
+      <node id="8884">
+        <label>src/bin/perf_regression/HashValueJoin.cpp</label>
+        <link refid="_hash_value_join_8cpp"/>
+      </node>
+      <node id="8881">
+        <label>src/lib/access.h</label>
+        <link refid="access_8h"/>
+        <childnode refid="8882" relation="include">
+        </childnode>
+        <childnode refid="8883" relation="include">
+        </childnode>
+        <childnode refid="8884" relation="include">
+        </childnode>
+        <childnode refid="8885" relation="include">
+        </childnode>
+        <childnode refid="8886" relation="include">
+        </childnode>
+        <childnode refid="8887" relation="include">
+        </childnode>
+        <childnode refid="8888" relation="include">
+        </childnode>
+        <childnode refid="8889" relation="include">
+        </childnode>
+      </node>
+      <node id="8878">
+        <label>src/lib/access/predicates.h</label>
+        <link refid="predicates_8h"/>
+        <childnode refid="8879" relation="include">
+        </childnode>
+        <childnode refid="8890" relation="include">
+        </childnode>
+        <childnode refid="8891" relation="include">
+        </childnode>
+        <childnode refid="8892" relation="include">
+        </childnode>
+        <childnode refid="8881" relation="include">
+        </childnode>
+      </node>
+      <node id="8887">
+        <label>src/bin/perf_regression/SimpleTableScan.cpp</label>
+        <link refid="bin_2perf__regression_2_simple_table_scan_8cpp"/>
+      </node>
+      <node id="8876">
+        <label>src/lib/access/pred_EqualsExpression.h</label>
+        <link refid="pred_EqualsExpression.h"/>
+        <childnode refid="8877" relation="include">
+        </childnode>
+        <childnode refid="8878" relation="include">
+        </childnode>
+      </node>
+      <node id="8879">
+        <label>src/lib/access/JoinScan.h</label>
+        <link refid="_join_scan_8h"/>
+        <childnode refid="8880" relation="include">
+        </childnode>
+        <childnode refid="8881" relation="include">
+        </childnode>
+      </node>
+      <node id="8880">
+        <label>src/lib/access/JoinScan.cpp</label>
+        <link refid="lib_2access_2_join_scan_8cpp"/>
+      </node>
+      <node id="8892">
+        <label>src/lib/access/pred_expression_factory.h</label>
+        <link refid="pred__expression__factory_8h"/>
+        <childnode refid="8891" relation="include">
+        </childnode>
+        <childnode refid="8878" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="class_equals_expression" prot="public">EqualsExpression</innerclass>
+    <innerclass refid="class_equals_expression_raw" prot="public">EqualsExpressionRaw</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>2012<sp/>Hasso-Plattner-Institut<sp/>fuer<sp/>Softwaresystemtechnik<sp/>GmbH.<sp/>All<sp/>rights<sp/>reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SRC_LIB_ACCESS_PRED_EQUALSEXPRESSION_H_</highlight></codeline>
+<codeline lineno="3"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SRC_LIB_ACCESS_PRED_EQUALSEXPRESSION_H_</highlight></codeline>
+<codeline lineno="4"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="types_8h" kindref="compound">helper/types.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="pred__common_8h" kindref="compound">pred_common.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Required<sp/>for<sp/>Raw<sp/>Table<sp/>Scan</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="_raw_table_8h" kindref="compound">storage/RawTable.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
+<codeline lineno="13" refid="class_equals_expression" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_equals_expression" kindref="compound">EqualsExpression</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="class_simple_field_expression" kindref="compound">SimpleFieldExpression</ref><sp/>{</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="15" refid="class_equals_expression_1ac7bf3a82a5e00079a92a293459d8de95" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="class_value_id" kindref="compound">ValueId</ref><sp/><ref refid="class_equals_expression_1ac7bf3a82a5e00079a92a293459d8de95" kindref="member">lower_bound</ref>;</highlight></codeline>
+<codeline lineno="16" refid="class_equals_expression_1a788a0204fd8c22e93f08d95b90220929" refkind="member"><highlight class="normal"><sp/><sp/>std::shared_ptr&lt;BaseDictionary&lt;T&gt;&gt;<sp/><ref refid="class_equals_expression_1a788a0204fd8c22e93f08d95b90220929" kindref="member">valueIdMap</ref>;</highlight></codeline>
+<codeline lineno="17" refid="class_equals_expression_1a48c98d4721c71487c375c056d71250fb" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="class_equals_expression_1a48c98d4721c71487c375c056d71250fb" kindref="member">value_exists</ref>;</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21" refid="class_equals_expression_1a7427007c661564edef6c504dd9d1cdc0" refkind="member"><highlight class="normal"><sp/><sp/>T<sp/><ref refid="class_equals_expression_1a7427007c661564edef6c504dd9d1cdc0" kindref="member">value</ref>;</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23" refid="class_equals_expression_1a38186a5fd067bc68300e827e9ddd27f7" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="class_equals_expression_1a38186a5fd067bc68300e827e9ddd27f7" kindref="member">EqualsExpression</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>_input,<sp/><ref refid="storage__types_8h_1a5ce4ecb27464dc24ba394527510dd89b" kindref="member">field_t</ref><sp/>_field,<sp/>T<sp/>_value):</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_simple_field_expression" kindref="compound">SimpleFieldExpression</ref>(_input,<sp/>_field),<sp/><ref refid="class_equals_expression_1a7427007c661564edef6c504dd9d1cdc0" kindref="member">value</ref>(_value)</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/>{}</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27" refid="class_equals_expression_1a094a69305516613735bc3217eeaa8d1f" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="class_equals_expression_1a38186a5fd067bc68300e827e9ddd27f7" kindref="member">EqualsExpression</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>_input,<sp/><ref refid="storage__types_8h_1ad64b8c8026a86f643d173acbb694b4f8" kindref="member">field_name_t</ref><sp/>_field,<sp/>T<sp/>_value):</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_simple_field_expression" kindref="compound">SimpleFieldExpression</ref>(_input,<sp/>_field),<sp/><ref refid="class_equals_expression_1a7427007c661564edef6c504dd9d1cdc0" kindref="member">value</ref>(_value)</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/>{}</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32" refid="class_equals_expression_1a005a0dd2cecb943ba34f30b5d220c256" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="class_equals_expression_1a38186a5fd067bc68300e827e9ddd27f7" kindref="member">EqualsExpression</ref>(<ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref>&amp;<sp/>_table,<sp/><ref refid="storage__types_8h_1a5ce4ecb27464dc24ba394527510dd89b" kindref="member">field_t</ref><sp/>_field,<sp/>T<sp/>_value)<sp/>:<sp/><ref refid="class_simple_field_expression" kindref="compound">SimpleFieldExpression</ref>(_table,<sp/>_field),<sp/><ref refid="class_equals_expression_1a7427007c661564edef6c504dd9d1cdc0" kindref="member">value</ref>(_value)</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/>{}</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35" refid="class_equals_expression_1a9c70374044137e9f4b9756ec3c14052b" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_equals_expression_1a9c70374044137e9f4b9756ec3c14052b" kindref="member">walk</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;hyrise::storage::c_atable_ptr_t<sp/>&gt;<sp/>&amp;l)<sp/>{</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_equals_expression_1a9c70374044137e9f4b9756ec3c14052b" kindref="member">SimpleFieldExpression::walk</ref>(l);</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_equals_expression_1a788a0204fd8c22e93f08d95b90220929" kindref="member">valueIdMap</ref><sp/>=<sp/>std::dynamic_pointer_cast&lt;<ref refid="class_base_dictionary" kindref="compound">BaseDictionary&lt;T&gt;</ref>&gt;(<ref refid="class_simple_field_expression_1a8da8d230fd7e416f692da42a666625ec" kindref="member">table</ref>-&gt;dictionaryAt(<ref refid="class_simple_field_expression_1ac17522bcc3e92592ed34b84d460909a7" kindref="member">field</ref>));</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_equals_expression_1a48c98d4721c71487c375c056d71250fb" kindref="member">value_exists</ref><sp/>=<sp/><ref refid="class_equals_expression_1a788a0204fd8c22e93f08d95b90220929" kindref="member">valueIdMap</ref>-&gt;valueExists(<ref refid="class_equals_expression_1a7427007c661564edef6c504dd9d1cdc0" kindref="member">value</ref>);</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(value_exists)<sp/>{</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_equals_expression_1ac7bf3a82a5e00079a92a293459d8de95" kindref="member">lower_bound</ref><sp/>=<sp/><ref refid="class_simple_field_expression_1a8da8d230fd7e416f692da42a666625ec" kindref="member">table</ref>-&gt;getValueIdForValue(<ref refid="class_simple_field_expression_1ac17522bcc3e92592ed34b84d460909a7" kindref="member">field</ref>,<sp/><ref refid="class_equals_expression_1a7427007c661564edef6c504dd9d1cdc0" kindref="member">value</ref>);</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46" refid="class_equals_expression_1a5a2a0b5213e78532da7eeeb03f800822" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="class_equals_expression_1a5a2a0b5213e78532da7eeeb03f800822" kindref="member">~EqualsExpression</ref>()<sp/>{<sp/>}</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48" refid="class_equals_expression_1a725c4448ce2207ddb3b23b2758275b4d" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="class_equals_expression_1a725c4448ce2207ddb3b23b2758275b4d" kindref="member">operator()</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>row)<sp/>{</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="class_equals_expression_1a48c98d4721c71487c375c056d71250fb" kindref="member">value_exists</ref><sp/>&amp;&amp;<sp/><ref refid="class_simple_field_expression_1a8da8d230fd7e416f692da42a666625ec" kindref="member">table</ref>-&gt;getValueId(<ref refid="class_simple_field_expression_1ac17522bcc3e92592ed34b84d460909a7" kindref="member">field</ref>,<sp/>row)<sp/>==<sp/><ref refid="class_equals_expression_1ac7bf3a82a5e00079a92a293459d8de95" kindref="member">lower_bound</ref>;</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="51"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
+<codeline lineno="58" refid="class_equals_expression_raw" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_equals_expression_raw" kindref="compound">EqualsExpressionRaw</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="class_simple_field_expression" kindref="compound">SimpleFieldExpression</ref><sp/>{</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight></codeline>
+<codeline lineno="62" refid="class_equals_expression_raw_1a5efa32ce8344b64dccfce106747bbaf9" refkind="member"><highlight class="normal"><sp/><sp/>T<sp/><ref refid="class_equals_expression_raw_1a5efa32ce8344b64dccfce106747bbaf9" kindref="member">value</ref>;</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64" refid="class_equals_expression_raw_1a35f4a0b7dfc813303799b8fe5688e15d" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="class_equals_expression_raw_1a35f4a0b7dfc813303799b8fe5688e15d" kindref="member">EqualsExpressionRaw</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>_input,<sp/><ref refid="storage__types_8h_1a5ce4ecb27464dc24ba394527510dd89b" kindref="member">field_t</ref><sp/>_field,<sp/>T<sp/>_value):</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_simple_field_expression" kindref="compound">SimpleFieldExpression</ref>(_input,<sp/>_field),<sp/><ref refid="class_equals_expression_raw_1a5efa32ce8344b64dccfce106747bbaf9" kindref="member">value</ref>(_value)</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/>{}</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68" refid="class_equals_expression_raw_1a7ee2583db91426a65fd9c9a38d36f898" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="class_equals_expression_raw_1a35f4a0b7dfc813303799b8fe5688e15d" kindref="member">EqualsExpressionRaw</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>_input,<sp/><ref refid="storage__types_8h_1ad64b8c8026a86f643d173acbb694b4f8" kindref="member">field_name_t</ref><sp/>_field,<sp/>T<sp/>_value):</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_simple_field_expression" kindref="compound">SimpleFieldExpression</ref>(_input,<sp/>_field),<sp/><ref refid="class_equals_expression_raw_1a5efa32ce8344b64dccfce106747bbaf9" kindref="member">value</ref>(_value)</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/>{}</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight></codeline>
+<codeline lineno="72" refid="class_equals_expression_raw_1a820a750a68dfadf312e28ed11cec8571" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="class_equals_expression_raw_1a35f4a0b7dfc813303799b8fe5688e15d" kindref="member">EqualsExpressionRaw</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref>&amp;<sp/>_table,<sp/><ref refid="storage__types_8h_1a5ce4ecb27464dc24ba394527510dd89b" kindref="member">field_t</ref><sp/>_field,<sp/>T<sp/>_value)<sp/>:<sp/><ref refid="class_simple_field_expression" kindref="compound">SimpleFieldExpression</ref>(_table,<sp/>_field),<sp/><ref refid="class_equals_expression_raw_1a5efa32ce8344b64dccfce106747bbaf9" kindref="member">value</ref>(_value)</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/>{}</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75" refid="class_equals_expression_raw_1a8db781412ad0fdc41b00f6b43c5b6af9" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="class_equals_expression_raw_1a8db781412ad0fdc41b00f6b43c5b6af9" kindref="member">~EqualsExpressionRaw</ref>()<sp/>{<sp/>}</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77" refid="class_equals_expression_raw_1a6370cbdc46ba91ff0bc368d43f88b777" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="class_equals_expression_raw_1a6370cbdc46ba91ff0bc368d43f88b777" kindref="member">operator()</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>row)<sp/>{</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(std::dynamic_pointer_cast&lt;</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>RawTable&lt;&gt;&gt;(<ref refid="class_simple_field_expression_1a8da8d230fd7e416f692da42a666625ec" kindref="member">table</ref>))-&gt;getValue&lt;T&gt;(<ref refid="class_simple_field_expression_1ac17522bcc3e92592ed34b84d460909a7" kindref="member">field</ref>,<sp/>row)<sp/>==<sp/><ref refid="class_equals_expression_raw_1a5efa32ce8344b64dccfce106747bbaf9" kindref="member">value</ref>;</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="80"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/>//<sp/>SRC_LIB_ACCESS_PRED_EQUALSEXPRESSION_H_</highlight></codeline>
+<codeline lineno="83"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/home/grund/hyrise/src/lib/access/pred_EqualsExpression.h"/>
+  </compounddef>
+</doxygen>

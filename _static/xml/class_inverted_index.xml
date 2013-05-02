@@ -1,0 +1,148 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="class_inverted_index" kind="class" prot="public">
+    <compoundname>InvertedIndex</compoundname>
+    <basecompoundref refid="class_abstract_index" prot="public" virt="non-virtual">AbstractIndex</basecompoundref>
+    <includes refid="_inverted_index_8h" local="no">InvertedIndex.h</includes>
+    <templateparamlist>
+      <param>
+        <type>typename T</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="private-type">
+      <memberdef kind="typedef" id="class_inverted_index_1a5732f8369bad51a37a68cc72f728fd5d" prot="private" static="no">
+        <type>std::map&lt; T, <ref refid="storage__types_8h_1a543d59ef56384af4a7af9aa551bc6825" kindref="member">pos_list_t</ref> &gt;</type>
+        <definition>typedef std::map&lt;T, pos_list_t&gt; InvertedIndex&lt; T &gt;::inverted_index_t</definition>
+        <argsstring></argsstring>
+        <name>inverted_index_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/InvertedIndex.h" line="21" bodyfile="/home/grund/hyrise/src/lib/storage/InvertedIndex.h" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_inverted_index_1a19ac798996b69bb9bcbe7bdd397e4ec3" prot="private" static="no" mutable="no">
+        <type><ref refid="class_inverted_index_1a5732f8369bad51a37a68cc72f728fd5d" kindref="member">inverted_index_t</ref></type>
+        <definition>inverted_index_t InvertedIndex&lt; T &gt;::_index</definition>
+        <argsstring></argsstring>
+        <name>_index</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/InvertedIndex.h" line="22" bodyfile="/home/grund/hyrise/src/lib/storage/InvertedIndex.h" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_inverted_index_1adc799574b2f20d9eaafb2942403cafec" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual InvertedIndex&lt; T &gt;::~InvertedIndex</definition>
+        <argsstring>()</argsstring>
+        <name>~InvertedIndex</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/InvertedIndex.h" line="25" bodyfile="/home/grund/hyrise/src/lib/storage/InvertedIndex.h" bodystart="25" bodyend="25"/>
+      </memberdef>
+      <memberdef kind="function" id="class_inverted_index_1ad69c77e1e0cc30fe9c2ac6d094d27c1e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>void InvertedIndex&lt; T &gt;::shrink</definition>
+        <argsstring>()</argsstring>
+        <name>shrink</name>
+        <reimplements refid="class_abstract_index_1a0c6a67d766fdbd4b1d3fcb3f30159a8c">shrink</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/InvertedIndex.h" line="27" bodyfile="/home/grund/hyrise/src/lib/storage/InvertedIndex.h" bodystart="27" bodyend="30"/>
+      </memberdef>
+      <memberdef kind="function" id="class_inverted_index_1ad5215f1c6d9ce3d7643cd8c10e2dfc5d" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>InvertedIndex&lt; T &gt;::InvertedIndex</definition>
+        <argsstring>(const hyrise::storage::c_atable_ptr_t &amp;in, field_t column)</argsstring>
+        <name>InvertedIndex</name>
+        <param>
+          <type>const <ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref> &amp;</type>
+          <declname>in</declname>
+        </param>
+        <param>
+          <type><ref refid="storage__types_8h_1a5ce4ecb27464dc24ba394527510dd89b" kindref="member">field_t</ref></type>
+          <declname>column</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/InvertedIndex.h" line="32" bodyfile="/home/grund/hyrise/src/lib/storage/InvertedIndex.h" bodystart="32" bodyend="46"/>
+      </memberdef>
+      <memberdef kind="function" id="class_inverted_index_1a81288db7661a508a513ff251584a73c8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="storage__types_8h_1a543d59ef56384af4a7af9aa551bc6825" kindref="member">pos_list_t</ref></type>
+        <definition>pos_list_t InvertedIndex&lt; T &gt;::getPositionsForKey</definition>
+        <argsstring>(T key)</argsstring>
+        <name>getPositionsForKey</name>
+        <param>
+          <type>T</type>
+          <declname>key</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>returns a list of positions where key was found. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/InvertedIndex.h" line="51" bodyfile="/home/grund/hyrise/src/lib/storage/InvertedIndex.h" bodystart="51" bodyend="59"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2115">
+        <label>InvertedIndex&lt; T &gt;</label>
+        <link refid="class_inverted_index"/>
+        <childnode refid="2116" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2116">
+        <label>AbstractIndex</label>
+        <link refid="class_abstract_index"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2117">
+        <label>InvertedIndex&lt; T &gt;</label>
+        <link refid="class_inverted_index"/>
+        <childnode refid="2118" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2118">
+        <label>AbstractIndex</label>
+        <link refid="class_abstract_index"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/storage/InvertedIndex.h" line="19" bodyfile="/home/grund/hyrise/src/lib/storage/InvertedIndex.h" bodystart="19" bodyend="61"/>
+    <listofallmembers>
+      <member refid="class_inverted_index_1a19ac798996b69bb9bcbe7bdd397e4ec3" prot="private" virt="non-virtual"><scope>InvertedIndex</scope><name>_index</name></member>
+      <member refid="class_inverted_index_1a81288db7661a508a513ff251584a73c8" prot="public" virt="non-virtual"><scope>InvertedIndex</scope><name>getPositionsForKey</name></member>
+      <member refid="class_inverted_index_1a5732f8369bad51a37a68cc72f728fd5d" prot="private" virt="non-virtual"><scope>InvertedIndex</scope><name>inverted_index_t</name></member>
+      <member refid="class_inverted_index_1ad5215f1c6d9ce3d7643cd8c10e2dfc5d" prot="public" virt="non-virtual"><scope>InvertedIndex</scope><name>InvertedIndex</name></member>
+      <member refid="class_inverted_index_1ad69c77e1e0cc30fe9c2ac6d094d27c1e" prot="public" virt="virtual"><scope>InvertedIndex</scope><name>shrink</name></member>
+      <member refid="class_abstract_index_1a1ee7d6caba56176420d4fbbd37b5afb8" prot="public" virt="virtual"><scope>InvertedIndex</scope><name>~AbstractIndex</name></member>
+      <member refid="class_inverted_index_1adc799574b2f20d9eaafb2942403cafec" prot="public" virt="virtual"><scope>InvertedIndex</scope><name>~InvertedIndex</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

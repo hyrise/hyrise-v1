@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Continuous Integration &mdash; HYRISE latest documentation</title>
+    
+    <link rel="stylesheet" href="../_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/breathe.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     'latest',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="HYRISE latest documentation" href="../index.html" />
+    <link rel="up" title="Developing with HYRISE" href="../developing.html" />
+    <link rel="next" title="Writing plan operations" href="writing_plan_operations.html" />
+    <link rel="prev" title="Code reviews" href="code_reviews.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="writing_plan_operations.html" title="Writing plan operations"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="code_reviews.html" title="Code reviews"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">HYRISE latest documentation</a> &raquo;</li>
+          <li><a href="../developing.html" accesskey="U">Developing with HYRISE</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/hyrise.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture.html">Implementation Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../query_execution.html">HYRISE Query Execution</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../developing.html">Developing with HYRISE</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="git.html">Repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build_environment.html">Setup Build Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="building.html">Building the project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="code_style.html">Code style</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_organization.html">File organization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="code_reviews.html">Code reviews</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Continuous Integration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#server">Server</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="writing_plan_operations.html">Writing plan operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="writing_performance_regressions.html">Writing Performance Regressions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">HYRISE &amp; Development FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../proposals.html">Proposals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doxygen.html">Doxygen Documentation</a></li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="code_reviews.html"
+                        title="previous chapter">Code reviews</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="writing_plan_operations.html"
+                        title="next chapter">Writing plan operations</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/developing/continuous_integration.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="continuous-integration">
+<h1>Continuous Integration<a class="headerlink" href="#continuous-integration" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="server">
+<h2>Server<a class="headerlink" href="#server" title="Permalink to this headline">¶</a></h2>
+<p>Currently we use a CI <a class="reference external" href="http://192.168.30.197:8080/job/hyrise/">server</a> that is accessible via that currently
+only builds the master branch. Please check if your code passes all
+the tests. For a more detailed build setup check the <a class="reference external" href="http://192.168.30.197:8080/job/hyrise-multiconf/">multiconf</a> jobs
+as well that builds various retain-debug and production
+settings. Please don&#8217;t break the build.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="writing_plan_operations.html" title="Writing plan operations"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="code_reviews.html" title="Code reviews"
+             >previous</a> |</li>
+        <li><a href="../index.html">HYRISE latest documentation</a> &raquo;</li>
+          <li><a href="../developing.html" >Developing with HYRISE</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010-2013, Martin Grund et al.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+  </body>
+</html>

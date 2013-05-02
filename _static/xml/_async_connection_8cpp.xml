@@ -1,0 +1,470 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="_async_connection_8cpp" kind="file">
+    <compoundname>AsyncConnection.cpp</compoundname>
+    <includes refid="_async_connection_8h" local="yes">net/AsyncConnection.h</includes>
+    <includes local="no">iostream</includes>
+    <includes local="no">stdio.h</includes>
+    <includes local="no">stdlib.h</includes>
+    <includes local="no">string.h</includes>
+    <includes local="no">stddef.h</includes>
+    <includes local="no">ctime</includes>
+    <includes refid="_router_8h" local="yes">net/Router.h</includes>
+    <includes refid="_shared_scheduler_8h" local="yes">taskscheduler/SharedScheduler.h</includes>
+    <incdepgraph>
+      <node id="16722">
+        <label>net/AbstractConnection.h</label>
+        <link refid="_abstract_connection_8h"/>
+        <childnode refid="16721" relation="include">
+        </childnode>
+      </node>
+      <node id="16717">
+        <label>arpa/inet.h</label>
+      </node>
+      <node id="16746">
+        <label>queue</label>
+      </node>
+      <node id="16715">
+        <label>src/lib/net/AsyncConnection.cpp</label>
+        <link refid="AsyncConnection.cpp"/>
+        <childnode refid="16716" relation="include">
+        </childnode>
+        <childnode refid="16724" relation="include">
+        </childnode>
+        <childnode refid="16725" relation="include">
+        </childnode>
+        <childnode refid="16726" relation="include">
+        </childnode>
+        <childnode refid="16727" relation="include">
+        </childnode>
+        <childnode refid="16728" relation="include">
+        </childnode>
+        <childnode refid="16729" relation="include">
+        </childnode>
+        <childnode refid="16730" relation="include">
+        </childnode>
+        <childnode refid="16737" relation="include">
+        </childnode>
+      </node>
+      <node id="16726">
+        <label>stdlib.h</label>
+      </node>
+      <node id="16748">
+        <label>stdexcept</label>
+      </node>
+      <node id="16743">
+        <label>helper/HwlocHelper.h</label>
+        <link refid="_hwloc_helper_8h"/>
+        <childnode refid="16744" relation="include">
+        </childnode>
+      </node>
+      <node id="16721">
+        <label>string</label>
+      </node>
+      <node id="16745">
+        <label>taskscheduler/SimpleTaskScheduler.h</label>
+        <link refid="_simple_task_scheduler_8h"/>
+        <childnode refid="16738" relation="include">
+        </childnode>
+        <childnode refid="16742" relation="include">
+        </childnode>
+        <childnode refid="16734" relation="include">
+        </childnode>
+        <childnode refid="16746" relation="include">
+        </childnode>
+        <childnode refid="16735" relation="include">
+        </childnode>
+        <childnode refid="16741" relation="include">
+        </childnode>
+        <childnode refid="16733" relation="include">
+        </childnode>
+        <childnode refid="16747" relation="include">
+        </childnode>
+        <childnode refid="16743" relation="include">
+        </childnode>
+      </node>
+      <node id="16733">
+        <label>taskscheduler/Task.h</label>
+        <link refid="_task_8h"/>
+        <childnode refid="16734" relation="include">
+        </childnode>
+        <childnode refid="16735" relation="include">
+        </childnode>
+        <childnode refid="16731" relation="include">
+        </childnode>
+        <childnode refid="16736" relation="include">
+        </childnode>
+        <childnode refid="16721" relation="include">
+        </childnode>
+      </node>
+      <node id="16742">
+        <label>unordered_set</label>
+      </node>
+      <node id="16744">
+        <label>hwloc.h</label>
+      </node>
+      <node id="16728">
+        <label>stddef.h</label>
+      </node>
+      <node id="16747">
+        <label>taskscheduler/CoreBoundTaskQueue.h</label>
+        <link refid="_core_bound_task_queue_8h"/>
+        <childnode refid="16740" relation="include">
+        </childnode>
+        <childnode refid="16746" relation="include">
+        </childnode>
+        <childnode refid="16739" relation="include">
+        </childnode>
+      </node>
+      <node id="16736">
+        <label>condition_variable</label>
+      </node>
+      <node id="16723">
+        <label>ebb/ebb.h</label>
+      </node>
+      <node id="16727">
+        <label>string.h</label>
+      </node>
+      <node id="16729">
+        <label>ctime</label>
+      </node>
+      <node id="16734">
+        <label>vector</label>
+      </node>
+      <node id="16737">
+        <label>taskscheduler/SharedScheduler.h</label>
+        <link refid="_shared_scheduler_8h"/>
+        <childnode refid="16738" relation="include">
+        </childnode>
+        <childnode refid="16745" relation="include">
+        </childnode>
+        <childnode refid="16747" relation="include">
+        </childnode>
+        <childnode refid="16748" relation="include">
+        </childnode>
+      </node>
+      <node id="16739">
+        <label>taskscheduler/AbstractTaskQueue.h</label>
+        <link refid="_abstract_task_queue_8h"/>
+        <childnode refid="16731" relation="include">
+        </childnode>
+        <childnode refid="16735" relation="include">
+        </childnode>
+        <childnode refid="16740" relation="include">
+        </childnode>
+        <childnode refid="16736" relation="include">
+        </childnode>
+        <childnode refid="16741" relation="include">
+        </childnode>
+        <childnode refid="16733" relation="include">
+        </childnode>
+      </node>
+      <node id="16716">
+        <label>net/AsyncConnection.h</label>
+        <link refid="_async_connection_8h"/>
+        <childnode refid="16717" relation="include">
+        </childnode>
+        <childnode refid="16718" relation="include">
+        </childnode>
+        <childnode refid="16719" relation="include">
+        </childnode>
+        <childnode refid="16720" relation="include">
+        </childnode>
+        <childnode refid="16721" relation="include">
+        </childnode>
+        <childnode refid="16722" relation="include">
+        </childnode>
+        <childnode refid="16723" relation="include">
+        </childnode>
+      </node>
+      <node id="16719">
+        <label>cstdlib</label>
+      </node>
+      <node id="16718">
+        <label>sys/time.h</label>
+      </node>
+      <node id="16724">
+        <label>iostream</label>
+      </node>
+      <node id="16738">
+        <label>taskscheduler/AbstractTaskScheduler.h</label>
+        <link refid="_abstract_task_scheduler_8h"/>
+        <childnode refid="16733" relation="include">
+        </childnode>
+        <childnode refid="16739" relation="include">
+        </childnode>
+        <childnode refid="16731" relation="include">
+        </childnode>
+        <childnode refid="16742" relation="include">
+        </childnode>
+        <childnode refid="16724" relation="include">
+        </childnode>
+        <childnode refid="16741" relation="include">
+        </childnode>
+        <childnode refid="16743" relation="include">
+        </childnode>
+      </node>
+      <node id="16720">
+        <label>ev.h</label>
+      </node>
+      <node id="16732">
+        <label>unordered_map</label>
+      </node>
+      <node id="16735">
+        <label>mutex</label>
+      </node>
+      <node id="16740">
+        <label>thread</label>
+      </node>
+      <node id="16741">
+        <label>log4cxx/logger.h</label>
+      </node>
+      <node id="16725">
+        <label>stdio.h</label>
+      </node>
+      <node id="16730">
+        <label>net/Router.h</label>
+        <link refid="_router_8h"/>
+        <childnode refid="16731" relation="include">
+        </childnode>
+        <childnode refid="16732" relation="include">
+        </childnode>
+        <childnode refid="16721" relation="include">
+        </childnode>
+        <childnode refid="16722" relation="include">
+        </childnode>
+        <childnode refid="16733" relation="include">
+        </childnode>
+      </node>
+      <node id="16731">
+        <label>memory</label>
+      </node>
+    </incdepgraph>
+    <innernamespace refid="namespacehyrise">hyrise</innernamespace>
+    <innernamespace refid="namespacehyrise_1_1net">hyrise::net</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>2012<sp/>Hasso-Plattner-Institut<sp/>fuer<sp/>Softwaresystemtechnik<sp/>GmbH.<sp/>All<sp/>rights<sp/>reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_async_connection_8h" kindref="compound">net/AsyncConnection.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;iostream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdio.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdlib.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stddef.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;ctime&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_router_8h" kindref="compound">net/Router.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_shared_scheduler_8h" kindref="compound">taskscheduler/SharedScheduler.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">hyrise<sp/>{</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">net<sp/>{</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight></codeline>
+<codeline lineno="17" refid="namespacehyrise_1_1net_1ab03847f14803c3811bbc3f2695238167" refkind="member"><highlight class="normal">ebb_connection<sp/>*<ref refid="namespacehyrise_1_1net_1ab03847f14803c3811bbc3f2695238167" kindref="member">new_connection</ref>(ebb_server<sp/>*<ref refid="bin_2hyrise_2main_8cpp_1a7a40d9164397ae556e53aa25f552ea52" kindref="member">server</ref>,<sp/></highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/>sockaddr_in<sp/>*addr)<sp/>{</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/>ebb_connection<sp/>*connection<sp/>=<sp/>(ebb_connection<sp/>*)malloc(</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(ebb_connection));</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(connection<sp/>==<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">)<sp/>{</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><ref refid="classhyrise_1_1net_1_1_async_connection" kindref="compound">AsyncConnection</ref><sp/>*connection_data<sp/>=<sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1net_1_1_async_connection" kindref="compound">AsyncConnection</ref>();</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/>connection_data-&gt;<ref refid="classhyrise_1_1net_1_1_async_connection_1a3853a724d9e28230f5b3fce504a86794" kindref="member">addr</ref><sp/>=<sp/>*addr;</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Initializes<sp/>the<sp/>connection</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/>ebb_connection_init(connection);</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/>connection-&gt;data<sp/>=<sp/>connection_data;</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/>connection-&gt;new_request<sp/>=<sp/><ref refid="namespacehyrise_1_1net_1a8c793df2d950d59b5f61b4379384de6a" kindref="member">new_request</ref>;</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/>connection-&gt;on_close<sp/>=<sp/><ref refid="namespacehyrise_1_1net_1a31a7c23d6981b86a4db61e1d18fb4290" kindref="member">on_close</ref>;</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/>connection-&gt;on_timeout<sp/>=<sp/><ref refid="namespacehyrise_1_1net_1a31c232dd9824272bf21d5e26e3c1c859" kindref="member">on_timeout</ref>;</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/>connection_data-&gt;<ref refid="classhyrise_1_1net_1_1_async_connection_1a28501fb77ca8653a3d4f0e8eef0c7747" kindref="member">ev_loop</ref><sp/>=<sp/>server-&gt;loop;</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/>connection_data-&gt;<ref refid="classhyrise_1_1net_1_1_async_connection_1ab98ecb402d885e2c54930b5572ba644f" kindref="member">ev_write</ref>.data<sp/>=<sp/>connection_data;</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/>ev_async_init(&amp;connection_data-&gt;<ref refid="classhyrise_1_1net_1_1_async_connection_1ab98ecb402d885e2c54930b5572ba644f" kindref="member">ev_write</ref>,<sp/><ref refid="namespacehyrise_1_1net_1a3123bf1b798f283557aecc7e7921b614" kindref="member">write_cb</ref>);</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/>ev_async_start(server-&gt;loop,<sp/>&amp;connection_data-&gt;<ref refid="classhyrise_1_1net_1_1_async_connection_1ab98ecb402d885e2c54930b5572ba644f" kindref="member">ev_write</ref>);</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>connection;</highlight></codeline>
+<codeline lineno="39"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41" refid="namespacehyrise_1_1net_1a31c232dd9824272bf21d5e26e3c1c859" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="namespacehyrise_1_1net_1a31c232dd9824272bf21d5e26e3c1c859" kindref="member">on_timeout</ref>(ebb_connection<sp/>*connection)<sp/>{</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>EBB_AGAIN;</highlight></codeline>
+<codeline lineno="43"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45" refid="namespacehyrise_1_1net_1a8c793df2d950d59b5f61b4379384de6a" refkind="member"><highlight class="normal">ebb_request<sp/>*<ref refid="namespacehyrise_1_1net_1a8c793df2d950d59b5f61b4379384de6a" kindref="member">new_request</ref>(ebb_connection<sp/>*connection)<sp/>{</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/>ebb_request<sp/>*request<sp/>=<sp/>(ebb_request<sp/>*)malloc(</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(ebb_request));</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/>ebb_request_init(request);</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/>request-&gt;data<sp/>=<sp/>connection;</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/>request-&gt;on_complete<sp/>=<sp/><ref refid="namespacehyrise_1_1net_1a3e1f64784af8b5bb5a71ef528f6bd8ad" kindref="member">request_complete</ref>;</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/>request-&gt;on_path<sp/>=<sp/><ref refid="namespacehyrise_1_1net_1ac921267d5be89716bf817bcc0ef4d844" kindref="member">request_path</ref>;</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/>request-&gt;on_body<sp/>=<sp/><ref refid="namespacehyrise_1_1net_1a88116c09e2e48e659cb24498c2b0071f" kindref="member">request_body</ref>;</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>request;</highlight></codeline>
+<codeline lineno="53"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55" refid="namespacehyrise_1_1net_1a3e1f64784af8b5bb5a71ef528f6bd8ad" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="namespacehyrise_1_1net_1a3e1f64784af8b5bb5a71ef528f6bd8ad" kindref="member">request_complete</ref>(ebb_request<sp/>*request)<sp/>{</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/>ebb_connection<sp/>*connection<sp/>=<sp/>(ebb_connection<sp/>*)request-&gt;data;</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><ref refid="classhyrise_1_1net_1_1_async_connection" kindref="compound">AsyncConnection</ref><sp/>*connection_data<sp/>=<sp/>(<ref refid="classhyrise_1_1net_1_1_async_connection" kindref="compound">AsyncConnection</ref><sp/>*)connection-&gt;data;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/>connection_data-&gt;<ref refid="classhyrise_1_1net_1_1_async_connection_1a164675f5230da7d4bb23c47746f21344" kindref="member">connection</ref><sp/>=<sp/>connection;</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/>connection_data-&gt;request<sp/>=<sp/>request;</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/>gettimeofday(&amp;connection_data-&gt;starttime,<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Try<sp/>to<sp/>route<sp/>to<sp/>appropriate<sp/>handler<sp/>based<sp/>on<sp/>path</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structhyrise_1_1net_1_1_abstract_request_handler_factory" kindref="compound">AbstractRequestHandlerFactory</ref><sp/>*handler_factory;</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">try</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/>handler_factory<sp/>=<sp/><ref refid="classhyrise_1_1net_1_1_router_1ad9866a97c73b455d8f0f51f2ccd6d829" kindref="member">Router::route</ref>(connection_data-&gt;path);</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">catch</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1net_1_1_router_exception" kindref="compound" tooltip="For all routing related exceptions.">RouterException</ref><sp/>&amp;exc)<sp/>{</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/>exception_message(exc.what());</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/>connection_data-&gt;respond(</highlight><highlight class="stringliteral">&quot;Could<sp/>not<sp/>route<sp/>request,<sp/>std::exception<sp/>was:<sp/>\n&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>+<sp/>exception_message);</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/>std::shared_ptr&lt;Task&gt;<sp/>task<sp/>=<sp/>handler_factory-&gt;<ref refid="structhyrise_1_1net_1_1_abstract_request_handler_factory_1a44c47936bbe4ff0d27bd75e34aa9c8b6" kindref="member">create</ref>(connection_data);</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Always<sp/>map<sp/>the<sp/>first<sp/>task<sp/>to<sp/>the<sp/>first<sp/>core</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/>task-&gt;setPreferredCore(0);</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><ref refid="class_shared_scheduler_1a8339d8db9b226ca95bca5dcc31f216f5" kindref="member">SharedScheduler::getInstance</ref>().<ref refid="class_shared_scheduler_1a10e97e4f3ccc5046ff9844d855ee0c9c" kindref="member">getScheduler</ref>()-&gt;<ref refid="class_abstract_task_scheduler_1a5302dc48bb09b4ec0caddf22101cfadf" kindref="member">schedule</ref>(task);</highlight></codeline>
+<codeline lineno="76"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78" refid="namespacehyrise_1_1net_1ac921267d5be89716bf817bcc0ef4d844" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="namespacehyrise_1_1net_1ac921267d5be89716bf817bcc0ef4d844" kindref="member">request_path</ref>(ebb_request<sp/>*request,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*at,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>length)<sp/>{</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/>ebb_connection<sp/>*connection<sp/>=<sp/>(ebb_connection<sp/>*)request-&gt;data;</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><ref refid="classhyrise_1_1net_1_1_async_connection" kindref="compound">AsyncConnection</ref><sp/>*connection_data<sp/>=<sp/>(<ref refid="classhyrise_1_1net_1_1_async_connection" kindref="compound">AsyncConnection</ref><sp/>*)connection-&gt;data;</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/>connection_data-&gt;<ref refid="classhyrise_1_1net_1_1_async_connection_1afbefac1b8e5cd8cd30f89481be3061b3" kindref="member">path</ref><sp/>=<sp/>(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*)malloc(length<sp/>+<sp/>1);</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/>strncpy(connection_data-&gt;path,<sp/>at,<sp/>length);</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/>connection_data-&gt;path[length]<sp/>=<sp/></highlight><highlight class="charliteral">&apos;\0&apos;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="85"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight></codeline>
+<codeline lineno="87" refid="namespacehyrise_1_1net_1a88116c09e2e48e659cb24498c2b0071f" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="namespacehyrise_1_1net_1a88116c09e2e48e659cb24498c2b0071f" kindref="member">request_body</ref>(ebb_request<sp/>*request,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*at,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>length)<sp/>{</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/>ebb_connection<sp/>*connection<sp/>=<sp/>(ebb_connection<sp/>*)request-&gt;data;</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><ref refid="classhyrise_1_1net_1_1_async_connection" kindref="compound">AsyncConnection</ref><sp/>*connection_data<sp/>=<sp/>(<ref refid="classhyrise_1_1net_1_1_async_connection" kindref="compound">AsyncConnection</ref><sp/>*)connection-&gt;data;</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!connection_data-&gt;body)<sp/>{</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/>connection_data-&gt;<ref refid="classhyrise_1_1net_1_1_async_connection_1a3059a70a479546b6168079588d5e768c" kindref="member">body</ref><sp/>=<sp/>(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*)malloc(length);</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/>connection_data-&gt;body_len<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/>connection_data-&gt;body<sp/>=<sp/>(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*)realloc(connection_data-&gt;body,<sp/>connection_data-&gt;body_len<sp/>+<sp/>length);</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/>memcpy(connection_data-&gt;body<sp/>+<sp/>connection_data-&gt;body_len,<sp/>at,<sp/>length);</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/>connection_data-&gt;body_len<sp/>+=<sp/>length;</highlight></codeline>
+<codeline lineno="99"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight></codeline>
+<codeline lineno="101" refid="namespacehyrise_1_1net_1a3123bf1b798f283557aecc7e7921b614" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="namespacehyrise_1_1net_1a3123bf1b798f283557aecc7e7921b614" kindref="member">write_cb</ref>(</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/>ev_loop<sp/>*loop,<sp/></highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/>ev_async<sp/>*w,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>revents)<sp/>{</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><ref refid="classhyrise_1_1net_1_1_async_connection" kindref="compound">AsyncConnection</ref><sp/>*conn<sp/>=<sp/>(<ref refid="classhyrise_1_1net_1_1_async_connection" kindref="compound">AsyncConnection</ref><sp/>*)<sp/>w-&gt;data;</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*method<sp/>=<sp/>(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*)<sp/></highlight><highlight class="stringliteral">&quot;&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>(conn-&gt;<ref refid="classhyrise_1_1net_1_1_async_connection_1af2cf9fbe16da9bcc25a5e361f7170ebf" kindref="member">request</ref>-&gt;method)<sp/>{</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>EBB_GET:</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>method<sp/>=<sp/>(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*)</highlight><highlight class="stringliteral">&quot;GET&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>EBB_POST:</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>method<sp/>=<sp/>(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*)</highlight><highlight class="stringliteral">&quot;POST&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">timeval<sp/>endtime;</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/>gettimeofday(&amp;endtime,<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>duration<sp/>=<sp/>endtime.tv_sec<sp/>+<sp/>endtime.tv_usec<sp/>/<sp/>1000000.0<sp/>-<sp/>conn-&gt;<ref refid="classhyrise_1_1net_1_1_async_connection_1a6a11dd4fd22d3c21d622360475bfc074" kindref="member">starttime</ref>.tv_sec<sp/>-<sp/>conn-&gt;<ref refid="classhyrise_1_1net_1_1_async_connection_1a6a11dd4fd22d3c21d622360475bfc074" kindref="member">starttime</ref>.tv_usec<sp/>/<sp/>1000000.0;</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/>time_t<sp/>rawtime;</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">tm<sp/>*timeinfo;</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>timestr[80];</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/>time(&amp;rawtime);</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/>timeinfo<sp/>=<sp/>localtime(&amp;rawtime);</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/>strftime(timestr,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(timestr),<sp/></highlight><highlight class="stringliteral">&quot;%Y-%m-%d<sp/>%H:%M:%S<sp/>%z&quot;</highlight><highlight class="normal">,<sp/>timeinfo);</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(conn-&gt;<ref refid="classhyrise_1_1net_1_1_async_connection_1a164675f5230da7d4bb23c47746f21344" kindref="member">connection</ref><sp/>!=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">)<sp/>{</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/>conn-&gt;<ref refid="classhyrise_1_1net_1_1_async_connection_1ae7fe570398d3c149b5331c13bc888dea" kindref="member">write_buffer</ref><sp/>=<sp/>(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*)malloc(<ref refid="_async_connection_8h_1aba94a01e56bd69ca33a44eb3cc107874" kindref="member">max_header_length</ref><sp/>+<sp/>conn-&gt;<ref refid="classhyrise_1_1net_1_1_async_connection_1aa7115480000b28182e6666991d63d016" kindref="member">response_length</ref>);</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/>conn-&gt;<ref refid="classhyrise_1_1net_1_1_async_connection_1a027fab5d823a03f0957fb5d51459fbc5" kindref="member">write_buffer_len</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Copy<sp/>the<sp/>http<sp/>status<sp/>code</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/>conn-&gt;<ref refid="classhyrise_1_1net_1_1_async_connection_1ad1a130f1bae2e17a12f22e3e534cee84" kindref="member">code</ref><sp/>=<sp/>conn-&gt;<ref refid="classhyrise_1_1net_1_1_async_connection_1ad1a130f1bae2e17a12f22e3e534cee84" kindref="member">code</ref><sp/>==<sp/>0<sp/>?<sp/>200<sp/>:<sp/>conn-&gt;<ref refid="classhyrise_1_1net_1_1_async_connection_1ad1a130f1bae2e17a12f22e3e534cee84" kindref="member">code</ref>;</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/>conn-&gt;<ref refid="classhyrise_1_1net_1_1_async_connection_1a354c0ec350dd646fdcab302f5cb0a82e" kindref="member">contentType</ref><sp/>=<sp/>conn-&gt;<ref refid="classhyrise_1_1net_1_1_async_connection_1a354c0ec350dd646fdcab302f5cb0a82e" kindref="member">contentType</ref>.size()<sp/>==<sp/>0<sp/>?<sp/></highlight><highlight class="stringliteral">&quot;application/json&quot;</highlight><highlight class="normal"><sp/>:<sp/>conn-&gt;<ref refid="classhyrise_1_1net_1_1_async_connection_1a354c0ec350dd646fdcab302f5cb0a82e" kindref="member">contentType</ref>;</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/>conn-&gt;<ref refid="classhyrise_1_1net_1_1_async_connection_1a027fab5d823a03f0957fb5d51459fbc5" kindref="member">write_buffer_len</ref><sp/>+=<sp/>snprintf((</highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*)conn-&gt;<ref refid="classhyrise_1_1net_1_1_async_connection_1ae7fe570398d3c149b5331c13bc888dea" kindref="member">write_buffer</ref>,<sp/><ref refid="_async_connection_8h_1aba94a01e56bd69ca33a44eb3cc107874" kindref="member">max_header_length</ref>,<sp/></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;HTTP/1.1<sp/>%lu<sp/>OK\r\nContent-Type:<sp/>%s\r\nContent-Length:<sp/>%lu\r\nConnection:<sp/>close\r\n\r\n&quot;</highlight><highlight class="normal">,<sp/></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>conn-&gt;<ref refid="classhyrise_1_1net_1_1_async_connection_1ad1a130f1bae2e17a12f22e3e534cee84" kindref="member">code</ref>,<sp/></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>conn-&gt;<ref refid="classhyrise_1_1net_1_1_async_connection_1a354c0ec350dd646fdcab302f5cb0a82e" kindref="member">contentType</ref>.c_str(),</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>conn-&gt;<ref refid="classhyrise_1_1net_1_1_async_connection_1aa7115480000b28182e6666991d63d016" kindref="member">response_length</ref>);</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Append<sp/>the<sp/>response</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/>memcpy(conn-&gt;<ref refid="classhyrise_1_1net_1_1_async_connection_1ae7fe570398d3c149b5331c13bc888dea" kindref="member">write_buffer</ref><sp/>+<sp/>conn-&gt;<ref refid="classhyrise_1_1net_1_1_async_connection_1a027fab5d823a03f0957fb5d51459fbc5" kindref="member">write_buffer_len</ref>,<sp/>conn-&gt;<ref refid="classhyrise_1_1net_1_1_async_connection_1abde3da5888a4a530dbae7766bc4fdc54" kindref="member">response</ref>,<sp/>conn-&gt;<ref refid="classhyrise_1_1net_1_1_async_connection_1aa7115480000b28182e6666991d63d016" kindref="member">response_length</ref>);</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/>conn-&gt;<ref refid="classhyrise_1_1net_1_1_async_connection_1a027fab5d823a03f0957fb5d51459fbc5" kindref="member">write_buffer_len</ref><sp/>+=<sp/>conn-&gt;<ref refid="classhyrise_1_1net_1_1_async_connection_1aa7115480000b28182e6666991d63d016" kindref="member">response_length</ref>;</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/>ebb_connection_write(conn-&gt;<ref refid="classhyrise_1_1net_1_1_async_connection_1a164675f5230da7d4bb23c47746f21344" kindref="member">connection</ref>,<sp/>conn-&gt;<ref refid="classhyrise_1_1net_1_1_async_connection_1ae7fe570398d3c149b5331c13bc888dea" kindref="member">write_buffer</ref>,<sp/>conn-&gt;<ref refid="classhyrise_1_1net_1_1_async_connection_1a027fab5d823a03f0957fb5d51459fbc5" kindref="member">write_buffer_len</ref>,<sp/><ref refid="namespacehyrise_1_1net_1afec34e462055743e51c3058ff40587e8" kindref="member">continue_responding</ref>);</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>We<sp/>need<sp/>to<sp/>wait<sp/>for<sp/>`continue_responding`<sp/>to<sp/>fire<sp/>to<sp/>be<sp/>sure<sp/>the<sp/>client<sp/>has<sp/>been<sp/>sent<sp/>all<sp/>the<sp/>data</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/>printf(</highlight><highlight class="stringliteral">&quot;%s<sp/>[%s]<sp/>%s<sp/>%s<sp/>(%f<sp/>s)\n&quot;</highlight><highlight class="normal">,<sp/>inet_ntoa(conn-&gt;<ref refid="classhyrise_1_1net_1_1_async_connection_1a3853a724d9e28230f5b3fce504a86794" kindref="member">addr</ref>.sin_addr),<sp/>timestr,<sp/>method,<sp/>conn-&gt;<ref refid="classhyrise_1_1net_1_1_async_connection_1afbefac1b8e5cd8cd30f89481be3061b3" kindref="member">path</ref>,<sp/>duration);</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/>printf(</highlight><highlight class="stringliteral">&quot;%s<sp/>[%s]<sp/>%s<sp/>%s<sp/>(%f<sp/>s)<sp/>not<sp/>sent\n&quot;</highlight><highlight class="normal">,<sp/>inet_ntoa(conn-&gt;<ref refid="classhyrise_1_1net_1_1_async_connection_1a3853a724d9e28230f5b3fce504a86794" kindref="member">addr</ref>.sin_addr),<sp/>timestr,<sp/>method,<sp/>conn-&gt;<ref refid="classhyrise_1_1net_1_1_async_connection_1afbefac1b8e5cd8cd30f89481be3061b3" kindref="member">path</ref>,<sp/>duration);</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/>ev_async_stop(conn-&gt;<ref refid="classhyrise_1_1net_1_1_async_connection_1a28501fb77ca8653a3d4f0e8eef0c7747" kindref="member">ev_loop</ref>,<sp/>&amp;conn-&gt;<ref refid="classhyrise_1_1net_1_1_async_connection_1ab98ecb402d885e2c54930b5572ba644f" kindref="member">ev_write</ref>);</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>When<sp/>connection<sp/>is<sp/>nullptr,<sp/>`continue_responding`<sp/>won&apos;t<sp/>fire<sp/>since<sp/>we<sp/>never<sp/>sent<sp/>data<sp/>to<sp/>the<sp/>client,</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>thus,<sp/>we&apos;ll<sp/>need<sp/>to<sp/>clean<sp/>up<sp/>manually<sp/>here,<sp/>while<sp/>connection<sp/>has<sp/>already<sp/>been<sp/>cleaned<sp/>up<sp/>in<sp/>on<sp/>`on_response`</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(conn-&gt;<ref refid="classhyrise_1_1net_1_1_async_connection_1a164675f5230da7d4bb23c47746f21344" kindref="member">connection</ref><sp/>==<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">)<sp/></highlight><highlight class="keyword">delete</highlight><highlight class="normal"><sp/>conn;</highlight></codeline>
+<codeline lineno="152"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight></codeline>
+<codeline lineno="154" refid="namespacehyrise_1_1net_1afec34e462055743e51c3058ff40587e8" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="namespacehyrise_1_1net_1afec34e462055743e51c3058ff40587e8" kindref="member">continue_responding</ref>(ebb_connection<sp/>*connection)<sp/>{</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">delete</highlight><highlight class="normal">(<ref refid="classhyrise_1_1net_1_1_async_connection" kindref="compound">AsyncConnection</ref><sp/>*)<sp/>connection-&gt;data;</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/>connection-&gt;data<sp/>=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/>ebb_connection_schedule_close(connection);</highlight></codeline>
+<codeline lineno="158"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"></highlight></codeline>
+<codeline lineno="160" refid="namespacehyrise_1_1net_1a31a7c23d6981b86a4db61e1d18fb4290" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="namespacehyrise_1_1net_1a31a7c23d6981b86a4db61e1d18fb4290" kindref="member">on_close</ref>(ebb_connection<sp/>*connection)<sp/>{</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><ref refid="classhyrise_1_1net_1_1_async_connection" kindref="compound">AsyncConnection</ref><sp/>*connection_data<sp/>=<sp/>(<ref refid="classhyrise_1_1net_1_1_async_connection" kindref="compound">AsyncConnection</ref><sp/>*)connection-&gt;data;</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/>if<sp/>(connection_data<sp/>!=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/>connection_data-&gt;<ref refid="classhyrise_1_1net_1_1_async_connection_1a164675f5230da7d4bb23c47746f21344" kindref="member">connection</ref><sp/>=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/>free(connection);</highlight></codeline>
+<codeline lineno="165"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight></codeline>
+<codeline lineno="167" refid="classhyrise_1_1net_1_1_async_connection_1ae42656016a1e47dec385ad2e8ecad6ee" refkind="member"><highlight class="normal"><ref refid="classhyrise_1_1net_1_1_async_connection_1ae42656016a1e47dec385ad2e8ecad6ee" kindref="member">AsyncConnection::AsyncConnection</ref>()<sp/>:</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/>request(<ref refid="csb__tree_8cpp_1ab979d9d4b4923f7c54d6caa6e1a61936" kindref="member">nullptr</ref>),<sp/>path(<ref refid="csb__tree_8cpp_1ab979d9d4b4923f7c54d6caa6e1a61936" kindref="member">nullptr</ref>),<sp/>body(<ref refid="csb__tree_8cpp_1ab979d9d4b4923f7c54d6caa6e1a61936" kindref="member">nullptr</ref>),<sp/>body_len(0),<sp/>response(<ref refid="csb__tree_8cpp_1ab979d9d4b4923f7c54d6caa6e1a61936" kindref="member">nullptr</ref>),<sp/>write_buffer(<ref refid="csb__tree_8cpp_1ab979d9d4b4923f7c54d6caa6e1a61936" kindref="member">nullptr</ref>),<sp/>closed(false),<sp/>code(0)<sp/>{</highlight></codeline>
+<codeline lineno="169"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"></highlight></codeline>
+<codeline lineno="171" refid="classhyrise_1_1net_1_1_async_connection_1ac58ebcf94cd893cc4371dab17f3e8e85" refkind="member"><highlight class="normal"><ref refid="classhyrise_1_1net_1_1_async_connection_1ac58ebcf94cd893cc4371dab17f3e8e85" kindref="member">AsyncConnection::~AsyncConnection</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/>free(<ref refid="classhyrise_1_1net_1_1_async_connection_1afbefac1b8e5cd8cd30f89481be3061b3" kindref="member">path</ref>);</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/>free(<ref refid="classhyrise_1_1net_1_1_async_connection_1ae7fe570398d3c149b5331c13bc888dea" kindref="member">write_buffer</ref>);</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/>free(<ref refid="classhyrise_1_1net_1_1_async_connection_1af2cf9fbe16da9bcc25a5e361f7170ebf" kindref="member">request</ref>);</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/>free(<ref refid="classhyrise_1_1net_1_1_async_connection_1a3059a70a479546b6168079588d5e768c" kindref="member">body</ref>);</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/>free(<ref refid="classhyrise_1_1net_1_1_async_connection_1abde3da5888a4a530dbae7766bc4fdc54" kindref="member">response</ref>);</highlight></codeline>
+<codeline lineno="177"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"></highlight></codeline>
+<codeline lineno="179" refid="classhyrise_1_1net_1_1_async_connection_1a4ae1cc8c2cc46f4df71614ebf42fb9c6" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1net_1_1_async_connection_1a4ae1cc8c2cc46f4df71614ebf42fb9c6" kindref="member">AsyncConnection::respond</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;message)<sp/>{</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Noop<sp/>for<sp/>dead<sp/>connection</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="classhyrise_1_1net_1_1_async_connection_1a164675f5230da7d4bb23c47746f21344" kindref="member">connection</ref><sp/>==<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">)<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><ref refid="classhyrise_1_1net_1_1_async_connection_1abde3da5888a4a530dbae7766bc4fdc54" kindref="member">response</ref><sp/>=<sp/>(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*)<sp/>malloc(message.size());</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><ref refid="classhyrise_1_1net_1_1_async_connection_1aa7115480000b28182e6666991d63d016" kindref="member">response_length</ref><sp/>=<sp/>message.size();</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/>memcpy(<ref refid="classhyrise_1_1net_1_1_async_connection_1abde3da5888a4a530dbae7766bc4fdc54" kindref="member">response</ref>,<sp/>message.c_str(),<sp/>message.size());</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><ref refid="classhyrise_1_1net_1_1_async_connection_1a26de50f0c5b7eaea45696624fa14ba2e" kindref="member">send_response</ref>();</highlight></codeline>
+<codeline lineno="186"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="188"><highlight class="comment">void<sp/>AsyncConnection::response_append(const<sp/>char<sp/>*message,<sp/>size_t<sp/>len)<sp/>{</highlight></codeline>
+<codeline lineno="189"><highlight class="comment"><sp/><sp/>//<sp/>If<sp/>we<sp/>lost<sp/>the<sp/>connection,<sp/>let&apos;s<sp/>not<sp/>even<sp/>save<sp/>the<sp/>response</highlight></codeline>
+<codeline lineno="190"><highlight class="comment"><sp/><sp/>if<sp/>(connection<sp/>==<sp/>nullptr)<sp/>return;</highlight></codeline>
+<codeline lineno="191"><highlight class="comment"></highlight></codeline>
+<codeline lineno="192"><highlight class="comment"><sp/><sp/>if<sp/>(!response)<sp/>{</highlight></codeline>
+<codeline lineno="193"><highlight class="comment"><sp/><sp/><sp/><sp/>response<sp/>=<sp/>(char<sp/>*)<sp/>malloc(len);</highlight></codeline>
+<codeline lineno="194"><highlight class="comment"><sp/><sp/><sp/><sp/>response_length<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="195"><highlight class="comment"><sp/><sp/>}<sp/>else<sp/>{</highlight></codeline>
+<codeline lineno="196"><highlight class="comment"><sp/><sp/><sp/><sp/>response<sp/>=<sp/>(char<sp/>*)<sp/>realloc(response,<sp/>response_length<sp/>+<sp/>len);</highlight></codeline>
+<codeline lineno="197"><highlight class="comment"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="198"><highlight class="comment"><sp/><sp/>memcpy(response<sp/>+<sp/>response_length,<sp/>message,<sp/>len);</highlight></codeline>
+<codeline lineno="199"><highlight class="comment"><sp/><sp/>response_length<sp/>+=<sp/>len;</highlight></codeline>
+<codeline lineno="200"><highlight class="comment">}</highlight></codeline>
+<codeline lineno="201"><highlight class="comment">*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="202"><highlight class="normal"></highlight></codeline>
+<codeline lineno="203" refid="classhyrise_1_1net_1_1_async_connection_1a26de50f0c5b7eaea45696624fa14ba2e" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1net_1_1_async_connection_1a26de50f0c5b7eaea45696624fa14ba2e" kindref="member">AsyncConnection::send_response</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/>ev_async_send(<ref refid="classhyrise_1_1net_1_1_async_connection_1a28501fb77ca8653a3d4f0e8eef0c7747" kindref="member">ev_loop</ref>,<sp/>&amp;<ref refid="classhyrise_1_1net_1_1_async_connection_1ab98ecb402d885e2c54930b5572ba644f" kindref="member">ev_write</ref>);</highlight></codeline>
+<codeline lineno="205"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"></highlight></codeline>
+<codeline lineno="207" refid="classhyrise_1_1net_1_1_async_connection_1ac362ffda7cd86f3ced15562ed4d98fee" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1net_1_1_async_connection_1ac362ffda7cd86f3ced15562ed4d98fee" kindref="member">AsyncConnection::hasBody</ref>()</highlight><highlight class="keyword"><sp/>const</highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1net_1_1_async_connection_1a4dd9d40a058be9c94e5ad143e2722beb" kindref="member">body_len</ref><sp/>&gt;<sp/>0;</highlight></codeline>
+<codeline lineno="209"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"></highlight></codeline>
+<codeline lineno="211" refid="classhyrise_1_1net_1_1_async_connection_1a660af612f4f3b31421766f308eefc0bd" refkind="member"><highlight class="normal">std::string<sp/><ref refid="classhyrise_1_1net_1_1_async_connection_1a660af612f4f3b31421766f308eefc0bd" kindref="member">AsyncConnection::getBody</ref>()</highlight><highlight class="keyword"><sp/>const</highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>std::string(<ref refid="classhyrise_1_1net_1_1_async_connection_1a3059a70a479546b6168079588d5e768c" kindref="member">body</ref>,<sp/><ref refid="classhyrise_1_1net_1_1_async_connection_1a4dd9d40a058be9c94e5ad143e2722beb" kindref="member">body_len</ref>);</highlight></codeline>
+<codeline lineno="213"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"></highlight></codeline>
+<codeline lineno="215"><highlight class="normal"></highlight></codeline>
+<codeline lineno="216"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="217"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/home/grund/hyrise/src/lib/net/AsyncConnection.cpp"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>HYRISE &amp; Development FAQ &mdash; HYRISE latest documentation</title>
+    
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/breathe.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     'latest',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="HYRISE latest documentation" href="index.html" />
+    <link rel="next" title="Proposals" href="proposals.html" />
+    <link rel="prev" title="Writing Performance Regressions" href="developing/writing_performance_regressions.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="proposals.html" title="Proposals"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="developing/writing_performance_regressions.html" title="Writing Performance Regressions"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">HYRISE latest documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/hyrise.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">Implementation Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="query_execution.html">HYRISE Query Execution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developing.html">Developing with HYRISE</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">HYRISE &amp; Development FAQ</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#hyrise-related">HYRISE Related</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#git-related">Git Related</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="proposals.html">Proposals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="doxygen.html">Doxygen Documentation</a></li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="developing/writing_performance_regressions.html"
+                        title="previous chapter">Writing Performance Regressions</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="proposals.html"
+                        title="next chapter">Proposals</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/faq.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="hyrise-development-faq">
+<h1>HYRISE &amp; Development FAQ<a class="headerlink" href="#hyrise-development-faq" title="Permalink to this headline">¶</a></h1>
+<p>This is a list of Frequently Asked Questions about HYRISE. Feel free
+to suggest new entries</p>
+<div class="section" id="hyrise-related">
+<h2>HYRISE Related<a class="headerlink" href="#hyrise-related" title="Permalink to this headline">¶</a></h2>
+<p>How Do I ...</p>
+<p>... enable the production build?</p>
+<blockquote>
+<div>You have to set the environment variable <tt class="docutils literal"><span class="pre">PRODUCTION</span></tt></div></blockquote>
+</div>
+<div class="section" id="git-related">
+<h2>Git Related<a class="headerlink" href="#git-related" title="Permalink to this headline">¶</a></h2>
+<p>How Do I ...</p>
+<p>... discard all my local local changed and force a reset to the remote master?</p>
+<blockquote>
+<div>You have to use the <tt class="docutils literal"><span class="pre">reset</span></tt> featurre of git. The easiest way is
+to execute the command <tt class="docutils literal"><span class="pre">git</span> <span class="pre">reset</span> <span class="pre">--hard</span> <span class="pre">origin/master</span></tt></div></blockquote>
+<p>... remove unused remote branches that no longer exist?</p>
+<blockquote>
+<div><tt class="docutils literal"><span class="pre">git</span> <span class="pre">remote</span> <span class="pre">prune</span> <span class="pre">origin</span></tt></div></blockquote>
+<p>... delete a remote branch?</p>
+<blockquote>
+<div><tt class="docutils literal"><span class="pre">git</span> <span class="pre">push</span> <span class="pre">origin</span> <span class="pre">:branch_to_delete</span></tt></div></blockquote>
+<p>... start a new feature branch?</p>
+<blockquote>
+<div>Make sure <a class="reference external" href="https://github.com/nvie/gitflow">git-flow</a> is
+installed and follow the instructions. Now execute <tt class="docutils literal"><span class="pre">git</span> <span class="pre">flow</span>
+<span class="pre">feature</span> <span class="pre">start</span> <span class="pre">my_feature</span></tt>.</div></blockquote>
+<div class="toctree-wrapper compound">
+<ul class="simple">
+</ul>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="proposals.html" title="Proposals"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="developing/writing_performance_regressions.html" title="Writing Performance Regressions"
+             >previous</a> |</li>
+        <li><a href="index.html">HYRISE latest documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010-2013, Martin Grund et al.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+  </body>
+</html>

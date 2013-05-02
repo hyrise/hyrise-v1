@@ -1,0 +1,268 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="transaction__data_8h" kind="file">
+    <compoundname>transaction_data.h</compoundname>
+    <includes refid="common_8h" local="yes">common.h</includes>
+    <includedby refid="common_8cpp" local="yes">src/bin/perf_datagen/common.cpp</includedby>
+    <includedby refid="transaction__data_8cpp" local="yes">src/bin/perf_datagen/transaction_data.cpp</includedby>
+    <incdepgraph>
+      <node id="224">
+        <label>stdlib.h</label>
+      </node>
+      <node id="229">
+        <label>string</label>
+      </node>
+      <node id="221">
+        <label>src/bin/perf_datagen/transaction_data.h</label>
+        <link refid="transaction_data.h"/>
+        <childnode refid="222" relation="include">
+        </childnode>
+      </node>
+      <node id="227">
+        <label>map</label>
+      </node>
+      <node id="228">
+        <label>utility</label>
+      </node>
+      <node id="225">
+        <label>time.h</label>
+      </node>
+      <node id="226">
+        <label>sys/time.h</label>
+      </node>
+      <node id="223">
+        <label>stdio.h</label>
+      </node>
+      <node id="222">
+        <label>common.h</label>
+        <link refid="common_8h"/>
+        <childnode refid="223" relation="include">
+        </childnode>
+        <childnode refid="224" relation="include">
+        </childnode>
+        <childnode refid="225" relation="include">
+        </childnode>
+        <childnode refid="226" relation="include">
+        </childnode>
+        <childnode refid="227" relation="include">
+        </childnode>
+        <childnode refid="228" relation="include">
+        </childnode>
+        <childnode refid="229" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="230">
+        <label>src/bin/perf_datagen/transaction_data.h</label>
+        <link refid="transaction_data.h"/>
+        <childnode refid="231" relation="include">
+        </childnode>
+        <childnode refid="232" relation="include">
+        </childnode>
+      </node>
+      <node id="232">
+        <label>src/bin/perf_datagen/transaction_data.cpp</label>
+        <link refid="transaction__data_8cpp"/>
+      </node>
+      <node id="231">
+        <label>src/bin/perf_datagen/common.cpp</label>
+        <link refid="common_8cpp"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structdelivery__t" prot="public">delivery_t</innerclass>
+    <innerclass refid="structno__order__line__t" prot="public">no_order_line_t</innerclass>
+    <innerclass refid="structnew__order__t" prot="public">new_order_t</innerclass>
+    <innerclass refid="structpayment__t" prot="public">payment_t</innerclass>
+    <innerclass refid="structos__order__line__t" prot="public">os_order_line_t</innerclass>
+    <innerclass refid="structorder__status__t" prot="public">order_status_t</innerclass>
+    <innerclass refid="structstock__level__t" prot="public">stock_level_t</innerclass>
+    <innerclass refid="structintegrity__t" prot="public">integrity_t</innerclass>
+    <innerclass refid="uniontransaction__data__t" prot="public">transaction_data_t</innerclass>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="transaction__data_8h_1a07ada59a5c70f2fbec253104aaaf77bc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int dump</definition>
+        <argsstring>(FILE *fp, int type, void *data)</argsstring>
+        <name>dump</name>
+        <param>
+          <type>FILE *</type>
+          <declname>fp</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>type</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/transaction_data.h" line="149" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/transaction_data.cpp" bodystart="23" bodyend="147"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>2012<sp/>Hasso-Plattner-Institut<sp/>fuer<sp/>Softwaresystemtechnik<sp/>GmbH.<sp/>All<sp/>rights<sp/>reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*<sp/>transaction_data.h</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*<sp/>This<sp/>file<sp/>is<sp/>released<sp/>under<sp/>the<sp/>terms<sp/>of<sp/>the<sp/>Artistic<sp/>License.<sp/><sp/>Please<sp/>see</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"><sp/>*<sp/>the<sp/>file<sp/>LICENSE,<sp/>included<sp/>in<sp/>this<sp/>package,<sp/>for<sp/>details.</highlight></codeline>
+<codeline lineno="7"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="8"><highlight class="comment"><sp/>*<sp/>Copyright<sp/>(C)<sp/>2002<sp/>Mark<sp/>Wong<sp/>&amp;<sp/>Open<sp/>Source<sp/>Development<sp/>Lab,<sp/>Inc.</highlight></codeline>
+<codeline lineno="9"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="10"><highlight class="comment"><sp/>*<sp/>11<sp/>june<sp/>2002</highlight></codeline>
+<codeline lineno="11"><highlight class="comment"><sp/>*<sp/>Based<sp/>on<sp/>TPC-C<sp/>Standard<sp/>Specification<sp/>Revision<sp/>5.0.</highlight></codeline>
+<codeline lineno="12"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SRC_BIN_PERF_DATAGEN_TRANSACTION_DATA_H_</highlight></codeline>
+<codeline lineno="15"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SRC_BIN_PERF_DATAGEN_TRANSACTION_DATA_H_</highlight></codeline>
+<codeline lineno="16"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="common_8h" kindref="compound">common.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19" refid="structdelivery__t" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structdelivery__t" kindref="compound">delivery_t</ref><sp/>{</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*<sp/>Input<sp/>data.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21" refid="structdelivery__t_1a5cdee0f94f4504a136a342277461707f" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structdelivery__t_1a5cdee0f94f4504a136a342277461707f" kindref="member">w_id</ref>;</highlight></codeline>
+<codeline lineno="22" refid="structdelivery__t_1a04f4b70580aaddaca6bf31ef8ccab27d" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structdelivery__t_1a04f4b70580aaddaca6bf31ef8ccab27d" kindref="member">o_carrier_id</ref>;</highlight></codeline>
+<codeline lineno="23"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight></codeline>
+<codeline lineno="25" refid="structno__order__line__t" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structno__order__line__t" kindref="compound">no_order_line_t</ref><sp/>{</highlight></codeline>
+<codeline lineno="26" refid="structno__order__line__t_1addc0b111bfa5b25160b8e4b50d9b39f0" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structno__order__line__t_1addc0b111bfa5b25160b8e4b50d9b39f0" kindref="member">ol_i_id</ref>;</highlight></codeline>
+<codeline lineno="27" refid="structno__order__line__t_1a2c756748877e217906a0560aed3463aa" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structno__order__line__t_1a2c756748877e217906a0560aed3463aa" kindref="member">ol_supply_w_id</ref>;</highlight></codeline>
+<codeline lineno="28" refid="structno__order__line__t_1aac1c8b6b61309419dd66c346e89684e7" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structno__order__line__t_1aac1c8b6b61309419dd66c346e89684e7" kindref="member">ol_quantity</ref>;</highlight></codeline>
+<codeline lineno="29" refid="structno__order__line__t_1aae479e12dcbe0e81011fccd72bcc3a6a" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="structno__order__line__t_1aae479e12dcbe0e81011fccd72bcc3a6a" kindref="member">ol_amount</ref>;</highlight></codeline>
+<codeline lineno="30" refid="structno__order__line__t_1a74138d0ef52395fb397090de78678d43" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structno__order__line__t_1a74138d0ef52395fb397090de78678d43" kindref="member">s_quantity</ref>;</highlight></codeline>
+<codeline lineno="31" refid="structno__order__line__t_1aa17950a9920c8dec31a7dbe3f54c4f6f" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="structno__order__line__t_1aa17950a9920c8dec31a7dbe3f54c4f6f" kindref="member">brand_generic</ref>;</highlight></codeline>
+<codeline lineno="32" refid="structno__order__line__t_1a65674bd8aeecf10568b913827a572c5a" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="structno__order__line__t_1a65674bd8aeecf10568b913827a572c5a" kindref="member">i_name</ref>[<ref refid="common_8h_1aa3af28460cf183c3db899862609b3047" kindref="member">I_NAME_LEN</ref><sp/>+<sp/>1];</highlight></codeline>
+<codeline lineno="33" refid="structno__order__line__t_1a8a640888b6b2d8475137566cc4469ad3" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="structno__order__line__t_1a8a640888b6b2d8475137566cc4469ad3" kindref="member">i_price</ref>;</highlight></codeline>
+<codeline lineno="34"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36" refid="structnew__order__t" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structnew__order__t" kindref="compound">new_order_t</ref><sp/>{</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*<sp/>Input<sp/>data.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38" refid="structnew__order__t_1a1f6ec37594ebdac9856cde0d282af462" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structnew__order__t_1a1f6ec37594ebdac9856cde0d282af462" kindref="member">w_id</ref>;</highlight></codeline>
+<codeline lineno="39" refid="structnew__order__t_1a932417f2a54ac416c597fdf92eb48d7d" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structnew__order__t_1a932417f2a54ac416c597fdf92eb48d7d" kindref="member">d_id</ref>;</highlight></codeline>
+<codeline lineno="40" refid="structnew__order__t_1a713c5572ea42a954e05e09ca6a3ca610" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structnew__order__t_1a713c5572ea42a954e05e09ca6a3ca610" kindref="member">c_id</ref>;</highlight></codeline>
+<codeline lineno="41" refid="structnew__order__t_1a878afb8c7dece093d7b4ce2f55c5fd3d" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structnew__order__t_1a878afb8c7dece093d7b4ce2f55c5fd3d" kindref="member">o_ol_cnt</ref>;</highlight></codeline>
+<codeline lineno="42" refid="structnew__order__t_1ad0d8cdf8e0ed7cb0a955f39c3e00c9c8" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structnew__order__t_1ad0d8cdf8e0ed7cb0a955f39c3e00c9c8" kindref="member">o_all_local</ref>;</highlight></codeline>
+<codeline lineno="43" refid="structnew__order__t_1a622896a6f62f741ece97c27fc0631729" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structno__order__line__t" kindref="compound">no_order_line_t</ref><sp/><ref refid="structnew__order__t_1a622896a6f62f741ece97c27fc0631729" kindref="member">order_line</ref>[<ref refid="common_8h_1a92a12a9a392db17bac6bfcea00f713fe" kindref="member">O_OL_CNT_MAX</ref>];</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*<sp/>Output<sp/>data.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46" refid="structnew__order__t_1af9e81aa82ade66ab19f31434b169d265" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structnew__order__t_1af9e81aa82ade66ab19f31434b169d265" kindref="member">o_id</ref>;</highlight></codeline>
+<codeline lineno="47" refid="structnew__order__t_1a30d7df52c4ecfc1bf5003a72bffc56f2" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="structnew__order__t_1a30d7df52c4ecfc1bf5003a72bffc56f2" kindref="member">total_amount</ref>;</highlight></codeline>
+<codeline lineno="48" refid="structnew__order__t_1aee8cf544e3289e5795f3f7e5c7799780" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="structnew__order__t_1aee8cf544e3289e5795f3f7e5c7799780" kindref="member">w_tax</ref>;</highlight></codeline>
+<codeline lineno="49" refid="structnew__order__t_1a48cc81512ba877ad9930f72a57ce86f0" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="structnew__order__t_1a48cc81512ba877ad9930f72a57ce86f0" kindref="member">d_tax</ref>;</highlight></codeline>
+<codeline lineno="50" refid="structnew__order__t_1aba276f4f7d6cbe771449ab4d131bf48a" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="structnew__order__t_1aba276f4f7d6cbe771449ab4d131bf48a" kindref="member">c_last</ref>[<ref refid="common_8h_1af27b6389dcf154c00aa0792d209f966f" kindref="member">C_LAST_LEN</ref><sp/>+<sp/>1];</highlight></codeline>
+<codeline lineno="51" refid="structnew__order__t_1a737f10c0d258846201a55f70a4c03495" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="structnew__order__t_1a737f10c0d258846201a55f70a4c03495" kindref="member">c_credit</ref>[<ref refid="common_8h_1a0b8b646c5ddf170e39751d69b08ba7f8" kindref="member">C_CREDIT_LEN</ref><sp/>+<sp/>1];</highlight></codeline>
+<codeline lineno="52" refid="structnew__order__t_1adec556a6dec393c890350a25d7e5daea" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="structnew__order__t_1adec556a6dec393c890350a25d7e5daea" kindref="member">c_discount</ref>;</highlight></codeline>
+<codeline lineno="53" refid="structnew__order__t_1a284da54c2c0e63945a306d32ed6c8346" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structnew__order__t_1a284da54c2c0e63945a306d32ed6c8346" kindref="member">rollback</ref>;</highlight></codeline>
+<codeline lineno="54"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56" refid="structpayment__t" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structpayment__t" kindref="compound">payment_t</ref><sp/>{</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*<sp/>Input<sp/>data.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58" refid="structpayment__t_1a22bdae1e5605e4da56a905787047098d" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structpayment__t_1a22bdae1e5605e4da56a905787047098d" kindref="member">c_d_id</ref>;</highlight></codeline>
+<codeline lineno="59" refid="structpayment__t_1a735a33bb1ad06386767b5c81179ed630" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structpayment__t_1a735a33bb1ad06386767b5c81179ed630" kindref="member">c_w_id</ref>;</highlight></codeline>
+<codeline lineno="60" refid="structpayment__t_1ab17e842fc8e225f31c7a0ae695bc5732" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structpayment__t_1ab17e842fc8e225f31c7a0ae695bc5732" kindref="member">d_id</ref>;</highlight></codeline>
+<codeline lineno="61" refid="structpayment__t_1ad096860b0ccce7330e9d7ca49fc17776" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="structpayment__t_1ad096860b0ccce7330e9d7ca49fc17776" kindref="member">h_amount</ref>;</highlight></codeline>
+<codeline lineno="62" refid="structpayment__t_1a04f3dda82c356a4689073a513dbe9b06" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structpayment__t_1a04f3dda82c356a4689073a513dbe9b06" kindref="member">w_id</ref>;</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*<sp/>Input<sp/>and<sp/>output<sp/>data.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65" refid="structpayment__t_1aab2fe90daee4d440c1c2dc7ab415e1a5" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structpayment__t_1aab2fe90daee4d440c1c2dc7ab415e1a5" kindref="member">c_id</ref>;</highlight></codeline>
+<codeline lineno="66" refid="structpayment__t_1a6bcce78e4ffdb97a6e9b1750942d6d01" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="structpayment__t_1a6bcce78e4ffdb97a6e9b1750942d6d01" kindref="member">c_last</ref>[<ref refid="common_8h_1af27b6389dcf154c00aa0792d209f966f" kindref="member">C_LAST_LEN</ref><sp/>+<sp/>1];</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*<sp/>Output<sp/>data.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69" refid="structpayment__t_1a019567d1bfc48720b40a154eea0060d6" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="structpayment__t_1a019567d1bfc48720b40a154eea0060d6" kindref="member">d_name</ref>[<ref refid="common_8h_1aae5dae56d4d7824dce0e034d085b6d87" kindref="member">D_NAME_LEN</ref><sp/>+<sp/>1];</highlight></codeline>
+<codeline lineno="70" refid="structpayment__t_1a78f9f48ff28ccefd2d41277eaabd8219" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="structpayment__t_1a78f9f48ff28ccefd2d41277eaabd8219" kindref="member">d_street_1</ref>[<ref refid="common_8h_1aa85977b0b38eb96d8c4a80d6820a6fc9" kindref="member">D_STREET_1_LEN</ref><sp/>+<sp/>1];</highlight></codeline>
+<codeline lineno="71" refid="structpayment__t_1ad9d68abae9639fcee2559dfc85bd2038" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="structpayment__t_1ad9d68abae9639fcee2559dfc85bd2038" kindref="member">d_street_2</ref>[<ref refid="common_8h_1a9068c0d343bcd580ad4586e15f7dc6d6" kindref="member">D_STREET_2_LEN</ref><sp/>+<sp/>1];</highlight></codeline>
+<codeline lineno="72" refid="structpayment__t_1a991e7f244e35d48a051b80d0ec50ec14" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="structpayment__t_1a991e7f244e35d48a051b80d0ec50ec14" kindref="member">d_city</ref>[<ref refid="common_8h_1a68a111670307edc82d3d26171981911f" kindref="member">D_CITY_LEN</ref><sp/>+<sp/>1];</highlight></codeline>
+<codeline lineno="73" refid="structpayment__t_1a2735305eb63354970c90d6986e4fe733" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="structpayment__t_1a2735305eb63354970c90d6986e4fe733" kindref="member">d_state</ref>[<ref refid="common_8h_1ac715f527c2094d5b8c84cc57fb8d26c9" kindref="member">D_STATE_LEN</ref><sp/>+<sp/>1];</highlight></codeline>
+<codeline lineno="74" refid="structpayment__t_1a7818bfaa4d9a0f1b405d745d53ae7f8a" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="structpayment__t_1a7818bfaa4d9a0f1b405d745d53ae7f8a" kindref="member">d_zip</ref>[<ref refid="common_8h_1af677fa596591b2bd4ad493823164e0eb" kindref="member">D_ZIP_LEN</ref><sp/>+<sp/>1];</highlight></codeline>
+<codeline lineno="75" refid="structpayment__t_1ac5b05d9a4682e36f1b14d9e26cae2bfc" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="structpayment__t_1ac5b05d9a4682e36f1b14d9e26cae2bfc" kindref="member">c_balance</ref>;</highlight></codeline>
+<codeline lineno="76" refid="structpayment__t_1ae444f5ed43bde8614c40da34831ff9f1" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="structpayment__t_1ae444f5ed43bde8614c40da34831ff9f1" kindref="member">c_credit_lim</ref>;</highlight></codeline>
+<codeline lineno="77" refid="structpayment__t_1ac21ac593ebe3c81803fa636df3eaa0e4" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="structpayment__t_1ac21ac593ebe3c81803fa636df3eaa0e4" kindref="member">c_discount</ref>;</highlight></codeline>
+<codeline lineno="78" refid="structpayment__t_1a9df60f1cbb6c103e7900c6075a53ceb1" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="structpayment__t_1a9df60f1cbb6c103e7900c6075a53ceb1" kindref="member">c_data</ref>[<ref refid="common_8h_1a806d2b8dfba53f56a0b0372c1a68aaa8" kindref="member">C_DATA_LEN</ref><sp/>+<sp/>1];</highlight></codeline>
+<codeline lineno="79" refid="structpayment__t_1af6dee17b7d12ffdbe0c5d0c93ea9f175" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="structpayment__t_1af6dee17b7d12ffdbe0c5d0c93ea9f175" kindref="member">c_first</ref>[<ref refid="common_8h_1a3667bf60300d2f9e0e49925f98f6334c" kindref="member">C_FIRST_LEN</ref><sp/>+<sp/>1];</highlight></codeline>
+<codeline lineno="80" refid="structpayment__t_1ab92b3a235d87f4e086f8898a890c2f04" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="structpayment__t_1ab92b3a235d87f4e086f8898a890c2f04" kindref="member">c_middle</ref>[<ref refid="common_8h_1a639279f84ea3a43011379b1bf7293e0c" kindref="member">C_MIDDLE_LEN</ref><sp/>+<sp/>1];</highlight></codeline>
+<codeline lineno="81" refid="structpayment__t_1a85deef588f0b61fae4a2da45cc3051bf" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="structpayment__t_1a85deef588f0b61fae4a2da45cc3051bf" kindref="member">c_street_1</ref>[<ref refid="common_8h_1a3b1d99a7d7583f98aa2f0adf89290eb6" kindref="member">C_STREET_1_LEN</ref><sp/>+<sp/>1];</highlight></codeline>
+<codeline lineno="82" refid="structpayment__t_1abd69c5cb5d661dea82486c102e89adc9" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="structpayment__t_1abd69c5cb5d661dea82486c102e89adc9" kindref="member">c_street_2</ref>[<ref refid="common_8h_1a3cc7671b9382c93f21f3bd838e6e01b0" kindref="member">C_STREET_2_LEN</ref><sp/>+<sp/>1];</highlight></codeline>
+<codeline lineno="83" refid="structpayment__t_1a97e649bc731e61a43e33b417dd716044" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="structpayment__t_1a97e649bc731e61a43e33b417dd716044" kindref="member">c_city</ref>[<ref refid="common_8h_1acdae48ee2088c503d8e9813862b40679" kindref="member">C_CITY_LEN</ref><sp/>+<sp/>1];</highlight></codeline>
+<codeline lineno="84" refid="structpayment__t_1a659116225b01bcd18a597ef278c10001" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="structpayment__t_1a659116225b01bcd18a597ef278c10001" kindref="member">c_state</ref>[<ref refid="common_8h_1ac92d0973b661b8848d2ea59e6e3bf4ba" kindref="member">C_STATE_LEN</ref><sp/>+<sp/>1];</highlight></codeline>
+<codeline lineno="85" refid="structpayment__t_1a6f3ba44346dcd8c0fa9990b16a61ef95" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="structpayment__t_1a6f3ba44346dcd8c0fa9990b16a61ef95" kindref="member">c_zip</ref>[<ref refid="common_8h_1a024de1943fa1c1ca660c46626b241379" kindref="member">C_ZIP_LEN</ref><sp/>+<sp/>1];</highlight></codeline>
+<codeline lineno="86" refid="structpayment__t_1ae761c939776c1a07aacbcf5ceb83278f" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="structpayment__t_1ae761c939776c1a07aacbcf5ceb83278f" kindref="member">c_phone</ref>[<ref refid="common_8h_1a035d7745bd87f62a1be71c17e8b4a49c" kindref="member">C_PHONE_LEN</ref><sp/>+<sp/>1];</highlight></codeline>
+<codeline lineno="87" refid="structpayment__t_1af70aa70a695ade864b640aede9668d87" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="structpayment__t_1af70aa70a695ade864b640aede9668d87" kindref="member">c_since</ref>[<ref refid="common_8h_1ad228f72c7df18f621516233e125f99c5" kindref="member">C_SINCE_LEN</ref><sp/>+<sp/>1];</highlight></codeline>
+<codeline lineno="88" refid="structpayment__t_1a60aa1e3af04062da685cb333f9e060b9" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="structpayment__t_1a60aa1e3af04062da685cb333f9e060b9" kindref="member">c_credit</ref>[<ref refid="common_8h_1a0b8b646c5ddf170e39751d69b08ba7f8" kindref="member">C_CREDIT_LEN</ref><sp/>+<sp/>1];</highlight></codeline>
+<codeline lineno="89" refid="structpayment__t_1af4c4b7f2b3ec7ca271485df0966a2051" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="structpayment__t_1af4c4b7f2b3ec7ca271485df0966a2051" kindref="member">w_name</ref>[<ref refid="common_8h_1aea700cada8c689dc5ac4e9c073ad27a0" kindref="member">W_NAME_LEN</ref><sp/>+<sp/>1];</highlight></codeline>
+<codeline lineno="90" refid="structpayment__t_1ab6ef10fd5831b1473a74eecc455921f0" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="structpayment__t_1ab6ef10fd5831b1473a74eecc455921f0" kindref="member">w_street_1</ref>[<ref refid="common_8h_1acad13b82dd9147432f7611371bab2a0e" kindref="member">W_STREET_1_LEN</ref><sp/>+<sp/>1];</highlight></codeline>
+<codeline lineno="91" refid="structpayment__t_1a1b2137b5ae6682dae18fea75c2e6947a" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="structpayment__t_1a1b2137b5ae6682dae18fea75c2e6947a" kindref="member">w_street_2</ref>[<ref refid="common_8h_1a1f94575e33a6ace038aa7307f7452ab2" kindref="member">W_STREET_2_LEN</ref><sp/>+<sp/>1];</highlight></codeline>
+<codeline lineno="92" refid="structpayment__t_1ac5b4d87e207ba689dca7205ab41a0001" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="structpayment__t_1ac5b4d87e207ba689dca7205ab41a0001" kindref="member">w_city</ref>[<ref refid="common_8h_1ac3485f6ad7f6bac4039a2ba65761a876" kindref="member">W_CITY_LEN</ref><sp/>+<sp/>1];</highlight></codeline>
+<codeline lineno="93" refid="structpayment__t_1a64fed2269cd63de6d553708ca3e65373" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="structpayment__t_1a64fed2269cd63de6d553708ca3e65373" kindref="member">w_state</ref>[<ref refid="common_8h_1a885000e1aae18d32b02b2ae52123c9b5" kindref="member">W_STATE_LEN</ref><sp/>+<sp/>1];</highlight></codeline>
+<codeline lineno="94" refid="structpayment__t_1a640f7d374f4f46eafbb187479279ef89" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="structpayment__t_1a640f7d374f4f46eafbb187479279ef89" kindref="member">w_zip</ref>[<ref refid="common_8h_1aa148220716f7fdac33f2210b38b3f357" kindref="member">W_ZIP_LEN</ref><sp/>+<sp/>1];</highlight></codeline>
+<codeline lineno="95"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight></codeline>
+<codeline lineno="97" refid="structos__order__line__t" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structos__order__line__t" kindref="compound">os_order_line_t</ref><sp/>{</highlight></codeline>
+<codeline lineno="98" refid="structos__order__line__t_1a6b4f23c015f9e27b965174688e67d6da" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structos__order__line__t_1a6b4f23c015f9e27b965174688e67d6da" kindref="member">ol_i_id</ref>;</highlight></codeline>
+<codeline lineno="99" refid="structos__order__line__t_1a830e5bd53e1aef55b27464a72852bfaf" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structos__order__line__t_1a830e5bd53e1aef55b27464a72852bfaf" kindref="member">ol_supply_w_id</ref>;</highlight></codeline>
+<codeline lineno="100" refid="structos__order__line__t_1a7b1ce74798cf6902517a826214dff418" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structos__order__line__t_1a7b1ce74798cf6902517a826214dff418" kindref="member">ol_quantity</ref>;</highlight></codeline>
+<codeline lineno="101" refid="structos__order__line__t_1abce57d125480da50bad23c22990b0611" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="structos__order__line__t_1abce57d125480da50bad23c22990b0611" kindref="member">ol_amount</ref>;</highlight></codeline>
+<codeline lineno="102" refid="structos__order__line__t_1a488da21669c7176d8a5422a800185541" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="structos__order__line__t_1a488da21669c7176d8a5422a800185541" kindref="member">ol_delivery_d</ref>[<ref refid="common_8h_1a562e3a078a85d8ad07d6bb39b436ea0f" kindref="member">OL_DELIVERY_D_LEN</ref><sp/>+<sp/>1];</highlight></codeline>
+<codeline lineno="103"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105" refid="structorder__status__t" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structorder__status__t" kindref="compound">order_status_t</ref><sp/>{</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*<sp/>Input<sp/>data.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="107" refid="structorder__status__t_1af41f8b85af4068875301ed976e776a0c" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structorder__status__t_1af41f8b85af4068875301ed976e776a0c" kindref="member">c_d_id</ref>;</highlight></codeline>
+<codeline lineno="108" refid="structorder__status__t_1a9fde90f52364c2f650c63795f0da86d9" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structorder__status__t_1a9fde90f52364c2f650c63795f0da86d9" kindref="member">c_w_id</ref>;</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*<sp/>Input<sp/>and<sp/>output<sp/>data.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="111" refid="structorder__status__t_1a172a519e91bfec5f802959e35d947cd7" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structorder__status__t_1a172a519e91bfec5f802959e35d947cd7" kindref="member">c_id</ref>;</highlight></codeline>
+<codeline lineno="112" refid="structorder__status__t_1a4976d17f14681dfbc4967df8f1e8a6af" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="structorder__status__t_1a4976d17f14681dfbc4967df8f1e8a6af" kindref="member">c_last</ref>[<ref refid="common_8h_1af27b6389dcf154c00aa0792d209f966f" kindref="member">C_LAST_LEN</ref><sp/>+<sp/>1];</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*<sp/>Output<sp/>data.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="115" refid="structorder__status__t_1aec52ffb683c50287a671e36f40cb36d3" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="structorder__status__t_1aec52ffb683c50287a671e36f40cb36d3" kindref="member">c_balance</ref>;</highlight></codeline>
+<codeline lineno="116" refid="structorder__status__t_1accfc31e4287b2559202b5fc9751b956b" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="structorder__status__t_1accfc31e4287b2559202b5fc9751b956b" kindref="member">c_first</ref>[<ref refid="common_8h_1a3667bf60300d2f9e0e49925f98f6334c" kindref="member">C_FIRST_LEN</ref><sp/>+<sp/>1];</highlight></codeline>
+<codeline lineno="117" refid="structorder__status__t_1ad7a15bb4f79762aae1072766bf227d58" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="structorder__status__t_1ad7a15bb4f79762aae1072766bf227d58" kindref="member">c_middle</ref>[<ref refid="common_8h_1a639279f84ea3a43011379b1bf7293e0c" kindref="member">C_MIDDLE_LEN</ref><sp/>+<sp/>1];</highlight></codeline>
+<codeline lineno="118" refid="structorder__status__t_1ad176df3a32e5a669677f2704ea1f6c39" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structorder__status__t_1ad176df3a32e5a669677f2704ea1f6c39" kindref="member">o_id</ref>;</highlight></codeline>
+<codeline lineno="119" refid="structorder__status__t_1af609ae9962e95a0c17466ffad48b9730" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structorder__status__t_1af609ae9962e95a0c17466ffad48b9730" kindref="member">o_carrier_id</ref>;</highlight></codeline>
+<codeline lineno="120" refid="structorder__status__t_1a87009280bb8b118ab566cb8f4de667e8" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="structorder__status__t_1a87009280bb8b118ab566cb8f4de667e8" kindref="member">o_entry_d</ref>[<ref refid="common_8h_1a583d72a9f4a9932db9fafbdafa20a7c6" kindref="member">O_ENTRY_D_LEN</ref><sp/>+<sp/>1];</highlight></codeline>
+<codeline lineno="121" refid="structorder__status__t_1ac2a804ad72afbc5006484b44b570a7bc" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structorder__status__t_1ac2a804ad72afbc5006484b44b570a7bc" kindref="member">o_ol_cnt</ref>;</highlight></codeline>
+<codeline lineno="122" refid="structorder__status__t_1a9fc87c8aad4bfdb2b10c189be249e365" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structos__order__line__t" kindref="compound">os_order_line_t</ref><sp/><ref refid="structorder__status__t_1a9fc87c8aad4bfdb2b10c189be249e365" kindref="member">order_line</ref>[<ref refid="common_8h_1a92a12a9a392db17bac6bfcea00f713fe" kindref="member">O_OL_CNT_MAX</ref>];</highlight></codeline>
+<codeline lineno="123"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight></codeline>
+<codeline lineno="125" refid="structstock__level__t" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structstock__level__t" kindref="compound">stock_level_t</ref><sp/>{</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*<sp/>Input<sp/>data.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="127" refid="structstock__level__t_1ad32de0b88ea68f5d086054b2f6893cb9" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structstock__level__t_1ad32de0b88ea68f5d086054b2f6893cb9" kindref="member">w_id</ref>;</highlight></codeline>
+<codeline lineno="128" refid="structstock__level__t_1a73ea7b1f1b2e8f9d34d584a34e1e323c" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structstock__level__t_1a73ea7b1f1b2e8f9d34d584a34e1e323c" kindref="member">d_id</ref>;</highlight></codeline>
+<codeline lineno="129" refid="structstock__level__t_1a04a0b80d71ce60f223f58f3af67e5464" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structstock__level__t_1a04a0b80d71ce60f223f58f3af67e5464" kindref="member">threshold</ref>;</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*<sp/>Output<sp/>data.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="132" refid="structstock__level__t_1abc4f19c29ddaba84507d74b53899bbde" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structstock__level__t_1abc4f19c29ddaba84507d74b53899bbde" kindref="member">low_stock</ref>;</highlight></codeline>
+<codeline lineno="133"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight></codeline>
+<codeline lineno="135" refid="structintegrity__t" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structintegrity__t" kindref="compound">integrity_t</ref><sp/>{</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*<sp/>Input<sp/>data.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="137" refid="structintegrity__t_1af309e66640a824d54c9778240288b529" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structintegrity__t_1af309e66640a824d54c9778240288b529" kindref="member">w_id</ref>;</highlight></codeline>
+<codeline lineno="138"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight></codeline>
+<codeline lineno="140" refid="uniontransaction__data__t" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">union<sp/></highlight><highlight class="normal"><ref refid="uniontransaction__data__t" kindref="compound">transaction_data_t</ref><sp/>{</highlight></codeline>
+<codeline lineno="141" refid="uniontransaction__data__t_1a4b0b5f2c968db95828087c10570e504b" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structdelivery__t" kindref="compound">delivery_t</ref><sp/><ref refid="uniontransaction__data__t_1a4b0b5f2c968db95828087c10570e504b" kindref="member">delivery</ref>;</highlight></codeline>
+<codeline lineno="142" refid="uniontransaction__data__t_1aa94bb2d7f55eedc8fcd58e9cc37ecc9e" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structnew__order__t" kindref="compound">new_order_t</ref><sp/><ref refid="uniontransaction__data__t_1aa94bb2d7f55eedc8fcd58e9cc37ecc9e" kindref="member">new_order</ref>;</highlight></codeline>
+<codeline lineno="143" refid="uniontransaction__data__t_1ade3a05e5f3802ff40750ed5d335c6797" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structorder__status__t" kindref="compound">order_status_t</ref><sp/><ref refid="uniontransaction__data__t_1ade3a05e5f3802ff40750ed5d335c6797" kindref="member">order_status</ref>;</highlight></codeline>
+<codeline lineno="144" refid="uniontransaction__data__t_1afabe326ef475ab3b33cc57c50dda2ab2" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structpayment__t" kindref="compound">payment_t</ref><sp/><ref refid="uniontransaction__data__t_1afabe326ef475ab3b33cc57c50dda2ab2" kindref="member">payment</ref>;</highlight></codeline>
+<codeline lineno="145" refid="uniontransaction__data__t_1a00aa03baa1ffd9414c390be7038e933b" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structstock__level__t" kindref="compound">stock_level_t</ref><sp/><ref refid="uniontransaction__data__t_1a00aa03baa1ffd9414c390be7038e933b" kindref="member">stock_level</ref>;</highlight></codeline>
+<codeline lineno="146" refid="uniontransaction__data__t_1a3d6b5bdd887a75370aade92f608c566a" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structintegrity__t" kindref="compound">integrity_t</ref><sp/><ref refid="uniontransaction__data__t_1a3d6b5bdd887a75370aade92f608c566a" kindref="member">integrity</ref>;</highlight></codeline>
+<codeline lineno="147"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="transaction__data_8cpp_1a07ada59a5c70f2fbec253104aaaf77bc" kindref="member">dump</ref>(FILE<sp/>*fp,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>type,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*data);</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/>//<sp/>SRC_BIN_PERF_DATAGEN_TRANSACTION_DATA_H_</highlight></codeline>
+    </programlisting>
+    <location file="/home/grund/hyrise/src/bin/perf_datagen/transaction_data.h"/>
+  </compounddef>
+</doxygen>

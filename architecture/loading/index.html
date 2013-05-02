@@ -1,0 +1,358 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>EmptyLoader &mdash; HYRISE latest documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/breathe.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     'latest',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="HYRISE latest documentation" href="../../index.html" />
+    <link rel="up" title="Loading" href="../loading.html" />
+    <link rel="next" title="MySQL Loader" href="mysql.html" />
+    <link rel="prev" title="Loading" href="../loading.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="mysql.html" title="MySQL Loader"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../loading.html" title="Loading"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../index.html">HYRISE latest documentation</a> &raquo;</li>
+          <li><a href="../../architecture.html" >Implementation Details</a> &raquo;</li>
+          <li><a href="../loading.html" accesskey="U">Loading</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/hyrise.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../architecture.html">Implementation Details</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../architecture.html">Create Modifiable Tables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../layouter.html">HYRISE Layouter</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../loading.html">Loading</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../loading.html#introduction">Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../loading.html#abstract-overview">Abstract Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../loading.html#how-to-load-data">How to load data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../loading.html#shortcuts">Shortcuts</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../loading.html#loaders">Loaders</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="">EmptyLoader</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csvloader">CSVLoader</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#usage">Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#parameters">Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#generic-csv-parameters">Generic CSV parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#stringloader">StringLoader</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#id1">Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#id2">Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="mysql.html">MySQL Loader</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../statistics.html">Query Statistics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../planops.html">Plan Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../extension_points.html">Extension points</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routing.html">Routing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../query_execution.html">HYRISE Query Execution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developing.html">Developing with HYRISE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">HYRISE &amp; Development FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../proposals.html">Proposals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../doxygen.html">Doxygen Documentation</a></li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../loading.html"
+                        title="previous chapter">Loading</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="mysql.html"
+                        title="next chapter">MySQL Loader</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/architecture/loading/index.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="emptyloader">
+<h1>EmptyLoader<a class="headerlink" href="#emptyloader" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This Loader is defined in <cite>src/lib/io/EmptyLoader.h</cite> and provides
+EmptyInput and EmptyHeader.</p>
+</div>
+<p>The classes defined in <cite>EmptyLoader.h</cite> are used when no alternative
+was specified. They create empty headers or empty table bodies.</p>
+</div>
+<div class="section" id="csvloader">
+<h1>CSVLoader<a class="headerlink" href="#csvloader" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Defined in <cite>src/lin/io/CSVLoader.h</cite> and provides <em>CSVInput</em> and
+<em>CSVHeader</em>.</p>
+</div>
+<p>This loader can be used to load arbitrary CSV-like files. The default
+format of HYRISE uses the delimiter <cite>|</cite>.</p>
+<div class="section" id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<p>CSVLoader can be used as follows</p>
+<div class="highlight-c++"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22</pre></div></td><td class="code"><div class="highlight"><pre><span class="c1">// Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.</span>
+<span class="cp">#include &quot;testing/test.h&quot;</span>
+<span class="cp">#include &lt;io/loaders.h&gt;</span>
+
+<span class="k">class</span> <span class="nc">CSVTests</span> <span class="o">:</span> <span class="k">public</span> <span class="o">::</span><span class="n">hyrise</span><span class="o">::</span><span class="n">Test</span> <span class="p">{};</span>
+
+<span class="n">TEST_F</span><span class="p">(</span><span class="n">CSVTests</span><span class="p">,</span> <span class="n">load_test</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">hyrise</span><span class="o">::</span><span class="n">storage</span><span class="o">::</span><span class="kt">atable_ptr_t</span>  <span class="n">t</span> <span class="o">=</span> <span class="n">Loader</span><span class="o">::</span><span class="n">load</span><span class="p">(</span>
+      <span class="n">Loader</span><span class="o">::</span><span class="n">params</span><span class="p">()</span>
+      <span class="p">.</span><span class="n">setHeader</span><span class="p">(</span><span class="n">CSVHeader</span><span class="p">(</span><span class="s">&quot;test/tables/employees.tbl&quot;</span><span class="p">))</span>
+      <span class="p">.</span><span class="n">setInput</span><span class="p">(</span><span class="n">CSVInput</span><span class="p">(</span><span class="s">&quot;test/tables/employees.data&quot;</span><span class="p">))</span>
+                                                  <span class="p">);</span>
+<span class="p">}</span>
+
+
+<span class="n">TEST_F</span><span class="p">(</span><span class="n">CSVTests</span><span class="p">,</span> <span class="n">DISABLED_load_test_mpass</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">hyrise</span><span class="o">::</span><span class="n">storage</span><span class="o">::</span><span class="kt">atable_ptr_t</span>  <span class="n">t</span> <span class="o">=</span> <span class="n">Loader</span><span class="o">::</span><span class="n">load</span><span class="p">(</span>
+      <span class="n">Loader</span><span class="o">::</span><span class="n">params</span><span class="p">()</span>
+      <span class="p">.</span><span class="n">setHeader</span><span class="p">(</span><span class="n">CSVHeader</span><span class="p">(</span><span class="s">&quot;test/loader/demo/demo.tbl&quot;</span><span class="p">))</span>
+      <span class="p">.</span><span class="n">setInput</span><span class="p">(</span><span class="n">MPassCSVInput</span><span class="p">(</span><span class="s">&quot;test/loader/demo&quot;</span><span class="p">))</span>
+                                                  <span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+</div>
+<div class="section" id="parameters">
+<h1>Parameters<a class="headerlink" href="#parameters" title="Permalink to this headline">¶</a></h1>
+<p><cite>CSVInput::params()</cite> offers the following parameters:</p>
+<dl class="docutils">
+<dt>IgnoreHeader <span class="classifier-delimiter">:</span> <span class="classifier">bool</span></dt>
+<dd>Ignore four initial lines of header</dd>
+<dt>Unsafe <span class="classifier-delimiter">:</span> <span class="classifier">bool</span></dt>
+<dd>Ignore when input dataset is wider than target table, thus
+discarding extra data.</dd>
+<dt>CSVParams <span class="classifier-delimiter">:</span> <span class="classifier">csv::params</span></dt>
+<dd>See discussion of csv::params <a class="reference internal" href="#csvparams"><em>Generic CSV parameters</em></a></dd>
+</dl>
+<p><cite>CSVHeader::params()</cite> offers the following parameters:</p>
+<dl class="docutils">
+<dt>CSVParams <span class="classifier-delimiter">:</span> <span class="classifier">csv::params</span></dt>
+<dd>See discussion of csv::params <a class="reference internal" href="#csvparams"><em>Generic CSV parameters</em></a></dd>
+</dl>
+</div>
+<div class="section" id="generic-csv-parameters">
+<span id="csvparams"></span><h1>Generic CSV parameters<a class="headerlink" href="#generic-csv-parameters" title="Permalink to this headline">¶</a></h1>
+<p><cite>csv::params()</cite> offers the following parameters:</p>
+<dl class="docutils">
+<dt>Delimiter <span class="classifier-delimiter">:</span> <span class="classifier">unsigned char, defaults to <cite>|</cite></span></dt>
+<dd>Allows to change the CSV delimiter to a different character</dd>
+<dt>LineStart <span class="classifier-delimiter">:</span> <span class="classifier">ssize_t, defaults to <cite>0</cite>.</span></dt>
+<dd>Set to ignore initial number of lines in input file</dd>
+<dt>LineCount <span class="classifier-delimiter">:</span> <span class="classifier">ssize_t, defaults to <cite>-1</cite></span></dt>
+<dd>Set to the number of lines to read.</dd>
+</dl>
+</div>
+<div class="section" id="stringloader">
+<h1>StringLoader<a class="headerlink" href="#stringloader" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Defined in <cite>src/lib/io/StringLoader.h</cite> and provides <em>StringHeader</em>.</p>
+</div>
+<p>StringHeader allows to pass a user-defined std::string to be
+used for generating table metadata.</p>
+<div class="section" id="id1">
+<h2>Usage<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-c++"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40</pre></div></td><td class="code"><div class="highlight"><pre><span class="c1">// Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.</span>
+<span class="cp">#include &quot;testing/test.h&quot;</span>
+<span class="cp">#include &lt;io/loaders.h&gt;</span>
+
+
+<span class="k">class</span> <span class="nc">StringLoaderTests</span> <span class="o">:</span> <span class="k">public</span> <span class="o">::</span><span class="n">hyrise</span><span class="o">::</span><span class="n">Test</span> <span class="p">{};</span>
+
+<span class="n">TEST_F</span><span class="p">(</span><span class="n">StringLoaderTests</span><span class="p">,</span> <span class="n">load_test</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">hyrise</span><span class="o">::</span><span class="n">storage</span><span class="o">::</span><span class="kt">atable_ptr_t</span>  <span class="n">t</span> <span class="o">=</span> <span class="n">Loader</span><span class="o">::</span><span class="n">load</span><span class="p">(</span>
+      <span class="n">Loader</span><span class="o">::</span><span class="n">params</span><span class="p">()</span>
+      <span class="p">.</span><span class="n">setHeader</span><span class="p">(</span><span class="n">StringHeader</span><span class="p">(</span><span class="s">&quot;employee_id|employee_company_id|employee_name</span><span class="se">\n</span><span class="s">&quot;</span>
+                              <span class="s">&quot;INTEGER|INTEGER|STRING</span><span class="se">\n</span><span class="s">&quot;</span>
+                              <span class="s">&quot;0_C | 0_C | 0_C&quot;</span><span class="p">))</span>
+      <span class="p">.</span><span class="n">setInput</span><span class="p">(</span><span class="n">CSVInput</span><span class="p">(</span><span class="s">&quot;test/tables/employees.data&quot;</span><span class="p">))</span>
+                                                  <span class="p">);</span>
+<span class="p">}</span>
+
+
+<span class="n">TEST_F</span><span class="p">(</span><span class="n">StringLoaderTests</span><span class="p">,</span> <span class="n">load_test_typesafe</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">hyrise</span><span class="o">::</span><span class="n">storage</span><span class="o">::</span><span class="kt">atable_ptr_t</span>  <span class="n">t</span> <span class="o">=</span> <span class="n">Loader</span><span class="o">::</span><span class="n">load</span><span class="p">(</span>
+      <span class="n">Loader</span><span class="o">::</span><span class="n">params</span><span class="p">()</span>
+      <span class="p">.</span><span class="n">setHeader</span><span class="p">(</span><span class="n">StringHeader</span><span class="p">(</span><span class="s">&quot;employee_id|employee_company_id|employee_name</span><span class="se">\n</span><span class="s">&quot;</span>
+                              <span class="s">&quot;INTEGER|INTEGER|STRING</span><span class="se">\n</span><span class="s">&quot;</span>
+                              <span class="s">&quot;0_C | 0_C | 0_C&quot;</span><span class="p">))</span>
+      <span class="p">.</span><span class="n">setInput</span><span class="p">(</span><span class="n">CSVInput</span><span class="p">(</span><span class="s">&quot;test/tables/employees.data&quot;</span><span class="p">))</span>
+                                                  <span class="p">);</span>
+
+
+  <span class="n">EmptyInput</span> <span class="n">input</span><span class="p">;</span>
+  <span class="n">StringHeader</span> <span class="nf">header</span><span class="p">(</span><span class="s">&quot;employee_id|employee_company_id|employee_name</span><span class="se">\n</span><span class="s">&quot;</span>
+                      <span class="s">&quot;INTEGER|INTEGER|INTEGER</span><span class="se">\n</span><span class="s">&quot;</span>
+                      <span class="s">&quot;0_C | 0_C | 0_C&quot;</span><span class="p">);</span>
+
+  <span class="n">Loader</span><span class="o">::</span><span class="n">params</span> <span class="n">p</span><span class="p">;</span>
+  <span class="n">p</span><span class="p">.</span><span class="n">setInput</span><span class="p">(</span><span class="n">input</span><span class="p">).</span><span class="n">setHeader</span><span class="p">(</span><span class="n">header</span><span class="p">).</span><span class="n">setReturnsMutableVerticalTable</span><span class="p">(</span><span class="nb">true</span><span class="p">).</span><span class="n">setReferenceTable</span><span class="p">(</span><span class="n">t</span><span class="p">);</span>
+
+  <span class="k">auto</span> <span class="n">res</span> <span class="o">=</span> <span class="n">Loader</span><span class="o">::</span><span class="n">load</span><span class="p">(</span><span class="n">p</span><span class="p">);</span>
+
+  <span class="n">ASSERT_EQ</span><span class="p">(</span><span class="n">t</span><span class="o">-&gt;</span><span class="n">typeOfColumn</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">res</span><span class="o">-&gt;</span><span class="n">typeOfColumn</span><span class="p">(</span><span class="mi">2</span><span class="p">));</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+</div>
+<div class="section" id="id2">
+<h1>Parameters<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h1>
+<p><cite>StringHeader::params</cite> offers the following parameters:</p>
+<dl class="docutils">
+<dt>CSVParams <span class="classifier-delimiter">:</span> <span class="classifier">csv::params</span></dt>
+<dd>See discussion of csv::params <a class="reference internal" href="#csvparams"><em>Generic CSV parameters</em></a></dd>
+</dl>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="mysql.html" title="MySQL Loader"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../loading.html" title="Loading"
+             >previous</a> |</li>
+        <li><a href="../../index.html">HYRISE latest documentation</a> &raquo;</li>
+          <li><a href="../../architecture.html" >Implementation Details</a> &raquo;</li>
+          <li><a href="../loading.html" >Loading</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010-2013, Martin Grund et al.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+  </body>
+</html>

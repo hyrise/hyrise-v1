@@ -1,0 +1,165 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="classhyrise_1_1access_1_1_expressions" kind="class" prot="public">
+    <compoundname>hyrise::access::Expressions</compoundname>
+    <basecompoundref refid="classnoncopyable" prot="private" virt="non-virtual">noncopyable</basecompoundref>
+    <includes refid="_expression_registration_8h" local="no">ExpressionRegistration.h</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classhyrise_1_1access_1_1_expressions_1a5ce1f6c094af44e7d896b2d21ed133da" prot="private" static="no" mutable="no">
+        <type>std::map&lt; std::string, <ref refid="namespacehyrise_1_1access_1a9af43b459123c32272f960bdc16ee2ca" kindref="member">expression_factory_ptr_t</ref> &gt;</type>
+        <definition>std::map&lt;std::string, expression_factory_ptr_t&gt; hyrise::access::Expressions::_registrations</definition>
+        <argsstring></argsstring>
+        <name>_registrations</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/ExpressionRegistration.h" line="47" bodyfile="/home/grund/hyrise/src/lib/access/ExpressionRegistration.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classhyrise_1_1access_1_1_expressions_1aae83c7f66d54561a1a10e3cdf8a3a62d" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classhyrise_1_1access_1_1_expressions" kindref="compound">Expressions</ref> &amp;</type>
+        <definition>Expressions &amp; hyrise::access::Expressions::getInstance</definition>
+        <argsstring>()</argsstring>
+        <name>getInstance</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/ExpressionRegistration.h" line="36" bodyfile="/home/grund/hyrise/src/lib/access/ExpressionRegistration.cpp" bodystart="7" bodyend="10"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1access_1_1_expressions_1ac60b6296d132db01e27e9c5eb3cfb71f" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Expression</type>
+          </param>
+        </templateparamlist>
+        <type>bool</type>
+        <definition>static bool hyrise::access::Expressions::add</definition>
+        <argsstring>(const std::string &amp;callsign)</argsstring>
+        <name>add</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>callsign</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/ExpressionRegistration.h" line="39" bodyfile="/home/grund/hyrise/src/lib/access/ExpressionRegistration.h" bodystart="39" bodyend="41"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1access_1_1_expressions_1a27320a0d1dcc2dca7fc3c88302e1c7e5" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="namespacehyrise_1_1access_1af41209551d197107c71e3be44cb01982" kindref="member">expression_uptr_t</ref></type>
+        <definition>static expression_uptr_t hyrise::access::Expressions::parse</definition>
+        <argsstring>(const std::string &amp;callsign, const Json::Value &amp;value)</argsstring>
+        <name>parse</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>callsign</declname>
+        </param>
+        <param>
+          <type>const Json::Value &amp;</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/ExpressionRegistration.h" line="43" bodyfile="/home/grund/hyrise/src/lib/access/ExpressionRegistration.h" bodystart="43" bodyend="45"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classhyrise_1_1access_1_1_expressions_1a7cd01dba35bf521dbdc1cf71e07e218c" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool hyrise::access::Expressions::addRegistration</definition>
+        <argsstring>(const std::string &amp;callsign, expression_factory_ptr_t ptr)</argsstring>
+        <name>addRegistration</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>callsign</declname>
+        </param>
+        <param>
+          <type><ref refid="namespacehyrise_1_1access_1a9af43b459123c32272f960bdc16ee2ca" kindref="member">expression_factory_ptr_t</ref></type>
+          <declname>ptr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/ExpressionRegistration.h" line="49" bodyfile="/home/grund/hyrise/src/lib/access/ExpressionRegistration.cpp" bodystart="12" bodyend="15"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1access_1_1_expressions_1a4f7b93e0af87c46a3daef0914ccc2128" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="namespacehyrise_1_1access_1af41209551d197107c71e3be44cb01982" kindref="member">expression_uptr_t</ref></type>
+        <definition>expression_uptr_t hyrise::access::Expressions::createRegistered</definition>
+        <argsstring>(const std::string &amp;callsign, const Json::Value &amp;value) const </argsstring>
+        <name>createRegistered</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>callsign</declname>
+        </param>
+        <param>
+          <type>const Json::Value &amp;</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/ExpressionRegistration.h" line="50" bodyfile="/home/grund/hyrise/src/lib/access/ExpressionRegistration.cpp" bodystart="17" bodyend="19"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Expression registration facility for custom expressions. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1830">
+        <label>hyrise::access::Expressions</label>
+        <link refid="classhyrise_1_1access_1_1_expressions"/>
+        <childnode refid="1831" relation="private-inheritance">
+        </childnode>
+      </node>
+      <node id="1831">
+        <label>noncopyable</label>
+        <link refid="classnoncopyable"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1832">
+        <label>hyrise::access::Expressions</label>
+        <link refid="classhyrise_1_1access_1_1_expressions"/>
+        <childnode refid="1833" relation="private-inheritance">
+        </childnode>
+      </node>
+      <node id="1833">
+        <label>noncopyable</label>
+        <link refid="classnoncopyable"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/access/ExpressionRegistration.h" line="34" bodyfile="/home/grund/hyrise/src/lib/access/ExpressionRegistration.h" bodystart="34" bodyend="51"/>
+    <listofallmembers>
+      <member refid="classhyrise_1_1access_1_1_expressions_1a5ce1f6c094af44e7d896b2d21ed133da" prot="private" virt="non-virtual"><scope>hyrise::access::Expressions</scope><name>_registrations</name></member>
+      <member refid="classhyrise_1_1access_1_1_expressions_1ac60b6296d132db01e27e9c5eb3cfb71f" prot="public" virt="non-virtual"><scope>hyrise::access::Expressions</scope><name>add</name></member>
+      <member refid="classhyrise_1_1access_1_1_expressions_1a7cd01dba35bf521dbdc1cf71e07e218c" prot="private" virt="non-virtual"><scope>hyrise::access::Expressions</scope><name>addRegistration</name></member>
+      <member refid="classhyrise_1_1access_1_1_expressions_1a4f7b93e0af87c46a3daef0914ccc2128" prot="private" virt="non-virtual"><scope>hyrise::access::Expressions</scope><name>createRegistered</name></member>
+      <member refid="classhyrise_1_1access_1_1_expressions_1aae83c7f66d54561a1a10e3cdf8a3a62d" prot="public" virt="non-virtual"><scope>hyrise::access::Expressions</scope><name>getInstance</name></member>
+      <member refid="classnoncopyable_1ad6d68c5d954450f6ad60629eafe981a2" prot="private" virt="non-virtual"><scope>hyrise::access::Expressions</scope><name>noncopyable</name></member>
+      <member refid="classnoncopyable_1a92fb23ffbd61f18890dffa277caaabcb" prot="private" virt="non-virtual"><scope>hyrise::access::Expressions</scope><name>noncopyable</name></member>
+      <member refid="classnoncopyable_1a98da58e16f7990c9c271175400c82955" prot="private" virt="non-virtual"><scope>hyrise::access::Expressions</scope><name>operator=</name></member>
+      <member refid="classhyrise_1_1access_1_1_expressions_1a27320a0d1dcc2dca7fc3c88302e1c7e5" prot="public" virt="non-virtual"><scope>hyrise::access::Expressions</scope><name>parse</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,444 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Loading &mdash; HYRISE latest documentation</title>
+    
+    <link rel="stylesheet" href="../_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/breathe.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     'latest',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="HYRISE latest documentation" href="../index.html" />
+    <link rel="up" title="Implementation Details" href="../architecture.html" />
+    <link rel="next" title="EmptyLoader" href="loading/index.html" />
+    <link rel="prev" title="HYRISE Layouter" href="layouter.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="loading/index.html" title="EmptyLoader"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="layouter.html" title="HYRISE Layouter"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">HYRISE latest documentation</a> &raquo;</li>
+          <li><a href="../architecture.html" accesskey="U">Implementation Details</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/hyrise.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../architecture.html">Implementation Details</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="architecture.html">Create Modifiable Tables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="layouter.html">HYRISE Layouter</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Loading</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#introduction">Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#abstract-overview">Abstract Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#how-to-load-data">How to load data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#shortcuts">Shortcuts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#loaders">Loaders</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="loading/index.html">EmptyLoader</a></li>
+<li class="toctree-l4"><a class="reference internal" href="loading/index.html#csvloader">CSVLoader</a></li>
+<li class="toctree-l4"><a class="reference internal" href="loading/index.html#parameters">Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="loading/index.html#generic-csv-parameters">Generic CSV parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="loading/index.html#stringloader">StringLoader</a></li>
+<li class="toctree-l4"><a class="reference internal" href="loading/index.html#id2">Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="loading/mysql.html">MySQL Loader</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="statistics.html">Query Statistics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="planops.html">Plan Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="extension_points.html">Extension points</a></li>
+<li class="toctree-l2"><a class="reference internal" href="routing.html">Routing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../query_execution.html">HYRISE Query Execution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developing.html">Developing with HYRISE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">HYRISE &amp; Development FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../proposals.html">Proposals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doxygen.html">Doxygen Documentation</a></li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="layouter.html"
+                        title="previous chapter">HYRISE Layouter</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="loading/index.html"
+                        title="next chapter">EmptyLoader</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/architecture/loading.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="loading">
+<h1>Loading<a class="headerlink" href="#loading" title="Permalink to this headline">¶</a></h1>
+<p>Hyrise features a loading infrastructure that should make it
+sufficiently easy to implement new loaders.</p>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>Currently, Hyrise distinguishes two differnt tasks in loading:</p>
+<ol class="arabic simple">
+<li>Loading metadata</li>
+<li>Loading data</li>
+</ol>
+<p>Naturally some methods of loading may not allow for sensibly
+implementing all tasks, as for example distinguishing between metadata
+and data is (at the current stage of implementation) not possible for
+reading binary data files.</p>
+</div>
+<div class="section" id="abstract-overview">
+<h2>Abstract Overview<a class="headerlink" href="#abstract-overview" title="Permalink to this headline">¶</a></h2>
+<p>A loader has to implement the interface defined in
+&#8220;src/lib/io/AbstractLoader.h&#8221;.</p>
+<div class="line-block">
+<div class="line"><em>class</em> <strong>AbstractHeader</strong></div>
+</div>
+<blockquote>
+<div><p>Interface for implementing something that yields a header structure suitable for table construction. </p>
+<p></p>
+<em>Public Functions</em><blockquote>
+<div><p id="AbstractHeader::~AbstractHeader"><span id="project0class_abstract_header_1af99f853c7aa7105400d4536de51808fd"></span><div class="line-block">
+<div class="line"> <strong>~AbstractHeader</strong>()</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p id="AbstractHeader::load__Loader::paramsCR"><span id="project0class_abstract_header_1a9d4ba3ed1cd5ebe89a21c5c39e41a9fa"></span><div class="line-block">
+<div class="line">compound_metadata_list  * <strong>load</strong>(const  Loader::params  &amp; args)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p>Construct metadata. <table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">args</span></tt> - <p>Loader arguments that may influence header creation </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</div></blockquote>
+<p id="AbstractHeader::cloneC"><span id="project0class_abstract_header_1ad962760f46e46deedfa3f00242713697"></span><div class="line-block">
+<div class="line"><a class="reference internal" href="#project0class_abstract_header"><em>AbstractHeader</em></a>  * <strong>clone</strong>()</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+</div></blockquote>
+</div></blockquote>
+<div class="line-block">
+<div class="line"><em>class</em> <strong>AbstractInput</strong></div>
+</div>
+<blockquote>
+<div><p>Interface for implementing a data source for loading data into a table. </p>
+<p></p>
+<em>Public Functions</em><blockquote>
+<div><p id="AbstractInput::~AbstractInput"><span id="project0class_abstract_input_1a24438a83d3e56183859bc5f04394b7d1"></span><div class="line-block">
+<div class="line"> <strong>~AbstractInput</strong>()</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p id="AbstractInput::load__std::shared_ptr:AbstractTable:.compound_metadata_listCP.Loader::paramsCR"><span id="project0class_abstract_input_1a9d31015659ecff402c529df0f5339b60"></span><div class="line-block">
+<div class="line">std::shared_ptr&lt;  AbstractTable  &gt; <strong>load</strong>(std::shared_ptr&lt;  AbstractTable  &gt; intable, const  compound_metadata_list  * metadata, const  Loader::params  &amp; args)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p><p>Loads data.</p>
+<p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">intable</span></tt> - <p>The <a class="reference internal" href="#project0namespace_loader_1a371700be700b02ac0f08306734213028"><em>Loader::load</em></a> interface creates an initial MutableVerticalTable, loader may choose to use it or not </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">metadata</span></tt> - <p>The original metadata </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">args</span></tt> - <p>Loader arguments that may influence loading </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</p>
+</div></blockquote>
+<p id="AbstractInput::cloneC"><span id="project0class_abstract_input_1ae24e23d7100a832b9bd67b161ceb7215"></span><div class="line-block">
+<div class="line"><a class="reference internal" href="#project0class_abstract_input"><em>AbstractInput</em></a>  * <strong>clone</strong>()</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p id="AbstractInput::needs_store_wrap"><span id="project0class_abstract_input_1a58bee53c3e07a02dace728ba96daa81f"></span><div class="line-block">
+<div class="line">bool <strong>needs_store_wrap</strong>()</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+</div></blockquote>
+</div></blockquote>
+</div>
+<div class="section" id="how-to-load-data">
+<h2>How to load data<a class="headerlink" href="#how-to-load-data" title="Permalink to this headline">¶</a></h2>
+<p>The primary interface for producing a table is</p>
+<p id="Loader::load__paramsCR"><span id="project0namespace_loader_1a371700be700b02ac0f08306734213028"></span><div class="line-block">
+<div class="line">std::shared_ptr&lt;  AbstractTable  &gt; <strong>load</strong>(const  params  &amp; args)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p></p>
+</div></blockquote>
+<p>it should be used in all cases where a custom combination of input,
+header or other available options is needed. Common use cases of
+loading can be found in the namespace <cite>Loader::shortcuts</cite> and should be
+used unless special needs arise.</p>
+<p>If one for example needs to programmatically construct a loader, the
+following piece of code should fairly well demonstrate how this could
+be done.</p>
+<div class="highlight-c++"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16</pre></div></td><td class="code"><div class="highlight"><pre><span class="c1">// Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.</span>
+<span class="cp">#include &quot;testing/test.h&quot;</span>
+
+<span class="cp">#include &lt;io/CSVLoader.h&gt;</span>
+<span class="cp">#include &lt;io/Loader.h&gt;</span>
+
+<span class="k">class</span> <span class="nc">LoaderExample</span> <span class="o">:</span> <span class="k">public</span> <span class="o">::</span><span class="n">hyrise</span><span class="o">::</span><span class="n">Test</span> <span class="p">{};</span>
+
+<span class="n">TEST_F</span><span class="p">(</span><span class="n">LoaderExample</span><span class="p">,</span> <span class="n">load_with_basepath</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">hyrise</span><span class="o">::</span><span class="n">storage</span><span class="o">::</span><span class="kt">atable_ptr_t</span>  <span class="n">t</span> <span class="o">=</span> <span class="n">Loader</span><span class="o">::</span><span class="n">load</span><span class="p">(</span>
+      <span class="n">Loader</span><span class="o">::</span><span class="n">params</span><span class="p">()</span>
+      <span class="p">.</span><span class="n">setInput</span><span class="p">(</span><span class="n">CSVInput</span><span class="p">(</span><span class="s">&quot;employees.data&quot;</span><span class="p">))</span>
+      <span class="p">.</span><span class="n">setHeader</span><span class="p">(</span><span class="n">CSVHeader</span><span class="p">(</span><span class="s">&quot;employees.tbl&quot;</span><span class="p">))</span>
+      <span class="p">.</span><span class="n">setBasePath</span><span class="p">(</span><span class="s">&quot;test/tables/&quot;</span><span class="p">)</span>
+                                                  <span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<div class="section" id="shortcuts">
+<h2>Shortcuts<a class="headerlink" href="#shortcuts" title="Permalink to this headline">¶</a></h2>
+<p id="Loader::shortcuts::load__ssCR"><span id="project0namespace_loader_1_1shortcuts_1ae866bd4ec4f5e11161219f44992af67b"></span><div class="line-block">
+<div class="line">std::shared_ptr&lt;  AbstractTable  &gt; <strong>load</strong>(const std::string &amp; filepath)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p>Loads a table for a given filename, assuming it contains header and data in HYRISE format. <table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">filepath</span></tt> - <p></p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</div></blockquote>
+<p id="Loader::shortcuts::loadWithHeader__ssCR.ssCR"><span id="project0namespace_loader_1_1shortcuts_1a98c448d2b65944c75212683fb4e0da44"></span><div class="line-block">
+<div class="line">std::shared_ptr&lt;  AbstractTable  &gt; <strong>loadWithHeader</strong>(const std::string &amp; datafilepath, const std::string &amp; headerfilepath)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p>Load a table from a given filename, while supplying the header from another file. Must be HYRISE formatted. <table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">datafilepath</span></tt> - <p></p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">headerfilepath</span></tt> - <p></p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</div></blockquote>
+<p id="Loader::shortcuts::loadWithStringHeader__ssCR.ssCR"><span id="project0namespace_loader_1_1shortcuts_1aa8d785df9293b01023ca5da034b53dc2"></span><div class="line-block">
+<div class="line">std::shared_ptr&lt;  AbstractTable  &gt; <strong>loadWithStringHeader</strong>(const std::string &amp; datafilepath, const std::string &amp; header)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p>Load a table from a given filename, while supplying the header from the second input parameter. Must be HYRISE formatted. <table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">datafilepath</span></tt> - <p></p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">header</span></tt> - <p></p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</div></blockquote>
+<p id="Loader::shortcuts::loadInsertOnly__ssCR.ssCR"><span id="project0namespace_loader_1_1shortcuts_1aae00c87e5cfa2e7b1daa2099856bb6c5"></span><div class="line-block">
+<div class="line">std::shared_ptr&lt;  AbstractTable  &gt; <strong>loadInsertOnly</strong>(const std::string &amp; datafilepath, const std::string &amp; headerfilepath)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p>Load insert only <table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">datafilepath</span></tt> - <p></p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">headerfilepath</span></tt> - <p></p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</div></blockquote>
+</div>
+<div class="section" id="loaders">
+<h2>Loaders<a class="headerlink" href="#loaders" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="loading/index.html">EmptyLoader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="loading/index.html#csvloader">CSVLoader</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="loading/index.html#usage">Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="loading/index.html#parameters">Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="loading/index.html#generic-csv-parameters">Generic CSV parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="loading/index.html#stringloader">StringLoader</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="loading/index.html#id1">Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="loading/index.html#id2">Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="loading/mysql.html">MySQL Loader</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="loading/mysql.html#additional-dependencies">Additional dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="loading/mysql.html#environment-variables">Environment Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="loading/mysql.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="loading/mysql.html#usage">Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="loading/mysql.html#implementation-details">Implementation details</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="loading/index.html" title="EmptyLoader"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="layouter.html" title="HYRISE Layouter"
+             >previous</a> |</li>
+        <li><a href="../index.html">HYRISE latest documentation</a> &raquo;</li>
+          <li><a href="../architecture.html" >Implementation Details</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010-2013, Martin Grund et al.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+  </body>
+</html>

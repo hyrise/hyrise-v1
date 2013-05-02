@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="_hwloc_helper_8cpp" kind="file">
+    <compoundname>HwlocHelper.cpp</compoundname>
+    <includes local="no">hwloc.h</includes>
+    <includes refid="_hwloc_helper_8h" local="yes">HwlocHelper.h</includes>
+    <incdepgraph>
+      <node id="13851">
+        <label>src/lib/helper/HwlocHelper.cpp</label>
+        <link refid="HwlocHelper.cpp"/>
+        <childnode refid="13852" relation="include">
+        </childnode>
+        <childnode refid="13853" relation="include">
+        </childnode>
+      </node>
+      <node id="13853">
+        <label>HwlocHelper.h</label>
+        <link refid="_hwloc_helper_8h"/>
+        <childnode refid="13852" relation="include">
+        </childnode>
+      </node>
+      <node id="13852">
+        <label>hwloc.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="_hwloc_helper_8cpp_1a5852d7c54d41ff6c71f33e4b89a5f059" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int getNumberOfCoresOnSystem</definition>
+        <argsstring>()</argsstring>
+        <name>getNumberOfCoresOnSystem</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/HwlocHelper.cpp" line="12" bodyfile="/home/grund/hyrise/src/lib/helper/HwlocHelper.cpp" bodystart="12" bodyend="16"/>
+      </memberdef>
+      <memberdef kind="function" id="_hwloc_helper_8cpp_1ad12145e7aa1fc25a978b719f08b23bb9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>hwloc_topology_t</type>
+        <definition>hwloc_topology_t getHWTopology</definition>
+        <argsstring>()</argsstring>
+        <name>getHWTopology</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/HwlocHelper.cpp" line="18" bodyfile="/home/grund/hyrise/src/lib/helper/HwlocHelper.cpp" bodystart="18" bodyend="25"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>2012<sp/>Hasso-Plattner-Institut<sp/>fuer<sp/>Softwaresystemtechnik<sp/>GmbH.<sp/>All<sp/>rights<sp/>reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*<sp/>HwlocHelper.h</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*<sp/><sp/>Created<sp/>on:<sp/>Dec<sp/>4,<sp/>2012</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>Author:<sp/>jwust</highlight></codeline>
+<codeline lineno="7"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;hwloc.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_hwloc_helper_8h" kindref="compound">HwlocHelper.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12" refid="_hwloc_helper_8h_1a5852d7c54d41ff6c71f33e4b89a5f059" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="_hwloc_helper_8cpp_1a5852d7c54d41ff6c71f33e4b89a5f059" kindref="member">getNumberOfCoresOnSystem</ref>(){</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/>hwloc_topology_t<sp/>topology<sp/>=<sp/><ref refid="_hwloc_helper_8cpp_1ad12145e7aa1fc25a978b719f08b23bb9" kindref="member">getHWTopology</ref>();</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>NUM_PROCS<sp/>=<sp/>hwloc_get_nbobjs_by_type(topology,<sp/>HWLOC_OBJ_CORE);</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>NUM_PROCS;</highlight></codeline>
+<codeline lineno="16"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18" refid="_hwloc_helper_8h_1ad12145e7aa1fc25a978b719f08b23bb9" refkind="member"><highlight class="normal">hwloc_topology_t<sp/><ref refid="_hwloc_helper_8cpp_1ad12145e7aa1fc25a978b719f08b23bb9" kindref="member">getHWTopology</ref>(){</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>hwloc_topology_t<sp/>topology;</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(topology<sp/>==<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">)<sp/>{</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/>hwloc_topology_init(&amp;topology);</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/>hwloc_topology_load(topology);</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>topology;</highlight></codeline>
+<codeline lineno="25"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/home/grund/hyrise/src/lib/helper/HwlocHelper.cpp"/>
+  </compounddef>
+</doxygen>

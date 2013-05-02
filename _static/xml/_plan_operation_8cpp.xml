@@ -1,0 +1,1033 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="_plan_operation_8cpp" kind="file">
+    <compoundname>PlanOperation.cpp</compoundname>
+    <includes refid="_plan_operation_8h" local="yes">PlanOperation.h</includes>
+    <includes local="no">iostream</includes>
+    <includes local="no">algorithm</includes>
+    <includes local="no">thread</includes>
+    <includes local="no">boost/lexical_cast.hpp</includes>
+    <includes refid="epoch_8h" local="yes">helper/epoch.h</includes>
+    <includes refid="_papi_tracer_8h" local="yes">helper/PapiTracer.h</includes>
+    <includes refid="_storage_manager_8h" local="yes">io/StorageManager.h</includes>
+    <includes refid="_abstract_resource_8h" local="yes">storage/AbstractResource.h</includes>
+    <includes refid="_abstract_hash_table_8h" local="yes">storage/AbstractHashTable.h</includes>
+    <includes refid="_abstract_table_8h" local="yes">storage/AbstractTable.h</includes>
+    <includes refid="_table_range_view_factory_8h" local="yes">storage/TableRangeViewFactory.h</includes>
+    <includes refid="_table_range_view_8h" local="yes">storage/TableRangeView.h</includes>
+    <incdepgraph>
+      <node id="8236">
+        <label>list</label>
+      </node>
+      <node id="8260">
+        <label>atomic</label>
+      </node>
+      <node id="8264">
+        <label>storage/TableRangeViewFactory.h</label>
+        <link refid="_table_range_view_factory_8h"/>
+        <childnode refid="8196" relation="include">
+        </childnode>
+        <childnode refid="8226" relation="include">
+        </childnode>
+        <childnode refid="8265" relation="include">
+        </childnode>
+        <childnode refid="8200" relation="include">
+        </childnode>
+      </node>
+      <node id="8206">
+        <label>boost/mpl/vector.hpp</label>
+      </node>
+      <node id="8219">
+        <label>queue</label>
+      </node>
+      <node id="8202">
+        <label>limits</label>
+      </node>
+      <node id="8254">
+        <label>boost/functional/hash.hpp</label>
+      </node>
+      <node id="8231">
+        <label>assert.h</label>
+      </node>
+      <node id="8208">
+        <label>boost/lexical_cast.hpp</label>
+      </node>
+      <node id="8246">
+        <label>boost/iterator/iterator_facade.hpp</label>
+      </node>
+      <node id="8201">
+        <label>cstdint</label>
+      </node>
+      <node id="8243">
+        <label>storage/BaseDictionary.h</label>
+        <link refid="_base_dictionary_8h"/>
+        <childnode refid="8203" relation="include">
+        </childnode>
+        <childnode refid="8232" relation="include">
+        </childnode>
+        <childnode refid="8244" relation="include">
+        </childnode>
+      </node>
+      <node id="8187">
+        <label>stdint.h</label>
+      </node>
+      <node id="8242">
+        <label>stdlib.h</label>
+      </node>
+      <node id="8255">
+        <label>helper/PapiTracer.h</label>
+        <link refid="_papi_tracer_8h"/>
+        <childnode refid="8241" relation="include">
+        </childnode>
+        <childnode refid="8256" relation="include">
+        </childnode>
+        <childnode refid="8235" relation="include">
+        </childnode>
+        <childnode refid="8189" relation="include">
+        </childnode>
+        <childnode refid="8198" relation="include">
+        </childnode>
+        <childnode refid="8204" relation="include">
+        </childnode>
+        <childnode refid="8257" relation="include">
+        </childnode>
+      </node>
+      <node id="8183">
+        <label>src/lib/access/PlanOperation.cpp</label>
+        <link refid="PlanOperation.cpp"/>
+        <childnode refid="8184" relation="include">
+        </childnode>
+        <childnode refid="8215" relation="include">
+        </childnode>
+        <childnode refid="8235" relation="include">
+        </childnode>
+        <childnode refid="8213" relation="include">
+        </childnode>
+        <childnode refid="8208" relation="include">
+        </childnode>
+        <childnode refid="8193" relation="include">
+        </childnode>
+        <childnode refid="8255" relation="include">
+        </childnode>
+        <childnode refid="8259" relation="include">
+        </childnode>
+        <childnode refid="8227" relation="include">
+        </childnode>
+        <childnode refid="8263" relation="include">
+        </childnode>
+        <childnode refid="8226" relation="include">
+        </childnode>
+        <childnode refid="8264" relation="include">
+        </childnode>
+        <childnode refid="8265" relation="include">
+        </childnode>
+      </node>
+      <node id="8240">
+        <label>errno.h</label>
+      </node>
+      <node id="8193">
+        <label>helper/epoch.h</label>
+        <link refid="epoch_8h"/>
+        <childnode refid="8187" relation="include">
+        </childnode>
+      </node>
+      <node id="8204">
+        <label>stdexcept</label>
+      </node>
+      <node id="8216">
+        <label>helper/HwlocHelper.h</label>
+        <link refid="_hwloc_helper_8h"/>
+        <childnode refid="8217" relation="include">
+        </childnode>
+      </node>
+      <node id="8198">
+        <label>string</label>
+      </node>
+      <node id="8210">
+        <label>taskscheduler.h</label>
+        <link refid="taskscheduler_8h"/>
+        <childnode refid="8211" relation="include">
+        </childnode>
+        <childnode refid="8218" relation="include">
+        </childnode>
+        <childnode refid="8221" relation="include">
+        </childnode>
+        <childnode refid="8194" relation="include">
+        </childnode>
+        <childnode refid="8220" relation="include">
+        </childnode>
+        <childnode refid="8212" relation="include">
+        </childnode>
+        <childnode refid="8222" relation="include">
+        </childnode>
+        <childnode refid="8223" relation="include">
+        </childnode>
+      </node>
+      <node id="8218">
+        <label>taskscheduler/SimpleTaskScheduler.h</label>
+        <link refid="_simple_task_scheduler_8h"/>
+        <childnode refid="8211" relation="include">
+        </childnode>
+        <childnode refid="8214" relation="include">
+        </childnode>
+        <childnode refid="8189" relation="include">
+        </childnode>
+        <childnode refid="8219" relation="include">
+        </childnode>
+        <childnode refid="8195" relation="include">
+        </childnode>
+        <childnode refid="8186" relation="include">
+        </childnode>
+        <childnode refid="8194" relation="include">
+        </childnode>
+        <childnode refid="8220" relation="include">
+        </childnode>
+        <childnode refid="8216" relation="include">
+        </childnode>
+      </node>
+      <node id="8190">
+        <label>map</label>
+      </node>
+      <node id="8194">
+        <label>taskscheduler/Task.h</label>
+        <link refid="_task_8h"/>
+        <childnode refid="8189" relation="include">
+        </childnode>
+        <childnode refid="8195" relation="include">
+        </childnode>
+        <childnode refid="8196" relation="include">
+        </childnode>
+        <childnode refid="8197" relation="include">
+        </childnode>
+        <childnode refid="8198" relation="include">
+        </childnode>
+      </node>
+      <node id="8214">
+        <label>unordered_set</label>
+      </node>
+      <node id="8265">
+        <label>storage/TableRangeView.h</label>
+        <link refid="_table_range_view_8h"/>
+        <childnode refid="8226" relation="include">
+        </childnode>
+      </node>
+      <node id="8229">
+        <label>storage/ValueIdMap.hpp</label>
+        <link refid="_value_id_map_8hpp"/>
+        <childnode refid="8230" relation="include">
+        </childnode>
+        <childnode refid="8248" relation="include">
+        </childnode>
+      </node>
+      <node id="8239">
+        <label>memory/MemalignStrategy.h</label>
+        <link refid="_memalign_strategy_8h"/>
+        <childnode refid="8240" relation="include">
+        </childnode>
+        <childnode refid="8241" relation="include">
+        </childnode>
+        <childnode refid="8242" relation="include">
+        </childnode>
+      </node>
+      <node id="8217">
+        <label>hwloc.h</label>
+      </node>
+      <node id="8251">
+        <label>exception</label>
+      </node>
+      <node id="8185">
+        <label>access/OutputTask.h</label>
+        <link refid="_output_task_8h"/>
+        <childnode refid="8186" relation="include">
+        </childnode>
+        <childnode refid="8187" relation="include">
+        </childnode>
+        <childnode refid="8188" relation="include">
+        </childnode>
+        <childnode refid="8189" relation="include">
+        </childnode>
+        <childnode refid="8190" relation="include">
+        </childnode>
+        <childnode refid="8191" relation="include">
+        </childnode>
+        <childnode refid="8192" relation="include">
+        </childnode>
+        <childnode refid="8193" relation="include">
+        </childnode>
+        <childnode refid="8194" relation="include">
+        </childnode>
+      </node>
+      <node id="8234">
+        <label>stddef.h</label>
+      </node>
+      <node id="8220">
+        <label>taskscheduler/CoreBoundTaskQueue.h</label>
+        <link refid="_core_bound_task_queue_8h"/>
+        <childnode refid="8213" relation="include">
+        </childnode>
+        <childnode refid="8219" relation="include">
+        </childnode>
+        <childnode refid="8212" relation="include">
+        </childnode>
+      </node>
+      <node id="8257">
+        <label>helper/stringhelpers.h</label>
+        <link refid="stringhelpers_8h"/>
+        <childnode refid="8198" relation="include">
+        </childnode>
+        <childnode refid="8258" relation="include">
+        </childnode>
+      </node>
+      <node id="8248">
+        <label>storage/OrderIndifferentDictionary.h</label>
+        <link refid="_order_indifferent_dictionary_8h"/>
+        <childnode refid="8203" relation="include">
+        </childnode>
+        <childnode refid="8232" relation="include">
+        </childnode>
+        <childnode refid="8243" relation="include">
+        </childnode>
+        <childnode refid="8244" relation="include">
+        </childnode>
+        <childnode refid="8249" relation="include">
+        </childnode>
+        <childnode refid="8247" relation="include">
+        </childnode>
+        <childnode refid="8251" relation="include">
+        </childnode>
+        <childnode refid="8189" relation="include">
+        </childnode>
+        <childnode refid="8190" relation="include">
+        </childnode>
+        <childnode refid="8196" relation="include">
+        </childnode>
+        <childnode refid="8252" relation="include">
+        </childnode>
+        <childnode refid="8253" relation="include">
+        </childnode>
+        <childnode refid="8254" relation="include">
+        </childnode>
+      </node>
+      <node id="8205">
+        <label>ostream</label>
+      </node>
+      <node id="8192">
+        <label>json.h</label>
+      </node>
+      <node id="8252">
+        <label>limits.h</label>
+      </node>
+      <node id="8244">
+        <label>storage/DictionaryIterator.h</label>
+        <link refid="_dictionary_iterator_8h"/>
+        <childnode refid="8245" relation="include">
+        </childnode>
+        <childnode refid="8246" relation="include">
+        </childnode>
+      </node>
+      <node id="8232">
+        <label>storage/AbstractDictionary.h</label>
+        <link refid="_abstract_dictionary_8h"/>
+        <childnode refid="8189" relation="include">
+        </childnode>
+        <childnode refid="8198" relation="include">
+        </childnode>
+        <childnode refid="8196" relation="include">
+        </childnode>
+        <childnode refid="8233" relation="include">
+        </childnode>
+        <childnode refid="8237" relation="include">
+        </childnode>
+        <childnode refid="8239" relation="include">
+        </childnode>
+        <childnode refid="8203" relation="include">
+        </childnode>
+      </node>
+      <node id="8197">
+        <label>condition_variable</label>
+      </node>
+      <node id="8250">
+        <label>string.h</label>
+      </node>
+      <node id="8225">
+        <label>access/BasicParser.h</label>
+        <link refid="_basic_parser_8h"/>
+        <childnode refid="8204" relation="include">
+        </childnode>
+        <childnode refid="8196" relation="include">
+        </childnode>
+        <childnode refid="8192" relation="include">
+        </childnode>
+      </node>
+      <node id="8226">
+        <label>storage/AbstractTable.h</label>
+        <link refid="_abstract_table_8h"/>
+        <childnode refid="8202" relation="include">
+        </childnode>
+        <childnode refid="8196" relation="include">
+        </childnode>
+        <childnode refid="8204" relation="include">
+        </childnode>
+        <childnode refid="8189" relation="include">
+        </childnode>
+        <childnode refid="8198" relation="include">
+        </childnode>
+        <childnode refid="8200" relation="include">
+        </childnode>
+        <childnode refid="8227" relation="include">
+        </childnode>
+        <childnode refid="8203" relation="include">
+        </childnode>
+        <childnode refid="8228" relation="include">
+        </childnode>
+        <childnode refid="8229" relation="include">
+        </childnode>
+      </node>
+      <node id="8222">
+        <label>taskscheduler/WSCoreBoundTaskQueue.h</label>
+        <link refid="_w_s_core_bound_task_queue_8h"/>
+        <childnode refid="8212" relation="include">
+        </childnode>
+        <childnode refid="8223" relation="include">
+        </childnode>
+      </node>
+      <node id="8227">
+        <label>storage/AbstractResource.h</label>
+        <link refid="_abstract_resource_8h"/>
+      </node>
+      <node id="8253">
+        <label>boost/unordered_map.hpp</label>
+      </node>
+      <node id="8263">
+        <label>storage/AbstractHashTable.h</label>
+        <link refid="_abstract_hash_table_8h"/>
+        <childnode refid="8201" relation="include">
+        </childnode>
+        <childnode refid="8196" relation="include">
+        </childnode>
+        <childnode refid="8200" relation="include">
+        </childnode>
+        <childnode refid="8227" relation="include">
+        </childnode>
+        <childnode refid="8203" relation="include">
+        </childnode>
+      </node>
+      <node id="8189">
+        <label>vector</label>
+      </node>
+      <node id="8221">
+        <label>taskscheduler/SharedScheduler.h</label>
+        <link refid="_shared_scheduler_8h"/>
+        <childnode refid="8211" relation="include">
+        </childnode>
+        <childnode refid="8218" relation="include">
+        </childnode>
+        <childnode refid="8220" relation="include">
+        </childnode>
+        <childnode refid="8204" relation="include">
+        </childnode>
+      </node>
+      <node id="8191">
+        <label>utility</label>
+      </node>
+      <node id="8200">
+        <label>helper/types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="8201" relation="include">
+        </childnode>
+        <childnode refid="8198" relation="include">
+        </childnode>
+        <childnode refid="8202" relation="include">
+        </childnode>
+        <childnode refid="8196" relation="include">
+        </childnode>
+        <childnode refid="8189" relation="include">
+        </childnode>
+      </node>
+      <node id="8212">
+        <label>taskscheduler/AbstractTaskQueue.h</label>
+        <link refid="_abstract_task_queue_8h"/>
+        <childnode refid="8196" relation="include">
+        </childnode>
+        <childnode refid="8195" relation="include">
+        </childnode>
+        <childnode refid="8213" relation="include">
+        </childnode>
+        <childnode refid="8197" relation="include">
+        </childnode>
+        <childnode refid="8186" relation="include">
+        </childnode>
+        <childnode refid="8194" relation="include">
+        </childnode>
+      </node>
+      <node id="8258">
+        <label>sstream</label>
+      </node>
+      <node id="8261">
+        <label>io/Loader.h</label>
+        <link refid="_loader_8h"/>
+        <childnode refid="8196" relation="include">
+        </childnode>
+        <childnode refid="8198" relation="include">
+        </childnode>
+        <childnode refid="8200" relation="include">
+        </childnode>
+        <childnode refid="8203" relation="include">
+        </childnode>
+        <childnode refid="8262" relation="include">
+        </childnode>
+      </node>
+      <node id="8259">
+        <label>io/StorageManager.h</label>
+        <link refid="_storage_manager_8h"/>
+        <childnode refid="8260" relation="include">
+        </childnode>
+        <childnode refid="8190" relation="include">
+        </childnode>
+        <childnode refid="8196" relation="include">
+        </childnode>
+        <childnode refid="8195" relation="include">
+        </childnode>
+        <childnode refid="8198" relation="include">
+        </childnode>
+        <childnode refid="8189" relation="include">
+        </childnode>
+        <childnode refid="8261" relation="include">
+        </childnode>
+      </node>
+      <node id="8245">
+        <label>storage/BaseIterator.h</label>
+        <link refid="_base_iterator_8h"/>
+      </node>
+      <node id="8233">
+        <label>memory/StrategizedAllocator.h</label>
+        <link refid="_strategized_allocator_8h"/>
+        <childnode refid="8234" relation="include">
+        </childnode>
+        <childnode refid="8235" relation="include">
+        </childnode>
+        <childnode refid="8236" relation="include">
+        </childnode>
+        <childnode refid="8204" relation="include">
+        </childnode>
+      </node>
+      <node id="8209">
+        <label>access/QueryParser.h</label>
+        <link refid="_query_parser_8h"/>
+        <childnode refid="8190" relation="include">
+        </childnode>
+        <childnode refid="8196" relation="include">
+        </childnode>
+        <childnode refid="8189" relation="include">
+        </childnode>
+        <childnode refid="8198" relation="include">
+        </childnode>
+        <childnode refid="8204" relation="include">
+        </childnode>
+        <childnode refid="8192" relation="include">
+        </childnode>
+        <childnode refid="8210" relation="include">
+        </childnode>
+        <childnode refid="8225" relation="include">
+        </childnode>
+      </node>
+      <node id="8199">
+        <label>access/OperationData.h</label>
+        <link refid="_operation_data_8h"/>
+        <childnode refid="8189" relation="include">
+        </childnode>
+        <childnode refid="8200" relation="include">
+        </childnode>
+        <childnode refid="8203" relation="include">
+        </childnode>
+      </node>
+      <node id="8188">
+        <label>time.h</label>
+      </node>
+      <node id="8256">
+        <label>sys/time.h</label>
+      </node>
+      <node id="8215">
+        <label>iostream</label>
+      </node>
+      <node id="8228">
+        <label>storage/ColumnMetadata.h</label>
+        <link refid="_column_metadata_8h"/>
+        <childnode refid="8203" relation="include">
+        </childnode>
+        <childnode refid="8198" relation="include">
+        </childnode>
+        <childnode refid="8204" relation="include">
+        </childnode>
+      </node>
+      <node id="8211">
+        <label>taskscheduler/AbstractTaskScheduler.h</label>
+        <link refid="_abstract_task_scheduler_8h"/>
+        <childnode refid="8194" relation="include">
+        </childnode>
+        <childnode refid="8212" relation="include">
+        </childnode>
+        <childnode refid="8196" relation="include">
+        </childnode>
+        <childnode refid="8214" relation="include">
+        </childnode>
+        <childnode refid="8215" relation="include">
+        </childnode>
+        <childnode refid="8186" relation="include">
+        </childnode>
+        <childnode refid="8216" relation="include">
+        </childnode>
+      </node>
+      <node id="8224">
+        <label>deque</label>
+      </node>
+      <node id="8207">
+        <label>boost/mpl/map.hpp</label>
+      </node>
+      <node id="8223">
+        <label>taskscheduler/WSSimpleTaskScheduler.h</label>
+        <link refid="_w_s_simple_task_scheduler_8h"/>
+        <childnode refid="8211" relation="include">
+        </childnode>
+        <childnode refid="8222" relation="include">
+        </childnode>
+        <childnode refid="8224" relation="include">
+        </childnode>
+        <childnode refid="8215" relation="include">
+        </childnode>
+        <childnode refid="8216" relation="include">
+        </childnode>
+      </node>
+      <node id="8195">
+        <label>mutex</label>
+      </node>
+      <node id="8247">
+        <label>storage/AbstractAllocatedDictionary.h</label>
+        <link refid="_abstract_allocated_dictionary_8h"/>
+      </node>
+      <node id="8213">
+        <label>thread</label>
+      </node>
+      <node id="8237">
+        <label>memory/MallocStrategy.h</label>
+        <link refid="_malloc_strategy_8h"/>
+        <childnode refid="8215" relation="include">
+        </childnode>
+        <childnode refid="8201" relation="include">
+        </childnode>
+        <childnode refid="8238" relation="include">
+        </childnode>
+      </node>
+      <node id="8230">
+        <label>storage/OrderPreservingDictionary.h</label>
+        <link refid="_order_preserving_dictionary_8h"/>
+        <childnode refid="8231" relation="include">
+        </childnode>
+        <childnode refid="8215" relation="include">
+        </childnode>
+        <childnode refid="8196" relation="include">
+        </childnode>
+        <childnode refid="8203" relation="include">
+        </childnode>
+        <childnode refid="8232" relation="include">
+        </childnode>
+        <childnode refid="8243" relation="include">
+        </childnode>
+        <childnode refid="8244" relation="include">
+        </childnode>
+        <childnode refid="8247" relation="include">
+        </childnode>
+        <childnode refid="8245" relation="include">
+        </childnode>
+      </node>
+      <node id="8184">
+        <label>PlanOperation.h</label>
+        <link refid="_plan_operation_8h"/>
+        <childnode refid="8185" relation="include">
+        </childnode>
+        <childnode refid="8199" relation="include">
+        </childnode>
+        <childnode refid="8209" relation="include">
+        </childnode>
+        <childnode refid="8203" relation="include">
+        </childnode>
+        <childnode refid="8200" relation="include">
+        </childnode>
+        <childnode refid="8226" relation="include">
+        </childnode>
+        <childnode refid="8192" relation="include">
+        </childnode>
+      </node>
+      <node id="8235">
+        <label>algorithm</label>
+      </node>
+      <node id="8186">
+        <label>log4cxx/logger.h</label>
+      </node>
+      <node id="8241">
+        <label>stdio.h</label>
+      </node>
+      <node id="8238">
+        <label>cstring</label>
+      </node>
+      <node id="8249">
+        <label>storage/csb_tree.h</label>
+        <link refid="csb__tree_8h"/>
+        <childnode refid="8189" relation="include">
+        </childnode>
+        <childnode refid="8215" relation="include">
+        </childnode>
+        <childnode refid="8236" relation="include">
+        </childnode>
+        <childnode refid="8196" relation="include">
+        </childnode>
+        <childnode refid="8250" relation="include">
+        </childnode>
+        <childnode refid="8231" relation="include">
+        </childnode>
+        <childnode refid="8246" relation="include">
+        </childnode>
+      </node>
+      <node id="8196">
+        <label>memory</label>
+      </node>
+      <node id="8203">
+        <label>storage/storage_types.h</label>
+        <link refid="storage__types_8h"/>
+        <childnode refid="8189" relation="include">
+        </childnode>
+        <childnode refid="8198" relation="include">
+        </childnode>
+        <childnode refid="8204" relation="include">
+        </childnode>
+        <childnode refid="8187" relation="include">
+        </childnode>
+        <childnode refid="8205" relation="include">
+        </childnode>
+        <childnode refid="8206" relation="include">
+        </childnode>
+        <childnode refid="8207" relation="include">
+        </childnode>
+        <childnode refid="8208" relation="include">
+        </childnode>
+      </node>
+      <node id="8262">
+        <label>parameters.inc</label>
+        <link refid="parameters_8inc"/>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="_plan_operation_8cpp_1ae6c0d1434ca082e9ab35c1d2d4f28bae" prot="public" static="yes" mutable="no">
+        <type>const <ref refid="namespacehyrise_1_1storage_1a21d5e900c20019710828c453eaded1ee" kindref="member">hyrise::storage::atable_ptr_t</ref></type>
+        <definition>const hyrise::storage::atable_ptr_t empty_result</definition>
+        <argsstring></argsstring>
+        <name>empty_result</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/PlanOperation.cpp" line="55" bodyfile="/home/grund/hyrise/src/lib/access/PlanOperation.cpp" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="_plan_operation_8cpp_1ae3c5efadbba52871c84ae9194af0b8ca" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t widthOfInputs</definition>
+        <argsstring>(const std::vector&lt; hyrise::storage::c_atable_ptr_t &gt; &amp;inputs)</argsstring>
+        <name>widthOfInputs</name>
+        <param>
+          <type>const std::vector&lt; <ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref> &gt; &amp;</type>
+          <declname>inputs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/PlanOperation.cpp" line="122" bodyfile="/home/grund/hyrise/src/lib/access/PlanOperation.cpp" bodystart="122" bodyend="128"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>2012<sp/>Hasso-Plattner-Institut<sp/>fuer<sp/>Softwaresystemtechnik<sp/>GmbH.<sp/>All<sp/>rights<sp/>reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_plan_operation_8h" kindref="compound">PlanOperation.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;iostream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;algorithm&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;thread&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;boost/lexical_cast.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="epoch_8h" kindref="compound">helper/epoch.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_papi_tracer_8h" kindref="compound">helper/PapiTracer.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_storage_manager_8h" kindref="compound">io/StorageManager.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_abstract_resource_8h" kindref="compound">storage/AbstractResource.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_abstract_hash_table_8h" kindref="compound">storage/AbstractHashTable.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_abstract_table_8h" kindref="compound">storage/AbstractTable.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_table_range_view_factory_8h" kindref="compound">storage/TableRangeViewFactory.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_table_range_view_8h" kindref="compound">storage/TableRangeView.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">{<sp/>log4cxx::LoggerPtr<sp/><ref refid="bin_2hyrise_2main_8cpp_1a1f643aeca905220d975e69578154a71d" kindref="member">logger</ref>(log4cxx::Logger::getLogger(</highlight><highlight class="stringliteral">&quot;access.plan._PlanOperation&quot;</highlight><highlight class="normal">));<sp/>}</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21" refid="class___plan_operation_1ac86c0da0cbc645bfdf5e2c68c6104ba5" refkind="member"><highlight class="normal"><ref refid="class___plan_operation_1ac86c0da0cbc645bfdf5e2c68c6104ba5" kindref="member">_PlanOperation::_PlanOperation</ref>()<sp/>:</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>_limit(0),</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>_part(0),</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>_count(0),</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>producesPositions(true),</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>_planId(),</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>_operatorId()<sp/>{}</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29" refid="class___plan_operation_1ae63172ffde1a0e38b458de3aac06c837" refkind="member"><highlight class="normal"><ref refid="class___plan_operation_1ae63172ffde1a0e38b458de3aac06c837" kindref="member">_PlanOperation::~_PlanOperation</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="30"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32" refid="class___plan_operation_1aa6fad4a2bf49850d1947ab2d8c2f9931" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class___plan_operation_1aa6fad4a2bf49850d1947ab2d8c2f9931" kindref="member">_PlanOperation::addResult</ref>(<ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref><sp/>result)<sp/>{</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><ref refid="class___plan_operation_1a407e061ef25b0ce402c02889f14f9475" kindref="member">output</ref>.<ref refid="group__deprecated_access_1ga910634fb8a32bdb87ae0bcec1c0b5ba8" kindref="member">add</ref>(result);</highlight></codeline>
+<codeline lineno="34"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36" refid="class___plan_operation_1ab7123ccb3703ca24de2b9a69a3f5b387" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class___plan_operation_1ab7123ccb3703ca24de2b9a69a3f5b387" kindref="member">_PlanOperation::addResultHash</ref>(<ref refid="namespacehyrise_1_1storage_1a53a798623aa803822a0edaef21f4d608" kindref="member">hyrise::storage::c_ahashtable_ptr_t</ref><sp/>result)<sp/>{</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><ref refid="class___plan_operation_1a407e061ef25b0ce402c02889f14f9475" kindref="member">output</ref>.<ref refid="group__deprecated_access_1ga20e14fb059df18e5b5d8980f293ce52e" kindref="member">addHash</ref>(result);</highlight></codeline>
+<codeline lineno="38"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40" refid="class___plan_operation_1af50e7e668650340fe69bfeda5482cdd7" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class___plan_operation_1ac403c092d541701bb38389ba19ae60e9" kindref="member">_PlanOperation::addInput</ref>(std::vector&lt;hyrise::storage::c_atable_ptr_t&gt;<sp/>*input_list)<sp/>{</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal">&amp;<sp/>t:<sp/>*input_list)</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class___plan_operation_1ac403c092d541701bb38389ba19ae60e9" kindref="member">addInput</ref>(t);</highlight></codeline>
+<codeline lineno="43"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45" refid="class___plan_operation_1a0fd39768a0dce4f920c8cdab7c91aea3" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class___plan_operation_1ac403c092d541701bb38389ba19ae60e9" kindref="member">_PlanOperation::addInput</ref>(std::vector&lt;hyrise::storage::c_ahashtable_ptr_t&gt;<sp/>*input_list)<sp/>{</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal">&amp;<sp/>t:<sp/>*input_list)</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class___plan_operation_1afd25e43e568c339af441bb704639eea9" kindref="member">addInputHash</ref>(t);</highlight></codeline>
+<codeline lineno="48"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51" refid="class___plan_operation_1acb39b2c0280f5f81f337c106d2485c26" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref><sp/><ref refid="class___plan_operation_1acb39b2c0280f5f81f337c106d2485c26" kindref="member">_PlanOperation::getInputTable</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>index)</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="class___plan_operation_1a12e425b31715103245faeb2bb7b8b8b8" kindref="member">input</ref>.<ref refid="group__deprecated_access_1ga69968d5ab56729a2e8ec54208a275b45" kindref="member">getTable</ref>(index);</highlight></codeline>
+<codeline lineno="53"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55" refid="_plan_operation_8cpp_1ae6c0d1434ca082e9ab35c1d2d4f28bae" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="namespacehyrise_1_1storage_1a21d5e900c20019710828c453eaded1ee" kindref="member">hyrise::storage::atable_ptr_t</ref><sp/><ref refid="_plan_operation_8cpp_1ae6c0d1434ca082e9ab35c1d2d4f28bae" kindref="member">empty_result</ref>;</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57" refid="class___plan_operation_1a32f4a28eede73c294834525da8aabdfa" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref><sp/><ref refid="class___plan_operation_1a32f4a28eede73c294834525da8aabdfa" kindref="member">_PlanOperation::getResultTable</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>index)</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="class___plan_operation_1a407e061ef25b0ce402c02889f14f9475" kindref="member">output</ref>.<ref refid="group__deprecated_access_1gad5cdb9ac191bb55cde3d33464d537a43" kindref="member">numberOfTables</ref>())</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="class___plan_operation_1a407e061ef25b0ce402c02889f14f9475" kindref="member">output</ref>.<ref refid="group__deprecated_access_1ga69968d5ab56729a2e8ec54208a275b45" kindref="member">getTable</ref>(index);</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="_plan_operation_8cpp_1ae6c0d1434ca082e9ab35c1d2d4f28bae" kindref="member">empty_result</ref>;</highlight></codeline>
+<codeline lineno="62"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64" refid="class___plan_operation_1a2866bb8fee8631bbac52c5d48a66f5d9" refkind="member"><highlight class="normal"><ref refid="namespacehyrise_1_1storage_1a53a798623aa803822a0edaef21f4d608" kindref="member">hyrise::storage::c_ahashtable_ptr_t</ref><sp/><ref refid="class___plan_operation_1a2866bb8fee8631bbac52c5d48a66f5d9" kindref="member">_PlanOperation::getInputHashTable</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>index)</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="class___plan_operation_1a12e425b31715103245faeb2bb7b8b8b8" kindref="member">input</ref>.<ref refid="group__deprecated_access_1gac45ae5fd6da2291a637aa1676cd46a9d" kindref="member">getHashTable</ref>(index);</highlight></codeline>
+<codeline lineno="66"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68" refid="class___plan_operation_1adab066601cf9434182bda9742159480d" refkind="member"><highlight class="normal"><ref refid="namespacehyrise_1_1storage_1a53a798623aa803822a0edaef21f4d608" kindref="member">hyrise::storage::c_ahashtable_ptr_t</ref><sp/><ref refid="class___plan_operation_1adab066601cf9434182bda9742159480d" kindref="member">_PlanOperation::getResultHashTable</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>index)</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="class___plan_operation_1a407e061ef25b0ce402c02889f14f9475" kindref="member">output</ref>.<ref refid="group__deprecated_access_1gac45ae5fd6da2291a637aa1676cd46a9d" kindref="member">getHashTable</ref>(index);</highlight></codeline>
+<codeline lineno="70"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight></codeline>
+<codeline lineno="72" refid="class___plan_operation_1a84ed020376c414c95797858f12133f96" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="class___plan_operation_1a84ed020376c414c95797858f12133f96" kindref="member">_PlanOperation::allDependenciesSuccessful</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/><ref refid="class_task_1ab25d10a171c2efc2dcdf4ec7b81d148d" kindref="member">_dependencies</ref>.size();<sp/>++i)<sp/>{</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(std::dynamic_pointer_cast&lt;OutputTask&gt;(<ref refid="class_task_1ab25d10a171c2efc2dcdf4ec7b81d148d" kindref="member">_dependencies</ref>[i])-&gt;getState()<sp/>==<sp/><ref refid="_output_task_8h_1a5a9890eed40e5443406f9221cc5e12fea67c2cad320b42cfaccdb10cc0356fafb" kindref="member">OpFail</ref>)<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="77"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79" refid="class___plan_operation_1abe0fe0f9b3eca729443dc27a898b530d" refkind="member"><highlight class="normal">std::string<sp/><ref refid="class___plan_operation_1abe0fe0f9b3eca729443dc27a898b530d" kindref="member">_PlanOperation::getDependencyErrorMessages</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/>std::string<sp/>result;</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/>std::shared_ptr&lt;OutputTask&gt;<sp/>task;</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/><ref refid="class_task_1ab25d10a171c2efc2dcdf4ec7b81d148d" kindref="member">_dependencies</ref>.size();<sp/>++i)<sp/>{</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/>task<sp/>=<sp/>std::dynamic_pointer_cast&lt;<ref refid="class_output_task" kindref="compound">OutputTask</ref>&gt;(<ref refid="class_task_1ab25d10a171c2efc2dcdf4ec7b81d148d" kindref="member">_dependencies</ref>[i]);</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(task-&gt;getState()<sp/>==<sp/><ref refid="_output_task_8h_1a5a9890eed40e5443406f9221cc5e12fea67c2cad320b42cfaccdb10cc0356fafb" kindref="member">OpFail</ref>)<sp/>result<sp/>+=<sp/>task-&gt;<ref refid="class_output_task_1a30a12c8e502fdace15f8ae1434e63270" kindref="member">getErrorMessage</ref>()<sp/>+<sp/></highlight><highlight class="stringliteral">&quot;\n&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>result;</highlight></codeline>
+<codeline lineno="89"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91" refid="class___plan_operation_1aee400d6b4e72326a1edef6f55ceebb31" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class___plan_operation_1aee400d6b4e72326a1edef6f55ceebb31" kindref="member">_PlanOperation::setFields</ref>(<ref refid="storage__types_8h_1a36fbc31395a53b7ece189846e4d3253c" kindref="member">field_list_t</ref><sp/>*f)<sp/>{</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><ref refid="class___plan_operation_1a6001c5f28644bcb3f111e16e058b355e" kindref="member">_indexed_field_definition</ref><sp/>=<sp/><ref refid="storage__types_8h_1a36fbc31395a53b7ece189846e4d3253c" kindref="member">field_list_t</ref>(*f);</highlight></codeline>
+<codeline lineno="93"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="95" refid="class___plan_operation_1a30a3617644b8912495249dc06f610da0" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class___plan_operation_1a30a3617644b8912495249dc06f610da0" kindref="member">_PlanOperation::addField</ref>(<ref refid="storage__types_8h_1a5ce4ecb27464dc24ba394527510dd89b" kindref="member">field_t</ref><sp/>field)<sp/>{</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><ref refid="class___plan_operation_1a6001c5f28644bcb3f111e16e058b355e" kindref="member">_indexed_field_definition</ref>.push_back(field);</highlight></codeline>
+<codeline lineno="97"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight></codeline>
+<codeline lineno="100" refid="class___plan_operation_1abeef31eca3f3a224fcb56dd5a6645107" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class___plan_operation_1abeef31eca3f3a224fcb56dd5a6645107" kindref="member">_PlanOperation::addNamedField</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="storage__types_8h_1ad64b8c8026a86f643d173acbb694b4f8" kindref="member">field_name_t</ref>&amp;<sp/>field)<sp/>{</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><ref refid="class___plan_operation_1a83baf80dca3394fa835085e4aa711fc5" kindref="member">_named_field_definition</ref>.push_back(field);</highlight></codeline>
+<codeline lineno="102"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight></codeline>
+<codeline lineno="104" refid="class___plan_operation_1af425b074061007a58921dadb619beabc" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class___plan_operation_1a30a3617644b8912495249dc06f610da0" kindref="member">_PlanOperation::addField</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Json::Value<sp/>&amp;field)<sp/>{</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(field.isNumeric())<sp/>{</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class___plan_operation_1a30a3617644b8912495249dc06f610da0" kindref="member">addField</ref>(field.asUInt());</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(field.isString())<sp/>{</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class___plan_operation_1abeef31eca3f3a224fcb56dd5a6645107" kindref="member">addNamedField</ref>(field.asString());</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/>std::runtime_error(</highlight><highlight class="stringliteral">&quot;Can&apos;t<sp/>parse<sp/>field<sp/>name,<sp/>neither<sp/>numeric<sp/>nor<sp/>std::string&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="110"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>This<sp/>method<sp/>only<sp/>returns<sp/>the<sp/>column<sp/>number<sp/>in<sp/>each<sp/>table,<sp/>assuming<sp/>the<sp/>operation<sp/>knows<sp/>how<sp/>to<sp/>handle<sp/>positions<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="113" refid="class___plan_operation_1ac5c36f7961eb206f6de68d88a35e9423" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="class___plan_operation_1ac5c36f7961eb206f6de68d88a35e9423" kindref="member">_PlanOperation::findColumn</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;col)<sp/>{</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal">&amp;<sp/>table:<sp/><ref refid="class___plan_operation_1a12e425b31715103245faeb2bb7b8b8b8" kindref="member">input</ref>.<ref refid="group__deprecated_access_1gad5f05c886f04315886788ab4c40a34ae" kindref="member">getTables</ref>())<sp/>{</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">try</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>table-&gt;numberOfColumn(col);</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">catch</highlight><highlight class="normal"><sp/>(<ref refid="class_missing_column_exception" kindref="compound">MissingColumnException</ref><sp/>e)<sp/>{}</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/><ref refid="class_missing_column_exception" kindref="compound">MissingColumnException</ref>(col);</highlight></codeline>
+<codeline lineno="120"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight></codeline>
+<codeline lineno="122" refid="_plan_operation_8cpp_1ae3c5efadbba52871c84ae9194af0b8ca" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="_plan_operation_8cpp_1ae3c5efadbba52871c84ae9194af0b8ca" kindref="member">widthOfInputs</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;hyrise::storage::c_atable_ptr_t<sp/>&gt;<sp/>&amp;inputs)<sp/>{</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>result<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal">&amp;<sp/>table:<sp/>inputs)<sp/>{</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/>result<sp/>+=<sp/>table-&gt;columnCount();</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>result;</highlight></codeline>
+<codeline lineno="128"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight></codeline>
+<codeline lineno="130" refid="class___plan_operation_1a6a5a5c229439bfdfc68c8b301a6376cc" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class___plan_operation_1a6a5a5c229439bfdfc68c8b301a6376cc" kindref="member">_PlanOperation::computeDeferredIndexes</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><ref refid="class___plan_operation_1aecccffa96d058ec8bead4d2c2a39e0e0" kindref="member">_field_definition</ref><sp/>=<sp/><ref refid="class___plan_operation_1a6001c5f28644bcb3f111e16e058b355e" kindref="member">_indexed_field_definition</ref>;</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="class___plan_operation_1a83baf80dca3394fa835085e4aa711fc5" kindref="member">_named_field_definition</ref>.empty())<sp/>{</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((<ref refid="class___plan_operation_1a83baf80dca3394fa835085e4aa711fc5" kindref="member">_named_field_definition</ref>.size()<sp/>==<sp/>1)<sp/>&amp;&amp;<sp/>(<ref refid="class___plan_operation_1a83baf80dca3394fa835085e4aa711fc5" kindref="member">_named_field_definition</ref>[0]<sp/>==<sp/></highlight><highlight class="stringliteral">&quot;*&quot;</highlight><highlight class="normal">))<sp/>{</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>field_index<sp/>=<sp/>0;<sp/>field_index<sp/>&lt;<sp/><ref refid="_plan_operation_8cpp_1ae3c5efadbba52871c84ae9194af0b8ca" kindref="member">widthOfInputs</ref>(<ref refid="class___plan_operation_1a12e425b31715103245faeb2bb7b8b8b8" kindref="member">input</ref>.<ref refid="group__deprecated_access_1gad5f05c886f04315886788ab4c40a34ae" kindref="member">getTables</ref>());<sp/>++field_index)<sp/>{</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class___plan_operation_1aecccffa96d058ec8bead4d2c2a39e0e0" kindref="member">_field_definition</ref>.push_back(field_index);</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/><ref refid="class___plan_operation_1a83baf80dca3394fa835085e4aa711fc5" kindref="member">_named_field_definition</ref>.size();<sp/>++i)<sp/>{</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class___plan_operation_1aecccffa96d058ec8bead4d2c2a39e0e0" kindref="member">_field_definition</ref>.push_back(<ref refid="class___plan_operation_1ac5c36f7961eb206f6de68d88a35e9423" kindref="member">findColumn</ref>(<ref refid="class___plan_operation_1a83baf80dca3394fa835085e4aa711fc5" kindref="member">_named_field_definition</ref>[i]));</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/>assert(<ref refid="class___plan_operation_1aecccffa96d058ec8bead4d2c2a39e0e0" kindref="member">_field_definition</ref>.size()<sp/>&gt;=<sp/>(<ref refid="class___plan_operation_1a6001c5f28644bcb3f111e16e058b355e" kindref="member">_indexed_field_definition</ref>.size()<sp/>+<sp/><ref refid="class___plan_operation_1a83baf80dca3394fa835085e4aa711fc5" kindref="member">_named_field_definition</ref>.size()));</highlight></codeline>
+<codeline lineno="145"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight></codeline>
+<codeline lineno="147" refid="class___plan_operation_1a43dc116b72ab5e10d6ccbf2b8c05fd89" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class___plan_operation_1a43dc116b72ab5e10d6ccbf2b8c05fd89" kindref="member">_PlanOperation::setupPlanOperation</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><ref refid="class___plan_operation_1a6a5a5c229439bfdfc68c8b301a6376cc" kindref="member">computeDeferredIndexes</ref>();</highlight></codeline>
+<codeline lineno="149"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight></codeline>
+<codeline lineno="151" refid="class___plan_operation_1a08c05ed6e130546cdcd5ba24b0cb9422" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class___plan_operation_1a08c05ed6e130546cdcd5ba24b0cb9422" kindref="member">_PlanOperation::distribute</ref>(</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u_int64_t<sp/>numberOfElements,</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/>u_int64_t<sp/>&amp;first,</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/>u_int64_t<sp/>&amp;last)</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"></highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u_int64_t</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>elementsPerPart<sp/><sp/><sp/><sp/><sp/>=<sp/>numberOfElements<sp/>/<sp/><ref refid="class___plan_operation_1acef20de057343580d24d6ccb2e35f975" kindref="member">_count</ref>;</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/>first<sp/>=<sp/>elementsPerPart<sp/>*<sp/><ref refid="class___plan_operation_1a94d06a35b4b9eafe16c01eb5b0ff293a" kindref="member">_part</ref>;</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/>last<sp/>=<sp/>_part<sp/>+<sp/>1<sp/>==<sp/><ref refid="class___plan_operation_1acef20de057343580d24d6ccb2e35f975" kindref="member">_count</ref><sp/>?<sp/>numberOfElements<sp/>:<sp/>elementsPerPart<sp/>*<sp/>(_part<sp/>+<sp/>1);</highlight></codeline>
+<codeline lineno="161"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight></codeline>
+<codeline lineno="163" refid="class___plan_operation_1af2e8cdb76b25db935130736ddad6f2da" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class___plan_operation_1af2e8cdb76b25db935130736ddad6f2da" kindref="member">_PlanOperation::refreshInput</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>numberOfDependencies<sp/>=<sp/><ref refid="class_task_1ab25d10a171c2efc2dcdf4ec7b81d148d" kindref="member">_dependencies</ref>.size();</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>numberOfDependencies;<sp/>++i)<sp/>{</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal">&amp;<sp/>dependency<sp/>=<sp/>std::dynamic_pointer_cast&lt;<ref refid="class___plan_operation" kindref="compound">_PlanOperation</ref>&gt;(<ref refid="class_task_1ab25d10a171c2efc2dcdf4ec7b81d148d" kindref="member">_dependencies</ref>[i]);</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class___plan_operation_1a12e425b31715103245faeb2bb7b8b8b8" kindref="member">input</ref>.<ref refid="classhyrise_1_1access_1_1_operation_data_1adbbfa5b9202bdf42a0ca2c9213d9621e" kindref="member">mergeWith</ref>(dependency-&gt;output);</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><ref refid="class___plan_operation_1afdf0ad34a8592a055c53c611d11ef6b6" kindref="member">splitInput</ref>();</highlight></codeline>
+<codeline lineno="171"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"></highlight></codeline>
+<codeline lineno="173" refid="class___plan_operation_1afdf0ad34a8592a055c53c611d11ef6b6" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class___plan_operation_1afdf0ad34a8592a055c53c611d11ef6b6" kindref="member">_PlanOperation::splitInput</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal">&amp;<sp/>tables<sp/>=<sp/><ref refid="class___plan_operation_1a12e425b31715103245faeb2bb7b8b8b8" kindref="member">input</ref>.<ref refid="group__deprecated_access_1gad5f05c886f04315886788ab4c40a34ae" kindref="member">getTables</ref>();</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="class___plan_operation_1acef20de057343580d24d6ccb2e35f975" kindref="member">_count</ref><sp/>&gt;<sp/>0<sp/>&amp;&amp;<sp/>!tables.empty())<sp/>{</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/>u_int64_t<sp/>first,<sp/>last;</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class___plan_operation_1a08c05ed6e130546cdcd5ba24b0cb9422" kindref="member">distribute</ref>(tables[0]-&gt;size(),<sp/>first,<sp/>last);</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class___plan_operation_1a12e425b31715103245faeb2bb7b8b8b8" kindref="member">input</ref>.<ref refid="group__deprecated_access_1ga6101526efebbde60e51a99657f30dd14" kindref="member">setTable</ref>(<sp/><ref refid="class_table_range_view_factory_1afe5b539f932291c7c9a474f90851742f" kindref="member">TableRangeViewFactory::createView</ref>(std::const_pointer_cast&lt;AbstractTable&gt;(tables[0]),<sp/>first,<sp/>last),<sp/>0);</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="180"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"></highlight></codeline>
+<codeline lineno="182"><highlight class="normal"></highlight></codeline>
+<codeline lineno="183" refid="class___plan_operation_1a6c54c54b895e36405b2c9a741bf9c6e2" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class___plan_operation_1a6c54c54b895e36405b2c9a741bf9c6e2" kindref="member">_PlanOperation::operator()</ref>()<sp/>noexcept<sp/>{</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="class___plan_operation_1a84ed020376c414c95797858f12133f96" kindref="member">allDependenciesSuccessful</ref>())<sp/>{</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">try</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>LOG4CXX_DEBUG(<ref refid="bin_2hyrise_2main_8cpp_1a1f643aeca905220d975e69578154a71d" kindref="member">logger</ref>,<sp/></highlight><highlight class="stringliteral">&quot;Virtual<sp/>operator<sp/>called<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/><ref refid="class___plan_operation_1a97ddcea42846545e269358cc97d05a54" kindref="member">vname</ref>()<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;(&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/><ref refid="class___plan_operation_1af3f58f2579f7a2b9d80a90856dd0d5ef" kindref="member">_operatorId</ref><sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;)&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class___plan_operation_1a1436548eb8885b1602e7f1960143892d" kindref="member">execute</ref>();</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">catch</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::exception<sp/>&amp;ex)<sp/>{</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_output_task_1aba6bee898300f3069d3f64bb333c6d4a" kindref="member">setErrorMessage</ref>(ex.what());</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">catch</highlight><highlight class="normal"><sp/>(...)<sp/>{</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_output_task_1aba6bee898300f3069d3f64bb333c6d4a" kindref="member">setErrorMessage</ref>(</highlight><highlight class="stringliteral">&quot;Unknown<sp/>error&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{<sp/></highlight><highlight class="comment">//<sp/>dependencies<sp/>were<sp/>not<sp/>successful</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_output_task_1aba6bee898300f3069d3f64bb333c6d4a" kindref="member">setErrorMessage</ref>(<ref refid="class___plan_operation_1abe0fe0f9b3eca729443dc27a898b530d" kindref="member">getDependencyErrorMessages</ref>());</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/>LOG4CXX_ERROR(<ref refid="bin_2hyrise_2main_8cpp_1a1f643aeca905220d975e69578154a71d" kindref="member">logger</ref>,<sp/></highlight><highlight class="keyword">this</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/><ref refid="class___plan_operation_1a6be9662a136359b31e819f2f5abfc9af" kindref="member">planOperationName</ref>()<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>failed:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/><ref refid="class_output_task_1a30a12c8e502fdace15f8ae1434e63270" kindref="member">getErrorMessage</ref>());</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><ref refid="class_output_task_1a010e04ee2e3e5e04a61f6e63a8cd75e9" kindref="member">setState</ref>(<ref refid="_output_task_8h_1a5a9890eed40e5443406f9221cc5e12fea67c2cad320b42cfaccdb10cc0356fafb" kindref="member">OpFail</ref>);</highlight></codeline>
+<codeline lineno="199"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"></highlight></codeline>
+<codeline lineno="201" refid="class___plan_operation_1a1436548eb8885b1602e7f1960143892d" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="class___plan_operation" kindref="compound">_PlanOperation</ref><sp/>*<ref refid="class___plan_operation_1a1436548eb8885b1602e7f1960143892d" kindref="member">_PlanOperation::execute</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><ref refid="epoch_8h_1a18c258fe5c1fdd9c998d1c4bc0d39560" kindref="member">epoch_t</ref><sp/>startTime<sp/>=<sp/><ref refid="epoch_8cpp_1a1ebaf5c8f80fb2e6168da879e70f1ed5" kindref="member">get_epoch_nanoseconds</ref>();</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"></highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><ref refid="class___plan_operation_1af2e8cdb76b25db935130736ddad6f2da" kindref="member">refreshInput</ref>();</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"></highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><ref refid="class___plan_operation_1a43dc116b72ab5e10d6ccbf2b8c05fd89" kindref="member">setupPlanOperation</ref>();</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"></highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><ref refid="class_fallback_tracer" kindref="compound">PapiTracer</ref><sp/>pt;</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/>pt.<ref refid="class_fallback_tracer_1a84350e4813011b3bc1d509ebbaed6069" kindref="member">addEvent</ref>(</highlight><highlight class="stringliteral">&quot;PAPI_TOT_CYC&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/>pt.<ref refid="class_fallback_tracer_1a84350e4813011b3bc1d509ebbaed6069" kindref="member">addEvent</ref>(<ref refid="class_output_task_1a68a2fb3c67f6a32f7b2a9039185ed0f5" kindref="member">getEvent</ref>());</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"></highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/>pt.<ref refid="class_fallback_tracer_1a9e3aa7b6b579ce36e33a710885add6ea" kindref="member">start</ref>();</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><ref refid="class___plan_operation_1a9c21af0bffdbe2bc0b4f152239202665" kindref="member">executePlanOperation</ref>();</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/>pt.<ref refid="class_fallback_tracer_1af4ee20c73627dc911dac5c7b319e3f73" kindref="member">stop</ref>();</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"></highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><ref refid="class___plan_operation_1a258c353a64fa26187d13363b97c6e341" kindref="member">teardownPlanOperation</ref>();</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"></highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><ref refid="epoch_8h_1a18c258fe5c1fdd9c998d1c4bc0d39560" kindref="member">epoch_t</ref><sp/>endTime<sp/>=<sp/><ref refid="epoch_8cpp_1a1ebaf5c8f80fb2e6168da879e70f1ed5" kindref="member">get_epoch_nanoseconds</ref>();</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/>std::string<sp/>threadId<sp/>=<sp/>boost::lexical_cast&lt;std::string&gt;(std::this_thread::get_id());</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"></highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="class_output_task_1a2dd0e1b069abf1f788e359f2ce0dc40d" kindref="member">_performance_attr</ref><sp/>!=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/>*<ref refid="class_output_task_1a2dd0e1b069abf1f788e359f2ce0dc40d" kindref="member">_performance_attr</ref><sp/>=<sp/>(<ref refid="struct_output_task_1_1performance__attributes__t" kindref="compound">performance_attributes_t</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>pt.<ref refid="class_fallback_tracer_1af1c617eeaf75d5c6737f849fe0e2bbd7" kindref="member">value</ref>(</highlight><highlight class="stringliteral">&quot;PAPI_TOT_CYC&quot;</highlight><highlight class="normal">),<sp/>pt.<ref refid="class_fallback_tracer_1af1c617eeaf75d5c6737f849fe0e2bbd7" kindref="member">value</ref>(<ref refid="class_output_task_1a68a2fb3c67f6a32f7b2a9039185ed0f5" kindref="member">getEvent</ref>()),<sp/><ref refid="class_output_task_1a68a2fb3c67f6a32f7b2a9039185ed0f5" kindref="member">getEvent</ref>()<sp/>,<sp/><ref refid="class___plan_operation_1a6be9662a136359b31e819f2f5abfc9af" kindref="member">planOperationName</ref>(),<sp/><ref refid="class___plan_operation_1af3f58f2579f7a2b9d80a90856dd0d5ef" kindref="member">_operatorId</ref>,<sp/>startTime,<sp/>endTime,<sp/>threadId</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"></highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><ref refid="class_output_task_1a010e04ee2e3e5e04a61f6e63a8cd75e9" kindref="member">setState</ref>(<ref refid="_output_task_8h_1a5a9890eed40e5443406f9221cc5e12fea048cbb3b94c972a40a2f382abe07f3a4" kindref="member">OpSuccess</ref>);</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">this</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="228"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"></highlight></codeline>
+<codeline lineno="230" refid="class___plan_operation_1aa350fbfedb0c6fd9175700d4b8b302ae" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class___plan_operation_1aa350fbfedb0c6fd9175700d4b8b302ae" kindref="member">_PlanOperation::setLimit</ref>(uint64_t<sp/>l)<sp/>{</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><ref refid="class___plan_operation_1a2bcb5f99fd47d086834274d8f355744b" kindref="member">_limit</ref><sp/>=<sp/>l;</highlight></codeline>
+<codeline lineno="232"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"></highlight></codeline>
+<codeline lineno="234" refid="class___plan_operation_1a9dc36552379146945a30d719041a9633" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class___plan_operation_1a9dc36552379146945a30d719041a9633" kindref="member">_PlanOperation::setProducesPositions</ref>(</highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>p)<sp/>{</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><ref refid="class___plan_operation_1a77bc4ab6926bfefd6b4550239ea0ed33" kindref="member">producesPositions</ref><sp/>=<sp/>p;</highlight></codeline>
+<codeline lineno="236"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"></highlight></codeline>
+<codeline lineno="238" refid="class___plan_operation_1ae3d3d19a258a3b610421bf65400a702e" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class___plan_operation_1ae3d3d19a258a3b610421bf65400a702e" kindref="member">_PlanOperation::setTransactionId</ref>(<ref refid="namespacehyrise_1_1tx_1a3f8f9dae75e3e1872247b082f80ffd77" kindref="member">hyrise::tx::transaction_id_t</ref><sp/>tid)<sp/>{</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><ref refid="class___plan_operation_1ac4bc5e5a900c679cb5c4d5d5133b51d4" kindref="member">_transaction_id</ref><sp/>=<sp/>tid;</highlight></codeline>
+<codeline lineno="240"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"></highlight></codeline>
+<codeline lineno="242" refid="class___plan_operation_1ac403c092d541701bb38389ba19ae60e9" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class___plan_operation_1ac403c092d541701bb38389ba19ae60e9" kindref="member">_PlanOperation::addInput</ref>(<ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref><sp/>t)<sp/>{</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><ref refid="class___plan_operation_1a12e425b31715103245faeb2bb7b8b8b8" kindref="member">input</ref>.<ref refid="group__deprecated_access_1ga910634fb8a32bdb87ae0bcec1c0b5ba8" kindref="member">add</ref>(t);</highlight></codeline>
+<codeline lineno="244"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="245" refid="class___plan_operation_1afd25e43e568c339af441bb704639eea9" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class___plan_operation_1afd25e43e568c339af441bb704639eea9" kindref="member">_PlanOperation::addInputHash</ref>(<ref refid="namespacehyrise_1_1storage_1a53a798623aa803822a0edaef21f4d608" kindref="member">hyrise::storage::c_ahashtable_ptr_t</ref><sp/>t)<sp/>{</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><ref refid="class___plan_operation_1a12e425b31715103245faeb2bb7b8b8b8" kindref="member">input</ref>.<ref refid="group__deprecated_access_1ga20e14fb059df18e5b5d8980f293ce52e" kindref="member">addHash</ref>(t);</highlight></codeline>
+<codeline lineno="247"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"></highlight></codeline>
+<codeline lineno="249" refid="class___plan_operation_1a7e5670b235f78c8cccfda506bdbe858b" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class___plan_operation_1a7e5670b235f78c8cccfda506bdbe858b" kindref="member">_PlanOperation::setPart</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>part)<sp/>{</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class___plan_operation_1a94d06a35b4b9eafe16c01eb5b0ff293a" kindref="member">_part</ref><sp/>=<sp/>part;</highlight></codeline>
+<codeline lineno="251"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="252" refid="class___plan_operation_1a13118f7cfb71feda982a74638a7837e5" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class___plan_operation_1a13118f7cfb71feda982a74638a7837e5" kindref="member">_PlanOperation::setCount</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>count)<sp/>{</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><ref refid="class___plan_operation_1acef20de057343580d24d6ccb2e35f975" kindref="member">_count</ref><sp/>=<sp/>count;</highlight></codeline>
+<codeline lineno="254"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"></highlight></codeline>
+<codeline lineno="256" refid="class___plan_operation_1af4c41d3cffcc65b716accc87aeb9e203" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class___plan_operation_1af4c41d3cffcc65b716accc87aeb9e203" kindref="member">_PlanOperation::setPlanId</ref>(std::string<sp/>i)<sp/>{</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><ref refid="class___plan_operation_1af0b2cf5d20cd3f393489b6fa0893c9ce" kindref="member">_planId</ref><sp/>=<sp/>i;</highlight></codeline>
+<codeline lineno="258"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="259" refid="class___plan_operation_1a1be25f6cd68a52e6d739271d27705854" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class___plan_operation_1a1be25f6cd68a52e6d739271d27705854" kindref="member">_PlanOperation::setOperatorId</ref>(std::string<sp/>i)<sp/>{</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><ref refid="class___plan_operation_1af3f58f2579f7a2b9d80a90856dd0d5ef" kindref="member">_operatorId</ref><sp/>=<sp/>i;</highlight></codeline>
+<codeline lineno="261"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"></highlight></codeline>
+<codeline lineno="263" refid="class___plan_operation_1a6be9662a136359b31e819f2f5abfc9af" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/><ref refid="class___plan_operation_1a6be9662a136359b31e819f2f5abfc9af" kindref="member">_PlanOperation::planOperationName</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="class___plan_operation_1ab514f69bd5c84f539385337811a6a1f7" kindref="member">_planOperationName</ref>;</highlight></codeline>
+<codeline lineno="265"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="266" refid="class___plan_operation_1a59f927351ea3450515c0e78c6a909a72" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class___plan_operation_1a59f927351ea3450515c0e78c6a909a72" kindref="member">_PlanOperation::setPlanOperationName</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>name)<sp/>{</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><ref refid="class___plan_operation_1ab514f69bd5c84f539385337811a6a1f7" kindref="member">_planOperationName</ref><sp/>=<sp/>name;</highlight></codeline>
+<codeline lineno="268"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"></highlight></codeline>
+<codeline lineno="270" refid="class___plan_operation_1a97ddcea42846545e269358cc97d05a54" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/><ref refid="class___plan_operation_1a97ddcea42846545e269358cc97d05a54" kindref="member">_PlanOperation::vname</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="class___plan_operation_1a6be9662a136359b31e819f2f5abfc9af" kindref="member">planOperationName</ref>();</highlight></codeline>
+<codeline lineno="272"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/home/grund/hyrise/src/lib/access/PlanOperation.cpp"/>
+  </compounddef>
+</doxygen>

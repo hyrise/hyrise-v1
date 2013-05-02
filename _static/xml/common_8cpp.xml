@@ -1,0 +1,591 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="common_8cpp" kind="file">
+    <compoundname>common.cpp</compoundname>
+    <includes local="no">pthread.h</includes>
+    <includes local="no">stdarg.h</includes>
+    <includes local="no">math.h</includes>
+    <includes local="no">string.h</includes>
+    <includes refid="common_8h" local="yes">common.h</includes>
+    <includes refid="transaction__data_8h" local="yes">transaction_data.h</includes>
+    <incdepgraph>
+      <node id="157">
+        <label>stdarg.h</label>
+      </node>
+      <node id="162">
+        <label>stdlib.h</label>
+      </node>
+      <node id="167">
+        <label>string</label>
+      </node>
+      <node id="168">
+        <label>transaction_data.h</label>
+        <link refid="transaction__data_8h"/>
+        <childnode refid="160" relation="include">
+        </childnode>
+      </node>
+      <node id="165">
+        <label>map</label>
+      </node>
+      <node id="156">
+        <label>pthread.h</label>
+      </node>
+      <node id="159">
+        <label>string.h</label>
+      </node>
+      <node id="166">
+        <label>utility</label>
+      </node>
+      <node id="163">
+        <label>time.h</label>
+      </node>
+      <node id="158">
+        <label>math.h</label>
+      </node>
+      <node id="164">
+        <label>sys/time.h</label>
+      </node>
+      <node id="155">
+        <label>src/bin/perf_datagen/common.cpp</label>
+        <link refid="common.cpp"/>
+        <childnode refid="156" relation="include">
+        </childnode>
+        <childnode refid="157" relation="include">
+        </childnode>
+        <childnode refid="158" relation="include">
+        </childnode>
+        <childnode refid="159" relation="include">
+        </childnode>
+        <childnode refid="160" relation="include">
+        </childnode>
+        <childnode refid="168" relation="include">
+        </childnode>
+      </node>
+      <node id="161">
+        <label>stdio.h</label>
+      </node>
+      <node id="160">
+        <label>common.h</label>
+        <link refid="common_8h"/>
+        <childnode refid="161" relation="include">
+        </childnode>
+        <childnode refid="162" relation="include">
+        </childnode>
+        <childnode refid="163" relation="include">
+        </childnode>
+        <childnode refid="164" relation="include">
+        </childnode>
+        <childnode refid="165" relation="include">
+        </childnode>
+        <childnode refid="166" relation="include">
+        </childnode>
+        <childnode refid="167" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="common_8cpp_1ab7f19bdc8d881e5fd1e544ed736da3c6" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char output_path[256]</definition>
+        <argsstring>[256]</argsstring>
+        <name>output_path</name>
+        <initializer>&quot;&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.cpp" line="21" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.cpp" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="common_8cpp_1a641c4223203d5ee33f45a25c9a9e83ec" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char a_string_char[128]</definition>
+        <argsstring>[128]</argsstring>
+        <name>a_string_char</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.cpp" line="22" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.cpp" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="common_8cpp_1a953adcc83d063be5d82a9d31f995fe66" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* n_string_char</definition>
+        <argsstring></argsstring>
+        <name>n_string_char</name>
+        <initializer>&quot;0123456789&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.cpp" line="23" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.cpp" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="common_8cpp_1a0bf46e335829290e81b021db72574ac1" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* l_string_char</definition>
+        <argsstring></argsstring>
+        <name>l_string_char</name>
+        <initializer>&quot;ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.cpp" line="25" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.cpp" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="common_8cpp_1a5bc659842e4e2cd0e6b2a3fca80e56db" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* c_last_syl[10]</definition>
+        <argsstring>[10]</argsstring>
+        <name>c_last_syl</name>
+        <initializer> {
+  &quot;BAR&quot;, &quot;OUGHT&quot;, &quot;ABLE&quot;, &quot;PRI&quot;, &quot;PRES&quot;, &quot;ESE&quot;, &quot;ANTI&quot;, &quot;CALLY&quot;, &quot;ATION&quot;,
+  &quot;EING&quot;
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.cpp" line="30" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.cpp" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="common_8cpp_1a7c68a7a817ff41370e24de0491d93cbb" prot="public" static="no" mutable="no">
+        <type>const char</type>
+        <definition>const char transaction_short_name[5]</definition>
+        <argsstring>[5]</argsstring>
+        <name>transaction_short_name</name>
+        <initializer>
+{ &apos;d&apos;, &apos;n&apos;, &apos;o&apos;, &apos;p&apos;, &apos;s&apos; }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.cpp" line="33" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.cpp" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="common_8cpp_1ab75716724f600deb2dd44bad71f5d85d" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* transaction_name[5]</definition>
+        <argsstring>[5]</argsstring>
+        <name>transaction_name</name>
+        <initializer> {
+  &quot;delivery    &quot;,
+  &quot;new-order   &quot;,
+  &quot;order-<ref refid="_task_queue_8h_1a015eb90e0de9f16e87bd149d4b9ce959" kindref="member">status</ref>&quot;,
+  &quot;payment     &quot;,
+  &quot;stock-level &quot;
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.cpp" line="41" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.cpp" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="common_8cpp_1a4cf9db821cc51162a629cce8ccdbdff9" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="structtable__cardinality__t" kindref="compound">table_cardinality_t</ref></type>
+        <definition>struct table_cardinality_t table_cardinality</definition>
+        <argsstring></argsstring>
+        <name>table_cardinality</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.cpp" line="43" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.cpp" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="common_8cpp_1a0dc425c90116462e4d2fc2020748c831" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double difftimeval</definition>
+        <argsstring>(struct timeval rt1, struct timeval rt0)</argsstring>
+        <name>difftimeval</name>
+        <param>
+          <type>struct timeval</type>
+          <declname>rt1</declname>
+        </param>
+        <param>
+          <type>struct timeval</type>
+          <declname>rt0</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.cpp" line="45" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.cpp" bodystart="45" bodyend="48"/>
+      </memberdef>
+      <memberdef kind="function" id="common_8cpp_1aeb43bcb2be4565d9485489c526f5e698" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void get_a_string</definition>
+        <argsstring>(char *a_string, int x, int y)</argsstring>
+        <name>get_a_string</name>
+        <param>
+          <type>char *</type>
+          <declname>a_string</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.cpp" line="51" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.cpp" bodystart="51" bodyend="63"/>
+      </memberdef>
+      <memberdef kind="function" id="common_8cpp_1a6647e7f7420ec36be04bcbb38adfe0c5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int get_c_last</definition>
+        <argsstring>(char *c_last, int i)</argsstring>
+        <name>get_c_last</name>
+        <param>
+          <type>char *</type>
+          <declname>c_last</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>i</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.cpp" line="66" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.cpp" bodystart="66" bodyend="82"/>
+      </memberdef>
+      <memberdef kind="function" id="common_8cpp_1ad9fcea330d2d25a88d23f475b97ae9e6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void get_l_string</definition>
+        <argsstring>(char *a_string, int x, int y)</argsstring>
+        <name>get_l_string</name>
+        <param>
+          <type>char *</type>
+          <declname>a_string</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.cpp" line="84" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.cpp" bodystart="84" bodyend="96"/>
+      </memberdef>
+      <memberdef kind="function" id="common_8cpp_1a98664b9d4927cf8091c785d251a50c28" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void get_n_string</definition>
+        <argsstring>(char *n_string, int x, int y)</argsstring>
+        <name>get_n_string</name>
+        <param>
+          <type>char *</type>
+          <declname>n_string</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.cpp" line="99" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.cpp" bodystart="99" bodyend="111"/>
+      </memberdef>
+      <memberdef kind="function" id="common_8cpp_1a089c4d682d28d9b0304c24a839beba7c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int get_nurand</definition>
+        <argsstring>(int a, int x, int y)</argsstring>
+        <name>get_nurand</name>
+        <param>
+          <type>int</type>
+          <declname>a</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.cpp" line="114" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.cpp" bodystart="114" bodyend="116"/>
+      </memberdef>
+      <memberdef kind="function" id="common_8cpp_1a9decf9adf1fff9eda5a02df1e3bb3277" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double get_percentage</definition>
+        <argsstring>()</argsstring>
+        <name>get_percentage</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.cpp" line="119" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.cpp" bodystart="119" bodyend="121"/>
+      </memberdef>
+      <memberdef kind="function" id="common_8cpp_1a41a0d3a6432a1af4b043b7d2c8c2eaac" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int get_random</definition>
+        <argsstring>(int max)</argsstring>
+        <name>get_random</name>
+        <param>
+          <type>int</type>
+          <declname>max</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.cpp" line="123" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.cpp" bodystart="123" bodyend="125"/>
+      </memberdef>
+      <memberdef kind="function" id="common_8cpp_1a497bb90489a5c5a5c7df28ea0e5fad55" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int get_think_time</definition>
+        <argsstring>(int mean_think_time)</argsstring>
+        <name>get_think_time</name>
+        <param>
+          <type>int</type>
+          <declname>mean_think_time</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.cpp" line="135" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.cpp" bodystart="135" bodyend="137"/>
+      </memberdef>
+      <memberdef kind="function" id="common_8cpp_1a9b9b44a07e30764e50206cdd64443be9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int init_common</definition>
+        <argsstring>()</argsstring>
+        <name>init_common</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.cpp" line="139" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.cpp" bodystart="139" bodyend="171"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>2012<sp/>Hasso-Plattner-Institut<sp/>fuer<sp/>Softwaresystemtechnik<sp/>GmbH.<sp/>All<sp/>rights<sp/>reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*<sp/>common.c</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*<sp/>This<sp/>file<sp/>is<sp/>released<sp/>under<sp/>the<sp/>terms<sp/>of<sp/>the<sp/>Artistic<sp/>License.<sp/><sp/>Please<sp/>see</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"><sp/>*<sp/>the<sp/>file<sp/>LICENSE,<sp/>included<sp/>in<sp/>this<sp/>package,<sp/>for<sp/>details.</highlight></codeline>
+<codeline lineno="7"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="8"><highlight class="comment"><sp/>*<sp/>Copyright<sp/>(C)<sp/>2002<sp/>Mark<sp/>Wong<sp/>&amp;<sp/>Open<sp/>Source<sp/>Development<sp/>Lab,<sp/>Inc.</highlight></codeline>
+<codeline lineno="9"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="10"><highlight class="comment"><sp/>*<sp/>16<sp/>may<sp/>2002</highlight></codeline>
+<codeline lineno="11"><highlight class="comment"><sp/>*<sp/>Based<sp/>on<sp/>TPC-C<sp/>Standard<sp/>Specification<sp/>Revision<sp/>5.0.</highlight></codeline>
+<codeline lineno="12"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;pthread.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdarg.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;math.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="common_8h" kindref="compound">common.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="transaction__data_8h" kindref="compound">transaction_data.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21" refid="common_8h_1ab7f19bdc8d881e5fd1e544ed736da3c6" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="common_8cpp_1ab7f19bdc8d881e5fd1e544ed736da3c6" kindref="member">output_path</ref>[256]<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="22" refid="common_8cpp_1a641c4223203d5ee33f45a25c9a9e83ec" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="common_8cpp_1a641c4223203d5ee33f45a25c9a9e83ec" kindref="member">a_string_char</ref>[<ref refid="common_8h_1a5a2bddd378edbe36747663d9bb517ce8" kindref="member">A_STRING_CHAR_LEN</ref>];</highlight></codeline>
+<codeline lineno="23" refid="common_8cpp_1a953adcc83d063be5d82a9d31f995fe66" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*<ref refid="common_8cpp_1a953adcc83d063be5d82a9d31f995fe66" kindref="member">n_string_char</ref><sp/>=<sp/></highlight><highlight class="stringliteral">&quot;0123456789&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="24" refid="common_8cpp_1a0bf46e335829290e81b021db72574ac1" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*<ref refid="common_8cpp_1a0bf46e335829290e81b021db72574ac1" kindref="member">l_string_char</ref><sp/>=</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27" refid="common_8h_1a5bc659842e4e2cd0e6b2a3fca80e56db" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*<ref refid="common_8cpp_1a5bc659842e4e2cd0e6b2a3fca80e56db" kindref="member">c_last_syl</ref>[<ref refid="common_8h_1a26d8abf75dc44ad2f098353f44242cb6" kindref="member">C_LAST_SYL_MAX</ref>]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/></highlight><highlight class="stringliteral">&quot;BAR&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;OUGHT&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;ABLE&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;PRI&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;PRES&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;ESE&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;ANTI&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;CALLY&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;ATION&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/></highlight><highlight class="stringliteral">&quot;EING&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32" refid="common_8h_1a7c68a7a817ff41370e24de0491d93cbb" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="common_8cpp_1a7c68a7a817ff41370e24de0491d93cbb" kindref="member">transaction_short_name</ref>[<ref refid="common_8h_1ac360f1f75bf974d2c479f1dcad69f50f" kindref="member">TRANSACTION_MAX</ref>]<sp/>=</highlight></codeline>
+<codeline lineno="33"><highlight class="normal">{<sp/></highlight><highlight class="charliteral">&apos;d&apos;</highlight><highlight class="normal">,<sp/></highlight><highlight class="charliteral">&apos;n&apos;</highlight><highlight class="normal">,<sp/></highlight><highlight class="charliteral">&apos;o&apos;</highlight><highlight class="normal">,<sp/></highlight><highlight class="charliteral">&apos;p&apos;</highlight><highlight class="normal">,<sp/></highlight><highlight class="charliteral">&apos;s&apos;</highlight><highlight class="normal"><sp/>};</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35" refid="common_8h_1ab75716724f600deb2dd44bad71f5d85d" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*<ref refid="common_8cpp_1ab75716724f600deb2dd44bad71f5d85d" kindref="member">transaction_name</ref>[<ref refid="common_8h_1ac360f1f75bf974d2c479f1dcad69f50f" kindref="member">TRANSACTION_MAX</ref>]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/></highlight><highlight class="stringliteral">&quot;delivery<sp/><sp/><sp/><sp/>&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/></highlight><highlight class="stringliteral">&quot;new-order<sp/><sp/><sp/>&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/></highlight><highlight class="stringliteral">&quot;order-status&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/></highlight><highlight class="stringliteral">&quot;payment<sp/><sp/><sp/><sp/><sp/>&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/></highlight><highlight class="stringliteral">&quot;stock-level<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43" refid="common_8h_1a4cf9db821cc51162a629cce8ccdbdff9" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structtable__cardinality__t" kindref="compound">table_cardinality_t</ref><sp/><ref refid="common_8cpp_1a4cf9db821cc51162a629cce8ccdbdff9" kindref="member">table_cardinality</ref>;</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45" refid="common_8h_1a0dc425c90116462e4d2fc2020748c831" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="common_8cpp_1a0dc425c90116462e4d2fc2020748c831" kindref="member">difftimeval</ref>(</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/>timeval<sp/>rt1,<sp/></highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/>timeval<sp/>rt0)<sp/>{</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(rt1.tv_sec<sp/>-<sp/>rt0.tv_sec)<sp/>+</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>(double)(rt1.tv_usec<sp/>-<sp/>rt0.tv_usec)<sp/>/<sp/>1000000.00;</highlight></codeline>
+<codeline lineno="48"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Clause<sp/>4.3.2.2.<sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51" refid="common_8h_1aeb43bcb2be4565d9485489c526f5e698" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="common_8cpp_1aeb43bcb2be4565d9485489c526f5e698" kindref="member">get_a_string</ref>(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*a_string,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>x,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>y)<sp/>{</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>length;</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i;</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/>length<sp/>=<sp/>x<sp/>+<sp/><ref refid="common_8cpp_1a41a0d3a6432a1af4b043b7d2c8c2eaac" kindref="member">get_random</ref>(y<sp/>-<sp/>x<sp/>+<sp/>1)<sp/>+<sp/>1;</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/>a_string[length<sp/>-<sp/>1]<sp/>=<sp/></highlight><highlight class="charliteral">&apos;\0&apos;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>length<sp/>-<sp/>1;<sp/>i++)<sp/>{</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/>a_string[i]<sp/>=<sp/><ref refid="common_8cpp_1a641c4223203d5ee33f45a25c9a9e83ec" kindref="member">a_string_char</ref>[<ref refid="common_8cpp_1a41a0d3a6432a1af4b043b7d2c8c2eaac" kindref="member">get_random</ref>(<ref refid="common_8h_1a5a2bddd378edbe36747663d9bb517ce8" kindref="member">A_STRING_CHAR_LEN</ref><sp/>-<sp/>1)];</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="63"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Clause<sp/>4.3.2.3<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66" refid="common_8h_1a6647e7f7420ec36be04bcbb38adfe0c5" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="common_8cpp_1a6647e7f7420ec36be04bcbb38adfe0c5" kindref="member">get_c_last</ref>(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*c_last,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i)<sp/>{</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>tmp[4];</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/>c_last[0]<sp/>=<sp/></highlight><highlight class="charliteral">&apos;\0&apos;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(i<sp/>&lt;<sp/>0<sp/>||<sp/>i<sp/>&gt;<sp/>999)<sp/>{</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="common_8h_1a8fe83ac76edc595f6b98cd4a4127aed5" kindref="member">ERROR</ref>;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*<sp/>Ensure<sp/>the<sp/>number<sp/>is<sp/>padded<sp/>with<sp/>leading<sp/>0&apos;s<sp/>if<sp/>it&apos;s<sp/>std::less<sp/>than<sp/>100.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/>snprintf(tmp,<sp/>4,<sp/></highlight><highlight class="stringliteral">&quot;%03d&quot;</highlight><highlight class="normal">,<sp/>i);</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/>strcat(c_last,<sp/><ref refid="common_8cpp_1a5bc659842e4e2cd0e6b2a3fca80e56db" kindref="member">c_last_syl</ref>[tmp[0]<sp/>-<sp/></highlight><highlight class="charliteral">&apos;0&apos;</highlight><highlight class="normal">]);</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/>strcat(c_last,<sp/><ref refid="common_8cpp_1a5bc659842e4e2cd0e6b2a3fca80e56db" kindref="member">c_last_syl</ref>[tmp[1]<sp/>-<sp/></highlight><highlight class="charliteral">&apos;0&apos;</highlight><highlight class="normal">]);</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/>strcat(c_last,<sp/><ref refid="common_8cpp_1a5bc659842e4e2cd0e6b2a3fca80e56db" kindref="member">c_last_syl</ref>[tmp[2]<sp/>-<sp/></highlight><highlight class="charliteral">&apos;0&apos;</highlight><highlight class="normal">]);</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="common_8h_1aba51915c87d64af47fb1cc59348961c9" kindref="member">OK</ref>;</highlight></codeline>
+<codeline lineno="82"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight></codeline>
+<codeline lineno="84" refid="common_8h_1ae8297a4f2c14daa3572c0d77438b8960" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="common_8cpp_1ad9fcea330d2d25a88d23f475b97ae9e6" kindref="member">get_l_string</ref>(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*a_string,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>x,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>y)<sp/>{</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>length;</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i;</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/>length<sp/>=<sp/>x<sp/>+<sp/><ref refid="common_8cpp_1a41a0d3a6432a1af4b043b7d2c8c2eaac" kindref="member">get_random</ref>(y<sp/>-<sp/>x<sp/>+<sp/>1)<sp/>+<sp/>1;</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/>a_string[length<sp/>-<sp/>1]<sp/>=<sp/></highlight><highlight class="charliteral">&apos;\0&apos;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>length<sp/>-<sp/>1;<sp/>i++)<sp/>{</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/>a_string[i]<sp/>=<sp/><ref refid="common_8cpp_1a0bf46e335829290e81b021db72574ac1" kindref="member">l_string_char</ref>[<ref refid="common_8cpp_1a41a0d3a6432a1af4b043b7d2c8c2eaac" kindref="member">get_random</ref>(<ref refid="common_8h_1a702c99c50a56d3ad6fff6f815f3eebe1" kindref="member">L_STRING_CHAR_LEN</ref><sp/>-<sp/>1)];</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="96"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Clause<sp/>4.3.2.2.<sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="99" refid="common_8h_1a98664b9d4927cf8091c785d251a50c28" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="common_8cpp_1a98664b9d4927cf8091c785d251a50c28" kindref="member">get_n_string</ref>(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*n_string,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>x,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>y)<sp/>{</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>length;</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i;</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/>length<sp/>=<sp/>x<sp/>+<sp/><ref refid="common_8cpp_1a41a0d3a6432a1af4b043b7d2c8c2eaac" kindref="member">get_random</ref>(y<sp/>-<sp/>x<sp/>+<sp/>1)<sp/>+<sp/>1;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/>n_string[length<sp/>-<sp/>1]<sp/>=<sp/></highlight><highlight class="charliteral">&apos;\0&apos;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>length<sp/>-<sp/>1;<sp/>i++)<sp/>{</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/>n_string[i]<sp/>=<sp/><ref refid="common_8cpp_1a953adcc83d063be5d82a9d31f995fe66" kindref="member">n_string_char</ref>[<ref refid="common_8cpp_1a41a0d3a6432a1af4b043b7d2c8c2eaac" kindref="member">get_random</ref>(<ref refid="common_8h_1ac5be6544f5bd8f7d10b83b002bb36ed3" kindref="member">N_STRING_CHAR_LEN</ref>)];</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="111"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Clause<sp/>2.1.6<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="114" refid="common_8h_1a089c4d682d28d9b0304c24a839beba7c" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="common_8cpp_1a089c4d682d28d9b0304c24a839beba7c" kindref="member">get_nurand</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>a,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>x,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>y)<sp/>{</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>((<ref refid="common_8cpp_1a41a0d3a6432a1af4b043b7d2c8c2eaac" kindref="member">get_random</ref>(a<sp/>+<sp/>1)<sp/>|<sp/>(x<sp/>+<sp/><ref refid="common_8cpp_1a41a0d3a6432a1af4b043b7d2c8c2eaac" kindref="member">get_random</ref>(y<sp/>+<sp/>1)))<sp/>%<sp/>(y<sp/>-<sp/>x<sp/>+<sp/>1))<sp/>+<sp/>x;</highlight></codeline>
+<codeline lineno="116"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Return<sp/>a<sp/>number<sp/>from<sp/>0<sp/>to<sp/>max.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="119" refid="common_8h_1a9decf9adf1fff9eda5a02df1e3bb3277" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="common_8cpp_1a9decf9adf1fff9eda5a02df1e3bb3277" kindref="member">get_percentage</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal">)<sp/>rand()<sp/>/<sp/>(double)<sp/>RAND_MAX;</highlight></codeline>
+<codeline lineno="121"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight></codeline>
+<codeline lineno="123" refid="common_8h_1a41a0d3a6432a1af4b043b7d2c8c2eaac" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="common_8cpp_1a41a0d3a6432a1af4b043b7d2c8c2eaac" kindref="member">get_random</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>max)<sp/>{</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>rand()<sp/>%<sp/>max;</highlight></codeline>
+<codeline lineno="125"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="128"><highlight class="comment"><sp/>*<sp/>Clause<sp/>5.2.5.4</highlight></codeline>
+<codeline lineno="129"><highlight class="comment"><sp/>*<sp/>Calculate<sp/>and<sp/>return<sp/>a<sp/>think<sp/>time<sp/>using<sp/>a<sp/>negative<sp/>exponential<sp/>function.</highlight></codeline>
+<codeline lineno="130"><highlight class="comment"><sp/>*<sp/>think_time<sp/>=<sp/>-ln(r)<sp/>*<sp/>m</highlight></codeline>
+<codeline lineno="131"><highlight class="comment"><sp/>*<sp/>return:<sp/>think<sp/>time,<sp/>in<sp/>milliseconds</highlight></codeline>
+<codeline lineno="132"><highlight class="comment"><sp/>*<sp/>r:<sp/>random<sp/>number,<sp/>where<sp/>0<sp/>&lt;<sp/>r<sp/>&lt;=<sp/>1</highlight></codeline>
+<codeline lineno="133"><highlight class="comment"><sp/>*<sp/>mean_think_time<sp/>=<sp/>mean<sp/>think<sp/>time,<sp/>in<sp/>milliseconds</highlight></codeline>
+<codeline lineno="134"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="135" refid="common_8h_1a497bb90489a5c5a5c7df28ea0e5fad55" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="common_8cpp_1a497bb90489a5c5a5c7df28ea0e5fad55" kindref="member">get_think_time</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>mean_think_time)<sp/>{</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(-1.0<sp/>*<sp/>log(<ref refid="common_8cpp_1a9decf9adf1fff9eda5a02df1e3bb3277" kindref="member">get_percentage</ref>()<sp/>+<sp/>0.000001)<sp/>*<sp/>mean_think_time);</highlight></codeline>
+<codeline lineno="137"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight></codeline>
+<codeline lineno="139" refid="common_8h_1a9b9b44a07e30764e50206cdd64443be9" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="common_8cpp_1a9b9b44a07e30764e50206cdd64443be9" kindref="member">init_common</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i,<sp/>j;</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/>srand(1);</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*<sp/>Initialize<sp/>struct<sp/>to<sp/>have<sp/>default<sp/>table<sp/>cardinalities.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><ref refid="common_8cpp_1a4cf9db821cc51162a629cce8ccdbdff9" kindref="member">table_cardinality</ref>.<ref refid="structtable__cardinality__t_1aa482807f7f65173d63a83c11f539a1be" kindref="member">warehouses</ref><sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><ref refid="common_8cpp_1a4cf9db821cc51162a629cce8ccdbdff9" kindref="member">table_cardinality</ref>.<ref refid="structtable__cardinality__t_1a56451cf009f9a004bba5bfdc84300c6f" kindref="member">districts</ref><sp/>=<sp/><ref refid="common_8h_1a8a2398811bddbf3e0f62a1a8c8a5e0b3" kindref="member">DISTRICT_CARDINALITY</ref>;</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><ref refid="common_8cpp_1a4cf9db821cc51162a629cce8ccdbdff9" kindref="member">table_cardinality</ref>.<ref refid="structtable__cardinality__t_1a7413c509a466a19478c4194122a9960d" kindref="member">customers</ref><sp/>=<sp/><ref refid="common_8h_1a30f84bc89cd769bf99ff5812f3689adc" kindref="member">CUSTOMER_CARDINALITY</ref>;</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><ref refid="common_8cpp_1a4cf9db821cc51162a629cce8ccdbdff9" kindref="member">table_cardinality</ref>.<ref refid="structtable__cardinality__t_1a1b7f572d756b2d433ea81e49aa6cbd14" kindref="member">items</ref><sp/>=<sp/><ref refid="common_8h_1a5a3b77928f7cda1de808100c7b8045d4" kindref="member">ITEM_CARDINALITY</ref>;</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><ref refid="common_8cpp_1a4cf9db821cc51162a629cce8ccdbdff9" kindref="member">table_cardinality</ref>.<ref refid="structtable__cardinality__t_1a26f127fa9609fe0cf794d6771ad71071" kindref="member">orders</ref><sp/>=<sp/><ref refid="common_8h_1a612c2bcd60664a8421b1a43c13baeed0" kindref="member">ORDER_CARDINALITY</ref>;</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><ref refid="common_8cpp_1a4cf9db821cc51162a629cce8ccdbdff9" kindref="member">table_cardinality</ref>.<ref refid="structtable__cardinality__t_1ad564976335ebcce6cddaa59e342e06b0" kindref="member">new_orders</ref><sp/>=<sp/><ref refid="common_8h_1a76db8a88e9a09c7ffe86cac462e32945" kindref="member">NEW_ORDER_CARDINALITY</ref>;</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="153"><highlight class="comment"><sp/><sp/><sp/>*<sp/>Initialize<sp/>a-std::string<sp/>character<sp/>set<sp/>to<sp/>128<sp/>ascii<sp/>characters.</highlight></codeline>
+<codeline lineno="154"><highlight class="comment"><sp/><sp/><sp/>*<sp/>Clause<sp/>4.3.2.2.</highlight></codeline>
+<codeline lineno="155"><highlight class="comment"><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/>j<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><ref refid="common_8cpp_1a641c4223203d5ee33f45a25c9a9e83ec" kindref="member">a_string_char</ref>[j++]<sp/>=<sp/>(char)<sp/>33;</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(i<sp/>=<sp/>35;<sp/>i<sp/>&lt;=<sp/>43;<sp/>i++)<sp/>{</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="common_8cpp_1a641c4223203d5ee33f45a25c9a9e83ec" kindref="member">a_string_char</ref>[j++]<sp/>=<sp/>(char)<sp/>i;</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(i<sp/>=<sp/>45;<sp/>i<sp/>&lt;=<sp/>126;<sp/>i++)<sp/>{</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(i<sp/>!=<sp/>124)<sp/>{</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="common_8cpp_1a641c4223203d5ee33f45a25c9a9e83ec" kindref="member">a_string_char</ref>[j++]<sp/>=<sp/>(char)<sp/>i;</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(i<sp/>=<sp/>220;<sp/>i<sp/>&lt;=<sp/>255;<sp/>i++)<sp/>{</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="common_8cpp_1a641c4223203d5ee33f45a25c9a9e83ec" kindref="member">a_string_char</ref>[j++]<sp/>=<sp/>(char)<sp/>i;</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="common_8h_1aba51915c87d64af47fb1cc59348961c9" kindref="member">OK</ref>;</highlight></codeline>
+<codeline lineno="171"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/home/grund/hyrise/src/bin/perf_datagen/common.cpp"/>
+  </compounddef>
+</doxygen>

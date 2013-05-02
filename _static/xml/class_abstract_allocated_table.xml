@@ -1,0 +1,182 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="class_abstract_allocated_table" kind="class" prot="public">
+    <compoundname>AbstractAllocatedTable</compoundname>
+    <basecompoundref refid="class_abstract_table" prot="public" virt="non-virtual">AbstractTable</basecompoundref>
+    <includes refid="_abstract_allocated_table_8h" local="no">AbstractAllocatedTable.h</includes>
+    <templateparamlist>
+      <param>
+        <type>typename Strategy</type>
+      </param>
+      <param>
+        <type>template&lt; typename T, typename S &gt; class</type>
+        <declname>Allocator</declname>
+        <defname>Allocator</defname>
+      </param>
+      <param>
+        <type>class AllocatedClass</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="private-type">
+      <memberdef kind="typedef" id="class_abstract_allocated_table_1a916e5e5fded4b2938eecd3d1592ca8a3" prot="private" static="no">
+        <type><ref refid="class_abstract_allocated_table" kindref="compound">AbstractAllocatedTable</ref>&lt; Strategy, Allocator, AllocatedClass &gt;</type>
+        <definition>typedef AbstractAllocatedTable&lt;Strategy, Allocator, AllocatedClass&gt; AbstractAllocatedTable&lt; Strategy, Allocator, AllocatedClass &gt;::ALLOCATION_TEMPLATE</definition>
+        <argsstring></argsstring>
+        <name>ALLOCATION_TEMPLATE</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/AbstractAllocatedTable.h" line="13" bodyfile="/home/grund/hyrise/src/lib/storage/AbstractAllocatedTable.h" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_abstract_allocated_table_1ae4823b97ce2e217b7f0bba12f8b166f1" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual AbstractAllocatedTable&lt; Strategy, Allocator, AllocatedClass &gt;::~AbstractAllocatedTable</definition>
+        <argsstring>()</argsstring>
+        <name>~AbstractAllocatedTable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/AbstractAllocatedTable.h" line="16" bodyfile="/home/grund/hyrise/src/lib/storage/AbstractAllocatedTable.h" bodystart="16" bodyend="16"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="class_abstract_allocated_table_1a48cb6445bbc8df5b5b85213c904531c6" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void *</type>
+        <definition>static void* AbstractAllocatedTable&lt; Strategy, Allocator, AllocatedClass &gt;::operator new</definition>
+        <argsstring>(size_t sz)</argsstring>
+        <name>operator new</name>
+        <param>
+          <type>size_t</type>
+          <declname>sz</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/AbstractAllocatedTable.h" line="18" bodyfile="/home/grund/hyrise/src/lib/storage/AbstractAllocatedTable.h" bodystart="18" bodyend="20"/>
+      </memberdef>
+      <memberdef kind="function" id="class_abstract_allocated_table_1a5ee698d3db4e06cabb90c2a5a16865ad" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void AbstractAllocatedTable&lt; Strategy, Allocator, AllocatedClass &gt;::operator delete</definition>
+        <argsstring>(void *p)</argsstring>
+        <name>operator delete</name>
+        <param>
+          <type>void *</type>
+          <declname>p</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/AbstractAllocatedTable.h" line="22" bodyfile="/home/grund/hyrise/src/lib/storage/AbstractAllocatedTable.h" bodystart="22" bodyend="24"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1285">
+        <label>AbstractTable</label>
+        <link refid="class_abstract_table"/>
+        <childnode refid="1286" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1286">
+        <label>AbstractResource</label>
+        <link refid="class_abstract_resource"/>
+      </node>
+      <node id="1284">
+        <label>AbstractAllocatedTable&lt; Strategy, Allocator, AllocatedClass &gt;</label>
+        <link refid="class_abstract_allocated_table"/>
+        <childnode refid="1285" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1288">
+        <label>AbstractTable</label>
+        <link refid="class_abstract_table"/>
+        <childnode refid="1289" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1289">
+        <label>AbstractResource</label>
+        <link refid="class_abstract_resource"/>
+      </node>
+      <node id="1287">
+        <label>AbstractAllocatedTable&lt; Strategy, Allocator, AllocatedClass &gt;</label>
+        <link refid="class_abstract_allocated_table"/>
+        <childnode refid="1288" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/storage/AbstractAllocatedTable.h" line="12" bodyfile="/home/grund/hyrise/src/lib/storage/AbstractAllocatedTable.h" bodystart="12" bodyend="25"/>
+    <listofallmembers>
+      <member refid="class_abstract_table_1a0d4b411db86931d15cc643a2883ffe59" prot="public" virt="non-virtual"><scope>AbstractAllocatedTable</scope><name>AbstractTable</name></member>
+      <member refid="class_abstract_allocated_table_1a916e5e5fded4b2938eecd3d1592ca8a3" prot="private" virt="non-virtual"><scope>AbstractAllocatedTable</scope><name>ALLOCATION_TEMPLATE</name></member>
+      <member refid="class_abstract_table_1a472d2a3dc19e99e640d2b65e81a6d052" prot="public" virt="pure-virtual"><scope>AbstractAllocatedTable</scope><name>atSlice</name></member>
+      <member refid="class_abstract_table_1a9ba326d4ed695ff02dcdc0dd125fd16c" prot="public" virt="pure-virtual"><scope>AbstractAllocatedTable</scope><name>columnCount</name></member>
+      <member refid="class_abstract_table_1af716c04f38a6ab47b277911baf050c9d" prot="public" virt="non-virtual"><scope>AbstractAllocatedTable</scope><name>contentEquals</name></member>
+      <member refid="class_abstract_table_1a87134964b75abb36c49d0c44455d23e2" prot="public" virt="pure-virtual"><scope>AbstractAllocatedTable</scope><name>copy</name></member>
+      <member refid="class_abstract_table_1a0439c8c9642d0a5dbbbf2d3e37c690fc" prot="public" virt="virtual"><scope>AbstractAllocatedTable</scope><name>copy_structure</name></member>
+      <member refid="class_abstract_table_1ab2e5350c658908dc343dd2b8c36eed14" prot="public" virt="non-virtual"><scope>AbstractAllocatedTable</scope><name>copy_structure_modifiable</name></member>
+      <member refid="class_abstract_table_1afbbf69e94a282a71fb1ecedd72ca8824" prot="public" virt="non-virtual"><scope>AbstractAllocatedTable</scope><name>copyRowFrom</name></member>
+      <member refid="class_abstract_table_1a4361f683288a0d1360227b309ca625f6" prot="public" virt="non-virtual"><scope>AbstractAllocatedTable</scope><name>copyValueFrom</name></member>
+      <member refid="class_abstract_table_1a0e1dd83cf4622413949542ecc0604bb7" prot="public" virt="non-virtual"><scope>AbstractAllocatedTable</scope><name>copyValueFrom</name></member>
+      <member refid="class_abstract_table_1ae66e82c1f4eb0001f747af5bcf8a4ef1" prot="public" virt="non-virtual"><scope>AbstractAllocatedTable</scope><name>copyValueFrom</name></member>
+      <member refid="class_abstract_table_1a85b7d9471c86bd31879c0f6378071b9c" prot="public" virt="non-virtual"><scope>AbstractAllocatedTable</scope><name>copyValueIds</name></member>
+      <member refid="class_abstract_table_1ab1d04fdc926954e4027fb883abab1d73" prot="public" virt="non-virtual"><scope>AbstractAllocatedTable</scope><name>dictionaries</name></member>
+      <member refid="class_abstract_table_1a001566ba79ef4dfcde544b4867dd69e7" prot="public" virt="pure-virtual"><scope>AbstractAllocatedTable</scope><name>dictionaryAt</name></member>
+      <member refid="class_abstract_table_1aa2833dbbbabb49737922e5172f0efff9" prot="public" virt="pure-virtual"><scope>AbstractAllocatedTable</scope><name>dictionaryByTableId</name></member>
+      <member refid="class_abstract_table_1a1d792fb6711c4ea00e4662576c1c3dc8" prot="public" virt="non-virtual"><scope>AbstractAllocatedTable</scope><name>generation</name></member>
+      <member refid="class_abstract_table_1a3467bc6159aa361db993c3fc56584789" prot="public" virt="virtual"><scope>AbstractAllocatedTable</scope><name>getAttributeVectors</name></member>
+      <member refid="class_abstract_table_1a87503e254e2ec4ad43aa198f254a35e0" prot="public" virt="pure-virtual"><scope>AbstractAllocatedTable</scope><name>getOffsetInSlice</name></member>
+      <member refid="class_abstract_table_1a964f6a039d706144a0f07b6e96acac10" prot="public" virt="pure-virtual"><scope>AbstractAllocatedTable</scope><name>getSliceForColumn</name></member>
+      <member refid="class_abstract_table_1a560af7bf02ed631dd359b22a62e0bed7" prot="public" virt="pure-virtual"><scope>AbstractAllocatedTable</scope><name>getSliceWidth</name></member>
+      <member refid="class_abstract_table_1a6648aba614a398c3243a60b18d5d7dbf" prot="public" virt="non-virtual"><scope>AbstractAllocatedTable</scope><name>getValue</name></member>
+      <member refid="class_abstract_table_1aac6e3940c4b756a4c627ece2c008782c" prot="public" virt="non-virtual"><scope>AbstractAllocatedTable</scope><name>getValue</name></member>
+      <member refid="class_abstract_table_1af380b8fd7715abe5988f53b885920e0c" prot="public" virt="non-virtual"><scope>AbstractAllocatedTable</scope><name>getValueForValueId</name></member>
+      <member refid="class_abstract_table_1ab0dc4d8eaa3d5b2022d2f0ba1d873a14" prot="public" virt="pure-virtual"><scope>AbstractAllocatedTable</scope><name>getValueId</name></member>
+      <member refid="class_abstract_table_1aefae5f6a831167c3d5669be5ba9d87bc" prot="public" virt="non-virtual"><scope>AbstractAllocatedTable</scope><name>getValueIdForValue</name></member>
+      <member refid="class_abstract_table_1acd7ea07c9b1605ca53c7608c7c3b2ea5" prot="public" virt="non-virtual"><scope>AbstractAllocatedTable</scope><name>getValueIdForValueByTableId</name></member>
+      <member refid="class_abstract_table_1a8b854b19026e75eebc02942499a82a21" prot="public" virt="non-virtual"><scope>AbstractAllocatedTable</scope><name>metadata</name></member>
+      <member refid="class_abstract_table_1a7a16a970c5e9229616b984972d1b44b9" prot="public" virt="pure-virtual"><scope>AbstractAllocatedTable</scope><name>metadataAt</name></member>
+      <member refid="class_abstract_table_1aa126cb17995eef9d0833ff2a4a673853" prot="public" virt="non-virtual"><scope>AbstractAllocatedTable</scope><name>nameOfColumn</name></member>
+      <member refid="class_abstract_table_1aaea606e4fd8c92a43febced405de1c6c" prot="public" virt="non-virtual"><scope>AbstractAllocatedTable</scope><name>numberOfColumn</name></member>
+      <member refid="class_abstract_allocated_table_1a5ee698d3db4e06cabb90c2a5a16865ad" prot="public" virt="non-virtual"><scope>AbstractAllocatedTable</scope><name>operator delete</name></member>
+      <member refid="class_abstract_allocated_table_1a48cb6445bbc8df5b5b85213c904531c6" prot="public" virt="non-virtual"><scope>AbstractAllocatedTable</scope><name>operator new</name></member>
+      <member refid="class_abstract_table_1a64faa3ae981d0b077787fbd60c46ede1" prot="public" virt="virtual"><scope>AbstractAllocatedTable</scope><name>print</name></member>
+      <member refid="class_abstract_table_1ae2f20cf55374dc8560dc4d2e8c4623ec" prot="public" virt="non-virtual"><scope>AbstractAllocatedTable</scope><name>printValue</name></member>
+      <member refid="class_abstract_table_1acf25e9092735089d88c0fd9a1cb02984" prot="public" virt="virtual"><scope>AbstractAllocatedTable</scope><name>reserve</name></member>
+      <member refid="class_abstract_table_1a2c284b3bc7d1ee8522cd02be2fffa3be" prot="public" virt="virtual"><scope>AbstractAllocatedTable</scope><name>resize</name></member>
+      <member refid="class_abstract_table_1a15c7e879e77c9586460488e6e442566c" prot="public" virt="pure-virtual"><scope>AbstractAllocatedTable</scope><name>setDictionaryAt</name></member>
+      <member refid="class_abstract_table_1a583da7847c5f08de7ee4288cec78e187" prot="public" virt="non-virtual"><scope>AbstractAllocatedTable</scope><name>setGeneration</name></member>
+      <member refid="class_abstract_table_1a50d0ce6998606d864a429002f86ae654" prot="public" virt="non-virtual"><scope>AbstractAllocatedTable</scope><name>setValue</name></member>
+      <member refid="class_abstract_table_1a453b25a7f8ebe971d82cd5790d4183dd" prot="public" virt="non-virtual"><scope>AbstractAllocatedTable</scope><name>setValue</name></member>
+      <member refid="class_abstract_table_1ad7fabd72d657d48f1f4380132515b451" prot="public" virt="virtual"><scope>AbstractAllocatedTable</scope><name>setValueId</name></member>
+      <member refid="class_abstract_table_1af76ff827deb697db8077a90c450381ab" prot="public" virt="non-virtual"><scope>AbstractAllocatedTable</scope><name>SharedDictionaryPtr</name></member>
+      <member refid="class_abstract_table_1a2b3fde5fb0c70f288eda47c4c66bb151" prot="public" virt="pure-virtual"><scope>AbstractAllocatedTable</scope><name>size</name></member>
+      <member refid="class_abstract_table_1a593d49b1ae5ca4a47e5c5c43c1eeb4c8" prot="public" virt="pure-virtual"><scope>AbstractAllocatedTable</scope><name>sliceCount</name></member>
+      <member refid="class_abstract_table_1af5330c0a617946ad538cacea21ba7639" prot="public" virt="pure-virtual"><scope>AbstractAllocatedTable</scope><name>subtableCount</name></member>
+      <member refid="class_abstract_table_1ad6de2b7c7b99098e9766b060b4d4b8c7" prot="public" virt="non-virtual"><scope>AbstractAllocatedTable</scope><name>typeOfColumn</name></member>
+      <member refid="class_abstract_table_1a55de3a5a31acf6898fb9ddd287b760e3" prot="public" virt="non-virtual"><scope>AbstractAllocatedTable</scope><name>valueExists</name></member>
+      <member refid="class_abstract_table_1a8e1d6f1b61390fc3e6954fbaa1f7745f" prot="public" virt="non-virtual"><scope>AbstractAllocatedTable</scope><name>write</name></member>
+      <member refid="class_abstract_allocated_table_1ae4823b97ce2e217b7f0bba12f8b166f1" prot="public" virt="virtual"><scope>AbstractAllocatedTable</scope><name>~AbstractAllocatedTable</name></member>
+      <member refid="class_abstract_resource_1a4299feff952f974409aaaf52082deadb" prot="public" virt="virtual"><scope>AbstractAllocatedTable</scope><name>~AbstractResource</name></member>
+      <member refid="class_abstract_table_1a957e2dc86a1aa6ffa19b2d8585a1ee91" prot="public" virt="virtual"><scope>AbstractAllocatedTable</scope><name>~AbstractTable</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

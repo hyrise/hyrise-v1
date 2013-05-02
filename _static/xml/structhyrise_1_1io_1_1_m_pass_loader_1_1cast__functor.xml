@@ -1,0 +1,111 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="structhyrise_1_1io_1_1_m_pass_loader_1_1cast__functor" kind="struct" prot="public">
+    <compoundname>hyrise::io::MPassLoader::cast_functor</compoundname>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="structhyrise_1_1io_1_1_m_pass_loader_1_1cast__functor_1a0c34a82ad324af7791e6fc5c72f7a80c" prot="public" static="no">
+        <type>void</type>
+        <definition>typedef void hyrise::io::MPassLoader::cast_functor::value_type</definition>
+        <argsstring></argsstring>
+        <name>value_type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/MPassCSVLoader.cpp" line="54" bodyfile="/home/grund/hyrise/src/lib/io/MPassCSVLoader.cpp" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structhyrise_1_1io_1_1_m_pass_loader_1_1cast__functor_1ad9fff51e494ddd6d6493e5ef85f89652" prot="public" static="no" mutable="no">
+        <type><ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1parallel__data" kindref="compound">parallel_data</ref> *</type>
+        <definition>parallel_data* hyrise::io::MPassLoader::cast_functor::data</definition>
+        <argsstring></argsstring>
+        <name>data</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/MPassCSVLoader.cpp" line="55" bodyfile="/home/grund/hyrise/src/lib/io/MPassCSVLoader.cpp" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structhyrise_1_1io_1_1_m_pass_loader_1_1cast__functor_1aa48be77e36a383463220c011dcb9163a" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char hyrise::io::MPassLoader::cast_functor::tmp[2 *(4096 *10)]</definition>
+        <argsstring>[2 *(4096 *10)]</argsstring>
+        <name>tmp</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/MPassCSVLoader.cpp" line="57" bodyfile="/home/grund/hyrise/src/lib/io/MPassCSVLoader.cpp" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structhyrise_1_1io_1_1_m_pass_loader_1_1cast__functor_1ad1e540c0e8f0cbba4b415c0360035288" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>hyrise::io::MPassLoader::cast_functor::cast_functor</definition>
+        <argsstring>(parallel_data *d)</argsstring>
+        <name>cast_functor</name>
+        <param>
+          <type><ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1parallel__data" kindref="compound">parallel_data</ref> *</type>
+          <declname>d</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/MPassCSVLoader.cpp" line="59" bodyfile="/home/grund/hyrise/src/lib/io/MPassCSVLoader.cpp" bodystart="59" bodyend="59"/>
+      </memberdef>
+      <memberdef kind="function" id="structhyrise_1_1io_1_1_m_pass_loader_1_1cast__functor_1ac01c813471cd924e88677c19171c8a29" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename R</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void hyrise::io::MPassLoader::cast_functor::operator()</definition>
+        <argsstring>()</argsstring>
+        <name>operator()</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/MPassCSVLoader.cpp" line="62" bodyfile="/home/grund/hyrise/src/lib/io/MPassCSVLoader.cpp" bodystart="62" bodyend="103"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1593">
+        <label>hyrise::io::MPassLoader::cast_functor</label>
+        <link refid="structhyrise_1_1io_1_1_m_pass_loader_1_1cast__functor"/>
+        <childnode refid="1594" relation="usage">
+          <edgelabel>data</edgelabel>
+        </childnode>
+      </node>
+      <node id="1594">
+        <label>hyrise::io::MPassLoader::parallel_data</label>
+        <link refid="structhyrise_1_1io_1_1_m_pass_loader_1_1parallel__data"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/io/MPassCSVLoader.cpp" line="53" bodyfile="/home/grund/hyrise/src/lib/io/MPassCSVLoader.cpp" bodystart="53" bodyend="105"/>
+    <listofallmembers>
+      <member refid="structhyrise_1_1io_1_1_m_pass_loader_1_1cast__functor_1ad1e540c0e8f0cbba4b415c0360035288" prot="public" virt="non-virtual"><scope>hyrise::io::MPassLoader::cast_functor</scope><name>cast_functor</name></member>
+      <member refid="structhyrise_1_1io_1_1_m_pass_loader_1_1cast__functor_1ad9fff51e494ddd6d6493e5ef85f89652" prot="public" virt="non-virtual"><scope>hyrise::io::MPassLoader::cast_functor</scope><name>data</name></member>
+      <member refid="structhyrise_1_1io_1_1_m_pass_loader_1_1cast__functor_1ac01c813471cd924e88677c19171c8a29" prot="public" virt="non-virtual"><scope>hyrise::io::MPassLoader::cast_functor</scope><name>operator()</name></member>
+      <member refid="structhyrise_1_1io_1_1_m_pass_loader_1_1cast__functor_1aa48be77e36a383463220c011dcb9163a" prot="public" virt="non-virtual"><scope>hyrise::io::MPassLoader::cast_functor</scope><name>tmp</name></member>
+      <member refid="structhyrise_1_1io_1_1_m_pass_loader_1_1cast__functor_1a0c34a82ad324af7791e6fc5c72f7a80c" prot="public" virt="non-virtual"><scope>hyrise::io::MPassLoader::cast_functor</scope><name>value_type</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

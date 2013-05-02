@@ -1,0 +1,125 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="_column_metadata_8cpp" kind="file">
+    <compoundname>ColumnMetadata.cpp</compoundname>
+    <includes refid="_column_metadata_8h" local="no">storage/ColumnMetadata.h</includes>
+    <includes local="no">string</includes>
+    <includes local="no">sstream</includes>
+    <includes local="no">stdexcept</includes>
+    <includes local="no">boost/algorithm/string.hpp</includes>
+    <incdepgraph>
+      <node id="19227">
+        <label>boost/algorithm/string.hpp</label>
+      </node>
+      <node id="19223">
+        <label>boost/mpl/vector.hpp</label>
+      </node>
+      <node id="19225">
+        <label>boost/lexical_cast.hpp</label>
+      </node>
+      <node id="19221">
+        <label>stdint.h</label>
+      </node>
+      <node id="19220">
+        <label>stdexcept</label>
+      </node>
+      <node id="19219">
+        <label>string</label>
+      </node>
+      <node id="19222">
+        <label>ostream</label>
+      </node>
+      <node id="19215">
+        <label>src/lib/storage/ColumnMetadata.cpp</label>
+        <link refid="ColumnMetadata.cpp"/>
+        <childnode refid="19216" relation="include">
+        </childnode>
+        <childnode refid="19219" relation="include">
+        </childnode>
+        <childnode refid="19226" relation="include">
+        </childnode>
+        <childnode refid="19220" relation="include">
+        </childnode>
+        <childnode refid="19227" relation="include">
+        </childnode>
+      </node>
+      <node id="19218">
+        <label>vector</label>
+      </node>
+      <node id="19226">
+        <label>sstream</label>
+      </node>
+      <node id="19216">
+        <label>storage/ColumnMetadata.h</label>
+        <link refid="_column_metadata_8h"/>
+        <childnode refid="19217" relation="include">
+        </childnode>
+        <childnode refid="19219" relation="include">
+        </childnode>
+        <childnode refid="19220" relation="include">
+        </childnode>
+      </node>
+      <node id="19224">
+        <label>boost/mpl/map.hpp</label>
+      </node>
+      <node id="19217">
+        <label>storage/storage_types.h</label>
+        <link refid="storage__types_8h"/>
+        <childnode refid="19218" relation="include">
+        </childnode>
+        <childnode refid="19219" relation="include">
+        </childnode>
+        <childnode refid="19220" relation="include">
+        </childnode>
+        <childnode refid="19221" relation="include">
+        </childnode>
+        <childnode refid="19222" relation="include">
+        </childnode>
+        <childnode refid="19223" relation="include">
+        </childnode>
+        <childnode refid="19224" relation="include">
+        </childnode>
+        <childnode refid="19225" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>2012<sp/>Hasso-Plattner-Institut<sp/>fuer<sp/>Softwaresystemtechnik<sp/>GmbH.<sp/>All<sp/>rights<sp/>reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="_column_metadata_8h" kindref="compound">storage/ColumnMetadata.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;sstream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdexcept&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;boost/algorithm/string.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12" refid="class_column_metadata_1a1e177822c3086d242f1ec9dc180220cc" refkind="member"><highlight class="normal"><ref refid="class_column_metadata" kindref="compound">ColumnMetadata</ref><sp/>*<ref refid="class_column_metadata_1a1e177822c3086d242f1ec9dc180220cc" kindref="member">ColumnMetadata::metadataFromString</ref>(std::string<sp/>typestring,<sp/>std::string<sp/>name)<sp/>{</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/>boost::trim(typestring);</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/>boost::trim(name);</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(typestring.compare(<ref refid="storage__types_8h_1a1a9beaa07c7ea8d196657f3c87ed2252" kindref="member">STR_TYPE_INTEGER</ref>)<sp/>==<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/><ref refid="class_column_metadata_1a227f2693be4b9e2492e6968ceb10e3c5" kindref="member">ColumnMetadata</ref>(name,<sp/><ref refid="storage__types_8h_1ad8ed01ff3ff33333d8e19db4d2818bb6a90453dde1506c63dbaaa7a1a363a06a9" kindref="member">IntegerType</ref>);</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(typestring.compare(<ref refid="storage__types_8h_1a9f33d1b6670606a2b6bf0ad37bad2aeb" kindref="member">STR_TYPE_FLOAT</ref>)<sp/>==<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/><ref refid="class_column_metadata_1a227f2693be4b9e2492e6968ceb10e3c5" kindref="member">ColumnMetadata</ref>(name,<sp/><ref refid="storage__types_8h_1ad8ed01ff3ff33333d8e19db4d2818bb6a866d24e407b4ee66d3efe59486be6db4" kindref="member">FloatType</ref>);</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(typestring.compare(<ref refid="storage__types_8h_1aa197ae1e430e89742566e23ca8b81a39" kindref="member">STR_TYPE_STRING</ref>)<sp/>==<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/><ref refid="class_column_metadata_1a227f2693be4b9e2492e6968ceb10e3c5" kindref="member">ColumnMetadata</ref>(name,<sp/><ref refid="storage__types_8h_1ad8ed01ff3ff33333d8e19db4d2818bb6a83ccab8dfcfc3a9e8656224313fb61f3" kindref="member">StringType</ref>);</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/>std::stringstream<sp/>msg;</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/>msg<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Typename<sp/>not<sp/>supported:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>typestring<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>with<sp/>name:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>name<sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/><ref refid="class_column_meta_creation_exception" kindref="compound">ColumnMetaCreationException</ref>(msg.str());</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/home/grund/hyrise/src/lib/storage/ColumnMetadata.cpp"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,205 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="class_column_metadata" kind="class" prot="public">
+    <compoundname>ColumnMetadata</compoundname>
+    <includes refid="_column_metadata_8h" local="no">ColumnMetadata.h</includes>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="class_column_metadata_1a437ff3b0df583ac2a00ceb9b24fb06b7" prot="protected" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string ColumnMetadata::name</definition>
+        <argsstring></argsstring>
+        <name>name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/ColumnMetadata.h" line="18" bodyfile="/home/grund/hyrise/src/lib/storage/ColumnMetadata.h" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_column_metadata_1a7eab03a81b9c86073fb17dbbdfe07c08" prot="protected" static="no" mutable="no">
+        <type><ref refid="storage__types_8h_1ad8ed01ff3ff33333d8e19db4d2818bb6" kindref="member">DataType</ref></type>
+        <definition>DataType ColumnMetadata::type</definition>
+        <argsstring></argsstring>
+        <name>type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/ColumnMetadata.h" line="20" bodyfile="/home/grund/hyrise/src/lib/storage/ColumnMetadata.h" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="class_column_metadata_1a1e177822c3086d242f1ec9dc180220cc" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_column_metadata" kindref="compound">ColumnMetadata</ref> *</type>
+        <definition>ColumnMetadata * ColumnMetadata::metadataFromString</definition>
+        <argsstring>(std::string typestring, std::string name=&quot;&quot;)</argsstring>
+        <name>metadataFromString</name>
+        <param>
+          <type>std::string</type>
+          <declname>typestring</declname>
+        </param>
+        <param>
+          <type>std::string</type>
+          <declname>name</declname>
+          <defval>&quot;&quot;</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/ColumnMetadata.h" line="23" bodyfile="/home/grund/hyrise/src/lib/storage/ColumnMetadata.cpp" bodystart="12" bodyend="28"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_column_metadata_1ae7bc55346a7f7b3dc382f171e434ada1" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>ColumnMetadata::ColumnMetadata</definition>
+        <argsstring>(std::string n, DataType t)</argsstring>
+        <name>ColumnMetadata</name>
+        <param>
+          <type>std::string</type>
+          <declname>n</declname>
+        </param>
+        <param>
+          <type><ref refid="storage__types_8h_1ad8ed01ff3ff33333d8e19db4d2818bb6" kindref="member">DataType</ref></type>
+          <declname>t</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/ColumnMetadata.h" line="25" bodyfile="/home/grund/hyrise/src/lib/storage/ColumnMetadata.h" bodystart="25" bodyend="25"/>
+      </memberdef>
+      <memberdef kind="function" id="class_column_metadata_1a227f2693be4b9e2492e6968ceb10e3c5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>ColumnMetadata::ColumnMetadata</definition>
+        <argsstring>()</argsstring>
+        <name>ColumnMetadata</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/ColumnMetadata.h" line="27" bodyfile="/home/grund/hyrise/src/lib/storage/ColumnMetadata.h" bodystart="27" bodyend="27"/>
+      </memberdef>
+      <memberdef kind="function" id="class_column_metadata_1a81bf1f96407063f5efb177082338651c" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="storage__types_8h_1ad8ed01ff3ff33333d8e19db4d2818bb6" kindref="member">DataType</ref></type>
+        <definition>DataType ColumnMetadata::getType</definition>
+        <argsstring>() const </argsstring>
+        <name>getType</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/ColumnMetadata.h" line="29" bodyfile="/home/grund/hyrise/src/lib/storage/ColumnMetadata.h" bodystart="29" bodyend="31"/>
+      </memberdef>
+      <memberdef kind="function" id="class_column_metadata_1af6dbae4edd71bc0597ab740c965f10fb" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string ColumnMetadata::getName</definition>
+        <argsstring>() const </argsstring>
+        <name>getName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/ColumnMetadata.h" line="33" bodyfile="/home/grund/hyrise/src/lib/storage/ColumnMetadata.h" bodystart="33" bodyend="35"/>
+      </memberdef>
+      <memberdef kind="function" id="class_column_metadata_1ada0e89fa1f9f6f40124ddfb461c80f8f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void ColumnMetadata::setName</definition>
+        <argsstring>(std::string new_name)</argsstring>
+        <name>setName</name>
+        <param>
+          <type>std::string</type>
+          <declname>new_name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/ColumnMetadata.h" line="37" bodyfile="/home/grund/hyrise/src/lib/storage/ColumnMetadata.h" bodystart="37" bodyend="39"/>
+      </memberdef>
+      <memberdef kind="function" id="class_column_metadata_1af8da6ae8f965df14c07036d84468dc29" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t ColumnMetadata::getWidth</definition>
+        <argsstring>() const </argsstring>
+        <name>getWidth</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/ColumnMetadata.h" line="41" bodyfile="/home/grund/hyrise/src/lib/storage/ColumnMetadata.h" bodystart="41" bodyend="44"/>
+      </memberdef>
+      <memberdef kind="function" id="class_column_metadata_1ad6ad2ddfd0bac5dd78a90450e7df63f9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class_column_metadata" kindref="compound">ColumnMetadata</ref> *</type>
+        <definition>ColumnMetadata* ColumnMetadata::copy</definition>
+        <argsstring>()</argsstring>
+        <name>copy</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/ColumnMetadata.h" line="46" bodyfile="/home/grund/hyrise/src/lib/storage/ColumnMetadata.h" bodystart="46" bodyend="48"/>
+      </memberdef>
+      <memberdef kind="function" id="class_column_metadata_1a8d8705f6e61506f90a39b64186d6063b" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool ColumnMetadata::matches</definition>
+        <argsstring>(const ColumnMetadata *col) const </argsstring>
+        <name>matches</name>
+        <param>
+          <type>const <ref refid="class_column_metadata" kindref="compound">ColumnMetadata</ref> *</type>
+          <declname>col</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/ColumnMetadata.h" line="50" bodyfile="/home/grund/hyrise/src/lib/storage/ColumnMetadata.h" bodystart="50" bodyend="52"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1629">
+        <label>ColumnMetadata</label>
+        <link refid="class_column_metadata"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/storage/ColumnMetadata.h" line="16" bodyfile="/home/grund/hyrise/src/lib/storage/ColumnMetadata.h" bodystart="16" bodyend="53"/>
+    <listofallmembers>
+      <member refid="class_column_metadata_1ae7bc55346a7f7b3dc382f171e434ada1" prot="public" virt="non-virtual"><scope>ColumnMetadata</scope><name>ColumnMetadata</name></member>
+      <member refid="class_column_metadata_1a227f2693be4b9e2492e6968ceb10e3c5" prot="public" virt="non-virtual"><scope>ColumnMetadata</scope><name>ColumnMetadata</name></member>
+      <member refid="class_column_metadata_1ad6ad2ddfd0bac5dd78a90450e7df63f9" prot="public" virt="non-virtual"><scope>ColumnMetadata</scope><name>copy</name></member>
+      <member refid="class_column_metadata_1af6dbae4edd71bc0597ab740c965f10fb" prot="public" virt="non-virtual"><scope>ColumnMetadata</scope><name>getName</name></member>
+      <member refid="class_column_metadata_1a81bf1f96407063f5efb177082338651c" prot="public" virt="non-virtual"><scope>ColumnMetadata</scope><name>getType</name></member>
+      <member refid="class_column_metadata_1af8da6ae8f965df14c07036d84468dc29" prot="public" virt="non-virtual"><scope>ColumnMetadata</scope><name>getWidth</name></member>
+      <member refid="class_column_metadata_1a8d8705f6e61506f90a39b64186d6063b" prot="public" virt="non-virtual"><scope>ColumnMetadata</scope><name>matches</name></member>
+      <member refid="class_column_metadata_1a1e177822c3086d242f1ec9dc180220cc" prot="public" virt="non-virtual"><scope>ColumnMetadata</scope><name>metadataFromString</name></member>
+      <member refid="class_column_metadata_1a437ff3b0df583ac2a00ceb9b24fb06b7" prot="protected" virt="non-virtual"><scope>ColumnMetadata</scope><name>name</name></member>
+      <member refid="class_column_metadata_1ada0e89fa1f9f6f40124ddfb461c80f8f" prot="public" virt="non-virtual"><scope>ColumnMetadata</scope><name>setName</name></member>
+      <member refid="class_column_metadata_1a7eab03a81b9c86073fb17dbbdfe07c08" prot="protected" virt="non-virtual"><scope>ColumnMetadata</scope><name>type</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

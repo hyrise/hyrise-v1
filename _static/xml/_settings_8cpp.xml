@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="_settings_8cpp" kind="file">
+    <compoundname>Settings.cpp</compoundname>
+    <includes refid="_settings_8h" local="yes">Settings.h</includes>
+    <includes refid="_environment_8h" local="yes">Environment.h</includes>
+    <incdepgraph>
+      <node id="14054">
+        <label>Settings.h</label>
+        <link refid="_settings_8h"/>
+        <childnode refid="14055" relation="include">
+        </childnode>
+        <childnode refid="14056" relation="include">
+        </childnode>
+      </node>
+      <node id="14056">
+        <label>string</label>
+      </node>
+      <node id="14053">
+        <label>src/lib/helper/Settings.cpp</label>
+        <link refid="Settings.cpp"/>
+        <childnode refid="14054" relation="include">
+        </childnode>
+        <childnode refid="14057" relation="include">
+        </childnode>
+      </node>
+      <node id="14055">
+        <label>cstddef</label>
+      </node>
+      <node id="14057">
+        <label>Environment.h</label>
+        <link refid="_environment_8h"/>
+        <childnode refid="14056" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>2012<sp/>Hasso-Plattner-Institut<sp/>fuer<sp/>Softwaresystemtechnik<sp/>GmbH.<sp/>All<sp/>rights<sp/>reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_settings_8h" kindref="compound">Settings.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_environment_8h" kindref="compound">Environment.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5" refid="class_settings_1ab7169a6eefce79566dd07db3b1e5e967" refkind="member"><highlight class="normal"><ref refid="class_settings_1ab7169a6eefce79566dd07db3b1e5e967" kindref="member">Settings::Settings</ref>()<sp/>:<sp/>threadpoolSize(1)<sp/>{</highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Initiate<sp/>the<sp/>class<sp/>based<sp/>on<sp/>Enviroment<sp/>Variables</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"><sp/><sp/><ref refid="class_settings_1abb355e64fb0eb900c5a90e40ec397500" kindref="member">setDBPath</ref>(<ref refid="_environment_8cpp_1a45002ad3fba8b017d20e5e05d550c765" kindref="member">getEnv</ref>(</highlight><highlight class="stringliteral">&quot;HYRISE_DB_PATH&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;&quot;</highlight><highlight class="normal">));</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"><sp/><sp/><ref refid="class_settings_1a015bc092a24516a9b54852b570cec081" kindref="member">setScriptPath</ref>(<ref refid="_environment_8cpp_1a45002ad3fba8b017d20e5e05d550c765" kindref="member">getEnv</ref>(</highlight><highlight class="stringliteral">&quot;HYRISE_SCRIPT_PATH&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;&quot;</highlight><highlight class="normal">));</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13" refid="class_settings_1aeb137cc24125712f33a7606d60ebe14a" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="class_settings_1aeb137cc24125712f33a7606d60ebe14a" kindref="member">Settings::getThreadpoolSize</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>this-&gt;<ref refid="class_settings_1a5d52832fc0d2bfb7e9aa906249514059" kindref="member">threadpoolSize</ref>;</highlight></codeline>
+<codeline lineno="15"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight></codeline>
+<codeline lineno="17" refid="class_settings_1a006f96037617fed1169c155ca9f7b3d6" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_settings_1a006f96037617fed1169c155ca9f7b3d6" kindref="member">Settings::setThreadpoolSize</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>newSize)<sp/>{</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/>this-&gt;<ref refid="class_settings_1a5d52832fc0d2bfb7e9aa906249514059" kindref="member">threadpoolSize</ref><sp/>=<sp/>newSize;</highlight></codeline>
+<codeline lineno="19"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/home/grund/hyrise/src/lib/helper/Settings.cpp"/>
+  </compounddef>
+</doxygen>

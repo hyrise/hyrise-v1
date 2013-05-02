@@ -1,0 +1,427 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="namespacehyrise_1_1storage" kind="namespace">
+    <compoundname>hyrise::storage</compoundname>
+    <innerclass refid="structhyrise_1_1storage_1_1sum__aggregate__functor" prot="public">hyrise::storage::sum_aggregate_functor</innerclass>
+    <innerclass refid="structhyrise_1_1storage_1_1average__aggregate__functor" prot="public">hyrise::storage::average_aggregate_functor</innerclass>
+    <innerclass refid="structhyrise_1_1storage_1_1write__group__functor" prot="public">hyrise::storage::write_group_functor</innerclass>
+    <innerclass refid="structhyrise_1_1storage_1_1copy__value__functor__raw__table" prot="public">hyrise::storage::copy_value_functor_raw_table</innerclass>
+    <innerclass refid="structhyrise_1_1storage_1_1write__to__stream__functor" prot="public">hyrise::storage::write_to_stream_functor</innerclass>
+    <innerclass refid="structhyrise_1_1storage_1_1write__to__dict__functor" prot="public">hyrise::storage::write_to_dict_functor</innerclass>
+    <innerclass refid="classhyrise_1_1storage_1_1_simple_table_dump" prot="public">hyrise::storage::SimpleTableDump</innerclass>
+    <innerclass refid="classhyrise_1_1storage_1_1_table_dump_loader" prot="public">hyrise::storage::TableDumpLoader</innerclass>
+    <innerclass refid="structhyrise_1_1storage_1_1cast__functor__by__value__id" prot="public">hyrise::storage::cast_functor_by_value_id</innerclass>
+    <innerclass refid="structhyrise_1_1storage_1_1cast__functor__by__row" prot="public">hyrise::storage::cast_functor_by_row</innerclass>
+    <innerclass refid="structhyrise_1_1storage_1_1hash__functor" prot="public">hyrise::storage::hash_functor</innerclass>
+    <innerclass refid="structhyrise_1_1storage_1_1type__switch" prot="public">hyrise::storage::type_switch</innerclass>
+    <innerclass refid="structhyrise_1_1storage_1_1type__switch_3_01_l_00_01_n_00_01true_01_4" prot="public">hyrise::storage::type_switch&lt; L, N, true &gt;</innerclass>
+    <innerclass refid="classhyrise_1_1storage_1_1_simple_store" prot="public">hyrise::storage::SimpleStore</innerclass>
+    <innerclass refid="structhyrise_1_1storage_1_1_merge_dict_functor" prot="public">hyrise::storage::MergeDictFunctor</innerclass>
+    <innerclass refid="structhyrise_1_1storage_1_1_map_value_for_value_id" prot="public">hyrise::storage::MapValueForValueId</innerclass>
+    <innerclass refid="classhyrise_1_1storage_1_1_simple_store_merger" prot="public">hyrise::storage::SimpleStoreMerger</innerclass>
+    <innernamespace refid="namespacehyrise_1_1storage_1_1_dump_helper">hyrise::storage::DumpHelper</innernamespace>
+    <innernamespace refid="namespacehyrise_1_1storage_1_1rawtable">hyrise::storage::rawtable</innernamespace>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="namespacehyrise_1_1storage_1a14e192d73e77d0f89cd45bfa64b85aec" prot="public" static="no">
+        <type>std::shared_ptr&lt; <ref refid="class_abstract_resource" kindref="compound">AbstractResource</ref> &gt;</type>
+        <definition>typedef std::shared_ptr&lt;AbstractResource&gt; hyrise::storage::aresource_ptr_t</definition>
+        <argsstring></argsstring>
+        <name>aresource_ptr_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/types.h" line="40" bodyfile="/home/grund/hyrise/src/lib/helper/types.h" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="namespacehyrise_1_1storage_1ae32c63e285e8cb5a8a3aac08dcd8d49a" prot="public" static="no">
+        <type>std::shared_ptr&lt; const <ref refid="class_abstract_resource" kindref="compound">AbstractResource</ref> &gt;</type>
+        <definition>typedef std::shared_ptr&lt;const AbstractResource&gt; hyrise::storage::c_aresource_ptr_t</definition>
+        <argsstring></argsstring>
+        <name>c_aresource_ptr_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/types.h" line="41" bodyfile="/home/grund/hyrise/src/lib/helper/types.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="namespacehyrise_1_1storage_1a21d5e900c20019710828c453eaded1ee" prot="public" static="no">
+        <type>std::shared_ptr&lt; <ref refid="class_abstract_table" kindref="compound">AbstractTable</ref> &gt;</type>
+        <definition>typedef std::shared_ptr&lt;AbstractTable&gt; hyrise::storage::atable_ptr_t</definition>
+        <argsstring></argsstring>
+        <name>atable_ptr_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/types.h" line="43" bodyfile="/home/grund/hyrise/src/lib/helper/types.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" prot="public" static="no">
+        <type>std::shared_ptr&lt; const <ref refid="class_abstract_table" kindref="compound">AbstractTable</ref> &gt;</type>
+        <definition>typedef std::shared_ptr&lt;const AbstractTable&gt; hyrise::storage::c_atable_ptr_t</definition>
+        <argsstring></argsstring>
+        <name>c_atable_ptr_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/types.h" line="44" bodyfile="/home/grund/hyrise/src/lib/helper/types.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="namespacehyrise_1_1storage_1ada8d24a3ab5374ec9f928bfba7f8cbfe" prot="public" static="no">
+        <type>std::shared_ptr&lt; <ref refid="class_abstract_hash_table" kindref="compound">AbstractHashTable</ref> &gt;</type>
+        <definition>typedef std::shared_ptr&lt;AbstractHashTable&gt; hyrise::storage::ahashtable_ptr_t</definition>
+        <argsstring></argsstring>
+        <name>ahashtable_ptr_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/types.h" line="46" bodyfile="/home/grund/hyrise/src/lib/helper/types.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="namespacehyrise_1_1storage_1a53a798623aa803822a0edaef21f4d608" prot="public" static="no">
+        <type>std::shared_ptr&lt; const <ref refid="class_abstract_hash_table" kindref="compound">AbstractHashTable</ref> &gt;</type>
+        <definition>typedef std::shared_ptr&lt;const AbstractHashTable&gt; hyrise::storage::c_ahashtable_ptr_t</definition>
+        <argsstring></argsstring>
+        <name>c_ahashtable_ptr_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/types.h" line="47" bodyfile="/home/grund/hyrise/src/lib/helper/types.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="namespacehyrise_1_1storage_1a57a55884bd9c28fd2fcd16d0ba04b595" prot="public" static="no">
+        <type>std::shared_ptr&lt; <ref refid="class_mutable_vertical_table" kindref="compound">MutableVerticalTable</ref> &gt;</type>
+        <definition>typedef std::shared_ptr&lt;MutableVerticalTable&gt; hyrise::storage::vtable_ptr_t</definition>
+        <argsstring></argsstring>
+        <name>vtable_ptr_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/types.h" line="49" bodyfile="/home/grund/hyrise/src/lib/helper/types.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="namespacehyrise_1_1storage_1aef953d3c7e2cc9bb30e47f6d430a0428" prot="public" static="no">
+        <type>std::shared_ptr&lt; const <ref refid="class_mutable_vertical_table" kindref="compound">MutableVerticalTable</ref> &gt;</type>
+        <definition>typedef std::shared_ptr&lt;const MutableVerticalTable&gt; hyrise::storage::c_vtable_ptr_t</definition>
+        <argsstring></argsstring>
+        <name>c_vtable_ptr_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/types.h" line="50" bodyfile="/home/grund/hyrise/src/lib/helper/types.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="namespacehyrise_1_1storage_1a567b68bb9a070f6b7b74bff6b21b7bf0" prot="public" static="no">
+        <type>std::shared_ptr&lt; <ref refid="class_store" kindref="compound">Store</ref> &gt;</type>
+        <definition>typedef std::shared_ptr&lt;Store&gt; hyrise::storage::store_ptr_t</definition>
+        <argsstring></argsstring>
+        <name>store_ptr_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/types.h" line="52" bodyfile="/home/grund/hyrise/src/lib/helper/types.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="namespacehyrise_1_1storage_1a15bf8f029e789356b9d72cd53e9973ec" prot="public" static="no">
+        <type>std::shared_ptr&lt; const <ref refid="class_store" kindref="compound">Store</ref> &gt;</type>
+        <definition>typedef std::shared_ptr&lt;const Store&gt; hyrise::storage::c_store_ptr_t</definition>
+        <argsstring></argsstring>
+        <name>c_store_ptr_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/types.h" line="53" bodyfile="/home/grund/hyrise/src/lib/helper/types.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="namespacehyrise_1_1storage_1afe5c5dca306961f4182a0f3a70a88ec6" prot="public" static="no">
+        <type>std::shared_ptr&lt; <ref refid="class_pointer_calculator" kindref="compound">PointerCalculator</ref> &gt;</type>
+        <definition>typedef std::shared_ptr&lt;PointerCalculator&gt; hyrise::storage::calc_ptr_t</definition>
+        <argsstring></argsstring>
+        <name>calc_ptr_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/types.h" line="55" bodyfile="/home/grund/hyrise/src/lib/helper/types.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="namespacehyrise_1_1storage_1a8b2ed0d031d4f79c0e37be67d2f84af7" prot="public" static="no">
+        <type>std::shared_ptr&lt; const <ref refid="class_pointer_calculator" kindref="compound">PointerCalculator</ref> &gt;</type>
+        <definition>typedef std::shared_ptr&lt;const PointerCalculator&gt; hyrise::storage::c_calc_ptr_t</definition>
+        <argsstring></argsstring>
+        <name>c_calc_ptr_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/types.h" line="56" bodyfile="/home/grund/hyrise/src/lib/helper/types.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="namespacehyrise_1_1storage_1aeb438c358c9803bdc572c5b7ba74843a" prot="public" static="no">
+        <type>std::shared_ptr&lt; <ref refid="classhyrise_1_1storage_1_1_simple_store" kindref="compound">SimpleStore</ref> &gt;</type>
+        <definition>typedef std::shared_ptr&lt;SimpleStore&gt; hyrise::storage::simplestore_ptr_t</definition>
+        <argsstring></argsstring>
+        <name>simplestore_ptr_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/types.h" line="58" bodyfile="/home/grund/hyrise/src/lib/helper/types.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="namespacehyrise_1_1storage_1a628c87324ef2791f2a91c0db21c20748" prot="public" static="no">
+        <type>std::shared_ptr&lt; const <ref refid="classhyrise_1_1storage_1_1_simple_store" kindref="compound">SimpleStore</ref> &gt;</type>
+        <definition>typedef std::shared_ptr&lt;const SimpleStore&gt; hyrise::storage::c_simplestore_ptr_t</definition>
+        <argsstring></argsstring>
+        <name>c_simplestore_ptr_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/types.h" line="59" bodyfile="/home/grund/hyrise/src/lib/helper/types.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="namespacehyrise_1_1storage_1a64151a9d072ad1ac3435df38c36608ea" prot="public" static="no">
+        <type>int64_t</type>
+        <definition>typedef int64_t hyrise::storage::hyrise_int_t</definition>
+        <argsstring></argsstring>
+        <name>hyrise_int_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/types.h" line="61" bodyfile="/home/grund/hyrise/src/lib/helper/types.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="namespacehyrise_1_1storage_1a029c6e1dd57396d0021efb3afb05b246" prot="public" static="no">
+        <type>float</type>
+        <definition>typedef float hyrise::storage::hyrise_float_t</definition>
+        <argsstring></argsstring>
+        <name>hyrise_float_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/types.h" line="62" bodyfile="/home/grund/hyrise/src/lib/helper/types.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="namespacehyrise_1_1storage_1a7e740f0980271c45ca5c13460190e605" prot="public" static="no">
+        <type>std::string</type>
+        <definition>typedef std::string hyrise::storage::hyrise_string_t</definition>
+        <argsstring></argsstring>
+        <name>hyrise_string_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/types.h" line="63" bodyfile="/home/grund/hyrise/src/lib/helper/types.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="namespacehyrise_1_1storage_1a0f18d45e2ea645b5b99b70e308dc5463" prot="public" static="no">
+        <type>uint32_t</type>
+        <definition>typedef uint32_t hyrise::storage::value_id_t</definition>
+        <argsstring></argsstring>
+        <name>value_id_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/types.h" line="65" bodyfile="/home/grund/hyrise/src/lib/helper/types.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="namespacehyrise_1_1storage_1a5a738eaf9cb0a700c3f988e48cfe05d3" prot="public" static="no">
+        <type>unsigned char</type>
+        <definition>typedef unsigned char hyrise::storage::table_id_t</definition>
+        <argsstring></argsstring>
+        <name>table_id_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/types.h" line="66" bodyfile="/home/grund/hyrise/src/lib/helper/types.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="namespacehyrise_1_1storage_1adf2f7735f8bc6e8bd84d1242ae680cf0" prot="public" static="no">
+        <type>size_t</type>
+        <definition>typedef size_t hyrise::storage::pos_t</definition>
+        <argsstring></argsstring>
+        <name>pos_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/types.h" line="68" bodyfile="/home/grund/hyrise/src/lib/helper/types.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="namespacehyrise_1_1storage_1a5a47ffe4fe6daf66aeeaec19ed0ea5ec" prot="public" static="no">
+        <type>size_t</type>
+        <definition>typedef size_t hyrise::storage::field_t</definition>
+        <argsstring></argsstring>
+        <name>field_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/types.h" line="69" bodyfile="/home/grund/hyrise/src/lib/helper/types.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="namespacehyrise_1_1storage_1ad585531e6d2672640f315d9b021ab2c0" prot="public" static="no">
+        <type>std::string</type>
+        <definition>typedef std::string hyrise::storage::field_name_t</definition>
+        <argsstring></argsstring>
+        <name>field_name_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/types.h" line="71" bodyfile="/home/grund/hyrise/src/lib/helper/types.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="namespacehyrise_1_1storage_1a4f948e44b75cf808be4e1c3cad861dbe" prot="public" static="no">
+        <type>std::vector&lt; <ref refid="namespacehyrise_1_1storage_1ad585531e6d2672640f315d9b021ab2c0" kindref="member">field_name_t</ref> &gt;</type>
+        <definition>typedef std::vector&lt;field_name_t&gt; hyrise::storage::field_name_list_t</definition>
+        <argsstring></argsstring>
+        <name>field_name_list_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/types.h" line="72" bodyfile="/home/grund/hyrise/src/lib/helper/types.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="namespacehyrise_1_1storage_1a82124b84ebfac47beba542ec17d56471" prot="public" static="no">
+        <type>std::vector&lt; <ref refid="namespacehyrise_1_1storage_1adf2f7735f8bc6e8bd84d1242ae680cf0" kindref="member">pos_t</ref> &gt;</type>
+        <definition>typedef std::vector&lt;pos_t&gt; hyrise::storage::pos_list_t</definition>
+        <argsstring></argsstring>
+        <name>pos_list_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/types.h" line="74" bodyfile="/home/grund/hyrise/src/lib/helper/types.h" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="namespacehyrise_1_1storage_1aa2c4369081de5fd9f081ba05ae7531f7" prot="public" static="no">
+        <type>std::vector&lt; <ref refid="namespacehyrise_1_1storage_1a5a47ffe4fe6daf66aeeaec19ed0ea5ec" kindref="member">field_t</ref> &gt;</type>
+        <definition>typedef std::vector&lt;field_t&gt; hyrise::storage::field_list_t</definition>
+        <argsstring></argsstring>
+        <name>field_list_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/types.h" line="75" bodyfile="/home/grund/hyrise/src/lib/helper/types.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="namespacehyrise_1_1storage_1aaafea9a51b6e901f07461e5c641bfe9a" prot="public" static="no">
+        <type>boost::mpl::size&lt; <ref refid="storage__types_8h_1a39c874e8e107e23aa7e7782c1ee1b35c" kindref="member">hyrise_basic_types</ref> &gt;</type>
+        <definition>typedef boost::mpl::size&lt;hyrise_basic_types&gt; hyrise::storage::basic_types_size</definition>
+        <argsstring></argsstring>
+        <name>basic_types_size</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/meta_storage.h" line="16" bodyfile="/home/grund/hyrise/src/lib/storage/meta_storage.h" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="namespacehyrise_1_1storage_1a8addaea8b5301cc30c8f8f634b531127" prot="public" static="no">
+        <type>std::unordered_map&lt; size_t, size_t &gt;</type>
+        <definition>typedef std::unordered_map&lt;size_t, size_t&gt; hyrise::storage::column_mapping_t</definition>
+        <argsstring></argsstring>
+        <name>column_mapping_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableUtils.h" line="13" bodyfile="/home/grund/hyrise/src/lib/storage/TableUtils.h" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="namespacehyrise_1_1storage_1a37de91e69704c722e194d76a8f4a9c1c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="namespacehyrise_1_1storage_1a8addaea8b5301cc30c8f8f634b531127" kindref="member">column_mapping_t</ref></type>
+        <definition>column_mapping_t hyrise::storage::calculateMapping</definition>
+        <argsstring>(const std::shared_ptr&lt; const AbstractTable &gt; &amp;source, const std::shared_ptr&lt; const AbstractTable &gt; &amp;dest)</argsstring>
+        <name>calculateMapping</name>
+        <param>
+          <type>const std::shared_ptr&lt; const <ref refid="class_abstract_table" kindref="compound">AbstractTable</ref> &gt; &amp;</type>
+          <declname>source</declname>
+        </param>
+        <param>
+          <type>const std::shared_ptr&lt; const <ref refid="class_abstract_table" kindref="compound">AbstractTable</ref> &gt; &amp;</type>
+          <declname>dest</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableUtils.cpp" line="10" bodyfile="/home/grund/hyrise/src/lib/storage/TableUtils.cpp" bodystart="9" bodyend="12"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehyrise_1_1storage_1a2e4be9e1c14ae73a8dc6825bebca993f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="namespacehyrise_1_1storage_1a8addaea8b5301cc30c8f8f634b531127" kindref="member">column_mapping_t</ref></type>
+        <definition>column_mapping_t hyrise::storage::calculateMapping</definition>
+        <argsstring>(const AbstractTable &amp;input, const AbstractTable &amp;dest)</argsstring>
+        <name>calculateMapping</name>
+        <param>
+          <type>const <ref refid="class_abstract_table" kindref="compound">AbstractTable</ref> &amp;</type>
+          <declname>input</declname>
+        </param>
+        <param>
+          <type>const <ref refid="class_abstract_table" kindref="compound">AbstractTable</ref> &amp;</type>
+          <declname>dest</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableUtils.cpp" line="16" bodyfile="/home/grund/hyrise/src/lib/storage/TableUtils.cpp" bodystart="14" bodyend="22"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/grund/hyrise/src/lib/access/AggregateFunctions.cpp" line="7"/>
+  </compounddef>
+</doxygen>

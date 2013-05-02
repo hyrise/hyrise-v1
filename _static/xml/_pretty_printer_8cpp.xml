@@ -1,0 +1,657 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="_pretty_printer_8cpp" kind="file">
+    <compoundname>PrettyPrinter.cpp</compoundname>
+    <includes refid="_pretty_printer_8h" local="yes">storage/PrettyPrinter.h</includes>
+    <includes local="no">numeric</includes>
+    <includes local="no">iostream</includes>
+    <includes local="no">sstream</includes>
+    <includes local="no">string</includes>
+    <includes refid="types_8h" local="yes">helper/types.h</includes>
+    <includes refid="_range_iter_8h" local="yes">helper/RangeIter.h</includes>
+    <includes refid="_abstract_table_8h" local="yes">storage/AbstractTable.h</includes>
+    <includes refid="_raw_table_8h" local="yes">storage/RawTable.h</includes>
+    <includes refid="storage__types_8h" local="yes">storage/storage_types.h</includes>
+    <includes refid="_table_diff_8h" local="yes">storage/TableDiff.h</includes>
+    <includes local="yes">ftprinter/FTPrinter.h</includes>
+    <incdepgraph>
+      <node id="21601">
+        <label>list</label>
+      </node>
+      <node id="21625">
+        <label>boost/mpl/size.hpp</label>
+      </node>
+      <node id="21590">
+        <label>boost/mpl/vector.hpp</label>
+      </node>
+      <node id="21577">
+        <label>limits</label>
+      </node>
+      <node id="21620">
+        <label>boost/functional/hash.hpp</label>
+      </node>
+      <node id="21626">
+        <label>storage/AbstractAllocatedTable.h</label>
+        <link refid="_abstract_allocated_table_8h"/>
+        <childnode refid="21598" relation="include">
+        </childnode>
+        <childnode refid="21602" relation="include">
+        </childnode>
+        <childnode refid="21604" relation="include">
+        </childnode>
+      </node>
+      <node id="21596">
+        <label>assert.h</label>
+      </node>
+      <node id="21592">
+        <label>boost/lexical_cast.hpp</label>
+      </node>
+      <node id="21611">
+        <label>boost/iterator/iterator_facade.hpp</label>
+      </node>
+      <node id="21575">
+        <label>cstdint</label>
+      </node>
+      <node id="21608">
+        <label>storage/BaseDictionary.h</label>
+        <link refid="_base_dictionary_8h"/>
+        <childnode refid="21587" relation="include">
+        </childnode>
+        <childnode refid="21597" relation="include">
+        </childnode>
+        <childnode refid="21609" relation="include">
+        </childnode>
+      </node>
+      <node id="21588">
+        <label>stdint.h</label>
+      </node>
+      <node id="21607">
+        <label>stdlib.h</label>
+      </node>
+      <node id="21605">
+        <label>errno.h</label>
+      </node>
+      <node id="21585">
+        <label>stdexcept</label>
+      </node>
+      <node id="21580">
+        <label>numeric</label>
+      </node>
+      <node id="21576">
+        <label>string</label>
+      </node>
+      <node id="21623">
+        <label>boost/mpl/at.hpp</label>
+      </node>
+      <node id="21617">
+        <label>map</label>
+      </node>
+      <node id="21594">
+        <label>storage/ValueIdMap.hpp</label>
+        <link refid="_value_id_map_8hpp"/>
+        <childnode refid="21595" relation="include">
+        </childnode>
+        <childnode refid="21613" relation="include">
+        </childnode>
+      </node>
+      <node id="21621">
+        <label>storage/RawTable.h</label>
+        <link refid="_raw_table_8h"/>
+        <childnode refid="21585" relation="include">
+        </childnode>
+        <childnode refid="21579" relation="include">
+        </childnode>
+        <childnode refid="21588" relation="include">
+        </childnode>
+        <childnode refid="21587" relation="include">
+        </childnode>
+        <childnode refid="21622" relation="include">
+        </childnode>
+        <childnode refid="21584" relation="include">
+        </childnode>
+        <childnode refid="21626" relation="include">
+        </childnode>
+        <childnode refid="21593" relation="include">
+        </childnode>
+      </node>
+      <node id="21604">
+        <label>memory/MemalignStrategy.h</label>
+        <link refid="_memalign_strategy_8h"/>
+        <childnode refid="21605" relation="include">
+        </childnode>
+        <childnode refid="21606" relation="include">
+        </childnode>
+        <childnode refid="21607" relation="include">
+        </childnode>
+      </node>
+      <node id="21616">
+        <label>exception</label>
+      </node>
+      <node id="21599">
+        <label>stddef.h</label>
+      </node>
+      <node id="21613">
+        <label>storage/OrderIndifferentDictionary.h</label>
+        <link refid="_order_indifferent_dictionary_8h"/>
+        <childnode refid="21587" relation="include">
+        </childnode>
+        <childnode refid="21597" relation="include">
+        </childnode>
+        <childnode refid="21608" relation="include">
+        </childnode>
+        <childnode refid="21609" relation="include">
+        </childnode>
+        <childnode refid="21614" relation="include">
+        </childnode>
+        <childnode refid="21612" relation="include">
+        </childnode>
+        <childnode refid="21616" relation="include">
+        </childnode>
+        <childnode refid="21579" relation="include">
+        </childnode>
+        <childnode refid="21617" relation="include">
+        </childnode>
+        <childnode refid="21578" relation="include">
+        </childnode>
+        <childnode refid="21618" relation="include">
+        </childnode>
+        <childnode refid="21619" relation="include">
+        </childnode>
+        <childnode refid="21620" relation="include">
+        </childnode>
+      </node>
+      <node id="21589">
+        <label>ostream</label>
+      </node>
+      <node id="21618">
+        <label>limits.h</label>
+      </node>
+      <node id="21627">
+        <label>storage/TableDiff.h</label>
+        <link refid="_table_diff_8h"/>
+        <childnode refid="21579" relation="include">
+        </childnode>
+        <childnode refid="21617" relation="include">
+        </childnode>
+        <childnode refid="21578" relation="include">
+        </childnode>
+        <childnode refid="21587" relation="include">
+        </childnode>
+      </node>
+      <node id="21609">
+        <label>storage/DictionaryIterator.h</label>
+        <link refid="_dictionary_iterator_8h"/>
+        <childnode refid="21610" relation="include">
+        </childnode>
+        <childnode refid="21611" relation="include">
+        </childnode>
+      </node>
+      <node id="21597">
+        <label>storage/AbstractDictionary.h</label>
+        <link refid="_abstract_dictionary_8h"/>
+        <childnode refid="21579" relation="include">
+        </childnode>
+        <childnode refid="21576" relation="include">
+        </childnode>
+        <childnode refid="21578" relation="include">
+        </childnode>
+        <childnode refid="21598" relation="include">
+        </childnode>
+        <childnode refid="21602" relation="include">
+        </childnode>
+        <childnode refid="21604" relation="include">
+        </childnode>
+        <childnode refid="21587" relation="include">
+        </childnode>
+      </node>
+      <node id="21615">
+        <label>string.h</label>
+      </node>
+      <node id="21584">
+        <label>storage/AbstractTable.h</label>
+        <link refid="_abstract_table_8h"/>
+        <childnode refid="21577" relation="include">
+        </childnode>
+        <childnode refid="21578" relation="include">
+        </childnode>
+        <childnode refid="21585" relation="include">
+        </childnode>
+        <childnode refid="21579" relation="include">
+        </childnode>
+        <childnode refid="21576" relation="include">
+        </childnode>
+        <childnode refid="21574" relation="include">
+        </childnode>
+        <childnode refid="21586" relation="include">
+        </childnode>
+        <childnode refid="21587" relation="include">
+        </childnode>
+        <childnode refid="21593" relation="include">
+        </childnode>
+        <childnode refid="21594" relation="include">
+        </childnode>
+      </node>
+      <node id="21586">
+        <label>storage/AbstractResource.h</label>
+        <link refid="_abstract_resource_8h"/>
+      </node>
+      <node id="21573">
+        <label>storage/PrettyPrinter.h</label>
+        <link refid="_pretty_printer_8h"/>
+        <childnode refid="21574" relation="include">
+        </childnode>
+      </node>
+      <node id="21583">
+        <label>helper/RangeIter.h</label>
+        <link refid="_range_iter_8h"/>
+      </node>
+      <node id="21619">
+        <label>boost/unordered_map.hpp</label>
+      </node>
+      <node id="21579">
+        <label>vector</label>
+      </node>
+      <node id="21624">
+        <label>boost/mpl/int.hpp</label>
+      </node>
+      <node id="21574">
+        <label>helper/types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="21575" relation="include">
+        </childnode>
+        <childnode refid="21576" relation="include">
+        </childnode>
+        <childnode refid="21577" relation="include">
+        </childnode>
+        <childnode refid="21578" relation="include">
+        </childnode>
+        <childnode refid="21579" relation="include">
+        </childnode>
+      </node>
+      <node id="21582">
+        <label>sstream</label>
+      </node>
+      <node id="21622">
+        <label>storage/meta_storage.h</label>
+        <link refid="meta__storage_8h"/>
+        <childnode refid="21585" relation="include">
+        </childnode>
+        <childnode refid="21623" relation="include">
+        </childnode>
+        <childnode refid="21624" relation="include">
+        </childnode>
+        <childnode refid="21625" relation="include">
+        </childnode>
+        <childnode refid="21587" relation="include">
+        </childnode>
+      </node>
+      <node id="21610">
+        <label>storage/BaseIterator.h</label>
+        <link refid="_base_iterator_8h"/>
+      </node>
+      <node id="21598">
+        <label>memory/StrategizedAllocator.h</label>
+        <link refid="_strategized_allocator_8h"/>
+        <childnode refid="21599" relation="include">
+        </childnode>
+        <childnode refid="21600" relation="include">
+        </childnode>
+        <childnode refid="21601" relation="include">
+        </childnode>
+        <childnode refid="21585" relation="include">
+        </childnode>
+      </node>
+      <node id="21581">
+        <label>iostream</label>
+      </node>
+      <node id="21593">
+        <label>storage/ColumnMetadata.h</label>
+        <link refid="_column_metadata_8h"/>
+        <childnode refid="21587" relation="include">
+        </childnode>
+        <childnode refid="21576" relation="include">
+        </childnode>
+        <childnode refid="21585" relation="include">
+        </childnode>
+      </node>
+      <node id="21591">
+        <label>boost/mpl/map.hpp</label>
+      </node>
+      <node id="21612">
+        <label>storage/AbstractAllocatedDictionary.h</label>
+        <link refid="_abstract_allocated_dictionary_8h"/>
+      </node>
+      <node id="21602">
+        <label>memory/MallocStrategy.h</label>
+        <link refid="_malloc_strategy_8h"/>
+        <childnode refid="21581" relation="include">
+        </childnode>
+        <childnode refid="21575" relation="include">
+        </childnode>
+        <childnode refid="21603" relation="include">
+        </childnode>
+      </node>
+      <node id="21572">
+        <label>src/lib/storage/PrettyPrinter.cpp</label>
+        <link refid="PrettyPrinter.cpp"/>
+        <childnode refid="21573" relation="include">
+        </childnode>
+        <childnode refid="21580" relation="include">
+        </childnode>
+        <childnode refid="21581" relation="include">
+        </childnode>
+        <childnode refid="21582" relation="include">
+        </childnode>
+        <childnode refid="21576" relation="include">
+        </childnode>
+        <childnode refid="21574" relation="include">
+        </childnode>
+        <childnode refid="21583" relation="include">
+        </childnode>
+        <childnode refid="21584" relation="include">
+        </childnode>
+        <childnode refid="21621" relation="include">
+        </childnode>
+        <childnode refid="21587" relation="include">
+        </childnode>
+        <childnode refid="21627" relation="include">
+        </childnode>
+        <childnode refid="21628" relation="include">
+        </childnode>
+      </node>
+      <node id="21595">
+        <label>storage/OrderPreservingDictionary.h</label>
+        <link refid="_order_preserving_dictionary_8h"/>
+        <childnode refid="21596" relation="include">
+        </childnode>
+        <childnode refid="21581" relation="include">
+        </childnode>
+        <childnode refid="21578" relation="include">
+        </childnode>
+        <childnode refid="21587" relation="include">
+        </childnode>
+        <childnode refid="21597" relation="include">
+        </childnode>
+        <childnode refid="21608" relation="include">
+        </childnode>
+        <childnode refid="21609" relation="include">
+        </childnode>
+        <childnode refid="21612" relation="include">
+        </childnode>
+        <childnode refid="21610" relation="include">
+        </childnode>
+      </node>
+      <node id="21628">
+        <label>ftprinter/FTPrinter.h</label>
+      </node>
+      <node id="21600">
+        <label>algorithm</label>
+      </node>
+      <node id="21606">
+        <label>stdio.h</label>
+      </node>
+      <node id="21603">
+        <label>cstring</label>
+      </node>
+      <node id="21614">
+        <label>storage/csb_tree.h</label>
+        <link refid="csb__tree_8h"/>
+        <childnode refid="21579" relation="include">
+        </childnode>
+        <childnode refid="21581" relation="include">
+        </childnode>
+        <childnode refid="21601" relation="include">
+        </childnode>
+        <childnode refid="21578" relation="include">
+        </childnode>
+        <childnode refid="21615" relation="include">
+        </childnode>
+        <childnode refid="21596" relation="include">
+        </childnode>
+        <childnode refid="21611" relation="include">
+        </childnode>
+      </node>
+      <node id="21578">
+        <label>memory</label>
+      </node>
+      <node id="21587">
+        <label>storage/storage_types.h</label>
+        <link refid="storage__types_8h"/>
+        <childnode refid="21579" relation="include">
+        </childnode>
+        <childnode refid="21576" relation="include">
+        </childnode>
+        <childnode refid="21585" relation="include">
+        </childnode>
+        <childnode refid="21588" relation="include">
+        </childnode>
+        <childnode refid="21589" relation="include">
+        </childnode>
+        <childnode refid="21590" relation="include">
+        </childnode>
+        <childnode refid="21591" relation="include">
+        </childnode>
+        <childnode refid="21592" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="_pretty_printer_8cpp_1aa0a69006fd2b5443be336133f3bb7cda" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+        </templateparamlist>
+        <type>std::string</type>
+        <definition>std::string generateValue</definition>
+        <argsstring>(T &amp;input, const size_t &amp;column, const size_t &amp;row)</argsstring>
+        <name>generateValue</name>
+        <param>
+          <type>T &amp;</type>
+          <declname>input</declname>
+        </param>
+        <param>
+          <type>const size_t &amp;</type>
+          <declname>column</declname>
+        </param>
+        <param>
+          <type>const size_t &amp;</type>
+          <declname>row</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/PrettyPrinter.cpp" line="20" bodyfile="/home/grund/hyrise/src/lib/storage/PrettyPrinter.cpp" bodystart="20" bodyend="36"/>
+      </memberdef>
+      <memberdef kind="function" id="_pretty_printer_8cpp_1a62eb6ffe587fb66b3a567ab716661611" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void special_print</definition>
+        <argsstring>(T &amp;input, std::ostream &amp;outStream, const std::string tableName, const size_t &amp;limit, const size_t &amp;start)</argsstring>
+        <name>special_print</name>
+        <param>
+          <type>T &amp;</type>
+          <declname>input</declname>
+        </param>
+        <param>
+          <type>std::ostream &amp;</type>
+          <declname>outStream</declname>
+        </param>
+        <param>
+          <type>const std::string</type>
+          <declname>tableName</declname>
+        </param>
+        <param>
+          <type>const size_t &amp;</type>
+          <declname>limit</declname>
+        </param>
+        <param>
+          <type>const size_t &amp;</type>
+          <declname>start</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/PrettyPrinter.cpp" line="39" bodyfile="/home/grund/hyrise/src/lib/storage/PrettyPrinter.cpp" bodystart="39" bodyend="71"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>2012<sp/>Hasso-Plattner-Institut<sp/>fuer<sp/>Softwaresystemtechnik<sp/>GmbH.<sp/>All<sp/>rights<sp/>reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_pretty_printer_8h" kindref="compound">storage/PrettyPrinter.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;numeric&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;iostream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;sstream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="types_8h" kindref="compound">helper/types.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_range_iter_8h" kindref="compound">helper/RangeIter.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_abstract_table_8h" kindref="compound">storage/AbstractTable.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_raw_table_8h" kindref="compound">storage/RawTable.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="storage__types_8h" kindref="compound">storage/storage_types.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_table_diff_8h" kindref="compound">storage/TableDiff.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;ftprinter/FTPrinter.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="keyword">using<sp/>namespace<sp/></highlight><highlight class="normal">hyrise;</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
+<codeline lineno="20" refid="_pretty_printer_8cpp_1aa0a69006fd2b5443be336133f3bb7cda" refkind="member"><highlight class="normal">std::string<sp/><ref refid="_pretty_printer_8cpp_1aa0a69006fd2b5443be336133f3bb7cda" kindref="member">generateValue</ref>(T&amp;<sp/>input,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal">&amp;<sp/>column,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal">&amp;<sp/>row)<sp/>{</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/>std::stringstream<sp/>buffer;</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Add<sp/>a<sp/>basic<sp/>hack<sp/>to<sp/>make<sp/>valid_to<sp/>columns<sp/>look<sp/>decent</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((input-&gt;nameOfColumn(column)<sp/>==<sp/><ref refid="namespacehyrise_1_1insertonly_1a2ebc7d70a749bdc6136e57929875ba89" kindref="member">insertonly::VALID_TO_COL_ID</ref>)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>((input-&gt;template<sp/>getValue&lt;hyrise_int_t&gt;(column,<sp/>row))<sp/>==<sp/><ref refid="namespacehyrise_1_1insertonly_1a750260dec71a2b00d7f463812c90e8cf" kindref="member">insertonly::VISIBLE</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/>buffer<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;inf&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/>buffer<sp/>&lt;&lt;<sp/>input-&gt;printValue(column,<sp/>row);</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">try</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_value_id" kindref="compound">ValueId</ref><sp/>valueId<sp/>=<sp/>input-&gt;getValueId(column,<sp/>row);</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/>buffer<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;(&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>valueId.<ref refid="class_value_id_1aba4b7fbd1c7acac6ae904e2e5862c7af" kindref="member">valueId</ref><sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;@&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>std::dec<sp/>&lt;&lt;<sp/>(unsigned)<sp/>valueId.<ref refid="class_value_id_1acb1b09f9c1ba2d8866a5886afed1a13d" kindref="member">table</ref><sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;)&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">catch</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::runtime_error&amp;)<sp/>{}</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>buffer.str();</highlight></codeline>
+<codeline lineno="36"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
+<codeline lineno="39" refid="_pretty_printer_8cpp_1a62eb6ffe587fb66b3a567ab716661611" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="_pretty_printer_8cpp_1a62eb6ffe587fb66b3a567ab716661611" kindref="member">special_print</ref>(T&amp;<sp/>input,<sp/>std::ostream&amp;<sp/>outStream,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>tableName,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal">&amp;<sp/>limit,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal">&amp;<sp/>start)<sp/>{</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/>ftprinter::FTPrinter<sp/>tp(tableName,<sp/>outStream);</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/>tp.addColumn(</highlight><highlight class="stringliteral">&quot;#rowid&quot;</highlight><highlight class="normal">,<sp/>6);</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>columns<sp/>=<sp/>input-&gt;columnCount();</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>column_index<sp/>=<sp/>0;<sp/>column_index<sp/>&lt;<sp/>columns;<sp/>++column_index)<sp/>{</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Auto<sp/>adjusting<sp/>widths<sp/>means<sp/>iterating<sp/>over<sp/>the<sp/>table<sp/>twice,<sp/>but<sp/>we<sp/>use<sp/>it<sp/>for</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>debugging<sp/>purposes<sp/>only,<sp/>anyways,<sp/>so<sp/>we&apos;ll<sp/>go<sp/>with<sp/>beauty<sp/>of<sp/>output<sp/>here</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>name<sp/>=<sp/>input-&gt;nameOfColumn(column_index);</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>width<sp/>=<sp/>std::accumulate(<ref refid="class_range_iter" kindref="compound">RangeIter</ref>(0),<sp/><ref refid="class_range_iter" kindref="compound">RangeIter</ref>(input-&gt;size()),</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>minimum<sp/>width<sp/>is<sp/>4</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>name.size()<sp/>&gt;<sp/>4<sp/>?<sp/>name.size()<sp/>:<sp/>4,</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>[&amp;]<sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>max,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal">&amp;<sp/>row)<sp/>-&gt;<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>sz<sp/>=<sp/><ref refid="_pretty_printer_8cpp_1aa0a69006fd2b5443be336133f3bb7cda" kindref="member">generateValue</ref>(input,<sp/>column_index,<sp/>row).size();</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>sz<sp/>&gt;<sp/>max<sp/>?<sp/>sz<sp/>:<sp/>max;</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>});</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/>tp.addColumn(name,<sp/>width);</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(limit<sp/>&lt;<sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal">)<sp/>-<sp/>1)<sp/>{</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/>outStream<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;(showing<sp/>first<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>limit<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>rows)&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(tableName.size()<sp/>&gt;<sp/>0)</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/>tp.printTableName();</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/>tp.printHeader();</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>row<sp/>=<sp/>start;<sp/>row<sp/>&lt;<sp/>input-&gt;size()<sp/>&amp;&amp;<sp/>row<sp/>&lt;<sp/>limit;<sp/>++row)<sp/>{</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/>tp<sp/>&lt;&lt;<sp/>row;</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>column<sp/>=<sp/>0;<sp/>column<sp/>&lt;<sp/>columns;<sp/>++column)<sp/>{</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>tp<sp/>&lt;&lt;<sp/><ref refid="_pretty_printer_8cpp_1aa0a69006fd2b5443be336133f3bb7cda" kindref="member">generateValue</ref>(input,<sp/>column,<sp/>row);</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/>tp.printFooter();</highlight></codeline>
+<codeline lineno="71"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73" refid="class_pretty_printer_1adbdaff3783e854cd32188e01251355a8" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_pretty_printer_1adbdaff3783e854cd32188e01251355a8" kindref="member">PrettyPrinter::printDiff</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">storage::c_atable_ptr_t</ref>&amp;<sp/>input,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="class_table_diff" kindref="compound">TableDiff</ref>&amp;<sp/>diff,</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::ostream&amp;<sp/>outStream,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>tableName,</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal">&amp;<sp/>limit,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal">&amp;<sp/>start)<sp/>{</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/>ftprinter::FTPrinter<sp/>tp(tableName,<sp/>outStream);</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/>tp.addColumn(</highlight><highlight class="stringliteral">&quot;#rowid&quot;</highlight><highlight class="normal">,<sp/>6);</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>columns<sp/>=<sp/>input-&gt;columnCount();</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>column_index<sp/>=<sp/>0;<sp/>column_index<sp/>&lt;<sp/>columns;<sp/>++column_index)<sp/>{</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Auto<sp/>adjusting<sp/>widths<sp/>means<sp/>iterating<sp/>over<sp/>the<sp/>table<sp/>twice,<sp/>but<sp/>we<sp/>use<sp/>it<sp/>for</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>debugging<sp/>purposes<sp/>only,<sp/>anyways,<sp/>so<sp/>we&apos;ll<sp/>go<sp/>with<sp/>beauty<sp/>of<sp/>output<sp/>here</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>name<sp/>=<sp/>input-&gt;nameOfColumn(column_index);</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>width<sp/>=<sp/>std::accumulate(<ref refid="class_range_iter" kindref="compound">RangeIter</ref>(0),<sp/><ref refid="class_range_iter" kindref="compound">RangeIter</ref>(input-&gt;size()),</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>minimum<sp/>width<sp/>is<sp/>4</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>name.size()<sp/>&gt;<sp/>4<sp/>?<sp/>name.size()<sp/>:<sp/>4,</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>[&amp;]<sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>max,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal">&amp;<sp/>row)<sp/>-&gt;<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>sz<sp/>=<sp/><ref refid="_pretty_printer_8cpp_1aa0a69006fd2b5443be336133f3bb7cda" kindref="member">generateValue</ref>(input,<sp/>column_index,<sp/>row).size();</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>sz<sp/>&gt;<sp/>max<sp/>?<sp/>sz<sp/>:<sp/>max;</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>});</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/>ftprinter::PrintFormat<sp/>format<sp/>=<sp/>ftprinter::format::basic;</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(diff.<ref refid="class_table_diff_1abd2d1d75c9d5a0e0b97a9abfe3bcff56" kindref="member">fields</ref>[column_index]<sp/>==<sp/><ref refid="class_table_diff_1a9d12bc57dc56ca5498e945912afb1879a99322223dea5df7571561dc3f63b2dee" kindref="member">TableDiff::FieldWrong</ref>)</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>format<sp/>=<sp/>ftprinter::format::red;</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(diff.<ref refid="class_table_diff_1abd2d1d75c9d5a0e0b97a9abfe3bcff56" kindref="member">fields</ref>[column_index]<sp/>==<sp/><ref refid="class_table_diff_1a9d12bc57dc56ca5498e945912afb1879a18bfca2f3d97c9d43380a85a7bf498eb" kindref="member">TableDiff::FieldWrongType</ref>)</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>format<sp/>=<sp/>ftprinter::format::magenta;</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/>tp.addColumn(name,<sp/>width,<sp/>format);</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/>outStream<sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(limit<sp/>&lt;<sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal">)<sp/>-<sp/>1)<sp/>{</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/>outStream<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;(showing<sp/>first<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>limit<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>rows)&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>iWrong<sp/>=<sp/>diff.<ref refid="class_table_diff_1ac1c038a5d4ad5bdf7679d6c1894ef54c" kindref="member">wrongRows</ref>.begin();</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>iFalsePos<sp/>=<sp/>diff.<ref refid="class_table_diff_1a4be97a2ae477903c0c85972bda950860" kindref="member">falsePositionRows</ref>.begin();</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(iWrong<sp/>!=<sp/>diff.<ref refid="class_table_diff_1ac1c038a5d4ad5bdf7679d6c1894ef54c" kindref="member">wrongRows</ref>.end()<sp/>&amp;&amp;<sp/>*iWrong<sp/>&lt;<sp/>start)<sp/>iWrong++;</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(iFalsePos<sp/>!=<sp/>diff.<ref refid="class_table_diff_1a4be97a2ae477903c0c85972bda950860" kindref="member">falsePositionRows</ref>.end()<sp/>&amp;&amp;<sp/>(*iFalsePos).first<sp/>&lt;<sp/>start)<sp/>iFalsePos++;</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(tableName.size()<sp/>&gt;<sp/>0)</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/>tp.printTableName();</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/>tp.printHeader();</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>row<sp/>=<sp/>start;<sp/>row<sp/>&lt;<sp/>input-&gt;size()<sp/>&amp;&amp;<sp/>row<sp/>&lt;<sp/>limit;<sp/>++row)<sp/>{</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/>tp<sp/>&lt;&lt;<sp/>row;</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(iWrong<sp/>!=<sp/>diff.<ref refid="class_table_diff_1ac1c038a5d4ad5bdf7679d6c1894ef54c" kindref="member">wrongRows</ref>.end()<sp/>&amp;&amp;<sp/>*iWrong<sp/>==<sp/>row)<sp/>{</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>tp<sp/>&lt;&lt;<sp/>ftprinter::format::red;</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>iWrong++;</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(iFalsePos<sp/>!=<sp/>diff.<ref refid="class_table_diff_1a4be97a2ae477903c0c85972bda950860" kindref="member">falsePositionRows</ref>.end()<sp/>&amp;&amp;<sp/>(*iFalsePos).first<sp/>==<sp/>row)<sp/>{</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>tp<sp/>&lt;&lt;<sp/>ftprinter::format::yellow;</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>iFalsePos++;</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(<ref refid="storage__types_8h_1a5ce4ecb27464dc24ba394527510dd89b" kindref="member">field_t</ref><sp/>column<sp/>=<sp/>0;<sp/>column<sp/>&lt;<sp/>columns;<sp/>++column)<sp/>{</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>tp<sp/>&lt;&lt;<sp/><ref refid="_pretty_printer_8cpp_1aa0a69006fd2b5443be336133f3bb7cda" kindref="member">generateValue</ref>(input,<sp/>column,<sp/>row);</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/>tp.printFooter();</highlight></codeline>
+<codeline lineno="132"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight></codeline>
+<codeline lineno="134" refid="class_pretty_printer_1ac0cd959b205b2ab198dac35c83424e9b" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="namespacelayouter_1a8fe7d9ecbfd0b9a1690bca4e2a544fd0" kindref="member">PrettyPrinter::print</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="class_abstract_table" kindref="compound">AbstractTable</ref>*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>input,<sp/>std::ostream&amp;<sp/>outStream,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>tableName,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal">&amp;<sp/>limit,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal">&amp;<sp/>start)<sp/>{</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>RawTable&lt;&gt;*<sp/>r<sp/>=<sp/></highlight><highlight class="keyword">dynamic_cast&lt;</highlight><highlight class="keyword">const<sp/></highlight><highlight class="normal">RawTable&lt;&gt;*</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(input);</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(r)<sp/>{</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="_pretty_printer_8cpp_1a62eb6ffe587fb66b3a567ab716661611" kindref="member">special_print</ref>(r,<sp/>outStream,<sp/>tableName,<sp/>limit,<sp/>start);</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="_pretty_printer_8cpp_1a62eb6ffe587fb66b3a567ab716661611" kindref="member">special_print</ref>(input,<sp/>outStream,<sp/>tableName,<sp/>limit,<sp/>start);</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="141"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/home/grund/hyrise/src/lib/storage/PrettyPrinter.cpp"/>
+  </compounddef>
+</doxygen>

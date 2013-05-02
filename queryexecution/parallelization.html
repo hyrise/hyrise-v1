@@ -1,0 +1,280 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Parallelization &mdash; HYRISE latest documentation</title>
+    
+    <link rel="stylesheet" href="../_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/breathe.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     'latest',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="HYRISE latest documentation" href="../index.html" />
+    <link rel="up" title="HYRISE Query Execution" href="../query_execution.html" />
+    <link rel="next" title="Plan Operations" href="json_plan_operations.html" />
+    <link rel="prev" title="Available Operators" href="available_operators.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="json_plan_operations.html" title="Plan Operations"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="available_operators.html" title="Available Operators"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">HYRISE latest documentation</a> &raquo;</li>
+          <li><a href="../query_execution.html" accesskey="U">HYRISE Query Execution</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/hyrise.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture.html">Implementation Details</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../query_execution.html">HYRISE Query Execution</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="json_query_execution.html">JSON Query Execution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="json_queries.html">JSON Queries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="available_operators.html">Available Operators</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Parallelization</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#independent-operators">Independent Operators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#parallel-operator">Parallel Operator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#implementation-details">Implementation Details</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#querytransformationengine">QueryTransformationEngine</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#queryparser">QueryParser</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="json_plan_operations.html">Plan Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="v8ops.html">Integrating Google V8</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../developing.html">Developing with HYRISE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">HYRISE &amp; Development FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../proposals.html">Proposals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doxygen.html">Doxygen Documentation</a></li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="available_operators.html"
+                        title="previous chapter">Available Operators</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="json_plan_operations.html"
+                        title="next chapter">Plan Operations</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/queryexecution/parallelization.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="parallelization">
+<h1>Parallelization<a class="headerlink" href="#parallelization" title="Permalink to this headline">¶</a></h1>
+<p>HYRISE offers parallel execution of queries.</p>
+<p>JSON is used to specify a human-readable definition of the query&#8217;s operators. To execute them as specified, the QueryTransformationEngine transforms the query to a format which results in directly instantiable operator definitions using the QueryParser. The latter&#8217;s resulting operators can finally be executed. See <a class="reference internal" href="#implementation-details">Implementation Details</a>.</p>
+<p>The amount of parallel executable operators is limited by the thread pool size. There are two different kinds of parallel execution. Further details on how they work and rely on transformation can be found below.</p>
+<div class="section" id="independent-operators">
+<h2>Independent Operators<a class="headerlink" href="#independent-operators" title="Permalink to this headline">¶</a></h2>
+<p>Two operators are independent if they aren&#8217;t nodes in the same edge. An edges definition like this allows operators &#8220;0&#8221; and &#8220;1&#8221; to be executed in parallel:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="s">&quot;edges&quot;</span><span class="o">:</span> <span class="p">[[</span><span class="s">&quot;0&quot;</span><span class="p">,</span> <span class="s">&quot;2&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s">&quot;1&quot;</span><span class="p">,</span> <span class="s">&quot;2&quot;</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="parallel-operator">
+<h2>Parallel Operator<a class="headerlink" href="#parallel-operator" title="Permalink to this headline">¶</a></h2>
+<p>The above example is limited to execute operators as one. It is possible to execute a single operator in parallel using the &#8220;instances&#8221; JSON member in an operator&#8217;s definition:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="p">{</span>
+        <span class="s">&quot;operators&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s">&quot;0&quot;</span><span class="o">:</span> <span class="p">{</span>
+                        <span class="p">[...]</span>
+                        <span class="s">&quot;instances&quot;</span><span class="o">:</span> <span class="mi">2</span>
+                        <span class="p">[...]</span>
+                <span class="p">},</span>
+                <span class="s">&quot;1&quot;</span><span class="o">:</span> <span class="p">{</span> <span class="p">[...]</span> <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="s">&quot;edges&quot;</span><span class="o">:</span> <span class="p">[[</span><span class="s">&quot;0&quot;</span><span class="p">,</span> <span class="s">&quot;1&quot;</span><span class="p">]]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The QueryTransformationEngine recognizes &#8220;instances&#8221;. The original operator &#8220;0&#8221; will be  replaced by its parallel instances. Additionally, the results of all instances will be combined using a UnionScan:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="p">{</span>
+        <span class="s">&quot;operators&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s">&quot;0_instance_0&quot;</span><span class="o">:</span> <span class="p">{</span>
+                        <span class="p">[...]</span>
+                        <span class="s">&quot;part&quot;</span><span class="o">:</span> <span class="mi">0</span>
+                        <span class="s">&quot;count&quot;</span><span class="o">:</span> <span class="mi">2</span>
+                        <span class="p">[...]</span>
+                <span class="p">},</span>
+                <span class="s">&quot;0_instance_1&quot;</span><span class="o">:</span> <span class="p">{</span>
+                        <span class="p">[...]</span>
+                        <span class="s">&quot;part&quot;</span><span class="o">:</span> <span class="mi">1</span>
+                        <span class="s">&quot;count&quot;</span><span class="o">:</span> <span class="mi">2</span>
+                        <span class="p">[...]</span>
+                <span class="p">},</span>
+                <span class="s">&quot;0_union&quot;</span><span class="o">:</span> <span class="p">{</span>
+                        <span class="s">&quot;type&quot;</span><span class="o">:</span> <span class="s">&quot;UnionScan&quot;</span>
+                        <span class="s">&quot;positions&quot;</span><span class="o">:</span> <span class="nb">true</span>
+                <span class="p">},</span>
+                <span class="s">&quot;1&quot;</span><span class="o">:</span> <span class="p">{</span> <span class="p">[...]</span> <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="s">&quot;edges&quot;</span><span class="o">:</span> <span class="p">[</span>
+                <span class="p">[</span><span class="s">&quot;0_parallel_0&quot;</span><span class="p">,</span> <span class="s">&quot;0_union&quot;</span><span class="p">],</span>
+                <span class="p">[</span><span class="s">&quot;0_parallel_1&quot;</span><span class="p">,</span> <span class="s">&quot;0_union&quot;</span><span class="p">],</span>
+                <span class="p">[</span><span class="s">&quot;0_union&quot;</span><span class="p">,</span> <span class="s">&quot;1&quot;</span><span class="p">]</span>
+        <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>As one can see, the edges will be adjusted accordingly. Consequently, &#8220;0&#8220;&#8216;s instances are independent of each other to allow parallel execution.</p>
+<p>By default, the first input table is distributed about evenly on these instances using the &#8220;part&#8221; and &#8220;count&#8221; member variables and corresponding modulo distribution. Derived operators may overwrite _PlanOperation::splitInput for further behaviour.</p>
+</div>
+<div class="section" id="implementation-details">
+<h2>Implementation Details<a class="headerlink" href="#implementation-details" title="Permalink to this headline">¶</a></h2>
+<p>In this section, the QueryTransformationEngine and the QueryParser are explained in detail.</p>
+<div class="section" id="querytransformationengine">
+<h3>QueryTransformationEngine<a class="headerlink" href="#querytransformationengine" title="Permalink to this headline">¶</a></h3>
+<p>As mentioned above, the QueryTransformationEngine transforms an incoming query. The resulting operator definitions and adapted edges have to be parseable one-to-one by the QueryParser to construct the correct corresponding executable task KV map. transform is the method to call:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">Json</span><span class="o">::</span><span class="n">Value</span> <span class="o">&amp;</span><span class="n">QueryTransformationEngine</span><span class="o">::</span><span class="n">transform</span><span class="p">(</span><span class="n">Json</span><span class="o">::</span><span class="n">Value</span> <span class="o">&amp;</span><span class="n">query</span><span class="p">)</span> <span class="k">const</span>
+<span class="p">{</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">parallelizeOperators</span><span class="p">(</span><span class="n">query</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">query</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Future transformations have to be placed here. Right now, parallelization is applied to operators:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="kt">void</span> <span class="n">QueryTransformationEngine</span><span class="o">::</span><span class="n">parallelizeOperators</span><span class="p">(</span><span class="n">Json</span><span class="o">::</span><span class="n">Value</span> <span class="o">&amp;</span><span class="n">query</span><span class="p">)</span> <span class="k">const</span>
+</pre></div>
+</div>
+<p>Each operator with at least two instances gets parallelized:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="kt">void</span> <span class="n">QueryTransformationEngine</span><span class="o">::</span><span class="n">applyParallelizationTo</span><span class="p">(</span>
+        <span class="n">Json</span><span class="o">::</span><span class="n">Value</span> <span class="o">&amp;</span><span class="n">operatorConfiguration</span><span class="p">,</span>
+        <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="o">&amp;</span><span class="n">operatorId</span><span class="p">,</span>
+        <span class="n">Json</span><span class="o">::</span><span class="n">Value</span> <span class="o">&amp;</span><span class="n">query</span><span class="p">)</span> <span class="k">const</span>
+<span class="p">{</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">unionOperatorId</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">unionIdFor</span><span class="p">(</span><span class="n">operatorId</span><span class="p">);</span>
+        <span class="n">Json</span><span class="o">::</span><span class="n">Value</span> <span class="n">unionOperator</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">unionOperator</span><span class="p">(</span><span class="n">operatorId</span><span class="p">);</span>
+        <span class="n">query</span><span class="p">[</span><span class="s">&quot;operators&quot;</span><span class="p">][</span><span class="n">unionOperatorId</span><span class="p">]</span> <span class="o">=</span> <span class="n">unionOperator</span><span class="p">;</span>
+        <span class="k">const</span> <span class="kt">size_t</span> <span class="n">numberOfInitialEdges</span> <span class="o">=</span> <span class="n">query</span><span class="p">[</span><span class="s">&quot;edges&quot;</span><span class="p">].</span><span class="n">size</span><span class="p">();</span>
+
+        <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span> <span class="o">*</span><span class="n">instanceIds</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">buildInstances</span><span class="p">(</span>
+                <span class="n">query</span><span class="p">,</span> <span class="n">operatorConfiguration</span><span class="p">,</span> <span class="n">operatorId</span><span class="p">,</span> <span class="n">unionOperatorId</span><span class="p">);</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">replaceOperatorWithInstances</span><span class="p">(</span>
+                <span class="n">operatorId</span><span class="p">,</span> <span class="o">*</span><span class="n">instanceIds</span><span class="p">,</span> <span class="n">unionOperatorId</span><span class="p">,</span> <span class="n">query</span><span class="p">,</span> <span class="n">numberOfInitialEdges</span><span class="p">);</span>
+        <span class="k">delete</span> <span class="n">instanceIds</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>As mentioned in <a class="reference internal" href="#parallel-operator">Parallel Operator</a>, parallel instances&#8217; results are combined using a UnionScan. Instances are constructed and appended to the query&#8217;s operator definitions using:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span> <span class="o">*</span><span class="n">QueryTransformationEngine</span><span class="o">::</span><span class="n">buildInstances</span><span class="p">(...)</span> <span class="k">const</span>
+</pre></div>
+</div>
+<p>A vector of the instances&#8217; IDs is returned. The following method replaces the original operator in the query&#8217;s operator definitions and edges with its instances using this vector:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="kt">void</span> <span class="n">QueryTransformationEngine</span><span class="o">::</span><span class="n">replaceOperatorWithInstances</span><span class="p">(...)</span> <span class="k">const</span>
+<span class="p">{</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">appendInstancesDstNodeEdges</span><span class="p">(...);</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">appendUnionSrcNodeEdges</span><span class="p">(...);</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">removeOperatorNodes</span><span class="p">(...);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Firstly, for each instance, edges with source nodes mapping to the original operator are duplicated to map to the instances.</p>
+<p>Secondly, edges with the original operator as the source node areduplicated to have the parallelization&#8217;s resulting UnionScan as the source node.</p>
+<p>And lastly, the original operator&#8217;s definition and all edges containing it in any node are removed. The operator&#8217;s parallelization is completed.</p>
+</div>
+<div class="section" id="queryparser">
+<h3>QueryParser<a class="headerlink" href="#queryparser" title="Permalink to this headline">¶</a></h3>
+<p>After transforming the incoming query to meet the specification, the QueryParser is used to instantiate each operator with correct edges-based dependencies. These so-called tasks are ready for execution. deserialize is the method to call:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">vector</span><span class="o">&lt;</span><span class="n">boost</span><span class="o">::</span><span class="n">threadpool</span><span class="o">::</span><span class="n">dependency_task_func</span><span class="o">*&gt;</span> <span class="n">QueryParser</span><span class="o">::</span><span class="n">deserialize</span><span class="p">(</span>
+        <span class="n">Json</span><span class="o">::</span><span class="n">Value</span> <span class="n">query</span><span class="p">,</span>
+        <span class="n">boost</span><span class="o">::</span><span class="n">threadpool</span><span class="o">::</span><span class="n">dependency_task_func</span> <span class="o">**</span><span class="n">result</span><span class="p">)</span> <span class="k">const</span>
+<span class="p">{</span>
+        <span class="n">vector</span><span class="o">&lt;</span><span class="n">boost</span><span class="o">::</span><span class="n">threadpool</span><span class="o">::</span><span class="n">dependency_task_func</span><span class="o">*&gt;</span> <span class="n">tasks</span><span class="p">;</span>
+        <span class="kt">task_map_t</span> <span class="n">task_map</span><span class="p">;</span>
+
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">buildTasks</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">tasks</span><span class="p">,</span> <span class="n">task_map</span><span class="p">);</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">setDependencies</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">task_map</span><span class="p">);</span>
+        <span class="o">*</span><span class="n">result</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">getResultTask</span><span class="p">(</span><span class="n">task_map</span><span class="p">);</span>
+
+        <span class="k">return</span> <span class="n">tasks</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Firstly, the tasks are build based on the query&#8217;s operator definitions. Inside, Factories are used to call the parse method on the correct operator class (SimpleTableScan, JoinScan etc.) to get the operator object. This gets configured and appended to tasks. task_map is used to map its ID onto the object.</p>
+<p>Secondly, dependencies between the tasks are set. The edges are simply traversed, looking up the operators&#8217; objects using their IDs and task_map.</p>
+<p>And lastly, the result task returning the queries result is determined. It is defined as the one which has no successing task, independently of its position in the query&#8217;s operator definitions or of its IDs. (Note: The ID is not allowed to be the autojson reference table ID.)</p>
+<p>The vector of executable tasks is returned to the caller.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="json_plan_operations.html" title="Plan Operations"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="available_operators.html" title="Available Operators"
+             >previous</a> |</li>
+        <li><a href="../index.html">HYRISE latest documentation</a> &raquo;</li>
+          <li><a href="../query_execution.html" >HYRISE Query Execution</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010-2013, Martin Grund et al.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="structhyrise_1_1net_1_1_abstract_request_handler_factory" kind="struct" prot="public">
+    <compoundname>hyrise::net::AbstractRequestHandlerFactory</compoundname>
+    <derivedcompoundref refid="structhyrise_1_1net_1_1_request_handler_factory" prot="public" virt="non-virtual">hyrise::net::RequestHandlerFactory&lt; T &gt;</derivedcompoundref>
+    <includes refid="_router_8h" local="no">Router.h</includes>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structhyrise_1_1net_1_1_abstract_request_handler_factory_1a44c47936bbe4ff0d27bd75e34aa9c8b6" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type><ref refid="classhyrise_1_1net_1_1_abstract_request_handler_1a22c7c6e6ea6e7cedb23196f5871b5aca" kindref="member">AbstractRequestHandler::SharedPtr</ref></type>
+        <definition>virtual AbstractRequestHandler::SharedPtr hyrise::net::AbstractRequestHandlerFactory::create</definition>
+        <argsstring>(AbstractConnection *connection) const =0</argsstring>
+        <name>create</name>
+        <reimplementedby refid="structhyrise_1_1net_1_1_request_handler_factory_1a8591e12cfe99e082e52accd1866d72d4">create</reimplementedby>
+        <param>
+          <type><ref refid="classhyrise_1_1net_1_1_abstract_connection" kindref="compound">AbstractConnection</ref> *</type>
+          <declname>connection</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/net/Router.h" line="26"/>
+      </memberdef>
+      <memberdef kind="function" id="structhyrise_1_1net_1_1_abstract_request_handler_factory_1a21c4090bf6e7428d8994dcc4f22eb0a5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual hyrise::net::AbstractRequestHandlerFactory::~AbstractRequestHandlerFactory</definition>
+        <argsstring>()</argsstring>
+        <name>~AbstractRequestHandlerFactory</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/net/Router.h" line="27" bodyfile="/home/grund/hyrise/src/lib/net/Router.h" bodystart="27" bodyend="27"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1404">
+        <label>hyrise::net::AbstractRequestHandlerFactory</label>
+        <link refid="structhyrise_1_1net_1_1_abstract_request_handler_factory"/>
+      </node>
+      <node id="1405">
+        <label>hyrise::net::RequestHandlerFactory&lt; T &gt;</label>
+        <link refid="structhyrise_1_1net_1_1_request_handler_factory"/>
+        <childnode refid="1404" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1406">
+        <label>hyrise::net::AbstractRequestHandlerFactory</label>
+        <link refid="structhyrise_1_1net_1_1_abstract_request_handler_factory"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/net/Router.h" line="25" bodyfile="/home/grund/hyrise/src/lib/net/Router.h" bodystart="25" bodyend="28"/>
+    <listofallmembers>
+      <member refid="structhyrise_1_1net_1_1_abstract_request_handler_factory_1a44c47936bbe4ff0d27bd75e34aa9c8b6" prot="public" virt="pure-virtual"><scope>hyrise::net::AbstractRequestHandlerFactory</scope><name>create</name></member>
+      <member refid="structhyrise_1_1net_1_1_abstract_request_handler_factory_1a21c4090bf6e7428d8994dcc4f22eb0a5" prot="public" virt="virtual"><scope>hyrise::net::AbstractRequestHandlerFactory</scope><name>~AbstractRequestHandlerFactory</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

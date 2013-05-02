@@ -1,0 +1,254 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="class_order_preserving_dictionary_iterator" kind="class" prot="public">
+    <compoundname>OrderPreservingDictionaryIterator</compoundname>
+    <basecompoundref refid="class_base_iterator" prot="public" virt="non-virtual">BaseIterator&lt; T &gt;</basecompoundref>
+    <includes refid="_order_preserving_dictionary_8h" local="no">OrderPreservingDictionary.h</includes>
+    <templateparamlist>
+      <param>
+        <type>typename</type>
+        <declname>T</declname>
+        <defname>T</defname>
+      </param>
+      <param>
+        <type>class</type>
+        <declname>Strategy</declname>
+        <defname>Strategy</defname>
+        <defval><ref refid="class_malloc_strategy" kindref="compound">MallocStrategy</ref></defval>
+      </param>
+      <param>
+        <type>template&lt; typename A, typename B &gt; class</type>
+        <declname>Allocator</declname>
+        <defname>Allocator</defname>
+        <defval><ref refid="class_strategized_allocator" kindref="compound">StrategizedAllocator</ref></defval>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="private-type">
+      <memberdef kind="typedef" id="class_order_preserving_dictionary_iterator_1af30329b8c3446967f98c8eeb2ad80cff" prot="private" static="no">
+        <type><ref refid="class_order_preserving_dictionary" kindref="compound">OrderPreservingDictionary</ref>&lt; T, Strategy, Allocator &gt;</type>
+        <definition>typedef OrderPreservingDictionary&lt;T, Strategy, Allocator&gt; OrderPreservingDictionaryIterator&lt; T, Strategy, Allocator &gt;::dictionary_type</definition>
+        <argsstring></argsstring>
+        <name>dictionary_type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/OrderPreservingDictionary.h" line="216" bodyfile="/home/grund/hyrise/src/lib/storage/OrderPreservingDictionary.h" bodystart="216" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="class_order_preserving_dictionary_iterator_1a385a803891cc6cf641daa9e7c98ffe42" prot="private" static="no">
+        <type><ref refid="class_order_preserving_dictionary_1a8f8872724b84cc179cfe020eb8f8999d" kindref="member">dictionary_type::shared_vector_type</ref></type>
+        <definition>typedef dictionary_type::shared_vector_type OrderPreservingDictionaryIterator&lt; T, Strategy, Allocator &gt;::vector_type</definition>
+        <argsstring></argsstring>
+        <name>vector_type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/OrderPreservingDictionary.h" line="217" bodyfile="/home/grund/hyrise/src/lib/storage/OrderPreservingDictionary.h" bodystart="217" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="class_order_preserving_dictionary_iterator_1aeecd9f21d883933db72141922c65438f" prot="public" static="no" mutable="no">
+        <type><ref refid="class_order_preserving_dictionary_iterator_1a385a803891cc6cf641daa9e7c98ffe42" kindref="member">vector_type</ref></type>
+        <definition>vector_type OrderPreservingDictionaryIterator&lt; T, Strategy, Allocator &gt;::_values</definition>
+        <argsstring></argsstring>
+        <name>_values</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/OrderPreservingDictionary.h" line="222" bodyfile="/home/grund/hyrise/src/lib/storage/OrderPreservingDictionary.h" bodystart="222" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_order_preserving_dictionary_iterator_1a922ac52e13a1a7e787a60f3607c7079a" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t OrderPreservingDictionaryIterator&lt; T, Strategy, Allocator &gt;::_index</definition>
+        <argsstring></argsstring>
+        <name>_index</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/OrderPreservingDictionary.h" line="223" bodyfile="/home/grund/hyrise/src/lib/storage/OrderPreservingDictionary.h" bodystart="223" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_order_preserving_dictionary_iterator_1afc9023c79617e3ad6e51b5490b2ecd74" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>OrderPreservingDictionaryIterator&lt; T, Strategy, Allocator &gt;::OrderPreservingDictionaryIterator</definition>
+        <argsstring>(vector_type values)</argsstring>
+        <name>OrderPreservingDictionaryIterator</name>
+        <param>
+          <type><ref refid="class_order_preserving_dictionary_iterator_1a385a803891cc6cf641daa9e7c98ffe42" kindref="member">vector_type</ref></type>
+          <declname>values</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/OrderPreservingDictionary.h" line="225" bodyfile="/home/grund/hyrise/src/lib/storage/OrderPreservingDictionary.h" bodystart="225" bodyend="225"/>
+      </memberdef>
+      <memberdef kind="function" id="class_order_preserving_dictionary_iterator_1aa89694ed915dbd23a4ed6990f3efe493" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>OrderPreservingDictionaryIterator&lt; T, Strategy, Allocator &gt;::OrderPreservingDictionaryIterator</definition>
+        <argsstring>(vector_type values, size_t index)</argsstring>
+        <name>OrderPreservingDictionaryIterator</name>
+        <param>
+          <type><ref refid="class_order_preserving_dictionary_iterator_1a385a803891cc6cf641daa9e7c98ffe42" kindref="member">vector_type</ref></type>
+          <declname>values</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>index</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/OrderPreservingDictionary.h" line="227" bodyfile="/home/grund/hyrise/src/lib/storage/OrderPreservingDictionary.h" bodystart="227" bodyend="227"/>
+      </memberdef>
+      <memberdef kind="function" id="class_order_preserving_dictionary_iterator_1a985f1894385cb97fc6999f3543dafb05" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual OrderPreservingDictionaryIterator&lt; T, Strategy, Allocator &gt;::~OrderPreservingDictionaryIterator</definition>
+        <argsstring>()</argsstring>
+        <name>~OrderPreservingDictionaryIterator</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/OrderPreservingDictionary.h" line="229" bodyfile="/home/grund/hyrise/src/lib/storage/OrderPreservingDictionary.h" bodystart="229" bodyend="229"/>
+      </memberdef>
+      <memberdef kind="function" id="class_order_preserving_dictionary_iterator_1a8ebce732de8f4ac8eba5cd7c5253db18" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>void OrderPreservingDictionaryIterator&lt; T, Strategy, Allocator &gt;::increment</definition>
+        <argsstring>()</argsstring>
+        <name>increment</name>
+        <reimplements refid="class_base_iterator_1a98e36beca643de943b55ac8befbfb88b">increment</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/OrderPreservingDictionary.h" line="231" bodyfile="/home/grund/hyrise/src/lib/storage/OrderPreservingDictionary.h" bodystart="231" bodyend="233"/>
+      </memberdef>
+      <memberdef kind="function" id="class_order_preserving_dictionary_iterator_1a61e4241ae89b383b857a9a8161353f03" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>bool</type>
+        <definition>bool OrderPreservingDictionaryIterator&lt; T, Strategy, Allocator &gt;::equal</definition>
+        <argsstring>(BaseIterator&lt; T &gt; *other) const </argsstring>
+        <name>equal</name>
+        <reimplements refid="class_base_iterator_1a8cb371fd8ff2ac629ac27c0090dde6b5">equal</reimplements>
+        <param>
+          <type><ref refid="class_base_iterator" kindref="compound">BaseIterator</ref>&lt; T &gt; *</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/OrderPreservingDictionary.h" line="235" bodyfile="/home/grund/hyrise/src/lib/storage/OrderPreservingDictionary.h" bodystart="235" bodyend="238"/>
+      </memberdef>
+      <memberdef kind="function" id="class_order_preserving_dictionary_iterator_1a81b2123d36dff6a5b376e69dcadb9fb0" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>T &amp;</type>
+        <definition>T&amp; OrderPreservingDictionaryIterator&lt; T, Strategy, Allocator &gt;::dereference</definition>
+        <argsstring>() const </argsstring>
+        <name>dereference</name>
+        <reimplements refid="class_base_iterator_1af3c95d99d90524cae54ed45fb8fb131c">dereference</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/OrderPreservingDictionary.h" line="240" bodyfile="/home/grund/hyrise/src/lib/storage/OrderPreservingDictionary.h" bodystart="240" bodyend="242"/>
+      </memberdef>
+      <memberdef kind="function" id="class_order_preserving_dictionary_iterator_1a77a133fe4abecf8f7abb359f5138d742" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type><ref refid="storage__types_8h_1a2552a37cd3427c39d92cb8fd23c90408" kindref="member">value_id_t</ref></type>
+        <definition>value_id_t OrderPreservingDictionaryIterator&lt; T, Strategy, Allocator &gt;::getValueId</definition>
+        <argsstring>() const </argsstring>
+        <name>getValueId</name>
+        <reimplements refid="class_base_iterator_1aeb6be9aecd2e6de7aa5b8739b7842cd6">getValueId</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/OrderPreservingDictionary.h" line="244" bodyfile="/home/grund/hyrise/src/lib/storage/OrderPreservingDictionary.h" bodystart="244" bodyend="246"/>
+      </memberdef>
+      <memberdef kind="function" id="class_order_preserving_dictionary_iterator_1af57c8c3e4d9a3b621ece5202add5be90" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type><ref refid="class_base_iterator" kindref="compound">BaseIterator</ref>&lt; T &gt; *</type>
+        <definition>virtual BaseIterator&lt;T&gt;* OrderPreservingDictionaryIterator&lt; T, Strategy, Allocator &gt;::clone</definition>
+        <argsstring>()</argsstring>
+        <name>clone</name>
+        <reimplements refid="class_base_iterator_1ab67003b78b7a1f6dc499dd881ab9a7fd">clone</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/OrderPreservingDictionary.h" line="248" bodyfile="/home/grund/hyrise/src/lib/storage/OrderPreservingDictionary.h" bodystart="248" bodyend="250"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2466">
+        <label>OrderPreservingDictionaryIterator&lt; T, Strategy, Allocator &gt;</label>
+        <link refid="class_order_preserving_dictionary_iterator"/>
+        <childnode refid="2467" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2467">
+        <label>BaseIterator&lt; T &gt;</label>
+        <link refid="class_base_iterator"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2468">
+        <label>OrderPreservingDictionaryIterator&lt; T, Strategy, Allocator &gt;</label>
+        <link refid="class_order_preserving_dictionary_iterator"/>
+        <childnode refid="2469" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2469">
+        <label>BaseIterator&lt; T &gt;</label>
+        <link refid="class_base_iterator"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/storage/OrderPreservingDictionary.h" line="214" bodyfile="/home/grund/hyrise/src/lib/storage/OrderPreservingDictionary.h" bodystart="214" bodyend="252"/>
+    <listofallmembers>
+      <member refid="class_order_preserving_dictionary_iterator_1a922ac52e13a1a7e787a60f3607c7079a" prot="public" virt="non-virtual"><scope>OrderPreservingDictionaryIterator</scope><name>_index</name></member>
+      <member refid="class_order_preserving_dictionary_iterator_1aeecd9f21d883933db72141922c65438f" prot="public" virt="non-virtual"><scope>OrderPreservingDictionaryIterator</scope><name>_values</name></member>
+      <member refid="class_order_preserving_dictionary_iterator_1af57c8c3e4d9a3b621ece5202add5be90" prot="public" virt="virtual"><scope>OrderPreservingDictionaryIterator</scope><name>clone</name></member>
+      <member refid="class_order_preserving_dictionary_iterator_1a81b2123d36dff6a5b376e69dcadb9fb0" prot="public" virt="virtual"><scope>OrderPreservingDictionaryIterator</scope><name>dereference</name></member>
+      <member refid="class_order_preserving_dictionary_iterator_1af30329b8c3446967f98c8eeb2ad80cff" prot="private" virt="non-virtual"><scope>OrderPreservingDictionaryIterator</scope><name>dictionary_type</name></member>
+      <member refid="class_order_preserving_dictionary_iterator_1a61e4241ae89b383b857a9a8161353f03" prot="public" virt="virtual"><scope>OrderPreservingDictionaryIterator</scope><name>equal</name></member>
+      <member refid="class_order_preserving_dictionary_iterator_1a77a133fe4abecf8f7abb359f5138d742" prot="public" virt="virtual"><scope>OrderPreservingDictionaryIterator</scope><name>getValueId</name></member>
+      <member refid="class_order_preserving_dictionary_iterator_1a8ebce732de8f4ac8eba5cd7c5253db18" prot="public" virt="virtual"><scope>OrderPreservingDictionaryIterator</scope><name>increment</name></member>
+      <member refid="class_order_preserving_dictionary_iterator_1afc9023c79617e3ad6e51b5490b2ecd74" prot="public" virt="non-virtual"><scope>OrderPreservingDictionaryIterator</scope><name>OrderPreservingDictionaryIterator</name></member>
+      <member refid="class_order_preserving_dictionary_iterator_1aa89694ed915dbd23a4ed6990f3efe493" prot="public" virt="non-virtual"><scope>OrderPreservingDictionaryIterator</scope><name>OrderPreservingDictionaryIterator</name></member>
+      <member refid="class_order_preserving_dictionary_iterator_1a385a803891cc6cf641daa9e7c98ffe42" prot="private" virt="non-virtual"><scope>OrderPreservingDictionaryIterator</scope><name>vector_type</name></member>
+      <member refid="class_base_iterator_1aa649fbcbbe9be3f3271f1eab7a16a836" prot="public" virt="virtual"><scope>OrderPreservingDictionaryIterator</scope><name>~BaseIterator</name></member>
+      <member refid="class_order_preserving_dictionary_iterator_1a985f1894385cb97fc6999f3543dafb05" prot="public" virt="virtual"><scope>OrderPreservingDictionaryIterator</scope><name>~OrderPreservingDictionaryIterator</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,216 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="namespacehyrise_1_1net" kind="namespace">
+    <compoundname>hyrise::net</compoundname>
+    <innerclass refid="classhyrise_1_1net_1_1_abstract_connection" prot="public">hyrise::net::AbstractConnection</innerclass>
+    <innerclass refid="classhyrise_1_1net_1_1_async_connection" prot="public">hyrise::net::AsyncConnection</innerclass>
+    <innerclass refid="classhyrise_1_1net_1_1_abstract_request_handler" prot="public">hyrise::net::AbstractRequestHandler</innerclass>
+    <innerclass refid="structhyrise_1_1net_1_1_abstract_request_handler_factory" prot="public">hyrise::net::AbstractRequestHandlerFactory</innerclass>
+    <innerclass refid="structhyrise_1_1net_1_1_request_handler_factory" prot="public">hyrise::net::RequestHandlerFactory</innerclass>
+    <innerclass refid="classhyrise_1_1net_1_1_router_exception" prot="public">hyrise::net::RouterException</innerclass>
+    <innerclass refid="classhyrise_1_1net_1_1_router" prot="public">hyrise::net::Router</innerclass>
+    <innerclass refid="classhyrise_1_1net_1_1_route_request_handler" prot="public">hyrise::net::RouteRequestHandler</innerclass>
+    <innerclass refid="classhyrise_1_1net_1_1_static_request_handler" prot="public">hyrise::net::StaticRequestHandler</innerclass>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="namespacehyrise_1_1net_1ab03847f14803c3811bbc3f2695238167" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>ebb_connection *</type>
+        <definition>ebb_connection * hyrise::net::new_connection</definition>
+        <argsstring>(ebb_server *server, struct sockaddr_in *addr)</argsstring>
+        <name>new_connection</name>
+        <param>
+          <type>ebb_server *</type>
+          <declname>server</declname>
+        </param>
+        <param>
+          <type>struct sockaddr_in *</type>
+          <declname>addr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/net/AsyncConnection.cpp" line="17" bodyfile="/home/grund/hyrise/src/lib/net/AsyncConnection.cpp" bodystart="17" bodyend="39"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehyrise_1_1net_1a31c232dd9824272bf21d5e26e3c1c859" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int hyrise::net::on_timeout</definition>
+        <argsstring>(ebb_connection *connection)</argsstring>
+        <name>on_timeout</name>
+        <param>
+          <type>ebb_connection *</type>
+          <declname>connection</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/net/AsyncConnection.cpp" line="41" bodyfile="/home/grund/hyrise/src/lib/net/AsyncConnection.cpp" bodystart="41" bodyend="43"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehyrise_1_1net_1a8c793df2d950d59b5f61b4379384de6a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>ebb_request *</type>
+        <definition>ebb_request * hyrise::net::new_request</definition>
+        <argsstring>(ebb_connection *connection)</argsstring>
+        <name>new_request</name>
+        <param>
+          <type>ebb_connection *</type>
+          <declname>connection</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/net/AsyncConnection.cpp" line="45" bodyfile="/home/grund/hyrise/src/lib/net/AsyncConnection.cpp" bodystart="45" bodyend="53"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehyrise_1_1net_1a3e1f64784af8b5bb5a71ef528f6bd8ad" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hyrise::net::request_complete</definition>
+        <argsstring>(ebb_request *request)</argsstring>
+        <name>request_complete</name>
+        <param>
+          <type>ebb_request *</type>
+          <declname>request</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/net/AsyncConnection.cpp" line="55" bodyfile="/home/grund/hyrise/src/lib/net/AsyncConnection.cpp" bodystart="55" bodyend="76"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehyrise_1_1net_1ac921267d5be89716bf817bcc0ef4d844" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hyrise::net::request_path</definition>
+        <argsstring>(ebb_request *request, const char *at, size_t length)</argsstring>
+        <name>request_path</name>
+        <param>
+          <type>ebb_request *</type>
+          <declname>request</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>at</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>length</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/net/AsyncConnection.cpp" line="78" bodyfile="/home/grund/hyrise/src/lib/net/AsyncConnection.cpp" bodystart="78" bodyend="85"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehyrise_1_1net_1a88116c09e2e48e659cb24498c2b0071f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hyrise::net::request_body</definition>
+        <argsstring>(ebb_request *request, const char *at, size_t length)</argsstring>
+        <name>request_body</name>
+        <param>
+          <type>ebb_request *</type>
+          <declname>request</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>at</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>length</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/net/AsyncConnection.cpp" line="87" bodyfile="/home/grund/hyrise/src/lib/net/AsyncConnection.cpp" bodystart="87" bodyend="99"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehyrise_1_1net_1a3123bf1b798f283557aecc7e7921b614" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hyrise::net::write_cb</definition>
+        <argsstring>(struct ev_loop *loop, struct ev_async *w, int revents)</argsstring>
+        <name>write_cb</name>
+        <param>
+          <type>struct ev_loop *</type>
+          <declname>loop</declname>
+        </param>
+        <param>
+          <type>struct ev_async *</type>
+          <declname>w</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>revents</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/net/AsyncConnection.cpp" line="101" bodyfile="/home/grund/hyrise/src/lib/net/AsyncConnection.cpp" bodystart="101" bodyend="152"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehyrise_1_1net_1afec34e462055743e51c3058ff40587e8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hyrise::net::continue_responding</definition>
+        <argsstring>(ebb_connection *connection)</argsstring>
+        <name>continue_responding</name>
+        <param>
+          <type>ebb_connection *</type>
+          <declname>connection</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/net/AsyncConnection.cpp" line="154" bodyfile="/home/grund/hyrise/src/lib/net/AsyncConnection.cpp" bodystart="154" bodyend="158"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehyrise_1_1net_1a31a7c23d6981b86a4db61e1d18fb4290" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hyrise::net::on_close</definition>
+        <argsstring>(ebb_connection *connection)</argsstring>
+        <name>on_close</name>
+        <param>
+          <type>ebb_connection *</type>
+          <declname>connection</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/net/AsyncConnection.cpp" line="160" bodyfile="/home/grund/hyrise/src/lib/net/AsyncConnection.cpp" bodystart="160" bodyend="165"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehyrise_1_1net_1a18036be02abd1bafaf30dc3d93621fc8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::unordered_map&lt; std::string, std::string &gt;</type>
+        <definition>std::unordered_map&lt;std::string, std::string&gt; hyrise::net::parseMimeTypes</definition>
+        <argsstring>()</argsstring>
+        <name>parseMimeTypes</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/net/StaticRequestHandler.cpp" line="31" bodyfile="/home/grund/hyrise/src/lib/net/StaticRequestHandler.cpp" bodystart="31" bodyend="61"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/grund/hyrise/src/lib/net/AbstractConnection.cpp" line="5"/>
+  </compounddef>
+</doxygen>

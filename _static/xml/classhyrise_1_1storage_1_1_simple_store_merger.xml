@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="classhyrise_1_1storage_1_1_simple_store_merger" kind="class" prot="public">
+    <compoundname>hyrise::storage::SimpleStoreMerger</compoundname>
+    <basecompoundref refid="class_abstract_merger" prot="public" virt="non-virtual">AbstractMerger</basecompoundref>
+    <includes refid="_simple_store_merger_8h" local="no">SimpleStoreMerger.h</includes>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classhyrise_1_1storage_1_1_simple_store_merger_1a3210403a13b0f9e09eca9b6686f15eed" prot="private" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual hyrise::storage::SimpleStoreMerger::~SimpleStoreMerger</definition>
+        <argsstring>()</argsstring>
+        <name>~SimpleStoreMerger</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/SimpleStoreMerger.h" line="11" bodyfile="/home/grund/hyrise/src/lib/storage/SimpleStoreMerger.h" bodystart="11" bodyend="11"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1storage_1_1_simple_store_merger_1a547f351e40a1990ac29766e607c349b4" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hyrise::storage::SimpleStoreMerger::mergeValues</definition>
+        <argsstring>(const std::vector&lt; hyrise::storage::c_atable_ptr_t &gt; &amp;input_tables, hyrise::storage::atable_ptr_t merged_table, const column_mapping_t &amp;column_mapping, const uint64_t newSize)</argsstring>
+        <name>mergeValues</name>
+        <param>
+          <type>const std::vector&lt; <ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref> &gt; &amp;</type>
+          <declname>input_tables</declname>
+        </param>
+        <param>
+          <type><ref refid="namespacehyrise_1_1storage_1a21d5e900c20019710828c453eaded1ee" kindref="member">hyrise::storage::atable_ptr_t</ref></type>
+          <declname>merged_table</declname>
+        </param>
+        <param>
+          <type>const <ref refid="namespacehyrise_1_1storage_1a8addaea8b5301cc30c8f8f634b531127" kindref="member">column_mapping_t</ref> &amp;</type>
+          <declname>column_mapping</declname>
+        </param>
+        <param>
+          <type>const uint64_t</type>
+          <declname>newSize</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/SimpleStoreMerger.h" line="16" bodyfile="/home/grund/hyrise/src/lib/storage/SimpleStoreMerger.cpp" bodystart="126" bodyend="172"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1storage_1_1_simple_store_merger_1af9f443743ee517ce19d6ba11008682e1" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class_abstract_merger" kindref="compound">AbstractMerger</ref> *</type>
+        <definition>AbstractMerger* hyrise::storage::SimpleStoreMerger::copy</definition>
+        <argsstring>()</argsstring>
+        <name>copy</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/SimpleStoreMerger.h" line="18" bodyfile="/home/grund/hyrise/src/lib/storage/SimpleStoreMerger.h" bodystart="18" bodyend="18"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2875">
+        <label>AbstractMerger</label>
+        <link refid="class_abstract_merger"/>
+      </node>
+      <node id="2874">
+        <label>hyrise::storage::SimpleStoreMerger</label>
+        <link refid="classhyrise_1_1storage_1_1_simple_store_merger"/>
+        <childnode refid="2875" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2877">
+        <label>AbstractMerger</label>
+        <link refid="class_abstract_merger"/>
+      </node>
+      <node id="2876">
+        <label>hyrise::storage::SimpleStoreMerger</label>
+        <link refid="classhyrise_1_1storage_1_1_simple_store_merger"/>
+        <childnode refid="2877" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/storage/SimpleStoreMerger.h" line="9" bodyfile="/home/grund/hyrise/src/lib/storage/SimpleStoreMerger.h" bodystart="9" bodyend="20"/>
+    <listofallmembers>
+      <member refid="classhyrise_1_1storage_1_1_simple_store_merger_1af9f443743ee517ce19d6ba11008682e1" prot="private" virt="non-virtual"><scope>hyrise::storage::SimpleStoreMerger</scope><name>copy</name></member>
+      <member refid="classhyrise_1_1storage_1_1_simple_store_merger_1a547f351e40a1990ac29766e607c349b4" prot="private" virt="non-virtual"><scope>hyrise::storage::SimpleStoreMerger</scope><name>mergeValues</name></member>
+      <member refid="class_abstract_merger_1a56f62ba28f56e2e2486a123c70b294f1" prot="public" virt="pure-virtual" ambiguityscope="AbstractMerger::"><scope>hyrise::storage::SimpleStoreMerger</scope><name>mergeValues</name></member>
+      <member refid="class_abstract_merger_1ad83245cf3bcddef890cac58ea988a12b" prot="public" virt="virtual"><scope>hyrise::storage::SimpleStoreMerger</scope><name>~AbstractMerger</name></member>
+      <member refid="classhyrise_1_1storage_1_1_simple_store_merger_1a3210403a13b0f9e09eca9b6686f15eed" prot="private" virt="virtual"><scope>hyrise::storage::SimpleStoreMerger</scope><name>~SimpleStoreMerger</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

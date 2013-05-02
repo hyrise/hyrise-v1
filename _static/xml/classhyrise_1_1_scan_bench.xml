@@ -1,0 +1,163 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="classhyrise_1_1_scan_bench" kind="class" prot="public">
+    <compoundname>hyrise::ScanBench</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classhyrise_1_1_scan_bench_1a31d950410b87941d19fc61856aaf5d0d" prot="public" static="no" mutable="no">
+        <type>std::vector&lt; std::uint64_t &gt;</type>
+        <definition>std::vector&lt;std::uint64_t&gt; hyrise::ScanBench::_data</definition>
+        <argsstring></argsstring>
+        <name>_data</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_regression/scan_performance.cpp" line="31" bodyfile="/home/grund/hyrise/src/bin/perf_regression/scan_performance.cpp" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhyrise_1_1_scan_bench_1ae227f9640770480ea30b611fcff969c9" prot="public" static="no" mutable="no">
+        <type><ref refid="namespacehyrise_1_1storage_1a21d5e900c20019710828c453eaded1ee" kindref="member">storage::atable_ptr_t</ref></type>
+        <definition>storage::atable_ptr_t hyrise::ScanBench::_table</definition>
+        <argsstring></argsstring>
+        <name>_table</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_regression/scan_performance.cpp" line="32" bodyfile="/home/grund/hyrise/src/bin/perf_regression/scan_performance.cpp" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhyrise_1_1_scan_bench_1abe952766f3284fccdb25a48a89400d80" prot="public" static="no" mutable="no">
+        <type>std::shared_ptr&lt; <ref refid="classhyrise_1_1access_1_1_table_scan" kindref="compound">TableScan</ref> &gt;</type>
+        <definition>std::shared_ptr&lt;TableScan&gt; hyrise::ScanBench::_tablescanNormal</definition>
+        <argsstring></argsstring>
+        <name>_tablescanNormal</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_regression/scan_performance.cpp" line="33" bodyfile="/home/grund/hyrise/src/bin/perf_regression/scan_performance.cpp" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhyrise_1_1_scan_bench_1a9f44aed15b9af09b93f50866f2767ec5" prot="public" static="no" mutable="no">
+        <type>std::shared_ptr&lt; <ref refid="classhyrise_1_1access_1_1_table_scan" kindref="compound">TableScan</ref> &gt;</type>
+        <definition>std::shared_ptr&lt;TableScan&gt; hyrise::ScanBench::_tablescanSpecial</definition>
+        <argsstring></argsstring>
+        <name>_tablescanSpecial</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_regression/scan_performance.cpp" line="34" bodyfile="/home/grund/hyrise/src/bin/perf_regression/scan_performance.cpp" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhyrise_1_1_scan_bench_1a65c072bc36869ac35ee996a58ba6a1ab" prot="public" static="no" mutable="no">
+        <type>std::uint64_t</type>
+        <definition>std::uint64_t hyrise::ScanBench::_value</definition>
+        <argsstring></argsstring>
+        <name>_value</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_regression/scan_performance.cpp" line="35" bodyfile="/home/grund/hyrise/src/bin/perf_regression/scan_performance.cpp" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhyrise_1_1_scan_bench_1a6a5d0dbb3f91ea171fa44d30ec7b1ede" prot="public" static="no" mutable="no">
+        <type>std::vector&lt; std::uint64_t &gt;</type>
+        <definition>std::vector&lt;std::uint64_t&gt; hyrise::ScanBench::_dict</definition>
+        <argsstring></argsstring>
+        <name>_dict</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_regression/scan_performance.cpp" line="36" bodyfile="/home/grund/hyrise/src/bin/perf_regression/scan_performance.cpp" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classhyrise_1_1_scan_bench_1a43033efd6cabb634842fc81ecad4d819" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void hyrise::ScanBench::init_data</definition>
+        <argsstring>()</argsstring>
+        <name>init_data</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_regression/scan_performance.cpp" line="38" bodyfile="/home/grund/hyrise/src/bin/perf_regression/scan_performance.cpp" bodystart="38" bodyend="49"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1_scan_bench_1ae5704f892f61a676ac2b533b87d768e9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>hyrise::ScanBench::ScanBench</definition>
+        <argsstring>()</argsstring>
+        <name>ScanBench</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_regression/scan_performance.cpp" line="51" bodyfile="/home/grund/hyrise/src/bin/perf_regression/scan_performance.cpp" bodystart="51" bodyend="61"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1_scan_bench_1a3fc25b3d5a142576c710c56b02f83cce" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void hyrise::ScanBench::BenchmarkSetUp</definition>
+        <argsstring>()</argsstring>
+        <name>BenchmarkSetUp</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_regression/scan_performance.cpp" line="65" bodyfile="/home/grund/hyrise/src/bin/perf_regression/scan_performance.cpp" bodystart="65" bodyend="73"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1_scan_bench_1ab7390008d857e2cf1862ee11ab0af057" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void hyrise::ScanBench::BenchmarkTearDown</definition>
+        <argsstring>()</argsstring>
+        <name>BenchmarkTearDown</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_regression/scan_performance.cpp" line="75" bodyfile="/home/grund/hyrise/src/bin/perf_regression/scan_performance.cpp" bodystart="75" bodyend="76"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2763">
+        <label>hyrise::ScanBench</label>
+        <link refid="classhyrise_1_1_scan_bench"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/bin/perf_regression/scan_performance.cpp" line="29" bodyfile="/home/grund/hyrise/src/bin/perf_regression/scan_performance.cpp" bodystart="29" bodyend="77"/>
+    <listofallmembers>
+      <member refid="classhyrise_1_1_scan_bench_1a31d950410b87941d19fc61856aaf5d0d" prot="public" virt="non-virtual"><scope>hyrise::ScanBench</scope><name>_data</name></member>
+      <member refid="classhyrise_1_1_scan_bench_1a6a5d0dbb3f91ea171fa44d30ec7b1ede" prot="public" virt="non-virtual"><scope>hyrise::ScanBench</scope><name>_dict</name></member>
+      <member refid="classhyrise_1_1_scan_bench_1ae227f9640770480ea30b611fcff969c9" prot="public" virt="non-virtual"><scope>hyrise::ScanBench</scope><name>_table</name></member>
+      <member refid="classhyrise_1_1_scan_bench_1abe952766f3284fccdb25a48a89400d80" prot="public" virt="non-virtual"><scope>hyrise::ScanBench</scope><name>_tablescanNormal</name></member>
+      <member refid="classhyrise_1_1_scan_bench_1a9f44aed15b9af09b93f50866f2767ec5" prot="public" virt="non-virtual"><scope>hyrise::ScanBench</scope><name>_tablescanSpecial</name></member>
+      <member refid="classhyrise_1_1_scan_bench_1a65c072bc36869ac35ee996a58ba6a1ab" prot="public" virt="non-virtual"><scope>hyrise::ScanBench</scope><name>_value</name></member>
+      <member refid="classhyrise_1_1_scan_bench_1a3fc25b3d5a142576c710c56b02f83cce" prot="public" virt="non-virtual"><scope>hyrise::ScanBench</scope><name>BenchmarkSetUp</name></member>
+      <member refid="classhyrise_1_1_scan_bench_1ab7390008d857e2cf1862ee11ab0af057" prot="public" virt="non-virtual"><scope>hyrise::ScanBench</scope><name>BenchmarkTearDown</name></member>
+      <member refid="classhyrise_1_1_scan_bench_1a43033efd6cabb634842fc81ecad4d819" prot="public" virt="non-virtual"><scope>hyrise::ScanBench</scope><name>init_data</name></member>
+      <member refid="classhyrise_1_1_scan_bench_1ae5704f892f61a676ac2b533b87d768e9" prot="public" virt="non-virtual"><scope>hyrise::ScanBench</scope><name>ScanBench</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

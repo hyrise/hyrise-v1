@@ -1,0 +1,691 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="pred__build_expression_8cpp" kind="file">
+    <compoundname>pred_buildExpression.cpp</compoundname>
+    <includes refid="pred__build_expression_8h" local="yes">access/pred_buildExpression.h</includes>
+    <includes local="no">json.h</includes>
+    <includes refid="expression__types_8h" local="yes">access/expression_types.h</includes>
+    <includes refid="json__converters_8h" local="yes">access/json_converters.h</includes>
+    <includes refid="predicates_8h" local="yes">access/predicates.h</includes>
+    <includes refid="pred__expression__factory_8h" local="yes">access/pred_expression_factory.h</includes>
+    <includes refid="meta__storage_8h" local="yes">storage/meta_storage.h</includes>
+    <incdepgraph>
+      <node id="8550">
+        <label>list</label>
+      </node>
+      <node id="8584">
+        <label>boost/mpl/size.hpp</label>
+      </node>
+      <node id="8536">
+        <label>boost/mpl/vector.hpp</label>
+      </node>
+      <node id="8531">
+        <label>limits</label>
+      </node>
+      <node id="8568">
+        <label>boost/functional/hash.hpp</label>
+      </node>
+      <node id="8585">
+        <label>storage/AbstractAllocatedTable.h</label>
+        <link refid="_abstract_allocated_table_8h"/>
+        <childnode refid="8547" relation="include">
+        </childnode>
+        <childnode refid="8551" relation="include">
+        </childnode>
+        <childnode refid="8553" relation="include">
+        </childnode>
+      </node>
+      <node id="8544">
+        <label>assert.h</label>
+      </node>
+      <node id="8538">
+        <label>boost/lexical_cast.hpp</label>
+      </node>
+      <node id="8559">
+        <label>boost/iterator/iterator_facade.hpp</label>
+      </node>
+      <node id="8529">
+        <label>cstdint</label>
+      </node>
+      <node id="8569">
+        <label>expression_types.h</label>
+        <link refid="expression__types_8h"/>
+        <childnode refid="8565" relation="include">
+        </childnode>
+        <childnode refid="8530" relation="include">
+        </childnode>
+        <childnode refid="8570" relation="include">
+        </childnode>
+      </node>
+      <node id="8578">
+        <label>pred_CompoundExpression.h</label>
+        <link refid="pred___compound_expression_8h"/>
+        <childnode refid="8524" relation="include">
+        </childnode>
+      </node>
+      <node id="8556">
+        <label>storage/BaseDictionary.h</label>
+        <link refid="_base_dictionary_8h"/>
+        <childnode refid="8533" relation="include">
+        </childnode>
+        <childnode refid="8546" relation="include">
+        </childnode>
+        <childnode refid="8557" relation="include">
+        </childnode>
+      </node>
+      <node id="8575">
+        <label>access/json_converters.h</label>
+        <link refid="json__converters_8h"/>
+        <childnode refid="8570" relation="include">
+        </childnode>
+      </node>
+      <node id="8534">
+        <label>stdint.h</label>
+      </node>
+      <node id="8555">
+        <label>stdlib.h</label>
+      </node>
+      <node id="8554">
+        <label>errno.h</label>
+      </node>
+      <node id="8526">
+        <label>stdexcept</label>
+      </node>
+      <node id="8522">
+        <label>src/lib/access/pred_buildExpression.cpp</label>
+        <link refid="pred_buildExpression.cpp"/>
+        <childnode refid="8523" relation="include">
+        </childnode>
+        <childnode refid="8570" relation="include">
+        </childnode>
+        <childnode refid="8569" relation="include">
+        </childnode>
+        <childnode refid="8575" relation="include">
+        </childnode>
+        <childnode refid="8576" relation="include">
+        </childnode>
+        <childnode refid="8594" relation="include">
+        </childnode>
+        <childnode refid="8581" relation="include">
+        </childnode>
+      </node>
+      <node id="8523">
+        <label>access/pred_buildExpression.h</label>
+        <link refid="pred__build_expression_8h"/>
+        <childnode refid="8524" relation="include">
+        </childnode>
+      </node>
+      <node id="8530">
+        <label>string</label>
+      </node>
+      <node id="8582">
+        <label>boost/mpl/at.hpp</label>
+      </node>
+      <node id="8524">
+        <label>pred_common.h</label>
+        <link refid="pred__common_8h"/>
+        <childnode refid="8525" relation="include">
+        </childnode>
+        <childnode refid="8526" relation="include">
+        </childnode>
+        <childnode refid="8527" relation="include">
+        </childnode>
+        <childnode refid="8528" relation="include">
+        </childnode>
+        <childnode refid="8533" relation="include">
+        </childnode>
+        <childnode refid="8539" relation="include">
+        </childnode>
+        <childnode refid="8542" relation="include">
+        </childnode>
+        <childnode refid="8569" relation="include">
+        </childnode>
+        <childnode refid="8571" relation="include">
+        </childnode>
+        <childnode refid="8572" relation="include">
+        </childnode>
+        <childnode refid="8574" relation="include">
+        </childnode>
+      </node>
+      <node id="8577">
+        <label>pred_BetweenOperation.h</label>
+        <link refid="pred___between_operation_8h"/>
+        <childnode refid="8528" relation="include">
+        </childnode>
+        <childnode refid="8524" relation="include">
+        </childnode>
+      </node>
+      <node id="8565">
+        <label>map</label>
+      </node>
+      <node id="8542">
+        <label>storage/ValueIdMap.hpp</label>
+        <link refid="_value_id_map_8hpp"/>
+        <childnode refid="8543" relation="include">
+        </childnode>
+        <childnode refid="8561" relation="include">
+        </childnode>
+      </node>
+      <node id="8580">
+        <label>storage/RawTable.h</label>
+        <link refid="_raw_table_8h"/>
+        <childnode refid="8526" relation="include">
+        </childnode>
+        <childnode refid="8525" relation="include">
+        </childnode>
+        <childnode refid="8534" relation="include">
+        </childnode>
+        <childnode refid="8533" relation="include">
+        </childnode>
+        <childnode refid="8581" relation="include">
+        </childnode>
+        <childnode refid="8539" relation="include">
+        </childnode>
+        <childnode refid="8585" relation="include">
+        </childnode>
+        <childnode refid="8541" relation="include">
+        </childnode>
+      </node>
+      <node id="8553">
+        <label>memory/MemalignStrategy.h</label>
+        <link refid="_memalign_strategy_8h"/>
+        <childnode refid="8554" relation="include">
+        </childnode>
+        <childnode refid="8527" relation="include">
+        </childnode>
+        <childnode refid="8555" relation="include">
+        </childnode>
+      </node>
+      <node id="8564">
+        <label>exception</label>
+      </node>
+      <node id="8548">
+        <label>stddef.h</label>
+      </node>
+      <node id="8586">
+        <label>pred_GreaterThanExpression.h</label>
+        <link refid="pred___greater_than_expression_8h"/>
+        <childnode refid="8524" relation="include">
+        </childnode>
+      </node>
+      <node id="8561">
+        <label>storage/OrderIndifferentDictionary.h</label>
+        <link refid="_order_indifferent_dictionary_8h"/>
+        <childnode refid="8533" relation="include">
+        </childnode>
+        <childnode refid="8546" relation="include">
+        </childnode>
+        <childnode refid="8556" relation="include">
+        </childnode>
+        <childnode refid="8557" relation="include">
+        </childnode>
+        <childnode refid="8562" relation="include">
+        </childnode>
+        <childnode refid="8560" relation="include">
+        </childnode>
+        <childnode refid="8564" relation="include">
+        </childnode>
+        <childnode refid="8525" relation="include">
+        </childnode>
+        <childnode refid="8565" relation="include">
+        </childnode>
+        <childnode refid="8532" relation="include">
+        </childnode>
+        <childnode refid="8566" relation="include">
+        </childnode>
+        <childnode refid="8567" relation="include">
+        </childnode>
+        <childnode refid="8568" relation="include">
+        </childnode>
+      </node>
+      <node id="8535">
+        <label>ostream</label>
+      </node>
+      <node id="8570">
+        <label>json.h</label>
+      </node>
+      <node id="8566">
+        <label>limits.h</label>
+      </node>
+      <node id="8557">
+        <label>storage/DictionaryIterator.h</label>
+        <link refid="_dictionary_iterator_8h"/>
+        <childnode refid="8558" relation="include">
+        </childnode>
+        <childnode refid="8559" relation="include">
+        </childnode>
+      </node>
+      <node id="8546">
+        <label>storage/AbstractDictionary.h</label>
+        <link refid="_abstract_dictionary_8h"/>
+        <childnode refid="8525" relation="include">
+        </childnode>
+        <childnode refid="8530" relation="include">
+        </childnode>
+        <childnode refid="8532" relation="include">
+        </childnode>
+        <childnode refid="8547" relation="include">
+        </childnode>
+        <childnode refid="8551" relation="include">
+        </childnode>
+        <childnode refid="8553" relation="include">
+        </childnode>
+        <childnode refid="8533" relation="include">
+        </childnode>
+      </node>
+      <node id="8573">
+        <label>access/AbstractExpression.h</label>
+        <link refid="_abstract_expression_8h"/>
+        <childnode refid="8525" relation="include">
+        </childnode>
+        <childnode refid="8528" relation="include">
+        </childnode>
+      </node>
+      <node id="8563">
+        <label>string.h</label>
+      </node>
+      <node id="8539">
+        <label>storage/AbstractTable.h</label>
+        <link refid="_abstract_table_8h"/>
+        <childnode refid="8531" relation="include">
+        </childnode>
+        <childnode refid="8532" relation="include">
+        </childnode>
+        <childnode refid="8526" relation="include">
+        </childnode>
+        <childnode refid="8525" relation="include">
+        </childnode>
+        <childnode refid="8530" relation="include">
+        </childnode>
+        <childnode refid="8528" relation="include">
+        </childnode>
+        <childnode refid="8540" relation="include">
+        </childnode>
+        <childnode refid="8533" relation="include">
+        </childnode>
+        <childnode refid="8541" relation="include">
+        </childnode>
+        <childnode refid="8542" relation="include">
+        </childnode>
+      </node>
+      <node id="8540">
+        <label>storage/AbstractResource.h</label>
+        <link refid="_abstract_resource_8h"/>
+      </node>
+      <node id="8567">
+        <label>boost/unordered_map.hpp</label>
+      </node>
+      <node id="8593">
+        <label>stack</label>
+      </node>
+      <node id="8525">
+        <label>vector</label>
+      </node>
+      <node id="8571">
+        <label>join_predicates.h</label>
+        <link refid="join__predicates_8h"/>
+        <childnode refid="8528" relation="include">
+        </childnode>
+        <childnode refid="8569" relation="include">
+        </childnode>
+      </node>
+      <node id="8583">
+        <label>boost/mpl/int.hpp</label>
+      </node>
+      <node id="8528">
+        <label>helper/types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="8529" relation="include">
+        </childnode>
+        <childnode refid="8530" relation="include">
+        </childnode>
+        <childnode refid="8531" relation="include">
+        </childnode>
+        <childnode refid="8532" relation="include">
+        </childnode>
+        <childnode refid="8525" relation="include">
+        </childnode>
+      </node>
+      <node id="8581">
+        <label>storage/meta_storage.h</label>
+        <link refid="meta__storage_8h"/>
+        <childnode refid="8526" relation="include">
+        </childnode>
+        <childnode refid="8582" relation="include">
+        </childnode>
+        <childnode refid="8583" relation="include">
+        </childnode>
+        <childnode refid="8584" relation="include">
+        </childnode>
+        <childnode refid="8533" relation="include">
+        </childnode>
+      </node>
+      <node id="8572">
+        <label>pred_SimpleExpression.h</label>
+        <link refid="pred___simple_expression_8h"/>
+        <childnode refid="8533" relation="include">
+        </childnode>
+        <childnode refid="8528" relation="include">
+        </childnode>
+        <childnode refid="8573" relation="include">
+        </childnode>
+      </node>
+      <node id="8558">
+        <label>storage/BaseIterator.h</label>
+        <link refid="_base_iterator_8h"/>
+      </node>
+      <node id="8547">
+        <label>memory/StrategizedAllocator.h</label>
+        <link refid="_strategized_allocator_8h"/>
+        <childnode refid="8548" relation="include">
+        </childnode>
+        <childnode refid="8549" relation="include">
+        </childnode>
+        <childnode refid="8550" relation="include">
+        </childnode>
+        <childnode refid="8526" relation="include">
+        </childnode>
+      </node>
+      <node id="8545">
+        <label>iostream</label>
+      </node>
+      <node id="8576">
+        <label>access/predicates.h</label>
+        <link refid="predicates_8h"/>
+        <childnode refid="8577" relation="include">
+        </childnode>
+        <childnode refid="8578" relation="include">
+        </childnode>
+        <childnode refid="8579" relation="include">
+        </childnode>
+        <childnode refid="8586" relation="include">
+        </childnode>
+        <childnode refid="8587" relation="include">
+        </childnode>
+        <childnode refid="8588" relation="include">
+        </childnode>
+        <childnode refid="8589" relation="include">
+        </childnode>
+        <childnode refid="8590" relation="include">
+        </childnode>
+        <childnode refid="8591" relation="include">
+        </childnode>
+        <childnode refid="8592" relation="include">
+        </childnode>
+        <childnode refid="8572" relation="include">
+        </childnode>
+        <childnode refid="8574" relation="include">
+        </childnode>
+        <childnode refid="8523" relation="include">
+        </childnode>
+        <childnode refid="8594" relation="include">
+        </childnode>
+      </node>
+      <node id="8541">
+        <label>storage/ColumnMetadata.h</label>
+        <link refid="_column_metadata_8h"/>
+        <childnode refid="8533" relation="include">
+        </childnode>
+        <childnode refid="8530" relation="include">
+        </childnode>
+        <childnode refid="8526" relation="include">
+        </childnode>
+      </node>
+      <node id="8589">
+        <label>pred_MultiTableEqualsExpression.h</label>
+        <link refid="pred___multi_table_equals_expression_8h"/>
+        <childnode refid="8524" relation="include">
+        </childnode>
+      </node>
+      <node id="8537">
+        <label>boost/mpl/map.hpp</label>
+      </node>
+      <node id="8588">
+        <label>pred_MultiTableBetweenExpression.h</label>
+        <link refid="pred___multi_table_between_expression_8h"/>
+        <childnode refid="8524" relation="include">
+        </childnode>
+      </node>
+      <node id="8579">
+        <label>pred_EqualsExpression.h</label>
+        <link refid="pred___equals_expression_8h"/>
+        <childnode refid="8528" relation="include">
+        </childnode>
+        <childnode refid="8524" relation="include">
+        </childnode>
+        <childnode refid="8580" relation="include">
+        </childnode>
+      </node>
+      <node id="8591">
+        <label>pred_MultiTableLessThanExpression.h</label>
+        <link refid="pred___multi_table_less_than_expression_8h"/>
+        <childnode refid="8524" relation="include">
+        </childnode>
+      </node>
+      <node id="8560">
+        <label>storage/AbstractAllocatedDictionary.h</label>
+        <link refid="_abstract_allocated_dictionary_8h"/>
+      </node>
+      <node id="8551">
+        <label>memory/MallocStrategy.h</label>
+        <link refid="_malloc_strategy_8h"/>
+        <childnode refid="8545" relation="include">
+        </childnode>
+        <childnode refid="8529" relation="include">
+        </childnode>
+        <childnode refid="8552" relation="include">
+        </childnode>
+      </node>
+      <node id="8574">
+        <label>pred_SimpleFieldExpression.h</label>
+        <link refid="pred___simple_field_expression_8h"/>
+        <childnode refid="8528" relation="include">
+        </childnode>
+        <childnode refid="8524" relation="include">
+        </childnode>
+      </node>
+      <node id="8543">
+        <label>storage/OrderPreservingDictionary.h</label>
+        <link refid="_order_preserving_dictionary_8h"/>
+        <childnode refid="8544" relation="include">
+        </childnode>
+        <childnode refid="8545" relation="include">
+        </childnode>
+        <childnode refid="8532" relation="include">
+        </childnode>
+        <childnode refid="8533" relation="include">
+        </childnode>
+        <childnode refid="8546" relation="include">
+        </childnode>
+        <childnode refid="8556" relation="include">
+        </childnode>
+        <childnode refid="8557" relation="include">
+        </childnode>
+        <childnode refid="8560" relation="include">
+        </childnode>
+        <childnode refid="8558" relation="include">
+        </childnode>
+      </node>
+      <node id="8549">
+        <label>algorithm</label>
+      </node>
+      <node id="8527">
+        <label>stdio.h</label>
+      </node>
+      <node id="8587">
+        <label>pred_LessThanExpression.h</label>
+        <link refid="pred___less_than_expression_8h"/>
+        <childnode refid="8524" relation="include">
+        </childnode>
+      </node>
+      <node id="8552">
+        <label>cstring</label>
+      </node>
+      <node id="8562">
+        <label>storage/csb_tree.h</label>
+        <link refid="csb__tree_8h"/>
+        <childnode refid="8525" relation="include">
+        </childnode>
+        <childnode refid="8545" relation="include">
+        </childnode>
+        <childnode refid="8550" relation="include">
+        </childnode>
+        <childnode refid="8532" relation="include">
+        </childnode>
+        <childnode refid="8563" relation="include">
+        </childnode>
+        <childnode refid="8544" relation="include">
+        </childnode>
+        <childnode refid="8559" relation="include">
+        </childnode>
+      </node>
+      <node id="8592">
+        <label>pred_PredicateBuilder.h</label>
+        <link refid="pred___predicate_builder_8h"/>
+        <childnode refid="8593" relation="include">
+        </childnode>
+        <childnode refid="8524" relation="include">
+        </childnode>
+        <childnode refid="8578" relation="include">
+        </childnode>
+      </node>
+      <node id="8532">
+        <label>memory</label>
+      </node>
+      <node id="8590">
+        <label>pred_MultiTableGreaterThanExpression.h</label>
+        <link refid="pred___multi_table_greater_than_expression_8h"/>
+      </node>
+      <node id="8594">
+        <label>pred_expression_factory.h</label>
+        <link refid="pred__expression__factory_8h"/>
+        <childnode refid="8569" relation="include">
+        </childnode>
+        <childnode refid="8575" relation="include">
+        </childnode>
+        <childnode refid="8576" relation="include">
+        </childnode>
+      </node>
+      <node id="8533">
+        <label>storage/storage_types.h</label>
+        <link refid="storage__types_8h"/>
+        <childnode refid="8525" relation="include">
+        </childnode>
+        <childnode refid="8530" relation="include">
+        </childnode>
+        <childnode refid="8526" relation="include">
+        </childnode>
+        <childnode refid="8534" relation="include">
+        </childnode>
+        <childnode refid="8535" relation="include">
+        </childnode>
+        <childnode refid="8536" relation="include">
+        </childnode>
+        <childnode refid="8537" relation="include">
+        </childnode>
+        <childnode refid="8538" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="pred__build_expression_8cpp_1a25b05497914ea51ff063e411971eff00" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_simple_field_expression" kindref="compound">SimpleFieldExpression</ref> *</type>
+        <definition>SimpleFieldExpression* buildFieldExpression</definition>
+        <argsstring>(PredicateType::type pred_type, Json::Value &amp;predicate)</argsstring>
+        <name>buildFieldExpression</name>
+        <param>
+          <type><ref refid="struct_predicate_type_1a826cc813b7b1e81f4ba5b0a15441afa4" kindref="member">PredicateType::type</ref></type>
+          <declname>pred_type</declname>
+        </param>
+        <param>
+          <type>Json::Value &amp;</type>
+          <declname>predicate</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/pred_buildExpression.cpp" line="12" bodyfile="/home/grund/hyrise/src/lib/access/pred_buildExpression.cpp" bodystart="12" bodyend="21"/>
+      </memberdef>
+      <memberdef kind="function" id="pred__build_expression_8cpp_1adde58ea9cb61f303c996ff1b6e2bf0c9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_simple_expression" kindref="compound">SimpleExpression</ref> *</type>
+        <definition>SimpleExpression* buildExpression</definition>
+        <argsstring>(Json::Value &amp;predicates)</argsstring>
+        <name>buildExpression</name>
+        <param>
+          <type>Json::Value &amp;</type>
+          <declname>predicates</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/pred_buildExpression.cpp" line="23" bodyfile="/home/grund/hyrise/src/lib/access/pred_buildExpression.cpp" bodystart="23" bodyend="53"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>2012<sp/>Hasso-Plattner-Institut<sp/>fuer<sp/>Softwaresystemtechnik<sp/>GmbH.<sp/>All<sp/>rights<sp/>reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="pred__build_expression_8h" kindref="compound">access/pred_buildExpression.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;json.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="expression__types_8h" kindref="compound">access/expression_types.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="json__converters_8h" kindref="compound">access/json_converters.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="predicates_8h" kindref="compound">access/predicates.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="pred__expression__factory_8h" kindref="compound">access/pred_expression_factory.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="meta__storage_8h" kindref="compound">storage/meta_storage.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12" refid="pred__build_expression_8h_1a78db0dff0c30dc4f14e67733ba035780" refkind="member"><highlight class="normal"><ref refid="class_simple_field_expression" kindref="compound">SimpleFieldExpression</ref><sp/>*<ref refid="pred__build_expression_8cpp_1a25b05497914ea51ff063e411971eff00" kindref="member">buildFieldExpression</ref>(<ref refid="struct_predicate_type_1a826cc813b7b1e81f4ba5b0a15441afa4" kindref="member">PredicateType::type</ref><sp/>pred_type,<sp/>Json::Value<sp/>&amp;predicate)<sp/>{</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><ref refid="structhyrise_1_1storage_1_1type__switch" kindref="compound">hyrise::storage::type_switch&lt;hyrise_basic_types&gt;</ref><sp/>ts;</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><ref refid="structhyrise_1_1access_1_1expression__factory" kindref="compound">hyrise::access::expression_factory</ref><sp/>fun;</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(predicate[</highlight><highlight class="stringliteral">&quot;f&quot;</highlight><highlight class="normal">].isNumeric())<sp/>{</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/>fun<sp/>=<sp/><ref refid="structhyrise_1_1access_1_1expression__factory" kindref="compound">hyrise::access::expression_factory</ref>(predicate[</highlight><highlight class="stringliteral">&quot;in&quot;</highlight><highlight class="normal">].asUInt(),<sp/>predicate[</highlight><highlight class="stringliteral">&quot;f&quot;</highlight><highlight class="normal">].asUInt(),<sp/>pred_type,<sp/>predicate[</highlight><highlight class="stringliteral">&quot;value&quot;</highlight><highlight class="normal">]);</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(predicate[</highlight><highlight class="stringliteral">&quot;f&quot;</highlight><highlight class="normal">].isString())<sp/>{</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/>fun<sp/>=<sp/><ref refid="structhyrise_1_1access_1_1expression__factory" kindref="compound">hyrise::access::expression_factory</ref>(predicate[</highlight><highlight class="stringliteral">&quot;in&quot;</highlight><highlight class="normal">].asUInt(),<sp/>predicate[</highlight><highlight class="stringliteral">&quot;f&quot;</highlight><highlight class="normal">].asString(),<sp/>pred_type,<sp/>predicate[</highlight><highlight class="stringliteral">&quot;value&quot;</highlight><highlight class="normal">]);</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>ts(predicate[</highlight><highlight class="stringliteral">&quot;vtype&quot;</highlight><highlight class="normal">].asUInt(),<sp/>fun);</highlight></codeline>
+<codeline lineno="21"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23" refid="pred__build_expression_8h_1a860b728b80207d8af84fd77e67320f80" refkind="member"><highlight class="normal"><ref refid="class_simple_expression" kindref="compound">SimpleExpression</ref><sp/>*<ref refid="pred__build_expression_8cpp_1adde58ea9cb61f303c996ff1b6e2bf0c9" kindref="member">buildExpression</ref>(Json::Value<sp/>&amp;predicates)<sp/>{</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><ref refid="class_predicate_builder" kindref="compound">PredicateBuilder</ref><sp/>b;</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/>Json::Value<sp/>predicate;</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><ref refid="struct_predicate_type_1a826cc813b7b1e81f4ba5b0a15441afa4" kindref="member">PredicateType::type</ref><sp/>pred_type;</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>predicates.size();<sp/>++i)<sp/>{</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/>predicate<sp/>=<sp/>predicates[i];</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/>pred_type<sp/>=<sp/><ref refid="expression__types_8cpp_1a9aa1d4a3b96198829e669e8f37a9f245" kindref="member">parsePredicateType</ref>(predicate[</highlight><highlight class="stringliteral">&quot;type&quot;</highlight><highlight class="normal">]);</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>(pred_type)<sp/>{</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="struct_predicate_type_1a826cc813b7b1e81f4ba5b0a15441afa4a60bdbd1b416610a640dfffe9919aca6c" kindref="member">PredicateType::AND</ref>:</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>b.<ref refid="class_predicate_builder_1aa31b28dc516d1022a6043f71d384655b" kindref="member">add</ref>(</highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/><ref refid="class_compound_expression" kindref="compound">CompoundExpression</ref>(<ref refid="expression__types_8h_1a51ad9989dafb48362f7e9354d68fe720a865555c9f2e0458a7078486aa1b3254f" kindref="member">AND</ref>));</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="struct_predicate_type_1a826cc813b7b1e81f4ba5b0a15441afa4a3ff86da6498bd889c76820144ecfd860" kindref="member">PredicateType::OR</ref>:</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>b.<ref refid="class_predicate_builder_1aa31b28dc516d1022a6043f71d384655b" kindref="member">add</ref>(</highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/><ref refid="class_compound_expression" kindref="compound">CompoundExpression</ref>(<ref refid="expression__types_8h_1a51ad9989dafb48362f7e9354d68fe720a96727447c0ad447987df1c6415aef074" kindref="member">OR</ref>));</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="struct_predicate_type_1a826cc813b7b1e81f4ba5b0a15441afa4a40c0fea54ab0a7158cb810684feb1170" kindref="member">PredicateType::NOT</ref>:</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>b.<ref refid="class_predicate_builder_1aa31b28dc516d1022a6043f71d384655b" kindref="member">add</ref>(</highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/><ref refid="class_compound_expression" kindref="compound">CompoundExpression</ref>(<ref refid="expression__types_8h_1a51ad9989dafb48362f7e9354d68fe720a0378ebc895849163b249d0b330257dd6" kindref="member">NOT</ref>));</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>b.<ref refid="class_predicate_builder_1aa31b28dc516d1022a6043f71d384655b" kindref="member">add</ref>(<ref refid="pred__build_expression_8cpp_1a25b05497914ea51ff063e411971eff00" kindref="member">buildFieldExpression</ref>(pred_type,<sp/>predicate));</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>b.<ref refid="class_predicate_builder_1a79a44caefa8c4c6abaa717dfe29126dc" kindref="member">build</ref>();</highlight></codeline>
+<codeline lineno="53"><highlight class="normal">};</highlight></codeline>
+    </programlisting>
+    <location file="/home/grund/hyrise/src/lib/access/pred_buildExpression.cpp"/>
+  </compounddef>
+</doxygen>

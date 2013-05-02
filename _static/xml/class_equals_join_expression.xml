@@ -1,0 +1,330 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="class_equals_join_expression" kind="class" prot="public">
+    <compoundname>EqualsJoinExpression</compoundname>
+    <basecompoundref refid="class_join_expression" prot="public" virt="non-virtual">JoinExpression</basecompoundref>
+    <includes refid="join__predicates_8h" local="no">join_predicates.h</includes>
+    <templateparamlist>
+      <param>
+        <type>typename</type>
+        <declname>T</declname>
+        <defname>T</defname>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_equals_join_expression_1ad673a854903332487e349b2574aff4a7" prot="private" static="no" mutable="no">
+        <type><ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref></type>
+        <definition>hyrise::storage::c_atable_ptr_t EqualsJoinExpression&lt; T &gt;::left</definition>
+        <argsstring></argsstring>
+        <name>left</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/join_predicates.h" line="80" bodyfile="/home/grund/hyrise/src/lib/access/join_predicates.h" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_equals_join_expression_1a5a5a0fa1cd0f2ff1942f170fe848ba9e" prot="private" static="no" mutable="no">
+        <type><ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref></type>
+        <definition>hyrise::storage::c_atable_ptr_t EqualsJoinExpression&lt; T &gt;::right</definition>
+        <argsstring></argsstring>
+        <name>right</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/join_predicates.h" line="81" bodyfile="/home/grund/hyrise/src/lib/access/join_predicates.h" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_equals_join_expression_1a13209c2774b2900288149a939fe7baef" prot="private" static="no" mutable="no">
+        <type><ref refid="storage__types_8h_1a5ce4ecb27464dc24ba394527510dd89b" kindref="member">field_t</ref></type>
+        <definition>field_t EqualsJoinExpression&lt; T &gt;::left_field</definition>
+        <argsstring></argsstring>
+        <name>left_field</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/join_predicates.h" line="83" bodyfile="/home/grund/hyrise/src/lib/access/join_predicates.h" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_equals_join_expression_1afe7c23b5ae38a05c2cbaa46ca3b8cb51" prot="private" static="no" mutable="no">
+        <type><ref refid="storage__types_8h_1a5ce4ecb27464dc24ba394527510dd89b" kindref="member">field_t</ref></type>
+        <definition>field_t EqualsJoinExpression&lt; T &gt;::right_field</definition>
+        <argsstring></argsstring>
+        <name>right_field</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/join_predicates.h" line="84" bodyfile="/home/grund/hyrise/src/lib/access/join_predicates.h" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_equals_join_expression_1a8dbb1e37d2727288e43ae1be58474504" prot="private" static="no" mutable="no">
+        <type><ref refid="storage__types_8h_1ad64b8c8026a86f643d173acbb694b4f8" kindref="member">field_name_t</ref></type>
+        <definition>field_name_t EqualsJoinExpression&lt; T &gt;::_left_field_name</definition>
+        <argsstring></argsstring>
+        <name>_left_field_name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/join_predicates.h" line="86" bodyfile="/home/grund/hyrise/src/lib/access/join_predicates.h" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_equals_join_expression_1a3ce97556dc9feed1e0c7f87a99fba99e" prot="private" static="no" mutable="no">
+        <type><ref refid="storage__types_8h_1ad64b8c8026a86f643d173acbb694b4f8" kindref="member">field_name_t</ref></type>
+        <definition>field_name_t EqualsJoinExpression&lt; T &gt;::_right_field_name</definition>
+        <argsstring></argsstring>
+        <name>_right_field_name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/join_predicates.h" line="87" bodyfile="/home/grund/hyrise/src/lib/access/join_predicates.h" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_equals_join_expression_1a899401ffef76defa4b6a99323006eda1" prot="private" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t EqualsJoinExpression&lt; T &gt;::left_input</definition>
+        <argsstring></argsstring>
+        <name>left_input</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/join_predicates.h" line="89" bodyfile="/home/grund/hyrise/src/lib/access/join_predicates.h" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_equals_join_expression_1acd2dabca0c1e8a5c80b3dd7d1c9f4bc1" prot="private" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t EqualsJoinExpression&lt; T &gt;::right_input</definition>
+        <argsstring></argsstring>
+        <name>right_input</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/join_predicates.h" line="90" bodyfile="/home/grund/hyrise/src/lib/access/join_predicates.h" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_equals_join_expression_1a2fe931788477abf76040f7a8dec8097e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>EqualsJoinExpression&lt; T &gt;::EqualsJoinExpression</definition>
+        <argsstring>(size_t l, field_t _left, size_t r, field_t right)</argsstring>
+        <name>EqualsJoinExpression</name>
+        <param>
+          <type>size_t</type>
+          <declname>l</declname>
+        </param>
+        <param>
+          <type><ref refid="storage__types_8h_1a5ce4ecb27464dc24ba394527510dd89b" kindref="member">field_t</ref></type>
+          <declname>_left</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>r</declname>
+        </param>
+        <param>
+          <type><ref refid="storage__types_8h_1a5ce4ecb27464dc24ba394527510dd89b" kindref="member">field_t</ref></type>
+          <declname>right</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/join_predicates.h" line="97" bodyfile="/home/grund/hyrise/src/lib/access/join_predicates.h" bodystart="94" bodyend="97"/>
+      </memberdef>
+      <memberdef kind="function" id="class_equals_join_expression_1a683f9a2c0e316d6ddc246fc330e1f192" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>EqualsJoinExpression&lt; T &gt;::EqualsJoinExpression</definition>
+        <argsstring>(size_t l, field_name_t _left, size_t r, field_name_t right)</argsstring>
+        <name>EqualsJoinExpression</name>
+        <param>
+          <type>size_t</type>
+          <declname>l</declname>
+        </param>
+        <param>
+          <type><ref refid="storage__types_8h_1ad64b8c8026a86f643d173acbb694b4f8" kindref="member">field_name_t</ref></type>
+          <declname>_left</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>r</declname>
+        </param>
+        <param>
+          <type><ref refid="storage__types_8h_1ad64b8c8026a86f643d173acbb694b4f8" kindref="member">field_name_t</ref></type>
+          <declname>right</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/join_predicates.h" line="102" bodyfile="/home/grund/hyrise/src/lib/access/join_predicates.h" bodystart="99" bodyend="102"/>
+      </memberdef>
+      <memberdef kind="function" id="class_equals_join_expression_1a972177b1e053ac90fc51125d2eedb93b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>EqualsJoinExpression&lt; T &gt;::EqualsJoinExpression</definition>
+        <argsstring>(hyrise::storage::c_atable_ptr_t _left, field_t _left_field, hyrise::storage::c_atable_ptr_t _right, field_t _right_field)</argsstring>
+        <name>EqualsJoinExpression</name>
+        <param>
+          <type><ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref></type>
+          <declname>_left</declname>
+        </param>
+        <param>
+          <type><ref refid="storage__types_8h_1a5ce4ecb27464dc24ba394527510dd89b" kindref="member">field_t</ref></type>
+          <declname>_left_field</declname>
+        </param>
+        <param>
+          <type><ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref></type>
+          <declname>_right</declname>
+        </param>
+        <param>
+          <type><ref refid="storage__types_8h_1a5ce4ecb27464dc24ba394527510dd89b" kindref="member">field_t</ref></type>
+          <declname>_right_field</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/join_predicates.h" line="108" bodyfile="/home/grund/hyrise/src/lib/access/join_predicates.h" bodystart="104" bodyend="108"/>
+      </memberdef>
+      <memberdef kind="function" id="class_equals_join_expression_1a3f282c1a0b406e79f663968d64750d51" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>EqualsJoinExpression&lt; T &gt;::~EqualsJoinExpression</definition>
+        <argsstring>()</argsstring>
+        <name>~EqualsJoinExpression</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/join_predicates.h" line="111" bodyfile="/home/grund/hyrise/src/lib/access/join_predicates.h" bodystart="111" bodyend="112"/>
+      </memberdef>
+      <memberdef kind="function" id="class_equals_join_expression_1a18444ba40c5979e24727e8f36b85f418" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void EqualsJoinExpression&lt; T &gt;::walk</definition>
+        <argsstring>(const std::vector&lt; hyrise::storage::c_atable_ptr_t &gt; &amp;i)</argsstring>
+        <name>walk</name>
+        <reimplements refid="class_join_expression_1a858a33ac5267ee7649b5aa6ef95ef939">walk</reimplements>
+        <param>
+          <type>const std::vector&lt; <ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref> &gt; &amp;</type>
+          <declname>i</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/join_predicates.h" line="114" bodyfile="/home/grund/hyrise/src/lib/access/join_predicates.h" bodystart="114" bodyend="120"/>
+      </memberdef>
+      <memberdef kind="function" id="class_equals_join_expression_1a60bdd75916ede9ea1391999bf54a1724" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool EqualsJoinExpression&lt; T &gt;::operator()</definition>
+        <argsstring>(size_t left_row, size_t right_row)</argsstring>
+        <name>operator()</name>
+        <reimplements refid="class_join_expression_1a26ef21192d89d2a264c1b92f4b24e6c7">operator()</reimplements>
+        <param>
+          <type>size_t</type>
+          <declname>left_row</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>right_row</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/join_predicates.h" line="122" bodyfile="/home/grund/hyrise/src/lib/access/join_predicates.h" bodystart="122" bodyend="124"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="class_equals_join_expression_1a6c4edded843c64f855e84a30ecc2c624" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class_equals_join_expression" kindref="compound">EqualsJoinExpression</ref>&lt; T &gt; *</type>
+        <definition>static EqualsJoinExpression&lt;T&gt;* EqualsJoinExpression&lt; T &gt;::parse</definition>
+        <argsstring>(const Json::Value &amp;value)</argsstring>
+        <name>parse</name>
+        <param>
+          <type>const Json::Value &amp;</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/join_predicates.h" line="126" bodyfile="/home/grund/hyrise/src/lib/access/join_predicates.h" bodystart="126" bodyend="140"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1811">
+        <label>JoinExpression</label>
+        <link refid="class_join_expression"/>
+      </node>
+      <node id="1810">
+        <label>EqualsJoinExpression&lt; T &gt;</label>
+        <link refid="class_equals_join_expression"/>
+        <childnode refid="1811" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1813">
+        <label>JoinExpression</label>
+        <link refid="class_join_expression"/>
+      </node>
+      <node id="1812">
+        <label>EqualsJoinExpression&lt; T &gt;</label>
+        <link refid="class_equals_join_expression"/>
+        <childnode refid="1813" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/access/join_predicates.h" line="78" bodyfile="/home/grund/hyrise/src/lib/access/join_predicates.h" bodystart="78" bodyend="141"/>
+    <listofallmembers>
+      <member refid="class_equals_join_expression_1a8dbb1e37d2727288e43ae1be58474504" prot="private" virt="non-virtual"><scope>EqualsJoinExpression</scope><name>_left_field_name</name></member>
+      <member refid="class_equals_join_expression_1a3ce97556dc9feed1e0c7f87a99fba99e" prot="private" virt="non-virtual"><scope>EqualsJoinExpression</scope><name>_right_field_name</name></member>
+      <member refid="class_equals_join_expression_1a2fe931788477abf76040f7a8dec8097e" prot="public" virt="non-virtual"><scope>EqualsJoinExpression</scope><name>EqualsJoinExpression</name></member>
+      <member refid="class_equals_join_expression_1a683f9a2c0e316d6ddc246fc330e1f192" prot="public" virt="non-virtual"><scope>EqualsJoinExpression</scope><name>EqualsJoinExpression</name></member>
+      <member refid="class_equals_join_expression_1a972177b1e053ac90fc51125d2eedb93b" prot="public" virt="non-virtual"><scope>EqualsJoinExpression</scope><name>EqualsJoinExpression</name></member>
+      <member refid="class_join_expression_1aae263d8f422eadac4b618fa56f27e5fb" prot="public" virt="non-virtual"><scope>EqualsJoinExpression</scope><name>JoinExpression</name></member>
+      <member refid="class_equals_join_expression_1ad673a854903332487e349b2574aff4a7" prot="private" virt="non-virtual"><scope>EqualsJoinExpression</scope><name>left</name></member>
+      <member refid="class_equals_join_expression_1a13209c2774b2900288149a939fe7baef" prot="private" virt="non-virtual"><scope>EqualsJoinExpression</scope><name>left_field</name></member>
+      <member refid="class_equals_join_expression_1a899401ffef76defa4b6a99323006eda1" prot="private" virt="non-virtual"><scope>EqualsJoinExpression</scope><name>left_input</name></member>
+      <member refid="class_equals_join_expression_1a60bdd75916ede9ea1391999bf54a1724" prot="public" virt="virtual"><scope>EqualsJoinExpression</scope><name>operator()</name></member>
+      <member refid="class_equals_join_expression_1a6c4edded843c64f855e84a30ecc2c624" prot="public" virt="non-virtual"><scope>EqualsJoinExpression</scope><name>parse</name></member>
+      <member refid="class_equals_join_expression_1a5a5a0fa1cd0f2ff1942f170fe848ba9e" prot="private" virt="non-virtual"><scope>EqualsJoinExpression</scope><name>right</name></member>
+      <member refid="class_equals_join_expression_1afe7c23b5ae38a05c2cbaa46ca3b8cb51" prot="private" virt="non-virtual"><scope>EqualsJoinExpression</scope><name>right_field</name></member>
+      <member refid="class_equals_join_expression_1acd2dabca0c1e8a5c80b3dd7d1c9f4bc1" prot="private" virt="non-virtual"><scope>EqualsJoinExpression</scope><name>right_input</name></member>
+      <member refid="class_equals_join_expression_1a18444ba40c5979e24727e8f36b85f418" prot="public" virt="virtual"><scope>EqualsJoinExpression</scope><name>walk</name></member>
+      <member refid="class_equals_join_expression_1a3f282c1a0b406e79f663968d64750d51" prot="public" virt="non-virtual"><scope>EqualsJoinExpression</scope><name>~EqualsJoinExpression</name></member>
+      <member refid="class_join_expression_1a31712a50b5ae7bb19a03837e25ce232d" prot="public" virt="virtual"><scope>EqualsJoinExpression</scope><name>~JoinExpression</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

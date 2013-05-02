@@ -1,0 +1,108 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="_my_s_q_l_loader_8h" kind="file">
+    <compoundname>MySQLLoader.h</compoundname>
+    <includedby refid="_my_s_q_l_table_load_8cpp" local="yes">src/lib/access/MySQLTableLoad.cpp</includedby>
+    <includedby refid="loaders_8h" local="yes">src/lib/io/loaders.h</includedby>
+    <invincdepgraph>
+      <node id="15082">
+        <label>src/lib/io/shortcuts.cpp</label>
+        <link refid="shortcuts_8cpp"/>
+      </node>
+      <node id="15076">
+        <label>src/lib/io/MySQLLoader.h</label>
+        <link refid="MySQLLoader.h"/>
+        <childnode refid="15077" relation="include">
+        </childnode>
+        <childnode refid="15078" relation="include">
+        </childnode>
+      </node>
+      <node id="15080">
+        <label>src/lib/access/insertonly.cpp</label>
+        <link refid="insertonly_8cpp"/>
+      </node>
+      <node id="15077">
+        <label>src/lib/access/MySQLTableLoad.cpp</label>
+        <link refid="_my_s_q_l_table_load_8cpp"/>
+      </node>
+      <node id="15081">
+        <label>src/lib/access/TableLoad.cpp</label>
+        <link refid="_table_load_8cpp"/>
+      </node>
+      <node id="15079">
+        <label>src/bin/perf_regression/Loading.cpp</label>
+        <link refid="_loading_8cpp"/>
+      </node>
+      <node id="15078">
+        <label>src/lib/io/loaders.h</label>
+        <link refid="loaders_8h"/>
+        <childnode refid="15079" relation="include">
+        </childnode>
+        <childnode refid="15080" relation="include">
+        </childnode>
+        <childnode refid="15081" relation="include">
+        </childnode>
+        <childnode refid="15082" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>2012<sp/>Hasso-Plattner-Institut<sp/>fuer<sp/>Softwaresystemtechnik<sp/>GmbH.<sp/>All<sp/>rights<sp/>reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SRC_LIB_IO_MYSQLLOADER_H_</highlight></codeline>
+<codeline lineno="3"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SRC_LIB_IO_MYSQLLOADER_H_</highlight></codeline>
+<codeline lineno="4"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>WITH_MYSQL</highlight></codeline>
+<codeline lineno="6"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdlib.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_environment_8h" kindref="compound">helper/Environment.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_abstract_loader_8h" kindref="compound">io/AbstractLoader.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>ENV_MYSQL_HOST<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;HYRISE_MYSQL_HOST&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>ENV_MYSQL_PORT<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;HYRISE_MYSQL_PORT&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>ENV_MYSQL_USER<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;HYRISE_MYSQL_USER&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>ENV_MYSQL_PASS<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;HYRISE_MYSQL_PASS&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">MySQLInput<sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="class_abstract_input" kindref="compound" tooltip="Interface for implementing a data source for loading data into a table.">AbstractInput</ref><sp/>{</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">params<sp/>{</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="parameters_8inc" kindref="compound">parameters.inc</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="_c_s_v_loader_8h_1a83e410340cc3c3defa181e3c5cc8d0b0" kindref="member">param_member</ref>(std::string,<sp/>Host);</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="_c_s_v_loader_8h_1a83e410340cc3c3defa181e3c5cc8d0b0" kindref="member">param_member</ref>(std::string,<sp/>Port);</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="_c_s_v_loader_8h_1a83e410340cc3c3defa181e3c5cc8d0b0" kindref="member">param_member</ref>(std::string,<sp/>User);</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="_c_s_v_loader_8h_1a83e410340cc3c3defa181e3c5cc8d0b0" kindref="member">param_member</ref>(std::string,<sp/>Password);</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="_c_s_v_loader_8h_1a83e410340cc3c3defa181e3c5cc8d0b0" kindref="member">param_member</ref>(std::string,<sp/>Schema);</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="_c_s_v_loader_8h_1a83e410340cc3c3defa181e3c5cc8d0b0" kindref="member">param_member</ref>(std::string,<sp/>Table);</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="_c_s_v_loader_8h_1a83e410340cc3c3defa181e3c5cc8d0b0" kindref="member">param_member</ref>(uint64_t,<sp/>Limit);</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/>params()<sp/>:<sp/>Host(<ref refid="_environment_8cpp_1a45002ad3fba8b017d20e5e05d550c765" kindref="member">getEnv</ref>(ENV_MYSQL_HOST,<sp/></highlight><highlight class="stringliteral">&quot;127.0.0.1&quot;</highlight><highlight class="normal">)),</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>Port(<ref refid="_environment_8cpp_1a45002ad3fba8b017d20e5e05d550c765" kindref="member">getEnv</ref>(ENV_MYSQL_PORT,<sp/></highlight><highlight class="stringliteral">&quot;3306&quot;</highlight><highlight class="normal">)),</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>User(<ref refid="_environment_8cpp_1a45002ad3fba8b017d20e5e05d550c765" kindref="member">getEnv</ref>(ENV_MYSQL_USER,<sp/></highlight><highlight class="stringliteral">&quot;root&quot;</highlight><highlight class="normal">)),</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>Password(<ref refid="_environment_8cpp_1a45002ad3fba8b017d20e5e05d550c765" kindref="member">getEnv</ref>(ENV_MYSQL_PASS,<sp/></highlight><highlight class="stringliteral">&quot;root&quot;</highlight><highlight class="normal">)),</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>Limit(0)</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/>{}</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/>};</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/>MySQLInput(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>params<sp/>&amp;parameters<sp/>=<sp/>params())<sp/>:</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/>_parameters(parameters)</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/>{}</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/>std::shared_ptr&lt;AbstractTable&gt;<sp/><ref refid="class_abstract_input_1a9d31015659ecff402c529df0f5339b60" kindref="member">load</ref>(std::shared_ptr&lt;AbstractTable&gt;,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="storage__types_8h_1ab1a41784d413aa539cdda0391757965c" kindref="member">compound_metadata_list</ref><sp/>*,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="class_loader_1_1params" kindref="compound">Loader::params</ref><sp/>&amp;args);</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/>MySQLInput<sp/>*<ref refid="class_abstract_input_1ae24e23d7100a832b9bd67b161ceb7215" kindref="member">clone</ref>()<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/>params<sp/>_parameters;</highlight></codeline>
+<codeline lineno="47"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/>//<sp/>SRC_LIB_IO_MYSQLLOADER_H_</highlight></codeline>
+    </programlisting>
+    <location file="/home/grund/hyrise/src/lib/io/MySQLLoader.h"/>
+  </compounddef>
+</doxygen>

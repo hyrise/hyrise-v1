@@ -1,0 +1,477 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="classhyrise_1_1net_1_1_router" kind="class" prot="public">
+    <compoundname>hyrise::net::Router</compoundname>
+    <includes refid="_router_8h" local="no">Router.h</includes>
+      <sectiondef kind="public-type">
+      <memberdef kind="enum" id="classhyrise_1_1net_1_1_router_1a41aef777914202cb2e990396b6ed2f3f" prot="public" static="no">
+        <name>DISPATCH</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/net/Router.h" line="53" bodyfile="/home/grund/hyrise/src/lib/net/Router.h" bodystart="53" bodyend="53"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classhyrise_1_1net_1_1_router_1a75e876b127a75fc4514436e264d3fd04" prot="public" static="no">
+        <type>enum <ref refid="classhyrise_1_1net_1_1_router_1a41aef777914202cb2e990396b6ed2f3f" kindref="member">hyrise::net::Router::DISPATCH</ref></type>
+        <definition>typedef enum hyrise::net::Router::DISPATCH  hyrise::net::Router::route_t</definition>
+        <argsstring></argsstring>
+        <name>route_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/net/Router.h" line="53"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classhyrise_1_1net_1_1_router_1ad5a7e91fa85f977fbe84b4c6a292560d" prot="public" static="no">
+        <type>std::unique_ptr&lt; <ref refid="structhyrise_1_1net_1_1_abstract_request_handler_factory" kindref="compound">AbstractRequestHandlerFactory</ref> &gt;</type>
+        <definition>typedef std::unique_ptr&lt;AbstractRequestHandlerFactory&gt; hyrise::net::Router::handler_uptr</definition>
+        <argsstring></argsstring>
+        <name>handler_uptr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/net/Router.h" line="54" bodyfile="/home/grund/hyrise/src/lib/net/Router.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classhyrise_1_1net_1_1_router_1a146307bd3fa93bccf28eb0d4f2dabc58" prot="public" static="no">
+        <type>const <ref refid="structhyrise_1_1net_1_1_abstract_request_handler_factory" kindref="compound">AbstractRequestHandlerFactory</ref> *</type>
+        <definition>typedef const AbstractRequestHandlerFactory* hyrise::net::Router::handler_ptr</definition>
+        <argsstring></argsstring>
+        <name>handler_ptr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/net/Router.h" line="55" bodyfile="/home/grund/hyrise/src/lib/net/Router.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classhyrise_1_1net_1_1_router_1a7a3b8f96bf2ac38074b2a3fa8847448a" prot="public" static="no">
+        <type>std::unordered_map&lt; std::string, <ref refid="classhyrise_1_1net_1_1_router_1ad5a7e91fa85f977fbe84b4c6a292560d" kindref="member">handler_uptr</ref> &gt;</type>
+        <definition>typedef std::unordered_map&lt;std::string, handler_uptr&gt; hyrise::net::Router::route_map_t</definition>
+        <argsstring></argsstring>
+        <name>route_map_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/net/Router.h" line="56" bodyfile="/home/grund/hyrise/src/lib/net/Router.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classhyrise_1_1net_1_1_router_1a735c6755fa2b7878304e127b07c2036e" prot="public" static="no">
+        <type>std::unordered_map&lt; std::string, std::string &gt;</type>
+        <definition>typedef std::unordered_map&lt;std::string, std::string&gt; hyrise::net::Router::route_name_t</definition>
+        <argsstring></argsstring>
+        <name>route_name_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/net/Router.h" line="57" bodyfile="/home/grund/hyrise/src/lib/net/Router.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="friend">
+      <memberdef kind="friend" id="classhyrise_1_1net_1_1_router_1a87e163d29508756b9b37df8cc8bd3dc8" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>friend class</type>
+        <definition>friend class RouteRequestHandler</definition>
+        <argsstring></argsstring>
+        <name>RouteRequestHandler</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/net/Router.h" line="47" bodyfile="/home/grund/hyrise/src/lib/net/Router.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classhyrise_1_1net_1_1_router_1a3b6c7b8d377fb6543b768c8c8d8d32cb" prot="private" static="no" mutable="no">
+        <type><ref refid="classhyrise_1_1net_1_1_router_1a7a3b8f96bf2ac38074b2a3fa8847448a" kindref="member">route_map_t</ref></type>
+        <definition>route_map_t hyrise::net::Router::_route</definition>
+        <argsstring></argsstring>
+        <name>_route</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/net/Router.h" line="133" bodyfile="/home/grund/hyrise/src/lib/net/Router.h" bodystart="133" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhyrise_1_1net_1_1_router_1a122473dcb472225f3afa1506a366a83f" prot="private" static="no" mutable="no">
+        <type><ref refid="classhyrise_1_1net_1_1_router_1a146307bd3fa93bccf28eb0d4f2dabc58" kindref="member">handler_ptr</ref></type>
+        <definition>handler_ptr hyrise::net::Router::_catch_all</definition>
+        <argsstring></argsstring>
+        <name>_catch_all</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/net/Router.h" line="134" bodyfile="/home/grund/hyrise/src/lib/net/Router.h" bodystart="134" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhyrise_1_1net_1_1_router_1a957ee18955a99a498406c27d4532ae4e" prot="private" static="no" mutable="no">
+        <type><ref refid="classhyrise_1_1net_1_1_router_1a735c6755fa2b7878304e127b07c2036e" kindref="member">route_name_t</ref></type>
+        <definition>route_name_t hyrise::net::Router::_route_names</definition>
+        <argsstring></argsstring>
+        <name>_route_names</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/net/Router.h" line="135" bodyfile="/home/grund/hyrise/src/lib/net/Router.h" bodystart="135" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classhyrise_1_1net_1_1_router_1aa3c45aa14d18af25ecf86f20e28ecd97" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>hyrise::net::Router::Router</definition>
+        <argsstring>()</argsstring>
+        <name>Router</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/net/Router.h" line="49" bodyfile="/home/grund/hyrise/src/lib/net/Router.cpp" bodystart="13" bodyend="14"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1net_1_1_router_1a720c7280988955d1a9f0f90eaa34d637" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>hyrise::net::Router::Router</definition>
+        <argsstring>(const Router &amp;)</argsstring>
+        <name>Router</name>
+        <param>
+          <type>const <ref refid="classhyrise_1_1net_1_1_router" kindref="compound">Router</ref> &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/net/Router.h" line="50"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1net_1_1_router_1ac57dc31aaa9fb0ed8e6393ee798158f8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classhyrise_1_1net_1_1_router" kindref="compound">Router</ref> &amp;</type>
+        <definition>Router&amp; hyrise::net::Router::operator=</definition>
+        <argsstring>(const Router &amp;)</argsstring>
+        <name>operator=</name>
+        <param>
+          <type>const <ref refid="classhyrise_1_1net_1_1_router" kindref="compound">Router</ref> &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/net/Router.h" line="51"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1net_1_1_router_1a07ba91385f5e56f7653e9db542de37a0" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>const <ref refid="classhyrise_1_1net_1_1_router_1a7a3b8f96bf2ac38074b2a3fa8847448a" kindref="member">route_map_t</ref> &amp;</type>
+        <definition>const Router::route_map_t &amp; hyrise::net::Router::getRouters</definition>
+        <argsstring>() const </argsstring>
+        <name>getRouters</name>
+        <briefdescription>
+<para>Returns routing map of registered classes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/net/Router.h" line="104" bodyfile="/home/grund/hyrise/src/lib/net/Router.cpp" bodystart="21" bodyend="23"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1net_1_1_router_1acc5a2fb69113bad878ce8a67eff8de61" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hyrise::net::Router::setCatchAll</definition>
+        <argsstring>(handler_ptr handler)</argsstring>
+        <name>setCatchAll</name>
+        <param>
+          <type><ref refid="classhyrise_1_1net_1_1_router_1a146307bd3fa93bccf28eb0d4f2dabc58" kindref="member">handler_ptr</ref></type>
+          <declname>handler</declname>
+        </param>
+        <briefdescription>
+<para>Setter for catchAll. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/net/Router.h" line="107" bodyfile="/home/grund/hyrise/src/lib/net/Router.cpp" bodystart="39" bodyend="43"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1net_1_1_router_1a11abfb71687be26dc81ab135e7134f93" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classhyrise_1_1net_1_1_router_1a146307bd3fa93bccf28eb0d4f2dabc58" kindref="member">handler_ptr</ref></type>
+        <definition>Router::handler_ptr hyrise::net::Router::getCatchAll</definition>
+        <argsstring>() const </argsstring>
+        <name>getCatchAll</name>
+        <briefdescription>
+<para>Getter for catchAll, exception when not set. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/net/Router.h" line="110" bodyfile="/home/grund/hyrise/src/lib/net/Router.cpp" bodystart="45" bodyend="49"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1net_1_1_router_1a0ad2f5ee80367348350b92af6e1fa6d6" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classhyrise_1_1net_1_1_router_1a146307bd3fa93bccf28eb0d4f2dabc58" kindref="member">handler_ptr</ref></type>
+        <definition>Router::handler_ptr hyrise::net::Router::getCatchAllRaw</definition>
+        <argsstring>() const </argsstring>
+        <name>getCatchAllRaw</name>
+        <briefdescription>
+<para>Raw getter for catchAll, no exception when not set. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/net/Router.h" line="113" bodyfile="/home/grund/hyrise/src/lib/net/Router.cpp" bodystart="51" bodyend="53"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1net_1_1_router_1a0803a7bd599f3d889e218499a90c5df2" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classhyrise_1_1net_1_1_router_1a146307bd3fa93bccf28eb0d4f2dabc58" kindref="member">handler_ptr</ref></type>
+        <definition>Router::handler_ptr hyrise::net::Router::getHandler</definition>
+        <argsstring>(const std::string &amp;url) const </argsstring>
+        <name>getHandler</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>url</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Return appropriate handler <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">url</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Url to resolve </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/net/Router.h" line="117" bodyfile="/home/grund/hyrise/src/lib/net/Router.cpp" bodystart="59" bodyend="67"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1net_1_1_router_1a12570daf895d9b475f5d7524e9c0704a" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string hyrise::net::Router::getHandlerNameForRoute</definition>
+        <argsstring>(const std::string &amp;url) const </argsstring>
+        <name>getHandlerNameForRoute</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>url</declname>
+        </param>
+        <briefdescription>
+<para>Return name of handler for route. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/net/Router.h" line="120" bodyfile="/home/grund/hyrise/src/lib/net/Router.cpp" bodystart="55" bodyend="57"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1net_1_1_router_1aebb5cd00102f90491f8982e5d41b9b5e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hyrise::net::Router::addRoute</definition>
+        <argsstring>(const std::string &amp;url, handler_uptr factory, route_t route, const std::string &amp;name=&quot;undefined&quot;)</argsstring>
+        <name>addRoute</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>url</declname>
+        </param>
+        <param>
+          <type><ref refid="classhyrise_1_1net_1_1_router_1ad5a7e91fa85f977fbe84b4c6a292560d" kindref="member">handler_uptr</ref></type>
+          <declname>factory</declname>
+        </param>
+        <param>
+          <type><ref refid="classhyrise_1_1net_1_1_router_1a75e876b127a75fc4514436e264d3fd04" kindref="member">route_t</ref></type>
+          <declname>route</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>name</declname>
+          <defval>&quot;undefined&quot;</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Add a new route <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">url</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>url prefix </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">factory</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>factory that returns RequestHandler </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">route</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>route mode </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>name of the registered handler </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/net/Router.h" line="130" bodyfile="/home/grund/hyrise/src/lib/net/Router.cpp" bodystart="25" bodyend="37"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classhyrise_1_1net_1_1_router_1ad9866a97c73b455d8f0f51f2ccd6d829" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classhyrise_1_1net_1_1_router_1a146307bd3fa93bccf28eb0d4f2dabc58" kindref="member">handler_ptr</ref></type>
+        <definition>Router::handler_ptr hyrise::net::Router::route</definition>
+        <argsstring>(const std::string &amp;url)</argsstring>
+        <name>route</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>url</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Using an incoming url, returns a factory for the appropriate handler class, caller still has to call create to obtain their own handler <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">url</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>URL </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/net/Router.h" line="63" bodyfile="/home/grund/hyrise/src/lib/net/Router.cpp" bodystart="69" bodyend="72"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1net_1_1_router_1a847346a8882c7d5e3ed7f2bc8d1acbae" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename RequestHandlerClass</type>
+          </param>
+        </templateparamlist>
+        <type>bool</type>
+        <definition>static bool hyrise::net::Router::registerRoute</definition>
+        <argsstring>(const std::string &amp;url, route_t route=route_t::EXACT)</argsstring>
+        <name>registerRoute</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>url</declname>
+        </param>
+        <param>
+          <type><ref refid="classhyrise_1_1net_1_1_router_1a75e876b127a75fc4514436e264d3fd04" kindref="member">route_t</ref></type>
+          <declname>route</declname>
+          <defval>route_t::EXACT</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Static initialization registration method for registering handler classes with urls, or to be more precisely, URL prefixes. <parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>RequestHandlerClass</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Class of request handler should inherit from <ref refid="classhyrise_1_1net_1_1_abstract_request_handler" kindref="compound">AbstractRequestHandler</ref> </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">url</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>URL to register </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">route</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>optionally define route type</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+bool klass::registered = <ref refid="classhyrise_1_1net_1_1_router_1a847346a8882c7d5e3ed7f2bc8d1acbae" kindref="member">hyrise::net::Router::registerRoute&lt;klass&gt;</ref>(&quot;/url/&quot;)</para><para>Registers <computeroutput>klass</computeroutput> to be a handler of all urls that start with &quot;/url/&quot;</para><para>To avoid ordering problems with registrations, we disallow registration of &quot;/&quot;, as this may result result in ambiguous resolution</para><para>Instead, it is possible to register a CATCH_ALL handler that will be returned when no other handler has &quot;claimed&quot; a url-prefix.</para><para>bool klass::registered = <ref refid="classhyrise_1_1net_1_1_router_1a847346a8882c7d5e3ed7f2bc8d1acbae" kindref="member">hyrise::net::Router::registerRoute&lt;klass&gt;</ref>(&quot;/catch/&quot;, hyrise::net::Router::route_t::CATCH_ALL)</para><para>This will register <computeroutput>klass</computeroutput> to be a handler of all urls that would otherwise not match any handlers at all. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/net/Router.h" line="89" bodyfile="/home/grund/hyrise/src/lib/net/Router.h" bodystart="88" bodyend="94"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1net_1_1_router_1a77163aca532cddbea1edfdaec58a0926" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classhyrise_1_1net_1_1_router" kindref="compound">Router</ref> &amp;</type>
+        <definition>Router &amp; hyrise::net::Router::getInstance</definition>
+        <argsstring>()</argsstring>
+        <name>getInstance</name>
+        <briefdescription>
+<para>Returns global <ref refid="classhyrise_1_1net_1_1_router" kindref="compound">Router</ref> instance. </para>        </briefdescription>
+        <detaileddescription>
+<para>The following functions should be assumed protected, as they are internal to the implementation of <ref refid="classhyrise_1_1net_1_1_router" kindref="compound">Router</ref>. Yet, for ease of testing, they are public. protected: </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/net/Router.h" line="101" bodyfile="/home/grund/hyrise/src/lib/net/Router.cpp" bodystart="16" bodyend="19"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Central routing class, implements handling of requests mapped to registered factories </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="2747">
+        <label>hyrise::net::AbstractRequestHandlerFactory</label>
+        <link refid="structhyrise_1_1net_1_1_abstract_request_handler_factory"/>
+      </node>
+      <node id="2746">
+        <label>hyrise::net::Router</label>
+        <link refid="classhyrise_1_1net_1_1_router"/>
+        <childnode refid="2747" relation="usage">
+          <edgelabel>_catch_all</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/net/Router.h" line="46" bodyfile="/home/grund/hyrise/src/lib/net/Router.h" bodystart="46" bodyend="137"/>
+    <listofallmembers>
+      <member refid="classhyrise_1_1net_1_1_router_1a122473dcb472225f3afa1506a366a83f" prot="private" virt="non-virtual"><scope>hyrise::net::Router</scope><name>_catch_all</name></member>
+      <member refid="classhyrise_1_1net_1_1_router_1a3b6c7b8d377fb6543b768c8c8d8d32cb" prot="private" virt="non-virtual"><scope>hyrise::net::Router</scope><name>_route</name></member>
+      <member refid="classhyrise_1_1net_1_1_router_1a957ee18955a99a498406c27d4532ae4e" prot="private" virt="non-virtual"><scope>hyrise::net::Router</scope><name>_route_names</name></member>
+      <member refid="classhyrise_1_1net_1_1_router_1aebb5cd00102f90491f8982e5d41b9b5e" prot="public" virt="non-virtual"><scope>hyrise::net::Router</scope><name>addRoute</name></member>
+      <member refid="classhyrise_1_1net_1_1_router_1a41aef777914202cb2e990396b6ed2f3f" prot="public" virt="non-virtual"><scope>hyrise::net::Router</scope><name>DISPATCH</name></member>
+      <member refid="classhyrise_1_1net_1_1_router_1a11abfb71687be26dc81ab135e7134f93" prot="public" virt="non-virtual"><scope>hyrise::net::Router</scope><name>getCatchAll</name></member>
+      <member refid="classhyrise_1_1net_1_1_router_1a0ad2f5ee80367348350b92af6e1fa6d6" prot="public" virt="non-virtual"><scope>hyrise::net::Router</scope><name>getCatchAllRaw</name></member>
+      <member refid="classhyrise_1_1net_1_1_router_1a0803a7bd599f3d889e218499a90c5df2" prot="public" virt="non-virtual"><scope>hyrise::net::Router</scope><name>getHandler</name></member>
+      <member refid="classhyrise_1_1net_1_1_router_1a12570daf895d9b475f5d7524e9c0704a" prot="public" virt="non-virtual"><scope>hyrise::net::Router</scope><name>getHandlerNameForRoute</name></member>
+      <member refid="classhyrise_1_1net_1_1_router_1a77163aca532cddbea1edfdaec58a0926" prot="public" virt="non-virtual"><scope>hyrise::net::Router</scope><name>getInstance</name></member>
+      <member refid="classhyrise_1_1net_1_1_router_1a07ba91385f5e56f7653e9db542de37a0" prot="public" virt="non-virtual"><scope>hyrise::net::Router</scope><name>getRouters</name></member>
+      <member refid="classhyrise_1_1net_1_1_router_1a146307bd3fa93bccf28eb0d4f2dabc58" prot="public" virt="non-virtual"><scope>hyrise::net::Router</scope><name>handler_ptr</name></member>
+      <member refid="classhyrise_1_1net_1_1_router_1ad5a7e91fa85f977fbe84b4c6a292560d" prot="public" virt="non-virtual"><scope>hyrise::net::Router</scope><name>handler_uptr</name></member>
+      <member refid="classhyrise_1_1net_1_1_router_1ac57dc31aaa9fb0ed8e6393ee798158f8" prot="public" virt="non-virtual"><scope>hyrise::net::Router</scope><name>operator=</name></member>
+      <member refid="classhyrise_1_1net_1_1_router_1a847346a8882c7d5e3ed7f2bc8d1acbae" prot="public" virt="non-virtual"><scope>hyrise::net::Router</scope><name>registerRoute</name></member>
+      <member refid="classhyrise_1_1net_1_1_router_1ad9866a97c73b455d8f0f51f2ccd6d829" prot="public" virt="non-virtual"><scope>hyrise::net::Router</scope><name>route</name></member>
+      <member refid="classhyrise_1_1net_1_1_router_1a7a3b8f96bf2ac38074b2a3fa8847448a" prot="public" virt="non-virtual"><scope>hyrise::net::Router</scope><name>route_map_t</name></member>
+      <member refid="classhyrise_1_1net_1_1_router_1a735c6755fa2b7878304e127b07c2036e" prot="public" virt="non-virtual"><scope>hyrise::net::Router</scope><name>route_name_t</name></member>
+      <member refid="classhyrise_1_1net_1_1_router_1a75e876b127a75fc4514436e264d3fd04" prot="public" virt="non-virtual"><scope>hyrise::net::Router</scope><name>route_t</name></member>
+      <member refid="classhyrise_1_1net_1_1_router_1aa3c45aa14d18af25ecf86f20e28ecd97" prot="public" virt="non-virtual"><scope>hyrise::net::Router</scope><name>Router</name></member>
+      <member refid="classhyrise_1_1net_1_1_router_1a720c7280988955d1a9f0f90eaa34d637" prot="public" virt="non-virtual"><scope>hyrise::net::Router</scope><name>Router</name></member>
+      <member refid="classhyrise_1_1net_1_1_router_1a87e163d29508756b9b37df8cc8bd3dc8" prot="private" virt="non-virtual"><scope>hyrise::net::Router</scope><name>RouteRequestHandler</name></member>
+      <member refid="classhyrise_1_1net_1_1_router_1acc5a2fb69113bad878ce8a67eff8de61" prot="public" virt="non-virtual"><scope>hyrise::net::Router</scope><name>setCatchAll</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

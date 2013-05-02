@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="simple_8cpp" kind="file">
+    <compoundname>simple.cpp</compoundname>
+    <includes local="no">gtest/gtest.h</includes>
+    <includes local="no">gtest/gtest-bench.h</includes>
+    <includes local="no">string</includes>
+    <incdepgraph>
+      <node id="1598">
+        <label>string</label>
+      </node>
+      <node id="1596">
+        <label>gtest/gtest.h</label>
+      </node>
+      <node id="1595">
+        <label>src/bin/perf_regression/simple.cpp</label>
+        <link refid="simple.cpp"/>
+        <childnode refid="1596" relation="include">
+        </childnode>
+        <childnode refid="1597" relation="include">
+        </childnode>
+        <childnode refid="1598" relation="include">
+        </childnode>
+      </node>
+      <node id="1597">
+        <label>gtest/gtest-bench.h</label>
+      </node>
+    </incdepgraph>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>2012<sp/>Hasso-Plattner-Institut<sp/>fuer<sp/>Softwaresystemtechnik<sp/>GmbH.<sp/>All<sp/>rights<sp/>reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;gtest/gtest.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;gtest/gtest-bench.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*class<sp/>ProjectionBase<sp/>:<sp/>public<sp/>::testing::Benchmark</highlight></codeline>
+<codeline lineno="7"><highlight class="comment"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="8"><highlight class="comment"></highlight></codeline>
+<codeline lineno="9"><highlight class="comment"><sp/><sp/>protected:</highlight></codeline>
+<codeline lineno="10"><highlight class="comment"></highlight></codeline>
+<codeline lineno="11"><highlight class="comment"><sp/><sp/>int<sp/>myVal;</highlight></codeline>
+<codeline lineno="12"><highlight class="comment"></highlight></codeline>
+<codeline lineno="13"><highlight class="comment"><sp/><sp/>public:</highlight></codeline>
+<codeline lineno="14"><highlight class="comment"></highlight></codeline>
+<codeline lineno="15"><highlight class="comment"><sp/><sp/>void<sp/>SetUp()</highlight></codeline>
+<codeline lineno="16"><highlight class="comment"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="17"><highlight class="comment"><sp/><sp/>myVal<sp/>=<sp/>rand()<sp/>%<sp/>100;</highlight></codeline>
+<codeline lineno="18"><highlight class="comment"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="19"><highlight class="comment"></highlight></codeline>
+<codeline lineno="20"><highlight class="comment"><sp/><sp/>ProjectionBase()</highlight></codeline>
+<codeline lineno="21"><highlight class="comment"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="22"><highlight class="comment"><sp/><sp/>SetNumIterations(10);</highlight></codeline>
+<codeline lineno="23"><highlight class="comment"><sp/><sp/>SetWarmUp(2);</highlight></codeline>
+<codeline lineno="24"><highlight class="comment"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="25"><highlight class="comment"><sp/><sp/>};</highlight></codeline>
+<codeline lineno="26"><highlight class="comment"></highlight></codeline>
+<codeline lineno="27"><highlight class="comment"><sp/><sp/>BENCHMARK(Simple)</highlight></codeline>
+<codeline lineno="28"><highlight class="comment"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="29"><highlight class="comment"><sp/><sp/>int<sp/>i<sp/>=<sp/>10;</highlight></codeline>
+<codeline lineno="30"><highlight class="comment"><sp/><sp/>srand(99);</highlight></codeline>
+<codeline lineno="31"><highlight class="comment"></highlight></codeline>
+<codeline lineno="32"><highlight class="comment"><sp/><sp/>usleep(500000<sp/>+<sp/>rand()<sp/>%<sp/>200000);</highlight></codeline>
+<codeline lineno="33"><highlight class="comment"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="34"><highlight class="comment"></highlight></codeline>
+<codeline lineno="35"><highlight class="comment"></highlight></codeline>
+<codeline lineno="36"><highlight class="comment"><sp/><sp/>BENCHMARK_F(ProjectionBase,<sp/>Simple)</highlight></codeline>
+<codeline lineno="37"><highlight class="comment"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="38"><highlight class="comment"><sp/><sp/>int<sp/>i<sp/>=<sp/>myVal;</highlight></codeline>
+<codeline lineno="39"><highlight class="comment"><sp/><sp/>srand(99);</highlight></codeline>
+<codeline lineno="40"><highlight class="comment"></highlight></codeline>
+<codeline lineno="41"><highlight class="comment"><sp/><sp/>usleep(500000<sp/>+<sp/>rand()<sp/>%<sp/>200000);</highlight></codeline>
+<codeline lineno="42"><highlight class="comment"><sp/><sp/>}*/</highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/home/grund/hyrise/src/bin/perf_regression/simple.cpp"/>
+  </compounddef>
+</doxygen>

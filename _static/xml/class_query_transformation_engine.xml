@@ -1,0 +1,655 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="class_query_transformation_engine" kind="class" prot="public">
+    <compoundname>QueryTransformationEngine</compoundname>
+    <includes refid="_query_transformation_engine_8h" local="no">QueryTransformationEngine.h</includes>
+      <sectiondef kind="private-type">
+      <memberdef kind="typedef" id="class_query_transformation_engine_1a84f51250390a7e2d56f1a22ef38cd8b6" prot="private" static="no">
+        <type>std::map&lt; std::string, <ref refid="classhyrise_1_1access_1_1_abstract_plan_op_transformation" kindref="compound">hyrise::access::AbstractPlanOpTransformation</ref> * &gt;</type>
+        <definition>typedef std::map&lt; std::string, hyrise::access::AbstractPlanOpTransformation * &gt; QueryTransformationEngine::factory_map_t</definition>
+        <argsstring></argsstring>
+        <name>factory_map_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/QueryTransformationEngine.h" line="38" bodyfile="/home/grund/hyrise/src/lib/access/QueryTransformationEngine.h" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="friend">
+      <memberdef kind="friend" id="class_query_transformation_engine_1a0495ccba61f13d86fb37f9d14844115d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>friend class</type>
+        <definition>friend class hyrise::access::JSONTests_operator_replacement_Test</definition>
+        <argsstring></argsstring>
+        <name>hyrise::access::JSONTests_operator_replacement_Test</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/QueryTransformationEngine.h" line="25" bodyfile="/home/grund/hyrise/src/lib/access/QueryTransformationEngine.h" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="friend" id="class_query_transformation_engine_1a018ddfb15914c4b1631f810e6dd68f19" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>friend class</type>
+        <definition>friend class hyrise::access::JSONTests_apply_operator_parallelization_Test</definition>
+        <argsstring></argsstring>
+        <name>hyrise::access::JSONTests_apply_operator_parallelization_Test</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/QueryTransformationEngine.h" line="26" bodyfile="/home/grund/hyrise/src/lib/access/QueryTransformationEngine.h" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="friend" id="class_query_transformation_engine_1abe471e366f30423da28aff135aac6704" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>friend class</type>
+        <definition>friend class hyrise::access::JSONTests_append_instances_nodes_Test</definition>
+        <argsstring></argsstring>
+        <name>hyrise::access::JSONTests_append_instances_nodes_Test</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/QueryTransformationEngine.h" line="27" bodyfile="/home/grund/hyrise/src/lib/access/QueryTransformationEngine.h" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="friend" id="class_query_transformation_engine_1a6ab747778bfd66f50a65e42e4a0c45bf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>friend class</type>
+        <definition>friend class hyrise::access::JSONTests_append_union_node_Test</definition>
+        <argsstring></argsstring>
+        <name>hyrise::access::JSONTests_append_union_node_Test</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/QueryTransformationEngine.h" line="28" bodyfile="/home/grund/hyrise/src/lib/access/QueryTransformationEngine.h" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="friend" id="class_query_transformation_engine_1aa640e507ee8f8f8178667c329a50aade" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>friend class</type>
+        <definition>friend class hyrise::access::JSONTests_append_merge_node_Test</definition>
+        <argsstring></argsstring>
+        <name>hyrise::access::JSONTests_append_merge_node_Test</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/QueryTransformationEngine.h" line="29" bodyfile="/home/grund/hyrise/src/lib/access/QueryTransformationEngine.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="friend" id="class_query_transformation_engine_1a4320bc2c488c0c7a80faa9a5c5076fbe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>friend class</type>
+        <definition>friend class hyrise::access::JSONTests_remove_operator_nodes_Test</definition>
+        <argsstring></argsstring>
+        <name>hyrise::access::JSONTests_remove_operator_nodes_Test</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/QueryTransformationEngine.h" line="30" bodyfile="/home/grund/hyrise/src/lib/access/QueryTransformationEngine.h" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-static-attrib">
+      <memberdef kind="variable" id="class_query_transformation_engine_1a06f93b68c2cf85251845678bba654fb3" prot="private" static="yes" mutable="no">
+        <type>const std::string</type>
+        <definition>const std::string QueryTransformationEngine::parallelInstanceInfix</definition>
+        <argsstring></argsstring>
+        <name>parallelInstanceInfix</name>
+        <initializer>&quot;_instance_&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/QueryTransformationEngine.h" line="33" bodyfile="/home/grund/hyrise/src/lib/access/QueryTransformationEngine.h" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_query_transformation_engine_1a997a988e95e26d8430ca529cb8f5b5c7" prot="private" static="yes" mutable="no">
+        <type>const std::string</type>
+        <definition>const std::string QueryTransformationEngine::unionSuffix</definition>
+        <argsstring></argsstring>
+        <name>unionSuffix</name>
+        <initializer>&quot;_union&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/QueryTransformationEngine.h" line="34" bodyfile="/home/grund/hyrise/src/lib/access/QueryTransformationEngine.h" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_query_transformation_engine_1ac18716b59ae770aaa55668f099c3522f" prot="private" static="yes" mutable="no">
+        <type>const std::string</type>
+        <definition>const std::string QueryTransformationEngine::mergeSuffix</definition>
+        <argsstring></argsstring>
+        <name>mergeSuffix</name>
+        <initializer>&quot;_merge&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/QueryTransformationEngine.h" line="35" bodyfile="/home/grund/hyrise/src/lib/access/QueryTransformationEngine.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_query_transformation_engine_1ae37ab69d4396a72316b1833b4c089994" prot="private" static="no" mutable="no">
+        <type><ref refid="class_query_transformation_engine_1a84f51250390a7e2d56f1a22ef38cd8b6" kindref="member">factory_map_t</ref></type>
+        <definition>factory_map_t QueryTransformationEngine::_factory</definition>
+        <argsstring></argsstring>
+        <name>_factory</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/QueryTransformationEngine.h" line="39" bodyfile="/home/grund/hyrise/src/lib/access/QueryTransformationEngine.h" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_query_transformation_engine_1aad03791eceff8af592eab27a597f8ae0" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>QueryTransformationEngine::QueryTransformationEngine</definition>
+        <argsstring>()</argsstring>
+        <name>QueryTransformationEngine</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/QueryTransformationEngine.h" line="41" bodyfile="/home/grund/hyrise/src/lib/access/QueryTransformationEngine.h" bodystart="41" bodyend="41"/>
+      </memberdef>
+      <memberdef kind="function" id="class_query_transformation_engine_1a03e1ab21f737505ac6e826935877daaa" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void QueryTransformationEngine::parallelizeOperators</definition>
+        <argsstring>(Json::Value &amp;query) const </argsstring>
+        <name>parallelizeOperators</name>
+        <param>
+          <type>Json::Value &amp;</type>
+          <declname>query</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/QueryTransformationEngine.h" line="44"/>
+      </memberdef>
+      <memberdef kind="function" id="class_query_transformation_engine_1ae5db298b55fd43698030c957d8ce8406" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool QueryTransformationEngine::requestsParallelization</definition>
+        <argsstring>(Json::Value &amp;operatorConfiguration) const </argsstring>
+        <name>requestsParallelization</name>
+        <param>
+          <type>Json::Value &amp;</type>
+          <declname>operatorConfiguration</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/QueryTransformationEngine.h" line="48" bodyfile="/home/grund/hyrise/src/lib/access/QueryTransformationEngine.cpp" bodystart="28" bodyend="32"/>
+      </memberdef>
+      <memberdef kind="function" id="class_query_transformation_engine_1a4d40bab395e39758f5ff4348bd90cf1f" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void QueryTransformationEngine::applyParallelizationTo</definition>
+        <argsstring>(Json::Value &amp;operatorConfiguration, const std::string &amp;operatorId, Json::Value &amp;query) const </argsstring>
+        <name>applyParallelizationTo</name>
+        <param>
+          <type>Json::Value &amp;</type>
+          <declname>operatorConfiguration</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>operatorId</declname>
+        </param>
+        <param>
+          <type>Json::Value &amp;</type>
+          <declname>query</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/QueryTransformationEngine.h" line="54" bodyfile="/home/grund/hyrise/src/lib/access/QueryTransformationEngine.cpp" bodystart="34" bodyend="58"/>
+      </memberdef>
+      <memberdef kind="function" id="class_query_transformation_engine_1a76b3b66c05eeb29124e80761f8596fb2" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; std::string &gt; *</type>
+        <definition>std::vector&lt; std::string &gt; * QueryTransformationEngine::buildInstances</definition>
+        <argsstring>(Json::Value &amp;query, Json::Value &amp;operatorConfiguration, const std::string &amp;operatorId, const std::string &amp;unionOperatorId) const </argsstring>
+        <name>buildInstances</name>
+        <param>
+          <type>Json::Value &amp;</type>
+          <declname>query</declname>
+        </param>
+        <param>
+          <type>Json::Value &amp;</type>
+          <declname>operatorConfiguration</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>operatorId</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>unionOperatorId</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/QueryTransformationEngine.h" line="61" bodyfile="/home/grund/hyrise/src/lib/access/QueryTransformationEngine.cpp" bodystart="60" bodyend="77"/>
+      </memberdef>
+      <memberdef kind="function" id="class_query_transformation_engine_1abce6ffb7888eb104192130564de24a27" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>Json::Value</type>
+        <definition>Json::Value QueryTransformationEngine::nextInstanceOf</definition>
+        <argsstring>(Json::Value &amp;operatorConfiguration, const std::string &amp;operatorId, const size_t instanceId, const size_t numberOfInstances, const size_t numberOfCores) const </argsstring>
+        <name>nextInstanceOf</name>
+        <param>
+          <type>Json::Value &amp;</type>
+          <declname>operatorConfiguration</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>operatorId</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>instanceId</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>numberOfInstances</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>numberOfCores</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/QueryTransformationEngine.h" line="70" bodyfile="/home/grund/hyrise/src/lib/access/QueryTransformationEngine.cpp" bodystart="79" bodyend="93"/>
+      </memberdef>
+      <memberdef kind="function" id="class_query_transformation_engine_1a08272141a9f8b6e3d76194303d6a40cc" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>Json::Value</type>
+        <definition>Json::Value QueryTransformationEngine::unionOperator</definition>
+        <argsstring>() const </argsstring>
+        <name>unionOperator</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/QueryTransformationEngine.h" line="74" bodyfile="/home/grund/hyrise/src/lib/access/QueryTransformationEngine.cpp" bodystart="95" bodyend="100"/>
+      </memberdef>
+      <memberdef kind="function" id="class_query_transformation_engine_1abd35f068076e7365a791a97d139c5e4e" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>Json::Value</type>
+        <definition>Json::Value QueryTransformationEngine::mergeOperator</definition>
+        <argsstring>(const std::string &amp;key) const </argsstring>
+        <name>mergeOperator</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>key</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/QueryTransformationEngine.h" line="78" bodyfile="/home/grund/hyrise/src/lib/access/QueryTransformationEngine.cpp" bodystart="102" bodyend="108"/>
+      </memberdef>
+      <memberdef kind="function" id="class_query_transformation_engine_1acebb9b7966c8913305f1d6c3e5b7c530" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void QueryTransformationEngine::replaceOperatorWithInstances</definition>
+        <argsstring>(const std::string &amp;operatorId, const std::vector&lt; std::string &gt; &amp;instanceIds, const std::string &amp;unionOperatorId, Json::Value &amp;query, const size_t numberOfInitialEdges) const </argsstring>
+        <name>replaceOperatorWithInstances</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>operatorId</declname>
+        </param>
+        <param>
+          <type>const std::vector&lt; std::string &gt; &amp;</type>
+          <declname>instanceIds</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>unionOperatorId</declname>
+        </param>
+        <param>
+          <type>Json::Value &amp;</type>
+          <declname>query</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>numberOfInitialEdges</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/QueryTransformationEngine.h" line="87" bodyfile="/home/grund/hyrise/src/lib/access/QueryTransformationEngine.cpp" bodystart="110" bodyend="121"/>
+      </memberdef>
+      <memberdef kind="function" id="class_query_transformation_engine_1a79a67faa858974209c84c8186c582957" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void QueryTransformationEngine::appendInstancesDstNodeEdges</definition>
+        <argsstring>(const std::string &amp;operatorId, const std::vector&lt; std::string &gt; &amp;instanceIds, Json::Value &amp;query, const size_t numberOfInitialEdges) const </argsstring>
+        <name>appendInstancesDstNodeEdges</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>operatorId</declname>
+        </param>
+        <param>
+          <type>const std::vector&lt; std::string &gt; &amp;</type>
+          <declname>instanceIds</declname>
+        </param>
+        <param>
+          <type>Json::Value &amp;</type>
+          <declname>query</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>numberOfInitialEdges</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/QueryTransformationEngine.h" line="95" bodyfile="/home/grund/hyrise/src/lib/access/QueryTransformationEngine.cpp" bodystart="123" bodyend="135"/>
+      </memberdef>
+      <memberdef kind="function" id="class_query_transformation_engine_1a8dfbe02d285576cda8904a5f62e00b45" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void QueryTransformationEngine::appendConsolidateSrcNodeEdges</definition>
+        <argsstring>(const std::string &amp;operatorId, const std::vector&lt; std::string &gt; &amp;instanceIds, const std::string &amp;unionOperatorId, Json::Value &amp;query, const size_t numberOfInitialEdges) const </argsstring>
+        <name>appendConsolidateSrcNodeEdges</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>operatorId</declname>
+        </param>
+        <param>
+          <type>const std::vector&lt; std::string &gt; &amp;</type>
+          <declname>instanceIds</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>unionOperatorId</declname>
+        </param>
+        <param>
+          <type>Json::Value &amp;</type>
+          <declname>query</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>numberOfInitialEdges</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/QueryTransformationEngine.h" line="105" bodyfile="/home/grund/hyrise/src/lib/access/QueryTransformationEngine.cpp" bodystart="137" bodyend="153"/>
+      </memberdef>
+      <memberdef kind="function" id="class_query_transformation_engine_1a5fd5db64ce9660c452cbaf49723ccf17" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void QueryTransformationEngine::removeOperatorNodes</definition>
+        <argsstring>(Json::Value &amp;query, const Json::Value &amp;operatorId) const </argsstring>
+        <name>removeOperatorNodes</name>
+        <param>
+          <type>Json::Value &amp;</type>
+          <declname>query</declname>
+        </param>
+        <param>
+          <type>const Json::Value &amp;</type>
+          <declname>operatorId</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/QueryTransformationEngine.h" line="111" bodyfile="/home/grund/hyrise/src/lib/access/QueryTransformationEngine.cpp" bodystart="155" bodyend="169"/>
+      </memberdef>
+      <memberdef kind="function" id="class_query_transformation_engine_1ad14f85550451fe715a212d0412403f47" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void QueryTransformationEngine::appendEdge</definition>
+        <argsstring>(const std::string &amp;srcId, const std::string &amp;dstId, Json::Value &amp;query) const </argsstring>
+        <name>appendEdge</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>srcId</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>dstId</declname>
+        </param>
+        <param>
+          <type>Json::Value &amp;</type>
+          <declname>query</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/QueryTransformationEngine.h" line="117" bodyfile="/home/grund/hyrise/src/lib/access/QueryTransformationEngine.cpp" bodystart="171" bodyend="179"/>
+      </memberdef>
+      <memberdef kind="function" id="class_query_transformation_engine_1a791e37b2cb373e525dcefda555272781" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string QueryTransformationEngine::instanceIdFor</definition>
+        <argsstring>(const std::string operatorId, const size_t instanceId) const </argsstring>
+        <name>instanceIdFor</name>
+        <param>
+          <type>const std::string</type>
+          <declname>operatorId</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>instanceId</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/QueryTransformationEngine.h" line="122" bodyfile="/home/grund/hyrise/src/lib/access/QueryTransformationEngine.cpp" bodystart="181" bodyend="187"/>
+      </memberdef>
+      <memberdef kind="function" id="class_query_transformation_engine_1a5113a4f3bf7eb359b863bd405fd23ba2" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string QueryTransformationEngine::unionIdFor</definition>
+        <argsstring>(const std::string &amp;operatorId) const </argsstring>
+        <name>unionIdFor</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>operatorId</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/QueryTransformationEngine.h" line="123" bodyfile="/home/grund/hyrise/src/lib/access/QueryTransformationEngine.cpp" bodystart="189" bodyend="192"/>
+      </memberdef>
+      <memberdef kind="function" id="class_query_transformation_engine_1a9e700aec56967a01882c64fa0432089b" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string QueryTransformationEngine::mergeIdFor</definition>
+        <argsstring>(const std::string &amp;operatorId) const </argsstring>
+        <name>mergeIdFor</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>operatorId</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/QueryTransformationEngine.h" line="124" bodyfile="/home/grund/hyrise/src/lib/access/QueryTransformationEngine.cpp" bodystart="194" bodyend="197"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_query_transformation_engine_1a9ca846be0ad36bc24524ecd6fef9bb7b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>QueryTransformationEngine::~QueryTransformationEngine</definition>
+        <argsstring>()</argsstring>
+        <name>~QueryTransformationEngine</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/QueryTransformationEngine.h" line="128" bodyfile="/home/grund/hyrise/src/lib/access/QueryTransformationEngine.h" bodystart="128" bodyend="128"/>
+      </memberdef>
+      <memberdef kind="function" id="class_query_transformation_engine_1a408b272bba88580a0d4235626add1a99" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>Json::Value &amp;</type>
+        <definition>Json::Value &amp; QueryTransformationEngine::transform</definition>
+        <argsstring>(Json::Value &amp;query)</argsstring>
+        <name>transform</name>
+        <param>
+          <type>Json::Value &amp;</type>
+          <declname>query</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/QueryTransformationEngine.h" line="144" bodyfile="/home/grund/hyrise/src/lib/access/QueryTransformationEngine.cpp" bodystart="12" bodyend="26"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="class_query_transformation_engine_1aedb873321addbff07bd27581fa663e7c" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+        </templateparamlist>
+        <type>bool</type>
+        <definition>static bool QueryTransformationEngine::registerTransformation</definition>
+        <argsstring>()</argsstring>
+        <name>registerTransformation</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/QueryTransformationEngine.h" line="131" bodyfile="/home/grund/hyrise/src/lib/access/QueryTransformationEngine.h" bodystart="131" bodyend="134"/>
+      </memberdef>
+      <memberdef kind="function" id="class_query_transformation_engine_1a97e6160b73114e2121af097c4bd379c3" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+        </templateparamlist>
+        <type>bool</type>
+        <definition>static bool QueryTransformationEngine::registerPlanOperation</definition>
+        <argsstring>(const std::string &amp;name)</argsstring>
+        <name>registerPlanOperation</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/QueryTransformationEngine.h" line="137" bodyfile="/home/grund/hyrise/src/lib/access/QueryTransformationEngine.h" bodystart="137" bodyend="140"/>
+      </memberdef>
+      <memberdef kind="function" id="class_query_transformation_engine_1a104a9e682591cf75fdbb2504a6e91ec4" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class_query_transformation_engine" kindref="compound">QueryTransformationEngine</ref> *</type>
+        <definition>static QueryTransformationEngine* QueryTransformationEngine::getInstance</definition>
+        <argsstring>()</argsstring>
+        <name>getInstance</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/QueryTransformationEngine.h" line="146" bodyfile="/home/grund/hyrise/src/lib/access/QueryTransformationEngine.h" bodystart="146" bodyend="151"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2649">
+        <label>QueryTransformationEngine</label>
+        <link refid="class_query_transformation_engine"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/access/QueryTransformationEngine.h" line="24" bodyfile="/home/grund/hyrise/src/lib/access/QueryTransformationEngine.h" bodystart="24" bodyend="152"/>
+    <listofallmembers>
+      <member refid="class_query_transformation_engine_1ae37ab69d4396a72316b1833b4c089994" prot="private" virt="non-virtual"><scope>QueryTransformationEngine</scope><name>_factory</name></member>
+      <member refid="class_query_transformation_engine_1a8dfbe02d285576cda8904a5f62e00b45" prot="private" virt="non-virtual"><scope>QueryTransformationEngine</scope><name>appendConsolidateSrcNodeEdges</name></member>
+      <member refid="class_query_transformation_engine_1ad14f85550451fe715a212d0412403f47" prot="private" virt="non-virtual"><scope>QueryTransformationEngine</scope><name>appendEdge</name></member>
+      <member refid="class_query_transformation_engine_1a79a67faa858974209c84c8186c582957" prot="private" virt="non-virtual"><scope>QueryTransformationEngine</scope><name>appendInstancesDstNodeEdges</name></member>
+      <member refid="class_query_transformation_engine_1a4d40bab395e39758f5ff4348bd90cf1f" prot="private" virt="non-virtual"><scope>QueryTransformationEngine</scope><name>applyParallelizationTo</name></member>
+      <member refid="class_query_transformation_engine_1a76b3b66c05eeb29124e80761f8596fb2" prot="private" virt="non-virtual"><scope>QueryTransformationEngine</scope><name>buildInstances</name></member>
+      <member refid="class_query_transformation_engine_1a84f51250390a7e2d56f1a22ef38cd8b6" prot="private" virt="non-virtual"><scope>QueryTransformationEngine</scope><name>factory_map_t</name></member>
+      <member refid="class_query_transformation_engine_1a104a9e682591cf75fdbb2504a6e91ec4" prot="public" virt="non-virtual"><scope>QueryTransformationEngine</scope><name>getInstance</name></member>
+      <member refid="class_query_transformation_engine_1abe471e366f30423da28aff135aac6704" prot="public" virt="non-virtual"><scope>QueryTransformationEngine</scope><name>hyrise::access::JSONTests_append_instances_nodes_Test</name></member>
+      <member refid="class_query_transformation_engine_1aa640e507ee8f8f8178667c329a50aade" prot="public" virt="non-virtual"><scope>QueryTransformationEngine</scope><name>hyrise::access::JSONTests_append_merge_node_Test</name></member>
+      <member refid="class_query_transformation_engine_1a6ab747778bfd66f50a65e42e4a0c45bf" prot="public" virt="non-virtual"><scope>QueryTransformationEngine</scope><name>hyrise::access::JSONTests_append_union_node_Test</name></member>
+      <member refid="class_query_transformation_engine_1a018ddfb15914c4b1631f810e6dd68f19" prot="public" virt="non-virtual"><scope>QueryTransformationEngine</scope><name>hyrise::access::JSONTests_apply_operator_parallelization_Test</name></member>
+      <member refid="class_query_transformation_engine_1a0495ccba61f13d86fb37f9d14844115d" prot="public" virt="non-virtual"><scope>QueryTransformationEngine</scope><name>hyrise::access::JSONTests_operator_replacement_Test</name></member>
+      <member refid="class_query_transformation_engine_1a4320bc2c488c0c7a80faa9a5c5076fbe" prot="public" virt="non-virtual"><scope>QueryTransformationEngine</scope><name>hyrise::access::JSONTests_remove_operator_nodes_Test</name></member>
+      <member refid="class_query_transformation_engine_1a791e37b2cb373e525dcefda555272781" prot="private" virt="non-virtual"><scope>QueryTransformationEngine</scope><name>instanceIdFor</name></member>
+      <member refid="class_query_transformation_engine_1a9e700aec56967a01882c64fa0432089b" prot="private" virt="non-virtual"><scope>QueryTransformationEngine</scope><name>mergeIdFor</name></member>
+      <member refid="class_query_transformation_engine_1abd35f068076e7365a791a97d139c5e4e" prot="private" virt="non-virtual"><scope>QueryTransformationEngine</scope><name>mergeOperator</name></member>
+      <member refid="class_query_transformation_engine_1ac18716b59ae770aaa55668f099c3522f" prot="private" virt="non-virtual"><scope>QueryTransformationEngine</scope><name>mergeSuffix</name></member>
+      <member refid="class_query_transformation_engine_1abce6ffb7888eb104192130564de24a27" prot="private" virt="non-virtual"><scope>QueryTransformationEngine</scope><name>nextInstanceOf</name></member>
+      <member refid="class_query_transformation_engine_1a06f93b68c2cf85251845678bba654fb3" prot="private" virt="non-virtual"><scope>QueryTransformationEngine</scope><name>parallelInstanceInfix</name></member>
+      <member refid="class_query_transformation_engine_1a03e1ab21f737505ac6e826935877daaa" prot="private" virt="non-virtual"><scope>QueryTransformationEngine</scope><name>parallelizeOperators</name></member>
+      <member refid="class_query_transformation_engine_1aad03791eceff8af592eab27a597f8ae0" prot="private" virt="non-virtual"><scope>QueryTransformationEngine</scope><name>QueryTransformationEngine</name></member>
+      <member refid="class_query_transformation_engine_1a97e6160b73114e2121af097c4bd379c3" prot="public" virt="non-virtual"><scope>QueryTransformationEngine</scope><name>registerPlanOperation</name></member>
+      <member refid="class_query_transformation_engine_1aedb873321addbff07bd27581fa663e7c" prot="public" virt="non-virtual"><scope>QueryTransformationEngine</scope><name>registerTransformation</name></member>
+      <member refid="class_query_transformation_engine_1a5fd5db64ce9660c452cbaf49723ccf17" prot="private" virt="non-virtual"><scope>QueryTransformationEngine</scope><name>removeOperatorNodes</name></member>
+      <member refid="class_query_transformation_engine_1acebb9b7966c8913305f1d6c3e5b7c530" prot="private" virt="non-virtual"><scope>QueryTransformationEngine</scope><name>replaceOperatorWithInstances</name></member>
+      <member refid="class_query_transformation_engine_1ae5db298b55fd43698030c957d8ce8406" prot="private" virt="non-virtual"><scope>QueryTransformationEngine</scope><name>requestsParallelization</name></member>
+      <member refid="class_query_transformation_engine_1a408b272bba88580a0d4235626add1a99" prot="public" virt="non-virtual"><scope>QueryTransformationEngine</scope><name>transform</name></member>
+      <member refid="class_query_transformation_engine_1a5113a4f3bf7eb359b863bd405fd23ba2" prot="private" virt="non-virtual"><scope>QueryTransformationEngine</scope><name>unionIdFor</name></member>
+      <member refid="class_query_transformation_engine_1a08272141a9f8b6e3d76194303d6a40cc" prot="private" virt="non-virtual"><scope>QueryTransformationEngine</scope><name>unionOperator</name></member>
+      <member refid="class_query_transformation_engine_1a997a988e95e26d8430ca529cb8f5b5c7" prot="private" virt="non-virtual"><scope>QueryTransformationEngine</scope><name>unionSuffix</name></member>
+      <member refid="class_query_transformation_engine_1a9ca846be0ad36bc24524ecd6fef9bb7b" prot="public" virt="non-virtual"><scope>QueryTransformationEngine</scope><name>~QueryTransformationEngine</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,197 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="classlayouter_1_1_divide_and_conquer_layouter" kind="class" prot="public">
+    <compoundname>layouter::DivideAndConquerLayouter</compoundname>
+    <basecompoundref refid="classlayouter_1_1_candidate_layouter" prot="public" virt="non-virtual">layouter::CandidateLayouter</basecompoundref>
+    <includes refid="layouter_2base_8h" local="no">base.h</includes>
+      <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="classlayouter_1_1_divide_and_conquer_layouter_1a1e6be75adc37970062e3a82c723c3e36" prot="public" static="yes" mutable="no">
+        <type>int</type>
+        <definition>int layouter::DivideAndConquerLayouter::numCuts</definition>
+        <argsstring></argsstring>
+        <name>numCuts</name>
+        <initializer> 4</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/layouter/base.h" line="383" bodyfile="/home/grund/hyrise/src/lib/layouter/base.h" bodystart="383" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="classlayouter_1_1_divide_and_conquer_layouter_1a08d8edff7952c22c65281d271137b581" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; std::vector&lt; <ref refid="namespacelayouter_1aec12d8e69cf2bd6fc00d80094a3a0fd0" kindref="member">set_subset_t</ref> &gt; &gt;</type>
+        <definition>std::vector&lt; std::vector&lt; set_subset_t &gt; &gt; DivideAndConquerLayouter::partitionGraph</definition>
+        <argsstring>(Matrix&lt; int &gt; m)</argsstring>
+        <name>partitionGraph</name>
+        <param>
+          <type><ref refid="class_matrix" kindref="compound">Matrix</ref>&lt; int &gt;</type>
+          <declname>m</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/layouter/base.h" line="366" bodyfile="/home/grund/hyrise/src/lib/layouter/base.cpp" bodystart="1322" bodyend="1382"/>
+      </memberdef>
+      <memberdef kind="function" id="classlayouter_1_1_divide_and_conquer_layouter_1a375e91a1216c374c34ca6d195cc5d921" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_matrix" kindref="compound">Matrix</ref>&lt; int &gt;</type>
+        <definition>Matrix&lt; int &gt; DivideAndConquerLayouter::createAffinityMatrix</definition>
+        <argsstring>()</argsstring>
+        <name>createAffinityMatrix</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/layouter/base.h" line="373" bodyfile="/home/grund/hyrise/src/lib/layouter/base.cpp" bodystart="1284" bodyend="1320"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classlayouter_1_1_divide_and_conquer_layouter_1a5b219150452034db8e83e4e2176e7e82" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>DivideAndConquerLayouter::DivideAndConquerLayouter</definition>
+        <argsstring>()</argsstring>
+        <name>DivideAndConquerLayouter</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/layouter/base.h" line="377" bodyfile="/home/grund/hyrise/src/lib/layouter/base.cpp" bodystart="1280" bodyend="1281"/>
+      </memberdef>
+      <memberdef kind="function" id="classlayouter_1_1_divide_and_conquer_layouter_1a39d24c3bc706815c1b9b81b6d25a1786" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual layouter::DivideAndConquerLayouter::~DivideAndConquerLayouter</definition>
+        <argsstring>()</argsstring>
+        <name>~DivideAndConquerLayouter</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/layouter/base.h" line="379" bodyfile="/home/grund/hyrise/src/lib/layouter/base.h" bodystart="379" bodyend="379"/>
+      </memberdef>
+      <memberdef kind="function" id="classlayouter_1_1_divide_and_conquer_layouter_1a8977ced6f6b9cec2ce32bc155fdd8e77" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void DivideAndConquerLayouter::layout</definition>
+        <argsstring>(Schema s, std::string costModel)</argsstring>
+        <name>layout</name>
+        <reimplements refid="classlayouter_1_1_candidate_layouter_1af28114f3cd74d47b40ecdd0f06aadc15">layout</reimplements>
+        <param>
+          <type><ref refid="classlayouter_1_1_schema" kindref="compound">Schema</ref></type>
+          <declname>s</declname>
+        </param>
+        <param>
+          <type>std::string</type>
+          <declname>costModel</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/layouter/base.h" line="381" bodyfile="/home/grund/hyrise/src/lib/layouter/base.cpp" bodystart="1384" bodyend="1451"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1773">
+        <label>layouter::BaseLayouter</label>
+        <link refid="classlayouter_1_1_base_layouter"/>
+      </node>
+      <node id="1772">
+        <label>layouter::CandidateLayouter</label>
+        <link refid="classlayouter_1_1_candidate_layouter"/>
+        <childnode refid="1773" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1771">
+        <label>layouter::DivideAndConquerLayouter</label>
+        <link refid="classlayouter_1_1_divide_and_conquer_layouter"/>
+        <childnode refid="1772" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1776">
+        <label>layouter::BaseLayouter</label>
+        <link refid="classlayouter_1_1_base_layouter"/>
+        <childnode refid="1777" relation="usage">
+          <edgelabel>schema</edgelabel>
+        </childnode>
+      </node>
+      <node id="1777">
+        <label>layouter::Schema</label>
+        <link refid="classlayouter_1_1_schema"/>
+      </node>
+      <node id="1775">
+        <label>layouter::CandidateLayouter</label>
+        <link refid="classlayouter_1_1_candidate_layouter"/>
+        <childnode refid="1776" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1774">
+        <label>layouter::DivideAndConquerLayouter</label>
+        <link refid="classlayouter_1_1_divide_and_conquer_layouter"/>
+        <childnode refid="1775" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/layouter/base.h" line="362" bodyfile="/home/grund/hyrise/src/lib/layouter/base.h" bodystart="362" bodyend="385"/>
+    <listofallmembers>
+      <member refid="classlayouter_1_1_candidate_layouter_1acc320f5cf0b1c9f41fee1e0e66ca8349" prot="protected" virt="non-virtual"><scope>layouter::DivideAndConquerLayouter</scope><name>_candidateList</name></member>
+      <member refid="classlayouter_1_1_base_layouter_1ab4d68f4aa3fbaa8e01a1c53121158874" prot="public" virt="non-virtual"><scope>layouter::DivideAndConquerLayouter</scope><name>BaseLayouter</name></member>
+      <member refid="classlayouter_1_1_candidate_layouter_1a26f4565f706b8b97e54c270d8006fcd1" prot="public" virt="non-virtual"><scope>layouter::DivideAndConquerLayouter</scope><name>CandidateLayouter</name></member>
+      <member refid="classlayouter_1_1_candidate_layouter_1a21ad32fc96394959824cfc060e440d31" prot="protected" virt="non-virtual"><scope>layouter::DivideAndConquerLayouter</scope><name>candidateMergePath</name></member>
+      <member refid="classlayouter_1_1_base_layouter_1a5525bc6bcd2c7c69e56c83d2dc87c7cd" prot="protected" virt="non-virtual"><scope>layouter::DivideAndConquerLayouter</scope><name>checkLowerBound</name></member>
+      <member refid="classlayouter_1_1_candidate_layouter_1ab751daba06fbc2c442ea3e650388cf71" prot="public" virt="non-virtual"><scope>layouter::DivideAndConquerLayouter</scope><name>combineCandidates</name></member>
+      <member refid="classlayouter_1_1_base_layouter_1af8584fae815274d94e7c86766abb8b01" prot="public" virt="non-virtual"><scope>layouter::DivideAndConquerLayouter</scope><name>costModel</name></member>
+      <member refid="classlayouter_1_1_base_layouter_1a6e76630eaf8939a9365cc8a795e41e73" prot="public" virt="non-virtual"><scope>layouter::DivideAndConquerLayouter</scope><name>count</name></member>
+      <member refid="classlayouter_1_1_divide_and_conquer_layouter_1a375e91a1216c374c34ca6d195cc5d921" prot="protected" virt="non-virtual"><scope>layouter::DivideAndConquerLayouter</scope><name>createAffinityMatrix</name></member>
+      <member refid="classlayouter_1_1_divide_and_conquer_layouter_1a5b219150452034db8e83e4e2176e7e82" prot="public" virt="non-virtual"><scope>layouter::DivideAndConquerLayouter</scope><name>DivideAndConquerLayouter</name></member>
+      <member refid="classlayouter_1_1_base_layouter_1a50096c37d22f587066425a8b52dacee2" prot="protected" virt="non-virtual"><scope>layouter::DivideAndConquerLayouter</scope><name>eliminateInvalidSubsets</name></member>
+      <member refid="classlayouter_1_1_candidate_layouter_1a467445f4ad85a20c8e62bfd7bfb2f2f2" prot="public" virt="non-virtual"><scope>layouter::DivideAndConquerLayouter</scope><name>externalCombineCandidates</name></member>
+      <member refid="classlayouter_1_1_base_layouter_1a11820adc0ef25896a3ffca6b904296cc" prot="public" virt="non-virtual"><scope>layouter::DivideAndConquerLayouter</scope><name>externalGenerateSubSetsK</name></member>
+      <member refid="classlayouter_1_1_base_layouter_1ab740de467fd38450c920877b05e20dfb" prot="public" virt="non-virtual"><scope>layouter::DivideAndConquerLayouter</scope><name>findEqualLayout</name></member>
+      <member refid="classlayouter_1_1_candidate_layouter_1ab59af9130dfba12e39f36a1d68c2717c" prot="public" virt="non-virtual"><scope>layouter::DivideAndConquerLayouter</scope><name>generateCandidateList</name></member>
+      <member refid="classlayouter_1_1_base_layouter_1a4e8799c8c0368bd7b34813ddb52505da" prot="public" virt="non-virtual"><scope>layouter::DivideAndConquerLayouter</scope><name>generateLayouts</name></member>
+      <member refid="classlayouter_1_1_base_layouter_1ac2efd16b7897f7bbe7f50458003f19e1" prot="public" virt="non-virtual"><scope>layouter::DivideAndConquerLayouter</scope><name>generateSet</name></member>
+      <member refid="classlayouter_1_1_base_layouter_1a3a68ce4cc4c40dff36c65bd83eb218ef" prot="public" virt="non-virtual"><scope>layouter::DivideAndConquerLayouter</scope><name>generateSubSets</name></member>
+      <member refid="classlayouter_1_1_base_layouter_1a014d0a4cb191c1c6354e12ef974a9018" prot="public" virt="non-virtual"><scope>layouter::DivideAndConquerLayouter</scope><name>generateSubSetsK</name></member>
+      <member refid="classlayouter_1_1_base_layouter_1a51af2b313475ef25d5ceed137b72cdb5" prot="public" virt="non-virtual"><scope>layouter::DivideAndConquerLayouter</scope><name>getAttributeNames</name></member>
+      <member refid="classlayouter_1_1_base_layouter_1a9419bfcfa6a9429f58b7aacc881470c6" prot="public" virt="non-virtual"><scope>layouter::DivideAndConquerLayouter</scope><name>getBestResult</name></member>
+      <member refid="classlayouter_1_1_base_layouter_1a45906ffddd07523044763e595a55478c" prot="public" virt="non-virtual"><scope>layouter::DivideAndConquerLayouter</scope><name>getColumnCost</name></member>
+      <member refid="classlayouter_1_1_base_layouter_1acca0ce7d35a66394254e27a5f28e1787" prot="public" virt="non-virtual"><scope>layouter::DivideAndConquerLayouter</scope><name>getCost</name></member>
+      <member refid="classlayouter_1_1_base_layouter_1a0db2c2bb60319c1670e78f5879127fec" prot="public" virt="non-virtual"><scope>layouter::DivideAndConquerLayouter</scope><name>getNBestResults</name></member>
+      <member refid="classlayouter_1_1_base_layouter_1abff4bb07aa7d440fd584f12c2f0099c2" prot="public" virt="non-virtual"><scope>layouter::DivideAndConquerLayouter</scope><name>getNewCostForBestLayout</name></member>
+      <member refid="classlayouter_1_1_base_layouter_1ada6abee7e1e05668f188f0366657dbea" prot="public" virt="non-virtual"><scope>layouter::DivideAndConquerLayouter</scope><name>getResult</name></member>
+      <member refid="classlayouter_1_1_base_layouter_1ac2db931313133cefbd1102ed0d5be068" prot="public" virt="non-virtual"><scope>layouter::DivideAndConquerLayouter</scope><name>getRowCost</name></member>
+      <member refid="classlayouter_1_1_base_layouter_1a060ca333d617512dad105ed8b8ac31aa" prot="protected" virt="non-virtual"><scope>layouter::DivideAndConquerLayouter</scope><name>iterateLayoutSubsets</name></member>
+      <member refid="classlayouter_1_1_base_layouter_1aa7efefed6cf84ffb1dae1cb4eb783a18" prot="public" virt="non-virtual"><scope>layouter::DivideAndConquerLayouter</scope><name>iterateThroughLayouts</name></member>
+      <member refid="classlayouter_1_1_base_layouter_1a007c85e2e986eab1f9372d45a4aaca8b" prot="public" virt="non-virtual"><scope>layouter::DivideAndConquerLayouter</scope><name>iterateThroughLayoutSubsetsFast</name></member>
+      <member refid="classlayouter_1_1_divide_and_conquer_layouter_1a8977ced6f6b9cec2ce32bc155fdd8e77" prot="public" virt="virtual"><scope>layouter::DivideAndConquerLayouter</scope><name>layout</name></member>
+      <member refid="classlayouter_1_1_base_layouter_1ab092b7f07c99e88e6b7d9689caef70fe" prot="public" virt="non-virtual"><scope>layouter::DivideAndConquerLayouter</scope><name>nbLayouts</name></member>
+      <member refid="classlayouter_1_1_divide_and_conquer_layouter_1a1e6be75adc37970062e3a82c723c3e36" prot="public" virt="non-virtual"><scope>layouter::DivideAndConquerLayouter</scope><name>numCuts</name></member>
+      <member refid="classlayouter_1_1_divide_and_conquer_layouter_1a08d8edff7952c22c65281d271137b581" prot="protected" virt="non-virtual"><scope>layouter::DivideAndConquerLayouter</scope><name>partitionGraph</name></member>
+      <member refid="classlayouter_1_1_base_layouter_1a0655d7dff96b8eff715a053b1e46737b" prot="public" virt="non-virtual"><scope>layouter::DivideAndConquerLayouter</scope><name>results</name></member>
+      <member refid="classlayouter_1_1_base_layouter_1add31da0cb128c19ccd33d08b2b876a07" prot="public" virt="non-virtual"><scope>layouter::DivideAndConquerLayouter</scope><name>schema</name></member>
+      <member refid="classlayouter_1_1_base_layouter_1ad52e710aa81331ff2c1a2caddde0f2de" prot="public" virt="non-virtual"><scope>layouter::DivideAndConquerLayouter</scope><name>subsets</name></member>
+      <member refid="classlayouter_1_1_base_layouter_1a6c1996c2ed452c0f8ea3bd11db07771b" prot="public" virt="non-virtual"><scope>layouter::DivideAndConquerLayouter</scope><name>tryToAddSubset</name></member>
+      <member refid="classlayouter_1_1_base_layouter_1a646f4edc71e82e76e41604da77248ea2" prot="public" virt="virtual"><scope>layouter::DivideAndConquerLayouter</scope><name>~BaseLayouter</name></member>
+      <member refid="classlayouter_1_1_candidate_layouter_1a297d998841bb020a0eba6b4bf4ca98d1" prot="public" virt="virtual"><scope>layouter::DivideAndConquerLayouter</scope><name>~CandidateLayouter</name></member>
+      <member refid="classlayouter_1_1_divide_and_conquer_layouter_1a39d24c3bc706815c1b9b81b6d25a1786" prot="public" virt="virtual"><scope>layouter::DivideAndConquerLayouter</scope><name>~DivideAndConquerLayouter</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

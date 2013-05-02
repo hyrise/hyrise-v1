@@ -1,0 +1,640 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="class_bit_compressed_vector" kind="class" prot="public">
+    <compoundname>BitCompressedVector</compoundname>
+    <basecompoundref refid="class_base_allocated_attribute_vector" prot="public" virt="non-virtual">BaseAllocatedAttributeVector&lt; BitCompressedVector&lt; T, Allocator &gt;, Allocator &gt;</basecompoundref>
+    <includes refid="_bit_compressed_vector_8h" local="no">BitCompressedVector.h</includes>
+    <templateparamlist>
+      <param>
+        <type>typename T</type>
+      </param>
+      <param>
+        <type>typename Allocator</type>
+        <defval><ref refid="class_strategized_allocator" kindref="compound">StrategizedAllocator</ref>&lt;T, <ref refid="class_malloc_strategy" kindref="compound">MallocStrategy</ref>&gt;</defval>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="private-type">
+      <memberdef kind="typedef" id="class_bit_compressed_vector_1a046582544a93f2edafea02ec75802ea6" prot="private" static="no">
+        <type>uint64_t</type>
+        <definition>typedef uint64_t BitCompressedVector&lt; T, Allocator &gt;::storage_t</definition>
+        <argsstring></argsstring>
+        <name>storage_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/BitCompressedVector.h" line="31" bodyfile="/home/grund/hyrise/src/lib/storage/BitCompressedVector.h" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="class_bit_compressed_vector_1ae1985e13f7fc078c93a05145514ccc22" prot="private" static="no">
+        <type>std::vector&lt; uint64_t &gt;</type>
+        <definition>typedef std::vector&lt;uint64_t&gt; BitCompressedVector&lt; T, Allocator &gt;::bit_size_list_t</definition>
+        <argsstring></argsstring>
+        <name>bit_size_list_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/BitCompressedVector.h" line="32" bodyfile="/home/grund/hyrise/src/lib/storage/BitCompressedVector.h" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="class_bit_compressed_vector_1ad3100898d050843be4dba6f7534ace64" prot="public" static="no">
+        <type>T</type>
+        <definition>typedef T BitCompressedVector&lt; T, Allocator &gt;::value_type</definition>
+        <argsstring></argsstring>
+        <name>value_type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/BitCompressedVector.h" line="56" bodyfile="/home/grund/hyrise/src/lib/storage/BitCompressedVector.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="class_bit_compressed_vector_1a653330885efc03e8e3b3042776bd50a7" prot="public" static="no">
+        <type><ref refid="class_bit_compressed_vector" kindref="compound">BitCompressedVector</ref>&lt; T, Allocator &gt;</type>
+        <definition>typedef BitCompressedVector&lt;T, Allocator&gt; BitCompressedVector&lt; T, Allocator &gt;::vector_type</definition>
+        <argsstring></argsstring>
+        <name>vector_type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/BitCompressedVector.h" line="57" bodyfile="/home/grund/hyrise/src/lib/storage/BitCompressedVector.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-static-attrib">
+      <memberdef kind="variable" id="class_bit_compressed_vector_1a5babf851f2145183d7e74a5e3f7e2fcd" prot="private" static="yes" mutable="no">
+        <type>const uint64_t</type>
+        <definition>const uint64_t BitCompressedVector&lt; T, Allocator &gt;::_bit_width</definition>
+        <argsstring></argsstring>
+        <name>_bit_width</name>
+        <initializer> sizeof(<ref refid="class_bit_compressed_vector_1a046582544a93f2edafea02ec75802ea6" kindref="member">storage_t</ref>)  * 8</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/BitCompressedVector.h" line="35" bodyfile="/home/grund/hyrise/src/lib/storage/BitCompressedVector.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_bit_compressed_vector_1abd1aeede363c0bf80850c74c91eedcb4" prot="private" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t BitCompressedVector&lt; T, Allocator &gt;::_size</definition>
+        <argsstring></argsstring>
+        <name>_size</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/BitCompressedVector.h" line="41" bodyfile="/home/grund/hyrise/src/lib/storage/BitCompressedVector.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_bit_compressed_vector_1ad2a0aaa6255d6c30738e5b2329a5e5ed" prot="private" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t BitCompressedVector&lt; T, Allocator &gt;::_allocatedBlocks</definition>
+        <argsstring></argsstring>
+        <name>_allocatedBlocks</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/BitCompressedVector.h" line="46" bodyfile="/home/grund/hyrise/src/lib/storage/BitCompressedVector.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_bit_compressed_vector_1a0d3063334d89aa36811c4d01b85990e6" prot="private" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t BitCompressedVector&lt; T, Allocator &gt;::_columns</definition>
+        <argsstring></argsstring>
+        <name>_columns</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/BitCompressedVector.h" line="49" bodyfile="/home/grund/hyrise/src/lib/storage/BitCompressedVector.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_bit_compressed_vector_1aca480c808d231a7cab59f3e5808b6930" prot="private" static="no" mutable="no">
+        <type><ref refid="class_bit_compressed_vector_1ae1985e13f7fc078c93a05145514ccc22" kindref="member">bit_size_list_t</ref></type>
+        <definition>bit_size_list_t BitCompressedVector&lt; T, Allocator &gt;::_bits</definition>
+        <argsstring></argsstring>
+        <name>_bits</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/BitCompressedVector.h" line="52" bodyfile="/home/grund/hyrise/src/lib/storage/BitCompressedVector.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_bit_compressed_vector_1a3b8821e9d07487f756aad421f3ff0b88" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_bit_compressed_vector_1a046582544a93f2edafea02ec75802ea6" kindref="member">storage_t</ref> *_data</type>
+        <definition>storage_t* _data BitCompressedVector&lt; T, Allocator &gt;::__attribute__</definition>
+        <argsstring>((aligned(16)))</argsstring>
+        <name>__attribute__</name>
+        <param>
+          <type>(aligned(16))</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/BitCompressedVector.h" line="38"/>
+      </memberdef>
+      <memberdef kind="function" id="class_bit_compressed_vector_1a959f049c4989a1c39693a2df09ebaed7" prot="private" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void BitCompressedVector&lt; T, Allocator &gt;::checkAccess</definition>
+        <argsstring>(const size_t &amp;column, const size_t &amp;rows) const </argsstring>
+        <name>checkAccess</name>
+        <param>
+          <type>const size_t &amp;</type>
+          <declname>column</declname>
+        </param>
+        <param>
+          <type>const size_t &amp;</type>
+          <declname>rows</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/BitCompressedVector.h" line="188" bodyfile="/home/grund/hyrise/src/lib/storage/BitCompressedVector.h" bodystart="188" bodyend="201"/>
+      </memberdef>
+      <memberdef kind="function" id="class_bit_compressed_vector_1afe223fb648d77d67433e92835aaf1d44" prot="private" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>uint64_t</type>
+        <definition>uint64_t BitCompressedVector&lt; T, Allocator &gt;::_offsetForColumn</definition>
+        <argsstring>(uint64_t column) const </argsstring>
+        <name>_offsetForColumn</name>
+        <param>
+          <type>uint64_t</type>
+          <declname>column</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/BitCompressedVector.h" line="207" bodyfile="/home/grund/hyrise/src/lib/storage/BitCompressedVector.h" bodystart="207" bodyend="212"/>
+      </memberdef>
+      <memberdef kind="function" id="class_bit_compressed_vector_1af9311ee3a6e17e1db7e7a7893a8589b1" prot="private" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>uint64_t</type>
+        <definition>uint64_t BitCompressedVector&lt; T, Allocator &gt;::_blockPosition</definition>
+        <argsstring>(uint64_t row) const </argsstring>
+        <name>_blockPosition</name>
+        <param>
+          <type>uint64_t</type>
+          <declname>row</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/BitCompressedVector.h" line="217" bodyfile="/home/grund/hyrise/src/lib/storage/BitCompressedVector.h" bodystart="217" bodyend="219"/>
+      </memberdef>
+      <memberdef kind="function" id="class_bit_compressed_vector_1a622c19c3a62f007b2c711ab0509bd313" prot="private" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>uint64_t</type>
+        <definition>uint64_t BitCompressedVector&lt; T, Allocator &gt;::_blockOffset</definition>
+        <argsstring>(uint64_t row) const </argsstring>
+        <name>_blockOffset</name>
+        <param>
+          <type>uint64_t</type>
+          <declname>row</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/BitCompressedVector.h" line="224" bodyfile="/home/grund/hyrise/src/lib/storage/BitCompressedVector.h" bodystart="224" bodyend="226"/>
+      </memberdef>
+      <memberdef kind="function" id="class_bit_compressed_vector_1a4d0381b5b9b908037ee57c7201ecd8e0" prot="private" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>uint64_t</type>
+        <definition>uint64_t BitCompressedVector&lt; T, Allocator &gt;::_blocks</definition>
+        <argsstring>(uint64_t rows) const </argsstring>
+        <name>_blocks</name>
+        <param>
+          <type>uint64_t</type>
+          <declname>rows</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/BitCompressedVector.h" line="230" bodyfile="/home/grund/hyrise/src/lib/storage/BitCompressedVector.h" bodystart="230" bodyend="232"/>
+      </memberdef>
+      <memberdef kind="function" id="class_bit_compressed_vector_1a54e6af7af790f4a7e41eb74b2bf6aecc" prot="private" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>uint64_t</type>
+        <definition>uint64_t BitCompressedVector&lt; T, Allocator &gt;::_tupleWidth</definition>
+        <argsstring>() const </argsstring>
+        <name>_tupleWidth</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/BitCompressedVector.h" line="237" bodyfile="/home/grund/hyrise/src/lib/storage/BitCompressedVector.h" bodystart="237" bodyend="244"/>
+      </memberdef>
+      <memberdef kind="function" id="class_bit_compressed_vector_1ad1d14605a49903b2e5d6c6b4125bd8d1" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class_bit_compressed_vector_1a046582544a93f2edafea02ec75802ea6" kindref="member">storage_t</ref> *</type>
+        <definition>storage_t* BitCompressedVector&lt; T, Allocator &gt;::_allocate</definition>
+        <argsstring>(uint64_t numBlocks)</argsstring>
+        <name>_allocate</name>
+        <param>
+          <type>uint64_t</type>
+          <declname>numBlocks</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/BitCompressedVector.h" line="249" bodyfile="/home/grund/hyrise/src/lib/storage/BitCompressedVector.h" bodystart="249" bodyend="258"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_bit_compressed_vector_1a70489c294798b94761b44c0e9938d66a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>BitCompressedVector&lt; T, Allocator &gt;::BitCompressedVector</definition>
+        <argsstring>(size_t columns, size_t rows, std::vector&lt; uint64_t &gt; bits)</argsstring>
+        <name>BitCompressedVector</name>
+        <param>
+          <type>size_t</type>
+          <declname>columns</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>rows</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; uint64_t &gt;</type>
+          <declname>bits</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/BitCompressedVector.h" line="61" bodyfile="/home/grund/hyrise/src/lib/storage/BitCompressedVector.h" bodystart="59" bodyend="63"/>
+      </memberdef>
+      <memberdef kind="function" id="class_bit_compressed_vector_1a1992e9f0f6149380f4ed6d8ee7719a63" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual BitCompressedVector&lt; T, Allocator &gt;::~BitCompressedVector</definition>
+        <argsstring>()</argsstring>
+        <name>~BitCompressedVector</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/BitCompressedVector.h" line="65" bodyfile="/home/grund/hyrise/src/lib/storage/BitCompressedVector.h" bodystart="65" bodyend="67"/>
+      </memberdef>
+      <memberdef kind="function" id="class_bit_compressed_vector_1a94906155ced7106a651f7749be5ab40d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void *</type>
+        <definition>void* BitCompressedVector&lt; T, Allocator &gt;::data</definition>
+        <argsstring>()</argsstring>
+        <name>data</name>
+        <reimplements refid="class_abstract_attribute_vector_1aa9b187475305f322958e9e70f5da7b38">data</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/BitCompressedVector.h" line="69" bodyfile="/home/grund/hyrise/src/lib/storage/BitCompressedVector.h" bodystart="69" bodyend="71"/>
+      </memberdef>
+      <memberdef kind="function" id="class_bit_compressed_vector_1a405f98126d3ec1b81f2ddf6829547764" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>void BitCompressedVector&lt; T, Allocator &gt;::setNumRows</definition>
+        <argsstring>(size_t s)</argsstring>
+        <name>setNumRows</name>
+        <reimplements refid="class_abstract_attribute_vector_1ad46f27571b5f25653ae8a5fa95404eff">setNumRows</reimplements>
+        <param>
+          <type>size_t</type>
+          <declname>s</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/BitCompressedVector.h" line="72" bodyfile="/home/grund/hyrise/src/lib/storage/BitCompressedVector.h" bodystart="72" bodyend="74"/>
+      </memberdef>
+      <memberdef kind="function" id="class_bit_compressed_vector_1a36d28dac4401f8e3a3b1ccf87346137b" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>T</type>
+        <definition>T BitCompressedVector&lt; T, Allocator &gt;::get</definition>
+        <argsstring>(size_t column, size_t row) const </argsstring>
+        <name>get</name>
+        <reimplements refid="class_base_attribute_vector_1a46402c4cda1e8b0b9f2a4eae283cbc49">get</reimplements>
+        <param>
+          <type>size_t</type>
+          <declname>column</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>row</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/BitCompressedVector.h" line="76" bodyfile="/home/grund/hyrise/src/lib/storage/BitCompressedVector.h" bodystart="76" bodyend="98"/>
+      </memberdef>
+      <memberdef kind="function" id="class_bit_compressed_vector_1a7951d9dcabc6a35208b00c1cfef8ed5c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void BitCompressedVector&lt; T, Allocator &gt;::set</definition>
+        <argsstring>(size_t column, size_t row, T value)</argsstring>
+        <name>set</name>
+        <param>
+          <type>size_t</type>
+          <declname>column</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>row</declname>
+        </param>
+        <param>
+          <type>T</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/BitCompressedVector.h" line="100" bodyfile="/home/grund/hyrise/src/lib/storage/BitCompressedVector.h" bodystart="100" bodyend="122"/>
+      </memberdef>
+      <memberdef kind="function" id="class_bit_compressed_vector_1a12db405ab418f2f5a16e7d9eb0021453" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>void BitCompressedVector&lt; T, Allocator &gt;::reserve</definition>
+        <argsstring>(size_t rows)</argsstring>
+        <name>reserve</name>
+        <reimplements refid="class_base_attribute_vector_1a49761020b6ff22ea15e43e846e34e867">reserve</reimplements>
+        <param>
+          <type>size_t</type>
+          <declname>rows</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/BitCompressedVector.h" line="129" bodyfile="/home/grund/hyrise/src/lib/storage/BitCompressedVector.h" bodystart="129" bodyend="147"/>
+      </memberdef>
+      <memberdef kind="function" id="class_bit_compressed_vector_1a17c265d81dd5af5b5cab47aa8f1c654f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>void BitCompressedVector&lt; T, Allocator &gt;::clear</definition>
+        <argsstring>()</argsstring>
+        <name>clear</name>
+        <reimplements refid="class_base_attribute_vector_1a77f5fdb728bbdbef70882e474c6b0a05">clear</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/BitCompressedVector.h" line="153" bodyfile="/home/grund/hyrise/src/lib/storage/BitCompressedVector.h" bodystart="153" bodyend="157"/>
+      </memberdef>
+      <memberdef kind="function" id="class_bit_compressed_vector_1a0f51137244c84835c5b3e45b8b27b5de" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>size_t</type>
+        <definition>size_t BitCompressedVector&lt; T, Allocator &gt;::size</definition>
+        <argsstring>()</argsstring>
+        <name>size</name>
+        <reimplements refid="class_base_attribute_vector_1a370a4796980b8bdf5fa252e3f2c63c37">size</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/BitCompressedVector.h" line="159" bodyfile="/home/grund/hyrise/src/lib/storage/BitCompressedVector.h" bodystart="159" bodyend="161"/>
+      </memberdef>
+      <memberdef kind="function" id="class_bit_compressed_vector_1a03cf285f793cda8b25908455d2a781dc" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>void BitCompressedVector&lt; T, Allocator &gt;::resize</definition>
+        <argsstring>(size_t size)</argsstring>
+        <name>resize</name>
+        <reimplements refid="class_base_attribute_vector_1a5f190deb098511d9de05da0ade39c846">resize</reimplements>
+        <param>
+          <type>size_t</type>
+          <declname>size</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/BitCompressedVector.h" line="167" bodyfile="/home/grund/hyrise/src/lib/storage/BitCompressedVector.h" bodystart="167" bodyend="171"/>
+      </memberdef>
+      <memberdef kind="function" id="class_bit_compressed_vector_1aff6233b0d55ec50a25d3b2192169ba89" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>uint64_t</type>
+        <definition>uint64_t BitCompressedVector&lt; T, Allocator &gt;::capacity</definition>
+        <argsstring>()</argsstring>
+        <name>capacity</name>
+        <reimplements refid="class_base_attribute_vector_1ad30d47e2a2f0890875c225d7d0567cd6">capacity</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/BitCompressedVector.h" line="173" bodyfile="/home/grund/hyrise/src/lib/storage/BitCompressedVector.h" bodystart="173" bodyend="175"/>
+      </memberdef>
+      <memberdef kind="function" id="class_bit_compressed_vector_1a60f2a7afba641a34381c71fcc9bbad1d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>void BitCompressedVector&lt; T, Allocator &gt;::rewriteColumn</definition>
+        <argsstring>(const size_t column, const size_t bits)</argsstring>
+        <name>rewriteColumn</name>
+        <reimplements refid="class_base_attribute_vector_1a7d4e5e6574e73f49f923ff92a072bca0">rewriteColumn</reimplements>
+        <param>
+          <type>const size_t</type>
+          <declname>column</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>bits</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/BitCompressedVector.h" line="177" bodyfile="/home/grund/hyrise/src/lib/storage/BitCompressedVector.h" bodystart="177" bodyend="183"/>
+      </memberdef>
+      <memberdef kind="function" id="class_bit_compressed_vector_1a949adbaee3213b75409530bea76e5ffc" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>std::shared_ptr&lt; <ref refid="class_base_attribute_vector" kindref="compound">BaseAttributeVector</ref>&lt; T &gt; &gt;</type>
+        <definition>std::shared_ptr&lt; BaseAttributeVector&lt; T &gt; &gt; BitCompressedVector&lt; T, Allocator &gt;::copy</definition>
+        <argsstring>()</argsstring>
+        <name>copy</name>
+        <reimplements refid="class_base_attribute_vector_1aff09a848bc4955f7edd5b3ed7ddd4601">copy</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/BitCompressedVector.h" line="185" bodyfile="/home/grund/hyrise/src/lib/storage/BitCompressedVector.h" bodystart="265" bodyend="270"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1574">
+        <label>BaseAttributeVector&lt; T &gt;</label>
+        <link refid="class_base_attribute_vector"/>
+        <childnode refid="1573" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1575">
+        <label>BaseAllocatedAttributeVector&lt; AllocatedClass, Allocator &gt;</label>
+        <link refid="class_base_allocated_attribute_vector"/>
+        <childnode refid="1572" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1571">
+        <label>BaseAllocatedAttributeVector&lt; BitCompressedVector&lt; T, Allocator &gt;, Allocator &gt;</label>
+        <link refid="class_base_allocated_attribute_vector"/>
+        <childnode refid="1572" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1575" relation="template-instance">
+          <edgelabel>&lt; BitCompressedVector&lt; T, Allocator &gt;, Allocator &gt;</edgelabel>
+        </childnode>
+      </node>
+      <node id="1570">
+        <label>BitCompressedVector&lt; T, Allocator &gt;</label>
+        <link refid="class_bit_compressed_vector"/>
+        <childnode refid="1571" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1572">
+        <label>BaseAttributeVector&lt; Allocator::value_type &gt;</label>
+        <link refid="class_base_attribute_vector"/>
+        <childnode refid="1573" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1574" relation="template-instance">
+          <edgelabel>&lt; Allocator::value_type &gt;</edgelabel>
+        </childnode>
+      </node>
+      <node id="1573">
+        <label>AbstractAttributeVector</label>
+        <link refid="class_abstract_attribute_vector"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1580">
+        <label>BaseAttributeVector&lt; T &gt;</label>
+        <link refid="class_base_attribute_vector"/>
+        <childnode refid="1579" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1581">
+        <label>BaseAllocatedAttributeVector&lt; AllocatedClass, Allocator &gt;</label>
+        <link refid="class_base_allocated_attribute_vector"/>
+        <childnode refid="1578" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1577">
+        <label>BaseAllocatedAttributeVector&lt; BitCompressedVector&lt; T, Allocator &gt;, Allocator &gt;</label>
+        <link refid="class_base_allocated_attribute_vector"/>
+        <childnode refid="1578" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1581" relation="template-instance">
+          <edgelabel>&lt; BitCompressedVector&lt; T, Allocator &gt;, Allocator &gt;</edgelabel>
+        </childnode>
+      </node>
+      <node id="1576">
+        <label>BitCompressedVector&lt; T, Allocator &gt;</label>
+        <link refid="class_bit_compressed_vector"/>
+        <childnode refid="1577" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1578">
+        <label>BaseAttributeVector&lt; Allocator::value_type &gt;</label>
+        <link refid="class_base_attribute_vector"/>
+        <childnode refid="1579" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1580" relation="template-instance">
+          <edgelabel>&lt; Allocator::value_type &gt;</edgelabel>
+        </childnode>
+      </node>
+      <node id="1579">
+        <label>AbstractAttributeVector</label>
+        <link refid="class_abstract_attribute_vector"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/storage/BitCompressedVector.h" line="28" bodyfile="/home/grund/hyrise/src/lib/storage/BitCompressedVector.h" bodystart="28" bodyend="260"/>
+    <listofallmembers>
+      <member refid="class_bit_compressed_vector_1a3b8821e9d07487f756aad421f3ff0b88" prot="private" virt="non-virtual"><scope>BitCompressedVector</scope><name>__attribute__</name></member>
+      <member refid="class_bit_compressed_vector_1ad1d14605a49903b2e5d6c6b4125bd8d1" prot="private" virt="non-virtual"><scope>BitCompressedVector</scope><name>_allocate</name></member>
+      <member refid="class_bit_compressed_vector_1ad2a0aaa6255d6c30738e5b2329a5e5ed" prot="private" virt="non-virtual"><scope>BitCompressedVector</scope><name>_allocatedBlocks</name></member>
+      <member refid="class_bit_compressed_vector_1a5babf851f2145183d7e74a5e3f7e2fcd" prot="private" virt="non-virtual"><scope>BitCompressedVector</scope><name>_bit_width</name></member>
+      <member refid="class_bit_compressed_vector_1aca480c808d231a7cab59f3e5808b6930" prot="private" virt="non-virtual"><scope>BitCompressedVector</scope><name>_bits</name></member>
+      <member refid="class_bit_compressed_vector_1a622c19c3a62f007b2c711ab0509bd313" prot="private" virt="non-virtual"><scope>BitCompressedVector</scope><name>_blockOffset</name></member>
+      <member refid="class_bit_compressed_vector_1af9311ee3a6e17e1db7e7a7893a8589b1" prot="private" virt="non-virtual"><scope>BitCompressedVector</scope><name>_blockPosition</name></member>
+      <member refid="class_bit_compressed_vector_1a4d0381b5b9b908037ee57c7201ecd8e0" prot="private" virt="non-virtual"><scope>BitCompressedVector</scope><name>_blocks</name></member>
+      <member refid="class_bit_compressed_vector_1a0d3063334d89aa36811c4d01b85990e6" prot="private" virt="non-virtual"><scope>BitCompressedVector</scope><name>_columns</name></member>
+      <member refid="class_bit_compressed_vector_1afe223fb648d77d67433e92835aaf1d44" prot="private" virt="non-virtual"><scope>BitCompressedVector</scope><name>_offsetForColumn</name></member>
+      <member refid="class_bit_compressed_vector_1abd1aeede363c0bf80850c74c91eedcb4" prot="private" virt="non-virtual"><scope>BitCompressedVector</scope><name>_size</name></member>
+      <member refid="class_bit_compressed_vector_1a54e6af7af790f4a7e41eb74b2bf6aecc" prot="private" virt="non-virtual"><scope>BitCompressedVector</scope><name>_tupleWidth</name></member>
+      <member refid="class_bit_compressed_vector_1ae1985e13f7fc078c93a05145514ccc22" prot="private" virt="non-virtual"><scope>BitCompressedVector</scope><name>bit_size_list_t</name></member>
+      <member refid="class_bit_compressed_vector_1a70489c294798b94761b44c0e9938d66a" prot="public" virt="non-virtual"><scope>BitCompressedVector</scope><name>BitCompressedVector</name></member>
+      <member refid="class_bit_compressed_vector_1aff6233b0d55ec50a25d3b2192169ba89" prot="public" virt="virtual"><scope>BitCompressedVector</scope><name>capacity</name></member>
+      <member refid="class_bit_compressed_vector_1a959f049c4989a1c39693a2df09ebaed7" prot="private" virt="non-virtual"><scope>BitCompressedVector</scope><name>checkAccess</name></member>
+      <member refid="class_bit_compressed_vector_1a17c265d81dd5af5b5cab47aa8f1c654f" prot="public" virt="virtual"><scope>BitCompressedVector</scope><name>clear</name></member>
+      <member refid="class_bit_compressed_vector_1a949adbaee3213b75409530bea76e5ffc" prot="public" virt="virtual"><scope>BitCompressedVector</scope><name>copy</name></member>
+      <member refid="class_bit_compressed_vector_1a94906155ced7106a651f7749be5ab40d" prot="public" virt="virtual"><scope>BitCompressedVector</scope><name>data</name></member>
+      <member refid="class_bit_compressed_vector_1a36d28dac4401f8e3a3b1ccf87346137b" prot="public" virt="virtual"><scope>BitCompressedVector</scope><name>get</name></member>
+      <member refid="class_base_allocated_attribute_vector_1ab4ee3df9ce6fc6082e638501896aad43" prot="public" virt="non-virtual"><scope>BitCompressedVector</scope><name>operator delete</name></member>
+      <member refid="class_base_allocated_attribute_vector_1ae1459c0e5f31d450f3f06d7fa916a5e2" prot="public" virt="non-virtual"><scope>BitCompressedVector</scope><name>operator new</name></member>
+      <member refid="class_bit_compressed_vector_1a12db405ab418f2f5a16e7d9eb0021453" prot="public" virt="virtual"><scope>BitCompressedVector</scope><name>reserve</name></member>
+      <member refid="class_bit_compressed_vector_1a03cf285f793cda8b25908455d2a781dc" prot="public" virt="virtual"><scope>BitCompressedVector</scope><name>resize</name></member>
+      <member refid="class_bit_compressed_vector_1a60f2a7afba641a34381c71fcc9bbad1d" prot="public" virt="virtual"><scope>BitCompressedVector</scope><name>rewriteColumn</name></member>
+      <member refid="class_bit_compressed_vector_1a7951d9dcabc6a35208b00c1cfef8ed5c" prot="public" virt="non-virtual"><scope>BitCompressedVector</scope><name>set</name></member>
+      <member refid="class_base_attribute_vector_1a9fadea1c74dd07ac58bcf29b5799ab46" prot="public" virt="pure-virtual" ambiguityscope="BaseAllocatedAttributeVector&lt; BitCompressedVector&lt; T, Allocator &gt;, Allocator &gt;::"><scope>BitCompressedVector</scope><name>set</name></member>
+      <member refid="class_bit_compressed_vector_1a405f98126d3ec1b81f2ddf6829547764" prot="public" virt="virtual"><scope>BitCompressedVector</scope><name>setNumRows</name></member>
+      <member refid="class_bit_compressed_vector_1a0f51137244c84835c5b3e45b8b27b5de" prot="public" virt="virtual"><scope>BitCompressedVector</scope><name>size</name></member>
+      <member refid="class_bit_compressed_vector_1a046582544a93f2edafea02ec75802ea6" prot="private" virt="non-virtual"><scope>BitCompressedVector</scope><name>storage_t</name></member>
+      <member refid="class_bit_compressed_vector_1ad3100898d050843be4dba6f7534ace64" prot="public" virt="non-virtual"><scope>BitCompressedVector</scope><name>value_type</name></member>
+      <member refid="class_bit_compressed_vector_1a653330885efc03e8e3b3042776bd50a7" prot="public" virt="non-virtual"><scope>BitCompressedVector</scope><name>vector_type</name></member>
+      <member refid="class_abstract_attribute_vector_1aed37fff9aff69e7e3c7037e8f1f0518d" prot="public" virt="virtual"><scope>BitCompressedVector</scope><name>~AbstractAttributeVector</name></member>
+      <member refid="class_base_allocated_attribute_vector_1ab04a44c38d91be97921d93b83a78aa91" prot="public" virt="virtual"><scope>BitCompressedVector</scope><name>~BaseAllocatedAttributeVector</name></member>
+      <member refid="class_base_attribute_vector_1a8e9a3b24c3c21480db901b35829cb7cb" prot="public" virt="virtual"><scope>BitCompressedVector</scope><name>~BaseAttributeVector</name></member>
+      <member refid="class_bit_compressed_vector_1a1992e9f0f6149380f4ed6d8ee7719a63" prot="public" virt="virtual"><scope>BitCompressedVector</scope><name>~BitCompressedVector</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

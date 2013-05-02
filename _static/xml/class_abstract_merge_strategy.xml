@@ -1,0 +1,116 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="class_abstract_merge_strategy" kind="class" prot="public">
+    <compoundname>AbstractMergeStrategy</compoundname>
+    <derivedcompoundref refid="class_logarithmic_merge_strategy" prot="public" virt="non-virtual">LogarithmicMergeStrategy</derivedcompoundref>
+    <includes refid="_abstract_merge_strategy_8h" local="no">AbstractMergeStrategy.h</includes>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_abstract_merge_strategy_1ae344350d6981fa0f741b00d23c1302fb" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>AbstractMergeStrategy::AbstractMergeStrategy</definition>
+        <argsstring>()</argsstring>
+        <name>AbstractMergeStrategy</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/AbstractMergeStrategy.h" line="22" bodyfile="/home/grund/hyrise/src/lib/storage/AbstractMergeStrategy.h" bodystart="22" bodyend="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_abstract_merge_strategy_1ad36854dbb444a691ccda77c4c5b9c1ec" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual AbstractMergeStrategy::~AbstractMergeStrategy</definition>
+        <argsstring>()</argsstring>
+        <name>~AbstractMergeStrategy</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/AbstractMergeStrategy.h" line="23" bodyfile="/home/grund/hyrise/src/lib/storage/AbstractMergeStrategy.h" bodystart="23" bodyend="23"/>
+      </memberdef>
+      <memberdef kind="function" id="class_abstract_merge_strategy_1a63dd7bc8200700bfaf225f2227ea7d63" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type><ref refid="_abstract_merge_strategy_8h_1a264d0402b5878f2dc616d2eee7c3209b" kindref="member">merge_tables</ref></type>
+        <definition>virtual merge_tables AbstractMergeStrategy::determineTablesToMerge</definition>
+        <argsstring>(std::vector&lt; hyrise::storage::c_atable_ptr_t &gt; &amp;input_tables) const =0</argsstring>
+        <name>determineTablesToMerge</name>
+        <reimplementedby refid="class_logarithmic_merge_strategy_1a12a4d345a071168de45e7bd9ed18b95d">determineTablesToMerge</reimplementedby>
+        <param>
+          <type>std::vector&lt; <ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref> &gt; &amp;</type>
+          <declname>input_tables</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/AbstractMergeStrategy.h" line="24"/>
+      </memberdef>
+      <memberdef kind="function" id="class_abstract_merge_strategy_1a187e3b399df61f4e75cdae37ad8dfa8c" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>size_t</type>
+        <definition>virtual size_t AbstractMergeStrategy::calculateNewSize</definition>
+        <argsstring>(const std::vector&lt; hyrise::storage::c_atable_ptr_t &gt; &amp;input_tables) const =0</argsstring>
+        <name>calculateNewSize</name>
+        <reimplementedby refid="class_logarithmic_merge_strategy_1a1f213fe5a34679eea224eebb5ef8734d">calculateNewSize</reimplementedby>
+        <param>
+          <type>const std::vector&lt; <ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref> &gt; &amp;</type>
+          <declname>input_tables</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/AbstractMergeStrategy.h" line="25"/>
+      </memberdef>
+      <memberdef kind="function" id="class_abstract_merge_strategy_1ad7ba6bba2799af11ed26358fa28779ab" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type><ref refid="class_abstract_merge_strategy" kindref="compound">AbstractMergeStrategy</ref> *</type>
+        <definition>virtual AbstractMergeStrategy* AbstractMergeStrategy::copy</definition>
+        <argsstring>()=0</argsstring>
+        <name>copy</name>
+        <reimplementedby refid="class_logarithmic_merge_strategy_1ad921da71c07927a90089f1f4b048209e">copy</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/AbstractMergeStrategy.h" line="26"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1375">
+        <label>AbstractMergeStrategy</label>
+        <link refid="class_abstract_merge_strategy"/>
+      </node>
+      <node id="1376">
+        <label>LogarithmicMergeStrategy</label>
+        <link refid="class_logarithmic_merge_strategy"/>
+        <childnode refid="1375" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1377">
+        <label>AbstractMergeStrategy</label>
+        <link refid="class_abstract_merge_strategy"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/storage/AbstractMergeStrategy.h" line="20" bodyfile="/home/grund/hyrise/src/lib/storage/AbstractMergeStrategy.h" bodystart="20" bodyend="27"/>
+    <listofallmembers>
+      <member refid="class_abstract_merge_strategy_1ae344350d6981fa0f741b00d23c1302fb" prot="public" virt="non-virtual"><scope>AbstractMergeStrategy</scope><name>AbstractMergeStrategy</name></member>
+      <member refid="class_abstract_merge_strategy_1a187e3b399df61f4e75cdae37ad8dfa8c" prot="public" virt="pure-virtual"><scope>AbstractMergeStrategy</scope><name>calculateNewSize</name></member>
+      <member refid="class_abstract_merge_strategy_1ad7ba6bba2799af11ed26358fa28779ab" prot="public" virt="pure-virtual"><scope>AbstractMergeStrategy</scope><name>copy</name></member>
+      <member refid="class_abstract_merge_strategy_1a63dd7bc8200700bfaf225f2227ea7d63" prot="public" virt="pure-virtual"><scope>AbstractMergeStrategy</scope><name>determineTablesToMerge</name></member>
+      <member refid="class_abstract_merge_strategy_1ad36854dbb444a691ccda77c4c5b9c1ec" prot="public" virt="virtual"><scope>AbstractMergeStrategy</scope><name>~AbstractMergeStrategy</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

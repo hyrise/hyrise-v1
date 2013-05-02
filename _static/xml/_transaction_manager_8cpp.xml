@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="_transaction_manager_8cpp" kind="file">
+    <compoundname>TransactionManager.cpp</compoundname>
+    <includes refid="_transaction_manager_8h" local="yes">io/TransactionManager.h</includes>
+    <includes local="no">limits</includes>
+    <includes local="no">stdexcept</includes>
+    <incdepgraph>
+      <node id="15616">
+        <label>atomic</label>
+      </node>
+      <node id="15620">
+        <label>limits</label>
+      </node>
+      <node id="15618">
+        <label>cstdint</label>
+      </node>
+      <node id="15614">
+        <label>src/lib/io/TransactionManager.cpp</label>
+        <link refid="TransactionManager.cpp"/>
+        <childnode refid="15615" relation="include">
+        </childnode>
+        <childnode refid="15620" relation="include">
+        </childnode>
+        <childnode refid="15623" relation="include">
+        </childnode>
+      </node>
+      <node id="15623">
+        <label>stdexcept</label>
+      </node>
+      <node id="15619">
+        <label>string</label>
+      </node>
+      <node id="15622">
+        <label>vector</label>
+      </node>
+      <node id="15617">
+        <label>helper/types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="15618" relation="include">
+        </childnode>
+        <childnode refid="15619" relation="include">
+        </childnode>
+        <childnode refid="15620" relation="include">
+        </childnode>
+        <childnode refid="15621" relation="include">
+        </childnode>
+        <childnode refid="15622" relation="include">
+        </childnode>
+      </node>
+      <node id="15615">
+        <label>io/TransactionManager.h</label>
+        <link refid="_transaction_manager_8h"/>
+        <childnode refid="15616" relation="include">
+        </childnode>
+        <childnode refid="15617" relation="include">
+        </childnode>
+      </node>
+      <node id="15621">
+        <label>memory</label>
+      </node>
+    </incdepgraph>
+    <innernamespace refid="namespacehyrise">hyrise</innernamespace>
+    <innernamespace refid="namespacehyrise_1_1tx">hyrise::tx</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>2012<sp/>Hasso-Plattner-Institut<sp/>fuer<sp/>Softwaresystemtechnik<sp/>GmbH.<sp/>All<sp/>rights<sp/>reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_transaction_manager_8h" kindref="compound">io/TransactionManager.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;limits&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdexcept&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">hyrise<sp/>{</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">tx<sp/>{</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal">std::atomic&lt;transaction_id_t&gt;<sp/><ref refid="classhyrise_1_1tx_1_1_transaction_manager_1a1cb6ebd30649bf77301da46c6d02fa15" kindref="member">TransactionManager::_transactionCount</ref>;</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11" refid="classhyrise_1_1tx_1_1_transaction_manager_1a7d18ac2a3ae9dcd70301d715070798a2" refkind="member"><highlight class="normal"><ref refid="classhyrise_1_1tx_1_1_transaction_manager" kindref="compound" tooltip="Basic transaction manager.">TransactionManager</ref>&amp;<sp/><ref refid="classhyrise_1_1tx_1_1_transaction_manager_1a7d18ac2a3ae9dcd70301d715070798a2" kindref="member">TransactionManager::getInstance</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1tx_1_1_transaction_manager" kindref="compound" tooltip="Basic transaction manager.">TransactionManager</ref><sp/>tm;</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>tm;</highlight></codeline>
+<codeline lineno="14"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16" refid="classhyrise_1_1tx_1_1_transaction_manager_1a4e8596f09fae6189a3734e334e660045" refkind="member"><highlight class="normal"><ref refid="namespacehyrise_1_1tx_1a3f8f9dae75e3e1872247b082f80ffd77" kindref="member">transaction_id_t</ref><sp/><ref refid="classhyrise_1_1tx_1_1_transaction_manager_1a4e8596f09fae6189a3734e334e660045" kindref="member">TransactionManager::getTransactionId</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="classhyrise_1_1tx_1_1_transaction_manager_1a1cb6ebd30649bf77301da46c6d02fa15" kindref="member">_transactionCount</ref><sp/>==<sp/>std::numeric_limits&lt;transaction_id_t&gt;::max())<sp/>{</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/>std::runtime_error(</highlight><highlight class="stringliteral">&quot;Out<sp/>of<sp/>transaction<sp/>ids<sp/>-<sp/>reached<sp/>maximum&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>++<ref refid="classhyrise_1_1tx_1_1_transaction_manager_1a1cb6ebd30649bf77301da46c6d02fa15" kindref="member">_transactionCount</ref>;</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight></codeline>
+<codeline lineno="24" refid="classhyrise_1_1tx_1_1_transaction_manager_1a9deffa2f04e07a194e0a0f6a204d7fa9" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1tx_1_1_transaction_manager_1a9deffa2f04e07a194e0a0f6a204d7fa9" kindref="member">TransactionManager::reset</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><ref refid="classhyrise_1_1tx_1_1_transaction_manager_1a1cb6ebd30649bf77301da46c6d02fa15" kindref="member">_transactionCount</ref><sp/>=<sp/><ref refid="namespacehyrise_1_1tx_1a5ae28da55b0a12b788a793d3f85a1e3c" kindref="member">START_TID</ref>;</highlight></codeline>
+<codeline lineno="26"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal">}}</highlight></codeline>
+    </programlisting>
+    <location file="/home/grund/hyrise/src/lib/io/TransactionManager.cpp"/>
+  </compounddef>
+</doxygen>

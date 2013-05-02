@@ -1,0 +1,161 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="class_fallback_tracer" kind="class" prot="public">
+    <compoundname>FallbackTracer</compoundname>
+    <includes refid="_papi_tracer_8h" local="no">PapiTracer.h</includes>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="class_fallback_tracer_1a42f483f1cf59bf424abab30083e22543" prot="public" static="no">
+        <type>long long</type>
+        <definition>typedef long long FallbackTracer::result_t</definition>
+        <argsstring></argsstring>
+        <name>result_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/PapiTracer.h" line="176" bodyfile="/home/grund/hyrise/src/lib/helper/PapiTracer.h" bodystart="176" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_fallback_tracer_1a5cc17fe36bb81a1972a409b26a9cbb5f" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; std::string &gt;</type>
+        <definition>std::vector&lt;std::string&gt; FallbackTracer::_counters</definition>
+        <argsstring></argsstring>
+        <name>_counters</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/PapiTracer.h" line="178" bodyfile="/home/grund/hyrise/src/lib/helper/PapiTracer.h" bodystart="178" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_fallback_tracer_1ad6e529c8e48886a8920f3c5e7a2c2e21" prot="private" static="no" mutable="no">
+        <type><ref refid="class_fallback_tracer_1a42f483f1cf59bf424abab30083e22543" kindref="member">result_t</ref></type>
+        <definition>result_t FallbackTracer::_result</definition>
+        <argsstring></argsstring>
+        <name>_result</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/PapiTracer.h" line="179" bodyfile="/home/grund/hyrise/src/lib/helper/PapiTracer.h" bodystart="179" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_fallback_tracer_1a8cdcec5aa29a05fc1d514f8e46f538e7" prot="private" static="no" mutable="no">
+        <type>struct timeval</type>
+        <definition>struct timeval FallbackTracer::_start</definition>
+        <argsstring></argsstring>
+        <name>_start</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/PapiTracer.h" line="180" bodyfile="/home/grund/hyrise/src/lib/helper/PapiTracer.h" bodystart="180" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_fallback_tracer_1a84350e4813011b3bc1d509ebbaed6069" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void FallbackTracer::addEvent</definition>
+        <argsstring>(std::string eventName)</argsstring>
+        <name>addEvent</name>
+        <param>
+          <type>std::string</type>
+          <declname>eventName</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/PapiTracer.h" line="182" bodyfile="/home/grund/hyrise/src/lib/helper/PapiTracer.h" bodystart="182" bodyend="184"/>
+      </memberdef>
+      <memberdef kind="function" id="class_fallback_tracer_1a9e3aa7b6b579ce36e33a710885add6ea" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void FallbackTracer::start</definition>
+        <argsstring>()</argsstring>
+        <name>start</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/PapiTracer.h" line="186" bodyfile="/home/grund/hyrise/src/lib/helper/PapiTracer.h" bodystart="186" bodyend="191"/>
+      </memberdef>
+      <memberdef kind="function" id="class_fallback_tracer_1af4ee20c73627dc911dac5c7b319e3f73" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void FallbackTracer::stop</definition>
+        <argsstring>()</argsstring>
+        <name>stop</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/PapiTracer.h" line="193" bodyfile="/home/grund/hyrise/src/lib/helper/PapiTracer.h" bodystart="193" bodyend="197"/>
+      </memberdef>
+      <memberdef kind="function" id="class_fallback_tracer_1a65ba640ea5b82075c87dbf37f429622b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void FallbackTracer::reset</definition>
+        <argsstring>()</argsstring>
+        <name>reset</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/PapiTracer.h" line="199" bodyfile="/home/grund/hyrise/src/lib/helper/PapiTracer.h" bodystart="199" bodyend="202"/>
+      </memberdef>
+      <memberdef kind="function" id="class_fallback_tracer_1af1c617eeaf75d5c6737f849fe0e2bbd7" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>long long</type>
+        <definition>long long FallbackTracer::value</definition>
+        <argsstring>(const std::string &amp;eventName) const </argsstring>
+        <name>value</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>eventName</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/PapiTracer.h" line="204" bodyfile="/home/grund/hyrise/src/lib/helper/PapiTracer.h" bodystart="204" bodyend="210"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Fallback tracing mechanism that behaves like PapiTracer concerning adding of new events to measure but will only return the time elapsed time in microseconds. This is useful for systems without PAPI support such as virtual machines</para><para><simplesect kind="note"><para>This tracer does not check for PAPI event name validity! </para></simplesect>
+</para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="1864">
+        <label>FallbackTracer</label>
+        <link refid="class_fallback_tracer"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/helper/PapiTracer.h" line="174" bodyfile="/home/grund/hyrise/src/lib/helper/PapiTracer.h" bodystart="174" bodyend="211"/>
+    <listofallmembers>
+      <member refid="class_fallback_tracer_1a5cc17fe36bb81a1972a409b26a9cbb5f" prot="private" virt="non-virtual"><scope>FallbackTracer</scope><name>_counters</name></member>
+      <member refid="class_fallback_tracer_1ad6e529c8e48886a8920f3c5e7a2c2e21" prot="private" virt="non-virtual"><scope>FallbackTracer</scope><name>_result</name></member>
+      <member refid="class_fallback_tracer_1a8cdcec5aa29a05fc1d514f8e46f538e7" prot="private" virt="non-virtual"><scope>FallbackTracer</scope><name>_start</name></member>
+      <member refid="class_fallback_tracer_1a84350e4813011b3bc1d509ebbaed6069" prot="public" virt="non-virtual"><scope>FallbackTracer</scope><name>addEvent</name></member>
+      <member refid="class_fallback_tracer_1a65ba640ea5b82075c87dbf37f429622b" prot="public" virt="non-virtual"><scope>FallbackTracer</scope><name>reset</name></member>
+      <member refid="class_fallback_tracer_1a42f483f1cf59bf424abab30083e22543" prot="public" virt="non-virtual"><scope>FallbackTracer</scope><name>result_t</name></member>
+      <member refid="class_fallback_tracer_1a9e3aa7b6b579ce36e33a710885add6ea" prot="public" virt="non-virtual"><scope>FallbackTracer</scope><name>start</name></member>
+      <member refid="class_fallback_tracer_1af4ee20c73627dc911dac5c7b319e3f73" prot="public" virt="non-virtual"><scope>FallbackTracer</scope><name>stop</name></member>
+      <member refid="class_fallback_tracer_1af1c617eeaf75d5c6737f849fe0e2bbd7" prot="public" virt="non-virtual"><scope>FallbackTracer</scope><name>value</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,131 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="classhyrise_1_1net_1_1_abstract_request_handler" kind="class" prot="public">
+    <compoundname>hyrise::net::AbstractRequestHandler</compoundname>
+    <basecompoundref refid="class_task" prot="public" virt="non-virtual">Task</basecompoundref>
+    <derivedcompoundref refid="classhyrise_1_1access_1_1_request_parse_task" prot="public" virt="non-virtual">hyrise::access::RequestParseTask</derivedcompoundref>
+    <derivedcompoundref refid="classhyrise_1_1net_1_1_route_request_handler" prot="public" virt="non-virtual">hyrise::net::RouteRequestHandler</derivedcompoundref>
+    <derivedcompoundref refid="classhyrise_1_1net_1_1_static_request_handler" prot="public" virt="non-virtual">hyrise::net::StaticRequestHandler</derivedcompoundref>
+    <includes refid="_router_8h" local="no">Router.h</includes>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classhyrise_1_1net_1_1_abstract_request_handler_1a22c7c6e6ea6e7cedb23196f5871b5aca" prot="public" static="no">
+        <type>std::shared_ptr&lt; <ref refid="classhyrise_1_1net_1_1_abstract_request_handler" kindref="compound">AbstractRequestHandler</ref> &gt;</type>
+        <definition>typedef std::shared_ptr&lt;AbstractRequestHandler&gt; hyrise::net::AbstractRequestHandler::SharedPtr</definition>
+        <argsstring></argsstring>
+        <name>SharedPtr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/net/Router.h" line="21" bodyfile="/home/grund/hyrise/src/lib/net/Router.h" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classhyrise_1_1net_1_1_abstract_request_handler_1afe4d99aa43e91ffd9df791076cde3741" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual hyrise::net::AbstractRequestHandler::~AbstractRequestHandler</definition>
+        <argsstring>()</argsstring>
+        <name>~AbstractRequestHandler</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/net/Router.h" line="22" bodyfile="/home/grund/hyrise/src/lib/net/Router.h" bodystart="22" bodyend="22"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Base class for request handlers. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1395">
+        <label>hyrise::net::AbstractRequestHandler</label>
+        <link refid="classhyrise_1_1net_1_1_abstract_request_handler"/>
+        <childnode refid="1396" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1400">
+        <label>hyrise::net::StaticRequestHandler</label>
+        <link refid="classhyrise_1_1net_1_1_static_request_handler"/>
+        <childnode refid="1395" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1397">
+        <label>TaskDoneObserver</label>
+        <link refid="class_task_done_observer"/>
+      </node>
+      <node id="1399">
+        <label>hyrise::net::RouteRequestHandler</label>
+        <link refid="classhyrise_1_1net_1_1_route_request_handler"/>
+        <childnode refid="1395" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1398">
+        <label>hyrise::access::RequestParseTask</label>
+        <link refid="classhyrise_1_1access_1_1_request_parse_task"/>
+        <childnode refid="1395" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1396">
+        <label>Task</label>
+        <link refid="class_task"/>
+        <childnode refid="1397" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1401">
+        <label>hyrise::net::AbstractRequestHandler</label>
+        <link refid="classhyrise_1_1net_1_1_abstract_request_handler"/>
+        <childnode refid="1402" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1403">
+        <label>TaskDoneObserver</label>
+        <link refid="class_task_done_observer"/>
+      </node>
+      <node id="1402">
+        <label>Task</label>
+        <link refid="class_task"/>
+        <childnode refid="1403" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/net/Router.h" line="19" bodyfile="/home/grund/hyrise/src/lib/net/Router.h" bodystart="19" bodyend="23"/>
+    <listofallmembers>
+      <member refid="class_task_1ab25d10a171c2efc2dcdf4ec7b81d148d" prot="protected" virt="non-virtual"><scope>hyrise::net::AbstractRequestHandler</scope><name>_dependencies</name></member>
+      <member refid="class_task_1a432b54ea5cdbf8f875c756c70710b69e" prot="protected" virt="non-virtual"><scope>hyrise::net::AbstractRequestHandler</scope><name>_dependencyWaitCount</name></member>
+      <member refid="class_task_1a10259a6dde7645e32c32262818339c8c" prot="protected" virt="non-virtual"><scope>hyrise::net::AbstractRequestHandler</scope><name>_depMutex</name></member>
+      <member refid="class_task_1af277c65727e285efbf965633851ec9d8" prot="protected" virt="non-virtual"><scope>hyrise::net::AbstractRequestHandler</scope><name>_doneObservers</name></member>
+      <member refid="class_task_1a778ed5c766f4098184c31a656fe471ed" prot="protected" virt="non-virtual"><scope>hyrise::net::AbstractRequestHandler</scope><name>_notifyMutex</name></member>
+      <member refid="class_task_1a6a0d1fa3b37cb2e7896ea23049798b36" prot="protected" virt="non-virtual"><scope>hyrise::net::AbstractRequestHandler</scope><name>_observerMutex</name></member>
+      <member refid="class_task_1aa7b21c6482b905c04f354c738341beb3" prot="protected" virt="non-virtual"><scope>hyrise::net::AbstractRequestHandler</scope><name>_preferredCore</name></member>
+      <member refid="class_task_1a7f7f81090a389fd5cf79747e165fe0f4" prot="protected" virt="non-virtual"><scope>hyrise::net::AbstractRequestHandler</scope><name>_readyObservers</name></member>
+      <member refid="class_task_1aa9e65a15e122de040bb914ab144577b8" prot="public" virt="non-virtual"><scope>hyrise::net::AbstractRequestHandler</scope><name>addDependency</name></member>
+      <member refid="class_task_1a0e4ebf7ad5313f027aa16d250685604a" prot="public" virt="non-virtual"><scope>hyrise::net::AbstractRequestHandler</scope><name>addDoneObserver</name></member>
+      <member refid="class_task_1a9726ca1f4c6712a3516cb05121479f25" prot="public" virt="non-virtual"><scope>hyrise::net::AbstractRequestHandler</scope><name>addReadyObserver</name></member>
+      <member refid="class_task_1a75f0a4940cdd338c2ba538200bfcdddf" prot="public" virt="non-virtual"><scope>hyrise::net::AbstractRequestHandler</scope><name>getDependencyCount</name></member>
+      <member refid="class_task_1a4a3f6f336369d8e2d6a92fae0690c143" prot="public" virt="non-virtual"><scope>hyrise::net::AbstractRequestHandler</scope><name>getPreferredCore</name></member>
+      <member refid="class_task_1a1a5953e7f9dfc732ce1f3d8a914439b4" prot="public" virt="virtual"><scope>hyrise::net::AbstractRequestHandler</scope><name>getQueryDuration</name></member>
+      <member refid="class_task_1a769a8fb688ddaed2870faeea61d84ca0" prot="public" virt="non-virtual"><scope>hyrise::net::AbstractRequestHandler</scope><name>hasSuccessors</name></member>
+      <member refid="class_task_1ab7307de77d5baf3dfec0269996d81543" prot="public" virt="non-virtual"><scope>hyrise::net::AbstractRequestHandler</scope><name>isReady</name></member>
+      <member refid="class_task_1aeb0d741352700686296e742bc21e4362" prot="public" virt="non-virtual"><scope>hyrise::net::AbstractRequestHandler</scope><name>lockForNotifications</name></member>
+      <member refid="class_task_1aa729cd30e7135f2851dd625679aa8556" prot="public" virt="virtual"><scope>hyrise::net::AbstractRequestHandler</scope><name>notifyDone</name></member>
+      <member refid="class_task_1a82157fda3766f4331966baf74e8206fa" prot="public" virt="non-virtual"><scope>hyrise::net::AbstractRequestHandler</scope><name>notifyDoneObservers</name></member>
+      <member refid="class_task_1a793f3db3f39a9ea7352078f235ee7843" prot="public" virt="non-virtual"><scope>hyrise::net::AbstractRequestHandler</scope><name>notifyReadyObservers</name></member>
+      <member refid="class_task_1ae3a87b98fa47e03ab2f48b53aa257b69" prot="public" virt="virtual"><scope>hyrise::net::AbstractRequestHandler</scope><name>operator()</name></member>
+      <member refid="class_task_1a1b8e520f60e9f41a3c1331e4e9e4b3ca" prot="public" virt="non-virtual"><scope>hyrise::net::AbstractRequestHandler</scope><name>setPreferredCore</name></member>
+      <member refid="classhyrise_1_1net_1_1_abstract_request_handler_1a22c7c6e6ea6e7cedb23196f5871b5aca" prot="public" virt="non-virtual"><scope>hyrise::net::AbstractRequestHandler</scope><name>SharedPtr</name></member>
+      <member refid="class_task_1a0ca53354bdc006762a0fda68c64f7608" prot="public" virt="non-virtual"><scope>hyrise::net::AbstractRequestHandler</scope><name>Task</name></member>
+      <member refid="class_task_1a35af9de734c94c39981a2b199790e288" prot="public" virt="non-virtual"><scope>hyrise::net::AbstractRequestHandler</scope><name>unlockForNotifications</name></member>
+      <member refid="class_task_1a091bff6c1c11bfc202e53280b5af62e7" prot="public" virt="pure-virtual"><scope>hyrise::net::AbstractRequestHandler</scope><name>vname</name></member>
+      <member refid="classhyrise_1_1net_1_1_abstract_request_handler_1afe4d99aa43e91ffd9df791076cde3741" prot="public" virt="virtual"><scope>hyrise::net::AbstractRequestHandler</scope><name>~AbstractRequestHandler</name></member>
+      <member refid="class_task_1a7bff79cc05fa4511c72048d33591503b" prot="public" virt="virtual"><scope>hyrise::net::AbstractRequestHandler</scope><name>~Task</name></member>
+      <member refid="class_task_done_observer_1a9b5fa53c4893dfc998aedca72b8dd278" prot="public" virt="virtual"><scope>hyrise::net::AbstractRequestHandler</scope><name>~TaskDoneObserver</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

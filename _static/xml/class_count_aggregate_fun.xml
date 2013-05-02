@@ -1,0 +1,185 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="class_count_aggregate_fun" kind="class" prot="public">
+    <compoundname>CountAggregateFun</compoundname>
+    <basecompoundref refid="class_aggregate_fun" prot="public" virt="non-virtual">AggregateFun</basecompoundref>
+    <includes refid="_aggregate_functions_8h" local="no">AggregateFunctions.h</includes>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_count_aggregate_fun_1a1bb268d5128a1bd9b9f71edd536a4707" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>CountAggregateFun::CountAggregateFun</definition>
+        <argsstring>(field_t field)</argsstring>
+        <name>CountAggregateFun</name>
+        <param>
+          <type><ref refid="storage__types_8h_1a5ce4ecb27464dc24ba394527510dd89b" kindref="member">field_t</ref></type>
+          <declname>field</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/AggregateFunctions.h" line="196" bodyfile="/home/grund/hyrise/src/lib/access/AggregateFunctions.h" bodystart="196" bodyend="196"/>
+      </memberdef>
+      <memberdef kind="function" id="class_count_aggregate_fun_1aae6de00048dfbf9694de383cd42b3377" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>CountAggregateFun::CountAggregateFun</definition>
+        <argsstring>(field_name_t field)</argsstring>
+        <name>CountAggregateFun</name>
+        <param>
+          <type><ref refid="storage__types_8h_1ad64b8c8026a86f643d173acbb694b4f8" kindref="member">field_name_t</ref></type>
+          <declname>field</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/AggregateFunctions.h" line="197" bodyfile="/home/grund/hyrise/src/lib/access/AggregateFunctions.h" bodystart="197" bodyend="197"/>
+      </memberdef>
+      <memberdef kind="function" id="class_count_aggregate_fun_1aa3a15a25a980ccf40c3e05cd262878cd" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual CountAggregateFun::~CountAggregateFun</definition>
+        <argsstring>()</argsstring>
+        <name>~CountAggregateFun</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/AggregateFunctions.h" line="198" bodyfile="/home/grund/hyrise/src/lib/access/AggregateFunctions.h" bodystart="198" bodyend="198"/>
+      </memberdef>
+      <memberdef kind="function" id="class_count_aggregate_fun_1a308346ea4e9b9896cf62ced6b5837176" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void CountAggregateFun::processValuesForRows</definition>
+        <argsstring>(const hyrise::storage::c_atable_ptr_t &amp;t, pos_list_t *rows, hyrise::storage::atable_ptr_t &amp;target, size_t targetRow)</argsstring>
+        <name>processValuesForRows</name>
+        <reimplements refid="class_aggregate_fun_1a0409afedfc7bff75b0ce2101419f5f87">processValuesForRows</reimplements>
+        <param>
+          <type>const <ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref> &amp;</type>
+          <declname>t</declname>
+        </param>
+        <param>
+          <type><ref refid="storage__types_8h_1a543d59ef56384af4a7af9aa551bc6825" kindref="member">pos_list_t</ref> *</type>
+          <declname>rows</declname>
+        </param>
+        <param>
+          <type><ref refid="namespacehyrise_1_1storage_1a21d5e900c20019710828c453eaded1ee" kindref="member">hyrise::storage::atable_ptr_t</ref> &amp;</type>
+          <declname>target</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>targetRow</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>counts the values in a column in rows mapped to map_range_t rows if map_range_t rows == nullptr all values are considered for counting. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/AggregateFunctions.h" line="206" bodyfile="/home/grund/hyrise/src/lib/access/AggregateFunctions.h" bodystart="206" bodyend="216"/>
+      </memberdef>
+      <memberdef kind="function" id="class_count_aggregate_fun_1a30caef0b64cee83c7630eb3a8d14a224" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type><ref refid="storage__types_8h_1ad8ed01ff3ff33333d8e19db4d2818bb6" kindref="member">DataType</ref></type>
+        <definition>virtual DataType CountAggregateFun::getType</definition>
+        <argsstring>() const </argsstring>
+        <name>getType</name>
+        <reimplements refid="class_aggregate_fun_1aa8c9b122a8daf1e950b8a465be15c197">getType</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/AggregateFunctions.h" line="218" bodyfile="/home/grund/hyrise/src/lib/access/AggregateFunctions.h" bodystart="218" bodyend="220"/>
+      </memberdef>
+      <memberdef kind="function" id="class_count_aggregate_fun_1a1f16167eb96df2ec45fdf11378ebaeb0" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>std::string</type>
+        <definition>virtual std::string CountAggregateFun::columnName</definition>
+        <argsstring>(const std::string &amp;oldName)</argsstring>
+        <name>columnName</name>
+        <reimplements refid="class_aggregate_fun_1a27be6037091d733520eeb2119017f38c">columnName</reimplements>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>oldName</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/AggregateFunctions.h" line="222" bodyfile="/home/grund/hyrise/src/lib/access/AggregateFunctions.h" bodystart="222" bodyend="224"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="class_count_aggregate_fun_1a6a53054a3f14e9206f4f868b970940da" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_aggregate_fun" kindref="compound">AggregateFun</ref> *</type>
+        <definition>AggregateFun * CountAggregateFun::parse</definition>
+        <argsstring>(const Json::Value &amp;)</argsstring>
+        <name>parse</name>
+        <param>
+          <type>const Json::Value &amp;</type>
+          <defname>f</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/AggregateFunctions.h" line="226" bodyfile="/home/grund/hyrise/src/lib/access/AggregateFunctions.cpp" bodystart="54" bodyend="58"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1656">
+        <label>CountAggregateFun</label>
+        <link refid="class_count_aggregate_fun"/>
+        <childnode refid="1657" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1657">
+        <label>AggregateFun</label>
+        <link refid="class_aggregate_fun"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1658">
+        <label>CountAggregateFun</label>
+        <link refid="class_count_aggregate_fun"/>
+        <childnode refid="1659" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1659">
+        <label>AggregateFun</label>
+        <link refid="class_aggregate_fun"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/access/AggregateFunctions.h" line="193" bodyfile="/home/grund/hyrise/src/lib/access/AggregateFunctions.h" bodystart="193" bodyend="227"/>
+    <listofallmembers>
+      <member refid="class_aggregate_fun_1ae883edb2662c4550ca5f2ba1f3092131" prot="public" virt="non-virtual"><scope>CountAggregateFun</scope><name>_field</name></member>
+      <member refid="class_aggregate_fun_1a5b5622673221dc9739f5437b0c40240c" prot="public" virt="non-virtual"><scope>CountAggregateFun</scope><name>_field_name</name></member>
+      <member refid="class_aggregate_fun_1acaa78a20058f7703aeea0fd05343169e" prot="public" virt="non-virtual"><scope>CountAggregateFun</scope><name>AggregateFun</name></member>
+      <member refid="class_aggregate_fun_1a59d4bed8e26ca97ec8de8dce6e3add23" prot="public" virt="non-virtual"><scope>CountAggregateFun</scope><name>AggregateFun</name></member>
+      <member refid="class_aggregate_fun_1abc5ab34a306bdcd31a8a67d16173e9b9" prot="public" virt="non-virtual"><scope>CountAggregateFun</scope><name>AggregateFun</name></member>
+      <member refid="class_count_aggregate_fun_1a1f16167eb96df2ec45fdf11378ebaeb0" prot="public" virt="virtual"><scope>CountAggregateFun</scope><name>columnName</name></member>
+      <member refid="class_count_aggregate_fun_1a1bb268d5128a1bd9b9f71edd536a4707" prot="public" virt="non-virtual"><scope>CountAggregateFun</scope><name>CountAggregateFun</name></member>
+      <member refid="class_count_aggregate_fun_1aae6de00048dfbf9694de383cd42b3377" prot="public" virt="non-virtual"><scope>CountAggregateFun</scope><name>CountAggregateFun</name></member>
+      <member refid="class_aggregate_fun_1acdb3dd509534d3b5620a9412d73eddfd" prot="public" virt="non-virtual"><scope>CountAggregateFun</scope><name>getField</name></member>
+      <member refid="class_aggregate_fun_1ae453c35ba8df2a3947c7cc9a8d968ec4" prot="public" virt="non-virtual"><scope>CountAggregateFun</scope><name>getFieldName</name></member>
+      <member refid="class_count_aggregate_fun_1a30caef0b64cee83c7630eb3a8d14a224" prot="public" virt="virtual"><scope>CountAggregateFun</scope><name>getType</name></member>
+      <member refid="class_count_aggregate_fun_1a6a53054a3f14e9206f4f868b970940da" prot="public" virt="non-virtual"><scope>CountAggregateFun</scope><name>parse</name></member>
+      <member refid="class_count_aggregate_fun_1a308346ea4e9b9896cf62ced6b5837176" prot="public" virt="virtual"><scope>CountAggregateFun</scope><name>processValuesForRows</name></member>
+      <member refid="class_aggregate_fun_1ae2bdfea5701dab37cf3ae3dc3f0a4193" prot="public" virt="virtual"><scope>CountAggregateFun</scope><name>walk</name></member>
+      <member refid="class_aggregate_fun_1acb258ac969b46276cce7eb58ab14f4fa" prot="public" virt="virtual"><scope>CountAggregateFun</scope><name>~AggregateFun</name></member>
+      <member refid="class_count_aggregate_fun_1aa3a15a25a980ccf40c3e05cd262878cd" prot="public" virt="virtual"><scope>CountAggregateFun</scope><name>~CountAggregateFun</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

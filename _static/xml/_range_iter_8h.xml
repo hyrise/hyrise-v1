@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="_range_iter_8h" kind="file">
+    <compoundname>RangeIter.h</compoundname>
+    <includedby refid="_pretty_printer_8cpp" local="yes">src/lib/storage/PrettyPrinter.cpp</includedby>
+    <invincdepgraph>
+      <node id="14051">
+        <label>src/lib/helper/RangeIter.h</label>
+        <link refid="RangeIter.h"/>
+        <childnode refid="14052" relation="include">
+        </childnode>
+      </node>
+      <node id="14052">
+        <label>src/lib/storage/PrettyPrinter.cpp</label>
+        <link refid="_pretty_printer_8cpp"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="class_range_iter" prot="public">RangeIter</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>2012<sp/>Hasso-Plattner-Institut<sp/>fuer<sp/>Softwaresystemtechnik<sp/>GmbH.<sp/>All<sp/>rights<sp/>reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SRC_LIB_HELPER_RANGEITER_H_</highlight></codeline>
+<codeline lineno="3"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SRC_LIB_HELPER_RANGEITER_H_</highlight></codeline>
+<codeline lineno="4"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="10" refid="class_range_iter" refkind="compound"><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_range_iter" kindref="compound">RangeIter</ref><sp/>{</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"><sp/></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="12" refid="class_range_iter_1a2e0d5fe6271874b99959a7aa9f3466e8" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="class_range_iter_1a2e0d5fe6271874b99959a7aa9f3466e8" kindref="member">_value</ref>;</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="14" refid="class_range_iter_1aa6a221262cef4a560300d4f156d9b4ed" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="class_range_iter_1aa6a221262cef4a560300d4f156d9b4ed" kindref="member">RangeIter</ref>()<sp/>{}</highlight></codeline>
+<codeline lineno="15" refid="class_range_iter_1ae899f8edabe8f877888bc7bb18d5a5ad" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="class_range_iter_1ae899f8edabe8f877888bc7bb18d5a5ad" kindref="member">RangeIter</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>val)<sp/>:<sp/><ref refid="class_range_iter_1a2e0d5fe6271874b99959a7aa9f3466e8" kindref="member">_value</ref>(val)<sp/>{}</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight></codeline>
+<codeline lineno="17" refid="class_range_iter_1a872288a26e14b1b0f183289f7f78e0c6" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="class_range_iter_1a872288a26e14b1b0f183289f7f78e0c6" kindref="member">operator==</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="class_range_iter" kindref="compound">RangeIter</ref>&amp;<sp/>other)<sp/>{</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="class_range_iter_1a2e0d5fe6271874b99959a7aa9f3466e8" kindref="member">_value</ref><sp/>==<sp/>other.<ref refid="class_range_iter_1a2e0d5fe6271874b99959a7aa9f3466e8" kindref="member">_value</ref>;</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21" refid="class_range_iter_1a119a2c67e90f7594c55538b9a3224579" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="class_range_iter_1a119a2c67e90f7594c55538b9a3224579" kindref="member">operator!=</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="class_range_iter" kindref="compound">RangeIter</ref>&amp;<sp/>other)<sp/>{</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="class_range_iter_1a2e0d5fe6271874b99959a7aa9f3466e8" kindref="member">_value</ref><sp/>!=<sp/>other.<ref refid="class_range_iter_1a2e0d5fe6271874b99959a7aa9f3466e8" kindref="member">_value</ref>;</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight></codeline>
+<codeline lineno="25" refid="class_range_iter_1a3ad31cedca695359039a669038419798" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="class_range_iter_1a3ad31cedca695359039a669038419798" kindref="member">operator*</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="class_range_iter_1a2e0d5fe6271874b99959a7aa9f3466e8" kindref="member">_value</ref>;</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29" refid="class_range_iter_1ac2eed8b03d5b21b4ec8056707e3e147d" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_range_iter_1ac2eed8b03d5b21b4ec8056707e3e147d" kindref="member">operator++</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_range_iter_1a2e0d5fe6271874b99959a7aa9f3466e8" kindref="member">_value</ref>++;</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="32"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="/home/grund/hyrise/src/lib/helper/RangeIter.h"/>
+  </compounddef>
+</doxygen>

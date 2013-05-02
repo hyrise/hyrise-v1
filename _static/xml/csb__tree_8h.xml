@@ -1,0 +1,2255 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="csb__tree_8h" kind="file">
+    <compoundname>csb_tree.h</compoundname>
+    <includes local="no">vector</includes>
+    <includes local="no">iostream</includes>
+    <includes local="no">list</includes>
+    <includes local="no">memory</includes>
+    <includes local="no">string.h</includes>
+    <includes local="no">assert.h</includes>
+    <includes local="no">boost/iterator/iterator_facade.hpp</includes>
+    <includedby refid="csb__tree_8cpp" local="yes">src/lib/storage/csb_tree.cpp</includedby>
+    <includedby refid="_order_indifferent_dictionary_8h" local="no">src/lib/storage/OrderIndifferentDictionary.h</includedby>
+    <includedby refid="storage_8h" local="no">src/lib/storage.h</includedby>
+    <incdepgraph>
+      <node id="19460">
+        <label>list</label>
+      </node>
+      <node id="19463">
+        <label>assert.h</label>
+      </node>
+      <node id="19464">
+        <label>boost/iterator/iterator_facade.hpp</label>
+      </node>
+      <node id="19462">
+        <label>string.h</label>
+      </node>
+      <node id="19458">
+        <label>vector</label>
+      </node>
+      <node id="19459">
+        <label>iostream</label>
+      </node>
+      <node id="19457">
+        <label>src/lib/storage/csb_tree.h</label>
+        <link refid="csb_tree.h"/>
+        <childnode refid="19458" relation="include">
+        </childnode>
+        <childnode refid="19459" relation="include">
+        </childnode>
+        <childnode refid="19460" relation="include">
+        </childnode>
+        <childnode refid="19461" relation="include">
+        </childnode>
+        <childnode refid="19462" relation="include">
+        </childnode>
+        <childnode refid="19463" relation="include">
+        </childnode>
+        <childnode refid="19464" relation="include">
+        </childnode>
+      </node>
+      <node id="19461">
+        <label>memory</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="19527">
+        <label>src/lib/access/Distinct.h</label>
+        <link refid="_distinct_8h"/>
+        <childnode refid="19528" relation="include">
+        </childnode>
+      </node>
+      <node id="19475">
+        <label>src/lib/storage.h</label>
+        <link refid="storage_8h"/>
+        <childnode refid="19476" relation="include">
+        </childnode>
+        <childnode refid="19477" relation="include">
+        </childnode>
+        <childnode refid="19478" relation="include">
+        </childnode>
+        <childnode refid="19479" relation="include">
+        </childnode>
+        <childnode refid="19480" relation="include">
+        </childnode>
+        <childnode refid="19481" relation="include">
+        </childnode>
+        <childnode refid="19482" relation="include">
+        </childnode>
+        <childnode refid="19483" relation="include">
+        </childnode>
+      </node>
+      <node id="19620">
+        <label>src/lib/io/shortcuts.cpp</label>
+        <link refid="shortcuts_8cpp"/>
+      </node>
+      <node id="19591">
+        <label>src/lib/access/SmallestTableScan.cpp</label>
+        <link refid="_smallest_table_scan_8cpp"/>
+      </node>
+      <node id="19602">
+        <label>src/lib/access/ThreadpoolAdjustment.h</label>
+        <link refid="_threadpool_adjustment_8h"/>
+        <childnode refid="19603" relation="include">
+        </childnode>
+        <childnode refid="19490" relation="include">
+        </childnode>
+      </node>
+      <node id="19671">
+        <label>src/lib/storage/TableRangeViewFactory.h</label>
+        <link refid="_table_range_view_factory_8h"/>
+        <childnode refid="19572" relation="include">
+        </childnode>
+        <childnode refid="19672" relation="include">
+        </childnode>
+      </node>
+      <node id="19548">
+        <label>src/lib/access/InsertScan.cpp</label>
+        <link refid="_insert_scan_8cpp"/>
+      </node>
+      <node id="19468">
+        <label>src/lib/access/Layouter.cpp</label>
+        <link refid="_layouter_8cpp"/>
+      </node>
+      <node id="19632">
+        <label>src/lib/storage/Store.cpp</label>
+        <link refid="_store_8cpp"/>
+      </node>
+      <node id="19637">
+        <label>src/lib/storage/SimpleStore.cpp</label>
+        <link refid="_simple_store_8cpp"/>
+      </node>
+      <node id="19661">
+        <label>src/lib/io/RawTableLoader.cpp</label>
+        <link refid="_raw_table_loader_8cpp"/>
+      </node>
+      <node id="19615">
+        <label>src/lib/access/OperationData.cpp</label>
+        <link refid="_operation_data_8cpp"/>
+      </node>
+      <node id="19577">
+        <label>src/lib/access/RadixJoin.h</label>
+        <link refid="_radix_join_8h"/>
+        <childnode refid="19578" relation="include">
+        </childnode>
+        <childnode refid="19523" relation="include">
+        </childnode>
+      </node>
+      <node id="19634">
+        <label>src/lib/storage/SequentialHeapMergerRow.cpp</label>
+        <link refid="_sequential_heap_merger_row_8cpp"/>
+      </node>
+      <node id="19631">
+        <label>src/lib/storage/PointerCalculator.cpp</label>
+        <link refid="_pointer_calculator_8cpp"/>
+      </node>
+      <node id="19604">
+        <label>src/lib/access/UnionAll.h</label>
+        <link refid="_union_all_8h"/>
+        <childnode refid="19483" relation="include">
+        </childnode>
+        <childnode refid="19605" relation="include">
+        </childnode>
+      </node>
+      <node id="19664">
+        <label>src/lib/storage/Table.cpp</label>
+        <link refid="_table_8cpp"/>
+      </node>
+      <node id="19625">
+        <label>src/lib/access/insertonly_merger.h</label>
+        <link refid="insertonly__merger_8h"/>
+        <childnode refid="19614" relation="include">
+        </childnode>
+        <childnode refid="19626" relation="include">
+        </childnode>
+      </node>
+      <node id="19666">
+        <label>src/lib/storage/TableFactory.cpp</label>
+        <link refid="_table_factory_8cpp"/>
+      </node>
+      <node id="19618">
+        <label>src/lib/io/CSVLoader.cpp</label>
+        <link refid="_c_s_v_loader_8cpp"/>
+      </node>
+      <node id="19668">
+        <label>src/lib/storage/TableDiff.cpp</label>
+        <link refid="_table_diff_8cpp"/>
+      </node>
+      <node id="19579">
+        <label>src/lib/access/ReplaceTable.h</label>
+        <link refid="_replace_table_8h"/>
+        <childnode refid="19580" relation="include">
+        </childnode>
+      </node>
+      <node id="19593">
+        <label>src/lib/access/SortScan.cpp</label>
+        <link refid="lib_2access_2_sort_scan_8cpp"/>
+      </node>
+      <node id="19555">
+        <label>src/lib/access/LayoutTableLoad.cpp</label>
+        <link refid="_layout_table_load_8cpp"/>
+      </node>
+      <node id="19470">
+        <label>src/lib/storage/TableGenerator.h</label>
+        <link refid="_table_generator_8h"/>
+        <childnode refid="19471" relation="include">
+        </childnode>
+        <childnode refid="19472" relation="include">
+        </childnode>
+        <childnode refid="19473" relation="include">
+        </childnode>
+        <childnode refid="19474" relation="include">
+        </childnode>
+        <childnode refid="19475" relation="include">
+        </childnode>
+      </node>
+      <node id="19536">
+        <label>src/lib/access/HashJoinProbe.cpp</label>
+        <link refid="_hash_join_probe_8cpp"/>
+      </node>
+      <node id="19540">
+        <label>src/lib/access/PrefixSum.cpp</label>
+        <link refid="_prefix_sum_8cpp"/>
+      </node>
+      <node id="19611">
+        <label>src/lib/access/UpdateScan.cpp</label>
+        <link refid="_update_scan_8cpp"/>
+      </node>
+      <node id="19653">
+        <label>src/lib/storage/MutableVerticalTable.h</label>
+        <link refid="_mutable_vertical_table_8h"/>
+        <childnode refid="19530" relation="include">
+        </childnode>
+        <childnode refid="19491" relation="include">
+        </childnode>
+        <childnode refid="19564" relation="include">
+        </childnode>
+        <childnode refid="19569" relation="include">
+        </childnode>
+        <childnode refid="19542" relation="include">
+        </childnode>
+        <childnode refid="19583" relation="include">
+        </childnode>
+        <childnode refid="19496" relation="include">
+        </childnode>
+        <childnode refid="19471" relation="include">
+        </childnode>
+        <childnode refid="19630" relation="include">
+        </childnode>
+        <childnode refid="19654" relation="include">
+        </childnode>
+        <childnode refid="19655" relation="include">
+        </childnode>
+        <childnode refid="19657" relation="include">
+        </childnode>
+        <childnode refid="19629" relation="include">
+        </childnode>
+        <childnode refid="19658" relation="include">
+        </childnode>
+        <childnode refid="19473" relation="include">
+        </childnode>
+        <childnode refid="19475" relation="include">
+        </childnode>
+      </node>
+      <node id="19648">
+        <label>src/lib/storage/hash_functor.h</label>
+        <link refid="hash__functor_8h"/>
+        <childnode refid="19646" relation="include">
+        </childnode>
+        <childnode refid="19649" relation="include">
+        </childnode>
+      </node>
+      <node id="19545">
+        <label>src/lib/access/InsertOnlyOperators.h</label>
+        <link refid="_insert_only_operators_8h"/>
+        <childnode refid="19546" relation="include">
+        </childnode>
+      </node>
+      <node id="19534">
+        <label>src/lib/access/HashBuild.cpp</label>
+        <link refid="_hash_build_8cpp"/>
+      </node>
+      <node id="19654">
+        <label>src/lib/storage/MutableVerticalTable.cpp</label>
+        <link refid="_mutable_vertical_table_8cpp"/>
+      </node>
+      <node id="19597">
+        <label>src/lib/access/TableScan.cpp</label>
+        <link refid="_table_scan_8cpp"/>
+      </node>
+      <node id="19564">
+        <label>src/lib/access/MultiplyRefField.h</label>
+        <link refid="_multiply_ref_field_8h"/>
+        <childnode refid="19565" relation="include">
+        </childnode>
+      </node>
+      <node id="19498">
+        <label>src/lib/access/pred_CompoundExpression.h</label>
+        <link refid="pred___compound_expression_8h"/>
+        <childnode refid="19487" relation="include">
+        </childnode>
+        <childnode refid="19499" relation="include">
+        </childnode>
+      </node>
+      <node id="19573">
+        <label>src/lib/access/PrefixSum.h</label>
+        <link refid="_prefix_sum_8h"/>
+        <childnode refid="19540" relation="include">
+        </childnode>
+      </node>
+      <node id="19644">
+        <label>src/lib/storage/cast_functor.h</label>
+        <link refid="cast__functor_8h"/>
+        <childnode refid="19645" relation="include">
+        </childnode>
+      </node>
+      <node id="19606">
+        <label>src/lib/access/UnionScan.h</label>
+        <link refid="_union_scan_8h"/>
+        <childnode refid="19607" relation="include">
+        </childnode>
+        <childnode refid="19490" relation="include">
+        </childnode>
+      </node>
+      <node id="19651">
+        <label>src/lib/storage/HorizontalTable.cpp</label>
+        <link refid="_horizontal_table_8cpp"/>
+      </node>
+      <node id="19513">
+        <label>src/lib/access/GroupByScan.h</label>
+        <link refid="_group_by_scan_8h"/>
+        <childnode refid="19514" relation="include">
+        </childnode>
+        <childnode refid="19490" relation="include">
+        </childnode>
+      </node>
+      <node id="19584">
+        <label>src/lib/access/SetTable.h</label>
+        <link refid="_set_table_8h"/>
+        <childnode refid="19585" relation="include">
+        </childnode>
+      </node>
+      <node id="19483">
+        <label>src/bin/perf_regression/UnionScan.cpp</label>
+        <link refid="bin_2perf__regression_2_union_scan_8cpp"/>
+      </node>
+      <node id="19580">
+        <label>src/lib/access/ReplaceTable.cpp</label>
+        <link refid="_replace_table_8cpp"/>
+      </node>
+      <node id="19532">
+        <label>src/lib/access/GetTable.cpp</label>
+        <link refid="_get_table_8cpp"/>
+      </node>
+      <node id="19674">
+        <label>src/lib/testing/TableEqualityTest.cpp</label>
+        <link refid="_table_equality_test_8cpp"/>
+      </node>
+      <node id="19594">
+        <label>src/lib/access/TableLoad.h</label>
+        <link refid="_table_load_8h"/>
+        <childnode refid="19595" relation="include">
+        </childnode>
+        <childnode refid="19490" relation="include">
+        </childnode>
+      </node>
+      <node id="19566">
+        <label>src/lib/access/MySQLTableLoad.h</label>
+        <link refid="_my_s_q_l_table_load_8h"/>
+        <childnode refid="19567" relation="include">
+        </childnode>
+      </node>
+      <node id="19491">
+        <label>src/lib/access/MergeJoin.hpp</label>
+        <link refid="_merge_join_8hpp"/>
+        <childnode refid="19490" relation="include">
+        </childnode>
+      </node>
+      <node id="19600">
+        <label>src/lib/access/TaskSchedulerAdjustment.h</label>
+        <link refid="_task_scheduler_adjustment_8h"/>
+        <childnode refid="19601" relation="include">
+        </childnode>
+        <childnode refid="19490" relation="include">
+        </childnode>
+      </node>
+      <node id="19649">
+        <label>src/lib/storage/HashTable.h</label>
+        <link refid="_hash_table_8h"/>
+        <childnode refid="19511" relation="include">
+        </childnode>
+        <childnode refid="19514" relation="include">
+        </childnode>
+        <childnode refid="19534" relation="include">
+        </childnode>
+        <childnode refid="19536" relation="include">
+        </childnode>
+        <childnode refid="19561" relation="include">
+        </childnode>
+        <childnode refid="19615" relation="include">
+        </childnode>
+        <childnode refid="19475" relation="include">
+        </childnode>
+      </node>
+      <node id="19539">
+        <label>src/lib/access/Histogram.cpp</label>
+        <link refid="_histogram_8cpp"/>
+      </node>
+      <node id="19572">
+        <label>src/lib/access/PlanOperation.cpp</label>
+        <link refid="_plan_operation_8cpp"/>
+      </node>
+      <node id="19541">
+        <label>src/lib/access/RadixCluster.h</label>
+        <link refid="_radix_cluster_8h"/>
+        <childnode refid="19542" relation="include">
+        </childnode>
+      </node>
+      <node id="19562">
+        <label>src/lib/access/MergeTable.h</label>
+        <link refid="_merge_table_8h"/>
+        <childnode refid="19563" relation="include">
+        </childnode>
+      </node>
+      <node id="19521">
+        <label>src/lib/access/RadixJoinTransformation.cpp</label>
+        <link refid="_radix_join_transformation_8cpp"/>
+      </node>
+      <node id="19542">
+        <label>src/lib/access/RadixCluster.cpp</label>
+        <link refid="_radix_cluster_8cpp"/>
+      </node>
+      <node id="19622">
+        <label>src/lib/io/TableDump.cpp</label>
+        <link refid="_table_dump_8cpp"/>
+      </node>
+      <node id="19581">
+        <label>src/lib/access/ResponseTask.cpp</label>
+        <link refid="_response_task_8cpp"/>
+      </node>
+      <node id="19583">
+        <label>src/lib/access/ScriptOperation.cpp</label>
+        <link refid="_script_operation_8cpp"/>
+      </node>
+      <node id="19492">
+        <label>src/lib/access/pred_buildExpression.cpp</label>
+        <link refid="pred__build_expression_8cpp"/>
+      </node>
+      <node id="19514">
+        <label>src/lib/access/GroupByScan.cpp</label>
+        <link refid="lib_2access_2_group_by_scan_8cpp"/>
+      </node>
+      <node id="19495">
+        <label>src/lib/access/pred_buildExpression.h</label>
+        <link refid="pred__build_expression_8h"/>
+        <childnode refid="19492" relation="include">
+        </childnode>
+        <childnode refid="19487" relation="include">
+        </childnode>
+        <childnode refid="19496" relation="include">
+        </childnode>
+        <childnode refid="19497" relation="include">
+        </childnode>
+      </node>
+      <node id="19524">
+        <label>src/lib/access/Barrier.h</label>
+        <link refid="_barrier_8h"/>
+        <childnode refid="19525" relation="include">
+        </childnode>
+      </node>
+      <node id="19640">
+        <label>src/lib/storage/SimpleStoreMerger.h</label>
+        <link refid="_simple_store_merger_8h"/>
+        <childnode refid="19637" relation="include">
+        </childnode>
+        <childnode refid="19638" relation="include">
+        </childnode>
+      </node>
+      <node id="19565">
+        <label>src/lib/access/MultiplyRefField.cpp</label>
+        <link refid="_multiply_ref_field_8cpp"/>
+      </node>
+      <node id="19519">
+        <label>src/lib/access/QueryTransformationEngine.h</label>
+        <link refid="_query_transformation_engine_8h"/>
+        <childnode refid="19520" relation="include">
+        </childnode>
+        <childnode refid="19521" relation="include">
+        </childnode>
+        <childnode refid="19522" relation="include">
+        </childnode>
+        <childnode refid="19490" relation="include">
+        </childnode>
+      </node>
+      <node id="19485">
+        <label>src/lib/access/pred_common.h</label>
+        <link refid="pred__common_8h"/>
+        <childnode refid="19486" relation="include">
+        </childnode>
+        <childnode refid="19494" relation="include">
+        </childnode>
+        <childnode refid="19495" relation="include">
+        </childnode>
+        <childnode refid="19498" relation="include">
+        </childnode>
+        <childnode refid="19501" relation="include">
+        </childnode>
+        <childnode refid="19503" relation="include">
+        </childnode>
+        <childnode refid="19504" relation="include">
+        </childnode>
+        <childnode refid="19505" relation="include">
+        </childnode>
+        <childnode refid="19506" relation="include">
+        </childnode>
+        <childnode refid="19507" relation="include">
+        </childnode>
+        <childnode refid="19499" relation="include">
+        </childnode>
+      </node>
+      <node id="19486">
+        <label>src/lib/access/pred_BetweenOperation.h</label>
+        <link refid="pred___between_operation_8h"/>
+        <childnode refid="19487" relation="include">
+        </childnode>
+      </node>
+      <node id="19574">
+        <label>src/lib/access/ProjectionScan.h</label>
+        <link refid="_projection_scan_8h"/>
+        <childnode refid="19575" relation="include">
+        </childnode>
+        <childnode refid="19490" relation="include">
+        </childnode>
+      </node>
+      <node id="19570">
+        <label>src/lib/access/NoOp.h</label>
+        <link refid="_no_op_8h"/>
+        <childnode refid="19571" relation="include">
+        </childnode>
+      </node>
+      <node id="19479">
+        <label>src/bin/perf_regression/JoinScan.cpp</label>
+        <link refid="bin_2perf__regression_2_join_scan_8cpp"/>
+      </node>
+      <node id="19657">
+        <label>src/lib/storage/PointerCalculatorFactory.cpp</label>
+        <link refid="_pointer_calculator_factory_8cpp"/>
+      </node>
+      <node id="19613">
+        <label>src/lib/testing/test.cpp</label>
+        <link refid="test_8cpp"/>
+      </node>
+      <node id="19523">
+        <label>src/lib/access/RadixJoinTransformation.h</label>
+        <link refid="_radix_join_transformation_8h"/>
+        <childnode refid="19521" relation="include">
+        </childnode>
+      </node>
+      <node id="19669">
+        <label>src/lib/storage/TableRangeView.h</label>
+        <link refid="_table_range_view_8h"/>
+        <childnode refid="19534" relation="include">
+        </childnode>
+        <childnode refid="19572" relation="include">
+        </childnode>
+        <childnode refid="19631" relation="include">
+        </childnode>
+        <childnode refid="19670" relation="include">
+        </childnode>
+        <childnode refid="19671" relation="include">
+        </childnode>
+      </node>
+      <node id="19484">
+        <label>src/lib/storage/ValueIdMap.hpp</label>
+        <link refid="_value_id_map_8hpp"/>
+        <childnode refid="19485" relation="include">
+        </childnode>
+        <childnode refid="19508" relation="include">
+        </childnode>
+        <childnode refid="19627" relation="include">
+        </childnode>
+        <childnode refid="19633" relation="include">
+        </childnode>
+        <childnode refid="19475" relation="include">
+        </childnode>
+      </node>
+      <node id="19518">
+        <label>src/lib/access/AbstractPlanOpTransformation.h</label>
+        <link refid="_abstract_plan_op_transformation_8h"/>
+        <childnode refid="19519" relation="include">
+        </childnode>
+        <childnode refid="19523" relation="include">
+        </childnode>
+      </node>
+      <node id="19510">
+        <label>src/bin/test_relation_eq/main.cpp</label>
+        <link refid="bin_2test__relation__eq_2main_8cpp"/>
+      </node>
+      <node id="19558">
+        <label>src/lib/access/MaterializingScan.h</label>
+        <link refid="_materializing_scan_8h"/>
+        <childnode refid="19559" relation="include">
+        </childnode>
+        <childnode refid="19490" relation="include">
+        </childnode>
+      </node>
+      <node id="19502">
+        <label>src/bin/perf_regression/scan_performance.cpp</label>
+        <link refid="scan__performance_8cpp"/>
+      </node>
+      <node id="19660">
+        <label>src/lib/storage/RawTable.h</label>
+        <link refid="_raw_table_8h"/>
+        <childnode refid="19626" relation="include">
+        </childnode>
+        <childnode refid="19501" relation="include">
+        </childnode>
+        <childnode refid="19496" relation="include">
+        </childnode>
+        <childnode refid="19661" relation="include">
+        </childnode>
+        <childnode refid="19659" relation="include">
+        </childnode>
+        <childnode refid="19662" relation="include">
+        </childnode>
+        <childnode refid="19636" relation="include">
+        </childnode>
+        <childnode refid="19638" relation="include">
+        </childnode>
+        <childnode refid="19475" relation="include">
+        </childnode>
+      </node>
+      <node id="19561">
+        <label>src/lib/access/MergeHashTables.cpp</label>
+        <link refid="_merge_hash_tables_8cpp"/>
+      </node>
+      <node id="19603">
+        <label>src/lib/access/ThreadpoolAdjustment.cpp</label>
+        <link refid="_threadpool_adjustment_8cpp"/>
+      </node>
+      <node id="19667">
+        <label>src/lib/storage/TableBuilder.h</label>
+        <link refid="_table_builder_8h"/>
+        <childnode refid="19583" relation="include">
+        </childnode>
+        <childnode refid="19621" relation="include">
+        </childnode>
+        <childnode refid="19658" relation="include">
+        </childnode>
+      </node>
+      <node id="19512">
+        <label>src/lib/access/AggregateFunctions.cpp</label>
+        <link refid="_aggregate_functions_8cpp"/>
+      </node>
+      <node id="19503">
+        <label>src/lib/access/pred_GreaterThanExpression.h</label>
+        <link refid="pred___greater_than_expression_8h"/>
+        <childnode refid="19487" relation="include">
+        </childnode>
+      </node>
+      <node id="19575">
+        <label>src/lib/access/ProjectionScan.cpp</label>
+        <link refid="lib_2access_2_projection_scan_8cpp"/>
+      </node>
+      <node id="19623">
+        <label>src/lib/io/VectorLoader.cpp</label>
+        <link refid="_vector_loader_8cpp"/>
+      </node>
+      <node id="19467">
+        <label>src/lib/storage/OrderIndifferentDictionary.h</label>
+        <link refid="_order_indifferent_dictionary_8h"/>
+        <childnode refid="19468" relation="include">
+        </childnode>
+        <childnode refid="19469" relation="include">
+        </childnode>
+        <childnode refid="19484" relation="include">
+        </childnode>
+      </node>
+      <node id="19626">
+        <label>src/lib/access/insertonly_merger.cpp</label>
+        <link refid="insertonly__merger_8cpp"/>
+      </node>
+      <node id="19617">
+        <label>src/lib/io/MPassCSVLoader.cpp</label>
+        <link refid="_m_pass_c_s_v_loader_8cpp"/>
+      </node>
+      <node id="19641">
+        <label>src/lib/storage/AbstractMergeStrategy.h</label>
+        <link refid="_abstract_merge_strategy_8h"/>
+        <childnode refid="19642" relation="include">
+        </childnode>
+        <childnode refid="19635" relation="include">
+        </childnode>
+        <childnode refid="19475" relation="include">
+        </childnode>
+      </node>
+      <node id="19601">
+        <label>src/lib/access/TaskSchedulerAdjustment.cpp</label>
+        <link refid="_task_scheduler_adjustment_8cpp"/>
+      </node>
+      <node id="19569">
+        <label>src/lib/access/NestedLoopEquiJoin.cpp</label>
+        <link refid="_nested_loop_equi_join_8cpp"/>
+      </node>
+      <node id="19643">
+        <label>src/lib/storage/LogarithmicMergeStrategy.cpp</label>
+        <link refid="_logarithmic_merge_strategy_8cpp"/>
+      </node>
+      <node id="19646">
+        <label>src/lib/storage/GroupValue.cpp</label>
+        <link refid="_group_value_8cpp"/>
+      </node>
+      <node id="19482">
+        <label>src/bin/perf_regression/SortScan.cpp</label>
+        <link refid="bin_2perf__regression_2_sort_scan_8cpp"/>
+      </node>
+      <node id="19471">
+        <label>src/lib/io/Loader.cpp</label>
+        <link refid="_loader_8cpp"/>
+      </node>
+      <node id="19629">
+        <label>src/lib/storage/Store.h</label>
+        <link refid="_store_8h"/>
+        <childnode refid="19548" relation="include">
+        </childnode>
+        <childnode refid="19553" relation="include">
+        </childnode>
+        <childnode refid="19563" relation="include">
+        </childnode>
+        <childnode refid="19611" relation="include">
+        </childnode>
+        <childnode refid="19471" relation="include">
+        </childnode>
+        <childnode refid="19617" relation="include">
+        </childnode>
+        <childnode refid="19620" relation="include">
+        </childnode>
+        <childnode refid="19622" relation="include">
+        </childnode>
+        <childnode refid="19630" relation="include">
+        </childnode>
+        <childnode refid="19631" relation="include">
+        </childnode>
+        <childnode refid="19632" relation="include">
+        </childnode>
+        <childnode refid="19475" relation="include">
+        </childnode>
+      </node>
+      <node id="19656">
+        <label>src/lib/access/insertonly_valid.h</label>
+        <link refid="insertonly__valid_8h"/>
+        <childnode refid="19614" relation="include">
+        </childnode>
+        <childnode refid="19626" relation="include">
+        </childnode>
+      </node>
+      <node id="19663">
+        <label>src/lib/storage/Table.h</label>
+        <link refid="_table_8h"/>
+        <childnode refid="19530" relation="include">
+        </childnode>
+        <childnode refid="19468" relation="include">
+        </childnode>
+        <childnode refid="19559" relation="include">
+        </childnode>
+        <childnode refid="19540" relation="include">
+        </childnode>
+        <childnode refid="19593" relation="include">
+        </childnode>
+        <childnode refid="19630" relation="include">
+        </childnode>
+        <childnode refid="19646" relation="include">
+        </childnode>
+        <childnode refid="19650" relation="include">
+        </childnode>
+        <childnode refid="19653" relation="include">
+        </childnode>
+        <childnode refid="19664" relation="include">
+        </childnode>
+        <childnode refid="19658" relation="include">
+        </childnode>
+        <childnode refid="19665" relation="include">
+        </childnode>
+        <childnode refid="19469" relation="include">
+        </childnode>
+        <childnode refid="19475" relation="include">
+        </childnode>
+      </node>
+      <node id="19547">
+        <label>src/lib/access/InsertScan.h</label>
+        <link refid="_insert_scan_8h"/>
+        <childnode refid="19548" relation="include">
+        </childnode>
+        <childnode refid="19490" relation="include">
+        </childnode>
+      </node>
+      <node id="19596">
+        <label>src/lib/access/TableScan.h</label>
+        <link refid="_table_scan_8h"/>
+        <childnode refid="19502" relation="include">
+        </childnode>
+        <childnode refid="19597" relation="include">
+        </childnode>
+      </node>
+      <node id="19628">
+        <label>src/lib/storage/SequentialHeapMerger.cpp</label>
+        <link refid="_sequential_heap_merger_8cpp"/>
+      </node>
+      <node id="19538">
+        <label>src/lib/access/Histogram.h</label>
+        <link refid="_histogram_8h"/>
+        <childnode refid="19539" relation="include">
+        </childnode>
+        <childnode refid="19540" relation="include">
+        </childnode>
+        <childnode refid="19541" relation="include">
+        </childnode>
+      </node>
+      <node id="19466">
+        <label>src/lib/storage/csb_tree.cpp</label>
+        <link refid="csb__tree_8cpp"/>
+      </node>
+      <node id="19476">
+        <label>src/bin/perf_regression/GroupByScan.cpp</label>
+        <link refid="bin_2perf__regression_2_group_by_scan_8cpp"/>
+      </node>
+      <node id="19480">
+        <label>src/bin/perf_regression/ProjectionScan.cpp</label>
+        <link refid="bin_2perf__regression_2_projection_scan_8cpp"/>
+      </node>
+      <node id="19638">
+        <label>src/lib/storage/SimpleStoreMerger.cpp</label>
+        <link refid="_simple_store_merger_8cpp"/>
+      </node>
+      <node id="19500">
+        <label>src/lib/access/pred_PredicateBuilder.cpp</label>
+        <link refid="pred___predicate_builder_8cpp"/>
+      </node>
+      <node id="19673">
+        <label>src/lib/storage/TableUtils.cpp</label>
+        <link refid="_table_utils_8cpp"/>
+      </node>
+      <node id="19552">
+        <label>src/lib/access/LayoutTable.h</label>
+        <link refid="_layout_table_8h"/>
+        <childnode refid="19553" relation="include">
+        </childnode>
+      </node>
+      <node id="19508">
+        <label>src/lib/storage/AbstractTable.h</label>
+        <link refid="_abstract_table_8h"/>
+        <childnode refid="19509" relation="include">
+        </childnode>
+        <childnode refid="19502" relation="include">
+        </childnode>
+        <childnode refid="19510" relation="include">
+        </childnode>
+        <childnode refid="19511" relation="include">
+        </childnode>
+        <childnode refid="19515" relation="include">
+        </childnode>
+        <childnode refid="19516" relation="include">
+        </childnode>
+        <childnode refid="19517" relation="include">
+        </childnode>
+        <childnode refid="19537" relation="include">
+        </childnode>
+        <childnode refid="19614" relation="include">
+        </childnode>
+        <childnode refid="19491" relation="include">
+        </childnode>
+        <childnode refid="19615" relation="include">
+        </childnode>
+        <childnode refid="19572" relation="include">
+        </childnode>
+        <childnode refid="19485" relation="include">
+        </childnode>
+        <childnode refid="19581" relation="include">
+        </childnode>
+        <childnode refid="19593" relation="include">
+        </childnode>
+        <childnode refid="19597" relation="include">
+        </childnode>
+        <childnode refid="19616" relation="include">
+        </childnode>
+        <childnode refid="19618" relation="include">
+        </childnode>
+        <childnode refid="19471" relation="include">
+        </childnode>
+        <childnode refid="19619" relation="include">
+        </childnode>
+        <childnode refid="19617" relation="include">
+        </childnode>
+        <childnode refid="19620" relation="include">
+        </childnode>
+        <childnode refid="19621" relation="include">
+        </childnode>
+        <childnode refid="19622" relation="include">
+        </childnode>
+        <childnode refid="19472" relation="include">
+        </childnode>
+        <childnode refid="19623" relation="include">
+        </childnode>
+        <childnode refid="19624" relation="include">
+        </childnode>
+        <childnode refid="19641" relation="include">
+        </childnode>
+        <childnode refid="19630" relation="include">
+        </childnode>
+        <childnode refid="19644" relation="include">
+        </childnode>
+        <childnode refid="19648" relation="include">
+        </childnode>
+        <childnode refid="19649" relation="include">
+        </childnode>
+        <childnode refid="19650" relation="include">
+        </childnode>
+        <childnode refid="19652" relation="include">
+        </childnode>
+        <childnode refid="19642" relation="include">
+        </childnode>
+        <childnode refid="19653" relation="include">
+        </childnode>
+        <childnode refid="19655" relation="include">
+        </childnode>
+        <childnode refid="19659" relation="include">
+        </childnode>
+        <childnode refid="19660" relation="include">
+        </childnode>
+        <childnode refid="19627" relation="include">
+        </childnode>
+        <childnode refid="19633" relation="include">
+        </childnode>
+        <childnode refid="19636" relation="include">
+        </childnode>
+        <childnode refid="19635" relation="include">
+        </childnode>
+        <childnode refid="19629" relation="include">
+        </childnode>
+        <childnode refid="19663" relation="include">
+        </childnode>
+        <childnode refid="19658" relation="include">
+        </childnode>
+        <childnode refid="19667" relation="include">
+        </childnode>
+        <childnode refid="19668" relation="include">
+        </childnode>
+        <childnode refid="19665" relation="include">
+        </childnode>
+        <childnode refid="19473" relation="include">
+        </childnode>
+        <childnode refid="19470" relation="include">
+        </childnode>
+        <childnode refid="19669" relation="include">
+        </childnode>
+        <childnode refid="19671" relation="include">
+        </childnode>
+        <childnode refid="19673" relation="include">
+        </childnode>
+        <childnode refid="19475" relation="include">
+        </childnode>
+        <childnode refid="19674" relation="include">
+        </childnode>
+      </node>
+      <node id="19650">
+        <label>src/lib/storage/HorizontalTable.h</label>
+        <link refid="_horizontal_table_8h"/>
+        <childnode refid="19605" relation="include">
+        </childnode>
+        <childnode refid="19607" relation="include">
+        </childnode>
+        <childnode refid="19651" relation="include">
+        </childnode>
+      </node>
+      <node id="19474">
+        <label>src/lib/storage/TestDataGenerator.cpp</label>
+        <link refid="_test_data_generator_8cpp"/>
+      </node>
+      <node id="19665">
+        <label>src/lib/storage/TableFactory.h</label>
+        <link refid="_table_factory_8h"/>
+        <childnode refid="19471" relation="include">
+        </childnode>
+        <childnode refid="19653" relation="include">
+        </childnode>
+        <childnode refid="19666" relation="include">
+        </childnode>
+        <childnode refid="19475" relation="include">
+        </childnode>
+      </node>
+      <node id="19614">
+        <label>src/lib/access/insertonly.cpp</label>
+        <link refid="insertonly_8cpp"/>
+      </node>
+      <node id="19529">
+        <label>src/lib/access/ExpressionScan.h</label>
+        <link refid="_expression_scan_8h"/>
+        <childnode refid="19530" relation="include">
+        </childnode>
+        <childnode refid="19490" relation="include">
+        </childnode>
+      </node>
+      <node id="19647">
+        <label>src/lib/storage/storage_types_helper.cpp</label>
+        <link refid="storage__types__helper_8cpp"/>
+      </node>
+      <node id="19624">
+        <label>src/lib/storage/AbstractMerger.h</label>
+        <link refid="_abstract_merger_8h"/>
+        <childnode refid="19625" relation="include">
+        </childnode>
+        <childnode refid="19627" relation="include">
+        </childnode>
+        <childnode refid="19633" relation="include">
+        </childnode>
+        <childnode refid="19635" relation="include">
+        </childnode>
+        <childnode refid="19640" relation="include">
+        </childnode>
+        <childnode refid="19639" relation="include">
+        </childnode>
+        <childnode refid="19475" relation="include">
+        </childnode>
+      </node>
+      <node id="19477">
+        <label>src/bin/perf_regression/HashJoin.cpp</label>
+        <link refid="_hash_join_8cpp"/>
+      </node>
+      <node id="19588">
+        <label>src/lib/access/SimpleRawTableScan.h</label>
+        <link refid="_simple_raw_table_scan_8h"/>
+        <childnode refid="19496" relation="include">
+        </childnode>
+        <childnode refid="19490" relation="include">
+        </childnode>
+      </node>
+      <node id="19672">
+        <label>src/lib/storage/TableRangeViewFactory.cpp</label>
+        <link refid="_table_range_view_factory_8cpp"/>
+      </node>
+      <node id="19531">
+        <label>src/lib/access/GetTable.h</label>
+        <link refid="_get_table_8h"/>
+        <childnode refid="19532" relation="include">
+        </childnode>
+      </node>
+      <node id="19576">
+        <label>src/lib/access/QueryParser.cpp</label>
+        <link refid="_query_parser_8cpp"/>
+      </node>
+      <node id="19642">
+        <label>src/lib/storage/LogarithmicMergeStrategy.h</label>
+        <link refid="_logarithmic_merge_strategy_8h"/>
+        <childnode refid="19614" relation="include">
+        </childnode>
+        <childnode refid="19471" relation="include">
+        </childnode>
+        <childnode refid="19643" relation="include">
+        </childnode>
+        <childnode refid="19637" relation="include">
+        </childnode>
+        <childnode refid="19629" relation="include">
+        </childnode>
+        <childnode refid="19473" relation="include">
+        </childnode>
+        <childnode refid="19474" relation="include">
+        </childnode>
+        <childnode refid="19475" relation="include">
+        </childnode>
+      </node>
+      <node id="19567">
+        <label>src/lib/access/MySQLTableLoad.cpp</label>
+        <link refid="_my_s_q_l_table_load_8cpp"/>
+      </node>
+      <node id="19599">
+        <label>src/lib/access/TableUnload.cpp</label>
+        <link refid="_table_unload_8cpp"/>
+      </node>
+      <node id="19535">
+        <label>src/lib/access/HashJoinProbe.h</label>
+        <link refid="_hash_join_probe_8h"/>
+        <childnode refid="19536" relation="include">
+        </childnode>
+        <childnode refid="19490" relation="include">
+        </childnode>
+      </node>
+      <node id="19556">
+        <label>src/lib/access/LoadFile.h</label>
+        <link refid="_load_file_8h"/>
+        <childnode refid="19557" relation="include">
+        </childnode>
+      </node>
+      <node id="19592">
+        <label>src/lib/access/SortScan.h</label>
+        <link refid="_sort_scan_8h"/>
+        <childnode refid="19593" relation="include">
+        </childnode>
+        <childnode refid="19490" relation="include">
+        </childnode>
+      </node>
+      <node id="19582">
+        <label>src/lib/access/ScriptOperation.h</label>
+        <link refid="_script_operation_8h"/>
+        <childnode refid="19583" relation="include">
+        </childnode>
+      </node>
+      <node id="19636">
+        <label>src/lib/storage/SimpleStore.h</label>
+        <link refid="_simple_store_8h"/>
+        <childnode refid="19614" relation="include">
+        </childnode>
+        <childnode refid="19626" relation="include">
+        </childnode>
+        <childnode refid="19546" relation="include">
+        </childnode>
+        <childnode refid="19581" relation="include">
+        </childnode>
+        <childnode refid="19471" relation="include">
+        </childnode>
+        <childnode refid="19637" relation="include">
+        </childnode>
+        <childnode refid="19638" relation="include">
+        </childnode>
+        <childnode refid="19475" relation="include">
+        </childnode>
+      </node>
+      <node id="19587">
+        <label>src/lib/access/SettingsOperation.cpp</label>
+        <link refid="_settings_operation_8cpp"/>
+      </node>
+      <node id="19533">
+        <label>src/lib/access/HashBuild.h</label>
+        <link refid="_hash_build_8h"/>
+        <childnode refid="19534" relation="include">
+        </childnode>
+        <childnode refid="19490" relation="include">
+        </childnode>
+      </node>
+      <node id="19652">
+        <label>src/lib/storage/InvertedIndex.h</label>
+        <link refid="_inverted_index_8h"/>
+        <childnode refid="19515" relation="include">
+        </childnode>
+        <childnode refid="19544" relation="include">
+        </childnode>
+        <childnode refid="19475" relation="include">
+        </childnode>
+      </node>
+      <node id="19630">
+        <label>src/lib/storage/AbstractTable.cpp</label>
+        <link refid="_abstract_table_8cpp"/>
+      </node>
+      <node id="19607">
+        <label>src/lib/access/UnionScan.cpp</label>
+        <link refid="lib_2access_2_union_scan_8cpp"/>
+      </node>
+      <node id="19595">
+        <label>src/lib/access/TableLoad.cpp</label>
+        <link refid="_table_load_8cpp"/>
+      </node>
+      <node id="19557">
+        <label>src/lib/access/LoadFile.cpp</label>
+        <link refid="_load_file_8cpp"/>
+      </node>
+      <node id="19616">
+        <label>src/lib/io/ColumnLoader.h</label>
+        <link refid="_column_loader_8h"/>
+        <childnode refid="19617" relation="include">
+        </childnode>
+      </node>
+      <node id="19655">
+        <label>src/lib/storage/PointerCalculator.h</label>
+        <link refid="_pointer_calculator_8h"/>
+        <childnode refid="19515" relation="include">
+        </childnode>
+        <childnode refid="19528" relation="include">
+        </childnode>
+        <childnode refid="19514" relation="include">
+        </childnode>
+        <childnode refid="19536" relation="include">
+        </childnode>
+        <childnode refid="19538" relation="include">
+        </childnode>
+        <childnode refid="19544" relation="include">
+        </childnode>
+        <childnode refid="19614" relation="include">
+        </childnode>
+        <childnode refid="19656" relation="include">
+        </childnode>
+        <childnode refid="19546" relation="include">
+        </childnode>
+        <childnode refid="19550" relation="include">
+        </childnode>
+        <childnode refid="19489" relation="include">
+        </childnode>
+        <childnode refid="19491" relation="include">
+        </childnode>
+        <childnode refid="19564" relation="include">
+        </childnode>
+        <childnode refid="19569" relation="include">
+        </childnode>
+        <childnode refid="19575" relation="include">
+        </childnode>
+        <childnode refid="19583" relation="include">
+        </childnode>
+        <childnode refid="19496" relation="include">
+        </childnode>
+        <childnode refid="19497" relation="include">
+        </childnode>
+        <childnode refid="19593" relation="include">
+        </childnode>
+        <childnode refid="19597" relation="include">
+        </childnode>
+        <childnode refid="19605" relation="include">
+        </childnode>
+        <childnode refid="19607" relation="include">
+        </childnode>
+        <childnode refid="19631" relation="include">
+        </childnode>
+        <childnode refid="19657" relation="include">
+        </childnode>
+        <childnode refid="19645" relation="include">
+        </childnode>
+        <childnode refid="19475" relation="include">
+        </childnode>
+      </node>
+      <node id="19627">
+        <label>src/lib/storage/SequentialHeapMerger.h</label>
+        <link refid="_sequential_heap_merger_8h"/>
+        <childnode refid="19553" relation="include">
+        </childnode>
+        <childnode refid="19471" relation="include">
+        </childnode>
+        <childnode refid="19628" relation="include">
+        </childnode>
+        <childnode refid="19629" relation="include">
+        </childnode>
+        <childnode refid="19473" relation="include">
+        </childnode>
+        <childnode refid="19474" relation="include">
+        </childnode>
+        <childnode refid="19475" relation="include">
+        </childnode>
+      </node>
+      <node id="19589">
+        <label>src/lib/access/SimpleTableScan.h</label>
+        <link refid="_simple_table_scan_8h"/>
+        <childnode refid="19497" relation="include">
+        </childnode>
+        <childnode refid="19490" relation="include">
+        </childnode>
+      </node>
+      <node id="19645">
+        <label>src/lib/storage/storage_types_helper.h</label>
+        <link refid="storage__types__helper_8h"/>
+        <childnode refid="19622" relation="include">
+        </childnode>
+        <childnode refid="19630" relation="include">
+        </childnode>
+        <childnode refid="19646" relation="include">
+        </childnode>
+        <childnode refid="19647" relation="include">
+        </childnode>
+      </node>
+      <node id="19537">
+        <label>src/lib/access/HashValueJoin.hpp</label>
+        <link refid="_hash_value_join_8hpp"/>
+        <childnode refid="19490" relation="include">
+        </childnode>
+      </node>
+      <node id="19496">
+        <label>src/lib/access/SimpleRawTableScan.cpp</label>
+        <link refid="_simple_raw_table_scan_8cpp"/>
+      </node>
+      <node id="19469">
+        <label>src/lib/storage/TableGenerator-impl.h</label>
+        <link refid="_table_generator-impl_8h"/>
+        <childnode refid="19470" relation="include">
+        </childnode>
+      </node>
+      <node id="19568">
+        <label>src/lib/access/NestedLoopEquiJoin.h</label>
+        <link refid="_nested_loop_equi_join_8h"/>
+        <childnode refid="19569" relation="include">
+        </childnode>
+      </node>
+      <node id="19605">
+        <label>src/lib/access/UnionAll.cpp</label>
+        <link refid="_union_all_8cpp"/>
+      </node>
+      <node id="19609">
+        <label>src/lib/access/UnloadAll.cpp</label>
+        <link refid="_unload_all_8cpp"/>
+      </node>
+      <node id="19478">
+        <label>src/bin/perf_regression/HashValueJoin.cpp</label>
+        <link refid="_hash_value_join_8cpp"/>
+      </node>
+      <node id="19553">
+        <label>src/lib/access/LayoutTable.cpp</label>
+        <link refid="_layout_table_8cpp"/>
+      </node>
+      <node id="19658">
+        <label>src/lib/storage/TableBuilder.cpp</label>
+        <link refid="_table_builder_8cpp"/>
+      </node>
+      <node id="19635">
+        <label>src/lib/storage/TableMerger.h</label>
+        <link refid="_table_merger_8h"/>
+        <childnode refid="19636" relation="include">
+        </childnode>
+        <childnode refid="19637" relation="include">
+        </childnode>
+        <childnode refid="19629" relation="include">
+        </childnode>
+        <childnode refid="19473" relation="include">
+        </childnode>
+        <childnode refid="19639" relation="include">
+        </childnode>
+        <childnode refid="19474" relation="include">
+        </childnode>
+        <childnode refid="19475" relation="include">
+        </childnode>
+      </node>
+      <node id="19490">
+        <label>src/lib/access.h</label>
+        <link refid="access_8h"/>
+        <childnode refid="19476" relation="include">
+        </childnode>
+        <childnode refid="19477" relation="include">
+        </childnode>
+        <childnode refid="19478" relation="include">
+        </childnode>
+        <childnode refid="19479" relation="include">
+        </childnode>
+        <childnode refid="19480" relation="include">
+        </childnode>
+        <childnode refid="19481" relation="include">
+        </childnode>
+        <childnode refid="19482" relation="include">
+        </childnode>
+        <childnode refid="19483" relation="include">
+        </childnode>
+      </node>
+      <node id="19662">
+        <label>src/lib/storage/RawTable.cpp</label>
+        <link refid="_raw_table_8cpp"/>
+      </node>
+      <node id="19520">
+        <label>src/lib/access/QueryTransformationEngine.cpp</label>
+        <link refid="_query_transformation_engine_8cpp"/>
+      </node>
+      <node id="19487">
+        <label>src/lib/access/predicates.h</label>
+        <link refid="predicates_8h"/>
+        <childnode refid="19488" relation="include">
+        </childnode>
+        <childnode refid="19491" relation="include">
+        </childnode>
+        <childnode refid="19492" relation="include">
+        </childnode>
+        <childnode refid="19493" relation="include">
+        </childnode>
+        <childnode refid="19490" relation="include">
+        </childnode>
+      </node>
+      <node id="19619">
+        <label>src/lib/io/MetadataCreation.cpp</label>
+        <link refid="_metadata_creation_8cpp"/>
+      </node>
+      <node id="19506">
+        <label>src/lib/access/pred_MultiTableEqualsExpression.h</label>
+        <link refid="pred___multi_table_equals_expression_8h"/>
+        <childnode refid="19487" relation="include">
+        </childnode>
+      </node>
+      <node id="19610">
+        <label>src/lib/access/UpdateScan.h</label>
+        <link refid="_update_scan_8h"/>
+        <childnode refid="19611" relation="include">
+        </childnode>
+        <childnode refid="19490" relation="include">
+        </childnode>
+      </node>
+      <node id="19472">
+        <label>src/lib/io/ValidityTableGeneration.cpp</label>
+        <link refid="_validity_table_generation_8cpp"/>
+      </node>
+      <node id="19530">
+        <label>src/lib/access/ExpressionScan.cpp</label>
+        <link refid="_expression_scan_8cpp"/>
+      </node>
+      <node id="19505">
+        <label>src/lib/access/pred_MultiTableBetweenExpression.h</label>
+        <link refid="pred___multi_table_between_expression_8h"/>
+        <childnode refid="19487" relation="include">
+        </childnode>
+      </node>
+      <node id="19473">
+        <label>src/lib/storage/TableGenerator.cpp</label>
+        <link refid="_table_generator_8cpp"/>
+      </node>
+      <node id="19481">
+        <label>src/bin/perf_regression/SimpleTableScan.cpp</label>
+        <link refid="bin_2perf__regression_2_simple_table_scan_8cpp"/>
+      </node>
+      <node id="19501">
+        <label>src/lib/access/pred_EqualsExpression.h</label>
+        <link refid="pred___equals_expression_8h"/>
+        <childnode refid="19502" relation="include">
+        </childnode>
+        <childnode refid="19487" relation="include">
+        </childnode>
+      </node>
+      <node id="19509">
+        <label>src/bin/perf_regression/Loading.cpp</label>
+        <link refid="_loading_8cpp"/>
+      </node>
+      <node id="19546">
+        <label>src/lib/access/InsertOnlyOperators.cpp</label>
+        <link refid="_insert_only_operators_8cpp"/>
+      </node>
+      <node id="19563">
+        <label>src/lib/access/MergeTable.cpp</label>
+        <link refid="_merge_table_8cpp"/>
+      </node>
+      <node id="19497">
+        <label>src/lib/access/SimpleTableScan.cpp</label>
+        <link refid="lib_2access_2_simple_table_scan_8cpp"/>
+      </node>
+      <node id="19516">
+        <label>src/lib/access/ExampleExpression.cpp</label>
+        <link refid="_example_expression_8cpp"/>
+      </node>
+      <node id="19543">
+        <label>src/lib/access/IndexScan.h</label>
+        <link refid="_index_scan_8h"/>
+        <childnode refid="19544" relation="include">
+        </childnode>
+      </node>
+      <node id="19554">
+        <label>src/lib/access/LayoutTableLoad.h</label>
+        <link refid="_layout_table_load_8h"/>
+        <childnode refid="19555" relation="include">
+        </childnode>
+      </node>
+      <node id="19507">
+        <label>src/lib/access/pred_MultiTableLessThanExpression.h</label>
+        <link refid="pred___multi_table_less_than_expression_8h"/>
+        <childnode refid="19487" relation="include">
+        </childnode>
+      </node>
+      <node id="19578">
+        <label>src/lib/access/RadixJoin.cpp</label>
+        <link refid="_radix_join_8cpp"/>
+      </node>
+      <node id="19522">
+        <label>src/lib/access/RequestParseTask.cpp</label>
+        <link refid="_request_parse_task_8cpp"/>
+      </node>
+      <node id="19598">
+        <label>src/lib/access/TableUnload.h</label>
+        <link refid="_table_unload_8h"/>
+        <childnode refid="19599" relation="include">
+        </childnode>
+        <childnode refid="19490" relation="include">
+        </childnode>
+      </node>
+      <node id="19586">
+        <label>src/lib/access/SettingsOperation.h</label>
+        <link refid="_settings_operation_8h"/>
+        <childnode refid="19587" relation="include">
+        </childnode>
+        <childnode refid="19490" relation="include">
+        </childnode>
+      </node>
+      <node id="19633">
+        <label>src/lib/storage/SequentialHeapMergerRow.h</label>
+        <link refid="_sequential_heap_merger_row_8h"/>
+        <childnode refid="19634" relation="include">
+        </childnode>
+        <childnode refid="19475" relation="include">
+        </childnode>
+      </node>
+      <node id="19608">
+        <label>src/lib/access/UnloadAll.h</label>
+        <link refid="_unload_all_8h"/>
+        <childnode refid="19609" relation="include">
+        </childnode>
+        <childnode refid="19490" relation="include">
+        </childnode>
+      </node>
+      <node id="19670">
+        <label>src/lib/storage/TableRangeView.cpp</label>
+        <link refid="_table_range_view_8cpp"/>
+      </node>
+      <node id="19659">
+        <label>src/lib/storage/PrettyPrinter.cpp</label>
+        <link refid="_pretty_printer_8cpp"/>
+      </node>
+      <node id="19560">
+        <label>src/lib/access/MergeHashTables.h</label>
+        <link refid="_merge_hash_tables_8h"/>
+        <childnode refid="19561" relation="include">
+        </childnode>
+      </node>
+      <node id="19590">
+        <label>src/lib/access/SmallestTableScan.h</label>
+        <link refid="_smallest_table_scan_8h"/>
+        <childnode refid="19591" relation="include">
+        </childnode>
+        <childnode refid="19490" relation="include">
+        </childnode>
+      </node>
+      <node id="19494">
+        <label>src/lib/access/pred_SimpleFieldExpression.h</label>
+        <link refid="pred___simple_field_expression_8h"/>
+        <childnode refid="19485" relation="include">
+        </childnode>
+        <childnode refid="19487" relation="include">
+        </childnode>
+      </node>
+      <node id="19488">
+        <label>src/lib/access/JoinScan.h</label>
+        <link refid="_join_scan_8h"/>
+        <childnode refid="19489" relation="include">
+        </childnode>
+        <childnode refid="19490" relation="include">
+        </childnode>
+      </node>
+      <node id="19544">
+        <label>src/lib/access/IndexScan.cpp</label>
+        <link refid="_index_scan_8cpp"/>
+      </node>
+      <node id="19621">
+        <label>src/lib/io/StorageManager.cpp</label>
+        <link refid="_storage_manager_8cpp"/>
+      </node>
+      <node id="19571">
+        <label>src/lib/access/NoOp.cpp</label>
+        <link refid="_no_op_8cpp"/>
+      </node>
+      <node id="19559">
+        <label>src/lib/access/MaterializingScan.cpp</label>
+        <link refid="_materializing_scan_8cpp"/>
+      </node>
+      <node id="19517">
+        <label>src/lib/access/PlanOperation.h</label>
+        <link refid="_plan_operation_8h"/>
+        <childnode refid="19518" relation="include">
+        </childnode>
+        <childnode refid="19524" relation="include">
+        </childnode>
+        <childnode refid="19526" relation="include">
+        </childnode>
+        <childnode refid="19527" relation="include">
+        </childnode>
+        <childnode refid="19529" relation="include">
+        </childnode>
+        <childnode refid="19531" relation="include">
+        </childnode>
+        <childnode refid="19513" relation="include">
+        </childnode>
+        <childnode refid="19533" relation="include">
+        </childnode>
+        <childnode refid="19535" relation="include">
+        </childnode>
+        <childnode refid="19537" relation="include">
+        </childnode>
+        <childnode refid="19538" relation="include">
+        </childnode>
+        <childnode refid="19543" relation="include">
+        </childnode>
+        <childnode refid="19545" relation="include">
+        </childnode>
+        <childnode refid="19547" relation="include">
+        </childnode>
+        <childnode refid="19549" relation="include">
+        </childnode>
+        <childnode refid="19488" relation="include">
+        </childnode>
+        <childnode refid="19551" relation="include">
+        </childnode>
+        <childnode refid="19552" relation="include">
+        </childnode>
+        <childnode refid="19554" relation="include">
+        </childnode>
+        <childnode refid="19556" relation="include">
+        </childnode>
+        <childnode refid="19558" relation="include">
+        </childnode>
+        <childnode refid="19560" relation="include">
+        </childnode>
+        <childnode refid="19491" relation="include">
+        </childnode>
+        <childnode refid="19562" relation="include">
+        </childnode>
+        <childnode refid="19564" relation="include">
+        </childnode>
+        <childnode refid="19566" relation="include">
+        </childnode>
+        <childnode refid="19568" relation="include">
+        </childnode>
+        <childnode refid="19570" relation="include">
+        </childnode>
+        <childnode refid="19572" relation="include">
+        </childnode>
+        <childnode refid="19573" relation="include">
+        </childnode>
+        <childnode refid="19574" relation="include">
+        </childnode>
+        <childnode refid="19576" relation="include">
+        </childnode>
+        <childnode refid="19541" relation="include">
+        </childnode>
+        <childnode refid="19577" relation="include">
+        </childnode>
+        <childnode refid="19579" relation="include">
+        </childnode>
+        <childnode refid="19522" relation="include">
+        </childnode>
+        <childnode refid="19581" relation="include">
+        </childnode>
+        <childnode refid="19582" relation="include">
+        </childnode>
+        <childnode refid="19584" relation="include">
+        </childnode>
+        <childnode refid="19586" relation="include">
+        </childnode>
+        <childnode refid="19588" relation="include">
+        </childnode>
+        <childnode refid="19589" relation="include">
+        </childnode>
+        <childnode refid="19590" relation="include">
+        </childnode>
+        <childnode refid="19592" relation="include">
+        </childnode>
+        <childnode refid="19594" relation="include">
+        </childnode>
+        <childnode refid="19596" relation="include">
+        </childnode>
+        <childnode refid="19598" relation="include">
+        </childnode>
+        <childnode refid="19600" relation="include">
+        </childnode>
+        <childnode refid="19602" relation="include">
+        </childnode>
+        <childnode refid="19604" relation="include">
+        </childnode>
+        <childnode refid="19606" relation="include">
+        </childnode>
+        <childnode refid="19608" relation="include">
+        </childnode>
+        <childnode refid="19610" relation="include">
+        </childnode>
+        <childnode refid="19490" relation="include">
+        </childnode>
+        <childnode refid="19612" relation="include">
+        </childnode>
+      </node>
+      <node id="19639">
+        <label>src/lib/storage/TableMerger.cpp</label>
+        <link refid="_table_merger_8cpp"/>
+      </node>
+      <node id="19550">
+        <label>src/lib/access/IntersectPositions.cpp</label>
+        <link refid="_intersect_positions_8cpp"/>
+      </node>
+      <node id="19528">
+        <label>src/lib/access/Distinct.cpp</label>
+        <link refid="_distinct_8cpp"/>
+      </node>
+      <node id="19489">
+        <label>src/lib/access/JoinScan.cpp</label>
+        <link refid="lib_2access_2_join_scan_8cpp"/>
+      </node>
+      <node id="19526">
+        <label>src/lib/access/CreateIndex.h</label>
+        <link refid="_create_index_8h"/>
+        <childnode refid="19515" relation="include">
+        </childnode>
+      </node>
+      <node id="19525">
+        <label>src/lib/access/Barrier.cpp</label>
+        <link refid="_barrier_8cpp"/>
+      </node>
+      <node id="19612">
+        <label>src/lib/testing/test.h</label>
+        <link refid="test_8h"/>
+        <childnode refid="19613" relation="include">
+        </childnode>
+      </node>
+      <node id="19585">
+        <label>src/lib/access/SetTable.cpp</label>
+        <link refid="_set_table_8cpp"/>
+      </node>
+      <node id="19511">
+        <label>src/lib/access/AggregateFunctions.h</label>
+        <link refid="_aggregate_functions_8h"/>
+        <childnode refid="19512" relation="include">
+        </childnode>
+        <childnode refid="19513" relation="include">
+        </childnode>
+      </node>
+      <node id="19504">
+        <label>src/lib/access/pred_LessThanExpression.h</label>
+        <link refid="pred___less_than_expression_8h"/>
+        <childnode refid="19487" relation="include">
+        </childnode>
+      </node>
+      <node id="19465">
+        <label>src/lib/storage/csb_tree.h</label>
+        <link refid="csb_tree.h"/>
+        <childnode refid="19466" relation="include">
+        </childnode>
+        <childnode refid="19467" relation="include">
+        </childnode>
+        <childnode refid="19475" relation="include">
+        </childnode>
+      </node>
+      <node id="19515">
+        <label>src/lib/access/CreateIndex.cpp</label>
+        <link refid="_create_index_8cpp"/>
+      </node>
+      <node id="19499">
+        <label>src/lib/access/pred_PredicateBuilder.h</label>
+        <link refid="pred___predicate_builder_8h"/>
+        <childnode refid="19487" relation="include">
+        </childnode>
+        <childnode refid="19500" relation="include">
+        </childnode>
+      </node>
+      <node id="19549">
+        <label>src/lib/access/IntersectPositions.h</label>
+        <link refid="_intersect_positions_8h"/>
+        <childnode refid="19550" relation="include">
+        </childnode>
+      </node>
+      <node id="19551">
+        <label>src/lib/access/Layouter.h</label>
+        <link refid="_layouter_8h"/>
+        <childnode refid="19468" relation="include">
+        </childnode>
+        <childnode refid="19490" relation="include">
+        </childnode>
+      </node>
+      <node id="19493">
+        <label>src/lib/access/pred_expression_factory.h</label>
+        <link refid="pred__expression__factory_8h"/>
+        <childnode refid="19492" relation="include">
+        </childnode>
+        <childnode refid="19487" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structhyrise_1_1index_1_1_c_s_b_node_u_i" prot="public">hyrise::index::CSBNodeUI</innerclass>
+    <innerclass refid="structhyrise_1_1index_1_1_c_s_b_pair_u_i" prot="public">hyrise::index::CSBPairUI</innerclass>
+    <innerclass refid="structhyrise_1_1index_1_1_c_s_b_leaf_node_u_i" prot="public">hyrise::index::CSBLeafNodeUI</innerclass>
+    <innerclass refid="classhyrise_1_1index_1_1_c_s_b_tree_iterator" prot="public">hyrise::index::CSBTreeIterator</innerclass>
+    <innerclass refid="classhyrise_1_1index_1_1_c_s_b_tree" prot="public">hyrise::index::CSBTree</innerclass>
+    <innerclass refid="structhyrise_1_1index_1_1_c_s_b_tree_1_1__node__id" prot="private">hyrise::index::CSBTree::_node_id</innerclass>
+    <innernamespace refid="namespacehyrise">hyrise</innernamespace>
+    <innernamespace refid="namespacehyrise_1_1index">hyrise::index</innernamespace>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="csb__tree_8h_1a17b597a7bff3c281a1a04d40a52aeebc" prot="public" static="no">
+        <name>CONVERT_LEAF</name>
+        <param><defname>id</defname></param>
+        <initializer>(<ref refid="csb__tree_8h_1ae18654403bb30506d655e6be452b07a3" kindref="member">IsLeaf</ref>(id.node) ? id.node : id.node-&gt;first_child + id.offset)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/csb_tree.h" line="16" bodyfile="/home/grund/hyrise/src/lib/storage/csb_tree.h" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="csb__tree_8h_1a89152f60167db9fd68b4ca504da6e757" prot="public" static="no">
+        <name>CUT</name>
+        <param><defname>x</defname></param>
+        <initializer>((x) % 2 == 0 ? (x) / 2 : (x) / 2 + 1)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/csb_tree.h" line="17" bodyfile="/home/grund/hyrise/src/lib/storage/csb_tree.h" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="csb__tree_8h_1ae18654403bb30506d655e6be452b07a3" prot="public" static="no">
+        <name>IsLeaf</name>
+        <param><defname>x</defname></param>
+        <initializer>!(((CSBLeafNodeUI*)x)-&gt;flag)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/csb_tree.h" line="18" bodyfile="/home/grund/hyrise/src/lib/storage/csb_tree.h" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="csb__tree_8h_1a2dfcbe187cfa7e80896d4deb863d2220" prot="public" static="no">
+        <name>DEBUG_FUN</name>
+        <param></param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/csb_tree.h" line="33" bodyfile="/home/grund/hyrise/src/lib/storage/csb_tree.h" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="csb__tree_8h_1aa46006d6606f3f94029fff98cc0ba94a" prot="public" static="no">
+        <name>DEBUG_MSG</name>
+        <param><defname>x</defname></param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/csb_tree.h" line="34" bodyfile="/home/grund/hyrise/src/lib/storage/csb_tree.h" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="csb__tree_8h_1a1e35bedc949e373ea3405f3858413cbb" prot="public" static="no">
+        <name>DEBUG_ADD</name>
+        <param><defname>x</defname></param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/csb_tree.h" line="35" bodyfile="/home/grund/hyrise/src/lib/storage/csb_tree.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="csb__tree_8h_1af6551f0b4c3964c3128f808e7bf987c7" prot="public" static="no">
+        <name>DEBUG_PRINT</name>
+        <param><defname>x</defname></param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/csb_tree.h" line="36" bodyfile="/home/grund/hyrise/src/lib/storage/csb_tree.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>2012<sp/>Hasso-Plattner-Institut<sp/>fuer<sp/>Softwaresystemtechnik<sp/>GmbH.<sp/>All<sp/>rights<sp/>reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SRC_LIB_STORAGE_CSB_TREE_H_</highlight></codeline>
+<codeline lineno="4"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SRC_LIB_STORAGE_CSB_TREE_H_</highlight></codeline>
+<codeline lineno="5"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;vector&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;iostream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;list&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;memory&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;assert.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;boost/iterator/iterator_facade.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="comment">//#define<sp/>DEBUG<sp/>1</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16" refid="csb__tree_8h_1a17b597a7bff3c281a1a04d40a52aeebc" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CONVERT_LEAF(id)<sp/>(IsLeaf(id.node)<sp/>?<sp/>id.node<sp/>:<sp/>id.node-&gt;first_child<sp/>+<sp/>id.offset)</highlight></codeline>
+<codeline lineno="17" refid="csb__tree_8h_1a89152f60167db9fd68b4ca504da6e757" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CUT(x)<sp/>((x)<sp/>%<sp/>2<sp/>==<sp/>0<sp/>?<sp/>(x)<sp/>/<sp/>2<sp/>:<sp/>(x)<sp/>/<sp/>2<sp/>+<sp/>1)</highlight></codeline>
+<codeline lineno="18" refid="csb__tree_8h_1ae18654403bb30506d655e6be452b07a3" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>IsLeaf(x)<sp/>!(((CSBLeafNodeUI*)x)-&gt;flag)</highlight></codeline>
+<codeline lineno="19"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="comment">//<sp/>DEBUG<sp/>function</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>DEBUG</highlight></codeline>
+<codeline lineno="22"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;libgen.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DEBUG_CTL<sp/><sp/>basename((char*)<sp/>__FILE__)<sp/>&lt;&lt;<sp/>&quot;:&quot;<sp/>&lt;&lt;<sp/>__LINE__<sp/>&lt;&lt;<sp/>&quot;<sp/>&quot;</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DEBUG_FUN()<sp/><sp/>std::cout<sp/>&lt;&lt;<sp/><sp/>DEBUG_CTL<sp/>&lt;&lt;<sp/>&quot;&gt;&gt;<sp/>&quot;<sp/>&lt;&lt;<sp/>__FUNCTION__<sp/>&lt;&lt;<sp/>&quot;()&quot;<sp/>&lt;&lt;std::endl;</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DEBUG_MSG(x)<sp/>std::cout<sp/>&lt;&lt;<sp/>DEBUG_CTL<sp/>&lt;&lt;<sp/>x<sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DEBUG_ADD(x)<sp/>std::cout<sp/>&lt;&lt;<sp/>DEBUG_CTL<sp/>&lt;&lt;std::hex<sp/>&lt;&lt;<sp/>x<sp/>&lt;&lt;<sp/>std::dec<sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DEBUG_PRINT(x)<sp/>x-&gt;print()</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33" refid="csb__tree_8h_1a2dfcbe187cfa7e80896d4deb863d2220" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DEBUG_FUN()</highlight></codeline>
+<codeline lineno="34" refid="csb__tree_8h_1aa46006d6606f3f94029fff98cc0ba94a" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DEBUG_MSG(x)</highlight></codeline>
+<codeline lineno="35" refid="csb__tree_8h_1a1e35bedc949e373ea3405f3858413cbb" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DEBUG_ADD(x)</highlight></codeline>
+<codeline lineno="36" refid="csb__tree_8h_1af6551f0b4c3964c3128f808e7bf987c7" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DEBUG_PRINT(x)</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">hyrise<sp/>{</highlight></codeline>
+<codeline lineno="43" refid="namespacehyrise_1_1index" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">index<sp/>{</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Cache<sp/>Line<sp/>Size</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46" refid="namespacehyrise_1_1index_1ad1b92efdd34c4db3dd1c208189d8ab2c" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/><ref refid="namespacehyrise_1_1index_1ad1b92efdd34c4db3dd1c208189d8ab2c" kindref="member">cache_line_size</ref><sp/>=<sp/>64;</highlight></codeline>
+<codeline lineno="47" refid="namespacehyrise_1_1index_1acee565c275f6988abfe3f54a4a7244cc" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/><ref refid="namespacehyrise_1_1index_1acee565c275f6988abfe3f54a4a7244cc" kindref="member">pointer_size</ref><sp/>=<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*);</highlight></codeline>
+<codeline lineno="48" refid="namespacehyrise_1_1index_1a6cc7ae44ec076f2a65677c1e42025e0f" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/><ref refid="namespacehyrise_1_1index_1a6cc7ae44ec076f2a65677c1e42025e0f" kindref="member">key_size</ref><sp/>=<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/>int);</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="comment">//<sp/>this<sp/>is<sp/>calculatable<sp/>but<sp/>a<sp/>litte<sp/>harder</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="comment">//<sp/>for<sp/>64<sp/>bit<sp/>systems<sp/>since<sp/>the<sp/>4<sp/>byte<sp/>key<sp/>is<sp/>addressed</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="comment">//<sp/>by<sp/>an<sp/>8<sp/>byte<sp/>pointer</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54" refid="namespacehyrise_1_1index_1acd8c45650f994d5cbd31636cc1a4b497" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/><ref refid="namespacehyrise_1_1index_1acd8c45650f994d5cbd31636cc1a4b497" kindref="member">number_possible_keys</ref><sp/>=<sp/>12;</highlight></codeline>
+<codeline lineno="55" refid="namespacehyrise_1_1index_1aefb1510614bcbdcfbd5825541537fe40" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/><ref refid="namespacehyrise_1_1index_1aefb1510614bcbdcfbd5825541537fe40" kindref="member">number_leaf_values</ref><sp/>=<sp/>4;</highlight></codeline>
+<codeline lineno="56" refid="namespacehyrise_1_1index_1a5f093e01332ec2b9a06af408635babb0" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/><ref refid="namespacehyrise_1_1index_1a5f093e01332ec2b9a06af408635babb0" kindref="member">initial_node_group_size</ref><sp/>=<sp/>2;</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structhyrise_1_1index_1_1_c_s_b_leaf_node_u_i" kindref="compound">CSBLeafNodeUI</ref>;</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Internal<sp/>Node</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62" refid="structhyrise_1_1index_1_1_c_s_b_node_u_i" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structhyrise_1_1index_1_1_c_s_b_node_u_i" kindref="compound">CSBNodeUI</ref><sp/>{</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>DEBUG</highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>___num_alloc;</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>___num_free;</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71" refid="structhyrise_1_1index_1_1_c_s_b_node_u_i_1a281e8242601816919ad0a17b91f76e65" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_node_u_i_1a281e8242601816919ad0a17b91f76e65" kindref="member">key_type</ref>;</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Number<sp/>of<sp/>keys<sp/>used</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74" refid="structhyrise_1_1index_1_1_c_s_b_node_u_i_1a569a442ad5227e84e4d9652bf3d40da5" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_node_u_i_1a569a442ad5227e84e4d9652bf3d40da5" kindref="member">num_keys</ref>;</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Pointer<sp/>to<sp/>the<sp/>first<sp/>child</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="76" refid="structhyrise_1_1index_1_1_c_s_b_node_u_i_1aa6d630b8f0b34abbce8eb927aaa1c64a" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_node_u_i" kindref="compound">CSBNodeUI</ref><sp/>*<ref refid="structhyrise_1_1index_1_1_c_s_b_node_u_i_1aa6d630b8f0b34abbce8eb927aaa1c64a" kindref="member">first_child</ref>;</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Key<sp/>List<sp/>64<sp/>-<sp/>num_keys<sp/>-<sp/>first_child</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="78" refid="structhyrise_1_1index_1_1_c_s_b_node_u_i_1a8d0ef0c08b4b70a8a1d391f435ba2218" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_node_u_i_1a8d0ef0c08b4b70a8a1d391f435ba2218" kindref="member">keys</ref>[<ref refid="namespacehyrise_1_1index_1acd8c45650f994d5cbd31636cc1a4b497" kindref="member">number_possible_keys</ref>];</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">explicit</highlight><highlight class="normal"><sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_node_u_i_1a0f2f4db1cfd8e286ea17e4f8c0df57b0" kindref="member">CSBNodeUI</ref>(</highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>with_memory<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_node_u_i_1a87c806770d82979fe079d7c52040b7d7" kindref="member">~CSBNodeUI</ref>();</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_node_u_i_1a15931ae36be24e6656c46e5bf10c8b16" kindref="member">init</ref>();</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight></codeline>
+<codeline lineno="86" refid="structhyrise_1_1index_1_1_c_s_b_node_u_i_1a9e26818b27dc1ce0bc6fde904186e07b" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_node_u_i_1a9e26818b27dc1ce0bc6fde904186e07b" kindref="member">clean</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_node_u_i_1a569a442ad5227e84e4d9652bf3d40da5" kindref="member">num_keys</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_node_u_i_1aa6d630b8f0b34abbce8eb927aaa1c64a" kindref="member">first_child</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Add<sp/>Node<sp/>Child</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="92" refid="structhyrise_1_1index_1_1_c_s_b_node_u_i_1ab0750a69f4f20d7feaa44bb6fecb2201" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_node_u_i_1ab0750a69f4f20d7feaa44bb6fecb2201" kindref="member">addChild</ref>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/>index,<sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_node_u_i" kindref="compound">CSBNodeUI</ref><sp/>*e)<sp/>{</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/>memcpy(<ref refid="structhyrise_1_1index_1_1_c_s_b_node_u_i_1aa6d630b8f0b34abbce8eb927aaa1c64a" kindref="member">first_child</ref><sp/>+<sp/>index,<sp/>e,<sp/><ref refid="namespacehyrise_1_1index_1ad1b92efdd34c4db3dd1c208189d8ab2c" kindref="member">cache_line_size</ref>);</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Add<sp/>Leaf<sp/>Node<sp/>child,<sp/>alias<sp/>for<sp/>set<sp/>child</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_node_u_i_1ab0750a69f4f20d7feaa44bb6fecb2201" kindref="member">addChild</ref>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/>index,<sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_leaf_node_u_i" kindref="compound">CSBLeafNodeUI</ref><sp/>*e);</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Set<sp/>the<sp/>child<sp/>value</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_node_u_i_1acd942ae6b897d11710a438e0c0f5aeaa" kindref="member">setChild</ref>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/>index,<sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_leaf_node_u_i" kindref="compound">CSBLeafNodeUI</ref><sp/>*e);</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Set<sp/>the<sp/>child<sp/>value</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_node_u_i_1acd942ae6b897d11710a438e0c0f5aeaa" kindref="member">setChild</ref>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/>index,<sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_node_u_i" kindref="compound">CSBNodeUI</ref><sp/>*e);</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_node_u_i_1ae51e37fae4c5d53aa9805f8c92d6dc78" kindref="member">push_back</ref>(<ref refid="structhyrise_1_1index_1_1_c_s_b_leaf_node_u_i" kindref="compound">CSBLeafNodeUI</ref><sp/>*e);</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Insert<sp/>the<sp/>child<sp/>at<sp/>a<sp/>given<sp/>position</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_node_u_i_1abd7211d8c391ca7c43e2880836a19bf0" kindref="member">insert_for_key</ref>(<ref refid="structhyrise_1_1index_1_1_c_s_b_node_u_i_1a281e8242601816919ad0a17b91f76e65" kindref="member">key_type</ref><sp/>k,<sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_leaf_node_u_i" kindref="compound">CSBLeafNodeUI</ref><sp/>*e);</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_node_u_i_1ae51e37fae4c5d53aa9805f8c92d6dc78" kindref="member">push_back</ref>(<ref refid="structhyrise_1_1index_1_1_c_s_b_node_u_i" kindref="compound">CSBNodeUI</ref><sp/>*e);</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Return<sp/>the<sp/>pointer<sp/>to<sp/>the<sp/>indexed<sp/>child</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="115" refid="structhyrise_1_1index_1_1_c_s_b_node_u_i_1affe581ae20b99f4b684d8ad047d2994e" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_node_u_i" kindref="compound">CSBNodeUI</ref><sp/>*<ref refid="structhyrise_1_1index_1_1_c_s_b_node_u_i_1affe581ae20b99f4b684d8ad047d2994e" kindref="member">lookup</ref>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/>index)</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_node_u_i_1aa6d630b8f0b34abbce8eb927aaa1c64a" kindref="member">first_child</ref><sp/>+<sp/>index;</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Get<sp/>the<sp/>next<sp/>child</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="122" refid="structhyrise_1_1index_1_1_c_s_b_node_u_i_1a343014d89ef9721151fc9d912fa6d04c" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_node_u_i" kindref="compound">CSBNodeUI</ref><sp/>*<ref refid="structhyrise_1_1index_1_1_c_s_b_node_u_i_1a343014d89ef9721151fc9d912fa6d04c" kindref="member">getNext</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_node_u_i_1aa6d630b8f0b34abbce8eb927aaa1c64a" kindref="member">first_child</ref><sp/>+<sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_node_u_i_1a569a442ad5227e84e4d9652bf3d40da5" kindref="member">num_keys</ref>;</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight></codeline>
+<codeline lineno="126" refid="structhyrise_1_1index_1_1_c_s_b_node_u_i_1a023d60c50e1eeebbd8f97af736fcfb31" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_node_u_i_1a023d60c50e1eeebbd8f97af736fcfb31" kindref="member">addKey</ref>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/>k)<sp/>{</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_node_u_i_1a8d0ef0c08b4b70a8a1d391f435ba2218" kindref="member">keys</ref>[<ref refid="structhyrise_1_1index_1_1_c_s_b_node_u_i_1a569a442ad5227e84e4d9652bf3d40da5" kindref="member">num_keys</ref>++]<sp/>=<sp/>k;</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_node_u_i_1abf948febb32c105aa0ba5f306a0c7e1f" kindref="member">print</ref>()<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight></codeline>
+<codeline lineno="135" refid="structhyrise_1_1index_1_1_c_s_b_pair_u_i" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structhyrise_1_1index_1_1_c_s_b_pair_u_i" kindref="compound">CSBPairUI</ref><sp/>{</highlight></codeline>
+<codeline lineno="136" refid="structhyrise_1_1index_1_1_c_s_b_pair_u_i_1a16c21e7ae80e3a590969790fd7333016" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_pair_u_i_1a16c21e7ae80e3a590969790fd7333016" kindref="member">key</ref>;</highlight></codeline>
+<codeline lineno="137" refid="structhyrise_1_1index_1_1_c_s_b_pair_u_i_1a317a7aca20b0c7e508e40ce7aac5d5f2" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_pair_u_i_1a317a7aca20b0c7e508e40ce7aac5d5f2" kindref="member">value</ref>;</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight></codeline>
+<codeline lineno="139" refid="structhyrise_1_1index_1_1_c_s_b_pair_u_i_1a8593a339003594854ae9ee36d53e3435" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_pair_u_i_1a3f44c4d8f5f028095695dba5cab52a6f" kindref="member">CSBPairUI</ref>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>k,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>v):<sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_pair_u_i_1a16c21e7ae80e3a590969790fd7333016" kindref="member">key</ref>(k),<sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_pair_u_i_1a317a7aca20b0c7e508e40ce7aac5d5f2" kindref="member">value</ref>(v)</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/>{}</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight></codeline>
+<codeline lineno="142" refid="structhyrise_1_1index_1_1_c_s_b_pair_u_i_1a3f44c4d8f5f028095695dba5cab52a6f" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_pair_u_i_1a3f44c4d8f5f028095695dba5cab52a6f" kindref="member">CSBPairUI</ref>():<sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_pair_u_i_1a16c21e7ae80e3a590969790fd7333016" kindref="member">key</ref>(0),<sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_pair_u_i_1a317a7aca20b0c7e508e40ce7aac5d5f2" kindref="member">value</ref>(0)</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/>{}</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight></codeline>
+<codeline lineno="145" refid="structhyrise_1_1index_1_1_c_s_b_pair_u_i_1a0df3f7824ca96b9c435495922a2c1d0c" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_pair_u_i_1a0df3f7824ca96b9c435495922a2c1d0c" kindref="member">CSBPairUI</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_pair_u_i" kindref="compound">CSBPairUI</ref><sp/>&amp;c)<sp/>{</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_pair_u_i_1a16c21e7ae80e3a590969790fd7333016" kindref="member">key</ref><sp/>=<sp/>c.<ref refid="structhyrise_1_1index_1_1_c_s_b_pair_u_i_1a16c21e7ae80e3a590969790fd7333016" kindref="member">key</ref>;</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_pair_u_i_1a317a7aca20b0c7e508e40ce7aac5d5f2" kindref="member">value</ref><sp/>=<sp/>c.<ref refid="structhyrise_1_1index_1_1_c_s_b_pair_u_i_1a317a7aca20b0c7e508e40ce7aac5d5f2" kindref="member">value</ref>;</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="149"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Leaf<sp/>Node</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="153" refid="structhyrise_1_1index_1_1_c_s_b_leaf_node_u_i" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structhyrise_1_1index_1_1_c_s_b_leaf_node_u_i" kindref="compound">CSBLeafNodeUI</ref><sp/>{</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight></codeline>
+<codeline lineno="155" refid="structhyrise_1_1index_1_1_c_s_b_leaf_node_u_i_1a6c465a321a0301e98ad6df1256e1c4f5" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_leaf_node_u_i_1a6c465a321a0301e98ad6df1256e1c4f5" kindref="member">key_type</ref>;</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"></highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>4</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="158" refid="structhyrise_1_1index_1_1_c_s_b_leaf_node_u_i_1a0df34f644afebd6a0ba5ef2e38adb316" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_leaf_node_u_i_1a0df34f644afebd6a0ba5ef2e38adb316" kindref="member">num_keys</ref>;</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"></highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>set<sp/>to<sp/>null<sp/>always,<sp/>8</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="161" refid="structhyrise_1_1index_1_1_c_s_b_leaf_node_u_i_1ac8f0fb6127095212642d9324585ffdb8" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*<ref refid="structhyrise_1_1index_1_1_c_s_b_leaf_node_u_i_1ac8f0fb6127095212642d9324585ffdb8" kindref="member">flag</ref>;</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Forward<sp/>and<sp/>backward<sp/>pointer<sp/>(<sp/>8+8<sp/>)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="164" refid="structhyrise_1_1index_1_1_c_s_b_leaf_node_u_i_1aba6669ea5eb8017627ecbab8a1c7a9c7" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_leaf_node_u_i" kindref="compound">CSBLeafNodeUI</ref><sp/>*<ref refid="structhyrise_1_1index_1_1_c_s_b_leaf_node_u_i_1aba6669ea5eb8017627ecbab8a1c7a9c7" kindref="member">prev</ref>;</highlight></codeline>
+<codeline lineno="165" refid="structhyrise_1_1index_1_1_c_s_b_leaf_node_u_i_1a0d6515ffa7b097a96a8734d9966b99ff" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_leaf_node_u_i" kindref="compound">CSBLeafNodeUI</ref><sp/>*<ref refid="structhyrise_1_1index_1_1_c_s_b_leaf_node_u_i_1a0d6515ffa7b097a96a8734d9966b99ff" kindref="member">next</ref>;</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Pairs</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="168" refid="structhyrise_1_1index_1_1_c_s_b_leaf_node_u_i_1a297fe5351a0a6ec941c1110010d23c57" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_pair_u_i" kindref="compound">CSBPairUI</ref><sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_leaf_node_u_i_1a297fe5351a0a6ec941c1110010d23c57" kindref="member">entries</ref>[4];</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight></codeline>
+<codeline lineno="170" refid="structhyrise_1_1index_1_1_c_s_b_leaf_node_u_i_1a2bd0099b83e6c9e08b8b864630bc79cd" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_leaf_node_u_i_1a2bd0099b83e6c9e08b8b864630bc79cd" kindref="member">CSBLeafNodeUI</ref>():<sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_leaf_node_u_i_1a0df34f644afebd6a0ba5ef2e38adb316" kindref="member">num_keys</ref>(0),<sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_leaf_node_u_i_1ac8f0fb6127095212642d9324585ffdb8" kindref="member">flag</ref>(0),<sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_leaf_node_u_i_1aba6669ea5eb8017627ecbab8a1c7a9c7" kindref="member">prev</ref>(0),<sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_leaf_node_u_i_1a0d6515ffa7b097a96a8734d9966b99ff" kindref="member">next</ref>(0)<sp/>{</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"></highlight></codeline>
+<codeline lineno="173"><highlight class="normal"></highlight></codeline>
+<codeline lineno="174" refid="structhyrise_1_1index_1_1_c_s_b_leaf_node_u_i_1a09fed0ca690238c4f527ff41924339f7" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_leaf_node_u_i_1a09fed0ca690238c4f527ff41924339f7" kindref="member">clean</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_leaf_node_u_i_1a0df34f644afebd6a0ba5ef2e38adb316" kindref="member">num_keys</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_leaf_node_u_i_1ac8f0fb6127095212642d9324585ffdb8" kindref="member">flag</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_leaf_node_u_i_1aba6669ea5eb8017627ecbab8a1c7a9c7" kindref="member">prev</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_leaf_node_u_i_1a0d6515ffa7b097a96a8734d9966b99ff" kindref="member">next</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"></highlight></codeline>
+<codeline lineno="181" refid="structhyrise_1_1index_1_1_c_s_b_leaf_node_u_i_1ae898809a85264ca6b042d07843e9bd30" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_leaf_node_u_i_1ae898809a85264ca6b042d07843e9bd30" kindref="member">print</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;&lt;LeafNode(&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/></highlight><highlight class="keyword">this</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;):&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"></highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_leaf_node_u_i_1a0df34f644afebd6a0ba5ef2e38adb316" kindref="member">num_keys</ref>;<sp/>++i)<sp/>{</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;[&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_leaf_node_u_i_1a297fe5351a0a6ec941c1110010d23c57" kindref="member">entries</ref>[i].<ref refid="structhyrise_1_1index_1_1_c_s_b_pair_u_i_1a16c21e7ae80e3a590969790fd7333016" kindref="member">key</ref><sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;:&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_leaf_node_u_i_1a297fe5351a0a6ec941c1110010d23c57" kindref="member">entries</ref>[i].<ref refid="structhyrise_1_1index_1_1_c_s_b_pair_u_i_1a317a7aca20b0c7e508e40ce7aac5d5f2" kindref="member">value</ref><sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;]&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;&gt;&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="190"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"></highlight></codeline>
+<codeline lineno="192"><highlight class="normal"></highlight></codeline>
+<codeline lineno="193"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="194"><highlight class="comment"><sp/><sp/>Iterator<sp/>for<sp/>the<sp/>CSBTree</highlight></codeline>
+<codeline lineno="195"><highlight class="comment"></highlight></codeline>
+<codeline lineno="196"><highlight class="comment"><sp/><sp/>uses<sp/>the<sp/>basics<sp/>provided<sp/>by<sp/>boost::iterator</highlight></codeline>
+<codeline lineno="197"><highlight class="comment">*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="198" refid="classhyrise_1_1index_1_1_c_s_b_tree_iterator" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_iterator" kindref="compound">CSBTreeIterator</ref></highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/>boost::iterator_facade&lt;CSBTreeIterator,<sp/>CSBPairUI,<sp/>boost::forward_traversal_tag&gt;<sp/>{</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"></highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="202" refid="classhyrise_1_1index_1_1_c_s_b_tree_iterator_1a2b8997eaa4aa48d0333734e8250027aa" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_iterator_1a2b8997eaa4aa48d0333734e8250027aa" kindref="member">CSBTreeIterator</ref>():<sp/><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_iterator_1a18990718a287b33c1362944e2ea3a550" kindref="member">_leaf</ref>(0),<sp/><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_iterator_1a85e15fa38d10e7a19c3f3a8338b51e35" kindref="member">_num_key</ref>(0)</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/>{}</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"></highlight></codeline>
+<codeline lineno="205" refid="classhyrise_1_1index_1_1_c_s_b_tree_iterator_1a2a891667c8d1dc42d43ff542d7ab0bdf" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">explicit</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_iterator_1a2a891667c8d1dc42d43ff542d7ab0bdf" kindref="member">CSBTreeIterator</ref>(<ref refid="structhyrise_1_1index_1_1_c_s_b_leaf_node_u_i" kindref="compound">CSBLeafNodeUI</ref><sp/>*l,<sp/><sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_leaf_node_u_i_1a6c465a321a0301e98ad6df1256e1c4f5" kindref="member">CSBLeafNodeUI::key_type</ref><sp/>nk<sp/>=<sp/>0):<sp/><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_iterator_1a18990718a287b33c1362944e2ea3a550" kindref="member">_leaf</ref>(l),<sp/><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_iterator_1a85e15fa38d10e7a19c3f3a8338b51e35" kindref="member">_num_key</ref>(nk)<sp/>{</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"></highlight></codeline>
+<codeline lineno="208" refid="classhyrise_1_1index_1_1_c_s_b_tree_iterator_1a1cde685c6edd2513ff15dcb01fcd7636" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_iterator_1a1cde685c6edd2513ff15dcb01fcd7636" kindref="member">~CSBTreeIterator</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"></highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Since<sp/>the<sp/>basics<sp/>start<sp/>with<sp/>a<sp/>given<sp/>leaf<sp/>node<sp/>in<sp/>the<sp/>tree,</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>we<sp/>follow<sp/>this<sp/>until<sp/>we<sp/>reach<sp/>a<sp/>given<sp/>point</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="213" refid="classhyrise_1_1index_1_1_c_s_b_tree_iterator_1a90bf12b2a2876a99e8c851843aade934" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_iterator_1a90bf12b2a2876a99e8c851843aade934" kindref="member">increment</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="classhyrise_1_1index_1_1_c_s_b_tree_iterator_1a85e15fa38d10e7a19c3f3a8338b51e35" kindref="member">_num_key</ref><sp/>+<sp/>1<sp/>&lt;<sp/><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_iterator_1a18990718a287b33c1362944e2ea3a550" kindref="member">_leaf</ref>-&gt;<ref refid="structhyrise_1_1index_1_1_c_s_b_leaf_node_u_i_1a0df34f644afebd6a0ba5ef2e38adb316" kindref="member">num_keys</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>++<ref refid="classhyrise_1_1index_1_1_c_s_b_tree_iterator_1a85e15fa38d10e7a19c3f3a8338b51e35" kindref="member">_num_key</ref>;</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"></highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"></highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_iterator_1a85e15fa38d10e7a19c3f3a8338b51e35" kindref="member">_num_key</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"></highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="classhyrise_1_1index_1_1_c_s_b_tree_iterator_1a18990718a287b33c1362944e2ea3a550" kindref="member">_leaf</ref>-&gt;<ref refid="structhyrise_1_1index_1_1_c_s_b_leaf_node_u_i_1a0d6515ffa7b097a96a8734d9966b99ff" kindref="member">next</ref><sp/>&amp;&amp;<sp/><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_iterator_1a18990718a287b33c1362944e2ea3a550" kindref="member">_leaf</ref>-&gt;<ref refid="structhyrise_1_1index_1_1_c_s_b_leaf_node_u_i_1a0d6515ffa7b097a96a8734d9966b99ff" kindref="member">next</ref>-&gt;<ref refid="structhyrise_1_1index_1_1_c_s_b_leaf_node_u_i_1a0df34f644afebd6a0ba5ef2e38adb316" kindref="member">num_keys</ref><sp/>&gt;<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_iterator_1a18990718a287b33c1362944e2ea3a550" kindref="member">_leaf</ref><sp/>=<sp/><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_iterator_1a18990718a287b33c1362944e2ea3a550" kindref="member">_leaf</ref>-&gt;<ref refid="structhyrise_1_1index_1_1_c_s_b_leaf_node_u_i_1a0d6515ffa7b097a96a8734d9966b99ff" kindref="member">next</ref>;</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_iterator_1a18990718a287b33c1362944e2ea3a550" kindref="member">_leaf</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"></highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>This<sp/>is<sp/>the<sp/>forward<sp/>iterator,<sp/>and<sp/>we<sp/>can<sp/>define</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>equal<sp/>based<sp/>on<sp/>the<sp/>pointer<sp/>and<sp/>the<sp/>position<sp/>inside</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>the<sp/>leaf<sp/>node</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="232" refid="classhyrise_1_1index_1_1_c_s_b_tree_iterator_1a423ee7c11ef2716dc2830ad3390ac70b" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_iterator_1a423ee7c11ef2716dc2830ad3390ac70b" kindref="member">equal</ref>(<ref refid="classhyrise_1_1index_1_1_c_s_b_tree_iterator" kindref="compound">CSBTreeIterator</ref><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>&amp;other)</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>this-&gt;<ref refid="classhyrise_1_1index_1_1_c_s_b_tree_iterator_1a18990718a287b33c1362944e2ea3a550" kindref="member">_leaf</ref><sp/>==<sp/>other.<ref refid="classhyrise_1_1index_1_1_c_s_b_tree_iterator_1a18990718a287b33c1362944e2ea3a550" kindref="member">_leaf</ref><sp/>&amp;&amp;<sp/>this-&gt;<ref refid="classhyrise_1_1index_1_1_c_s_b_tree_iterator_1a85e15fa38d10e7a19c3f3a8338b51e35" kindref="member">_num_key</ref><sp/>==<sp/>other.<ref refid="classhyrise_1_1index_1_1_c_s_b_tree_iterator_1a85e15fa38d10e7a19c3f3a8338b51e35" kindref="member">_num_key</ref>;</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"></highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>To<sp/>derefence<sp/>we<sp/>return<sp/>the<sp/>entry<sp/>from<sp/>the<sp/>leaf<sp/>node</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="237" refid="classhyrise_1_1index_1_1_c_s_b_tree_iterator_1a7c5fd996843d5c553f635bb962433769" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_pair_u_i" kindref="compound">CSBPairUI</ref><sp/>&amp;<ref refid="classhyrise_1_1index_1_1_c_s_b_tree_iterator_1a7c5fd996843d5c553f635bb962433769" kindref="member">dereference</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_iterator_1a18990718a287b33c1362944e2ea3a550" kindref="member">_leaf</ref>-&gt;<ref refid="structhyrise_1_1index_1_1_c_s_b_leaf_node_u_i_1a297fe5351a0a6ec941c1110010d23c57" kindref="member">entries</ref>[<ref refid="classhyrise_1_1index_1_1_c_s_b_tree_iterator_1a85e15fa38d10e7a19c3f3a8338b51e35" kindref="member">_num_key</ref>];</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"></highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"></highlight></codeline>
+<codeline lineno="243" refid="classhyrise_1_1index_1_1_c_s_b_tree_iterator_1a18990718a287b33c1362944e2ea3a550" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_leaf_node_u_i" kindref="compound">CSBLeafNodeUI</ref><sp/>*<ref refid="classhyrise_1_1index_1_1_c_s_b_tree_iterator_1a18990718a287b33c1362944e2ea3a550" kindref="member">_leaf</ref>;</highlight></codeline>
+<codeline lineno="244" refid="classhyrise_1_1index_1_1_c_s_b_tree_iterator_1a85e15fa38d10e7a19c3f3a8338b51e35" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_leaf_node_u_i_1a6c465a321a0301e98ad6df1256e1c4f5" kindref="member">CSBLeafNodeUI::key_type</ref><sp/><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_iterator_1a85e15fa38d10e7a19c3f3a8338b51e35" kindref="member">_num_key</ref>;</highlight></codeline>
+<codeline lineno="245"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"></highlight></codeline>
+<codeline lineno="247"><highlight class="normal"></highlight></codeline>
+<codeline lineno="248"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="249"><highlight class="comment"><sp/><sp/>This<sp/>class<sp/>is<sp/>an<sp/>implementation<sp/>of<sp/>the<sp/>CSB+<sp/>Tree<sp/>presented<sp/>by<sp/>Rao<sp/>et<sp/>al.</highlight></codeline>
+<codeline lineno="250"><highlight class="comment"><sp/><sp/>http://portal.acm.org/citation.cfm?id=335449</highlight></codeline>
+<codeline lineno="251"><highlight class="comment">*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="252" refid="classhyrise_1_1index_1_1_c_s_b_tree" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classhyrise_1_1index_1_1_c_s_b_tree" kindref="compound">CSBTree</ref><sp/>{</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"></highlight></codeline>
+<codeline lineno="254" refid="classhyrise_1_1index_1_1_c_s_b_tree_1a7e7970737876b0adcd96c1acc6ad77ac" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_node_u_i" kindref="compound">CSBNodeUI</ref><sp/>*<ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1a7e7970737876b0adcd96c1acc6ad77ac" kindref="member">root</ref>;</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"></highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Stores<sp/>the<sp/>number<sp/>of<sp/>values</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="257" refid="classhyrise_1_1index_1_1_c_s_b_tree_1a4212ab4c368f1d66744b744d51a39a4c" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1a4212ab4c368f1d66744b744d51a39a4c" kindref="member">_num_values</ref>;</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"></highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>This<sp/>is<sp/>used<sp/>to<sp/>calculate<sp/>the<sp/>memory<sp/>consumption</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="260" refid="classhyrise_1_1index_1_1_c_s_b_tree_1a70884127d5f1d85e145d5ab68244e3b3" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1a70884127d5f1d85e145d5ab68244e3b3" kindref="member">_num_leafs</ref>;</highlight></codeline>
+<codeline lineno="261" refid="classhyrise_1_1index_1_1_c_s_b_tree_1ad975d9bba7a2bc251b406a49e9eab711" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1ad975d9bba7a2bc251b406a49e9eab711" kindref="member">_num_internals</ref>;</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"></highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"></highlight></codeline>
+<codeline lineno="265" refid="classhyrise_1_1index_1_1_c_s_b_tree_1a5b9ddb9ae7fc95ce8b7a9863a50d0783" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1a5b9ddb9ae7fc95ce8b7a9863a50d0783" kindref="member">value_type</ref>;</highlight></codeline>
+<codeline lineno="266" refid="classhyrise_1_1index_1_1_c_s_b_tree_1aa064822470f2784a31add51a5465874d" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1aa064822470f2784a31add51a5465874d" kindref="member">key_type</ref>;</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"></highlight></codeline>
+<codeline lineno="268" refid="classhyrise_1_1index_1_1_c_s_b_tree_1ad1a23e8b8afb84bd247088636d1d7d95" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>*<ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1ad1a23e8b8afb84bd247088636d1d7d95" kindref="member">value_ptr</ref>;</highlight></codeline>
+<codeline lineno="269" refid="classhyrise_1_1index_1_1_c_s_b_tree_1ab15e7740abec38cb82310b42fc1d75bb" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>*<ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1ab15e7740abec38cb82310b42fc1d75bb" kindref="member">key_ptr</ref>;</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"></highlight></codeline>
+<codeline lineno="271" refid="classhyrise_1_1index_1_1_c_s_b_tree_1aff3e00db7d735adf2afe42f6f25ba81d" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_pair_u_i" kindref="compound">CSBPairUI</ref><sp/><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1aff3e00db7d735adf2afe42f6f25ba81d" kindref="member">pair_type</ref>;</highlight></codeline>
+<codeline lineno="272" refid="classhyrise_1_1index_1_1_c_s_b_tree_1a627288cb8f9e818a15bce75328678d47" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_pair_u_i" kindref="compound">CSBPairUI</ref><sp/>*<ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1a627288cb8f9e818a15bce75328678d47" kindref="member">pair_ptr</ref>;</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"></highlight></codeline>
+<codeline lineno="274" refid="classhyrise_1_1index_1_1_c_s_b_tree_1aed1694f5dcf03057e7ec36a224b9dca1" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_leaf_node_u_i" kindref="compound">CSBLeafNodeUI</ref><sp/><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1aed1694f5dcf03057e7ec36a224b9dca1" kindref="member">leaf_node</ref>;</highlight></codeline>
+<codeline lineno="275" refid="classhyrise_1_1index_1_1_c_s_b_tree_1a71eb82ecde21b8f03cb9f85c54194382" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_node_u_i" kindref="compound">CSBNodeUI</ref><sp/><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1a71eb82ecde21b8f03cb9f85c54194382" kindref="member">internal_node</ref>;</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"></highlight></codeline>
+<codeline lineno="277" refid="classhyrise_1_1index_1_1_c_s_b_tree_1aec7cad42ad09b81f939c956582652305" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_leaf_node_u_i" kindref="compound">CSBLeafNodeUI</ref><sp/>*<ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1aec7cad42ad09b81f939c956582652305" kindref="member">leaf_node_ptr</ref>;</highlight></codeline>
+<codeline lineno="278" refid="classhyrise_1_1index_1_1_c_s_b_tree_1aeb2caa72c8f8692d47ff2aeebab4ebb0" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_node_u_i" kindref="compound">CSBNodeUI</ref><sp/>*<ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1aeb2caa72c8f8692d47ff2aeebab4ebb0" kindref="member">internal_node_ptr</ref>;</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"></highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>This<sp/>is<sp/>required<sp/>by<sp/>the<sp/>iterator<sp/>protocol</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="281" refid="classhyrise_1_1index_1_1_c_s_b_tree_1a3cc7144ae529bdb0ffea0d53a744377a" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_iterator" kindref="compound">CSBTreeIterator</ref><sp/><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1a3cc7144ae529bdb0ffea0d53a744377a" kindref="member">iterator</ref>;</highlight></codeline>
+<codeline lineno="282" refid="classhyrise_1_1index_1_1_c_s_b_tree_1adbf980a34818431680fe754fe768f228" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_iterator" kindref="compound">CSBTreeIterator</ref><sp/><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1adbf980a34818431680fe754fe768f228" kindref="member">const_iterator</ref>;</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"></highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1a468b8386fae625e3361c81a8472e68fe" kindref="member">CSBTree</ref>();</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"></highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1aab0420a0111ddf618929e468c4135ad8" kindref="member">~CSBTree</ref>();</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"></highlight></codeline>
+<codeline lineno="288"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Insert<sp/>a<sp/>new<sp/>k,v</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="289"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1a97901c86d27ca43efe9197869f87d8a8" kindref="member">insert</ref>(<ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1aa064822470f2784a31add51a5465874d" kindref="member">key_type</ref><sp/>k,<sp/><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1a5b9ddb9ae7fc95ce8b7a9863a50d0783" kindref="member">value_type</ref><sp/>v);</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"></highlight></codeline>
+<codeline lineno="291"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Find<sp/>a<sp/>certain<sp/>k</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="292"><highlight class="normal"><sp/><sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_pair_u_i" kindref="compound">pair_ptr</ref><sp/><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1a49f78da26a85fcbbe01afd329bf76d27" kindref="member">find</ref>(<ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1aa064822470f2784a31add51a5465874d" kindref="member">key_type</ref><sp/>k);</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"></highlight></codeline>
+<codeline lineno="294"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>delete<sp/>a<sp/>key</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1ac8316a3b1e2341bf598a4bc7b831367a" kindref="member">del</ref>(<ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1aa064822470f2784a31add51a5465874d" kindref="member">key_type</ref><sp/>k);</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"></highlight></codeline>
+<codeline lineno="297"><highlight class="normal"></highlight></codeline>
+<codeline lineno="298"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1ac4769482397896d738e7e8e44ab7eab5" kindref="member">print</ref>(std::ostream<sp/>&amp;w<sp/>=<sp/>std::cout);</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"></highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Returns<sp/>the<sp/>number<sp/>of<sp/>stored<sp/>values</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="301"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1a97fde271f44d00d1a3765bf697ef5f50" kindref="member">num_values</ref>();</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"></highlight></codeline>
+<codeline lineno="303"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Returns<sp/>the<sp/>number<sp/>of<sp/>leafs</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="304" refid="classhyrise_1_1index_1_1_c_s_b_tree_1a1b768ed0b403da311376eb6aecd9282d" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1a1b768ed0b403da311376eb6aecd9282d" kindref="member">num_leafs</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1a70884127d5f1d85e145d5ab68244e3b3" kindref="member">_num_leafs</ref>;</highlight></codeline>
+<codeline lineno="306"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="307"><highlight class="normal"></highlight></codeline>
+<codeline lineno="308"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>returns<sp/>the<sp/>number<sp/>of<sp/>internal<sp/>nodes</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="309" refid="classhyrise_1_1index_1_1_c_s_b_tree_1a316e4fba526280e0549c2ac8edca4c26" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1a316e4fba526280e0549c2ac8edca4c26" kindref="member">num_internals</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="310"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1ad975d9bba7a2bc251b406a49e9eab711" kindref="member">_num_internals</ref>;</highlight></codeline>
+<codeline lineno="311"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="312"><highlight class="normal"></highlight></codeline>
+<codeline lineno="313" refid="classhyrise_1_1index_1_1_c_s_b_tree_1a7cf41b3e7ba871a1d098c4811735cfe9" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1a7cf41b3e7ba871a1d098c4811735cfe9" kindref="member">memory_consumption</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="314"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>DEBUG</highlight></codeline>
+<codeline lineno="315"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Alloc<sp/>vs<sp/>Freed&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="316"><highlight class="normal"><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/>CSBNodeUI::___num_alloc<sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="317"><highlight class="normal"><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/>CSBNodeUI::___num_free<sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="318"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="319"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="320"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1a468b8386fae625e3361c81a8472e68fe" kindref="member">CSBTree</ref>)<sp/>+<sp/><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1a1b768ed0b403da311376eb6aecd9282d" kindref="member">num_leafs</ref>()<sp/>*<sp/><ref refid="namespacehyrise_1_1index_1ad1b92efdd34c4db3dd1c208189d8ab2c" kindref="member">cache_line_size</ref><sp/>+<sp/><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1a316e4fba526280e0549c2ac8edca4c26" kindref="member">num_internals</ref>()<sp/>*<sp/><ref refid="namespacehyrise_1_1index_1ad1b92efdd34c4db3dd1c208189d8ab2c" kindref="member">cache_line_size</ref>;</highlight></codeline>
+<codeline lineno="321"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="322"><highlight class="normal"></highlight></codeline>
+<codeline lineno="323"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>returns<sp/>an<sp/>iterator<sp/>pointing<sp/>to<sp/>the<sp/>beginning<sp/>of<sp/>the<sp/>tree</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="324" refid="classhyrise_1_1index_1_1_c_s_b_tree_1ae4226fc27350ca9a2377ae1a46eb43d5" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_iterator" kindref="compound">iterator</ref><sp/><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1ae4226fc27350ca9a2377ae1a46eb43d5" kindref="member">begin</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="325"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1a3cc7144ae529bdb0ffea0d53a744377a" kindref="member">iterator</ref>(<ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1a7baa3b165ef9469ac50f10a359e7b28f" kindref="member">_begin</ref>);</highlight></codeline>
+<codeline lineno="326"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="327"><highlight class="normal"></highlight></codeline>
+<codeline lineno="328"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>returns<sp/>an<sp/>empty<sp/>iterator<sp/>that<sp/>marks<sp/>the<sp/>end<sp/>of<sp/>the<sp/>tree</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="329" refid="classhyrise_1_1index_1_1_c_s_b_tree_1a65df8588b44aeab70b3fdfa0fcbe530d" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_iterator" kindref="compound">iterator</ref><sp/><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1a65df8588b44aeab70b3fdfa0fcbe530d" kindref="member">end</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="330"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1a3cc7144ae529bdb0ffea0d53a744377a" kindref="member">iterator</ref>();</highlight></codeline>
+<codeline lineno="331"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="332"><highlight class="normal"></highlight></codeline>
+<codeline lineno="333" refid="classhyrise_1_1index_1_1_c_s_b_tree_1a61164f7760f0de213f9cf5228cb17ba6" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_iterator" kindref="compound">iterator</ref><sp/><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1a61164f7760f0de213f9cf5228cb17ba6" kindref="member">at</ref>(<ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1aa064822470f2784a31add51a5465874d" kindref="member">key_type</ref><sp/>k)<sp/>{</highlight></codeline>
+<codeline lineno="334"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_leaf_node_u_i" kindref="compound">leaf_node_ptr</ref><sp/>t<sp/>=<sp/>(<ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1aec7cad42ad09b81f939c956582652305" kindref="member">leaf_node_ptr</ref>)<sp/><ref refid="csb__tree_8h_1a17b597a7bff3c281a1a04d40a52aeebc" kindref="member">CONVERT_LEAF</ref>(<ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1a04056bfe88c521b3636ecc6364bb4b40" kindref="member">find_leaf</ref>(k));</highlight></codeline>
+<codeline lineno="335"><highlight class="normal"></highlight></codeline>
+<codeline lineno="336"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1aa064822470f2784a31add51a5465874d" kindref="member">key_type</ref><sp/>insertion_point<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="337"><highlight class="normal"></highlight></codeline>
+<codeline lineno="338"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(t-&gt;<ref refid="structhyrise_1_1index_1_1_c_s_b_leaf_node_u_i_1a297fe5351a0a6ec941c1110010d23c57" kindref="member">entries</ref>[insertion_point].<ref refid="structhyrise_1_1index_1_1_c_s_b_pair_u_i_1a16c21e7ae80e3a590969790fd7333016" kindref="member">key</ref><sp/>&lt;<sp/>k<sp/>&amp;&amp;<sp/>insertion_point<sp/>&lt;<sp/>t-&gt;num_keys)<sp/>{</highlight></codeline>
+<codeline lineno="339"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>++insertion_point;</highlight></codeline>
+<codeline lineno="340"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="341"><highlight class="normal"></highlight></codeline>
+<codeline lineno="342"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1a3cc7144ae529bdb0ffea0d53a744377a" kindref="member">iterator</ref>(t,<sp/>insertion_point);</highlight></codeline>
+<codeline lineno="343"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="344"><highlight class="normal"></highlight></codeline>
+<codeline lineno="345"><highlight class="normal"><sp/></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="346"><highlight class="normal"></highlight></codeline>
+<codeline lineno="347" refid="structhyrise_1_1index_1_1_c_s_b_tree_1_1__node__id" refkind="compound"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structhyrise_1_1index_1_1_c_s_b_tree_1_1__node__id" kindref="compound">_node_id</ref><sp/>{</highlight></codeline>
+<codeline lineno="348"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>parent<sp/>node</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="349" refid="structhyrise_1_1index_1_1_c_s_b_tree_1_1__node__id_1abd5f60c48050139abc9028dfd65fe64b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_node_u_i" kindref="compound">internal_node_ptr</ref><sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_tree_1_1__node__id_1abd5f60c48050139abc9028dfd65fe64b" kindref="member">node</ref>;</highlight></codeline>
+<codeline lineno="350"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>the<sp/>depth</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="351" refid="structhyrise_1_1index_1_1_c_s_b_tree_1_1__node__id_1ac861f0cb10b48c36024348feeef11dd4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_tree_1_1__node__id_1ac861f0cb10b48c36024348feeef11dd4" kindref="member">level</ref>;</highlight></codeline>
+<codeline lineno="352"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>the<sp/>offset</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="353" refid="structhyrise_1_1index_1_1_c_s_b_tree_1_1__node__id_1a136d92cb18d4c5952be68ff2de242065" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_tree_1_1__node__id_1a136d92cb18d4c5952be68ff2de242065" kindref="member">offset</ref>;</highlight></codeline>
+<codeline lineno="354"><highlight class="normal"></highlight></codeline>
+<codeline lineno="355"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>the<sp/>path,<sp/>if<sp/>the<sp/>path<sp/>is<sp/>set<sp/>ok,<sp/>if<sp/>not<sp/>ignore</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="356" refid="structhyrise_1_1index_1_1_c_s_b_tree_1_1__node__id_1a8738cf4ceeed4293b0fc55c533d7c405" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::list&lt;CSBNodeUI<sp/>*&gt;<sp/>*<ref refid="structhyrise_1_1index_1_1_c_s_b_tree_1_1__node__id_1a8738cf4ceeed4293b0fc55c533d7c405" kindref="member">path</ref>;</highlight></codeline>
+<codeline lineno="357"><highlight class="normal"></highlight></codeline>
+<codeline lineno="358" refid="structhyrise_1_1index_1_1_c_s_b_tree_1_1__node__id_1ae41d1b70c7fc30c3810ba810aad5388e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_tree_1_1__node__id_1ae41d1b70c7fc30c3810ba810aad5388e" kindref="member">~_node_id</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="359"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="360"><highlight class="normal"></highlight></codeline>
+<codeline lineno="361"><highlight class="normal"><sp/><sp/>}<sp/><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1ad4f532231b040a4b1ab7f25839f5b75d" kindref="member">_node_id</ref>;</highlight></codeline>
+<codeline lineno="362"><highlight class="normal"></highlight></codeline>
+<codeline lineno="363" refid="classhyrise_1_1index_1_1_c_s_b_tree_1a7baa3b165ef9469ac50f10a359e7b28f" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_leaf_node_u_i" kindref="compound">leaf_node_ptr</ref><sp/><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1a7baa3b165ef9469ac50f10a359e7b28f" kindref="member">_begin</ref>;</highlight></codeline>
+<codeline lineno="364"><highlight class="normal"></highlight></codeline>
+<codeline lineno="365"><highlight class="normal"></highlight></codeline>
+<codeline lineno="366"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Typedef<sp/>to<sp/>capture<sp/>the<sp/>node<sp/>list</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="367" refid="classhyrise_1_1index_1_1_c_s_b_tree_1ae11fb48783b34470453c6e8fb1116405" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>std::list&lt;CSBNodeUI<sp/>*&gt;<sp/><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1ae11fb48783b34470453c6e8fb1116405" kindref="member">_node_path</ref>;</highlight></codeline>
+<codeline lineno="368" refid="classhyrise_1_1index_1_1_c_s_b_tree_1add11d81ceb555c3b73218b6d7040fc53" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>std::list&lt;CSBNodeUI<sp/>*&gt;<sp/>*<ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1add11d81ceb555c3b73218b6d7040fc53" kindref="member">_node_path_ptr</ref>;</highlight></codeline>
+<codeline lineno="369"><highlight class="normal"></highlight></codeline>
+<codeline lineno="370"><highlight class="normal"><sp/><sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_tree_1_1__node__id" kindref="compound">_node_id</ref><sp/><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1a04056bfe88c521b3636ecc6364bb4b40" kindref="member">find_leaf</ref>(<ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1aa064822470f2784a31add51a5465874d" kindref="member">key_type</ref><sp/>k,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>withPath<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="371"><highlight class="normal"></highlight></codeline>
+<codeline lineno="372"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Insert<sp/>into<sp/>the<sp/>leaf<sp/>and<sp/>split<sp/>the<sp/>node<sp/>before</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="373"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1a3c612c9ef0c5b944c2814373b597311b" kindref="member">insert_into_leaf_after_splitting</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1add11d81ceb555c3b73218b6d7040fc53" kindref="member">_node_path_ptr</ref><sp/>path,</highlight></codeline>
+<codeline lineno="374"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_leaf_node_u_i" kindref="compound">leaf_node_ptr</ref><sp/>leaf,</highlight></codeline>
+<codeline lineno="375"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1aa064822470f2784a31add51a5465874d" kindref="member">key_type</ref><sp/>k,</highlight></codeline>
+<codeline lineno="376"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1a5b9ddb9ae7fc95ce8b7a9863a50d0783" kindref="member">value_type</ref><sp/>v);</highlight></codeline>
+<codeline lineno="377"><highlight class="normal"></highlight></codeline>
+<codeline lineno="378"><highlight class="normal"></highlight></codeline>
+<codeline lineno="379"><highlight class="normal"></highlight></codeline>
+<codeline lineno="380"><highlight class="normal"><sp/><sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_leaf_node_u_i" kindref="compound">leaf_node_ptr</ref><sp/><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1a49d0cc3d192adab76ee0a7daeb23769b" kindref="member">split_leaf_node</ref>(<ref refid="structhyrise_1_1index_1_1_c_s_b_leaf_node_u_i" kindref="compound">leaf_node_ptr</ref><sp/>leaf,</highlight></codeline>
+<codeline lineno="381"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1aa064822470f2784a31add51a5465874d" kindref="member">key_type</ref><sp/>k,</highlight></codeline>
+<codeline lineno="382"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1a5b9ddb9ae7fc95ce8b7a9863a50d0783" kindref="member">value_type</ref><sp/>v);</highlight></codeline>
+<codeline lineno="383"><highlight class="normal"></highlight></codeline>
+<codeline lineno="384"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Insert<sp/>the<sp/>leaf<sp/>node<sp/>into<sp/>the<sp/>parent<sp/>after<sp/>it<sp/>was<sp/>split</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="385"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1ad43c2ae9efb20b26f480522689d20c73" kindref="member">insert_into_parent_after_splitting</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1add11d81ceb555c3b73218b6d7040fc53" kindref="member">_node_path_ptr</ref><sp/>path,</highlight></codeline>
+<codeline lineno="386"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_node_u_i" kindref="compound">internal_node_ptr</ref><sp/>first_child,</highlight></codeline>
+<codeline lineno="387"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1aa064822470f2784a31add51a5465874d" kindref="member">key_type</ref><sp/>k);</highlight></codeline>
+<codeline lineno="388"><highlight class="normal"></highlight></codeline>
+<codeline lineno="389"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Insert<sp/>the<sp/>internal<sp/>node<sp/>into<sp/>the<sp/>parent<sp/>after<sp/>it<sp/>was<sp/>split</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="390"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1ad43c2ae9efb20b26f480522689d20c73" kindref="member">insert_into_parent_after_splitting</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1add11d81ceb555c3b73218b6d7040fc53" kindref="member">_node_path_ptr</ref><sp/>path,</highlight></codeline>
+<codeline lineno="391"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structhyrise_1_1index_1_1_c_s_b_leaf_node_u_i" kindref="compound">leaf_node_ptr</ref><sp/>first_child,</highlight></codeline>
+<codeline lineno="392"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1aa064822470f2784a31add51a5465874d" kindref="member">key_type</ref><sp/>k);</highlight></codeline>
+<codeline lineno="393"><highlight class="normal"></highlight></codeline>
+<codeline lineno="394"><highlight class="normal"></highlight></codeline>
+<codeline lineno="395"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Directly<sp/>insert<sp/>into<sp/>the<sp/>leaf<sp/>node</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="396"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1a7e265adb14a5466be73d3beff082580b" kindref="member">insert_into_leaf</ref>(<ref refid="structhyrise_1_1index_1_1_c_s_b_leaf_node_u_i" kindref="compound">leaf_node_ptr</ref><sp/>leaf,<sp/><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1aa064822470f2784a31add51a5465874d" kindref="member">key_type</ref><sp/>k,<sp/><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1a5b9ddb9ae7fc95ce8b7a9863a50d0783" kindref="member">value_type</ref><sp/>v);</highlight></codeline>
+<codeline lineno="397"><highlight class="normal"></highlight></codeline>
+<codeline lineno="398" refid="classhyrise_1_1index_1_1_c_s_b_tree_1a9b49499a13878578fefa6b37a0711cd3" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1a9b49499a13878578fefa6b37a0711cd3" kindref="member">print_path</ref>(<ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1add11d81ceb555c3b73218b6d7040fc53" kindref="member">_node_path_ptr</ref><sp/>p)</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="399"><highlight class="normal"><sp/><sp/><sp/><sp/>_node_path::iterator<sp/>it;</highlight></codeline>
+<codeline lineno="400"><highlight class="normal"></highlight></codeline>
+<codeline lineno="401"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(it<sp/>=<sp/>p-&gt;begin();<sp/>it<sp/>!=<sp/>p-&gt;end();<sp/>it++)<sp/>{</highlight></codeline>
+<codeline lineno="402"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>(*it)-&gt;print();</highlight></codeline>
+<codeline lineno="403"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="404"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="405"><highlight class="normal"></highlight></codeline>
+<codeline lineno="406"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="407"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="408"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="409"><highlight class="normal"></highlight></codeline>
+<codeline lineno="410"><highlight class="normal"></highlight></codeline>
+<codeline lineno="411"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/>//<sp/>SRC_LIB_STORAGE_CSB_TREE_H_</highlight></codeline>
+    </programlisting>
+    <location file="/home/grund/hyrise/src/lib/storage/csb_tree.h"/>
+  </compounddef>
+</doxygen>

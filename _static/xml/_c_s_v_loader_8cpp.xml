@@ -1,0 +1,714 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="_c_s_v_loader_8cpp" kind="file">
+    <compoundname>CSVLoader.cpp</compoundname>
+    <includes refid="_c_s_v_loader_8h" local="yes">io/CSVLoader.h</includes>
+    <includes local="no">fstream</includes>
+    <includes refid="_generic_c_s_v_8h" local="yes">io/GenericCSV.h</includes>
+    <includes refid="_metadata_creation_8h" local="yes">io/MetadataCreation.h</includes>
+    <includes refid="_abstract_table_8h" local="yes">storage/AbstractTable.h</includes>
+    <includes refid="_column_metadata_8h" local="yes">storage/ColumnMetadata.h</includes>
+    <incdepgraph>
+      <node id="14516">
+        <label>list</label>
+      </node>
+      <node id="14495">
+        <label>boost/mpl/vector.hpp</label>
+      </node>
+      <node id="14489">
+        <label>limits</label>
+      </node>
+      <node id="14535">
+        <label>boost/functional/hash.hpp</label>
+      </node>
+      <node id="14510">
+        <label>assert.h</label>
+      </node>
+      <node id="14481">
+        <label>src/lib/io/CSVLoader.cpp</label>
+        <link refid="CSVLoader.cpp"/>
+        <childnode refid="14482" relation="include">
+        </childnode>
+        <childnode refid="14503" relation="include">
+        </childnode>
+        <childnode refid="14499" relation="include">
+        </childnode>
+        <childnode refid="14504" relation="include">
+        </childnode>
+        <childnode refid="14505" relation="include">
+        </childnode>
+        <childnode refid="14507" relation="include">
+        </childnode>
+      </node>
+      <node id="14499">
+        <label>io/GenericCSV.h</label>
+        <link refid="_generic_c_s_v_8h"/>
+        <childnode refid="14500" relation="include">
+        </childnode>
+        <childnode refid="14492" relation="include">
+        </childnode>
+        <childnode refid="14486" relation="include">
+        </childnode>
+        <childnode refid="14490" relation="include">
+        </childnode>
+        <childnode refid="14501" relation="include">
+        </childnode>
+        <childnode refid="14491" relation="include">
+        </childnode>
+        <childnode refid="14498" relation="include">
+        </childnode>
+      </node>
+      <node id="14497">
+        <label>boost/lexical_cast.hpp</label>
+      </node>
+      <node id="14526">
+        <label>boost/iterator/iterator_facade.hpp</label>
+      </node>
+      <node id="14488">
+        <label>cstdint</label>
+      </node>
+      <node id="14523">
+        <label>storage/BaseDictionary.h</label>
+        <link refid="_base_dictionary_8h"/>
+        <childnode refid="14491" relation="include">
+        </childnode>
+        <childnode refid="14512" relation="include">
+        </childnode>
+        <childnode refid="14524" relation="include">
+        </childnode>
+      </node>
+      <node id="14493">
+        <label>stdint.h</label>
+      </node>
+      <node id="14522">
+        <label>stdlib.h</label>
+      </node>
+      <node id="14504">
+        <label>io/MetadataCreation.h</label>
+        <link refid="_metadata_creation_8h"/>
+        <childnode refid="14483" relation="include">
+        </childnode>
+        <childnode refid="14486" relation="include">
+        </childnode>
+        <childnode refid="14490" relation="include">
+        </childnode>
+        <childnode refid="14487" relation="include">
+        </childnode>
+        <childnode refid="14502" relation="include">
+        </childnode>
+        <childnode refid="14491" relation="include">
+        </childnode>
+      </node>
+      <node id="14520">
+        <label>errno.h</label>
+      </node>
+      <node id="14492">
+        <label>stdexcept</label>
+      </node>
+      <node id="14486">
+        <label>string</label>
+      </node>
+      <node id="14532">
+        <label>map</label>
+      </node>
+      <node id="14482">
+        <label>io/CSVLoader.h</label>
+        <link refid="_c_s_v_loader_8h"/>
+        <childnode refid="14483" relation="include">
+        </childnode>
+        <childnode refid="14484" relation="include">
+        </childnode>
+        <childnode refid="14499" relation="include">
+        </childnode>
+        <childnode refid="14502" relation="include">
+        </childnode>
+        <childnode refid="14498" relation="include">
+        </childnode>
+      </node>
+      <node id="14508">
+        <label>storage/ValueIdMap.hpp</label>
+        <link refid="_value_id_map_8hpp"/>
+        <childnode refid="14509" relation="include">
+        </childnode>
+        <childnode refid="14528" relation="include">
+        </childnode>
+      </node>
+      <node id="14519">
+        <label>memory/MemalignStrategy.h</label>
+        <link refid="_memalign_strategy_8h"/>
+        <childnode refid="14520" relation="include">
+        </childnode>
+        <childnode refid="14521" relation="include">
+        </childnode>
+        <childnode refid="14522" relation="include">
+        </childnode>
+      </node>
+      <node id="14531">
+        <label>exception</label>
+      </node>
+      <node id="14514">
+        <label>stddef.h</label>
+      </node>
+      <node id="14503">
+        <label>fstream</label>
+      </node>
+      <node id="14528">
+        <label>storage/OrderIndifferentDictionary.h</label>
+        <link refid="_order_indifferent_dictionary_8h"/>
+        <childnode refid="14491" relation="include">
+        </childnode>
+        <childnode refid="14512" relation="include">
+        </childnode>
+        <childnode refid="14523" relation="include">
+        </childnode>
+        <childnode refid="14524" relation="include">
+        </childnode>
+        <childnode refid="14529" relation="include">
+        </childnode>
+        <childnode refid="14527" relation="include">
+        </childnode>
+        <childnode refid="14531" relation="include">
+        </childnode>
+        <childnode refid="14490" relation="include">
+        </childnode>
+        <childnode refid="14532" relation="include">
+        </childnode>
+        <childnode refid="14483" relation="include">
+        </childnode>
+        <childnode refid="14533" relation="include">
+        </childnode>
+        <childnode refid="14534" relation="include">
+        </childnode>
+        <childnode refid="14535" relation="include">
+        </childnode>
+      </node>
+      <node id="14494">
+        <label>ostream</label>
+      </node>
+      <node id="14533">
+        <label>limits.h</label>
+      </node>
+      <node id="14524">
+        <label>storage/DictionaryIterator.h</label>
+        <link refid="_dictionary_iterator_8h"/>
+        <childnode refid="14525" relation="include">
+        </childnode>
+        <childnode refid="14526" relation="include">
+        </childnode>
+      </node>
+      <node id="14501">
+        <label>libcsv/csv.h</label>
+      </node>
+      <node id="14512">
+        <label>storage/AbstractDictionary.h</label>
+        <link refid="_abstract_dictionary_8h"/>
+        <childnode refid="14490" relation="include">
+        </childnode>
+        <childnode refid="14486" relation="include">
+        </childnode>
+        <childnode refid="14483" relation="include">
+        </childnode>
+        <childnode refid="14513" relation="include">
+        </childnode>
+        <childnode refid="14517" relation="include">
+        </childnode>
+        <childnode refid="14519" relation="include">
+        </childnode>
+        <childnode refid="14491" relation="include">
+        </childnode>
+      </node>
+      <node id="14530">
+        <label>string.h</label>
+      </node>
+      <node id="14505">
+        <label>storage/AbstractTable.h</label>
+        <link refid="_abstract_table_8h"/>
+        <childnode refid="14489" relation="include">
+        </childnode>
+        <childnode refid="14483" relation="include">
+        </childnode>
+        <childnode refid="14492" relation="include">
+        </childnode>
+        <childnode refid="14490" relation="include">
+        </childnode>
+        <childnode refid="14486" relation="include">
+        </childnode>
+        <childnode refid="14487" relation="include">
+        </childnode>
+        <childnode refid="14506" relation="include">
+        </childnode>
+        <childnode refid="14491" relation="include">
+        </childnode>
+        <childnode refid="14507" relation="include">
+        </childnode>
+        <childnode refid="14508" relation="include">
+        </childnode>
+      </node>
+      <node id="14506">
+        <label>storage/AbstractResource.h</label>
+        <link refid="_abstract_resource_8h"/>
+      </node>
+      <node id="14534">
+        <label>boost/unordered_map.hpp</label>
+      </node>
+      <node id="14490">
+        <label>vector</label>
+      </node>
+      <node id="14487">
+        <label>helper/types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="14488" relation="include">
+        </childnode>
+        <childnode refid="14486" relation="include">
+        </childnode>
+        <childnode refid="14489" relation="include">
+        </childnode>
+        <childnode refid="14483" relation="include">
+        </childnode>
+        <childnode refid="14490" relation="include">
+        </childnode>
+      </node>
+      <node id="14485">
+        <label>io/Loader.h</label>
+        <link refid="_loader_8h"/>
+        <childnode refid="14483" relation="include">
+        </childnode>
+        <childnode refid="14486" relation="include">
+        </childnode>
+        <childnode refid="14487" relation="include">
+        </childnode>
+        <childnode refid="14491" relation="include">
+        </childnode>
+        <childnode refid="14498" relation="include">
+        </childnode>
+      </node>
+      <node id="14525">
+        <label>storage/BaseIterator.h</label>
+        <link refid="_base_iterator_8h"/>
+      </node>
+      <node id="14513">
+        <label>memory/StrategizedAllocator.h</label>
+        <link refid="_strategized_allocator_8h"/>
+        <childnode refid="14514" relation="include">
+        </childnode>
+        <childnode refid="14515" relation="include">
+        </childnode>
+        <childnode refid="14516" relation="include">
+        </childnode>
+        <childnode refid="14492" relation="include">
+        </childnode>
+      </node>
+      <node id="14484">
+        <label>io/AbstractLoader.h</label>
+        <link refid="_abstract_loader_8h"/>
+        <childnode refid="14485" relation="include">
+        </childnode>
+        <childnode refid="14491" relation="include">
+        </childnode>
+      </node>
+      <node id="14500">
+        <label>iosfwd</label>
+      </node>
+      <node id="14511">
+        <label>iostream</label>
+      </node>
+      <node id="14502">
+        <label>io/LoaderException.h</label>
+        <link refid="_loader_exception_8h"/>
+        <childnode refid="14492" relation="include">
+        </childnode>
+        <childnode refid="14486" relation="include">
+        </childnode>
+      </node>
+      <node id="14507">
+        <label>storage/ColumnMetadata.h</label>
+        <link refid="_column_metadata_8h"/>
+        <childnode refid="14491" relation="include">
+        </childnode>
+        <childnode refid="14486" relation="include">
+        </childnode>
+        <childnode refid="14492" relation="include">
+        </childnode>
+      </node>
+      <node id="14496">
+        <label>boost/mpl/map.hpp</label>
+      </node>
+      <node id="14527">
+        <label>storage/AbstractAllocatedDictionary.h</label>
+        <link refid="_abstract_allocated_dictionary_8h"/>
+      </node>
+      <node id="14517">
+        <label>memory/MallocStrategy.h</label>
+        <link refid="_malloc_strategy_8h"/>
+        <childnode refid="14511" relation="include">
+        </childnode>
+        <childnode refid="14488" relation="include">
+        </childnode>
+        <childnode refid="14518" relation="include">
+        </childnode>
+      </node>
+      <node id="14509">
+        <label>storage/OrderPreservingDictionary.h</label>
+        <link refid="_order_preserving_dictionary_8h"/>
+        <childnode refid="14510" relation="include">
+        </childnode>
+        <childnode refid="14511" relation="include">
+        </childnode>
+        <childnode refid="14483" relation="include">
+        </childnode>
+        <childnode refid="14491" relation="include">
+        </childnode>
+        <childnode refid="14512" relation="include">
+        </childnode>
+        <childnode refid="14523" relation="include">
+        </childnode>
+        <childnode refid="14524" relation="include">
+        </childnode>
+        <childnode refid="14527" relation="include">
+        </childnode>
+        <childnode refid="14525" relation="include">
+        </childnode>
+      </node>
+      <node id="14515">
+        <label>algorithm</label>
+      </node>
+      <node id="14521">
+        <label>stdio.h</label>
+      </node>
+      <node id="14518">
+        <label>cstring</label>
+      </node>
+      <node id="14529">
+        <label>storage/csb_tree.h</label>
+        <link refid="csb__tree_8h"/>
+        <childnode refid="14490" relation="include">
+        </childnode>
+        <childnode refid="14511" relation="include">
+        </childnode>
+        <childnode refid="14516" relation="include">
+        </childnode>
+        <childnode refid="14483" relation="include">
+        </childnode>
+        <childnode refid="14530" relation="include">
+        </childnode>
+        <childnode refid="14510" relation="include">
+        </childnode>
+        <childnode refid="14526" relation="include">
+        </childnode>
+      </node>
+      <node id="14483">
+        <label>memory</label>
+      </node>
+      <node id="14491">
+        <label>storage/storage_types.h</label>
+        <link refid="storage__types_8h"/>
+        <childnode refid="14490" relation="include">
+        </childnode>
+        <childnode refid="14486" relation="include">
+        </childnode>
+        <childnode refid="14492" relation="include">
+        </childnode>
+        <childnode refid="14493" relation="include">
+        </childnode>
+        <childnode refid="14494" relation="include">
+        </childnode>
+        <childnode refid="14495" relation="include">
+        </childnode>
+        <childnode refid="14496" relation="include">
+        </childnode>
+        <childnode refid="14497" relation="include">
+        </childnode>
+      </node>
+      <node id="14498">
+        <label>parameters.inc</label>
+        <link refid="parameters_8inc"/>
+      </node>
+    </incdepgraph>
+    <innerclass refid="structcb__data" prot="public">cb_data</innerclass>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="_c_s_v_loader_8cpp_1a77877a6f74db27f58a24cff97884879a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>param_member_impl</definition>
+        <argsstring>(CSVInput::params, csv::params, CSVParams)</argsstring>
+        <name>param_member_impl</name>
+        <param>
+          <type><ref refid="class_c_s_v_input_1_1params" kindref="compound">CSVInput::params</ref></type>
+        </param>
+        <param>
+          <type><ref refid="classcsv_1_1params" kindref="compound">csv::params</ref></type>
+        </param>
+        <param>
+          <type>CSVParams</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/CSVLoader.cpp" line="13"/>
+      </memberdef>
+      <memberdef kind="function" id="_c_s_v_loader_8cpp_1ab7f9b2bc7523ba8cda60399a62e77e21" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>param_member_impl</definition>
+        <argsstring>(CSVInput::params, bool, Unsafe)</argsstring>
+        <name>param_member_impl</name>
+        <param>
+          <type><ref refid="class_c_s_v_input_1_1params" kindref="compound">CSVInput::params</ref></type>
+        </param>
+        <param>
+          <type>bool</type>
+        </param>
+        <param>
+          <type>Unsafe</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/CSVLoader.cpp" line="14"/>
+      </memberdef>
+      <memberdef kind="function" id="_c_s_v_loader_8cpp_1afc4740fe7db8b181171cdb358bf0f5dd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>param_member_impl</definition>
+        <argsstring>(CSVHeader::params, csv::params, CSVParams)</argsstring>
+        <name>param_member_impl</name>
+        <param>
+          <type><ref refid="class_c_s_v_header_1_1params" kindref="compound">CSVHeader::params</ref></type>
+        </param>
+        <param>
+          <type><ref refid="classcsv_1_1params" kindref="compound">csv::params</ref></type>
+        </param>
+        <param>
+          <type>CSVParams</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/CSVLoader.cpp" line="15"/>
+      </memberdef>
+      <memberdef kind="function" id="_c_s_v_loader_8cpp_1a70877182245a5a09a3f0f9f200a52dfd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void cb_per_field</definition>
+        <argsstring>(char *field_buffer, size_t field_length, struct cb_data *data)</argsstring>
+        <name>cb_per_field</name>
+        <param>
+          <type>char *</type>
+          <declname>field_buffer</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>field_length</declname>
+        </param>
+        <param>
+          <type>struct <ref refid="structcb__data" kindref="compound">cb_data</ref> *</type>
+          <declname>data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/CSVLoader.cpp" line="29" bodyfile="/home/grund/hyrise/src/lib/io/CSVLoader.cpp" bodystart="29" bodyend="53"/>
+      </memberdef>
+      <memberdef kind="function" id="_c_s_v_loader_8cpp_1a0dd4fdff4b4448198fd5f7ee03e13e4b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void cb_per_line</definition>
+        <argsstring>(int separator, struct cb_data *data)</argsstring>
+        <name>cb_per_line</name>
+        <param>
+          <type>int</type>
+          <declname>separator</declname>
+        </param>
+        <param>
+          <type>struct <ref refid="structcb__data" kindref="compound">cb_data</ref> *</type>
+          <declname>data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/CSVLoader.cpp" line="55" bodyfile="/home/grund/hyrise/src/lib/io/CSVLoader.cpp" bodystart="55" bodyend="61"/>
+      </memberdef>
+      <memberdef kind="function" id="_c_s_v_loader_8cpp_1a739b60f25bf7ffb2389df37da62009e9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint64_t</type>
+        <definition>uint64_t countLines</definition>
+        <argsstring>(const std::string &amp;filename)</argsstring>
+        <name>countLines</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>filename</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/CSVLoader.cpp" line="63" bodyfile="/home/grund/hyrise/src/lib/io/CSVLoader.cpp" bodystart="63" bodyend="74"/>
+      </memberdef>
+      <memberdef kind="function" id="_c_s_v_loader_8cpp_1aeb7fb1f440de288a023d718f8ff2cbbd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool detectHeader</definition>
+        <argsstring>(const std::string &amp;filename)</argsstring>
+        <name>detectHeader</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>filename</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/CSVLoader.cpp" line="76" bodyfile="/home/grund/hyrise/src/lib/io/CSVLoader.cpp" bodystart="76" bodyend="86"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>2012<sp/>Hasso-Plattner-Institut<sp/>fuer<sp/>Softwaresystemtechnik<sp/>GmbH.<sp/>All<sp/>rights<sp/>reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_c_s_v_loader_8h" kindref="compound">io/CSVLoader.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;fstream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_generic_c_s_v_8h" kindref="compound">io/GenericCSV.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_metadata_creation_8h" kindref="compound">io/MetadataCreation.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_abstract_table_8h" kindref="compound">storage/AbstractTable.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_column_metadata_8h" kindref="compound">storage/ColumnMetadata.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><ref refid="_c_s_v_loader_8h_1a7dd726b83c37b5eb2e3fa5fba8e27c9d" kindref="member">param_member_impl</ref>(<ref refid="class_c_s_v_input_1_1params" kindref="compound">CSVInput::params</ref>,<sp/><ref refid="classcsv_1_1params" kindref="compound">csv::params</ref>,<sp/>CSVParams);</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><ref refid="_c_s_v_loader_8h_1a7dd726b83c37b5eb2e3fa5fba8e27c9d" kindref="member">param_member_impl</ref>(<ref refid="class_c_s_v_input_1_1params" kindref="compound">CSVInput::params</ref>,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal">,<sp/>Unsafe);</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><ref refid="_c_s_v_loader_8h_1a7dd726b83c37b5eb2e3fa5fba8e27c9d" kindref="member">param_member_impl</ref>(<ref refid="class_c_s_v_header_1_1params" kindref="compound">CSVHeader::params</ref>,<sp/><ref refid="classcsv_1_1params" kindref="compound">csv::params</ref>,<sp/>CSVParams);</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight></codeline>
+<codeline lineno="17" refid="structcb__data" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structcb__data" kindref="compound">cb_data</ref><sp/>{</highlight></codeline>
+<codeline lineno="18" refid="structcb__data_1a380bcd511216d333316217546d3fa31c" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="structcb__data_1a380bcd511216d333316217546d3fa31c" kindref="member">row</ref>;</highlight></codeline>
+<codeline lineno="19" refid="structcb__data_1a6717d8fa3354bd46b2c62b2a8801e415" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="structcb__data_1a6717d8fa3354bd46b2c62b2a8801e415" kindref="member">column</ref>;</highlight></codeline>
+<codeline lineno="20" refid="structcb__data_1a12688bd84e146cc450896495e2a92025" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="structcb__data_1a12688bd84e146cc450896495e2a92025" kindref="member">table_columns</ref>;</highlight></codeline>
+<codeline lineno="21" refid="structcb__data_1ad374c730683920b8ccd0ad4f01f026a5" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="structcb__data_1ad374c730683920b8ccd0ad4f01f026a5" kindref="member">unsafe</ref>;</highlight></codeline>
+<codeline lineno="22" refid="structcb__data_1a08df057e69a3ccaf30ec3603fd4ae29a" refkind="member"><highlight class="normal"><sp/><sp/>std::shared_ptr&lt;AbstractTable&gt;<sp/><ref refid="structcb__data_1a08df057e69a3ccaf30ec3603fd4ae29a" kindref="member">table</ref>;</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight></codeline>
+<codeline lineno="24" refid="structcb__data_1abe67abf9860c55c310b03fac559f19b0" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="structcb__data_1abe67abf9860c55c310b03fac559f19b0" kindref="member">cb_data</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>columns,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="structcb__data_1ad374c730683920b8ccd0ad4f01f026a5" kindref="member">unsafe</ref>):<sp/><ref refid="structcb__data_1a380bcd511216d333316217546d3fa31c" kindref="member">row</ref>(0),<sp/><ref refid="structcb__data_1a6717d8fa3354bd46b2c62b2a8801e415" kindref="member">column</ref>(0),<sp/><ref refid="structcb__data_1a12688bd84e146cc450896495e2a92025" kindref="member">table_columns</ref>(columns),<sp/>unsafe(unsafe)<sp/>{</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="26"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29" refid="_c_s_v_loader_8cpp_1a70877182245a5a09a3f0f9f200a52dfd" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="_c_s_v_loader_8cpp_1a70877182245a5a09a3f0f9f200a52dfd" kindref="member">cb_per_field</ref>(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*field_buffer,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>field_length,<sp/></highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="structcb__data" kindref="compound">cb_data</ref><sp/>*data)<sp/>{</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(data-&gt;<ref refid="structcb__data_1a6717d8fa3354bd46b2c62b2a8801e415" kindref="member">column</ref><sp/>&gt;=<sp/>data-&gt;<ref refid="structcb__data_1a12688bd84e146cc450896495e2a92025" kindref="member">table_columns</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(data-&gt;<ref refid="structcb__data_1ad374c730683920b8ccd0ad4f01f026a5" kindref="member">unsafe</ref>)<sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>ignore_data;</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/><ref refid="class_c_s_v_loader_error" kindref="compound">CSVLoaderError</ref>(</highlight><highlight class="stringliteral">&quot;There<sp/>is<sp/>more<sp/>data<sp/>than<sp/>columns!&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>(data-&gt;<ref refid="structcb__data_1a08df057e69a3ccaf30ec3603fd4ae29a" kindref="member">table</ref>-&gt;typeOfColumn(data-&gt;<ref refid="structcb__data_1a6717d8fa3354bd46b2c62b2a8801e415" kindref="member">column</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="storage__types_8h_1ad8ed01ff3ff33333d8e19db4d2818bb6a90453dde1506c63dbaaa7a1a363a06a9" kindref="member">IntegerType</ref>:</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>data-&gt;<ref refid="structcb__data_1a08df057e69a3ccaf30ec3603fd4ae29a" kindref="member">table</ref>-&gt;setValue&lt;<ref refid="storage__types_8h_1a72c5f9ba0685142ffc747d0a586a5d8a" kindref="member">hyrise_int_t</ref>&gt;(data-&gt;<ref refid="structcb__data_1a6717d8fa3354bd46b2c62b2a8801e415" kindref="member">column</ref>,<sp/>data-&gt;<ref refid="structcb__data_1a380bcd511216d333316217546d3fa31c" kindref="member">row</ref>,<sp/>atol(field_buffer));</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="storage__types_8h_1ad8ed01ff3ff33333d8e19db4d2818bb6a866d24e407b4ee66d3efe59486be6db4" kindref="member">FloatType</ref>:</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>data-&gt;<ref refid="structcb__data_1a08df057e69a3ccaf30ec3603fd4ae29a" kindref="member">table</ref>-&gt;setValue&lt;<ref refid="storage__types_8h_1ae1d9f03fd6d4a12d5c63accb4233a2ec" kindref="member">hyrise_float_t</ref>&gt;(data-&gt;<ref refid="structcb__data_1a6717d8fa3354bd46b2c62b2a8801e415" kindref="member">column</ref>,<sp/>data-&gt;<ref refid="structcb__data_1a380bcd511216d333316217546d3fa31c" kindref="member">row</ref>,<sp/>atof(field_buffer));</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="storage__types_8h_1ad8ed01ff3ff33333d8e19db4d2818bb6a83ccab8dfcfc3a9e8656224313fb61f3" kindref="member">StringType</ref>:</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>data-&gt;<ref refid="structcb__data_1a08df057e69a3ccaf30ec3603fd4ae29a" kindref="member">table</ref>-&gt;setValue&lt;<ref refid="storage__types_8h_1af37c27a8a9ec58aee21fbec32a793509" kindref="member">hyrise_string_t</ref>&gt;(data-&gt;<ref refid="structcb__data_1a6717d8fa3354bd46b2c62b2a8801e415" kindref="member">column</ref>,<sp/>data-&gt;<ref refid="structcb__data_1a380bcd511216d333316217546d3fa31c" kindref="member">row</ref>,<sp/>std::string(field_buffer));</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/>std::runtime_error(</highlight><highlight class="stringliteral">&quot;FUUUU&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="51"><highlight class="normal">ignore_data:</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/>++data-&gt;<ref refid="structcb__data_1a6717d8fa3354bd46b2c62b2a8801e415" kindref="member">column</ref>;</highlight></codeline>
+<codeline lineno="53"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55" refid="_c_s_v_loader_8cpp_1a0dd4fdff4b4448198fd5f7ee03e13e4b" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="_c_s_v_loader_8cpp_1a0dd4fdff4b4448198fd5f7ee03e13e4b" kindref="member">cb_per_line</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>separator,<sp/></highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="structcb__data" kindref="compound">cb_data</ref><sp/>*data)<sp/>{</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((!data-&gt;<ref refid="structcb__data_1ad374c730683920b8ccd0ad4f01f026a5" kindref="member">unsafe</ref>)<sp/>&amp;&amp;<sp/>(data-&gt;<ref refid="structcb__data_1a6717d8fa3354bd46b2c62b2a8801e415" kindref="member">column</ref><sp/>!=<sp/>data-&gt;<ref refid="structcb__data_1a12688bd84e146cc450896495e2a92025" kindref="member">table_columns</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/><ref refid="class_c_s_v_loader_error" kindref="compound">CSVLoaderError</ref>(</highlight><highlight class="stringliteral">&quot;Less<sp/>data<sp/>than<sp/>columns&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/>data-&gt;<ref refid="structcb__data_1a380bcd511216d333316217546d3fa31c" kindref="member">row</ref>++;</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/>data-&gt;<ref refid="structcb__data_1a6717d8fa3354bd46b2c62b2a8801e415" kindref="member">column</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="61"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63" refid="_c_s_v_loader_8cpp_1a739b60f25bf7ffb2389df37da62009e9" refkind="member"><highlight class="normal">uint64_t<sp/><ref refid="_c_s_v_loader_8cpp_1a739b60f25bf7ffb2389df37da62009e9" kindref="member">countLines</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;filename)<sp/>{</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>numLines<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/>std::ifstream<sp/>in(filename);</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/>std::string<sp/>l;</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(std::getline(in,<sp/>l))</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/>++numLines;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/>if<sp/>(l.size()<sp/>==<sp/>0)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/>--numLines;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>numLines;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76" refid="_c_s_v_loader_8h_1aeb7fb1f440de288a023d718f8ff2cbbd" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="_c_s_v_loader_8cpp_1aeb7fb1f440de288a023d718f8ff2cbbd" kindref="member">detectHeader</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;filename)<sp/>{</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Take<sp/>a<sp/>peak<sp/>into<sp/>file<sp/>to<sp/>check<sp/>wether<sp/>it<sp/>features<sp/>a<sp/>header</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/>std::ifstream<sp/>file(filename.c_str());</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(file.fail())<sp/>{</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/><ref refid="class_c_s_v_loader_error" kindref="compound">CSVLoaderError</ref>(</highlight><highlight class="stringliteral">&quot;File<sp/>&apos;&quot;</highlight><highlight class="normal"><sp/>+<sp/>filename<sp/>+<sp/></highlight><highlight class="stringliteral">&quot;&apos;<sp/>does<sp/>not<sp/>exist&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/>std::string<sp/>line;</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>4;<sp/>++i)<sp/>getline(file,<sp/>line);</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/>file.close();</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;===&quot;</highlight><highlight class="normal"><sp/>==<sp/>line;</highlight></codeline>
+<codeline lineno="86"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="88" refid="class_c_s_v_input_1a1ce24ee1a25f2093ffe28defad30de0a" refkind="member"><highlight class="normal">std::shared_ptr&lt;AbstractTable&gt;<sp/><ref refid="class_c_s_v_input_1a1ce24ee1a25f2093ffe28defad30de0a" kindref="member">CSVInput::load</ref>(std::shared_ptr&lt;AbstractTable&gt;<sp/>intable,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="storage__types_8h_1ab1a41784d413aa539cdda0391757965c" kindref="member">compound_metadata_list</ref><sp/>*meta,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="class_loader_1_1params" kindref="compound">Loader::params</ref><sp/>&amp;args)<sp/>{</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><ref refid="structcb__data" kindref="compound">cb_data</ref><sp/>data(intable-&gt;columnCount(),<sp/><ref refid="class_c_s_v_input_1acacc1e122f7f57804ce37f2163c51014" kindref="member">_parameters</ref>.<ref refid="class_c_s_v_input_1_1params_1aa75c1214786bb5135bf04cdd2a65cf9f" kindref="member">getUnsafe</ref>());</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/>data.<ref refid="structcb__data_1a08df057e69a3ccaf30ec3603fd4ae29a" kindref="member">table</ref><sp/>=<sp/>intable;</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><ref refid="classcsv_1_1params" kindref="compound">csv::params</ref><sp/><ref refid="class_c_s_v_input_1_1params" kindref="compound">params</ref>(<ref refid="class_c_s_v_input_1acacc1e122f7f57804ce37f2163c51014" kindref="member">_parameters</ref>.<ref refid="class_c_s_v_input_1_1params_1a610c2b0f0898b9222ce8ee87866a863a" kindref="member">getCSVParams</ref>());</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="_c_s_v_loader_8cpp_1aeb7fb1f440de288a023d718f8ff2cbbd" kindref="member">detectHeader</ref>(args.<ref refid="class_loader_1_1params_1a0d9f756154e5e123c248a962c9a00895" kindref="member">getBasePath</ref>()<sp/>+<sp/><ref refid="class_c_s_v_input_1a300a10e95fff9816b2a3e9f118853453" kindref="member">_filename</ref>))<sp/><ref refid="class_c_s_v_input_1_1params" kindref="compound">params</ref>.setLineStart(5);</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Resize<sp/>the<sp/>table<sp/>based<sp/>on<sp/>the<sp/>file<sp/>size</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/>data.table-&gt;resize(<ref refid="_c_s_v_loader_8cpp_1a739b60f25bf7ffb2389df37da62009e9" kindref="member">countLines</ref>(args.<ref refid="class_loader_1_1params_1a0d9f756154e5e123c248a962c9a00895" kindref="member">getBasePath</ref>()<sp/>+<sp/><ref refid="class_c_s_v_input_1a300a10e95fff9816b2a3e9f118853453" kindref="member">_filename</ref>)<sp/>-<sp/><ref refid="class_c_s_v_input_1_1params" kindref="compound">params</ref>.getLineStart()<sp/>+<sp/>1);</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">try</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacecsv_1a6c5ac30992d9c7a987031b51b7e5fa93" kindref="member">csv::genericParseFile</ref>(args.<ref refid="class_loader_1_1params_1a0d9f756154e5e123c248a962c9a00895" kindref="member">getBasePath</ref>()<sp/>+<sp/><ref refid="class_c_s_v_input_1a300a10e95fff9816b2a3e9f118853453" kindref="member">_filename</ref>,</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="_generic_c_s_v_8h_1a6b25624417bf944a4ddba487c2dc9492" kindref="member">field_cb_t</ref>)<sp/><ref refid="_c_s_v_loader_8cpp_1a70877182245a5a09a3f0f9f200a52dfd" kindref="member">cb_per_field</ref>,</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="_generic_c_s_v_8h_1af8aabd2a8735efe3f4cd927604f27ea3" kindref="member">line_cb_t</ref>)<sp/><ref refid="_c_s_v_loader_8cpp_1a0dd4fdff4b4448198fd5f7ee03e13e4b" kindref="member">cb_per_line</ref>,</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;data,</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_c_s_v_input_1_1params" kindref="compound">params</ref>);</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">catch</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classcsv_1_1_parser_error" kindref="compound">csv::ParserError</ref><sp/>&amp;e)<sp/>{</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/><ref refid="class_loader_1_1_error" kindref="compound">Loader::Error</ref>(e.what());</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/>data.table-&gt;resize(data.row);</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>intable;</highlight></codeline>
+<codeline lineno="110"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight></codeline>
+<codeline lineno="112" refid="class_c_s_v_input_1a2b4a587a087b70a65d6e13ea77e8089a" refkind="member"><highlight class="normal"><ref refid="class_c_s_v_input" kindref="compound">CSVInput</ref><sp/>*<ref refid="class_c_s_v_input_1a2b4a587a087b70a65d6e13ea77e8089a" kindref="member">CSVInput::clone</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/><ref refid="class_c_s_v_input_1a72a8e2f37b1acb128a3d66f04a1df422" kindref="member">CSVInput</ref>(*</highlight><highlight class="keyword">this</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="114"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight></codeline>
+<codeline lineno="116" refid="class_c_s_v_header_1ad2beb5076a9837df3b96da3f21352267" refkind="member"><highlight class="normal"><ref refid="class_c_s_v_header" kindref="compound">CSVHeader</ref><sp/>*<ref refid="class_c_s_v_header_1ad2beb5076a9837df3b96da3f21352267" kindref="member">CSVHeader::clone</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/><ref refid="class_c_s_v_header_1a6b4ae0703d395cc746e25722493248ed" kindref="member">CSVHeader</ref>(*</highlight><highlight class="keyword">this</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="118"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight></codeline>
+<codeline lineno="120" refid="class_c_s_v_header_1a3ef905a22a8a473b67dc90abee6e15b8" refkind="member"><highlight class="normal"><ref refid="storage__types_8h_1ab1a41784d413aa539cdda0391757965c" kindref="member">compound_metadata_list</ref><sp/>*<ref refid="class_c_s_v_header_1a3ef905a22a8a473b67dc90abee6e15b8" kindref="member">CSVHeader::load</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="class_loader_1_1params" kindref="compound">Loader::params</ref><sp/>&amp;args)<sp/>{</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><ref refid="classcsv_1_1params" kindref="compound">csv::params</ref><sp/>p(<ref refid="class_c_s_v_header_1ac57450ad9b38088556439de56762a64e" kindref="member">_parameters</ref>.<ref refid="class_c_s_v_header_1_1params_1afccc6a0081b59878428e114c85e1ff54" kindref="member">getCSVParams</ref>());</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/>p.<ref refid="classcsv_1_1params_1acc9f61ac140efb8857266e2e5c1a6dfd" kindref="member">setLineCount</ref>(4);</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">try</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;line_t&gt;<sp/>lines(<ref refid="namespacecsv_1a145f4469b34c5cc8d59f6ca118ed91dd" kindref="member">csv::parse_file</ref>(args.<ref refid="class_loader_1_1params_1a0d9f756154e5e123c248a962c9a00895" kindref="member">getBasePath</ref>()<sp/>+<sp/><ref refid="class_c_s_v_header_1a65920ff13bec67338683ab8a859779d3" kindref="member">_filename</ref>,<sp/>p));</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="_metadata_creation_8cpp_1acdf24b5401cea50b331521c1ce75a873" kindref="member">createMetadata</ref>(lines);</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">catch</highlight><highlight class="normal"><sp/>(std::runtime_error<sp/>&amp;e)<sp/>{</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/><ref refid="class_loader_1_1_error" kindref="compound">Loader::Error</ref>(e.what());</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/home/grund/hyrise/src/lib/io/CSVLoader.cpp"/>
+  </compounddef>
+</doxygen>

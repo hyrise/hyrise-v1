@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Plan Operations &mdash; HYRISE latest documentation</title>
+    
+    <link rel="stylesheet" href="../_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/breathe.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     'latest',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="HYRISE latest documentation" href="../index.html" />
+    <link rel="up" title="Implementation Details" href="../architecture.html" />
+    <link rel="next" title="PlanOperation" href="planops/planop.html" />
+    <link rel="prev" title="Query Statistics" href="statistics.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="planops/planop.html" title="PlanOperation"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="statistics.html" title="Query Statistics"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">HYRISE latest documentation</a> &raquo;</li>
+          <li><a href="../architecture.html" accesskey="U">Implementation Details</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/hyrise.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../architecture.html">Implementation Details</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="architecture.html">Create Modifiable Tables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="layouter.html">HYRISE Layouter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="loading.html">Loading</a></li>
+<li class="toctree-l2"><a class="reference internal" href="statistics.html">Query Statistics</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Plan Operations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="planops/planop.html">PlanOperation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="planops/groupby.html">Group By Scan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="planops/hashjoin.html">HashJoin</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="extension_points.html">Extension points</a></li>
+<li class="toctree-l2"><a class="reference internal" href="routing.html">Routing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../query_execution.html">HYRISE Query Execution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developing.html">Developing with HYRISE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">HYRISE &amp; Development FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../proposals.html">Proposals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doxygen.html">Doxygen Documentation</a></li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="statistics.html"
+                        title="previous chapter">Query Statistics</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="planops/planop.html"
+                        title="next chapter">PlanOperation</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/architecture/planops.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="plan-operations">
+<h1>Plan Operations<a class="headerlink" href="#plan-operations" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="planops/planop.html">PlanOperation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="planops/planop.html#input-output-handling">Input/output handling</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="planops/groupby.html">Group By Scan</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="planops/groupby.html#useage">Useage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="planops/groupby.html#executeplanoperation">executePlanOperation()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="planops/groupby.html#aggregate-scan-count-and-sum">Aggregate Scan (Count and Sum)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="planops/groupby.html#parallelization">Parallelization</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="planops/hashjoin.html">HashJoin</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="planops/hashjoin.html#build-phase-hashbuild">Build Phase: HashBuild</a></li>
+<li class="toctree-l2"><a class="reference internal" href="planops/hashjoin.html#probe-phase-hashjoinprobe">Probe Phase: HashJoinProbe</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="planops/planop.html" title="PlanOperation"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="statistics.html" title="Query Statistics"
+             >previous</a> |</li>
+        <li><a href="../index.html">HYRISE latest documentation</a> &raquo;</li>
+          <li><a href="../architecture.html" >Implementation Details</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010-2013, Martin Grund et al.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+  </body>
+</html>

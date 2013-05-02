@@ -1,0 +1,309 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="namespace_loader_1_1shortcuts" kind="namespace">
+    <compoundname>Loader::shortcuts</compoundname>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="namespace_loader_1_1shortcuts_1a23b8b00f7eb01e51b5d3503ecf360a05" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_loader_1_1params" kindref="compound">Loader::params</ref></type>
+        <definition>Loader::params Loader::shortcuts::loadParams</definition>
+        <argsstring>(const std::string &amp;filename, Loader::params &amp;p)</argsstring>
+        <name>loadParams</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>filename</declname>
+        </param>
+        <param>
+          <type><ref refid="class_loader_1_1params" kindref="compound">Loader::params</ref> &amp;</type>
+          <declname>p</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/shortcuts.cpp" line="10" bodyfile="/home/grund/hyrise/src/lib/io/shortcuts.cpp" bodystart="10" bodyend="17"/>
+      </memberdef>
+      <memberdef kind="function" id="namespace_loader_1_1shortcuts_1a07a699a234f536cdaaf8627e58eb473f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_loader_1_1params" kindref="compound">Loader::params</ref></type>
+        <definition>Loader::params Loader::shortcuts::loadWithHeaderParams</definition>
+        <argsstring>(const std::string &amp;datafilepath, const std::string &amp;headerfilepath)</argsstring>
+        <name>loadWithHeaderParams</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>datafilepath</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>headerfilepath</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/shortcuts.cpp" line="19" bodyfile="/home/grund/hyrise/src/lib/io/shortcuts.cpp" bodystart="19" bodyend="28"/>
+      </memberdef>
+      <memberdef kind="function" id="namespace_loader_1_1shortcuts_1a8a550ffee5a5edd92f24350fd0f8c26f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_loader_1_1params" kindref="compound">Loader::params</ref></type>
+        <definition>Loader::params Loader::shortcuts::loadWithStringHeaderParams</definition>
+        <argsstring>(const std::string &amp;datafilepath, const std::string &amp;header)</argsstring>
+        <name>loadWithStringHeaderParams</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>datafilepath</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>header</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/shortcuts.cpp" line="30" bodyfile="/home/grund/hyrise/src/lib/io/shortcuts.cpp" bodystart="30" bodyend="37"/>
+      </memberdef>
+      <memberdef kind="function" id="namespace_loader_1_1shortcuts_1ae866bd4ec4f5e11161219f44992af67b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::shared_ptr&lt; <ref refid="class_abstract_table" kindref="compound">AbstractTable</ref> &gt;</type>
+        <definition>std::shared_ptr&lt; AbstractTable &gt; Loader::shortcuts::load</definition>
+        <argsstring>(const std::string &amp;filepath)</argsstring>
+        <name>load</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>filepath</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Loads a table for a given filename, assuming it contains header and data in HYRISE format. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>filepath</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/shortcuts.h" line="22" bodyfile="/home/grund/hyrise/src/lib/io/shortcuts.cpp" bodystart="42" bodyend="45"/>
+      </memberdef>
+      <memberdef kind="function" id="namespace_loader_1_1shortcuts_1a66815423bec090644181c9e326b512b9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::shared_ptr&lt; <ref refid="class_abstract_table" kindref="compound">AbstractTable</ref> &gt;</type>
+        <definition>std::shared_ptr&lt; AbstractTable &gt; Loader::shortcuts::load</definition>
+        <argsstring>(const std::string &amp;filepath, Loader::params &amp;params)</argsstring>
+        <name>load</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>filepath</declname>
+        </param>
+        <param>
+          <type><ref refid="class_loader_1_1params" kindref="compound">Loader::params</ref> &amp;</type>
+          <declname>params</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/shortcuts.h" line="23" bodyfile="/home/grund/hyrise/src/lib/io/shortcuts.cpp" bodystart="47" bodyend="49"/>
+      </memberdef>
+      <memberdef kind="function" id="namespace_loader_1_1shortcuts_1a98c448d2b65944c75212683fb4e0da44" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::shared_ptr&lt; <ref refid="class_abstract_table" kindref="compound">AbstractTable</ref> &gt;</type>
+        <definition>std::shared_ptr&lt; AbstractTable &gt; Loader::shortcuts::loadWithHeader</definition>
+        <argsstring>(const std::string &amp;datafilepath, const std::string &amp;headerfilepath)</argsstring>
+        <name>loadWithHeader</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>datafilepath</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>headerfilepath</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Load a table from a given filename, while supplying the header from another file. Must be HYRISE formatted. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>datafilepath</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>headerfilepath</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/shortcuts.h" line="29" bodyfile="/home/grund/hyrise/src/lib/io/shortcuts.cpp" bodystart="51" bodyend="53"/>
+      </memberdef>
+      <memberdef kind="function" id="namespace_loader_1_1shortcuts_1aa8d785df9293b01023ca5da034b53dc2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::shared_ptr&lt; <ref refid="class_abstract_table" kindref="compound">AbstractTable</ref> &gt;</type>
+        <definition>std::shared_ptr&lt; AbstractTable &gt; Loader::shortcuts::loadWithStringHeader</definition>
+        <argsstring>(const std::string &amp;datafilepath, const std::string &amp;header)</argsstring>
+        <name>loadWithStringHeader</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>datafilepath</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>header</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Load a table from a given filename, while supplying the header from the second input parameter. Must be HYRISE formatted. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>datafilepath</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>header</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/shortcuts.h" line="35" bodyfile="/home/grund/hyrise/src/lib/io/shortcuts.cpp" bodystart="55" bodyend="57"/>
+      </memberdef>
+      <memberdef kind="function" id="namespace_loader_1_1shortcuts_1a84430ee667fea15a635315a7278a42d9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::shared_ptr&lt; <ref refid="class_store" kindref="compound">Store</ref> &gt;</type>
+        <definition>std::shared_ptr&lt; Store &gt; Loader::shortcuts::loadMainDelta</definition>
+        <argsstring>(const std::string &amp;mainfilepath, const std::string &amp;deltafilepath, Loader::params p=Loader::params())</argsstring>
+        <name>loadMainDelta</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>mainfilepath</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>deltafilepath</declname>
+        </param>
+        <param>
+          <type><ref refid="class_loader_1_1params" kindref="compound">Loader::params</ref></type>
+          <declname>p</declname>
+          <defval><ref refid="class_loader_1_1params" kindref="compound">Loader::params</ref>()</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Load store with main and delta from separate files <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>mainfilepath</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>deltafilepath</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/shortcuts.h" line="41" bodyfile="/home/grund/hyrise/src/lib/io/shortcuts.cpp" bodystart="69" bodyend="88"/>
+      </memberdef>
+      <memberdef kind="function" id="namespace_loader_1_1shortcuts_1aae00c87e5cfa2e7b1daa2099856bb6c5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::shared_ptr&lt; <ref refid="class_abstract_table" kindref="compound">AbstractTable</ref> &gt;</type>
+        <definition>std::shared_ptr&lt; AbstractTable &gt; Loader::shortcuts::loadInsertOnly</definition>
+        <argsstring>(const std::string &amp;datafilepath, const std::string &amp;headerfilepath)</argsstring>
+        <name>loadInsertOnly</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>datafilepath</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>headerfilepath</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Load insert only <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>datafilepath</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>headerfilepath</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/shortcuts.h" line="47" bodyfile="/home/grund/hyrise/src/lib/io/shortcuts.cpp" bodystart="59" bodyend="65"/>
+      </memberdef>
+      <memberdef kind="function" id="namespace_loader_1_1shortcuts_1ab1560fef3ff49d2b494cc888de97e000" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::shared_ptr&lt; <ref refid="class_abstract_table" kindref="compound">AbstractTable</ref> &gt;</type>
+        <definition>std::shared_ptr&lt; AbstractTable &gt; Loader::shortcuts::loadInsertOnlyDeprecated</definition>
+        <argsstring>(const std::string &amp;datafilepath, const std::string &amp;headerfilepath)</argsstring>
+        <name>loadInsertOnlyDeprecated</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>datafilepath</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>headerfilepath</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><ref refid="namespace_loader" kindref="compound">Loader</ref> insert only, deprecated structure </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/shortcuts.h" line="50" bodyfile="/home/grund/hyrise/src/lib/io/shortcuts.cpp" bodystart="90" bodyend="102"/>
+      </memberdef>
+      <memberdef kind="function" id="namespace_loader_1_1shortcuts_1ad00cf5c514a8e731f75a2a8a393b180b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::shared_ptr&lt; <ref refid="class_abstract_table" kindref="compound">AbstractTable</ref> &gt;</type>
+        <definition>std::shared_ptr&lt; AbstractTable &gt; Loader::shortcuts::loadRaw</definition>
+        <argsstring>(const std::string &amp;file)</argsstring>
+        <name>loadRaw</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>file</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Load a table into a raw table container </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/shortcuts.h" line="55" bodyfile="/home/grund/hyrise/src/lib/io/shortcuts.cpp" bodystart="104" bodyend="113"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/grund/hyrise/src/lib/io/shortcuts.cpp" line="9"/>
+  </compounddef>
+</doxygen>

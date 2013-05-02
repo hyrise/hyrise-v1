@@ -1,0 +1,176 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="class_logarithmic_merge_strategy" kind="class" prot="public">
+    <compoundname>LogarithmicMergeStrategy</compoundname>
+    <basecompoundref refid="class_abstract_merge_strategy" prot="public" virt="non-virtual">AbstractMergeStrategy</basecompoundref>
+    <includes refid="_logarithmic_merge_strategy_8h" local="no">LogarithmicMergeStrategy.h</includes>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="class_logarithmic_merge_strategy_1a50a9564f465fe61bd7a2db499c15a863" prot="protected" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t LogarithmicMergeStrategy::_max_generation_count</definition>
+        <argsstring></argsstring>
+        <name>_max_generation_count</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/LogarithmicMergeStrategy.h" line="22" bodyfile="/home/grund/hyrise/src/lib/storage/LogarithmicMergeStrategy.h" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_logarithmic_merge_strategy_1a2fc6277acc6fbfa1948c95c6a22ba9c2" prot="public" static="no" const="no" explicit="yes" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>LogarithmicMergeStrategy::LogarithmicMergeStrategy</definition>
+        <argsstring>(size_t max_generation_count)</argsstring>
+        <name>LogarithmicMergeStrategy</name>
+        <param>
+          <type>size_t</type>
+          <declname>max_generation_count</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/LogarithmicMergeStrategy.h" line="12" bodyfile="/home/grund/hyrise/src/lib/storage/LogarithmicMergeStrategy.cpp" bodystart="4" bodyend="7"/>
+      </memberdef>
+      <memberdef kind="function" id="class_logarithmic_merge_strategy_1ac162d62ad799887c5a9646936a9e8b71" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>LogarithmicMergeStrategy::~LogarithmicMergeStrategy</definition>
+        <argsstring>()</argsstring>
+        <name>~LogarithmicMergeStrategy</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/LogarithmicMergeStrategy.h" line="13" bodyfile="/home/grund/hyrise/src/lib/storage/LogarithmicMergeStrategy.cpp" bodystart="9" bodyend="11"/>
+      </memberdef>
+      <memberdef kind="function" id="class_logarithmic_merge_strategy_1a12a4d345a071168de45e7bd9ed18b95d" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type><ref refid="_abstract_merge_strategy_8h_1a264d0402b5878f2dc616d2eee7c3209b" kindref="member">merge_tables</ref></type>
+        <definition>merge_tables LogarithmicMergeStrategy::determineTablesToMerge</definition>
+        <argsstring>(std::vector&lt; hyrise::storage::c_atable_ptr_t &gt; &amp;input_tables) const </argsstring>
+        <name>determineTablesToMerge</name>
+        <reimplements refid="class_abstract_merge_strategy_1a63dd7bc8200700bfaf225f2227ea7d63">determineTablesToMerge</reimplements>
+        <param>
+          <type>std::vector&lt; <ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref> &gt; &amp;</type>
+          <declname>input_tables</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/LogarithmicMergeStrategy.h" line="15" bodyfile="/home/grund/hyrise/src/lib/storage/LogarithmicMergeStrategy.cpp" bodystart="26" bodyend="79"/>
+      </memberdef>
+      <memberdef kind="function" id="class_logarithmic_merge_strategy_1a1f213fe5a34679eea224eebb5ef8734d" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>size_t</type>
+        <definition>size_t LogarithmicMergeStrategy::calculateNewSize</definition>
+        <argsstring>(const std::vector&lt; hyrise::storage::c_atable_ptr_t &gt; &amp;input_tables) const </argsstring>
+        <name>calculateNewSize</name>
+        <reimplements refid="class_abstract_merge_strategy_1a187e3b399df61f4e75cdae37ad8dfa8c">calculateNewSize</reimplements>
+        <param>
+          <type>const std::vector&lt; <ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref> &gt; &amp;</type>
+          <declname>input_tables</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/LogarithmicMergeStrategy.h" line="16" bodyfile="/home/grund/hyrise/src/lib/storage/LogarithmicMergeStrategy.cpp" bodystart="14" bodyend="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_logarithmic_merge_strategy_1ae1cd1f74267b82d043d0286c95614d93" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void LogarithmicMergeStrategy::setMaxGenerationCount</definition>
+        <argsstring>(size_t max_generation_count)</argsstring>
+        <name>setMaxGenerationCount</name>
+        <param>
+          <type>size_t</type>
+          <declname>max_generation_count</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/LogarithmicMergeStrategy.h" line="18" bodyfile="/home/grund/hyrise/src/lib/storage/LogarithmicMergeStrategy.cpp" bodystart="81" bodyend="83"/>
+      </memberdef>
+      <memberdef kind="function" id="class_logarithmic_merge_strategy_1a27df563df1227fab9b0dc614041808cd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t LogarithmicMergeStrategy::getMaxGenerationCount</definition>
+        <argsstring>()</argsstring>
+        <name>getMaxGenerationCount</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/LogarithmicMergeStrategy.h" line="19" bodyfile="/home/grund/hyrise/src/lib/storage/LogarithmicMergeStrategy.cpp" bodystart="85" bodyend="87"/>
+      </memberdef>
+      <memberdef kind="function" id="class_logarithmic_merge_strategy_1ad921da71c07927a90089f1f4b048209e" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type><ref refid="class_abstract_merge_strategy" kindref="compound">AbstractMergeStrategy</ref> *</type>
+        <definition>AbstractMergeStrategy * LogarithmicMergeStrategy::copy</definition>
+        <argsstring>()</argsstring>
+        <name>copy</name>
+        <reimplements refid="class_abstract_merge_strategy_1ad7ba6bba2799af11ed26358fa28779ab">copy</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/LogarithmicMergeStrategy.h" line="20" bodyfile="/home/grund/hyrise/src/lib/storage/LogarithmicMergeStrategy.cpp" bodystart="90" bodyend="92"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2231">
+        <label>AbstractMergeStrategy</label>
+        <link refid="class_abstract_merge_strategy"/>
+      </node>
+      <node id="2230">
+        <label>LogarithmicMergeStrategy</label>
+        <link refid="class_logarithmic_merge_strategy"/>
+        <childnode refid="2231" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2233">
+        <label>AbstractMergeStrategy</label>
+        <link refid="class_abstract_merge_strategy"/>
+      </node>
+      <node id="2232">
+        <label>LogarithmicMergeStrategy</label>
+        <link refid="class_logarithmic_merge_strategy"/>
+        <childnode refid="2233" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/storage/LogarithmicMergeStrategy.h" line="10" bodyfile="/home/grund/hyrise/src/lib/storage/LogarithmicMergeStrategy.h" bodystart="10" bodyend="24"/>
+    <listofallmembers>
+      <member refid="class_logarithmic_merge_strategy_1a50a9564f465fe61bd7a2db499c15a863" prot="protected" virt="non-virtual"><scope>LogarithmicMergeStrategy</scope><name>_max_generation_count</name></member>
+      <member refid="class_abstract_merge_strategy_1ae344350d6981fa0f741b00d23c1302fb" prot="public" virt="non-virtual"><scope>LogarithmicMergeStrategy</scope><name>AbstractMergeStrategy</name></member>
+      <member refid="class_logarithmic_merge_strategy_1a1f213fe5a34679eea224eebb5ef8734d" prot="public" virt="virtual"><scope>LogarithmicMergeStrategy</scope><name>calculateNewSize</name></member>
+      <member refid="class_logarithmic_merge_strategy_1ad921da71c07927a90089f1f4b048209e" prot="public" virt="virtual"><scope>LogarithmicMergeStrategy</scope><name>copy</name></member>
+      <member refid="class_logarithmic_merge_strategy_1a12a4d345a071168de45e7bd9ed18b95d" prot="public" virt="virtual"><scope>LogarithmicMergeStrategy</scope><name>determineTablesToMerge</name></member>
+      <member refid="class_logarithmic_merge_strategy_1a27df563df1227fab9b0dc614041808cd" prot="public" virt="non-virtual"><scope>LogarithmicMergeStrategy</scope><name>getMaxGenerationCount</name></member>
+      <member refid="class_logarithmic_merge_strategy_1a2fc6277acc6fbfa1948c95c6a22ba9c2" prot="public" virt="non-virtual"><scope>LogarithmicMergeStrategy</scope><name>LogarithmicMergeStrategy</name></member>
+      <member refid="class_logarithmic_merge_strategy_1ae1cd1f74267b82d043d0286c95614d93" prot="public" virt="non-virtual"><scope>LogarithmicMergeStrategy</scope><name>setMaxGenerationCount</name></member>
+      <member refid="class_abstract_merge_strategy_1ad36854dbb444a691ccda77c4c5b9c1ec" prot="public" virt="virtual"><scope>LogarithmicMergeStrategy</scope><name>~AbstractMergeStrategy</name></member>
+      <member refid="class_logarithmic_merge_strategy_1ac162d62ad799887c5a9646936a9e8b71" prot="public" virt="non-virtual"><scope>LogarithmicMergeStrategy</scope><name>~LogarithmicMergeStrategy</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

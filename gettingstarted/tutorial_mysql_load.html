@@ -1,0 +1,228 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Loading from MySQL &mdash; HYRISE latest documentation</title>
+    
+    <link rel="stylesheet" href="../_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/breathe.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     'latest',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="HYRISE latest documentation" href="../index.html" />
+    <link rel="up" title="Getting Started" href="../getting_started.html" />
+    <link rel="next" title="JSON Queries" href="tutorial_querying.html" />
+    <link rel="prev" title="Installing Hyrise" href="installing_hyrise.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="tutorial_querying.html" title="JSON Queries"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="installing_hyrise.html" title="Installing Hyrise"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">HYRISE latest documentation</a> &raquo;</li>
+          <li><a href="../getting_started.html" accesskey="U">Getting Started</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/hyrise.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../getting_started.html">Getting Started</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="installing_hyrise.html">Installing Hyrise</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Loading from MySQL</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#loading-csv-into-mysql">Loading CSV into MySQL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#loading-data-from-mysql-dbs">Loading Data from MySQL-DBs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_querying.html">JSON Queries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_write_ops.html">Writing your own PlanOperation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture.html">Implementation Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../query_execution.html">HYRISE Query Execution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developing.html">Developing with HYRISE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">HYRISE &amp; Development FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../proposals.html">Proposals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doxygen.html">Doxygen Documentation</a></li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="installing_hyrise.html"
+                        title="previous chapter">Installing Hyrise</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="tutorial_querying.html"
+                        title="next chapter">JSON Queries</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/gettingstarted/tutorial_mysql_load.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="loading-from-mysql">
+<h1>Loading from MySQL<a class="headerlink" href="#loading-from-mysql" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="loading-csv-into-mysql">
+<h2>Loading CSV into MySQL<a class="headerlink" href="#loading-csv-into-mysql" title="Permalink to this headline">¶</a></h2>
+<p>(optional.)</p>
+<p>Creating the MySQL Table:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">CREATE</span> <span class="n">TABLE</span> <span class="n">students</span> <span class="p">(</span>
+    <span class="n">name</span> <span class="n">VARCHAR</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span> <span class="n">NOT</span> <span class="nb">NULL</span><span class="p">,</span>
+    <span class="n">matrikelnummer</span> <span class="kt">int</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span> <span class="n">NOT</span> <span class="nb">NULL</span><span class="p">,</span>
+    <span class="n">wohnort</span> <span class="n">VARCHAR</span><span class="p">(</span><span class="mi">30</span><span class="p">),</span>
+    <span class="n">note</span> <span class="n">DOUBLE</span> <span class="n">PRECISION</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Import Data from CSV File:</p>
+<div class="highlight-c++"><pre>LOAD DATA INFILE 'students.csv'
+INTO TABLE students
+fields terminated by ','
+lines terminated by '\n'
+(name, matrikelnummer, wohnort, note)</pre>
+</div>
+</div>
+<div class="section" id="loading-data-from-mysql-dbs">
+<h2>Loading Data from MySQL-DBs<a class="headerlink" href="#loading-data-from-mysql-dbs" title="Permalink to this headline">¶</a></h2>
+<p>First, make sure you have WITH_MYSQL enabled in your build configuration file settings.mk.default -&gt; see <a class="reference internal" href="../developing/build_environment.html#builprep"><em>Build Preparation</em></a>.</p>
+<p>You might have to install additional dependencies -&gt; see <a class="reference internal" href="../architecture/loading/mysql.html#sqldep"><em>Additional dependencies</em></a>.</p>
+<p>Before starting up your Hyrise Server, set the following environment variables to be able to connect to your mysql database:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="k">export</span> <span class="n">HYRISE_MYSQL_HOST</span> <span class="o">=</span> <span class="n">host</span>
+<span class="k">export</span> <span class="n">HYRISE_MYSQL_USER</span> <span class="o">=</span> <span class="n">username</span>
+<span class="k">export</span> <span class="n">HYRISE_MYSQL_PASS</span> <span class="o">=</span> <span class="n">password</span>
+<span class="k">export</span> <span class="n">HYRISE_MYSQL_PORT</span> <span class="o">=</span> <span class="n">db</span> <span class="n">port</span> <span class="p">(</span><span class="k">default</span> <span class="mi">3306</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Your JSON Query to load from a mysql database might look something like this:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="p">{</span>
+    <span class="s">&quot;operators&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s">&quot;0&quot;</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="s">&quot;type&quot;</span><span class="o">:</span> <span class="s">&quot;MySQLTableLoad&quot;</span><span class="p">,</span>
+                    <span class="s">&quot;table&quot;</span><span class="o">:</span> <span class="s">&quot;students&quot;</span><span class="p">,</span>
+                    <span class="s">&quot;database&quot;</span><span class="o">:</span> <span class="s">&quot;epic&quot;</span>
+            <span class="p">},</span>
+            <span class="s">&quot;1&quot;</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="s">&quot;type&quot;</span><span class="o">:</span> <span class="s">&quot;SimpleTableScan&quot;</span><span class="p">,</span>
+                    <span class="s">&quot;predicates&quot;</span><span class="o">:</span> <span class="p">[</span>
+                            <span class="p">{</span><span class="s">&quot;type&quot;</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s">&quot;in&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&quot;f&quot;</span><span class="o">:</span> <span class="s">&quot;matrikelnummer&quot;</span><span class="p">,</span> <span class="s">&quot;value&quot;</span><span class="o">:</span> <span class="mi">703600</span><span class="p">}</span>
+                    <span class="p">]</span>
+            <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="s">&quot;edges&quot;</span><span class="o">:</span> <span class="p">[[</span><span class="s">&quot;0&quot;</span><span class="p">,</span> <span class="s">&quot;1&quot;</span><span class="p">]]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>In <tt class="docutils literal"><span class="pre">&quot;MySQLTableLoad&quot;</span></tt>, you need to specify the <tt class="docutils literal"><span class="pre">&quot;database&quot;:</span></tt> you&#8217;re going to extract data from, as well as the <tt class="docutils literal"><span class="pre">&quot;table&quot;:</span></tt> where your data is located.</p>
+<p>In this particular example, were loading a table of students from a MySQL Database (the example data is located at test/students.csv). We then run a Selection on that table, selecting all students, with student-id numbers greater than 703600. The result from the server should look similar to this:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="p">{</span>
+    <span class="s">&quot;header&quot;</span> <span class="o">:</span> <span class="p">[</span> <span class="s">&quot;name&quot;</span><span class="p">,</span> <span class="s">&quot;matrikelnummer&quot;</span><span class="p">,</span> <span class="s">&quot;wohnort&quot;</span><span class="p">,</span> <span class="s">&quot;note&quot;</span> <span class="p">],</span>
+    <span class="s">&quot;performanceData&quot;</span> <span class="o">:</span>
+    <span class="p">[</span>
+            <span class="p">...</span>
+    <span class="p">],</span>
+    <span class="s">&quot;rows&quot;</span> <span class="o">:</span>
+    <span class="p">[</span>
+            <span class="p">[</span> <span class="s">&quot;Janina Geisler&quot;</span><span class="p">,</span> <span class="mi">703601</span><span class="p">,</span> <span class="s">&quot;Berlin&quot;</span><span class="p">,</span> <span class="mf">2.0</span> <span class="p">],</span>
+            <span class="p">[</span> <span class="s">&quot;Florian Steinberg&quot;</span><span class="p">,</span> <span class="mi">703602</span><span class="p">,</span> <span class="s">&quot;Berlin&quot;</span><span class="p">,</span> <span class="mf">2.0</span> <span class="p">],</span>
+            <span class="p">[</span> <span class="s">&quot;Ute Maelzer&quot;</span><span class="p">,</span> <span class="mi">703603</span><span class="p">,</span> <span class="s">&quot;Berlin&quot;</span><span class="p">,</span> <span class="mf">3.0</span> <span class="p">],</span>
+            <span class="p">[</span> <span class="s">&quot;Sophia Loeffler&quot;</span><span class="p">,</span> <span class="mi">703604</span><span class="p">,</span> <span class="s">&quot;Potsdam&quot;</span><span class="p">,</span> <span class="mf">2.299999952316284</span> <span class="p">],</span>
+            <span class="p">[</span> <span class="s">&quot;Renï¿½ Zobel&quot;</span><span class="p">,</span> <span class="mi">703605</span><span class="p">,</span> <span class="s">&quot;Berlin&quot;</span><span class="p">,</span> <span class="mf">2.0</span> <span class="p">],</span>
+            <span class="p">[</span> <span class="s">&quot;Sabine Kohl&quot;</span><span class="p">,</span> <span class="mi">703606</span><span class="p">,</span> <span class="s">&quot;Berlin&quot;</span><span class="p">,</span> <span class="mf">2.0</span> <span class="p">],</span>
+            <span class="p">[</span> <span class="s">&quot;Yvonne Kusch&quot;</span><span class="p">,</span> <span class="mi">703607</span><span class="p">,</span> <span class="s">&quot;Berlin&quot;</span><span class="p">,</span> <span class="mf">3.0</span> <span class="p">],</span>
+            <span class="p">[</span> <span class="s">&quot;Dirk Krein&quot;</span><span class="p">,</span> <span class="mi">703608</span><span class="p">,</span> <span class="s">&quot;Potsdam&quot;</span><span class="p">,</span> <span class="mf">3.0</span> <span class="p">],</span>
+            <span class="p">[</span> <span class="s">&quot;Maik Tintzmann&quot;</span><span class="p">,</span> <span class="mi">703609</span><span class="p">,</span> <span class="s">&quot;Potsdam&quot;</span><span class="p">,</span> <span class="mf">3.299999952316284</span> <span class="p">],</span>
+            <span class="p">[</span> <span class="s">&quot;Dominik Mueller&quot;</span><span class="p">,</span> <span class="mi">703610</span><span class="p">,</span> <span class="s">&quot;Frohnau&quot;</span><span class="p">,</span> <span class="mf">1.299999952316284</span> <span class="p">],</span>
+            <span class="p">[</span> <span class="s">&quot;Patrick Neureuther&quot;</span><span class="p">,</span> <span class="mi">703611</span><span class="p">,</span> <span class="s">&quot;Potsdam&quot;</span><span class="p">,</span> <span class="mf">1.299999952316284</span> <span class="p">],</span>
+            <span class="p">[</span> <span class="s">&quot;Vanessa Rogge&quot;</span><span class="p">,</span> <span class="mi">703612</span><span class="p">,</span> <span class="s">&quot;Berlin&quot;</span><span class="p">,</span> <span class="mf">1.299999952316284</span> <span class="p">],</span>
+            <span class="p">[</span> <span class="s">&quot;Uta Budig&quot;</span><span class="p">,</span> <span class="mi">703613</span><span class="p">,</span> <span class="s">&quot;Berlin&quot;</span><span class="p">,</span> <span class="mf">1.700000047683716</span> <span class="p">],</span>
+            <span class="p">[</span> <span class="s">&quot;Diana Walter&quot;</span><span class="p">,</span> <span class="mi">703614</span><span class="p">,</span> <span class="s">&quot;Berlin&quot;</span><span class="p">,</span> <span class="mf">2.0</span> <span class="p">],</span>
+            <span class="p">[</span> <span class="s">&quot;Ralf Weller&quot;</span><span class="p">,</span> <span class="mi">703615</span><span class="p">,</span> <span class="s">&quot;Berlin&quot;</span><span class="p">,</span> <span class="mf">2.700000047683716</span> <span class="p">],</span>
+            <span class="p">[</span> <span class="s">&quot;Daniela Haering&quot;</span><span class="p">,</span> <span class="mi">703616</span><span class="p">,</span> <span class="s">&quot;Potsdam&quot;</span><span class="p">,</span> <span class="mf">2.0</span> <span class="p">],</span>
+            <span class="p">[</span> <span class="s">&quot;Ulrich Kobelt&quot;</span><span class="p">,</span> <span class="mi">703617</span><span class="p">,</span> <span class="s">&quot;Berlin&quot;</span><span class="p">,</span> <span class="mf">2.0</span> <span class="p">],</span>
+            <span class="p">[</span> <span class="s">&quot;Thorsten Girschner&quot;</span><span class="p">,</span> <span class="mi">703618</span><span class="p">,</span> <span class="s">&quot;Berlin&quot;</span><span class="p">,</span> <span class="mf">2.700000047683716</span> <span class="p">],</span>
+            <span class="p">[</span> <span class="s">&quot;Felix Trueb&quot;</span><span class="p">,</span> <span class="mi">703619</span><span class="p">,</span> <span class="s">&quot;Berlin&quot;</span><span class="p">,</span> <span class="mf">1.299999952316284</span> <span class="p">],</span>
+            <span class="p">[</span> <span class="s">&quot;Jan Kade&quot;</span><span class="p">,</span> <span class="mi">703620</span><span class="p">,</span> <span class="s">&quot;Potsdam&quot;</span><span class="p">,</span> <span class="mf">2.700000047683716</span> <span class="p">],</span>
+            <span class="p">[</span> <span class="s">&quot;Franziska Kensy&quot;</span><span class="p">,</span> <span class="mi">703621</span><span class="p">,</span> <span class="s">&quot;Potsdam&quot;</span><span class="p">,</span> <span class="mf">2.0</span> <span class="p">],</span>
+            <span class="p">[</span> <span class="s">&quot;Sophia Ladeck&quot;</span><span class="p">,</span> <span class="mi">703622</span><span class="p">,</span> <span class="s">&quot;Frohnau&quot;</span><span class="p">,</span> <span class="mf">1.700000047683716</span> <span class="p">],</span>
+            <span class="p">[</span> <span class="s">&quot;Florian Wesack&quot;</span><span class="p">,</span> <span class="mi">703623</span><span class="p">,</span> <span class="s">&quot;Potsdam&quot;</span><span class="p">,</span> <span class="mf">2.299999952316284</span> <span class="p">],</span>
+            <span class="p">[</span> <span class="s">&quot;Daniela Weimer&quot;</span><span class="p">,</span> <span class="mi">703624</span><span class="p">,</span> <span class="s">&quot;Berlin&quot;</span><span class="p">,</span> <span class="mf">3.299999952316284</span> <span class="p">],</span>
+            <span class="p">[</span> <span class="s">&quot;Lukas Ruppersberger&quot;</span><span class="p">,</span> <span class="mi">703625</span><span class="p">,</span> <span class="s">&quot;Berlin&quot;</span><span class="p">,</span> <span class="mf">1.299999952316284</span> <span class="p">]</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="tutorial_querying.html" title="JSON Queries"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="installing_hyrise.html" title="Installing Hyrise"
+             >previous</a> |</li>
+        <li><a href="../index.html">HYRISE latest documentation</a> &raquo;</li>
+          <li><a href="../getting_started.html" >Getting Started</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010-2013, Martin Grund et al.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+  </body>
+</html>

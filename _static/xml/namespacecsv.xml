@@ -1,0 +1,252 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="namespacecsv" kind="namespace">
+    <compoundname>csv</compoundname>
+    <innerclass refid="classcsv_1_1_parser_error" prot="public">csv::ParserError</innerclass>
+    <innerclass refid="classcsv_1_1params" prot="public">csv::params</innerclass>
+    <innerclass refid="structcsv_1_1vector__cb__data" prot="public">csv::vector_cb_data</innerclass>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="namespacecsv_1a1b60ce1b9cb769dde90f99f26b414b7e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void csv::genericLineBasedParsing</definition>
+        <argsstring>(std::istream &amp;file, field_cb_t cb_per_field, line_cb_t cb_per_line, void *data, const csv::params &amp;params)</argsstring>
+        <name>genericLineBasedParsing</name>
+        <param>
+          <type>std::istream &amp;</type>
+          <declname>file</declname>
+        </param>
+        <param>
+          <type><ref refid="_generic_c_s_v_8h_1a6b25624417bf944a4ddba487c2dc9492" kindref="member">field_cb_t</ref></type>
+          <declname>cb_per_field</declname>
+        </param>
+        <param>
+          <type><ref refid="_generic_c_s_v_8h_1af8aabd2a8735efe3f4cd927604f27ea3" kindref="member">line_cb_t</ref></type>
+          <declname>cb_per_line</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classcsv_1_1params" kindref="compound">csv::params</ref> &amp;</type>
+          <declname>params</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/GenericCSV.cpp" line="28" bodyfile="/home/grund/hyrise/src/lib/io/GenericCSV.cpp" bodystart="23" bodyend="74"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacecsv_1aeb9d9a0e22254edc217927ca7105c8c1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void csv::genericParse</definition>
+        <argsstring>(std::string filename, field_cb_t cb_per_field, line_cb_t cb_per_line, void *data, const csv::params &amp;params)</argsstring>
+        <name>genericParse</name>
+        <param>
+          <type>std::string</type>
+          <declname>filename</declname>
+        </param>
+        <param>
+          <type><ref refid="_generic_c_s_v_8h_1a6b25624417bf944a4ddba487c2dc9492" kindref="member">field_cb_t</ref></type>
+          <declname>field_callback</declname>
+        </param>
+        <param>
+          <type><ref refid="_generic_c_s_v_8h_1af8aabd2a8735efe3f4cd927604f27ea3" kindref="member">line_cb_t</ref></type>
+          <declname>line_callback</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>cb_data</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classcsv_1_1params" kindref="compound">csv::params</ref> &amp;</type>
+          <declname>params</declname>
+          <defval><ref refid="classcsv_1_1params" kindref="compound">csv::params</ref>()</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Generically parsing an std::istream with libcsv </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/GenericCSV.cpp" line="83" bodyfile="/home/grund/hyrise/src/lib/io/GenericCSV.cpp" bodystart="76" bodyend="139"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacecsv_1a6c5ac30992d9c7a987031b51b7e5fa93" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void csv::genericParseFile</definition>
+        <argsstring>(const std::string &amp;filename, field_cb_t cb_per_field, line_cb_t cb_per_line, void *data, const csv::params &amp;params)</argsstring>
+        <name>genericParseFile</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>filename</declname>
+        </param>
+        <param>
+          <type><ref refid="_generic_c_s_v_8h_1a6b25624417bf944a4ddba487c2dc9492" kindref="member">field_cb_t</ref></type>
+          <declname>cb_per_field</declname>
+        </param>
+        <param>
+          <type><ref refid="_generic_c_s_v_8h_1af8aabd2a8735efe3f4cd927604f27ea3" kindref="member">line_cb_t</ref></type>
+          <declname>cb_per_line</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classcsv_1_1params" kindref="compound">csv::params</ref> &amp;</type>
+          <declname>params</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/GenericCSV.cpp" line="147" bodyfile="/home/grund/hyrise/src/lib/io/GenericCSV.cpp" bodystart="141" bodyend="159"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacecsv_1a00703627cf8844e5526335abdd7265a5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void csv::vector_cb_per_field</definition>
+        <argsstring>(char *field_buffer, size_t field_length, struct vector_cb_data *data)</argsstring>
+        <name>vector_cb_per_field</name>
+        <param>
+          <type>char *</type>
+          <declname>field_buffer</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>field_length</declname>
+        </param>
+        <param>
+          <type>struct <ref refid="structcsv_1_1vector__cb__data" kindref="compound">vector_cb_data</ref> *</type>
+          <declname>data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/GenericCSV.cpp" line="161" bodyfile="/home/grund/hyrise/src/lib/io/GenericCSV.cpp" bodystart="161" bodyend="164"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacecsv_1a68c444aa9e87b449b8da8fa2642b12cd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void csv::vector_cb_per_line</definition>
+        <argsstring>(int separator, struct vector_cb_data *data)</argsstring>
+        <name>vector_cb_per_line</name>
+        <param>
+          <type>int</type>
+          <declname>separator</declname>
+        </param>
+        <param>
+          <type>struct <ref refid="structcsv_1_1vector__cb__data" kindref="compound">vector_cb_data</ref> *</type>
+          <declname>data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/GenericCSV.cpp" line="166" bodyfile="/home/grund/hyrise/src/lib/io/GenericCSV.cpp" bodystart="166" bodyend="168"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacecsv_1ab2ac4dd30e7d8265bea78f8c4b463666" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; <ref refid="_generic_c_s_v_8h_1a1a0c9c2af8ab084b5fde0c397a7b90ab" kindref="member">line_t</ref> &gt;</type>
+        <definition>std::vector&lt; line_t &gt; csv::parse_stream</definition>
+        <argsstring>(std::istream &amp;stream, const params &amp;params)</argsstring>
+        <name>parse_stream</name>
+        <param>
+          <type>std::istream &amp;</type>
+          <declname>stream</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classcsv_1_1params" kindref="compound">params</ref> &amp;</type>
+          <declname>params</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/GenericCSV.cpp" line="170" bodyfile="/home/grund/hyrise/src/lib/io/GenericCSV.cpp" bodystart="170" bodyend="174"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacecsv_1a145f4469b34c5cc8d59f6ca118ed91dd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; <ref refid="_generic_c_s_v_8h_1a1a0c9c2af8ab084b5fde0c397a7b90ab" kindref="member">line_t</ref> &gt;</type>
+        <definition>std::vector&lt; line_t &gt; csv::parse_file</definition>
+        <argsstring>(const std::string &amp;filename, const params &amp;params)</argsstring>
+        <name>parse_file</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>filename</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classcsv_1_1params" kindref="compound">params</ref> &amp;</type>
+          <declname>params</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/GenericCSV.cpp" line="176" bodyfile="/home/grund/hyrise/src/lib/io/GenericCSV.cpp" bodystart="176" bodyend="180"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacecsv_1ac783ba5514733dca1c8f589f7a5c3bbd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const <ref refid="classcsv_1_1params" kindref="compound">params</ref></type>
+        <definition>const params csv::HYRISE_FORMAT</definition>
+        <argsstring>(params().setDelimiter(&apos;|&apos;))</argsstring>
+        <name>HYRISE_FORMAT</name>
+        <param>
+          <type><ref refid="classcsv_1_1params" kindref="compound">params</ref>().setDelimiter(&apos;|&apos;)</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/GenericCSV.h" line="37"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacecsv_1a166f13487a67c896cffe842177f06681" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const <ref refid="classcsv_1_1params" kindref="compound">params</ref></type>
+        <definition>const params csv::HYRISE_HEADER</definition>
+        <argsstring>(params().setDelimiter(&apos;|&apos;).setLineCount(3))</argsstring>
+        <name>HYRISE_HEADER</name>
+        <param>
+          <type><ref refid="classcsv_1_1params" kindref="compound">params</ref>().setDelimiter(&apos;|&apos;).setLineCount(3)</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/GenericCSV.h" line="38"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacecsv_1a3cc85ee63118f52fec8848ceff2c5cc0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const <ref refid="classcsv_1_1params" kindref="compound">params</ref></type>
+        <definition>const params csv::CSV_FORMAT</definition>
+        <argsstring>(params().setDelimiter(CSV_COMMA))</argsstring>
+        <name>CSV_FORMAT</name>
+        <param>
+          <type><ref refid="classcsv_1_1params" kindref="compound">params</ref>().setDelimiter(CSV_COMMA)</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/GenericCSV.h" line="39"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/grund/hyrise/src/lib/io/GenericCSV.cpp" line="21"/>
+  </compounddef>
+</doxygen>

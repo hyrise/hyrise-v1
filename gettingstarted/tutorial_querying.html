@@ -1,0 +1,250 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>JSON Queries &mdash; HYRISE latest documentation</title>
+    
+    <link rel="stylesheet" href="../_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/breathe.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     'latest',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="HYRISE latest documentation" href="../index.html" />
+    <link rel="up" title="Getting Started" href="../getting_started.html" />
+    <link rel="next" title="Writing your own PlanOperation" href="tutorial_write_ops.html" />
+    <link rel="prev" title="Loading from MySQL" href="tutorial_mysql_load.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="tutorial_write_ops.html" title="Writing your own PlanOperation"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="tutorial_mysql_load.html" title="Loading from MySQL"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">HYRISE latest documentation</a> &raquo;</li>
+          <li><a href="../getting_started.html" accesskey="U">Getting Started</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/hyrise.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../getting_started.html">Getting Started</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="installing_hyrise.html">Installing Hyrise</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_mysql_load.html">Loading from MySQL</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">JSON Queries</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#json-query-execution">JSON Query Execution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#details">Details</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#parameters">Parameters</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_write_ops.html">Writing your own PlanOperation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture.html">Implementation Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../query_execution.html">HYRISE Query Execution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developing.html">Developing with HYRISE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">HYRISE &amp; Development FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../proposals.html">Proposals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doxygen.html">Doxygen Documentation</a></li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="tutorial_mysql_load.html"
+                        title="previous chapter">Loading from MySQL</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="tutorial_write_ops.html"
+                        title="next chapter">Writing your own PlanOperation</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/gettingstarted/tutorial_querying.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="json-queries">
+<h1>JSON Queries<a class="headerlink" href="#json-queries" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="json-query-execution">
+<span id="qexec"></span><h2>JSON Query Execution<a class="headerlink" href="#json-query-execution" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic">
+<li><p class="first">Set up where to look for table data directory (folder already exists)</p>
+<div class="highlight-c++"><pre>cd hyrise
+export HYRISE_DB_PATH=`pwd`/test</pre>
+</div>
+</li>
+<li><p class="first">Export library directory</p>
+<div class="highlight-c++"><pre>export LD_LIBRARY_PATH=./build/:$LD_LIBRARY_PATH</pre>
+</div>
+</li>
+<li><p class="first">Starting the server</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="p">.</span><span class="o">/</span><span class="n">build</span><span class="o">/</span><span class="n">hyrise_server</span> <span class="o">-</span><span class="n">l</span> <span class="p">.</span><span class="o">/</span><span class="n">build</span><span class="o">/</span><span class="n">log</span><span class="p">.</span><span class="n">properties</span> <span class="o">-</span><span class="n">p</span> <span class="mi">5000</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Now in a different terminal, you can send a query to the server</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">curl</span> <span class="o">-</span><span class="n">X</span> <span class="n">POST</span> <span class="o">--</span><span class="n">data</span><span class="o">-</span><span class="n">urlencode</span> <span class="s">&quot;query@test/gettingstarted.json&quot;</span>
+<span class="nl">http:</span><span class="c1">//localhost:5000/jsonQuery</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</div>
+<div class="section" id="details">
+<h2>Details<a class="headerlink" href="#details" title="Permalink to this headline">¶</a></h2>
+<p>JSON Queries are a different representation of the original flow graph
+of the query plan. Basically a k-v map defines all operators that are
+connected using edges. An example for a simple query plan is defined
+below</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="p">{</span>
+    <span class="s">&quot;papi&quot;</span><span class="o">:</span> <span class="s">&quot;PAPI_L1_DCA&quot;</span><span class="p">,</span>
+    <span class="s">&quot;operators&quot;</span> <span class="o">:</span> <span class="p">{</span>
+        <span class="s">&quot;0&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s">&quot;type&quot;</span><span class="o">:</span> <span class="s">&quot;LoadFile&quot;</span><span class="p">,</span>
+            <span class="s">&quot;filename&quot;</span> <span class="o">:</span> <span class="s">&quot;tables/companies.tbl&quot;</span>
+        <span class="p">},</span>
+        <span class="s">&quot;1&quot;</span> <span class="o">:</span> <span class="p">{</span>
+            <span class="s">&quot;type&quot;</span> <span class="o">:</span> <span class="s">&quot;SimpleTableScan&quot;</span><span class="p">,</span>
+            <span class="s">&quot;positions&quot;</span> <span class="o">:</span> <span class="nb">true</span><span class="p">,</span>
+            <span class="s">&quot;predicates&quot;</span><span class="o">:</span><span class="p">[</span>
+            <span class="p">{</span> <span class="s">&quot;type&quot;</span><span class="o">:</span> <span class="mi">7</span> <span class="p">},</span>
+            <span class="p">{</span> <span class="s">&quot;type&quot;</span> <span class="o">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s">&quot;in&quot;</span> <span class="o">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&quot;f&quot;</span> <span class="o">:</span> <span class="s">&quot;company_id&quot;</span><span class="p">,</span> <span class="s">&quot;vtype&quot;</span> <span class="o">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&quot;value&quot;</span><span class="o">:</span> <span class="mi">2</span> <span class="p">},</span>
+            <span class="p">{</span> <span class="s">&quot;type&quot;</span> <span class="o">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&quot;in&quot;</span> <span class="o">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&quot;f&quot;</span> <span class="o">:</span> <span class="s">&quot;company_name&quot;</span><span class="p">,</span> <span class="s">&quot;vtype&quot;</span> <span class="o">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s">&quot;value&quot;</span><span class="o">:</span> <span class="s">&quot;Microsoft&quot;</span> <span class="p">}</span>
+            <span class="p">]</span>
+        <span class="p">},</span>
+        <span class="s">&quot;2&quot;</span> <span class="o">:</span> <span class="p">{</span>
+            <span class="s">&quot;type&quot;</span> <span class="o">:</span> <span class="s">&quot;ProjectionScan&quot;</span><span class="p">,</span>
+            <span class="s">&quot;fields&quot;</span> <span class="o">:</span> <span class="p">[</span>
+            <span class="s">&quot;company_id&quot;</span><span class="p">,</span><span class="s">&quot;company_name&quot;</span>
+            <span class="p">]</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="s">&quot;edges&quot;</span><span class="o">:</span> <span class="p">[[</span><span class="s">&quot;0&quot;</span><span class="p">,</span><span class="s">&quot;1&quot;</span><span class="p">],[</span><span class="s">&quot;1&quot;</span><span class="p">,</span><span class="s">&quot;2&quot;</span><span class="p">]]</span>
+    <span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Permalink to this headline">¶</a></h2>
+<p>The JSON input document defines 3 main input keys</p>
+<ol class="arabic simple">
+<li><tt class="docutils literal"><span class="pre">papi</span></tt> - Any valid PAPI event name that is available on this  machine. Currently there are always two events captured during the  plan execution <tt class="docutils literal"><span class="pre">PAPI_TOT_CYC</span></tt> and the additional event.</li>
+<li><tt class="docutils literal"><span class="pre">operators</span></tt> - A map of keys and values representing the different operators. The key is later referenced to perform dependency detection.</li>
+<li><tt class="docutils literal"><span class="pre">edges</span></tt> - The edges define the actual flow graph. Dependencies are listed as pairs of operators. There is only one special case  where only one plan operator is given, than a circular edge is given  <tt class="docutils literal"><span class="pre">[&quot;0&quot;,</span> <span class="pre">&quot;0&quot;]</span></tt>.</li>
+</ol>
+<p>The edges of the flow graph may describe any non-circular graph with the restriction that any vertice may have multiple inputs, but only a single output.</p>
+<p>With this particular JSON Query, Hyrise Server would perform three Database Operations.
+First on the &#8220;Edge&#8221; [&#8220;0&#8221;,&#8221;1&#8221;] a table is being loaded into the database from file (operator: &#8220;0&#8221;). A SimpleTableScan is then being performed on that table (operator: &#8220;1&#8221;), giving predicates for the selection in prefix notation. The example above would translate to: (company_id &gt; 2) OR (company_name = &#8220;Microsoft&#8221;). See <a class="reference internal" href="../queryexecution/json_plan_operations.html#simpletablescan"><em>SimpleTableScan</em></a> for more details on the SimpleTableScan operation.</p>
+<p>A detailed Overview of all available Database operators and their respective JSON notation can be found at <a class="reference internal" href="../queryexecution/json_plan_operations.html#jsonplanops"><em>Plan Operations</em></a>.</p>
+<p>The second edge [&#8220;1&#8221;,&#8221;2&#8221;] will make Hyrise perfom a Projection on the result of the last edge. The syntax is quite straightforward here - you simply pass a list of all the columns to be projected. That would be &#8220;company_id&#8221; and &#8220;company_name&#8221; in this example.</p>
+<p>To get a feel for json Query execution, go ahead and run the query above -&gt; see <a class="reference internal" href="#qexec"><em>JSON Query Execution</em></a> below.</p>
+<p>Your response from the server should look something like this:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="p">{</span>
+    <span class="s">&quot;header&quot;</span> <span class="o">:</span> <span class="p">[</span> <span class="s">&quot;company_id&quot;</span><span class="p">,</span> <span class="s">&quot;company_name&quot;</span> <span class="p">],</span>
+    <span class="s">&quot;performanceData&quot;</span> <span class="o">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+                    <span class="s">&quot;data&quot;</span> <span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+                    <span class="s">&quot;duration&quot;</span> <span class="o">:</span> <span class="mi">69</span><span class="p">,</span>
+                    <span class="s">&quot;endTime&quot;</span> <span class="o">:</span> <span class="mf">2.6423050</span><span class="p">,</span>
+                    <span class="s">&quot;executingThread&quot;</span> <span class="o">:</span> <span class="s">&quot;0x7fcef2d006d0&quot;</span><span class="p">,</span>
+                    <span class="s">&quot;id&quot;</span> <span class="o">:</span> <span class="s">&quot;0&quot;</span><span class="p">,</span>
+                    <span class="s">&quot;name&quot;</span> <span class="o">:</span> <span class="s">&quot;TableLoad&quot;</span><span class="p">,</span>
+                    <span class="s">&quot;papi_event&quot;</span> <span class="o">:</span> <span class="s">&quot;PAPI_L1_DCA&quot;</span><span class="p">,</span>
+                    <span class="s">&quot;startTime&quot;</span> <span class="o">:</span> <span class="mf">2.5683790</span>
+            <span class="p">},</span>
+            <span class="p">...</span>
+    <span class="p">],</span>
+    <span class="s">&quot;rows&quot;</span> <span class="o">:</span>
+    <span class="p">[</span>
+            <span class="p">[</span> <span class="mi">2</span><span class="p">,</span> <span class="s">&quot;Microsoft&quot;</span> <span class="p">],</span>
+            <span class="p">[</span> <span class="mi">3</span><span class="p">,</span> <span class="s">&quot;SAP AG&quot;</span> <span class="p">],</span>
+            <span class="p">[</span> <span class="mi">4</span><span class="p">,</span> <span class="s">&quot;Oracle&quot;</span> <span class="p">]</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">&quot;header&quot;</span></tt> outputs the header for result table (=list of field names).</p>
+<p><tt class="docutils literal"><span class="pre">&quot;performanceData&quot;</span></tt> gives detailed performance data.</p>
+<blockquote>
+<div><p>More specifically it returns performance data on each one the Plan Operations. Here: <tt class="docutils literal"><span class="pre">&quot;name&quot;:&quot;TableLoad&quot;</span></tt>, <tt class="docutils literal"><span class="pre">&quot;name&quot;:&quot;SimpleTableScan&quot;</span></tt> and <tt class="docutils literal"><span class="pre">&quot;name&quot;:&quot;ProjectionScan&quot;</span></tt>.</p>
+<p><tt class="docutils literal"><span class="pre">&quot;id&quot;:</span></tt> and <tt class="docutils literal"><span class="pre">&quot;name&quot;:</span></tt> are used respectively.</p>
+<p><tt class="docutils literal"><span class="pre">&quot;data&quot;:</span></tt> returns event counter for the measured PAPI event.</p>
+<p><tt class="docutils literal"><span class="pre">&quot;duration&quot;:</span></tt> refers to actual clock cycles required to run the operation.</p>
+<p><tt class="docutils literal"><span class="pre">&quot;startTime&quot;:</span></tt> and <tt class="docutils literal"><span class="pre">&quot;endTime&quot;:</span></tt> give the start and end time of the operation in nanoseconds.</p>
+<p><tt class="docutils literal"><span class="pre">&quot;papi_event&quot;:</span></tt> specifies which Papi Event was used to measure performance.</p>
+<p>Additionally there is performance data available for the parsing of the JSON Query -&gt; <tt class="docutils literal"><span class="pre">&quot;name&quot;:&quot;RequestParseTask&quot;</span></tt> as well as for outputting the response -&gt; <tt class="docutils literal"><span class="pre">&quot;name&quot;:&quot;ResponseTask&quot;</span></tt>.</p>
+</div></blockquote>
+<p><tt class="docutils literal"><span class="pre">&quot;rows&quot;</span></tt> gives a list of the rows resulting from the query.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="tutorial_write_ops.html" title="Writing your own PlanOperation"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="tutorial_mysql_load.html" title="Loading from MySQL"
+             >previous</a> |</li>
+        <li><a href="../index.html">HYRISE latest documentation</a> &raquo;</li>
+          <li><a href="../getting_started.html" >Getting Started</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010-2013, Martin Grund et al.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,752 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="_query_parser_8cpp" kind="file">
+    <compoundname>QueryParser.cpp</compoundname>
+    <includes refid="_query_parser_8h" local="yes">QueryParser.h</includes>
+    <includes refid="_storage_manager_8h" local="no">io/StorageManager.h</includes>
+    <includes refid="_plan_operation_8h" local="no">access/PlanOperation.h</includes>
+    <incdepgraph>
+      <node id="9997">
+        <label>list</label>
+      </node>
+      <node id="9969">
+        <label>atomic</label>
+      </node>
+      <node id="9977">
+        <label>boost/mpl/vector.hpp</label>
+      </node>
+      <node id="9961">
+        <label>queue</label>
+      </node>
+      <node id="9973">
+        <label>limits</label>
+      </node>
+      <node id="10015">
+        <label>boost/functional/hash.hpp</label>
+      </node>
+      <node id="9992">
+        <label>assert.h</label>
+      </node>
+      <node id="9979">
+        <label>boost/lexical_cast.hpp</label>
+      </node>
+      <node id="10007">
+        <label>boost/iterator/iterator_facade.hpp</label>
+      </node>
+      <node id="9972">
+        <label>cstdint</label>
+      </node>
+      <node id="10004">
+        <label>storage/BaseDictionary.h</label>
+        <link refid="_base_dictionary_8h"/>
+        <childnode refid="9974" relation="include">
+        </childnode>
+        <childnode refid="9993" relation="include">
+        </childnode>
+        <childnode refid="10005" relation="include">
+        </childnode>
+      </node>
+      <node id="9975">
+        <label>stdint.h</label>
+      </node>
+      <node id="10003">
+        <label>stdlib.h</label>
+      </node>
+      <node id="10001">
+        <label>errno.h</label>
+      </node>
+      <node id="9985">
+        <label>helper/epoch.h</label>
+        <link refid="epoch_8h"/>
+        <childnode refid="9975" relation="include">
+        </childnode>
+      </node>
+      <node id="9946">
+        <label>stdexcept</label>
+      </node>
+      <node id="9958">
+        <label>helper/HwlocHelper.h</label>
+        <link refid="_hwloc_helper_8h"/>
+        <childnode refid="9959" relation="include">
+        </childnode>
+      </node>
+      <node id="9945">
+        <label>string</label>
+      </node>
+      <node id="9948">
+        <label>taskscheduler.h</label>
+        <link refid="taskscheduler_8h"/>
+        <childnode refid="9949" relation="include">
+        </childnode>
+        <childnode refid="9960" relation="include">
+        </childnode>
+        <childnode refid="9963" relation="include">
+        </childnode>
+        <childnode refid="9950" relation="include">
+        </childnode>
+        <childnode refid="9962" relation="include">
+        </childnode>
+        <childnode refid="9953" relation="include">
+        </childnode>
+        <childnode refid="9964" relation="include">
+        </childnode>
+        <childnode refid="9965" relation="include">
+        </childnode>
+      </node>
+      <node id="9960">
+        <label>taskscheduler/SimpleTaskScheduler.h</label>
+        <link refid="_simple_task_scheduler_8h"/>
+        <childnode refid="9949" relation="include">
+        </childnode>
+        <childnode refid="9956" relation="include">
+        </childnode>
+        <childnode refid="9944" relation="include">
+        </childnode>
+        <childnode refid="9961" relation="include">
+        </childnode>
+        <childnode refid="9951" relation="include">
+        </childnode>
+        <childnode refid="9955" relation="include">
+        </childnode>
+        <childnode refid="9950" relation="include">
+        </childnode>
+        <childnode refid="9962" relation="include">
+        </childnode>
+        <childnode refid="9958" relation="include">
+        </childnode>
+      </node>
+      <node id="9942">
+        <label>map</label>
+      </node>
+      <node id="9950">
+        <label>taskscheduler/Task.h</label>
+        <link refid="_task_8h"/>
+        <childnode refid="9944" relation="include">
+        </childnode>
+        <childnode refid="9951" relation="include">
+        </childnode>
+        <childnode refid="9943" relation="include">
+        </childnode>
+        <childnode refid="9952" relation="include">
+        </childnode>
+        <childnode refid="9945" relation="include">
+        </childnode>
+      </node>
+      <node id="9956">
+        <label>unordered_set</label>
+      </node>
+      <node id="9990">
+        <label>storage/ValueIdMap.hpp</label>
+        <link refid="_value_id_map_8hpp"/>
+        <childnode refid="9991" relation="include">
+        </childnode>
+        <childnode refid="10009" relation="include">
+        </childnode>
+      </node>
+      <node id="10000">
+        <label>memory/MemalignStrategy.h</label>
+        <link refid="_memalign_strategy_8h"/>
+        <childnode refid="10001" relation="include">
+        </childnode>
+        <childnode refid="10002" relation="include">
+        </childnode>
+        <childnode refid="10003" relation="include">
+        </childnode>
+      </node>
+      <node id="9959">
+        <label>hwloc.h</label>
+      </node>
+      <node id="10012">
+        <label>exception</label>
+      </node>
+      <node id="9982">
+        <label>access/OutputTask.h</label>
+        <link refid="_output_task_8h"/>
+        <childnode refid="9955" relation="include">
+        </childnode>
+        <childnode refid="9975" relation="include">
+        </childnode>
+        <childnode refid="9983" relation="include">
+        </childnode>
+        <childnode refid="9944" relation="include">
+        </childnode>
+        <childnode refid="9942" relation="include">
+        </childnode>
+        <childnode refid="9984" relation="include">
+        </childnode>
+        <childnode refid="9947" relation="include">
+        </childnode>
+        <childnode refid="9985" relation="include">
+        </childnode>
+        <childnode refid="9950" relation="include">
+        </childnode>
+      </node>
+      <node id="9995">
+        <label>stddef.h</label>
+      </node>
+      <node id="9962">
+        <label>taskscheduler/CoreBoundTaskQueue.h</label>
+        <link refid="_core_bound_task_queue_8h"/>
+        <childnode refid="9954" relation="include">
+        </childnode>
+        <childnode refid="9961" relation="include">
+        </childnode>
+        <childnode refid="9953" relation="include">
+        </childnode>
+      </node>
+      <node id="10009">
+        <label>storage/OrderIndifferentDictionary.h</label>
+        <link refid="_order_indifferent_dictionary_8h"/>
+        <childnode refid="9974" relation="include">
+        </childnode>
+        <childnode refid="9993" relation="include">
+        </childnode>
+        <childnode refid="10004" relation="include">
+        </childnode>
+        <childnode refid="10005" relation="include">
+        </childnode>
+        <childnode refid="10010" relation="include">
+        </childnode>
+        <childnode refid="10008" relation="include">
+        </childnode>
+        <childnode refid="10012" relation="include">
+        </childnode>
+        <childnode refid="9944" relation="include">
+        </childnode>
+        <childnode refid="9942" relation="include">
+        </childnode>
+        <childnode refid="9943" relation="include">
+        </childnode>
+        <childnode refid="10013" relation="include">
+        </childnode>
+        <childnode refid="10014" relation="include">
+        </childnode>
+        <childnode refid="10015" relation="include">
+        </childnode>
+      </node>
+      <node id="9976">
+        <label>ostream</label>
+      </node>
+      <node id="9947">
+        <label>json.h</label>
+      </node>
+      <node id="10013">
+        <label>limits.h</label>
+      </node>
+      <node id="10005">
+        <label>storage/DictionaryIterator.h</label>
+        <link refid="_dictionary_iterator_8h"/>
+        <childnode refid="10006" relation="include">
+        </childnode>
+        <childnode refid="10007" relation="include">
+        </childnode>
+      </node>
+      <node id="9993">
+        <label>storage/AbstractDictionary.h</label>
+        <link refid="_abstract_dictionary_8h"/>
+        <childnode refid="9944" relation="include">
+        </childnode>
+        <childnode refid="9945" relation="include">
+        </childnode>
+        <childnode refid="9943" relation="include">
+        </childnode>
+        <childnode refid="9994" relation="include">
+        </childnode>
+        <childnode refid="9998" relation="include">
+        </childnode>
+        <childnode refid="10000" relation="include">
+        </childnode>
+        <childnode refid="9974" relation="include">
+        </childnode>
+      </node>
+      <node id="9952">
+        <label>condition_variable</label>
+      </node>
+      <node id="10011">
+        <label>string.h</label>
+      </node>
+      <node id="9967">
+        <label>access/BasicParser.h</label>
+        <link refid="_basic_parser_8h"/>
+        <childnode refid="9946" relation="include">
+        </childnode>
+        <childnode refid="9943" relation="include">
+        </childnode>
+        <childnode refid="9947" relation="include">
+        </childnode>
+      </node>
+      <node id="9987">
+        <label>storage/AbstractTable.h</label>
+        <link refid="_abstract_table_8h"/>
+        <childnode refid="9973" relation="include">
+        </childnode>
+        <childnode refid="9943" relation="include">
+        </childnode>
+        <childnode refid="9946" relation="include">
+        </childnode>
+        <childnode refid="9944" relation="include">
+        </childnode>
+        <childnode refid="9945" relation="include">
+        </childnode>
+        <childnode refid="9971" relation="include">
+        </childnode>
+        <childnode refid="9988" relation="include">
+        </childnode>
+        <childnode refid="9974" relation="include">
+        </childnode>
+        <childnode refid="9989" relation="include">
+        </childnode>
+        <childnode refid="9990" relation="include">
+        </childnode>
+      </node>
+      <node id="9964">
+        <label>taskscheduler/WSCoreBoundTaskQueue.h</label>
+        <link refid="_w_s_core_bound_task_queue_8h"/>
+        <childnode refid="9953" relation="include">
+        </childnode>
+        <childnode refid="9965" relation="include">
+        </childnode>
+      </node>
+      <node id="9988">
+        <label>storage/AbstractResource.h</label>
+        <link refid="_abstract_resource_8h"/>
+      </node>
+      <node id="10014">
+        <label>boost/unordered_map.hpp</label>
+      </node>
+      <node id="9940">
+        <label>src/lib/access/QueryParser.cpp</label>
+        <link refid="QueryParser.cpp"/>
+        <childnode refid="9941" relation="include">
+        </childnode>
+        <childnode refid="9968" relation="include">
+        </childnode>
+        <childnode refid="9981" relation="include">
+        </childnode>
+      </node>
+      <node id="9944">
+        <label>vector</label>
+      </node>
+      <node id="9963">
+        <label>taskscheduler/SharedScheduler.h</label>
+        <link refid="_shared_scheduler_8h"/>
+        <childnode refid="9949" relation="include">
+        </childnode>
+        <childnode refid="9960" relation="include">
+        </childnode>
+        <childnode refid="9962" relation="include">
+        </childnode>
+        <childnode refid="9946" relation="include">
+        </childnode>
+      </node>
+      <node id="9984">
+        <label>utility</label>
+      </node>
+      <node id="9971">
+        <label>helper/types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="9972" relation="include">
+        </childnode>
+        <childnode refid="9945" relation="include">
+        </childnode>
+        <childnode refid="9973" relation="include">
+        </childnode>
+        <childnode refid="9943" relation="include">
+        </childnode>
+        <childnode refid="9944" relation="include">
+        </childnode>
+      </node>
+      <node id="9953">
+        <label>taskscheduler/AbstractTaskQueue.h</label>
+        <link refid="_abstract_task_queue_8h"/>
+        <childnode refid="9943" relation="include">
+        </childnode>
+        <childnode refid="9951" relation="include">
+        </childnode>
+        <childnode refid="9954" relation="include">
+        </childnode>
+        <childnode refid="9952" relation="include">
+        </childnode>
+        <childnode refid="9955" relation="include">
+        </childnode>
+        <childnode refid="9950" relation="include">
+        </childnode>
+      </node>
+      <node id="9970">
+        <label>io/Loader.h</label>
+        <link refid="_loader_8h"/>
+        <childnode refid="9943" relation="include">
+        </childnode>
+        <childnode refid="9945" relation="include">
+        </childnode>
+        <childnode refid="9971" relation="include">
+        </childnode>
+        <childnode refid="9974" relation="include">
+        </childnode>
+        <childnode refid="9980" relation="include">
+        </childnode>
+      </node>
+      <node id="9968">
+        <label>io/StorageManager.h</label>
+        <link refid="_storage_manager_8h"/>
+        <childnode refid="9969" relation="include">
+        </childnode>
+        <childnode refid="9942" relation="include">
+        </childnode>
+        <childnode refid="9943" relation="include">
+        </childnode>
+        <childnode refid="9951" relation="include">
+        </childnode>
+        <childnode refid="9945" relation="include">
+        </childnode>
+        <childnode refid="9944" relation="include">
+        </childnode>
+        <childnode refid="9970" relation="include">
+        </childnode>
+      </node>
+      <node id="10006">
+        <label>storage/BaseIterator.h</label>
+        <link refid="_base_iterator_8h"/>
+      </node>
+      <node id="9994">
+        <label>memory/StrategizedAllocator.h</label>
+        <link refid="_strategized_allocator_8h"/>
+        <childnode refid="9995" relation="include">
+        </childnode>
+        <childnode refid="9996" relation="include">
+        </childnode>
+        <childnode refid="9997" relation="include">
+        </childnode>
+        <childnode refid="9946" relation="include">
+        </childnode>
+      </node>
+      <node id="9941">
+        <label>QueryParser.h</label>
+        <link refid="_query_parser_8h"/>
+        <childnode refid="9942" relation="include">
+        </childnode>
+        <childnode refid="9943" relation="include">
+        </childnode>
+        <childnode refid="9944" relation="include">
+        </childnode>
+        <childnode refid="9945" relation="include">
+        </childnode>
+        <childnode refid="9946" relation="include">
+        </childnode>
+        <childnode refid="9947" relation="include">
+        </childnode>
+        <childnode refid="9948" relation="include">
+        </childnode>
+        <childnode refid="9967" relation="include">
+        </childnode>
+      </node>
+      <node id="9986">
+        <label>access/OperationData.h</label>
+        <link refid="_operation_data_8h"/>
+        <childnode refid="9944" relation="include">
+        </childnode>
+        <childnode refid="9971" relation="include">
+        </childnode>
+        <childnode refid="9974" relation="include">
+        </childnode>
+      </node>
+      <node id="9983">
+        <label>time.h</label>
+      </node>
+      <node id="9957">
+        <label>iostream</label>
+      </node>
+      <node id="9989">
+        <label>storage/ColumnMetadata.h</label>
+        <link refid="_column_metadata_8h"/>
+        <childnode refid="9974" relation="include">
+        </childnode>
+        <childnode refid="9945" relation="include">
+        </childnode>
+        <childnode refid="9946" relation="include">
+        </childnode>
+      </node>
+      <node id="9949">
+        <label>taskscheduler/AbstractTaskScheduler.h</label>
+        <link refid="_abstract_task_scheduler_8h"/>
+        <childnode refid="9950" relation="include">
+        </childnode>
+        <childnode refid="9953" relation="include">
+        </childnode>
+        <childnode refid="9943" relation="include">
+        </childnode>
+        <childnode refid="9956" relation="include">
+        </childnode>
+        <childnode refid="9957" relation="include">
+        </childnode>
+        <childnode refid="9955" relation="include">
+        </childnode>
+        <childnode refid="9958" relation="include">
+        </childnode>
+      </node>
+      <node id="9966">
+        <label>deque</label>
+      </node>
+      <node id="9978">
+        <label>boost/mpl/map.hpp</label>
+      </node>
+      <node id="9965">
+        <label>taskscheduler/WSSimpleTaskScheduler.h</label>
+        <link refid="_w_s_simple_task_scheduler_8h"/>
+        <childnode refid="9949" relation="include">
+        </childnode>
+        <childnode refid="9964" relation="include">
+        </childnode>
+        <childnode refid="9966" relation="include">
+        </childnode>
+        <childnode refid="9957" relation="include">
+        </childnode>
+        <childnode refid="9958" relation="include">
+        </childnode>
+      </node>
+      <node id="9951">
+        <label>mutex</label>
+      </node>
+      <node id="10008">
+        <label>storage/AbstractAllocatedDictionary.h</label>
+        <link refid="_abstract_allocated_dictionary_8h"/>
+      </node>
+      <node id="9954">
+        <label>thread</label>
+      </node>
+      <node id="9998">
+        <label>memory/MallocStrategy.h</label>
+        <link refid="_malloc_strategy_8h"/>
+        <childnode refid="9957" relation="include">
+        </childnode>
+        <childnode refid="9972" relation="include">
+        </childnode>
+        <childnode refid="9999" relation="include">
+        </childnode>
+      </node>
+      <node id="9991">
+        <label>storage/OrderPreservingDictionary.h</label>
+        <link refid="_order_preserving_dictionary_8h"/>
+        <childnode refid="9992" relation="include">
+        </childnode>
+        <childnode refid="9957" relation="include">
+        </childnode>
+        <childnode refid="9943" relation="include">
+        </childnode>
+        <childnode refid="9974" relation="include">
+        </childnode>
+        <childnode refid="9993" relation="include">
+        </childnode>
+        <childnode refid="10004" relation="include">
+        </childnode>
+        <childnode refid="10005" relation="include">
+        </childnode>
+        <childnode refid="10008" relation="include">
+        </childnode>
+        <childnode refid="10006" relation="include">
+        </childnode>
+      </node>
+      <node id="9981">
+        <label>access/PlanOperation.h</label>
+        <link refid="_plan_operation_8h"/>
+        <childnode refid="9982" relation="include">
+        </childnode>
+        <childnode refid="9986" relation="include">
+        </childnode>
+        <childnode refid="9941" relation="include">
+        </childnode>
+        <childnode refid="9974" relation="include">
+        </childnode>
+        <childnode refid="9971" relation="include">
+        </childnode>
+        <childnode refid="9987" relation="include">
+        </childnode>
+        <childnode refid="9947" relation="include">
+        </childnode>
+      </node>
+      <node id="9996">
+        <label>algorithm</label>
+      </node>
+      <node id="9955">
+        <label>log4cxx/logger.h</label>
+      </node>
+      <node id="10002">
+        <label>stdio.h</label>
+      </node>
+      <node id="9999">
+        <label>cstring</label>
+      </node>
+      <node id="10010">
+        <label>storage/csb_tree.h</label>
+        <link refid="csb__tree_8h"/>
+        <childnode refid="9944" relation="include">
+        </childnode>
+        <childnode refid="9957" relation="include">
+        </childnode>
+        <childnode refid="9997" relation="include">
+        </childnode>
+        <childnode refid="9943" relation="include">
+        </childnode>
+        <childnode refid="10011" relation="include">
+        </childnode>
+        <childnode refid="9992" relation="include">
+        </childnode>
+        <childnode refid="10007" relation="include">
+        </childnode>
+      </node>
+      <node id="9943">
+        <label>memory</label>
+      </node>
+      <node id="9974">
+        <label>storage/storage_types.h</label>
+        <link refid="storage__types_8h"/>
+        <childnode refid="9944" relation="include">
+        </childnode>
+        <childnode refid="9945" relation="include">
+        </childnode>
+        <childnode refid="9946" relation="include">
+        </childnode>
+        <childnode refid="9975" relation="include">
+        </childnode>
+        <childnode refid="9976" relation="include">
+        </childnode>
+        <childnode refid="9977" relation="include">
+        </childnode>
+        <childnode refid="9978" relation="include">
+        </childnode>
+        <childnode refid="9979" relation="include">
+        </childnode>
+      </node>
+      <node id="9980">
+        <label>parameters.inc</label>
+        <link refid="parameters_8inc"/>
+      </node>
+    </incdepgraph>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>2012<sp/>Hasso-Plattner-Institut<sp/>fuer<sp/>Softwaresystemtechnik<sp/>GmbH.<sp/>All<sp/>rights<sp/>reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_query_parser_8h" kindref="compound">QueryParser.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="_storage_manager_8h" kindref="compound">io/StorageManager.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="_plan_operation_8h" kindref="compound">access/PlanOperation.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7" refid="class_query_parser_1a0baae6d66b14f3451783c7e7613eac0c" refkind="member"><highlight class="normal"><ref refid="class_query_parser_1a0baae6d66b14f3451783c7e7613eac0c" kindref="member">QueryParser::QueryParser</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="8"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10" refid="class_query_parser_1a2eea64ef11e6455700ecd4dc0260c255" refkind="member"><highlight class="normal"><ref refid="class_query_parser_1a2eea64ef11e6455700ecd4dc0260c255" kindref="member">QueryParser::~QueryParser</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal">&amp;<sp/>t:<sp/><ref refid="class_query_parser_1ae88f861ee089c7dae1268c54ee88cad4" kindref="member">_factory</ref>)</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">delete</highlight><highlight class="normal"><sp/>t.second;</highlight></codeline>
+<codeline lineno="13"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15" refid="class_query_parser_1aaa0c8aacff26e113403820c7ed5b0c78" refkind="member"><highlight class="normal">std::vector&lt;std::shared_ptr&lt;Task&gt;<sp/>&gt;<sp/><ref refid="class_query_parser_1aaa0c8aacff26e113403820c7ed5b0c78" kindref="member">QueryParser::deserialize</ref>(</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/>Json::Value<sp/>query,</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/>std::shared_ptr&lt;Task&gt;<sp/>*result)</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/>std::vector&lt;std::shared_ptr&lt;Task&gt;<sp/>&gt;<sp/>tasks;</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><ref refid="class_query_parser_1adf96e1c6201a4961d740cafa81939a11" kindref="member">task_map_t</ref><sp/>task_map;</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><ref refid="class_query_parser_1a9daea3a6d48ee7ddf1199070847d36fb" kindref="member">buildTasks</ref>(query,<sp/>tasks,<sp/>task_map);</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><ref refid="class_query_parser_1aa1f8cbd00cb541e5c16e9f4ebeabc9fd" kindref="member">setDependencies</ref>(query,<sp/>task_map);</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/>*result<sp/>=<sp/><ref refid="class_query_parser_1a08d2b4da81241b7ec7094411ad0cc70c" kindref="member">getResultTask</ref>(task_map);</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>tasks;</highlight></codeline>
+<codeline lineno="26"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28" refid="class_query_parser_1a9daea3a6d48ee7ddf1199070847d36fb" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_query_parser_1a9daea3a6d48ee7ddf1199070847d36fb" kindref="member">QueryParser::buildTasks</ref>(</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Json::Value<sp/>&amp;query,</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;std::shared_ptr&lt;Task&gt;<sp/>&gt;<sp/>&amp;tasks,</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_query_parser_1adf96e1c6201a4961d740cafa81939a11" kindref="member">task_map_t</ref><sp/>&amp;task_map)</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/>Json::Value::Members<sp/>members<sp/>=<sp/>query[</highlight><highlight class="stringliteral">&quot;operators&quot;</highlight><highlight class="normal">].getMemberNames();</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>members.size();<sp/>++i)<sp/>{</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/>Json::Value<sp/>planOperationSpec<sp/>=<sp/>query[</highlight><highlight class="stringliteral">&quot;operators&quot;</highlight><highlight class="normal">][members[i]];</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/>typeName<sp/>=<sp/>planOperationSpec[</highlight><highlight class="stringliteral">&quot;type&quot;</highlight><highlight class="normal">].asString();</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/>std::shared_ptr&lt;_PlanOperation&gt;<sp/>planOperation<sp/>=<sp/><ref refid="class_query_parser_1a2aa266fb58359f3f1091e754381bc964" kindref="member">QueryParser::instance</ref>().<ref refid="class_query_parser_1ac65c2987d66ad217d52bf16b7a7a56a1" kindref="member">parse</ref>(</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>typeName,<sp/>planOperationSpec);</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/>planOperation-&gt;setEvent(<ref refid="class_query_parser_1a034993994dd204e4e61f8028d90da842" kindref="member">getPapiEventName</ref>(query));</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_query_parser_1af37571a47678d86bc53f75cf11aab342" kindref="member">setInputs</ref>(planOperation,<sp/>planOperationSpec);</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/>planOperation-&gt;setPlanOperationName(typeName);</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/>planOperation-&gt;setPart(planOperationSpec[</highlight><highlight class="stringliteral">&quot;part&quot;</highlight><highlight class="normal">].asUInt());</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/>planOperation-&gt;setCount(planOperationSpec[</highlight><highlight class="stringliteral">&quot;count&quot;</highlight><highlight class="normal">].asUInt());</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/>planOperation-&gt;setOperatorId(members[i]);</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(planOperationSpec.isMember(</highlight><highlight class="stringliteral">&quot;core&quot;</highlight><highlight class="normal">))</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>planOperation-&gt;setPreferredCore(planOperationSpec[</highlight><highlight class="stringliteral">&quot;core&quot;</highlight><highlight class="normal">].asInt());</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>check<sp/>for<sp/>materialization<sp/>strategy</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(planOperationSpec.isMember(</highlight><highlight class="stringliteral">&quot;positions&quot;</highlight><highlight class="normal">))</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>planOperation-&gt;setProducesPositions(!planOperationSpec[</highlight><highlight class="stringliteral">&quot;positions&quot;</highlight><highlight class="normal">].asBool());</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/>tasks.push_back(planOperation);</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/>task_map[members[i]]<sp/>=<sp/>planOperation;</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="54"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56" refid="class_query_parser_1af37571a47678d86bc53f75cf11aab342" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_query_parser_1af37571a47678d86bc53f75cf11aab342" kindref="member">QueryParser::setInputs</ref>(</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/>std::shared_ptr&lt;_PlanOperation&gt;<sp/>planOperation,</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Json::Value<sp/>&amp;planOperationSpec)</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/>TODO:<sp/>input<sp/>implies<sp/>table<sp/>input<sp/>at<sp/>this<sp/>moment</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/>j<sp/>=<sp/>0;<sp/>j<sp/>&lt;<sp/>planOperationSpec[</highlight><highlight class="stringliteral">&quot;input&quot;</highlight><highlight class="normal">].size();<sp/>++j)<sp/>{</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/>planOperation-&gt;addInput(<ref refid="classhyrise_1_1io_1_1_storage_manager_1a73b12a097673a0afa604a22dd401a1bb" kindref="member" tooltip="Retrieve singleton storage-manager instance.">StorageManager::getInstance</ref>()-&gt;getTable(</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>planOperationSpec[</highlight><highlight class="stringliteral">&quot;input&quot;</highlight><highlight class="normal">][j].asString()));</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="64"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66" refid="class_query_parser_1a034993994dd204e4e61f8028d90da842" refkind="member"><highlight class="normal">std::string<sp/><ref refid="class_query_parser_1a034993994dd204e4e61f8028d90da842" kindref="member">QueryParser::getPapiEventName</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Json::Value<sp/>&amp;query)</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(query.isMember(</highlight><highlight class="stringliteral">&quot;papi&quot;</highlight><highlight class="normal">))</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>query[</highlight><highlight class="stringliteral">&quot;papi&quot;</highlight><highlight class="normal">].asString();</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;PAPI_TOT_INS&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73" refid="class_query_parser_1aa1f8cbd00cb541e5c16e9f4ebeabc9fd" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_query_parser_1aa1f8cbd00cb541e5c16e9f4ebeabc9fd" kindref="member">QueryParser::setDependencies</ref>(</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Json::Value<sp/>&amp;query,</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_query_parser_1adf96e1c6201a4961d740cafa81939a11" kindref="member">task_map_t</ref><sp/>&amp;task_map)</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>query[</highlight><highlight class="stringliteral">&quot;edges&quot;</highlight><highlight class="normal">].size();<sp/>++i)<sp/>{</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/>Json::Value<sp/>currentEdge<sp/>=<sp/>query[</highlight><highlight class="stringliteral">&quot;edges&quot;</highlight><highlight class="normal">][i];</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(task_map.count(currentEdge[0u].asString())<sp/>==<sp/>0)</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/>std::runtime_error(</highlight><highlight class="stringliteral">&quot;Edege<sp/>with<sp/>operator<sp/>name<sp/>&quot;</highlight><highlight class="normal"><sp/>+<sp/>currentEdge[0u].asString()<sp/>+<sp/></highlight><highlight class="stringliteral">&quot;<sp/>not<sp/>found&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(task_map.count(currentEdge[1u].asString())<sp/>==<sp/>0)</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/>std::runtime_error(</highlight><highlight class="stringliteral">&quot;Edege<sp/>with<sp/>operator<sp/>name<sp/>&quot;</highlight><highlight class="normal"><sp/>+<sp/>currentEdge[1u].asString()<sp/>+<sp/></highlight><highlight class="stringliteral">&quot;<sp/>not<sp/>found&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/>std::shared_ptr&lt;Task&gt;<sp/>src<sp/>=<sp/>task_map[currentEdge[0u].asString()];</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/>std::shared_ptr&lt;Task&gt;<sp/>dst<sp/>=<sp/>task_map[currentEdge[1u].asString()];</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(src<sp/>!=<sp/>dst)<sp/>{</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>dst-&gt;addDependency(src);</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="90"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight></codeline>
+<codeline lineno="92" refid="class_query_parser_1a08d2b4da81241b7ec7094411ad0cc70c" refkind="member"><highlight class="normal">std::shared_ptr&lt;Task&gt;<sp/><sp/><ref refid="class_query_parser_1a08d2b4da81241b7ec7094411ad0cc70c" kindref="member">QueryParser::getResultTask</ref>(</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="class_query_parser_1adf96e1c6201a4961d740cafa81939a11" kindref="member">task_map_t</ref><sp/>&amp;task_map)</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/>std::map&lt;Json::Value,<sp/>std::shared_ptr&lt;Task&gt;<sp/>&gt;::const_iterator<sp/>it;</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/>std::shared_ptr&lt;Task&gt;<sp/>currentTask,<sp/>resultTask<sp/>=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(it<sp/>=<sp/>task_map.begin();<sp/>it<sp/>!=<sp/>task_map.end();<sp/>++it)<sp/>{</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/>currentTask<sp/>=<sp/>it-&gt;second;</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Also,<sp/>exclude<sp/>autojson<sp/>reference<sp/>table<sp/>task</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!currentTask-&gt;hasSuccessors()</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;&amp;<sp/><sp/>it-&gt;first.asString()<sp/>!=<sp/><ref refid="_query_parser_8h_1a62fba7f1a8c4713f93dd2af6c8a058ec" kindref="member">autojsonReferenceTableId</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>resultTask<sp/>=<sp/>currentTask;</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>resultTask;</highlight></codeline>
+<codeline lineno="107"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight></codeline>
+<codeline lineno="109" refid="class_query_parser_1ac65c2987d66ad217d52bf16b7a7a56a1" refkind="member"><highlight class="normal">std::shared_ptr&lt;_PlanOperation&gt;<sp/><ref refid="class_query_parser_1ac65c2987d66ad217d52bf16b7a7a56a1" kindref="member">QueryParser::parse</ref>(std::string<sp/>name,<sp/>Json::Value<sp/>d)<sp/>{</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="class_query_parser_1ae88f861ee089c7dae1268c54ee88cad4" kindref="member">_factory</ref>.count(name)<sp/>==<sp/>0)</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/>std::runtime_error(</highlight><highlight class="stringliteral">&quot;Operator<sp/>of<sp/>type<sp/>&quot;</highlight><highlight class="normal"><sp/>+<sp/>name<sp/>+<sp/></highlight><highlight class="stringliteral">&quot;<sp/>not<sp/>supported&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="class_query_parser_1ae88f861ee089c7dae1268c54ee88cad4" kindref="member">_factory</ref>[name]-&gt;parse(d);</highlight></codeline>
+<codeline lineno="113"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight></codeline>
+<codeline lineno="116" refid="class_query_parser_1a2aa266fb58359f3f1091e754381bc964" refkind="member"><highlight class="normal"><ref refid="class_query_parser" kindref="compound">QueryParser</ref><sp/>&amp;<ref refid="class_query_parser_1a2aa266fb58359f3f1091e754381bc964" kindref="member">QueryParser::instance</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="class_query_parser" kindref="compound">QueryParser</ref><sp/>p;</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>p;</highlight></codeline>
+<codeline lineno="119"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/home/grund/hyrise/src/lib/access/QueryParser.cpp"/>
+  </compounddef>
+</doxygen>

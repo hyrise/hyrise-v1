@@ -1,0 +1,141 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="sha1_8h" kind="file">
+    <compoundname>sha1.h</compoundname>
+    <includedby refid="_request_parse_task_8cpp" local="yes">src/lib/access/RequestParseTask.cpp</includedby>
+    <includedby refid="sha1_8cpp" local="yes">src/lib/helper/sha1.cpp</includedby>
+    <invincdepgraph>
+      <node id="14077">
+        <label>src/lib/helper/sha1.cpp</label>
+        <link refid="sha1_8cpp"/>
+      </node>
+      <node id="14076">
+        <label>src/lib/access/RequestParseTask.cpp</label>
+        <link refid="_request_parse_task_8cpp"/>
+      </node>
+      <node id="14075">
+        <label>src/lib/helper/sha1.h</label>
+        <link refid="sha1.h"/>
+        <childnode refid="14076" relation="include">
+        </childnode>
+        <childnode refid="14077" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_s_h_a1___c_t_x" prot="public">SHA1_CTX</innerclass>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="sha1_8h_1ab5237a548756a92263b16e32a1edfdee" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void SHA1Transform</definition>
+        <argsstring>(u_int32_t state[5], const unsigned char buffer[64])</argsstring>
+        <name>SHA1Transform</name>
+        <param>
+          <type>u_int32_t</type>
+          <declname>state</declname>
+          <array>[5]</array>
+        </param>
+        <param>
+          <type>const unsigned char</type>
+          <declname>buffer</declname>
+          <array>[64]</array>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/sha1.h" line="15" bodyfile="/home/grund/hyrise/src/lib/helper/sha1.cpp" bodystart="59" bodyend="174"/>
+      </memberdef>
+      <memberdef kind="function" id="sha1_8h_1a159a97b3039391403b8d9b0d240a9640" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void SHA1Init</definition>
+        <argsstring>(SHA1_CTX *context)</argsstring>
+        <name>SHA1Init</name>
+        <param>
+          <type><ref refid="struct_s_h_a1___c_t_x" kindref="compound">SHA1_CTX</ref> *</type>
+          <declname>context</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/sha1.h" line="16" bodyfile="/home/grund/hyrise/src/lib/helper/sha1.cpp" bodystart="179" bodyend="187"/>
+      </memberdef>
+      <memberdef kind="function" id="sha1_8h_1a3e5bb463453e88f82345cc15cbe38c22" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void SHA1Update</definition>
+        <argsstring>(SHA1_CTX *context, const unsigned char *data, u_int32_t len)</argsstring>
+        <name>SHA1Update</name>
+        <param>
+          <type><ref refid="struct_s_h_a1___c_t_x" kindref="compound">SHA1_CTX</ref> *</type>
+          <declname>context</declname>
+        </param>
+        <param>
+          <type>const unsigned char *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>u_int32_t</type>
+          <declname>len</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/sha1.h" line="17" bodyfile="/home/grund/hyrise/src/lib/helper/sha1.cpp" bodystart="192" bodyend="210"/>
+      </memberdef>
+      <memberdef kind="function" id="sha1_8h_1aa58f279c51d82e868c9b0f7b1b7d08f4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void SHA1Final</definition>
+        <argsstring>(unsigned char digest[20], SHA1_CTX *context)</argsstring>
+        <name>SHA1Final</name>
+        <param>
+          <type>unsigned char</type>
+          <declname>digest</declname>
+          <array>[20]</array>
+        </param>
+        <param>
+          <type><ref refid="struct_s_h_a1___c_t_x" kindref="compound">SHA1_CTX</ref> *</type>
+          <declname>context</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/sha1.h" line="18" bodyfile="/home/grund/hyrise/src/lib/helper/sha1.cpp" bodystart="215" bodyend="255"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>2012<sp/>Hasso-Plattner-Institut<sp/>fuer<sp/>Softwaresystemtechnik<sp/>GmbH.<sp/>All<sp/>rights<sp/>reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>================<sp/>sha1.h<sp/>================<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/><sp/>SHA-1<sp/>in<sp/>C</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/><sp/>By<sp/>Steve<sp/>Reid<sp/>&lt;steve@edmweb.com&gt;</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"><sp/><sp/>100%<sp/>Public<sp/>Domain</highlight></codeline>
+<codeline lineno="7"><highlight class="comment">*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9" refid="struct_s_h_a1___c_t_x" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="10" refid="struct_s_h_a1___c_t_x_1a75e92d42c5e56be2571b801486a11c69" refkind="member"><highlight class="normal"><sp/><sp/>u_int32_t<sp/>state[5];</highlight></codeline>
+<codeline lineno="11" refid="struct_s_h_a1___c_t_x_1aa8af6356e8c9d974a51c54dd081e63a4" refkind="member"><highlight class="normal"><sp/><sp/>u_int32_t<sp/>count[2];</highlight></codeline>
+<codeline lineno="12" refid="struct_s_h_a1___c_t_x_1a90100b1aab0fedb1d72ded66abeeffe2" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>buffer[64];</highlight></codeline>
+<codeline lineno="13"><highlight class="normal">}<sp/><ref refid="struct_s_h_a1___c_t_x" kindref="compound">SHA1_CTX</ref>;</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="sha1_8cpp_1ab5237a548756a92263b16e32a1edfdee" kindref="member">SHA1Transform</ref>(u_int32_t<sp/>state[5],<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>buffer[64]);</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="sha1_8cpp_1a159a97b3039391403b8d9b0d240a9640" kindref="member">SHA1Init</ref>(<ref refid="struct_s_h_a1___c_t_x" kindref="compound">SHA1_CTX</ref><sp/>*context);</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="sha1_8cpp_1a3e5bb463453e88f82345cc15cbe38c22" kindref="member">SHA1Update</ref>(<ref refid="struct_s_h_a1___c_t_x" kindref="compound">SHA1_CTX</ref><sp/>*context,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*data,<sp/>u_int32_t<sp/>len);</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="sha1_8cpp_1aa58f279c51d82e868c9b0f7b1b7d08f4" kindref="member">SHA1Final</ref>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>digest[20],<sp/><ref refid="struct_s_h_a1___c_t_x" kindref="compound">SHA1_CTX</ref><sp/>*context);</highlight></codeline>
+    </programlisting>
+    <location file="/home/grund/hyrise/src/lib/helper/sha1.h"/>
+  </compounddef>
+</doxygen>

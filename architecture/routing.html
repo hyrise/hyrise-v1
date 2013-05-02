@@ -1,0 +1,184 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Routing &mdash; HYRISE latest documentation</title>
+    
+    <link rel="stylesheet" href="../_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/breathe.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     'latest',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="HYRISE latest documentation" href="../index.html" />
+    <link rel="up" title="Implementation Details" href="../architecture.html" />
+    <link rel="next" title="HYRISE Query Execution" href="../query_execution.html" />
+    <link rel="prev" title="Writing a custom operator" href="extensions/custom_operator.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../query_execution.html" title="HYRISE Query Execution"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="extensions/custom_operator.html" title="Writing a custom operator"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">HYRISE latest documentation</a> &raquo;</li>
+          <li><a href="../architecture.html" accesskey="U">Implementation Details</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/hyrise.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../architecture.html">Implementation Details</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="architecture.html">Create Modifiable Tables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="layouter.html">HYRISE Layouter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="loading.html">Loading</a></li>
+<li class="toctree-l2"><a class="reference internal" href="statistics.html">Query Statistics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="planops.html">Plan Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="extension_points.html">Extension points</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Routing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../query_execution.html">HYRISE Query Execution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developing.html">Developing with HYRISE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">HYRISE &amp; Development FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../proposals.html">Proposals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doxygen.html">Doxygen Documentation</a></li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="extensions/custom_operator.html"
+                        title="previous chapter">Writing a custom operator</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../query_execution.html"
+                        title="next chapter">HYRISE Query Execution</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/architecture/routing.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="routing">
+<h1>Routing<a class="headerlink" href="#routing" title="Permalink to this headline">¶</a></h1>
+<p>The <cite>net</cite> library allows other libraries to register handlers for URL
+prefixes to specific handlers.</p>
+<div class="line-block">
+<div class="line"><em>class</em> <strong>hyrise::net::Router</strong></div>
+</div>
+<blockquote>
+<div><p></p>
+<p>Central routing class, implements handling of requests mapped to registered factories </p>
+<em>Public Static Functons</em><blockquote>
+<div><p id="hyrise::net::Router::registerRoute__ssCR.route_t"><span id="project0classhyrise_1_1net_1_1_router_1a847346a8882c7d5e3ed7f2bc8d1acbae"></span><div class="line-block">
+<div class="line">template &lt; typename RequestHandlerClass &gt;</div>
+<div class="line">bool <strong>registerRoute</strong>(const std::string &amp; url, route_t route = route_t::EXACT)</div>
+</div>
+</p>
+<blockquote>
+<div><p></p>
+<p><p>Static initialization registration method for registering handler classes with urls, or to be more precisely, URL prefixes. 
+bool klass::registered = <a class="reference internal" href="#project0classhyrise_1_1net_1_1_router_1a847346a8882c7d5e3ed7f2bc8d1acbae"><em>hyrise::net::Router::registerRoute&lt;klass&gt;</em></a>(&#8220;/url/&#8221;)<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Templates:</th><td class="field-body"><ul class="breatheparameterlist first">
+<li><tt class="first docutils literal"><span class="pre">RequestHandlerClass</span></tt> - <p>Class of request handler should inherit from AbstractRequestHandler </p>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">url</span></tt> - <p>URL to register </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">route</span></tt> - <p>optionally define route type</p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+<p>Registers <tt class="docutils literal"><span class="pre">klass</span></tt> to be a handler of all urls that start with &#8220;/url/&#8221;</p>
+<p>To avoid ordering problems with registrations, we disallow registration of &#8220;/&#8221;, as this may result result in ambiguous resolution</p>
+<p>Instead, it is possible to register a CATCH_ALL handler that will be returned when no other handler has &#8220;claimed&#8221; a url-prefix.</p>
+<p>bool klass::registered = <a class="reference internal" href="#project0classhyrise_1_1net_1_1_router_1a847346a8882c7d5e3ed7f2bc8d1acbae"><em>hyrise::net::Router::registerRoute&lt;klass&gt;</em></a>(&#8220;/catch/&#8221;, hyrise::net::Router::route_t::CATCH_ALL)</p>
+<p>This will register <tt class="docutils literal"><span class="pre">klass</span></tt> to be a handler of all urls that would otherwise not match any handlers at all. </p>
+</p>
+</div></blockquote>
+</div></blockquote>
+</div></blockquote>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../query_execution.html" title="HYRISE Query Execution"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="extensions/custom_operator.html" title="Writing a custom operator"
+             >previous</a> |</li>
+        <li><a href="../index.html">HYRISE latest documentation</a> &raquo;</li>
+          <li><a href="../architecture.html" >Implementation Details</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010-2013, Martin Grund et al.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+  </body>
+</html>

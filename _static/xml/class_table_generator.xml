@@ -1,0 +1,845 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="class_table_generator" kind="class" prot="public">
+    <compoundname>TableGenerator</compoundname>
+    <includes refid="_table_generator_8h" local="no">TableGenerator.h</includes>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="class_table_generator_1addec79cd18a74359db8fe62d5fee448d" prot="protected" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool TableGenerator::_quiet</definition>
+        <argsstring></argsstring>
+        <name>_quiet</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableGenerator.h" line="75" bodyfile="/home/grund/hyrise/src/lib/storage/TableGenerator.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_table_generator_1a8d38800cdd2e4016508a19d969846ef9" prot="protected" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t TableGenerator::_total</definition>
+        <argsstring></argsstring>
+        <name>_total</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableGenerator.h" line="76" bodyfile="/home/grund/hyrise/src/lib/storage/TableGenerator.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_table_generator_1a2e5bba60f6955e91ce3d0831140174e7" prot="protected" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t TableGenerator::_current</definition>
+        <argsstring></argsstring>
+        <name>_current</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableGenerator.h" line="77" bodyfile="/home/grund/hyrise/src/lib/storage/TableGenerator.h" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_table_generator_1a446feb15869fac42801874a0c31ba646" prot="protected" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t TableGenerator::_current_step</definition>
+        <argsstring></argsstring>
+        <name>_current_step</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableGenerator.h" line="78" bodyfile="/home/grund/hyrise/src/lib/storage/TableGenerator.h" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_table_generator_1a802ff41f2a0497edffc8681a0096df0f" prot="protected" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t TableGenerator::_steps</definition>
+        <argsstring></argsstring>
+        <name>_steps</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableGenerator.h" line="79" bodyfile="/home/grund/hyrise/src/lib/storage/TableGenerator.h" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_table_generator_1aacbff27bab55fb6749ac6121a0cfe9df" prot="protected" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t TableGenerator::_prepareSize</definition>
+        <argsstring></argsstring>
+        <name>_prepareSize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableGenerator.h" line="83" bodyfile="/home/grund/hyrise/src/lib/storage/TableGenerator.h" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_table_generator_1a3b6e9113978a267dfec8a0f4950f5908" prot="protected" static="no" mutable="no">
+        <type>std::set&lt; int64_t &gt;</type>
+        <definition>std::set&lt;int64_t&gt; TableGenerator::_values</definition>
+        <argsstring></argsstring>
+        <name>_values</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableGenerator.h" line="86" bodyfile="/home/grund/hyrise/src/lib/storage/TableGenerator.h" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_table_generator_1a551d1bfcc465c1a5613ec5028d0631cb" prot="protected" static="no" mutable="no">
+        <type>boost::mt19937</type>
+        <definition>boost::mt19937 TableGenerator::gen</definition>
+        <argsstring></argsstring>
+        <name>gen</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableGenerator.h" line="88" bodyfile="/home/grund/hyrise/src/lib/storage/TableGenerator.h" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_table_generator_1a6f1e3597f924859f7170e4f94cf7bdd8" prot="public" static="no" const="no" explicit="yes" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TableGenerator::TableGenerator</definition>
+        <argsstring>(bool quiet=false)</argsstring>
+        <name>TableGenerator</name>
+        <param>
+          <type>bool</type>
+          <declname>quiet</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableGenerator.h" line="20" bodyfile="/home/grund/hyrise/src/lib/storage/TableGenerator.cpp" bodystart="26" bodyend="27"/>
+      </memberdef>
+      <memberdef kind="function" id="class_table_generator_1a0814cb412a86051916950d30c0a79000" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TableGenerator::~TableGenerator</definition>
+        <argsstring>()</argsstring>
+        <name>~TableGenerator</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableGenerator.h" line="21" bodyfile="/home/grund/hyrise/src/lib/storage/TableGenerator.cpp" bodystart="29" bodyend="30"/>
+      </memberdef>
+      <memberdef kind="function" id="class_table_generator_1aef6a2381838e9065605a530e086fead6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void TableGenerator::prepare</definition>
+        <argsstring>(size_t p)</argsstring>
+        <name>prepare</name>
+        <param>
+          <type>size_t</type>
+          <declname>p</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableGenerator.h" line="28" bodyfile="/home/grund/hyrise/src/lib/storage/TableGenerator.cpp" bodystart="32" bodyend="73"/>
+      </memberdef>
+      <memberdef kind="function" id="class_table_generator_1a754fe5d723f1576a019c4d89a33592ef" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="namespacehyrise_1_1storage_1a21d5e900c20019710828c453eaded1ee" kindref="member">hyrise::storage::atable_ptr_t</ref></type>
+        <definition>hyrise::storage::atable_ptr_t TableGenerator::int_random</definition>
+        <argsstring>(size_t rows, size_t cols, size_t mod=0, std::vector&lt; unsigned &gt; layout=std::vector&lt; unsigned &gt;())</argsstring>
+        <name>int_random</name>
+        <param>
+          <type>size_t</type>
+          <declname>rows</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>cols</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>mod</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>std::vector&lt; unsigned &gt;</type>
+          <declname>layout</declname>
+          <defval>std::vector&lt; unsigned &gt;()</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableGenerator.h" line="33" bodyfile="/home/grund/hyrise/src/lib/storage/TableGenerator.cpp" bodystart="507" bodyend="564"/>
+      </memberdef>
+      <memberdef kind="function" id="class_table_generator_1a0f8cd32e4f68e91a7ed34f36ebd68b5a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="namespacehyrise_1_1storage_1a21d5e900c20019710828c453eaded1ee" kindref="member">hyrise::storage::atable_ptr_t</ref></type>
+        <definition>hyrise::storage::atable_ptr_t TableGenerator::int_random_delta</definition>
+        <argsstring>(size_t rows, size_t cols, size_t mod=0, std::vector&lt; unsigned &gt; layout=std::vector&lt; unsigned &gt;())</argsstring>
+        <name>int_random_delta</name>
+        <param>
+          <type>size_t</type>
+          <declname>rows</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>cols</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>mod</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>std::vector&lt; unsigned &gt;</type>
+          <declname>layout</declname>
+          <defval>std::vector&lt; unsigned &gt;()</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableGenerator.h" line="38" bodyfile="/home/grund/hyrise/src/lib/storage/TableGenerator.cpp" bodystart="458" bodyend="504"/>
+      </memberdef>
+      <memberdef kind="function" id="class_table_generator_1aec8c2b24e6e680a57f4e8f5a84e195ae" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="namespacehyrise_1_1storage_1a21d5e900c20019710828c453eaded1ee" kindref="member">hyrise::storage::atable_ptr_t</ref></type>
+        <definition>hyrise::storage::atable_ptr_t TableGenerator::int_offset</definition>
+        <argsstring>(size_t rows, size_t cols, size_t offset1, size_t offset2, size_t offset2_start, size_t factor, int big_value_at_end=-1)</argsstring>
+        <name>int_offset</name>
+        <param>
+          <type>size_t</type>
+          <declname>rows</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>cols</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>offset1</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>offset2</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>offset2_start</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>factor</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>big_value_at_end</declname>
+          <defval>-1</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableGenerator.h" line="40" bodyfile="/home/grund/hyrise/src/lib/storage/TableGenerator.cpp" bodystart="735" bodyend="775"/>
+      </memberdef>
+      <memberdef kind="function" id="class_table_generator_1add513ebb375dc618a2fb3ce404064c4f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="namespacehyrise_1_1storage_1a21d5e900c20019710828c453eaded1ee" kindref="member">hyrise::storage::atable_ptr_t</ref></type>
+        <definition>hyrise::storage::atable_ptr_t TableGenerator::int_offset_delta</definition>
+        <argsstring>(size_t rows, size_t cols, size_t offset1, size_t offset2, size_t offset2_start, size_t factor, int big_value_at_end=-1)</argsstring>
+        <name>int_offset_delta</name>
+        <param>
+          <type>size_t</type>
+          <declname>rows</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>cols</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>offset1</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>offset2</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>offset2_start</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>factor</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>big_value_at_end</declname>
+          <defval>-1</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableGenerator.h" line="42" bodyfile="/home/grund/hyrise/src/lib/storage/TableGenerator.cpp" bodystart="777" bodyend="816"/>
+      </memberdef>
+      <memberdef kind="function" id="class_table_generator_1aac512be9182e0c9e803321d9576971e5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="namespacehyrise_1_1storage_1a21d5e900c20019710828c453eaded1ee" kindref="member">hyrise::storage::atable_ptr_t</ref></type>
+        <definition>hyrise::storage::atable_ptr_t TableGenerator::one_value</definition>
+        <argsstring>(size_t rows, size_t cols, int value)</argsstring>
+        <name>one_value</name>
+        <param>
+          <type>size_t</type>
+          <declname>rows</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>cols</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableGenerator.h" line="44" bodyfile="/home/grund/hyrise/src/lib/storage/TableGenerator.cpp" bodystart="846" bodyend="871"/>
+      </memberdef>
+      <memberdef kind="function" id="class_table_generator_1abcb33d3294732ccba74fc13b8bf5a8de" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="namespacehyrise_1_1storage_1a21d5e900c20019710828c453eaded1ee" kindref="member">hyrise::storage::atable_ptr_t</ref></type>
+        <definition>hyrise::storage::atable_ptr_t TableGenerator::one_value_delta</definition>
+        <argsstring>(size_t rows, size_t cols, int value)</argsstring>
+        <name>one_value_delta</name>
+        <param>
+          <type>size_t</type>
+          <declname>rows</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>cols</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableGenerator.h" line="46" bodyfile="/home/grund/hyrise/src/lib/storage/TableGenerator.cpp" bodystart="818" bodyend="844"/>
+      </memberdef>
+      <memberdef kind="function" id="class_table_generator_1a579242bca111a9bdfb00e5c9ac22f50d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="namespacehyrise_1_1storage_1a21d5e900c20019710828c453eaded1ee" kindref="member">hyrise::storage::atable_ptr_t</ref></type>
+        <definition>hyrise::storage::atable_ptr_t TableGenerator::int_distinct</definition>
+        <argsstring>(size_t row_count, size_t column_count, size_t distinct_count)</argsstring>
+        <name>int_distinct</name>
+        <param>
+          <type>size_t</type>
+          <declname>row_count</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>column_count</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>distinct_count</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableGenerator.h" line="48" bodyfile="/home/grund/hyrise/src/lib/storage/TableGenerator.cpp" bodystart="874" bodyend="893"/>
+      </memberdef>
+      <memberdef kind="function" id="class_table_generator_1ad076f7368fb6cdcd0c0a300f26fa42cb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="namespacehyrise_1_1storage_1a21d5e900c20019710828c453eaded1ee" kindref="member">hyrise::storage::atable_ptr_t</ref></type>
+        <definition>hyrise::storage::atable_ptr_t TableGenerator::create_empty_table</definition>
+        <argsstring>(size_t rows, std::vector&lt; std::string &gt; containers=std::vector&lt; std::string &gt;())</argsstring>
+        <name>create_empty_table</name>
+        <param>
+          <type>size_t</type>
+          <declname>rows</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; std::string &gt;</type>
+          <declname>containers</declname>
+          <defval>std::vector&lt; std::string &gt;()</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableGenerator.h" line="50" bodyfile="/home/grund/hyrise/src/lib/storage/TableGenerator.cpp" bodystart="356" bodyend="384"/>
+      </memberdef>
+      <memberdef kind="function" id="class_table_generator_1a1136633141e9c8f66c61b6eaded760db" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="namespacehyrise_1_1storage_1a21d5e900c20019710828c453eaded1ee" kindref="member">hyrise::storage::atable_ptr_t</ref></type>
+        <definition>hyrise::storage::atable_ptr_t TableGenerator::create_empty_table</definition>
+        <argsstring>(size_t rows, size_t cols, std::vector&lt; unsigned &gt; containers=std::vector&lt; unsigned &gt;())</argsstring>
+        <name>create_empty_table</name>
+        <param>
+          <type>size_t</type>
+          <declname>rows</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>cols</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; unsigned &gt;</type>
+          <declname>containers</declname>
+          <defval>std::vector&lt; unsigned &gt;()</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableGenerator.h" line="51" bodyfile="/home/grund/hyrise/src/lib/storage/TableGenerator.cpp" bodystart="386" bodyend="424"/>
+      </memberdef>
+      <memberdef kind="function" id="class_table_generator_1a7a7c8139d504b9f687c2ad1b1d8e89d5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="namespacehyrise_1_1storage_1a21d5e900c20019710828c453eaded1ee" kindref="member">hyrise::storage::atable_ptr_t</ref></type>
+        <definition>hyrise::storage::atable_ptr_t TableGenerator::create_empty_table_modifiable</definition>
+        <argsstring>(size_t rows, size_t cols, std::vector&lt; std::string &gt; name=std::vector&lt; std::string &gt;())</argsstring>
+        <name>create_empty_table_modifiable</name>
+        <param>
+          <type>size_t</type>
+          <declname>rows</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>cols</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; std::string &gt;</type>
+          <declname>name</declname>
+          <defval>std::vector&lt; std::string &gt;()</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableGenerator.h" line="53" bodyfile="/home/grund/hyrise/src/lib/storage/TableGenerator.cpp" bodystart="426" bodyend="454"/>
+      </memberdef>
+      <memberdef kind="function" id="class_table_generator_1a81b6d77a606054b9887a7339406d7f6e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Strategy</type>
+          </param>
+        </templateparamlist>
+        <type><ref refid="namespacehyrise_1_1storage_1a21d5e900c20019710828c453eaded1ee" kindref="member">hyrise::storage::atable_ptr_t</ref></type>
+        <definition>hyrise::storage::atable_ptr_t TableGenerator::create_empty_base_table_modifiable</definition>
+        <argsstring>(size_t rows, size_t cols)</argsstring>
+        <name>create_empty_base_table_modifiable</name>
+        <param>
+          <type>size_t</type>
+          <declname>rows</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>cols</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableGenerator.h" line="56" bodyfile="/home/grund/hyrise/src/lib/storage/TableGenerator-impl.h" bodystart="15" bodyend="33"/>
+      </memberdef>
+      <memberdef kind="function" id="class_table_generator_1aa6bc067f89de9a7a08c9ee4524d5eacf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; <ref refid="namespacehyrise_1_1storage_1a21d5e900c20019710828c453eaded1ee" kindref="member">hyrise::storage::atable_ptr_t</ref> &gt;</type>
+        <definition>std::vector&lt; hyrise::storage::atable_ptr_t &gt; TableGenerator::distinct_cols</definition>
+        <argsstring>(size_t cols, size_t main_size, size_t delta_size)</argsstring>
+        <name>distinct_cols</name>
+        <param>
+          <type>size_t</type>
+          <declname>cols</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>main_size</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>delta_size</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableGenerator.h" line="58" bodyfile="/home/grund/hyrise/src/lib/storage/TableGenerator.cpp" bodystart="97" bodyend="195"/>
+      </memberdef>
+      <memberdef kind="function" id="class_table_generator_1a9ac356cf8c5501e264b5a9461ceb74c8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; int64_t &gt; *</type>
+        <definition>std::vector&lt; int64_t &gt; * TableGenerator::create_dicts</definition>
+        <argsstring>(size_t dict_size_main, size_t dict_size_delta, size_t intersection, size_t tail)</argsstring>
+        <name>create_dicts</name>
+        <param>
+          <type>size_t</type>
+          <declname>dict_size_main</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>dict_size_delta</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>intersection</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>tail</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableGenerator.h" line="60" bodyfile="/home/grund/hyrise/src/lib/storage/TableGenerator.cpp" bodystart="197" bodyend="230"/>
+      </memberdef>
+      <memberdef kind="function" id="class_table_generator_1a086ace7a970c47326b1aeaf83d4d1013" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; <ref refid="namespacehyrise_1_1storage_1a21d5e900c20019710828c453eaded1ee" kindref="member">hyrise::storage::atable_ptr_t</ref> &gt;</type>
+        <definition>std::vector&lt; hyrise::storage::atable_ptr_t &gt; TableGenerator::one_column_main_delta</definition>
+        <argsstring>(size_t rows_main, size_t rows_delta, size_t dict_size_main, size_t dict_size_delta, size_t intersection, size_t tail)</argsstring>
+        <name>one_column_main_delta</name>
+        <param>
+          <type>size_t</type>
+          <declname>rows_main</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>rows_delta</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>dict_size_main</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>dict_size_delta</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>intersection</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>tail</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableGenerator.h" line="62" bodyfile="/home/grund/hyrise/src/lib/storage/TableGenerator.cpp" bodystart="232" bodyend="290"/>
+      </memberdef>
+      <memberdef kind="function" id="class_table_generator_1a7e2b2c80ad0c247cd22246200f8670f6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; <ref refid="namespacehyrise_1_1storage_1a21d5e900c20019710828c453eaded1ee" kindref="member">hyrise::storage::atable_ptr_t</ref> &gt;</type>
+        <definition>std::vector&lt; hyrise::storage::atable_ptr_t &gt; TableGenerator::value_order_successively</definition>
+        <argsstring>(size_t rows_main, size_t rows_delta, size_t dict_size_main, size_t dict_size_delta, size_t intersection, size_t tail)</argsstring>
+        <name>value_order_successively</name>
+        <param>
+          <type>size_t</type>
+          <declname>rows_main</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>rows_delta</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>dict_size_main</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>dict_size_delta</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>intersection</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>tail</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableGenerator.h" line="64" bodyfile="/home/grund/hyrise/src/lib/storage/TableGenerator.cpp" bodystart="295" bodyend="352"/>
+      </memberdef>
+      <memberdef kind="function" id="class_table_generator_1ac44ff9348ab322cdeaf6fa3618f963ad" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string TableGenerator::random_string</definition>
+        <argsstring>(const int len)</argsstring>
+        <name>random_string</name>
+        <param>
+          <type>const int</type>
+          <declname>len</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableGenerator.h" line="66" bodyfile="/home/grund/hyrise/src/lib/storage/TableGenerator.cpp" bodystart="567" bodyend="582"/>
+      </memberdef>
+      <memberdef kind="function" id="class_table_generator_1a0de73bec1b942d901aa6cbcacd23aa83" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="namespacehyrise_1_1storage_1a21d5e900c20019710828c453eaded1ee" kindref="member">hyrise::storage::atable_ptr_t</ref></type>
+        <definition>hyrise::storage::atable_ptr_t TableGenerator::string_random</definition>
+        <argsstring>(size_t rows, size_t cols, int string_length)</argsstring>
+        <name>string_random</name>
+        <param>
+          <type>size_t</type>
+          <declname>rows</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>cols</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>string_length</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableGenerator.h" line="67" bodyfile="/home/grund/hyrise/src/lib/storage/TableGenerator.cpp" bodystart="584" bodyend="631"/>
+      </memberdef>
+      <memberdef kind="function" id="class_table_generator_1aabbbca5cf7cb4fa9e740eedcf1f10ef9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="namespacehyrise_1_1storage_1a21d5e900c20019710828c453eaded1ee" kindref="member">hyrise::storage::atable_ptr_t</ref></type>
+        <definition>hyrise::storage::atable_ptr_t TableGenerator::string_random_delta</definition>
+        <argsstring>(size_t rows, size_t cols, int string_length)</argsstring>
+        <name>string_random_delta</name>
+        <param>
+          <type>size_t</type>
+          <declname>rows</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>cols</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>string_length</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableGenerator.h" line="68" bodyfile="/home/grund/hyrise/src/lib/storage/TableGenerator.cpp" bodystart="633" bodyend="686"/>
+      </memberdef>
+      <memberdef kind="function" id="class_table_generator_1a13fbcd9cc9b8d89d1679a623c498b11e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int TableGenerator::selfsimilar</definition>
+        <argsstring>(int64_t n, double h)</argsstring>
+        <name>selfsimilar</name>
+        <param>
+          <type>int64_t</type>
+          <declname>n</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>h</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableGenerator.h" line="70" bodyfile="/home/grund/hyrise/src/lib/storage/TableGenerator.cpp" bodystart="895" bodyend="898"/>
+      </memberdef>
+      <memberdef kind="function" id="class_table_generator_1ae9a1d51921837febf73170c21b0b5fb3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="namespacehyrise_1_1storage_1a21d5e900c20019710828c453eaded1ee" kindref="member">hyrise::storage::atable_ptr_t</ref></type>
+        <definition>hyrise::storage::atable_ptr_t TableGenerator::int_random_weighted</definition>
+        <argsstring>(size_t rows, size_t cols, size_t n, size_t h)</argsstring>
+        <name>int_random_weighted</name>
+        <param>
+          <type>size_t</type>
+          <declname>rows</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>cols</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>n</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>h</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableGenerator.h" line="71" bodyfile="/home/grund/hyrise/src/lib/storage/TableGenerator.cpp" bodystart="900" bodyend="937"/>
+      </memberdef>
+      <memberdef kind="function" id="class_table_generator_1abfb6567a08b3c56d42211650a44e978a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="namespacehyrise_1_1storage_1a21d5e900c20019710828c453eaded1ee" kindref="member">hyrise::storage::atable_ptr_t</ref></type>
+        <definition>hyrise::storage::atable_ptr_t TableGenerator::int_random_weighted_delta</definition>
+        <argsstring>(size_t rows, size_t cols, size_t n, size_t h)</argsstring>
+        <name>int_random_weighted_delta</name>
+        <param>
+          <type>size_t</type>
+          <declname>rows</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>cols</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>n</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>h</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableGenerator.h" line="72" bodyfile="/home/grund/hyrise/src/lib/storage/TableGenerator.cpp" bodystart="939" bodyend="971"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="class_table_generator_1aa388c04814711f69856cd2d503dc94d0" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void TableGenerator::start</definition>
+        <argsstring>(size_t rows, size_t cols, size_t total)</argsstring>
+        <name>start</name>
+        <param>
+          <type>size_t</type>
+          <declname>rows</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>cols</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>total</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableGenerator.h" line="90" bodyfile="/home/grund/hyrise/src/lib/storage/TableGenerator.cpp" bodystart="75" bodyend="83"/>
+      </memberdef>
+      <memberdef kind="function" id="class_table_generator_1ada02fbb63276c8e8c03535a79ff2869f" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void TableGenerator::increment</definition>
+        <argsstring>()</argsstring>
+        <name>increment</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableGenerator.h" line="91" bodyfile="/home/grund/hyrise/src/lib/storage/TableGenerator.cpp" bodystart="85" bodyend="95"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="3033">
+        <label>TableGenerator</label>
+        <link refid="class_table_generator"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/storage/TableGenerator.h" line="17" bodyfile="/home/grund/hyrise/src/lib/storage/TableGenerator.h" bodystart="17" bodyend="92"/>
+    <listofallmembers>
+      <member refid="class_table_generator_1a2e5bba60f6955e91ce3d0831140174e7" prot="protected" virt="non-virtual"><scope>TableGenerator</scope><name>_current</name></member>
+      <member refid="class_table_generator_1a446feb15869fac42801874a0c31ba646" prot="protected" virt="non-virtual"><scope>TableGenerator</scope><name>_current_step</name></member>
+      <member refid="class_table_generator_1aacbff27bab55fb6749ac6121a0cfe9df" prot="protected" virt="non-virtual"><scope>TableGenerator</scope><name>_prepareSize</name></member>
+      <member refid="class_table_generator_1addec79cd18a74359db8fe62d5fee448d" prot="protected" virt="non-virtual"><scope>TableGenerator</scope><name>_quiet</name></member>
+      <member refid="class_table_generator_1a802ff41f2a0497edffc8681a0096df0f" prot="protected" virt="non-virtual"><scope>TableGenerator</scope><name>_steps</name></member>
+      <member refid="class_table_generator_1a8d38800cdd2e4016508a19d969846ef9" prot="protected" virt="non-virtual"><scope>TableGenerator</scope><name>_total</name></member>
+      <member refid="class_table_generator_1a3b6e9113978a267dfec8a0f4950f5908" prot="protected" virt="non-virtual"><scope>TableGenerator</scope><name>_values</name></member>
+      <member refid="class_table_generator_1a9ac356cf8c5501e264b5a9461ceb74c8" prot="public" virt="non-virtual"><scope>TableGenerator</scope><name>create_dicts</name></member>
+      <member refid="class_table_generator_1a81b6d77a606054b9887a7339406d7f6e" prot="public" virt="non-virtual"><scope>TableGenerator</scope><name>create_empty_base_table_modifiable</name></member>
+      <member refid="class_table_generator_1ad076f7368fb6cdcd0c0a300f26fa42cb" prot="public" virt="non-virtual"><scope>TableGenerator</scope><name>create_empty_table</name></member>
+      <member refid="class_table_generator_1a1136633141e9c8f66c61b6eaded760db" prot="public" virt="non-virtual"><scope>TableGenerator</scope><name>create_empty_table</name></member>
+      <member refid="class_table_generator_1a7a7c8139d504b9f687c2ad1b1d8e89d5" prot="public" virt="non-virtual"><scope>TableGenerator</scope><name>create_empty_table_modifiable</name></member>
+      <member refid="class_table_generator_1aa6bc067f89de9a7a08c9ee4524d5eacf" prot="public" virt="non-virtual"><scope>TableGenerator</scope><name>distinct_cols</name></member>
+      <member refid="class_table_generator_1a551d1bfcc465c1a5613ec5028d0631cb" prot="protected" virt="non-virtual"><scope>TableGenerator</scope><name>gen</name></member>
+      <member refid="class_table_generator_1ada02fbb63276c8e8c03535a79ff2869f" prot="protected" virt="non-virtual"><scope>TableGenerator</scope><name>increment</name></member>
+      <member refid="class_table_generator_1a579242bca111a9bdfb00e5c9ac22f50d" prot="public" virt="non-virtual"><scope>TableGenerator</scope><name>int_distinct</name></member>
+      <member refid="class_table_generator_1aec8c2b24e6e680a57f4e8f5a84e195ae" prot="public" virt="non-virtual"><scope>TableGenerator</scope><name>int_offset</name></member>
+      <member refid="class_table_generator_1add513ebb375dc618a2fb3ce404064c4f" prot="public" virt="non-virtual"><scope>TableGenerator</scope><name>int_offset_delta</name></member>
+      <member refid="class_table_generator_1a754fe5d723f1576a019c4d89a33592ef" prot="public" virt="non-virtual"><scope>TableGenerator</scope><name>int_random</name></member>
+      <member refid="class_table_generator_1a0f8cd32e4f68e91a7ed34f36ebd68b5a" prot="public" virt="non-virtual"><scope>TableGenerator</scope><name>int_random_delta</name></member>
+      <member refid="class_table_generator_1ae9a1d51921837febf73170c21b0b5fb3" prot="public" virt="non-virtual"><scope>TableGenerator</scope><name>int_random_weighted</name></member>
+      <member refid="class_table_generator_1abfb6567a08b3c56d42211650a44e978a" prot="public" virt="non-virtual"><scope>TableGenerator</scope><name>int_random_weighted_delta</name></member>
+      <member refid="class_table_generator_1a086ace7a970c47326b1aeaf83d4d1013" prot="public" virt="non-virtual"><scope>TableGenerator</scope><name>one_column_main_delta</name></member>
+      <member refid="class_table_generator_1aac512be9182e0c9e803321d9576971e5" prot="public" virt="non-virtual"><scope>TableGenerator</scope><name>one_value</name></member>
+      <member refid="class_table_generator_1abcb33d3294732ccba74fc13b8bf5a8de" prot="public" virt="non-virtual"><scope>TableGenerator</scope><name>one_value_delta</name></member>
+      <member refid="class_table_generator_1aef6a2381838e9065605a530e086fead6" prot="public" virt="non-virtual"><scope>TableGenerator</scope><name>prepare</name></member>
+      <member refid="class_table_generator_1ac44ff9348ab322cdeaf6fa3618f963ad" prot="public" virt="non-virtual"><scope>TableGenerator</scope><name>random_string</name></member>
+      <member refid="class_table_generator_1a13fbcd9cc9b8d89d1679a623c498b11e" prot="public" virt="non-virtual"><scope>TableGenerator</scope><name>selfsimilar</name></member>
+      <member refid="class_table_generator_1aa388c04814711f69856cd2d503dc94d0" prot="protected" virt="non-virtual"><scope>TableGenerator</scope><name>start</name></member>
+      <member refid="class_table_generator_1a0de73bec1b942d901aa6cbcacd23aa83" prot="public" virt="non-virtual"><scope>TableGenerator</scope><name>string_random</name></member>
+      <member refid="class_table_generator_1aabbbca5cf7cb4fa9e740eedcf1f10ef9" prot="public" virt="non-virtual"><scope>TableGenerator</scope><name>string_random_delta</name></member>
+      <member refid="class_table_generator_1a6f1e3597f924859f7170e4f94cf7bdd8" prot="public" virt="non-virtual"><scope>TableGenerator</scope><name>TableGenerator</name></member>
+      <member refid="class_table_generator_1a7e2b2c80ad0c247cd22246200f8670f6" prot="public" virt="non-virtual"><scope>TableGenerator</scope><name>value_order_successively</name></member>
+      <member refid="class_table_generator_1a0814cb412a86051916950d30c0a79000" prot="public" virt="non-virtual"><scope>TableGenerator</scope><name>~TableGenerator</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

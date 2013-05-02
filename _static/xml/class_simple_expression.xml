@@ -1,0 +1,205 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="class_simple_expression" kind="class" prot="public">
+    <compoundname>SimpleExpression</compoundname>
+    <basecompoundref refid="classhyrise_1_1access_1_1_abstract_expression" prot="public" virt="non-virtual">hyrise::access::AbstractExpression</basecompoundref>
+    <derivedcompoundref refid="class_compound_expression" prot="public" virt="non-virtual">CompoundExpression</derivedcompoundref>
+    <derivedcompoundref refid="class_simple_field_expression" prot="public" virt="non-virtual">SimpleFieldExpression</derivedcompoundref>
+    <includes refid="pred___simple_expression_8h" local="no">pred_SimpleExpression.h</includes>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_simple_expression_1a059a1058d13c3e746d645404544c586c" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void SimpleExpression::walk</definition>
+        <argsstring>(const std::vector&lt; hyrise::storage::c_atable_ptr_t &gt; &amp;l)=0</argsstring>
+        <name>walk</name>
+        <reimplementedby refid="class_multi_table_less_than_expression_1a6de9619babd40215be5c7ca1ad7667e7">walk</reimplementedby>
+        <reimplementedby refid="class_less_than_expression_1ad7e656f6a6272c302fc9c484c5aca3cc">walk</reimplementedby>
+        <reimplementedby refid="class_greater_than_expression_1a9288a457243cdcb1c21471ad183fd884">walk</reimplementedby>
+        <reimplementedby refid="class_multi_table_greater_than_expression_1adbeaea80740a6e55b09bbba1cd8d59dd">walk</reimplementedby>
+        <reimplementedby refid="class_multi_table_equals_expression_1a42a037c29a4318643351f79545d93c49">walk</reimplementedby>
+        <reimplementedby refid="class_between_expression_1aa484acc9f9d0a8e95d4a23118f6199b9">walk</reimplementedby>
+        <reimplementedby refid="class_simple_field_expression_1a2b9be48219459a784de03b6298b56966">walk</reimplementedby>
+        <reimplementedby refid="class_multi_table_between_expression_1a6c0ca55dfbeee78f4eb033f56ad2fc07">walk</reimplementedby>
+        <reimplementedby refid="class_equals_expression_1a9c70374044137e9f4b9756ec3c14052b">walk</reimplementedby>
+        <reimplementedby refid="class_compound_expression_1a0f5f6b8d94d03b6f10cdfebdfef44801">walk</reimplementedby>
+        <param>
+          <type>const std::vector&lt; <ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref> &gt; &amp;</type>
+          <declname>l</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/pred_SimpleExpression.h" line="11"/>
+      </memberdef>
+      <memberdef kind="function" id="class_simple_expression_1ae06428047fe77732ef121f42b1ee6ce2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type><ref refid="storage__types_8h_1a543d59ef56384af4a7af9aa551bc6825" kindref="member">pos_list_t</ref> *</type>
+        <definition>virtual pos_list_t* SimpleExpression::match</definition>
+        <argsstring>(const size_t start, const size_t stop)</argsstring>
+        <name>match</name>
+        <reimplements refid="classhyrise_1_1access_1_1_abstract_expression_1a5d1aba6a95938962ab0af27e088e564b">match</reimplements>
+        <param>
+          <type>const size_t</type>
+          <declname>start</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>stop</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/pred_SimpleExpression.h" line="13" bodyfile="/home/grund/hyrise/src/lib/access/pred_SimpleExpression.h" bodystart="13" bodyend="21"/>
+      </memberdef>
+      <memberdef kind="function" id="class_simple_expression_1a0910401328b20cde7ea3493a02a957cc" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool SimpleExpression::operator()</definition>
+        <argsstring>(size_t row)</argsstring>
+        <name>operator()</name>
+        <reimplementedby refid="class_less_than_expression_1aaf0bb475ae01bae2adc386fda3d4db1d">operator()</reimplementedby>
+        <reimplementedby refid="class_greater_than_expression_1a5cacbced8505c768a7966ef1c44fc5ed">operator()</reimplementedby>
+        <reimplementedby refid="class_compound_expression_1a033ed9bf277aa174dfc4ef8892471961">operator()</reimplementedby>
+        <reimplementedby refid="class_simple_field_expression_1adcbedd75f7652d48f58256eefe09c5fe">operator()</reimplementedby>
+        <reimplementedby refid="class_equals_expression_1a725c4448ce2207ddb3b23b2758275b4d">operator()</reimplementedby>
+        <reimplementedby refid="class_between_expression_1a019dfe62d452a2c3a0bb8f2e808d661f">operator()</reimplementedby>
+        <reimplementedby refid="class_multi_table_equals_expression_1a42e96351a4a3f3e1a7466d51a15e89be">operator()</reimplementedby>
+        <reimplementedby refid="class_multi_table_less_than_expression_1a36122844e8ebe05e889926ea969bca9b">operator()</reimplementedby>
+        <reimplementedby refid="class_multi_table_greater_than_expression_1a5dfb2d164925a511fa0f18093de96058">operator()</reimplementedby>
+        <reimplementedby refid="class_less_than_expression_raw_1a756ec8043c3ea7ba98d78520621ae6da">operator()</reimplementedby>
+        <reimplementedby refid="class_equals_expression_raw_1a6370cbdc46ba91ff0bc368d43f88b777">operator()</reimplementedby>
+        <reimplementedby refid="class_multi_table_between_expression_1a6385fb0eaab29522e271c183f642075b">operator()</reimplementedby>
+        <reimplementedby refid="class_greater_than_expression_raw_1a1db3bba718f23524414f9b2f79f92a7e">operator()</reimplementedby>
+        <param>
+          <type>size_t</type>
+          <declname>row</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/pred_SimpleExpression.h" line="23" bodyfile="/home/grund/hyrise/src/lib/access/pred_SimpleExpression.h" bodystart="23" bodyend="25"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2828">
+        <label>EqualsExpressionRaw&lt; T &gt;</label>
+        <link refid="class_equals_expression_raw"/>
+        <childnode refid="2825" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2825">
+        <label>SimpleFieldExpression</label>
+        <link refid="class_simple_field_expression"/>
+        <childnode refid="2822" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2829">
+        <label>GreaterThanExpression&lt; T &gt;</label>
+        <link refid="class_greater_than_expression"/>
+        <childnode refid="2825" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2830">
+        <label>GreaterThanExpressionRaw&lt; T &gt;</label>
+        <link refid="class_greater_than_expression_raw"/>
+        <childnode refid="2825" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2833">
+        <label>MultiTableBetweenExpression&lt; T &gt;</label>
+        <link refid="class_multi_table_between_expression"/>
+        <childnode refid="2825" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2836">
+        <label>MultiTableLessThanExpression&lt; T &gt;</label>
+        <link refid="class_multi_table_less_than_expression"/>
+        <childnode refid="2825" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2826">
+        <label>BetweenExpression&lt; T &gt;</label>
+        <link refid="class_between_expression"/>
+        <childnode refid="2825" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2835">
+        <label>MultiTableGreaterThanExpression&lt; T &gt;</label>
+        <link refid="class_multi_table_greater_than_expression"/>
+        <childnode refid="2825" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2827">
+        <label>EqualsExpression&lt; T &gt;</label>
+        <link refid="class_equals_expression"/>
+        <childnode refid="2825" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2834">
+        <label>MultiTableEqualsExpression&lt; T &gt;</label>
+        <link refid="class_multi_table_equals_expression"/>
+        <childnode refid="2825" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2822">
+        <label>SimpleExpression</label>
+        <link refid="class_simple_expression"/>
+        <childnode refid="2823" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2823">
+        <label>hyrise::access::AbstractExpression</label>
+        <link refid="classhyrise_1_1access_1_1_abstract_expression"/>
+      </node>
+      <node id="2832">
+        <label>LessThanExpressionRaw&lt; T &gt;</label>
+        <link refid="class_less_than_expression_raw"/>
+        <childnode refid="2825" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2831">
+        <label>LessThanExpression&lt; T &gt;</label>
+        <link refid="class_less_than_expression"/>
+        <childnode refid="2825" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2824">
+        <label>CompoundExpression</label>
+        <link refid="class_compound_expression"/>
+        <childnode refid="2822" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2837">
+        <label>SimpleExpression</label>
+        <link refid="class_simple_expression"/>
+        <childnode refid="2838" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2838">
+        <label>hyrise::access::AbstractExpression</label>
+        <link refid="classhyrise_1_1access_1_1_abstract_expression"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/access/pred_SimpleExpression.h" line="9" bodyfile="/home/grund/hyrise/src/lib/access/pred_SimpleExpression.h" bodystart="9" bodyend="26"/>
+    <listofallmembers>
+      <member refid="class_simple_expression_1ae06428047fe77732ef121f42b1ee6ce2" prot="public" virt="virtual"><scope>SimpleExpression</scope><name>match</name></member>
+      <member refid="class_simple_expression_1a0910401328b20cde7ea3493a02a957cc" prot="public" virt="virtual"><scope>SimpleExpression</scope><name>operator()</name></member>
+      <member refid="class_simple_expression_1a059a1058d13c3e746d645404544c586c" prot="public" virt="pure-virtual"><scope>SimpleExpression</scope><name>walk</name></member>
+      <member refid="classhyrise_1_1access_1_1_abstract_expression_1aae15725c08628e3785e90f496b75144e" prot="public" virt="pure-virtual" ambiguityscope="hyrise::access::AbstractExpression::"><scope>SimpleExpression</scope><name>walk</name></member>
+      <member refid="classhyrise_1_1access_1_1_abstract_expression_1ae0b45f17103a1dc5006832d243574d83" prot="public" virt="virtual"><scope>SimpleExpression</scope><name>~AbstractExpression</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

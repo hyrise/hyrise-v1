@@ -1,0 +1,212 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="_table_dump_8h" kind="file">
+    <compoundname>TableDump.h</compoundname>
+    <includes local="no">memory</includes>
+    <includes local="no">string</includes>
+    <includes local="no">vector</includes>
+    <includes refid="_abstract_loader_8h" local="yes">io/AbstractLoader.h</includes>
+    <includedby refid="_table_dump_8cpp" local="yes">src/lib/io/TableDump.cpp</includedby>
+    <incdepgraph>
+      <node id="15608">
+        <label>boost/mpl/vector.hpp</label>
+      </node>
+      <node id="15603">
+        <label>limits</label>
+      </node>
+      <node id="15610">
+        <label>boost/lexical_cast.hpp</label>
+      </node>
+      <node id="15602">
+        <label>cstdint</label>
+      </node>
+      <node id="15606">
+        <label>stdint.h</label>
+      </node>
+      <node id="15605">
+        <label>stdexcept</label>
+      </node>
+      <node id="15597">
+        <label>string</label>
+      </node>
+      <node id="15607">
+        <label>ostream</label>
+      </node>
+      <node id="15598">
+        <label>vector</label>
+      </node>
+      <node id="15601">
+        <label>helper/types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="15602" relation="include">
+        </childnode>
+        <childnode refid="15597" relation="include">
+        </childnode>
+        <childnode refid="15603" relation="include">
+        </childnode>
+        <childnode refid="15596" relation="include">
+        </childnode>
+        <childnode refid="15598" relation="include">
+        </childnode>
+      </node>
+      <node id="15600">
+        <label>io/Loader.h</label>
+        <link refid="_loader_8h"/>
+        <childnode refid="15596" relation="include">
+        </childnode>
+        <childnode refid="15597" relation="include">
+        </childnode>
+        <childnode refid="15601" relation="include">
+        </childnode>
+        <childnode refid="15604" relation="include">
+        </childnode>
+        <childnode refid="15611" relation="include">
+        </childnode>
+      </node>
+      <node id="15599">
+        <label>io/AbstractLoader.h</label>
+        <link refid="_abstract_loader_8h"/>
+        <childnode refid="15600" relation="include">
+        </childnode>
+        <childnode refid="15604" relation="include">
+        </childnode>
+      </node>
+      <node id="15609">
+        <label>boost/mpl/map.hpp</label>
+      </node>
+      <node id="15595">
+        <label>src/lib/io/TableDump.h</label>
+        <link refid="TableDump.h"/>
+        <childnode refid="15596" relation="include">
+        </childnode>
+        <childnode refid="15597" relation="include">
+        </childnode>
+        <childnode refid="15598" relation="include">
+        </childnode>
+        <childnode refid="15599" relation="include">
+        </childnode>
+      </node>
+      <node id="15596">
+        <label>memory</label>
+      </node>
+      <node id="15604">
+        <label>storage/storage_types.h</label>
+        <link refid="storage__types_8h"/>
+        <childnode refid="15598" relation="include">
+        </childnode>
+        <childnode refid="15597" relation="include">
+        </childnode>
+        <childnode refid="15605" relation="include">
+        </childnode>
+        <childnode refid="15606" relation="include">
+        </childnode>
+        <childnode refid="15607" relation="include">
+        </childnode>
+        <childnode refid="15608" relation="include">
+        </childnode>
+        <childnode refid="15609" relation="include">
+        </childnode>
+        <childnode refid="15610" relation="include">
+        </childnode>
+      </node>
+      <node id="15611">
+        <label>parameters.inc</label>
+        <link refid="parameters_8inc"/>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="15613">
+        <label>src/lib/io/TableDump.cpp</label>
+        <link refid="_table_dump_8cpp"/>
+      </node>
+      <node id="15612">
+        <label>src/lib/io/TableDump.h</label>
+        <link refid="TableDump.h"/>
+        <childnode refid="15613" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="classhyrise_1_1storage_1_1_simple_table_dump" prot="public">hyrise::storage::SimpleTableDump</innerclass>
+    <innerclass refid="classhyrise_1_1storage_1_1_table_dump_loader" prot="public">hyrise::storage::TableDumpLoader</innerclass>
+    <innernamespace refid="namespacehyrise">hyrise</innernamespace>
+    <innernamespace refid="namespacehyrise_1_1storage">hyrise::storage</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>2012<sp/>Hasso-Plattner-Institut<sp/>fuer<sp/>Softwaresystemtechnik<sp/>GmbH.<sp/>All<sp/>rights<sp/>reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SRC_LIB_IO_TABLE_DUMP_H_</highlight></codeline>
+<codeline lineno="3"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SRC_LIB_IO_TABLE_DUMP_H_</highlight></codeline>
+<codeline lineno="4"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;memory&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;vector&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_abstract_loader_8h" kindref="compound">io/AbstractLoader.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_abstract_table" kindref="compound">AbstractTable</ref>;</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">hyrise<sp/>{<sp/></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">storage<sp/>{</highlight></codeline>
+<codeline lineno="28" refid="classhyrise_1_1storage_1_1_simple_table_dump" refkind="compound"><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classhyrise_1_1storage_1_1_simple_table_dump" kindref="compound">SimpleTableDump</ref><sp/>{</highlight></codeline>
+<codeline lineno="29" refid="classhyrise_1_1storage_1_1_simple_table_dump_1a488363f638153e397ff99c34cde67e82" refkind="member"><highlight class="normal"><sp/><sp/>std::string<sp/><ref refid="classhyrise_1_1storage_1_1_simple_table_dump_1a488363f638153e397ff99c34cde67e82" kindref="member">_baseDirectory</ref>;</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1storage_1_1_simple_table_dump_1a3743702d7881604a5902d5771c1d57d0" kindref="member">prepare</ref>(std::string<sp/>name);</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1storage_1_1_simple_table_dump_1afef0b09addca552ee87168f954064b28" kindref="member">dumpDictionary</ref>(std::string<sp/>name,<sp/>std::shared_ptr&lt;AbstractTable&gt;<sp/>t,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>col);</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1storage_1_1_simple_table_dump_1aee7780e294e2d0195e68617e3a4fb70f" kindref="member">dumpAttribute</ref>(std::string<sp/>name,<sp/>std::shared_ptr&lt;AbstractTable&gt;<sp/>t,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>col);</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1storage_1_1_simple_table_dump_1aea6a41e0c88a33939e711aa49bca35bb" kindref="member">dumpMetaData</ref>(std::string<sp/>name,<sp/>std::shared_ptr&lt;AbstractTable&gt;<sp/>t);</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1storage_1_1_simple_table_dump_1a1536d950b5785da2a7d3731c2a370cf6" kindref="member">dumpHeader</ref>(std::string<sp/>name,<sp/>std::shared_ptr&lt;AbstractTable&gt;<sp/>t);</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1storage_1_1_simple_table_dump_1af24730e306b5a0ddce5994871a6f092c" kindref="member">verify</ref>(std::shared_ptr&lt;AbstractTable&gt;);</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Initialize<sp/>a<sp/>new<sp/>object<sp/>based<sp/>on<sp/>the<sp/>base<sp/>path<sp/>for<sp/>the<sp/>output</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64" refid="classhyrise_1_1storage_1_1_simple_table_dump_1a0f0c81b861384051df80ea359764ed83" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">explicit</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1storage_1_1_simple_table_dump_1a0f0c81b861384051df80ea359764ed83" kindref="member">SimpleTableDump</ref>(std::string<sp/>outputDir):<sp/><ref refid="classhyrise_1_1storage_1_1_simple_table_dump_1a488363f638153e397ff99c34cde67e82" kindref="member">_baseDirectory</ref>(outputDir)<sp/>{</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1storage_1_1_simple_table_dump_1a97163355e9a636845e8e862955f66d6f" kindref="member">dump</ref>(std::string<sp/>name,<sp/>std::shared_ptr&lt;AbstractTable&gt;<sp/>table);</highlight></codeline>
+<codeline lineno="71"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73" refid="classhyrise_1_1storage_1_1_table_dump_loader" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classhyrise_1_1storage_1_1_table_dump_loader" kindref="compound">TableDumpLoader</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="class_abstract_input" kindref="compound" tooltip="Interface for implementing a data source for loading data into a table.">AbstractInput</ref><sp/>{</highlight></codeline>
+<codeline lineno="74" refid="classhyrise_1_1storage_1_1_table_dump_loader_1ab5118fc6726169eb34b0847a1776895c" refkind="member"><highlight class="normal"><sp/><sp/>std::string<sp/><ref refid="classhyrise_1_1storage_1_1_table_dump_loader_1ab5118fc6726169eb34b0847a1776895c" kindref="member">_base</ref>;</highlight></codeline>
+<codeline lineno="75" refid="classhyrise_1_1storage_1_1_table_dump_loader_1a2dc08800baa4093cb42352d221b6dc03" refkind="member"><highlight class="normal"><sp/><sp/>std::string<sp/><ref refid="classhyrise_1_1storage_1_1_table_dump_loader_1a2dc08800baa4093cb42352d221b6dc03" kindref="member">_table</ref>;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1storage_1_1_table_dump_loader_1abc858a5c5027462967a0415978243e3b" kindref="member">getSize</ref>();</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1storage_1_1_table_dump_loader_1ad027722707e4a08deae90c8a30b2db66" kindref="member">loadDictionary</ref>(std::string<sp/>name,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>col,<sp/>std::shared_ptr&lt;AbstractTable&gt;<sp/>intable);</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1storage_1_1_table_dump_loader_1a0918d5823eeae63dba7db70f4b5f6400" kindref="member">loadAttribute</ref>(std::string<sp/>name,</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>col,</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>size,</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::shared_ptr&lt;AbstractTable&gt;<sp/>intable);</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="87" refid="classhyrise_1_1storage_1_1_table_dump_loader_1a0a1f28a92b80fdfe1d8ba2c275ec7dab" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="classhyrise_1_1storage_1_1_table_dump_loader_1a0a1f28a92b80fdfe1d8ba2c275ec7dab" kindref="member">TableDumpLoader</ref>(std::string<sp/>base,<sp/>std::string<sp/>table)<sp/>:</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhyrise_1_1storage_1_1_table_dump_loader_1ab5118fc6726169eb34b0847a1776895c" kindref="member">_base</ref>(base),<sp/><ref refid="classhyrise_1_1storage_1_1_table_dump_loader_1a2dc08800baa4093cb42352d221b6dc03" kindref="member">_table</ref>(table)<sp/>{</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/>std::shared_ptr&lt;AbstractTable&gt;<sp/><ref refid="classhyrise_1_1storage_1_1_table_dump_loader_1a2e00b6f27ef5a256dd6c8df2fdc26f37" kindref="member">load</ref>(std::shared_ptr&lt;AbstractTable&gt;,</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="storage__types_8h_1ab1a41784d413aa539cdda0391757965c" kindref="member">compound_metadata_list</ref><sp/>*,</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="class_loader_1_1params" kindref="compound">Loader::params</ref><sp/>&amp;args);</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="95" refid="classhyrise_1_1storage_1_1_table_dump_loader_1a865da9a850f024cad23aed92a6c6be80" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1storage_1_1_table_dump_loader_1a865da9a850f024cad23aed92a6c6be80" kindref="member">needs_store_wrap</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight></codeline>
+<codeline lineno="99" refid="classhyrise_1_1storage_1_1_table_dump_loader_1a44ac1058a9b61b875c389aef3460bd4b" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="classhyrise_1_1storage_1_1_table_dump_loader" kindref="compound">TableDumpLoader</ref><sp/>*<ref refid="classhyrise_1_1storage_1_1_table_dump_loader_1a44ac1058a9b61b875c389aef3460bd4b" kindref="member">clone</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1storage_1_1_table_dump_loader_1a0a1f28a92b80fdfe1d8ba2c275ec7dab" kindref="member">TableDumpLoader</ref>(*</highlight><highlight class="keyword">this</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="102"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal">}}</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/>//<sp/>SRC_LIB_IO_TABLE_DUMP_H_</highlight></codeline>
+    </programlisting>
+    <location file="/home/grund/hyrise/src/lib/io/TableDump.h"/>
+  </compounddef>
+</doxygen>

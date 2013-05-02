@@ -1,0 +1,1265 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="_abstract_task_scheduler_8h" kind="file">
+    <compoundname>AbstractTaskScheduler.h</compoundname>
+    <includes refid="_task_8h" local="yes">taskscheduler/Task.h</includes>
+    <includes refid="_abstract_task_queue_8h" local="yes">taskscheduler/AbstractTaskQueue.h</includes>
+    <includes local="no">memory</includes>
+    <includes local="no">unordered_set</includes>
+    <includes local="no">iostream</includes>
+    <includes local="no">log4cxx/logger.h</includes>
+    <includes refid="_hwloc_helper_8h" local="yes">helper/HwlocHelper.h</includes>
+    <includedby refid="_request_parse_task_8cpp" local="yes">src/lib/access/RequestParseTask.cpp</includedby>
+    <includedby refid="_task_scheduler_adjustment_8cpp" local="yes">src/lib/access/TaskSchedulerAdjustment.cpp</includedby>
+    <includedby refid="_threadpool_adjustment_8cpp" local="yes">src/lib/access/ThreadpoolAdjustment.cpp</includedby>
+    <includedby refid="_shared_scheduler_8h" local="no">src/lib/taskscheduler/SharedScheduler.h</includedby>
+    <includedby refid="_simple_task_scheduler_8h" local="yes">src/lib/taskscheduler/SimpleTaskScheduler.h</includedby>
+    <includedby refid="_w_s_simple_task_scheduler_8h" local="no">src/lib/taskscheduler/WSSimpleTaskScheduler.h</includedby>
+    <includedby refid="taskscheduler_8h" local="no">src/lib/taskscheduler.h</includedby>
+    <incdepgraph>
+      <node id="24756">
+        <label>helper/HwlocHelper.h</label>
+        <link refid="_hwloc_helper_8h"/>
+        <childnode refid="24757" relation="include">
+        </childnode>
+      </node>
+      <node id="24750">
+        <label>string</label>
+      </node>
+      <node id="24745">
+        <label>taskscheduler/Task.h</label>
+        <link refid="_task_8h"/>
+        <childnode refid="24746" relation="include">
+        </childnode>
+        <childnode refid="24747" relation="include">
+        </childnode>
+        <childnode refid="24748" relation="include">
+        </childnode>
+        <childnode refid="24749" relation="include">
+        </childnode>
+        <childnode refid="24750" relation="include">
+        </childnode>
+      </node>
+      <node id="24754">
+        <label>unordered_set</label>
+      </node>
+      <node id="24757">
+        <label>hwloc.h</label>
+      </node>
+      <node id="24749">
+        <label>condition_variable</label>
+      </node>
+      <node id="24746">
+        <label>vector</label>
+      </node>
+      <node id="24751">
+        <label>taskscheduler/AbstractTaskQueue.h</label>
+        <link refid="_abstract_task_queue_8h"/>
+        <childnode refid="24748" relation="include">
+        </childnode>
+        <childnode refid="24747" relation="include">
+        </childnode>
+        <childnode refid="24752" relation="include">
+        </childnode>
+        <childnode refid="24749" relation="include">
+        </childnode>
+        <childnode refid="24753" relation="include">
+        </childnode>
+        <childnode refid="24745" relation="include">
+        </childnode>
+      </node>
+      <node id="24755">
+        <label>iostream</label>
+      </node>
+      <node id="24744">
+        <label>src/lib/taskscheduler/AbstractTaskScheduler.h</label>
+        <link refid="AbstractTaskScheduler.h"/>
+        <childnode refid="24745" relation="include">
+        </childnode>
+        <childnode refid="24751" relation="include">
+        </childnode>
+        <childnode refid="24748" relation="include">
+        </childnode>
+        <childnode refid="24754" relation="include">
+        </childnode>
+        <childnode refid="24755" relation="include">
+        </childnode>
+        <childnode refid="24753" relation="include">
+        </childnode>
+        <childnode refid="24756" relation="include">
+        </childnode>
+      </node>
+      <node id="24747">
+        <label>mutex</label>
+      </node>
+      <node id="24752">
+        <label>thread</label>
+      </node>
+      <node id="24753">
+        <label>log4cxx/logger.h</label>
+      </node>
+      <node id="24748">
+        <label>memory</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="24792">
+        <label>src/lib/access/Distinct.h</label>
+        <link refid="_distinct_8h"/>
+        <childnode refid="24771" relation="include">
+        </childnode>
+      </node>
+      <node id="24860">
+        <label>src/lib/access/SmallestTableScan.cpp</label>
+        <link refid="_smallest_table_scan_8cpp"/>
+      </node>
+      <node id="24871">
+        <label>src/lib/access/ThreadpoolAdjustment.h</label>
+        <link refid="_threadpool_adjustment_8h"/>
+        <childnode refid="24761" relation="include">
+        </childnode>
+        <childnode refid="24780" relation="include">
+        </childnode>
+      </node>
+      <node id="24811">
+        <label>src/lib/access/InsertScan.cpp</label>
+        <link refid="_insert_scan_8cpp"/>
+      </node>
+      <node id="24817">
+        <label>src/lib/access/Layouter.cpp</label>
+        <link refid="_layouter_8cpp"/>
+      </node>
+      <node id="24764">
+        <label>src/lib/net/AsyncConnection.cpp</label>
+        <link refid="_async_connection_8cpp"/>
+      </node>
+      <node id="24844">
+        <label>src/lib/access/RadixJoin.h</label>
+        <link refid="_radix_join_8h"/>
+        <childnode refid="24845" relation="include">
+        </childnode>
+        <childnode refid="24789" relation="include">
+        </childnode>
+      </node>
+      <node id="24872">
+        <label>src/lib/access/UnionAll.h</label>
+        <link refid="_union_all_8h"/>
+        <childnode refid="24788" relation="include">
+        </childnode>
+        <childnode refid="24873" relation="include">
+        </childnode>
+      </node>
+      <node id="24846">
+        <label>src/lib/access/ReplaceTable.h</label>
+        <link refid="_replace_table_8h"/>
+        <childnode refid="24847" relation="include">
+        </childnode>
+      </node>
+      <node id="24862">
+        <label>src/lib/access/SortScan.cpp</label>
+        <link refid="lib_2access_2_sort_scan_8cpp"/>
+      </node>
+      <node id="24821">
+        <label>src/lib/access/LayoutTableLoad.cpp</label>
+        <link refid="_layout_table_load_8cpp"/>
+      </node>
+      <node id="24799">
+        <label>src/lib/access/HashJoinProbe.cpp</label>
+        <link refid="_hash_join_probe_8cpp"/>
+      </node>
+      <node id="24803">
+        <label>src/lib/access/PrefixSum.cpp</label>
+        <link refid="_prefix_sum_8cpp"/>
+      </node>
+      <node id="24879">
+        <label>src/lib/access/UpdateScan.cpp</label>
+        <link refid="_update_scan_8cpp"/>
+      </node>
+      <node id="24808">
+        <label>src/lib/access/InsertOnlyOperators.h</label>
+        <link refid="_insert_only_operators_8h"/>
+        <childnode refid="24809" relation="include">
+        </childnode>
+      </node>
+      <node id="24797">
+        <label>src/lib/access/HashBuild.cpp</label>
+        <link refid="_hash_build_8cpp"/>
+      </node>
+      <node id="24867">
+        <label>src/lib/access/TableScan.cpp</label>
+        <link refid="_table_scan_8cpp"/>
+      </node>
+      <node id="24831">
+        <label>src/lib/access/MultiplyRefField.h</label>
+        <link refid="_multiply_ref_field_8h"/>
+        <childnode refid="24832" relation="include">
+        </childnode>
+      </node>
+      <node id="24840">
+        <label>src/lib/access/PrefixSum.h</label>
+        <link refid="_prefix_sum_8h"/>
+        <childnode refid="24803" relation="include">
+        </childnode>
+      </node>
+      <node id="24874">
+        <label>src/lib/access/UnionScan.h</label>
+        <link refid="_union_scan_8h"/>
+        <childnode refid="24875" relation="include">
+        </childnode>
+        <childnode refid="24780" relation="include">
+        </childnode>
+      </node>
+      <node id="24795">
+        <label>src/lib/access/GroupByScan.h</label>
+        <link refid="_group_by_scan_8h"/>
+        <childnode refid="24774" relation="include">
+        </childnode>
+        <childnode refid="24780" relation="include">
+        </childnode>
+      </node>
+      <node id="24851">
+        <label>src/lib/access/SetTable.h</label>
+        <link refid="_set_table_8h"/>
+        <childnode refid="24852" relation="include">
+        </childnode>
+      </node>
+      <node id="24788">
+        <label>src/bin/perf_regression/UnionScan.cpp</label>
+        <link refid="bin_2perf__regression_2_union_scan_8cpp"/>
+      </node>
+      <node id="24847">
+        <label>src/lib/access/ReplaceTable.cpp</label>
+        <link refid="_replace_table_8cpp"/>
+      </node>
+      <node id="24773">
+        <label>src/lib/access/GetTable.cpp</label>
+        <link refid="_get_table_8cpp"/>
+      </node>
+      <node id="24863">
+        <label>src/lib/access/TableLoad.h</label>
+        <link refid="_table_load_8h"/>
+        <childnode refid="24864" relation="include">
+        </childnode>
+        <childnode refid="24780" relation="include">
+        </childnode>
+      </node>
+      <node id="24833">
+        <label>src/lib/access/MySQLTableLoad.h</label>
+        <link refid="_my_s_q_l_table_load_8h"/>
+        <childnode refid="24834" relation="include">
+        </childnode>
+      </node>
+      <node id="24828">
+        <label>src/lib/access/MergeJoin.hpp</label>
+        <link refid="_merge_join_8hpp"/>
+        <childnode refid="24780" relation="include">
+        </childnode>
+      </node>
+      <node id="24870">
+        <label>src/lib/access/TaskSchedulerAdjustment.h</label>
+        <link refid="_task_scheduler_adjustment_8h"/>
+        <childnode refid="24760" relation="include">
+        </childnode>
+        <childnode refid="24780" relation="include">
+        </childnode>
+      </node>
+      <node id="24802">
+        <label>src/lib/access/Histogram.cpp</label>
+        <link refid="_histogram_8cpp"/>
+      </node>
+      <node id="24839">
+        <label>src/lib/access/PlanOperation.cpp</label>
+        <link refid="_plan_operation_8cpp"/>
+      </node>
+      <node id="24804">
+        <label>src/lib/access/RadixCluster.h</label>
+        <link refid="_radix_cluster_8h"/>
+        <childnode refid="24805" relation="include">
+        </childnode>
+      </node>
+      <node id="24829">
+        <label>src/lib/access/MergeTable.h</label>
+        <link refid="_merge_table_8h"/>
+        <childnode refid="24830" relation="include">
+        </childnode>
+      </node>
+      <node id="24779">
+        <label>src/lib/access/RadixJoinTransformation.cpp</label>
+        <link refid="_radix_join_transformation_8cpp"/>
+      </node>
+      <node id="24805">
+        <label>src/lib/access/RadixCluster.cpp</label>
+        <link refid="_radix_cluster_8cpp"/>
+      </node>
+      <node id="24848">
+        <label>src/lib/access/ResponseTask.cpp</label>
+        <link refid="_response_task_8cpp"/>
+      </node>
+      <node id="24850">
+        <label>src/lib/access/ScriptOperation.cpp</label>
+        <link refid="_script_operation_8cpp"/>
+      </node>
+      <node id="24774">
+        <label>src/lib/access/GroupByScan.cpp</label>
+        <link refid="lib_2access_2_group_by_scan_8cpp"/>
+      </node>
+      <node id="24790">
+        <label>src/lib/access/Barrier.h</label>
+        <link refid="_barrier_8h"/>
+        <childnode refid="24769" relation="include">
+        </childnode>
+      </node>
+      <node id="24832">
+        <label>src/lib/access/MultiplyRefField.cpp</label>
+        <link refid="_multiply_ref_field_8cpp"/>
+      </node>
+      <node id="24777">
+        <label>src/lib/access/QueryTransformationEngine.h</label>
+        <link refid="_query_transformation_engine_8h"/>
+        <childnode refid="24778" relation="include">
+        </childnode>
+        <childnode refid="24779" relation="include">
+        </childnode>
+        <childnode refid="24759" relation="include">
+        </childnode>
+        <childnode refid="24780" relation="include">
+        </childnode>
+      </node>
+      <node id="24841">
+        <label>src/lib/access/ProjectionScan.h</label>
+        <link refid="_projection_scan_8h"/>
+        <childnode refid="24842" relation="include">
+        </childnode>
+        <childnode refid="24780" relation="include">
+        </childnode>
+      </node>
+      <node id="24767">
+        <label>src/lib/taskscheduler.h</label>
+        <link refid="taskscheduler_8h"/>
+        <childnode refid="24768" relation="include">
+        </childnode>
+      </node>
+      <node id="24837">
+        <label>src/lib/access/NoOp.h</label>
+        <link refid="_no_op_8h"/>
+        <childnode refid="24838" relation="include">
+        </childnode>
+      </node>
+      <node id="24784">
+        <label>src/bin/perf_regression/JoinScan.cpp</label>
+        <link refid="bin_2perf__regression_2_join_scan_8cpp"/>
+      </node>
+      <node id="24882">
+        <label>src/lib/taskscheduler/SimpleTaskScheduler.h</label>
+        <link refid="_simple_task_scheduler_8h"/>
+        <childnode refid="24762" relation="include">
+        </childnode>
+        <childnode refid="24765" relation="include">
+        </childnode>
+        <childnode refid="24767" relation="include">
+        </childnode>
+      </node>
+      <node id="24881">
+        <label>src/lib/testing/test.cpp</label>
+        <link refid="test_8cpp"/>
+      </node>
+      <node id="24766">
+        <label>src/lib/taskscheduler/WSSimpleTaskScheduler.cpp</label>
+        <link refid="_w_s_simple_task_scheduler_8cpp"/>
+      </node>
+      <node id="24789">
+        <label>src/lib/access/RadixJoinTransformation.h</label>
+        <link refid="_radix_join_transformation_8h"/>
+        <childnode refid="24779" relation="include">
+        </childnode>
+      </node>
+      <node id="24776">
+        <label>src/lib/access/AbstractPlanOpTransformation.h</label>
+        <link refid="_abstract_plan_op_transformation_8h"/>
+        <childnode refid="24777" relation="include">
+        </childnode>
+        <childnode refid="24789" relation="include">
+        </childnode>
+      </node>
+      <node id="24824">
+        <label>src/lib/access/MaterializingScan.h</label>
+        <link refid="_materializing_scan_8h"/>
+        <childnode refid="24825" relation="include">
+        </childnode>
+        <childnode refid="24780" relation="include">
+        </childnode>
+      </node>
+      <node id="24866">
+        <label>src/bin/perf_regression/scan_performance.cpp</label>
+        <link refid="scan__performance_8cpp"/>
+      </node>
+      <node id="24827">
+        <label>src/lib/access/MergeHashTables.cpp</label>
+        <link refid="_merge_hash_tables_8cpp"/>
+      </node>
+      <node id="24761">
+        <label>src/lib/access/ThreadpoolAdjustment.cpp</label>
+        <link refid="_threadpool_adjustment_8cpp"/>
+      </node>
+      <node id="24842">
+        <label>src/lib/access/ProjectionScan.cpp</label>
+        <link refid="lib_2access_2_projection_scan_8cpp"/>
+      </node>
+      <node id="24760">
+        <label>src/lib/access/TaskSchedulerAdjustment.cpp</label>
+        <link refid="_task_scheduler_adjustment_8cpp"/>
+      </node>
+      <node id="24836">
+        <label>src/lib/access/NestedLoopEquiJoin.cpp</label>
+        <link refid="_nested_loop_equi_join_8cpp"/>
+      </node>
+      <node id="24787">
+        <label>src/bin/perf_regression/SortScan.cpp</label>
+        <link refid="bin_2perf__regression_2_sort_scan_8cpp"/>
+      </node>
+      <node id="24765">
+        <label>src/lib/taskscheduler/SimpleTaskScheduler.cpp</label>
+        <link refid="_simple_task_scheduler_8cpp"/>
+      </node>
+      <node id="24763">
+        <label>src/bin/hyrise/main.cpp</label>
+        <link refid="bin_2hyrise_2main_8cpp"/>
+      </node>
+      <node id="24810">
+        <label>src/lib/access/InsertScan.h</label>
+        <link refid="_insert_scan_8h"/>
+        <childnode refid="24811" relation="include">
+        </childnode>
+        <childnode refid="24780" relation="include">
+        </childnode>
+      </node>
+      <node id="24865">
+        <label>src/lib/access/TableScan.h</label>
+        <link refid="_table_scan_8h"/>
+        <childnode refid="24866" relation="include">
+        </childnode>
+        <childnode refid="24867" relation="include">
+        </childnode>
+      </node>
+      <node id="24801">
+        <label>src/lib/access/Histogram.h</label>
+        <link refid="_histogram_8h"/>
+        <childnode refid="24802" relation="include">
+        </childnode>
+        <childnode refid="24803" relation="include">
+        </childnode>
+        <childnode refid="24804" relation="include">
+        </childnode>
+      </node>
+      <node id="24781">
+        <label>src/bin/perf_regression/GroupByScan.cpp</label>
+        <link refid="bin_2perf__regression_2_group_by_scan_8cpp"/>
+      </node>
+      <node id="24785">
+        <label>src/bin/perf_regression/ProjectionScan.cpp</label>
+        <link refid="bin_2perf__regression_2_projection_scan_8cpp"/>
+      </node>
+      <node id="24818">
+        <label>src/lib/access/LayoutTable.h</label>
+        <link refid="_layout_table_8h"/>
+        <childnode refid="24819" relation="include">
+        </childnode>
+      </node>
+      <node id="24884">
+        <label>src/lib/taskscheduler/WSCoreBoundTaskQueue.h</label>
+        <link refid="_w_s_core_bound_task_queue_8h"/>
+        <childnode refid="24885" relation="include">
+        </childnode>
+        <childnode refid="24883" relation="include">
+        </childnode>
+        <childnode refid="24767" relation="include">
+        </childnode>
+      </node>
+      <node id="24793">
+        <label>src/lib/access/ExpressionScan.h</label>
+        <link refid="_expression_scan_8h"/>
+        <childnode refid="24772" relation="include">
+        </childnode>
+        <childnode refid="24780" relation="include">
+        </childnode>
+      </node>
+      <node id="24782">
+        <label>src/bin/perf_regression/HashJoin.cpp</label>
+        <link refid="_hash_join_8cpp"/>
+      </node>
+      <node id="24855">
+        <label>src/lib/access/SimpleRawTableScan.h</label>
+        <link refid="_simple_raw_table_scan_8h"/>
+        <childnode refid="24856" relation="include">
+        </childnode>
+        <childnode refid="24780" relation="include">
+        </childnode>
+      </node>
+      <node id="24794">
+        <label>src/lib/access/GetTable.h</label>
+        <link refid="_get_table_8h"/>
+        <childnode refid="24773" relation="include">
+        </childnode>
+      </node>
+      <node id="24843">
+        <label>src/lib/access/QueryParser.cpp</label>
+        <link refid="_query_parser_8cpp"/>
+      </node>
+      <node id="24834">
+        <label>src/lib/access/MySQLTableLoad.cpp</label>
+        <link refid="_my_s_q_l_table_load_8cpp"/>
+      </node>
+      <node id="24869">
+        <label>src/lib/access/TableUnload.cpp</label>
+        <link refid="_table_unload_8cpp"/>
+      </node>
+      <node id="24798">
+        <label>src/lib/access/HashJoinProbe.h</label>
+        <link refid="_hash_join_probe_8h"/>
+        <childnode refid="24799" relation="include">
+        </childnode>
+        <childnode refid="24780" relation="include">
+        </childnode>
+      </node>
+      <node id="24822">
+        <label>src/lib/access/LoadFile.h</label>
+        <link refid="_load_file_8h"/>
+        <childnode refid="24823" relation="include">
+        </childnode>
+      </node>
+      <node id="24861">
+        <label>src/lib/access/SortScan.h</label>
+        <link refid="_sort_scan_8h"/>
+        <childnode refid="24862" relation="include">
+        </childnode>
+        <childnode refid="24780" relation="include">
+        </childnode>
+      </node>
+      <node id="24762">
+        <label>src/lib/taskscheduler/SharedScheduler.h</label>
+        <link refid="_shared_scheduler_8h"/>
+        <childnode refid="24763" relation="include">
+        </childnode>
+        <childnode refid="24760" relation="include">
+        </childnode>
+        <childnode refid="24761" relation="include">
+        </childnode>
+        <childnode refid="24764" relation="include">
+        </childnode>
+        <childnode refid="24765" relation="include">
+        </childnode>
+        <childnode refid="24766" relation="include">
+        </childnode>
+        <childnode refid="24767" relation="include">
+        </childnode>
+      </node>
+      <node id="24849">
+        <label>src/lib/access/ScriptOperation.h</label>
+        <link refid="_script_operation_8h"/>
+        <childnode refid="24850" relation="include">
+        </childnode>
+      </node>
+      <node id="24854">
+        <label>src/lib/access/SettingsOperation.cpp</label>
+        <link refid="_settings_operation_8cpp"/>
+      </node>
+      <node id="24796">
+        <label>src/lib/access/HashBuild.h</label>
+        <link refid="_hash_build_8h"/>
+        <childnode refid="24797" relation="include">
+        </childnode>
+        <childnode refid="24780" relation="include">
+        </childnode>
+      </node>
+      <node id="24875">
+        <label>src/lib/access/UnionScan.cpp</label>
+        <link refid="lib_2access_2_union_scan_8cpp"/>
+      </node>
+      <node id="24864">
+        <label>src/lib/access/TableLoad.cpp</label>
+        <link refid="_table_load_8cpp"/>
+      </node>
+      <node id="24823">
+        <label>src/lib/access/LoadFile.cpp</label>
+        <link refid="_load_file_8cpp"/>
+      </node>
+      <node id="24857">
+        <label>src/lib/access/SimpleTableScan.h</label>
+        <link refid="_simple_table_scan_8h"/>
+        <childnode refid="24858" relation="include">
+        </childnode>
+        <childnode refid="24780" relation="include">
+        </childnode>
+      </node>
+      <node id="24800">
+        <label>src/lib/access/HashValueJoin.hpp</label>
+        <link refid="_hash_value_join_8hpp"/>
+        <childnode refid="24780" relation="include">
+        </childnode>
+      </node>
+      <node id="24856">
+        <label>src/lib/access/SimpleRawTableScan.cpp</label>
+        <link refid="_simple_raw_table_scan_8cpp"/>
+      </node>
+      <node id="24835">
+        <label>src/lib/access/NestedLoopEquiJoin.h</label>
+        <link refid="_nested_loop_equi_join_8h"/>
+        <childnode refid="24836" relation="include">
+        </childnode>
+      </node>
+      <node id="24768">
+        <label>src/lib/access/QueryParser.h</label>
+        <link refid="_query_parser_8h"/>
+        <childnode refid="24769" relation="include">
+        </childnode>
+        <childnode refid="24770" relation="include">
+        </childnode>
+        <childnode refid="24771" relation="include">
+        </childnode>
+        <childnode refid="24772" relation="include">
+        </childnode>
+        <childnode refid="24773" relation="include">
+        </childnode>
+        <childnode refid="24774" relation="include">
+        </childnode>
+        <childnode refid="24775" relation="include">
+        </childnode>
+        <childnode refid="24799" relation="include">
+        </childnode>
+        <childnode refid="24802" relation="include">
+        </childnode>
+        <childnode refid="24807" relation="include">
+        </childnode>
+        <childnode refid="24809" relation="include">
+        </childnode>
+        <childnode refid="24815" relation="include">
+        </childnode>
+        <childnode refid="24817" relation="include">
+        </childnode>
+        <childnode refid="24821" relation="include">
+        </childnode>
+        <childnode refid="24823" relation="include">
+        </childnode>
+        <childnode refid="24825" relation="include">
+        </childnode>
+        <childnode refid="24827" relation="include">
+        </childnode>
+        <childnode refid="24830" relation="include">
+        </childnode>
+        <childnode refid="24832" relation="include">
+        </childnode>
+        <childnode refid="24836" relation="include">
+        </childnode>
+        <childnode refid="24838" relation="include">
+        </childnode>
+        <childnode refid="24803" relation="include">
+        </childnode>
+        <childnode refid="24842" relation="include">
+        </childnode>
+        <childnode refid="24843" relation="include">
+        </childnode>
+        <childnode refid="24805" relation="include">
+        </childnode>
+        <childnode refid="24845" relation="include">
+        </childnode>
+        <childnode refid="24847" relation="include">
+        </childnode>
+        <childnode refid="24852" relation="include">
+        </childnode>
+        <childnode refid="24854" relation="include">
+        </childnode>
+        <childnode refid="24860" relation="include">
+        </childnode>
+        <childnode refid="24862" relation="include">
+        </childnode>
+        <childnode refid="24864" relation="include">
+        </childnode>
+        <childnode refid="24869" relation="include">
+        </childnode>
+        <childnode refid="24877" relation="include">
+        </childnode>
+        <childnode refid="24780" relation="include">
+        </childnode>
+      </node>
+      <node id="24873">
+        <label>src/lib/access/UnionAll.cpp</label>
+        <link refid="_union_all_8cpp"/>
+      </node>
+      <node id="24885">
+        <label>src/lib/taskscheduler/WSCoreBoundTaskQueue.cpp</label>
+        <link refid="_w_s_core_bound_task_queue_8cpp"/>
+      </node>
+      <node id="24877">
+        <label>src/lib/access/UnloadAll.cpp</label>
+        <link refid="_unload_all_8cpp"/>
+      </node>
+      <node id="24783">
+        <label>src/bin/perf_regression/HashValueJoin.cpp</label>
+        <link refid="_hash_value_join_8cpp"/>
+      </node>
+      <node id="24819">
+        <label>src/lib/access/LayoutTable.cpp</label>
+        <link refid="_layout_table_8cpp"/>
+      </node>
+      <node id="24780">
+        <label>src/lib/access.h</label>
+        <link refid="access_8h"/>
+        <childnode refid="24781" relation="include">
+        </childnode>
+        <childnode refid="24782" relation="include">
+        </childnode>
+        <childnode refid="24783" relation="include">
+        </childnode>
+        <childnode refid="24784" relation="include">
+        </childnode>
+        <childnode refid="24785" relation="include">
+        </childnode>
+        <childnode refid="24786" relation="include">
+        </childnode>
+        <childnode refid="24787" relation="include">
+        </childnode>
+        <childnode refid="24788" relation="include">
+        </childnode>
+      </node>
+      <node id="24778">
+        <label>src/lib/access/QueryTransformationEngine.cpp</label>
+        <link refid="_query_transformation_engine_8cpp"/>
+      </node>
+      <node id="24758">
+        <label>src/lib/taskscheduler/AbstractTaskScheduler.h</label>
+        <link refid="AbstractTaskScheduler.h"/>
+        <childnode refid="24759" relation="include">
+        </childnode>
+        <childnode refid="24760" relation="include">
+        </childnode>
+        <childnode refid="24761" relation="include">
+        </childnode>
+        <childnode refid="24762" relation="include">
+        </childnode>
+        <childnode refid="24882" relation="include">
+        </childnode>
+        <childnode refid="24883" relation="include">
+        </childnode>
+        <childnode refid="24767" relation="include">
+        </childnode>
+      </node>
+      <node id="24878">
+        <label>src/lib/access/UpdateScan.h</label>
+        <link refid="_update_scan_8h"/>
+        <childnode refid="24879" relation="include">
+        </childnode>
+        <childnode refid="24780" relation="include">
+        </childnode>
+      </node>
+      <node id="24772">
+        <label>src/lib/access/ExpressionScan.cpp</label>
+        <link refid="_expression_scan_8cpp"/>
+      </node>
+      <node id="24883">
+        <label>src/lib/taskscheduler/WSSimpleTaskScheduler.h</label>
+        <link refid="_w_s_simple_task_scheduler_8h"/>
+        <childnode refid="24884" relation="include">
+        </childnode>
+        <childnode refid="24766" relation="include">
+        </childnode>
+        <childnode refid="24767" relation="include">
+        </childnode>
+      </node>
+      <node id="24786">
+        <label>src/bin/perf_regression/SimpleTableScan.cpp</label>
+        <link refid="bin_2perf__regression_2_simple_table_scan_8cpp"/>
+      </node>
+      <node id="24809">
+        <label>src/lib/access/InsertOnlyOperators.cpp</label>
+        <link refid="_insert_only_operators_8cpp"/>
+      </node>
+      <node id="24858">
+        <label>src/lib/access/SimpleTableScan.cpp</label>
+        <link refid="lib_2access_2_simple_table_scan_8cpp"/>
+      </node>
+      <node id="24830">
+        <label>src/lib/access/MergeTable.cpp</label>
+        <link refid="_merge_table_8cpp"/>
+      </node>
+      <node id="24806">
+        <label>src/lib/access/IndexScan.h</label>
+        <link refid="_index_scan_8h"/>
+        <childnode refid="24807" relation="include">
+        </childnode>
+      </node>
+      <node id="24820">
+        <label>src/lib/access/LayoutTableLoad.h</label>
+        <link refid="_layout_table_load_8h"/>
+        <childnode refid="24821" relation="include">
+        </childnode>
+      </node>
+      <node id="24845">
+        <label>src/lib/access/RadixJoin.cpp</label>
+        <link refid="_radix_join_8cpp"/>
+      </node>
+      <node id="24759">
+        <label>src/lib/access/RequestParseTask.cpp</label>
+        <link refid="_request_parse_task_8cpp"/>
+      </node>
+      <node id="24868">
+        <label>src/lib/access/TableUnload.h</label>
+        <link refid="_table_unload_8h"/>
+        <childnode refid="24869" relation="include">
+        </childnode>
+        <childnode refid="24780" relation="include">
+        </childnode>
+      </node>
+      <node id="24853">
+        <label>src/lib/access/SettingsOperation.h</label>
+        <link refid="_settings_operation_8h"/>
+        <childnode refid="24854" relation="include">
+        </childnode>
+        <childnode refid="24780" relation="include">
+        </childnode>
+      </node>
+      <node id="24876">
+        <label>src/lib/access/UnloadAll.h</label>
+        <link refid="_unload_all_8h"/>
+        <childnode refid="24877" relation="include">
+        </childnode>
+        <childnode refid="24780" relation="include">
+        </childnode>
+      </node>
+      <node id="24826">
+        <label>src/lib/access/MergeHashTables.h</label>
+        <link refid="_merge_hash_tables_8h"/>
+        <childnode refid="24827" relation="include">
+        </childnode>
+      </node>
+      <node id="24859">
+        <label>src/lib/access/SmallestTableScan.h</label>
+        <link refid="_smallest_table_scan_8h"/>
+        <childnode refid="24860" relation="include">
+        </childnode>
+        <childnode refid="24780" relation="include">
+        </childnode>
+      </node>
+      <node id="24814">
+        <label>src/lib/access/JoinScan.h</label>
+        <link refid="_join_scan_8h"/>
+        <childnode refid="24815" relation="include">
+        </childnode>
+        <childnode refid="24780" relation="include">
+        </childnode>
+      </node>
+      <node id="24807">
+        <label>src/lib/access/IndexScan.cpp</label>
+        <link refid="_index_scan_8cpp"/>
+      </node>
+      <node id="24838">
+        <label>src/lib/access/NoOp.cpp</label>
+        <link refid="_no_op_8cpp"/>
+      </node>
+      <node id="24825">
+        <label>src/lib/access/MaterializingScan.cpp</label>
+        <link refid="_materializing_scan_8cpp"/>
+      </node>
+      <node id="24775">
+        <label>src/lib/access/PlanOperation.h</label>
+        <link refid="_plan_operation_8h"/>
+        <childnode refid="24776" relation="include">
+        </childnode>
+        <childnode refid="24790" relation="include">
+        </childnode>
+        <childnode refid="24791" relation="include">
+        </childnode>
+        <childnode refid="24792" relation="include">
+        </childnode>
+        <childnode refid="24793" relation="include">
+        </childnode>
+        <childnode refid="24794" relation="include">
+        </childnode>
+        <childnode refid="24795" relation="include">
+        </childnode>
+        <childnode refid="24796" relation="include">
+        </childnode>
+        <childnode refid="24798" relation="include">
+        </childnode>
+        <childnode refid="24800" relation="include">
+        </childnode>
+        <childnode refid="24801" relation="include">
+        </childnode>
+        <childnode refid="24806" relation="include">
+        </childnode>
+        <childnode refid="24808" relation="include">
+        </childnode>
+        <childnode refid="24810" relation="include">
+        </childnode>
+        <childnode refid="24812" relation="include">
+        </childnode>
+        <childnode refid="24814" relation="include">
+        </childnode>
+        <childnode refid="24816" relation="include">
+        </childnode>
+        <childnode refid="24818" relation="include">
+        </childnode>
+        <childnode refid="24820" relation="include">
+        </childnode>
+        <childnode refid="24822" relation="include">
+        </childnode>
+        <childnode refid="24824" relation="include">
+        </childnode>
+        <childnode refid="24826" relation="include">
+        </childnode>
+        <childnode refid="24828" relation="include">
+        </childnode>
+        <childnode refid="24829" relation="include">
+        </childnode>
+        <childnode refid="24831" relation="include">
+        </childnode>
+        <childnode refid="24833" relation="include">
+        </childnode>
+        <childnode refid="24835" relation="include">
+        </childnode>
+        <childnode refid="24837" relation="include">
+        </childnode>
+        <childnode refid="24839" relation="include">
+        </childnode>
+        <childnode refid="24840" relation="include">
+        </childnode>
+        <childnode refid="24841" relation="include">
+        </childnode>
+        <childnode refid="24843" relation="include">
+        </childnode>
+        <childnode refid="24804" relation="include">
+        </childnode>
+        <childnode refid="24844" relation="include">
+        </childnode>
+        <childnode refid="24846" relation="include">
+        </childnode>
+        <childnode refid="24759" relation="include">
+        </childnode>
+        <childnode refid="24848" relation="include">
+        </childnode>
+        <childnode refid="24849" relation="include">
+        </childnode>
+        <childnode refid="24851" relation="include">
+        </childnode>
+        <childnode refid="24853" relation="include">
+        </childnode>
+        <childnode refid="24855" relation="include">
+        </childnode>
+        <childnode refid="24857" relation="include">
+        </childnode>
+        <childnode refid="24859" relation="include">
+        </childnode>
+        <childnode refid="24861" relation="include">
+        </childnode>
+        <childnode refid="24863" relation="include">
+        </childnode>
+        <childnode refid="24865" relation="include">
+        </childnode>
+        <childnode refid="24868" relation="include">
+        </childnode>
+        <childnode refid="24870" relation="include">
+        </childnode>
+        <childnode refid="24871" relation="include">
+        </childnode>
+        <childnode refid="24872" relation="include">
+        </childnode>
+        <childnode refid="24874" relation="include">
+        </childnode>
+        <childnode refid="24876" relation="include">
+        </childnode>
+        <childnode refid="24878" relation="include">
+        </childnode>
+        <childnode refid="24780" relation="include">
+        </childnode>
+        <childnode refid="24880" relation="include">
+        </childnode>
+      </node>
+      <node id="24813">
+        <label>src/lib/access/IntersectPositions.cpp</label>
+        <link refid="_intersect_positions_8cpp"/>
+      </node>
+      <node id="24815">
+        <label>src/lib/access/JoinScan.cpp</label>
+        <link refid="lib_2access_2_join_scan_8cpp"/>
+      </node>
+      <node id="24771">
+        <label>src/lib/access/Distinct.cpp</label>
+        <link refid="_distinct_8cpp"/>
+      </node>
+      <node id="24791">
+        <label>src/lib/access/CreateIndex.h</label>
+        <link refid="_create_index_8h"/>
+        <childnode refid="24770" relation="include">
+        </childnode>
+      </node>
+      <node id="24769">
+        <label>src/lib/access/Barrier.cpp</label>
+        <link refid="_barrier_8cpp"/>
+      </node>
+      <node id="24880">
+        <label>src/lib/testing/test.h</label>
+        <link refid="test_8h"/>
+        <childnode refid="24881" relation="include">
+        </childnode>
+      </node>
+      <node id="24852">
+        <label>src/lib/access/SetTable.cpp</label>
+        <link refid="_set_table_8cpp"/>
+      </node>
+      <node id="24770">
+        <label>src/lib/access/CreateIndex.cpp</label>
+        <link refid="_create_index_8cpp"/>
+      </node>
+      <node id="24812">
+        <label>src/lib/access/IntersectPositions.h</label>
+        <link refid="_intersect_positions_8h"/>
+        <childnode refid="24813" relation="include">
+        </childnode>
+      </node>
+      <node id="24816">
+        <label>src/lib/access/Layouter.h</label>
+        <link refid="_layouter_8h"/>
+        <childnode refid="24817" relation="include">
+        </childnode>
+        <childnode refid="24780" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="class_abstract_task_scheduler" prot="public">AbstractTaskScheduler</innerclass>
+    <innerclass refid="class_abstract_queue_based_task_scheduler" prot="public">AbstractQueueBasedTaskScheduler</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>2012<sp/>Hasso-Plattner-Institut<sp/>fuer<sp/>Softwaresystemtechnik<sp/>GmbH.<sp/>All<sp/>rights<sp/>reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*<sp/>AbstractTaskScheduler.h</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*<sp/><sp/>Created<sp/>on:<sp/>Feb<sp/>14,<sp/>2012</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>Author:<sp/>jwust</highlight></codeline>
+<codeline lineno="7"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SRC_LIB_TASKSCHEDULER_ABSTRACTTASKSCHEDULER_H_</highlight></codeline>
+<codeline lineno="10"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SRC_LIB_TASKSCHEDULER_ABSTRACTTASKSCHEDULER_H_</highlight></codeline>
+<codeline lineno="11"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="13"><highlight class="comment"><sp/>*<sp/>Base<sp/>class<sp/>for<sp/>Task<sp/>Schedulers</highlight></codeline>
+<codeline lineno="14"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="15"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_task_8h" kindref="compound">taskscheduler/Task.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_abstract_task_queue_8h" kindref="compound">taskscheduler/AbstractTaskQueue.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;memory&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;unordered_set&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;iostream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;log4cxx/logger.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_hwloc_helper_8h" kindref="compound">helper/HwlocHelper.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight></codeline>
+<codeline lineno="25" refid="class_abstract_task_scheduler" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_abstract_task_scheduler" kindref="compound">AbstractTaskScheduler</ref><sp/>{</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="28" refid="class_abstract_task_scheduler_1a3fccfec8db07f7306dd0d3efae36283e" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="class_abstract_task_scheduler_1a3fccfec8db07f7306dd0d3efae36283e" kindref="member">~AbstractTaskScheduler</ref>()<sp/>{};</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="30"><highlight class="comment"><sp/><sp/><sp/>*<sp/>schedule<sp/>a<sp/>task<sp/>for<sp/>execution</highlight></codeline>
+<codeline lineno="31"><highlight class="comment"><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_abstract_task_scheduler_1a5302dc48bb09b4ec0caddf22101cfadf" kindref="member">schedule</ref>(std::shared_ptr&lt;Task&gt;<sp/>task)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="34"><highlight class="comment"><sp/><sp/><sp/>*<sp/>shutdown<sp/>task<sp/>scheduler;<sp/>makes<sp/>sure<sp/>all<sp/>underlying<sp/>threads<sp/>are<sp/>stopped</highlight></codeline>
+<codeline lineno="35"><highlight class="comment"><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_abstract_task_scheduler_1a2be53dd1c0676d50f2fd4cc97bce4406" kindref="member">shutdown</ref>()<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="38"><highlight class="comment"><sp/><sp/><sp/>*<sp/>resize<sp/>the<sp/>number<sp/>of<sp/>worker<sp/>threads/queues</highlight></codeline>
+<codeline lineno="39"><highlight class="comment"><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_abstract_task_scheduler_1a7144f23ea3f7de43152baca16e9a1658" kindref="member">resize</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>queues)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="class_abstract_task_scheduler_1ab444b0fed6674af950078b6a06ab2487" kindref="member">getNumberOfWorker</ref>()<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="45"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>TaskQueue&gt;</highlight></codeline>
+<codeline lineno="48" refid="class_abstract_queue_based_task_scheduler" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_abstract_queue_based_task_scheduler" kindref="compound">AbstractQueueBasedTaskScheduler</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="class_abstract_task_scheduler" kindref="compound">AbstractTaskScheduler</ref>,<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="class_task_ready_observer" kindref="compound">TaskReadyObserver</ref>{</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="51"><highlight class="comment"><sp/><sp/><sp/>*<sp/>definition<sp/>of<sp/>queue<sp/>status,<sp/>can<sp/>be<sp/>used<sp/>to<sp/>sync<sp/>actions<sp/>in<sp/>queue,<sp/>like<sp/>work<sp/>stealing,<sp/>with<sp/>scheduler<sp/>status<sp/>(e.g.<sp/>to<sp/>avoid<sp/>stealing<sp/>tasks<sp/>from<sp/>queue,<sp/>while<sp/>resizing)</highlight></codeline>
+<codeline lineno="52"><highlight class="comment"><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="54" refid="class_abstract_queue_based_task_scheduler_1a8541fccaa20ef2b2b3f65e1e811b4384" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="55" refid="class_abstract_queue_based_task_scheduler_1a8541fccaa20ef2b2b3f65e1e811b4384ad8d06d293dd458aa5dffa2dee03bd53f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_abstract_queue_based_task_scheduler_1a8541fccaa20ef2b2b3f65e1e811b4384ad8d06d293dd458aa5dffa2dee03bd53f" kindref="member">START_UP</ref><sp/>=<sp/>-1,</highlight></codeline>
+<codeline lineno="56" refid="class_abstract_queue_based_task_scheduler_1a8541fccaa20ef2b2b3f65e1e811b4384a98edf57089140f5ceca5c2e00735fff3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_abstract_queue_based_task_scheduler_1a8541fccaa20ef2b2b3f65e1e811b4384a98edf57089140f5ceca5c2e00735fff3" kindref="member">RUN</ref><sp/>=<sp/>0,</highlight></codeline>
+<codeline lineno="57" refid="class_abstract_queue_based_task_scheduler_1a8541fccaa20ef2b2b3f65e1e811b4384ad67fe92c6063ceb93880af0780266583" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_abstract_queue_based_task_scheduler_1a8541fccaa20ef2b2b3f65e1e811b4384ad67fe92c6063ceb93880af0780266583" kindref="member">RESIZING</ref><sp/>=<sp/>1,</highlight></codeline>
+<codeline lineno="58" refid="class_abstract_queue_based_task_scheduler_1a8541fccaa20ef2b2b3f65e1e811b4384a30d62c2c306ab00f56b121a06db75d39" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_abstract_queue_based_task_scheduler_1a8541fccaa20ef2b2b3f65e1e811b4384a30d62c2c306ab00f56b121a06db75d39" kindref="member">TO_STOP</ref><sp/>=<sp/>2,</highlight></codeline>
+<codeline lineno="59" refid="class_abstract_queue_based_task_scheduler_1a8541fccaa20ef2b2b3f65e1e811b4384a2ef0b790605a3096cbf56bb3b2459f60" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_abstract_queue_based_task_scheduler_1a8541fccaa20ef2b2b3f65e1e811b4384a2ef0b790605a3096cbf56bb3b2459f60" kindref="member">STOPPED</ref><sp/>=<sp/>3</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/>}<sp/><ref refid="class_abstract_queue_based_task_scheduler_1a8541fccaa20ef2b2b3f65e1e811b4384" kindref="member">scheduler_status_t</ref>;</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/></highlight><highlight class="keyword">protected</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="63" refid="class_abstract_queue_based_task_scheduler_1a928dccb1cf094c711f1f9706a3e144b9" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/><ref refid="class_task_queue" kindref="compound">TaskQueue</ref><sp/><ref refid="class_abstract_queue_based_task_scheduler_1a928dccb1cf094c711f1f9706a3e144b9" kindref="member">task_queue_t</ref>;</highlight></codeline>
+<codeline lineno="64" refid="class_abstract_queue_based_task_scheduler_1ad94d2d6a9542e91439ea66a24615cf75" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>std::unordered_set&lt;std::shared_ptr&lt;Task&gt;<sp/>&gt;<sp/><ref refid="class_abstract_queue_based_task_scheduler_1ad94d2d6a9542e91439ea66a24615cf75" kindref="member">waiting_tasks_t</ref>;</highlight></codeline>
+<codeline lineno="65" refid="class_abstract_queue_based_task_scheduler_1a23634d17af1c513373241b21e1e902b4" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>std::vector&lt;task_queue_t<sp/>*&gt;<sp/><ref refid="class_abstract_queue_based_task_scheduler_1a23634d17af1c513373241b21e1e902b4" kindref="member">task_queues_t</ref>;</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>set<sp/>for<sp/>tasks<sp/>with<sp/>open<sp/>dependencies</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67" refid="class_abstract_queue_based_task_scheduler_1aa14db5392f03ba5ced3b0c69f2277e3a" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="class_abstract_queue_based_task_scheduler_1ad94d2d6a9542e91439ea66a24615cf75" kindref="member">waiting_tasks_t</ref><sp/><ref refid="class_abstract_queue_based_task_scheduler_1aa14db5392f03ba5ced3b0c69f2277e3a" kindref="member">_waitSet</ref>;</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>task<sp/>queues<sp/>to<sp/>dispatch<sp/>tasks<sp/>to</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69" refid="class_abstract_queue_based_task_scheduler_1ad0e0256b8ba6b22e666b503c30ca5b18" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="class_abstract_queue_based_task_scheduler_1a23634d17af1c513373241b21e1e902b4" kindref="member">task_queues_t</ref><sp/><ref refid="class_abstract_queue_based_task_scheduler_1ad0e0256b8ba6b22e666b503c30ca5b18" kindref="member">_taskQueues</ref>;</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>number<sp/>of<sp/>queues</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="71" refid="class_abstract_queue_based_task_scheduler_1a16352024c8e2d06cc6d49ed5aa1fde3f" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="class_abstract_queue_based_task_scheduler_1a16352024c8e2d06cc6d49ed5aa1fde3f" kindref="member">_queues</ref>;</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>scheduler<sp/>status</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="73" refid="class_abstract_queue_based_task_scheduler_1a9347d7744e6d8e9100f9fb5093f36ea5" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="class_abstract_queue_based_task_scheduler_1a8541fccaa20ef2b2b3f65e1e811b4384" kindref="member">scheduler_status_t</ref><sp/><ref refid="class_abstract_queue_based_task_scheduler_1a9347d7744e6d8e9100f9fb5093f36ea5" kindref="member">_status</ref>;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>mutex<sp/>to<sp/>protect<sp/>waitset</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="75" refid="class_abstract_queue_based_task_scheduler_1a0d2c44b1b22fea2d964f7bf6cc4d685e" refkind="member"><highlight class="normal"><sp/><sp/>std::mutex<sp/><ref refid="class_abstract_queue_based_task_scheduler_1a0d2c44b1b22fea2d964f7bf6cc4d685e" kindref="member">_setMutex</ref>;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>mutex<sp/>to<sp/>protect<sp/>status</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="77" refid="class_abstract_queue_based_task_scheduler_1ad78e2d722f399a71c1d4d00b18c690c7" refkind="member"><highlight class="normal"><sp/><sp/>std::mutex<sp/><ref refid="class_abstract_queue_based_task_scheduler_1ad78e2d722f399a71c1d4d00b18c690c7" kindref="member">_statusMutex</ref>;</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>mutex<sp/>to<sp/>protect<sp/>task<sp/>queues</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="79" refid="class_abstract_queue_based_task_scheduler_1a5de31532dbcf8be38f8c7b2879c3dc39" refkind="member"><highlight class="normal"><sp/><sp/>std::mutex<sp/><ref refid="class_abstract_queue_based_task_scheduler_1a5de31532dbcf8be38f8c7b2879c3dc39" kindref="member">_queuesMutex</ref>;</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>holds<sp/>the<sp/>queue<sp/>that<sp/>gets<sp/>the<sp/>next<sp/>task<sp/>(simple<sp/>roundrobin,<sp/>first)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="81" refid="class_abstract_queue_based_task_scheduler_1ad00929551b00c72cca437edca9b5b1d5" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="class_abstract_queue_based_task_scheduler_1ad00929551b00c72cca437edca9b5b1d5" kindref="member">_nextQueue</ref>;</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83" refid="class_abstract_queue_based_task_scheduler_1a5b8745c3d84acfa9ea026bdd1727ee60" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>log4cxx::LoggerPtr<sp/><ref refid="class_abstract_queue_based_task_scheduler_1a5b8745c3d84acfa9ea026bdd1727ee60" kindref="member">_logger</ref>;</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight></codeline>
+<codeline lineno="85" refid="class_abstract_queue_based_task_scheduler_1a8cf1e9dfce85e0b78021fe9c5c055450" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="class_abstract_queue_based_task_scheduler_1a8cf1e9dfce85e0b78021fe9c5c055450" kindref="member">AbstractQueueBasedTaskScheduler</ref>():<sp/><ref refid="class_abstract_queue_based_task_scheduler_1a16352024c8e2d06cc6d49ed5aa1fde3f" kindref="member">_queues</ref>(0),<sp/><ref refid="class_abstract_queue_based_task_scheduler_1a9347d7744e6d8e9100f9fb5093f36ea5" kindref="member">_status</ref>(<ref refid="class_abstract_queue_based_task_scheduler_1a8541fccaa20ef2b2b3f65e1e811b4384ad8d06d293dd458aa5dffa2dee03bd53f" kindref="member">START_UP</ref>),<sp/><ref refid="class_abstract_queue_based_task_scheduler_1ad00929551b00c72cca437edca9b5b1d5" kindref="member">_nextQueue</ref>(0)<sp/>{</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/>};</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_abstract_queue_based_task_scheduler_1a8c2bfb9921722bc869ef9b3c2d5ca4ad" kindref="member">pushToQueue</ref>(std::shared_ptr&lt;Task&gt;<sp/>task)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="94"><highlight class="comment"><sp/><sp/><sp/>*<sp/>stop<sp/>a<sp/>specific<sp/>queue<sp/>and<sp/>redistribute<sp/>tasks<sp/>to<sp/>other<sp/>queues</highlight></codeline>
+<codeline lineno="95"><highlight class="comment"><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_abstract_queue_based_task_scheduler_1a614a1836ab551bd6392d9ebc0923c4fd" kindref="member">stopQueueAndRedistributeTasks</ref>(<ref refid="class_abstract_queue_based_task_scheduler_1a928dccb1cf094c711f1f9706a3e144b9" kindref="member">task_queue_t</ref><sp/>*queue,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>queues)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="98"><highlight class="comment"><sp/><sp/><sp/>*<sp/>create<sp/>a<sp/>new<sp/>task<sp/>queue</highlight></codeline>
+<codeline lineno="99"><highlight class="comment"><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="class_abstract_queue_based_task_scheduler_1a928dccb1cf094c711f1f9706a3e144b9" kindref="member">task_queue_t</ref><sp/>*<ref refid="class_abstract_queue_based_task_scheduler_1a1d899cf65b5fdf00155a0b45cd55b60b" kindref="member">createTaskQueue</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>core)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight></codeline>
+<codeline lineno="104" refid="class_abstract_queue_based_task_scheduler_1a5ac1c2430bd370a25998c37eb8ae7e74" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="class_abstract_queue_based_task_scheduler_1a5ac1c2430bd370a25998c37eb8ae7e74" kindref="member">~AbstractQueueBasedTaskScheduler</ref>()<sp/>{};</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="106"><highlight class="comment"><sp/><sp/><sp/>*<sp/>return<sp/>scheduler<sp/>status</highlight></codeline>
+<codeline lineno="107"><highlight class="comment"><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="108" refid="class_abstract_queue_based_task_scheduler_1a4524e753229249dfaaf07ec39696bc71" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="class_abstract_queue_based_task_scheduler_1a8541fccaa20ef2b2b3f65e1e811b4384" kindref="member">scheduler_status_t</ref><sp/><ref refid="class_abstract_queue_based_task_scheduler_1a4524e753229249dfaaf07ec39696bc71" kindref="member">getSchedulerStatus</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/>std::lock_guard&lt;std::mutex&gt;<sp/>lk2(<ref refid="class_abstract_queue_based_task_scheduler_1ad78e2d722f399a71c1d4d00b18c690c7" kindref="member">_statusMutex</ref>);</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="class_abstract_queue_based_task_scheduler_1a9347d7744e6d8e9100f9fb5093f36ea5" kindref="member">_status</ref>;</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="113"><highlight class="comment"><sp/><sp/><sp/>*<sp/>schedule<sp/>a<sp/>given<sp/>task</highlight></codeline>
+<codeline lineno="114"><highlight class="comment"><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="115" refid="class_abstract_queue_based_task_scheduler_1a7cd630ee5db06d2a6538c1dbeda6d680" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_abstract_queue_based_task_scheduler_1a7cd630ee5db06d2a6538c1dbeda6d680" kindref="member">schedule</ref>(std::shared_ptr&lt;Task&gt;<sp/>task)<sp/>{</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>simple<sp/>strategy:<sp/>check<sp/>if<sp/>task<sp/>is<sp/>ready<sp/>to<sp/>run<sp/>-&gt;<sp/>then<sp/>move<sp/>to<sp/>next<sp/>taskqueue</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>otherwise<sp/>store<sp/>in<sp/>wait<sp/>list</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>lock<sp/>the<sp/>task<sp/>-<sp/>otherwise,<sp/>a<sp/>notify<sp/>might<sp/>happen<sp/>prior<sp/>to<sp/>the<sp/>task<sp/>being<sp/>added<sp/>to<sp/>the<sp/>wait<sp/>set</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/>task-&gt;lockForNotifications();</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(task-&gt;isReady())</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_abstract_queue_based_task_scheduler_1a8c2bfb9921722bc869ef9b3c2d5ca4ad" kindref="member">pushToQueue</ref>(task);</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>task-&gt;addReadyObserver(</highlight><highlight class="keyword">this</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>std::lock_guard&lt;std::mutex&gt;<sp/>lk(<ref refid="class_abstract_queue_based_task_scheduler_1a0d2c44b1b22fea2d964f7bf6cc4d685e" kindref="member">_setMutex</ref>);</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_abstract_queue_based_task_scheduler_1aa14db5392f03ba5ced3b0c69f2277e3a" kindref="member">_waitSet</ref>.insert(task);</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>LOG4CXX_DEBUG(<ref refid="class_abstract_queue_based_task_scheduler_1a5b8745c3d84acfa9ea026bdd1727ee60" kindref="member">_logger</ref>,<sp/><sp/></highlight><highlight class="stringliteral">&quot;Task<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>std::hex<sp/>&lt;&lt;<sp/>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)task.get()<sp/>&lt;&lt;<sp/>std::dec<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>inserted<sp/>in<sp/>wait<sp/>queue&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/>task-&gt;unlockForNotifications();</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="132"><highlight class="comment"><sp/><sp/><sp/>*<sp/>schedule<sp/>a<sp/>task<sp/>for<sp/>execution<sp/>on<sp/>a<sp/>given<sp/>core</highlight></codeline>
+<codeline lineno="133"><highlight class="comment"><sp/><sp/><sp/>*</highlight></codeline>
+<codeline lineno="134"><highlight class="comment"><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="135" refid="class_abstract_queue_based_task_scheduler_1ad8472675a2c721936c86b7accb00808c" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_abstract_queue_based_task_scheduler_1ad8472675a2c721936c86b7accb00808c" kindref="member">schedule</ref>(std::shared_ptr&lt;Task&gt;<sp/>task,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>core)<sp/>{</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/>task-&gt;setPreferredCore(core);</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_abstract_queue_based_task_scheduler_1a7cd630ee5db06d2a6538c1dbeda6d680" kindref="member">schedule</ref>(task);</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*<sp/>change<sp/>the<sp/>number<sp/>of<sp/>threads<sp/>the<sp/>task<sp/>scheduler<sp/>uses<sp/>for<sp/>running<sp/>tasks;</highlight></codeline>
+<codeline lineno="141"><highlight class="comment"><sp/><sp/><sp/>*</highlight></codeline>
+<codeline lineno="142"><highlight class="comment"><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="143" refid="class_abstract_queue_based_task_scheduler_1a63d5b6645b741838980b8a860dfc0fa3" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_abstract_queue_based_task_scheduler_1a63d5b6645b741838980b8a860dfc0fa3" kindref="member">resize</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>queues)<sp/>{</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>set<sp/>status<sp/>to<sp/>RESIZING</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>lock<sp/>scheduler</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_abstract_queue_based_task_scheduler_1ad78e2d722f399a71c1d4d00b18c690c7" kindref="member">_statusMutex</ref>.lock();</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_abstract_queue_based_task_scheduler_1a9347d7744e6d8e9100f9fb5093f36ea5" kindref="member">_status</ref><sp/>=<sp/><ref refid="class_abstract_queue_based_task_scheduler_1a8541fccaa20ef2b2b3f65e1e811b4384ad67fe92c6063ceb93880af0780266583" kindref="member">RESIZING</ref>;</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_abstract_queue_based_task_scheduler_1ad78e2d722f399a71c1d4d00b18c690c7" kindref="member">_statusMutex</ref>.unlock();</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(queues<sp/>&gt;<sp/><ref refid="class_abstract_queue_based_task_scheduler_1a16352024c8e2d06cc6d49ed5aa1fde3f" kindref="member">_queues</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//set<sp/>_queues<sp/>to<sp/>queues<sp/>after<sp/>new<sp/>queues<sp/>have<sp/>been<sp/>created<sp/>to<sp/>new<sp/>tasks<sp/>to<sp/>be<sp/>assigned<sp/>to<sp/>new<sp/>queues</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>lock<sp/>_queue<sp/>mutex<sp/>as<sp/>queues<sp/>are<sp/>manipulated</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>std::lock_guard&lt;std::mutex&gt;<sp/>lk(<ref refid="class_abstract_queue_based_task_scheduler_1a5de31532dbcf8be38f8c7b2879c3dc39" kindref="member">_queuesMutex</ref>);</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(static_cast&lt;int&gt;(queues)<sp/>&lt;=<sp/><ref refid="_hwloc_helper_8cpp_1a5852d7c54d41ff6c71f33e4b89a5f059" kindref="member">getNumberOfCoresOnSystem</ref>())<sp/>{</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>i<sp/>=<sp/><ref refid="class_abstract_queue_based_task_scheduler_1a16352024c8e2d06cc6d49ed5aa1fde3f" kindref="member">_queues</ref>;<sp/>i<sp/>&lt;<sp/>queues;<sp/>++i)<sp/>{</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_abstract_queue_based_task_scheduler_1ad0e0256b8ba6b22e666b503c30ca5b18" kindref="member">_taskQueues</ref>.push_back(<ref refid="class_abstract_queue_based_task_scheduler_1a1d899cf65b5fdf00155a0b45cd55b60b" kindref="member">createTaskQueue</ref>(i));</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_abstract_queue_based_task_scheduler_1a16352024c8e2d06cc6d49ed5aa1fde3f" kindref="member">_queues</ref><sp/>=<sp/>queues;</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOG4CXX_WARN(<ref refid="class_abstract_queue_based_task_scheduler_1a5b8745c3d84acfa9ea026bdd1727ee60" kindref="member">_logger</ref>,<sp/></highlight><highlight class="stringliteral">&quot;number<sp/>of<sp/>queues<sp/>exceeds<sp/>available<sp/>cores;<sp/>set<sp/>it<sp/>to<sp/>max<sp/>available<sp/>cores,<sp/>which<sp/>equals<sp/>to<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/><ref refid="namespacehyrise_1aec58f00f171c12aa4ef29682158b9fc2" kindref="member">std::to_string</ref>(<ref refid="_hwloc_helper_8cpp_1a5852d7c54d41ff6c71f33e4b89a5f059" kindref="member">getNumberOfCoresOnSystem</ref>()));</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_abstract_queue_based_task_scheduler_1a63d5b6645b741838980b8a860dfc0fa3" kindref="member">resize</ref>(<ref refid="_hwloc_helper_8cpp_1a5852d7c54d41ff6c71f33e4b89a5f059" kindref="member">getNumberOfCoresOnSystem</ref>());</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(queues<sp/>&lt;<sp/><ref refid="class_abstract_queue_based_task_scheduler_1a16352024c8e2d06cc6d49ed5aa1fde3f" kindref="member">_queues</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//set<sp/>_queues<sp/>to<sp/>queues<sp/>before<sp/>queues<sp/>have<sp/>been<sp/>deleted<sp/>to<sp/>avoid<sp/>new<sp/>tasks<sp/>to<sp/>be<sp/>assigned<sp/>to<sp/>old<sp/>queues</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>lock<sp/>_queue<sp/>mutex<sp/>as<sp/>queues<sp/>are<sp/>manipulated</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>queues_old;</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::lock_guard&lt;std::mutex&gt;<sp/>lk(<ref refid="class_abstract_queue_based_task_scheduler_1a5de31532dbcf8be38f8c7b2879c3dc39" kindref="member">_queuesMutex</ref>);</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>queues_old<sp/>=<sp/><ref refid="class_abstract_queue_based_task_scheduler_1a16352024c8e2d06cc6d49ed5aa1fde3f" kindref="member">_queues</ref>;</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_abstract_queue_based_task_scheduler_1a16352024c8e2d06cc6d49ed5aa1fde3f" kindref="member">_queues</ref><sp/>=<sp/>queues;</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//adjust<sp/>nextQueue<sp/>to<sp/>assign<sp/>a<sp/>task<sp/>to<sp/>in<sp/>case<sp/>it<sp/>is<sp/>larger<sp/>than<sp/>queue<sp/>size;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!(<ref refid="class_abstract_queue_based_task_scheduler_1ad00929551b00c72cca437edca9b5b1d5" kindref="member">_nextQueue</ref><sp/>&lt;<sp/>queues))</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_abstract_queue_based_task_scheduler_1ad00929551b00c72cca437edca9b5b1d5" kindref="member">_nextQueue</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>queues_old<sp/>-<sp/>1;<sp/>i<sp/>&gt;<sp/>queues<sp/>-<sp/>1;<sp/>--i)<sp/>{</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_abstract_queue_based_task_scheduler_1a614a1836ab551bd6392d9ebc0923c4fd" kindref="member">stopQueueAndRedistributeTasks</ref>(<ref refid="class_abstract_queue_based_task_scheduler_1ad0e0256b8ba6b22e666b503c30ca5b18" kindref="member">_taskQueues</ref>[i],<sp/>queues);</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::lock_guard&lt;std::mutex&gt;<sp/>lk(<ref refid="class_abstract_queue_based_task_scheduler_1a5de31532dbcf8be38f8c7b2879c3dc39" kindref="member">_queuesMutex</ref>);</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">delete</highlight><highlight class="normal"><sp/><ref refid="class_abstract_queue_based_task_scheduler_1ad0e0256b8ba6b22e666b503c30ca5b18" kindref="member">_taskQueues</ref>.back();</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_abstract_queue_based_task_scheduler_1ad0e0256b8ba6b22e666b503c30ca5b18" kindref="member">_taskQueues</ref>.pop_back();</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_abstract_queue_based_task_scheduler_1ad78e2d722f399a71c1d4d00b18c690c7" kindref="member">_statusMutex</ref>.lock();</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_abstract_queue_based_task_scheduler_1a9347d7744e6d8e9100f9fb5093f36ea5" kindref="member">_status</ref><sp/>=<sp/><ref refid="class_abstract_queue_based_task_scheduler_1a8541fccaa20ef2b2b3f65e1e811b4384a98edf57089140f5ceca5c2e00735fff3" kindref="member">RUN</ref>;</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_abstract_queue_based_task_scheduler_1ad78e2d722f399a71c1d4d00b18c690c7" kindref="member">_statusMutex</ref>.unlock();</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="189"><highlight class="comment"><sp/><sp/><sp/>*<sp/>notify<sp/>scheduler<sp/>that<sp/>a<sp/>given<sp/>task<sp/>is<sp/>ready</highlight></codeline>
+<codeline lineno="190"><highlight class="comment"><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="191" refid="class_abstract_queue_based_task_scheduler_1a6c7400aefb4494aa70bbc5e93be70c44" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_abstract_queue_based_task_scheduler_1a6c7400aefb4494aa70bbc5e93be70c44" kindref="member">notifyReady</ref>(std::shared_ptr&lt;Task&gt;<sp/>task)<sp/>{</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>remove<sp/>task<sp/>from<sp/>wait<sp/>set</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_abstract_queue_based_task_scheduler_1a0d2c44b1b22fea2d964f7bf6cc4d685e" kindref="member">_setMutex</ref>.lock();</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>tmp<sp/>=<sp/><ref refid="class_abstract_queue_based_task_scheduler_1aa14db5392f03ba5ced3b0c69f2277e3a" kindref="member">_waitSet</ref>.erase(task);</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_abstract_queue_based_task_scheduler_1a0d2c44b1b22fea2d964f7bf6cc4d685e" kindref="member">_setMutex</ref>.unlock();</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"></highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>if<sp/>task<sp/>was<sp/>found<sp/>in<sp/>wait<sp/>set,<sp/>schedule<sp/>task<sp/>to<sp/>next<sp/>queue</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(tmp<sp/>==<sp/>1)<sp/>{</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>LOG4CXX_DEBUG(<ref refid="class_abstract_queue_based_task_scheduler_1a5b8745c3d84acfa9ea026bdd1727ee60" kindref="member">_logger</ref>,<sp/></highlight><highlight class="stringliteral">&quot;Task<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>std::hex<sp/>&lt;&lt;<sp/>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)task.get()<sp/>&lt;&lt;<sp/>std::dec<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>ready<sp/>to<sp/>run&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_abstract_queue_based_task_scheduler_1a8c2bfb9921722bc869ef9b3c2d5ca4ad" kindref="member">pushToQueue</ref>(task);</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>should<sp/>never<sp/>happen,<sp/>but<sp/>check<sp/>to<sp/>identify<sp/>potential<sp/>race<sp/>conditions</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>LOG4CXX_ERROR(<ref refid="class_abstract_queue_based_task_scheduler_1a5b8745c3d84acfa9ea026bdd1727ee60" kindref="member">_logger</ref>,<sp/></highlight><highlight class="stringliteral">&quot;Task<sp/>that<sp/>notified<sp/>to<sp/>be<sp/>ready<sp/>to<sp/>run<sp/>was<sp/>not<sp/>found<sp/>/<sp/>found<sp/>more<sp/>than<sp/>once<sp/>in<sp/>waitSet!<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/><ref refid="namespacehyrise_1aec58f00f171c12aa4ef29682158b9fc2" kindref="member">std::to_string</ref>(tmp));</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"></highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="207"><highlight class="comment"><sp/><sp/><sp/>*<sp/>waits<sp/>for<sp/>all<sp/>tasks<sp/>to<sp/>finish</highlight></codeline>
+<codeline lineno="208"><highlight class="comment"><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="209" refid="class_abstract_queue_based_task_scheduler_1a7403302f25aa67c2411542e1f19bf24d" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_abstract_queue_based_task_scheduler_1a7403302f25aa67c2411542e1f19bf24d" kindref="member">wait</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/><ref refid="class_abstract_queue_based_task_scheduler_1ad0e0256b8ba6b22e666b503c30ca5b18" kindref="member">_taskQueues</ref>.size();<sp/>++i)<sp/>{</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_abstract_queue_based_task_scheduler_1ad0e0256b8ba6b22e666b503c30ca5b18" kindref="member">_taskQueues</ref>[i]-&gt;join();</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"></highlight></codeline>
+<codeline lineno="215" refid="class_abstract_queue_based_task_scheduler_1a0e80a0475a8a28e819c84f5fc28f30f8" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="class_abstract_queue_based_task_scheduler_1a0e80a0475a8a28e819c84f5fc28f30f8" kindref="member">getNumberOfWorker</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="class_abstract_queue_based_task_scheduler_1a16352024c8e2d06cc6d49ed5aa1fde3f" kindref="member">_queues</ref>;</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"></highlight></codeline>
+<codeline lineno="219" refid="class_abstract_queue_based_task_scheduler_1a09dd996470ce4336b651f24460ea68c9" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_abstract_queue_based_task_scheduler_1a09dd996470ce4336b651f24460ea68c9" kindref="member">shutdown</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_abstract_queue_based_task_scheduler_1ad78e2d722f399a71c1d4d00b18c690c7" kindref="member">_statusMutex</ref>.lock();</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_abstract_queue_based_task_scheduler_1a9347d7744e6d8e9100f9fb5093f36ea5" kindref="member">_status</ref><sp/>=<sp/><ref refid="class_abstract_queue_based_task_scheduler_1a8541fccaa20ef2b2b3f65e1e811b4384a30d62c2c306ab00f56b121a06db75d39" kindref="member">TO_STOP</ref>;</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_abstract_queue_based_task_scheduler_1ad78e2d722f399a71c1d4d00b18c690c7" kindref="member">_statusMutex</ref>.unlock();</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/><ref refid="class_abstract_queue_based_task_scheduler_1ad0e0256b8ba6b22e666b503c30ca5b18" kindref="member">_taskQueues</ref>.size();<sp/>++i)<sp/>{</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_abstract_queue_based_task_scheduler_1ad0e0256b8ba6b22e666b503c30ca5b18" kindref="member">_taskQueues</ref>[i]-&gt;stopQueue();</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_abstract_queue_based_task_scheduler_1ad78e2d722f399a71c1d4d00b18c690c7" kindref="member">_statusMutex</ref>.lock();</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_abstract_queue_based_task_scheduler_1a9347d7744e6d8e9100f9fb5093f36ea5" kindref="member">_status</ref><sp/>=<sp/><ref refid="class_abstract_queue_based_task_scheduler_1a8541fccaa20ef2b2b3f65e1e811b4384a2ef0b790605a3096cbf56bb3b2459f60" kindref="member">STOPPED</ref>;</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_abstract_queue_based_task_scheduler_1ad78e2d722f399a71c1d4d00b18c690c7" kindref="member">_statusMutex</ref>.unlock();</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="230"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"></highlight></codeline>
+<codeline lineno="232"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>TaskQueue&gt;<sp/>log4cxx::LoggerPtr<sp/><ref refid="class_abstract_queue_based_task_scheduler" kindref="compound">AbstractQueueBasedTaskScheduler&lt;TaskQueue&gt;::_logger</ref><sp/>=<sp/>log4cxx::Logger::getLogger(</highlight><highlight class="stringliteral">&quot;taskscheduler.AbstractQueueBasedTaskScheduler&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"></highlight></codeline>
+<codeline lineno="234"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/>//<sp/>SRC_LIB_TASKSCHEDULER_ABSTRACTTASKSCHEDULER_H_</highlight></codeline>
+    </programlisting>
+    <location file="/home/grund/hyrise/src/lib/taskscheduler/AbstractTaskScheduler.h"/>
+  </compounddef>
+</doxygen>

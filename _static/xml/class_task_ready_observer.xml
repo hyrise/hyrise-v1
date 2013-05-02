@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="class_task_ready_observer" kind="class" prot="public">
+    <compoundname>TaskReadyObserver</compoundname>
+    <derivedcompoundref refid="class_abstract_queue_based_task_scheduler" prot="public" virt="non-virtual">AbstractQueueBasedTaskScheduler&lt; TaskQueue &gt;</derivedcompoundref>
+    <derivedcompoundref refid="class_abstract_queue_based_task_scheduler" prot="public" virt="non-virtual">AbstractQueueBasedTaskScheduler&lt; WSCoreBoundTaskQueue &gt;</derivedcompoundref>
+    <includes refid="_task_8h" local="no">Task.h</includes>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_task_ready_observer_1a8085f01f504ee10a83e95b5af3838980" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void TaskReadyObserver::notifyReady</definition>
+        <argsstring>(std::shared_ptr&lt; Task &gt; task)=0</argsstring>
+        <name>notifyReady</name>
+        <reimplementedby refid="class_abstract_queue_based_task_scheduler_1a6c7400aefb4494aa70bbc5e93be70c44">notifyReady</reimplementedby>
+        <reimplementedby refid="class_abstract_queue_based_task_scheduler_1a6c7400aefb4494aa70bbc5e93be70c44">notifyReady</reimplementedby>
+        <param>
+          <type>std::shared_ptr&lt; <ref refid="class_task" kindref="compound">Task</ref> &gt;</type>
+          <declname>task</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/taskscheduler/Task.h" line="27"/>
+      </memberdef>
+      <memberdef kind="function" id="class_task_ready_observer_1afbeb3e41e0e022c9d11edcc1916ab577" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual TaskReadyObserver::~TaskReadyObserver</definition>
+        <argsstring>()</argsstring>
+        <name>~TaskReadyObserver</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/taskscheduler/Task.h" line="28" bodyfile="/home/grund/hyrise/src/lib/taskscheduler/Task.h" bodystart="28" bodyend="29"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="3232">
+        <label>AbstractQueueBasedTaskScheduler&lt; TaskQueue &gt;</label>
+        <link refid="class_abstract_queue_based_task_scheduler"/>
+        <childnode refid="3231" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3233">
+        <label>SimpleTaskScheduler&lt; TaskQueue &gt;</label>
+        <link refid="class_simple_task_scheduler"/>
+        <childnode refid="3232" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3235">
+        <label>WSSimpleTaskScheduler&lt; WSCoreBoundTaskQueue &gt;</label>
+        <link refid="class_w_s_simple_task_scheduler"/>
+        <childnode refid="3234" relation="template-instance">
+          <edgelabel>&lt; WSCoreBoundTaskQueue &gt;</edgelabel>
+        </childnode>
+        <childnode refid="3236" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3231">
+        <label>TaskReadyObserver</label>
+        <link refid="class_task_ready_observer"/>
+      </node>
+      <node id="3234">
+        <label>WSSimpleTaskScheduler&lt; TaskQueue &gt;</label>
+        <link refid="class_w_s_simple_task_scheduler"/>
+        <childnode refid="3232" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3236">
+        <label>AbstractQueueBasedTaskScheduler&lt; WSCoreBoundTaskQueue &gt;</label>
+        <link refid="class_abstract_queue_based_task_scheduler"/>
+        <childnode refid="3232" relation="template-instance">
+          <edgelabel>&lt; WSCoreBoundTaskQueue &gt;</edgelabel>
+        </childnode>
+        <childnode refid="3231" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="3237">
+        <label>TaskReadyObserver</label>
+        <link refid="class_task_ready_observer"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/taskscheduler/Task.h" line="22" bodyfile="/home/grund/hyrise/src/lib/taskscheduler/Task.h" bodystart="22" bodyend="30"/>
+    <listofallmembers>
+      <member refid="class_task_ready_observer_1a8085f01f504ee10a83e95b5af3838980" prot="public" virt="pure-virtual"><scope>TaskReadyObserver</scope><name>notifyReady</name></member>
+      <member refid="class_task_ready_observer_1afbeb3e41e0e022c9d11edcc1916ab577" prot="public" virt="virtual"><scope>TaskReadyObserver</scope><name>~TaskReadyObserver</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

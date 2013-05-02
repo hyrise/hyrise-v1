@@ -1,0 +1,126 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="structhyrise_1_1storage_1_1write__to__dict__functor" kind="struct" prot="public">
+    <compoundname>hyrise::storage::write_to_dict_functor</compoundname>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="structhyrise_1_1storage_1_1write__to__dict__functor_1a463308d7ee5041f028950103373e8573" prot="public" static="no">
+        <type>void</type>
+        <definition>typedef void hyrise::storage::write_to_dict_functor::value_type</definition>
+        <argsstring></argsstring>
+        <name>value_type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/TableDump.cpp" line="77" bodyfile="/home/grund/hyrise/src/lib/io/TableDump.cpp" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structhyrise_1_1storage_1_1write__to__dict__functor_1a78d61c1cd4c8dd2dc903f4a349025650" prot="public" static="no" mutable="no">
+        <type>std::ifstream &amp;</type>
+        <definition>std::ifstream&amp; hyrise::storage::write_to_dict_functor::data</definition>
+        <argsstring></argsstring>
+        <name>data</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/TableDump.cpp" line="79" bodyfile="/home/grund/hyrise/src/lib/io/TableDump.cpp" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structhyrise_1_1storage_1_1write__to__dict__functor_1a7eccd8c4adc557bbfb1d25582d6d5349" prot="public" static="no" mutable="no">
+        <type>std::shared_ptr&lt; <ref refid="class_abstract_table" kindref="compound">AbstractTable</ref> &gt;</type>
+        <definition>std::shared_ptr&lt;AbstractTable&gt; hyrise::storage::write_to_dict_functor::table</definition>
+        <argsstring></argsstring>
+        <name>table</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/TableDump.cpp" line="80" bodyfile="/home/grund/hyrise/src/lib/io/TableDump.cpp" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structhyrise_1_1storage_1_1write__to__dict__functor_1a6abd0028a3996613450dd17f5aa1b5b6" prot="public" static="no" mutable="no">
+        <type><ref refid="namespacehyrise_1_1storage_1a5a47ffe4fe6daf66aeeaec19ed0ea5ec" kindref="member">field_t</ref></type>
+        <definition>field_t hyrise::storage::write_to_dict_functor::col</definition>
+        <argsstring></argsstring>
+        <name>col</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/TableDump.cpp" line="81" bodyfile="/home/grund/hyrise/src/lib/io/TableDump.cpp" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structhyrise_1_1storage_1_1write__to__dict__functor_1a8efd42d8c989168101252951518db02d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>hyrise::storage::write_to_dict_functor::write_to_dict_functor</definition>
+        <argsstring>(std::ifstream &amp;d, std::shared_ptr&lt; AbstractTable &gt; t, field_t c)</argsstring>
+        <name>write_to_dict_functor</name>
+        <param>
+          <type>std::ifstream &amp;</type>
+          <declname>d</declname>
+        </param>
+        <param>
+          <type>std::shared_ptr&lt; <ref refid="class_abstract_table" kindref="compound">AbstractTable</ref> &gt;</type>
+          <declname>t</declname>
+        </param>
+        <param>
+          <type><ref refid="namespacehyrise_1_1storage_1a5a47ffe4fe6daf66aeeaec19ed0ea5ec" kindref="member">field_t</ref></type>
+          <declname>c</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/TableDump.cpp" line="86" bodyfile="/home/grund/hyrise/src/lib/io/TableDump.cpp" bodystart="83" bodyend="86"/>
+      </memberdef>
+      <memberdef kind="function" id="structhyrise_1_1storage_1_1write__to__dict__functor_1afec8b903e62e979d9775d03489efe528" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename R</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void hyrise::storage::write_to_dict_functor::operator()</definition>
+        <argsstring>()</argsstring>
+        <name>operator()</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/TableDump.cpp" line="90" bodyfile="/home/grund/hyrise/src/lib/io/TableDump.cpp" bodystart="90" bodyend="100"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Helper functor used to read all values from a file and insert them in sorted order into the dictionary. The functor uses a boost::lexica_clast&lt;T&gt; for transformation from string to any other value. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="3422">
+        <label>hyrise::storage::write_to_dict_functor</label>
+        <link refid="structhyrise_1_1storage_1_1write__to__dict__functor"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/io/TableDump.cpp" line="76" bodyfile="/home/grund/hyrise/src/lib/io/TableDump.cpp" bodystart="76" bodyend="102"/>
+    <listofallmembers>
+      <member refid="structhyrise_1_1storage_1_1write__to__dict__functor_1a6abd0028a3996613450dd17f5aa1b5b6" prot="public" virt="non-virtual"><scope>hyrise::storage::write_to_dict_functor</scope><name>col</name></member>
+      <member refid="structhyrise_1_1storage_1_1write__to__dict__functor_1a78d61c1cd4c8dd2dc903f4a349025650" prot="public" virt="non-virtual"><scope>hyrise::storage::write_to_dict_functor</scope><name>data</name></member>
+      <member refid="structhyrise_1_1storage_1_1write__to__dict__functor_1afec8b903e62e979d9775d03489efe528" prot="public" virt="non-virtual"><scope>hyrise::storage::write_to_dict_functor</scope><name>operator()</name></member>
+      <member refid="structhyrise_1_1storage_1_1write__to__dict__functor_1a7eccd8c4adc557bbfb1d25582d6d5349" prot="public" virt="non-virtual"><scope>hyrise::storage::write_to_dict_functor</scope><name>table</name></member>
+      <member refid="structhyrise_1_1storage_1_1write__to__dict__functor_1a463308d7ee5041f028950103373e8573" prot="public" virt="non-virtual"><scope>hyrise::storage::write_to_dict_functor</scope><name>value_type</name></member>
+      <member refid="structhyrise_1_1storage_1_1write__to__dict__functor_1a8efd42d8c989168101252951518db02d" prot="public" virt="non-virtual"><scope>hyrise::storage::write_to_dict_functor</scope><name>write_to_dict_functor</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,186 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="class_vector_input" kind="class" prot="public">
+    <compoundname>VectorInput</compoundname>
+    <basecompoundref refid="class_abstract_input" prot="public" virt="non-virtual">AbstractInput</basecompoundref>
+    <includes refid="_vector_loader_8h" local="no">VectorLoader.h</includes>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="class_vector_input_1a66203b5313b5ca6acaa6a3d3a59c699f" prot="public" static="no">
+        <type>std::vector&lt; std::uint64_t &gt;</type>
+        <definition>typedef std::vector&lt;std::uint64_t&gt; VectorInput::value_vec_t</definition>
+        <argsstring></argsstring>
+        <name>value_vec_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/VectorLoader.h" line="9" bodyfile="/home/grund/hyrise/src/lib/io/VectorLoader.h" bodystart="9" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="class_vector_input_1a39127193afa13f110644d033c0bf7285" prot="public" static="no">
+        <type>std::vector&lt; <ref refid="class_vector_input_1a66203b5313b5ca6acaa6a3d3a59c699f" kindref="member">value_vec_t</ref> &gt;</type>
+        <definition>typedef std::vector&lt;value_vec_t&gt; VectorInput::value_vectors_t</definition>
+        <argsstring></argsstring>
+        <name>value_vectors_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/VectorLoader.h" line="10" bodyfile="/home/grund/hyrise/src/lib/io/VectorLoader.h" bodystart="10" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_vector_input_1a01acd6f2eeb72abefec07e26942a5066" prot="private" static="no" mutable="no">
+        <type>const <ref refid="class_vector_input_1a39127193afa13f110644d033c0bf7285" kindref="member">value_vectors_t</ref></type>
+        <definition>const value_vectors_t VectorInput::_vectors</definition>
+        <argsstring></argsstring>
+        <name>_vectors</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/VectorLoader.h" line="17" bodyfile="/home/grund/hyrise/src/lib/io/VectorLoader.h" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_vector_input_1ae1547a8be3b2bfefa800a6e3d063f777" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>VectorInput::VectorInput</definition>
+        <argsstring>(value_vectors_t vectors)</argsstring>
+        <name>VectorInput</name>
+        <param>
+          <type><ref refid="class_vector_input_1a39127193afa13f110644d033c0bf7285" kindref="member">value_vectors_t</ref></type>
+          <declname>vectors</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/VectorLoader.h" line="11" bodyfile="/home/grund/hyrise/src/lib/io/VectorLoader.cpp" bodystart="5" bodyend="5"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vector_input_1a2b7b9cbdb1749f674cbecd664ab708ec" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type><ref refid="class_vector_input" kindref="compound">VectorInput</ref> *</type>
+        <definition>VectorInput * VectorInput::clone</definition>
+        <argsstring>() const </argsstring>
+        <name>clone</name>
+        <reimplements refid="class_abstract_input_1ae24e23d7100a832b9bd67b161ceb7215">clone</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/VectorLoader.h" line="12" bodyfile="/home/grund/hyrise/src/lib/io/VectorLoader.cpp" bodystart="7" bodyend="9"/>
+      </memberdef>
+      <memberdef kind="function" id="class_vector_input_1a71ceee51e14a22c564afc9ea850622ae" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>std::shared_ptr&lt; <ref refid="class_abstract_table" kindref="compound">AbstractTable</ref> &gt;</type>
+        <definition>std::shared_ptr&lt; AbstractTable &gt; VectorInput::load</definition>
+        <argsstring>(std::shared_ptr&lt; AbstractTable &gt;, const compound_metadata_list *, const Loader::params &amp;args)</argsstring>
+        <name>load</name>
+        <reimplements refid="class_abstract_input_1a9d31015659ecff402c529df0f5339b60">load</reimplements>
+        <param>
+          <type>std::shared_ptr&lt; <ref refid="class_abstract_table" kindref="compound">AbstractTable</ref> &gt;</type>
+          <declname>intable</declname>
+        </param>
+        <param>
+          <type>const <ref refid="storage__types_8h_1ab1a41784d413aa539cdda0391757965c" kindref="member">compound_metadata_list</ref> *</type>
+          <declname>metadata</declname>
+        </param>
+        <param>
+          <type>const <ref refid="class_loader_1_1params" kindref="compound">Loader::params</ref> &amp;</type>
+          <declname>args</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Loads data.<itemizedlist>
+<listitem><para>Load data into a table</para></listitem><listitem><para>Creates and returns an AbstractTable*</para></listitem><listitem><para>Has to release intable in case it isn&apos;t used.</para></listitem></itemizedlist>
+</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>intable</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The <ref refid="namespace_loader_1a371700be700b02ac0f08306734213028" kindref="member">Loader::load</ref> interface creates an initial <ref refid="class_mutable_vertical_table" kindref="compound">MutableVerticalTable</ref>, loader may choose to use it or not </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>metadata</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The original metadata </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>args</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="namespace_loader" kindref="compound">Loader</ref> arguments that may influence loading </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/VectorLoader.h" line="15" bodyfile="/home/grund/hyrise/src/lib/io/VectorLoader.cpp" bodystart="11" bodyend="25"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="3407">
+        <label>VectorInput</label>
+        <link refid="class_vector_input"/>
+        <childnode refid="3408" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3408">
+        <label>AbstractInput</label>
+        <link refid="class_abstract_input"/>
+        <childnode refid="3409" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3409">
+        <label>cloneable</label>
+        <link refid="classcloneable"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="3410">
+        <label>VectorInput</label>
+        <link refid="class_vector_input"/>
+        <childnode refid="3411" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3411">
+        <label>AbstractInput</label>
+        <link refid="class_abstract_input"/>
+        <childnode refid="3412" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3412">
+        <label>cloneable</label>
+        <link refid="classcloneable"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/io/VectorLoader.h" line="7" bodyfile="/home/grund/hyrise/src/lib/io/VectorLoader.h" bodystart="7" bodyend="18"/>
+    <listofallmembers>
+      <member refid="class_vector_input_1a01acd6f2eeb72abefec07e26942a5066" prot="private" virt="non-virtual"><scope>VectorInput</scope><name>_vectors</name></member>
+      <member refid="class_vector_input_1a2b7b9cbdb1749f674cbecd664ab708ec" prot="public" virt="virtual"><scope>VectorInput</scope><name>clone</name></member>
+      <member refid="class_vector_input_1a71ceee51e14a22c564afc9ea850622ae" prot="public" virt="virtual"><scope>VectorInput</scope><name>load</name></member>
+      <member refid="class_abstract_input_1a58bee53c3e07a02dace728ba96daa81f" prot="public" virt="virtual"><scope>VectorInput</scope><name>needs_store_wrap</name></member>
+      <member refid="class_vector_input_1a66203b5313b5ca6acaa6a3d3a59c699f" prot="public" virt="non-virtual"><scope>VectorInput</scope><name>value_vec_t</name></member>
+      <member refid="class_vector_input_1a39127193afa13f110644d033c0bf7285" prot="public" virt="non-virtual"><scope>VectorInput</scope><name>value_vectors_t</name></member>
+      <member refid="class_vector_input_1ae1547a8be3b2bfefa800a6e3d063f777" prot="public" virt="non-virtual"><scope>VectorInput</scope><name>VectorInput</name></member>
+      <member refid="class_abstract_input_1a24438a83d3e56183859bc5f04394b7d1" prot="public" virt="virtual"><scope>VectorInput</scope><name>~AbstractInput</name></member>
+      <member refid="classcloneable_1a31ff0906763d17093098d05207e2184c" prot="public" virt="virtual"><scope>VectorInput</scope><name>~cloneable</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

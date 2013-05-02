@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="class_attribute_vector_factory" kind="class" prot="public">
+    <compoundname>AttributeVectorFactory</compoundname>
+    <includes refid="_attribute_vector_factory_8h" local="no">AttributeVectorFactory.h</includes>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="class_attribute_vector_factory_1ab75268e4f7f4d55a50e63a4fe0722f33" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+          <param>
+            <type>typename Allocator</type>
+          </param>
+        </templateparamlist>
+        <type>std::shared_ptr&lt; <ref refid="class_base_attribute_vector" kindref="compound">BaseAttributeVector</ref>&lt; T &gt; &gt;</type>
+        <definition>static std::shared_ptr&lt;BaseAttributeVector&lt;T&gt; &gt; AttributeVectorFactory::getAttributeVector</definition>
+        <argsstring>(size_t columns=1, size_t rows=0, int distinct_values=1, bool compressed=false)</argsstring>
+        <name>getAttributeVector</name>
+        <param>
+          <type>size_t</type>
+          <declname>columns</declname>
+          <defval>1</defval>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>rows</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>distinct_values</declname>
+          <defval>1</defval>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>compressed</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/AttributeVectorFactory.h" line="18" bodyfile="/home/grund/hyrise/src/lib/storage/AttributeVectorFactory.h" bodystart="15" bodyend="21"/>
+      </memberdef>
+      <memberdef kind="function" id="class_attribute_vector_factory_1a99547fb18797782fd3b00066ded590fb" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+          <param>
+            <type>typename Allocator</type>
+          </param>
+        </templateparamlist>
+        <type>std::shared_ptr&lt; <ref refid="class_base_attribute_vector" kindref="compound">BaseAttributeVector</ref>&lt; T &gt; &gt;</type>
+        <definition>static std::shared_ptr&lt;BaseAttributeVector&lt;T&gt; &gt; AttributeVectorFactory::getAttributeVector2</definition>
+        <argsstring>(size_t columns, size_t rows, bool compressed=false, std::vector&lt; uint64_t &gt; bits=std::vector&lt; uint64_t &gt;{})</argsstring>
+        <name>getAttributeVector2</name>
+        <param>
+          <type>size_t</type>
+          <declname>columns</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>rows</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>compressed</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/AttributeVectorFactory.h" line="27" bodyfile="/home/grund/hyrise/src/lib/storage/AttributeVectorFactory.h" bodystart="24" bodyend="34"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1481">
+        <label>AttributeVectorFactory</label>
+        <link refid="class_attribute_vector_factory"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/storage/AttributeVectorFactory.h" line="11" bodyfile="/home/grund/hyrise/src/lib/storage/AttributeVectorFactory.h" bodystart="11" bodyend="35"/>
+    <listofallmembers>
+      <member refid="class_attribute_vector_factory_1ab75268e4f7f4d55a50e63a4fe0722f33" prot="public" virt="non-virtual"><scope>AttributeVectorFactory</scope><name>getAttributeVector</name></member>
+      <member refid="class_attribute_vector_factory_1a99547fb18797782fd3b00066ded590fb" prot="public" virt="non-virtual"><scope>AttributeVectorFactory</scope><name>getAttributeVector2</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

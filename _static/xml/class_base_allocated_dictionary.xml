@@ -1,0 +1,203 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="class_base_allocated_dictionary" kind="class" prot="public">
+    <compoundname>BaseAllocatedDictionary</compoundname>
+    <basecompoundref refid="class_base_dictionary" prot="public" virt="non-virtual">BaseDictionary&lt; DictionaryType &gt;</basecompoundref>
+    <includes refid="_abstract_allocated_dictionary_8h" local="no">AbstractAllocatedDictionary.h</includes>
+    <templateparamlist>
+      <param>
+        <type>typename</type>
+        <declname>DictionaryType</declname>
+        <defname>DictionaryType</defname>
+      </param>
+      <param>
+        <type>class</type>
+        <declname>Strategy</declname>
+        <defname>Strategy</defname>
+      </param>
+      <param>
+        <type>template&lt; typename T, typename S &gt; class</type>
+        <declname>Allocator</declname>
+        <defname>Allocator</defname>
+      </param>
+      <param>
+        <type>class</type>
+        <declname>AllocatedClass</declname>
+        <defname>AllocatedClass</defname>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_base_allocated_dictionary_1ac26ce465e38fd42bd30bb29cdfea015b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual BaseAllocatedDictionary&lt; DictionaryType, Strategy, Allocator, AllocatedClass &gt;::~BaseAllocatedDictionary</definition>
+        <argsstring>()</argsstring>
+        <name>~BaseAllocatedDictionary</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/AbstractAllocatedDictionary.h" line="17" bodyfile="/home/grund/hyrise/src/lib/storage/AbstractAllocatedDictionary.h" bodystart="17" bodyend="17"/>
+      </memberdef>
+      <memberdef kind="function" id="class_base_allocated_dictionary_1acfac3763bf4f277cdbe9cd91c621aa4f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>std::shared_ptr&lt; <ref refid="class_abstract_dictionary" kindref="compound">AbstractDictionary</ref> &gt;</type>
+        <definition>std::shared_ptr&lt;AbstractDictionary&gt; BaseAllocatedDictionary&lt; DictionaryType, Strategy, Allocator, AllocatedClass &gt;::copy_empty</definition>
+        <argsstring>()</argsstring>
+        <name>copy_empty</name>
+        <reimplements refid="class_abstract_dictionary_1ad2dcfff13a96812365cd3144b966be92">copy_empty</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/AbstractAllocatedDictionary.h" line="19" bodyfile="/home/grund/hyrise/src/lib/storage/AbstractAllocatedDictionary.h" bodystart="19" bodyend="19"/>
+      </memberdef>
+      <memberdef kind="function" id="class_base_allocated_dictionary_1a0c55d6ffb02250144685b32e2441bf89" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void *</type>
+        <definition>void* BaseAllocatedDictionary&lt; DictionaryType, Strategy, Allocator, AllocatedClass &gt;::operator new</definition>
+        <argsstring>(size_t sz)</argsstring>
+        <name>operator new</name>
+        <param>
+          <type>size_t</type>
+          <declname>sz</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/AbstractAllocatedDictionary.h" line="21" bodyfile="/home/grund/hyrise/src/lib/storage/AbstractAllocatedDictionary.h" bodystart="21" bodyend="23"/>
+      </memberdef>
+      <memberdef kind="function" id="class_base_allocated_dictionary_1a8ecdd99957e54834661192975e800b0c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void BaseAllocatedDictionary&lt; DictionaryType, Strategy, Allocator, AllocatedClass &gt;::operator delete</definition>
+        <argsstring>(void *p)</argsstring>
+        <name>operator delete</name>
+        <param>
+          <type>void *</type>
+          <declname>p</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/AbstractAllocatedDictionary.h" line="25" bodyfile="/home/grund/hyrise/src/lib/storage/AbstractAllocatedDictionary.h" bodystart="25" bodyend="27"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1514">
+        <label>AbstractDictionary</label>
+        <link refid="class_abstract_dictionary"/>
+      </node>
+      <node id="1519">
+        <label>OrderIndifferentDictionary&lt; T, Strategy, Allocator &gt;</label>
+        <link refid="class_order_indifferent_dictionary"/>
+        <childnode refid="1518" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1518">
+        <label>BaseAllocatedDictionary&lt; T, Strategy, Allocator, OrderIndifferentDictionary&lt; T, Strategy, Allocator &gt; &gt;</label>
+        <link refid="class_base_allocated_dictionary"/>
+        <childnode refid="1512" relation="template-instance">
+          <edgelabel>&lt; T, Strategy, Allocator, OrderIndifferentDictionary&lt; T, Strategy, Allocator &gt; &gt;</edgelabel>
+        </childnode>
+      </node>
+      <node id="1517">
+        <label>OrderPreservingDictionary&lt; T, Strategy, Allocator &gt;</label>
+        <link refid="class_order_preserving_dictionary"/>
+        <childnode refid="1516" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1513">
+        <label>BaseDictionary&lt; DictionaryType &gt;</label>
+        <link refid="class_base_dictionary"/>
+        <childnode refid="1514" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1515" relation="template-instance">
+          <edgelabel>&lt; DictionaryType &gt;</edgelabel>
+        </childnode>
+      </node>
+      <node id="1516">
+        <label>BaseAllocatedDictionary&lt; T, Strategy, Allocator, OrderPreservingDictionary&lt; T, Strategy, Allocator &gt; &gt;</label>
+        <link refid="class_base_allocated_dictionary"/>
+        <childnode refid="1512" relation="template-instance">
+          <edgelabel>&lt; T, Strategy, Allocator, OrderPreservingDictionary&lt; T, Strategy, Allocator &gt; &gt;</edgelabel>
+        </childnode>
+      </node>
+      <node id="1515">
+        <label>BaseDictionary&lt; T &gt;</label>
+        <link refid="class_base_dictionary"/>
+        <childnode refid="1514" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1512">
+        <label>BaseAllocatedDictionary&lt; DictionaryType, Strategy, Allocator, AllocatedClass &gt;</label>
+        <link refid="class_base_allocated_dictionary"/>
+        <childnode refid="1513" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1522">
+        <label>AbstractDictionary</label>
+        <link refid="class_abstract_dictionary"/>
+      </node>
+      <node id="1521">
+        <label>BaseDictionary&lt; DictionaryType &gt;</label>
+        <link refid="class_base_dictionary"/>
+        <childnode refid="1522" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1523" relation="template-instance">
+          <edgelabel>&lt; DictionaryType &gt;</edgelabel>
+        </childnode>
+      </node>
+      <node id="1523">
+        <label>BaseDictionary&lt; T &gt;</label>
+        <link refid="class_base_dictionary"/>
+        <childnode refid="1522" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1520">
+        <label>BaseAllocatedDictionary&lt; DictionaryType, Strategy, Allocator, AllocatedClass &gt;</label>
+        <link refid="class_base_allocated_dictionary"/>
+        <childnode refid="1521" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/storage/AbstractAllocatedDictionary.h" line="14" bodyfile="/home/grund/hyrise/src/lib/storage/AbstractAllocatedDictionary.h" bodystart="14" bodyend="29"/>
+    <listofallmembers>
+      <member refid="class_base_dictionary_1a6dc6677f03d2432c0d00d7bcf9d3b58d" prot="public" virt="pure-virtual"><scope>BaseAllocatedDictionary</scope><name>addValue</name></member>
+      <member refid="class_base_dictionary_1af295f8b12e4c22aba395c23d4df71ef5" prot="public" virt="pure-virtual"><scope>BaseAllocatedDictionary</scope><name>begin</name></member>
+      <member refid="class_base_dictionary_1af5993ae21b2e5b32fa8e4c6c2387d889" prot="public" virt="pure-virtual"><scope>BaseAllocatedDictionary</scope><name>copy</name></member>
+      <member refid="class_base_allocated_dictionary_1acfac3763bf4f277cdbe9cd91c621aa4f" prot="public" virt="virtual"><scope>BaseAllocatedDictionary</scope><name>copy_empty</name></member>
+      <member refid="class_abstract_dictionary_1a051863f8c78b2312e92705eb3554f156" prot="public" virt="non-virtual"><scope>BaseAllocatedDictionary</scope><name>dictionaryWithType</name></member>
+      <member refid="class_base_dictionary_1a61461dc90085108337b8930923755870" prot="public" virt="pure-virtual"><scope>BaseAllocatedDictionary</scope><name>end</name></member>
+      <member refid="class_base_dictionary_1ab90f493d26980c624f773d7cad05a3d5" prot="public" virt="pure-virtual"><scope>BaseAllocatedDictionary</scope><name>getGreatestValue</name></member>
+      <member refid="class_base_dictionary_1a9039e0936f936561754300eea075ddc4" prot="public" virt="pure-virtual"><scope>BaseAllocatedDictionary</scope><name>getSmallestValue</name></member>
+      <member refid="class_base_dictionary_1aac9adb0a35bc6fd101daaeaa8413d02e" prot="public" virt="pure-virtual"><scope>BaseAllocatedDictionary</scope><name>getValueForValueId</name></member>
+      <member refid="class_base_dictionary_1a10968f793c177bf112e075806801fcda" prot="public" virt="pure-virtual"><scope>BaseAllocatedDictionary</scope><name>getValueIdForValue</name></member>
+      <member refid="class_base_dictionary_1a54690a4f2e564a84b79e1d26f04f5e7a" prot="public" virt="pure-virtual"><scope>BaseAllocatedDictionary</scope><name>getValueIdForValueGreater</name></member>
+      <member refid="class_base_dictionary_1a1e342e5bf2086c71b04c4315467137f7" prot="public" virt="pure-virtual"><scope>BaseAllocatedDictionary</scope><name>getValueIdForValueSmaller</name></member>
+      <member refid="class_base_dictionary_1a3c7dd2234656fbda5531fa9de29ffc81" prot="public" virt="pure-virtual"><scope>BaseAllocatedDictionary</scope><name>isOrdered</name></member>
+      <member refid="class_base_dictionary_1a738cb5130f6e458c0107df6b508e05a9" prot="public" virt="pure-virtual"><scope>BaseAllocatedDictionary</scope><name>isValueIdValid</name></member>
+      <member refid="class_base_dictionary_1a281b6dcb1f909d44ab7eb8b3718694d2" prot="public" virt="non-virtual"><scope>BaseAllocatedDictionary</scope><name>iterator</name></member>
+      <member refid="class_base_allocated_dictionary_1a8ecdd99957e54834661192975e800b0c" prot="public" virt="non-virtual"><scope>BaseAllocatedDictionary</scope><name>operator delete</name></member>
+      <member refid="class_base_allocated_dictionary_1a0c55d6ffb02250144685b32e2441bf89" prot="public" virt="non-virtual"><scope>BaseAllocatedDictionary</scope><name>operator new</name></member>
+      <member refid="class_base_dictionary_1ae3c53d970ee95b00169dd6b784902174" prot="public" virt="pure-virtual"><scope>BaseAllocatedDictionary</scope><name>reserve</name></member>
+      <member refid="class_abstract_dictionary_1acce31627df9551d83eab518366ea7cc8" prot="public" virt="pure-virtual"><scope>BaseAllocatedDictionary</scope><name>shrink</name></member>
+      <member refid="class_base_dictionary_1a335a2ad8aff598b74704829f35adbfc6" prot="public" virt="pure-virtual"><scope>BaseAllocatedDictionary</scope><name>size</name></member>
+      <member refid="class_base_dictionary_1abdeceaa40e819367debaebaff293a463" prot="public" virt="pure-virtual"><scope>BaseAllocatedDictionary</scope><name>valueExists</name></member>
+      <member refid="class_abstract_dictionary_1a9a9216aed0689529a55c572b3ef69bcf" prot="public" virt="virtual"><scope>BaseAllocatedDictionary</scope><name>~AbstractDictionary</name></member>
+      <member refid="class_base_allocated_dictionary_1ac26ce465e38fd42bd30bb29cdfea015b" prot="public" virt="virtual"><scope>BaseAllocatedDictionary</scope><name>~BaseAllocatedDictionary</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

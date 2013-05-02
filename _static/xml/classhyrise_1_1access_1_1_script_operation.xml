@@ -1,0 +1,266 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="classhyrise_1_1access_1_1_script_operation" kind="class" prot="public">
+    <compoundname>hyrise::access::ScriptOperation</compoundname>
+    <basecompoundref refid="class___plan_operation" prot="public" virt="non-virtual">_PlanOperation</basecompoundref>
+    <includes refid="_script_operation_8h" local="no">ScriptOperation.h</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classhyrise_1_1access_1_1_script_operation_1a584a201b9dea0044157b195548b6dc47" prot="private" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string hyrise::access::ScriptOperation::_scriptName</definition>
+        <argsstring></argsstring>
+        <name>_scriptName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/ScriptOperation.h" line="22" bodyfile="/home/grund/hyrise/src/lib/access/ScriptOperation.h" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classhyrise_1_1access_1_1_script_operation_1a61780f10631efbbe8fadd2297f7fd249" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>hyrise::access::ScriptOperation::ScriptOperation</definition>
+        <argsstring>()</argsstring>
+        <name>ScriptOperation</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/ScriptOperation.h" line="26" bodyfile="/home/grund/hyrise/src/lib/access/ScriptOperation.cpp" bodystart="26" bodyend="28"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1access_1_1_script_operation_1aff8cc8a610fb4e44f643bdd6bec7073d" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void hyrise::access::ScriptOperation::executePlanOperation</definition>
+        <argsstring>()</argsstring>
+        <name>executePlanOperation</name>
+        <reimplements refid="class___plan_operation_1a9c21af0bffdbe2bc0b4f152239202665">executePlanOperation</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/ScriptOperation.h" line="28" bodyfile="/home/grund/hyrise/src/lib/access/ScriptOperation.cpp" bodystart="585" bodyend="661"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1access_1_1_script_operation_1a0bd21d0ecd514b0b0acc78af382de405" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void hyrise::access::ScriptOperation::setScriptName</definition>
+        <argsstring>(std::string n)</argsstring>
+        <name>setScriptName</name>
+        <param>
+          <type>std::string</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/ScriptOperation.h" line="32" bodyfile="/home/grund/hyrise/src/lib/access/ScriptOperation.h" bodystart="32" bodyend="32"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classhyrise_1_1access_1_1_script_operation_1af0211afbdc3d6fe4c5fb878f83827cc7" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::shared_ptr&lt; <ref refid="class___plan_operation" kindref="compound">_PlanOperation</ref> &gt;</type>
+        <definition>std::shared_ptr&lt; _PlanOperation &gt; hyrise::access::ScriptOperation::parse</definition>
+        <argsstring>(Json::Value &amp;data)</argsstring>
+        <name>parse</name>
+        <param>
+          <type>Json::Value &amp;</type>
+          <declname>data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/ScriptOperation.h" line="30" bodyfile="/home/grund/hyrise/src/lib/access/ScriptOperation.cpp" bodystart="663" bodyend="667"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>This is a simple scriptable plan operation that allows to write the operation itself in JavaScript instead of C++ for rapid prototyping </para>    </detaileddescription>
+    <inheritancegraph>
+      <node id="2775">
+        <label>TaskDoneObserver</label>
+        <link refid="class_task_done_observer"/>
+      </node>
+      <node id="2772">
+        <label>_PlanOperation</label>
+        <link refid="class___plan_operation"/>
+        <childnode refid="2773" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2774">
+        <label>Task</label>
+        <link refid="class_task"/>
+        <childnode refid="2775" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2771">
+        <label>hyrise::access::ScriptOperation</label>
+        <link refid="classhyrise_1_1access_1_1_script_operation"/>
+        <childnode refid="2772" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2773">
+        <label>OutputTask</label>
+        <link refid="class_output_task"/>
+        <childnode refid="2774" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2780">
+        <label>TaskDoneObserver</label>
+        <link refid="class_task_done_observer"/>
+      </node>
+      <node id="2777">
+        <label>_PlanOperation</label>
+        <link refid="class___plan_operation"/>
+        <childnode refid="2778" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2782" relation="usage">
+          <edgelabel>output</edgelabel>
+          <edgelabel>input</edgelabel>
+        </childnode>
+      </node>
+      <node id="2781">
+        <label>OutputTask::performance_attributes_t</label>
+        <link refid="struct_output_task_1_1performance__attributes__t"/>
+      </node>
+      <node id="2779">
+        <label>Task</label>
+        <link refid="class_task"/>
+        <childnode refid="2780" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2782">
+        <label>hyrise::access::OperationData</label>
+        <link refid="classhyrise_1_1access_1_1_operation_data"/>
+      </node>
+      <node id="2776">
+        <label>hyrise::access::ScriptOperation</label>
+        <link refid="classhyrise_1_1access_1_1_script_operation"/>
+        <childnode refid="2777" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2778">
+        <label>OutputTask</label>
+        <link refid="class_output_task"/>
+        <childnode refid="2779" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2781" relation="usage">
+          <edgelabel>_performance_attr</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/access/ScriptOperation.h" line="17" bodyfile="/home/grund/hyrise/src/lib/access/ScriptOperation.h" bodystart="17" bodyend="43"/>
+    <listofallmembers>
+      <member refid="class___plan_operation_1acef20de057343580d24d6ccb2e35f975" prot="protected" virt="non-virtual"><scope>hyrise::access::ScriptOperation</scope><name>_count</name></member>
+      <member refid="class_task_1ab25d10a171c2efc2dcdf4ec7b81d148d" prot="protected" virt="non-virtual"><scope>hyrise::access::ScriptOperation</scope><name>_dependencies</name></member>
+      <member refid="class_task_1a432b54ea5cdbf8f875c756c70710b69e" prot="protected" virt="non-virtual"><scope>hyrise::access::ScriptOperation</scope><name>_dependencyWaitCount</name></member>
+      <member refid="class_task_1a10259a6dde7645e32c32262818339c8c" prot="protected" virt="non-virtual"><scope>hyrise::access::ScriptOperation</scope><name>_depMutex</name></member>
+      <member refid="class_task_1af277c65727e285efbf965633851ec9d8" prot="protected" virt="non-virtual"><scope>hyrise::access::ScriptOperation</scope><name>_doneObservers</name></member>
+      <member refid="class_output_task_1a288dc748d95403d6dccd29a03670ec72" prot="protected" virt="non-virtual"><scope>hyrise::access::ScriptOperation</scope><name>_error_message</name></member>
+      <member refid="class___plan_operation_1aecccffa96d058ec8bead4d2c2a39e0e0" prot="protected" virt="non-virtual"><scope>hyrise::access::ScriptOperation</scope><name>_field_definition</name></member>
+      <member refid="class___plan_operation_1a6001c5f28644bcb3f111e16e058b355e" prot="protected" virt="non-virtual"><scope>hyrise::access::ScriptOperation</scope><name>_indexed_field_definition</name></member>
+      <member refid="class___plan_operation_1a2bcb5f99fd47d086834274d8f355744b" prot="protected" virt="non-virtual"><scope>hyrise::access::ScriptOperation</scope><name>_limit</name></member>
+      <member refid="class___plan_operation_1a83baf80dca3394fa835085e4aa711fc5" prot="protected" virt="non-virtual"><scope>hyrise::access::ScriptOperation</scope><name>_named_field_definition</name></member>
+      <member refid="class_task_1a778ed5c766f4098184c31a656fe471ed" prot="protected" virt="non-virtual"><scope>hyrise::access::ScriptOperation</scope><name>_notifyMutex</name></member>
+      <member refid="class_task_1a6a0d1fa3b37cb2e7896ea23049798b36" prot="protected" virt="non-virtual"><scope>hyrise::access::ScriptOperation</scope><name>_observerMutex</name></member>
+      <member refid="class___plan_operation_1af3f58f2579f7a2b9d80a90856dd0d5ef" prot="protected" virt="non-virtual"><scope>hyrise::access::ScriptOperation</scope><name>_operatorId</name></member>
+      <member refid="class_output_task_1a4b85dab3e5aa4917807522e66ecea10b" prot="protected" virt="non-virtual"><scope>hyrise::access::ScriptOperation</scope><name>_papiEvent</name></member>
+      <member refid="class___plan_operation_1a94d06a35b4b9eafe16c01eb5b0ff293a" prot="protected" virt="non-virtual"><scope>hyrise::access::ScriptOperation</scope><name>_part</name></member>
+      <member refid="class_output_task_1a2dd0e1b069abf1f788e359f2ce0dc40d" prot="protected" virt="non-virtual"><scope>hyrise::access::ScriptOperation</scope><name>_performance_attr</name></member>
+      <member refid="class___plan_operation_1af0b2cf5d20cd3f393489b6fa0893c9ce" prot="protected" virt="non-virtual"><scope>hyrise::access::ScriptOperation</scope><name>_planId</name></member>
+      <member refid="class___plan_operation_1ac86c0da0cbc645bfdf5e2c68c6104ba5" prot="public" virt="non-virtual"><scope>hyrise::access::ScriptOperation</scope><name>_PlanOperation</name></member>
+      <member refid="class___plan_operation_1ab514f69bd5c84f539385337811a6a1f7" prot="protected" virt="non-virtual"><scope>hyrise::access::ScriptOperation</scope><name>_planOperationName</name></member>
+      <member refid="class_task_1aa7b21c6482b905c04f354c738341beb3" prot="protected" virt="non-virtual"><scope>hyrise::access::ScriptOperation</scope><name>_preferredCore</name></member>
+      <member refid="class_task_1a7f7f81090a389fd5cf79747e165fe0f4" prot="protected" virt="non-virtual"><scope>hyrise::access::ScriptOperation</scope><name>_readyObservers</name></member>
+      <member refid="classhyrise_1_1access_1_1_script_operation_1a584a201b9dea0044157b195548b6dc47" prot="private" virt="non-virtual"><scope>hyrise::access::ScriptOperation</scope><name>_scriptName</name></member>
+      <member refid="class_output_task_1a4a898c5577949ec25783a32ba97c8b2e" prot="protected" virt="non-virtual"><scope>hyrise::access::ScriptOperation</scope><name>_state</name></member>
+      <member refid="class___plan_operation_1ac4bc5e5a900c679cb5c4d5d5133b51d4" prot="protected" virt="non-virtual"><scope>hyrise::access::ScriptOperation</scope><name>_transaction_id</name></member>
+      <member refid="class_task_1aa9e65a15e122de040bb914ab144577b8" prot="public" virt="non-virtual"><scope>hyrise::access::ScriptOperation</scope><name>addDependency</name></member>
+      <member refid="class_task_1a0e4ebf7ad5313f027aa16d250685604a" prot="public" virt="non-virtual"><scope>hyrise::access::ScriptOperation</scope><name>addDoneObserver</name></member>
+      <member refid="class___plan_operation_1a30a3617644b8912495249dc06f610da0" prot="public" virt="non-virtual"><scope>hyrise::access::ScriptOperation</scope><name>addField</name></member>
+      <member refid="class___plan_operation_1af425b074061007a58921dadb619beabc" prot="public" virt="non-virtual"><scope>hyrise::access::ScriptOperation</scope><name>addField</name></member>
+      <member refid="class___plan_operation_1ac403c092d541701bb38389ba19ae60e9" prot="public" virt="non-virtual"><scope>hyrise::access::ScriptOperation</scope><name>addInput</name></member>
+      <member refid="class___plan_operation_1af50e7e668650340fe69bfeda5482cdd7" prot="public" virt="non-virtual"><scope>hyrise::access::ScriptOperation</scope><name>addInput</name></member>
+      <member refid="class___plan_operation_1a0fd39768a0dce4f920c8cdab7c91aea3" prot="public" virt="non-virtual"><scope>hyrise::access::ScriptOperation</scope><name>addInput</name></member>
+      <member refid="class___plan_operation_1afd25e43e568c339af441bb704639eea9" prot="public" virt="non-virtual"><scope>hyrise::access::ScriptOperation</scope><name>addInputHash</name></member>
+      <member refid="class___plan_operation_1abeef31eca3f3a224fcb56dd5a6645107" prot="public" virt="non-virtual"><scope>hyrise::access::ScriptOperation</scope><name>addNamedField</name></member>
+      <member refid="class_task_1a9726ca1f4c6712a3516cb05121479f25" prot="public" virt="non-virtual"><scope>hyrise::access::ScriptOperation</scope><name>addReadyObserver</name></member>
+      <member refid="class___plan_operation_1aa6fad4a2bf49850d1947ab2d8c2f9931" prot="protected" virt="non-virtual"><scope>hyrise::access::ScriptOperation</scope><name>addResult</name></member>
+      <member refid="class___plan_operation_1ab7123ccb3703ca24de2b9a69a3f5b387" prot="protected" virt="non-virtual"><scope>hyrise::access::ScriptOperation</scope><name>addResultHash</name></member>
+      <member refid="class___plan_operation_1a84ed020376c414c95797858f12133f96" prot="protected" virt="non-virtual"><scope>hyrise::access::ScriptOperation</scope><name>allDependenciesSuccessful</name></member>
+      <member refid="class___plan_operation_1a6a5a5c229439bfdfc68c8b301a6376cc" prot="protected" virt="virtual"><scope>hyrise::access::ScriptOperation</scope><name>computeDeferredIndexes</name></member>
+      <member refid="class___plan_operation_1afd4c1eff49ceadab8a2f3016704628e9" prot="protected" virt="non-virtual"><scope>hyrise::access::ScriptOperation</scope><name>container_list</name></member>
+      <member refid="class___plan_operation_1a08c05ed6e130546cdcd5ba24b0cb9422" prot="protected" virt="non-virtual"><scope>hyrise::access::ScriptOperation</scope><name>distribute</name></member>
+      <member refid="class___plan_operation_1a1436548eb8885b1602e7f1960143892d" prot="public" virt="non-virtual"><scope>hyrise::access::ScriptOperation</scope><name>execute</name></member>
+      <member refid="classhyrise_1_1access_1_1_script_operation_1aff8cc8a610fb4e44f643bdd6bec7073d" prot="public" virt="virtual"><scope>hyrise::access::ScriptOperation</scope><name>executePlanOperation</name></member>
+      <member refid="class___plan_operation_1ac5c36f7961eb206f6de68d88a35e9423" prot="protected" virt="non-virtual"><scope>hyrise::access::ScriptOperation</scope><name>findColumn</name></member>
+      <member refid="class_task_1a75f0a4940cdd338c2ba538200bfcdddf" prot="public" virt="non-virtual"><scope>hyrise::access::ScriptOperation</scope><name>getDependencyCount</name></member>
+      <member refid="class___plan_operation_1abe0fe0f9b3eca729443dc27a898b530d" prot="protected" virt="non-virtual"><scope>hyrise::access::ScriptOperation</scope><name>getDependencyErrorMessages</name></member>
+      <member refid="class_output_task_1a30a12c8e502fdace15f8ae1434e63270" prot="public" virt="non-virtual"><scope>hyrise::access::ScriptOperation</scope><name>getErrorMessage</name></member>
+      <member refid="class_output_task_1a68a2fb3c67f6a32f7b2a9039185ed0f5" prot="public" virt="non-virtual"><scope>hyrise::access::ScriptOperation</scope><name>getEvent</name></member>
+      <member refid="class___plan_operation_1a2866bb8fee8631bbac52c5d48a66f5d9" prot="public" virt="non-virtual"><scope>hyrise::access::ScriptOperation</scope><name>getInputHashTable</name></member>
+      <member refid="class___plan_operation_1acb39b2c0280f5f81f337c106d2485c26" prot="public" virt="non-virtual"><scope>hyrise::access::ScriptOperation</scope><name>getInputTable</name></member>
+      <member refid="class_output_task_1a1814dc0b9d7c5b51fe5f88bcc0f87b2e" prot="public" virt="non-virtual"><scope>hyrise::access::ScriptOperation</scope><name>getPerformanceData</name></member>
+      <member refid="class_task_1a4a3f6f336369d8e2d6a92fae0690c143" prot="public" virt="non-virtual"><scope>hyrise::access::ScriptOperation</scope><name>getPreferredCore</name></member>
+      <member refid="class_task_1a1a5953e7f9dfc732ce1f3d8a914439b4" prot="public" virt="virtual"><scope>hyrise::access::ScriptOperation</scope><name>getQueryDuration</name></member>
+      <member refid="class___plan_operation_1adab066601cf9434182bda9742159480d" prot="public" virt="non-virtual"><scope>hyrise::access::ScriptOperation</scope><name>getResultHashTable</name></member>
+      <member refid="class___plan_operation_1a32f4a28eede73c294834525da8aabdfa" prot="public" virt="non-virtual"><scope>hyrise::access::ScriptOperation</scope><name>getResultTable</name></member>
+      <member refid="class_output_task_1ac42c2ba54d18dd826a74db6664931ccc" prot="public" virt="non-virtual"><scope>hyrise::access::ScriptOperation</scope><name>getState</name></member>
+      <member refid="class_task_1a769a8fb688ddaed2870faeea61d84ca0" prot="public" virt="non-virtual"><scope>hyrise::access::ScriptOperation</scope><name>hasSuccessors</name></member>
+      <member refid="class___plan_operation_1a12e425b31715103245faeb2bb7b8b8b8" prot="protected" virt="non-virtual"><scope>hyrise::access::ScriptOperation</scope><name>input</name></member>
+      <member refid="class_task_1ab7307de77d5baf3dfec0269996d81543" prot="public" virt="non-virtual"><scope>hyrise::access::ScriptOperation</scope><name>isReady</name></member>
+      <member refid="class_task_1aeb0d741352700686296e742bc21e4362" prot="public" virt="non-virtual"><scope>hyrise::access::ScriptOperation</scope><name>lockForNotifications</name></member>
+      <member refid="class_task_1aa729cd30e7135f2851dd625679aa8556" prot="public" virt="virtual"><scope>hyrise::access::ScriptOperation</scope><name>notifyDone</name></member>
+      <member refid="class_task_1a82157fda3766f4331966baf74e8206fa" prot="public" virt="non-virtual"><scope>hyrise::access::ScriptOperation</scope><name>notifyDoneObservers</name></member>
+      <member refid="class_task_1a793f3db3f39a9ea7352078f235ee7843" prot="public" virt="non-virtual"><scope>hyrise::access::ScriptOperation</scope><name>notifyReadyObservers</name></member>
+      <member refid="class___plan_operation_1a6c54c54b895e36405b2c9a741bf9c6e2" prot="public" virt="virtual"><scope>hyrise::access::ScriptOperation</scope><name>operator()</name></member>
+      <member refid="class___plan_operation_1a407e061ef25b0ce402c02889f14f9475" prot="protected" virt="non-virtual"><scope>hyrise::access::ScriptOperation</scope><name>output</name></member>
+      <member refid="class_output_task_1a97005fefa5ad10a2fa465851c66003aa" prot="public" virt="non-virtual"><scope>hyrise::access::ScriptOperation</scope><name>OutputTask</name></member>
+      <member refid="classhyrise_1_1access_1_1_script_operation_1af0211afbdc3d6fe4c5fb878f83827cc7" prot="public" virt="non-virtual"><scope>hyrise::access::ScriptOperation</scope><name>parse</name></member>
+      <member refid="class_output_task_1a23221020b56a6ec2748980118e1d9d0f" prot="public" virt="non-virtual"><scope>hyrise::access::ScriptOperation</scope><name>performance_vector</name></member>
+      <member refid="class___plan_operation_1a6be9662a136359b31e819f2f5abfc9af" prot="public" virt="non-virtual"><scope>hyrise::access::ScriptOperation</scope><name>planOperationName</name></member>
+      <member refid="class___plan_operation_1a77bc4ab6926bfefd6b4550239ea0ed33" prot="protected" virt="non-virtual"><scope>hyrise::access::ScriptOperation</scope><name>producesPositions</name></member>
+      <member refid="class___plan_operation_1af2e8cdb76b25db935130736ddad6f2da" prot="protected" virt="virtual"><scope>hyrise::access::ScriptOperation</scope><name>refreshInput</name></member>
+      <member refid="classhyrise_1_1access_1_1_script_operation_1a61780f10631efbbe8fadd2297f7fd249" prot="public" virt="non-virtual"><scope>hyrise::access::ScriptOperation</scope><name>ScriptOperation</name></member>
+      <member refid="class___plan_operation_1a13118f7cfb71feda982a74638a7837e5" prot="public" virt="non-virtual"><scope>hyrise::access::ScriptOperation</scope><name>setCount</name></member>
+      <member refid="class_output_task_1aba6bee898300f3069d3f64bb333c6d4a" prot="public" virt="non-virtual"><scope>hyrise::access::ScriptOperation</scope><name>setErrorMessage</name></member>
+      <member refid="class_output_task_1a677ba21e5aacaced950d3939c1c609b6" prot="public" virt="non-virtual"><scope>hyrise::access::ScriptOperation</scope><name>setEvent</name></member>
+      <member refid="class___plan_operation_1aee400d6b4e72326a1edef6f55ceebb31" prot="public" virt="non-virtual"><scope>hyrise::access::ScriptOperation</scope><name>setFields</name></member>
+      <member refid="class___plan_operation_1aa350fbfedb0c6fd9175700d4b8b302ae" prot="public" virt="non-virtual"><scope>hyrise::access::ScriptOperation</scope><name>setLimit</name></member>
+      <member refid="class___plan_operation_1a1be25f6cd68a52e6d739271d27705854" prot="public" virt="non-virtual"><scope>hyrise::access::ScriptOperation</scope><name>setOperatorId</name></member>
+      <member refid="class___plan_operation_1a7e5670b235f78c8cccfda506bdbe858b" prot="public" virt="non-virtual"><scope>hyrise::access::ScriptOperation</scope><name>setPart</name></member>
+      <member refid="class_output_task_1a85de7c1cf957e63f2bd1e82516679fec" prot="public" virt="non-virtual"><scope>hyrise::access::ScriptOperation</scope><name>setPerformanceData</name></member>
+      <member refid="class___plan_operation_1af4c41d3cffcc65b716accc87aeb9e203" prot="public" virt="non-virtual"><scope>hyrise::access::ScriptOperation</scope><name>setPlanId</name></member>
+      <member refid="class___plan_operation_1a59f927351ea3450515c0e78c6a909a72" prot="public" virt="non-virtual"><scope>hyrise::access::ScriptOperation</scope><name>setPlanOperationName</name></member>
+      <member refid="class_task_1a1b8e520f60e9f41a3c1331e4e9e4b3ca" prot="public" virt="non-virtual"><scope>hyrise::access::ScriptOperation</scope><name>setPreferredCore</name></member>
+      <member refid="class___plan_operation_1a9dc36552379146945a30d719041a9633" prot="public" virt="non-virtual"><scope>hyrise::access::ScriptOperation</scope><name>setProducesPositions</name></member>
+      <member refid="classhyrise_1_1access_1_1_script_operation_1a0bd21d0ecd514b0b0acc78af382de405" prot="public" virt="non-virtual"><scope>hyrise::access::ScriptOperation</scope><name>setScriptName</name></member>
+      <member refid="class_output_task_1a010e04ee2e3e5e04a61f6e63a8cd75e9" prot="public" virt="non-virtual"><scope>hyrise::access::ScriptOperation</scope><name>setState</name></member>
+      <member refid="class___plan_operation_1ae3d3d19a258a3b610421bf65400a702e" prot="public" virt="non-virtual"><scope>hyrise::access::ScriptOperation</scope><name>setTransactionId</name></member>
+      <member refid="class___plan_operation_1a43dc116b72ab5e10d6ccbf2b8c05fd89" prot="protected" virt="virtual"><scope>hyrise::access::ScriptOperation</scope><name>setupPlanOperation</name></member>
+      <member refid="class___plan_operation_1afdf0ad34a8592a055c53c611d11ef6b6" prot="protected" virt="virtual"><scope>hyrise::access::ScriptOperation</scope><name>splitInput</name></member>
+      <member refid="class_task_1a0ca53354bdc006762a0fda68c64f7608" prot="public" virt="non-virtual"><scope>hyrise::access::ScriptOperation</scope><name>Task</name></member>
+      <member refid="class___plan_operation_1a258c353a64fa26187d13363b97c6e341" prot="protected" virt="virtual"><scope>hyrise::access::ScriptOperation</scope><name>teardownPlanOperation</name></member>
+      <member refid="class_task_1a35af9de734c94c39981a2b199790e288" prot="public" virt="non-virtual"><scope>hyrise::access::ScriptOperation</scope><name>unlockForNotifications</name></member>
+      <member refid="class___plan_operation_1a97ddcea42846545e269358cc97d05a54" prot="public" virt="virtual"><scope>hyrise::access::ScriptOperation</scope><name>vname</name></member>
+      <member refid="class___plan_operation_1ae63172ffde1a0e38b458de3aac06c837" prot="public" virt="virtual"><scope>hyrise::access::ScriptOperation</scope><name>~_PlanOperation</name></member>
+      <member refid="class_output_task_1a52238f97363ee5f7a9f837722cf4cd50" prot="public" virt="virtual"><scope>hyrise::access::ScriptOperation</scope><name>~OutputTask</name></member>
+      <member refid="class_task_1a7bff79cc05fa4511c72048d33591503b" prot="public" virt="virtual"><scope>hyrise::access::ScriptOperation</scope><name>~Task</name></member>
+      <member refid="class_task_done_observer_1a9b5fa53c4893dfc998aedca72b8dd278" prot="public" virt="virtual"><scope>hyrise::access::ScriptOperation</scope><name>~TaskDoneObserver</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

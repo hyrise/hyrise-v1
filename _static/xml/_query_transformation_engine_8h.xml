@@ -1,0 +1,856 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="_query_transformation_engine_8h" kind="file">
+    <compoundname>QueryTransformationEngine.h</compoundname>
+    <includes local="no">sstream</includes>
+    <includes local="no">iostream</includes>
+    <includes local="no">string</includes>
+    <includes local="no">vector</includes>
+    <includes local="no">json.h</includes>
+    <includes local="no">memory</includes>
+    <includes refid="_abstract_plan_op_transformation_8h" local="yes">access/AbstractPlanOpTransformation.h</includes>
+    <includedby refid="_query_transformation_engine_8cpp" local="yes">src/lib/access/QueryTransformationEngine.cpp</includedby>
+    <includedby refid="_radix_join_transformation_8cpp" local="yes">src/lib/access/RadixJoinTransformation.cpp</includedby>
+    <includedby refid="_request_parse_task_8cpp" local="yes">src/lib/access/RequestParseTask.cpp</includedby>
+    <includedby refid="access_8h" local="no">src/lib/access.h</includedby>
+    <incdepgraph>
+      <node id="10292">
+        <label>list</label>
+      </node>
+      <node id="10263">
+        <label>boost/mpl/vector.hpp</label>
+      </node>
+      <node id="10275">
+        <label>queue</label>
+      </node>
+      <node id="10259">
+        <label>limits</label>
+      </node>
+      <node id="10310">
+        <label>boost/functional/hash.hpp</label>
+      </node>
+      <node id="10287">
+        <label>assert.h</label>
+      </node>
+      <node id="10265">
+        <label>boost/lexical_cast.hpp</label>
+      </node>
+      <node id="10302">
+        <label>boost/iterator/iterator_facade.hpp</label>
+      </node>
+      <node id="10258">
+        <label>cstdint</label>
+      </node>
+      <node id="10299">
+        <label>storage/BaseDictionary.h</label>
+        <link refid="_base_dictionary_8h"/>
+        <childnode refid="10260" relation="include">
+        </childnode>
+        <childnode refid="10288" relation="include">
+        </childnode>
+        <childnode refid="10300" relation="include">
+        </childnode>
+      </node>
+      <node id="10248">
+        <label>stdint.h</label>
+      </node>
+      <node id="10298">
+        <label>stdlib.h</label>
+      </node>
+      <node id="10296">
+        <label>errno.h</label>
+      </node>
+      <node id="10252">
+        <label>helper/epoch.h</label>
+        <link refid="epoch_8h"/>
+        <childnode refid="10248" relation="include">
+        </childnode>
+      </node>
+      <node id="10261">
+        <label>stdexcept</label>
+      </node>
+      <node id="10272">
+        <label>helper/HwlocHelper.h</label>
+        <link refid="_hwloc_helper_8h"/>
+        <childnode refid="10273" relation="include">
+        </childnode>
+      </node>
+      <node id="10240">
+        <label>string</label>
+      </node>
+      <node id="10237">
+        <label>src/lib/access/QueryTransformationEngine.h</label>
+        <link refid="QueryTransformationEngine.h"/>
+        <childnode refid="10238" relation="include">
+        </childnode>
+        <childnode refid="10239" relation="include">
+        </childnode>
+        <childnode refid="10240" relation="include">
+        </childnode>
+        <childnode refid="10241" relation="include">
+        </childnode>
+        <childnode refid="10242" relation="include">
+        </childnode>
+        <childnode refid="10243" relation="include">
+        </childnode>
+        <childnode refid="10244" relation="include">
+        </childnode>
+      </node>
+      <node id="10267">
+        <label>taskscheduler.h</label>
+        <link refid="taskscheduler_8h"/>
+        <childnode refid="10268" relation="include">
+        </childnode>
+        <childnode refid="10274" relation="include">
+        </childnode>
+        <childnode refid="10277" relation="include">
+        </childnode>
+        <childnode refid="10253" relation="include">
+        </childnode>
+        <childnode refid="10276" relation="include">
+        </childnode>
+        <childnode refid="10269" relation="include">
+        </childnode>
+        <childnode refid="10278" relation="include">
+        </childnode>
+        <childnode refid="10279" relation="include">
+        </childnode>
+      </node>
+      <node id="10274">
+        <label>taskscheduler/SimpleTaskScheduler.h</label>
+        <link refid="_simple_task_scheduler_8h"/>
+        <childnode refid="10268" relation="include">
+        </childnode>
+        <childnode refid="10271" relation="include">
+        </childnode>
+        <childnode refid="10241" relation="include">
+        </childnode>
+        <childnode refid="10275" relation="include">
+        </childnode>
+        <childnode refid="10254" relation="include">
+        </childnode>
+        <childnode refid="10247" relation="include">
+        </childnode>
+        <childnode refid="10253" relation="include">
+        </childnode>
+        <childnode refid="10276" relation="include">
+        </childnode>
+        <childnode refid="10272" relation="include">
+        </childnode>
+      </node>
+      <node id="10250">
+        <label>map</label>
+      </node>
+      <node id="10253">
+        <label>taskscheduler/Task.h</label>
+        <link refid="_task_8h"/>
+        <childnode refid="10241" relation="include">
+        </childnode>
+        <childnode refid="10254" relation="include">
+        </childnode>
+        <childnode refid="10243" relation="include">
+        </childnode>
+        <childnode refid="10255" relation="include">
+        </childnode>
+        <childnode refid="10240" relation="include">
+        </childnode>
+      </node>
+      <node id="10271">
+        <label>unordered_set</label>
+      </node>
+      <node id="10285">
+        <label>storage/ValueIdMap.hpp</label>
+        <link refid="_value_id_map_8hpp"/>
+        <childnode refid="10286" relation="include">
+        </childnode>
+        <childnode refid="10304" relation="include">
+        </childnode>
+      </node>
+      <node id="10244">
+        <label>access/AbstractPlanOpTransformation.h</label>
+        <link refid="_abstract_plan_op_transformation_8h"/>
+        <childnode refid="10242" relation="include">
+        </childnode>
+        <childnode refid="10245" relation="include">
+        </childnode>
+      </node>
+      <node id="10295">
+        <label>memory/MemalignStrategy.h</label>
+        <link refid="_memalign_strategy_8h"/>
+        <childnode refid="10296" relation="include">
+        </childnode>
+        <childnode refid="10297" relation="include">
+        </childnode>
+        <childnode refid="10298" relation="include">
+        </childnode>
+      </node>
+      <node id="10273">
+        <label>hwloc.h</label>
+      </node>
+      <node id="10307">
+        <label>exception</label>
+      </node>
+      <node id="10246">
+        <label>access/OutputTask.h</label>
+        <link refid="_output_task_8h"/>
+        <childnode refid="10247" relation="include">
+        </childnode>
+        <childnode refid="10248" relation="include">
+        </childnode>
+        <childnode refid="10249" relation="include">
+        </childnode>
+        <childnode refid="10241" relation="include">
+        </childnode>
+        <childnode refid="10250" relation="include">
+        </childnode>
+        <childnode refid="10251" relation="include">
+        </childnode>
+        <childnode refid="10242" relation="include">
+        </childnode>
+        <childnode refid="10252" relation="include">
+        </childnode>
+        <childnode refid="10253" relation="include">
+        </childnode>
+      </node>
+      <node id="10290">
+        <label>stddef.h</label>
+      </node>
+      <node id="10276">
+        <label>taskscheduler/CoreBoundTaskQueue.h</label>
+        <link refid="_core_bound_task_queue_8h"/>
+        <childnode refid="10270" relation="include">
+        </childnode>
+        <childnode refid="10275" relation="include">
+        </childnode>
+        <childnode refid="10269" relation="include">
+        </childnode>
+      </node>
+      <node id="10304">
+        <label>storage/OrderIndifferentDictionary.h</label>
+        <link refid="_order_indifferent_dictionary_8h"/>
+        <childnode refid="10260" relation="include">
+        </childnode>
+        <childnode refid="10288" relation="include">
+        </childnode>
+        <childnode refid="10299" relation="include">
+        </childnode>
+        <childnode refid="10300" relation="include">
+        </childnode>
+        <childnode refid="10305" relation="include">
+        </childnode>
+        <childnode refid="10303" relation="include">
+        </childnode>
+        <childnode refid="10307" relation="include">
+        </childnode>
+        <childnode refid="10241" relation="include">
+        </childnode>
+        <childnode refid="10250" relation="include">
+        </childnode>
+        <childnode refid="10243" relation="include">
+        </childnode>
+        <childnode refid="10308" relation="include">
+        </childnode>
+        <childnode refid="10309" relation="include">
+        </childnode>
+        <childnode refid="10310" relation="include">
+        </childnode>
+      </node>
+      <node id="10262">
+        <label>ostream</label>
+      </node>
+      <node id="10242">
+        <label>json.h</label>
+      </node>
+      <node id="10308">
+        <label>limits.h</label>
+      </node>
+      <node id="10300">
+        <label>storage/DictionaryIterator.h</label>
+        <link refid="_dictionary_iterator_8h"/>
+        <childnode refid="10301" relation="include">
+        </childnode>
+        <childnode refid="10302" relation="include">
+        </childnode>
+      </node>
+      <node id="10288">
+        <label>storage/AbstractDictionary.h</label>
+        <link refid="_abstract_dictionary_8h"/>
+        <childnode refid="10241" relation="include">
+        </childnode>
+        <childnode refid="10240" relation="include">
+        </childnode>
+        <childnode refid="10243" relation="include">
+        </childnode>
+        <childnode refid="10289" relation="include">
+        </childnode>
+        <childnode refid="10293" relation="include">
+        </childnode>
+        <childnode refid="10295" relation="include">
+        </childnode>
+        <childnode refid="10260" relation="include">
+        </childnode>
+      </node>
+      <node id="10255">
+        <label>condition_variable</label>
+      </node>
+      <node id="10306">
+        <label>string.h</label>
+      </node>
+      <node id="10281">
+        <label>access/BasicParser.h</label>
+        <link refid="_basic_parser_8h"/>
+        <childnode refid="10261" relation="include">
+        </childnode>
+        <childnode refid="10243" relation="include">
+        </childnode>
+        <childnode refid="10242" relation="include">
+        </childnode>
+      </node>
+      <node id="10282">
+        <label>storage/AbstractTable.h</label>
+        <link refid="_abstract_table_8h"/>
+        <childnode refid="10259" relation="include">
+        </childnode>
+        <childnode refid="10243" relation="include">
+        </childnode>
+        <childnode refid="10261" relation="include">
+        </childnode>
+        <childnode refid="10241" relation="include">
+        </childnode>
+        <childnode refid="10240" relation="include">
+        </childnode>
+        <childnode refid="10257" relation="include">
+        </childnode>
+        <childnode refid="10283" relation="include">
+        </childnode>
+        <childnode refid="10260" relation="include">
+        </childnode>
+        <childnode refid="10284" relation="include">
+        </childnode>
+        <childnode refid="10285" relation="include">
+        </childnode>
+      </node>
+      <node id="10278">
+        <label>taskscheduler/WSCoreBoundTaskQueue.h</label>
+        <link refid="_w_s_core_bound_task_queue_8h"/>
+        <childnode refid="10269" relation="include">
+        </childnode>
+        <childnode refid="10279" relation="include">
+        </childnode>
+      </node>
+      <node id="10283">
+        <label>storage/AbstractResource.h</label>
+        <link refid="_abstract_resource_8h"/>
+      </node>
+      <node id="10309">
+        <label>boost/unordered_map.hpp</label>
+      </node>
+      <node id="10241">
+        <label>vector</label>
+      </node>
+      <node id="10277">
+        <label>taskscheduler/SharedScheduler.h</label>
+        <link refid="_shared_scheduler_8h"/>
+        <childnode refid="10268" relation="include">
+        </childnode>
+        <childnode refid="10274" relation="include">
+        </childnode>
+        <childnode refid="10276" relation="include">
+        </childnode>
+        <childnode refid="10261" relation="include">
+        </childnode>
+      </node>
+      <node id="10251">
+        <label>utility</label>
+      </node>
+      <node id="10257">
+        <label>helper/types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="10258" relation="include">
+        </childnode>
+        <childnode refid="10240" relation="include">
+        </childnode>
+        <childnode refid="10259" relation="include">
+        </childnode>
+        <childnode refid="10243" relation="include">
+        </childnode>
+        <childnode refid="10241" relation="include">
+        </childnode>
+      </node>
+      <node id="10269">
+        <label>taskscheduler/AbstractTaskQueue.h</label>
+        <link refid="_abstract_task_queue_8h"/>
+        <childnode refid="10243" relation="include">
+        </childnode>
+        <childnode refid="10254" relation="include">
+        </childnode>
+        <childnode refid="10270" relation="include">
+        </childnode>
+        <childnode refid="10255" relation="include">
+        </childnode>
+        <childnode refid="10247" relation="include">
+        </childnode>
+        <childnode refid="10253" relation="include">
+        </childnode>
+      </node>
+      <node id="10238">
+        <label>sstream</label>
+      </node>
+      <node id="10301">
+        <label>storage/BaseIterator.h</label>
+        <link refid="_base_iterator_8h"/>
+      </node>
+      <node id="10289">
+        <label>memory/StrategizedAllocator.h</label>
+        <link refid="_strategized_allocator_8h"/>
+        <childnode refid="10290" relation="include">
+        </childnode>
+        <childnode refid="10291" relation="include">
+        </childnode>
+        <childnode refid="10292" relation="include">
+        </childnode>
+        <childnode refid="10261" relation="include">
+        </childnode>
+      </node>
+      <node id="10266">
+        <label>access/QueryParser.h</label>
+        <link refid="_query_parser_8h"/>
+        <childnode refid="10250" relation="include">
+        </childnode>
+        <childnode refid="10243" relation="include">
+        </childnode>
+        <childnode refid="10241" relation="include">
+        </childnode>
+        <childnode refid="10240" relation="include">
+        </childnode>
+        <childnode refid="10261" relation="include">
+        </childnode>
+        <childnode refid="10242" relation="include">
+        </childnode>
+        <childnode refid="10267" relation="include">
+        </childnode>
+        <childnode refid="10281" relation="include">
+        </childnode>
+      </node>
+      <node id="10256">
+        <label>access/OperationData.h</label>
+        <link refid="_operation_data_8h"/>
+        <childnode refid="10241" relation="include">
+        </childnode>
+        <childnode refid="10257" relation="include">
+        </childnode>
+        <childnode refid="10260" relation="include">
+        </childnode>
+      </node>
+      <node id="10249">
+        <label>time.h</label>
+      </node>
+      <node id="10239">
+        <label>iostream</label>
+      </node>
+      <node id="10284">
+        <label>storage/ColumnMetadata.h</label>
+        <link refid="_column_metadata_8h"/>
+        <childnode refid="10260" relation="include">
+        </childnode>
+        <childnode refid="10240" relation="include">
+        </childnode>
+        <childnode refid="10261" relation="include">
+        </childnode>
+      </node>
+      <node id="10268">
+        <label>taskscheduler/AbstractTaskScheduler.h</label>
+        <link refid="_abstract_task_scheduler_8h"/>
+        <childnode refid="10253" relation="include">
+        </childnode>
+        <childnode refid="10269" relation="include">
+        </childnode>
+        <childnode refid="10243" relation="include">
+        </childnode>
+        <childnode refid="10271" relation="include">
+        </childnode>
+        <childnode refid="10239" relation="include">
+        </childnode>
+        <childnode refid="10247" relation="include">
+        </childnode>
+        <childnode refid="10272" relation="include">
+        </childnode>
+      </node>
+      <node id="10280">
+        <label>deque</label>
+      </node>
+      <node id="10264">
+        <label>boost/mpl/map.hpp</label>
+      </node>
+      <node id="10279">
+        <label>taskscheduler/WSSimpleTaskScheduler.h</label>
+        <link refid="_w_s_simple_task_scheduler_8h"/>
+        <childnode refid="10268" relation="include">
+        </childnode>
+        <childnode refid="10278" relation="include">
+        </childnode>
+        <childnode refid="10280" relation="include">
+        </childnode>
+        <childnode refid="10239" relation="include">
+        </childnode>
+        <childnode refid="10272" relation="include">
+        </childnode>
+      </node>
+      <node id="10254">
+        <label>mutex</label>
+      </node>
+      <node id="10303">
+        <label>storage/AbstractAllocatedDictionary.h</label>
+        <link refid="_abstract_allocated_dictionary_8h"/>
+      </node>
+      <node id="10270">
+        <label>thread</label>
+      </node>
+      <node id="10293">
+        <label>memory/MallocStrategy.h</label>
+        <link refid="_malloc_strategy_8h"/>
+        <childnode refid="10239" relation="include">
+        </childnode>
+        <childnode refid="10258" relation="include">
+        </childnode>
+        <childnode refid="10294" relation="include">
+        </childnode>
+      </node>
+      <node id="10286">
+        <label>storage/OrderPreservingDictionary.h</label>
+        <link refid="_order_preserving_dictionary_8h"/>
+        <childnode refid="10287" relation="include">
+        </childnode>
+        <childnode refid="10239" relation="include">
+        </childnode>
+        <childnode refid="10243" relation="include">
+        </childnode>
+        <childnode refid="10260" relation="include">
+        </childnode>
+        <childnode refid="10288" relation="include">
+        </childnode>
+        <childnode refid="10299" relation="include">
+        </childnode>
+        <childnode refid="10300" relation="include">
+        </childnode>
+        <childnode refid="10303" relation="include">
+        </childnode>
+        <childnode refid="10301" relation="include">
+        </childnode>
+      </node>
+      <node id="10245">
+        <label>access/PlanOperation.h</label>
+        <link refid="_plan_operation_8h"/>
+        <childnode refid="10246" relation="include">
+        </childnode>
+        <childnode refid="10256" relation="include">
+        </childnode>
+        <childnode refid="10266" relation="include">
+        </childnode>
+        <childnode refid="10260" relation="include">
+        </childnode>
+        <childnode refid="10257" relation="include">
+        </childnode>
+        <childnode refid="10282" relation="include">
+        </childnode>
+        <childnode refid="10242" relation="include">
+        </childnode>
+      </node>
+      <node id="10291">
+        <label>algorithm</label>
+      </node>
+      <node id="10247">
+        <label>log4cxx/logger.h</label>
+      </node>
+      <node id="10297">
+        <label>stdio.h</label>
+      </node>
+      <node id="10294">
+        <label>cstring</label>
+      </node>
+      <node id="10305">
+        <label>storage/csb_tree.h</label>
+        <link refid="csb__tree_8h"/>
+        <childnode refid="10241" relation="include">
+        </childnode>
+        <childnode refid="10239" relation="include">
+        </childnode>
+        <childnode refid="10292" relation="include">
+        </childnode>
+        <childnode refid="10243" relation="include">
+        </childnode>
+        <childnode refid="10306" relation="include">
+        </childnode>
+        <childnode refid="10287" relation="include">
+        </childnode>
+        <childnode refid="10302" relation="include">
+        </childnode>
+      </node>
+      <node id="10243">
+        <label>memory</label>
+      </node>
+      <node id="10260">
+        <label>storage/storage_types.h</label>
+        <link refid="storage__types_8h"/>
+        <childnode refid="10241" relation="include">
+        </childnode>
+        <childnode refid="10240" relation="include">
+        </childnode>
+        <childnode refid="10261" relation="include">
+        </childnode>
+        <childnode refid="10248" relation="include">
+        </childnode>
+        <childnode refid="10262" relation="include">
+        </childnode>
+        <childnode refid="10263" relation="include">
+        </childnode>
+        <childnode refid="10264" relation="include">
+        </childnode>
+        <childnode refid="10265" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="10323">
+        <label>src/bin/perf_regression/UnionScan.cpp</label>
+        <link refid="bin_2perf__regression_2_union_scan_8cpp"/>
+      </node>
+      <node id="10313">
+        <label>src/lib/access/RadixJoinTransformation.cpp</label>
+        <link refid="_radix_join_transformation_8cpp"/>
+      </node>
+      <node id="10311">
+        <label>src/lib/access/QueryTransformationEngine.h</label>
+        <link refid="QueryTransformationEngine.h"/>
+        <childnode refid="10312" relation="include">
+        </childnode>
+        <childnode refid="10313" relation="include">
+        </childnode>
+        <childnode refid="10314" relation="include">
+        </childnode>
+        <childnode refid="10315" relation="include">
+        </childnode>
+      </node>
+      <node id="10319">
+        <label>src/bin/perf_regression/JoinScan.cpp</label>
+        <link refid="bin_2perf__regression_2_join_scan_8cpp"/>
+      </node>
+      <node id="10322">
+        <label>src/bin/perf_regression/SortScan.cpp</label>
+        <link refid="bin_2perf__regression_2_sort_scan_8cpp"/>
+      </node>
+      <node id="10316">
+        <label>src/bin/perf_regression/GroupByScan.cpp</label>
+        <link refid="bin_2perf__regression_2_group_by_scan_8cpp"/>
+      </node>
+      <node id="10320">
+        <label>src/bin/perf_regression/ProjectionScan.cpp</label>
+        <link refid="bin_2perf__regression_2_projection_scan_8cpp"/>
+      </node>
+      <node id="10317">
+        <label>src/bin/perf_regression/HashJoin.cpp</label>
+        <link refid="_hash_join_8cpp"/>
+      </node>
+      <node id="10318">
+        <label>src/bin/perf_regression/HashValueJoin.cpp</label>
+        <link refid="_hash_value_join_8cpp"/>
+      </node>
+      <node id="10315">
+        <label>src/lib/access.h</label>
+        <link refid="access_8h"/>
+        <childnode refid="10316" relation="include">
+        </childnode>
+        <childnode refid="10317" relation="include">
+        </childnode>
+        <childnode refid="10318" relation="include">
+        </childnode>
+        <childnode refid="10319" relation="include">
+        </childnode>
+        <childnode refid="10320" relation="include">
+        </childnode>
+        <childnode refid="10321" relation="include">
+        </childnode>
+        <childnode refid="10322" relation="include">
+        </childnode>
+        <childnode refid="10323" relation="include">
+        </childnode>
+      </node>
+      <node id="10312">
+        <label>src/lib/access/QueryTransformationEngine.cpp</label>
+        <link refid="_query_transformation_engine_8cpp"/>
+      </node>
+      <node id="10321">
+        <label>src/bin/perf_regression/SimpleTableScan.cpp</label>
+        <link refid="bin_2perf__regression_2_simple_table_scan_8cpp"/>
+      </node>
+      <node id="10314">
+        <label>src/lib/access/RequestParseTask.cpp</label>
+        <link refid="_request_parse_task_8cpp"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="class_query_transformation_engine" prot="public">QueryTransformationEngine</innerclass>
+    <innernamespace refid="namespacehyrise">hyrise</innernamespace>
+    <innernamespace refid="namespacehyrise_1_1access">hyrise::access</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>2012<sp/>Hasso-Plattner-Institut<sp/>fuer<sp/>Softwaresystemtechnik<sp/>GmbH.<sp/>All<sp/>rights<sp/>reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SRC_LIB_ACCESS_QUERYTRANSFORMATIONENGINE_H_</highlight></codeline>
+<codeline lineno="3"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SRC_LIB_ACCESS_QUERYTRANSFORMATIONENGINE_H_</highlight></codeline>
+<codeline lineno="4"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;sstream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;iostream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;vector&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;json.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;memory&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_abstract_plan_op_transformation_8h" kindref="compound">access/AbstractPlanOpTransformation.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">hyrise<sp/>{</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">access<sp/>{</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">JSONTests_operator_replacement_Test;</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">JSONTests_apply_operator_parallelization_Test;</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">JSONTests_append_instances_nodes_Test;</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">JSONTests_append_union_node_Test;</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">JSONTests_append_merge_node_Test;</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">JSONTests_remove_operator_nodes_Test;</highlight></codeline>
+<codeline lineno="21"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="22"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight></codeline>
+<codeline lineno="24" refid="class_query_transformation_engine" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_query_transformation_engine" kindref="compound">QueryTransformationEngine</ref><sp/>{</highlight></codeline>
+<codeline lineno="25" refid="class_query_transformation_engine_1a0495ccba61f13d86fb37f9d14844115d" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">friend</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_query_transformation_engine_1a0495ccba61f13d86fb37f9d14844115d" kindref="member">hyrise::access::JSONTests_operator_replacement_Test</ref>;</highlight></codeline>
+<codeline lineno="26" refid="class_query_transformation_engine_1a018ddfb15914c4b1631f810e6dd68f19" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">friend</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_query_transformation_engine_1a018ddfb15914c4b1631f810e6dd68f19" kindref="member">hyrise::access::JSONTests_apply_operator_parallelization_Test</ref>;</highlight></codeline>
+<codeline lineno="27" refid="class_query_transformation_engine_1abe471e366f30423da28aff135aac6704" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">friend</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_query_transformation_engine_1abe471e366f30423da28aff135aac6704" kindref="member">hyrise::access::JSONTests_append_instances_nodes_Test</ref>;</highlight></codeline>
+<codeline lineno="28" refid="class_query_transformation_engine_1a6ab747778bfd66f50a65e42e4a0c45bf" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">friend</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_query_transformation_engine_1a6ab747778bfd66f50a65e42e4a0c45bf" kindref="member">hyrise::access::JSONTests_append_union_node_Test</ref>;</highlight></codeline>
+<codeline lineno="29" refid="class_query_transformation_engine_1aa640e507ee8f8f8178667c329a50aade" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">friend</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_query_transformation_engine_1aa640e507ee8f8f8178667c329a50aade" kindref="member">hyrise::access::JSONTests_append_merge_node_Test</ref>;</highlight></codeline>
+<codeline lineno="30" refid="class_query_transformation_engine_1a4320bc2c488c0c7a80faa9a5c5076fbe" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">friend</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_query_transformation_engine_1a4320bc2c488c0c7a80faa9a5c5076fbe" kindref="member">hyrise::access::JSONTests_remove_operator_nodes_Test</ref>;</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/>List<sp/>of<sp/>affixes<sp/>for<sp/>IDs<sp/>of<sp/>new<sp/>or<sp/>transformed<sp/>operators.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33" refid="class_query_transformation_engine_1a06f93b68c2cf85251845678bba654fb3" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/><ref refid="class_query_transformation_engine_1a06f93b68c2cf85251845678bba654fb3" kindref="member">parallelInstanceInfix</ref>;</highlight></codeline>
+<codeline lineno="34" refid="class_query_transformation_engine_1a997a988e95e26d8430ca529cb8f5b5c7" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/><ref refid="class_query_transformation_engine_1a997a988e95e26d8430ca529cb8f5b5c7" kindref="member">unionSuffix</ref>;</highlight></codeline>
+<codeline lineno="35" refid="class_query_transformation_engine_1ac18716b59ae770aaa55668f099c3522f" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/><ref refid="class_query_transformation_engine_1ac18716b59ae770aaa55668f099c3522f" kindref="member">mergeSuffix</ref>;</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38" refid="class_query_transformation_engine_1a84f51250390a7e2d56f1a22ef38cd8b6" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>std::map&lt;<sp/>std::string,<sp/>hyrise::access::AbstractPlanOpTransformation<sp/>*<sp/>&gt;<sp/><ref refid="class_query_transformation_engine_1a84f51250390a7e2d56f1a22ef38cd8b6" kindref="member">factory_map_t</ref>;</highlight></codeline>
+<codeline lineno="39" refid="class_query_transformation_engine_1ae37ab69d4396a72316b1833b4c089994" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="class_query_transformation_engine_1a84f51250390a7e2d56f1a22ef38cd8b6" kindref="member">factory_map_t</ref><sp/><ref refid="class_query_transformation_engine_1ae37ab69d4396a72316b1833b4c089994" kindref="member">_factory</ref>;</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41" refid="class_query_transformation_engine_1aad03791eceff8af592eab27a597f8ae0" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="class_query_transformation_engine_1aad03791eceff8af592eab27a597f8ae0" kindref="member">QueryTransformationEngine</ref>()<sp/>{}</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/>Parallelizes<sp/>query&apos;s<sp/>operators,<sp/>if<sp/>specified.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_query_transformation_engine_1a03e1ab21f737505ac6e826935877daaa" kindref="member">parallelizeOperators</ref>(Json::Value<sp/>&amp;query)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*<sp/><sp/>Checks<sp/>if<sp/>given<sp/>operator<sp/>of<sp/>given<sp/>configuration<sp/>is<sp/>meant<sp/>to<sp/>be<sp/>executed</highlight></codeline>
+<codeline lineno="47"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/>in<sp/>parallel.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="class_query_transformation_engine_1ae5db298b55fd43698030c957d8ce8406" kindref="member">requestsParallelization</ref>(Json::Value<sp/>&amp;operatorConfiguration)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/>The<sp/>operator<sp/>will<sp/>be<sp/>replaced<sp/>by<sp/>its<sp/>parallel<sp/>instances<sp/>in<sp/>the<sp/>json<sp/>query.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_query_transformation_engine_1a4d40bab395e39758f5ff4348bd90cf1f" kindref="member">applyParallelizationTo</ref>(</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>Json::Value<sp/>&amp;operatorConfiguration,</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;operatorId,</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>Json::Value<sp/>&amp;query)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/>Builds<sp/>an<sp/>operators<sp/>parallel<sp/>instances<sp/>to<sp/>arrange<sp/>them<sp/>in<sp/>the<sp/>query.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/>std::vector&lt;std::string&gt;<sp/>*<ref refid="class_query_transformation_engine_1a76b3b66c05eeb29124e80761f8596fb2" kindref="member">buildInstances</ref>(</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>Json::Value<sp/>&amp;query,</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>Json::Value<sp/>&amp;operatorConfiguration,</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;operatorId,</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;unionOperatorId)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*<sp/><sp/>Constructs<sp/>the<sp/>next<sp/>instance&apos;s<sp/>configuration<sp/>for<sp/>parallel<sp/>execution<sp/>of<sp/>a</highlight></codeline>
+<codeline lineno="64"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/>given<sp/>operator<sp/>configuration<sp/>based<sp/>on<sp/>the<sp/>number<sp/>of<sp/>total<sp/>instances.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/>Json::Value<sp/><ref refid="class_query_transformation_engine_1abce6ffb7888eb104192130564de24a27" kindref="member">nextInstanceOf</ref>(</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>Json::Value<sp/>&amp;operatorConfiguration,</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;operatorId,</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>instanceId,</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>numberOfInstances,</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>numberOfCores)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*<sp/><sp/>Constructs<sp/>the<sp/>configuration<sp/>of<sp/>the<sp/>union<sp/>operator<sp/>merging<sp/>the<sp/>parallel</highlight></codeline>
+<codeline lineno="73"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/>instances&apos;<sp/>results.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/>Json::Value<sp/><ref refid="class_query_transformation_engine_1a08272141a9f8b6e3d76194303d6a40cc" kindref="member">unionOperator</ref>()<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/><sp/>Constructs<sp/>the<sp/>configuration<sp/>of<sp/>the<sp/>merge<sp/>operator<sp/>merging<sp/>the<sp/>parallel</highlight></codeline>
+<codeline lineno="77"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/>instances&apos;<sp/>results.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/>Json::Value<sp/><ref refid="class_query_transformation_engine_1abd35f068076e7365a791a97d139c5e4e" kindref="member">mergeOperator</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;key)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*<sp/><sp/>Modifies<sp/>the<sp/>query<sp/>plan&apos;s<sp/>edges.<sp/>The<sp/>operator<sp/>to-be-parallelized<sp/>will<sp/>be</highlight></codeline>
+<codeline lineno="81"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/>replaced<sp/>by<sp/>its<sp/>parallel<sp/>instances.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_query_transformation_engine_1acebb9b7966c8913305f1d6c3e5b7c530" kindref="member">replaceOperatorWithInstances</ref>(</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;operatorId,</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;std::string&gt;<sp/>&amp;instanceIds,</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;unionOperatorId,</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>Json::Value<sp/>&amp;query,</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>numberOfInitialEdges)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*<sp/><sp/>For<sp/>all<sp/>edges<sp/>where<sp/>the<sp/>original<sp/>operator<sp/>is<sp/>the<sp/>destination<sp/>node,</highlight></codeline>
+<codeline lineno="90"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/>append<sp/>a<sp/>similar<sp/>edge<sp/>for<sp/>each<sp/>parallel<sp/>instance.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_query_transformation_engine_1a79a67faa858974209c84c8186c582957" kindref="member">appendInstancesDstNodeEdges</ref>(</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;operatorId,</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;std::string&gt;<sp/>&amp;instanceIds,</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>Json::Value<sp/>&amp;query,</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>numberOfInitialEdges)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*<sp/><sp/>For<sp/>all<sp/>edges<sp/>where<sp/>the<sp/>original<sp/>operator<sp/>is<sp/>the<sp/>source<sp/>node,</highlight></codeline>
+<codeline lineno="98"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/>append<sp/>a<sp/>similar<sp/>edge<sp/>with<sp/>the<sp/>parallelization&apos;s<sp/>final<sp/>union</highlight></codeline>
+<codeline lineno="99"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/>operator.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_query_transformation_engine_1a8dfbe02d285576cda8904a5f62e00b45" kindref="member">appendConsolidateSrcNodeEdges</ref>(</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;operatorId,</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;std::string&gt;<sp/>&amp;instanceIds,</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;unionOperatorId,</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>Json::Value<sp/>&amp;query,</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>numberOfInitialEdges)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*<sp/><sp/>Because<sp/>there<sp/>is<sp/>no<sp/>remove<sp/>method<sp/>on<sp/>a<sp/>Json<sp/>array...</highlight></codeline>
+<codeline lineno="108"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/>Removes<sp/>edges<sp/>containing<sp/>the<sp/>original<sp/>operator.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_query_transformation_engine_1a5fd5db64ce9660c452cbaf49723ccf17" kindref="member">removeOperatorNodes</ref>(</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>Json::Value<sp/>&amp;query,</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Json::Value<sp/>&amp;operatorId)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/>Constructs<sp/>the<sp/>edge<sp/>to<sp/>append<sp/>to<sp/>query&apos;s<sp/>edges<sp/>from<sp/>given<sp/>src/dst<sp/>nodes.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_query_transformation_engine_1ad14f85550451fe715a212d0412403f47" kindref="member">appendEdge</ref>(</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;srcId,</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;dstId,</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>Json::Value<sp/>&amp;query)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/>Construct<sp/>IDs<sp/>for<sp/>several<sp/>kind<sp/>of<sp/>newly<sp/>inserted<sp/>operators.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/>std::string<sp/><ref refid="class_query_transformation_engine_1a791e37b2cb373e525dcefda555272781" kindref="member">instanceIdFor</ref>(</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>operatorId,</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>instanceId)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/>std::string<sp/><ref refid="class_query_transformation_engine_1a5113a4f3bf7eb359b863bd405fd23ba2" kindref="member">unionIdFor</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;operatorId)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/>std::string<sp/><ref refid="class_query_transformation_engine_1a9e700aec56967a01882c64fa0432089b" kindref="member">mergeIdFor</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;operatorId)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="128" refid="class_query_transformation_engine_1a9ca846be0ad36bc24524ecd6fef9bb7b" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="class_query_transformation_engine_1a9ca846be0ad36bc24524ecd6fef9bb7b" kindref="member">~QueryTransformationEngine</ref>()<sp/>{}</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
+<codeline lineno="131" refid="class_query_transformation_engine_1aedb873321addbff07bd27581fa663e7c" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="class_query_transformation_engine_1aedb873321addbff07bd27581fa663e7c" kindref="member">registerTransformation</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_query_transformation_engine_1a104a9e682591cf75fdbb2504a6e91ec4" kindref="member">QueryTransformationEngine::getInstance</ref>()-&gt;<ref refid="class_query_transformation_engine_1ae37ab69d4396a72316b1833b4c089994" kindref="member">_factory</ref>[T::name()]<sp/>=<sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/>T();</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
+<codeline lineno="137" refid="class_query_transformation_engine_1a97e6160b73114e2121af097c4bd379c3" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="class_query_transformation_engine_1a97e6160b73114e2121af097c4bd379c3" kindref="member">registerPlanOperation</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>name)<sp/>{</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_query_transformation_engine_1a104a9e682591cf75fdbb2504a6e91ec4" kindref="member">QueryTransformationEngine::getInstance</ref>()-&gt;<ref refid="class_query_transformation_engine_1ae37ab69d4396a72316b1833b4c089994" kindref="member">_factory</ref>[name]<sp/>=<sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/>T();</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*<sp/><sp/>Main<sp/>method.<sp/>Transforms<sp/>a<sp/>query<sp/>based<sp/>on<sp/>its<sp/>operators&apos;<sp/>configurations.</highlight></codeline>
+<codeline lineno="143"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/>The<sp/>resulting<sp/>query<sp/>is<sp/>meant<sp/>to<sp/>be<sp/>directly<sp/>parsable/executable.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/>Json::Value<sp/>&amp;<ref refid="class_query_transformation_engine_1a408b272bba88580a0d4235626add1a99" kindref="member">transform</ref>(Json::Value<sp/>&amp;query);</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight></codeline>
+<codeline lineno="146" refid="class_query_transformation_engine_1a104a9e682591cf75fdbb2504a6e91ec4" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="class_query_transformation_engine" kindref="compound">QueryTransformationEngine</ref><sp/>*<ref refid="class_query_transformation_engine_1a104a9e682591cf75fdbb2504a6e91ec4" kindref="member">getInstance</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="class_query_transformation_engine" kindref="compound">QueryTransformationEngine</ref><sp/>*p<sp/>=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(p<sp/>==<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>p<sp/>=<sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/><ref refid="class_query_transformation_engine_1aad03791eceff8af592eab27a597f8ae0" kindref="member">QueryTransformationEngine</ref>();</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>p;</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="152"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/>//<sp/>SRC_LIB_ACCESS_QUERYTRANSFORMATIONENGINE_H_</highlight></codeline>
+    </programlisting>
+    <location file="/home/grund/hyrise/src/lib/access/QueryTransformationEngine.h"/>
+  </compounddef>
+</doxygen>

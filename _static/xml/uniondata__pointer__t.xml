@@ -1,0 +1,140 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="uniondata__pointer__t" kind="union" prot="public">
+    <compoundname>data_pointer_t</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="uniondata__pointer__t_1a465ea2a0a329f2a1a9259621ef9119ef" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="structdelivery__t" kindref="compound">delivery_t</ref> *</type>
+        <definition>struct delivery_t* data_pointer_t::de</definition>
+        <argsstring></argsstring>
+        <name>de</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/transaction_data.cpp" line="16" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/transaction_data.cpp" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="uniondata__pointer__t_1adf77d0e7b7afcc0ca02b0d24b609b1c8" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="structnew__order__t" kindref="compound">new_order_t</ref> *</type>
+        <definition>struct new_order_t* data_pointer_t::no</definition>
+        <argsstring></argsstring>
+        <name>no</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/transaction_data.cpp" line="17" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/transaction_data.cpp" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="uniondata__pointer__t_1a9fafe41cf55438912da265d1e66e68c1" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="structorder__status__t" kindref="compound">order_status_t</ref> *</type>
+        <definition>struct order_status_t* data_pointer_t::os</definition>
+        <argsstring></argsstring>
+        <name>os</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/transaction_data.cpp" line="18" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/transaction_data.cpp" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="uniondata__pointer__t_1a70011ad42f902bedbbfe28685b842021" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="structpayment__t" kindref="compound">payment_t</ref> *</type>
+        <definition>struct payment_t* data_pointer_t::pa</definition>
+        <argsstring></argsstring>
+        <name>pa</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/transaction_data.cpp" line="19" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/transaction_data.cpp" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="uniondata__pointer__t_1a110979c61d4f59f1579d088df087b49c" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="structstock__level__t" kindref="compound">stock_level_t</ref> *</type>
+        <definition>struct stock_level_t* data_pointer_t::sl</definition>
+        <argsstring></argsstring>
+        <name>sl</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/transaction_data.cpp" line="20" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/transaction_data.cpp" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1730">
+        <label>stock_level_t</label>
+        <link refid="structstock__level__t"/>
+      </node>
+      <node id="1728">
+        <label>order_status_t</label>
+        <link refid="structorder__status__t"/>
+        <childnode refid="1729" relation="usage">
+          <edgelabel>order_line</edgelabel>
+        </childnode>
+      </node>
+      <node id="1732">
+        <label>delivery_t</label>
+        <link refid="structdelivery__t"/>
+      </node>
+      <node id="1727">
+        <label>no_order_line_t</label>
+        <link refid="structno__order__line__t"/>
+      </node>
+      <node id="1731">
+        <label>payment_t</label>
+        <link refid="structpayment__t"/>
+      </node>
+      <node id="1729">
+        <label>os_order_line_t</label>
+        <link refid="structos__order__line__t"/>
+      </node>
+      <node id="1725">
+        <label>data_pointer_t</label>
+        <link refid="uniondata__pointer__t"/>
+        <childnode refid="1726" relation="usage">
+          <edgelabel>no</edgelabel>
+        </childnode>
+        <childnode refid="1728" relation="usage">
+          <edgelabel>os</edgelabel>
+        </childnode>
+        <childnode refid="1730" relation="usage">
+          <edgelabel>sl</edgelabel>
+        </childnode>
+        <childnode refid="1731" relation="usage">
+          <edgelabel>pa</edgelabel>
+        </childnode>
+        <childnode refid="1732" relation="usage">
+          <edgelabel>de</edgelabel>
+        </childnode>
+      </node>
+      <node id="1726">
+        <label>new_order_t</label>
+        <link refid="structnew__order__t"/>
+        <childnode refid="1727" relation="usage">
+          <edgelabel>order_line</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/bin/perf_datagen/transaction_data.cpp" line="15" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/transaction_data.cpp" bodystart="15" bodyend="21"/>
+    <listofallmembers>
+      <member refid="uniondata__pointer__t_1a465ea2a0a329f2a1a9259621ef9119ef" prot="public" virt="non-virtual"><scope>data_pointer_t</scope><name>de</name></member>
+      <member refid="uniondata__pointer__t_1adf77d0e7b7afcc0ca02b0d24b609b1c8" prot="public" virt="non-virtual"><scope>data_pointer_t</scope><name>no</name></member>
+      <member refid="uniondata__pointer__t_1a9fafe41cf55438912da265d1e66e68c1" prot="public" virt="non-virtual"><scope>data_pointer_t</scope><name>os</name></member>
+      <member refid="uniondata__pointer__t_1a70011ad42f902bedbbfe28685b842021" prot="public" virt="non-virtual"><scope>data_pointer_t</scope><name>pa</name></member>
+      <member refid="uniondata__pointer__t_1a110979c61d4f59f1579d088df087b49c" prot="public" virt="non-virtual"><scope>data_pointer_t</scope><name>sl</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

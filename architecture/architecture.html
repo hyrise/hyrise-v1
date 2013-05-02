@@ -1,0 +1,177 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Create Modifiable Tables &mdash; HYRISE latest documentation</title>
+    
+    <link rel="stylesheet" href="../_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/breathe.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     'latest',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="HYRISE latest documentation" href="../index.html" />
+    <link rel="up" title="Implementation Details" href="../architecture.html" />
+    <link rel="next" title="HYRISE Layouter" href="layouter.html" />
+    <link rel="prev" title="Implementation Details" href="../architecture.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="layouter.html" title="HYRISE Layouter"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../architecture.html" title="Implementation Details"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">HYRISE latest documentation</a> &raquo;</li>
+          <li><a href="../architecture.html" accesskey="U">Implementation Details</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/hyrise.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../architecture.html">Implementation Details</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="">Create Modifiable Tables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="layouter.html">HYRISE Layouter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="loading.html">Loading</a></li>
+<li class="toctree-l2"><a class="reference internal" href="statistics.html">Query Statistics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="planops.html">Plan Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="extension_points.html">Extension points</a></li>
+<li class="toctree-l2"><a class="reference internal" href="routing.html">Routing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../query_execution.html">HYRISE Query Execution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developing.html">Developing with HYRISE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">HYRISE &amp; Development FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../proposals.html">Proposals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doxygen.html">Doxygen Documentation</a></li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../architecture.html"
+                        title="previous chapter">Implementation Details</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="layouter.html"
+                        title="next chapter">HYRISE Layouter</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/architecture/architecture.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="create-modifiable-tables">
+<h1>Create Modifiable Tables<a class="headerlink" href="#create-modifiable-tables" title="Permalink to this headline">¶</a></h1>
+<p>When working with plan operations it often becomes necessary to create
+new temporary tables with a certain set of columns and / or layout. To
+avoid calling the base APIs every time the class <tt class="docutils literal"><span class="pre">`TableBuilder`</span></tt>
+provides very simple means to create a new modifiable Table based on a
+given input specification.</p>
+<p>The easiest way to create a new table is using the following code:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">TableBuilder</span><span class="o">::</span><span class="n">param_list</span> <span class="n">list</span><span class="p">;</span>
+<span class="n">list</span><span class="p">.</span><span class="n">append</span><span class="p">().</span><span class="n">set_type</span><span class="p">(</span><span class="s">&quot;FLOAT&quot;</span><span class="p">).</span><span class="n">set_name</span><span class="p">(</span><span class="s">&quot;first&quot;</span><span class="p">);</span>
+<span class="n">list</span><span class="p">.</span><span class="n">append</span><span class="p">().</span><span class="n">set_type</span><span class="p">(</span><span class="s">&quot;STRING&quot;</span><span class="p">).</span><span class="n">set_name</span><span class="p">(</span><span class="s">&quot;second&quot;</span><span class="p">);</span>
+
+<span class="n">AbstractTable</span><span class="o">*</span> <span class="n">result</span> <span class="o">=</span> <span class="n">TableBuilder</span><span class="o">::</span><span class="n">build</span><span class="p">(</span><span class="n">list</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>The first step is to create a list element that will include all
+attributes with their respective type and name information. The method
+<tt class="docutils literal"><span class="pre">`append()`</span></tt> takes a <tt class="docutils literal"><span class="pre">`param`</span></tt> object as a parameter and returns a
+const reference to this element which can then be set using the member
+methods of the object. Each set retuns a const reference to this so
+they can be simply chained as shown above.</p>
+<p>When calling <tt class="docutils literal"><span class="pre">`TableBuilder::build(list)`</span></tt> the TableBuilder will
+create a new table based on this information and returns it with
+retain count 1.</p>
+<p>The second possible operation is to create a new table with a specific
+layout. This is done by calling the <tt class="docutils literal"><span class="pre">`appendGroup`</span></tt> method of the
+<tt class="docutils literal"><span class="pre">`param_list`</span></tt> class as shown in the following example:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">TableBuilder</span><span class="o">::</span><span class="n">param_list</span> <span class="n">list</span><span class="p">;</span>
+<span class="n">list</span><span class="p">.</span><span class="n">append</span><span class="p">().</span><span class="n">set_type</span><span class="p">(</span><span class="s">&quot;FLOAT&quot;</span><span class="p">).</span><span class="n">set_name</span><span class="p">(</span><span class="s">&quot;first&quot;</span><span class="p">);</span>
+<span class="n">list</span><span class="p">.</span><span class="n">append</span><span class="p">().</span><span class="n">set_type</span><span class="p">(</span><span class="s">&quot;STRING&quot;</span><span class="p">).</span><span class="n">set_name</span><span class="p">(</span><span class="s">&quot;second&quot;</span><span class="p">);</span>
+<span class="n">list</span><span class="p">.</span><span class="n">append</span><span class="p">().</span><span class="n">set_type</span><span class="p">(</span><span class="s">&quot;INTEGER&quot;</span><span class="p">).</span><span class="n">set_name</span><span class="p">(</span><span class="s">&quot;third&quot;</span><span class="p">);</span>
+
+<span class="c1">// Set the layout</span>
+<span class="n">list</span><span class="p">.</span><span class="n">appendGroup</span><span class="p">(</span><span class="mi">1</span><span class="p">).</span><span class="n">appendGroup</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+
+<span class="n">AbstractTable</span><span class="o">*</span> <span class="n">result</span> <span class="o">=</span> <span class="n">TableBuilder</span><span class="o">::</span><span class="n">build</span><span class="p">(</span><span class="n">list</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Here, the <cite>TableBuilder</cite> will create a vertical table that consists
+out of two tables. The first one stores one attribute, while the
+second one stores two attributes. For further reference please refer
+to the unit tests of the table builder class.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="layouter.html" title="HYRISE Layouter"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../architecture.html" title="Implementation Details"
+             >previous</a> |</li>
+        <li><a href="../index.html">HYRISE latest documentation</a> &raquo;</li>
+          <li><a href="../architecture.html" >Implementation Details</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010-2013, Martin Grund et al.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+  </body>
+</html>

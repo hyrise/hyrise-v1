@@ -1,0 +1,150 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="memory_8h" kind="file">
+    <compoundname>memory.h</compoundname>
+    <includes refid="_allocation_base_8h" local="yes">memory/AllocationBase.h</includes>
+    <includes refid="_malloc_strategy_8h" local="yes">memory/MallocStrategy.h</includes>
+    <includes refid="_memalign_strategy_8h" local="yes">memory/MemalignStrategy.h</includes>
+    <includes refid="_numa_strategy_8h" local="yes">memory/NumaStrategy.h</includes>
+    <includes refid="_numa_strategy2_8h" local="yes">memory/NumaStrategy2.h</includes>
+    <includes refid="_strategized_allocator_8h" local="yes">memory/StrategizedAllocator.h</includes>
+    <incdepgraph>
+      <node id="15967">
+        <label>list</label>
+      </node>
+      <node id="15954">
+        <label>cstdint</label>
+      </node>
+      <node id="15959">
+        <label>stdlib.h</label>
+      </node>
+      <node id="15961">
+        <label>memory/NumaStrategy2.h</label>
+        <link refid="_numa_strategy2_8h"/>
+        <childnode refid="15960" relation="include">
+        </childnode>
+        <childnode refid="15957" relation="include">
+        </childnode>
+        <childnode refid="15962" relation="include">
+        </childnode>
+        <childnode refid="15963" relation="include">
+        </childnode>
+        <childnode refid="15964" relation="include">
+        </childnode>
+      </node>
+      <node id="15957">
+        <label>errno.h</label>
+      </node>
+      <node id="15951">
+        <label>stdexcept</label>
+      </node>
+      <node id="15964">
+        <label>string</label>
+      </node>
+      <node id="15956">
+        <label>memory/MemalignStrategy.h</label>
+        <link refid="_memalign_strategy_8h"/>
+        <childnode refid="15957" relation="include">
+        </childnode>
+        <childnode refid="15958" relation="include">
+        </childnode>
+        <childnode refid="15959" relation="include">
+        </childnode>
+      </node>
+      <node id="15962">
+        <label>hwloc.h</label>
+      </node>
+      <node id="15950">
+        <label>stddef.h</label>
+      </node>
+      <node id="15960">
+        <label>memory/NumaStrategy.h</label>
+        <link refid="_numa_strategy_8h"/>
+        <childnode refid="15959" relation="include">
+        </childnode>
+        <childnode refid="15953" relation="include">
+        </childnode>
+      </node>
+      <node id="15963">
+        <label>unistd.h</label>
+      </node>
+      <node id="15965">
+        <label>memory/StrategizedAllocator.h</label>
+        <link refid="_strategized_allocator_8h"/>
+        <childnode refid="15950" relation="include">
+        </childnode>
+        <childnode refid="15966" relation="include">
+        </childnode>
+        <childnode refid="15967" relation="include">
+        </childnode>
+        <childnode refid="15951" relation="include">
+        </childnode>
+      </node>
+      <node id="15949">
+        <label>memory/AllocationBase.h</label>
+        <link refid="_allocation_base_8h"/>
+        <childnode refid="15950" relation="include">
+        </childnode>
+        <childnode refid="15951" relation="include">
+        </childnode>
+      </node>
+      <node id="15953">
+        <label>iostream</label>
+      </node>
+      <node id="15952">
+        <label>memory/MallocStrategy.h</label>
+        <link refid="_malloc_strategy_8h"/>
+        <childnode refid="15953" relation="include">
+        </childnode>
+        <childnode refid="15954" relation="include">
+        </childnode>
+        <childnode refid="15955" relation="include">
+        </childnode>
+      </node>
+      <node id="15966">
+        <label>algorithm</label>
+      </node>
+      <node id="15958">
+        <label>stdio.h</label>
+      </node>
+      <node id="15955">
+        <label>cstring</label>
+      </node>
+      <node id="15948">
+        <label>src/lib/memory.h</label>
+        <link refid="memory.h"/>
+        <childnode refid="15949" relation="include">
+        </childnode>
+        <childnode refid="15952" relation="include">
+        </childnode>
+        <childnode refid="15956" relation="include">
+        </childnode>
+        <childnode refid="15960" relation="include">
+        </childnode>
+        <childnode refid="15961" relation="include">
+        </childnode>
+        <childnode refid="15965" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>2012<sp/>Hasso-Plattner-Institut<sp/>fuer<sp/>Softwaresystemtechnik<sp/>GmbH.<sp/>All<sp/>rights<sp/>reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SRC_LIB_MEMORY_H_</highlight></codeline>
+<codeline lineno="3"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SRC_LIB_MEMORY_H_</highlight></codeline>
+<codeline lineno="4"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_allocation_base_8h" kindref="compound">memory/AllocationBase.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_malloc_strategy_8h" kindref="compound">memory/MallocStrategy.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_memalign_strategy_8h" kindref="compound">memory/MemalignStrategy.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_numa_strategy_8h" kindref="compound">memory/NumaStrategy.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_numa_strategy2_8h" kindref="compound">memory/NumaStrategy2.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_strategized_allocator_8h" kindref="compound">memory/StrategizedAllocator.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/>//<sp/>SRC_LIB_MEMORY_H_</highlight></codeline>
+    </programlisting>
+    <location file="/home/grund/hyrise/src/lib/memory.h"/>
+  </compounddef>
+</doxygen>

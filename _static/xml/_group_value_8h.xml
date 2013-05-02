@@ -1,0 +1,161 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="_group_value_8h" kind="file">
+    <compoundname>GroupValue.h</compoundname>
+    <includes refid="hash_8h" local="yes">helper/hash.h</includes>
+    <includes refid="storage__types_8h" local="no">storage/storage_types.h</includes>
+    <includes local="no">memory</includes>
+    <includedby refid="_group_value_8cpp" local="yes">src/lib/storage/GroupValue.cpp</includedby>
+    <incdepgraph>
+      <node id="20103">
+        <label>boost/mpl/vector.hpp</label>
+      </node>
+      <node id="20105">
+        <label>boost/lexical_cast.hpp</label>
+      </node>
+      <node id="20101">
+        <label>stdint.h</label>
+      </node>
+      <node id="20095">
+        <label>helper/hash.h</label>
+        <link refid="hash_8h"/>
+        <childnode refid="20096" relation="include">
+        </childnode>
+      </node>
+      <node id="20100">
+        <label>stdexcept</label>
+      </node>
+      <node id="20099">
+        <label>string</label>
+      </node>
+      <node id="20102">
+        <label>ostream</label>
+      </node>
+      <node id="20096">
+        <label>sys/types.h</label>
+      </node>
+      <node id="20098">
+        <label>vector</label>
+      </node>
+      <node id="20104">
+        <label>boost/mpl/map.hpp</label>
+      </node>
+      <node id="20094">
+        <label>src/lib/storage/GroupValue.h</label>
+        <link refid="GroupValue.h"/>
+        <childnode refid="20095" relation="include">
+        </childnode>
+        <childnode refid="20097" relation="include">
+        </childnode>
+        <childnode refid="20106" relation="include">
+        </childnode>
+      </node>
+      <node id="20106">
+        <label>memory</label>
+      </node>
+      <node id="20097">
+        <label>storage/storage_types.h</label>
+        <link refid="storage__types_8h"/>
+        <childnode refid="20098" relation="include">
+        </childnode>
+        <childnode refid="20099" relation="include">
+        </childnode>
+        <childnode refid="20100" relation="include">
+        </childnode>
+        <childnode refid="20101" relation="include">
+        </childnode>
+        <childnode refid="20102" relation="include">
+        </childnode>
+        <childnode refid="20103" relation="include">
+        </childnode>
+        <childnode refid="20104" relation="include">
+        </childnode>
+        <childnode refid="20105" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="20108">
+        <label>src/lib/storage/GroupValue.cpp</label>
+        <link refid="_group_value_8cpp"/>
+      </node>
+      <node id="20107">
+        <label>src/lib/storage/GroupValue.h</label>
+        <link refid="GroupValue.h"/>
+        <childnode refid="20108" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="class_group_value" prot="public">GroupValue</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>2012<sp/>Hasso-Plattner-Institut<sp/>fuer<sp/>Softwaresystemtechnik<sp/>GmbH.<sp/>All<sp/>rights<sp/>reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SRC_LIB_STORAGE_GROUPVALUE_H_</highlight></codeline>
+<codeline lineno="3"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SRC_LIB_STORAGE_GROUPVALUE_H_</highlight></codeline>
+<codeline lineno="4"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="hash_8h" kindref="compound">helper/hash.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="storage__types_8h" kindref="compound">storage/storage_types.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;memory&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_abstract_table" kindref="compound">AbstractTable</ref>;</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11" refid="class_group_value" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_group_value" kindref="compound">GroupValue</ref><sp/>{</highlight></codeline>
+<codeline lineno="12" refid="class_group_value_1a68c3444023cf0e7463f422e3cff4341e" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="storage__types_8h_1aa70e7ba5eb63399a65e9cfb52c2bd86e" kindref="member">ValueIdList</ref><sp/><ref refid="class_group_value_1a68c3444023cf0e7463f422e3cff4341e" kindref="member">vids</ref>;</highlight></codeline>
+<codeline lineno="13" refid="class_group_value_1ac59ebba2e56766071d2d0a1fc9be849d" refkind="member"><highlight class="normal"><sp/><sp/>u_int64_t<sp/><ref refid="class_group_value_1ac59ebba2e56766071d2d0a1fc9be849d" kindref="member">hashv</ref>;</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="15" refid="class_group_value_1aa695e7ae6d9dafb85c36cd524ce19006" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>u_int64_t<sp/><ref refid="class_group_value_1aa695e7ae6d9dafb85c36cd524ce19006" kindref="member">hash_t</ref>;</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight></codeline>
+<codeline lineno="17" refid="class_group_value_1a211a4c8fec0274376c6824ad807db419" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="class_group_value_1a211a4c8fec0274376c6824ad807db419" kindref="member">GroupValue</ref>():</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_group_value_1a68c3444023cf0e7463f422e3cff4341e" kindref="member">vids</ref>(),</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_group_value_1ac59ebba2e56766071d2d0a1fc9be849d" kindref="member">hashv</ref>(0)</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/>{<sp/>}</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight></codeline>
+<codeline lineno="22" refid="class_group_value_1a4e4fe873ae26b6b24bd959e9d2119a67" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">explicit</highlight><highlight class="normal"><sp/><ref refid="class_group_value_1a211a4c8fec0274376c6824ad807db419" kindref="member">GroupValue</ref>(<ref refid="storage__types_8h_1aa70e7ba5eb63399a65e9cfb52c2bd86e" kindref="member">ValueIdList</ref><sp/>v):</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_group_value_1a68c3444023cf0e7463f422e3cff4341e" kindref="member">vids</ref>(v),</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_group_value_1ac59ebba2e56766071d2d0a1fc9be849d" kindref="member">hashv</ref>(0)</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/>{<sp/>}</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27" refid="class_group_value_1a4e7143fef20924650ebd9323a55c7dbc" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_group_value_1a4e7143fef20924650ebd9323a55c7dbc" kindref="member">addValueId</ref>(<ref refid="class_value_id" kindref="compound">ValueId</ref><sp/>v)<sp/>{</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_group_value_1a68c3444023cf0e7463f422e3cff4341e" kindref="member">vids</ref>.push_back(v);</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31" refid="class_group_value_1a77e6c631d2660d8ee5fa57edf9e338f4" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="class_value_id" kindref="compound">ValueId</ref><sp/><ref refid="class_group_value_1a77e6c631d2660d8ee5fa57edf9e338f4" kindref="member">getValueId</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>at)</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="class_group_value_1a68c3444023cf0e7463f422e3cff4341e" kindref="member">vids</ref>[at];</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/>u_int64_t<sp/><ref refid="class_group_value_1a8de5486088f6eb19a5255e075c965b39" kindref="member">hash_vids</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="storage__types_8h_1aa70e7ba5eb63399a65e9cfb52c2bd86e" kindref="member">ValueIdList</ref><sp/>&amp;<ref refid="class_group_value_1a68c3444023cf0e7463f422e3cff4341e" kindref="member">vids</ref>);</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="38"><highlight class="comment"><sp/><sp/><sp/><sp/>The<sp/>goal<sp/>of<sp/>this<sp/>hashing<sp/>function<sp/>is<sp/>to<sp/>be<sp/>based<sp/>on<sp/>values<sp/>instead<sp/>of<sp/>valueids</highlight></codeline>
+<codeline lineno="39"><highlight class="comment"><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="class_group_value_1aa53a7434eb56acbf315d25c17bc27742" kindref="member">hash_value</ref>(std::shared_ptr&lt;AbstractTable&gt;<sp/>source,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>f,<sp/><ref refid="class_value_id" kindref="compound">ValueId</ref><sp/>vid);</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Given<sp/>a<sp/>table,<sp/>the<sp/>value<sp/>ids<sp/>and<sp/>the<sp/>fields<sp/>it<sp/>will<sp/>hash<sp/>the<sp/>complete<sp/>set</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="class_group_value_1a8b3df03db3fb329f60a5dafd7e9dd504" kindref="member">hash_group_values</ref>(std::shared_ptr&lt;AbstractTable&gt;<sp/>source,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="storage__types_8h_1aa70e7ba5eb63399a65e9cfb52c2bd86e" kindref="member">ValueIdList</ref><sp/>&amp;<ref refid="class_group_value_1a68c3444023cf0e7463f422e3cff4341e" kindref="member">vids</ref>,</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="storage__types_8h_1a36fbc31395a53b7ece189846e4d3253c" kindref="member">field_list_t</ref><sp/>&amp;fields);</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="47"><highlight class="comment"><sp/><sp/><sp/><sp/>Uses<sp/>the<sp/>Hash<sp/>function<sp/>FNV</highlight></codeline>
+<codeline lineno="48"><highlight class="comment"><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49" refid="class_group_value_1a6891f2569389c955e232f8bbab8077fa" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/><ref refid="class_group_value_1aa695e7ae6d9dafb85c36cd524ce19006" kindref="member">hash_t</ref><sp/><ref refid="class_group_value_1a6891f2569389c955e232f8bbab8077fa" kindref="member">hash</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="class_group_value_1ac59ebba2e56766071d2d0a1fc9be849d" kindref="member">hashv</ref><sp/>!=<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="class_group_value_1ac59ebba2e56766071d2d0a1fc9be849d" kindref="member">hashv</ref>;</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_group_value_1ac59ebba2e56766071d2d0a1fc9be849d" kindref="member">hashv</ref><sp/>=<sp/><ref refid="class_group_value_1a8de5486088f6eb19a5255e075c965b39" kindref="member">hash_vids</ref>(<ref refid="class_group_value_1a68c3444023cf0e7463f422e3cff4341e" kindref="member">vids</ref>);</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="class_group_value_1ac59ebba2e56766071d2d0a1fc9be849d" kindref="member">hashv</ref>;</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57" refid="class_group_value_1a8fddbcee5ecbb0d574e51f0a45754262" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="class_group_value_1a8fddbcee5ecbb0d574e51f0a45754262" kindref="member">operator==</ref>(<ref refid="class_group_value" kindref="compound">GroupValue</ref><sp/>&amp;other)<sp/>{</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="class_group_value_1a6891f2569389c955e232f8bbab8077fa" kindref="member">hash</ref>()<sp/>==<sp/>other.<ref refid="class_group_value_1a6891f2569389c955e232f8bbab8077fa" kindref="member">hash</ref>();</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="60"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/>//<sp/>SRC_LIB_STORAGE_GROUPVALUE_H_</highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/home/grund/hyrise/src/lib/storage/GroupValue.h"/>
+  </compounddef>
+</doxygen>

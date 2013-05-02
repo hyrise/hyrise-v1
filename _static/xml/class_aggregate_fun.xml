@@ -1,0 +1,262 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="class_aggregate_fun" kind="class" prot="public">
+    <compoundname>AggregateFun</compoundname>
+    <derivedcompoundref refid="class_average_aggregate_fun" prot="public" virt="non-virtual">AverageAggregateFun</derivedcompoundref>
+    <derivedcompoundref refid="class_count_aggregate_fun" prot="public" virt="non-virtual">CountAggregateFun</derivedcompoundref>
+    <derivedcompoundref refid="class_sum_aggregate_fun" prot="public" virt="non-virtual">SumAggregateFun</derivedcompoundref>
+    <includes refid="_aggregate_functions_8h" local="no">AggregateFunctions.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="class_aggregate_fun_1ae883edb2662c4550ca5f2ba1f3092131" prot="public" static="no" mutable="no">
+        <type><ref refid="storage__types_8h_1a5ce4ecb27464dc24ba394527510dd89b" kindref="member">field_t</ref></type>
+        <definition>field_t AggregateFun::_field</definition>
+        <argsstring></argsstring>
+        <name>_field</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/AggregateFunctions.h" line="130" bodyfile="/home/grund/hyrise/src/lib/access/AggregateFunctions.h" bodystart="130" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_aggregate_fun_1a5b5622673221dc9739f5437b0c40240c" prot="public" static="no" mutable="no">
+        <type><ref refid="storage__types_8h_1ad64b8c8026a86f643d173acbb694b4f8" kindref="member">field_name_t</ref></type>
+        <definition>field_name_t AggregateFun::_field_name</definition>
+        <argsstring></argsstring>
+        <name>_field_name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/AggregateFunctions.h" line="131" bodyfile="/home/grund/hyrise/src/lib/access/AggregateFunctions.h" bodystart="131" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_aggregate_fun_1acaa78a20058f7703aeea0fd05343169e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>AggregateFun::AggregateFun</definition>
+        <argsstring>()</argsstring>
+        <name>AggregateFun</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/AggregateFunctions.h" line="133" bodyfile="/home/grund/hyrise/src/lib/access/AggregateFunctions.h" bodystart="133" bodyend="133"/>
+      </memberdef>
+      <memberdef kind="function" id="class_aggregate_fun_1a59d4bed8e26ca97ec8de8dce6e3add23" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>AggregateFun::AggregateFun</definition>
+        <argsstring>(field_t f)</argsstring>
+        <name>AggregateFun</name>
+        <param>
+          <type><ref refid="storage__types_8h_1a5ce4ecb27464dc24ba394527510dd89b" kindref="member">field_t</ref></type>
+          <declname>f</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/AggregateFunctions.h" line="134" bodyfile="/home/grund/hyrise/src/lib/access/AggregateFunctions.h" bodystart="134" bodyend="134"/>
+      </memberdef>
+      <memberdef kind="function" id="class_aggregate_fun_1abc5ab34a306bdcd31a8a67d16173e9b9" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>AggregateFun::AggregateFun</definition>
+        <argsstring>(field_name_t field_name)</argsstring>
+        <name>AggregateFun</name>
+        <param>
+          <type><ref refid="storage__types_8h_1ad64b8c8026a86f643d173acbb694b4f8" kindref="member">field_name_t</ref></type>
+          <declname>field_name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/AggregateFunctions.h" line="135" bodyfile="/home/grund/hyrise/src/lib/access/AggregateFunctions.h" bodystart="135" bodyend="135"/>
+      </memberdef>
+      <memberdef kind="function" id="class_aggregate_fun_1ae2bdfea5701dab37cf3ae3dc3f0a4193" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void AggregateFun::walk</definition>
+        <argsstring>(const AbstractTable &amp;table)</argsstring>
+        <name>walk</name>
+        <reimplementedby refid="class_sum_aggregate_fun_1a3410c118e6fa94be8c829c9405cd06cb">walk</reimplementedby>
+        <reimplementedby refid="class_average_aggregate_fun_1a6a68eb02c44ab1cb1af6f1bdfdc7ce33">walk</reimplementedby>
+        <param>
+          <type>const <ref refid="class_abstract_table" kindref="compound">AbstractTable</ref> &amp;</type>
+          <declname>table</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/AggregateFunctions.h" line="137" bodyfile="/home/grund/hyrise/src/lib/access/AggregateFunctions.cpp" bodystart="42" bodyend="46"/>
+      </memberdef>
+      <memberdef kind="function" id="class_aggregate_fun_1acdb3dd509534d3b5620a9412d73eddfd" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="storage__types_8h_1a5ce4ecb27464dc24ba394527510dd89b" kindref="member">field_t</ref></type>
+        <definition>field_t AggregateFun::getField</definition>
+        <argsstring>()</argsstring>
+        <name>getField</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/AggregateFunctions.h" line="138" bodyfile="/home/grund/hyrise/src/lib/access/AggregateFunctions.h" bodystart="138" bodyend="140"/>
+      </memberdef>
+      <memberdef kind="function" id="class_aggregate_fun_1ae453c35ba8df2a3947c7cc9a8d968ec4" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="storage__types_8h_1ad64b8c8026a86f643d173acbb694b4f8" kindref="member">field_name_t</ref></type>
+        <definition>field_name_t AggregateFun::getFieldName</definition>
+        <argsstring>()</argsstring>
+        <name>getFieldName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/AggregateFunctions.h" line="141" bodyfile="/home/grund/hyrise/src/lib/access/AggregateFunctions.h" bodystart="141" bodyend="143"/>
+      </memberdef>
+      <memberdef kind="function" id="class_aggregate_fun_1acb258ac969b46276cce7eb58ab14f4fa" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual AggregateFun::~AggregateFun</definition>
+        <argsstring>()</argsstring>
+        <name>~AggregateFun</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/AggregateFunctions.h" line="144" bodyfile="/home/grund/hyrise/src/lib/access/AggregateFunctions.h" bodystart="144" bodyend="144"/>
+      </memberdef>
+      <memberdef kind="function" id="class_aggregate_fun_1a0409afedfc7bff75b0ce2101419f5f87" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void AggregateFun::processValuesForRows</definition>
+        <argsstring>(const hyrise::storage::c_atable_ptr_t &amp;t, pos_list_t *rows, hyrise::storage::atable_ptr_t &amp;target, size_t targetRow)=0</argsstring>
+        <name>processValuesForRows</name>
+        <reimplementedby refid="class_sum_aggregate_fun_1a124e5703e99c2da3c6d6e59a7f8f5500">processValuesForRows</reimplementedby>
+        <reimplementedby refid="class_count_aggregate_fun_1a308346ea4e9b9896cf62ced6b5837176">processValuesForRows</reimplementedby>
+        <reimplementedby refid="class_average_aggregate_fun_1ad012fd28fff4ee4e52c79106b9e18c04">processValuesForRows</reimplementedby>
+        <param>
+          <type>const <ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref> &amp;</type>
+          <declname>t</declname>
+        </param>
+        <param>
+          <type><ref refid="storage__types_8h_1a543d59ef56384af4a7af9aa551bc6825" kindref="member">pos_list_t</ref> *</type>
+          <declname>rows</declname>
+        </param>
+        <param>
+          <type><ref refid="namespacehyrise_1_1storage_1a21d5e900c20019710828c453eaded1ee" kindref="member">hyrise::storage::atable_ptr_t</ref> &amp;</type>
+          <declname>target</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>targetRow</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/AggregateFunctions.h" line="146"/>
+      </memberdef>
+      <memberdef kind="function" id="class_aggregate_fun_1aa8c9b122a8daf1e950b8a465be15c197" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type><ref refid="storage__types_8h_1ad8ed01ff3ff33333d8e19db4d2818bb6" kindref="member">DataType</ref></type>
+        <definition>virtual DataType AggregateFun::getType</definition>
+        <argsstring>() const =0</argsstring>
+        <name>getType</name>
+        <reimplementedby refid="class_sum_aggregate_fun_1ab76c6ec467b715e320967b5595fa3b76">getType</reimplementedby>
+        <reimplementedby refid="class_count_aggregate_fun_1a30caef0b64cee83c7630eb3a8d14a224">getType</reimplementedby>
+        <reimplementedby refid="class_average_aggregate_fun_1a507cfefa5bda0059b9e9182002fdba37">getType</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/AggregateFunctions.h" line="147"/>
+      </memberdef>
+      <memberdef kind="function" id="class_aggregate_fun_1a27be6037091d733520eeb2119017f38c" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>std::string</type>
+        <definition>virtual std::string AggregateFun::columnName</definition>
+        <argsstring>(const std::string &amp;oldName)=0</argsstring>
+        <name>columnName</name>
+        <reimplementedby refid="class_sum_aggregate_fun_1a18098a38bf738b39de674f212bf99390">columnName</reimplementedby>
+        <reimplementedby refid="class_count_aggregate_fun_1a1f16167eb96df2ec45fdf11378ebaeb0">columnName</reimplementedby>
+        <reimplementedby refid="class_average_aggregate_fun_1a169e84680538bc6d05c772fe6b2e383b">columnName</reimplementedby>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>oldName</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/AggregateFunctions.h" line="148"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1465">
+        <label>CountAggregateFun</label>
+        <link refid="class_count_aggregate_fun"/>
+        <childnode refid="1463" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1464">
+        <label>AverageAggregateFun</label>
+        <link refid="class_average_aggregate_fun"/>
+        <childnode refid="1463" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1463">
+        <label>AggregateFun</label>
+        <link refid="class_aggregate_fun"/>
+      </node>
+      <node id="1466">
+        <label>SumAggregateFun</label>
+        <link refid="class_sum_aggregate_fun"/>
+        <childnode refid="1463" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1467">
+        <label>AggregateFun</label>
+        <link refid="class_aggregate_fun"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/access/AggregateFunctions.h" line="128" bodyfile="/home/grund/hyrise/src/lib/access/AggregateFunctions.h" bodystart="128" bodyend="149"/>
+    <listofallmembers>
+      <member refid="class_aggregate_fun_1ae883edb2662c4550ca5f2ba1f3092131" prot="public" virt="non-virtual"><scope>AggregateFun</scope><name>_field</name></member>
+      <member refid="class_aggregate_fun_1a5b5622673221dc9739f5437b0c40240c" prot="public" virt="non-virtual"><scope>AggregateFun</scope><name>_field_name</name></member>
+      <member refid="class_aggregate_fun_1acaa78a20058f7703aeea0fd05343169e" prot="public" virt="non-virtual"><scope>AggregateFun</scope><name>AggregateFun</name></member>
+      <member refid="class_aggregate_fun_1a59d4bed8e26ca97ec8de8dce6e3add23" prot="public" virt="non-virtual"><scope>AggregateFun</scope><name>AggregateFun</name></member>
+      <member refid="class_aggregate_fun_1abc5ab34a306bdcd31a8a67d16173e9b9" prot="public" virt="non-virtual"><scope>AggregateFun</scope><name>AggregateFun</name></member>
+      <member refid="class_aggregate_fun_1a27be6037091d733520eeb2119017f38c" prot="public" virt="pure-virtual"><scope>AggregateFun</scope><name>columnName</name></member>
+      <member refid="class_aggregate_fun_1acdb3dd509534d3b5620a9412d73eddfd" prot="public" virt="non-virtual"><scope>AggregateFun</scope><name>getField</name></member>
+      <member refid="class_aggregate_fun_1ae453c35ba8df2a3947c7cc9a8d968ec4" prot="public" virt="non-virtual"><scope>AggregateFun</scope><name>getFieldName</name></member>
+      <member refid="class_aggregate_fun_1aa8c9b122a8daf1e950b8a465be15c197" prot="public" virt="pure-virtual"><scope>AggregateFun</scope><name>getType</name></member>
+      <member refid="class_aggregate_fun_1a0409afedfc7bff75b0ce2101419f5f87" prot="public" virt="pure-virtual"><scope>AggregateFun</scope><name>processValuesForRows</name></member>
+      <member refid="class_aggregate_fun_1ae2bdfea5701dab37cf3ae3dc3f0a4193" prot="public" virt="virtual"><scope>AggregateFun</scope><name>walk</name></member>
+      <member refid="class_aggregate_fun_1acb258ac969b46276cce7eb58ab14f4fa" prot="public" virt="virtual"><scope>AggregateFun</scope><name>~AggregateFun</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

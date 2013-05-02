@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="structhyrise_1_1access_1_1_scan_index_functor" kind="struct" prot="public">
+    <compoundname>hyrise::access::ScanIndexFunctor</compoundname>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="structhyrise_1_1access_1_1_scan_index_functor_1a5db8f005af7ef42c6506b26a2f06b21e" prot="public" static="no">
+        <type><ref refid="namespacehyrise_1_1storage_1a82124b84ebfac47beba542ec17d56471" kindref="member">storage::pos_list_t</ref> *</type>
+        <definition>typedef storage::pos_list_t* hyrise::access::ScanIndexFunctor::value_type</definition>
+        <argsstring></argsstring>
+        <name>value_type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/IndexScan.cpp" line="36" bodyfile="/home/grund/hyrise/src/lib/access/IndexScan.cpp" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structhyrise_1_1access_1_1_scan_index_functor_1a1aa9fab3e77c223859ae493201c7204c" prot="public" static="no" mutable="no">
+        <type>std::shared_ptr&lt; <ref refid="class_abstract_index" kindref="compound">AbstractIndex</ref> &gt;</type>
+        <definition>std::shared_ptr&lt;AbstractIndex&gt; hyrise::access::ScanIndexFunctor::_index</definition>
+        <argsstring></argsstring>
+        <name>_index</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/IndexScan.cpp" line="38" bodyfile="/home/grund/hyrise/src/lib/access/IndexScan.cpp" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structhyrise_1_1access_1_1_scan_index_functor_1a1c5e5285ec091e69cc61c207fdb24d96" prot="public" static="no" mutable="no">
+        <type><ref refid="classhyrise_1_1access_1_1_abstract_index_value" kindref="compound">AbstractIndexValue</ref> *</type>
+        <definition>AbstractIndexValue* hyrise::access::ScanIndexFunctor::_indexValue</definition>
+        <argsstring></argsstring>
+        <name>_indexValue</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/IndexScan.cpp" line="39" bodyfile="/home/grund/hyrise/src/lib/access/IndexScan.cpp" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structhyrise_1_1access_1_1_scan_index_functor_1a141e24fd45090a456ca35c351928d3e5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>hyrise::access::ScanIndexFunctor::ScanIndexFunctor</definition>
+        <argsstring>(AbstractIndexValue *i, std::shared_ptr&lt; AbstractIndex &gt; d)</argsstring>
+        <name>ScanIndexFunctor</name>
+        <param>
+          <type><ref refid="classhyrise_1_1access_1_1_abstract_index_value" kindref="compound">AbstractIndexValue</ref> *</type>
+          <declname>i</declname>
+        </param>
+        <param>
+          <type>std::shared_ptr&lt; <ref refid="class_abstract_index" kindref="compound">AbstractIndex</ref> &gt;</type>
+          <declname>d</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/IndexScan.cpp" line="42" bodyfile="/home/grund/hyrise/src/lib/access/IndexScan.cpp" bodystart="41" bodyend="42"/>
+      </memberdef>
+      <memberdef kind="function" id="structhyrise_1_1access_1_1_scan_index_functor_1a11879dbfbb231645ad11618a1a61481b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename ValueType</type>
+          </param>
+        </templateparamlist>
+        <type><ref refid="structhyrise_1_1access_1_1_scan_index_functor_1a5db8f005af7ef42c6506b26a2f06b21e" kindref="member">value_type</ref></type>
+        <definition>value_type hyrise::access::ScanIndexFunctor::operator()</definition>
+        <argsstring>()</argsstring>
+        <name>operator()</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/IndexScan.cpp" line="45" bodyfile="/home/grund/hyrise/src/lib/access/IndexScan.cpp" bodystart="45" bodyend="50"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2766">
+        <label>hyrise::access::AbstractIndexValue</label>
+        <link refid="classhyrise_1_1access_1_1_abstract_index_value"/>
+      </node>
+      <node id="2765">
+        <label>hyrise::access::ScanIndexFunctor</label>
+        <link refid="structhyrise_1_1access_1_1_scan_index_functor"/>
+        <childnode refid="2766" relation="usage">
+          <edgelabel>_indexValue</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/access/IndexScan.cpp" line="35" bodyfile="/home/grund/hyrise/src/lib/access/IndexScan.cpp" bodystart="35" bodyend="51"/>
+    <listofallmembers>
+      <member refid="structhyrise_1_1access_1_1_scan_index_functor_1a1aa9fab3e77c223859ae493201c7204c" prot="public" virt="non-virtual"><scope>hyrise::access::ScanIndexFunctor</scope><name>_index</name></member>
+      <member refid="structhyrise_1_1access_1_1_scan_index_functor_1a1c5e5285ec091e69cc61c207fdb24d96" prot="public" virt="non-virtual"><scope>hyrise::access::ScanIndexFunctor</scope><name>_indexValue</name></member>
+      <member refid="structhyrise_1_1access_1_1_scan_index_functor_1a11879dbfbb231645ad11618a1a61481b" prot="public" virt="non-virtual"><scope>hyrise::access::ScanIndexFunctor</scope><name>operator()</name></member>
+      <member refid="structhyrise_1_1access_1_1_scan_index_functor_1a141e24fd45090a456ca35c351928d3e5" prot="public" virt="non-virtual"><scope>hyrise::access::ScanIndexFunctor</scope><name>ScanIndexFunctor</name></member>
+      <member refid="structhyrise_1_1access_1_1_scan_index_functor_1a5db8f005af7ef42c6506b26a2f06b21e" prot="public" virt="non-virtual"><scope>hyrise::access::ScanIndexFunctor</scope><name>value_type</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

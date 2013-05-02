@@ -1,0 +1,35 @@
+var class_abstract_queue_based_task_scheduler =
+[
+    [ "task_queue_t", "class_abstract_queue_based_task_scheduler.html#a928dccb1cf094c711f1f9706a3e144b9", null ],
+    [ "task_queues_t", "class_abstract_queue_based_task_scheduler.html#a23634d17af1c513373241b21e1e902b4", null ],
+    [ "waiting_tasks_t", "class_abstract_queue_based_task_scheduler.html#ad94d2d6a9542e91439ea66a24615cf75", null ],
+    [ "scheduler_status_t", "class_abstract_queue_based_task_scheduler.html#a8541fccaa20ef2b2b3f65e1e811b4384", [
+      [ "START_UP", "class_abstract_queue_based_task_scheduler.html#a8541fccaa20ef2b2b3f65e1e811b4384ad8d06d293dd458aa5dffa2dee03bd53f", null ],
+      [ "RUN", "class_abstract_queue_based_task_scheduler.html#a8541fccaa20ef2b2b3f65e1e811b4384a98edf57089140f5ceca5c2e00735fff3", null ],
+      [ "RESIZING", "class_abstract_queue_based_task_scheduler.html#a8541fccaa20ef2b2b3f65e1e811b4384ad67fe92c6063ceb93880af0780266583", null ],
+      [ "TO_STOP", "class_abstract_queue_based_task_scheduler.html#a8541fccaa20ef2b2b3f65e1e811b4384a30d62c2c306ab00f56b121a06db75d39", null ],
+      [ "STOPPED", "class_abstract_queue_based_task_scheduler.html#a8541fccaa20ef2b2b3f65e1e811b4384a2ef0b790605a3096cbf56bb3b2459f60", null ]
+    ] ],
+    [ "AbstractQueueBasedTaskScheduler", "class_abstract_queue_based_task_scheduler.html#a8cf1e9dfce85e0b78021fe9c5c055450", null ],
+    [ "~AbstractQueueBasedTaskScheduler", "class_abstract_queue_based_task_scheduler.html#a5ac1c2430bd370a25998c37eb8ae7e74", null ],
+    [ "createTaskQueue", "class_abstract_queue_based_task_scheduler.html#a1d899cf65b5fdf00155a0b45cd55b60b", null ],
+    [ "getNumberOfWorker", "class_abstract_queue_based_task_scheduler.html#a0e80a0475a8a28e819c84f5fc28f30f8", null ],
+    [ "getSchedulerStatus", "class_abstract_queue_based_task_scheduler.html#a4524e753229249dfaaf07ec39696bc71", null ],
+    [ "notifyReady", "class_abstract_queue_based_task_scheduler.html#a6c7400aefb4494aa70bbc5e93be70c44", null ],
+    [ "pushToQueue", "class_abstract_queue_based_task_scheduler.html#a8c2bfb9921722bc869ef9b3c2d5ca4ad", null ],
+    [ "resize", "class_abstract_queue_based_task_scheduler.html#a63d5b6645b741838980b8a860dfc0fa3", null ],
+    [ "schedule", "class_abstract_queue_based_task_scheduler.html#a7cd630ee5db06d2a6538c1dbeda6d680", null ],
+    [ "schedule", "class_abstract_queue_based_task_scheduler.html#ad8472675a2c721936c86b7accb00808c", null ],
+    [ "shutdown", "class_abstract_queue_based_task_scheduler.html#a09dd996470ce4336b651f24460ea68c9", null ],
+    [ "stopQueueAndRedistributeTasks", "class_abstract_queue_based_task_scheduler.html#a614a1836ab551bd6392d9ebc0923c4fd", null ],
+    [ "wait", "class_abstract_queue_based_task_scheduler.html#a7403302f25aa67c2411542e1f19bf24d", null ],
+    [ "_logger", "class_abstract_queue_based_task_scheduler.html#a5b8745c3d84acfa9ea026bdd1727ee60", null ],
+    [ "_nextQueue", "class_abstract_queue_based_task_scheduler.html#ad00929551b00c72cca437edca9b5b1d5", null ],
+    [ "_queues", "class_abstract_queue_based_task_scheduler.html#a16352024c8e2d06cc6d49ed5aa1fde3f", null ],
+    [ "_queuesMutex", "class_abstract_queue_based_task_scheduler.html#a5de31532dbcf8be38f8c7b2879c3dc39", null ],
+    [ "_setMutex", "class_abstract_queue_based_task_scheduler.html#a0d2c44b1b22fea2d964f7bf6cc4d685e", null ],
+    [ "_status", "class_abstract_queue_based_task_scheduler.html#a9347d7744e6d8e9100f9fb5093f36ea5", null ],
+    [ "_statusMutex", "class_abstract_queue_based_task_scheduler.html#ad78e2d722f399a71c1d4d00b18c690c7", null ],
+    [ "_taskQueues", "class_abstract_queue_based_task_scheduler.html#ad0e0256b8ba6b22e666b503c30ca5b18", null ],
+    [ "_waitSet", "class_abstract_queue_based_task_scheduler.html#aa14db5392f03ba5ced3b0c69f2277e3a", null ]
+];

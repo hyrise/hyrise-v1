@@ -1,0 +1,332 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="class_between_expression" kind="class" prot="public">
+    <compoundname>BetweenExpression</compoundname>
+    <basecompoundref refid="class_simple_field_expression" prot="public" virt="non-virtual">SimpleFieldExpression</basecompoundref>
+    <includes refid="pred___between_operation_8h" local="no">pred_BetweenOperation.h</includes>
+    <templateparamlist>
+      <param>
+        <type>typename T</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_between_expression_1a080120e2df323b562d815c0fbd00a2d6" prot="private" static="no" mutable="no">
+        <type><ref refid="class_value_id" kindref="compound">ValueId</ref></type>
+        <definition>ValueId BetweenExpression&lt; T &gt;::lower_bound</definition>
+        <argsstring></argsstring>
+        <name>lower_bound</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/pred_BetweenOperation.h" line="11" bodyfile="/home/grund/hyrise/src/lib/access/pred_BetweenOperation.h" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_between_expression_1a1cf174416b480687d8d58c43021bca51" prot="private" static="no" mutable="no">
+        <type><ref refid="class_value_id" kindref="compound">ValueId</ref></type>
+        <definition>ValueId BetweenExpression&lt; T &gt;::upper_bound</definition>
+        <argsstring></argsstring>
+        <name>upper_bound</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/pred_BetweenOperation.h" line="12" bodyfile="/home/grund/hyrise/src/lib/access/pred_BetweenOperation.h" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_between_expression_1a45d2515c02eac806f07006ea7d10248a" prot="private" static="no" mutable="no">
+        <type>T</type>
+        <definition>T BetweenExpression&lt; T &gt;::lower_value</definition>
+        <argsstring></argsstring>
+        <name>lower_value</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/pred_BetweenOperation.h" line="13" bodyfile="/home/grund/hyrise/src/lib/access/pred_BetweenOperation.h" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_between_expression_1a660fe050b812d06495d5af97600493ab" prot="private" static="no" mutable="no">
+        <type>T</type>
+        <definition>T BetweenExpression&lt; T &gt;::upper_value</definition>
+        <argsstring></argsstring>
+        <name>upper_value</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/pred_BetweenOperation.h" line="14" bodyfile="/home/grund/hyrise/src/lib/access/pred_BetweenOperation.h" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_between_expression_1a8d98ddb11f8eb8ba313287b6807a2cb5" prot="private" static="no" mutable="no">
+        <type>std::shared_ptr&lt; <ref refid="class_base_dictionary" kindref="compound">BaseDictionary</ref>&lt; T &gt; &gt;</type>
+        <definition>std::shared_ptr&lt;BaseDictionary&lt;T&gt; &gt; BetweenExpression&lt; T &gt;::valueIdMap</definition>
+        <argsstring></argsstring>
+        <name>valueIdMap</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/pred_BetweenOperation.h" line="15" bodyfile="/home/grund/hyrise/src/lib/access/pred_BetweenOperation.h" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_between_expression_1a30cbcf3427f18f341cc0b09a6c122c9e" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool BetweenExpression&lt; T &gt;::lower_value_exists</definition>
+        <argsstring></argsstring>
+        <name>lower_value_exists</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/pred_BetweenOperation.h" line="16" bodyfile="/home/grund/hyrise/src/lib/access/pred_BetweenOperation.h" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_between_expression_1aa382a5fd90e590c245dca5409fd2c8a7" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool BetweenExpression&lt; T &gt;::upper_value_exists</definition>
+        <argsstring></argsstring>
+        <name>upper_value_exists</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/pred_BetweenOperation.h" line="17" bodyfile="/home/grund/hyrise/src/lib/access/pred_BetweenOperation.h" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_between_expression_1aaff01795790db1e453bae0df031adf5d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>BetweenExpression&lt; T &gt;::BetweenExpression</definition>
+        <argsstring>(size_t i, field_t f, T _lower_value, T _upper_value)</argsstring>
+        <name>BetweenExpression</name>
+        <param>
+          <type>size_t</type>
+          <declname>i</declname>
+        </param>
+        <param>
+          <type><ref refid="storage__types_8h_1a5ce4ecb27464dc24ba394527510dd89b" kindref="member">field_t</ref></type>
+          <declname>f</declname>
+        </param>
+        <param>
+          <type>T</type>
+          <declname>_lower_value</declname>
+        </param>
+        <param>
+          <type>T</type>
+          <declname>_upper_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/pred_BetweenOperation.h" line="22" bodyfile="/home/grund/hyrise/src/lib/access/pred_BetweenOperation.h" bodystart="20" bodyend="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_between_expression_1a003f18624b16a58bb57ada487b1b203f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>BetweenExpression&lt; T &gt;::BetweenExpression</definition>
+        <argsstring>(size_t i, field_name_t f, T _lower_value, T _upper_value)</argsstring>
+        <name>BetweenExpression</name>
+        <param>
+          <type>size_t</type>
+          <declname>i</declname>
+        </param>
+        <param>
+          <type><ref refid="storage__types_8h_1ad64b8c8026a86f643d173acbb694b4f8" kindref="member">field_name_t</ref></type>
+          <declname>f</declname>
+        </param>
+        <param>
+          <type>T</type>
+          <declname>_lower_value</declname>
+        </param>
+        <param>
+          <type>T</type>
+          <declname>_upper_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/pred_BetweenOperation.h" line="26" bodyfile="/home/grund/hyrise/src/lib/access/pred_BetweenOperation.h" bodystart="24" bodyend="26"/>
+      </memberdef>
+      <memberdef kind="function" id="class_between_expression_1a748fa9c4aad677ac15762991b2fc577d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>BetweenExpression&lt; T &gt;::BetweenExpression</definition>
+        <argsstring>(hyrise::storage::c_atable_ptr_t _table, field_t _field, T _lower_value, T _upper_value)</argsstring>
+        <name>BetweenExpression</name>
+        <param>
+          <type><ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref></type>
+          <declname>_table</declname>
+        </param>
+        <param>
+          <type><ref refid="storage__types_8h_1a5ce4ecb27464dc24ba394527510dd89b" kindref="member">field_t</ref></type>
+          <declname>_field</declname>
+        </param>
+        <param>
+          <type>T</type>
+          <declname>_lower_value</declname>
+        </param>
+        <param>
+          <type>T</type>
+          <declname>_upper_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/pred_BetweenOperation.h" line="30" bodyfile="/home/grund/hyrise/src/lib/access/pred_BetweenOperation.h" bodystart="28" bodyend="30"/>
+      </memberdef>
+      <memberdef kind="function" id="class_between_expression_1aa484acc9f9d0a8e95d4a23118f6199b9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void BetweenExpression&lt; T &gt;::walk</definition>
+        <argsstring>(const std::vector&lt; hyrise::storage::c_atable_ptr_t &gt; &amp;l)</argsstring>
+        <name>walk</name>
+        <reimplements refid="class_simple_field_expression_1a2b9be48219459a784de03b6298b56966">walk</reimplements>
+        <param>
+          <type>const std::vector&lt; <ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref> &gt; &amp;</type>
+          <declname>l</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/pred_BetweenOperation.h" line="32" bodyfile="/home/grund/hyrise/src/lib/access/pred_BetweenOperation.h" bodystart="32" bodyend="43"/>
+      </memberdef>
+      <memberdef kind="function" id="class_between_expression_1a1fd43bc66ab69aa45e612f1c3f8967ca" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual BetweenExpression&lt; T &gt;::~BetweenExpression</definition>
+        <argsstring>()</argsstring>
+        <name>~BetweenExpression</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/pred_BetweenOperation.h" line="46" bodyfile="/home/grund/hyrise/src/lib/access/pred_BetweenOperation.h" bodystart="46" bodyend="46"/>
+      </memberdef>
+      <memberdef kind="function" id="class_between_expression_1a019dfe62d452a2c3a0bb8f2e808d661f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool BetweenExpression&lt; T &gt;::operator()</definition>
+        <argsstring>(size_t row)</argsstring>
+        <name>operator()</name>
+        <reimplements refid="class_simple_field_expression_1adcbedd75f7652d48f58256eefe09c5fe">operator()</reimplements>
+        <param>
+          <type>size_t</type>
+          <declname>row</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/pred_BetweenOperation.h" line="48" bodyfile="/home/grund/hyrise/src/lib/access/pred_BetweenOperation.h" bodystart="48" bodyend="67"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1562">
+        <label>SimpleFieldExpression</label>
+        <link refid="class_simple_field_expression"/>
+        <childnode refid="1563" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1561">
+        <label>BetweenExpression&lt; T &gt;</label>
+        <link refid="class_between_expression"/>
+        <childnode refid="1562" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1563">
+        <label>SimpleExpression</label>
+        <link refid="class_simple_expression"/>
+        <childnode refid="1564" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1564">
+        <label>hyrise::access::AbstractExpression</label>
+        <link refid="classhyrise_1_1access_1_1_abstract_expression"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1566">
+        <label>SimpleFieldExpression</label>
+        <link refid="class_simple_field_expression"/>
+        <childnode refid="1567" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1565">
+        <label>BetweenExpression&lt; T &gt;</label>
+        <link refid="class_between_expression"/>
+        <childnode refid="1566" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1569" relation="usage">
+          <edgelabel>upper_bound</edgelabel>
+          <edgelabel>lower_bound</edgelabel>
+        </childnode>
+      </node>
+      <node id="1569">
+        <label>ValueId</label>
+        <link refid="class_value_id"/>
+      </node>
+      <node id="1567">
+        <label>SimpleExpression</label>
+        <link refid="class_simple_expression"/>
+        <childnode refid="1568" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1568">
+        <label>hyrise::access::AbstractExpression</label>
+        <link refid="classhyrise_1_1access_1_1_abstract_expression"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/access/pred_BetweenOperation.h" line="9" bodyfile="/home/grund/hyrise/src/lib/access/pred_BetweenOperation.h" bodystart="9" bodyend="68"/>
+    <listofallmembers>
+      <member refid="class_between_expression_1aaff01795790db1e453bae0df031adf5d" prot="public" virt="non-virtual"><scope>BetweenExpression</scope><name>BetweenExpression</name></member>
+      <member refid="class_between_expression_1a003f18624b16a58bb57ada487b1b203f" prot="public" virt="non-virtual"><scope>BetweenExpression</scope><name>BetweenExpression</name></member>
+      <member refid="class_between_expression_1a748fa9c4aad677ac15762991b2fc577d" prot="public" virt="non-virtual"><scope>BetweenExpression</scope><name>BetweenExpression</name></member>
+      <member refid="class_simple_field_expression_1ac17522bcc3e92592ed34b84d460909a7" prot="protected" virt="non-virtual"><scope>BetweenExpression</scope><name>field</name></member>
+      <member refid="class_simple_field_expression_1ac25373119e8937fa84ac763c264a7756" prot="protected" virt="non-virtual"><scope>BetweenExpression</scope><name>field_name</name></member>
+      <member refid="class_simple_field_expression_1a2e95b8194489dc5d79bc2e070bfcdb24" prot="protected" virt="non-virtual"><scope>BetweenExpression</scope><name>input</name></member>
+      <member refid="class_between_expression_1a080120e2df323b562d815c0fbd00a2d6" prot="private" virt="non-virtual"><scope>BetweenExpression</scope><name>lower_bound</name></member>
+      <member refid="class_between_expression_1a45d2515c02eac806f07006ea7d10248a" prot="private" virt="non-virtual"><scope>BetweenExpression</scope><name>lower_value</name></member>
+      <member refid="class_between_expression_1a30cbcf3427f18f341cc0b09a6c122c9e" prot="private" virt="non-virtual"><scope>BetweenExpression</scope><name>lower_value_exists</name></member>
+      <member refid="class_simple_expression_1ae06428047fe77732ef121f42b1ee6ce2" prot="public" virt="virtual"><scope>BetweenExpression</scope><name>match</name></member>
+      <member refid="class_between_expression_1a019dfe62d452a2c3a0bb8f2e808d661f" prot="public" virt="virtual"><scope>BetweenExpression</scope><name>operator()</name></member>
+      <member refid="class_simple_field_expression_1a53fb1bfcb3b90cced5a6a5d150acb750" prot="public" virt="non-virtual"><scope>BetweenExpression</scope><name>SimpleFieldExpression</name></member>
+      <member refid="class_simple_field_expression_1ad9a94013df2c3521382fac2ea68a3813" prot="public" virt="non-virtual"><scope>BetweenExpression</scope><name>SimpleFieldExpression</name></member>
+      <member refid="class_simple_field_expression_1a64fefbe7ec640b832ccc2e1cc33b4817" prot="public" virt="non-virtual"><scope>BetweenExpression</scope><name>SimpleFieldExpression</name></member>
+      <member refid="class_simple_field_expression_1ac95fe343f1a1dc8e470427f6629fb4ca" prot="public" virt="non-virtual"><scope>BetweenExpression</scope><name>SimpleFieldExpression</name></member>
+      <member refid="class_simple_field_expression_1a8da8d230fd7e416f692da42a666625ec" prot="protected" virt="non-virtual"><scope>BetweenExpression</scope><name>table</name></member>
+      <member refid="class_between_expression_1a1cf174416b480687d8d58c43021bca51" prot="private" virt="non-virtual"><scope>BetweenExpression</scope><name>upper_bound</name></member>
+      <member refid="class_between_expression_1a660fe050b812d06495d5af97600493ab" prot="private" virt="non-virtual"><scope>BetweenExpression</scope><name>upper_value</name></member>
+      <member refid="class_between_expression_1aa382a5fd90e590c245dca5409fd2c8a7" prot="private" virt="non-virtual"><scope>BetweenExpression</scope><name>upper_value_exists</name></member>
+      <member refid="class_between_expression_1a8d98ddb11f8eb8ba313287b6807a2cb5" prot="private" virt="non-virtual"><scope>BetweenExpression</scope><name>valueIdMap</name></member>
+      <member refid="class_between_expression_1aa484acc9f9d0a8e95d4a23118f6199b9" prot="public" virt="virtual"><scope>BetweenExpression</scope><name>walk</name></member>
+      <member refid="classhyrise_1_1access_1_1_abstract_expression_1aae15725c08628e3785e90f496b75144e" prot="public" virt="pure-virtual" ambiguityscope="hyrise::access::AbstractExpression::"><scope>BetweenExpression</scope><name>walk</name></member>
+      <member refid="classhyrise_1_1access_1_1_abstract_expression_1ae0b45f17103a1dc5006832d243574d83" prot="public" virt="virtual"><scope>BetweenExpression</scope><name>~AbstractExpression</name></member>
+      <member refid="class_between_expression_1a1fd43bc66ab69aa45e612f1c3f8967ca" prot="public" virt="virtual"><scope>BetweenExpression</scope><name>~BetweenExpression</name></member>
+      <member refid="class_simple_field_expression_1acdf860b623a41c93c85f1cea991c9252" prot="public" virt="virtual"><scope>BetweenExpression</scope><name>~SimpleFieldExpression</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

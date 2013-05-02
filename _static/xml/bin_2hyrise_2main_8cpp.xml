@@ -1,0 +1,697 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="bin_2hyrise_2main_8cpp" kind="file">
+    <compoundname>main.cpp</compoundname>
+    <includes local="no">fcntl.h</includes>
+    <includes local="no">fstream</includes>
+    <includes local="no">iostream</includes>
+    <includes local="no">sstream</includes>
+    <includes local="no">stdexcept</includes>
+    <includes local="no">hwloc.h</includes>
+    <includes local="no">signal.h</includes>
+    <includes local="yes">log4cxx/logger.h</includes>
+    <includes local="yes">log4cxx/basicconfigurator.h</includes>
+    <includes local="yes">log4cxx/propertyconfigurator.h</includes>
+    <includes local="yes">log4cxx/helpers/exception.h</includes>
+    <includes local="no">boost/program_options.hpp</includes>
+    <includes refid="io_8h" local="no">io.h</includes>
+    <includes refid="net_8h" local="no">net.h</includes>
+    <includes refid="_shared_scheduler_8h" local="yes">taskscheduler/SharedScheduler.h</includes>
+    <includes refid="_hwloc_helper_8h" local="yes">helper/HwlocHelper.h</includes>
+    <incdepgraph>
+      <node id="33">
+        <label>atomic</label>
+      </node>
+      <node id="42">
+        <label>net/AbstractConnection.h</label>
+        <link refid="_abstract_connection_8h"/>
+        <childnode refid="20" relation="include">
+        </childnode>
+      </node>
+      <node id="38">
+        <label>arpa/inet.h</label>
+      </node>
+      <node id="28">
+        <label>boost/mpl/vector.hpp</label>
+      </node>
+      <node id="53">
+        <label>queue</label>
+      </node>
+      <node id="23">
+        <label>limits</label>
+      </node>
+      <node id="30">
+        <label>boost/lexical_cast.hpp</label>
+      </node>
+      <node id="22">
+        <label>cstdint</label>
+      </node>
+      <node id="26">
+        <label>stdint.h</label>
+      </node>
+      <node id="13">
+        <label>log4cxx/basicconfigurator.h</label>
+      </node>
+      <node id="9">
+        <label>stdexcept</label>
+      </node>
+      <node id="5">
+        <label>fcntl.h</label>
+      </node>
+      <node id="51">
+        <label>helper/HwlocHelper.h</label>
+        <link refid="_hwloc_helper_8h"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>string</label>
+      </node>
+      <node id="52">
+        <label>taskscheduler/SimpleTaskScheduler.h</label>
+        <link refid="_simple_task_scheduler_8h"/>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+      </node>
+      <node id="34">
+        <label>map</label>
+      </node>
+      <node id="46">
+        <label>taskscheduler/Task.h</label>
+        <link refid="_task_8h"/>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+      </node>
+      <node id="50">
+        <label>unordered_set</label>
+      </node>
+      <node id="36">
+        <label>net.h</label>
+        <link refid="net_8h"/>
+        <childnode refid="37" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>hwloc.h</label>
+      </node>
+      <node id="54">
+        <label>taskscheduler/CoreBoundTaskQueue.h</label>
+        <link refid="_core_bound_task_queue_8h"/>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>fstream</label>
+      </node>
+      <node id="16">
+        <label>boost/program_options.hpp</label>
+      </node>
+      <node id="27">
+        <label>ostream</label>
+      </node>
+      <node id="4">
+        <label>src/bin/hyrise/main.cpp</label>
+        <link refid="bin/hyrise/main.cpp"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+      </node>
+      <node id="47">
+        <label>condition_variable</label>
+      </node>
+      <node id="43">
+        <label>ebb/ebb.h</label>
+      </node>
+      <node id="24">
+        <label>vector</label>
+      </node>
+      <node id="11">
+        <label>signal.h</label>
+      </node>
+      <node id="44">
+        <label>taskscheduler/SharedScheduler.h</label>
+        <link refid="_shared_scheduler_8h"/>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>log4cxx/helpers/exception.h</label>
+      </node>
+      <node id="21">
+        <label>helper/types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+      </node>
+      <node id="48">
+        <label>taskscheduler/AbstractTaskQueue.h</label>
+        <link refid="_abstract_task_queue_8h"/>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>sstream</label>
+      </node>
+      <node id="18">
+        <label>io/Loader.h</label>
+        <link refid="_loader_8h"/>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+      </node>
+      <node id="32">
+        <label>io/StorageManager.h</label>
+        <link refid="_storage_manager_8h"/>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>io.h</label>
+        <link refid="io_8h"/>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+      </node>
+      <node id="37">
+        <label>net/AsyncConnection.h</label>
+        <link refid="_async_connection_8h"/>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+      </node>
+      <node id="40">
+        <label>cstdlib</label>
+      </node>
+      <node id="39">
+        <label>sys/time.h</label>
+      </node>
+      <node id="7">
+        <label>iostream</label>
+      </node>
+      <node id="45">
+        <label>taskscheduler/AbstractTaskScheduler.h</label>
+        <link refid="_abstract_task_scheduler_8h"/>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>log4cxx/propertyconfigurator.h</label>
+      </node>
+      <node id="41">
+        <label>ev.h</label>
+      </node>
+      <node id="29">
+        <label>boost/mpl/map.hpp</label>
+      </node>
+      <node id="35">
+        <label>mutex</label>
+      </node>
+      <node id="49">
+        <label>thread</label>
+      </node>
+      <node id="12">
+        <label>log4cxx/logger.h</label>
+      </node>
+      <node id="19">
+        <label>memory</label>
+      </node>
+      <node id="25">
+        <label>storage/storage_types.h</label>
+        <link refid="storage__types_8h"/>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+      </node>
+      <node id="31">
+        <label>parameters.inc</label>
+        <link refid="parameters_8inc"/>
+      </node>
+    </incdepgraph>
+    <innerclass refid="class_port_resource" prot="public">PortResource</innerclass>
+    <innerclass refid="class_pid_file" prot="public">PidFile</innerclass>
+    <innernamespace refid="namespacelog4cxx">log4cxx</innernamespace>
+    <innernamespace refid="namespacelog4cxx_1_1helpers">log4cxx::helpers</innernamespace>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="bin_2hyrise_2main_8cpp_1a21b32e484d626fbcfe64407b118e2fec" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* PID_FILE</definition>
+        <argsstring></argsstring>
+        <name>PID_FILE</name>
+        <initializer>&quot;./hyrise_server.pid&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/hyrise/main.cpp" line="29" bodyfile="/home/grund/hyrise/src/bin/hyrise/main.cpp" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="bin_2hyrise_2main_8cpp_1a04b3c3c8f61f8c0830a47db758d04d9a" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* PORT_FILE</definition>
+        <argsstring></argsstring>
+        <name>PORT_FILE</name>
+        <initializer>&quot;./hyrise_server.port&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/hyrise/main.cpp" line="30" bodyfile="/home/grund/hyrise/src/bin/hyrise/main.cpp" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="bin_2hyrise_2main_8cpp_1aeb2044d5b2fe773e51cf4d1fbe100752" prot="public" static="no" mutable="no">
+        <type>const size_t</type>
+        <definition>const size_t DEFAULT_PORT</definition>
+        <argsstring></argsstring>
+        <name>DEFAULT_PORT</name>
+        <initializer> 5000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/hyrise/main.cpp" line="31" bodyfile="/home/grund/hyrise/src/bin/hyrise/main.cpp" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="bin_2hyrise_2main_8cpp_1a7a40d9164397ae556e53aa25f552ea52" prot="public" static="yes" mutable="no">
+        <type>ebb_server</type>
+        <definition>ebb_server server</definition>
+        <argsstring></argsstring>
+        <name>server</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/hyrise/main.cpp" line="34" bodyfile="/home/grund/hyrise/src/bin/hyrise/main.cpp" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="bin_2hyrise_2main_8cpp_1a1f643aeca905220d975e69578154a71d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>LoggerPtr</type>
+        <definition>LoggerPtr logger</definition>
+        <argsstring>(Logger::getLogger(&quot;hyrise&quot;))</argsstring>
+        <name>logger</name>
+        <param>
+          <type>Logger::</type>
+          <declname>getLogger</declname>
+          <array>&quot;hyrise&quot;</array>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/hyrise/main.cpp" line="36"/>
+      </memberdef>
+      <memberdef kind="function" id="bin_2hyrise_2main_8cpp_1ad4088adc01000894dca03bde946cece8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void shutdown</definition>
+        <argsstring>(int sig)</argsstring>
+        <name>shutdown</name>
+        <param>
+          <type>int</type>
+          <declname>sig</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/hyrise/main.cpp" line="87" bodyfile="/home/grund/hyrise/src/bin/hyrise/main.cpp" bodystart="87" bodyend="94"/>
+      </memberdef>
+      <memberdef kind="function" id="bin_2hyrise_2main_8cpp_1a81ecbbdb48cb57b6bf2beab14738c31e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void bindToNode</definition>
+        <argsstring>(int node)</argsstring>
+        <name>bindToNode</name>
+        <param>
+          <type>int</type>
+          <declname>node</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/hyrise/main.cpp" line="96" bodyfile="/home/grund/hyrise/src/bin/hyrise/main.cpp" bodystart="96" bodyend="130"/>
+      </memberdef>
+      <memberdef kind="function" id="bin_2hyrise_2main_8cpp_1a0ddf1224851353fc92bfbff6f499fa97" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>(int argc, char *argv[])</argsstring>
+        <name>main</name>
+        <param>
+          <type>int</type>
+          <declname>argc</declname>
+        </param>
+        <param>
+          <type>char *</type>
+          <declname>argv</declname>
+          <array>[]</array>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/hyrise/main.cpp" line="133" bodyfile="/home/grund/hyrise/src/bin/hyrise/main.cpp" bodystart="133" bodyend="187"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>2012<sp/>Hasso-Plattner-Institut<sp/>fuer<sp/>Softwaresystemtechnik<sp/>GmbH.<sp/>All<sp/>rights<sp/>reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;fcntl.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;fstream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;iostream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;sstream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdexcept&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;hwloc.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;signal.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;log4cxx/logger.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;log4cxx/basicconfigurator.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;log4cxx/propertyconfigurator.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;log4cxx/helpers/exception.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;boost/program_options.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="io_8h" kindref="compound">io.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="net_8h" kindref="compound">net.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_shared_scheduler_8h" kindref="compound">taskscheduler/SharedScheduler.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_hwloc_helper_8h" kindref="compound">helper/HwlocHelper.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">po<sp/>=<sp/>boost::program_options;</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="keyword">using<sp/>namespace<sp/></highlight><highlight class="normal">hyrise;</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="keyword">using<sp/>namespace<sp/></highlight><highlight class="normal">log4cxx;</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="keyword">using<sp/>namespace<sp/></highlight><highlight class="normal">log4cxx::helpers;</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29" refid="bin_2hyrise_2main_8cpp_1a21b32e484d626fbcfe64407b118e2fec" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*<ref refid="bin_2hyrise_2main_8cpp_1a21b32e484d626fbcfe64407b118e2fec" kindref="member">PID_FILE</ref><sp/>=<sp/></highlight><highlight class="stringliteral">&quot;./hyrise_server.pid&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="30" refid="bin_2hyrise_2main_8cpp_1a04b3c3c8f61f8c0830a47db758d04d9a" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*<ref refid="bin_2hyrise_2main_8cpp_1a04b3c3c8f61f8c0830a47db758d04d9a" kindref="member">PORT_FILE</ref><sp/>=<sp/></highlight><highlight class="stringliteral">&quot;./hyrise_server.port&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="31" refid="bin_2hyrise_2main_8cpp_1aeb2044d5b2fe773e51cf4d1fbe100752" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="bin_2hyrise_2main_8cpp_1aeb2044d5b2fe773e51cf4d1fbe100752" kindref="member">DEFAULT_PORT</ref><sp/>=<sp/>5000;</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Global<sp/>EBB<sp/>Server<sp/>instance</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34" refid="bin_2hyrise_2main_8cpp_1a7a40d9164397ae556e53aa25f552ea52" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>ebb_server<sp/><ref refid="bin_2hyrise_2main_8cpp_1a7a40d9164397ae556e53aa25f552ea52" kindref="member">server</ref>;</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal">LoggerPtr<sp/><ref refid="bin_2hyrise_2main_8cpp_1a1f643aeca905220d975e69578154a71d" kindref="member">logger</ref>(Logger::getLogger(</highlight><highlight class="stringliteral">&quot;hyrise&quot;</highlight><highlight class="normal">));</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41" refid="class_port_resource" refkind="compound"><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_port_resource" kindref="compound">PortResource</ref><sp/>{</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="43" refid="class_port_resource_1a6dd005e319aba780fbc0762f1191202a" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="class_port_resource_1a6dd005e319aba780fbc0762f1191202a" kindref="member">PortResource</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>start,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>end,<sp/>ebb_server&amp;<sp/>s)<sp/>:<sp/>_current(0)<sp/>{</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/>assert((start<sp/>&lt;<sp/>end)<sp/>&amp;&amp;<sp/></highlight><highlight class="stringliteral">&quot;start<sp/>must<sp/>be<sp/>smaller<sp/>than<sp/>end&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>current<sp/>=<sp/>start;<sp/>current<sp/>&lt;<sp/>end;<sp/>++current)<sp/>{</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ebb_server_listen_on_port(&amp;s,<sp/>current)<sp/>!=<sp/>-1)<sp/>{</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>_current<sp/>=<sp/>current;</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Port<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>current<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>already<sp/>in<sp/>use,<sp/>retrying&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(_current<sp/>==<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;no<sp/>port<sp/>available<sp/>in<sp/>range<sp/>[&quot;</highlight><highlight class="normal"><sp/>+<sp/><ref refid="namespacehyrise_1aec58f00f171c12aa4ef29682158b9fc2" kindref="member">std::to_string</ref>(start)<sp/>+<sp/></highlight><highlight class="stringliteral">&quot;,<sp/>&quot;</highlight><highlight class="normal"><sp/>+<sp/><ref refid="namespacehyrise_1aec58f00f171c12aa4ef29682158b9fc2" kindref="member">std::to_string</ref>(end)<sp/>+<sp/></highlight><highlight class="stringliteral">&quot;]&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;std::endl;</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>std::exit(1);</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/>std::ofstream<sp/>port_file(<ref refid="bin_2hyrise_2main_8cpp_1a04b3c3c8f61f8c0830a47db758d04d9a" kindref="member">PORT_FILE</ref>);</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/>port_file<sp/>&lt;&lt;<sp/>_current;</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61" refid="class_port_resource_1a9bd9a470f1e9a1f8f73337a46dfd46be" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="class_port_resource_1a9bd9a470f1e9a1f8f73337a46dfd46be" kindref="member">~PortResource</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">remove</highlight><highlight class="normal">(<ref refid="bin_2hyrise_2main_8cpp_1a04b3c3c8f61f8c0830a47db758d04d9a" kindref="member">PORT_FILE</ref>)<sp/>!=<sp/>0)</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>perror(</highlight><highlight class="stringliteral">&quot;unlink<sp/>portfile&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/></highlight></codeline>
+<codeline lineno="66" refid="class_port_resource_1ac5083fffa16aa5152c1f990ebbafac05" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="class_port_resource_1ac5083fffa16aa5152c1f990ebbafac05" kindref="member">getPort</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>_current;</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="71" refid="class_port_resource_1a9c0b49df45dc07cf229075bb63316ff0" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="class_port_resource_1a9c0b49df45dc07cf229075bb63316ff0" kindref="member">_current</ref>;</highlight></codeline>
+<codeline lineno="72"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74" refid="class_pid_file" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_pid_file" kindref="compound">PidFile</ref><sp/>{</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="76" refid="class_pid_file_1a7ec8f9f8ca2b04d453b146da2bc62500" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="class_pid_file_1a7ec8f9f8ca2b04d453b146da2bc62500" kindref="member">PidFile</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/>std::ofstream<sp/>pidf(<ref refid="bin_2hyrise_2main_8cpp_1a21b32e484d626fbcfe64407b118e2fec" kindref="member">PID_FILE</ref>);</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/>pidf<sp/>&lt;&lt;<sp/>getpid();</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="81" refid="class_pid_file_1a240c5589f4b384201a4f74f782aaa5fd" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="class_pid_file_1a240c5589f4b384201a4f74f782aaa5fd" kindref="member">~PidFile</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">remove</highlight><highlight class="normal">(<ref refid="bin_2hyrise_2main_8cpp_1a21b32e484d626fbcfe64407b118e2fec" kindref="member">PID_FILE</ref>)<sp/>!=<sp/>0)</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>perror(</highlight><highlight class="stringliteral">&quot;unlink<sp/>pidfile&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="85"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight></codeline>
+<codeline lineno="87" refid="bin_2hyrise_2main_8cpp_1ad4088adc01000894dca03bde946cece8" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="bin_2hyrise_2main_8cpp_1ad4088adc01000894dca03bde946cece8" kindref="member">shutdown</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>sig)<sp/>{</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/>std::cerr<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Graceful<sp/>stop<sp/>requested...&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><ref refid="classhyrise_1_1io_1_1_storage_manager_1a73b12a097673a0afa604a22dd401a1bb" kindref="member" tooltip="Retrieve singleton storage-manager instance.">StorageManager::getInstance</ref>()-&gt;<ref refid="classhyrise_1_1io_1_1_storage_manager_1a8ae4677060c29dd5b6fed2871e557b5b" kindref="member">removeAll</ref>();</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/>std::cerr<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Removed<sp/>all<sp/>tables...&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/>sleep(1);</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/>ebb_server_unlisten(&amp;<ref refid="bin_2hyrise_2main_8cpp_1a7a40d9164397ae556e53aa25f552ea52" kindref="member">server</ref>);</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/>std::cerr<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Server<sp/>stoped,<sp/>finished.&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="94"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96" refid="bin_2hyrise_2main_8cpp_1a81ecbbdb48cb57b6bf2beab14738c31e" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="bin_2hyrise_2main_8cpp_1a81ecbbdb48cb57b6bf2beab14738c31e" kindref="member">bindToNode</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>node)<sp/>{</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/>hwloc_topology_t<sp/>topology<sp/>=<sp/><ref refid="_hwloc_helper_8cpp_1ad12145e7aa1fc25a978b719f08b23bb9" kindref="member">getHWTopology</ref>();</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/>hwloc_cpuset_t<sp/>cpuset;</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/>hwloc_obj_t<sp/>obj;</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>The<sp/>actual<sp/>core</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/>obj<sp/>=<sp/>hwloc_get_obj_by_type(topology,<sp/>HWLOC_OBJ_CORE,<sp/>node);</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/>cpuset<sp/>=<sp/>hwloc_bitmap_dup(obj-&gt;cpuset);</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/>hwloc_bitmap_singlify(cpuset);</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>bind</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(hwloc_set_cpubind(topology,<sp/>cpuset,<sp/>HWLOC_CPUBIND_STRICT<sp/>|<sp/>HWLOC_CPUBIND_NOMEMBIND<sp/>|<sp/>HWLOC_CPUBIND_PROCESS))<sp/>{</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*str;</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>error<sp/>=<sp/>errno;</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/>hwloc_bitmap_asprintf(&amp;str,<sp/>obj-&gt;cpuset);</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/>printf(</highlight><highlight class="stringliteral">&quot;Couldn&apos;t<sp/>bind<sp/>to<sp/>cpuset<sp/>%s:<sp/>%s\n&quot;</highlight><highlight class="normal">,<sp/>str,<sp/>strerror(error));</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/>free(str);</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/>std::runtime_error(strerror(error));</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>free<sp/>duplicated<sp/>cpuset</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/>hwloc_bitmap_free(cpuset);</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/>obj<sp/>=<sp/>hwloc_get_obj_by_type(topology,<sp/>HWLOC_OBJ_MACHINE,<sp/>node);</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(hwloc_set_membind_nodeset(topology,<sp/>obj-&gt;nodeset,<sp/>HWLOC_MEMBIND_INTERLEAVE,<sp/>HWLOC_MEMBIND_STRICT<sp/>|<sp/>HWLOC_MEMBIND_THREAD))<sp/>{</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*str;</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>error<sp/>=<sp/>errno;</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/>hwloc_bitmap_asprintf(&amp;str,<sp/>obj-&gt;nodeset);</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/>fprintf(stderr,<sp/></highlight><highlight class="stringliteral">&quot;Couldn&apos;t<sp/>membind<sp/>to<sp/>nodeset<sp/><sp/>%s:<sp/>%s\n&quot;</highlight><highlight class="normal">,<sp/>str,<sp/>strerror(error));</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/>fprintf(stderr,<sp/></highlight><highlight class="stringliteral">&quot;Continuing<sp/>as<sp/>normal,<sp/>however,<sp/>no<sp/>guarantees\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/>free(str);</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//throw<sp/>std::runtime_error(strerror(error));</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="130"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight></codeline>
+<codeline lineno="133" refid="bin_2hyrise_2main_8cpp_1a0ddf1224851353fc92bfbff6f499fa97" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="bin_2dummy_2main_8cpp_1a0ddf1224851353fc92bfbff6f499fa97" kindref="member">main</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>argc,<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*argv[])<sp/>{</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Bind<sp/>the<sp/>program<sp/>to<sp/>the<sp/>first<sp/>NUMA<sp/>node</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><ref refid="bin_2hyrise_2main_8cpp_1a81ecbbdb48cb57b6bf2beab14738c31e" kindref="member">bindToNode</ref>(0);</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>port<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/>std::string<sp/>logPropertyFile;</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/>std::string<sp/>scheduler_name;</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Program<sp/>Options</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/>po::options_description<sp/>desc(</highlight><highlight class="stringliteral">&quot;Allowed<sp/>Parameters&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/>desc.add_options()(</highlight><highlight class="stringliteral">&quot;help&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;Shows<sp/>this<sp/>help<sp/>message&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/>(</highlight><highlight class="stringliteral">&quot;port,p&quot;</highlight><highlight class="normal">,<sp/>po::value&lt;size_t&gt;(&amp;port)-&gt;default_value(<ref refid="bin_2hyrise_2main_8cpp_1aeb2044d5b2fe773e51cf4d1fbe100752" kindref="member">DEFAULT_PORT</ref>),<sp/></highlight><highlight class="stringliteral">&quot;Server<sp/>Port&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/>(</highlight><highlight class="stringliteral">&quot;logdef,l&quot;</highlight><highlight class="normal">,<sp/>po::value&lt;std::string&gt;(&amp;logPropertyFile)-&gt;default_value(</highlight><highlight class="stringliteral">&quot;build/log.properties&quot;</highlight><highlight class="normal">),<sp/></highlight><highlight class="stringliteral">&quot;Log4CXX<sp/>Log<sp/>Properties<sp/>File&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/>(</highlight><highlight class="stringliteral">&quot;scheduler,s&quot;</highlight><highlight class="normal">,<sp/>po::value&lt;std::string&gt;(&amp;scheduler_name)-&gt;default_value(</highlight><highlight class="stringliteral">&quot;WSSimpleTaskScheduler&quot;</highlight><highlight class="normal">),<sp/></highlight><highlight class="stringliteral">&quot;Name<sp/>of<sp/>the<sp/>scheduler<sp/>to<sp/>use&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/>po::variables_map<sp/>vm;</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/>po::store(po::parse_command_line(argc,<sp/>argv,<sp/>desc),<sp/>vm);</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/>po::notify(vm);</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(vm.count(</highlight><highlight class="stringliteral">&quot;help&quot;</highlight><highlight class="normal">))<sp/>{</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/>desc<sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>EXIT_SUCCESS;</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"></highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Log<sp/>File<sp/>Configuration</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/>PropertyConfigurator::configure(logPropertyFile);</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"></highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/></highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><ref refid="class_shared_scheduler_1a8339d8db9b226ca95bca5dcc31f216f5" kindref="member">SharedScheduler::getInstance</ref>().<ref refid="class_shared_scheduler_1a52fee000d5c42f616db9b65454b743bf" kindref="member">init</ref>(scheduler_name);</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><ref refid="class_abstract_task_scheduler" kindref="compound">AbstractTaskScheduler</ref><sp/>*scheduler<sp/>=<sp/><ref refid="class_shared_scheduler_1a8339d8db9b226ca95bca5dcc31f216f5" kindref="member">SharedScheduler::getInstance</ref>().<ref refid="class_shared_scheduler_1a10e97e4f3ccc5046ff9844d855ee0c9c" kindref="member">getScheduler</ref>();</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(scheduler<sp/>!=<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/>scheduler-&gt;<ref refid="class_abstract_task_scheduler_1a7144f23ea3f7de43152baca16e9a1658" kindref="member">resize</ref>(<ref refid="_hwloc_helper_8cpp_1a5852d7c54d41ff6c71f33e4b89a5f059" kindref="member">getNumberOfCoresOnSystem</ref>());</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/>signal(SIGINT,<sp/>&amp;<ref refid="bin_2hyrise_2main_8cpp_1ad4088adc01000894dca03bde946cece8" kindref="member">shutdown</ref>);</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>MainS<sp/>erver<sp/>Loop</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">ev_loop<sp/>*loop<sp/>=<sp/>ev_default_loop(0);</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"></highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Initialize<sp/>server<sp/>based<sp/>on<sp/>libev<sp/>event<sp/>loop</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/>ebb_server_init(&amp;<ref refid="bin_2hyrise_2main_8cpp_1a7a40d9164397ae556e53aa25f552ea52" kindref="member">server</ref>,<sp/>loop);</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"></highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/></highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Define<sp/>handler<sp/>for<sp/>ebb</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><ref refid="bin_2hyrise_2main_8cpp_1a7a40d9164397ae556e53aa25f552ea52" kindref="member">server</ref>.new_connection<sp/>=<sp/><ref refid="namespacehyrise_1_1net_1ab03847f14803c3811bbc3f2695238167" kindref="member">net::new_connection</ref>;</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"></highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><ref refid="class_pid_file" kindref="compound">PidFile</ref><sp/>pi;</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><ref refid="class_port_resource" kindref="compound">PortResource</ref><sp/>pa(port,<sp/>port+100,<sp/><ref refid="bin_2hyrise_2main_8cpp_1a7a40d9164397ae556e53aa25f552ea52" kindref="member">server</ref>);</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/></highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//ebb_server_listen_on_port(&amp;server,<sp/>port);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/>LOG4CXX_INFO(<ref refid="bin_2hyrise_2main_8cpp_1a1f643aeca905220d975e69578154a71d" kindref="member">logger</ref>,<sp/></highlight><highlight class="stringliteral">&quot;Started<sp/>server<sp/>on<sp/>port<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>pa.<ref refid="class_port_resource_1ac5083fffa16aa5152c1f990ebbafac05" kindref="member">getPort</ref>());</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/>ev_loop(loop,<sp/>0);</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/>LOG4CXX_INFO(<ref refid="bin_2hyrise_2main_8cpp_1a1f643aeca905220d975e69578154a71d" kindref="member">logger</ref>,<sp/></highlight><highlight class="stringliteral">&quot;Stopping<sp/>Server...&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"></highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline lineno="187"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/home/grund/hyrise/src/bin/hyrise/main.cpp"/>
+  </compounddef>
+</doxygen>

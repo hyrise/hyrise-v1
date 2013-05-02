@@ -1,0 +1,1513 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="_plan_operation_8h" kind="file">
+    <compoundname>PlanOperation.h</compoundname>
+    <includes refid="_output_task_8h" local="yes">access/OutputTask.h</includes>
+    <includes refid="_operation_data_8h" local="yes">access/OperationData.h</includes>
+    <includes refid="_query_parser_8h" local="yes">access/QueryParser.h</includes>
+    <includes refid="storage__types_8h" local="yes">storage/storage_types.h</includes>
+    <includes refid="types_8h" local="yes">helper/types.h</includes>
+    <includes refid="_abstract_table_8h" local="yes">storage/AbstractTable.h</includes>
+    <includes local="yes">json.h</includes>
+    <includedby refid="_abstract_plan_op_transformation_8h" local="no">src/lib/access/AbstractPlanOpTransformation.h</includedby>
+    <includedby refid="_barrier_8h" local="yes">src/lib/access/Barrier.h</includedby>
+    <includedby refid="_create_index_8h" local="yes">src/lib/access/CreateIndex.h</includedby>
+    <includedby refid="_distinct_8h" local="yes">src/lib/access/Distinct.h</includedby>
+    <includedby refid="_expression_scan_8h" local="yes">src/lib/access/ExpressionScan.h</includedby>
+    <includedby refid="_get_table_8h" local="yes">src/lib/access/GetTable.h</includedby>
+    <includedby refid="_group_by_scan_8h" local="yes">src/lib/access/GroupByScan.h</includedby>
+    <includedby refid="_hash_build_8h" local="yes">src/lib/access/HashBuild.h</includedby>
+    <includedby refid="_hash_join_probe_8h" local="yes">src/lib/access/HashJoinProbe.h</includedby>
+    <includedby refid="_hash_value_join_8hpp" local="no">src/lib/access/HashValueJoin.hpp</includedby>
+    <includedby refid="_histogram_8h" local="yes">src/lib/access/Histogram.h</includedby>
+    <includedby refid="_index_scan_8h" local="yes">src/lib/access/IndexScan.h</includedby>
+    <includedby refid="_insert_only_operators_8h" local="yes">src/lib/access/InsertOnlyOperators.h</includedby>
+    <includedby refid="_insert_scan_8h" local="yes">src/lib/access/InsertScan.h</includedby>
+    <includedby refid="_intersect_positions_8h" local="yes">src/lib/access/IntersectPositions.h</includedby>
+    <includedby refid="_join_scan_8h" local="yes">src/lib/access/JoinScan.h</includedby>
+    <includedby refid="_layouter_8h" local="yes">src/lib/access/Layouter.h</includedby>
+    <includedby refid="_layout_table_8h" local="yes">src/lib/access/LayoutTable.h</includedby>
+    <includedby refid="_layout_table_load_8h" local="yes">src/lib/access/LayoutTableLoad.h</includedby>
+    <includedby refid="_load_file_8h" local="yes">src/lib/access/LoadFile.h</includedby>
+    <includedby refid="_materializing_scan_8h" local="yes">src/lib/access/MaterializingScan.h</includedby>
+    <includedby refid="_merge_hash_tables_8h" local="yes">src/lib/access/MergeHashTables.h</includedby>
+    <includedby refid="_merge_join_8hpp" local="yes">src/lib/access/MergeJoin.hpp</includedby>
+    <includedby refid="_merge_table_8h" local="yes">src/lib/access/MergeTable.h</includedby>
+    <includedby refid="_multiply_ref_field_8h" local="yes">src/lib/access/MultiplyRefField.h</includedby>
+    <includedby refid="_my_s_q_l_table_load_8h" local="no">src/lib/access/MySQLTableLoad.h</includedby>
+    <includedby refid="_nested_loop_equi_join_8h" local="yes">src/lib/access/NestedLoopEquiJoin.h</includedby>
+    <includedby refid="_no_op_8h" local="yes">src/lib/access/NoOp.h</includedby>
+    <includedby refid="_plan_operation_8cpp" local="yes">src/lib/access/PlanOperation.cpp</includedby>
+    <includedby refid="_prefix_sum_8h" local="yes">src/lib/access/PrefixSum.h</includedby>
+    <includedby refid="_projection_scan_8h" local="yes">src/lib/access/ProjectionScan.h</includedby>
+    <includedby refid="_query_parser_8cpp" local="no">src/lib/access/QueryParser.cpp</includedby>
+    <includedby refid="_radix_cluster_8h" local="yes">src/lib/access/RadixCluster.h</includedby>
+    <includedby refid="_radix_join_8h" local="yes">src/lib/access/RadixJoin.h</includedby>
+    <includedby refid="_replace_table_8h" local="yes">src/lib/access/ReplaceTable.h</includedby>
+    <includedby refid="_request_parse_task_8cpp" local="yes">src/lib/access/RequestParseTask.cpp</includedby>
+    <includedby refid="_response_task_8cpp" local="yes">src/lib/access/ResponseTask.cpp</includedby>
+    <includedby refid="_script_operation_8h" local="yes">src/lib/access/ScriptOperation.h</includedby>
+    <includedby refid="_set_table_8h" local="yes">src/lib/access/SetTable.h</includedby>
+    <includedby refid="_settings_operation_8h" local="yes">src/lib/access/SettingsOperation.h</includedby>
+    <includedby refid="_simple_raw_table_scan_8h" local="yes">src/lib/access/SimpleRawTableScan.h</includedby>
+    <includedby refid="_simple_table_scan_8h" local="yes">src/lib/access/SimpleTableScan.h</includedby>
+    <includedby refid="_smallest_table_scan_8h" local="yes">src/lib/access/SmallestTableScan.h</includedby>
+    <includedby refid="_sort_scan_8h" local="no">src/lib/access/SortScan.h</includedby>
+    <includedby refid="_table_load_8h" local="yes">src/lib/access/TableLoad.h</includedby>
+    <includedby refid="_table_scan_8h" local="yes">src/lib/access/TableScan.h</includedby>
+    <includedby refid="_table_unload_8h" local="yes">src/lib/access/TableUnload.h</includedby>
+    <includedby refid="_task_scheduler_adjustment_8h" local="yes">src/lib/access/TaskSchedulerAdjustment.h</includedby>
+    <includedby refid="_threadpool_adjustment_8h" local="yes">src/lib/access/ThreadpoolAdjustment.h</includedby>
+    <includedby refid="_union_all_8h" local="yes">src/lib/access/UnionAll.h</includedby>
+    <includedby refid="_union_scan_8h" local="yes">src/lib/access/UnionScan.h</includedby>
+    <includedby refid="_unload_all_8h" local="yes">src/lib/access/UnloadAll.h</includedby>
+    <includedby refid="_update_scan_8h" local="yes">src/lib/access/UpdateScan.h</includedby>
+    <includedby refid="access_8h" local="no">src/lib/access.h</includedby>
+    <includedby refid="test_8h" local="yes">src/lib/testing/test.h</includedby>
+    <incdepgraph>
+      <node id="8319">
+        <label>list</label>
+      </node>
+      <node id="8289">
+        <label>boost/mpl/vector.hpp</label>
+      </node>
+      <node id="8302">
+        <label>queue</label>
+      </node>
+      <node id="8285">
+        <label>limits</label>
+      </node>
+      <node id="8337">
+        <label>boost/functional/hash.hpp</label>
+      </node>
+      <node id="8314">
+        <label>assert.h</label>
+      </node>
+      <node id="8291">
+        <label>boost/lexical_cast.hpp</label>
+      </node>
+      <node id="8329">
+        <label>boost/iterator/iterator_facade.hpp</label>
+      </node>
+      <node id="8284">
+        <label>cstdint</label>
+      </node>
+      <node id="8326">
+        <label>storage/BaseDictionary.h</label>
+        <link refid="_base_dictionary_8h"/>
+        <childnode refid="8286" relation="include">
+        </childnode>
+        <childnode refid="8315" relation="include">
+        </childnode>
+        <childnode refid="8327" relation="include">
+        </childnode>
+      </node>
+      <node id="8270">
+        <label>stdint.h</label>
+      </node>
+      <node id="8325">
+        <label>stdlib.h</label>
+      </node>
+      <node id="8323">
+        <label>errno.h</label>
+      </node>
+      <node id="8276">
+        <label>helper/epoch.h</label>
+        <link refid="epoch_8h"/>
+        <childnode refid="8270" relation="include">
+        </childnode>
+      </node>
+      <node id="8287">
+        <label>stdexcept</label>
+      </node>
+      <node id="8299">
+        <label>helper/HwlocHelper.h</label>
+        <link refid="_hwloc_helper_8h"/>
+        <childnode refid="8300" relation="include">
+        </childnode>
+      </node>
+      <node id="8281">
+        <label>string</label>
+      </node>
+      <node id="8293">
+        <label>taskscheduler.h</label>
+        <link refid="taskscheduler_8h"/>
+        <childnode refid="8294" relation="include">
+        </childnode>
+        <childnode refid="8301" relation="include">
+        </childnode>
+        <childnode refid="8304" relation="include">
+        </childnode>
+        <childnode refid="8277" relation="include">
+        </childnode>
+        <childnode refid="8303" relation="include">
+        </childnode>
+        <childnode refid="8295" relation="include">
+        </childnode>
+        <childnode refid="8305" relation="include">
+        </childnode>
+        <childnode refid="8306" relation="include">
+        </childnode>
+      </node>
+      <node id="8301">
+        <label>taskscheduler/SimpleTaskScheduler.h</label>
+        <link refid="_simple_task_scheduler_8h"/>
+        <childnode refid="8294" relation="include">
+        </childnode>
+        <childnode refid="8297" relation="include">
+        </childnode>
+        <childnode refid="8272" relation="include">
+        </childnode>
+        <childnode refid="8302" relation="include">
+        </childnode>
+        <childnode refid="8278" relation="include">
+        </childnode>
+        <childnode refid="8269" relation="include">
+        </childnode>
+        <childnode refid="8277" relation="include">
+        </childnode>
+        <childnode refid="8303" relation="include">
+        </childnode>
+        <childnode refid="8299" relation="include">
+        </childnode>
+      </node>
+      <node id="8273">
+        <label>map</label>
+      </node>
+      <node id="8277">
+        <label>taskscheduler/Task.h</label>
+        <link refid="_task_8h"/>
+        <childnode refid="8272" relation="include">
+        </childnode>
+        <childnode refid="8278" relation="include">
+        </childnode>
+        <childnode refid="8279" relation="include">
+        </childnode>
+        <childnode refid="8280" relation="include">
+        </childnode>
+        <childnode refid="8281" relation="include">
+        </childnode>
+      </node>
+      <node id="8297">
+        <label>unordered_set</label>
+      </node>
+      <node id="8312">
+        <label>storage/ValueIdMap.hpp</label>
+        <link refid="_value_id_map_8hpp"/>
+        <childnode refid="8313" relation="include">
+        </childnode>
+        <childnode refid="8331" relation="include">
+        </childnode>
+      </node>
+      <node id="8322">
+        <label>memory/MemalignStrategy.h</label>
+        <link refid="_memalign_strategy_8h"/>
+        <childnode refid="8323" relation="include">
+        </childnode>
+        <childnode refid="8324" relation="include">
+        </childnode>
+        <childnode refid="8325" relation="include">
+        </childnode>
+      </node>
+      <node id="8300">
+        <label>hwloc.h</label>
+      </node>
+      <node id="8334">
+        <label>exception</label>
+      </node>
+      <node id="8268">
+        <label>access/OutputTask.h</label>
+        <link refid="_output_task_8h"/>
+        <childnode refid="8269" relation="include">
+        </childnode>
+        <childnode refid="8270" relation="include">
+        </childnode>
+        <childnode refid="8271" relation="include">
+        </childnode>
+        <childnode refid="8272" relation="include">
+        </childnode>
+        <childnode refid="8273" relation="include">
+        </childnode>
+        <childnode refid="8274" relation="include">
+        </childnode>
+        <childnode refid="8275" relation="include">
+        </childnode>
+        <childnode refid="8276" relation="include">
+        </childnode>
+        <childnode refid="8277" relation="include">
+        </childnode>
+      </node>
+      <node id="8317">
+        <label>stddef.h</label>
+      </node>
+      <node id="8303">
+        <label>taskscheduler/CoreBoundTaskQueue.h</label>
+        <link refid="_core_bound_task_queue_8h"/>
+        <childnode refid="8296" relation="include">
+        </childnode>
+        <childnode refid="8302" relation="include">
+        </childnode>
+        <childnode refid="8295" relation="include">
+        </childnode>
+      </node>
+      <node id="8331">
+        <label>storage/OrderIndifferentDictionary.h</label>
+        <link refid="_order_indifferent_dictionary_8h"/>
+        <childnode refid="8286" relation="include">
+        </childnode>
+        <childnode refid="8315" relation="include">
+        </childnode>
+        <childnode refid="8326" relation="include">
+        </childnode>
+        <childnode refid="8327" relation="include">
+        </childnode>
+        <childnode refid="8332" relation="include">
+        </childnode>
+        <childnode refid="8330" relation="include">
+        </childnode>
+        <childnode refid="8334" relation="include">
+        </childnode>
+        <childnode refid="8272" relation="include">
+        </childnode>
+        <childnode refid="8273" relation="include">
+        </childnode>
+        <childnode refid="8279" relation="include">
+        </childnode>
+        <childnode refid="8335" relation="include">
+        </childnode>
+        <childnode refid="8336" relation="include">
+        </childnode>
+        <childnode refid="8337" relation="include">
+        </childnode>
+      </node>
+      <node id="8288">
+        <label>ostream</label>
+      </node>
+      <node id="8275">
+        <label>json.h</label>
+      </node>
+      <node id="8335">
+        <label>limits.h</label>
+      </node>
+      <node id="8327">
+        <label>storage/DictionaryIterator.h</label>
+        <link refid="_dictionary_iterator_8h"/>
+        <childnode refid="8328" relation="include">
+        </childnode>
+        <childnode refid="8329" relation="include">
+        </childnode>
+      </node>
+      <node id="8315">
+        <label>storage/AbstractDictionary.h</label>
+        <link refid="_abstract_dictionary_8h"/>
+        <childnode refid="8272" relation="include">
+        </childnode>
+        <childnode refid="8281" relation="include">
+        </childnode>
+        <childnode refid="8279" relation="include">
+        </childnode>
+        <childnode refid="8316" relation="include">
+        </childnode>
+        <childnode refid="8320" relation="include">
+        </childnode>
+        <childnode refid="8322" relation="include">
+        </childnode>
+        <childnode refid="8286" relation="include">
+        </childnode>
+      </node>
+      <node id="8280">
+        <label>condition_variable</label>
+      </node>
+      <node id="8333">
+        <label>string.h</label>
+      </node>
+      <node id="8308">
+        <label>access/BasicParser.h</label>
+        <link refid="_basic_parser_8h"/>
+        <childnode refid="8287" relation="include">
+        </childnode>
+        <childnode refid="8279" relation="include">
+        </childnode>
+        <childnode refid="8275" relation="include">
+        </childnode>
+      </node>
+      <node id="8309">
+        <label>storage/AbstractTable.h</label>
+        <link refid="_abstract_table_8h"/>
+        <childnode refid="8285" relation="include">
+        </childnode>
+        <childnode refid="8279" relation="include">
+        </childnode>
+        <childnode refid="8287" relation="include">
+        </childnode>
+        <childnode refid="8272" relation="include">
+        </childnode>
+        <childnode refid="8281" relation="include">
+        </childnode>
+        <childnode refid="8283" relation="include">
+        </childnode>
+        <childnode refid="8310" relation="include">
+        </childnode>
+        <childnode refid="8286" relation="include">
+        </childnode>
+        <childnode refid="8311" relation="include">
+        </childnode>
+        <childnode refid="8312" relation="include">
+        </childnode>
+      </node>
+      <node id="8305">
+        <label>taskscheduler/WSCoreBoundTaskQueue.h</label>
+        <link refid="_w_s_core_bound_task_queue_8h"/>
+        <childnode refid="8295" relation="include">
+        </childnode>
+        <childnode refid="8306" relation="include">
+        </childnode>
+      </node>
+      <node id="8310">
+        <label>storage/AbstractResource.h</label>
+        <link refid="_abstract_resource_8h"/>
+      </node>
+      <node id="8336">
+        <label>boost/unordered_map.hpp</label>
+      </node>
+      <node id="8272">
+        <label>vector</label>
+      </node>
+      <node id="8304">
+        <label>taskscheduler/SharedScheduler.h</label>
+        <link refid="_shared_scheduler_8h"/>
+        <childnode refid="8294" relation="include">
+        </childnode>
+        <childnode refid="8301" relation="include">
+        </childnode>
+        <childnode refid="8303" relation="include">
+        </childnode>
+        <childnode refid="8287" relation="include">
+        </childnode>
+      </node>
+      <node id="8274">
+        <label>utility</label>
+      </node>
+      <node id="8283">
+        <label>helper/types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="8284" relation="include">
+        </childnode>
+        <childnode refid="8281" relation="include">
+        </childnode>
+        <childnode refid="8285" relation="include">
+        </childnode>
+        <childnode refid="8279" relation="include">
+        </childnode>
+        <childnode refid="8272" relation="include">
+        </childnode>
+      </node>
+      <node id="8295">
+        <label>taskscheduler/AbstractTaskQueue.h</label>
+        <link refid="_abstract_task_queue_8h"/>
+        <childnode refid="8279" relation="include">
+        </childnode>
+        <childnode refid="8278" relation="include">
+        </childnode>
+        <childnode refid="8296" relation="include">
+        </childnode>
+        <childnode refid="8280" relation="include">
+        </childnode>
+        <childnode refid="8269" relation="include">
+        </childnode>
+        <childnode refid="8277" relation="include">
+        </childnode>
+      </node>
+      <node id="8328">
+        <label>storage/BaseIterator.h</label>
+        <link refid="_base_iterator_8h"/>
+      </node>
+      <node id="8316">
+        <label>memory/StrategizedAllocator.h</label>
+        <link refid="_strategized_allocator_8h"/>
+        <childnode refid="8317" relation="include">
+        </childnode>
+        <childnode refid="8318" relation="include">
+        </childnode>
+        <childnode refid="8319" relation="include">
+        </childnode>
+        <childnode refid="8287" relation="include">
+        </childnode>
+      </node>
+      <node id="8292">
+        <label>access/QueryParser.h</label>
+        <link refid="_query_parser_8h"/>
+        <childnode refid="8273" relation="include">
+        </childnode>
+        <childnode refid="8279" relation="include">
+        </childnode>
+        <childnode refid="8272" relation="include">
+        </childnode>
+        <childnode refid="8281" relation="include">
+        </childnode>
+        <childnode refid="8287" relation="include">
+        </childnode>
+        <childnode refid="8275" relation="include">
+        </childnode>
+        <childnode refid="8293" relation="include">
+        </childnode>
+        <childnode refid="8308" relation="include">
+        </childnode>
+      </node>
+      <node id="8282">
+        <label>access/OperationData.h</label>
+        <link refid="_operation_data_8h"/>
+        <childnode refid="8272" relation="include">
+        </childnode>
+        <childnode refid="8283" relation="include">
+        </childnode>
+        <childnode refid="8286" relation="include">
+        </childnode>
+      </node>
+      <node id="8271">
+        <label>time.h</label>
+      </node>
+      <node id="8298">
+        <label>iostream</label>
+      </node>
+      <node id="8311">
+        <label>storage/ColumnMetadata.h</label>
+        <link refid="_column_metadata_8h"/>
+        <childnode refid="8286" relation="include">
+        </childnode>
+        <childnode refid="8281" relation="include">
+        </childnode>
+        <childnode refid="8287" relation="include">
+        </childnode>
+      </node>
+      <node id="8294">
+        <label>taskscheduler/AbstractTaskScheduler.h</label>
+        <link refid="_abstract_task_scheduler_8h"/>
+        <childnode refid="8277" relation="include">
+        </childnode>
+        <childnode refid="8295" relation="include">
+        </childnode>
+        <childnode refid="8279" relation="include">
+        </childnode>
+        <childnode refid="8297" relation="include">
+        </childnode>
+        <childnode refid="8298" relation="include">
+        </childnode>
+        <childnode refid="8269" relation="include">
+        </childnode>
+        <childnode refid="8299" relation="include">
+        </childnode>
+      </node>
+      <node id="8307">
+        <label>deque</label>
+      </node>
+      <node id="8290">
+        <label>boost/mpl/map.hpp</label>
+      </node>
+      <node id="8306">
+        <label>taskscheduler/WSSimpleTaskScheduler.h</label>
+        <link refid="_w_s_simple_task_scheduler_8h"/>
+        <childnode refid="8294" relation="include">
+        </childnode>
+        <childnode refid="8305" relation="include">
+        </childnode>
+        <childnode refid="8307" relation="include">
+        </childnode>
+        <childnode refid="8298" relation="include">
+        </childnode>
+        <childnode refid="8299" relation="include">
+        </childnode>
+      </node>
+      <node id="8278">
+        <label>mutex</label>
+      </node>
+      <node id="8330">
+        <label>storage/AbstractAllocatedDictionary.h</label>
+        <link refid="_abstract_allocated_dictionary_8h"/>
+      </node>
+      <node id="8296">
+        <label>thread</label>
+      </node>
+      <node id="8320">
+        <label>memory/MallocStrategy.h</label>
+        <link refid="_malloc_strategy_8h"/>
+        <childnode refid="8298" relation="include">
+        </childnode>
+        <childnode refid="8284" relation="include">
+        </childnode>
+        <childnode refid="8321" relation="include">
+        </childnode>
+      </node>
+      <node id="8313">
+        <label>storage/OrderPreservingDictionary.h</label>
+        <link refid="_order_preserving_dictionary_8h"/>
+        <childnode refid="8314" relation="include">
+        </childnode>
+        <childnode refid="8298" relation="include">
+        </childnode>
+        <childnode refid="8279" relation="include">
+        </childnode>
+        <childnode refid="8286" relation="include">
+        </childnode>
+        <childnode refid="8315" relation="include">
+        </childnode>
+        <childnode refid="8326" relation="include">
+        </childnode>
+        <childnode refid="8327" relation="include">
+        </childnode>
+        <childnode refid="8330" relation="include">
+        </childnode>
+        <childnode refid="8328" relation="include">
+        </childnode>
+      </node>
+      <node id="8267">
+        <label>src/lib/access/PlanOperation.h</label>
+        <link refid="PlanOperation.h"/>
+        <childnode refid="8268" relation="include">
+        </childnode>
+        <childnode refid="8282" relation="include">
+        </childnode>
+        <childnode refid="8292" relation="include">
+        </childnode>
+        <childnode refid="8286" relation="include">
+        </childnode>
+        <childnode refid="8283" relation="include">
+        </childnode>
+        <childnode refid="8309" relation="include">
+        </childnode>
+        <childnode refid="8275" relation="include">
+        </childnode>
+      </node>
+      <node id="8318">
+        <label>algorithm</label>
+      </node>
+      <node id="8269">
+        <label>log4cxx/logger.h</label>
+      </node>
+      <node id="8324">
+        <label>stdio.h</label>
+      </node>
+      <node id="8321">
+        <label>cstring</label>
+      </node>
+      <node id="8332">
+        <label>storage/csb_tree.h</label>
+        <link refid="csb__tree_8h"/>
+        <childnode refid="8272" relation="include">
+        </childnode>
+        <childnode refid="8298" relation="include">
+        </childnode>
+        <childnode refid="8319" relation="include">
+        </childnode>
+        <childnode refid="8279" relation="include">
+        </childnode>
+        <childnode refid="8333" relation="include">
+        </childnode>
+        <childnode refid="8314" relation="include">
+        </childnode>
+        <childnode refid="8329" relation="include">
+        </childnode>
+      </node>
+      <node id="8279">
+        <label>memory</label>
+      </node>
+      <node id="8286">
+        <label>storage/storage_types.h</label>
+        <link refid="storage__types_8h"/>
+        <childnode refid="8272" relation="include">
+        </childnode>
+        <childnode refid="8281" relation="include">
+        </childnode>
+        <childnode refid="8287" relation="include">
+        </childnode>
+        <childnode refid="8270" relation="include">
+        </childnode>
+        <childnode refid="8288" relation="include">
+        </childnode>
+        <childnode refid="8289" relation="include">
+        </childnode>
+        <childnode refid="8290" relation="include">
+        </childnode>
+        <childnode refid="8291" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="8358">
+        <label>src/lib/access/Distinct.h</label>
+        <link refid="_distinct_8h"/>
+        <childnode refid="8359" relation="include">
+        </childnode>
+      </node>
+      <node id="8430">
+        <label>src/lib/access/SmallestTableScan.cpp</label>
+        <link refid="_smallest_table_scan_8cpp"/>
+      </node>
+      <node id="8442">
+        <label>src/lib/access/ThreadpoolAdjustment.h</label>
+        <link refid="_threadpool_adjustment_8h"/>
+        <childnode refid="8443" relation="include">
+        </childnode>
+        <childnode refid="8344" relation="include">
+        </childnode>
+      </node>
+      <node id="8381">
+        <label>src/lib/access/InsertScan.cpp</label>
+        <link refid="_insert_scan_8cpp"/>
+      </node>
+      <node id="8387">
+        <label>src/lib/access/Layouter.cpp</label>
+        <link refid="_layouter_8cpp"/>
+      </node>
+      <node id="8414">
+        <label>src/lib/access/RadixJoin.h</label>
+        <link refid="_radix_join_8h"/>
+        <childnode refid="8415" relation="include">
+        </childnode>
+        <childnode refid="8353" relation="include">
+        </childnode>
+      </node>
+      <node id="8444">
+        <label>src/lib/access/UnionAll.h</label>
+        <link refid="_union_all_8h"/>
+        <childnode refid="8352" relation="include">
+        </childnode>
+        <childnode refid="8445" relation="include">
+        </childnode>
+      </node>
+      <node id="8416">
+        <label>src/lib/access/ReplaceTable.h</label>
+        <link refid="_replace_table_8h"/>
+        <childnode refid="8417" relation="include">
+        </childnode>
+      </node>
+      <node id="8432">
+        <label>src/lib/access/SortScan.cpp</label>
+        <link refid="lib_2access_2_sort_scan_8cpp"/>
+      </node>
+      <node id="8391">
+        <label>src/lib/access/LayoutTableLoad.cpp</label>
+        <link refid="_layout_table_load_8cpp"/>
+      </node>
+      <node id="8369">
+        <label>src/lib/access/HashJoinProbe.cpp</label>
+        <link refid="_hash_join_probe_8cpp"/>
+      </node>
+      <node id="8373">
+        <label>src/lib/access/PrefixSum.cpp</label>
+        <link refid="_prefix_sum_8cpp"/>
+      </node>
+      <node id="8451">
+        <label>src/lib/access/UpdateScan.cpp</label>
+        <link refid="_update_scan_8cpp"/>
+      </node>
+      <node id="8378">
+        <label>src/lib/access/InsertOnlyOperators.h</label>
+        <link refid="_insert_only_operators_8h"/>
+        <childnode refid="8379" relation="include">
+        </childnode>
+      </node>
+      <node id="8367">
+        <label>src/lib/access/HashBuild.cpp</label>
+        <link refid="_hash_build_8cpp"/>
+      </node>
+      <node id="8437">
+        <label>src/lib/access/TableScan.cpp</label>
+        <link refid="_table_scan_8cpp"/>
+      </node>
+      <node id="8401">
+        <label>src/lib/access/MultiplyRefField.h</label>
+        <link refid="_multiply_ref_field_8h"/>
+        <childnode refid="8402" relation="include">
+        </childnode>
+      </node>
+      <node id="8410">
+        <label>src/lib/access/PrefixSum.h</label>
+        <link refid="_prefix_sum_8h"/>
+        <childnode refid="8373" relation="include">
+        </childnode>
+      </node>
+      <node id="8446">
+        <label>src/lib/access/UnionScan.h</label>
+        <link refid="_union_scan_8h"/>
+        <childnode refid="8447" relation="include">
+        </childnode>
+        <childnode refid="8344" relation="include">
+        </childnode>
+      </node>
+      <node id="8364">
+        <label>src/lib/access/GroupByScan.h</label>
+        <link refid="_group_by_scan_8h"/>
+        <childnode refid="8365" relation="include">
+        </childnode>
+        <childnode refid="8344" relation="include">
+        </childnode>
+      </node>
+      <node id="8421">
+        <label>src/lib/access/SetTable.h</label>
+        <link refid="_set_table_8h"/>
+        <childnode refid="8422" relation="include">
+        </childnode>
+      </node>
+      <node id="8352">
+        <label>src/bin/perf_regression/UnionScan.cpp</label>
+        <link refid="bin_2perf__regression_2_union_scan_8cpp"/>
+      </node>
+      <node id="8417">
+        <label>src/lib/access/ReplaceTable.cpp</label>
+        <link refid="_replace_table_8cpp"/>
+      </node>
+      <node id="8363">
+        <label>src/lib/access/GetTable.cpp</label>
+        <link refid="_get_table_8cpp"/>
+      </node>
+      <node id="8433">
+        <label>src/lib/access/TableLoad.h</label>
+        <link refid="_table_load_8h"/>
+        <childnode refid="8434" relation="include">
+        </childnode>
+        <childnode refid="8344" relation="include">
+        </childnode>
+      </node>
+      <node id="8403">
+        <label>src/lib/access/MySQLTableLoad.h</label>
+        <link refid="_my_s_q_l_table_load_8h"/>
+        <childnode refid="8404" relation="include">
+        </childnode>
+      </node>
+      <node id="8398">
+        <label>src/lib/access/MergeJoin.hpp</label>
+        <link refid="_merge_join_8hpp"/>
+        <childnode refid="8344" relation="include">
+        </childnode>
+      </node>
+      <node id="8440">
+        <label>src/lib/access/TaskSchedulerAdjustment.h</label>
+        <link refid="_task_scheduler_adjustment_8h"/>
+        <childnode refid="8441" relation="include">
+        </childnode>
+        <childnode refid="8344" relation="include">
+        </childnode>
+      </node>
+      <node id="8372">
+        <label>src/lib/access/Histogram.cpp</label>
+        <link refid="_histogram_8cpp"/>
+      </node>
+      <node id="8409">
+        <label>src/lib/access/PlanOperation.cpp</label>
+        <link refid="_plan_operation_8cpp"/>
+      </node>
+      <node id="8374">
+        <label>src/lib/access/RadixCluster.h</label>
+        <link refid="_radix_cluster_8h"/>
+        <childnode refid="8375" relation="include">
+        </childnode>
+      </node>
+      <node id="8399">
+        <label>src/lib/access/MergeTable.h</label>
+        <link refid="_merge_table_8h"/>
+        <childnode refid="8400" relation="include">
+        </childnode>
+      </node>
+      <node id="8342">
+        <label>src/lib/access/RadixJoinTransformation.cpp</label>
+        <link refid="_radix_join_transformation_8cpp"/>
+      </node>
+      <node id="8375">
+        <label>src/lib/access/RadixCluster.cpp</label>
+        <link refid="_radix_cluster_8cpp"/>
+      </node>
+      <node id="8418">
+        <label>src/lib/access/ResponseTask.cpp</label>
+        <link refid="_response_task_8cpp"/>
+      </node>
+      <node id="8420">
+        <label>src/lib/access/ScriptOperation.cpp</label>
+        <link refid="_script_operation_8cpp"/>
+      </node>
+      <node id="8365">
+        <label>src/lib/access/GroupByScan.cpp</label>
+        <link refid="lib_2access_2_group_by_scan_8cpp"/>
+      </node>
+      <node id="8354">
+        <label>src/lib/access/Barrier.h</label>
+        <link refid="_barrier_8h"/>
+        <childnode refid="8355" relation="include">
+        </childnode>
+      </node>
+      <node id="8402">
+        <label>src/lib/access/MultiplyRefField.cpp</label>
+        <link refid="_multiply_ref_field_8cpp"/>
+      </node>
+      <node id="8340">
+        <label>src/lib/access/QueryTransformationEngine.h</label>
+        <link refid="_query_transformation_engine_8h"/>
+        <childnode refid="8341" relation="include">
+        </childnode>
+        <childnode refid="8342" relation="include">
+        </childnode>
+        <childnode refid="8343" relation="include">
+        </childnode>
+        <childnode refid="8344" relation="include">
+        </childnode>
+      </node>
+      <node id="8411">
+        <label>src/lib/access/ProjectionScan.h</label>
+        <link refid="_projection_scan_8h"/>
+        <childnode refid="8412" relation="include">
+        </childnode>
+        <childnode refid="8344" relation="include">
+        </childnode>
+      </node>
+      <node id="8407">
+        <label>src/lib/access/NoOp.h</label>
+        <link refid="_no_op_8h"/>
+        <childnode refid="8408" relation="include">
+        </childnode>
+      </node>
+      <node id="8348">
+        <label>src/bin/perf_regression/JoinScan.cpp</label>
+        <link refid="bin_2perf__regression_2_join_scan_8cpp"/>
+      </node>
+      <node id="8453">
+        <label>src/lib/testing/test.cpp</label>
+        <link refid="test_8cpp"/>
+      </node>
+      <node id="8353">
+        <label>src/lib/access/RadixJoinTransformation.h</label>
+        <link refid="_radix_join_transformation_8h"/>
+        <childnode refid="8342" relation="include">
+        </childnode>
+      </node>
+      <node id="8339">
+        <label>src/lib/access/AbstractPlanOpTransformation.h</label>
+        <link refid="_abstract_plan_op_transformation_8h"/>
+        <childnode refid="8340" relation="include">
+        </childnode>
+        <childnode refid="8353" relation="include">
+        </childnode>
+      </node>
+      <node id="8394">
+        <label>src/lib/access/MaterializingScan.h</label>
+        <link refid="_materializing_scan_8h"/>
+        <childnode refid="8395" relation="include">
+        </childnode>
+        <childnode refid="8344" relation="include">
+        </childnode>
+      </node>
+      <node id="8436">
+        <label>src/bin/perf_regression/scan_performance.cpp</label>
+        <link refid="scan__performance_8cpp"/>
+      </node>
+      <node id="8397">
+        <label>src/lib/access/MergeHashTables.cpp</label>
+        <link refid="_merge_hash_tables_8cpp"/>
+      </node>
+      <node id="8443">
+        <label>src/lib/access/ThreadpoolAdjustment.cpp</label>
+        <link refid="_threadpool_adjustment_8cpp"/>
+      </node>
+      <node id="8412">
+        <label>src/lib/access/ProjectionScan.cpp</label>
+        <link refid="lib_2access_2_projection_scan_8cpp"/>
+      </node>
+      <node id="8441">
+        <label>src/lib/access/TaskSchedulerAdjustment.cpp</label>
+        <link refid="_task_scheduler_adjustment_8cpp"/>
+      </node>
+      <node id="8406">
+        <label>src/lib/access/NestedLoopEquiJoin.cpp</label>
+        <link refid="_nested_loop_equi_join_8cpp"/>
+      </node>
+      <node id="8351">
+        <label>src/bin/perf_regression/SortScan.cpp</label>
+        <link refid="bin_2perf__regression_2_sort_scan_8cpp"/>
+      </node>
+      <node id="8380">
+        <label>src/lib/access/InsertScan.h</label>
+        <link refid="_insert_scan_8h"/>
+        <childnode refid="8381" relation="include">
+        </childnode>
+        <childnode refid="8344" relation="include">
+        </childnode>
+      </node>
+      <node id="8435">
+        <label>src/lib/access/TableScan.h</label>
+        <link refid="_table_scan_8h"/>
+        <childnode refid="8436" relation="include">
+        </childnode>
+        <childnode refid="8437" relation="include">
+        </childnode>
+      </node>
+      <node id="8371">
+        <label>src/lib/access/Histogram.h</label>
+        <link refid="_histogram_8h"/>
+        <childnode refid="8372" relation="include">
+        </childnode>
+        <childnode refid="8373" relation="include">
+        </childnode>
+        <childnode refid="8374" relation="include">
+        </childnode>
+      </node>
+      <node id="8345">
+        <label>src/bin/perf_regression/GroupByScan.cpp</label>
+        <link refid="bin_2perf__regression_2_group_by_scan_8cpp"/>
+      </node>
+      <node id="8349">
+        <label>src/bin/perf_regression/ProjectionScan.cpp</label>
+        <link refid="bin_2perf__regression_2_projection_scan_8cpp"/>
+      </node>
+      <node id="8388">
+        <label>src/lib/access/LayoutTable.h</label>
+        <link refid="_layout_table_8h"/>
+        <childnode refid="8389" relation="include">
+        </childnode>
+      </node>
+      <node id="8360">
+        <label>src/lib/access/ExpressionScan.h</label>
+        <link refid="_expression_scan_8h"/>
+        <childnode refid="8361" relation="include">
+        </childnode>
+        <childnode refid="8344" relation="include">
+        </childnode>
+      </node>
+      <node id="8346">
+        <label>src/bin/perf_regression/HashJoin.cpp</label>
+        <link refid="_hash_join_8cpp"/>
+      </node>
+      <node id="8425">
+        <label>src/lib/access/SimpleRawTableScan.h</label>
+        <link refid="_simple_raw_table_scan_8h"/>
+        <childnode refid="8426" relation="include">
+        </childnode>
+        <childnode refid="8344" relation="include">
+        </childnode>
+      </node>
+      <node id="8362">
+        <label>src/lib/access/GetTable.h</label>
+        <link refid="_get_table_8h"/>
+        <childnode refid="8363" relation="include">
+        </childnode>
+      </node>
+      <node id="8413">
+        <label>src/lib/access/QueryParser.cpp</label>
+        <link refid="_query_parser_8cpp"/>
+      </node>
+      <node id="8404">
+        <label>src/lib/access/MySQLTableLoad.cpp</label>
+        <link refid="_my_s_q_l_table_load_8cpp"/>
+      </node>
+      <node id="8439">
+        <label>src/lib/access/TableUnload.cpp</label>
+        <link refid="_table_unload_8cpp"/>
+      </node>
+      <node id="8368">
+        <label>src/lib/access/HashJoinProbe.h</label>
+        <link refid="_hash_join_probe_8h"/>
+        <childnode refid="8369" relation="include">
+        </childnode>
+        <childnode refid="8344" relation="include">
+        </childnode>
+      </node>
+      <node id="8392">
+        <label>src/lib/access/LoadFile.h</label>
+        <link refid="_load_file_8h"/>
+        <childnode refid="8393" relation="include">
+        </childnode>
+      </node>
+      <node id="8431">
+        <label>src/lib/access/SortScan.h</label>
+        <link refid="_sort_scan_8h"/>
+        <childnode refid="8432" relation="include">
+        </childnode>
+        <childnode refid="8344" relation="include">
+        </childnode>
+      </node>
+      <node id="8419">
+        <label>src/lib/access/ScriptOperation.h</label>
+        <link refid="_script_operation_8h"/>
+        <childnode refid="8420" relation="include">
+        </childnode>
+      </node>
+      <node id="8424">
+        <label>src/lib/access/SettingsOperation.cpp</label>
+        <link refid="_settings_operation_8cpp"/>
+      </node>
+      <node id="8366">
+        <label>src/lib/access/HashBuild.h</label>
+        <link refid="_hash_build_8h"/>
+        <childnode refid="8367" relation="include">
+        </childnode>
+        <childnode refid="8344" relation="include">
+        </childnode>
+      </node>
+      <node id="8447">
+        <label>src/lib/access/UnionScan.cpp</label>
+        <link refid="lib_2access_2_union_scan_8cpp"/>
+      </node>
+      <node id="8434">
+        <label>src/lib/access/TableLoad.cpp</label>
+        <link refid="_table_load_8cpp"/>
+      </node>
+      <node id="8393">
+        <label>src/lib/access/LoadFile.cpp</label>
+        <link refid="_load_file_8cpp"/>
+      </node>
+      <node id="8427">
+        <label>src/lib/access/SimpleTableScan.h</label>
+        <link refid="_simple_table_scan_8h"/>
+        <childnode refid="8428" relation="include">
+        </childnode>
+        <childnode refid="8344" relation="include">
+        </childnode>
+      </node>
+      <node id="8370">
+        <label>src/lib/access/HashValueJoin.hpp</label>
+        <link refid="_hash_value_join_8hpp"/>
+        <childnode refid="8344" relation="include">
+        </childnode>
+      </node>
+      <node id="8426">
+        <label>src/lib/access/SimpleRawTableScan.cpp</label>
+        <link refid="_simple_raw_table_scan_8cpp"/>
+      </node>
+      <node id="8405">
+        <label>src/lib/access/NestedLoopEquiJoin.h</label>
+        <link refid="_nested_loop_equi_join_8h"/>
+        <childnode refid="8406" relation="include">
+        </childnode>
+      </node>
+      <node id="8445">
+        <label>src/lib/access/UnionAll.cpp</label>
+        <link refid="_union_all_8cpp"/>
+      </node>
+      <node id="8449">
+        <label>src/lib/access/UnloadAll.cpp</label>
+        <link refid="_unload_all_8cpp"/>
+      </node>
+      <node id="8347">
+        <label>src/bin/perf_regression/HashValueJoin.cpp</label>
+        <link refid="_hash_value_join_8cpp"/>
+      </node>
+      <node id="8389">
+        <label>src/lib/access/LayoutTable.cpp</label>
+        <link refid="_layout_table_8cpp"/>
+      </node>
+      <node id="8344">
+        <label>src/lib/access.h</label>
+        <link refid="access_8h"/>
+        <childnode refid="8345" relation="include">
+        </childnode>
+        <childnode refid="8346" relation="include">
+        </childnode>
+        <childnode refid="8347" relation="include">
+        </childnode>
+        <childnode refid="8348" relation="include">
+        </childnode>
+        <childnode refid="8349" relation="include">
+        </childnode>
+        <childnode refid="8350" relation="include">
+        </childnode>
+        <childnode refid="8351" relation="include">
+        </childnode>
+        <childnode refid="8352" relation="include">
+        </childnode>
+      </node>
+      <node id="8341">
+        <label>src/lib/access/QueryTransformationEngine.cpp</label>
+        <link refid="_query_transformation_engine_8cpp"/>
+      </node>
+      <node id="8450">
+        <label>src/lib/access/UpdateScan.h</label>
+        <link refid="_update_scan_8h"/>
+        <childnode refid="8451" relation="include">
+        </childnode>
+        <childnode refid="8344" relation="include">
+        </childnode>
+      </node>
+      <node id="8361">
+        <label>src/lib/access/ExpressionScan.cpp</label>
+        <link refid="_expression_scan_8cpp"/>
+      </node>
+      <node id="8350">
+        <label>src/bin/perf_regression/SimpleTableScan.cpp</label>
+        <link refid="bin_2perf__regression_2_simple_table_scan_8cpp"/>
+      </node>
+      <node id="8379">
+        <label>src/lib/access/InsertOnlyOperators.cpp</label>
+        <link refid="_insert_only_operators_8cpp"/>
+      </node>
+      <node id="8428">
+        <label>src/lib/access/SimpleTableScan.cpp</label>
+        <link refid="lib_2access_2_simple_table_scan_8cpp"/>
+      </node>
+      <node id="8400">
+        <label>src/lib/access/MergeTable.cpp</label>
+        <link refid="_merge_table_8cpp"/>
+      </node>
+      <node id="8376">
+        <label>src/lib/access/IndexScan.h</label>
+        <link refid="_index_scan_8h"/>
+        <childnode refid="8377" relation="include">
+        </childnode>
+      </node>
+      <node id="8390">
+        <label>src/lib/access/LayoutTableLoad.h</label>
+        <link refid="_layout_table_load_8h"/>
+        <childnode refid="8391" relation="include">
+        </childnode>
+      </node>
+      <node id="8415">
+        <label>src/lib/access/RadixJoin.cpp</label>
+        <link refid="_radix_join_8cpp"/>
+      </node>
+      <node id="8343">
+        <label>src/lib/access/RequestParseTask.cpp</label>
+        <link refid="_request_parse_task_8cpp"/>
+      </node>
+      <node id="8438">
+        <label>src/lib/access/TableUnload.h</label>
+        <link refid="_table_unload_8h"/>
+        <childnode refid="8439" relation="include">
+        </childnode>
+        <childnode refid="8344" relation="include">
+        </childnode>
+      </node>
+      <node id="8423">
+        <label>src/lib/access/SettingsOperation.h</label>
+        <link refid="_settings_operation_8h"/>
+        <childnode refid="8424" relation="include">
+        </childnode>
+        <childnode refid="8344" relation="include">
+        </childnode>
+      </node>
+      <node id="8448">
+        <label>src/lib/access/UnloadAll.h</label>
+        <link refid="_unload_all_8h"/>
+        <childnode refid="8449" relation="include">
+        </childnode>
+        <childnode refid="8344" relation="include">
+        </childnode>
+      </node>
+      <node id="8396">
+        <label>src/lib/access/MergeHashTables.h</label>
+        <link refid="_merge_hash_tables_8h"/>
+        <childnode refid="8397" relation="include">
+        </childnode>
+      </node>
+      <node id="8429">
+        <label>src/lib/access/SmallestTableScan.h</label>
+        <link refid="_smallest_table_scan_8h"/>
+        <childnode refid="8430" relation="include">
+        </childnode>
+        <childnode refid="8344" relation="include">
+        </childnode>
+      </node>
+      <node id="8384">
+        <label>src/lib/access/JoinScan.h</label>
+        <link refid="_join_scan_8h"/>
+        <childnode refid="8385" relation="include">
+        </childnode>
+        <childnode refid="8344" relation="include">
+        </childnode>
+      </node>
+      <node id="8377">
+        <label>src/lib/access/IndexScan.cpp</label>
+        <link refid="_index_scan_8cpp"/>
+      </node>
+      <node id="8408">
+        <label>src/lib/access/NoOp.cpp</label>
+        <link refid="_no_op_8cpp"/>
+      </node>
+      <node id="8395">
+        <label>src/lib/access/MaterializingScan.cpp</label>
+        <link refid="_materializing_scan_8cpp"/>
+      </node>
+      <node id="8338">
+        <label>src/lib/access/PlanOperation.h</label>
+        <link refid="PlanOperation.h"/>
+        <childnode refid="8339" relation="include">
+        </childnode>
+        <childnode refid="8354" relation="include">
+        </childnode>
+        <childnode refid="8356" relation="include">
+        </childnode>
+        <childnode refid="8358" relation="include">
+        </childnode>
+        <childnode refid="8360" relation="include">
+        </childnode>
+        <childnode refid="8362" relation="include">
+        </childnode>
+        <childnode refid="8364" relation="include">
+        </childnode>
+        <childnode refid="8366" relation="include">
+        </childnode>
+        <childnode refid="8368" relation="include">
+        </childnode>
+        <childnode refid="8370" relation="include">
+        </childnode>
+        <childnode refid="8371" relation="include">
+        </childnode>
+        <childnode refid="8376" relation="include">
+        </childnode>
+        <childnode refid="8378" relation="include">
+        </childnode>
+        <childnode refid="8380" relation="include">
+        </childnode>
+        <childnode refid="8382" relation="include">
+        </childnode>
+        <childnode refid="8384" relation="include">
+        </childnode>
+        <childnode refid="8386" relation="include">
+        </childnode>
+        <childnode refid="8388" relation="include">
+        </childnode>
+        <childnode refid="8390" relation="include">
+        </childnode>
+        <childnode refid="8392" relation="include">
+        </childnode>
+        <childnode refid="8394" relation="include">
+        </childnode>
+        <childnode refid="8396" relation="include">
+        </childnode>
+        <childnode refid="8398" relation="include">
+        </childnode>
+        <childnode refid="8399" relation="include">
+        </childnode>
+        <childnode refid="8401" relation="include">
+        </childnode>
+        <childnode refid="8403" relation="include">
+        </childnode>
+        <childnode refid="8405" relation="include">
+        </childnode>
+        <childnode refid="8407" relation="include">
+        </childnode>
+        <childnode refid="8409" relation="include">
+        </childnode>
+        <childnode refid="8410" relation="include">
+        </childnode>
+        <childnode refid="8411" relation="include">
+        </childnode>
+        <childnode refid="8413" relation="include">
+        </childnode>
+        <childnode refid="8374" relation="include">
+        </childnode>
+        <childnode refid="8414" relation="include">
+        </childnode>
+        <childnode refid="8416" relation="include">
+        </childnode>
+        <childnode refid="8343" relation="include">
+        </childnode>
+        <childnode refid="8418" relation="include">
+        </childnode>
+        <childnode refid="8419" relation="include">
+        </childnode>
+        <childnode refid="8421" relation="include">
+        </childnode>
+        <childnode refid="8423" relation="include">
+        </childnode>
+        <childnode refid="8425" relation="include">
+        </childnode>
+        <childnode refid="8427" relation="include">
+        </childnode>
+        <childnode refid="8429" relation="include">
+        </childnode>
+        <childnode refid="8431" relation="include">
+        </childnode>
+        <childnode refid="8433" relation="include">
+        </childnode>
+        <childnode refid="8435" relation="include">
+        </childnode>
+        <childnode refid="8438" relation="include">
+        </childnode>
+        <childnode refid="8440" relation="include">
+        </childnode>
+        <childnode refid="8442" relation="include">
+        </childnode>
+        <childnode refid="8444" relation="include">
+        </childnode>
+        <childnode refid="8446" relation="include">
+        </childnode>
+        <childnode refid="8448" relation="include">
+        </childnode>
+        <childnode refid="8450" relation="include">
+        </childnode>
+        <childnode refid="8344" relation="include">
+        </childnode>
+        <childnode refid="8452" relation="include">
+        </childnode>
+      </node>
+      <node id="8383">
+        <label>src/lib/access/IntersectPositions.cpp</label>
+        <link refid="_intersect_positions_8cpp"/>
+      </node>
+      <node id="8385">
+        <label>src/lib/access/JoinScan.cpp</label>
+        <link refid="lib_2access_2_join_scan_8cpp"/>
+      </node>
+      <node id="8359">
+        <label>src/lib/access/Distinct.cpp</label>
+        <link refid="_distinct_8cpp"/>
+      </node>
+      <node id="8356">
+        <label>src/lib/access/CreateIndex.h</label>
+        <link refid="_create_index_8h"/>
+        <childnode refid="8357" relation="include">
+        </childnode>
+      </node>
+      <node id="8355">
+        <label>src/lib/access/Barrier.cpp</label>
+        <link refid="_barrier_8cpp"/>
+      </node>
+      <node id="8452">
+        <label>src/lib/testing/test.h</label>
+        <link refid="test_8h"/>
+        <childnode refid="8453" relation="include">
+        </childnode>
+      </node>
+      <node id="8422">
+        <label>src/lib/access/SetTable.cpp</label>
+        <link refid="_set_table_8cpp"/>
+      </node>
+      <node id="8357">
+        <label>src/lib/access/CreateIndex.cpp</label>
+        <link refid="_create_index_8cpp"/>
+      </node>
+      <node id="8382">
+        <label>src/lib/access/IntersectPositions.h</label>
+        <link refid="_intersect_positions_8h"/>
+        <childnode refid="8383" relation="include">
+        </childnode>
+      </node>
+      <node id="8386">
+        <label>src/lib/access/Layouter.h</label>
+        <link refid="_layouter_8h"/>
+        <childnode refid="8387" relation="include">
+        </childnode>
+        <childnode refid="8344" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="class___plan_operation" prot="public">_PlanOperation</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>2012<sp/>Hasso-Plattner-Institut<sp/>fuer<sp/>Softwaresystemtechnik<sp/>GmbH.<sp/>All<sp/>rights<sp/>reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SRC_LIB_ACCESS_PLANOPERATION_H_</highlight></codeline>
+<codeline lineno="3"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SRC_LIB_ACCESS_PLANOPERATION_H_</highlight></codeline>
+<codeline lineno="4"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_output_task_8h" kindref="compound">access/OutputTask.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_operation_data_8h" kindref="compound">access/OperationData.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_query_parser_8h" kindref="compound">access/QueryParser.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="storage__types_8h" kindref="compound">storage/storage_types.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="types_8h" kindref="compound">helper/types.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_abstract_table_8h" kindref="compound">storage/AbstractTable.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;json.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23" refid="class___plan_operation" refkind="compound"><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class___plan_operation" kindref="compound">_PlanOperation</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="class_output_task" kindref="compound">OutputTask</ref><sp/>{</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/></highlight><highlight class="keyword">protected</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="28" refid="class___plan_operation_1a12e425b31715103245faeb2bb7b8b8b8" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="classhyrise_1_1access_1_1_operation_data" kindref="compound" tooltip="Data container for operator input/output handling.">hyrise::access::OperationData</ref><sp/><ref refid="class___plan_operation_1a12e425b31715103245faeb2bb7b8b8b8" kindref="member">input</ref>;</highlight></codeline>
+<codeline lineno="29" refid="class___plan_operation_1a407e061ef25b0ce402c02889f14f9475" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="classhyrise_1_1access_1_1_operation_data" kindref="compound" tooltip="Data container for operator input/output handling.">hyrise::access::OperationData</ref><sp/><ref refid="class___plan_operation_1a407e061ef25b0ce402c02889f14f9475" kindref="member">output</ref>;</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class___plan_operation_1aa6fad4a2bf49850d1947ab2d8c2f9931" kindref="member">addResult</ref>(<ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref><sp/>result);</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class___plan_operation_1ab7123ccb3703ca24de2b9a69a3f5b387" kindref="member">addResultHash</ref>(<ref refid="namespacehyrise_1_1storage_1a53a798623aa803822a0edaef21f4d608" kindref="member">hyrise::storage::c_ahashtable_ptr_t</ref><sp/>result);</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Limits<sp/>the<sp/>number<sp/>of<sp/>rows<sp/>read</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35" refid="class___plan_operation_1a2bcb5f99fd47d086834274d8f355744b" refkind="member"><highlight class="normal"><sp/><sp/>uint64_t<sp/><ref refid="class___plan_operation_1a2bcb5f99fd47d086834274d8f355744b" kindref="member">_limit</ref>;</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Transaction<sp/>number</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38" refid="class___plan_operation_1ac4bc5e5a900c679cb5c4d5d5133b51d4" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="namespacehyrise_1_1tx_1a3f8f9dae75e3e1872247b082f80ffd77" kindref="member">hyrise::tx::transaction_id_t</ref><sp/><ref refid="class___plan_operation_1ac4bc5e5a900c679cb5c4d5d5133b51d4" kindref="member">_transaction_id</ref>;</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43" refid="class___plan_operation_1aecccffa96d058ec8bead4d2c2a39e0e0" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="storage__types_8h_1a36fbc31395a53b7ece189846e4d3253c" kindref="member">field_list_t</ref><sp/><ref refid="class___plan_operation_1aecccffa96d058ec8bead4d2c2a39e0e0" kindref="member">_field_definition</ref>;</highlight></codeline>
+<codeline lineno="44" refid="class___plan_operation_1a83baf80dca3394fa835085e4aa711fc5" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="storage__types_8h_1aa3f52f6d55495211cc3aa95bcd3113a3" kindref="member">field_name_list_t</ref><sp/><ref refid="class___plan_operation_1a83baf80dca3394fa835085e4aa711fc5" kindref="member">_named_field_definition</ref>;</highlight></codeline>
+<codeline lineno="45" refid="class___plan_operation_1a6001c5f28644bcb3f111e16e058b355e" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="storage__types_8h_1a36fbc31395a53b7ece189846e4d3253c" kindref="member">field_list_t</ref><sp/><ref refid="class___plan_operation_1a6001c5f28644bcb3f111e16e058b355e" kindref="member">_indexed_field_definition</ref>;</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Used<sp/>containers</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48" refid="class___plan_operation_1afd4c1eff49ceadab8a2f3016704628e9" refkind="member"><highlight class="normal"><sp/><sp/>std::vector&lt;int&gt;<sp/><ref refid="class___plan_operation_1afd4c1eff49ceadab8a2f3016704628e9" kindref="member">container_list</ref>;</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="class___plan_operation_1ac5c36f7961eb206f6de68d88a35e9423" kindref="member">findColumn</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;);</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class___plan_operation_1a6a5a5c229439bfdfc68c8b301a6376cc" kindref="member">computeDeferredIndexes</ref>();</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54" refid="class___plan_operation_1a94d06a35b4b9eafe16c01eb5b0ff293a" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="class___plan_operation_1a94d06a35b4b9eafe16c01eb5b0ff293a" kindref="member">_part</ref>;</highlight></codeline>
+<codeline lineno="55" refid="class___plan_operation_1acef20de057343580d24d6ccb2e35f975" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="class___plan_operation_1acef20de057343580d24d6ccb2e35f975" kindref="member">_count</ref>;</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57" refid="class___plan_operation_1a77bc4ab6926bfefd6b4550239ea0ed33" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="class___plan_operation_1a77bc4ab6926bfefd6b4550239ea0ed33" kindref="member">producesPositions</ref>;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59" refid="class___plan_operation_1af0b2cf5d20cd3f393489b6fa0893c9ce" refkind="member"><highlight class="normal"><sp/><sp/>std::string<sp/><ref refid="class___plan_operation_1af0b2cf5d20cd3f393489b6fa0893c9ce" kindref="member">_planId</ref>;</highlight></codeline>
+<codeline lineno="60" refid="class___plan_operation_1af3f58f2579f7a2b9d80a90856dd0d5ef" refkind="member"><highlight class="normal"><sp/><sp/>std::string<sp/><ref refid="class___plan_operation_1af3f58f2579f7a2b9d80a90856dd0d5ef" kindref="member">_operatorId</ref>;</highlight></codeline>
+<codeline lineno="61" refid="class___plan_operation_1ab514f69bd5c84f539385337811a6a1f7" refkind="member"><highlight class="normal"><sp/><sp/>std::string<sp/><ref refid="class___plan_operation_1ab514f69bd5c84f539385337811a6a1f7" kindref="member">_planOperationName</ref>;</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class___plan_operation_1a08c05ed6e130546cdcd5ba24b0cb9422" kindref="member">distribute</ref>(</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u_int64_t<sp/>numberOfElements,</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>u_int64_t<sp/>&amp;first,</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>u_int64_t<sp/>&amp;last)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class___plan_operation_1af2e8cdb76b25db935130736ddad6f2da" kindref="member">refreshInput</ref>();</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class___plan_operation_1afdf0ad34a8592a055c53c611d11ef6b6" kindref="member">splitInput</ref>();</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class___plan_operation_1a43dc116b72ab5e10d6ccbf2b8c05fd89" kindref="member">setupPlanOperation</ref>();</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class___plan_operation_1a9c21af0bffdbe2bc0b4f152239202665" kindref="member">executePlanOperation</ref>()<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="87" refid="class___plan_operation_1a258c353a64fa26187d13363b97c6e341" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class___plan_operation_1a258c353a64fa26187d13363b97c6e341" kindref="member">teardownPlanOperation</ref>()<sp/>{}</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*<sp/>Returns<sp/>true<sp/>when<sp/>none<sp/>of<sp/>the<sp/>dependencies<sp/>have<sp/>OpFail<sp/>state<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="class___plan_operation_1a84ed020376c414c95797858f12133f96" kindref="member">allDependenciesSuccessful</ref>();</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*<sp/>Returns<sp/>all<sp/>errors<sp/>of<sp/>dependencies<sp/>as<sp/>one<sp/>concatenated<sp/>std::string<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/>std::string<sp/><ref refid="class___plan_operation_1abe0fe0f9b3eca729443dc27a898b530d" kindref="member">getDependencyErrorMessages</ref>();</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="99"><highlight class="comment"><sp/><sp/><sp/>*<sp/>Determines<sp/>whether<sp/>this<sp/>PlanOp<sp/>should<sp/>generate<sp/>Positions</highlight></codeline>
+<codeline lineno="100"><highlight class="comment"><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><ref refid="class___plan_operation_1ac86c0da0cbc645bfdf5e2c68c6104ba5" kindref="member">_PlanOperation</ref>();</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="class___plan_operation_1ae63172ffde1a0e38b458de3aac06c837" kindref="member">~_PlanOperation</ref>();</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class___plan_operation_1aa350fbfedb0c6fd9175700d4b8b302ae" kindref="member">setLimit</ref>(uint64_t<sp/>l);</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class___plan_operation_1a9dc36552379146945a30d719041a9633" kindref="member">setProducesPositions</ref>(</highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>p);</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class___plan_operation_1ae3d3d19a258a3b610421bf65400a702e" kindref="member">setTransactionId</ref>(<ref refid="namespacehyrise_1_1tx_1a3f8f9dae75e3e1872247b082f80ffd77" kindref="member">hyrise::tx::transaction_id_t</ref><sp/>tid);</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class___plan_operation_1ac403c092d541701bb38389ba19ae60e9" kindref="member">addInput</ref>(<ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref><sp/>t);</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class___plan_operation_1afd25e43e568c339af441bb704639eea9" kindref="member">addInputHash</ref>(<ref refid="namespacehyrise_1_1storage_1a53a798623aa803822a0edaef21f4d608" kindref="member">hyrise::storage::c_ahashtable_ptr_t</ref><sp/>t);</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class___plan_operation_1ac403c092d541701bb38389ba19ae60e9" kindref="member">addInput</ref>(std::vector&lt;hyrise::storage::c_atable_ptr_t&gt;<sp/>*input_list);</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class___plan_operation_1ac403c092d541701bb38389ba19ae60e9" kindref="member">addInput</ref>(std::vector&lt;hyrise::storage::c_ahashtable_ptr_t&gt;<sp/>*input_list);</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref><sp/><ref refid="class___plan_operation_1acb39b2c0280f5f81f337c106d2485c26" kindref="member">getInputTable</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>index<sp/>=<sp/>0)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref><sp/><ref refid="class___plan_operation_1a32f4a28eede73c294834525da8aabdfa" kindref="member">getResultTable</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>index<sp/>=<sp/>0)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><ref refid="namespacehyrise_1_1storage_1a53a798623aa803822a0edaef21f4d608" kindref="member">hyrise::storage::c_ahashtable_ptr_t</ref><sp/><ref refid="class___plan_operation_1a2866bb8fee8631bbac52c5d48a66f5d9" kindref="member">getInputHashTable</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>index<sp/>=<sp/>0)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><ref refid="namespacehyrise_1_1storage_1a53a798623aa803822a0edaef21f4d608" kindref="member">hyrise::storage::c_ahashtable_ptr_t</ref><sp/><ref refid="class___plan_operation_1adab066601cf9434182bda9742159480d" kindref="member">getResultHashTable</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>index<sp/>=<sp/>0)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class___plan_operation_1aee400d6b4e72326a1edef6f55ceebb31" kindref="member">setFields</ref>(<ref refid="storage__types_8h_1a36fbc31395a53b7ece189846e4d3253c" kindref="member">field_list_t</ref><sp/>*fields);</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class___plan_operation_1a30a3617644b8912495249dc06f610da0" kindref="member">addField</ref>(<ref refid="storage__types_8h_1a5ce4ecb27464dc24ba394527510dd89b" kindref="member">field_t</ref><sp/>field);</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class___plan_operation_1a30a3617644b8912495249dc06f610da0" kindref="member">addField</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Json::Value<sp/>&amp;field);</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class___plan_operation_1abeef31eca3f3a224fcb56dd5a6645107" kindref="member">addNamedField</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="storage__types_8h_1ad64b8c8026a86f643d173acbb694b4f8" kindref="member">field_name_t</ref>&amp;<sp/>field);</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class___plan_operation_1a7e5670b235f78c8cccfda506bdbe858b" kindref="member">setPart</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>part);</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class___plan_operation_1a13118f7cfb71feda982a74638a7837e5" kindref="member">setCount</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>count);</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class___plan_operation_1af4c41d3cffcc65b716accc87aeb9e203" kindref="member">setPlanId</ref>(std::string<sp/>i);</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class___plan_operation_1a1be25f6cd68a52e6d739271d27705854" kindref="member">setOperatorId</ref>(std::string<sp/>i);</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/><ref refid="class___plan_operation_1a6be9662a136359b31e819f2f5abfc9af" kindref="member">planOperationName</ref>()<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class___plan_operation_1a59f927351ea3450515c0e78c6a909a72" kindref="member">setPlanOperationName</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>name);</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class___plan_operation_1a6c54c54b895e36405b2c9a741bf9c6e2" kindref="member">operator()</ref>()<sp/>noexcept;</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/>virtual<sp/>const<sp/>std::</highlight><highlight class="keywordtype">string</highlight><highlight class="normal"><sp/><ref refid="class___plan_operation_1a97ddcea42846545e269358cc97d05a54" kindref="member">vname</ref>();</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/>const<sp/><ref refid="class___plan_operation" kindref="compound">_PlanOperation</ref><sp/>*<ref refid="class___plan_operation_1a1436548eb8885b1602e7f1960143892d" kindref="member">execute</ref>();</highlight></codeline>
+<codeline lineno="134"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/>//<sp/>SRC_LIB_ACCESS_PLANOPERATION_H_</highlight></codeline>
+    </programlisting>
+    <location file="/home/grund/hyrise/src/lib/access/PlanOperation.h"/>
+  </compounddef>
+</doxygen>

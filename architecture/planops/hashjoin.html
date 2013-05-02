@@ -1,0 +1,198 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>HashJoin &mdash; HYRISE latest documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/breathe.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     'latest',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="HYRISE latest documentation" href="../../index.html" />
+    <link rel="up" title="Plan Operations" href="../planops.html" />
+    <link rel="next" title="Extension points" href="../extension_points.html" />
+    <link rel="prev" title="Group By Scan" href="groupby.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../extension_points.html" title="Extension points"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="groupby.html" title="Group By Scan"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../index.html">HYRISE latest documentation</a> &raquo;</li>
+          <li><a href="../../architecture.html" >Implementation Details</a> &raquo;</li>
+          <li><a href="../planops.html" accesskey="U">Plan Operations</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/hyrise.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../architecture.html">Implementation Details</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../architecture.html">Create Modifiable Tables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../layouter.html">HYRISE Layouter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../loading.html">Loading</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../statistics.html">Query Statistics</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../planops.html">Plan Operations</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="planop.html">PlanOperation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="groupby.html">Group By Scan</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="">HashJoin</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#build-phase-hashbuild">Build Phase: HashBuild</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#probe-phase-hashjoinprobe">Probe Phase: HashJoinProbe</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../extension_points.html">Extension points</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routing.html">Routing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../query_execution.html">HYRISE Query Execution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developing.html">Developing with HYRISE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">HYRISE &amp; Development FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../proposals.html">Proposals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../doxygen.html">Doxygen Documentation</a></li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="groupby.html"
+                        title="previous chapter">Group By Scan</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../extension_points.html"
+                        title="next chapter">Extension points</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/architecture/planops/hashjoin.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="hashjoin">
+<h1>HashJoin<a class="headerlink" href="#hashjoin" title="Permalink to this headline">¶</a></h1>
+<p>HYRISE&#8217; HashJoin implementation is divided into a build and probe phase.</p>
+<div class="section" id="build-phase-hashbuild">
+<h2>Build Phase: HashBuild<a class="headerlink" href="#build-phase-hashbuild" title="Permalink to this headline">¶</a></h2>
+<p>For the first phase, the build phase, the HashBuild PlanOperation is used. It accepts the first AbstractTable and a list of fields as input to produce a HashTable:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="kt">void</span> <span class="n">HashBuild</span><span class="o">::</span><span class="n">executePlanOperation</span><span class="p">()</span>
+<span class="p">{</span>
+        <span class="n">addResult</span><span class="p">(</span><span class="k">new</span> <span class="n">HashTable</span><span class="p">(</span>
+                <span class="n">getInputTable</span><span class="p">(),</span>
+                <span class="k">new</span> <span class="kt">field_list_t</span><span class="p">(</span><span class="n">_field_definition</span><span class="p">)));</span>
+<span class="p">}</span>
+
+<span class="n">HashTable</span><span class="p">(</span><span class="n">AbstractTable</span> <span class="o">*</span><span class="n">table</span><span class="p">,</span> <span class="kt">field_list_t</span> <span class="o">*</span><span class="n">fields</span><span class="p">)</span>
+<span class="p">{</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">pos_t</span> <span class="n">row</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">row</span> <span class="o">&lt;</span> <span class="n">table</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span><span class="n">row</span><span class="p">)</span>
+        <span class="p">{</span>
+                <span class="n">add</span><span class="p">(</span><span class="n">hashFor</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="o">*</span><span class="n">fields</span><span class="p">,</span> <span class="n">row</span><span class="p">),</span> <span class="n">row</span><span class="p">);</span>
+        <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>To build the HashTable, the cell values of all table&#8217;s rows in the specified fields are hashed together. They are stored in a multimap, mapping onto all rows containing identical groups of cell values. This provides a fast way to look up rows belonging to a set of cell values.</p>
+</div>
+<div class="section" id="probe-phase-hashjoinprobe">
+<h2>Probe Phase: HashJoinProbe<a class="headerlink" href="#probe-phase-hashjoinprobe" title="Permalink to this headline">¶</a></h2>
+<p>In the second phase, the HashJoinProbe PlanOperation is used. It accepts the second AbstractTable and the aforementioned HashTable as input to produce the resulting joined table:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="kt">void</span> <span class="n">HashJoinProbe</span><span class="o">::</span><span class="n">fetchPositions</span><span class="p">(</span>
+        <span class="kt">pos_list_t</span> <span class="o">*</span><span class="n">buildTablePosList</span><span class="p">,</span>
+        <span class="kt">pos_list_t</span> <span class="o">*</span><span class="n">probeTablePosList</span><span class="p">)</span>
+<span class="p">{</span>
+        <span class="n">AbstractTable</span> <span class="o">*</span><span class="n">probeTable</span> <span class="o">=</span> <span class="n">getProbeTable</span><span class="p">();</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">pos_t</span> <span class="n">probeTableRow</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">probeTableRow</span> <span class="o">&lt;</span> <span class="n">probeTable</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span><span class="n">probeTableRow</span><span class="p">)</span>
+        <span class="p">{</span>
+                <span class="kt">pos_list_t</span> <span class="o">*</span><span class="n">buildTableMatchingRows</span> <span class="o">=</span> <span class="n">getInputHashTable</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">get</span><span class="p">(</span>
+                        <span class="n">probeTable</span><span class="p">,</span>
+                        <span class="n">_field_definition</span><span class="p">,</span>
+                        <span class="n">probeTableRow</span><span class="p">);</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">buildTableMatchingRows</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span>
+                <span class="p">{</span>
+                        <span class="n">BOOST_FOREACH</span><span class="p">(</span><span class="kt">pos_t</span> <span class="n">buildTableRow</span><span class="p">,</span> <span class="o">*</span><span class="n">buildTableMatchingRows</span><span class="p">)</span>
+                        <span class="p">{</span>
+                                <span class="n">buildTablePosList</span><span class="o">-&gt;</span><span class="n">push_back</span><span class="p">(</span><span class="n">buildTableRow</span><span class="p">);</span>
+                                <span class="n">probeTablePosList</span><span class="o">-&gt;</span><span class="n">push_back</span><span class="p">(</span><span class="n">probeTableRow</span><span class="p">);</span>
+                        <span class="p">}</span>
+                <span class="p">}</span>
+        <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>During execution, HashJoinProbe hashes the table&#8217;s cell values of the specified row together on the fly while iterating over the table. For each calculated hash, a lookup on the HashTable is performed to fetch matching rows of the first table. Pairs of matching rows are stored in the resulting joined table.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../extension_points.html" title="Extension points"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="groupby.html" title="Group By Scan"
+             >previous</a> |</li>
+        <li><a href="../../index.html">HYRISE latest documentation</a> &raquo;</li>
+          <li><a href="../../architecture.html" >Implementation Details</a> &raquo;</li>
+          <li><a href="../planops.html" >Plan Operations</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010-2013, Martin Grund et al.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+  </body>
+</html>

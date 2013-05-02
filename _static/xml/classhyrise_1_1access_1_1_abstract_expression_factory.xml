@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="classhyrise_1_1access_1_1_abstract_expression_factory" kind="class" prot="public">
+    <compoundname>hyrise::access::AbstractExpressionFactory</compoundname>
+    <derivedcompoundref refid="classhyrise_1_1access_1_1_expression_factory" prot="public" virt="non-virtual">hyrise::access::ExpressionFactory&lt; Expression &gt;</derivedcompoundref>
+    <includes refid="_expression_registration_8h" local="no">ExpressionRegistration.h</includes>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classhyrise_1_1access_1_1_abstract_expression_factory_1adeaf852568f6452303b09398b08e8613" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual hyrise::access::AbstractExpressionFactory::~AbstractExpressionFactory</definition>
+        <argsstring>()</argsstring>
+        <name>~AbstractExpressionFactory</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/ExpressionRegistration.h" line="19" bodyfile="/home/grund/hyrise/src/lib/access/ExpressionRegistration.h" bodystart="19" bodyend="19"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1access_1_1_abstract_expression_factory_1a8bae79b6c445be5f668cefbeccd64de4" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type><ref refid="namespacehyrise_1_1access_1af41209551d197107c71e3be44cb01982" kindref="member">expression_uptr_t</ref></type>
+        <definition>virtual expression_uptr_t hyrise::access::AbstractExpressionFactory::create</definition>
+        <argsstring>(const Json::Value &amp;value)=0</argsstring>
+        <name>create</name>
+        <reimplementedby refid="classhyrise_1_1access_1_1_expression_factory_1aa96a01e901f10f40c34875a27836d02c">create</reimplementedby>
+        <param>
+          <type>const Json::Value &amp;</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/ExpressionRegistration.h" line="20"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1337">
+        <label>hyrise::access::AbstractExpressionFactory</label>
+        <link refid="classhyrise_1_1access_1_1_abstract_expression_factory"/>
+      </node>
+      <node id="1338">
+        <label>hyrise::access::ExpressionFactory&lt; Expression &gt;</label>
+        <link refid="classhyrise_1_1access_1_1_expression_factory"/>
+        <childnode refid="1337" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1339">
+        <label>hyrise::access::AbstractExpressionFactory</label>
+        <link refid="classhyrise_1_1access_1_1_abstract_expression_factory"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/access/ExpressionRegistration.h" line="17" bodyfile="/home/grund/hyrise/src/lib/access/ExpressionRegistration.h" bodystart="17" bodyend="21"/>
+    <listofallmembers>
+      <member refid="classhyrise_1_1access_1_1_abstract_expression_factory_1a8bae79b6c445be5f668cefbeccd64de4" prot="public" virt="pure-virtual"><scope>hyrise::access::AbstractExpressionFactory</scope><name>create</name></member>
+      <member refid="classhyrise_1_1access_1_1_abstract_expression_factory_1adeaf852568f6452303b09398b08e8613" prot="public" virt="virtual"><scope>hyrise::access::AbstractExpressionFactory</scope><name>~AbstractExpressionFactory</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

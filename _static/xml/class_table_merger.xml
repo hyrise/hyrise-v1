@@ -1,0 +1,175 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="class_table_merger" kind="class" prot="public">
+    <compoundname>TableMerger</compoundname>
+    <includes refid="_table_merger_8h" local="no">TableMerger.h</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_table_merger_1a07d915d4223c35d036a5a9170da6aea3" prot="private" static="no" mutable="no">
+        <type><ref refid="class_abstract_merge_strategy" kindref="compound">AbstractMergeStrategy</ref> *</type>
+        <definition>AbstractMergeStrategy* TableMerger::_strategy</definition>
+        <argsstring></argsstring>
+        <name>_strategy</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableMerger.h" line="34" bodyfile="/home/grund/hyrise/src/lib/storage/TableMerger.h" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_table_merger_1af8e332ea3c6869e055689edfddb236c2" prot="private" static="no" mutable="no">
+        <type><ref refid="class_abstract_merger" kindref="compound">AbstractMerger</ref> *</type>
+        <definition>AbstractMerger* TableMerger::_merger</definition>
+        <argsstring></argsstring>
+        <name>_merger</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableMerger.h" line="35" bodyfile="/home/grund/hyrise/src/lib/storage/TableMerger.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_table_merger_1af0ba9aa3f661c811ff6d6d1576b1af1a" prot="private" static="no" mutable="no">
+        <type>const bool</type>
+        <definition>const bool TableMerger::_compress</definition>
+        <argsstring></argsstring>
+        <name>_compress</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableMerger.h" line="36" bodyfile="/home/grund/hyrise/src/lib/storage/TableMerger.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_table_merger_1afe9281253ca60a061bc11486f563b545" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>TableMerger::TableMerger</definition>
+        <argsstring>(AbstractMergeStrategy *strategy, AbstractMerger *merger, const bool compress=true)</argsstring>
+        <name>TableMerger</name>
+        <param>
+          <type><ref refid="class_abstract_merge_strategy" kindref="compound">AbstractMergeStrategy</ref> *</type>
+          <declname>strategy</declname>
+        </param>
+        <param>
+          <type><ref refid="class_abstract_merger" kindref="compound">AbstractMerger</ref> *</type>
+          <declname>merger</declname>
+        </param>
+        <param>
+          <type>const bool</type>
+          <declname>compress</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableMerger.h" line="15" bodyfile="/home/grund/hyrise/src/lib/storage/TableMerger.h" bodystart="15" bodyend="15"/>
+      </memberdef>
+      <memberdef kind="function" id="class_table_merger_1ac243abbef9196cdea937379dc86e5f95" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>TableMerger::~TableMerger</definition>
+        <argsstring>()</argsstring>
+        <name>~TableMerger</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableMerger.h" line="16" bodyfile="/home/grund/hyrise/src/lib/storage/TableMerger.h" bodystart="16" bodyend="19"/>
+      </memberdef>
+      <memberdef kind="function" id="class_table_merger_1ab062784a0c522a34ee897334d6e19ea3" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; <ref refid="namespacehyrise_1_1storage_1a21d5e900c20019710828c453eaded1ee" kindref="member">hyrise::storage::atable_ptr_t</ref> &gt;</type>
+        <definition>std::vector&lt; hyrise::storage::atable_ptr_t &gt; TableMerger::merge</definition>
+        <argsstring>(std::vector&lt; hyrise::storage::c_atable_ptr_t &gt; &amp;input_tables) const </argsstring>
+        <name>merge</name>
+        <param>
+          <type>std::vector&lt; <ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref> &gt; &amp;</type>
+          <declname>input_tables</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableMerger.h" line="21" bodyfile="/home/grund/hyrise/src/lib/storage/TableMerger.cpp" bodystart="45" bodyend="80"/>
+      </memberdef>
+      <memberdef kind="function" id="class_table_merger_1a7c4f875020a2352c1757a3843834e446" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; <ref refid="namespacehyrise_1_1storage_1a21d5e900c20019710828c453eaded1ee" kindref="member">hyrise::storage::atable_ptr_t</ref> &gt;</type>
+        <definition>std::vector&lt; hyrise::storage::atable_ptr_t &gt; TableMerger::mergeToTable</definition>
+        <argsstring>(hyrise::storage::atable_ptr_t dest, std::vector&lt; hyrise::storage::c_atable_ptr_t &gt; &amp;input_tables) const </argsstring>
+        <name>mergeToTable</name>
+        <param>
+          <type><ref refid="namespacehyrise_1_1storage_1a21d5e900c20019710828c453eaded1ee" kindref="member">hyrise::storage::atable_ptr_t</ref></type>
+          <declname>dest</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; <ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref> &gt; &amp;</type>
+          <declname>input_tables</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableMerger.h" line="29" bodyfile="/home/grund/hyrise/src/lib/storage/TableMerger.cpp" bodystart="14" bodyend="43"/>
+      </memberdef>
+      <memberdef kind="function" id="class_table_merger_1acb1eadc74fc4941685ca982bd0001f0a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_table_merger" kindref="compound">TableMerger</ref> *</type>
+        <definition>TableMerger * TableMerger::copy</definition>
+        <argsstring>()</argsstring>
+        <name>copy</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableMerger.h" line="31" bodyfile="/home/grund/hyrise/src/lib/storage/TableMerger.cpp" bodystart="82" bodyend="84"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="3049">
+        <label>AbstractMerger</label>
+        <link refid="class_abstract_merger"/>
+      </node>
+      <node id="3048">
+        <label>AbstractMergeStrategy</label>
+        <link refid="class_abstract_merge_strategy"/>
+      </node>
+      <node id="3047">
+        <label>TableMerger</label>
+        <link refid="class_table_merger"/>
+        <childnode refid="3048" relation="usage">
+          <edgelabel>_strategy</edgelabel>
+        </childnode>
+        <childnode refid="3049" relation="usage">
+          <edgelabel>_merger</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/storage/TableMerger.h" line="12" bodyfile="/home/grund/hyrise/src/lib/storage/TableMerger.h" bodystart="12" bodyend="37"/>
+    <listofallmembers>
+      <member refid="class_table_merger_1af0ba9aa3f661c811ff6d6d1576b1af1a" prot="private" virt="non-virtual"><scope>TableMerger</scope><name>_compress</name></member>
+      <member refid="class_table_merger_1af8e332ea3c6869e055689edfddb236c2" prot="private" virt="non-virtual"><scope>TableMerger</scope><name>_merger</name></member>
+      <member refid="class_table_merger_1a07d915d4223c35d036a5a9170da6aea3" prot="private" virt="non-virtual"><scope>TableMerger</scope><name>_strategy</name></member>
+      <member refid="class_table_merger_1acb1eadc74fc4941685ca982bd0001f0a" prot="public" virt="non-virtual"><scope>TableMerger</scope><name>copy</name></member>
+      <member refid="class_table_merger_1ab062784a0c522a34ee897334d6e19ea3" prot="public" virt="non-virtual"><scope>TableMerger</scope><name>merge</name></member>
+      <member refid="class_table_merger_1a7c4f875020a2352c1757a3843834e446" prot="public" virt="non-virtual"><scope>TableMerger</scope><name>mergeToTable</name></member>
+      <member refid="class_table_merger_1afe9281253ca60a061bc11486f563b545" prot="public" virt="non-virtual"><scope>TableMerger</scope><name>TableMerger</name></member>
+      <member refid="class_table_merger_1ac243abbef9196cdea937379dc86e5f95" prot="public" virt="non-virtual"><scope>TableMerger</scope><name>~TableMerger</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,270 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Writing your own PlanOperation &mdash; HYRISE latest documentation</title>
+    
+    <link rel="stylesheet" href="../_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/breathe.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     'latest',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="HYRISE latest documentation" href="../index.html" />
+    <link rel="up" title="Getting Started" href="../getting_started.html" />
+    <link rel="next" title="Implementation Details" href="../architecture.html" />
+    <link rel="prev" title="JSON Queries" href="tutorial_querying.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../architecture.html" title="Implementation Details"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="tutorial_querying.html" title="JSON Queries"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">HYRISE latest documentation</a> &raquo;</li>
+          <li><a href="../getting_started.html" accesskey="U">Getting Started</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/hyrise.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../getting_started.html">Getting Started</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="installing_hyrise.html">Installing Hyrise</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_mysql_load.html">Loading from MySQL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_querying.html">JSON Queries</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Writing your own PlanOperation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#specifiy-a-name-for-your-new-plan-operation-using">1. Specifiy a name for your new Plan Operation using:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#parse-json-input">2. Parse JSON input:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#implement-your-plan-operation">3. Implement your Plan Operation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#testing-your-own-plan-operation">4. Testing your own Plan Operation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture.html">Implementation Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../query_execution.html">HYRISE Query Execution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developing.html">Developing with HYRISE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">HYRISE &amp; Development FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../proposals.html">Proposals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doxygen.html">Doxygen Documentation</a></li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="tutorial_querying.html"
+                        title="previous chapter">JSON Queries</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../architecture.html"
+                        title="next chapter">Implementation Details</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/gettingstarted/tutorial_write_ops.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="writing-your-own-planoperation">
+<h1>Writing your own PlanOperation<a class="headerlink" href="#writing-your-own-planoperation" title="Permalink to this headline">¶</a></h1>
+<p>This short tutorial demonstrates the basic steps toward implementing a Plan Operation in Hyrise, using a StringLength Operator as an example.</p>
+<p>New Plan Operations inherit from PlanOperation.h and need to register themselves as Plan Operations using the following construct:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="kt">bool</span> <span class="n">NewPlanOperation</span><span class="o">::</span><span class="n">is_registered</span> <span class="o">=</span>
+    <span class="n">QueryParser</span><span class="o">::</span><span class="n">registerPlanOperation</span><span class="o">&lt;</span><span class="n">NewPlanOperation</span><span class="o">&gt;</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>In addition to that new Plan Operations need to implement the following three methods (see below a simple example for a &#8220;StrLenScan&#8221; operation, that returns a list of string lengths for a given column of strings):</p>
+<div class="section" id="specifiy-a-name-for-your-new-plan-operation-using">
+<h2>1. Specifiy a name for your new Plan Operation using:<a class="headerlink" href="#specifiy-a-name-for-your-new-plan-operation-using" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-c++"><div class="highlight"><pre><span class="k">static</span> <span class="n">string</span> <span class="nf">name</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="s">&quot;StrLenScan&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>as well as:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="k">const</span> <span class="n">string</span> <span class="nf">vname</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="s">&quot;StrLenScan&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="parse-json-input">
+<h2>2. Parse JSON input:<a class="headerlink" href="#parse-json-input" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">_PlanOperation</span> <span class="o">*</span><span class="n">StrLenScan</span><span class="o">::</span><span class="n">parse</span><span class="p">(</span><span class="n">Json</span><span class="o">::</span><span class="n">Value</span> <span class="o">&amp;</span><span class="n">data</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">_PlanOperation</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="n">BasicParser</span><span class="o">&lt;</span><span class="n">StrLenScan</span><span class="o">&gt;::</span><span class="n">parse</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">p</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>In our case using a BasicParser Object (of type StrLenScan) is sufficient to parse all required input. BasicParser will parse JSON fields named &#8220;fields:&#8221; (representing columns the plan operation is to be executed on) and &#8220;limit:&#8221; (which we don&#8217;t require in this example).</p>
+<p>Additional JSON fields can be checked using <tt class="docutils literal"><span class="pre">data.isMember(&quot;someOtherField&quot;)</span></tt>
+and then accessed using <tt class="docutils literal"><span class="pre">data[&quot;someOtherField&quot;][i]</span></tt></p>
+</div>
+<div class="section" id="implement-your-plan-operation">
+<h2>3. Implement your Plan Operation<a class="headerlink" href="#implement-your-plan-operation" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-c++"><div class="highlight"><pre><span class="kt">void</span> <span class="n">StrLenScan</span><span class="o">::</span><span class="n">executePlanOperation</span><span class="p">()</span>
+<span class="p">{</span>
+        <span class="k">const</span> <span class="n">AbstractTable</span><span class="o">*</span> <span class="n">in</span> <span class="o">=</span> <span class="n">input</span><span class="p">.</span><span class="n">getTable</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+
+    <span class="n">TableBuilder</span><span class="o">::</span><span class="n">param_list</span> <span class="n">list</span><span class="p">;</span>
+    <span class="n">list</span><span class="p">.</span><span class="n">append</span><span class="p">().</span><span class="n">set_type</span><span class="p">(</span><span class="s">&quot;INTEGER&quot;</span><span class="p">).</span><span class="n">set_name</span><span class="p">(</span><span class="s">&quot;str_len&quot;</span><span class="p">);</span>
+    <span class="n">AbstractTable</span><span class="o">*</span> <span class="n">string_length</span> <span class="o">=</span> <span class="n">TableBuilder</span><span class="o">::</span><span class="n">build</span><span class="p">(</span><span class="n">list</span><span class="p">);</span>
+
+    <span class="k">if</span><span class="p">(</span><span class="n">in</span><span class="o">-&gt;</span><span class="n">typeOfColumn</span><span class="p">(</span><span class="n">_field_definition</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">==</span> <span class="n">StringType</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">for</span><span class="p">(</span><span class="kt">size_t</span> <span class="n">row</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">row</span> <span class="o">&lt;</span> <span class="n">in</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">();</span> <span class="n">row</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="n">string_length</span><span class="o">-&gt;</span><span class="n">setValue</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_field_definition</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">row</span><span class="p">,</span>
+                        <span class="p">(</span><span class="n">in</span><span class="o">-&gt;</span><span class="n">getValue</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_field_definition</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">row</span><span class="p">)).</span><span class="n">size</span><span class="p">());</span>
+            <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="n">addResult</span><span class="p">(</span><span class="n">string_length</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Implementation of your PlanOperation will vary with degree of complexity and might require you to write several helper methods. In this example, we create a new output table using TableBuilder (-&gt; see TableBuilder.h). We then iterate over all the (string) elements of the input column and add the string&#8217;s length as integer to the end of our output table (string_length).
+Finally, to output the result of your plan operation, use <tt class="docutils literal"><span class="pre">this-&gt;addResult(output_table)</span></tt>.</p>
+</div>
+<div class="section" id="testing-your-own-plan-operation">
+<h2>4. Testing your own Plan Operation<a class="headerlink" href="#testing-your-own-plan-operation" title="Permalink to this headline">¶</a></h2>
+<p>a simple query using the String Length Operator might look like this:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="p">{</span>
+    <span class="s">&quot;operators&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s">&quot;0&quot;</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="s">&quot;type&quot;</span><span class="o">:</span> <span class="s">&quot;MySQLTableLoad&quot;</span><span class="p">,</span>
+                    <span class="s">&quot;table&quot;</span><span class="o">:</span> <span class="s">&quot;students&quot;</span><span class="p">,</span>
+                    <span class="s">&quot;database&quot;</span><span class="o">:</span> <span class="s">&quot;epic&quot;</span>
+            <span class="p">},</span>
+            <span class="s">&quot;1&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s">&quot;type&quot;</span><span class="o">:</span> <span class="s">&quot;StrLenScan&quot;</span><span class="p">,</span>
+                <span class="s">&quot;fields&quot;</span><span class="o">:</span> <span class="p">[</span><span class="s">&quot;name&quot;</span><span class="p">]</span>
+            <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="s">&quot;edges&quot;</span><span class="o">:</span> <span class="p">[[</span><span class="s">&quot;0&quot;</span><span class="p">,</span> <span class="s">&quot;1&quot;</span><span class="p">]]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>for our example list of students (located at test/students.csv) the output should look similar to this:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="p">{</span>
+       <span class="s">&quot;header&quot;</span> <span class="o">:</span> <span class="p">[</span> <span class="s">&quot;str_len&quot;</span> <span class="p">],</span>
+       <span class="s">&quot;performanceData&quot;</span> <span class="o">:</span>
+       <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s">&quot;data&quot;</span> <span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s">&quot;duration&quot;</span> <span class="o">:</span> <span class="mi">15743</span><span class="p">,</span>
+            <span class="s">&quot;endTime&quot;</span> <span class="o">:</span> <span class="mf">1503.7235250</span><span class="p">,</span>
+            <span class="s">&quot;executingThread&quot;</span> <span class="o">:</span> <span class="s">&quot;0x7fc64b420c10&quot;</span><span class="p">,</span>
+            <span class="s">&quot;id&quot;</span> <span class="o">:</span> <span class="s">&quot;0&quot;</span><span class="p">,</span>
+            <span class="s">&quot;name&quot;</span> <span class="o">:</span> <span class="s">&quot;MySQLTableLoad&quot;</span><span class="p">,</span>
+            <span class="s">&quot;papi_event&quot;</span> <span class="o">:</span> <span class="s">&quot;PAPI_TOT_INS&quot;</span><span class="p">,</span>
+            <span class="s">&quot;startTime&quot;</span> <span class="o">:</span> <span class="mf">65.3545410</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s">&quot;data&quot;</span> <span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s">&quot;duration&quot;</span> <span class="o">:</span> <span class="mi">42</span><span class="p">,</span>
+            <span class="s">&quot;endTime&quot;</span> <span class="o">:</span> <span class="mf">1503.9631340</span><span class="p">,</span>
+            <span class="s">&quot;executingThread&quot;</span> <span class="o">:</span> <span class="s">&quot;0x7fc64b420c10&quot;</span><span class="p">,</span>
+            <span class="s">&quot;id&quot;</span> <span class="o">:</span> <span class="s">&quot;1&quot;</span><span class="p">,</span>
+            <span class="s">&quot;name&quot;</span> <span class="o">:</span> <span class="s">&quot;StrLenScan&quot;</span><span class="p">,</span>
+            <span class="s">&quot;papi_event&quot;</span> <span class="o">:</span> <span class="s">&quot;PAPI_TOT_INS&quot;</span><span class="p">,</span>
+            <span class="s">&quot;startTime&quot;</span> <span class="o">:</span> <span class="mf">1503.8894410</span>
+        <span class="p">},</span>
+
+        <span class="p">{</span>
+            <span class="s">&quot;endTime&quot;</span> <span class="o">:</span> <span class="mf">65.2453010</span><span class="p">,</span>
+            <span class="s">&quot;executingThread&quot;</span> <span class="o">:</span> <span class="s">&quot;0x7fc64b4225a0&quot;</span><span class="p">,</span>
+            <span class="s">&quot;id&quot;</span> <span class="o">:</span> <span class="s">&quot;requestParse&quot;</span><span class="p">,</span>
+            <span class="s">&quot;name&quot;</span> <span class="o">:</span> <span class="s">&quot;RequestParseTask&quot;</span><span class="p">,</span>
+            <span class="s">&quot;startTime&quot;</span> <span class="o">:</span> <span class="mf">0.0</span>
+        <span class="p">},</span>
+
+        <span class="p">{</span>
+            <span class="s">&quot;duration&quot;</span> <span class="o">:</span> <span class="mi">158</span><span class="p">,</span>
+            <span class="s">&quot;endTime&quot;</span> <span class="o">:</span> <span class="mf">1504.1458390</span><span class="p">,</span>
+            <span class="s">&quot;executingThread&quot;</span> <span class="o">:</span> <span class="s">&quot;0x7fc64b420a00&quot;</span><span class="p">,</span>
+            <span class="s">&quot;id&quot;</span> <span class="o">:</span> <span class="s">&quot;respond&quot;</span><span class="p">,</span>
+            <span class="s">&quot;name&quot;</span> <span class="o">:</span> <span class="s">&quot;ResponseTask&quot;</span><span class="p">,</span>
+            <span class="s">&quot;startTime&quot;</span> <span class="o">:</span> <span class="mf">1503.9848240</span>
+        <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="s">&quot;rows&quot;</span> <span class="o">:</span>
+          <span class="p">[</span>
+            <span class="p">[</span> <span class="mi">13</span> <span class="p">],</span> <span class="p">...,</span> <span class="p">[</span> <span class="mi">19</span> <span class="p">]</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../architecture.html" title="Implementation Details"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="tutorial_querying.html" title="JSON Queries"
+             >previous</a> |</li>
+        <li><a href="../index.html">HYRISE latest documentation</a> &raquo;</li>
+          <li><a href="../getting_started.html" >Getting Started</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010-2013, Martin Grund et al.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+  </body>
+</html>

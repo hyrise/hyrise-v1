@@ -1,0 +1,721 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="classhyrise_1_1index_1_1_c_s_b_tree" kind="class" prot="public">
+    <compoundname>hyrise::index::CSBTree</compoundname>
+    <includes refid="csb__tree_8h" local="no">csb_tree.h</includes>
+    <innerclass refid="structhyrise_1_1index_1_1_c_s_b_tree_1_1__node__id" prot="private">hyrise::index::CSBTree::_node_id</innerclass>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classhyrise_1_1index_1_1_c_s_b_tree_1a5b9ddb9ae7fc95ce8b7a9863a50d0783" prot="public" static="no">
+        <type>unsigned int</type>
+        <definition>typedef unsigned int hyrise::index::CSBTree::value_type</definition>
+        <argsstring></argsstring>
+        <name>value_type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/csb_tree.h" line="265" bodyfile="/home/grund/hyrise/src/lib/storage/csb_tree.h" bodystart="265" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classhyrise_1_1index_1_1_c_s_b_tree_1aa064822470f2784a31add51a5465874d" prot="public" static="no">
+        <type>unsigned int</type>
+        <definition>typedef unsigned int hyrise::index::CSBTree::key_type</definition>
+        <argsstring></argsstring>
+        <name>key_type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/csb_tree.h" line="266" bodyfile="/home/grund/hyrise/src/lib/storage/csb_tree.h" bodystart="266" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classhyrise_1_1index_1_1_c_s_b_tree_1ad1a23e8b8afb84bd247088636d1d7d95" prot="public" static="no">
+        <type>unsigned int *</type>
+        <definition>typedef unsigned int* hyrise::index::CSBTree::value_ptr</definition>
+        <argsstring></argsstring>
+        <name>value_ptr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/csb_tree.h" line="268" bodyfile="/home/grund/hyrise/src/lib/storage/csb_tree.h" bodystart="268" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classhyrise_1_1index_1_1_c_s_b_tree_1ab15e7740abec38cb82310b42fc1d75bb" prot="public" static="no">
+        <type>unsigned int *</type>
+        <definition>typedef unsigned int* hyrise::index::CSBTree::key_ptr</definition>
+        <argsstring></argsstring>
+        <name>key_ptr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/csb_tree.h" line="269" bodyfile="/home/grund/hyrise/src/lib/storage/csb_tree.h" bodystart="269" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classhyrise_1_1index_1_1_c_s_b_tree_1aff3e00db7d735adf2afe42f6f25ba81d" prot="public" static="no">
+        <type><ref refid="structhyrise_1_1index_1_1_c_s_b_pair_u_i" kindref="compound">CSBPairUI</ref></type>
+        <definition>typedef CSBPairUI hyrise::index::CSBTree::pair_type</definition>
+        <argsstring></argsstring>
+        <name>pair_type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/csb_tree.h" line="271" bodyfile="/home/grund/hyrise/src/lib/storage/csb_tree.h" bodystart="271" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classhyrise_1_1index_1_1_c_s_b_tree_1a627288cb8f9e818a15bce75328678d47" prot="public" static="no">
+        <type><ref refid="structhyrise_1_1index_1_1_c_s_b_pair_u_i" kindref="compound">CSBPairUI</ref> *</type>
+        <definition>typedef CSBPairUI* hyrise::index::CSBTree::pair_ptr</definition>
+        <argsstring></argsstring>
+        <name>pair_ptr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/csb_tree.h" line="272" bodyfile="/home/grund/hyrise/src/lib/storage/csb_tree.h" bodystart="272" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classhyrise_1_1index_1_1_c_s_b_tree_1aed1694f5dcf03057e7ec36a224b9dca1" prot="public" static="no">
+        <type><ref refid="structhyrise_1_1index_1_1_c_s_b_leaf_node_u_i" kindref="compound">CSBLeafNodeUI</ref></type>
+        <definition>typedef CSBLeafNodeUI hyrise::index::CSBTree::leaf_node</definition>
+        <argsstring></argsstring>
+        <name>leaf_node</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/csb_tree.h" line="274" bodyfile="/home/grund/hyrise/src/lib/storage/csb_tree.h" bodystart="274" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classhyrise_1_1index_1_1_c_s_b_tree_1a71eb82ecde21b8f03cb9f85c54194382" prot="public" static="no">
+        <type><ref refid="structhyrise_1_1index_1_1_c_s_b_node_u_i" kindref="compound">CSBNodeUI</ref></type>
+        <definition>typedef CSBNodeUI hyrise::index::CSBTree::internal_node</definition>
+        <argsstring></argsstring>
+        <name>internal_node</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/csb_tree.h" line="275" bodyfile="/home/grund/hyrise/src/lib/storage/csb_tree.h" bodystart="275" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classhyrise_1_1index_1_1_c_s_b_tree_1aec7cad42ad09b81f939c956582652305" prot="public" static="no">
+        <type><ref refid="structhyrise_1_1index_1_1_c_s_b_leaf_node_u_i" kindref="compound">CSBLeafNodeUI</ref> *</type>
+        <definition>typedef CSBLeafNodeUI* hyrise::index::CSBTree::leaf_node_ptr</definition>
+        <argsstring></argsstring>
+        <name>leaf_node_ptr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/csb_tree.h" line="277" bodyfile="/home/grund/hyrise/src/lib/storage/csb_tree.h" bodystart="277" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classhyrise_1_1index_1_1_c_s_b_tree_1aeb2caa72c8f8692d47ff2aeebab4ebb0" prot="public" static="no">
+        <type><ref refid="structhyrise_1_1index_1_1_c_s_b_node_u_i" kindref="compound">CSBNodeUI</ref> *</type>
+        <definition>typedef CSBNodeUI* hyrise::index::CSBTree::internal_node_ptr</definition>
+        <argsstring></argsstring>
+        <name>internal_node_ptr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/csb_tree.h" line="278" bodyfile="/home/grund/hyrise/src/lib/storage/csb_tree.h" bodystart="278" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classhyrise_1_1index_1_1_c_s_b_tree_1a3cc7144ae529bdb0ffea0d53a744377a" prot="public" static="no">
+        <type><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_iterator" kindref="compound">CSBTreeIterator</ref></type>
+        <definition>typedef CSBTreeIterator hyrise::index::CSBTree::iterator</definition>
+        <argsstring></argsstring>
+        <name>iterator</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/csb_tree.h" line="281" bodyfile="/home/grund/hyrise/src/lib/storage/csb_tree.h" bodystart="281" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classhyrise_1_1index_1_1_c_s_b_tree_1adbf980a34818431680fe754fe768f228" prot="public" static="no">
+        <type><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_iterator" kindref="compound">CSBTreeIterator</ref></type>
+        <definition>typedef CSBTreeIterator hyrise::index::CSBTree::const_iterator</definition>
+        <argsstring></argsstring>
+        <name>const_iterator</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/csb_tree.h" line="282" bodyfile="/home/grund/hyrise/src/lib/storage/csb_tree.h" bodystart="282" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-type">
+      <memberdef kind="typedef" id="classhyrise_1_1index_1_1_c_s_b_tree_1ad4f532231b040a4b1ab7f25839f5b75d" prot="private" static="no">
+        <type>struct <ref refid="structhyrise_1_1index_1_1_c_s_b_tree_1_1__node__id" kindref="compound">hyrise::index::CSBTree::_node_id</ref></type>
+        <definition>typedef struct hyrise::index::CSBTree::_node_id  hyrise::index::CSBTree::_node_id</definition>
+        <argsstring></argsstring>
+        <name>_node_id</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/csb_tree.h" line="361"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classhyrise_1_1index_1_1_c_s_b_tree_1ae11fb48783b34470453c6e8fb1116405" prot="private" static="no">
+        <type>std::list&lt; <ref refid="structhyrise_1_1index_1_1_c_s_b_node_u_i" kindref="compound">CSBNodeUI</ref> * &gt;</type>
+        <definition>typedef std::list&lt;CSBNodeUI *&gt; hyrise::index::CSBTree::_node_path</definition>
+        <argsstring></argsstring>
+        <name>_node_path</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/csb_tree.h" line="367" bodyfile="/home/grund/hyrise/src/lib/storage/csb_tree.h" bodystart="367" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classhyrise_1_1index_1_1_c_s_b_tree_1add11d81ceb555c3b73218b6d7040fc53" prot="private" static="no">
+        <type>std::list&lt; <ref refid="structhyrise_1_1index_1_1_c_s_b_node_u_i" kindref="compound">CSBNodeUI</ref> * &gt; *</type>
+        <definition>typedef std::list&lt;CSBNodeUI *&gt;* hyrise::index::CSBTree::_node_path_ptr</definition>
+        <argsstring></argsstring>
+        <name>_node_path_ptr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/csb_tree.h" line="368" bodyfile="/home/grund/hyrise/src/lib/storage/csb_tree.h" bodystart="368" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classhyrise_1_1index_1_1_c_s_b_tree_1a7e7970737876b0adcd96c1acc6ad77ac" prot="private" static="no" mutable="no">
+        <type><ref refid="structhyrise_1_1index_1_1_c_s_b_node_u_i" kindref="compound">CSBNodeUI</ref> *</type>
+        <definition>CSBNodeUI* hyrise::index::CSBTree::root</definition>
+        <argsstring></argsstring>
+        <name>root</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/csb_tree.h" line="254" bodyfile="/home/grund/hyrise/src/lib/storage/csb_tree.h" bodystart="254" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhyrise_1_1index_1_1_c_s_b_tree_1a4212ab4c368f1d66744b744d51a39a4c" prot="private" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t hyrise::index::CSBTree::_num_values</definition>
+        <argsstring></argsstring>
+        <name>_num_values</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/csb_tree.h" line="257" bodyfile="/home/grund/hyrise/src/lib/storage/csb_tree.h" bodystart="257" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhyrise_1_1index_1_1_c_s_b_tree_1a70884127d5f1d85e145d5ab68244e3b3" prot="private" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t hyrise::index::CSBTree::_num_leafs</definition>
+        <argsstring></argsstring>
+        <name>_num_leafs</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/csb_tree.h" line="260" bodyfile="/home/grund/hyrise/src/lib/storage/csb_tree.h" bodystart="260" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhyrise_1_1index_1_1_c_s_b_tree_1ad975d9bba7a2bc251b406a49e9eab711" prot="private" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t hyrise::index::CSBTree::_num_internals</definition>
+        <argsstring></argsstring>
+        <name>_num_internals</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/csb_tree.h" line="261" bodyfile="/home/grund/hyrise/src/lib/storage/csb_tree.h" bodystart="261" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhyrise_1_1index_1_1_c_s_b_tree_1a7baa3b165ef9469ac50f10a359e7b28f" prot="private" static="no" mutable="no">
+        <type><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1aec7cad42ad09b81f939c956582652305" kindref="member">leaf_node_ptr</ref></type>
+        <definition>leaf_node_ptr hyrise::index::CSBTree::_begin</definition>
+        <argsstring></argsstring>
+        <name>_begin</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/csb_tree.h" line="363" bodyfile="/home/grund/hyrise/src/lib/storage/csb_tree.h" bodystart="363" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classhyrise_1_1index_1_1_c_s_b_tree_1a468b8386fae625e3361c81a8472e68fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>CSBTree::CSBTree</definition>
+        <argsstring>()</argsstring>
+        <name>CSBTree</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/csb_tree.h" line="284" bodyfile="/home/grund/hyrise/src/lib/storage/csb_tree.cpp" bodystart="262" bodyend="268"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1index_1_1_c_s_b_tree_1aab0420a0111ddf618929e468c4135ad8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>CSBTree::~CSBTree</definition>
+        <argsstring>()</argsstring>
+        <name>~CSBTree</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/csb_tree.h" line="286" bodyfile="/home/grund/hyrise/src/lib/storage/csb_tree.cpp" bodystart="270" bodyend="280"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1index_1_1_c_s_b_tree_1a97901c86d27ca43efe9197869f87d8a8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CSBTree::insert</definition>
+        <argsstring>(key_type k, value_type v)</argsstring>
+        <name>insert</name>
+        <param>
+          <type><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1aa064822470f2784a31add51a5465874d" kindref="member">key_type</ref></type>
+          <declname>k</declname>
+        </param>
+        <param>
+          <type><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1a5b9ddb9ae7fc95ce8b7a9863a50d0783" kindref="member">value_type</ref></type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/csb_tree.h" line="289" bodyfile="/home/grund/hyrise/src/lib/storage/csb_tree.cpp" bodystart="370" bodyend="416"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1index_1_1_c_s_b_tree_1a49f78da26a85fcbbe01afd329bf76d27" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1a627288cb8f9e818a15bce75328678d47" kindref="member">pair_ptr</ref></type>
+        <definition>CSBTree::pair_ptr CSBTree::find</definition>
+        <argsstring>(key_type k)</argsstring>
+        <name>find</name>
+        <param>
+          <type><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1aa064822470f2784a31add51a5465874d" kindref="member">key_type</ref></type>
+          <declname>k</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/csb_tree.h" line="292" bodyfile="/home/grund/hyrise/src/lib/storage/csb_tree.cpp" bodystart="337" bodyend="367"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1index_1_1_c_s_b_tree_1ac8316a3b1e2341bf598a4bc7b831367a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hyrise::index::CSBTree::del</definition>
+        <argsstring>(key_type k)</argsstring>
+        <name>del</name>
+        <param>
+          <type><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1aa064822470f2784a31add51a5465874d" kindref="member">key_type</ref></type>
+          <declname>k</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/csb_tree.h" line="295"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1index_1_1_c_s_b_tree_1ac4769482397896d738e7e8e44ab7eab5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CSBTree::print</definition>
+        <argsstring>(std::ostream &amp;w=std::cout)</argsstring>
+        <name>print</name>
+        <param>
+          <type>std::ostream &amp;</type>
+          <declname>w</declname>
+          <defval>std::cout</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/csb_tree.h" line="298" bodyfile="/home/grund/hyrise/src/lib/storage/csb_tree.cpp" bodystart="745" bodyend="764"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1index_1_1_c_s_b_tree_1a97fde271f44d00d1a3765bf697ef5f50" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t CSBTree::num_values</definition>
+        <argsstring>()</argsstring>
+        <name>num_values</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/csb_tree.h" line="301" bodyfile="/home/grund/hyrise/src/lib/storage/csb_tree.cpp" bodystart="766" bodyend="768"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1index_1_1_c_s_b_tree_1a1b768ed0b403da311376eb6aecd9282d" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t hyrise::index::CSBTree::num_leafs</definition>
+        <argsstring>() const </argsstring>
+        <name>num_leafs</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/csb_tree.h" line="304" bodyfile="/home/grund/hyrise/src/lib/storage/csb_tree.h" bodystart="304" bodyend="306"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1index_1_1_c_s_b_tree_1a316e4fba526280e0549c2ac8edca4c26" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t hyrise::index::CSBTree::num_internals</definition>
+        <argsstring>() const </argsstring>
+        <name>num_internals</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/csb_tree.h" line="309" bodyfile="/home/grund/hyrise/src/lib/storage/csb_tree.h" bodystart="309" bodyend="311"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1index_1_1_c_s_b_tree_1a7cf41b3e7ba871a1d098c4811735cfe9" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t hyrise::index::CSBTree::memory_consumption</definition>
+        <argsstring>() const </argsstring>
+        <name>memory_consumption</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/csb_tree.h" line="313" bodyfile="/home/grund/hyrise/src/lib/storage/csb_tree.h" bodystart="313" bodyend="321"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1index_1_1_c_s_b_tree_1ae4226fc27350ca9a2377ae1a46eb43d5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1a3cc7144ae529bdb0ffea0d53a744377a" kindref="member">iterator</ref></type>
+        <definition>iterator hyrise::index::CSBTree::begin</definition>
+        <argsstring>()</argsstring>
+        <name>begin</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/csb_tree.h" line="324" bodyfile="/home/grund/hyrise/src/lib/storage/csb_tree.h" bodystart="324" bodyend="326"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1index_1_1_c_s_b_tree_1a65df8588b44aeab70b3fdfa0fcbe530d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1a3cc7144ae529bdb0ffea0d53a744377a" kindref="member">iterator</ref></type>
+        <definition>iterator hyrise::index::CSBTree::end</definition>
+        <argsstring>()</argsstring>
+        <name>end</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/csb_tree.h" line="329" bodyfile="/home/grund/hyrise/src/lib/storage/csb_tree.h" bodystart="329" bodyend="331"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1index_1_1_c_s_b_tree_1a61164f7760f0de213f9cf5228cb17ba6" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1a3cc7144ae529bdb0ffea0d53a744377a" kindref="member">iterator</ref></type>
+        <definition>iterator hyrise::index::CSBTree::at</definition>
+        <argsstring>(key_type k)</argsstring>
+        <name>at</name>
+        <param>
+          <type><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1aa064822470f2784a31add51a5465874d" kindref="member">key_type</ref></type>
+          <declname>k</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/csb_tree.h" line="333" bodyfile="/home/grund/hyrise/src/lib/storage/csb_tree.h" bodystart="333" bodyend="343"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classhyrise_1_1index_1_1_c_s_b_tree_1a04056bfe88c521b3636ecc6364bb4b40" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structhyrise_1_1index_1_1_c_s_b_tree_1_1__node__id" kindref="compound">_node_id</ref></type>
+        <definition>CSBTree::_node_id CSBTree::find_leaf</definition>
+        <argsstring>(key_type k, bool withPath=false)</argsstring>
+        <name>find_leaf</name>
+        <param>
+          <type><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1aa064822470f2784a31add51a5465874d" kindref="member">key_type</ref></type>
+          <declname>k</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>withPath</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/csb_tree.h" line="370" bodyfile="/home/grund/hyrise/src/lib/storage/csb_tree.cpp" bodystart="286" bodyend="333"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1index_1_1_c_s_b_tree_1a3c612c9ef0c5b944c2814373b597311b" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CSBTree::insert_into_leaf_after_splitting</definition>
+        <argsstring>(const _node_path_ptr path, leaf_node_ptr leaf, key_type k, value_type v)</argsstring>
+        <name>insert_into_leaf_after_splitting</name>
+        <param>
+          <type>const <ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1add11d81ceb555c3b73218b6d7040fc53" kindref="member">_node_path_ptr</ref></type>
+          <declname>path</declname>
+        </param>
+        <param>
+          <type><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1aec7cad42ad09b81f939c956582652305" kindref="member">leaf_node_ptr</ref></type>
+          <declname>leaf</declname>
+        </param>
+        <param>
+          <type><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1aa064822470f2784a31add51a5465874d" kindref="member">key_type</ref></type>
+          <declname>k</declname>
+        </param>
+        <param>
+          <type><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1a5b9ddb9ae7fc95ce8b7a9863a50d0783" kindref="member">value_type</ref></type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>When inserting a node and splitting it at the same time, we have to check if the nodegroup size is sufficient to hold another node on the same level, if this is the case SOP follows, if not, we have to reallocate the nodegroup and copy the complete region plus, updating the first_child pointer on the parent node (or realloc). When inserting the parent from their the parent has to decide for its own. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/csb_tree.h" line="376" bodyfile="/home/grund/hyrise/src/lib/storage/csb_tree.cpp" bodystart="484" bodyend="543"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1index_1_1_c_s_b_tree_1a49d0cc3d192adab76ee0a7daeb23769b" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1aec7cad42ad09b81f939c956582652305" kindref="member">leaf_node_ptr</ref></type>
+        <definition>CSBTree::leaf_node_ptr CSBTree::split_leaf_node</definition>
+        <argsstring>(leaf_node_ptr leaf, key_type k, value_type v)</argsstring>
+        <name>split_leaf_node</name>
+        <param>
+          <type><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1aec7cad42ad09b81f939c956582652305" kindref="member">leaf_node_ptr</ref></type>
+          <declname>leaf</declname>
+        </param>
+        <param>
+          <type><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1aa064822470f2784a31add51a5465874d" kindref="member">key_type</ref></type>
+          <declname>k</declname>
+        </param>
+        <param>
+          <type><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1a5b9ddb9ae7fc95ce8b7a9863a50d0783" kindref="member">value_type</ref></type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/csb_tree.h" line="382" bodyfile="/home/grund/hyrise/src/lib/storage/csb_tree.cpp" bodystart="422" bodyend="472"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1index_1_1_c_s_b_tree_1ad43c2ae9efb20b26f480522689d20c73" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CSBTree::insert_into_parent_after_splitting</definition>
+        <argsstring>(const _node_path_ptr path, internal_node_ptr first_child, key_type k)</argsstring>
+        <name>insert_into_parent_after_splitting</name>
+        <param>
+          <type>const <ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1add11d81ceb555c3b73218b6d7040fc53" kindref="member">_node_path_ptr</ref></type>
+          <declname>path</declname>
+        </param>
+        <param>
+          <type><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1aeb2caa72c8f8692d47ff2aeebab4ebb0" kindref="member">internal_node_ptr</ref></type>
+          <declname>first_child</declname>
+        </param>
+        <param>
+          <type><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1aa064822470f2784a31add51a5465874d" kindref="member">key_type</ref></type>
+          <declname>k</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/csb_tree.h" line="387" bodyfile="/home/grund/hyrise/src/lib/storage/csb_tree.cpp" bodystart="645" bodyend="720"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1index_1_1_c_s_b_tree_1aa9436fe39ee218d41bcf08d3390b70c1" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CSBTree::insert_into_parent_after_splitting</definition>
+        <argsstring>(const _node_path_ptr path, leaf_node_ptr first_child, key_type k)</argsstring>
+        <name>insert_into_parent_after_splitting</name>
+        <param>
+          <type>const <ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1add11d81ceb555c3b73218b6d7040fc53" kindref="member">_node_path_ptr</ref></type>
+          <declname>path</declname>
+        </param>
+        <param>
+          <type><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1aec7cad42ad09b81f939c956582652305" kindref="member">leaf_node_ptr</ref></type>
+          <declname>first_child</declname>
+        </param>
+        <param>
+          <type><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1aa064822470f2784a31add51a5465874d" kindref="member">key_type</ref></type>
+          <declname>k</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/csb_tree.h" line="392" bodyfile="/home/grund/hyrise/src/lib/storage/csb_tree.cpp" bodystart="545" bodyend="643"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1index_1_1_c_s_b_tree_1a7e265adb14a5466be73d3beff082580b" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CSBTree::insert_into_leaf</definition>
+        <argsstring>(leaf_node_ptr leaf, key_type k, value_type v)</argsstring>
+        <name>insert_into_leaf</name>
+        <param>
+          <type><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1aec7cad42ad09b81f939c956582652305" kindref="member">leaf_node_ptr</ref></type>
+          <declname>leaf</declname>
+        </param>
+        <param>
+          <type><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1aa064822470f2784a31add51a5465874d" kindref="member">key_type</ref></type>
+          <declname>k</declname>
+        </param>
+        <param>
+          <type><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1a5b9ddb9ae7fc95ce8b7a9863a50d0783" kindref="member">value_type</ref></type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/csb_tree.h" line="396" bodyfile="/home/grund/hyrise/src/lib/storage/csb_tree.cpp" bodystart="725" bodyend="741"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1index_1_1_c_s_b_tree_1a9b49499a13878578fefa6b37a0711cd3" prot="private" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void hyrise::index::CSBTree::print_path</definition>
+        <argsstring>(_node_path_ptr p) const </argsstring>
+        <name>print_path</name>
+        <param>
+          <type><ref refid="classhyrise_1_1index_1_1_c_s_b_tree_1add11d81ceb555c3b73218b6d7040fc53" kindref="member">_node_path_ptr</ref></type>
+          <declname>p</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/csb_tree.h" line="398" bodyfile="/home/grund/hyrise/src/lib/storage/csb_tree.h" bodystart="398" bodyend="404"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1699">
+        <label>hyrise::index::CSBNodeUI</label>
+        <link refid="structhyrise_1_1index_1_1_c_s_b_node_u_i"/>
+        <childnode refid="1699" relation="usage">
+          <edgelabel>first_child</edgelabel>
+        </childnode>
+      </node>
+      <node id="1696">
+        <label>hyrise::index::CSBTree</label>
+        <link refid="classhyrise_1_1index_1_1_c_s_b_tree"/>
+        <childnode refid="1697" relation="usage">
+          <edgelabel>_begin</edgelabel>
+        </childnode>
+        <childnode refid="1699" relation="usage">
+          <edgelabel>root</edgelabel>
+        </childnode>
+      </node>
+      <node id="1698">
+        <label>hyrise::index::CSBPairUI</label>
+        <link refid="structhyrise_1_1index_1_1_c_s_b_pair_u_i"/>
+      </node>
+      <node id="1697">
+        <label>hyrise::index::CSBLeafNodeUI</label>
+        <link refid="structhyrise_1_1index_1_1_c_s_b_leaf_node_u_i"/>
+        <childnode refid="1698" relation="usage">
+          <edgelabel>entries</edgelabel>
+        </childnode>
+        <childnode refid="1697" relation="usage">
+          <edgelabel>prev</edgelabel>
+          <edgelabel>next</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/storage/csb_tree.h" line="252" bodyfile="/home/grund/hyrise/src/lib/storage/csb_tree.h" bodystart="252" bodyend="406"/>
+    <listofallmembers>
+      <member refid="classhyrise_1_1index_1_1_c_s_b_tree_1a7baa3b165ef9469ac50f10a359e7b28f" prot="private" virt="non-virtual"><scope>hyrise::index::CSBTree</scope><name>_begin</name></member>
+      <member refid="classhyrise_1_1index_1_1_c_s_b_tree_1ad4f532231b040a4b1ab7f25839f5b75d" prot="private" virt="non-virtual"><scope>hyrise::index::CSBTree</scope><name>_node_id</name></member>
+      <member refid="classhyrise_1_1index_1_1_c_s_b_tree_1ae11fb48783b34470453c6e8fb1116405" prot="private" virt="non-virtual"><scope>hyrise::index::CSBTree</scope><name>_node_path</name></member>
+      <member refid="classhyrise_1_1index_1_1_c_s_b_tree_1add11d81ceb555c3b73218b6d7040fc53" prot="private" virt="non-virtual"><scope>hyrise::index::CSBTree</scope><name>_node_path_ptr</name></member>
+      <member refid="classhyrise_1_1index_1_1_c_s_b_tree_1ad975d9bba7a2bc251b406a49e9eab711" prot="private" virt="non-virtual"><scope>hyrise::index::CSBTree</scope><name>_num_internals</name></member>
+      <member refid="classhyrise_1_1index_1_1_c_s_b_tree_1a70884127d5f1d85e145d5ab68244e3b3" prot="private" virt="non-virtual"><scope>hyrise::index::CSBTree</scope><name>_num_leafs</name></member>
+      <member refid="classhyrise_1_1index_1_1_c_s_b_tree_1a4212ab4c368f1d66744b744d51a39a4c" prot="private" virt="non-virtual"><scope>hyrise::index::CSBTree</scope><name>_num_values</name></member>
+      <member refid="classhyrise_1_1index_1_1_c_s_b_tree_1a61164f7760f0de213f9cf5228cb17ba6" prot="public" virt="non-virtual"><scope>hyrise::index::CSBTree</scope><name>at</name></member>
+      <member refid="classhyrise_1_1index_1_1_c_s_b_tree_1ae4226fc27350ca9a2377ae1a46eb43d5" prot="public" virt="non-virtual"><scope>hyrise::index::CSBTree</scope><name>begin</name></member>
+      <member refid="classhyrise_1_1index_1_1_c_s_b_tree_1adbf980a34818431680fe754fe768f228" prot="public" virt="non-virtual"><scope>hyrise::index::CSBTree</scope><name>const_iterator</name></member>
+      <member refid="classhyrise_1_1index_1_1_c_s_b_tree_1a468b8386fae625e3361c81a8472e68fe" prot="public" virt="non-virtual"><scope>hyrise::index::CSBTree</scope><name>CSBTree</name></member>
+      <member refid="classhyrise_1_1index_1_1_c_s_b_tree_1ac8316a3b1e2341bf598a4bc7b831367a" prot="public" virt="non-virtual"><scope>hyrise::index::CSBTree</scope><name>del</name></member>
+      <member refid="classhyrise_1_1index_1_1_c_s_b_tree_1a65df8588b44aeab70b3fdfa0fcbe530d" prot="public" virt="non-virtual"><scope>hyrise::index::CSBTree</scope><name>end</name></member>
+      <member refid="classhyrise_1_1index_1_1_c_s_b_tree_1a49f78da26a85fcbbe01afd329bf76d27" prot="public" virt="non-virtual"><scope>hyrise::index::CSBTree</scope><name>find</name></member>
+      <member refid="classhyrise_1_1index_1_1_c_s_b_tree_1a04056bfe88c521b3636ecc6364bb4b40" prot="private" virt="non-virtual"><scope>hyrise::index::CSBTree</scope><name>find_leaf</name></member>
+      <member refid="classhyrise_1_1index_1_1_c_s_b_tree_1a97901c86d27ca43efe9197869f87d8a8" prot="public" virt="non-virtual"><scope>hyrise::index::CSBTree</scope><name>insert</name></member>
+      <member refid="classhyrise_1_1index_1_1_c_s_b_tree_1a7e265adb14a5466be73d3beff082580b" prot="private" virt="non-virtual"><scope>hyrise::index::CSBTree</scope><name>insert_into_leaf</name></member>
+      <member refid="classhyrise_1_1index_1_1_c_s_b_tree_1a3c612c9ef0c5b944c2814373b597311b" prot="private" virt="non-virtual"><scope>hyrise::index::CSBTree</scope><name>insert_into_leaf_after_splitting</name></member>
+      <member refid="classhyrise_1_1index_1_1_c_s_b_tree_1ad43c2ae9efb20b26f480522689d20c73" prot="private" virt="non-virtual"><scope>hyrise::index::CSBTree</scope><name>insert_into_parent_after_splitting</name></member>
+      <member refid="classhyrise_1_1index_1_1_c_s_b_tree_1aa9436fe39ee218d41bcf08d3390b70c1" prot="private" virt="non-virtual"><scope>hyrise::index::CSBTree</scope><name>insert_into_parent_after_splitting</name></member>
+      <member refid="classhyrise_1_1index_1_1_c_s_b_tree_1a71eb82ecde21b8f03cb9f85c54194382" prot="public" virt="non-virtual"><scope>hyrise::index::CSBTree</scope><name>internal_node</name></member>
+      <member refid="classhyrise_1_1index_1_1_c_s_b_tree_1aeb2caa72c8f8692d47ff2aeebab4ebb0" prot="public" virt="non-virtual"><scope>hyrise::index::CSBTree</scope><name>internal_node_ptr</name></member>
+      <member refid="classhyrise_1_1index_1_1_c_s_b_tree_1a3cc7144ae529bdb0ffea0d53a744377a" prot="public" virt="non-virtual"><scope>hyrise::index::CSBTree</scope><name>iterator</name></member>
+      <member refid="classhyrise_1_1index_1_1_c_s_b_tree_1ab15e7740abec38cb82310b42fc1d75bb" prot="public" virt="non-virtual"><scope>hyrise::index::CSBTree</scope><name>key_ptr</name></member>
+      <member refid="classhyrise_1_1index_1_1_c_s_b_tree_1aa064822470f2784a31add51a5465874d" prot="public" virt="non-virtual"><scope>hyrise::index::CSBTree</scope><name>key_type</name></member>
+      <member refid="classhyrise_1_1index_1_1_c_s_b_tree_1aed1694f5dcf03057e7ec36a224b9dca1" prot="public" virt="non-virtual"><scope>hyrise::index::CSBTree</scope><name>leaf_node</name></member>
+      <member refid="classhyrise_1_1index_1_1_c_s_b_tree_1aec7cad42ad09b81f939c956582652305" prot="public" virt="non-virtual"><scope>hyrise::index::CSBTree</scope><name>leaf_node_ptr</name></member>
+      <member refid="classhyrise_1_1index_1_1_c_s_b_tree_1a7cf41b3e7ba871a1d098c4811735cfe9" prot="public" virt="non-virtual"><scope>hyrise::index::CSBTree</scope><name>memory_consumption</name></member>
+      <member refid="classhyrise_1_1index_1_1_c_s_b_tree_1a316e4fba526280e0549c2ac8edca4c26" prot="public" virt="non-virtual"><scope>hyrise::index::CSBTree</scope><name>num_internals</name></member>
+      <member refid="classhyrise_1_1index_1_1_c_s_b_tree_1a1b768ed0b403da311376eb6aecd9282d" prot="public" virt="non-virtual"><scope>hyrise::index::CSBTree</scope><name>num_leafs</name></member>
+      <member refid="classhyrise_1_1index_1_1_c_s_b_tree_1a97fde271f44d00d1a3765bf697ef5f50" prot="public" virt="non-virtual"><scope>hyrise::index::CSBTree</scope><name>num_values</name></member>
+      <member refid="classhyrise_1_1index_1_1_c_s_b_tree_1a627288cb8f9e818a15bce75328678d47" prot="public" virt="non-virtual"><scope>hyrise::index::CSBTree</scope><name>pair_ptr</name></member>
+      <member refid="classhyrise_1_1index_1_1_c_s_b_tree_1aff3e00db7d735adf2afe42f6f25ba81d" prot="public" virt="non-virtual"><scope>hyrise::index::CSBTree</scope><name>pair_type</name></member>
+      <member refid="classhyrise_1_1index_1_1_c_s_b_tree_1ac4769482397896d738e7e8e44ab7eab5" prot="public" virt="non-virtual"><scope>hyrise::index::CSBTree</scope><name>print</name></member>
+      <member refid="classhyrise_1_1index_1_1_c_s_b_tree_1a9b49499a13878578fefa6b37a0711cd3" prot="private" virt="non-virtual"><scope>hyrise::index::CSBTree</scope><name>print_path</name></member>
+      <member refid="classhyrise_1_1index_1_1_c_s_b_tree_1a7e7970737876b0adcd96c1acc6ad77ac" prot="private" virt="non-virtual"><scope>hyrise::index::CSBTree</scope><name>root</name></member>
+      <member refid="classhyrise_1_1index_1_1_c_s_b_tree_1a49d0cc3d192adab76ee0a7daeb23769b" prot="private" virt="non-virtual"><scope>hyrise::index::CSBTree</scope><name>split_leaf_node</name></member>
+      <member refid="classhyrise_1_1index_1_1_c_s_b_tree_1ad1a23e8b8afb84bd247088636d1d7d95" prot="public" virt="non-virtual"><scope>hyrise::index::CSBTree</scope><name>value_ptr</name></member>
+      <member refid="classhyrise_1_1index_1_1_c_s_b_tree_1a5b9ddb9ae7fc95ce8b7a9863a50d0783" prot="public" virt="non-virtual"><scope>hyrise::index::CSBTree</scope><name>value_type</name></member>
+      <member refid="classhyrise_1_1index_1_1_c_s_b_tree_1aab0420a0111ddf618929e468c4135ad8" prot="public" virt="non-virtual"><scope>hyrise::index::CSBTree</scope><name>~CSBTree</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

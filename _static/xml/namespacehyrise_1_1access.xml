@@ -1,0 +1,962 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="namespacehyrise_1_1access" kind="namespace">
+    <compoundname>hyrise::access</compoundname>
+    <innerclass refid="classhyrise_1_1access_1_1_group_by_scan_base" prot="public">hyrise::access::GroupByScanBase</innerclass>
+    <innerclass refid="classhyrise_1_1access_1_1_hash_join_base" prot="public">hyrise::access::HashJoinBase</innerclass>
+    <innerclass refid="classhyrise_1_1access_1_1_hash_value_join_base" prot="public">hyrise::access::HashValueJoinBase</innerclass>
+    <innerclass refid="classhyrise_1_1access_1_1_projection_scan_base" prot="public">hyrise::access::ProjectionScanBase</innerclass>
+    <innerclass refid="classhyrise_1_1access_1_1_simple_table_scan_base" prot="public">hyrise::access::SimpleTableScanBase</innerclass>
+    <innerclass refid="classhyrise_1_1access_1_1_sort_scan_base" prot="public">hyrise::access::SortScanBase</innerclass>
+    <innerclass refid="classhyrise_1_1access_1_1_union_scan_base" prot="public">hyrise::access::UnionScanBase</innerclass>
+    <innerclass refid="classhyrise_1_1access_1_1_abstract_expression" prot="public">hyrise::access::AbstractExpression</innerclass>
+    <innerclass refid="classhyrise_1_1access_1_1_abstract_plan_op_transformation" prot="public">hyrise::access::AbstractPlanOpTransformation</innerclass>
+    <innerclass refid="classhyrise_1_1access_1_1_barrier" prot="public">hyrise::access::Barrier</innerclass>
+    <innerclass refid="structhyrise_1_1access_1_1_create_index_functor" prot="public">hyrise::access::CreateIndexFunctor</innerclass>
+    <innerclass refid="classhyrise_1_1access_1_1_create_index" prot="public">hyrise::access::CreateIndex</innerclass>
+    <innerclass refid="classhyrise_1_1access_1_1_distinct" prot="public">hyrise::access::Distinct</innerclass>
+    <innerclass refid="classhyrise_1_1access_1_1_example_expression" prot="public">hyrise::access::ExampleExpression</innerclass>
+    <innerclass refid="classhyrise_1_1access_1_1_abstract_expression_factory" prot="public">hyrise::access::AbstractExpressionFactory</innerclass>
+    <innerclass refid="classhyrise_1_1access_1_1_expression_factory" prot="public">hyrise::access::ExpressionFactory</innerclass>
+    <innerclass refid="classhyrise_1_1access_1_1_expressions" prot="public">hyrise::access::Expressions</innerclass>
+    <innerclass refid="classhyrise_1_1access_1_1_column_expression" prot="public">hyrise::access::ColumnExpression</innerclass>
+    <innerclass refid="classhyrise_1_1access_1_1_add_exp" prot="public">hyrise::access::AddExp</innerclass>
+    <innerclass refid="classhyrise_1_1access_1_1_expression_scan" prot="public">hyrise::access::ExpressionScan</innerclass>
+    <innerclass refid="classhyrise_1_1access_1_1_get_table" prot="public">hyrise::access::GetTable</innerclass>
+    <innerclass refid="classhyrise_1_1access_1_1_group_by_scan" prot="public">hyrise::access::GroupByScan</innerclass>
+    <innerclass refid="classhyrise_1_1access_1_1_hash_build" prot="public">hyrise::access::HashBuild</innerclass>
+    <innerclass refid="classhyrise_1_1access_1_1_hash_join_probe" prot="public">hyrise::access::HashJoinProbe</innerclass>
+    <innerclass refid="classhyrise_1_1access_1_1_histogram" prot="public">hyrise::access::Histogram</innerclass>
+    <innerclass refid="classhyrise_1_1access_1_1_histogram2nd_pass" prot="public">hyrise::access::Histogram2ndPass</innerclass>
+    <innerclass refid="structhyrise_1_1access_1_1_create_index_value_functor" prot="public">hyrise::access::CreateIndexValueFunctor</innerclass>
+    <innerclass refid="structhyrise_1_1access_1_1_scan_index_functor" prot="public">hyrise::access::ScanIndexFunctor</innerclass>
+    <innerclass refid="classhyrise_1_1access_1_1_abstract_index_value" prot="public">hyrise::access::AbstractIndexValue</innerclass>
+    <innerclass refid="classhyrise_1_1access_1_1_index_value" prot="public">hyrise::access::IndexValue</innerclass>
+    <innerclass refid="classhyrise_1_1access_1_1_index_scan" prot="public">hyrise::access::IndexScan</innerclass>
+    <innerclass refid="classhyrise_1_1access_1_1_merge_index_scan" prot="public">hyrise::access::MergeIndexScan</innerclass>
+    <innerclass refid="classhyrise_1_1access_1_1_insert_scan" prot="public">hyrise::access::InsertScan</innerclass>
+    <innerclass refid="classhyrise_1_1access_1_1_intersect_positions" prot="public">hyrise::access::IntersectPositions</innerclass>
+    <innerclass refid="structhyrise_1_1access_1_1_join_type" prot="public">hyrise::access::JoinType</innerclass>
+    <innerclass refid="classhyrise_1_1access_1_1_join_scan" prot="public">hyrise::access::JoinScan</innerclass>
+    <innerclass refid="classhyrise_1_1access_1_1_layout_single_table" prot="public">hyrise::access::LayoutSingleTable</innerclass>
+    <innerclass refid="classhyrise_1_1access_1_1_layout_table" prot="public">hyrise::access::LayoutTable</innerclass>
+    <innerclass refid="classhyrise_1_1access_1_1_layout_table_load" prot="public">hyrise::access::LayoutTableLoad</innerclass>
+    <innerclass refid="classhyrise_1_1access_1_1_load_file" prot="public">hyrise::access::LoadFile</innerclass>
+    <innerclass refid="classhyrise_1_1access_1_1_materializing_scan" prot="public">hyrise::access::MaterializingScan</innerclass>
+    <innerclass refid="classhyrise_1_1access_1_1_merge_hash_tables" prot="public">hyrise::access::MergeHashTables</innerclass>
+    <innerclass refid="classhyrise_1_1access_1_1_merge_join" prot="public">hyrise::access::MergeJoin</innerclass>
+    <innerclass refid="classhyrise_1_1access_1_1_merge_table" prot="public">hyrise::access::MergeTable</innerclass>
+    <innerclass refid="classhyrise_1_1access_1_1_multiply_ref_field" prot="public">hyrise::access::MultiplyRefField</innerclass>
+    <innerclass refid="classhyrise_1_1access_1_1_nested_loop_equi_join" prot="public">hyrise::access::NestedLoopEquiJoin</innerclass>
+    <innerclass refid="classhyrise_1_1access_1_1_no_op" prot="public">hyrise::access::NoOp</innerclass>
+    <innerclass refid="classhyrise_1_1access_1_1_operation_data" prot="public">hyrise::access::OperationData</innerclass>
+    <innerclass refid="structhyrise_1_1access_1_1expression__factory" prot="public">hyrise::access::expression_factory</innerclass>
+    <innerclass refid="classhyrise_1_1access_1_1_prefix_sum" prot="public">hyrise::access::PrefixSum</innerclass>
+    <innerclass refid="classhyrise_1_1access_1_1_merge_prefix_sum" prot="public">hyrise::access::MergePrefixSum</innerclass>
+    <innerclass refid="classhyrise_1_1access_1_1_projection_scan" prot="public">hyrise::access::ProjectionScan</innerclass>
+    <innerclass refid="classhyrise_1_1access_1_1_create_radix_table" prot="public">hyrise::access::CreateRadixTable</innerclass>
+    <innerclass refid="classhyrise_1_1access_1_1_radix_cluster" prot="public">hyrise::access::RadixCluster</innerclass>
+    <innerclass refid="classhyrise_1_1access_1_1_radix_cluster2nd_pass" prot="public">hyrise::access::RadixCluster2ndPass</innerclass>
+    <innerclass refid="classhyrise_1_1access_1_1_radix_join" prot="public">hyrise::access::RadixJoin</innerclass>
+    <innerclass refid="structhyrise_1_1access_1_1ops__and__edges" prot="public">hyrise::access::ops_and_edges</innerclass>
+    <innerclass refid="classhyrise_1_1access_1_1_radix_join_transformation" prot="public">hyrise::access::RadixJoinTransformation</innerclass>
+    <innerclass refid="classhyrise_1_1access_1_1_replace_table" prot="public">hyrise::access::ReplaceTable</innerclass>
+    <innerclass refid="classhyrise_1_1access_1_1_request_parse_task" prot="public">hyrise::access::RequestParseTask</innerclass>
+    <innerclass refid="structhyrise_1_1access_1_1json__functor" prot="public">hyrise::access::json_functor</innerclass>
+    <innerclass refid="classhyrise_1_1access_1_1_response_task" prot="public">hyrise::access::ResponseTask</innerclass>
+    <innerclass refid="classhyrise_1_1access_1_1_script_operation" prot="public">hyrise::access::ScriptOperation</innerclass>
+    <innerclass refid="classhyrise_1_1access_1_1_set_table" prot="public">hyrise::access::SetTable</innerclass>
+    <innerclass refid="classhyrise_1_1access_1_1_settings_operation" prot="public">hyrise::access::SettingsOperation</innerclass>
+    <innerclass refid="classhyrise_1_1access_1_1_simple_raw_table_scan" prot="public">hyrise::access::SimpleRawTableScan</innerclass>
+    <innerclass refid="classhyrise_1_1access_1_1_simple_table_scan" prot="public">hyrise::access::SimpleTableScan</innerclass>
+    <innerclass refid="classhyrise_1_1access_1_1_smallest_table_scan" prot="public">hyrise::access::SmallestTableScan</innerclass>
+    <innerclass refid="structhyrise_1_1access_1_1_extract_value" prot="public">hyrise::access::ExtractValue</innerclass>
+    <innerclass refid="structhyrise_1_1access_1_1_extract_value_id" prot="public">hyrise::access::ExtractValueId</innerclass>
+    <innerclass refid="classhyrise_1_1access_1_1_column_sorter" prot="public">hyrise::access::ColumnSorter</innerclass>
+    <innerclass refid="classhyrise_1_1access_1_1_sort_scan" prot="public">hyrise::access::SortScan</innerclass>
+    <innerclass refid="classhyrise_1_1access_1_1_table_load" prot="public">hyrise::access::TableLoad</innerclass>
+    <innerclass refid="classhyrise_1_1access_1_1_table_scan" prot="public">hyrise::access::TableScan</innerclass>
+    <innerclass refid="classhyrise_1_1access_1_1_table_unload" prot="public">hyrise::access::TableUnload</innerclass>
+    <innerclass refid="classhyrise_1_1access_1_1_task_scheduler_adjustment" prot="public">hyrise::access::TaskSchedulerAdjustment</innerclass>
+    <innerclass refid="classhyrise_1_1access_1_1_threadpool_adjustment" prot="public">hyrise::access::ThreadpoolAdjustment</innerclass>
+    <innerclass refid="classhyrise_1_1access_1_1_union_all" prot="public">hyrise::access::UnionAll</innerclass>
+    <innerclass refid="classhyrise_1_1access_1_1_union_scan" prot="public">hyrise::access::UnionScan</innerclass>
+    <innerclass refid="classhyrise_1_1access_1_1_unload_all" prot="public">hyrise::access::UnloadAll</innerclass>
+    <innerclass refid="classhyrise_1_1access_1_1_update_fun" prot="public">hyrise::access::UpdateFun</innerclass>
+    <innerclass refid="classhyrise_1_1access_1_1_add_update_fun" prot="public">hyrise::access::AddUpdateFun</innerclass>
+    <innerclass refid="classhyrise_1_1access_1_1_column_set_fun" prot="public">hyrise::access::ColumnSetFun</innerclass>
+    <innerclass refid="classhyrise_1_1access_1_1_update_scan" prot="public">hyrise::access::UpdateScan</innerclass>
+    <innerclass refid="classhyrise_1_1access_1_1_access_test" prot="public">hyrise::access::AccessTest</innerclass>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="namespacehyrise_1_1access_1a9af43b459123c32272f960bdc16ee2ca" prot="public" static="no">
+        <type>std::unique_ptr&lt; <ref refid="classhyrise_1_1access_1_1_abstract_expression_factory" kindref="compound">AbstractExpressionFactory</ref> &gt;</type>
+        <definition>typedef std::unique_ptr&lt;AbstractExpressionFactory&gt; hyrise::access::expression_factory_ptr_t</definition>
+        <argsstring></argsstring>
+        <name>expression_factory_ptr_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/ExpressionRegistration.h" line="23" bodyfile="/home/grund/hyrise/src/lib/access/ExpressionRegistration.h" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="namespacehyrise_1_1access_1a32ae7da090962cbd3e1cbfcff1518b0d" prot="public" static="no">
+        <type>struct <ref refid="structhyrise_1_1access_1_1ops__and__edges" kindref="compound">hyrise::access::ops_and_edges</ref></type>
+        <definition>typedef struct hyrise::access::ops_and_edges  hyrise::access::ops_and_edges_t</definition>
+        <argsstring></argsstring>
+        <name>ops_and_edges_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/RadixJoinTransformation.h" line="15"/>
+      </memberdef>
+      <memberdef kind="typedef" id="namespacehyrise_1_1access_1af41209551d197107c71e3be44cb01982" prot="public" static="no">
+        <type>std::unique_ptr&lt; <ref refid="classhyrise_1_1access_1_1_abstract_expression" kindref="compound">AbstractExpression</ref> &gt;</type>
+        <definition>typedef std::unique_ptr&lt;AbstractExpression&gt; hyrise::access::expression_uptr_t</definition>
+        <argsstring></argsstring>
+        <name>expression_uptr_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/types.h" line="34" bodyfile="/home/grund/hyrise/src/lib/helper/types.h" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="namespacehyrise_1_1access_1ab840b3dd4740074d5269e1cacd5791cd" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool hyrise::access::registered</definition>
+        <argsstring></argsstring>
+        <name>registered</name>
+        <initializer> <ref refid="classhyrise_1_1net_1_1_router_1a847346a8882c7d5e3ed7f2bc8d1acbae" kindref="member">net::Router::registerRoute</ref>&lt;<ref refid="classhyrise_1_1access_1_1_request_parse_task" kindref="compound">RequestParseTask</ref>&gt;(
+    &quot;/query/&quot;,
+    net::Router::route_t::CATCH_ALL)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/RequestParseTask.cpp" line="30" bodyfile="/home/grund/hyrise/src/lib/access/RequestParseTask.cpp" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="namespacehyrise_1_1access_1aecc6008a4475d66defc3bef735f9d2ae" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>hyrise::access::BENCHMARK_F</definition>
+        <argsstring>(GroupByScanBase, group_by_tpc_c_delivery)</argsstring>
+        <name>BENCHMARK_F</name>
+        <param>
+          <type><ref refid="classhyrise_1_1access_1_1_group_by_scan_base" kindref="compound">GroupByScanBase</ref></type>
+        </param>
+        <param>
+          <type>group_by_tpc_c_delivery</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_regression/GroupByScan.cpp" line="50" bodyfile="/home/grund/hyrise/src/bin/perf_regression/GroupByScan.cpp" bodystart="50" bodyend="52"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehyrise_1_1access_1a5203a6d224e1a82eb666d9c520520179" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>hyrise::access::BENCHMARK_F</definition>
+        <argsstring>(GroupByScanBase, group_by_tpc_c_delivery_mat)</argsstring>
+        <name>BENCHMARK_F</name>
+        <param>
+          <type><ref refid="classhyrise_1_1access_1_1_group_by_scan_base" kindref="compound">GroupByScanBase</ref></type>
+        </param>
+        <param>
+          <type>group_by_tpc_c_delivery_mat</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_regression/GroupByScan.cpp" line="54" bodyfile="/home/grund/hyrise/src/bin/perf_regression/GroupByScan.cpp" bodystart="54" bodyend="62"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehyrise_1_1access_1a37824b9706bf0c1a9cad560c83abe080" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>hyrise::access::BENCHMARK_F</definition>
+        <argsstring>(GroupByScanBase, group_by_tpc_c_delivery_mat_memcpy)</argsstring>
+        <name>BENCHMARK_F</name>
+        <param>
+          <type><ref refid="classhyrise_1_1access_1_1_group_by_scan_base" kindref="compound">GroupByScanBase</ref></type>
+        </param>
+        <param>
+          <type>group_by_tpc_c_delivery_mat_memcpy</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_regression/GroupByScan.cpp" line="64" bodyfile="/home/grund/hyrise/src/bin/perf_regression/GroupByScan.cpp" bodystart="64" bodyend="72"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehyrise_1_1access_1a472891da25546756103bca2bc6b2814b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>hyrise::access::BENCHMARK_F</definition>
+        <argsstring>(GroupByScanBase, group_by_scan_multiple_fields)</argsstring>
+        <name>BENCHMARK_F</name>
+        <param>
+          <type><ref refid="classhyrise_1_1access_1_1_group_by_scan_base" kindref="compound">GroupByScanBase</ref></type>
+        </param>
+        <param>
+          <type>group_by_scan_multiple_fields</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_regression/GroupByScan.cpp" line="74" bodyfile="/home/grund/hyrise/src/bin/perf_regression/GroupByScan.cpp" bodystart="74" bodyend="95"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehyrise_1_1access_1ae2f43b743b0dc86b8c2204260e5b17c7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>hyrise::access::BENCHMARK_F</definition>
+        <argsstring>(GroupByScanBase, group_by_scan_multiple_fieds_mat)</argsstring>
+        <name>BENCHMARK_F</name>
+        <param>
+          <type><ref refid="classhyrise_1_1access_1_1_group_by_scan_base" kindref="compound">GroupByScanBase</ref></type>
+        </param>
+        <param>
+          <type>group_by_scan_multiple_fieds_mat</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_regression/GroupByScan.cpp" line="97" bodyfile="/home/grund/hyrise/src/bin/perf_regression/GroupByScan.cpp" bodystart="97" bodyend="124"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehyrise_1_1access_1a097136911f248b818c1d993ce2300047" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>hyrise::access::BENCHMARK_F</definition>
+        <argsstring>(GroupByScanBase, group_by_scan_multiple_fields_mat_memcpy)</argsstring>
+        <name>BENCHMARK_F</name>
+        <param>
+          <type><ref refid="classhyrise_1_1access_1_1_group_by_scan_base" kindref="compound">GroupByScanBase</ref></type>
+        </param>
+        <param>
+          <type>group_by_scan_multiple_fields_mat_memcpy</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_regression/GroupByScan.cpp" line="126" bodyfile="/home/grund/hyrise/src/bin/perf_regression/GroupByScan.cpp" bodystart="126" bodyend="154"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehyrise_1_1access_1a07166c6b2a429b2b23b6feb5128c55a3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>hyrise::access::BENCHMARK_F</definition>
+        <argsstring>(HashJoinBase, stock_level_hash_join)</argsstring>
+        <name>BENCHMARK_F</name>
+        <param>
+          <type><ref refid="classhyrise_1_1access_1_1_hash_join_base" kindref="compound">HashJoinBase</ref></type>
+        </param>
+        <param>
+          <type>stock_level_hash_join</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_regression/HashJoin.cpp" line="57" bodyfile="/home/grund/hyrise/src/bin/perf_regression/HashJoin.cpp" bodystart="57" bodyend="62"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehyrise_1_1access_1a21f65e62bdea9665b60e525781a15a10" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>hyrise::access::BENCHMARK_F</definition>
+        <argsstring>(HashJoinBase, stock_level_hash_join_mat)</argsstring>
+        <name>BENCHMARK_F</name>
+        <param>
+          <type><ref refid="classhyrise_1_1access_1_1_hash_join_base" kindref="compound">HashJoinBase</ref></type>
+        </param>
+        <param>
+          <type>stock_level_hash_join_mat</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_regression/HashJoin.cpp" line="64" bodyfile="/home/grund/hyrise/src/bin/perf_regression/HashJoin.cpp" bodystart="64" bodyend="75"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehyrise_1_1access_1afeafdaab424798f6e9542a27218a242e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>hyrise::access::BENCHMARK_F</definition>
+        <argsstring>(HashJoinBase, stock_level_hash_join_mat_memcpy)</argsstring>
+        <name>BENCHMARK_F</name>
+        <param>
+          <type><ref refid="classhyrise_1_1access_1_1_hash_join_base" kindref="compound">HashJoinBase</ref></type>
+        </param>
+        <param>
+          <type>stock_level_hash_join_mat_memcpy</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_regression/HashJoin.cpp" line="77" bodyfile="/home/grund/hyrise/src/bin/perf_regression/HashJoin.cpp" bodystart="77" bodyend="87"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehyrise_1_1access_1aa17052b06d818d7c3d9eb797081f1e71" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>hyrise::access::BENCHMARK_F</definition>
+        <argsstring>(HashValueJoinBase, stock_level_hash_value_join)</argsstring>
+        <name>BENCHMARK_F</name>
+        <param>
+          <type><ref refid="classhyrise_1_1access_1_1_hash_value_join_base" kindref="compound">HashValueJoinBase</ref></type>
+        </param>
+        <param>
+          <type>stock_level_hash_value_join</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_regression/HashValueJoin.cpp" line="48" bodyfile="/home/grund/hyrise/src/bin/perf_regression/HashValueJoin.cpp" bodystart="48" bodyend="55"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehyrise_1_1access_1acbae471d13257119ad65bf056f0ed84e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>hyrise::access::BENCHMARK_F</definition>
+        <argsstring>(HashValueJoinBase, stock_level_hash_value_join_mat)</argsstring>
+        <name>BENCHMARK_F</name>
+        <param>
+          <type><ref refid="classhyrise_1_1access_1_1_hash_value_join_base" kindref="compound">HashValueJoinBase</ref></type>
+        </param>
+        <param>
+          <type>stock_level_hash_value_join_mat</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_regression/HashValueJoin.cpp" line="57" bodyfile="/home/grund/hyrise/src/bin/perf_regression/HashValueJoin.cpp" bodystart="57" bodyend="70"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehyrise_1_1access_1a9493120f99fbf8cd04e4aabdc3a022fd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>hyrise::access::BENCHMARK_F</definition>
+        <argsstring>(HashValueJoinBase, stock_level_hash_value_join_mat_memcpy)</argsstring>
+        <name>BENCHMARK_F</name>
+        <param>
+          <type><ref refid="classhyrise_1_1access_1_1_hash_value_join_base" kindref="compound">HashValueJoinBase</ref></type>
+        </param>
+        <param>
+          <type>stock_level_hash_value_join_mat_memcpy</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_regression/HashValueJoin.cpp" line="72" bodyfile="/home/grund/hyrise/src/bin/perf_regression/HashValueJoin.cpp" bodystart="72" bodyend="85"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehyrise_1_1access_1a49945f9dd9ad3523741437d269d8c8f1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>hyrise::access::BENCHMARK_F</definition>
+        <argsstring>(ProjectionScanBase, project_new_order_tpcc_district)</argsstring>
+        <name>BENCHMARK_F</name>
+        <param>
+          <type><ref refid="classhyrise_1_1access_1_1_projection_scan_base" kindref="compound">ProjectionScanBase</ref></type>
+        </param>
+        <param>
+          <type>project_new_order_tpcc_district</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_regression/ProjectionScan.cpp" line="45" bodyfile="/home/grund/hyrise/src/bin/perf_regression/ProjectionScan.cpp" bodystart="45" bodyend="48"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehyrise_1_1access_1a2c2b53ebbcb2e839d40120f6ce7fb298" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>hyrise::access::BENCHMARK_F</definition>
+        <argsstring>(ProjectionScanBase, project_new_order_tpcc_district_mat)</argsstring>
+        <name>BENCHMARK_F</name>
+        <param>
+          <type><ref refid="classhyrise_1_1access_1_1_projection_scan_base" kindref="compound">ProjectionScanBase</ref></type>
+        </param>
+        <param>
+          <type>project_new_order_tpcc_district_mat</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_regression/ProjectionScan.cpp" line="50" bodyfile="/home/grund/hyrise/src/bin/perf_regression/ProjectionScan.cpp" bodystart="50" bodyend="60"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehyrise_1_1access_1a6c422b7c790e997dc627578bec84102e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>hyrise::access::BENCHMARK_F</definition>
+        <argsstring>(ProjectionScanBase, project_new_order_tpcc_district_mat_memcpy)</argsstring>
+        <name>BENCHMARK_F</name>
+        <param>
+          <type><ref refid="classhyrise_1_1access_1_1_projection_scan_base" kindref="compound">ProjectionScanBase</ref></type>
+        </param>
+        <param>
+          <type>project_new_order_tpcc_district_mat_memcpy</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_regression/ProjectionScan.cpp" line="62" bodyfile="/home/grund/hyrise/src/bin/perf_regression/ProjectionScan.cpp" bodystart="62" bodyend="74"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehyrise_1_1access_1a21de49a644af16300325cb223f206b5d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_compound_expression" kindref="compound">CompoundExpression</ref> *</type>
+        <definition>CompoundExpression* hyrise::access::customer_selection</definition>
+        <argsstring>(hyrise::storage::c_atable_ptr_t &amp;customer)</argsstring>
+        <name>customer_selection</name>
+        <param>
+          <type><ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref> &amp;</type>
+          <declname>customer</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_regression/SimpleTableScan.cpp" line="62" bodyfile="/home/grund/hyrise/src/bin/perf_regression/SimpleTableScan.cpp" bodystart="62" bodyend="77"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehyrise_1_1access_1a771efb507b9a3a487bcc528867f6a764" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>hyrise::access::BENCHMARK_F</definition>
+        <argsstring>(SimpleTableScanBase, single_select)</argsstring>
+        <name>BENCHMARK_F</name>
+        <param>
+          <type><ref refid="classhyrise_1_1access_1_1_simple_table_scan_base" kindref="compound">SimpleTableScanBase</ref></type>
+        </param>
+        <param>
+          <type>single_select</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_regression/SimpleTableScan.cpp" line="79" bodyfile="/home/grund/hyrise/src/bin/perf_regression/SimpleTableScan.cpp" bodystart="79" bodyend="86"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehyrise_1_1access_1ac456727ce597044c4e39ab30d3ca616e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>hyrise::access::BENCHMARK_F</definition>
+        <argsstring>(SimpleTableScanBase, simple_test_scan)</argsstring>
+        <name>BENCHMARK_F</name>
+        <param>
+          <type><ref refid="classhyrise_1_1access_1_1_simple_table_scan_base" kindref="compound">SimpleTableScanBase</ref></type>
+        </param>
+        <param>
+          <type>simple_test_scan</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_regression/SimpleTableScan.cpp" line="88" bodyfile="/home/grund/hyrise/src/bin/perf_regression/SimpleTableScan.cpp" bodystart="88" bodyend="94"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehyrise_1_1access_1a2c2ce491093a70007658f2642ba07c3e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>hyrise::access::BENCHMARK_F</definition>
+        <argsstring>(SimpleTableScanBase, table_scan_order_status_cust_tpcc_mat)</argsstring>
+        <name>BENCHMARK_F</name>
+        <param>
+          <type><ref refid="classhyrise_1_1access_1_1_simple_table_scan_base" kindref="compound">SimpleTableScanBase</ref></type>
+        </param>
+        <param>
+          <type>table_scan_order_status_cust_tpcc_mat</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_regression/SimpleTableScan.cpp" line="97" bodyfile="/home/grund/hyrise/src/bin/perf_regression/SimpleTableScan.cpp" bodystart="97" bodyend="109"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehyrise_1_1access_1a73157676daeb08901b06483ff6296819" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>hyrise::access::BENCHMARK_F</definition>
+        <argsstring>(SimpleTableScanBase, table_scan_order_status_cust_tpcc_mat_memcpy)</argsstring>
+        <name>BENCHMARK_F</name>
+        <param>
+          <type><ref refid="classhyrise_1_1access_1_1_simple_table_scan_base" kindref="compound">SimpleTableScanBase</ref></type>
+        </param>
+        <param>
+          <type>table_scan_order_status_cust_tpcc_mat_memcpy</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_regression/SimpleTableScan.cpp" line="111" bodyfile="/home/grund/hyrise/src/bin/perf_regression/SimpleTableScan.cpp" bodystart="111" bodyend="123"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehyrise_1_1access_1a270245103919eca6fa63a8e08e5a2272" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>hyrise::access::BENCHMARK_F</definition>
+        <argsstring>(SimpleTableScanBase, table_scan_order_status_line_tpcc)</argsstring>
+        <name>BENCHMARK_F</name>
+        <param>
+          <type><ref refid="classhyrise_1_1access_1_1_simple_table_scan_base" kindref="compound">SimpleTableScanBase</ref></type>
+        </param>
+        <param>
+          <type>table_scan_order_status_line_tpcc</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_regression/SimpleTableScan.cpp" line="125" bodyfile="/home/grund/hyrise/src/bin/perf_regression/SimpleTableScan.cpp" bodystart="125" bodyend="151"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehyrise_1_1access_1ab4ccac9ac0f96f2327055128e1901c3b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>hyrise::access::BENCHMARK_F</definition>
+        <argsstring>(SimpleTableScanBase, table_scan_order_status_line_tpcc_mat)</argsstring>
+        <name>BENCHMARK_F</name>
+        <param>
+          <type><ref refid="classhyrise_1_1access_1_1_simple_table_scan_base" kindref="compound">SimpleTableScanBase</ref></type>
+        </param>
+        <param>
+          <type>table_scan_order_status_line_tpcc_mat</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_regression/SimpleTableScan.cpp" line="153" bodyfile="/home/grund/hyrise/src/bin/perf_regression/SimpleTableScan.cpp" bodystart="153" bodyend="179"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehyrise_1_1access_1aa7f73f7daf924a6d993d1382d9ac975d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>hyrise::access::BENCHMARK_F</definition>
+        <argsstring>(SimpleTableScanBase, table_scan_order_status_line_tpcc_mat_memcpy)</argsstring>
+        <name>BENCHMARK_F</name>
+        <param>
+          <type><ref refid="classhyrise_1_1access_1_1_simple_table_scan_base" kindref="compound">SimpleTableScanBase</ref></type>
+        </param>
+        <param>
+          <type>table_scan_order_status_line_tpcc_mat_memcpy</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_regression/SimpleTableScan.cpp" line="181" bodyfile="/home/grund/hyrise/src/bin/perf_regression/SimpleTableScan.cpp" bodystart="181" bodyend="207"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehyrise_1_1access_1a767a70fedfce61c0ca16278ed8b7ad6c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>hyrise::access::BENCHMARK_F</definition>
+        <argsstring>(SortScanBase, simple_sort_scan_int)</argsstring>
+        <name>BENCHMARK_F</name>
+        <param>
+          <type><ref refid="classhyrise_1_1access_1_1_sort_scan_base" kindref="compound">SortScanBase</ref></type>
+        </param>
+        <param>
+          <type>simple_sort_scan_int</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_regression/SortScan.cpp" line="41" bodyfile="/home/grund/hyrise/src/bin/perf_regression/SortScan.cpp" bodystart="41" bodyend="44"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehyrise_1_1access_1a81032506b539d1ef9a45acd8721013e4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>hyrise::access::BENCHMARK_F</definition>
+        <argsstring>(SortScanBase, simple_sort_scan_float)</argsstring>
+        <name>BENCHMARK_F</name>
+        <param>
+          <type><ref refid="classhyrise_1_1access_1_1_sort_scan_base" kindref="compound">SortScanBase</ref></type>
+        </param>
+        <param>
+          <type>simple_sort_scan_float</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_regression/SortScan.cpp" line="46" bodyfile="/home/grund/hyrise/src/bin/perf_regression/SortScan.cpp" bodystart="46" bodyend="49"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehyrise_1_1access_1a17d19d5089bcbfcfdc6f4db67fa009fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>hyrise::access::BENCHMARK_F</definition>
+        <argsstring>(SortScanBase, simple_sort_scan_string)</argsstring>
+        <name>BENCHMARK_F</name>
+        <param>
+          <type><ref refid="classhyrise_1_1access_1_1_sort_scan_base" kindref="compound">SortScanBase</ref></type>
+        </param>
+        <param>
+          <type>simple_sort_scan_string</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_regression/SortScan.cpp" line="51" bodyfile="/home/grund/hyrise/src/bin/perf_regression/SortScan.cpp" bodystart="51" bodyend="54"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehyrise_1_1access_1aa21cf7ba2c8b1399f3abb673f0f4e6a9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>hyrise::access::BENCHMARK_F</definition>
+        <argsstring>(SortScanBase, simple_sort_scan_sorted_int)</argsstring>
+        <name>BENCHMARK_F</name>
+        <param>
+          <type><ref refid="classhyrise_1_1access_1_1_sort_scan_base" kindref="compound">SortScanBase</ref></type>
+        </param>
+        <param>
+          <type>simple_sort_scan_sorted_int</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_regression/SortScan.cpp" line="56" bodyfile="/home/grund/hyrise/src/bin/perf_regression/SortScan.cpp" bodystart="56" bodyend="59"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehyrise_1_1access_1abd6116ca0388b359e2bd488227eaff4b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>hyrise::access::BENCHMARK_F</definition>
+        <argsstring>(SortScanBase, simple_sort_scan_int_mat)</argsstring>
+        <name>BENCHMARK_F</name>
+        <param>
+          <type><ref refid="classhyrise_1_1access_1_1_sort_scan_base" kindref="compound">SortScanBase</ref></type>
+        </param>
+        <param>
+          <type>simple_sort_scan_int_mat</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_regression/SortScan.cpp" line="61" bodyfile="/home/grund/hyrise/src/bin/perf_regression/SortScan.cpp" bodystart="61" bodyend="72"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehyrise_1_1access_1a1092f8246acf4c4beb1317db7074c906" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>hyrise::access::BENCHMARK_F</definition>
+        <argsstring>(SortScanBase, simple_sort_scan_int_mat_memcpy)</argsstring>
+        <name>BENCHMARK_F</name>
+        <param>
+          <type><ref refid="classhyrise_1_1access_1_1_sort_scan_base" kindref="compound">SortScanBase</ref></type>
+        </param>
+        <param>
+          <type>simple_sort_scan_int_mat_memcpy</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_regression/SortScan.cpp" line="74" bodyfile="/home/grund/hyrise/src/bin/perf_regression/SortScan.cpp" bodystart="74" bodyend="84"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehyrise_1_1access_1ab8cec022186cf09c2b08102c8d2396ef" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>hyrise::access::BENCHMARK_F</definition>
+        <argsstring>(SortScanBase, simple_sort_scan_string_mat)</argsstring>
+        <name>BENCHMARK_F</name>
+        <param>
+          <type><ref refid="classhyrise_1_1access_1_1_sort_scan_base" kindref="compound">SortScanBase</ref></type>
+        </param>
+        <param>
+          <type>simple_sort_scan_string_mat</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_regression/SortScan.cpp" line="86" bodyfile="/home/grund/hyrise/src/bin/perf_regression/SortScan.cpp" bodystart="86" bodyend="96"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehyrise_1_1access_1a1f78f009d97a0852566f2610b7786ccd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>hyrise::access::BENCHMARK_F</definition>
+        <argsstring>(SortScanBase, simple_sort_scan_string_mat_memcpy)</argsstring>
+        <name>BENCHMARK_F</name>
+        <param>
+          <type><ref refid="classhyrise_1_1access_1_1_sort_scan_base" kindref="compound">SortScanBase</ref></type>
+        </param>
+        <param>
+          <type>simple_sort_scan_string_mat_memcpy</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_regression/SortScan.cpp" line="98" bodyfile="/home/grund/hyrise/src/bin/perf_regression/SortScan.cpp" bodystart="98" bodyend="108"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehyrise_1_1access_1aa26ddbe882700453dde39ef6c9c5eea4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>hyrise::access::BENCHMARK_F</definition>
+        <argsstring>(SortScanBase, simple_sort_scan_sorted_int_mat)</argsstring>
+        <name>BENCHMARK_F</name>
+        <param>
+          <type><ref refid="classhyrise_1_1access_1_1_sort_scan_base" kindref="compound">SortScanBase</ref></type>
+        </param>
+        <param>
+          <type>simple_sort_scan_sorted_int_mat</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_regression/SortScan.cpp" line="110" bodyfile="/home/grund/hyrise/src/bin/perf_regression/SortScan.cpp" bodystart="110" bodyend="119"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehyrise_1_1access_1a941031e2f75758a7aaf31cf18376b4ac" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>hyrise::access::BENCHMARK_F</definition>
+        <argsstring>(SortScanBase, simple_sort_scan_sorted_int_mat_memcpy)</argsstring>
+        <name>BENCHMARK_F</name>
+        <param>
+          <type><ref refid="classhyrise_1_1access_1_1_sort_scan_base" kindref="compound">SortScanBase</ref></type>
+        </param>
+        <param>
+          <type>simple_sort_scan_sorted_int_mat_memcpy</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_regression/SortScan.cpp" line="121" bodyfile="/home/grund/hyrise/src/bin/perf_regression/SortScan.cpp" bodystart="121" bodyend="131"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehyrise_1_1access_1aa3d11319f6d560d18bdc8149ebc42f45" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>hyrise::access::BENCHMARK_F</definition>
+        <argsstring>(UnionScanBase, standard_union_with_pos)</argsstring>
+        <name>BENCHMARK_F</name>
+        <param>
+          <type><ref refid="classhyrise_1_1access_1_1_union_scan_base" kindref="compound">UnionScanBase</ref></type>
+        </param>
+        <param>
+          <type>standard_union_with_pos</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_regression/UnionScan.cpp" line="51" bodyfile="/home/grund/hyrise/src/bin/perf_regression/UnionScan.cpp" bodystart="51" bodyend="53"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehyrise_1_1access_1a00790d1a29cbf0e05504832d8cfa5e21" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>hyrise::access::BENCHMARK_F</definition>
+        <argsstring>(UnionScanBase, standard_union_mat)</argsstring>
+        <name>BENCHMARK_F</name>
+        <param>
+          <type><ref refid="classhyrise_1_1access_1_1_union_scan_base" kindref="compound">UnionScanBase</ref></type>
+        </param>
+        <param>
+          <type>standard_union_mat</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_regression/UnionScan.cpp" line="55" bodyfile="/home/grund/hyrise/src/bin/perf_regression/UnionScan.cpp" bodystart="55" bodyend="64"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehyrise_1_1access_1ad1a3965021ed662007543d87cd02c2c4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>hyrise::access::BENCHMARK_F</definition>
+        <argsstring>(UnionScanBase, standard_union_mat_memcpy)</argsstring>
+        <name>BENCHMARK_F</name>
+        <param>
+          <type><ref refid="classhyrise_1_1access_1_1_union_scan_base" kindref="compound">UnionScanBase</ref></type>
+        </param>
+        <param>
+          <type>standard_union_mat_memcpy</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_regression/UnionScan.cpp" line="66" bodyfile="/home/grund/hyrise/src/bin/perf_regression/UnionScan.cpp" bodystart="66" bodyend="75"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehyrise_1_1access_1a65bd3fc39d960efb04f3adcb0aaf05e4" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Table</type>
+          </param>
+          <param>
+            <type>typename VectorType</type>
+            <defval><ref refid="class_fixed_length_vector" kindref="compound">FixedLengthVector</ref>&lt;<ref refid="storage__types_8h_1a2552a37cd3427c39d92cb8fd23c90408" kindref="member">value_id_t</ref>&gt;</defval>
+          </param>
+        </templateparamlist>
+        <type>std::pair&lt; std::shared_ptr&lt; VectorType &gt;, size_t &gt;</type>
+        <definition>std::pair&lt;std::shared_ptr&lt;VectorType&gt;, size_t&gt; hyrise::access::_getDataVector</definition>
+        <argsstring>(const Table &amp;tab, const size_t column=0)</argsstring>
+        <name>_getDataVector</name>
+        <param>
+          <type>const Table &amp;</type>
+          <declname>tab</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>column</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/Histogram.h" line="17" bodyfile="/home/grund/hyrise/src/lib/access/Histogram.h" bodystart="16" bodyend="22"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehyrise_1_1access_1a4404e068d2d41f60782ad1b04e842e03" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename VectorType</type>
+            <defval><ref refid="class_fixed_length_vector" kindref="compound">FixedLengthVector</ref>&lt;<ref refid="storage__types_8h_1a2552a37cd3427c39d92cb8fd23c90408" kindref="member">value_id_t</ref>&gt;</defval>
+          </param>
+        </templateparamlist>
+        <type>std::pair&lt; std::shared_ptr&lt; VectorType &gt;, size_t &gt;</type>
+        <definition>std::pair&lt;std::shared_ptr&lt;VectorType&gt;, size_t&gt; hyrise::access::getDataVector</definition>
+        <argsstring>(const storage::c_atable_ptr_t &amp;tab, const size_t column=0)</argsstring>
+        <name>getDataVector</name>
+        <param>
+          <type>const <ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">storage::c_atable_ptr_t</ref> &amp;</type>
+          <declname>tab</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>column</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/Histogram.h" line="26" bodyfile="/home/grund/hyrise/src/lib/access/Histogram.h" bodystart="25" bodyend="28"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehyrise_1_1access_1a186e18305f1cfc707e738f2aa04556fa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string hyrise::access::hash</definition>
+        <argsstring>(const Json::Value &amp;v)</argsstring>
+        <name>hash</name>
+        <param>
+          <type>const Json::Value &amp;</type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/RequestParseTask.cpp" line="51" bodyfile="/home/grund/hyrise/src/lib/access/RequestParseTask.cpp" bodystart="51" bodyend="61"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehyrise_1_1access_1a7df36ad10afad47a381925e20dfb9d01" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+        </templateparamlist>
+        <type>Json::Value</type>
+        <definition>Json::Value hyrise::access::generateRowsJsonT</definition>
+        <argsstring>(const T &amp;table, const size_t transmitLimit)</argsstring>
+        <name>generateRowsJsonT</name>
+        <param>
+          <type>const T &amp;</type>
+          <declname>table</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>transmitLimit</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/ResponseTask.cpp" line="41" bodyfile="/home/grund/hyrise/src/lib/access/ResponseTask.cpp" bodystart="41" bodyend="59"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehyrise_1_1access_1a9908edc801d425d83aac03cce471b0b2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>Json::Value</type>
+        <definition>Json::Value hyrise::access::generateRowsJson</definition>
+        <argsstring>(const std::shared_ptr&lt; const AbstractTable &gt; &amp;table, const size_t transmitLimit)</argsstring>
+        <name>generateRowsJson</name>
+        <param>
+          <type>const std::shared_ptr&lt; const <ref refid="class_abstract_table" kindref="compound">AbstractTable</ref> &gt; &amp;</type>
+          <declname>table</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>transmitLimit</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/ResponseTask.cpp" line="62" bodyfile="/home/grund/hyrise/src/lib/access/ResponseTask.cpp" bodystart="61" bodyend="68"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/grund/hyrise/src/bin/perf_regression/GroupByScan.cpp" line="11"/>
+  </compounddef>
+</doxygen>

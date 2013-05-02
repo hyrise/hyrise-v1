@@ -1,0 +1,229 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="_core_bound_task_queue_8cpp" kind="file">
+    <compoundname>CoreBoundTaskQueue.cpp</compoundname>
+    <includes refid="_core_bound_task_queue_8h" local="yes">taskscheduler/CoreBoundTaskQueue.h</includes>
+    <includes local="no">iostream</includes>
+    <includes local="no">errno.h</includes>
+    <includes local="no">string.h</includes>
+    <includes local="no">algorithm</includes>
+    <includes local="no">sched.h</includes>
+    <incdepgraph>
+      <node id="24889">
+        <label>queue</label>
+      </node>
+      <node id="24886">
+        <label>src/lib/taskscheduler/CoreBoundTaskQueue.cpp</label>
+        <link refid="CoreBoundTaskQueue.cpp"/>
+        <childnode refid="24887" relation="include">
+        </childnode>
+        <childnode refid="24898" relation="include">
+        </childnode>
+        <childnode refid="24899" relation="include">
+        </childnode>
+        <childnode refid="24900" relation="include">
+        </childnode>
+        <childnode refid="24901" relation="include">
+        </childnode>
+        <childnode refid="24902" relation="include">
+        </childnode>
+      </node>
+      <node id="24899">
+        <label>errno.h</label>
+      </node>
+      <node id="24897">
+        <label>string</label>
+      </node>
+      <node id="24895">
+        <label>taskscheduler/Task.h</label>
+        <link refid="_task_8h"/>
+        <childnode refid="24896" relation="include">
+        </childnode>
+        <childnode refid="24892" relation="include">
+        </childnode>
+        <childnode refid="24891" relation="include">
+        </childnode>
+        <childnode refid="24893" relation="include">
+        </childnode>
+        <childnode refid="24897" relation="include">
+        </childnode>
+      </node>
+      <node id="24887">
+        <label>taskscheduler/CoreBoundTaskQueue.h</label>
+        <link refid="_core_bound_task_queue_8h"/>
+        <childnode refid="24888" relation="include">
+        </childnode>
+        <childnode refid="24889" relation="include">
+        </childnode>
+        <childnode refid="24890" relation="include">
+        </childnode>
+      </node>
+      <node id="24893">
+        <label>condition_variable</label>
+      </node>
+      <node id="24900">
+        <label>string.h</label>
+      </node>
+      <node id="24896">
+        <label>vector</label>
+      </node>
+      <node id="24890">
+        <label>taskscheduler/AbstractTaskQueue.h</label>
+        <link refid="_abstract_task_queue_8h"/>
+        <childnode refid="24891" relation="include">
+        </childnode>
+        <childnode refid="24892" relation="include">
+        </childnode>
+        <childnode refid="24888" relation="include">
+        </childnode>
+        <childnode refid="24893" relation="include">
+        </childnode>
+        <childnode refid="24894" relation="include">
+        </childnode>
+        <childnode refid="24895" relation="include">
+        </childnode>
+      </node>
+      <node id="24898">
+        <label>iostream</label>
+      </node>
+      <node id="24892">
+        <label>mutex</label>
+      </node>
+      <node id="24888">
+        <label>thread</label>
+      </node>
+      <node id="24901">
+        <label>algorithm</label>
+      </node>
+      <node id="24902">
+        <label>sched.h</label>
+      </node>
+      <node id="24894">
+        <label>log4cxx/logger.h</label>
+      </node>
+      <node id="24891">
+        <label>memory</label>
+      </node>
+    </incdepgraph>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>2012<sp/>Hasso-Plattner-Institut<sp/>fuer<sp/>Softwaresystemtechnik<sp/>GmbH.<sp/>All<sp/>rights<sp/>reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*<sp/>CoreBoundTaskQueue.cpp</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*<sp/><sp/>Created<sp/>on:<sp/>Feb<sp/>15,<sp/>2012</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>Author:<sp/>jwust</highlight></codeline>
+<codeline lineno="7"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_core_bound_task_queue_8h" kindref="compound">taskscheduler/CoreBoundTaskQueue.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;iostream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;errno.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;algorithm&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;sched.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight></codeline>
+<codeline lineno="17" refid="class_core_bound_task_queue_1a6ff3c15e3fce5d44042f844cc8f06aac" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_core_bound_task_queue_1a6ff3c15e3fce5d44042f844cc8f06aac" kindref="member">CoreBoundTaskQueue::executeTask</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//infinite<sp/>thread<sp/>loop</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(1)<sp/>{</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//block<sp/>protected<sp/>by<sp/>_threadStatusMutex</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>std::lock_guard&lt;std::mutex&gt;<sp/>lk1(<ref refid="class_abstract_core_bound_task_queue_1a995e365dc19c0a554f8dcee5ab185718" kindref="member">_threadStatusMutex</ref>);</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="class_abstract_core_bound_task_queue_1a005e7155ee34b50422c840d224f64af4" kindref="member">_status</ref><sp/>==<sp/><ref refid="class_abstract_task_queue_1a29d1a49db34f9e5e5d83f0d657f6517bab5b55d5fec71f3976fb1767477475a69" kindref="member">TO_STOP</ref>)</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>lock<sp/>queue<sp/>to<sp/>get<sp/>task</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/>std::unique_lock&lt;std::mutex&gt;<sp/>ul(<ref refid="class_abstract_core_bound_task_queue_1a62a15a3f133da500f9d5b76160e22923" kindref="member">_queueMutex</ref>);</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>get<sp/>task<sp/>and<sp/>execute</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="class_core_bound_task_queue_1a83f12fe7f6ff2095118f445aafc6d393" kindref="member">_runQueue</ref>.size()<sp/>&gt;<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>std::shared_ptr&lt;Task&gt;<sp/>task<sp/>=<sp/><ref refid="class_core_bound_task_queue_1a83f12fe7f6ff2095118f445aafc6d393" kindref="member">_runQueue</ref>.front();</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>get<sp/>first<sp/>task</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_core_bound_task_queue_1a83f12fe7f6ff2095118f445aafc6d393" kindref="member">_runQueue</ref>.pop();</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>ul.unlock();</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(task)<sp/>{</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>set<sp/>queue<sp/>to<sp/>_blocked<sp/>as<sp/>we<sp/>run<sp/>task;<sp/>this<sp/>is<sp/>a<sp/>simple<sp/>mechanism<sp/>to<sp/>avoid<sp/>that<sp/>further<sp/>tasks<sp/>are<sp/>pushed<sp/>to<sp/>this<sp/>queue<sp/>if<sp/>a<sp/>long<sp/>running<sp/>task<sp/>is<sp/>executed;<sp/>check<sp/>WSSimpleTaskScheduler<sp/>for<sp/>task<sp/>stealing<sp/>queue</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_core_bound_task_queue_1a677ebf02dd3904eade429b4f6964b651" kindref="member">_blocked</ref><sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//LOG4CXX_DEBUG(logger,<sp/>&quot;Started<sp/>executing<sp/>task&quot;<sp/>&lt;&lt;<sp/>std::hex<sp/>&lt;&lt;<sp/>&amp;task<sp/>&lt;&lt;<sp/>std::dec<sp/>&lt;&lt;<sp/>&quot;<sp/>on<sp/>core<sp/>&quot;<sp/>&lt;&lt;<sp/>_core);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>run<sp/>task</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//std::cout<sp/>&lt;&lt;<sp/>&quot;Executed<sp/>task<sp/>&quot;<sp/>&lt;&lt;<sp/>task-&gt;vname()<sp/>&lt;&lt;<sp/>&quot;;<sp/>hex<sp/>&quot;<sp/>&lt;&lt;<sp/>std::hex<sp/>&lt;&lt;<sp/>&amp;task<sp/>&lt;&lt;<sp/>std::dec<sp/>&lt;&lt;<sp/>&quot;<sp/>on<sp/>core<sp/>&quot;<sp/>&lt;&lt;<sp/>_core&lt;&lt;<sp/>std::endl;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(*task)();</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOG4CXX_DEBUG(<ref refid="class_abstract_core_bound_task_queue_1a4af14b478ad97a5d7b5ede1bff3767ed" kindref="member">logger</ref>,<sp/></highlight><highlight class="stringliteral">&quot;Executed<sp/>task<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>task-&gt;vname()<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;;<sp/>hex<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>std::hex<sp/>&lt;&lt;<sp/>&amp;task<sp/>&lt;&lt;<sp/>std::dec<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>on<sp/>core<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/><ref refid="class_abstract_core_bound_task_queue_1aa3dd9778a9e7d1786838364f021589e1" kindref="member">_core</ref>);</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>notify<sp/>done<sp/>observers<sp/>that<sp/>task<sp/>is<sp/>done</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>task-&gt;notifyDoneObservers();</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_core_bound_task_queue_1a677ebf02dd3904eade429b4f6964b651" kindref="member">_blocked</ref><sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>no<sp/>task<sp/>in<sp/>runQueue<sp/>-&gt;<sp/>sleep<sp/>and<sp/>wait<sp/>for<sp/>new<sp/>tasks</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//if<sp/>queue<sp/>still<sp/>empty<sp/>go<sp/>to<sp/>sleep<sp/>and<sp/>wait<sp/>until<sp/>new<sp/>tasks<sp/>have<sp/>been<sp/>arrived</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="class_core_bound_task_queue_1a83f12fe7f6ff2095118f445aafc6d393" kindref="member">_runQueue</ref>.size()<sp/>&lt;<sp/>1)<sp/>{</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>if<sp/>thread<sp/>is<sp/>about<sp/>to<sp/>stop,<sp/>break<sp/>execution<sp/>loop</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::lock_guard&lt;std::mutex&gt;<sp/>lk1(<ref refid="class_abstract_core_bound_task_queue_1a995e365dc19c0a554f8dcee5ab185718" kindref="member">_threadStatusMutex</ref>);</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="class_abstract_core_bound_task_queue_1a005e7155ee34b50422c840d224f64af4" kindref="member">_status</ref><sp/>!=<sp/><ref refid="class_abstract_task_queue_1a29d1a49db34f9e5e5d83f0d657f6517babbf46a2afa080c3f9d355c407beaa902" kindref="member">RUN</ref>)</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">continue</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//std::cout<sp/>&lt;&lt;<sp/>&quot;queue<sp/>&quot;<sp/>&lt;&lt;<sp/>_core<sp/>&lt;&lt;<sp/>&quot;<sp/>sleeping<sp/>&quot;<sp/>&lt;&lt;<sp/>std::endl;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_abstract_core_bound_task_queue_1a215cead7ca0dc21485d9821dfe7497ec" kindref="member">_condition</ref>.wait(ul);</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="63"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65" refid="class_core_bound_task_queue_1a4171f72e693d78fd1378f380f254dfc9" refkind="member"><highlight class="normal"><ref refid="class_core_bound_task_queue_1a4171f72e693d78fd1378f380f254dfc9" kindref="member">CoreBoundTaskQueue::CoreBoundTaskQueue</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>core):<sp/><ref refid="class_abstract_core_bound_task_queue" kindref="compound">AbstractCoreBoundTaskQueue</ref>(),<sp/>_blocked(false)<sp/>{</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><ref refid="class_abstract_core_bound_task_queue_1aa3dd9778a9e7d1786838364f021589e1" kindref="member">_core</ref><sp/>=<sp/>core;</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><ref refid="class_abstract_core_bound_task_queue_1a85d4f9c3023494d3bebc5db8c1be0e32" kindref="member">launchThread</ref>(<ref refid="class_abstract_core_bound_task_queue_1aa3dd9778a9e7d1786838364f021589e1" kindref="member">_core</ref>);</highlight></codeline>
+<codeline lineno="68"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70" refid="class_core_bound_task_queue_1a344ae5fc2a5b8dfdf31340dbcdc2a102" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_core_bound_task_queue_1a344ae5fc2a5b8dfdf31340dbcdc2a102" kindref="member">CoreBoundTaskQueue::push</ref>(std::shared_ptr&lt;Task&gt;<sp/>task)<sp/>{</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//std::cout<sp/>&lt;&lt;<sp/>&quot;TASKQUEUE:<sp/>task:<sp/>&quot;<sp/><sp/>&lt;&lt;<sp/>std::hex<sp/>&lt;&lt;<sp/>(void<sp/>*<sp/>)task.get()<sp/>&lt;&lt;<sp/>std::dec<sp/>&lt;&lt;<sp/>&quot;<sp/>pushed<sp/>to<sp/>queue<sp/>&quot;<sp/>&lt;&lt;<sp/>_core<sp/>&lt;&lt;<sp/>std::endl;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/>std::lock_guard&lt;std::mutex&gt;<sp/>lk(<ref refid="class_abstract_core_bound_task_queue_1a62a15a3f133da500f9d5b76160e22923" kindref="member">_queueMutex</ref>);</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><ref refid="class_core_bound_task_queue_1a83f12fe7f6ff2095118f445aafc6d393" kindref="member">_runQueue</ref>.push(task);</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><ref refid="class_abstract_core_bound_task_queue_1a215cead7ca0dc21485d9821dfe7497ec" kindref="member">_condition</ref>.notify_one();</highlight></codeline>
+<codeline lineno="75"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77" refid="class_core_bound_task_queue_1acd98c00e7aa7a1f777aa4feaabca30b7" refkind="member"><highlight class="normal">std::queue&lt;std::shared_ptr&lt;Task&gt;<sp/>&gt;<sp/><ref refid="class_core_bound_task_queue_1acd98c00e7aa7a1f777aa4feaabca30b7" kindref="member">CoreBoundTaskQueue::stopQueue</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="class_abstract_core_bound_task_queue_1a005e7155ee34b50422c840d224f64af4" kindref="member">_status</ref><sp/>!=<sp/><ref refid="class_abstract_task_queue_1a29d1a49db34f9e5e5d83f0d657f6517ba16003f747b26f2b4d59ec96bdbe5d3ed" kindref="member">STOPPED</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>the<sp/>thread<sp/>to<sp/>be<sp/>stopped<sp/>is<sp/>either<sp/>executing<sp/>a<sp/>task,<sp/>or<sp/>waits<sp/>for<sp/>the<sp/>condition<sp/>variable</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>set<sp/>status<sp/>to<sp/>&quot;TO_STOP&quot;<sp/>so<sp/>that<sp/>the<sp/>thread<sp/>either<sp/>quits<sp/>after<sp/>executing<sp/>the<sp/>task,<sp/>or<sp/>after<sp/>having<sp/>been<sp/>notified<sp/>by<sp/>the<sp/>condition<sp/>variable</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>std::lock_guard&lt;std::mutex&gt;<sp/>lk(<ref refid="class_abstract_core_bound_task_queue_1a62a15a3f133da500f9d5b76160e22923" kindref="member">_queueMutex</ref>);</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::lock_guard&lt;std::mutex&gt;<sp/>lk(<ref refid="class_abstract_core_bound_task_queue_1a995e365dc19c0a554f8dcee5ab185718" kindref="member">_threadStatusMutex</ref>);</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_abstract_core_bound_task_queue_1a005e7155ee34b50422c840d224f64af4" kindref="member">_status</ref><sp/>=<sp/><ref refid="class_abstract_task_queue_1a29d1a49db34f9e5e5d83f0d657f6517bab5b55d5fec71f3976fb1767477475a69" kindref="member">TO_STOP</ref>;</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//wake<sp/>up<sp/>thread<sp/>in<sp/>case<sp/>thread<sp/>is<sp/>sleeping</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_abstract_core_bound_task_queue_1a215cead7ca0dc21485d9821dfe7497ec" kindref="member">_condition</ref>.notify_one();</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_abstract_core_bound_task_queue_1a8720b7ed791a548eaba58107f75f3471" kindref="member">_thread</ref>-&gt;join();</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">delete</highlight><highlight class="normal"><sp/><ref refid="class_abstract_core_bound_task_queue_1a8720b7ed791a548eaba58107f75f3471" kindref="member">_thread</ref>;</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//just<sp/>to<sp/>make<sp/>sure<sp/>it<sp/>points<sp/>to<sp/>NULL</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_abstract_core_bound_task_queue_1a8720b7ed791a548eaba58107f75f3471" kindref="member">_thread</ref><sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_abstract_core_bound_task_queue_1a005e7155ee34b50422c840d224f64af4" kindref="member">_status</ref><sp/>=<sp/><ref refid="class_abstract_task_queue_1a29d1a49db34f9e5e5d83f0d657f6517ba16003f747b26f2b4d59ec96bdbe5d3ed" kindref="member">STOPPED</ref>;</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="class_core_bound_task_queue_1a478b4226181547d12db55b79e0f60815" kindref="member">emptyQueue</ref>();</highlight></codeline>
+<codeline lineno="99"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight></codeline>
+<codeline lineno="101" refid="class_core_bound_task_queue_1a478b4226181547d12db55b79e0f60815" refkind="member"><highlight class="normal">std::queue&lt;std::shared_ptr&lt;Task&gt;<sp/>&gt;<sp/><ref refid="class_core_bound_task_queue_1a478b4226181547d12db55b79e0f60815" kindref="member">CoreBoundTaskQueue::emptyQueue</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>create<sp/>empty<sp/>queue</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/>std::queue&lt;std::shared_ptr&lt;Task&gt;<sp/>&gt;<sp/>tmp;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/>std::lock_guard&lt;std::mutex&gt;<sp/>lk(<ref refid="class_abstract_core_bound_task_queue_1a62a15a3f133da500f9d5b76160e22923" kindref="member">_queueMutex</ref>);</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//swap<sp/>empty<sp/>queue<sp/>and<sp/>_runQueue</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/>std::swap(tmp,<sp/><ref refid="class_core_bound_task_queue_1a83f12fe7f6ff2095118f445aafc6d393" kindref="member">_runQueue</ref>);</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>return<sp/>empty<sp/>queue</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>tmp;</highlight></codeline>
+<codeline lineno="109"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight></codeline>
+<codeline lineno="111" refid="class_core_bound_task_queue_1a0475c2e3b673b5f35f1901b0438405ad" refkind="member"><highlight class="normal"><ref refid="class_core_bound_task_queue_1a0475c2e3b673b5f35f1901b0438405ad" kindref="member">CoreBoundTaskQueue::~CoreBoundTaskQueue</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="class_abstract_core_bound_task_queue_1a8720b7ed791a548eaba58107f75f3471" kindref="member">_thread</ref><sp/>!=<sp/>NULL)<sp/><ref refid="class_core_bound_task_queue_1acd98c00e7aa7a1f777aa4feaabca30b7" kindref="member">stopQueue</ref>();</highlight></codeline>
+<codeline lineno="113"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/home/grund/hyrise/src/lib/taskscheduler/CoreBoundTaskQueue.cpp"/>
+  </compounddef>
+</doxygen>

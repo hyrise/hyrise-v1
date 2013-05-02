@@ -1,0 +1,141 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="classhyrise_1_1access_1_1_group_by_scan_base" kind="class" prot="public">
+    <compoundname>hyrise::access::GroupByScanBase</compoundname>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classhyrise_1_1access_1_1_group_by_scan_base_1a1cb815ee93fd06c9d3ab61540c947adb" prot="protected" static="no" mutable="no">
+        <type><ref refid="_storage_manager_8h_1a035405eab2792b84d5f2aca8c3d1a67a" kindref="member">StorageManager</ref> *</type>
+        <definition>StorageManager* hyrise::access::GroupByScanBase::sm</definition>
+        <argsstring></argsstring>
+        <name>sm</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_regression/GroupByScan.cpp" line="20" bodyfile="/home/grund/hyrise/src/bin/perf_regression/GroupByScan.cpp" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhyrise_1_1access_1_1_group_by_scan_base_1a24412a11121676912928f9460d4508be" prot="protected" static="no" mutable="no">
+        <type>std::shared_ptr&lt; <ref refid="classhyrise_1_1access_1_1_group_by_scan" kindref="compound">GroupByScan</ref> &gt;</type>
+        <definition>std::shared_ptr&lt;GroupByScan&gt; hyrise::access::GroupByScanBase::gs</definition>
+        <argsstring></argsstring>
+        <name>gs</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_regression/GroupByScan.cpp" line="21" bodyfile="/home/grund/hyrise/src/bin/perf_regression/GroupByScan.cpp" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhyrise_1_1access_1_1_group_by_scan_base_1ae7c723043d9646f94646574f2ab9b9f1" prot="protected" static="no" mutable="no">
+        <type><ref refid="namespacehyrise_1_1storage_1a21d5e900c20019710828c453eaded1ee" kindref="member">storage::atable_ptr_t</ref></type>
+        <definition>storage::atable_ptr_t hyrise::access::GroupByScanBase::t</definition>
+        <argsstring></argsstring>
+        <name>t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_regression/GroupByScan.cpp" line="22" bodyfile="/home/grund/hyrise/src/bin/perf_regression/GroupByScan.cpp" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhyrise_1_1access_1_1_group_by_scan_base_1a4420b13f85b65567153d42d044118f22" prot="protected" static="no" mutable="no">
+        <type><ref refid="class_sum_aggregate_fun" kindref="compound">SumAggregateFun</ref> *</type>
+        <definition>SumAggregateFun* hyrise::access::GroupByScanBase::sum</definition>
+        <argsstring></argsstring>
+        <name>sum</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_regression/GroupByScan.cpp" line="23" bodyfile="/home/grund/hyrise/src/bin/perf_regression/GroupByScan.cpp" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classhyrise_1_1access_1_1_group_by_scan_base_1a70419067bb7e2cac64686ef4d6a7818e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void hyrise::access::GroupByScanBase::BenchmarkSetUp</definition>
+        <argsstring>()</argsstring>
+        <name>BenchmarkSetUp</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_regression/GroupByScan.cpp" line="27" bodyfile="/home/grund/hyrise/src/bin/perf_regression/GroupByScan.cpp" bodystart="27" bodyend="39"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1access_1_1_group_by_scan_base_1a711c22cf2ce0ca19278d7d01a8ee0a37" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void hyrise::access::GroupByScanBase::BenchmarkTearDown</definition>
+        <argsstring>()</argsstring>
+        <name>BenchmarkTearDown</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_regression/GroupByScan.cpp" line="41" bodyfile="/home/grund/hyrise/src/bin/perf_regression/GroupByScan.cpp" bodystart="41" bodyend="42"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1access_1_1_group_by_scan_base_1ab95e2487ada80ec9a169da4dd0f89512" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>hyrise::access::GroupByScanBase::GroupByScanBase</definition>
+        <argsstring>()</argsstring>
+        <name>GroupByScanBase</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_regression/GroupByScan.cpp" line="44" bodyfile="/home/grund/hyrise/src/bin/perf_regression/GroupByScan.cpp" bodystart="44" bodyend="47"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1931">
+        <label>hyrise::io::StorageManager</label>
+        <link refid="classhyrise_1_1io_1_1_storage_manager"/>
+      </node>
+      <node id="1928">
+        <label>hyrise::access::GroupByScanBase</label>
+        <link refid="classhyrise_1_1access_1_1_group_by_scan_base"/>
+        <childnode refid="1929" relation="usage">
+          <edgelabel>sum</edgelabel>
+        </childnode>
+        <childnode refid="1931" relation="usage">
+          <edgelabel>sm</edgelabel>
+        </childnode>
+      </node>
+      <node id="1930">
+        <label>AggregateFun</label>
+        <link refid="class_aggregate_fun"/>
+      </node>
+      <node id="1929">
+        <label>SumAggregateFun</label>
+        <link refid="class_sum_aggregate_fun"/>
+        <childnode refid="1930" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/bin/perf_regression/GroupByScan.cpp" line="16" bodyfile="/home/grund/hyrise/src/bin/perf_regression/GroupByScan.cpp" bodystart="16" bodyend="48"/>
+    <listofallmembers>
+      <member refid="classhyrise_1_1access_1_1_group_by_scan_base_1a70419067bb7e2cac64686ef4d6a7818e" prot="public" virt="non-virtual"><scope>hyrise::access::GroupByScanBase</scope><name>BenchmarkSetUp</name></member>
+      <member refid="classhyrise_1_1access_1_1_group_by_scan_base_1a711c22cf2ce0ca19278d7d01a8ee0a37" prot="public" virt="non-virtual"><scope>hyrise::access::GroupByScanBase</scope><name>BenchmarkTearDown</name></member>
+      <member refid="classhyrise_1_1access_1_1_group_by_scan_base_1ab95e2487ada80ec9a169da4dd0f89512" prot="public" virt="non-virtual"><scope>hyrise::access::GroupByScanBase</scope><name>GroupByScanBase</name></member>
+      <member refid="classhyrise_1_1access_1_1_group_by_scan_base_1a24412a11121676912928f9460d4508be" prot="protected" virt="non-virtual"><scope>hyrise::access::GroupByScanBase</scope><name>gs</name></member>
+      <member refid="classhyrise_1_1access_1_1_group_by_scan_base_1a1cb815ee93fd06c9d3ab61540c947adb" prot="protected" virt="non-virtual"><scope>hyrise::access::GroupByScanBase</scope><name>sm</name></member>
+      <member refid="classhyrise_1_1access_1_1_group_by_scan_base_1a4420b13f85b65567153d42d044118f22" prot="protected" virt="non-virtual"><scope>hyrise::access::GroupByScanBase</scope><name>sum</name></member>
+      <member refid="classhyrise_1_1access_1_1_group_by_scan_base_1ae7c723043d9646f94646574f2ab9b9f1" prot="protected" virt="non-virtual"><scope>hyrise::access::GroupByScanBase</scope><name>t</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

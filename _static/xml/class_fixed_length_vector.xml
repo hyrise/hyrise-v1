@@ -1,0 +1,570 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="class_fixed_length_vector" kind="class" prot="public">
+    <compoundname>FixedLengthVector</compoundname>
+    <basecompoundref refid="class_base_allocated_attribute_vector" prot="public" virt="non-virtual">BaseAllocatedAttributeVector&lt; FixedLengthVector&lt; T, Allocator &gt;, Allocator &gt;</basecompoundref>
+    <includes refid="_fixed_length_vector_8h" local="no">FixedLengthVector.h</includes>
+    <templateparamlist>
+      <param>
+        <type>typename</type>
+        <declname>T</declname>
+        <defname>T</defname>
+      </param>
+      <param>
+        <type>typename</type>
+        <declname>Allocator</declname>
+        <defname>Allocator</defname>
+        <defval><ref refid="class_strategized_allocator" kindref="compound">StrategizedAllocator</ref>&lt;T, <ref refid="class_malloc_strategy" kindref="compound">MallocStrategy</ref> &gt;</defval>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="class_fixed_length_vector_1a892cf91e4d99636e1368fcf46508549f" prot="public" static="no">
+        <type>T</type>
+        <definition>typedef T FixedLengthVector&lt; T, Allocator &gt;::value_type</definition>
+        <argsstring></argsstring>
+        <name>value_type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/FixedLengthVector.h" line="109" bodyfile="/home/grund/hyrise/src/lib/storage/FixedLengthVector.h" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_fixed_length_vector_1a30bb851334c770ce98a243b514797504" prot="private" static="no" mutable="no">
+        <type>T *</type>
+        <definition>T* FixedLengthVector&lt; T, Allocator &gt;::_values</definition>
+        <argsstring></argsstring>
+        <name>_values</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/FixedLengthVector.h" line="30" bodyfile="/home/grund/hyrise/src/lib/storage/FixedLengthVector.h" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_fixed_length_vector_1ab4d55672bc07d5acf7720bd0ce953954" prot="private" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t FixedLengthVector&lt; T, Allocator &gt;::_rows</definition>
+        <argsstring></argsstring>
+        <name>_rows</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/FixedLengthVector.h" line="31" bodyfile="/home/grund/hyrise/src/lib/storage/FixedLengthVector.h" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_fixed_length_vector_1aa921631f79c5f6aa809a729032a0d879" prot="private" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t FixedLengthVector&lt; T, Allocator &gt;::_columns</definition>
+        <argsstring></argsstring>
+        <name>_columns</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/FixedLengthVector.h" line="32" bodyfile="/home/grund/hyrise/src/lib/storage/FixedLengthVector.h" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_fixed_length_vector_1a215b7e830da7a7fd2a898c759fd7bb30" prot="private" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t FixedLengthVector&lt; T, Allocator &gt;::_allocated_bytes</definition>
+        <argsstring></argsstring>
+        <name>_allocated_bytes</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/FixedLengthVector.h" line="33" bodyfile="/home/grund/hyrise/src/lib/storage/FixedLengthVector.h" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_fixed_length_vector_1ad759dc6f633dd8a859ee43d7ae478576" prot="private" static="no" mutable="no">
+        <type>std::mutex</type>
+        <definition>std::mutex FixedLengthVector&lt; T, Allocator &gt;::_allocate_mtx</definition>
+        <argsstring></argsstring>
+        <name>_allocate_mtx</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/FixedLengthVector.h" line="35" bodyfile="/home/grund/hyrise/src/lib/storage/FixedLengthVector.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_fixed_length_vector_1a535b96ed380e7ce77d3134ca01f5efde" prot="public" static="no" const="no" explicit="yes" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>FixedLengthVector&lt; T, Allocator &gt;::FixedLengthVector</definition>
+        <argsstring>(size_t columns, size_t rows)</argsstring>
+        <name>FixedLengthVector</name>
+        <param>
+          <type>size_t</type>
+          <declname>columns</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>rows</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/FixedLengthVector.h" line="39" bodyfile="/home/grund/hyrise/src/lib/storage/FixedLengthVector.h" bodystart="131" bodyend="136"/>
+      </memberdef>
+      <memberdef kind="function" id="class_fixed_length_vector_1a721e56be76b936452ad0c3df2180043c" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>FixedLengthVector&lt; T, Allocator &gt;::~FixedLengthVector</definition>
+        <argsstring>()</argsstring>
+        <name>~FixedLengthVector</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/FixedLengthVector.h" line="41" bodyfile="/home/grund/hyrise/src/lib/storage/FixedLengthVector.h" bodystart="139" bodyend="141"/>
+      </memberdef>
+      <memberdef kind="function" id="class_fixed_length_vector_1a313ffe404c12360ef1b27fbb12176b30" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void *</type>
+        <definition>void* FixedLengthVector&lt; T, Allocator &gt;::data</definition>
+        <argsstring>()</argsstring>
+        <name>data</name>
+        <reimplements refid="class_abstract_attribute_vector_1aa9b187475305f322958e9e70f5da7b38">data</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/FixedLengthVector.h" line="43" bodyfile="/home/grund/hyrise/src/lib/storage/FixedLengthVector.h" bodystart="43" bodyend="45"/>
+      </memberdef>
+      <memberdef kind="function" id="class_fixed_length_vector_1adf129ec11f1c754038a6bca3412adec5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>void FixedLengthVector&lt; T, Allocator &gt;::setNumRows</definition>
+        <argsstring>(size_t s)</argsstring>
+        <name>setNumRows</name>
+        <reimplements refid="class_abstract_attribute_vector_1ad46f27571b5f25653ae8a5fa95404eff">setNumRows</reimplements>
+        <param>
+          <type>size_t</type>
+          <declname>s</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/FixedLengthVector.h" line="47" bodyfile="/home/grund/hyrise/src/lib/storage/FixedLengthVector.h" bodystart="47" bodyend="49"/>
+      </memberdef>
+      <memberdef kind="function" id="class_fixed_length_vector_1a2959a5e85b497671085be18aebd67333" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>T</type>
+        <definition>T FixedLengthVector&lt; T, Allocator &gt;::get</definition>
+        <argsstring>(size_t column, size_t row) const </argsstring>
+        <name>get</name>
+        <reimplements refid="class_base_attribute_vector_1a46402c4cda1e8b0b9f2a4eae283cbc49">get</reimplements>
+        <param>
+          <type>size_t</type>
+          <declname>column</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>row</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/FixedLengthVector.h" line="51" bodyfile="/home/grund/hyrise/src/lib/storage/FixedLengthVector.h" bodystart="51" bodyend="54"/>
+      </memberdef>
+      <memberdef kind="function" id="class_fixed_length_vector_1a500a003ac0cba8cee9c75d3e3c4b9ffd" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>const T &amp;</type>
+        <definition>const T &amp; FixedLengthVector&lt; T, Allocator &gt;::getRef</definition>
+        <argsstring>(size_t column, size_t row) const </argsstring>
+        <name>getRef</name>
+        <param>
+          <type>size_t</type>
+          <declname>column</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>row</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/FixedLengthVector.h" line="56" bodyfile="/home/grund/hyrise/src/lib/storage/FixedLengthVector.h" bodystart="144" bodyend="147"/>
+      </memberdef>
+      <memberdef kind="function" id="class_fixed_length_vector_1a42414bcd71ad5deeb2c398b6f207addf" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void FixedLengthVector&lt; T, Allocator &gt;::set</definition>
+        <argsstring>(size_t column, size_t row, T value)</argsstring>
+        <name>set</name>
+        <param>
+          <type>size_t</type>
+          <declname>column</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>row</declname>
+        </param>
+        <param>
+          <type>T</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/FixedLengthVector.h" line="58" bodyfile="/home/grund/hyrise/src/lib/storage/FixedLengthVector.h" bodystart="58" bodyend="61"/>
+      </memberdef>
+      <memberdef kind="function" id="class_fixed_length_vector_1ae5af76653e782e01fc70dfbb7485bd89" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void FixedLengthVector&lt; T, Allocator &gt;::reserve</definition>
+        <argsstring>(size_t rows)</argsstring>
+        <name>reserve</name>
+        <reimplements refid="class_base_attribute_vector_1a49761020b6ff22ea15e43e846e34e867">reserve</reimplements>
+        <param>
+          <type>size_t</type>
+          <declname>rows</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/FixedLengthVector.h" line="63" bodyfile="/home/grund/hyrise/src/lib/storage/FixedLengthVector.h" bodystart="151" bodyend="153"/>
+      </memberdef>
+      <memberdef kind="function" id="class_fixed_length_vector_1acfeeb818ea4391fc7daa3143c75abd7a" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void FixedLengthVector&lt; T, Allocator &gt;::clear</definition>
+        <argsstring>()</argsstring>
+        <name>clear</name>
+        <reimplements refid="class_base_attribute_vector_1a77f5fdb728bbdbef70882e474c6b0a05">clear</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/FixedLengthVector.h" line="65" bodyfile="/home/grund/hyrise/src/lib/storage/FixedLengthVector.h" bodystart="156" bodyend="159"/>
+      </memberdef>
+      <memberdef kind="function" id="class_fixed_length_vector_1a98af98094d2fa27569002e2151154490" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>size_t</type>
+        <definition>size_t FixedLengthVector&lt; T, Allocator &gt;::size</definition>
+        <argsstring>()</argsstring>
+        <name>size</name>
+        <reimplements refid="class_base_attribute_vector_1a370a4796980b8bdf5fa252e3f2c63c37">size</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/FixedLengthVector.h" line="67" bodyfile="/home/grund/hyrise/src/lib/storage/FixedLengthVector.h" bodystart="162" bodyend="164"/>
+      </memberdef>
+      <memberdef kind="function" id="class_fixed_length_vector_1aab44a5f3dc7fd5b12cb2a98b02fc5a05" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>void FixedLengthVector&lt; T, Allocator &gt;::resize</definition>
+        <argsstring>(size_t rows)</argsstring>
+        <name>resize</name>
+        <reimplements refid="class_base_attribute_vector_1a5f190deb098511d9de05da0ade39c846">resize</reimplements>
+        <param>
+          <type>size_t</type>
+          <declname>rows</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/FixedLengthVector.h" line="69" bodyfile="/home/grund/hyrise/src/lib/storage/FixedLengthVector.h" bodystart="69" bodyend="72"/>
+      </memberdef>
+      <memberdef kind="function" id="class_fixed_length_vector_1a7df930f2c2a15ff0a88f9cc4f0d3d092" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>void FixedLengthVector&lt; T, Allocator &gt;::rewriteColumn</definition>
+        <argsstring>(const size_t column, const size_t bits)</argsstring>
+        <name>rewriteColumn</name>
+        <reimplements refid="class_base_attribute_vector_1a7d4e5e6574e73f49f923ff92a072bca0">rewriteColumn</reimplements>
+        <param>
+          <type>const size_t</type>
+          <declname>column</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>bits</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/FixedLengthVector.h" line="74" bodyfile="/home/grund/hyrise/src/lib/storage/FixedLengthVector.h" bodystart="74" bodyend="74"/>
+      </memberdef>
+      <memberdef kind="function" id="class_fixed_length_vector_1a1abf2d0f2f9b56aac7ef64b4c88de96f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>uint64_t</type>
+        <definition>uint64_t FixedLengthVector&lt; T, Allocator &gt;::capacity</definition>
+        <argsstring>()</argsstring>
+        <name>capacity</name>
+        <reimplements refid="class_base_attribute_vector_1ad30d47e2a2f0890875c225d7d0567cd6">capacity</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/FixedLengthVector.h" line="77" bodyfile="/home/grund/hyrise/src/lib/storage/FixedLengthVector.h" bodystart="77" bodyend="79"/>
+      </memberdef>
+      <memberdef kind="function" id="class_fixed_length_vector_1a06d8fb329941a9ff1dd345c31e7b3696" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>std::shared_ptr&lt; <ref refid="class_base_attribute_vector" kindref="compound">BaseAttributeVector</ref>&lt; T &gt; &gt;</type>
+        <definition>std::shared_ptr&lt; BaseAttributeVector&lt; T &gt; &gt; FixedLengthVector&lt; T, Allocator &gt;::copy</definition>
+        <argsstring>()</argsstring>
+        <name>copy</name>
+        <reimplements refid="class_base_attribute_vector_1aff09a848bc4955f7edd5b3ed7ddd4601">copy</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/FixedLengthVector.h" line="81" bodyfile="/home/grund/hyrise/src/lib/storage/FixedLengthVector.h" bodystart="188" bodyend="195"/>
+      </memberdef>
+      <memberdef kind="function" id="class_fixed_length_vector_1a4d1e20c4ce62f2ae945afa7196fefcdc" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>T</type>
+        <definition>T FixedLengthVector&lt; T, Allocator &gt;::inc</definition>
+        <argsstring>(size_t column, size_t row)</argsstring>
+        <name>inc</name>
+        <param>
+          <type>size_t</type>
+          <declname>column</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>row</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/FixedLengthVector.h" line="84" bodyfile="/home/grund/hyrise/src/lib/storage/FixedLengthVector.h" bodystart="84" bodyend="87"/>
+      </memberdef>
+      <memberdef kind="function" id="class_fixed_length_vector_1af90f06d454ea103323c5ac9764dbec6b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>T</type>
+        <definition>T FixedLengthVector&lt; T, Allocator &gt;::atomic_inc</definition>
+        <argsstring>(size_t column, size_t row)</argsstring>
+        <name>atomic_inc</name>
+        <param>
+          <type>size_t</type>
+          <declname>column</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>row</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/FixedLengthVector.h" line="90" bodyfile="/home/grund/hyrise/src/lib/storage/FixedLengthVector.h" bodystart="90" bodyend="93"/>
+      </memberdef>
+      <memberdef kind="function" id="class_fixed_length_vector_1a1475874577cc04c8c94e9c05eda83f4f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>const std::string</type>
+        <definition>const std::string FixedLengthVector&lt; T, Allocator &gt;::print</definition>
+        <argsstring>()</argsstring>
+        <name>print</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/FixedLengthVector.h" line="96" bodyfile="/home/grund/hyrise/src/lib/storage/FixedLengthVector.h" bodystart="96" bodyend="107"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_fixed_length_vector_1a90a3a3444f9a84c908f4a21100644206" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void FixedLengthVector&lt; T, Allocator &gt;::allocate</definition>
+        <argsstring>(size_t bytes)</argsstring>
+        <name>allocate</name>
+        <param>
+          <type>size_t</type>
+          <declname>bytes</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>std::cerr &lt;&lt; strerror(errno) &lt;&lt; std::endl; </para>        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/FixedLengthVector.h" line="112" bodyfile="/home/grund/hyrise/src/lib/storage/FixedLengthVector.h" bodystart="167" bodyend="185"/>
+      </memberdef>
+      <memberdef kind="function" id="class_fixed_length_vector_1a51a1d0c0e9ce0434be8d7e9c812ceac7" prot="private" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void FixedLengthVector&lt; T, Allocator &gt;::checkAccess</definition>
+        <argsstring>(const size_t &amp;column, const size_t &amp;rows) const </argsstring>
+        <name>checkAccess</name>
+        <param>
+          <type>const size_t &amp;</type>
+          <declname>column</declname>
+        </param>
+        <param>
+          <type>const size_t &amp;</type>
+          <declname>rows</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/FixedLengthVector.h" line="114" bodyfile="/home/grund/hyrise/src/lib/storage/FixedLengthVector.h" bodystart="114" bodyend="127"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1878">
+        <label>BaseAttributeVector&lt; T &gt;</label>
+        <link refid="class_base_attribute_vector"/>
+        <childnode refid="1877" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1879">
+        <label>BaseAllocatedAttributeVector&lt; AllocatedClass, Allocator &gt;</label>
+        <link refid="class_base_allocated_attribute_vector"/>
+        <childnode refid="1876" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1876">
+        <label>BaseAttributeVector&lt; Allocator::value_type &gt;</label>
+        <link refid="class_base_attribute_vector"/>
+        <childnode refid="1877" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1878" relation="template-instance">
+          <edgelabel>&lt; Allocator::value_type &gt;</edgelabel>
+        </childnode>
+      </node>
+      <node id="1875">
+        <label>BaseAllocatedAttributeVector&lt; FixedLengthVector&lt; T, Allocator &gt;, Allocator &gt;</label>
+        <link refid="class_base_allocated_attribute_vector"/>
+        <childnode refid="1876" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1879" relation="template-instance">
+          <edgelabel>&lt; FixedLengthVector&lt; T, Allocator &gt;, Allocator &gt;</edgelabel>
+        </childnode>
+      </node>
+      <node id="1877">
+        <label>AbstractAttributeVector</label>
+        <link refid="class_abstract_attribute_vector"/>
+      </node>
+      <node id="1874">
+        <label>FixedLengthVector&lt; T, Allocator &gt;</label>
+        <link refid="class_fixed_length_vector"/>
+        <childnode refid="1875" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1884">
+        <label>BaseAttributeVector&lt; T &gt;</label>
+        <link refid="class_base_attribute_vector"/>
+        <childnode refid="1883" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1885">
+        <label>BaseAllocatedAttributeVector&lt; AllocatedClass, Allocator &gt;</label>
+        <link refid="class_base_allocated_attribute_vector"/>
+        <childnode refid="1882" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1882">
+        <label>BaseAttributeVector&lt; Allocator::value_type &gt;</label>
+        <link refid="class_base_attribute_vector"/>
+        <childnode refid="1883" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1884" relation="template-instance">
+          <edgelabel>&lt; Allocator::value_type &gt;</edgelabel>
+        </childnode>
+      </node>
+      <node id="1881">
+        <label>BaseAllocatedAttributeVector&lt; FixedLengthVector&lt; T, Allocator &gt;, Allocator &gt;</label>
+        <link refid="class_base_allocated_attribute_vector"/>
+        <childnode refid="1882" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1885" relation="template-instance">
+          <edgelabel>&lt; FixedLengthVector&lt; T, Allocator &gt;, Allocator &gt;</edgelabel>
+        </childnode>
+      </node>
+      <node id="1883">
+        <label>AbstractAttributeVector</label>
+        <link refid="class_abstract_attribute_vector"/>
+      </node>
+      <node id="1880">
+        <label>FixedLengthVector&lt; T, Allocator &gt;</label>
+        <link refid="class_fixed_length_vector"/>
+        <childnode refid="1881" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/storage/FixedLengthVector.h" line="28" bodyfile="/home/grund/hyrise/src/lib/storage/FixedLengthVector.h" bodystart="28" bodyend="128"/>
+    <listofallmembers>
+      <member refid="class_fixed_length_vector_1ad759dc6f633dd8a859ee43d7ae478576" prot="private" virt="non-virtual"><scope>FixedLengthVector</scope><name>_allocate_mtx</name></member>
+      <member refid="class_fixed_length_vector_1a215b7e830da7a7fd2a898c759fd7bb30" prot="private" virt="non-virtual"><scope>FixedLengthVector</scope><name>_allocated_bytes</name></member>
+      <member refid="class_fixed_length_vector_1aa921631f79c5f6aa809a729032a0d879" prot="private" virt="non-virtual"><scope>FixedLengthVector</scope><name>_columns</name></member>
+      <member refid="class_fixed_length_vector_1ab4d55672bc07d5acf7720bd0ce953954" prot="private" virt="non-virtual"><scope>FixedLengthVector</scope><name>_rows</name></member>
+      <member refid="class_fixed_length_vector_1a30bb851334c770ce98a243b514797504" prot="private" virt="non-virtual"><scope>FixedLengthVector</scope><name>_values</name></member>
+      <member refid="class_fixed_length_vector_1a90a3a3444f9a84c908f4a21100644206" prot="private" virt="non-virtual"><scope>FixedLengthVector</scope><name>allocate</name></member>
+      <member refid="class_fixed_length_vector_1af90f06d454ea103323c5ac9764dbec6b" prot="public" virt="non-virtual"><scope>FixedLengthVector</scope><name>atomic_inc</name></member>
+      <member refid="class_fixed_length_vector_1a1abf2d0f2f9b56aac7ef64b4c88de96f" prot="public" virt="virtual"><scope>FixedLengthVector</scope><name>capacity</name></member>
+      <member refid="class_fixed_length_vector_1a51a1d0c0e9ce0434be8d7e9c812ceac7" prot="private" virt="non-virtual"><scope>FixedLengthVector</scope><name>checkAccess</name></member>
+      <member refid="class_fixed_length_vector_1acfeeb818ea4391fc7daa3143c75abd7a" prot="public" virt="virtual"><scope>FixedLengthVector</scope><name>clear</name></member>
+      <member refid="class_fixed_length_vector_1a06d8fb329941a9ff1dd345c31e7b3696" prot="public" virt="virtual"><scope>FixedLengthVector</scope><name>copy</name></member>
+      <member refid="class_fixed_length_vector_1a313ffe404c12360ef1b27fbb12176b30" prot="public" virt="virtual"><scope>FixedLengthVector</scope><name>data</name></member>
+      <member refid="class_fixed_length_vector_1a535b96ed380e7ce77d3134ca01f5efde" prot="public" virt="non-virtual"><scope>FixedLengthVector</scope><name>FixedLengthVector</name></member>
+      <member refid="class_fixed_length_vector_1a2959a5e85b497671085be18aebd67333" prot="public" virt="virtual"><scope>FixedLengthVector</scope><name>get</name></member>
+      <member refid="class_fixed_length_vector_1a500a003ac0cba8cee9c75d3e3c4b9ffd" prot="public" virt="non-virtual"><scope>FixedLengthVector</scope><name>getRef</name></member>
+      <member refid="class_fixed_length_vector_1a4d1e20c4ce62f2ae945afa7196fefcdc" prot="public" virt="non-virtual"><scope>FixedLengthVector</scope><name>inc</name></member>
+      <member refid="class_base_allocated_attribute_vector_1ab4ee3df9ce6fc6082e638501896aad43" prot="public" virt="non-virtual"><scope>FixedLengthVector</scope><name>operator delete</name></member>
+      <member refid="class_base_allocated_attribute_vector_1ae1459c0e5f31d450f3f06d7fa916a5e2" prot="public" virt="non-virtual"><scope>FixedLengthVector</scope><name>operator new</name></member>
+      <member refid="class_fixed_length_vector_1a1475874577cc04c8c94e9c05eda83f4f" prot="public" virt="non-virtual"><scope>FixedLengthVector</scope><name>print</name></member>
+      <member refid="class_fixed_length_vector_1ae5af76653e782e01fc70dfbb7485bd89" prot="public" virt="virtual"><scope>FixedLengthVector</scope><name>reserve</name></member>
+      <member refid="class_fixed_length_vector_1aab44a5f3dc7fd5b12cb2a98b02fc5a05" prot="public" virt="virtual"><scope>FixedLengthVector</scope><name>resize</name></member>
+      <member refid="class_fixed_length_vector_1a7df930f2c2a15ff0a88f9cc4f0d3d092" prot="public" virt="virtual"><scope>FixedLengthVector</scope><name>rewriteColumn</name></member>
+      <member refid="class_fixed_length_vector_1a42414bcd71ad5deeb2c398b6f207addf" prot="public" virt="non-virtual"><scope>FixedLengthVector</scope><name>set</name></member>
+      <member refid="class_base_attribute_vector_1a9fadea1c74dd07ac58bcf29b5799ab46" prot="public" virt="pure-virtual" ambiguityscope="BaseAllocatedAttributeVector&lt; FixedLengthVector&lt; T, Allocator &gt;, Allocator &gt;::"><scope>FixedLengthVector</scope><name>set</name></member>
+      <member refid="class_fixed_length_vector_1adf129ec11f1c754038a6bca3412adec5" prot="public" virt="virtual"><scope>FixedLengthVector</scope><name>setNumRows</name></member>
+      <member refid="class_fixed_length_vector_1a98af98094d2fa27569002e2151154490" prot="public" virt="virtual"><scope>FixedLengthVector</scope><name>size</name></member>
+      <member refid="class_fixed_length_vector_1a892cf91e4d99636e1368fcf46508549f" prot="public" virt="non-virtual"><scope>FixedLengthVector</scope><name>value_type</name></member>
+      <member refid="class_abstract_attribute_vector_1aed37fff9aff69e7e3c7037e8f1f0518d" prot="public" virt="virtual"><scope>FixedLengthVector</scope><name>~AbstractAttributeVector</name></member>
+      <member refid="class_base_allocated_attribute_vector_1ab04a44c38d91be97921d93b83a78aa91" prot="public" virt="virtual"><scope>FixedLengthVector</scope><name>~BaseAllocatedAttributeVector</name></member>
+      <member refid="class_base_attribute_vector_1a8e9a3b24c3c21480db901b35829cb7cb" prot="public" virt="virtual"><scope>FixedLengthVector</scope><name>~BaseAttributeVector</name></member>
+      <member refid="class_fixed_length_vector_1a721e56be76b936452ad0c3df2180043c" prot="public" virt="virtual"><scope>FixedLengthVector</scope><name>~FixedLengthVector</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,555 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="class_order_indifferent_dictionary" kind="class" prot="public">
+    <compoundname>OrderIndifferentDictionary</compoundname>
+    <basecompoundref refid="class_base_allocated_dictionary" prot="public" virt="non-virtual">BaseAllocatedDictionary&lt; T, Strategy, Allocator, OrderIndifferentDictionary&lt; T, Strategy, Allocator &gt; &gt;</basecompoundref>
+    <includes refid="_order_indifferent_dictionary_8h" local="no">OrderIndifferentDictionary.h</includes>
+    <templateparamlist>
+      <param>
+        <type>typename</type>
+        <declname>T</declname>
+        <defname>T</defname>
+      </param>
+      <param>
+        <type>class</type>
+        <declname>Strategy</declname>
+        <defname>Strategy</defname>
+        <defval><ref refid="class_malloc_strategy" kindref="compound">MallocStrategy</ref></defval>
+      </param>
+      <param>
+        <type>template&lt; typename K, typename S &gt; class</type>
+        <declname>Allocator</declname>
+        <defname>Allocator</defname>
+        <defval><ref refid="class_strategized_allocator" kindref="compound">StrategizedAllocator</ref></defval>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="private-type">
+      <memberdef kind="typedef" id="class_order_indifferent_dictionary_1a8adb8c3cd05e631513c2e1d4145119ce" prot="private" static="no">
+        <type>Strategy</type>
+        <definition>typedef Strategy OrderIndifferentDictionary&lt; T, Strategy, Allocator &gt;::strategy_type</definition>
+        <argsstring></argsstring>
+        <name>strategy_type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/OrderIndifferentDictionary.h" line="74" bodyfile="/home/grund/hyrise/src/lib/storage/OrderIndifferentDictionary.h" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="class_order_indifferent_dictionary_1ac2bf4f3645e79ba16f98d6f8ec4b6958" prot="private" static="no">
+        <type>std::map&lt; T, <ref refid="storage__types_8h_1a2552a37cd3427c39d92cb8fd23c90408" kindref="member">value_id_t</ref>, std::less&lt; T &gt;, Allocator&lt; std::pair&lt; T, <ref refid="storage__types_8h_1a2552a37cd3427c39d92cb8fd23c90408" kindref="member">value_id_t</ref> &gt;, Strategy &gt; &gt;</type>
+        <definition>typedef std::map&lt;T, value_id_t, std::less&lt;T&gt;, Allocator&lt;std::pair&lt;T, value_id_t&gt;, Strategy&gt; &gt; OrderIndifferentDictionary&lt; T, Strategy, Allocator &gt;::index_type</definition>
+        <argsstring></argsstring>
+        <name>index_type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/OrderIndifferentDictionary.h" line="75" bodyfile="/home/grund/hyrise/src/lib/storage/OrderIndifferentDictionary.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="class_order_indifferent_dictionary_1aceadb686e00dc02ce1fde6d12b3a56db" prot="private" static="no">
+        <type>std::vector&lt; T, Allocator&lt; T, Strategy &gt; &gt;</type>
+        <definition>typedef std::vector&lt;T, Allocator&lt;T, Strategy&gt; &gt; OrderIndifferentDictionary&lt; T, Strategy, Allocator &gt;::vector_type</definition>
+        <argsstring></argsstring>
+        <name>vector_type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/OrderIndifferentDictionary.h" line="76" bodyfile="/home/grund/hyrise/src/lib/storage/OrderIndifferentDictionary.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="class_order_indifferent_dictionary_1a1e87a3fa8da32b796934e808af2bcaa2" prot="public" static="no">
+        <type><ref refid="class_dictionary_iterator" kindref="compound">DictionaryIterator</ref>&lt; T &gt;</type>
+        <definition>typedef DictionaryIterator&lt;T&gt; OrderIndifferentDictionary&lt; T, Strategy, Allocator &gt;::iterator</definition>
+        <argsstring></argsstring>
+        <name>iterator</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/OrderIndifferentDictionary.h" line="176" bodyfile="/home/grund/hyrise/src/lib/storage/OrderIndifferentDictionary.h" bodystart="176" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_order_indifferent_dictionary_1a2d42231e96ba64a35cf198b65d3a1a81" prot="private" static="no" mutable="no">
+        <type><ref refid="class_order_indifferent_dictionary_1ac2bf4f3645e79ba16f98d6f8ec4b6958" kindref="member">index_type</ref></type>
+        <definition>index_type OrderIndifferentDictionary&lt; T, Strategy, Allocator &gt;::_index</definition>
+        <argsstring></argsstring>
+        <name>_index</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/OrderIndifferentDictionary.h" line="79" bodyfile="/home/grund/hyrise/src/lib/storage/OrderIndifferentDictionary.h" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="class_order_indifferent_dictionary_1a848ac209de977617fb443233fd2221fb" prot="public" static="no" mutable="no">
+        <type><ref refid="class_order_indifferent_dictionary_1aceadb686e00dc02ce1fde6d12b3a56db" kindref="member">vector_type</ref></type>
+        <definition>vector_type OrderIndifferentDictionary&lt; T, Strategy, Allocator &gt;::_value_list</definition>
+        <argsstring></argsstring>
+        <name>_value_list</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/OrderIndifferentDictionary.h" line="85" bodyfile="/home/grund/hyrise/src/lib/storage/OrderIndifferentDictionary.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_order_indifferent_dictionary_1ad529f2dbf878f32fe7b89c078de4e78b" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>OrderIndifferentDictionary&lt; T, Strategy, Allocator &gt;::OrderIndifferentDictionary</definition>
+        <argsstring>(size_t s=0)</argsstring>
+        <name>OrderIndifferentDictionary</name>
+        <param>
+          <type>size_t</type>
+          <declname>s</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/OrderIndifferentDictionary.h" line="87" bodyfile="/home/grund/hyrise/src/lib/storage/OrderIndifferentDictionary.h" bodystart="87" bodyend="91"/>
+      </memberdef>
+      <memberdef kind="function" id="class_order_indifferent_dictionary_1a997df11f4717a9fe803caff18f6e6346" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual OrderIndifferentDictionary&lt; T, Strategy, Allocator &gt;::~OrderIndifferentDictionary</definition>
+        <argsstring>()</argsstring>
+        <name>~OrderIndifferentDictionary</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/OrderIndifferentDictionary.h" line="93" bodyfile="/home/grund/hyrise/src/lib/storage/OrderIndifferentDictionary.h" bodystart="93" bodyend="94"/>
+      </memberdef>
+      <memberdef kind="function" id="class_order_indifferent_dictionary_1a09080e5e26bf0bdf88c94e21d4108f66" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>void OrderIndifferentDictionary&lt; T, Strategy, Allocator &gt;::shrink</definition>
+        <argsstring>()</argsstring>
+        <name>shrink</name>
+        <reimplements refid="class_abstract_dictionary_1acce31627df9551d83eab518366ea7cc8">shrink</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/OrderIndifferentDictionary.h" line="96" bodyfile="/home/grund/hyrise/src/lib/storage/OrderIndifferentDictionary.h" bodystart="96" bodyend="98"/>
+      </memberdef>
+      <memberdef kind="function" id="class_order_indifferent_dictionary_1a674d4ade9b462154411c33575043ac52" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>bool</type>
+        <definition>bool OrderIndifferentDictionary&lt; T, Strategy, Allocator &gt;::isOrdered</definition>
+        <argsstring>()</argsstring>
+        <name>isOrdered</name>
+        <reimplements refid="class_base_dictionary_1a3c7dd2234656fbda5531fa9de29ffc81">isOrdered</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/OrderIndifferentDictionary.h" line="100" bodyfile="/home/grund/hyrise/src/lib/storage/OrderIndifferentDictionary.h" bodystart="100" bodyend="102"/>
+      </memberdef>
+      <memberdef kind="function" id="class_order_indifferent_dictionary_1a657edbbe644f8bf1f8fc102e65d4a382" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>size_t</type>
+        <definition>size_t OrderIndifferentDictionary&lt; T, Strategy, Allocator &gt;::size</definition>
+        <argsstring>()</argsstring>
+        <name>size</name>
+        <reimplements refid="class_base_dictionary_1a335a2ad8aff598b74704829f35adbfc6">size</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/OrderIndifferentDictionary.h" line="104" bodyfile="/home/grund/hyrise/src/lib/storage/OrderIndifferentDictionary.h" bodystart="104" bodyend="106"/>
+      </memberdef>
+      <memberdef kind="function" id="class_order_indifferent_dictionary_1a96097b280ce81696760f805d3f9062d9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>std::shared_ptr&lt; <ref refid="class_abstract_dictionary" kindref="compound">AbstractDictionary</ref> &gt;</type>
+        <definition>std::shared_ptr&lt;AbstractDictionary&gt; OrderIndifferentDictionary&lt; T, Strategy, Allocator &gt;::copy</definition>
+        <argsstring>()</argsstring>
+        <name>copy</name>
+        <reimplements refid="class_base_dictionary_1af5993ae21b2e5b32fa8e4c6c2387d889">copy</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/OrderIndifferentDictionary.h" line="108" bodyfile="/home/grund/hyrise/src/lib/storage/OrderIndifferentDictionary.h" bodystart="108" bodyend="114"/>
+      </memberdef>
+      <memberdef kind="function" id="class_order_indifferent_dictionary_1a696a95aded3ae17ebce247c82d8dc6d7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>void OrderIndifferentDictionary&lt; T, Strategy, Allocator &gt;::reserve</definition>
+        <argsstring>(size_t s)</argsstring>
+        <name>reserve</name>
+        <reimplements refid="class_base_dictionary_1ae3c53d970ee95b00169dd6b784902174">reserve</reimplements>
+        <param>
+          <type>size_t</type>
+          <declname>s</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/OrderIndifferentDictionary.h" line="116" bodyfile="/home/grund/hyrise/src/lib/storage/OrderIndifferentDictionary.h" bodystart="116" bodyend="118"/>
+      </memberdef>
+      <memberdef kind="function" id="class_order_indifferent_dictionary_1a983cd4b3da824dd8ccea9c8a894bb149" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>T</type>
+        <definition>virtual T OrderIndifferentDictionary&lt; T, Strategy, Allocator &gt;::getValueForValueId</definition>
+        <argsstring>(value_id_t value_id)</argsstring>
+        <name>getValueForValueId</name>
+        <reimplements refid="class_base_dictionary_1aac9adb0a35bc6fd101daaeaa8413d02e">getValueForValueId</reimplements>
+        <param>
+          <type><ref refid="storage__types_8h_1a2552a37cd3427c39d92cb8fd23c90408" kindref="member">value_id_t</ref></type>
+          <declname>value_id</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/OrderIndifferentDictionary.h" line="120" bodyfile="/home/grund/hyrise/src/lib/storage/OrderIndifferentDictionary.h" bodystart="120" bodyend="122"/>
+      </memberdef>
+      <memberdef kind="function" id="class_order_indifferent_dictionary_1a465a5b228c9211a3fe68b96053ecf3a8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type><ref refid="storage__types_8h_1a2552a37cd3427c39d92cb8fd23c90408" kindref="member">value_id_t</ref></type>
+        <definition>virtual value_id_t OrderIndifferentDictionary&lt; T, Strategy, Allocator &gt;::addValue</definition>
+        <argsstring>(T value)</argsstring>
+        <name>addValue</name>
+        <reimplements refid="class_base_dictionary_1a6dc6677f03d2432c0d00d7bcf9d3b58d">addValue</reimplements>
+        <param>
+          <type>T</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/OrderIndifferentDictionary.h" line="124" bodyfile="/home/grund/hyrise/src/lib/storage/OrderIndifferentDictionary.h" bodystart="124" bodyend="128"/>
+      </memberdef>
+      <memberdef kind="function" id="class_order_indifferent_dictionary_1ab2ed2e67ceb10273fc9cb0b9e1a6f384" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void OrderIndifferentDictionary&lt; T, Strategy, Allocator &gt;::addValueToIndex</definition>
+        <argsstring>(T value)</argsstring>
+        <name>addValueToIndex</name>
+        <param>
+          <type>T</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/OrderIndifferentDictionary.h" line="130" bodyfile="/home/grund/hyrise/src/lib/storage/OrderIndifferentDictionary.h" bodystart="130" bodyend="132"/>
+      </memberdef>
+      <memberdef kind="function" id="class_order_indifferent_dictionary_1ac1c8682e67d42636b3eab489af14fe7b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool OrderIndifferentDictionary&lt; T, Strategy, Allocator &gt;::isValueIdValid</definition>
+        <argsstring>(value_id_t value_id)</argsstring>
+        <name>isValueIdValid</name>
+        <reimplements refid="class_base_dictionary_1a738cb5130f6e458c0107df6b508e05a9">isValueIdValid</reimplements>
+        <param>
+          <type><ref refid="storage__types_8h_1a2552a37cd3427c39d92cb8fd23c90408" kindref="member">value_id_t</ref></type>
+          <declname>value_id</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/OrderIndifferentDictionary.h" line="134" bodyfile="/home/grund/hyrise/src/lib/storage/OrderIndifferentDictionary.h" bodystart="134" bodyend="136"/>
+      </memberdef>
+      <memberdef kind="function" id="class_order_indifferent_dictionary_1ab12d5b00e51c710fc934ad81dd281293" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool OrderIndifferentDictionary&lt; T, Strategy, Allocator &gt;::valueExists</definition>
+        <argsstring>(const T &amp;v) const </argsstring>
+        <name>valueExists</name>
+        <reimplements refid="class_base_dictionary_1abdeceaa40e819367debaebaff293a463">valueExists</reimplements>
+        <param>
+          <type>const T &amp;</type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/OrderIndifferentDictionary.h" line="138" bodyfile="/home/grund/hyrise/src/lib/storage/OrderIndifferentDictionary.h" bodystart="138" bodyend="140"/>
+      </memberdef>
+      <memberdef kind="function" id="class_order_indifferent_dictionary_1a9dbf5768a350242da44f563dd5fff517" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type><ref refid="storage__types_8h_1a2552a37cd3427c39d92cb8fd23c90408" kindref="member">value_id_t</ref></type>
+        <definition>virtual value_id_t OrderIndifferentDictionary&lt; T, Strategy, Allocator &gt;::getValueIdForValue</definition>
+        <argsstring>(const T &amp;value) const </argsstring>
+        <name>getValueIdForValue</name>
+        <reimplements refid="class_base_dictionary_1a10968f793c177bf112e075806801fcda">getValueIdForValue</reimplements>
+        <param>
+          <type>const T &amp;</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/OrderIndifferentDictionary.h" line="152" bodyfile="/home/grund/hyrise/src/lib/storage/OrderIndifferentDictionary.h" bodystart="152" bodyend="158"/>
+      </memberdef>
+      <memberdef kind="function" id="class_order_indifferent_dictionary_1a2b4a4a4b385c6803873cabedb85cbc0f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type><ref refid="storage__types_8h_1a2552a37cd3427c39d92cb8fd23c90408" kindref="member">value_id_t</ref></type>
+        <definition>value_id_t OrderIndifferentDictionary&lt; T, Strategy, Allocator &gt;::getValueIdForValueSmaller</definition>
+        <argsstring>(T other)</argsstring>
+        <name>getValueIdForValueSmaller</name>
+        <reimplements refid="class_base_dictionary_1a1e342e5bf2086c71b04c4315467137f7">getValueIdForValueSmaller</reimplements>
+        <param>
+          <type>T</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/OrderIndifferentDictionary.h" line="160" bodyfile="/home/grund/hyrise/src/lib/storage/OrderIndifferentDictionary.h" bodystart="160" bodyend="162"/>
+      </memberdef>
+      <memberdef kind="function" id="class_order_indifferent_dictionary_1a7fb5ccecfe536f6695eb827e2c46118f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type><ref refid="storage__types_8h_1a2552a37cd3427c39d92cb8fd23c90408" kindref="member">value_id_t</ref></type>
+        <definition>value_id_t OrderIndifferentDictionary&lt; T, Strategy, Allocator &gt;::getValueIdForValueGreater</definition>
+        <argsstring>(T other)</argsstring>
+        <name>getValueIdForValueGreater</name>
+        <reimplements refid="class_base_dictionary_1a54690a4f2e564a84b79e1d26f04f5e7a">getValueIdForValueGreater</reimplements>
+        <param>
+          <type>T</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/OrderIndifferentDictionary.h" line="164" bodyfile="/home/grund/hyrise/src/lib/storage/OrderIndifferentDictionary.h" bodystart="164" bodyend="166"/>
+      </memberdef>
+      <memberdef kind="function" id="class_order_indifferent_dictionary_1a505830fd9d5b149514088799e1f4a71a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>const T</type>
+        <definition>const T OrderIndifferentDictionary&lt; T, Strategy, Allocator &gt;::getSmallestValue</definition>
+        <argsstring>()</argsstring>
+        <name>getSmallestValue</name>
+        <reimplements refid="class_base_dictionary_1a9039e0936f936561754300eea075ddc4">getSmallestValue</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/OrderIndifferentDictionary.h" line="168" bodyfile="/home/grund/hyrise/src/lib/storage/OrderIndifferentDictionary.h" bodystart="168" bodyend="170"/>
+      </memberdef>
+      <memberdef kind="function" id="class_order_indifferent_dictionary_1a44b76427d344c0488d793bbcbf8b20e5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>const T</type>
+        <definition>const T OrderIndifferentDictionary&lt; T, Strategy, Allocator &gt;::getGreatestValue</definition>
+        <argsstring>()</argsstring>
+        <name>getGreatestValue</name>
+        <reimplements refid="class_base_dictionary_1ab90f493d26980c624f773d7cad05a3d5">getGreatestValue</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/OrderIndifferentDictionary.h" line="172" bodyfile="/home/grund/hyrise/src/lib/storage/OrderIndifferentDictionary.h" bodystart="172" bodyend="174"/>
+      </memberdef>
+      <memberdef kind="function" id="class_order_indifferent_dictionary_1afeac2939b2a3b7cdfefc30cd522eda4b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type><ref refid="class_base_dictionary_1a281b6dcb1f909d44ab7eb8b3718694d2" kindref="member">iterator</ref></type>
+        <definition>iterator OrderIndifferentDictionary&lt; T, Strategy, Allocator &gt;::begin</definition>
+        <argsstring>()</argsstring>
+        <name>begin</name>
+        <reimplements refid="class_base_dictionary_1af295f8b12e4c22aba395c23d4df71ef5">begin</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/OrderIndifferentDictionary.h" line="179" bodyfile="/home/grund/hyrise/src/lib/storage/OrderIndifferentDictionary.h" bodystart="179" bodyend="181"/>
+      </memberdef>
+      <memberdef kind="function" id="class_order_indifferent_dictionary_1ae4d47cde54a05c84f624d29041b33ee6" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type><ref refid="class_base_dictionary_1a281b6dcb1f909d44ab7eb8b3718694d2" kindref="member">iterator</ref></type>
+        <definition>iterator OrderIndifferentDictionary&lt; T, Strategy, Allocator &gt;::end</definition>
+        <argsstring>()</argsstring>
+        <name>end</name>
+        <reimplements refid="class_base_dictionary_1a61461dc90085108337b8930923755870">end</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/OrderIndifferentDictionary.h" line="184" bodyfile="/home/grund/hyrise/src/lib/storage/OrderIndifferentDictionary.h" bodystart="184" bodyend="186"/>
+      </memberdef>
+      <memberdef kind="function" id="class_order_indifferent_dictionary_1a8cfa3c64b468c8c23f28355c59661f1c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void OrderIndifferentDictionary&lt; T, Strategy, Allocator &gt;::build_index</definition>
+        <argsstring>()</argsstring>
+        <name>build_index</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/OrderIndifferentDictionary.h" line="188" bodyfile="/home/grund/hyrise/src/lib/storage/OrderIndifferentDictionary.h" bodystart="188" bodyend="193"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2441">
+        <label>AbstractDictionary</label>
+        <link refid="class_abstract_dictionary"/>
+      </node>
+      <node id="2438">
+        <label>OrderIndifferentDictionary&lt; T, Strategy, Allocator &gt;</label>
+        <link refid="class_order_indifferent_dictionary"/>
+        <childnode refid="2439" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2439">
+        <label>BaseAllocatedDictionary&lt; T, Strategy, Allocator, OrderIndifferentDictionary&lt; T, Strategy, Allocator &gt; &gt;</label>
+        <link refid="class_base_allocated_dictionary"/>
+        <childnode refid="2440" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2442" relation="template-instance">
+          <edgelabel>&lt; T, Strategy, Allocator, OrderIndifferentDictionary&lt; T, Strategy, Allocator &gt; &gt;</edgelabel>
+        </childnode>
+      </node>
+      <node id="2443">
+        <label>BaseDictionary&lt; DictionaryType &gt;</label>
+        <link refid="class_base_dictionary"/>
+        <childnode refid="2441" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2440" relation="template-instance">
+          <edgelabel>&lt; DictionaryType &gt;</edgelabel>
+        </childnode>
+      </node>
+      <node id="2440">
+        <label>BaseDictionary&lt; T &gt;</label>
+        <link refid="class_base_dictionary"/>
+        <childnode refid="2441" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2442">
+        <label>BaseAllocatedDictionary&lt; DictionaryType, Strategy, Allocator, AllocatedClass &gt;</label>
+        <link refid="class_base_allocated_dictionary"/>
+        <childnode refid="2443" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2447">
+        <label>AbstractDictionary</label>
+        <link refid="class_abstract_dictionary"/>
+      </node>
+      <node id="2444">
+        <label>OrderIndifferentDictionary&lt; T, Strategy, Allocator &gt;</label>
+        <link refid="class_order_indifferent_dictionary"/>
+        <childnode refid="2445" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2445">
+        <label>BaseAllocatedDictionary&lt; T, Strategy, Allocator, OrderIndifferentDictionary&lt; T, Strategy, Allocator &gt; &gt;</label>
+        <link refid="class_base_allocated_dictionary"/>
+        <childnode refid="2446" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2448" relation="template-instance">
+          <edgelabel>&lt; T, Strategy, Allocator, OrderIndifferentDictionary&lt; T, Strategy, Allocator &gt; &gt;</edgelabel>
+        </childnode>
+      </node>
+      <node id="2449">
+        <label>BaseDictionary&lt; DictionaryType &gt;</label>
+        <link refid="class_base_dictionary"/>
+        <childnode refid="2447" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2446" relation="template-instance">
+          <edgelabel>&lt; DictionaryType &gt;</edgelabel>
+        </childnode>
+      </node>
+      <node id="2446">
+        <label>BaseDictionary&lt; T &gt;</label>
+        <link refid="class_base_dictionary"/>
+        <childnode refid="2447" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2448">
+        <label>BaseAllocatedDictionary&lt; DictionaryType, Strategy, Allocator, AllocatedClass &gt;</label>
+        <link refid="class_base_allocated_dictionary"/>
+        <childnode refid="2449" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/storage/OrderIndifferentDictionary.h" line="72" bodyfile="/home/grund/hyrise/src/lib/storage/OrderIndifferentDictionary.h" bodystart="69" bodyend="195"/>
+    <listofallmembers>
+      <member refid="class_order_indifferent_dictionary_1a2d42231e96ba64a35cf198b65d3a1a81" prot="private" virt="non-virtual"><scope>OrderIndifferentDictionary</scope><name>_index</name></member>
+      <member refid="class_order_indifferent_dictionary_1a848ac209de977617fb443233fd2221fb" prot="public" virt="non-virtual"><scope>OrderIndifferentDictionary</scope><name>_value_list</name></member>
+      <member refid="class_order_indifferent_dictionary_1a465a5b228c9211a3fe68b96053ecf3a8" prot="public" virt="virtual"><scope>OrderIndifferentDictionary</scope><name>addValue</name></member>
+      <member refid="class_order_indifferent_dictionary_1ab2ed2e67ceb10273fc9cb0b9e1a6f384" prot="public" virt="non-virtual"><scope>OrderIndifferentDictionary</scope><name>addValueToIndex</name></member>
+      <member refid="class_order_indifferent_dictionary_1afeac2939b2a3b7cdfefc30cd522eda4b" prot="public" virt="virtual"><scope>OrderIndifferentDictionary</scope><name>begin</name></member>
+      <member refid="class_order_indifferent_dictionary_1a8cfa3c64b468c8c23f28355c59661f1c" prot="public" virt="non-virtual"><scope>OrderIndifferentDictionary</scope><name>build_index</name></member>
+      <member refid="class_order_indifferent_dictionary_1a96097b280ce81696760f805d3f9062d9" prot="public" virt="virtual"><scope>OrderIndifferentDictionary</scope><name>copy</name></member>
+      <member refid="class_base_allocated_dictionary_1acfac3763bf4f277cdbe9cd91c621aa4f" prot="public" virt="virtual"><scope>OrderIndifferentDictionary</scope><name>copy_empty</name></member>
+      <member refid="class_abstract_dictionary_1a051863f8c78b2312e92705eb3554f156" prot="public" virt="non-virtual"><scope>OrderIndifferentDictionary</scope><name>dictionaryWithType</name></member>
+      <member refid="class_order_indifferent_dictionary_1ae4d47cde54a05c84f624d29041b33ee6" prot="public" virt="virtual"><scope>OrderIndifferentDictionary</scope><name>end</name></member>
+      <member refid="class_order_indifferent_dictionary_1a44b76427d344c0488d793bbcbf8b20e5" prot="public" virt="virtual"><scope>OrderIndifferentDictionary</scope><name>getGreatestValue</name></member>
+      <member refid="class_order_indifferent_dictionary_1a505830fd9d5b149514088799e1f4a71a" prot="public" virt="virtual"><scope>OrderIndifferentDictionary</scope><name>getSmallestValue</name></member>
+      <member refid="class_order_indifferent_dictionary_1a983cd4b3da824dd8ccea9c8a894bb149" prot="public" virt="virtual"><scope>OrderIndifferentDictionary</scope><name>getValueForValueId</name></member>
+      <member refid="class_order_indifferent_dictionary_1a9dbf5768a350242da44f563dd5fff517" prot="public" virt="virtual"><scope>OrderIndifferentDictionary</scope><name>getValueIdForValue</name></member>
+      <member refid="class_order_indifferent_dictionary_1a7fb5ccecfe536f6695eb827e2c46118f" prot="public" virt="virtual"><scope>OrderIndifferentDictionary</scope><name>getValueIdForValueGreater</name></member>
+      <member refid="class_order_indifferent_dictionary_1a2b4a4a4b385c6803873cabedb85cbc0f" prot="public" virt="virtual"><scope>OrderIndifferentDictionary</scope><name>getValueIdForValueSmaller</name></member>
+      <member refid="class_order_indifferent_dictionary_1ac2bf4f3645e79ba16f98d6f8ec4b6958" prot="private" virt="non-virtual"><scope>OrderIndifferentDictionary</scope><name>index_type</name></member>
+      <member refid="class_order_indifferent_dictionary_1a674d4ade9b462154411c33575043ac52" prot="public" virt="virtual"><scope>OrderIndifferentDictionary</scope><name>isOrdered</name></member>
+      <member refid="class_order_indifferent_dictionary_1ac1c8682e67d42636b3eab489af14fe7b" prot="public" virt="virtual"><scope>OrderIndifferentDictionary</scope><name>isValueIdValid</name></member>
+      <member refid="class_order_indifferent_dictionary_1a1e87a3fa8da32b796934e808af2bcaa2" prot="public" virt="non-virtual"><scope>OrderIndifferentDictionary</scope><name>iterator</name></member>
+      <member refid="class_base_allocated_dictionary_1a8ecdd99957e54834661192975e800b0c" prot="public" virt="non-virtual"><scope>OrderIndifferentDictionary</scope><name>operator delete</name></member>
+      <member refid="class_base_allocated_dictionary_1a0c55d6ffb02250144685b32e2441bf89" prot="public" virt="non-virtual"><scope>OrderIndifferentDictionary</scope><name>operator new</name></member>
+      <member refid="class_order_indifferent_dictionary_1ad529f2dbf878f32fe7b89c078de4e78b" prot="public" virt="non-virtual"><scope>OrderIndifferentDictionary</scope><name>OrderIndifferentDictionary</name></member>
+      <member refid="class_order_indifferent_dictionary_1a696a95aded3ae17ebce247c82d8dc6d7" prot="public" virt="virtual"><scope>OrderIndifferentDictionary</scope><name>reserve</name></member>
+      <member refid="class_order_indifferent_dictionary_1a09080e5e26bf0bdf88c94e21d4108f66" prot="public" virt="virtual"><scope>OrderIndifferentDictionary</scope><name>shrink</name></member>
+      <member refid="class_order_indifferent_dictionary_1a657edbbe644f8bf1f8fc102e65d4a382" prot="public" virt="virtual"><scope>OrderIndifferentDictionary</scope><name>size</name></member>
+      <member refid="class_order_indifferent_dictionary_1a8adb8c3cd05e631513c2e1d4145119ce" prot="private" virt="non-virtual"><scope>OrderIndifferentDictionary</scope><name>strategy_type</name></member>
+      <member refid="class_order_indifferent_dictionary_1ab12d5b00e51c710fc934ad81dd281293" prot="public" virt="virtual"><scope>OrderIndifferentDictionary</scope><name>valueExists</name></member>
+      <member refid="class_order_indifferent_dictionary_1aceadb686e00dc02ce1fde6d12b3a56db" prot="private" virt="non-virtual"><scope>OrderIndifferentDictionary</scope><name>vector_type</name></member>
+      <member refid="class_abstract_dictionary_1a9a9216aed0689529a55c572b3ef69bcf" prot="public" virt="virtual"><scope>OrderIndifferentDictionary</scope><name>~AbstractDictionary</name></member>
+      <member refid="class_base_allocated_dictionary_1ac26ce465e38fd42bd30bb29cdfea015b" prot="public" virt="virtual"><scope>OrderIndifferentDictionary</scope><name>~BaseAllocatedDictionary</name></member>
+      <member refid="class_order_indifferent_dictionary_1a997df11f4717a9fe803caff18f6e6346" prot="public" virt="virtual"><scope>OrderIndifferentDictionary</scope><name>~OrderIndifferentDictionary</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,120 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="class_pointer_calculator_factory" kind="class" prot="public">
+    <compoundname>PointerCalculatorFactory</compoundname>
+    <includes refid="_pointer_calculator_factory_8h" local="no">PointerCalculatorFactory.h</includes>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_pointer_calculator_factory_1a1657d9e1238f9e0b2027aecc8cfa1159" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>PointerCalculatorFactory::PointerCalculatorFactory</definition>
+        <argsstring>()</argsstring>
+        <name>PointerCalculatorFactory</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/PointerCalculatorFactory.h" line="17" bodyfile="/home/grund/hyrise/src/lib/storage/PointerCalculatorFactory.h" bodystart="17" bodyend="17"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="class_pointer_calculator_factory_1a487ddf6218b4228dbf54cf80964b0531" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::shared_ptr&lt; <ref refid="class_pointer_calculator" kindref="compound">PointerCalculator</ref> &gt;</type>
+        <definition>std::shared_ptr&lt; PointerCalculator &gt; PointerCalculatorFactory::createPointerCalculator</definition>
+        <argsstring>(hyrise::storage::c_atable_ptr_t _table, field_list_t *_field_definition=nullptr, pos_list_t *_positions=NULL)</argsstring>
+        <name>createPointerCalculator</name>
+        <param>
+          <type><ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref></type>
+          <declname>_table</declname>
+        </param>
+        <param>
+          <type><ref refid="storage__types_8h_1a36fbc31395a53b7ece189846e4d3253c" kindref="member">field_list_t</ref> *</type>
+          <declname>_field_definition</declname>
+          <defval><ref refid="csb__tree_8cpp_1ab979d9d4b4923f7c54d6caa6e1a61936" kindref="member">nullptr</ref></defval>
+        </param>
+        <param>
+          <type><ref refid="storage__types_8h_1a543d59ef56384af4a7af9aa551bc6825" kindref="member">pos_list_t</ref> *</type>
+          <declname>_positions</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/PointerCalculatorFactory.h" line="19" bodyfile="/home/grund/hyrise/src/lib/storage/PointerCalculatorFactory.cpp" bodystart="7" bodyend="9"/>
+      </memberdef>
+      <memberdef kind="function" id="class_pointer_calculator_factory_1a128c89177e81eddae87a16909c801230" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::shared_ptr&lt; <ref refid="class_pointer_calculator" kindref="compound">PointerCalculator</ref> &gt;</type>
+        <definition>std::shared_ptr&lt; PointerCalculator &gt; PointerCalculatorFactory::createPointerCalculatorNonRef</definition>
+        <argsstring>(hyrise::storage::c_atable_ptr_t _table, field_list_t *_field_definition=nullptr, pos_list_t *_positions=NULL)</argsstring>
+        <name>createPointerCalculatorNonRef</name>
+        <param>
+          <type><ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref></type>
+          <declname>_table</declname>
+        </param>
+        <param>
+          <type><ref refid="storage__types_8h_1a36fbc31395a53b7ece189846e4d3253c" kindref="member">field_list_t</ref> *</type>
+          <declname>_field_definition</declname>
+          <defval><ref refid="csb__tree_8cpp_1ab979d9d4b4923f7c54d6caa6e1a61936" kindref="member">nullptr</ref></defval>
+        </param>
+        <param>
+          <type><ref refid="storage__types_8h_1a543d59ef56384af4a7af9aa551bc6825" kindref="member">pos_list_t</ref> *</type>
+          <declname>_positions</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/PointerCalculatorFactory.h" line="21" bodyfile="/home/grund/hyrise/src/lib/storage/PointerCalculatorFactory.cpp" bodystart="11" bodyend="13"/>
+      </memberdef>
+      <memberdef kind="function" id="class_pointer_calculator_factory_1a087e39067e2a3257b568f374fd91ad3e" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::shared_ptr&lt; <ref refid="class_pointer_calculator" kindref="compound">PointerCalculator</ref> &gt;</type>
+        <definition>std::shared_ptr&lt; PointerCalculator &gt; PointerCalculatorFactory::createView</definition>
+        <argsstring>(hyrise::storage::c_atable_ptr_t &amp;_table, size_t start, size_t end)</argsstring>
+        <name>createView</name>
+        <param>
+          <type><ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref> &amp;</type>
+          <declname>_table</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>start</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>end</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/PointerCalculatorFactory.h" line="23" bodyfile="/home/grund/hyrise/src/lib/storage/PointerCalculatorFactory.cpp" bodystart="15" bodyend="21"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2584">
+        <label>PointerCalculatorFactory</label>
+        <link refid="class_pointer_calculator_factory"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/storage/PointerCalculatorFactory.h" line="14" bodyfile="/home/grund/hyrise/src/lib/storage/PointerCalculatorFactory.h" bodystart="14" bodyend="25"/>
+    <listofallmembers>
+      <member refid="class_pointer_calculator_factory_1a487ddf6218b4228dbf54cf80964b0531" prot="public" virt="non-virtual"><scope>PointerCalculatorFactory</scope><name>createPointerCalculator</name></member>
+      <member refid="class_pointer_calculator_factory_1a128c89177e81eddae87a16909c801230" prot="public" virt="non-virtual"><scope>PointerCalculatorFactory</scope><name>createPointerCalculatorNonRef</name></member>
+      <member refid="class_pointer_calculator_factory_1a087e39067e2a3257b568f374fd91ad3e" prot="public" virt="non-virtual"><scope>PointerCalculatorFactory</scope><name>createView</name></member>
+      <member refid="class_pointer_calculator_factory_1a1657d9e1238f9e0b2027aecc8cfa1159" prot="public" virt="non-virtual"><scope>PointerCalculatorFactory</scope><name>PointerCalculatorFactory</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

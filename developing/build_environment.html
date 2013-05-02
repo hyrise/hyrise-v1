@@ -1,0 +1,272 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Setup Build Environment &mdash; HYRISE latest documentation</title>
+    
+    <link rel="stylesheet" href="../_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/breathe.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     'latest',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="HYRISE latest documentation" href="../index.html" />
+    <link rel="up" title="Developing with HYRISE" href="../developing.html" />
+    <link rel="next" title="Building the project" href="building.html" />
+    <link rel="prev" title="Repository" href="git.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="building.html" title="Building the project"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="git.html" title="Repository"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">HYRISE latest documentation</a> &raquo;</li>
+          <li><a href="../developing.html" accesskey="U">Developing with HYRISE</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/hyrise.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture.html">Implementation Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../query_execution.html">HYRISE Query Execution</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../developing.html">Developing with HYRISE</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="git.html">Repository</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Setup Build Environment</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#library-dependencies">Library Dependencies</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#optional-dependencies">Optional Dependencies</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#initial-git-setup">Initial Git Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#linux-ubuntu">Linux (Ubuntu)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mac-os-x">Mac OS X</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#simple-setup">Simple Setup</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#build-preparation">Build Preparation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#build-hyrise">Build HYRISE</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="building.html">Building the project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="code_style.html">Code style</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_organization.html">File organization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="code_reviews.html">Code reviews</a></li>
+<li class="toctree-l2"><a class="reference internal" href="continuous_integration.html">Continuous Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="writing_plan_operations.html">Writing plan operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="writing_performance_regressions.html">Writing Performance Regressions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">HYRISE &amp; Development FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../proposals.html">Proposals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doxygen.html">Doxygen Documentation</a></li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="git.html"
+                        title="previous chapter">Repository</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="building.html"
+                        title="next chapter">Building the project</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/developing/build_environment.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="setup-build-environment">
+<h1>Setup Build Environment<a class="headerlink" href="#setup-build-environment" title="Permalink to this headline">¶</a></h1>
+<p>Currently only two platforms are supported: Linux and Mac OS X.</p>
+<div class="section" id="library-dependencies">
+<h2>Library Dependencies<a class="headerlink" href="#library-dependencies" title="Permalink to this headline">¶</a></h2>
+<p>The following dependencies are hard and are strictly required to perform a complete HYRISE build.</p>
+<ul class="simple">
+<li>boost</li>
+<li>ccache</li>
+<li>google performance tools</li>
+<li>libcsv</li>
+<li>libev</li>
+<li>libhwloc (-dev)</li>
+<li>libantlr3c(-dev)</li>
+<li>log4cxx</li>
+<li>thrift</li>
+<li>libmetis.a (5.0) - <a class="reference external" href="http://glaros.dtc.umn.edu/gkhome/metis/metis/download">http://glaros.dtc.umn.edu/gkhome/metis/metis/download</a></li>
+</ul>
+<div class="section" id="optional-dependencies">
+<h3>Optional Dependencies<a class="headerlink" href="#optional-dependencies" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>PAPI</li>
+<li>gnuplot</li>
+</ul>
+</div>
+</div>
+<div class="section" id="initial-git-setup">
+<h2>Initial Git Setup<a class="headerlink" href="#initial-git-setup" title="Permalink to this headline">¶</a></h2>
+<p>Make sure git is correctly configured and an ssh key is setup to be
+used with <a class="reference external" href="https://epic.plan.io/projects/hyrise">Planio</a>:</p>
+<div class="highlight-c++"><pre># download and install Git
+git config --global user.name "Johannes Wust"
+git config --global user.email johannes.wust@hpi.uni-potsdam.de
+
+git clone git@epic.plan.io:epic-hyrise.git
+
+git submodule init
+git submodule update</pre>
+</div>
+</div>
+<div class="section" id="linux-ubuntu">
+<h2>Linux (Ubuntu)<a class="headerlink" href="#linux-ubuntu" title="Permalink to this headline">¶</a></h2>
+<p>For Ubuntu, we provide a set of automatic scripts to install all
+necessary dependencies to start development with HYRISE:</p>
+<div class="highlight-c++"><pre>$ cd tools/autosetup
+$ ./install.sh</pre>
+</div>
+<p>This should suffice to install all packages and external dependencies.</p>
+</div>
+<div class="section" id="mac-os-x">
+<h2>Mac OS X<a class="headerlink" href="#mac-os-x" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="prerequisites">
+<h3>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h3>
+<p>Using Mac OS X ist is recommended to install the dependencies using
+<a class="reference external" href="https://github.com/mxcl/homebrew">homebrew</a>. Most of the
+dependencies are available and need no further configuration.</p>
+</div>
+<div class="section" id="simple-setup">
+<h3>Simple Setup<a class="headerlink" href="#simple-setup" title="Permalink to this headline">¶</a></h3>
+<p>Copy and paste the following execution recipe:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">mkdir</span> <span class="n">install</span>
+<span class="n">cd</span> <span class="n">install</span>
+<span class="n">brew</span> <span class="n">install</span> <span class="n">boost</span> <span class="n">thrift</span> <span class="n">log4cxx</span> <span class="n">google</span><span class="o">-</span><span class="n">perftools</span> <span class="n">ccache</span> <span class="n">hwloc</span> <span class="n">libev</span> <span class="n">cmake</span>
+<span class="n">wget</span> <span class="n">http</span><span class="o">:</span><span class="c1">//leaseweb.dl.sourceforge.net/project/libcsv/libcsv/libcsv-3.0.1/libcsv-3.0.1.tar.gz</span>
+<span class="n">tar</span> <span class="n">zxvf</span> <span class="n">libcsv</span><span class="o">-</span><span class="mf">3.0.1</span><span class="p">.</span><span class="n">tar</span><span class="p">.</span><span class="n">gz</span>
+<span class="n">cd</span> <span class="n">libcsv</span><span class="o">-</span><span class="mf">3.0.1</span>
+<span class="n">make</span>
+<span class="n">sudo</span> <span class="n">make</span> <span class="n">install</span>
+<span class="n">cd</span> <span class="p">..</span>
+<span class="n">wget</span> <span class="n">http</span><span class="o">:</span><span class="c1">//www.antlr.org/depot/antlr3/main/runtime/C/dist/libantlr3c-3.1.4-SNAPSHOT.tar.gz</span>
+<span class="n">cd</span> <span class="n">libantlr3c</span><span class="o">-</span><span class="mf">3.1.4</span><span class="o">-</span><span class="n">SNAPSHOT</span>
+<span class="p">.</span><span class="o">/</span><span class="n">configure</span>
+<span class="n">make</span>
+<span class="n">sudo</span> <span class="n">make</span> <span class="n">install</span>
+<span class="n">cd</span> <span class="p">..</span>
+<span class="n">wget</span> <span class="n">http</span><span class="o">:</span><span class="c1">//glaros.dtc.umn.edu/gkhome/fetch/sw/metis/metis-5.0.tar.gz</span>
+<span class="n">tar</span> <span class="n">zxvf</span> <span class="n">metis</span><span class="o">-</span><span class="mf">5.0</span><span class="p">.</span><span class="n">tar</span><span class="p">.</span><span class="n">gz</span>
+<span class="n">cd</span> <span class="n">metis</span><span class="o">-</span><span class="mf">5.0</span>
+<span class="n">make</span> <span class="n">config</span>
+<span class="n">sudo</span> <span class="n">make</span> <span class="n">install</span>
+<span class="n">cd</span> <span class="p">..</span>
+<span class="n">wget</span> <span class="n">ftp</span><span class="o">:</span><span class="c1">//oss.sgi.com/www/projects/libnuma/download/numactl-2.0.7.tar.gz</span>
+<span class="n">tar</span> <span class="n">zvxf</span> <span class="n">numactl</span><span class="o">-</span><span class="mf">2.0.7</span><span class="p">.</span><span class="n">tar</span><span class="p">.</span><span class="n">gz</span>
+<span class="n">cd</span> <span class="n">numactl</span><span class="o">-</span><span class="mf">2.0.7</span>
+<span class="n">sudo</span> <span class="n">make</span> <span class="n">install</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="build-preparation">
+<span id="builprep"></span><h2>Build Preparation<a class="headerlink" href="#build-preparation" title="Permalink to this headline">¶</a></h2>
+<p>To finish the build preparation copy the configuraiton template
+<tt class="docutils literal"><span class="pre">settings.mk.default</span></tt> to <tt class="docutils literal"><span class="pre">settings.mk</span></tt> and adjust the values in
+this file accordingly.</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">PRODUCTION</span></tt> &#8211; determines if the build is an optimized build and
+should be used for productions, applys O3 and strips debug symbols</li>
+<li><tt class="docutils literal"><span class="pre">USE_GOOGLE_PERF_LIB</span></tt> &#8211; uses the Google malloc implementation
+instead of the default malloc</li>
+<li><tt class="docutils literal"><span class="pre">PAPI_TRACE</span></tt> &#8211; if PAPI should be used for performance measurements</li>
+<li><tt class="docutils literal"><span class="pre">RETAIN_DETAIL</span></tt> &#8211; prints addition debug messages to trace memory
+leaks with <tt class="docutils literal"><span class="pre">RETAIN_DEBUG</span></tt> enabled.</li>
+<li><tt class="docutils literal"><span class="pre">RETAIN_DEBUG</span></tt> &#8211; If this flag is enabled, additional checks are
+performed at the end of each unit test to ensure that no memory is
+left after test execution.</li>
+<li><tt class="docutils literal"><span class="pre">WITH_MYSQL</span></tt> &#8211; Adds support for a MySQL based loader. More
+information on this functionality can be found in <tt class="xref doc docutils literal"><span class="pre">/loading/mysql</span></tt></li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>When working with Linux it might be necessary to set the additional
+<tt class="docutils literal"><span class="pre">OSTYPE</span></tt> environment variable (or set it in the <tt class="docutils literal"><span class="pre">settings.mk</span></tt> file
+to &#8220;linux&#8221;) to make sure HYRISE builds correctly.</p>
+<p class="last">This is <em>required</em> when <tt class="docutils literal"><span class="pre">uname</span></tt> does not return &#8220;Linux&#8221; on a Linux system.</p>
+</div>
+</div>
+<div class="section" id="build-hyrise">
+<h2>Build HYRISE<a class="headerlink" href="#build-hyrise" title="Permalink to this headline">¶</a></h2>
+<p>Run <tt class="docutils literal"><span class="pre">make</span></tt> to compile HYRISE. Further instructions can be found in <a class="reference internal" href="building.html"><em>Building the project</em></a>.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="building.html" title="Building the project"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="git.html" title="Repository"
+             >previous</a> |</li>
+        <li><a href="../index.html">HYRISE latest documentation</a> &raquo;</li>
+          <li><a href="../developing.html" >Developing with HYRISE</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010-2013, Martin Grund et al.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+  </body>
+</html>

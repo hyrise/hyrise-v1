@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="noncopyable_8h" kind="file">
+    <compoundname>noncopyable.h</compoundname>
+    <includedby refid="_expression_registration_8h" local="yes">src/lib/access/ExpressionRegistration.h</includedby>
+    <invincdepgraph>
+      <node id="14005">
+        <label>src/lib/access/TableScan.cpp</label>
+        <link refid="_table_scan_8cpp"/>
+      </node>
+      <node id="14001">
+        <label>src/lib/helper/noncopyable.h</label>
+        <link refid="noncopyable.h"/>
+        <childnode refid="14002" relation="include">
+        </childnode>
+      </node>
+      <node id="14002">
+        <label>src/lib/access/ExpressionRegistration.h</label>
+        <link refid="_expression_registration_8h"/>
+        <childnode refid="14003" relation="include">
+        </childnode>
+        <childnode refid="14004" relation="include">
+        </childnode>
+        <childnode refid="14005" relation="include">
+        </childnode>
+      </node>
+      <node id="14003">
+        <label>src/lib/access/ExampleExpression.cpp</label>
+        <link refid="_example_expression_8cpp"/>
+      </node>
+      <node id="14004">
+        <label>src/lib/access/ExpressionRegistration.cpp</label>
+        <link refid="_expression_registration_8cpp"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="classnoncopyable" prot="public">noncopyable</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#ifndef<sp/>SRC_LIB_HELPER_NONCOPYABLE_H_</highlight></codeline>
+<codeline lineno="2"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SRC_LIB_HELPER_NONCOPYABLE_H_</highlight></codeline>
+<codeline lineno="3"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="5" refid="classnoncopyable" refkind="compound"><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classnoncopyable" kindref="compound" tooltip="Non-copyable baseclass, use to protect your class from copying.">noncopyable</ref><sp/>{</highlight></codeline>
+<codeline lineno="6"><highlight class="normal"><sp/></highlight><highlight class="keyword">protected</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="7" refid="classnoncopyable_1ad6d68c5d954450f6ad60629eafe981a2" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="classnoncopyable_1ad6d68c5d954450f6ad60629eafe981a2" kindref="member">noncopyable</ref>()<sp/>{};</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"><sp/><sp/><ref refid="classnoncopyable_1ad6d68c5d954450f6ad60629eafe981a2" kindref="member">noncopyable</ref>(<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classnoncopyable" kindref="compound" tooltip="Non-copyable baseclass, use to protect your class from copying.">noncopyable</ref>&amp;<sp/>other<sp/>)<sp/>=<sp/></highlight><highlight class="keyword">delete</highlight><highlight class="normal">;<sp/></highlight><highlight class="comment">//<sp/>non<sp/>construction-copyable</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"><sp/><sp/><ref refid="classnoncopyable" kindref="compound" tooltip="Non-copyable baseclass, use to protect your class from copying.">noncopyable</ref>&amp;<sp/><ref refid="classnoncopyable_1a98da58e16f7990c9c271175400c82955" kindref="member">operator=</ref>(<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classnoncopyable" kindref="compound" tooltip="Non-copyable baseclass, use to protect your class from copying.">noncopyable</ref>&amp;<sp/>)<sp/>=<sp/></highlight><highlight class="keyword">delete</highlight><highlight class="normal">;<sp/></highlight><highlight class="comment">//<sp/>non<sp/>copyable</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="/home/grund/hyrise/src/lib/helper/noncopyable.h"/>
+  </compounddef>
+</doxygen>

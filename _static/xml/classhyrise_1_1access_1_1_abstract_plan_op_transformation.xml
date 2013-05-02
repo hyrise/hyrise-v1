@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="classhyrise_1_1access_1_1_abstract_plan_op_transformation" kind="class" prot="public">
+    <compoundname>hyrise::access::AbstractPlanOpTransformation</compoundname>
+    <derivedcompoundref refid="classhyrise_1_1access_1_1_radix_join_transformation" prot="public" virt="non-virtual">hyrise::access::RadixJoinTransformation</derivedcompoundref>
+    <includes refid="_abstract_plan_op_transformation_8h" local="no">AbstractPlanOpTransformation.h</includes>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classhyrise_1_1access_1_1_abstract_plan_op_transformation_1ae90276370ebf92a4c7205219b1c576e8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>hyrise::access::AbstractPlanOpTransformation::AbstractPlanOpTransformation</definition>
+        <argsstring>()</argsstring>
+        <name>AbstractPlanOpTransformation</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/AbstractPlanOpTransformation.h" line="13" bodyfile="/home/grund/hyrise/src/lib/access/AbstractPlanOpTransformation.h" bodystart="13" bodyend="13"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1access_1_1_abstract_plan_op_transformation_1a1b7d895b92419a39bf86e427a343dcd7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual hyrise::access::AbstractPlanOpTransformation::~AbstractPlanOpTransformation</definition>
+        <argsstring>()</argsstring>
+        <name>~AbstractPlanOpTransformation</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/AbstractPlanOpTransformation.h" line="14" bodyfile="/home/grund/hyrise/src/lib/access/AbstractPlanOpTransformation.h" bodystart="14" bodyend="14"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1access_1_1_abstract_plan_op_transformation_1a4e6ea8718b481e5bcd70c2e4157b3013" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void hyrise::access::AbstractPlanOpTransformation::transform</definition>
+        <argsstring>(Json::Value &amp;op, const std::string &amp;operatorId, Json::Value &amp;query)=0</argsstring>
+        <name>transform</name>
+        <reimplementedby refid="classhyrise_1_1access_1_1_radix_join_transformation_1a60842d5ef9079f66731548c98d856d92">transform</reimplementedby>
+        <param>
+          <type>Json::Value &amp;</type>
+          <declname>op</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>operatorId</declname>
+        </param>
+        <param>
+          <type>Json::Value &amp;</type>
+          <declname>query</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/AbstractPlanOpTransformation.h" line="16"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classhyrise_1_1access_1_1_abstract_plan_op_transformation_1a39ec6deb47b5f3daf5663b1b7fa67648" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::string</type>
+        <definition>static std::string hyrise::access::AbstractPlanOpTransformation::name</definition>
+        <argsstring>()</argsstring>
+        <name>name</name>
+        <reimplementedby refid="classhyrise_1_1access_1_1_radix_join_transformation_1a86545055d1589c198239c773a2d37167">name</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/AbstractPlanOpTransformation.h" line="18" bodyfile="/home/grund/hyrise/src/lib/access/AbstractPlanOpTransformation.h" bodystart="18" bodyend="20"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1378">
+        <label>hyrise::access::AbstractPlanOpTransformation</label>
+        <link refid="classhyrise_1_1access_1_1_abstract_plan_op_transformation"/>
+      </node>
+      <node id="1379">
+        <label>hyrise::access::RadixJoinTransformation</label>
+        <link refid="classhyrise_1_1access_1_1_radix_join_transformation"/>
+        <childnode refid="1378" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1380">
+        <label>hyrise::access::AbstractPlanOpTransformation</label>
+        <link refid="classhyrise_1_1access_1_1_abstract_plan_op_transformation"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/access/AbstractPlanOpTransformation.h" line="11" bodyfile="/home/grund/hyrise/src/lib/access/AbstractPlanOpTransformation.h" bodystart="11" bodyend="22"/>
+    <listofallmembers>
+      <member refid="classhyrise_1_1access_1_1_abstract_plan_op_transformation_1ae90276370ebf92a4c7205219b1c576e8" prot="public" virt="non-virtual"><scope>hyrise::access::AbstractPlanOpTransformation</scope><name>AbstractPlanOpTransformation</name></member>
+      <member refid="classhyrise_1_1access_1_1_abstract_plan_op_transformation_1a39ec6deb47b5f3daf5663b1b7fa67648" prot="public" virt="non-virtual"><scope>hyrise::access::AbstractPlanOpTransformation</scope><name>name</name></member>
+      <member refid="classhyrise_1_1access_1_1_abstract_plan_op_transformation_1a4e6ea8718b481e5bcd70c2e4157b3013" prot="public" virt="pure-virtual"><scope>hyrise::access::AbstractPlanOpTransformation</scope><name>transform</name></member>
+      <member refid="classhyrise_1_1access_1_1_abstract_plan_op_transformation_1a1b7d895b92419a39bf86e427a343dcd7" prot="public" virt="virtual"><scope>hyrise::access::AbstractPlanOpTransformation</scope><name>~AbstractPlanOpTransformation</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

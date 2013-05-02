@@ -1,0 +1,233 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Integrating Google V8 &mdash; HYRISE latest documentation</title>
+    
+    <link rel="stylesheet" href="../_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/breathe.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     'latest',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="HYRISE latest documentation" href="../index.html" />
+    <link rel="up" title="HYRISE Query Execution" href="../query_execution.html" />
+    <link rel="next" title="Developing with HYRISE" href="../developing.html" />
+    <link rel="prev" title="Plan Operations" href="json_plan_operations.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../developing.html" title="Developing with HYRISE"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="json_plan_operations.html" title="Plan Operations"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">HYRISE latest documentation</a> &raquo;</li>
+          <li><a href="../query_execution.html" accesskey="U">HYRISE Query Execution</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/hyrise.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture.html">Implementation Details</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../query_execution.html">HYRISE Query Execution</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="json_query_execution.html">JSON Query Execution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="json_queries.html">JSON Queries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="available_operators.html">Available Operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="parallelization.html">Parallelization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="json_plan_operations.html">Plan Operations</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Integrating Google V8</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#using-javascript-for-plan-operations">Using JavaScript for Plan Operations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#defining-a-new-plan-operation">Defining a new Plan Operation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#api-for-the-plan-operation">API for the Plan Operation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../developing.html">Developing with HYRISE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">HYRISE &amp; Development FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../proposals.html">Proposals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doxygen.html">Doxygen Documentation</a></li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="json_plan_operations.html"
+                        title="previous chapter">Plan Operations</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../developing.html"
+                        title="next chapter">Developing with HYRISE</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/queryexecution/v8ops.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="integrating-google-v8">
+<span id="v8ops"></span><h1>Integrating Google V8<a class="headerlink" href="#integrating-google-v8" title="Permalink to this headline">¶</a></h1>
+<p>Hyrise comes with the possibility to implement plan operations in JavaScript
+instead of C++ to ease the prototypical development. Of course the performance
+of these plan operations will not reach a highly optimized C++ code, but can
+help to asses the algorithmic performance of sample operations.</p>
+<p>This document gives an overview how the integration between V8 and HYRISE is
+achieved and how the interface between JavaScript and C++ is defined.</p>
+<div class="section" id="using-javascript-for-plan-operations">
+<h2>Using JavaScript for Plan Operations<a class="headerlink" href="#using-javascript-for-plan-operations" title="Permalink to this headline">¶</a></h2>
+<p>Googles V8 is integrated as a separate and independent component that will be
+included and linked during compile time. Currently, we propose to download the
+most recent version of V8 from their website and compile manually. To enable
+JavaScript plan operations you have to set the following variables in the
+<tt class="docutils literal"><span class="pre">settings.mk</span></tt> file:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">USE_V8</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">V8_BASE_DIRECTORY</span><span class="o">=</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">v8</span><span class="o">/</span><span class="n">base</span>
+</pre></div>
+</div>
+<p>Now, the ScriptPlan operation is enabled and allows to write new plan
+operations in JavaScript.</p>
+<p>Once you started HYRISE you can call plan operations that are stored in plain
+text JavaScript files that are available to the server. The environment
+variable <tt class="docutils literal"><span class="pre">HYRISE_SCRIPT_PATH</span></tt> determines the base folder where the server
+expects to find those files. If the variable is not set, int points to the
+directory from where the server was launched.</p>
+<div class="section" id="defining-a-new-plan-operation">
+<h3>Defining a new Plan Operation<a class="headerlink" href="#defining-a-new-plan-operation" title="Permalink to this headline">¶</a></h3>
+<p>The minmal plan operation defines a script that defines the following function:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">function</span> <span class="nf">hyrise_run_op</span><span class="p">(</span><span class="n">input</span><span class="p">)</span> <span class="p">{</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The variable <tt class="docutils literal"><span class="pre">input</span></tt> defines an array that contains all references to input
+tables of the plan operation. The requirement is that the function will return
+a single table as output.</p>
+</div>
+<div class="section" id="api-for-the-plan-operation">
+<h3>API for the Plan Operation<a class="headerlink" href="#api-for-the-plan-operation" title="Permalink to this headline">¶</a></h3>
+<p>In general, the idea is to offer the same API that is known from the
+<tt class="docutils literal"><span class="pre">AbstractTable</span></tt> interface to the JS side. However, there are some
+limitations to this approach. The biggest problem is creating lot&#8217;s of
+intermediate results is very time consuming and will break the advantage of
+using JS.</p>
+<p>The most important operations on a table are:</p>
+<ul>
+<li><dl class="first docutils">
+<dt><tt class="docutils literal"><span class="pre">getAttributeVectors()</span></tt> - equivalent to the version of the AbstractTable.</dt>
+<dd><p class="first last">Intended to directly access the underlaying storage of the table.</p>
+</dd>
+</dl>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">valueId(col,</span> <span class="pre">row)</span></tt> - returns the value ID struct with valueId and tableId</p>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">ValueIdV(col,</span> <span class="pre">row)</span></tt> - only returns the value ID value</p>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">resize(num)</span></tt> - resize the table if possible, throw exception otherwise</p>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">setValueInt(col,</span> <span class="pre">row</span> <span class="pre">val)</span></tt></p>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">setValueFloat(col,</span> <span class="pre">row</span> <span class="pre">val)</span></tt></p>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">setValueString(col,</span> <span class="pre">row</span> <span class="pre">val)</span></tt></p>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">getValueInt(col,</span> <span class="pre">row</span> <span class="pre">val)</span></tt></p>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">getValueFloat(col,</span> <span class="pre">row</span> <span class="pre">val)</span></tt></p>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">getValueString(col,</span> <span class="pre">row</span> <span class="pre">val)</span></tt></p>
+</li>
+</ul>
+<p>The following other functions are globally available:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">copyStructureModifiable(table)</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">createPointerCalculator(table,</span> <span class="pre">fields)</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">buildVerticalTable(tab,</span> <span class="pre">tab)</span></tt> - concatenate two tables and build a vertical table</li>
+<li><tt class="docutils literal"><span class="pre">include(file)</span></tt> - include a file and make all functions globally available</li>
+<li><tt class="docutils literal"><span class="pre">log(string)</span></tt> - log string to the HYRISE logging facilities</li>
+</ul>
+<p>To create a custom output table the global function <tt class="docutils literal"><span class="pre">buildTable(spec,</span>
+<span class="pre">groups)</span></tt> should be used. A simple example to build a table would be:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">buildTable</span><span class="p">([</span>
+            <span class="p">{</span><span class="s">&quot;type&quot;</span><span class="o">:</span> <span class="s">&quot;INTEGER&quot;</span><span class="p">,</span> <span class="s">&quot;name&quot;</span><span class="o">:</span> <span class="s">&quot;company_id&quot;</span><span class="p">},</span>
+            <span class="p">{</span><span class="s">&quot;type&quot;</span><span class="o">:</span> <span class="s">&quot;STRING&quot;</span><span class="p">,</span> <span class="s">&quot;name&quot;</span><span class="o">:</span> <span class="s">&quot;company_name&quot;</span><span class="p">}</span>
+            <span class="p">],[</span><span class="mi">2</span><span class="p">]);</span>
+</pre></div>
+</div>
+<p>This example creates a two column table with the given attributes named by the
+first argument and the number of groups identified by the second parameter
+array.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../developing.html" title="Developing with HYRISE"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="json_plan_operations.html" title="Plan Operations"
+             >previous</a> |</li>
+        <li><a href="../index.html">HYRISE latest documentation</a> &raquo;</li>
+          <li><a href="../query_execution.html" >HYRISE Query Execution</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010-2013, Martin Grund et al.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+  </body>
+</html>

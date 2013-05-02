@@ -1,0 +1,290 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="classhyrise_1_1io_1_1_storage_table" kind="class" prot="public">
+    <compoundname>hyrise::io::StorageTable</compoundname>
+    <includes refid="_storage_manager_8h" local="no">StorageManager.h</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classhyrise_1_1io_1_1_storage_table_1a6d4871550e31fa56a7ea4b26476fb00d" prot="private" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string hyrise::io::StorageTable::_name</definition>
+        <argsstring></argsstring>
+        <name>_name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/StorageManager.h" line="38" bodyfile="/home/grund/hyrise/src/lib/io/StorageManager.h" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhyrise_1_1io_1_1_storage_table_1a196fd11986f4cf83a9e0db66e58a1f2d" prot="private" static="no" mutable="no">
+        <type>std::shared_ptr&lt; <ref refid="class_abstract_table" kindref="compound">AbstractTable</ref> &gt;</type>
+        <definition>std::shared_ptr&lt;AbstractTable&gt; hyrise::io::StorageTable::_table</definition>
+        <argsstring></argsstring>
+        <name>_table</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/StorageManager.h" line="39" bodyfile="/home/grund/hyrise/src/lib/io/StorageManager.h" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhyrise_1_1io_1_1_storage_table_1ac2f1d80cdebc654414870e0e7e703482" prot="private" static="no" mutable="no">
+        <type>std::unique_ptr&lt; <ref refid="class_loader_1_1params" kindref="compound">Loader::params</ref> &gt;</type>
+        <definition>std::unique_ptr&lt;Loader::params&gt; hyrise::io::StorageTable::_parameters</definition>
+        <argsstring></argsstring>
+        <name>_parameters</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/StorageManager.h" line="40" bodyfile="/home/grund/hyrise/src/lib/io/StorageManager.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhyrise_1_1io_1_1_storage_table_1a60d085c88757b3e64b48264713e3d179" prot="private" static="no" mutable="no">
+        <type>std::mutex</type>
+        <definition>std::mutex hyrise::io::StorageTable::_table_mutex</definition>
+        <argsstring></argsstring>
+        <name>_table_mutex</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/StorageManager.h" line="41" bodyfile="/home/grund/hyrise/src/lib/io/StorageManager.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classhyrise_1_1io_1_1_storage_table_1ac99ff09c71fc89d223e83a505b715188" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>hyrise::io::StorageTable::StorageTable</definition>
+        <argsstring>()</argsstring>
+        <name>StorageTable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/StorageManager.h" line="44" bodyfile="/home/grund/hyrise/src/lib/io/StorageManager.cpp" bodystart="29" bodyend="29"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1io_1_1_storage_table_1aae3a697a4e39fb25b713bd1cfb7158f7" prot="public" static="no" const="no" explicit="yes" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>hyrise::io::StorageTable::StorageTable</definition>
+        <argsstring>(std::string table_name)</argsstring>
+        <name>StorageTable</name>
+        <param>
+          <type>std::string</type>
+          <declname>table_name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/StorageManager.h" line="45" bodyfile="/home/grund/hyrise/src/lib/io/StorageManager.cpp" bodystart="31" bodyend="33"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1io_1_1_storage_table_1a540247a8f38ed3d3992819f62cc717b4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>hyrise::io::StorageTable::StorageTable</definition>
+        <argsstring>(std::string table_name, std::shared_ptr&lt; AbstractTable &gt; table)</argsstring>
+        <name>StorageTable</name>
+        <param>
+          <type>std::string</type>
+          <declname>table_name</declname>
+        </param>
+        <param>
+          <type>std::shared_ptr&lt; <ref refid="class_abstract_table" kindref="compound">AbstractTable</ref> &gt;</type>
+          <declname>table</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/StorageManager.h" line="46" bodyfile="/home/grund/hyrise/src/lib/io/StorageManager.cpp" bodystart="35" bodyend="38"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1io_1_1_storage_table_1a5757ebe97688f6235a0bc7c4fb89373a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>hyrise::io::StorageTable::StorageTable</definition>
+        <argsstring>(std::string table_name, const Loader::params &amp;_parameters)</argsstring>
+        <name>StorageTable</name>
+        <param>
+          <type>std::string</type>
+          <declname>table_name</declname>
+        </param>
+        <param>
+          <type>const <ref refid="class_loader_1_1params" kindref="compound">Loader::params</ref> &amp;</type>
+          <declname>_parameters</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/StorageManager.h" line="47" bodyfile="/home/grund/hyrise/src/lib/io/StorageManager.cpp" bodystart="40" bodyend="43"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1io_1_1_storage_table_1a79f3896ef3eb6a577944eafb96d33cbe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>hyrise::io::StorageTable::StorageTable</definition>
+        <argsstring>(const StorageTable &amp;st)</argsstring>
+        <name>StorageTable</name>
+        <param>
+          <type>const <ref refid="classhyrise_1_1io_1_1_storage_table" kindref="compound">StorageTable</ref> &amp;</type>
+          <declname>st</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/StorageManager.h" line="48" bodyfile="/home/grund/hyrise/src/lib/io/StorageManager.cpp" bodystart="45" bodyend="48"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1io_1_1_storage_table_1a6b93c93e1092146640325ada5af9a61e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>hyrise::io::StorageTable::~StorageTable</definition>
+        <argsstring>()</argsstring>
+        <name>~StorageTable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/StorageManager.h" line="49" bodyfile="/home/grund/hyrise/src/lib/io/StorageManager.cpp" bodystart="50" bodyend="50"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1io_1_1_storage_table_1af0ccfca95b6085e04b72042518b7d673" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hyrise::io::StorageTable::load</definition>
+        <argsstring>()</argsstring>
+        <name>load</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/StorageManager.h" line="51" bodyfile="/home/grund/hyrise/src/lib/io/StorageManager.cpp" bodystart="52" bodyend="61"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1io_1_1_storage_table_1a26ba9229e87a55234c16c0ed9bb3161a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hyrise::io::StorageTable::unload</definition>
+        <argsstring>()</argsstring>
+        <name>unload</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/StorageManager.h" line="52" bodyfile="/home/grund/hyrise/src/lib/io/StorageManager.cpp" bodystart="63" bodyend="66"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1io_1_1_storage_table_1a7ac1d6f6972d0525f53ce54f5e4e14c7" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool hyrise::io::StorageTable::isLoaded</definition>
+        <argsstring>() const </argsstring>
+        <name>isLoaded</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/StorageManager.h" line="54" bodyfile="/home/grund/hyrise/src/lib/io/StorageManager.cpp" bodystart="83" bodyend="85"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1io_1_1_storage_table_1a0bb0575468b48cb35bce721d851ef36b" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool hyrise::io::StorageTable::isLoadable</definition>
+        <argsstring>() const </argsstring>
+        <name>isLoadable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/StorageManager.h" line="55" bodyfile="/home/grund/hyrise/src/lib/io/StorageManager.cpp" bodystart="87" bodyend="89"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1io_1_1_storage_table_1ad5929720df0bb448a5e36bdb39013129" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::shared_ptr&lt; <ref refid="class_abstract_table" kindref="compound">AbstractTable</ref> &gt;</type>
+        <definition>std::shared_ptr&lt; AbstractTable &gt; hyrise::io::StorageTable::getTable</definition>
+        <argsstring>()</argsstring>
+        <name>getTable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/StorageManager.h" line="57" bodyfile="/home/grund/hyrise/src/lib/io/StorageManager.cpp" bodystart="68" bodyend="72"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1io_1_1_storage_table_1adc4546843fdc274216e0f2e4238b6550" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>std::shared_ptr&lt; <ref refid="class_abstract_table" kindref="compound">AbstractTable</ref> &gt;</type>
+        <definition>std::shared_ptr&lt; AbstractTable &gt; hyrise::io::StorageTable::getTable</definition>
+        <argsstring>() const </argsstring>
+        <name>getTable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/StorageManager.h" line="58" bodyfile="/home/grund/hyrise/src/lib/io/StorageManager.cpp" bodystart="74" bodyend="76"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1io_1_1_storage_table_1a1ce9683b1d4f0425af6f7299e448b05a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hyrise::io::StorageTable::setTable</definition>
+        <argsstring>(std::shared_ptr&lt; AbstractTable &gt; table)</argsstring>
+        <name>setTable</name>
+        <param>
+          <type>std::shared_ptr&lt; <ref refid="class_abstract_table" kindref="compound">AbstractTable</ref> &gt;</type>
+          <declname>table</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/StorageManager.h" line="59" bodyfile="/home/grund/hyrise/src/lib/io/StorageManager.cpp" bodystart="78" bodyend="81"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Storage class that holds tables that might not be loaded yet. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2982">
+        <label>hyrise::io::StorageTable</label>
+        <link refid="classhyrise_1_1io_1_1_storage_table"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/io/StorageManager.h" line="36" bodyfile="/home/grund/hyrise/src/lib/io/StorageManager.h" bodystart="36" bodyend="60"/>
+    <listofallmembers>
+      <member refid="classhyrise_1_1io_1_1_storage_table_1a6d4871550e31fa56a7ea4b26476fb00d" prot="private" virt="non-virtual"><scope>hyrise::io::StorageTable</scope><name>_name</name></member>
+      <member refid="classhyrise_1_1io_1_1_storage_table_1ac2f1d80cdebc654414870e0e7e703482" prot="private" virt="non-virtual"><scope>hyrise::io::StorageTable</scope><name>_parameters</name></member>
+      <member refid="classhyrise_1_1io_1_1_storage_table_1a196fd11986f4cf83a9e0db66e58a1f2d" prot="private" virt="non-virtual"><scope>hyrise::io::StorageTable</scope><name>_table</name></member>
+      <member refid="classhyrise_1_1io_1_1_storage_table_1a60d085c88757b3e64b48264713e3d179" prot="private" virt="non-virtual"><scope>hyrise::io::StorageTable</scope><name>_table_mutex</name></member>
+      <member refid="classhyrise_1_1io_1_1_storage_table_1ad5929720df0bb448a5e36bdb39013129" prot="public" virt="non-virtual"><scope>hyrise::io::StorageTable</scope><name>getTable</name></member>
+      <member refid="classhyrise_1_1io_1_1_storage_table_1adc4546843fdc274216e0f2e4238b6550" prot="public" virt="non-virtual"><scope>hyrise::io::StorageTable</scope><name>getTable</name></member>
+      <member refid="classhyrise_1_1io_1_1_storage_table_1a0bb0575468b48cb35bce721d851ef36b" prot="public" virt="non-virtual"><scope>hyrise::io::StorageTable</scope><name>isLoadable</name></member>
+      <member refid="classhyrise_1_1io_1_1_storage_table_1a7ac1d6f6972d0525f53ce54f5e4e14c7" prot="public" virt="non-virtual"><scope>hyrise::io::StorageTable</scope><name>isLoaded</name></member>
+      <member refid="classhyrise_1_1io_1_1_storage_table_1af0ccfca95b6085e04b72042518b7d673" prot="public" virt="non-virtual"><scope>hyrise::io::StorageTable</scope><name>load</name></member>
+      <member refid="classhyrise_1_1io_1_1_storage_table_1a1ce9683b1d4f0425af6f7299e448b05a" prot="public" virt="non-virtual"><scope>hyrise::io::StorageTable</scope><name>setTable</name></member>
+      <member refid="classhyrise_1_1io_1_1_storage_table_1ac99ff09c71fc89d223e83a505b715188" prot="public" virt="non-virtual"><scope>hyrise::io::StorageTable</scope><name>StorageTable</name></member>
+      <member refid="classhyrise_1_1io_1_1_storage_table_1aae3a697a4e39fb25b713bd1cfb7158f7" prot="public" virt="non-virtual"><scope>hyrise::io::StorageTable</scope><name>StorageTable</name></member>
+      <member refid="classhyrise_1_1io_1_1_storage_table_1a540247a8f38ed3d3992819f62cc717b4" prot="public" virt="non-virtual"><scope>hyrise::io::StorageTable</scope><name>StorageTable</name></member>
+      <member refid="classhyrise_1_1io_1_1_storage_table_1a5757ebe97688f6235a0bc7c4fb89373a" prot="public" virt="non-virtual"><scope>hyrise::io::StorageTable</scope><name>StorageTable</name></member>
+      <member refid="classhyrise_1_1io_1_1_storage_table_1a79f3896ef3eb6a577944eafb96d33cbe" prot="public" virt="non-virtual"><scope>hyrise::io::StorageTable</scope><name>StorageTable</name></member>
+      <member refid="classhyrise_1_1io_1_1_storage_table_1a26ba9229e87a55234c16c0ed9bb3161a" prot="public" virt="non-virtual"><scope>hyrise::io::StorageTable</scope><name>unload</name></member>
+      <member refid="classhyrise_1_1io_1_1_storage_table_1a6b93c93e1092146640325ada5af9a61e" prot="public" virt="non-virtual"><scope>hyrise::io::StorageTable</scope><name>~StorageTable</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

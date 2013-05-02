@@ -1,0 +1,166 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="hash_8h" kind="file">
+    <compoundname>hash.h</compoundname>
+    <includes local="no">sys/types.h</includes>
+    <includedby refid="hash_8cpp" local="yes">src/lib/helper/hash.cpp</includedby>
+    <includedby refid="_group_value_8h" local="yes">src/lib/storage/GroupValue.h</includedby>
+    <incdepgraph>
+      <node id="13832">
+        <label>src/lib/helper/hash.h</label>
+        <link refid="hash.h"/>
+        <childnode refid="13833" relation="include">
+        </childnode>
+      </node>
+      <node id="13833">
+        <label>sys/types.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="13834">
+        <label>src/lib/helper/hash.h</label>
+        <link refid="hash.h"/>
+        <childnode refid="13835" relation="include">
+        </childnode>
+        <childnode refid="13836" relation="include">
+        </childnode>
+      </node>
+      <node id="13837">
+        <label>src/lib/storage/GroupValue.cpp</label>
+        <link refid="_group_value_8cpp"/>
+      </node>
+      <node id="13835">
+        <label>src/lib/helper/hash.cpp</label>
+        <link refid="hash_8cpp"/>
+      </node>
+      <node id="13836">
+        <label>src/lib/storage/GroupValue.h</label>
+        <link refid="_group_value_8h"/>
+        <childnode refid="13837" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="hash_8h_1a44af4342ec6cfefff9f32835c9d8e0b5" prot="public" static="no">
+        <name>FNV1_64_PRIME</name>
+        <initializer>((u_int64_t)0x100000001b3ULL)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/hash.h" line="8" bodyfile="/home/grund/hyrise/src/lib/helper/hash.h" bodystart="8" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="hash_8h_1a97c6e8016ffe540a627163d406059552" prot="public" static="no">
+        <name>FNV1_64_INIT</name>
+        <initializer>((u_int64_t)0xcbf29ce484222325ULL)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/hash.h" line="9" bodyfile="/home/grund/hyrise/src/lib/helper/hash.h" bodystart="9" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="hash_8h_1a2800110cfd664462ed37966860c3a3a5" prot="public" static="no">
+        <name>FNV_64A_OP</name>
+        <param><defname>hash</defname></param>
+        <param><defname>octet</defname></param>
+        <initializer>(((u_int64_t)(hash) ^ (u_int8_t)(octet)) * <ref refid="hash_8h_1a44af4342ec6cfefff9f32835c9d8e0b5" kindref="member">FNV1_64_PRIME</ref>)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/hash.h" line="12" bodyfile="/home/grund/hyrise/src/lib/helper/hash.h" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="hash_8h_1a229eedc7fa296839e6eb7ce3b3ffae93" prot="public" static="no">
+        <name>FNV_64A_INT</name>
+        <param><defname>hash</defname></param>
+        <param><defname>integer</defname></param>
+        <initializer><ref refid="hash_8h_1adb110f2bf799c139687313a081e41622" kindref="member">fnv_64a_int</ref>((u_int64_t)(hash), (u_int64_t)(integer), sizeof(integer))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/hash.h" line="19" bodyfile="/home/grund/hyrise/src/lib/helper/hash.h" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="hash_8h_1adb110f2bf799c139687313a081e41622" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u_int64_t</type>
+        <definition>u_int64_t fnv_64a_int</definition>
+        <argsstring>(u_int64_t hash, u_int64_t integer, size_t size)</argsstring>
+        <name>fnv_64a_int</name>
+        <param>
+          <type>u_int64_t</type>
+          <declname>hash</declname>
+        </param>
+        <param>
+          <type>u_int64_t</type>
+          <declname>integer</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>size</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/hash.h" line="33" bodyfile="/home/grund/hyrise/src/lib/helper/hash.cpp" bodystart="8" bodyend="55"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>2012<sp/>Hasso-Plattner-Institut<sp/>fuer<sp/>Softwaresystemtechnik<sp/>GmbH.<sp/>All<sp/>rights<sp/>reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SRC_LIB_HELPER_HASH_H_</highlight></codeline>
+<codeline lineno="3"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SRC_LIB_HELPER_HASH_H_</highlight></codeline>
+<codeline lineno="4"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;sys/types.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8" refid="hash_8h_1a44af4342ec6cfefff9f32835c9d8e0b5" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>FNV1_64_PRIME<sp/>((u_int64_t)0x100000001b3ULL)</highlight></codeline>
+<codeline lineno="9" refid="hash_8h_1a97c6e8016ffe540a627163d406059552" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>FNV1_64_INIT<sp/>((u_int64_t)0xcbf29ce484222325ULL)</highlight></codeline>
+<codeline lineno="10"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11" refid="hash_8h_1a2800110cfd664462ed37966860c3a3a5" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>FNV_64A_OP(hash,<sp/>octet)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="12"><highlight class="preprocessor"><sp/><sp/>(((u_int64_t)(hash)<sp/>^<sp/>(u_int8_t)(octet))<sp/>*<sp/>FNV1_64_PRIME)</highlight></codeline>
+<codeline lineno="13"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="15"><highlight class="comment"><sp/>*<sp/>NOTE:<sp/>This<sp/>is<sp/>for<sp/>illustration<sp/>purposes.<sp/><sp/>Optimization,</highlight></codeline>
+<codeline lineno="16"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>needed,<sp/>is<sp/>left<sp/>as<sp/>an<sp/>exercise<sp/>for<sp/>the<sp/>reader.<sp/><sp/>:-)</highlight></codeline>
+<codeline lineno="17"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18" refid="hash_8h_1a229eedc7fa296839e6eb7ce3b3ffae93" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>FNV_64A_INT(hash,<sp/>integer)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="19"><highlight class="preprocessor"><sp/><sp/>fnv_64a_int((u_int64_t)(hash),<sp/>(u_int64_t)(integer),<sp/>sizeof(integer))</highlight></codeline>
+<codeline lineno="20"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="22"><highlight class="comment"><sp/>*<sp/>fnv_64a_int<sp/>-<sp/>hash<sp/>an<sp/>integer<sp/>of<sp/>up<sp/>to<sp/>8<sp/>octets<sp/>in<sp/>size</highlight></codeline>
+<codeline lineno="23"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="24"><highlight class="comment"><sp/>*<sp/>given:</highlight></codeline>
+<codeline lineno="25"><highlight class="comment"><sp/>*hashcurrent<sp/>64<sp/>bit<sp/>FNV-1a<sp/>hash<sp/>value</highlight></codeline>
+<codeline lineno="26"><highlight class="comment"><sp/>*integerinteger<sp/>value<sp/>to<sp/>hash</highlight></codeline>
+<codeline lineno="27"><highlight class="comment"><sp/>*sizesize<sp/>of<sp/>the<sp/>integer<sp/>in<sp/>octets<sp/>(bytes)</highlight></codeline>
+<codeline lineno="28"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="29"><highlight class="comment"><sp/>*<sp/>returns:</highlight></codeline>
+<codeline lineno="30"><highlight class="comment"><sp/>*64<sp/>bit<sp/>FNV-1a<sp/>hash<sp/>of<sp/>the<sp/>integer<sp/>in<sp/>low<sp/>to<sp/>high<sp/>byte<sp/>order</highlight></codeline>
+<codeline lineno="31"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal">u_int64_t</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><ref refid="hash_8cpp_1adb110f2bf799c139687313a081e41622" kindref="member">fnv_64a_int</ref>(u_int64_t<sp/><ref refid="namespacehyrise_1_1access_1a186e18305f1cfc707e738f2aa04556fa" kindref="member">hash</ref>,<sp/>u_int64_t<sp/>integer,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>size);</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/>//<sp/>SRC_LIB_HELPER_HASH_H_</highlight></codeline>
+    </programlisting>
+    <location file="/home/grund/hyrise/src/lib/helper/hash.h"/>
+  </compounddef>
+</doxygen>

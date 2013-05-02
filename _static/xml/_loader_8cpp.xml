@@ -1,0 +1,1061 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="_loader_8cpp" kind="file">
+    <compoundname>Loader.cpp</compoundname>
+    <includes refid="_loader_8h" local="yes">io/Loader.h</includes>
+    <includes local="no">log4cxx/logger.h</includes>
+    <includes refid="_empty_loader_8h" local="yes">io/EmptyLoader.h</includes>
+    <includes refid="_loader_exception_8h" local="yes">io/LoaderException.h</includes>
+    <includes refid="_validity_table_generation_8h" local="yes">io/ValidityTableGeneration.h</includes>
+    <includes refid="_abstract_table_8h" local="yes">storage/AbstractTable.h</includes>
+    <includes refid="_logarithmic_merge_strategy_8h" local="yes">storage/LogarithmicMergeStrategy.h</includes>
+    <includes refid="_sequential_heap_merger_8h" local="yes">storage/SequentialHeapMerger.h</includes>
+    <includes refid="_simple_store_8h" local="yes">storage/SimpleStore.h</includes>
+    <includes refid="_store_8h" local="yes">storage/Store.h</includes>
+    <includes refid="_table_factory_8h" local="yes">storage/TableFactory.h</includes>
+    <includes refid="_table_generator_8h" local="yes">storage/TableGenerator.h</includes>
+    <includes refid="_mutable_vertical_table_8h" local="yes">storage/MutableVerticalTable.h</includes>
+    <incdepgraph>
+      <node id="14701">
+        <label>list</label>
+      </node>
+      <node id="14733">
+        <label>boost/mpl/size.hpp</label>
+      </node>
+      <node id="14743">
+        <label>atomic</label>
+      </node>
+      <node id="14747">
+        <label>storage/BaseAllocatedAttributeVector.h</label>
+        <link refid="_base_allocated_attribute_vector_8h"/>
+        <childnode refid="14739" relation="include">
+        </childnode>
+        <childnode refid="14706" relation="include">
+        </childnode>
+      </node>
+      <node id="14689">
+        <label>io/ValidityTableGeneration.h</label>
+        <link refid="_validity_table_generation_8h"/>
+        <childnode refid="14673" relation="include">
+        </childnode>
+      </node>
+      <node id="14681">
+        <label>boost/mpl/vector.hpp</label>
+      </node>
+      <node id="14675">
+        <label>limits</label>
+      </node>
+      <node id="14720">
+        <label>boost/functional/hash.hpp</label>
+      </node>
+      <node id="14734">
+        <label>storage/AbstractAllocatedTable.h</label>
+        <link refid="_abstract_allocated_table_8h"/>
+        <childnode refid="14698" relation="include">
+        </childnode>
+        <childnode refid="14702" relation="include">
+        </childnode>
+        <childnode refid="14704" relation="include">
+        </childnode>
+      </node>
+      <node id="14695">
+        <label>assert.h</label>
+      </node>
+      <node id="14683">
+        <label>boost/lexical_cast.hpp</label>
+      </node>
+      <node id="14752">
+        <label>storage/TableGenerator.h</label>
+        <link refid="_table_generator_8h"/>
+        <childnode refid="14706" relation="include">
+        </childnode>
+        <childnode refid="14707" relation="include">
+        </childnode>
+        <childnode refid="14753" relation="include">
+        </childnode>
+        <childnode refid="14676" relation="include">
+        </childnode>
+        <childnode refid="14672" relation="include">
+        </childnode>
+        <childnode refid="14754" relation="include">
+        </childnode>
+        <childnode refid="14755" relation="include">
+        </childnode>
+        <childnode refid="14690" relation="include">
+        </childnode>
+        <childnode refid="14756" relation="include">
+        </childnode>
+      </node>
+      <node id="14711">
+        <label>boost/iterator/iterator_facade.hpp</label>
+      </node>
+      <node id="14674">
+        <label>cstdint</label>
+      </node>
+      <node id="14737">
+        <label>storage/MutableVerticalTable.h</label>
+        <link refid="_mutable_vertical_table_8h"/>
+        <childnode refid="14676" relation="include">
+        </childnode>
+        <childnode refid="14672" relation="include">
+        </childnode>
+        <childnode refid="14673" relation="include">
+        </childnode>
+        <childnode refid="14738" relation="include">
+        </childnode>
+        <childnode refid="14751" relation="include">
+        </childnode>
+        <childnode refid="14692" relation="include">
+        </childnode>
+        <childnode refid="14690" relation="include">
+        </childnode>
+      </node>
+      <node id="14742">
+        <label>storage/FixedLengthVector.h</label>
+        <link refid="_fixed_length_vector_8h"/>
+        <childnode refid="14743" relation="include">
+        </childnode>
+        <childnode refid="14705" relation="include">
+        </childnode>
+        <childnode refid="14744" relation="include">
+        </childnode>
+        <childnode refid="14671" relation="include">
+        </childnode>
+        <childnode refid="14745" relation="include">
+        </childnode>
+        <childnode refid="14672" relation="include">
+        </childnode>
+        <childnode refid="14678" relation="include">
+        </childnode>
+        <childnode refid="14746" relation="include">
+        </childnode>
+        <childnode refid="14711" relation="include">
+        </childnode>
+        <childnode refid="14740" relation="include">
+        </childnode>
+        <childnode refid="14739" relation="include">
+        </childnode>
+        <childnode refid="14747" relation="include">
+        </childnode>
+        <childnode refid="14698" relation="include">
+        </childnode>
+        <childnode refid="14702" relation="include">
+        </childnode>
+      </node>
+      <node id="14708">
+        <label>storage/BaseDictionary.h</label>
+        <link refid="_base_dictionary_8h"/>
+        <childnode refid="14677" relation="include">
+        </childnode>
+        <childnode refid="14697" relation="include">
+        </childnode>
+        <childnode refid="14709" relation="include">
+        </childnode>
+      </node>
+      <node id="14741">
+        <label>storage/AttributeVectorFactory.h</label>
+        <link refid="_attribute_vector_factory_8h"/>
+        <childnode refid="14671" relation="include">
+        </childnode>
+        <childnode refid="14739" relation="include">
+        </childnode>
+        <childnode refid="14742" relation="include">
+        </childnode>
+        <childnode refid="14748" relation="include">
+        </childnode>
+      </node>
+      <node id="14679">
+        <label>stdint.h</label>
+      </node>
+      <node id="14707">
+        <label>stdlib.h</label>
+      </node>
+      <node id="14686">
+        <label>io/EmptyLoader.h</label>
+        <link refid="_empty_loader_8h"/>
+        <childnode refid="14671" relation="include">
+        </childnode>
+        <childnode refid="14687" relation="include">
+        </childnode>
+      </node>
+      <node id="14750">
+        <label>cmath</label>
+      </node>
+      <node id="14705">
+        <label>errno.h</label>
+      </node>
+      <node id="14678">
+        <label>stdexcept</label>
+      </node>
+      <node id="14672">
+        <label>string</label>
+      </node>
+      <node id="14731">
+        <label>boost/mpl/at.hpp</label>
+      </node>
+      <node id="14717">
+        <label>map</label>
+      </node>
+      <node id="14693">
+        <label>storage/ValueIdMap.hpp</label>
+        <link refid="_value_id_map_8hpp"/>
+        <childnode refid="14694" relation="include">
+        </childnode>
+        <childnode refid="14713" relation="include">
+        </childnode>
+      </node>
+      <node id="14729">
+        <label>storage/RawTable.h</label>
+        <link refid="_raw_table_8h"/>
+        <childnode refid="14678" relation="include">
+        </childnode>
+        <childnode refid="14676" relation="include">
+        </childnode>
+        <childnode refid="14679" relation="include">
+        </childnode>
+        <childnode refid="14677" relation="include">
+        </childnode>
+        <childnode refid="14730" relation="include">
+        </childnode>
+        <childnode refid="14690" relation="include">
+        </childnode>
+        <childnode refid="14734" relation="include">
+        </childnode>
+        <childnode refid="14692" relation="include">
+        </childnode>
+      </node>
+      <node id="14704">
+        <label>memory/MemalignStrategy.h</label>
+        <link refid="_memalign_strategy_8h"/>
+        <childnode refid="14705" relation="include">
+        </childnode>
+        <childnode refid="14706" relation="include">
+        </childnode>
+        <childnode refid="14707" relation="include">
+        </childnode>
+      </node>
+      <node id="14716">
+        <label>exception</label>
+      </node>
+      <node id="14699">
+        <label>stddef.h</label>
+      </node>
+      <node id="14713">
+        <label>storage/OrderIndifferentDictionary.h</label>
+        <link refid="_order_indifferent_dictionary_8h"/>
+        <childnode refid="14677" relation="include">
+        </childnode>
+        <childnode refid="14697" relation="include">
+        </childnode>
+        <childnode refid="14708" relation="include">
+        </childnode>
+        <childnode refid="14709" relation="include">
+        </childnode>
+        <childnode refid="14714" relation="include">
+        </childnode>
+        <childnode refid="14712" relation="include">
+        </childnode>
+        <childnode refid="14716" relation="include">
+        </childnode>
+        <childnode refid="14676" relation="include">
+        </childnode>
+        <childnode refid="14717" relation="include">
+        </childnode>
+        <childnode refid="14671" relation="include">
+        </childnode>
+        <childnode refid="14718" relation="include">
+        </childnode>
+        <childnode refid="14719" relation="include">
+        </childnode>
+        <childnode refid="14720" relation="include">
+        </childnode>
+      </node>
+      <node id="14680">
+        <label>ostream</label>
+      </node>
+      <node id="14722">
+        <label>storage/AbstractMergeStrategy.h</label>
+        <link refid="_abstract_merge_strategy_8h"/>
+        <childnode refid="14676" relation="include">
+        </childnode>
+        <childnode refid="14690" relation="include">
+        </childnode>
+      </node>
+      <node id="14718">
+        <label>limits.h</label>
+      </node>
+      <node id="14709">
+        <label>storage/DictionaryIterator.h</label>
+        <link refid="_dictionary_iterator_8h"/>
+        <childnode refid="14710" relation="include">
+        </childnode>
+        <childnode refid="14711" relation="include">
+        </childnode>
+      </node>
+      <node id="14669">
+        <label>src/lib/io/Loader.cpp</label>
+        <link refid="Loader.cpp"/>
+        <childnode refid="14670" relation="include">
+        </childnode>
+        <childnode refid="14685" relation="include">
+        </childnode>
+        <childnode refid="14686" relation="include">
+        </childnode>
+        <childnode refid="14688" relation="include">
+        </childnode>
+        <childnode refid="14689" relation="include">
+        </childnode>
+        <childnode refid="14690" relation="include">
+        </childnode>
+        <childnode refid="14721" relation="include">
+        </childnode>
+        <childnode refid="14723" relation="include">
+        </childnode>
+        <childnode refid="14728" relation="include">
+        </childnode>
+        <childnode refid="14736" relation="include">
+        </childnode>
+        <childnode refid="14751" relation="include">
+        </childnode>
+        <childnode refid="14752" relation="include">
+        </childnode>
+        <childnode refid="14737" relation="include">
+        </childnode>
+      </node>
+      <node id="14736">
+        <label>storage/Store.h</label>
+        <link refid="_store_8h"/>
+        <childnode refid="14737" relation="include">
+        </childnode>
+        <childnode refid="14690" relation="include">
+        </childnode>
+        <childnode refid="14735" relation="include">
+        </childnode>
+        <childnode refid="14721" relation="include">
+        </childnode>
+        <childnode refid="14723" relation="include">
+        </childnode>
+        <childnode refid="14734" relation="include">
+        </childnode>
+        <childnode refid="14673" relation="include">
+        </childnode>
+      </node>
+      <node id="14697">
+        <label>storage/AbstractDictionary.h</label>
+        <link refid="_abstract_dictionary_8h"/>
+        <childnode refid="14676" relation="include">
+        </childnode>
+        <childnode refid="14672" relation="include">
+        </childnode>
+        <childnode refid="14671" relation="include">
+        </childnode>
+        <childnode refid="14698" relation="include">
+        </childnode>
+        <childnode refid="14702" relation="include">
+        </childnode>
+        <childnode refid="14704" relation="include">
+        </childnode>
+        <childnode refid="14677" relation="include">
+        </childnode>
+      </node>
+      <node id="14738">
+        <label>storage/Table.h</label>
+        <link refid="_table_8h"/>
+        <childnode refid="14672" relation="include">
+        </childnode>
+        <childnode refid="14676" relation="include">
+        </childnode>
+        <childnode refid="14671" relation="include">
+        </childnode>
+        <childnode refid="14673" relation="include">
+        </childnode>
+        <childnode refid="14692" relation="include">
+        </childnode>
+        <childnode refid="14690" relation="include">
+        </childnode>
+        <childnode refid="14697" relation="include">
+        </childnode>
+        <childnode refid="14734" relation="include">
+        </childnode>
+        <childnode refid="14739" relation="include">
+        </childnode>
+        <childnode refid="14741" relation="include">
+        </childnode>
+        <childnode refid="14749" relation="include">
+        </childnode>
+      </node>
+      <node id="14715">
+        <label>string.h</label>
+      </node>
+      <node id="14690">
+        <label>storage/AbstractTable.h</label>
+        <link refid="_abstract_table_8h"/>
+        <childnode refid="14675" relation="include">
+        </childnode>
+        <childnode refid="14671" relation="include">
+        </childnode>
+        <childnode refid="14678" relation="include">
+        </childnode>
+        <childnode refid="14676" relation="include">
+        </childnode>
+        <childnode refid="14672" relation="include">
+        </childnode>
+        <childnode refid="14673" relation="include">
+        </childnode>
+        <childnode refid="14691" relation="include">
+        </childnode>
+        <childnode refid="14677" relation="include">
+        </childnode>
+        <childnode refid="14692" relation="include">
+        </childnode>
+        <childnode refid="14693" relation="include">
+        </childnode>
+      </node>
+      <node id="14691">
+        <label>storage/AbstractResource.h</label>
+        <link refid="_abstract_resource_8h"/>
+      </node>
+      <node id="14751">
+        <label>storage/TableFactory.h</label>
+        <link refid="_table_factory_8h"/>
+        <childnode refid="14671" relation="include">
+        </childnode>
+        <childnode refid="14673" relation="include">
+        </childnode>
+        <childnode refid="14690" relation="include">
+        </childnode>
+        <childnode refid="14738" relation="include">
+        </childnode>
+      </node>
+      <node id="14724">
+        <label>storage/AbstractMerger.h</label>
+        <link refid="_abstract_merger_8h"/>
+        <childnode refid="14676" relation="include">
+        </childnode>
+        <childnode refid="14725" relation="include">
+        </childnode>
+        <childnode refid="14673" relation="include">
+        </childnode>
+        <childnode refid="14690" relation="include">
+        </childnode>
+        <childnode refid="14726" relation="include">
+        </childnode>
+      </node>
+      <node id="14719">
+        <label>boost/unordered_map.hpp</label>
+      </node>
+      <node id="14676">
+        <label>vector</label>
+      </node>
+      <node id="14721">
+        <label>storage/LogarithmicMergeStrategy.h</label>
+        <link refid="_logarithmic_merge_strategy_8h"/>
+        <childnode refid="14673" relation="include">
+        </childnode>
+        <childnode refid="14722" relation="include">
+        </childnode>
+        <childnode refid="14690" relation="include">
+        </childnode>
+      </node>
+      <node id="14732">
+        <label>boost/mpl/int.hpp</label>
+      </node>
+      <node id="14728">
+        <label>storage/SimpleStore.h</label>
+        <link refid="_simple_store_8h"/>
+        <childnode refid="14673" relation="include">
+        </childnode>
+        <childnode refid="14690" relation="include">
+        </childnode>
+        <childnode refid="14729" relation="include">
+        </childnode>
+        <childnode refid="14677" relation="include">
+        </childnode>
+        <childnode refid="14735" relation="include">
+        </childnode>
+      </node>
+      <node id="14673">
+        <label>helper/types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="14674" relation="include">
+        </childnode>
+        <childnode refid="14672" relation="include">
+        </childnode>
+        <childnode refid="14675" relation="include">
+        </childnode>
+        <childnode refid="14671" relation="include">
+        </childnode>
+        <childnode refid="14676" relation="include">
+        </childnode>
+      </node>
+      <node id="14746">
+        <label>sstream</label>
+      </node>
+      <node id="14670">
+        <label>io/Loader.h</label>
+        <link refid="_loader_8h"/>
+        <childnode refid="14671" relation="include">
+        </childnode>
+        <childnode refid="14672" relation="include">
+        </childnode>
+        <childnode refid="14673" relation="include">
+        </childnode>
+        <childnode refid="14677" relation="include">
+        </childnode>
+        <childnode refid="14684" relation="include">
+        </childnode>
+      </node>
+      <node id="14730">
+        <label>storage/meta_storage.h</label>
+        <link refid="meta__storage_8h"/>
+        <childnode refid="14678" relation="include">
+        </childnode>
+        <childnode refid="14731" relation="include">
+        </childnode>
+        <childnode refid="14732" relation="include">
+        </childnode>
+        <childnode refid="14733" relation="include">
+        </childnode>
+        <childnode refid="14677" relation="include">
+        </childnode>
+      </node>
+      <node id="14727">
+        <label>storage/DictionaryPosition.h</label>
+        <link refid="_dictionary_position_8h"/>
+      </node>
+      <node id="14723">
+        <label>storage/SequentialHeapMerger.h</label>
+        <link refid="_sequential_heap_merger_8h"/>
+        <childnode refid="14693" relation="include">
+        </childnode>
+        <childnode refid="14690" relation="include">
+        </childnode>
+        <childnode refid="14724" relation="include">
+        </childnode>
+        <childnode refid="14727" relation="include">
+        </childnode>
+      </node>
+      <node id="14710">
+        <label>storage/BaseIterator.h</label>
+        <link refid="_base_iterator_8h"/>
+      </node>
+      <node id="14756">
+        <label>TableGenerator-impl.h</label>
+        <link refid="_table_generator-impl_8h"/>
+        <childnode refid="14746" relation="include">
+        </childnode>
+        <childnode refid="14697" relation="include">
+        </childnode>
+        <childnode refid="14692" relation="include">
+        </childnode>
+        <childnode refid="14713" relation="include">
+        </childnode>
+        <childnode refid="14738" relation="include">
+        </childnode>
+      </node>
+      <node id="14698">
+        <label>memory/StrategizedAllocator.h</label>
+        <link refid="_strategized_allocator_8h"/>
+        <childnode refid="14699" relation="include">
+        </childnode>
+        <childnode refid="14700" relation="include">
+        </childnode>
+        <childnode refid="14701" relation="include">
+        </childnode>
+        <childnode refid="14678" relation="include">
+        </childnode>
+      </node>
+      <node id="14753">
+        <label>time.h</label>
+      </node>
+      <node id="14744">
+        <label>math.h</label>
+      </node>
+      <node id="14687">
+        <label>io/AbstractLoader.h</label>
+        <link refid="_abstract_loader_8h"/>
+        <childnode refid="14670" relation="include">
+        </childnode>
+        <childnode refid="14677" relation="include">
+        </childnode>
+      </node>
+      <node id="14696">
+        <label>iostream</label>
+      </node>
+      <node id="14688">
+        <label>io/LoaderException.h</label>
+        <link refid="_loader_exception_8h"/>
+        <childnode refid="14678" relation="include">
+        </childnode>
+        <childnode refid="14672" relation="include">
+        </childnode>
+      </node>
+      <node id="14735">
+        <label>storage/TableMerger.h</label>
+        <link refid="_table_merger_8h"/>
+        <childnode refid="14676" relation="include">
+        </childnode>
+        <childnode refid="14673" relation="include">
+        </childnode>
+        <childnode refid="14690" relation="include">
+        </childnode>
+        <childnode refid="14722" relation="include">
+        </childnode>
+        <childnode refid="14724" relation="include">
+        </childnode>
+      </node>
+      <node id="14692">
+        <label>storage/ColumnMetadata.h</label>
+        <link refid="_column_metadata_8h"/>
+        <childnode refid="14677" relation="include">
+        </childnode>
+        <childnode refid="14672" relation="include">
+        </childnode>
+        <childnode refid="14678" relation="include">
+        </childnode>
+      </node>
+      <node id="14740">
+        <label>storage/AbstractAttributeVector.h</label>
+        <link refid="_abstract_attribute_vector_8h"/>
+      </node>
+      <node id="14725">
+        <label>unordered_map</label>
+      </node>
+      <node id="14682">
+        <label>boost/mpl/map.hpp</label>
+      </node>
+      <node id="14745">
+        <label>mutex</label>
+      </node>
+      <node id="14726">
+        <label>storage/TableUtils.h</label>
+        <link refid="_table_utils_8h"/>
+        <childnode refid="14671" relation="include">
+        </childnode>
+        <childnode refid="14725" relation="include">
+        </childnode>
+      </node>
+      <node id="14712">
+        <label>storage/AbstractAllocatedDictionary.h</label>
+        <link refid="_abstract_allocated_dictionary_8h"/>
+      </node>
+      <node id="14749">
+        <label>Table-impl.h</label>
+        <link refid="_table-impl_8h"/>
+        <childnode refid="14750" relation="include">
+        </childnode>
+        <childnode refid="14741" relation="include">
+        </childnode>
+      </node>
+      <node id="14748">
+        <label>storage/BitCompressedVector.h</label>
+        <link refid="_bit_compressed_vector_8h"/>
+        <childnode refid="14744" relation="include">
+        </childnode>
+        <childnode refid="14679" relation="include">
+        </childnode>
+        <childnode refid="14703" relation="include">
+        </childnode>
+        <childnode refid="14745" relation="include">
+        </childnode>
+        <childnode refid="14672" relation="include">
+        </childnode>
+        <childnode refid="14678" relation="include">
+        </childnode>
+        <childnode refid="14740" relation="include">
+        </childnode>
+        <childnode refid="14739" relation="include">
+        </childnode>
+      </node>
+      <node id="14739">
+        <label>storage/BaseAttributeVector.h</label>
+        <link refid="_base_attribute_vector_8h"/>
+        <childnode refid="14671" relation="include">
+        </childnode>
+        <childnode refid="14678" relation="include">
+        </childnode>
+        <childnode refid="14740" relation="include">
+        </childnode>
+      </node>
+      <node id="14702">
+        <label>memory/MallocStrategy.h</label>
+        <link refid="_malloc_strategy_8h"/>
+        <childnode refid="14696" relation="include">
+        </childnode>
+        <childnode refid="14674" relation="include">
+        </childnode>
+        <childnode refid="14703" relation="include">
+        </childnode>
+      </node>
+      <node id="14754">
+        <label>set</label>
+      </node>
+      <node id="14694">
+        <label>storage/OrderPreservingDictionary.h</label>
+        <link refid="_order_preserving_dictionary_8h"/>
+        <childnode refid="14695" relation="include">
+        </childnode>
+        <childnode refid="14696" relation="include">
+        </childnode>
+        <childnode refid="14671" relation="include">
+        </childnode>
+        <childnode refid="14677" relation="include">
+        </childnode>
+        <childnode refid="14697" relation="include">
+        </childnode>
+        <childnode refid="14708" relation="include">
+        </childnode>
+        <childnode refid="14709" relation="include">
+        </childnode>
+        <childnode refid="14712" relation="include">
+        </childnode>
+        <childnode refid="14710" relation="include">
+        </childnode>
+      </node>
+      <node id="14755">
+        <label>boost/random.hpp</label>
+      </node>
+      <node id="14700">
+        <label>algorithm</label>
+      </node>
+      <node id="14685">
+        <label>log4cxx/logger.h</label>
+      </node>
+      <node id="14706">
+        <label>stdio.h</label>
+      </node>
+      <node id="14703">
+        <label>cstring</label>
+      </node>
+      <node id="14714">
+        <label>storage/csb_tree.h</label>
+        <link refid="csb__tree_8h"/>
+        <childnode refid="14676" relation="include">
+        </childnode>
+        <childnode refid="14696" relation="include">
+        </childnode>
+        <childnode refid="14701" relation="include">
+        </childnode>
+        <childnode refid="14671" relation="include">
+        </childnode>
+        <childnode refid="14715" relation="include">
+        </childnode>
+        <childnode refid="14695" relation="include">
+        </childnode>
+        <childnode refid="14711" relation="include">
+        </childnode>
+      </node>
+      <node id="14671">
+        <label>memory</label>
+      </node>
+      <node id="14677">
+        <label>storage/storage_types.h</label>
+        <link refid="storage__types_8h"/>
+        <childnode refid="14676" relation="include">
+        </childnode>
+        <childnode refid="14672" relation="include">
+        </childnode>
+        <childnode refid="14678" relation="include">
+        </childnode>
+        <childnode refid="14679" relation="include">
+        </childnode>
+        <childnode refid="14680" relation="include">
+        </childnode>
+        <childnode refid="14681" relation="include">
+        </childnode>
+        <childnode refid="14682" relation="include">
+        </childnode>
+        <childnode refid="14683" relation="include">
+        </childnode>
+      </node>
+      <node id="14684">
+        <label>parameters.inc</label>
+        <link refid="parameters_8inc"/>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="_loader_8cpp_1aa65a610a1999efb28ba117fa698a8a26" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>log4cxx::LoggerPtr</type>
+        <definition>log4cxx::LoggerPtr logger</definition>
+        <argsstring>(log4cxx::Logger::getLogger(&quot;hyrise.io.Loader&quot;))</argsstring>
+        <name>logger</name>
+        <param>
+          <type>log4cxx::Logger::</type>
+          <declname>getLogger</declname>
+          <array>&quot;hyrise.io.Loader&quot;</array>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/Loader.cpp" line="18"/>
+      </memberdef>
+      <memberdef kind="function" id="_loader_8cpp_1a5e5d02bdd8306e90eeda630dc1f3e5e7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>param_ref_member_impl</definition>
+        <argsstring>(Loader::params, AbstractInput, Input) param_ref_member_impl(Loader</argsstring>
+        <name>param_ref_member_impl</name>
+        <param>
+          <type><ref refid="class_loader_1_1params" kindref="compound">Loader::params</ref></type>
+        </param>
+        <param>
+          <type><ref refid="class_abstract_input" kindref="compound">AbstractInput</ref></type>
+        </param>
+        <param>
+          <type>Input</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/Loader.cpp" line="35" bodyfile="/home/grund/hyrise/src/lib/io/Loader.cpp" bodystart="20" bodyend="35"/>
+      </memberdef>
+      <memberdef kind="function" id="_loader_8cpp_1a8ec92a64bf4fe4b94bf50ee341c749ac" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ModifiableMutableVerticalTable</definition>
+        <argsstring>(false)</argsstring>
+        <name>ModifiableMutableVerticalTable</name>
+        <param>
+          <type>false</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/Loader.cpp" line="36"/>
+      </memberdef>
+      <memberdef kind="function" id="_loader_8cpp_1a57dfc530dfce1c48fb2b4107795b3316" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ReturnsMutableVerticalTable</definition>
+        <argsstring>(false)</argsstring>
+        <name>ReturnsMutableVerticalTable</name>
+        <param>
+          <type>false</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/Loader.cpp" line="37"/>
+      </memberdef>
+      <memberdef kind="function" id="_loader_8cpp_1a40ccbf7334b7bb68809567310b591b88" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Compressed</definition>
+        <argsstring>(false)</argsstring>
+        <name>Compressed</name>
+        <param>
+          <type>false</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/Loader.cpp" line="38"/>
+      </memberdef>
+      <memberdef kind="function" id="_loader_8cpp_1ab24c9e94ab2fc46ebeeeca452a325504" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ReferenceTable</definition>
+        <argsstring>()</argsstring>
+        <name>ReferenceTable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/Loader.cpp" line="40" bodyfile="/home/grund/hyrise/src/lib/io/Loader.cpp" bodystart="39" bodyend="40"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>2012<sp/>Hasso-Plattner-Institut<sp/>fuer<sp/>Softwaresystemtechnik<sp/>GmbH.<sp/>All<sp/>rights<sp/>reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_loader_8h" kindref="compound">io/Loader.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;log4cxx/logger.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_empty_loader_8h" kindref="compound">io/EmptyLoader.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_loader_exception_8h" kindref="compound">io/LoaderException.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_validity_table_generation_8h" kindref="compound">io/ValidityTableGeneration.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_abstract_table_8h" kindref="compound">storage/AbstractTable.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_logarithmic_merge_strategy_8h" kindref="compound">storage/LogarithmicMergeStrategy.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_sequential_heap_merger_8h" kindref="compound">storage/SequentialHeapMerger.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_simple_store_8h" kindref="compound">storage/SimpleStore.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_store_8h" kindref="compound">storage/Store.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_table_factory_8h" kindref="compound">storage/TableFactory.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_table_generator_8h" kindref="compound">storage/TableGenerator.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_mutable_vertical_table_8h" kindref="compound">storage/MutableVerticalTable.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal">log4cxx::LoggerPtr<sp/><ref refid="bin_2hyrise_2main_8cpp_1a1f643aeca905220d975e69578154a71d" kindref="member">logger</ref>(log4cxx::Logger::getLogger(</highlight><highlight class="stringliteral">&quot;hyrise.io.Loader&quot;</highlight><highlight class="normal">));</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20" refid="_loader_8cpp_1a5e5d02bdd8306e90eeda630dc1f3e5e7" refkind="member"><highlight class="normal"><ref refid="_loader_8cpp_1a5e5d02bdd8306e90eeda630dc1f3e5e7" kindref="member">param_ref_member_impl</ref>(<ref refid="class_loader_1_1params" kindref="compound">Loader::params</ref>,<sp/><ref refid="class_abstract_input" kindref="compound" tooltip="Interface for implementing a data source for loading data into a table.">AbstractInput</ref>,<sp/>Input)</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><ref refid="_loader_8cpp_1a5e5d02bdd8306e90eeda630dc1f3e5e7" kindref="member">param_ref_member_impl</ref>(Loader::params,<sp/><ref refid="class_abstract_header" kindref="compound" tooltip="Interface for implementing something that yields a header structure suitable for table construction...">AbstractHeader</ref>,<sp/>Header)</highlight></codeline>
+<codeline lineno="22"><highlight class="normal">param_member_impl(Loader::params,<sp/>std::</highlight><highlight class="keywordtype">string</highlight><highlight class="normal">,<sp/>BasePath)</highlight></codeline>
+<codeline lineno="23"><highlight class="normal">param_member_impl(Loader::params,<sp/><ref refid="class_abstract_table_factory" kindref="compound">AbstractTableFactory</ref><sp/>*,<sp/>Factory)</highlight></codeline>
+<codeline lineno="24"><highlight class="normal">param_member_impl(Loader::params,<sp/><ref refid="struct_insert_only_param" kindref="compound">InsertOnlyParam</ref>,<sp/>InsertOnly)</highlight></codeline>
+<codeline lineno="25"><highlight class="normal">param_member_impl(Loader::params,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal">,<sp/><ref refid="_loader_8cpp_1a8ec92a64bf4fe4b94bf50ee341c749ac" kindref="member">ModifiableMutableVerticalTable</ref>)</highlight></codeline>
+<codeline lineno="26"><highlight class="normal">param_member_impl(Loader::params,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal">,<sp/><ref refid="_loader_8cpp_1a57dfc530dfce1c48fb2b4107795b3316" kindref="member">ReturnsMutableVerticalTable</ref>)</highlight></codeline>
+<codeline lineno="27"><highlight class="normal">param_member_impl(Loader::params,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal">,<sp/><ref refid="_loader_8cpp_1a40ccbf7334b7bb68809567310b591b88" kindref="member">Compressed</ref>)</highlight></codeline>
+<codeline lineno="28"><highlight class="normal">param_member_impl(Loader::params,<sp/>hyrise::storage::<ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">c_atable_ptr_t</ref>,<sp/><ref refid="_loader_8cpp_1ab24c9e94ab2fc46ebeeeca452a325504" kindref="member">ReferenceTable</ref>)</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal">Loader::params::params()<sp/>:</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/>Input(<ref refid="csb__tree_8cpp_1ab979d9d4b4923f7c54d6caa6e1a61936" kindref="member">nullptr</ref>),</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/>Header(nullptr),</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/>Factory(nullptr),</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/>BasePath(&quot;&quot;),</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/>InsertOnly({</highlight><highlight class="keyword">false</highlight><highlight class="normal">,<sp/>0}),</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><ref refid="_loader_8cpp_1a8ec92a64bf4fe4b94bf50ee341c749ac" kindref="member">ModifiableMutableVerticalTable</ref>(</highlight><highlight class="keyword">false</highlight><highlight class="normal">),</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><ref refid="_loader_8cpp_1a57dfc530dfce1c48fb2b4107795b3316" kindref="member">ReturnsMutableVerticalTable</ref>(</highlight><highlight class="keyword">false</highlight><highlight class="normal">),</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><ref refid="_loader_8cpp_1a40ccbf7334b7bb68809567310b591b88" kindref="member">Compressed</ref>(</highlight><highlight class="keyword">false</highlight><highlight class="normal">),</highlight></codeline>
+<codeline lineno="39" refid="_loader_8cpp_1ab24c9e94ab2fc46ebeeeca452a325504" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="_loader_8cpp_1ab24c9e94ab2fc46ebeeeca452a325504" kindref="member">ReferenceTable</ref>()</highlight></codeline>
+<codeline lineno="40"><highlight class="normal">{}</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42" refid="class_loader_1_1params_1afed2de1c54af01959f163fdeaee0242b" refkind="member"><highlight class="normal"><ref refid="class_loader_1_1params_1a2f46a418ea4b01dd0059c4e9002948fe" kindref="member">Loader::params::params</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="class_loader_1_1params" kindref="compound">Loader::params</ref><sp/>&amp;other)<sp/>:</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/>Factory(other.getFactory()),</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/>BasePath(other.getBasePath()),</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/>InsertOnly(other.getInsertOnly()),</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><ref refid="_loader_8cpp_1a8ec92a64bf4fe4b94bf50ee341c749ac" kindref="member">ModifiableMutableVerticalTable</ref>(other.getModifiableMutableVerticalTable()),</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><ref refid="_loader_8cpp_1a57dfc530dfce1c48fb2b4107795b3316" kindref="member">ReturnsMutableVerticalTable</ref>(other.getReturnsMutableVerticalTable()),</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><ref refid="_loader_8cpp_1a40ccbf7334b7bb68809567310b591b88" kindref="member">Compressed</ref>(other.getCompressed())<sp/>{</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(other.<ref refid="class_loader_1_1params_1a58dec856de4d0a7f159e93e541e75b7d" kindref="member" tooltip="Data import.">Input</ref><sp/>!=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">)<sp/><ref refid="class_loader_1_1params_1a58dec856de4d0a7f159e93e541e75b7d" kindref="member" tooltip="Data import.">Input</ref><sp/>=<sp/>other.<ref refid="class_loader_1_1params_1a58dec856de4d0a7f159e93e541e75b7d" kindref="member" tooltip="Data import.">Input</ref>-&gt;<ref refid="class_abstract_input_1ae24e23d7100a832b9bd67b161ceb7215" kindref="member">clone</ref>();</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(other.<ref refid="class_loader_1_1params_1a7c01dc71a39972d534b76dae69ad527b" kindref="member" tooltip="Header import.">Header</ref><sp/>!=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">)<sp/><ref refid="class_loader_1_1params_1a7c01dc71a39972d534b76dae69ad527b" kindref="member" tooltip="Header import.">Header</ref><sp/>=<sp/>other.<ref refid="class_loader_1_1params_1a7c01dc71a39972d534b76dae69ad527b" kindref="member" tooltip="Header import.">Header</ref>-&gt;<ref refid="class_abstract_header_1ad962760f46e46deedfa3f00242713697" kindref="member">clone</ref>();</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(other.<ref refid="class_loader_1_1params_1adf9b73456a2e9a9c991ded9c3412070e" kindref="member" tooltip="Reference table used for type detection.">ReferenceTable</ref><sp/>!=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">)<sp/><ref refid="class_loader_1_1params_1adf9b73456a2e9a9c991ded9c3412070e" kindref="member" tooltip="Reference table used for type detection.">ReferenceTable</ref><sp/>=<sp/>other.<ref refid="class_loader_1_1params_1adf9b73456a2e9a9c991ded9c3412070e" kindref="member" tooltip="Reference table used for type detection.">ReferenceTable</ref>;</highlight></codeline>
+<codeline lineno="52"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54" refid="class_loader_1_1params_1ac679eaa047103d1c2ba433cd3a0f82c1" refkind="member"><highlight class="normal"><ref refid="class_loader_1_1params" kindref="compound">Loader::params</ref><sp/>&amp;<ref refid="class_loader_1_1params_1ac679eaa047103d1c2ba433cd3a0f82c1" kindref="member">Loader::params::operator= </ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="class_loader_1_1params" kindref="compound">Loader::params</ref><sp/>&amp;other)<sp/>{</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">this</highlight><highlight class="normal"><sp/>!=<sp/>&amp;other)<sp/>{<sp/></highlight><highlight class="comment">//<sp/>protect<sp/>against<sp/>invalid<sp/>self-assignment</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Input<sp/>!=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">)<sp/></highlight><highlight class="keyword">delete</highlight><highlight class="normal"><sp/>Input;</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Header<sp/>!=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">)<sp/></highlight><highlight class="keyword">delete</highlight><highlight class="normal"><sp/>Header;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/>Input<sp/>=<sp/>other.<ref refid="class_loader_1_1params_1adc7567c514fdc42f6ef58a7343882f9c" kindref="member">getInput</ref>()-&gt;<ref refid="class_abstract_input_1ae24e23d7100a832b9bd67b161ceb7215" kindref="member">clone</ref>();</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/>Header<sp/>=<sp/>other.<ref refid="class_loader_1_1params_1a8f27ea1307ff13ef77047f39c1bb1019" kindref="member">getHeader</ref>()-&gt;<ref refid="class_abstract_header_1ad962760f46e46deedfa3f00242713697" kindref="member">clone</ref>();</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/>setBasePath(other.<ref refid="class_loader_1_1params_1a0d9f756154e5e123c248a962c9a00895" kindref="member">getBasePath</ref>());</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/>setFactory(other.<ref refid="class_loader_1_1params_1a8b522f34e7902a5331b8722226042736" kindref="member">getFactory</ref>());</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/>setInsertOnly(other.<ref refid="class_loader_1_1params_1ac2b1559cc0bdeda792c9192eacdeb82c" kindref="member">getInsertOnly</ref>());</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/>setReturnsMutableVerticalTable(other.<ref refid="class_loader_1_1params_1a6fcfc060862adbf2925fe9db2eb80063" kindref="member">getReturnsMutableVerticalTable</ref>());</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/>setModifiableMutableVerticalTable(other.<ref refid="class_loader_1_1params_1a6afa2c4ebe731fe904b28caeba72215d" kindref="member">getModifiableMutableVerticalTable</ref>());</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/>setCompressed(other.<ref refid="class_loader_1_1params_1ad456094e037c3a73b7d55a74d92dff6c" kindref="member">getCompressed</ref>());</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/>setReferenceTable(other.<ref refid="class_loader_1_1params_1a2d33ab4a6d5a80142370e29a2de285be" kindref="member">getReferenceTable</ref>());</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>by<sp/>convention,<sp/>always<sp/>return<sp/>*this</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>*</highlight><highlight class="keyword">this</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="70"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight></codeline>
+<codeline lineno="72" refid="class_loader_1_1params_1abc7ddb248816894fe0f2108d68426f90" refkind="member"><highlight class="normal"><ref refid="class_loader_1_1params" kindref="compound">Loader::params</ref><sp/>*<ref refid="class_loader_1_1params_1abc7ddb248816894fe0f2108d68426f90" kindref="member">Loader::params::clone</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><ref refid="class_loader_1_1params" kindref="compound">Loader::params</ref><sp/>*p<sp/>=<sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/><ref refid="class_loader_1_1params" kindref="compound">Loader::params</ref>();</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Input<sp/>!=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">)<sp/>p-&gt;<ref refid="class_loader_1_1params_1ae15c0a2850566717b84eb89310f15da0" kindref="member">setInput</ref>(*Input);</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Header<sp/>!=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">)<sp/>p-&gt;<ref refid="class_loader_1_1params_1a2689b03528610b0191689ac2d2dfd11c" kindref="member">setHeader</ref>(*Header);</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/>p-&gt;<ref refid="class_loader_1_1params_1a57dc6dde7b33886ed624c37a9c42258b" kindref="member">setBasePath</ref>(BasePath);</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/>p-&gt;<ref refid="class_loader_1_1params_1ad27dc4ffa5cf56c57fcded1e9177f99c" kindref="member">setFactory</ref>(Factory);</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/>p-&gt;<ref refid="class_loader_1_1params_1a89bd3f71d617456d53258db1fe51bc35" kindref="member">setInsertOnly</ref>(InsertOnly);</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/>p-&gt;<ref refid="class_loader_1_1params_1a701c635f3d2dc1e8d38b2e16431fbe4c" kindref="member">setReturnsMutableVerticalTable</ref>(<ref refid="_loader_8cpp_1a57dfc530dfce1c48fb2b4107795b3316" kindref="member">ReturnsMutableVerticalTable</ref>);</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/>p-&gt;<ref refid="class_loader_1_1params_1a4316c188acc863e02c42692e94f82f65" kindref="member">setModifiableMutableVerticalTable</ref>(<ref refid="_loader_8cpp_1a8ec92a64bf4fe4b94bf50ee341c749ac" kindref="member">ModifiableMutableVerticalTable</ref>);</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/>p-&gt;<ref refid="class_loader_1_1params_1a6468beaf89cb8a220928b202b0279fb1" kindref="member">setReferenceTable</ref>(<ref refid="_loader_8cpp_1ab24c9e94ab2fc46ebeeeca452a325504" kindref="member">ReferenceTable</ref>);</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/>p-&gt;<ref refid="class_loader_1_1params_1aa37d2b499ac2c6b21416c3af5ba94f28" kindref="member">setCompressed</ref>(<ref refid="_loader_8cpp_1a40ccbf7334b7bb68809567310b591b88" kindref="member">Compressed</ref>);</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>p;</highlight></codeline>
+<codeline lineno="84"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight></codeline>
+<codeline lineno="86" refid="class_loader_1_1params_1a2381a7f6c124083fc5e4f22463cefba8" refkind="member"><highlight class="normal"><ref refid="class_loader_1_1params_1a2381a7f6c124083fc5e4f22463cefba8" kindref="member">Loader::params::~params</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Input<sp/>!=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">)<sp/></highlight><highlight class="keyword">delete</highlight><highlight class="normal"><sp/>Input;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Input<sp/>!=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">)<sp/></highlight><highlight class="keyword">delete</highlight><highlight class="normal"><sp/>Header;</highlight></codeline>
+<codeline lineno="89"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight></codeline>
+<codeline lineno="92" refid="namespace_loader_1a62f81aa1c780dad9f5e41d67ed44f626" refkind="member"><highlight class="normal">std::shared_ptr&lt;AbstractTable&gt;<sp/><ref refid="namespace_loader_1a62f81aa1c780dad9f5e41d67ed44f626" kindref="member">Loader::generateValidityTable</ref>(std::shared_ptr&lt;AbstractTable&gt;<sp/>intable,</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehyrise_1_1tx_1a3f8f9dae75e3e1872247b082f80ffd77" kindref="member">hyrise::tx::transaction_id_t</ref><sp/>tx)<sp/>{</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>result_size<sp/>=<sp/>intable-&gt;size();</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/>std::vector&lt;hyrise::storage::atable_ptr_t&gt;<sp/>tables<sp/>{<sp/>intable,<sp/><ref refid="namespacehyrise_1_1insertonly_1aabd1aa1df6d5b21734695a9d370c903b" kindref="member">hyrise::insertonly::validityTableForTransaction</ref>(result_size,<sp/>tx)<sp/>};</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>std::make_shared&lt;MutableVerticalTable&gt;(tables,<sp/>result_size);</highlight></codeline>
+<codeline lineno="97"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight></codeline>
+<codeline lineno="99" refid="namespace_loader_1a371700be700b02ac0f08306734213028" refkind="member"><highlight class="normal">std::shared_ptr&lt;AbstractTable&gt;<sp/><ref refid="namespace_loader_1a371700be700b02ac0f08306734213028" kindref="member">Loader::load</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="class_loader_1_1params" kindref="compound">params</ref><sp/>&amp;args)<sp/>{</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><ref refid="class_abstract_header" kindref="compound" tooltip="Interface for implementing something that yields a header structure suitable for table construction...">AbstractHeader</ref><sp/>*header<sp/>=<sp/>args.<ref refid="class_loader_1_1params_1a8f27ea1307ff13ef77047f39c1bb1019" kindref="member">getHeader</ref>();</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><ref refid="class_abstract_table_factory" kindref="compound">AbstractTableFactory</ref><sp/>*factory<sp/>=<sp/>args.<ref refid="class_loader_1_1params_1a8b522f34e7902a5331b8722226042736" kindref="member">getFactory</ref>();</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><ref refid="class_abstract_input" kindref="compound" tooltip="Interface for implementing a data source for loading data into a table.">AbstractInput</ref><sp/>*input<sp/>=<sp/>args.<ref refid="class_loader_1_1params_1adc7567c514fdc42f6ef58a7343882f9c" kindref="member">getInput</ref>();</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//TODO<sp/>avoid<sp/>leakage</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(input<sp/>==<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">)<sp/>{</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/>input<sp/>=<sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/><ref refid="class_empty_input" kindref="compound">EmptyInput</ref>();</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(header<sp/>==<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">)<sp/>{</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/>header<sp/>=<sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/><ref refid="class_empty_header" kindref="compound">EmptyHeader</ref>();</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(factory<sp/>==<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">)<sp/>{</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/>factory<sp/>=<sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/><ref refid="class_table_factory" kindref="compound">TableFactory&lt;&gt;</ref>();</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/>LOG4CXX_DEBUG(<ref refid="bin_2hyrise_2main_8cpp_1a1f643aeca905220d975e69578154a71d" kindref="member">logger</ref>,<sp/></highlight><highlight class="stringliteral">&quot;Loading<sp/>header&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><ref refid="storage__types_8h_1ab1a41784d413aa539cdda0391757965c" kindref="member">compound_metadata_list</ref><sp/>*meta<sp/>=<sp/>header-&gt;<ref refid="class_abstract_header_1a9d4ba3ed1cd5ebe89a21c5c39e41a9fa" kindref="member">load</ref>(args);</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/>LOG4CXX_DEBUG(<ref refid="bin_2hyrise_2main_8cpp_1a1f643aeca905220d975e69578154a71d" kindref="member">logger</ref>,<sp/></highlight><highlight class="stringliteral">&quot;Header<sp/>done&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/>std::shared_ptr&lt;AbstractTable&gt;</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/>result,<sp/></highlight><highlight class="comment">//initialize<sp/>empty</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/>table<sp/>=<sp/>std::make_shared&lt;MutableVerticalTable&gt;(*meta,<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">,<sp/>0,<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">,<sp/>factory,<sp/>args.<ref refid="class_loader_1_1params_1ad456094e037c3a73b7d55a74d92dff6c" kindref="member">getCompressed</ref>());</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/>LOG4CXX_DEBUG(<ref refid="bin_2hyrise_2main_8cpp_1a1f643aeca905220d975e69578154a71d" kindref="member">logger</ref>,<sp/></highlight><highlight class="stringliteral">&quot;Loading<sp/>data&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">try</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/>result<sp/>=<sp/>input-&gt;<ref refid="class_abstract_input_1a9d31015659ecff402c529df0f5339b60" kindref="member">load</ref>(table,<sp/>meta,<sp/>args);</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">catch</highlight><highlight class="normal"><sp/>(std::exception&amp;<sp/>e)<sp/>{</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>TODO:<sp/>Memory<sp/>management<sp/>is<sp/>not<sp/>exception<sp/>safe</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>&amp;<sp/>ml<sp/>:<sp/>*meta)<sp/>{</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>&amp;<sp/>f<sp/>:<sp/>*ml)</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">delete</highlight><highlight class="normal"><sp/>f;</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">delete</highlight><highlight class="normal"><sp/>ml;</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/><ref refid="class_loader_1_1_error" kindref="compound">Loader::Error</ref>(e.what());</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Memory<sp/>Cleanup,<sp/>this<sp/>is<sp/>so<sp/>dirty<sp/>here,<sp/>it<sp/>makes<sp/>me<sp/>shiver</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>e<sp/>:<sp/>*meta)<sp/>{</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>f:<sp/>*e)</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">delete</highlight><highlight class="normal"><sp/>f;</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">delete</highlight><highlight class="normal"><sp/>e;</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">delete</highlight><highlight class="normal"><sp/>meta;</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/>LOG4CXX_DEBUG(<ref refid="bin_2hyrise_2main_8cpp_1a1f643aeca905220d975e69578154a71d" kindref="member">logger</ref>,<sp/></highlight><highlight class="stringliteral">&quot;Data<sp/>done&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!args.<ref refid="class_loader_1_1params_1a6afa2c4ebe731fe904b28caeba72215d" kindref="member">getModifiableMutableVerticalTable</ref>()<sp/>&amp;&amp;<sp/>input-&gt;<ref refid="class_abstract_input_1a58bee53c3e07a02dace728ba96daa81f" kindref="member">needs_store_wrap</ref>())<sp/>{</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/>std::shared_ptr&lt;Store&gt;<sp/>s<sp/>=<sp/>std::make_shared&lt;Store&gt;(result);</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_table_merger" kindref="compound">TableMerger</ref><sp/>*merger<sp/>=<sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/><ref refid="class_table_merger" kindref="compound">TableMerger</ref>(</highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/><ref refid="class_logarithmic_merge_strategy" kindref="compound">LogarithmicMergeStrategy</ref>(0),<sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/><ref refid="class_sequential_heap_merger" kindref="compound">SequentialHeapMerger</ref>(),<sp/>args.<ref refid="class_loader_1_1params_1ad456094e037c3a73b7d55a74d92dff6c" kindref="member">getCompressed</ref>());</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/>s-&gt;setMerger(merger);</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/>s-&gt;<ref refid="class_table_merger_1ab062784a0c522a34ee897334d6e19ea3" kindref="member">merge</ref>();</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/>result<sp/>=<sp/>s;</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>param<sp/>=<sp/>args.<ref refid="class_loader_1_1params_1ac2b1559cc0bdeda792c9192eacdeb82c" kindref="member">getInsertOnly</ref>();</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(param.InsertOnly)<sp/>{</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/>std::shared_ptr&lt;AbstractTable&gt;<sp/>table<sp/>=<sp/>std::make_shared&lt;hyrise::storage::SimpleStore&gt;(<ref refid="namespace_loader_1a62f81aa1c780dad9f5e41d67ed44f626" kindref="member">generateValidityTable</ref>(result,<sp/>param.transaction_id));</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>table;</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!args.<ref refid="class_loader_1_1params_1a6afa2c4ebe731fe904b28caeba72215d" kindref="member">getModifiableMutableVerticalTable</ref>()<sp/>&amp;&amp;<sp/>args.<ref refid="class_loader_1_1params_1a6fcfc060862adbf2925fe9db2eb80063" kindref="member">getReturnsMutableVerticalTable</ref>())<sp/>{</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/>table<sp/>=<sp/>std::dynamic_pointer_cast&lt;<ref refid="class_store" kindref="compound">Store</ref>&gt;(result)-&gt;getMainTables()[0];</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/>result<sp/>=<sp/>table;</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(args.<ref refid="class_loader_1_1params_1a8f27ea1307ff13ef77047f39c1bb1019" kindref="member">getHeader</ref>()<sp/>==<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">delete</highlight><highlight class="normal"><sp/>header;</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(args.<ref refid="class_loader_1_1params_1a8b522f34e7902a5331b8722226042736" kindref="member">getFactory</ref>()<sp/>==<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">delete</highlight><highlight class="normal"><sp/>factory;</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(args.<ref refid="class_loader_1_1params_1adc7567c514fdc42f6ef58a7343882f9c" kindref="member">getInput</ref>()<sp/>==<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">delete</highlight><highlight class="normal"><sp/>input;</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"></highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>result;</highlight></codeline>
+<codeline lineno="174"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/home/grund/hyrise/src/lib/io/Loader.cpp"/>
+  </compounddef>
+</doxygen>

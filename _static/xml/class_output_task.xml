@@ -1,0 +1,703 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="class_output_task" kind="class" prot="public">
+    <compoundname>OutputTask</compoundname>
+    <basecompoundref refid="class_task" prot="public" virt="non-virtual">Task</basecompoundref>
+    <derivedcompoundref refid="class___plan_operation" prot="public" virt="non-virtual">_PlanOperation</derivedcompoundref>
+    <includes refid="_output_task_8h" local="no">OutputTask.h</includes>
+    <innerclass refid="struct_output_task_1_1performance__attributes__t" prot="public">OutputTask::performance_attributes_t</innerclass>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="class_output_task_1a23221020b56a6ec2748980118e1d9d0f" prot="public" static="no">
+        <type>std::vector&lt; <ref refid="struct_output_task_1_1performance__attributes__t" kindref="compound">performance_attributes_t</ref> &gt;</type>
+        <definition>typedef std::vector&lt;performance_attributes_t&gt; OutputTask::performance_vector</definition>
+        <argsstring></argsstring>
+        <name>performance_vector</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/OutputTask.h" line="44" bodyfile="/home/grund/hyrise/src/lib/access/OutputTask.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="class_output_task_1a2dd0e1b069abf1f788e359f2ce0dc40d" prot="protected" static="no" mutable="no">
+        <type><ref refid="struct_output_task_1_1performance__attributes__t" kindref="compound">performance_attributes_t</ref> *</type>
+        <definition>performance_attributes_t* OutputTask::_performance_attr</definition>
+        <argsstring></argsstring>
+        <name>_performance_attr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/OutputTask.h" line="47" bodyfile="/home/grund/hyrise/src/lib/access/OutputTask.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_output_task_1a4a898c5577949ec25783a32ba97c8b2e" prot="protected" static="no" mutable="no">
+        <type><ref refid="_output_task_8h_1a5a9890eed40e5443406f9221cc5e12fe" kindref="member">task_states_t</ref></type>
+        <definition>task_states_t OutputTask::_state</definition>
+        <argsstring></argsstring>
+        <name>_state</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/OutputTask.h" line="51" bodyfile="/home/grund/hyrise/src/lib/access/OutputTask.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_output_task_1a288dc748d95403d6dccd29a03670ec72" prot="protected" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string OutputTask::_error_message</definition>
+        <argsstring></argsstring>
+        <name>_error_message</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/OutputTask.h" line="53" bodyfile="/home/grund/hyrise/src/lib/access/OutputTask.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_output_task_1a4b85dab3e5aa4917807522e66ecea10b" prot="protected" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string OutputTask::_papiEvent</definition>
+        <argsstring></argsstring>
+        <name>_papiEvent</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/OutputTask.h" line="55" bodyfile="/home/grund/hyrise/src/lib/access/OutputTask.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_output_task_1a97005fefa5ad10a2fa465851c66003aa" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>OutputTask::OutputTask</definition>
+        <argsstring>()</argsstring>
+        <name>OutputTask</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/OutputTask.h" line="58" bodyfile="/home/grund/hyrise/src/lib/access/OutputTask.h" bodystart="58" bodyend="59"/>
+      </memberdef>
+      <memberdef kind="function" id="class_output_task_1a52238f97363ee5f7a9f837722cf4cd50" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual OutputTask::~OutputTask</definition>
+        <argsstring>()</argsstring>
+        <name>~OutputTask</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/OutputTask.h" line="61" bodyfile="/home/grund/hyrise/src/lib/access/OutputTask.h" bodystart="61" bodyend="62"/>
+      </memberdef>
+      <memberdef kind="function" id="class_output_task_1ac42c2ba54d18dd826a74db6664931ccc" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="_output_task_8h_1a5a9890eed40e5443406f9221cc5e12fe" kindref="member">task_states_t</ref></type>
+        <definition>task_states_t OutputTask::getState</definition>
+        <argsstring>() const </argsstring>
+        <name>getState</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/OutputTask.h" line="64" bodyfile="/home/grund/hyrise/src/lib/access/OutputTask.h" bodystart="64" bodyend="66"/>
+      </memberdef>
+      <memberdef kind="function" id="class_output_task_1a010e04ee2e3e5e04a61f6e63a8cd75e9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void OutputTask::setState</definition>
+        <argsstring>(task_states_t state)</argsstring>
+        <name>setState</name>
+        <param>
+          <type><ref refid="_output_task_8h_1a5a9890eed40e5443406f9221cc5e12fe" kindref="member">task_states_t</ref></type>
+          <declname>state</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/OutputTask.h" line="68" bodyfile="/home/grund/hyrise/src/lib/access/OutputTask.h" bodystart="68" bodyend="70"/>
+      </memberdef>
+      <memberdef kind="function" id="class_output_task_1a30a12c8e502fdace15f8ae1434e63270" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string OutputTask::getErrorMessage</definition>
+        <argsstring>() const </argsstring>
+        <name>getErrorMessage</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/OutputTask.h" line="72" bodyfile="/home/grund/hyrise/src/lib/access/OutputTask.h" bodystart="72" bodyend="74"/>
+      </memberdef>
+      <memberdef kind="function" id="class_output_task_1aba6bee898300f3069d3f64bb333c6d4a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void OutputTask::setErrorMessage</definition>
+        <argsstring>(std::string error_message)</argsstring>
+        <name>setErrorMessage</name>
+        <param>
+          <type>std::string</type>
+          <declname>error_message</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/OutputTask.h" line="76" bodyfile="/home/grund/hyrise/src/lib/access/OutputTask.h" bodystart="76" bodyend="78"/>
+      </memberdef>
+      <memberdef kind="function" id="class_output_task_1a1814dc0b9d7c5b51fe5f88bcc0f87b2e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="struct_output_task_1_1performance__attributes__t" kindref="compound">performance_attributes_t</ref> &amp;</type>
+        <definition>performance_attributes_t&amp; OutputTask::getPerformanceData</definition>
+        <argsstring>()</argsstring>
+        <name>getPerformanceData</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/OutputTask.h" line="80" bodyfile="/home/grund/hyrise/src/lib/access/OutputTask.h" bodystart="80" bodyend="82"/>
+      </memberdef>
+      <memberdef kind="function" id="class_output_task_1a85de7c1cf957e63f2bd1e82516679fec" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void OutputTask::setPerformanceData</definition>
+        <argsstring>(performance_attributes_t *attr)</argsstring>
+        <name>setPerformanceData</name>
+        <param>
+          <type><ref refid="struct_output_task_1_1performance__attributes__t" kindref="compound">performance_attributes_t</ref> *</type>
+          <declname>attr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/OutputTask.h" line="83" bodyfile="/home/grund/hyrise/src/lib/access/OutputTask.h" bodystart="83" bodyend="85"/>
+      </memberdef>
+      <memberdef kind="function" id="class_output_task_1a677ba21e5aacaced950d3939c1c609b6" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void OutputTask::setEvent</definition>
+        <argsstring>(std::string ev)</argsstring>
+        <name>setEvent</name>
+        <param>
+          <type>std::string</type>
+          <declname>ev</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/OutputTask.h" line="87" bodyfile="/home/grund/hyrise/src/lib/access/OutputTask.h" bodystart="87" bodyend="89"/>
+      </memberdef>
+      <memberdef kind="function" id="class_output_task_1a68a2fb3c67f6a32f7b2a9039185ed0f5" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const std::string</type>
+        <definition>const std::string OutputTask::getEvent</definition>
+        <argsstring>() const </argsstring>
+        <name>getEvent</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/OutputTask.h" line="91" bodyfile="/home/grund/hyrise/src/lib/access/OutputTask.h" bodystart="91" bodyend="93"/>
+      </memberdef>
+      <memberdef kind="function" id="class_output_task_1ac6f78dee41c2f4c8a1ae7aa75d27f93c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void OutputTask::operator()</definition>
+        <argsstring>()</argsstring>
+        <name>operator()</name>
+        <reimplements refid="class_task_1ae3a87b98fa47e03ab2f48b53aa257b69">operator()</reimplements>
+        <reimplementedby refid="class___plan_operation_1a6c54c54b895e36405b2c9a741bf9c6e2">operator()</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/OutputTask.h" line="95" bodyfile="/home/grund/hyrise/src/lib/access/OutputTask.h" bodystart="95" bodyend="95"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2521">
+        <label>hyrise::access::TableUnload</label>
+        <link refid="classhyrise_1_1access_1_1_table_unload"/>
+        <childnode refid="2475" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2513">
+        <label>hyrise::access::SetTable</label>
+        <link refid="classhyrise_1_1access_1_1_set_table"/>
+        <childnode refid="2475" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2486">
+        <label>hyrise::access::HashJoinProbe</label>
+        <link refid="classhyrise_1_1access_1_1_hash_join_probe"/>
+        <childnode refid="2475" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2529">
+        <label>hyrise::insertonly::ExtractDelta</label>
+        <link refid="classhyrise_1_1insertonly_1_1_extract_delta"/>
+        <childnode refid="2475" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2480">
+        <label>hyrise::access::CreateRadixTable</label>
+        <link refid="classhyrise_1_1access_1_1_create_radix_table"/>
+        <childnode refid="2475" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2479">
+        <label>hyrise::access::CreateIndex</label>
+        <link refid="classhyrise_1_1access_1_1_create_index"/>
+        <childnode refid="2475" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2523">
+        <label>hyrise::access::ThreadpoolAdjustment</label>
+        <link refid="classhyrise_1_1access_1_1_threadpool_adjustment"/>
+        <childnode refid="2475" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2474">
+        <label>TaskDoneObserver</label>
+        <link refid="class_task_done_observer"/>
+      </node>
+      <node id="2475">
+        <label>_PlanOperation</label>
+        <link refid="class___plan_operation"/>
+        <childnode refid="2472" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2533">
+        <label>hyrise::insertonly::ValidPositionsMainOp</label>
+        <link refid="classhyrise_1_1insertonly_1_1_valid_positions_main_op"/>
+        <childnode refid="2475" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2535">
+        <label>TPCCHQ1Scan</label>
+        <link refid="class_t_p_c_c_h_q1_scan"/>
+        <childnode refid="2475" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2491">
+        <label>hyrise::access::IntersectPositions</label>
+        <link refid="classhyrise_1_1access_1_1_intersect_positions"/>
+        <childnode refid="2475" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2503">
+        <label>hyrise::access::MultiplyRefField</label>
+        <link refid="classhyrise_1_1access_1_1_multiply_ref_field"/>
+        <childnode refid="2475" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2524">
+        <label>hyrise::access::UnionAll</label>
+        <link refid="classhyrise_1_1access_1_1_union_all"/>
+        <childnode refid="2475" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2505">
+        <label>hyrise::access::NoOp</label>
+        <link refid="classhyrise_1_1access_1_1_no_op"/>
+        <childnode refid="2475" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2509">
+        <label>hyrise::access::RadixCluster2ndPass</label>
+        <link refid="classhyrise_1_1access_1_1_radix_cluster2nd_pass"/>
+        <childnode refid="2475" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2514">
+        <label>hyrise::access::SettingsOperation</label>
+        <link refid="classhyrise_1_1access_1_1_settings_operation"/>
+        <childnode refid="2475" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2488">
+        <label>hyrise::access::Histogram2ndPass</label>
+        <link refid="classhyrise_1_1access_1_1_histogram2nd_pass"/>
+        <childnode refid="2487" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2528">
+        <label>hyrise::insertonly::DeleteOp</label>
+        <link refid="classhyrise_1_1insertonly_1_1_delete_op"/>
+        <childnode refid="2475" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2476">
+        <label>HashValueJoin&lt; T &gt;</label>
+        <link refid="class_hash_value_join"/>
+        <childnode refid="2475" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2516">
+        <label>hyrise::access::SimpleTableScan</label>
+        <link refid="classhyrise_1_1access_1_1_simple_table_scan"/>
+        <childnode refid="2475" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2507">
+        <label>hyrise::access::ProjectionScan</label>
+        <link refid="classhyrise_1_1access_1_1_projection_scan"/>
+        <childnode refid="2475" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2496">
+        <label>hyrise::access::LoadFile</label>
+        <link refid="classhyrise_1_1access_1_1_load_file"/>
+        <childnode refid="2475" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2477">
+        <label>HashValueJoin&lt; int &gt;</label>
+        <link refid="class_hash_value_join"/>
+        <childnode refid="2476" relation="template-instance">
+          <edgelabel>&lt; int &gt;</edgelabel>
+        </childnode>
+        <childnode refid="2475" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2493">
+        <label>hyrise::access::LayoutSingleTable</label>
+        <link refid="classhyrise_1_1access_1_1_layout_single_table"/>
+        <childnode refid="2475" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2511">
+        <label>hyrise::access::ReplaceTable</label>
+        <link refid="classhyrise_1_1access_1_1_replace_table"/>
+        <childnode refid="2475" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2494">
+        <label>hyrise::access::LayoutTable</label>
+        <link refid="classhyrise_1_1access_1_1_layout_table"/>
+        <childnode refid="2475" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2490">
+        <label>hyrise::access::InsertScan</label>
+        <link refid="classhyrise_1_1access_1_1_insert_scan"/>
+        <childnode refid="2475" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2483">
+        <label>hyrise::access::GetTable</label>
+        <link refid="classhyrise_1_1access_1_1_get_table"/>
+        <childnode refid="2475" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2484">
+        <label>hyrise::access::GroupByScan</label>
+        <link refid="classhyrise_1_1access_1_1_group_by_scan"/>
+        <childnode refid="2475" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2478">
+        <label>hyrise::access::Barrier</label>
+        <link refid="classhyrise_1_1access_1_1_barrier"/>
+        <childnode refid="2475" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2504">
+        <label>hyrise::access::NestedLoopEquiJoin</label>
+        <link refid="classhyrise_1_1access_1_1_nested_loop_equi_join"/>
+        <childnode refid="2475" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2501">
+        <label>hyrise::access::MergePrefixSum</label>
+        <link refid="classhyrise_1_1access_1_1_merge_prefix_sum"/>
+        <childnode refid="2475" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2485">
+        <label>hyrise::access::HashBuild</label>
+        <link refid="classhyrise_1_1access_1_1_hash_build"/>
+        <childnode refid="2475" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2498">
+        <label>hyrise::access::MergeHashTables</label>
+        <link refid="classhyrise_1_1access_1_1_merge_hash_tables"/>
+        <childnode refid="2475" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2526">
+        <label>hyrise::access::UnloadAll</label>
+        <link refid="classhyrise_1_1access_1_1_unload_all"/>
+        <childnode refid="2475" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2473">
+        <label>Task</label>
+        <link refid="class_task"/>
+        <childnode refid="2474" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2520">
+        <label>hyrise::access::TableScan</label>
+        <link refid="classhyrise_1_1access_1_1_table_scan"/>
+        <childnode refid="2475" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2515">
+        <label>hyrise::access::SimpleRawTableScan</label>
+        <link refid="classhyrise_1_1access_1_1_simple_raw_table_scan"/>
+        <childnode refid="2475" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2482">
+        <label>hyrise::access::ExpressionScan</label>
+        <link refid="classhyrise_1_1access_1_1_expression_scan"/>
+        <childnode refid="2475" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2518">
+        <label>hyrise::access::SortScan</label>
+        <link refid="classhyrise_1_1access_1_1_sort_scan"/>
+        <childnode refid="2475" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2532">
+        <label>hyrise::insertonly::UpdateOp</label>
+        <link refid="classhyrise_1_1insertonly_1_1_update_op"/>
+        <childnode refid="2475" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2502">
+        <label>hyrise::access::MergeTable</label>
+        <link refid="classhyrise_1_1access_1_1_merge_table"/>
+        <childnode refid="2475" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2495">
+        <label>hyrise::access::LayoutTableLoad</label>
+        <link refid="classhyrise_1_1access_1_1_layout_table_load"/>
+        <childnode refid="2475" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2522">
+        <label>hyrise::access::TaskSchedulerAdjustment</label>
+        <link refid="classhyrise_1_1access_1_1_task_scheduler_adjustment"/>
+        <childnode refid="2475" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2534">
+        <label>hyrise::insertonly::ValidPositionsRawOp</label>
+        <link refid="classhyrise_1_1insertonly_1_1_valid_positions_raw_op"/>
+        <childnode refid="2475" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2506">
+        <label>hyrise::access::PrefixSum</label>
+        <link refid="classhyrise_1_1access_1_1_prefix_sum"/>
+        <childnode refid="2475" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2481">
+        <label>hyrise::access::Distinct</label>
+        <link refid="classhyrise_1_1access_1_1_distinct"/>
+        <childnode refid="2475" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2492">
+        <label>hyrise::access::JoinScan</label>
+        <link refid="classhyrise_1_1access_1_1_join_scan"/>
+        <childnode refid="2475" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2512">
+        <label>hyrise::access::ScriptOperation</label>
+        <link refid="classhyrise_1_1access_1_1_script_operation"/>
+        <childnode refid="2475" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2472">
+        <label>OutputTask</label>
+        <link refid="class_output_task"/>
+        <childnode refid="2473" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2517">
+        <label>hyrise::access::SmallestTableScan</label>
+        <link refid="classhyrise_1_1access_1_1_smallest_table_scan"/>
+        <childnode refid="2475" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2508">
+        <label>hyrise::access::RadixCluster</label>
+        <link refid="classhyrise_1_1access_1_1_radix_cluster"/>
+        <childnode refid="2475" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2489">
+        <label>hyrise::access::IndexScan</label>
+        <link refid="classhyrise_1_1access_1_1_index_scan"/>
+        <childnode refid="2475" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2527">
+        <label>hyrise::access::UpdateScan</label>
+        <link refid="classhyrise_1_1access_1_1_update_scan"/>
+        <childnode refid="2475" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2525">
+        <label>hyrise::access::UnionScan</label>
+        <link refid="classhyrise_1_1access_1_1_union_scan"/>
+        <childnode refid="2475" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2519">
+        <label>hyrise::access::TableLoad</label>
+        <link refid="classhyrise_1_1access_1_1_table_load"/>
+        <childnode refid="2475" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2487">
+        <label>hyrise::access::Histogram</label>
+        <link refid="classhyrise_1_1access_1_1_histogram"/>
+        <childnode refid="2475" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2500">
+        <label>hyrise::access::MergeJoin&lt; T &gt;</label>
+        <link refid="classhyrise_1_1access_1_1_merge_join"/>
+        <childnode refid="2475" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2530">
+        <label>hyrise::insertonly::InsertOp</label>
+        <link refid="classhyrise_1_1insertonly_1_1_insert_op"/>
+        <childnode refid="2475" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2531">
+        <label>hyrise::insertonly::LoadOp</label>
+        <link refid="classhyrise_1_1insertonly_1_1_load_op"/>
+        <childnode refid="2475" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2510">
+        <label>hyrise::access::RadixJoin</label>
+        <link refid="classhyrise_1_1access_1_1_radix_join"/>
+        <childnode refid="2475" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2497">
+        <label>hyrise::access::MaterializingScan</label>
+        <link refid="classhyrise_1_1access_1_1_materializing_scan"/>
+        <childnode refid="2475" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2499">
+        <label>hyrise::access::MergeIndexScan</label>
+        <link refid="classhyrise_1_1access_1_1_merge_index_scan"/>
+        <childnode refid="2475" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2538">
+        <label>TaskDoneObserver</label>
+        <link refid="class_task_done_observer"/>
+      </node>
+      <node id="2539">
+        <label>OutputTask::performance_attributes_t</label>
+        <link refid="struct_output_task_1_1performance__attributes__t"/>
+      </node>
+      <node id="2537">
+        <label>Task</label>
+        <link refid="class_task"/>
+        <childnode refid="2538" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2536">
+        <label>OutputTask</label>
+        <link refid="class_output_task"/>
+        <childnode refid="2537" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2539" relation="usage">
+          <edgelabel>_performance_attr</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/access/OutputTask.h" line="27" bodyfile="/home/grund/hyrise/src/lib/access/OutputTask.h" bodystart="27" bodyend="96"/>
+    <listofallmembers>
+      <member refid="class_task_1ab25d10a171c2efc2dcdf4ec7b81d148d" prot="protected" virt="non-virtual"><scope>OutputTask</scope><name>_dependencies</name></member>
+      <member refid="class_task_1a432b54ea5cdbf8f875c756c70710b69e" prot="protected" virt="non-virtual"><scope>OutputTask</scope><name>_dependencyWaitCount</name></member>
+      <member refid="class_task_1a10259a6dde7645e32c32262818339c8c" prot="protected" virt="non-virtual"><scope>OutputTask</scope><name>_depMutex</name></member>
+      <member refid="class_task_1af277c65727e285efbf965633851ec9d8" prot="protected" virt="non-virtual"><scope>OutputTask</scope><name>_doneObservers</name></member>
+      <member refid="class_output_task_1a288dc748d95403d6dccd29a03670ec72" prot="protected" virt="non-virtual"><scope>OutputTask</scope><name>_error_message</name></member>
+      <member refid="class_task_1a778ed5c766f4098184c31a656fe471ed" prot="protected" virt="non-virtual"><scope>OutputTask</scope><name>_notifyMutex</name></member>
+      <member refid="class_task_1a6a0d1fa3b37cb2e7896ea23049798b36" prot="protected" virt="non-virtual"><scope>OutputTask</scope><name>_observerMutex</name></member>
+      <member refid="class_output_task_1a4b85dab3e5aa4917807522e66ecea10b" prot="protected" virt="non-virtual"><scope>OutputTask</scope><name>_papiEvent</name></member>
+      <member refid="class_output_task_1a2dd0e1b069abf1f788e359f2ce0dc40d" prot="protected" virt="non-virtual"><scope>OutputTask</scope><name>_performance_attr</name></member>
+      <member refid="class_task_1aa7b21c6482b905c04f354c738341beb3" prot="protected" virt="non-virtual"><scope>OutputTask</scope><name>_preferredCore</name></member>
+      <member refid="class_task_1a7f7f81090a389fd5cf79747e165fe0f4" prot="protected" virt="non-virtual"><scope>OutputTask</scope><name>_readyObservers</name></member>
+      <member refid="class_output_task_1a4a898c5577949ec25783a32ba97c8b2e" prot="protected" virt="non-virtual"><scope>OutputTask</scope><name>_state</name></member>
+      <member refid="class_task_1aa9e65a15e122de040bb914ab144577b8" prot="public" virt="non-virtual"><scope>OutputTask</scope><name>addDependency</name></member>
+      <member refid="class_task_1a0e4ebf7ad5313f027aa16d250685604a" prot="public" virt="non-virtual"><scope>OutputTask</scope><name>addDoneObserver</name></member>
+      <member refid="class_task_1a9726ca1f4c6712a3516cb05121479f25" prot="public" virt="non-virtual"><scope>OutputTask</scope><name>addReadyObserver</name></member>
+      <member refid="class_task_1a75f0a4940cdd338c2ba538200bfcdddf" prot="public" virt="non-virtual"><scope>OutputTask</scope><name>getDependencyCount</name></member>
+      <member refid="class_output_task_1a30a12c8e502fdace15f8ae1434e63270" prot="public" virt="non-virtual"><scope>OutputTask</scope><name>getErrorMessage</name></member>
+      <member refid="class_output_task_1a68a2fb3c67f6a32f7b2a9039185ed0f5" prot="public" virt="non-virtual"><scope>OutputTask</scope><name>getEvent</name></member>
+      <member refid="class_output_task_1a1814dc0b9d7c5b51fe5f88bcc0f87b2e" prot="public" virt="non-virtual"><scope>OutputTask</scope><name>getPerformanceData</name></member>
+      <member refid="class_task_1a4a3f6f336369d8e2d6a92fae0690c143" prot="public" virt="non-virtual"><scope>OutputTask</scope><name>getPreferredCore</name></member>
+      <member refid="class_task_1a1a5953e7f9dfc732ce1f3d8a914439b4" prot="public" virt="virtual"><scope>OutputTask</scope><name>getQueryDuration</name></member>
+      <member refid="class_output_task_1ac42c2ba54d18dd826a74db6664931ccc" prot="public" virt="non-virtual"><scope>OutputTask</scope><name>getState</name></member>
+      <member refid="class_task_1a769a8fb688ddaed2870faeea61d84ca0" prot="public" virt="non-virtual"><scope>OutputTask</scope><name>hasSuccessors</name></member>
+      <member refid="class_task_1ab7307de77d5baf3dfec0269996d81543" prot="public" virt="non-virtual"><scope>OutputTask</scope><name>isReady</name></member>
+      <member refid="class_task_1aeb0d741352700686296e742bc21e4362" prot="public" virt="non-virtual"><scope>OutputTask</scope><name>lockForNotifications</name></member>
+      <member refid="class_task_1aa729cd30e7135f2851dd625679aa8556" prot="public" virt="virtual"><scope>OutputTask</scope><name>notifyDone</name></member>
+      <member refid="class_task_1a82157fda3766f4331966baf74e8206fa" prot="public" virt="non-virtual"><scope>OutputTask</scope><name>notifyDoneObservers</name></member>
+      <member refid="class_task_1a793f3db3f39a9ea7352078f235ee7843" prot="public" virt="non-virtual"><scope>OutputTask</scope><name>notifyReadyObservers</name></member>
+      <member refid="class_output_task_1ac6f78dee41c2f4c8a1ae7aa75d27f93c" prot="public" virt="virtual"><scope>OutputTask</scope><name>operator()</name></member>
+      <member refid="class_output_task_1a97005fefa5ad10a2fa465851c66003aa" prot="public" virt="non-virtual"><scope>OutputTask</scope><name>OutputTask</name></member>
+      <member refid="class_output_task_1a23221020b56a6ec2748980118e1d9d0f" prot="public" virt="non-virtual"><scope>OutputTask</scope><name>performance_vector</name></member>
+      <member refid="class_output_task_1aba6bee898300f3069d3f64bb333c6d4a" prot="public" virt="non-virtual"><scope>OutputTask</scope><name>setErrorMessage</name></member>
+      <member refid="class_output_task_1a677ba21e5aacaced950d3939c1c609b6" prot="public" virt="non-virtual"><scope>OutputTask</scope><name>setEvent</name></member>
+      <member refid="class_output_task_1a85de7c1cf957e63f2bd1e82516679fec" prot="public" virt="non-virtual"><scope>OutputTask</scope><name>setPerformanceData</name></member>
+      <member refid="class_task_1a1b8e520f60e9f41a3c1331e4e9e4b3ca" prot="public" virt="non-virtual"><scope>OutputTask</scope><name>setPreferredCore</name></member>
+      <member refid="class_output_task_1a010e04ee2e3e5e04a61f6e63a8cd75e9" prot="public" virt="non-virtual"><scope>OutputTask</scope><name>setState</name></member>
+      <member refid="class_task_1a0ca53354bdc006762a0fda68c64f7608" prot="public" virt="non-virtual"><scope>OutputTask</scope><name>Task</name></member>
+      <member refid="class_task_1a35af9de734c94c39981a2b199790e288" prot="public" virt="non-virtual"><scope>OutputTask</scope><name>unlockForNotifications</name></member>
+      <member refid="class_task_1a091bff6c1c11bfc202e53280b5af62e7" prot="public" virt="pure-virtual"><scope>OutputTask</scope><name>vname</name></member>
+      <member refid="class_output_task_1a52238f97363ee5f7a9f837722cf4cd50" prot="public" virt="virtual"><scope>OutputTask</scope><name>~OutputTask</name></member>
+      <member refid="class_task_1a7bff79cc05fa4511c72048d33591503b" prot="public" virt="virtual"><scope>OutputTask</scope><name>~Task</name></member>
+      <member refid="class_task_done_observer_1a9b5fa53c4893dfc998aedca72b8dd278" prot="public" virt="virtual"><scope>OutputTask</scope><name>~TaskDoneObserver</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

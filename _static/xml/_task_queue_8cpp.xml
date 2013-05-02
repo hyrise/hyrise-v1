@@ -1,0 +1,273 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="_task_queue_8cpp" kind="file">
+    <compoundname>TaskQueue.cpp</compoundname>
+    <includes refid="_task_queue_8h" local="yes">taskscheduler/TaskQueue.h</includes>
+    <includes local="no">thread</includes>
+    <includes local="no">queue</includes>
+    <includes local="no">pthread.h</includes>
+    <includes local="no">iostream</includes>
+    <includes local="no">errno.h</includes>
+    <includes local="no">string.h</includes>
+    <includes local="no">cstdlib</includes>
+    <includes local="no">unistd.h</includes>
+    <includes local="no">hwloc.h</includes>
+    <incdepgraph>
+      <node id="25516">
+        <label>queue</label>
+      </node>
+      <node id="25520">
+        <label>errno.h</label>
+      </node>
+      <node id="25514">
+        <label>string</label>
+      </node>
+      <node id="25509">
+        <label>taskscheduler/Task.h</label>
+        <link refid="_task_8h"/>
+        <childnode refid="25510" relation="include">
+        </childnode>
+        <childnode refid="25511" relation="include">
+        </childnode>
+        <childnode refid="25512" relation="include">
+        </childnode>
+        <childnode refid="25513" relation="include">
+        </childnode>
+        <childnode refid="25514" relation="include">
+        </childnode>
+      </node>
+      <node id="25524">
+        <label>hwloc.h</label>
+      </node>
+      <node id="25513">
+        <label>condition_variable</label>
+      </node>
+      <node id="25518">
+        <label>pthread.h</label>
+      </node>
+      <node id="25521">
+        <label>string.h</label>
+      </node>
+      <node id="25523">
+        <label>unistd.h</label>
+      </node>
+      <node id="25510">
+        <label>vector</label>
+      </node>
+      <node id="25522">
+        <label>cstdlib</label>
+      </node>
+      <node id="25519">
+        <label>iostream</label>
+      </node>
+      <node id="25511">
+        <label>mutex</label>
+      </node>
+      <node id="25515">
+        <label>thread</label>
+      </node>
+      <node id="25507">
+        <label>src/lib/taskscheduler/TaskQueue.cpp</label>
+        <link refid="TaskQueue.cpp"/>
+        <childnode refid="25508" relation="include">
+        </childnode>
+        <childnode refid="25515" relation="include">
+        </childnode>
+        <childnode refid="25516" relation="include">
+        </childnode>
+        <childnode refid="25518" relation="include">
+        </childnode>
+        <childnode refid="25519" relation="include">
+        </childnode>
+        <childnode refid="25520" relation="include">
+        </childnode>
+        <childnode refid="25521" relation="include">
+        </childnode>
+        <childnode refid="25522" relation="include">
+        </childnode>
+        <childnode refid="25523" relation="include">
+        </childnode>
+        <childnode refid="25524" relation="include">
+        </childnode>
+      </node>
+      <node id="25517">
+        <label>log4cxx/logger.h</label>
+      </node>
+      <node id="25512">
+        <label>memory</label>
+      </node>
+      <node id="25508">
+        <label>taskscheduler/TaskQueue.h</label>
+        <link refid="_task_queue_8h"/>
+        <childnode refid="25509" relation="include">
+        </childnode>
+        <childnode refid="25508" relation="include">
+        </childnode>
+        <childnode refid="25515" relation="include">
+        </childnode>
+        <childnode refid="25516" relation="include">
+        </childnode>
+        <childnode refid="25511" relation="include">
+        </childnode>
+        <childnode refid="25512" relation="include">
+        </childnode>
+        <childnode refid="25513" relation="include">
+        </childnode>
+        <childnode refid="25517" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>2012<sp/>Hasso-Plattner-Institut<sp/>fuer<sp/>Softwaresystemtechnik<sp/>GmbH.<sp/>All<sp/>rights<sp/>reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*<sp/>TaskQueue.cpp</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*<sp/><sp/>Created<sp/>on:<sp/>Feb<sp/>15,<sp/>2012</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>Author:<sp/>jwust</highlight></codeline>
+<codeline lineno="7"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_task_queue_8h" kindref="compound">taskscheduler/TaskQueue.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;thread&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;queue&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;pthread.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;iostream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;errno.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;cstdlib&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;unistd.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;hwloc.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal">log4cxx::LoggerPtr<sp/><ref refid="class_task_queue_1a58561b1397e43198d24a8189886ecc25" kindref="member">TaskQueue::logger</ref>(log4cxx::Logger::getLogger(</highlight><highlight class="stringliteral">&quot;taskscheduler.TaskQueue&quot;</highlight><highlight class="normal">));</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight></codeline>
+<codeline lineno="24" refid="class_task_queue_1a4958f7e6a24de1fe1f61ce2e19d84624" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_task_queue_1a4958f7e6a24de1fe1f61ce2e19d84624" kindref="member">TaskQueue::launchThread</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>core)<sp/>{</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>hwloc_topology_t<sp/>topology;;</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(topology<sp/>==<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">)<sp/>{</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/>hwloc_topology_init(&amp;topology);</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/>hwloc_topology_load(topology);</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//get<sp/>the<sp/>number<sp/>of<sp/>cores<sp/>on<sp/>system</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>NUM_PROCS<sp/>=<sp/>hwloc_get_nbobjs_by_type(topology,<sp/>HWLOC_OBJ_CORE);</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(core<sp/>&lt;<sp/>NUM_PROCS)<sp/>{</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_task_queue_1ae70819edbde21542e764ff9b574dba2c" kindref="member">_thread</ref><sp/>=<sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/>std::thread(&amp;<ref refid="class_task_queue_1af6f7fec4908b3e2eedbc95764cd03ecf" kindref="member">TaskQueue::executeTask</ref>,<sp/></highlight><highlight class="keyword">this</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/>hwloc_cpuset_t<sp/>cpuset;</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/>hwloc_obj_t<sp/>obj;</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/>obj<sp/>=<sp/>hwloc_get_obj_by_type(topology,<sp/>HWLOC_OBJ_CORE,<sp/>core);</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>the<sp/>bitmap<sp/>to<sp/>modify</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/>cpuset<sp/>=<sp/>hwloc_bitmap_dup(obj-&gt;cpuset);</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>remove<sp/>hyperthreads</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/>hwloc_bitmap_singlify(cpuset);</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>bind</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(hwloc_set_thread_cpubind(topology,<sp/><ref refid="class_task_queue_1ae70819edbde21542e764ff9b574dba2c" kindref="member">_thread</ref>-&gt;native_handle(),<sp/>cpuset,<sp/>HWLOC_CPUBIND_STRICT<sp/>|<sp/>HWLOC_CPUBIND_NOMEMBIND))<sp/>{</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*str;</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>error<sp/>=<sp/>errno;</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>hwloc_bitmap_asprintf(&amp;str,<sp/>obj-&gt;cpuset);</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>printf(</highlight><highlight class="stringliteral">&quot;Couldn&apos;t<sp/>bind<sp/>to<sp/>cpuset<sp/>%s:<sp/>%s\n&quot;</highlight><highlight class="normal">,<sp/>str,<sp/>strerror(error));</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>free(str);</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/>std::runtime_error(strerror(error));</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/>hwloc_bitmap_free(cpuset);</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>this<sp/>case<sp/>should<sp/>never<sp/>happen,<sp/>as<sp/>TaskQueue<sp/>is<sp/>only<sp/>initialized<sp/>from<sp/>SimpleTaskScheduler,<sp/>which<sp/>captures<sp/>this<sp/>case</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/>std::logic_error(</highlight><highlight class="stringliteral">&quot;CPU<sp/>to<sp/>run<sp/>thread<sp/>on<sp/>is<sp/>larger<sp/>than<sp/>number<sp/>of<sp/>total<sp/>cores;<sp/>seems<sp/>that<sp/>TaskQueue<sp/>was<sp/>initialized<sp/>outside<sp/>of<sp/>SimpleTaskScheduler,<sp/>which<sp/>should<sp/>not<sp/>happen&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="59"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61" refid="class_task_queue_1af6f7fec4908b3e2eedbc95764cd03ecf" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_task_queue_1af6f7fec4908b3e2eedbc95764cd03ecf" kindref="member">TaskQueue::executeTask</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//infinite<sp/>thread<sp/>loop</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(1)<sp/>{</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//block<sp/>protected<sp/>by<sp/>_threadStatusMutex,<sp/>stop<sp/>thread<sp/>if<sp/>about<sp/>to<sp/>stop</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>std::lock_guard&lt;std::mutex&gt;<sp/>lk1(<ref refid="class_task_queue_1af824ff28e4a4f775cb930db504d6b588" kindref="member">_threadStatusMutex</ref>);</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="class_task_queue_1a3e15edfb262ee392c183d8f4a308adff" kindref="member">_status</ref><sp/>==<sp/><ref refid="_task_queue_8h_1a015eb90e0de9f16e87bd149d4b9ce959a8f84b662dcde5b78a6b0858d4314f00c" kindref="member">TO_STOP</ref>)</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/>std::unique_lock&lt;std::mutex&gt;<sp/>ul(<ref refid="class_task_queue_1a0d5c41a2b59d100dd31b5300d0df308a" kindref="member">_queueMutex</ref>);</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>get<sp/>task<sp/>and<sp/>execute</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="class_task_queue_1a520f9ccec8b6a059af693436811f6506" kindref="member">_runQueue</ref>.size()<sp/>&gt;<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_task_queue_1afedbad0c26166e82065ebc13dfae3818" kindref="member">_blocked</ref><sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>std::shared_ptr&lt;Task&gt;<sp/>task<sp/>=<sp/><ref refid="class_task_queue_1a520f9ccec8b6a059af693436811f6506" kindref="member">_runQueue</ref>.front();</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_task_queue_1a520f9ccec8b6a059af693436811f6506" kindref="member">_runQueue</ref>.pop();</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>ul.unlock();</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(task)<sp/>{</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOG4CXX_DEBUG(<ref refid="class_task_queue_1a58561b1397e43198d24a8189886ecc25" kindref="member">logger</ref>,<sp/></highlight><highlight class="stringliteral">&quot;Started<sp/>executing<sp/>task&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>std::hex<sp/>&lt;&lt;<sp/>&amp;task<sp/>&lt;&lt;<sp/>std::dec<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>on<sp/>core<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/><ref refid="class_task_queue_1afd512fd77c9206f1be9c726d00b56c3f" kindref="member">_core</ref>);</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(*task)();</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOG4CXX_DEBUG(<ref refid="class_task_queue_1a58561b1397e43198d24a8189886ecc25" kindref="member">logger</ref>,<sp/></highlight><highlight class="stringliteral">&quot;Executed<sp/>task<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>std::hex<sp/>&lt;&lt;<sp/>&amp;task<sp/>&lt;&lt;<sp/>std::dec<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>on<sp/>core<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/><ref refid="class_task_queue_1afd512fd77c9206f1be9c726d00b56c3f" kindref="member">_core</ref>);</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>task-&gt;notifyDoneObservers();</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>TODO<sp/>wait<sp/>until<sp/>new<sp/>task/steal<sp/>work</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::lock_guard&lt;std::mutex&gt;<sp/>lk1(<ref refid="class_task_queue_1af824ff28e4a4f775cb930db504d6b588" kindref="member">_threadStatusMutex</ref>);</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="class_task_queue_1a3e15edfb262ee392c183d8f4a308adff" kindref="member">_status</ref><sp/>==<sp/><ref refid="_task_queue_8h_1a015eb90e0de9f16e87bd149d4b9ce959a05f5ba7b88505582bad86de98ebc94e9" kindref="member">RUN_UNTIL_DONE</ref><sp/>||<sp/><ref refid="class_task_queue_1a3e15edfb262ee392c183d8f4a308adff" kindref="member">_status</ref><sp/>==<sp/><ref refid="_task_queue_8h_1a015eb90e0de9f16e87bd149d4b9ce959a8f84b662dcde5b78a6b0858d4314f00c" kindref="member">TO_STOP</ref>)</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_task_queue_1afedbad0c26166e82065ebc13dfae3818" kindref="member">_blocked</ref><sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_task_queue_1a585da29de9236ce30b25f88f9cbf6ca4" kindref="member">_condition</ref>.wait(ul);</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="103"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105" refid="class_task_queue_1a33f17ef628e07a1e358da7b63e42df58" refkind="member"><highlight class="normal"><ref refid="class_task_queue_1a33f17ef628e07a1e358da7b63e42df58" kindref="member">TaskQueue::TaskQueue</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>core):<sp/>_blocked(false),<sp/>_status(<ref refid="_task_queue_8h_1a015eb90e0de9f16e87bd149d4b9ce959a439c688a4e9ed31638d5922a50680a8e" kindref="member">RUN</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><ref refid="class_task_queue_1afd512fd77c9206f1be9c726d00b56c3f" kindref="member">_core</ref><sp/>=<sp/>core;</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><ref refid="class_task_queue_1a4958f7e6a24de1fe1f61ce2e19d84624" kindref="member">launchThread</ref>(<ref refid="class_task_queue_1afd512fd77c9206f1be9c726d00b56c3f" kindref="member">_core</ref>);</highlight></codeline>
+<codeline lineno="108"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight></codeline>
+<codeline lineno="110" refid="class_task_queue_1a3cee861d1e4a9c834c973f7d7f157ac8" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_task_queue_1a3cee861d1e4a9c834c973f7d7f157ac8" kindref="member">TaskQueue::push</ref>(std::shared_ptr&lt;Task&gt;<sp/>task)<sp/>{</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/>std::lock_guard&lt;std::mutex&gt;<sp/>lk(<ref refid="class_task_queue_1a0d5c41a2b59d100dd31b5300d0df308a" kindref="member">_queueMutex</ref>);</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><ref refid="class_task_queue_1a520f9ccec8b6a059af693436811f6506" kindref="member">_runQueue</ref>.push(task);</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><ref refid="class_task_queue_1a585da29de9236ce30b25f88f9cbf6ca4" kindref="member">_condition</ref>.notify_one();</highlight></codeline>
+<codeline lineno="114"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight></codeline>
+<codeline lineno="116" refid="class_task_queue_1a3760fa6b01564a746e7674d2837f8d9d" refkind="member"><highlight class="normal">std::queue&lt;std::shared_ptr&lt;Task&gt;<sp/>&gt;<sp/>*<ref refid="class_task_queue_1a3760fa6b01564a746e7674d2837f8d9d" kindref="member">TaskQueue::stopQueue</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="class_task_queue_1a3e15edfb262ee392c183d8f4a308adff" kindref="member">_status</ref><sp/>!=<sp/><ref refid="_task_queue_8h_1a015eb90e0de9f16e87bd149d4b9ce959a948b2aee15f52b421fa4770c47bcfe8c" kindref="member">STOPPED</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_task_queue_1af824ff28e4a4f775cb930db504d6b588" kindref="member">_threadStatusMutex</ref>.lock();</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>the<sp/>thread<sp/>to<sp/>be<sp/>stopped<sp/>is<sp/>either<sp/>executing<sp/>a<sp/>task,<sp/>or<sp/>waits<sp/>for<sp/>the<sp/>condition<sp/>variable</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>set<sp/>status<sp/>to<sp/>&quot;TO_STOP&quot;<sp/>so<sp/>that<sp/>the<sp/>thread<sp/>either<sp/>quits<sp/>after<sp/>executing<sp/>the<sp/>task,<sp/>or<sp/>after<sp/>having<sp/>been<sp/>notified<sp/>by<sp/>the<sp/>condition<sp/>variable</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_task_queue_1a3e15edfb262ee392c183d8f4a308adff" kindref="member">_status</ref><sp/>=<sp/><ref refid="_task_queue_8h_1a015eb90e0de9f16e87bd149d4b9ce959a8f84b662dcde5b78a6b0858d4314f00c" kindref="member">TO_STOP</ref>;</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//wake<sp/>up<sp/>thread<sp/>in<sp/>case<sp/>thread<sp/>is<sp/>sleeping</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_task_queue_1a585da29de9236ce30b25f88f9cbf6ca4" kindref="member">_condition</ref>.notify_one();</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_task_queue_1af824ff28e4a4f775cb930db504d6b588" kindref="member">_threadStatusMutex</ref>.unlock();</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_task_queue_1ae70819edbde21542e764ff9b574dba2c" kindref="member">_thread</ref>-&gt;join();</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">delete</highlight><highlight class="normal"><sp/><ref refid="class_task_queue_1ae70819edbde21542e764ff9b574dba2c" kindref="member">_thread</ref>;</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_task_queue_1ae70819edbde21542e764ff9b574dba2c" kindref="member">_thread</ref><sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_task_queue_1a3e15edfb262ee392c183d8f4a308adff" kindref="member">_status</ref><sp/>=<sp/><ref refid="_task_queue_8h_1a015eb90e0de9f16e87bd149d4b9ce959a948b2aee15f52b421fa4770c47bcfe8c" kindref="member">STOPPED</ref>;</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>&amp;<ref refid="class_task_queue_1a520f9ccec8b6a059af693436811f6506" kindref="member">_runQueue</ref>;</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>queue<sp/>already<sp/>stopped</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>NULL;</highlight></codeline>
+<codeline lineno="134"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight></codeline>
+<codeline lineno="136" refid="class_task_queue_1afed1f7e2fe75d65a2c2aa01f9762862f" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_task_queue_1afed1f7e2fe75d65a2c2aa01f9762862f" kindref="member">TaskQueue::join</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><ref refid="class_task_queue_1af824ff28e4a4f775cb930db504d6b588" kindref="member">_threadStatusMutex</ref>.lock();</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><ref refid="class_task_queue_1a3e15edfb262ee392c183d8f4a308adff" kindref="member">_status</ref><sp/>=<sp/><ref refid="_task_queue_8h_1a015eb90e0de9f16e87bd149d4b9ce959a05f5ba7b88505582bad86de98ebc94e9" kindref="member">RUN_UNTIL_DONE</ref>;</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><ref refid="class_task_queue_1af824ff28e4a4f775cb930db504d6b588" kindref="member">_threadStatusMutex</ref>.unlock();</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><ref refid="class_task_queue_1ae70819edbde21542e764ff9b574dba2c" kindref="member">_thread</ref>-&gt;join();</highlight></codeline>
+<codeline lineno="141"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight></codeline>
+<codeline lineno="143" refid="class_task_queue_1a80e3df38cc5af6574d5b3fa44726caca" refkind="member"><highlight class="normal"><ref refid="class_task_queue_1a80e3df38cc5af6574d5b3fa44726caca" kindref="member">TaskQueue::~TaskQueue</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="class_task_queue_1ae70819edbde21542e764ff9b574dba2c" kindref="member">_thread</ref><sp/>!=<sp/>NULL)<sp/><ref refid="class_task_queue_1a3760fa6b01564a746e7674d2837f8d9d" kindref="member">stopQueue</ref>();</highlight></codeline>
+<codeline lineno="145"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/home/grund/hyrise/src/lib/taskscheduler/TaskQueue.cpp"/>
+  </compounddef>
+</doxygen>

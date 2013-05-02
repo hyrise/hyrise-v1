@@ -1,0 +1,127 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="structhyrise_1_1storage_1_1_merge_dict_functor" kind="struct" prot="public">
+    <compoundname>hyrise::storage::MergeDictFunctor</compoundname>
+    <innerclass refid="structhyrise_1_1storage_1_1_merge_dict_functor_1_1result" prot="public">hyrise::storage::MergeDictFunctor::result</innerclass>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="structhyrise_1_1storage_1_1_merge_dict_functor_1aa3433adfd7b2fb2ed50dffde66e33d4e" prot="public" static="no">
+        <type><ref refid="structhyrise_1_1storage_1_1_merge_dict_functor_1_1result" kindref="compound">result</ref></type>
+        <definition>typedef result hyrise::storage::MergeDictFunctor::value_type</definition>
+        <argsstring></argsstring>
+        <name>value_type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/SimpleStoreMerger.cpp" line="32" bodyfile="/home/grund/hyrise/src/lib/storage/SimpleStoreMerger.cpp" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structhyrise_1_1storage_1_1_merge_dict_functor_1a05d1729d0d877aba6c96263f18141521" prot="public" static="no" mutable="no">
+        <type><ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref></type>
+        <definition>hyrise::storage::c_atable_ptr_t hyrise::storage::MergeDictFunctor::_main</definition>
+        <argsstring></argsstring>
+        <name>_main</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/SimpleStoreMerger.cpp" line="34" bodyfile="/home/grund/hyrise/src/lib/storage/SimpleStoreMerger.cpp" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structhyrise_1_1storage_1_1_merge_dict_functor_1a42a47cff3eff30487ae2d125fec9e63a" prot="public" static="no" mutable="no">
+        <type>std::shared_ptr&lt; const <ref refid="classhyrise_1_1storage_1_1_simple_store_1a799c62c65580c7d3319a909e62cf4a06" kindref="member">SimpleStore::delta_table_t</ref> &gt;</type>
+        <definition>std::shared_ptr&lt;const SimpleStore::delta_table_t&gt; hyrise::storage::MergeDictFunctor::_delta</definition>
+        <argsstring></argsstring>
+        <name>_delta</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/SimpleStoreMerger.cpp" line="35" bodyfile="/home/grund/hyrise/src/lib/storage/SimpleStoreMerger.cpp" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structhyrise_1_1storage_1_1_merge_dict_functor_1a87c6c8978bd7c4dd25d943ea62b648f3" prot="public" static="no" mutable="no">
+        <type><ref refid="namespacehyrise_1_1storage_1a5a47ffe4fe6daf66aeeaec19ed0ea5ec" kindref="member">field_t</ref></type>
+        <definition>field_t hyrise::storage::MergeDictFunctor::_column</definition>
+        <argsstring></argsstring>
+        <name>_column</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/SimpleStoreMerger.cpp" line="36" bodyfile="/home/grund/hyrise/src/lib/storage/SimpleStoreMerger.cpp" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structhyrise_1_1storage_1_1_merge_dict_functor_1a310a94e4e2799c978b6f55da69d30379" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void hyrise::storage::MergeDictFunctor::prepare</definition>
+        <argsstring>(hyrise::storage::c_atable_ptr_t m, std::shared_ptr&lt; const SimpleStore::delta_table_t &gt; d, field_t c)</argsstring>
+        <name>prepare</name>
+        <param>
+          <type><ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref></type>
+          <declname>m</declname>
+        </param>
+        <param>
+          <type>std::shared_ptr&lt; const <ref refid="classhyrise_1_1storage_1_1_simple_store_1a799c62c65580c7d3319a909e62cf4a06" kindref="member">SimpleStore::delta_table_t</ref> &gt;</type>
+          <declname>d</declname>
+        </param>
+        <param>
+          <type><ref refid="namespacehyrise_1_1storage_1a5a47ffe4fe6daf66aeeaec19ed0ea5ec" kindref="member">field_t</ref></type>
+          <declname>c</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/SimpleStoreMerger.cpp" line="39" bodyfile="/home/grund/hyrise/src/lib/storage/SimpleStoreMerger.cpp" bodystart="39" bodyend="43"/>
+      </memberdef>
+      <memberdef kind="function" id="structhyrise_1_1storage_1_1_merge_dict_functor_1a217049fb7a238dccbcf6cca9c3d8593e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename R</type>
+          </param>
+        </templateparamlist>
+        <type><ref refid="structhyrise_1_1storage_1_1_merge_dict_functor_1_1result" kindref="compound">result</ref></type>
+        <definition>result hyrise::storage::MergeDictFunctor::operator()</definition>
+        <argsstring>()</argsstring>
+        <name>operator()</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/SimpleStoreMerger.cpp" line="46" bodyfile="/home/grund/hyrise/src/lib/storage/SimpleStoreMerger.cpp" bodystart="46" bodyend="88"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>This class implements the part for merging the dictionaries between the uncompressed delta and the compressed order preserving dictionary. This is done using the following simple algorithm. First a new std::set is created to store all distinct values in a sorted order. Now a new dictionary is created based on this set and a mapping table is build that maps the old values from the old dictionary to the new dictionary. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="2261">
+        <label>hyrise::storage::MergeDictFunctor</label>
+        <link refid="structhyrise_1_1storage_1_1_merge_dict_functor"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/storage/SimpleStoreMerger.cpp" line="24" bodyfile="/home/grund/hyrise/src/lib/storage/SimpleStoreMerger.cpp" bodystart="24" bodyend="90"/>
+    <listofallmembers>
+      <member refid="structhyrise_1_1storage_1_1_merge_dict_functor_1a87c6c8978bd7c4dd25d943ea62b648f3" prot="public" virt="non-virtual"><scope>hyrise::storage::MergeDictFunctor</scope><name>_column</name></member>
+      <member refid="structhyrise_1_1storage_1_1_merge_dict_functor_1a42a47cff3eff30487ae2d125fec9e63a" prot="public" virt="non-virtual"><scope>hyrise::storage::MergeDictFunctor</scope><name>_delta</name></member>
+      <member refid="structhyrise_1_1storage_1_1_merge_dict_functor_1a05d1729d0d877aba6c96263f18141521" prot="public" virt="non-virtual"><scope>hyrise::storage::MergeDictFunctor</scope><name>_main</name></member>
+      <member refid="structhyrise_1_1storage_1_1_merge_dict_functor_1a217049fb7a238dccbcf6cca9c3d8593e" prot="public" virt="non-virtual"><scope>hyrise::storage::MergeDictFunctor</scope><name>operator()</name></member>
+      <member refid="structhyrise_1_1storage_1_1_merge_dict_functor_1a310a94e4e2799c978b6f55da69d30379" prot="public" virt="non-virtual"><scope>hyrise::storage::MergeDictFunctor</scope><name>prepare</name></member>
+      <member refid="structhyrise_1_1storage_1_1_merge_dict_functor_1aa3433adfd7b2fb2ed50dffde66e33d4e" prot="public" virt="non-virtual"><scope>hyrise::storage::MergeDictFunctor</scope><name>value_type</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

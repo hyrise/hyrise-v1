@@ -1,0 +1,143 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="class_predicate_builder" kind="class" prot="public">
+    <compoundname>PredicateBuilder</compoundname>
+    <includes refid="pred___predicate_builder_8h" local="no">pred_PredicateBuilder.h</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_predicate_builder_1a115ed5db1167ec899219d3f683f42712" prot="private" static="no" mutable="no">
+        <type>std::stack&lt; <ref refid="class_compound_expression" kindref="compound">CompoundExpression</ref> * &gt;</type>
+        <definition>std::stack&lt;CompoundExpression *&gt; PredicateBuilder::previous</definition>
+        <argsstring></argsstring>
+        <name>previous</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/pred_PredicateBuilder.h" line="18" bodyfile="/home/grund/hyrise/src/lib/access/pred_PredicateBuilder.h" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_predicate_builder_1ae8ddaace1008e2996815ef73e7f3e0f1" prot="private" static="no" mutable="no">
+        <type><ref refid="class_simple_expression" kindref="compound">SimpleExpression</ref> *</type>
+        <definition>SimpleExpression* PredicateBuilder::root</definition>
+        <argsstring></argsstring>
+        <name>root</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/pred_PredicateBuilder.h" line="19" bodyfile="/home/grund/hyrise/src/lib/access/pred_PredicateBuilder.h" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_predicate_builder_1ab28f367d90f0edb3e624d3f980061112" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>PredicateBuilder::PredicateBuilder</definition>
+        <argsstring>()</argsstring>
+        <name>PredicateBuilder</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/pred_PredicateBuilder.h" line="22" bodyfile="/home/grund/hyrise/src/lib/access/pred_PredicateBuilder.cpp" bodystart="4" bodyend="5"/>
+      </memberdef>
+      <memberdef kind="function" id="class_predicate_builder_1a8642e80d6945743fb76b635ee7742caf" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>PredicateBuilder::~PredicateBuilder</definition>
+        <argsstring>()</argsstring>
+        <name>~PredicateBuilder</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/pred_PredicateBuilder.h" line="23" bodyfile="/home/grund/hyrise/src/lib/access/pred_PredicateBuilder.cpp" bodystart="7" bodyend="8"/>
+      </memberdef>
+      <memberdef kind="function" id="class_predicate_builder_1aa31b28dc516d1022a6043f71d384655b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void PredicateBuilder::add</definition>
+        <argsstring>(SimpleFieldExpression *exp)</argsstring>
+        <name>add</name>
+        <param>
+          <type><ref refid="class_simple_field_expression" kindref="compound">SimpleFieldExpression</ref> *</type>
+          <declname>exp</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/pred_PredicateBuilder.h" line="24" bodyfile="/home/grund/hyrise/src/lib/access/pred_PredicateBuilder.cpp" bodystart="10" bodyend="21"/>
+      </memberdef>
+      <memberdef kind="function" id="class_predicate_builder_1a90372f7acd76bef19b5a9ae6c7d38c0f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void PredicateBuilder::add</definition>
+        <argsstring>(CompoundExpression *exp)</argsstring>
+        <name>add</name>
+        <param>
+          <type><ref refid="class_compound_expression" kindref="compound">CompoundExpression</ref> *</type>
+          <declname>exp</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/pred_PredicateBuilder.h" line="25" bodyfile="/home/grund/hyrise/src/lib/access/pred_PredicateBuilder.cpp" bodystart="23" bodyend="31"/>
+      </memberdef>
+      <memberdef kind="function" id="class_predicate_builder_1a79a44caefa8c4c6abaa717dfe29126dc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_simple_expression" kindref="compound">SimpleExpression</ref> *</type>
+        <definition>SimpleExpression * PredicateBuilder::build</definition>
+        <argsstring>()</argsstring>
+        <name>build</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/pred_PredicateBuilder.h" line="26" bodyfile="/home/grund/hyrise/src/lib/access/pred_PredicateBuilder.cpp" bodystart="33" bodyend="35"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2588">
+        <label>PredicateBuilder</label>
+        <link refid="class_predicate_builder"/>
+        <childnode refid="2589" relation="usage">
+          <edgelabel>root</edgelabel>
+        </childnode>
+      </node>
+      <node id="2589">
+        <label>SimpleExpression</label>
+        <link refid="class_simple_expression"/>
+        <childnode refid="2590" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2590">
+        <label>hyrise::access::AbstractExpression</label>
+        <link refid="classhyrise_1_1access_1_1_abstract_expression"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/access/pred_PredicateBuilder.h" line="17" bodyfile="/home/grund/hyrise/src/lib/access/pred_PredicateBuilder.h" bodystart="17" bodyend="27"/>
+    <listofallmembers>
+      <member refid="class_predicate_builder_1aa31b28dc516d1022a6043f71d384655b" prot="public" virt="non-virtual"><scope>PredicateBuilder</scope><name>add</name></member>
+      <member refid="class_predicate_builder_1a90372f7acd76bef19b5a9ae6c7d38c0f" prot="public" virt="non-virtual"><scope>PredicateBuilder</scope><name>add</name></member>
+      <member refid="class_predicate_builder_1a79a44caefa8c4c6abaa717dfe29126dc" prot="public" virt="non-virtual"><scope>PredicateBuilder</scope><name>build</name></member>
+      <member refid="class_predicate_builder_1ab28f367d90f0edb3e624d3f980061112" prot="public" virt="non-virtual"><scope>PredicateBuilder</scope><name>PredicateBuilder</name></member>
+      <member refid="class_predicate_builder_1a115ed5db1167ec899219d3f683f42712" prot="private" virt="non-virtual"><scope>PredicateBuilder</scope><name>previous</name></member>
+      <member refid="class_predicate_builder_1ae8ddaace1008e2996815ef73e7f3e0f1" prot="private" virt="non-virtual"><scope>PredicateBuilder</scope><name>root</name></member>
+      <member refid="class_predicate_builder_1a8642e80d6945743fb76b635ee7742caf" prot="public" virt="virtual"><scope>PredicateBuilder</scope><name>~PredicateBuilder</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

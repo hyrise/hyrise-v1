@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="ut_8py" kind="file">
+    <compoundname>ut.py</compoundname>
+    <innernamespace refid="namespaceut">ut</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1" refid="namespaceut" refkind="compound"><highlight class="keyword">from</highlight><highlight class="normal"><sp/>lxml<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>etree</highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>sys</highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>os</highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>__name__<sp/>==<sp/></highlight><highlight class="stringliteral">&quot;__main__&quot;</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="6"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>f<sp/></highlight><highlight class="keywordflow">in</highlight><highlight class="normal"><sp/>sys.argv[1:]:</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fname,<sp/>ext<sp/>=<sp/>os.path.splitext(f)</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">print</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;Converting&quot;</highlight><highlight class="normal">,<sp/>f</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>os.system(</highlight><highlight class="stringliteral">&quot;iconv<sp/>-f<sp/>ISO-8859-1<sp/>-t<sp/>UTF-8<sp/>%s.xml<sp/>&gt;<sp/>%s_utf.xml&quot;</highlight><highlight class="normal"><sp/>%<sp/>(fname,<sp/>fname))</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">print</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;Updating&quot;</highlight><highlight class="normal">,<sp/>f</highlight></codeline>
+<codeline lineno="11" refid="namespaceut_1a511291f93575df750fd387a485653fc7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>parser<sp/>=<sp/>etree.XMLParser(strip_cdata=</highlight><highlight class="keyword">False</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="12" refid="namespaceut_1aa1bc633f5abd3833ba737260860f0594" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>root<sp/>=<sp/>etree.parse(</highlight><highlight class="stringliteral">&quot;%s_utf.xml&quot;</highlight><highlight class="normal"><sp/>%<sp/>fname,<sp/>parser)</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>item<sp/></highlight><highlight class="keywordflow">in</highlight><highlight class="normal"><sp/>root.findall(</highlight><highlight class="stringliteral">&quot;.//TestCase&quot;</highlight><highlight class="normal">):</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>child<sp/></highlight><highlight class="keywordflow">in</highlight><highlight class="normal"><sp/>item.iterchildren():</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>child.tag<sp/></highlight><highlight class="keywordflow">not</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">in</highlight><highlight class="normal"><sp/>[</highlight><highlight class="stringliteral">&quot;Info&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;FatalError&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;Error&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;TestingTime&quot;</highlight><highlight class="normal">]:</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>child.text<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;[%s]\n[%s]&quot;</highlight><highlight class="normal"><sp/>%<sp/>(child.tag,<sp/>child.text)</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>child.tag<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Info&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>item.text:</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>item.insert(0,<sp/>etree.XML(</highlight><highlight class="stringliteral">&apos;&lt;Info<sp/>file=&quot;&quot;<sp/>line=&quot;1&quot;&gt;&lt;![CDATA[%s]]&gt;&lt;/Info&gt;&apos;</highlight><highlight class="normal"><sp/>%<sp/>item.text,<sp/>parser))</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>item.text<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>open(</highlight><highlight class="stringliteral">&quot;%s_conv.xml&quot;</highlight><highlight class="normal"><sp/>%<sp/>fname,<sp/></highlight><highlight class="stringliteral">&quot;w&quot;</highlight><highlight class="normal">).write(etree.tostring(root,<sp/>pretty_print=</highlight><highlight class="keyword">True</highlight><highlight class="normal">))</highlight></codeline>
+    </programlisting>
+    <location file="/home/grund/hyrise/src/util/ut.py"/>
+  </compounddef>
+</doxygen>

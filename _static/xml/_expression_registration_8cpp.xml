@@ -1,0 +1,128 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="_expression_registration_8cpp" kind="file">
+    <compoundname>ExpressionRegistration.cpp</compoundname>
+    <includes refid="_expression_registration_8h" local="yes">access/ExpressionRegistration.h</includes>
+    <incdepgraph>
+      <node id="3621">
+        <label>limits</label>
+      </node>
+      <node id="3620">
+        <label>cstdint</label>
+      </node>
+      <node id="3617">
+        <label>string</label>
+      </node>
+      <node id="3616">
+        <label>map</label>
+      </node>
+      <node id="3618">
+        <label>json.h</label>
+      </node>
+      <node id="3626">
+        <label>helper/noncopyable.h</label>
+        <link refid="noncopyable_8h"/>
+      </node>
+      <node id="3627">
+        <label>access/AbstractExpression.h</label>
+        <link refid="_abstract_expression_8h"/>
+        <childnode refid="3622" relation="include">
+        </childnode>
+        <childnode refid="3619" relation="include">
+        </childnode>
+      </node>
+      <node id="3622">
+        <label>vector</label>
+      </node>
+      <node id="3625">
+        <label>utility</label>
+      </node>
+      <node id="3619">
+        <label>helper/types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="3620" relation="include">
+        </childnode>
+        <childnode refid="3617" relation="include">
+        </childnode>
+        <childnode refid="3621" relation="include">
+        </childnode>
+        <childnode refid="3615" relation="include">
+        </childnode>
+        <childnode refid="3622" relation="include">
+        </childnode>
+      </node>
+      <node id="3614">
+        <label>access/ExpressionRegistration.h</label>
+        <link refid="_expression_registration_8h"/>
+        <childnode refid="3615" relation="include">
+        </childnode>
+        <childnode refid="3616" relation="include">
+        </childnode>
+        <childnode refid="3617" relation="include">
+        </childnode>
+        <childnode refid="3618" relation="include">
+        </childnode>
+        <childnode refid="3619" relation="include">
+        </childnode>
+        <childnode refid="3623" relation="include">
+        </childnode>
+        <childnode refid="3626" relation="include">
+        </childnode>
+        <childnode refid="3627" relation="include">
+        </childnode>
+      </node>
+      <node id="3613">
+        <label>src/lib/access/ExpressionRegistration.cpp</label>
+        <link refid="ExpressionRegistration.cpp"/>
+        <childnode refid="3614" relation="include">
+        </childnode>
+      </node>
+      <node id="3624">
+        <label>type_traits</label>
+      </node>
+      <node id="3623">
+        <label>helper/make_unique.h</label>
+        <link refid="make__unique_8h"/>
+        <childnode refid="3615" relation="include">
+        </childnode>
+        <childnode refid="3624" relation="include">
+        </childnode>
+        <childnode refid="3625" relation="include">
+        </childnode>
+      </node>
+      <node id="3615">
+        <label>memory</label>
+      </node>
+    </incdepgraph>
+    <innernamespace refid="namespacehyrise">hyrise</innernamespace>
+    <innernamespace refid="namespacehyrise_1_1access">hyrise::access</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_expression_registration_8h" kindref="compound">access/ExpressionRegistration.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">hyrise<sp/>{<sp/></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">access<sp/>{</highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="comment">//std::map&lt;std::string,<sp/>expression_factory_ptr_t&gt;<sp/>Expressions::_registrations;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7" refid="classhyrise_1_1access_1_1_expressions_1aae83c7f66d54561a1a10e3cdf8a3a62d" refkind="member"><highlight class="normal"><ref refid="classhyrise_1_1access_1_1_expressions" kindref="compound" tooltip="Expression registration facility for custom expressions.">Expressions</ref>&amp;<sp/><ref refid="classhyrise_1_1access_1_1_expressions_1aae83c7f66d54561a1a10e3cdf8a3a62d" kindref="member">Expressions::getInstance</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1access_1_1_expressions" kindref="compound" tooltip="Expression registration facility for custom expressions.">Expressions</ref><sp/>e;</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>e;</highlight></codeline>
+<codeline lineno="10"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12" refid="classhyrise_1_1access_1_1_expressions_1a7cd01dba35bf521dbdc1cf71e07e218c" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1access_1_1_expressions_1a7cd01dba35bf521dbdc1cf71e07e218c" kindref="member">Expressions::addRegistration</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>callsign,<sp/><ref refid="namespacehyrise_1_1access_1a9af43b459123c32272f960bdc16ee2ca" kindref="member">expression_factory_ptr_t</ref><sp/>ptr)<sp/>{</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><ref refid="classhyrise_1_1access_1_1_expressions_1a5ce1f6c094af44e7d896b2d21ed133da" kindref="member">_registrations</ref>.insert(std::make_pair(callsign,<sp/>std::move(ptr)));</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="15"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight></codeline>
+<codeline lineno="17" refid="classhyrise_1_1access_1_1_expressions_1a4f7b93e0af87c46a3daef0914ccc2128" refkind="member"><highlight class="normal"><ref refid="namespacehyrise_1_1access_1af41209551d197107c71e3be44cb01982" kindref="member">expression_uptr_t</ref><sp/><ref refid="classhyrise_1_1access_1_1_expressions_1a4f7b93e0af87c46a3daef0914ccc2128" kindref="member">Expressions::createRegistered</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>callsign,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Json::Value&amp;<sp/>value)</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1access_1_1_expressions_1a5ce1f6c094af44e7d896b2d21ed133da" kindref="member">_registrations</ref>.at(callsign)-&gt;create(value);</highlight></codeline>
+<codeline lineno="19"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal">}}</highlight></codeline>
+    </programlisting>
+    <location file="/home/grund/hyrise/src/lib/access/ExpressionRegistration.cpp"/>
+  </compounddef>
+</doxygen>

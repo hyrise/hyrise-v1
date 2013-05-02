@@ -1,0 +1,1053 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="class_mutable_vertical_table" kind="class" prot="public">
+    <compoundname>MutableVerticalTable</compoundname>
+    <basecompoundref refid="class_abstract_table" prot="public" virt="non-virtual">AbstractTable</basecompoundref>
+    <includes refid="_mutable_vertical_table_8h" local="no">MutableVerticalTable.h</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_mutable_vertical_table_1ae09136b4ec94e4239b8708aa4717b984" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; <ref refid="namespacehyrise_1_1storage_1a21d5e900c20019710828c453eaded1ee" kindref="member">hyrise::storage::atable_ptr_t</ref> &gt;</type>
+        <definition>std::vector&lt;hyrise::storage::atable_ptr_t&gt; MutableVerticalTable::containers</definition>
+        <argsstring></argsstring>
+        <name>containers</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/MutableVerticalTable.h" line="29" bodyfile="/home/grund/hyrise/src/lib/storage/MutableVerticalTable.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_mutable_vertical_table_1a7e3b12eac33bd80832c4f4e2695da735" prot="private" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t MutableVerticalTable::column_count</definition>
+        <argsstring></argsstring>
+        <name>column_count</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/MutableVerticalTable.h" line="32" bodyfile="/home/grund/hyrise/src/lib/storage/MutableVerticalTable.h" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_mutable_vertical_table_1acf911b5a1ebc0f2769f905befb63b783" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; unsigned &gt;</type>
+        <definition>std::vector&lt;unsigned&gt; MutableVerticalTable::container_for_column</definition>
+        <argsstring></argsstring>
+        <name>container_for_column</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/MutableVerticalTable.h" line="35" bodyfile="/home/grund/hyrise/src/lib/storage/MutableVerticalTable.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_mutable_vertical_table_1a4eb116cc967c53b9c589e594a87631bf" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; size_t &gt;</type>
+        <definition>std::vector&lt;size_t&gt; MutableVerticalTable::offset_in_container</definition>
+        <argsstring></argsstring>
+        <name>offset_in_container</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/MutableVerticalTable.h" line="38" bodyfile="/home/grund/hyrise/src/lib/storage/MutableVerticalTable.h" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_mutable_vertical_table_1a1da4886a886ad7b94c09557d1f2916d4" prot="private" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t MutableVerticalTable::slice_count</definition>
+        <argsstring></argsstring>
+        <name>slice_count</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/MutableVerticalTable.h" line="41" bodyfile="/home/grund/hyrise/src/lib/storage/MutableVerticalTable.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_mutable_vertical_table_1a52829b86cab7116cbfd0508aa5081a55" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; unsigned &gt;</type>
+        <definition>std::vector&lt;unsigned&gt; MutableVerticalTable::container_for_slice</definition>
+        <argsstring></argsstring>
+        <name>container_for_slice</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/MutableVerticalTable.h" line="44" bodyfile="/home/grund/hyrise/src/lib/storage/MutableVerticalTable.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_mutable_vertical_table_1ad75993409560ce4bd2a0dbed063200ba" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; unsigned &gt;</type>
+        <definition>std::vector&lt;unsigned&gt; MutableVerticalTable::slice_offset_in_container</definition>
+        <argsstring></argsstring>
+        <name>slice_offset_in_container</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/MutableVerticalTable.h" line="47" bodyfile="/home/grund/hyrise/src/lib/storage/MutableVerticalTable.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_mutable_vertical_table_1a38878b80ae35fcb58a00e5ccdf9ce878" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MutableVerticalTable::MutableVerticalTable</definition>
+        <argsstring>(std::vector&lt; std::vector&lt; const ColumnMetadata * &gt; * &gt; metadata, std::vector&lt; std::vector&lt; AbstractTable::SharedDictionaryPtr &gt; * &gt; *dictionaries=nullptr, size_t size=0, bool sorted=true, AbstractTableFactory *factory=nullptr, bool compressed=true)</argsstring>
+        <name>MutableVerticalTable</name>
+        <param>
+          <type>std::vector&lt; std::vector&lt; const <ref refid="class_column_metadata" kindref="compound">ColumnMetadata</ref> * &gt; * &gt;</type>
+          <declname>metadata</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; std::vector&lt; <ref refid="class_abstract_table_1af76ff827deb697db8077a90c450381ab" kindref="member">AbstractTable::SharedDictionaryPtr</ref> &gt; * &gt; *</type>
+          <declname>dictionaries</declname>
+          <defval><ref refid="csb__tree_8cpp_1ab979d9d4b4923f7c54d6caa6e1a61936" kindref="member">nullptr</ref></defval>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>size</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>sorted</declname>
+          <defval>true</defval>
+        </param>
+        <param>
+          <type><ref refid="class_abstract_table_factory" kindref="compound">AbstractTableFactory</ref> *</type>
+          <declname>factory</declname>
+          <defval><ref refid="csb__tree_8cpp_1ab979d9d4b4923f7c54d6caa6e1a61936" kindref="member">nullptr</ref></defval>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>compressed</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/MutableVerticalTable.h" line="60" bodyfile="/home/grund/hyrise/src/lib/storage/MutableVerticalTable.cpp" bodystart="4" bodyend="44"/>
+      </memberdef>
+      <memberdef kind="function" id="class_mutable_vertical_table_1a3fabe0248927cf14f69d19ae3f19287b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MutableVerticalTable::MutableVerticalTable</definition>
+        <argsstring>(std::vector&lt; hyrise::storage::atable_ptr_t &gt; &amp;cs, size_t size=0)</argsstring>
+        <name>MutableVerticalTable</name>
+        <param>
+          <type>std::vector&lt; <ref refid="namespacehyrise_1_1storage_1a21d5e900c20019710828c453eaded1ee" kindref="member">hyrise::storage::atable_ptr_t</ref> &gt; &amp;</type>
+          <declname>cs</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>size</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/MutableVerticalTable.h" line="62" bodyfile="/home/grund/hyrise/src/lib/storage/MutableVerticalTable.cpp" bodystart="46" bodyend="68"/>
+      </memberdef>
+      <memberdef kind="function" id="class_mutable_vertical_table_1a1015340e6af0a000e874580a1cd7d1f0" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>MutableVerticalTable::MutableVerticalTable</definition>
+        <argsstring>()</argsstring>
+        <name>MutableVerticalTable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/MutableVerticalTable.h" line="64" bodyfile="/home/grund/hyrise/src/lib/storage/MutableVerticalTable.h" bodystart="64" bodyend="64"/>
+      </memberdef>
+      <memberdef kind="function" id="class_mutable_vertical_table_1a772e1c45f29697a300f71911e6e2a9cb" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>MutableVerticalTable::~MutableVerticalTable</definition>
+        <argsstring>()</argsstring>
+        <name>~MutableVerticalTable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/MutableVerticalTable.h" line="66" bodyfile="/home/grund/hyrise/src/lib/storage/MutableVerticalTable.cpp" bodystart="70" bodyend="71"/>
+      </memberdef>
+      <memberdef kind="function" id="class_mutable_vertical_table_1a456bfc37fbbd6c119046d3e1186b2241" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="namespacehyrise_1_1storage_1a21d5e900c20019710828c453eaded1ee" kindref="member">hyrise::storage::atable_ptr_t</ref></type>
+        <definition>hyrise::storage::atable_ptr_t MutableVerticalTable::getContainer</definition>
+        <argsstring>(const size_t container_index) const </argsstring>
+        <name>getContainer</name>
+        <param>
+          <type>const size_t</type>
+          <declname>container_index</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Returns the container at a given index.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>container_index</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Index of the container. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/MutableVerticalTable.h" line="73" bodyfile="/home/grund/hyrise/src/lib/storage/MutableVerticalTable.cpp" bodystart="152" bodyend="154"/>
+      </memberdef>
+      <memberdef kind="function" id="class_mutable_vertical_table_1ac9f8cece531ff588333104bc40def47f" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>const <ref refid="namespacehyrise_1_1storage_1a21d5e900c20019710828c453eaded1ee" kindref="member">hyrise::storage::atable_ptr_t</ref> &amp;</type>
+        <definition>const hyrise::storage::atable_ptr_t &amp; MutableVerticalTable::containerAt</definition>
+        <argsstring>(const size_t column_index, const bool for_writing=false) const </argsstring>
+        <name>containerAt</name>
+        <param>
+          <type>const size_t</type>
+          <declname>column_index</declname>
+        </param>
+        <param>
+          <type>const bool</type>
+          <declname>for_writing</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Returns the container for a given column.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>column_index</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Index of the column of which to retrieve the container. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/MutableVerticalTable.h" line="80" bodyfile="/home/grund/hyrise/src/lib/storage/MutableVerticalTable.cpp" bodystart="73" bodyend="75"/>
+      </memberdef>
+      <memberdef kind="function" id="class_mutable_vertical_table_1a1ffd4a360438d9b5a47668ac65495d8d" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t MutableVerticalTable::getOffsetInContainer</definition>
+        <argsstring>(const size_t column_index) const </argsstring>
+        <name>getOffsetInContainer</name>
+        <param>
+          <type>const size_t</type>
+          <declname>column_index</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Returns the offset of a certain column inside its container.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>column_index</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Index of the column. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/MutableVerticalTable.h" line="87" bodyfile="/home/grund/hyrise/src/lib/storage/MutableVerticalTable.cpp" bodystart="77" bodyend="79"/>
+      </memberdef>
+      <memberdef kind="function" id="class_mutable_vertical_table_1a53599361bfad6cfed8bd12da0bfd58f6" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>const <ref refid="class_column_metadata" kindref="compound">ColumnMetadata</ref> *</type>
+        <definition>const ColumnMetadata * MutableVerticalTable::metadataAt</definition>
+        <argsstring>(const size_t column_index, const size_t row_index=0, const table_id_t table_id=0) const </argsstring>
+        <name>metadataAt</name>
+        <reimplements refid="class_abstract_table_1a7a16a970c5e9229616b984972d1b44b9">metadataAt</reimplements>
+        <param>
+          <type>const size_t</type>
+          <declname>column</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>row</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>const <ref refid="storage__types_8h_1ab1b21fbdc9fcb935021666db9c910755" kindref="member">table_id_t</ref></type>
+          <declname>table_id</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get the metadata for a certain column. Returns a pointer to a <ref refid="class_column_metadata" kindref="compound">ColumnMetadata</ref> object for a specified column. <simplesect kind="note"><para>Must be implemented by any derived class!</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>column</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Column for which to return the metadata. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>row</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Row in that column (default=0). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>table_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ID of the table from which to extract (default=0). </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/MutableVerticalTable.h" line="89" bodyfile="/home/grund/hyrise/src/lib/storage/MutableVerticalTable.cpp" bodystart="81" bodyend="83"/>
+      </memberdef>
+      <memberdef kind="function" id="class_mutable_vertical_table_1a881d9ae8d8de90c649fe5800720096f1" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>const <ref refid="class_abstract_table_1af76ff827deb697db8077a90c450381ab" kindref="member">AbstractTable::SharedDictionaryPtr</ref> &amp;</type>
+        <definition>const AbstractTable::SharedDictionaryPtr &amp; MutableVerticalTable::dictionaryAt</definition>
+        <argsstring>(const size_t column, const size_t row=0, const table_id_t table_id=0, const bool of_delta=false) const </argsstring>
+        <name>dictionaryAt</name>
+        <reimplements refid="class_abstract_table_1a001566ba79ef4dfcde544b4867dd69e7">dictionaryAt</reimplements>
+        <param>
+          <type>const size_t</type>
+          <declname>column</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>row</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>const <ref refid="storage__types_8h_1ab1b21fbdc9fcb935021666db9c910755" kindref="member">table_id_t</ref></type>
+          <declname>table_id</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>const bool</type>
+          <declname>of_delta</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get the dictionary for a certain column. <simplesect kind="note"><para>Must be implemented by any derived class!</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>column</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Column from which to extract the dictionary. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>row</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Row in that column (default=0). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>table_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ID of the table from which to extract (default=0). </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/MutableVerticalTable.h" line="91" bodyfile="/home/grund/hyrise/src/lib/storage/MutableVerticalTable.cpp" bodystart="85" bodyend="87"/>
+      </memberdef>
+      <memberdef kind="function" id="class_mutable_vertical_table_1ae72ba0d3d273f96739789634fe607c01" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>const <ref refid="class_abstract_table_1af76ff827deb697db8077a90c450381ab" kindref="member">AbstractTable::SharedDictionaryPtr</ref> &amp;</type>
+        <definition>const AbstractTable::SharedDictionaryPtr &amp; MutableVerticalTable::dictionaryByTableId</definition>
+        <argsstring>(const size_t column, const table_id_t table_id) const </argsstring>
+        <name>dictionaryByTableId</name>
+        <reimplements refid="class_abstract_table_1aa2833dbbbabb49737922e5172f0efff9">dictionaryByTableId</reimplements>
+        <param>
+          <type>const size_t</type>
+          <declname>column</declname>
+        </param>
+        <param>
+          <type>const <ref refid="storage__types_8h_1ab1b21fbdc9fcb935021666db9c910755" kindref="member">table_id_t</ref></type>
+          <declname>table_id</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get the dictionary for a certain column by table ID. <simplesect kind="note"><para>Must be implemented by any derived class!</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>column</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Column from which to extract the dictionary. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>table_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ID of the table from which to extract. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/MutableVerticalTable.h" line="93" bodyfile="/home/grund/hyrise/src/lib/storage/MutableVerticalTable.cpp" bodystart="89" bodyend="91"/>
+      </memberdef>
+      <memberdef kind="function" id="class_mutable_vertical_table_1a7b31752a7b4114dffa0cef6f98fefa90" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void MutableVerticalTable::setDictionaryAt</definition>
+        <argsstring>(AbstractTable::SharedDictionaryPtr dict, const size_t column, const size_t row=0, const table_id_t table_id=0)</argsstring>
+        <name>setDictionaryAt</name>
+        <reimplements refid="class_abstract_table_1a15c7e879e77c9586460488e6e442566c">setDictionaryAt</reimplements>
+        <param>
+          <type><ref refid="class_abstract_table_1af76ff827deb697db8077a90c450381ab" kindref="member">AbstractTable::SharedDictionaryPtr</ref></type>
+          <declname>dict</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>column</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>row</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>const <ref refid="storage__types_8h_1ab1b21fbdc9fcb935021666db9c910755" kindref="member">table_id_t</ref></type>
+          <declname>table_id</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Sets the dictionary for a certain column. <simplesect kind="note"><para>Must be implemented by any derived class!</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>dict</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Dictionary to be used. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>column</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Column for which to set the dictionary. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>row</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Row in that column (default=0). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>table_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ID of the table (default=0). </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/MutableVerticalTable.h" line="95" bodyfile="/home/grund/hyrise/src/lib/storage/MutableVerticalTable.cpp" bodystart="93" bodyend="95"/>
+      </memberdef>
+      <memberdef kind="function" id="class_mutable_vertical_table_1a3ae55fdb096903babf43b016de5d3f71" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>size_t</type>
+        <definition>size_t MutableVerticalTable::size</definition>
+        <argsstring>() const </argsstring>
+        <name>size</name>
+        <reimplements refid="class_abstract_table_1a2b3fde5fb0c70f288eda47c4c66bb151">size</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Returns the number of rows in the table <simplesect kind="note"><para>Must be implemented by any derived class! </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/MutableVerticalTable.h" line="97" bodyfile="/home/grund/hyrise/src/lib/storage/MutableVerticalTable.cpp" bodystart="97" bodyend="100"/>
+      </memberdef>
+      <memberdef kind="function" id="class_mutable_vertical_table_1a4a6c605b27d848ca5d5110f8afe2c9e0" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>size_t</type>
+        <definition>size_t MutableVerticalTable::columnCount</definition>
+        <argsstring>() const </argsstring>
+        <name>columnCount</name>
+        <reimplements refid="class_abstract_table_1a9ba326d4ed695ff02dcdc0dd125fd16c">columnCount</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Returns the number of columns. <simplesect kind="note"><para>Must be implemented by any derived class! </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/MutableVerticalTable.h" line="99" bodyfile="/home/grund/hyrise/src/lib/storage/MutableVerticalTable.cpp" bodystart="102" bodyend="104"/>
+      </memberdef>
+      <memberdef kind="function" id="class_mutable_vertical_table_1ac17d068581c51692cec89cb51119981b" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type><ref refid="class_value_id" kindref="compound">ValueId</ref></type>
+        <definition>ValueId MutableVerticalTable::getValueId</definition>
+        <argsstring>(const size_t column, const size_t row) const </argsstring>
+        <name>getValueId</name>
+        <reimplements refid="class_abstract_table_1ab0dc4d8eaa3d5b2022d2f0ba1d873a14">getValueId</reimplements>
+        <param>
+          <type>const size_t</type>
+          <declname>column</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>row</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Returns the value-ID of a cell. <simplesect kind="note"><para>Must be implemented by any derived class!</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>column</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Column number of the cell. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>row</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Row number of the cell. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/MutableVerticalTable.h" line="101" bodyfile="/home/grund/hyrise/src/lib/storage/MutableVerticalTable.cpp" bodystart="106" bodyend="109"/>
+      </memberdef>
+      <memberdef kind="function" id="class_mutable_vertical_table_1a5043d8fc47639507379f1d79d5931e4a" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void MutableVerticalTable::setValueId</definition>
+        <argsstring>(const size_t column, const size_t row, const ValueId valueId)</argsstring>
+        <name>setValueId</name>
+        <reimplements refid="class_abstract_table_1ad7fabd72d657d48f1f4380132515b451">setValueId</reimplements>
+        <param>
+          <type>const size_t</type>
+          <declname>column</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>row</declname>
+        </param>
+        <param>
+          <type>const <ref refid="class_value_id" kindref="compound">ValueId</ref></type>
+          <declname>valueId</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Sets the value ID of a cell. <simplesect kind="note"><para>Should be implemented in derived classes or throws runtime error!</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>column</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Column number of the cell. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>row</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Row number of the cell. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>valueId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>New value-ID of the cell. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/MutableVerticalTable.h" line="103" bodyfile="/home/grund/hyrise/src/lib/storage/MutableVerticalTable.cpp" bodystart="111" bodyend="113"/>
+      </memberdef>
+      <memberdef kind="function" id="class_mutable_vertical_table_1a32f948742c23f845f2b644f0dc3de112" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void MutableVerticalTable::reserve</definition>
+        <argsstring>(const size_t nr_of_values)</argsstring>
+        <name>reserve</name>
+        <reimplements refid="class_abstract_table_1acf25e9092735089d88c0fd9a1cb02984">reserve</reimplements>
+        <param>
+          <type>const size_t</type>
+          <declname>nr_of_values</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Reorganizes the bit vector of a certain column. <simplesect kind="warning"><para>Throws runtime error if not implemented!</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>nr_of_values</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Total number of values that must fit. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/MutableVerticalTable.h" line="105" bodyfile="/home/grund/hyrise/src/lib/storage/MutableVerticalTable.cpp" bodystart="115" bodyend="118"/>
+      </memberdef>
+      <memberdef kind="function" id="class_mutable_vertical_table_1a066dba630bf39bd9b9439d7307c8fd01" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void MutableVerticalTable::resize</definition>
+        <argsstring>(const size_t rows)</argsstring>
+        <name>resize</name>
+        <reimplements refid="class_abstract_table_1a2c284b3bc7d1ee8522cd02be2fffa3be">resize</reimplements>
+        <param>
+          <type>const size_t</type>
+          <declname>rows</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Resize the table to the given number of rows based on the parameter <simplesect kind="warning"><para>Throws runtime error if not implemented</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>rows</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The new number of rows in this table </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/MutableVerticalTable.h" line="107" bodyfile="/home/grund/hyrise/src/lib/storage/MutableVerticalTable.cpp" bodystart="120" bodyend="125"/>
+      </memberdef>
+      <memberdef kind="function" id="class_mutable_vertical_table_1a97b36a60c808a10cb9489f24fc8da7bf" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>unsigned</type>
+        <definition>unsigned MutableVerticalTable::sliceCount</definition>
+        <argsstring>() const </argsstring>
+        <name>sliceCount</name>
+        <reimplements refid="class_abstract_table_1a593d49b1ae5ca4a47e5c5c43c1eeb4c8">sliceCount</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Returns the number of slices. <simplesect kind="note"><para>Must be implemented by any derived class! </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/MutableVerticalTable.h" line="109" bodyfile="/home/grund/hyrise/src/lib/storage/MutableVerticalTable.cpp" bodystart="127" bodyend="129"/>
+      </memberdef>
+      <memberdef kind="function" id="class_mutable_vertical_table_1a4da208b8ee5fd37aceacc35de74f407a" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>void *</type>
+        <definition>void * MutableVerticalTable::atSlice</definition>
+        <argsstring>(const size_t slice, const size_t row) const </argsstring>
+        <name>atSlice</name>
+        <reimplements refid="class_abstract_table_1a472d2a3dc19e99e640d2b65e81a6d052">atSlice</reimplements>
+        <param>
+          <type>const size_t</type>
+          <declname>slice</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>row</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Returns a pointer to the memory area of a slice. <simplesect kind="note"><para>Must be implemented by any derived class!</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>slice</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The slice of interest. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>row</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Row in that slice. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_width</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/MutableVerticalTable.h" line="111" bodyfile="/home/grund/hyrise/src/lib/storage/MutableVerticalTable.cpp" bodystart="131" bodyend="133"/>
+      </memberdef>
+      <memberdef kind="function" id="class_mutable_vertical_table_1abc6756e510dfd943ac93608a46103a44" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>size_t</type>
+        <definition>size_t MutableVerticalTable::getSliceWidth</definition>
+        <argsstring>(const size_t slice) const </argsstring>
+        <name>getSliceWidth</name>
+        <reimplements refid="class_abstract_table_1a560af7bf02ed631dd359b22a62e0bed7">getSliceWidth</reimplements>
+        <param>
+          <type>const size_t</type>
+          <declname>slice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Returns the width of a slice. <simplesect kind="note"><para>Must be implemented by any derived class!</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>slice</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The slice of interest. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/MutableVerticalTable.h" line="113" bodyfile="/home/grund/hyrise/src/lib/storage/MutableVerticalTable.cpp" bodystart="135" bodyend="137"/>
+      </memberdef>
+      <memberdef kind="function" id="class_mutable_vertical_table_1ab83f1c327f6d4fd49ef8b5b35d4355e0" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type><ref refid="namespacehyrise_1_1storage_1a21d5e900c20019710828c453eaded1ee" kindref="member">hyrise::storage::atable_ptr_t</ref></type>
+        <definition>hyrise::storage::atable_ptr_t MutableVerticalTable::copy_structure</definition>
+        <argsstring>(const field_list_t *fields=nullptr, const bool reuse_dict=false, const size_t initial_size=0, const bool with_containers=true, const bool compressed=false) const </argsstring>
+        <name>copy_structure</name>
+        <reimplements refid="class_abstract_table_1a0439c8c9642d0a5dbbbf2d3e37c690fc">copy_structure</reimplements>
+        <param>
+          <type>const <ref refid="storage__types_8h_1a36fbc31395a53b7ece189846e4d3253c" kindref="member">field_list_t</ref> *</type>
+          <declname>fields</declname>
+          <defval><ref refid="csb__tree_8cpp_1ab979d9d4b4923f7c54d6caa6e1a61936" kindref="member">nullptr</ref></defval>
+        </param>
+        <param>
+          <type>const bool</type>
+          <declname>reuse_dict</declname>
+          <defval>false</defval>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>initial_size</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>const bool</type>
+          <declname>with_containers</declname>
+          <defval>true</defval>
+        </param>
+        <param>
+          <type>const bool</type>
+          <declname>compressed</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Copy the table&apos;s structure. Returns a pointer to an <ref refid="class_abstract_table" kindref="compound">AbstractTable</ref> with a copy of the current table&apos;s structure, containing all fields specified in the first parameter or all if left empty, as well as the current table&apos;s dictionary for those fields in case reuse_dict is set to true.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>fields</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>List of fields to be copied (all if empty or nullptr). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>reuse_dict</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Also copy the table&apos;s dictionary (default=false). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>initial_size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Initial size of the returned table (default=0). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>with_containers</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Only used by derived classes. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>compressed</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Sets the compressed storage for the new table </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/MutableVerticalTable.h" line="115" bodyfile="/home/grund/hyrise/src/lib/storage/MutableVerticalTable.cpp" bodystart="156" bodyend="190"/>
+      </memberdef>
+      <memberdef kind="function" id="class_mutable_vertical_table_1a1a9a6883fd58a563ca025b2954c31526" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type><ref refid="namespacehyrise_1_1storage_1a21d5e900c20019710828c453eaded1ee" kindref="member">hyrise::storage::atable_ptr_t</ref></type>
+        <definition>hyrise::storage::atable_ptr_t MutableVerticalTable::copy_structure_modifiable</definition>
+        <argsstring>(const field_list_t *fields=nullptr, const size_t initial_size=0, const bool with_containers=true) const </argsstring>
+        <name>copy_structure_modifiable</name>
+        <reimplements refid="class_abstract_table_1ab2e5350c658908dc343dd2b8c36eed14">copy_structure_modifiable</reimplements>
+        <param>
+          <type>const <ref refid="storage__types_8h_1a36fbc31395a53b7ece189846e4d3253c" kindref="member">field_list_t</ref> *</type>
+          <declname>fields</declname>
+          <defval><ref refid="csb__tree_8cpp_1ab979d9d4b4923f7c54d6caa6e1a61936" kindref="member">nullptr</ref></defval>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>initial_size</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>const bool</type>
+          <declname>with_containers</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Copy the table&apos;s structure modifiable. Returns a pointer to an <ref refid="class_abstract_table" kindref="compound">AbstractTable</ref> with a copy of the current table&apos;s structure, containing all fields specified in the first parameter or all if left empty, as well as the current table&apos;s dictionary-type for each field, without values for future modification.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>fields</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>List of fields to be copied (all if empty or nullptr). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>initial_size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Initial size of the returned table (default=0). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>with_containers</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Only used by derived classes. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/MutableVerticalTable.h" line="117" bodyfile="/home/grund/hyrise/src/lib/storage/MutableVerticalTable.cpp" bodystart="192" bodyend="225"/>
+      </memberdef>
+      <memberdef kind="function" id="class_mutable_vertical_table_1ae81b8a3a0aef5210edbff390bd1c57e4" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type><ref refid="storage__types_8h_1ab1b21fbdc9fcb935021666db9c910755" kindref="member">table_id_t</ref></type>
+        <definition>virtual table_id_t MutableVerticalTable::subtableCount</definition>
+        <argsstring>() const </argsstring>
+        <name>subtableCount</name>
+        <reimplements refid="class_abstract_table_1af5330c0a617946ad538cacea21ba7639">subtableCount</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Returns the number of horizontal subtables. <simplesect kind="note"><para>Must be implemented by any derived class! </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/MutableVerticalTable.h" line="119" bodyfile="/home/grund/hyrise/src/lib/storage/MutableVerticalTable.h" bodystart="119" bodyend="121"/>
+      </memberdef>
+      <memberdef kind="function" id="class_mutable_vertical_table_1a1a406d769b179605d326a956c087f15e" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type><ref refid="namespacehyrise_1_1storage_1a21d5e900c20019710828c453eaded1ee" kindref="member">hyrise::storage::atable_ptr_t</ref></type>
+        <definition>hyrise::storage::atable_ptr_t MutableVerticalTable::copy</definition>
+        <argsstring>() const </argsstring>
+        <name>copy</name>
+        <reimplements refid="class_abstract_table_1a87134964b75abb36c49d0c44455d23e2">copy</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Create of copy of this table. <simplesect kind="note"><para>Must be implemented by any derived class! </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/MutableVerticalTable.h" line="124" bodyfile="/home/grund/hyrise/src/lib/storage/MutableVerticalTable.cpp" bodystart="227" bodyend="239"/>
+      </memberdef>
+      <memberdef kind="function" id="class_mutable_vertical_table_1aa15bd1cfad6fc0218587f850acf42566" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>size_t</type>
+        <definition>size_t MutableVerticalTable::getSliceForColumn</definition>
+        <argsstring>(const size_t column) const </argsstring>
+        <name>getSliceForColumn</name>
+        <reimplements refid="class_abstract_table_1a964f6a039d706144a0f07b6e96acac10">getSliceForColumn</reimplements>
+        <param>
+          <type>const size_t</type>
+          <declname>column</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/MutableVerticalTable.h" line="126" bodyfile="/home/grund/hyrise/src/lib/storage/MutableVerticalTable.cpp" bodystart="140" bodyend="142"/>
+      </memberdef>
+      <memberdef kind="function" id="class_mutable_vertical_table_1a823e775a9b9e1005280fffa78abac9cb" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>size_t</type>
+        <definition>size_t MutableVerticalTable::getOffsetInSlice</definition>
+        <argsstring>(const size_t column) const </argsstring>
+        <name>getOffsetInSlice</name>
+        <reimplements refid="class_abstract_table_1a87503e254e2ec4ad43aa198f254a35e0">getOffsetInSlice</reimplements>
+        <param>
+          <type>const size_t</type>
+          <declname>column</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/MutableVerticalTable.h" line="128" bodyfile="/home/grund/hyrise/src/lib/storage/MutableVerticalTable.cpp" bodystart="144" bodyend="150"/>
+      </memberdef>
+      <memberdef kind="function" id="class_mutable_vertical_table_1abfb1083cc34203ae7f0f04adb5657db4" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>const <ref refid="_abstract_table_8h_1ae3a004c859daed205eb7639b1e993ce4" kindref="member">attr_vectors_t</ref></type>
+        <definition>const attr_vectors_t MutableVerticalTable::getAttributeVectors</definition>
+        <argsstring>(size_t column) const </argsstring>
+        <name>getAttributeVectors</name>
+        <reimplements refid="class_abstract_table_1a3467bc6159aa361db993c3fc56584789">getAttributeVectors</reimplements>
+        <param>
+          <type>size_t</type>
+          <declname>column</declname>
+        </param>
+        <briefdescription>
+<para>get underlying attribute vectors for column </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/MutableVerticalTable.h" line="130" bodyfile="/home/grund/hyrise/src/lib/storage/MutableVerticalTable.cpp" bodystart="241" bodyend="243"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><ref refid="class_mutable_vertical_table" kindref="compound">MutableVerticalTable</ref> implements a vertical table layout. It is organized into one or more vertical entities spreading over a distinct number of columns. The entities can be any subclass of <ref refid="class_abstract_table" kindref="compound">AbstractTable</ref>. </para>    </detaileddescription>
+    <inheritancegraph>
+      <node id="2388">
+        <label>AbstractTable</label>
+        <link refid="class_abstract_table"/>
+        <childnode refid="2389" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2389">
+        <label>AbstractResource</label>
+        <link refid="class_abstract_resource"/>
+      </node>
+      <node id="2387">
+        <label>MutableVerticalTable</label>
+        <link refid="class_mutable_vertical_table"/>
+        <childnode refid="2388" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2391">
+        <label>AbstractTable</label>
+        <link refid="class_abstract_table"/>
+        <childnode refid="2392" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2392">
+        <label>AbstractResource</label>
+        <link refid="class_abstract_resource"/>
+      </node>
+      <node id="2390">
+        <label>MutableVerticalTable</label>
+        <link refid="class_mutable_vertical_table"/>
+        <childnode refid="2391" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/storage/MutableVerticalTable.h" line="26" bodyfile="/home/grund/hyrise/src/lib/storage/MutableVerticalTable.h" bodystart="26" bodyend="132"/>
+    <listofallmembers>
+      <member refid="class_abstract_table_1a0d4b411db86931d15cc643a2883ffe59" prot="public" virt="non-virtual"><scope>MutableVerticalTable</scope><name>AbstractTable</name></member>
+      <member refid="class_mutable_vertical_table_1a4da208b8ee5fd37aceacc35de74f407a" prot="public" virt="virtual"><scope>MutableVerticalTable</scope><name>atSlice</name></member>
+      <member refid="class_mutable_vertical_table_1a7e3b12eac33bd80832c4f4e2695da735" prot="private" virt="non-virtual"><scope>MutableVerticalTable</scope><name>column_count</name></member>
+      <member refid="class_mutable_vertical_table_1a4a6c605b27d848ca5d5110f8afe2c9e0" prot="public" virt="virtual"><scope>MutableVerticalTable</scope><name>columnCount</name></member>
+      <member refid="class_mutable_vertical_table_1acf911b5a1ebc0f2769f905befb63b783" prot="private" virt="non-virtual"><scope>MutableVerticalTable</scope><name>container_for_column</name></member>
+      <member refid="class_mutable_vertical_table_1a52829b86cab7116cbfd0508aa5081a55" prot="private" virt="non-virtual"><scope>MutableVerticalTable</scope><name>container_for_slice</name></member>
+      <member refid="class_mutable_vertical_table_1ac9f8cece531ff588333104bc40def47f" prot="public" virt="non-virtual"><scope>MutableVerticalTable</scope><name>containerAt</name></member>
+      <member refid="class_mutable_vertical_table_1ae09136b4ec94e4239b8708aa4717b984" prot="private" virt="non-virtual"><scope>MutableVerticalTable</scope><name>containers</name></member>
+      <member refid="class_abstract_table_1af716c04f38a6ab47b277911baf050c9d" prot="public" virt="non-virtual"><scope>MutableVerticalTable</scope><name>contentEquals</name></member>
+      <member refid="class_mutable_vertical_table_1a1a406d769b179605d326a956c087f15e" prot="public" virt="virtual"><scope>MutableVerticalTable</scope><name>copy</name></member>
+      <member refid="class_mutable_vertical_table_1ab83f1c327f6d4fd49ef8b5b35d4355e0" prot="public" virt="virtual"><scope>MutableVerticalTable</scope><name>copy_structure</name></member>
+      <member refid="class_mutable_vertical_table_1a1a9a6883fd58a563ca025b2954c31526" prot="public" virt="virtual"><scope>MutableVerticalTable</scope><name>copy_structure_modifiable</name></member>
+      <member refid="class_abstract_table_1afbbf69e94a282a71fb1ecedd72ca8824" prot="public" virt="non-virtual"><scope>MutableVerticalTable</scope><name>copyRowFrom</name></member>
+      <member refid="class_abstract_table_1a4361f683288a0d1360227b309ca625f6" prot="public" virt="non-virtual"><scope>MutableVerticalTable</scope><name>copyValueFrom</name></member>
+      <member refid="class_abstract_table_1a0e1dd83cf4622413949542ecc0604bb7" prot="public" virt="non-virtual"><scope>MutableVerticalTable</scope><name>copyValueFrom</name></member>
+      <member refid="class_abstract_table_1ae66e82c1f4eb0001f747af5bcf8a4ef1" prot="public" virt="non-virtual"><scope>MutableVerticalTable</scope><name>copyValueFrom</name></member>
+      <member refid="class_abstract_table_1a85b7d9471c86bd31879c0f6378071b9c" prot="public" virt="non-virtual"><scope>MutableVerticalTable</scope><name>copyValueIds</name></member>
+      <member refid="class_abstract_table_1ab1d04fdc926954e4027fb883abab1d73" prot="public" virt="non-virtual"><scope>MutableVerticalTable</scope><name>dictionaries</name></member>
+      <member refid="class_mutable_vertical_table_1a881d9ae8d8de90c649fe5800720096f1" prot="public" virt="virtual"><scope>MutableVerticalTable</scope><name>dictionaryAt</name></member>
+      <member refid="class_mutable_vertical_table_1ae72ba0d3d273f96739789634fe607c01" prot="public" virt="virtual"><scope>MutableVerticalTable</scope><name>dictionaryByTableId</name></member>
+      <member refid="class_abstract_table_1a1d792fb6711c4ea00e4662576c1c3dc8" prot="public" virt="non-virtual"><scope>MutableVerticalTable</scope><name>generation</name></member>
+      <member refid="class_mutable_vertical_table_1abfb1083cc34203ae7f0f04adb5657db4" prot="public" virt="virtual"><scope>MutableVerticalTable</scope><name>getAttributeVectors</name></member>
+      <member refid="class_mutable_vertical_table_1a456bfc37fbbd6c119046d3e1186b2241" prot="public" virt="non-virtual"><scope>MutableVerticalTable</scope><name>getContainer</name></member>
+      <member refid="class_mutable_vertical_table_1a1ffd4a360438d9b5a47668ac65495d8d" prot="public" virt="non-virtual"><scope>MutableVerticalTable</scope><name>getOffsetInContainer</name></member>
+      <member refid="class_mutable_vertical_table_1a823e775a9b9e1005280fffa78abac9cb" prot="public" virt="virtual"><scope>MutableVerticalTable</scope><name>getOffsetInSlice</name></member>
+      <member refid="class_mutable_vertical_table_1aa15bd1cfad6fc0218587f850acf42566" prot="public" virt="virtual"><scope>MutableVerticalTable</scope><name>getSliceForColumn</name></member>
+      <member refid="class_mutable_vertical_table_1abc6756e510dfd943ac93608a46103a44" prot="public" virt="virtual"><scope>MutableVerticalTable</scope><name>getSliceWidth</name></member>
+      <member refid="class_abstract_table_1a6648aba614a398c3243a60b18d5d7dbf" prot="public" virt="non-virtual"><scope>MutableVerticalTable</scope><name>getValue</name></member>
+      <member refid="class_abstract_table_1aac6e3940c4b756a4c627ece2c008782c" prot="public" virt="non-virtual"><scope>MutableVerticalTable</scope><name>getValue</name></member>
+      <member refid="class_abstract_table_1af380b8fd7715abe5988f53b885920e0c" prot="public" virt="non-virtual"><scope>MutableVerticalTable</scope><name>getValueForValueId</name></member>
+      <member refid="class_mutable_vertical_table_1ac17d068581c51692cec89cb51119981b" prot="public" virt="virtual"><scope>MutableVerticalTable</scope><name>getValueId</name></member>
+      <member refid="class_abstract_table_1aefae5f6a831167c3d5669be5ba9d87bc" prot="public" virt="non-virtual"><scope>MutableVerticalTable</scope><name>getValueIdForValue</name></member>
+      <member refid="class_abstract_table_1acd7ea07c9b1605ca53c7608c7c3b2ea5" prot="public" virt="non-virtual"><scope>MutableVerticalTable</scope><name>getValueIdForValueByTableId</name></member>
+      <member refid="class_abstract_table_1a8b854b19026e75eebc02942499a82a21" prot="public" virt="non-virtual"><scope>MutableVerticalTable</scope><name>metadata</name></member>
+      <member refid="class_mutable_vertical_table_1a53599361bfad6cfed8bd12da0bfd58f6" prot="public" virt="virtual"><scope>MutableVerticalTable</scope><name>metadataAt</name></member>
+      <member refid="class_mutable_vertical_table_1a38878b80ae35fcb58a00e5ccdf9ce878" prot="public" virt="non-virtual"><scope>MutableVerticalTable</scope><name>MutableVerticalTable</name></member>
+      <member refid="class_mutable_vertical_table_1a3fabe0248927cf14f69d19ae3f19287b" prot="public" virt="non-virtual"><scope>MutableVerticalTable</scope><name>MutableVerticalTable</name></member>
+      <member refid="class_mutable_vertical_table_1a1015340e6af0a000e874580a1cd7d1f0" prot="public" virt="non-virtual"><scope>MutableVerticalTable</scope><name>MutableVerticalTable</name></member>
+      <member refid="class_abstract_table_1aa126cb17995eef9d0833ff2a4a673853" prot="public" virt="non-virtual"><scope>MutableVerticalTable</scope><name>nameOfColumn</name></member>
+      <member refid="class_abstract_table_1aaea606e4fd8c92a43febced405de1c6c" prot="public" virt="non-virtual"><scope>MutableVerticalTable</scope><name>numberOfColumn</name></member>
+      <member refid="class_mutable_vertical_table_1a4eb116cc967c53b9c589e594a87631bf" prot="private" virt="non-virtual"><scope>MutableVerticalTable</scope><name>offset_in_container</name></member>
+      <member refid="class_abstract_table_1a64faa3ae981d0b077787fbd60c46ede1" prot="public" virt="virtual"><scope>MutableVerticalTable</scope><name>print</name></member>
+      <member refid="class_abstract_table_1ae2f20cf55374dc8560dc4d2e8c4623ec" prot="public" virt="non-virtual"><scope>MutableVerticalTable</scope><name>printValue</name></member>
+      <member refid="class_mutable_vertical_table_1a32f948742c23f845f2b644f0dc3de112" prot="public" virt="virtual"><scope>MutableVerticalTable</scope><name>reserve</name></member>
+      <member refid="class_mutable_vertical_table_1a066dba630bf39bd9b9439d7307c8fd01" prot="public" virt="virtual"><scope>MutableVerticalTable</scope><name>resize</name></member>
+      <member refid="class_mutable_vertical_table_1a7b31752a7b4114dffa0cef6f98fefa90" prot="public" virt="virtual"><scope>MutableVerticalTable</scope><name>setDictionaryAt</name></member>
+      <member refid="class_abstract_table_1a583da7847c5f08de7ee4288cec78e187" prot="public" virt="non-virtual"><scope>MutableVerticalTable</scope><name>setGeneration</name></member>
+      <member refid="class_abstract_table_1a50d0ce6998606d864a429002f86ae654" prot="public" virt="non-virtual"><scope>MutableVerticalTable</scope><name>setValue</name></member>
+      <member refid="class_abstract_table_1a453b25a7f8ebe971d82cd5790d4183dd" prot="public" virt="non-virtual"><scope>MutableVerticalTable</scope><name>setValue</name></member>
+      <member refid="class_mutable_vertical_table_1a5043d8fc47639507379f1d79d5931e4a" prot="public" virt="virtual"><scope>MutableVerticalTable</scope><name>setValueId</name></member>
+      <member refid="class_abstract_table_1af76ff827deb697db8077a90c450381ab" prot="public" virt="non-virtual"><scope>MutableVerticalTable</scope><name>SharedDictionaryPtr</name></member>
+      <member refid="class_mutable_vertical_table_1a3ae55fdb096903babf43b016de5d3f71" prot="public" virt="virtual"><scope>MutableVerticalTable</scope><name>size</name></member>
+      <member refid="class_mutable_vertical_table_1a1da4886a886ad7b94c09557d1f2916d4" prot="private" virt="non-virtual"><scope>MutableVerticalTable</scope><name>slice_count</name></member>
+      <member refid="class_mutable_vertical_table_1ad75993409560ce4bd2a0dbed063200ba" prot="private" virt="non-virtual"><scope>MutableVerticalTable</scope><name>slice_offset_in_container</name></member>
+      <member refid="class_mutable_vertical_table_1a97b36a60c808a10cb9489f24fc8da7bf" prot="public" virt="virtual"><scope>MutableVerticalTable</scope><name>sliceCount</name></member>
+      <member refid="class_mutable_vertical_table_1ae81b8a3a0aef5210edbff390bd1c57e4" prot="public" virt="virtual"><scope>MutableVerticalTable</scope><name>subtableCount</name></member>
+      <member refid="class_abstract_table_1ad6de2b7c7b99098e9766b060b4d4b8c7" prot="public" virt="non-virtual"><scope>MutableVerticalTable</scope><name>typeOfColumn</name></member>
+      <member refid="class_abstract_table_1a55de3a5a31acf6898fb9ddd287b760e3" prot="public" virt="non-virtual"><scope>MutableVerticalTable</scope><name>valueExists</name></member>
+      <member refid="class_abstract_table_1a8e1d6f1b61390fc3e6954fbaa1f7745f" prot="public" virt="non-virtual"><scope>MutableVerticalTable</scope><name>write</name></member>
+      <member refid="class_abstract_resource_1a4299feff952f974409aaaf52082deadb" prot="public" virt="virtual"><scope>MutableVerticalTable</scope><name>~AbstractResource</name></member>
+      <member refid="class_abstract_table_1a957e2dc86a1aa6ffa19b2d8585a1ee91" prot="public" virt="virtual"><scope>MutableVerticalTable</scope><name>~AbstractTable</name></member>
+      <member refid="class_mutable_vertical_table_1a772e1c45f29697a300f71911e6e2a9cb" prot="public" virt="virtual"><scope>MutableVerticalTable</scope><name>~MutableVerticalTable</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

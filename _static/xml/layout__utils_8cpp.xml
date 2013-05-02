@@ -1,0 +1,369 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="layout__utils_8cpp" kind="file">
+    <compoundname>layout_utils.cpp</compoundname>
+    <includes local="no">iostream</includes>
+    <includes local="no">boost/foreach.hpp</includes>
+    <includes refid="layout__utils_8h" local="yes">layout_utils.h</includes>
+    <incdepgraph>
+      <node id="15899">
+        <label>boost/foreach.hpp</label>
+      </node>
+      <node id="15900">
+        <label>layout_utils.h</label>
+        <link refid="layout__utils_8h"/>
+        <childnode refid="15901" relation="include">
+        </childnode>
+        <childnode refid="15902" relation="include">
+        </childnode>
+      </node>
+      <node id="15897">
+        <label>src/lib/layouter/layout_utils.cpp</label>
+        <link refid="layout_utils.cpp"/>
+        <childnode refid="15898" relation="include">
+        </childnode>
+        <childnode refid="15899" relation="include">
+        </childnode>
+        <childnode refid="15900" relation="include">
+        </childnode>
+      </node>
+      <node id="15902">
+        <label>vector</label>
+      </node>
+      <node id="15898">
+        <label>iostream</label>
+      </node>
+      <node id="15901">
+        <label>set</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="layout__utils_8cpp_1a6df4680467235d1ee6d9b19610215270" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; <ref refid="namespacelayouter_1a9779582085930cc6fb80f4f2b27dfd9e" kindref="member">layouter::subset_t</ref> &gt; &amp;</type>
+        <definition>std::vector&lt;layouter::subset_t&gt;&amp; operator+=</definition>
+        <argsstring>(std::vector&lt; layouter::subset_t &gt; &amp;a, const std::vector&lt; layouter::subset_t &gt; &amp;b)</argsstring>
+        <name>operator+=</name>
+        <param>
+          <type>std::vector&lt; <ref refid="namespacelayouter_1a9779582085930cc6fb80f4f2b27dfd9e" kindref="member">layouter::subset_t</ref> &gt; &amp;</type>
+          <declname>a</declname>
+        </param>
+        <param>
+          <type>const std::vector&lt; <ref refid="namespacelayouter_1a9779582085930cc6fb80f4f2b27dfd9e" kindref="member">layouter::subset_t</ref> &gt; &amp;</type>
+          <declname>b</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/layouter/layout_utils.cpp" line="47" bodyfile="/home/grund/hyrise/src/lib/layouter/layout_utils.cpp" bodystart="47" bodyend="52"/>
+      </memberdef>
+      <memberdef kind="function" id="layout__utils_8cpp_1ad8d5a70f4c01a0dd59c300abc9d1bc32" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; <ref refid="namespacelayouter_1a9779582085930cc6fb80f4f2b27dfd9e" kindref="member">layouter::subset_t</ref> &gt;</type>
+        <definition>std::vector&lt;layouter::subset_t&gt; operator+</definition>
+        <argsstring>(const std::vector&lt; layouter::subset_t &gt; &amp;a, const std::vector&lt; layouter::subset_t &gt; &amp;b)</argsstring>
+        <name>operator+</name>
+        <param>
+          <type>const std::vector&lt; <ref refid="namespacelayouter_1a9779582085930cc6fb80f4f2b27dfd9e" kindref="member">layouter::subset_t</ref> &gt; &amp;</type>
+          <declname>a</declname>
+        </param>
+        <param>
+          <type>const std::vector&lt; <ref refid="namespacelayouter_1a9779582085930cc6fb80f4f2b27dfd9e" kindref="member">layouter::subset_t</ref> &gt; &amp;</type>
+          <declname>b</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/layouter/layout_utils.cpp" line="54" bodyfile="/home/grund/hyrise/src/lib/layouter/layout_utils.cpp" bodystart="54" bodyend="63"/>
+      </memberdef>
+      <memberdef kind="function" id="layout__utils_8cpp_1adf47a5cd62b5e45e37cd2c7d2452ea8d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool operator==</definition>
+        <argsstring>(const std::vector&lt; layouter::subset_t &gt; &amp;left, const std::vector&lt; layouter::subset_t &gt; &amp;right)</argsstring>
+        <name>operator==</name>
+        <param>
+          <type>const std::vector&lt; <ref refid="namespacelayouter_1a9779582085930cc6fb80f4f2b27dfd9e" kindref="member">layouter::subset_t</ref> &gt; &amp;</type>
+          <declname>left</declname>
+        </param>
+        <param>
+          <type>const std::vector&lt; <ref refid="namespacelayouter_1a9779582085930cc6fb80f4f2b27dfd9e" kindref="member">layouter::subset_t</ref> &gt; &amp;</type>
+          <declname>right</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/layouter/layout_utils.cpp" line="65" bodyfile="/home/grund/hyrise/src/lib/layouter/layout_utils.cpp" bodystart="65" bodyend="74"/>
+      </memberdef>
+      <memberdef kind="function" id="layout__utils_8cpp_1a8fdd99abb12879bb5576fbc48f656838" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool operator!=</definition>
+        <argsstring>(const std::vector&lt; layouter::subset_t &gt; &amp;left, const std::vector&lt; layouter::subset_t &gt; &amp;right)</argsstring>
+        <name>operator!=</name>
+        <param>
+          <type>const std::vector&lt; <ref refid="namespacelayouter_1a9779582085930cc6fb80f4f2b27dfd9e" kindref="member">layouter::subset_t</ref> &gt; &amp;</type>
+          <declname>left</declname>
+        </param>
+        <param>
+          <type>const std::vector&lt; <ref refid="namespacelayouter_1a9779582085930cc6fb80f4f2b27dfd9e" kindref="member">layouter::subset_t</ref> &gt; &amp;</type>
+          <declname>right</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/layouter/layout_utils.cpp" line="76" bodyfile="/home/grund/hyrise/src/lib/layouter/layout_utils.cpp" bodystart="76" bodyend="78"/>
+      </memberdef>
+      <memberdef kind="function" id="layout__utils_8cpp_1a189f883d79115f42a69959bdeab0a671" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool sort_subset_by_size</definition>
+        <argsstring>(const layouter::subset_t &amp;left, const layouter::subset_t &amp;right)</argsstring>
+        <name>sort_subset_by_size</name>
+        <param>
+          <type>const <ref refid="namespacelayouter_1a9779582085930cc6fb80f4f2b27dfd9e" kindref="member">layouter::subset_t</ref> &amp;</type>
+          <declname>left</declname>
+        </param>
+        <param>
+          <type>const <ref refid="namespacelayouter_1a9779582085930cc6fb80f4f2b27dfd9e" kindref="member">layouter::subset_t</ref> &amp;</type>
+          <declname>right</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/layouter/layout_utils.cpp" line="80" bodyfile="/home/grund/hyrise/src/lib/layouter/layout_utils.cpp" bodystart="80" bodyend="82"/>
+      </memberdef>
+      <memberdef kind="function" id="layout__utils_8cpp_1a262ac7552679026b025fa256b65b95df" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool subset_t_lt</definition>
+        <argsstring>(const layouter::subset_t &amp;left, const layouter::subset_t &amp;right)</argsstring>
+        <name>subset_t_lt</name>
+        <param>
+          <type>const <ref refid="namespacelayouter_1a9779582085930cc6fb80f4f2b27dfd9e" kindref="member">layouter::subset_t</ref> &amp;</type>
+          <declname>left</declname>
+        </param>
+        <param>
+          <type>const <ref refid="namespacelayouter_1a9779582085930cc6fb80f4f2b27dfd9e" kindref="member">layouter::subset_t</ref> &amp;</type>
+          <declname>right</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/layouter/layout_utils.cpp" line="84" bodyfile="/home/grund/hyrise/src/lib/layouter/layout_utils.cpp" bodystart="84" bodyend="100"/>
+      </memberdef>
+      <memberdef kind="function" id="layout__utils_8cpp_1a4f75765b29f31b5cb5178d67d4cb32c2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool subset_t_content_equal</definition>
+        <argsstring>(const layouter::subset_t &amp;left, const layouter::subset_t &amp;right)</argsstring>
+        <name>subset_t_content_equal</name>
+        <param>
+          <type>const <ref refid="namespacelayouter_1a9779582085930cc6fb80f4f2b27dfd9e" kindref="member">layouter::subset_t</ref> &amp;</type>
+          <declname>left</declname>
+        </param>
+        <param>
+          <type>const <ref refid="namespacelayouter_1a9779582085930cc6fb80f4f2b27dfd9e" kindref="member">layouter::subset_t</ref> &amp;</type>
+          <declname>right</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/layouter/layout_utils.cpp" line="103" bodyfile="/home/grund/hyrise/src/lib/layouter/layout_utils.cpp" bodystart="102" bodyend="107"/>
+      </memberdef>
+      <memberdef kind="function" id="layout__utils_8cpp_1a23fa58ad6255a695e28a2e649ed4d83c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int GCD</definition>
+        <argsstring>(int a, int b)</argsstring>
+        <name>GCD</name>
+        <param>
+          <type>int</type>
+          <declname>a</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>b</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/layouter/layout_utils.cpp" line="109" bodyfile="/home/grund/hyrise/src/lib/layouter/layout_utils.cpp" bodystart="109" bodyend="125"/>
+      </memberdef>
+      <memberdef kind="function" id="layout__utils_8cpp_1ac40678ad881b5323943b9e63b41e72e9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int LCM</definition>
+        <argsstring>(int a, int b)</argsstring>
+        <name>LCM</name>
+        <param>
+          <type>int</type>
+          <declname>a</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>b</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/layouter/layout_utils.cpp" line="128" bodyfile="/home/grund/hyrise/src/lib/layouter/layout_utils.cpp" bodystart="128" bodyend="130"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>2012<sp/>Hasso-Plattner-Institut<sp/>fuer<sp/>Softwaresystemtechnik<sp/>GmbH.<sp/>All<sp/>rights<sp/>reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;iostream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;boost/foreach.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="layout__utils_8h" kindref="compound">layout_utils.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8" refid="namespacelayouter_1a2a52694287321d9934674095bad4ccbb" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="namespacelayouter_1a8fe7d9ecbfd0b9a1690bca4e2a544fd0" kindref="member">layouter::print</ref>(std::vector&lt;std::vector&lt;unsigned&gt;<sp/>&gt;l)<sp/>{</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;[&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"><sp/><sp/>BOOST_FOREACH(std::vector&lt;unsigned&gt;<sp/>x,<sp/>l)<sp/>{</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"><sp/><sp/><sp/><sp/>BOOST_FOREACH(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/>e,<sp/>x)<sp/>{</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/>e<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;|&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;]&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>std::endl;;</highlight></codeline>
+<codeline lineno="17"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19" refid="namespacelayouter_1ae88f5877c8cf47832c8ec736ed0df4b0" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="namespacelayouter_1a8fe7d9ecbfd0b9a1690bca4e2a544fd0" kindref="member">layouter::print</ref>(std::vector&lt;unsigned&gt;<sp/>x)<sp/>{</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/>BOOST_FOREACH(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/>e,<sp/>x)<sp/>{</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/>e<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="24"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26" refid="namespacelayouter_1a8fe7d9ecbfd0b9a1690bca4e2a544fd0" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="namespacelayouter_1a8fe7d9ecbfd0b9a1690bca4e2a544fd0" kindref="member">layouter::print</ref>(std::set&lt;unsigned&gt;<sp/>x)<sp/>{</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/>BOOST_FOREACH(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/>e,<sp/>x)<sp/>{</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/>e<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="31"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33" refid="namespacelayouter_1a3e837005becd52a996181c47d629eabe" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="namespacelayouter_1a8fe7d9ecbfd0b9a1690bca4e2a544fd0" kindref="member">layouter::print</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>*x,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>s)<sp/>{</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>s;<sp/>++i)<sp/>{</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/>x[i]<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="38"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40" refid="namespacelayouter_1a7809de6ee62450fc784078111479fb3f" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="namespacelayouter_1a8fe7d9ecbfd0b9a1690bca4e2a544fd0" kindref="member">layouter::print</ref>(std::vector&lt;double&gt;<sp/>d)<sp/>{</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/>BOOST_FOREACH(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>e,<sp/>d)<sp/>{</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/>e<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="45"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47" refid="layout__utils_8h_1a6df4680467235d1ee6d9b19610215270" refkind="member"><highlight class="normal">std::vector&lt;layouter::subset_t&gt;<sp/>&amp;<ref refid="layout__utils_8cpp_1a6df4680467235d1ee6d9b19610215270" kindref="member">operator += </ref>(std::vector&lt;layouter::subset_t&gt;<sp/>&amp;a,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;layouter::subset_t&gt;<sp/>&amp;b)<sp/>{</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/>BOOST_FOREACH(<ref refid="namespacelayouter_1a9779582085930cc6fb80f4f2b27dfd9e" kindref="member">layouter::subset_t</ref><sp/>i,<sp/>b)<sp/>{</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/>a.push_back(i);</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>a;</highlight></codeline>
+<codeline lineno="52"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54" refid="layout__utils_8h_1ad8d5a70f4c01a0dd59c300abc9d1bc32" refkind="member"><highlight class="normal">std::vector&lt;layouter::subset_t&gt;<sp/><sp/><sp/><ref refid="layout__utils_8cpp_1ad8d5a70f4c01a0dd59c300abc9d1bc32" kindref="member">operator + </ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;layouter::subset_t&gt;<sp/>&amp;a,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;layouter::subset_t&gt;<sp/>&amp;b)<sp/>{</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/>std::vector&lt;layouter::subset_t&gt;<sp/>result;</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/>BOOST_FOREACH(<ref refid="namespacelayouter_1a9779582085930cc6fb80f4f2b27dfd9e" kindref="member">layouter::subset_t</ref><sp/>i,<sp/>a)<sp/>{</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/>result.push_back(i);</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/>BOOST_FOREACH(<ref refid="namespacelayouter_1a9779582085930cc6fb80f4f2b27dfd9e" kindref="member">layouter::subset_t</ref><sp/>i,<sp/>b)<sp/>{</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/>result.push_back(i);</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>result;</highlight></codeline>
+<codeline lineno="63"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65" refid="layout__utils_8h_1adf47a5cd62b5e45e37cd2c7d2452ea8d" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="layout__utils_8cpp_1adf47a5cd62b5e45e37cd2c7d2452ea8d" kindref="member">operator== </ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;layouter::subset_t&gt;<sp/>&amp;left,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;layouter::subset_t&gt;<sp/>&amp;right)<sp/>{</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(left.size()<sp/>!=<sp/>right.size())</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>left.size();<sp/>++i)<sp/>{</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(left[i]<sp/>!=<sp/>right[i])</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76" refid="layout__utils_8h_1a8fdd99abb12879bb5576fbc48f656838" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="layout__utils_8cpp_1a8fdd99abb12879bb5576fbc48f656838" kindref="member">operator!= </ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;layouter::subset_t&gt;<sp/>&amp;left,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;layouter::subset_t&gt;<sp/>&amp;right)<sp/>{</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>!(left<sp/>==<sp/>right);</highlight></codeline>
+<codeline lineno="78"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight></codeline>
+<codeline lineno="80" refid="layout__utils_8h_1a189f883d79115f42a69959bdeab0a671" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="layout__utils_8cpp_1a189f883d79115f42a69959bdeab0a671" kindref="member">sort_subset_by_size</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="namespacelayouter_1a9779582085930cc6fb80f4f2b27dfd9e" kindref="member">layouter::subset_t</ref><sp/>&amp;left,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="namespacelayouter_1a9779582085930cc6fb80f4f2b27dfd9e" kindref="member">layouter::subset_t</ref><sp/>&amp;right)<sp/>{</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>left.size()<sp/>&gt;<sp/>right.size();</highlight></codeline>
+<codeline lineno="82"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight></codeline>
+<codeline lineno="84" refid="layout__utils_8h_1a262ac7552679026b025fa256b65b95df" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="layout__utils_8cpp_1a262ac7552679026b025fa256b65b95df" kindref="member">subset_t_lt</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="namespacelayouter_1a9779582085930cc6fb80f4f2b27dfd9e" kindref="member">layouter::subset_t</ref><sp/>&amp;left,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="namespacelayouter_1a9779582085930cc6fb80f4f2b27dfd9e" kindref="member">layouter::subset_t</ref><sp/>&amp;right)<sp/>{</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(left.size()<sp/>&lt;<sp/>right.size())</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(left.size()<sp/>==<sp/>right.size())<sp/>{</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Now<sp/>we<sp/>need<sp/>to<sp/>compare<sp/>the<sp/>both<sp/>vectors<sp/>internally</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>left.size();<sp/>++i)<sp/>{</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(left[i]<sp/>&lt;<sp/>right[i])</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(left[i]<sp/>&gt;<sp/>right[i])</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="100"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102" refid="layout__utils_8h_1a4f75765b29f31b5cb5178d67d4cb32c2" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="layout__utils_8cpp_1a4f75765b29f31b5cb5178d67d4cb32c2" kindref="member">subset_t_content_equal</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="namespacelayouter_1a9779582085930cc6fb80f4f2b27dfd9e" kindref="member">layouter::subset_t</ref>&amp;<sp/>left,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="namespacelayouter_1a9779582085930cc6fb80f4f2b27dfd9e" kindref="member">layouter::subset_t</ref>&amp;<sp/>right)</highlight></codeline>
+<codeline lineno="103"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/>std::set&lt;unsigned&gt;<sp/>left_set(left.begin(),<sp/>left.end());</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/>std::set&lt;unsigned&gt;<sp/>right_set(right.begin(),<sp/>right.end());</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>left_set<sp/>==<sp/>right_set;</highlight></codeline>
+<codeline lineno="107"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight></codeline>
+<codeline lineno="109" refid="layout__utils_8h_1a23fa58ad6255a695e28a2e649ed4d83c" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="layout__utils_8cpp_1a23fa58ad6255a695e28a2e649ed4d83c" kindref="member">GCD</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>a,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>b)<sp/>{</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>s;</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(a<sp/>&gt;<sp/>b)<sp/>{</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/>s<sp/>=<sp/>b;</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/>s<sp/>=<sp/>a;</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>s;<sp/>i<sp/>&gt;<sp/>0;<sp/>i--)<sp/>{</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((a<sp/>%<sp/>i<sp/>==<sp/>0)<sp/>&amp;&amp;<sp/>(b<sp/>%<sp/>i<sp/>==<sp/>0))<sp/>{</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>i;</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>-1;</highlight></codeline>
+<codeline lineno="125"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight></codeline>
+<codeline lineno="128" refid="layout__utils_8h_1ac40678ad881b5323943b9e63b41e72e9" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="layout__utils_8cpp_1ac40678ad881b5323943b9e63b41e72e9" kindref="member">LCM</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>a,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>b)<sp/>{</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(a<sp/>*<sp/>b)<sp/>/<sp/><ref refid="layout__utils_8cpp_1a23fa58ad6255a695e28a2e649ed4d83c" kindref="member">GCD</ref>(a,<sp/>b);</highlight></codeline>
+<codeline lineno="130"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/home/grund/hyrise/src/lib/layouter/layout_utils.cpp"/>
+  </compounddef>
+</doxygen>

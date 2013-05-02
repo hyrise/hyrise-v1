@@ -1,0 +1,560 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="class_abstract_queue_based_task_scheduler" kind="class" prot="public">
+    <compoundname>AbstractQueueBasedTaskScheduler</compoundname>
+    <basecompoundref refid="class_abstract_task_scheduler" prot="public" virt="non-virtual">AbstractTaskScheduler</basecompoundref>
+    <basecompoundref refid="class_task_ready_observer" prot="public" virt="non-virtual">TaskReadyObserver</basecompoundref>
+    <derivedcompoundref refid="class_simple_task_scheduler" prot="public" virt="non-virtual">SimpleTaskScheduler&lt; TaskQueue &gt;</derivedcompoundref>
+    <derivedcompoundref refid="class_w_s_simple_task_scheduler" prot="public" virt="non-virtual">WSSimpleTaskScheduler&lt; TaskQueue &gt;</derivedcompoundref>
+    <includes refid="_abstract_task_scheduler_8h" local="no">AbstractTaskScheduler.h</includes>
+    <templateparamlist>
+      <param>
+        <type>class</type>
+        <declname>TaskQueue</declname>
+        <defname>TaskQueue</defname>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-type">
+      <memberdef kind="enum" id="class_abstract_queue_based_task_scheduler_1a8541fccaa20ef2b2b3f65e1e811b4384" prot="public" static="no">
+        <name>scheduler_status_t</name>
+        <enumvalue id="class_abstract_queue_based_task_scheduler_1a8541fccaa20ef2b2b3f65e1e811b4384ad8d06d293dd458aa5dffa2dee03bd53f" prot="public">
+          <name>START_UP</name>
+          <initializer> -1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_abstract_queue_based_task_scheduler_1a8541fccaa20ef2b2b3f65e1e811b4384a98edf57089140f5ceca5c2e00735fff3" prot="public">
+          <name>RUN</name>
+          <initializer> 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_abstract_queue_based_task_scheduler_1a8541fccaa20ef2b2b3f65e1e811b4384ad67fe92c6063ceb93880af0780266583" prot="public">
+          <name>RESIZING</name>
+          <initializer> 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_abstract_queue_based_task_scheduler_1a8541fccaa20ef2b2b3f65e1e811b4384a30d62c2c306ab00f56b121a06db75d39" prot="public">
+          <name>TO_STOP</name>
+          <initializer> 2</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_abstract_queue_based_task_scheduler_1a8541fccaa20ef2b2b3f65e1e811b4384a2ef0b790605a3096cbf56bb3b2459f60" prot="public">
+          <name>STOPPED</name>
+          <initializer> 3</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/taskscheduler/AbstractTaskScheduler.h" line="54" bodyfile="/home/grund/hyrise/src/lib/taskscheduler/AbstractTaskScheduler.h" bodystart="54" bodyend="60"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-type">
+      <memberdef kind="typedef" id="class_abstract_queue_based_task_scheduler_1a928dccb1cf094c711f1f9706a3e144b9" prot="protected" static="no">
+        <type><ref refid="class_task_queue" kindref="compound">TaskQueue</ref></type>
+        <definition>typedef TaskQueue AbstractQueueBasedTaskScheduler&lt; TaskQueue &gt;::task_queue_t</definition>
+        <argsstring></argsstring>
+        <name>task_queue_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/taskscheduler/AbstractTaskScheduler.h" line="63" bodyfile="/home/grund/hyrise/src/lib/taskscheduler/AbstractTaskScheduler.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="class_abstract_queue_based_task_scheduler_1ad94d2d6a9542e91439ea66a24615cf75" prot="protected" static="no">
+        <type>std::unordered_set&lt; std::shared_ptr&lt; <ref refid="class_task" kindref="compound">Task</ref> &gt; &gt;</type>
+        <definition>typedef std::unordered_set&lt;std::shared_ptr&lt;Task&gt; &gt; AbstractQueueBasedTaskScheduler&lt; TaskQueue &gt;::waiting_tasks_t</definition>
+        <argsstring></argsstring>
+        <name>waiting_tasks_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/taskscheduler/AbstractTaskScheduler.h" line="64" bodyfile="/home/grund/hyrise/src/lib/taskscheduler/AbstractTaskScheduler.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="class_abstract_queue_based_task_scheduler_1a23634d17af1c513373241b21e1e902b4" prot="protected" static="no">
+        <type>std::vector&lt; <ref refid="class_abstract_queue_based_task_scheduler_1a928dccb1cf094c711f1f9706a3e144b9" kindref="member">task_queue_t</ref> * &gt;</type>
+        <definition>typedef std::vector&lt;task_queue_t *&gt; AbstractQueueBasedTaskScheduler&lt; TaskQueue &gt;::task_queues_t</definition>
+        <argsstring></argsstring>
+        <name>task_queues_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/taskscheduler/AbstractTaskScheduler.h" line="65" bodyfile="/home/grund/hyrise/src/lib/taskscheduler/AbstractTaskScheduler.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="class_abstract_queue_based_task_scheduler_1aa14db5392f03ba5ced3b0c69f2277e3a" prot="protected" static="no" mutable="no">
+        <type><ref refid="class_abstract_queue_based_task_scheduler_1ad94d2d6a9542e91439ea66a24615cf75" kindref="member">waiting_tasks_t</ref></type>
+        <definition>waiting_tasks_t AbstractQueueBasedTaskScheduler&lt; TaskQueue &gt;::_waitSet</definition>
+        <argsstring></argsstring>
+        <name>_waitSet</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/taskscheduler/AbstractTaskScheduler.h" line="67" bodyfile="/home/grund/hyrise/src/lib/taskscheduler/AbstractTaskScheduler.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_abstract_queue_based_task_scheduler_1ad0e0256b8ba6b22e666b503c30ca5b18" prot="protected" static="no" mutable="no">
+        <type><ref refid="class_abstract_queue_based_task_scheduler_1a23634d17af1c513373241b21e1e902b4" kindref="member">task_queues_t</ref></type>
+        <definition>task_queues_t AbstractQueueBasedTaskScheduler&lt; TaskQueue &gt;::_taskQueues</definition>
+        <argsstring></argsstring>
+        <name>_taskQueues</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/taskscheduler/AbstractTaskScheduler.h" line="69" bodyfile="/home/grund/hyrise/src/lib/taskscheduler/AbstractTaskScheduler.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_abstract_queue_based_task_scheduler_1a16352024c8e2d06cc6d49ed5aa1fde3f" prot="protected" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t AbstractQueueBasedTaskScheduler&lt; TaskQueue &gt;::_queues</definition>
+        <argsstring></argsstring>
+        <name>_queues</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/taskscheduler/AbstractTaskScheduler.h" line="71" bodyfile="/home/grund/hyrise/src/lib/taskscheduler/AbstractTaskScheduler.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_abstract_queue_based_task_scheduler_1a9347d7744e6d8e9100f9fb5093f36ea5" prot="protected" static="no" mutable="no">
+        <type><ref refid="class_abstract_queue_based_task_scheduler_1a8541fccaa20ef2b2b3f65e1e811b4384" kindref="member">scheduler_status_t</ref></type>
+        <definition>scheduler_status_t AbstractQueueBasedTaskScheduler&lt; TaskQueue &gt;::_status</definition>
+        <argsstring></argsstring>
+        <name>_status</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/taskscheduler/AbstractTaskScheduler.h" line="73" bodyfile="/home/grund/hyrise/src/lib/taskscheduler/AbstractTaskScheduler.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_abstract_queue_based_task_scheduler_1a0d2c44b1b22fea2d964f7bf6cc4d685e" prot="protected" static="no" mutable="no">
+        <type>std::mutex</type>
+        <definition>std::mutex AbstractQueueBasedTaskScheduler&lt; TaskQueue &gt;::_setMutex</definition>
+        <argsstring></argsstring>
+        <name>_setMutex</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/taskscheduler/AbstractTaskScheduler.h" line="75" bodyfile="/home/grund/hyrise/src/lib/taskscheduler/AbstractTaskScheduler.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_abstract_queue_based_task_scheduler_1ad78e2d722f399a71c1d4d00b18c690c7" prot="protected" static="no" mutable="no">
+        <type>std::mutex</type>
+        <definition>std::mutex AbstractQueueBasedTaskScheduler&lt; TaskQueue &gt;::_statusMutex</definition>
+        <argsstring></argsstring>
+        <name>_statusMutex</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/taskscheduler/AbstractTaskScheduler.h" line="77" bodyfile="/home/grund/hyrise/src/lib/taskscheduler/AbstractTaskScheduler.h" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_abstract_queue_based_task_scheduler_1a5de31532dbcf8be38f8c7b2879c3dc39" prot="protected" static="no" mutable="no">
+        <type>std::mutex</type>
+        <definition>std::mutex AbstractQueueBasedTaskScheduler&lt; TaskQueue &gt;::_queuesMutex</definition>
+        <argsstring></argsstring>
+        <name>_queuesMutex</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/taskscheduler/AbstractTaskScheduler.h" line="79" bodyfile="/home/grund/hyrise/src/lib/taskscheduler/AbstractTaskScheduler.h" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_abstract_queue_based_task_scheduler_1ad00929551b00c72cca437edca9b5b1d5" prot="protected" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t AbstractQueueBasedTaskScheduler&lt; TaskQueue &gt;::_nextQueue</definition>
+        <argsstring></argsstring>
+        <name>_nextQueue</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/taskscheduler/AbstractTaskScheduler.h" line="81" bodyfile="/home/grund/hyrise/src/lib/taskscheduler/AbstractTaskScheduler.h" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-static-attrib">
+      <memberdef kind="variable" id="class_abstract_queue_based_task_scheduler_1a5b8745c3d84acfa9ea026bdd1727ee60" prot="protected" static="yes" mutable="no">
+        <type>log4cxx::LoggerPtr</type>
+        <definition>log4cxx::LoggerPtr AbstractQueueBasedTaskScheduler&lt; TaskQueue &gt;::_logger</definition>
+        <argsstring></argsstring>
+        <name>_logger</name>
+        <initializer> log4cxx::Logger::getLogger(&quot;taskscheduler.AbstractQueueBasedTaskScheduler&quot;)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/taskscheduler/AbstractTaskScheduler.h" line="83" bodyfile="/home/grund/hyrise/src/lib/taskscheduler/AbstractTaskScheduler.h" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="class_abstract_queue_based_task_scheduler_1a8cf1e9dfce85e0b78021fe9c5c055450" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>AbstractQueueBasedTaskScheduler&lt; TaskQueue &gt;::AbstractQueueBasedTaskScheduler</definition>
+        <argsstring>()</argsstring>
+        <name>AbstractQueueBasedTaskScheduler</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/taskscheduler/AbstractTaskScheduler.h" line="85" bodyfile="/home/grund/hyrise/src/lib/taskscheduler/AbstractTaskScheduler.h" bodystart="85" bodyend="86"/>
+      </memberdef>
+      <memberdef kind="function" id="class_abstract_queue_based_task_scheduler_1a8c2bfb9921722bc869ef9b3c2d5ca4ad" prot="protected" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void AbstractQueueBasedTaskScheduler&lt; TaskQueue &gt;::pushToQueue</definition>
+        <argsstring>(std::shared_ptr&lt; Task &gt; task)=0</argsstring>
+        <name>pushToQueue</name>
+        <reimplementedby refid="class_simple_task_scheduler_1ad6aa0631839830ebcf133a60e9f6dc9f">pushToQueue</reimplementedby>
+        <reimplementedby refid="class_w_s_simple_task_scheduler_1ac1e69036960af8f87708bc5a82bbfdee">pushToQueue</reimplementedby>
+        <reimplementedby refid="class_w_s_simple_task_scheduler_1ac1e69036960af8f87708bc5a82bbfdee">pushToQueue</reimplementedby>
+        <param>
+          <type>std::shared_ptr&lt; <ref refid="class_task" kindref="compound">Task</ref> &gt;</type>
+          <declname>task</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>push ready task to the next queue </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/taskscheduler/AbstractTaskScheduler.h" line="91"/>
+      </memberdef>
+      <memberdef kind="function" id="class_abstract_queue_based_task_scheduler_1a614a1836ab551bd6392d9ebc0923c4fd" prot="protected" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void AbstractQueueBasedTaskScheduler&lt; TaskQueue &gt;::stopQueueAndRedistributeTasks</definition>
+        <argsstring>(task_queue_t *queue, int queues)=0</argsstring>
+        <name>stopQueueAndRedistributeTasks</name>
+        <reimplementedby refid="class_w_s_simple_task_scheduler_1ac544d0ec9f6b58eebce8bca9e25c45cf">stopQueueAndRedistributeTasks</reimplementedby>
+        <reimplementedby refid="class_w_s_simple_task_scheduler_1ac544d0ec9f6b58eebce8bca9e25c45cf">stopQueueAndRedistributeTasks</reimplementedby>
+        <reimplementedby refid="class_simple_task_scheduler_1a7934978603b3aff6103727b1afbfc35f">stopQueueAndRedistributeTasks</reimplementedby>
+        <param>
+          <type><ref refid="class_abstract_queue_based_task_scheduler_1a928dccb1cf094c711f1f9706a3e144b9" kindref="member">task_queue_t</ref> *</type>
+          <declname>queue</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>queues</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/taskscheduler/AbstractTaskScheduler.h" line="96"/>
+      </memberdef>
+      <memberdef kind="function" id="class_abstract_queue_based_task_scheduler_1a1d899cf65b5fdf00155a0b45cd55b60b" prot="protected" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type><ref refid="class_abstract_queue_based_task_scheduler_1a928dccb1cf094c711f1f9706a3e144b9" kindref="member">task_queue_t</ref> *</type>
+        <definition>virtual task_queue_t* AbstractQueueBasedTaskScheduler&lt; TaskQueue &gt;::createTaskQueue</definition>
+        <argsstring>(int core)=0</argsstring>
+        <name>createTaskQueue</name>
+        <reimplementedby refid="class_w_s_simple_task_scheduler_1a451fbaed30f7a0d6ea8cf56918b4c6fa">createTaskQueue</reimplementedby>
+        <reimplementedby refid="class_w_s_simple_task_scheduler_1a451fbaed30f7a0d6ea8cf56918b4c6fa">createTaskQueue</reimplementedby>
+        <reimplementedby refid="class_simple_task_scheduler_1aadf65f18eaa5f48f54a7f1992de9ea62">createTaskQueue</reimplementedby>
+        <param>
+          <type>int</type>
+          <declname>core</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/taskscheduler/AbstractTaskScheduler.h" line="100"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_abstract_queue_based_task_scheduler_1a5ac1c2430bd370a25998c37eb8ae7e74" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual AbstractQueueBasedTaskScheduler&lt; TaskQueue &gt;::~AbstractQueueBasedTaskScheduler</definition>
+        <argsstring>()</argsstring>
+        <name>~AbstractQueueBasedTaskScheduler</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/taskscheduler/AbstractTaskScheduler.h" line="104" bodyfile="/home/grund/hyrise/src/lib/taskscheduler/AbstractTaskScheduler.h" bodystart="104" bodyend="104"/>
+      </memberdef>
+      <memberdef kind="function" id="class_abstract_queue_based_task_scheduler_1a4524e753229249dfaaf07ec39696bc71" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class_abstract_queue_based_task_scheduler_1a8541fccaa20ef2b2b3f65e1e811b4384" kindref="member">scheduler_status_t</ref></type>
+        <definition>scheduler_status_t AbstractQueueBasedTaskScheduler&lt; TaskQueue &gt;::getSchedulerStatus</definition>
+        <argsstring>()</argsstring>
+        <name>getSchedulerStatus</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/taskscheduler/AbstractTaskScheduler.h" line="108" bodyfile="/home/grund/hyrise/src/lib/taskscheduler/AbstractTaskScheduler.h" bodystart="108" bodyend="111"/>
+      </memberdef>
+      <memberdef kind="function" id="class_abstract_queue_based_task_scheduler_1a7cd630ee5db06d2a6538c1dbeda6d680" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void AbstractQueueBasedTaskScheduler&lt; TaskQueue &gt;::schedule</definition>
+        <argsstring>(std::shared_ptr&lt; Task &gt; task)</argsstring>
+        <name>schedule</name>
+        <reimplements refid="class_abstract_task_scheduler_1a5302dc48bb09b4ec0caddf22101cfadf">schedule</reimplements>
+        <param>
+          <type>std::shared_ptr&lt; <ref refid="class_task" kindref="compound">Task</ref> &gt;</type>
+          <declname>task</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/taskscheduler/AbstractTaskScheduler.h" line="115" bodyfile="/home/grund/hyrise/src/lib/taskscheduler/AbstractTaskScheduler.h" bodystart="115" bodyend="130"/>
+      </memberdef>
+      <memberdef kind="function" id="class_abstract_queue_based_task_scheduler_1ad8472675a2c721936c86b7accb00808c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void AbstractQueueBasedTaskScheduler&lt; TaskQueue &gt;::schedule</definition>
+        <argsstring>(std::shared_ptr&lt; Task &gt; task, int core)</argsstring>
+        <name>schedule</name>
+        <param>
+          <type>std::shared_ptr&lt; <ref refid="class_task" kindref="compound">Task</ref> &gt;</type>
+          <declname>task</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>core</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/taskscheduler/AbstractTaskScheduler.h" line="135" bodyfile="/home/grund/hyrise/src/lib/taskscheduler/AbstractTaskScheduler.h" bodystart="135" bodyend="138"/>
+      </memberdef>
+      <memberdef kind="function" id="class_abstract_queue_based_task_scheduler_1a63d5b6645b741838980b8a860dfc0fa3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>void AbstractQueueBasedTaskScheduler&lt; TaskQueue &gt;::resize</definition>
+        <argsstring>(const size_t queues)</argsstring>
+        <name>resize</name>
+        <reimplements refid="class_abstract_task_scheduler_1a7144f23ea3f7de43152baca16e9a1658">resize</reimplements>
+        <param>
+          <type>const size_t</type>
+          <declname>queues</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/taskscheduler/AbstractTaskScheduler.h" line="143" bodyfile="/home/grund/hyrise/src/lib/taskscheduler/AbstractTaskScheduler.h" bodystart="143" bodyend="187"/>
+      </memberdef>
+      <memberdef kind="function" id="class_abstract_queue_based_task_scheduler_1a6c7400aefb4494aa70bbc5e93be70c44" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>void AbstractQueueBasedTaskScheduler&lt; TaskQueue &gt;::notifyReady</definition>
+        <argsstring>(std::shared_ptr&lt; Task &gt; task)</argsstring>
+        <name>notifyReady</name>
+        <reimplements refid="class_task_ready_observer_1a8085f01f504ee10a83e95b5af3838980">notifyReady</reimplements>
+        <param>
+          <type>std::shared_ptr&lt; <ref refid="class_task" kindref="compound">Task</ref> &gt;</type>
+          <declname>task</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/taskscheduler/AbstractTaskScheduler.h" line="191" bodyfile="/home/grund/hyrise/src/lib/taskscheduler/AbstractTaskScheduler.h" bodystart="191" bodyend="204"/>
+      </memberdef>
+      <memberdef kind="function" id="class_abstract_queue_based_task_scheduler_1a7403302f25aa67c2411542e1f19bf24d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void AbstractQueueBasedTaskScheduler&lt; TaskQueue &gt;::wait</definition>
+        <argsstring>()</argsstring>
+        <name>wait</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/taskscheduler/AbstractTaskScheduler.h" line="209" bodyfile="/home/grund/hyrise/src/lib/taskscheduler/AbstractTaskScheduler.h" bodystart="209" bodyend="213"/>
+      </memberdef>
+      <memberdef kind="function" id="class_abstract_queue_based_task_scheduler_1a0e80a0475a8a28e819c84f5fc28f30f8" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>size_t</type>
+        <definition>size_t AbstractQueueBasedTaskScheduler&lt; TaskQueue &gt;::getNumberOfWorker</definition>
+        <argsstring>() const </argsstring>
+        <name>getNumberOfWorker</name>
+        <reimplements refid="class_abstract_task_scheduler_1ab444b0fed6674af950078b6a06ab2487">getNumberOfWorker</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>get number of worker </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/taskscheduler/AbstractTaskScheduler.h" line="215" bodyfile="/home/grund/hyrise/src/lib/taskscheduler/AbstractTaskScheduler.h" bodystart="215" bodyend="217"/>
+      </memberdef>
+      <memberdef kind="function" id="class_abstract_queue_based_task_scheduler_1a09dd996470ce4336b651f24460ea68c9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void AbstractQueueBasedTaskScheduler&lt; TaskQueue &gt;::shutdown</definition>
+        <argsstring>()</argsstring>
+        <name>shutdown</name>
+        <reimplements refid="class_abstract_task_scheduler_1a2be53dd1c0676d50f2fd4cc97bce4406">shutdown</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/taskscheduler/AbstractTaskScheduler.h" line="219" bodyfile="/home/grund/hyrise/src/lib/taskscheduler/AbstractTaskScheduler.h" bodystart="219" bodyend="229"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1385">
+        <label>AbstractQueueBasedTaskScheduler&lt; TaskQueue &gt;</label>
+        <link refid="class_abstract_queue_based_task_scheduler"/>
+        <childnode refid="1386" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1387" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1388">
+        <label>SimpleTaskScheduler&lt; TaskQueue &gt;</label>
+        <link refid="class_simple_task_scheduler"/>
+        <childnode refid="1385" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1390">
+        <label>WSSimpleTaskScheduler&lt; WSCoreBoundTaskQueue &gt;</label>
+        <link refid="class_w_s_simple_task_scheduler"/>
+        <childnode refid="1389" relation="template-instance">
+          <edgelabel>&lt; WSCoreBoundTaskQueue &gt;</edgelabel>
+        </childnode>
+        <childnode refid="1391" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1386">
+        <label>AbstractTaskScheduler</label>
+        <link refid="class_abstract_task_scheduler"/>
+      </node>
+      <node id="1387">
+        <label>TaskReadyObserver</label>
+        <link refid="class_task_ready_observer"/>
+      </node>
+      <node id="1389">
+        <label>WSSimpleTaskScheduler&lt; TaskQueue &gt;</label>
+        <link refid="class_w_s_simple_task_scheduler"/>
+        <childnode refid="1385" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1391">
+        <label>AbstractQueueBasedTaskScheduler&lt; WSCoreBoundTaskQueue &gt;</label>
+        <link refid="class_abstract_queue_based_task_scheduler"/>
+        <childnode refid="1385" relation="template-instance">
+          <edgelabel>&lt; WSCoreBoundTaskQueue &gt;</edgelabel>
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1392">
+        <label>AbstractQueueBasedTaskScheduler&lt; TaskQueue &gt;</label>
+        <link refid="class_abstract_queue_based_task_scheduler"/>
+        <childnode refid="1393" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1394" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1393">
+        <label>AbstractTaskScheduler</label>
+        <link refid="class_abstract_task_scheduler"/>
+      </node>
+      <node id="1394">
+        <label>TaskReadyObserver</label>
+        <link refid="class_task_ready_observer"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/taskscheduler/AbstractTaskScheduler.h" line="48" bodyfile="/home/grund/hyrise/src/lib/taskscheduler/AbstractTaskScheduler.h" bodystart="48" bodyend="230"/>
+    <listofallmembers>
+      <member refid="class_abstract_queue_based_task_scheduler_1a5b8745c3d84acfa9ea026bdd1727ee60" prot="protected" virt="non-virtual"><scope>AbstractQueueBasedTaskScheduler</scope><name>_logger</name></member>
+      <member refid="class_abstract_queue_based_task_scheduler_1ad00929551b00c72cca437edca9b5b1d5" prot="protected" virt="non-virtual"><scope>AbstractQueueBasedTaskScheduler</scope><name>_nextQueue</name></member>
+      <member refid="class_abstract_queue_based_task_scheduler_1a16352024c8e2d06cc6d49ed5aa1fde3f" prot="protected" virt="non-virtual"><scope>AbstractQueueBasedTaskScheduler</scope><name>_queues</name></member>
+      <member refid="class_abstract_queue_based_task_scheduler_1a5de31532dbcf8be38f8c7b2879c3dc39" prot="protected" virt="non-virtual"><scope>AbstractQueueBasedTaskScheduler</scope><name>_queuesMutex</name></member>
+      <member refid="class_abstract_queue_based_task_scheduler_1a0d2c44b1b22fea2d964f7bf6cc4d685e" prot="protected" virt="non-virtual"><scope>AbstractQueueBasedTaskScheduler</scope><name>_setMutex</name></member>
+      <member refid="class_abstract_queue_based_task_scheduler_1a9347d7744e6d8e9100f9fb5093f36ea5" prot="protected" virt="non-virtual"><scope>AbstractQueueBasedTaskScheduler</scope><name>_status</name></member>
+      <member refid="class_abstract_queue_based_task_scheduler_1ad78e2d722f399a71c1d4d00b18c690c7" prot="protected" virt="non-virtual"><scope>AbstractQueueBasedTaskScheduler</scope><name>_statusMutex</name></member>
+      <member refid="class_abstract_queue_based_task_scheduler_1ad0e0256b8ba6b22e666b503c30ca5b18" prot="protected" virt="non-virtual"><scope>AbstractQueueBasedTaskScheduler</scope><name>_taskQueues</name></member>
+      <member refid="class_abstract_queue_based_task_scheduler_1aa14db5392f03ba5ced3b0c69f2277e3a" prot="protected" virt="non-virtual"><scope>AbstractQueueBasedTaskScheduler</scope><name>_waitSet</name></member>
+      <member refid="class_abstract_queue_based_task_scheduler_1a8cf1e9dfce85e0b78021fe9c5c055450" prot="protected" virt="non-virtual"><scope>AbstractQueueBasedTaskScheduler</scope><name>AbstractQueueBasedTaskScheduler</name></member>
+      <member refid="class_abstract_queue_based_task_scheduler_1a1d899cf65b5fdf00155a0b45cd55b60b" prot="protected" virt="pure-virtual"><scope>AbstractQueueBasedTaskScheduler</scope><name>createTaskQueue</name></member>
+      <member refid="class_abstract_queue_based_task_scheduler_1a0e80a0475a8a28e819c84f5fc28f30f8" prot="public" virt="virtual"><scope>AbstractQueueBasedTaskScheduler</scope><name>getNumberOfWorker</name></member>
+      <member refid="class_abstract_queue_based_task_scheduler_1a4524e753229249dfaaf07ec39696bc71" prot="public" virt="non-virtual"><scope>AbstractQueueBasedTaskScheduler</scope><name>getSchedulerStatus</name></member>
+      <member refid="class_abstract_queue_based_task_scheduler_1a6c7400aefb4494aa70bbc5e93be70c44" prot="public" virt="virtual"><scope>AbstractQueueBasedTaskScheduler</scope><name>notifyReady</name></member>
+      <member refid="class_abstract_queue_based_task_scheduler_1a8c2bfb9921722bc869ef9b3c2d5ca4ad" prot="protected" virt="pure-virtual"><scope>AbstractQueueBasedTaskScheduler</scope><name>pushToQueue</name></member>
+      <member refid="class_abstract_queue_based_task_scheduler_1a63d5b6645b741838980b8a860dfc0fa3" prot="public" virt="virtual"><scope>AbstractQueueBasedTaskScheduler</scope><name>resize</name></member>
+      <member refid="class_abstract_queue_based_task_scheduler_1a8541fccaa20ef2b2b3f65e1e811b4384ad67fe92c6063ceb93880af0780266583" prot="public" virt="non-virtual"><scope>AbstractQueueBasedTaskScheduler</scope><name>RESIZING</name></member>
+      <member refid="class_abstract_queue_based_task_scheduler_1a8541fccaa20ef2b2b3f65e1e811b4384a98edf57089140f5ceca5c2e00735fff3" prot="public" virt="non-virtual"><scope>AbstractQueueBasedTaskScheduler</scope><name>RUN</name></member>
+      <member refid="class_abstract_queue_based_task_scheduler_1a7cd630ee5db06d2a6538c1dbeda6d680" prot="public" virt="virtual"><scope>AbstractQueueBasedTaskScheduler</scope><name>schedule</name></member>
+      <member refid="class_abstract_queue_based_task_scheduler_1ad8472675a2c721936c86b7accb00808c" prot="public" virt="non-virtual"><scope>AbstractQueueBasedTaskScheduler</scope><name>schedule</name></member>
+      <member refid="class_abstract_queue_based_task_scheduler_1a8541fccaa20ef2b2b3f65e1e811b4384" prot="public" virt="non-virtual"><scope>AbstractQueueBasedTaskScheduler</scope><name>scheduler_status_t</name></member>
+      <member refid="class_abstract_queue_based_task_scheduler_1a09dd996470ce4336b651f24460ea68c9" prot="public" virt="virtual"><scope>AbstractQueueBasedTaskScheduler</scope><name>shutdown</name></member>
+      <member refid="class_abstract_queue_based_task_scheduler_1a8541fccaa20ef2b2b3f65e1e811b4384ad8d06d293dd458aa5dffa2dee03bd53f" prot="public" virt="non-virtual"><scope>AbstractQueueBasedTaskScheduler</scope><name>START_UP</name></member>
+      <member refid="class_abstract_queue_based_task_scheduler_1a8541fccaa20ef2b2b3f65e1e811b4384a2ef0b790605a3096cbf56bb3b2459f60" prot="public" virt="non-virtual"><scope>AbstractQueueBasedTaskScheduler</scope><name>STOPPED</name></member>
+      <member refid="class_abstract_queue_based_task_scheduler_1a614a1836ab551bd6392d9ebc0923c4fd" prot="protected" virt="pure-virtual"><scope>AbstractQueueBasedTaskScheduler</scope><name>stopQueueAndRedistributeTasks</name></member>
+      <member refid="class_abstract_queue_based_task_scheduler_1a928dccb1cf094c711f1f9706a3e144b9" prot="protected" virt="non-virtual"><scope>AbstractQueueBasedTaskScheduler</scope><name>task_queue_t</name></member>
+      <member refid="class_abstract_queue_based_task_scheduler_1a23634d17af1c513373241b21e1e902b4" prot="protected" virt="non-virtual"><scope>AbstractQueueBasedTaskScheduler</scope><name>task_queues_t</name></member>
+      <member refid="class_abstract_queue_based_task_scheduler_1a8541fccaa20ef2b2b3f65e1e811b4384a30d62c2c306ab00f56b121a06db75d39" prot="public" virt="non-virtual"><scope>AbstractQueueBasedTaskScheduler</scope><name>TO_STOP</name></member>
+      <member refid="class_abstract_queue_based_task_scheduler_1a7403302f25aa67c2411542e1f19bf24d" prot="public" virt="non-virtual"><scope>AbstractQueueBasedTaskScheduler</scope><name>wait</name></member>
+      <member refid="class_abstract_queue_based_task_scheduler_1ad94d2d6a9542e91439ea66a24615cf75" prot="protected" virt="non-virtual"><scope>AbstractQueueBasedTaskScheduler</scope><name>waiting_tasks_t</name></member>
+      <member refid="class_abstract_queue_based_task_scheduler_1a5ac1c2430bd370a25998c37eb8ae7e74" prot="public" virt="virtual"><scope>AbstractQueueBasedTaskScheduler</scope><name>~AbstractQueueBasedTaskScheduler</name></member>
+      <member refid="class_abstract_task_scheduler_1a3fccfec8db07f7306dd0d3efae36283e" prot="public" virt="virtual"><scope>AbstractQueueBasedTaskScheduler</scope><name>~AbstractTaskScheduler</name></member>
+      <member refid="class_task_ready_observer_1afbeb3e41e0e022c9d11edcc1916ab577" prot="public" virt="virtual"><scope>AbstractQueueBasedTaskScheduler</scope><name>~TaskReadyObserver</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

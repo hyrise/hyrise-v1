@@ -1,0 +1,664 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="_task_scheduler_adjustment_8cpp" kind="file">
+    <compoundname>TaskSchedulerAdjustment.cpp</compoundname>
+    <includes refid="_task_scheduler_adjustment_8h" local="yes">access/TaskSchedulerAdjustment.h</includes>
+    <includes refid="_settings_8h" local="yes">helper/Settings.h</includes>
+    <includes refid="_abstract_task_scheduler_8h" local="yes">taskscheduler/AbstractTaskScheduler.h</includes>
+    <includes refid="_shared_scheduler_8h" local="yes">taskscheduler/SharedScheduler.h</includes>
+    <incdepgraph>
+      <node id="12733">
+        <label>list</label>
+      </node>
+      <node id="12703">
+        <label>boost/mpl/vector.hpp</label>
+      </node>
+      <node id="12716">
+        <label>queue</label>
+      </node>
+      <node id="12699">
+        <label>limits</label>
+      </node>
+      <node id="12751">
+        <label>boost/functional/hash.hpp</label>
+      </node>
+      <node id="12728">
+        <label>assert.h</label>
+      </node>
+      <node id="12705">
+        <label>boost/lexical_cast.hpp</label>
+      </node>
+      <node id="12752">
+        <label>helper/Settings.h</label>
+        <link refid="_settings_8h"/>
+        <childnode refid="12753" relation="include">
+        </childnode>
+        <childnode refid="12695" relation="include">
+        </childnode>
+      </node>
+      <node id="12743">
+        <label>boost/iterator/iterator_facade.hpp</label>
+      </node>
+      <node id="12698">
+        <label>cstdint</label>
+      </node>
+      <node id="12740">
+        <label>storage/BaseDictionary.h</label>
+        <link refid="_base_dictionary_8h"/>
+        <childnode refid="12700" relation="include">
+        </childnode>
+        <childnode refid="12729" relation="include">
+        </childnode>
+        <childnode refid="12741" relation="include">
+        </childnode>
+      </node>
+      <node id="12684">
+        <label>stdint.h</label>
+      </node>
+      <node id="12739">
+        <label>stdlib.h</label>
+      </node>
+      <node id="12680">
+        <label>access/TaskSchedulerAdjustment.h</label>
+        <link refid="_task_scheduler_adjustment_8h"/>
+        <childnode refid="12681" relation="include">
+        </childnode>
+      </node>
+      <node id="12737">
+        <label>errno.h</label>
+      </node>
+      <node id="12690">
+        <label>helper/epoch.h</label>
+        <link refid="epoch_8h"/>
+        <childnode refid="12684" relation="include">
+        </childnode>
+      </node>
+      <node id="12701">
+        <label>stdexcept</label>
+      </node>
+      <node id="12713">
+        <label>helper/HwlocHelper.h</label>
+        <link refid="_hwloc_helper_8h"/>
+        <childnode refid="12714" relation="include">
+        </childnode>
+      </node>
+      <node id="12695">
+        <label>string</label>
+      </node>
+      <node id="12707">
+        <label>taskscheduler.h</label>
+        <link refid="taskscheduler_8h"/>
+        <childnode refid="12708" relation="include">
+        </childnode>
+        <childnode refid="12715" relation="include">
+        </childnode>
+        <childnode refid="12718" relation="include">
+        </childnode>
+        <childnode refid="12691" relation="include">
+        </childnode>
+        <childnode refid="12717" relation="include">
+        </childnode>
+        <childnode refid="12709" relation="include">
+        </childnode>
+        <childnode refid="12719" relation="include">
+        </childnode>
+        <childnode refid="12720" relation="include">
+        </childnode>
+      </node>
+      <node id="12715">
+        <label>taskscheduler/SimpleTaskScheduler.h</label>
+        <link refid="_simple_task_scheduler_8h"/>
+        <childnode refid="12708" relation="include">
+        </childnode>
+        <childnode refid="12711" relation="include">
+        </childnode>
+        <childnode refid="12686" relation="include">
+        </childnode>
+        <childnode refid="12716" relation="include">
+        </childnode>
+        <childnode refid="12692" relation="include">
+        </childnode>
+        <childnode refid="12683" relation="include">
+        </childnode>
+        <childnode refid="12691" relation="include">
+        </childnode>
+        <childnode refid="12717" relation="include">
+        </childnode>
+        <childnode refid="12713" relation="include">
+        </childnode>
+      </node>
+      <node id="12687">
+        <label>map</label>
+      </node>
+      <node id="12691">
+        <label>taskscheduler/Task.h</label>
+        <link refid="_task_8h"/>
+        <childnode refid="12686" relation="include">
+        </childnode>
+        <childnode refid="12692" relation="include">
+        </childnode>
+        <childnode refid="12693" relation="include">
+        </childnode>
+        <childnode refid="12694" relation="include">
+        </childnode>
+        <childnode refid="12695" relation="include">
+        </childnode>
+      </node>
+      <node id="12711">
+        <label>unordered_set</label>
+      </node>
+      <node id="12726">
+        <label>storage/ValueIdMap.hpp</label>
+        <link refid="_value_id_map_8hpp"/>
+        <childnode refid="12727" relation="include">
+        </childnode>
+        <childnode refid="12745" relation="include">
+        </childnode>
+      </node>
+      <node id="12736">
+        <label>memory/MemalignStrategy.h</label>
+        <link refid="_memalign_strategy_8h"/>
+        <childnode refid="12737" relation="include">
+        </childnode>
+        <childnode refid="12738" relation="include">
+        </childnode>
+        <childnode refid="12739" relation="include">
+        </childnode>
+      </node>
+      <node id="12714">
+        <label>hwloc.h</label>
+      </node>
+      <node id="12748">
+        <label>exception</label>
+      </node>
+      <node id="12682">
+        <label>access/OutputTask.h</label>
+        <link refid="_output_task_8h"/>
+        <childnode refid="12683" relation="include">
+        </childnode>
+        <childnode refid="12684" relation="include">
+        </childnode>
+        <childnode refid="12685" relation="include">
+        </childnode>
+        <childnode refid="12686" relation="include">
+        </childnode>
+        <childnode refid="12687" relation="include">
+        </childnode>
+        <childnode refid="12688" relation="include">
+        </childnode>
+        <childnode refid="12689" relation="include">
+        </childnode>
+        <childnode refid="12690" relation="include">
+        </childnode>
+        <childnode refid="12691" relation="include">
+        </childnode>
+      </node>
+      <node id="12731">
+        <label>stddef.h</label>
+      </node>
+      <node id="12717">
+        <label>taskscheduler/CoreBoundTaskQueue.h</label>
+        <link refid="_core_bound_task_queue_8h"/>
+        <childnode refid="12710" relation="include">
+        </childnode>
+        <childnode refid="12716" relation="include">
+        </childnode>
+        <childnode refid="12709" relation="include">
+        </childnode>
+      </node>
+      <node id="12745">
+        <label>storage/OrderIndifferentDictionary.h</label>
+        <link refid="_order_indifferent_dictionary_8h"/>
+        <childnode refid="12700" relation="include">
+        </childnode>
+        <childnode refid="12729" relation="include">
+        </childnode>
+        <childnode refid="12740" relation="include">
+        </childnode>
+        <childnode refid="12741" relation="include">
+        </childnode>
+        <childnode refid="12746" relation="include">
+        </childnode>
+        <childnode refid="12744" relation="include">
+        </childnode>
+        <childnode refid="12748" relation="include">
+        </childnode>
+        <childnode refid="12686" relation="include">
+        </childnode>
+        <childnode refid="12687" relation="include">
+        </childnode>
+        <childnode refid="12693" relation="include">
+        </childnode>
+        <childnode refid="12749" relation="include">
+        </childnode>
+        <childnode refid="12750" relation="include">
+        </childnode>
+        <childnode refid="12751" relation="include">
+        </childnode>
+      </node>
+      <node id="12702">
+        <label>ostream</label>
+      </node>
+      <node id="12689">
+        <label>json.h</label>
+      </node>
+      <node id="12679">
+        <label>src/lib/access/TaskSchedulerAdjustment.cpp</label>
+        <link refid="TaskSchedulerAdjustment.cpp"/>
+        <childnode refid="12680" relation="include">
+        </childnode>
+        <childnode refid="12752" relation="include">
+        </childnode>
+        <childnode refid="12708" relation="include">
+        </childnode>
+        <childnode refid="12718" relation="include">
+        </childnode>
+      </node>
+      <node id="12749">
+        <label>limits.h</label>
+      </node>
+      <node id="12741">
+        <label>storage/DictionaryIterator.h</label>
+        <link refid="_dictionary_iterator_8h"/>
+        <childnode refid="12742" relation="include">
+        </childnode>
+        <childnode refid="12743" relation="include">
+        </childnode>
+      </node>
+      <node id="12729">
+        <label>storage/AbstractDictionary.h</label>
+        <link refid="_abstract_dictionary_8h"/>
+        <childnode refid="12686" relation="include">
+        </childnode>
+        <childnode refid="12695" relation="include">
+        </childnode>
+        <childnode refid="12693" relation="include">
+        </childnode>
+        <childnode refid="12730" relation="include">
+        </childnode>
+        <childnode refid="12734" relation="include">
+        </childnode>
+        <childnode refid="12736" relation="include">
+        </childnode>
+        <childnode refid="12700" relation="include">
+        </childnode>
+      </node>
+      <node id="12694">
+        <label>condition_variable</label>
+      </node>
+      <node id="12747">
+        <label>string.h</label>
+      </node>
+      <node id="12722">
+        <label>access/BasicParser.h</label>
+        <link refid="_basic_parser_8h"/>
+        <childnode refid="12701" relation="include">
+        </childnode>
+        <childnode refid="12693" relation="include">
+        </childnode>
+        <childnode refid="12689" relation="include">
+        </childnode>
+      </node>
+      <node id="12723">
+        <label>storage/AbstractTable.h</label>
+        <link refid="_abstract_table_8h"/>
+        <childnode refid="12699" relation="include">
+        </childnode>
+        <childnode refid="12693" relation="include">
+        </childnode>
+        <childnode refid="12701" relation="include">
+        </childnode>
+        <childnode refid="12686" relation="include">
+        </childnode>
+        <childnode refid="12695" relation="include">
+        </childnode>
+        <childnode refid="12697" relation="include">
+        </childnode>
+        <childnode refid="12724" relation="include">
+        </childnode>
+        <childnode refid="12700" relation="include">
+        </childnode>
+        <childnode refid="12725" relation="include">
+        </childnode>
+        <childnode refid="12726" relation="include">
+        </childnode>
+      </node>
+      <node id="12719">
+        <label>taskscheduler/WSCoreBoundTaskQueue.h</label>
+        <link refid="_w_s_core_bound_task_queue_8h"/>
+        <childnode refid="12709" relation="include">
+        </childnode>
+        <childnode refid="12720" relation="include">
+        </childnode>
+      </node>
+      <node id="12724">
+        <label>storage/AbstractResource.h</label>
+        <link refid="_abstract_resource_8h"/>
+      </node>
+      <node id="12750">
+        <label>boost/unordered_map.hpp</label>
+      </node>
+      <node id="12686">
+        <label>vector</label>
+      </node>
+      <node id="12718">
+        <label>taskscheduler/SharedScheduler.h</label>
+        <link refid="_shared_scheduler_8h"/>
+        <childnode refid="12708" relation="include">
+        </childnode>
+        <childnode refid="12715" relation="include">
+        </childnode>
+        <childnode refid="12717" relation="include">
+        </childnode>
+        <childnode refid="12701" relation="include">
+        </childnode>
+      </node>
+      <node id="12688">
+        <label>utility</label>
+      </node>
+      <node id="12697">
+        <label>helper/types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="12698" relation="include">
+        </childnode>
+        <childnode refid="12695" relation="include">
+        </childnode>
+        <childnode refid="12699" relation="include">
+        </childnode>
+        <childnode refid="12693" relation="include">
+        </childnode>
+        <childnode refid="12686" relation="include">
+        </childnode>
+      </node>
+      <node id="12709">
+        <label>taskscheduler/AbstractTaskQueue.h</label>
+        <link refid="_abstract_task_queue_8h"/>
+        <childnode refid="12693" relation="include">
+        </childnode>
+        <childnode refid="12692" relation="include">
+        </childnode>
+        <childnode refid="12710" relation="include">
+        </childnode>
+        <childnode refid="12694" relation="include">
+        </childnode>
+        <childnode refid="12683" relation="include">
+        </childnode>
+        <childnode refid="12691" relation="include">
+        </childnode>
+      </node>
+      <node id="12742">
+        <label>storage/BaseIterator.h</label>
+        <link refid="_base_iterator_8h"/>
+      </node>
+      <node id="12730">
+        <label>memory/StrategizedAllocator.h</label>
+        <link refid="_strategized_allocator_8h"/>
+        <childnode refid="12731" relation="include">
+        </childnode>
+        <childnode refid="12732" relation="include">
+        </childnode>
+        <childnode refid="12733" relation="include">
+        </childnode>
+        <childnode refid="12701" relation="include">
+        </childnode>
+      </node>
+      <node id="12706">
+        <label>access/QueryParser.h</label>
+        <link refid="_query_parser_8h"/>
+        <childnode refid="12687" relation="include">
+        </childnode>
+        <childnode refid="12693" relation="include">
+        </childnode>
+        <childnode refid="12686" relation="include">
+        </childnode>
+        <childnode refid="12695" relation="include">
+        </childnode>
+        <childnode refid="12701" relation="include">
+        </childnode>
+        <childnode refid="12689" relation="include">
+        </childnode>
+        <childnode refid="12707" relation="include">
+        </childnode>
+        <childnode refid="12722" relation="include">
+        </childnode>
+      </node>
+      <node id="12696">
+        <label>access/OperationData.h</label>
+        <link refid="_operation_data_8h"/>
+        <childnode refid="12686" relation="include">
+        </childnode>
+        <childnode refid="12697" relation="include">
+        </childnode>
+        <childnode refid="12700" relation="include">
+        </childnode>
+      </node>
+      <node id="12685">
+        <label>time.h</label>
+      </node>
+      <node id="12712">
+        <label>iostream</label>
+      </node>
+      <node id="12725">
+        <label>storage/ColumnMetadata.h</label>
+        <link refid="_column_metadata_8h"/>
+        <childnode refid="12700" relation="include">
+        </childnode>
+        <childnode refid="12695" relation="include">
+        </childnode>
+        <childnode refid="12701" relation="include">
+        </childnode>
+      </node>
+      <node id="12708">
+        <label>taskscheduler/AbstractTaskScheduler.h</label>
+        <link refid="_abstract_task_scheduler_8h"/>
+        <childnode refid="12691" relation="include">
+        </childnode>
+        <childnode refid="12709" relation="include">
+        </childnode>
+        <childnode refid="12693" relation="include">
+        </childnode>
+        <childnode refid="12711" relation="include">
+        </childnode>
+        <childnode refid="12712" relation="include">
+        </childnode>
+        <childnode refid="12683" relation="include">
+        </childnode>
+        <childnode refid="12713" relation="include">
+        </childnode>
+      </node>
+      <node id="12753">
+        <label>cstddef</label>
+      </node>
+      <node id="12721">
+        <label>deque</label>
+      </node>
+      <node id="12704">
+        <label>boost/mpl/map.hpp</label>
+      </node>
+      <node id="12720">
+        <label>taskscheduler/WSSimpleTaskScheduler.h</label>
+        <link refid="_w_s_simple_task_scheduler_8h"/>
+        <childnode refid="12708" relation="include">
+        </childnode>
+        <childnode refid="12719" relation="include">
+        </childnode>
+        <childnode refid="12721" relation="include">
+        </childnode>
+        <childnode refid="12712" relation="include">
+        </childnode>
+        <childnode refid="12713" relation="include">
+        </childnode>
+      </node>
+      <node id="12692">
+        <label>mutex</label>
+      </node>
+      <node id="12744">
+        <label>storage/AbstractAllocatedDictionary.h</label>
+        <link refid="_abstract_allocated_dictionary_8h"/>
+      </node>
+      <node id="12710">
+        <label>thread</label>
+      </node>
+      <node id="12734">
+        <label>memory/MallocStrategy.h</label>
+        <link refid="_malloc_strategy_8h"/>
+        <childnode refid="12712" relation="include">
+        </childnode>
+        <childnode refid="12698" relation="include">
+        </childnode>
+        <childnode refid="12735" relation="include">
+        </childnode>
+      </node>
+      <node id="12727">
+        <label>storage/OrderPreservingDictionary.h</label>
+        <link refid="_order_preserving_dictionary_8h"/>
+        <childnode refid="12728" relation="include">
+        </childnode>
+        <childnode refid="12712" relation="include">
+        </childnode>
+        <childnode refid="12693" relation="include">
+        </childnode>
+        <childnode refid="12700" relation="include">
+        </childnode>
+        <childnode refid="12729" relation="include">
+        </childnode>
+        <childnode refid="12740" relation="include">
+        </childnode>
+        <childnode refid="12741" relation="include">
+        </childnode>
+        <childnode refid="12744" relation="include">
+        </childnode>
+        <childnode refid="12742" relation="include">
+        </childnode>
+      </node>
+      <node id="12681">
+        <label>access/PlanOperation.h</label>
+        <link refid="_plan_operation_8h"/>
+        <childnode refid="12682" relation="include">
+        </childnode>
+        <childnode refid="12696" relation="include">
+        </childnode>
+        <childnode refid="12706" relation="include">
+        </childnode>
+        <childnode refid="12700" relation="include">
+        </childnode>
+        <childnode refid="12697" relation="include">
+        </childnode>
+        <childnode refid="12723" relation="include">
+        </childnode>
+        <childnode refid="12689" relation="include">
+        </childnode>
+      </node>
+      <node id="12732">
+        <label>algorithm</label>
+      </node>
+      <node id="12683">
+        <label>log4cxx/logger.h</label>
+      </node>
+      <node id="12738">
+        <label>stdio.h</label>
+      </node>
+      <node id="12735">
+        <label>cstring</label>
+      </node>
+      <node id="12746">
+        <label>storage/csb_tree.h</label>
+        <link refid="csb__tree_8h"/>
+        <childnode refid="12686" relation="include">
+        </childnode>
+        <childnode refid="12712" relation="include">
+        </childnode>
+        <childnode refid="12733" relation="include">
+        </childnode>
+        <childnode refid="12693" relation="include">
+        </childnode>
+        <childnode refid="12747" relation="include">
+        </childnode>
+        <childnode refid="12728" relation="include">
+        </childnode>
+        <childnode refid="12743" relation="include">
+        </childnode>
+      </node>
+      <node id="12693">
+        <label>memory</label>
+      </node>
+      <node id="12700">
+        <label>storage/storage_types.h</label>
+        <link refid="storage__types_8h"/>
+        <childnode refid="12686" relation="include">
+        </childnode>
+        <childnode refid="12695" relation="include">
+        </childnode>
+        <childnode refid="12701" relation="include">
+        </childnode>
+        <childnode refid="12684" relation="include">
+        </childnode>
+        <childnode refid="12702" relation="include">
+        </childnode>
+        <childnode refid="12703" relation="include">
+        </childnode>
+        <childnode refid="12704" relation="include">
+        </childnode>
+        <childnode refid="12705" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <innernamespace refid="namespacehyrise">hyrise</innernamespace>
+    <innernamespace refid="namespacehyrise_1_1access">hyrise::access</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>2012<sp/>Hasso-Plattner-Institut<sp/>fuer<sp/>Softwaresystemtechnik<sp/>GmbH.<sp/>All<sp/>rights<sp/>reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_task_scheduler_adjustment_8h" kindref="compound">access/TaskSchedulerAdjustment.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_settings_8h" kindref="compound">helper/Settings.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_abstract_task_scheduler_8h" kindref="compound">taskscheduler/AbstractTaskScheduler.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_shared_scheduler_8h" kindref="compound">taskscheduler/SharedScheduler.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">hyrise<sp/>{</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">access<sp/>{</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>_<sp/>=<sp/>QueryParser::registerPlanOperation&lt;TaskSchedulerAdjustment&gt;(</highlight><highlight class="stringliteral">&quot;TaskSchedulerAdjustment&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="14"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16" refid="classhyrise_1_1access_1_1_task_scheduler_adjustment_1a26b23c9e88111ee5968e05b68dd433dc" refkind="member"><highlight class="normal"><ref refid="classhyrise_1_1access_1_1_task_scheduler_adjustment_1a26b23c9e88111ee5968e05b68dd433dc" kindref="member">TaskSchedulerAdjustment::TaskSchedulerAdjustment</ref>()<sp/>:<sp/>_size(1)<sp/>{</highlight></codeline>
+<codeline lineno="17"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19" refid="classhyrise_1_1access_1_1_task_scheduler_adjustment_1a91dbe5a0ff3ac94166cd50458c5e140b" refkind="member"><highlight class="normal"><ref refid="classhyrise_1_1access_1_1_task_scheduler_adjustment_1a91dbe5a0ff3ac94166cd50458c5e140b" kindref="member">TaskSchedulerAdjustment::~TaskSchedulerAdjustment</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="20"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight></codeline>
+<codeline lineno="22" refid="classhyrise_1_1access_1_1_task_scheduler_adjustment_1a68b33a278fecdc69f96ed21a0ef032f7" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1access_1_1_task_scheduler_adjustment_1a68b33a278fecdc69f96ed21a0ef032f7" kindref="member">TaskSchedulerAdjustment::executePlanOperation</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><ref refid="class_abstract_task_scheduler" kindref="compound">AbstractTaskScheduler</ref><sp/>*scheduler<sp/>=<sp/><ref refid="class_shared_scheduler_1a8339d8db9b226ca95bca5dcc31f216f5" kindref="member">SharedScheduler::getInstance</ref>().<ref refid="class_shared_scheduler_1a10e97e4f3ccc5046ff9844d855ee0c9c" kindref="member">getScheduler</ref>();</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(scheduler<sp/>!=<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/>scheduler-&gt;<ref refid="class_abstract_task_scheduler_1a7144f23ea3f7de43152baca16e9a1658" kindref="member">resize</ref>(<ref refid="classhyrise_1_1access_1_1_task_scheduler_adjustment_1a79a4037c3bc37c945559cb6f17744aa7" kindref="member">_size</ref>);</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_settings_1a1d30c7fd15c578e94f3c87212c2340da" kindref="member">Settings::getInstance</ref>()-&gt;<ref refid="class_settings_1a006f96037617fed1169c155ca9f7b3d6" kindref="member">setThreadpoolSize</ref>(<ref refid="classhyrise_1_1access_1_1_task_scheduler_adjustment_1a79a4037c3bc37c945559cb6f17744aa7" kindref="member">_size</ref>);</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_output_task_1a010e04ee2e3e5e04a61f6e63a8cd75e9" kindref="member">setState</ref>(<ref refid="_output_task_8h_1a5a9890eed40e5443406f9221cc5e12fea67c2cad320b42cfaccdb10cc0356fafb" kindref="member">OpFail</ref>);</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_output_task_1aba6bee898300f3069d3f64bb333c6d4a" kindref="member">setErrorMessage</ref>(</highlight><highlight class="stringliteral">&quot;TaskScheduler<sp/>is<sp/>not<sp/>of<sp/>Type<sp/>AbstractQueueBasedTaskScheduler<sp/>and<sp/>cannot<sp/>be<sp/>resized&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="31"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33" refid="classhyrise_1_1access_1_1_task_scheduler_adjustment_1a2583adbe514c1a2b835eabed8442dbf2" refkind="member"><highlight class="normal">std::shared_ptr&lt;_PlanOperation&gt;<sp/><ref refid="classhyrise_1_1access_1_1_task_scheduler_adjustment_1a2583adbe514c1a2b835eabed8442dbf2" kindref="member">TaskSchedulerAdjustment::parse</ref>(Json::Value<sp/>&amp;data)<sp/>{</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/>std::shared_ptr&lt;TaskSchedulerAdjustment&gt;<sp/>taskSchedulerAdjustmentOp<sp/>=<sp/>std::make_shared&lt;TaskSchedulerAdjustment&gt;();</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/>taskSchedulerAdjustmentOp-&gt;_size<sp/>=<sp/>data[</highlight><highlight class="stringliteral">&quot;size&quot;</highlight><highlight class="normal">].asUInt();</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>taskSchedulerAdjustmentOp;</highlight></codeline>
+<codeline lineno="37"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39" refid="classhyrise_1_1access_1_1_task_scheduler_adjustment_1ac4fa706fa0d8c36a77c8234326fe37ff" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/><ref refid="classhyrise_1_1access_1_1_task_scheduler_adjustment_1ac4fa706fa0d8c36a77c8234326fe37ff" kindref="member">TaskSchedulerAdjustment::vname</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;TaskSchedulerAdjustment&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="41"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43" refid="classhyrise_1_1access_1_1_task_scheduler_adjustment_1a5adc7b69667908f09743ee9eca6e5975" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1access_1_1_task_scheduler_adjustment_1a5adc7b69667908f09743ee9eca6e5975" kindref="member">TaskSchedulerAdjustment::setThreadpoolSize</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>newSize)<sp/>{</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><ref refid="classhyrise_1_1access_1_1_task_scheduler_adjustment_1a79a4037c3bc37c945559cb6f17744aa7" kindref="member">_size</ref><sp/>=<sp/>newSize;</highlight></codeline>
+<codeline lineno="45"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="48"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/home/grund/hyrise/src/lib/access/TaskSchedulerAdjustment.cpp"/>
+  </compounddef>
+</doxygen>

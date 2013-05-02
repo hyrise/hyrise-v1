@@ -1,0 +1,897 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="_table_load_8cpp" kind="file">
+    <compoundname>TableLoad.cpp</compoundname>
+    <includes refid="_table_load_8h" local="yes">access/TableLoad.h</includes>
+    <includes refid="_query_parser_8h" local="yes">access/QueryParser.h</includes>
+    <includes refid="loaders_8h" local="yes">io/loaders.h</includes>
+    <includes refid="shortcuts_8h" local="yes">io/shortcuts.h</includes>
+    <includes refid="_storage_manager_8h" local="yes">io/StorageManager.h</includes>
+    <includes local="yes">log4cxx/logger.h</includes>
+    <incdepgraph>
+      <node id="12225">
+        <label>list</label>
+      </node>
+      <node id="12260">
+        <label>atomic</label>
+      </node>
+      <node id="12195">
+        <label>boost/mpl/vector.hpp</label>
+      </node>
+      <node id="12208">
+        <label>queue</label>
+      </node>
+      <node id="12191">
+        <label>limits</label>
+      </node>
+      <node id="12254">
+        <label>StringLoader.h</label>
+        <link refid="_string_loader_8h"/>
+        <childnode refid="12248" relation="include">
+        </childnode>
+      </node>
+      <node id="12243">
+        <label>boost/functional/hash.hpp</label>
+      </node>
+      <node id="12220">
+        <label>assert.h</label>
+      </node>
+      <node id="12249">
+        <label>io/GenericCSV.h</label>
+        <link refid="_generic_c_s_v_8h"/>
+        <childnode refid="12250" relation="include">
+        </childnode>
+        <childnode refid="12193" relation="include">
+        </childnode>
+        <childnode refid="12187" relation="include">
+        </childnode>
+        <childnode refid="12178" relation="include">
+        </childnode>
+        <childnode refid="12251" relation="include">
+        </childnode>
+        <childnode refid="12192" relation="include">
+        </childnode>
+        <childnode refid="12246" relation="include">
+        </childnode>
+      </node>
+      <node id="12197">
+        <label>boost/lexical_cast.hpp</label>
+      </node>
+      <node id="12235">
+        <label>boost/iterator/iterator_facade.hpp</label>
+      </node>
+      <node id="12190">
+        <label>cstdint</label>
+      </node>
+      <node id="12232">
+        <label>storage/BaseDictionary.h</label>
+        <link refid="_base_dictionary_8h"/>
+        <childnode refid="12192" relation="include">
+        </childnode>
+        <childnode refid="12221" relation="include">
+        </childnode>
+        <childnode refid="12233" relation="include">
+        </childnode>
+      </node>
+      <node id="12176">
+        <label>stdint.h</label>
+      </node>
+      <node id="12231">
+        <label>stdlib.h</label>
+      </node>
+      <node id="12172">
+        <label>access/TableLoad.h</label>
+        <link refid="_table_load_8h"/>
+        <childnode refid="12173" relation="include">
+        </childnode>
+      </node>
+      <node id="12255">
+        <label>EmptyLoader.h</label>
+        <link refid="_empty_loader_8h"/>
+        <childnode refid="12185" relation="include">
+        </childnode>
+        <childnode refid="12248" relation="include">
+        </childnode>
+      </node>
+      <node id="12229">
+        <label>errno.h</label>
+      </node>
+      <node id="12182">
+        <label>helper/epoch.h</label>
+        <link refid="epoch_8h"/>
+        <childnode refid="12176" relation="include">
+        </childnode>
+      </node>
+      <node id="12193">
+        <label>stdexcept</label>
+      </node>
+      <node id="12205">
+        <label>helper/HwlocHelper.h</label>
+        <link refid="_hwloc_helper_8h"/>
+        <childnode refid="12206" relation="include">
+        </childnode>
+      </node>
+      <node id="12187">
+        <label>string</label>
+      </node>
+      <node id="12199">
+        <label>taskscheduler.h</label>
+        <link refid="taskscheduler_8h"/>
+        <childnode refid="12200" relation="include">
+        </childnode>
+        <childnode refid="12207" relation="include">
+        </childnode>
+        <childnode refid="12210" relation="include">
+        </childnode>
+        <childnode refid="12183" relation="include">
+        </childnode>
+        <childnode refid="12209" relation="include">
+        </childnode>
+        <childnode refid="12201" relation="include">
+        </childnode>
+        <childnode refid="12211" relation="include">
+        </childnode>
+        <childnode refid="12212" relation="include">
+        </childnode>
+      </node>
+      <node id="12207">
+        <label>taskscheduler/SimpleTaskScheduler.h</label>
+        <link refid="_simple_task_scheduler_8h"/>
+        <childnode refid="12200" relation="include">
+        </childnode>
+        <childnode refid="12203" relation="include">
+        </childnode>
+        <childnode refid="12178" relation="include">
+        </childnode>
+        <childnode refid="12208" relation="include">
+        </childnode>
+        <childnode refid="12184" relation="include">
+        </childnode>
+        <childnode refid="12175" relation="include">
+        </childnode>
+        <childnode refid="12183" relation="include">
+        </childnode>
+        <childnode refid="12209" relation="include">
+        </childnode>
+        <childnode refid="12205" relation="include">
+        </childnode>
+      </node>
+      <node id="12179">
+        <label>map</label>
+      </node>
+      <node id="12247">
+        <label>CSVLoader.h</label>
+        <link refid="_c_s_v_loader_8h"/>
+        <childnode refid="12185" relation="include">
+        </childnode>
+        <childnode refid="12248" relation="include">
+        </childnode>
+        <childnode refid="12249" relation="include">
+        </childnode>
+        <childnode refid="12252" relation="include">
+        </childnode>
+        <childnode refid="12246" relation="include">
+        </childnode>
+      </node>
+      <node id="12183">
+        <label>taskscheduler/Task.h</label>
+        <link refid="_task_8h"/>
+        <childnode refid="12178" relation="include">
+        </childnode>
+        <childnode refid="12184" relation="include">
+        </childnode>
+        <childnode refid="12185" relation="include">
+        </childnode>
+        <childnode refid="12186" relation="include">
+        </childnode>
+        <childnode refid="12187" relation="include">
+        </childnode>
+      </node>
+      <node id="12203">
+        <label>unordered_set</label>
+      </node>
+      <node id="12218">
+        <label>storage/ValueIdMap.hpp</label>
+        <link refid="_value_id_map_8hpp"/>
+        <childnode refid="12219" relation="include">
+        </childnode>
+        <childnode refid="12237" relation="include">
+        </childnode>
+      </node>
+      <node id="12228">
+        <label>memory/MemalignStrategy.h</label>
+        <link refid="_memalign_strategy_8h"/>
+        <childnode refid="12229" relation="include">
+        </childnode>
+        <childnode refid="12230" relation="include">
+        </childnode>
+        <childnode refid="12231" relation="include">
+        </childnode>
+      </node>
+      <node id="12257">
+        <label>RawTableLoader.h</label>
+        <link refid="_raw_table_loader_8h"/>
+        <childnode refid="12248" relation="include">
+        </childnode>
+        <childnode refid="12249" relation="include">
+        </childnode>
+      </node>
+      <node id="12206">
+        <label>hwloc.h</label>
+      </node>
+      <node id="12240">
+        <label>exception</label>
+      </node>
+      <node id="12174">
+        <label>access/OutputTask.h</label>
+        <link refid="_output_task_8h"/>
+        <childnode refid="12175" relation="include">
+        </childnode>
+        <childnode refid="12176" relation="include">
+        </childnode>
+        <childnode refid="12177" relation="include">
+        </childnode>
+        <childnode refid="12178" relation="include">
+        </childnode>
+        <childnode refid="12179" relation="include">
+        </childnode>
+        <childnode refid="12180" relation="include">
+        </childnode>
+        <childnode refid="12181" relation="include">
+        </childnode>
+        <childnode refid="12182" relation="include">
+        </childnode>
+        <childnode refid="12183" relation="include">
+        </childnode>
+      </node>
+      <node id="12223">
+        <label>stddef.h</label>
+      </node>
+      <node id="12209">
+        <label>taskscheduler/CoreBoundTaskQueue.h</label>
+        <link refid="_core_bound_task_queue_8h"/>
+        <childnode refid="12202" relation="include">
+        </childnode>
+        <childnode refid="12208" relation="include">
+        </childnode>
+        <childnode refid="12201" relation="include">
+        </childnode>
+      </node>
+      <node id="12237">
+        <label>storage/OrderIndifferentDictionary.h</label>
+        <link refid="_order_indifferent_dictionary_8h"/>
+        <childnode refid="12192" relation="include">
+        </childnode>
+        <childnode refid="12221" relation="include">
+        </childnode>
+        <childnode refid="12232" relation="include">
+        </childnode>
+        <childnode refid="12233" relation="include">
+        </childnode>
+        <childnode refid="12238" relation="include">
+        </childnode>
+        <childnode refid="12236" relation="include">
+        </childnode>
+        <childnode refid="12240" relation="include">
+        </childnode>
+        <childnode refid="12178" relation="include">
+        </childnode>
+        <childnode refid="12179" relation="include">
+        </childnode>
+        <childnode refid="12185" relation="include">
+        </childnode>
+        <childnode refid="12241" relation="include">
+        </childnode>
+        <childnode refid="12242" relation="include">
+        </childnode>
+        <childnode refid="12243" relation="include">
+        </childnode>
+      </node>
+      <node id="12194">
+        <label>ostream</label>
+      </node>
+      <node id="12181">
+        <label>json.h</label>
+      </node>
+      <node id="12241">
+        <label>limits.h</label>
+      </node>
+      <node id="12233">
+        <label>storage/DictionaryIterator.h</label>
+        <link refid="_dictionary_iterator_8h"/>
+        <childnode refid="12234" relation="include">
+        </childnode>
+        <childnode refid="12235" relation="include">
+        </childnode>
+      </node>
+      <node id="12251">
+        <label>libcsv/csv.h</label>
+      </node>
+      <node id="12221">
+        <label>storage/AbstractDictionary.h</label>
+        <link refid="_abstract_dictionary_8h"/>
+        <childnode refid="12178" relation="include">
+        </childnode>
+        <childnode refid="12187" relation="include">
+        </childnode>
+        <childnode refid="12185" relation="include">
+        </childnode>
+        <childnode refid="12222" relation="include">
+        </childnode>
+        <childnode refid="12226" relation="include">
+        </childnode>
+        <childnode refid="12228" relation="include">
+        </childnode>
+        <childnode refid="12192" relation="include">
+        </childnode>
+      </node>
+      <node id="12186">
+        <label>condition_variable</label>
+      </node>
+      <node id="12256">
+        <label>MySQLLoader.h</label>
+        <link refid="_my_s_q_l_loader_8h"/>
+      </node>
+      <node id="12239">
+        <label>string.h</label>
+      </node>
+      <node id="12214">
+        <label>access/BasicParser.h</label>
+        <link refid="_basic_parser_8h"/>
+        <childnode refid="12193" relation="include">
+        </childnode>
+        <childnode refid="12185" relation="include">
+        </childnode>
+        <childnode refid="12181" relation="include">
+        </childnode>
+      </node>
+      <node id="12215">
+        <label>storage/AbstractTable.h</label>
+        <link refid="_abstract_table_8h"/>
+        <childnode refid="12191" relation="include">
+        </childnode>
+        <childnode refid="12185" relation="include">
+        </childnode>
+        <childnode refid="12193" relation="include">
+        </childnode>
+        <childnode refid="12178" relation="include">
+        </childnode>
+        <childnode refid="12187" relation="include">
+        </childnode>
+        <childnode refid="12189" relation="include">
+        </childnode>
+        <childnode refid="12216" relation="include">
+        </childnode>
+        <childnode refid="12192" relation="include">
+        </childnode>
+        <childnode refid="12217" relation="include">
+        </childnode>
+        <childnode refid="12218" relation="include">
+        </childnode>
+      </node>
+      <node id="12211">
+        <label>taskscheduler/WSCoreBoundTaskQueue.h</label>
+        <link refid="_w_s_core_bound_task_queue_8h"/>
+        <childnode refid="12201" relation="include">
+        </childnode>
+        <childnode refid="12212" relation="include">
+        </childnode>
+      </node>
+      <node id="12216">
+        <label>storage/AbstractResource.h</label>
+        <link refid="_abstract_resource_8h"/>
+      </node>
+      <node id="12258">
+        <label>io/shortcuts.h</label>
+        <link refid="shortcuts_8h"/>
+        <childnode refid="12185" relation="include">
+        </childnode>
+        <childnode refid="12187" relation="include">
+        </childnode>
+        <childnode refid="12245" relation="include">
+        </childnode>
+      </node>
+      <node id="12253">
+        <label>MPassCSVLoader.h</label>
+        <link refid="_m_pass_c_s_v_loader_8h"/>
+        <childnode refid="12185" relation="include">
+        </childnode>
+        <childnode refid="12248" relation="include">
+        </childnode>
+        <childnode refid="12252" relation="include">
+        </childnode>
+        <childnode refid="12249" relation="include">
+        </childnode>
+        <childnode refid="12247" relation="include">
+        </childnode>
+        <childnode refid="12246" relation="include">
+        </childnode>
+      </node>
+      <node id="12242">
+        <label>boost/unordered_map.hpp</label>
+      </node>
+      <node id="12178">
+        <label>vector</label>
+      </node>
+      <node id="12210">
+        <label>taskscheduler/SharedScheduler.h</label>
+        <link refid="_shared_scheduler_8h"/>
+        <childnode refid="12200" relation="include">
+        </childnode>
+        <childnode refid="12207" relation="include">
+        </childnode>
+        <childnode refid="12209" relation="include">
+        </childnode>
+        <childnode refid="12193" relation="include">
+        </childnode>
+      </node>
+      <node id="12180">
+        <label>utility</label>
+      </node>
+      <node id="12189">
+        <label>helper/types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="12190" relation="include">
+        </childnode>
+        <childnode refid="12187" relation="include">
+        </childnode>
+        <childnode refid="12191" relation="include">
+        </childnode>
+        <childnode refid="12185" relation="include">
+        </childnode>
+        <childnode refid="12178" relation="include">
+        </childnode>
+      </node>
+      <node id="12201">
+        <label>taskscheduler/AbstractTaskQueue.h</label>
+        <link refid="_abstract_task_queue_8h"/>
+        <childnode refid="12185" relation="include">
+        </childnode>
+        <childnode refid="12184" relation="include">
+        </childnode>
+        <childnode refid="12202" relation="include">
+        </childnode>
+        <childnode refid="12186" relation="include">
+        </childnode>
+        <childnode refid="12175" relation="include">
+        </childnode>
+        <childnode refid="12183" relation="include">
+        </childnode>
+      </node>
+      <node id="12245">
+        <label>Loader.h</label>
+        <link refid="_loader_8h"/>
+        <childnode refid="12185" relation="include">
+        </childnode>
+        <childnode refid="12187" relation="include">
+        </childnode>
+        <childnode refid="12189" relation="include">
+        </childnode>
+        <childnode refid="12192" relation="include">
+        </childnode>
+        <childnode refid="12246" relation="include">
+        </childnode>
+      </node>
+      <node id="12171">
+        <label>src/lib/access/TableLoad.cpp</label>
+        <link refid="TableLoad.cpp"/>
+        <childnode refid="12172" relation="include">
+        </childnode>
+        <childnode refid="12198" relation="include">
+        </childnode>
+        <childnode refid="12244" relation="include">
+        </childnode>
+        <childnode refid="12258" relation="include">
+        </childnode>
+        <childnode refid="12259" relation="include">
+        </childnode>
+        <childnode refid="12175" relation="include">
+        </childnode>
+      </node>
+      <node id="12259">
+        <label>io/StorageManager.h</label>
+        <link refid="_storage_manager_8h"/>
+        <childnode refid="12260" relation="include">
+        </childnode>
+        <childnode refid="12179" relation="include">
+        </childnode>
+        <childnode refid="12185" relation="include">
+        </childnode>
+        <childnode refid="12184" relation="include">
+        </childnode>
+        <childnode refid="12187" relation="include">
+        </childnode>
+        <childnode refid="12178" relation="include">
+        </childnode>
+        <childnode refid="12245" relation="include">
+        </childnode>
+      </node>
+      <node id="12234">
+        <label>storage/BaseIterator.h</label>
+        <link refid="_base_iterator_8h"/>
+      </node>
+      <node id="12222">
+        <label>memory/StrategizedAllocator.h</label>
+        <link refid="_strategized_allocator_8h"/>
+        <childnode refid="12223" relation="include">
+        </childnode>
+        <childnode refid="12224" relation="include">
+        </childnode>
+        <childnode refid="12225" relation="include">
+        </childnode>
+        <childnode refid="12193" relation="include">
+        </childnode>
+      </node>
+      <node id="12198">
+        <label>access/QueryParser.h</label>
+        <link refid="_query_parser_8h"/>
+        <childnode refid="12179" relation="include">
+        </childnode>
+        <childnode refid="12185" relation="include">
+        </childnode>
+        <childnode refid="12178" relation="include">
+        </childnode>
+        <childnode refid="12187" relation="include">
+        </childnode>
+        <childnode refid="12193" relation="include">
+        </childnode>
+        <childnode refid="12181" relation="include">
+        </childnode>
+        <childnode refid="12199" relation="include">
+        </childnode>
+        <childnode refid="12214" relation="include">
+        </childnode>
+      </node>
+      <node id="12188">
+        <label>access/OperationData.h</label>
+        <link refid="_operation_data_8h"/>
+        <childnode refid="12178" relation="include">
+        </childnode>
+        <childnode refid="12189" relation="include">
+        </childnode>
+        <childnode refid="12192" relation="include">
+        </childnode>
+      </node>
+      <node id="12177">
+        <label>time.h</label>
+      </node>
+      <node id="12248">
+        <label>io/AbstractLoader.h</label>
+        <link refid="_abstract_loader_8h"/>
+        <childnode refid="12245" relation="include">
+        </childnode>
+        <childnode refid="12192" relation="include">
+        </childnode>
+      </node>
+      <node id="12250">
+        <label>iosfwd</label>
+      </node>
+      <node id="12204">
+        <label>iostream</label>
+      </node>
+      <node id="12252">
+        <label>io/LoaderException.h</label>
+        <link refid="_loader_exception_8h"/>
+        <childnode refid="12193" relation="include">
+        </childnode>
+        <childnode refid="12187" relation="include">
+        </childnode>
+      </node>
+      <node id="12217">
+        <label>storage/ColumnMetadata.h</label>
+        <link refid="_column_metadata_8h"/>
+        <childnode refid="12192" relation="include">
+        </childnode>
+        <childnode refid="12187" relation="include">
+        </childnode>
+        <childnode refid="12193" relation="include">
+        </childnode>
+      </node>
+      <node id="12200">
+        <label>taskscheduler/AbstractTaskScheduler.h</label>
+        <link refid="_abstract_task_scheduler_8h"/>
+        <childnode refid="12183" relation="include">
+        </childnode>
+        <childnode refid="12201" relation="include">
+        </childnode>
+        <childnode refid="12185" relation="include">
+        </childnode>
+        <childnode refid="12203" relation="include">
+        </childnode>
+        <childnode refid="12204" relation="include">
+        </childnode>
+        <childnode refid="12175" relation="include">
+        </childnode>
+        <childnode refid="12205" relation="include">
+        </childnode>
+      </node>
+      <node id="12213">
+        <label>deque</label>
+      </node>
+      <node id="12196">
+        <label>boost/mpl/map.hpp</label>
+      </node>
+      <node id="12212">
+        <label>taskscheduler/WSSimpleTaskScheduler.h</label>
+        <link refid="_w_s_simple_task_scheduler_8h"/>
+        <childnode refid="12200" relation="include">
+        </childnode>
+        <childnode refid="12211" relation="include">
+        </childnode>
+        <childnode refid="12213" relation="include">
+        </childnode>
+        <childnode refid="12204" relation="include">
+        </childnode>
+        <childnode refid="12205" relation="include">
+        </childnode>
+      </node>
+      <node id="12184">
+        <label>mutex</label>
+      </node>
+      <node id="12236">
+        <label>storage/AbstractAllocatedDictionary.h</label>
+        <link refid="_abstract_allocated_dictionary_8h"/>
+      </node>
+      <node id="12202">
+        <label>thread</label>
+      </node>
+      <node id="12226">
+        <label>memory/MallocStrategy.h</label>
+        <link refid="_malloc_strategy_8h"/>
+        <childnode refid="12204" relation="include">
+        </childnode>
+        <childnode refid="12190" relation="include">
+        </childnode>
+        <childnode refid="12227" relation="include">
+        </childnode>
+      </node>
+      <node id="12219">
+        <label>storage/OrderPreservingDictionary.h</label>
+        <link refid="_order_preserving_dictionary_8h"/>
+        <childnode refid="12220" relation="include">
+        </childnode>
+        <childnode refid="12204" relation="include">
+        </childnode>
+        <childnode refid="12185" relation="include">
+        </childnode>
+        <childnode refid="12192" relation="include">
+        </childnode>
+        <childnode refid="12221" relation="include">
+        </childnode>
+        <childnode refid="12232" relation="include">
+        </childnode>
+        <childnode refid="12233" relation="include">
+        </childnode>
+        <childnode refid="12236" relation="include">
+        </childnode>
+        <childnode refid="12234" relation="include">
+        </childnode>
+      </node>
+      <node id="12173">
+        <label>access/PlanOperation.h</label>
+        <link refid="_plan_operation_8h"/>
+        <childnode refid="12174" relation="include">
+        </childnode>
+        <childnode refid="12188" relation="include">
+        </childnode>
+        <childnode refid="12198" relation="include">
+        </childnode>
+        <childnode refid="12192" relation="include">
+        </childnode>
+        <childnode refid="12189" relation="include">
+        </childnode>
+        <childnode refid="12215" relation="include">
+        </childnode>
+        <childnode refid="12181" relation="include">
+        </childnode>
+      </node>
+      <node id="12224">
+        <label>algorithm</label>
+      </node>
+      <node id="12175">
+        <label>log4cxx/logger.h</label>
+      </node>
+      <node id="12230">
+        <label>stdio.h</label>
+      </node>
+      <node id="12227">
+        <label>cstring</label>
+      </node>
+      <node id="12238">
+        <label>storage/csb_tree.h</label>
+        <link refid="csb__tree_8h"/>
+        <childnode refid="12178" relation="include">
+        </childnode>
+        <childnode refid="12204" relation="include">
+        </childnode>
+        <childnode refid="12225" relation="include">
+        </childnode>
+        <childnode refid="12185" relation="include">
+        </childnode>
+        <childnode refid="12239" relation="include">
+        </childnode>
+        <childnode refid="12220" relation="include">
+        </childnode>
+        <childnode refid="12235" relation="include">
+        </childnode>
+      </node>
+      <node id="12185">
+        <label>memory</label>
+      </node>
+      <node id="12244">
+        <label>io/loaders.h</label>
+        <link refid="loaders_8h"/>
+        <childnode refid="12245" relation="include">
+        </childnode>
+        <childnode refid="12247" relation="include">
+        </childnode>
+        <childnode refid="12253" relation="include">
+        </childnode>
+        <childnode refid="12254" relation="include">
+        </childnode>
+        <childnode refid="12255" relation="include">
+        </childnode>
+        <childnode refid="12256" relation="include">
+        </childnode>
+        <childnode refid="12257" relation="include">
+        </childnode>
+      </node>
+      <node id="12192">
+        <label>storage/storage_types.h</label>
+        <link refid="storage__types_8h"/>
+        <childnode refid="12178" relation="include">
+        </childnode>
+        <childnode refid="12187" relation="include">
+        </childnode>
+        <childnode refid="12193" relation="include">
+        </childnode>
+        <childnode refid="12176" relation="include">
+        </childnode>
+        <childnode refid="12194" relation="include">
+        </childnode>
+        <childnode refid="12195" relation="include">
+        </childnode>
+        <childnode refid="12196" relation="include">
+        </childnode>
+        <childnode refid="12197" relation="include">
+        </childnode>
+      </node>
+      <node id="12246">
+        <label>parameters.inc</label>
+        <link refid="parameters_8inc"/>
+      </node>
+    </incdepgraph>
+    <innernamespace refid="namespacehyrise">hyrise</innernamespace>
+    <innernamespace refid="namespacehyrise_1_1access">hyrise::access</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>2012<sp/>Hasso-Plattner-Institut<sp/>fuer<sp/>Softwaresystemtechnik<sp/>GmbH.<sp/>All<sp/>rights<sp/>reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_table_load_8h" kindref="compound">access/TableLoad.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_query_parser_8h" kindref="compound">access/QueryParser.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="loaders_8h" kindref="compound">io/loaders.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="shortcuts_8h" kindref="compound">io/shortcuts.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_storage_manager_8h" kindref="compound">io/StorageManager.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;log4cxx/logger.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">hyrise<sp/>{</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">access<sp/>{</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>_<sp/>=<sp/>QueryParser::registerPlanOperation&lt;TableLoad&gt;(</highlight><highlight class="stringliteral">&quot;TableLoad&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/>log4cxx::LoggerPtr<sp/><ref refid="bin_2hyrise_2main_8cpp_1a1f643aeca905220d975e69578154a71d" kindref="member">logger</ref>(log4cxx::Logger::getLogger(</highlight><highlight class="stringliteral">&quot;access.plan._PlanOperation&quot;</highlight><highlight class="normal">));</highlight></codeline>
+<codeline lineno="18"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20" refid="classhyrise_1_1access_1_1_table_load_1a911ba687b3798abaf7bfa4133acad573" refkind="member"><highlight class="normal"><ref refid="classhyrise_1_1access_1_1_table_load_1a911ba687b3798abaf7bfa4133acad573" kindref="member">TableLoad::TableLoad</ref>():<sp/>_hasDelimiter(false),</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>_binary(false),</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>_unsafe(false),</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>_raw(false)<sp/>{</highlight></codeline>
+<codeline lineno="24"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26" refid="classhyrise_1_1access_1_1_table_load_1ac3a2bdc058aeaec372a876b5866e9b1e" refkind="member"><highlight class="normal"><ref refid="classhyrise_1_1access_1_1_table_load_1ac3a2bdc058aeaec372a876b5866e9b1e" kindref="member">TableLoad::~TableLoad</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="27"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29" refid="classhyrise_1_1access_1_1_table_load_1a7efc2c957423268cb88dde6610ecf52b" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1access_1_1_table_load_1a7efc2c957423268cb88dde6610ecf52b" kindref="member">TableLoad::executePlanOperation</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><ref refid="classhyrise_1_1io_1_1_storage_manager" kindref="compound" tooltip="Central holder of schema information.">StorageManager</ref><sp/>*sm<sp/>=<sp/><ref refid="classhyrise_1_1io_1_1_storage_manager_1a73b12a097673a0afa604a22dd401a1bb" kindref="member" tooltip="Retrieve singleton storage-manager instance.">StorageManager::getInstance</ref>();</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!sm-&gt;<ref refid="classhyrise_1_1io_1_1_storage_manager_1a7565211b901c48322d601b0dd2377b21" kindref="member">exists</ref>(<ref refid="classhyrise_1_1access_1_1_table_load_1aeb7ca7f7d4bd7a8da127181a23c95298" kindref="member">_table_name</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Load<sp/>Raw<sp/>Table</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="classhyrise_1_1access_1_1_table_load_1a6499d3b6f02e087fb5f8ac3d3375e2a2" kindref="member">_raw</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_loader_1_1params" kindref="compound">Loader::params</ref><sp/>p;</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>p.<ref refid="class_loader_1_1params_1a2689b03528610b0191689ac2d2dfd11c" kindref="member">setHeader</ref>(<ref refid="class_c_s_v_header" kindref="compound">CSVHeader</ref>(<ref refid="classhyrise_1_1access_1_1_table_load_1a53377d2cd1ba1e7d2876d8b78fbdc81c" kindref="member">_file_name</ref>));</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>p.<ref refid="class_loader_1_1params_1ae15c0a2850566717b84eb89310f15da0" kindref="member">setInput</ref>(<ref refid="classhyrise_1_1io_1_1_raw_table_loader" kindref="compound">io::RawTableLoader</ref>(<ref refid="classhyrise_1_1access_1_1_table_load_1a53377d2cd1ba1e7d2876d8b78fbdc81c" kindref="member">_file_name</ref>));</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>sm-&gt;<ref refid="classhyrise_1_1io_1_1_storage_manager_1a4cca0a38b69106ab9faf0193285e7468" kindref="member">loadTable</ref>(<ref refid="classhyrise_1_1access_1_1_table_load_1aeb7ca7f7d4bd7a8da127181a23c95298" kindref="member">_table_name</ref>,<sp/>p);</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="classhyrise_1_1access_1_1_table_load_1a066282bb13a884b76d376ac26fd2ca7b" kindref="member">_header_string</ref>.empty())<sp/>{</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Load<sp/>based<sp/>on<sp/>header<sp/>string</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_loader_1_1params" kindref="compound">Loader::params</ref><sp/>p<sp/>=<sp/><ref refid="namespace_loader_1_1shortcuts_1a8a550ffee5a5edd92f24350fd0f8c26f" kindref="member">Loader::shortcuts::loadWithStringHeaderParams</ref>(<ref refid="classhyrise_1_1access_1_1_table_load_1a53377d2cd1ba1e7d2876d8b78fbdc81c" kindref="member">_file_name</ref>,<sp/><ref refid="classhyrise_1_1access_1_1_table_load_1a066282bb13a884b76d376ac26fd2ca7b" kindref="member">_header_string</ref>);</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>sm-&gt;<ref refid="classhyrise_1_1io_1_1_storage_manager_1a4cca0a38b69106ab9faf0193285e7468" kindref="member">loadTable</ref>(<ref refid="classhyrise_1_1access_1_1_table_load_1aeb7ca7f7d4bd7a8da127181a23c95298" kindref="member">_table_name</ref>,<sp/>p);</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="classhyrise_1_1access_1_1_table_load_1aae9085c469a9f77c391f6dff07e3108e" kindref="member">_header_file_name</ref>.empty())<sp/>{</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Load<sp/>only<sp/>with<sp/>single<sp/>file</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>sm-&gt;<ref refid="classhyrise_1_1io_1_1_storage_manager_1aab92f5b4adb68c72c7ef35201c748a6a" kindref="member">loadTableFile</ref>(<ref refid="classhyrise_1_1access_1_1_table_load_1aeb7ca7f7d4bd7a8da127181a23c95298" kindref="member">_table_name</ref>,<sp/><ref refid="classhyrise_1_1access_1_1_table_load_1a53377d2cd1ba1e7d2876d8b78fbdc81c" kindref="member">_file_name</ref>);</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((!<ref refid="classhyrise_1_1access_1_1_table_load_1aeb7ca7f7d4bd7a8da127181a23c95298" kindref="member">_table_name</ref>.empty())<sp/>&amp;&amp;<sp/>(!<ref refid="classhyrise_1_1access_1_1_table_load_1a53377d2cd1ba1e7d2876d8b78fbdc81c" kindref="member">_file_name</ref>.empty())<sp/>&amp;&amp;<sp/>(!<ref refid="classhyrise_1_1access_1_1_table_load_1aae9085c469a9f77c391f6dff07e3108e" kindref="member">_header_file_name</ref>.empty()))<sp/>{</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Load<sp/>with<sp/>dedicated<sp/>header<sp/>file</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_loader_1_1params" kindref="compound">Loader::params</ref><sp/>p;</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>p.<ref refid="class_loader_1_1params_1aa37d2b499ac2c6b21416c3af5ba94f28" kindref="member">setCompressed</ref>(</highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>p.<ref refid="class_loader_1_1params_1a2689b03528610b0191689ac2d2dfd11c" kindref="member">setHeader</ref>(<ref refid="class_c_s_v_header" kindref="compound">CSVHeader</ref>(<ref refid="classhyrise_1_1access_1_1_table_load_1aae9085c469a9f77c391f6dff07e3108e" kindref="member">_header_file_name</ref>));</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>params<sp/>=<sp/><ref refid="class_c_s_v_input_1_1params" kindref="compound">CSVInput::params</ref>().<ref refid="class_c_s_v_input_1_1params_1a122231c22f197332eee9c8f481fb0b8c" kindref="member">setUnsafe</ref>(<ref refid="classhyrise_1_1access_1_1_table_load_1a68ea3dcd181735b55b7f804fa159eb50" kindref="member">_unsafe</ref>);</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="classhyrise_1_1access_1_1_table_load_1a6e6c7e895ac44fe60aa13728cf56c7ef" kindref="member">_hasDelimiter</ref>)</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>params.<ref refid="class_c_s_v_input_1_1params_1a97ce3046d1cde47000e194ab0f14359b" kindref="member">setCSVParams</ref>(<ref refid="classcsv_1_1params" kindref="compound">csv::params</ref>().<ref refid="classhyrise_1_1access_1_1_table_load_1ad73b7f8af2f9b4d3d18dad72b4b1e236" kindref="member">setDelimiter</ref>(<ref refid="classhyrise_1_1access_1_1_table_load_1a9cd2b2c7aea50f9aabacbae0c14e8a11" kindref="member">_delimiter</ref>.at(0)));</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>p.<ref refid="class_loader_1_1params_1ae15c0a2850566717b84eb89310f15da0" kindref="member">setInput</ref>(<ref refid="class_c_s_v_input" kindref="compound">CSVInput</ref>(<ref refid="classhyrise_1_1access_1_1_table_load_1a53377d2cd1ba1e7d2876d8b78fbdc81c" kindref="member">_file_name</ref>,<sp/>params));</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>sm-&gt;<ref refid="classhyrise_1_1io_1_1_storage_manager_1a4cca0a38b69106ab9faf0193285e7468" kindref="member">loadTable</ref>(<ref refid="classhyrise_1_1access_1_1_table_load_1aeb7ca7f7d4bd7a8da127181a23c95298" kindref="member">_table_name</ref>,<sp/>p);</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>We<sp/>don&apos;t<sp/>load<sp/>unless<sp/>the<sp/>necessary<sp/>prerequisites<sp/>are<sp/>met,</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>let<sp/>StorageManager<sp/>error<sp/>if<sp/>table<sp/>does<sp/>not<sp/>exist</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/>sm-&gt;<ref refid="classhyrise_1_1io_1_1_storage_manager_1a8bb48ae560cc146e47abbe1275898359" kindref="member">getTable</ref>(<ref refid="classhyrise_1_1access_1_1_table_load_1aeb7ca7f7d4bd7a8da127181a23c95298" kindref="member">_table_name</ref>);</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>_table<sp/>=<sp/>sm-&gt;<ref refid="classhyrise_1_1io_1_1_storage_manager_1a8bb48ae560cc146e47abbe1275898359" kindref="member">getTable</ref>(<ref refid="classhyrise_1_1access_1_1_table_load_1aeb7ca7f7d4bd7a8da127181a23c95298" kindref="member">_table_name</ref>);</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/>LOG4CXX_DEBUG(<ref refid="bin_2hyrise_2main_8cpp_1a1f643aeca905220d975e69578154a71d" kindref="member">logger</ref>,<sp/></highlight><highlight class="stringliteral">&quot;Loaded<sp/>Table<sp/>Size&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>_table-&gt;size());</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><ref refid="class___plan_operation_1aa6fad4a2bf49850d1947ab2d8c2f9931" kindref="member">addResult</ref>(_table);</highlight></codeline>
+<codeline lineno="69"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71" refid="classhyrise_1_1access_1_1_table_load_1a8fdb194902f40f60ce4c44a8fd6a8c14" refkind="member"><highlight class="normal">std::shared_ptr&lt;_PlanOperation&gt;<sp/><ref refid="classhyrise_1_1access_1_1_table_load_1a8fdb194902f40f60ce4c44a8fd6a8c14" kindref="member">TableLoad::parse</ref>(Json::Value<sp/>&amp;data)<sp/>{</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/>std::shared_ptr&lt;TableLoad&gt;<sp/>s<sp/>=<sp/>std::make_shared&lt;TableLoad&gt;();</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/>s-&gt;setTableName(data[</highlight><highlight class="stringliteral">&quot;table&quot;</highlight><highlight class="normal">].asString());</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/>s-&gt;setFileName(data[</highlight><highlight class="stringliteral">&quot;filename&quot;</highlight><highlight class="normal">].asString());</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/>s-&gt;setHeaderFileName(data[</highlight><highlight class="stringliteral">&quot;header&quot;</highlight><highlight class="normal">].asString());</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/>s-&gt;setHeaderString(data[</highlight><highlight class="stringliteral">&quot;header_string&quot;</highlight><highlight class="normal">].asString());</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/>s-&gt;setUnsafe(data[</highlight><highlight class="stringliteral">&quot;unsafe&quot;</highlight><highlight class="normal">].asBool());</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/>s-&gt;setRaw(data[</highlight><highlight class="stringliteral">&quot;raw&quot;</highlight><highlight class="normal">].asBool());</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(data.isMember(</highlight><highlight class="stringliteral">&quot;delimiter&quot;</highlight><highlight class="normal">))<sp/>{</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/>s-&gt;setDelimiter(data[</highlight><highlight class="stringliteral">&quot;delimiter&quot;</highlight><highlight class="normal">].asString());</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>s;</highlight></codeline>
+<codeline lineno="83"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight></codeline>
+<codeline lineno="85" refid="classhyrise_1_1access_1_1_table_load_1a322287a70239ec6f7ed0a06fb31a8d96" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/><ref refid="classhyrise_1_1access_1_1_table_load_1a322287a70239ec6f7ed0a06fb31a8d96" kindref="member">TableLoad::vname</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;TableLoad&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="87"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="89" refid="classhyrise_1_1access_1_1_table_load_1a0cbb72ed7aaacd592ad4b9ec04fa1af3" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1access_1_1_table_load_1a0cbb72ed7aaacd592ad4b9ec04fa1af3" kindref="member">TableLoad::setTableName</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;tablename)<sp/>{</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><ref refid="classhyrise_1_1access_1_1_table_load_1aeb7ca7f7d4bd7a8da127181a23c95298" kindref="member">_table_name</ref><sp/>=<sp/>tablename;</highlight></codeline>
+<codeline lineno="91"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight></codeline>
+<codeline lineno="93" refid="classhyrise_1_1access_1_1_table_load_1a95c64de4e5a64f78df683e743162acde" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1access_1_1_table_load_1a95c64de4e5a64f78df683e743162acde" kindref="member">TableLoad::setFileName</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;filename)<sp/>{</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><ref refid="classhyrise_1_1access_1_1_table_load_1a53377d2cd1ba1e7d2876d8b78fbdc81c" kindref="member">_file_name</ref><sp/>=<sp/>filename;</highlight></codeline>
+<codeline lineno="95"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight></codeline>
+<codeline lineno="97" refid="classhyrise_1_1access_1_1_table_load_1a9d7023291842c37c4934802f723d91b1" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1access_1_1_table_load_1a9d7023291842c37c4934802f723d91b1" kindref="member">TableLoad::setHeaderFileName</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;filename)<sp/>{</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><ref refid="classhyrise_1_1access_1_1_table_load_1aae9085c469a9f77c391f6dff07e3108e" kindref="member">_header_file_name</ref><sp/>=<sp/>filename;</highlight></codeline>
+<codeline lineno="99"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight></codeline>
+<codeline lineno="101" refid="classhyrise_1_1access_1_1_table_load_1a0ba54298d177e5337e36c6b5ed2008c8" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1access_1_1_table_load_1a0ba54298d177e5337e36c6b5ed2008c8" kindref="member">TableLoad::setHeaderString</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;header)<sp/>{</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><ref refid="classhyrise_1_1access_1_1_table_load_1a066282bb13a884b76d376ac26fd2ca7b" kindref="member">_header_string</ref><sp/>=<sp/>header;</highlight></codeline>
+<codeline lineno="103"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105" refid="classhyrise_1_1access_1_1_table_load_1a021c0b6bd573b64456d8f914df0bbef1" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1access_1_1_table_load_1a021c0b6bd573b64456d8f914df0bbef1" kindref="member">TableLoad::setBinary</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>binary)<sp/>{</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><ref refid="classhyrise_1_1access_1_1_table_load_1a9e3426677727c1d45cbaeffec542368d" kindref="member">_binary</ref><sp/>=<sp/>binary;</highlight></codeline>
+<codeline lineno="107"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight></codeline>
+<codeline lineno="109" refid="classhyrise_1_1access_1_1_table_load_1aa2c1156281f917e3ab81ef33917a190a" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1access_1_1_table_load_1aa2c1156281f917e3ab81ef33917a190a" kindref="member">TableLoad::setUnsafe</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>unsafe)<sp/>{</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><ref refid="classhyrise_1_1access_1_1_table_load_1a68ea3dcd181735b55b7f804fa159eb50" kindref="member">_unsafe</ref><sp/>=<sp/>unsafe;</highlight></codeline>
+<codeline lineno="111"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight></codeline>
+<codeline lineno="113" refid="classhyrise_1_1access_1_1_table_load_1ab811cfe1e019d8df7f059ab040c0c311" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1access_1_1_table_load_1ab811cfe1e019d8df7f059ab040c0c311" kindref="member">TableLoad::setRaw</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>raw)<sp/>{</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><ref refid="classhyrise_1_1access_1_1_table_load_1a6499d3b6f02e087fb5f8ac3d3375e2a2" kindref="member">_raw</ref><sp/>=<sp/>raw;</highlight></codeline>
+<codeline lineno="115"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight></codeline>
+<codeline lineno="117" refid="classhyrise_1_1access_1_1_table_load_1ad73b7f8af2f9b4d3d18dad72b4b1e236" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1access_1_1_table_load_1ad73b7f8af2f9b4d3d18dad72b4b1e236" kindref="member">TableLoad::setDelimiter</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;d)<sp/>{</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><ref refid="classhyrise_1_1access_1_1_table_load_1a9cd2b2c7aea50f9aabacbae0c14e8a11" kindref="member">_delimiter</ref><sp/>=<sp/>d;</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><ref refid="classhyrise_1_1access_1_1_table_load_1a6e6c7e895ac44fe60aa13728cf56c7ef" kindref="member">_hasDelimiter</ref><sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="120"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="123"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/home/grund/hyrise/src/lib/access/TableLoad.cpp"/>
+  </compounddef>
+</doxygen>

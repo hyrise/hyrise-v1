@@ -1,0 +1,239 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="class_matrix" kind="class" prot="public">
+    <compoundname>Matrix</compoundname>
+    <includes refid="matrix_8h" local="no">matrix.h</includes>
+    <templateparamlist>
+      <param>
+        <type>typename</type>
+        <declname>T</declname>
+        <defname>T</defname>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="class_matrix_1aa3bbc4400e39ff6df8c4be948412ed36" prot="public" static="no">
+        <type>T</type>
+        <definition>typedef T Matrix&lt; T &gt;::value_type</definition>
+        <argsstring></argsstring>
+        <name>value_type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/layouter/matrix.h" line="28" bodyfile="/home/grund/hyrise/src/lib/layouter/matrix.h" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="class_matrix_1a4a863fdaf07ba20956355cab5771c028" prot="public" static="no">
+        <type><ref refid="class_matrix" kindref="compound">Matrix</ref>&lt; T &gt;</type>
+        <definition>typedef Matrix&lt;T&gt; Matrix&lt; T &gt;::matrix_t</definition>
+        <argsstring></argsstring>
+        <name>matrix_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/layouter/matrix.h" line="29" bodyfile="/home/grund/hyrise/src/lib/layouter/matrix.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_matrix_1ac169e879fa63e4cadc6a3d3f1b2037ef" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int Matrix&lt; T &gt;::_numRows</definition>
+        <argsstring></argsstring>
+        <name>_numRows</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/layouter/matrix.h" line="63" bodyfile="/home/grund/hyrise/src/lib/layouter/matrix.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_matrix_1ae1a5d923d9edeacc8ed9f1804d1366e7" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int Matrix&lt; T &gt;::_numCols</definition>
+        <argsstring></argsstring>
+        <name>_numCols</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/layouter/matrix.h" line="64" bodyfile="/home/grund/hyrise/src/lib/layouter/matrix.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_matrix_1aad80e0a929aff6968825a2e0f210984d" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; <ref refid="class_matrix_1aa3bbc4400e39ff6df8c4be948412ed36" kindref="member">value_type</ref> &gt;</type>
+        <definition>std::vector&lt;value_type&gt; Matrix&lt; T &gt;::_data</definition>
+        <argsstring></argsstring>
+        <name>_data</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/layouter/matrix.h" line="65" bodyfile="/home/grund/hyrise/src/lib/layouter/matrix.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_matrix_1ac18965e13bf51153463e2d9a69d30030" prot="public" static="no" const="no" explicit="yes" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Matrix&lt; T &gt;::Matrix</definition>
+        <argsstring>(size_t columns)</argsstring>
+        <name>Matrix</name>
+        <param>
+          <type>size_t</type>
+          <declname>columns</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/layouter/matrix.h" line="37" bodyfile="/home/grund/hyrise/src/lib/layouter/matrix.h" bodystart="114" bodyend="116"/>
+      </memberdef>
+      <memberdef kind="function" id="class_matrix_1a91aa704de674203e96aece9e1955ccd3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Matrix&lt; T &gt;::~Matrix</definition>
+        <argsstring>()</argsstring>
+        <name>~Matrix</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/layouter/matrix.h" line="39" bodyfile="/home/grund/hyrise/src/lib/layouter/matrix.h" bodystart="119" bodyend="120"/>
+      </memberdef>
+      <memberdef kind="function" id="class_matrix_1a00fa8252ab5dbfcaf0f83a82861a19b1" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>T</type>
+        <definition>T Matrix&lt; T &gt;::get</definition>
+        <argsstring>(size_t row, size_t col) const </argsstring>
+        <name>get</name>
+        <param>
+          <type>size_t</type>
+          <declname>row</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>col</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/layouter/matrix.h" line="44" bodyfile="/home/grund/hyrise/src/lib/layouter/matrix.h" bodystart="123" bodyend="125"/>
+      </memberdef>
+      <memberdef kind="function" id="class_matrix_1a38509c26c889b09652ecae906614e7e8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_matrix" kindref="compound">Matrix</ref>&lt; T &gt; &amp;</type>
+        <definition>Matrix&lt; T &gt; &amp; Matrix&lt; T &gt;::set</definition>
+        <argsstring>(size_t row, size_t col, T val)</argsstring>
+        <name>set</name>
+        <param>
+          <type>size_t</type>
+          <declname>row</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>col</declname>
+        </param>
+        <param>
+          <type>T</type>
+          <declname>val</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/layouter/matrix.h" line="45" bodyfile="/home/grund/hyrise/src/lib/layouter/matrix.h" bodystart="128" bodyend="131"/>
+      </memberdef>
+      <memberdef kind="function" id="class_matrix_1a62b70832d464fdf8782abb1eeeab9755" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int Matrix&lt; T &gt;::numEdges</definition>
+        <argsstring>() const </argsstring>
+        <name>numEdges</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/layouter/matrix.h" line="49" bodyfile="/home/grund/hyrise/src/lib/layouter/matrix.h" bodystart="69" bodyend="79"/>
+      </memberdef>
+      <memberdef kind="function" id="class_matrix_1a7572a6a37fb51f6ebe067e271375047d" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int Matrix&lt; T &gt;::numVertices</definition>
+        <argsstring>() const </argsstring>
+        <name>numVertices</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/layouter/matrix.h" line="51" bodyfile="/home/grund/hyrise/src/lib/layouter/matrix.h" bodystart="51" bodyend="53"/>
+      </memberdef>
+      <memberdef kind="function" id="class_matrix_1a81dcdbb9ff4487d21726b3d0641791b1" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structadj__t" kindref="compound">adj_t</ref></type>
+        <definition>adj_t Matrix&lt; T &gt;::buildAdjacency</definition>
+        <argsstring>() const </argsstring>
+        <name>buildAdjacency</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/layouter/matrix.h" line="56" bodyfile="/home/grund/hyrise/src/lib/layouter/matrix.h" bodystart="82" bodyend="111"/>
+      </memberdef>
+      <memberdef kind="function" id="class_matrix_1a3e2d575b3957e728b541c3d95dd32127" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Matrix&lt; T &gt;::print</definition>
+        <argsstring>() const </argsstring>
+        <name>print</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/layouter/matrix.h" line="59" bodyfile="/home/grund/hyrise/src/lib/layouter/matrix.h" bodystart="135" bodyend="159"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2253">
+        <label>Matrix&lt; T &gt;</label>
+        <link refid="class_matrix"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/layouter/matrix.h" line="24" bodyfile="/home/grund/hyrise/src/lib/layouter/matrix.h" bodystart="24" bodyend="66"/>
+    <listofallmembers>
+      <member refid="class_matrix_1aad80e0a929aff6968825a2e0f210984d" prot="private" virt="non-virtual"><scope>Matrix</scope><name>_data</name></member>
+      <member refid="class_matrix_1ae1a5d923d9edeacc8ed9f1804d1366e7" prot="private" virt="non-virtual"><scope>Matrix</scope><name>_numCols</name></member>
+      <member refid="class_matrix_1ac169e879fa63e4cadc6a3d3f1b2037ef" prot="private" virt="non-virtual"><scope>Matrix</scope><name>_numRows</name></member>
+      <member refid="class_matrix_1a81dcdbb9ff4487d21726b3d0641791b1" prot="public" virt="non-virtual"><scope>Matrix</scope><name>buildAdjacency</name></member>
+      <member refid="class_matrix_1a00fa8252ab5dbfcaf0f83a82861a19b1" prot="public" virt="non-virtual"><scope>Matrix</scope><name>get</name></member>
+      <member refid="class_matrix_1ac18965e13bf51153463e2d9a69d30030" prot="public" virt="non-virtual"><scope>Matrix</scope><name>Matrix</name></member>
+      <member refid="class_matrix_1a4a863fdaf07ba20956355cab5771c028" prot="public" virt="non-virtual"><scope>Matrix</scope><name>matrix_t</name></member>
+      <member refid="class_matrix_1a62b70832d464fdf8782abb1eeeab9755" prot="public" virt="non-virtual"><scope>Matrix</scope><name>numEdges</name></member>
+      <member refid="class_matrix_1a7572a6a37fb51f6ebe067e271375047d" prot="public" virt="non-virtual"><scope>Matrix</scope><name>numVertices</name></member>
+      <member refid="class_matrix_1a3e2d575b3957e728b541c3d95dd32127" prot="public" virt="non-virtual"><scope>Matrix</scope><name>print</name></member>
+      <member refid="class_matrix_1a38509c26c889b09652ecae906614e7e8" prot="public" virt="non-virtual"><scope>Matrix</scope><name>set</name></member>
+      <member refid="class_matrix_1aa3bbc4400e39ff6df8c4be948412ed36" prot="public" virt="non-virtual"><scope>Matrix</scope><name>value_type</name></member>
+      <member refid="class_matrix_1a91aa704de674203e96aece9e1955ccd3" prot="public" virt="non-virtual"><scope>Matrix</scope><name>~Matrix</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,114 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="struct_hyrise_helper" kind="struct" prot="public">
+    <compoundname>HyriseHelper</compoundname>
+    <includes refid="storage__types__helper_8h" local="no">storage_types_helper.h</includes>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="struct_hyrise_helper_1a82552fcb7f6b1e46b4349523e529dbce" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+        </templateparamlist>
+        <type>T</type>
+        <definition>static T HyriseHelper::castValue</definition>
+        <argsstring>(const AbstractTable *table, const size_t column, const ValueId valueId)</argsstring>
+        <name>castValue</name>
+        <param>
+          <type>const <ref refid="class_abstract_table" kindref="compound">AbstractTable</ref> *</type>
+          <declname>table</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>column</declname>
+        </param>
+        <param>
+          <type>const <ref refid="class_value_id" kindref="compound">ValueId</ref></type>
+          <declname>valueId</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Templated method for casting a value by column and value-ID into a given type.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>column</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Column of the cell containing the value. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>valueId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ID of the value to be casted. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/storage_types_helper.h" line="24" bodyfile="/home/grund/hyrise/src/lib/storage/storage_types_helper.h" bodystart="24" bodyend="28"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_hyrise_helper_1a40c4ac8799a827bb064115cf7f388280" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+        </templateparamlist>
+        <type>T</type>
+        <definition>static T HyriseHelper::castValueByColumnRow</definition>
+        <argsstring>(const AbstractTable *table, const size_t column, const size_t row)</argsstring>
+        <name>castValueByColumnRow</name>
+        <param>
+          <type>const <ref refid="class_abstract_table" kindref="compound">AbstractTable</ref> *</type>
+          <declname>table</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>column</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>row</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Templated method for casting a value by column and row into a given type.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>column</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Column of the cell containing the value. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>row</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Row of the cell containing the value. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/storage_types_helper.h" line="38" bodyfile="/home/grund/hyrise/src/lib/storage/storage_types_helper.h" bodystart="38" bodyend="42"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2048">
+        <label>HyriseHelper</label>
+        <link refid="struct_hyrise_helper"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/storage/storage_types_helper.h" line="15" bodyfile="/home/grund/hyrise/src/lib/storage/storage_types_helper.h" bodystart="15" bodyend="44"/>
+    <listofallmembers>
+      <member refid="struct_hyrise_helper_1a82552fcb7f6b1e46b4349523e529dbce" prot="public" virt="non-virtual"><scope>HyriseHelper</scope><name>castValue</name></member>
+      <member refid="struct_hyrise_helper_1a40c4ac8799a827bb064115cf7f388280" prot="public" virt="non-virtual"><scope>HyriseHelper</scope><name>castValueByColumnRow</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

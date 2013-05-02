@@ -1,0 +1,234 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="class_abstract_dictionary" kind="class" prot="public">
+    <compoundname>AbstractDictionary</compoundname>
+    <derivedcompoundref refid="class_base_dictionary" prot="public" virt="non-virtual">BaseDictionary&lt; T &gt;</derivedcompoundref>
+    <derivedcompoundref refid="class_base_dictionary" prot="public" virt="non-virtual">BaseDictionary&lt; DictionaryType &gt;</derivedcompoundref>
+    <includes refid="_abstract_dictionary_8h" local="no">AbstractDictionary.h</includes>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_abstract_dictionary_1a9a9216aed0689529a55c572b3ef69bcf" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual AbstractDictionary::~AbstractDictionary</definition>
+        <argsstring>()</argsstring>
+        <name>~AbstractDictionary</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/AbstractDictionary.h" line="45" bodyfile="/home/grund/hyrise/src/lib/storage/AbstractDictionary.h" bodystart="45" bodyend="45"/>
+      </memberdef>
+      <memberdef kind="function" id="class_abstract_dictionary_1ad3a7a25c73742760c643d189cdf269e7" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>bool</type>
+        <definition>virtual bool AbstractDictionary::isOrdered</definition>
+        <argsstring>()=0</argsstring>
+        <name>isOrdered</name>
+        <reimplementedby refid="class_base_dictionary_1a3c7dd2234656fbda5531fa9de29ffc81">isOrdered</reimplementedby>
+        <reimplementedby refid="class_base_dictionary_1a3c7dd2234656fbda5531fa9de29ffc81">isOrdered</reimplementedby>
+        <reimplementedby refid="class_order_preserving_dictionary_1a21f77be611c0f2a062d632c43a476779">isOrdered</reimplementedby>
+        <reimplementedby refid="class_order_indifferent_dictionary_1a674d4ade9b462154411c33575043ac52">isOrdered</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/AbstractDictionary.h" line="47"/>
+      </memberdef>
+      <memberdef kind="function" id="class_abstract_dictionary_1a2ea90fb9b1d7b19399f03d4f3e1d0c95" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void AbstractDictionary::reserve</definition>
+        <argsstring>(size_t size)=0</argsstring>
+        <name>reserve</name>
+        <reimplementedby refid="class_base_dictionary_1ae3c53d970ee95b00169dd6b784902174">reserve</reimplementedby>
+        <reimplementedby refid="class_base_dictionary_1ae3c53d970ee95b00169dd6b784902174">reserve</reimplementedby>
+        <reimplementedby refid="class_order_preserving_dictionary_1a9427a4ea7d5778cc25373eb87238ba12">reserve</reimplementedby>
+        <reimplementedby refid="class_order_indifferent_dictionary_1a696a95aded3ae17ebce247c82d8dc6d7">reserve</reimplementedby>
+        <param>
+          <type>size_t</type>
+          <declname>size</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/AbstractDictionary.h" line="54"/>
+      </memberdef>
+      <memberdef kind="function" id="class_abstract_dictionary_1a6f760b80be9b9139e2f089cbd4042d0b" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>std::shared_ptr&lt; <ref refid="class_abstract_dictionary" kindref="compound">AbstractDictionary</ref> &gt;</type>
+        <definition>virtual std::shared_ptr&lt;AbstractDictionary&gt; AbstractDictionary::copy</definition>
+        <argsstring>()=0</argsstring>
+        <name>copy</name>
+        <reimplementedby refid="class_base_dictionary_1af5993ae21b2e5b32fa8e4c6c2387d889">copy</reimplementedby>
+        <reimplementedby refid="class_base_dictionary_1af5993ae21b2e5b32fa8e4c6c2387d889">copy</reimplementedby>
+        <reimplementedby refid="class_order_preserving_dictionary_1a6611970acc861038fe1cc6f7eed44f23">copy</reimplementedby>
+        <reimplementedby refid="class_order_indifferent_dictionary_1a96097b280ce81696760f805d3f9062d9">copy</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/AbstractDictionary.h" line="56"/>
+      </memberdef>
+      <memberdef kind="function" id="class_abstract_dictionary_1ad2dcfff13a96812365cd3144b966be92" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>std::shared_ptr&lt; <ref refid="class_abstract_dictionary" kindref="compound">AbstractDictionary</ref> &gt;</type>
+        <definition>virtual std::shared_ptr&lt;AbstractDictionary&gt; AbstractDictionary::copy_empty</definition>
+        <argsstring>()=0</argsstring>
+        <name>copy_empty</name>
+        <reimplementedby refid="class_base_allocated_dictionary_1acfac3763bf4f277cdbe9cd91c621aa4f">copy_empty</reimplementedby>
+        <reimplementedby refid="class_base_allocated_dictionary_1acfac3763bf4f277cdbe9cd91c621aa4f">copy_empty</reimplementedby>
+        <reimplementedby refid="class_base_allocated_dictionary_1acfac3763bf4f277cdbe9cd91c621aa4f">copy_empty</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/AbstractDictionary.h" line="57"/>
+      </memberdef>
+      <memberdef kind="function" id="class_abstract_dictionary_1a2146dedbe62e66b1bcdec23945e869d1" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>size_t</type>
+        <definition>virtual size_t AbstractDictionary::size</definition>
+        <argsstring>()=0</argsstring>
+        <name>size</name>
+        <reimplementedby refid="class_base_dictionary_1a335a2ad8aff598b74704829f35adbfc6">size</reimplementedby>
+        <reimplementedby refid="class_base_dictionary_1a335a2ad8aff598b74704829f35adbfc6">size</reimplementedby>
+        <reimplementedby refid="class_order_preserving_dictionary_1a027b7d8daf2c16de47068ad702c96aa9">size</reimplementedby>
+        <reimplementedby refid="class_order_indifferent_dictionary_1a657edbbe644f8bf1f8fc102e65d4a382">size</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/AbstractDictionary.h" line="58"/>
+      </memberdef>
+      <memberdef kind="function" id="class_abstract_dictionary_1acce31627df9551d83eab518366ea7cc8" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void AbstractDictionary::shrink</definition>
+        <argsstring>()=0</argsstring>
+        <name>shrink</name>
+        <reimplementedby refid="class_order_preserving_dictionary_1ad42cb37be7dafa2a70e2f91f519b61d9">shrink</reimplementedby>
+        <reimplementedby refid="class_order_indifferent_dictionary_1a09080e5e26bf0bdf88c94e21d4108f66">shrink</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/AbstractDictionary.h" line="60"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="class_abstract_dictionary_1a051863f8c78b2312e92705eb3554f156" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class Factory</type>
+          </param>
+        </templateparamlist>
+        <type>std::shared_ptr&lt; <ref refid="class_abstract_dictionary" kindref="compound">AbstractDictionary</ref> &gt;</type>
+        <definition>static std::shared_ptr&lt;AbstractDictionary&gt; AbstractDictionary::dictionaryWithType</definition>
+        <argsstring>(DataType type, size_t size=0)</argsstring>
+        <name>dictionaryWithType</name>
+        <param>
+          <type><ref refid="storage__types_8h_1ad8ed01ff3ff33333d8e19db4d2818bb6" kindref="member">DataType</ref></type>
+          <declname>type</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>size</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/AbstractDictionary.h" line="50" bodyfile="/home/grund/hyrise/src/lib/storage/AbstractDictionary.h" bodystart="50" bodyend="52"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1311">
+        <label>AbstractDictionary</label>
+        <link refid="class_abstract_dictionary"/>
+      </node>
+      <node id="1314">
+        <label>OrderIndifferentDictionary&lt; T, Strategy, Allocator &gt;</label>
+        <link refid="class_order_indifferent_dictionary"/>
+        <childnode refid="1313" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1313">
+        <label>BaseAllocatedDictionary&lt; T, Strategy, Allocator, OrderIndifferentDictionary&lt; T, Strategy, Allocator &gt; &gt;</label>
+        <link refid="class_base_allocated_dictionary"/>
+        <childnode refid="1312" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1318" relation="template-instance">
+          <edgelabel>&lt; T, Strategy, Allocator, OrderIndifferentDictionary&lt; T, Strategy, Allocator &gt; &gt;</edgelabel>
+        </childnode>
+      </node>
+      <node id="1316">
+        <label>OrderPreservingDictionary&lt; T, Strategy, Allocator &gt;</label>
+        <link refid="class_order_preserving_dictionary"/>
+        <childnode refid="1315" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1317">
+        <label>BaseDictionary&lt; DictionaryType &gt;</label>
+        <link refid="class_base_dictionary"/>
+        <childnode refid="1312" relation="template-instance">
+          <edgelabel>&lt; DictionaryType &gt;</edgelabel>
+        </childnode>
+        <childnode refid="1311" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1315">
+        <label>BaseAllocatedDictionary&lt; T, Strategy, Allocator, OrderPreservingDictionary&lt; T, Strategy, Allocator &gt; &gt;</label>
+        <link refid="class_base_allocated_dictionary"/>
+        <childnode refid="1312" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1318" relation="template-instance">
+          <edgelabel>&lt; T, Strategy, Allocator, OrderPreservingDictionary&lt; T, Strategy, Allocator &gt; &gt;</edgelabel>
+        </childnode>
+      </node>
+      <node id="1312">
+        <label>BaseDictionary&lt; T &gt;</label>
+        <link refid="class_base_dictionary"/>
+        <childnode refid="1311" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1318">
+        <label>BaseAllocatedDictionary&lt; DictionaryType, Strategy, Allocator, AllocatedClass &gt;</label>
+        <link refid="class_base_allocated_dictionary"/>
+        <childnode refid="1317" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1319">
+        <label>AbstractDictionary</label>
+        <link refid="class_abstract_dictionary"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/storage/AbstractDictionary.h" line="41" bodyfile="/home/grund/hyrise/src/lib/storage/AbstractDictionary.h" bodystart="41" bodyend="62"/>
+    <listofallmembers>
+      <member refid="class_abstract_dictionary_1a6f760b80be9b9139e2f089cbd4042d0b" prot="public" virt="pure-virtual"><scope>AbstractDictionary</scope><name>copy</name></member>
+      <member refid="class_abstract_dictionary_1ad2dcfff13a96812365cd3144b966be92" prot="public" virt="pure-virtual"><scope>AbstractDictionary</scope><name>copy_empty</name></member>
+      <member refid="class_abstract_dictionary_1a051863f8c78b2312e92705eb3554f156" prot="public" virt="non-virtual"><scope>AbstractDictionary</scope><name>dictionaryWithType</name></member>
+      <member refid="class_abstract_dictionary_1ad3a7a25c73742760c643d189cdf269e7" prot="public" virt="pure-virtual"><scope>AbstractDictionary</scope><name>isOrdered</name></member>
+      <member refid="class_abstract_dictionary_1a2ea90fb9b1d7b19399f03d4f3e1d0c95" prot="public" virt="pure-virtual"><scope>AbstractDictionary</scope><name>reserve</name></member>
+      <member refid="class_abstract_dictionary_1acce31627df9551d83eab518366ea7cc8" prot="public" virt="pure-virtual"><scope>AbstractDictionary</scope><name>shrink</name></member>
+      <member refid="class_abstract_dictionary_1a2146dedbe62e66b1bcdec23945e869d1" prot="public" virt="pure-virtual"><scope>AbstractDictionary</scope><name>size</name></member>
+      <member refid="class_abstract_dictionary_1a9a9216aed0689529a55c572b3ef69bcf" prot="public" virt="virtual"><scope>AbstractDictionary</scope><name>~AbstractDictionary</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

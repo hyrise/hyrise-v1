@@ -1,0 +1,310 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="class_multi_table_between_expression" kind="class" prot="public">
+    <compoundname>MultiTableBetweenExpression</compoundname>
+    <basecompoundref refid="class_simple_field_expression" prot="public" virt="non-virtual">SimpleFieldExpression</basecompoundref>
+    <includes refid="pred___multi_table_between_expression_8h" local="no">pred_MultiTableBetweenExpression.h</includes>
+    <templateparamlist>
+      <param>
+        <type>typename T</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="class_multi_table_between_expression_1ac1754ed1db4ca932715ea1c95b762a2a" prot="protected" static="no" mutable="no">
+        <type>T</type>
+        <definition>T MultiTableBetweenExpression&lt; T &gt;::lower_value</definition>
+        <argsstring></argsstring>
+        <name>lower_value</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/pred_MultiTableBetweenExpression.h" line="12" bodyfile="/home/grund/hyrise/src/lib/access/pred_MultiTableBetweenExpression.h" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_multi_table_between_expression_1ad7fdc17d5c3db963cff3f30a49cf7c44" prot="protected" static="no" mutable="no">
+        <type>T</type>
+        <definition>T MultiTableBetweenExpression&lt; T &gt;::upper_value</definition>
+        <argsstring></argsstring>
+        <name>upper_value</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/pred_MultiTableBetweenExpression.h" line="13" bodyfile="/home/grund/hyrise/src/lib/access/pred_MultiTableBetweenExpression.h" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_multi_table_between_expression_1ad43dc5ea94d8f633382e05b9421364c0" prot="protected" static="no" mutable="no">
+        <type>std::vector&lt; <ref refid="class_value_id" kindref="compound">ValueId</ref> &gt;</type>
+        <definition>std::vector&lt;ValueId&gt; MultiTableBetweenExpression&lt; T &gt;::lids</definition>
+        <argsstring></argsstring>
+        <name>lids</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/pred_MultiTableBetweenExpression.h" line="15" bodyfile="/home/grund/hyrise/src/lib/access/pred_MultiTableBetweenExpression.h" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_multi_table_between_expression_1a48134f5821645cbb91f78e7ce48308b4" prot="protected" static="no" mutable="no">
+        <type>std::vector&lt; <ref refid="class_value_id" kindref="compound">ValueId</ref> &gt;</type>
+        <definition>std::vector&lt;ValueId&gt; MultiTableBetweenExpression&lt; T &gt;::uids</definition>
+        <argsstring></argsstring>
+        <name>uids</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/pred_MultiTableBetweenExpression.h" line="16" bodyfile="/home/grund/hyrise/src/lib/access/pred_MultiTableBetweenExpression.h" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_multi_table_between_expression_1a76ebaaf4d67eccce2fb563f355af9470" prot="protected" static="no" mutable="no">
+        <type>std::vector&lt; bool &gt;</type>
+        <definition>std::vector&lt;bool&gt; MultiTableBetweenExpression&lt; T &gt;::has_lvid</definition>
+        <argsstring></argsstring>
+        <name>has_lvid</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/pred_MultiTableBetweenExpression.h" line="17" bodyfile="/home/grund/hyrise/src/lib/access/pred_MultiTableBetweenExpression.h" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_multi_table_between_expression_1a116c5bb89fa5486ee42a3d13b991b271" prot="protected" static="no" mutable="no">
+        <type>std::vector&lt; bool &gt;</type>
+        <definition>std::vector&lt;bool&gt; MultiTableBetweenExpression&lt; T &gt;::has_uvid</definition>
+        <argsstring></argsstring>
+        <name>has_uvid</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/pred_MultiTableBetweenExpression.h" line="18" bodyfile="/home/grund/hyrise/src/lib/access/pred_MultiTableBetweenExpression.h" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_multi_table_between_expression_1ae6a7f14e441b22f67bf659591447c34e" prot="protected" static="no" mutable="no">
+        <type>std::vector&lt; bool &gt;</type>
+        <definition>std::vector&lt;bool&gt; MultiTableBetweenExpression&lt; T &gt;::_sorteds</definition>
+        <argsstring></argsstring>
+        <name>_sorteds</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/pred_MultiTableBetweenExpression.h" line="19" bodyfile="/home/grund/hyrise/src/lib/access/pred_MultiTableBetweenExpression.h" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_multi_table_between_expression_1a0293fc439cd231a450197702254501f7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>MultiTableBetweenExpression&lt; T &gt;::MultiTableBetweenExpression</definition>
+        <argsstring>(size_t i, field_t _field, T _lower_value, T _upper_value)</argsstring>
+        <name>MultiTableBetweenExpression</name>
+        <param>
+          <type>size_t</type>
+          <declname>i</declname>
+        </param>
+        <param>
+          <type><ref refid="storage__types_8h_1a5ce4ecb27464dc24ba394527510dd89b" kindref="member">field_t</ref></type>
+          <declname>_field</declname>
+        </param>
+        <param>
+          <type>T</type>
+          <declname>_lower_value</declname>
+        </param>
+        <param>
+          <type>T</type>
+          <declname>_upper_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/pred_MultiTableBetweenExpression.h" line="25" bodyfile="/home/grund/hyrise/src/lib/access/pred_MultiTableBetweenExpression.h" bodystart="23" bodyend="25"/>
+      </memberdef>
+      <memberdef kind="function" id="class_multi_table_between_expression_1af1ded2a6227468a4f959d9bb384b3d80" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>MultiTableBetweenExpression&lt; T &gt;::MultiTableBetweenExpression</definition>
+        <argsstring>(size_t i, field_name_t _field, T _lower_value, T _upper_value)</argsstring>
+        <name>MultiTableBetweenExpression</name>
+        <param>
+          <type>size_t</type>
+          <declname>i</declname>
+        </param>
+        <param>
+          <type><ref refid="storage__types_8h_1ad64b8c8026a86f643d173acbb694b4f8" kindref="member">field_name_t</ref></type>
+          <declname>_field</declname>
+        </param>
+        <param>
+          <type>T</type>
+          <declname>_lower_value</declname>
+        </param>
+        <param>
+          <type>T</type>
+          <declname>_upper_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/pred_MultiTableBetweenExpression.h" line="29" bodyfile="/home/grund/hyrise/src/lib/access/pred_MultiTableBetweenExpression.h" bodystart="27" bodyend="29"/>
+      </memberdef>
+      <memberdef kind="function" id="class_multi_table_between_expression_1a5c8ff678c1a66c65cd770bc96f3ed2d8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>MultiTableBetweenExpression&lt; T &gt;::MultiTableBetweenExpression</definition>
+        <argsstring>(hyrise::storage::c_store_ptr_t _table, field_t _field, T _lower_value, T _upper_value)</argsstring>
+        <name>MultiTableBetweenExpression</name>
+        <param>
+          <type><ref refid="namespacehyrise_1_1storage_1a15bf8f029e789356b9d72cd53e9973ec" kindref="member">hyrise::storage::c_store_ptr_t</ref></type>
+          <declname>_table</declname>
+        </param>
+        <param>
+          <type><ref refid="storage__types_8h_1a5ce4ecb27464dc24ba394527510dd89b" kindref="member">field_t</ref></type>
+          <declname>_field</declname>
+        </param>
+        <param>
+          <type>T</type>
+          <declname>_lower_value</declname>
+        </param>
+        <param>
+          <type>T</type>
+          <declname>_upper_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/pred_MultiTableBetweenExpression.h" line="33" bodyfile="/home/grund/hyrise/src/lib/access/pred_MultiTableBetweenExpression.h" bodystart="31" bodyend="33"/>
+      </memberdef>
+      <memberdef kind="function" id="class_multi_table_between_expression_1a6c0ca55dfbeee78f4eb033f56ad2fc07" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MultiTableBetweenExpression&lt; T &gt;::walk</definition>
+        <argsstring>(const std::vector&lt; hyrise::storage::c_atable_ptr_t &gt; &amp;l)</argsstring>
+        <name>walk</name>
+        <reimplements refid="class_simple_field_expression_1a2b9be48219459a784de03b6298b56966">walk</reimplements>
+        <param>
+          <type>const std::vector&lt; <ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref> &gt; &amp;</type>
+          <declname>l</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/pred_MultiTableBetweenExpression.h" line="35" bodyfile="/home/grund/hyrise/src/lib/access/pred_MultiTableBetweenExpression.h" bodystart="35" bodyend="78"/>
+      </memberdef>
+      <memberdef kind="function" id="class_multi_table_between_expression_1a6385fb0eaab29522e271c183f642075b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool MultiTableBetweenExpression&lt; T &gt;::operator()</definition>
+        <argsstring>(size_t row)</argsstring>
+        <name>operator()</name>
+        <reimplements refid="class_simple_field_expression_1adcbedd75f7652d48f58256eefe09c5fe">operator()</reimplements>
+        <param>
+          <type>size_t</type>
+          <declname>row</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/pred_MultiTableBetweenExpression.h" line="80" bodyfile="/home/grund/hyrise/src/lib/access/pred_MultiTableBetweenExpression.h" bodystart="80" bodyend="96"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2356">
+        <label>SimpleFieldExpression</label>
+        <link refid="class_simple_field_expression"/>
+        <childnode refid="2357" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2355">
+        <label>MultiTableBetweenExpression&lt; T &gt;</label>
+        <link refid="class_multi_table_between_expression"/>
+        <childnode refid="2356" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2357">
+        <label>SimpleExpression</label>
+        <link refid="class_simple_expression"/>
+        <childnode refid="2358" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2358">
+        <label>hyrise::access::AbstractExpression</label>
+        <link refid="classhyrise_1_1access_1_1_abstract_expression"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2360">
+        <label>SimpleFieldExpression</label>
+        <link refid="class_simple_field_expression"/>
+        <childnode refid="2361" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2359">
+        <label>MultiTableBetweenExpression&lt; T &gt;</label>
+        <link refid="class_multi_table_between_expression"/>
+        <childnode refid="2360" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2361">
+        <label>SimpleExpression</label>
+        <link refid="class_simple_expression"/>
+        <childnode refid="2362" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2362">
+        <label>hyrise::access::AbstractExpression</label>
+        <link refid="classhyrise_1_1access_1_1_abstract_expression"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/access/pred_MultiTableBetweenExpression.h" line="8" bodyfile="/home/grund/hyrise/src/lib/access/pred_MultiTableBetweenExpression.h" bodystart="8" bodyend="97"/>
+    <listofallmembers>
+      <member refid="class_multi_table_between_expression_1ae6a7f14e441b22f67bf659591447c34e" prot="protected" virt="non-virtual"><scope>MultiTableBetweenExpression</scope><name>_sorteds</name></member>
+      <member refid="class_simple_field_expression_1ac17522bcc3e92592ed34b84d460909a7" prot="protected" virt="non-virtual"><scope>MultiTableBetweenExpression</scope><name>field</name></member>
+      <member refid="class_simple_field_expression_1ac25373119e8937fa84ac763c264a7756" prot="protected" virt="non-virtual"><scope>MultiTableBetweenExpression</scope><name>field_name</name></member>
+      <member refid="class_multi_table_between_expression_1a76ebaaf4d67eccce2fb563f355af9470" prot="protected" virt="non-virtual"><scope>MultiTableBetweenExpression</scope><name>has_lvid</name></member>
+      <member refid="class_multi_table_between_expression_1a116c5bb89fa5486ee42a3d13b991b271" prot="protected" virt="non-virtual"><scope>MultiTableBetweenExpression</scope><name>has_uvid</name></member>
+      <member refid="class_simple_field_expression_1a2e95b8194489dc5d79bc2e070bfcdb24" prot="protected" virt="non-virtual"><scope>MultiTableBetweenExpression</scope><name>input</name></member>
+      <member refid="class_multi_table_between_expression_1ad43dc5ea94d8f633382e05b9421364c0" prot="protected" virt="non-virtual"><scope>MultiTableBetweenExpression</scope><name>lids</name></member>
+      <member refid="class_multi_table_between_expression_1ac1754ed1db4ca932715ea1c95b762a2a" prot="protected" virt="non-virtual"><scope>MultiTableBetweenExpression</scope><name>lower_value</name></member>
+      <member refid="class_simple_expression_1ae06428047fe77732ef121f42b1ee6ce2" prot="public" virt="virtual"><scope>MultiTableBetweenExpression</scope><name>match</name></member>
+      <member refid="class_multi_table_between_expression_1a0293fc439cd231a450197702254501f7" prot="public" virt="non-virtual"><scope>MultiTableBetweenExpression</scope><name>MultiTableBetweenExpression</name></member>
+      <member refid="class_multi_table_between_expression_1af1ded2a6227468a4f959d9bb384b3d80" prot="public" virt="non-virtual"><scope>MultiTableBetweenExpression</scope><name>MultiTableBetweenExpression</name></member>
+      <member refid="class_multi_table_between_expression_1a5c8ff678c1a66c65cd770bc96f3ed2d8" prot="public" virt="non-virtual"><scope>MultiTableBetweenExpression</scope><name>MultiTableBetweenExpression</name></member>
+      <member refid="class_multi_table_between_expression_1a6385fb0eaab29522e271c183f642075b" prot="public" virt="virtual"><scope>MultiTableBetweenExpression</scope><name>operator()</name></member>
+      <member refid="class_simple_field_expression_1a53fb1bfcb3b90cced5a6a5d150acb750" prot="public" virt="non-virtual"><scope>MultiTableBetweenExpression</scope><name>SimpleFieldExpression</name></member>
+      <member refid="class_simple_field_expression_1ad9a94013df2c3521382fac2ea68a3813" prot="public" virt="non-virtual"><scope>MultiTableBetweenExpression</scope><name>SimpleFieldExpression</name></member>
+      <member refid="class_simple_field_expression_1a64fefbe7ec640b832ccc2e1cc33b4817" prot="public" virt="non-virtual"><scope>MultiTableBetweenExpression</scope><name>SimpleFieldExpression</name></member>
+      <member refid="class_simple_field_expression_1ac95fe343f1a1dc8e470427f6629fb4ca" prot="public" virt="non-virtual"><scope>MultiTableBetweenExpression</scope><name>SimpleFieldExpression</name></member>
+      <member refid="class_simple_field_expression_1a8da8d230fd7e416f692da42a666625ec" prot="protected" virt="non-virtual"><scope>MultiTableBetweenExpression</scope><name>table</name></member>
+      <member refid="class_multi_table_between_expression_1a48134f5821645cbb91f78e7ce48308b4" prot="protected" virt="non-virtual"><scope>MultiTableBetweenExpression</scope><name>uids</name></member>
+      <member refid="class_multi_table_between_expression_1ad7fdc17d5c3db963cff3f30a49cf7c44" prot="protected" virt="non-virtual"><scope>MultiTableBetweenExpression</scope><name>upper_value</name></member>
+      <member refid="class_multi_table_between_expression_1a6c0ca55dfbeee78f4eb033f56ad2fc07" prot="public" virt="virtual"><scope>MultiTableBetweenExpression</scope><name>walk</name></member>
+      <member refid="classhyrise_1_1access_1_1_abstract_expression_1aae15725c08628e3785e90f496b75144e" prot="public" virt="pure-virtual" ambiguityscope="hyrise::access::AbstractExpression::"><scope>MultiTableBetweenExpression</scope><name>walk</name></member>
+      <member refid="classhyrise_1_1access_1_1_abstract_expression_1ae0b45f17103a1dc5006832d243574d83" prot="public" virt="virtual"><scope>MultiTableBetweenExpression</scope><name>~AbstractExpression</name></member>
+      <member refid="class_simple_field_expression_1acdf860b623a41c93c85f1cea991c9252" prot="public" virt="virtual"><scope>MultiTableBetweenExpression</scope><name>~SimpleFieldExpression</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

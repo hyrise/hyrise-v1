@@ -1,0 +1,184 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="class_abstract_task_queue" kind="class" prot="public">
+    <compoundname>AbstractTaskQueue</compoundname>
+    <derivedcompoundref refid="class_abstract_core_bound_task_queue" prot="public" virt="non-virtual">AbstractCoreBoundTaskQueue</derivedcompoundref>
+    <includes refid="_abstract_task_queue_8h" local="no">AbstractTaskQueue.h</includes>
+      <sectiondef kind="public-type">
+      <memberdef kind="enum" id="class_abstract_task_queue_1a29d1a49db34f9e5e5d83f0d657f6517b" prot="public" static="no">
+        <name>status</name>
+        <enumvalue id="class_abstract_task_queue_1a29d1a49db34f9e5e5d83f0d657f6517ba34b422f4936efbfaec6b980a8fde370e" prot="public">
+          <name>STARTUP</name>
+          <initializer> 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_abstract_task_queue_1a29d1a49db34f9e5e5d83f0d657f6517babbf46a2afa080c3f9d355c407beaa902" prot="public">
+          <name>RUN</name>
+          <initializer> 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_abstract_task_queue_1a29d1a49db34f9e5e5d83f0d657f6517badf73f3cfd7d9d951bad5386fb341026e" prot="public">
+          <name>RUN_UNTIL_DONE</name>
+          <initializer> 2</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_abstract_task_queue_1a29d1a49db34f9e5e5d83f0d657f6517bab5b55d5fec71f3976fb1767477475a69" prot="public">
+          <name>TO_STOP</name>
+          <initializer> 3</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_abstract_task_queue_1a29d1a49db34f9e5e5d83f0d657f6517ba16003f747b26f2b4d59ec96bdbe5d3ed" prot="public">
+          <name>STOPPED</name>
+          <initializer> 4</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/taskscheduler/AbstractTaskQueue.h" line="22" bodyfile="/home/grund/hyrise/src/lib/taskscheduler/AbstractTaskQueue.h" bodystart="22" bodyend="28"/>
+      </memberdef>
+      <memberdef kind="typedef" id="class_abstract_task_queue_1add650c1369aeae30a60974a0fd77c8b0" prot="public" static="no">
+        <type>enum <ref refid="class_abstract_task_queue_1a29d1a49db34f9e5e5d83f0d657f6517b" kindref="member">AbstractTaskQueue::status</ref></type>
+        <definition>typedef enum AbstractTaskQueue::status  AbstractTaskQueue::queue_status_t</definition>
+        <argsstring></argsstring>
+        <name>queue_status_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/taskscheduler/AbstractTaskQueue.h" line="28"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_abstract_task_queue_1af4b704999acefc71422beb78904865bb" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual AbstractTaskQueue::~AbstractTaskQueue</definition>
+        <argsstring>()</argsstring>
+        <name>~AbstractTaskQueue</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/taskscheduler/AbstractTaskQueue.h" line="30" bodyfile="/home/grund/hyrise/src/lib/taskscheduler/AbstractTaskQueue.h" bodystart="30" bodyend="30"/>
+      </memberdef>
+      <memberdef kind="function" id="class_abstract_task_queue_1aecd09a5005f34494694c7c40df1bfd40" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void AbstractTaskQueue::executeTask</definition>
+        <argsstring>()=0</argsstring>
+        <name>executeTask</name>
+        <reimplementedby refid="class_core_bound_task_queue_1a6ff3c15e3fce5d44042f844cc8f06aac">executeTask</reimplementedby>
+        <reimplementedby refid="class_w_s_core_bound_task_queue_1a559aa61adcdcced67ae4e5c44e6ff19e">executeTask</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/taskscheduler/AbstractTaskQueue.h" line="32"/>
+      </memberdef>
+      <memberdef kind="function" id="class_abstract_task_queue_1aed7b0329d177e98b522170e2777b08d0" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void AbstractTaskQueue::push</definition>
+        <argsstring>(std::shared_ptr&lt; Task &gt; task)=0</argsstring>
+        <name>push</name>
+        <reimplementedby refid="class_core_bound_task_queue_1a344ae5fc2a5b8dfdf31340dbcdc2a102">push</reimplementedby>
+        <reimplementedby refid="class_w_s_core_bound_task_queue_1a274f7163aaee6c7915b6342506b7e5e2">push</reimplementedby>
+        <param>
+          <type>std::shared_ptr&lt; <ref refid="class_task" kindref="compound">Task</ref> &gt;</type>
+          <declname>task</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/taskscheduler/AbstractTaskQueue.h" line="36"/>
+      </memberdef>
+      <memberdef kind="function" id="class_abstract_task_queue_1a253e5a3dbe7788f3f0e8daa303b330fd" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void AbstractTaskQueue::join</definition>
+        <argsstring>()=0</argsstring>
+        <name>join</name>
+        <reimplementedby refid="class_abstract_core_bound_task_queue_1a42352e74b46328e6d16c569f7c2546f6">join</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/taskscheduler/AbstractTaskQueue.h" line="41"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1437">
+        <label>WSCoreBoundTaskQueue</label>
+        <link refid="class_w_s_core_bound_task_queue"/>
+        <childnode refid="1435" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1435">
+        <label>AbstractCoreBoundTaskQueue</label>
+        <link refid="class_abstract_core_bound_task_queue"/>
+        <childnode refid="1434" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1436">
+        <label>CoreBoundTaskQueue</label>
+        <link refid="class_core_bound_task_queue"/>
+        <childnode refid="1435" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1434">
+        <label>AbstractTaskQueue</label>
+        <link refid="class_abstract_task_queue"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1438">
+        <label>AbstractTaskQueue</label>
+        <link refid="class_abstract_task_queue"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/taskscheduler/AbstractTaskQueue.h" line="19" bodyfile="/home/grund/hyrise/src/lib/taskscheduler/AbstractTaskQueue.h" bodystart="19" bodyend="42"/>
+    <listofallmembers>
+      <member refid="class_abstract_task_queue_1aecd09a5005f34494694c7c40df1bfd40" prot="public" virt="pure-virtual"><scope>AbstractTaskQueue</scope><name>executeTask</name></member>
+      <member refid="class_abstract_task_queue_1a253e5a3dbe7788f3f0e8daa303b330fd" prot="public" virt="pure-virtual"><scope>AbstractTaskQueue</scope><name>join</name></member>
+      <member refid="class_abstract_task_queue_1aed7b0329d177e98b522170e2777b08d0" prot="public" virt="pure-virtual"><scope>AbstractTaskQueue</scope><name>push</name></member>
+      <member refid="class_abstract_task_queue_1add650c1369aeae30a60974a0fd77c8b0" prot="public" virt="non-virtual"><scope>AbstractTaskQueue</scope><name>queue_status_t</name></member>
+      <member refid="class_abstract_task_queue_1a29d1a49db34f9e5e5d83f0d657f6517babbf46a2afa080c3f9d355c407beaa902" prot="public" virt="non-virtual"><scope>AbstractTaskQueue</scope><name>RUN</name></member>
+      <member refid="class_abstract_task_queue_1a29d1a49db34f9e5e5d83f0d657f6517badf73f3cfd7d9d951bad5386fb341026e" prot="public" virt="non-virtual"><scope>AbstractTaskQueue</scope><name>RUN_UNTIL_DONE</name></member>
+      <member refid="class_abstract_task_queue_1a29d1a49db34f9e5e5d83f0d657f6517ba34b422f4936efbfaec6b980a8fde370e" prot="public" virt="non-virtual"><scope>AbstractTaskQueue</scope><name>STARTUP</name></member>
+      <member refid="class_abstract_task_queue_1a29d1a49db34f9e5e5d83f0d657f6517b" prot="public" virt="non-virtual"><scope>AbstractTaskQueue</scope><name>status</name></member>
+      <member refid="class_abstract_task_queue_1a29d1a49db34f9e5e5d83f0d657f6517ba16003f747b26f2b4d59ec96bdbe5d3ed" prot="public" virt="non-virtual"><scope>AbstractTaskQueue</scope><name>STOPPED</name></member>
+      <member refid="class_abstract_task_queue_1a29d1a49db34f9e5e5d83f0d657f6517bab5b55d5fec71f3976fb1767477475a69" prot="public" virt="non-virtual"><scope>AbstractTaskQueue</scope><name>TO_STOP</name></member>
+      <member refid="class_abstract_task_queue_1af4b704999acefc71422beb78904865bb" prot="public" virt="virtual"><scope>AbstractTaskQueue</scope><name>~AbstractTaskQueue</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,823 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="_aggregate_functions_8h" kind="file">
+    <compoundname>AggregateFunctions.h</compoundname>
+    <includes refid="_abstract_table_8h" local="no">storage/AbstractTable.h</includes>
+    <includes refid="_hash_table_8h" local="no">storage/HashTable.h</includes>
+    <includes refid="storage__types_8h" local="no">storage/storage_types.h</includes>
+    <includes refid="meta__storage_8h" local="no">storage/meta_storage.h</includes>
+    <includes local="no">json.h</includes>
+    <includes local="no">vector</includes>
+    <includedby refid="_aggregate_functions_8cpp" local="yes">src/lib/access/AggregateFunctions.cpp</includedby>
+    <includedby refid="_group_by_scan_8h" local="yes">src/lib/access/GroupByScan.h</includedby>
+    <incdepgraph>
+      <node id="2795">
+        <label>list</label>
+      </node>
+      <node id="2824">
+        <label>boost/mpl/size.hpp</label>
+      </node>
+      <node id="2816">
+        <label>atomic</label>
+      </node>
+      <node id="2783">
+        <label>boost/mpl/vector.hpp</label>
+      </node>
+      <node id="2826">
+        <label>functional</label>
+      </node>
+      <node id="2772">
+        <label>limits</label>
+      </node>
+      <node id="2814">
+        <label>boost/functional/hash.hpp</label>
+      </node>
+      <node id="2789">
+        <label>assert.h</label>
+      </node>
+      <node id="2785">
+        <label>boost/lexical_cast.hpp</label>
+      </node>
+      <node id="2805">
+        <label>boost/iterator/iterator_facade.hpp</label>
+      </node>
+      <node id="2778">
+        <label>cstdint</label>
+      </node>
+      <node id="2825">
+        <label>storage/hash_functor.h</label>
+        <link refid="hash__functor_8h"/>
+        <childnode refid="2826" relation="include">
+        </childnode>
+        <childnode refid="2780" relation="include">
+        </childnode>
+        <childnode refid="2771" relation="include">
+        </childnode>
+      </node>
+      <node id="2819">
+        <label>helper/checked_cast.h</label>
+        <link refid="checked__cast_8h"/>
+        <childnode refid="2773" relation="include">
+        </childnode>
+      </node>
+      <node id="2802">
+        <label>storage/BaseDictionary.h</label>
+        <link refid="_base_dictionary_8h"/>
+        <childnode refid="2780" relation="include">
+        </childnode>
+        <childnode refid="2791" relation="include">
+        </childnode>
+        <childnode refid="2803" relation="include">
+        </childnode>
+      </node>
+      <node id="2781">
+        <label>stdint.h</label>
+      </node>
+      <node id="2801">
+        <label>stdlib.h</label>
+      </node>
+      <node id="2815">
+        <label>storage/HashTable.h</label>
+        <link refid="_hash_table_8h"/>
+        <childnode refid="2816" relation="include">
+        </childnode>
+        <childnode refid="2817" relation="include">
+        </childnode>
+        <childnode refid="2818" relation="include">
+        </childnode>
+        <childnode refid="2773" relation="include">
+        </childnode>
+        <childnode refid="2777" relation="include">
+        </childnode>
+        <childnode refid="2819" relation="include">
+        </childnode>
+        <childnode refid="2820" relation="include">
+        </childnode>
+        <childnode refid="2771" relation="include">
+        </childnode>
+        <childnode refid="2821" relation="include">
+        </childnode>
+        <childnode refid="2825" relation="include">
+        </childnode>
+        <childnode refid="2780" relation="include">
+        </childnode>
+      </node>
+      <node id="2799">
+        <label>errno.h</label>
+      </node>
+      <node id="2774">
+        <label>stdexcept</label>
+      </node>
+      <node id="2776">
+        <label>string</label>
+      </node>
+      <node id="2822">
+        <label>boost/mpl/at.hpp</label>
+      </node>
+      <node id="2811">
+        <label>map</label>
+      </node>
+      <node id="2787">
+        <label>storage/ValueIdMap.hpp</label>
+        <link refid="_value_id_map_8hpp"/>
+        <childnode refid="2788" relation="include">
+        </childnode>
+        <childnode refid="2807" relation="include">
+        </childnode>
+      </node>
+      <node id="2798">
+        <label>memory/MemalignStrategy.h</label>
+        <link refid="_memalign_strategy_8h"/>
+        <childnode refid="2799" relation="include">
+        </childnode>
+        <childnode refid="2800" relation="include">
+        </childnode>
+        <childnode refid="2801" relation="include">
+        </childnode>
+      </node>
+      <node id="2810">
+        <label>exception</label>
+      </node>
+      <node id="2793">
+        <label>stddef.h</label>
+      </node>
+      <node id="2807">
+        <label>storage/OrderIndifferentDictionary.h</label>
+        <link refid="_order_indifferent_dictionary_8h"/>
+        <childnode refid="2780" relation="include">
+        </childnode>
+        <childnode refid="2791" relation="include">
+        </childnode>
+        <childnode refid="2802" relation="include">
+        </childnode>
+        <childnode refid="2803" relation="include">
+        </childnode>
+        <childnode refid="2808" relation="include">
+        </childnode>
+        <childnode refid="2806" relation="include">
+        </childnode>
+        <childnode refid="2810" relation="include">
+        </childnode>
+        <childnode refid="2775" relation="include">
+        </childnode>
+        <childnode refid="2811" relation="include">
+        </childnode>
+        <childnode refid="2773" relation="include">
+        </childnode>
+        <childnode refid="2812" relation="include">
+        </childnode>
+        <childnode refid="2813" relation="include">
+        </childnode>
+        <childnode refid="2814" relation="include">
+        </childnode>
+      </node>
+      <node id="2782">
+        <label>ostream</label>
+      </node>
+      <node id="2827">
+        <label>json.h</label>
+      </node>
+      <node id="2812">
+        <label>limits.h</label>
+      </node>
+      <node id="2803">
+        <label>storage/DictionaryIterator.h</label>
+        <link refid="_dictionary_iterator_8h"/>
+        <childnode refid="2804" relation="include">
+        </childnode>
+        <childnode refid="2805" relation="include">
+        </childnode>
+      </node>
+      <node id="2791">
+        <label>storage/AbstractDictionary.h</label>
+        <link refid="_abstract_dictionary_8h"/>
+        <childnode refid="2775" relation="include">
+        </childnode>
+        <childnode refid="2776" relation="include">
+        </childnode>
+        <childnode refid="2773" relation="include">
+        </childnode>
+        <childnode refid="2792" relation="include">
+        </childnode>
+        <childnode refid="2796" relation="include">
+        </childnode>
+        <childnode refid="2798" relation="include">
+        </childnode>
+        <childnode refid="2780" relation="include">
+        </childnode>
+      </node>
+      <node id="2809">
+        <label>string.h</label>
+      </node>
+      <node id="2771">
+        <label>storage/AbstractTable.h</label>
+        <link refid="_abstract_table_8h"/>
+        <childnode refid="2772" relation="include">
+        </childnode>
+        <childnode refid="2773" relation="include">
+        </childnode>
+        <childnode refid="2774" relation="include">
+        </childnode>
+        <childnode refid="2775" relation="include">
+        </childnode>
+        <childnode refid="2776" relation="include">
+        </childnode>
+        <childnode refid="2777" relation="include">
+        </childnode>
+        <childnode refid="2779" relation="include">
+        </childnode>
+        <childnode refid="2780" relation="include">
+        </childnode>
+        <childnode refid="2786" relation="include">
+        </childnode>
+        <childnode refid="2787" relation="include">
+        </childnode>
+      </node>
+      <node id="2779">
+        <label>storage/AbstractResource.h</label>
+        <link refid="_abstract_resource_8h"/>
+      </node>
+      <node id="2813">
+        <label>boost/unordered_map.hpp</label>
+      </node>
+      <node id="2820">
+        <label>storage/AbstractHashTable.h</label>
+        <link refid="_abstract_hash_table_8h"/>
+        <childnode refid="2778" relation="include">
+        </childnode>
+        <childnode refid="2773" relation="include">
+        </childnode>
+        <childnode refid="2777" relation="include">
+        </childnode>
+        <childnode refid="2779" relation="include">
+        </childnode>
+        <childnode refid="2780" relation="include">
+        </childnode>
+      </node>
+      <node id="2775">
+        <label>vector</label>
+      </node>
+      <node id="2823">
+        <label>boost/mpl/int.hpp</label>
+      </node>
+      <node id="2777">
+        <label>helper/types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="2778" relation="include">
+        </childnode>
+        <childnode refid="2776" relation="include">
+        </childnode>
+        <childnode refid="2772" relation="include">
+        </childnode>
+        <childnode refid="2773" relation="include">
+        </childnode>
+        <childnode refid="2775" relation="include">
+        </childnode>
+      </node>
+      <node id="2821">
+        <label>storage/meta_storage.h</label>
+        <link refid="meta__storage_8h"/>
+        <childnode refid="2774" relation="include">
+        </childnode>
+        <childnode refid="2822" relation="include">
+        </childnode>
+        <childnode refid="2823" relation="include">
+        </childnode>
+        <childnode refid="2824" relation="include">
+        </childnode>
+        <childnode refid="2780" relation="include">
+        </childnode>
+      </node>
+      <node id="2804">
+        <label>storage/BaseIterator.h</label>
+        <link refid="_base_iterator_8h"/>
+      </node>
+      <node id="2792">
+        <label>memory/StrategizedAllocator.h</label>
+        <link refid="_strategized_allocator_8h"/>
+        <childnode refid="2793" relation="include">
+        </childnode>
+        <childnode refid="2794" relation="include">
+        </childnode>
+        <childnode refid="2795" relation="include">
+        </childnode>
+        <childnode refid="2774" relation="include">
+        </childnode>
+      </node>
+      <node id="2790">
+        <label>iostream</label>
+      </node>
+      <node id="2786">
+        <label>storage/ColumnMetadata.h</label>
+        <link refid="_column_metadata_8h"/>
+        <childnode refid="2780" relation="include">
+        </childnode>
+        <childnode refid="2776" relation="include">
+        </childnode>
+        <childnode refid="2774" relation="include">
+        </childnode>
+      </node>
+      <node id="2818">
+        <label>unordered_map</label>
+      </node>
+      <node id="2784">
+        <label>boost/mpl/map.hpp</label>
+      </node>
+      <node id="2806">
+        <label>storage/AbstractAllocatedDictionary.h</label>
+        <link refid="_abstract_allocated_dictionary_8h"/>
+      </node>
+      <node id="2796">
+        <label>memory/MallocStrategy.h</label>
+        <link refid="_malloc_strategy_8h"/>
+        <childnode refid="2790" relation="include">
+        </childnode>
+        <childnode refid="2778" relation="include">
+        </childnode>
+        <childnode refid="2797" relation="include">
+        </childnode>
+      </node>
+      <node id="2817">
+        <label>set</label>
+      </node>
+      <node id="2788">
+        <label>storage/OrderPreservingDictionary.h</label>
+        <link refid="_order_preserving_dictionary_8h"/>
+        <childnode refid="2789" relation="include">
+        </childnode>
+        <childnode refid="2790" relation="include">
+        </childnode>
+        <childnode refid="2773" relation="include">
+        </childnode>
+        <childnode refid="2780" relation="include">
+        </childnode>
+        <childnode refid="2791" relation="include">
+        </childnode>
+        <childnode refid="2802" relation="include">
+        </childnode>
+        <childnode refid="2803" relation="include">
+        </childnode>
+        <childnode refid="2806" relation="include">
+        </childnode>
+        <childnode refid="2804" relation="include">
+        </childnode>
+      </node>
+      <node id="2794">
+        <label>algorithm</label>
+      </node>
+      <node id="2800">
+        <label>stdio.h</label>
+      </node>
+      <node id="2797">
+        <label>cstring</label>
+      </node>
+      <node id="2770">
+        <label>src/lib/access/AggregateFunctions.h</label>
+        <link refid="AggregateFunctions.h"/>
+        <childnode refid="2771" relation="include">
+        </childnode>
+        <childnode refid="2815" relation="include">
+        </childnode>
+        <childnode refid="2780" relation="include">
+        </childnode>
+        <childnode refid="2821" relation="include">
+        </childnode>
+        <childnode refid="2827" relation="include">
+        </childnode>
+        <childnode refid="2775" relation="include">
+        </childnode>
+      </node>
+      <node id="2808">
+        <label>storage/csb_tree.h</label>
+        <link refid="csb__tree_8h"/>
+        <childnode refid="2775" relation="include">
+        </childnode>
+        <childnode refid="2790" relation="include">
+        </childnode>
+        <childnode refid="2795" relation="include">
+        </childnode>
+        <childnode refid="2773" relation="include">
+        </childnode>
+        <childnode refid="2809" relation="include">
+        </childnode>
+        <childnode refid="2789" relation="include">
+        </childnode>
+        <childnode refid="2805" relation="include">
+        </childnode>
+      </node>
+      <node id="2773">
+        <label>memory</label>
+      </node>
+      <node id="2780">
+        <label>storage/storage_types.h</label>
+        <link refid="storage__types_8h"/>
+        <childnode refid="2775" relation="include">
+        </childnode>
+        <childnode refid="2776" relation="include">
+        </childnode>
+        <childnode refid="2774" relation="include">
+        </childnode>
+        <childnode refid="2781" relation="include">
+        </childnode>
+        <childnode refid="2782" relation="include">
+        </childnode>
+        <childnode refid="2783" relation="include">
+        </childnode>
+        <childnode refid="2784" relation="include">
+        </childnode>
+        <childnode refid="2785" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2830">
+        <label>src/lib/access/GroupByScan.h</label>
+        <link refid="_group_by_scan_8h"/>
+        <childnode refid="2831" relation="include">
+        </childnode>
+        <childnode refid="2832" relation="include">
+        </childnode>
+      </node>
+      <node id="2840">
+        <label>src/bin/perf_regression/UnionScan.cpp</label>
+        <link refid="bin_2perf__regression_2_union_scan_8cpp"/>
+      </node>
+      <node id="2831">
+        <label>src/lib/access/GroupByScan.cpp</label>
+        <link refid="lib_2access_2_group_by_scan_8cpp"/>
+      </node>
+      <node id="2836">
+        <label>src/bin/perf_regression/JoinScan.cpp</label>
+        <link refid="bin_2perf__regression_2_join_scan_8cpp"/>
+      </node>
+      <node id="2829">
+        <label>src/lib/access/AggregateFunctions.cpp</label>
+        <link refid="_aggregate_functions_8cpp"/>
+      </node>
+      <node id="2839">
+        <label>src/bin/perf_regression/SortScan.cpp</label>
+        <link refid="bin_2perf__regression_2_sort_scan_8cpp"/>
+      </node>
+      <node id="2833">
+        <label>src/bin/perf_regression/GroupByScan.cpp</label>
+        <link refid="bin_2perf__regression_2_group_by_scan_8cpp"/>
+      </node>
+      <node id="2837">
+        <label>src/bin/perf_regression/ProjectionScan.cpp</label>
+        <link refid="bin_2perf__regression_2_projection_scan_8cpp"/>
+      </node>
+      <node id="2834">
+        <label>src/bin/perf_regression/HashJoin.cpp</label>
+        <link refid="_hash_join_8cpp"/>
+      </node>
+      <node id="2835">
+        <label>src/bin/perf_regression/HashValueJoin.cpp</label>
+        <link refid="_hash_value_join_8cpp"/>
+      </node>
+      <node id="2832">
+        <label>src/lib/access.h</label>
+        <link refid="access_8h"/>
+        <childnode refid="2833" relation="include">
+        </childnode>
+        <childnode refid="2834" relation="include">
+        </childnode>
+        <childnode refid="2835" relation="include">
+        </childnode>
+        <childnode refid="2836" relation="include">
+        </childnode>
+        <childnode refid="2837" relation="include">
+        </childnode>
+        <childnode refid="2838" relation="include">
+        </childnode>
+        <childnode refid="2839" relation="include">
+        </childnode>
+        <childnode refid="2840" relation="include">
+        </childnode>
+      </node>
+      <node id="2838">
+        <label>src/bin/perf_regression/SimpleTableScan.cpp</label>
+        <link refid="bin_2perf__regression_2_simple_table_scan_8cpp"/>
+      </node>
+      <node id="2828">
+        <label>src/lib/access/AggregateFunctions.h</label>
+        <link refid="AggregateFunctions.h"/>
+        <childnode refid="2829" relation="include">
+        </childnode>
+        <childnode refid="2830" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structhyrise_1_1storage_1_1sum__aggregate__functor" prot="public">hyrise::storage::sum_aggregate_functor</innerclass>
+    <innerclass refid="structhyrise_1_1storage_1_1average__aggregate__functor" prot="public">hyrise::storage::average_aggregate_functor</innerclass>
+    <innerclass refid="struct_aggregate_functions" prot="public">AggregateFunctions</innerclass>
+    <innerclass refid="class_aggregate_fun" prot="public">AggregateFun</innerclass>
+    <innerclass refid="class_sum_aggregate_fun" prot="public">SumAggregateFun</innerclass>
+    <innerclass refid="class_count_aggregate_fun" prot="public">CountAggregateFun</innerclass>
+    <innerclass refid="class_average_aggregate_fun" prot="public">AverageAggregateFun</innerclass>
+    <innernamespace refid="namespacehyrise">hyrise</innernamespace>
+    <innernamespace refid="namespacehyrise_1_1storage">hyrise::storage</innernamespace>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="_aggregate_functions_8h_1a3b9157a78fd1faef0b152a06f7e11116" prot="public" static="no">
+        <type>std::map&lt; std::string, <ref refid="struct_aggregate_functions_1ab0571a2034b640dbb973a1b0a9d2268f" kindref="member">AggregateFunctions::type</ref> &gt;</type>
+        <definition>typedef std::map&lt;std::string, AggregateFunctions::type&gt; aggregateFunctionMap_t</definition>
+        <argsstring></argsstring>
+        <name>aggregateFunctionMap_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/AggregateFunctions.h" line="116" bodyfile="/home/grund/hyrise/src/lib/access/AggregateFunctions.h" bodystart="116" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="_aggregate_functions_8h_1a1e1d99ef87b707e40ef25e75f72d4993" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="_aggregate_functions_8h_1a3b9157a78fd1faef0b152a06f7e11116" kindref="member">aggregateFunctionMap_t</ref></type>
+        <definition>aggregateFunctionMap_t getAggregateFunctionMap</definition>
+        <argsstring>()</argsstring>
+        <name>getAggregateFunctionMap</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/AggregateFunctions.h" line="118" bodyfile="/home/grund/hyrise/src/lib/access/AggregateFunctions.cpp" bodystart="15" bodyend="21"/>
+      </memberdef>
+      <memberdef kind="function" id="_aggregate_functions_8h_1a829480f32fb1332b2aa33ee63b0f0687" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_aggregate_fun" kindref="compound">AggregateFun</ref> *</type>
+        <definition>AggregateFun* parseAggregateFunction</definition>
+        <argsstring>(const Json::Value &amp;value)</argsstring>
+        <name>parseAggregateFunction</name>
+        <param>
+          <type>const Json::Value &amp;</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/AggregateFunctions.h" line="122" bodyfile="/home/grund/hyrise/src/lib/access/AggregateFunctions.cpp" bodystart="23" bodyend="40"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>2012<sp/>Hasso-Plattner-Institut<sp/>fuer<sp/>Softwaresystemtechnik<sp/>GmbH.<sp/>All<sp/>rights<sp/>reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SRC_LIB_ACCESS_AGGEGATEFUNCTIONS_H_</highlight></codeline>
+<codeline lineno="3"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SRC_LIB_ACCESS_AGGEGATEFUNCTIONS_H_</highlight></codeline>
+<codeline lineno="4"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="_abstract_table_8h" kindref="compound">storage/AbstractTable.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="_hash_table_8h" kindref="compound">storage/HashTable.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="storage__types_8h" kindref="compound">storage/storage_types.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="meta__storage_8h" kindref="compound">storage/meta_storage.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;json.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;vector&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>helper<sp/>construct<sp/>to<sp/>avoid<sp/>excessive<sp/>use</highlight></codeline>
+<codeline lineno="16"><highlight class="comment"><sp/>*<sp/>of<sp/>switch<sp/>case<sp/>in<sp/>executePlanOperation</highlight></codeline>
+<codeline lineno="17"><highlight class="comment"><sp/>*<sp/>uses<sp/>templated<sp/>type_switch<sp/>in<sp/>src/lib/storage/meta_storage.h</highlight></codeline>
+<codeline lineno="18"><highlight class="comment"><sp/>*<sp/>and<sp/>calls<sp/>the<sp/>the<sp/>correct<sp/>templated<sp/>operator<sp/>implemented</highlight></codeline>
+<codeline lineno="19"><highlight class="comment"><sp/>*<sp/>below</highlight></codeline>
+<codeline lineno="20"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">hyrise<sp/>{</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">storage<sp/>{</highlight></codeline>
+<codeline lineno="23" refid="structhyrise_1_1storage_1_1sum__aggregate__functor" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structhyrise_1_1storage_1_1sum__aggregate__functor" kindref="compound">sum_aggregate_functor</ref><sp/>{</highlight></codeline>
+<codeline lineno="24" refid="structhyrise_1_1storage_1_1sum__aggregate__functor_1a56c48d28f6a35df5e91b62be7d672f6d" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="structhyrise_1_1storage_1_1sum__aggregate__functor_1a56c48d28f6a35df5e91b62be7d672f6d" kindref="member">value_type</ref>;</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26" refid="structhyrise_1_1storage_1_1sum__aggregate__functor_1a3e3274ed5f436d3c4b060c8d0cac5b22" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref>&amp;<sp/><ref refid="structhyrise_1_1storage_1_1sum__aggregate__functor_1a3e3274ed5f436d3c4b060c8d0cac5b22" kindref="member">input</ref>;</highlight></codeline>
+<codeline lineno="27" refid="structhyrise_1_1storage_1_1sum__aggregate__functor_1add33d682c67c4bcee2c1e32f88916741" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="namespacehyrise_1_1storage_1a21d5e900c20019710828c453eaded1ee" kindref="member">hyrise::storage::atable_ptr_t</ref>&amp;<sp/><ref refid="structhyrise_1_1storage_1_1sum__aggregate__functor_1add33d682c67c4bcee2c1e32f88916741" kindref="member">target</ref>;</highlight></codeline>
+<codeline lineno="28" refid="structhyrise_1_1storage_1_1sum__aggregate__functor_1a2f093cfda12c8fa78c9bea4f6028232f" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="namespacehyrise_1_1storage_1a82124b84ebfac47beba542ec17d56471" kindref="member">pos_list_t</ref><sp/>*<ref refid="structhyrise_1_1storage_1_1sum__aggregate__functor_1a2f093cfda12c8fa78c9bea4f6028232f" kindref="member">rows</ref>;</highlight></codeline>
+<codeline lineno="29" refid="structhyrise_1_1storage_1_1sum__aggregate__functor_1a4d1c873f689df7183591cd33991f4ab5" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="namespacehyrise_1_1storage_1a5a47ffe4fe6daf66aeeaec19ed0ea5ec" kindref="member">field_t</ref><sp/><ref refid="structhyrise_1_1storage_1_1sum__aggregate__functor_1a4d1c873f689df7183591cd33991f4ab5" kindref="member">sourceField</ref>;</highlight></codeline>
+<codeline lineno="30" refid="structhyrise_1_1storage_1_1sum__aggregate__functor_1a94c89177d64d72069bfc57e9242a877d" refkind="member"><highlight class="normal"><sp/><sp/>std::string<sp/><ref refid="structhyrise_1_1storage_1_1sum__aggregate__functor_1a94c89177d64d72069bfc57e9242a877d" kindref="member">targetColumn</ref>;</highlight></codeline>
+<codeline lineno="31" refid="structhyrise_1_1storage_1_1sum__aggregate__functor_1af0fac076d1fa42aedcc7b833f5459edc" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="structhyrise_1_1storage_1_1sum__aggregate__functor_1af0fac076d1fa42aedcc7b833f5459edc" kindref="member">targetRow</ref>;</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33" refid="structhyrise_1_1storage_1_1sum__aggregate__functor_1a1d7394080f01a3bad3deb176bceeb393" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="structhyrise_1_1storage_1_1sum__aggregate__functor_1a1d7394080f01a3bad3deb176bceeb393" kindref="member">sum_aggregate_functor</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref>&amp;<sp/>i,</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehyrise_1_1storage_1a21d5e900c20019710828c453eaded1ee" kindref="member">hyrise::storage::atable_ptr_t</ref>&amp;<sp/>t,</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehyrise_1_1storage_1a82124b84ebfac47beba542ec17d56471" kindref="member">pos_list_t</ref><sp/>*forRows,</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehyrise_1_1storage_1a5a47ffe4fe6daf66aeeaec19ed0ea5ec" kindref="member">field_t</ref><sp/>sourceF,</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::string<sp/>column,</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>toRow):<sp/><ref refid="structhyrise_1_1storage_1_1sum__aggregate__functor_1a3e3274ed5f436d3c4b060c8d0cac5b22" kindref="member">input</ref>(i),<sp/><ref refid="structhyrise_1_1storage_1_1sum__aggregate__functor_1add33d682c67c4bcee2c1e32f88916741" kindref="member">target</ref>(t),<sp/><ref refid="structhyrise_1_1storage_1_1sum__aggregate__functor_1a2f093cfda12c8fa78c9bea4f6028232f" kindref="member">rows</ref>(forRows),<sp/><ref refid="structhyrise_1_1storage_1_1sum__aggregate__functor_1a4d1c873f689df7183591cd33991f4ab5" kindref="member">sourceField</ref>(sourceF),<sp/><ref refid="structhyrise_1_1storage_1_1sum__aggregate__functor_1a94c89177d64d72069bfc57e9242a877d" kindref="member">targetColumn</ref>(column),<sp/><ref refid="structhyrise_1_1storage_1_1sum__aggregate__functor_1af0fac076d1fa42aedcc7b833f5459edc" kindref="member">targetRow</ref>(toRow)<sp/>{};</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>R&gt;</highlight></codeline>
+<codeline lineno="41" refid="structhyrise_1_1storage_1_1sum__aggregate__functor_1ac5e4f7c4c9e86e3d11c44f32a6012ffd" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="structhyrise_1_1storage_1_1sum__aggregate__functor_1ac5e4f7c4c9e86e3d11c44f32a6012ffd" kindref="member">operator()</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/>R<sp/>result<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="structhyrise_1_1storage_1_1sum__aggregate__functor_1a2f093cfda12c8fa78c9bea4f6028232f" kindref="member">rows</ref><sp/>!=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">)<sp/>{</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal">&amp;<sp/>currentRow:<sp/>*<ref refid="structhyrise_1_1storage_1_1sum__aggregate__functor_1a2f093cfda12c8fa78c9bea4f6028232f" kindref="member">rows</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>result<sp/>+=<sp/><ref refid="structhyrise_1_1storage_1_1sum__aggregate__functor_1a3e3274ed5f436d3c4b060c8d0cac5b22" kindref="member">input</ref>-&gt;getValue&lt;R&gt;(<ref refid="structhyrise_1_1storage_1_1sum__aggregate__functor_1a4d1c873f689df7183591cd33991f4ab5" kindref="member">sourceField</ref>,<sp/>currentRow);</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>input_size<sp/>=<sp/><ref refid="structhyrise_1_1storage_1_1sum__aggregate__functor_1a3e3274ed5f436d3c4b060c8d0cac5b22" kindref="member">input</ref>-&gt;size();</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>input_size;<sp/>++i)<sp/>{</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>result<sp/>+=<sp/><ref refid="structhyrise_1_1storage_1_1sum__aggregate__functor_1a3e3274ed5f436d3c4b060c8d0cac5b22" kindref="member">input</ref>-&gt;getValue&lt;R&gt;(<ref refid="structhyrise_1_1storage_1_1sum__aggregate__functor_1a4d1c873f689df7183591cd33991f4ab5" kindref="member">sourceField</ref>,<sp/>i);</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structhyrise_1_1storage_1_1sum__aggregate__functor_1add33d682c67c4bcee2c1e32f88916741" kindref="member">target</ref>-&gt;setValue&lt;R&gt;(<ref refid="structhyrise_1_1storage_1_1sum__aggregate__functor_1a94c89177d64d72069bfc57e9242a877d" kindref="member">targetColumn</ref>,<sp/><ref refid="structhyrise_1_1storage_1_1sum__aggregate__functor_1af0fac076d1fa42aedcc7b833f5459edc" kindref="member">targetRow</ref>,<sp/>result);</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="58"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight></codeline>
+<codeline lineno="60" refid="structhyrise_1_1storage_1_1average__aggregate__functor" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structhyrise_1_1storage_1_1average__aggregate__functor" kindref="compound">average_aggregate_functor</ref><sp/>{</highlight></codeline>
+<codeline lineno="61" refid="structhyrise_1_1storage_1_1average__aggregate__functor_1afb692498a382e11390cecca83c121f62" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="structhyrise_1_1storage_1_1average__aggregate__functor_1afb692498a382e11390cecca83c121f62" kindref="member">value_type</ref>;</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63" refid="structhyrise_1_1storage_1_1average__aggregate__functor_1ac1ce6b0ca9c5e45913a8e0faa42cfe90" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref>&amp;<sp/><ref refid="structhyrise_1_1storage_1_1average__aggregate__functor_1ac1ce6b0ca9c5e45913a8e0faa42cfe90" kindref="member">input</ref>;</highlight></codeline>
+<codeline lineno="64" refid="structhyrise_1_1storage_1_1average__aggregate__functor_1ad8c27dfab64b9b0909c7a754ee9b878f" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="namespacehyrise_1_1storage_1a21d5e900c20019710828c453eaded1ee" kindref="member">hyrise::storage::atable_ptr_t</ref>&amp;<sp/><ref refid="structhyrise_1_1storage_1_1average__aggregate__functor_1ad8c27dfab64b9b0909c7a754ee9b878f" kindref="member">target</ref>;</highlight></codeline>
+<codeline lineno="65" refid="structhyrise_1_1storage_1_1average__aggregate__functor_1a7b2898303aeff380d521369f91c155ba" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="namespacehyrise_1_1storage_1a82124b84ebfac47beba542ec17d56471" kindref="member">pos_list_t</ref><sp/>*<ref refid="structhyrise_1_1storage_1_1average__aggregate__functor_1a7b2898303aeff380d521369f91c155ba" kindref="member">rows</ref>;</highlight></codeline>
+<codeline lineno="66" refid="structhyrise_1_1storage_1_1average__aggregate__functor_1a49509c702ef43e520d6312701108b759" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="namespacehyrise_1_1storage_1a5a47ffe4fe6daf66aeeaec19ed0ea5ec" kindref="member">field_t</ref><sp/><ref refid="structhyrise_1_1storage_1_1average__aggregate__functor_1a49509c702ef43e520d6312701108b759" kindref="member">sourceField</ref>;</highlight></codeline>
+<codeline lineno="67" refid="structhyrise_1_1storage_1_1average__aggregate__functor_1a9623926c17a45670ac51a1f68dfc5aa7" refkind="member"><highlight class="normal"><sp/><sp/>std::string<sp/><ref refid="structhyrise_1_1storage_1_1average__aggregate__functor_1a9623926c17a45670ac51a1f68dfc5aa7" kindref="member">targetColumn</ref>;</highlight></codeline>
+<codeline lineno="68" refid="structhyrise_1_1storage_1_1average__aggregate__functor_1a3ca5e290c9f157300561161ae6398405" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="structhyrise_1_1storage_1_1average__aggregate__functor_1a3ca5e290c9f157300561161ae6398405" kindref="member">targetRow</ref>;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70" refid="structhyrise_1_1storage_1_1average__aggregate__functor_1ab378f062036b0f54c4feb8f23a95d7c1" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="structhyrise_1_1storage_1_1average__aggregate__functor_1ab378f062036b0f54c4feb8f23a95d7c1" kindref="member">average_aggregate_functor</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref>&amp;<sp/>i,</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehyrise_1_1storage_1a21d5e900c20019710828c453eaded1ee" kindref="member">hyrise::storage::atable_ptr_t</ref>&amp;<sp/>t,</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehyrise_1_1storage_1a82124b84ebfac47beba542ec17d56471" kindref="member">pos_list_t</ref><sp/>*forRows,</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehyrise_1_1storage_1a5a47ffe4fe6daf66aeeaec19ed0ea5ec" kindref="member">field_t</ref><sp/>sourceF,</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::string<sp/>column,</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>toRow):<sp/><ref refid="structhyrise_1_1storage_1_1average__aggregate__functor_1ac1ce6b0ca9c5e45913a8e0faa42cfe90" kindref="member">input</ref>(i),<sp/><ref refid="structhyrise_1_1storage_1_1average__aggregate__functor_1ad8c27dfab64b9b0909c7a754ee9b878f" kindref="member">target</ref>(t),<sp/><ref refid="structhyrise_1_1storage_1_1average__aggregate__functor_1a7b2898303aeff380d521369f91c155ba" kindref="member">rows</ref>(forRows),<sp/><ref refid="structhyrise_1_1storage_1_1average__aggregate__functor_1a49509c702ef43e520d6312701108b759" kindref="member">sourceField</ref>(sourceF),<sp/><ref refid="structhyrise_1_1storage_1_1average__aggregate__functor_1a9623926c17a45670ac51a1f68dfc5aa7" kindref="member">targetColumn</ref>(column),<sp/><ref refid="structhyrise_1_1storage_1_1average__aggregate__functor_1a3ca5e290c9f157300561161ae6398405" kindref="member">targetRow</ref>(toRow)<sp/>{};</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>R&gt;</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="structhyrise_1_1storage_1_1average__aggregate__functor_1aa0cde52a8de452cc13b439adb470573d" kindref="member">operator()</ref>();</highlight></codeline>
+<codeline lineno="79"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>R&gt;</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="structhyrise_1_1storage_1_1average__aggregate__functor_1aa0cde52a8de452cc13b439adb470573d" kindref="member">average_aggregate_functor::operator()</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/>R<sp/><ref refid="layout__utils_8h_1ade2593c9a1f0314beb0796a5b32a8d70" kindref="member">sum</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>count<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="structhyrise_1_1storage_1_1average__aggregate__functor_1a7b2898303aeff380d521369f91c155ba" kindref="member">rows</ref><sp/>!=<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal">&amp;<sp/>currentRow:<sp/>*<ref refid="structhyrise_1_1storage_1_1average__aggregate__functor_1a7b2898303aeff380d521369f91c155ba" kindref="member">rows</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>sum<sp/>+=<sp/><ref refid="structhyrise_1_1storage_1_1average__aggregate__functor_1ac1ce6b0ca9c5e45913a8e0faa42cfe90" kindref="member">input</ref>-&gt;getValue&lt;R&gt;(<ref refid="structhyrise_1_1storage_1_1average__aggregate__functor_1a49509c702ef43e520d6312701108b759" kindref="member">sourceField</ref>,<sp/>currentRow);</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/>count<sp/>=<sp/>rows-&gt;size();</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>input_size<sp/>=<sp/><ref refid="structhyrise_1_1storage_1_1average__aggregate__functor_1ac1ce6b0ca9c5e45913a8e0faa42cfe90" kindref="member">input</ref>-&gt;size();</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>input_size;<sp/>++i)<sp/>{</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>sum<sp/>+=<sp/><ref refid="structhyrise_1_1storage_1_1average__aggregate__functor_1ac1ce6b0ca9c5e45913a8e0faa42cfe90" kindref="member">input</ref>-&gt;getValue&lt;R&gt;(<ref refid="structhyrise_1_1storage_1_1average__aggregate__functor_1a49509c702ef43e520d6312701108b759" kindref="member">sourceField</ref>,<sp/>i);</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/>count<sp/>=<sp/><ref refid="structhyrise_1_1storage_1_1average__aggregate__functor_1ac1ce6b0ca9c5e45913a8e0faa42cfe90" kindref="member">input</ref>-&gt;size();</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><ref refid="structhyrise_1_1storage_1_1average__aggregate__functor_1ad8c27dfab64b9b0909c7a754ee9b878f" kindref="member">target</ref>-&gt;setValue&lt;</highlight><highlight class="keywordtype">float</highlight><highlight class="normal">&gt;(<ref refid="structhyrise_1_1storage_1_1average__aggregate__functor_1a9623926c17a45670ac51a1f68dfc5aa7" kindref="member">targetColumn</ref>,<sp/><ref refid="structhyrise_1_1storage_1_1average__aggregate__functor_1a3ca5e290c9f157300561161ae6398405" kindref="member">targetRow</ref>,<sp/>((float)sum<sp/>/<sp/>count));</highlight></codeline>
+<codeline lineno="101"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;&gt;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>average_aggregate_functor::operator()&lt;std::string&gt;();</highlight></codeline>
+<codeline lineno="105"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="106"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight></codeline>
+<codeline lineno="108" refid="struct_aggregate_functions" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_aggregate_functions" kindref="compound">AggregateFunctions</ref><sp/>{</highlight></codeline>
+<codeline lineno="109" refid="struct_aggregate_functions_1ab0571a2034b640dbb973a1b0a9d2268f" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/><ref refid="struct_aggregate_functions_1ab0571a2034b640dbb973a1b0a9d2268f" kindref="member">type</ref><sp/>{</highlight></codeline>
+<codeline lineno="110" refid="struct_aggregate_functions_1ab0571a2034b640dbb973a1b0a9d2268fa90a79ac1aec2113a0b6933775cc5f3c5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_aggregate_functions_1ab0571a2034b640dbb973a1b0a9d2268fa90a79ac1aec2113a0b6933775cc5f3c5" kindref="member">SUM</ref>,</highlight></codeline>
+<codeline lineno="111" refid="struct_aggregate_functions_1ab0571a2034b640dbb973a1b0a9d2268fa43a56005ab80ea67df6d196e612f5922" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_aggregate_functions_1ab0571a2034b640dbb973a1b0a9d2268fa43a56005ab80ea67df6d196e612f5922" kindref="member">COUNT</ref>,</highlight></codeline>
+<codeline lineno="112" refid="struct_aggregate_functions_1ab0571a2034b640dbb973a1b0a9d2268fad3b26075afdfd772a775a8d98d6eb7b9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_aggregate_functions_1ab0571a2034b640dbb973a1b0a9d2268fad3b26075afdfd772a775a8d98d6eb7b9" kindref="member">AVG</ref></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/>};</highlight></codeline>
+<codeline lineno="114"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight></codeline>
+<codeline lineno="116" refid="_aggregate_functions_8h_1a3b9157a78fd1faef0b152a06f7e11116" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>std::map&lt;std::string,<sp/>AggregateFunctions::type&gt;<sp/><ref refid="_aggregate_functions_8h_1a3b9157a78fd1faef0b152a06f7e11116" kindref="member">aggregateFunctionMap_t</ref>;</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal">aggregateFunctionMap_t<sp/><ref refid="_aggregate_functions_8cpp_1a1e1d99ef87b707e40ef25e75f72d4993" kindref="member">getAggregateFunctionMap</ref>();</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_aggregate_fun" kindref="compound">AggregateFun</ref>;</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><ref refid="class_aggregate_fun" kindref="compound">AggregateFun</ref><sp/>*<ref refid="_aggregate_functions_8cpp_1a4358b781d3aaff7b214b794be22a89d2" kindref="member">parseAggregateFunction</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Json::Value<sp/>&amp;value);</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="125"><highlight class="comment"><sp/><sp/>This<sp/>is<sp/>the<sp/>base<sp/>function<sp/>for<sp/>all<sp/>aggregate<sp/>functions.<sp/>It<sp/>defers<sp/>the</highlight></codeline>
+<codeline lineno="126"><highlight class="comment"><sp/><sp/>type<sp/>handling<sp/>down<sp/>to<sp/>the<sp/>process<sp/>Method<sp/>and<sp/>only<sp/>returns</highlight></codeline>
+<codeline lineno="127"><highlight class="comment">*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="128" refid="class_aggregate_fun" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_aggregate_fun" kindref="compound">AggregateFun</ref><sp/>{</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="130" refid="class_aggregate_fun_1ae883edb2662c4550ca5f2ba1f3092131" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="storage__types_8h_1a5ce4ecb27464dc24ba394527510dd89b" kindref="member">field_t</ref><sp/><sp/><ref refid="class_aggregate_fun_1ae883edb2662c4550ca5f2ba1f3092131" kindref="member">_field</ref>;</highlight></codeline>
+<codeline lineno="131" refid="class_aggregate_fun_1a5b5622673221dc9739f5437b0c40240c" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="storage__types_8h_1ad64b8c8026a86f643d173acbb694b4f8" kindref="member">field_name_t</ref><sp/><ref refid="class_aggregate_fun_1a5b5622673221dc9739f5437b0c40240c" kindref="member">_field_name</ref>;</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight></codeline>
+<codeline lineno="133" refid="class_aggregate_fun_1acaa78a20058f7703aeea0fd05343169e" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="class_aggregate_fun_1acaa78a20058f7703aeea0fd05343169e" kindref="member">AggregateFun</ref>()<sp/>{}</highlight></codeline>
+<codeline lineno="134" refid="class_aggregate_fun_1a59d4bed8e26ca97ec8de8dce6e3add23" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">explicit</highlight><highlight class="normal"><sp/><ref refid="class_aggregate_fun_1a59d4bed8e26ca97ec8de8dce6e3add23" kindref="member">AggregateFun</ref>(<ref refid="storage__types_8h_1a5ce4ecb27464dc24ba394527510dd89b" kindref="member">field_t</ref><sp/>f):<sp/><ref refid="class_aggregate_fun_1ae883edb2662c4550ca5f2ba1f3092131" kindref="member">_field</ref>(f)<sp/>{}</highlight></codeline>
+<codeline lineno="135" refid="class_aggregate_fun_1abc5ab34a306bdcd31a8a67d16173e9b9" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">explicit</highlight><highlight class="normal"><sp/><ref refid="class_aggregate_fun_1abc5ab34a306bdcd31a8a67d16173e9b9" kindref="member">AggregateFun</ref>(<ref refid="storage__types_8h_1ad64b8c8026a86f643d173acbb694b4f8" kindref="member">field_name_t</ref><sp/>field_name):<sp/><ref refid="class_aggregate_fun_1a5b5622673221dc9739f5437b0c40240c" kindref="member">_field_name</ref>(field_name)<sp/>{}</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_aggregate_fun_1ae2bdfea5701dab37cf3ae3dc3f0a4193" kindref="member">walk</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="class_abstract_table" kindref="compound">AbstractTable</ref><sp/>&amp;table);</highlight></codeline>
+<codeline lineno="138" refid="class_aggregate_fun_1acdb3dd509534d3b5620a9412d73eddfd" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="storage__types_8h_1a5ce4ecb27464dc24ba394527510dd89b" kindref="member">field_t</ref><sp/><ref refid="class_aggregate_fun_1acdb3dd509534d3b5620a9412d73eddfd" kindref="member">getField</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="class_aggregate_fun_1ae883edb2662c4550ca5f2ba1f3092131" kindref="member">_field</ref>;</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/>};</highlight></codeline>
+<codeline lineno="141" refid="class_aggregate_fun_1ae453c35ba8df2a3947c7cc9a8d968ec4" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="storage__types_8h_1ad64b8c8026a86f643d173acbb694b4f8" kindref="member">field_name_t</ref><sp/><ref refid="class_aggregate_fun_1ae453c35ba8df2a3947c7cc9a8d968ec4" kindref="member">getFieldName</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="class_aggregate_fun_1a5b5622673221dc9739f5437b0c40240c" kindref="member">_field_name</ref>;</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/>};</highlight></codeline>
+<codeline lineno="144" refid="class_aggregate_fun_1acb258ac969b46276cce7eb58ab14f4fa" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="class_aggregate_fun_1acb258ac969b46276cce7eb58ab14f4fa" kindref="member">~AggregateFun</ref>()<sp/>{};</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_aggregate_fun_1a0409afedfc7bff75b0ce2101419f5f87" kindref="member">processValuesForRows</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref>&amp;<sp/>t,<sp/></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="storage__types_8h_1a543d59ef56384af4a7af9aa551bc6825" kindref="member">pos_list_t</ref><sp/>*rows,<sp/><ref refid="namespacehyrise_1_1storage_1a21d5e900c20019710828c453eaded1ee" kindref="member">hyrise::storage::atable_ptr_t</ref>&amp;<sp/>target,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>targetRow)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="storage__types_8h_1ad8ed01ff3ff33333d8e19db4d2818bb6" kindref="member">DataType</ref><sp/><ref refid="class_aggregate_fun_1aa8c9b122a8daf1e950b8a465be15c197" kindref="member">getType</ref>()<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>std::string<sp/><ref refid="class_aggregate_fun_1a27be6037091d733520eeb2119017f38c" kindref="member">columnName</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;oldName)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="149"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight></codeline>
+<codeline lineno="151" refid="class_sum_aggregate_fun" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_sum_aggregate_fun" kindref="compound">SumAggregateFun</ref>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="class_aggregate_fun" kindref="compound">AggregateFun</ref><sp/>{</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight></codeline>
+<codeline lineno="153" refid="class_sum_aggregate_fun_1a8547a0319d8ec9578d35847f492c46df" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="storage__types_8h_1ad8ed01ff3ff33333d8e19db4d2818bb6" kindref="member">DataType</ref><sp/><ref refid="class_sum_aggregate_fun_1a8547a0319d8ec9578d35847f492c46df" kindref="member">_datatype</ref>;</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="156" refid="class_sum_aggregate_fun_1ae0a3181c773e1a5ef49febc4ff2e29be" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">explicit</highlight><highlight class="normal"><sp/><ref refid="class_sum_aggregate_fun_1ae0a3181c773e1a5ef49febc4ff2e29be" kindref="member">SumAggregateFun</ref>(<ref refid="storage__types_8h_1a5ce4ecb27464dc24ba394527510dd89b" kindref="member">field_t</ref><sp/>field):<sp/><ref refid="class_aggregate_fun" kindref="compound">AggregateFun</ref>(field)<sp/>{<sp/>}</highlight></codeline>
+<codeline lineno="157" refid="class_sum_aggregate_fun_1ab911f7c54d5c88e406fe918594d0de97" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">explicit</highlight><highlight class="normal"><sp/><ref refid="class_sum_aggregate_fun_1ab911f7c54d5c88e406fe918594d0de97" kindref="member">SumAggregateFun</ref>(<ref refid="storage__types_8h_1ad64b8c8026a86f643d173acbb694b4f8" kindref="member">field_name_t</ref><sp/>field):<sp/><ref refid="class_aggregate_fun" kindref="compound">AggregateFun</ref>(field)<sp/>{<sp/>}</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight></codeline>
+<codeline lineno="159" refid="class_sum_aggregate_fun_1aa8783eafbe6a528e9fe0aca2c7a618c4" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="class_sum_aggregate_fun_1aa8783eafbe6a528e9fe0aca2c7a618c4" kindref="member">~SumAggregateFun</ref>()<sp/>{};</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"></highlight></codeline>
+<codeline lineno="167" refid="class_sum_aggregate_fun_1a124e5703e99c2da3c6d6e59a7f8f5500" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_sum_aggregate_fun_1a124e5703e99c2da3c6d6e59a7f8f5500" kindref="member">processValuesForRows</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref>&amp;<sp/>t,<sp/><ref refid="storage__types_8h_1a543d59ef56384af4a7af9aa551bc6825" kindref="member">pos_list_t</ref><sp/>*rows,<sp/><ref refid="namespacehyrise_1_1storage_1a21d5e900c20019710828c453eaded1ee" kindref="member">hyrise::storage::atable_ptr_t</ref>&amp;<sp/>target,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>targetRow)<sp/>{</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structhyrise_1_1storage_1_1sum__aggregate__functor" kindref="compound">hyrise::storage::sum_aggregate_functor</ref><sp/>fun(t,<sp/>target,<sp/>rows,<sp/><ref refid="class_aggregate_fun_1ae883edb2662c4550ca5f2ba1f3092131" kindref="member">_field</ref>,<sp/><ref refid="class_sum_aggregate_fun_1a18098a38bf738b39de674f212bf99390" kindref="member">columnName</ref>(t-&gt;nameOfColumn(<ref refid="class_aggregate_fun_1ae883edb2662c4550ca5f2ba1f3092131" kindref="member">_field</ref>)),<sp/>targetRow);</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structhyrise_1_1storage_1_1type__switch" kindref="compound">hyrise::storage::type_switch&lt;hyrise_basic_types&gt;</ref><sp/>ts;</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/>ts(<ref refid="class_sum_aggregate_fun_1a8547a0319d8ec9578d35847f492c46df" kindref="member">_datatype</ref>,<sp/>fun);</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"></highlight></codeline>
+<codeline lineno="174" refid="class_sum_aggregate_fun_1ab76c6ec467b715e320967b5595fa3b76" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="storage__types_8h_1ad8ed01ff3ff33333d8e19db4d2818bb6" kindref="member">DataType</ref><sp/><ref refid="class_sum_aggregate_fun_1ab76c6ec467b715e320967b5595fa3b76" kindref="member">getType</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="class_sum_aggregate_fun_1a8547a0319d8ec9578d35847f492c46df" kindref="member">_datatype</ref>;</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"></highlight></codeline>
+<codeline lineno="178" refid="class_sum_aggregate_fun_1a3410c118e6fa94be8c829c9405cd06cb" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_sum_aggregate_fun_1a3410c118e6fa94be8c829c9405cd06cb" kindref="member">walk</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="class_abstract_table" kindref="compound">AbstractTable</ref><sp/>&amp;table)<sp/>{</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_sum_aggregate_fun_1a3410c118e6fa94be8c829c9405cd06cb" kindref="member">AggregateFun::walk</ref>(table);</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_sum_aggregate_fun_1a8547a0319d8ec9578d35847f492c46df" kindref="member">_datatype</ref><sp/>=<sp/>table.<ref refid="class_abstract_table_1ad6de2b7c7b99098e9766b060b4d4b8c7" kindref="member">typeOfColumn</ref>(<ref refid="class_aggregate_fun_1ae883edb2662c4550ca5f2ba1f3092131" kindref="member">_field</ref>);</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="class_sum_aggregate_fun_1a8547a0319d8ec9578d35847f492c46df" kindref="member">_datatype</ref><sp/>==<sp/><ref refid="storage__types_8h_1ad8ed01ff3ff33333d8e19db4d2818bb6a83ccab8dfcfc3a9e8656224313fb61f3" kindref="member">StringType</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/>std::runtime_error(</highlight><highlight class="stringliteral">&quot;Cannot<sp/>calculate<sp/>sum<sp/>for<sp/>column<sp/>of<sp/>StringType&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"></highlight></codeline>
+<codeline lineno="186" refid="class_sum_aggregate_fun_1a18098a38bf738b39de674f212bf99390" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>std::string<sp/><ref refid="class_sum_aggregate_fun_1a18098a38bf738b39de674f212bf99390" kindref="member">columnName</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;oldName)<sp/>{</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;SUM(&quot;</highlight><highlight class="normal"><sp/>+<sp/>oldName<sp/>+<sp/></highlight><highlight class="stringliteral">&quot;)&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"></highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="class_aggregate_fun" kindref="compound">AggregateFun</ref><sp/>*<ref refid="class_sum_aggregate_fun_1a2150afa875dd722c9d47084dcf55326e" kindref="member">parse</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Json::Value<sp/>&amp;);</highlight></codeline>
+<codeline lineno="191"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"></highlight></codeline>
+<codeline lineno="193" refid="class_count_aggregate_fun" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_count_aggregate_fun" kindref="compound">CountAggregateFun</ref>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="class_aggregate_fun" kindref="compound">AggregateFun</ref><sp/>{</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"></highlight></codeline>
+<codeline lineno="196" refid="class_count_aggregate_fun_1a1bb268d5128a1bd9b9f71edd536a4707" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">explicit</highlight><highlight class="normal"><sp/><ref refid="class_count_aggregate_fun_1a1bb268d5128a1bd9b9f71edd536a4707" kindref="member">CountAggregateFun</ref>(<ref refid="storage__types_8h_1a5ce4ecb27464dc24ba394527510dd89b" kindref="member">field_t</ref><sp/>field):<sp/><ref refid="class_aggregate_fun" kindref="compound">AggregateFun</ref>(field)<sp/>{<sp/>}</highlight></codeline>
+<codeline lineno="197" refid="class_count_aggregate_fun_1aae6de00048dfbf9694de383cd42b3377" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">explicit</highlight><highlight class="normal"><sp/><ref refid="class_count_aggregate_fun_1aae6de00048dfbf9694de383cd42b3377" kindref="member">CountAggregateFun</ref>(<ref refid="storage__types_8h_1ad64b8c8026a86f643d173acbb694b4f8" kindref="member">field_name_t</ref><sp/>field):<sp/><ref refid="class_aggregate_fun" kindref="compound">AggregateFun</ref>(field)<sp/>{<sp/>}</highlight></codeline>
+<codeline lineno="198" refid="class_count_aggregate_fun_1aa3a15a25a980ccf40c3e05cd262878cd" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="class_count_aggregate_fun_1aa3a15a25a980ccf40c3e05cd262878cd" kindref="member">~CountAggregateFun</ref>()<sp/>{};</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"></highlight></codeline>
+<codeline lineno="206" refid="class_count_aggregate_fun_1a308346ea4e9b9896cf62ced6b5837176" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_count_aggregate_fun_1a308346ea4e9b9896cf62ced6b5837176" kindref="member">processValuesForRows</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref>&amp;<sp/>t,<sp/><ref refid="storage__types_8h_1a543d59ef56384af4a7af9aa551bc6825" kindref="member">pos_list_t</ref><sp/>*rows,<sp/><ref refid="namespacehyrise_1_1storage_1a21d5e900c20019710828c453eaded1ee" kindref="member">hyrise::storage::atable_ptr_t</ref>&amp;<sp/>target,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>targetRow)<sp/>{</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>count;</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"></highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(rows<sp/>!=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">)<sp/>{</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>count<sp/>=<sp/>rows-&gt;size();</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>count<sp/>=<sp/>t-&gt;size();</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"></highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/>target-&gt;setValue&lt;<ref refid="storage__types_8h_1a72c5f9ba0685142ffc747d0a586a5d8a" kindref="member">hyrise_int_t</ref>&gt;(<ref refid="class_count_aggregate_fun_1a1f16167eb96df2ec45fdf11378ebaeb0" kindref="member">columnName</ref>(t-&gt;nameOfColumn(<ref refid="class_aggregate_fun_1ae883edb2662c4550ca5f2ba1f3092131" kindref="member">_field</ref>)),<sp/>targetRow,<sp/>count);</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"></highlight></codeline>
+<codeline lineno="218" refid="class_count_aggregate_fun_1a30caef0b64cee83c7630eb3a8d14a224" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="storage__types_8h_1ad8ed01ff3ff33333d8e19db4d2818bb6" kindref="member">DataType</ref><sp/><ref refid="class_count_aggregate_fun_1a30caef0b64cee83c7630eb3a8d14a224" kindref="member">getType</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="storage__types_8h_1ad8ed01ff3ff33333d8e19db4d2818bb6a90453dde1506c63dbaaa7a1a363a06a9" kindref="member">IntegerType</ref>;</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"></highlight></codeline>
+<codeline lineno="222" refid="class_count_aggregate_fun_1a1f16167eb96df2ec45fdf11378ebaeb0" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>std::string<sp/><ref refid="class_count_aggregate_fun_1a1f16167eb96df2ec45fdf11378ebaeb0" kindref="member">columnName</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;oldName)<sp/>{</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;COUNT(&quot;</highlight><highlight class="normal"><sp/>+<sp/>oldName<sp/>+<sp/></highlight><highlight class="stringliteral">&quot;)&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"></highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="class_aggregate_fun" kindref="compound">AggregateFun</ref><sp/>*<ref refid="class_count_aggregate_fun_1a6a53054a3f14e9206f4f868b970940da" kindref="member">parse</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Json::Value<sp/>&amp;);</highlight></codeline>
+<codeline lineno="227"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"></highlight></codeline>
+<codeline lineno="229" refid="class_average_aggregate_fun" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_average_aggregate_fun" kindref="compound">AverageAggregateFun</ref>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="class_aggregate_fun" kindref="compound">AggregateFun</ref><sp/>{</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="231" refid="class_average_aggregate_fun_1a60e77ff49e8ca41b3d7e9cc5814d9819" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="class_average_aggregate_fun_1a60e77ff49e8ca41b3d7e9cc5814d9819" kindref="member">AverageAggregateFun</ref>(<ref refid="storage__types_8h_1a5ce4ecb27464dc24ba394527510dd89b" kindref="member">field_t</ref><sp/>field):<sp/><ref refid="class_aggregate_fun" kindref="compound">AggregateFun</ref>(field)<sp/>{<sp/>}</highlight></codeline>
+<codeline lineno="232" refid="class_average_aggregate_fun_1a91ff6cf707e28ad663429cd3dfa0342c" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="class_average_aggregate_fun_1a91ff6cf707e28ad663429cd3dfa0342c" kindref="member">AverageAggregateFun</ref>(<ref refid="storage__types_8h_1ad64b8c8026a86f643d173acbb694b4f8" kindref="member">field_name_t</ref><sp/>field):<sp/><ref refid="class_aggregate_fun" kindref="compound">AggregateFun</ref>(field)<sp/>{<sp/>}</highlight></codeline>
+<codeline lineno="233" refid="class_average_aggregate_fun_1a5017e4534d9bafc630d61ab42877d551" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="storage__types_8h_1ad8ed01ff3ff33333d8e19db4d2818bb6" kindref="member">DataType</ref><sp/><ref refid="class_average_aggregate_fun_1a5017e4534d9bafc630d61ab42877d551" kindref="member">_datatype</ref>;</highlight></codeline>
+<codeline lineno="234" refid="class_average_aggregate_fun_1a29ccdd638728a2a9cb43f06a8b37b614" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="class_average_aggregate_fun_1a29ccdd638728a2a9cb43f06a8b37b614" kindref="member">~AverageAggregateFun</ref>()<sp/>{};</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"></highlight></codeline>
+<codeline lineno="242" refid="class_average_aggregate_fun_1ad012fd28fff4ee4e52c79106b9e18c04" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_average_aggregate_fun_1ad012fd28fff4ee4e52c79106b9e18c04" kindref="member">processValuesForRows</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref>&amp;<sp/>t,<sp/><ref refid="storage__types_8h_1a543d59ef56384af4a7af9aa551bc6825" kindref="member">pos_list_t</ref><sp/>*rows,<sp/><ref refid="namespacehyrise_1_1storage_1a21d5e900c20019710828c453eaded1ee" kindref="member">hyrise::storage::atable_ptr_t</ref>&amp;<sp/>target,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>targetRow)<sp/>{</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structhyrise_1_1storage_1_1average__aggregate__functor" kindref="compound">hyrise::storage::average_aggregate_functor</ref><sp/>fun(t,<sp/>target,<sp/>rows,<sp/><ref refid="class_aggregate_fun_1ae883edb2662c4550ca5f2ba1f3092131" kindref="member">_field</ref>,<sp/><ref refid="class_average_aggregate_fun_1a169e84680538bc6d05c772fe6b2e383b" kindref="member">columnName</ref>(t-&gt;nameOfColumn(<ref refid="class_aggregate_fun_1ae883edb2662c4550ca5f2ba1f3092131" kindref="member">_field</ref>)),<sp/>targetRow);</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structhyrise_1_1storage_1_1type__switch" kindref="compound">hyrise::storage::type_switch&lt;hyrise_basic_types&gt;</ref><sp/>ts;</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/>ts(<ref refid="class_average_aggregate_fun_1a5017e4534d9bafc630d61ab42877d551" kindref="member">_datatype</ref>,<sp/>fun);</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"></highlight></codeline>
+<codeline lineno="248" refid="class_average_aggregate_fun_1a507cfefa5bda0059b9e9182002fdba37" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="storage__types_8h_1ad8ed01ff3ff33333d8e19db4d2818bb6" kindref="member">DataType</ref><sp/><ref refid="class_average_aggregate_fun_1a507cfefa5bda0059b9e9182002fdba37" kindref="member">getType</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="storage__types_8h_1ad8ed01ff3ff33333d8e19db4d2818bb6a866d24e407b4ee66d3efe59486be6db4" kindref="member">FloatType</ref>;</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"></highlight></codeline>
+<codeline lineno="252" refid="class_average_aggregate_fun_1a6a68eb02c44ab1cb1af6f1bdfdc7ce33" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_average_aggregate_fun_1a6a68eb02c44ab1cb1af6f1bdfdc7ce33" kindref="member">walk</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="class_abstract_table" kindref="compound">AbstractTable</ref><sp/>&amp;table)<sp/>{</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_average_aggregate_fun_1a6a68eb02c44ab1cb1af6f1bdfdc7ce33" kindref="member">AggregateFun::walk</ref>(table);</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_average_aggregate_fun_1a5017e4534d9bafc630d61ab42877d551" kindref="member">_datatype</ref><sp/>=<sp/>table.<ref refid="class_abstract_table_1ad6de2b7c7b99098e9766b060b4d4b8c7" kindref="member">typeOfColumn</ref>(<ref refid="class_aggregate_fun_1ae883edb2662c4550ca5f2ba1f3092131" kindref="member">_field</ref>);</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="class_average_aggregate_fun_1a5017e4534d9bafc630d61ab42877d551" kindref="member">_datatype</ref><sp/>==<sp/><ref refid="storage__types_8h_1ad8ed01ff3ff33333d8e19db4d2818bb6a83ccab8dfcfc3a9e8656224313fb61f3" kindref="member">StringType</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/>std::runtime_error(</highlight><highlight class="stringliteral">&quot;Cannot<sp/>calculate<sp/>average<sp/>for<sp/>column<sp/>of<sp/>StringType&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"></highlight></codeline>
+<codeline lineno="260" refid="class_average_aggregate_fun_1a169e84680538bc6d05c772fe6b2e383b" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>std::string<sp/><ref refid="class_average_aggregate_fun_1a169e84680538bc6d05c772fe6b2e383b" kindref="member">columnName</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;oldName)<sp/>{</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;AVG(&quot;</highlight><highlight class="normal"><sp/>+<sp/>oldName<sp/>+<sp/></highlight><highlight class="stringliteral">&quot;)&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"></highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="class_aggregate_fun" kindref="compound">AggregateFun</ref><sp/>*<ref refid="class_average_aggregate_fun_1a1bde65836879ba7b36c429dbf5c1d7c0" kindref="member">parse</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Json::Value<sp/>&amp;);</highlight></codeline>
+<codeline lineno="265"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"></highlight></codeline>
+<codeline lineno="267"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/>//<sp/>AGGEGATEFUNCTIONS</highlight></codeline>
+    </programlisting>
+    <location file="/home/grund/hyrise/src/lib/access/AggregateFunctions.h"/>
+  </compounddef>
+</doxygen>

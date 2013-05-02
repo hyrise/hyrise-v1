@@ -1,0 +1,1264 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="common_8h" kind="file">
+    <compoundname>common.h</compoundname>
+    <includes local="no">stdio.h</includes>
+    <includes local="no">stdlib.h</includes>
+    <includes local="no">time.h</includes>
+    <includes local="no">sys/time.h</includes>
+    <includes local="no">map</includes>
+    <includes local="no">utility</includes>
+    <includes local="no">string</includes>
+    <includedby refid="common_8cpp" local="yes">src/bin/perf_datagen/common.cpp</includedby>
+    <includedby refid="transaction__data_8h" local="yes">src/bin/perf_datagen/transaction_data.h</includedby>
+    <includedby refid="datagen_8cpp" local="yes">src/bin/perf_datagen/datagen.cpp</includedby>
+    <incdepgraph>
+      <node id="172">
+        <label>stdlib.h</label>
+      </node>
+      <node id="177">
+        <label>string</label>
+      </node>
+      <node id="175">
+        <label>map</label>
+      </node>
+      <node id="176">
+        <label>utility</label>
+      </node>
+      <node id="173">
+        <label>time.h</label>
+      </node>
+      <node id="174">
+        <label>sys/time.h</label>
+      </node>
+      <node id="171">
+        <label>stdio.h</label>
+      </node>
+      <node id="170">
+        <label>src/bin/perf_datagen/common.h</label>
+        <link refid="common.h"/>
+        <childnode refid="171" relation="include">
+        </childnode>
+        <childnode refid="172" relation="include">
+        </childnode>
+        <childnode refid="173" relation="include">
+        </childnode>
+        <childnode refid="174" relation="include">
+        </childnode>
+        <childnode refid="175" relation="include">
+        </childnode>
+        <childnode refid="176" relation="include">
+        </childnode>
+        <childnode refid="177" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="180">
+        <label>src/bin/perf_datagen/transaction_data.h</label>
+        <link refid="transaction__data_8h"/>
+        <childnode refid="179" relation="include">
+        </childnode>
+        <childnode refid="181" relation="include">
+        </childnode>
+      </node>
+      <node id="181">
+        <label>src/bin/perf_datagen/transaction_data.cpp</label>
+        <link refid="transaction__data_8cpp"/>
+      </node>
+      <node id="182">
+        <label>src/bin/perf_datagen/datagen.cpp</label>
+        <link refid="datagen_8cpp"/>
+      </node>
+      <node id="179">
+        <label>src/bin/perf_datagen/common.cpp</label>
+        <link refid="common_8cpp"/>
+      </node>
+      <node id="178">
+        <label>src/bin/perf_datagen/common.h</label>
+        <link refid="common.h"/>
+        <childnode refid="179" relation="include">
+        </childnode>
+        <childnode refid="180" relation="include">
+        </childnode>
+        <childnode refid="182" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structtable__cardinality__t" prot="public">table_cardinality_t</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="common_8h_1aae772cd351e453207696fef797a24215" prot="public" static="no">
+        <name>DELIVERY</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.h" line="36" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="common_8h_1a67925ba8f9c1f9422350baeefb0bb6aa" prot="public" static="no">
+        <name>NEW_ORDER</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.h" line="37" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.h" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="common_8h_1a2d082938534b75e1883bd78d19315621" prot="public" static="no">
+        <name>ORDER_STATUS</name>
+        <initializer>2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.h" line="38" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.h" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="common_8h_1a2551ea1d74631f3eba41b7b3d57a3686" prot="public" static="no">
+        <name>PAYMENT</name>
+        <initializer>3</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.h" line="39" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.h" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="common_8h_1adf9f006e4eeeb2e80219d6dabd6395b5" prot="public" static="no">
+        <name>STOCK_LEVEL</name>
+        <initializer>4</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.h" line="40" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="common_8h_1ac360f1f75bf974d2c479f1dcad69f50f" prot="public" static="no">
+        <name>TRANSACTION_MAX</name>
+        <initializer>5</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.h" line="41" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="common_8h_1a425d17a7343d72b98b11242afb800ee3" prot="public" static="no">
+        <name>INTEGRITY</name>
+        <initializer>10</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.h" line="42" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="common_8h_1a5c015dfdb4f4eedcd49490d449a3b3da" prot="public" static="no">
+        <name>TABLE_WAREHOUSE</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.h" line="44" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="common_8h_1a53ab0f4d1d0c9251605fda09cab2d347" prot="public" static="no">
+        <name>TABLE_DISTRICT</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.h" line="45" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="common_8h_1a714ce796f1fc88f301e16680116b43db" prot="public" static="no">
+        <name>TABLE_CUSTOMER</name>
+        <initializer>2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.h" line="46" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="common_8h_1af2d83bba4287c9968617e973b670af68" prot="public" static="no">
+        <name>TABLE_ITEM</name>
+        <initializer>3</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.h" line="47" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="common_8h_1a857201589eb508e99a762d2f9982e0e0" prot="public" static="no">
+        <name>TABLE_ORDER</name>
+        <initializer>4</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.h" line="48" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="common_8h_1aa9b4528c8d4403531c0719b3a62a5201" prot="public" static="no">
+        <name>TABLE_STOCK</name>
+        <initializer>5</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.h" line="49" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="common_8h_1a44babb0736e500c00c8a18f3fa3f82c0" prot="public" static="no">
+        <name>TABLE_NEW_ORDER</name>
+        <initializer>6</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.h" line="50" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="common_8h_1a8fe83ac76edc595f6b98cd4a4127aed5" prot="public" static="no">
+        <name>ERROR</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.h" line="52" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="common_8h_1aba51915c87d64af47fb1cc59348961c9" prot="public" static="no">
+        <name>OK</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.h" line="53" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="common_8h_1a5f84fffa31755a58fe2e3d070b159fa4" prot="public" static="no">
+        <name>EXIT_CODE</name>
+        <initializer>2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.h" line="54" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="common_8h_1a1a4df40d32f4b4642e07741aeaf0b0e2" prot="public" static="no">
+        <name>ERROR_SOCKET_CLOSED</name>
+        <initializer>3</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.h" line="55" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="common_8h_1aa74abac535469e7b484e21944a081375" prot="public" static="no">
+        <name>STATUS_ROLLBACK</name>
+        <initializer>4</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.h" line="56" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="common_8h_1a9d4374b7d1a80d177fda6393280d56e0" prot="public" static="no">
+        <name>ERROR_RECEIVE_TIMEOUT</name>
+        <initializer>5</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.h" line="57" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="common_8h_1a5a2bddd378edbe36747663d9bb517ce8" prot="public" static="no">
+        <name>A_STRING_CHAR_LEN</name>
+        <initializer>128</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.h" line="59" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="common_8h_1a702c99c50a56d3ad6fff6f815f3eebe1" prot="public" static="no">
+        <name>L_STRING_CHAR_LEN</name>
+        <initializer>52</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.h" line="60" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="common_8h_1ac5be6544f5bd8f7d10b83b002bb36ed3" prot="public" static="no">
+        <name>N_STRING_CHAR_LEN</name>
+        <initializer>10</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.h" line="61" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="common_8h_1adcbc980db216f4e47c2fde2a713d571e" prot="public" static="no">
+        <name>TIMESTAMP_LEN</name>
+        <initializer>28</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.h" line="62" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="common_8h_1a30f84bc89cd769bf99ff5812f3689adc" prot="public" static="no">
+        <name>CUSTOMER_CARDINALITY</name>
+        <initializer>3000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.h" line="64" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="common_8h_1a8a2398811bddbf3e0f62a1a8c8a5e0b3" prot="public" static="no">
+        <name>DISTRICT_CARDINALITY</name>
+        <initializer>10</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.h" line="65" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="common_8h_1a5a3b77928f7cda1de808100c7b8045d4" prot="public" static="no">
+        <name>ITEM_CARDINALITY</name>
+        <initializer>100000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.h" line="66" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="common_8h_1a612c2bcd60664a8421b1a43c13baeed0" prot="public" static="no">
+        <name>ORDER_CARDINALITY</name>
+        <initializer>3000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.h" line="67" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="common_8h_1a7277aca12398242daa29e7ccf5f638d9" prot="public" static="no">
+        <name>STOCK_CARDINALITY</name>
+        <initializer>100000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.h" line="68" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="common_8h_1a76db8a88e9a09c7ffe86cac462e32945" prot="public" static="no">
+        <name>NEW_ORDER_CARDINALITY</name>
+        <initializer>900</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.h" line="69" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="common_8h_1a68a111670307edc82d3d26171981911f" prot="public" static="no">
+        <name>D_CITY_LEN</name>
+        <initializer>20</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.h" line="71" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="common_8h_1aae5dae56d4d7824dce0e034d085b6d87" prot="public" static="no">
+        <name>D_NAME_LEN</name>
+        <initializer>10</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.h" line="72" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="common_8h_1ac715f527c2094d5b8c84cc57fb8d26c9" prot="public" static="no">
+        <name>D_STATE_LEN</name>
+        <initializer>2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.h" line="73" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="common_8h_1aa85977b0b38eb96d8c4a80d6820a6fc9" prot="public" static="no">
+        <name>D_STREET_1_LEN</name>
+        <initializer>20</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.h" line="74" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.h" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="common_8h_1a9068c0d343bcd580ad4586e15f7dc6d6" prot="public" static="no">
+        <name>D_STREET_2_LEN</name>
+        <initializer>20</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.h" line="75" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="common_8h_1af677fa596591b2bd4ad493823164e0eb" prot="public" static="no">
+        <name>D_ZIP_LEN</name>
+        <initializer>9</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.h" line="76" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="common_8h_1a0b8b646c5ddf170e39751d69b08ba7f8" prot="public" static="no">
+        <name>C_CREDIT_LEN</name>
+        <initializer>2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.h" line="78" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.h" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="common_8h_1a806d2b8dfba53f56a0b0372c1a68aaa8" prot="public" static="no">
+        <name>C_DATA_LEN</name>
+        <initializer>500</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.h" line="79" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.h" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="common_8h_1a3667bf60300d2f9e0e49925f98f6334c" prot="public" static="no">
+        <name>C_FIRST_LEN</name>
+        <initializer>16</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.h" line="80" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.h" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="common_8h_1af27b6389dcf154c00aa0792d209f966f" prot="public" static="no">
+        <name>C_LAST_LEN</name>
+        <initializer>16</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.h" line="81" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.h" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="common_8h_1a639279f84ea3a43011379b1bf7293e0c" prot="public" static="no">
+        <name>C_MIDDLE_LEN</name>
+        <initializer>2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.h" line="82" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.h" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="common_8h_1a3b1d99a7d7583f98aa2f0adf89290eb6" prot="public" static="no">
+        <name>C_STREET_1_LEN</name>
+        <initializer>20</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.h" line="83" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.h" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="common_8h_1a3cc7671b9382c93f21f3bd838e6e01b0" prot="public" static="no">
+        <name>C_STREET_2_LEN</name>
+        <initializer>20</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.h" line="84" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.h" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="common_8h_1acdae48ee2088c503d8e9813862b40679" prot="public" static="no">
+        <name>C_CITY_LEN</name>
+        <initializer>20</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.h" line="85" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="common_8h_1a035d7745bd87f62a1be71c17e8b4a49c" prot="public" static="no">
+        <name>C_PHONE_LEN</name>
+        <initializer>16</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.h" line="86" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.h" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="common_8h_1ad228f72c7df18f621516233e125f99c5" prot="public" static="no">
+        <name>C_SINCE_LEN</name>
+        <initializer><ref refid="common_8h_1adcbc980db216f4e47c2fde2a713d571e" kindref="member">TIMESTAMP_LEN</ref></initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.h" line="87" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.h" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="common_8h_1ac92d0973b661b8848d2ea59e6e3bf4ba" prot="public" static="no">
+        <name>C_STATE_LEN</name>
+        <initializer>2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.h" line="88" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.h" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="common_8h_1a024de1943fa1c1ca660c46626b241379" prot="public" static="no">
+        <name>C_ZIP_LEN</name>
+        <initializer>9</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.h" line="89" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.h" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="common_8h_1aa3af28460cf183c3db899862609b3047" prot="public" static="no">
+        <name>I_NAME_LEN</name>
+        <initializer>24</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.h" line="91" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.h" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="common_8h_1a583d72a9f4a9932db9fafbdafa20a7c6" prot="public" static="no">
+        <name>O_ENTRY_D_LEN</name>
+        <initializer><ref refid="common_8h_1adcbc980db216f4e47c2fde2a713d571e" kindref="member">TIMESTAMP_LEN</ref></initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.h" line="93" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.h" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="common_8h_1a562e3a078a85d8ad07d6bb39b436ea0f" prot="public" static="no">
+        <name>OL_DELIVERY_D_LEN</name>
+        <initializer><ref refid="common_8h_1adcbc980db216f4e47c2fde2a713d571e" kindref="member">TIMESTAMP_LEN</ref></initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.h" line="95" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.h" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="common_8h_1ac3485f6ad7f6bac4039a2ba65761a876" prot="public" static="no">
+        <name>W_CITY_LEN</name>
+        <initializer>20</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.h" line="97" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.h" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="common_8h_1aea700cada8c689dc5ac4e9c073ad27a0" prot="public" static="no">
+        <name>W_NAME_LEN</name>
+        <initializer>10</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.h" line="98" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.h" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="common_8h_1a885000e1aae18d32b02b2ae52123c9b5" prot="public" static="no">
+        <name>W_STATE_LEN</name>
+        <initializer>2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.h" line="99" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.h" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="common_8h_1acad13b82dd9147432f7611371bab2a0e" prot="public" static="no">
+        <name>W_STREET_1_LEN</name>
+        <initializer>20</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.h" line="100" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.h" bodystart="100" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="common_8h_1a1f94575e33a6ace038aa7307f7452ab2" prot="public" static="no">
+        <name>W_STREET_2_LEN</name>
+        <initializer>20</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.h" line="101" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.h" bodystart="101" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="common_8h_1aa148220716f7fdac33f2210b38b3f357" prot="public" static="no">
+        <name>W_ZIP_LEN</name>
+        <initializer>9</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.h" line="102" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.h" bodystart="102" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="common_8h_1a7ad049a70c5c6a8c2f975389b0b0e13e" prot="public" static="no">
+        <name>C_ID_UNKNOWN</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.h" line="104" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.h" bodystart="104" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="common_8h_1a26d8abf75dc44ad2f098353f44242cb6" prot="public" static="no">
+        <name>C_LAST_SYL_MAX</name>
+        <initializer>10</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.h" line="105" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.h" bodystart="105" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="common_8h_1a4f1826d1acd9b17ae996631d1d2b2429" prot="public" static="no">
+        <name>D_ID_MAX</name>
+        <initializer>10</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.h" line="106" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.h" bodystart="106" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="common_8h_1a92a12a9a392db17bac6bfcea00f713fe" prot="public" static="no">
+        <name>O_OL_CNT_MAX</name>
+        <initializer>15</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.h" line="107" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.h" bodystart="107" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="common_8h_1a0f7f09ffdcb84275f8bd15806b086df9" prot="public" static="no">
+        <name>O_CARRIER_ID_MAX</name>
+        <initializer>10</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.h" line="108" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.h" bodystart="108" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="common_8h_1a653e745f64132435aea89e460c4d460d" prot="public" static="no">
+        <name>CLIENT_PORT</name>
+        <initializer>30000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.h" line="110" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.h" bodystart="110" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="common_8h_1ab958b72fdeccb19281ea04c460db92cb" prot="public" static="no">
+        <name>CLIENT_PID_FILENAME</name>
+        <initializer>&quot;dbt2_client.pid&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.h" line="112" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.h" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="common_8h_1a11a046d7e76234e504efe82e54790414" prot="public" static="no">
+        <name>DRIVER_PID_FILENAME</name>
+        <initializer>&quot;dbt2_driver.pid&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.h" line="113" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.h" bodystart="113" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="common_8h_1ab7f19bdc8d881e5fd1e544ed736da3c6" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char output_path[256]</definition>
+        <argsstring>[256]</argsstring>
+        <name>output_path</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.h" line="139" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.cpp" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="common_8h_1a5bc659842e4e2cd0e6b2a3fca80e56db" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* c_last_syl[10]</definition>
+        <argsstring>[10]</argsstring>
+        <name>c_last_syl</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.h" line="140" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.cpp" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="common_8h_1a4cf9db821cc51162a629cce8ccdbdff9" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="structtable__cardinality__t" kindref="compound">table_cardinality_t</ref></type>
+        <definition>struct table_cardinality_t table_cardinality</definition>
+        <argsstring></argsstring>
+        <name>table_cardinality</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.h" line="141" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.cpp" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="common_8h_1a7c68a7a817ff41370e24de0491d93cbb" prot="public" static="no" mutable="no">
+        <type>const char</type>
+        <definition>const char transaction_short_name[5]</definition>
+        <argsstring>[5]</argsstring>
+        <name>transaction_short_name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.h" line="142" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.cpp" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="common_8h_1ab75716724f600deb2dd44bad71f5d85d" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* transaction_name[5]</definition>
+        <argsstring>[5]</argsstring>
+        <name>transaction_name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.h" line="143" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.cpp" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="common_8h_1a0dc425c90116462e4d2fc2020748c831" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double difftimeval</definition>
+        <argsstring>(struct timeval rt1, struct timeval rt0)</argsstring>
+        <name>difftimeval</name>
+        <param>
+          <type>struct timeval</type>
+          <declname>rt1</declname>
+        </param>
+        <param>
+          <type>struct timeval</type>
+          <declname>rt0</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.h" line="126" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.cpp" bodystart="45" bodyend="48"/>
+      </memberdef>
+      <memberdef kind="function" id="common_8h_1a8ab13a52cb845a664a915e715d64c3d4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int edump</definition>
+        <argsstring>(int type, void *data)</argsstring>
+        <name>edump</name>
+        <param>
+          <type>int</type>
+          <declname>type</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.h" line="127"/>
+      </memberdef>
+      <memberdef kind="function" id="common_8h_1aeb43bcb2be4565d9485489c526f5e698" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void get_a_string</definition>
+        <argsstring>(char *a_string, int x, int y)</argsstring>
+        <name>get_a_string</name>
+        <param>
+          <type>char *</type>
+          <declname>a_string</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.h" line="128" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.cpp" bodystart="51" bodyend="63"/>
+      </memberdef>
+      <memberdef kind="function" id="common_8h_1a6647e7f7420ec36be04bcbb38adfe0c5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int get_c_last</definition>
+        <argsstring>(char *c_last, int i)</argsstring>
+        <name>get_c_last</name>
+        <param>
+          <type>char *</type>
+          <declname>c_last</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>i</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.h" line="129" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.cpp" bodystart="66" bodyend="82"/>
+      </memberdef>
+      <memberdef kind="function" id="common_8h_1ae8297a4f2c14daa3572c0d77438b8960" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void get_l_string</definition>
+        <argsstring>(char *l_string, int x, int y)</argsstring>
+        <name>get_l_string</name>
+        <param>
+          <type>char *</type>
+          <declname>l_string</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.h" line="130" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.cpp" bodystart="84" bodyend="96"/>
+      </memberdef>
+      <memberdef kind="function" id="common_8h_1a98664b9d4927cf8091c785d251a50c28" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void get_n_string</definition>
+        <argsstring>(char *n_string, int x, int y)</argsstring>
+        <name>get_n_string</name>
+        <param>
+          <type>char *</type>
+          <declname>n_string</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.h" line="131" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.cpp" bodystart="99" bodyend="111"/>
+      </memberdef>
+      <memberdef kind="function" id="common_8h_1a089c4d682d28d9b0304c24a839beba7c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int get_nurand</definition>
+        <argsstring>(int a, int x, int y)</argsstring>
+        <name>get_nurand</name>
+        <param>
+          <type>int</type>
+          <declname>a</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.h" line="132" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.cpp" bodystart="114" bodyend="116"/>
+      </memberdef>
+      <memberdef kind="function" id="common_8h_1a9decf9adf1fff9eda5a02df1e3bb3277" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double get_percentage</definition>
+        <argsstring>()</argsstring>
+        <name>get_percentage</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.h" line="133" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.cpp" bodystart="119" bodyend="121"/>
+      </memberdef>
+      <memberdef kind="function" id="common_8h_1a41a0d3a6432a1af4b043b7d2c8c2eaac" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int get_random</definition>
+        <argsstring>(int max)</argsstring>
+        <name>get_random</name>
+        <param>
+          <type>int</type>
+          <declname>max</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.h" line="134" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.cpp" bodystart="123" bodyend="125"/>
+      </memberdef>
+      <memberdef kind="function" id="common_8h_1a497bb90489a5c5a5c7df28ea0e5fad55" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int get_think_time</definition>
+        <argsstring>(int mean_think_time)</argsstring>
+        <name>get_think_time</name>
+        <param>
+          <type>int</type>
+          <declname>mean_think_time</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.h" line="135" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.cpp" bodystart="135" bodyend="137"/>
+      </memberdef>
+      <memberdef kind="function" id="common_8h_1a9b9b44a07e30764e50206cdd64443be9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int init_common</definition>
+        <argsstring>()</argsstring>
+        <name>init_common</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.h" line="136" bodyfile="/home/grund/hyrise/src/bin/perf_datagen/common.cpp" bodystart="139" bodyend="171"/>
+      </memberdef>
+      <memberdef kind="function" id="common_8h_1a8a0b60ed7aef21798f4e490eab50a577" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int create_pid_file</definition>
+        <argsstring>()</argsstring>
+        <name>create_pid_file</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/bin/perf_datagen/common.h" line="137"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>2012<sp/>Hasso-Plattner-Institut<sp/>fuer<sp/>Softwaresystemtechnik<sp/>GmbH.<sp/>All<sp/>rights<sp/>reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*<sp/>This<sp/>file<sp/>is<sp/>released<sp/>under<sp/>the<sp/>terms<sp/>of<sp/>the<sp/>Artistic<sp/>License.<sp/><sp/>Please<sp/>see</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*<sp/>the<sp/>file<sp/>LICENSE,<sp/>included<sp/>in<sp/>this<sp/>package,<sp/>for<sp/>details.</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"><sp/>*<sp/>Copyright<sp/>(C)<sp/>2002<sp/>Mark<sp/>Wong<sp/>&amp;<sp/>Open<sp/>Source<sp/>Development<sp/>Labs,<sp/>Inc.</highlight></codeline>
+<codeline lineno="7"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="8"><highlight class="comment"><sp/>*<sp/>16<sp/>may<sp/>2002</highlight></codeline>
+<codeline lineno="9"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SRC_BIN_PERF_DATAGEN_COMMON_H_</highlight></codeline>
+<codeline lineno="12"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SRC_BIN_PERF_DATAGEN_COMMON_H_</highlight></codeline>
+<codeline lineno="13"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>HAVE_CONFIG_H</highlight></codeline>
+<codeline lineno="15"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="config_8h" kindref="compound">config.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="17"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdio.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdlib.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;time.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;sys/time.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;map&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;utility&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(ODBC)<sp/>||<sp/>defined(LIBMYSQL)</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DB_USER<sp/>&quot;dbt&quot;</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DB_PASS<sp/>&quot;&quot;</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>ODBC<sp/>||<sp/>LIBMYSQL<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(LIBPQ)<sp/>||<sp/>defined(LIBMYSQL)</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DB_NAME<sp/>&quot;dbt2&quot;</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>LIBPQ<sp/>||<sp/>LIBMYSQL<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36" refid="common_8h_1aae772cd351e453207696fef797a24215" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DELIVERY<sp/>0</highlight></codeline>
+<codeline lineno="37" refid="common_8h_1a67925ba8f9c1f9422350baeefb0bb6aa" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>NEW_ORDER<sp/>1</highlight></codeline>
+<codeline lineno="38" refid="common_8h_1a2d082938534b75e1883bd78d19315621" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ORDER_STATUS<sp/>2</highlight></codeline>
+<codeline lineno="39" refid="common_8h_1a2551ea1d74631f3eba41b7b3d57a3686" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PAYMENT<sp/>3</highlight></codeline>
+<codeline lineno="40" refid="common_8h_1adf9f006e4eeeb2e80219d6dabd6395b5" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>STOCK_LEVEL<sp/>4</highlight></codeline>
+<codeline lineno="41" refid="common_8h_1ac360f1f75bf974d2c479f1dcad69f50f" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>TRANSACTION_MAX<sp/>5</highlight></codeline>
+<codeline lineno="42" refid="common_8h_1a425d17a7343d72b98b11242afb800ee3" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>INTEGRITY<sp/>10</highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44" refid="common_8h_1a5c015dfdb4f4eedcd49490d449a3b3da" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>TABLE_WAREHOUSE<sp/>0</highlight></codeline>
+<codeline lineno="45" refid="common_8h_1a53ab0f4d1d0c9251605fda09cab2d347" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>TABLE_DISTRICT<sp/>1</highlight></codeline>
+<codeline lineno="46" refid="common_8h_1a714ce796f1fc88f301e16680116b43db" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>TABLE_CUSTOMER<sp/>2</highlight></codeline>
+<codeline lineno="47" refid="common_8h_1af2d83bba4287c9968617e973b670af68" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>TABLE_ITEM<sp/>3</highlight></codeline>
+<codeline lineno="48" refid="common_8h_1a857201589eb508e99a762d2f9982e0e0" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>TABLE_ORDER<sp/>4</highlight></codeline>
+<codeline lineno="49" refid="common_8h_1aa9b4528c8d4403531c0719b3a62a5201" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>TABLE_STOCK<sp/>5</highlight></codeline>
+<codeline lineno="50" refid="common_8h_1a44babb0736e500c00c8a18f3fa3f82c0" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>TABLE_NEW_ORDER<sp/>6</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52" refid="common_8h_1a8fe83ac76edc595f6b98cd4a4127aed5" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ERROR<sp/>0</highlight></codeline>
+<codeline lineno="53" refid="common_8h_1aba51915c87d64af47fb1cc59348961c9" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>OK<sp/>1</highlight></codeline>
+<codeline lineno="54" refid="common_8h_1a5f84fffa31755a58fe2e3d070b159fa4" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>EXIT_CODE<sp/>2</highlight></codeline>
+<codeline lineno="55" refid="common_8h_1a1a4df40d32f4b4642e07741aeaf0b0e2" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ERROR_SOCKET_CLOSED<sp/>3</highlight></codeline>
+<codeline lineno="56" refid="common_8h_1aa74abac535469e7b484e21944a081375" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>STATUS_ROLLBACK<sp/>4</highlight></codeline>
+<codeline lineno="57" refid="common_8h_1a9d4374b7d1a80d177fda6393280d56e0" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ERROR_RECEIVE_TIMEOUT<sp/>5</highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59" refid="common_8h_1a5a2bddd378edbe36747663d9bb517ce8" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>A_STRING_CHAR_LEN<sp/>128</highlight></codeline>
+<codeline lineno="60" refid="common_8h_1a702c99c50a56d3ad6fff6f815f3eebe1" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>L_STRING_CHAR_LEN<sp/>52</highlight></codeline>
+<codeline lineno="61" refid="common_8h_1ac5be6544f5bd8f7d10b83b002bb36ed3" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>N_STRING_CHAR_LEN<sp/>10</highlight></codeline>
+<codeline lineno="62" refid="common_8h_1adcbc980db216f4e47c2fde2a713d571e" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>TIMESTAMP_LEN<sp/>28</highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64" refid="common_8h_1a30f84bc89cd769bf99ff5812f3689adc" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CUSTOMER_CARDINALITY<sp/>3000</highlight></codeline>
+<codeline lineno="65" refid="common_8h_1a8a2398811bddbf3e0f62a1a8c8a5e0b3" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DISTRICT_CARDINALITY<sp/>10</highlight></codeline>
+<codeline lineno="66" refid="common_8h_1a5a3b77928f7cda1de808100c7b8045d4" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ITEM_CARDINALITY<sp/>100000</highlight></codeline>
+<codeline lineno="67" refid="common_8h_1a612c2bcd60664a8421b1a43c13baeed0" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ORDER_CARDINALITY<sp/>3000</highlight></codeline>
+<codeline lineno="68" refid="common_8h_1a7277aca12398242daa29e7ccf5f638d9" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>STOCK_CARDINALITY<sp/>100000</highlight></codeline>
+<codeline lineno="69" refid="common_8h_1a76db8a88e9a09c7ffe86cac462e32945" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>NEW_ORDER_CARDINALITY<sp/>900</highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="71" refid="common_8h_1a68a111670307edc82d3d26171981911f" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>D_CITY_LEN<sp/>20</highlight></codeline>
+<codeline lineno="72" refid="common_8h_1aae5dae56d4d7824dce0e034d085b6d87" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>D_NAME_LEN<sp/>10</highlight></codeline>
+<codeline lineno="73" refid="common_8h_1ac715f527c2094d5b8c84cc57fb8d26c9" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>D_STATE_LEN<sp/>2</highlight></codeline>
+<codeline lineno="74" refid="common_8h_1aa85977b0b38eb96d8c4a80d6820a6fc9" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>D_STREET_1_LEN<sp/>20</highlight></codeline>
+<codeline lineno="75" refid="common_8h_1a9068c0d343bcd580ad4586e15f7dc6d6" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>D_STREET_2_LEN<sp/>20</highlight></codeline>
+<codeline lineno="76" refid="common_8h_1af677fa596591b2bd4ad493823164e0eb" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>D_ZIP_LEN<sp/>9</highlight></codeline>
+<codeline lineno="77"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="78" refid="common_8h_1a0b8b646c5ddf170e39751d69b08ba7f8" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>C_CREDIT_LEN<sp/>2</highlight></codeline>
+<codeline lineno="79" refid="common_8h_1a806d2b8dfba53f56a0b0372c1a68aaa8" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>C_DATA_LEN<sp/>500</highlight></codeline>
+<codeline lineno="80" refid="common_8h_1a3667bf60300d2f9e0e49925f98f6334c" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>C_FIRST_LEN<sp/>16</highlight></codeline>
+<codeline lineno="81" refid="common_8h_1af27b6389dcf154c00aa0792d209f966f" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>C_LAST_LEN<sp/>16</highlight></codeline>
+<codeline lineno="82" refid="common_8h_1a639279f84ea3a43011379b1bf7293e0c" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>C_MIDDLE_LEN<sp/>2</highlight></codeline>
+<codeline lineno="83" refid="common_8h_1a3b1d99a7d7583f98aa2f0adf89290eb6" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>C_STREET_1_LEN<sp/>20</highlight></codeline>
+<codeline lineno="84" refid="common_8h_1a3cc7671b9382c93f21f3bd838e6e01b0" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>C_STREET_2_LEN<sp/>20</highlight></codeline>
+<codeline lineno="85" refid="common_8h_1acdae48ee2088c503d8e9813862b40679" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>C_CITY_LEN<sp/>20</highlight></codeline>
+<codeline lineno="86" refid="common_8h_1a035d7745bd87f62a1be71c17e8b4a49c" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>C_PHONE_LEN<sp/>16</highlight></codeline>
+<codeline lineno="87" refid="common_8h_1ad228f72c7df18f621516233e125f99c5" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>C_SINCE_LEN<sp/>TIMESTAMP_LEN</highlight></codeline>
+<codeline lineno="88" refid="common_8h_1ac92d0973b661b8848d2ea59e6e3bf4ba" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>C_STATE_LEN<sp/>2</highlight></codeline>
+<codeline lineno="89" refid="common_8h_1a024de1943fa1c1ca660c46626b241379" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>C_ZIP_LEN<sp/>9</highlight></codeline>
+<codeline lineno="90"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="91" refid="common_8h_1aa3af28460cf183c3db899862609b3047" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>I_NAME_LEN<sp/>24</highlight></codeline>
+<codeline lineno="92"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="93" refid="common_8h_1a583d72a9f4a9932db9fafbdafa20a7c6" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>O_ENTRY_D_LEN<sp/>TIMESTAMP_LEN</highlight></codeline>
+<codeline lineno="94"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="95" refid="common_8h_1a562e3a078a85d8ad07d6bb39b436ea0f" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>OL_DELIVERY_D_LEN<sp/>TIMESTAMP_LEN</highlight></codeline>
+<codeline lineno="96"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="97" refid="common_8h_1ac3485f6ad7f6bac4039a2ba65761a876" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>W_CITY_LEN<sp/>20</highlight></codeline>
+<codeline lineno="98" refid="common_8h_1aea700cada8c689dc5ac4e9c073ad27a0" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>W_NAME_LEN<sp/>10</highlight></codeline>
+<codeline lineno="99" refid="common_8h_1a885000e1aae18d32b02b2ae52123c9b5" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>W_STATE_LEN<sp/>2</highlight></codeline>
+<codeline lineno="100" refid="common_8h_1acad13b82dd9147432f7611371bab2a0e" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>W_STREET_1_LEN<sp/>20</highlight></codeline>
+<codeline lineno="101" refid="common_8h_1a1f94575e33a6ace038aa7307f7452ab2" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>W_STREET_2_LEN<sp/>20</highlight></codeline>
+<codeline lineno="102" refid="common_8h_1aa148220716f7fdac33f2210b38b3f357" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>W_ZIP_LEN<sp/>9</highlight></codeline>
+<codeline lineno="103"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="104" refid="common_8h_1a7ad049a70c5c6a8c2f975389b0b0e13e" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>C_ID_UNKNOWN<sp/>0</highlight></codeline>
+<codeline lineno="105" refid="common_8h_1a26d8abf75dc44ad2f098353f44242cb6" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>C_LAST_SYL_MAX<sp/>10</highlight></codeline>
+<codeline lineno="106" refid="common_8h_1a4f1826d1acd9b17ae996631d1d2b2429" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>D_ID_MAX<sp/>10</highlight></codeline>
+<codeline lineno="107" refid="common_8h_1a92a12a9a392db17bac6bfcea00f713fe" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>O_OL_CNT_MAX<sp/>15</highlight></codeline>
+<codeline lineno="108" refid="common_8h_1a0f7f09ffdcb84275f8bd15806b086df9" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>O_CARRIER_ID_MAX<sp/>10</highlight></codeline>
+<codeline lineno="109"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="110" refid="common_8h_1a653e745f64132435aea89e460c4d460d" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CLIENT_PORT<sp/>30000</highlight></codeline>
+<codeline lineno="111"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="112" refid="common_8h_1ab958b72fdeccb19281ea04c460db92cb" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CLIENT_PID_FILENAME<sp/>&quot;dbt2_client.pid&quot;</highlight></codeline>
+<codeline lineno="113" refid="common_8h_1a11a046d7e76234e504efe82e54790414" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DRIVER_PID_FILENAME<sp/>&quot;dbt2_driver.pid&quot;</highlight></codeline>
+<codeline lineno="114"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight></codeline>
+<codeline lineno="116" refid="structtable__cardinality__t" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structtable__cardinality__t" kindref="compound">table_cardinality_t</ref><sp/>{</highlight></codeline>
+<codeline lineno="117" refid="structtable__cardinality__t_1aa482807f7f65173d63a83c11f539a1be" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structtable__cardinality__t_1aa482807f7f65173d63a83c11f539a1be" kindref="member">warehouses</ref>;</highlight></codeline>
+<codeline lineno="118" refid="structtable__cardinality__t_1a56451cf009f9a004bba5bfdc84300c6f" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structtable__cardinality__t_1a56451cf009f9a004bba5bfdc84300c6f" kindref="member">districts</ref>;</highlight></codeline>
+<codeline lineno="119" refid="structtable__cardinality__t_1a7413c509a466a19478c4194122a9960d" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structtable__cardinality__t_1a7413c509a466a19478c4194122a9960d" kindref="member">customers</ref>;</highlight></codeline>
+<codeline lineno="120" refid="structtable__cardinality__t_1a1b7f572d756b2d433ea81e49aa6cbd14" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structtable__cardinality__t_1a1b7f572d756b2d433ea81e49aa6cbd14" kindref="member">items</ref>;</highlight></codeline>
+<codeline lineno="121" refid="structtable__cardinality__t_1a26f127fa9609fe0cf794d6771ad71071" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structtable__cardinality__t_1a26f127fa9609fe0cf794d6771ad71071" kindref="member">orders</ref>;</highlight></codeline>
+<codeline lineno="122" refid="structtable__cardinality__t_1ad564976335ebcce6cddaa59e342e06b0" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structtable__cardinality__t_1ad564976335ebcce6cddaa59e342e06b0" kindref="member">new_orders</ref>;</highlight></codeline>
+<codeline lineno="123"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Prototypes<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="common_8cpp_1a0dc425c90116462e4d2fc2020748c831" kindref="member">difftimeval</ref>(</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/>timeval<sp/>rt1,<sp/></highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/>timeval<sp/>rt0);</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="common_8h_1a8ab13a52cb845a664a915e715d64c3d4" kindref="member">edump</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>type,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*data);</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="common_8cpp_1aeb43bcb2be4565d9485489c526f5e698" kindref="member">get_a_string</ref>(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*a_string,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>x,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>y);</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="common_8cpp_1a6647e7f7420ec36be04bcbb38adfe0c5" kindref="member">get_c_last</ref>(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*c_last,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i);</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="common_8cpp_1ad9fcea330d2d25a88d23f475b97ae9e6" kindref="member">get_l_string</ref>(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*l_string,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>x,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>y);</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="common_8cpp_1a98664b9d4927cf8091c785d251a50c28" kindref="member">get_n_string</ref>(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*n_string,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>x,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>y);</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="common_8cpp_1a089c4d682d28d9b0304c24a839beba7c" kindref="member">get_nurand</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>a,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>x,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>y);</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="common_8cpp_1a9decf9adf1fff9eda5a02df1e3bb3277" kindref="member">get_percentage</ref>();</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="common_8cpp_1a41a0d3a6432a1af4b043b7d2c8c2eaac" kindref="member">get_random</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>max);</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="common_8cpp_1a497bb90489a5c5a5c7df28ea0e5fad55" kindref="member">get_think_time</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>mean_think_time);</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="common_8cpp_1a9b9b44a07e30764e50206cdd64443be9" kindref="member">init_common</ref>();</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="common_8h_1a8a0b60ed7aef21798f4e490eab50a577" kindref="member">create_pid_file</ref>();</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="common_8cpp_1ab7f19bdc8d881e5fd1e544ed736da3c6" kindref="member">output_path</ref>[256];</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*<ref refid="common_8cpp_1a5bc659842e4e2cd0e6b2a3fca80e56db" kindref="member">c_last_syl</ref>[<ref refid="common_8h_1a26d8abf75dc44ad2f098353f44242cb6" kindref="member">C_LAST_SYL_MAX</ref>];</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structtable__cardinality__t" kindref="compound">table_cardinality_t</ref><sp/><ref refid="common_8cpp_1a4cf9db821cc51162a629cce8ccdbdff9" kindref="member">table_cardinality</ref>;</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="common_8cpp_1a7c68a7a817ff41370e24de0491d93cbb" kindref="member">transaction_short_name</ref>[<ref refid="common_8h_1ac360f1f75bf974d2c479f1dcad69f50f" kindref="member">TRANSACTION_MAX</ref>];</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*<ref refid="common_8cpp_1ab75716724f600deb2dd44bad71f5d85d" kindref="member">transaction_name</ref>[<ref refid="common_8h_1ac360f1f75bf974d2c479f1dcad69f50f" kindref="member">TRANSACTION_MAX</ref>];</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/>//<sp/>SRC_BIN_PERF_DATAGEN_COMMON_H_</highlight></codeline>
+    </programlisting>
+    <location file="/home/grund/hyrise/src/bin/perf_datagen/common.h"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,224 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="class_sequential_heap_merger_row" kind="class" prot="public">
+    <compoundname>SequentialHeapMergerRow</compoundname>
+    <basecompoundref refid="class_abstract_merger" prot="public" virt="non-virtual">AbstractMerger</basecompoundref>
+    <includes refid="_sequential_heap_merger_row_8h" local="no">SequentialHeapMergerRow.h</includes>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_sequential_heap_merger_row_1a6a5ceefaa91b0da3645189f641358bd4" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void SequentialHeapMergerRow::mergeValues</definition>
+        <argsstring>(const std::vector&lt; hyrise::storage::c_atable_ptr_t &gt; &amp;input_tables, hyrise::storage::atable_ptr_t merged_table, const hyrise::storage::column_mapping_t &amp;column_mapping, const uint64_t newSize)</argsstring>
+        <name>mergeValues</name>
+        <reimplements refid="class_abstract_merger_1a56f62ba28f56e2e2486a123c70b294f1">mergeValues</reimplements>
+        <param>
+          <type>const std::vector&lt; <ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref> &gt; &amp;</type>
+          <declname>input_tables</declname>
+        </param>
+        <param>
+          <type><ref refid="namespacehyrise_1_1storage_1a21d5e900c20019710828c453eaded1ee" kindref="member">hyrise::storage::atable_ptr_t</ref></type>
+          <declname>merged_table</declname>
+        </param>
+        <param>
+          <type>const <ref refid="namespacehyrise_1_1storage_1a8addaea8b5301cc30c8f8f634b531127" kindref="member">hyrise::storage::column_mapping_t</ref> &amp;</type>
+          <declname>column_mapping</declname>
+        </param>
+        <param>
+          <type>const uint64_t</type>
+          <declname>newSize</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/SequentialHeapMergerRow.h" line="17" bodyfile="/home/grund/hyrise/src/lib/storage/SequentialHeapMergerRow.cpp" bodystart="8" bodyend="47"/>
+      </memberdef>
+      <memberdef kind="function" id="class_sequential_heap_merger_row_1a211b8bd5ac8cfb68f22a2da36abb5d7b" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type><ref refid="class_abstract_merger" kindref="compound">AbstractMerger</ref> *</type>
+        <definition>AbstractMerger * SequentialHeapMergerRow::copy</definition>
+        <argsstring>()</argsstring>
+        <name>copy</name>
+        <reimplements refid="class_abstract_merger_1a534ea287ca2792195c450ca6b2542bf9">copy</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/SequentialHeapMergerRow.h" line="18" bodyfile="/home/grund/hyrise/src/lib/storage/SequentialHeapMergerRow.cpp" bodystart="183" bodyend="185"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_sequential_heap_merger_row_1afdb5c54ac60414d4be8e7ac1aa476f8d" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void SequentialHeapMergerRow::mergeValues</definition>
+        <argsstring>(const std::vector&lt; hyrise::storage::c_atable_ptr_t &gt; &amp;input_tables, size_t source_index, size_t column_index, hyrise::storage::atable_ptr_t merged_table, std::vector&lt; std::vector&lt; value_id_t &gt; &gt; &amp;m, std::vector&lt; AbstractTable::SharedDictionaryPtr &gt; &amp;d)</argsstring>
+        <name>mergeValues</name>
+        <param>
+          <type>const std::vector&lt; <ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref> &gt; &amp;</type>
+          <declname>input_tables</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>source_index</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>column_index</declname>
+        </param>
+        <param>
+          <type><ref refid="namespacehyrise_1_1storage_1a21d5e900c20019710828c453eaded1ee" kindref="member">hyrise::storage::atable_ptr_t</ref></type>
+          <declname>merged_table</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; std::vector&lt; <ref refid="storage__types_8h_1a2552a37cd3427c39d92cb8fd23c90408" kindref="member">value_id_t</ref> &gt; &gt; &amp;</type>
+          <declname>m</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; <ref refid="class_abstract_table_1af76ff827deb697db8077a90c450381ab" kindref="member">AbstractTable::SharedDictionaryPtr</ref> &gt; &amp;</type>
+          <declname>d</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/SequentialHeapMergerRow.h" line="24" bodyfile="/home/grund/hyrise/src/lib/storage/SequentialHeapMergerRow.cpp" bodystart="50" bodyend="67"/>
+      </memberdef>
+      <memberdef kind="function" id="class_sequential_heap_merger_row_1a65b6c57b4d5e3c603a342c679eac2efb" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void SequentialHeapMergerRow::copyValuesRowWise</definition>
+        <argsstring>(const std::vector&lt; hyrise::storage::c_atable_ptr_t &gt; &amp;input_tables, hyrise::storage::atable_ptr_t merged_table, std::vector&lt; std::vector&lt; std::vector&lt; value_id_t &gt; &gt; &gt; &amp;mappings, const hyrise::storage::column_mapping_t &amp;column_mapping)</argsstring>
+        <name>copyValuesRowWise</name>
+        <param>
+          <type>const std::vector&lt; <ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref> &gt; &amp;</type>
+          <declname>input_tables</declname>
+        </param>
+        <param>
+          <type><ref refid="namespacehyrise_1_1storage_1a21d5e900c20019710828c453eaded1ee" kindref="member">hyrise::storage::atable_ptr_t</ref></type>
+          <declname>merged_table</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; std::vector&lt; std::vector&lt; <ref refid="storage__types_8h_1a2552a37cd3427c39d92cb8fd23c90408" kindref="member">value_id_t</ref> &gt; &gt; &gt; &amp;</type>
+          <declname>mappings</declname>
+        </param>
+        <param>
+          <type>const <ref refid="namespacehyrise_1_1storage_1a8addaea8b5301cc30c8f8f634b531127" kindref="member">hyrise::storage::column_mapping_t</ref> &amp;</type>
+          <declname>column_mapping</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/SequentialHeapMergerRow.h" line="28" bodyfile="/home/grund/hyrise/src/lib/storage/SequentialHeapMergerRow.cpp" bodystart="132" bodyend="161"/>
+      </memberdef>
+      <memberdef kind="function" id="class_sequential_heap_merger_row_1a8f884b22260b2f0df4f3c28fc0a0ed65" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void SequentialHeapMergerRow::copyValues</definition>
+        <argsstring>(const std::vector&lt; hyrise::storage::c_atable_ptr_t &gt; &amp;input_tables, size_t column_index, hyrise::storage::atable_ptr_t &amp;merged_table, std::vector&lt; std::vector&lt; value_id_t &gt; &gt; &amp;value_id_mapping)</argsstring>
+        <name>copyValues</name>
+        <param>
+          <type>const std::vector&lt; <ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref> &gt; &amp;</type>
+          <declname>input_tables</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>column_index</declname>
+        </param>
+        <param>
+          <type><ref refid="namespacehyrise_1_1storage_1a21d5e900c20019710828c453eaded1ee" kindref="member">hyrise::storage::atable_ptr_t</ref> &amp;</type>
+          <declname>merged_table</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; std::vector&lt; <ref refid="storage__types_8h_1a2552a37cd3427c39d92cb8fd23c90408" kindref="member">value_id_t</ref> &gt; &gt; &amp;</type>
+          <declname>value_id_mapping</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/SequentialHeapMergerRow.h" line="31" bodyfile="/home/grund/hyrise/src/lib/storage/SequentialHeapMergerRow.cpp" bodystart="164" bodyend="181"/>
+      </memberdef>
+      <memberdef kind="function" id="class_sequential_heap_merger_row_1a0e93757c68be17b5924624b523d3100e" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+        </templateparamlist>
+        <type><ref refid="class_abstract_table_1af76ff827deb697db8077a90c450381ab" kindref="member">AbstractTable::SharedDictionaryPtr</ref></type>
+        <definition>AbstractTable::SharedDictionaryPtr SequentialHeapMergerRow::createNewDict</definition>
+        <argsstring>(const std::vector&lt; hyrise::storage::c_atable_ptr_t &gt; &amp;input_tables, std::vector&lt; AbstractTable::SharedDictionaryPtr &gt; &amp;value_id_maps, std::vector&lt; std::vector&lt; value_id_t &gt; &gt; &amp;value_id_mapping)</argsstring>
+        <name>createNewDict</name>
+        <param>
+          <type>const std::vector&lt; <ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">hyrise::storage::c_atable_ptr_t</ref> &gt; &amp;</type>
+          <declname>input_tables</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; <ref refid="class_abstract_table_1af76ff827deb697db8077a90c450381ab" kindref="member">AbstractTable::SharedDictionaryPtr</ref> &gt; &amp;</type>
+          <declname>value_id_maps</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; std::vector&lt; <ref refid="storage__types_8h_1a2552a37cd3427c39d92cb8fd23c90408" kindref="member">value_id_t</ref> &gt; &gt; &amp;</type>
+          <declname>value_id_mapping</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/SequentialHeapMergerRow.h" line="35" bodyfile="/home/grund/hyrise/src/lib/storage/SequentialHeapMergerRow.cpp" bodystart="70" bodyend="130"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2787">
+        <label>SequentialHeapMergerRow</label>
+        <link refid="class_sequential_heap_merger_row"/>
+        <childnode refid="2788" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2788">
+        <label>AbstractMerger</label>
+        <link refid="class_abstract_merger"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2789">
+        <label>SequentialHeapMergerRow</label>
+        <link refid="class_sequential_heap_merger_row"/>
+        <childnode refid="2790" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2790">
+        <label>AbstractMerger</label>
+        <link refid="class_abstract_merger"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/storage/SequentialHeapMergerRow.h" line="11" bodyfile="/home/grund/hyrise/src/lib/storage/SequentialHeapMergerRow.h" bodystart="11" bodyend="37"/>
+    <listofallmembers>
+      <member refid="class_sequential_heap_merger_row_1a211b8bd5ac8cfb68f22a2da36abb5d7b" prot="public" virt="virtual"><scope>SequentialHeapMergerRow</scope><name>copy</name></member>
+      <member refid="class_sequential_heap_merger_row_1a8f884b22260b2f0df4f3c28fc0a0ed65" prot="private" virt="non-virtual"><scope>SequentialHeapMergerRow</scope><name>copyValues</name></member>
+      <member refid="class_sequential_heap_merger_row_1a65b6c57b4d5e3c603a342c679eac2efb" prot="private" virt="non-virtual"><scope>SequentialHeapMergerRow</scope><name>copyValuesRowWise</name></member>
+      <member refid="class_sequential_heap_merger_row_1a0e93757c68be17b5924624b523d3100e" prot="private" virt="non-virtual"><scope>SequentialHeapMergerRow</scope><name>createNewDict</name></member>
+      <member refid="class_sequential_heap_merger_row_1a6a5ceefaa91b0da3645189f641358bd4" prot="public" virt="virtual"><scope>SequentialHeapMergerRow</scope><name>mergeValues</name></member>
+      <member refid="class_sequential_heap_merger_row_1afdb5c54ac60414d4be8e7ac1aa476f8d" prot="private" virt="non-virtual"><scope>SequentialHeapMergerRow</scope><name>mergeValues</name></member>
+      <member refid="class_abstract_merger_1ad83245cf3bcddef890cac58ea988a12b" prot="public" virt="virtual"><scope>SequentialHeapMergerRow</scope><name>~AbstractMerger</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

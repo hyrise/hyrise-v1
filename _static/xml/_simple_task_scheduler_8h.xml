@@ -1,0 +1,1127 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="_simple_task_scheduler_8h" kind="file">
+    <compoundname>SimpleTaskScheduler.h</compoundname>
+    <includes refid="_abstract_task_scheduler_8h" local="yes">taskscheduler/AbstractTaskScheduler.h</includes>
+    <includes local="no">unordered_set</includes>
+    <includes local="no">vector</includes>
+    <includes local="no">queue</includes>
+    <includes local="no">mutex</includes>
+    <includes local="no">log4cxx/logger.h</includes>
+    <includes refid="_task_8h" local="yes">taskscheduler/Task.h</includes>
+    <includes refid="_core_bound_task_queue_8h" local="yes">taskscheduler/CoreBoundTaskQueue.h</includes>
+    <includes refid="_hwloc_helper_8h" local="yes">helper/HwlocHelper.h</includes>
+    <includedby refid="_shared_scheduler_8h" local="no">src/lib/taskscheduler/SharedScheduler.h</includedby>
+    <includedby refid="_simple_task_scheduler_8cpp" local="yes">src/lib/taskscheduler/SimpleTaskScheduler.cpp</includedby>
+    <includedby refid="taskscheduler_8h" local="no">src/lib/taskscheduler.h</includedby>
+    <incdepgraph>
+      <node id="25219">
+        <label>queue</label>
+      </node>
+      <node id="25217">
+        <label>helper/HwlocHelper.h</label>
+        <link refid="_hwloc_helper_8h"/>
+        <childnode refid="25218" relation="include">
+        </childnode>
+      </node>
+      <node id="25211">
+        <label>string</label>
+      </node>
+      <node id="25204">
+        <label>src/lib/taskscheduler/SimpleTaskScheduler.h</label>
+        <link refid="SimpleTaskScheduler.h"/>
+        <childnode refid="25205" relation="include">
+        </childnode>
+        <childnode refid="25215" relation="include">
+        </childnode>
+        <childnode refid="25207" relation="include">
+        </childnode>
+        <childnode refid="25219" relation="include">
+        </childnode>
+        <childnode refid="25208" relation="include">
+        </childnode>
+        <childnode refid="25214" relation="include">
+        </childnode>
+        <childnode refid="25206" relation="include">
+        </childnode>
+        <childnode refid="25220" relation="include">
+        </childnode>
+        <childnode refid="25217" relation="include">
+        </childnode>
+      </node>
+      <node id="25206">
+        <label>taskscheduler/Task.h</label>
+        <link refid="_task_8h"/>
+        <childnode refid="25207" relation="include">
+        </childnode>
+        <childnode refid="25208" relation="include">
+        </childnode>
+        <childnode refid="25209" relation="include">
+        </childnode>
+        <childnode refid="25210" relation="include">
+        </childnode>
+        <childnode refid="25211" relation="include">
+        </childnode>
+      </node>
+      <node id="25215">
+        <label>unordered_set</label>
+      </node>
+      <node id="25218">
+        <label>hwloc.h</label>
+      </node>
+      <node id="25220">
+        <label>taskscheduler/CoreBoundTaskQueue.h</label>
+        <link refid="_core_bound_task_queue_8h"/>
+        <childnode refid="25213" relation="include">
+        </childnode>
+        <childnode refid="25219" relation="include">
+        </childnode>
+        <childnode refid="25212" relation="include">
+        </childnode>
+      </node>
+      <node id="25210">
+        <label>condition_variable</label>
+      </node>
+      <node id="25207">
+        <label>vector</label>
+      </node>
+      <node id="25212">
+        <label>taskscheduler/AbstractTaskQueue.h</label>
+        <link refid="_abstract_task_queue_8h"/>
+        <childnode refid="25209" relation="include">
+        </childnode>
+        <childnode refid="25208" relation="include">
+        </childnode>
+        <childnode refid="25213" relation="include">
+        </childnode>
+        <childnode refid="25210" relation="include">
+        </childnode>
+        <childnode refid="25214" relation="include">
+        </childnode>
+        <childnode refid="25206" relation="include">
+        </childnode>
+      </node>
+      <node id="25216">
+        <label>iostream</label>
+      </node>
+      <node id="25205">
+        <label>taskscheduler/AbstractTaskScheduler.h</label>
+        <link refid="_abstract_task_scheduler_8h"/>
+        <childnode refid="25206" relation="include">
+        </childnode>
+        <childnode refid="25212" relation="include">
+        </childnode>
+        <childnode refid="25209" relation="include">
+        </childnode>
+        <childnode refid="25215" relation="include">
+        </childnode>
+        <childnode refid="25216" relation="include">
+        </childnode>
+        <childnode refid="25214" relation="include">
+        </childnode>
+        <childnode refid="25217" relation="include">
+        </childnode>
+      </node>
+      <node id="25208">
+        <label>mutex</label>
+      </node>
+      <node id="25213">
+        <label>thread</label>
+      </node>
+      <node id="25214">
+        <label>log4cxx/logger.h</label>
+      </node>
+      <node id="25209">
+        <label>memory</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="25255">
+        <label>src/lib/access/Distinct.h</label>
+        <link refid="_distinct_8h"/>
+        <childnode refid="25233" relation="include">
+        </childnode>
+      </node>
+      <node id="25323">
+        <label>src/lib/access/SmallestTableScan.cpp</label>
+        <link refid="_smallest_table_scan_8cpp"/>
+      </node>
+      <node id="25334">
+        <label>src/lib/access/ThreadpoolAdjustment.h</label>
+        <link refid="_threadpool_adjustment_8h"/>
+        <childnode refid="25225" relation="include">
+        </childnode>
+        <childnode refid="25243" relation="include">
+        </childnode>
+      </node>
+      <node id="25274">
+        <label>src/lib/access/InsertScan.cpp</label>
+        <link refid="_insert_scan_8cpp"/>
+      </node>
+      <node id="25280">
+        <label>src/lib/access/Layouter.cpp</label>
+        <link refid="_layouter_8cpp"/>
+      </node>
+      <node id="25226">
+        <label>src/lib/net/AsyncConnection.cpp</label>
+        <link refid="_async_connection_8cpp"/>
+      </node>
+      <node id="25307">
+        <label>src/lib/access/RadixJoin.h</label>
+        <link refid="_radix_join_8h"/>
+        <childnode refid="25308" relation="include">
+        </childnode>
+        <childnode refid="25252" relation="include">
+        </childnode>
+      </node>
+      <node id="25335">
+        <label>src/lib/access/UnionAll.h</label>
+        <link refid="_union_all_8h"/>
+        <childnode refid="25251" relation="include">
+        </childnode>
+        <childnode refid="25336" relation="include">
+        </childnode>
+      </node>
+      <node id="25309">
+        <label>src/lib/access/ReplaceTable.h</label>
+        <link refid="_replace_table_8h"/>
+        <childnode refid="25310" relation="include">
+        </childnode>
+      </node>
+      <node id="25325">
+        <label>src/lib/access/SortScan.cpp</label>
+        <link refid="lib_2access_2_sort_scan_8cpp"/>
+      </node>
+      <node id="25284">
+        <label>src/lib/access/LayoutTableLoad.cpp</label>
+        <link refid="_layout_table_load_8cpp"/>
+      </node>
+      <node id="25262">
+        <label>src/lib/access/HashJoinProbe.cpp</label>
+        <link refid="_hash_join_probe_8cpp"/>
+      </node>
+      <node id="25266">
+        <label>src/lib/access/PrefixSum.cpp</label>
+        <link refid="_prefix_sum_8cpp"/>
+      </node>
+      <node id="25342">
+        <label>src/lib/access/UpdateScan.cpp</label>
+        <link refid="_update_scan_8cpp"/>
+      </node>
+      <node id="25271">
+        <label>src/lib/access/InsertOnlyOperators.h</label>
+        <link refid="_insert_only_operators_8h"/>
+        <childnode refid="25272" relation="include">
+        </childnode>
+      </node>
+      <node id="25260">
+        <label>src/lib/access/HashBuild.cpp</label>
+        <link refid="_hash_build_8cpp"/>
+      </node>
+      <node id="25330">
+        <label>src/lib/access/TableScan.cpp</label>
+        <link refid="_table_scan_8cpp"/>
+      </node>
+      <node id="25294">
+        <label>src/lib/access/MultiplyRefField.h</label>
+        <link refid="_multiply_ref_field_8h"/>
+        <childnode refid="25295" relation="include">
+        </childnode>
+      </node>
+      <node id="25303">
+        <label>src/lib/access/PrefixSum.h</label>
+        <link refid="_prefix_sum_8h"/>
+        <childnode refid="25266" relation="include">
+        </childnode>
+      </node>
+      <node id="25337">
+        <label>src/lib/access/UnionScan.h</label>
+        <link refid="_union_scan_8h"/>
+        <childnode refid="25338" relation="include">
+        </childnode>
+        <childnode refid="25243" relation="include">
+        </childnode>
+      </node>
+      <node id="25258">
+        <label>src/lib/access/GroupByScan.h</label>
+        <link refid="_group_by_scan_8h"/>
+        <childnode refid="25236" relation="include">
+        </childnode>
+        <childnode refid="25243" relation="include">
+        </childnode>
+      </node>
+      <node id="25314">
+        <label>src/lib/access/SetTable.h</label>
+        <link refid="_set_table_8h"/>
+        <childnode refid="25315" relation="include">
+        </childnode>
+      </node>
+      <node id="25251">
+        <label>src/bin/perf_regression/UnionScan.cpp</label>
+        <link refid="bin_2perf__regression_2_union_scan_8cpp"/>
+      </node>
+      <node id="25310">
+        <label>src/lib/access/ReplaceTable.cpp</label>
+        <link refid="_replace_table_8cpp"/>
+      </node>
+      <node id="25235">
+        <label>src/lib/access/GetTable.cpp</label>
+        <link refid="_get_table_8cpp"/>
+      </node>
+      <node id="25326">
+        <label>src/lib/access/TableLoad.h</label>
+        <link refid="_table_load_8h"/>
+        <childnode refid="25327" relation="include">
+        </childnode>
+        <childnode refid="25243" relation="include">
+        </childnode>
+      </node>
+      <node id="25296">
+        <label>src/lib/access/MySQLTableLoad.h</label>
+        <link refid="_my_s_q_l_table_load_8h"/>
+        <childnode refid="25297" relation="include">
+        </childnode>
+      </node>
+      <node id="25291">
+        <label>src/lib/access/MergeJoin.hpp</label>
+        <link refid="_merge_join_8hpp"/>
+        <childnode refid="25243" relation="include">
+        </childnode>
+      </node>
+      <node id="25333">
+        <label>src/lib/access/TaskSchedulerAdjustment.h</label>
+        <link refid="_task_scheduler_adjustment_8h"/>
+        <childnode refid="25224" relation="include">
+        </childnode>
+        <childnode refid="25243" relation="include">
+        </childnode>
+      </node>
+      <node id="25265">
+        <label>src/lib/access/Histogram.cpp</label>
+        <link refid="_histogram_8cpp"/>
+      </node>
+      <node id="25302">
+        <label>src/lib/access/PlanOperation.cpp</label>
+        <link refid="_plan_operation_8cpp"/>
+      </node>
+      <node id="25267">
+        <label>src/lib/access/RadixCluster.h</label>
+        <link refid="_radix_cluster_8h"/>
+        <childnode refid="25268" relation="include">
+        </childnode>
+      </node>
+      <node id="25292">
+        <label>src/lib/access/MergeTable.h</label>
+        <link refid="_merge_table_8h"/>
+        <childnode refid="25293" relation="include">
+        </childnode>
+      </node>
+      <node id="25241">
+        <label>src/lib/access/RadixJoinTransformation.cpp</label>
+        <link refid="_radix_join_transformation_8cpp"/>
+      </node>
+      <node id="25268">
+        <label>src/lib/access/RadixCluster.cpp</label>
+        <link refid="_radix_cluster_8cpp"/>
+      </node>
+      <node id="25311">
+        <label>src/lib/access/ResponseTask.cpp</label>
+        <link refid="_response_task_8cpp"/>
+      </node>
+      <node id="25313">
+        <label>src/lib/access/ScriptOperation.cpp</label>
+        <link refid="_script_operation_8cpp"/>
+      </node>
+      <node id="25236">
+        <label>src/lib/access/GroupByScan.cpp</label>
+        <link refid="lib_2access_2_group_by_scan_8cpp"/>
+      </node>
+      <node id="25253">
+        <label>src/lib/access/Barrier.h</label>
+        <link refid="_barrier_8h"/>
+        <childnode refid="25231" relation="include">
+        </childnode>
+      </node>
+      <node id="25295">
+        <label>src/lib/access/MultiplyRefField.cpp</label>
+        <link refid="_multiply_ref_field_8cpp"/>
+      </node>
+      <node id="25239">
+        <label>src/lib/access/QueryTransformationEngine.h</label>
+        <link refid="_query_transformation_engine_8h"/>
+        <childnode refid="25240" relation="include">
+        </childnode>
+        <childnode refid="25241" relation="include">
+        </childnode>
+        <childnode refid="25242" relation="include">
+        </childnode>
+        <childnode refid="25243" relation="include">
+        </childnode>
+      </node>
+      <node id="25304">
+        <label>src/lib/access/ProjectionScan.h</label>
+        <link refid="_projection_scan_8h"/>
+        <childnode refid="25305" relation="include">
+        </childnode>
+        <childnode refid="25243" relation="include">
+        </childnode>
+      </node>
+      <node id="25229">
+        <label>src/lib/taskscheduler.h</label>
+        <link refid="taskscheduler_8h"/>
+        <childnode refid="25230" relation="include">
+        </childnode>
+      </node>
+      <node id="25300">
+        <label>src/lib/access/NoOp.h</label>
+        <link refid="_no_op_8h"/>
+        <childnode refid="25301" relation="include">
+        </childnode>
+      </node>
+      <node id="25247">
+        <label>src/bin/perf_regression/JoinScan.cpp</label>
+        <link refid="bin_2perf__regression_2_join_scan_8cpp"/>
+      </node>
+      <node id="25221">
+        <label>src/lib/taskscheduler/SimpleTaskScheduler.h</label>
+        <link refid="SimpleTaskScheduler.h"/>
+        <childnode refid="25222" relation="include">
+        </childnode>
+        <childnode refid="25227" relation="include">
+        </childnode>
+        <childnode refid="25229" relation="include">
+        </childnode>
+      </node>
+      <node id="25344">
+        <label>src/lib/testing/test.cpp</label>
+        <link refid="test_8cpp"/>
+      </node>
+      <node id="25228">
+        <label>src/lib/taskscheduler/WSSimpleTaskScheduler.cpp</label>
+        <link refid="_w_s_simple_task_scheduler_8cpp"/>
+      </node>
+      <node id="25252">
+        <label>src/lib/access/RadixJoinTransformation.h</label>
+        <link refid="_radix_join_transformation_8h"/>
+        <childnode refid="25241" relation="include">
+        </childnode>
+      </node>
+      <node id="25238">
+        <label>src/lib/access/AbstractPlanOpTransformation.h</label>
+        <link refid="_abstract_plan_op_transformation_8h"/>
+        <childnode refid="25239" relation="include">
+        </childnode>
+        <childnode refid="25252" relation="include">
+        </childnode>
+      </node>
+      <node id="25287">
+        <label>src/lib/access/MaterializingScan.h</label>
+        <link refid="_materializing_scan_8h"/>
+        <childnode refid="25288" relation="include">
+        </childnode>
+        <childnode refid="25243" relation="include">
+        </childnode>
+      </node>
+      <node id="25329">
+        <label>src/bin/perf_regression/scan_performance.cpp</label>
+        <link refid="scan__performance_8cpp"/>
+      </node>
+      <node id="25290">
+        <label>src/lib/access/MergeHashTables.cpp</label>
+        <link refid="_merge_hash_tables_8cpp"/>
+      </node>
+      <node id="25225">
+        <label>src/lib/access/ThreadpoolAdjustment.cpp</label>
+        <link refid="_threadpool_adjustment_8cpp"/>
+      </node>
+      <node id="25305">
+        <label>src/lib/access/ProjectionScan.cpp</label>
+        <link refid="lib_2access_2_projection_scan_8cpp"/>
+      </node>
+      <node id="25224">
+        <label>src/lib/access/TaskSchedulerAdjustment.cpp</label>
+        <link refid="_task_scheduler_adjustment_8cpp"/>
+      </node>
+      <node id="25299">
+        <label>src/lib/access/NestedLoopEquiJoin.cpp</label>
+        <link refid="_nested_loop_equi_join_8cpp"/>
+      </node>
+      <node id="25250">
+        <label>src/bin/perf_regression/SortScan.cpp</label>
+        <link refid="bin_2perf__regression_2_sort_scan_8cpp"/>
+      </node>
+      <node id="25227">
+        <label>src/lib/taskscheduler/SimpleTaskScheduler.cpp</label>
+        <link refid="_simple_task_scheduler_8cpp"/>
+      </node>
+      <node id="25223">
+        <label>src/bin/hyrise/main.cpp</label>
+        <link refid="bin_2hyrise_2main_8cpp"/>
+      </node>
+      <node id="25273">
+        <label>src/lib/access/InsertScan.h</label>
+        <link refid="_insert_scan_8h"/>
+        <childnode refid="25274" relation="include">
+        </childnode>
+        <childnode refid="25243" relation="include">
+        </childnode>
+      </node>
+      <node id="25328">
+        <label>src/lib/access/TableScan.h</label>
+        <link refid="_table_scan_8h"/>
+        <childnode refid="25329" relation="include">
+        </childnode>
+        <childnode refid="25330" relation="include">
+        </childnode>
+      </node>
+      <node id="25264">
+        <label>src/lib/access/Histogram.h</label>
+        <link refid="_histogram_8h"/>
+        <childnode refid="25265" relation="include">
+        </childnode>
+        <childnode refid="25266" relation="include">
+        </childnode>
+        <childnode refid="25267" relation="include">
+        </childnode>
+      </node>
+      <node id="25244">
+        <label>src/bin/perf_regression/GroupByScan.cpp</label>
+        <link refid="bin_2perf__regression_2_group_by_scan_8cpp"/>
+      </node>
+      <node id="25248">
+        <label>src/bin/perf_regression/ProjectionScan.cpp</label>
+        <link refid="bin_2perf__regression_2_projection_scan_8cpp"/>
+      </node>
+      <node id="25281">
+        <label>src/lib/access/LayoutTable.h</label>
+        <link refid="_layout_table_8h"/>
+        <childnode refid="25282" relation="include">
+        </childnode>
+      </node>
+      <node id="25256">
+        <label>src/lib/access/ExpressionScan.h</label>
+        <link refid="_expression_scan_8h"/>
+        <childnode refid="25234" relation="include">
+        </childnode>
+        <childnode refid="25243" relation="include">
+        </childnode>
+      </node>
+      <node id="25245">
+        <label>src/bin/perf_regression/HashJoin.cpp</label>
+        <link refid="_hash_join_8cpp"/>
+      </node>
+      <node id="25318">
+        <label>src/lib/access/SimpleRawTableScan.h</label>
+        <link refid="_simple_raw_table_scan_8h"/>
+        <childnode refid="25319" relation="include">
+        </childnode>
+        <childnode refid="25243" relation="include">
+        </childnode>
+      </node>
+      <node id="25257">
+        <label>src/lib/access/GetTable.h</label>
+        <link refid="_get_table_8h"/>
+        <childnode refid="25235" relation="include">
+        </childnode>
+      </node>
+      <node id="25306">
+        <label>src/lib/access/QueryParser.cpp</label>
+        <link refid="_query_parser_8cpp"/>
+      </node>
+      <node id="25297">
+        <label>src/lib/access/MySQLTableLoad.cpp</label>
+        <link refid="_my_s_q_l_table_load_8cpp"/>
+      </node>
+      <node id="25332">
+        <label>src/lib/access/TableUnload.cpp</label>
+        <link refid="_table_unload_8cpp"/>
+      </node>
+      <node id="25261">
+        <label>src/lib/access/HashJoinProbe.h</label>
+        <link refid="_hash_join_probe_8h"/>
+        <childnode refid="25262" relation="include">
+        </childnode>
+        <childnode refid="25243" relation="include">
+        </childnode>
+      </node>
+      <node id="25285">
+        <label>src/lib/access/LoadFile.h</label>
+        <link refid="_load_file_8h"/>
+        <childnode refid="25286" relation="include">
+        </childnode>
+      </node>
+      <node id="25324">
+        <label>src/lib/access/SortScan.h</label>
+        <link refid="_sort_scan_8h"/>
+        <childnode refid="25325" relation="include">
+        </childnode>
+        <childnode refid="25243" relation="include">
+        </childnode>
+      </node>
+      <node id="25222">
+        <label>src/lib/taskscheduler/SharedScheduler.h</label>
+        <link refid="_shared_scheduler_8h"/>
+        <childnode refid="25223" relation="include">
+        </childnode>
+        <childnode refid="25224" relation="include">
+        </childnode>
+        <childnode refid="25225" relation="include">
+        </childnode>
+        <childnode refid="25226" relation="include">
+        </childnode>
+        <childnode refid="25227" relation="include">
+        </childnode>
+        <childnode refid="25228" relation="include">
+        </childnode>
+        <childnode refid="25229" relation="include">
+        </childnode>
+      </node>
+      <node id="25312">
+        <label>src/lib/access/ScriptOperation.h</label>
+        <link refid="_script_operation_8h"/>
+        <childnode refid="25313" relation="include">
+        </childnode>
+      </node>
+      <node id="25317">
+        <label>src/lib/access/SettingsOperation.cpp</label>
+        <link refid="_settings_operation_8cpp"/>
+      </node>
+      <node id="25259">
+        <label>src/lib/access/HashBuild.h</label>
+        <link refid="_hash_build_8h"/>
+        <childnode refid="25260" relation="include">
+        </childnode>
+        <childnode refid="25243" relation="include">
+        </childnode>
+      </node>
+      <node id="25338">
+        <label>src/lib/access/UnionScan.cpp</label>
+        <link refid="lib_2access_2_union_scan_8cpp"/>
+      </node>
+      <node id="25327">
+        <label>src/lib/access/TableLoad.cpp</label>
+        <link refid="_table_load_8cpp"/>
+      </node>
+      <node id="25286">
+        <label>src/lib/access/LoadFile.cpp</label>
+        <link refid="_load_file_8cpp"/>
+      </node>
+      <node id="25320">
+        <label>src/lib/access/SimpleTableScan.h</label>
+        <link refid="_simple_table_scan_8h"/>
+        <childnode refid="25321" relation="include">
+        </childnode>
+        <childnode refid="25243" relation="include">
+        </childnode>
+      </node>
+      <node id="25263">
+        <label>src/lib/access/HashValueJoin.hpp</label>
+        <link refid="_hash_value_join_8hpp"/>
+        <childnode refid="25243" relation="include">
+        </childnode>
+      </node>
+      <node id="25319">
+        <label>src/lib/access/SimpleRawTableScan.cpp</label>
+        <link refid="_simple_raw_table_scan_8cpp"/>
+      </node>
+      <node id="25298">
+        <label>src/lib/access/NestedLoopEquiJoin.h</label>
+        <link refid="_nested_loop_equi_join_8h"/>
+        <childnode refid="25299" relation="include">
+        </childnode>
+      </node>
+      <node id="25230">
+        <label>src/lib/access/QueryParser.h</label>
+        <link refid="_query_parser_8h"/>
+        <childnode refid="25231" relation="include">
+        </childnode>
+        <childnode refid="25232" relation="include">
+        </childnode>
+        <childnode refid="25233" relation="include">
+        </childnode>
+        <childnode refid="25234" relation="include">
+        </childnode>
+        <childnode refid="25235" relation="include">
+        </childnode>
+        <childnode refid="25236" relation="include">
+        </childnode>
+        <childnode refid="25237" relation="include">
+        </childnode>
+        <childnode refid="25262" relation="include">
+        </childnode>
+        <childnode refid="25265" relation="include">
+        </childnode>
+        <childnode refid="25270" relation="include">
+        </childnode>
+        <childnode refid="25272" relation="include">
+        </childnode>
+        <childnode refid="25278" relation="include">
+        </childnode>
+        <childnode refid="25280" relation="include">
+        </childnode>
+        <childnode refid="25284" relation="include">
+        </childnode>
+        <childnode refid="25286" relation="include">
+        </childnode>
+        <childnode refid="25288" relation="include">
+        </childnode>
+        <childnode refid="25290" relation="include">
+        </childnode>
+        <childnode refid="25293" relation="include">
+        </childnode>
+        <childnode refid="25295" relation="include">
+        </childnode>
+        <childnode refid="25299" relation="include">
+        </childnode>
+        <childnode refid="25301" relation="include">
+        </childnode>
+        <childnode refid="25266" relation="include">
+        </childnode>
+        <childnode refid="25305" relation="include">
+        </childnode>
+        <childnode refid="25306" relation="include">
+        </childnode>
+        <childnode refid="25268" relation="include">
+        </childnode>
+        <childnode refid="25308" relation="include">
+        </childnode>
+        <childnode refid="25310" relation="include">
+        </childnode>
+        <childnode refid="25315" relation="include">
+        </childnode>
+        <childnode refid="25317" relation="include">
+        </childnode>
+        <childnode refid="25323" relation="include">
+        </childnode>
+        <childnode refid="25325" relation="include">
+        </childnode>
+        <childnode refid="25327" relation="include">
+        </childnode>
+        <childnode refid="25332" relation="include">
+        </childnode>
+        <childnode refid="25340" relation="include">
+        </childnode>
+        <childnode refid="25243" relation="include">
+        </childnode>
+      </node>
+      <node id="25336">
+        <label>src/lib/access/UnionAll.cpp</label>
+        <link refid="_union_all_8cpp"/>
+      </node>
+      <node id="25340">
+        <label>src/lib/access/UnloadAll.cpp</label>
+        <link refid="_unload_all_8cpp"/>
+      </node>
+      <node id="25246">
+        <label>src/bin/perf_regression/HashValueJoin.cpp</label>
+        <link refid="_hash_value_join_8cpp"/>
+      </node>
+      <node id="25282">
+        <label>src/lib/access/LayoutTable.cpp</label>
+        <link refid="_layout_table_8cpp"/>
+      </node>
+      <node id="25243">
+        <label>src/lib/access.h</label>
+        <link refid="access_8h"/>
+        <childnode refid="25244" relation="include">
+        </childnode>
+        <childnode refid="25245" relation="include">
+        </childnode>
+        <childnode refid="25246" relation="include">
+        </childnode>
+        <childnode refid="25247" relation="include">
+        </childnode>
+        <childnode refid="25248" relation="include">
+        </childnode>
+        <childnode refid="25249" relation="include">
+        </childnode>
+        <childnode refid="25250" relation="include">
+        </childnode>
+        <childnode refid="25251" relation="include">
+        </childnode>
+      </node>
+      <node id="25240">
+        <label>src/lib/access/QueryTransformationEngine.cpp</label>
+        <link refid="_query_transformation_engine_8cpp"/>
+      </node>
+      <node id="25341">
+        <label>src/lib/access/UpdateScan.h</label>
+        <link refid="_update_scan_8h"/>
+        <childnode refid="25342" relation="include">
+        </childnode>
+        <childnode refid="25243" relation="include">
+        </childnode>
+      </node>
+      <node id="25234">
+        <label>src/lib/access/ExpressionScan.cpp</label>
+        <link refid="_expression_scan_8cpp"/>
+      </node>
+      <node id="25249">
+        <label>src/bin/perf_regression/SimpleTableScan.cpp</label>
+        <link refid="bin_2perf__regression_2_simple_table_scan_8cpp"/>
+      </node>
+      <node id="25272">
+        <label>src/lib/access/InsertOnlyOperators.cpp</label>
+        <link refid="_insert_only_operators_8cpp"/>
+      </node>
+      <node id="25321">
+        <label>src/lib/access/SimpleTableScan.cpp</label>
+        <link refid="lib_2access_2_simple_table_scan_8cpp"/>
+      </node>
+      <node id="25293">
+        <label>src/lib/access/MergeTable.cpp</label>
+        <link refid="_merge_table_8cpp"/>
+      </node>
+      <node id="25269">
+        <label>src/lib/access/IndexScan.h</label>
+        <link refid="_index_scan_8h"/>
+        <childnode refid="25270" relation="include">
+        </childnode>
+      </node>
+      <node id="25283">
+        <label>src/lib/access/LayoutTableLoad.h</label>
+        <link refid="_layout_table_load_8h"/>
+        <childnode refid="25284" relation="include">
+        </childnode>
+      </node>
+      <node id="25308">
+        <label>src/lib/access/RadixJoin.cpp</label>
+        <link refid="_radix_join_8cpp"/>
+      </node>
+      <node id="25242">
+        <label>src/lib/access/RequestParseTask.cpp</label>
+        <link refid="_request_parse_task_8cpp"/>
+      </node>
+      <node id="25331">
+        <label>src/lib/access/TableUnload.h</label>
+        <link refid="_table_unload_8h"/>
+        <childnode refid="25332" relation="include">
+        </childnode>
+        <childnode refid="25243" relation="include">
+        </childnode>
+      </node>
+      <node id="25316">
+        <label>src/lib/access/SettingsOperation.h</label>
+        <link refid="_settings_operation_8h"/>
+        <childnode refid="25317" relation="include">
+        </childnode>
+        <childnode refid="25243" relation="include">
+        </childnode>
+      </node>
+      <node id="25339">
+        <label>src/lib/access/UnloadAll.h</label>
+        <link refid="_unload_all_8h"/>
+        <childnode refid="25340" relation="include">
+        </childnode>
+        <childnode refid="25243" relation="include">
+        </childnode>
+      </node>
+      <node id="25289">
+        <label>src/lib/access/MergeHashTables.h</label>
+        <link refid="_merge_hash_tables_8h"/>
+        <childnode refid="25290" relation="include">
+        </childnode>
+      </node>
+      <node id="25322">
+        <label>src/lib/access/SmallestTableScan.h</label>
+        <link refid="_smallest_table_scan_8h"/>
+        <childnode refid="25323" relation="include">
+        </childnode>
+        <childnode refid="25243" relation="include">
+        </childnode>
+      </node>
+      <node id="25277">
+        <label>src/lib/access/JoinScan.h</label>
+        <link refid="_join_scan_8h"/>
+        <childnode refid="25278" relation="include">
+        </childnode>
+        <childnode refid="25243" relation="include">
+        </childnode>
+      </node>
+      <node id="25270">
+        <label>src/lib/access/IndexScan.cpp</label>
+        <link refid="_index_scan_8cpp"/>
+      </node>
+      <node id="25301">
+        <label>src/lib/access/NoOp.cpp</label>
+        <link refid="_no_op_8cpp"/>
+      </node>
+      <node id="25288">
+        <label>src/lib/access/MaterializingScan.cpp</label>
+        <link refid="_materializing_scan_8cpp"/>
+      </node>
+      <node id="25237">
+        <label>src/lib/access/PlanOperation.h</label>
+        <link refid="_plan_operation_8h"/>
+        <childnode refid="25238" relation="include">
+        </childnode>
+        <childnode refid="25253" relation="include">
+        </childnode>
+        <childnode refid="25254" relation="include">
+        </childnode>
+        <childnode refid="25255" relation="include">
+        </childnode>
+        <childnode refid="25256" relation="include">
+        </childnode>
+        <childnode refid="25257" relation="include">
+        </childnode>
+        <childnode refid="25258" relation="include">
+        </childnode>
+        <childnode refid="25259" relation="include">
+        </childnode>
+        <childnode refid="25261" relation="include">
+        </childnode>
+        <childnode refid="25263" relation="include">
+        </childnode>
+        <childnode refid="25264" relation="include">
+        </childnode>
+        <childnode refid="25269" relation="include">
+        </childnode>
+        <childnode refid="25271" relation="include">
+        </childnode>
+        <childnode refid="25273" relation="include">
+        </childnode>
+        <childnode refid="25275" relation="include">
+        </childnode>
+        <childnode refid="25277" relation="include">
+        </childnode>
+        <childnode refid="25279" relation="include">
+        </childnode>
+        <childnode refid="25281" relation="include">
+        </childnode>
+        <childnode refid="25283" relation="include">
+        </childnode>
+        <childnode refid="25285" relation="include">
+        </childnode>
+        <childnode refid="25287" relation="include">
+        </childnode>
+        <childnode refid="25289" relation="include">
+        </childnode>
+        <childnode refid="25291" relation="include">
+        </childnode>
+        <childnode refid="25292" relation="include">
+        </childnode>
+        <childnode refid="25294" relation="include">
+        </childnode>
+        <childnode refid="25296" relation="include">
+        </childnode>
+        <childnode refid="25298" relation="include">
+        </childnode>
+        <childnode refid="25300" relation="include">
+        </childnode>
+        <childnode refid="25302" relation="include">
+        </childnode>
+        <childnode refid="25303" relation="include">
+        </childnode>
+        <childnode refid="25304" relation="include">
+        </childnode>
+        <childnode refid="25306" relation="include">
+        </childnode>
+        <childnode refid="25267" relation="include">
+        </childnode>
+        <childnode refid="25307" relation="include">
+        </childnode>
+        <childnode refid="25309" relation="include">
+        </childnode>
+        <childnode refid="25242" relation="include">
+        </childnode>
+        <childnode refid="25311" relation="include">
+        </childnode>
+        <childnode refid="25312" relation="include">
+        </childnode>
+        <childnode refid="25314" relation="include">
+        </childnode>
+        <childnode refid="25316" relation="include">
+        </childnode>
+        <childnode refid="25318" relation="include">
+        </childnode>
+        <childnode refid="25320" relation="include">
+        </childnode>
+        <childnode refid="25322" relation="include">
+        </childnode>
+        <childnode refid="25324" relation="include">
+        </childnode>
+        <childnode refid="25326" relation="include">
+        </childnode>
+        <childnode refid="25328" relation="include">
+        </childnode>
+        <childnode refid="25331" relation="include">
+        </childnode>
+        <childnode refid="25333" relation="include">
+        </childnode>
+        <childnode refid="25334" relation="include">
+        </childnode>
+        <childnode refid="25335" relation="include">
+        </childnode>
+        <childnode refid="25337" relation="include">
+        </childnode>
+        <childnode refid="25339" relation="include">
+        </childnode>
+        <childnode refid="25341" relation="include">
+        </childnode>
+        <childnode refid="25243" relation="include">
+        </childnode>
+        <childnode refid="25343" relation="include">
+        </childnode>
+      </node>
+      <node id="25276">
+        <label>src/lib/access/IntersectPositions.cpp</label>
+        <link refid="_intersect_positions_8cpp"/>
+      </node>
+      <node id="25278">
+        <label>src/lib/access/JoinScan.cpp</label>
+        <link refid="lib_2access_2_join_scan_8cpp"/>
+      </node>
+      <node id="25233">
+        <label>src/lib/access/Distinct.cpp</label>
+        <link refid="_distinct_8cpp"/>
+      </node>
+      <node id="25254">
+        <label>src/lib/access/CreateIndex.h</label>
+        <link refid="_create_index_8h"/>
+        <childnode refid="25232" relation="include">
+        </childnode>
+      </node>
+      <node id="25231">
+        <label>src/lib/access/Barrier.cpp</label>
+        <link refid="_barrier_8cpp"/>
+      </node>
+      <node id="25343">
+        <label>src/lib/testing/test.h</label>
+        <link refid="test_8h"/>
+        <childnode refid="25344" relation="include">
+        </childnode>
+      </node>
+      <node id="25315">
+        <label>src/lib/access/SetTable.cpp</label>
+        <link refid="_set_table_8cpp"/>
+      </node>
+      <node id="25232">
+        <label>src/lib/access/CreateIndex.cpp</label>
+        <link refid="_create_index_8cpp"/>
+      </node>
+      <node id="25275">
+        <label>src/lib/access/IntersectPositions.h</label>
+        <link refid="_intersect_positions_8h"/>
+        <childnode refid="25276" relation="include">
+        </childnode>
+      </node>
+      <node id="25279">
+        <label>src/lib/access/Layouter.h</label>
+        <link refid="_layouter_8h"/>
+        <childnode refid="25280" relation="include">
+        </childnode>
+        <childnode refid="25243" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="class_simple_task_scheduler" prot="public">SimpleTaskScheduler</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>2012<sp/>Hasso-Plattner-Institut<sp/>fuer<sp/>Softwaresystemtechnik<sp/>GmbH.<sp/>All<sp/>rights<sp/>reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*<sp/>SimpleTaskScheduler.h</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*<sp/><sp/>Created<sp/>on:<sp/>Feb<sp/>14,<sp/>2012</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>Author:<sp/>jwust</highlight></codeline>
+<codeline lineno="7"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SRC_LIB_TASKSCHEDULER_SIMPLETASKSCHEDULER_H_</highlight></codeline>
+<codeline lineno="10"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SRC_LIB_TASKSCHEDULER_SIMPLETASKSCHEDULER_H_</highlight></codeline>
+<codeline lineno="11"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_abstract_task_scheduler_8h" kindref="compound">taskscheduler/AbstractTaskScheduler.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;unordered_set&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;vector&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;queue&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;mutex&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;log4cxx/logger.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_task_8h" kindref="compound">taskscheduler/Task.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_core_bound_task_queue_8h" kindref="compound">taskscheduler/CoreBoundTaskQueue.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_hwloc_helper_8h" kindref="compound">helper/HwlocHelper.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="23"><highlight class="comment"><sp/>*<sp/>a<sp/>simple<sp/>task<sp/>scheduler<sp/>using<sp/>threadspecific<sp/>run<sp/>queues;</highlight></codeline>
+<codeline lineno="24"><highlight class="comment"><sp/>*<sp/>each<sp/>thread<sp/>is<sp/>pinned<sp/>to<sp/>a<sp/>dedicated<sp/>core;</highlight></codeline>
+<codeline lineno="25"><highlight class="comment"><sp/>*<sp/>tasks<sp/>not<sp/>ready<sp/>for<sp/>execution<sp/>are<sp/>placed<sp/>in<sp/>a<sp/>central<sp/>wait<sp/>set</highlight></codeline>
+<codeline lineno="26"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>TaskQueue&gt;</highlight></codeline>
+<codeline lineno="29" refid="class_simple_task_scheduler" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_simple_task_scheduler" kindref="compound">SimpleTaskScheduler</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="class_abstract_queue_based_task_scheduler" kindref="compound">AbstractQueueBasedTaskScheduler</ref>&lt;TaskQueue&gt;<sp/>{</highlight></codeline>
+<codeline lineno="30" refid="class_simple_task_scheduler_1aec6772e4e1a9f25db6683ebc9ba61145" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/><ref refid="class_task_queue" kindref="compound">AbstractQueueBasedTaskScheduler&lt;TaskQueue&gt;::task_queue_t</ref><sp/><ref refid="class_simple_task_scheduler_1aec6772e4e1a9f25db6683ebc9ba61145" kindref="member">task_queue_t</ref>;</highlight></codeline>
+<codeline lineno="31" refid="class_simple_task_scheduler_1ad765ed1a45ad1cde357ffe4378b664f8" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/><ref refid="class_abstract_queue_based_task_scheduler_1a23634d17af1c513373241b21e1e902b4" kindref="member">AbstractQueueBasedTaskScheduler&lt;TaskQueue&gt;::task_queues_t</ref><sp/><ref refid="class_simple_task_scheduler_1ad765ed1a45ad1cde357ffe4378b664f8" kindref="member">task_queues_t</ref>;</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="34" refid="class_simple_task_scheduler_1a4ea9eaa55697237927800ed4504493c9" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="class_simple_task_scheduler_1a4ea9eaa55697237927800ed4504493c9" kindref="member">SimpleTaskScheduler</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>queues<sp/>=<sp/><ref refid="_hwloc_helper_8cpp_1a5852d7c54d41ff6c71f33e4b89a5f059" kindref="member">getNumberOfCoresOnSystem</ref>()):<sp/><ref refid="class_abstract_queue_based_task_scheduler" kindref="compound">AbstractQueueBasedTaskScheduler</ref>&lt;<ref refid="class_task_queue" kindref="compound">TaskQueue</ref>&gt;()<sp/>{</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>call<sp/>resizeQueues<sp/>here<sp/>and<sp/>not<sp/>in<sp/>AbstractQueueBasedTaskScheduler,<sp/>as<sp/>resizeQueue<sp/>calls<sp/>virtual<sp/>createTaskQueue</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/>this-&gt;<ref refid="class_abstract_queue_based_task_scheduler_1a63d5b6645b741838980b8a860dfc0fa3" kindref="member">resize</ref>(queues);</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39" refid="class_simple_task_scheduler_1a59e6f52fe3103d06721ea3c0bbd632a1" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="class_simple_task_scheduler_1a59e6f52fe3103d06721ea3c0bbd632a1" kindref="member">~SimpleTaskScheduler</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/>std::lock_guard&lt;std::mutex&gt;<sp/>lk2(this-&gt;<ref refid="class_abstract_queue_based_task_scheduler_1a5de31532dbcf8be38f8c7b2879c3dc39" kindref="member">_queuesMutex</ref>);</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_task_queue" kindref="compound">task_queue_t</ref><sp/>*queue;</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>this-&gt;<ref refid="class_abstract_queue_based_task_scheduler_1ad0e0256b8ba6b22e666b503c30ca5b18" kindref="member">_taskQueues</ref>.size();<sp/>++i)<sp/>{</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>queue<sp/>=<sp/><sp/><sp/>this-&gt;<ref refid="class_abstract_queue_based_task_scheduler_1ad0e0256b8ba6b22e666b503c30ca5b18" kindref="member">_taskQueues</ref>[i];</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>queue-&gt;<ref refid="class_task_queue_1a3760fa6b01564a746e7674d2837f8d9d" kindref="member">stopQueue</ref>();</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">delete</highlight><highlight class="normal"><sp/>queue;</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="keyword">protected</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="50" refid="class_simple_task_scheduler_1ad6aa0631839830ebcf133a60e9f6dc9f" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_simple_task_scheduler_1ad6aa0631839830ebcf133a60e9f6dc9f" kindref="member">pushToQueue</ref>(std::shared_ptr&lt;Task&gt;<sp/>task)</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>check<sp/>if<sp/>task<sp/>should<sp/>be<sp/>scheduled<sp/>on<sp/>specific<sp/>core</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>core<sp/>=<sp/>task-&gt;getPreferredCore();</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>lock<sp/>queuesMutex<sp/>to<sp/>manipulate<sp/>queues</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/>std::lock_guard&lt;std::mutex&gt;<sp/>lk2(this-&gt;<ref refid="class_abstract_queue_based_task_scheduler_1a5de31532dbcf8be38f8c7b2879c3dc39" kindref="member">_queuesMutex</ref>);</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(core<sp/>&gt;=<sp/>0<sp/>&amp;&amp;<sp/>core<sp/>&lt;<sp/>static_cast&lt;int&gt;(this-&gt;<ref refid="class_abstract_queue_based_task_scheduler_1a16352024c8e2d06cc6d49ed5aa1fde3f" kindref="member">_queues</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//potentially<sp/>assigns<sp/>task<sp/>to<sp/>a<sp/>queue<sp/>blocked<sp/>by<sp/>long<sp/>running<sp/>task</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>this-&gt;<ref refid="class_abstract_queue_based_task_scheduler_1ad0e0256b8ba6b22e666b503c30ca5b18" kindref="member">_taskQueues</ref>[core]-&gt;push(task);</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>LOG4CXX_DEBUG(this-&gt;<ref refid="class_abstract_queue_based_task_scheduler_1a5b8745c3d84acfa9ea026bdd1727ee60" kindref="member">_logger</ref>,<sp/><sp/></highlight><highlight class="stringliteral">&quot;Task<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>std::hex<sp/>&lt;&lt;<sp/>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)task.get()<sp/>&lt;&lt;<sp/>std::dec<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>pushed<sp/>to<sp/>queue<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>core);</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(core<sp/>==<sp/><ref refid="_task_8h_1a3e04105e127998342e017c1f6608cd28" kindref="member">NO_PREFERRED_CORE</ref><sp/>||<sp/>core<sp/>&gt;=<sp/>static_cast&lt;int&gt;(this-&gt;<ref refid="class_abstract_queue_based_task_scheduler_1a16352024c8e2d06cc6d49ed5aa1fde3f" kindref="member">_queues</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(core<sp/>&lt;<sp/>NO_PREFERRED_CORE<sp/>||<sp/>core<sp/>&gt;=<sp/>static_cast&lt;int&gt;(this-&gt;<ref refid="class_abstract_queue_based_task_scheduler_1a16352024c8e2d06cc6d49ed5aa1fde3f" kindref="member">_queues</ref>))</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Tried<sp/>to<sp/>assign<sp/>task<sp/>to<sp/>core<sp/>which<sp/>is<sp/>not<sp/>assigned<sp/>to<sp/>scheduler;<sp/>assigned<sp/>to<sp/>other<sp/>core,<sp/>log<sp/>warning</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOG4CXX_WARN(this-&gt;<ref refid="class_abstract_queue_based_task_scheduler_1a5b8745c3d84acfa9ea026bdd1727ee60" kindref="member">_logger</ref>,<sp/></highlight><highlight class="stringliteral">&quot;Tried<sp/>to<sp/>assign<sp/>task<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>std::hex<sp/>&lt;&lt;<sp/>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)task.get()<sp/>&lt;&lt;<sp/>std::dec<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>to<sp/>core<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/><ref refid="namespacehyrise_1aec58f00f171c12aa4ef29682158b9fc2" kindref="member">std::to_string</ref>(core)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>which<sp/>is<sp/>not<sp/>assigned<sp/>to<sp/>scheduler;<sp/>assigned<sp/>it<sp/>to<sp/>next<sp/>available<sp/>core&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>simple<sp/>strategy<sp/>to<sp/>avoid<sp/>blocking<sp/>of<sp/>queues;<sp/>check<sp/>if<sp/>queue<sp/>is<sp/>blocked<sp/>-<sp/>try<sp/>a<sp/>couple<sp/>of<sp/>times,<sp/>otherwise<sp/>schedule<sp/>on<sp/>next<sp/>queue</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>retries<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(this-&gt;<ref refid="class_abstract_queue_based_task_scheduler_1ad0e0256b8ba6b22e666b503c30ca5b18" kindref="member">_taskQueues</ref>[this-&gt;<ref refid="class_abstract_queue_based_task_scheduler_1ad00929551b00c72cca437edca9b5b1d5" kindref="member">_nextQueue</ref>]-&gt;blocked()<sp/>&amp;&amp;<sp/>retries<sp/>&lt;<sp/>100)<sp/>{</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>this-&gt;<ref refid="class_abstract_queue_based_task_scheduler_1ad00929551b00c72cca437edca9b5b1d5" kindref="member">_nextQueue</ref><sp/>=<sp/>(this-&gt;<ref refid="class_abstract_queue_based_task_scheduler_1ad00929551b00c72cca437edca9b5b1d5" kindref="member">_nextQueue</ref><sp/>+<sp/>1)<sp/>%<sp/>this-&gt;<ref refid="class_abstract_queue_based_task_scheduler_1a16352024c8e2d06cc6d49ed5aa1fde3f" kindref="member">_queues</ref>;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>++retries;</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>this-&gt;<ref refid="class_abstract_queue_based_task_scheduler_1ad0e0256b8ba6b22e666b503c30ca5b18" kindref="member">_taskQueues</ref>[this-&gt;<ref refid="class_abstract_queue_based_task_scheduler_1ad00929551b00c72cca437edca9b5b1d5" kindref="member">_nextQueue</ref>]-&gt;push(task);</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//std::cout<sp/>&lt;&lt;<sp/>&quot;Task<sp/>&quot;<sp/>&lt;&lt;<sp/><sp/>task-&gt;vname()<sp/>&lt;&lt;<sp/>&quot;;<sp/>hex<sp/>&quot;<sp/>&lt;&lt;<sp/>std::hex<sp/>&lt;&lt;<sp/>&amp;task<sp/>&lt;&lt;<sp/>std::dec<sp/>&lt;&lt;<sp/>&quot;<sp/>pushed<sp/>to<sp/>queue<sp/>&quot;<sp/>&lt;&lt;<sp/>this-&gt;_nextQueue<sp/>&lt;&lt;<sp/>std::endl;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//round<sp/>robin<sp/>on<sp/>cores</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>this-&gt;<ref refid="class_abstract_queue_based_task_scheduler_1ad00929551b00c72cca437edca9b5b1d5" kindref="member">_nextQueue</ref><sp/>=<sp/>(this-&gt;<ref refid="class_abstract_queue_based_task_scheduler_1ad00929551b00c72cca437edca9b5b1d5" kindref="member">_nextQueue</ref><sp/>+<sp/>1)<sp/>%<sp/>this-&gt;<ref refid="class_abstract_queue_based_task_scheduler_1a16352024c8e2d06cc6d49ed5aa1fde3f" kindref="member">_queues</ref>;</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="81" refid="class_simple_task_scheduler_1a7934978603b3aff6103727b1afbfc35f" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_simple_task_scheduler_1a7934978603b3aff6103727b1afbfc35f" kindref="member">stopQueueAndRedistributeTasks</ref>(<ref refid="class_task_queue" kindref="compound">task_queue_t</ref><sp/>*queue,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>queues)<sp/>{</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/>std::queue&lt;std::shared_ptr&lt;Task&gt;<sp/>&gt;<sp/>tmp<sp/>=<sp/>queue-&gt;<ref refid="class_task_queue_1a3760fa6b01564a746e7674d2837f8d9d" kindref="member">stopQueue</ref>();</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//redistribute<sp/>tasks<sp/>to<sp/>other<sp/>queues</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(tmp.size()<sp/>&gt;<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>tmp_size<sp/>=<sp/>tmp.size();</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>tmp_size;<sp/>++i)<sp/>{</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>set<sp/>preferred<sp/>core<sp/>to<sp/>&quot;NO_PREFERRED_CORE&quot;<sp/>(as<sp/>queue<sp/>with<sp/>preferred<sp/>core<sp/>does<sp/>not<sp/>exist<sp/>anymore<sp/>/<sp/>is<sp/>used<sp/>for<sp/>other<sp/>class<sp/>of<sp/>tasks)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>tmp.front()-&gt;setPreferredCore(<ref refid="_task_8h_1a3e04105e127998342e017c1f6608cd28" kindref="member">NO_PREFERRED_CORE</ref>);</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_simple_task_scheduler_1ad6aa0631839830ebcf133a60e9f6dc9f" kindref="member">pushToQueue</ref>(tmp.front());</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>tmp.pop();</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="95" refid="class_simple_task_scheduler_1aadf65f18eaa5f48f54a7f1992de9ea62" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="class_task_queue" kindref="compound">task_queue_t</ref><sp/>*<ref refid="class_simple_task_scheduler_1aadf65f18eaa5f48f54a7f1992de9ea62" kindref="member">createTaskQueue</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>core)<sp/>{</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/><ref refid="class_core_bound_task_queue" kindref="compound">CoreBoundTaskQueue</ref>(core);</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="98"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/>//<sp/>SRC_LIB_TASKSCHEDULER_SIMPLETASKSCHEDULER_H_</highlight></codeline>
+    </programlisting>
+    <location file="/home/grund/hyrise/src/lib/taskscheduler/SimpleTaskScheduler.h"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,160 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Getting Started &mdash; HYRISE latest documentation</title>
+    
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/breathe.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     'latest',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="HYRISE latest documentation" href="index.html" />
+    <link rel="next" title="Installing Hyrise" href="gettingstarted/installing_hyrise.html" />
+    <link rel="prev" title="Welcome to HYRISE’s documentation!" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="gettingstarted/installing_hyrise.html" title="Installing Hyrise"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to HYRISE’s documentation!"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">HYRISE latest documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/hyrise.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gettingstarted/installing_hyrise.html">Installing Hyrise</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gettingstarted/tutorial_mysql_load.html">Loading from MySQL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gettingstarted/tutorial_querying.html">JSON Queries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gettingstarted/tutorial_write_ops.html">Writing your own PlanOperation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">Implementation Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="query_execution.html">HYRISE Query Execution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developing.html">Developing with HYRISE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">HYRISE &amp; Development FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="proposals.html">Proposals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="doxygen.html">Doxygen Documentation</a></li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Welcome to HYRISE&#8217;s documentation!</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="gettingstarted/installing_hyrise.html"
+                        title="next chapter">Installing Hyrise</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/getting_started.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="getting-started">
+<h1>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="gettingstarted/installing_hyrise.html">Installing Hyrise</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gettingstarted/installing_hyrise.html#linux-ubuntu-initial-setup">Linux(Ubuntu) - Initial Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gettingstarted/installing_hyrise.html#linux-ubuntu-installation">Linux(Ubuntu) - Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gettingstarted/installing_hyrise.html#build-the-project">Build the project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gettingstarted/installing_hyrise.html#first-steps">First steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="gettingstarted/tutorial_mysql_load.html">Loading from MySQL</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gettingstarted/tutorial_mysql_load.html#loading-csv-into-mysql">Loading CSV into MySQL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gettingstarted/tutorial_mysql_load.html#loading-data-from-mysql-dbs">Loading Data from MySQL-DBs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="gettingstarted/tutorial_querying.html">JSON Queries</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gettingstarted/tutorial_querying.html#json-query-execution">JSON Query Execution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gettingstarted/tutorial_querying.html#details">Details</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gettingstarted/tutorial_querying.html#parameters">Parameters</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="gettingstarted/tutorial_write_ops.html">Writing your own PlanOperation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gettingstarted/tutorial_write_ops.html#specifiy-a-name-for-your-new-plan-operation-using">1. Specifiy a name for your new Plan Operation using:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gettingstarted/tutorial_write_ops.html#parse-json-input">2. Parse JSON input:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gettingstarted/tutorial_write_ops.html#implement-your-plan-operation">3. Implement your Plan Operation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gettingstarted/tutorial_write_ops.html#testing-your-own-plan-operation">4. Testing your own Plan Operation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="gettingstarted/installing_hyrise.html" title="Installing Hyrise"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to HYRISE’s documentation!"
+             >previous</a> |</li>
+        <li><a href="index.html">HYRISE latest documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010-2013, Martin Grund et al.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+  </body>
+</html>

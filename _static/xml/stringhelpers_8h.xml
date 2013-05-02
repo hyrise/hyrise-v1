@@ -1,0 +1,271 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="stringhelpers_8h" kind="file">
+    <compoundname>stringhelpers.h</compoundname>
+    <includes local="no">string</includes>
+    <includes local="no">sstream</includes>
+    <includedby refid="_layout_table_load_8cpp" local="yes">src/lib/access/LayoutTableLoad.cpp</includedby>
+    <includedby refid="_papi_tracer_8h" local="yes">src/lib/helper/PapiTracer.h</includedby>
+    <includedby refid="_metadata_creation_8cpp" local="yes">src/lib/io/MetadataCreation.cpp</includedby>
+    <includedby refid="_storage_manager_8cpp" local="yes">src/lib/io/StorageManager.cpp</includedby>
+    <includedby refid="_table_dump_8cpp" local="yes">src/lib/io/TableDump.cpp</includedby>
+    <includedby refid="test_8h" local="yes">src/lib/testing/test.h</includedby>
+    <incdepgraph>
+      <node id="14079">
+        <label>string</label>
+      </node>
+      <node id="14078">
+        <label>src/lib/helper/stringhelpers.h</label>
+        <link refid="stringhelpers.h"/>
+        <childnode refid="14079" relation="include">
+        </childnode>
+        <childnode refid="14080" relation="include">
+        </childnode>
+      </node>
+      <node id="14080">
+        <label>sstream</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="14082">
+        <label>src/lib/access/LayoutTableLoad.cpp</label>
+        <link refid="_layout_table_load_8cpp"/>
+      </node>
+      <node id="14083">
+        <label>src/lib/helper/PapiTracer.h</label>
+        <link refid="_papi_tracer_8h"/>
+        <childnode refid="14084" relation="include">
+        </childnode>
+        <childnode refid="14085" relation="include">
+        </childnode>
+        <childnode refid="14086" relation="include">
+        </childnode>
+        <childnode refid="14087" relation="include">
+        </childnode>
+        <childnode refid="14088" relation="include">
+        </childnode>
+      </node>
+      <node id="14085">
+        <label>src/lib/access/PlanOperation.cpp</label>
+        <link refid="_plan_operation_8cpp"/>
+      </node>
+      <node id="14091">
+        <label>src/lib/io/TableDump.cpp</label>
+        <link refid="_table_dump_8cpp"/>
+      </node>
+      <node id="14087">
+        <label>src/lib/access/ResponseTask.cpp</label>
+        <link refid="_response_task_8cpp"/>
+      </node>
+      <node id="14084">
+        <label>src/bin/perf_regression/main.cpp</label>
+        <link refid="bin_2perf__regression_2main_8cpp"/>
+      </node>
+      <node id="14093">
+        <label>src/lib/testing/test.cpp</label>
+        <link refid="test_8cpp"/>
+      </node>
+      <node id="14081">
+        <label>src/lib/helper/stringhelpers.h</label>
+        <link refid="stringhelpers.h"/>
+        <childnode refid="14082" relation="include">
+        </childnode>
+        <childnode refid="14083" relation="include">
+        </childnode>
+        <childnode refid="14089" relation="include">
+        </childnode>
+        <childnode refid="14090" relation="include">
+        </childnode>
+        <childnode refid="14091" relation="include">
+        </childnode>
+        <childnode refid="14092" relation="include">
+        </childnode>
+      </node>
+      <node id="14089">
+        <label>src/lib/io/MetadataCreation.cpp</label>
+        <link refid="_metadata_creation_8cpp"/>
+      </node>
+      <node id="14088">
+        <label>src/lib/storage/TableGenerator.cpp</label>
+        <link refid="_table_generator_8cpp"/>
+      </node>
+      <node id="14086">
+        <label>src/lib/access/RequestParseTask.cpp</label>
+        <link refid="_request_parse_task_8cpp"/>
+      </node>
+      <node id="14090">
+        <label>src/lib/io/StorageManager.cpp</label>
+        <link refid="_storage_manager_8cpp"/>
+      </node>
+      <node id="14092">
+        <label>src/lib/testing/test.h</label>
+        <link refid="test_8h"/>
+        <childnode refid="14093" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structinfix" prot="public">infix</innerclass>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="stringhelpers_8h_1a38765cc441834ea6118807d8b090d13e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void splitString</definition>
+        <argsstring>(std::vector&lt; std::string &gt; &amp;result, const std::string &amp;s, const std::string &amp;delim)</argsstring>
+        <name>splitString</name>
+        <param>
+          <type>std::vector&lt; std::string &gt; &amp;</type>
+          <declname>result</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>s</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>delim</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/stringhelpers.h" line="10" bodyfile="/home/grund/hyrise/src/lib/helper/stringhelpers.h" bodystart="8" bodyend="18"/>
+      </memberdef>
+      <memberdef kind="function" id="stringhelpers_8h_1ac157d6fa7e46b5a15c5de4643541d9f2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+        </templateparamlist>
+        <type>std::string</type>
+        <definition>std::string toString</definition>
+        <argsstring>(T s)</argsstring>
+        <name>toString</name>
+        <param>
+          <type>T</type>
+          <declname>s</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/stringhelpers.h" line="21" bodyfile="/home/grund/hyrise/src/lib/helper/stringhelpers.h" bodystart="21" bodyend="25"/>
+      </memberdef>
+      <memberdef kind="function" id="stringhelpers_8h_1a9d6658fdfba931db8a145b18f63c89a3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+        </templateparamlist>
+        <type>std::string</type>
+        <definition>std::string joinString</definition>
+        <argsstring>(const std::vector&lt; T &gt; &amp;items, std::string connector)</argsstring>
+        <name>joinString</name>
+        <param>
+          <type>const std::vector&lt; T &gt; &amp;</type>
+          <declname>items</declname>
+        </param>
+        <param>
+          <type>std::string</type>
+          <declname>connector</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/stringhelpers.h" line="28" bodyfile="/home/grund/hyrise/src/lib/helper/stringhelpers.h" bodystart="28" bodyend="35"/>
+      </memberdef>
+      <memberdef kind="function" id="stringhelpers_8h_1af0ca4397d0d889677dabfa552bc9c18d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+        </templateparamlist>
+        <type>T</type>
+        <definition>T fromString</definition>
+        <argsstring>(const std::string &amp;s)</argsstring>
+        <name>fromString</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>s</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/stringhelpers.h" line="38" bodyfile="/home/grund/hyrise/src/lib/helper/stringhelpers.h" bodystart="38" bodyend="43"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>2012<sp/>Hasso-Plattner-Institut<sp/>fuer<sp/>Softwaresystemtechnik<sp/>GmbH.<sp/>All<sp/>rights<sp/>reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SRC_LIB_HELPER_STRINGHELPERS_H_</highlight></codeline>
+<codeline lineno="3"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SRC_LIB_HELPER_STRINGHELPERS_H_</highlight></codeline>
+<codeline lineno="4"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;sstream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8" refid="stringhelpers_8h_1a38765cc441834ea6118807d8b090d13e" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/><ref refid="stringhelpers_8h_1a38765cc441834ea6118807d8b090d13e" kindref="member">splitString</ref>(std::vector&lt;std::string&gt;<sp/>&amp;result,</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;s,</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;delim)<sp/>{</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"><sp/><sp/>std::stringstream<sp/>ss(s);</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/>std::string<sp/>item;</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>cdelim<sp/>=<sp/>delim[0];</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(std::getline(ss,<sp/>item,<sp/>cdelim))<sp/>{</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/>result.push_back(item);</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="18"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
+<codeline lineno="21" refid="stringhelpers_8h_1ac157d6fa7e46b5a15c5de4643541d9f2" refkind="member"><highlight class="normal">std::string<sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/><ref refid="stringhelpers_8h_1ac157d6fa7e46b5a15c5de4643541d9f2" kindref="member">toString</ref>(T<sp/>s)<sp/>{</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/>std::stringstream<sp/>sstm;</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/>sstm<sp/>&lt;&lt;<sp/>s;</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>sstm.str();</highlight></codeline>
+<codeline lineno="25"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
+<codeline lineno="28" refid="stringhelpers_8h_1a9d6658fdfba931db8a145b18f63c89a3" refkind="member"><highlight class="normal">std::string<sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/><ref refid="stringhelpers_8h_1a9d6658fdfba931db8a145b18f63c89a3" kindref="member">joinString</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;T&gt;<sp/>&amp;<ref refid="datagen_8cpp_1a091227407e0004ba45a613289c1fc68d" kindref="member">items</ref>,<sp/>std::string<sp/>connector)<sp/>{</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/>std::stringstream<sp/>ss;</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>items.size();<sp/>++i)<sp/>{</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(i<sp/>!=<sp/>0)<sp/>ss<sp/>&lt;&lt;<sp/>connector;</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/>ss<sp/>&lt;&lt;<sp/><ref refid="stringhelpers_8h_1ac157d6fa7e46b5a15c5de4643541d9f2" kindref="member">toString</ref>(items[i]);</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>ss.str();</highlight></codeline>
+<codeline lineno="35"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
+<codeline lineno="38" refid="stringhelpers_8h_1af0ca4397d0d889677dabfa552bc9c18d" refkind="member"><highlight class="normal">T<sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/><ref refid="stringhelpers_8h_1af0ca4397d0d889677dabfa552bc9c18d" kindref="member">fromString</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;s)<sp/>{</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/>std::istringstream<sp/>stream(s);</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/>T<sp/>t;</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/>stream<sp/>&gt;&gt;<sp/>t;</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>t;</highlight></codeline>
+<codeline lineno="43"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45" refid="structinfix" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structinfix" kindref="compound">infix</ref><sp/>{</highlight></codeline>
+<codeline lineno="46" refid="structinfix_1aa17f9cd09b44e7e59edaa98fbb5f0034" refkind="member"><highlight class="normal"><sp/><sp/>std::string<sp/><ref refid="structinfix_1aa17f9cd09b44e7e59edaa98fbb5f0034" kindref="member">sep</ref>;</highlight></codeline>
+<codeline lineno="47" refid="structinfix_1a4ff40993d9b9f3370676c78b84d9c754" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="structinfix_1a4ff40993d9b9f3370676c78b84d9c754" kindref="member">infix</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/><ref refid="structinfix_1aa17f9cd09b44e7e59edaa98fbb5f0034" kindref="member">sep</ref>)<sp/>:<sp/>sep(sep)<sp/>{}</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49" refid="structinfix_1a27bb6c7f026d5020f8ece71f2160c239" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>std::string<sp/><ref refid="structinfix_1a27bb6c7f026d5020f8ece71f2160c239" kindref="member">operator()</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>lhs,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>rhs)<sp/>{</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/>rz(lhs);</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(!lhs.empty()<sp/>&amp;&amp;<sp/>!rhs.empty())</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>rz<sp/>+=<sp/><ref refid="structinfix_1aa17f9cd09b44e7e59edaa98fbb5f0034" kindref="member">sep</ref>;</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/>rz<sp/>+=<sp/>rhs;</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>rz;</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="56"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/>//<sp/>SRC_LIB_HELPER_STRINGHELPERS_H_</highlight></codeline>
+    </programlisting>
+    <location file="/home/grund/hyrise/src/lib/helper/stringhelpers.h"/>
+  </compounddef>
+</doxygen>

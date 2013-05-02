@@ -1,0 +1,545 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="class_config_file" kind="class" prot="public">
+    <compoundname>ConfigFile</compoundname>
+    <includes refid="_config_file_8h" local="no">ConfigFile.h</includes>
+    <innerclass refid="struct_config_file_1_1file__not__found" prot="public">ConfigFile::file_not_found</innerclass>
+    <innerclass refid="struct_config_file_1_1key__not__found" prot="public">ConfigFile::key_not_found</innerclass>
+      <sectiondef kind="protected-type">
+      <memberdef kind="typedef" id="class_config_file_1afefba14908e29d87fface0d4fb9ebe02" prot="protected" static="no">
+        <type>std::map&lt; std::string, std::string &gt;::iterator</type>
+        <definition>typedef std::map&lt;std::string, std::string&gt;::iterator ConfigFile::mapi</definition>
+        <argsstring></argsstring>
+        <name>mapi</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/ConfigFile.h" line="63" bodyfile="/home/grund/hyrise/src/lib/helper/ConfigFile.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="class_config_file_1a6b3721290af4615221a2b316cd61f736" prot="protected" static="no">
+        <type>std::map&lt; std::string, std::string &gt;::const_iterator</type>
+        <definition>typedef std::map&lt;std::string, std::string&gt;::const_iterator ConfigFile::mapci</definition>
+        <argsstring></argsstring>
+        <name>mapci</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/ConfigFile.h" line="64" bodyfile="/home/grund/hyrise/src/lib/helper/ConfigFile.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="class_config_file_1aeb72a2ec8d7ccb6972282da647a997dd" prot="protected" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string ConfigFile::myDelimiter</definition>
+        <argsstring></argsstring>
+        <name>myDelimiter</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/ConfigFile.h" line="58" bodyfile="/home/grund/hyrise/src/lib/helper/ConfigFile.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_config_file_1ae0b972b31567ef5d4b6c2af3fadd3cde" prot="protected" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string ConfigFile::myComment</definition>
+        <argsstring></argsstring>
+        <name>myComment</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/ConfigFile.h" line="59" bodyfile="/home/grund/hyrise/src/lib/helper/ConfigFile.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_config_file_1a3863157de510c8470c2e118d7252959b" prot="protected" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string ConfigFile::mySentry</definition>
+        <argsstring></argsstring>
+        <name>mySentry</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/ConfigFile.h" line="60" bodyfile="/home/grund/hyrise/src/lib/helper/ConfigFile.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_config_file_1aaa87b38d9c6995c7ea3dc2076c8d6a6b" prot="protected" static="no" mutable="no">
+        <type>std::map&lt; std::string, std::string &gt;</type>
+        <definition>std::map&lt;std::string, std::string&gt; ConfigFile::myContents</definition>
+        <argsstring></argsstring>
+        <name>myContents</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/ConfigFile.h" line="61" bodyfile="/home/grund/hyrise/src/lib/helper/ConfigFile.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_config_file_1a4c6fed1d38b1a4cb166b6eb9a5bdb6f0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ConfigFile::ConfigFile</definition>
+        <argsstring>(std::string filename, std::string delimiter=&quot;=&quot;, std::string comment=&quot;#&quot;, std::string sentry=&quot;EndConfigFile&quot;)</argsstring>
+        <name>ConfigFile</name>
+        <param>
+          <type>std::string</type>
+          <declname>filename</declname>
+        </param>
+        <param>
+          <type>std::string</type>
+          <declname>delimiter</declname>
+          <defval>&quot;=&quot;</defval>
+        </param>
+        <param>
+          <type>std::string</type>
+          <declname>comment</declname>
+          <defval>&quot;#&quot;</defval>
+        </param>
+        <param>
+          <type>std::string</type>
+          <declname>sentry</declname>
+          <defval>&quot;EndConfigFile&quot;</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/ConfigFile.h" line="71" bodyfile="/home/grund/hyrise/src/lib/helper/ConfigFile.cpp" bodystart="8" bodyend="20"/>
+      </memberdef>
+      <memberdef kind="function" id="class_config_file_1a9ce259defdfaabeedb2455849ca6bd1e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ConfigFile::ConfigFile</definition>
+        <argsstring>()</argsstring>
+        <name>ConfigFile</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/ConfigFile.h" line="72" bodyfile="/home/grund/hyrise/src/lib/helper/ConfigFile.cpp" bodystart="23" bodyend="26"/>
+      </memberdef>
+      <memberdef kind="function" id="class_config_file_1a35c40aab7967e537893ea10c7b6ccdec" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+        </templateparamlist>
+        <type>T</type>
+        <definition>T ConfigFile::read</definition>
+        <argsstring>(const std::string &amp;key) const </argsstring>
+        <name>read</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>key</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/ConfigFile.h" line="76" bodyfile="/home/grund/hyrise/src/lib/helper/ConfigFile.h" bodystart="191" bodyend="200"/>
+      </memberdef>
+      <memberdef kind="function" id="class_config_file_1a0a14ab22462787b23196cce979a3a69f" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+        </templateparamlist>
+        <type>T</type>
+        <definition>T ConfigFile::read</definition>
+        <argsstring>(const std::string &amp;key, const T &amp;value) const </argsstring>
+        <name>read</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>key</declname>
+        </param>
+        <param>
+          <type>const T &amp;</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/ConfigFile.h" line="77" bodyfile="/home/grund/hyrise/src/lib/helper/ConfigFile.h" bodystart="204" bodyend="214"/>
+      </memberdef>
+      <memberdef kind="function" id="class_config_file_1ae4d36a3d103938c05966025d968c2d83" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+        </templateparamlist>
+        <type>bool</type>
+        <definition>bool ConfigFile::readInto</definition>
+        <argsstring>(T &amp;var, const std::string &amp;key) const </argsstring>
+        <name>readInto</name>
+        <param>
+          <type>T &amp;</type>
+          <declname>var</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>key</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/ConfigFile.h" line="78" bodyfile="/home/grund/hyrise/src/lib/helper/ConfigFile.h" bodystart="218" bodyend="230"/>
+      </memberdef>
+      <memberdef kind="function" id="class_config_file_1ad9e7f979b7f2b49dce71343aa278dfcd" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+        </templateparamlist>
+        <type>bool</type>
+        <definition>bool ConfigFile::readInto</definition>
+        <argsstring>(T &amp;var, const std::string &amp;key, const T &amp;value) const </argsstring>
+        <name>readInto</name>
+        <param>
+          <type>T &amp;</type>
+          <declname>var</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>key</declname>
+        </param>
+        <param>
+          <type>const T &amp;</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/ConfigFile.h" line="80" bodyfile="/home/grund/hyrise/src/lib/helper/ConfigFile.h" bodystart="234" bodyend="248"/>
+      </memberdef>
+      <memberdef kind="function" id="class_config_file_1a1430f2ca412e2d1993656d462e126bb4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void ConfigFile::add</definition>
+        <argsstring>(std::string key, const T &amp;value)</argsstring>
+        <name>add</name>
+        <param>
+          <type>std::string</type>
+          <declname>key</declname>
+        </param>
+        <param>
+          <type>const T &amp;</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/ConfigFile.h" line="83" bodyfile="/home/grund/hyrise/src/lib/helper/ConfigFile.h" bodystart="252" bodyend="259"/>
+      </memberdef>
+      <memberdef kind="function" id="class_config_file_1a8973315492100aaf2a3ec84c2d4af2c1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ConfigFile::remove</definition>
+        <argsstring>(const std::string &amp;key)</argsstring>
+        <name>remove</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>key</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/ConfigFile.h" line="84" bodyfile="/home/grund/hyrise/src/lib/helper/ConfigFile.cpp" bodystart="29" bodyend="33"/>
+      </memberdef>
+      <memberdef kind="function" id="class_config_file_1a42a7166e347c027eb34191572d1dd515" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool ConfigFile::keyExists</definition>
+        <argsstring>(const std::string &amp;key) const </argsstring>
+        <name>keyExists</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>key</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/ConfigFile.h" line="87" bodyfile="/home/grund/hyrise/src/lib/helper/ConfigFile.cpp" bodystart="36" bodyend="40"/>
+      </memberdef>
+      <memberdef kind="function" id="class_config_file_1ac632dacf1e6cf9d7f534fdf1fb706bce" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string ConfigFile::getDelimiter</definition>
+        <argsstring>() const </argsstring>
+        <name>getDelimiter</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/ConfigFile.h" line="90" bodyfile="/home/grund/hyrise/src/lib/helper/ConfigFile.h" bodystart="90" bodyend="92"/>
+      </memberdef>
+      <memberdef kind="function" id="class_config_file_1a41a0bc05664c2845150a20528e6fa903" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string ConfigFile::getComment</definition>
+        <argsstring>() const </argsstring>
+        <name>getComment</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/ConfigFile.h" line="93" bodyfile="/home/grund/hyrise/src/lib/helper/ConfigFile.h" bodystart="93" bodyend="95"/>
+      </memberdef>
+      <memberdef kind="function" id="class_config_file_1a67a802d117297ca1527f34488a67c2cf" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string ConfigFile::getSentry</definition>
+        <argsstring>() const </argsstring>
+        <name>getSentry</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/ConfigFile.h" line="96" bodyfile="/home/grund/hyrise/src/lib/helper/ConfigFile.h" bodystart="96" bodyend="98"/>
+      </memberdef>
+      <memberdef kind="function" id="class_config_file_1ae12b42f3525af6c3f92a090d5c3da7ee" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string ConfigFile::setDelimiter</definition>
+        <argsstring>(const std::string &amp;s)</argsstring>
+        <name>setDelimiter</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>s</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/ConfigFile.h" line="99" bodyfile="/home/grund/hyrise/src/lib/helper/ConfigFile.h" bodystart="99" bodyend="103"/>
+      </memberdef>
+      <memberdef kind="function" id="class_config_file_1a872a8493aab3e567a1d2e70db8b1a4bb" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string ConfigFile::setComment</definition>
+        <argsstring>(const std::string &amp;s)</argsstring>
+        <name>setComment</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>s</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/ConfigFile.h" line="104" bodyfile="/home/grund/hyrise/src/lib/helper/ConfigFile.h" bodystart="104" bodyend="108"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="class_config_file_1af51bd60972759d10ca3a5628ee4d7719" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string ConfigFile::getExecutable</definition>
+        <argsstring>(std::string, std::string=&quot;config.cfg&quot;)</argsstring>
+        <name>getExecutable</name>
+        <param>
+          <type>std::string</type>
+          <defname>key</defname>
+        </param>
+        <param>
+          <type>std::string</type>
+          <defname>fileName</defname>
+          <defval>&quot;config.cfg&quot;</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/ConfigFile.h" line="73" bodyfile="/home/grund/hyrise/src/lib/helper/ConfigFile.cpp" bodystart="51" bodyend="64"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="friend">
+      <memberdef kind="friend" id="class_config_file_1a8ccacbc37db1992a5515e2c72fc83ce6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>friend std::ostream &amp;</type>
+        <definition>std::ostream&amp; operator&lt;&lt;</definition>
+        <argsstring>(std::ostream &amp;os, const ConfigFile &amp;cf)</argsstring>
+        <name>operator&lt;&lt;</name>
+        <param>
+          <type>std::ostream &amp;</type>
+          <declname>os</declname>
+        </param>
+        <param>
+          <type>const <ref refid="class_config_file" kindref="compound">ConfigFile</ref> &amp;</type>
+          <declname>cf</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/ConfigFile.h" line="111" bodyfile="/home/grund/hyrise/src/lib/helper/ConfigFile.cpp" bodystart="66" bodyend="76"/>
+      </memberdef>
+      <memberdef kind="friend" id="class_config_file_1a25042475439039e70f90febe7d0e63ec" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>friend std::istream &amp;</type>
+        <definition>std::istream&amp; operator&gt;&gt;</definition>
+        <argsstring>(std::istream &amp;is, ConfigFile &amp;cf)</argsstring>
+        <name>operator&gt;&gt;</name>
+        <param>
+          <type>std::istream &amp;</type>
+          <declname>is</declname>
+        </param>
+        <param>
+          <type><ref refid="class_config_file" kindref="compound">ConfigFile</ref> &amp;</type>
+          <declname>cf</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/ConfigFile.h" line="112" bodyfile="/home/grund/hyrise/src/lib/helper/ConfigFile.cpp" bodystart="79" bodyend="162"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-static-func">
+      <memberdef kind="function" id="class_config_file_1ab7defa329497140458a88cbf29ddc0bd" prot="protected" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+        </templateparamlist>
+        <type>std::string</type>
+        <definition>std::string ConfigFile::T_as_string</definition>
+        <argsstring>(const T &amp;t)</argsstring>
+        <name>T_as_string</name>
+        <param>
+          <type>const T &amp;</type>
+          <declname>t</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/ConfigFile.h" line="115" bodyfile="/home/grund/hyrise/src/lib/helper/ConfigFile.h" bodystart="137" bodyend="143"/>
+      </memberdef>
+      <memberdef kind="function" id="class_config_file_1a010bc8d405bf113c216fd126eddfe7a6" prot="protected" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+        </templateparamlist>
+        <type>T</type>
+        <definition>bool ConfigFile::string_as_T&lt; bool &gt;</definition>
+        <argsstring>(const std::string &amp;s)</argsstring>
+        <name>string_as_T</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>s</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/ConfigFile.h" line="116" bodyfile="/home/grund/hyrise/src/lib/helper/ConfigFile.h" bodystart="148" bodyend="155"/>
+      </memberdef>
+      <memberdef kind="function" id="class_config_file_1ad03cd7e9641490c0caa673b725391b28" prot="protected" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ConfigFile::trim</definition>
+        <argsstring>(std::string &amp;s)</argsstring>
+        <name>trim</name>
+        <param>
+          <type>std::string &amp;</type>
+          <declname>s</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/ConfigFile.h" line="117" bodyfile="/home/grund/hyrise/src/lib/helper/ConfigFile.cpp" bodystart="44" bodyend="49"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1647">
+        <label>ConfigFile</label>
+        <link refid="class_config_file"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/helper/ConfigFile.h" line="55" bodyfile="/home/grund/hyrise/src/lib/helper/ConfigFile.h" bodystart="55" bodyend="132"/>
+    <listofallmembers>
+      <member refid="class_config_file_1a1430f2ca412e2d1993656d462e126bb4" prot="public" virt="non-virtual"><scope>ConfigFile</scope><name>add</name></member>
+      <member refid="class_config_file_1a4c6fed1d38b1a4cb166b6eb9a5bdb6f0" prot="public" virt="non-virtual"><scope>ConfigFile</scope><name>ConfigFile</name></member>
+      <member refid="class_config_file_1a9ce259defdfaabeedb2455849ca6bd1e" prot="public" virt="non-virtual"><scope>ConfigFile</scope><name>ConfigFile</name></member>
+      <member refid="class_config_file_1a41a0bc05664c2845150a20528e6fa903" prot="public" virt="non-virtual"><scope>ConfigFile</scope><name>getComment</name></member>
+      <member refid="class_config_file_1ac632dacf1e6cf9d7f534fdf1fb706bce" prot="public" virt="non-virtual"><scope>ConfigFile</scope><name>getDelimiter</name></member>
+      <member refid="class_config_file_1af51bd60972759d10ca3a5628ee4d7719" prot="public" virt="non-virtual"><scope>ConfigFile</scope><name>getExecutable</name></member>
+      <member refid="class_config_file_1a67a802d117297ca1527f34488a67c2cf" prot="public" virt="non-virtual"><scope>ConfigFile</scope><name>getSentry</name></member>
+      <member refid="class_config_file_1a42a7166e347c027eb34191572d1dd515" prot="public" virt="non-virtual"><scope>ConfigFile</scope><name>keyExists</name></member>
+      <member refid="class_config_file_1a6b3721290af4615221a2b316cd61f736" prot="protected" virt="non-virtual"><scope>ConfigFile</scope><name>mapci</name></member>
+      <member refid="class_config_file_1afefba14908e29d87fface0d4fb9ebe02" prot="protected" virt="non-virtual"><scope>ConfigFile</scope><name>mapi</name></member>
+      <member refid="class_config_file_1ae0b972b31567ef5d4b6c2af3fadd3cde" prot="protected" virt="non-virtual"><scope>ConfigFile</scope><name>myComment</name></member>
+      <member refid="class_config_file_1aaa87b38d9c6995c7ea3dc2076c8d6a6b" prot="protected" virt="non-virtual"><scope>ConfigFile</scope><name>myContents</name></member>
+      <member refid="class_config_file_1aeb72a2ec8d7ccb6972282da647a997dd" prot="protected" virt="non-virtual"><scope>ConfigFile</scope><name>myDelimiter</name></member>
+      <member refid="class_config_file_1a3863157de510c8470c2e118d7252959b" prot="protected" virt="non-virtual"><scope>ConfigFile</scope><name>mySentry</name></member>
+      <member refid="class_config_file_1a8ccacbc37db1992a5515e2c72fc83ce6" prot="public" virt="non-virtual"><scope>ConfigFile</scope><name>operator&lt;&lt;</name></member>
+      <member refid="class_config_file_1a25042475439039e70f90febe7d0e63ec" prot="public" virt="non-virtual"><scope>ConfigFile</scope><name>operator&gt;&gt;</name></member>
+      <member refid="class_config_file_1a35c40aab7967e537893ea10c7b6ccdec" prot="public" virt="non-virtual"><scope>ConfigFile</scope><name>read</name></member>
+      <member refid="class_config_file_1a0a14ab22462787b23196cce979a3a69f" prot="public" virt="non-virtual"><scope>ConfigFile</scope><name>read</name></member>
+      <member refid="class_config_file_1ae4d36a3d103938c05966025d968c2d83" prot="public" virt="non-virtual"><scope>ConfigFile</scope><name>readInto</name></member>
+      <member refid="class_config_file_1ad9e7f979b7f2b49dce71343aa278dfcd" prot="public" virt="non-virtual"><scope>ConfigFile</scope><name>readInto</name></member>
+      <member refid="class_config_file_1a8973315492100aaf2a3ec84c2d4af2c1" prot="public" virt="non-virtual"><scope>ConfigFile</scope><name>remove</name></member>
+      <member refid="class_config_file_1a872a8493aab3e567a1d2e70db8b1a4bb" prot="public" virt="non-virtual"><scope>ConfigFile</scope><name>setComment</name></member>
+      <member refid="class_config_file_1ae12b42f3525af6c3f92a090d5c3da7ee" prot="public" virt="non-virtual"><scope>ConfigFile</scope><name>setDelimiter</name></member>
+      <member refid="class_config_file_1a010bc8d405bf113c216fd126eddfe7a6" prot="protected" virt="non-virtual"><scope>ConfigFile</scope><name>string_as_T</name></member>
+      <member refid="class_config_file_1ab7defa329497140458a88cbf29ddc0bd" prot="protected" virt="non-virtual"><scope>ConfigFile</scope><name>T_as_string</name></member>
+      <member refid="class_config_file_1ad03cd7e9641490c0caa673b725391b28" prot="protected" virt="non-virtual"><scope>ConfigFile</scope><name>trim</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

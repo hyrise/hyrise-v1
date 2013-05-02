@@ -1,0 +1,271 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="class_table_diff" kind="class" prot="public">
+    <compoundname>TableDiff</compoundname>
+    <includes refid="_table_diff_8h" local="no">TableDiff.h</includes>
+      <sectiondef kind="public-type">
+      <memberdef kind="enum" id="class_table_diff_1afb3c1ba4da3387f3441a2baad8ca6a4f" prot="public" static="no">
+        <name>RelationEqType</name>
+        <enumvalue id="class_table_diff_1afb3c1ba4da3387f3441a2baad8ca6a4fa4a016008eb4c31a3a8c647851403f4de" prot="public">
+          <name>RelationEq</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_table_diff_1afb3c1ba4da3387f3441a2baad8ca6a4fa69fdf704e360dac18621929ec9b0931d" prot="public">
+          <name>RelationEqSorted</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableDiff.h" line="16" bodyfile="/home/grund/hyrise/src/lib/storage/TableDiff.h" bodystart="16" bodyend="16"/>
+      </memberdef>
+      <memberdef kind="enum" id="class_table_diff_1a9d12bc57dc56ca5498e945912afb1879" prot="public" static="no">
+        <name>FieldCorrectness</name>
+        <enumvalue id="class_table_diff_1a9d12bc57dc56ca5498e945912afb1879ae9cfc8f658090daf11e84f27bac57879" prot="public">
+          <name>FieldCorrect</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_table_diff_1a9d12bc57dc56ca5498e945912afb1879a18bfca2f3d97c9d43380a85a7bf498eb" prot="public">
+          <name>FieldWrongType</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_table_diff_1a9d12bc57dc56ca5498e945912afb1879a99322223dea5df7571561dc3f63b2dee" prot="public">
+          <name>FieldWrong</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableDiff.h" line="17" bodyfile="/home/grund/hyrise/src/lib/storage/TableDiff.h" bodystart="17" bodyend="17"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="class_table_diff_1abd2d1d75c9d5a0e0b97a9abfe3bcff56" prot="public" static="no" mutable="no">
+        <type>std::vector&lt; <ref refid="class_table_diff_1a9d12bc57dc56ca5498e945912afb1879" kindref="member">FieldCorrectness</ref> &gt;</type>
+        <definition>std::vector&lt;FieldCorrectness&gt; TableDiff::fields</definition>
+        <argsstring></argsstring>
+        <name>fields</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableDiff.h" line="33" bodyfile="/home/grund/hyrise/src/lib/storage/TableDiff.h" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_table_diff_1ac1c038a5d4ad5bdf7679d6c1894ef54c" prot="public" static="no" mutable="no">
+        <type>std::vector&lt; size_t &gt;</type>
+        <definition>std::vector&lt;size_t&gt; TableDiff::wrongRows</definition>
+        <argsstring></argsstring>
+        <name>wrongRows</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableDiff.h" line="34" bodyfile="/home/grund/hyrise/src/lib/storage/TableDiff.h" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_table_diff_1a4be97a2ae477903c0c85972bda950860" prot="public" static="no" mutable="no">
+        <type>std::map&lt; size_t, size_t &gt;</type>
+        <definition>std::map&lt;size_t,size_t&gt; TableDiff::falsePositionRows</definition>
+        <argsstring></argsstring>
+        <name>falsePositionRows</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableDiff.h" line="35" bodyfile="/home/grund/hyrise/src/lib/storage/TableDiff.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_table_diff_1a0fe0dacb67818623c1c52eb7d5a7dc27" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>TableDiff::TableDiff</definition>
+        <argsstring>()</argsstring>
+        <name>TableDiff</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableDiff.h" line="19" bodyfile="/home/grund/hyrise/src/lib/storage/TableDiff.h" bodystart="19" bodyend="19"/>
+      </memberdef>
+      <memberdef kind="function" id="class_table_diff_1a5e311f899bde8522c17f33a7b9c5cf97" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>TableDiff::~TableDiff</definition>
+        <argsstring>()</argsstring>
+        <name>~TableDiff</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableDiff.h" line="20" bodyfile="/home/grund/hyrise/src/lib/storage/TableDiff.h" bodystart="20" bodyend="20"/>
+      </memberdef>
+      <memberdef kind="function" id="class_table_diff_1aec3f42e05ab23f5d24075a65f8a120ff" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool TableDiff::compare</definition>
+        <argsstring>(const RelationEqType eqType=RelationEq) const </argsstring>
+        <name>compare</name>
+        <param>
+          <type>const <ref refid="class_table_diff_1afb3c1ba4da3387f3441a2baad8ca6a4f" kindref="member">RelationEqType</ref></type>
+          <declname>eqType</declname>
+          <defval><ref refid="class_table_diff_1afb3c1ba4da3387f3441a2baad8ca6a4fa4a016008eb4c31a3a8c647851403f4de" kindref="member">RelationEq</ref></defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableDiff.h" line="22" bodyfile="/home/grund/hyrise/src/lib/storage/TableDiff.cpp" bodystart="71" bodyend="77"/>
+      </memberdef>
+      <memberdef kind="function" id="class_table_diff_1aabd53adc062850ae461747d7fcf55828" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool TableDiff::equal</definition>
+        <argsstring>() const </argsstring>
+        <name>equal</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableDiff.h" line="23" bodyfile="/home/grund/hyrise/src/lib/storage/TableDiff.cpp" bodystart="78" bodyend="80"/>
+      </memberdef>
+      <memberdef kind="function" id="class_table_diff_1aa1fbaf4083a5ec99ca3f6da73b292d1c" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool TableDiff::equalSorted</definition>
+        <argsstring>() const </argsstring>
+        <name>equalSorted</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableDiff.h" line="24" bodyfile="/home/grund/hyrise/src/lib/storage/TableDiff.cpp" bodystart="81" bodyend="83"/>
+      </memberdef>
+      <memberdef kind="function" id="class_table_diff_1a67b4394614a4131e58640bdb2fd99c70" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool TableDiff::schemesMatched</definition>
+        <argsstring>() const </argsstring>
+        <name>schemesMatched</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableDiff.h" line="25" bodyfile="/home/grund/hyrise/src/lib/storage/TableDiff.cpp" bodystart="85" bodyend="90"/>
+      </memberdef>
+      <memberdef kind="function" id="class_table_diff_1af3c16ebe9ae6ddaea7dc8570746f1fa6" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool TableDiff::rowsMatched</definition>
+        <argsstring>() const </argsstring>
+        <name>rowsMatched</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableDiff.h" line="26" bodyfile="/home/grund/hyrise/src/lib/storage/TableDiff.cpp" bodystart="95" bodyend="97"/>
+      </memberdef>
+      <memberdef kind="function" id="class_table_diff_1a6ff83efeb648c0cd9f37b03d884756a2" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool TableDiff::rowsMatchedSorted</definition>
+        <argsstring>() const </argsstring>
+        <name>rowsMatchedSorted</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableDiff.h" line="27" bodyfile="/home/grund/hyrise/src/lib/storage/TableDiff.cpp" bodystart="92" bodyend="94"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="class_table_diff_1a6b883a5406b2f00a527e9e2b708d8ce5" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_table_diff" kindref="compound">TableDiff</ref></type>
+        <definition>TableDiff TableDiff::diffTables</definition>
+        <argsstring>(const AbstractTable *const left, const AbstractTable *const right)</argsstring>
+        <name>diffTables</name>
+        <param>
+          <type>const <ref refid="class_abstract_table" kindref="compound">AbstractTable</ref> *const</type>
+          <declname>left</declname>
+        </param>
+        <param>
+          <type>const <ref refid="class_abstract_table" kindref="compound">AbstractTable</ref> *const</type>
+          <declname>right</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/storage/TableDiff.h" line="30" bodyfile="/home/grund/hyrise/src/lib/storage/TableDiff.cpp" bodystart="100" bodyend="144"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="3021">
+        <label>TableDiff</label>
+        <link refid="class_table_diff"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/storage/TableDiff.h" line="13" bodyfile="/home/grund/hyrise/src/lib/storage/TableDiff.h" bodystart="13" bodyend="36"/>
+    <listofallmembers>
+      <member refid="class_table_diff_1aec3f42e05ab23f5d24075a65f8a120ff" prot="public" virt="non-virtual"><scope>TableDiff</scope><name>compare</name></member>
+      <member refid="class_table_diff_1a6b883a5406b2f00a527e9e2b708d8ce5" prot="public" virt="non-virtual"><scope>TableDiff</scope><name>diffTables</name></member>
+      <member refid="class_table_diff_1aabd53adc062850ae461747d7fcf55828" prot="public" virt="non-virtual"><scope>TableDiff</scope><name>equal</name></member>
+      <member refid="class_table_diff_1aa1fbaf4083a5ec99ca3f6da73b292d1c" prot="public" virt="non-virtual"><scope>TableDiff</scope><name>equalSorted</name></member>
+      <member refid="class_table_diff_1a4be97a2ae477903c0c85972bda950860" prot="public" virt="non-virtual"><scope>TableDiff</scope><name>falsePositionRows</name></member>
+      <member refid="class_table_diff_1a9d12bc57dc56ca5498e945912afb1879ae9cfc8f658090daf11e84f27bac57879" prot="public" virt="non-virtual"><scope>TableDiff</scope><name>FieldCorrect</name></member>
+      <member refid="class_table_diff_1a9d12bc57dc56ca5498e945912afb1879" prot="public" virt="non-virtual"><scope>TableDiff</scope><name>FieldCorrectness</name></member>
+      <member refid="class_table_diff_1abd2d1d75c9d5a0e0b97a9abfe3bcff56" prot="public" virt="non-virtual"><scope>TableDiff</scope><name>fields</name></member>
+      <member refid="class_table_diff_1a9d12bc57dc56ca5498e945912afb1879a99322223dea5df7571561dc3f63b2dee" prot="public" virt="non-virtual"><scope>TableDiff</scope><name>FieldWrong</name></member>
+      <member refid="class_table_diff_1a9d12bc57dc56ca5498e945912afb1879a18bfca2f3d97c9d43380a85a7bf498eb" prot="public" virt="non-virtual"><scope>TableDiff</scope><name>FieldWrongType</name></member>
+      <member refid="class_table_diff_1afb3c1ba4da3387f3441a2baad8ca6a4fa4a016008eb4c31a3a8c647851403f4de" prot="public" virt="non-virtual"><scope>TableDiff</scope><name>RelationEq</name></member>
+      <member refid="class_table_diff_1afb3c1ba4da3387f3441a2baad8ca6a4fa69fdf704e360dac18621929ec9b0931d" prot="public" virt="non-virtual"><scope>TableDiff</scope><name>RelationEqSorted</name></member>
+      <member refid="class_table_diff_1afb3c1ba4da3387f3441a2baad8ca6a4f" prot="public" virt="non-virtual"><scope>TableDiff</scope><name>RelationEqType</name></member>
+      <member refid="class_table_diff_1af3c16ebe9ae6ddaea7dc8570746f1fa6" prot="public" virt="non-virtual"><scope>TableDiff</scope><name>rowsMatched</name></member>
+      <member refid="class_table_diff_1a6ff83efeb648c0cd9f37b03d884756a2" prot="public" virt="non-virtual"><scope>TableDiff</scope><name>rowsMatchedSorted</name></member>
+      <member refid="class_table_diff_1a67b4394614a4131e58640bdb2fd99c70" prot="public" virt="non-virtual"><scope>TableDiff</scope><name>schemesMatched</name></member>
+      <member refid="class_table_diff_1a0fe0dacb67818623c1c52eb7d5a7dc27" prot="public" virt="non-virtual"><scope>TableDiff</scope><name>TableDiff</name></member>
+      <member refid="class_table_diff_1ac1c038a5d4ad5bdf7679d6c1894ef54c" prot="public" virt="non-virtual"><scope>TableDiff</scope><name>wrongRows</name></member>
+      <member refid="class_table_diff_1a5e311f899bde8522c17f33a7b9c5cf97" prot="public" virt="non-virtual"><scope>TableDiff</scope><name>~TableDiff</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

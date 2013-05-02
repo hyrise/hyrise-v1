@@ -1,0 +1,158 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="namespacehyrise_1_1io" kind="namespace">
+    <compoundname>hyrise::io</compoundname>
+    <innerclass refid="structhyrise_1_1io_1_1raw__table__cb__data" prot="public">hyrise::io::raw_table_cb_data</innerclass>
+    <innerclass refid="classhyrise_1_1io_1_1_raw_table_loader" prot="public">hyrise::io::RawTableLoader</innerclass>
+    <innerclass refid="classhyrise_1_1io_1_1_storage_manager_exception" prot="public">hyrise::io::StorageManagerException</innerclass>
+    <innerclass refid="classhyrise_1_1io_1_1_already_exists_exception" prot="public">hyrise::io::AlreadyExistsException</innerclass>
+    <innerclass refid="classhyrise_1_1io_1_1_missing_index_exception" prot="public">hyrise::io::MissingIndexException</innerclass>
+    <innerclass refid="classhyrise_1_1io_1_1_storage_table" prot="public">hyrise::io::StorageTable</innerclass>
+    <innerclass refid="classhyrise_1_1io_1_1_storage_manager" prot="public">hyrise::io::StorageManager</innerclass>
+    <innernamespace refid="namespacehyrise_1_1io_1_1_m_pass_loader">hyrise::io::MPassLoader</innernamespace>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="namespacehyrise_1_1io_1a2a0e2b8f048cd5ed9cb3fb23bc310d6d" prot="public" static="no" mutable="no">
+        <type>const char</type>
+        <definition>const char hyrise::io::TABNS[]</definition>
+        <argsstring>[]</argsstring>
+        <name>TABNS</name>
+        <initializer>&quot;STAB&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/StorageManager.cpp" line="26" bodyfile="/home/grund/hyrise/src/lib/io/StorageManager.cpp" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacehyrise_1_1io_1a14a791a616e9e8b2380ff27b5514050c" prot="public" static="no" mutable="no">
+        <type>const char</type>
+        <definition>const char hyrise::io::MGRNS[]</definition>
+        <argsstring>[]</argsstring>
+        <name>MGRNS</name>
+        <initializer>&quot;SMGR&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/StorageManager.cpp" line="27" bodyfile="/home/grund/hyrise/src/lib/io/StorageManager.cpp" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacehyrise_1_1io_1ab48b30d233be1a01684094d163b06ce3" prot="public" static="no" mutable="no">
+        <type>std::mutex</type>
+        <definition>std::mutex hyrise::io::instance_mtx</definition>
+        <argsstring></argsstring>
+        <name>instance_mtx</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/StorageManager.cpp" line="107" bodyfile="/home/grund/hyrise/src/lib/io/StorageManager.cpp" bodystart="107" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacehyrise_1_1io_1a60a7bca81b51b605fe5b3567bd737aae" prot="public" static="no" mutable="no">
+        <type>const std::string</type>
+        <definition>const std::string hyrise::io::SYSTEM_PREFIX</definition>
+        <argsstring></argsstring>
+        <name>SYSTEM_PREFIX</name>
+        <initializer>&quot;sys:&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/StorageManager.cpp" line="210" bodyfile="/home/grund/hyrise/src/lib/io/StorageManager.cpp" bodystart="210" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="namespacehyrise_1_1io_1a11dd495cdefa6fd0fb748d2eaf381b65" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hyrise::io::raw_table_cb_per_field</definition>
+        <argsstring>(char *field_buffer, size_t field_length, struct raw_table_cb_data *data)</argsstring>
+        <name>raw_table_cb_per_field</name>
+        <param>
+          <type>char *</type>
+          <declname>field_buffer</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>field_length</declname>
+        </param>
+        <param>
+          <type>struct <ref refid="structhyrise_1_1io_1_1raw__table__cb__data" kindref="compound">raw_table_cb_data</ref> *</type>
+          <declname>data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/RawTableLoader.cpp" line="21" bodyfile="/home/grund/hyrise/src/lib/io/RawTableLoader.cpp" bodystart="21" bodyend="36"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehyrise_1_1io_1a88ee789a63094ee480c0e092dfa75994" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hyrise::io::raw_table_cb_per_line</definition>
+        <argsstring>(int separator, struct raw_table_cb_data *data)</argsstring>
+        <name>raw_table_cb_per_line</name>
+        <param>
+          <type>int</type>
+          <declname>separator</declname>
+        </param>
+        <param>
+          <type>struct <ref refid="structhyrise_1_1io_1_1raw__table__cb__data" kindref="compound">raw_table_cb_data</ref> *</type>
+          <declname>data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/RawTableLoader.cpp" line="38" bodyfile="/home/grund/hyrise/src/lib/io/RawTableLoader.cpp" bodystart="38" bodyend="43"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehyrise_1_1io_1ae6fc5da6b4da14efade7d7940fbaad35" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool hyrise::io::is_not_sys_table</definition>
+        <argsstring>(StorageManager::schema_map_t::value_type i)</argsstring>
+        <name>is_not_sys_table</name>
+        <param>
+          <type>StorageManager::schema_map_t::value_type</type>
+          <declname>i</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/StorageManager.cpp" line="212" bodyfile="/home/grund/hyrise/src/lib/io/StorageManager.cpp" bodystart="212" bodyend="214"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacehyrise_1_1io_1acdc4764126100cf188b53da1d6f4b350" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; std::string &gt;</type>
+        <definition>std::vector&lt;std::string&gt; hyrise::io::listDirectory</definition>
+        <argsstring>(std::string dir)</argsstring>
+        <name>listDirectory</name>
+        <param>
+          <type>std::string</type>
+          <declname>dir</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/StorageManager.cpp" line="269" bodyfile="/home/grund/hyrise/src/lib/io/StorageManager.cpp" bodystart="269" bodyend="284"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/grund/hyrise/src/lib/io/MPassCSVLoader.cpp" line="30"/>
+  </compounddef>
+</doxygen>

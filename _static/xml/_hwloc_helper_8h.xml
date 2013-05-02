@@ -1,0 +1,1024 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="_hwloc_helper_8h" kind="file">
+    <compoundname>HwlocHelper.h</compoundname>
+    <includes local="no">hwloc.h</includes>
+    <includedby refid="bin_2hyrise_2main_8cpp" local="yes">src/bin/hyrise/main.cpp</includedby>
+    <includedby refid="_hwloc_helper_8cpp" local="yes">src/lib/helper/HwlocHelper.cpp</includedby>
+    <includedby refid="_abstract_task_queue_8cpp" local="no">src/lib/taskscheduler/AbstractTaskQueue.cpp</includedby>
+    <includedby refid="_abstract_task_scheduler_8h" local="yes">src/lib/taskscheduler/AbstractTaskScheduler.h</includedby>
+    <includedby refid="_simple_task_scheduler_8h" local="yes">src/lib/taskscheduler/SimpleTaskScheduler.h</includedby>
+    <includedby refid="_w_s_simple_task_scheduler_8h" local="yes">src/lib/taskscheduler/WSSimpleTaskScheduler.h</includedby>
+    <incdepgraph>
+      <node id="13855">
+        <label>src/lib/helper/HwlocHelper.h</label>
+        <link refid="HwlocHelper.h"/>
+        <childnode refid="13856" relation="include">
+        </childnode>
+      </node>
+      <node id="13856">
+        <label>hwloc.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="13894">
+        <label>src/lib/access/Distinct.h</label>
+        <link refid="_distinct_8h"/>
+        <childnode refid="13873" relation="include">
+        </childnode>
+      </node>
+      <node id="13962">
+        <label>src/lib/access/SmallestTableScan.cpp</label>
+        <link refid="_smallest_table_scan_8cpp"/>
+      </node>
+      <node id="13859">
+        <label>src/lib/helper/HwlocHelper.cpp</label>
+        <link refid="_hwloc_helper_8cpp"/>
+      </node>
+      <node id="13973">
+        <label>src/lib/access/ThreadpoolAdjustment.h</label>
+        <link refid="_threadpool_adjustment_8h"/>
+        <childnode refid="13864" relation="include">
+        </childnode>
+        <childnode refid="13882" relation="include">
+        </childnode>
+      </node>
+      <node id="13913">
+        <label>src/lib/access/InsertScan.cpp</label>
+        <link refid="_insert_scan_8cpp"/>
+      </node>
+      <node id="13919">
+        <label>src/lib/access/Layouter.cpp</label>
+        <link refid="_layouter_8cpp"/>
+      </node>
+      <node id="13866">
+        <label>src/lib/net/AsyncConnection.cpp</label>
+        <link refid="_async_connection_8cpp"/>
+      </node>
+      <node id="13946">
+        <label>src/lib/access/RadixJoin.h</label>
+        <link refid="_radix_join_8h"/>
+        <childnode refid="13947" relation="include">
+        </childnode>
+        <childnode refid="13891" relation="include">
+        </childnode>
+      </node>
+      <node id="13974">
+        <label>src/lib/access/UnionAll.h</label>
+        <link refid="_union_all_8h"/>
+        <childnode refid="13890" relation="include">
+        </childnode>
+        <childnode refid="13975" relation="include">
+        </childnode>
+      </node>
+      <node id="13948">
+        <label>src/lib/access/ReplaceTable.h</label>
+        <link refid="_replace_table_8h"/>
+        <childnode refid="13949" relation="include">
+        </childnode>
+      </node>
+      <node id="13860">
+        <label>src/lib/taskscheduler/AbstractTaskQueue.cpp</label>
+        <link refid="_abstract_task_queue_8cpp"/>
+      </node>
+      <node id="13964">
+        <label>src/lib/access/SortScan.cpp</label>
+        <link refid="lib_2access_2_sort_scan_8cpp"/>
+      </node>
+      <node id="13923">
+        <label>src/lib/access/LayoutTableLoad.cpp</label>
+        <link refid="_layout_table_load_8cpp"/>
+      </node>
+      <node id="13901">
+        <label>src/lib/access/HashJoinProbe.cpp</label>
+        <link refid="_hash_join_probe_8cpp"/>
+      </node>
+      <node id="13905">
+        <label>src/lib/access/PrefixSum.cpp</label>
+        <link refid="_prefix_sum_8cpp"/>
+      </node>
+      <node id="13981">
+        <label>src/lib/access/UpdateScan.cpp</label>
+        <link refid="_update_scan_8cpp"/>
+      </node>
+      <node id="13910">
+        <label>src/lib/access/InsertOnlyOperators.h</label>
+        <link refid="_insert_only_operators_8h"/>
+        <childnode refid="13911" relation="include">
+        </childnode>
+      </node>
+      <node id="13899">
+        <label>src/lib/access/HashBuild.cpp</label>
+        <link refid="_hash_build_8cpp"/>
+      </node>
+      <node id="13969">
+        <label>src/lib/access/TableScan.cpp</label>
+        <link refid="_table_scan_8cpp"/>
+      </node>
+      <node id="13933">
+        <label>src/lib/access/MultiplyRefField.h</label>
+        <link refid="_multiply_ref_field_8h"/>
+        <childnode refid="13934" relation="include">
+        </childnode>
+      </node>
+      <node id="13942">
+        <label>src/lib/access/PrefixSum.h</label>
+        <link refid="_prefix_sum_8h"/>
+        <childnode refid="13905" relation="include">
+        </childnode>
+      </node>
+      <node id="13976">
+        <label>src/lib/access/UnionScan.h</label>
+        <link refid="_union_scan_8h"/>
+        <childnode refid="13977" relation="include">
+        </childnode>
+        <childnode refid="13882" relation="include">
+        </childnode>
+      </node>
+      <node id="13897">
+        <label>src/lib/access/GroupByScan.h</label>
+        <link refid="_group_by_scan_8h"/>
+        <childnode refid="13876" relation="include">
+        </childnode>
+        <childnode refid="13882" relation="include">
+        </childnode>
+      </node>
+      <node id="13953">
+        <label>src/lib/access/SetTable.h</label>
+        <link refid="_set_table_8h"/>
+        <childnode refid="13954" relation="include">
+        </childnode>
+      </node>
+      <node id="13890">
+        <label>src/bin/perf_regression/UnionScan.cpp</label>
+        <link refid="bin_2perf__regression_2_union_scan_8cpp"/>
+      </node>
+      <node id="13949">
+        <label>src/lib/access/ReplaceTable.cpp</label>
+        <link refid="_replace_table_8cpp"/>
+      </node>
+      <node id="13875">
+        <label>src/lib/access/GetTable.cpp</label>
+        <link refid="_get_table_8cpp"/>
+      </node>
+      <node id="13965">
+        <label>src/lib/access/TableLoad.h</label>
+        <link refid="_table_load_8h"/>
+        <childnode refid="13966" relation="include">
+        </childnode>
+        <childnode refid="13882" relation="include">
+        </childnode>
+      </node>
+      <node id="13935">
+        <label>src/lib/access/MySQLTableLoad.h</label>
+        <link refid="_my_s_q_l_table_load_8h"/>
+        <childnode refid="13936" relation="include">
+        </childnode>
+      </node>
+      <node id="13930">
+        <label>src/lib/access/MergeJoin.hpp</label>
+        <link refid="_merge_join_8hpp"/>
+        <childnode refid="13882" relation="include">
+        </childnode>
+      </node>
+      <node id="13972">
+        <label>src/lib/access/TaskSchedulerAdjustment.h</label>
+        <link refid="_task_scheduler_adjustment_8h"/>
+        <childnode refid="13863" relation="include">
+        </childnode>
+        <childnode refid="13882" relation="include">
+        </childnode>
+      </node>
+      <node id="13904">
+        <label>src/lib/access/Histogram.cpp</label>
+        <link refid="_histogram_8cpp"/>
+      </node>
+      <node id="13941">
+        <label>src/lib/access/PlanOperation.cpp</label>
+        <link refid="_plan_operation_8cpp"/>
+      </node>
+      <node id="13906">
+        <label>src/lib/access/RadixCluster.h</label>
+        <link refid="_radix_cluster_8h"/>
+        <childnode refid="13907" relation="include">
+        </childnode>
+      </node>
+      <node id="13931">
+        <label>src/lib/access/MergeTable.h</label>
+        <link refid="_merge_table_8h"/>
+        <childnode refid="13932" relation="include">
+        </childnode>
+      </node>
+      <node id="13881">
+        <label>src/lib/access/RadixJoinTransformation.cpp</label>
+        <link refid="_radix_join_transformation_8cpp"/>
+      </node>
+      <node id="13907">
+        <label>src/lib/access/RadixCluster.cpp</label>
+        <link refid="_radix_cluster_8cpp"/>
+      </node>
+      <node id="13950">
+        <label>src/lib/access/ResponseTask.cpp</label>
+        <link refid="_response_task_8cpp"/>
+      </node>
+      <node id="13857">
+        <label>src/lib/helper/HwlocHelper.h</label>
+        <link refid="HwlocHelper.h"/>
+        <childnode refid="13858" relation="include">
+        </childnode>
+        <childnode refid="13859" relation="include">
+        </childnode>
+        <childnode refid="13860" relation="include">
+        </childnode>
+        <childnode refid="13861" relation="include">
+        </childnode>
+        <childnode refid="13984" relation="include">
+        </childnode>
+        <childnode refid="13985" relation="include">
+        </childnode>
+      </node>
+      <node id="13952">
+        <label>src/lib/access/ScriptOperation.cpp</label>
+        <link refid="_script_operation_8cpp"/>
+      </node>
+      <node id="13876">
+        <label>src/lib/access/GroupByScan.cpp</label>
+        <link refid="lib_2access_2_group_by_scan_8cpp"/>
+      </node>
+      <node id="13892">
+        <label>src/lib/access/Barrier.h</label>
+        <link refid="_barrier_8h"/>
+        <childnode refid="13871" relation="include">
+        </childnode>
+      </node>
+      <node id="13934">
+        <label>src/lib/access/MultiplyRefField.cpp</label>
+        <link refid="_multiply_ref_field_8cpp"/>
+      </node>
+      <node id="13879">
+        <label>src/lib/access/QueryTransformationEngine.h</label>
+        <link refid="_query_transformation_engine_8h"/>
+        <childnode refid="13880" relation="include">
+        </childnode>
+        <childnode refid="13881" relation="include">
+        </childnode>
+        <childnode refid="13862" relation="include">
+        </childnode>
+        <childnode refid="13882" relation="include">
+        </childnode>
+      </node>
+      <node id="13943">
+        <label>src/lib/access/ProjectionScan.h</label>
+        <link refid="_projection_scan_8h"/>
+        <childnode refid="13944" relation="include">
+        </childnode>
+        <childnode refid="13882" relation="include">
+        </childnode>
+      </node>
+      <node id="13869">
+        <label>src/lib/taskscheduler.h</label>
+        <link refid="taskscheduler_8h"/>
+        <childnode refid="13870" relation="include">
+        </childnode>
+      </node>
+      <node id="13939">
+        <label>src/lib/access/NoOp.h</label>
+        <link refid="_no_op_8h"/>
+        <childnode refid="13940" relation="include">
+        </childnode>
+      </node>
+      <node id="13886">
+        <label>src/bin/perf_regression/JoinScan.cpp</label>
+        <link refid="bin_2perf__regression_2_join_scan_8cpp"/>
+      </node>
+      <node id="13984">
+        <label>src/lib/taskscheduler/SimpleTaskScheduler.h</label>
+        <link refid="_simple_task_scheduler_8h"/>
+        <childnode refid="13865" relation="include">
+        </childnode>
+        <childnode refid="13867" relation="include">
+        </childnode>
+        <childnode refid="13869" relation="include">
+        </childnode>
+      </node>
+      <node id="13983">
+        <label>src/lib/testing/test.cpp</label>
+        <link refid="test_8cpp"/>
+      </node>
+      <node id="13868">
+        <label>src/lib/taskscheduler/WSSimpleTaskScheduler.cpp</label>
+        <link refid="_w_s_simple_task_scheduler_8cpp"/>
+      </node>
+      <node id="13891">
+        <label>src/lib/access/RadixJoinTransformation.h</label>
+        <link refid="_radix_join_transformation_8h"/>
+        <childnode refid="13881" relation="include">
+        </childnode>
+      </node>
+      <node id="13878">
+        <label>src/lib/access/AbstractPlanOpTransformation.h</label>
+        <link refid="_abstract_plan_op_transformation_8h"/>
+        <childnode refid="13879" relation="include">
+        </childnode>
+        <childnode refid="13891" relation="include">
+        </childnode>
+      </node>
+      <node id="13926">
+        <label>src/lib/access/MaterializingScan.h</label>
+        <link refid="_materializing_scan_8h"/>
+        <childnode refid="13927" relation="include">
+        </childnode>
+        <childnode refid="13882" relation="include">
+        </childnode>
+      </node>
+      <node id="13968">
+        <label>src/bin/perf_regression/scan_performance.cpp</label>
+        <link refid="scan__performance_8cpp"/>
+      </node>
+      <node id="13929">
+        <label>src/lib/access/MergeHashTables.cpp</label>
+        <link refid="_merge_hash_tables_8cpp"/>
+      </node>
+      <node id="13864">
+        <label>src/lib/access/ThreadpoolAdjustment.cpp</label>
+        <link refid="_threadpool_adjustment_8cpp"/>
+      </node>
+      <node id="13944">
+        <label>src/lib/access/ProjectionScan.cpp</label>
+        <link refid="lib_2access_2_projection_scan_8cpp"/>
+      </node>
+      <node id="13863">
+        <label>src/lib/access/TaskSchedulerAdjustment.cpp</label>
+        <link refid="_task_scheduler_adjustment_8cpp"/>
+      </node>
+      <node id="13938">
+        <label>src/lib/access/NestedLoopEquiJoin.cpp</label>
+        <link refid="_nested_loop_equi_join_8cpp"/>
+      </node>
+      <node id="13889">
+        <label>src/bin/perf_regression/SortScan.cpp</label>
+        <link refid="bin_2perf__regression_2_sort_scan_8cpp"/>
+      </node>
+      <node id="13867">
+        <label>src/lib/taskscheduler/SimpleTaskScheduler.cpp</label>
+        <link refid="_simple_task_scheduler_8cpp"/>
+      </node>
+      <node id="13858">
+        <label>src/bin/hyrise/main.cpp</label>
+        <link refid="bin_2hyrise_2main_8cpp"/>
+      </node>
+      <node id="13912">
+        <label>src/lib/access/InsertScan.h</label>
+        <link refid="_insert_scan_8h"/>
+        <childnode refid="13913" relation="include">
+        </childnode>
+        <childnode refid="13882" relation="include">
+        </childnode>
+      </node>
+      <node id="13967">
+        <label>src/lib/access/TableScan.h</label>
+        <link refid="_table_scan_8h"/>
+        <childnode refid="13968" relation="include">
+        </childnode>
+        <childnode refid="13969" relation="include">
+        </childnode>
+      </node>
+      <node id="13903">
+        <label>src/lib/access/Histogram.h</label>
+        <link refid="_histogram_8h"/>
+        <childnode refid="13904" relation="include">
+        </childnode>
+        <childnode refid="13905" relation="include">
+        </childnode>
+        <childnode refid="13906" relation="include">
+        </childnode>
+      </node>
+      <node id="13883">
+        <label>src/bin/perf_regression/GroupByScan.cpp</label>
+        <link refid="bin_2perf__regression_2_group_by_scan_8cpp"/>
+      </node>
+      <node id="13887">
+        <label>src/bin/perf_regression/ProjectionScan.cpp</label>
+        <link refid="bin_2perf__regression_2_projection_scan_8cpp"/>
+      </node>
+      <node id="13920">
+        <label>src/lib/access/LayoutTable.h</label>
+        <link refid="_layout_table_8h"/>
+        <childnode refid="13921" relation="include">
+        </childnode>
+      </node>
+      <node id="13986">
+        <label>src/lib/taskscheduler/WSCoreBoundTaskQueue.h</label>
+        <link refid="_w_s_core_bound_task_queue_8h"/>
+        <childnode refid="13987" relation="include">
+        </childnode>
+        <childnode refid="13985" relation="include">
+        </childnode>
+        <childnode refid="13869" relation="include">
+        </childnode>
+      </node>
+      <node id="13895">
+        <label>src/lib/access/ExpressionScan.h</label>
+        <link refid="_expression_scan_8h"/>
+        <childnode refid="13874" relation="include">
+        </childnode>
+        <childnode refid="13882" relation="include">
+        </childnode>
+      </node>
+      <node id="13884">
+        <label>src/bin/perf_regression/HashJoin.cpp</label>
+        <link refid="_hash_join_8cpp"/>
+      </node>
+      <node id="13957">
+        <label>src/lib/access/SimpleRawTableScan.h</label>
+        <link refid="_simple_raw_table_scan_8h"/>
+        <childnode refid="13958" relation="include">
+        </childnode>
+        <childnode refid="13882" relation="include">
+        </childnode>
+      </node>
+      <node id="13896">
+        <label>src/lib/access/GetTable.h</label>
+        <link refid="_get_table_8h"/>
+        <childnode refid="13875" relation="include">
+        </childnode>
+      </node>
+      <node id="13945">
+        <label>src/lib/access/QueryParser.cpp</label>
+        <link refid="_query_parser_8cpp"/>
+      </node>
+      <node id="13936">
+        <label>src/lib/access/MySQLTableLoad.cpp</label>
+        <link refid="_my_s_q_l_table_load_8cpp"/>
+      </node>
+      <node id="13971">
+        <label>src/lib/access/TableUnload.cpp</label>
+        <link refid="_table_unload_8cpp"/>
+      </node>
+      <node id="13900">
+        <label>src/lib/access/HashJoinProbe.h</label>
+        <link refid="_hash_join_probe_8h"/>
+        <childnode refid="13901" relation="include">
+        </childnode>
+        <childnode refid="13882" relation="include">
+        </childnode>
+      </node>
+      <node id="13924">
+        <label>src/lib/access/LoadFile.h</label>
+        <link refid="_load_file_8h"/>
+        <childnode refid="13925" relation="include">
+        </childnode>
+      </node>
+      <node id="13963">
+        <label>src/lib/access/SortScan.h</label>
+        <link refid="_sort_scan_8h"/>
+        <childnode refid="13964" relation="include">
+        </childnode>
+        <childnode refid="13882" relation="include">
+        </childnode>
+      </node>
+      <node id="13865">
+        <label>src/lib/taskscheduler/SharedScheduler.h</label>
+        <link refid="_shared_scheduler_8h"/>
+        <childnode refid="13858" relation="include">
+        </childnode>
+        <childnode refid="13863" relation="include">
+        </childnode>
+        <childnode refid="13864" relation="include">
+        </childnode>
+        <childnode refid="13866" relation="include">
+        </childnode>
+        <childnode refid="13867" relation="include">
+        </childnode>
+        <childnode refid="13868" relation="include">
+        </childnode>
+        <childnode refid="13869" relation="include">
+        </childnode>
+      </node>
+      <node id="13951">
+        <label>src/lib/access/ScriptOperation.h</label>
+        <link refid="_script_operation_8h"/>
+        <childnode refid="13952" relation="include">
+        </childnode>
+      </node>
+      <node id="13956">
+        <label>src/lib/access/SettingsOperation.cpp</label>
+        <link refid="_settings_operation_8cpp"/>
+      </node>
+      <node id="13898">
+        <label>src/lib/access/HashBuild.h</label>
+        <link refid="_hash_build_8h"/>
+        <childnode refid="13899" relation="include">
+        </childnode>
+        <childnode refid="13882" relation="include">
+        </childnode>
+      </node>
+      <node id="13977">
+        <label>src/lib/access/UnionScan.cpp</label>
+        <link refid="lib_2access_2_union_scan_8cpp"/>
+      </node>
+      <node id="13966">
+        <label>src/lib/access/TableLoad.cpp</label>
+        <link refid="_table_load_8cpp"/>
+      </node>
+      <node id="13925">
+        <label>src/lib/access/LoadFile.cpp</label>
+        <link refid="_load_file_8cpp"/>
+      </node>
+      <node id="13959">
+        <label>src/lib/access/SimpleTableScan.h</label>
+        <link refid="_simple_table_scan_8h"/>
+        <childnode refid="13960" relation="include">
+        </childnode>
+        <childnode refid="13882" relation="include">
+        </childnode>
+      </node>
+      <node id="13902">
+        <label>src/lib/access/HashValueJoin.hpp</label>
+        <link refid="_hash_value_join_8hpp"/>
+        <childnode refid="13882" relation="include">
+        </childnode>
+      </node>
+      <node id="13958">
+        <label>src/lib/access/SimpleRawTableScan.cpp</label>
+        <link refid="_simple_raw_table_scan_8cpp"/>
+      </node>
+      <node id="13937">
+        <label>src/lib/access/NestedLoopEquiJoin.h</label>
+        <link refid="_nested_loop_equi_join_8h"/>
+        <childnode refid="13938" relation="include">
+        </childnode>
+      </node>
+      <node id="13870">
+        <label>src/lib/access/QueryParser.h</label>
+        <link refid="_query_parser_8h"/>
+        <childnode refid="13871" relation="include">
+        </childnode>
+        <childnode refid="13872" relation="include">
+        </childnode>
+        <childnode refid="13873" relation="include">
+        </childnode>
+        <childnode refid="13874" relation="include">
+        </childnode>
+        <childnode refid="13875" relation="include">
+        </childnode>
+        <childnode refid="13876" relation="include">
+        </childnode>
+        <childnode refid="13877" relation="include">
+        </childnode>
+        <childnode refid="13901" relation="include">
+        </childnode>
+        <childnode refid="13904" relation="include">
+        </childnode>
+        <childnode refid="13909" relation="include">
+        </childnode>
+        <childnode refid="13911" relation="include">
+        </childnode>
+        <childnode refid="13917" relation="include">
+        </childnode>
+        <childnode refid="13919" relation="include">
+        </childnode>
+        <childnode refid="13923" relation="include">
+        </childnode>
+        <childnode refid="13925" relation="include">
+        </childnode>
+        <childnode refid="13927" relation="include">
+        </childnode>
+        <childnode refid="13929" relation="include">
+        </childnode>
+        <childnode refid="13932" relation="include">
+        </childnode>
+        <childnode refid="13934" relation="include">
+        </childnode>
+        <childnode refid="13938" relation="include">
+        </childnode>
+        <childnode refid="13940" relation="include">
+        </childnode>
+        <childnode refid="13905" relation="include">
+        </childnode>
+        <childnode refid="13944" relation="include">
+        </childnode>
+        <childnode refid="13945" relation="include">
+        </childnode>
+        <childnode refid="13907" relation="include">
+        </childnode>
+        <childnode refid="13947" relation="include">
+        </childnode>
+        <childnode refid="13949" relation="include">
+        </childnode>
+        <childnode refid="13954" relation="include">
+        </childnode>
+        <childnode refid="13956" relation="include">
+        </childnode>
+        <childnode refid="13962" relation="include">
+        </childnode>
+        <childnode refid="13964" relation="include">
+        </childnode>
+        <childnode refid="13966" relation="include">
+        </childnode>
+        <childnode refid="13971" relation="include">
+        </childnode>
+        <childnode refid="13979" relation="include">
+        </childnode>
+        <childnode refid="13882" relation="include">
+        </childnode>
+      </node>
+      <node id="13975">
+        <label>src/lib/access/UnionAll.cpp</label>
+        <link refid="_union_all_8cpp"/>
+      </node>
+      <node id="13987">
+        <label>src/lib/taskscheduler/WSCoreBoundTaskQueue.cpp</label>
+        <link refid="_w_s_core_bound_task_queue_8cpp"/>
+      </node>
+      <node id="13979">
+        <label>src/lib/access/UnloadAll.cpp</label>
+        <link refid="_unload_all_8cpp"/>
+      </node>
+      <node id="13885">
+        <label>src/bin/perf_regression/HashValueJoin.cpp</label>
+        <link refid="_hash_value_join_8cpp"/>
+      </node>
+      <node id="13921">
+        <label>src/lib/access/LayoutTable.cpp</label>
+        <link refid="_layout_table_8cpp"/>
+      </node>
+      <node id="13882">
+        <label>src/lib/access.h</label>
+        <link refid="access_8h"/>
+        <childnode refid="13883" relation="include">
+        </childnode>
+        <childnode refid="13884" relation="include">
+        </childnode>
+        <childnode refid="13885" relation="include">
+        </childnode>
+        <childnode refid="13886" relation="include">
+        </childnode>
+        <childnode refid="13887" relation="include">
+        </childnode>
+        <childnode refid="13888" relation="include">
+        </childnode>
+        <childnode refid="13889" relation="include">
+        </childnode>
+        <childnode refid="13890" relation="include">
+        </childnode>
+      </node>
+      <node id="13880">
+        <label>src/lib/access/QueryTransformationEngine.cpp</label>
+        <link refid="_query_transformation_engine_8cpp"/>
+      </node>
+      <node id="13861">
+        <label>src/lib/taskscheduler/AbstractTaskScheduler.h</label>
+        <link refid="_abstract_task_scheduler_8h"/>
+        <childnode refid="13862" relation="include">
+        </childnode>
+        <childnode refid="13863" relation="include">
+        </childnode>
+        <childnode refid="13864" relation="include">
+        </childnode>
+        <childnode refid="13865" relation="include">
+        </childnode>
+        <childnode refid="13984" relation="include">
+        </childnode>
+        <childnode refid="13985" relation="include">
+        </childnode>
+        <childnode refid="13869" relation="include">
+        </childnode>
+      </node>
+      <node id="13980">
+        <label>src/lib/access/UpdateScan.h</label>
+        <link refid="_update_scan_8h"/>
+        <childnode refid="13981" relation="include">
+        </childnode>
+        <childnode refid="13882" relation="include">
+        </childnode>
+      </node>
+      <node id="13874">
+        <label>src/lib/access/ExpressionScan.cpp</label>
+        <link refid="_expression_scan_8cpp"/>
+      </node>
+      <node id="13985">
+        <label>src/lib/taskscheduler/WSSimpleTaskScheduler.h</label>
+        <link refid="_w_s_simple_task_scheduler_8h"/>
+        <childnode refid="13986" relation="include">
+        </childnode>
+        <childnode refid="13868" relation="include">
+        </childnode>
+        <childnode refid="13869" relation="include">
+        </childnode>
+      </node>
+      <node id="13888">
+        <label>src/bin/perf_regression/SimpleTableScan.cpp</label>
+        <link refid="bin_2perf__regression_2_simple_table_scan_8cpp"/>
+      </node>
+      <node id="13911">
+        <label>src/lib/access/InsertOnlyOperators.cpp</label>
+        <link refid="_insert_only_operators_8cpp"/>
+      </node>
+      <node id="13960">
+        <label>src/lib/access/SimpleTableScan.cpp</label>
+        <link refid="lib_2access_2_simple_table_scan_8cpp"/>
+      </node>
+      <node id="13932">
+        <label>src/lib/access/MergeTable.cpp</label>
+        <link refid="_merge_table_8cpp"/>
+      </node>
+      <node id="13908">
+        <label>src/lib/access/IndexScan.h</label>
+        <link refid="_index_scan_8h"/>
+        <childnode refid="13909" relation="include">
+        </childnode>
+      </node>
+      <node id="13922">
+        <label>src/lib/access/LayoutTableLoad.h</label>
+        <link refid="_layout_table_load_8h"/>
+        <childnode refid="13923" relation="include">
+        </childnode>
+      </node>
+      <node id="13947">
+        <label>src/lib/access/RadixJoin.cpp</label>
+        <link refid="_radix_join_8cpp"/>
+      </node>
+      <node id="13862">
+        <label>src/lib/access/RequestParseTask.cpp</label>
+        <link refid="_request_parse_task_8cpp"/>
+      </node>
+      <node id="13970">
+        <label>src/lib/access/TableUnload.h</label>
+        <link refid="_table_unload_8h"/>
+        <childnode refid="13971" relation="include">
+        </childnode>
+        <childnode refid="13882" relation="include">
+        </childnode>
+      </node>
+      <node id="13955">
+        <label>src/lib/access/SettingsOperation.h</label>
+        <link refid="_settings_operation_8h"/>
+        <childnode refid="13956" relation="include">
+        </childnode>
+        <childnode refid="13882" relation="include">
+        </childnode>
+      </node>
+      <node id="13978">
+        <label>src/lib/access/UnloadAll.h</label>
+        <link refid="_unload_all_8h"/>
+        <childnode refid="13979" relation="include">
+        </childnode>
+        <childnode refid="13882" relation="include">
+        </childnode>
+      </node>
+      <node id="13928">
+        <label>src/lib/access/MergeHashTables.h</label>
+        <link refid="_merge_hash_tables_8h"/>
+        <childnode refid="13929" relation="include">
+        </childnode>
+      </node>
+      <node id="13961">
+        <label>src/lib/access/SmallestTableScan.h</label>
+        <link refid="_smallest_table_scan_8h"/>
+        <childnode refid="13962" relation="include">
+        </childnode>
+        <childnode refid="13882" relation="include">
+        </childnode>
+      </node>
+      <node id="13916">
+        <label>src/lib/access/JoinScan.h</label>
+        <link refid="_join_scan_8h"/>
+        <childnode refid="13917" relation="include">
+        </childnode>
+        <childnode refid="13882" relation="include">
+        </childnode>
+      </node>
+      <node id="13909">
+        <label>src/lib/access/IndexScan.cpp</label>
+        <link refid="_index_scan_8cpp"/>
+      </node>
+      <node id="13940">
+        <label>src/lib/access/NoOp.cpp</label>
+        <link refid="_no_op_8cpp"/>
+      </node>
+      <node id="13927">
+        <label>src/lib/access/MaterializingScan.cpp</label>
+        <link refid="_materializing_scan_8cpp"/>
+      </node>
+      <node id="13877">
+        <label>src/lib/access/PlanOperation.h</label>
+        <link refid="_plan_operation_8h"/>
+        <childnode refid="13878" relation="include">
+        </childnode>
+        <childnode refid="13892" relation="include">
+        </childnode>
+        <childnode refid="13893" relation="include">
+        </childnode>
+        <childnode refid="13894" relation="include">
+        </childnode>
+        <childnode refid="13895" relation="include">
+        </childnode>
+        <childnode refid="13896" relation="include">
+        </childnode>
+        <childnode refid="13897" relation="include">
+        </childnode>
+        <childnode refid="13898" relation="include">
+        </childnode>
+        <childnode refid="13900" relation="include">
+        </childnode>
+        <childnode refid="13902" relation="include">
+        </childnode>
+        <childnode refid="13903" relation="include">
+        </childnode>
+        <childnode refid="13908" relation="include">
+        </childnode>
+        <childnode refid="13910" relation="include">
+        </childnode>
+        <childnode refid="13912" relation="include">
+        </childnode>
+        <childnode refid="13914" relation="include">
+        </childnode>
+        <childnode refid="13916" relation="include">
+        </childnode>
+        <childnode refid="13918" relation="include">
+        </childnode>
+        <childnode refid="13920" relation="include">
+        </childnode>
+        <childnode refid="13922" relation="include">
+        </childnode>
+        <childnode refid="13924" relation="include">
+        </childnode>
+        <childnode refid="13926" relation="include">
+        </childnode>
+        <childnode refid="13928" relation="include">
+        </childnode>
+        <childnode refid="13930" relation="include">
+        </childnode>
+        <childnode refid="13931" relation="include">
+        </childnode>
+        <childnode refid="13933" relation="include">
+        </childnode>
+        <childnode refid="13935" relation="include">
+        </childnode>
+        <childnode refid="13937" relation="include">
+        </childnode>
+        <childnode refid="13939" relation="include">
+        </childnode>
+        <childnode refid="13941" relation="include">
+        </childnode>
+        <childnode refid="13942" relation="include">
+        </childnode>
+        <childnode refid="13943" relation="include">
+        </childnode>
+        <childnode refid="13945" relation="include">
+        </childnode>
+        <childnode refid="13906" relation="include">
+        </childnode>
+        <childnode refid="13946" relation="include">
+        </childnode>
+        <childnode refid="13948" relation="include">
+        </childnode>
+        <childnode refid="13862" relation="include">
+        </childnode>
+        <childnode refid="13950" relation="include">
+        </childnode>
+        <childnode refid="13951" relation="include">
+        </childnode>
+        <childnode refid="13953" relation="include">
+        </childnode>
+        <childnode refid="13955" relation="include">
+        </childnode>
+        <childnode refid="13957" relation="include">
+        </childnode>
+        <childnode refid="13959" relation="include">
+        </childnode>
+        <childnode refid="13961" relation="include">
+        </childnode>
+        <childnode refid="13963" relation="include">
+        </childnode>
+        <childnode refid="13965" relation="include">
+        </childnode>
+        <childnode refid="13967" relation="include">
+        </childnode>
+        <childnode refid="13970" relation="include">
+        </childnode>
+        <childnode refid="13972" relation="include">
+        </childnode>
+        <childnode refid="13973" relation="include">
+        </childnode>
+        <childnode refid="13974" relation="include">
+        </childnode>
+        <childnode refid="13976" relation="include">
+        </childnode>
+        <childnode refid="13978" relation="include">
+        </childnode>
+        <childnode refid="13980" relation="include">
+        </childnode>
+        <childnode refid="13882" relation="include">
+        </childnode>
+        <childnode refid="13982" relation="include">
+        </childnode>
+      </node>
+      <node id="13915">
+        <label>src/lib/access/IntersectPositions.cpp</label>
+        <link refid="_intersect_positions_8cpp"/>
+      </node>
+      <node id="13917">
+        <label>src/lib/access/JoinScan.cpp</label>
+        <link refid="lib_2access_2_join_scan_8cpp"/>
+      </node>
+      <node id="13873">
+        <label>src/lib/access/Distinct.cpp</label>
+        <link refid="_distinct_8cpp"/>
+      </node>
+      <node id="13893">
+        <label>src/lib/access/CreateIndex.h</label>
+        <link refid="_create_index_8h"/>
+        <childnode refid="13872" relation="include">
+        </childnode>
+      </node>
+      <node id="13871">
+        <label>src/lib/access/Barrier.cpp</label>
+        <link refid="_barrier_8cpp"/>
+      </node>
+      <node id="13982">
+        <label>src/lib/testing/test.h</label>
+        <link refid="test_8h"/>
+        <childnode refid="13983" relation="include">
+        </childnode>
+      </node>
+      <node id="13954">
+        <label>src/lib/access/SetTable.cpp</label>
+        <link refid="_set_table_8cpp"/>
+      </node>
+      <node id="13872">
+        <label>src/lib/access/CreateIndex.cpp</label>
+        <link refid="_create_index_8cpp"/>
+      </node>
+      <node id="13914">
+        <label>src/lib/access/IntersectPositions.h</label>
+        <link refid="_intersect_positions_8h"/>
+        <childnode refid="13915" relation="include">
+        </childnode>
+      </node>
+      <node id="13918">
+        <label>src/lib/access/Layouter.h</label>
+        <link refid="_layouter_8h"/>
+        <childnode refid="13919" relation="include">
+        </childnode>
+        <childnode refid="13882" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="_hwloc_helper_8h_1a5852d7c54d41ff6c71f33e4b89a5f059" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int getNumberOfCoresOnSystem</definition>
+        <argsstring>()</argsstring>
+        <name>getNumberOfCoresOnSystem</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/HwlocHelper.h" line="14" bodyfile="/home/grund/hyrise/src/lib/helper/HwlocHelper.cpp" bodystart="12" bodyend="16"/>
+      </memberdef>
+      <memberdef kind="function" id="_hwloc_helper_8h_1ad12145e7aa1fc25a978b719f08b23bb9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>hwloc_topology_t</type>
+        <definition>hwloc_topology_t getHWTopology</definition>
+        <argsstring>()</argsstring>
+        <name>getHWTopology</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/HwlocHelper.h" line="16" bodyfile="/home/grund/hyrise/src/lib/helper/HwlocHelper.cpp" bodystart="18" bodyend="25"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>2012<sp/>Hasso-Plattner-Institut<sp/>fuer<sp/>Softwaresystemtechnik<sp/>GmbH.<sp/>All<sp/>rights<sp/>reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*<sp/>HwlocHelper.h</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*<sp/><sp/>Created<sp/>on:<sp/>Dec<sp/>4,<sp/>2012</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>Author:<sp/>jwust</highlight></codeline>
+<codeline lineno="7"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>HWLOCHELPER_H_</highlight></codeline>
+<codeline lineno="10"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>HWLOCHELPER_H_</highlight></codeline>
+<codeline lineno="11"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;hwloc.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="_hwloc_helper_8cpp_1a5852d7c54d41ff6c71f33e4b89a5f059" kindref="member">getNumberOfCoresOnSystem</ref>();</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal">hwloc_topology_t<sp/><ref refid="_hwloc_helper_8cpp_1ad12145e7aa1fc25a978b719f08b23bb9" kindref="member">getHWTopology</ref>();</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>HWLOCHELPER_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/home/grund/hyrise/src/lib/helper/HwlocHelper.h"/>
+  </compounddef>
+</doxygen>

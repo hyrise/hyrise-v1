@@ -1,0 +1,122 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="classhyrise_1_1insertonly_1_1_discarding_merger" kind="class" prot="public">
+    <compoundname>hyrise::insertonly::DiscardingMerger</compoundname>
+    <basecompoundref refid="class_abstract_merger" prot="public" virt="non-virtual">AbstractMerger</basecompoundref>
+    <includes refid="insertonly__merger_8h" local="no">insertonly_merger.h</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classhyrise_1_1insertonly_1_1_discarding_merger_1afb107ca6a928aecaaf1a4991c79c20ca" prot="private" static="no" mutable="no">
+        <type><ref refid="namespacehyrise_1_1tx_1a3f8f9dae75e3e1872247b082f80ffd77" kindref="member">tx::transaction_id_t</ref></type>
+        <definition>tx::transaction_id_t hyrise::insertonly::DiscardingMerger::_tx</definition>
+        <argsstring></argsstring>
+        <name>_tx</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/insertonly_merger.h" line="24" bodyfile="/home/grund/hyrise/src/lib/access/insertonly_merger.h" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classhyrise_1_1insertonly_1_1_discarding_merger_1a7645ae3d4747cdcd985a4137622eb601" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>hyrise::insertonly::DiscardingMerger::DiscardingMerger</definition>
+        <argsstring>(tx::transaction_id_t txid)</argsstring>
+        <name>DiscardingMerger</name>
+        <param>
+          <type><ref refid="namespacehyrise_1_1tx_1a3f8f9dae75e3e1872247b082f80ffd77" kindref="member">tx::transaction_id_t</ref></type>
+          <declname>txid</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/insertonly_merger.h" line="16" bodyfile="/home/grund/hyrise/src/lib/access/insertonly_merger.h" bodystart="16" bodyend="16"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1insertonly_1_1_discarding_merger_1a8958e61f1bc1ec0898c2470312fdb152" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void hyrise::insertonly::DiscardingMerger::mergeValues</definition>
+        <argsstring>(const std::vector&lt; storage::c_atable_ptr_t &gt; &amp;input_tables, storage::atable_ptr_t merged_table, const storage::column_mapping_t &amp;column_mapping, const uint64_t newSize)</argsstring>
+        <name>mergeValues</name>
+        <param>
+          <type>const std::vector&lt; <ref refid="namespacehyrise_1_1storage_1a1c9f919a7a3f09a8b304a98f1ebad3ee" kindref="member">storage::c_atable_ptr_t</ref> &gt; &amp;</type>
+          <declname>input_tables</declname>
+        </param>
+        <param>
+          <type><ref refid="namespacehyrise_1_1storage_1a21d5e900c20019710828c453eaded1ee" kindref="member">storage::atable_ptr_t</ref></type>
+          <declname>merged_table</declname>
+        </param>
+        <param>
+          <type>const <ref refid="namespacehyrise_1_1storage_1a8addaea8b5301cc30c8f8f634b531127" kindref="member">storage::column_mapping_t</ref> &amp;</type>
+          <declname>column_mapping</declname>
+        </param>
+        <param>
+          <type>const uint64_t</type>
+          <declname>newSize</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/insertonly_merger.h" line="20" bodyfile="/home/grund/hyrise/src/lib/access/insertonly_merger.cpp" bodystart="123" bodyend="167"/>
+      </memberdef>
+      <memberdef kind="function" id="classhyrise_1_1insertonly_1_1_discarding_merger_1adc0922e819899db9ca538d8187d6392b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type><ref refid="class_abstract_merger" kindref="compound">AbstractMerger</ref> *</type>
+        <definition>AbstractMerger* hyrise::insertonly::DiscardingMerger::copy</definition>
+        <argsstring>()</argsstring>
+        <name>copy</name>
+        <reimplements refid="class_abstract_merger_1a534ea287ca2792195c450ca6b2542bf9">copy</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/access/insertonly_merger.h" line="22" bodyfile="/home/grund/hyrise/src/lib/access/insertonly_merger.h" bodystart="22" bodyend="22"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Merger that removes all invisible elements from resulting table. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1756">
+        <label>AbstractMerger</label>
+        <link refid="class_abstract_merger"/>
+      </node>
+      <node id="1755">
+        <label>hyrise::insertonly::DiscardingMerger</label>
+        <link refid="classhyrise_1_1insertonly_1_1_discarding_merger"/>
+        <childnode refid="1756" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1758">
+        <label>AbstractMerger</label>
+        <link refid="class_abstract_merger"/>
+      </node>
+      <node id="1757">
+        <label>hyrise::insertonly::DiscardingMerger</label>
+        <link refid="classhyrise_1_1insertonly_1_1_discarding_merger"/>
+        <childnode refid="1758" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/access/insertonly_merger.h" line="14" bodyfile="/home/grund/hyrise/src/lib/access/insertonly_merger.h" bodystart="14" bodyend="25"/>
+    <listofallmembers>
+      <member refid="classhyrise_1_1insertonly_1_1_discarding_merger_1afb107ca6a928aecaaf1a4991c79c20ca" prot="private" virt="non-virtual"><scope>hyrise::insertonly::DiscardingMerger</scope><name>_tx</name></member>
+      <member refid="classhyrise_1_1insertonly_1_1_discarding_merger_1adc0922e819899db9ca538d8187d6392b" prot="public" virt="virtual"><scope>hyrise::insertonly::DiscardingMerger</scope><name>copy</name></member>
+      <member refid="classhyrise_1_1insertonly_1_1_discarding_merger_1a7645ae3d4747cdcd985a4137622eb601" prot="public" virt="non-virtual"><scope>hyrise::insertonly::DiscardingMerger</scope><name>DiscardingMerger</name></member>
+      <member refid="classhyrise_1_1insertonly_1_1_discarding_merger_1a8958e61f1bc1ec0898c2470312fdb152" prot="public" virt="non-virtual"><scope>hyrise::insertonly::DiscardingMerger</scope><name>mergeValues</name></member>
+      <member refid="class_abstract_merger_1a56f62ba28f56e2e2486a123c70b294f1" prot="public" virt="pure-virtual" ambiguityscope="AbstractMerger::"><scope>hyrise::insertonly::DiscardingMerger</scope><name>mergeValues</name></member>
+      <member refid="class_abstract_merger_1ad83245cf3bcddef890cac58ea988a12b" prot="public" virt="virtual"><scope>hyrise::insertonly::DiscardingMerger</scope><name>~AbstractMerger</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,709 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="_simple_table_scan_8h" kind="file">
+    <compoundname>SimpleTableScan.h</compoundname>
+    <includes refid="_plan_operation_8h" local="yes">access/PlanOperation.h</includes>
+    <includes refid="pred___simple_expression_8h" local="yes">access/pred_SimpleExpression.h</includes>
+    <includedby refid="lib_2access_2_simple_table_scan_8cpp" local="yes">src/lib/access/SimpleTableScan.cpp</includedby>
+    <includedby refid="access_8h" local="no">src/lib/access.h</includedby>
+    <incdepgraph>
+      <node id="11899">
+        <label>list</label>
+      </node>
+      <node id="11869">
+        <label>boost/mpl/vector.hpp</label>
+      </node>
+      <node id="11882">
+        <label>queue</label>
+      </node>
+      <node id="11865">
+        <label>limits</label>
+      </node>
+      <node id="11917">
+        <label>boost/functional/hash.hpp</label>
+      </node>
+      <node id="11894">
+        <label>assert.h</label>
+      </node>
+      <node id="11871">
+        <label>boost/lexical_cast.hpp</label>
+      </node>
+      <node id="11909">
+        <label>boost/iterator/iterator_facade.hpp</label>
+      </node>
+      <node id="11864">
+        <label>cstdint</label>
+      </node>
+      <node id="11906">
+        <label>storage/BaseDictionary.h</label>
+        <link refid="_base_dictionary_8h"/>
+        <childnode refid="11866" relation="include">
+        </childnode>
+        <childnode refid="11895" relation="include">
+        </childnode>
+        <childnode refid="11907" relation="include">
+        </childnode>
+      </node>
+      <node id="11850">
+        <label>stdint.h</label>
+      </node>
+      <node id="11905">
+        <label>stdlib.h</label>
+      </node>
+      <node id="11903">
+        <label>errno.h</label>
+      </node>
+      <node id="11856">
+        <label>helper/epoch.h</label>
+        <link refid="epoch_8h"/>
+        <childnode refid="11850" relation="include">
+        </childnode>
+      </node>
+      <node id="11867">
+        <label>stdexcept</label>
+      </node>
+      <node id="11879">
+        <label>helper/HwlocHelper.h</label>
+        <link refid="_hwloc_helper_8h"/>
+        <childnode refid="11880" relation="include">
+        </childnode>
+      </node>
+      <node id="11861">
+        <label>string</label>
+      </node>
+      <node id="11873">
+        <label>taskscheduler.h</label>
+        <link refid="taskscheduler_8h"/>
+        <childnode refid="11874" relation="include">
+        </childnode>
+        <childnode refid="11881" relation="include">
+        </childnode>
+        <childnode refid="11884" relation="include">
+        </childnode>
+        <childnode refid="11857" relation="include">
+        </childnode>
+        <childnode refid="11883" relation="include">
+        </childnode>
+        <childnode refid="11875" relation="include">
+        </childnode>
+        <childnode refid="11885" relation="include">
+        </childnode>
+        <childnode refid="11886" relation="include">
+        </childnode>
+      </node>
+      <node id="11881">
+        <label>taskscheduler/SimpleTaskScheduler.h</label>
+        <link refid="_simple_task_scheduler_8h"/>
+        <childnode refid="11874" relation="include">
+        </childnode>
+        <childnode refid="11877" relation="include">
+        </childnode>
+        <childnode refid="11852" relation="include">
+        </childnode>
+        <childnode refid="11882" relation="include">
+        </childnode>
+        <childnode refid="11858" relation="include">
+        </childnode>
+        <childnode refid="11849" relation="include">
+        </childnode>
+        <childnode refid="11857" relation="include">
+        </childnode>
+        <childnode refid="11883" relation="include">
+        </childnode>
+        <childnode refid="11879" relation="include">
+        </childnode>
+      </node>
+      <node id="11853">
+        <label>map</label>
+      </node>
+      <node id="11857">
+        <label>taskscheduler/Task.h</label>
+        <link refid="_task_8h"/>
+        <childnode refid="11852" relation="include">
+        </childnode>
+        <childnode refid="11858" relation="include">
+        </childnode>
+        <childnode refid="11859" relation="include">
+        </childnode>
+        <childnode refid="11860" relation="include">
+        </childnode>
+        <childnode refid="11861" relation="include">
+        </childnode>
+      </node>
+      <node id="11877">
+        <label>unordered_set</label>
+      </node>
+      <node id="11892">
+        <label>storage/ValueIdMap.hpp</label>
+        <link refid="_value_id_map_8hpp"/>
+        <childnode refid="11893" relation="include">
+        </childnode>
+        <childnode refid="11911" relation="include">
+        </childnode>
+      </node>
+      <node id="11902">
+        <label>memory/MemalignStrategy.h</label>
+        <link refid="_memalign_strategy_8h"/>
+        <childnode refid="11903" relation="include">
+        </childnode>
+        <childnode refid="11904" relation="include">
+        </childnode>
+        <childnode refid="11905" relation="include">
+        </childnode>
+      </node>
+      <node id="11880">
+        <label>hwloc.h</label>
+      </node>
+      <node id="11914">
+        <label>exception</label>
+      </node>
+      <node id="11848">
+        <label>access/OutputTask.h</label>
+        <link refid="_output_task_8h"/>
+        <childnode refid="11849" relation="include">
+        </childnode>
+        <childnode refid="11850" relation="include">
+        </childnode>
+        <childnode refid="11851" relation="include">
+        </childnode>
+        <childnode refid="11852" relation="include">
+        </childnode>
+        <childnode refid="11853" relation="include">
+        </childnode>
+        <childnode refid="11854" relation="include">
+        </childnode>
+        <childnode refid="11855" relation="include">
+        </childnode>
+        <childnode refid="11856" relation="include">
+        </childnode>
+        <childnode refid="11857" relation="include">
+        </childnode>
+      </node>
+      <node id="11897">
+        <label>stddef.h</label>
+      </node>
+      <node id="11883">
+        <label>taskscheduler/CoreBoundTaskQueue.h</label>
+        <link refid="_core_bound_task_queue_8h"/>
+        <childnode refid="11876" relation="include">
+        </childnode>
+        <childnode refid="11882" relation="include">
+        </childnode>
+        <childnode refid="11875" relation="include">
+        </childnode>
+      </node>
+      <node id="11911">
+        <label>storage/OrderIndifferentDictionary.h</label>
+        <link refid="_order_indifferent_dictionary_8h"/>
+        <childnode refid="11866" relation="include">
+        </childnode>
+        <childnode refid="11895" relation="include">
+        </childnode>
+        <childnode refid="11906" relation="include">
+        </childnode>
+        <childnode refid="11907" relation="include">
+        </childnode>
+        <childnode refid="11912" relation="include">
+        </childnode>
+        <childnode refid="11910" relation="include">
+        </childnode>
+        <childnode refid="11914" relation="include">
+        </childnode>
+        <childnode refid="11852" relation="include">
+        </childnode>
+        <childnode refid="11853" relation="include">
+        </childnode>
+        <childnode refid="11859" relation="include">
+        </childnode>
+        <childnode refid="11915" relation="include">
+        </childnode>
+        <childnode refid="11916" relation="include">
+        </childnode>
+        <childnode refid="11917" relation="include">
+        </childnode>
+      </node>
+      <node id="11868">
+        <label>ostream</label>
+      </node>
+      <node id="11855">
+        <label>json.h</label>
+      </node>
+      <node id="11915">
+        <label>limits.h</label>
+      </node>
+      <node id="11907">
+        <label>storage/DictionaryIterator.h</label>
+        <link refid="_dictionary_iterator_8h"/>
+        <childnode refid="11908" relation="include">
+        </childnode>
+        <childnode refid="11909" relation="include">
+        </childnode>
+      </node>
+      <node id="11895">
+        <label>storage/AbstractDictionary.h</label>
+        <link refid="_abstract_dictionary_8h"/>
+        <childnode refid="11852" relation="include">
+        </childnode>
+        <childnode refid="11861" relation="include">
+        </childnode>
+        <childnode refid="11859" relation="include">
+        </childnode>
+        <childnode refid="11896" relation="include">
+        </childnode>
+        <childnode refid="11900" relation="include">
+        </childnode>
+        <childnode refid="11902" relation="include">
+        </childnode>
+        <childnode refid="11866" relation="include">
+        </childnode>
+      </node>
+      <node id="11919">
+        <label>access/AbstractExpression.h</label>
+        <link refid="_abstract_expression_8h"/>
+        <childnode refid="11852" relation="include">
+        </childnode>
+        <childnode refid="11863" relation="include">
+        </childnode>
+      </node>
+      <node id="11860">
+        <label>condition_variable</label>
+      </node>
+      <node id="11913">
+        <label>string.h</label>
+      </node>
+      <node id="11888">
+        <label>access/BasicParser.h</label>
+        <link refid="_basic_parser_8h"/>
+        <childnode refid="11867" relation="include">
+        </childnode>
+        <childnode refid="11859" relation="include">
+        </childnode>
+        <childnode refid="11855" relation="include">
+        </childnode>
+      </node>
+      <node id="11889">
+        <label>storage/AbstractTable.h</label>
+        <link refid="_abstract_table_8h"/>
+        <childnode refid="11865" relation="include">
+        </childnode>
+        <childnode refid="11859" relation="include">
+        </childnode>
+        <childnode refid="11867" relation="include">
+        </childnode>
+        <childnode refid="11852" relation="include">
+        </childnode>
+        <childnode refid="11861" relation="include">
+        </childnode>
+        <childnode refid="11863" relation="include">
+        </childnode>
+        <childnode refid="11890" relation="include">
+        </childnode>
+        <childnode refid="11866" relation="include">
+        </childnode>
+        <childnode refid="11891" relation="include">
+        </childnode>
+        <childnode refid="11892" relation="include">
+        </childnode>
+      </node>
+      <node id="11885">
+        <label>taskscheduler/WSCoreBoundTaskQueue.h</label>
+        <link refid="_w_s_core_bound_task_queue_8h"/>
+        <childnode refid="11875" relation="include">
+        </childnode>
+        <childnode refid="11886" relation="include">
+        </childnode>
+      </node>
+      <node id="11890">
+        <label>storage/AbstractResource.h</label>
+        <link refid="_abstract_resource_8h"/>
+      </node>
+      <node id="11916">
+        <label>boost/unordered_map.hpp</label>
+      </node>
+      <node id="11852">
+        <label>vector</label>
+      </node>
+      <node id="11884">
+        <label>taskscheduler/SharedScheduler.h</label>
+        <link refid="_shared_scheduler_8h"/>
+        <childnode refid="11874" relation="include">
+        </childnode>
+        <childnode refid="11881" relation="include">
+        </childnode>
+        <childnode refid="11883" relation="include">
+        </childnode>
+        <childnode refid="11867" relation="include">
+        </childnode>
+      </node>
+      <node id="11854">
+        <label>utility</label>
+      </node>
+      <node id="11863">
+        <label>helper/types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="11864" relation="include">
+        </childnode>
+        <childnode refid="11861" relation="include">
+        </childnode>
+        <childnode refid="11865" relation="include">
+        </childnode>
+        <childnode refid="11859" relation="include">
+        </childnode>
+        <childnode refid="11852" relation="include">
+        </childnode>
+      </node>
+      <node id="11875">
+        <label>taskscheduler/AbstractTaskQueue.h</label>
+        <link refid="_abstract_task_queue_8h"/>
+        <childnode refid="11859" relation="include">
+        </childnode>
+        <childnode refid="11858" relation="include">
+        </childnode>
+        <childnode refid="11876" relation="include">
+        </childnode>
+        <childnode refid="11860" relation="include">
+        </childnode>
+        <childnode refid="11849" relation="include">
+        </childnode>
+        <childnode refid="11857" relation="include">
+        </childnode>
+      </node>
+      <node id="11918">
+        <label>access/pred_SimpleExpression.h</label>
+        <link refid="pred___simple_expression_8h"/>
+        <childnode refid="11866" relation="include">
+        </childnode>
+        <childnode refid="11863" relation="include">
+        </childnode>
+        <childnode refid="11919" relation="include">
+        </childnode>
+      </node>
+      <node id="11846">
+        <label>src/lib/access/SimpleTableScan.h</label>
+        <link refid="SimpleTableScan.h"/>
+        <childnode refid="11847" relation="include">
+        </childnode>
+        <childnode refid="11918" relation="include">
+        </childnode>
+      </node>
+      <node id="11908">
+        <label>storage/BaseIterator.h</label>
+        <link refid="_base_iterator_8h"/>
+      </node>
+      <node id="11896">
+        <label>memory/StrategizedAllocator.h</label>
+        <link refid="_strategized_allocator_8h"/>
+        <childnode refid="11897" relation="include">
+        </childnode>
+        <childnode refid="11898" relation="include">
+        </childnode>
+        <childnode refid="11899" relation="include">
+        </childnode>
+        <childnode refid="11867" relation="include">
+        </childnode>
+      </node>
+      <node id="11872">
+        <label>access/QueryParser.h</label>
+        <link refid="_query_parser_8h"/>
+        <childnode refid="11853" relation="include">
+        </childnode>
+        <childnode refid="11859" relation="include">
+        </childnode>
+        <childnode refid="11852" relation="include">
+        </childnode>
+        <childnode refid="11861" relation="include">
+        </childnode>
+        <childnode refid="11867" relation="include">
+        </childnode>
+        <childnode refid="11855" relation="include">
+        </childnode>
+        <childnode refid="11873" relation="include">
+        </childnode>
+        <childnode refid="11888" relation="include">
+        </childnode>
+      </node>
+      <node id="11862">
+        <label>access/OperationData.h</label>
+        <link refid="_operation_data_8h"/>
+        <childnode refid="11852" relation="include">
+        </childnode>
+        <childnode refid="11863" relation="include">
+        </childnode>
+        <childnode refid="11866" relation="include">
+        </childnode>
+      </node>
+      <node id="11851">
+        <label>time.h</label>
+      </node>
+      <node id="11878">
+        <label>iostream</label>
+      </node>
+      <node id="11891">
+        <label>storage/ColumnMetadata.h</label>
+        <link refid="_column_metadata_8h"/>
+        <childnode refid="11866" relation="include">
+        </childnode>
+        <childnode refid="11861" relation="include">
+        </childnode>
+        <childnode refid="11867" relation="include">
+        </childnode>
+      </node>
+      <node id="11874">
+        <label>taskscheduler/AbstractTaskScheduler.h</label>
+        <link refid="_abstract_task_scheduler_8h"/>
+        <childnode refid="11857" relation="include">
+        </childnode>
+        <childnode refid="11875" relation="include">
+        </childnode>
+        <childnode refid="11859" relation="include">
+        </childnode>
+        <childnode refid="11877" relation="include">
+        </childnode>
+        <childnode refid="11878" relation="include">
+        </childnode>
+        <childnode refid="11849" relation="include">
+        </childnode>
+        <childnode refid="11879" relation="include">
+        </childnode>
+      </node>
+      <node id="11887">
+        <label>deque</label>
+      </node>
+      <node id="11870">
+        <label>boost/mpl/map.hpp</label>
+      </node>
+      <node id="11886">
+        <label>taskscheduler/WSSimpleTaskScheduler.h</label>
+        <link refid="_w_s_simple_task_scheduler_8h"/>
+        <childnode refid="11874" relation="include">
+        </childnode>
+        <childnode refid="11885" relation="include">
+        </childnode>
+        <childnode refid="11887" relation="include">
+        </childnode>
+        <childnode refid="11878" relation="include">
+        </childnode>
+        <childnode refid="11879" relation="include">
+        </childnode>
+      </node>
+      <node id="11858">
+        <label>mutex</label>
+      </node>
+      <node id="11910">
+        <label>storage/AbstractAllocatedDictionary.h</label>
+        <link refid="_abstract_allocated_dictionary_8h"/>
+      </node>
+      <node id="11876">
+        <label>thread</label>
+      </node>
+      <node id="11900">
+        <label>memory/MallocStrategy.h</label>
+        <link refid="_malloc_strategy_8h"/>
+        <childnode refid="11878" relation="include">
+        </childnode>
+        <childnode refid="11864" relation="include">
+        </childnode>
+        <childnode refid="11901" relation="include">
+        </childnode>
+      </node>
+      <node id="11893">
+        <label>storage/OrderPreservingDictionary.h</label>
+        <link refid="_order_preserving_dictionary_8h"/>
+        <childnode refid="11894" relation="include">
+        </childnode>
+        <childnode refid="11878" relation="include">
+        </childnode>
+        <childnode refid="11859" relation="include">
+        </childnode>
+        <childnode refid="11866" relation="include">
+        </childnode>
+        <childnode refid="11895" relation="include">
+        </childnode>
+        <childnode refid="11906" relation="include">
+        </childnode>
+        <childnode refid="11907" relation="include">
+        </childnode>
+        <childnode refid="11910" relation="include">
+        </childnode>
+        <childnode refid="11908" relation="include">
+        </childnode>
+      </node>
+      <node id="11847">
+        <label>access/PlanOperation.h</label>
+        <link refid="_plan_operation_8h"/>
+        <childnode refid="11848" relation="include">
+        </childnode>
+        <childnode refid="11862" relation="include">
+        </childnode>
+        <childnode refid="11872" relation="include">
+        </childnode>
+        <childnode refid="11866" relation="include">
+        </childnode>
+        <childnode refid="11863" relation="include">
+        </childnode>
+        <childnode refid="11889" relation="include">
+        </childnode>
+        <childnode refid="11855" relation="include">
+        </childnode>
+      </node>
+      <node id="11898">
+        <label>algorithm</label>
+      </node>
+      <node id="11849">
+        <label>log4cxx/logger.h</label>
+      </node>
+      <node id="11904">
+        <label>stdio.h</label>
+      </node>
+      <node id="11901">
+        <label>cstring</label>
+      </node>
+      <node id="11912">
+        <label>storage/csb_tree.h</label>
+        <link refid="csb__tree_8h"/>
+        <childnode refid="11852" relation="include">
+        </childnode>
+        <childnode refid="11878" relation="include">
+        </childnode>
+        <childnode refid="11899" relation="include">
+        </childnode>
+        <childnode refid="11859" relation="include">
+        </childnode>
+        <childnode refid="11913" relation="include">
+        </childnode>
+        <childnode refid="11894" relation="include">
+        </childnode>
+        <childnode refid="11909" relation="include">
+        </childnode>
+      </node>
+      <node id="11859">
+        <label>memory</label>
+      </node>
+      <node id="11866">
+        <label>storage/storage_types.h</label>
+        <link refid="storage__types_8h"/>
+        <childnode refid="11852" relation="include">
+        </childnode>
+        <childnode refid="11861" relation="include">
+        </childnode>
+        <childnode refid="11867" relation="include">
+        </childnode>
+        <childnode refid="11850" relation="include">
+        </childnode>
+        <childnode refid="11868" relation="include">
+        </childnode>
+        <childnode refid="11869" relation="include">
+        </childnode>
+        <childnode refid="11870" relation="include">
+        </childnode>
+        <childnode refid="11871" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="11930">
+        <label>src/bin/perf_regression/UnionScan.cpp</label>
+        <link refid="bin_2perf__regression_2_union_scan_8cpp"/>
+      </node>
+      <node id="11926">
+        <label>src/bin/perf_regression/JoinScan.cpp</label>
+        <link refid="bin_2perf__regression_2_join_scan_8cpp"/>
+      </node>
+      <node id="11929">
+        <label>src/bin/perf_regression/SortScan.cpp</label>
+        <link refid="bin_2perf__regression_2_sort_scan_8cpp"/>
+      </node>
+      <node id="11923">
+        <label>src/bin/perf_regression/GroupByScan.cpp</label>
+        <link refid="bin_2perf__regression_2_group_by_scan_8cpp"/>
+      </node>
+      <node id="11927">
+        <label>src/bin/perf_regression/ProjectionScan.cpp</label>
+        <link refid="bin_2perf__regression_2_projection_scan_8cpp"/>
+      </node>
+      <node id="11924">
+        <label>src/bin/perf_regression/HashJoin.cpp</label>
+        <link refid="_hash_join_8cpp"/>
+      </node>
+      <node id="11920">
+        <label>src/lib/access/SimpleTableScan.h</label>
+        <link refid="SimpleTableScan.h"/>
+        <childnode refid="11921" relation="include">
+        </childnode>
+        <childnode refid="11922" relation="include">
+        </childnode>
+      </node>
+      <node id="11925">
+        <label>src/bin/perf_regression/HashValueJoin.cpp</label>
+        <link refid="_hash_value_join_8cpp"/>
+      </node>
+      <node id="11922">
+        <label>src/lib/access.h</label>
+        <link refid="access_8h"/>
+        <childnode refid="11923" relation="include">
+        </childnode>
+        <childnode refid="11924" relation="include">
+        </childnode>
+        <childnode refid="11925" relation="include">
+        </childnode>
+        <childnode refid="11926" relation="include">
+        </childnode>
+        <childnode refid="11927" relation="include">
+        </childnode>
+        <childnode refid="11928" relation="include">
+        </childnode>
+        <childnode refid="11929" relation="include">
+        </childnode>
+        <childnode refid="11930" relation="include">
+        </childnode>
+      </node>
+      <node id="11928">
+        <label>src/bin/perf_regression/SimpleTableScan.cpp</label>
+        <link refid="bin_2perf__regression_2_simple_table_scan_8cpp"/>
+      </node>
+      <node id="11921">
+        <label>src/lib/access/SimpleTableScan.cpp</label>
+        <link refid="lib_2access_2_simple_table_scan_8cpp"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="classhyrise_1_1access_1_1_simple_table_scan" prot="public">hyrise::access::SimpleTableScan</innerclass>
+    <innernamespace refid="namespacehyrise">hyrise</innernamespace>
+    <innernamespace refid="namespacehyrise_1_1access">hyrise::access</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>2012<sp/>Hasso-Plattner-Institut<sp/>fuer<sp/>Softwaresystemtechnik<sp/>GmbH.<sp/>All<sp/>rights<sp/>reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SRC_LIB_ACCESS_SIMPLETABLESCAN_H_</highlight></codeline>
+<codeline lineno="3"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SRC_LIB_ACCESS_SIMPLETABLESCAN_H_</highlight></codeline>
+<codeline lineno="4"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_plan_operation_8h" kindref="compound">access/PlanOperation.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="pred___simple_expression_8h" kindref="compound">access/pred_SimpleExpression.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">hyrise<sp/>{</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">access<sp/>{</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11" refid="classhyrise_1_1access_1_1_simple_table_scan" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classhyrise_1_1access_1_1_simple_table_scan" kindref="compound">SimpleTableScan</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="class___plan_operation" kindref="compound">_PlanOperation</ref><sp/>{</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><ref refid="classhyrise_1_1access_1_1_simple_table_scan_1ab83b159e5142e74850825ff1ba223d5c" kindref="member">SimpleTableScan</ref>();</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1access_1_1_simple_table_scan_1a1a7d77af630813ac4a281313408277f9" kindref="member">~SimpleTableScan</ref>();</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1access_1_1_simple_table_scan_1a7880487455256d8e673a84d24e472b60" kindref="member">setupPlanOperation</ref>();</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1access_1_1_simple_table_scan_1a254d6ff5601450fb2ac08a87beb9b52f" kindref="member">executePlanOperation</ref>();</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>std::shared_ptr&lt;_PlanOperation&gt;<sp/><ref refid="classhyrise_1_1access_1_1_simple_table_scan_1a194813d5731af5ef4a288c4ae8ad9aab" kindref="member">parse</ref>(Json::Value<sp/>&amp;data);</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/><ref refid="classhyrise_1_1access_1_1_simple_table_scan_1aa65dcb40c824cdeb0c6a7151a454127d" kindref="member">vname</ref>();</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1access_1_1_simple_table_scan_1a973656f7f2f7ca090ae33f8c81deaaae" kindref="member">setPredicate</ref>(<ref refid="class_simple_expression" kindref="compound">SimpleExpression</ref><sp/>*c);</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="23" refid="classhyrise_1_1access_1_1_simple_table_scan_1a5169a3edb74ee923f61c33504702b2e4" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="class_simple_expression" kindref="compound">SimpleExpression</ref><sp/>*<ref refid="classhyrise_1_1access_1_1_simple_table_scan_1a5169a3edb74ee923f61c33504702b2e4" kindref="member">_comparator</ref>;</highlight></codeline>
+<codeline lineno="24"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="27"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/>//<sp/>SRC_LIB_ACCESS_SIMPLETABLESCAN_H_</highlight></codeline>
+    </programlisting>
+    <location file="/home/grund/hyrise/src/lib/access/SimpleTableScan.h"/>
+  </compounddef>
+</doxygen>

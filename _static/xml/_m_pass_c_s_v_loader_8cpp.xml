@@ -1,0 +1,1105 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="_m_pass_c_s_v_loader_8cpp" kind="file">
+    <compoundname>MPassCSVLoader.cpp</compoundname>
+    <includes refid="_m_pass_c_s_v_loader_8h" local="yes">MPassCSVLoader.h</includes>
+    <includes local="no">sys/types.h</includes>
+    <includes local="no">sys/stat.h</includes>
+    <includes local="no">fcntl.h</includes>
+    <includes local="no">algorithm</includes>
+    <includes local="no">set</includes>
+    <includes local="no">thread</includes>
+    <includes local="yes">boost/lexical_cast.hpp</includes>
+    <includes local="yes">boost/algorithm/string.hpp</includes>
+    <includes refid="_generic_c_s_v_8h" local="yes">io/GenericCSV.h</includes>
+    <includes refid="_column_loader_8h" local="yes">io/ColumnLoader.h</includes>
+    <includes refid="_metadata_creation_8h" local="yes">io/MetadataCreation.h</includes>
+    <includes refid="_abstract_table_8h" local="yes">storage/AbstractTable.h</includes>
+    <includes refid="_store_8h" local="yes">storage/Store.h</includes>
+    <includes refid="_order_preserving_dictionary_8h" local="yes">storage/OrderPreservingDictionary.h</includes>
+    <includes refid="_column_metadata_8h" local="yes">storage/ColumnMetadata.h</includes>
+    <includes refid="meta__storage_8h" local="yes">storage/meta_storage.h</includes>
+    <incdepgraph>
+      <node id="14976">
+        <label>sys/stat.h</label>
+      </node>
+      <node id="14993">
+        <label>list</label>
+      </node>
+      <node id="15042">
+        <label>boost/mpl/size.hpp</label>
+      </node>
+      <node id="15022">
+        <label>atomic</label>
+      </node>
+      <node id="15026">
+        <label>storage/BaseAllocatedAttributeVector.h</label>
+        <link refid="_base_allocated_attribute_vector_8h"/>
+        <childnode refid="15018" relation="include">
+        </childnode>
+        <childnode refid="14998" relation="include">
+        </childnode>
+      </node>
+      <node id="14981">
+        <label>boost/algorithm/string.hpp</label>
+      </node>
+      <node id="14966">
+        <label>boost/mpl/vector.hpp</label>
+      </node>
+      <node id="14960">
+        <label>limits</label>
+      </node>
+      <node id="15012">
+        <label>boost/functional/hash.hpp</label>
+      </node>
+      <node id="15017">
+        <label>storage/AbstractAllocatedTable.h</label>
+        <link refid="_abstract_allocated_table_8h"/>
+        <childnode refid="14991" relation="include">
+        </childnode>
+        <childnode refid="14994" relation="include">
+        </childnode>
+        <childnode refid="14996" relation="include">
+        </childnode>
+      </node>
+      <node id="14988">
+        <label>assert.h</label>
+      </node>
+      <node id="14971">
+        <label>GenericCSV.h</label>
+        <link refid="_generic_c_s_v_8h"/>
+        <childnode refid="14972" relation="include">
+        </childnode>
+        <childnode refid="14963" relation="include">
+        </childnode>
+        <childnode refid="14957" relation="include">
+        </childnode>
+        <childnode refid="14961" relation="include">
+        </childnode>
+        <childnode refid="14973" relation="include">
+        </childnode>
+        <childnode refid="14962" relation="include">
+        </childnode>
+        <childnode refid="14969" relation="include">
+        </childnode>
+      </node>
+      <node id="14968">
+        <label>boost/lexical_cast.hpp</label>
+      </node>
+      <node id="15003">
+        <label>boost/iterator/iterator_facade.hpp</label>
+      </node>
+      <node id="14959">
+        <label>cstdint</label>
+      </node>
+      <node id="15015">
+        <label>storage/MutableVerticalTable.h</label>
+        <link refid="_mutable_vertical_table_8h"/>
+        <childnode refid="14961" relation="include">
+        </childnode>
+        <childnode refid="14957" relation="include">
+        </childnode>
+        <childnode refid="14958" relation="include">
+        </childnode>
+        <childnode refid="15016" relation="include">
+        </childnode>
+        <childnode refid="15030" relation="include">
+        </childnode>
+        <childnode refid="14985" relation="include">
+        </childnode>
+        <childnode refid="14983" relation="include">
+        </childnode>
+      </node>
+      <node id="15021">
+        <label>storage/FixedLengthVector.h</label>
+        <link refid="_fixed_length_vector_8h"/>
+        <childnode refid="15022" relation="include">
+        </childnode>
+        <childnode refid="14997" relation="include">
+        </childnode>
+        <childnode refid="15023" relation="include">
+        </childnode>
+        <childnode refid="14954" relation="include">
+        </childnode>
+        <childnode refid="15024" relation="include">
+        </childnode>
+        <childnode refid="14957" relation="include">
+        </childnode>
+        <childnode refid="14963" relation="include">
+        </childnode>
+        <childnode refid="15025" relation="include">
+        </childnode>
+        <childnode refid="15003" relation="include">
+        </childnode>
+        <childnode refid="15019" relation="include">
+        </childnode>
+        <childnode refid="15018" relation="include">
+        </childnode>
+        <childnode refid="15026" relation="include">
+        </childnode>
+        <childnode refid="14991" relation="include">
+        </childnode>
+        <childnode refid="14994" relation="include">
+        </childnode>
+      </node>
+      <node id="15000">
+        <label>storage/BaseDictionary.h</label>
+        <link refid="_base_dictionary_8h"/>
+        <childnode refid="14962" relation="include">
+        </childnode>
+        <childnode refid="14990" relation="include">
+        </childnode>
+        <childnode refid="15001" relation="include">
+        </childnode>
+      </node>
+      <node id="15020">
+        <label>storage/AttributeVectorFactory.h</label>
+        <link refid="_attribute_vector_factory_8h"/>
+        <childnode refid="14954" relation="include">
+        </childnode>
+        <childnode refid="15018" relation="include">
+        </childnode>
+        <childnode refid="15021" relation="include">
+        </childnode>
+        <childnode refid="15027" relation="include">
+        </childnode>
+      </node>
+      <node id="14964">
+        <label>stdint.h</label>
+      </node>
+      <node id="14999">
+        <label>stdlib.h</label>
+      </node>
+      <node id="15013">
+        <label>io/MetadataCreation.h</label>
+        <link refid="_metadata_creation_8h"/>
+        <childnode refid="14954" relation="include">
+        </childnode>
+        <childnode refid="14957" relation="include">
+        </childnode>
+        <childnode refid="14961" relation="include">
+        </childnode>
+        <childnode refid="14958" relation="include">
+        </childnode>
+        <childnode refid="14970" relation="include">
+        </childnode>
+        <childnode refid="14962" relation="include">
+        </childnode>
+      </node>
+      <node id="15029">
+        <label>cmath</label>
+      </node>
+      <node id="14997">
+        <label>errno.h</label>
+      </node>
+      <node id="14963">
+        <label>stdexcept</label>
+      </node>
+      <node id="14977">
+        <label>fcntl.h</label>
+      </node>
+      <node id="14957">
+        <label>string</label>
+      </node>
+      <node id="15040">
+        <label>boost/mpl/at.hpp</label>
+      </node>
+      <node id="15009">
+        <label>map</label>
+      </node>
+      <node id="14974">
+        <label>CSVLoader.h</label>
+        <link refid="_c_s_v_loader_8h"/>
+        <childnode refid="14954" relation="include">
+        </childnode>
+        <childnode refid="14955" relation="include">
+        </childnode>
+        <childnode refid="14971" relation="include">
+        </childnode>
+        <childnode refid="14970" relation="include">
+        </childnode>
+        <childnode refid="14969" relation="include">
+        </childnode>
+      </node>
+      <node id="14986">
+        <label>storage/ValueIdMap.hpp</label>
+        <link refid="_value_id_map_8hpp"/>
+        <childnode refid="14987" relation="include">
+        </childnode>
+        <childnode refid="15005" relation="include">
+        </childnode>
+      </node>
+      <node id="14996">
+        <label>memory/MemalignStrategy.h</label>
+        <link refid="_memalign_strategy_8h"/>
+        <childnode refid="14997" relation="include">
+        </childnode>
+        <childnode refid="14998" relation="include">
+        </childnode>
+        <childnode refid="14999" relation="include">
+        </childnode>
+      </node>
+      <node id="15008">
+        <label>exception</label>
+      </node>
+      <node id="14992">
+        <label>stddef.h</label>
+      </node>
+      <node id="15005">
+        <label>storage/OrderIndifferentDictionary.h</label>
+        <link refid="_order_indifferent_dictionary_8h"/>
+        <childnode refid="14962" relation="include">
+        </childnode>
+        <childnode refid="14990" relation="include">
+        </childnode>
+        <childnode refid="15000" relation="include">
+        </childnode>
+        <childnode refid="15001" relation="include">
+        </childnode>
+        <childnode refid="15006" relation="include">
+        </childnode>
+        <childnode refid="15004" relation="include">
+        </childnode>
+        <childnode refid="15008" relation="include">
+        </childnode>
+        <childnode refid="14961" relation="include">
+        </childnode>
+        <childnode refid="15009" relation="include">
+        </childnode>
+        <childnode refid="14954" relation="include">
+        </childnode>
+        <childnode refid="15010" relation="include">
+        </childnode>
+        <childnode refid="15011" relation="include">
+        </childnode>
+        <childnode refid="15012" relation="include">
+        </childnode>
+      </node>
+      <node id="14965">
+        <label>ostream</label>
+      </node>
+      <node id="14952">
+        <label>src/lib/io/MPassCSVLoader.cpp</label>
+        <link refid="MPassCSVLoader.cpp"/>
+        <childnode refid="14953" relation="include">
+        </childnode>
+        <childnode refid="14975" relation="include">
+        </childnode>
+        <childnode refid="14976" relation="include">
+        </childnode>
+        <childnode refid="14977" relation="include">
+        </childnode>
+        <childnode refid="14978" relation="include">
+        </childnode>
+        <childnode refid="14979" relation="include">
+        </childnode>
+        <childnode refid="14980" relation="include">
+        </childnode>
+        <childnode refid="14968" relation="include">
+        </childnode>
+        <childnode refid="14981" relation="include">
+        </childnode>
+        <childnode refid="14971" relation="include">
+        </childnode>
+        <childnode refid="14982" relation="include">
+        </childnode>
+        <childnode refid="15013" relation="include">
+        </childnode>
+        <childnode refid="14983" relation="include">
+        </childnode>
+        <childnode refid="15014" relation="include">
+        </childnode>
+        <childnode refid="14987" relation="include">
+        </childnode>
+        <childnode refid="14985" relation="include">
+        </childnode>
+        <childnode refid="15039" relation="include">
+        </childnode>
+      </node>
+      <node id="15032">
+        <label>storage/AbstractMergeStrategy.h</label>
+        <link refid="_abstract_merge_strategy_8h"/>
+        <childnode refid="14961" relation="include">
+        </childnode>
+        <childnode refid="14983" relation="include">
+        </childnode>
+      </node>
+      <node id="15010">
+        <label>limits.h</label>
+      </node>
+      <node id="15001">
+        <label>storage/DictionaryIterator.h</label>
+        <link refid="_dictionary_iterator_8h"/>
+        <childnode refid="15002" relation="include">
+        </childnode>
+        <childnode refid="15003" relation="include">
+        </childnode>
+      </node>
+      <node id="14973">
+        <label>libcsv/csv.h</label>
+      </node>
+      <node id="15014">
+        <label>storage/Store.h</label>
+        <link refid="_store_8h"/>
+        <childnode refid="15015" relation="include">
+        </childnode>
+        <childnode refid="14983" relation="include">
+        </childnode>
+        <childnode refid="15031" relation="include">
+        </childnode>
+        <childnode refid="15036" relation="include">
+        </childnode>
+        <childnode refid="15037" relation="include">
+        </childnode>
+        <childnode refid="15017" relation="include">
+        </childnode>
+        <childnode refid="14958" relation="include">
+        </childnode>
+      </node>
+      <node id="14990">
+        <label>storage/AbstractDictionary.h</label>
+        <link refid="_abstract_dictionary_8h"/>
+        <childnode refid="14961" relation="include">
+        </childnode>
+        <childnode refid="14957" relation="include">
+        </childnode>
+        <childnode refid="14954" relation="include">
+        </childnode>
+        <childnode refid="14991" relation="include">
+        </childnode>
+        <childnode refid="14994" relation="include">
+        </childnode>
+        <childnode refid="14996" relation="include">
+        </childnode>
+        <childnode refid="14962" relation="include">
+        </childnode>
+      </node>
+      <node id="15016">
+        <label>storage/Table.h</label>
+        <link refid="_table_8h"/>
+        <childnode refid="14957" relation="include">
+        </childnode>
+        <childnode refid="14961" relation="include">
+        </childnode>
+        <childnode refid="14954" relation="include">
+        </childnode>
+        <childnode refid="14958" relation="include">
+        </childnode>
+        <childnode refid="14985" relation="include">
+        </childnode>
+        <childnode refid="14983" relation="include">
+        </childnode>
+        <childnode refid="14990" relation="include">
+        </childnode>
+        <childnode refid="15017" relation="include">
+        </childnode>
+        <childnode refid="15018" relation="include">
+        </childnode>
+        <childnode refid="15020" relation="include">
+        </childnode>
+        <childnode refid="15028" relation="include">
+        </childnode>
+      </node>
+      <node id="14975">
+        <label>sys/types.h</label>
+      </node>
+      <node id="15007">
+        <label>string.h</label>
+      </node>
+      <node id="14983">
+        <label>storage/AbstractTable.h</label>
+        <link refid="_abstract_table_8h"/>
+        <childnode refid="14960" relation="include">
+        </childnode>
+        <childnode refid="14954" relation="include">
+        </childnode>
+        <childnode refid="14963" relation="include">
+        </childnode>
+        <childnode refid="14961" relation="include">
+        </childnode>
+        <childnode refid="14957" relation="include">
+        </childnode>
+        <childnode refid="14958" relation="include">
+        </childnode>
+        <childnode refid="14984" relation="include">
+        </childnode>
+        <childnode refid="14962" relation="include">
+        </childnode>
+        <childnode refid="14985" relation="include">
+        </childnode>
+        <childnode refid="14986" relation="include">
+        </childnode>
+      </node>
+      <node id="14984">
+        <label>storage/AbstractResource.h</label>
+        <link refid="_abstract_resource_8h"/>
+      </node>
+      <node id="15030">
+        <label>storage/TableFactory.h</label>
+        <link refid="_table_factory_8h"/>
+        <childnode refid="14954" relation="include">
+        </childnode>
+        <childnode refid="14958" relation="include">
+        </childnode>
+        <childnode refid="14983" relation="include">
+        </childnode>
+        <childnode refid="15016" relation="include">
+        </childnode>
+      </node>
+      <node id="15033">
+        <label>storage/AbstractMerger.h</label>
+        <link refid="_abstract_merger_8h"/>
+        <childnode refid="14961" relation="include">
+        </childnode>
+        <childnode refid="15034" relation="include">
+        </childnode>
+        <childnode refid="14958" relation="include">
+        </childnode>
+        <childnode refid="14983" relation="include">
+        </childnode>
+        <childnode refid="15035" relation="include">
+        </childnode>
+      </node>
+      <node id="15011">
+        <label>boost/unordered_map.hpp</label>
+      </node>
+      <node id="14953">
+        <label>MPassCSVLoader.h</label>
+        <link refid="_m_pass_c_s_v_loader_8h"/>
+        <childnode refid="14954" relation="include">
+        </childnode>
+        <childnode refid="14955" relation="include">
+        </childnode>
+        <childnode refid="14970" relation="include">
+        </childnode>
+        <childnode refid="14971" relation="include">
+        </childnode>
+        <childnode refid="14974" relation="include">
+        </childnode>
+        <childnode refid="14969" relation="include">
+        </childnode>
+      </node>
+      <node id="14961">
+        <label>vector</label>
+      </node>
+      <node id="15036">
+        <label>storage/LogarithmicMergeStrategy.h</label>
+        <link refid="_logarithmic_merge_strategy_8h"/>
+        <childnode refid="14958" relation="include">
+        </childnode>
+        <childnode refid="15032" relation="include">
+        </childnode>
+        <childnode refid="14983" relation="include">
+        </childnode>
+      </node>
+      <node id="15041">
+        <label>boost/mpl/int.hpp</label>
+      </node>
+      <node id="14958">
+        <label>helper/types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="14959" relation="include">
+        </childnode>
+        <childnode refid="14957" relation="include">
+        </childnode>
+        <childnode refid="14960" relation="include">
+        </childnode>
+        <childnode refid="14954" relation="include">
+        </childnode>
+        <childnode refid="14961" relation="include">
+        </childnode>
+      </node>
+      <node id="15025">
+        <label>sstream</label>
+      </node>
+      <node id="14956">
+        <label>io/Loader.h</label>
+        <link refid="_loader_8h"/>
+        <childnode refid="14954" relation="include">
+        </childnode>
+        <childnode refid="14957" relation="include">
+        </childnode>
+        <childnode refid="14958" relation="include">
+        </childnode>
+        <childnode refid="14962" relation="include">
+        </childnode>
+        <childnode refid="14969" relation="include">
+        </childnode>
+      </node>
+      <node id="15039">
+        <label>storage/meta_storage.h</label>
+        <link refid="meta__storage_8h"/>
+        <childnode refid="14963" relation="include">
+        </childnode>
+        <childnode refid="15040" relation="include">
+        </childnode>
+        <childnode refid="15041" relation="include">
+        </childnode>
+        <childnode refid="15042" relation="include">
+        </childnode>
+        <childnode refid="14962" relation="include">
+        </childnode>
+      </node>
+      <node id="14982">
+        <label>io/ColumnLoader.h</label>
+        <link refid="_column_loader_8h"/>
+        <childnode refid="14983" relation="include">
+        </childnode>
+      </node>
+      <node id="15038">
+        <label>storage/DictionaryPosition.h</label>
+        <link refid="_dictionary_position_8h"/>
+      </node>
+      <node id="15037">
+        <label>storage/SequentialHeapMerger.h</label>
+        <link refid="_sequential_heap_merger_8h"/>
+        <childnode refid="14986" relation="include">
+        </childnode>
+        <childnode refid="14983" relation="include">
+        </childnode>
+        <childnode refid="15033" relation="include">
+        </childnode>
+        <childnode refid="15038" relation="include">
+        </childnode>
+      </node>
+      <node id="15002">
+        <label>storage/BaseIterator.h</label>
+        <link refid="_base_iterator_8h"/>
+      </node>
+      <node id="14991">
+        <label>memory/StrategizedAllocator.h</label>
+        <link refid="_strategized_allocator_8h"/>
+        <childnode refid="14992" relation="include">
+        </childnode>
+        <childnode refid="14978" relation="include">
+        </childnode>
+        <childnode refid="14993" relation="include">
+        </childnode>
+        <childnode refid="14963" relation="include">
+        </childnode>
+      </node>
+      <node id="15023">
+        <label>math.h</label>
+      </node>
+      <node id="14955">
+        <label>AbstractLoader.h</label>
+        <link refid="_abstract_loader_8h"/>
+        <childnode refid="14956" relation="include">
+        </childnode>
+        <childnode refid="14962" relation="include">
+        </childnode>
+      </node>
+      <node id="14972">
+        <label>iosfwd</label>
+      </node>
+      <node id="14989">
+        <label>iostream</label>
+      </node>
+      <node id="14970">
+        <label>LoaderException.h</label>
+        <link refid="_loader_exception_8h"/>
+        <childnode refid="14963" relation="include">
+        </childnode>
+        <childnode refid="14957" relation="include">
+        </childnode>
+      </node>
+      <node id="15031">
+        <label>storage/TableMerger.h</label>
+        <link refid="_table_merger_8h"/>
+        <childnode refid="14961" relation="include">
+        </childnode>
+        <childnode refid="14958" relation="include">
+        </childnode>
+        <childnode refid="14983" relation="include">
+        </childnode>
+        <childnode refid="15032" relation="include">
+        </childnode>
+        <childnode refid="15033" relation="include">
+        </childnode>
+      </node>
+      <node id="14985">
+        <label>storage/ColumnMetadata.h</label>
+        <link refid="_column_metadata_8h"/>
+        <childnode refid="14962" relation="include">
+        </childnode>
+        <childnode refid="14957" relation="include">
+        </childnode>
+        <childnode refid="14963" relation="include">
+        </childnode>
+      </node>
+      <node id="15019">
+        <label>storage/AbstractAttributeVector.h</label>
+        <link refid="_abstract_attribute_vector_8h"/>
+      </node>
+      <node id="15034">
+        <label>unordered_map</label>
+      </node>
+      <node id="14967">
+        <label>boost/mpl/map.hpp</label>
+      </node>
+      <node id="15024">
+        <label>mutex</label>
+      </node>
+      <node id="15035">
+        <label>storage/TableUtils.h</label>
+        <link refid="_table_utils_8h"/>
+        <childnode refid="14954" relation="include">
+        </childnode>
+        <childnode refid="15034" relation="include">
+        </childnode>
+      </node>
+      <node id="15004">
+        <label>storage/AbstractAllocatedDictionary.h</label>
+        <link refid="_abstract_allocated_dictionary_8h"/>
+      </node>
+      <node id="14980">
+        <label>thread</label>
+      </node>
+      <node id="15028">
+        <label>Table-impl.h</label>
+        <link refid="_table-impl_8h"/>
+        <childnode refid="15029" relation="include">
+        </childnode>
+        <childnode refid="15020" relation="include">
+        </childnode>
+      </node>
+      <node id="15027">
+        <label>storage/BitCompressedVector.h</label>
+        <link refid="_bit_compressed_vector_8h"/>
+        <childnode refid="15023" relation="include">
+        </childnode>
+        <childnode refid="14964" relation="include">
+        </childnode>
+        <childnode refid="14995" relation="include">
+        </childnode>
+        <childnode refid="15024" relation="include">
+        </childnode>
+        <childnode refid="14957" relation="include">
+        </childnode>
+        <childnode refid="14963" relation="include">
+        </childnode>
+        <childnode refid="15019" relation="include">
+        </childnode>
+        <childnode refid="15018" relation="include">
+        </childnode>
+      </node>
+      <node id="15018">
+        <label>storage/BaseAttributeVector.h</label>
+        <link refid="_base_attribute_vector_8h"/>
+        <childnode refid="14954" relation="include">
+        </childnode>
+        <childnode refid="14963" relation="include">
+        </childnode>
+        <childnode refid="15019" relation="include">
+        </childnode>
+      </node>
+      <node id="14994">
+        <label>memory/MallocStrategy.h</label>
+        <link refid="_malloc_strategy_8h"/>
+        <childnode refid="14989" relation="include">
+        </childnode>
+        <childnode refid="14959" relation="include">
+        </childnode>
+        <childnode refid="14995" relation="include">
+        </childnode>
+      </node>
+      <node id="14979">
+        <label>set</label>
+      </node>
+      <node id="14987">
+        <label>storage/OrderPreservingDictionary.h</label>
+        <link refid="_order_preserving_dictionary_8h"/>
+        <childnode refid="14988" relation="include">
+        </childnode>
+        <childnode refid="14989" relation="include">
+        </childnode>
+        <childnode refid="14954" relation="include">
+        </childnode>
+        <childnode refid="14962" relation="include">
+        </childnode>
+        <childnode refid="14990" relation="include">
+        </childnode>
+        <childnode refid="15000" relation="include">
+        </childnode>
+        <childnode refid="15001" relation="include">
+        </childnode>
+        <childnode refid="15004" relation="include">
+        </childnode>
+        <childnode refid="15002" relation="include">
+        </childnode>
+      </node>
+      <node id="14978">
+        <label>algorithm</label>
+      </node>
+      <node id="14998">
+        <label>stdio.h</label>
+      </node>
+      <node id="14995">
+        <label>cstring</label>
+      </node>
+      <node id="15006">
+        <label>storage/csb_tree.h</label>
+        <link refid="csb__tree_8h"/>
+        <childnode refid="14961" relation="include">
+        </childnode>
+        <childnode refid="14989" relation="include">
+        </childnode>
+        <childnode refid="14993" relation="include">
+        </childnode>
+        <childnode refid="14954" relation="include">
+        </childnode>
+        <childnode refid="15007" relation="include">
+        </childnode>
+        <childnode refid="14988" relation="include">
+        </childnode>
+        <childnode refid="15003" relation="include">
+        </childnode>
+      </node>
+      <node id="14954">
+        <label>memory</label>
+      </node>
+      <node id="14962">
+        <label>storage/storage_types.h</label>
+        <link refid="storage__types_8h"/>
+        <childnode refid="14961" relation="include">
+        </childnode>
+        <childnode refid="14957" relation="include">
+        </childnode>
+        <childnode refid="14963" relation="include">
+        </childnode>
+        <childnode refid="14964" relation="include">
+        </childnode>
+        <childnode refid="14965" relation="include">
+        </childnode>
+        <childnode refid="14966" relation="include">
+        </childnode>
+        <childnode refid="14967" relation="include">
+        </childnode>
+        <childnode refid="14968" relation="include">
+        </childnode>
+      </node>
+      <node id="14969">
+        <label>parameters.inc</label>
+        <link refid="parameters_8inc"/>
+      </node>
+    </incdepgraph>
+    <innerclass refid="structhyrise_1_1io_1_1_m_pass_loader_1_1parallel__data" prot="public">hyrise::io::MPassLoader::parallel_data</innerclass>
+    <innerclass refid="structhyrise_1_1io_1_1_m_pass_loader_1_1cast__functor" prot="public">hyrise::io::MPassLoader::cast_functor</innerclass>
+    <innerclass refid="structhyrise_1_1io_1_1_m_pass_loader_1_1do__load__functor" prot="public">hyrise::io::MPassLoader::do_load_functor</innerclass>
+    <innernamespace refid="namespacehyrise">hyrise</innernamespace>
+    <innernamespace refid="namespacehyrise_1_1io">hyrise::io</innernamespace>
+    <innernamespace refid="namespacehyrise_1_1io_1_1_m_pass_loader">hyrise::io::MPassLoader</innernamespace>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="_m_pass_c_s_v_loader_8cpp_1a4e0d072d2af0c3748770051a23bcd9b9" prot="public" static="no">
+        <name>LOAD_SIZE</name>
+        <initializer>(4096 * 10)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/MPassCSVLoader.cpp" line="27" bodyfile="/home/grund/hyrise/src/lib/io/MPassCSVLoader.cpp" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="_m_pass_c_s_v_loader_8cpp_1aa1b1ee044f7d904721323cdb16f0a6f0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void parallel_load</definition>
+        <argsstring>(std::shared_ptr&lt; AbstractTable &gt; intable, size_t attr, std::string fn, hyrise::io::MPassLoader::parallel_data *data)</argsstring>
+        <name>parallel_load</name>
+        <param>
+          <type>std::shared_ptr&lt; <ref refid="class_abstract_table" kindref="compound">AbstractTable</ref> &gt;</type>
+          <declname>intable</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>attr</declname>
+        </param>
+        <param>
+          <type>std::string</type>
+          <declname>fn</declname>
+        </param>
+        <param>
+          <type><ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1parallel__data" kindref="compound">hyrise::io::MPassLoader::parallel_data</ref> *</type>
+          <declname>data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/MPassCSVLoader.cpp" line="153" bodyfile="/home/grund/hyrise/src/lib/io/MPassCSVLoader.cpp" bodystart="153" bodyend="195"/>
+      </memberdef>
+      <memberdef kind="function" id="_m_pass_c_s_v_loader_8cpp_1aaca7aa26f04c5c282aa9e36b5a201bcd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void pass2</definition>
+        <argsstring>(std::shared_ptr&lt; AbstractTable &gt; intable, hyrise::io::MPassLoader::parallel_data *data, size_t attr)</argsstring>
+        <name>pass2</name>
+        <param>
+          <type>std::shared_ptr&lt; <ref refid="class_abstract_table" kindref="compound">AbstractTable</ref> &gt;</type>
+          <declname>intable</declname>
+        </param>
+        <param>
+          <type><ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1parallel__data" kindref="compound">hyrise::io::MPassLoader::parallel_data</ref> *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>attr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/MPassCSVLoader.cpp" line="197" bodyfile="/home/grund/hyrise/src/lib/io/MPassCSVLoader.cpp" bodystart="197" bodyend="201"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>2012<sp/>Hasso-Plattner-Institut<sp/>fuer<sp/>Softwaresystemtechnik<sp/>GmbH.<sp/>All<sp/>rights<sp/>reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_m_pass_c_s_v_loader_8h" kindref="compound">MPassCSVLoader.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;sys/types.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;sys/stat.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;fcntl.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;algorithm&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;set&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;thread&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;boost/lexical_cast.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;boost/algorithm/string.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_generic_c_s_v_8h" kindref="compound">io/GenericCSV.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_column_loader_8h" kindref="compound">io/ColumnLoader.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_metadata_creation_8h" kindref="compound">io/MetadataCreation.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_abstract_table_8h" kindref="compound">storage/AbstractTable.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_store_8h" kindref="compound">storage/Store.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_order_preserving_dictionary_8h" kindref="compound">storage/OrderPreservingDictionary.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_column_metadata_8h" kindref="compound">storage/ColumnMetadata.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="meta__storage_8h" kindref="compound">storage/meta_storage.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight></codeline>
+<codeline lineno="25" refid="class_m_pass_c_s_v_input_1_1params_1a201b82b5a905320cfa9ac8dbbcbb09a8" refkind="member"><highlight class="normal"><ref refid="_c_s_v_loader_8h_1a7dd726b83c37b5eb2e3fa5fba8e27c9d" kindref="member">param_member_impl</ref>(<ref refid="class_m_pass_c_s_v_input_1_1params" kindref="compound">MPassCSVInput::params</ref>,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal">,<sp/>Unsafe);</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27" refid="_m_pass_c_s_v_loader_8cpp_1a4e0d072d2af0c3748770051a23bcd9b9" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>LOAD_SIZE<sp/>(4096<sp/>*<sp/>10)</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">hyrise<sp/>{</highlight></codeline>
+<codeline lineno="30" refid="namespacehyrise_1_1io" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">io<sp/>{</highlight></codeline>
+<codeline lineno="31" refid="namespacehyrise_1_1io_1_1_m_pass_loader" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">MPassLoader<sp/>{</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34" refid="structhyrise_1_1io_1_1_m_pass_loader_1_1parallel__data" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1parallel__data" kindref="compound">parallel_data</ref><sp/>{</highlight></codeline>
+<codeline lineno="35" refid="structhyrise_1_1io_1_1_m_pass_loader_1_1parallel__data_1a837e262ce11f94d95f8c2470dad4e6b7" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*<ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1parallel__data_1a837e262ce11f94d95f8c2470dad4e6b7" kindref="member">vector</ref>;</highlight></codeline>
+<codeline lineno="36" refid="structhyrise_1_1io_1_1_m_pass_loader_1_1parallel__data_1a513c56d18fa950b7fa779d4e450788bf" refkind="member"><highlight class="normal"><sp/><sp/>std::vector&lt;size_t&gt;<sp/><ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1parallel__data_1a513c56d18fa950b7fa779d4e450788bf" kindref="member">positions</ref>;</highlight></codeline>
+<codeline lineno="37" refid="structhyrise_1_1io_1_1_m_pass_loader_1_1parallel__data_1adfd628c53c21680c00a5911d857bba80" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1parallel__data_1adfd628c53c21680c00a5911d857bba80" kindref="member">rows</ref>;</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Buffer<sp/>pointing<sp/>to<sp/>the<sp/>copied<sp/>data</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40" refid="structhyrise_1_1io_1_1_m_pass_loader_1_1parallel__data_1ae2ea04b804b093f082cf1bddb01fc960" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*<ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1parallel__data_1ae2ea04b804b093f082cf1bddb01fc960" kindref="member">buffer</ref>;</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Pointer<sp/>to<sp/>the<sp/>current<sp/>position<sp/>in<sp/>the<sp/>buffer</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43" refid="structhyrise_1_1io_1_1_m_pass_loader_1_1parallel__data_1a16bb99d2913deb427ab62a92741d7f5a" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*<ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1parallel__data_1a16bb99d2913deb427ab62a92741d7f5a" kindref="member">iter</ref>;</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45" refid="structhyrise_1_1io_1_1_m_pass_loader_1_1parallel__data_1a4801e82ad08bbd809914375dd7b55bdd" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1parallel__data_1a4801e82ad08bbd809914375dd7b55bdd" kindref="member">buffSize</ref>;</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47" refid="structhyrise_1_1io_1_1_m_pass_loader_1_1parallel__data_1a6825eb3fc8a1893c3844b73291c86e76" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1parallel__data_1a6825eb3fc8a1893c3844b73291c86e76" kindref="member">parallel_data</ref>():<sp/><ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1parallel__data_1a837e262ce11f94d95f8c2470dad4e6b7" kindref="member">vector</ref>(<ref refid="csb__tree_8cpp_1ab979d9d4b4923f7c54d6caa6e1a61936" kindref="member">nullptr</ref>),<sp/><ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1parallel__data_1adfd628c53c21680c00a5911d857bba80" kindref="member">rows</ref>(0),<sp/><ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1parallel__data_1ae2ea04b804b093f082cf1bddb01fc960" kindref="member">buffer</ref>(<ref refid="csb__tree_8cpp_1ab979d9d4b4923f7c54d6caa6e1a61936" kindref="member">nullptr</ref>),<sp/><ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1parallel__data_1a16bb99d2913deb427ab62a92741d7f5a" kindref="member">iter</ref>(<ref refid="csb__tree_8cpp_1ab979d9d4b4923f7c54d6caa6e1a61936" kindref="member">nullptr</ref>),<sp/><ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1parallel__data_1a4801e82ad08bbd809914375dd7b55bdd" kindref="member">buffSize</ref>(0)</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/>{}</highlight></codeline>
+<codeline lineno="49"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53" refid="structhyrise_1_1io_1_1_m_pass_loader_1_1cast__functor" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1cast__functor" kindref="compound">cast_functor</ref><sp/>{</highlight></codeline>
+<codeline lineno="54" refid="structhyrise_1_1io_1_1_m_pass_loader_1_1cast__functor_1a0c34a82ad324af7791e6fc5c72f7a80c" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1cast__functor_1a0c34a82ad324af7791e6fc5c72f7a80c" kindref="member">value_type</ref>;</highlight></codeline>
+<codeline lineno="55" refid="structhyrise_1_1io_1_1_m_pass_loader_1_1cast__functor_1ad9fff51e494ddd6d6493e5ef85f89652" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1parallel__data" kindref="compound">parallel_data</ref><sp/>*<ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1cast__functor_1ad9fff51e494ddd6d6493e5ef85f89652" kindref="member">data</ref>;</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57" refid="structhyrise_1_1io_1_1_m_pass_loader_1_1cast__functor_1aa48be77e36a383463220c011dcb9163a" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1cast__functor_1aa48be77e36a383463220c011dcb9163a" kindref="member">tmp</ref>[2<sp/>*<sp/><ref refid="_m_pass_c_s_v_loader_8cpp_1a4e0d072d2af0c3748770051a23bcd9b9" kindref="member">LOAD_SIZE</ref>];<sp/></highlight><highlight class="comment">//<sp/>Defines<sp/>the<sp/>maximum<sp/>values<sp/>size</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59" refid="structhyrise_1_1io_1_1_m_pass_loader_1_1cast__functor_1ad1e540c0e8f0cbba4b415c0360035288" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">explicit</highlight><highlight class="normal"><sp/><ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1cast__functor_1ad1e540c0e8f0cbba4b415c0360035288" kindref="member">cast_functor</ref>(<ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1parallel__data" kindref="compound">parallel_data</ref><sp/>*d):<sp/><ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1cast__functor_1ad9fff51e494ddd6d6493e5ef85f89652" kindref="member">data</ref>(d)<sp/>{}</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>R&gt;</highlight></codeline>
+<codeline lineno="62" refid="structhyrise_1_1io_1_1_m_pass_loader_1_1cast__functor_1ac01c813471cd924e88677c19171c8a29" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1cast__functor_1ac01c813471cd924e88677c19171c8a29" kindref="member">operator()</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1cast__functor_1ad9fff51e494ddd6d6493e5ef85f89652" kindref="member">data</ref>-&gt;<ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1parallel__data_1a4801e82ad08bbd809914375dd7b55bdd" kindref="member">buffSize</ref><sp/>==<sp/>1<sp/>&amp;&amp;<sp/><ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1cast__functor_1ad9fff51e494ddd6d6493e5ef85f89652" kindref="member">data</ref>-&gt;<ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1parallel__data_1ae2ea04b804b093f082cf1bddb01fc960" kindref="member">buffer</ref>[0]<sp/>==<sp/></highlight><highlight class="charliteral">&apos;\n&apos;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>std::vector&lt;R&gt;<sp/>cur_vetor_t;</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1cast__functor_1ad9fff51e494ddd6d6493e5ef85f89652" kindref="member">data</ref>-&gt;<ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1parallel__data_1a837e262ce11f94d95f8c2470dad4e6b7" kindref="member">vector</ref><sp/>==<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1cast__functor_1ad9fff51e494ddd6d6493e5ef85f89652" kindref="member">data</ref>-&gt;<ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1parallel__data_1a837e262ce11f94d95f8c2470dad4e6b7" kindref="member">vector</ref><sp/>=<sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/>cur_vetor_t();</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/>cur_vetor_t<sp/>*t<sp/>=<sp/>(cur_vetor_t<sp/>*)<sp/><ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1cast__functor_1ad9fff51e494ddd6d6493e5ef85f89652" kindref="member">data</ref>-&gt;<ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1parallel__data_1a837e262ce11f94d95f8c2470dad4e6b7" kindref="member">vector</ref>;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>last<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*citer<sp/>=<sp/><ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1cast__functor_1aa48be77e36a383463220c011dcb9163a" kindref="member">tmp</ref>;</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/>for<sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/><ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1cast__functor_1ad9fff51e494ddd6d6493e5ef85f89652" kindref="member">data</ref>-&gt;<ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1parallel__data_1a4801e82ad08bbd809914375dd7b55bdd" kindref="member">buffSize</ref>;<sp/>++i)<sp/>{</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>*citer<sp/>=<sp/><ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1cast__functor_1ad9fff51e494ddd6d6493e5ef85f89652" kindref="member">data</ref>-&gt;<ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1parallel__data_1ae2ea04b804b093f082cf1bddb01fc960" kindref="member">buffer</ref>[i];</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1cast__functor_1ad9fff51e494ddd6d6493e5ef85f89652" kindref="member">data</ref>-&gt;<ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1parallel__data_1ae2ea04b804b093f082cf1bddb01fc960" kindref="member">buffer</ref>[i]<sp/>==<sp/></highlight><highlight class="charliteral">&apos;\n&apos;</highlight><highlight class="normal">)<sp/>{</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>last<sp/>=<sp/>i;</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*citer<sp/>=<sp/></highlight><highlight class="charliteral">&apos;\0&apos;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1cast__functor_1ad9fff51e494ddd6d6493e5ef85f89652" kindref="member">data</ref>-&gt;<ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1parallel__data_1a513c56d18fa950b7fa779d4e450788bf" kindref="member">positions</ref>.push_back(t-&gt;size());</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>t-&gt;push_back(boost::lexical_cast&lt;R&gt;(<ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1cast__functor_1aa48be77e36a383463220c011dcb9163a" kindref="member">tmp</ref>));</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>++<ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1cast__functor_1ad9fff51e494ddd6d6493e5ef85f89652" kindref="member">data</ref>-&gt;<ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1parallel__data_1adfd628c53c21680c00a5911d857bba80" kindref="member">rows</ref>;</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>citer<sp/>=<sp/><ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1cast__functor_1aa48be77e36a383463220c011dcb9163a" kindref="member">tmp</ref>;</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>++citer;</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Re-arrange<sp/>the<sp/>buffer</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(last<sp/>!=<sp/><ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1cast__functor_1ad9fff51e494ddd6d6493e5ef85f89652" kindref="member">data</ref>-&gt;<ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1parallel__data_1a4801e82ad08bbd809914375dd7b55bdd" kindref="member">buffSize</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>offset<sp/>=<sp/><ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1cast__functor_1ad9fff51e494ddd6d6493e5ef85f89652" kindref="member">data</ref>-&gt;<ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1parallel__data_1a4801e82ad08bbd809914375dd7b55bdd" kindref="member">buffSize</ref><sp/>-<sp/>last<sp/>-<sp/>1;</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(<ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1cast__functor_1ad9fff51e494ddd6d6493e5ef85f89652" kindref="member">data</ref>-&gt;<ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1parallel__data_1ae2ea04b804b093f082cf1bddb01fc960" kindref="member">buffer</ref>,<sp/><ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1cast__functor_1ad9fff51e494ddd6d6493e5ef85f89652" kindref="member">data</ref>-&gt;<ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1parallel__data_1ae2ea04b804b093f082cf1bddb01fc960" kindref="member">buffer</ref><sp/>+<sp/>last<sp/>+<sp/>1,<sp/>offset);</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1cast__functor_1ad9fff51e494ddd6d6493e5ef85f89652" kindref="member">data</ref>-&gt;<ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1parallel__data_1a16bb99d2913deb427ab62a92741d7f5a" kindref="member">iter</ref><sp/>=<sp/><ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1cast__functor_1ad9fff51e494ddd6d6493e5ef85f89652" kindref="member">data</ref>-&gt;<ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1parallel__data_1ae2ea04b804b093f082cf1bddb01fc960" kindref="member">buffer</ref><sp/>+<sp/>offset;</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1cast__functor_1ad9fff51e494ddd6d6493e5ef85f89652" kindref="member">data</ref>-&gt;<ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1parallel__data_1a4801e82ad08bbd809914375dd7b55bdd" kindref="member">buffSize</ref><sp/>=<sp/>offset;</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1cast__functor_1ad9fff51e494ddd6d6493e5ef85f89652" kindref="member">data</ref>-&gt;<ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1parallel__data_1a16bb99d2913deb427ab62a92741d7f5a" kindref="member">iter</ref><sp/>=<sp/><ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1cast__functor_1ad9fff51e494ddd6d6493e5ef85f89652" kindref="member">data</ref>-&gt;<ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1parallel__data_1ae2ea04b804b093f082cf1bddb01fc960" kindref="member">buffer</ref>;</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1cast__functor_1ad9fff51e494ddd6d6493e5ef85f89652" kindref="member">data</ref>-&gt;<ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1parallel__data_1a4801e82ad08bbd809914375dd7b55bdd" kindref="member">buffSize</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight></codeline>
+<codeline lineno="107" refid="structhyrise_1_1io_1_1_m_pass_loader_1_1do__load__functor" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1do__load__functor" kindref="compound">do_load_functor</ref><sp/>{</highlight></codeline>
+<codeline lineno="108" refid="structhyrise_1_1io_1_1_m_pass_loader_1_1do__load__functor_1afb47d612d782a713b18496b8cb2e9647" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1do__load__functor_1afb47d612d782a713b18496b8cb2e9647" kindref="member">value_type</ref>;</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight></codeline>
+<codeline lineno="110" refid="structhyrise_1_1io_1_1_m_pass_loader_1_1do__load__functor_1a6ef6389434215249610c012bdd4612bb" refkind="member"><highlight class="normal"><sp/><sp/>std::shared_ptr&lt;AbstractTable&gt;<sp/><ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1do__load__functor_1a6ef6389434215249610c012bdd4612bb" kindref="member">table</ref>;</highlight></codeline>
+<codeline lineno="111" refid="structhyrise_1_1io_1_1_m_pass_loader_1_1do__load__functor_1a62b030f54efd5c5ed7977c99a6286560" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1parallel__data" kindref="compound">parallel_data</ref><sp/>*<ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1do__load__functor_1a62b030f54efd5c5ed7977c99a6286560" kindref="member">data</ref>;</highlight></codeline>
+<codeline lineno="112" refid="structhyrise_1_1io_1_1_m_pass_loader_1_1do__load__functor_1a93470c009d5133e9472ec452daf5759a" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1do__load__functor_1a93470c009d5133e9472ec452daf5759a" kindref="member">col</ref>;</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight></codeline>
+<codeline lineno="114" refid="structhyrise_1_1io_1_1_m_pass_loader_1_1do__load__functor_1a34e293d881e910bcf8a288e7561f39e6" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1do__load__functor_1a34e293d881e910bcf8a288e7561f39e6" kindref="member">do_load_functor</ref>(std::shared_ptr&lt;AbstractTable&gt;<sp/>t,<sp/><ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1parallel__data" kindref="compound">parallel_data</ref><sp/>*d,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>c):</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1do__load__functor_1a6ef6389434215249610c012bdd4612bb" kindref="member">table</ref>(t),<sp/><ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1do__load__functor_1a62b030f54efd5c5ed7977c99a6286560" kindref="member">data</ref>(d),<sp/><ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1do__load__functor_1a93470c009d5133e9472ec452daf5759a" kindref="member">col</ref>(c)<sp/>{}</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>R&gt;</highlight></codeline>
+<codeline lineno="119" refid="structhyrise_1_1io_1_1_m_pass_loader_1_1do__load__functor_1a3b611e318de1169dfabbafde8e872615" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1do__load__functor_1a3b611e318de1169dfabbafde8e872615" kindref="member">operator()</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>std::vector&lt;R&gt;<sp/>cur_vetor_t;</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>std::set&lt;R&gt;<sp/>cur_set_t;</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/>cur_vetor_t<sp/>*t<sp/>=<sp/>(cur_vetor_t<sp/>*)<sp/><ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1do__load__functor_1a62b030f54efd5c5ed7977c99a6286560" kindref="member">data</ref>-&gt;<ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1parallel__data_1a837e262ce11f94d95f8c2470dad4e6b7" kindref="member">vector</ref>;</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/>cur_set_t<sp/>s;</highlight></codeline>
+<codeline lineno="126"><highlight class="normal">for<sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>e<sp/>:<sp/>*t)</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>s.insert(e);</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>dict<sp/>=<sp/>std::make_shared&lt;OrderPreservingDictionary&lt;R&gt;&gt;();</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>e<sp/>:<sp/>s)</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>dict-&gt;addValue(e);</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Swap<sp/>dictionary</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1do__load__functor_1a6ef6389434215249610c012bdd4612bb" kindref="member">table</ref>-&gt;setDictionaryAt(dict,<sp/><ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1do__load__functor_1a93470c009d5133e9472ec452daf5759a" kindref="member">col</ref>,<sp/>0);</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>row<sp/>=<sp/>0;<sp/>row<sp/>&lt;<sp/>t-&gt;size();<sp/>++row)<sp/>{</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1do__load__functor_1a6ef6389434215249610c012bdd4612bb" kindref="member">table</ref>-&gt;setValue(<ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1do__load__functor_1a93470c009d5133e9472ec452daf5759a" kindref="member">col</ref>,<sp/>row,<sp/>t-&gt;at(row));</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Memory<sp/>cleanup</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">delete</highlight><highlight class="normal"><sp/>t;</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="149"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="150"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight></codeline>
+<codeline lineno="153" refid="_m_pass_c_s_v_loader_8cpp_1aa1b1ee044f7d904721323cdb16f0a6f0" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="_m_pass_c_s_v_loader_8cpp_1aa1b1ee044f7d904721323cdb16f0a6f0" kindref="member">parallel_load</ref>(std::shared_ptr&lt;AbstractTable&gt;<sp/>intable,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>attr,<sp/>std::string<sp/>fn,<sp/><ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1parallel__data" kindref="compound">hyrise::io::MPassLoader::parallel_data</ref><sp/>*data)<sp/>{</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>fp<sp/>=<sp/>open(fn.c_str(),<sp/>O_RDONLY);</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"></highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(fp<sp/>==<sp/>-1)</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/>std::runtime_error(</highlight><highlight class="stringliteral">&quot;Error<sp/>reading<sp/>file:<sp/>&quot;</highlight><highlight class="normal"><sp/>+<sp/>fn);</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/>uint64_t<sp/>size<sp/>=<sp/><ref refid="_m_pass_c_s_v_loader_8cpp_1a4e0d072d2af0c3748770051a23bcd9b9" kindref="member">LOAD_SIZE</ref>;</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>blocks<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Read<sp/>file<sp/>in<sp/>buffer</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>result<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*buffer<sp/>=<sp/>(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*)<sp/>malloc(size);</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><ref refid="structhyrise_1_1storage_1_1type__switch" kindref="compound">hyrise::storage::type_switch&lt;hyrise_basic_types&gt;</ref><sp/>global_ts;</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/>data-&gt;<ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1parallel__data_1ae2ea04b804b093f082cf1bddb01fc960" kindref="member">buffer</ref><sp/>=<sp/>(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*)<sp/>malloc(2<sp/>*<sp/><ref refid="_m_pass_c_s_v_loader_8cpp_1a4e0d072d2af0c3748770051a23bcd9b9" kindref="member">LOAD_SIZE</ref>);</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/>data-&gt;<ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1parallel__data_1a16bb99d2913deb427ab62a92741d7f5a" kindref="member">iter</ref><sp/>=<sp/>data-&gt;<ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1parallel__data_1ae2ea04b804b093f082cf1bddb01fc960" kindref="member">buffer</ref>;</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"></highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>((result<sp/>=<sp/>read(fp,<sp/>buffer,<sp/>size))<sp/>!=<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"></highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Copy<sp/>the<sp/>data</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/>memcpy(data-&gt;<ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1parallel__data_1a16bb99d2913deb427ab62a92741d7f5a" kindref="member">iter</ref>,<sp/>buffer,<sp/>result);</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/>data-&gt;<ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1parallel__data_1a4801e82ad08bbd809914375dd7b55bdd" kindref="member">buffSize</ref><sp/>+=<sp/>result;</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"></highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1cast__functor" kindref="compound">hyrise::io::MPassLoader::cast_functor</ref><sp/>fun(data);</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/>global_ts(intable-&gt;typeOfColumn(attr),<sp/>fun);</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"></highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/>++blocks;</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"></highlight></codeline>
+<codeline lineno="185"><highlight class="normal"></highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Append<sp/>last<sp/>newline</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/>*data-&gt;<ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1parallel__data_1a16bb99d2913deb427ab62a92741d7f5a" kindref="member">iter</ref><sp/>=<sp/></highlight><highlight class="charliteral">&apos;\n&apos;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/>++data-&gt;<ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1parallel__data_1a4801e82ad08bbd809914375dd7b55bdd" kindref="member">buffSize</ref>;</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1cast__functor" kindref="compound">hyrise::io::MPassLoader::cast_functor</ref><sp/>fun(data);</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/>global_ts(intable-&gt;typeOfColumn(attr),<sp/>fun);</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"></highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/>close(fp);</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/>free(buffer);</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/>free(data-&gt;<ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1parallel__data_1ae2ea04b804b093f082cf1bddb01fc960" kindref="member">buffer</ref>);</highlight></codeline>
+<codeline lineno="195"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"></highlight></codeline>
+<codeline lineno="197" refid="_m_pass_c_s_v_loader_8cpp_1aaca7aa26f04c5c282aa9e36b5a201bcd" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="_m_pass_c_s_v_loader_8cpp_1aaca7aa26f04c5c282aa9e36b5a201bcd" kindref="member">pass2</ref>(std::shared_ptr&lt;AbstractTable&gt;<sp/>intable,<sp/><ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1parallel__data" kindref="compound">hyrise::io::MPassLoader::parallel_data</ref><sp/>*data,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>attr)<sp/>{</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><ref refid="structhyrise_1_1storage_1_1type__switch" kindref="compound">hyrise::storage::type_switch&lt;hyrise_basic_types&gt;</ref><sp/>global_ts;</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1do__load__functor" kindref="compound">hyrise::io::MPassLoader::do_load_functor</ref><sp/>loader(intable,<sp/>data,<sp/>attr);</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/>global_ts(intable-&gt;typeOfColumn(attr),<sp/>loader);</highlight></codeline>
+<codeline lineno="201"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"></highlight></codeline>
+<codeline lineno="203"><highlight class="normal"></highlight></codeline>
+<codeline lineno="204" refid="class_m_pass_c_s_v_input_1a9c53890bba78a1b3ba0a19f9410b693d" refkind="member"><highlight class="normal">std::shared_ptr&lt;AbstractTable&gt;<sp/><ref refid="class_m_pass_c_s_v_input_1a9c53890bba78a1b3ba0a19f9410b693d" kindref="member">MPassCSVInput::load</ref>(std::shared_ptr&lt;AbstractTable&gt;<sp/>intable,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="storage__types_8h_1ab1a41784d413aa539cdda0391757965c" kindref="member">compound_metadata_list</ref><sp/>*meta,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="class_loader_1_1params" kindref="compound">Loader::params</ref><sp/>&amp;args)<sp/>{</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"></highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/>std::vector&lt;std::thread&gt;<sp/>kThreads(intable-&gt;columnCount());</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>buckets<sp/>=<sp/>std::vector&lt;hyrise::io::MPassLoader::parallel_data<sp/>*&gt;(intable-&gt;columnCount());</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"></highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Each<sp/>attribute<sp/>as<sp/>a<sp/>file<sp/>in<sp/>the<sp/>base<sp/>directory<sp/>that<sp/>we<sp/>read<sp/>and<sp/>map</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>intable-&gt;columnCount();<sp/>++i)<sp/>{</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/>fn<sp/>=<sp/><ref refid="class_m_pass_c_s_v_input_1a869523ff12d85e54e6a4ff06a5b29066" kindref="member">_directory</ref><sp/>+<sp/></highlight><highlight class="stringliteral">&quot;/&quot;</highlight><highlight class="normal"><sp/>+<sp/>intable-&gt;metadataAt(i)-&gt;getName()<sp/>+<sp/></highlight><highlight class="stringliteral">&quot;.data&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>data<sp/>=<sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/><ref refid="structhyrise_1_1io_1_1_m_pass_loader_1_1parallel__data" kindref="compound">hyrise::io::MPassLoader::parallel_data</ref>();</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/>buckets[i]<sp/>=<sp/>data;</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"></highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/>kThreads[i]<sp/>=<sp/>std::thread(<ref refid="_m_pass_c_s_v_loader_8cpp_1aa1b1ee044f7d904721323cdb16f0a6f0" kindref="member">parallel_load</ref>,<sp/>intable,<sp/>i,<sp/>fn,<sp/>data);</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"></highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>intable-&gt;columnCount();<sp/>++i)</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/>kThreads[i].join();</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"></highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/>intable-&gt;reserve(buckets[0]-&gt;rows);</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"></highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>intable-&gt;columnCount();<sp/>++i)<sp/>{</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/>kThreads[i]<sp/>=<sp/>std::thread(<ref refid="_m_pass_c_s_v_loader_8cpp_1aaca7aa26f04c5c282aa9e36b5a201bcd" kindref="member">pass2</ref>,<sp/>intable,<sp/>buckets[i],<sp/>i);</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"></highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>intable-&gt;columnCount();<sp/>++i)</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/>kThreads[i].join();</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"></highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>std::make_shared&lt;Store&gt;(intable);</highlight></codeline>
+<codeline lineno="231"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"></highlight></codeline>
+<codeline lineno="233" refid="class_m_pass_c_s_v_input_1aace6a81703724ae1a3f046c5cf59a431" refkind="member"><highlight class="normal"><ref refid="class_m_pass_c_s_v_input" kindref="compound">MPassCSVInput</ref><sp/>*<ref refid="class_m_pass_c_s_v_input_1aace6a81703724ae1a3f046c5cf59a431" kindref="member">MPassCSVInput::clone</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/><ref refid="class_m_pass_c_s_v_input_1abbed96d315b947d27444143f492ce2f5" kindref="member">MPassCSVInput</ref>(*</highlight><highlight class="keyword">this</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="235"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/home/grund/hyrise/src/lib/io/MPassCSVLoader.cpp"/>
+  </compounddef>
+</doxygen>

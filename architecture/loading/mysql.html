@@ -1,0 +1,316 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>MySQL Loader &mdash; HYRISE latest documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/breathe.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     'latest',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="HYRISE latest documentation" href="../../index.html" />
+    <link rel="up" title="Loading" href="../loading.html" />
+    <link rel="next" title="Query Statistics" href="../statistics.html" />
+    <link rel="prev" title="EmptyLoader" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../statistics.html" title="Query Statistics"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="EmptyLoader"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../index.html">HYRISE latest documentation</a> &raquo;</li>
+          <li><a href="../../architecture.html" >Implementation Details</a> &raquo;</li>
+          <li><a href="../loading.html" accesskey="U">Loading</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/hyrise.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../architecture.html">Implementation Details</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../architecture.html">Create Modifiable Tables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../layouter.html">HYRISE Layouter</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../loading.html">Loading</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../loading.html#introduction">Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../loading.html#abstract-overview">Abstract Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../loading.html#how-to-load-data">How to load data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../loading.html#shortcuts">Shortcuts</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../loading.html#loaders">Loaders</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="index.html">EmptyLoader</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#csvloader">CSVLoader</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#parameters">Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#generic-csv-parameters">Generic CSV parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#stringloader">StringLoader</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#id2">Parameters</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="">MySQL Loader</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#additional-dependencies">Additional dependencies</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#environment-variables">Environment Variables</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#parameters">Parameters</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#usage">Usage</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#implementation-details">Implementation details</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../statistics.html">Query Statistics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../planops.html">Plan Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../extension_points.html">Extension points</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../routing.html">Routing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../query_execution.html">HYRISE Query Execution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developing.html">Developing with HYRISE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">HYRISE &amp; Development FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../proposals.html">Proposals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../doxygen.html">Doxygen Documentation</a></li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">EmptyLoader</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../statistics.html"
+                        title="next chapter">Query Statistics</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/architecture/loading/mysql.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="mysql-loader">
+<h1>MySQL Loader<a class="headerlink" href="#mysql-loader" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">MySQLInput is only available when compiled with WITH_MYSQL as
+described in <a class="reference internal" href="../../developing/build_environment.html"><em>Setup Build Environment</em></a>.</p>
+</div>
+<div class="section" id="additional-dependencies">
+<span id="sqldep"></span><h2>Additional dependencies<a class="headerlink" href="#additional-dependencies" title="Permalink to this headline">¶</a></h2>
+<p>The following dependencies are needed once WITH_MYSQL has been activated:</p>
+<ul class="simple">
+<li>libmysqlcppconn-dev</li>
+<li>libmysqlclient-dev</li>
+</ul>
+</div>
+<div class="section" id="environment-variables">
+<h2>Environment Variables<a class="headerlink" href="#environment-variables" title="Permalink to this headline">¶</a></h2>
+<p>The following environment variables can be used to influence the
+default initialization values of <em>MySQLInput</em>:</p>
+<ul class="simple">
+<li>HYRISE_MYSQL_HOST</li>
+<li>HYRISE_MYSQL_PORT</li>
+<li>HYRISE_MYSQL_USER</li>
+<li>HYRISE_MYSQL_PASS</li>
+</ul>
+<p>Yet, for specific implementations of functionality, one might rather
+want to use the parameters defined with <cite>MySQLInput::params()</cite>.</p>
+</div>
+<div class="section" id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Permalink to this headline">¶</a></h2>
+<p>Connection settings:</p>
+<dl class="docutils">
+<dt>Host <span class="classifier-delimiter">:</span> <span class="classifier">string</span></dt>
+<dd><ul class="first last simple">
+<li>defaults to environment variable <cite>HYRISE_MYSQL_HOST</cite></li>
+<li>otherwise falls back to <cite>127.0.0.1</cite></li>
+</ul>
+</dd>
+<dt>Port <span class="classifier-delimiter">:</span> <span class="classifier">string</span></dt>
+<dd><ul class="first last simple">
+<li>defaults to environment variable <cite>HYRISE_MYSQL_PORT</cite></li>
+<li>otherwise falls back to <cite>3306</cite></li>
+</ul>
+</dd>
+<dt>User <span class="classifier-delimiter">:</span> <span class="classifier">string</span></dt>
+<dd><ul class="first last simple">
+<li>defaults to environment variable <cite>HYRISE_MYSQL_USER</cite></li>
+<li>otherwise falls back to <cite>root</cite></li>
+</ul>
+</dd>
+<dt>Pass <span class="classifier-delimiter">:</span> <span class="classifier">string</span></dt>
+<dd><ul class="first last simple">
+<li>defaults to environment variable <cite>HYRISE_MYSQL_PASS</cite></li>
+<li>otherwise falls back to <cite>root</cite></li>
+</ul>
+</dd>
+</dl>
+<p>Import settings:</p>
+<dl class="docutils">
+<dt>Schema <span class="classifier-delimiter">:</span> <span class="classifier">string</span></dt>
+<dd><ul class="first last simple">
+<li>set for table schema</li>
+</ul>
+</dd>
+<dt>Table <span class="classifier-delimiter">:</span> <span class="classifier">string</span></dt>
+<dd><ul class="first last simple">
+<li>set for table to import</li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="section" id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-c++"><div class="highlight"><pre><span class="c1">// Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.</span>
+<span class="cp">#ifdef WITH_MYSQL</span>
+
+<span class="cp">#include &quot;testing/test.h&quot;</span>
+<span class="cp">#include &lt;stdlib.h&gt;</span>
+<span class="cp">#include &lt;io/loaders.h&gt;</span>
+<span class="cp">#include &lt;boost/assign/list_inserter.hpp&gt;</span>
+<span class="k">using</span> <span class="n">boost</span><span class="o">::</span><span class="n">assign</span><span class="o">::</span><span class="n">push_back</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">MySQLTests</span> <span class="o">:</span> <span class="k">public</span> <span class="o">::</span><span class="n">hyrise</span><span class="o">::</span><span class="n">Test</span> <span class="p">{};</span>
+
+<span class="n">TEST_F</span><span class="p">(</span><span class="n">MySQLTests</span><span class="p">,</span> <span class="n">load_test</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">hyrise</span><span class="o">::</span><span class="n">storage</span><span class="o">::</span><span class="kt">atable_ptr_t</span>  <span class="n">t</span> <span class="o">=</span> <span class="n">Loader</span><span class="o">::</span><span class="n">load</span><span class="p">(</span>
+      <span class="n">Loader</span><span class="o">::</span><span class="n">params</span><span class="p">().</span><span class="n">setInput</span><span class="p">(</span>
+          <span class="n">MySQLInput</span><span class="p">(</span>
+              <span class="n">MySQLInput</span><span class="o">::</span><span class="n">params</span><span class="p">()</span>
+              <span class="p">.</span><span class="n">setSchema</span><span class="p">(</span><span class="s">&quot;information_schema&quot;</span><span class="p">)</span>
+              <span class="p">.</span><span class="n">setTable</span><span class="p">(</span><span class="s">&quot;TABLES&quot;</span><span class="p">)</span>
+                     <span class="p">)</span>
+                                <span class="p">)</span>
+                                                  <span class="p">);</span>
+<span class="p">}</span>
+
+
+<span class="n">TEST_F</span><span class="p">(</span><span class="n">MySQLTests</span><span class="p">,</span> <span class="n">load_sap_schema</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// Load SAP base schema, import KNA1, VBAP, VBAK into MySQL</span>
+  <span class="n">system</span><span class="p">(</span><span class="s">&quot;sh -ex test/sap_data/load.sh&quot;</span><span class="p">);</span>
+
+  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*&gt;</span> <span class="n">tables</span><span class="p">;</span>
+  <span class="n">push_back</span><span class="p">(</span><span class="n">tables</span><span class="p">)(</span><span class="s">&quot;KNA1&quot;</span><span class="p">)(</span><span class="s">&quot;VBAP&quot;</span><span class="p">)(</span><span class="s">&quot;VBAK&quot;</span><span class="p">);</span>
+
+  <span class="k">for</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">table</span><span class="o">:</span> <span class="n">tables</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">hyrise</span><span class="o">::</span><span class="n">storage</span><span class="o">::</span><span class="kt">atable_ptr_t</span>  <span class="n">t</span> <span class="o">=</span> <span class="n">Loader</span><span class="o">::</span><span class="n">load</span><span class="p">(</span>
+        <span class="n">Loader</span><span class="o">::</span><span class="n">params</span><span class="p">().</span><span class="n">setInput</span><span class="p">(</span>
+            <span class="n">MySQLInput</span><span class="p">(</span>
+                <span class="n">MySQLInput</span><span class="o">::</span><span class="n">params</span><span class="p">()</span>
+                <span class="p">.</span><span class="n">setSchema</span><span class="p">(</span><span class="s">&quot;cbtr&quot;</span><span class="p">)</span>
+                <span class="p">.</span><span class="n">setTable</span><span class="p">(</span><span class="n">table</span><span class="p">)</span>
+                       <span class="p">)</span>
+                                  <span class="p">)</span>
+                                                    <span class="p">);</span>
+    <span class="n">ASSERT_EQ</span><span class="p">(</span><span class="n">t</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">(),</span> <span class="mi">5u</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">table</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; should have 5 entries&quot;</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">TEST_F</span><span class="p">(</span><span class="n">MySQLTests</span><span class="p">,</span> <span class="n">convert_date_to_int</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// Load SAP base schema, import KNA1, VBAP, VBAK into MySQL</span>
+  <span class="n">system</span><span class="p">(</span><span class="s">&quot;sh -ex test/sap_data/load.sh&quot;</span><span class="p">);</span>
+
+  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*&gt;</span> <span class="n">tables</span><span class="p">;</span>
+  <span class="n">hyrise</span><span class="o">::</span><span class="n">storage</span><span class="o">::</span><span class="kt">atable_ptr_t</span>  <span class="n">t</span> <span class="o">=</span> <span class="n">Loader</span><span class="o">::</span><span class="n">load</span><span class="p">(</span>
+      <span class="n">Loader</span><span class="o">::</span><span class="n">params</span><span class="p">().</span><span class="n">setInput</span><span class="p">(</span>
+          <span class="n">MySQLInput</span><span class="p">(</span>
+              <span class="n">MySQLInput</span><span class="o">::</span><span class="n">params</span><span class="p">()</span>
+              <span class="p">.</span><span class="n">setSchema</span><span class="p">(</span><span class="s">&quot;cbtr&quot;</span><span class="p">)</span>
+              <span class="p">.</span><span class="n">setTable</span><span class="p">(</span><span class="s">&quot;VBAK&quot;</span><span class="p">)</span>
+                     <span class="p">)));</span>
+
+  
+
+  <span class="n">ASSERT_EQ</span><span class="p">(</span><span class="n">IntegerType</span><span class="p">,</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">typeOfColumn</span><span class="p">(</span><span class="mi">2</span><span class="p">));</span>
+  <span class="n">ASSERT_EQ</span><span class="p">(</span><span class="n">IntegerType</span><span class="p">,</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">typeOfColumn</span><span class="p">(</span><span class="mi">5</span><span class="p">));</span>
+
+  
+<span class="p">}</span>
+
+
+
+<span class="cp">#endif</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="implementation-details">
+<h2>Implementation details<a class="headerlink" href="#implementation-details" title="Permalink to this headline">¶</a></h2>
+<p>In order to translate MySQL types to HYRISE types, in
+<cite>MySQLLoader.cpp</cite> defines a data structure named <cite>translations</cite>. It
+holds all the information necessary for the loader to translate a
+column from MySQL to HYRISE, namely maps MySQL column names to HYRISE
+column types and conversion functions. Imports will fail unless all
+columns can be properly converted, thus when you encounter a type not
+yet covered by translations, either open a ticket or fix it by
+providing your own method.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../statistics.html" title="Query Statistics"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="EmptyLoader"
+             >previous</a> |</li>
+        <li><a href="../../index.html">HYRISE latest documentation</a> &raquo;</li>
+          <li><a href="../../architecture.html" >Implementation Details</a> &raquo;</li>
+          <li><a href="../loading.html" >Loading</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010-2013, Martin Grund et al.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+  </body>
+</html>

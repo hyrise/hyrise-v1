@@ -1,0 +1,25 @@
+var class_horizontal_table =
+[
+    [ "HorizontalTable", "class_horizontal_table.html#a8a018263cacedb50e1eb847892c4f0d8", null ],
+    [ "~HorizontalTable", "class_horizontal_table.html#a7f58eafd6df8ec8668e407351297781f", null ],
+    [ "atSlice", "class_horizontal_table.html#a25d4dea406221468eb2e6df655c821d8", null ],
+    [ "columnCount", "class_horizontal_table.html#a43b2e35e554773740670d719e03ab210", null ],
+    [ "copy", "class_horizontal_table.html#a1bb7a48cce192cdf7363857a3e7b0971", null ],
+    [ "dictionaryAt", "class_horizontal_table.html#a0a5b8b82d5bd701bc745fa01d4e7c1ec", null ],
+    [ "dictionaryByTableId", "class_horizontal_table.html#aadc38d9b453ba62e435df6703f13c631", null ],
+    [ "getOffsetInSlice", "class_horizontal_table.html#a42c0ccab7262ae8827de096233b94b1a", null ],
+    [ "getSliceForColumn", "class_horizontal_table.html#a03dac4588f81f0606a44b7088a29d8aa", null ],
+    [ "getSliceWidth", "class_horizontal_table.html#a5cf65c406d5024414ba40e308bbc63b7", null ],
+    [ "getValueId", "class_horizontal_table.html#aebbc8bb575230385d76158661a9ce649", null ],
+    [ "metadataAt", "class_horizontal_table.html#aa4b9fbe87afa35826cf3c7c4e3d84e92", null ],
+    [ "partForRow", "class_horizontal_table.html#a11cdfdf99374ce446c4c134253eb98f5", null ],
+    [ "setDictionaryAt", "class_horizontal_table.html#a5b9a868adeca482c0e5022032d32e278", null ],
+    [ "setValueId", "class_horizontal_table.html#a31e315988855b9ee776a14bca3f3c190", null ],
+    [ "size", "class_horizontal_table.html#a735453012f0363f897a58cfd00f019d4", null ],
+    [ "sliceCount", "class_horizontal_table.html#af274eed5a68af5f71f2094cbc7180736", null ],
+    [ "subtableCount", "class_horizontal_table.html#af86f5b208cff490df0fcd0f55aa43a37", null ],
+    [ "offsets", "class_horizontal_table.html#a59746c2f24a163f4be009e67453fc40f", null ],
+    [ "part_count", "class_horizontal_table.html#a495ed3ba5fd3c611498876316c5a5aa3", null ],
+    [ "parts", "class_horizontal_table.html#aeddf08fde7d68926d0abfb81bd021018", null ],
+    [ "total_size", "class_horizontal_table.html#a15c073bc95598950e77c10f8714523e7", null ]
+];

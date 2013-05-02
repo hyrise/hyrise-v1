@@ -1,0 +1,238 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="class_parallel_sort" kind="class" prot="public">
+    <compoundname>ParallelSort</compoundname>
+    <includes refid="parallel__sort_8hpp" local="no">parallel_sort.hpp</includes>
+    <innerclass refid="struct_parallel_sort_1_1merge__arg__t" prot="private">ParallelSort::merge_arg_t</innerclass>
+    <innerclass refid="class_parallel_sort_1_1merge__data__t" prot="private">ParallelSort::merge_data_t</innerclass>
+    <innerclass refid="struct_parallel_sort_1_1sort__arg__t" prot="private">ParallelSort::sort_arg_t</innerclass>
+    <templateparamlist>
+      <param>
+        <type>typename T</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_parallel_sort_1af43b80c7b09b9edc4372ce0769fc94e4" prot="private" static="no" mutable="no">
+        <type>std::queue&lt; <ref refid="struct_parallel_sort_1_1merge__arg__t" kindref="compound">merge_arg_t</ref> &gt;</type>
+        <definition>std::queue&lt;merge_arg_t&gt; ParallelSort&lt; T &gt;::pending_parts</definition>
+        <argsstring></argsstring>
+        <name>pending_parts</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/parallel_sort.hpp" line="49" bodyfile="/home/grund/hyrise/src/lib/helper/parallel_sort.hpp" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_parallel_sort_1a0c41ae953ed40c3b20b54907b1d14251" prot="private" static="no" mutable="no">
+        <type>unsigned</type>
+        <definition>unsigned ParallelSort&lt; T &gt;::remaining_parts</definition>
+        <argsstring></argsstring>
+        <name>remaining_parts</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/parallel_sort.hpp" line="50" bodyfile="/home/grund/hyrise/src/lib/helper/parallel_sort.hpp" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_parallel_sort_1a3974ce594a585f4bcdef1fa0f6616ff8" prot="private" static="no" mutable="no">
+        <type>pthread_mutex_t</type>
+        <definition>pthread_mutex_t ParallelSort&lt; T &gt;::parts_mutex</definition>
+        <argsstring></argsstring>
+        <name>parts_mutex</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/parallel_sort.hpp" line="52" bodyfile="/home/grund/hyrise/src/lib/helper/parallel_sort.hpp" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_parallel_sort_1a02de217eec609d4184a3ce2551473940" prot="private" static="no" mutable="no">
+        <type>pthread_mutex_t</type>
+        <definition>pthread_mutex_t ParallelSort&lt; T &gt;::parts_exist_mutex</definition>
+        <argsstring></argsstring>
+        <name>parts_exist_mutex</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/parallel_sort.hpp" line="53" bodyfile="/home/grund/hyrise/src/lib/helper/parallel_sort.hpp" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_parallel_sort_1ac28637308fd0f0b0ccb0bc47769565c5" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; T &gt; *</type>
+        <definition>std::vector&lt;T&gt;* ParallelSort&lt; T &gt;::data</definition>
+        <argsstring></argsstring>
+        <name>data</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/parallel_sort.hpp" line="55" bodyfile="/home/grund/hyrise/src/lib/helper/parallel_sort.hpp" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_parallel_sort_1a9ea905b0d31ac31cafca20499c68d71e" prot="private" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t ParallelSort&lt; T &gt;::thread_count</definition>
+        <argsstring></argsstring>
+        <name>thread_count</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/parallel_sort.hpp" line="56" bodyfile="/home/grund/hyrise/src/lib/helper/parallel_sort.hpp" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_parallel_sort_1af9f961f7a85db4560aa25c0d4e96ee0e" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void ParallelSort&lt; T &gt;::sort_thread</definition>
+        <argsstring>(void *arg)</argsstring>
+        <name>sort_thread</name>
+        <param>
+          <type>void *</type>
+          <declname>arg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/parallel_sort.hpp" line="58" bodyfile="/home/grund/hyrise/src/lib/helper/parallel_sort.hpp" bodystart="58" bodyend="60"/>
+      </memberdef>
+      <memberdef kind="function" id="class_parallel_sort_1a33152ca83988b8c620da8a65947566de" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void ParallelSort&lt; T &gt;::merge_thread</definition>
+        <argsstring>(void *arg)</argsstring>
+        <name>merge_thread</name>
+        <param>
+          <type>void *</type>
+          <declname>arg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/parallel_sort.hpp" line="62" bodyfile="/home/grund/hyrise/src/lib/helper/parallel_sort.hpp" bodystart="62" bodyend="111"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-static-func">
+      <memberdef kind="function" id="class_parallel_sort_1a6b6c44683a71f8afee952a65dd96c544" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::vector&lt; T &gt; *</type>
+        <definition>static std::vector&lt;T&gt;* ParallelSort&lt; T &gt;::merge_sorted</definition>
+        <argsstring>(merge_arg_t left, merge_arg_t right)</argsstring>
+        <name>merge_sorted</name>
+        <param>
+          <type><ref refid="struct_parallel_sort_1_1merge__arg__t" kindref="compound">merge_arg_t</ref></type>
+          <declname>left</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_parallel_sort_1_1merge__arg__t" kindref="compound">merge_arg_t</ref></type>
+          <declname>right</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/parallel_sort.hpp" line="113" bodyfile="/home/grund/hyrise/src/lib/helper/parallel_sort.hpp" bodystart="113" bodyend="143"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_parallel_sort_1afff68fbd5d5042891acb37e399ab6d1b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>ParallelSort&lt; T &gt;::ParallelSort</definition>
+        <argsstring>(std::vector&lt; T &gt; *_data, size_t _thread_count)</argsstring>
+        <name>ParallelSort</name>
+        <param>
+          <type>std::vector&lt; T &gt; *</type>
+          <declname>_data</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>_thread_count</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/parallel_sort.hpp" line="147" bodyfile="/home/grund/hyrise/src/lib/helper/parallel_sort.hpp" bodystart="147" bodyend="148"/>
+      </memberdef>
+      <memberdef kind="function" id="class_parallel_sort_1a398534f2352da43ef5cf1bc3b96c1fab" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void ParallelSort&lt; T &gt;::sort</definition>
+        <argsstring>()</argsstring>
+        <name>sort</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/parallel_sort.hpp" line="150" bodyfile="/home/grund/hyrise/src/lib/helper/parallel_sort.hpp" bodystart="150" bodyend="294"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="class_parallel_sort_1abb98e58793762e57fedd8edf217e8e67" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void ParallelSort&lt; T &gt;::sort</definition>
+        <argsstring>(std::vector&lt; T &gt; *data, size_t thread_count)</argsstring>
+        <name>sort</name>
+        <param>
+          <type>std::vector&lt; T &gt; *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>thread_count</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/helper/parallel_sort.hpp" line="296" bodyfile="/home/grund/hyrise/src/lib/helper/parallel_sort.hpp" bodystart="296" bodyend="299"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2545">
+        <label>ParallelSort&lt; T &gt;</label>
+        <link refid="class_parallel_sort"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/helper/parallel_sort.hpp" line="25" bodyfile="/home/grund/hyrise/src/lib/helper/parallel_sort.hpp" bodystart="25" bodyend="300"/>
+    <listofallmembers>
+      <member refid="class_parallel_sort_1ac28637308fd0f0b0ccb0bc47769565c5" prot="private" virt="non-virtual"><scope>ParallelSort</scope><name>data</name></member>
+      <member refid="class_parallel_sort_1a6b6c44683a71f8afee952a65dd96c544" prot="private" virt="non-virtual"><scope>ParallelSort</scope><name>merge_sorted</name></member>
+      <member refid="class_parallel_sort_1a33152ca83988b8c620da8a65947566de" prot="private" virt="non-virtual"><scope>ParallelSort</scope><name>merge_thread</name></member>
+      <member refid="class_parallel_sort_1afff68fbd5d5042891acb37e399ab6d1b" prot="public" virt="non-virtual"><scope>ParallelSort</scope><name>ParallelSort</name></member>
+      <member refid="class_parallel_sort_1a02de217eec609d4184a3ce2551473940" prot="private" virt="non-virtual"><scope>ParallelSort</scope><name>parts_exist_mutex</name></member>
+      <member refid="class_parallel_sort_1a3974ce594a585f4bcdef1fa0f6616ff8" prot="private" virt="non-virtual"><scope>ParallelSort</scope><name>parts_mutex</name></member>
+      <member refid="class_parallel_sort_1af43b80c7b09b9edc4372ce0769fc94e4" prot="private" virt="non-virtual"><scope>ParallelSort</scope><name>pending_parts</name></member>
+      <member refid="class_parallel_sort_1a0c41ae953ed40c3b20b54907b1d14251" prot="private" virt="non-virtual"><scope>ParallelSort</scope><name>remaining_parts</name></member>
+      <member refid="class_parallel_sort_1a398534f2352da43ef5cf1bc3b96c1fab" prot="public" virt="non-virtual"><scope>ParallelSort</scope><name>sort</name></member>
+      <member refid="class_parallel_sort_1abb98e58793762e57fedd8edf217e8e67" prot="public" virt="non-virtual"><scope>ParallelSort</scope><name>sort</name></member>
+      <member refid="class_parallel_sort_1af9f961f7a85db4560aa25c0d4e96ee0e" prot="private" virt="non-virtual"><scope>ParallelSort</scope><name>sort_thread</name></member>
+      <member refid="class_parallel_sort_1a9ea905b0d31ac31cafca20499c68d71e" prot="private" virt="non-virtual"><scope>ParallelSort</scope><name>thread_count</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

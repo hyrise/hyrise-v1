@@ -1,0 +1,135 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="classcloneable" kind="class" prot="public">
+    <compoundname>cloneable</compoundname>
+    <derivedcompoundref refid="class_abstract_header" prot="public" virt="non-virtual">AbstractHeader</derivedcompoundref>
+    <derivedcompoundref refid="class_abstract_input" prot="public" virt="non-virtual">AbstractInput</derivedcompoundref>
+    <includes refid="_abstract_loader_8h" local="no">AbstractLoader.h</includes>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classcloneable_1a31ff0906763d17093098d05207e2184c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual cloneable::~cloneable</definition>
+        <argsstring>()</argsstring>
+        <name>~cloneable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/AbstractLoader.h" line="13" bodyfile="/home/grund/hyrise/src/lib/io/AbstractLoader.h" bodystart="13" bodyend="13"/>
+      </memberdef>
+      <memberdef kind="function" id="classcloneable_1ac2b7d7adadae7c4fa61cd9ba6c105509" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type><ref refid="classcloneable" kindref="compound">cloneable</ref> *</type>
+        <definition>virtual cloneable* cloneable::clone</definition>
+        <argsstring>() const =0</argsstring>
+        <name>clone</name>
+        <reimplementedby refid="class_vector_input_1a2b7b9cbdb1749f674cbecd664ab708ec">clone</reimplementedby>
+        <reimplementedby refid="class_string_header_1a99b24cd3b1167f5cd9f22d4803508d38">clone</reimplementedby>
+        <reimplementedby refid="class_empty_input_1aa65432e58e1495b59266c9c4934c1441">clone</reimplementedby>
+        <reimplementedby refid="class_empty_header_1a34e0d856670890098d754d7ef9ac707c">clone</reimplementedby>
+        <reimplementedby refid="class_abstract_input_1ae24e23d7100a832b9bd67b161ceb7215">clone</reimplementedby>
+        <reimplementedby refid="class_m_pass_c_s_v_input_1aace6a81703724ae1a3f046c5cf59a431">clone</reimplementedby>
+        <reimplementedby refid="class_c_s_v_input_1a2b4a587a087b70a65d6e13ea77e8089a">clone</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1io_1_1_raw_table_loader_1a2445edad344ee1004c2fc66381893009">clone</reimplementedby>
+        <reimplementedby refid="class_abstract_header_1ad962760f46e46deedfa3f00242713697">clone</reimplementedby>
+        <reimplementedby refid="class_c_s_v_header_1ad2beb5076a9837df3b96da3f21352267">clone</reimplementedby>
+        <reimplementedby refid="classhyrise_1_1storage_1_1_table_dump_loader_1a44ac1058a9b61b875c389aef3460bd4b">clone</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/grund/hyrise/src/lib/io/AbstractLoader.h" line="14"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1608">
+        <label>CSVHeader</label>
+        <link refid="class_c_s_v_header"/>
+        <childnode refid="1607" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1613">
+        <label>EmptyInput</label>
+        <link refid="class_empty_input"/>
+        <childnode refid="1611" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1612">
+        <label>CSVInput</label>
+        <link refid="class_c_s_v_input"/>
+        <childnode refid="1611" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1617">
+        <label>VectorInput</label>
+        <link refid="class_vector_input"/>
+        <childnode refid="1611" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1611">
+        <label>AbstractInput</label>
+        <link refid="class_abstract_input"/>
+        <childnode refid="1606" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1610">
+        <label>StringHeader</label>
+        <link refid="class_string_header"/>
+        <childnode refid="1607" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1615">
+        <label>hyrise::storage::TableDumpLoader</label>
+        <link refid="classhyrise_1_1storage_1_1_table_dump_loader"/>
+        <childnode refid="1611" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1606">
+        <label>cloneable</label>
+        <link refid="classcloneable"/>
+      </node>
+      <node id="1607">
+        <label>AbstractHeader</label>
+        <link refid="class_abstract_header"/>
+        <childnode refid="1606" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1614">
+        <label>hyrise::io::RawTableLoader</label>
+        <link refid="classhyrise_1_1io_1_1_raw_table_loader"/>
+        <childnode refid="1611" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1609">
+        <label>EmptyHeader</label>
+        <link refid="class_empty_header"/>
+        <childnode refid="1607" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1616">
+        <label>MPassCSVInput</label>
+        <link refid="class_m_pass_c_s_v_input"/>
+        <childnode refid="1611" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1618">
+        <label>cloneable</label>
+        <link refid="classcloneable"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/grund/hyrise/src/lib/io/AbstractLoader.h" line="11" bodyfile="/home/grund/hyrise/src/lib/io/AbstractLoader.h" bodystart="11" bodyend="15"/>
+    <listofallmembers>
+      <member refid="classcloneable_1ac2b7d7adadae7c4fa61cd9ba6c105509" prot="public" virt="pure-virtual"><scope>cloneable</scope><name>clone</name></member>
+      <member refid="classcloneable_1a31ff0906763d17093098d05207e2184c" prot="public" virt="virtual"><scope>cloneable</scope><name>~cloneable</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,172 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.1.2">
+  <compounddef id="_operation_data-_impl_8h" kind="file">
+    <compoundname>OperationData-Impl.h</compoundname>
+    <includes refid="_operation_data_8h" local="yes">access/OperationData.h</includes>
+    <includedby refid="_operation_data_8cpp" local="yes">src/lib/access/OperationData.cpp</includedby>
+    <incdepgraph>
+      <node id="7836">
+        <label>boost/mpl/vector.hpp</label>
+      </node>
+      <node id="7824">
+        <label>src/lib/access/OperationData-Impl.h</label>
+        <link refid="OperationData-Impl.h"/>
+        <childnode refid="7825" relation="include">
+        </childnode>
+      </node>
+      <node id="7830">
+        <label>limits</label>
+      </node>
+      <node id="7838">
+        <label>boost/lexical_cast.hpp</label>
+      </node>
+      <node id="7828">
+        <label>cstdint</label>
+      </node>
+      <node id="7834">
+        <label>stdint.h</label>
+      </node>
+      <node id="7833">
+        <label>stdexcept</label>
+      </node>
+      <node id="7829">
+        <label>string</label>
+      </node>
+      <node id="7835">
+        <label>ostream</label>
+      </node>
+      <node id="7826">
+        <label>vector</label>
+      </node>
+      <node id="7827">
+        <label>helper/types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="7828" relation="include">
+        </childnode>
+        <childnode refid="7829" relation="include">
+        </childnode>
+        <childnode refid="7830" relation="include">
+        </childnode>
+        <childnode refid="7831" relation="include">
+        </childnode>
+        <childnode refid="7826" relation="include">
+        </childnode>
+      </node>
+      <node id="7825">
+        <label>access/OperationData.h</label>
+        <link refid="_operation_data_8h"/>
+        <childnode refid="7826" relation="include">
+        </childnode>
+        <childnode refid="7827" relation="include">
+        </childnode>
+        <childnode refid="7832" relation="include">
+        </childnode>
+      </node>
+      <node id="7837">
+        <label>boost/mpl/map.hpp</label>
+      </node>
+      <node id="7831">
+        <label>memory</label>
+      </node>
+      <node id="7832">
+        <label>storage/storage_types.h</label>
+        <link refid="storage__types_8h"/>
+        <childnode refid="7826" relation="include">
+        </childnode>
+        <childnode refid="7829" relation="include">
+        </childnode>
+        <childnode refid="7833" relation="include">
+        </childnode>
+        <childnode refid="7834" relation="include">
+        </childnode>
+        <childnode refid="7835" relation="include">
+        </childnode>
+        <childnode refid="7836" relation="include">
+        </childnode>
+        <childnode refid="7837" relation="include">
+        </childnode>
+        <childnode refid="7838" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="7839">
+        <label>src/lib/access/OperationData-Impl.h</label>
+        <link refid="OperationData-Impl.h"/>
+        <childnode refid="7840" relation="include">
+        </childnode>
+      </node>
+      <node id="7840">
+        <label>src/lib/access/OperationData.cpp</label>
+        <link refid="_operation_data_8cpp"/>
+      </node>
+    </invincdepgraph>
+    <innernamespace refid="namespacehyrise">hyrise</innernamespace>
+    <innernamespace refid="namespacehyrise_1_1access">hyrise::access</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#ifndef<sp/>SRC_LIB_ACCESS_OPERATIONDATA_IMPL_H_</highlight></codeline>
+<codeline lineno="2"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SRC_LIB_ACCESS_OPERATIONDATA_IMPL_H_</highlight></codeline>
+<codeline lineno="3"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_operation_data_8h" kindref="compound">access/OperationData.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">hyrise<sp/>{<sp/></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">access<sp/>{</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
+<codeline lineno="9" refid="classhyrise_1_1access_1_1_operation_data_1aec9e3e71565c67df1c24dbbefd49521c" refkind="member"><highlight class="normal">std::shared_ptr&lt;const<sp/>T&gt;<sp/><ref refid="classhyrise_1_1access_1_1_operation_data_1aec9e3e71565c67df1c24dbbefd49521c" kindref="member" tooltip="Returns the n-th element of type T.">OperationData::nthOf</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>index)</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0u;</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal">(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal">&amp;<sp/>resource:<sp/><ref refid="classhyrise_1_1access_1_1_operation_data_1a53b49ff4817a8cab960fc2a1a65af812" kindref="member">_resources</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal">&amp;<sp/>cast_resource<sp/>=<sp/>std::dynamic_pointer_cast&lt;const<sp/>T&gt;(resource))<sp/>{</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(i<sp/>==<sp/>index)<sp/>{</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>cast_resource;</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>++i;</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1access_1_1_operation_data_1ac9e534394da2d08127f858f40e615ce9" kindref="member">OperationDataError</ref>(</highlight><highlight class="stringliteral">&quot;Could<sp/>not<sp/>find<sp/>resource<sp/>indexed<sp/>&quot;</highlight><highlight class="normal"><sp/>+<sp/><ref refid="namespacehyrise_1aec58f00f171c12aa4ef29682158b9fc2" kindref="member">std::to_string</ref>(index)<sp/>+<sp/></highlight><highlight class="stringliteral">&quot;<sp/>when<sp/>only<sp/>&quot;</highlight><highlight class="normal"><sp/>+<sp/><ref refid="namespacehyrise_1aec58f00f171c12aa4ef29682158b9fc2" kindref="member">std::to_string</ref>(i)<sp/>+<sp/></highlight><highlight class="stringliteral">&quot;<sp/>available&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="20"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
+<codeline lineno="23" refid="classhyrise_1_1access_1_1_operation_data_1a7764310084baffaeb8c502f0afdd726d" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1access_1_1_operation_data_1a7764310084baffaeb8c502f0afdd726d" kindref="member">OperationData::setNthOf</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>index,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::shared_ptr&lt;const<sp/>T&gt;&amp;<sp/>element)<sp/>{</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0u;</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>actual<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal">(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal">&amp;<sp/>resource:<sp/><ref refid="classhyrise_1_1access_1_1_operation_data_1a53b49ff4817a8cab960fc2a1a65af812" kindref="member">_resources</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(std::dynamic_pointer_cast&lt;const<sp/>T&gt;(resource))<sp/>{</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(i<sp/>==<sp/>index)<sp/>{</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>_resources[actual]<sp/>=<sp/>element;</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>++i;</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/>++actual;</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1access_1_1_operation_data_1ac9e534394da2d08127f858f40e615ce9" kindref="member">OperationDataError</ref>(</highlight><highlight class="stringliteral">&quot;Could<sp/>not<sp/>set<sp/>resource<sp/>indexed<sp/>&quot;</highlight><highlight class="normal"><sp/>+<sp/><ref refid="namespacehyrise_1aec58f00f171c12aa4ef29682158b9fc2" kindref="member">std::to_string</ref>(index)<sp/>+<sp/></highlight><highlight class="stringliteral">&quot;<sp/>when<sp/>only<sp/>&quot;</highlight><highlight class="normal"><sp/>+<sp/><ref refid="namespacehyrise_1aec58f00f171c12aa4ef29682158b9fc2" kindref="member">std::to_string</ref>(i)<sp/>+<sp/></highlight><highlight class="stringliteral">&quot;<sp/>available&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="37"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
+<codeline lineno="40" refid="classhyrise_1_1access_1_1_operation_data_1a5dc0171957f6e878d2072ac4a757d941" refkind="member"><highlight class="normal">std::vector&lt;std::shared_ptr&lt;const<sp/>T&gt;&gt;<sp/><ref refid="classhyrise_1_1access_1_1_operation_data_1a5dc0171957f6e878d2072ac4a757d941" kindref="member" tooltip="Returns a vector of resources of type type T.">OperationData::allOf</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/>std::vector&lt;std::shared_ptr&lt;const<sp/>T&gt;&gt;<sp/>result;</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal">(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal">&amp;<sp/>resource:<sp/><ref refid="classhyrise_1_1access_1_1_operation_data_1a53b49ff4817a8cab960fc2a1a65af812" kindref="member">_resources</ref>)<sp/>{<sp/></highlight><highlight class="comment">//<sp/>replace<sp/>with<sp/>copy_if</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal">&amp;<sp/>cast_resource<sp/>=<sp/>std::dynamic_pointer_cast&lt;const<sp/>T&gt;(resource))<sp/>{</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>result.push_back(cast_resource);</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>result;</highlight></codeline>
+<codeline lineno="48"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
+<codeline lineno="51" refid="classhyrise_1_1access_1_1_operation_data_1ab040085eeb20b5fbe3dc80461c0d2faf" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="classhyrise_1_1access_1_1_operation_data_1ab040085eeb20b5fbe3dc80461c0d2faf" kindref="member" tooltip="Returns number of passed resources of type T.">OperationData::sizeOf</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>decltype(*std::begin(<ref refid="classhyrise_1_1access_1_1_operation_data_1a53b49ff4817a8cab960fc2a1a65af812" kindref="member">_resources</ref>))<sp/>element_type;</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>std::count_if(std::begin(<ref refid="classhyrise_1_1access_1_1_operation_data_1a53b49ff4817a8cab960fc2a1a65af812" kindref="member">_resources</ref>),<sp/>std::end(<ref refid="classhyrise_1_1access_1_1_operation_data_1a53b49ff4817a8cab960fc2a1a65af812" kindref="member">_resources</ref>),<sp/>[]<sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>element_type&amp;<sp/>e)<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>std::dynamic_pointer_cast&lt;</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>T&gt;(e)<sp/>!=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">;<sp/>});</highlight></codeline>
+<codeline lineno="54"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal">}}</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="/home/grund/hyrise/src/lib/access/OperationData-Impl.h"/>
+  </compounddef>
+</doxygen>
