@@ -21,7 +21,7 @@ endif
 
 include_dirs += $(PROJECT_INCLUDE)
 linker_dirs += $(LINKER_DIR)
-sources ?= $(shell find $(src_dir) -type f -name "*.c" -or -name "*.cpp" -and -not -name ".*" | grep -v .skeleton.cpp$$ )
+sources ?= $(sort $(shell find $(src_dir) -type f -name "*.c" -or -name "*.cpp" -and -not -name ".*" | grep -v .skeleton.cpp$$ ))
 objects ?= $(subst $(src_dir)/,,$(subst .c,.o,$(subst .cpp,.o,$(sources))))
 dependencies ?= $(subst .o,.d,$(objects))
 

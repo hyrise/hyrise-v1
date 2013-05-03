@@ -52,8 +52,8 @@ export build_dir ?= build
 ifneq (,$(findstring linux,$(OSTYPE)))
 	LIB_EXTENSION := so
 	BUILD_FLAGS += -fPIC -D WITH_NUMA
-	LINKER_FLAGS += -lnuma -Wl,--no-as-needed
-	SHARED_LIB := -shared 
+	LINKER_FLAGS += -lnuma -ldl -Wl,-no-as-needed
+	SHARED_LIB := -shared 	
 else
 	BUILD_FLAGS += -D NO_PREFETCHING
 	LIB_EXTENSION := dylib
