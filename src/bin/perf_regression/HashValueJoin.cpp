@@ -51,7 +51,7 @@ BENCHMARK_F(HashValueJoinBase, stock_level_hash_value_join) {
   hs->addInput(t2);
   hs->addField(4);
 
-  const auto& result = hs->execute()->getResultTable();
+  hs->execute()->getResultTable();
 }
 
 BENCHMARK_F(HashValueJoinBase, stock_level_hash_value_join_mat) {
@@ -66,7 +66,7 @@ BENCHMARK_F(HashValueJoinBase, stock_level_hash_value_join_mat) {
   ms.setEvent("NO_PAPI");
   ms.addInput(result);
 
-  const auto& result_mat = ms.execute()->getResultTable();
+  ms.execute()->getResultTable();
 }
 
 BENCHMARK_F(HashValueJoinBase, stock_level_hash_value_join_mat_memcpy) {
@@ -81,7 +81,7 @@ BENCHMARK_F(HashValueJoinBase, stock_level_hash_value_join_mat_memcpy) {
   ms.setEvent("NO_PAPI");
   ms.addInput(result);
 
-  const auto& result_mat = ms.execute()->getResultTable();
+  ms.execute()->getResultTable();
 }
 
 }
