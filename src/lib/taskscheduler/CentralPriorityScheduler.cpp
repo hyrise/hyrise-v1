@@ -19,7 +19,7 @@ CentralPriorityScheduler::CentralPriorityScheduler(int threads) {
   // create and launch threads
   for(int i = 0; i < threads; i++)
     _worker_threads.push_back(new std::thread(PriorityWorkerThread(*this)));
-
+  _status = RUN;
 }
 
 CentralPriorityScheduler::~CentralPriorityScheduler() {
