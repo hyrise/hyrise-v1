@@ -8,7 +8,7 @@
 #include <storage.h>
 
 #include <io/shortcuts.h>
-#include "taskscheduler.h"
+#include "taskscheduler/SharedScheduler.h"
 
 namespace hyrise {
 namespace access {

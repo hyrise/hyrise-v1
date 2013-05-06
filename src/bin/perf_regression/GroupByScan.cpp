@@ -48,7 +48,7 @@ class GroupByScanBase : public ::testing::Benchmark {
 };
 
 BENCHMARK_F(GroupByScanBase, group_by_tpc_c_delivery) {
-  const auto& result = gs->execute()->getResultTable();
+  gs->execute()->getResultTable();
 }
 
 BENCHMARK_F(GroupByScanBase, group_by_tpc_c_delivery_mat) {
@@ -58,7 +58,7 @@ BENCHMARK_F(GroupByScanBase, group_by_tpc_c_delivery_mat) {
   ms->setEvent("NO_PAPI");
   ms->addInput(result);
 
-  const auto& result_mat = ms->execute()->getResultTable();
+  ms->execute()->getResultTable();
 }
 
 BENCHMARK_F(GroupByScanBase, group_by_tpc_c_delivery_mat_memcpy) {
@@ -68,7 +68,7 @@ BENCHMARK_F(GroupByScanBase, group_by_tpc_c_delivery_mat_memcpy) {
   ms->setEvent("NO_PAPI");
   ms->addInput(result);
 
-  const auto& result_mat = ms->execute()->getResultTable();
+  ms->execute()->getResultTable();
 }
 
 BENCHMARK_F(GroupByScanBase, group_by_scan_multiple_fields) {
@@ -91,7 +91,7 @@ BENCHMARK_F(GroupByScanBase, group_by_scan_multiple_fields) {
 
   gs2.addInputHash(group_map);
 
-  const auto& result = gs2.execute()->getResultTable();
+  gs2.execute()->getResultTable();
 }
 
 BENCHMARK_F(GroupByScanBase, group_by_scan_multiple_fieds_mat) {
@@ -120,7 +120,7 @@ BENCHMARK_F(GroupByScanBase, group_by_scan_multiple_fieds_mat) {
   ms.setEvent("NO_PAPI");
   ms.addInput(result);
 
-  const auto& result_mat = ms.execute()->getResultTable();
+  ms.execute()->getResultTable();
 }
 
 BENCHMARK_F(GroupByScanBase, group_by_scan_multiple_fields_mat_memcpy) {
@@ -149,7 +149,7 @@ BENCHMARK_F(GroupByScanBase, group_by_scan_multiple_fields_mat_memcpy) {
   ms.setEvent("NO_PAPI");
   ms.addInput(result);
 
-  const auto& result_mat = ms.execute()->getResultTable();
+  ms.execute()->getResultTable();
 
 }
 

@@ -1,22 +1,23 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#include <boost/assign/list_of.hpp>
-#include <boost/assign/std/vector.hpp>
-#include <boost/assign.hpp>
-
-#include <gtest/gtest.h>
-#include <string>
-
-#include "helper.h"
-
-#include <layouter.h>
-#include <layouter/base.h>
-#include <layouter/matrix.h>
-
-#include <io/shortcuts.h>
 
 #include <string>
 #include <iostream>
 #include <vector>
+
+#include "helper.h"
+
+#include "layouter/base.h"
+#include "layouter/matrix.h"
+#include "layouter/incremental.h"
+
+#include "io/shortcuts.h"
+
+#include "boost/assign/list_of.hpp"
+#include "boost/assign/std/vector.hpp"
+#include "boost/assign.hpp"
+
+#include "gtest/gtest.h"
+
 
 using namespace layouter;
 

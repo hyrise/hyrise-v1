@@ -1,6 +1,10 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "testing/test.h"
-#include <memory.h>
+
+#include "memory/MallocStrategy.h"
+#include "memory/MemalignStrategy.h"
+#include "memory/NumaStrategy.h"
+#include "memory/NumaStrategy2.h"
 
 template <typename T>
 class StrategyTests : public ::hyrise::Test {};

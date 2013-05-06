@@ -17,7 +17,7 @@ TEST_F(CreateIndexTests, basic_create_index_test) {
   CreateIndex i;
   i.addInput(t);
   i.addField(0);
-  i.setTableName(table);
+  i.setIndexName(table);
   i.execute();
 
   std::shared_ptr<InvertedIndex<hyrise_int_t>> index = std::dynamic_pointer_cast<InvertedIndex<hyrise_int_t>> (sm->getInvertedIndex(table));

@@ -2,17 +2,19 @@
 #include <iostream>
 #include <algorithm>
 #include <iterator>
+#include <ctime>
+#include <sys/time.h>
 
 #include "testing/test.h"
 #include "helper.h"
 
-#include "access.h"
 #include "access/NoOp.h"
 #include "access/PlanOperation.h"
 #include "io/TransactionManager.h"
-#include "taskscheduler.h"
-#include <ctime>
-#include <sys/time.h>
+#include "taskscheduler/SharedScheduler.h"
+#include "taskscheduler/CoreBoundQueuesScheduler.h"
+#include "taskscheduler/WSCoreBoundQueuesScheduler.h"
+
 #include "helper/HwlocHelper.h"
 
 

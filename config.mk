@@ -10,6 +10,7 @@ export IMH_PROJECT_PATH := $(shell pwd)$(TOP)
 # Set up conservative settings
 PRODUCTION ?= 0
 USE_GOOGLE_PROFILER ?= 0
+USE_V8 ?= 0
 MANUAL_PERF_IMPRO ?= 0
 COVERAGE_TESTING ?= 0
 PAPI_TRACE ?= 0
@@ -51,8 +52,8 @@ export build_dir ?= build
 ifneq (,$(findstring linux,$(OSTYPE)))
 	LIB_EXTENSION := so
 	BUILD_FLAGS += -fPIC -D WITH_NUMA
-	LINKER_FLAGS += -lnuma -Wl,--no-as-needed
-	SHARED_LIB := -shared 
+	LINKER_FLAGS += -lnuma -ldl -Wl,-no-as-needed
+	SHARED_LIB := -shared 	
 else
 	BUILD_FLAGS += -D NO_PREFETCHING
 	LIB_EXTENSION := dylib
@@ -105,6 +106,18 @@ endif
 ifeq ($(USE_BACKWARD), 1)
 	BUILD_FLAGS += -D BACKWARD_HAS_BFD -D USE_BACKWARD
 	LINKER_FLAGS += -lbfd
+endif
+
+ifeq ($(USE_V8), 1)
+	BUILD_FLAGS += -D WITH_V8
+	LINKER_FLAGS += -lv8
+	PROJECT_INCLUDE += $(V8_BASE_DIRECTORY)/include
+	ifeq ($(PRODUCTION), 1)
+		LINKER_DIR += $(V8_BASE_DIRECTORY)/out/x64.release/obj.target/tools/gyp
+	else
+		LINKER_DIR += $(V8_BASE_DIRECTORY)/out/x64.debug/obj.target/tools/gyp
+	endif
+	
 endif
 
 JSON_PATH	:=	$(IMH_PROJECT_PATH)/third_party/jsoncpp

@@ -576,7 +576,7 @@ std::vector<std::vector<subset_t> > BaseLayouter::iterateThroughLayoutSubsetsFas
   // Recursion abortion defined here
   if (n == 1 or list.size() == 1) {
     iterate_result_t res;
-for (auto x : list) {
+    for (auto x : list) {
       if (x.size() + curr_attr == max_attr) {
         std::vector<subset_t> tmp = {x};
         res.push_back(tmp);
@@ -612,18 +612,18 @@ for (auto x : list) {
     from the list
     */
     std::vector<subset_t> new_rest;
-for (auto x : rest_list) {
-for (auto f : left_list)
-for (auto r : x)
+    for (auto x : rest_list) {
+      for (auto f : left_list)
+        for (auto r : x)
           if (f == r)
             goto bbb;
-
+          
       new_rest.push_back(x);
 
-bbb:
+      bbb:
       continue;
     }
-
+    
     rest_list = new_rest;
     // rest_list.erase(std::remove_if(rest_list.begin(), rest_list.end(), [&left_list](subset_t& e){
     //             for( const auto& f : left_list)
@@ -636,33 +636,33 @@ bbb:
     iterate_result_t all;
 
     if (rest_list.size() > 0 &&
-        curr_attr + rest_list[0].size() <= max_attr &&
-        (rest_list[0].size() * (n - 1) + curr_attr <= max_attr or list.size() < n)) {
+      curr_attr + rest_list[0].size() <= max_attr &&
+      (rest_list[0].size() * (n - 1) + curr_attr <= max_attr or list.size() < n)) {
       all = iterateThroughLayoutSubsetsFast(n - 1,
-                                            rest_list,
-                                            current_size + 1,
-                                            dest_size,
-                                            max_attr,
-                                            curr_attr + list[index].size());
-    }
-
-for (auto part : all) {
+        rest_list,
+        current_size + 1,
+        dest_size,
+        max_attr,
+        curr_attr + list[index].size());
+  }
+  
+  for (auto part : all) {
       /*
         Now we need a fast way to identify that we will not have
         a single elemnt doubled.
        */
-      std::vector<subset_t> tmp {list[index]};
-      tmp.insert(tmp.end(), part.begin(), part.end());
-      result.push_back(tmp);
+        std::vector<subset_t> tmp {list[index]};
+        tmp.insert(tmp.end(), part.begin(), part.end());
+        result.push_back(tmp);
+      }
+      ++index;
     }
-    ++index;
+    return result;
   }
-  return result;
-}
-
+  
 void BaseLayouter::iterateThroughLayouts() {
   std::sort(subsets.begin(), subsets.end(), subset_t_lt);
-
+  
   if (subsets.size() == 1) {
     Layout l;
     l.add(subsets[0]);
@@ -694,9 +694,9 @@ void BaseLayouter::iterateThroughLayouts() {
                                   schema.nbAttributes,
                                   0);
 
-for (auto x : intermediate_results) {
+      for (auto x : intermediate_results) {
         Layout l;
-for (auto t : x)
+        for (auto t : x)
           l.add(t);
         Result r(l, getCost(l));
         nbLayouts++;
