@@ -2,31 +2,35 @@
     "papi": "PAPI_L1_DCA",
     "operators" : {
         "00" : {
-            "type": "TableLoad",
-            "table": "numbers",
-            "filename" : "tables/defaultDictTable95.tbl"
+            "type": "LoadConfigurableTable",
+            "table": "customer",
+            "filename" : "defaultDictTestTables/customer.tbl",
+            "defaultColumnType": "ColDefaultType"
+//            "columnTypes": "ColDefaultDictVector, 14, 9, 10"
         },
         "01" : {
             "type" : "SimpleTableScan",
             "positions" : true,
             "predicates":[
-            { "type": "OR" },
-            { "type" : "EQ", "in" : 0, "f" : "mostlyDefault", "vtype" : 0, "value": 0 },
-            { "type" : "EQ", "in" : 0, "f" : "mostlyDefault", "vtype" : 0, "value": 0 }
+            { "type" : "AND" },
+            { "type" : "EQ", "in" : 0, "f" : "C_CREDIT_LIM", "vtype" : 1, "value": 50000.00 },
+            { "type" : "GT", "in" : 0, "f" : "C_ID", "vtype" : 0, "value": 999 }
             ]
         },
         "10" : {
-            "type": "LoadWithDefaultDict",
-            "table": "numbers",
-            "filename" : "tables/defaultDictTable95.tbl"
+            "type": "LoadConfigurableTable",
+            "table": "customer",
+            "filename" : "defaultDictTestTables/customer.tbl",
+            "defaultColumnType": "ColDefaultType",
+            "columnTypes": "ColDefaultDictVector, 14, 9, 10"
         },
         "11" : {
             "type" : "SimpleTableScan",
             "positions" : true,
             "predicates":[
-            { "type": "OR" },
-            { "type" : "EQ", "in" : 0, "f" : "mostlyDefault", "vtype" : 0, "value": 0 },
-            { "type" : "EQ", "in" : 0, "f" : "mostlyDefault", "vtype" : 0, "value": 0 }
+            { "type" : "AND" },
+            { "type" : "EQ", "in" : 0, "f" : "C_CREDIT_LIM", "vtype" : 1, "value": 50000.00 },
+            { "type" : "GT", "in" : 0, "f" : "C_ID", "vtype" : 0, "value": 999 }
             ]
         }
     },

@@ -1,6 +1,7 @@
 #pragma once
 #include <cstdlib>
 #include <vector>
+#include <string>
 
 
 class ColumnProperties;
@@ -25,6 +26,8 @@ public:
   ColumnType defaultType;
   void setType(size_t column, ColumnType type);
   ColumnType getType(size_t column);
+
+  static ColumnType typeFromString(const std::string& typeName);
 
 private:
   std::vector<ColumnType> _types;
