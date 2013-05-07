@@ -253,9 +253,9 @@ size_t PointerCalculator::getTableRowForRow(const size_t row) const
   size_t actual_row;
   // resolve mapping of THIS pointer calculator
   if (pos_list) {
-      actual_row = pos_list->at(row);
+    actual_row = pos_list->at(row);
   } else {
-      actual_row = row;
+    actual_row = row;
   }
   // if underlying table is PointerCalculator, resolve recursively
   auto p = std::dynamic_pointer_cast<const PointerCalculator>(table);
@@ -327,7 +327,7 @@ hyrise::storage::atable_ptr_t PointerCalculator::copy_structure(const field_list
   }
 
   if (fields != nullptr) {
-for (const field_t & field: *fields) {
+    for (const field_t & field: *fields) {
       metadata.push_back(metadataAt(field));
 
       if (dictionaries != nullptr) {
@@ -419,39 +419,29 @@ std::shared_ptr<const PointerCalculator> PointerCalculator::unite_many(pc_vector
 
 std::shared_ptr<const PointerCalculator> PointerCalculator::concatenate_many(pc_vector::const_iterator it, pc_vector::const_iterator it_end) {
   auto sz = std::accumulate(it, it_end, 0, [] (size_t acc, const std::shared_ptr<const PointerCalculator>& pc) { return acc + pc->size(); });
-  auto result = new pos_list_t(sz);
-  
-  auto pos = begin(*result);
+  auto result = new pos_list_t;
+  result->reserve(sz);
+
   auto unordered_result = false;
   hyrise::storage::c_atable_ptr_t table = nullptr;
   for (;it != it_end; ++it) {
     const auto& pl = (*it)->pos_list;
-    size_t offset = 0u;
-    
-    if (const auto& trv = std::dynamic_pointer_cast<const TableRangeView>((*it)->table)) {
-      offset = trv->getStart();
-      table = trv->getTable();
-    }
-
     if (table == nullptr) {
       table = (*it)->table;
     }
-      
+
     if (pl == nullptr) {
-      std::iota(pos, pos + (*it)->size(), offset);
+      auto sz = (*it)->size();
+      result->resize(result->size() + sz);
+      std::iota(end(*result)-sz, end(*result), 0);
       unordered_result = true;
     } else {
-      if (offset) {
-	std::transform(begin(*pl), end(*pl), pos, [=] (const size_t& value) { return offset + value; });
-      } else {
-	result->insert(pos, begin(*pl), end(*pl));
-      }
+      result->insert(end(*result), begin(*pl), end(*pl));
     }
-    pos = pos + (*it)->size();
   }
 
   if (unordered_result)
     std::sort(begin(*result), end(*result));
-  
+
   return std::make_shared<PointerCalculator>(table, result, nullptr);
 }
