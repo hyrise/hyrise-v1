@@ -69,7 +69,9 @@ void RequestParseTask::operator()() {
   _responseTask->setPreferredCore(0);
 
   OutputTask::performance_vector& performance_data = _responseTask->getPerformanceData();
-  performance_data.resize(1); // make room for at leas *this* operator
+
+  // the performance attribute for this operation (at [0])
+  performance_data.push_back(std::unique_ptr<OutputTask::performance_attributes_t>(new OutputTask::performance_attributes_t));
   
   epoch_t queryStart = get_epoch_nanoseconds();
   std::vector<std::shared_ptr<Task> > tasks;
@@ -105,16 +107,12 @@ void RequestParseTask::operator()() {
       }
 
       tx::transaction_id_t tid = tx::TransactionManager::getInstance().getTransactionId();
-      OutputTask::performance_vector& performance_data = _responseTask->getPerformanceData();
 
-      // We need space for *this* operator, too
-      performance_data.resize(tasks.size() + 1);
-      size_t i = 1;
       for (const auto & func: tasks) {
         if (auto task = std::dynamic_pointer_cast<_PlanOperation>(func)) {
           task->setPlanId(final_hash);
           task->setTransactionId(tid);
-          task->setPerformanceData(&(performance_data.at(i++)));
+	  _responseTask->registerPlanOperation(task);
           if (!task->hasSuccessors()) {
             // The response has to depend on all tasks, ie. we don't want to respond
             // before all tasks finished running, even if they don't contribute to the result
@@ -140,7 +138,7 @@ void RequestParseTask::operator()() {
     scheduler->schedule(task);
   }
 
-  performance_data[0] = { 0, 0, "NO_PAPI", "RequestParseTask", "requestParse", queryStart, get_epoch_nanoseconds(), boost::lexical_cast<std::string>(std::this_thread::get_id()) };
+  *(performance_data.at(0)) = { 0, 0, "NO_PAPI", "RequestParseTask", "requestParse", queryStart, get_epoch_nanoseconds(), boost::lexical_cast<std::string>(std::this_thread::get_id()) };
   _responseTask->setQueryStart(queryStart);
   scheduler->schedule(_responseTask);
   _responseTask.reset();  // yield responsibility

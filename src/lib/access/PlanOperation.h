@@ -13,7 +13,11 @@
 #include "json.h"
 
 
-
+namespace hyrise {
+namespace access {
+class ResponseTask;
+}
+}
 
 /**
  * This is the default interface for a plan operation. Our basic assumption is
@@ -53,6 +57,7 @@ class _PlanOperation : public OutputTask {
 
   size_t _part;
   size_t _count;
+  std::weak_ptr<hyrise::access::ResponseTask> _responseTask;
 
   bool producesPositions;
 
@@ -131,6 +136,9 @@ class _PlanOperation : public OutputTask {
   virtual void operator()() noexcept;
   virtual const std::string vname();
   const _PlanOperation *execute();
+
+  void setResponseTask(const std::shared_ptr<hyrise::access::ResponseTask>& responseTask);
+  std::shared_ptr<hyrise::access::ResponseTask> getResponseTask() const;
 };
 
 #endif  // SRC_LIB_ACCESS_PLANOPERATION_H_
