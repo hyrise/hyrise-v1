@@ -7,6 +7,8 @@
 #include "storage/hash_functor.h"
 #include "storage/storage_types_helper.h"
 
+#include "boost/functional/hash.hpp"
+
 u_int64_t GroupValue::hash_vids(const ValueIdList &vids) {
   u_int64_t h = FNV1_64_INIT;
   for(const ValueId& v: vids) {
