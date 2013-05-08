@@ -253,9 +253,9 @@ size_t PointerCalculator::getTableRowForRow(const size_t row) const
   size_t actual_row;
   // resolve mapping of THIS pointer calculator
   if (pos_list) {
-      actual_row = pos_list->at(row);
+    actual_row = pos_list->at(row);
   } else {
-      actual_row = row;
+    actual_row = row;
   }
   // if underlying table is PointerCalculator, resolve recursively
   auto p = std::dynamic_pointer_cast<const PointerCalculator>(table);
@@ -327,7 +327,7 @@ hyrise::storage::atable_ptr_t PointerCalculator::copy_structure(const field_list
   }
 
   if (fields != nullptr) {
-for (const field_t & field: *fields) {
+    for (const field_t & field: *fields) {
       metadata.push_back(metadataAt(field));
 
       if (dictionaries != nullptr) {
@@ -349,7 +349,7 @@ for (const field_t & field: *fields) {
   return result;
 }
 
-std::shared_ptr<PointerCalculator> PointerCalculator::intersect(const std::shared_ptr<const PointerCalculator>& other) const {
+std::shared_ptr<const PointerCalculator> PointerCalculator::intersect(const std::shared_ptr<const PointerCalculator>& other) const {
   pos_list_t *result = new pos_list_t(std::max(pos_list->size(), other->pos_list->size()));
   assert(std::is_sorted(begin(*pos_list), end(*pos_list)) && std::is_sorted(begin(*other->pos_list), end(*other->pos_list)) && "Both lists have to be sorted");
   std::set_intersection(pos_list->begin(), pos_list->end(),
@@ -366,7 +366,7 @@ T* copy_vec(T* orig) {
   return new T(begin(*orig), end(*orig));
 }
 
-std::shared_ptr<PointerCalculator> PointerCalculator::unite(const std::shared_ptr<const PointerCalculator>& other) const {
+std::shared_ptr<const PointerCalculator> PointerCalculator::unite(const std::shared_ptr<const PointerCalculator>& other) const {
   assert((other->table == this->table) && "Should point to same table");
   if (pos_list && other->pos_list) {
     auto result = new pos_list_t(std::max(pos_list->size(), other->pos_list->size()));
@@ -383,26 +383,10 @@ std::shared_ptr<PointerCalculator> PointerCalculator::unite(const std::shared_pt
   }
 }
 
-std::shared_ptr<PointerCalculator> PointerCalculator::concatenate(const std::shared_ptr<const PointerCalculator>& other) const {
+std::shared_ptr<const PointerCalculator> PointerCalculator::concatenate(const std::shared_ptr<const PointerCalculator>& other) const {
   assert((other->table == this->table) && "Should point to same table");
-
-  auto result = new pos_list_t();
-
-  if (pos_list) {
-    result->insert(end(*result), begin(*pos_list), end(*pos_list));
-  }
-
-  if (other->pos_list) {
-    result->insert(end(*result), begin(*other->pos_list), end(*other->pos_list));
-  }
-
-  if ((pos_list==nullptr) && (other->pos_list == nullptr)) {
-    result->resize(table->size() * 2);
-    std::iota(begin(*result), begin(*result) + table->size(), 0);
-    std::iota(begin(*result)+table->size(), end(*result), 0);
-  }
-
-  return std::make_shared<PointerCalculator>(table, result, copy_vec(fields));
+  std::vector<std::shared_ptr<const PointerCalculator>> v {std::static_pointer_cast<const PointerCalculator>(shared_from_this()), other};
+  return PointerCalculator::concatenate_many(begin(v), end(v));
 }
 
 std::shared_ptr<const PointerCalculator> PointerCalculator::unite_many(pc_vector::const_iterator it, pc_vector::const_iterator it_end){
@@ -417,14 +401,31 @@ std::shared_ptr<const PointerCalculator> PointerCalculator::unite_many(pc_vector
   return base;
 }
 
-std::shared_ptr<const PointerCalculator> PointerCalculator::concatenate_many(pc_vector::const_iterator it, pc_vector::const_iterator it_end){
-  std::shared_ptr<const PointerCalculator> base = nullptr;
+std::shared_ptr<const PointerCalculator> PointerCalculator::concatenate_many(pc_vector::const_iterator it, pc_vector::const_iterator it_end) {
+  auto sz = std::accumulate(it, it_end, 0, [] (size_t acc, const std::shared_ptr<const PointerCalculator>& pc) { return acc + pc->size(); });
+  auto result = new pos_list_t;
+  result->reserve(sz);
+
+  auto unordered_result = false;
+  hyrise::storage::c_atable_ptr_t table = nullptr;
   for (;it != it_end; ++it) {
-    if (!base) {
-      base = *it;
+    const auto& pl = (*it)->pos_list;
+    if (table == nullptr) {
+      table = (*it)->table;
+    }
+
+    if (pl == nullptr) {
+      auto sz = (*it)->size();
+      result->resize(result->size() + sz);
+      std::iota(end(*result)-sz, end(*result), 0);
+      unordered_result = true;
     } else {
-      base = base->concatenate(*it);
+      result->insert(end(*result), begin(*pl), end(*pl));
     }
   }
-  return base;
+
+  if (unordered_result)
+    std::sort(begin(*result), end(*result));
+
+  return std::make_shared<PointerCalculator>(table, result, nullptr);
 }
