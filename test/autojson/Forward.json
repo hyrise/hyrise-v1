@@ -1,0 +1,16 @@
+{
+    "operators": {
+        "ref" : {
+	      "type": "LoadFile",
+	      "filename": "lin_xxs.tbl"
+	},
+	"set": {
+	    "type": "SetTable",
+	    "name": "reference"
+	},		
+        "fwd": {
+            "type": "Forward"
+        }
+    },
+    "edges": [["ref", "set"], ["set", "fwd"]]
+}
