@@ -48,6 +48,9 @@ HYRISE_MYSQL_PASS ?= root
 OSTYPE = $(shell uname | tr '[A-Z]' '[a-z]')
 export build_dir ?= build
 
+# to properly use included headers
+CCACHE_SLOPPINESS := time_macros
+
 # OS switches
 ifneq (,$(findstring linux,$(OSTYPE)))
 	LIB_EXTENSION := so
@@ -117,7 +120,6 @@ ifeq ($(USE_V8), 1)
 	else
 		LINKER_DIR += $(V8_BASE_DIRECTORY)/out/x64.debug/obj.target/tools/gyp
 	endif
-	
 endif
 
 JSON_PATH	:=	$(IMH_PROJECT_PATH)/third_party/jsoncpp
