@@ -20,7 +20,7 @@ WITH_MYSQL ?= 0
 FLTO ?= 0
 USE_BACKWARD ?= 1
 USE_CCACHE ?= 1
-USE_GCCFILTER ?= 1
+USE_GCCFILTER ?= 0
 
 PROJECT_INCLUDE ?= 
 BUILD_FLAGS ?= 
@@ -47,8 +47,8 @@ ifeq ($(USE_CCACHE),1)
 endif
 
 ifeq ($(USE_GCCFILTER),1)
-	CC := GCCFILTER $(CC)
-	CXX:= GCCFILTER $(CXX)
+	CC := $(GCCFILTER) $(CC)
+	CXX:= $(GCCFILTER) $(CXX)
 endif
 
 # Set up settings for mysql tests
