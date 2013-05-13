@@ -19,6 +19,8 @@ COLOR_TTY ?= 1
 WITH_MYSQL ?= 0
 FLTO ?= 0
 USE_BACKWARD ?= 1
+USE_CCACHE ?= 1
+USE_GCCFILTER ?= 0
 
 PROJECT_INCLUDE ?= 
 BUILD_FLAGS ?= 
@@ -35,9 +37,19 @@ HYRISE_ALLOCATOR ?=
 -include $(TOP)settings.mk
 
 GCCFILTER := $(IMH_PROJECT_PATH)/tools/gccfilter -c -p
-COMPILER ?= g++ccache
+COMPILER ?= g++47
 
 include $(TOP)config.$(COMPILER).mk
+
+ifeq ($(USE_CCACHE),1)
+	CC := ccache $(CC)
+	CXX:= ccache $(CXX)
+endif
+
+ifeq ($(USE_GCCFILTER),1)
+	CC := $(GCCFILTER) $(CC)
+	CXX:= $(GCCFILTER) $(CXX)
+endif
 
 # Set up settings for mysql tests
 HYRISE_MYSQL_HOST ?= 127.0.0.1
