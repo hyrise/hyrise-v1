@@ -10,7 +10,7 @@ namespace hyrise {
 namespace testing {
 
 /// Printer implementation class, to hide implementation details
-class PrinterImpl;
+struct PrinterImpl;
 
 /// Minimalistic printing features for gtest testrunner
 class MinimalistPrinter : public ::testing::EmptyTestEventListener {

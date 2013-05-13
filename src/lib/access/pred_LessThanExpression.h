@@ -69,7 +69,7 @@ class LessThanExpressionRaw : public SimpleFieldExpression {
   virtual ~LessThanExpressionRaw() { }
 
   inline virtual bool operator()(size_t row) {
-    return (std::dynamic_pointer_cast<const RawTable<>>(table))->getValue<T>(field, row) < value;
+    return (std::dynamic_pointer_cast<const RawTable<>>(table))->template getValue<T>(field, row) < value;
   }
 };
 
