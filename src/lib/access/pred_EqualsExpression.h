@@ -75,7 +75,7 @@ class EqualsExpressionRaw : public SimpleFieldExpression {
   virtual ~EqualsExpressionRaw() { }
 
   inline virtual bool operator()(size_t row) {
-    return (std::dynamic_pointer_cast<const RawTable<>>(table))->getValue<T>(field, row) == value;
+    return (std::dynamic_pointer_cast<const RawTable<>>(table))->template getValue<T>(field, row) == value;
   }
 };
 

@@ -30,7 +30,7 @@ for (auto & e : _index)
   }
 
   explicit InvertedIndex(const hyrise::storage::c_atable_ptr_t& in, field_t column) {
-    if (in != NULL) {
+    if (in != nullptr) {
       for (size_t row = 0; row < in->size(); ++row) {
         T tmp = in->getValue<T>(column, row);
         typename inverted_index_t::iterator find = _index.find(tmp);

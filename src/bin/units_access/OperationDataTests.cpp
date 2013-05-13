@@ -19,8 +19,8 @@ TEST(OperationDataTests, adding) {
   op.addResource(cr1a);
   op.addResource(cr1b);
   op.addResource(cr2a);
-  EXPECT_EQ(op.sizeOf<CustomResource1>(), 2);
-  EXPECT_EQ(op.sizeOf<CustomResource2>(), 1);
+  EXPECT_EQ(op.sizeOf<CustomResource1>(), 2u);
+  EXPECT_EQ(op.sizeOf<CustomResource2>(), 1u);
 }
 
 
@@ -51,8 +51,8 @@ TEST(OperationDataTests, retrieving) {
 
   std::vector<std::shared_ptr<const CustomResource1>> c1_v {cr1a, cr1b};
   std::vector<std::shared_ptr<const CustomResource2>> c2_v {cr2a};
-  EXPECT_EQ(op.allOf<CustomResource1>(), c1_v);
-  EXPECT_EQ(op.allOf<CustomResource2>(), c2_v);
+  EXPECT_EQ(c1_v, op.allOf<CustomResource1>());
+  EXPECT_EQ(c2_v, op.allOf<CustomResource2>());
 }
 
 TEST(OperationDataTests, merging) {
@@ -64,6 +64,6 @@ TEST(OperationDataTests, merging) {
   op2.addResource(cr1b);
 
   op.mergeWith(op2);
-  EXPECT_EQ(op.sizeOf<CustomResource1>(), 2);
-  EXPECT_EQ(op.sizeOf<CustomResource2>(), 1);
+  EXPECT_EQ(2u, op.sizeOf<CustomResource1>());
+  EXPECT_EQ(1u, op.sizeOf<CustomResource2>());
 }

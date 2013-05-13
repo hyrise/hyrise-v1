@@ -28,8 +28,6 @@ typedef value_id_t aggregate_single_key_t;
 // Single Hashed Value
 typedef size_t join_single_key_t;
 
-namespace {
-
 static size_t hash_value(const hyrise::storage::c_atable_ptr_t &source, const size_t &f, const ValueId &vid) {
   hyrise::storage::hash_functor<size_t> fun(source.get(), f, vid);
   hyrise::storage::type_switch<hyrise_basic_types> ts;
@@ -73,8 +71,6 @@ inline aggregate_single_key_t extractSingle<aggregate_single_key_t>(const hyrise
     const size_t &field,
     const ValueId &vid) {
   return vid.valueId;
-}
-
 }
 
 // hash function for aggregate_key_t
@@ -271,8 +267,8 @@ public:
     if (_dirty) {
       uint64_t result = 0;
       for (map_const_iterator_t it1 = _map.begin(), it2 = it1, end = _map.end(); it1 != end; it1 = it2) {
-        for (; (it2 != end) && (it1->first == it2->first); ++it2);
-          ++result;
+        for (; (it2 != end) && (it1->first == it2->first); ++it2) {}
+        ++result;
       }
 
       _numKeys = result;
