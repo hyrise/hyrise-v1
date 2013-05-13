@@ -268,8 +268,7 @@ public:
       uint64_t result = 0;
       for (map_const_iterator_t it1 = _map.begin(), it2 = it1, end = _map.end(); it1 != end; it1 = it2) {
         for (; (it2 != end) && (it1->first == it2->first); ++it2) {}
-          ++result;
-        }
+        ++result;
       }
 
       _numKeys = result;
