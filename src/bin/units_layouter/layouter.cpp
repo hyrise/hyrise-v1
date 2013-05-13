@@ -122,7 +122,7 @@ TEST_F(LayouterTests, selection_experiment_for_thesis) {
 
 
     for (size_t i = 0; i < numAttrs; ++i) {
-      names += "COL" + i;
+      names += "COL" + std::to_string(i);
       atts += 4;
       sq += i;
     }

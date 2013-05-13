@@ -31,7 +31,7 @@ public:
 
     for (pos_t row = 0; row < left_input_size; row++) {
       const auto &t = input.getTable(0);
-      value = t->getValue<T>(_field_definition[0], row);
+      value = t->template getValue<T>(_field_definition[0], row);
       left_values.push_back(std::pair<T, storage::pos_t>(value, row));
     }
 
@@ -42,7 +42,7 @@ public:
 
     for (pos_t row = 0; row < right_input_size; row++) {
       const auto& t = input.getTable(1);
-      value = t->getValue<T>(_field_definition[1], row);
+      value = t->template getValue<T>(_field_definition[1], row);
       right_values.push_back(std::pair<T, storage::pos_t>(value, row));
     }
 
