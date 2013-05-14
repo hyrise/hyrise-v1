@@ -72,7 +72,7 @@ else
 	SHARED_LIB := -dynamiclib 
 endif
 
-BUILD_FLAGS += -pipe -msse4.2 -Wall -Wextra -Wno-unused-parameter 
+BUILD_FLAGS += -pipe -msse4.2 -Wall -Wextra -Wno-unused-parameter -Wcast-align -Wcast-qual -Wctor-dtor-privacy -Wdisabled-optimization -Wformat=2 -Winit-self -Wmissing-declarations -Wmissing-include-dirs -Wold-style-cast -Woverloaded-virtual -Wredundant-decls -Wshadow -Wstrict-overflow=5 -Wswitch-default -Wno-unused #-Wsign-conversion -Wsign-promo 
 CXX_BUILD_FLAGS += --std=c++0x
 LINKER_FLAGS += 
 
@@ -129,12 +129,11 @@ ifeq ($(USE_V8), 1)
 	else
 		LINKER_DIR += $(V8_BASE_DIRECTORY)/out/x64.debug/obj.target/tools/gyp
 	endif
-	
 endif
 
 JSON_PATH	:=	$(IMH_PROJECT_PATH)/third_party/jsoncpp
 FTPRINTER_PATH	:=	$(IMH_PROJECT_PATH)/third_party/ftprinter/include
-PROJECT_INCLUDE += $(IMH_PROJECT_PATH)/src/lib $(IMH_PROJECT_PATH)/third_party $(IMH_PROJECT_PATH)/third_party/libvarbit $(FTPRINTER_PATH) $(JSON_PATH)
+PROJECT_INCLUDE += $(IMH_PROJECT_PATH)/src/lib $(IMH_PROJECT_PATH)/third_party $(FTPRINTER_PATH) $(JSON_PATH)
 LINKER_FLAGS += -llog4cxx -lpthread
 BINARY_LINKER_FLAGS += -lbackward-hyr
 
