@@ -72,7 +72,7 @@ else
 	SHARED_LIB := -dynamiclib 
 endif
 
-BUILD_FLAGS += -pipe -msse4.2 -Wall -Wextra -Wno-unused-parameter -Wcast-align -Wcast-qual -Wctor-dtor-privacy -Wdisabled-optimization -Wformat=2 -Winit-self -Wmissing-declarations -Wmissing-include-dirs -Wold-style-cast -Woverloaded-virtual -Wredundant-decls -Wshadow -Wstrict-overflow=5 -Wswitch-default -Wno-unused #-Wsign-conversion -Wsign-promo 
+BUILD_FLAGS += -pipe -msse4.2 -Wall -Wextra -Wno-unused-parameter -Wcast-align -Wcast-qual -Wctor-dtor-privacy -Wdisabled-optimization -Wformat=2 -Winit-self -Wmissing-declarations -Wmissing-include-dirs -Wold-style-cast -Woverloaded-virtual -Wredundant-decls -Wstrict-overflow=5  #-Wswitch-default -Wno-unused -Wsign-conversion -Wsign-promo #-Wshadow crashes on g++-4.7
 CXX_BUILD_FLAGS += --std=c++0x
 LINKER_FLAGS += 
 
