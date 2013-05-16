@@ -12,8 +12,6 @@
 #include <storage/DefaultDictVector.hpp>
 #include <storage/ColumnProperties.h>
 
-#include <iostream>
-
 template <typename T>
 class AttributeVectorTests : public ::hyrise::Test {
 public:
@@ -166,7 +164,7 @@ TYPED_TEST(AttributeVectorTests, empty_size_does_not_change_with_reserve) {
 
 }
 
-TYPED_TEST(AttributeVectorTests, default_bit_vector) {
+TYPED_TEST(AttributeVectorTests, DefaultDictVector_loading) {
 
   size_t iCol = 0;
   size_t iRow = 0;
@@ -194,3 +192,24 @@ TYPED_TEST(AttributeVectorTests, default_bit_vector) {
       ASSERT_EQ(vegiTable->getValue<hyrise_int_t>(iCol, iRow), static_cast<hyrise_int_t>(iCol*10000+iRow));
 }
 
+TYPED_TEST(AttributeVectorTests, DefaultDictVector_copy) {
+  const size_t columns = 10;
+  const size_t rows = 30;
+  DefaultDictVector<hyrise_int_t> base(columns, rows);
+  base.resize(rows);
+  
+  hyrise_int_t value(0);
+  for (int c=0; c<columns; ++c) {
+    for (int r=0; r<rows; ++r) {
+      base.set(c, r, ++value);
+      value %= 13;
+    }
+  }
+
+  std::shared_ptr<BaseAttributeVector<hyrise_int_t>> copy = base.copy();
+  for (int c=0; c<columns; ++c) {
+    for (int r=0; r<rows; ++r) {
+      ASSERT_EQ(base.get(c, r), copy->get(c, r));
+    }
+  }
+}

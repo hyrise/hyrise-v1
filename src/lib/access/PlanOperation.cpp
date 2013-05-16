@@ -1,7 +1,6 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "PlanOperation.h"
 
-#include <iostream>
 #include <algorithm>
 #include <thread>
 

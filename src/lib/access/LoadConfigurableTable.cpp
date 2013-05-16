@@ -11,8 +11,6 @@
 #include "io/shortcuts.h"
 #include "io/StorageManager.h"
 
-#include <iostream>
-
 namespace hyrise {
 namespace access {
 

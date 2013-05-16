@@ -8,7 +8,6 @@
 #include <storage/FixedLengthVector.h>
 #include <storage/DefaultDictVector.hpp>
 #include <storage/BitCompressedVector.h>
-#include <iostream>
 
 class AttributeVectorFactory {
 public:

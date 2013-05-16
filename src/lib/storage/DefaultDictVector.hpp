@@ -9,11 +9,20 @@
 #include <memory/MallocStrategy.h>
 #include <helper/types.h>
 
+namespace {
 
 // stuct storing information about one column
 template <typename T>
 struct DefaultDictColumn {
-  T default_value;
+  DefaultDictColumn() = default;
+  DefaultDictColumn (const DefaultDictColumn& other) :
+    defaultValue(other.defaultValue), defaultValueIsSet(other.defaultValueIsSet),
+    default_bit_vector(other.default_bit_vector),
+    exception_positions(other.exception_positions),
+    exception_values(other.exception_values)
+  { }
+
+  T defaultValue;
   bool defaultValueIsSet;
 
   boost::dynamic_bitset<> default_bit_vector;
@@ -25,6 +34,8 @@ enum defaultDictValues {
   defaultDict_default_value     = true,
   defaultDict_non_default_value = false
 };
+
+}
 
 
 // DefaultDictVector will store one default value per column and all values for rows, that do not store 
@@ -41,11 +52,12 @@ private:
   size_t _columns;
   size_t _rows;
   
-public:    
+public:
+  DefaultDictVector() = delete;
   explicit DefaultDictVector(size_t columns, size_t rows);
   ~DefaultDictVector() override;
 
-  explicit DefaultDictVector(const DefaultDictVector& other);
+  DefaultDictVector(const DefaultDictVector& other);
 
   void *data() override {
     throw std::runtime_error("Direct data access not allowed");
@@ -57,23 +69,18 @@ public:
 
   T default_value (size_t column) const {
     checkColumnAccess(column);
-    return _default_dict_table[column].default_value;
+    return _default_dict_table[column].defaultValue;
   }
 
 
   inline T get(size_t column, size_t row) const override;
-
   inline void set(size_t column, size_t row, T value) override;
 
   void reserve(size_t rows) override;
-
-  void resize(size_t rows) override {
-    reserve(rows);
-    _rows = rows;
-  }
+  void resize(size_t rows) override;
 
   inline uint64_t capacity() override {
-    if (!_columns)
+    if (_columns == 0)
       return 0;
     return _default_dict_table[0].default_bit_vector.size();
   }
@@ -84,7 +91,7 @@ public:
     return _rows;
   }
 
-  std::shared_ptr<BaseAttributeVector<T>> copy();
+  std::shared_ptr<BaseAttributeVector<T>> copy() override;
 
   void rewriteColumn(const size_t column, const size_t bits) override { }
 
@@ -124,7 +131,7 @@ DefaultDictVector<T, Allocator>::DefaultDictVector(size_t columns, size_t rows) 
   DefaultDictColumn<T> column;
   for (size_t c = 0; c<_columns; ++c) {
     column.defaultValueIsSet = false;
-    column.default_value = T(0);
+    column.defaultValue = T(0);
     column.default_bit_vector.resize(rows, true);
     _default_dict_table.push_back(column);
   }
@@ -147,7 +154,7 @@ template <typename T, typename Allocator>
 void DefaultDictVector<T, Allocator>::clear() {
   for (DefaultDictColumn<T>& column: _default_dict_table) {
     column.defaultValueIsSet = false;
-    column.default_value = T(0);
+    column.defaultValue = T(0);
     column.default_bit_vector.clear();
     column.exception_positions.clear();
     column.exception_values.clear();
@@ -173,11 +180,17 @@ void DefaultDictVector<T, Allocator>::reserve(size_t rows) {
 }
 
 template <typename T, typename Allocator>
+void DefaultDictVector<T, Allocator>::resize(size_t rows) {
+  reserve(rows);
+  _rows = rows;
+}
+
+template <typename T, typename Allocator>
 inline T DefaultDictVector<T, Allocator>::get(size_t column, size_t row) const {
   checkAccess(column, row);
   // first check if requested field stores the default value
   if(_default_dict_table[column].default_bit_vector[row] == defaultDict_default_value) {
-    return _default_dict_table[column].default_value;
+    return _default_dict_table[column].defaultValue;
   }
   // if not, search the specified row in the exceptions list
   auto exception_position = std::lower_bound(
@@ -196,7 +209,7 @@ inline void DefaultDictVector<T, Allocator>::set(size_t column, size_t row, T va
   auto& def_bits(_default_dict_table[column].default_bit_vector);
   auto& ex_pos(_default_dict_table[column].exception_positions);
   auto& ex_val(_default_dict_table[column].exception_values);
-  T& def_val(_default_dict_table[column].default_value);
+  T& def_val(_default_dict_table[column].defaultValue);
 
   // the first call of set on a column will define its default value
   if (! _default_dict_table[column].defaultValueIsSet) {
