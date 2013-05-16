@@ -1,6 +1,5 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "access/LoadConfigurableTable.h"
-#include <string>
 
 #include "io/shortcuts.h"
 #include "testing/test.h"
@@ -8,7 +7,6 @@
 namespace hyrise {
 namespace access {
 
-std::string tableFileName("test/tables/employees.tbl");
 ColumnType ColumnTypes[] = {ColumnType::ColDefaultType, ColumnType::ColDefaultDictVector};
 
 class LoadConfigurableTableTests : public AccessTest {};
