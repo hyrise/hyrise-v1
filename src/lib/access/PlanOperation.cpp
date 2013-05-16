@@ -269,3 +269,11 @@ void _PlanOperation::setPlanOperationName(const std::string& name) {
 const std::string _PlanOperation::vname() {
   return planOperationName();
 }
+
+void _PlanOperation::setResponseTask(const std::shared_ptr<hyrise::access::ResponseTask>& responseTask) {
+  _responseTask = responseTask;
+}
+
+std::shared_ptr<hyrise::access::ResponseTask> _PlanOperation::getResponseTask() const {
+  return _responseTask.lock();
+}

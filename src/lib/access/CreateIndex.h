@@ -12,14 +12,13 @@ public:
   virtual ~CreateIndex();
 
   void executePlanOperation();
-  /// set index name in field "table_name"
+  /// set index name in field "_index_name"
   /// set column in field "fields"
   static std::shared_ptr<_PlanOperation> parse(Json::Value &data);
-  const std::string vname();
-  void setTableName(const std::string &t);
+  void setIndexName(const std::string &t);
 
 private:
-  std::string _table_name;
+  std::string _index_name;
 };
 
 }

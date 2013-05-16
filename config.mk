@@ -10,6 +10,7 @@ export IMH_PROJECT_PATH := $(shell pwd)$(TOP)
 # Set up conservative settings
 PRODUCTION ?= 0
 USE_GOOGLE_PROFILER ?= 0
+USE_V8 ?= 0
 MANUAL_PERF_IMPRO ?= 0
 COVERAGE_TESTING ?= 0
 PAPI_TRACE ?= 0
@@ -18,6 +19,8 @@ COLOR_TTY ?= 1
 WITH_MYSQL ?= 0
 FLTO ?= 0
 USE_BACKWARD ?= 1
+USE_CCACHE ?= 1
+USE_GCCFILTER ?= 0
 
 PROJECT_INCLUDE ?= 
 BUILD_FLAGS ?= 
@@ -34,9 +37,19 @@ HYRISE_ALLOCATOR ?=
 -include $(TOP)settings.mk
 
 GCCFILTER := $(IMH_PROJECT_PATH)/tools/gccfilter -c -p
-COMPILER ?= g++ccache
+COMPILER ?= g++47
 
 include $(TOP)config.$(COMPILER).mk
+
+ifeq ($(USE_CCACHE),1)
+	CC := ccache $(CC)
+	CXX:= ccache $(CXX)
+endif
+
+ifeq ($(USE_GCCFILTER),1)
+	CC := $(GCCFILTER) $(CC)
+	CXX:= $(GCCFILTER) $(CXX)
+endif
 
 # Set up settings for mysql tests
 HYRISE_MYSQL_HOST ?= 127.0.0.1
@@ -51,15 +64,15 @@ export build_dir ?= build
 ifneq (,$(findstring linux,$(OSTYPE)))
 	LIB_EXTENSION := so
 	BUILD_FLAGS += -fPIC -D WITH_NUMA
-	LINKER_FLAGS += -lnuma -Wl,--no-as-needed
-	SHARED_LIB := -shared 
+	LINKER_FLAGS += -lnuma -ldl -Wl,-no-as-needed
+	SHARED_LIB := -shared 	
 else
 	BUILD_FLAGS += -D NO_PREFETCHING
 	LIB_EXTENSION := dylib
 	SHARED_LIB := -dynamiclib 
 endif
 
-BUILD_FLAGS += -pipe -msse4.2 -Wall -Wextra -Wno-unused-parameter 
+BUILD_FLAGS += -pipe -msse4.2 -Wall -Wextra -Wno-unused-parameter -Wcast-align -Wcast-qual -Wctor-dtor-privacy -Wdisabled-optimization -Wformat=2 -Winit-self -Wmissing-declarations -Wmissing-include-dirs -Wold-style-cast -Woverloaded-virtual -Wredundant-decls -Wstrict-overflow=5  #-Wswitch-default -Wno-unused -Wsign-conversion -Wsign-promo #-Wshadow crashes on g++-4.7
 CXX_BUILD_FLAGS += --std=c++0x
 LINKER_FLAGS += 
 
@@ -107,9 +120,20 @@ ifeq ($(USE_BACKWARD), 1)
 	LINKER_FLAGS += -lbfd
 endif
 
+ifeq ($(USE_V8), 1)
+	BUILD_FLAGS += -D WITH_V8
+	LINKER_FLAGS += -lv8
+	PROJECT_INCLUDE += $(V8_BASE_DIRECTORY)/include
+	ifeq ($(PRODUCTION), 1)
+		LINKER_DIR += $(V8_BASE_DIRECTORY)/out/x64.release/obj.target/tools/gyp
+	else
+		LINKER_DIR += $(V8_BASE_DIRECTORY)/out/x64.debug/obj.target/tools/gyp
+	endif
+endif
+
 JSON_PATH	:=	$(IMH_PROJECT_PATH)/third_party/jsoncpp
 FTPRINTER_PATH	:=	$(IMH_PROJECT_PATH)/third_party/ftprinter/include
-PROJECT_INCLUDE += $(IMH_PROJECT_PATH)/src/lib $(IMH_PROJECT_PATH)/third_party $(IMH_PROJECT_PATH)/third_party/libvarbit $(FTPRINTER_PATH) $(JSON_PATH)
+PROJECT_INCLUDE += $(IMH_PROJECT_PATH)/src/lib $(IMH_PROJECT_PATH)/third_party $(FTPRINTER_PATH) $(JSON_PATH)
 LINKER_FLAGS += -llog4cxx -lpthread
 BINARY_LINKER_FLAGS += -lbackward-hyr
 

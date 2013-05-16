@@ -1,0 +1,17 @@
+{
+	"operators" : {
+		"reference" : {
+			"type": "TableLoad",
+            "table": "reference",
+            "filename": "tables/companies.tbl"
+		},
+		"script" : {
+			"type" : "ScriptOperation",
+			"script": "build_vtab"
+		}
+	},
+
+	"edges" : [
+	["script", "script"]
+	]
+}

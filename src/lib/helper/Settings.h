@@ -3,16 +3,31 @@
 #define SRC_LIB_HELPER_SETTINGS_H_
 
 #include <cstddef>
+#include <string>
+
+#define ADD_MEMBER(type, member) private: \
+  type _##member; \
+  public: \
+  type get##member() const { return _##member;} \
+  void set##member(const type nm ) { _##member = nm;}\
+
+
 
 /*  Singleton data container class for global settings.
     Use SettingsOperation to manipulate global settings as long as units
     implementing certain decisions are missing. */
+
 class Settings {
+  
   size_t threadpoolSize;
-  Settings() :
-      threadpoolSize(1)
-  {}
+
+  ADD_MEMBER(std::string, ScriptPath);
+  ADD_MEMBER(std::string, DBPath);
+
+  Settings();
+
  public:
+
   ~Settings() {}
   static Settings *getInstance() {
     static Settings *instance = nullptr;

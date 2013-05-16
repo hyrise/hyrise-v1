@@ -52,21 +52,17 @@ void CreateIndex::executePlanOperation() {
   _index = ts(in->typeOfColumn(column), fun);
 
   StorageManager *sm = StorageManager::getInstance();
-  sm->addInvertedIndex(_table_name, _index);
+  sm->addInvertedIndex(_index_name, _index);
 }
 
 std::shared_ptr<_PlanOperation> CreateIndex::parse(Json::Value &data) {
   auto i = BasicParser<CreateIndex>::parse(data);
-  i->setTableName(data["table_name"].asString());
+  i->setIndexName(data["index_name"].asString());
   return i;
 }
 
-const std::string CreateIndex::vname() {
-  return "CreateIndex";
-}
-
-void CreateIndex::setTableName(const std::string &t) {
-  _table_name = t;
+void CreateIndex::setIndexName(const std::string &t) {
+  _index_name = t;
 }
 
 }

@@ -15,11 +15,10 @@
 
 #include <boost/program_options.hpp>
 
-#include <io.h>
-
-#include <net.h>
-#include "taskscheduler/SharedScheduler.h"
 #include "helper/HwlocHelper.h"
+#include "net/AsyncConnection.h"
+#include "io/StorageManager.h"
+#include "taskscheduler/SharedScheduler.h"
 
 namespace po = boost::program_options;
 using namespace hyrise;

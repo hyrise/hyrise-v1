@@ -15,8 +15,6 @@
 #include <memory>
 #include <limits.h>
 
-#include <boost/unordered_map.hpp>
-#include <boost/functional/hash.hpp>
 #include <map>
 
 // FIXME should be aware of allocator

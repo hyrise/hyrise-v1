@@ -13,6 +13,7 @@
 #include "storage/AbstractTable.h"
 #include "storage/SimpleStore.h"
 #include "storage/meta_storage.h"
+#include "access/OutputTask.h"
 
 namespace hyrise {
 namespace access {
@@ -71,6 +72,19 @@ const std::string ResponseTask::vname() {
   return "ResponseTask";
 }
 
+void ResponseTask::registerPlanOperation(const std::shared_ptr<_PlanOperation>& planOp) {
+  OutputTask::performance_attributes_t* perf = new OutputTask::performance_attributes_t;
+  planOp->setPerformanceData(perf);
+
+  const auto responseTaskPtr = std::dynamic_pointer_cast<ResponseTask>(shared_from_this()); 
+  planOp->setResponseTask(responseTaskPtr);
+
+  perfMutex.lock();
+  performance_data.push_back(std::unique_ptr<OutputTask::performance_attributes_t>(perf));
+  perfMutex.unlock();
+}
+
+
 std::shared_ptr<_PlanOperation> ResponseTask::getResultTask() {
   if (getDependencyCount() > 0) {
     return std::dynamic_pointer_cast<_PlanOperation>(_dependencies[0]);
@@ -109,14 +123,14 @@ void ResponseTask::operator()() {
       Json::Value json_perf(Json::arrayValue);
       for (const auto & attr: performance_data) {
         Json::Value element;
-        element["papi_event"] = Json::Value(attr.papiEvent);
-        element["duration"] = Json::Value((Json::UInt64) attr.duration);
-        element["data"] = Json::Value((Json::UInt64) attr.data);
-        element["name"] = Json::Value(attr.name);
-        element["id"] = Json::Value(attr.operatorId);
-        element["startTime"] = Json::Value((double)(attr.startTime - queryStart) / 1000000);
-        element["endTime"] = Json::Value((double)(attr.endTime - queryStart) / 1000000);
-        element["executingThread"] = Json::Value(attr.executingThread);
+        element["papi_event"] = Json::Value(attr->papiEvent);
+        element["duration"] = Json::Value((Json::UInt64) attr->duration);
+        element["data"] = Json::Value((Json::UInt64) attr->data);
+        element["name"] = Json::Value(attr->name);
+        element["id"] = Json::Value(attr->operatorId);
+        element["startTime"] = Json::Value((double)(attr->startTime - queryStart) / 1000000);
+        element["endTime"] = Json::Value((double)(attr->endTime - queryStart) / 1000000);
+        element["executingThread"] = Json::Value(attr->executingThread);
         json_perf.append(element);
       }
       pt.stop();
