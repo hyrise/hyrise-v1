@@ -7,7 +7,7 @@ MutableVerticalTable::MutableVerticalTable(std::vector<std::vector<const ColumnM
                              bool sorted,
                              AbstractTableFactory *factory,
                              bool compressed,
-                             ColumnProperties *colProperties) : containers() {
+                             std::shared_ptr<ColumnProperties> colProperties) : containers() {
   for (size_t i = 0; i < metadata.size(); i++) {
     std::vector<AbstractTable::SharedDictionaryPtr> *dict = nullptr;
 

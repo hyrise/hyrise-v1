@@ -1,4 +1,6 @@
-#pragma once
+// Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
+#ifndef SRC_LIB_STORAGE_DEFAULTDICTVECTOR_H_
+#define SRC_LIB_STORAGE_DEFAULTDICTVECTOR_H_
 
 #include <vector>
 #include <boost/dynamic_bitset.hpp>
@@ -245,3 +247,6 @@ inline void DefaultDictVector<T, Allocator>::set(size_t column, size_t row, T va
     }
   }
 }
+
+
+#endif  // SRC_LIB_STORAGE_DEFAULTDICTVECTOR_H_

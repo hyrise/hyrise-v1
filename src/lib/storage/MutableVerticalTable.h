@@ -58,7 +58,7 @@ public:
   */
   MutableVerticalTable(std::vector<std::vector<const ColumnMetadata *> *> metadata,
                 std::vector<std::vector<AbstractTable::SharedDictionaryPtr> *> *dictionaries = nullptr,
-                size_t size = 0, bool sorted = true, AbstractTableFactory *factory = nullptr, bool compressed = true, ColumnProperties *colProperties = nullptr);
+                size_t size = 0, bool sorted = true, AbstractTableFactory *factory = nullptr, bool compressed = true, std::shared_ptr<ColumnProperties> colProperties = nullptr);
 
   MutableVerticalTable(std::vector<hyrise::storage::atable_ptr_t> &cs, size_t size = 0);
 

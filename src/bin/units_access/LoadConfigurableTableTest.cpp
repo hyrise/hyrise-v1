@@ -18,10 +18,10 @@ TEST_F(LoadConfigurableTableTests, basic_load_configurable_table_test) {
   // run test for each ColumnType
   for (ColumnType type: ColumnTypes) {
 
-    ColumnProperties colProps;
-    colProps.defaultType = type;
+    std::shared_ptr<ColumnProperties> colProps (new ColumnProperties);
+    colProps->setDefaultType(type);
 
-    LoadConfigurableTable lct("tables/employees.tbl", &colProps);
+    LoadConfigurableTable lct("tables/employees.tbl", colProps);
     lct.execute();
 
     const auto &result = lct.getResultTable();
@@ -34,17 +34,17 @@ TEST_F(LoadConfigurableTableTests, load_configurable_table_test_different_types)
 
   auto t = Loader::shortcuts::load("test/tables/employees.tbl");
 
-  ColumnProperties colProps;
+  std::shared_ptr<ColumnProperties> colProps(new ColumnProperties);
   
   int typeIndex = 0;
   int maxType = sizeof(ColumnTypes)/sizeof(ColumnTypes[0]) - 1;
   for (size_t c = 0; c < t->columnCount(); ++c)
   {
-    colProps.setType(c, ColumnTypes[typeIndex++]);
+    colProps->setType(c, ColumnTypes[typeIndex++]);
     if (typeIndex >= maxType)
       typeIndex = 0;
   }
-  LoadConfigurableTable lct("tables/employees.tbl", &colProps);
+  LoadConfigurableTable lct("tables/employees.tbl", colProps);
   lct.execute();
 
   const auto &result = lct.getResultTable();

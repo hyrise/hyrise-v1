@@ -43,7 +43,7 @@ private:
   /// Reference table used for type detection
   param_member(hyrise::storage::c_atable_ptr_t , ReferenceTable);
   /// save Properties/ColumnType in this struct...
-  param_member(PColumnProperties , ColProperties);
+  param_member(std::shared_ptr<ColumnProperties> , ColProperties);
 public:
   params();
   ~params();

@@ -169,12 +169,12 @@ TYPED_TEST(AttributeVectorTests, DefaultDictVector_loading) {
   size_t iCol = 0;
   size_t iRow = 0;
 
-  ColumnProperties colProp;
+  std::shared_ptr<ColumnProperties> colProp (new ColumnProperties);
 
-  colProp.defaultType = ColDefaultDictVector;
+  colProp->setDefaultType(ColDefaultDictVector);
 
   Loader::params p;
-  p.setColProperties(&colProp);
+  p.setColProperties(colProp);
   p.setReturnsMutableVerticalTable(true);
   p.setModifiableMutableVerticalTable(true);
 

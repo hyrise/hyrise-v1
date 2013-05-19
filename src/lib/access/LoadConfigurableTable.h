@@ -1,5 +1,6 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#pragma once
+#ifndef SRC_LIB_ACCESS_LOADCONFIGURABLETABLE_H_
+#define SRC_LIB_ACCESS_LOADCONFIGURABLETABLE_H_
 
 #include "access/PlanOperation.h"
 #include "storage/ColumnProperties.h"
@@ -9,7 +10,7 @@ namespace access {
 
 class LoadConfigurableTable : public _PlanOperation {
 public:
-  explicit LoadConfigurableTable(const std::string &filename, const PColumnProperties);
+  explicit LoadConfigurableTable(const std::string &filename, std::shared_ptr<ColumnProperties> colProperties);
   virtual ~LoadConfigurableTable();
 
   void executePlanOperation();
@@ -18,9 +19,11 @@ public:
 
 private:
   const std::string _filename;
-  const PColumnProperties _colProperties;
+  const std::shared_ptr<ColumnProperties> _colProperties;
 };
 
 }
 }
 
+
+#endif  // SRC_LIB_ACCESS_LOADCONFIGURABLETABLE_H_

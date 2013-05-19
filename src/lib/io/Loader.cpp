@@ -27,7 +27,7 @@ param_member_impl(Loader::params, bool, ModifiableMutableVerticalTable)
 param_member_impl(Loader::params, bool, ReturnsMutableVerticalTable)
 param_member_impl(Loader::params, bool, Compressed)
 param_member_impl(Loader::params, hyrise::storage::c_atable_ptr_t, ReferenceTable)
-param_member_impl(Loader::params, PColumnProperties, ColProperties)
+param_member_impl(Loader::params, std::shared_ptr<ColumnProperties>, ColProperties)
 
 Loader::params::params() :
   Input(nullptr),
@@ -53,7 +53,7 @@ Loader::params::params(const Loader::params &other) :
   if (other.Header != nullptr) Header = other.Header->clone();
   if (other.ReferenceTable != nullptr) ReferenceTable = other.ReferenceTable;
   if (other.ColProperties != nullptr)
-    ColProperties = new ColumnProperties(*other.ColProperties);
+    ColProperties = std::make_shared<ColumnProperties>(*other.ColProperties);
   else
     ColProperties = nullptr;
 }
@@ -62,7 +62,6 @@ Loader::params &Loader::params::operator= (const Loader::params &other) {
   if (this != &other) { // protect against invalid self-assignment
     if (Input != nullptr) delete Input;
     if (Header != nullptr) delete Header;
-    if (ColProperties != nullptr) delete ColProperties;
     Input = other.getInput()->clone();
     Header = other.getHeader()->clone();
     setBasePath(other.getBasePath());
@@ -73,7 +72,7 @@ Loader::params &Loader::params::operator= (const Loader::params &other) {
     setCompressed(other.getCompressed());
     setReferenceTable(other.getReferenceTable());
     if (other.ColProperties != nullptr)
-      setColProperties(new ColumnProperties(*other.ColProperties));
+      setColProperties(std::make_shared<ColumnProperties>(*other.ColProperties));
     else
       setColProperties(nullptr);
   }
@@ -93,7 +92,7 @@ Loader::params *Loader::params::clone() const {
   p->setReferenceTable(ReferenceTable);
   p->setCompressed(Compressed);
   if (ColProperties != nullptr)
-    p->setColProperties( new ColumnProperties(*getColProperties()));
+    p->setColProperties( std::make_shared<ColumnProperties>(*getColProperties()));
   else
     p->setColProperties(nullptr);
   return p;
@@ -102,8 +101,6 @@ Loader::params *Loader::params::clone() const {
 Loader::params::~params() {
   if (Input != nullptr) delete Input;
   if (Header != nullptr) delete Header;
-  // TODO: why does the destructor fail?
-  // if (ColProperties != nullptr) delete ColProperties;
 }
 
 

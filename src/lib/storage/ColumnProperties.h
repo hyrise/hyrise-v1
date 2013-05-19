@@ -1,11 +1,11 @@
-#pragma once
+// Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
+#ifndef SRC_LIB_STORAGE_COLUMNPROPERTIES_H_
+#define SRC_LIB_STORAGE_COLUMNPROPERTIES_H_
+
 #include <cstdlib>
 #include <vector>
 #include <string>
 
-
-class ColumnProperties;
-typedef ColumnProperties* PColumnProperties;
 
 enum ColumnType {
   ColDefaultType = 0,
@@ -23,13 +23,18 @@ public:
   ColumnProperties();
   virtual ~ColumnProperties();
 
-  ColumnType defaultType;
+  ColumnType defaultType() const;
+  void setDefaultType(ColumnType type);
+
   void setType(size_t column, ColumnType type);
-  ColumnType getType(size_t column);
+  ColumnType getType(size_t column) const;
 
   static ColumnType typeFromString(const std::string& typeName);
 
-private:
+protected:
+  ColumnType _defaultType;
   std::vector<ColumnType> _types;
 };
 
+
+#endif  // SRC_LIB_STORAGE_COLUMNPROPERTIES_H_

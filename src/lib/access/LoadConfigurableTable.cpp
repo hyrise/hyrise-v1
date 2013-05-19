@@ -18,7 +18,7 @@ namespace {
   auto _ = QueryParser::registerPlanOperation<LoadConfigurableTable>("LoadConfigurableTable");
 }
 
-LoadConfigurableTable::LoadConfigurableTable(const std::string &filename, const PColumnProperties colProperties) : 
+LoadConfigurableTable::LoadConfigurableTable(const std::string &filename, const std::shared_ptr<ColumnProperties> colProperties) : 
   _filename(filename),
   _colProperties(colProperties){ 
   }
@@ -38,9 +38,9 @@ std::shared_ptr<_PlanOperation> LoadConfigurableTable::parse(Json::Value &data) 
   if (data["filename"].asString().empty())
     throw std::runtime_error("LoadConfigurableTable invalid without \"filename\": ...");
 
-  PColumnProperties colProps = new ColumnProperties;
+  std::shared_ptr<ColumnProperties> colProps (new ColumnProperties);
   if ( !data["defaultColumnType"].asString().empty() )
-    colProps->defaultType = ColumnProperties::typeFromString(data["defaultColumnType"].asString());
+    colProps->setDefaultType(ColumnProperties::typeFromString(data["defaultColumnType"].asString()));
 
   if ( !data["columnTypes"].asString().empty() ) {
     std::vector<std::string> typeFields;
