@@ -40,8 +40,8 @@ TEST_F(LoadConfigurableTableTests, load_configurable_table_test_different_types)
   int maxType = sizeof(ColumnTypes)/sizeof(ColumnTypes[0]) - 1;
   for (size_t c = 0; c < t->columnCount(); ++c)
   {
-    colProps->setType(c, ColumnTypes[typeIndex++]);
-    if (typeIndex >= maxType)
+    colProps->setType(c, ColumnTypes[typeIndex]);
+    if (++typeIndex > maxType)
       typeIndex = 0;
   }
   LoadConfigurableTable lct("tables/employees.tbl", colProps);
