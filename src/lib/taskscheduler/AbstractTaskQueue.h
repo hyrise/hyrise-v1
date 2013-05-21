@@ -12,6 +12,7 @@
 #include <memory>
 #include <mutex>
 #include <thread>
+#include <queue>
 #include <condition_variable>
 #include <log4cxx/logger.h>
 #include <taskscheduler/Task.h>

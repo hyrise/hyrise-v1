@@ -3,6 +3,8 @@ include config.mk
 lib_dir = $(build_dir)/lib
 bin_dir = $(build_dir)/bin
 
+phase1 := $(build_dir)/phase1
+
 # library dependencies
 lib_storage := $(lib_dir)/storage
 lib_access  := $(lib_dir)/access
@@ -57,7 +59,7 @@ bin_dummy := $(bin_dir)/dummy
 binaries :=  $(server_hyrise) $(bin_dummy)
 # list all build targets
 
-tgts :=  $(libraries) $(binaries) $(all_test_suites) $(regression_suite) $(regression_datagen)
+tgts :=  $(libraries) $(binaries) $(all_test_suites) $(regression_suite) $(regression_datagen) $(phase1)
 
 .PHONY: all $(tgts) tags test test_basic hudson_build hudson_test $(all_test_binaries) doxygen docs
 
@@ -69,6 +71,7 @@ $(tgts):
 
 # dependencies betweeen binaries and libraries
 
+$(libraries): $(phase1)
 $(lib_ebb):
 $(lib_helper):
 $(lib_memory):

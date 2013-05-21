@@ -20,6 +20,8 @@ WITH_MYSQL ?= 0
 FLTO ?= 0
 USE_BACKWARD ?= 1
 
+PLUGINS ?= ccache
+
 PROJECT_INCLUDE ?= 
 BUILD_FLAGS ?= 
 CC_BUILD_FLAGS ?= 
@@ -34,10 +36,12 @@ HYRISE_ALLOCATOR ?=
 # Include actual settings, override environment and others
 -include $(TOP)settings.mk
 
+MAKE := $(MAKE) --no-print-directory -s
 GCCFILTER := $(IMH_PROJECT_PATH)/tools/gccfilter -c -p
-COMPILER ?= g++ccache
+COMPILER ?= g++47
 
 include $(TOP)config.$(COMPILER).mk
+include $(addprefix mkplugins/,$(addsuffix .mk,$(PLUGINS)))
 
 # Set up settings for mysql tests
 HYRISE_MYSQL_HOST ?= 127.0.0.1
@@ -60,14 +64,14 @@ else
 	SHARED_LIB := -dynamiclib 
 endif
 
-BUILD_FLAGS += -pipe -msse4.2 -Wall -Wextra -Wno-unused-parameter 
+BUILD_FLAGS += -pipe -msse4.2 -gdwarf-2 -ggdb -Wall -Wextra -Wno-unused-parameter 
 CXX_BUILD_FLAGS += --std=c++0x
 LINKER_FLAGS += 
 
 ifeq ($(PRODUCTION), 1)
-	BUILD_FLAGS += -O3 -funroll-loops -fbranch-target-load-optimize -finline-functions -fexpensive-optimizations -frerun-cse-after-loop -frerun-loop-opt -D NDEBUG -ftree-vectorize -gdwarf-2 -D EXPENSIVE_TESTS
+	BUILD_FLAGS += -O3 -funroll-loops -fbranch-target-load-optimize -finline-functions -fexpensive-optimizations -frerun-cse-after-loop -frerun-loop-opt -D NDEBUG -ftree-vectorize -D EXPENSIVE_TESTS
 else
-	BUILD_FLAGS += -O0 -gdwarf-2 -D EXPENSIVE_ASSERTIONS -ggdb
+	BUILD_FLAGS += -O0 -gdwarf-2 -D EXPENSIVE_ASSERTIONS
 endif
 
 # Specify the allocator using a linker flag
@@ -78,10 +82,6 @@ endif
 ifeq ($(FLTO), 1)
 	BUILD_FLAGS += -flto -fwhole-program
 	LINKER_FLAGS += -flto
-endif
-
-ifeq ($(VERBOSE_BUILD), 0) 
-	MAKE := $(MAKE) --no-print-directory -s
 endif
 
 ifeq ($(PAPI_TRACE), 1)
@@ -117,12 +117,11 @@ ifeq ($(USE_V8), 1)
 	else
 		LINKER_DIR += $(V8_BASE_DIRECTORY)/out/x64.debug/obj.target/tools/gyp
 	endif
-	
 endif
 
 JSON_PATH	:=	$(IMH_PROJECT_PATH)/third_party/jsoncpp
 FTPRINTER_PATH	:=	$(IMH_PROJECT_PATH)/third_party/ftprinter/include
-PROJECT_INCLUDE += $(IMH_PROJECT_PATH)/src/lib $(IMH_PROJECT_PATH)/third_party $(IMH_PROJECT_PATH)/third_party/libvarbit $(FTPRINTER_PATH) $(JSON_PATH)
+PROJECT_INCLUDE += $(IMH_PROJECT_PATH)/src/lib $(IMH_PROJECT_PATH)/third_party $(FTPRINTER_PATH) $(JSON_PATH)
 LINKER_FLAGS += -llog4cxx -lpthread
 BINARY_LINKER_FLAGS += -lbackward-hyr
 

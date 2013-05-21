@@ -31,7 +31,7 @@ struct ExtractValueId {
   }
 };
 
-template <typename T, template<typename T> class ExtractFunctor>
+template <typename T, template<typename> class ExtractFunctor>
 class ColumnSorter {
   typedef struct pair {
       T value;

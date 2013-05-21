@@ -318,7 +318,7 @@ pos_list_t PointerCalculator::getActualTablePositions() const {
 
 
 //FIXME: Template this method
-hyrise::storage::atable_ptr_t PointerCalculator::copy_structure(const field_list_t *fields, const bool reuse_dict, const size_t initial_size, const bool with_containers) const {
+hyrise::storage::atable_ptr_t PointerCalculator::copy_structure(const field_list_t *fields, const bool reuse_dict, const size_t initial_size, const bool with_containers, const bool compressed) const {
   std::vector<const ColumnMetadata *> metadata;
   std::vector<AbstractTable::SharedDictionaryPtr> *dictionaries = nullptr;
 
@@ -349,7 +349,7 @@ hyrise::storage::atable_ptr_t PointerCalculator::copy_structure(const field_list
   return result;
 }
 
-std::shared_ptr<PointerCalculator> PointerCalculator::intersect(const std::shared_ptr<const PointerCalculator>& other) const {
+std::shared_ptr<const PointerCalculator> PointerCalculator::intersect(const std::shared_ptr<const PointerCalculator>& other) const {
   pos_list_t *result = new pos_list_t(std::max(pos_list->size(), other->pos_list->size()));
   assert(std::is_sorted(begin(*pos_list), end(*pos_list)) && std::is_sorted(begin(*other->pos_list), end(*other->pos_list)) && "Both lists have to be sorted");
   std::set_intersection(pos_list->begin(), pos_list->end(),
@@ -366,7 +366,7 @@ T* copy_vec(T* orig) {
   return new T(begin(*orig), end(*orig));
 }
 
-std::shared_ptr<PointerCalculator> PointerCalculator::unite(const std::shared_ptr<const PointerCalculator>& other) const {
+std::shared_ptr<const PointerCalculator> PointerCalculator::unite(const std::shared_ptr<const PointerCalculator>& other) const {
   assert((other->table == this->table) && "Should point to same table");
   if (pos_list && other->pos_list) {
     auto result = new pos_list_t(std::max(pos_list->size(), other->pos_list->size()));
@@ -383,27 +383,10 @@ std::shared_ptr<PointerCalculator> PointerCalculator::unite(const std::shared_pt
   }
 }
 
-std::shared_ptr<PointerCalculator> PointerCalculator::concatenate(const std::shared_ptr<const PointerCalculator>& other) const {
+std::shared_ptr<const PointerCalculator> PointerCalculator::concatenate(const std::shared_ptr<const PointerCalculator>& other) const {
   assert((other->table == this->table) && "Should point to same table");
-
-  auto result = new pos_list_t();
-
-  if (pos_list) {
-    result->insert(end(*result), begin(*pos_list), end(*pos_list));
-  }
-
-  if (other->pos_list) {
-    result->insert(end(*result), begin(*other->pos_list), end(*other->pos_list));
-  }
-
-  if ((pos_list==nullptr) && (other->pos_list == nullptr)) {
-    result->resize(table->size() * 2);
-    std::iota(begin(*result), begin(*result) + table->size(), 0);
-    std::iota(begin(*result)+table->size(), end(*result), 0);
-  }
-
-  return std::make_shared<PointerCalculator>(table, result, copy_vec(fields));
-
+  std::vector<std::shared_ptr<const PointerCalculator>> v {std::static_pointer_cast<const PointerCalculator>(shared_from_this()), other};
+  return PointerCalculator::concatenate_many(begin(v), end(v));
 }
 
 std::shared_ptr<const PointerCalculator> PointerCalculator::unite_many(pc_vector::const_iterator it, pc_vector::const_iterator it_end){

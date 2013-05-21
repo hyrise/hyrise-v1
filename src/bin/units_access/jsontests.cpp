@@ -35,6 +35,11 @@ TEST_F(JSONTests, DISABLED_threadpool_adjust_configuration) {
   ASSERT_EQ(scheduler->getNumberOfWorker(), newThreadpoolSize);
 }*/
 
+  /*
+  if (dynamic_cast<AbstractQueueBasedTaskScheduler<AbstractTaskQueue> *>(scheduler) != NULL) {
+     ASSERT_EQ(dynamic_cast<AbstractQueueBasedTaskScheduler<AbstractTaskQueue> *>(scheduler)->getNumberOfWorker(), newThreadpoolSize);
+     }
+}*/
 
 TEST_F(JSONTests, apply_operator_parallelization) {
   std::string
