@@ -17,8 +17,38 @@ bool registered  =
 
 CentralScheduler::CentralScheduler(int threads) {
   // create and launch threads
-  for(int i = 0; i < threads; i++)
-    _worker_threads.push_back(new std::thread(WorkerThread(*this)));
+  if(threads > getNumberOfCoresOnSystem()){
+    fprintf(stderr, "Tried to use more threads then cores - no binding of threads takes place\n");
+    for(int i = 0; i < threads -1; i++){
+      _worker_threads.push_back(new std::thread(WorkerThread(*this)));
+    }
+  } else {
+    // bind threads to cores
+    for(int i = 0; i < threads -1; i++){
+      //_worker_threads.push_back(new std::thread(WorkerThread(*this)));
+      auto thread = new std::thread(WorkerThread(*this));
+      hwloc_cpuset_t cpuset;
+      hwloc_obj_t obj;
+      hwloc_topology_t topology = getHWTopology();
+
+      obj = hwloc_get_obj_by_type(topology, HWLOC_OBJ_CORE, i);
+      // the bitmap to modify
+      cpuset = hwloc_bitmap_dup(obj->cpuset);
+      // remove hyperthreads
+      hwloc_bitmap_singlify(cpuset);
+      // bind
+      if (hwloc_set_thread_cpubind(topology, thread->native_handle(), cpuset, HWLOC_CPUBIND_STRICT | HWLOC_CPUBIND_NOMEMBIND)) {
+        char *str;
+        int error = errno;
+        hwloc_bitmap_asprintf(&str, obj->cpuset);
+        fprintf(stderr, "Couldn't bind to cpuset %s: %s\n", str, strerror(error));
+        fprintf(stderr, "Continuing as normal, however, no guarantees\n");
+        //throw std::runtime_error(strerror(error));
+      }
+      _worker_threads.push_back(thread);
+    }
+  }
+  _status = RUN;
 }
 
 CentralScheduler::~CentralScheduler() {
