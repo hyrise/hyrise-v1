@@ -15,7 +15,7 @@ public:
     CreateIndex ci;
     ci.addInput(t);
     ci.addField(0);
-    ci.setTableName("my_index");
+    ci.setIndexName("my_index");
     ci.execute();
   }
 

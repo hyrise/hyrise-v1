@@ -20,7 +20,7 @@ TEST_F(IndexTests, basic_index_test) {
   hyrise::access::CreateIndex i;
   i.addInput(t);
   i.addField(0);
-  i.setTableName(table);
+  i.setIndexName(table);
   i.execute();
 
   StorageManager *sm = StorageManager::getInstance();
@@ -39,7 +39,7 @@ TEST_F(IndexTests, multiple_positions_index_test) {
   hyrise::access::CreateIndex i;
   i.addInput(t);
   i.addField(1);
-  i.setTableName(table);
+  i.setIndexName(table);
   i.execute();
 
   StorageManager *sm = StorageManager::getInstance();
@@ -69,7 +69,7 @@ TEST_F(IndexTests, basic_index_test_float) {
   hyrise::access::CreateIndex i;
   i.addInput(t);
   i.addField(1);
-  i.setTableName(table);
+  i.setIndexName(table);
   i.execute();
 
   StorageManager *sm = StorageManager::getInstance();

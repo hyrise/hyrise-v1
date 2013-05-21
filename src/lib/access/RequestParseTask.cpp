@@ -13,14 +13,16 @@
 #include "access/PlanOperation.h"
 #include "access/QueryTransformationEngine.h"
 #include "helper/epoch.h"
+
 #include "helper/HttpHelper.h"
 #include "helper/PapiTracer.h"
 #include "helper/sha1.h"
 #include "io/TransactionManager.h"
 #include "net/Router.h"
 #include "net/AbstractConnection.h"
-#include "taskscheduler/AbstractTaskScheduler.h"
 
+#include "taskscheduler/AbstractTaskScheduler.h"
+#include "taskscheduler/SharedScheduler.h"
 
 namespace hyrise {
 namespace access {

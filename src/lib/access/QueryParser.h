@@ -10,13 +10,12 @@
 
 #include <json.h>
 
-#include <taskscheduler.h>
-
 #include "access/BasicParser.h"
 
 const std::string autojsonReferenceTableId = "-1";
 
 class _PlanOperation;
+class Task;
 
 class QueryParserException : public std::runtime_error {
  public:

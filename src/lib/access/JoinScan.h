@@ -9,6 +9,7 @@
 #include "access/predicates.h"
 #include "helper/types.h"
 
+
 /// Defines the std::string appended to columns when renaming is necessary
 #define RENAMED_COLUMN_APPENDIX_LEFT "_0"
 #define RENAMED_COLUMN_APPENDIX_RIGHT "_1"
