@@ -277,3 +277,4 @@ void _PlanOperation::setResponseTask(const std::shared_ptr<hyrise::access::Respo
 std::shared_ptr<hyrise::access::ResponseTask> _PlanOperation::getResponseTask() const {
   return _responseTask.lock();
 }
+
