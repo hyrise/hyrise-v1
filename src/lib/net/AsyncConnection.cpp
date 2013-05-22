@@ -176,29 +176,16 @@ AsyncConnection::~AsyncConnection() {
   free(response);
 }
 
-void AsyncConnection::respond(const std::string &message) {
+void AsyncConnection::respond(const std::string &message, size_t status, const std::string & contentType) {
   // Noop for dead connection
   if (connection == nullptr) return;
+  this->code = status;
+  this->contentType = contentType;
   response = (char *) malloc(message.size());
   response_length = message.size();
   memcpy(response, message.c_str(), message.size());
   send_response();
 }
-/*
-void AsyncConnection::response_append(const char *message, size_t len) {
-  // If we lost the connection, let's not even save the response
-  if (connection == nullptr) return;
-
-  if (!response) {
-    response = (char *) malloc(len);
-    response_length = 0;
-  } else {
-    response = (char *) realloc(response, response_length + len);
-  }
-  memcpy(response + response_length, message, len);
-  response_length += len;
-}
-*/
 
 void AsyncConnection::send_response() {
   ev_async_send(ev_loop, &ev_write);
@@ -206,6 +193,10 @@ void AsyncConnection::send_response() {
 
 bool AsyncConnection::hasBody() const{
   return body_len > 0;
+}
+
+std::string AsyncConnection::getPath() const {
+  return path;
 }
 
 std::string AsyncConnection::getBody() const{

@@ -109,7 +109,7 @@ class MockedConnection : public hyrise::net::AbstractConnection {
  public:
   MockedConnection(const std::string& body) : _body(body) {}
 
-  virtual void respond(const std::string& r) {
+  virtual void respond(const std::string& r, std::size_t code, const std::string& contentType) {
     _response = r;
   }
 
@@ -125,6 +125,9 @@ class MockedConnection : public hyrise::net::AbstractConnection {
     return _body;
   }
 
+  std::string getPath() const {
+    return "";
+  }
  private:
   std::string _body;
   std::string _response;
