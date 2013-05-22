@@ -1,16 +1,17 @@
 {
     "papi": "PAPI_L1_DCA",
     "operators" : {
-        // "load" : {
-        //     "type": "LoadConfigurableTable",
-        //     "table": "new_order",
-        //     "filename" : "defaultDictTestTables/new_order.tbl",
-        //     "defaultColumnType": "ColDefaultDictVector"
-        // },
         "load" : {
-            "type": "TableLoad",
+            "type": "LoadConfigurableTable",
             "table": "new_order",
-            "filename" : "defaultDictTestTables/new_order.tbl"
+            "filename" : "defaultDictTestTables/new_order.tbl",
+            "defaultColumnType": "ColDefaultDictVector"
+        },
+        "load" : {
+            "type": "LoadConfigurableTable",
+            "table": "new_order",
+            "filename" : "defaultDictTestTables/new_order.tbl",
+            "defaultColumnType": "ColDefaultType"
         },
         "select" : {
             "type" : "SimpleTableScan",
@@ -23,10 +24,11 @@
             "type": "ProjectionScan",
             "fields": ["NO_W_ID", "NO_O_ID", "NO_D_ID"]
         },
-        // "hash" : {
-        //     "type": "HashBuild",
-        //     "fields": ["NO_O_ID"]
-        // },
+        "hash" : {
+            "type": "HashBuild",
+            "key": "groupby",
+            "fields": ["NO_O_ID"]
+        },
         "groupBy": {
             "type": "GroupByScan",
             "fields": ["NO_O_ID"],
@@ -35,5 +37,5 @@
             ]
         }
     },
-    "edges": [["load","select"], ["select","project"],["project", /*"hash"],["hash",*/ "groupBy"]]
+    "edges": [["load","select"], ["select","project"],["project", "hash"],["hash", "groupBy"],["project", "groupBy"]]
 }
