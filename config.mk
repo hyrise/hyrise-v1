@@ -19,8 +19,8 @@ COLOR_TTY ?= 1
 WITH_MYSQL ?= 0
 FLTO ?= 0
 USE_BACKWARD ?= 1
-USE_CCACHE ?= 1
-USE_GCCFILTER ?= 0
+
+PLUGINS ?= ccache
 
 PROJECT_INCLUDE ?= 
 BUILD_FLAGS ?= 
@@ -36,20 +36,12 @@ HYRISE_ALLOCATOR ?=
 # Include actual settings, override environment and others
 -include $(TOP)settings.mk
 
+MAKE := $(MAKE) --no-print-directory -s
 GCCFILTER := $(IMH_PROJECT_PATH)/tools/gccfilter -c -p
 COMPILER ?= g++47
 
 include $(TOP)config.$(COMPILER).mk
-
-ifeq ($(USE_CCACHE),1)
-	CC := ccache $(CC)
-	CXX:= ccache $(CXX)
-endif
-
-ifeq ($(USE_GCCFILTER),1)
-	CC := $(GCCFILTER) $(CC)
-	CXX:= $(GCCFILTER) $(CXX)
-endif
+include $(addprefix mkplugins/,$(addsuffix .mk,$(PLUGINS)))
 
 # Set up settings for mysql tests
 HYRISE_MYSQL_HOST ?= 127.0.0.1
@@ -72,14 +64,14 @@ else
 	SHARED_LIB := -dynamiclib 
 endif
 
-BUILD_FLAGS += -pipe -msse4.2 -Wall -Wextra -Wno-unused-parameter -Wcast-align -Wcast-qual -Wctor-dtor-privacy -Wdisabled-optimization -Wformat=2 -Winit-self -Wmissing-declarations -Wmissing-include-dirs -Wold-style-cast -Woverloaded-virtual -Wredundant-decls -Wstrict-overflow=5  #-Wswitch-default -Wno-unused -Wsign-conversion -Wsign-promo #-Wshadow crashes on g++-4.7
+BUILD_FLAGS += -pipe -msse4.2 -gdwarf-2 -ggdb -Wall -Wextra -Wno-unused-parameter 
 CXX_BUILD_FLAGS += --std=c++0x
 LINKER_FLAGS += 
 
 ifeq ($(PRODUCTION), 1)
-	BUILD_FLAGS += -O3 -funroll-loops -fbranch-target-load-optimize -finline-functions -fexpensive-optimizations -frerun-cse-after-loop -frerun-loop-opt -D NDEBUG -ftree-vectorize -gdwarf-2 -D EXPENSIVE_TESTS
+	BUILD_FLAGS += -O3 -funroll-loops -fbranch-target-load-optimize -finline-functions -fexpensive-optimizations -frerun-cse-after-loop -frerun-loop-opt -D NDEBUG -ftree-vectorize -D EXPENSIVE_TESTS
 else
-	BUILD_FLAGS += -O0 -gdwarf-2 -D EXPENSIVE_ASSERTIONS -ggdb
+	BUILD_FLAGS += -O0 -gdwarf-2 -D EXPENSIVE_ASSERTIONS
 endif
 
 # Specify the allocator using a linker flag
@@ -90,10 +82,6 @@ endif
 ifeq ($(FLTO), 1)
 	BUILD_FLAGS += -flto -fwhole-program
 	LINKER_FLAGS += -flto
-endif
-
-ifeq ($(VERBOSE_BUILD), 0) 
-	MAKE := $(MAKE) --no-print-directory -s
 endif
 
 ifeq ($(PAPI_TRACE), 1)
