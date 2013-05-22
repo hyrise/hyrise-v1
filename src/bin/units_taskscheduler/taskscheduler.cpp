@@ -6,7 +6,6 @@
 #include <sys/time.h>
 
 #include "testing/test.h"
-#include "helper.h"
 
 #include "access/NoOp.h"
 #include "access/TaskSchedulerAdjustment.h"
