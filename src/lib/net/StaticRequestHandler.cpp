@@ -1,15 +1,17 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#include "StaticRequestHandler.h"
-#include "AsyncConnection.h"
-
-#include <helper/fs.h>
-
-#include <boost/algorithm/string.hpp>
-
+#include "net/StaticRequestHandler.h"
 
 #include <unordered_map>
 #include <fstream>
-#include <log4cxx/logger.h>
+
+#include "helper/fs.h"
+#include "net/AsyncConnection.h"
+
+
+#include "boost/algorithm/string.hpp"
+#include "boost/filesystem.hpp"
+
+#include "log4cxx/logger.h"
 
 namespace hyrise { namespace net {
 
@@ -57,39 +59,33 @@ std::unordered_map<std::string, std::string> parseMimeTypes() {
 
     }
   }
+  result[""] = "application/binary";
   return result;
 }
 
 void StaticRequestHandler::operator()() {
-
   // Load all mime types once and for all
   static auto mimeTypes = parseMimeTypes();
 
-  auto con = dynamic_cast<net::AsyncConnection*>(_connection);
-  std::string path(con->path);
-
   // Remove the static part of the URI
-  path = path.substr(8);
+  std::string path(_connection->getPath().substr(8));
 
-  LOG4CXX_DEBUG(logger, "Loading File: " << _rootPath << path);
-
-  // Check if File exists and load the content write to the conneciton buffer and exit
-  std::ifstream infile(_rootPath + path);
-  if (infile.good()) {
-
-    // Based on the extension set the mime type
-    const auto dotPos = path.rfind(".");
-    if (dotPos == std::string::npos)
-      con->contentType = "application/binary";
-    else
-      con->contentType = mimeTypes[path.substr(dotPos+1)];
-
-    std::string contents((std::istreambuf_iterator<char>(infile)), std::istreambuf_iterator<char>());
-    con->respond(contents);
+  const auto complete_path = _rootPath + path;
+  if (!boost::filesystem::is_regular_file(complete_path)) {
+    _connection->respond("404 - path is not a file: " + complete_path, 404);
     return;
   }
-  con->code = 404;
-  con->respond("");
+
+  // Check if File exists and load the content write to the conneciton buffer and exit
+  std::ifstream infile(complete_path);
+  if (infile.good()) {
+    std::string contents { std::istreambuf_iterator<char>(infile),
+                           std::istreambuf_iterator<char>() };
+    const auto dotPos = path.rfind(".");
+    _connection->respond(contents, 200, mimeTypes[path.substr(dotPos+1)]);
+  } else {
+    _connection->respond("404 - could not open file: " + complete_path, 404);
+  }
 }
 
 }}
