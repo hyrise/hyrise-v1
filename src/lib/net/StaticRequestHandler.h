@@ -7,7 +7,6 @@
 
 #include "net/Router.h"
 
-
 namespace hyrise {
 namespace net {
 
@@ -16,21 +15,14 @@ class AbstractConnection;
 class StaticRequestHandler : public net::AbstractRequestHandler {
 private:
   static bool _registered;
-  AbstractConnection *_connection;
+  net::AbstractConnection *_connection;
   std::string _rootPath;
 
 public:
-
   explicit StaticRequestHandler(net::AbstractConnection *connection);
-  
-  virtual ~StaticRequestHandler() {}
-
   virtual void operator()();
-
   static std::string name() { return "StaticRequestHandler"; }
-
   const std::string vname() { return "StaticRequestHandler"; }
-
 };
 
 }
