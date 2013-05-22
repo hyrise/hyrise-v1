@@ -1,0 +1,2 @@
+CC := $(GCCFILTER) $(CC)
+CXX:= $(GCCFILTER) $(CXX)
