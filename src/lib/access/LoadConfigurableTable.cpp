@@ -39,8 +39,12 @@ std::shared_ptr<_PlanOperation> LoadConfigurableTable::parse(Json::Value &data) 
     throw std::runtime_error("LoadConfigurableTable invalid without \"filename\": ...");
 
   std::shared_ptr<ColumnProperties> colProps (new ColumnProperties);
-  if ( !data["defaultColumnType"].asString().empty() )
-    colProps->setDefaultType(ColumnProperties::typeFromString(data["defaultColumnType"].asString()));
+  if ( !data["defaultColumnType"].asString().empty() ) {
+    ColumnType colType = ColumnProperties::typeFromString(data["defaultColumnType"].asString());
+    if (colType == ColInvalidType)
+      throw std::runtime_error("Invalid column type in LoadConfigurableTable: "+data["defaultColumnType"].asString());
+    colProps->setDefaultType(colType);
+  }
 
   if ( !data["columnTypes"].asString().empty() ) {
     std::vector<std::string> typeFields;
@@ -52,6 +56,8 @@ std::shared_ptr<_PlanOperation> LoadConfigurableTable::parse(Json::Value &data) 
       std::vector<std::string> columnList;
       boost::split( columnList, *it, boost::is_any_of(","));
       ColumnType currentType = ColumnProperties::typeFromString(columnList[0]);
+      if (currentType == ColInvalidType)
+        throw std::runtime_error("Invalid column type in LoadConfigurableTable: "+data["defaultColumnType"].asString());
       auto itType = columnList.begin() + 1;
       auto itTypeEnd = columnList.end();
       for (; itType != itTypeEnd; ++itType) {

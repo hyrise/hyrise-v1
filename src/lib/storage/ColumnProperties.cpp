@@ -13,8 +13,10 @@ ColumnProperties::~ColumnProperties()
 ColumnType ColumnProperties::typeFromString(const std::string& typeName) {
   if (typeName.compare("ColDefaultDictVector") == 0)
     return ColDefaultDictVector;
+  if (typeName.compare("ColDefaultType") == 0)
+    return ColDefaultType;
 
-  return ColDefaultType;
+  return ColInvalidType;
 }
 
 ColumnType ColumnProperties::defaultType() const {

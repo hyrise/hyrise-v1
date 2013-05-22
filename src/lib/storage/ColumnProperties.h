@@ -10,7 +10,8 @@
 enum ColumnType {
   ColDefaultType = 0,
   // TODO: BitCompressed, FixedLength ...
-  ColDefaultDictVector
+  ColDefaultDictVector,
+  ColInvalidType = -1
 };
 
 // struct ColumnProperty - compressed, sorted, ...
