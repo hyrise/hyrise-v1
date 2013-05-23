@@ -6,6 +6,9 @@
 class AbstractResource {
  public:
   virtual ~AbstractResource() {}
+
+  virtual bool isTable() { return false; }
+  virtual bool isIndex() { return false; }
 };
 
 #endif

@@ -82,6 +82,7 @@ public:
    */
   virtual ~AbstractTable() {}
 
+  virtual bool isTable() { return true; }
 
   /**
    * Returns the generation value.
