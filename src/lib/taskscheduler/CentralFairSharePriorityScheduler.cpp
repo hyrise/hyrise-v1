@@ -110,6 +110,7 @@ void CentralFairSharePriorityScheduler::updateDynamicPriorities(){
     for(int i = 0; i < _sessions; i++){
       std::cout << "\t\tsession: " << shares[i].second << " share: " << shares[i].first  << std::endl;
     }
+
 */
 }
 
