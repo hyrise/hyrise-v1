@@ -1,15 +1,8 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#ifndef SRC_LIB_IO_STORAGEMANAGER_H_
-#define SRC_LIB_IO_STORAGEMANAGER_H_
+#ifndef SRC_LIB_IO_RESOURCEMANAGER_H_
+#define SRC_LIB_IO_RESOURCEMANAGER_H_
 
-#include <atomic>
-#include <map>
-#include <memory>
-#include <mutex>
-#include <string>
-#include <vector>
-
-#include "io/Loader.h"
+#include <io/StorageManager.h>
 
 class AbstractResource;
 class AbstractTable;
@@ -18,7 +11,7 @@ class AbstractIndex;
 namespace hyrise {
 namespace io {
 
-class StorageManagerException : public std::runtime_error {
+/*class StorageManagerException : public std::runtime_error {
  public:
   explicit StorageManagerException(const std::string &what): std::runtime_error(what) {}
 };
@@ -31,54 +24,33 @@ class AlreadyExistsException : public StorageManagerException {
 class MissingIndexException : public StorageManagerException {
  public:
   explicit MissingIndexException(const std::string &what): StorageManagerException(what) {}
-};
+};*/
 
-/// Storage class that holds tables that might not be loaded yet
-class StorageTable {
- private:
-  std::string _name;
-  std::shared_ptr<AbstractTable> _table;
-  std::unique_ptr<Loader::params> _parameters;
-  std::mutex _table_mutex;
-
+class WrongTypeException : public StorageManagerException {
  public:
-  StorageTable();
-  explicit StorageTable(std::string table_name);
-  StorageTable(std::string table_name, std::shared_ptr<AbstractTable> table);
-  StorageTable(std::string table_name, const Loader::params &_parameters);
-  StorageTable(const StorageTable &st);
-  ~StorageTable();
-
-  void load();
-  void unload();
-
-  bool isLoaded() const;
-  bool isLoadable() const;
-
-  std::shared_ptr<AbstractTable> getTable();
-  std::shared_ptr<AbstractTable> getTable() const;
-  void setTable(std::shared_ptr<AbstractTable> table);
+  explicit WrongTypeException(const std::string &what): StorageManagerException(what) {}
 };
 
 /// Central holder of schema information
-class StorageManager {
- protected:
+class ResourceManager : public StorageManager {
+ private:
   /// The actual schema
-  std::map<std::string, StorageTable> _schema;
+  typedef std::map<std::string, std::shared_ptr<AbstractResource> > resource_map;
+  resource_map _resources;
   /// Mutex protecting the _schema map
-  std::mutex _schema_mutex;
+  std::mutex _resource_mutex;
   /// Base path for loading
-  std::string _root_path;
+  //std::string _root_path;
   /// Assures that we only initialize once
-  bool _initialized;
+  //bool _initialized;
 
-  typedef std::map<std::string, std::shared_ptr<AbstractIndex>> indices_t;
+  //typedef std::map<std::string, std::shared_ptr<AbstractIndex>> indices_t;
   /// Indices map
-  indices_t _indices;
+  //indices_t _indices;
 
-  StorageManager();
-  StorageManager(const StorageManager &) = delete;
-  StorageManager &operator= (const StorageManager &) = delete;
+  ResourceManager();
+  ResourceManager(const ResourceManager &) = delete;
+  ResourceManager &operator= (const ResourceManager &) = delete;
 
   /// Adds a new storage table to _schema, forwards to all constructors of StorageTable
   /// that start with (std::string name, ....)
@@ -88,24 +60,21 @@ class StorageManager {
     if (_schema.count(name) != 0) {
       throw AlreadyExistsException("'" + name + "' is already in schema");
     };
-    _schema.insert(make_pair(name, StorageTable(name,
-                                                std::forward<Args>(args)...)));
+    //TODO
+    //_schema.insert(make_pair(name, StorageTable(name,
+    //                                            std::forward<Args>(args)...)));
   }
 
   /// Create all systems base tables require to run
   void setupSystem();
   /// unloads all tables
-  void unloadAll();
-
-  static std::vector<std::string> listDirectory(std::string dir);
+  //TODO void unloadAll();
 
  public:
-  typedef std::map<std::string, StorageTable> schema_map_t;
-
-  ~StorageManager();
+  ~ResourceManager();
 
   /// Retrieve singleton storage-manager instance
-  static StorageManager *getInstance();
+  static ResourceManager *getInstance();
 
   /// Table loading with parameters
   /// @param[in] name Table name
@@ -133,12 +102,16 @@ class StorageManager {
   /// @param[in] table Shared table pointer
   void replaceTable(std::string name, std::shared_ptr<AbstractTable> table);
 
-  void preloadTable(std::string name);
-  void unloadTable(std::string name);
+//TODO
+/*  void preloadTable(std::string name);
+  void unloadTable(std::string name);*/
   void removeTable(std::string name);
 
   void removeAll();
-  void preloadAll();
+//TODO  void preloadAll();
+
+  template <typename T>
+  T get(std::string name) { return T(); /*TODO*/}
 
   /// Get a table
   /// @param[in] name Table name
@@ -164,7 +137,7 @@ class StorageManager {
   size_t size() const;
 
   /// Prints the complete schema
-  void printSchema() const;
+  //TODO void printSchema() const;
 
   /// Get full path for filename
   /// @param[in] filename filename
@@ -174,12 +147,13 @@ class StorageManager {
   ///  statistics of the complete system
   static std::shared_ptr<AbstractTable> buildStatisticsTable();
 
-  static const char SYS_STATISTICS[];
+  //static const char SYS_STATISTICS[];
 };
+
 }
 }  // namespace hyrise::io
 
-typedef hyrise::io::StorageManager StorageManager;
+typedef hyrise::io::ResourceManager ResourceManager;
 
-#endif  // SRC_LIB_IO_STORAGEMANAGER_H_
+#endif  // SRC_LIB_IO_RESOURCEMANAGER_H_
 
