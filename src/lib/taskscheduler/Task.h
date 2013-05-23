@@ -68,7 +68,9 @@ protected:
   int _actualNode;
   // priority
   int _priority;
-  // id
+  // sessionId
+  int _sessionId;
+  // id - equals transaction id
   int _id;
 
 public:
@@ -168,7 +170,18 @@ public:
   void setId(int id) {
     this->_id = id;
 
-  };
+  }
+  int getSessionId() const
+  {
+    return _sessionId;
+  }
+
+  void setSessionId(int sessionId)
+  {
+    _sessionId = sessionId;
+  }
+
+  ;
 };
 
 class CompareTaskPtr {

@@ -75,7 +75,7 @@ void RequestParseTask::operator()() {
   std::vector<std::shared_ptr<Task> > tasks;
 
   int priority = Task::DEFAULT_PRIORITY;
-
+  int sessionId = 0;
 
   if (_connection->hasBody()) {
     // The body is a wellformed HTTP Post body, with key value pairs
@@ -90,7 +90,10 @@ void RequestParseTask::operator()() {
       std::shared_ptr<Task> result = nullptr;
       if(request_data.isMember("priority"))
         priority = request_data["priority"].asInt();
+      if(request_data.isMember("sessionId"))
+        sessionId = request_data["sessionId"].asInt();
       _responseTask->setPriority(priority);
+      _responseTask->setSessionId(sessionId);
       try {
         tasks = QueryParser::instance().deserialize(
                   QueryTransformationEngine::getInstance()->transform(request_data),
@@ -115,6 +118,7 @@ void RequestParseTask::operator()() {
       for (const auto & func: tasks) {
         if (auto task = std::dynamic_pointer_cast<_PlanOperation>(func)) {
           task->setPriority(priority);
+          task->setSessionId(sessionId);
           task->setPlanId(final_hash);
           task->setTransactionId(tid);
           task->setId(tid);

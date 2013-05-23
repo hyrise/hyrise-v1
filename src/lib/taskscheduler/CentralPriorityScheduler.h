@@ -64,7 +64,7 @@ public:
   /*
    * schedule a task for execution
    */
-  void schedule(std::shared_ptr<Task> task);
+  virtual void schedule(std::shared_ptr<Task> task);
   /*
    * shutdown task scheduler; makes sure all underlying threads are stopped
    */
@@ -74,7 +74,7 @@ public:
    */
   size_t getNumberOfWorker() const;
 
-  void notifyReady(std::shared_ptr<Task> task);
+  virtual void notifyReady(std::shared_ptr<Task> task);
 
 };
 

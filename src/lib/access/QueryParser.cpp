@@ -33,12 +33,13 @@ void QueryParser::buildTasks(
     std::vector<std::shared_ptr<Task> > &tasks,
     task_map_t &task_map) {
   Json::Value::Members members = query["operators"].getMemberNames();
+  std::string papiEventName = getPapiEventName(query);
   for (unsigned i = 0; i < members.size(); ++i) {
     Json::Value planOperationSpec = query["operators"][members[i]];
     std::string typeName = planOperationSpec["type"].asString();
     std::shared_ptr<_PlanOperation> planOperation = QueryParser::instance().parse(
         typeName, planOperationSpec);
-    planOperation->setEvent(getPapiEventName(query));
+    planOperation->setEvent(papiEventName);
     setInputs(planOperation, planOperationSpec);
     planOperation->setPart(planOperationSpec["part"].asUInt());
     planOperation->setCount(planOperationSpec["count"].asUInt());
@@ -76,6 +77,13 @@ std::string QueryParser::getPapiEventName(const Json::Value &query) const {
     return query["papi"].asString();
   else
     return "PAPI_TOT_INS";
+}
+
+int QueryParser::getSessionId(const Json::Value &query) const {
+  if (query.isMember("sessionId"))
+    return query["sessionId"].asInt();
+  else
+    return 0;
 }
 
 void QueryParser::setDependencies(
