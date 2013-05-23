@@ -43,6 +43,7 @@ std::shared_ptr<AbstractTable>  ResourceManager::buildStatisticsTable() {
 void ResourceManager::setupSystem() {
   static std::mutex instance_mtx;
   std::lock_guard<std::mutex> lock(instance_mtx);
+//no unlock?
   if (!_initialized) {
     _root_path = getEnv("HYRISE_DB_PATH", "");
     // add the statistics table
@@ -62,7 +63,8 @@ void ResourceManager::loadTable(std::string name, std::shared_ptr<AbstractTable>
 }
 
 void ResourceManager::replaceTable(std::string name, std::shared_ptr<AbstractTable> table) {
-  _schema.at(name).setTable(table);
+//replace can also set data?
+  _resources.at(name) = table;
 }
 
 void ResourceManager::loadTable(std::string name, const Loader::params &parameters) {
@@ -129,29 +131,67 @@ void ResourceManager::unloadTable(std::string name) {
 
 void ResourceManager::removeTable(std::string name) {
   if (exists(name)) {
-    _schema[name].unload();
-    std::lock_guard<std::mutex> lock(_schema_mutex);
-    _schema.erase(name);
+    std::lock_guard<std::mutex> lock(_resource_mutex);
+    //unlock?
+    _resources.erase(name);
   }
-}
-
-std::vector<std::string> ResourceManager::getTableNames() const {
-  std::vector<std::string> ret;
-  for (const auto & kv : _schema)
-    ret.push_back(kv.first);
-  return ret;
 }
 
 namespace {
 const std::string SYSTEM_PREFIX = "sys:";
 
-bool is_not_sys_table(ResourceManager::schema_map_t::value_type i) {
+bool is_user_resource(ResourceManager::resource_map::value_type i) {
   return !(i.first.compare(0, SYSTEM_PREFIX.size(), SYSTEM_PREFIX) == 0);
+}
+
+bool is_user_table(ResourceManager::resource_map::value_type i) {
+  return i.second->isTable() &&
+         !(i.first.compare(0, SYSTEM_PREFIX.size(), SYSTEM_PREFIX) == 0);
+}
+
+bool is_user_index(ResourceManager::resource_map::value_type i) {
+  return i.second->isIndex() &&
+         !(i.first.compare(0, SYSTEM_PREFIX.size(), SYSTEM_PREFIX) == 0);
 }
 } // namespace
 
-size_t ResourceManager::size() const {
-  return std::count_if(_schema.cbegin(), _schema.cend(), is_not_sys_table);
+std::vector<std::string> ResourceManager::getResourceNames() const {
+  std::vector<std::string> ret;
+  for (auto i = _resources.begin(); i != _resources.cend(); ++i) {
+    if (is_user_resource(*i))
+      ret.push_back((*i).first);
+  }
+  return ret;
+}
+
+size_t ResourceManager::numberOfResources() const {
+  return std::count_if(_resources.cbegin(), _resources.cend(), is_user_resource);
+}
+
+std::vector<std::string> ResourceManager::getTableNames() const {
+  std::vector<std::string> ret;
+  for (auto i = _resources.begin(); i != _resources.cend(); ++i) {
+    if (is_user_table(*i))
+      ret.push_back((*i).first);
+  }
+  return ret;
+}
+
+size_t ResourceManager::numberOfTables() const {
+  return std::count_if(_resources.cbegin(), _resources.cend(), is_user_table);
+}
+
+std::vector<std::string> ResourceManager::getIndexNames() const {
+  std::vector<std::string> ret;
+  for (auto i = _resources.begin(); i != _resources.cend(); ++i) {
+    if (is_user_index(*i))
+      ret.push_back((*i).first);
+  }
+  return ret;
+}
+
+size_t ResourceManager::numberOfIndices() const {
+  return std::count_if(_resources.cbegin(), _resources.cend(), is_user_index);
 }
 
 /*TODO void ResourceManager::unloadAll() {
@@ -167,9 +207,8 @@ size_t ResourceManager::size() const {
 }*/
 
 void ResourceManager::removeAll() {
-  std::lock_guard<std::mutex> lock(_schema_mutex);
-  unloadAll();
-  _schema.clear();
+  std::lock_guard<std::mutex> lock(_resource_mutex);
+  _resources.clear();
 }
 
 //TODO

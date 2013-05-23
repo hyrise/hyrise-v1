@@ -110,6 +110,7 @@ std::shared_ptr<AbstractTable>  StorageManager::buildStatisticsTable() {
 void StorageManager::setupSystem() {
   static std::mutex instance_mtx;
   std::lock_guard<std::mutex> lock(instance_mtx);
+//no unlock?
   if (!_initialized) {
     _root_path = getEnv("HYRISE_DB_PATH", "");
     // add the statistics table

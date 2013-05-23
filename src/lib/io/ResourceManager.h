@@ -33,9 +33,11 @@ class WrongTypeException : public StorageManagerException {
 
 /// Central holder of schema information
 class ResourceManager : public StorageManager {
+ public:
+  typedef std::map<std::string, std::shared_ptr<AbstractResource> > resource_map;
+
  private:
   /// The actual schema
-  typedef std::map<std::string, std::shared_ptr<AbstractResource> > resource_map;
   resource_map _resources;
   /// Mutex protecting the _schema map
   std::mutex _resource_mutex;
@@ -131,10 +133,20 @@ class ResourceManager : public StorageManager {
   /// @param[in] name Table name
   void assureExists(std::string name) const;
 
+  /// Retrieve all index names
+  std::vector<std::string> getResourceNames() const;
+  /// Retrieve number of indices
+  size_t numberOfResources() const;
+
   /// Retrieve all table names
   std::vector<std::string> getTableNames() const;
   /// Retrieve number of tables
-  size_t size() const;
+  size_t numberOfTables() const;
+
+  /// Retrieve all index names
+  std::vector<std::string> getIndexNames() const;
+  /// Retrieve number of indices
+  size_t numberOfIndices() const;
 
   /// Prints the complete schema
   //TODO void printSchema() const;
