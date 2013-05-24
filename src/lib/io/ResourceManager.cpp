@@ -145,13 +145,13 @@ bool is_user_resource(ResourceManager::resource_map::value_type i) {
 }
 
 bool is_user_table(ResourceManager::resource_map::value_type i) {
-  return i.second->isTable() &&
-         !(i.first.compare(0, SYSTEM_PREFIX.size(), SYSTEM_PREFIX) == 0);
+  //it still need a check whether this is a table or an index
+  return !(i.first.compare(0, SYSTEM_PREFIX.size(), SYSTEM_PREFIX) == 0);
 }
 
 bool is_user_index(ResourceManager::resource_map::value_type i) {
-  return i.second->isIndex() &&
-         !(i.first.compare(0, SYSTEM_PREFIX.size(), SYSTEM_PREFIX) == 0);
+  //it still need a check whether this is a table or an index
+  return !(i.first.compare(0, SYSTEM_PREFIX.size(), SYSTEM_PREFIX) == 0);
 }
 } // namespace
 

@@ -19,8 +19,7 @@ public:
   virtual ~AbstractIndex();
 
   virtual void shrink() = 0;
-
-  virtual bool isIndex() { return true; }
 };
 
 #endif  // SRC_LIB_STORAGE_ABSTRACTINDEX_H_
+
