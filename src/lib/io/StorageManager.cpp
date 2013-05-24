@@ -56,7 +56,7 @@ void StorageTable::load() {
   if (isLoadable()) {
     _table = Loader::load(*_parameters);
   } else {
-    throw StorageManagerException("Could not load table '" + _name + "'");
+    throw ResourceManagerException("Could not load table '" + _name + "'");
   }
 }
 
@@ -171,7 +171,7 @@ std::shared_ptr<AbstractTable> StorageManager::getTable(std::string name) {
     if (stat(tbl_file.c_str(), &stFileInfo) == 0) {
       loadTableFile(name, name + ".tbl");
     } else {
-      throw StorageManagerException("StorageManager: Table '" + name + "' does not exist");
+      throw ResourceManagerException("StorageManager: Table '" + name + "' does not exist");
     }
   }
   return _schema[name].getTable();
@@ -182,7 +182,7 @@ bool StorageManager::exists(std::string name) const {
  }
 
 void StorageManager::assureExists(std::string name) const {
-  if (!exists(name)) throw StorageManagerException("Table '" + name + "' does not exist");
+  if (!exists(name)) throw ResourceManagerException("Table '" + name + "' does not exist");
 }
 
 void StorageManager::preloadTable(std::string name) {
@@ -277,7 +277,7 @@ std::vector<std::string> StorageManager::listDirectory(std::string dir) {
   struct dirent *dirp;
 
   if ((dp  = opendir(dir.c_str())) == nullptr) {
-    throw StorageManagerException("Error opening directory: '" + dir + "'");
+    throw ResourceManagerException("Error opening directory: '" + dir + "'");
   }
 
   while ((dirp = readdir(dp)) != nullptr) {

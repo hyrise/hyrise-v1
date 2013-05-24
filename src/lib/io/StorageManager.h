@@ -9,7 +9,8 @@
 #include <string>
 #include <vector>
 
-#include "io/Loader.h"
+#include <io/Loader.h>
+#include <io/ResourceManager.h>
 
 class AbstractResource;
 class AbstractTable;
@@ -18,19 +19,14 @@ class AbstractIndex;
 namespace hyrise {
 namespace io {
 
-class StorageManagerException : public std::runtime_error {
+class AlreadyExistsException : public ResourceManagerException {
  public:
-  explicit StorageManagerException(const std::string &what): std::runtime_error(what) {}
+  explicit AlreadyExistsException(const std::string &what): ResourceManagerException(what) {}
 };
 
-class AlreadyExistsException : public StorageManagerException {
+class MissingIndexException : public ResourceManagerException {
  public:
-  explicit AlreadyExistsException(const std::string &what): StorageManagerException(what) {}
-};
-
-class MissingIndexException : public StorageManagerException {
- public:
-  explicit MissingIndexException(const std::string &what): StorageManagerException(what) {}
+  explicit MissingIndexException(const std::string &what): ResourceManagerException(what) {}
 };
 
 /// Storage class that holds tables that might not be loaded yet
@@ -61,7 +57,7 @@ class StorageTable {
 };
 
 /// Central holder of schema information
-class StorageManager {
+class StorageManager : ResourceManager {
  protected:
   /// The actual schema
   std::map<std::string, StorageTable> _schema;
