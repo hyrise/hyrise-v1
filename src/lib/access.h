@@ -28,8 +28,6 @@
 #include <access/HashBuild.h>
 #include <access/HashJoinProbe.h>
 #include <access/SettingsOperation.h>
-#include <access/ThreadpoolAdjustment.h>
-#include <access/TaskSchedulerAdjustment.h>
 #include <access/SmallestTableScan.h>
 #include <access/HashValueJoin.hpp>
 

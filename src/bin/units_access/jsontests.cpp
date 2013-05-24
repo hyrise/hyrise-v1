@@ -9,13 +9,13 @@
 
 #include <io/shortcuts.h>
 #include "taskscheduler/SharedScheduler.h"
-#include "taskscheduler/WSSimpleTaskScheduler.h"
 
 namespace hyrise {
 namespace access {
 
 class JSONTests : public AccessTest {};
 
+/*
 TEST_F(JSONTests, settings_configuration) {
   Settings *settings = Settings::getInstance();
   size_t newThreadpoolSize = 5;
@@ -30,14 +30,16 @@ TEST_F(JSONTests, DISABLED_threadpool_adjust_configuration) {
   ASSERT_EQ(settings->getThreadpoolSize(), newThreadpoolSize);
 
   if(!SharedScheduler::getInstance().isInitialized())
-    SharedScheduler::getInstance().init("WSSimpleTaskScheduler");
+    SharedScheduler::getInstance().init("WSCoreBoundQueuesScheduler");
   AbstractTaskScheduler * scheduler = SharedScheduler::getInstance().getScheduler();
+  ASSERT_EQ(scheduler->getNumberOfWorker(), newThreadpoolSize);
+}*/
 
   /*
   if (dynamic_cast<AbstractQueueBasedTaskScheduler<AbstractTaskQueue> *>(scheduler) != NULL) {
      ASSERT_EQ(dynamic_cast<AbstractQueueBasedTaskScheduler<AbstractTaskQueue> *>(scheduler)->getNumberOfWorker(), newThreadpoolSize);
-     }*/
-}
+     }
+}*/
 
 TEST_F(JSONTests, apply_operator_parallelization) {
   std::string

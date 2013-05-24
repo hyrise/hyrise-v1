@@ -15,8 +15,6 @@
 #include <condition_variable>
 #include <string>
 
-#define NO_PREFERRED_CORE -1
-
 class Task;
 
 class TaskReadyObserver {
@@ -45,6 +43,10 @@ public:
 class Task : public TaskDoneObserver, public std::enable_shared_from_this<Task> {
 
 public:
+  static const int DEFAULT_PRIORITY = 999;
+  static const int HIGH_PRIORITY = 1;
+  static const int NO_PREFERRED_CORE = -1;
+  static const int NO_PREFERRED_NODE = -1;
 
 protected:
   std::vector<std::shared_ptr<Task> > _dependencies;
@@ -60,6 +62,14 @@ protected:
   std::mutex _notifyMutex;
   // indicates on which core the task should run
   int _preferredCore;
+  // indicates on which node the task should run
+  int _preferredNode;
+  // indicates on which node the task should run
+  int _actualNode;
+  // priority
+  int _priority;
+  // id
+  int _id;
 
 public:
   Task();
@@ -126,6 +136,50 @@ public:
    */
   void lockForNotifications();
   void unlockForNotifications();
+
+  int getActualNode() const {
+    return _actualNode;
+  }
+
+  void setActualNode(int actualNode) {
+    _actualNode = actualNode;
+  }
+
+  int getPreferredNode() const {
+    return _preferredNode;
+  }
+
+  void setPreferredNode(int preferredNode) {
+    _preferredNode = preferredNode;
+  }
+
+  int getPriority() const {
+    return _priority;
+  }
+
+  void setPriority(int priority) {
+    this->_priority = priority;
+  }
+
+  int getId() const {
+    return _id;
+  }
+
+  void setId(int id) {
+    this->_id = id;
+
+  };
+};
+
+class CompareTaskPtr {
+    public:
+    bool operator()(const std::shared_ptr<Task> & t1, const std::shared_ptr<Task> & t2) // Returns true if t1 is lower priority than t2
+    {
+       if (t1->getPriority() > t2->getPriority()) return true;
+       else if((t1->getPriority() == t2->getPriority()) && t1->getId() > t2->getId()) return true;
+       else
+         return false;
+    };
 };
 
 class WaitTask : public Task {

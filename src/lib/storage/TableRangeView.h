@@ -29,11 +29,11 @@ public:
   virtual ~TableRangeView();
 
   size_t getStart() const;
-  hyrise::storage::c_atable_ptr_t getTable() const;
   // specific to TableRangeView
   table_id_t subtableCount() const;
   hyrise::storage::atable_ptr_t copy() const;
   void print(const size_t limit = (size_t) -1) const;
+  hyrise::storage::c_atable_ptr_t getTable() const;
 
   // recalculated rows and routed to underlying table if necessary
   size_t size() const;
