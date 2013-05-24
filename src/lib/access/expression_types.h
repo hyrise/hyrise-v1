@@ -20,10 +20,6 @@ struct PredicateType {
     AND = 6,
     OR = 7,
     NOT = 8,
-    MultiTableEqualsExpression = 9,
-    MultiTableLessThanExpression = 10,
-    MultiTableGreaterThanExpression = 11,
-    MultiTableBetweenExpression = 12,
     EqualsExpressionRaw = 13,
     LessThanExpressionRaw = 14,
     GreaterThanExpressionRaw = 15
