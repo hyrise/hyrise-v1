@@ -27,13 +27,15 @@ class AbstractTaskScheduler {
    * definition of scheduler status
    */
  public:
-  typedef enum status {
+  typedef enum {
     START_UP = -1,
     RUN = 0,
     RESIZING = 1,
     TO_STOP = 2,
     STOPPED = 3
-  } scheduler_status_t;
+  } scheduler_state;
+
+  typedef int scheduler_status_t;
 
   virtual ~AbstractTaskScheduler() {};
   /*
