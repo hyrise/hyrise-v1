@@ -94,6 +94,8 @@ public:
   typedef std::vector<std::shared_ptr<const PointerCalculator> > pc_vector;
   static std::shared_ptr<const PointerCalculator> unite_many(pc_vector::const_iterator it, pc_vector::const_iterator it_end);
   static std::shared_ptr<const PointerCalculator> concatenate_many(pc_vector::const_iterator it, pc_vector::const_iterator it_end);
+
+  virtual void debugStructure(size_t level=0) const;
 };
 
 #endif  // SRC_LIB_STORAGE_POINTERCALCULATOR_H_

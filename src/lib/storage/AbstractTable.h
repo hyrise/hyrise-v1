@@ -564,6 +564,8 @@ public:
 
   /// get underlying attribute vectors for column
   virtual const attr_vectors_t getAttributeVectors(size_t column) const;
+
+  virtual void debugStructure(size_t level=0) const;
 };
 
 #endif  // SRC_LIB_STORAGE_ABSTRACTTABLE_H_

@@ -129,6 +129,7 @@ public:
 
   virtual const attr_vectors_t getAttributeVectors(size_t column) const;
 
+  void debugStructure(size_t level=0) const;
 };
 
 #endif  // SRC_LIB_STORAGE_VERTICALTABLE_H_
