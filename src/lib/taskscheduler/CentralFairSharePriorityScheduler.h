@@ -21,11 +21,11 @@ using std::vector;
 /**
  * a CentralFairShare scheduler holds a task queue and n worker threads
  */
-class CentralFairSharePriorityScheduler : public CentralPriorityScheduler {
+class CentralFairSharePriorityScheduler : public CentralPriorityScheduler, TaskDoneObserver {
   static const int MAX_SESSIONS = 1000;
-  static const uint64_t PRIO_UPDATE_INTERVALL = 2000000000;
+  static const uint64_t PRIO_UPDATE_INTERVALL = 200000000;
   // weighs last interval 50% and past 50%
-  static constexpr double SMOOTHING_FACTOR = 0.5;
+  static constexpr double SMOOTHING_FACTOR = 0.2;
   // maps internal session id to work done so far
   AtomicHashMap<int,int64_t> _workMap;
   // vector of dynamically calculated priorities
@@ -49,7 +49,6 @@ class CentralFairSharePriorityScheduler : public CentralPriorityScheduler {
   // mutex to avoid duplicate sessions
   std::mutex _addSessionMutex;
 
-
   int64_t calculateTotalWork(OutputTask::performance_vector& perf_vector);
 
 public:
@@ -68,9 +67,8 @@ public:
                                                                       _lastUpdatePrios(0){
   };
   virtual ~CentralFairSharePriorityScheduler(){ };
-
   void schedule(std::shared_ptr<Task> task);
-  virtual void notifyReady(std::shared_ptr<Task> task);
+  virtual void notifyDone(std::shared_ptr<Task> task);
   void updateDynamicPriorities();
   void addSession(int session, int priority);
    //tbd

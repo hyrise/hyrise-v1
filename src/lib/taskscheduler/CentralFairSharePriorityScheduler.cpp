@@ -33,38 +33,68 @@ void CentralFairSharePriorityScheduler::schedule(std::shared_ptr<Task> task){
     task->setPriority(__sync_fetch_and_add(&_dynPriorities[ret->second],0));
     task->setSessionId(ret->second);
   }
+
+  // addDoneObserver to get task execution time
+  task->addDoneObserver(this);
+
   // get/set dynamic priority
   CentralPriorityScheduler::schedule(task);
 }
 
-void CentralFairSharePriorityScheduler::notifyReady(std::shared_ptr<Task> task){
-  // check for response task
-  auto op =  std::dynamic_pointer_cast<hyrise::access::ResponseTask>(task);
-  if(op){
-    // calc total duration of query
-    int64_t work = calculateTotalWork(op->getPerformanceData());
-    // add to total work of session and total work
-    auto ret = _workMap.find(task->getSessionId());
-    if(ret != _workMap.end()){
-      __sync_fetch_and_add(&ret->second, work);
-      _totalWork += work;
-    }
-    else
-      fprintf(stderr, "No matching task found in map\n");
-    // check if prios need to be updated (TBD - currently after every query)
-    // however, only one thread should update at a time
-    bool expected = false;
-    epoch_t currentTime = get_epoch_nanoseconds();
-    std::cout << " op finished: " << currentTime << " vs " << _lastUpdatePrios <<  " delta " << currentTime - _lastUpdatePrios << std::endl;
-    if(currentTime - _lastUpdatePrios >= PRIO_UPDATE_INTERVALL){
-      _lastUpdatePrios = currentTime;
-      if(_isUpdatingPrios.compare_exchange_strong(expected,true)){
-        updateDynamicPriorities();
-        _isUpdatingPrios = false;
-      }
-    }
-  }
-  CentralPriorityScheduler::notifyReady(task);
+void CentralFairSharePriorityScheduler::notifyDone(std::shared_ptr<Task> task){
+  /*
+   // check for response task
+   auto op =  std::dynamic_pointer_cast<hyrise::access::ResponseTask>(task);
+   if(op){
+     // calc total duration of query
+     int64_t work = calculateTotalWork(op->getPerformanceData());
+     // add to total work of session and total work
+     auto ret = _workMap.find(task->getSessionId());
+     if(ret != _workMap.end()){
+       __sync_fetch_and_add(&ret->second, work);
+       _totalWork += work;
+     }
+     else
+       fprintf(stderr, "No matching task found in map\n");
+     // check if prios need to be updated (TBD - currently after every query)
+     // however, only one thread should update at a time
+     bool expected = false;
+     epoch_t currentTime = get_epoch_nanoseconds();
+     std::cout << " op finished: " << currentTime << " vs " << _lastUpdatePrios <<  " delta " << currentTime - _lastUpdatePrios << std::endl;
+     if(currentTime - _lastUpdatePrios >= PRIO_UPDATE_INTERVALL){
+       _lastUpdatePrios = currentTime;
+       if(_isUpdatingPrios.compare_exchange_strong(expected,true)){
+         updateDynamicPriorities();
+         _isUpdatingPrios = false;
+       }
+     }
+   }
+   */
+  auto op =  std::dynamic_pointer_cast<OutputTask>(task);
+   if(op){
+     // calc total duration of query
+     int64_t work = op->getPerformanceData().data;
+     // add to total work of session and total work
+     auto ret = _workMap.find(task->getSessionId());
+     if(ret != _workMap.end()){
+       __sync_fetch_and_add(&ret->second, work);
+       _totalWork += work;
+     }
+     else
+       fprintf(stderr, "No matching task found in map\n");
+     // check if prios need to be updated (TBD - currently after every query)
+     // however, only one thread should update at a time
+     bool expected = false;
+     epoch_t currentTime = get_epoch_nanoseconds();
+     //std::cout << " op finished: " << currentTime << " vs " << _lastUpdatePrios <<  " delta " << currentTime - _lastUpdatePrios << std::endl;
+     if(currentTime - _lastUpdatePrios >= PRIO_UPDATE_INTERVALL){
+       _lastUpdatePrios = currentTime;
+       if(_isUpdatingPrios.compare_exchange_strong(expected,true)){
+         updateDynamicPriorities();
+         _isUpdatingPrios = false;
+       }
+     }
+   }
 }
 
 void CentralFairSharePriorityScheduler::updateDynamicPriorities(){
