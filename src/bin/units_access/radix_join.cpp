@@ -267,7 +267,7 @@ TEST_F(RadixJoinTest, check_prefixsum_parallel_merge) {
 
   auto result = ps.getResultTable();
 
-  EXPECT_EQ(0, result->getValueId(0,0).valueId);
+  EXPECT_EQ(0u, result->getValueId(0,0).valueId);
   EXPECT_EQ(10u, result->getValueId(0,1).valueId);
   
 }
