@@ -145,6 +145,8 @@ public:
   void mergeWith(std::unique_ptr<TableMerger> merger);
   virtual void print(const size_t limit = (size_t) -1) const;
 
+  virtual void debugStructure(size_t level=0) const;
+
 private:
 
   /**

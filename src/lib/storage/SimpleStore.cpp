@@ -98,4 +98,11 @@ hyrise::storage::atable_ptr_t SimpleStore::copy() const {
 }
 
 
+void SimpleStore::debugStructure(size_t level) const {
+    std::cout << std::string(level, '\t') << "SimpleStore " << this << std::endl;
+    _main->debugStructure(level+1);
+    _delta->debugStructure(level+1);
+}
+
+
 }}

@@ -78,3 +78,9 @@ hyrise::storage::atable_ptr_t HorizontalTable::copy() const {
 }
 
 
+void HorizontalTable::debugStructure(size_t level) const {
+  std::cout << std::string(level, '\t') << "HorizontalTable " << this << std::endl;
+  for (const auto& p: parts) {
+    p->debugStructure(level+1);
+  }
+}

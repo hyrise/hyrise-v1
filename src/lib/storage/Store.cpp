@@ -242,3 +242,11 @@ const attr_vectors_t Store::getAttributeVectors(size_t column) const {
   tables.insert(tables.end(), subtables.begin(), subtables.end());
   return tables;
 }
+
+void Store::debugStructure(size_t level) const {
+  std::cout << std::string(level, '\t') << "Store " << this << std::endl;
+  for (const auto& m: main_tables) {
+    m->debugStructure(level+1);
+  }
+  delta->debugStructure(level+1);
+}
