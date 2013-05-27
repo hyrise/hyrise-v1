@@ -429,3 +429,8 @@ std::shared_ptr<const PointerCalculator> PointerCalculator::concatenate_many(pc_
 
   return std::make_shared<PointerCalculator>(table, result, nullptr);
 }
+
+void PointerCalculator::debugStructure(size_t level) const {
+  std::cout << std::string(level, '\t') << "PointerCalculator " << this << std::endl;
+  table->debugStructure(level+1);
+}
