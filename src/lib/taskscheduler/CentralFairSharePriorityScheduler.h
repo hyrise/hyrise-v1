@@ -12,6 +12,7 @@
 #include "folly/AtomicHashMap.h"
 #include "access/ResponseTask.h"
 #include "access/OutputTask.h"
+#include <mutex>
 
 using folly::AtomicHashMap;
 using std::map;
@@ -22,22 +23,32 @@ using std::vector;
  */
 class CentralFairSharePriorityScheduler : public CentralPriorityScheduler {
   static const int MAX_SESSIONS = 1000;
+  static const uint64_t PRIO_UPDATE_INTERVALL = 2000000000;
+  // weighs last interval 50% and past 50%
+  static constexpr double SMOOTHING_FACTOR = 0.5;
   // maps internal session id to work done so far
   AtomicHashMap<int,int64_t> _workMap;
   // vector of dynamically calculated priorities
   vector<int> _dynPriorities;
   // vector of externally provided calculated priorities
   vector<int> _extPriorities;
+  // vector of exponentially smoothed work_shares
+  vector<double> _smoothedWorkShares;
   // maps external to internal session id (introduced to avoid resizing of _workMap, and to be able to use sessionID as index into Priority vectors)
   AtomicHashMap<int, int> _sessionMap;
-  // sum of total work (currently not used)
-  std::atomic<int64_t> _totalWork;
+  // sum of total work
+   std::atomic<int64_t> _totalWork;
   // sum of total priorities of all sessions
   std::atomic<int> _totalPriorities;
   // number of open sessions
   std::atomic<int> _sessions;
   // synchronize updating priorities - only one thread should do this at a time
   std::atomic<bool> _isUpdatingPrios;
+  // timepoint of last update
+  std::atomic<epoch_t> _lastUpdatePrios;
+  // mutex to avoid duplicate sessions
+  std::mutex _addSessionMutex;
+
 
   int64_t calculateTotalWork(OutputTask::performance_vector& perf_vector);
 
@@ -48,11 +59,13 @@ public:
                                                                       _workMap(MAX_SESSIONS),
                                                                       _dynPriorities(MAX_SESSIONS, 0),
                                                                       _extPriorities(MAX_SESSIONS, 0),
+                                                                      _smoothedWorkShares(MAX_SESSIONS,0),
                                                                       _sessionMap(MAX_SESSIONS),
                                                                       _totalWork(0),
                                                                       _totalPriorities(0),
                                                                       _sessions(0),
-                                                                      _isUpdatingPrios(false){
+                                                                      _isUpdatingPrios(false),
+                                                                      _lastUpdatePrios(0){
   };
   virtual ~CentralFairSharePriorityScheduler(){ };
 

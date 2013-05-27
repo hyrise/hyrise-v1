@@ -19,12 +19,12 @@ CentralPriorityScheduler::CentralPriorityScheduler(int threads) {
   // create and launch threads
   if(threads > getNumberOfCoresOnSystem()){
     fprintf(stderr, "Tried to use more threads then cores - no binding of threads takes place\n");
-    for(int i = 0; i < threads -1; i++){
+    for(int i = 0; i < threads; i++){
       _worker_threads.push_back(new std::thread(PriorityWorkerThread(*this)));
     }
   } else {
     // bind threads to cores
-    for(int i = 0; i < threads -1; i++){
+    for(int i = 0; i < threads; i++){
       //_worker_threads.push_back(new std::thread(WorkerThread(*this)));
       auto thread = new std::thread(PriorityWorkerThread(*this));
       hwloc_cpuset_t cpuset;

@@ -6,6 +6,7 @@
  */
 
 #include "CentralFairSharePriorityScheduler.h"
+#include "helper/epoch.h"
 
 // register Scheduler at SharedScheduler
 namespace {
@@ -53,9 +54,14 @@ void CentralFairSharePriorityScheduler::notifyReady(std::shared_ptr<Task> task){
     // check if prios need to be updated (TBD - currently after every query)
     // however, only one thread should update at a time
     bool expected = false;
-    if(_isUpdatingPrios.compare_exchange_strong(expected,true)){
-      updateDynamicPriorities();
-      _isUpdatingPrios = false;
+    epoch_t currentTime = get_epoch_nanoseconds();
+    std::cout << " op finished: " << currentTime << " vs " << _lastUpdatePrios <<  " delta " << currentTime - _lastUpdatePrios << std::endl;
+    if(currentTime - _lastUpdatePrios >= PRIO_UPDATE_INTERVALL){
+      _lastUpdatePrios = currentTime;
+      if(_isUpdatingPrios.compare_exchange_strong(expected,true)){
+        updateDynamicPriorities();
+        _isUpdatingPrios = false;
+      }
     }
   }
   CentralPriorityScheduler::notifyReady(task);
@@ -68,16 +74,20 @@ void CentralFairSharePriorityScheduler::updateDynamicPriorities(){
   int64_t total_work = 0;
   // get work for all sessions
   for(int i = 0; i < _sessions; i++){
-    int ret = __sync_fetch_and_add(&_workMap.find(i)->second,0);
+    // atomically fetch work and set to zero by AND with 0
+    int ret = __sync_fetch_and_and(&_workMap.find(i)->second,0);
     work[i] = ret;
     total_work += ret;
   }
   // calculate relative deviation
   double ws, ts;
   for(int i = 0; i < _sessions; i++){
+    // calculate workshare of last intervall
     total_work == 0 ? ws = 0 : ws = (double)work[i]/total_work;
+    // calculate smoothed workshare
+    _smoothedWorkShares[i] == 0 ? _smoothedWorkShares[i] = ws : _smoothedWorkShares[i] = (double)ws*SMOOTHING_FACTOR + (double)(1-SMOOTHING_FACTOR)*_smoothedWorkShares[i];
     ts = (double)_extPriorities[i]/_totalPriorities;
-    shares[i] = std::make_pair((ts - ws)/ts, i);
+    shares[i] = std::make_pair((ts - _smoothedWorkShares[i])/ts, i);
   }
   // sort by share deviation
   std::sort(shares.begin(), shares.end());
@@ -89,7 +99,6 @@ void CentralFairSharePriorityScheduler::updateDynamicPriorities(){
 
   // TBD: reset work at some point of time - currently not done for testing purposes
 
-/*
   std::cout << "updateDynmicPriorities -> print statistics" << std::endl;
   std::cout << "\t_workMap  -  total work:" << total_work << std::endl;
   for(int i = 0; i < _sessions; i++){
@@ -102,46 +111,53 @@ void CentralFairSharePriorityScheduler::updateDynamicPriorities(){
 
     std::cout << "\tshares" << std::endl;
     for(int i = 0; i < _sessions; i++){
-      total_work == 0 ? ws = 0 : ws = (double)work[i]/total_work;
+      //total_work == 0 ? ws = 0 : ws = (double)work[i]/total_work;
       ts = (double)_extPriorities[i]/_totalPriorities;
-      std::cout << "\t\tsession: " << i << " ws: " << ws <<  " ts: " << ts << std::endl;
+      std::cout << "\t\tsession: " << i << " ws: " << _smoothedWorkShares[i] <<  " ts: " << ts << std::endl;
     }
     std::cout << "\tshare devaition" << std::endl;
     for(int i = 0; i < _sessions; i++){
       std::cout << "\t\tsession: " << shares[i].second << " share: " << shares[i].first  << std::endl;
     }
 
-*/
 }
 
 void CentralFairSharePriorityScheduler::addSession(int session, int priority){
-  // internal session number is session count
-  int internal_session_id = _sessions.fetch_add(1);
-  _sessionMap.insert(session, internal_session_id);
+  std::lock_guard<std::mutex> lk(_addSessionMutex);
+  // check if session is not in map
+  if(_sessionMap.find(session) == _sessionMap.end()){
 
-  // set priority
-  _totalPriorities += priority;
-  __sync_fetch_and_add( &_extPriorities[internal_session_id], priority);
+    // internal session number is session count
+    int internal_session_id = _sessions.fetch_add(1);
+    _sessionMap.insert(session, internal_session_id);
 
-  // add to workMap with WorkShare equal
+    // set priority
+    _totalPriorities += priority;
+    __sync_fetch_and_add( &_extPriorities[internal_session_id], priority);
 
-  // calculate work according to priority
-  double work = (double)(priority/_totalPriorities) *_totalWork;
+    // add to workMap with WorkShare equal
 
-  // check if slot is already used in map
-  auto ret = _workMap.find(internal_session_id);
-  if(ret == _workMap.end())
-    _workMap.insert(internal_session_id, work);
-  else
-    ret->second = work;
-  _totalWork += work;
+    // calculate work according to priority
+    double work = (double)(priority/_totalPriorities) *_totalWork;
 
-  // update Priorities
-  updateDynamicPriorities();
+    // check if slot is already used in map
+    auto ret = _workMap.find(internal_session_id);
+    if(ret == _workMap.end())
+      _workMap.insert(internal_session_id, work);
+    else
+      ret->second = work;
+    _totalWork += work;
+
+    // update Priorities
+    updateDynamicPriorities();
+  }
 }
 
 // delete session tbd
 void CentralFairSharePriorityScheduler::deleteSession(int session){
+  // remove internal session number
+  //_sessionMap.find(session);
+
 }
 
 int64_t CentralFairSharePriorityScheduler::calculateTotalWork(OutputTask::performance_vector& perf_vector){
