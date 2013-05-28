@@ -18,12 +18,12 @@
 #include "storage/AbstractTable.h"
 #include "storage/AbstractIndex.h"
 #include "storage/TableBuilder.h"
-#include "io/CSVLoader.h"
+
+#include "CSVLoader.h"
+#include "StorageManager.h"
 
 namespace hyrise {
 namespace io {
-
-typedef ResourceManager::resource_map::value_type resource_pair;
 
 const std::string indexPrefix = "index:";
 
@@ -56,11 +56,9 @@ void ResourceManager::setupSystem() {
   }*/
 }
 
-/*TODO ResourceManager *ResourceManager::getInstance() {
-  static StorageManager instance;
-  instance.setupSystem();
-  return &instance;
-}*/
+ResourceManager* ResourceManager::getInstance() {
+  return StorageManager::getInstance();
+}
 
 template <>
 bool ResourceManager::exists<AbstractResource>(const std::string name) const {
@@ -104,6 +102,31 @@ void ResourceManager::clear() {
 }
 
 template <>
+void ResourceManager::remove<AbstractResource>(const std::string name) {
+  std::lock_guard<std::mutex> lock(_resource_mutex);
+
+  assureExists<AbstractResource>(name);
+  _resources.erase(name);
+}
+
+template <>
+void ResourceManager::remove<AbstractTable>(const std::string name) {
+  std::lock_guard<std::mutex> lock(_resource_mutex);
+
+  assureExists<AbstractTable>(name);
+  _resources.erase(name);
+}
+
+template <>
+void ResourceManager::remove<AbstractIndex>(const std::string name) {
+  std::lock_guard<std::mutex> lock(_resource_mutex);
+
+  assureExists<AbstractIndex>(name);
+  const std::string indexName = indexPrefix + name;
+  _resources.erase(indexName);
+}
+
+template <>
 void ResourceManager::add<AbstractTable>(const std::string name, std::shared_ptr<AbstractTable> resource)
 {
   if (!name.compare(0, indexPrefix.size(), indexPrefix))
@@ -111,7 +134,7 @@ void ResourceManager::add<AbstractTable>(const std::string name, std::shared_ptr
   if (exists<AbstractTable>(name))
     throw AlreadyExistsException("ResourceManager: Table '" + name + "' already exists");
 
-  _resources.insert(resource_pair(name, resource));
+  _resources.insert(make_pair(name, resource));
 }
 
 template <>
@@ -123,7 +146,7 @@ void ResourceManager::add<AbstractIndex>(const std::string name, std::shared_ptr
   if (exists<AbstractIndex>(name)) //or override
     throw AlreadyExistsException("ResourceManager: Index '" + name + "' already exists");
 
-  _resources.insert(resource_pair(indexName, resource));
+  _resources.insert(make_pair(indexName, resource));
 }
 
 template <>

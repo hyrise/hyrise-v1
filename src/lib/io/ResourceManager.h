@@ -39,10 +39,6 @@ class ResourceManager {
   /// Assures that we only initialize once
   //bool _initialized;
 
-  //typedef std::map<std::string, std::shared_ptr<AbstractIndex>> indices_t;
-  /// Indices map
-  //indices_t _indices;
-
   ResourceManager();
   ResourceManager(const ResourceManager &) = delete;
   ResourceManager &operator= (const ResourceManager &) = delete;
@@ -56,9 +52,12 @@ class ResourceManager {
   ~ResourceManager();
 
   /// Retrieve singleton ResourceManager instance
-  //TODO static ResourceManager *getInstance();
+  static ResourceManager *getInstance();
   
   void clear();
+
+  template <typename T = AbstractResource>
+  void remove(std::string name);
 
   template <typename T>
   void add(std::string name, std::shared_ptr<T> resource);

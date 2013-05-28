@@ -52,7 +52,7 @@ class StorageTable {
 };
 
 /// Central holder of schema information
-class StorageManager : ResourceManager {
+class StorageManager : public ResourceManager {
  protected:
   /// The actual schema
   std::map<std::string, StorageTable> _schema;
