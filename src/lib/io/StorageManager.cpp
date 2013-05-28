@@ -12,6 +12,7 @@
 #include <string>
 #include <vector>
 
+#include "helper/Settings.h"
 #include "helper/stringhelpers.h"
 #include "helper/Environment.h"
 #include "io/CSVLoader.h"
@@ -112,7 +113,7 @@ void StorageManager::setupSystem() {
   std::lock_guard<std::mutex> lock(instance_mtx);
 //no unlock?
   if (!_initialized) {
-    _root_path = getEnv("HYRISE_DB_PATH", "");
+    _root_path = Settings::getInstance()->getDBPath();
     // add the statistics table
     addStorageTable(SYS_STATISTICS, buildStatisticsTable());
     _initialized = true;
