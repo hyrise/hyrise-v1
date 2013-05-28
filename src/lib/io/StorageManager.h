@@ -19,11 +19,6 @@ class AbstractIndex;
 namespace hyrise {
 namespace io {
 
-class AlreadyExistsException : public ResourceManagerException {
- public:
-  explicit AlreadyExistsException(const std::string &what): ResourceManagerException(what) {}
-};
-
 class MissingIndexException : public ResourceManagerException {
  public:
   explicit MissingIndexException(const std::string &what): ResourceManagerException(what) {}
@@ -157,7 +152,7 @@ class StorageManager : ResourceManager {
   /// Retrieve all table names
   std::vector<std::string> getTableNames() const;
   /// Retrieve number of tables
-  size_t size() const;
+  size_t size() const; //TODO remove
 
   /// Prints the complete schema
   void printSchema() const;
