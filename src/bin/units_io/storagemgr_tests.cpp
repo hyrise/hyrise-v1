@@ -26,12 +26,12 @@ TEST_F(StorageManagerTests, base) {
   ASSERT_TRUE(sm == sm2);
 }
 
-TEST_F(StorageManagerTests, unbacked_table_load_results_in_exception) {
+/*TEST_F(StorageManagerTests, unbacked_table_load_results_in_exception) {
   hyrise::storage::atable_ptr_t t = std::make_shared<MutableVerticalTable>();
   sm->loadTable("LINXXS", t);
   sm->unloadTable("LINXXS");
   ASSERT_THROW(sm->preloadTable("LINXXS"), std::runtime_error);
-}
+}*/
 
 TEST_F(StorageManagerTests, load_table_multiple_contexts) {
   {

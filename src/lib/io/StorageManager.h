@@ -19,13 +19,8 @@ class AbstractIndex;
 namespace hyrise {
 namespace io {
 
-class MissingIndexException : public ResourceManagerException {
- public:
-  explicit MissingIndexException(const std::string &what): ResourceManagerException(what) {}
-};
-
 /// Storage class that holds tables that might not be loaded yet
-class StorageTable {
+/*class StorageTable {
  private:
   std::string _name;
   std::shared_ptr<AbstractTable> _table;
@@ -49,17 +44,15 @@ class StorageTable {
   std::shared_ptr<AbstractTable> getTable();
   std::shared_ptr<AbstractTable> getTable() const;
   void setTable(std::shared_ptr<AbstractTable> table);
-};
+};*/
 
 /// Central holder of schema information
 class StorageManager : public ResourceManager {
  protected:
   /// The actual schema
-  std::map<std::string, StorageTable> _schema;
+  //std::map<std::string, StorageTable> _schema;
   /// Mutex protecting the _schema map
-  std::mutex _schema_mutex;
-  /// Base path for loading
-  std::string _root_path;
+  //std::mutex _schema_mutex;
   /// Assures that we only initialize once
   bool _initialized;
 
@@ -75,23 +68,22 @@ class StorageManager : public ResourceManager {
   /// that start with (std::string name, ....)
   template<typename... Args>
   void addStorageTable(std::string name, Args && ... args) {
-    std::lock_guard<std::mutex> lock(_schema_mutex);
-    if (_schema.count(name) != 0) {
-      throw AlreadyExistsException("'" + name + "' is already in schema");
+    //std::lock_guard<std::mutex> lock(_schema_mutex);
+    if (exists<AbstractTable>(name)) {
+      throw AlreadyExistsException("StorageManager: Table '" + name + "' is already in schema");
     };
-    _schema.insert(make_pair(name, StorageTable(name,
-                                                std::forward<Args>(args)...)));
+    //std::unique_ptr<Loader::params> params = Loader::params(std::forward<Args>(args)...);
+    auto table = Loader::load(std::forward<Args>(args)...);
+    add<AbstractTable>(name, table);
   }
 
   /// Create all systems base tables require to run
   void setupSystem();
-  /// unloads all tables
-  void unloadAll();
 
   static std::vector<std::string> listDirectory(std::string dir);
 
  public:
-  typedef std::map<std::string, StorageTable> schema_map_t;
+  //typedef std::map<std::string, StorageTable> schema_map_t;
 
   ~StorageManager();
 
@@ -124,12 +116,9 @@ class StorageManager : public ResourceManager {
   /// @param[in] table Shared table pointer
   void replaceTable(std::string name, std::shared_ptr<AbstractTable> table);
 
-  void preloadTable(std::string name);
-  void unloadTable(std::string name);
   void removeTable(std::string name);
 
   void removeAll();
-  void preloadAll();
 
   /// Get a table
   /// @param[in] name Table name
@@ -143,11 +132,11 @@ class StorageManager : public ResourceManager {
 
   /// Test for table existance
   /// @param[in] name Table name
-  bool exists(std::string name) const;
+  //bool exists(std::string name) const;
 
   /// Test for table existance, throws std::exception
   /// @param[in] name Table name
-  void assureExists(std::string name) const;
+  //void assureExists(std::string name) const;
 
   /// Retrieve all table names
   std::vector<std::string> getTableNames() const;
