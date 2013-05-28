@@ -4,6 +4,8 @@
 
 #include <mutex>
 
+#include <helper/types.h>
+
 class AbstractResource;
 class AbstractTable;
 class AbstractIndex;
@@ -13,12 +15,12 @@ namespace io {
 
 class ResourceManagerException :  public std::runtime_error {
  public:
-    explicit ResourceManagerException(const std::string &what): std::runtime_error(what) {}
+  explicit ResourceManagerException(const std::string &what): std::runtime_error(what) {}
 };
 
-class WrongTypeException : public ResourceManagerException {
+class AlreadyExistsException : public ResourceManagerException {
  public:
-  explicit WrongTypeException(const std::string &what): ResourceManagerException(what) {}
+  explicit AlreadyExistsException(const std::string &what): ResourceManagerException(what) {}
 };
 
 /// Central holder of schema information
@@ -31,6 +33,7 @@ class ResourceManager {
   resource_map _resources;
   /// Mutex protecting the _schema map
   std::mutex _resource_mutex;
+
   /// Base path for loading
   //std::string _root_path;
   /// Assures that we only initialize once
@@ -58,30 +61,20 @@ class ResourceManager {
   void clear();
 
   template <typename T>
-  T get(std::string name) { return T(); /*TODO*/}
+  void add(std::string name, std::shared_ptr<T> resource);
+
+  template <typename T = AbstractResource>
+  std::shared_ptr<T> get(std::string name) const;
 
   /// Test for resource existance
-  /// @param[in] name Table name
+  /// @param[in] name Resource name
+  template <typename T = AbstractResource>
   bool exists(std::string name) const;
 
-  /// Test for resource existance, throws std::exception
-  /// @param[in] name Table name
+  /// Test for resource existance, throws ResourceManagerException
+  /// @param[in] name Resource name
+  template <typename T = AbstractResource>
   void assureExists(std::string name) const;
-
-  /// Retrieve all index names
-  std::vector<std::string> getResourceNames() const;
-  /// Retrieve number of indices
-  size_t numberOfResources() const;
-
-  /// Retrieve all table names
-  std::vector<std::string> getTableNames() const;
-  /// Retrieve number of tables
-  size_t numberOfTables() const;
-
-  /// Retrieve all index names
-  std::vector<std::string> getIndexNames() const;
-  /// Retrieve number of indices
-  size_t numberOfIndices() const;
 };
 
 }

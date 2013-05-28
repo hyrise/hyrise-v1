@@ -16,11 +16,16 @@
 #include "helper/stringhelpers.h"
 #include "helper/Environment.h"
 #include "storage/AbstractTable.h"
+#include "storage/AbstractIndex.h"
 #include "storage/TableBuilder.h"
 #include "io/CSVLoader.h"
 
 namespace hyrise {
 namespace io {
+
+typedef ResourceManager::resource_map::value_type resource_pair;
+
+const std::string indexPrefix = "index:";
 
 //const char ResourceManager::SYS_STATISTICS[] = "sys:statistics";
 
@@ -57,74 +62,86 @@ void ResourceManager::setupSystem() {
   return &instance;
 }*/
 
-bool ResourceManager::exists(std::string name) const {
+template <>
+bool ResourceManager::exists<AbstractResource>(const std::string name) const {
   return _resources.count(name) >= 1;
 }
 
-void ResourceManager::assureExists(std::string name) const {
-  if (!exists(name)) throw ResourceManagerException("Table '" + name + "' does not exist");
+template <>
+bool ResourceManager::exists<AbstractTable>(const std::string name) const {
+  return (exists<AbstractResource>(name) &&
+         std::dynamic_pointer_cast<AbstractTable>(_resources.at(name)) != nullptr);
 }
 
-namespace {
-const std::string SYSTEM_PREFIX = "sys:";
-
-bool is_user_resource(ResourceManager::resource_map::value_type i) {
-  return !(i.first.compare(0, SYSTEM_PREFIX.size(), SYSTEM_PREFIX) == 0);
+template <>
+bool ResourceManager::exists<AbstractIndex>(const std::string name) const {
+  const std::string indexName = indexPrefix + name;
+  return (exists<AbstractResource>(indexName) &&
+         std::dynamic_pointer_cast<AbstractIndex>(_resources.at(indexName)) != nullptr);
 }
 
-bool is_user_table(ResourceManager::resource_map::value_type i) {
-  //it still need a check whether this is a table or an index
-  return !(i.first.compare(0, SYSTEM_PREFIX.size(), SYSTEM_PREFIX) == 0);
+template <>
+void ResourceManager::assureExists<AbstractResource>(std::string name) const {
+  if (!exists<AbstractResource>(name))
+    throw ResourceManagerException("ResourceManager: Resource '" + name + "' does not exist");
 }
 
-bool is_user_index(ResourceManager::resource_map::value_type i) {
-  //it still need a check whether this is a table or an index
-  return !(i.first.compare(0, SYSTEM_PREFIX.size(), SYSTEM_PREFIX) == 0);
-}
-} // namespace
-
-std::vector<std::string> ResourceManager::getResourceNames() const {
-  std::vector<std::string> ret;
-  for (auto i = _resources.begin(); i != _resources.cend(); ++i) {
-    if (is_user_resource(*i))
-      ret.push_back((*i).first);
-  }
-  return ret;
+template <>
+void ResourceManager::assureExists<AbstractTable>(std::string name) const {
+  if (!exists<AbstractTable>(name))
+    throw ResourceManagerException("ResourceManager: Table '" + name + "' does not exist");
 }
 
-size_t ResourceManager::numberOfResources() const {
-  return std::count_if(_resources.cbegin(), _resources.cend(), is_user_resource);
-}
-
-std::vector<std::string> ResourceManager::getTableNames() const {
-  std::vector<std::string> ret;
-  for (auto i = _resources.begin(); i != _resources.cend(); ++i) {
-    if (is_user_table(*i))
-      ret.push_back((*i).first);
-  }
-  return ret;
-}
-
-size_t ResourceManager::numberOfTables() const {
-  return std::count_if(_resources.cbegin(), _resources.cend(), is_user_table);
-}
-
-std::vector<std::string> ResourceManager::getIndexNames() const {
-  std::vector<std::string> ret;
-  for (auto i = _resources.begin(); i != _resources.cend(); ++i) {
-    if (is_user_index(*i))
-      ret.push_back((*i).first);
-  }
-  return ret;
-}
-
-size_t ResourceManager::numberOfIndices() const {
-  return std::count_if(_resources.cbegin(), _resources.cend(), is_user_index);
+template <>
+void ResourceManager::assureExists<AbstractIndex>(std::string name) const {
+  if (!exists<AbstractIndex>(name))
+    throw ResourceManagerException("ResourceManager: Index '" + name + "' does not exist");
 }
 
 void ResourceManager::clear() {
   std::lock_guard<std::mutex> lock(_resource_mutex);
   _resources.clear();
+}
+
+template <>
+void ResourceManager::add<AbstractTable>(const std::string name, std::shared_ptr<AbstractTable> resource)
+{
+  if (!name.compare(0, indexPrefix.size(), indexPrefix))
+    throw ResourceManagerException("ResourceManager: Table names may not begin with '" + indexPrefix + "'");
+  if (exists<AbstractTable>(name))
+    throw AlreadyExistsException("ResourceManager: Table '" + name + "' already exists");
+
+  _resources.insert(resource_pair(name, resource));
+}
+
+template <>
+void ResourceManager::add<AbstractIndex>(const std::string name, std::shared_ptr<AbstractIndex> resource)
+{
+  const std::string indexName = indexPrefix + name;
+
+  //is it allowed to have an index without a table?
+  if (exists<AbstractIndex>(name)) //or override
+    throw AlreadyExistsException("ResourceManager: Index '" + name + "' already exists");
+
+  _resources.insert(resource_pair(indexName, resource));
+}
+
+template <>
+std::shared_ptr<AbstractResource> ResourceManager::get<AbstractResource>(const std::string name) const {
+  assureExists<AbstractResource>(name);
+  return _resources.at(name);
+}
+
+template <>
+std::shared_ptr<AbstractTable> ResourceManager::get<AbstractTable>(const std::string name) const {
+  assureExists<AbstractTable>(name);
+  return std::dynamic_pointer_cast<AbstractTable>(_resources.at(name));
+} 
+
+template <>
+std::shared_ptr<AbstractIndex> ResourceManager::get<AbstractIndex>(const std::string name) const {
+  assureExists<AbstractIndex>(name);
+  return std::dynamic_pointer_cast<AbstractIndex>(_resources.at(name));
 }
 
 }
