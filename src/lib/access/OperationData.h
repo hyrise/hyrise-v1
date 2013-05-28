@@ -24,6 +24,9 @@ class OperationData {
   /// Returns the n-th abstract resource
   storage::c_aresource_ptr_t getResource(size_t index) const;
 
+  /// Return all resources
+  const aresource_vec_t& all() const;
+  
   /// Returns the n-th element of type T
   template<typename T>
   std::shared_ptr<const T> nthOf(size_t index) const;
