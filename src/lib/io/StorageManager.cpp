@@ -25,8 +25,15 @@ namespace io {
 
 const char StorageManager::SYS_STATISTICS[] = "sys:statistics";
 
+namespace {
 const char TABNS[] = "STAB";
 const char MGRNS[] = "SMGR";
+
+bool startsWith(const std::string& str, const std::string start) {
+  return !str.compare(0, start.size(), start);
+}
+
+} // namespace
 
 StorageManager::StorageManager() {}
 
@@ -118,23 +125,32 @@ void StorageManager::removeTable(std::string name) {
 
 std::vector<std::string> StorageManager::getTableNames() const {
   std::vector<std::string> ret;
-  for (const auto &resource : _resources) {
-    if (std::dynamic_pointer_cast<AbstractTable>(resource.second) != nullptr)
+  const std::string sysPrefix("sys:");
+  for (const auto &resource : _resources)
+    if (std::dynamic_pointer_cast<AbstractTable>(resource.second) != nullptr &&
+        !startsWith(resource.first, sysPrefix))
       ret.push_back(resource.first);
-  }
   return ret;
 }
 
 size_t StorageManager::size() const {
-  return _resources.size();
+  size_t cnt = 0;
+  const std::string sysPrefix("sys:");
+  for (auto i = _resources.begin(); i != _resources.cend(); ++i)
+    if (!startsWith((*i).first, sysPrefix))
+     ++cnt;
+  return cnt;
 }
 
 void StorageManager::removeAll() {
-  clear();
+   const std::string sysPrefix("sys:");
+   for (auto i = _resources.begin(); i != _resources.cend(); ++i)
+     if (!startsWith((*i).first, sysPrefix))
+       _resources.erase(i);
 }
 
 void StorageManager::printResources() const {
-  std::cout << "======= Schema =======" << std::endl;
+  std::cout << "======= Resources =======" << std::endl;
   for (const auto &kv : _resources) {
     const auto &name = kv.first;
     const auto &resource = kv.second.get();

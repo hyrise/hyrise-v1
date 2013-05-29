@@ -44,8 +44,7 @@ TEST_F(StorageManagerTests, load_table_multiple_contexts) {
   }
   StorageManager *sm = StorageManager::getInstance();
 
-  //size() should be 0 after removing the one and only table?
-  //ASSERT_EQ(1u, sm->getTableNames().size());
+  ASSERT_EQ(0u, sm->getTableNames().size());
 
   sm->removeAll();
 }
