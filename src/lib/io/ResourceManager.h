@@ -34,19 +34,9 @@ class ResourceManager {
   /// Mutex protecting the _schema map
   std::mutex _resource_mutex;
 
-  /// Base path for loading
-  //std::string _root_path;
-  /// Assures that we only initialize once
-  //bool _initialized;
-
   ResourceManager();
   ResourceManager(const ResourceManager &) = delete;
   ResourceManager &operator= (const ResourceManager &) = delete;
-
-  /// Create all systems base tables require to run
-  void setupSystem();
-  /// unloads all tables
-  //TODO void unloadAll();
 
  public:
   ~ResourceManager();
@@ -56,26 +46,20 @@ class ResourceManager {
   
   void clear();
 
-  template <typename T = AbstractResource>
   void remove(std::string name);
 
-  template <typename T>
-  void replace(std::string name, std::shared_ptr<T> resource);
+  void replace(std::string name, std::shared_ptr<AbstractResource> resource);
 
-  template <typename T>
-  void add(std::string name, std::shared_ptr<T> resource);
+  void add(std::string name, std::shared_ptr<AbstractResource> resource);
 
-  template <typename T = AbstractResource>
-  std::shared_ptr<T> get(std::string name) const;
+  std::shared_ptr<AbstractResource> get(std::string name);
 
   /// Test for resource existance
   /// @param[in] name Resource name
-  template <typename T = AbstractResource>
   bool exists(std::string name) const;
 
   /// Test for resource existance, throws ResourceManagerException
   /// @param[in] name Resource name
-  template <typename T = AbstractResource>
   void assureExists(std::string name) const;
 };
 

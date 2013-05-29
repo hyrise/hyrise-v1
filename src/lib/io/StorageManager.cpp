@@ -48,7 +48,7 @@ void StorageManager::setupSystem() {
   std::lock_guard<std::mutex> lock(instance_mtx);
   if (!_initialized) {
     // add the statistics table
-    add<AbstractTable>(SYS_STATISTICS, buildStatisticsTable());
+    add(SYS_STATISTICS, buildStatisticsTable());
     _initialized = true;
   }
 }
@@ -61,11 +61,11 @@ StorageManager *StorageManager::getInstance() {
 }
 
 void StorageManager::loadTable(std::string name, std::shared_ptr<AbstractTable> table) {
-  add<AbstractTable>(name, table);
+  add(name, table);
 }
 
 void StorageManager::replaceTable(std::string name, std::shared_ptr<AbstractTable> table) {
-  replace<AbstractTable>(name, table);
+  replace(name, table);
 }
 
 void StorageManager::loadTable(std::string name, const Loader::params &parameters) {
@@ -103,22 +103,21 @@ std::shared_ptr<AbstractTable> StorageManager::getTable(std::string name) {
     std::string tbl_file = Settings::getInstance()->getDBPath() + "/" + name + ".tbl";
     struct stat stFileInfo;
 
-    if (stat(tbl_file.c_str(), &stFileInfo) == 0) {
+    if (stat(tbl_file.c_str(), &stFileInfo) == 0)
       loadTableFile(name, name + ".tbl");
-    } else {
-      throw ResourceManagerException("StorageManager: Table '" + name + "' does not exist");
-    }
   }
-  return get<AbstractTable>(name);
+  auto table = std::dynamic_pointer_cast<AbstractTable>(get(name));
+  if (table == nullptr)
+    throw ResourceManagerException("StorageManager: Table '" + name + "' does not exist");
+  return table;
 }
 
 void StorageManager::removeTable(std::string name) {
-  if (exists<AbstractTable>(name))
-    remove<AbstractTable>(name);
+  if (exists(name) && std::dynamic_pointer_cast<AbstractTable>(get(name)) != nullptr)
+    remove(name);
 }
 
 std::vector<std::string> StorageManager::getTableNames() const {
-  //TODO
   std::vector<std::string> ret;
   for (const auto &kv : _resources) {
     if (std::dynamic_pointer_cast<AbstractTable>(kv.second) != nullptr)
@@ -127,17 +126,8 @@ std::vector<std::string> StorageManager::getTableNames() const {
   return ret;
 }
 
-namespace {
-const std::string SYSTEM_PREFIX = "sys:";
-
-/*bool is_not_sys_table(StorageManager::schema_map_t::value_type i) {
-  return i.first.compare(0, SYSTEM_PREFIX.size(), SYSTEM_PREFIX) == 0;
-}*/
-} // namespace
-
 size_t StorageManager::size() const {
-  //TODO
-  return _resources.size();//std::count_if(_schema.cbegin(), _schema.cend(), is_not_sys_table);
+  return _resources.size();
 }
 
 void StorageManager::removeAll() {
@@ -191,15 +181,18 @@ std::vector<std::string> StorageManager::listDirectory(std::string dir) {
 }
 
 void StorageManager::addInvertedIndex(std::string name, std::shared_ptr<AbstractIndex> index) {
-  add<AbstractIndex>(name, index);
+  add(name, index);
 }
 
 std::shared_ptr<AbstractIndex> StorageManager::getInvertedIndex(std::string name) {
-  if (exists<AbstractIndex>(name))
-    return get<AbstractIndex>(name);
-  else
-    throw ResourceManagerException("StorageManager: No index '" + name + "' found");
+  if (exists(name)) {
+    auto index = std::dynamic_pointer_cast<AbstractIndex>(get(name));
+    if (index != nullptr)
+      return index;
+  }
+  throw ResourceManagerException("StorageManager: No index '" + name + "' found");
 }
 
-}} // namespace hyrise::io
+}
+} // namespace hyrise::io
 

@@ -32,13 +32,7 @@ class StorageManager : public ResourceManager {
   /// that start with (std::string name, ....)
   template<typename... Args>
   void addStorageTable(std::string name, Args && ... args) {
-    //std::lock_guard<std::mutex> lock(_schema_mutex);
-    if (exists<AbstractTable>(name)) {
-      throw AlreadyExistsException("StorageManager: Table '" + name + "' is already in schema");
-    };
-    //std::unique_ptr<Loader::params> params = Loader::params(std::forward<Args>(args)...);
-    auto table = Loader::load(std::forward<Args>(args)...);
-    add<AbstractTable>(name, table);
+    add(name, Loader::load(std::forward<Args>(args)...));
   }
 
   /// Create all systems base tables require to run
