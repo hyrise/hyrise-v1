@@ -27,9 +27,9 @@ protected:
   void updateFieldMapping();
 
 public:
-
   PointerCalculator(hyrise::storage::c_atable_ptr_t t, pos_list_t *pos = nullptr, field_list_t *f = nullptr);
-
+  PointerCalculator(const PointerCalculator& other);
+  
   virtual ~PointerCalculator();
 
   virtual  hyrise::storage::atable_ptr_t copy() const;
@@ -87,13 +87,13 @@ public:
   virtual  hyrise::storage::atable_ptr_t copy_structure(const field_list_t *fields = nullptr, const bool reuse_dict = false, const size_t initial_size = 0, const bool with_containers = true, const bool compressed = false) const;
 
 
-  std::shared_ptr<const PointerCalculator> intersect(const std::shared_ptr<const PointerCalculator>& other) const;
-  std::shared_ptr<const PointerCalculator> unite(const std::shared_ptr<const PointerCalculator>& other) const;
-  std::shared_ptr<const PointerCalculator> concatenate(const std::shared_ptr<const PointerCalculator>& other) const;
+  std::shared_ptr<PointerCalculator> intersect(const std::shared_ptr<const PointerCalculator>& other) const;
+  std::shared_ptr<PointerCalculator> unite(const std::shared_ptr<const PointerCalculator>& other) const;
+  std::shared_ptr<PointerCalculator> concatenate(const std::shared_ptr<const PointerCalculator>& other) const;
 
   typedef std::vector<std::shared_ptr<const PointerCalculator> > pc_vector;
   static std::shared_ptr<const PointerCalculator> unite_many(pc_vector::const_iterator it, pc_vector::const_iterator it_end);
-  static std::shared_ptr<const PointerCalculator> concatenate_many(pc_vector::const_iterator it, pc_vector::const_iterator it_end);
+  static std::shared_ptr<PointerCalculator> concatenate_many(pc_vector::const_iterator it, pc_vector::const_iterator it_end);
 
   virtual void debugStructure(size_t level=0) const;
 };
