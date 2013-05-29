@@ -60,6 +60,9 @@ class ResourceManager {
   void remove(std::string name);
 
   template <typename T>
+  void replace(std::string name, std::shared_ptr<T> resource);
+
+  template <typename T>
   void add(std::string name, std::shared_ptr<T> resource);
 
   template <typename T = AbstractResource>

@@ -129,8 +129,7 @@ void StorageManager::loadTable(std::string name, std::shared_ptr<AbstractTable> 
 }
 
 void StorageManager::replaceTable(std::string name, std::shared_ptr<AbstractTable> table) {
-  //TODO
-  //_schema.at(name).setTable(table);
+  replace<AbstractTable>(name, table);
 }
 
 void StorageManager::loadTable(std::string name, const Loader::params &parameters) {
