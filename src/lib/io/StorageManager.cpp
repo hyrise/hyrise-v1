@@ -55,7 +55,6 @@ void StorageManager::setupSystem() {
 
 StorageManager *StorageManager::getInstance() {
   static StorageManager instance;
-  //everytime an instance is requested
   instance.setupSystem();
   return &instance;
 }
@@ -119,9 +118,9 @@ void StorageManager::removeTable(std::string name) {
 
 std::vector<std::string> StorageManager::getTableNames() const {
   std::vector<std::string> ret;
-  for (const auto &kv : _resources) {
-    if (std::dynamic_pointer_cast<AbstractTable>(kv.second) != nullptr)
-      ret.push_back(kv.first);
+  for (const auto &resource : _resources) {
+    if (std::dynamic_pointer_cast<AbstractTable>(resource.second) != nullptr)
+      ret.push_back(resource.first);
   }
   return ret;
 }
@@ -134,34 +133,28 @@ void StorageManager::removeAll() {
   clear();
 }
 
-void StorageManager::printSchema() const {
+void StorageManager::printResources() const {
   std::cout << "======= Schema =======" << std::endl;
-  /*for (const auto &kv : _schema) {
+  for (const auto &kv : _resources) {
     const auto &name = kv.first;
-    const auto &storage_table = kv.second;
-    std::cout << "Table " << name << " ";
-
-    if (storage_table.isLoaded()) {
-      auto t = storage_table.getTable();
-      std::cout << "[Loaded] "
-                << t->size() << " rows "
-                << t->columnCount() << " columns"
-                << std::endl
+    const auto &resource = kv.second.get();
+    if (dynamic_cast<AbstractTable*>(resource) != nullptr) {
+      auto table = dynamic_cast<AbstractTable*>(resource);
+      std::cout << "Table "
+                << table->size() << " rows "
+                << table->columnCount() << " columns" << std::endl
                 << "    Columns:";
 
-      for (field_t i = 0; i != t->columnCount(); i++) {
-        std::cout << " " << t->metadataAt(i)->getName();
-      }
-
-    } else {
-      if (storage_table.isLoadable()) {
-        std::cout << " [Loadable]";
-      } else {
-        std::cout << " [Dead]";
-      }
+      for (field_t i = 0; i != table->columnCount(); i++)
+         std::cout << " " << table->metadataAt(i)->getName();
     }
+    else if (dynamic_cast<AbstractIndex*>(resource) != nullptr)
+      std::cout << "Index " << name;
+    else
+      std::cout << "Resource " << name;
+
     std::cout << std::endl;
-  }*/
+  }
   std::cout << "====================" << std::endl;
 }
 

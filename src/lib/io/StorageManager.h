@@ -93,8 +93,8 @@ class StorageManager : public ResourceManager {
   /// Retrieve number of tables
   size_t size() const; //TODO leave it?
 
-  /// Prints the complete schema
-  void printSchema() const;
+  /// Prints all Resources
+  void printResources() const;
 
   /// Get full path for fileName
   /// @param[in] fileName fileName
