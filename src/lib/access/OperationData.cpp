@@ -17,6 +17,10 @@ storage::c_aresource_ptr_t OperationData::getResource(size_t index) const {
   return _resources.at(index);
 }
 
+const OperationData::aresource_vec_t& OperationData::all() const {
+  return _resources;
+}
+
 table_list_t OperationData::getTables() const {
   return allOf<AbstractTable>();
 }
