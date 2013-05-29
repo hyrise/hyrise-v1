@@ -199,7 +199,7 @@ const std::string SYSTEM_PREFIX = "sys:";
 
 size_t StorageManager::size() const {
   //TODO
-  return 0;//std::count_if(_schema.cbegin(), _schema.cend(), is_not_sys_table);
+  return _resources.size();//std::count_if(_schema.cbegin(), _schema.cend(), is_not_sys_table);
 }
 
 void StorageManager::removeAll() {

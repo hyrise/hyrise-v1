@@ -19,46 +19,10 @@ class AbstractIndex;
 namespace hyrise {
 namespace io {
 
-/// Storage class that holds tables that might not be loaded yet
-/*class StorageTable {
- private:
-  std::string _name;
-  std::shared_ptr<AbstractTable> _table;
-  std::unique_ptr<Loader::params> _parameters;
-  std::mutex _table_mutex;
-
- public:
-  StorageTable();
-  explicit StorageTable(std::string table_name);
-  StorageTable(std::string table_name, std::shared_ptr<AbstractTable> table);
-  StorageTable(std::string table_name, const Loader::params &_parameters);
-  StorageTable(const StorageTable &st);
-  ~StorageTable();
-
-  void load();
-  void unload();
-
-  bool isLoaded() const;
-  bool isLoadable() const;
-
-  std::shared_ptr<AbstractTable> getTable();
-  std::shared_ptr<AbstractTable> getTable() const;
-  void setTable(std::shared_ptr<AbstractTable> table);
-};*/
-
 /// Central holder of schema information
 class StorageManager : public ResourceManager {
  protected:
-  /// The actual schema
-  //std::map<std::string, StorageTable> _schema;
-  /// Mutex protecting the _schema map
-  //std::mutex _schema_mutex;
-  /// Assures that we only initialize once
   bool _initialized;
-
-  typedef std::map<std::string, std::shared_ptr<AbstractIndex>> indices_t;
-  /// Indices map
-  indices_t _indices;
 
   StorageManager();
   StorageManager(const StorageManager &) = delete;
@@ -129,14 +93,6 @@ class StorageManager : public ResourceManager {
 
   /// returns the index stored under name table_name.
   std::shared_ptr<AbstractIndex> getInvertedIndex(std::string table_name);
-
-  /// Test for table existance
-  /// @param[in] name Table name
-  //bool exists(std::string name) const;
-
-  /// Test for table existance, throws std::exception
-  /// @param[in] name Table name
-  //void assureExists(std::string name) const;
 
   /// Retrieve all table names
   std::vector<std::string> getTableNames() const;
