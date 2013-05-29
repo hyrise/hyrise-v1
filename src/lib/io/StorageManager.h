@@ -64,17 +64,17 @@ class StorageManager : public ResourceManager {
   /// @param[in] table Shared table pointer
   void loadTable(std::string name, std::shared_ptr<AbstractTable> table);
 
-  /// Convenience loading from filename
+  /// Convenience loading from fileName
   /// @param[in] name Table name
-  /// @param[in] filename Path to to hyrise-format file
-  void loadTableFile(std::string name, std::string filename);
+  /// @param[in] fileName Path to to hyrise-format file
+  void loadTableFile(std::string name, std::string fileName);
 
   /// Convenience loading for files with separate header
   /// @param[in] name Table name
-  /// @param[in] datafilename Path to to hyrise-format data file
-  /// @param[in] headerfilename Path to to hyrise-format header file
-  void loadTableFileWithHeader(std::string name, std::string datafilename,
-                               std::string headerfilename);
+  /// @param[in] dataFileName Path to to hyrise-format data file
+  /// @param[in] headerFileName Path to to hyrise-format header file
+  void loadTableFileWithHeader(std::string name, std::string dataFileName,
+                               std::string headerFileName);
   /// Replace existing table
   /// @param[in] name Table name to be replaced
   /// @param[in] table Shared table pointer
@@ -88,23 +88,23 @@ class StorageManager : public ResourceManager {
   /// @param[in] name Table name
   std::shared_ptr<AbstractTable> getTable(std::string name);
 
-  /// saves the inverted index using the name table_name.
-  void addInvertedIndex(std::string table_name, std::shared_ptr<AbstractIndex> _index);
+  /// saves the inverted index as name.
+  void addInvertedIndex(std::string name, std::shared_ptr<AbstractIndex> _index);
 
-  /// returns the index stored under name table_name.
-  std::shared_ptr<AbstractIndex> getInvertedIndex(std::string table_name);
+  /// returns the index stored under name name.
+  std::shared_ptr<AbstractIndex> getInvertedIndex(std::string name);
 
   /// Retrieve all table names
   std::vector<std::string> getTableNames() const;
   /// Retrieve number of tables
-  size_t size() const; //TODO remove
+  size_t size() const; //TODO leave it?
 
   /// Prints the complete schema
   void printSchema() const;
 
-  /// Get full path for filename
-  /// @param[in] filename filename
-  std::string makePath(std::string filename);
+  /// Get full path for fileName
+  /// @param[in] fileName fileName
+  std::string makePath(std::string fileName);
 
   /// Creates an empty statistics table as used for the general
   ///  statistics of the complete system

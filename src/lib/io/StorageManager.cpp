@@ -28,71 +28,6 @@ const char StorageManager::SYS_STATISTICS[] = "sys:statistics";
 const char TABNS[] = "STAB";
 const char MGRNS[] = "SMGR";
 
-/*StorageTable::StorageTable() {}
-
-StorageTable::StorageTable(std::string table_name)
-    : _name(table_name),
-      _parameters(nullptr) {}
-
-StorageTable::StorageTable(std::string table_name, std::shared_ptr<AbstractTable> table)
-    : _name(table_name),
-      _table(table),
-      _parameters(nullptr) {}
-
-StorageTable::StorageTable(std::string table_name, const Loader::params &parameters)
-    : _name(table_name),
-      _table(nullptr),
-      _parameters(parameters.clone()) {}
-
-StorageTable::StorageTable(const StorageTable &st)
-    : _name(st._name),
-      _table(st._table),
-      _parameters(st._parameters ? st._parameters->clone() : nullptr) {}
-
-StorageTable::~StorageTable() {}
-
-void StorageTable::load() {
-  std::lock_guard<std::mutex> lock(_table_mutex);
-  if (isLoaded()) return;
-
-  if (isLoadable()) {
-    _table = Loader::load(*_parameters);
-  } else {
-    throw ResourceManagerException("Could not load table '" + _name + "'");
-  }
-}
-
-void StorageTable::unload() {
-  std::lock_guard<std::mutex> lock(_table_mutex);
-  _table.reset();
-}
-
-std::shared_ptr<AbstractTable> StorageTable::getTable() {
-  if (!isLoaded())
-    load();
-  return _table;
-}
-
-std::shared_ptr<AbstractTable> StorageTable::getTable() const {
-  return _table;
-}
-
-void StorageTable::setTable(std::shared_ptr<AbstractTable> table) {
-  std::lock_guard<std::mutex> lock(_table_mutex);
-  _table = table;
-}
-
-bool StorageTable::isLoaded() const {
-  return _table != nullptr;
-}
-
-bool StorageTable::isLoadable() const {
-  return (_parameters != nullptr);
-}*/
-
-
-
-
 StorageManager::StorageManager() {}
 
 StorageManager::~StorageManager() {}
@@ -120,6 +55,7 @@ void StorageManager::setupSystem() {
 
 StorageManager *StorageManager::getInstance() {
   static StorageManager instance;
+  //everytime an instance is requested
   instance.setupSystem();
   return &instance;
 }
@@ -139,27 +75,27 @@ void StorageManager::loadTable(std::string name, const Loader::params &parameter
   delete p;
 }
 
-void StorageManager::loadTableFile(std::string name, std::string filename) {
-  CSVInput input(makePath(filename));
-  CSVHeader header(makePath(filename));
+void StorageManager::loadTableFile(std::string name, std::string fileName) {
+  CSVInput input(makePath(fileName));
+  CSVHeader header(makePath(fileName));
   Loader::params p;
   p.setInput(input);
   p.setHeader(header);
   addStorageTable(name, p);
 }
 
-void StorageManager::loadTableFileWithHeader(std::string name, std::string datafilename,
-                                             std::string headerfilename) {
-  CSVInput input(makePath(datafilename));
-  CSVHeader header(makePath(headerfilename));
+void StorageManager::loadTableFileWithHeader(std::string name, std::string datafileName,
+                                             std::string headerFileName) {
+  CSVInput input(makePath(datafileName));
+  CSVHeader header(makePath(headerFileName));
   Loader::params p;
   p.setInput(input);
   p.setHeader(header);
   addStorageTable(name, p);
 }
 
-std::string StorageManager::makePath(std::string filename) {
-  return Settings::getInstance()->getDBPath() + "/" + filename;
+std::string StorageManager::makePath(std::string fileName) {
+  return Settings::getInstance()->getDBPath() + "/" + fileName;
 }
 
 std::shared_ptr<AbstractTable> StorageManager::getTable(std::string name) {
@@ -184,8 +120,10 @@ void StorageManager::removeTable(std::string name) {
 std::vector<std::string> StorageManager::getTableNames() const {
   //TODO
   std::vector<std::string> ret;
-  /*for (const auto &kv : _schema)
-    ret.push_back(kv.first);*/
+  for (const auto &kv : _resources) {
+    if (std::dynamic_pointer_cast<AbstractTable>(kv.second) != nullptr)
+      ret.push_back(kv.first);
+  }
   return ret;
 }
 
@@ -260,7 +198,7 @@ std::shared_ptr<AbstractIndex> StorageManager::getInvertedIndex(std::string name
   if (exists<AbstractIndex>(name))
     return get<AbstractIndex>(name);
   else
-    throw ResourceManagerException("StorageManager: No index found for table '" + name + "'");
+    throw ResourceManagerException("StorageManager: No index '" + name + "' found");
 }
 
 }} // namespace hyrise::io
