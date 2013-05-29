@@ -39,7 +39,7 @@ ResourceManager::~ResourceManager() {}
   list.append().set_type("STRING").set_name("query_id");
   list.append().set_type("STRING").set_name("operator");
   list.append().set_type("STRING").set_name("detail");
-  list.append().set_type("FLOAT").set_name("selectivity");
+	  list.append().set_type("FLOAT").set_name("selectivity");
   list.append().set_type("INTEGER").set_name("start");
   return TableBuilder::build(list);
 }*/
@@ -103,66 +103,67 @@ void ResourceManager::clear() {
 
 template <>
 void ResourceManager::remove<AbstractResource>(const std::string name) {
+  std::lock_guard<std::mutex> lock(_resource_mutex);
   assureExists<AbstractResource>(name);
   
-  std::lock_guard<std::mutex> lock(_resource_mutex);
   _resources.erase(name);
 }
 
 template <>
 void ResourceManager::remove<AbstractTable>(const std::string name) {
+  std::lock_guard<std::mutex> lock(_resource_mutex);
   assureExists<AbstractTable>(name);
   
-  std::lock_guard<std::mutex> lock(_resource_mutex);
   _resources.erase(name);
 }
 
 template <>
 void ResourceManager::remove<AbstractIndex>(const std::string name) {
+  std::lock_guard<std::mutex> lock(_resource_mutex);
   assureExists<AbstractIndex>(name);
   
   const std::string indexName = indexPrefix + name;
-  std::lock_guard<std::mutex> lock(_resource_mutex);
   _resources.erase(indexName);
 }
 
 template <>
 void ResourceManager::replace<AbstractTable>(const std::string name, std::shared_ptr<AbstractTable> resource) {
+  std::lock_guard<std::mutex> lock(_resource_mutex);
   assureExists<AbstractTable>(name);
   
-  std::lock_guard<std::mutex> lock(_resource_mutex);
   _resources.at(name) = resource;
 }
 
 template <>
 void ResourceManager::replace<AbstractIndex>(const std::string name, std::shared_ptr<AbstractIndex> resource) {
+  std::lock_guard<std::mutex> lock(_resource_mutex);
   assureExists<AbstractIndex>(name);
   
   const std::string indexName = indexPrefix + name;
-  std::lock_guard<std::mutex> lock(_resource_mutex);
   _resources.erase(indexName);
 }
 
 template <>
 void ResourceManager::add<AbstractTable>(const std::string name, std::shared_ptr<AbstractTable> resource) {
+  std::lock_guard<std::mutex> lock(_resource_mutex);
+  
   if (!name.compare(0, indexPrefix.size(), indexPrefix))
     throw ResourceManagerException("ResourceManager: Table names may not begin with '" + indexPrefix + "'");
   if (exists<AbstractTable>(name))
     throw AlreadyExistsException("ResourceManager: Table '" + name + "' already exists");
 
-  std::lock_guard<std::mutex> lock(_resource_mutex);
   _resources.insert(make_pair(name, resource));
 }
 
 template <>
 void ResourceManager::add<AbstractIndex>(const std::string name, std::shared_ptr<AbstractIndex> resource) {
-  const std::string indexName = indexPrefix + name;
+  std::lock_guard<std::mutex> lock(_resource_mutex);
 
   //is it allowed to have an index without a table?
   if (exists<AbstractIndex>(name)) //or override
     throw AlreadyExistsException("ResourceManager: Index '" + name + "' already exists");
 
-  std::lock_guard<std::mutex> lock(_resource_mutex);
+  const std::string indexName = indexPrefix + name;
   _resources.insert(make_pair(indexName, resource));
 }
 
@@ -181,7 +182,8 @@ std::shared_ptr<AbstractTable> ResourceManager::get<AbstractTable>(const std::st
 template <>
 std::shared_ptr<AbstractIndex> ResourceManager::get<AbstractIndex>(const std::string name) const {
   assureExists<AbstractIndex>(name);
-  return std::dynamic_pointer_cast<AbstractIndex>(_resources.at(name));
+  const std::string indexName = indexPrefix + name;
+  return std::dynamic_pointer_cast<AbstractIndex>(_resources.at(indexName));
 }
 
 }
