@@ -113,9 +113,9 @@ void CentralFairSharePriorityScheduler::updateDynamicPriorities(){
   double ws, ts;
   for(int i = 0; i < _sessions; i++){
     // calculate workshare of last intervall
-    total_work == 0 ? ws = 0 : ws = (double)work[i]/total_work;
+    ws =  total_work == 0 ? 0 : (double)work[i]/total_work;
     // calculate smoothed workshare
-    _smoothedWorkShares[i] == 0 ? _smoothedWorkShares[i] = ws : _smoothedWorkShares[i] = (double)ws*SMOOTHING_FACTOR + (double)(1-SMOOTHING_FACTOR)*_smoothedWorkShares[i];
+    _smoothedWorkShares[i] = _smoothedWorkShares[i] == 0 ? ws : (double)ws*SMOOTHING_FACTOR + (double)(1-SMOOTHING_FACTOR)*_smoothedWorkShares[i];
     ts = (double)_extPriorities[i]/_totalPriorities;
     shares[i] = std::make_pair((ts - _smoothedWorkShares[i])/ts, i);
   }
@@ -128,28 +128,28 @@ void CentralFairSharePriorityScheduler::updateDynamicPriorities(){
   }
 
   // TBD: reset work at some point of time - currently not done for testing purposes
-
+/*
   std::cout << "updateDynmicPriorities -> print statistics" << std::endl;
   std::cout << "\t_workMap  -  total work:" << total_work << std::endl;
   for(int i = 0; i < _sessions; i++){
     std::cout << "\t\tsession: " << _workMap.find(i)->first << " work: " <<   __sync_fetch_and_add(&_workMap.find(i)->second,0) << std::endl;
   }
   std::cout << "\tprios  - total prios:" << _totalPriorities << std::endl;
-    for(int i = 0; i < _sessions; i++){
-      std::cout << "\t\tsession: " << i << " extPrio: " << _extPriorities[i]<<  " dyn prio: " <<   __sync_fetch_and_add(&_dynPriorities[i],0) <<  std::endl;
-    }
+  for(int i = 0; i < _sessions; i++){
+    std::cout << "\t\tsession: " << i << " extPrio: " << _extPriorities[i]<<  " dyn prio: " <<   __sync_fetch_and_add(&_dynPriorities[i],0) <<  std::endl;
+  }
 
-    std::cout << "\tshares" << std::endl;
-    for(int i = 0; i < _sessions; i++){
-      //total_work == 0 ? ws = 0 : ws = (double)work[i]/total_work;
-      ts = (double)_extPriorities[i]/_totalPriorities;
-      std::cout << "\t\tsession: " << i << " ws: " << _smoothedWorkShares[i] <<  " ts: " << ts << std::endl;
-    }
-    std::cout << "\tshare devaition" << std::endl;
-    for(int i = 0; i < _sessions; i++){
-      std::cout << "\t\tsession: " << shares[i].second << " share: " << shares[i].first  << std::endl;
-    }
-
+  std::cout << "\tshares" << std::endl;
+  for(int i = 0; i < _sessions; i++){
+    //total_work == 0 ? ws = 0 : ws = (double)work[i]/total_work;
+    ts = (double)_extPriorities[i]/_totalPriorities;
+    std::cout << "\t\tsession: " << i << " ws: " << _smoothedWorkShares[i] <<  " ts: " << ts << std::endl;
+  }
+  std::cout << "\tshare devaition" << std::endl;
+  for(int i = 0; i < _sessions; i++){
+    std::cout << "\t\tsession: " << shares[i].second << " share: " << shares[i].first  << std::endl;
+  }
+*/
 }
 
 void CentralFairSharePriorityScheduler::addSession(int session, int priority){
