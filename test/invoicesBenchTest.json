@@ -1,0 +1,75 @@
+{
+    "papi": "PAPI_L1_DCA",
+    "operators" : {
+        "loadDD1" : {
+            "type": "LoadConfigurableTable",
+            "table": "InvoiceTable",
+            "filename" : "defaultColumnTestTables/createRandomTable/InvoiceTable.tbl",
+            "defaultColumnType": "ColDefaultDictVector"
+        },
+        "loadDD2" : {
+            "type": "LoadConfigurableTable",
+            "table": "ItemTable",
+            "filename" : "defaultColumnTestTables/createRandomTable/ItemTable.tbl",
+            "defaultColumnType": "ColDefaultDictVector"
+        },
+        "load1" : {
+            "type": "LoadConfigurableTable",
+            "table": "InvoiceTable",
+            "filename" : "defaultColumnTestTables/createRandomTable/InvoiceTable.tbl",
+            "defaultColumnType": "ColDefaultType"
+        },
+        "load2" : {
+            "type": "LoadConfigurableTable",
+            "table": "IntemTable",
+            "filename" : "defaultColumnTestTables/createRandomTable/ItemTable.tbl",
+            "defaultColumnType": "ColDefaultType"
+        },
+        "hashForJoin1" : {
+            "type": "HashBuild",
+            "key": "join",
+            "fields": ["invoiceId"]
+        },
+        "hashForJoin2" : {
+            "type": "HashBuild",
+            "key": "join",
+            "fields": ["invoiceId"]
+        },
+        "join": {
+            "type":"JoinScan",
+            "predicates": [{
+                    "type": 3,
+                    "input_left":0,
+                    "field_left":"invoiceId",
+                    "input_right":1,
+                    "field_right":"invoiceId"
+                }]
+        },
+        "hashForJoinDD1" : {
+            "type": "HashBuild",
+            "key": "groupby",
+            "fields": ["invoiceId"]
+        },
+        "hashForJoinDD2" : {
+            "type": "HashBuild",
+            "key": "groupby",
+            "fields": ["invoiceId"]
+        },
+        "joinDD": {
+            "type":"JoinScan",
+            "predicates": [{
+                    "type": 3,
+                    "input_left":0,
+                    "field_left":"invoiceId",
+                    "input_right":1,
+                    "field_right":"invoiceId"
+                }]
+        }
+    },
+    "edges": [["load1","hashForJoin1"], ["load2","hashForJoin2"], 
+                ["load1","join"], ["load2","join"], 
+                ["hashForJoin1","join"], ["hashForJoin2","join"], 
+                ["loadDD1","hashForJoinDD1"], ["loadDD2","hashForJoinDD2"], 
+                ["loadDD1","join"], ["loadDD2","join"], 
+                ["hashForJoinDD1","join"], ["hashForJoinDD2","join"]]
+}
