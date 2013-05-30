@@ -6,7 +6,6 @@
 namespace hyrise { namespace access {
 
 class UnionAll : public _PlanOperation {
- protected:
   void executePlanOperation();
 };
 
