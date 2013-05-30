@@ -26,13 +26,6 @@ TEST_F(StorageManagerTests, base) {
   ASSERT_TRUE(sm == sm2);
 }
 
-TEST_F(StorageManagerTests, unbacked_table_load_results_in_exception) {
-  hyrise::storage::atable_ptr_t t = std::make_shared<MutableVerticalTable>();
-  sm->loadTable("LINXXS", t);
-  sm->unloadTable("LINXXS");
-  ASSERT_THROW(sm->preloadTable("LINXXS"), std::runtime_error);
-}
-
 TEST_F(StorageManagerTests, load_table_multiple_contexts) {
   {
     StorageManager *sm = StorageManager::getInstance();
@@ -51,7 +44,7 @@ TEST_F(StorageManagerTests, load_table_multiple_contexts) {
   }
   StorageManager *sm = StorageManager::getInstance();
 
-  ASSERT_EQ(1u, sm->getTableNames().size());
+  ASSERT_EQ(0u, sm->getTableNames().size());
 
   sm->removeAll();
 }

@@ -9,71 +9,20 @@
 #include <string>
 #include <vector>
 
-#include "io/Loader.h"
+#include <io/Loader.h>
+#include <io/ResourceManager.h>
 
+class AbstractResource;
 class AbstractTable;
 class AbstractIndex;
 
 namespace hyrise {
 namespace io {
 
-class StorageManagerException : public std::runtime_error {
- public:
-  explicit StorageManagerException(const std::string &what): std::runtime_error(what) {}
-};
-
-class AlreadyExistsException : public StorageManagerException {
- public:
-  explicit AlreadyExistsException(const std::string &what): StorageManagerException(what) {}
-};
-
-class MissingIndexException : public StorageManagerException {
- public:
-  explicit MissingIndexException(const std::string &what): StorageManagerException(what) {}
-};
-
-/// Storage class that holds tables that might not be loaded yet
-class StorageTable {
- private:
-  std::string _name;
-  std::shared_ptr<AbstractTable> _table;
-  std::unique_ptr<Loader::params> _parameters;
-  std::mutex _table_mutex;
-
- public:
-  StorageTable();
-  explicit StorageTable(std::string table_name);
-  StorageTable(std::string table_name, std::shared_ptr<AbstractTable> table);
-  StorageTable(std::string table_name, const Loader::params &_parameters);
-  StorageTable(const StorageTable &st);
-  ~StorageTable();
-
-  void load();
-  void unload();
-
-  bool isLoaded() const;
-  bool isLoadable() const;
-
-  std::shared_ptr<AbstractTable> getTable();
-  std::shared_ptr<AbstractTable> getTable() const;
-  void setTable(std::shared_ptr<AbstractTable> table);
-};
-
 /// Central holder of schema information
-class StorageManager {
- private:
-  /// The actual schema
-  std::map<std::string, StorageTable> _schema;
-  /// Mutex protecting the _schema map
-  std::mutex _schema_mutex;
-  /// Base path for loading
-  std::string _root_path;
-  /// Assures that we only initialize once
+class StorageManager : public ResourceManager {
+ protected:
   bool _initialized;
-
-  typedef std::map<std::string, std::shared_ptr<AbstractIndex>> indices_t;
-  /// Indices map
-  indices_t _indices;
 
   StorageManager();
   StorageManager(const StorageManager &) = delete;
@@ -83,21 +32,16 @@ class StorageManager {
   /// that start with (std::string name, ....)
   template<typename... Args>
   void addStorageTable(std::string name, Args && ... args) {
-    std::lock_guard<std::mutex> lock(_schema_mutex);
-    if (_schema.count(name) != 0) {
-      throw AlreadyExistsException("'" + name + "' is already in schema");
-    };
-    _schema.insert(make_pair(name, StorageTable(name,
-                                                std::forward<Args>(args)...)));
+    add(name, Loader::load(std::forward<Args>(args)...));
   }
 
   /// Create all systems base tables require to run
   void setupSystem();
-  /// unloads all tables
-  void unloadAll();
+
+  static std::vector<std::string> listDirectory(std::string dir);
 
  public:
-  typedef std::map<std::string, StorageTable> schema_map_t;
+  //typedef std::map<std::string, StorageTable> schema_map_t;
 
   ~StorageManager();
 
@@ -114,58 +58,47 @@ class StorageManager {
   /// @param[in] table Shared table pointer
   void loadTable(std::string name, std::shared_ptr<AbstractTable> table);
 
-  /// Convenience loading from filename
+  /// Convenience loading from fileName
   /// @param[in] name Table name
-  /// @param[in] filename Path to to hyrise-format file
-  void loadTableFile(std::string name, std::string filename);
+  /// @param[in] fileName Path to to hyrise-format file
+  void loadTableFile(std::string name, std::string fileName);
 
   /// Convenience loading for files with separate header
   /// @param[in] name Table name
-  /// @param[in] datafilename Path to to hyrise-format data file
-  /// @param[in] headerfilename Path to to hyrise-format header file
-  void loadTableFileWithHeader(std::string name, std::string datafilename,
-                               std::string headerfilename);
+  /// @param[in] dataFileName Path to to hyrise-format data file
+  /// @param[in] headerFileName Path to to hyrise-format header file
+  void loadTableFileWithHeader(std::string name, std::string dataFileName,
+                               std::string headerFileName);
   /// Replace existing table
   /// @param[in] name Table name to be replaced
   /// @param[in] table Shared table pointer
   void replaceTable(std::string name, std::shared_ptr<AbstractTable> table);
 
-  void preloadTable(std::string name);
-  void unloadTable(std::string name);
   void removeTable(std::string name);
 
   void removeAll();
-  void preloadAll();
 
   /// Get a table
   /// @param[in] name Table name
   std::shared_ptr<AbstractTable> getTable(std::string name);
 
-  /// saves the inverted index using the name table_name.
-  void addInvertedIndex(std::string table_name, std::shared_ptr<AbstractIndex> _index);
+  /// saves the inverted index as name.
+  void addInvertedIndex(std::string name, std::shared_ptr<AbstractIndex> _index);
 
-  /// returns the index stored under name table_name.
-  std::shared_ptr<AbstractIndex> getInvertedIndex(std::string table_name);
-
-  /// Test for table existance
-  /// @param[in] name Table name
-  bool exists(std::string name) const;
-
-  /// Test for table existance, throws std::exception
-  /// @param[in] name Table name
-  void assureExists(std::string name) const;
+  /// returns the index stored under name name.
+  std::shared_ptr<AbstractIndex> getInvertedIndex(std::string name);
 
   /// Retrieve all table names
   std::vector<std::string> getTableNames() const;
   /// Retrieve number of tables
-  size_t size() const;
+  size_t size() const; //TODO leave it?
 
-  /// Prints the complete schema
-  void printSchema() const;
+  /// Prints all Resources
+  void printResources() const;
 
-  /// Get full path for filename
-  /// @param[in] filename filename
-  std::string makePath(std::string filename);
+  /// Get full path for fileName
+  /// @param[in] fileName fileName
+  std::string makePath(std::string fileName);
 
   /// Creates an empty statistics table as used for the general
   ///  statistics of the complete system
@@ -179,3 +112,4 @@ class StorageManager {
 typedef hyrise::io::StorageManager StorageManager;
 
 #endif  // SRC_LIB_IO_STORAGEMANAGER_H_
+
