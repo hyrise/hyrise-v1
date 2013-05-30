@@ -19,6 +19,7 @@ TEST(OperationDataTests, adding) {
   op.addResource(cr1a);
   op.addResource(cr1b);
   op.addResource(cr2a);
+  EXPECT_EQ(op.all().size(), 3u);
   EXPECT_EQ(op.sizeOf<CustomResource1>(), 2u);
   EXPECT_EQ(op.sizeOf<CustomResource2>(), 1u);
 }
