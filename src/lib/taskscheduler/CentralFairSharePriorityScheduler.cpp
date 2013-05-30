@@ -16,7 +16,37 @@ bool registered  =
 
 void CentralFairSharePriorityScheduler::schedule(std::shared_ptr<Task> task){
   // if task arrives with highest priority, schedule -> this is currently used for RequestParseTask, as we do not have a session ID
-  if(task->getPriority() != Task::HIGH_PRIORITY){
+  if(task->isReady() && (task->getPriority() != Task::HIGH_PRIORITY)){
+    int session = task->getSessionId();
+    // check if session is already present
+    auto ret = _sessionMap.find(session);
+    if(ret == _sessionMap.end()){
+      // check if max number of session reached / this should be moved out of the scheduler at some point in time
+      if(_sessions >= MAX_SESSIONS){
+        fprintf(stderr, "Max nr of sessions reached - task not scheduled!!!!\n");
+      }
+      // if not add session
+      addSession(session, task->getPriority());
+      ret = _sessionMap.find(session);
+    }
+    // set dynamic priority for task and schedule
+    task->setPriority(__sync_fetch_and_add(&_dynPriorities[ret->second],0));
+    task->setSessionId(ret->second);
+
+    //update activity
+    std::lock_guard<std::mutex> lk(_activityMutex);
+    _userActivity[ret->second] = get_epoch_nanoseconds();
+  }
+
+  // addDoneObserver to get task execution time
+  task->addDoneObserver(this);
+
+  CentralPriorityScheduler::schedule(task);
+}
+
+void CentralFairSharePriorityScheduler::notifyReady(std::shared_ptr<Task> task) {
+  // if task arrives with highest priority, schedule -> this is currently used for RequestParseTask, as we do not have a session ID
+  if(task->isReady() && (task->getPriority() != Task::HIGH_PRIORITY)){
     int session = task->getSessionId();
     // check if session is already present
     auto ret = _sessionMap.find(session);
@@ -34,15 +64,17 @@ void CentralFairSharePriorityScheduler::schedule(std::shared_ptr<Task> task){
     task->setSessionId(ret->second);
   }
 
-  // addDoneObserver to get task execution time
-  task->addDoneObserver(this);
-
-  // get/set dynamic priority
-  CentralPriorityScheduler::schedule(task);
+  CentralPriorityScheduler::notifyReady(task);
 }
 
 void CentralFairSharePriorityScheduler::notifyDone(std::shared_ptr<Task> task){
+  {
+    //update activity
+    std::lock_guard<std::mutex> lk(_activityMutex);
+    _userActivity[task->getSessionId()] = get_epoch_nanoseconds();
+  }
   /*
+
    // check for response task
    auto op =  std::dynamic_pointer_cast<hyrise::access::ResponseTask>(task);
    if(op){
@@ -111,13 +143,48 @@ void CentralFairSharePriorityScheduler::updateDynamicPriorities(){
   }
   // calculate relative deviation
   double ws, ts;
+  bool isUserActive = true;
+  int activeUsers = 0;
   for(int i = 0; i < _sessions; i++){
-    // calculate workshare of last intervall
-    ws =  total_work == 0 ? 0 : (double)work[i]/total_work;
-    // calculate smoothed workshare
-    _smoothedWorkShares[i] = _smoothedWorkShares[i] == 0 ? ws : (double)ws*SMOOTHING_FACTOR + (double)(1-SMOOTHING_FACTOR)*_smoothedWorkShares[i];
-    ts = (double)_extPriorities[i]/_totalPriorities;
-    shares[i] = std::make_pair((ts - _smoothedWorkShares[i])/ts, i);
+    // check if user is active
+    std::lock_guard<std::mutex> lk(_activityMutex);
+    // if activity happened after last update or INACTIVE_USER_INTERVALL seconds before, user is considered as active
+    isUserActive = (_lastUpdatePrios < _userActivity[i]) || ((_lastUpdatePrios - _userActivity[i]) < (epoch_t)(INACTIVE_USER_INTERVALL * 1000000000))  ? true : false;
+    if(isUserActive) activeUsers ++;
+
+    //std::cout << " session " << i << " is active? " << isUserActive << " " << _lastUpdatePrios - _userActivity[i] <<  " " << _lastUpdatePrios << " " << _userActivity[i]  << " activeUsers " << activeUsers << std::endl;
+  }
+  for(int i = 0; i < _sessions; i++){
+    // check if user is active and not he only user on the system
+    if(isUserActive && activeUsers > 1){
+      // calculate workshare of last intervall
+      ws =  total_work == 0 ? 0 : (double)work[i]/total_work;
+      // calculate smoothed workshare
+      ts = (double)_extPriorities[i]/_totalPriorities;
+
+      double newSmoothedWorkShares;
+      newSmoothedWorkShares = _smoothedWorkShares[i] == 0 ? ws : (double)ws*DATA_SMOOTHING_FACTOR + (double)(1-DATA_SMOOTHING_FACTOR)*(_smoothedWorkShares[i]+_trendWorkShares[i]);
+      _trendWorkShares[i] = _smoothedWorkShares[i] == 0 ? 0 : (double)TREND_SMOOTHING_FACTOR*(newSmoothedWorkShares- _smoothedWorkShares[i]) + (double)(1-TREND_SMOOTHING_FACTOR)*_trendWorkShares[i];
+      _smoothedWorkShares[i] = newSmoothedWorkShares;
+
+      shares[i] = std::make_pair((ts - _smoothedWorkShares[i])/ts, i);
+     // shares[i] = std::make_pair((ts - _averageWorkShares[i].add(ws))/ts, i);
+    }
+    else{
+      ts = (double)_extPriorities[i]/_totalPriorities;
+      ws = ts;
+      _smoothedWorkShares[i] = ws;
+      //_averageWorkShares[i].add(ws);
+      shares[i] = std::make_pair(0, i);
+    }
+
+   /* // treat sleeping threads as neutral, assign them a work share according to their target share
+    if(work[i] == 0)
+      _smoothedWorkShares[i] = ts;
+    // assign work share according to their target share if user is alone on machine
+    if(work[i] == total_work)
+      _smoothedWorkShares[i] = ts;
+    */
   }
   // sort by share deviation
   std::sort(shares.begin(), shares.end());
@@ -127,12 +194,11 @@ void CentralFairSharePriorityScheduler::updateDynamicPriorities(){
     __sync_lock_test_and_set(&_dynPriorities[shares[i].second],_sessions + Task::HIGH_PRIORITY - i);
   }
 
-  // TBD: reset work at some point of time - currently not done for testing purposes
-/*
+  /*
   std::cout << "updateDynmicPriorities -> print statistics" << std::endl;
   std::cout << "\t_workMap  -  total work:" << total_work << std::endl;
   for(int i = 0; i < _sessions; i++){
-    std::cout << "\t\tsession: " << _workMap.find(i)->first << " work: " <<   __sync_fetch_and_add(&_workMap.find(i)->second,0) << std::endl;
+    std::cout << "\t\tsession: " << _workMap.find(i)->first << " work: " <<  work[i] << std::endl;
   }
   std::cout << "\tprios  - total prios:" << _totalPriorities << std::endl;
   for(int i = 0; i < _sessions; i++){
@@ -149,7 +215,12 @@ void CentralFairSharePriorityScheduler::updateDynamicPriorities(){
   for(int i = 0; i < _sessions; i++){
     std::cout << "\t\tsession: " << shares[i].second << " share: " << shares[i].first  << std::endl;
   }
-*/
+
+  std::cout << "\tuser activity" << std::endl;
+  for(int i = 0; i < _sessions; i++){
+    std::cout << "\t\tsession: " << shares[i].second << " useractivity: " << _userActivity[i]  << std::endl;
+  }*/
+
 }
 
 void CentralFairSharePriorityScheduler::addSession(int session, int priority){
