@@ -54,20 +54,24 @@ void printInvoiceTable(unsigned int numRows)
   }
 
   // print header
-  out << "invoiceId|date|customerId" << std::endl 
-      << "INTEGER|STRING|INTEGER" << std::endl 
-      << "0_R|1_R|2_R" << std::endl 
+  out << "invoiceId|date|daysSinceToday|customerId" << std::endl 
+      << "INTEGER|STRING|INTEGER|INTEGER" << std::endl 
+      << "0_R|1_R|2_R|2_R" << std::endl 
       << "===" << std::endl;
+
+  // create "today" as maximal possible date value
+  time_t today_raw = (42*365 + 199)*24*60*60;
 
   for (int id = 0; id < numRows; ++id) {
     time_t rawtime=(42*365 + (id*id) % 200)*24*60*60;
+    int daysSinceToday = (today_raw - rawtime) / (60*60*24);
     struct tm *timeptr = localtime(&rawtime);
     char timeString[11];
     strftime(timeString, 11, "%F", timeptr);
 
     std::string date (timeString);
 
-    out << id << "|" << date << "|" << id%5 << std::endl;
+    out << id << "|" << date << "|" << daysSinceToday << "|" << id%5 << std::endl;
   }
 
   out.close();
