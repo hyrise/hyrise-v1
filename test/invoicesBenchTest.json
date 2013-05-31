@@ -25,15 +25,45 @@
             "filename" : "defaultColumnTestTables/createRandomTable/ItemTable.tbl",
             "defaultColumnType": "ColDefaultType"
         },
-        "join": {
-            "type":"JoinScan",
-            "predicates": [{
-                    "type": 3,
-                    "input_left":0,
-                    "field_left":"invoiceId",
-                    "input_right":1,
-                    "field_right":"invoiceId"
-                }]
+        "projectItemsDD" : {
+            "type" : "ProjectionScan",
+            "fields" : [
+            "invoiceId","itemId", "itemCanceled"
+            ]
+        },
+        "projectItems" : {
+            "type" : "ProjectionScan",
+            "fields" : [
+            "invoiceId","itemId", "itemCanceled"
+            ]
+        },
+        "select14DaysDD": {
+            "type" : "SimpleTableScan",
+            "positions" : true,
+            "predicates": [
+            { "type" : "LT", "in" : 0, "f" : "daysSinceToday", "vtype" : 0, "value": 14 }
+            ]
+        },
+        "select14Days": {
+            "type" : "SimpleTableScan",
+            "positions" : true,
+            "predicates": [
+            { "type" : "LT", "in" : 0, "f" : "daysSinceToday", "vtype" : 0, "value": 14 }
+            ]
+        },
+        "selectCanceledDD": {
+            "type" : "SimpleTableScan",
+            "positions" : true,
+            "predicates": [
+            { "type" : "EQ", "in" : 0, "f" : "itemCanceled", "vtype" : 0, "value": 1 }
+            ]
+        },
+        "selectCanceled": {
+            "type" : "SimpleTableScan",
+            "positions" : true,
+            "predicates": [
+            { "type" : "EQ", "in" : 0, "f" : "itemCanceled", "vtype" : 0, "value": 1 }
+            ]
         },
         "joinDD": {
             "type":"JoinScan",
@@ -44,8 +74,22 @@
                     "input_right":1,
                     "field_right":"invoiceId"
                 }]
+        },
+        "join": {
+            "type":"JoinScan",
+            "predicates": [{
+                    "type": 3,
+                    "input_left":0,
+                    "field_left":"invoiceId",
+                    "input_right":1,
+                    "field_right":"invoiceId"
+                }]
         }
     },
-    "edges" : [["load1", "join"], ["load2", "join"],
-               ["load1DD", "joinDD"], ["load2DD", "joinDD"]]
+    "edges" : [ 
+    ["load1", "select14Days"], ["select14Days", "join"],
+    ["load2", "projectItems"], ["projectItems", "selectCanceled"], ["selectCanceled", "join"],
+    
+    ["load1", "select14DaysDD"], ["select14DaysDD", "joinDD"],
+    ["load2", "projectItemsDD"], ["projectItemsDD", "selectCanceledDD"], ["selectCanceledDD", "joinDD"]]
 }
