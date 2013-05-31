@@ -45,13 +45,12 @@ class AsyncConnection : public AbstractConnection {
   std::string contentType;
 
   AsyncConnection();
-
   ~AsyncConnection();
 
   virtual std::string getBody() const;
   virtual bool hasBody() const;
-  virtual void respond(const std::string &message);
-
+  virtual std::string getPath() const;
+  virtual void respond(const std::string &message, size_t status=200, const std::string& contentType="text/text");
  private:
   virtual void send_response();
 };

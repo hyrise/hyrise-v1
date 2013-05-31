@@ -84,7 +84,7 @@ public:
   }
 
   virtual  hyrise::storage::atable_ptr_t copy() const;
-
+  virtual void debugStructure(size_t level=0) const;
 };
 
 #endif  // SRC_LIB_STORAGE_HORIZONTALTABLE_H_
