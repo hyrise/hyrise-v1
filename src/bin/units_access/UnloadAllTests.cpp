@@ -14,9 +14,9 @@ TEST_F(UnloadAllTests, basic_unload_all_test) {
   auto t2 = Loader::shortcuts::load("test/lin_xxxs.tbl");
   auto t3 = Loader::shortcuts::load("test/10_30_group.tbl");
 
-  ASSERT_THROW(sm->getTable("table1"), io::StorageManagerException);
-  ASSERT_THROW(sm->getTable("table2"), io::StorageManagerException);
-  ASSERT_THROW(sm->getTable("table3"), io::StorageManagerException);
+  ASSERT_THROW(sm->getTable("table1"), io::ResourceManagerException);
+  ASSERT_THROW(sm->getTable("table2"), io::ResourceManagerException);
+  ASSERT_THROW(sm->getTable("table3"), io::ResourceManagerException);
 
   sm->loadTable("table1", t1);
   sm->loadTable("table2", t2);
@@ -29,9 +29,9 @@ TEST_F(UnloadAllTests, basic_unload_all_test) {
   UnloadAll ua;
   ua.execute();
 
-  ASSERT_THROW(sm->getTable("table1"), io::StorageManagerException);
-  ASSERT_THROW(sm->getTable("table2"), io::StorageManagerException);
-  ASSERT_THROW(sm->getTable("table3"), io::StorageManagerException);
+  ASSERT_THROW(sm->getTable("table1"), io::ResourceManagerException);
+  ASSERT_THROW(sm->getTable("table2"), io::ResourceManagerException);
+  ASSERT_THROW(sm->getTable("table3"), io::ResourceManagerException);
 }
 
 }

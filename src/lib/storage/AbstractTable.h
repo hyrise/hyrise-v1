@@ -82,7 +82,6 @@ public:
    */
   virtual ~AbstractTable() {}
 
-
   /**
    * Returns the generation value.
    */

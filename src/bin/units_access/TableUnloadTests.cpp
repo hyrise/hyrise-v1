@@ -12,7 +12,7 @@ TEST_F(TableUnloadTests, basic_table_unload_test) {
   auto sm = StorageManager::getInstance();
   auto t = Loader::shortcuts::load("test/lin_xxs.tbl");
 
-  ASSERT_THROW(sm->getTable("myTable"), io::StorageManagerException);
+  ASSERT_THROW(sm->getTable("myTable"), io::ResourceManagerException);
 
   sm->loadTable("myTable", t);
 
@@ -22,7 +22,7 @@ TEST_F(TableUnloadTests, basic_table_unload_test) {
   tu.setTableName("myTable");
   tu.execute();
 
-  ASSERT_THROW(sm->getTable("myTable"), io::StorageManagerException);
+  ASSERT_THROW(sm->getTable("myTable"), io::ResourceManagerException);
 }
 
 }
