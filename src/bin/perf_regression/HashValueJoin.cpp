@@ -86,3 +86,6 @@ BENCHMARK_F(HashValueJoinBase, stock_level_hash_value_join_mat_memcpy) {
 
 }
 }
+
+}
+}
