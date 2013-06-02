@@ -8,8 +8,9 @@
 #ifndef SRC_LIB_STORAGE_ABSTRACTINDEX_H_
 #define SRC_LIB_STORAGE_ABSTRACTINDEX_H_
 
+#include <storage/AbstractResource.h>
 
-class AbstractIndex {
+class AbstractIndex : public AbstractResource {
 
 public:
   /**
@@ -18,7 +19,7 @@ public:
   virtual ~AbstractIndex();
 
   virtual void shrink() = 0;
-
 };
 
 #endif  // SRC_LIB_STORAGE_ABSTRACTINDEX_H_
+
