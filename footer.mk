@@ -50,7 +50,7 @@ $(lib): $(objects)
 	$(call echo_cmd,CC $<) $(CC) -MMD -MP $(CC_BUILD_FLAGS) $(include_flags) -c -o $@ $< 
 
 clean::
-	-$(call echo_cmd,CLEAN $(bin)$(lib)) $(RM) -rf $(src_dir)/*.d $(src_dir)/*.o $(objects) $(dependencies) $(bin) $(lib) $(precompiled_header)
+	-$(call echo_cmd,CLEAN $(bin)$(lib)) $(RM) -rf $(src_dir)/*.d $(src_dir)/*.o $(objects) $(dependencies) $(bin) $(lib) #$(precompiled_header)
 
 $(precompiled_header): $(precompiled_header_source) $(makefiles)
 	$(call echo_cmd,PRECOMPILING $<) $(CXX) $(CXX_BUILD_FLAGS) $(include_flags) $(precompiled_header_source)

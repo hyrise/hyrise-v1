@@ -52,6 +52,9 @@ HYRISE_MYSQL_PASS ?= root
 OSTYPE = $(shell uname | tr '[A-Z]' '[a-z]')
 export build_dir ?= build
 
+# to properly use included headers
+CCACHE_SLOPPINESS := time_macros
+
 # OS switches
 ifneq (,$(findstring linux,$(OSTYPE)))
 	LIB_EXTENSION := so
