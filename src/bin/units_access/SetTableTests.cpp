@@ -12,7 +12,7 @@ TEST_F(SetTableTests, basic_SetTable_test) {
   auto sm = StorageManager::getInstance();
   auto t = Loader::shortcuts::load("test/lin_xxs.tbl");
 
-  ASSERT_THROW(sm->getTable("myTable"), io::StorageManagerException);
+  ASSERT_THROW(sm->getTable("myTable"), io::ResourceManagerException);
 
   SetTable st("myTable");
   st.addInput(t);
