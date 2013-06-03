@@ -25,7 +25,7 @@
             "filename" : "defaultColumnTestTables/createRandomTable/ItemTable.tbl",
             "defaultColumnType": "ColDefaultType"
         },
-        /*"projectInvoicesDD" : {
+        "projectInvoicesDD" : {
             "type" : "ProjectionScan",
             "fields" : [
             "invoiceId", "date"
@@ -36,8 +36,8 @@
             "fields" : [
             "invoiceId", "date"
             ]
-        },*/
-        /*"projectItemsDD" : {
+        },
+        "projectItemsDD" : {
             "type" : "ProjectionScan",
             "fields" : [
             "invoiceId","itemId", "price"
@@ -48,7 +48,7 @@
             "fields" : [
             "invoiceId","itemId", "price"
             ]
-        },*/
+        },
         "joinDD": {
             "type":"JoinScan",
             "predicates": [{
@@ -103,14 +103,14 @@
         }
     },
     "edges" : [ 
-    ["load1",/* "projectInvoices"], ["projectInvoices",*/ "join"],
-    ["load2",/* "projectItems"], ["projectItems",*/ "join"],
+    ["load1", "projectInvoices"], ["projectInvoices", "join"],
+    ["load2", "projectItems"], ["projectItems", "join"],
     ["join", "hashDate"], 
     ["hashDate", "groupByDate"], ["join", "groupByDate"],
     ["groupByDate", "sortByDate"],
     
-    ["load1DD", /*"projectInvoicesDD"], ["projectInvoicesDD",*/ "joinDD"],
-    ["load2DD", /*"projectItemsDD"], ["projectItemsDD",*/"joinDD"],
+    ["load1DD", "projectInvoicesDD"], ["projectInvoicesDD", "joinDD"],
+    ["load2DD", "projectItemsDD"], ["projectItemsDD","joinDD"],
     ["joinDD", "hashDateDD"], 
     ["hashDateDD", "groupByDateDD"], ["joinDD", "groupByDateDD"],
     ["groupByDateDD", "sortByDateDD"]]
