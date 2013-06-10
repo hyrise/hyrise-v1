@@ -27,9 +27,3 @@ make config
 make -j8
 sudo make install
 cd ..
-
-tar zxf hwloc-1.6.tar.gz
-cd hwloc-1.6
-chmod +x configure
-./configure && make 
-sudo make install
