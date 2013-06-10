@@ -121,7 +121,6 @@ void RequestParseTask::operator()() {
           task->setSessionId(sessionId);
           task->setPlanId(final_hash);
           task->setTransactionId(tid);
-          task->setId(tid);
 	  _responseTask->registerPlanOperation(task);
           if (!task->hasSuccessors()) {
             // The response has to depend on all tasks, ie. we don't want to respond

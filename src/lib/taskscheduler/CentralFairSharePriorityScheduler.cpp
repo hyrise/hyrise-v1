@@ -32,10 +32,13 @@ void CentralFairSharePriorityScheduler::schedule(std::shared_ptr<Task> task){
     // set dynamic priority for task and schedule
     task->setPriority(__sync_fetch_and_add(&_dynPriorities[ret->second],0));
     task->setSessionId(ret->second);
+    task->setId(_epoch);
+
 
     //update activity
     std::lock_guard<std::mutex> lk(_activityMutex);
     _userActivity[ret->second] = get_epoch_nanoseconds();
+
   }
 
   // addDoneObserver to get task execution time
@@ -62,6 +65,7 @@ void CentralFairSharePriorityScheduler::notifyReady(std::shared_ptr<Task> task) 
     // set dynamic priority for task and schedule
     task->setPriority(__sync_fetch_and_add(&_dynPriorities[ret->second],0));
     task->setSessionId(ret->second);
+    task->setId(_epoch);
   }
 
   CentralPriorityScheduler::notifyReady(task);
@@ -71,7 +75,8 @@ void CentralFairSharePriorityScheduler::notifyDone(std::shared_ptr<Task> task){
   {
     //update activity
     std::lock_guard<std::mutex> lk(_activityMutex);
-    _userActivity[task->getSessionId()] = get_epoch_nanoseconds();
+    if(task->getSessionId()!= Task::SESSION_ID_NOT_SET)
+      _userActivity[task->getSessionId()] = get_epoch_nanoseconds();
   }
   /*
 
@@ -161,20 +166,21 @@ void CentralFairSharePriorityScheduler::updateDynamicPriorities(){
       ws =  total_work == 0 ? 0 : (double)work[i]/total_work;
       // calculate smoothed workshare
       ts = (double)_extPriorities[i]/_totalPriorities;
-
+      /*
       double newSmoothedWorkShares;
       newSmoothedWorkShares = _smoothedWorkShares[i] == 0 ? ws : (double)ws*DATA_SMOOTHING_FACTOR + (double)(1-DATA_SMOOTHING_FACTOR)*(_smoothedWorkShares[i]+_trendWorkShares[i]);
       _trendWorkShares[i] = _smoothedWorkShares[i] == 0 ? 0 : (double)TREND_SMOOTHING_FACTOR*(newSmoothedWorkShares- _smoothedWorkShares[i]) + (double)(1-TREND_SMOOTHING_FACTOR)*_trendWorkShares[i];
       _smoothedWorkShares[i] = newSmoothedWorkShares;
 
-      shares[i] = std::make_pair((ts - _smoothedWorkShares[i])/ts, i);
-     // shares[i] = std::make_pair((ts - _averageWorkShares[i].add(ws))/ts, i);
+      shares[i] = std::make_pair((ts - _smoothedWorkShares[i]), i);
+*/
+      shares[i] = std::make_pair((ts - _averageWorkShares[i].add(ws))/ts, i);
     }
     else{
       ts = (double)_extPriorities[i]/_totalPriorities;
       ws = ts;
-      _smoothedWorkShares[i] = ws;
-      //_averageWorkShares[i].add(ws);
+      //_smoothedWorkShares[i] = ws;
+      _averageWorkShares[i].add(ws);
       shares[i] = std::make_pair(0, i);
     }
 
@@ -188,17 +194,30 @@ void CentralFairSharePriorityScheduler::updateDynamicPriorities(){
   }
   // sort by share deviation
   std::sort(shares.begin(), shares.end());
-  // assign priorities
-  for(int i = 0; i < _sessions; i++){
-    // atomically set the dynamic priority according to the sort order
-    __sync_lock_test_and_set(&_dynPriorities[shares[i].second],_sessions + Task::HIGH_PRIORITY - i);
+  if(total_work != 0){
+    // assign priorities
+    for(int i = 0; i < _sessions; i++){
+      // atomically set the dynamic priority according to the sort order
+      __sync_lock_test_and_set(&_dynPriorities[shares[i].second],_sessions + Task::HIGH_PRIORITY - i);
+    }
+  }
+  else{
+    for(int i = 0; i < _sessions; i++){
+      // atomically set the dynamic priority according to the sort order
+      __sync_lock_test_and_set(&_dynPriorities[shares[i].second],Task::HIGH_PRIORITY + 1);
+    }
   }
 
-  /*
+  _epoch++;
+
+
+
   std::cout << "updateDynmicPriorities -> print statistics" << std::endl;
+  std::cout << "active users " << activeUsers << std::endl;
   std::cout << "\t_workMap  -  total work:" << total_work << std::endl;
   for(int i = 0; i < _sessions; i++){
-    std::cout << "\t\tsession: " << _workMap.find(i)->first << " work: " <<  work[i] << std::endl;
+    if(total_work > 0)
+      std::cout << "\t\tsession: " << _workMap.find(i)->first << " work: " <<  work[i] << " work share in interval " << (double)work[i]/total_work<< std::endl;
   }
   std::cout << "\tprios  - total prios:" << _totalPriorities << std::endl;
   for(int i = 0; i < _sessions; i++){
@@ -209,7 +228,7 @@ void CentralFairSharePriorityScheduler::updateDynamicPriorities(){
   for(int i = 0; i < _sessions; i++){
     //total_work == 0 ? ws = 0 : ws = (double)work[i]/total_work;
     ts = (double)_extPriorities[i]/_totalPriorities;
-    std::cout << "\t\tsession: " << i << " ws: " << _smoothedWorkShares[i] <<  " ts: " << ts << std::endl;
+    std::cout << "\t\tsession: " << i << " ws: " << _averageWorkShares[i].getAverage() <<  " ts: " << ts << std::endl;//_smoothedWorkShares[i]
   }
   std::cout << "\tshare devaition" << std::endl;
   for(int i = 0; i < _sessions; i++){
@@ -219,7 +238,7 @@ void CentralFairSharePriorityScheduler::updateDynamicPriorities(){
   std::cout << "\tuser activity" << std::endl;
   for(int i = 0; i < _sessions; i++){
     std::cout << "\t\tsession: " << shares[i].second << " useractivity: " << _userActivity[i]  << std::endl;
-  }*/
+  }
 
 }
 
@@ -236,8 +255,6 @@ void CentralFairSharePriorityScheduler::addSession(int session, int priority){
     _totalPriorities += priority;
     __sync_fetch_and_add( &_extPriorities[internal_session_id], priority);
 
-    // add to workMap with WorkShare equal
-
     // calculate work according to priority
     double work = (double)(priority/_totalPriorities) *_totalWork;
 
@@ -249,8 +266,17 @@ void CentralFairSharePriorityScheduler::addSession(int session, int priority){
       ret->second = work;
     _totalWork += work;
 
+    //set work to zero (to ensure equal priorities at start up)
+    for(int i = 0; i < _sessions; i++){
+      _averageWorkShares[i].reset();
+    }
+
+    bool expected = false;
     // update Priorities
-    updateDynamicPriorities();
+    if(_isUpdatingPrios.compare_exchange_strong(expected,true)){
+      updateDynamicPriorities();
+      _isUpdatingPrios = false;
+    }
   }
 }
 

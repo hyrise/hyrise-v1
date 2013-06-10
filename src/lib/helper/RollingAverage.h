@@ -30,6 +30,17 @@ public:
 		_oldest = (_oldest + 1) % _sample_size;
 		return _total/_sample.size();
 	}
+	void set(T value){
+	  for(size_t i = 0; i < _sample_size; i++)
+	    add(value);
+	}
+
+	void reset(){
+	  _sample.clear();
+	  _oldest = 0;
+	  _total = 0;
+	}
+
 	void clear(){
 		_total = 0;
 		_sample.clear();

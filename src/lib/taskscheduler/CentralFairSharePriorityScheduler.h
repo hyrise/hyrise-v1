@@ -25,10 +25,10 @@ using std::vector;
 class CentralFairSharePriorityScheduler : public CentralPriorityScheduler, TaskDoneObserver {
   static const int MAX_SESSIONS = 1000;
   //static const int AVERAGE_SAMPLE_SIZE = 100;
-  static const uint64_t PRIO_UPDATE_INTERVALL = 100000000;
-  static const int INACTIVE_USER_INTERVALL = 5;
+  static const uint64_t PRIO_UPDATE_INTERVALL = 200000000;
+  static const int INACTIVE_USER_INTERVALL = 20;
   // weighs importance of last interval
-  static constexpr double DATA_SMOOTHING_FACTOR = 0.01;
+  static constexpr double DATA_SMOOTHING_FACTOR = 0.1;
   static constexpr double TREND_SMOOTHING_FACTOR = 0.0;
   // maps internal session id to work done so far
   AtomicHashMap<int,int64_t> _workMap;
@@ -58,6 +58,7 @@ class CentralFairSharePriorityScheduler : public CentralPriorityScheduler, TaskD
   std::atomic<epoch_t> _lastUpdatePrios;
   // mutex to avoid duplicate sessions
   std::mutex _addSessionMutex;
+  std::atomic<int> _epoch;
 
   int64_t calculateTotalWork(OutputTask::performance_vector& perf_vector);
 
@@ -72,13 +73,14 @@ public:
                                                                       _trendWorkShares(MAX_SESSIONS,0),
                                                                       _userActivity(MAX_SESSIONS,0),
                                                                       _isOnlyUser(MAX_SESSIONS, 0),
-                                                                      _averageWorkShares(MAX_SESSIONS, RollingAverage<float>(1000)),
+                                                                      _averageWorkShares(MAX_SESSIONS, RollingAverage<float>(50)),
                                                                       _sessionMap(MAX_SESSIONS),
                                                                       _totalWork(0),
                                                                       _totalPriorities(0),
                                                                       _sessions(0),
                                                                       _isUpdatingPrios(false),
-                                                                      _lastUpdatePrios(0){
+                                                                      _lastUpdatePrios(0),
+                                                                      _epoch(0){
   };
   virtual ~CentralFairSharePriorityScheduler(){ };
   void schedule(std::shared_ptr<Task> task);
