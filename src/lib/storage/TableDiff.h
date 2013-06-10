@@ -22,7 +22,7 @@ public:
   bool compare(const RelationEqType eqType = RelationEq) const;
   bool equal() const;
   bool equalSorted() const;
-  bool schemesMatched() const;
+  bool schemasMatched() const;
   bool rowsMatched() const;
   bool rowsMatchedSorted() const;
 

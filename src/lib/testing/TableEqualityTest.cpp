@@ -5,7 +5,7 @@
 #include <storage/TableDiff.h>
 #include <storage/PrettyPrinter.h>
 
-std::string schemeErrors(TableDiff diff, const char* relationName, tblptr table) {
+std::string schemaErrors(TableDiff diff, const char* relationName, tblptr table) {
   std::vector<std::string> fieldError, fieldTypeError;
   std::stringstream buf;
 
@@ -95,8 +95,8 @@ std::string rowPositionErrors(TableDiff diff, const char* baseRelationName, cons
   buf << "\"" << left_exp << "\""
       << "is not an equal relation to"
       << "\"" << right_exp << "\":" << std::endl
-      << schemeErrors(resultL2R, left_exp, left)
-      << schemeErrors(resultR2L, right_exp, right)
+      << schemaErrors(resultL2R, left_exp, left)
+      << schemaErrors(resultR2L, right_exp, right)
       << rowErrors(resultL2R, left_exp, right_exp)
       << rowErrors(resultR2L, right_exp, left_exp);
 
@@ -136,8 +136,8 @@ std::string rowPositionErrors(TableDiff diff, const char* baseRelationName, cons
   buf << "\"" << left_exp << "\""
       << "is not an equal sorted relation to"
       << "\"" << right_exp << "\"" << std::endl
-      << schemeErrors(resultL2R, left_exp, left)
-      << schemeErrors(resultR2L, right_exp, right)
+      << schemaErrors(resultL2R, left_exp, left)
+      << schemaErrors(resultR2L, right_exp, right)
       << rowErrors(resultL2R, left_exp, right_exp)
       << rowErrors(resultR2L, right_exp, left_exp)
       << rowPositionErrors(resultL2R, left_exp, right_exp);

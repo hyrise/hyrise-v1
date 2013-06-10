@@ -52,7 +52,7 @@ bool line_equal(const AbstractTable* const left,
   return true;
 }
 
-std::map<field_t, field_t> compareSchemes(const AbstractTable* const left,
+std::map<field_t, field_t> compareSchemas(const AbstractTable* const left,
                                                      const AbstractTable* const right) {
   std::map<field_t, field_t> m;
   for (field_t col_left = 0; col_left < left->columnCount(); col_left++) {
@@ -76,13 +76,13 @@ bool TableDiff::compare(const TableDiff::RelationEqType eqType) const {
   return false; //connot happen but there is a compiler warning
 }
 bool TableDiff::equal() const {
-  return rowsMatched() && schemesMatched();
+  return rowsMatched() && schemasMatched();
 }
 bool TableDiff::equalSorted() const {
-  return rowsMatchedSorted() && schemesMatched();
+  return rowsMatchedSorted() && schemasMatched();
 }
 
-bool TableDiff::schemesMatched() const {
+bool TableDiff::schemasMatched() const {
   for (auto i = fields.begin(); i != fields.end(); i++)
     if (*i != TableDiff::FieldCorrect)
       return false;
@@ -104,7 +104,7 @@ TableDiff TableDiff::diffTables(const AbstractTable* const left,
   std::vector<bool>
             seen_right(right->size(), false);
 
-  auto mapFields = compareSchemes(left ,right);
+  auto mapFields = compareSchemas(left ,right);
 
   //compare relation scheme
   diff.fields.resize(left->columnCount(), TableDiff::FieldWrong);
