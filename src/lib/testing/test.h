@@ -55,6 +55,7 @@ class StorageManagerTest : public Test {
 namespace access {
 
 class AccessTest : public Test {
+ public:
   virtual void SetUp() {
     StorageManager *sm = StorageManager::getInstance();
     sm->removeAll();

@@ -10,7 +10,10 @@ namespace access {
 
 class IndexScanTests : public AccessTest {
 public:
-  IndexScanTests() {
+  IndexScanTests() {}
+
+  virtual void SetUp() {
+    AccessTest::SetUp();
     t = Loader::shortcuts::load("test/index_test.tbl");
     CreateIndex ci;
     ci.addInput(t);

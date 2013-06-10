@@ -57,6 +57,8 @@ public:
   DataType typeOfColumn(const size_t column) const;
   size_t columnCount() const;
   std::string nameOfColumn(const size_t column) const;
+
+  virtual void debugStructure(size_t level=0) const;
 };
 
 #endif /* TABLERANGEVIEW_H_ */

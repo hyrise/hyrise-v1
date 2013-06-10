@@ -242,3 +242,9 @@ const attr_vectors_t MutableVerticalTable::getAttributeVectors(size_t column) co
   return containerAt(column)->getAttributeVectors(offset_in_container[column]);
 }
 
+void MutableVerticalTable::debugStructure(size_t level) const {
+  std::cout << std::string(level, '\t') << "MutableVerticalTable" << this << std::endl;
+  for(const auto& c: containers) {
+    c->debugStructure(level+1);
+  }
+}

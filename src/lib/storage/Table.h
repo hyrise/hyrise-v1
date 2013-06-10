@@ -156,6 +156,10 @@ for (const auto & m: _metadata) {
     attr_vector_offset_t t { tuples, column};
     return { t };
   }
+
+  virtual void debugStructure(size_t level=0) const {
+    std::cout << std::string(level, '\t') << "Table " << this << std::endl;
+  }
 };
 
 #include "Table-impl.h"
