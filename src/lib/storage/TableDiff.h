@@ -27,7 +27,8 @@ public:
   bool rowsMatchedSorted() const;
 
   static TableDiff diffTables(const AbstractTable* const left,
-                              const AbstractTable* const right);
+                              const AbstractTable* const right,
+                              const bool schema_only = true);
 
 
   std::vector<FieldCorrectness> fields;

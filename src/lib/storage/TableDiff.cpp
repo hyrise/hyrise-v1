@@ -98,7 +98,8 @@ bool TableDiff::rowsMatched() const {
 
 
 TableDiff TableDiff::diffTables(const AbstractTable* const left,
-                                const AbstractTable* const right) {
+                                const AbstractTable* const right,
+                                const bool schema_only) {
   TableDiff diff;
 
   std::vector<bool>
@@ -119,27 +120,28 @@ TableDiff TableDiff::diffTables(const AbstractTable* const left,
     if (diff.fields[i] != FieldCorrect)
       mapFields.erase(i);
   
-  //compare rows
-  for (size_t line_left = 0; line_left < left->size(); ++line_left) {
-    bool foundMatch = false;
-    for (size_t line_right = 0; line_right < right->size(); ++line_right) {
-      // let's not check lines that have already been marked as seen
-      if (seen_right[line_right])
-        continue;
+  if (!schema_only) {
+    //compare rows
+    for (size_t line_left = 0; line_left < left->size(); ++line_left) {
+      bool foundMatch = false;
+      for (size_t line_right = 0; line_right < right->size(); ++line_right) {
+        // let's not check lines that have already been marked as seen
+        if (seen_right[line_right])
+          continue;
 
-      if (line_equal(left, right, line_left, line_right, mapFields)) {
-        seen_right[line_right] = true;
-        if (line_left != line_right)
-          diff.falsePositionRows[line_left]=line_right;
-        foundMatch = true;
-        break;
+        if (line_equal(left, right, line_left, line_right, mapFields)) {
+          seen_right[line_right] = true;
+          if (line_left != line_right)
+            diff.falsePositionRows[line_left]=line_right;
+          foundMatch = true;
+          break;
+        }
+      }
+      if (!foundMatch) {
+        diff.wrongRows.push_back(line_left);
       }
     }
-    if (!foundMatch) {
-      diff.wrongRows.push_back(line_left);
-    }
   }
-
   return diff;
 }
 
