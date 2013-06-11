@@ -22,7 +22,7 @@ This database provides the implementation to the above mentioned ideas.
 
 This system is a research prototype and by no means meant to be used in
 production use and we cannot guarantee that it will work in such environments.
-The goal of an early version of HYRISe was to show that for in-memory databases
+The goal of an early version of HYRISE was to show that for in-memory databases
 the flexibility to choose from different physical layouts is of great
 importance. In addition, this system should provide the necessary framework for
 teaching advanced database techniques to students in an undergraduate and
@@ -48,45 +48,36 @@ Master status: [![Build Status](https://travis-ci.org/hyrise/hyrise.png?branch=m
 
 ## Installation
 
-Currently only Linux systems are supported. Mac OS X could work, but you will
-need a more recent compiler than GCC 4.2. Best is to update the compiler using
-the homebrew-dupes repository.
+Supported (actively tested through CI and in development) systems:
 
-Other than that standard build environment should suffice.
+* Ubuntu (>13.04)
 
-### Automatic Dependency Installation
+Likely supported:
+
+* MacOSX 10.7
+
+HYRISE expects a C++11-capable compiler. We recommend g++ >=4.7, but testing is done against g++ 4.6, g++ 4.7, g++ 4.8 and clang 3.2.
+
+### Development Environment Setup
 
 #### Vagrant
 
-Using vagrant and VirtualBox you can have a fully working HYRISE development
-setup in the matter of minutes without having to worry about anything. This is
-currently our recommendation to setup. If you have installed VirtualBox and Vagrant you should be able to run the init script simply by calling
+Using [VirtualBox](http://virtualbox.org) and [Vagrant](http://vagrantup.com), you can automatically setup a HYRISE development environment. (This is the recommended way of getting started with HYRISE development).
 
-    vagrant up 
-
-from the command line.
+Check out [this repository](https://github.com/hyrise/hyrise_puppet/) to easily setup a development VM.
 
 #### Ubuntu
 
-If you are on Ubuntu it should be sufficient to run the `install.sh` script from the `tools/autosetup` folder. 
+It should be sufficient to run the `install.sh` script from the `tools/autosetup` folder.
   
 ## Building
 
-To start the build you will only need to execute a simple command line command
-to start. The given make file provides all necessary targets. First check if
-all submodules are initialized correctly.
+First check if all submodules are initialized correctly:
 
     git submodule init --update
 
-Now copy the file `settings.mk.default` to `settings.mk` and if necessary
-modify settings to start the build. The most prominent one is `PRODUCTION` to
-disable the debug build and `HYRISE_ALLOCATOR` for using `tcmalloc` or
-`jemalloc` instead of the libc allocator.
-
-Now copy the file `settings.mk.default` to `settings.mk` and if necessary
-modify settings to start the build. The most prominent one is `PRODUCTION` to
-disable the debug build and `HYRISE_ALLOCATOR` for using `tcmalloc` or
-`jemalloc` instead of the libc allocator.
+To start the build you will only need to execute a simple command line command
+to start. The given make file provides all necessary targets. 
 
 A simple build is executed by
 
@@ -96,24 +87,41 @@ To build and execute the test suites using predefined tables issue
 
     make test
 
-The smaller test-suite can be executed using
+### Build settings
 
-    make test_basic
+The build can be configured through a build settings file `settings.mk`.
+
+Copy the file `settings.mk.default` to `settings.mk` and if necessary
+modify settings. The most prominent one is `PRODUCTION` to
+disable the debug build and `HYRISE_ALLOCATOR` for using `tcmalloc` or
+`jemalloc` instead of the libc allocator.
+
+To enable an optimized production build with g++-4.8, a `settings.mk` file 
+may look as follows:
+
+    COMPILER := g++48
+    PRODUCTION := 1
+
+When the settings file has been changed, running `make` should result in a
+complete rebuild of HYRISE.
+
+More options are discussed in the documentation.
 
 ## Documentation
 
 The project provides some documentation about how to develop and use HYRISE.
-The documentation can be build using.
+The documentation can be build using:
 
     make docs
 
 The documentation contains information about how to use HYRISE and how to
-implement own plan operations and table types etc. If you have any questions
-feel free to post in
+implement own plan operations and table types etc. 
+
+## Mailing list
+
+If you have any questions feel free to post on the developer mailing list:
 
     hyrise-dev@googlegroups.com
-
-To contact fellow hyrise developers.
 
 ## How to Contribute
 
@@ -128,7 +136,6 @@ If you have any questions feel free to contact the maintainers
   * Johannes Wust ([@jwust](https://github.com/jwust))
   * David Schwalb ([@schwald](https://github.com/schwald))
   * Sebastian Hillig ([@bastih]((https://github.com/bastih))
-
 
 ## Contributers
 
@@ -169,9 +176,8 @@ alphabetical order :)
 
 HYRISE is licensed as open source after the OpenSource "Licence of the Hasso-Plattner Institute" declared in the LICENSE file of this project. 
 
-Question: Why does HYRISE not use MIT or BSD or XX license. The reason for our
-approach comes with the German copyright law. Common BSD and MIT licenses are
-not necessarily compatible and thus can potentially lead to problems. To
-overcome this problem this project uses an specifically designed open source
-license to be compatible with German law. The most prominent difference is the
-exclusion of all liabilities which is not possible in Germany.
+## FAQ 
+
+### Why does HYRISE not use MIT or BSD or XX license?
+
+The reasoning stems from German copyright law. Common BSD and MIT licenses are not necessarily compatible with liability issues in German copyright legislation. Thus, HYRISE uses an specifically designed open source license deemed compatible with German law. The most prominent difference between our license and commonly used BSD or MIT is the inclusion of certain liabilities as dictated by German copyright law.
