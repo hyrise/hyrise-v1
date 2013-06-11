@@ -106,6 +106,8 @@ public:
    */
   void setMerger(TableMerger *_merger);
 
+  void setDefaultMerger();
+
   /**
    * Sets the delta table.
    *
