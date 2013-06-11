@@ -12,11 +12,18 @@ public:
   virtual ~InsertScan();
 
   void executePlanOperation();
-  const std::string vname();
+
   void setInputData(const storage::atable_ptr_t &c);
 
+  static std::shared_ptr<_PlanOperation> parse(Json::Value &data);
+
 private:
+  
+	storage::atable_ptr_t buildFromJson();
+
   storage::atable_ptr_t _data;
+
+  std::vector<std::vector<Json::Value>> _raw_data;
 };
 
 }
