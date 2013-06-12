@@ -108,9 +108,11 @@ class QueryParser {
   }
   
   std::shared_ptr<_PlanOperation> parse(std::string name, Json::Value d);
-
+  
   static QueryParser &instance();
 
+  std::vector<std::string> getOperationNames() const;
+  
   /*  Main method. Builds and returns executable _PlanOperation tasks based on the
       query's specifications and constructs their dependency graph. The task
       delivering the final result will be determined, too.   */
