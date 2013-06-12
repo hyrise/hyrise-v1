@@ -8,7 +8,7 @@
 
 #include <helper/types.h>
 #include <storage/AbstractTable.h>
-#include <access/PlanOperation.h>
+#include <access/system/PlanOperation.h>
 #include <storage/PointerCalculatorFactory.h>
 
 template <typename T>

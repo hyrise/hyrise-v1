@@ -3,7 +3,7 @@
 #define SRC_LIB_ACCESS_INSERTONYLOPERATORS_H_
 
 #include "helper/types.h"
-#include "access/PlanOperation.h"
+#include "access/system/PlanOperation.h"
 
 namespace hyrise {
 namespace insertonly {

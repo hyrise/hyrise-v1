@@ -2,8 +2,8 @@
 #ifndef SRC_LIB_ACCESS_SIMPLETABLESCAN_H_
 #define SRC_LIB_ACCESS_SIMPLETABLESCAN_H_
 
-#include "access/PlanOperation.h"
-#include "access/pred_SimpleExpression.h"
+#include "access/system/PlanOperation.h"
+#include "access/expressions/pred_SimpleExpression.h"
 
 namespace hyrise {
 namespace access {

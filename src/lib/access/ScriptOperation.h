@@ -3,7 +3,7 @@
 #define SRC_LIB_ACCESS_SCRIPTOPERATION_H_
 
 
-#include "access/PlanOperation.h"
+#include "access/system/PlanOperation.h"
 
 #ifdef WITH_V8
 #include <v8.h>

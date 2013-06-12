@@ -2,7 +2,7 @@
 #ifndef SRC_LIB_ACCES_MULTIPLYREFFIELD_H
 #define SRC_LIB_ACCES_MULTIPLYREFFIELD_H
 
-#include "access/PlanOperation.h"
+#include "access/system/PlanOperation.h"
 
 #include "storage/ColumnMetadata.h"
 #include "storage/MutableVerticalTable.h"

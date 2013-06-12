@@ -2,9 +2,9 @@
 #ifndef SRC_LIB_ACCESS_MERGEJOIN_HPP_
 #define SRC_LIB_ACCESS_MERGEJOIN_HPP_
 
-#include "access/PlanOperation.h"
+#include "access/system/PlanOperation.h"
 
-#include "access/predicates.h"
+#include "access/expressions/predicates.h"
 
 #include "storage/AbstractTable.h"
 #include "storage/MutableVerticalTable.h"

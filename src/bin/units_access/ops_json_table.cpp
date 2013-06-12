@@ -3,7 +3,7 @@
 #include "helper.h"
 #include "testing/TableEqualityTest.h"
 
-#include "access/JsonTable.h"
+#include "access/storage/JsonTable.h"
 
 #include <storage/Store.h>
 #include "io/shortcuts.h"
