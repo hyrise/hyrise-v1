@@ -1,7 +1,7 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "access/LayoutTableLoad.h"
 
-#include "access/QueryParser.h"
+#include "access/system/QueryParser.h"
 
 #include "helper/stringhelpers.h"
 

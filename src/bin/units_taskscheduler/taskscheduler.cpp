@@ -8,8 +8,8 @@
 #include "testing/test.h"
 
 #include "access/NoOp.h"
-#include "access/TaskSchedulerAdjustment.h"
-#include "access/PlanOperation.h"
+#include "access/system/TaskSchedulerAdjustment.h"
+#include "access/system/PlanOperation.h"
 #include "io/TransactionManager.h"
 #include "taskscheduler/SimpleTaskScheduler.h"
 #include "taskscheduler/SharedScheduler.h"

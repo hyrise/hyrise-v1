@@ -1,5 +1,5 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#include "access/SetTable.h"
+#include "access/storage/SetTable.h"
 #include "io/shortcuts.h"
 #include "testing/test.h"
 

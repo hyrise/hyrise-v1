@@ -3,7 +3,7 @@
 
 #include <algorithm>
 
-#include "access/QueryParser.h"
+#include "access/system/QueryParser.h"
 
 #include "storage/AbstractTable.h"
 #include "storage/PointerCalculator.h"

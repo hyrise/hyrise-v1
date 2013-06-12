@@ -2,7 +2,7 @@
 #ifndef SRC_LIB_ACCESS_INDEX_SCAN
 #define SRC_LIB_ACCESS_INDEX_SCAN
 
-#include "access/PlanOperation.h"
+#include "access/system/PlanOperation.h"
 
 namespace hyrise {
 namespace access {

@@ -2,7 +2,7 @@
 #include "access/ExpressionScan.h"
 
 #include "access/default_strategy.h"
-#include "access/QueryParser.h"
+#include "access/system/QueryParser.h"
 
 #include "storage/MutableVerticalTable.h"
 #include "storage/Table.h"

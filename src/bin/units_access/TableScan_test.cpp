@@ -1,8 +1,8 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "testing/test.h"
 #include "access/TableScan.h"
-#include "access/pred_EqualsExpression.h"
-#include "access/pred_CompoundExpression.h"
+#include "access/expressions/pred_EqualsExpression.h"
+#include "access/expressions/pred_CompoundExpression.h"
 #include "io/shortcuts.h"
 
 namespace hyrise { namespace access {

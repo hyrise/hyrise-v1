@@ -1,8 +1,8 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "access/ProjectionScan.h"
 
-#include "access/QueryParser.h"
-#include "access/BasicParser.h"
+#include "access/system/QueryParser.h"
+#include "access/system/BasicParser.h"
 
 #include "storage/storage_types.h"
 #include "storage/PointerCalculator.h"

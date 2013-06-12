@@ -1,5 +1,5 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#include "access/TableUnload.h"
+#include "access/storage/TableUnload.h"
 #include "io/shortcuts.h"
 #include "testing/test.h"
 
