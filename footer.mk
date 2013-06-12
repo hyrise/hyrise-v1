@@ -44,9 +44,11 @@ $(lib): $(objects)
 	$(call echo_cmd,LINK $@) $(LD) $(SHARED_LIB) -o $@ $(objects) $(LINKER_FLAGS) $(lib_dependencies) $(linker_dir_flags)
 
 %.cpp.o: %.cpp $(makefiles) $(precompiled_header) 
+	mkdir -p $(@D)
 	$(call echo_cmd,CXX $<) $(CXX) -MMD -MP $(CXX_BUILD_FLAGS) $(include_flags) -Winvalid-pch -include $(precompiled_header_source) -c -o $@ $< 
 
 %.c.o: %.c $(makefiles)
+	mkdir -p $(@D)
 	$(call echo_cmd,CC $<) $(CC) -MMD -MP $(CC_BUILD_FLAGS) $(include_flags) -c -o $@ $< 
 
 clean::
