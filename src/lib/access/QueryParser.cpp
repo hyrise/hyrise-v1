@@ -3,7 +3,7 @@
 
 #include "io/StorageManager.h"
 #include "access/PlanOperation.h"
-
+#include "helper/vector_helpers.h"
 
 QueryParser::QueryParser() {
 }
@@ -114,6 +114,14 @@ std::shared_ptr<_PlanOperation> QueryParser::parse(std::string name, Json::Value
   return op;
 }
 
+
+std::vector<std::string> QueryParser::getOperationNames() const {
+  std::vector<std::string> result;
+  for (const auto& p: _factory) {
+    result.push_back(p.first);
+  }
+  return result;
+}
 
 QueryParser &QueryParser::instance() {
   static QueryParser p;
