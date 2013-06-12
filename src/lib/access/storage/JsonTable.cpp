@@ -34,7 +34,7 @@ struct set_string_value_functor {
 	size_t row;
 	std::string val;
 
-	set_string_value_functor(hyrise::storage::atable_ptr_t& t): tab(t), col(0), row(0) {
+	set_string_value_functor(hyrise::storage::atable_ptr_t t): tab(t), col(0), row(0) {
 	}
 
 	inline void set(size_t c, size_t r, std::string& v) {
@@ -69,10 +69,14 @@ void JsonTable::executePlanOperation() {
 	// Add the rows if any
 	size_t rows = _data.size();
 	if (rows > 0 ) {
-		result->resize(rows);
+
+		if (_useStoreFlag)
+			std::dynamic_pointer_cast<Store>(result)->getDeltaTable()->resize(rows);
+		else
+			result->resize(rows);
 
 
-		set_string_value_functor fun(result);
+		set_string_value_functor fun(_useStoreFlag ? std::dynamic_pointer_cast<Store>(result)->getDeltaTable() : result);
 		hyrise::storage::type_switch<hyrise_basic_types> ts;
 
 		for(size_t i=0; i < rows; ++i) {
