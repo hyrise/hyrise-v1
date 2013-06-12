@@ -1,7 +1,7 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "access/SimpleRawTableScan.h"
 
-#include "access/pred_buildExpression.h"
+#include "access/expressions/pred_buildExpression.h"
 
 #include "storage/meta_storage.h"
 #include "storage/PointerCalculator.h"

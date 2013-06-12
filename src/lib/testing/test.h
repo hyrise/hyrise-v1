@@ -5,7 +5,7 @@
 #include <gtest/gtest.h>
 
 #include "testing/base_test.h"
-#include "access/PlanOperation.h"
+#include "access/system/PlanOperation.h"
 #include "io/StorageManager.h"
 
 #include "helper/types.h"

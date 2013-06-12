@@ -2,11 +2,11 @@
 #ifndef SRC_LIB_ACCESS_JOINSCAN_H_
 #define SRC_LIB_ACCESS_JOINSCAN_H_
 
-#include "access/PlanOperation.h"
+#include "access/system/PlanOperation.h"
 
 #include <stack>
 
-#include "access/predicates.h"
+#include "access/expressions/predicates.h"
 #include "helper/types.h"
 
 
