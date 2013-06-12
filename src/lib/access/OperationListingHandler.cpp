@@ -3,7 +3,7 @@
 #include "json.h"
 #include "net/AsyncConnection.h"
 #include "net/AbstractConnection.h"
-#include "access/QueryParser.h"
+#include "access/system/QueryParser.h"
 
 namespace hyrise {
 namespace access {
