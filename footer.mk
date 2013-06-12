@@ -21,8 +21,8 @@ endif
 
 include_dirs += $(PROJECT_INCLUDE)
 linker_dirs += $(LINKER_DIR)
-sources ?= $(sort $(shell find $(src_dir) -type f -name "*.c" -or -name "*.cpp" -and -not -name ".*" | grep -v .skeleton.cpp$$ ))
-objects ?= $(subst $(src_dir)/,,$(subst .c,.o,$(subst .cpp,.o,$(sources))))
+sources ?= $(sort $(shell find $(src_dir) -type f -name "*.c" -or -name "*.cpp" -and -not -name ".*" ))
+objects ?= $(addsuffix .o,$(subst $(src_dir)/,,$(sources)))
 dependencies ?= $(subst .o,.d,$(objects))
 
 include_flags = $(addprefix -I, $(include_dirs))
@@ -43,14 +43,14 @@ $(bin): $(objects)
 $(lib): $(objects) 
 	$(call echo_cmd,LINK $@) $(LD) $(SHARED_LIB) -o $@ $(objects) $(LINKER_FLAGS) $(lib_dependencies) $(linker_dir_flags)
 
-%.o: %.cpp $(makefiles) $(precompiled_header)
+%.cpp.o: %.cpp $(makefiles) $(precompiled_header) 
 	$(call echo_cmd,CXX $<) $(CXX) -MMD -MP $(CXX_BUILD_FLAGS) $(include_flags) -Winvalid-pch -include $(precompiled_header_source) -c -o $@ $< 
 
-%.o: %.c $(makefiles)
+%.c.o: %.c $(makefiles)
 	$(call echo_cmd,CC $<) $(CC) -MMD -MP $(CC_BUILD_FLAGS) $(include_flags) -c -o $@ $< 
 
 clean::
-	-$(call echo_cmd,CLEAN $(bin)$(lib)) $(RM) -rf $(src_dir)/*.d $(src_dir)/*.o $(objects) $(dependencies) $(bin) $(lib) $(precompiled_header)
+	-$(call echo_cmd,CLEAN $(bin)$(lib)) $(RM) -rf $(objects) $(dependencies) $(bin) $(lib) $(precompiled_header)
 
 $(precompiled_header): $(precompiled_header_source) $(makefiles)
 	$(call echo_cmd,PRECOMPILING $<) $(CXX) $(CXX_BUILD_FLAGS) $(include_flags) $(precompiled_header_source)
