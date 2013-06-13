@@ -35,7 +35,7 @@ void Task::notifyDoneObservers() {
 	}
 }
 
-Task::Task(): _dependencyWaitCount(0), _preferredCore(NO_PREFERRED_CORE), _preferredNode(NO_PREFERRED_NODE), _priority(DEFAULT_PRIORITY), _id(0) {
+Task::Task(): _dependencyWaitCount(0), _preferredCore(NO_PREFERRED_CORE), _preferredNode(NO_PREFERRED_NODE), _priority(DEFAULT_PRIORITY), _sessionId(SESSION_ID_NOT_SET), _id(0) {
 }
 
 void Task::addDependency(std::shared_ptr<Task> dependency) {
