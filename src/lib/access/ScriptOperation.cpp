@@ -124,6 +124,39 @@ v8::Handle<v8::Value> Include(const v8::Arguments& args) {
     return v8::Undefined();
 }
 
+// Return the value Id for the Value given to this class, based on the type of
+// the argument call the right method
+v8::Handle<v8::Value> TableGetValueIdForValue(const v8::Arguments& args) {
+  v8::Isolate* isolate = v8::Isolate::GetCurrent();
+  v8::HandleScope handle_scope(isolate);
+
+  auto val = args[1];
+
+  auto tabId = args.Length() > 2 ? args[2]->Uint32Value() : 0u;
+
+
+  auto wrap = v8::Local<v8::External>::Cast(args.This()->GetInternalField(0));
+  void* ptr = wrap->Value();
+  auto tab = static_cast<AbstractTable*>(ptr);
+
+  if (val->IsNumber()) {
+
+    auto num = val->ToNumber();
+
+    return handle_scope.Close(
+        v8::Integer::New(
+          tab->getValueIdForValue<hyrise_int_t>(args[0]->Uint32Value(), val->IntegerValue(), false, tabId ).valueId
+        )
+      );
+  } else { // val == string 
+    v8::String::Utf8Value u(val->ToString());
+    return handle_scope.Close(
+        v8::Integer::New(
+          tab->getValueIdForValue<hyrise_string_t>(args[0]->Uint32Value(), *u, false, tabId ).valueId
+        )
+      );
+  }
+}
 
 // These are the wrapped functions of the abstract table
 v8::Handle<v8::Value> TableGetSize(const v8::Arguments& args) {
@@ -316,6 +349,11 @@ v8::Handle<v8::Value> AttributeVectorGet(const v8::Arguments& args) {
 }
 
 v8::Handle<v8::Value> AttributeVectorGetRange(const v8::Arguments& args) {
+
+  v8::Isolate* isolate = v8::Isolate::GetCurrent();
+  v8::HandleScope handle_scope(isolate);
+
+
   auto wrap = v8::Local<v8::External>::Cast(args.This()->GetInternalField(0));
   auto ptr = static_cast<AbstractAttributeVector*>(wrap->Value());
   auto casted = dynamic_cast<FixedLengthVector<value_id_t>*>(ptr);
@@ -326,15 +364,15 @@ v8::Handle<v8::Value> AttributeVectorGetRange(const v8::Arguments& args) {
 
   auto data = v8::Object::New();
 
-  std::vector<value_id_t> vids;
+  auto vids = new std::vector<value_id_t>();
   for(size_t i=row; i < stop; ++i) {
     auto vid = casted->get(col, i);
-    vids.push_back(vid);
+    vids->push_back(vid);
   }
 
   // FIXME: we have to make sure that data has no longer lifespan than data
-  data->SetIndexedPropertiesToExternalArrayData( &vids[0], v8::kExternalUnsignedIntArray, (stop-row));
-  return data;
+  data->SetIndexedPropertiesToExternalArrayData( vids->data(), v8::kExternalUnsignedIntArray, (stop-row));
+  return handle_scope.Close(data);
 }
 
 
@@ -417,6 +455,9 @@ v8::Local<v8::Object> wrapTable(std::shared_ptr<const T> table, size_t internal)
   templ->Set(v8::String::New("resize"), v8::FunctionTemplate::New(TableResize));
 
   templ->Set(v8::String::New("getAttributeVectors"), v8::FunctionTemplate::New(TableGetAttributeVectors));
+
+  // Map ValueIds to Values
+  templ->Set(v8::String::New("getValueIdForValue"), v8::FunctionTemplate::New(TableGetValueIdForValue));
 
   templ->SetAccessor(v8::String::New("_internalId"), GetInternalId, nullptr, v8::Integer::New(internal));
 
@@ -579,6 +620,19 @@ v8::Handle<v8::Array> ScriptOperation::prepareInputs() {
   return handle_scope.Close(result);
 }
 
+v8::Handle<v8::Object> ScriptOperation::prepareParameters() {
+  v8::Isolate* isolate = v8::Isolate::GetCurrent();
+  v8::HandleScope handle_scope(isolate);  
+
+  v8::Handle<v8::Object> templ = v8::Object::New();
+  for(auto& k : _parameters) {
+    const auto& kcstr = k.first.data();
+    const auto& vcstr = k.second.data();
+    templ->Set(v8::String::New(kcstr, k.first.size()), v8::String::New(vcstr, k.second.size()));
+  }
+  return handle_scope.Close(templ);
+}
+
 
 #endif
 
@@ -640,8 +694,8 @@ void ScriptOperation::executePlanOperation() {
     v8::Local<v8::Function> fun = v8::Local<v8::Function>::Cast(context->Global()->Get(v8::String::New("hyrise_run_op")));
     if (fun->IsFunction()) {
       // Call the plan op with the inputs we converted
-      v8::Handle<v8::Value> argv[] = {prepareInputs()};
-      auto result = v8::Local<v8::Object>::Cast(fun->Call(fun, 1, argv));
+      v8::Handle<v8::Value> argv[] = {prepareInputs(), prepareParameters()};
+      auto result = v8::Local<v8::Object>::Cast(fun->Call(fun, 2, argv));
       if (result.IsEmpty()) {
         throw std::runtime_error(*v8::String::Utf8Value(trycatch.Exception()));
       }
@@ -663,6 +717,12 @@ void ScriptOperation::executePlanOperation() {
 std::shared_ptr<_PlanOperation> ScriptOperation::parse(Json::Value &data) {
   auto op = std::make_shared<ScriptOperation>();
   op->setScriptName(data["script"].asString());
+
+
+  for(const auto& v : data.getMemberNames()) {
+    op->_parameters[v] = data[v].asString();
+  }
+
   return op;
 }
 
