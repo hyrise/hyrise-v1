@@ -26,6 +26,7 @@ class AbstractTaskQueue {
     TO_STOP = 3,
     STOPPED = 4,
   } queue_state;
+  // for gcc4.6 compatibility, as it does not support atomics of enums
   typedef int queue_status_t;
 
   virtual ~AbstractTaskQueue() {};

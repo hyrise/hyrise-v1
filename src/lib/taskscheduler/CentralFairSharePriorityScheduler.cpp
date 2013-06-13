@@ -15,7 +15,7 @@ bool registered  =
 }
 
 void CentralFairSharePriorityScheduler::schedule(std::shared_ptr<Task> task){
-  // if task arrives with highest priority, schedule -> this is currently used for RequestParseTask, as we do not have a session ID
+  // if task arrives with highest priority, schedule -> this is currently used for RequestParseTask, as we do not have a session ID prior to parsing the JSON
   if(task->isReady() && (task->getPriority() != Task::HIGH_PRIORITY)){
     int session = task->getSessionId();
     // check if session is already present
