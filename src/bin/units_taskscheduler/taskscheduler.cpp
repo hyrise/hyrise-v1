@@ -34,7 +34,7 @@ std::vector<std::string> getSchedulersToTest() {
   result.push_back("CentralPriorityScheduler");
   result.push_back("CoreBoundPriorityQueuesScheduler");
   result.push_back("WSCoreBoundPriorityQueuesScheduler");
-  result.push_back("CentralFairSharePriorityScheduler");
+  //  result.push_back("CentralFairSharePriorityScheduler");
 
   return result;
 }
