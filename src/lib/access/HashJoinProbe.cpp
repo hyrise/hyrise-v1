@@ -1,7 +1,7 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "access/HashJoinProbe.h"
 
-#include "access/QueryParser.h"
+#include "access/system/QueryParser.h"
 
 #include "storage/HashTable.h"
 #include "storage/PointerCalculator.h"

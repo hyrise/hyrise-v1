@@ -208,6 +208,11 @@ void Store::setMerger(TableMerger *_merger) {
   merger = _merger;
 }
 
+void Store::setDefaultMerger() {
+  auto merger = new TableMerger(new LogarithmicMergeStrategy(0), new SequentialHeapMerger());
+  setMerger(merger);
+}
+
 
 void Store::setDelta(hyrise::storage::atable_ptr_t _delta) {
   delta = _delta;
@@ -241,4 +246,12 @@ const attr_vectors_t Store::getAttributeVectors(size_t column) const {
   const auto& subtables = delta->getAttributeVectors(column);
   tables.insert(tables.end(), subtables.begin(), subtables.end());
   return tables;
+}
+
+void Store::debugStructure(size_t level) const {
+  std::cout << std::string(level, '\t') << "Store " << this << std::endl;
+  for (const auto& m: main_tables) {
+    m->debugStructure(level+1);
+  }
+  delta->debugStructure(level+1);
 }

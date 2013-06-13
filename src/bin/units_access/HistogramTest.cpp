@@ -1,5 +1,5 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#include "access/Histogram.h"
+#include "access/radixjoin/Histogram.h"
 
 #include "io/shortcuts.h"
 

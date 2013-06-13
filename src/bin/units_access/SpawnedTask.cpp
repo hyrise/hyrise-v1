@@ -4,7 +4,7 @@
 #include <thread>
 #include <random>
 
-#include "access/QueryParser.h"
+#include "access/system/QueryParser.h"
 
 namespace hyrise {
 namespace access {

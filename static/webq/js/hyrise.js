@@ -57,13 +57,14 @@ function runQuery() {
 			}
 
 			// Do the dot transformation
+			d = JSON.parse(d);
 			var performance = parsePerformanceData(d["performanceData"]);
 
 			$("#msg").append(" " + totalTime(d["performanceData"]) + "ms");
 
 			var svg = Viz(toDot(JSON.parse($("#txtquery").val()), performance), "svg");
 			if (svg) {
-				$("#query_plan").html(svg);
+			  $("#query_plan").html(svg);
 			}
 
 			$("#result_view").show();

@@ -106,6 +106,8 @@ public:
    */
   void setMerger(TableMerger *_merger);
 
+  void setDefaultMerger();
+
   /**
    * Sets the delta table.
    *
@@ -120,6 +122,8 @@ public:
   virtual  hyrise::storage::atable_ptr_t copy() const;
 
   virtual const attr_vectors_t getAttributeVectors(size_t column) const;
+
+  virtual void debugStructure(size_t level=0) const;
 };
 
 #endif  // SRC_LIB_STORAGE_STORE_H_

@@ -8,7 +8,7 @@
 #include "testing/test.h"
 
 #include "access/NoOp.h"
-#include "access/PlanOperation.h"
+#include "access/system/PlanOperation.h"
 #include "io/TransactionManager.h"
 #include "taskscheduler/SharedScheduler.h"
 #include "taskscheduler/CoreBoundQueuesScheduler.h"

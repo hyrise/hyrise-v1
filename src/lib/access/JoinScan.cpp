@@ -1,8 +1,8 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "access/JoinScan.h"
 
-#include "access/expression_types.h"
-#include "access/QueryParser.h"
+#include "access/expressions/expression_types.h"
+#include "access/system/QueryParser.h"
 
 #include "storage/PointerCalculator.h"
 #include "storage/PointerCalculatorFactory.h"

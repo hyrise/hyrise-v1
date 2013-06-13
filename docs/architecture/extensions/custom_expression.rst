@@ -12,7 +12,7 @@ relatively simple custom implementations. Custom expression may also
 collapse complex expression trees into closed functions, allowing for
 higher performance in evaluating complex expressions where needed.
 
-For more complex needs, see :doc:`architecture/extensions/custom_operator`.
+For more complex needs, see :doc:`../../architecture/extensions/custom_operator`.
 
 `TableScan` implements a registration-based expression evaluation for
 custom implementations of expressions. The idea for custom expressions

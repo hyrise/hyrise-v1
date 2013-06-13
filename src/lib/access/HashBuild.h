@@ -2,7 +2,7 @@
 #ifndef SRC_LIB_ACCESS_HASHBUILD_H_
 #define SRC_LIB_ACCESS_HASHBUILD_H_
 
-#include "PlanOperation.h"
+#include "access/system/PlanOperation.h"
 
 namespace hyrise {
 namespace access {

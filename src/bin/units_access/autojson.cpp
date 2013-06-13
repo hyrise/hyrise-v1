@@ -8,7 +8,7 @@
 #include "testing/test.h"
 #include "helper.h"
 
-#include "access/PlanOperation.h"
+#include "access/system/PlanOperation.h"
 #include "io/TransactionManager.h"
 #include "testing/TableEqualityTest.h"
 

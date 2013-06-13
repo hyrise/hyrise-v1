@@ -22,12 +22,13 @@ public:
   bool compare(const RelationEqType eqType = RelationEq) const;
   bool equal() const;
   bool equalSorted() const;
-  bool schemesMatched() const;
+  bool schemasMatched() const;
   bool rowsMatched() const;
   bool rowsMatchedSorted() const;
 
   static TableDiff diffTables(const AbstractTable* const left,
-                              const AbstractTable* const right);
+                              const AbstractTable* const right,
+                              const bool schema_only = true);
 
 
   std::vector<FieldCorrectness> fields;

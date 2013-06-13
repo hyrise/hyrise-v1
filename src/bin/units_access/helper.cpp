@@ -7,8 +7,8 @@
 
 #include "access/HashBuild.h"
 #include "access/HashJoinProbe.h"
-#include "access/RequestParseTask.h"
-#include "access/ResponseTask.h"
+#include "access/system/RequestParseTask.h"
+#include "access/system/ResponseTask.h"
 #include "access/SortScan.h"
 
 #include "helper/HttpHelper.h"

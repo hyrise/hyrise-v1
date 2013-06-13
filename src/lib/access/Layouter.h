@@ -2,7 +2,7 @@
 #ifndef SRC_LIB_ACCESS_LAYOUTER_H_
 #define SRC_LIB_ACCESS_LAYOUTER_H_
 
-#include "access/PlanOperation.h"
+#include "access/system/PlanOperation.h"
 #include "layouter/incremental.h"
 
 namespace hyrise {

@@ -3,8 +3,8 @@
 
 #include "helper.h"
 
-#include <access/TableLoad.h>
-#include <access/UnloadAll.h>
+#include <access/storage/TableLoad.h>
+#include <access/storage/UnloadAll.h>
 #include <io/StorageManager.h>
 
 namespace hyrise {

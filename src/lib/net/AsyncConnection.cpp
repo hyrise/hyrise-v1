@@ -11,7 +11,7 @@
 
 #include "net/Router.h"
 #include "taskscheduler/SharedScheduler.h"
-#include "access/RequestParseTask.h"
+#include "access/system/RequestParseTask.h"
 
 namespace hyrise {
 namespace net {

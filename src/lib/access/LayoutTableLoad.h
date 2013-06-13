@@ -2,7 +2,7 @@
 #ifndef SRC_LIB_ACCESS_LAYOUTTABLELOAD_H_
 #define SRC_LIB_ACCESS_LAYOUTTABLELOAD_H_
 
-#include "access/PlanOperation.h"
+#include "access/system/PlanOperation.h"
 
 namespace hyrise {
 namespace access {

@@ -1,5 +1,5 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#include "access/PlanOperation.h"
+#include "access/system/PlanOperation.h"
 #include "access/NoOp.h"
 #include "testing/test.h"
 #include "testing/TableEqualityTest.h"

@@ -52,7 +52,7 @@ bool line_equal(const AbstractTable* const left,
   return true;
 }
 
-std::map<field_t, field_t> compareSchemes(const AbstractTable* const left,
+std::map<field_t, field_t> compareSchemas(const AbstractTable* const left,
                                                      const AbstractTable* const right) {
   std::map<field_t, field_t> m;
   for (field_t col_left = 0; col_left < left->columnCount(); col_left++) {
@@ -76,13 +76,13 @@ bool TableDiff::compare(const TableDiff::RelationEqType eqType) const {
   return false; //connot happen but there is a compiler warning
 }
 bool TableDiff::equal() const {
-  return rowsMatched() && schemesMatched();
+  return rowsMatched() && schemasMatched();
 }
 bool TableDiff::equalSorted() const {
-  return rowsMatchedSorted() && schemesMatched();
+  return rowsMatchedSorted() && schemasMatched();
 }
 
-bool TableDiff::schemesMatched() const {
+bool TableDiff::schemasMatched() const {
   for (auto i = fields.begin(); i != fields.end(); i++)
     if (*i != TableDiff::FieldCorrect)
       return false;
@@ -98,13 +98,14 @@ bool TableDiff::rowsMatched() const {
 
 
 TableDiff TableDiff::diffTables(const AbstractTable* const left,
-                                const AbstractTable* const right) {
+                                const AbstractTable* const right,
+                                const bool schema_only) {
   TableDiff diff;
 
   std::vector<bool>
             seen_right(right->size(), false);
 
-  auto mapFields = compareSchemes(left ,right);
+  auto mapFields = compareSchemas(left ,right);
 
   //compare relation scheme
   diff.fields.resize(left->columnCount(), TableDiff::FieldWrong);
@@ -119,27 +120,28 @@ TableDiff TableDiff::diffTables(const AbstractTable* const left,
     if (diff.fields[i] != FieldCorrect)
       mapFields.erase(i);
   
-  //compare rows
-  for (size_t line_left = 0; line_left < left->size(); ++line_left) {
-    bool foundMatch = false;
-    for (size_t line_right = 0; line_right < right->size(); ++line_right) {
-      // let's not check lines that have already been marked as seen
-      if (seen_right[line_right])
-        continue;
+  if (!schema_only) {
+    //compare rows
+    for (size_t line_left = 0; line_left < left->size(); ++line_left) {
+      bool foundMatch = false;
+      for (size_t line_right = 0; line_right < right->size(); ++line_right) {
+        // let's not check lines that have already been marked as seen
+        if (seen_right[line_right])
+          continue;
 
-      if (line_equal(left, right, line_left, line_right, mapFields)) {
-        seen_right[line_right] = true;
-        if (line_left != line_right)
-          diff.falsePositionRows[line_left]=line_right;
-        foundMatch = true;
-        break;
+        if (line_equal(left, right, line_left, line_right, mapFields)) {
+          seen_right[line_right] = true;
+          if (line_left != line_right)
+            diff.falsePositionRows[line_left]=line_right;
+          foundMatch = true;
+          break;
+        }
+      }
+      if (!foundMatch) {
+        diff.wrongRows.push_back(line_left);
       }
     }
-    if (!foundMatch) {
-      diff.wrongRows.push_back(line_left);
-    }
   }
-
   return diff;
 }
 

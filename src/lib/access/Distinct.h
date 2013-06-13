@@ -2,7 +2,7 @@
 #ifndef SRC_LIB_ACCES_DISTINCT_H
 #define SRC_LIB_ACCES_DISTINCT_H
 
-#include "access/PlanOperation.h"
+#include "access/system/PlanOperation.h"
 
 namespace hyrise {
 namespace access {
