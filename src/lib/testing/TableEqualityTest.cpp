@@ -5,7 +5,7 @@
 #include <storage/TableDiff.h>
 #include <storage/PrettyPrinter.h>
 
-std::string schemeErrors(TableDiff diff, const char* relationName, tblptr table) {
+std::string schemaErrors(TableDiff diff, const char* relationName, tblptr table) {
   std::vector<std::string> fieldError, fieldTypeError;
   std::stringstream buf;
 
@@ -26,7 +26,7 @@ std::string schemeErrors(TableDiff diff, const char* relationName, tblptr table)
   }
   
   if (! (fieldError.empty() && fieldTypeError.empty()) ) {
-    buf << "Error in \"" << relationName << "\"s relation scheme:" << std::endl;
+    buf << "Error in \"" << relationName << "\"s relation schema:" << std::endl;
     if (!fieldError.empty()) {
       buf << "mismatched fields: ";
       for (size_t i = 0; i < fieldError.size()-1; i++)
@@ -78,9 +78,9 @@ std::string rowPositionErrors(TableDiff diff, const char* baseRelationName, cons
 
 ::testing::AssertionResult RelationEquals(const char* left_exp,
     const char* right_exp,
-    tblptr left, tblptr right) {
-  auto resultL2R = TableDiff::diffTables(left.get(),  right.get());
-  auto resultR2L = TableDiff::diffTables(right.get(), left.get());
+    tblptr left, tblptr right, bool schema_only) {
+  auto resultL2R = TableDiff::diffTables(left.get(),  right.get(), schema_only);
+  auto resultR2L = TableDiff::diffTables(right.get(), left.get(), schema_only);
 
   if (resultL2R.equal() && resultR2L.equal()) {
     return ::testing::AssertionSuccess();
@@ -95,19 +95,21 @@ std::string rowPositionErrors(TableDiff diff, const char* baseRelationName, cons
   buf << "\"" << left_exp << "\""
       << "is not an equal relation to"
       << "\"" << right_exp << "\":" << std::endl
-      << schemeErrors(resultL2R, left_exp, left)
-      << schemeErrors(resultR2L, right_exp, right)
-      << rowErrors(resultL2R, left_exp, right_exp)
-      << rowErrors(resultR2L, right_exp, left_exp);
+      << schemaErrors(resultL2R, left_exp, left)
+      << schemaErrors(resultR2L, right_exp, right);
+  if (!schema_only) {
+    buf << rowErrors(resultL2R, left_exp, right_exp)
+        << rowErrors(resultR2L, right_exp, left_exp);
+  }
 
   return ::testing::AssertionFailure() << buf.str();
 }
 
 ::testing::AssertionResult RelationNotEquals(const char* left_exp,
     const char* right_exp,
-    tblptr left, tblptr right) {
-  auto resultL2R = TableDiff::diffTables(left.get(),  right.get());
-  auto resultR2L = TableDiff::diffTables(right.get(), left.get());
+    tblptr left, tblptr right, bool schema_only) {
+  auto resultL2R = TableDiff::diffTables(left.get(),  right.get(), schema_only);
+  auto resultR2L = TableDiff::diffTables(right.get(), left.get(), schema_only);
 
   if (resultL2R.equal() && resultR2L.equal())
     return ::testing::AssertionFailure() << left_exp << " and " << right_exp
@@ -115,6 +117,14 @@ std::string rowPositionErrors(TableDiff diff, const char* baseRelationName, cons
 
   return ::testing::AssertionSuccess();
 }
+
+::testing::AssertionResult SchemaEquals(const char *left_exp,
+                                          const char *right_exp,
+                                          tblptr left,
+                                          tblptr right) {
+   return RelationEquals(left_exp, right_exp, left, right, true);
+}
+
 
 ::testing::AssertionResult SortedRelationEquals(const char* left_exp,
     const char* right_exp,
@@ -136,8 +146,8 @@ std::string rowPositionErrors(TableDiff diff, const char* baseRelationName, cons
   buf << "\"" << left_exp << "\""
       << "is not an equal sorted relation to"
       << "\"" << right_exp << "\"" << std::endl
-      << schemeErrors(resultL2R, left_exp, left)
-      << schemeErrors(resultR2L, right_exp, right)
+      << schemaErrors(resultL2R, left_exp, left)
+      << schemaErrors(resultR2L, right_exp, right)
       << rowErrors(resultL2R, left_exp, right_exp)
       << rowErrors(resultR2L, right_exp, left_exp)
       << rowPositionErrors(resultL2R, left_exp, right_exp);

@@ -5,12 +5,12 @@ Repository
 Obtaining the code
 ==================
 
-The primary method of obtaining the git repository is through the planio_ 
+The primary method of obtaining the git repository is through the github_ 
 project site (You need an account). The code can then be obtained through::
 
-    git clone git@epic.plan.io:epic-hyrise.git
+    git clone git@github.com:hyrise/hyrise.git
 
-.. _planio : http://epic.plan.io
+.. _github: https://github.com/hyrise/hyrise
 
 Flow
 ====

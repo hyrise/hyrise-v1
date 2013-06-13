@@ -1,8 +1,8 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "access/Barrier.h"
 
-#include "access/BasicParser.h"
-#include "access/QueryParser.h"
+#include "access/system/BasicParser.h"
+#include "access/system/QueryParser.h"
 
 namespace hyrise {
 namespace access {

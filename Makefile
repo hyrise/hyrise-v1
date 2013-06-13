@@ -166,3 +166,15 @@ codespeed: $(all) benchmark_data
 duplicates:
 	-java -jar third_party/simian/simian-2.3.33.jar -excludes="**/units_*/*" -formatter=xml:simian.xml "src/**.cpp" "src/**.h" "src/**.hpp" 
 
+pushdocs: doxygen
+	cd docs
+	$(MAKE) clean
+	mkdir -p _build/html
+	cd _build
+	git clone -b gh-pages git@github.com:hyrise/hyrise.git html
+	cd ..
+	make html
+	cd _build/html
+	git add .
+	git commit -am "Updating docs"
+	git push origin gh-pages

@@ -1,5 +1,5 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#include "access/LoadFile.h"
+#include "access/storage/LoadFile.h"
 #include "io/shortcuts.h"
 #include "testing/test.h"
 

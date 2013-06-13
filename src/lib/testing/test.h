@@ -5,7 +5,7 @@
 #include <gtest/gtest.h>
 
 #include "testing/base_test.h"
-#include "access/PlanOperation.h"
+#include "access/system/PlanOperation.h"
 #include "io/StorageManager.h"
 
 #include "helper/types.h"
@@ -55,6 +55,7 @@ class StorageManagerTest : public Test {
 namespace access {
 
 class AccessTest : public Test {
+ public:
   virtual void SetUp() {
     StorageManager *sm = StorageManager::getInstance();
     sm->removeAll();

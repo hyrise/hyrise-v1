@@ -26,15 +26,25 @@ typedef const hyrise::storage::c_atable_ptr_t& tblptr;
 ::testing::AssertionResult RelationEquals(const char *left_exp,
                                           const char *right_exp,
                                           tblptr left,
-                                          tblptr right);
+                                          tblptr right,
+                                          bool schema_only = false);
 
 ::testing::AssertionResult RelationNotEquals(const char *left_exp,
                                              const char *right_exp,
                                              tblptr left,
-                                             tblptr right);
+                                             tblptr right,
+                                             bool schema_only = false);
 
 #define EXPECT_RELATION_EQ(a,b) EXPECT_PRED_FORMAT2(RelationEquals, a, b)
 #define EXPECT_RELATION_NEQ(a,b) EXPECT_PRED_FORMAT2(RelationNotEquals, a, b)
+
+::testing::AssertionResult SchemaEquals(const char *left_exp,
+                                          const char *right_exp,
+                                          tblptr left,
+                                          tblptr right);
+
+#define EXPECT_RELATION_SCHEMA_EQ(a,b) EXPECT_PRED_FORMAT2(SchemaEquals, a, b)
+
 
 ::testing::AssertionResult SortedRelationEquals(const char *left_exp,
                                           const char *right_exp,

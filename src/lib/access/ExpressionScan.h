@@ -2,7 +2,7 @@
 #ifndef SRC_LIB_ACCESS_EXPRESSIONSCAN_H_
 #define SRC_LIB_ACCESS_EXPRESSIONSCAN_H_
 
-#include "access/PlanOperation.h"
+#include "access/system/PlanOperation.h"
 #include "helper/types.h"
 
 namespace hyrise {

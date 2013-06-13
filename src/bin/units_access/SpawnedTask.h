@@ -2,7 +2,7 @@
 #ifndef SRC_LIB_ACCESS_SPAWNEDTASK_H
 #define SRC_LIB_ACCESS_SPAWNEDTASK_H
 
-#include "access/PlanOperation.h"
+#include "access/system/PlanOperation.h"
 
 namespace hyrise {
 namespace access {
