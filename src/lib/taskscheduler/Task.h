@@ -47,7 +47,7 @@ public:
   static const int HIGH_PRIORITY = 1;
   static const int NO_PREFERRED_CORE = -1;
   static const int NO_PREFERRED_NODE = -1;
-  static const int SESSION_ID_NOT_SET = -1;
+  static const int SESSION_ID_NOT_SET = 0;
 
 protected:
   std::vector<std::shared_ptr<Task> > _dependencies;
@@ -195,18 +195,7 @@ class CompareTaskPtr {
          return false;
     };
 };
-/*
-class CompareTaskPtr {
-    public:
-    bool operator()(const std::shared_ptr<Task> & t1, const std::shared_ptr<Task> & t2) // Returns true if t1 is lower priority than t2
-    {
-       if (t1->getId() > t2->getId()) return true;
-       else if((t1->getPriority() > t2->getPriority()) && t1->getId() == t2->getId()) return true;
-       else
-         return false;
-    };
-};
-*/
+
 class WaitTask : public Task {
 private:
   bool _finished;

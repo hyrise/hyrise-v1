@@ -32,13 +32,10 @@ void CentralFairSharePriorityScheduler::schedule(std::shared_ptr<Task> task){
     // set dynamic priority for task and schedule
     task->setPriority(__sync_fetch_and_add(&_dynPriorities[ret->second],0));
     task->setSessionId(ret->second);
-    task->setId(_epoch);
-
 
     //update activity
     std::lock_guard<std::mutex> lk(_activityMutex);
     _userActivity[ret->second] = get_epoch_nanoseconds();
-
   }
 
   // addDoneObserver to get task execution time
@@ -65,7 +62,6 @@ void CentralFairSharePriorityScheduler::notifyReady(std::shared_ptr<Task> task) 
     // set dynamic priority for task and schedule
     task->setPriority(__sync_fetch_and_add(&_dynPriorities[ret->second],0));
     task->setSessionId(ret->second);
-    task->setId(_epoch);
   }
 
   CentralPriorityScheduler::notifyReady(task);
@@ -109,8 +105,8 @@ void CentralFairSharePriorityScheduler::notifyDone(std::shared_ptr<Task> task){
    */
   auto op =  std::dynamic_pointer_cast<OutputTask>(task);
    if(op){
-     // calc total duration of query
-     int64_t work = op->getPerformanceData().data;
+     // calc total duration of query; therefore check first, if performance data has been set
+     int64_t work = ! &op->getPerformanceData() ? 0 : op->getPerformanceData().data;
      // add to total work of session and total work
      auto ret = _workMap.find(task->getSessionId());
      if(ret != _workMap.end()){
@@ -184,13 +180,6 @@ void CentralFairSharePriorityScheduler::updateDynamicPriorities(){
       shares[i] = std::make_pair(0, i);
     }
 
-   /* // treat sleeping threads as neutral, assign them a work share according to their target share
-    if(work[i] == 0)
-      _smoothedWorkShares[i] = ts;
-    // assign work share according to their target share if user is alone on machine
-    if(work[i] == total_work)
-      _smoothedWorkShares[i] = ts;
-    */
   }
   // sort by share deviation
   std::sort(shares.begin(), shares.end());
@@ -209,7 +198,7 @@ void CentralFairSharePriorityScheduler::updateDynamicPriorities(){
   }
 
   _epoch++;
-
+/*
 
 
   std::cout << "updateDynmicPriorities -> print statistics" << std::endl;
@@ -239,7 +228,7 @@ void CentralFairSharePriorityScheduler::updateDynamicPriorities(){
   for(int i = 0; i < _sessions; i++){
     std::cout << "\t\tsession: " << shares[i].second << " useractivity: " << _userActivity[i]  << std::endl;
   }
-
+*/
 }
 
 void CentralFairSharePriorityScheduler::addSession(int session, int priority){
@@ -284,7 +273,6 @@ void CentralFairSharePriorityScheduler::addSession(int session, int priority){
 void CentralFairSharePriorityScheduler::deleteSession(int session){
   // remove internal session number
   //_sessionMap.find(session);
-
 }
 
 int64_t CentralFairSharePriorityScheduler::calculateTotalWork(OutputTask::performance_vector& perf_vector){

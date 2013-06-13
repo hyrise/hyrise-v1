@@ -10,8 +10,8 @@
 
 #include "CentralPriorityScheduler.h"
 #include "folly/AtomicHashMap.h"
-#include "access/ResponseTask.h"
-#include "access/OutputTask.h"
+#include "access/system/ResponseTask.h"
+#include "access/system/OutputTask.h"
 #include <mutex>
 #include "helper/RollingAverage.h"
 
@@ -28,8 +28,8 @@ class CentralFairSharePriorityScheduler : public CentralPriorityScheduler, TaskD
   static const uint64_t PRIO_UPDATE_INTERVALL = 200000000;
   static const int INACTIVE_USER_INTERVALL = 20;
   // weighs importance of last interval
-  static constexpr double DATA_SMOOTHING_FACTOR = 0.1;
-  static constexpr double TREND_SMOOTHING_FACTOR = 0.0;
+  //static constexpr double DATA_SMOOTHING_FACTOR = 0.1;
+  //static constexpr double TREND_SMOOTHING_FACTOR = 0.0;
   // maps internal session id to work done so far
   AtomicHashMap<int,int64_t> _workMap;
   // vector of dynamically calculated priorities
@@ -37,8 +37,8 @@ class CentralFairSharePriorityScheduler : public CentralPriorityScheduler, TaskD
   // vector of externally provided calculated priorities
   vector<int> _extPriorities;
   // vector of exponentially smoothed work_shares
-  vector<double> _smoothedWorkShares;
-  vector<double> _trendWorkShares;
+  //vector<double> _smoothedWorkShares;
+  //vector<double> _trendWorkShares;
   vector<epoch_t> _userActivity;
   vector<int> _isOnlyUser;
   std::mutex _activityMutex;
@@ -69,8 +69,8 @@ public:
                                                                       _workMap(MAX_SESSIONS),
                                                                       _dynPriorities(MAX_SESSIONS, 0),
                                                                       _extPriorities(MAX_SESSIONS, 0),
-                                                                      _smoothedWorkShares(MAX_SESSIONS,0),
-                                                                      _trendWorkShares(MAX_SESSIONS,0),
+                                                                      //_smoothedWorkShares(MAX_SESSIONS,0),
+                                                                      //_trendWorkShares(MAX_SESSIONS,0),
                                                                       _userActivity(MAX_SESSIONS,0),
                                                                       _isOnlyUser(MAX_SESSIONS, 0),
                                                                       _averageWorkShares(MAX_SESSIONS, RollingAverage<float>(50)),
