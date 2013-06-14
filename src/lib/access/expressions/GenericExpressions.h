@@ -5,52 +5,77 @@
 #include "json.h"
 
 #include "access/expressions/AbstractExpression.h"
+#include "access/expressions/GenericExpressions.inc"
 #include "storage/FixedLengthVector.h"
 #include "storage/Store.h"
 #include "storage/storage_types.h"
 
 #include "helper/types.h"
+#include "helper/make_unique.h"
+#include "helper/vector_helpers.h"
+
 
 namespace hyrise { namespace access {
 
-// Store, FixedLengthVector, three fields anded
-class Store_FLV_F1_EQ_INT_AND_F2_EQ_INT_AND_F3_EQ_INT : public AbstractExpression {
+/*
+ * Defining Generic Expressions
+ *
+ * This module is the place to define custom expressions as you need them for
+ * query execution in the TableScan plan operation. Expressions are basically
+ * a class that provides a match method that is called for every row in the
+ * source tables.
+ *
+ * The two most important macros are:
+ *   - DEFINE_EXPRESSION_CLASS( name, field_sequence, logic_sequence)
+ *   - REGISTER_EXPRESSION_CLASS( name )
+ *
+ * The first defines and implements the ncessary methods for a given field
+ * definitino. A field definition is a sequnce in terms of C++ macros and has
+ * exactly 4 values. The field name, the type, the comparison operator and the
+ * method name used to extract from json.
+ * 
+ * An example for such a sequence is:
+ *  
+ *     (f1)(hyrise_int_t)(==)(asUInt)
+ *
+ * The parentheses are extremeley important. Now the paremter to the define
+ * macro is bascially a sequence of sequences so it must be defined as
+ *
+ *     (seq1...)(seq2...)(seqn..)
+ * 
+ * The logical operators are defined in the same way as a sequence of operations:
+ *  
+ *     ()(&&)(||)
+ *
+ * The first parameter is always empty and used as a placeholder in the code
+ * generation. Please keep the evaluation order and operator precedence in
+ * mind.
+ */
+ struct GenericExpressionsHelper{
+ };
 
-	using VectorType = FixedLengthVector<value_id_t>;
-	using SharedVectorType = std::shared_ptr<VectorType>;
 
-	hyrise::storage::c_store_ptr_t _store;
+#define FLD_1 (f1)(hyrise_int_t)(==)(asUInt)
+#define FLD_2 (f2)(hyrise_int_t)(==)(asUInt)
+#define FLD_3 (f3)(hyrise_int_t)(==)(asUInt)
 
-	std::vector<SharedVectorType> _vector_f1;
-	std::vector<SharedVectorType> _vector_f2;
-	std::vector<SharedVectorType> _vector_f3;
-
-	std::vector<size_t> _of_f1;
-	std::vector<size_t> _of_f2;
-	std::vector<size_t> _of_f3;
-	
-	field_t f1;
-	field_t f2;
-	field_t f3;
-
-	hyrise_int_t v1;
-	hyrise_int_t v2;
-	hyrise_int_t v3;
-
-public:
-
-	Store_FLV_F1_EQ_INT_AND_F2_EQ_INT_AND_F3_EQ_INT();
+#define STORE_THREE_FIELD_SEQ (FLD_1)(FLD_2)(FLD_3)
+#define STORE_THREE_FIELD_LOG ()(&&)(&&)
 
 
-	virtual pos_list_t* match(const size_t start, const size_t stop);
-
-  virtual void walk(const std::vector<hyrise::storage::c_atable_ptr_t> &l);
-
-	static std::unique_ptr<Store_FLV_F1_EQ_INT_AND_F2_EQ_INT_AND_F3_EQ_INT> parse(const Json::Value& data);
+DEFINE_EXPRESSION_CLASS(Store_FLV_F1_EQ_INT_AND_F2_EQ_INT_AND_F3_EQ_INT, STORE_THREE_FIELD_SEQ, STORE_THREE_FIELD_LOG);
 
 
+#define STORE_ONE_FIELD_SEQ ((f1)(hyrise_int_t)(==)(asUInt))
+DEFINE_EXPRESSION_CLASS(Store_FLV_F1_EQ_INT, STORE_ONE_FIELD_SEQ, ());
+DEFINE_EXPRESSION_CLASS(Store_FLV_F1_EQ_STRING, ((f1)(hyrise_string_t)(==)(asString)), ());
+DEFINE_EXPRESSION_CLASS(Store_FLV_F1_EQ_STRING_OR_F2_NEQ_FLOAT, ((f1)(hyrise_string_t)(==)(asString))((f2)(hyrise_float_t)(!=)(asFloat)), ()(||));
 
-};
+
+#define STORE_TWO_FIELD_SEQ_FLD1 (f1)(hyrise_int_t)(==)(asUInt)
+#define STORE_TWO_FIELD_SEQ_FLD2 (f2)(hyrise_int_t)(==)(asUInt)
+#define STORE_TWO_FIELD_SEQ (STORE_TWO_FIELD_SEQ_FLD1)(STORE_TWO_FIELD_SEQ_FLD2)
+DEFINE_EXPRESSION_CLASS(Store_FLV_F1_EQ_INT_AND_F2_EQ_INT, STORE_TWO_FIELD_SEQ, ()(&&));
 
 }}
 
