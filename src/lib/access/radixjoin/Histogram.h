@@ -114,6 +114,8 @@ void Histogram::executeHistogram() {
           auto hash_value  = hasher(dict->getValueForValueId(ivec->get(offset, p->getTableRowForRow(row))));
           pair.first->inc(0, (hash_value & mask) >> significantOffset());
         }
+      } else {
+        throw std::runtime_error("Histogram only supports MutableVerticalTable of PointerCalculators; found other AbstractTable than PointerCalculator inside od MutableVerticalTable.");
       }
     } else {
       // else; we expect a raw table

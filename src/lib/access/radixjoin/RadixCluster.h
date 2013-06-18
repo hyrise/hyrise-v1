@@ -122,6 +122,8 @@ void RadixCluster::executeClustering() {
           data_pos->set(0, pos_to_write, p->getTableRowForRow(row));
         }
 
+      } else {
+        throw std::runtime_error("Histogram only supports MutableVerticalTable of PointerCalculators; found other AbstractTable than PointerCalculator inside od MutableVerticalTable.");
       }
     } else {
       auto ipair = getDataVector(tab);
