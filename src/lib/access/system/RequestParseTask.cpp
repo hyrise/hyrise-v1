@@ -65,8 +65,6 @@ std::string hash(const Json::Value &v) {
 void RequestParseTask::operator()() {
   assert((_responseTask != nullptr) && "Response needs to be set");
   AbstractTaskScheduler *scheduler = SharedScheduler::getInstance().getScheduler();
-  // MG response always on the same core
-  // _responseTask->setPreferredCore(0);
 
   OutputTask::performance_vector& performance_data = _responseTask->getPerformanceData();
   // the performance attribute for this operation (at [0])
@@ -148,8 +146,7 @@ void RequestParseTask::operator()() {
   if(priority == Task::HIGH_PRIORITY){
     *(performance_data.at(0)) = { 0, 0, "NO_PAPI", "RequestParseTask", "requestParse", _queryStart, get_epoch_nanoseconds(), boost::lexical_cast<std::string>(std::this_thread::get_id()) };
     int number_of_tasks = tasks.size();
-    bool * isExecuted = new bool[number_of_tasks];
-    std::fill_n(isExecuted,number_of_tasks,false);
+    std::vector<bool> isExecuted(number_of_tasks, false);
     int executedTasks = 0;
     while(executedTasks < number_of_tasks){
       for(int i = 0; i < number_of_tasks; i++){
@@ -161,8 +158,6 @@ void RequestParseTask::operator()() {
         }
       }
     }
-    delete[] isExecuted;
-
     _responseTask->setQueryStart(_queryStart);
     (*_responseTask)();
     _responseTask.reset();  // yield responsibility

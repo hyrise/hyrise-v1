@@ -33,9 +33,7 @@ class AbstractTaskScheduler {
     RESIZING = 1,
     TO_STOP = 2,
     STOPPED = 3
-  } scheduler_state;
-  // for gcc4.6 compatibility, as it does not support atomics of enums
-  typedef int scheduler_status_t;
+  } scheduler_status_t;
 
   virtual ~AbstractTaskScheduler() {};
   /*

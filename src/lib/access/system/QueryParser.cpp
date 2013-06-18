@@ -35,6 +35,7 @@ void QueryParser::buildTasks(
     task_map_t &task_map) {
   Json::Value::Members members = query["operators"].getMemberNames();
   std::string papiEventName = getPapiEventName(query);
+  unsigned node = fetch_and_inc_next_node();
   for (unsigned i = 0; i < members.size(); ++i) {
     Json::Value planOperationSpec = query["operators"][members[i]];
     std::string typeName = planOperationSpec["type"].asString();
@@ -51,7 +52,7 @@ void QueryParser::buildTasks(
       planOperation->setPreferredNode(planOperationSpec["node"].asInt());
     }
     else{
-      planOperation->setPreferredNode(_nextNode);
+      planOperation->setPreferredNode(node);
     }
     // check for materialization strategy
     if (planOperationSpec.isMember("positions"))
@@ -60,7 +61,6 @@ void QueryParser::buildTasks(
     tasks.push_back(planOperation);
     task_map[members[i]] = planOperation;
   }
-  _nextNode = (_nextNode + 1) % _nodes;
 }
 
 void QueryParser::setInputs(

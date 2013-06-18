@@ -1,9 +1,4 @@
-/*
- * RollingAverage.h
- *
- *  Created on: Jul 25, 2012
- *      Author: jwust
- */
+
 #include <vector>
 
 #ifndef ROLLINGAVERAGE_H_

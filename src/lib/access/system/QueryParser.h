@@ -7,7 +7,7 @@
 #include <vector>
 #include <string>
 #include <stdexcept>
-
+#include <mutex>
 
 #include <json.h>
 
@@ -62,6 +62,7 @@ class QueryParser {
 
   unsigned _nodes;
   unsigned _nextNode;
+  std::mutex _nodeMutex;
 
   factory_map_t _factory;
   QueryParser();
@@ -91,6 +92,14 @@ class QueryParser {
   //  Output of task without successor is query's result.
   std::shared_ptr<Task> getResultTask(
       const task_map_t &task_map) const;
+
+  // get next node and inc next node
+  unsigned fetch_and_inc_next_node(){
+    std::lock_guard<std::mutex> lk(_nodeMutex);
+    unsigned retVal = _nextNode;
+    _nextNode = (_nextNode + 1) % _nodes;
+    return retVal;
+  }
 
  public:
   ~QueryParser();
