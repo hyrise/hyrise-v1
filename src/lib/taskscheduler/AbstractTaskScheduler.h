@@ -41,6 +41,14 @@ class AbstractTaskScheduler {
    */
   virtual void schedule(std::shared_ptr<Task> task) = 0;
   /*
+   * schedule a list of tasks belonging to a query for execution
+   */
+  virtual void scheduleQuery(std::vector<std::shared_ptr<Task> > tasks){
+    for (const auto& task: tasks) {
+      schedule(task);
+    }
+  }
+  /*
    * shutdown task scheduler; makes sure all underlying threads are stopped
    */
   virtual void shutdown() = 0;

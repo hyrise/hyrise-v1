@@ -60,10 +60,6 @@ class QueryParser {
   typedef std::map< std::string, AbstractQueryParserFactory * > factory_map_t;
   typedef std::map< Json::Value, std::shared_ptr<Task> > task_map_t;
 
-  unsigned _nodes;
-  unsigned _nextNode;
-  std::mutex _nodeMutex;
-
   factory_map_t _factory;
   QueryParser();
 
@@ -72,7 +68,7 @@ class QueryParser {
   void buildTasks(
       const Json::Value &query,
       std::vector<std::shared_ptr<Task> > &tasks,
-      task_map_t &task_map) ;
+      task_map_t &task_map) const;
 
   /*  Defines operations input based on their types.  */
   void setInputs(
@@ -92,14 +88,6 @@ class QueryParser {
   //  Output of task without successor is query's result.
   std::shared_ptr<Task> getResultTask(
       const task_map_t &task_map) const;
-
-  // get next node and inc next node
-  unsigned fetch_and_inc_next_node(){
-    std::lock_guard<std::mutex> lk(_nodeMutex);
-    unsigned retVal = _nextNode;
-    _nextNode = (_nextNode + 1) % _nodes;
-    return retVal;
-  }
 
  public:
   ~QueryParser();
@@ -133,7 +121,7 @@ class QueryParser {
       delivering the final result will be determined, too.   */
   std::vector<std::shared_ptr<Task> > deserialize(
       Json::Value query,
-      std::shared_ptr<Task> *result) ;
+      std::shared_ptr<Task> *result) const;
 };
 
 
