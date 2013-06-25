@@ -17,16 +17,7 @@
 
 namespace { log4cxx::LoggerPtr logger(log4cxx::Logger::getLogger("access.plan._PlanOperation")); }
 
-_PlanOperation::_PlanOperation() :
-      _limit(0),
-      _part(0),
-      _count(0),
-      producesPositions(true),
-      _planId(),
-      _operatorId() {}
-
-_PlanOperation::~_PlanOperation() {
-}
+_PlanOperation::~_PlanOperation() = default;
 
 void _PlanOperation::addResult(hyrise::storage::c_atable_ptr_t result) {
   output.add(result);
