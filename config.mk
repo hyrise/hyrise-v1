@@ -37,7 +37,6 @@ HYRISE_ALLOCATOR ?=
 -include $(TOP)settings.mk
 
 MAKE := $(MAKE) --no-print-directory -s
-GCCFILTER := $(IMH_PROJECT_PATH)/tools/gccfilter -c -p
 COMPILER ?= g++47
 
 include $(TOP)config.$(COMPILER).mk
