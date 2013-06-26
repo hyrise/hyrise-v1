@@ -199,16 +199,16 @@ TYPED_TEST(AttributeVectorTests, DefaultDictVector_copy) {
   base.resize(rows);
   
   hyrise_int_t value(0);
-  for (int c=0; c<columns; ++c) {
-    for (int r=0; r<rows; ++r) {
+  for (unsigned c=0; c<columns; ++c) {
+    for (unsigned r=0; r<rows; ++r) {
       base.set(c, r, ++value);
       value %= 13;
     }
   }
 
   std::shared_ptr<BaseAttributeVector<hyrise_int_t>> copy = base.copy();
-  for (int c=0; c<columns; ++c) {
-    for (int r=0; r<rows; ++r) {
+  for (unsigned c=0; c<columns; ++c) {
+    for (unsigned r=0; r<rows; ++r) {
       ASSERT_EQ(base.get(c, r), copy->get(c, r));
     }
   }
