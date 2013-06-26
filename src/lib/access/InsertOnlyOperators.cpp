@@ -2,7 +2,7 @@
 #include "access/InsertOnlyOperators.h"
 
 #include "access/insertonly.h"
-#include "access/QueryParser.h"
+#include "access/system/QueryParser.h"
 #include "io/StorageManager.h"
 #include "storage/SimpleStore.h"
 #include "storage/PointerCalculator.h"

@@ -15,7 +15,7 @@ MutableVerticalTable::MutableVerticalTable(std::vector<std::vector<const ColumnM
       dict = dictionaries->at(i);
 
     bool isDefaultDictVector = false;
-    // check type for each column (if ColumnProperties is given), or do not use defaultDictVector...
+    // check type for each column (if ColumnProperties is given), or do not use defaultDictVector
     if (colProperties != nullptr)
       isDefaultDictVector = (colProperties->getType(i) == ColDefaultDictVector);
 

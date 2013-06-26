@@ -8,7 +8,7 @@
 #include "storage/storage_types.h"
 
 #include "access/TableScan.h"
-#include "access/pred_EqualsExpression.h"
+#include "access/expressions/pred_EqualsExpression.h"
 
 #include "io/VectorLoader.h"
 #include "io/StringLoader.h"
@@ -18,7 +18,7 @@
 
 #include "storage/AbstractTable.h"
 
-#include "access/ExampleExpression.h"
+#include "access/expressions/ExampleExpression.h"
 //#include "gperftools/profiler.h"
 
 namespace hyrise {

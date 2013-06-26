@@ -1,11 +1,11 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "testing/test.h"
-#include "access/PrefixSum.h"
-#include "access/Histogram.h"
-#include "access/RadixCluster.h"
+#include "access/radixjoin/PrefixSum.h"
+#include "access/radixjoin/Histogram.h"
+#include "access/radixjoin/RadixCluster.h"
 #include "helper.h"
 #include "io/shortcuts.h"
-#include "access/NestedLoopEquiJoin.h"
+#include "access/radixjoin/NestedLoopEquiJoin.h"
 #include "testing/TableEqualityTest.h"
 #include <storage/TableBuilder.h>
 

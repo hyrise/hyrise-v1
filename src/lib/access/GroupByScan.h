@@ -2,7 +2,7 @@
 #ifndef SRC_LIB_ACCESS_GROUPBYSCAN_H_
 #define SRC_LIB_ACCESS_GROUPBYSCAN_H_
 
-#include "access/PlanOperation.h"
+#include "access/system/PlanOperation.h"
 #include "access/AggregateFunctions.h"
 
 namespace hyrise {

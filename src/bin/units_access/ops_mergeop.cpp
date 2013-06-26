@@ -3,7 +3,7 @@
 
 #include "helper.h"
 #include "access/MergeTable.h"
-#include "access/LoadFile.h"
+#include "access/storage/LoadFile.h"
 #include "io/shortcuts.h"
 
 namespace hyrise {

@@ -3,7 +3,7 @@
 #define SRC_LIB_ACCESS_TABLESCAN_H_
 
 #include <memory>
-#include "access/PlanOperation.h"
+#include "access/system/PlanOperation.h"
 
 namespace hyrise { namespace access {
 

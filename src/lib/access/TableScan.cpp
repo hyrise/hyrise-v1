@@ -1,9 +1,9 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "access/TableScan.h"
 
-#include "access/ExampleExpression.h"
-#include "access/pred_SimpleExpression.h"
-#include "access/ExpressionRegistration.h"
+#include "access/expressions/ExampleExpression.h"
+#include "access/expressions/pred_SimpleExpression.h"
+#include "access/expressions/ExpressionRegistration.h"
 #include "storage/AbstractTable.h"
 #include "storage/PointerCalculator.h"
 #include "storage/PointerCalculatorFactory.h"

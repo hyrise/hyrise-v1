@@ -208,6 +208,11 @@ void Store::setMerger(TableMerger *_merger) {
   merger = _merger;
 }
 
+void Store::setDefaultMerger() {
+  auto merger = new TableMerger(new LogarithmicMergeStrategy(0), new SequentialHeapMerger());
+  setMerger(merger);
+}
+
 
 void Store::setDelta(hyrise::storage::atable_ptr_t _delta) {
   delta = _delta;
