@@ -68,7 +68,7 @@ CXX_BUILD_FLAGS += --std=c++0x
 LINKER_FLAGS += 
 
 ifeq ($(PRODUCTION), 1)
-	BUILD_FLAGS += -O3 -funroll-loops -fbranch-target-load-optimize -finline-functions -fexpensive-optimizations -frerun-cse-after-loop -frerun-loop-opt -D NDEBUG -ftree-vectorize -D EXPENSIVE_TESTS
+	BUILD_FLAGS += -O3 -funroll-loops -fbranch-target-load-optimize -finline-functions -fexpensive-optimizations -frerun-cse-after-loop -frerun-loop-opt -D NDEBUG -ftree-vectorize -D EXPENSIVE_TESTS -D PRODUCTION
 else
 	BUILD_FLAGS += -O0 -gdwarf-2 -D EXPENSIVE_ASSERTIONS
 endif

@@ -153,6 +153,10 @@ int main(int argc, char *argv[]) {
 
   // Log File Configuration
   PropertyConfigurator::configure(logPropertyFile);
+  
+#ifndef PRODUCTION
+  LOG4CXX_WARN(logger, "compiled with development settings, expect substantially lower and non-representative performance");
+#endif
 
   
   SharedScheduler::getInstance().init(scheduler_name);
