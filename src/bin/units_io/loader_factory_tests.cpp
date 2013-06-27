@@ -17,9 +17,10 @@ public:
                                           bool sorted = true,
                                           bool compressed = false,
                                           size_t padding_size = STORAGE_ALIGNMENT_SIZE,
-                                          size_t _align_size = STORAGE_ALIGNMENT_SIZE) {
+                                          size_t _align_size = STORAGE_ALIGNMENT_SIZE,
+                                          bool isDefaultDictVector = false) {
     ++generate_call_cnt;
-    return std::make_shared< Table<>>(m, d, initial_size, sorted, padding_size, _align_size);
+    return std::make_shared< Table<>>(m, d, initial_size, sorted, padding_size, _align_size, isDefaultDictVector);
   }
 };
 

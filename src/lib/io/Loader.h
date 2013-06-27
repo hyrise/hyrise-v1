@@ -7,6 +7,7 @@
 
 #include "helper/types.h"
 #include "storage/storage_types.h"
+#include "storage/ColumnProperties.h"
 
 
 class AbstractTable;
@@ -41,6 +42,8 @@ private:
   param_member(bool, Compressed);
   /// Reference table used for type detection
   param_member(hyrise::storage::c_atable_ptr_t , ReferenceTable);
+  /// save Properties/ColumnType in this struct...
+  param_member(std::shared_ptr<ColumnProperties> , ColProperties);
 public:
   params();
   ~params();

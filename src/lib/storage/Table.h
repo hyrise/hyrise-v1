@@ -79,7 +79,8 @@ public:
         bool sorted = true,
         size_t padding_size = STORAGE_ALIGNMENT_SIZE,
         size_t _align_size = STORAGE_ALIGNMENT_SIZE,
-        bool compressed = true);
+        bool compressed = true,
+        bool isDefaultDictVector=false);
 
   Table(): width(0), byte_width(0), align_size(0), _compressed(false) {
   };

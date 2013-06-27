@@ -15,6 +15,7 @@
 #include "storage/TableGenerator.h"
 #include "storage/MutableVerticalTable.h"
 
+
 log4cxx::LoggerPtr logger(log4cxx::Logger::getLogger("hyrise.io.Loader"));
 
 param_ref_member_impl(Loader::params, AbstractInput, Input)
@@ -26,6 +27,7 @@ param_member_impl(Loader::params, bool, ModifiableMutableVerticalTable)
 param_member_impl(Loader::params, bool, ReturnsMutableVerticalTable)
 param_member_impl(Loader::params, bool, Compressed)
 param_member_impl(Loader::params, hyrise::storage::c_atable_ptr_t, ReferenceTable)
+param_member_impl(Loader::params, std::shared_ptr<ColumnProperties>, ColProperties)
 
 Loader::params::params() :
   Input(nullptr),
@@ -36,7 +38,8 @@ Loader::params::params() :
   ModifiableMutableVerticalTable(false),
   ReturnsMutableVerticalTable(false),
   Compressed(false),
-  ReferenceTable()
+  ReferenceTable(),
+  ColProperties(nullptr)
 {}
 
 Loader::params::params(const Loader::params &other) :
@@ -49,6 +52,10 @@ Loader::params::params(const Loader::params &other) :
   if (other.Input != nullptr) Input = other.Input->clone();
   if (other.Header != nullptr) Header = other.Header->clone();
   if (other.ReferenceTable != nullptr) ReferenceTable = other.ReferenceTable;
+  if (other.ColProperties != nullptr)
+    ColProperties = std::make_shared<ColumnProperties>(*other.ColProperties);
+  else
+    ColProperties = nullptr;
 }
 
 Loader::params &Loader::params::operator= (const Loader::params &other) {
@@ -64,6 +71,10 @@ Loader::params &Loader::params::operator= (const Loader::params &other) {
     setModifiableMutableVerticalTable(other.getModifiableMutableVerticalTable());
     setCompressed(other.getCompressed());
     setReferenceTable(other.getReferenceTable());
+    if (other.ColProperties != nullptr)
+      setColProperties(std::make_shared<ColumnProperties>(*other.ColProperties));
+    else
+      setColProperties(nullptr);
   }
   // by convention, always return *this
   return *this;
@@ -80,12 +91,16 @@ Loader::params *Loader::params::clone() const {
   p->setModifiableMutableVerticalTable(ModifiableMutableVerticalTable);
   p->setReferenceTable(ReferenceTable);
   p->setCompressed(Compressed);
+  if (ColProperties != nullptr)
+    p->setColProperties( std::make_shared<ColumnProperties>(*getColProperties()));
+  else
+    p->setColProperties(nullptr);
   return p;
 }
 
 Loader::params::~params() {
   if (Input != nullptr) delete Input;
-  if (Input != nullptr) delete Header;
+  if (Header != nullptr) delete Header;
 }
 
 
@@ -97,6 +112,7 @@ std::shared_ptr<AbstractTable> Loader::generateValidityTable(std::shared_ptr<Abs
 }
 
 std::shared_ptr<AbstractTable> Loader::load(const params &args) {
+
   AbstractHeader *header = args.getHeader();
   AbstractTableFactory *factory = args.getFactory();
   AbstractInput *input = args.getInput();
@@ -118,7 +134,7 @@ std::shared_ptr<AbstractTable> Loader::load(const params &args) {
 
   std::shared_ptr<AbstractTable>
   result, //initialize empty
-  table = std::make_shared<MutableVerticalTable>(*meta, nullptr, 0, false, factory, args.getCompressed());
+  table = std::make_shared<MutableVerticalTable>(*meta, nullptr, 0, false, factory, args.getCompressed(), args.getColProperties());
 
   LOG4CXX_DEBUG(logger, "Loading data");
   try {
@@ -155,7 +171,7 @@ std::shared_ptr<AbstractTable> Loader::load(const params &args) {
     std::shared_ptr<AbstractTable> table = std::make_shared<hyrise::storage::SimpleStore>(generateValidityTable(result, param.transaction_id));
     return table;
   }
-  
+
   if (!args.getModifiableMutableVerticalTable() && args.getReturnsMutableVerticalTable()) {
     table = std::dynamic_pointer_cast<Store>(result)->getMainTables()[0];
     result = table;

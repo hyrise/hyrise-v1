@@ -6,6 +6,7 @@
 
 #include <storage/BaseAttributeVector.h>
 #include <storage/FixedLengthVector.h>
+#include <storage/DefaultDictVector.hpp>
 #include <storage/BitCompressedVector.h>
 
 class AttributeVectorFactory {
@@ -15,7 +16,12 @@ public:
   static std::shared_ptr<BaseAttributeVector<T>> getAttributeVector(size_t columns = 1,
       size_t rows = 0,
       int distinct_values = 1,
-  bool compressed = false) {
+      bool compressed = false,
+      bool isDefaultDictVector = false) {
+
+    if (isDefaultDictVector) {
+      return std::make_shared<DefaultDictVector<T, Allocator> >(columns, rows);
+    }
 
     return std::make_shared<FixedLengthVector<T, Allocator> >(columns, rows);
   }

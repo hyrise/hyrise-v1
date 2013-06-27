@@ -6,17 +6,23 @@ MutableVerticalTable::MutableVerticalTable(std::vector<std::vector<const ColumnM
                              size_t size,
                              bool sorted,
                              AbstractTableFactory *factory,
-                             bool compressed) : containers() {
+                             bool compressed,
+                             std::shared_ptr<ColumnProperties> colProperties) : containers() {
   for (size_t i = 0; i < metadata.size(); i++) {
     std::vector<AbstractTable::SharedDictionaryPtr> *dict = nullptr;
 
     if (dictionaries)
       dict = dictionaries->at(i);
 
+    bool isDefaultDictVector = false;
+    // check type for each column (if ColumnProperties is given), or do not use defaultDictVector
+    if (colProperties != nullptr)
+      isDefaultDictVector = (colProperties->getType(i) == ColDefaultDictVector);
+
     if (factory)
-      containers.push_back(factory->generate(metadata[i], dict, size, sorted, compressed));
+      containers.push_back(factory->generate(metadata[i], dict, size, sorted, compressed, STORAGE_ALIGNMENT_SIZE, STORAGE_ALIGNMENT_SIZE, isDefaultDictVector));
     else
-      containers.push_back(std::make_shared<Table<>>(metadata[i], dict, size, sorted));
+      containers.push_back(std::make_shared<Table<>>(metadata[i], dict, size, sorted, STORAGE_ALIGNMENT_SIZE, STORAGE_ALIGNMENT_SIZE, isDefaultDictVector));
   }
 
   column_count = 0;

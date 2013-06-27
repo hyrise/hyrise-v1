@@ -7,6 +7,11 @@
 #include <storage/AttributeVectorFactory.h>
 #include <memory/strategies.h>
 
+#include "io/shortcuts.h"
+
+#include <storage/DefaultDictVector.hpp>
+#include <storage/ColumnProperties.h>
+
 template <typename T>
 class AttributeVectorTests : public ::hyrise::Test {
 public:
@@ -19,22 +24,6 @@ struct TestType {
   typedef A Allocator;
 };
 
-
-TEST( FixedLengthVectorTest, increment_test ) {
-  size_t cols = 1;
-  size_t rows = 3;
-
-  auto tuples = std::dynamic_pointer_cast<FixedLengthVector<value_id_t>>(
-    AttributeVectorFactory::getAttributeVector2<value_id_t, StrategizedAllocator<uint, MallocStrategy>>(cols,rows, false));
-
-  tuples->resize(rows);
-
-  EXPECT_EQ(0u, tuples->get(0,0));
-  EXPECT_EQ(0u, tuples->inc(0,0));
-  EXPECT_EQ(1u, tuples->get(0,0));
-  EXPECT_EQ(1u, tuples->atomic_inc(0,0));
-  EXPECT_EQ(2u, tuples->get(0,0));
-}
 
 static const std::vector<uint64_t> bits = std::vector<uint64_t> {2, 3};
 
@@ -175,3 +164,52 @@ TYPED_TEST(AttributeVectorTests, empty_size_does_not_change_with_reserve) {
 
 }
 
+TYPED_TEST(AttributeVectorTests, DefaultDictVector_loading) {
+
+  size_t iCol = 0;
+  size_t iRow = 0;
+
+  std::shared_ptr<ColumnProperties> colProp (new ColumnProperties);
+
+  colProp->setDefaultType(ColDefaultDictVector);
+
+  Loader::params p;
+  p.setColProperties(colProp);
+  p.setReturnsMutableVerticalTable(true);
+  p.setModifiableMutableVerticalTable(true);
+
+  hyrise::storage::atable_ptr_t vegiTable = Loader::shortcuts::load("test/tables/VegiTable.csv", p);
+
+  vegiTable->resize(30);
+
+  for (iCol = 0; iCol<vegiTable->columnCount(); ++iCol)
+    for (iRow = 0; iRow<vegiTable->size(); ++iRow) {
+      vegiTable->setValue<hyrise_int_t>(iCol, iRow, static_cast<hyrise_int_t>(iCol*10000+iRow));
+    }
+
+  for (iCol = 0; iCol<vegiTable->columnCount(); ++iCol)
+    for (iRow = 0; iRow<vegiTable->size(); ++iRow)
+      ASSERT_EQ(vegiTable->getValue<hyrise_int_t>(iCol, iRow), static_cast<hyrise_int_t>(iCol*10000+iRow));
+}
+
+TYPED_TEST(AttributeVectorTests, DefaultDictVector_copy) {
+  const size_t columns = 10;
+  const size_t rows = 30;
+  DefaultDictVector<hyrise_int_t> base(columns, rows);
+  base.resize(rows);
+  
+  hyrise_int_t value(0);
+  for (unsigned c=0; c<columns; ++c) {
+    for (unsigned r=0; r<rows; ++r) {
+      base.set(c, r, ++value);
+      value %= 13;
+    }
+  }
+
+  std::shared_ptr<BaseAttributeVector<hyrise_int_t>> copy = base.copy();
+  for (unsigned c=0; c<columns; ++c) {
+    for (unsigned r=0; r<rows; ++r) {
+      ASSERT_EQ(base.get(c, r), copy->get(c, r));
+    }
+  }
+}

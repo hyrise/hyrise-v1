@@ -47,9 +47,13 @@ public:
     typedef TableBuilder::param param_t;
     typedef std::vector<param_t> param_list_t;
     typedef std::vector<unsigned> group_list_t;
+    typedef std::vector<bool> group_type_list_t;
 
     // layout for table
     group_list_t _groups;
+
+    // true, if column is DefaultDictVector
+    group_type_list_t _groupTypes;
 
 
     // internal param storage
@@ -65,10 +69,12 @@ public:
       return _params.back();
     }
 
-    param_list &appendGroup(unsigned g) {
+    param_list &appendGroup(unsigned g, bool isDefaultDictVector = false) {
       _groups.push_back(g);
+      _groupTypes.push_back(isDefaultDictVector);
       return *this;
     }
+
 
     /*
      * Returns a const reference to the list of parameters
@@ -79,6 +85,10 @@ public:
 
     const group_list_t &groups() const {
       return _groups;
+    }
+
+    const group_type_list_t &groupTypes() const {
+      return _groupTypes;
     }
 
     size_t size() const {
@@ -105,7 +115,8 @@ private:
   */
   static hyrise::storage::atable_ptr_t createTable(param_list::param_list_t::const_iterator b,
       param_list::param_list_t::const_iterator e,
-      const bool compressed);
+      const bool compressed,
+      const bool isDefaultDictVector=false);
 
 
   /*
