@@ -20,13 +20,14 @@
 class AbstractTaskQueue {
 
  public:
-  typedef enum status {
+  typedef enum {
     STARTUP = 0,
     RUN = 1,
     RUN_UNTIL_DONE = 2,
     TO_STOP = 3,
     STOPPED = 4,
-  } queue_status_t;
+  } queue_state;
+  typedef int queue_status_t; 
 
   virtual ~AbstractTaskQueue() {};
 

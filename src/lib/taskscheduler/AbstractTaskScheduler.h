@@ -57,7 +57,8 @@ class AbstractQueueBasedTaskScheduler : public AbstractTaskScheduler, public Tas
     RESIZING = 1,
     TO_STOP = 2,
     STOPPED = 3
-  } scheduler_status_t;
+  } scheduler_state;
+  typedef int scheduler_status_t; 
 
  protected:
   typedef TaskQueue task_queue_t;
