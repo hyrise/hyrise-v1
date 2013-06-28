@@ -82,8 +82,6 @@ void SimpleRawTableScan::executePlanOperation() {
                                           nullptr,
                                           1,  /* initial size */
                                           false, /* sorted */
-                                          64,
-                                          64,
                                           false /* compressed */);
 
   // Prepare the copy operator

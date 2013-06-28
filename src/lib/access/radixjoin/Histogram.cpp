@@ -78,7 +78,7 @@ uint32_t Histogram::significantOffset() const {
 
 std::shared_ptr<Table<>> Histogram::createOutputTable(const size_t size) const {
   std::vector<const ColumnMetadata*> meta {ColumnMetadata::metadataFromString(types::integer_t, "count")};
-  auto result = std::make_shared<Table<>>(&meta, nullptr, size, true, 0, 0, false);
+  auto result = std::make_shared<Table<>>(&meta, nullptr, size, true, false);
   result->resize(size);
   return result;
 }
