@@ -31,7 +31,7 @@ hyrise::storage::atable_ptr_t TableBuilder::createTable(param_list::param_list_t
       DictionaryFactory<OrderIndifferentDictionary>::build(vc.back()->getType()));
   }
 
-  auto tmp = std::make_shared<Table<>>(&vc, &vd, 0, 0, 0, 64, compressed);
+  auto tmp = std::make_shared<Table<>>(&vc, &vd, 0, 0, compressed);
 
 for (const auto & column_meta: vc)
     delete column_meta;

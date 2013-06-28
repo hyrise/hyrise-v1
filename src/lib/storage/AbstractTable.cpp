@@ -44,7 +44,7 @@ for (const field_t & field: *fields) {
     }
   }
 
-  auto res =  std::make_shared<Table<>>(&metadata, dictionaries, initial_size, true, 0, 0, compressed);
+  auto res =  std::make_shared<Table<>>(&metadata, dictionaries, initial_size, true, compressed);
   delete dictionaries;
   return res;
 }
