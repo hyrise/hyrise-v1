@@ -11,13 +11,10 @@ Table<Strategy, Allocator>::Table(
   std::vector<SharedDictionary> *d,
   size_t initial_size,
   bool sorted,
-  size_t padding_size,
-  size_t _align_size,
   bool compressed) :
   _metadata(m->size()),
   _dictionaries(m->size()),
   width(m->size()),
-  align_size(_align_size),
   _compressed(compressed) {
 
   // Ownership change for meta data
@@ -44,11 +41,6 @@ Table<Strategy, Allocator>::Table(
     }
   }
 
-  byte_width = width * sizeof(value_id_t);
-
-  if (padding_size > 0) {
-    byte_width = byte_width + padding_size - byte_width % padding_size;
-  }
 
   /** Build the attribute vector */
   if (!sorted)
@@ -92,8 +84,7 @@ hyrise::storage::atable_ptr_t Table<Strategy, Allocator>::copy_structure(const f
     }
   }
 
-  auto res =  std::make_shared<Table<>>(&metadata, dictionaries, initial_size,
-                                        true, STORAGE_ALIGNMENT_SIZE, align_size, compressed);
+  auto res =  std::make_shared<Table<>>(&metadata, dictionaries, initial_size, true, compressed);
   delete dictionaries;
   return res;
 
@@ -118,8 +109,7 @@ for (const field_t & field: *fields) {
   }
 
 
-  auto result = std::make_shared<Table<>>(&metadata, dictionaries, initial_size, false,
-                                          STORAGE_ALIGNMENT_SIZE, align_size, _compressed);
+  auto result = std::make_shared<Table<>>(&metadata, dictionaries, initial_size, false, _compressed);
   delete dictionaries;
   return result;
 
@@ -207,8 +197,6 @@ hyrise::storage::atable_ptr_t Table<Strategy, Allocator>::copy() const {
   auto new_table = std::make_shared<table_type>(new std::vector<const ColumnMetadata *>(_metadata.begin(), _metadata.end()));
 
   new_table->width = width;
-  new_table->byte_width = byte_width;
-  new_table->align_size = align_size;
   new_table->setGeneration(this->generation());
 
   SharedAttributeVector new_tuples = tuples->copy();

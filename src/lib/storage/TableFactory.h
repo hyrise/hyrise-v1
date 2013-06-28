@@ -17,9 +17,7 @@ public:
       std::vector<AbstractTable::SharedDictionaryPtr> *d = nullptr,
       size_t initial_size = 0,
       bool sorted = true,
-      bool compressed = false,
-      size_t padding_size = STORAGE_ALIGNMENT_SIZE,
-      size_t _align_size = STORAGE_ALIGNMENT_SIZE) = 0;
+      bool compressed = false) = 0;
 };
 
 /**
@@ -34,9 +32,7 @@ public:
       std::vector<AbstractTable::SharedDictionaryPtr> *d = nullptr,
       size_t initial_size = 0,
       bool sorted = true,
-      bool compressed = true,
-      size_t padding_size = STORAGE_ALIGNMENT_SIZE,
-      size_t _align_size = STORAGE_ALIGNMENT_SIZE);
+      bool compressed = true);
 };
 
 template<typename Strategy, template <typename T, typename S> class Allocator>
@@ -50,10 +46,8 @@ hyrise::storage::atable_ptr_t TableFactory<Strategy, Allocator>::generate(std::v
     std::vector<AbstractTable::SharedDictionaryPtr> *d,
     size_t initial_size,
     bool sorted,
-    bool compressed,
-    size_t padding_size,
-    size_t _align_size) {
-  return std::make_shared<Table<Strategy, Allocator>>(m, d, initial_size, sorted, padding_size, _align_size, compressed);
+    bool compressed) {
+  return std::make_shared<Table<Strategy, Allocator>>(m, d, initial_size, sorted, compressed);
 }
 
 #endif  // SRC_LIB_STORAGE_TABLEFACTORY_H_

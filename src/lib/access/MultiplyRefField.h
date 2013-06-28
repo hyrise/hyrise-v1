@@ -50,7 +50,7 @@ void MultiplyRefField::executeMultiply() {
 	const auto &mulTab = getInputTable(1);
 
 	std::vector<const ColumnMetadata*> meta {new ColumnMetadata("value", D), new ColumnMetadata("pos", IntegerType)};
-	auto result = std::make_shared<Table<>>(&meta, nullptr, stop * stopInner, false, 0, 0, false);
+	auto result = std::make_shared<Table<>>(&meta, nullptr, stop * stopInner, false, false);
 	result->resize(stop * stopInner);
 
 	// Pos list for matching Rows
