@@ -68,7 +68,7 @@ TEST_F(LoaderTests, load_string_header) {
   hyrise::storage::atable_ptr_t  t =  Loader::load(Loader::params().setHeader(header));
 
   ASSERT_EQ(5u, t->columnCount());
-  ASSERT_EQ(4u, t->sliceCount());
+  ASSERT_EQ(4u, t->partitionCount());
 }
 
 hyrise::storage::atable_ptr_t  loadTable() {

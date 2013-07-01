@@ -6,7 +6,8 @@
 namespace hyrise {
 namespace tx {
 
-std::atomic<transaction_id_t> TransactionManager::_transactionCount;
+TransactionManager::TransactionManager() : 
+	_transactionCount(ATOMIC_VAR_INIT(0)) {}
 
 TransactionManager& TransactionManager::getInstance() {
   static TransactionManager tm;
@@ -14,15 +15,25 @@ TransactionManager& TransactionManager::getInstance() {
 }
 
 transaction_id_t TransactionManager::getTransactionId() {
+	static locking::Spinlock _mtx;
+	locking::ScopedLock<locking::Spinlock> lck(_mtx);
+
   if (_transactionCount == std::numeric_limits<transaction_id_t>::max()) {
     throw std::runtime_error("Out of transaction ids - reached maximum");
   }
-  return ++_transactionCount;
 
+  auto key = ++_transactionCount;
+
+  // Create a new entry in teh TX Modifications set
+  _txData[key] = TXModifications(key);
+
+  return key;
 }
 
 void TransactionManager::reset() {
   _transactionCount = START_TID;
+  _commitId = UNKNOWN_CID;
+  _txData.clear();
 }
 
 }}

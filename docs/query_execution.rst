@@ -20,5 +20,6 @@ experiments with different settings.
     queryexecution/available_operators
     queryexecution/parallelization
     queryexecution/json_plan_operations
+    queryexecution/tx
     queryexecution/v8ops
 

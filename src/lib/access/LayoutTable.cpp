@@ -34,7 +34,7 @@ void LayoutTable::executePlanOperation() {
   tables.push_back(store->getDeltaTable());
 
   // Call the Merge
-  TableMerger merger(new LogarithmicMergeStrategy(0), new SequentialHeapMerger());
+  TableMerger merger(new DefaultMergeStrategy(), new SequentialHeapMerger());
 
   // Switch the tables
   auto ntables = merger.mergeToTable(dest, tables);

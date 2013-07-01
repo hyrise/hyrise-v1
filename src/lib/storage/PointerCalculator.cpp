@@ -3,6 +3,9 @@
 
 #include <iostream>
 #include <string>
+#include <unordered_set>
+
+#include "helper/checked_cast.h"
 
 #include "storage/PrettyPrinter.h"
 #include "storage/Store.h"
@@ -70,9 +73,9 @@ void PointerCalculator::updateFieldMapping() {
   size_t last_field = 0;
   bool last_field_set = false;
 
-  for (size_t src_slice = 0; src_slice < table->sliceCount(); src_slice++) {
+  for (size_t src_slice = 0; src_slice < table->partitionCount(); src_slice++) {
     last_field_set = false;
-    for (size_t src_field = 0; src_field < table->getSliceWidth(src_slice) / sizeof(value_id_t); src_field++) {
+    for (size_t src_field = 0; src_field < table->partitionWidth(src_slice); src_field++) {
       // Check if we have to increase the fields until we reach
       // a projected attribute
       if (fields && (fields->size() <= dst_field || fields->at(dst_field) != field)) {
@@ -84,9 +87,9 @@ void PointerCalculator::updateFieldMapping() {
         slice_count++;
         slice_for_slice.push_back(src_slice);
         offset_in_slice.push_back(src_field);
-        width_for_slice.push_back(sizeof(value_id_t));
+        width_for_slice.push_back(1);
       } else {
-        width_for_slice[slice_count - 1] += sizeof(value_id_t);
+        width_for_slice[slice_count - 1] += 1;
       }
 
       dst_field++;
@@ -192,45 +195,19 @@ ValueId PointerCalculator::getValueId(const size_t column, const size_t row) con
   return table->getValueId(actual_column, actual_row);
 }
 
-unsigned PointerCalculator::sliceCount() const {
+unsigned PointerCalculator::partitionCount() const {
   return slice_count;
 }
 
-void *PointerCalculator::atSlice(const size_t slice, const size_t row) const {
-  size_t actual_row;
-
-  if (pos_list) {
-    actual_row = pos_list->at(row);
-  } else {
-    actual_row = row;
-  }
-
-  if (fields) {
-    void *at = table->atSlice(slice_for_slice[slice], row);
-    at = (value_id_t *)at + offset_in_slice[slice];
-    return at;
-  }
-
-  return table->atSlice(slice, actual_row);
-}
-
-size_t PointerCalculator::getSliceWidth(const size_t slice) const {
+size_t PointerCalculator::partitionWidth(const size_t slice) const {
   // FIXME this should return the width in bytes for the column
   if (fields) {
     return width_for_slice[slice];
   }
 
-  return table->getSliceWidth(slice);
+  return table->partitionWidth(slice);
 }
 
-
-size_t PointerCalculator::getSliceForColumn(const size_t column) const {
-  return 0;
-};
-
-size_t PointerCalculator::getOffsetInSlice(const size_t column) const {
-  return 0;
-};
 
 void PointerCalculator::print(const size_t limit) const {
   PrettyPrinter::print(this, std::cout, "unnamed pointer calculator", limit);
@@ -434,4 +411,24 @@ std::shared_ptr<PointerCalculator> PointerCalculator::concatenate_many(pc_vector
 void PointerCalculator::debugStructure(size_t level) const {
   std::cout << std::string(level, '\t') << "PointerCalculator " << this << std::endl;
   table->debugStructure(level+1);
+}
+
+
+void PointerCalculator::validate(hyrise::tx::transaction_id_t tid, hyrise::tx::transaction_id_t cid) {
+  const auto& store = checked_pointer_cast<const Store>(table);
+  if (pos_list == nullptr) {
+    bool all=false;
+    pos_list = new pos_list_t(store->buildValidPositions(cid, tid, all));
+  } else {
+    store->validatePositions(*pos_list, cid, tid);
+  }
+}
+
+void PointerCalculator::remove(const pos_list_t& pl) {
+  std::unordered_set<pos_t> tmp(pl.begin(), pl.end());
+  const auto& end = tmp.cend();
+  auto res = std::remove_if(std::begin(*pos_list), std::end(*pos_list),[&tmp, &end](const pos_t& p){
+    return tmp.count(p) != 0u;
+  });
+  (*pos_list).erase(res);
 }

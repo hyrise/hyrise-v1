@@ -17,7 +17,7 @@
 #include <storage/AbstractTable.h>
 #include <storage/Store.h>
 #include <storage/TableMerger.h>
-#include <storage/LogarithmicMergeStrategy.h>
+#include <storage/AbstractMergeStrategy.h>
 #include <storage/SequentialHeapMerger.h>
 
 
@@ -48,12 +48,12 @@ TEST_F(DumpTests, should_not_dump_other_tables_than_stores) {
 
 TEST_F(DumpTests, should_not_dump_store_with_muliple_generations) {
 
-  TableMerger *merger = new TableMerger(new LogarithmicMergeStrategy(4), new SequentialHeapMerger(), false);
+  TableMerger *merger = new TableMerger(new DefaultMergeStrategy(), new SequentialHeapMerger(), false);
   auto s = std::dynamic_pointer_cast<Store>(simpleTable);
   s->setMerger(merger);
   s->merge();
 
-  s->getDeltaTable()->resize(1);
+  s->resizeDelta(1);
   s->getDeltaTable()->setValue<hyrise_int_t>(0, 0, 1);
   s->getDeltaTable()->setValue<hyrise_int_t>(1, 0, 1);
   s->getDeltaTable()->setValue<hyrise_int_t>(2, 0, 1);
@@ -66,7 +66,7 @@ TEST_F(DumpTests, should_not_dump_store_with_muliple_generations) {
   s->getDeltaTable()->setValue<hyrise_int_t>(9, 0, 1);
   s->merge();
 
-  s->getDeltaTable()->resize(1);
+  s->resizeDelta(1);
   s->getDeltaTable()->setValue<hyrise_int_t>(0, 0, 1);
   s->getDeltaTable()->setValue<hyrise_int_t>(1, 0, 1);
   s->getDeltaTable()->setValue<hyrise_int_t>(2, 0, 1);
@@ -80,7 +80,7 @@ TEST_F(DumpTests, should_not_dump_store_with_muliple_generations) {
   s->merge();
   
   auto dumper = hyrise::storage::SimpleTableDump("./test/dump");
-  ASSERT_THROW(dumper.dump("simple", s), std::runtime_error);
+  dumper.dump("simple", s);  
 }
 
 
@@ -127,7 +127,7 @@ TEST_F(DumpTests, simple_dump_should_not_dump_delta) {
   ASSERT_EQ(10u, simpleTable->columnCount());
 
   auto s = std::dynamic_pointer_cast<Store>(simpleTable);
-  s->getDeltaTable()->resize(1);
+  s->resizeDelta(1);
   s->getDeltaTable()->setValue<hyrise_int_t>(0, 0, 1);
   s->getDeltaTable()->setValue<hyrise_int_t>(1, 0, 1);
   s->getDeltaTable()->setValue<hyrise_int_t>(2, 0, 1);

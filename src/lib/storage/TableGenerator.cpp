@@ -15,7 +15,7 @@
 
 #include <storage/AbstractTable.h>
 #include <storage/MutableVerticalTable.h>
-#include <storage/LogarithmicMergeStrategy.h>
+#include <storage/AbstractMergeStrategy.h>
 #include <storage/SequentialHeapMerger.h>
 #include <storage/TableMerger.h>
 #include <helper/Progress.h>
@@ -888,7 +888,7 @@ hyrise::storage::atable_ptr_t TableGenerator::int_distinct(size_t row_count, siz
     tables.push_back(fill_up_table);
   }
 
-  const auto& result = TableMerger(new LogarithmicMergeStrategy(1), new SequentialHeapMerger()).merge(tables);
+  const auto& result = TableMerger(new DefaultMergeStrategy(), new SequentialHeapMerger()).merge(tables);
   return result[0];
 }
 

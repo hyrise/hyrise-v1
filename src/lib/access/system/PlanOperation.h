@@ -5,6 +5,7 @@
 #include "access/system/OutputTask.h"
 #include "access/system/OperationData.h"
 #include "access/system/QueryParser.h"
+#include "io/TXContext.h"
 
 #include "storage/storage_types.h"
 #include "helper/types.h"
@@ -15,6 +16,7 @@
 
 namespace hyrise {
 namespace access {
+
 class ResponseTask;
 }
 }
@@ -28,6 +30,7 @@ class _PlanOperation : public OutputTask {
  protected:
   void addResult(hyrise::storage::c_atable_ptr_t result);
   void addResultHash(hyrise::storage::c_ahashtable_ptr_t result);
+
 
   unsigned int findColumn(const std::string &);
 
@@ -69,7 +72,8 @@ class _PlanOperation : public OutputTask {
 
   void setLimit(uint64_t l);
   void setProducesPositions(bool p);
-  void setTransactionId(hyrise::tx::transaction_id_t tid);
+  
+  void setTXContext(hyrise::tx::TXContext ctx);
 
   void addInput(hyrise::storage::c_atable_ptr_t t);
   void addInputHash(hyrise::storage::c_ahashtable_ptr_t t);
@@ -127,6 +131,9 @@ class _PlanOperation : public OutputTask {
   std::string _planId;
   std::string _operatorId;
   std::string _planOperationName;
+  
+  hyrise::tx::TXContext _txContext;
+
 };
 
 #endif  // SRC_LIB_ACCESS_PLANOPERATION_H_

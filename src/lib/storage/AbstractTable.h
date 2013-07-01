@@ -272,34 +272,19 @@ public:
   virtual void resize(const size_t rows);
 
   /**
-   * Returns the number of slices.
+   * Returns the number of partitions in this table.
    * @note Must be implemented by any derived class!
    */
-  virtual unsigned sliceCount() const = 0;
+  virtual unsigned partitionCount() const = 0;
 
 
   /**
-   * Returns a pointer to the memory area of a slice.
-   * @note Must be implemented by any derived class!
-   *
-   * @param slice       The slice of interest.
-   * @param row         Row in that slice.
-   * @param _width
-   */
-  virtual void *atSlice(const size_t slice, const size_t row) const = 0;
-
-
-  /**
-   * Returns the width of a slice.
+   * Returns the width of a specified partition in number of attributes.
    * @note Must be implemented by any derived class!
    *
    * @param slice The slice of interest.
    */
-  virtual size_t getSliceWidth(const size_t slice) const = 0;
-
-
-  virtual size_t getSliceForColumn(const size_t column) const = 0;
-  virtual size_t getOffsetInSlice(const size_t column) const = 0;
+  virtual size_t partitionWidth(const size_t slice) const = 0;
 
 
   /**
@@ -561,10 +546,17 @@ public:
    */
   virtual hyrise::storage::atable_ptr_t copy() const = 0;
 
-  /// get underlying attribute vectors for column
+  /** 
+  * get underlying attribute vectors for column
+  *
+  * This method returns a struct containing the reference to the attribute
+  * vector and the offset of the attribut in this vector. This allows a direct
+  * access to the memory and keeping the high-level data structures.
+  */
   virtual const attr_vectors_t getAttributeVectors(size_t column) const;
 
   virtual void debugStructure(size_t level=0) const;
+  
 };
 
 #endif  // SRC_LIB_STORAGE_ABSTRACTTABLE_H_

@@ -17,8 +17,8 @@
 
 #define EXPRESSION_EXTRACT_AV_AND_OFFSET(r, data, name) \
 	const	auto& BOOST_PP_CAT(tmp, name) = _store->getAttributeVectors(name); \
-	BOOST_PP_CAT(_vector_,name) = collect(BOOST_PP_CAT(tmp, name), [](attr_vector_offset_t& v) { return std::dynamic_pointer_cast<VectorType>(v.attribute_vector); }); \
-	BOOST_PP_CAT(_of_, name) = collect(BOOST_PP_CAT(tmp, name), [](attr_vector_offset_t& v) { return v.attribute_offset; });
+	BOOST_PP_CAT(_vector_,name) = hyrise::functional::collect(BOOST_PP_CAT(tmp, name), [](const attr_vector_offset_t& v) { return std::dynamic_pointer_cast<VectorType>(v.attribute_vector); }); \
+	BOOST_PP_CAT(_of_, name) = hyrise::functional::collect(BOOST_PP_CAT(tmp, name), [](const attr_vector_offset_t& v) { return v.attribute_offset; });
 
 
 #define EXPR_DATA_VECTOR_NAME(name) BOOST_PP_CAT(_vector_, name)

@@ -89,12 +89,7 @@ public:
   /**
    * @see AbstractTable
    */
-  void *atSlice(const size_t slice, const size_t row) const;
-
-  /**
-   * @see AbstractTable
-   */
-  size_t getSliceWidth(const size_t slice) const;
+  size_t partitionWidth(const size_t slice) const;
 
   /**
    * @see AbstractTable
@@ -116,11 +111,7 @@ public:
   void setDictionaryAt(AbstractTable::SharedDictionaryPtr dict, 
                        const size_t column, const size_t row = 0, const table_id_t table_id = 0);
 
-  unsigned int sliceCount() const;
-
-  size_t getSliceForColumn(size_t) const;
-
-  size_t getOffsetInSlice(size_t) const;
+  unsigned int partitionCount() const;
 
   ///////////////////////////////////////////////////////////////////////////////////////
   /// Delta Methods
