@@ -150,6 +150,14 @@ public:
     return result;
   }
 
+  inline void abort() {
+    if (!_txLock.isLocked()) 
+      throw std::runtime_error("Cannot abort a not running trasnaction.");
+    
+    _txLock.unlock();
+  }
+
+
   /**
   * Tries to acquire the spin lock for the prepare commit call and returns
   * hyrise::tx::UNKNOWN in case of failure or the next commit ID in case of

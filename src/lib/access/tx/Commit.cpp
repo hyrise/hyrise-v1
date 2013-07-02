@@ -32,6 +32,7 @@ void Commit::executePlanOperation() {
 		// records will be always only written by us
 		if (modifications.hasDeleted(store) && 
 			(hyrise::tx::TX_CODE::TX_OK != store->checkCommitID(modifications.getDeleted(store), _txContext.lastCid))) {
+			txmgr.abort();
 			throw std::runtime_error("Aborted TX with Last Commit ID != New Commit ID");
 		}	
 	}
@@ -40,14 +41,19 @@ void Commit::executePlanOperation() {
 	for(auto& store : tables) {
 		if (modifications.hasInserted(store)) {
 			auto result = store->updateCommitID(modifications.getInserted(store), _txContext.cid, true);
-			if (result != hyrise::tx::TX_CODE::TX_OK)
-			throw std::runtime_error("Aborted TX with "); // TODO at return code to error message
+			if (result != hyrise::tx::TX_CODE::TX_OK) {
+				txmgr.abort();
+				throw std::runtime_error("Aborted TX with "); // TODO at return code to error message	
+			}
+			
 		}
 	
 		if (modifications.hasDeleted(store)) {
 			auto result = store->updateCommitID(modifications.getDeleted(store), _txContext.cid, false);
-			if (result != hyrise::tx::TX_CODE::TX_OK)
+			if (result != hyrise::tx::TX_CODE::TX_OK) {
+				txmgr.abort();
 				throw std::runtime_error("Aborted TX with "); // TODO at return code to error message
+			}
 		}	
 	}
 

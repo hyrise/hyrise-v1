@@ -56,13 +56,13 @@ void InsertScan::executePlanOperation() {
   size_t max = store->getDeltaTable()->size();
   const auto& beforSize = store->size();
 
-  store->resizeDelta(max + _data->size());
+  auto writeArea = store->resizeDelta(max + _data->size());
   const auto& hidden = false;
 
   // Get the modifications record
   auto& mods = tx::TransactionManager::getInstance()[_txContext.tid];
   for(size_t i=0, upper = _data->size(); i < upper; ++i) {
-    store->copyRowToDelta(_data, i, max+i, _txContext.tid, hidden);
+    store->copyRowToDelta(_data, i, writeArea.first+i, _txContext.tid, hidden);
     mods.insertPos(store, beforSize+i);
   }
 

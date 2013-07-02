@@ -293,11 +293,13 @@ pos_list_t Store::buildValidPositions(hyrise::tx::transaction_id_t last_commit_i
   return result;
 }
 
-void Store::resizeDelta(size_t num) {
+std::pair<size_t, size_t> Store::resizeDelta(size_t num) {
   static hyrise::locking::Spinlock mtx;
   hyrise::locking::ScopedLock<hyrise::locking::Spinlock> lck(mtx);
 
   assert(num > delta->size());
+  std::pair<size_t, size_t> result = {delta->size(), num};
+
   // Update Delta
   delta->resize(num);
   // Update CID, TID and valid
@@ -306,6 +308,8 @@ void Store::resizeDelta(size_t num) {
   _tidVector.resize(main_tables_size + num, hyrise::tx::UNKNOWN);
   _validityVector.resize(main_tables_size + num, false);
 
+
+  return std::move(result);
 }
 
 void Store::copyRowToDelta(const hyrise::storage::c_atable_ptr_t& source, const size_t src_row, const size_t dst_row, hyrise::tx::transaction_id_t tid, bool valid) {

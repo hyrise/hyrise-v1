@@ -127,7 +127,12 @@ public:
 
   virtual void debugStructure(size_t level=0) const;
 
-  void resizeDelta(size_t num);
+  /**
+  * Resize the current delta size atomically to new size and return a pair of
+  * start and end for the resized delta that can be used as a write area that
+  * is safe to use
+  */
+  std::pair<size_t, size_t> resizeDelta(size_t num);
 
   /**
   * This method validates a list of positions to check if it is valid

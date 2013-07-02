@@ -40,7 +40,7 @@ void PosUpdateScan::executePlanOperation() {
   // Get the offset for inserts into the delta and the size of the delta that
   // we need to increase by the positions we are inserting
   size_t deltaMax = store->getDeltaTable()->size();
-  store->resizeDelta(deltaMax + c_pc->getPositions()->size());
+  auto writeArea = store->resizeDelta(deltaMax + c_pc->getPositions()->size());
 
   // Get the modification record for the current transaction
   auto& modRecord = tx::TransactionManager::getInstance()[_txContext.tid];
@@ -57,11 +57,11 @@ void PosUpdateScan::executePlanOperation() {
     store->setTid(p, _txContext.tid);
 
     // Copy the old row from the main
-    store->copyRowToDelta(store, p, deltaMax+counter, _txContext.tid, hidden);
+    store->copyRowToDelta(store, p, writeArea.first+counter, _txContext.tid, hidden);
     // Update all the necessary values
     for(const auto& kv : _raw_data) {
       const auto& fld = store->numberOfColumn(kv.first);
-      fun.set(fld, deltaMax+counter, kv.second);
+      fun.set(fld, writeArea.first+counter, kv.second);
       ts(store->typeOfColumn(fld), fun);
     }
 
