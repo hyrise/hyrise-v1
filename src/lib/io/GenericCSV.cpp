@@ -81,9 +81,13 @@ void genericParse(
     void *data,
     const csv::params &params
                   ) {
-
   // Open the file
-  FILE* file = fopen(filename.c_str(), "rb");
+  typedef std::unique_ptr<std::FILE, int (*)(std::FILE *)> unique_file_ptr;
+  unique_file_ptr file(fopen(filename.c_str(), "rb"), fclose);
+  if (!file) {
+    throw ParserError(std::string("File Opening Failed") +  std::strerror(errno));
+  }
+
   struct csv_parser parser;
 
   if (!csv_init(&parser, 0)) {
@@ -94,11 +98,11 @@ void genericParse(
     if (line_start > 1) {
       int c;
       do {
-        c = fgetc(file);
+        c = fgetc(file.get());
         if ( c== '\n') --line_start;
       } while (c!= EOF  && line_start > 1);
     }
-    
+
     // 1GB Buffer
     size_t block_size;
     if (getenv("HYRISE_LOAD_BLOCK_SIZE"))
@@ -112,7 +116,7 @@ void genericParse(
 
     // Read the file until we cannot extract more bytes
     do {
-      readBytes = fread(rdbuf, 1, block_size, file);
+      readBytes = fread(rdbuf, 1, block_size, file.get());
       if (csv_parse(&parser,
                     rdbuf,
                     readBytes,
@@ -124,7 +128,7 @@ void genericParse(
       }
     } while (readBytes == block_size);
 
-    if (ferror(file)) {
+    if (ferror(file.get())) {
       free(rdbuf);
       throw ParserError("Could not read file");
     }
