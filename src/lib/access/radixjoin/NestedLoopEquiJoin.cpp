@@ -71,7 +71,7 @@ void NestedLoopEquiJoin::executePlanOperation() {
 
     // get the corresponding rows for partition using the left prefix table
     left_begin = lprefixvector->get(0, partition);
-    if((partition == lprefixvector_size - 1)) //|| (i+1) == _partitions.size())
+    if(partition == lprefixvector_size - 1) //|| (i+1) == _partitions.size())
       left_end = left_size;
     else
       left_end = lprefixvector->get(0,partition +1);

@@ -53,16 +53,11 @@ class PapiTracer {
   /// @param[in] function PAPI function to call that returns PAPI error codes
   /// @param[in] activity Information about the activity currently conducted, for error reporting
   /// @param[in] args parameters of the function to call
-  template<typename Func, typename... Args>
-  static void handle(Func function, const char* activity, Args&&... args) {
-    handle(function, std::string(activity), args...);
-  }
-
-  template<typename Func, typename... Args>
-  static void handle(Func function, const std::string& activity, Args&&... args) {
+  template<typename Func, typename ActivityT, typename... Args>
+  static void handle(Func function, ActivityT activity, Args&&... args) {
     int retval = function(std::forward<Args>(args)...);
     if (retval != PAPI_OK)
-      throw TracingError(activity + " failed: " + PAPI_strerror(retval));
+      throw TracingError(std::string(activity) + " failed: " + PAPI_strerror(retval));
   }
 
   static void initialize() {
@@ -83,9 +78,7 @@ class PapiTracer {
   }
 
   inline ~PapiTracer() {
-    if (_running) {
-      stop();
-    }
+    stop();
   }
 
   /// Add a new event counter
@@ -127,7 +120,7 @@ class PapiTracer {
 
   /// Stop performance counter
   inline void stop() {
-    if (_disabled) return;
+    if (_disabled || !_running) return;
 
     handle(PAPI_stop, "Stopping Counter", _eventSet, _results.data());
 
