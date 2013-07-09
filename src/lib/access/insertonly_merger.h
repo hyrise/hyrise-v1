@@ -17,7 +17,9 @@ class DiscardingMerger : public AbstractMerger {
   void mergeValues(const std::vector<storage::c_atable_ptr_t> &input_tables,
                    storage::atable_ptr_t merged_table,
                    const storage::column_mapping_t &column_mapping,
-                   const uint64_t newSize);
+                   const uint64_t newSize,
+                   bool useValid = false,
+                   const std::vector<bool>& valid = std::vector<bool>());
 
   AbstractMerger* copy() { return nullptr; }
  private:

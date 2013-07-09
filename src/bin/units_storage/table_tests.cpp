@@ -29,24 +29,24 @@ public:
 
 TEST_F(TableTests, does_copy_structure_copy_structure) {
   hyrise::storage::atable_ptr_t  input = Loader::shortcuts::load("test/lin_xxs.tbl");
-  ASSERT_EQ(3u, input->sliceCount());
+  ASSERT_EQ(3u, input->partitionCount());
 
   hyrise::storage::atable_ptr_t  copy  = input->copy_structure();
-  ASSERT_EQ(3u, input->sliceCount()) << "Copied table should have the same number of containers";
+  ASSERT_EQ(3u, input->partitionCount()) << "Copied table should have the same number of containers";
 }
 
 TEST_F(TableTests, generate_generates_layout) {
 
   TableGenerator tg;
   hyrise::storage::atable_ptr_t  input = tg.create_empty_table(0, 10);
-  ASSERT_EQ(10u, input->sliceCount());
+  ASSERT_EQ(10u, input->partitionCount());
 
   std::vector<unsigned> l;
   l.push_back(3);
   l.push_back(7);
 
   input = tg.create_empty_table(0, 10, l);
-  ASSERT_EQ(2u, input->sliceCount());
+  ASSERT_EQ(2u, input->partitionCount());
 
   l.clear();
   l.push_back(1);
@@ -61,7 +61,7 @@ TEST_F(TableTests, generate_generates_layout) {
   l.push_back(1);
 
   input = tg.create_empty_table(0, 10, l);
-  ASSERT_EQ(10u, input->sliceCount());
+  ASSERT_EQ(10u, input->partitionCount());
 }
 
 TEST_F(TableTests, number_of_column) {

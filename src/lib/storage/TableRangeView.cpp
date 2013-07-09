@@ -44,22 +44,8 @@ ValueId TableRangeView::getValueId(const size_t column, const size_t row) const{
   return _table->getValueId(column, actual_row);
 }
 
-void *TableRangeView::atSlice(const size_t slice, const size_t row) const{
-  size_t actual_row;
-  actual_row = row + _start;
-  return _table->atSlice(slice, actual_row);
-}
-
-size_t TableRangeView::getSliceWidth(const size_t slice) const{
-  return _table->getSliceWidth(slice);
-}
-
-size_t TableRangeView::getSliceForColumn(const size_t column) const{
-  return _table->getSliceForColumn(column);
-}
-
-size_t TableRangeView::getOffsetInSlice(const size_t column) const{
-  return _table->getOffsetInSlice(column);
+size_t TableRangeView::partitionWidth(const size_t slice) const{
+  return _table->partitionWidth(slice);
 }
 
 void TableRangeView::print(const size_t limit) const{
@@ -119,8 +105,8 @@ std::string TableRangeView::nameOfColumn(const size_t column) const {
   return _table->nameOfColumn(column);
 }
 
-unsigned TableRangeView::sliceCount() const{
-  return _table->sliceCount();
+unsigned TableRangeView::partitionCount() const{
+  return _table->partitionCount();
 }
 
 

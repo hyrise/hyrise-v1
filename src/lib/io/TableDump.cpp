@@ -18,6 +18,7 @@
 #include "io/CSVLoader.h"
 
 #include "helper/stringhelpers.h"
+#include "helper/vector_helpers.h"
 
 #include "storage/AbstractTable.h"
 #include "storage/Store.h"
@@ -34,7 +35,7 @@ namespace DumpHelper {
   static const std::string ATTR_EXT = ".attr.dat";
 
   static inline std::string buildPath(std::initializer_list<std::string> l) {
-    return std::accumulate(l.begin(), l.end(), std::string(), infix("/"));
+    return functional::foldLeft(l, std::string(), infix("/"));
   }
 }
 
@@ -157,8 +158,8 @@ void SimpleTableDump::dumpHeader(std::string name, std::shared_ptr<AbstractTable
   // This calculation will break if the width of the value_id changes
   // or someone forgets to simply update the width accordingly in the
   // constructor of the table
-  for(size_t i=0; i < table->sliceCount(); ++i) {
-    parts.push_back(table->getSliceWidth(i) / sizeof(value_id_t));
+  for(size_t i=0; i < table->partitionCount(); ++i) {
+    parts.push_back(table->partitionWidth(i));
   }
     
   // Dump and join

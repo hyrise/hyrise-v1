@@ -16,6 +16,14 @@ public:
   const std::string vname();
 };
 
+class MergeStore : public _PlanOperation {
+public:
+  virtual ~MergeStore();
+  void executePlanOperation();
+  static std::shared_ptr<_PlanOperation> parse(Json::Value& data);
+};
+
+
 }
 }
 

@@ -2,7 +2,7 @@
 #include "SimpleStore.h"
 #include "TableMerger.h"
 #include "SimpleStoreMerger.h"
-#include "LogarithmicMergeStrategy.h"
+#include "AbstractMergeStrategy.h"
 
 #include <helper/types.h>
 
@@ -15,7 +15,7 @@ void SimpleStore::createDelta() {
 
 SimpleStore::SimpleStore(hyrise::storage::atable_ptr_t t) : _main(t) {
   createDelta();
-  _merger = std::unique_ptr<TableMerger>(new TableMerger(new LogarithmicMergeStrategy(0), new SimpleStoreMerger()));
+  _merger = std::unique_ptr<TableMerger>(new TableMerger(new DefaultMergeStrategy(), new SimpleStoreMerger()));
 }
 
 void SimpleStore::merge() {
@@ -73,24 +73,13 @@ void SimpleStore::setValueId(const size_t column, const size_t row, const ValueI
   _main->setValueId(column, row, valueId);
 }
 
-void *SimpleStore::atSlice(const size_t slice, const size_t row) const {
-  return _main->atSlice(slice, row);
+
+size_t SimpleStore::partitionWidth(const size_t slice) const {
+  return _main->partitionWidth(slice);
 }
 
-size_t SimpleStore::getSliceWidth(const size_t slice) const {
-  return _main->getSliceWidth(slice);
-}
-
-unsigned int SimpleStore::sliceCount() const {
-  return _main->sliceCount();
-}
-
-size_t SimpleStore::getSliceForColumn(size_t column) const {
-  return _main->getSliceForColumn(column);
-}
-
-size_t SimpleStore::getOffsetInSlice(size_t c) const {
-  return _main->getOffsetInSlice(c);
+unsigned int SimpleStore::partitionCount() const {
+  return _main->partitionCount();
 }
 
 hyrise::storage::atable_ptr_t SimpleStore::copy() const {

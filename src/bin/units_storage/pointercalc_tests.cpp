@@ -41,7 +41,7 @@ TEST_F(PointerCalcTests, pc_from_vertical_table_slice_count) {
 
 
 
-  ASSERT_EQ((unsigned) 7, t->sliceCount());
+  ASSERT_EQ((unsigned) 7, t->partitionCount());
 
 
   std::vector<field_t> *tmp_fd = new std::vector<field_t>;
@@ -51,7 +51,7 @@ TEST_F(PointerCalcTests, pc_from_vertical_table_slice_count) {
   tmp_fd->push_back(4);
 
   hyrise::storage::atable_ptr_t  res = PointerCalculatorFactory::createPointerCalculatorNonRef(t, tmp_fd, nullptr);
-  ASSERT_EQ((unsigned) 4, res->sliceCount());
+  ASSERT_EQ((unsigned) 4, res->partitionCount());
 }
 
 TEST_F(PointerCalcTests, pc_from_vertical_table_slice_count_4_groups) {
@@ -65,7 +65,7 @@ TEST_F(PointerCalcTests, pc_from_vertical_table_slice_count_4_groups) {
   sm->loadTable("mytab", params);
 
   hyrise::storage::atable_ptr_t  t = sm->getTable("mytab");
-  ASSERT_EQ((unsigned) 5, t->sliceCount());
+  ASSERT_EQ((unsigned) 5, t->partitionCount());
 
 
   std::vector<field_t> *tmp_fd = new std::vector<field_t>;
@@ -75,7 +75,7 @@ TEST_F(PointerCalcTests, pc_from_vertical_table_slice_count_4_groups) {
   tmp_fd->push_back(4);
 
   hyrise::storage::atable_ptr_t  res = PointerCalculatorFactory::createPointerCalculatorNonRef(t, tmp_fd, nullptr);
-  ASSERT_EQ((unsigned) 2, res->sliceCount());
+  ASSERT_EQ((unsigned) 2, res->partitionCount());
 }
 
 
@@ -90,7 +90,8 @@ TEST_F(PointerCalcTests, pc_from_vertical_table_slice_count_1_group) {
   sm->loadTable("mytab", params);
 
   hyrise::storage::atable_ptr_t  t = sm->getTable("mytab");
-  ASSERT_EQ((unsigned) 5, t->sliceCount());
+  ASSERT_EQ((unsigned) 5, t->partitionCount());
+  ASSERT_EQ(7u, t->columnCount());
 
 
   std::vector<field_t> *tmp_fd = new std::vector<field_t>;
@@ -99,9 +100,9 @@ TEST_F(PointerCalcTests, pc_from_vertical_table_slice_count_1_group) {
   tmp_fd->push_back(3);
 
   hyrise::storage::atable_ptr_t  res = PointerCalculatorFactory::createPointerCalculatorNonRef(t, tmp_fd, nullptr);
-  ASSERT_EQ(1u, res->sliceCount());
+  ASSERT_EQ(1u, res->partitionCount());
 
-  ASSERT_EQ(12u, res->getSliceWidth(0));
+  ASSERT_EQ(3u, res->partitionWidth(0));
 }
 
 TEST_F(PointerCalcTests, pc_from_vertical_table_slice_count_1_group_projection) {
@@ -115,15 +116,15 @@ TEST_F(PointerCalcTests, pc_from_vertical_table_slice_count_1_group_projection) 
   sm->loadTable("mytab", params);
 
   hyrise::storage::atable_ptr_t  t = sm->getTable("mytab");
-  ASSERT_EQ((unsigned) 5, t->sliceCount());
+  ASSERT_EQ((unsigned) 5, t->partitionCount());
 
 
   std::vector<field_t> *tmp_fd = new std::vector<field_t>;
   tmp_fd->push_back(1);
 
   hyrise::storage::atable_ptr_t  res = PointerCalculatorFactory::createPointerCalculatorNonRef(t, tmp_fd, nullptr);
-  ASSERT_EQ(1u, res->sliceCount());
-  ASSERT_EQ(4u, res->getSliceWidth(0));
+  ASSERT_EQ(1u, res->partitionCount());
+  ASSERT_EQ(1u, res->partitionWidth(0));
 
 }
 

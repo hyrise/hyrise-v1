@@ -9,6 +9,7 @@
 #include "helper/types.h"
 #include "helper/RangeIter.h"
 #include "storage/AbstractTable.h"
+#include "storage/Store.h"
 #include "storage/RawTable.h"
 #include "storage/storage_types.h"
 #include "storage/TableDiff.h"
@@ -17,7 +18,7 @@
 using namespace hyrise;
 
 template <typename T>
-std::string generateValue(T& input, const size_t& column, const size_t& row) {
+std::string generateValue(T& input, const size_t column, const size_t row) {
   std::stringstream buffer;
 
   // Add a basic hack to make valid_to columns look decent
@@ -66,6 +67,49 @@ void special_print(T& input, std::ostream& outStream, const std::string tableNam
     for (size_t column = 0; column < columns; ++column) {
       tp << generateValue(input, column, row);
     }
+  }
+  tp.printFooter();
+}
+
+
+void special_print(const Store* store, std::ostream& outStream, const std::string tableName, const size_t& limit, const size_t& start) {
+  ftprinter::FTPrinter tp(tableName, outStream);
+  tp.addColumn("#rowid", 6);
+  const size_t columns = store->columnCount();
+  for (size_t column_index = 0; column_index < columns; ++column_index) {
+    // Auto adjusting widths means iterating over the table twice, but we use it for
+    // debugging purposes only, anyways, so we'll go with beauty of output here
+    auto name = store->nameOfColumn(column_index);
+    size_t width = std::accumulate(RangeIter(0), RangeIter(store->size()),
+                                   // minimum width is 4
+                                   name.size() > 4 ? name.size() : 4,
+                                   [&] (size_t max, const size_t row) -> size_t {
+                                     size_t sz = generateValue(store, column_index, row).size();
+                                     return sz > max ? sz : max;
+                                   });
+    tp.addColumn(name, width);
+  }
+  tp.addColumn("$valid",6);
+  tp.addColumn("$tid",6);
+  tp.addColumn("$cid",6);
+
+  if (limit < (size_t) - 1) {
+    outStream << "(showing first " << limit << " rows)" << std::endl;
+  }
+
+  if (tableName.size() > 0)
+    tp.printTableName();
+
+  tp.printHeader();
+
+  for (size_t row = start; row < store->size() && row < limit; ++row) {
+    tp << row;
+    for (size_t column = 0; column < columns; ++column) {
+      tp << generateValue(store, column, row);
+    }
+    tp << store->valid(row);
+    tp << store->tid(row);
+    tp << store->cid(row);
   }
   tp.printFooter();
 }
@@ -136,6 +180,10 @@ void PrettyPrinter::print(const AbstractTable* const input, std::ostream& outStr
   if (r) {
     special_print(r, outStream, tableName, limit, start);
   } else {
-    special_print(input, outStream, tableName, limit, start);
+    const Store* s = dynamic_cast<const Store*>(input);
+    if (s) 
+      special_print(s, outStream, tableName, limit, start);
+    else
+      special_print(input, outStream, tableName, limit, start);
   }
 }
