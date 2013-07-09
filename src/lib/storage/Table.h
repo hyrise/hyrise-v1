@@ -103,7 +103,7 @@ public:
 
   void setAttributes(SharedAttributeVector b);
 
-  unsigned sliceCount() const {
+  unsigned partitionCount() const {
     return 1;
   }
 
@@ -111,30 +111,11 @@ public:
     return 1;
   }
 
-  virtual void *atSlice(const size_t slice, const size_t row) const {
-    return ((value_id_t *) tuples->data()) + row * width;
-  }
-
-  virtual size_t getSliceWidth(const size_t slice) const {
-    return width * sizeof(value_id_t);
+  virtual size_t partitionWidth(const size_t slice) const {
+    return columnCount();
   }
 
   virtual hyrise::storage::atable_ptr_t copy() const;
-
-  virtual size_t getSliceForColumn(const size_t column) const {
-    return 0;
-  }
-
-  virtual size_t getOffsetInSlice(const size_t column) const {
-    size_t offset = 0;
-    size_t index = 0;
-for (const auto & m: _metadata) {
-      if (index++ == column) break;
-      offset += m->getWidth();
-    }
-    return offset;
-  }
-
 
   void setNumRows(size_t s) {
     tuples->setNumRows(s);

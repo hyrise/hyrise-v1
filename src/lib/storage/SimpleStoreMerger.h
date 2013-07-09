@@ -13,7 +13,9 @@ class SimpleStoreMerger : public AbstractMerger {
   void mergeValues(const std::vector<hyrise::storage::c_atable_ptr_t> &input_tables,
                    hyrise::storage::atable_ptr_t merged_table,
                    const column_mapping_t &column_mapping,
-                   const uint64_t newSize);
+                   const uint64_t newSize,
+                   bool useValid = false,
+                   const std::vector<bool>& valid = std::vector<bool>());
   
   AbstractMerger* copy() { return nullptr; }
 

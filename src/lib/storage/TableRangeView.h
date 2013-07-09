@@ -39,7 +39,6 @@ public:
   size_t size() const;
   void setValueId(const size_t column, const size_t row, const ValueId valueId);
   ValueId getValueId(const size_t column, const size_t row) const;
-  void *atSlice(const size_t slice, const size_t row) const;
   const ColumnMetadata *metadataAt(const size_t column, const size_t row = 0, const table_id_t table_id = 0) const;
   const SharedDictionaryPtr & dictionaryAt(const size_t column, const size_t row = 0, const table_id_t table_id = 0, const bool of_delta = false) const;
 
@@ -48,10 +47,8 @@ public:
   void sortDictionary();
 
   // just routed to underlying table
-  size_t getSliceWidth(const size_t slice) const;
-  size_t getSliceForColumn(const size_t column) const;
-  size_t getOffsetInSlice(const size_t column) const;
-  unsigned sliceCount() const;
+  size_t partitionWidth(const size_t slice) const;
+  unsigned partitionCount() const;
   hyrise::storage::atable_ptr_t copy_structure(const field_list_t *fields = nullptr, const bool reuse_dict = false, const size_t initial_size = 0, const bool with_containers = true, const bool compressed = false) const;
   const SharedDictionaryPtr & dictionaryByTableId(const size_t column, const table_id_t table_id) const;
   DataType typeOfColumn(const size_t column) const;

@@ -106,13 +106,13 @@ void RequestParseTask::operator()() {
         LOG4CXX_ERROR(_logger, "Json did not yield tasks");
       }
 
-      tx::transaction_id_t tid = tx::TransactionManager::getInstance().getTransactionId();
-
+      auto ctx = tx::TransactionManager::getInstance().buildContext();
+      
       for (const auto & func: tasks) {
         if (auto task = std::dynamic_pointer_cast<_PlanOperation>(func)) {
           task->setPlanId(final_hash);
-          task->setTransactionId(tid);
-	  _responseTask->registerPlanOperation(task);
+          task->setTXContext(ctx);
+          _responseTask->registerPlanOperation(task);
           if (!task->hasSuccessors()) {
             // The response has to depend on all tasks, ie. we don't want to respond
             // before all tasks finished running, even if they don't contribute to the result

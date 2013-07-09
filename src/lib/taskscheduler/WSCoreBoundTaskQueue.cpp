@@ -48,7 +48,7 @@ void WSCoreBoundTaskQueue::executeTask() {
     } else {
       // try to steal work
       ul.unlock();
-      if (stealTasks() != NULL)
+      if (stealTasks() != nullptr)
         continue;
       ul.lock();
       //if queue still empty go to sleep and wait until new tasks have been arrived
@@ -69,20 +69,20 @@ void WSCoreBoundTaskQueue::executeTask() {
 }
 
 std::shared_ptr<Task> WSCoreBoundTaskQueue::stealTasks() {
-  std::shared_ptr<Task> task = NULL;
+  std::shared_ptr<Task> task = nullptr;
   //check scheduler status
   WSSimpleTaskScheduler<WSCoreBoundTaskQueue>::scheduler_status_t status = _scheduler->getSchedulerStatus();
   if (status == WSSimpleTaskScheduler<WSCoreBoundTaskQueue>::RUN) {
     typedef typename WSSimpleTaskScheduler<WSCoreBoundTaskQueue>::task_queues_t task_queues_t;
     const task_queues_t *queues = _scheduler->getTaskQueues();
-    if (queues != NULL) {
+    if (queues != nullptr) {
       int number_of_queues = queues->size();
       if(number_of_queues > 1){
         // steal from the next queue (we only check number_of_queues -1, as we do not have to check the queue taht wants to steal)
         for (int i = 1; i < number_of_queues; i++) {
 	  // we steal relative from the current queue to distribute stealing over queues
 	  task = static_cast<WSCoreBoundTaskQueue *>(queues->at((i + _core) % number_of_queues))->stealTask();
-          if (task != NULL) {
+          if (task != nullptr) {
             push(task);
             //std::cout << "Queue " << _core << " stole Task " <<  task->vname() << "; hex " << std::hex << &task << std::dec << " from queue " << i << std::endl;
             break;
@@ -95,7 +95,7 @@ std::shared_ptr<Task> WSCoreBoundTaskQueue::stealTasks() {
 }
 
 std::shared_ptr<Task> WSCoreBoundTaskQueue::stealTask() {
-  std::shared_ptr<Task> task = NULL;
+  std::shared_ptr<Task> task = nullptr;
   // first check if status of thread is still ok; hold queueMutex, to avoid race conditions
   std::lock_guard<std::mutex> lk1(_queueMutex);
   // gather _threadStatusMutex, so thread cannot go to sleep
@@ -138,7 +138,7 @@ WSCoreBoundTaskQueue::run_queue_t WSCoreBoundTaskQueue::stopQueue() {
     }
     _thread->join();
     delete _thread;
-    _thread = NULL;
+    _thread = nullptr;
     _status = STOPPED;
   }
   return emptyQueue();
@@ -155,7 +155,7 @@ WSCoreBoundTaskQueue::run_queue_t WSCoreBoundTaskQueue::emptyQueue() {
 }
 
 WSCoreBoundTaskQueue::~WSCoreBoundTaskQueue() {
-  if (_thread != NULL) stopQueue();
+  if (_thread != nullptr) stopQueue();
 }
 
 

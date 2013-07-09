@@ -7,7 +7,7 @@
 #include "io/LoaderException.h"
 #include "io/ValidityTableGeneration.h"
 #include "storage/AbstractTable.h"
-#include "storage/LogarithmicMergeStrategy.h"
+#include "storage/AbstractMergeStrategy.h"
 #include "storage/SequentialHeapMerger.h"
 #include "storage/SimpleStore.h"
 #include "storage/Store.h"
@@ -144,7 +144,7 @@ std::shared_ptr<AbstractTable> Loader::load(const params &args) {
 
   if (!args.getModifiableMutableVerticalTable() && input->needs_store_wrap()) {
     std::shared_ptr<Store> s = std::make_shared<Store>(result);
-    TableMerger *merger = new TableMerger(new LogarithmicMergeStrategy(0), new SequentialHeapMerger(), args.getCompressed());
+    TableMerger *merger = new TableMerger(new DefaultMergeStrategy(), new SequentialHeapMerger(), args.getCompressed());
     s->setMerger(merger);
     s->merge();
     result = s;
