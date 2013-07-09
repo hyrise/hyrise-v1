@@ -106,11 +106,9 @@ public:
 
   void resize(const size_t rows);
 
-  unsigned sliceCount() const;
+  unsigned partitionCount() const;
 
-  virtual void *atSlice(const size_t slice, const size_t row) const;
-
-  virtual size_t getSliceWidth(const size_t slice) const;
+  virtual size_t partitionWidth(const size_t slice) const;
 
   virtual  hyrise::storage::atable_ptr_t copy_structure(const field_list_t *fields = nullptr, const bool reuse_dict = false, const size_t initial_size = 0, const bool with_containers = true, const bool compressed = false) const;
 
@@ -122,10 +120,6 @@ public:
 
 
   virtual  hyrise::storage::atable_ptr_t copy() const;
-
-  virtual size_t getSliceForColumn(const size_t column) const;
-
-  virtual size_t getOffsetInSlice(const size_t column) const;
 
   virtual const attr_vectors_t getAttributeVectors(size_t column) const;
 

@@ -175,7 +175,7 @@ public:
     return &(_metadata.at(column));
   }
 
-  unsigned sliceCount() const {
+  unsigned partitionCount() const {
     // sh: reduced to zero, prevents PointerCalculator from updating fields
     return 0;
   }
@@ -186,14 +186,6 @@ public:
 
   virtual hyrise::storage::atable_ptr_t copy() const {
     return nullptr;
-  }
-
-  virtual size_t getSliceForColumn(const size_t column) const {
-    return 0;
-  }
-
-  virtual size_t getOffsetInSlice(const size_t column) const {
-    return 0;
   }
 
   byte* computePosition(const size_t& column, const size_t& row) const {
@@ -350,19 +342,15 @@ public:
     STORAGE_NOT_IMPLEMENTED(RawTable, setValueId());
   }
 
-  virtual void *atSlice(const size_t slice, const size_t row) const {
-    STORAGE_NOT_IMPLEMENTED(RawTable, atSlice());
-  }
-
-  virtual size_t getSliceWidth(const size_t slice) const {
-    STORAGE_NOT_IMPLEMENTED(RawTable, getSliceWidth());
+  virtual size_t partitionWidth(const size_t slice) const {
+    STORAGE_NOT_IMPLEMENTED(RawTable, partitionWidth());
   }
 
   virtual const AbstractTable::SharedDictionaryPtr& dictionaryAt(const size_t column, 
                                                           const size_t row = 0, 
                                                           const table_id_t table_id = 0, 
                                                           const bool of_delta = false) const { 
-    STORAGE_NOT_IMPLEMENTED(RawTable, getSliceWidth());
+    STORAGE_NOT_IMPLEMENTED(RawTable, partitionWidth());
   }
 
   virtual const AbstractTable::SharedDictionaryPtr& dictionaryByTableId(const size_t column, 

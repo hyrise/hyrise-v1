@@ -3,7 +3,7 @@
 #include <helper/types.h>
 #include <storage/TableGenerator.h>
 #include <storage/TableMerger.h>
-#include <storage/LogarithmicMergeStrategy.h>
+#include <storage/AbstractMergeStrategy.h>
 #include <storage/SequentialHeapMerger.h>
 #include <vector>
 
@@ -26,7 +26,7 @@ void TestDataGenerator::intel_simple_01() {
   std::cout << "writing delta..." << std::endl;
   tables[1]->write("delta.tbl");
 
-  TableMerger merger(new LogarithmicMergeStrategy(0), new SequentialHeapMerger());
+  TableMerger merger(new DefaultMergeStrategy(), new SequentialHeapMerger());
 
   std::cout << "merging..." << std::endl;
   const auto& merged = merger.merge(input);

@@ -86,7 +86,7 @@ TEST_F(LoadTests, load_exception) {
   sm->loadTableFileWithStringHeader("mytab", "tables/10_col_only_data.tbl" , table_description, true);
 
   hyrise::storage::atable_ptr_t  t = sm->getTable("mytab");
-  ASSERT_EQ(2u, t->sliceCount());
+  ASSERT_EQ(2u, t->partitionCount());
   sm->removeAll();
   }
 */

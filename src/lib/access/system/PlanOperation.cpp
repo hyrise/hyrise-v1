@@ -225,8 +225,8 @@ void _PlanOperation::setProducesPositions(bool p) {
   producesPositions = p;
 }
 
-void _PlanOperation::setTransactionId(hyrise::tx::transaction_id_t tid) {
-  _transaction_id = tid;
+void _PlanOperation::setTXContext(hyrise::tx::TXContext ctx) {
+  _txContext = ctx;
 }
 
 void _PlanOperation::addInput(hyrise::storage::c_atable_ptr_t t) {

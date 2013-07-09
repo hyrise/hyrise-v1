@@ -97,13 +97,13 @@ void JsonTable::executePlanOperation() {
 std::shared_ptr<_PlanOperation> JsonTable::parse(Json::Value &data) {
 	auto result = std::make_shared<JsonTable>();
 
-	result->_names = collect(data["names"], [](const Json::Value& v) { return v.asString();});
-	result->_types = collect(data["types"], [](const Json::Value& v) { return v.asString();});
-	result->_groups = collect(data["groups"], [](const Json::Value& v) { return v.asUInt();});
+	result->_names = functional::collect(data["names"], [](const Json::Value& v) { return v.asString();});
+	result->_types = functional::collect(data["types"], [](const Json::Value& v) { return v.asString();});
+	result->_groups = functional::collect(data["groups"], [](const Json::Value& v) { return v.asUInt();});
 
 	if (data.isMember("data")) {
-		result->_data = collect(data["data"], [](Json::Value& v){
-			return collect(v, [](Json::Value& c){ return c.asString(); });
+		result->_data = functional::collect(data["data"], [](const Json::Value& v){
+			return functional::collect(v, [](const Json::Value& c){ return c.asString(); });
 		});
 	}
 

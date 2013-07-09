@@ -16,9 +16,7 @@
 #include <storage/AbstractMergeStrategy.h>
 #include <storage/AbstractMerger.h>
 #include <storage/TableMerger.h>
-#include <storage/LogarithmicMergeStrategy.h>
 #include <storage/SequentialHeapMerger.h>
-#include <storage/SequentialHeapMergerRow.h>
 #include <storage/TableGenerator.h>
 #include <storage/TableFactory.h>
 #include <storage/PointerCalculatorFactory.h>

@@ -56,13 +56,9 @@ public:
 
   void setValueId(const size_t column, const size_t row, const ValueId valueId);
 
-  unsigned sliceCount() const;
+  unsigned partitionCount() const;
 
-  virtual void *atSlice(const size_t slice, const size_t row) const;
-  virtual size_t getSliceWidth(const size_t slice) const;
-  virtual size_t getSliceForColumn(const size_t column) const;
-  virtual size_t getOffsetInSlice(const size_t column) const;
-
+  virtual size_t partitionWidth(const size_t slice) const;
 
   /**
    * Returns the index of the subtable containing a certain row.

@@ -126,7 +126,12 @@ struct MapValueForValueId {
 void SimpleStoreMerger::mergeValues(const std::vector<hyrise::storage::c_atable_ptr_t > &input_tables,
                               hyrise::storage::atable_ptr_t merged_table,
                               const column_mapping_t &column_mapping,
-                              const uint64_t newSize) {
+                              const uint64_t newSize,
+                              bool useValid,
+                              const std::vector<bool>& valid) {
+
+  if (useValid)
+    throw std::runtime_error("SimpleStoreMerger does not support valid vectors");
 
 
   if(input_tables.size() != 2) throw std::runtime_error("SimpleStoreMerger does not support more than two tables");
