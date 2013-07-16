@@ -10,22 +10,18 @@
 #include <string>
 #include <stdexcept>
 
-#include <storage/AbstractAttributeVector.h>
-#include <storage/BaseAttributeVector.h>
+#include "storage/BaseAttributeVector.h"
 
 #ifndef WORD_LENGTH
 #define WORD_LENGTH 64
 #endif
 
-template<typename T>
-class BitCompressedVectorIterator;
 
 /*
   can only save positive numbers
 */
-//template <typename T, typename Allocator = StrategizedAllocator<T, MemalignStrategy<4096>> >
 template <typename T, typename Allocator = StrategizedAllocator<T, MallocStrategy> >
-class BitCompressedVector : public BaseAllocatedAttributeVector<BitCompressedVector<T, Allocator>, Allocator> {
+class BitCompressedVector : public BaseAttributeVector<T> {
 
   // Typedef for the data
   typedef uint64_t storage_t;
@@ -182,7 +178,12 @@ public:
     }
   }
 
-  std::shared_ptr<BaseAttributeVector<T>> copy();
+  std::shared_ptr<BaseAttributeVector<T>> copy() {
+    std::shared_ptr<BitCompressedVector> b = std::make_shared<BitCompressedVector>(_columns, _size, _bits);
+    b->resize(_size);
+    std::memcpy(b->_data, _data, _allocatedBlocks * sizeof(storage_t));
+    return b;
+  }
 
 private:
   inline void checkAccess(const size_t& column, const size_t& rows) const {
@@ -258,15 +259,5 @@ private:
   }
 
 };
-
-
-
-template <typename T, typename Allocator>
-std::shared_ptr<BaseAttributeVector<T>>  BitCompressedVector<T, Allocator>::copy() {
-  std::shared_ptr<BitCompressedVector> b = std::make_shared<BitCompressedVector>(_columns, _size, _bits);
-  b->resize(_size);
-  std::memcpy(b->_data, _data, _allocatedBlocks * sizeof(storage_t));
-  return b;
-}
 
 #endif  // SRC_LIB_STORAGE_BITCOMPRESSEDVECTOR_H_
