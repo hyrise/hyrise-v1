@@ -9,9 +9,15 @@
 
 namespace hyrise { namespace access {
 
-auto t = Loader::shortcuts::load("test/lin_xxs.tbl");
-
-TEST(UnionAllTests, basic_union_scan_test) {
+class UnionAllTests : public Test{
+ public:
+  storage::atable_ptr_t t;
+  void SetUp() {
+    t = Loader::shortcuts::load("test/lin_xxs.tbl");
+  }
+};
+  
+TEST_F(UnionAllTests, basic_union_scan_test) {
   UnionAll us;
   us.addInput(t);
   us.addInput(t);
@@ -23,7 +29,7 @@ TEST(UnionAllTests, basic_union_scan_test) {
 }
 
 
-TEST(UnionAllTests, pointer_calc_input) {
+TEST_F(UnionAllTests, pointer_calc_input) {
   auto pc1 = std::make_shared<PointerCalculator>(t, nullptr, nullptr);
   auto pc2 = std::make_shared<PointerCalculator>(t, nullptr, nullptr);
 
@@ -38,7 +44,7 @@ TEST(UnionAllTests, pointer_calc_input) {
 }
 
 
-TEST(UnionAllTests, many_pointer_calc_input) {
+TEST_F(UnionAllTests, many_pointer_calc_input) {
   auto pc1 = std::make_shared<PointerCalculator>(t, nullptr, nullptr);
   auto pc2 = std::make_shared<PointerCalculator>(t, nullptr, nullptr);
   auto pc3 = std::make_shared<PointerCalculator>(t, nullptr, nullptr);
@@ -54,7 +60,7 @@ TEST(UnionAllTests, many_pointer_calc_input) {
   ASSERT_TRUE(std::dynamic_pointer_cast<const PointerCalculator>(result) != nullptr);
 }
 
-TEST(UnionAllTests, vertical_nested_pointer_calculators) {
+TEST_F(UnionAllTests, vertical_nested_pointer_calculators) {
   auto pc1_l = std::make_shared<PointerCalculator>(t, new std::vector<size_t> {1}, new std::vector<size_t> {0, 1});
   auto pc1_r = std::make_shared<PointerCalculator>(t, new std::vector<size_t> {5}, new std::vector<size_t> {2, 3, 4});
   std::vector<storage::atable_ptr_t> pc1 {pc1_l , pc1_r};
@@ -75,7 +81,7 @@ TEST(UnionAllTests, vertical_nested_pointer_calculators) {
   EXPECT_EQ(3u, result->size());
 }
 
-TEST(UnionAllTests, mixed_input) {
+TEST_F(UnionAllTests, mixed_input) {
   auto pc1 = std::make_shared<PointerCalculator>(t, nullptr, nullptr);
   auto pc2 = std::make_shared<PointerCalculator>(t, nullptr, nullptr);
 
