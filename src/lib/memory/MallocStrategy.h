@@ -4,15 +4,10 @@
 
 #include <iostream>
 #include <cstdint>
-#include <cstring>
+
 
 class MallocStrategy {
-
 public:
-  static uint64_t   allocated;
-  static uint64_t deallocated;
-
-
   static void *allocate(size_t sz) {
     return malloc(sz);
   }

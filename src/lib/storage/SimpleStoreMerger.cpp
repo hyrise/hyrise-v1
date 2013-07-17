@@ -135,7 +135,7 @@ void SimpleStoreMerger::mergeValues(const std::vector<hyrise::storage::c_atable_
 
 
   if(input_tables.size() != 2) throw std::runtime_error("SimpleStoreMerger does not support more than two tables");
-  auto delta = std::dynamic_pointer_cast<const RawTable<>>(input_tables[1]);
+  auto delta = std::dynamic_pointer_cast<const RawTable>(input_tables[1]);
   auto main = input_tables[0];
 
   // Prepare type handling

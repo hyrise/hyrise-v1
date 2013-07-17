@@ -2,7 +2,7 @@
 #include "testing/test.h"
 
 #include "io/shortcuts.h"
-#include "memory/MemalignStrategy.h"
+
 #include "storage/AbstractTable.h"
 #include "storage/RawTable.h"
 #include "storage/SimpleStore.h"
@@ -99,13 +99,6 @@ TEST_F(TableTests, bit_compression_test) {
   ASSERT_TRUE(main->getValueId(two, zero).valueId == 1);
   ASSERT_TRUE(main->getValueId(two,  one).valueId == 1);
   ASSERT_TRUE(main->getValueId(two,  two).valueId == 0);
-
-}
-
-TEST_F(TableTests, test_different_allocation_1) {
-  auto cols = intList(2);
-  Table<MemalignStrategy<64> > *main = new Table<MemalignStrategy<64> >(&cols);
-  delete main;
 }
 
 TEST_F(TableTests, test_modifiable_table) {
@@ -117,18 +110,10 @@ TEST_F(TableTests, test_modifiable_table) {
   ASSERT_EQ(a->getValue<hyrise_int_t>(0, 1), 200);
 }
 
-TEST_F(TableTests, test_modifiable_table2) {
-  TableGenerator t;
-  hyrise::storage::atable_ptr_t a = t.create_empty_base_table_modifiable<MemalignStrategy<64> >(10, 2);
-  a->setValue<hyrise_int_t>(0, 0, 100);
-  a->setValue<hyrise_int_t>(0, 1, 200);
-  ASSERT_EQ(a->getValue<hyrise_int_t>(0, 0), 100);
-  ASSERT_EQ(a->getValue<hyrise_int_t>(0, 1), 200);
-}
 
 TEST_F(TableTests, test_table_copy) {
   TableGenerator t;
-  hyrise::storage::atable_ptr_t a = t.create_empty_base_table_modifiable<MemalignStrategy<64> >(10, 2);
+  hyrise::storage::atable_ptr_t a = t.create_empty_table_modifiable(10, 2);
   a->setValue<hyrise_int_t>(0, 0, 100);
   a->setValue<hyrise_int_t>(0, 1, 200);
 

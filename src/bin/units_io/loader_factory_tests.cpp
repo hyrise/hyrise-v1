@@ -17,7 +17,7 @@ public:
                                           bool sorted = true,
                                           bool compressed = false) {
     ++generate_call_cnt;
-    return std::make_shared< Table<>>(m, d, initial_size, sorted, compressed);
+    return std::make_shared<Table>(m, d, initial_size, sorted, compressed);
   }
 };
 

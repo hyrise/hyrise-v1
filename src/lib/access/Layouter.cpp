@@ -72,7 +72,7 @@ void LayoutSingleTable::executePlanOperation() {
   vd.push_back(DictionaryFactory<OrderIndifferentDictionary>::build(FloatType));
 
   // Allocate a new Table
-  result = std::make_shared<Table<>>(&vc, &vd, _maxResults, false);
+  result = std::make_shared<Table>(&vc, &vd, _maxResults, false);
 
   result->resize(r.size());
   for (size_t i = 0; i < r.size(); ++i) {

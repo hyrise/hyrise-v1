@@ -109,7 +109,7 @@ std::shared_ptr<AbstractTable> Loader::load(const params &args) {
     header = new EmptyHeader();
   }
   if (factory == nullptr) {
-    factory = new TableFactory<>();
+    factory = new TableFactory();
   }
 
   LOG4CXX_DEBUG(logger, "Loading header");

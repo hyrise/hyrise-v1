@@ -17,7 +17,6 @@
 #include "storage/ColumnMetadata.h"
 #include "storage/AbstractTable.h"
 #include "storage/AbstractDictionary.h"
-#include "storage/AbstractAllocatedTable.h"
 
 #include "storage/BaseAttributeVector.h"
 #include "storage/AttributeVectorFactory.h"
@@ -27,15 +26,15 @@
  * values like a regular table and cannot be splitted further.
  */
 
-ALLOC_CLASS(Table) {
+class Table : public AbstractTable {
 private:
 
   // Typedefs for all dependent types
   typedef std::shared_ptr<AbstractDictionary> SharedDictionary;
-  typedef std::vector<SharedDictionary, Allocator<SharedDictionary , Strategy> > DictionaryVector;
+  typedef std::vector<SharedDictionary> DictionaryVector;
 
-  typedef Table<Strategy, Allocator> table_type;
-  typedef std::vector<const ColumnMetadata *, Allocator<const ColumnMetadata * , Strategy> > MetadataVector;
+  typedef Table table_type;
+  typedef std::vector<const ColumnMetadata *> MetadataVector;
 
 
   // The shared ptr to the attributes we store inside the table
@@ -131,8 +130,6 @@ public:
     std::cout << std::string(level, '\t') << "Table " << this << std::endl;
   }
 };
-
-#include "Table-impl.h"
 
 #endif  // SRC_LIB_STORAGE_TABLE_H_
 

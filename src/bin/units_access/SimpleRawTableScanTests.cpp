@@ -14,7 +14,7 @@ public:
     metadata_vec_t columns({ *ColumnMetadata::metadataFromString("INTEGER", "col1"),
                              *ColumnMetadata::metadataFromString("STRING", "col2"),
                              *ColumnMetadata::metadataFromString("FLOAT", "col3") });
-    auto main = std::make_shared<RawTable<>>(columns);
+    auto main = std::make_shared<RawTable>(columns);
     storage::rawtable::RowHelper rh(columns);
     unsigned char *data = nullptr;
 

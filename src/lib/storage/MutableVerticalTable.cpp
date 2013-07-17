@@ -16,7 +16,7 @@ MutableVerticalTable::MutableVerticalTable(std::vector<std::vector<const ColumnM
     if (factory)
       containers.push_back(factory->generate(metadata[i], dict, size, sorted, compressed));
     else
-      containers.push_back(std::make_shared<Table<>>(metadata[i], dict, size, sorted));
+      containers.push_back(std::make_shared<Table>(metadata[i], dict, size, sorted));
   }
 
   column_count = 0;

@@ -22,10 +22,10 @@ void CreateRadixTable::executePlanOperation() {
   std::vector<const ColumnMetadata*> meta2 {ColumnMetadata::metadataFromString(types::integer_t, "pos")};
 
   // Create the result tables
-  auto hashes = std::make_shared<Table<>>(&meta1, nullptr, tableSize, true, false);
+  auto hashes = std::make_shared<Table>(&meta1, nullptr, tableSize, true, false);
   hashes->resize(tableSize);
 
-  auto positions = std::make_shared<Table<>>(&meta2, nullptr, tableSize, true, false);
+  auto positions = std::make_shared<Table>(&meta2, nullptr, tableSize, true, false);
   positions->resize(tableSize);
 
   std::vector<storage::atable_ptr_t> tmp {hashes, positions};
