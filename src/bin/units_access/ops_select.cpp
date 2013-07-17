@@ -26,7 +26,7 @@ class SelectTests : public AccessTest {
             *ColumnMetadata::metadataFromString("STRING", "col2"),
             *ColumnMetadata::metadataFromString("FLOAT", "col3") });
 
-    auto main = std::make_shared<RawTable<>>(cols);
+    auto main = std::make_shared<RawTable>(cols);
     for (size_t i=0; i < 100; ++i) {
       hyrise::storage::rawtable::RowHelper rh(cols);
       rh.set<hyrise_int_t>(0, i);

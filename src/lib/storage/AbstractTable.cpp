@@ -1,6 +1,4 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#include <memory/NumaStrategy.h>
-#include <memory/MemalignStrategy.h>
 #include <storage/AbstractTable.h>
 
 #include <storage/MutableVerticalTable.h>
@@ -44,7 +42,7 @@ for (const field_t & field: *fields) {
     }
   }
 
-  auto res =  std::make_shared<Table<>>(&metadata, dictionaries, initial_size, true, compressed);
+  auto res =  std::make_shared<Table>(&metadata, dictionaries, initial_size, true, compressed);
   delete dictionaries;
   return res;
 }
@@ -66,7 +64,7 @@ for (const field_t & field: *fields) {
   }
 
 
-  auto result = std::make_shared<Table<>>(&metadata, dictionaries, initial_size, false);
+  auto result = std::make_shared<Table>(&metadata, dictionaries, initial_size, false);
   delete dictionaries;
   return result;
 }

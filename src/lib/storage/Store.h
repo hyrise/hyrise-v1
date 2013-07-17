@@ -14,7 +14,6 @@
 #include <storage/TableMerger.h>
 #include <storage/AbstractMergeStrategy.h>
 #include <storage/SequentialHeapMerger.h>
-#include <storage/AbstractAllocatedTable.h>
 
 #include <helper/types.h>
 

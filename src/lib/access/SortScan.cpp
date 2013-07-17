@@ -84,7 +84,7 @@ void SortScan::executePlanOperation() {
   // When table is not only a table but also using an ordered dictionary on sort field,
   // we can just sort by value_id
   // TODO: fix Table<> template
-  auto base_table = std::dynamic_pointer_cast<const Table<>>(table);
+  auto base_table = std::dynamic_pointer_cast<const Table>(table);
   if ((table->dictionaryAt(_sort_field)->isOrdered()) && (base_table)) {
     sorted_pos = ColumnSorter<ValueId, ExtractValueId>(table, _sort_field).sort();
   } else {

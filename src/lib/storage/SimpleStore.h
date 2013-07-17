@@ -16,11 +16,11 @@ class SimpleStore : public AbstractTable {
 private:
 
   hyrise::storage::atable_ptr_t _main;
-  std::shared_ptr<RawTable<>> _delta;
+  std::shared_ptr<RawTable> _delta;
 
 public:
 
-  typedef RawTable<> delta_table_t;
+  typedef RawTable delta_table_t;
   typedef AbstractTable main_table_t;
 
   explicit SimpleStore(hyrise::storage::atable_ptr_t t);

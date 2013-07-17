@@ -20,14 +20,14 @@ struct copy_value_functor_raw_table {
   typedef void value_type;
 
   atable_ptr_t _dest;
-  std::shared_ptr<const RawTable<>> _src;
+  std::shared_ptr<const RawTable> _src;
 
   size_t _srcRow;
   size_t _destRow;
   size_t _field;
 
   copy_value_functor_raw_table(atable_ptr_t d,
-                               std::shared_ptr<const RawTable<>> s) :
+                               std::shared_ptr<const RawTable> s) :
                                _dest(d),
                                _src(s) {
   }
@@ -70,7 +70,7 @@ void SimpleRawTableScan::setupPlanOperation() {
 }
 
 void SimpleRawTableScan::executePlanOperation() {
-  auto table = std::dynamic_pointer_cast<const RawTable<>>(input.getTable(0));
+  auto table = std::dynamic_pointer_cast<const RawTable>(input.getTable(0));
   if (!table)
     throw std::runtime_error("Input table is no uncompressed raw table");
 
@@ -78,7 +78,7 @@ void SimpleRawTableScan::executePlanOperation() {
   metadata_list meta(table->columnCount());
   for(size_t i=0; i<table->columnCount(); ++i)
     meta[i] = table->metadataAt(i);
-  auto result = std::make_shared<Table<>>(&meta,
+  auto result = std::make_shared<Table>(&meta,
                                           nullptr,
                                           1,  /* initial size */
                                           false, /* sorted */

@@ -10,6 +10,7 @@
 #include <string>
 #include <stdexcept>
 
+#include "memory/MallocStrategy.h"
 #include "storage/BaseAttributeVector.h"
 
 #ifndef WORD_LENGTH
@@ -20,9 +21,9 @@
 /*
   can only save positive numbers
 */
-template <typename T, typename Allocator = StrategizedAllocator<T, MallocStrategy> >
+template <typename T>
 class BitCompressedVector : public BaseAttributeVector<T> {
-
+  using Strategy = MallocStrategy;
   // Typedef for the data
   typedef uint64_t storage_t;
   typedef std::vector<uint64_t> bit_size_list_t;
@@ -48,9 +49,7 @@ class BitCompressedVector : public BaseAttributeVector<T> {
   bit_size_list_t _bits;
 
 public:
-
   typedef T value_type;
-  typedef BitCompressedVector<T, Allocator> vector_type;
 
   BitCompressedVector(size_t columns,
                       size_t rows,
@@ -59,7 +58,7 @@ public:
   }
 
   virtual ~BitCompressedVector() {
-    Allocator::Strategy::deallocate(_data, _allocatedBlocks * sizeof(storage_t));
+    Strategy::deallocate(_data, _allocatedBlocks * sizeof(storage_t));
   }
 
   void *data() {
@@ -135,7 +134,7 @@ public:
 
       // Only deallocate if there was something allocated
       if (newMemory != nullptr)
-        Allocator::Strategy::deallocate(newMemory, _allocatedBlocks * sizeof(storage_t));
+        Strategy::deallocate(newMemory, _allocatedBlocks * sizeof(storage_t));
 
       // set new allocarted blocks
       _allocatedBlocks = _blocks(rows);
@@ -148,7 +147,7 @@ public:
    */
   void clear() {
     _size = 0;
-    Allocator::Strategy::deallocate(_data, _allocatedBlocks * sizeof(storage_t));
+    Strategy::deallocate(_data, _allocatedBlocks * sizeof(storage_t));
     _data = nullptr;
   }
 
@@ -249,9 +248,9 @@ private:
   */
   inline storage_t *_allocate(uint64_t numBlocks) {
 
-    auto data = static_cast<storage_t *>(Allocator::Strategy::allocate(numBlocks * sizeof(storage_t)));
+    auto data = static_cast<storage_t *>(Strategy::allocate(numBlocks * sizeof(storage_t)));
     if (data == nullptr) {
-      Allocator::Strategy::deallocate(data, numBlocks * sizeof(storage_t));
+      Strategy::deallocate(data, numBlocks * sizeof(storage_t));
       throw std::bad_alloc();
     }
     std::memset(data, 0, numBlocks * sizeof(storage_t));

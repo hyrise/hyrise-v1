@@ -1,7 +1,6 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "access/ExpressionScan.h"
 
-#include "access/default_strategy.h"
 #include "access/system/QueryParser.h"
 
 #include "storage/MutableVerticalTable.h"
@@ -51,7 +50,7 @@ void ExpressionScan::executePlanOperation() {
   std::vector<AbstractTable::SharedDictionaryPtr> dicts;
   dicts.push_back(AbstractDictionary::dictionaryWithType<DictionaryFactory<OrderIndifferentDictionary>>(_expression->getType()));
 
-  storage::atable_ptr_t exp_result = std::make_shared<Table<DEFAULT_STRATEGY>>(&metadata, &dicts, 0, false);
+  storage::atable_ptr_t exp_result = std::make_shared<Table>(&metadata, &dicts, 0, false);
   exp_result->resize(input_size);
 
   for (size_t row = 0; row < input_size; ++row) {

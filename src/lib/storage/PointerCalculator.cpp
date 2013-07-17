@@ -331,7 +331,7 @@ hyrise::storage::atable_ptr_t PointerCalculator::copy_structure(const field_list
     }
   }
 
-  auto result = std::make_shared<Table<>>(&metadata, dictionaries, initial_size, true, compressed);
+  auto result = std::make_shared<Table>(&metadata, dictionaries, initial_size, true, compressed);
   delete dictionaries;
   return result;
 }

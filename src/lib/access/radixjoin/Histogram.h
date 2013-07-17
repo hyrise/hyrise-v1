@@ -53,7 +53,7 @@ public:
   uint32_t significantOffset() const;
 
 protected:
-  std::shared_ptr<Table<>> createOutputTable(const size_t size) const;
+  std::shared_ptr<Table> createOutputTable(const size_t size) const;
 
   uint32_t _bits;
   uint32_t _significantOffset;

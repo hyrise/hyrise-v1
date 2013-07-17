@@ -23,7 +23,7 @@
 #include <storage/ValueIdMap.hpp>
 
 
-template<typename Strategy, template<class T, class S> class Allocator> class Table;
+class Table;
 class Store;
 
 class MutableVerticalTable;

@@ -36,12 +36,12 @@ metadata_vec_t allTypeMeta() {
 
 TEST_F(RawTableTests, test_raw_table_constructor) {
   auto cols = intList(2);
-  RawTable<> main(cols);
+  RawTable main(cols);
 }
 
 TEST_F(RawTableTests, test_write) {
   auto cols = allTypeMeta();
-  RawTable<> main(cols);
+  RawTable main(cols);
   auto toInsert = Loader::shortcuts::load("test/alltypes.tbl");
   main.appendRows(toInsert);
 }
@@ -85,7 +85,7 @@ typedef ::testing::Types<int_column, float_column> writeable_columns;
 TYPED_TEST_CASE(RawWriteTests, writeable_columns);
 
 TYPED_TEST(RawWriteTests, write_default_value) {
-  RawTable<> table(allTypeMeta());
+  RawTable table(allTypeMeta());
   typedef typename TypeParam::columnType ColumnType;
 
   size_t column = TypeParam::column;
@@ -137,7 +137,7 @@ TEST_F(RawTableTests, test_raw_table_record_builder_with_string) {
 
 TEST_F(RawTableTests, test_raw_table_record_builder_with_1m_rows) {
   auto cols = intstringlist();
-  RawTable<> main(cols);
+  RawTable main(cols);
 
   for(size_t i=0; i < 1024*1024; ++i)
   {
@@ -153,7 +153,7 @@ TEST_F(RawTableTests, test_raw_table_record_builder_with_1m_rows) {
 
 TEST_F(RawTableTests, test_raw_table_record_builder_with_1k_rows_and_get_op) {
   auto cols = intstringlist();
-  RawTable<> main(cols);
+  RawTable main(cols);
 
   for(size_t i=0; i < 1024; ++i) {
     hyrise::storage::rawtable::RowHelper rh(cols);
@@ -182,7 +182,7 @@ TEST_F(RawTableTests, test_raw_table_record_builder_with_1k_rows_and_get_op) {
 
 TEST_F(RawTableTests, test_raw_table_record_builder_with_1k_rows_and_get_value) {
   auto cols = intstringlist();
-  RawTable<> main(cols);
+  RawTable main(cols);
 
   for(size_t i=0; i < 1024; ++i) {
     hyrise::storage::rawtable::RowHelper rh(cols);

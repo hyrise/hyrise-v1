@@ -14,11 +14,9 @@
 #include <sstream>
 
 #include "memory/MallocStrategy.h"
-#include "memory/StrategizedAllocator.h"
 #include "storage/BaseAttributeVector.h"
 
-//template <typename T, typename Allocator = StrategizedAllocator<T, MemalignStrategy<4096> > >
-template <typename T, typename Allocator = StrategizedAllocator<T, MallocStrategy > >
+template <typename T>
 class FixedLengthVector : public BaseAttributeVector<T> {
  private:
   T *_values;
@@ -27,7 +25,7 @@ class FixedLengthVector : public BaseAttributeVector<T> {
   size_t _allocated_bytes;
 
   std::mutex _allocate_mtx;
-
+  using Strategy = MallocStrategy;
  public:
   typedef T value_type;
   
@@ -39,7 +37,7 @@ class FixedLengthVector : public BaseAttributeVector<T> {
   }
 
   virtual ~FixedLengthVector() {
-    Allocator::Strategy::deallocate(_values, _allocated_bytes);
+    Strategy::deallocate(_values, _allocated_bytes);
   }
 
   void *data() {
@@ -91,7 +89,7 @@ class FixedLengthVector : public BaseAttributeVector<T> {
   }
 
   std::shared_ptr<BaseAttributeVector<T>> copy() {
-    auto copy = std::make_shared<FixedLengthVector<T, Allocator>>(_columns, _rows);
+    auto copy = std::make_shared<FixedLengthVector<T>>(_columns, _rows);
     copy->_rows = _rows;
     copy->allocate(_allocated_bytes);
     memcpy(copy->_values, _values, _allocated_bytes);
@@ -131,13 +129,13 @@ class FixedLengthVector : public BaseAttributeVector<T> {
     std::lock_guard<std::mutex> guard(_allocate_mtx);
 
     if (bytes != _allocated_bytes) {
-      void *new_values = Allocator::Strategy::reallocate(_values, bytes, _allocated_bytes);
+      void *new_values = Strategy::reallocate(_values, bytes, _allocated_bytes);
     
       if (bytes > _allocated_bytes)
         memset(((char*) new_values) + _allocated_bytes, 0, bytes - _allocated_bytes);
 
       if (new_values == nullptr) {
-        Allocator::Strategy::deallocate(_values, _allocated_bytes);
+        Strategy::deallocate(_values, _allocated_bytes);
         throw std::bad_alloc();
       }
 

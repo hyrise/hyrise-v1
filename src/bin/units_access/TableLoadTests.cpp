@@ -44,9 +44,9 @@ TEST_F(TableLoadTests, raw_table_load_test) {
   tl.execute();
 
   const auto &result = tl.getResultTable();
-  auto raw = std::dynamic_pointer_cast<const RawTable<>>(result);
+  auto raw = std::dynamic_pointer_cast<const RawTable>(result);
 
-  ASSERT_NE(raw.get(), (RawTable<>*) NULL);
+  ASSERT_NE(raw, nullptr);
 }
 
 TEST_F(TableLoadTests, table_load_with_string_header_test) {

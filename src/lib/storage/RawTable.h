@@ -10,35 +10,24 @@
 #include "storage/storage_types.h"
 #include "storage/meta_storage.h"
 #include "storage/AbstractTable.h"
-#include "storage/AbstractAllocatedTable.h"
 #include "storage/ColumnMetadata.h"
 
 
-
-
 namespace hyrise { namespace storage { namespace rawtable {
+
+typedef unsigned char byte;
 
 struct record_header {
   size_t width;
 };
 
 struct RowHelper {
-  typedef unsigned char byte;
-
+  
   record_header _header;
   const metadata_vec_t& _m;
   std::vector<byte*> _tempData;
 
-  void reset() {
-    _header = {0};
-    for(auto d: _tempData)
-      free(d);
-    _tempData.clear();
-  }
-
-  RowHelper(const metadata_vec_t& m) : _m(m) {
-    _tempData.resize(m.size());
-  }
+  RowHelper(const metadata_vec_t& m);
 
   /**
    * Based on the value type add an intermediate memory location and
@@ -52,6 +41,8 @@ struct RowHelper {
     _tempData[index] = tmp;
   }
 
+  void reset();
+  
   /**
    * This helper method builds the actual data stream that represents
    * the row as a binary block. All fixed length values are encoded
@@ -61,32 +52,7 @@ struct RowHelper {
    * The return value is allocate in this method and memory handling
    * is returned to the caller
    */
-  byte* build() const {
-    size_t width = sizeof(record_header);
-    for(size_t i=0; i < _m.size(); ++i) {
-      if (_m[i].getType() == StringType)
-        width += *(uint16_t*) _tempData[i] + 2; // string length in bytes plus length var
-      else
-        width += 8;
-    }
-    byte * data = (byte*) malloc( width );
-    record_header *header = (record_header*) data;
-    header->width = width;
-
-    // Copy the complete data based on the simplification of data types
-    byte *mov = data + sizeof(record_header);
-    for(size_t i=0; i < _tempData.size(); ++i) {
-      if (_m[i].getType() == StringType) {
-        memcpy(mov, _tempData[i], 2);
-        memcpy(mov+2, _tempData[i]+2, *(uint16_t*) mov);
-        mov += 2 + *(uint16_t*) mov;
-      } else {
-        memcpy(mov, _tempData[i], 8);
-        mov += 8;
-      }
-    }
-    return data;
-  }
+  byte* build() const;
 
   template<typename T>
   static T convert(const byte* data, DataType t) {
@@ -100,30 +66,13 @@ template<>
 void RowHelper::set(size_t index, std::string val);
 
 template<>
-std::string RowHelper::convert(const RowHelper::byte *d, DataType t);
-
+std::string RowHelper::convert(const byte *d, DataType t);
 
 
 }}}
 
-namespace hyrise {
-template <typename T>
-std::string to_string(T val) {
-  return std::to_string(val);
-}
 
-template <>
-std::string to_string(const std::string& val);
-template <>
-std::string to_string(std::string& val);
-template <>
-std::string to_string(std::string val);
-}
-
-
-
-ALLOC_CLASS(RawTable) {
-  typedef RawTable<Strategy, Allocator> this_type;
+class RawTable : public AbstractTable {
   typedef unsigned char byte;
   typedef metadata_vec_t MetadataVector;
 
@@ -147,62 +96,29 @@ ALLOC_CLASS(RawTable) {
 
 public:
 
-  RawTable(const metadata_vec_t& m,
-           size_t initial_size = 0) : _metadata(m), _width(m.size()), _size(0) {
+  RawTable(const metadata_vec_t& m, size_t initial_size = 0);
 
-    // Simple memory allocation,
-    //TODO this should use the defined allocator strategy
-    _data = (byte*) calloc(1024*1024, 1);
-    _endOfData = _data;
-    _endOfStorage = _data + 1024*1024;
-  }
+  virtual ~RawTable();
+  
+  size_t size() const;
 
-  virtual ~RawTable() {
-    free(_data);
-  }
+  size_t columnCount() const;
 
-  size_t size() const { return _size; };
+  void reserve(const size_t nr_of_values);
 
-  size_t columnCount() const { return _width; }
-
-  void reserve(const size_t nr_of_values) {}
-
-  void resize(const size_t nr_of_values) {}
+  void resize(const size_t nr_of_values);
 
 
   virtual const ColumnMetadata *metadataAt(const size_t column, const size_t row = 0, 
-                                     const table_id_t table_id = 0) const {
-    return &(_metadata.at(column));
-  }
+                                           const table_id_t table_id = 0) const;
+  
+  unsigned partitionCount() const;
 
-  unsigned partitionCount() const {
-    // sh: reduced to zero, prevents PointerCalculator from updating fields
-    return 0;
-  }
+  virtual table_id_t subtableCount() const;
+  
+  virtual hyrise::storage::atable_ptr_t copy() const;
 
-  virtual table_id_t subtableCount() const {
-    return 1;
-  }
-
-  virtual hyrise::storage::atable_ptr_t copy() const {
-    return nullptr;
-  }
-
-  byte* computePosition(const size_t& column, const size_t& row) const {
-    if (column > _metadata.size() ) {
-      throw std::out_of_range("Column out of range in getValue()");
-    }
-    byte* tuple = getRow(row);
-    tuple += sizeof(hyrise::storage::rawtable::record_header);
-    for(size_t i=0; i < column; ++i) {
-      if (_metadata[i].getType() == StringType) {
-        tuple += 2 /* size of the length */ + *((unsigned short*) tuple);
-      } else {
-        tuple += 8;
-      }
-    }
-    return tuple;
-  }
+  byte* computePosition(const size_t& column, const size_t& row) const;
 
   template <typename T>
   T getValue(const size_t column, const size_t row) const {
@@ -221,95 +137,25 @@ public:
     throw std::runtime_error("Setting of strings is not implemented");
   }
 
-  template <typename T>
-  struct convert_to_string_functor {
-    typedef std::string value_type;
-    const T& _table;
-    const size_t& _col;
-    const size_t& _row;
 
-    convert_to_string_functor(const T& table,
-                              const size_t& col,
-                              const size_t& row) :
-        _table(table), _col(col), _row(row) {};
-
-    template<typename R>
-    std::string operator()() {
-      return hyrise::to_string(_table.template getValue<R>(_col, _row));
-    }
-  };
-
-  std::string printValue(const size_t col, const size_t row) const {
-    hyrise::storage::type_switch<hyrise_basic_types> ts;
-    convert_to_string_functor<this_type> f(*this, col, row);
-    return ts(_metadata.at(col).getType(), f);
-  }
+  std::string printValue(const size_t col, const size_t row) const;
 
   /**
    * Retrieve the row from the table based on the index, this will
    * return a pointer to the actual values, which cannot be modified
    * and the ownership will not be transferred.
    */
-  byte* getRow(size_t index) const {
-    if (index >= _size) throw std::out_of_range("Index out of range for getRow()");
-    byte *data = _data;
-    for(size_t i=0; i < index; ++i)
-      data += ((hyrise::storage::rawtable::record_header*) data)->width;
-    return data;
-  }
+  byte* getRow(size_t index) const;
 
   /**
    * Append a new row to the end of the storage, in case this means we
    * do not have sufficient space we will reallocate space
    * accordingly.
    */
-  void appendRow(byte* tuple) {
-    size_t width  = ((hyrise::storage::rawtable::record_header*) tuple)->width;
-    if ((_endOfData + width) > _endOfStorage) {
-      size_t amount = ((_endOfData + width) - _data) * 2;
-      size_t dist = _endOfData - _data;
-      // TODO this should use the allocator strategy
-      _data = (byte*) realloc(_data, amount);
-      _endOfData = _data + dist;
-      _endOfStorage = _data + amount;
-    }
+  void appendRow(byte* tuple);
 
-    memcpy(_endOfData, tuple, width);
-    _endOfData += width;
-    _size++;
-  }
 
-  struct type_func {
-    typedef void value_type;
-
-    const hyrise::storage::atable_ptr_t& _source;
-    hyrise::storage::rawtable::RowHelper& _rh;
-    const size_t& _col;
-    const size_t& _row;
-
-    type_func(const hyrise::storage::atable_ptr_t& source,
-              hyrise::storage::rawtable::RowHelper& rh,
-              const size_t& column,
-              const size_t& row) : _source(source), _rh(rh), _col(column), _row(row) {}
-
-    template<typename R>
-    void operator()() {
-      _rh.set<R>(_col, _source->getValue<R>(_col, _row));
-    }
-  };
-
-  void appendRows(const hyrise::storage::atable_ptr_t& rows) {
-    hyrise::storage::type_switch<hyrise_basic_types> ts;
-    for(size_t row=0; row < rows->size(); ++row) {
-      hyrise::storage::rawtable::RowHelper rh(_metadata);
-      for(size_t column=0; column < _metadata.size(); ++column) {
-        type_func tf(rows, rh, column, row);
-        ts(rows->typeOfColumn(column), tf);
-      }
-      std::unique_ptr<unsigned char> data(rh.build());
-      appendRow(data.get());
-    }
-  }
+  void appendRows(const hyrise::storage::atable_ptr_t& rows);
 
   virtual void debugStructure(size_t level=0) const {
     std::cout << std::string(level, '\t') << "RawTable " << this << std::endl;
