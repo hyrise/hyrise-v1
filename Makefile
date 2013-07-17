@@ -13,7 +13,6 @@ lib_io      := $(lib_dir)/io
 lib_testing := $(lib_dir)/testing
 lib_net     := $(lib_dir)/net
 lib_layouter:= $(lib_dir)/layouter
-lib_memory  := $(lib_dir)/memory
 lib_taskscheduler	:= $(lib_dir)/taskscheduler
 
 # third party dependencies
@@ -34,7 +33,6 @@ unit_tests_storage 	:= $(bin_dir)/units_storage
 unit_tests_access 	:= $(bin_dir)/units_access
 unit_tests_taskscheduler	:=	$(bin_dir)/units_taskscheduler
 unit_tests_layouter 	:= $(bin_dir)/units_layouter
-unit_tests_memory   	:= $(bin_dir)/units_memory
 unit_tests_net	        := $(bin_dir)/units_net
 perf_regression		:= $(bin_dir)/perf_regression
 perf_datagen            := $(bin_dir)/perf_datagen
@@ -75,9 +73,8 @@ $(tgts):
 $(libraries): $(phase1)
 $(lib_ebb):
 $(lib_helper):
-$(lib_memory):
 $(lib_taskscheduler): $(lib_helper)
-$(lib_storage): $(lib_helper) $(lib_memory) $(lib_ftprinter) $(ext_gtest) $(lib_ftprinter)
+$(lib_storage): $(lib_helper) $(lib_ftprinter) $(ext_gtest) $(lib_ftprinter)
 $(lib_io): $(lib_storage) $(lib_helper)
 $(lib_access): $(lib_storage) $(lib_helper) $(lib_io) $(lib_layouter) $(json) $(lib_taskscheduler) $(lib_net)
 $(lib_testing): $(ext_gtest) $(lib_storage) $(lib_taskscheduler) $(lib_access)

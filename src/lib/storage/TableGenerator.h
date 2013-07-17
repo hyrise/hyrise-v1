@@ -52,9 +52,6 @@ class TableGenerator {
 
   hyrise::storage::atable_ptr_t create_empty_table_modifiable(size_t rows, size_t cols, std::vector<std::string> name = std::vector<std::string>());
 
-  template<typename Strategy>
-  hyrise::storage::atable_ptr_t create_empty_base_table_modifiable(size_t rows, size_t cols);
-
   std::vector<hyrise::storage::atable_ptr_t > distinct_cols(size_t cols, size_t main_size, size_t delta_size);
 
   std::vector<int64_t> *create_dicts(size_t dict_size_main, size_t dict_size_delta, size_t intersection, size_t tail);
@@ -90,7 +87,5 @@ class TableGenerator {
   void start(size_t rows, size_t cols, size_t total);
   void increment();
 };
-
-#include "TableGenerator-impl.h"
 
 #endif  // SRC_LIB_STORAGE_TABLEGENERATOR_H_

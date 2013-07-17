@@ -176,7 +176,7 @@ void PrettyPrinter::printDiff(const storage::c_atable_ptr_t& input, const TableD
 };
 
 void PrettyPrinter::print(const AbstractTable* const input, std::ostream& outStream, const std::string tableName, const size_t& limit, const size_t& start) {
-  const RawTable<>* r = dynamic_cast<const RawTable<>*>(input);
+  const RawTable* r = dynamic_cast<const RawTable*>(input);
   if (r) {
     special_print(r, outStream, tableName, limit, start);
   } else {

@@ -23,7 +23,7 @@ TEST_F(LoaderShortcutTests, loadShouldReturnStore) {
 
 TEST_F(LoaderShortcutTests, loadRawShouldReturnRawTable) {
   hyrise::storage::atable_ptr_t  t = Loader::shortcuts::loadRaw("test/lin_xxs.tbl");
-  ASSERT_TRUE((bool)std::dynamic_pointer_cast<RawTable<>>(t));
+  ASSERT_TRUE((bool)std::dynamic_pointer_cast<RawTable>(t));
   ASSERT_LT(0u, t->size());
 }
 

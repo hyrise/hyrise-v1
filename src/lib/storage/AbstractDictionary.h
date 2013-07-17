@@ -6,29 +6,24 @@
 #include <string>
 #include <memory>
 
-#include <memory/StrategizedAllocator.h>
-#include <memory/MallocStrategy.h>
-#include <memory/MemalignStrategy.h>
-#include <storage/storage_types.h>
+#include "storage/storage_types.h"
 
 class AbstractDictionary;
 
-template < template<typename T, typename S, template<typename A, typename K> class A> class D,
-         class Strategy = MallocStrategy,
-         template<typename A, typename K> class Allocator = StrategizedAllocator >
+template < template<typename T> class D >
 struct DictionaryFactory {
   static std::shared_ptr<AbstractDictionary> build(DataType type, size_t size = 0) {
     switch (type) {
       case IntegerType:
-        return std::make_shared<D<hyrise_int_t, Strategy, Allocator>>(size);
+        return std::make_shared<D<hyrise_int_t>>(size);
         break;
 
       case FloatType:
-        return std::make_shared<D<hyrise_float_t, Strategy, Allocator>>(size);
+        return std::make_shared<D<hyrise_float_t>>(size);
         break;
 
       case StringType:
-        return std::make_shared<D<hyrise_string_t, Strategy, Allocator>>(size);
+        return std::make_shared<D<hyrise_string_t>>(size);
         break;
 
       default:
@@ -39,9 +34,7 @@ struct DictionaryFactory {
 
 
 class AbstractDictionary {
-
 public:
-
   virtual ~AbstractDictionary() {}
 
   virtual bool isOrdered() = 0;
