@@ -58,5 +58,4 @@ INSTANTIATE_TEST_CASE_P(DistributeCoveringTests,
                         ::testing::Combine(::testing::Values(1u, 2u, 3u, 11u, 14u),
                                            ::testing::Values(0u, 1u, 10u, 13u, 1000u, 1001u, 1002u, 3333u)));
 
-
 }}
