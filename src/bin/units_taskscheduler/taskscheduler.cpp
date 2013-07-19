@@ -8,13 +8,11 @@
 #include "testing/test.h"
 
 #include "access/NoOp.h"
-#include "access/system/TaskSchedulerAdjustment.h"
 #include "access/system/PlanOperation.h"
 #include "io/TransactionManager.h"
-#include "taskscheduler/SimpleTaskScheduler.h"
 #include "taskscheduler/SharedScheduler.h"
-#include "taskscheduler/WSSimpleTaskScheduler.h"
-
+#include "taskscheduler/CoreBoundQueuesScheduler.h"
+#include "taskscheduler/WSCoreBoundQueuesScheduler.h"
 
 #include "helper/HwlocHelper.h"
 
@@ -29,9 +27,13 @@ using ::testing::ValuesIn;
 
 // list schedulers to be tested
 std::vector<std::string> getSchedulersToTest() {
-  std::vector<std::string> result;
-  result.push_back("WSSimpleTaskScheduler");
-  result.push_back("SimpleTaskScheduler");
+  std::vector<std::string> result { "WSCoreBoundQueuesScheduler",
+              "CoreBoundQueuesScheduler",
+              "CentralScheduler",
+              "CentralPriorityScheduler",
+              "CoreBoundPriorityQueuesScheduler",
+              "WSCoreBoundPriorityQueuesScheduler"};
+
   return result;
 }
 
@@ -63,21 +65,18 @@ INSTANTIATE_TEST_CASE_P(
     ValuesIn(getSchedulersToTest()));
 
 TEST_P(SchedulerTest, setScheduler) {
-  SharedScheduler::getInstance().resetScheduler("SimpleTaskScheduler");
+  SharedScheduler::getInstance().resetScheduler("CoreBoundQueuesScheduler");
   AbstractTaskScheduler * scheduler = SharedScheduler::getInstance().getScheduler();
-  SimpleTaskScheduler<CoreBoundTaskQueue> * simple_task_scheduler = dynamic_cast<SimpleTaskScheduler<CoreBoundTaskQueue> *>(scheduler);
+  CoreBoundQueuesScheduler * simple_task_scheduler = dynamic_cast<CoreBoundQueuesScheduler *>(scheduler);
   bool test = (simple_task_scheduler == NULL);
   ASSERT_EQ(test, false);
 
-  SharedScheduler::getInstance().resetScheduler(scheduler_name);
-  scheduler = SharedScheduler::getInstance().getScheduler();
-  scheduler->resize(getNumberOfCoresOnSystem());
+  SharedScheduler::getInstance().resetScheduler(scheduler_name, getNumberOfCoresOnSystem());
 }
 
 TEST_P(SchedulerTest, wait_task_test) {
-  if(!SharedScheduler::getInstance().isInitialized())
-    SharedScheduler::getInstance().init(scheduler_name);
-  AbstractTaskScheduler * scheduler = SharedScheduler::getInstance().getScheduler();
+  SharedScheduler::getInstance().resetScheduler(scheduler_name);
+  AbstractTaskScheduler *scheduler = SharedScheduler::getInstance().getScheduler();
 
   std::shared_ptr<WaitTask> waiter = std::make_shared<WaitTask>();
   scheduler->schedule(waiter);
@@ -107,13 +106,9 @@ bool long_block_test(AbstractTaskScheduler * scheduler){
 
     int upperLimit = longSleepTime / 1000 + (shortSleepTime * shortSleepTasks / (threads1 * 1000)) + waittime/1000;
 
-    scheduler->resize(threads1);
-
     std::vector<std::shared_ptr<SleepTask> > longTasks;
     std::vector<std::shared_ptr<SleepTask> > shortTasks;
     std::shared_ptr<WaitTask> waiter = std::make_shared<WaitTask>();
-
-    //std::cout << "Number of queues: " << scheduler->getNumberOfWorker() << std::endl;
 
     for (int i = 0; i < longSleepTasks; ++i) {
       longTasks.push_back(std::make_shared<SleepTask>(longSleepTime));
@@ -153,19 +148,18 @@ TEST_P(SchedulerTest, dont_block_test) {
 
   AbstractTaskScheduler *scheduler;
 
-  scheduler = new SimpleTaskScheduler<CoreBoundTaskQueue>();
+  scheduler = new CoreBoundQueuesScheduler(2);
   ASSERT_TRUE(long_block_test(scheduler));
   delete scheduler;
 
-  scheduler = new WSSimpleTaskScheduler<WSCoreBoundTaskQueue>();
+  scheduler = new WSCoreBoundQueuesScheduler(2);
   ASSERT_TRUE(long_block_test(scheduler));
   delete scheduler;
 }
 
 TEST_P(SchedulerTest, sync_task_test) {
-  if(!SharedScheduler::getInstance().isInitialized())
-    SharedScheduler::getInstance().init(scheduler_name);
-  AbstractTaskScheduler * scheduler = SharedScheduler::getInstance().getScheduler();
+  SharedScheduler::getInstance().resetScheduler(scheduler_name);
+  AbstractTaskScheduler *scheduler = SharedScheduler::getInstance().getScheduler();
 
   //scheduler->resize(2);
 
@@ -189,9 +183,9 @@ TEST_P(SchedulerTest, million_dependencies_test) {
   int tasks_group2 = 1000;
   std::vector<std::shared_ptr<NoOp> > vtasks1;
   std::vector<std::shared_ptr<NoOp> > vtasks2;
-  if(!SharedScheduler::getInstance().isInitialized())
-    SharedScheduler::getInstance().init(scheduler_name);
-  AbstractTaskScheduler * scheduler = SharedScheduler::getInstance().getScheduler();
+
+  SharedScheduler::getInstance().resetScheduler(scheduler_name);
+  AbstractTaskScheduler *scheduler = SharedScheduler::getInstance().getScheduler();
 
   //scheduler->resize(threads1);
 
@@ -224,9 +218,9 @@ TEST_P(SchedulerTest, million_noops_test) {
   //chaned to 10.000, 1.000.000 takes too long on small computers
   int tasks_group1 = 10000;
   std::vector<std::shared_ptr<NoOp> > vtasks1;
-  if(!SharedScheduler::getInstance().isInitialized())
-    SharedScheduler::getInstance().init(scheduler_name);
-  AbstractTaskScheduler * scheduler = SharedScheduler::getInstance().getScheduler();
+
+  SharedScheduler::getInstance().resetScheduler(scheduler_name);
+  AbstractTaskScheduler *scheduler = SharedScheduler::getInstance().getScheduler();
 
   //scheduler->resize(threads1);
 
@@ -244,9 +238,8 @@ TEST_P(SchedulerTest, million_noops_test) {
 }
 
 TEST_P(SchedulerTest, wait_dependency_task_test) {
-  if(!SharedScheduler::getInstance().isInitialized())
-    SharedScheduler::getInstance().init(scheduler_name);
-  AbstractTaskScheduler * scheduler = SharedScheduler::getInstance().getScheduler();
+  SharedScheduler::getInstance().resetScheduler(scheduler_name);
+  AbstractTaskScheduler *scheduler = SharedScheduler::getInstance().getScheduler();
 
   //scheduler->resize(2);
   std::shared_ptr<NoOp> nop = std::make_shared<NoOp>();
@@ -257,50 +250,14 @@ TEST_P(SchedulerTest, wait_dependency_task_test) {
   waiter->wait();
 }
 
-TEST_P(SchedulerTest, resize_simple_test) {
-#ifdef EXPENSIVE_TESTS
-  int threads1 = 4;
-  int threads2 = 2;
-  int tasks = 10;
-  //in microsecons
-  int sleeptime = 50;
-
-  SharedScheduler::getInstance().resetScheduler(scheduler_name);
-  AbstractTaskScheduler * scheduler = SharedScheduler::getInstance().getScheduler();
-  scheduler->resize(threads1);
-
-  std::shared_ptr<WaitTask> waiter = std::make_shared<WaitTask>();
-  //std::cout << "Waiter: " << std::hex << (void * )waiter.get() << std::dec << std::endl;
-  std::vector<std::shared_ptr<SleepTask> > vtasks;
-  for (int i = 0; i < tasks; ++i) {
-    vtasks.push_back(std::make_shared<SleepTask>(sleeptime));
-    //std::cout << "Task " << i << " :"<< std::hex << (void * )vtasks[i].get() << std::dec << std::endl;
-    waiter->addDependency(vtasks[i]);
-    scheduler->schedule(vtasks[i]);
-  }
-  scheduler->schedule(waiter);
-  //usleep(sleeptime*1000);
-  scheduler->resize(threads2);
-  ASSERT_EQ(static_cast<int>(scheduler->getNumberOfWorker()), threads2);
-  waiter->wait();
-
-  //std::cout << " Test done " << std::endl;
-  //usleep(1000);
-
-#endif
-}
-
 TEST_P(SchedulerTest, wait_set_test) {
   //int threads1 = 4;
   int tasks = 100;
   //in microseconds
   int sleeptime = 50;
 
-  if(!SharedScheduler::getInstance().isInitialized())
-    SharedScheduler::getInstance().init(scheduler_name);
-  AbstractTaskScheduler * scheduler = SharedScheduler::getInstance().getScheduler();
-
-  //scheduler->resize(threads1);
+  SharedScheduler::getInstance().resetScheduler(scheduler_name);
+  AbstractTaskScheduler *scheduler = SharedScheduler::getInstance().getScheduler();
 
   auto waiter = std::make_shared<WaitTask>();
   auto sleeper = std::make_shared<SleepTask>(sleeptime);
@@ -316,73 +273,6 @@ TEST_P(SchedulerTest, wait_set_test) {
   scheduler->schedule(waiter);
   waiter->wait();
 }
-
-TEST_P(SchedulerTest, settings_test) {
-  int threads1 = getNumberOfCoresOnSystem() - 1;
-  int threads2 = getNumberOfCoresOnSystem();
-
-  if(!SharedScheduler::getInstance().isInitialized())
-     SharedScheduler::getInstance().init(scheduler_name);
-   AbstractTaskScheduler * scheduler = SharedScheduler::getInstance().getScheduler();
-
-  //std::cout << " Number of queues: " << scheduler->getNumberOfWorker() << std::endl;
-  scheduler->resize(threads1);
-  //std::cout << " Number of queues: " << scheduler->getNumberOfWorker() << std::endl;
-  std::shared_ptr<TaskSchedulerAdjustment> tsa = std::make_shared<TaskSchedulerAdjustment>();
-  tsa->setThreadpoolSize(threads2);
-  //std::cout << "TSA " << std::hex << (void *)tsa.get() << std::endl;
-  std::shared_ptr<WaitTask> waiter = std::make_shared<WaitTask>();
-  //std::cout << "Wait " << std::hex << (void *)tsa.get() << std::endl;
-  waiter->addDependency(tsa);
-  scheduler->schedule(tsa);
-  scheduler->schedule(waiter);
-  waiter->wait();
-
-  ASSERT_EQ(threads2, static_cast<int>(scheduler->getNumberOfWorker()));
-
-  scheduler->resize(getNumberOfCoresOnSystem());
-}
-
-TEST_P(SchedulerTest, singleton_test) {
-  int queues1 = getNumberOfCoresOnSystem();
-  int queues2 = getNumberOfCoresOnSystem() - 1;
-
-  if(!SharedScheduler::getInstance().isInitialized())
-    SharedScheduler::getInstance().init(scheduler_name);
-  AbstractTaskScheduler * scheduler1 = SharedScheduler::getInstance().getScheduler();
-
-  scheduler1->resize(queues1);
-
-  if(!SharedScheduler::getInstance().isInitialized())
-    SharedScheduler::getInstance().init(scheduler_name);
-  AbstractTaskScheduler * scheduler2 = SharedScheduler::getInstance().getScheduler();
-
-  ASSERT_EQ(queues1, static_cast<int>(scheduler2->getNumberOfWorker()));
-  ASSERT_EQ(scheduler1, scheduler2);
-
-  if(!SharedScheduler::getInstance().isInitialized())
-    SharedScheduler::getInstance().init(scheduler_name);
-  AbstractTaskScheduler * scheduler3 = SharedScheduler::getInstance().getScheduler();
-
-  ASSERT_EQ(scheduler1, scheduler3);
-  scheduler3->resize(queues2);
-  ASSERT_EQ(queues2, static_cast<int>(scheduler2->getNumberOfWorker()));
-  scheduler3->resize(getNumberOfCoresOnSystem());
-}
-
-TEST_P(SchedulerTest, avoid_too_many_threads_test) {
-  if(!SharedScheduler::getInstance().isInitialized())
-    SharedScheduler::getInstance().init(scheduler_name);
-  AbstractTaskScheduler * scheduler = SharedScheduler::getInstance().getScheduler();
-
-  if (scheduler == NULL) {
-    // resize should create not more queues than available cores
-    scheduler->resize(getNumberOfCoresOnSystem()+ 1);
-    // scheduler should have only as many queues as existing cores
-    ASSERT_EQ(getNumberOfCoresOnSystem(), static_cast<int>(scheduler->getNumberOfWorker()));
-  }
-}
-
 #endif
 
 }

@@ -1,12 +1,11 @@
-// Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 /*
- * CoreBoundTaskQueue.cpp
+ * CoreBoundQueue.cpp
  *
- *  Created on: Feb 15, 2012
+ *  Created on: Apr 4, 2013
  *      Author: jwust
  */
 
-#include "taskscheduler/CoreBoundTaskQueue.h"
+#include "CoreBoundQueue.h"
 
 #include <iostream>
 #include <errno.h>
@@ -14,7 +13,7 @@
 #include <algorithm>
 #include <sched.h>
 
-void CoreBoundTaskQueue::executeTask() {
+void CoreBoundQueue::executeTask() {
 
   //infinite thread loop
   while (1) {
@@ -50,31 +49,27 @@ void CoreBoundTaskQueue::executeTask() {
       //if queue still empty go to sleep and wait until new tasks have been arrived
       if (_runQueue.size() < 1) {
         // if thread is about to stop, break execution loop
-        {
-          std::lock_guard<std::mutex> lk1(_threadStatusMutex);
-          if (_status != RUN)
-            continue;
-        }
-        //std::cout << "queue " << _core << " sleeping " << std::endl;
+        if(_status != RUN)
+          break;
         _condition.wait(ul);
       }
     }
   }
 }
 
-CoreBoundTaskQueue::CoreBoundTaskQueue(int core): AbstractCoreBoundTaskQueue(), _blocked(false) {
+CoreBoundQueue::CoreBoundQueue(int core): AbstractCoreBoundQueue(), _blocked(false) {
   _core = core;
   launchThread(_core);
 }
 
-void CoreBoundTaskQueue::push(std::shared_ptr<Task> task) {
+void CoreBoundQueue::push(std::shared_ptr<Task> task) {
   //std::cout << "TASKQUEUE: task: "  << std::hex << (void * )task.get() << std::dec << " pushed to queue " << _core << std::endl;
   std::lock_guard<std::mutex> lk(_queueMutex);
   _runQueue.push(task);
   _condition.notify_one();
 }
 
-std::queue<std::shared_ptr<Task> > CoreBoundTaskQueue::stopQueue() {
+std::vector<std::shared_ptr<Task> > CoreBoundQueue::stopQueue() {
   if (_status != STOPPED) {
     // the thread to be stopped is either executing a task, or waits for the condition variable
     // set status to "TO_STOP" so that the thread either quits after executing the task, or after having been notified by the condition variable
@@ -98,16 +93,20 @@ std::queue<std::shared_ptr<Task> > CoreBoundTaskQueue::stopQueue() {
   return emptyQueue();
 }
 
-std::queue<std::shared_ptr<Task> > CoreBoundTaskQueue::emptyQueue() {
+std::vector<std::shared_ptr<Task> > CoreBoundQueue::emptyQueue() {
   // create empty queue
-  std::queue<std::shared_ptr<Task> > tmp;
+  std::vector<std::shared_ptr<Task> > tmp;
   std::lock_guard<std::mutex> lk(_queueMutex);
-  //swap empty queue and _runQueue
-  std::swap(tmp, _runQueue);
+
+  //move all elements to vector
+  for(size_t i = 0, size = _runQueue.size(); i < size; i++){
+    tmp.push_back(_runQueue.front());
+    _runQueue.pop();
+  }
   // return empty queue
   return tmp;
 }
 
-CoreBoundTaskQueue::~CoreBoundTaskQueue() {
+CoreBoundQueue::~CoreBoundQueue() {
   if (_thread != NULL) stopQueue();
 }

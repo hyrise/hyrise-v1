@@ -8,6 +8,6 @@ else
 libthread := -lpthread
 endif
 
-lib_dependencies := $(libthread)  -lhwloc -lhelper
+lib_dependencies := $(libthread)  -lhwloc -lhelper -ltbb
 
 include $(IMH_PROJECT_PATH)/footer.mk
