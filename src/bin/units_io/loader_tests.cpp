@@ -35,16 +35,6 @@ TEST_F(LoaderTests, load_csv_table_simple) {
   ASSERT_EQ(1u, t->size());
 }
 
-
-TEST_F(LoaderTests, load_insert_only) {
-  CSVInput input("test/test.csv", CSVInput::params().setCSVParams(csv::CSV_FORMAT)) ;
-  CSVHeader header("test/header.tbl", CSVHeader::params().setCSVParams(csv::CSV_FORMAT));
-  hyrise::storage::atable_ptr_t  t = Loader::load(Loader::params().setInsertOnly({true, 0})
-                                                  .setInput(input)
-                                                  .setHeader(header));
-  ASSERT_EQ(7u, t->columnCount());
-}
-
 TEST_F(LoaderTests, load_vertical_table) {
   CSVInput input("test/test.csv", CSVInput::params().setCSVParams(csv::CSV_FORMAT));
   CSVHeader header("test/header.tbl", CSVHeader::params().setCSVParams(csv::CSV_FORMAT));
