@@ -10,23 +10,20 @@
 #include <string>
 #include <stdexcept>
 
-#include <storage/AbstractAttributeVector.h>
-#include <storage/BaseAttributeVector.h>
+#include "memory/MallocStrategy.h"
+#include "storage/BaseAttributeVector.h"
 
 #ifndef WORD_LENGTH
 #define WORD_LENGTH 64
 #endif
 
-template<typename T>
-class BitCompressedVectorIterator;
 
 /*
   can only save positive numbers
 */
-//template <typename T, typename Allocator = StrategizedAllocator<T, MemalignStrategy<4096>> >
-template <typename T, typename Allocator = StrategizedAllocator<T, MallocStrategy> >
-class BitCompressedVector : public BaseAllocatedAttributeVector<BitCompressedVector<T, Allocator>, Allocator> {
-
+template <typename T>
+class BitCompressedVector : public BaseAttributeVector<T> {
+  using Strategy = MallocStrategy;
   // Typedef for the data
   typedef uint64_t storage_t;
   typedef std::vector<uint64_t> bit_size_list_t;
@@ -52,9 +49,7 @@ class BitCompressedVector : public BaseAllocatedAttributeVector<BitCompressedVec
   bit_size_list_t _bits;
 
 public:
-
   typedef T value_type;
-  typedef BitCompressedVector<T, Allocator> vector_type;
 
   BitCompressedVector(size_t columns,
                       size_t rows,
@@ -63,7 +58,7 @@ public:
   }
 
   virtual ~BitCompressedVector() {
-    Allocator::Strategy::deallocate(_data, _allocatedBlocks * sizeof(storage_t));
+    Strategy::deallocate(_data, _allocatedBlocks * sizeof(storage_t));
   }
 
   void *data() {
@@ -139,7 +134,7 @@ public:
 
       // Only deallocate if there was something allocated
       if (newMemory != nullptr)
-        Allocator::Strategy::deallocate(newMemory, _allocatedBlocks * sizeof(storage_t));
+        Strategy::deallocate(newMemory, _allocatedBlocks * sizeof(storage_t));
 
       // set new allocarted blocks
       _allocatedBlocks = _blocks(rows);
@@ -152,7 +147,7 @@ public:
    */
   void clear() {
     _size = 0;
-    Allocator::Strategy::deallocate(_data, _allocatedBlocks * sizeof(storage_t));
+    Strategy::deallocate(_data, _allocatedBlocks * sizeof(storage_t));
     _data = nullptr;
   }
 
@@ -182,7 +177,12 @@ public:
     }
   }
 
-  std::shared_ptr<BaseAttributeVector<T>> copy();
+  std::shared_ptr<BaseAttributeVector<T>> copy() {
+    std::shared_ptr<BitCompressedVector> b = std::make_shared<BitCompressedVector>(_columns, _size, _bits);
+    b->resize(_size);
+    std::memcpy(b->_data, _data, _allocatedBlocks * sizeof(storage_t));
+    return b;
+  }
 
 private:
   inline void checkAccess(const size_t& column, const size_t& rows) const {
@@ -248,9 +248,9 @@ private:
   */
   inline storage_t *_allocate(uint64_t numBlocks) {
 
-    auto data = static_cast<storage_t *>(Allocator::Strategy::allocate(numBlocks * sizeof(storage_t)));
+    auto data = static_cast<storage_t *>(Strategy::allocate(numBlocks * sizeof(storage_t)));
     if (data == nullptr) {
-      Allocator::Strategy::deallocate(data, numBlocks * sizeof(storage_t));
+      Strategy::deallocate(data, numBlocks * sizeof(storage_t));
       throw std::bad_alloc();
     }
     std::memset(data, 0, numBlocks * sizeof(storage_t));
@@ -258,15 +258,5 @@ private:
   }
 
 };
-
-
-
-template <typename T, typename Allocator>
-std::shared_ptr<BaseAttributeVector<T>>  BitCompressedVector<T, Allocator>::copy() {
-  std::shared_ptr<BitCompressedVector> b = std::make_shared<BitCompressedVector>(_columns, _size, _bits);
-  b->resize(_size);
-  std::memcpy(b->_data, _data, _allocatedBlocks * sizeof(storage_t));
-  return b;
-}
 
 #endif  // SRC_LIB_STORAGE_BITCOMPRESSEDVECTOR_H_

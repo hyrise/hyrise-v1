@@ -16,7 +16,7 @@ MutableVerticalTable::MutableVerticalTable(std::vector<std::vector<const ColumnM
     if (factory)
       containers.push_back(factory->generate(metadata[i], dict, size, sorted, compressed));
     else
-      containers.push_back(std::make_shared<Table<>>(metadata[i], dict, size, sorted));
+      containers.push_back(std::make_shared<Table>(metadata[i], dict, size, sorted));
   }
 
   column_count = 0;
@@ -34,7 +34,7 @@ MutableVerticalTable::MutableVerticalTable(std::vector<std::vector<const ColumnM
       offset_in_container.push_back(j);
     }
 
-    for (size_t s = 0; s < containers[i]->sliceCount(); s++) {
+    for (size_t s = 0; s < containers[i]->partitionCount(); s++) {
       container_for_slice.push_back(i);
       slice_offset_in_container.push_back(s);
       slice_count++;
@@ -56,7 +56,7 @@ for (const auto & c: tables) {
       offset_in_container.push_back(i);
     }
 
-    for (size_t s = 0; s < c->sliceCount(); s++) {
+    for (size_t s = 0; s < c->partitionCount(); s++) {
       container_for_slice.push_back(cnum);
       slice_offset_in_container.push_back(s);
       slice_count++;
@@ -124,29 +124,12 @@ void MutableVerticalTable::resize(const size_t rows) {
   }
 }
 
-unsigned MutableVerticalTable::sliceCount() const {
+unsigned MutableVerticalTable::partitionCount() const {
   return slice_count;
 }
 
-void *MutableVerticalTable::atSlice(const size_t slice, const size_t row) const {
-  return containers[container_for_slice[slice]]->atSlice(slice_offset_in_container[slice], row);
-}
-
-size_t MutableVerticalTable::getSliceWidth(const size_t slice) const {
-  return containers[container_for_slice[slice]]->getSliceWidth(slice_offset_in_container[slice]);
-}
-
-
-size_t MutableVerticalTable::getSliceForColumn(const size_t column) const {
-  return container_for_column[column];
-}
-
-size_t MutableVerticalTable::getOffsetInSlice(const size_t column) const {
-  size_t internal_column = column;
-  for (size_t i = 0; i < containers.size() && i < container_for_column[column]; ++i) {
-    internal_column -= containers[i]->columnCount();
-  }
-  return containers[container_for_column[column]]->getOffsetInSlice(internal_column);
+size_t MutableVerticalTable::partitionWidth(const size_t slice) const {
+  return containers[container_for_slice[slice]]->partitionWidth(slice_offset_in_container[slice]);
 }
 
 hyrise::storage::atable_ptr_t MutableVerticalTable::getContainer(const size_t c) const {

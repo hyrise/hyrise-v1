@@ -9,6 +9,7 @@
 #include <storage.h>
 #include <io.h>
 #include <io/shortcuts.h>
+#include <io/TransactionManager.h>
 
 namespace hyrise {
 namespace access {
@@ -16,10 +17,12 @@ namespace access {
 class WriteTests : public AccessTest {};
 
 TEST_F(WriteTests, insert_test) {
+  auto writeCtx =hyrise::tx::TransactionManager::getInstance().buildContext(); 
   hyrise::storage::atable_ptr_t s = Loader::shortcuts::load("test/lin_xxxs.tbl");
   hyrise::storage::atable_ptr_t i = Loader::shortcuts::load("test/insert_one.tbl");
 
   InsertScan gs;
+  gs.setTXContext(writeCtx);
   gs.addInput(s);
   gs.setInputData(i);
 

@@ -10,6 +10,7 @@
 
 #include <io.h>
 #include <io/shortcuts.h>
+#include <io/TransactionManager.h>
 
 #include <storage.h>
 
@@ -25,7 +26,7 @@ class SelectTests : public AccessTest {
             *ColumnMetadata::metadataFromString("STRING", "col2"),
             *ColumnMetadata::metadataFromString("FLOAT", "col3") });
 
-    auto main = std::make_shared<RawTable<>>(cols);
+    auto main = std::make_shared<RawTable>(cols);
     for (size_t i=0; i < 100; ++i) {
       hyrise::storage::rawtable::RowHelper rh(cols);
       rh.set<hyrise_int_t>(0, i);
@@ -248,6 +249,7 @@ TEST_F(SelectTests, simple_projection_on_empty_table) {
 }
 
 TEST_F(SelectTests, select_after_insert_simple) {
+  auto ctx = tx::TransactionManager::getInstance().buildContext();
   hyrise::storage::atable_ptr_t t = Loader::shortcuts::load("test/lin_xxs.tbl");
   auto s = std::make_shared<const Store>(t);
 
@@ -266,6 +268,7 @@ TEST_F(SelectTests, select_after_insert_simple) {
 
   // insert data
   InsertScan isc;
+  isc.setTXContext(ctx);
   isc.addInput(s);
   isc.setInputData(data);
   isc.execute();

@@ -19,9 +19,24 @@ class PointerCalculator;
 namespace hyrise {
 
 namespace tx {
+
+// FIXME: TX Count is limited to 2^63-1 instead of 2^64-1
 typedef int64_t transaction_id_t;
+typedef int64_t transaction_cid_t;
+
 static const transaction_id_t START_TID = 1;
 static const transaction_id_t MAX_TID = std::numeric_limits<transaction_id_t>::max();
+
+static const transaction_id_t UNKNOWN = 0;
+static const transaction_cid_t UNKNOWN_CID = 0;
+
+enum class TX_CODE {
+	TX_OK,
+	TX_FAIL_CONCURRENT_COMMIT,
+	TX_FAIL_OTHER
+};
+
+
 }
 
 namespace insertonly {

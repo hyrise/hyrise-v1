@@ -5,6 +5,7 @@
 #include "access/system/OutputTask.h"
 #include "access/system/OperationData.h"
 #include "access/system/QueryParser.h"
+#include "io/TXContext.h"
 
 #include "storage/storage_types.h"
 #include "helper/types.h"
@@ -15,6 +16,7 @@
 
 namespace hyrise {
 namespace access {
+
 class ResponseTask;
 }
 }
@@ -26,45 +28,14 @@ class ResponseTask;
  */
 class _PlanOperation : public OutputTask {
  protected:
-  /*!
-   *  Container to store and handle input/output or rather result data.
-   */
-  hyrise::access::OperationData input;
-  hyrise::access::OperationData output;
-
   void addResult(hyrise::storage::c_atable_ptr_t result);
   void addResultHash(hyrise::storage::c_ahashtable_ptr_t result);
 
-  // Limits the number of rows read
-  uint64_t _limit;
-
-  // Transaction number
-  hyrise::tx::transaction_id_t _transaction_id;
-
-  /**
-   * The fields used in the projection etc.
-   */
-  field_list_t _field_definition;
-  field_name_list_t _named_field_definition;
-  field_list_t _indexed_field_definition;
-
-  // Used containers
-  std::vector<int> container_list;
 
   unsigned int findColumn(const std::string &);
 
   virtual void computeDeferredIndexes();
 
-  size_t _part;
-  size_t _count;
-  std::weak_ptr<hyrise::access::ResponseTask> _responseTask;
-
-  bool producesPositions;
-
-  std::string _planId;
-  std::string _operatorId;
-  std::string _planOperationName;
-  
   /*!
    *  Uses _part and _count member as specification for the enumeration of
    *  parallel instances to distribute the number of elements between all
@@ -74,7 +45,6 @@ class _PlanOperation : public OutputTask {
       const u_int64_t numberOfElements,
       u_int64_t &first,
       u_int64_t &last) const;
-
 
   /*!
    *  Fetches output data of dependencies as input data.
@@ -98,18 +68,12 @@ class _PlanOperation : public OutputTask {
   std::string getDependencyErrorMessages();
 
  public:
-
-
-  /*
-   * Determines whether this PlanOp should generate Positions
-   */
-
-  _PlanOperation();
   virtual ~_PlanOperation();
 
   void setLimit(uint64_t l);
   void setProducesPositions(bool p);
-  void setTransactionId(hyrise::tx::transaction_id_t tid);
+  
+  void setTXContext(hyrise::tx::TXContext ctx);
 
   void addInput(hyrise::storage::c_atable_ptr_t t);
   void addInputHash(hyrise::storage::c_ahashtable_ptr_t t);
@@ -139,6 +103,37 @@ class _PlanOperation : public OutputTask {
 
   void setResponseTask(const std::shared_ptr<hyrise::access::ResponseTask>& responseTask);
   std::shared_ptr<hyrise::access::ResponseTask> getResponseTask() const;
+ protected:
+
+  /// Containers to store and handle input/output or rather result data.
+  hyrise::access::OperationData input;
+  hyrise::access::OperationData output;
+
+  /// Limits the number of rows read
+  uint64_t _limit = 0;
+
+  /// Transaction number
+  hyrise::tx::transaction_id_t _transaction_id;
+
+  /// The fields used in the projection etc.
+  field_list_t _field_definition;
+  field_name_list_t _named_field_definition;
+  field_list_t _indexed_field_definition;
+
+  /// Used containers
+  std::vector<int> container_list;
+  size_t _part = 0;
+  size_t _count = 0;
+  std::weak_ptr<hyrise::access::ResponseTask> _responseTask;
+
+  bool producesPositions = true;
+
+  std::string _planId;
+  std::string _operatorId;
+  std::string _planOperationName;
+  
+  hyrise::tx::TXContext _txContext;
+
 };
 
 #endif  // SRC_LIB_ACCESS_PLANOPERATION_H_

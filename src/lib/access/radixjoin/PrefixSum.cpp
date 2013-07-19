@@ -22,7 +22,7 @@ void PrefixSum::executePlanOperation() {
   // get attribute vector of output table
   std::vector<const ColumnMetadata *> metadata;
   metadata.push_back(in->metadataAt(0));
-  auto output = std::make_shared<Table<>>(&metadata, nullptr, table_size, true, 0, 0, false);
+  auto output = std::make_shared<Table>(&metadata, nullptr, table_size, true, false);
   output->resize(table_size);
   const auto &oavs = output->getAttributeVectors(0);
   auto ovector = std::dynamic_pointer_cast<FixedLengthVector<value_id_t>>(oavs.at(0).attribute_vector);
@@ -95,7 +95,7 @@ void MergePrefixSum::executePlanOperation() {
 
   const auto resultSize = getInputTable()->size();
   std::vector<const ColumnMetadata *> meta {ColumnMetadata::metadataFromString(types::integer_t, "count")};
-  auto result = std::make_shared<Table<>>(&meta, nullptr, resultSize, true, 0, 0, false);
+  auto result = std::make_shared<Table>(&meta, nullptr, resultSize, true, false);
   result->resize(resultSize);
 
   const auto &res_vec = getDataVector(result).first;

@@ -52,26 +52,13 @@ void HorizontalTable::setValueId(const size_t column, const size_t row, const Va
   throw std::runtime_error("Cannot set ValueId for HorizontalTable");
 }
 
-unsigned HorizontalTable::sliceCount() const {
-  return parts[0]->sliceCount();
+unsigned HorizontalTable::partitionCount() const {
+  return parts[0]->partitionCount();
 }
 
-void *HorizontalTable::atSlice(const size_t slice, const size_t row) const {
-  size_t part = partForRow(row);
-  return parts[part]->atSlice(slice, row - offsets[part]);
+size_t HorizontalTable::partitionWidth(const size_t slice) const {
+  return parts[0]->partitionWidth(slice);
 }
-
-size_t HorizontalTable::getSliceWidth(const size_t slice) const {
-  return parts[0]->getSliceWidth(slice);
-}
-
-size_t HorizontalTable::getSliceForColumn(const size_t column) const {
-  throw std::runtime_error("Not implemented");
-};
-
-size_t HorizontalTable::getOffsetInSlice(const size_t column) const {
-  throw std::runtime_error("Not implemented");
-};
 
 hyrise::storage::atable_ptr_t HorizontalTable::copy() const {
   throw std::runtime_error("Not implemented");

@@ -2,8 +2,6 @@
 #include "access/GroupByScan.h"
 
 #include "access/system/QueryParser.h"
-#include "access/default_strategy.h"
-
 #include "storage/HashTable.h"
 #include "storage/PointerCalculator.h"
 
@@ -100,7 +98,7 @@ storage::atable_ptr_t GroupByScan::createResultTableLayout() {
     metadata.push_back(m);
     dictionaries.push_back(AbstractDictionary::dictionaryWithType<DictionaryFactory<OrderIndifferentDictionary> >(fun->getType()));
   }
-  storage::atable_ptr_t agg_tab = std::make_shared<Table<DEFAULT_STRATEGY>>(&metadata, &dictionaries, 0, false);
+  storage::atable_ptr_t agg_tab = std::make_shared<Table>(&metadata, &dictionaries, 0, false);
 
   //Clean the metadata
   for (auto e : metadata)

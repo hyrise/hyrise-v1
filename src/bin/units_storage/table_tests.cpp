@@ -2,7 +2,7 @@
 #include "testing/test.h"
 
 #include "io/shortcuts.h"
-#include "memory/MemalignStrategy.h"
+
 #include "storage/AbstractTable.h"
 #include "storage/RawTable.h"
 #include "storage/SimpleStore.h"
@@ -29,24 +29,24 @@ public:
 
 TEST_F(TableTests, does_copy_structure_copy_structure) {
   hyrise::storage::atable_ptr_t  input = Loader::shortcuts::load("test/lin_xxs.tbl");
-  ASSERT_EQ(3u, input->sliceCount());
+  ASSERT_EQ(3u, input->partitionCount());
 
   hyrise::storage::atable_ptr_t  copy  = input->copy_structure();
-  ASSERT_EQ(3u, input->sliceCount()) << "Copied table should have the same number of containers";
+  ASSERT_EQ(3u, input->partitionCount()) << "Copied table should have the same number of containers";
 }
 
 TEST_F(TableTests, generate_generates_layout) {
 
   TableGenerator tg;
   hyrise::storage::atable_ptr_t  input = tg.create_empty_table(0, 10);
-  ASSERT_EQ(10u, input->sliceCount());
+  ASSERT_EQ(10u, input->partitionCount());
 
   std::vector<unsigned> l;
   l.push_back(3);
   l.push_back(7);
 
   input = tg.create_empty_table(0, 10, l);
-  ASSERT_EQ(2u, input->sliceCount());
+  ASSERT_EQ(2u, input->partitionCount());
 
   l.clear();
   l.push_back(1);
@@ -61,7 +61,7 @@ TEST_F(TableTests, generate_generates_layout) {
   l.push_back(1);
 
   input = tg.create_empty_table(0, 10, l);
-  ASSERT_EQ(10u, input->sliceCount());
+  ASSERT_EQ(10u, input->partitionCount());
 }
 
 TEST_F(TableTests, number_of_column) {
@@ -99,13 +99,6 @@ TEST_F(TableTests, bit_compression_test) {
   ASSERT_TRUE(main->getValueId(two, zero).valueId == 1);
   ASSERT_TRUE(main->getValueId(two,  one).valueId == 1);
   ASSERT_TRUE(main->getValueId(two,  two).valueId == 0);
-
-}
-
-TEST_F(TableTests, test_different_allocation_1) {
-  auto cols = intList(2);
-  Table<MemalignStrategy<64> > *main = new Table<MemalignStrategy<64> >(&cols);
-  delete main;
 }
 
 TEST_F(TableTests, test_modifiable_table) {
@@ -117,18 +110,10 @@ TEST_F(TableTests, test_modifiable_table) {
   ASSERT_EQ(a->getValue<hyrise_int_t>(0, 1), 200);
 }
 
-TEST_F(TableTests, test_modifiable_table2) {
-  TableGenerator t;
-  hyrise::storage::atable_ptr_t a = t.create_empty_base_table_modifiable<MemalignStrategy<64> >(10, 2);
-  a->setValue<hyrise_int_t>(0, 0, 100);
-  a->setValue<hyrise_int_t>(0, 1, 200);
-  ASSERT_EQ(a->getValue<hyrise_int_t>(0, 0), 100);
-  ASSERT_EQ(a->getValue<hyrise_int_t>(0, 1), 200);
-}
 
 TEST_F(TableTests, test_table_copy) {
   TableGenerator t;
-  hyrise::storage::atable_ptr_t a = t.create_empty_base_table_modifiable<MemalignStrategy<64> >(10, 2);
+  hyrise::storage::atable_ptr_t a = t.create_empty_table_modifiable(10, 2);
   a->setValue<hyrise_int_t>(0, 0, 100);
   a->setValue<hyrise_int_t>(0, 1, 200);
 

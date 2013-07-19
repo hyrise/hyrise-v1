@@ -45,42 +45,28 @@ void testing::Benchmark::logValue(const std::string& key,
 
 void testing::Benchmark::TestBody()
 {
-  for (int i=0; i < WarmUp(); ++i)
-  {
-    BenchmarkSetUp();
-    BenchmarkBody();
-    BenchmarkTearDown();
-  }
-
-  std::map<std::string, values_t> counters { {"PAPI_TOT_CYC", {} }, {PapiEvent(), {}}, {"PAPI_L1_DCM", {}} };    
-  for(int i=0; i < NumIterations(); ++i)
-  {
-    try {
+  std::map<std::string, values_t> counters { {"PAPI_TOT_INS", {} }, /*{PapiEvent(), {}},*/ {"PAPI_L1_DCM", {}} };    
+  for(int i=0; i < NumIterations() + WarmUp(); ++i) {
       BenchmarkSetUp();
-            
+
       PapiTracer pt;
       for (const auto& kv: counters) {
         pt.addEvent(kv.first);
       }
-      
-      pt.start();
-            
-      BenchmarkBody();
 
+      pt.start();
+      BenchmarkBody();
       pt.stop();
 
       BenchmarkTearDown();
-
-      for (auto& kv: counters) {
-        kv.second.updateWith(pt.value(kv.first));
+      if (i >= WarmUp()) {
+        for (auto& kv: counters) {
+          kv.second.updateWith(pt.value(kv.first));
+        }
       }
 
-    } catch (const std::exception& e) {
-      std::cerr << e.what() << std::endl;
-    }
-  }
 
-  
+  }
 
   for (auto& kv: counters) {
     const auto& key = kv.first;

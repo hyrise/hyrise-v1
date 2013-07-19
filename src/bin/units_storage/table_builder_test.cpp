@@ -61,7 +61,7 @@ TEST_F(TableBuilderTest, build_table_with_layout) {
   hyrise::storage::atable_ptr_t  result = TableBuilder::build(list);
   ASSERT_TRUE((bool) result);
   ASSERT_EQ(3u, result->columnCount());
-  ASSERT_EQ(2u, result->sliceCount());
+  ASSERT_EQ(2u, result->partitionCount());
 }
 
 TEST_F(TableBuilderTest, build_table_with_layout_all_columns) {
@@ -78,7 +78,7 @@ TEST_F(TableBuilderTest, build_table_with_layout_all_columns) {
   hyrise::storage::atable_ptr_t  result = TableBuilder::build(list);
   ASSERT_TRUE((bool) result);
   ASSERT_EQ(3u, result->columnCount());
-  ASSERT_EQ(3u, result->sliceCount());
+  ASSERT_EQ(3u, result->partitionCount());
 }
 
 TEST_F(TableBuilderTest, build_table_with_layout_all_row) {
@@ -95,7 +95,7 @@ TEST_F(TableBuilderTest, build_table_with_layout_all_row) {
   hyrise::storage::atable_ptr_t  result = TableBuilder::build(list);
   ASSERT_TRUE((bool) result);
   ASSERT_EQ(3u, result->columnCount());
-  ASSERT_EQ(1u, result->sliceCount());
+  ASSERT_EQ(1u, result->partitionCount());
 
 }
 
@@ -113,7 +113,7 @@ TEST_F(TableBuilderTest, build_table_with_layout_order_check) {
   hyrise::storage::atable_ptr_t  result = TableBuilder::build(list);
   ASSERT_TRUE((bool) result);
   ASSERT_EQ(3u, result->columnCount());
-  ASSERT_EQ(2u, result->sliceCount());
+  ASSERT_EQ(2u, result->partitionCount());
 
 }
 

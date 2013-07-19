@@ -15,11 +15,10 @@
 
 #include <storage/AbstractTable.h>
 #include <storage/MutableVerticalTable.h>
-#include <storage/LogarithmicMergeStrategy.h>
+#include <storage/AbstractMergeStrategy.h>
 #include <storage/SequentialHeapMerger.h>
 #include <storage/TableMerger.h>
 #include <helper/Progress.h>
-#include <helper/PapiTracer.h>
 
 
 
@@ -359,7 +358,7 @@ hyrise::storage::atable_ptr_t TableGenerator::create_empty_table(size_t rows, st
   const auto& cols = names.size();
   for (size_t col = 0; col < cols; ++col) {
     std::vector<const ColumnMetadata *> *m = new std::vector<const ColumnMetadata *>;
-    std::string colname(col < names.size() ? names.at(col) : "attr" + toString(col)); 
+    std::string colname(col < names.size() ? names.at(col) : "attr" + std::to_string(col)); 
     m->push_back(new ColumnMetadata(colname, IntegerType));
     md.push_back(m);
 
@@ -429,7 +428,7 @@ hyrise::storage::atable_ptr_t TableGenerator::create_empty_table_modifiable(size
 
   for (size_t col = 0; col < cols; ++col) {
     std::vector<const ColumnMetadata *> *m = new std::vector<const ColumnMetadata *>;
-    std::string colname(col < names.size() ? names.at(col) : "attr" + toString(col)); 
+    std::string colname(col < names.size() ? names.at(col) : "attr" + std::to_string(col)); 
     m->push_back(new ColumnMetadata(colname, IntegerType));
     md.push_back(m);
 
@@ -888,7 +887,7 @@ hyrise::storage::atable_ptr_t TableGenerator::int_distinct(size_t row_count, siz
     tables.push_back(fill_up_table);
   }
 
-  const auto& result = TableMerger(new LogarithmicMergeStrategy(1), new SequentialHeapMerger()).merge(tables);
+  const auto& result = TableMerger(new DefaultMergeStrategy(), new SequentialHeapMerger()).merge(tables);
   return result[0];
 }
 

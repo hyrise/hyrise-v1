@@ -17,16 +17,7 @@
 
 namespace { log4cxx::LoggerPtr logger(log4cxx::Logger::getLogger("access.plan._PlanOperation")); }
 
-_PlanOperation::_PlanOperation() :
-      _limit(0),
-      _part(0),
-      _count(0),
-      producesPositions(true),
-      _planId(),
-      _operatorId() {}
-
-_PlanOperation::~_PlanOperation() {
-}
+_PlanOperation::~_PlanOperation() = default;
 
 void _PlanOperation::addResult(hyrise::storage::c_atable_ptr_t result) {
   output.add(result);
@@ -234,8 +225,8 @@ void _PlanOperation::setProducesPositions(bool p) {
   producesPositions = p;
 }
 
-void _PlanOperation::setTransactionId(hyrise::tx::transaction_id_t tid) {
-  _transaction_id = tid;
+void _PlanOperation::setTXContext(hyrise::tx::TXContext ctx) {
+  _txContext = ctx;
 }
 
 void _PlanOperation::addInput(hyrise::storage::c_atable_ptr_t t) {

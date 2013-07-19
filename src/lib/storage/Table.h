@@ -17,27 +17,24 @@
 #include "storage/ColumnMetadata.h"
 #include "storage/AbstractTable.h"
 #include "storage/AbstractDictionary.h"
-#include "storage/AbstractAllocatedTable.h"
 
 #include "storage/BaseAttributeVector.h"
 #include "storage/AttributeVectorFactory.h"
-
-#define STORAGE_ALIGNMENT_SIZE 0
 
 /**
  * Table is the innermost entity in the table structure. It stores the actual
  * values like a regular table and cannot be splitted further.
  */
 
-ALLOC_CLASS(Table) {
+class Table : public AbstractTable {
 private:
 
   // Typedefs for all dependent types
   typedef std::shared_ptr<AbstractDictionary> SharedDictionary;
-  typedef std::vector<SharedDictionary, Allocator<SharedDictionary , Strategy> > DictionaryVector;
+  typedef std::vector<SharedDictionary> DictionaryVector;
 
-  typedef Table<Strategy, Allocator> table_type;
-  typedef std::vector<const ColumnMetadata *, Allocator<const ColumnMetadata * , Strategy> > MetadataVector;
+  typedef Table table_type;
+  typedef std::vector<const ColumnMetadata *> MetadataVector;
 
 
   // The shared ptr to the attributes we store inside the table
@@ -57,12 +54,6 @@ private:
   //* Number of columns
   size_t width;
 
-  //* Tuple width in bytes
-  size_t byte_width;
-
-  //* Aligned size
-  size_t align_size;
-
   bool _compressed;
 
 public:
@@ -77,11 +68,9 @@ public:
         std::vector<SharedDictionary> *d = nullptr,
         size_t initial_size = 0,
         bool sorted = true,
-        size_t padding_size = STORAGE_ALIGNMENT_SIZE,
-        size_t _align_size = STORAGE_ALIGNMENT_SIZE,
         bool compressed = true);
 
-  Table(): width(0), byte_width(0), align_size(0), _compressed(false) {
+  Table(): width(0), _compressed(false) {
   };
 
   ~Table();
@@ -113,7 +102,7 @@ public:
 
   void setAttributes(SharedAttributeVector b);
 
-  unsigned sliceCount() const {
+  unsigned partitionCount() const {
     return 1;
   }
 
@@ -121,31 +110,11 @@ public:
     return 1;
   }
 
-  virtual void *atSlice(const size_t slice, const size_t row) const {
-    return ((value_id_t *) tuples->data()) + row * width;
+  virtual size_t partitionWidth(const size_t slice) const {
+    return columnCount();
   }
-
-  virtual size_t getSliceWidth(const size_t slice) const {
-    return byte_width;
-  }
-
 
   virtual hyrise::storage::atable_ptr_t copy() const;
-
-  virtual size_t getSliceForColumn(const size_t column) const {
-    return 0;
-  }
-
-  virtual size_t getOffsetInSlice(const size_t column) const {
-    size_t offset = 0;
-    size_t index = 0;
-for (const auto & m: _metadata) {
-      if (index++ == column) break;
-      offset += m->getWidth();
-    }
-    return offset;
-  }
-
 
   void setNumRows(size_t s) {
     tuples->setNumRows(s);
@@ -161,8 +130,6 @@ for (const auto & m: _metadata) {
     std::cout << std::string(level, '\t') << "Table " << this << std::endl;
   }
 };
-
-#include "Table-impl.h"
 
 #endif  // SRC_LIB_STORAGE_TABLE_H_
 

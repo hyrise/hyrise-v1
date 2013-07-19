@@ -56,7 +56,7 @@ Likely supported:
 
 * MacOSX 10.7
 
-HYRISE expects a C++11-capable compiler. We recommend g++ >=4.7, but testing is done against g++ 4.6, g++ 4.7, g++ 4.8 and clang 3.2.
+HYRISE expects a C++11-capable compiler. We recommend g++ >=4.7, testing is done against g++ 4.7, g++ 4.8 and clang 3.2.
 
 ### Development Environment Setup
 

@@ -2,13 +2,6 @@
 #ifndef SRC_LIB_STORAGE_ORDERINDIFFERENTDICTIONARY_H_
 #define SRC_LIB_STORAGE_ORDERINDIFFERENTDICTIONARY_H_
 
-#include <storage/storage_types.h>
-#include <storage/AbstractDictionary.h>
-#include <storage/BaseDictionary.h>
-#include <storage/DictionaryIterator.h>
-#include <storage/csb_tree.h>
-#include <storage/AbstractAllocatedDictionary.h>
-
 #include <exception>
 #include <vector>
 #include <map>
@@ -16,6 +9,10 @@
 #include <limits.h>
 
 #include <map>
+
+#include "storage/storage_types.h"
+#include "storage/BaseDictionary.h"
+#include "storage/DictionaryIterator.h"
 
 // FIXME should be aware of allocator
 template <typename T>
@@ -60,18 +57,10 @@ public:
   inside the value list. An auxillary structure is kept to allow
   easy sorted iteratos and logarithmic finds.
 */
-template < typename T,
-         class Strategy = MallocStrategy,
-         template <typename K, typename S> class Allocator = StrategizedAllocator
-         >
-class OrderIndifferentDictionary : public BaseAllocatedDictionary < T,
-  Strategy,
-  Allocator,
-    OrderIndifferentDictionary<T, Strategy, Allocator> > {
-
-  typedef Strategy strategy_type;
-  typedef std::map<T, value_id_t, std::less<T>, Allocator<std::pair<T, value_id_t>, Strategy> > index_type;
-  typedef std::vector<T, Allocator<T, Strategy> > vector_type;
+template < typename T >
+class OrderIndifferentDictionary : public BaseDictionary<T> {
+  typedef std::map<T, value_id_t> index_type;
+  typedef std::vector<T> vector_type;
 
   // This is the main index
   index_type _index;
@@ -105,10 +94,14 @@ public:
 
   std::shared_ptr<AbstractDictionary> copy() {
     // FIXME
-    auto res = std::make_shared<OrderIndifferentDictionary<T, Strategy, Allocator>>();
+    auto res = std::make_shared<OrderIndifferentDictionary<T> >();
     res->_index = _index;
     res->_value_list = _value_list;
     return res;
+  }
+
+  std::shared_ptr<AbstractDictionary> copy_empty() {
+    return std::make_shared<OrderIndifferentDictionary<T>>();
   }
 
   void reserve(size_t s) {

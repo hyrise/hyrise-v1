@@ -1,6 +1,4 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#include <memory/NumaStrategy.h>
-#include <memory/MemalignStrategy.h>
 #include <storage/AbstractTable.h>
 
 #include <storage/MutableVerticalTable.h>
@@ -44,7 +42,7 @@ for (const field_t & field: *fields) {
     }
   }
 
-  auto res =  std::make_shared<Table<>>(&metadata, dictionaries, initial_size, true, 0, 0, compressed);
+  auto res =  std::make_shared<Table>(&metadata, dictionaries, initial_size, true, compressed);
   delete dictionaries;
   return res;
 }
@@ -66,7 +64,7 @@ for (const field_t & field: *fields) {
   }
 
 
-  auto result = std::make_shared<Table<>>(&metadata, dictionaries, initial_size, false);
+  auto result = std::make_shared<Table>(&metadata, dictionaries, initial_size, false);
   delete dictionaries;
   return result;
 }
@@ -153,32 +151,11 @@ void AbstractTable::copyRowFrom(const hyrise::storage::c_atable_ptr_t& source, c
       copyValueFrom(source, column, src_row, column, dst_row);
     }
   } else {
-    if (use_memcpy) {
-      // Use slices & memcpy
-      // Assumes destination (this) is single row container
-      assert(sliceCount() == 1);
-
-      // this only gets the dest pointer, nothing else
-      value_id_t *dst = (value_id_t *) atSlice(0, dst_row);
-      size_t inc_width = 0, width = 0;
-
-      for (size_t slice = 0; slice < source->sliceCount(); slice++) {
-
-        // gets pointer to container at the row
-        value_id_t *src = (value_id_t *) source->atSlice(slice, src_row);
-
-        // slice width tells us how much memory we can copy
-        width = source->getSliceWidth(slice);
-        memcpy((char *)(dst) + inc_width, src, width);
-        inc_width += width;
-      }
-    } else {
-      // Copy single values
-      for (size_t column = 0; column < source->columnCount(); column++) {
-        setValueId(column, dst_row, source->getValueId(column, src_row));
-      }
-    }
-  }
+    // Copy single values
+    for (size_t column = 0; column < source->columnCount(); column++) {
+     setValueId(column, dst_row, source->getValueId(column, src_row));
+   }
+ }
 }
 
 void AbstractTable::setValueId(const size_t column, const size_t row, const ValueId valueId) {

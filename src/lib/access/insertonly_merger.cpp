@@ -123,10 +123,14 @@ struct MapValueForValueId {
 void DiscardingMerger::mergeValues(const std::vector<hyrise::storage::c_atable_ptr_t > &input_tables,
                                    hyrise::storage::atable_ptr_t merged_table,
                                    const storage::column_mapping_t &column_mapping,
-                                   const uint64_t newSize) {
+                                   const uint64_t newSize,
+                                   bool useValid,
+                                   const std::vector<bool>& valid) {
+  
+  if (useValid) throw std::runtime_error("SimpleStoreMerger uses a different way to handle valid positions");
   if (input_tables.size() != 2) throw std::runtime_error("SimpleStoreMerger does not support more than two tables");
   auto main = input_tables[0];
-  auto delta = std::dynamic_pointer_cast<const RawTable<>>(input_tables[1]);
+  auto delta = std::dynamic_pointer_cast<const RawTable>(input_tables[1]);
   assert(main && delta && "main delta need to be valid");
 
   // Prepare type handling

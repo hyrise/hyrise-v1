@@ -3,6 +3,7 @@
 
 #include "access/system/QueryParser.h"
 
+#include "helper/checked_cast.h"
 #include "storage/Store.h"
 
 namespace hyrise {
@@ -29,7 +30,7 @@ void MergeTable::executePlanOperation() {
   }
 
   // Call the Merge
-  TableMerger merger(new LogarithmicMergeStrategy(0), new SequentialHeapMerger());
+  TableMerger merger(new DefaultMergeStrategy(), new SequentialHeapMerger());
   auto new_table = input.getTable(0)->copy_structure();
 
   // Switch the tables
@@ -46,6 +47,25 @@ std::shared_ptr<_PlanOperation> MergeTable::parse(Json::Value& data) {
 const std::string MergeTable::vname() {
   return "MergeTable";
 }
+
+namespace {
+  auto _2 = QueryParser::registerPlanOperation<MergeStore>("MergeStore");
+}
+
+MergeStore::~MergeStore() {
+}
+
+void MergeStore::executePlanOperation() {
+  auto t = checked_pointer_cast<const Store>(getInputTable());
+  auto store = std::const_pointer_cast<Store>(t);
+  store->merge();
+  output.add(store);
+}
+
+std::shared_ptr<_PlanOperation> MergeStore::parse(Json::Value& data) {
+  return std::make_shared<MergeStore>();
+}
+
 
 }
 }

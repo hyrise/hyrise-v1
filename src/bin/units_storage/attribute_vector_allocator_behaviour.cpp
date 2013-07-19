@@ -33,7 +33,7 @@ int MockMallocStrategy::deallocates = 0;
 int MockMallocStrategy::reallocates = 0;
 
 
-typedef BitCompressedVector<uint, StrategizedAllocator<uint, MockMallocStrategy> > bum;
+typedef BitCompressedVector<uint> bum;
 TEST_F(MockStrategyTest, base_test) {
   auto e = std::vector<uint64_t> {1};
   bum *a = new bum(1, 10, e);

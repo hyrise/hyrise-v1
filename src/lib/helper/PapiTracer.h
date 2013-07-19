@@ -53,16 +53,11 @@ class PapiTracer {
   /// @param[in] function PAPI function to call that returns PAPI error codes
   /// @param[in] activity Information about the activity currently conducted, for error reporting
   /// @param[in] args parameters of the function to call
-  template<typename Func, typename... Args>
-  static void handle(Func function, const char* activity, Args&&... args) {
-    handle(function, std::string(activity), args...);
-  }
-
-  template<typename Func, typename... Args>
-  static void handle(Func function, const std::string& activity, Args&&... args) {
+  template<typename Func, typename ActivityT, typename... Args>
+  static void handle(Func function, ActivityT activity, Args&&... args) {
     int retval = function(std::forward<Args>(args)...);
     if (retval != PAPI_OK)
-      throw TracingError(activity + " failed: " + PAPI_strerror(retval));
+      throw TracingError(std::string(activity) + " failed: " + PAPI_strerror(retval));
   }
 
   static void initialize() {
@@ -80,29 +75,17 @@ class PapiTracer {
  public:
   inline PapiTracer() : _eventSet(PAPI_NULL), _disabled(false), _running(false) {
     PapiTracer::initialize();
-
-    if (PAPI_thread_init(pthread_self) != PAPI_OK)
-      throw TracingError("PAPI could not initialize thread");
-
-    int retval;
-    retval = PAPI_create_eventset(&_eventSet);
-    if (retval != PAPI_OK) {
-      printf("PAPI eventset creation failed");
-      exit(-1);
-    }
   }
 
   inline ~PapiTracer() {
-    if (_running) stop();
-    handle(PAPI_cleanup_eventset, "cleaning eventset", _eventSet);
-    handle(PAPI_destroy_eventset, "destroying eventset", &_eventSet);
+    stop();
   }
 
   /// Add a new event counter
   ///
   /// @param[in] eventName valid PAPI event name (see `$ papi_avail`)
   inline void addEvent(std::string eventName) {
-    if (eventName == "NO_PAPI") {
+    if (eventName == "NO_PAPI" || _disabled) {
       _disabled = true;
       return;
     }
@@ -114,40 +97,37 @@ class PapiTracer {
     if (_disabled)
       return;
 
+    handle(PAPI_thread_init, "Initialize thread", pthread_self);
+    handle(PAPI_create_eventset, "Eventset creation", &_eventSet);
+
     if (_counters.empty())
       throw std::runtime_error("No events set");
 
     for(const auto& eventName: _counters) {
-      int eventCode;
-      handle(PAPI_event_name_to_code,
-             "Create event from " + eventName,
-             (char*) eventName.c_str(), &eventCode);
-      handle(PAPI_add_event, "Adding event to event set", _eventSet, eventCode);
+      handle(PAPI_add_named_event,
+             "Adding event " + eventName + " to event set",
+             _eventSet, (char*) eventName.c_str());
     }
 
     _results.clear();
     _results.resize(_counters.size());
 
     _running = true;
-    handle(PAPI_reset, "Reset counter", _eventSet);
+
+    //handle(PAPI_reset, "Reset counter", _eventSet);
     handle(PAPI_start, "Starting counter", _eventSet);
   }
 
   /// Stop performance counter
   inline void stop() {
-    if (_disabled) return;
+    if (_disabled || !_running) return;
 
     handle(PAPI_stop, "Stopping Counter", _eventSet, _results.data());
+
+    handle(PAPI_cleanup_eventset, "cleaning eventset", _eventSet);
+    handle(PAPI_destroy_eventset, "destroying eventset", &_eventSet);
+
     _running = false;
-  }
-
-  /// Resets performance counters
-  inline void reset() {
-    if (_disabled) return;
-
-    stop();
-    _results.clear();
-    handle(PAPI_reset, "Reset counter", _eventSet);
   }
 
   /// Retrieve performance counter values
@@ -194,13 +174,8 @@ class FallbackTracer {
     struct timeval end = {0, 0};
     gettimeofday(&end, nullptr);
     _result = (end.tv_sec - _start.tv_sec) * 1000000 + (end.tv_usec - _start.tv_usec);
-  }  
-
-  inline void reset() {
-    _start = {0, 0};
-    _result = 0;
   }
-  
+
   inline long long value(const std::string& eventName) const {
     auto item = find(_counters.begin(), _counters.end(), eventName);
     if (item == _counters.end())

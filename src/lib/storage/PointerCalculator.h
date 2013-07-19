@@ -52,15 +52,9 @@ public:
 
   ValueId getValueId(const size_t column, const size_t row) const;
 
-  unsigned sliceCount() const;
+  unsigned partitionCount() const;
 
-  virtual void *atSlice(const size_t slice, const size_t row) const;
-
-  virtual size_t getSliceWidth(const size_t slice) const;
-
-  virtual size_t getSliceForColumn(const size_t column) const;
-
-  virtual size_t getOffsetInSlice(const size_t column) const;
+  virtual size_t partitionWidth(const size_t slice) const;
 
   void print(const size_t limit = (size_t) -1) const;
 
@@ -96,6 +90,17 @@ public:
   static std::shared_ptr<PointerCalculator> concatenate_many(pc_vector::const_iterator it, pc_vector::const_iterator it_end);
 
   virtual void debugStructure(size_t level=0) const;
+
+  /**
+  * Checks the internal table of the pointer calculator to only contain valid positions.
+  *
+  * If the PC is used for projections it will create a new position list with
+  * all valid positions and if positions are provided will use those positions
+  * to validate
+  */
+  void validate(hyrise::tx::transaction_id_t tid, hyrise::tx::transaction_id_t cid);
+
+  void remove(const pos_list_t& pl);
 };
 
 #endif  // SRC_LIB_STORAGE_POINTERCALCULATOR_H_

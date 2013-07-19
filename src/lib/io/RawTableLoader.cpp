@@ -10,7 +10,7 @@
 namespace hyrise { namespace io {
 
 struct raw_table_cb_data {
-  std::shared_ptr<RawTable<>> table;
+  std::shared_ptr<RawTable> table;
   hyrise::storage::rawtable::RowHelper rh;
   size_t column;
 
@@ -57,7 +57,7 @@ std::shared_ptr<AbstractTable> RawTableLoader::load(std::shared_ptr<AbstractTabl
   for(size_t i=0; i < in->columnCount(); ++i) {
     v[i] = *in->metadataAt(i);
   }
-  auto result = std::make_shared<RawTable<>>(v);
+  auto result = std::make_shared<RawTable>(v);
 
   // CSV Parsing
   std::ifstream file(args.getBasePath() + _filename, std::ios::binary);

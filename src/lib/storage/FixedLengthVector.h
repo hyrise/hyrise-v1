@@ -2,43 +2,43 @@
 #ifndef SRC_LIB_STORAGE_FIXEDLENGTHVECTOR_H_
 #define SRC_LIB_STORAGE_FIXEDLENGTHVECTOR_H_
 
-#include <atomic>
-#include <errno.h>
-#include <math.h>
 
+#include <cerrno>
+#include <cmath>
+
+#include <atomic>
 #include <memory>
 #include <mutex>
 #include <string>
 #include <stdexcept>
 #include <sstream>
 
-#include <boost/iterator/iterator_facade.hpp>
+#include "memory/MallocStrategy.h"
+#include "storage/BaseAttributeVector.h"
 
-#include <storage/AbstractAttributeVector.h>
-#include <storage/BaseAttributeVector.h>
-#include <storage/BaseAllocatedAttributeVector.h>
-#include <memory/StrategizedAllocator.h>
-#include <memory/MallocStrategy.h>
-
-template<typename T>
-class FixedLengthVectorIterator;
-
-//template <typename T, typename Allocator = StrategizedAllocator<T, MemalignStrategy<4096> > >
-template <typename T, typename Allocator = StrategizedAllocator<T, MallocStrategy > >
-class FixedLengthVector : public BaseAllocatedAttributeVector< FixedLengthVector<T, Allocator>, Allocator> {
-private:
+template <typename T>
+class FixedLengthVector : public BaseAttributeVector<T> {
+ private:
   T *_values;
   size_t _rows;
   size_t _columns;
   size_t _allocated_bytes;
 
   std::mutex _allocate_mtx;
+  using Strategy = MallocStrategy;
+ public:
+  typedef T value_type;
+  
+  FixedLengthVector(size_t columns,  size_t rows)  :
+      _values(nullptr), _rows(0), _columns(columns), _allocated_bytes(0) {
+    if (rows > 0) {
+      reserve(rows);
+    }
+  }
 
-public:
-  explicit FixedLengthVector(size_t columns,
-                             size_t rows);
-
-  virtual ~FixedLengthVector();
+  virtual ~FixedLengthVector() {
+    Strategy::deallocate(_values, _allocated_bytes);
+  }
 
   void *data() {
     return _values;
@@ -53,18 +53,28 @@ public:
     return _values[row * _columns + column];
   }
 
-  const T& getRef(size_t column, size_t row) const;
-
-  inline void set(size_t column, size_t row, T value) {
-     checkAccess(column, row);
-     _values[row * _columns + column] = value;
+  const T& getRef(size_t column, size_t row) const {
+    checkAccess(column, row);
+    return _values[row * _columns + column];
   }
 
-  void reserve(size_t rows);
+  inline void set(size_t column, size_t row, T value) {
+    checkAccess(column, row);
+    _values[row * _columns + column] = value;
+  }
 
-  void clear();
+  void reserve(size_t rows) {
+    allocate(_columns * rows * sizeof(T));
+  }
 
-  size_t size();
+  void clear() {
+    allocate(8);
+    _rows = 0;
+  }
+
+  size_t size() {
+    return _rows;
+  };
 
   void resize(size_t rows) {
     reserve(rows);
@@ -78,7 +88,13 @@ public:
     return _allocated_bytes / (sizeof(value_type) * _columns);
   }
 
-  std::shared_ptr<BaseAttributeVector<T>> copy();
+  std::shared_ptr<BaseAttributeVector<T>> copy() {
+    auto copy = std::make_shared<FixedLengthVector<T>>(_columns, _rows);
+    copy->_rows = _rows;
+    copy->allocate(_allocated_bytes);
+    memcpy(copy->_values, _values, _allocated_bytes);
+    return copy;
+  }
 
   // Increment the value by 1
   T inc(size_t column, size_t row) {
@@ -106,10 +122,28 @@ public:
     return buf.str();
   }
 
-  typedef T value_type;
 
-private:
-  void allocate(size_t bytes);
+
+ private:
+  void allocate(size_t bytes) {
+    std::lock_guard<std::mutex> guard(_allocate_mtx);
+
+    if (bytes != _allocated_bytes) {
+      void *new_values = Strategy::reallocate(_values, bytes, _allocated_bytes);
+    
+      if (bytes > _allocated_bytes)
+        memset(((char*) new_values) + _allocated_bytes, 0, bytes - _allocated_bytes);
+
+      if (new_values == nullptr) {
+        Strategy::deallocate(_values, _allocated_bytes);
+        throw std::bad_alloc();
+      }
+
+      _values = static_cast<T*>(new_values);
+      _allocated_bytes = bytes;
+    }
+
+  }
 
   inline void checkAccess(const size_t& column, const size_t& rows) const {
 #ifdef EXPENSIVE_ASSERTIONS
@@ -126,72 +160,5 @@ private:
 #endif
   }
 };
-
-template <typename T, typename Allocator>
-FixedLengthVector<T, Allocator>::FixedLengthVector(size_t columns, size_t rows) :
-    _values(nullptr), _rows(0), _columns(columns), _allocated_bytes(0) {
-  if (rows > 0) {
-    reserve(rows);
-  }
-}
-
-template <typename T, typename Allocator>
-FixedLengthVector<T, Allocator>::~FixedLengthVector() {
-  Allocator::Strategy::deallocate(_values, _allocated_bytes);
-}
-
-template <typename T, typename Allocator>
-const T& FixedLengthVector<T, Allocator>::getRef(size_t column, size_t row) const {
-  checkAccess(column, row);
-  return _values[row * _columns + column];
-}
-
-
-template <typename T, typename Allocator>
-void FixedLengthVector<T, Allocator>::reserve(size_t rows) {
-  allocate(_columns * rows * sizeof(T));
-}
-
-template <typename T, typename Allocator>
-void FixedLengthVector<T, Allocator>::clear() {
-  allocate(8);
-  _rows = 0;
-}
-
-template <typename T, typename Allocator>
-size_t FixedLengthVector<T, Allocator>::size() {
-  return _rows;
-}
-
-template <typename T, typename Allocator>
-void FixedLengthVector<T, Allocator>::allocate(size_t bytes) {
-  std::lock_guard<std::mutex> guard(_allocate_mtx);
-
-  if (bytes != _allocated_bytes) {
-    void *new_values = Allocator::Strategy::reallocate(_values, bytes, _allocated_bytes);
-    
-    if (bytes > _allocated_bytes)
-      memset(((char*) new_values) + _allocated_bytes, 0, bytes - _allocated_bytes);
-
-    if (new_values == nullptr) {
-      ///std::cerr << strerror(errno) << std::endl;
-      Allocator::Strategy::deallocate(_values, _allocated_bytes);
-      throw std::bad_alloc();
-    }
-
-    _values = static_cast<T*>(new_values);
-    _allocated_bytes = bytes;
-  }
-}
-
-template <typename T, typename Allocator>
-std::shared_ptr<BaseAttributeVector<T>> FixedLengthVector<T, Allocator>::copy() {
-  auto copy = std::make_shared<FixedLengthVector<T, Allocator>>(_columns, _rows);
-  copy->_rows = _rows;
-  copy->allocate(_allocated_bytes);
-  memcpy(copy->_values, _values, _allocated_bytes);
-
-  return copy;
-}
 
 #endif  // SRC_LIB_STORAGE_FIXEDLENGTHVECTOR_H_

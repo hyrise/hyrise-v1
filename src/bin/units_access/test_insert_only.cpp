@@ -9,7 +9,7 @@
 namespace hyrise {
 namespace insertonly {
 
-static const tx::transaction_id_t load_txid = 0;
+static const tx::TXContext load_txid;
 
 class InsertOnly : public Test {
  protected:
@@ -38,7 +38,7 @@ TEST_F(InsertOnly, insert) {
   const size_t store_sz = store->size(),
       row_sz = row->size();
 
-  tx::transaction_id_t insert_txid = 2;
+  tx::TXContext insert_txid(2,0);
   insertRows(store, row, insert_txid);
   EXPECT_EQ(store->size(), store_sz + row_sz);
   EXPECT_EQ(filterValid(store, insert_txid)->size(), store_sz + row_sz);
@@ -46,7 +46,7 @@ TEST_F(InsertOnly, insert) {
 
 TEST_F(InsertOnly, delete) {
   auto store_sz = store->size();
-  tx::transaction_id_t delete_txid = 2;
+  tx::TXContext delete_txid(2,0);
   deleteRows(store, {0}, delete_txid);
   EXPECT_EQ(store->size(), store_sz)
       << "Store size does not change when deleting rows";
@@ -56,7 +56,8 @@ TEST_F(InsertOnly, delete) {
 
 TEST_F(InsertOnly, delete_previously_added) {
   auto store_sz = store->size();
-  tx::transaction_id_t update_txid = 2, delete_txid = 3;
+  tx::TXContext update_txid(2,0);
+  tx::TXContext delete_txid(3,0);
   updateRows(store, row, {0}, update_txid);
   deleteRows(store, {store->size() - 1}, delete_txid);
   EXPECT_EQ(filterValid(store, delete_txid)->size(), store_sz-1)
@@ -65,7 +66,7 @@ TEST_F(InsertOnly, delete_previously_added) {
 
 TEST_F(InsertOnly, update) {
   const size_t store_sz = store->size();
-  tx::transaction_id_t update_txid = 2;
+  tx::TXContext update_txid(2,0);
   updateRows(store, row, {0}, update_txid);
   EXPECT_EQ(store->size(), store_sz + 1);
   EXPECT_EQ(filterValid(store, update_txid)->size(), store_sz)
@@ -74,16 +75,16 @@ TEST_F(InsertOnly, update) {
 
 TEST_F(InsertOnly, update_merge) {
   const size_t store_sz = store->size();
-  tx::transaction_id_t update_txid = 2;
+  tx::TXContext update_txid(2,0);
   updateRows(store, row, {0}, update_txid);
-  auto r = merge(store, update_txid+1);
+  auto r = merge(store, tx::TXContext(update_txid.tid+1,0));
   EXPECT_EQ(store_sz, r->size())
       << "Updating a single row should lead to unchanged store size";
 }
 
 TEST_F(InsertOnly, insert_merge) {
   const size_t store_sz = store->size();
-  tx::transaction_id_t update_txid = 2;
+  tx::TXContext update_txid(2,0);
   insertRows(store, row, update_txid);
   auto r = merge(store, update_txid);
   EXPECT_EQ(store_sz + 1, r->size())
@@ -92,7 +93,7 @@ TEST_F(InsertOnly, insert_merge) {
 
 TEST_F(InsertOnly, delete_merge) {
   const size_t store_sz = store->size();
-  tx::transaction_id_t delete_txid = 2;
+  tx::TXContext delete_txid(2,0);
   deleteRows(store, {0, 2}, delete_txid);
   auto r = merge(store, delete_txid);
   EXPECT_EQ(store_sz-2, r->size())

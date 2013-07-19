@@ -96,24 +96,24 @@ TEST_F(LayouterOpsTest, parse_full_scenario_candidate) {
 
 TEST_F(LayouterOpsTest, layouting_table_op_basic) {
   auto table = Loader::shortcuts::load("test/tables/partitions.tbl");
-  ASSERT_EQ(table->sliceCount(), 3u);
+  ASSERT_EQ(table->partitionCount(), 3u);
 
   LayoutTable op("a|b|c|d\nINTEGER|INTEGER|INTEGER|INTEGER\n0_C|0_C|1_C|1_C");
   op.addInput(table);
   auto result = op.execute()->getResultTable();
 
-  ASSERT_EQ(result->sliceCount(), 2u);
+  ASSERT_EQ(result->partitionCount(), 2u);
 }
 
 TEST_F(LayouterOpsTest, layouting_table_op_reordering) {
   auto table = Loader::shortcuts::load("test/tables/partitions.tbl");
-  ASSERT_EQ(table->sliceCount(), 3u);
+  ASSERT_EQ(table->partitionCount(), 3u);
 
   LayoutTable op("a|c|b|d\nINTEGER|INTEGER|INTEGER|INTEGER\n0_C|0_C|1_C|1_C");
   op.addInput(table);
   auto result = op.execute()->getResultTable();
 
-  ASSERT_EQ(result->sliceCount(), 2u);
+  ASSERT_EQ(result->partitionCount(), 2u);
   ASSERT_EQ(result->metadataAt(1)->getName(), "c");
   ASSERT_EQ(result->getValue<hyrise_int_t>(1, 0), 3);
 }
@@ -121,8 +121,8 @@ TEST_F(LayouterOpsTest, layouting_table_op_reordering) {
 TEST_F(LayouterOpsTest, load_layout_replace) {
   std::string data = loadFromFile("test/json/load_layout_replace.json");
   const auto& e = executeAndWait(data);
-  ASSERT_EQ(e->sliceCount(), 3u);
-  ASSERT_EQ(3u, StorageManager::getInstance()->getTable("revenue")->sliceCount());
+  ASSERT_EQ(e->partitionCount(), 3u);
+  ASSERT_EQ(3u, StorageManager::getInstance()->getTable("revenue")->partitionCount());
 }
 
 }
