@@ -36,13 +36,6 @@ enum class TX_CODE {
 	TX_FAIL_OTHER
 };
 
-
-}
-
-namespace insertonly {
-static const tx::transaction_id_t VISIBLE = 0;
-static const std::string VALID_TO_COL_ID = "$valid_to";
-static const std::string VALID_FROM_COL_ID = "$valid_from";
 }
 
 namespace access {

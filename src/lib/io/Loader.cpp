@@ -5,7 +5,6 @@
 
 #include "io/EmptyLoader.h"
 #include "io/LoaderException.h"
-#include "io/ValidityTableGeneration.h"
 #include "storage/AbstractTable.h"
 #include "storage/AbstractMergeStrategy.h"
 #include "storage/SequentialHeapMerger.h"
@@ -21,7 +20,6 @@ param_ref_member_impl(Loader::params, AbstractInput, Input)
 param_ref_member_impl(Loader::params, AbstractHeader, Header)
 param_member_impl(Loader::params, std::string, BasePath)
 param_member_impl(Loader::params, AbstractTableFactory *, Factory)
-param_member_impl(Loader::params, InsertOnlyParam, InsertOnly)
 param_member_impl(Loader::params, bool, ModifiableMutableVerticalTable)
 param_member_impl(Loader::params, bool, ReturnsMutableVerticalTable)
 param_member_impl(Loader::params, bool, Compressed)
@@ -32,7 +30,6 @@ Loader::params::params() :
   Header(nullptr),
   Factory(nullptr),
   BasePath(""),
-  InsertOnly({false, 0}),
   ModifiableMutableVerticalTable(false),
   ReturnsMutableVerticalTable(false),
   Compressed(false),
@@ -42,7 +39,6 @@ Loader::params::params() :
 Loader::params::params(const Loader::params &other) :
   Factory(other.getFactory()),
   BasePath(other.getBasePath()),
-  InsertOnly(other.getInsertOnly()),
   ModifiableMutableVerticalTable(other.getModifiableMutableVerticalTable()),
   ReturnsMutableVerticalTable(other.getReturnsMutableVerticalTable()),
   Compressed(other.getCompressed()) {
@@ -59,7 +55,6 @@ Loader::params &Loader::params::operator= (const Loader::params &other) {
     Header = other.getHeader()->clone();
     setBasePath(other.getBasePath());
     setFactory(other.getFactory());
-    setInsertOnly(other.getInsertOnly());
     setReturnsMutableVerticalTable(other.getReturnsMutableVerticalTable());
     setModifiableMutableVerticalTable(other.getModifiableMutableVerticalTable());
     setCompressed(other.getCompressed());
@@ -75,7 +70,6 @@ Loader::params *Loader::params::clone() const {
   if (Header != nullptr) p->setHeader(*Header);
   p->setBasePath(BasePath);
   p->setFactory(Factory);
-  p->setInsertOnly(InsertOnly);
   p->setReturnsMutableVerticalTable(ReturnsMutableVerticalTable);
   p->setModifiableMutableVerticalTable(ModifiableMutableVerticalTable);
   p->setReferenceTable(ReferenceTable);
@@ -86,14 +80,6 @@ Loader::params *Loader::params::clone() const {
 Loader::params::~params() {
   if (Input != nullptr) delete Input;
   if (Input != nullptr) delete Header;
-}
-
-
-std::shared_ptr<AbstractTable> Loader::generateValidityTable(std::shared_ptr<AbstractTable> intable,
-                                                             hyrise::tx::transaction_id_t tx) {
-  size_t result_size = intable->size();
-  std::vector<hyrise::storage::atable_ptr_t> tables { intable, hyrise::insertonly::validityTableForTransaction(result_size, tx) };
-  return std::make_shared<MutableVerticalTable>(tables, result_size);
 }
 
 std::shared_ptr<AbstractTable> Loader::load(const params &args) {
@@ -148,12 +134,6 @@ std::shared_ptr<AbstractTable> Loader::load(const params &args) {
     s->setMerger(merger);
     s->merge();
     result = s;
-  }
-
-  auto param = args.getInsertOnly();
-  if (param.InsertOnly) {
-    std::shared_ptr<AbstractTable> table = std::make_shared<hyrise::storage::SimpleStore>(generateValidityTable(result, param.transaction_id));
-    return table;
   }
   
   if (!args.getModifiableMutableVerticalTable() && args.getReturnsMutableVerticalTable()) {

@@ -40,15 +40,6 @@ std::shared_ptr<AbstractTable> loadWithStringHeader(const std::string &datafilep
 */
 std::shared_ptr<Store> loadMainDelta(const std::string &mainfilepath, const std::string &deltafilepath, Loader::params p = Loader::params());
 
-/*! Load insert only
-  @param datafilepath
-  @param headerfilepath
-*/
-std::shared_ptr<AbstractTable> loadInsertOnly(const std::string &datafilepath, const std::string &headerfilepath);
-
-/*! Loader insert only, deprecated structure */
-std::shared_ptr<AbstractTable> loadInsertOnlyDeprecated(const std::string &datafilepath, const std::string &headerfilepath);
-
 /**
  * Load a table into a raw table container
  */
