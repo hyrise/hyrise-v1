@@ -10,20 +10,18 @@
 #define SRC_LIB_TASKSCHEDULER_SHAREDSCHEDULER_H_
 
 #include <taskscheduler/AbstractTaskScheduler.h>
-#include <taskscheduler/SimpleTaskScheduler.h>
-#include <taskscheduler/CoreBoundTaskQueue.h>
 #include <stdexcept>
 
 struct AbstractTaskSchedulerFactory {
-  virtual AbstractTaskScheduler * create() const = 0;
+  virtual AbstractTaskScheduler * create(int cores) const = 0;
   virtual ~AbstractTaskSchedulerFactory() {}
 };
 
 /// Factory for schedulers, implements abstract factory pattern
 template<typename T>
 struct TaskSchedulerFactory : public AbstractTaskSchedulerFactory {
-  AbstractTaskScheduler * create() const {
-    return new T();
+  AbstractTaskScheduler * create(int cores) const {
+    return new T(cores);
   }
 };
 
@@ -68,12 +66,12 @@ public:
     return (_sharedScheduler != NULL);
   }
 
-  void init(const std::string &scheduler){
+  void init(const std::string &scheduler, int cores = getNumberOfCoresOnSystem()){
 
     if(_sharedScheduler != NULL)
       throw SchedulerException("Scheduler has already been initialized");
     if(_schedulers.find(scheduler) != _schedulers.end()){
-      _sharedScheduler = _schedulers[scheduler]->create();
+      _sharedScheduler = _schedulers[scheduler]->create(cores);
     } else
       throw SchedulerException("Requested scheduler was not registered");
   }
@@ -81,11 +79,11 @@ public:
   /*
    * stops current scheduler gracefully; starts new scheduler
    */
-  void resetScheduler(const std::string &scheduler){
+  void resetScheduler(const std::string &scheduler, int cores = getNumberOfCoresOnSystem()){
     if(_sharedScheduler != NULL)
       _sharedScheduler->shutdown();
     if(_schedulers.find(scheduler) != _schedulers.end()){
-      _sharedScheduler = _schedulers[scheduler]->create();
+      _sharedScheduler = _schedulers[scheduler]->create(cores);
     } else
       throw SchedulerException("Requested scheduler was not registered");
   }

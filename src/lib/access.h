@@ -35,12 +35,9 @@
 #include <access/system/QueryParser.h>
 #include <access/system/QueryTransformationEngine.h>
 #include <access/system/SettingsOperation.h>
-#include <access/system/ThreadpoolAdjustment.h>
-#include <access/system/TaskSchedulerAdjustment.h>
 
 #include <access/tx/Commit.h>
 #include <access/tx/ValidatePositions.h>
-
 
 #endif  // SRC_LIB_ACCESS_H_
 

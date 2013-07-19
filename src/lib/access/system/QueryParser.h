@@ -7,6 +7,7 @@
 #include <vector>
 #include <string>
 #include <stdexcept>
+#include <mutex>
 
 #include <json.h>
 
@@ -80,6 +81,8 @@ class QueryParser {
 
   //  Returns PAPI event name, if specified.
   std::string getPapiEventName(const Json::Value &query) const;
+  //  Returns session id, if specified.
+  int getSessionId(const Json::Value &query) const;
 
   //  Builds tasks' dependencies based on task map.
   void setDependencies(
