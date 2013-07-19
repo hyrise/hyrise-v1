@@ -35,7 +35,7 @@ void Task::notifyDoneObservers() {
 	}
 }
 
-Task::Task(): _dependencyWaitCount(0), _preferredCore(NO_PREFERRED_CORE) {
+Task::Task(): _dependencyWaitCount(0), _preferredCore(NO_PREFERRED_CORE), _preferredNode(NO_PREFERRED_NODE), _priority(DEFAULT_PRIORITY), _sessionId(SESSION_ID_NOT_SET), _id(0) {
 }
 
 void Task::addDependency(std::shared_ptr<Task> dependency) {
@@ -66,6 +66,8 @@ void Task::notifyDone(std::shared_ptr<Task> task) {
   _depMutex.unlock();
 
   if (t == 0) {
+    if(_preferredCore == NO_PREFERRED_CORE && _preferredNode == NO_PREFERRED_NODE)
+      _preferredNode = task->getActualNode();
     std::lock_guard<std::mutex> lk(_notifyMutex);
     notifyReadyObservers();
   }

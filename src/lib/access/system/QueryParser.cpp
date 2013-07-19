@@ -2,6 +2,7 @@
 #include "access/system/QueryParser.h"
 
 #include "io/StorageManager.h"
+#include "helper/HwlocHelper.h"
 #include "helper/vector_helpers.h"
 #include "access/system/PlanOperation.h"
 #include "access/system/ParallelizablePlanOperation.h"
@@ -34,13 +35,13 @@ void QueryParser::buildTasks(
     std::vector<std::shared_ptr<Task> > &tasks,
     task_map_t &task_map) const {
   Json::Value::Members members = query["operators"].getMemberNames();
+  std::string papiEventName = getPapiEventName(query);
   for (unsigned i = 0; i < members.size(); ++i) {
-
     Json::Value planOperationSpec = query["operators"][members[i]];
     std::string typeName = planOperationSpec["type"].asString();
     std::shared_ptr<PlanOperation> planOperation = QueryParser::instance().parse(
         typeName, planOperationSpec);
-    planOperation->setEvent(getPapiEventName(query));
+    planOperation->setEvent(papiEventName);
     setInputs(planOperation, planOperationSpec);
     if (auto para = std::dynamic_pointer_cast<ParallelizablePlanOperation>(planOperation)) {
       para->setPart(planOperationSpec["part"].asUInt());
@@ -57,7 +58,6 @@ void QueryParser::buildTasks(
     // check for materialization strategy
     if (planOperationSpec.isMember("positions"))
       planOperation->setProducesPositions(!planOperationSpec["positions"].asBool());
-
     tasks.push_back(planOperation);
     task_map[members[i]] = planOperation;
   }
@@ -78,6 +78,13 @@ std::string QueryParser::getPapiEventName(const Json::Value &query) const {
     return query["papi"].asString();
   else
     return "PAPI_TOT_INS";
+}
+
+int QueryParser::getSessionId(const Json::Value &query) const {
+  if (query.isMember("sessionId"))
+    return query["sessionId"].asInt();
+  else
+    return 0;
 }
 
 void QueryParser::setDependencies(

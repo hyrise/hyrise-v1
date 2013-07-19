@@ -1,29 +1,38 @@
-// Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 /*
- * AbstractTaskQueue.cpp
+ * AbstractCoreBoundQueue.cpp
  *
- *  Created on: Jun 13, 2012
+ *  Created on: Apr 4, 2013
  *      Author: jwust
  */
 
+#include "AbstractCoreBoundQueue.h"
 #include <pthread.h>
 #include <cstdlib>
-#include <taskscheduler/AbstractTaskQueue.h>
+#include <taskscheduler/AbstractCoreBoundQueue.h>
 #include <errno.h>
 #include <string.h>
 #include <iostream>
 #include <helper/HwlocHelper.h>
 
-log4cxx::LoggerPtr AbstractCoreBoundTaskQueue::logger(log4cxx::Logger::getLogger("taskscheduler.AbstractCoreBoundTaskQueue"));
+log4cxx::LoggerPtr AbstractCoreBoundQueue::logger(log4cxx::Logger::getLogger("taskscheduler.AbstractCoreBoundQueue"));
 
-void AbstractCoreBoundTaskQueue::join() {
-  _threadStatusMutex.lock();
+
+AbstractCoreBoundQueue::AbstractCoreBoundQueue(): _status(RUN){
+  // TODO Auto-generated constructor stub
+
+}
+
+AbstractCoreBoundQueue::~AbstractCoreBoundQueue() {
+  // TODO Auto-generated destructor stub
+}
+
+void AbstractCoreBoundQueue::join() {
   _status = RUN_UNTIL_DONE;
-  _threadStatusMutex.unlock();
+  _condition.notify_one();
   _thread->join();
 }
 
-void AbstractCoreBoundTaskQueue::launchThread(int core) {
+void AbstractCoreBoundQueue::launchThread(int core) {
   //get the number of cores on system
   int NUM_PROCS = getNumberOfCoresOnSystem();
 
@@ -44,6 +53,14 @@ void AbstractCoreBoundTaskQueue::launchThread(int core) {
       int error = errno;
       hwloc_bitmap_asprintf(&str, obj->cpuset);
       fprintf(stderr, "Couldn't bind to cpuset %s: %s\n", str, strerror(error));
+      fprintf(stderr, "Continuing as normal, however, no guarantees\n");
+      //throw std::runtime_error(strerror(error));
+    }
+    if(hwloc_set_membind (topology, cpuset,  HWLOC_MEMBIND_FIRSTTOUCH , HWLOC_MEMBIND_THREAD )){
+      char *str;
+      int error = errno;
+      hwloc_bitmap_asprintf(&str, obj->cpuset);
+      fprintf(stderr, "Couldn't bind to memory %s: %s\n", str, strerror(error));
       fprintf(stderr, "Continuing as normal, however, no guarantees\n");
       //throw std::runtime_error(strerror(error));
     }

@@ -113,7 +113,6 @@ void bindToNode(int node) {
   // free duplicated cpuset
   hwloc_bitmap_free(cpuset);
 
-
   obj = hwloc_get_obj_by_type(topology, HWLOC_OBJ_MACHINE, node);
   if (hwloc_set_membind_nodeset(topology, obj->nodeset, HWLOC_MEMBIND_INTERLEAVE, HWLOC_MEMBIND_STRICT | HWLOC_MEMBIND_THREAD)) {
     char *str;
@@ -129,9 +128,6 @@ void bindToNode(int node) {
 
 int main(int argc, char *argv[]) {
 
-  // Bind the program to the first NUMA node
-  bindToNode(0);
-
   size_t port = 0;
   std::string logPropertyFile;
   std::string scheduler_name;
@@ -141,7 +137,7 @@ int main(int argc, char *argv[]) {
   desc.add_options()("help", "Shows this help message")
   ("port,p", po::value<size_t>(&port)->default_value(DEFAULT_PORT), "Server Port")
   ("logdef,l", po::value<std::string>(&logPropertyFile)->default_value("build/log.properties"), "Log4CXX Log Properties File")
-  ("scheduler,s", po::value<std::string>(&scheduler_name)->default_value("WSSimpleTaskScheduler"), "Name of the scheduler to use");
+  ("scheduler,s", po::value<std::string>(&scheduler_name)->default_value("WSCoreBoundQueuesScheduler"), "Name of the scheduler to use");
   po::variables_map vm;
   po::store(po::parse_command_line(argc, argv, desc), vm);
   po::notify(vm);
@@ -151,6 +147,11 @@ int main(int argc, char *argv[]) {
     return EXIT_SUCCESS;
   }
 
+
+  //Bind the program to the first NUMA node for schedulers that have core bound threads
+  if((scheduler_name == "CoreBoundQueuesScheduler") || (scheduler_name == "CoreBoundQueuesScheduler") ||  (scheduler_name == "WSCoreBoundQueuesScheduler") || (scheduler_name == "WSCoreBoundPriorityQueuesScheduler"))
+    bindToNode(0);
+
   // Log File Configuration
   PropertyConfigurator::configure(logPropertyFile);
   
@@ -159,11 +160,8 @@ int main(int argc, char *argv[]) {
 #endif
 
   
-  SharedScheduler::getInstance().init(scheduler_name);
+  SharedScheduler::getInstance().init(scheduler_name, getNumberOfCoresOnSystem());
   AbstractTaskScheduler *scheduler = SharedScheduler::getInstance().getScheduler();
-  if (scheduler != NULL) {
-    scheduler->resize(getNumberOfCoresOnSystem());
-  }
 
   signal(SIGINT, &shutdown);
   // MainS erver Loop
