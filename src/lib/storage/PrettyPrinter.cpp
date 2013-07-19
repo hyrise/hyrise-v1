@@ -20,15 +20,7 @@ using namespace hyrise;
 template <typename T>
 std::string generateValue(T& input, const size_t column, const size_t row) {
   std::stringstream buffer;
-
-  // Add a basic hack to make valid_to columns look decent
-  if ((input->nameOfColumn(column) == insertonly::VALID_TO_COL_ID) &&
-      ((input->template getValue<hyrise_int_t>(column, row)) == insertonly::VISIBLE)) {
-    buffer << "inf";
-  } else {
-    buffer << input->printValue(column, row);
-  }
-
+  buffer << input->printValue(column, row);
   try {
     ValueId valueId = input->getValueId(column, row);
     buffer << "(" << valueId.valueId << "@" << std::dec << (unsigned) valueId.table << ")";

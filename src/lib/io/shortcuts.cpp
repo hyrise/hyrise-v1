@@ -56,16 +56,6 @@ std::shared_ptr<AbstractTable> Loader::shortcuts::loadWithStringHeader(const std
   return Loader::load(loadWithStringHeaderParams(datafilepath, header));
 };
 
-std::shared_ptr<AbstractTable> Loader::shortcuts::loadInsertOnly(const std::string &datafilepath, const std::string &headerfilepath) {
-  Loader::params p(loadWithHeaderParams(datafilepath, headerfilepath));
-  p.setInsertOnly({true, 0});
-  //p.setReturnsMutableVerticalTable(true);
-  //p.setModifiableMutableVerticalTable(true);
-  return Loader::load(p);
-};
-
-
-
 std::shared_ptr<Store> Loader::shortcuts::loadMainDelta(const std::string &mainfilepath, const std::string &deltafilepath, Loader::params p) {
   std::vector<std::string> filenames;
   filenames.push_back(mainfilepath);
@@ -84,20 +74,6 @@ std::shared_ptr<Store> Loader::shortcuts::loadMainDelta(const std::string &mainf
   }
   auto s = std::make_shared<Store>(tables[0]);
   s->setDelta(tables[1]);
-  return s;
-};
-
-std::shared_ptr<AbstractTable> Loader::shortcuts::loadInsertOnlyDeprecated(const std::string &mainfilepath, const std::string &headerfilepath) {
-  CSVInput input(mainfilepath);
-  CSVHeader header(headerfilepath);
-
-  Loader::params p;
-  p.setInput(input);
-  p.setHeader(header);
-  p.setReturnsMutableVerticalTable(true);
-  std::shared_ptr<AbstractTable> table = Loader::load(p);
-  std::shared_ptr<AbstractTable> t = Loader::generateValidityTable(table, 0);
-  std::shared_ptr<Store> s = std::make_shared<Store>(t);
   return s;
 };
 
