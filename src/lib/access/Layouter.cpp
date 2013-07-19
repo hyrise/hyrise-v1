@@ -98,7 +98,7 @@ void LayoutSingleTable::executePlanOperation() {
   addResult(result);
 }
 
-std::shared_ptr<_PlanOperation> LayoutSingleTable::parse(Json::Value &data) {
+std::shared_ptr<PlanOperation> LayoutSingleTable::parse(Json::Value &data) {
   std::shared_ptr<LayoutSingleTable> s = std::make_shared<LayoutSingleTable>();
   s->setNumRows(data["num_rows"].asUInt());
 

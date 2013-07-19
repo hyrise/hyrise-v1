@@ -19,12 +19,12 @@ public:
 
 /// Scan an existing index for the result. Currently only EQ predicates
 /// allowed for the index.
-class IndexScan : public _PlanOperation {
+class IndexScan : public PlanOperation {
 public:
   virtual ~IndexScan();
 
   void executePlanOperation();
-  static std::shared_ptr<_PlanOperation> parse(Json::Value &data);
+  static std::shared_ptr<PlanOperation> parse(Json::Value &data);
   const std::string vname();
   void setIndexName(const std::string &name);
   template<typename T>
@@ -40,12 +40,12 @@ private:
 };
 
 
-class MergeIndexScan : public _PlanOperation {
+class MergeIndexScan : public PlanOperation {
 public:
   virtual ~MergeIndexScan();
 
   void executePlanOperation();
-  static std::shared_ptr<_PlanOperation> parse(Json::Value &data);
+  static std::shared_ptr<PlanOperation> parse(Json::Value &data);
   const std::string vname();
 };
 

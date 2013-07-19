@@ -57,7 +57,7 @@ namespace {
 
 SimpleRawTableScan::SimpleRawTableScan(SimpleExpression* comp,
                                        const bool materializing) :
-                                       _PlanOperation(),
+                                       PlanOperation(),
                                        _comparator(comp),
                                        _materializing(materializing) {
 }
@@ -114,7 +114,7 @@ void SimpleRawTableScan::executePlanOperation() {
   }
 }
 
-std::shared_ptr<_PlanOperation> SimpleRawTableScan::parse(Json::Value &data) {
+std::shared_ptr<PlanOperation> SimpleRawTableScan::parse(Json::Value &data) {
   if (!data.isMember("predicates")) {
     throw std::runtime_error("There is no reason for a Selection without predicates");
   }

@@ -10,12 +10,12 @@ namespace access {
 /// This class implements the distinct operator for any kind of input table.
 /// It has linear complexity since it scans the attribute and retrieves
 /// all distinct valueIds and builds the result.
-class Distinct : public _PlanOperation {
+class Distinct : public PlanOperation {
 public:
   virtual ~Distinct();
 
   void executePlanOperation();
-  static std::shared_ptr<_PlanOperation> parse(Json::Value &data);
+  static std::shared_ptr<PlanOperation> parse(Json::Value &data);
   const std::string vname();
 };
 

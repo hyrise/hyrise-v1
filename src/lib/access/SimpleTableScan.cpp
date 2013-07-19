@@ -66,7 +66,7 @@ void SimpleTableScan::executePlanOperation() {
   }
 }
 
-std::shared_ptr<_PlanOperation> SimpleTableScan::parse(Json::Value &data) {
+std::shared_ptr<PlanOperation> SimpleTableScan::parse(Json::Value &data) {
   std::shared_ptr<SimpleTableScan> pop = std::make_shared<SimpleTableScan>();
 
   if (data.isMember("materializing"))

@@ -1,6 +1,5 @@
-
-
 #include "access/ScriptOperation.h"
+
 #include <storage/PointerCalculator.h>
 #include <storage/MutableVerticalTable.h>
 #include <storage/TableBuilder.h>
@@ -8,6 +7,8 @@
 
 #include <helper/Settings.h>
 #include <helper/types.h>
+
+#include "log4cxx/logger.h"
 
 #ifdef WITH_V8
 #include <v8.h>
@@ -714,7 +715,7 @@ void ScriptOperation::executePlanOperation() {
 
 }
 
-std::shared_ptr<_PlanOperation> ScriptOperation::parse(Json::Value &data) {
+std::shared_ptr<PlanOperation> ScriptOperation::parse(Json::Value &data) {
   auto op = std::make_shared<ScriptOperation>();
   op->setScriptName(data["script"].asString());
 

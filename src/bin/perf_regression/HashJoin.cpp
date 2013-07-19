@@ -57,13 +57,13 @@ class HashJoinBase : public ::testing::Benchmark {
 BENCHMARK_F(HashJoinBase, stock_level_hash_join) {
   auto hashedColumn = hb->execute()->getResultHashTable();
   assert(hashedColumn != nullptr);
-  hjp->addInputHash(hashedColumn);
+  hjp->addInput(hashedColumn);
   auto result = hjp->execute()->getResultTable();
 }
 
 BENCHMARK_F(HashJoinBase, stock_level_hash_join_mat) {
   auto hashedColumn = hb->execute()->getResultHashTable();
-  hjp->addInputHash(hashedColumn);
+  hjp->addInput(hashedColumn);
   auto result = hjp->execute()->getResultTable();
 
   MaterializingScan *ms = new MaterializingScan(false);
@@ -76,7 +76,7 @@ BENCHMARK_F(HashJoinBase, stock_level_hash_join_mat) {
 
 BENCHMARK_F(HashJoinBase, stock_level_hash_join_mat_memcpy) {
   auto hashedColumn = hb->execute()->getResultHashTable();
-  hjp->addInputHash(hashedColumn);
+  hjp->addInput(hashedColumn);
   auto result = hjp->execute()->getResultTable();
 
   MaterializingScan *ms = new MaterializingScan(true);

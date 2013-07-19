@@ -59,7 +59,7 @@ void JoinScan::executePlanOperation() {
   addResult(result);
 }
 
-std::shared_ptr<_PlanOperation> JoinScan::parse(const Json::Value &v) {
+std::shared_ptr<PlanOperation> JoinScan::parse(const Json::Value &v) {
   JoinType::type t = JoinType::type(v["join_type"].asUInt());
   std::shared_ptr<JoinScan> s = std::make_shared<JoinScan>(t);
 

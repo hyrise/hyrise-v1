@@ -10,13 +10,13 @@ namespace hyrise { namespace access {
 class AbstractExpression;
 
 /// Implements registration based expression scan
-class TableScan : public _PlanOperation {
+class TableScan : public PlanOperation {
  public:
   /// Construct TableScan for a specific expression, take
   /// ownership of passed in expression
   explicit TableScan(std::unique_ptr<AbstractExpression> expr);
   /// Parse TableScan from 
-  static std::shared_ptr<_PlanOperation> parse(Json::Value& data);
+  static std::shared_ptr<PlanOperation> parse(Json::Value& data);
   const std::string vname() { return "me"; }
  protected:
   void setupPlanOperation();

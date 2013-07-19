@@ -10,7 +10,7 @@ namespace access {
 class LoadTests_simple_load_op_Test;
 class LoadTests_simple_unloadall_op_Test;
 
-class TableLoad : public _PlanOperation {
+class TableLoad : public PlanOperation {
   friend class LoadTests_simple_load_op_Test;
   friend class LoadTests_simple_unloadall_op_Test;
 
@@ -19,7 +19,7 @@ public:
   virtual ~TableLoad();
 
   void executePlanOperation();
-  static std::shared_ptr<_PlanOperation> parse(Json::Value &data);
+  static std::shared_ptr<PlanOperation> parse(Json::Value &data);
   const std::string vname();
   void setTableName(const std::string &tablename);
   void setFileName(const std::string &filename);

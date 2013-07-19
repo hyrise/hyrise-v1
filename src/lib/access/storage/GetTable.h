@@ -9,13 +9,13 @@ namespace access {
 
 /// Provides the ability to get an already loaded table
 /// from StorageManager for use in subsequent steps
-class GetTable : public _PlanOperation {
+class GetTable : public PlanOperation {
 public:
   GetTable(const std::string &name);
   virtual ~GetTable();
 
   void executePlanOperation();
-  static std::shared_ptr<_PlanOperation> parse(Json::Value &data);
+  static std::shared_ptr<PlanOperation> parse(Json::Value &data);
   const std::string vname();
 
 private:

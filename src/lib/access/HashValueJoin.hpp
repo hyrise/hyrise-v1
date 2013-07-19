@@ -11,8 +11,10 @@
 #include <access/system/PlanOperation.h>
 #include <storage/PointerCalculatorFactory.h>
 
+namespace hyrise { namespace access {
+
 template <typename T>
-class HashValueJoin : public _PlanOperation {
+class HashValueJoin : public PlanOperation {
  public:
 
   typedef std::unordered_multimap<T, pos_t> map_type;
@@ -103,5 +105,7 @@ class HashValueJoin : public _PlanOperation {
   }
 
 };
+
+}}
 #endif  // SRC_LIB_ACCESS_HASHVALUEJOIN_HPP_
 

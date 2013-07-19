@@ -41,7 +41,7 @@ void MySQLTableLoad::executePlanOperation() {
   }
 }
 
-std::shared_ptr<_PlanOperation> MySQLTableLoad::parse(Json::Value &data) {
+std::shared_ptr<PlanOperation> MySQLTableLoad::parse(Json::Value &data) {
   std::shared_ptr<MySQLTableLoad> s = std::make_shared<MySQLTableLoad>();
   s->setTableName(data["table"].asString());
   s->setDatabaseName(data["database"].asString());

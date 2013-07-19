@@ -14,8 +14,12 @@
 
 const std::string autojsonReferenceTableId = "-1";
 
-class _PlanOperation;
 class Task;
+
+namespace hyrise { namespace access {
+
+class PlanOperation;
+
 
 class QueryParserException : public std::runtime_error {
  public:
@@ -24,7 +28,7 @@ class QueryParserException : public std::runtime_error {
 };
 
 struct AbstractQueryParserFactory {
-  virtual std::shared_ptr<_PlanOperation> parse(Json::Value& data) = 0;
+  virtual std::shared_ptr<PlanOperation> parse(Json::Value& data) = 0;
 
   virtual ~AbstractQueryParserFactory() {}
 };
@@ -38,14 +42,14 @@ struct QueryParserFactory;
 template<typename T>
 struct QueryParserFactory<T, parse_construct> : public AbstractQueryParserFactory {
 
-  virtual std::shared_ptr<_PlanOperation> parse(Json::Value& data) {
+  virtual std::shared_ptr<PlanOperation> parse(Json::Value& data) {
     return T::parse(data);
   }
 };
 
 template<typename T>
 struct QueryParserFactory<T, default_construct> : public AbstractQueryParserFactory {
-  virtual std::shared_ptr<_PlanOperation> parse(Json::Value& data) {
+  virtual std::shared_ptr<PlanOperation> parse(Json::Value& data) {
     typedef ::BasicParser<T> parser_t;
     return parser_t::parse(data);
   }
@@ -71,7 +75,7 @@ class QueryParser {
 
   /*  Defines operations input based on their types.  */
   void setInputs(
-      std::shared_ptr<_PlanOperation> planOperation,
+      std::shared_ptr<PlanOperation> planOperation,
       const Json::Value &planOperationSpec) const;
 
   //  Returns PAPI event name, if specified.
@@ -107,13 +111,13 @@ class QueryParser {
     return true;
   }
   
-  std::shared_ptr<_PlanOperation> parse(std::string name, Json::Value d);
+  std::shared_ptr<PlanOperation> parse(std::string name, Json::Value d);
   
   static QueryParser &instance();
 
   std::vector<std::string> getOperationNames() const;
-  
-  /*  Main method. Builds and returns executable _PlanOperation tasks based on the
+
+  /*  Main method. Builds and returns executable PlanOperation tasks based on the
       query's specifications and constructs their dependency graph. The task
       delivering the final result will be determined, too.   */
   std::vector<std::shared_ptr<Task> > deserialize(
@@ -121,5 +125,6 @@ class QueryParser {
       std::shared_ptr<Task> *result) const;
 };
 
+}}
 
 #endif  // SRC_LIB_ACCESS_QUERYPARSER_H_

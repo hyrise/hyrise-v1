@@ -16,7 +16,7 @@ namespace access {
 * provided by the TableBuilder class. 
 *
 */
-class JsonTable : public _PlanOperation {
+class JsonTable : public PlanOperation {
 
 	std::vector<std::string> _names;
 	std::vector<std::string> _types;
@@ -31,7 +31,7 @@ public:
 
   void executePlanOperation();
 
-  static std::shared_ptr<_PlanOperation> parse(Json::Value &data);
+  static std::shared_ptr<PlanOperation> parse(Json::Value &data);
 
   // set the names to be used as attribute names in the table
   void setNames(const std::vector<std::string> names);

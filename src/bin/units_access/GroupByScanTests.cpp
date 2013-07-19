@@ -23,7 +23,7 @@ TEST_F(GroupByScanTests, basic_group_by_test) {
 
   GroupByScan gs;
   gs.addInput(t);
-  gs.addInputHash(hash);
+  gs.addInput(hash);
   gs.addField(1);
   gs.execute();
 
@@ -47,7 +47,7 @@ TEST_F(GroupByScanTests, group_by_with_multiple_fields) {
 
   GroupByScan gs;
   gs.addInput(t);
-  gs.addInputHash(hash);
+  gs.addInput(hash);
   gs.addField(0);
   gs.addField(1);
   gs.execute();
@@ -74,7 +74,7 @@ TEST_F(GroupByScanTests, group_by_with_aggregate_function) {
   GroupByScan gs;
   gs.addInput(t);
   gs.addFunction(count);
-  gs.addInputHash(hash);
+  gs.addInput(hash);
   gs.addField(1);
   gs.execute();
 

@@ -7,13 +7,13 @@
 namespace hyrise {
 namespace access {
 
-class SmallestTableScan : public _PlanOperation {
+class SmallestTableScan : public PlanOperation {
 public:
   ~SmallestTableScan();
 
   void setupPlanOperation();
   void executePlanOperation();
-  static std::shared_ptr<_PlanOperation> parse(Json::Value &data);
+  static std::shared_ptr<PlanOperation> parse(Json::Value &data);
   const std::string vname();
 };
 

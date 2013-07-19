@@ -2,7 +2,7 @@
 #ifndef SRC_LIB_ACCESS_GROUPBYSCAN_H_
 #define SRC_LIB_ACCESS_GROUPBYSCAN_H_
 
-#include "access/system/PlanOperation.h"
+#include "access/system/ParallelizablePlanOperation.h"
 #include "access/AggregateFunctions.h"
 
 namespace hyrise {
@@ -38,7 +38,7 @@ private:
 namespace hyrise {
 namespace access {
 
-class GroupByScan : public _PlanOperation {
+class GroupByScan : public ParallelizablePlanOperation {
 public:
   virtual ~GroupByScan();
 
@@ -66,11 +66,11 @@ public:
   ///      },
   ///      "edges": [["0", "1"], ["0", "2"], ["1", "2"]]
   ///  }
-  static std::shared_ptr<_PlanOperation> parse(Json::Value &v);
+  static std::shared_ptr<PlanOperation> parse(Json::Value &v);
   const std::string vname();
   /// creates output result table layout using _field_definitions
   /// and added aggregate functions (aggregate_functions)
-  /// _field_definitions member of _PlanOperation holds
+  /// _field_definitions member of PlanOperation holds
   /// added (grouping) fields
   storage::atable_ptr_t createResultTableLayout();
   /// adds a given AggregateFunction to group by scan instance SUM or COUNT

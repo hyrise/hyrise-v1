@@ -52,7 +52,7 @@ void Distinct::executePlanOperation() {
                                                               pos));
 }
 
-std::shared_ptr<_PlanOperation> Distinct::parse(Json::Value &data) {
+std::shared_ptr<PlanOperation> Distinct::parse(Json::Value &data) {
   std::shared_ptr<Distinct> s = BasicParser<Distinct>::parse(data);
   return s;
 }

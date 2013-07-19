@@ -2,13 +2,13 @@
 #ifndef SRC_LIB_ACCESS_SIMPLETABLESCAN_H_
 #define SRC_LIB_ACCESS_SIMPLETABLESCAN_H_
 
-#include "access/system/PlanOperation.h"
+#include "access/system/ParallelizablePlanOperation.h"
 #include "access/expressions/pred_SimpleExpression.h"
 
 namespace hyrise {
 namespace access {
 
-class SimpleTableScan : public _PlanOperation {
+class SimpleTableScan : public ParallelizablePlanOperation {
 public:
   SimpleTableScan();
   virtual ~SimpleTableScan();
@@ -17,7 +17,7 @@ public:
   void executePlanOperation();
   void executePositional();
   void executeMaterialized();
-  static std::shared_ptr<_PlanOperation> parse(Json::Value &data);
+  static std::shared_ptr<PlanOperation> parse(Json::Value &data);
   const std::string vname();
   void setPredicate(SimpleExpression *c);
 

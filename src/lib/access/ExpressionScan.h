@@ -41,7 +41,7 @@ private:
   storage::field_t _field2;
 };
 
-class ExpressionScan : public _PlanOperation {
+class ExpressionScan : public PlanOperation {
 public:
   virtual ~ExpressionScan();
 

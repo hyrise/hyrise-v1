@@ -7,20 +7,20 @@
 namespace hyrise {
 namespace access {
 
-class MergeTable : public _PlanOperation {
+class MergeTable : public PlanOperation {
 public:
   virtual ~MergeTable();
 
   void executePlanOperation();
-  static std::shared_ptr<_PlanOperation> parse(Json::Value& data);
+  static std::shared_ptr<PlanOperation> parse(Json::Value& data);
   const std::string vname();
 };
 
-class MergeStore : public _PlanOperation {
+class MergeStore : public PlanOperation {
 public:
   virtual ~MergeStore();
   void executePlanOperation();
-  static std::shared_ptr<_PlanOperation> parse(Json::Value& data);
+  static std::shared_ptr<PlanOperation> parse(Json::Value& data);
 };
 
 

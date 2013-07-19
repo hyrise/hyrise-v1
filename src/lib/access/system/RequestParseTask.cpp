@@ -68,10 +68,10 @@ void RequestParseTask::operator()() {
   // MG response always on the same core
   _responseTask->setPreferredCore(0);
 
-  OutputTask::performance_vector& performance_data = _responseTask->getPerformanceData();
+  performance_vector_t& performance_data = _responseTask->getPerformanceData();
 
   // the performance attribute for this operation (at [0])
-  performance_data.push_back(std::unique_ptr<OutputTask::performance_attributes_t>(new OutputTask::performance_attributes_t));
+  performance_data.push_back(std::unique_ptr<performance_attributes_t>(new performance_attributes_t));
   
   epoch_t queryStart = get_epoch_nanoseconds();
   std::vector<std::shared_ptr<Task> > tasks;
@@ -96,6 +96,7 @@ void RequestParseTask::operator()() {
         // clean up, so we don't end up with a whole mess due to thrown exceptions
         LOG4CXX_ERROR(_logger, "Received\n:" << request_data);
         LOG4CXX_ERROR(_logger, "Exception thrown during query deserialization:\n" << ex.what());
+        _responseTask->addErrorMessage(std::string("RequestParseTask: ") + ex.what());
         tasks.clear();
         result = nullptr;
       }
@@ -109,7 +110,7 @@ void RequestParseTask::operator()() {
       auto ctx = tx::TransactionManager::getInstance().buildContext();
       
       for (const auto & func: tasks) {
-        if (auto task = std::dynamic_pointer_cast<_PlanOperation>(func)) {
+        if (auto task = std::dynamic_pointer_cast<PlanOperation>(func)) {
           task->setPlanId(final_hash);
           task->setTXContext(ctx);
           _responseTask->registerPlanOperation(task);

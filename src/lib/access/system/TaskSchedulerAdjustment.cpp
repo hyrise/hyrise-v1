@@ -30,7 +30,7 @@ void TaskSchedulerAdjustment::executePlanOperation() {
   }
 }
 
-std::shared_ptr<_PlanOperation> TaskSchedulerAdjustment::parse(Json::Value &data) {
+std::shared_ptr<PlanOperation> TaskSchedulerAdjustment::parse(Json::Value &data) {
   std::shared_ptr<TaskSchedulerAdjustment> taskSchedulerAdjustmentOp = std::make_shared<TaskSchedulerAdjustment>();
   taskSchedulerAdjustmentOp->_size = data["size"].asUInt();
   return taskSchedulerAdjustmentOp;

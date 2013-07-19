@@ -8,14 +8,14 @@ namespace hyrise {
 namespace access {
 
 /// Provides the ability to put a table into the StorageManager
-class SetTable : public _PlanOperation
+class SetTable : public PlanOperation
 {
 public:
   SetTable(const std::string& name);
   virtual ~SetTable();
 
   void executePlanOperation();
-  static std::shared_ptr<_PlanOperation> parse(Json::Value &data);
+  static std::shared_ptr<PlanOperation> parse(Json::Value &data);
   const std::string vname();
 
 private:

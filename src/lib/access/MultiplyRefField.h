@@ -21,7 +21,7 @@ namespace access {
 /// The first input field defines the reference field while the second input
 /// field defines the value field to use as a mulitplier. The format of the
 /// target field depends on the value field.
-class MultiplyRefField : public _PlanOperation {
+class MultiplyRefField : public PlanOperation {
 public:
   void executePlanOperation();
 	/// Example JSON for the plan operation, fields defines the reference and value
@@ -30,7 +30,7 @@ public:
   ///   "type" : "MultiplyRefField",
   ///   "fields" : ["ref", "value"],
   /// }
-  static std::shared_ptr<_PlanOperation> parse(Json::Value &data);
+  static std::shared_ptr<PlanOperation> parse(Json::Value &data);
   const std::string vname();
 
 private:
