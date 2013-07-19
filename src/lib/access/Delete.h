@@ -6,13 +6,13 @@
 
 namespace hyrise { namespace access {
 
-class DeleteOp : public _PlanOperation {
+class DeleteOp : public PlanOperation {
 
 public:
 
 	void executePlanOperation();
 
-	static std::shared_ptr<_PlanOperation> parse(Json::Value &data);
+	static std::shared_ptr<PlanOperation> parse(Json::Value &data);
 
 };
 

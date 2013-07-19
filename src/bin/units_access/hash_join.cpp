@@ -8,6 +8,7 @@
 #include "helper/types.h"
 #include "io/shortcuts.h"
 #include "storage/AbstractTable.h"
+#include "storage/AbstractHashTable.h"
 #include "storage/Store.h"
 
 #include "testing/TableEqualityTest.h"
@@ -27,7 +28,7 @@ hyrise::storage::c_atable_ptr_t join(const tbl_ptr &left,
   hyrise::access::HashJoinProbe hjp;  
   hjp.addInput(right);
   for (auto & field_right: fields_right) hjp.addField(field_right);
-  hjp.addInputHash(hashes);
+  hjp.addInput(hashes);
 
   return hjp.execute()->getResultTable();
 }

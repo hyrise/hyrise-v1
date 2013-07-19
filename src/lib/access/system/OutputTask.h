@@ -2,17 +2,16 @@
 #ifndef SRC_LIB_ACCESS_OUTPUTTASK_H_
 #define SRC_LIB_ACCESS_OUTPUTTASK_H_
 
-#include <log4cxx/logger.h>
-
 #include <stdint.h>
 #include <time.h>
 #include <vector>
 #include <map>
 #include <utility>
-#include <json.h>
 
 #include "helper/epoch.h"
 #include "taskscheduler/Task.h"
+
+namespace hyrise { namespace access {
 
 // A execution task can end up in different states, if the state is
 // set to OpFail, the result of the operation will be discarded and
@@ -24,43 +23,29 @@ typedef enum {
   OpSuccess = 2
 } task_states_t;
 
+
+// Struct used for performance data
+typedef struct {
+  int64_t duration;
+  int64_t data;
+  std::string papiEvent;
+  std::string name;
+  std::string operatorId;
+  epoch_t startTime;
+  epoch_t endTime;
+  std::string executingThread;
+} performance_attributes_t;
+
+typedef std::vector<std::unique_ptr<performance_attributes_t>> performance_vector_t;
+
 class OutputTask : public Task {
-
- public:
-
-  // Struct used for performance data
-  typedef struct {
-    int64_t duration;
-    int64_t data;
-    std::string papiEvent;
-    std::string name;
-    std::string operatorId;
-    epoch_t startTime;
-    epoch_t endTime;
-    std::string executingThread;
-
-  } performance_attributes_t;
-
-  typedef std::vector<std::unique_ptr<performance_attributes_t> > performance_vector;
-
  protected:
-  performance_attributes_t *_performance_attr;
-
+  performance_attributes_t *_performance_attr = nullptr;
   // Indicate whether an operation has failed
   // Subclass has to explicitly set on success
-  task_states_t _state;
-
-  std::string _error_message;
-
-  std::string _papiEvent;
+  task_states_t _state = OpUnknown;
+  std::string _papiEvent = "PAPI_TOT_INS";
  public:
-
-  OutputTask() : _performance_attr(nullptr), _state(OpUnknown), _papiEvent("PAPI_TOT_INS") {
-  };
-
-  virtual ~OutputTask() {
-  }
-
   task_states_t getState() const {
     return _state;
   }
@@ -69,17 +54,10 @@ class OutputTask : public Task {
     _state = state;
   }
 
-  std::string getErrorMessage() const {
-    return _error_message;
-  }
-
-  void setErrorMessage(std::string error_message) {
-    _error_message = error_message;
-  }
-
-  performance_attributes_t &getPerformanceData() {
+  performance_attributes_t& getPerformanceData() {
     return *_performance_attr;
-  };
+  }
+  
   void setPerformanceData(performance_attributes_t *attr) {
     _performance_attr = attr;
   }
@@ -91,9 +69,8 @@ class OutputTask : public Task {
   const std::string getEvent() const {
     return _papiEvent;
   }
-
-  virtual void operator()() { }
 };
 
+}}
 #endif  // SRC_LIB_ACCESS_OUTPUTTASK_H_
 

@@ -62,7 +62,7 @@ private:
 
 #endif // UPDATE_SCAN_INSERT_ONLY_H
 
-class UpdateScan : public _PlanOperation {
+class UpdateScan : public PlanOperation {
 public:
   UpdateScan();
   virtual ~UpdateScan();

@@ -14,7 +14,7 @@ namespace access {
 
 namespace {
   auto _ = QueryParser::registerPlanOperation<TableLoad>("TableLoad");
-  log4cxx::LoggerPtr logger(log4cxx::Logger::getLogger("access.plan._PlanOperation"));
+  log4cxx::LoggerPtr logger(log4cxx::Logger::getLogger("access.plan.PlanOperation"));
 }
 
 TableLoad::TableLoad(): _hasDelimiter(false),
@@ -68,7 +68,7 @@ void TableLoad::executePlanOperation() {
   addResult(_table);
 }
 
-std::shared_ptr<_PlanOperation> TableLoad::parse(Json::Value &data) {
+std::shared_ptr<PlanOperation> TableLoad::parse(Json::Value &data) {
   std::shared_ptr<TableLoad> s = std::make_shared<TableLoad>();
   s->setTableName(data["table"].asString());
   s->setFileName(data["filename"].asString());

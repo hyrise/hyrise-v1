@@ -9,7 +9,7 @@ namespace access {
 
 /// Operator to implement re-layouting of one input table
 /// into a completely new result table
-class LayoutTable : public _PlanOperation {
+class LayoutTable : public PlanOperation {
 public:
   explicit LayoutTable(const std::string &layout);
   virtual ~LayoutTable();
@@ -17,7 +17,7 @@ public:
   void executePlanOperation();
   /// { "type": "LayoutTable",
   ///   "layout": "a|b|c\nINTEGER|INTEGER|INTEGER\nC_0|C_1|C_1" }
-  static std::shared_ptr<_PlanOperation> parse(Json::Value &data);
+  static std::shared_ptr<PlanOperation> parse(Json::Value &data);
   const std::string vname();
 
 private:

@@ -89,7 +89,7 @@ BENCHMARK_F(GroupByScanBase, group_by_scan_multiple_fields) {
 
   auto group_map = hs.execute()->getResultHashTable();
 
-  gs2.addInputHash(group_map);
+  gs2.addInput(group_map);
 
   gs2.execute()->getResultTable();
 }
@@ -112,7 +112,7 @@ BENCHMARK_F(GroupByScanBase, group_by_scan_multiple_fieds_mat) {
 
   auto group_map = hs.execute()->getResultHashTable();
 
-  gs2.addInputHash(group_map);
+  gs2.addInput(group_map);
 
   auto result = gs2.execute()->getResultTable();
 
@@ -141,7 +141,7 @@ BENCHMARK_F(GroupByScanBase, group_by_scan_multiple_fields_mat_memcpy) {
 
   auto group_map = hs.execute()->getResultHashTable();
 
-  gs2.addInputHash(group_map);
+  gs2.addInput(group_map);
 
   auto result = gs2.execute()->getResultTable();
 

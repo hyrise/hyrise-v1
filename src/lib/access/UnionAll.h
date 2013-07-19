@@ -5,7 +5,7 @@
 
 namespace hyrise { namespace access {
 
-class UnionAll : public _PlanOperation {
+class UnionAll : public PlanOperation {
   void executePlanOperation();
 };
 

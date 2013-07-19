@@ -76,24 +76,34 @@ const std::string ResponseTask::vname() {
   return "ResponseTask";
 }
 
-void ResponseTask::registerPlanOperation(const std::shared_ptr<_PlanOperation>& planOp) {
-  OutputTask::performance_attributes_t* perf = new OutputTask::performance_attributes_t;
+void ResponseTask::registerPlanOperation(const std::shared_ptr<PlanOperation>& planOp) {
+  performance_attributes_t* perf = new performance_attributes_t;
   planOp->setPerformanceData(perf);
 
   const auto responseTaskPtr = std::dynamic_pointer_cast<ResponseTask>(shared_from_this()); 
   planOp->setResponseTask(responseTaskPtr);
 
   perfMutex.lock();
-  performance_data.push_back(std::unique_ptr<OutputTask::performance_attributes_t>(perf));
+  performance_data.push_back(std::unique_ptr<performance_attributes_t>(perf));
   perfMutex.unlock();
 }
 
 
-std::shared_ptr<_PlanOperation> ResponseTask::getResultTask() {
-  if (getDependencyCount() > 0) {
-    return std::dynamic_pointer_cast<_PlanOperation>(_dependencies[0]);
+std::shared_ptr<PlanOperation> ResponseTask::getResultTask() {
+  if (getDependencyCount() >  0) {
+    return std::dynamic_pointer_cast<PlanOperation>(_dependencies[0]);
   }
   return nullptr;
+}
+
+
+task_states_t ResponseTask::getState() const {
+  for (const auto& dep: _dependencies) {
+    if (auto ot = std::dynamic_pointer_cast<OutputTask>(dep)) {
+      if (ot->getState() != OpSuccess) return OpFail;
+    }
+  }
+  return OpSuccess;
 }
 
 void ResponseTask::operator()() {
@@ -108,7 +118,7 @@ void ResponseTask::operator()() {
     auto predecessor = getResultTask();
     const auto& result = predecessor->getResultTable();
 
-    if (predecessor->getState() != OpFail) {
+    if (getState() != OpFail) {
       if (result) {
         // Make header
         Json::Value json_header(Json::arrayValue);
@@ -151,15 +161,18 @@ void ResponseTask::operator()() {
       json_perf.append(responseElement);
 
       response["performanceData"] = json_perf;
-    } else {
-      LOG4CXX_ERROR(_logger, "Error during plan execution: " << predecessor->getErrorMessage());
-      response["error"] = predecessor->getErrorMessage();
-    }
+    } 
     LOG4CXX_DEBUG(_logger, "Table Use Count: " << result.use_count());
-  } else {
-    response["error"] = "Query parsing failed, see server error log";
-  }
+  } 
 
+  if (!_error_messages.empty()) {
+    Json::Value errors;
+    for (const auto& msg: _error_messages) {
+      errors.append(Json::Value(msg));
+    }
+    response["error"] = errors;
+  }
+  
   connection->respond(response.toStyledString());
 }
 

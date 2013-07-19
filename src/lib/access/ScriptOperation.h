@@ -15,7 +15,7 @@ namespace access {
 
 /// This is a simple scriptable plan operation that allows to write the
 /// operation itself in JavaScript instead of C++ for rapid prototyping
-class ScriptOperation : public _PlanOperation {
+class ScriptOperation : public PlanOperation {
 
 private:
 
@@ -30,7 +30,7 @@ public:
   
   void executePlanOperation();
 
-  static std::shared_ptr<_PlanOperation> parse(Json::Value &data);
+  static std::shared_ptr<PlanOperation> parse(Json::Value &data);
 
   inline void setScriptName(std::string n) { _scriptName = n; }
 

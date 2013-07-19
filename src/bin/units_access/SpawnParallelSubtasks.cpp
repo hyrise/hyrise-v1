@@ -15,7 +15,7 @@ namespace {
 // Executing this on a store with delta results in undefined behavior
 // Execution with horizontal tables results in undefined behavior
 void SpawnParallelSubtasks::executePlanOperation() {
-  std::vector<std::shared_ptr<_PlanOperation>> children;
+  std::vector<std::shared_ptr<PlanOperation>> children;
   std::vector<Task*> successors;
   auto scheduler = SharedScheduler::getInstance().getScheduler();
   
@@ -42,7 +42,7 @@ void SpawnParallelSubtasks::setNumberOfSpawns(const size_t number) {
   m_numberOfSpawns = number;
 }
 
-std::shared_ptr<_PlanOperation> SpawnParallelSubtasks::parse(Json::Value &data) {
+std::shared_ptr<PlanOperation> SpawnParallelSubtasks::parse(Json::Value &data) {
   auto planOp =  std::make_shared<SpawnParallelSubtasks>();
   planOp->setNumberOfSpawns(data["amount"].asInt());
   return planOp;

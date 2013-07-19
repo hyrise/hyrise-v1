@@ -30,7 +30,7 @@ void ThreadpoolAdjustment::executePlanOperation() {
   }
 }
 
-std::shared_ptr<_PlanOperation> ThreadpoolAdjustment::parse(Json::Value &data) {
+std::shared_ptr<PlanOperation> ThreadpoolAdjustment::parse(Json::Value &data) {
   std::shared_ptr<ThreadpoolAdjustment> threadpoolAdjustmentOp = std::make_shared<ThreadpoolAdjustment>();
   threadpoolAdjustmentOp->_size = data["size"].asUInt();
   return threadpoolAdjustmentOp;

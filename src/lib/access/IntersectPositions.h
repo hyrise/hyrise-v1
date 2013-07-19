@@ -8,7 +8,7 @@ namespace hyrise {
 namespace access {
 
 /// Intersects positions from two incoming pointercalculators on the same table
-class IntersectPositions: public _PlanOperation {
+class IntersectPositions: public PlanOperation {
  public:
 
   /// Allowed parameters
@@ -19,7 +19,7 @@ class IntersectPositions: public _PlanOperation {
   /// 3. positions to invalidate in delta
   /// Query graph output:
   /// - store with invalidated rows
-  static std::shared_ptr<_PlanOperation> parse(Json::Value& data);
+  static std::shared_ptr<PlanOperation> parse(Json::Value& data);
   void executePlanOperation();
   virtual const std::string vname();
 };

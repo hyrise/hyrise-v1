@@ -2,17 +2,17 @@
 #ifndef SRC_LIB_ACCESS_PREFIXSUM_H_
 #define SRC_LIB_ACCESS_PREFIXSUM_H_
 
-#include "access/system/PlanOperation.h"
+#include "access/system/ParallelizablePlanOperation.h"
 
 #include "storage/FixedLengthVector.h"
 
 namespace hyrise {
 namespace access {
 
-class PrefixSum : public _PlanOperation {
+class PrefixSum : public ParallelizablePlanOperation {
 public:
   void executePlanOperation();
-  static std::shared_ptr<_PlanOperation> parse(Json::Value &data);
+  static std::shared_ptr<PlanOperation> parse(Json::Value &data);
   const std::string vname();
   void splitInput();
 
@@ -26,10 +26,10 @@ private:
                                       const size_t index) const;
 };
 
-class MergePrefixSum : public _PlanOperation {
+class MergePrefixSum : public PlanOperation {
 public:
   void executePlanOperation();
-  static std::shared_ptr<_PlanOperation> parse(Json::Value &data);
+  static std::shared_ptr<PlanOperation> parse(Json::Value &data);
   const std::string vname();
 };
 

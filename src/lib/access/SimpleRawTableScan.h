@@ -8,7 +8,7 @@
 namespace hyrise {
 namespace access {
 
-class SimpleRawTableScan : public _PlanOperation {
+class SimpleRawTableScan : public PlanOperation {
 public:
   SimpleRawTableScan(SimpleExpression *comp,
                      const bool materializing = true);
@@ -16,7 +16,7 @@ public:
 
   void setupPlanOperation();
   void executePlanOperation();
-  static std::shared_ptr<_PlanOperation> parse(Json::Value &data);
+  static std::shared_ptr<PlanOperation> parse(Json::Value &data);
   const std::string vname();
 
 private:

@@ -9,10 +9,10 @@ namespace access {
 
 /// This class implements a testing operation that spawns a number of subtasks executed consecutively.
 /// The successortask will be executed after the last subtask has finished
-class SpawnConsecutiveSubtasks : public _PlanOperation {
+class SpawnConsecutiveSubtasks : public PlanOperation {
 public:
   void executePlanOperation();
-  static std::shared_ptr<_PlanOperation> parse(Json::Value &data);
+  static std::shared_ptr<PlanOperation> parse(Json::Value &data);
   const std::string vname();
 
   void setNumberOfSpawns(size_t number);

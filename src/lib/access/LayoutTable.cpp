@@ -43,7 +43,7 @@ void LayoutTable::executePlanOperation() {
   output.add(result);
 }
 
-std::shared_ptr<_PlanOperation> LayoutTable::parse(Json::Value &data) {
+std::shared_ptr<PlanOperation> LayoutTable::parse(Json::Value &data) {
   return std::make_shared<LayoutTable>(data["layout"].asString());
 }
 

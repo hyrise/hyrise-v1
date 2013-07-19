@@ -7,13 +7,13 @@
 namespace hyrise {
 namespace access {
 
-class LoadFile : public _PlanOperation {
+class LoadFile : public PlanOperation {
 public:
   explicit LoadFile(const std::string &filename);
   virtual ~LoadFile();
 
   void executePlanOperation();
-  static std::shared_ptr<_PlanOperation> parse(Json::Value &data);
+  static std::shared_ptr<PlanOperation> parse(Json::Value &data);
   const std::string vname();
 
 private:

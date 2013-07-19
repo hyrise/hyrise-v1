@@ -72,7 +72,7 @@ void IndexScan::executePlanOperation() {
                                                                     pos));
 }
 
-std::shared_ptr<_PlanOperation> IndexScan::parse(Json::Value &data) {
+std::shared_ptr<PlanOperation> IndexScan::parse(Json::Value &data) {
   std::shared_ptr<IndexScan> s = BasicParser<IndexScan>::parse(data);
   storage::type_switch<hyrise_basic_types> ts;
   CreateIndexValueFunctor civf(data);
@@ -114,7 +114,7 @@ void MergeIndexScan::executePlanOperation() {
   addResult(tmp);
 }
 
-std::shared_ptr<_PlanOperation> MergeIndexScan::parse(Json::Value &data) {
+std::shared_ptr<PlanOperation> MergeIndexScan::parse(Json::Value &data) {
   return BasicParser<MergeIndexScan>::parse(data);
 }
 

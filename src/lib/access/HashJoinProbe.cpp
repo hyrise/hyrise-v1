@@ -7,12 +7,14 @@
 #include "storage/PointerCalculator.h"
 #include "storage/PointerCalculatorFactory.h"
 
+#include <log4cxx/logger.h>
+
 namespace hyrise {
 namespace access {
 
 namespace {
   auto _ = QueryParser::registerPlanOperation<HashJoinProbe>("HashJoinProbe");
-  log4cxx::LoggerPtr logger(log4cxx::Logger::getLogger("access.plan._PlanOperation"));
+  log4cxx::LoggerPtr logger(log4cxx::Logger::getLogger("access.plan.PlanOperation"));
 }
 
 HashJoinProbe::HashJoinProbe() : _selfjoin(false) {
@@ -22,7 +24,7 @@ HashJoinProbe::~HashJoinProbe() {
 }
 
 void HashJoinProbe::setupPlanOperation() {
-  _PlanOperation::setupPlanOperation();
+  PlanOperation::setupPlanOperation();
   setBuildTable(getInputHashTable()->getTable());
 }
 
@@ -45,7 +47,7 @@ void HashJoinProbe::executePlanOperation() {
   addResult(buildResultTable(buildTablePosList, probeTablePosList));
 }
 
-std::shared_ptr<_PlanOperation> HashJoinProbe::parse(Json::Value &data) {
+std::shared_ptr<PlanOperation> HashJoinProbe::parse(Json::Value &data) {
   std::shared_ptr<HashJoinProbe> instance = std::make_shared<HashJoinProbe>();
   if (data.isMember("fields")) {
     for (unsigned i = 0; i < data["fields"].size(); ++i) {

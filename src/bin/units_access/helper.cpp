@@ -17,6 +17,7 @@
 #include "net/AbstractConnection.h"
 
 #include "storage/AbstractTable.h"
+#include "storage/AbstractHashTable.h"
 
 #include "taskscheduler/SharedScheduler.h"
 
@@ -53,8 +54,8 @@ const hyrise::storage::c_atable_ptr_t hashJoinSameTable(
 	}
 	auto hashJoinProbe = std::make_shared<hyrise::access::HashJoinProbe>();
 	hashJoinProbe->addInput(table);
-	hashJoinProbe->setFields(&columns);
-	hashJoinProbe->addInputHash(hashBuild->execute()->getResultHashTable());
+        for (auto col: columns) { hashJoinProbe->addField(col); }
+	hashJoinProbe->addInput(hashBuild->execute()->getResultHashTable());
 
 	return hashJoinProbe->execute()->getResultTable();
 }
@@ -142,8 +143,9 @@ class MockedConnection : public hyrise::net::AbstractConnection {
 hyrise::storage::c_atable_ptr_t executeAndWait(
     std::string httpQuery,
     size_t poolSize,
-    std::string *evt) {
+    std::string* evt) {
   using namespace hyrise;
+  using namespace hyrise::access;
   std::unique_ptr<MockedConnection> conn(new MockedConnection("query="+httpQuery));
 
   if(!SharedScheduler::getInstance().isInitialized())
@@ -162,19 +164,24 @@ hyrise::storage::c_atable_ptr_t executeAndWait(
 
   wait->wait();
 
+
+  
   auto result_task = response->getResultTask();
+  
+  /*
+  */
+  
+  if (response->getState() == OpFail) {
+    throw std::runtime_error(joinString(response->getErrorMessages(), "\n"));
+  }
+
   if (result_task == nullptr) {
-    throw std::runtime_error("Response:" + conn->getResponse());
+    throw std::runtime_error("Response: " + conn->getResponse());
   }
 
   if (evt != nullptr) {
     *evt = result_task->getEvent();
   }
-
-  if (result_task->getState() == OpFail) {
-    std::string msg = result_task->getErrorMessage();
-    throw std::runtime_error(msg);
-  }
-
+  
   return result_task->getResultTable();
 }

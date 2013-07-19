@@ -77,7 +77,7 @@ TEST_F(HashBuildTest, merge_one_table_test) {
   auto hash1 = std::dynamic_pointer_cast<const SingleAggregateHashTable >(hb.getResultHashTable());
 
   MergeHashTables mht;
-  mht.addInputHash(hash1);
+  mht.addInput(hash1);
   mht.setKey("groupby");
   mht.execute();
   auto hash2 = std::dynamic_pointer_cast<const SingleAggregateHashTable >(mht.getResultHashTable());
@@ -115,8 +115,8 @@ TEST_F(HashBuildTest, merge_two_tables_test) {
   auto hash2 = std::dynamic_pointer_cast<const SingleAggregateHashTable >(hb2.getResultHashTable());
 
   MergeHashTables mht;
-  mht.addInputHash(hash1);
-  mht.addInputHash(hash2);
+  mht.addInput(hash1);
+  mht.addInput(hash2);
   mht.setKey("groupby");
   mht.execute();
   auto hash3 = std::dynamic_pointer_cast<const SingleAggregateHashTable >(mht.getResultHashTable());

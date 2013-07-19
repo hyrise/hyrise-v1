@@ -9,13 +9,13 @@ namespace access {
 
 /// This operation offers interfaces to adjust the configuration of the
 /// threadpool. Use this as long as there is no dedicated scheduling unit.
-class ThreadpoolAdjustment : public _PlanOperation {
+class ThreadpoolAdjustment : public PlanOperation {
 public:
   ThreadpoolAdjustment();
   virtual ~ThreadpoolAdjustment();
 
   void executePlanOperation();
-  static std::shared_ptr<_PlanOperation> parse(Json::Value &data);
+  static std::shared_ptr<PlanOperation> parse(Json::Value &data);
   const std::string vname();
   void setThreadpoolSize(const size_t newSize);
 

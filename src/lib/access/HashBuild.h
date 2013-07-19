@@ -2,12 +2,12 @@
 #ifndef SRC_LIB_ACCESS_HASHBUILD_H_
 #define SRC_LIB_ACCESS_HASHBUILD_H_
 
-#include "access/system/PlanOperation.h"
+#include "access/system/ParallelizablePlanOperation.h"
 
 namespace hyrise {
 namespace access {
 
-class HashBuild : public _PlanOperation {
+class HashBuild : public ParallelizablePlanOperation {
 public:
   virtual ~HashBuild();
 
@@ -26,7 +26,7 @@ public:
   ///     },
   ///         "edges": [["0", "1"]]
   /// }
-  static std::shared_ptr<_PlanOperation> parse(Json::Value &data);
+  static std::shared_ptr<PlanOperation> parse(Json::Value &data);
   const std::string vname();
   void setKey(const std::string &key);
   const std::string getKey() const;

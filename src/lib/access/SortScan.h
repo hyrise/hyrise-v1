@@ -7,12 +7,12 @@
 namespace hyrise {
 namespace access {
 
-class SortScan : public _PlanOperation {
+class SortScan : public PlanOperation {
 public:
   virtual ~SortScan();
 
   void executePlanOperation();
-  static std::shared_ptr<_PlanOperation> parse(Json::Value &data);
+  static std::shared_ptr<PlanOperation> parse(Json::Value &data);
   const std::string vname();
   void setSortField(const unsigned s);
 

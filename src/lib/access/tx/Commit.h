@@ -6,13 +6,13 @@
 
 namespace hyrise { namespace access {
 
-class Commit : public _PlanOperation {
+class Commit : public PlanOperation {
 
 public:
 
 	void executePlanOperation();
 
-	static std::shared_ptr<_PlanOperation> parse(Json::Value &data);
+	static std::shared_ptr<PlanOperation> parse(Json::Value &data);
 
 
 };

@@ -7,15 +7,11 @@
 namespace hyrise {
 namespace access {
 
-class ProjectionScan : public _PlanOperation {
+class ProjectionScan : public PlanOperation {
 public:
-  ProjectionScan();
-  explicit ProjectionScan(storage::field_list_t *fields);
-  virtual ~ProjectionScan();
-
   void setupPlanOperation();
   void executePlanOperation();
-  static std::shared_ptr<_PlanOperation> parse(Json::Value &data);
+  static std::shared_ptr<PlanOperation> parse(Json::Value &data);
   const std::string vname();
 };
 

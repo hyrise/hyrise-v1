@@ -6,7 +6,7 @@
 
 namespace hyrise { namespace access {
 
-class UnionScan : public _PlanOperation {
+class UnionScan : public PlanOperation {
  public:
   void executePlanOperation();
 };
