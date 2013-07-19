@@ -79,7 +79,7 @@ void PosUpdateScan::setRawData(Json::Value& d) {
     }
 }
 
-std::shared_ptr<_PlanOperation> PosUpdateScan::parse(Json::Value &data) {
+std::shared_ptr<PlanOperation> PosUpdateScan::parse(Json::Value &data) {
   auto result = std::make_shared<PosUpdateScan>();
 
   if (data.isMember("data")) {

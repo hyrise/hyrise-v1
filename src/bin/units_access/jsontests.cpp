@@ -207,7 +207,7 @@ TEST_F(JSONTests, parse_projection) {
 
   // Create the Plan Op
 
-  auto ps = std::dynamic_pointer_cast<_PlanOperation>(QueryParser::instance().parse("ProjectionScan", root));
+  auto ps = std::dynamic_pointer_cast<PlanOperation>(QueryParser::instance().parse("ProjectionScan", root));
   ps->addInput(t);
   ps->execute();
   ASSERT_EQ(OpSuccess, ps->getState());
@@ -297,7 +297,7 @@ TEST_F(JSONTests, parse_selection) {
   ASSERT_TRUE(parsingSuccessful);
 
   // Create the Plan Op
-  auto pop = std::dynamic_pointer_cast<_PlanOperation>(QueryParser::instance().parse("SimpleTableScan", root));
+  auto pop = std::dynamic_pointer_cast<PlanOperation>(QueryParser::instance().parse("SimpleTableScan", root));
 
   pop->addInput(t);
 

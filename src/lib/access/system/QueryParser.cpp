@@ -4,6 +4,9 @@
 #include "io/StorageManager.h"
 #include "helper/vector_helpers.h"
 #include "access/system/PlanOperation.h"
+#include "access/system/ParallelizablePlanOperation.h"
+
+namespace hyrise { namespace access {
 
 QueryParser::QueryParser() {
 }
@@ -35,12 +38,19 @@ void QueryParser::buildTasks(
 
     Json::Value planOperationSpec = query["operators"][members[i]];
     std::string typeName = planOperationSpec["type"].asString();
-    std::shared_ptr<_PlanOperation> planOperation = QueryParser::instance().parse(
+    std::shared_ptr<PlanOperation> planOperation = QueryParser::instance().parse(
         typeName, planOperationSpec);
     planOperation->setEvent(getPapiEventName(query));
     setInputs(planOperation, planOperationSpec);
-    planOperation->setPart(planOperationSpec["part"].asUInt());
-    planOperation->setCount(planOperationSpec["count"].asUInt());
+    if (auto para = std::dynamic_pointer_cast<ParallelizablePlanOperation>(planOperation)) {
+      para->setPart(planOperationSpec["part"].asUInt());
+      para->setCount(planOperationSpec["count"].asUInt());
+    } else {
+      if (planOperationSpec.isMember("part") || planOperationSpec.isMember("count")) {
+        throw std::runtime_error("Trying to parallelize " + typeName + ", which is not a subclass of Parallelizable");
+      }
+    }
+    
     planOperation->setOperatorId(members[i]);
     if (planOperationSpec.isMember("core"))
       planOperation->setPreferredCore(planOperationSpec["core"].asInt());
@@ -54,7 +64,7 @@ void QueryParser::buildTasks(
 }
 
 void QueryParser::setInputs(
-    std::shared_ptr<_PlanOperation> planOperation,
+    std::shared_ptr<PlanOperation> planOperation,
     const Json::Value &planOperationSpec) const {
   //  TODO: input implies table input at this moment
   for (unsigned j = 0; j < planOperationSpec["input"].size(); ++j) {
@@ -106,7 +116,7 @@ std::shared_ptr<Task>  QueryParser::getResultTask(
   return resultTask;
 }
 
-std::shared_ptr<_PlanOperation> QueryParser::parse(std::string name, Json::Value d) {
+std::shared_ptr<PlanOperation> QueryParser::parse(std::string name, Json::Value d) {
   if (_factory.count(name) == 0)
     throw std::runtime_error("Operator of type " + name + " not supported");
   auto op = _factory[name]->parse(d);
@@ -127,3 +137,5 @@ QueryParser &QueryParser::instance() {
   static QueryParser p;
   return p;
 }
+
+}}

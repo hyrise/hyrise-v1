@@ -27,7 +27,7 @@ MaterializingScan::~MaterializingScan() {
 
 void MaterializingScan::setupPlanOperation() {
   // Call super impl
-  _PlanOperation::setupPlanOperation();
+  PlanOperation::setupPlanOperation();
 
   // build sample
   if (_num_samples > 0) {
@@ -64,7 +64,7 @@ void MaterializingScan::executePlanOperation() {
   addResult(result);
 }
 
-std::shared_ptr<_PlanOperation> MaterializingScan::parse(Json::Value &v) {
+std::shared_ptr<PlanOperation> MaterializingScan::parse(Json::Value &v) {
   std::shared_ptr<MaterializingScan> pop = std::dynamic_pointer_cast<MaterializingScan>(BasicParser<MaterializingScan>::parse(v));
   if (v.isMember("samples"))
     pop->setSamples(v["samples"].asUInt());

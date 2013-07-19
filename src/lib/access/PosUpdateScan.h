@@ -14,14 +14,14 @@ namespace access {
 * The input to this plan operation is a list of positions and the updated
 * value data from the JSON string.
 */
-class PosUpdateScan : public _PlanOperation {
+class PosUpdateScan : public PlanOperation {
 public:
 
   virtual ~PosUpdateScan();
 
   void executePlanOperation();
   
-  static std::shared_ptr<_PlanOperation> parse(Json::Value &data);
+  static std::shared_ptr<PlanOperation> parse(Json::Value &data);
 
   void setRawData(Json::Value& d);
 

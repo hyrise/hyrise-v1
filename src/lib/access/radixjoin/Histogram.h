@@ -2,7 +2,7 @@
 #ifndef SRC_LIB_ACCESS_HISTOGRAM_H_
 #define SRC_LIB_ACCESS_HISTOGRAM_H_
 
-#include "access/system/PlanOperation.h"
+#include "access/system/ParallelizablePlanOperation.h"
 
 #include "storage/FixedLengthVector.h"
 #include "storage/OrderPreservingDictionary.h"
@@ -31,7 +31,7 @@ inline std::pair<std::shared_ptr<VectorType>, size_t> getDataVector(const storag
 /// occurences of a single value based on a hash function and a number
 /// of significant bits. This Operation is used for the Radix Join
 /// implementation
-class Histogram : public _PlanOperation {
+class Histogram : public ParallelizablePlanOperation {
 public:
   Histogram();
 
@@ -39,7 +39,7 @@ public:
   /// Parses the JSON string to create the plan operation, parameters
   /// to the json are:
   ///  - bits: to set the number of used bits for the histogram
-  static std::shared_ptr<_PlanOperation> parse(Json::Value &data);
+  static std::shared_ptr<PlanOperation> parse(Json::Value &data);
   const std::string vname();
   template<typename T>
   void executeHistogram();
@@ -114,7 +114,7 @@ class Histogram2ndPass : public Histogram
 {
 public:
   void executePlanOperation();
-  static std::shared_ptr<_PlanOperation> parse(Json::Value &data);
+  static std::shared_ptr<PlanOperation> parse(Json::Value &data);
   const std::string vname();
 };
 

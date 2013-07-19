@@ -8,10 +8,10 @@ namespace hyrise {
 namespace access {
 
 /// PlanOp that merges several hashtables. Primarily used tp execute HashBuild in parallel
-class MergeHashTables : public _PlanOperation {
+class MergeHashTables : public PlanOperation {
 public:
   void executePlanOperation();
-  static std::shared_ptr<_PlanOperation> parse(Json::Value &data);
+  static std::shared_ptr<PlanOperation> parse(Json::Value &data);
   const std::string vname();
   void setKey(const std::string &key);
   const std::string getKey() const;

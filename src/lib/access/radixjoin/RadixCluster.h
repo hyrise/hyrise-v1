@@ -2,17 +2,17 @@
 #ifndef SRC_LIB_ACCESS_RADIXCLUSTER_H_
 #define SRC_LIB_ACCESS_RADIXCLUSTER_H_
 
-#include "access/system/PlanOperation.h"
+#include "access/system/ParallelizablePlanOperation.h"
 
 #include "Histogram.h"
 
 namespace hyrise {
 namespace access {
 
-class CreateRadixTable : public _PlanOperation {
+class CreateRadixTable : public PlanOperation {
 public:
   void executePlanOperation();
-  static std::shared_ptr<_PlanOperation> parse(Json::Value &data);
+  static std::shared_ptr<PlanOperation> parse(Json::Value &data);
   const std::string vname();
 };
 
@@ -20,13 +20,13 @@ public:
 /// algorithm. The input to this operation are the required number of bits for
 /// the clustering, the prefix sum table from the histogram, the cluster field
 /// and the input table to cluster
-class RadixCluster : public _PlanOperation
+class RadixCluster : public ParallelizablePlanOperation
 {
 public:
   RadixCluster();
 
   void executePlanOperation();
-  static std::shared_ptr<_PlanOperation> parse(Json::Value &data);
+  static std::shared_ptr<PlanOperation> parse(Json::Value &data);
   const std::string vname();
   template<typename T>
   void executeClustering();
@@ -119,12 +119,12 @@ void RadixCluster::executeClustering() {
 /// Second pass on the previously radix clustered table to create the final output
 /// table. Input to this operation is the result of the first pass and the second
 /// pass of the prefix sum calculation
-class RadixCluster2ndPass : public _PlanOperation {
+class RadixCluster2ndPass : public ParallelizablePlanOperation {
 public:
   RadixCluster2ndPass();
 
   void executePlanOperation();
-  static std::shared_ptr<_PlanOperation> parse(Json::Value &data);
+  static std::shared_ptr<PlanOperation> parse(Json::Value &data);
   const std::string vname();
   void setBits1(const uint32_t b,
                 const uint32_t sig=0);

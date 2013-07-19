@@ -7,14 +7,14 @@
 namespace hyrise {
 namespace access {
 
-class CreateIndex : public _PlanOperation {
+class CreateIndex : public PlanOperation {
 public:
   virtual ~CreateIndex();
 
   void executePlanOperation();
   /// set index name in field "_index_name"
   /// set column in field "fields"
-  static std::shared_ptr<_PlanOperation> parse(Json::Value &data);
+  static std::shared_ptr<PlanOperation> parse(Json::Value &data);
   void setIndexName(const std::string &t);
 
 private:

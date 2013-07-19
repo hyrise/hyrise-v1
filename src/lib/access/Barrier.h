@@ -7,10 +7,10 @@
 namespace hyrise {
 namespace access {
 
-class Barrier : public _PlanOperation {
+class Barrier : public PlanOperation {
 public:
   void executePlanOperation();
-  static std::shared_ptr<_PlanOperation> parse(Json::Value &data);
+  static std::shared_ptr<PlanOperation> parse(Json::Value &data);
   const std::string vname();
 };
 

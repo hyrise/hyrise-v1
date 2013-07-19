@@ -15,7 +15,7 @@ namespace hyrise {
 namespace access {
 
 template <typename T>
-class MergeJoin : public _PlanOperation {
+class MergeJoin : public PlanOperation {
 public:
   virtual ~MergeJoin() {}
 

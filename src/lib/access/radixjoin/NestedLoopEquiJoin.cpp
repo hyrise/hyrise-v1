@@ -120,7 +120,7 @@ void NestedLoopEquiJoin::executePlanOperation() {
   addResult(result);
 }
 
-std::shared_ptr<_PlanOperation> NestedLoopEquiJoin::parse(Json::Value &data) {
+std::shared_ptr<PlanOperation> NestedLoopEquiJoin::parse(Json::Value &data) {
   auto instance = BasicParser<NestedLoopEquiJoin>::parse(data);
   instance->setBits1(data["bits1"].asUInt());
   instance->setBits2(data["bits2"].asUInt());

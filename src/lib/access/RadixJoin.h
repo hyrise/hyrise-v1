@@ -7,10 +7,10 @@
 namespace hyrise {
 namespace access {
 
-class RadixJoin : public _PlanOperation {
+class RadixJoin : public PlanOperation {
 public:
   void executePlanOperation();
-  static std::shared_ptr<_PlanOperation> parse(Json::Value &data);
+  static std::shared_ptr<PlanOperation> parse(Json::Value &data);
   const std::string vname();
   void setBits1(const uint32_t b);
   void setBits2(const uint32_t b);

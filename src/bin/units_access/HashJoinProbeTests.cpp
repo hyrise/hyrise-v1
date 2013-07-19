@@ -1,7 +1,9 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "access/HashJoinProbe.h"
 #include "access/HashBuild.h"
+
 #include "io/shortcuts.h"
+#include "storage/AbstractHashTable.h"
 #include "testing/TableEqualityTest.h"
 #include "testing/test.h"
 
@@ -29,7 +31,7 @@ TEST_F(HashJoinProbeTests, DISABLED_basic_hash_join_probe_test) {
   HashJoinProbe hjp;
   hjp.addInput(left);
   hjp.addField(0);
-  hjp.addInputHash(right_hash);
+  hjp.addInput(right_hash);
   hjp.execute();
 
   const auto &result = hjp.getResultTable();

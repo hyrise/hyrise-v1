@@ -48,20 +48,22 @@ TEST_P(AutoJsonTest, Query) {
 
   std::string q = loadFromFile("test/autojson/" + json_name);
 
-  auto out = executeAndWait(q);
+  auto has_xfail = json_name.find("xfail") != std::string::npos;
 
+  hyrise::storage::c_atable_ptr_t out;
+  try {
+    out = executeAndWait(q);
+  } catch (const std::runtime_error& e) {
+    if (!has_xfail) {
+      throw e; 
+    }
+  }
+  
   if (sm->exists("reference")) {
     ASSERT_TRUE((bool)out);
     auto ref = StorageManager::getInstance()->getTable("reference");
 
     EXPECT_RELATION_EQ(ref, out);
-    /*if(out->size()){
-    	const auto& o1 = sortTable(out);
-    	const auto& o2 = sortTable(ref);
-      ASSERT_TABLE_EQUAL(o1, o2);
-    } else {
-      ASSERT_TABLE_EQUAL(out, ref);
-      }*/
   }
 }
 

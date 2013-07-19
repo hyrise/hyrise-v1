@@ -15,7 +15,7 @@
 
 namespace hyrise { namespace net {
 
-namespace { log4cxx::LoggerPtr logger(log4cxx::Logger::getLogger("access.plan._PlanOperation")); }
+namespace { log4cxx::LoggerPtr logger(log4cxx::Logger::getLogger("access.plan.PlanOperation")); }
 
 bool StaticRequestHandler::_registered = Router::registerRoute<StaticRequestHandler>("/static/");
 

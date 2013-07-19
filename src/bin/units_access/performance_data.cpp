@@ -15,13 +15,12 @@ TEST_F(PerformanceDataTests, single_op_data) {
   ps.addInput(w);
   ps.addField(w->numberOfColumn("w_tax"));
 
-  OutputTask::performance_attributes_t perf;
+  performance_attributes_t perf;
   perf.startTime = 0;
   perf.endTime = 0;
   ps.setPerformanceData(&perf);
 
   ps.execute();
-
 
   ASSERT_GT(perf.startTime, 0u) << "start time should be set";
   ASSERT_GT(perf.endTime, 0u) << "end time should be set";

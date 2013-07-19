@@ -2,7 +2,7 @@
 #ifndef SRC_LIB_ACCESS_JOINSCAN_H_
 #define SRC_LIB_ACCESS_JOINSCAN_H_
 
-#include "access/system/PlanOperation.h"
+#include "access/system/ParallelizablePlanOperation.h"
 
 #include <stack>
 
@@ -28,7 +28,7 @@ struct JoinType {
 /// A join statement takes two tables as input. For all join types
 /// there must be predicates specifying the join condition for the
 /// input tables
-class JoinScan: public _PlanOperation {
+class JoinScan: public ParallelizablePlanOperation {
 public:
   JoinScan(const JoinType::type t);
   virtual ~JoinScan();
@@ -36,7 +36,7 @@ public:
   void setupPlanOperation();
   void executePlanOperation();
   /// { type: "JoinScan", jtype: "EQUI", predicates: [{type: 0}, {type: 3, in: 0, f:0}, {type: "3"] }
-  static std::shared_ptr<_PlanOperation> parse(const Json::Value &v);
+  static std::shared_ptr<PlanOperation> parse(const Json::Value &v);
   const std::string vname();
   template<typename T>
   void addJoinClause(const size_t input_left,

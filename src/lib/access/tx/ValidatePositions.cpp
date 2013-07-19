@@ -25,7 +25,7 @@ void ValidatePositions::executePlanOperation() {
 	addResult(getInputTable(0));
 }
 
-std::shared_ptr<_PlanOperation> ValidatePositions::parse(Json::Value &data) {
+std::shared_ptr<PlanOperation> ValidatePositions::parse(Json::Value &data) {
 	return std::make_shared<ValidatePositions>();
 }
 

@@ -89,7 +89,7 @@ TEST_F(JoinTests, hash_join_exchange_rates_multiple_columns) {
   hashJoinProbe->addInput(table1);
   hashJoinProbe->addField(0);
   hashJoinProbe->addField(1);
-  hashJoinProbe->addInputHash(hashedFilteredRates1);
+  hashJoinProbe->addInput(hashedFilteredRates1);
   auto result = hashJoinProbe->execute()->getResultTable();
 
 

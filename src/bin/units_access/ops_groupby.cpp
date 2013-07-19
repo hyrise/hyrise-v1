@@ -39,7 +39,7 @@ TEST_F(GroupByTests, aggregate_group_by_scan_with_avg_on_integer) {
   hs.addField("year");
 
   auto group_map = hs.execute()->getResultHashTable();
-  gs.addInputHash(group_map);
+  gs.addInput(group_map);
 
   hyrise::storage::atable_ptr_t result = sort(gs.execute()->getResultTable());
 
@@ -63,7 +63,7 @@ TEST_F(GroupByTests, aggregate_group_by_scan_with_count) {
   hs.addField(0);
 
   auto group_map = hs.execute()->getResultHashTable();
-  gs.addInputHash(group_map);
+  gs.addInput(group_map);
 
   hyrise::storage::atable_ptr_t result = gs.execute()->getResultTable();
   hyrise::storage::atable_ptr_t reference = Loader::shortcuts::load("test/reference/group_by_scan_with_count.tbl");
@@ -115,7 +115,7 @@ TEST_F(GroupByTests, aggregate_group_multi_table_with_delta_not_unique) {
   hs.addField(0);
 
   auto group_map = hs.execute()->getResultHashTable();
-  gs.addInputHash(group_map);
+  gs.addInput(group_map);
 
   hyrise::storage::atable_ptr_t result = gs.execute()->getResultTable();
 
@@ -149,7 +149,7 @@ TEST_F(GroupByTests, aggregated_group_by_scan_using_table_2) {
 
     auto group_map = hs->execute()->getResultHashTable();
 
-    gs->addInputHash(group_map);
+    gs->addInput(group_map);
 
     hyrise::storage::atable_ptr_t result = gs->execute()->getResultTable();
 
@@ -166,7 +166,7 @@ TEST_F(GroupByTests, aggregated_group_by_scan_using_table_2) {
     hs2.addField(1);
 
     auto group_map2 = hs2.execute()->getResultHashTable();
-    gs2.addInputHash(group_map2);
+    gs2.addInput(group_map2);
 
     result = gs2.execute()->getResultTable();
 
@@ -210,9 +210,9 @@ TEST_F(GroupByTests, DISABLED_group_by_performance) {
 
   auto group_map = hs.execute()->getResultHashTable();
 
-  gs.addInputHash(group_map);
+  gs.addInput(group_map);
 
-  OutputTask::performance_attributes_t perf;
+  performance_attributes_t perf;
   gs.setPerformanceData(&perf);
 
   gs.execute();
@@ -234,7 +234,7 @@ TEST_F(GroupByTests, group_by_scan_using_table_2) {
 
     auto group_map = hs->execute()->getResultHashTable();
     
-    gs->addInputHash(group_map);
+    gs->addInput(group_map);
 
     const auto& result = gs->execute()->getResultTable();
 
@@ -252,7 +252,7 @@ TEST_F(GroupByTests, group_by_scan_using_table_2) {
     hs2.setKey("groupby");
 
     auto group_map2 = hs2.execute()->getResultHashTable();
-    gs2.addInputHash(group_map2);
+    gs2.addInput(group_map2);
 
     const auto& result2 = gs2.execute()->getResultTable();
 
@@ -290,7 +290,7 @@ TEST_F(GroupByTests, group_by_scan_using_table_multiple_fields) {
   hs.setKey("groupby");
 
   auto group_map = hs.execute()->getResultHashTable();
-  gs.addInputHash(group_map);
+  gs.addInput(group_map);
   const auto& result = gs.execute()->getResultTable();
 
   SortScan so;
@@ -325,7 +325,7 @@ TEST_F(GroupByTests, group_by_scan_with_count) {
   hs.setKey("groupby");
 
   auto group_map = hs.execute()->getResultHashTable();
-  gs.addInputHash(group_map);
+  gs.addInput(group_map);
 
   const auto& result = gs.execute()->getResultTable();
   const auto& reference = Loader::shortcuts::load("test/reference/group_by_scan_with_count.tbl");
@@ -373,7 +373,7 @@ TEST_F(GroupByTests, group_by_scan_with_avg_on_integer) {
   hs.setKey("groupby");
 
   auto group_map = hs.execute()->getResultHashTable();
-  gs.addInputHash(group_map);
+  gs.addInput(group_map);
 
   const auto& result = sort(gs.execute()->getResultTable());
 
@@ -396,7 +396,7 @@ TEST_F(GroupByTests, group_by_scan_with_avg_on_float) {
   hs.setKey("groupby");
 
   auto group_map = hs.execute()->getResultHashTable();
-  gs.addInputHash(group_map);
+  gs.addInput(group_map);
 
   const auto& result = sort(gs.execute()->getResultTable());
 
@@ -419,7 +419,7 @@ TEST_F(GroupByTests, group_by_scan_with_avg_on_string) {
   hs.setKey("groupby");
 
   auto group_map = hs.execute()->getResultHashTable();
-  gs.addInputHash(group_map);
+  gs.addInput(group_map);
 
   ASSERT_THROW( {
       gs.execute();
@@ -469,7 +469,7 @@ TEST_F(GroupByTests, group_by_scan_with_count_and_two_args) {
 
   
   auto group_map = hs.execute()->getResultHashTable();
-  gs.addInputHash(group_map);
+  gs.addInput(group_map);
 
   const auto& result = gs.execute()->getResultTable();
   const auto& reference = Loader::shortcuts::load("test/reference/group_by_scan_with_count_and_two_args.tbl");
@@ -519,7 +519,7 @@ TEST_F(GroupByTests, group_by_scan_with_sum_and_one_arg) {
   hs.setKey("groupby");
 
   auto group_map = hs.execute()->getResultHashTable();
-  gs.addInputHash(group_map);
+  gs.addInput(group_map);
 
   const auto& result = gs.execute()->getResultTable();
 
@@ -561,7 +561,7 @@ TEST_F(GroupByTests,  group_multi_table) {
   hs.setKey("groupby");
 
   auto group_map = hs.execute()->getResultHashTable();
-  gs.addInputHash(group_map);
+  gs.addInput(group_map);
 
   const auto& result = gs.execute()->getResultTable();
 
@@ -615,7 +615,7 @@ TEST_F(GroupByTests, group_multi_table_with_delta) {
   hs.setKey("groupby");
 
   auto group_map = hs.execute()->getResultHashTable();
-  gs.addInputHash(group_map);
+  gs.addInput(group_map);
 
   hyrise::storage::atable_ptr_t result = gs.execute()->getResultTable();
 
@@ -667,7 +667,7 @@ TEST_F(GroupByTests, group_multi_table_with_delta_not_unique) {
   hs.setKey("groupby");
 
   auto group_map = hs.execute()->getResultHashTable();
-  gs.addInputHash(group_map);
+  gs.addInput(group_map);
 
   hyrise::storage::atable_ptr_t result = gs.execute()->getResultTable();
 

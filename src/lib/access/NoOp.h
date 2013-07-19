@@ -10,14 +10,14 @@ namespace access {
 // used to test protected methods
 class ParallelExecutionTest_data_distribution_Test;
 
-class NoOp : public _PlanOperation {
+class NoOp : public PlanOperation {
   friend class ParallelExecutionTest_data_distribution_Test;
 
 public:
   virtual ~NoOp();
 
   void executePlanOperation();
-  static std::shared_ptr<_PlanOperation> parse(Json::Value &data);
+  static std::shared_ptr<PlanOperation> parse(Json::Value &data);
   const std::string vname();
 };
 

@@ -9,18 +9,18 @@ namespace hyrise {
 namespace insertonly {
 
 /// Loads an insertonly table
-class LoadOp : public _PlanOperation {
+class LoadOp : public access::PlanOperation {
  public:
   explicit LoadOp(const std::string& filename);
   const std::string vname();
-  static std::shared_ptr<_PlanOperation> parse(Json::Value &data);
+  static std::shared_ptr<access::PlanOperation> parse(Json::Value &data);
   virtual void executePlanOperation();
 private:
   const std::string _filename;
 };
 
 /// Insert rows into insert only table
-class InsertOp : public _PlanOperation {
+class InsertOp : public access::PlanOperation {
  public:
   const std::string vname();
 
@@ -31,12 +31,12 @@ class InsertOp : public _PlanOperation {
   /// 2. rows
   /// Query graph output:
   /// - store with new rows
-  static std::shared_ptr<_PlanOperation> parse(Json::Value &data);
+  static std::shared_ptr<access::PlanOperation> parse(Json::Value &data);
   virtual void executePlanOperation();
 };
 
 /// Updates rows in store
-class UpdateOp : public _PlanOperation {
+class UpdateOp : public access::PlanOperation {
  public:
   const std::string vname();
 
@@ -49,12 +49,12 @@ class UpdateOp : public _PlanOperation {
   /// 4. positions to update in delta (as pointer calculator)
   /// Query graph output:
   /// - store with new rows
-  static std::shared_ptr<_PlanOperation> parse(Json::Value &data);
+  static std::shared_ptr<access::PlanOperation> parse(Json::Value &data);
   virtual void executePlanOperation();
 };
 
 /// Invalidates rows in store
-class DeleteOp : public _PlanOperation {
+class DeleteOp : public access::PlanOperation {
  public:
   const std::string vname();
 
@@ -66,12 +66,12 @@ class DeleteOp : public _PlanOperation {
   /// 3. positions to invalidate in delta
   /// Query graph output:
   /// - store with invalidated rows
-  static std::shared_ptr<_PlanOperation> parse(Json::Value &data);
+  static std::shared_ptr<access::PlanOperation> parse(Json::Value &data);
   virtual void executePlanOperation();
 };
 
 /// Extracts valid positions from delta
-class ValidPositionsRawOp : public _PlanOperation {
+class ValidPositionsRawOp : public access::PlanOperation {
  public:
   const std::string vname();
 
@@ -81,12 +81,12 @@ class ValidPositionsRawOp : public _PlanOperation {
   /// 1. store
   /// Query graph output:
   /// 1. Pointercalculator with valid rows as positions
-  static std::shared_ptr<_PlanOperation> parse(Json::Value &data);
+  static std::shared_ptr<access::PlanOperation> parse(Json::Value &data);
   virtual void executePlanOperation();
 };
 
 /// Extracts valid positions from main
-class ValidPositionsMainOp : public _PlanOperation {
+class ValidPositionsMainOp : public access::PlanOperation {
  public:
   const std::string vname();
 
@@ -94,19 +94,19 @@ class ValidPositionsMainOp : public _PlanOperation {
   /// 1. store
   /// Query graph output:
   /// 1. Pointercalculator with valid rows as positions
-  static std::shared_ptr<_PlanOperation> parse(Json::Value &data);
+  static std::shared_ptr<access::PlanOperation> parse(Json::Value &data);
   virtual void executePlanOperation();
 };
 
 /// Operation to extract delta RawTable from SimpleStore
-class ExtractDelta: public _PlanOperation {
+class ExtractDelta: public access::PlanOperation {
  public:
 
   /// Query graph inputs:
   /// 1. store
   /// Query graph output:
   /// 1. rawatable<>
-  static std::shared_ptr<_PlanOperation> parse(Json::Value& data);
+  static std::shared_ptr<access::PlanOperation> parse(Json::Value& data);
   void executePlanOperation();
   virtual const std::string vname();
 };

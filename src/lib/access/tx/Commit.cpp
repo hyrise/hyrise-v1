@@ -61,7 +61,7 @@ void Commit::executePlanOperation() {
 	
 }
 
-std::shared_ptr<_PlanOperation> Commit::parse(Json::Value &data) {
+std::shared_ptr<PlanOperation> Commit::parse(Json::Value &data) {
 	return std::make_shared<Commit>();
 }
 

@@ -45,7 +45,7 @@ void PrefixSum::executePlanOperation() {
   addResult(output);
 }
 
-std::shared_ptr<_PlanOperation> PrefixSum::parse(Json::Value &data) {
+std::shared_ptr<PlanOperation> PrefixSum::parse(Json::Value &data) {
   auto plan = std::make_shared<PrefixSum>();
   if (data.isMember("numParts")) {
     plan->_part = data["part"].asInt();
@@ -116,7 +116,7 @@ void MergePrefixSum::executePlanOperation() {
   addResult(result);
 }
 
-std::shared_ptr<_PlanOperation> MergePrefixSum::parse(Json::Value &data) {
+std::shared_ptr<PlanOperation> MergePrefixSum::parse(Json::Value &data) {
   return std::make_shared<MergePrefixSum>();
 }
 

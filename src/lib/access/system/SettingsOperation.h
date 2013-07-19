@@ -9,13 +9,13 @@ namespace access {
 
 /// This operation is used to configure global settings as long as dedicated
 /// units handling such decisions are not implemented.
-class SettingsOperation : public _PlanOperation {
+class SettingsOperation : public PlanOperation {
 public:
   SettingsOperation();
   virtual ~SettingsOperation();
 
   void executePlanOperation();
-  static std::shared_ptr<_PlanOperation> parse(Json::Value &data);
+  static std::shared_ptr<PlanOperation> parse(Json::Value &data);
   const std::string vname();
   void setThreadpoolSize(const size_t newSize);
 

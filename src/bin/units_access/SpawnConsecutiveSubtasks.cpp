@@ -13,7 +13,7 @@ namespace {
 }
 
 void SpawnConsecutiveSubtasks::executePlanOperation() {
-  std::vector<std::shared_ptr<_PlanOperation>> children;
+  std::vector<std::shared_ptr<PlanOperation>> children;
   std::vector<Task*> successors;
   auto scheduler = SharedScheduler::getInstance().getScheduler();
   
@@ -42,7 +42,7 @@ void SpawnConsecutiveSubtasks::setNumberOfSpawns(const size_t number) {
   m_numberOfSpawns = number;
 }
 
-std::shared_ptr<_PlanOperation> SpawnConsecutiveSubtasks::parse(Json::Value &data) {
+std::shared_ptr<PlanOperation> SpawnConsecutiveSubtasks::parse(Json::Value &data) {
   auto planOp = std::make_shared<SpawnConsecutiveSubtasks>();
   planOp->setNumberOfSpawns(data["amount"].asInt());
   return planOp;

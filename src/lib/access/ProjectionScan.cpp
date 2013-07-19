@@ -15,16 +15,6 @@ namespace {
   auto _ = QueryParser::registerPlanOperation<ProjectionScan>("ProjectionScan");
 }
 
-ProjectionScan::ProjectionScan() {
-}
-
-ProjectionScan::ProjectionScan(storage::field_list_t *fields): _PlanOperation() {
-  setFields(fields);
-}
-
-ProjectionScan::~ProjectionScan() {
-}
-
 void ProjectionScan::setupPlanOperation() {
   computeDeferredIndexes();
 }
@@ -48,8 +38,8 @@ void ProjectionScan::executePlanOperation() {
   addResult(PointerCalculatorFactory::createPointerCalculatorNonRef(input.getTable(0), tmp_fd, pos_list));
 }
 
-std::shared_ptr<_PlanOperation> ProjectionScan::parse(Json::Value &data) {
-  std::shared_ptr<_PlanOperation> p = BasicParser<ProjectionScan>::parse(data);
+std::shared_ptr<PlanOperation> ProjectionScan::parse(Json::Value &data) {
+  std::shared_ptr<PlanOperation> p = BasicParser<ProjectionScan>::parse(data);
   return p;
 }
 

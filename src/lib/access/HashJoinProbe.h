@@ -2,7 +2,7 @@
 #ifndef SRC_LIB_ACCESS_HASHJOINPROBE_H_
 #define SRC_LIB_ACCESS_HASHJOINPROBE_H_
 
-#include "access/system/PlanOperation.h"
+#include "access/system/ParallelizablePlanOperation.h"
 #include "helper/types.h"
 
 namespace hyrise {
@@ -11,7 +11,7 @@ namespace access {
 /// The HashJoinProbe operator performs the probe phase of a hash join to
 /// produce the join result.
 /// It takes the build table's AbstractHashTable and the probe table as input.
-class HashJoinProbe : public _PlanOperation {
+class HashJoinProbe : public ParallelizablePlanOperation {
 public:
   HashJoinProbe();
   virtual ~HashJoinProbe();
@@ -41,7 +41,7 @@ public:
   ///     },
   ///     "edges": [["0", "2"], ["2", "3"], ["1", "3"]]
   /// }
-  static std::shared_ptr<_PlanOperation> parse(Json::Value &data);
+  static std::shared_ptr<PlanOperation> parse(Json::Value &data);
   const std::string vname();
   void setBuildTable(const storage::c_atable_ptr_t &table);
   storage::c_atable_ptr_t getBuildTable() const;
