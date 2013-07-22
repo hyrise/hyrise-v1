@@ -8,10 +8,6 @@
 #include <stdint.h>
 #include <ostream>
 
-#include "boost/mpl/vector.hpp"
-#include "boost/mpl/map.hpp"
-
-#include <boost/lexical_cast.hpp>
 
 #define STORAGE_XSTR(x) STORAGE_STR(x)
 #define STORAGE_STR(x) #x
@@ -42,10 +38,6 @@ typedef int64_t hyrise_int_t;
 typedef float hyrise_float_t;
 typedef std::string hyrise_string_t;
 
-// This are the basic types used in HYRISE, the enum above can
-// be used to directly offset into the list at compile time
-typedef boost::mpl::vector<hyrise_int_t, hyrise_float_t, hyrise_string_t> hyrise_basic_types;
-
 typedef unsigned int value_id_t;
 typedef unsigned char table_id_t;
 
@@ -70,8 +62,6 @@ class ValueId {
   ValueId() { }
   ValueId(value_id_t _valueId, table_id_t _table) : valueId(_valueId), table(_table) { }
 
-  ~ValueId() {
-  }
 
   bool operator==(ValueId &o) {
     return valueId == o.valueId && table == o.table;

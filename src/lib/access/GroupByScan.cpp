@@ -4,26 +4,51 @@
 #include "access/system/QueryParser.h"
 #include "storage/HashTable.h"
 #include "storage/PointerCalculator.h"
+#include "storage/meta_storage.h"
 
 namespace hyrise {
 namespace storage {
 
-write_group_functor::write_group_functor(const c_atable_ptr_t &t,
-                                         atable_ptr_t &tg,
-                                         const pos_t sourceRow,
-                                         const field_t column,
-                                         const pos_t toRow) :
-                                         _input(t),
-                                         _target(tg),
-                                         _sourceRow(sourceRow),
-                                         _columnNr(column),
-                                         _row(toRow) {
+/// helper construct to avoid excessive use
+/// of switch case in executePlanOperation
+/// uses templated type_switch in src/lib/storage/meta_storage.h
+/// and calls the the correct templated operator implemented below
+struct write_group_functor {
+ public:
+  typedef void value_type;
+
+  write_group_functor(const c_atable_ptr_t &t,
+                      atable_ptr_t &tg,
+                      const pos_t sourceRow,
+                      const field_t column,
+                      const pos_t toRow) :
+      _input(t),
+      _target(tg),
+      _sourceRow(sourceRow),
+      _columnNr(column),
+      _row(toRow) {
+  }
+
+  template <typename R>
+  void operator()() {
+    _target->setValue<R>(_input->nameOfColumn(_columnNr), _row, _input->getValue<R>(_columnNr, _sourceRow));
+  }
+
+  
+ private:
+  const c_atable_ptr_t &_input;
+  atable_ptr_t &_target;
+  pos_t _sourceRow;
+  field_t _columnNr;
+  pos_t _row;
+};
+
+}
 }
 
-template <typename R>
-void write_group_functor::operator()() {
-  _target->setValue<R>(_input->nameOfColumn(_columnNr), _row, _input->getValue<R>(_columnNr, _sourceRow));
-}
+namespace hyrise {
+namespace storage {
+
 
 }
 }
