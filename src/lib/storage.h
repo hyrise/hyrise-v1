@@ -3,7 +3,6 @@
 #define SRC_LIB_STORAGE_H_
 
 #include <storage/storage_types.h>
-#include <storage/meta_storage.h>
 #include <storage/ColumnMetadata.h>
 #include <storage/Table.h>
 #include <storage/RawTable.h>
@@ -24,4 +23,5 @@
 #include <storage/InvertedIndex.h>
 #include <storage/HashTable.h>
 #include <storage/AbstractHashTable.h>
+
 #endif  // SRC_LIB_STORAGE_H_

@@ -4,6 +4,7 @@
 
 
 #include <cerrno>
+#include <cstring>
 #include <cmath>
 
 #include <atomic>

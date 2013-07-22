@@ -10,6 +10,15 @@
 
 #include "storage/storage_types.h"
 
+#include "boost/mpl/vector.hpp"
+//#include "boost/mpl/map.hpp"
+
+// This are the basic types used in HYRISE, the enum above can
+// be used to directly offset into the list at compile time
+typedef boost::mpl::vector<hyrise_int_t, hyrise_float_t, hyrise_string_t> hyrise_basic_types;
+
+
+
 namespace hyrise {
 namespace storage {
 

@@ -2,15 +2,16 @@
 #ifndef SRC_LIB_STORAGE_RAWTABLE_H_
 #define SRC_LIB_STORAGE_RAWTABLE_H_
 
+#include <cstring>
+#include <cstdint>
+
 #include <stdexcept>
 #include <vector>
 
-#include <stdint.h>
-
 #include "storage/storage_types.h"
-#include "storage/meta_storage.h"
+
 #include "storage/AbstractTable.h"
-#include "storage/ColumnMetadata.h"
+
 
 
 namespace hyrise { namespace storage { namespace rawtable {

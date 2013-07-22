@@ -14,8 +14,6 @@
 #include <vector>
 #include <algorithm>
 
-#include <boost/unordered_map.hpp>
-
 namespace layouter {
 
 class Query;
@@ -313,7 +311,7 @@ class CandidateLayouter: public BaseLayouter {
 
   std::vector< std::set<unsigned> > _candidateList;
 
-  std::vector<subset_t> candidateMergePath(subset_t initial, subset_t rest, std::vector<subset_t> &mapping, boost::unordered_map<std::string, double> &_cache);
+  std::vector<subset_t> candidateMergePath(subset_t initial, subset_t rest, std::vector<subset_t> &mapping, std::unordered_map<std::string, double> &_cache);
 
  public:
   CandidateLayouter();
