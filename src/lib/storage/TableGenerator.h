@@ -10,7 +10,7 @@
 #include <string>
 #include <set>
 
-#include <boost/random.hpp>
+
 
 #include "AbstractTable.h"
 
@@ -82,7 +82,7 @@ class TableGenerator {
   // Stores the prepared values
   std::set<int64_t> _values;
 
-  boost::mt19937 gen;
+  //std::mt19937 gen;
 
   void start(size_t rows, size_t cols, size_t total);
   void increment();

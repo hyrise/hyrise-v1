@@ -6,14 +6,13 @@
 #include <set>
 #include <unordered_map>
 #include <memory>
+#include <sstream>
 
 #include "helper/types.h"
 #include "helper/checked_cast.h"
 
 #include "storage/AbstractHashTable.h"
 #include "storage/AbstractTable.h"
-#include "storage/meta_storage.h"
-#include "storage/hash_functor.h"
 #include "storage/storage_types.h"
 
 template<class MAP, class KEY> class HashTableView;
@@ -28,11 +27,7 @@ typedef value_id_t aggregate_single_key_t;
 // Single Hashed Value
 typedef size_t join_single_key_t;
 
-static size_t hash_value(const hyrise::storage::c_atable_ptr_t &source, const size_t &f, const ValueId &vid) {
-  hyrise::storage::hash_functor<size_t> fun(source.get(), f, vid);
-  hyrise::storage::type_switch<hyrise_basic_types> ts;
-  return ts(source->typeOfColumn(f), fun);
-}
+size_t hash_value(const hyrise::storage::c_atable_ptr_t &source, const size_t &f, const ValueId &vid);
 
 template <typename HashResult>
 inline typename HashResult::value_type extract(const hyrise::storage::c_atable_ptr_t &table,

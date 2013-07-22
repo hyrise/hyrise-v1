@@ -3,6 +3,7 @@
 
 #include <cstdio>
 #include <cstdlib>
+#include <cstring>
 #include <fstream>
 #include <iostream>
 #include <istream>
@@ -10,8 +11,6 @@
 
 #include <string.h>
 #include <libcsv/csv.h>
-
-
 
 
 param_member_impl(csv::params, unsigned char, Delimiter);

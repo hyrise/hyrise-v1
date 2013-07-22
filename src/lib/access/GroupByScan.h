@@ -6,36 +6,6 @@
 #include "access/AggregateFunctions.h"
 
 namespace hyrise {
-namespace storage {
-
-/// helper construct to avoid excessive use
-/// of switch case in executePlanOperation
-/// uses templated type_switch in src/lib/storage/meta_storage.h
-/// and calls the the correct templated operator implemented below
-struct write_group_functor {
-public:
-  typedef void value_type;
-  write_group_functor(const c_atable_ptr_t &t,
-                      atable_ptr_t &tg,
-                      const pos_t sourceRow,
-                      const field_t column,
-                      const pos_t toRow);
-
-  template <typename R>
-  void operator()();
-
-private:
-  const c_atable_ptr_t &_input;
-  atable_ptr_t &_target;
-  pos_t _sourceRow;
-  field_t _columnNr;
-  pos_t _row;
-};
-
-}
-}
-
-namespace hyrise {
 namespace access {
 
 class GroupByScan : public ParallelizablePlanOperation {

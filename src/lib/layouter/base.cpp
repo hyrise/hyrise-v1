@@ -1177,7 +1177,7 @@ subset_t merge_subsets(subset_t base, std::vector<subset_t> &mapping) {
   return result;
 }
 
-typedef boost::unordered_map<std::string, double> cache_t;
+typedef std::unordered_map<std::string, double> cache_t;
 
 // Intermediate Result Structure to capture cost and mappings
 struct _intermediate {
@@ -1244,7 +1244,7 @@ std::vector<subset_t> CandidateLayouter::externalCombineCandidates(std::vector<s
   return result;
 }
 
-std::vector<subset_t> CandidateLayouter::candidateMergePath(subset_t initial, subset_t rest, std::vector<subset_t> &mapping, boost::unordered_map<std::string, double> &_cache) {
+std::vector<subset_t> CandidateLayouter::candidateMergePath(subset_t initial, subset_t rest, std::vector<subset_t> &mapping, std::unordered_map<std::string, double> &_cache) {
   std::vector<subset_t> result;
   do {
 

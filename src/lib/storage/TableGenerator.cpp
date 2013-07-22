@@ -8,8 +8,7 @@
 #include <limits>
 #include <stdint.h>
 
-#include <boost/random.hpp>
-#include <boost/random/mersenne_twister.hpp>
+#include <random>
 
 #include <helper/types.h>
 
@@ -19,8 +18,6 @@
 #include <storage/SequentialHeapMerger.h>
 #include <storage/TableMerger.h>
 #include <helper/Progress.h>
-
-
 
 TableGenerator::TableGenerator(bool quiet) : _quiet(quiet), _steps(50), _prepareSize(0) {
 }
@@ -38,7 +35,8 @@ void TableGenerator::prepare(size_t p) {
 
   _prepareSize = p;
 
-  boost::uniform_int<int64_t> dist(0, std::numeric_limits<int64_t>::max());
+  std::mt19937 gen;
+  std::uniform_int_distribution<int64_t> dist(0, std::numeric_limits<int64_t>::max());
 
   // First, generate all random numbers we need, this is blazing
   // fast
