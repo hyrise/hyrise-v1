@@ -89,7 +89,7 @@ void Store::setDictionaryAt(AbstractTable::SharedDictionaryPtr dict, const size_
   delta->setDictionaryAt(dict, column, row - offset, table_id);
 }
 
-const AbstractTable::SharedDictionaryPtr& Store::dictionaryAt(const size_t column, const size_t row, const table_id_t table_id, const bool of_delta) const {
+const AbstractTable::SharedDictionaryPtr& Store::dictionaryAt(const size_t column, const size_t row, const table_id_t table_id) const {
   if (!row) {
     return this->dictionaryByTableId(column, table_id);
   }

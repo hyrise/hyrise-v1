@@ -164,7 +164,7 @@ const ColumnMetadata *Table::metadataAt(const size_t column, const size_t row_in
 }
 
 
-const AbstractTable::SharedDictionaryPtr& Table::dictionaryAt(const size_t column, const size_t row, const table_id_t table_id, const bool of_delta) const {
+const AbstractTable::SharedDictionaryPtr& Table::dictionaryAt(const size_t column, const size_t row, const table_id_t table_id) const {
   return _dictionaries[column];
 }
 

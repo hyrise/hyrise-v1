@@ -40,7 +40,7 @@ public:
   void setValueId(const size_t column, const size_t row, const ValueId valueId);
   ValueId getValueId(const size_t column, const size_t row) const;
   const ColumnMetadata *metadataAt(const size_t column, const size_t row = 0, const table_id_t table_id = 0) const;
-  const SharedDictionaryPtr & dictionaryAt(const size_t column, const size_t row = 0, const table_id_t table_id = 0, const bool of_delta = false) const;
+  const SharedDictionaryPtr & dictionaryAt(const size_t column, const size_t row = 0, const table_id_t table_id = 0) const;
 
   // throw exceptions if called
   void setDictionaryAt(SharedDictionaryPtr dict, const size_t column, const size_t row = 0, const table_id_t table_id = 0);
