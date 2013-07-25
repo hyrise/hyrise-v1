@@ -399,20 +399,6 @@ public:
 
 
   /**
-   * Templated base method for setting a value using column name.
-   *
-   * @param column Name of the cell's column.
-   * @param row    Row of the cell.
-   * @param value  Value to be assigned to the cell.
-   */
-  template <typename T>
-  void setValue(const field_name_t &column_name, const size_t row, const T value) {
-    size_t column = numberOfColumn(column_name);
-    setValue<T>(column, row, value);
-  }
-
-
-  /**
    * Templated method for retrieving a value by its ID.
    *
    * @param column  Column containing the value.
