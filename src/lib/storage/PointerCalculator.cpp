@@ -131,7 +131,7 @@ void PointerCalculator::setDictionaryAt(AbstractTable::SharedDictionaryPtr dict,
   throw std::runtime_error("Can't set PointerCalculator dictionary");
 }
 
-const AbstractTable::SharedDictionaryPtr& PointerCalculator::dictionaryAt(const size_t column, const size_t row, const table_id_t table_id, const bool of_delta) const {
+const AbstractTable::SharedDictionaryPtr& PointerCalculator::dictionaryAt(const size_t column, const size_t row, const table_id_t table_id) const {
   size_t actual_column, actual_row;
 
   if (fields) {
@@ -318,7 +318,7 @@ hyrise::storage::atable_ptr_t PointerCalculator::copy_structure(const field_list
       metadata.push_back(metadataAt(field));
 
       if (dictionaries != nullptr) {
-        dictionaries->push_back(dictionaryAt(field, 0, 0, true));
+        dictionaries->push_back(dictionaryAt(field, 0, 0));
       }
     }
   } else {
@@ -326,7 +326,7 @@ hyrise::storage::atable_ptr_t PointerCalculator::copy_structure(const field_list
       metadata.push_back(metadataAt(i));
 
       if (dictionaries != nullptr) {
-        dictionaries->push_back(dictionaryAt(i, 0, 0, true));
+        dictionaries->push_back(dictionaryAt(i, 0, 0));
       }
     }
   }

@@ -78,11 +78,11 @@ const ColumnMetadata *TableRangeView::metadataAt(const size_t column, const size
   return _table->metadataAt(column, actual_row, table_id);
 };
 
-const AbstractTable::SharedDictionaryPtr & TableRangeView::dictionaryAt(const size_t column, const size_t row, const table_id_t table_id , const bool of_delta) const{
+const AbstractTable::SharedDictionaryPtr & TableRangeView::dictionaryAt(const size_t column, const size_t row, const table_id_t table_id ) const{
   size_t actual_row;
   actual_row = row + _start;
 
-  return _table->dictionaryAt(column, actual_row, table_id, of_delta);
+  return _table->dictionaryAt(column, actual_row, table_id);
 }
 
 const AbstractTable::SharedDictionaryPtr & TableRangeView::dictionaryByTableId(const size_t column, const table_id_t table_id) const{

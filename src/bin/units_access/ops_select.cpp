@@ -255,17 +255,9 @@ TEST_F(SelectTests, select_after_insert_simple) {
 
   hyrise::storage::atable_ptr_t data = s->copy_structure_modifiable(nullptr, s->size());
   data->resize(1);
-  data->setValue<hyrise_int_t>("col_0", 0, 1000);
-  data->setValue<hyrise_int_t>("col_1", 0, 1001);
-  data->setValue<hyrise_int_t>("col_2", 0, 1002);
-  data->setValue<hyrise_int_t>("col_3", 0, 1003);
-  data->setValue<hyrise_int_t>("col_4", 0, 1004);
-  data->setValue<hyrise_int_t>("col_5", 0, 1005);
-  data->setValue<hyrise_int_t>("col_6", 0, 1006);
-  data->setValue<hyrise_int_t>("col_7", 0, 1007);
-  data->setValue<hyrise_int_t>("col_8", 0, 1008);
-  data->setValue<hyrise_int_t>("col_9", 0, 1009);
-
+  for (std::size_t i=0; i <= 9; ++i) {
+    data->setValue<hyrise_int_t>(i, 0, 1000+i);
+  }
   // insert data
   InsertScan isc;
   isc.setTXContext(ctx);

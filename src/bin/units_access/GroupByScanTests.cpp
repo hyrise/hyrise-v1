@@ -79,7 +79,6 @@ TEST_F(GroupByScanTests, group_by_with_aggregate_function) {
   gs.execute();
 
   const auto &result = gs.getResultTable();
-
   EXPECT_RELATION_EQ(reference, result);
 }
 

@@ -195,8 +195,7 @@ public:
 
   virtual const AbstractTable::SharedDictionaryPtr& dictionaryAt(const size_t column, 
                                                           const size_t row = 0, 
-                                                          const table_id_t table_id = 0, 
-                                                          const bool of_delta = false) const { 
+                                                          const table_id_t table_id = 0) const { 
     STORAGE_NOT_IMPLEMENTED(RawTable, partitionWidth());
   }
 

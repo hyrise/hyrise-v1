@@ -39,7 +39,7 @@ struct sum_aggregate_functor {
       }
     }
 
-    target->setValue<R>(targetColumn, targetRow, result);
+    target->setValue<R>(target->numberOfColumn(targetColumn), targetRow, result);
   }
 };
 
@@ -83,7 +83,7 @@ void average_aggregate_functor::operator()() {
     count = input->size();
   }
 
-  target->setValue<float>(targetColumn, targetRow, ((float)sum / count));
+  target->setValue<float>(target->numberOfColumn(targetColumn), targetRow, ((float)sum / count));
 }
 
 template<>
@@ -149,7 +149,7 @@ void CountAggregateFun::processValuesForRows(const hyrise::storage::c_atable_ptr
       count = t->size();
     }
 
-    target->setValue<hyrise_int_t>(columnName(t->nameOfColumn(_field)), targetRow, count);
+    target->setValue<hyrise_int_t>(target->numberOfColumn(columnName(t->nameOfColumn(_field))), targetRow, count);
   }
 
 AggregateFun *CountAggregateFun::parse(const Json::Value &f) {
