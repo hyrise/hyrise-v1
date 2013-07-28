@@ -93,7 +93,7 @@ TEST_F(UnionAllTests, mixed_input) {
 
   const auto &result = us.getResultTable();
 
-  ASSERT_TRUE(std::dynamic_pointer_cast<const HorizontalTable>(result) != nullptr);
+  ASSERT_TRUE(std::dynamic_pointer_cast<const storage::HorizontalTable>(result) != nullptr);
 }
 
 

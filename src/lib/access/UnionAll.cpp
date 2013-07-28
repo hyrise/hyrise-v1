@@ -31,7 +31,7 @@ void UnionAll::executePlanOperation() {
     }
   }
   
-  addResult(std::make_shared<const HorizontalTable>(tables));
+  addResult(std::make_shared<const storage::HorizontalTable>(tables));
 }
 
 }}
