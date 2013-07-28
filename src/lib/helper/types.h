@@ -14,7 +14,7 @@ class AbstractIndex;
 class AbstractHashTable;
 class AbstractDictionary;
 class Store;
-class MutableVerticalTable;
+
 class PointerCalculator;
 
 namespace hyrise {
@@ -46,6 +46,7 @@ typedef std::unique_ptr<AbstractExpression> expression_uptr_t;
 
 namespace storage {
 class SimpleStore;
+class MutableVerticalTable;
 
 typedef std::shared_ptr<AbstractResource> aresource_ptr_t;
 typedef std::shared_ptr<const AbstractResource> c_aresource_ptr_t;

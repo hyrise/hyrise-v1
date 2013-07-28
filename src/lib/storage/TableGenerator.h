@@ -10,9 +10,9 @@
 #include <string>
 #include <set>
 
+#include "storage/AbstractTable.h"
 
-
-#include "AbstractTable.h"
+namespace hyrise { namespace storage {
 
 class TableGenerator {
  public:
@@ -87,5 +87,7 @@ class TableGenerator {
   void start(size_t rows, size_t cols, size_t total);
   void increment();
 };
+
+}}
 
 #endif  // SRC_LIB_STORAGE_TABLEGENERATOR_H_

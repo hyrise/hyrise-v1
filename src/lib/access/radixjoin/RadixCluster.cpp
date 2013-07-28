@@ -29,7 +29,7 @@ void CreateRadixTable::executePlanOperation() {
   positions->resize(tableSize);
 
   std::vector<storage::atable_ptr_t> tmp {hashes, positions};
-  auto result = std::make_shared<MutableVerticalTable>(tmp);
+  auto result = std::make_shared<storage::MutableVerticalTable>(tmp);
   addResult(result);
 }
 

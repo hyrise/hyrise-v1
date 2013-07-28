@@ -137,7 +137,7 @@ storage::atable_ptr_t GroupByScan::createResultTableLayout() {
   } else {
     vc.push_back(group_tab);
     vc.push_back(agg_tab);
-    storage::atable_ptr_t result = std::make_shared<MutableVerticalTable>(vc);
+    storage::atable_ptr_t result = std::make_shared<storage::MutableVerticalTable>(vc);
     return result;
   }
 }

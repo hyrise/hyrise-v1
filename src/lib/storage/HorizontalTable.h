@@ -36,7 +36,6 @@ class HorizontalTable : public AbstractTable {
   atable_ptr_t copy() const override;
   void debugStructure(size_t level=0) const override;
  private:
-  /// Returns the index of the subtable containing a certain row.
   size_t partForRow(size_t row) const;
   size_t computeSize() const;
   /// subtables

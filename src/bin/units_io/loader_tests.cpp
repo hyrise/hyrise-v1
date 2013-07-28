@@ -8,6 +8,8 @@
 #include <storage/MutableVerticalTable.h>
 #include <storage/Store.h>
 
+using namespace hyrise;
+
 class LoaderTests : public ::hyrise::Test {};
 
 TEST_F(LoaderTests, load_with_empty_params_yields_empty_table) {
@@ -39,7 +41,7 @@ TEST_F(LoaderTests, load_vertical_table) {
   CSVInput input("test/test.csv", CSVInput::params().setCSVParams(csv::CSV_FORMAT));
   CSVHeader header("test/header.tbl", CSVHeader::params().setCSVParams(csv::CSV_FORMAT));
   hyrise::storage::atable_ptr_t  t = Loader::load(Loader::params().setInput(input).setHeader(header).setReturnsMutableVerticalTable(true));
-  ASSERT_TRUE((bool)std::dynamic_pointer_cast<MutableVerticalTable>(t)) << "t should be a vertical table";
+  ASSERT_TRUE((bool)std::dynamic_pointer_cast<storage::MutableVerticalTable>(t)) << "t should be a vertical table";
 }
 
 TEST_F(LoaderTests, load_table_simple_empty) {

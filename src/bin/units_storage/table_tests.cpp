@@ -8,6 +8,8 @@
 #include "storage/SimpleStore.h"
 #include "storage/TableGenerator.h"
 
+namespace hyrise { namespace storage {
+
 class TableTests : public ::hyrise::Test {
 
 public:
@@ -123,3 +125,5 @@ TEST_F(TableTests, test_table_copy) {
 
 }
 
+
+}}
