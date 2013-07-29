@@ -129,6 +129,7 @@ void bindToNode(int node) {
 int main(int argc, char *argv[]) {
 
   size_t port = 0;
+  int worker_threads = 0;
   std::string logPropertyFile;
   std::string scheduler_name;
 
@@ -137,7 +138,8 @@ int main(int argc, char *argv[]) {
   desc.add_options()("help", "Shows this help message")
   ("port,p", po::value<size_t>(&port)->default_value(DEFAULT_PORT), "Server Port")
   ("logdef,l", po::value<std::string>(&logPropertyFile)->default_value("build/log.properties"), "Log4CXX Log Properties File")
-  ("scheduler,s", po::value<std::string>(&scheduler_name)->default_value("WSCoreBoundQueuesScheduler"), "Name of the scheduler to use");
+  ("scheduler,s", po::value<std::string>(&scheduler_name)->default_value("WSCoreBoundQueuesScheduler"), "Name of the scheduler to use")
+  ("threads,t", po::value<int>(&worker_threads)->default_value(getNumberOfCoresOnSystem()), "Number of worker threads for scheduler (only relevant for scheduler with fixed number of threads)");
   po::variables_map vm;
   po::store(po::parse_command_line(argc, argv, desc), vm);
   po::notify(vm);
@@ -160,7 +162,7 @@ int main(int argc, char *argv[]) {
 #endif
 
   
-  SharedScheduler::getInstance().init(scheduler_name, getNumberOfCoresOnSystem());
+  SharedScheduler::getInstance().init(scheduler_name, worker_threads);
   AbstractTaskScheduler *scheduler = SharedScheduler::getInstance().getScheduler();
 
   signal(SIGINT, &shutdown);
