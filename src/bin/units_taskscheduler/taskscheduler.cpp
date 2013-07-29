@@ -13,6 +13,7 @@
 #include "taskscheduler/SharedScheduler.h"
 #include "taskscheduler/CoreBoundQueuesScheduler.h"
 #include "taskscheduler/WSCoreBoundQueuesScheduler.h"
+#include "taskscheduler/ThreadPerTaskScheduler.h"
 
 #include "helper/HwlocHelper.h"
 
@@ -32,7 +33,9 @@ std::vector<std::string> getSchedulersToTest() {
               "CentralScheduler",
               "CentralPriorityScheduler",
               "CoreBoundPriorityQueuesScheduler",
-              "WSCoreBoundPriorityQueuesScheduler"};
+      "WSCoreBoundPriorityQueuesScheduler",
+      "ThreadPerTaskScheduler"
+      };
 
   return result;
 }
