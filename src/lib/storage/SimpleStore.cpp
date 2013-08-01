@@ -53,10 +53,9 @@ const AbstractTable::SharedDictionaryPtr& SimpleStore::dictionaryByTableId(const
 
 const AbstractTable::SharedDictionaryPtr& SimpleStore::dictionaryAt(const size_t column, 
                                                 const size_t row, 
-                                                const table_id_t table_id, 
-                                                const bool of_delta) const {
+                                                const table_id_t table_id) const {
   if ( row >= _main->size() || table_id > 0 ) STORAGE_NOT_IMPLEMENTED(SimpleStore, dictionaryAt());
-  return _main->dictionaryAt(column, row, table_id, of_delta);
+  return _main->dictionaryAt(column, row, table_id);
 }
 
 void SimpleStore::print(const size_t limit) const {

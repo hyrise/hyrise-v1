@@ -19,9 +19,9 @@ const ColumnMetadata *HorizontalTable::metadataAt(const size_t column_index, con
   return parts[table_id]->metadataAt(column_index);
 }
 
-const AbstractTable::SharedDictionaryPtr& HorizontalTable::dictionaryAt(const size_t column, const size_t row, const table_id_t table_id, const bool of_delta) const {
+const AbstractTable::SharedDictionaryPtr& HorizontalTable::dictionaryAt(const size_t column, const size_t row, const table_id_t table_id) const {
   size_t part = partForRow(row);
-  return parts[part]->dictionaryAt(column, row - offsets[part], table_id, of_delta);
+  return parts[part]->dictionaryAt(column, row - offsets[part], table_id);
 }
 
 const AbstractTable::SharedDictionaryPtr& HorizontalTable::dictionaryByTableId(const size_t column, const table_id_t table_id) const {

@@ -164,7 +164,7 @@ public:
    * @param row      Row in that column (default=0).
    * @param table_id ID of the table from which to extract (default=0).
    */
-  virtual const SharedDictionaryPtr& dictionaryAt(const size_t column, const size_t row = 0, const table_id_t table_id = 0, const bool of_delta = false) const = 0;
+  virtual const SharedDictionaryPtr& dictionaryAt(const size_t column, const size_t row = 0, const table_id_t table_id = 0) const = 0;
 
 
   /**
@@ -395,20 +395,6 @@ public:
     ValueId valueId = getValueIdForValue(column, value, true);
     setValueId(column, row, valueId);
 
-  }
-
-
-  /**
-   * Templated base method for setting a value using column name.
-   *
-   * @param column Name of the cell's column.
-   * @param row    Row of the cell.
-   * @param value  Value to be assigned to the cell.
-   */
-  template <typename T>
-  void setValue(const field_name_t &column_name, const size_t row, const T value) {
-    size_t column = numberOfColumn(column_name);
-    setValue<T>(column, row, value);
   }
 
 

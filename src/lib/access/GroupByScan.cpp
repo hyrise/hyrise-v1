@@ -31,7 +31,7 @@ struct write_group_functor {
 
   template <typename R>
   void operator()() {
-    _target->setValue<R>(_input->nameOfColumn(_columnNr), _row, _input->getValue<R>(_columnNr, _sourceRow));
+    _target->setValue<R>(_target->numberOfColumn(_input->nameOfColumn(_columnNr)), _row, _input->getValue<R>(_columnNr, _sourceRow));
   }
 
   

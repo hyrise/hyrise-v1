@@ -82,8 +82,8 @@ const ColumnMetadata *MutableVerticalTable::metadataAt(const size_t column_index
   return containerAt(column_index)->metadataAt(offset_in_container[column_index]);
 }
 
-const AbstractTable::SharedDictionaryPtr& MutableVerticalTable::dictionaryAt(const size_t column, const size_t row, const table_id_t table_id, const bool of_delta) const {
-  return containerAt(column)->dictionaryAt(offset_in_container[column], row, table_id, of_delta);
+const AbstractTable::SharedDictionaryPtr& MutableVerticalTable::dictionaryAt(const size_t column, const size_t row, const table_id_t table_id) const {
+  return containerAt(column)->dictionaryAt(offset_in_container[column], row, table_id);
 }
 
 const AbstractTable::SharedDictionaryPtr& MutableVerticalTable::dictionaryByTableId(const size_t column, const table_id_t table_id) const {
