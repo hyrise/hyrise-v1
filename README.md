@@ -74,7 +74,7 @@ It should be sufficient to run the `install.sh` script from the `tools/autosetup
 
 First check if all submodules are initialized correctly:
 
-    git submodule init --update
+    git submodule update --init
 
 To start the build you will only need to execute a simple command line command
 to start. The given make file provides all necessary targets. 
