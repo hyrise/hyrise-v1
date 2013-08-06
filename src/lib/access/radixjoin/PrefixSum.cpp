@@ -108,7 +108,7 @@ void MergePrefixSum::executePlanOperation() {
   for(size_t i=0; i < resultSize; ++i) {
     value_id_t pos = std::numeric_limits<value_id_t>::max();
     for(size_t j=0, stop=vecs.size(); j < stop; ++j) {
-      register auto tmp = vecs[j]->get(0,i);
+      auto tmp = vecs[j]->get(0,i);
       pos = tmp < pos ? tmp : pos;
     }
     res_vec->set(0, i, pos);

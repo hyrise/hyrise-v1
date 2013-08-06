@@ -50,19 +50,19 @@ void NestedLoopEquiJoin::executePlanOperation() {
   const size_t rprefixvector_size = rprefixvector->size();
 
   // Prepare mask for right prefix sum
-  register auto mask1 = (1 << bits1()) - 1;
-  register auto mask2 = ((1 << bits2()) - 1) << bits1();
+  auto mask1 = (1 << bits1()) - 1;
+  auto mask2 = ((1 << bits2()) - 1) << bits1();
   // join
   size_t left_begin = 0, left_end = 0, right_begin = 0, right_end = 0, partition = 0, rpart = 0;
-  register uint32_t lhash;
+  uint32_t lhash;
   auto lpos_list = new pos_list_t;
   auto rpos_list = new pos_list_t;
 
   lpos_list->reserve(lhvector->size());
   rpos_list->reserve(lhvector->size());
 
-  register auto multiplier = 1 << bits2();
-  register auto shift_right = bits1();
+  auto multiplier = 1 << bits2();
+  auto shift_right = bits1();
 
   // iterate over partitions -> partition gives the offset into the prefix table
   // The number of partitions depends on the number of bits used for the partitioning
