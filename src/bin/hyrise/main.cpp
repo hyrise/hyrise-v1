@@ -161,7 +161,6 @@ int main(int argc, char *argv[]) {
 
   
   SharedScheduler::getInstance().init(scheduler_name, getNumberOfCoresOnSystem());
-  AbstractTaskScheduler *scheduler = SharedScheduler::getInstance().getScheduler();
 
   signal(SIGINT, &shutdown);
   // MainS erver Loop

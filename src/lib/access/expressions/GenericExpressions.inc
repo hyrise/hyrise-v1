@@ -27,7 +27,7 @@
 
 #define EXPR_EXTRACT_VID_AND_MAP(r, data, seq_field) \
 	auto BOOST_PP_CAT(vid_v_, BOOST_PP_SEQ_ELEM(0,seq_field)) = _store->getValueIdForValue< BOOST_PP_SEQ_ELEM(1,seq_field) >( BOOST_PP_SEQ_ELEM(0, seq_field), BOOST_PP_CAT(v_, BOOST_PP_SEQ_ELEM(0, seq_field)), false, part).valueId; \
-	register auto BOOST_PP_CAT(o, BOOST_PP_SEQ_ELEM(0,seq_field)) = BOOST_PP_CAT(_of_, BOOST_PP_SEQ_ELEM(0,seq_field))[part]; \
+	auto BOOST_PP_CAT(o, BOOST_PP_SEQ_ELEM(0,seq_field)) = BOOST_PP_CAT(_of_, BOOST_PP_SEQ_ELEM(0,seq_field))[part]; \
 	auto BOOST_PP_CAT(ve_, BOOST_PP_SEQ_ELEM(0,seq_field)) = EXPR_DATA_VECTOR_NAME(BOOST_PP_SEQ_ELEM(0,seq_field))[part];
 
 #define EXPR_COMPARE_FIELD(name, cmp, row) BOOST_PP_CAT(vid_v_,name) cmp BOOST_PP_CAT(ve_,name)->getRef(BOOST_PP_CAT(o,name), row)
