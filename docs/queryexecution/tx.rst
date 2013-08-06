@@ -44,7 +44,7 @@ For read-write access the control flow is similar:
 Currently a single commit plan operation will guarantee the correct execution
 of the transaction for all its input tables. However, TX are then serialized by commits in the TX manager.
 
-Once a transaction is commited, the TX context is no longer valid and the
+Once a transaction is committed, the TX context is no longer valid and the
 system is required to fetch a new TID to proceed.
 
 Necessary Plan Operations
@@ -61,7 +61,27 @@ and should only be used in this context:
      inserted records is that they are invalid and the TID column of the record is set to the TID of the transaction to identify own writes
   4. ``PosUpdateScan`` - performs an update on an input table. The
      modifications are specified in the JSON of the plan operation. An update
-     is basically a delete + insert of the modified tuple
+     is basically a delete + insert of the modified tuple\
+
+Possible TID Combinations
+==========================
+
+::
+	
+	+----------------+---------------+--------+--------+---------------+
+	| lastCID > CID  | TID=tx.TID    | valid  | Keep?  | Comment       |
+	+================+===============+========+========+===============+ 
+	| yes            |  yes          | yes    | --     | impossible    |
+	| no             |  yes          | yes    | --     | impossible    |
+	| yes            |  no           | yes    | --     | Future insert |
+	| yes            |  yes          | no     | --     | impossible    |
+	| no             |  no           | yes    | --     | Past insert   |
+	| yes            |  no           | no     | --     | Future delete |
+	| no             |  yes          | no     | --     | Own write     |
+	| no             |  no           | no     | --     | Past delete   |
+	+----------------+---------------+--------+--------+---------------+
+
+
 
 
 
