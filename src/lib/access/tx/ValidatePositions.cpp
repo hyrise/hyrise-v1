@@ -15,13 +15,14 @@ namespace {
 
 void ValidatePositions::executePlanOperation() {
   const auto& tab = checked_pointer_cast<const PointerCalculator>(getInputTable(0));
+  const auto& store = tab->getActualTable();
 	auto pc = std::const_pointer_cast<PointerCalculator>(tab);
   pc->validate(_txContext.tid, _txContext.lastCid);
 
   // Get Modifications
   const auto& modifications = hyrise::tx::TransactionManager::getInstance()[_txContext.tid];
-  if (modifications.hasDeleted(pc))
-    pc->remove(modifications.getDeleted(pc));
+  if (modifications.hasDeleted(store))
+    pc->remove(modifications.getDeleted(store));
 	addResult(getInputTable(0));
 }
 

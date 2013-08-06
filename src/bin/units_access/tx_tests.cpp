@@ -295,6 +295,54 @@ TEST_F(TransactionTests, delete_op_and_concurrent_read) {
   ASSERT_EQ(before , res->size());  
 }
 
+TEST_F(TransactionTests, delete_op_with_commit_and_concurrent_read) {
+
+  auto writeCtx =hyrise::tx::TransactionManager::getInstance().buildContext(); 
+  size_t before = linxxxs->size();
+  
+  // Delete positiotn 0
+  auto pc = PointerCalculatorFactory::createPointerCalculator(linxxxs, nullptr, new pos_list_t({0}));
+  ASSERT_EQ(1u, pc->size());
+
+  DeleteOp del;
+  del.setTXContext(writeCtx);
+  del.addInput(pc);
+  del.execute();
+
+
+  // Acquire the TX Lock
+  auto& txmgr = hyrise::tx::TransactionManager::getInstance();
+  writeCtx.cid = txmgr.prepareCommit();
+
+  // write commit id to simulate trnasaction in the process of comitting
+  auto result = linxxxs->updateCommitID(*(pc->getPositions()), writeCtx.cid, false);
+
+
+  
+  auto& mod = hyrise::tx::TransactionManager::getInstance()[writeCtx.tid];
+  ASSERT_EQ(1u, mod.deleted.size());
+
+  // read all
+  auto readCtx =hyrise::tx::TransactionManager::getInstance().buildContext(); 
+  ProjectionScan ps;
+  ps.addInput(linxxxs);
+  ps.setTXContext(readCtx);
+  ps.addField(0);
+  ps.addField(1);
+  ps.execute();
+
+  ValidatePositions vp;
+  vp.setTXContext(readCtx);
+  vp.addInput(ps.getResultTable());
+  vp.execute();
+
+  auto res = vp.getResultTable();
+
+  txmgr.commit(writeCtx.tid);
+  
+  ASSERT_EQ(before , res->size());  
+}
+
 TEST_F(TransactionTests, delete_op_and_merge) {
 
   auto writeCtx =hyrise::tx::TransactionManager::getInstance().buildContext();
