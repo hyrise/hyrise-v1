@@ -8,12 +8,12 @@
 #include "testing/test.h"
 
 #include "access/NoOp.h"
-#include "access/system/PlanOperation.h"
-#include "io/TransactionManager.h"
+
 #include "taskscheduler/SharedScheduler.h"
 #include "taskscheduler/CoreBoundQueuesScheduler.h"
 #include "taskscheduler/WSCoreBoundQueuesScheduler.h"
 
+#include "helper/make_unique.h"
 #include "helper/HwlocHelper.h"
 
 
@@ -27,36 +27,22 @@ using ::testing::ValuesIn;
 
 // list schedulers to be tested
 std::vector<std::string> getSchedulersToTest() {
-  std::vector<std::string> result { "WSCoreBoundQueuesScheduler",
-              "CoreBoundQueuesScheduler",
-              "CentralScheduler",
-              "CentralPriorityScheduler",
-              "CoreBoundPriorityQueuesScheduler",
-              "WSCoreBoundPriorityQueuesScheduler"};
-
-  return result;
+ return {"WSCoreBoundQueuesScheduler",
+           "CoreBoundQueuesScheduler",
+           "CentralScheduler",
+           "CentralPriorityScheduler",
+           "CoreBoundPriorityQueuesScheduler",
+           "WSCoreBoundPriorityQueuesScheduler"};
 }
 
 class SchedulerTest : public TestWithParam<std::string> {
  public:
-  SchedulerTest() {
-    sm = StorageManager::getInstance();
-  }
-  virtual ~SchedulerTest() { }
-
   virtual void SetUp() {
     scheduler_name = GetParam();
-    sm->removeAll(); // Make sure old tables don't bleed into these tests
-    tx::TransactionManager::getInstance().reset();
-  }
-
-  virtual void TearDown() {
-    scheduler_name = "";
   }
 
  protected:
   std::string scheduler_name;
-  StorageManager *sm;
 };
 
 INSTANTIATE_TEST_CASE_P(
@@ -95,67 +81,7 @@ long int getTimeInMillis() {
   return ret;
 }
 
-bool long_block_test(AbstractTaskScheduler * scheduler){
-    int threads1 = 2;
 
-    int longSleepTasks = 1;
-    int longSleepTime = 100000;
-    int shortSleepTasks = 10;
-    int shortSleepTime = 10000;
-    int waittime = shortSleepTime;
-
-    int upperLimit = longSleepTime / 1000 + (shortSleepTime * shortSleepTasks / (threads1 * 1000)) + waittime/1000;
-
-    std::vector<std::shared_ptr<SleepTask> > longTasks;
-    std::vector<std::shared_ptr<SleepTask> > shortTasks;
-    std::shared_ptr<WaitTask> waiter = std::make_shared<WaitTask>();
-
-    for (int i = 0; i < longSleepTasks; ++i) {
-      longTasks.push_back(std::make_shared<SleepTask>(longSleepTime));
-      waiter->addDependency(longTasks[i]);
-    }
-
-    for (int i = 0; i < shortSleepTasks; ++i) {
-      shortTasks.push_back(std::make_shared<SleepTask>(shortSleepTime));
-      waiter->addDependency(shortTasks[i]);
-    }
-
-    long int start, finish;
-    start = getTimeInMillis();
-
-    for (int i = 0; i < longSleepTasks; ++i) {
-      scheduler->schedule(longTasks[i]);
-    }
-
-    // wait until long Task has started
-    usleep(waittime);
-
-    //usleep(shortSleepTime);
-    for (int i = 0; i < shortSleepTasks; ++i) {
-      scheduler->schedule(shortTasks[i]);
-    }
-    scheduler->schedule(waiter);
-    waiter->wait();
-    //TBD
-    finish = getTimeInMillis();
-    long int diff = finish - start;
-    return (diff < upperLimit);
-}
-
-TEST_P(SchedulerTest, dont_block_test) {
-  /* we assign a long running task and a number of smaller tasks with a think time to the queues -
-     the scheduler should realize that one queue is blocked and assign tasks to other queues / steal work from that queue */
-
-  AbstractTaskScheduler *scheduler;
-
-  scheduler = new CoreBoundQueuesScheduler(2);
-  ASSERT_TRUE(long_block_test(scheduler));
-  delete scheduler;
-
-  scheduler = new WSCoreBoundQueuesScheduler(2);
-  ASSERT_TRUE(long_block_test(scheduler));
-  delete scheduler;
-}
 
 TEST_P(SchedulerTest, sync_task_test) {
   SharedScheduler::getInstance().resetScheduler(scheduler_name);
@@ -274,6 +200,68 @@ TEST_P(SchedulerTest, wait_set_test) {
   waiter->wait();
 }
 #endif
+
+bool long_block_test(AbstractTaskScheduler * scheduler){
+    int threads1 = 2;
+
+    int longSleepTasks = 1;
+    int longSleepTime = 100000;
+    int shortSleepTasks = 10;
+    int shortSleepTime = 10000;
+    int waittime = shortSleepTime;
+
+    int upperLimit = longSleepTime / 1000 + (shortSleepTime * shortSleepTasks / (threads1 * 1000)) + waittime/1000;
+
+    std::vector<std::shared_ptr<SleepTask> > longTasks;
+    std::vector<std::shared_ptr<SleepTask> > shortTasks;
+    std::shared_ptr<WaitTask> waiter = std::make_shared<WaitTask>();
+
+    for (int i = 0; i < longSleepTasks; ++i) {
+      longTasks.push_back(std::make_shared<SleepTask>(longSleepTime));
+      waiter->addDependency(longTasks[i]);
+    }
+
+    for (int i = 0; i < shortSleepTasks; ++i) {
+      shortTasks.push_back(std::make_shared<SleepTask>(shortSleepTime));
+      waiter->addDependency(shortTasks[i]);
+    }
+
+    long int start, finish;
+    start = getTimeInMillis();
+
+    for (int i = 0; i < longSleepTasks; ++i) {
+      scheduler->schedule(longTasks[i]);
+    }
+
+    // wait until long Task has started
+    usleep(waittime);
+
+    //usleep(shortSleepTime);
+    for (int i = 0; i < shortSleepTasks; ++i) {
+      scheduler->schedule(shortTasks[i]);
+    }
+    scheduler->schedule(waiter);
+    waiter->wait();
+    //TBD
+    finish = getTimeInMillis();
+    long int diff = finish - start;
+    return (diff < upperLimit);
+}
+
+TEST(SchedulerBlockTest, dont_block_test) {
+  /* we assign a long running task and a number of smaller tasks with a think time to the queues -
+     the scheduler should realize that one queue is blocked and assign tasks to other queues */
+  auto scheduler = make_unique<CoreBoundQueuesScheduler>(2);
+  // These test currently just check for execute
+  long_block_test(scheduler.get());
+}
+
+TEST(SchedulerBlockTest, dont_block_test_with_work_stealing) {
+  /*  steal work from that queue */
+  auto scheduler = make_unique<WSCoreBoundQueuesScheduler>(2);
+  long_block_test(scheduler.get());
+}
+
 
 }
 }
