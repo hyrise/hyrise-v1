@@ -251,19 +251,18 @@ void Store::validatePositions(pos_list_t& pos, hyrise::tx::transaction_id_t last
   // Pos is nullptr, we should circumvent
   auto end = std::remove_if(std::begin(pos), std::end(pos), [&](const pos_t& v){ 
 
-    // We discard all those positions, which are invalid or the CID is larger
-    // than our last commit id. An invalid row is either already commited or from another write
-    if (_cidVector[v] > last_commit_id)
-      return true;
-
-    // Remove all writes from other transactions
-    if (_validityVector[v] == false && _tidVector[v] != tid) {
-      return true;
+    // Discard future inserts and past deletes
+    // future inserts: lastCID > CID and tid != tx.TID and valid==true
+    // past deletes: lasCID <= CID and tid != tx.TID and valid==false
+    if (_tidVector[v] != tid) {
+      if (_cidVector[v] > last_commit_id) {
+        if (_validityVector[v] == true)
+          return true;
+      } else {
+        if (_validityVector[v] == false)
+          return true;
+      }
     }
-
-    // Remove my own deleted records
-    if (_validityVector[v] == true && _tidVector[v] == tid)
-      return true;
 
     return false;
   } );
@@ -275,18 +274,18 @@ pos_list_t Store::buildValidPositions(hyrise::tx::transaction_id_t last_commit_i
   pos_list_t result;
   hyrise::functional::forEachWithIndex(_validityVector, [&](size_t i, bool v){  
 
-    // Remove newer commits
-    if (_cidVector[i] > last_commit_id)
-      return;
-
-    // Remove other writes
-    if (v == false && _tidVector[i] != tid) 
-      return;
-
-    // Discard my own deletes
-    if (v == true && _tidVector[i] == tid)
-      return;
-
+    // Discard future inserts and past deletes
+    // future inserts: lastCID > CID and tid != tx.TID and valid==true
+    // past deletes: lasCID <= CID and tid != tx.TID and valid==false
+    if (_tidVector[i] != tid) {
+      if (_cidVector[i] > last_commit_id) {
+        if (v == true)
+          return;
+      } else {
+        if (v == false)
+          return;
+      }
+    }
     
     result.push_back(i);
   });

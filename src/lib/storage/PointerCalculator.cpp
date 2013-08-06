@@ -430,5 +430,5 @@ void PointerCalculator::remove(const pos_list_t& pl) {
   auto res = std::remove_if(std::begin(*pos_list), std::end(*pos_list),[&tmp, &end](const pos_t& p){
     return tmp.count(p) != 0u;
   });
-  (*pos_list).erase(res);
+  (*pos_list).erase(res, pos_list->end());
 }

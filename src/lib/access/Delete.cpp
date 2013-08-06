@@ -27,7 +27,7 @@ void DeleteOp::executePlanOperation() {
 		modRecord.deletePos(tab->getActualTable(), p);
 
 		// This is bad as it can override other peoples delete that should fail later
-		store->setTid(p, _txContext.tid);
+		// store->setTid(p, _txContext.tid);
 	}
 	addResult(getInputTable(0));
 }
