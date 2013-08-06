@@ -24,7 +24,7 @@ namespace hyrise { namespace locking {
 		}
 
 	  bool tryLock() {
-	  	return !_state.exchange(Locked, std::memory_order_acquire) == Locked; 
+            return (!_state.exchange(Locked, std::memory_order_acquire)) == Locked; 
 	  }
   
 	  void unlock() {
