@@ -54,7 +54,7 @@ void PosUpdateScan::executePlanOperation() {
   for(const auto& p : *(c_pc->getPositions())) {
     // First delete the old record
     modRecord.deletePos(store, p);
-    store->setTid(p, _txContext.tid);
+    //store->setTid(p, _txContext.tid);
 
     // Copy the old row from the main
     store->copyRowToDelta(store, p, writeArea.first+counter, _txContext.tid, hidden);
