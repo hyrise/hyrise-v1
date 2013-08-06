@@ -57,10 +57,11 @@ unsigned getNodeForCore(unsigned core){
   hwloc_obj_t core_obj = hwloc_get_obj_by_type(topology, HWLOC_OBJ_CORE, core);
   for(unsigned i = 0; i < nodes; i++){
     obj = hwloc_get_obj_by_type(topology, HWLOC_OBJ_NODE, i);
-    if(hwloc_obj_is_in_subtree(topology, core_obj, obj)){
+    if (hwloc_obj_is_in_subtree(topology, core_obj, obj)){
       return i;
     }
   }
+  throw std::runtime_error("expected to find node for core");
 }
 //assumes equal number of cores per node
 unsigned getNumberOfCoresPerNumaNode(){
