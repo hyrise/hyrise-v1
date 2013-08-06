@@ -315,7 +315,7 @@ TEST_F(TransactionTests, delete_op_with_commit_and_concurrent_read) {
   writeCtx.cid = txmgr.prepareCommit();
 
   // write commit id to simulate trnasaction in the process of comitting
-  auto result = linxxxs->updateCommitID(*(pc->getPositions()), writeCtx.cid, false);
+  linxxxs->updateCommitID(*(pc->getPositions()), writeCtx.cid, false);
 
 
   

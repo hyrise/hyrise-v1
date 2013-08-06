@@ -32,7 +32,7 @@ using namespace boost::assign;
 namespace std {
 
 template<>
-class hash<subset_t> {
+struct hash<subset_t> {
 public:
 
   size_t operator()(const std::vector<unsigned> &ref) const {
