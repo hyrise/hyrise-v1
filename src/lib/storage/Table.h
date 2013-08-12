@@ -69,7 +69,7 @@ public:
         size_t initial_size = 0,
         bool sorted = true,
         bool compressed = true);
-
+  
   Table(): width(0), _compressed(false) {
   };
 

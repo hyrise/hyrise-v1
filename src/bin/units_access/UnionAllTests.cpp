@@ -64,12 +64,12 @@ TEST_F(UnionAllTests, vertical_nested_pointer_calculators) {
   auto pc1_l = std::make_shared<PointerCalculator>(t, new std::vector<size_t> {1}, new std::vector<size_t> {0, 1});
   auto pc1_r = std::make_shared<PointerCalculator>(t, new std::vector<size_t> {5}, new std::vector<size_t> {2, 3, 4});
   std::vector<storage::atable_ptr_t> pc1 {pc1_l , pc1_r};
-  auto mtv1  = std::make_shared<MutableVerticalTable>(pc1);
+  auto mtv1  = std::make_shared<storage::MutableVerticalTable>(pc1);
   
   auto pc2_l = std::make_shared<PointerCalculator>(t, new std::vector<size_t> {2, 3}, new std::vector<size_t> {0, 1});
   auto pc2_r = std::make_shared<PointerCalculator>(t, new std::vector<size_t> {2, 6}, new std::vector<size_t> {2, 3, 4});
   std::vector<storage::atable_ptr_t> pc2 {pc2_l , pc2_r};
-  auto mtv2  = std::make_shared<MutableVerticalTable>(pc2);
+  auto mtv2  = std::make_shared<storage::MutableVerticalTable>(pc2);
 
   UnionAll u;
   u.addInput(mtv1);
@@ -77,7 +77,7 @@ TEST_F(UnionAllTests, vertical_nested_pointer_calculators) {
   u.execute();
   
   const auto &result = u.getResultTable();
-  ASSERT_TRUE(std::dynamic_pointer_cast<const MutableVerticalTable>(result) != nullptr);
+  ASSERT_TRUE(std::dynamic_pointer_cast<const storage::MutableVerticalTable>(result) != nullptr);
   EXPECT_EQ(3u, result->size());
 }
 
@@ -93,7 +93,7 @@ TEST_F(UnionAllTests, mixed_input) {
 
   const auto &result = us.getResultTable();
 
-  ASSERT_TRUE(std::dynamic_pointer_cast<const HorizontalTable>(result) != nullptr);
+  ASSERT_TRUE(std::dynamic_pointer_cast<const storage::HorizontalTable>(result) != nullptr);
 }
 
 

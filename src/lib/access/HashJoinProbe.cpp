@@ -107,7 +107,7 @@ storage::atable_ptr_t HashJoinProbe::buildResultTable(storage::pos_list_t *build
   parts.push_back(probeTableRows);
   parts.push_back(buildTableRows);
 
-  storage::atable_ptr_t result = std::make_shared<MutableVerticalTable>(parts);
+  storage::atable_ptr_t result = std::make_shared<storage::MutableVerticalTable>(parts);
   return result;
 }
 

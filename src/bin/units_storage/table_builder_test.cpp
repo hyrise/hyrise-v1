@@ -4,6 +4,8 @@
 
 #include <storage/TableBuilder.h>
 
+namespace hyrise { namespace storage {
+
 class TableBuilderTest : public ::hyrise::Test {};
 
 TEST_F(TableBuilderTest, simple_param) {
@@ -130,3 +132,5 @@ TEST_F(TableBuilderTest, build_table_with_bad_layout_should_throw) {
 
   ASSERT_THROW(TableBuilder::build(list), TableBuilderError);
 }
+
+}}

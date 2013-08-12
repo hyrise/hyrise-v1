@@ -14,6 +14,8 @@
 #include <helper/types.h>
 #include <helper/vector_helpers.h>
 
+namespace hyrise { namespace storage {
+
 class MergeTests : public ::hyrise::Test {};
 
 
@@ -343,3 +345,6 @@ TEST_F(MergeTests, store_merge_compex) {
 
   EXPECT_RELATION_EQ(ref, result[0]); 
 }
+
+
+}}

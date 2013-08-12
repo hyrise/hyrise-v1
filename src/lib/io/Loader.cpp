@@ -14,6 +14,8 @@
 #include "storage/TableGenerator.h"
 #include "storage/MutableVerticalTable.h"
 
+using namespace hyrise;
+
 log4cxx::LoggerPtr logger(log4cxx::Logger::getLogger("hyrise.io.Loader"));
 
 param_ref_member_impl(Loader::params, AbstractInput, Input)
@@ -104,7 +106,7 @@ std::shared_ptr<AbstractTable> Loader::load(const params &args) {
 
   std::shared_ptr<AbstractTable>
   result, //initialize empty
-  table = std::make_shared<MutableVerticalTable>(*meta, nullptr, 0, false, factory, args.getCompressed());
+      table = std::make_shared<storage::MutableVerticalTable>(*meta, nullptr, 0, false, factory, args.getCompressed());
 
   LOG4CXX_DEBUG(logger, "Loading data");
   try {

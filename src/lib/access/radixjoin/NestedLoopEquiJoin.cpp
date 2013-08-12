@@ -116,7 +116,7 @@ void NestedLoopEquiJoin::executePlanOperation() {
   vc.push_back(loutput);
   vc.push_back(routput);
 
-  storage::atable_ptr_t result = std::make_shared<MutableVerticalTable>(vc);
+  storage::atable_ptr_t result = std::make_shared<storage::MutableVerticalTable>(vc);
   addResult(result);
 }
 

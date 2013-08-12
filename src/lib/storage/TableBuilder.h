@@ -11,7 +11,7 @@
 
 #include "AbstractTable.h"
 
-
+namespace hyrise { namespace storage {
 
 class TableBuilderError : public std::runtime_error {
 public:
@@ -117,5 +117,6 @@ private:
 
 };
 
+}}
 
 #endif  // SRC_LIB_STORAGE_TABLEBUILDER_H_

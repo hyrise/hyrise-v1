@@ -91,7 +91,7 @@ public:
       std::dynamic_pointer_cast<AbstractTable>(PointerCalculatorFactory::createPointerCalculatorNonRef(input.getTable(1), nullptr, right_pos))
     });
 
-    addResult(std::make_shared<MutableVerticalTable>(parts));
+    addResult(std::make_shared<storage::MutableVerticalTable>(parts));
   }
 
   const std::string vname() {

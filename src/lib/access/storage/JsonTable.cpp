@@ -29,12 +29,12 @@ struct set_string_value_functor {
 
 	typedef void value_type;
 
-	hyrise::storage::atable_ptr_t tab;
+	storage::atable_ptr_t tab;
 	size_t col;
 	size_t row;
 	std::string val;
 
-	set_string_value_functor(hyrise::storage::atable_ptr_t t): tab(t), col(0), row(0) {
+	set_string_value_functor(storage::atable_ptr_t t): tab(t), col(0), row(0) {
 	}
 
 	inline void set(size_t c, size_t r, std::string& v) {
@@ -50,7 +50,7 @@ struct set_string_value_functor {
 
 void JsonTable::executePlanOperation() {
 
-	TableBuilder::param_list list;
+  storage::TableBuilder::param_list list;
 
 	for(size_t i=0, attr_size = _names.size(); i < attr_size; ++i)
 		list.append().set_name(_names[i]).set_type(_types[i]);
@@ -59,11 +59,9 @@ void JsonTable::executePlanOperation() {
 		list.appendGroup(_groups[i]);
 
 
-	hyrise::storage::atable_ptr_t result = TableBuilder::build(list);
+        storage::atable_ptr_t result = storage::TableBuilder::build(list);
 	if (_useStoreFlag) {
-		auto tmp = std::make_shared<Store>(TableBuilder::build(list));
-		tmp->setDefaultMerger();
-		result = tmp;
+		result = std::make_shared<Store>(result);
 	}
 
 	// Add the rows if any
