@@ -48,7 +48,8 @@ std::string rawurldecode(const std::string &input) {
 }
 
 std::string urldecode(const std::string &input) {
-  std::string buf = rawurldecode(input);
-  std::replace(buf.begin(), buf.end(), '+', ' ');
+  auto tmp(input);
+  std::replace(tmp.begin(), tmp.end(), '+', ' ');
+  std::string buf = rawurldecode(tmp);
   return buf;
 }

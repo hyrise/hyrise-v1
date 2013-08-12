@@ -57,8 +57,7 @@ void Commit::executePlanOperation() {
 		}	
 	}
 
-	txmgr.commit(_txContext.tid);
-	
+	txmgr.commit(_txContext.tid);	
 }
 
 std::shared_ptr<PlanOperation> Commit::parse(Json::Value &data) {

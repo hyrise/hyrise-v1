@@ -40,12 +40,15 @@ class ColumnSorter {
 
   const storage::c_atable_ptr_t &_t;
   field_t _f;
+  bool _asc;
 
 public:
   ColumnSorter(const storage::c_atable_ptr_t &t,
-               const field_t f):
+               const field_t f,
+               const bool asc):
                _t(t),
-               _f(f) {
+               _f(f),
+               _asc(asc) {
   }
 
   std::vector<pos_t>* sort() const {
@@ -55,10 +58,19 @@ public:
       result.push_back({ExtractFunctor<T>::extractValue(_t, _f, row), row});
     }
 
+    auto asc_sort = [](const pair_t& left, const pair_t& right) { 
+      return (left.value < right.value); 
+    };
+
+    auto desc_sort = [](const pair_t& left, const pair_t& right) { 
+      return (left.value > right.value); 
+    };
+
+
     std::stable_sort(result.begin(),
                      result.end(),
-                     [](const pair_t& left, const pair_t& right)
-                     { return left.value < right.value; });
+                     _asc ? asc_sort : desc_sort
+                     );
 
     auto r = new std::vector<pos_t>;
     r->reserve(result.size());
@@ -86,17 +98,17 @@ void SortScan::executePlanOperation() {
   // TODO: fix Table<> template
   auto base_table = std::dynamic_pointer_cast<const Table>(table);
   if ((table->dictionaryAt(_sort_field)->isOrdered()) && (base_table)) {
-    sorted_pos = ColumnSorter<ValueId, ExtractValueId>(table, _sort_field).sort();
+    sorted_pos = ColumnSorter<ValueId, ExtractValueId>(table, _sort_field, asc).sort();
   } else {
     switch (table->metadataAt(_sort_field)->getType()) {
       case IntegerType:
-        sorted_pos = ColumnSorter<hyrise_int_t, ExtractValue>(table, _sort_field).sort();
+        sorted_pos = ColumnSorter<hyrise_int_t, ExtractValue>(table, _sort_field, asc).sort();
         break;
       case FloatType:
-        sorted_pos = ColumnSorter<hyrise_float_t, ExtractValue>(table, _sort_field).sort();
+        sorted_pos = ColumnSorter<hyrise_float_t, ExtractValue>(table, _sort_field, asc).sort();
         break;
       case StringType:
-        sorted_pos = ColumnSorter<hyrise_string_t, ExtractValue>(table, _sort_field).sort();
+        sorted_pos = ColumnSorter<hyrise_string_t, ExtractValue>(table, _sort_field, asc).sort();
         break;
       default:
         throw std::runtime_error("Datatype not supported");
@@ -121,6 +133,8 @@ void SortScan::executePlanOperation() {
 std::shared_ptr<PlanOperation> SortScan::parse(Json::Value &data) {
   std::shared_ptr<SortScan> s = std::make_shared<SortScan>();
   s->setSortField(data["fields"][0u].asUInt());
+  if (data.isMember("asc"))
+    s->asc = data["asc"].asBool();
   return s;
 }
 

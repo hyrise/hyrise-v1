@@ -8,11 +8,13 @@
 #include <storage/Store.h>
 #include <storage/PointerCalculator.h>
 
+#include <log4cxx/logger.h>
 
 namespace hyrise { namespace access {
 
 namespace {
   auto _ = QueryParser::registerPlanOperation<DeleteOp>("Delete");
+  log4cxx::LoggerPtr logger(log4cxx::Logger::getLogger("access.plan.Delete"));
 }
 
 
@@ -24,6 +26,7 @@ void DeleteOp::executePlanOperation() {
 	// Modifications record 
 	auto& modRecord = tx::TransactionManager::getInstance()[_txContext.tid];
 	for(const auto& p : *(tab->getPositions())) {
+		LOG4CXX_DEBUG(logger, "Deleting row:" << p);
 		modRecord.deletePos(tab->getActualTable(), p);
 
 		// This is bad as it can override other peoples delete that should fail later

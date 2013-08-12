@@ -18,6 +18,7 @@ public:
 
 private:
   unsigned _sort_field;
+  bool asc = true;
 };
 
 }

@@ -269,7 +269,7 @@ void Store::validatePositions(pos_list_t& pos, hyrise::tx::transaction_id_t last
     return false;
   } );
   if (end != pos.end())
-    pos.erase(end);
+    pos.erase(end, pos.end());
 }
 
 pos_list_t Store::buildValidPositions(hyrise::tx::transaction_id_t last_commit_id, hyrise::tx::transaction_id_t tid, bool& all) const {
@@ -335,7 +335,7 @@ hyrise::tx::TX_CODE Store::updateCommitID(const pos_list_t& pos, hyrise::tx::tra
 
 hyrise::tx::TX_CODE Store::checkCommitID(const pos_list_t& pos, hyrise::tx::transaction_id_t old_cid) {
   for(const auto& p : pos) {
-    if (_cidVector[p] != old_cid) 
+    if (_cidVector[p] > old_cid) 
       return hyrise::tx::TX_CODE::TX_FAIL_CONCURRENT_COMMIT;
   }
   return hyrise::tx::TX_CODE::TX_OK;

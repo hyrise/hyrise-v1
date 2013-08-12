@@ -76,6 +76,12 @@ class ValueId {
     return valueId<o.valueId;
   }
 
+  bool operator>(const ValueId &o) const {
+    if (table!=o.table)
+      throw std::runtime_error("comparing value ids of different tables");
+    return valueId>o.valueId;
+  }
+
   friend inline std::ostream& operator<<(std::ostream& os, const ValueId& v) {
     os << "<ValueID v:" << v.valueId << " t:" << (int) v.table << ">";
     return os;
