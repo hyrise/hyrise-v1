@@ -139,6 +139,10 @@ void RequestParseTask::operator()() {
     // Update the transmission limit for the response task
     if (atoi(body_data["limit"].c_str()) > 0)
       _responseTask->setTransmitLimit(atol(body_data["limit"].c_str()));
+
+    if (atoi(body_data["offset"].c_str()) > 0)
+      _responseTask->setTransmitOffset(atol(body_data["offset"].c_str()));
+
   } else {
     LOG4CXX_WARN(_logger, "no body received!");
   }

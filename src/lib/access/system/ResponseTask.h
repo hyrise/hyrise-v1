@@ -16,15 +16,18 @@ class PlanOperation;
 class ResponseTask : public Task {
  private:
   net::AbstractConnection *connection;
-  size_t _transmitLimit; // Used for serialization only
-  epoch_t queryStart;
+  
+  size_t _transmitLimit = 0; // Used for serialization only
+  size_t _transmitOffset = 0; // Used for serialization only
+
+  epoch_t queryStart = 0;
   performance_vector_t performance_data;
   std::mutex perfMutex;
   std::mutex errorMutex;
   std::vector<std::string> _error_messages;
  public:
   explicit ResponseTask(net::AbstractConnection *connection) :
-      connection(connection), _transmitLimit(0), queryStart(0) {
+      connection(connection) {
   }
 
   virtual ~ResponseTask() {}
@@ -52,6 +55,10 @@ class ResponseTask : public Task {
 
   void setTransmitLimit(size_t l) {
     _transmitLimit = l;
+  }
+
+  void setTransmitOffset(size_t o) {
+    _transmitOffset = o;
   }
 
   performance_vector_t& getPerformanceData() {

@@ -43,11 +43,15 @@ struct json_functor {
 };
 
 template<typename T>
-Json::Value generateRowsJsonT(const T& table, const size_t transmitLimit) {
+Json::Value generateRowsJsonT(const T& table, const size_t transmitLimit, const size_t transmitOffset) {
   hyrise::storage::type_switch<hyrise_basic_types> ts;
   json_functor<T> fun(table);
   Json::Value rows(Json::arrayValue);
   for (size_t row = 0; row < table->size(); ++row) {
+
+    // Align offset
+    if (row < transmitOffset)
+      continue;
 
     fun.row = row;
     Json::Value json_row(Json::arrayValue);
@@ -57,18 +61,19 @@ Json::Value generateRowsJsonT(const T& table, const size_t transmitLimit) {
     }
     rows.append(json_row);
 
-    if (transmitLimit > 0 && row == transmitLimit)
+    // Break if limit reached
+    if (transmitLimit > 0 && row == (transmitOffset + transmitLimit))
       break;
   }
   return rows;
 }
 
 Json::Value generateRowsJson(const std::shared_ptr<const AbstractTable>& table,
-                             const size_t transmitLimit) {
+                             const size_t transmitLimit, const size_t transmitOffset) {
   if (const auto& store = std::dynamic_pointer_cast<const hyrise::storage::SimpleStore>(table)) {
-      return generateRowsJsonT(store, transmitLimit);
+      return generateRowsJsonT(store, transmitLimit, transmitOffset);
   } else {
-      return generateRowsJsonT(table, transmitLimit);
+      return generateRowsJsonT(table, transmitLimit, transmitOffset);
   }
 }
 
@@ -129,7 +134,7 @@ void ResponseTask::operator()() {
 
         // Copy the complete result
         response["real_size"] = result->size();
-        response["rows"] = generateRowsJson(result, _transmitLimit);
+        response["rows"] = generateRowsJson(result, _transmitLimit, _transmitOffset);
         response["header"] = json_header;
       }
 
