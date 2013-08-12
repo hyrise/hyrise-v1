@@ -71,7 +71,7 @@ void MultiplyRefField::executeMultiply() {
 	auto left = PointerCalculatorFactory::createPointerCalculator(getInputTable(), nullptr, pos);
 
 	std::vector<storage::atable_ptr_t> vc({left, result});
-	storage::atable_ptr_t tt = std::make_shared<MutableVerticalTable>(vc);
+	storage::atable_ptr_t tt = std::make_shared<storage::MutableVerticalTable>(vc);
 	addResult(tt);
 }
 

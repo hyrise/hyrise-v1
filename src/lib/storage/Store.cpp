@@ -14,6 +14,7 @@ Store::Store(std::vector<std::vector<const ColumnMetadata *> *> md) :
 
 Store::Store() :
   merger(nullptr) {
+  setDefaultMerger();
 }
 
 Store::Store(hyrise::storage::atable_ptr_t main_table) :
@@ -23,6 +24,7 @@ Store::Store(hyrise::storage::atable_ptr_t main_table) :
   _cidVector(main_table->size(), hyrise::tx::UNKNOWN),
   _tidVector(main_table->size(), hyrise::tx::UNKNOWN) {
   main_tables.push_back(main_table);
+  setDefaultMerger();
 }
 
 Store::~Store() {

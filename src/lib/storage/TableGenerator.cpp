@@ -19,6 +19,8 @@
 #include <storage/TableMerger.h>
 #include <helper/Progress.h>
 
+namespace hyrise { namespace storage {
+
 TableGenerator::TableGenerator(bool quiet) : _quiet(quiet), _steps(50), _prepareSize(0) {
 }
 
@@ -966,3 +968,6 @@ hyrise::storage::atable_ptr_t TableGenerator::int_random_weighted_delta(size_t r
 
   return new_table;
 }
+
+
+}}

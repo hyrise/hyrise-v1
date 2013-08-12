@@ -17,6 +17,9 @@
 #include <testing/TableEqualityTest.h>
 
 namespace hyrise { namespace access {
+
+using storage::TableBuilder;
+
 class TransactionTests : public AccessTest {
 
 public:

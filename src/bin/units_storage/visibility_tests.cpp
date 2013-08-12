@@ -13,6 +13,8 @@
 
 #include <testing/TableEqualityTest.h>
 
+namespace  hyrise { namespace storage {
+
 class VisibilityTests : public ::hyrise::Test {
 
 public:
@@ -173,3 +175,5 @@ TEST_F (VisibilityTests, read_writes_after_commit_old_cid) {
 	auto r = std::make_shared<PointerCalculator>(linxxxs, tmp2);
 	EXPECT_RELATION_EQ(Loader::shortcuts::load("test/lin_xxxs.tbl"), r);
 }
+
+}}

@@ -34,11 +34,11 @@ class TXBase : public ::testing::Benchmark {
   void BenchmarkSetUp() {
     auto& txmgr = tx::TransactionManager::getInstance();
     txmgr.reset();
-    TableBuilder::param_list list2;
+    storage::TableBuilder::param_list list2;
     list2.append().set_type("INTEGER").set_name("col_0");
     list2.append().set_type("INTEGER").set_name("col_1");
 
-    one_row = TableBuilder::build(list2);
+    one_row = storage::TableBuilder::build(list2);
     one_row->resize(1);
     one_row->setValue<hyrise_int_t>(0,0, 99);
     one_row->setValue<hyrise_int_t>(1,0, 999);

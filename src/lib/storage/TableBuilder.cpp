@@ -5,6 +5,8 @@
 #include "storage/Table.h"
 #include "storage/MutableVerticalTable.h"
 
+namespace hyrise { namespace storage {
+
 void TableBuilder::checkParams(const param_list &args) {
   if (args.size() == 0)
     throw TableBuilderError("Cannot build a table with no columns");
@@ -57,3 +59,6 @@ hyrise::storage::atable_ptr_t TableBuilder::build(param_list args, const bool co
 
   return std::move(std::make_shared<MutableVerticalTable>(base));
 }
+
+
+}}

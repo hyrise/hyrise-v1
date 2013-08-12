@@ -9,8 +9,11 @@
 #include "testing/TableEqualityTest.h"
 #include <storage/TableBuilder.h>
 
+
+
 namespace hyrise {
 namespace access {
+using storage::TableBuilder;
 
 class RadixJoinTest : public AccessTest {};
 

@@ -23,10 +23,6 @@
 #include <storage/ValueIdMap.hpp>
 
 
-class Table;
-class Store;
-
-class MutableVerticalTable;
 class ColumnMetadata;
 class AbstractDictionary;
 class AbstractAttributeVector;
@@ -122,7 +118,7 @@ public:
    * @param initial_size    Initial size of the returned table (default=0).
    * @param with_containers Only used by derived classes.
    */
-  hyrise::storage::atable_ptr_t copy_structure_modifiable(const field_list_t *fields = nullptr, const size_t initial_size = 0, const bool with_containers = true) const;
+  virtual hyrise::storage::atable_ptr_t copy_structure_modifiable(const field_list_t *fields = nullptr, const size_t initial_size = 0, const bool with_containers = true) const;
 
 
   /**
