@@ -69,7 +69,7 @@ Possible TID Combinations
 ::
 	
 	+----------------+---------------+--------+--------+---------------+
-	| lastCID > CID  | TID=tx.TID    | valid  | Keep?  | Comment       |
+	| CID > lastCID  | TID = tx.TID  | valid  | Keep?  | Comment       |
 	+================+===============+========+========+===============+ 
 	| yes            |  yes          | yes    | --     | impossible    |
 	| no             |  yes          | yes    | --     | impossible    |
