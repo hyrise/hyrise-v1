@@ -5,7 +5,6 @@
 #include "access/system/QueryParser.h"
 
 #include "storage/MutableVerticalTable.h"
-#include "storage/PointerCalculatorFactory.h"
 #include "storage/PointerCalculator.h"
 
 namespace hyrise {
@@ -108,8 +107,8 @@ void NestedLoopEquiJoin::executePlanOperation() {
     right = rp->getActualTable();
 
   // create PointerCalculator and pos_lists for output
-  auto loutput = PointerCalculatorFactory::createPointerCalculator(left, nullptr, lpos_list);
-  auto routput = PointerCalculatorFactory::createPointerCalculator(right, nullptr, rpos_list);
+  auto loutput = PointerCalculator::create(left, lpos_list);
+  auto routput = PointerCalculator::create(right, rpos_list);
 
   // build output table
   std::vector<storage::atable_ptr_t > vc;

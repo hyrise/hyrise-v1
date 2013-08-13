@@ -9,7 +9,6 @@
 #include "helper/types.h"
 
 #include "storage/PointerCalculator.h"
-#include "storage/PointerCalculatorFactory.h"
 
 namespace hyrise {
 namespace access {
@@ -47,9 +46,7 @@ void Distinct::executePlanOperation() {
     pos->push_back(e.second);
 
   // Return pointer calculator
-  addResult(PointerCalculatorFactory::createPointerCalculator(input.getTable(0),
-                                                              nullptr,
-                                                              pos));
+  addResult(PointerCalculator::create(input.getTable(0), pos));
 }
 
 std::shared_ptr<PlanOperation> Distinct::parse(Json::Value &data) {

@@ -9,7 +9,7 @@
 #include <helper/types.h>
 #include <storage/AbstractTable.h>
 #include <access/system/PlanOperation.h>
-#include <storage/PointerCalculatorFactory.h>
+#include <storage/PointerCalculator.h>
 
 namespace hyrise { namespace access {
 
@@ -87,8 +87,8 @@ class HashValueJoin : public PlanOperation {
     // if it's the build table or not
     std::vector<hyrise::storage::atable_ptr_t > parts;
     // FIXME: Worst stuff ever
-    auto build_pc = std::const_pointer_cast<AbstractTable>(std::dynamic_pointer_cast<const AbstractTable>(PointerCalculatorFactory::createPointerCalculatorNonRef(build_table, nullptr, build_pos)));
-    auto probe_pc = std::const_pointer_cast<AbstractTable>(std::dynamic_pointer_cast<const AbstractTable>(PointerCalculatorFactory::createPointerCalculatorNonRef(probe_table, nullptr, probe_pos)));
+    auto build_pc = std::const_pointer_cast<AbstractTable>(std::dynamic_pointer_cast<const AbstractTable>(PointerCalculator::create(build_table, build_pos)));
+    auto probe_pc = std::const_pointer_cast<AbstractTable>(std::dynamic_pointer_cast<const AbstractTable>(PointerCalculator::create(probe_table, probe_pos)));
     if (build_table == input.getTable(0)) {
       parts.push_back(build_pc);
       parts.push_back(probe_pc);

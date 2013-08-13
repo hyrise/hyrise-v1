@@ -193,7 +193,7 @@ TEST_F(TransactionTests, delete_op) {
   size_t before = linxxxs->size();
   
   // Add One read all
-  auto pc = PointerCalculatorFactory::createPointerCalculator(linxxxs, nullptr, new pos_list_t({0}));
+  auto pc = PointerCalculator::create(linxxxs, new pos_list_t({0}));
   ASSERT_EQ(1u, pc->size());
 
   DeleteOp del;
@@ -235,7 +235,7 @@ TEST_F(TransactionTests, read_your_own_deletes) {
   size_t before = linxxxs->size();
   
   // Add One read all
-  auto pc = PointerCalculatorFactory::createPointerCalculator(linxxxs, nullptr, new pos_list_t({0}));
+  auto pc = PointerCalculator::create(linxxxs, new pos_list_t({0}));
   ASSERT_EQ(1u, pc->size());
 
   DeleteOp del;
@@ -269,7 +269,7 @@ TEST_F(TransactionTests, delete_op_and_concurrent_read) {
   size_t before = linxxxs->size();
   
   // Add One read all
-  auto pc = PointerCalculatorFactory::createPointerCalculator(linxxxs, nullptr, new pos_list_t({0}));
+  auto pc = PointerCalculator::create(linxxxs, new pos_list_t({0}));
   ASSERT_EQ(1u, pc->size());
 
   DeleteOp del;
@@ -304,7 +304,7 @@ TEST_F(TransactionTests, delete_op_with_commit_and_concurrent_read) {
   size_t before = linxxxs->size();
   
   // Delete positiotn 0
-  auto pc = PointerCalculatorFactory::createPointerCalculator(linxxxs, nullptr, new pos_list_t({0}));
+  auto pc = PointerCalculator::create(linxxxs, new pos_list_t({0}));
   ASSERT_EQ(1u, pc->size());
 
   DeleteOp del;
@@ -352,7 +352,7 @@ TEST_F(TransactionTests, delete_op_and_merge) {
   size_t before = linxxxs->size();
 
   // Add One read all
-  auto pc = PointerCalculatorFactory::createPointerCalculator(linxxxs, nullptr, new pos_list_t({0}));
+  auto pc = PointerCalculator::create(linxxxs, new pos_list_t({0}));
   ASSERT_EQ(1u, pc->size());
 
   DeleteOp del;
@@ -406,7 +406,7 @@ TEST_F(TransactionTests, update_and_read_values) {
   size_t before = linxxxs->size();
   
   // create PC to simulate position
-  auto pc = PointerCalculatorFactory::createPointerCalculator(linxxxs, nullptr, new pos_list_t({0,4}));
+  auto pc = PointerCalculator::create(linxxxs, new pos_list_t({0,4}));
 
   PosUpdateScan is;
   is.setTXContext(writeCtx);
@@ -447,7 +447,7 @@ TEST_F(TransactionTests, update_and_merge) {
   size_t before = linxxxs->size();
   
   // create PC to simulate position
-  auto pc = PointerCalculatorFactory::createPointerCalculator(linxxxs, nullptr, new pos_list_t({0,4}));
+  auto pc = PointerCalculator::create(linxxxs, new pos_list_t({0,4}));
 
   PosUpdateScan is;
   is.setTXContext(writeCtx);

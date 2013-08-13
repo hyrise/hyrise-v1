@@ -5,7 +5,6 @@
 
 #include "storage/meta_storage.h"
 #include "storage/PointerCalculator.h"
-#include "storage/PointerCalculatorFactory.h"
 #include "storage/RawTable.h"
 #include "storage/MutableVerticalTable.h"
 
@@ -108,9 +107,7 @@ void SimpleRawTableScan::executePlanOperation() {
   if (_materializing) {
     addResult(result);
   } else {
-    addResult(PointerCalculatorFactory::createPointerCalculatorNonRef(table,
-                                                                      nullptr,
-                                                                      positions));
+    addResult(PointerCalculator::create(table, positions));
   }
 }
 
