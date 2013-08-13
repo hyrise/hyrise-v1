@@ -55,7 +55,7 @@ PointerCalculator::PointerCalculator(const PointerCalculator& other) : table(oth
 }
 
 hyrise::storage::atable_ptr_t PointerCalculator::copy() const {
-  return std::make_shared<PointerCalculator>(table, fields, pos_list);
+  return create(table, fields, pos_list);
 }
 
 PointerCalculator::~PointerCalculator() {
@@ -344,7 +344,7 @@ std::shared_ptr<PointerCalculator> PointerCalculator::intersect(const std::share
                         std::back_inserter(*result));
 
   assert((other->table == this->table) && "Should point to same table");
-  return std::make_shared<PointerCalculator>(table, result, fields);
+  return create(table, result, fields);
 }
 
 
@@ -356,12 +356,12 @@ std::shared_ptr<PointerCalculator> PointerCalculator::unite(const std::shared_pt
     std::set_union(pos_list->begin(), pos_list->end(),
                    other->pos_list->begin(), other->pos_list->end(),
                    result->begin());
-    return std::make_shared<PointerCalculator>(table, result, copy_vec(fields));
+    return create(table, result, copy_vec(fields));
   } else {
     pos_list_t* positions = nullptr;
     if (pos_list == nullptr) { positions = other->pos_list; }
     if (other->pos_list == nullptr) { positions = pos_list; }
-    return std::make_shared<PointerCalculator>(table, copy_vec(positions), copy_vec(fields));
+    return create(table, copy_vec(positions), copy_vec(fields));
   }
 }
 
@@ -405,7 +405,7 @@ std::shared_ptr<PointerCalculator> PointerCalculator::concatenate_many(pc_vector
   /*if (unordered_result)
     std::sort(begin(*result), end(*result));*/
 
-  return std::make_shared<PointerCalculator>(table, result, nullptr);
+  return create(table, result, nullptr);
 }
 
 void PointerCalculator::debugStructure(size_t level) const {

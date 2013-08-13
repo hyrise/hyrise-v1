@@ -6,7 +6,6 @@
 
 #include "storage/storage_types.h"
 #include "storage/PointerCalculator.h"
-#include "storage/PointerCalculatorFactory.h"
 
 namespace hyrise {
 namespace access {
@@ -24,7 +23,6 @@ void ProjectionScan::executePlanOperation() {
   _limit = _limit > input.getTable(0)->size() ? input.getTable(0)->size() : _limit;
 
   storage::pos_list_t *pos_list = nullptr;
-
   if (_limit != input.getTable(0)->size()) {
     pos_list = new pos_list_t();
 
@@ -35,7 +33,7 @@ void ProjectionScan::executePlanOperation() {
 
   // copy the field definition
   std::vector<field_t> *tmp_fd = new std::vector<field_t>(_field_definition);
-  addResult(PointerCalculatorFactory::createPointerCalculatorNonRef(input.getTable(0), tmp_fd, pos_list));
+  addResult(PointerCalculator::create(input.getTable(0), pos_list, tmp_fd));
 }
 
 std::shared_ptr<PlanOperation> ProjectionScan::parse(Json::Value &data) {

@@ -5,7 +5,6 @@
 #include "access/system/QueryParser.h"
 
 #include "storage/PointerCalculator.h"
-#include "storage/PointerCalculatorFactory.h"
 
 namespace hyrise {
 namespace access {

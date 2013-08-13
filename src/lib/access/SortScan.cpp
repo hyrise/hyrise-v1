@@ -7,7 +7,6 @@
 
 #include "storage/AbstractTable.h"
 #include "storage/PointerCalculator.h"
-#include "storage/PointerCalculatorFactory.h"
 #include "storage/Table.h"
 
 namespace hyrise {
@@ -106,7 +105,7 @@ void SortScan::executePlanOperation() {
   storage::atable_ptr_t result;
 
   if (producesPositions) {
-    result = PointerCalculatorFactory::createPointerCalculatorNonRef(table, nullptr, sorted_pos);
+    result = PointerCalculator::create(table, sorted_pos);
   } else {
     result = table->copy_structure_modifiable(nullptr, true);
     size_t result_row = 0;

@@ -7,12 +7,14 @@
 #include <algorithm>
 
 #include "helper/types.h"
+#include "helper/SharedFactory.h"
 
 #include "storage/AbstractTable.h"
 #include "storage/MutableVerticalTable.h"
 
+
 class PointerCalculator : public AbstractTable,
-                          public std::enable_shared_from_this<PointerCalculator> {
+                          public SharedFactory<PointerCalculator> {
 private:
   hyrise::storage::c_atable_ptr_t table;
   pos_list_t *pos_list;
@@ -25,7 +27,6 @@ private:
 
 protected:
   void updateFieldMapping();
-
 public:
   PointerCalculator(hyrise::storage::c_atable_ptr_t t, pos_list_t *pos = nullptr, field_list_t *f = nullptr);
   PointerCalculator(const PointerCalculator& other);
