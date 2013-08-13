@@ -43,7 +43,9 @@
 	size_t lower = 0; \
 	pl->clear(); \
 	const auto& first_vector = EXPR_DATA_VECTOR_NAME(EXPR_FIELD_VAL(seq_of_fields, 0)); \
-	for(size_t part =0, part_size = first_vector.size(); part < part_size; ++part) {\
+	size_t part_size = first_vector.size();\
+	part_size -= _with_delta ? 0 : 1;\
+	for(size_t part =0; part < part_size; ++part) {\
 		auto rows_in_part = first_vector[part]->size(); \
 		BOOST_PP_SEQ_FOR_EACH(EXPR_EXTRACT_VID_AND_MAP,, seq_of_fields);\
 		if (stop < (rows_in_part + lower)) \
@@ -78,6 +80,7 @@
 	}\
 	std::unique_ptr<name> name::parse(const Json::Value& val) {\
 		auto res = make_unique<name>();\
+		if (val.isMember("withDelta")) res->_with_delta = val["withDelta"].asBool();\
 		BOOST_PP_SEQ_FOR_EACH(EXPR_EXTRACT_FFROM_JSON, res, seq_of_fields);\
 		return res;\
 	}\
@@ -87,6 +90,7 @@
 		using VectorType = FixedLengthVector<value_id_t>;\
 		using SharedVectorType = std::shared_ptr<VectorType>;\
 		hyrise::storage::c_store_ptr_t _store;\
+		bool _with_delta=true;\
 		BOOST_PP_SEQ_FOR_EACH(EXPRESSION_ADD_REFERENCE_FIELD,,seq_of_fields);\
 	public:\
 		name(); \

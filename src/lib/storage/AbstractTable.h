@@ -22,6 +22,11 @@
 #include <storage/ColumnMetadata.h>
 #include <storage/ValueIdMap.hpp>
 
+#include <boost/lexical_cast.hpp>
+#include <boost/uuid/uuid.hpp>
+#include <boost/uuid/uuid_generators.hpp>
+#include <boost/uuid/uuid_io.hpp>
+
 
 class ColumnMetadata;
 class AbstractDictionary;
@@ -62,6 +67,9 @@ class AbstractTable : public AbstractResource {
 private:
 
   unsigned _generation;
+
+  // Global unique identifier for this object
+  boost::uuids::uuid _uuid = boost::uuids::random_generator()();
   
 public:
 
@@ -388,7 +396,19 @@ public:
    */
   template <typename T>
   void setValue(const size_t column, const size_t row, const T &value) {
-    ValueId valueId = getValueIdForValue(column, value, true);
+    const auto& map = std::dynamic_pointer_cast<BaseDictionary<T>>(dictionaryAt(column, row));
+
+    ValueId valueId;
+    valueId.table = 0;
+
+    if (map->valueExists(value)) {
+      valueId.valueId = map->getValueIdForValue(value);
+    } else {
+      valueId.valueId = map->addValue(value);
+    }
+
+    //return valueId;
+    //ValueId valueId = getValueIdForValue(column, value, true);
     setValueId(column, row, valueId);
 
   }
@@ -538,6 +558,10 @@ public:
   virtual const attr_vectors_t getAttributeVectors(size_t column) const;
 
   virtual void debugStructure(size_t level=0) const;
+
+  boost::uuids::uuid getUuid() const;
+
+  void setUuid(boost::uuids::uuid u);
   
 };
 

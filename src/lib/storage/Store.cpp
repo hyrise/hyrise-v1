@@ -92,17 +92,17 @@ void Store::setDictionaryAt(AbstractTable::SharedDictionaryPtr dict, const size_
 }
 
 const AbstractTable::SharedDictionaryPtr& Store::dictionaryAt(const size_t column, const size_t row, const table_id_t table_id) const {
-  if (!row) {
-    return this->dictionaryByTableId(column, table_id);
-  }
+  // if (!row) {
+  //   return this->dictionaryByTableId(column, table_id);
+  // }
 
-  if (table_id) {
-    if (table_id < main_tables.size()) {
-      return main_tables[table_id]->dictionaryAt(column, row);
-    } else {
-      return delta->dictionaryAt(column, row);
-    }
-  }
+  // if (table_id) {
+  //   if (table_id < main_tables.size()) {
+  //     return main_tables[table_id]->dictionaryAt(column, row);
+  //   } else {
+  //     return delta->dictionaryAt(column, row);
+  //   }
+  // }
 
   size_t offset = 0;
 
@@ -164,6 +164,10 @@ size_t Store::size() const {
   size_t main_tables_size = hyrise::functional::foldLeft(main_tables, 0ul, 
     [](size_t s, const hyrise::storage::atable_ptr_t& t){return s + t->size();});
   return main_tables_size + delta->size();
+}
+
+size_t Store::deltaOffset() const {
+  return size() - delta->size();
 }
 
 size_t Store::columnCount() const {
@@ -288,6 +292,8 @@ pos_list_t Store::buildValidPositions(hyrise::tx::transaction_id_t last_commit_i
           return;
       }
     }
+
+
     
     result.push_back(i);
   });
@@ -295,32 +301,34 @@ pos_list_t Store::buildValidPositions(hyrise::tx::transaction_id_t last_commit_i
 }
 
 std::pair<size_t, size_t> Store::resizeDelta(size_t num) {
+  assert(num > delta->size());
+  return appendToDelta(num - delta->size());
+}
+
+std::pair<size_t, size_t> Store::appendToDelta(size_t num) {
   static hyrise::locking::Spinlock mtx;
   hyrise::locking::ScopedLock<hyrise::locking::Spinlock> lck(mtx);
 
-  assert(num > delta->size());
-  std::pair<size_t, size_t> result = {delta->size(), num};
+  size_t start = delta->size();
+  std::pair<size_t, size_t> result = {start, start + num};
 
   // Update Delta
-  delta->resize(num);
+  delta->resize(start + num);
   // Update CID, TID and valid
   auto main_tables_size = hyrise::functional::sum(main_tables, 0ul, [](hyrise::storage::atable_ptr_t& t){return t->size();});  
-  _cidVector.resize(main_tables_size + num, hyrise::tx::UNKNOWN);
-  _tidVector.resize(main_tables_size + num, hyrise::tx::UNKNOWN);
-  _validityVector.resize(main_tables_size + num, false);
-
-
+  _cidVector.resize(main_tables_size + start + num, hyrise::tx::UNKNOWN);
+  _tidVector.resize(main_tables_size + start + num, hyrise::tx::UNKNOWN);
+  _validityVector.resize(main_tables_size + start + num, false);
   return std::move(result);
 }
 
-void Store::copyRowToDelta(const hyrise::storage::c_atable_ptr_t& source, const size_t src_row, const size_t dst_row, hyrise::tx::transaction_id_t tid, bool valid) {
+void Store::copyRowToDelta(const hyrise::storage::c_atable_ptr_t& source, const size_t src_row, const size_t dst_row, hyrise::tx::transaction_id_t tidv, bool valid) {
   auto main_tables_size = hyrise::functional::sum(main_tables, 0ul, [](hyrise::storage::atable_ptr_t& t){return t->size();});  
   
   // Update the validity
   _cidVector[main_tables_size + dst_row] = hyrise::tx::UNKNOWN;
-  _tidVector[main_tables_size + dst_row] = tid;
+  _tidVector[main_tables_size + dst_row] = tidv;
   _validityVector[main_tables_size + dst_row] = valid;
-
   delta->copyRowFrom(source, src_row, dst_row, true);  
 }
 

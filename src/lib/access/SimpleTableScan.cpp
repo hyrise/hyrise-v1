@@ -3,7 +3,10 @@
 
 #include "access/expressions/pred_buildExpression.h"
 
+#include "storage/Store.h"
 #include "storage/PointerCalculator.h"
+
+#include "helper/checked_cast.h"
 
 namespace hyrise {
 namespace access {
@@ -27,9 +30,10 @@ void SimpleTableScan::setupPlanOperation() {
 void SimpleTableScan::executePositional() {
   auto tbl = input.getTable(0);
   storage::pos_list_t *pos_list = new pos_list_t();
-  for (size_t row=0, input_size=tbl->size();
-       row < input_size;
-       ++row) {
+
+
+  size_t row = _ofDelta ? checked_pointer_cast<const Store>(tbl)->deltaOffset() : 0;
+  for (size_t input_size=tbl->size(); row < input_size; ++row) {
     if ((*_comparator)(row)) {
       pos_list->push_back(row);
     }
@@ -41,7 +45,9 @@ void SimpleTableScan::executeMaterialized() {
   auto tbl = input.getTable(0);
   auto result_table = tbl->copy_structure_modifiable();
   size_t target_row = 0;
-  for (size_t row=0, input_size=tbl->size();
+
+  size_t row = _ofDelta ? checked_pointer_cast<const Store>(tbl)->deltaOffset() : 0;
+  for (size_t input_size=tbl->size();
        row < input_size;
        ++row) {
     if ((*_comparator)(row)) {
@@ -75,6 +81,10 @@ std::shared_ptr<PlanOperation> SimpleTableScan::parse(Json::Value &data) {
     throw std::runtime_error("There is no reason for a Selection without predicates");
   }
   pop->setPredicate(buildExpression(data["predicates"]));
+
+  if (data.isMember("ofDelta")) {
+    pop->_ofDelta = data["ofDelta"].asBool();
+  }
 
   return pop;
 }

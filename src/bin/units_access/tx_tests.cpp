@@ -147,6 +147,7 @@ TEST_F(TransactionTests, concurrent_writer) {
   is.setInputData(one_row);
   is.execute();
 
+
   ASSERT_EQ(1u, mod.inserted.size());
   ASSERT_EQ(1u, mod.inserted[reinterpret_cast<uintptr_t>(linxxxs.get())].size());
 
