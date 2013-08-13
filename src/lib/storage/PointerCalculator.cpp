@@ -362,7 +362,6 @@ std::shared_ptr<PointerCalculator> PointerCalculator::concatenate_many(pc_vector
   auto result = new pos_list_t;
   result->reserve(sz);
 
-  auto unordered_result = false;
   hyrise::storage::c_atable_ptr_t table = nullptr;
   for (;it != it_end; ++it) {
     const auto& pl = (*it)->pos_list;
@@ -374,15 +373,11 @@ std::shared_ptr<PointerCalculator> PointerCalculator::concatenate_many(pc_vector
       auto sz = (*it)->size();
       result->resize(result->size() + sz);
       std::iota(end(*result)-sz, end(*result), 0);
-      unordered_result = true;
     } else {
       result->insert(end(*result), begin(*pl), end(*pl));
     }
   }
-
-  /*if (unordered_result)
-    std::sort(begin(*result), end(*result));*/
-
+  
   return create(table, result, nullptr);
 }
 

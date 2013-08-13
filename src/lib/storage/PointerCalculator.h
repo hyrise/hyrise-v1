@@ -3,8 +3,6 @@
 #define SRC_LIB_STORAGE_POINTERCALCULATOR_H_
 
 #include <vector>
-#include <sstream>
-#include <algorithm>
 
 #include "helper/types.h"
 #include "helper/SharedFactory.h"
