@@ -213,28 +213,6 @@ void PointerCalculator::print(const size_t limit) const {
   PrettyPrinter::print(this, std::cout, "unnamed pointer calculator", limit);
 }
 
-std::string PointerCalculator::printValue(const size_t column, const size_t row) const {
-  size_t actual_column, actual_row;
-
-  if (pos_list) {
-    actual_row = pos_list->at(row);
-  } else {
-    actual_row = row;
-  }
-
-  if (fields) {
-    actual_column = fields->at(column);
-  } else {
-    actual_column = column;
-  }
-
-  return table->printValue(actual_column, actual_row);
-}
-
-void PointerCalculator::sortDictionary() {
-  throw std::runtime_error("Can't sort PointerCalculator dictionary");
-}
-
 size_t PointerCalculator::getTableRowForRow(const size_t row) const
 {
   size_t actual_row;
