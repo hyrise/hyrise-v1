@@ -4,7 +4,6 @@
 #include "access/expressions/pred_buildExpression.h"
 
 #include "storage/PointerCalculator.h"
-#include "storage/PointerCalculatorFactory.h"
 
 namespace hyrise {
 namespace access {
@@ -35,7 +34,7 @@ void SimpleTableScan::executePositional() {
       pos_list->push_back(row);
     }
   }
-  addResult(PointerCalculatorFactory::createPointerCalculatorNonRef(tbl, nullptr, pos_list));
+  addResult(PointerCalculator::create(tbl, pos_list));
 }
 
 void SimpleTableScan::executeMaterialized() {

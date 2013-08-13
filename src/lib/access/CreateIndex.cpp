@@ -14,7 +14,6 @@
 #include "storage/meta_storage.h"
 #include "storage/storage_types.h"
 #include "storage/PointerCalculator.h"
-#include "storage/PointerCalculatorFactory.h"
 #include "storage/AbstractIndex.h"
 #include "storage/InvertedIndex.h"
 

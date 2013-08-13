@@ -12,7 +12,6 @@
 #include "storage/InvertedIndex.h"
 #include "storage/meta_storage.h"
 #include "storage/PointerCalculator.h"
-#include "storage/PointerCalculatorFactory.h"
 
 namespace hyrise {
 namespace access {
@@ -67,9 +66,7 @@ void IndexScan::executePlanOperation() {
   ScanIndexFunctor fun(_value, idx);
   storage::pos_list_t *pos = ts(input.getTable(0)->typeOfColumn(_field_definition[0]), fun);
 
-  addResult(PointerCalculatorFactory::createPointerCalculatorNonRef(input.getTable(0),
-                                                                    nullptr,
-                                                                    pos));
+  addResult(PointerCalculator::create(input.getTable(0), pos));
 }
 
 std::shared_ptr<PlanOperation> IndexScan::parse(Json::Value &data) {
@@ -108,9 +105,7 @@ void MergeIndexScan::executePlanOperation() {
                                   right->getPositions()->end(),
                                   result.begin());
 
-  auto tmp = PointerCalculatorFactory::createPointerCalculator(left->getActualTable(),
-                                                               nullptr,
-                                                               new storage::pos_list_t(result.begin(), it));
+  auto tmp = PointerCalculator::create(left->getActualTable(), new storage::pos_list_t(result.begin(), it));
   addResult(tmp);
 }
 

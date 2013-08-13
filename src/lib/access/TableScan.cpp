@@ -6,7 +6,6 @@
 #include "access/expressions/ExpressionRegistration.h"
 #include "storage/AbstractTable.h"
 #include "storage/PointerCalculator.h"
-#include "storage/PointerCalculatorFactory.h"
 #include "helper/types.h"
 
 namespace hyrise { namespace access {
@@ -22,7 +21,7 @@ void TableScan::setupPlanOperation() {
 
 void TableScan::executePlanOperation() {
   pos_list_t* positions = _expr->match(0, getInputTable()->size());
-  addResult(PointerCalculatorFactory::createPointerCalculatorNonRef(getInputTable(), nullptr, positions));
+  addResult(PointerCalculator::create(getInputTable(), positions));
 }
 
 std::shared_ptr<PlanOperation> TableScan::parse(Json::Value& data) {
