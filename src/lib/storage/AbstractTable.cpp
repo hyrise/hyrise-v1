@@ -96,14 +96,6 @@ for (const field_t & field: *fields) {
   return valueIdList;
 }
 
-void AbstractTable::setGeneration(const unsigned generation) {
-  _generation = generation;
-}
-
-unsigned AbstractTable::generation() const {
-  return _generation;
-}
-
 std::string AbstractTable::printValue(const size_t column, const size_t row) const {
   return HyriseHelper::castValueByColumnRow<std::string>(this, column, row);
 }

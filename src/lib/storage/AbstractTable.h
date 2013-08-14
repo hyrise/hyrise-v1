@@ -17,10 +17,9 @@
 
 #include "helper/types.h"
 
-#include <storage/AbstractResource.h>
-#include <storage/storage_types.h>
-#include <storage/ColumnMetadata.h>
-#include <storage/ValueIdMap.hpp>
+#include "storage/AbstractResource.h"
+#include "storage/BaseDictionary.h"
+#include "storage/storage_types.h"
 
 #include <boost/lexical_cast.hpp>
 #include <boost/uuid/uuid.hpp>
@@ -61,43 +60,8 @@ public:
  * and more.
  */
 class AbstractTable : public AbstractResource {
-
-  friend class Store;
-
-private:
-
-  unsigned _generation;
-
-  // Global unique identifier for this object
-  boost::uuids::uuid _uuid = boost::uuids::random_generator()();
-  
-public:
-
+ public:
   typedef std::shared_ptr<AbstractDictionary> SharedDictionaryPtr;
-
-  /**
-   * Constructor.
-   */
-  AbstractTable() : _generation(0) {}
-
-
-  /**
-   * Destructor.
-   */
-  virtual ~AbstractTable() {}
-
-  /**
-   * Returns the generation value.
-   */
-  unsigned generation() const;
-
-
-  /**
-   * Sets the generation value.
-   *
-   * @param generation The generation.
-   */
-  void setGeneration(const unsigned generation);
 
   /**
    * Copy the table's structure.
@@ -367,7 +331,7 @@ public:
 
       valueId.valueId = map->addValue(value);
     } else {
-      valueId.valueId = INT_MAX;
+      valueId.valueId = std::numeric_limits<value_id_t>::max();
     }
 
     return valueId;
@@ -562,7 +526,9 @@ public:
   boost::uuids::uuid getUuid() const;
 
   void setUuid(boost::uuids::uuid u);
-  
+ private:
+  // Global unique identifier for this object
+  boost::uuids::uuid _uuid = boost::uuids::random_generator()();
 };
 
 #endif  // SRC_LIB_STORAGE_ABSTRACTTABLE_H_
