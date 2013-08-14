@@ -527,7 +527,7 @@ class AbstractTable : public AbstractResource {
 
   void setUuid(boost::uuids::uuid u);
  private:
-  // Global unique identifier for this object
+  // Global unique identifier for this object  
   boost::uuids::uuid _uuid = boost::uuids::random_generator()();
 };
 

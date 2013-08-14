@@ -113,9 +113,6 @@ void AbstractTable::copyValueFrom(const hyrise::storage::c_atable_ptr_t& source,
     case StringType:
       copyValueFrom<hyrise_string_t>(source, src_col, src_row, dst_col, dst_row);
       break;
-
-    default:
-      break;
   }
 }
 
@@ -131,9 +128,6 @@ void AbstractTable::copyValueFrom(const hyrise::storage::c_atable_ptr_t& source,
 
     case StringType:
       setValue<hyrise_string_t>(dst_col, dst_row, source->getValueForValueId<hyrise_string_t>(src_col, vid));
-      break;
-
-    default:
       break;
   }
 }

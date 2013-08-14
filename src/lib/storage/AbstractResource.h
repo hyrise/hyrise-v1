@@ -5,7 +5,7 @@
 /// be used in plans.
 class AbstractResource {
  public:
-  virtual ~AbstractResource() {}
+  virtual ~AbstractResource();
 };
 
 #endif

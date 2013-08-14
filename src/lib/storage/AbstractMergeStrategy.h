@@ -42,10 +42,10 @@ public:
 
   virtual size_t calculateNewSize(const std::vector<hyrise::storage::c_atable_ptr_t > &input_tables, bool useValid, const std::vector<bool>& valid) const {
     if (!useValid)
-      return hyrise::functional::sum(input_tables, 0, [](hyrise::storage::c_atable_ptr_t& t){ return t->size(); });
+      return hyrise::functional::sum(input_tables, 0u, [](hyrise::storage::c_atable_ptr_t& t){ return t->size(); });
 
     size_t parts = 0;
-    return hyrise::functional::sum(input_tables, 0, [&parts,valid](hyrise::storage::c_atable_ptr_t& t){ 
+    return hyrise::functional::sum(input_tables, 0u, [&parts,valid](hyrise::storage::c_atable_ptr_t& t){ 
       size_t newSize = 0; 
       for(size_t i=parts; i < parts + t->size(); ++i ) {
         if (valid[i]) ++newSize;
