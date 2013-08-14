@@ -5,6 +5,16 @@
 #include <string>
 #include <sstream>
 
+#include <boost/uuid/uuid.hpp>
+#include <boost/uuid/uuid_io.hpp>
+
+
+namespace std {
+  inline std::string to_string(const boost::uuids::uuid& u) {
+    return boost::uuids::to_string(u);
+  }
+}
+
 void inline splitString(std::vector<std::string> &result,
                         const std::string &s,
                         const std::string &delim) {

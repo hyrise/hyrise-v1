@@ -23,7 +23,10 @@ class JsonTable : public PlanOperation {
 	std::vector<unsigned> _groups;
   std::vector<std::vector<std::string>> _data;
 
+
+  std::vector<std::string> _serialFields;
 	bool _useStoreFlag;
+  bool _mergeFlag;
 
 public:
 
@@ -43,6 +46,7 @@ public:
   void setGroups(const std::vector<unsigned> groups);
 
   void setUseStore(const bool);
+  void setMergeStore(const bool);
 
   void setData(const std::vector<std::vector<std::string>> data);
 

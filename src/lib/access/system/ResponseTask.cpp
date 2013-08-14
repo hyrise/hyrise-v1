@@ -53,6 +53,10 @@ Json::Value generateRowsJsonT(const T& table, const size_t transmitLimit, const 
     if (row < transmitOffset)
       continue;
 
+    // Break if limit reached
+    if (transmitLimit > 0 && row == (transmitOffset + transmitLimit))
+      break;
+
     fun.row = row;
     Json::Value json_row(Json::arrayValue);
     for (size_t col = 0; col < table->columnCount(); ++col) {
@@ -61,9 +65,6 @@ Json::Value generateRowsJsonT(const T& table, const size_t transmitLimit, const 
     }
     rows.append(json_row);
 
-    // Break if limit reached
-    if (transmitLimit > 0 && row == (transmitOffset + transmitLimit))
-      break;
   }
   return rows;
 }
@@ -83,13 +84,17 @@ const std::string ResponseTask::vname() {
 
 void ResponseTask::registerPlanOperation(const std::shared_ptr<PlanOperation>& planOp) {
   performance_attributes_t* perf = new performance_attributes_t;
+  std::vector<hyrise_int_t>* genKeys = new std::vector<hyrise_int_t>;
+
   planOp->setPerformanceData(perf);
+  planOp->setGeneratedKeysData(genKeys);
 
   const auto responseTaskPtr = std::dynamic_pointer_cast<ResponseTask>(shared_from_this()); 
   planOp->setResponseTask(responseTaskPtr);
 
   perfMutex.lock();
   performance_data.push_back(std::unique_ptr<performance_attributes_t>(perf));
+  _generatedKeyRefs.push_back(std::unique_ptr<std::vector<hyrise_int_t>>(genKeys));
   perfMutex.unlock();
 }
 
@@ -166,6 +171,17 @@ void ResponseTask::operator()() {
       json_perf.append(responseElement);
 
       response["performanceData"] = json_perf;
+
+      Json::Value jsonKeys(Json::arrayValue);
+      for( const auto& x : _generatedKeyRefs) {
+        for(const auto& key : *x) {
+          Json::Value element(key);
+          jsonKeys.append(element);
+        }
+      }
+      response["generatedKeys"] = jsonKeys;
+      response["affectedRows"] = Json::Value(_affectedRows);
+
     } 
     LOG4CXX_DEBUG(_logger, "Table Use Count: " << result.use_count());
   } 

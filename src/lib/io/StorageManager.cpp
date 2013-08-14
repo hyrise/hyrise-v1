@@ -86,7 +86,7 @@ std::shared_ptr<AbstractTable> StorageManager::getTable(std::string name) {
 }
 
 void StorageManager::removeTable(std::string name) {
-  if (get<AbstractTable>(name))
+  if (exists(name))
     remove(name);
 }
 

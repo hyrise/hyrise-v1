@@ -8,6 +8,7 @@
 #include <map>
 #include <utility>
 
+#include <storage/storage_types.h>
 #include "helper/epoch.h"
 #include "taskscheduler/Task.h"
 
@@ -40,11 +41,17 @@ typedef std::vector<std::unique_ptr<performance_attributes_t>> performance_vecto
 
 class OutputTask : public Task {
  protected:
+
   performance_attributes_t *_performance_attr = nullptr;
   // Indicate whether an operation has failed
   // Subclass has to explicitly set on success
   task_states_t _state = OpUnknown;
+  
   std::string _papiEvent = "PAPI_TOT_INS";
+
+  // Collect the generated keys
+  std::vector<hyrise_int_t> *_generatedKeys;
+
  public:
   task_states_t getState() const {
     return _state;
@@ -60,6 +67,10 @@ class OutputTask : public Task {
   
   void setPerformanceData(performance_attributes_t *attr) {
     _performance_attr = attr;
+  }
+
+  void setGeneratedKeysData(std::vector<hyrise_int_t>* d) {
+    _generatedKeys = d;
   }
 
   void setEvent(std::string ev) {

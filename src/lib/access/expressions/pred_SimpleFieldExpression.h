@@ -47,4 +47,33 @@ class SimpleFieldExpression : public SimpleExpression {
   }
 };
 
+template <typename T, class Op = std::equal_to<T> >
+class GenericExpressionValue : public SimpleFieldExpression {
+ private:
+  T value;
+  Op _operator;
+
+ public:
+
+  GenericExpressionValue(size_t i, field_t f, T _value):
+      SimpleFieldExpression(i, f), value(_value)
+  {}
+
+  GenericExpressionValue(size_t i, field_name_t f, T _value):
+      SimpleFieldExpression(i, f), value(_value)
+  {}
+
+  GenericExpressionValue(const hyrise::storage::c_atable_ptr_t& _table, field_t _field, T _value) :
+      SimpleFieldExpression(_table, _field), value(_value)
+  {}
+
+
+  virtual ~GenericExpressionValue() { }
+
+  inline virtual bool operator()(size_t row) {
+    return _operator(table->template getValue<T>(field, row), value);
+  }
+};
+
+
 #endif  // SRC_LIB_ACCESS_PRED_SIMPLEFIELDEXPRESSION_H_

@@ -22,7 +22,13 @@ struct PredicateType {
     NOT = 8,
     EqualsExpressionRaw = 13,
     LessThanExpressionRaw = 14,
-    GreaterThanExpressionRaw = 15
+    GreaterThanExpressionRaw = 15,
+
+    EqualsExpressionValue = 20,
+    GreaterThanExpressionValue = 21,
+    LessThanExpressionValue = 22,
+    GreaterThanEqualsExpressionValue = 23,
+    LessThanEqualsExpressionValue = 24
   } type;
 };
 

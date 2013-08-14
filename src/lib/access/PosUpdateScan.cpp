@@ -1,5 +1,6 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "access/PosUpdateScan.h"
+#include <access/system/ResponseTask.h>
 
 #include "json_converters.h"
 
@@ -39,8 +40,7 @@ void PosUpdateScan::executePlanOperation() {
 
   // Get the offset for inserts into the delta and the size of the delta that
   // we need to increase by the positions we are inserting
-  size_t deltaMax = store->getDeltaTable()->size();
-  auto writeArea = store->resizeDelta(deltaMax + c_pc->getPositions()->size());
+  auto writeArea = store->appendToDelta(c_pc->getPositions()->size());
 
   // Get the modification record for the current transaction
   auto& modRecord = tx::TransactionManager::getInstance()[_txContext.tid];
@@ -69,6 +69,11 @@ void PosUpdateScan::executePlanOperation() {
     modRecord.insertPos(store, beforSize+counter);
     ++counter;
   }
+
+  // Update affected rows
+  auto rsp = getResponseTask();
+  if (rsp != nullptr)
+    rsp->incAffectedRows(counter);
 
   addResult(c_store);
 }

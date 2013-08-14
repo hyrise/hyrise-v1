@@ -85,6 +85,8 @@ public:
 
   size_t size() const;
 
+  size_t deltaOffset() const;
+
   size_t columnCount() const;
 
   unsigned partitionCount() const;
@@ -133,6 +135,8 @@ public:
   */
   std::pair<size_t, size_t> resizeDelta(size_t num);
 
+  std::pair<size_t, size_t> appendToDelta(size_t num);
+
   /**
   * This method validates a list of positions to check if it is valid
   */
@@ -153,7 +157,8 @@ public:
   inline bool valid(size_t row) const { return _validityVector[row]; }
   
   // TID handling
-  inline bool tid(size_t row) const { return _tidVector[row]; }
+  inline hyrise::tx::transaction_id_t tid(size_t row) const { return _tidVector[row]; }
+
   inline void setTid(size_t row, hyrise::tx::transaction_id_t tid) { _tidVector[row] = tid; }
 
   inline bool cid(size_t row) const { return _cidVector[row]; }  
