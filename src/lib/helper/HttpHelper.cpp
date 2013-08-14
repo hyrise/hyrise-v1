@@ -1,9 +1,10 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "HttpHelper.h"
+
+#include <sstream>
 #include <vector>
+
 #include <boost/algorithm/string.hpp>
-
-
 
 std::map<std::string, std::string> parseHTTPFormData(std::string formData, const std::string elem_sep) {
   typedef boost::split_iterator<std::string::iterator> string_split_iterator;
@@ -25,31 +26,21 @@ std::map<std::string, std::string> parseHTTPFormData(std::string formData, const
   return result;
 }
 
-std::string rawurldecode(const std::string &input) {
-  std::string buffer = "";
-  int len = input.length();
-
-  for (int i = 0; i < len; i++) {
-    int j = i ;
-    char ch = input.at(j);
-    if (ch == '%') {
-      char tmpstr[] = "0x0__";
-      int chnum;
-      tmpstr[3] = input.at(j + 1);
-      tmpstr[4] = input.at(j + 2);
-      chnum = strtol(tmpstr, nullptr, 16);
-      buffer += chnum;
-      i += 2;
-    } else {
-      buffer += ch;
+std::string urldecode(const std::string &input) {
+  std::ostringstream escaped;
+  for (auto i = 0ul, len = input.length(); i < len; ++i) {
+    switch (char ch = input[i]) {
+      case '%':
+        int chnum;
+        sscanf(input.substr(i+1, 2).c_str(), "%x", &chnum);
+        escaped << static_cast<char>(chnum);
+        i += 2;
+        break;
+      case '+':
+        escaped << " "; break;
+      default:
+        escaped << ch;
     }
   }
-  return buffer;
-}
-
-std::string urldecode(const std::string &input) {
-  auto tmp(input);
-  std::replace(tmp.begin(), tmp.end(), '+', ' ');
-  std::string buf = rawurldecode(tmp);
-  return buf;
+  return escaped.str();
 }
