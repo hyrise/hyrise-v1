@@ -15,6 +15,8 @@ Store::Store(std::vector<std::vector<const ColumnMetadata *> *> md) :
 Store::Store() :
   merger(nullptr) {
   setDefaultMerger();
+  setUuid();
+  
 }
 
 Store::Store(hyrise::storage::atable_ptr_t main_table) :
@@ -23,6 +25,8 @@ Store::Store(hyrise::storage::atable_ptr_t main_table) :
   _validityVector(main_table->size(), true), 
   _cidVector(main_table->size(), hyrise::tx::UNKNOWN),
   _tidVector(main_table->size(), hyrise::tx::UNKNOWN) {
+
+  setUuid();
   main_tables.push_back(main_table);
   setDefaultMerger();
 }

@@ -16,6 +16,7 @@
 #include <string>
 
 #include "helper/types.h"
+#include "helper/locking.h"
 
 #include <storage/AbstractResource.h>
 #include <storage/storage_types.h>
@@ -68,8 +69,10 @@ private:
 
   unsigned _generation;
 
+  hyrise::locking::Spinlock _tableMtx;
+
   // Global unique identifier for this object
-  boost::uuids::uuid _uuid = boost::uuids::random_generator()();
+  boost::uuids::uuid _uuid = boost::uuids::nil_uuid();
   
 public:
 
@@ -561,7 +564,7 @@ public:
 
   boost::uuids::uuid getUuid() const;
 
-  void setUuid(boost::uuids::uuid u);
+  void setUuid(boost::uuids::uuid u = boost::uuids::nil_uuid());
   
 };
 

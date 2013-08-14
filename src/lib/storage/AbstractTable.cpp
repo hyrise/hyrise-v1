@@ -12,6 +12,7 @@
 #include <storage/TableDiff.h>
 #include <storage/TableUtils.h>
 
+#include <helper/locking.h>
 
 #include <fstream>
 
@@ -325,5 +326,8 @@ boost::uuids::uuid AbstractTable::getUuid() const {
 }
 
 void AbstractTable::setUuid(boost::uuids::uuid u) {
+  if (u.is_nil()) {
+    _uuid = boost::uuids::random_generator()();
+  }
   _uuid = u;
 }
