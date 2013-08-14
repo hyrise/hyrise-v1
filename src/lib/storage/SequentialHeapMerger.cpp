@@ -1,9 +1,12 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#include <storage/SequentialHeapMerger.h>
-#include <helper/vector_helpers.h>
-#include <storage/DictionaryIterator.h>
+#include "storage/SequentialHeapMerger.h"
 
 #include <queue>
+
+#include "helper/vector_helpers.h"
+#include "storage/DictionaryIterator.h"
+#include "storage/ColumnMetadata.h"
+
 
 void SequentialHeapMerger::mergeValues(const std::vector<hyrise::storage::c_atable_ptr_t > &input_tables,
                                        hyrise::storage::atable_ptr_t merged_table,

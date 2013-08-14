@@ -9,10 +9,8 @@
 #include <vector>
 
 #include "storage/storage_types.h"
-
 #include "storage/AbstractTable.h"
-
-
+#include "storage/ColumnMetadata.h"
 
 namespace hyrise { namespace storage { namespace rawtable {
 

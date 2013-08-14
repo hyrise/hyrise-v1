@@ -5,7 +5,7 @@
 class AbstractAttributeVector {
  public:
 
-  virtual ~AbstractAttributeVector() {};
+  virtual ~AbstractAttributeVector();
 
   virtual void *data() = 0;
   virtual void setNumRows(size_t s) = 0;

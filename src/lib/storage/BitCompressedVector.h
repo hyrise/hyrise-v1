@@ -2,8 +2,9 @@
 #ifndef SRC_LIB_STORAGE_BITCOMPRESSEDVECTOR_H_
 #define SRC_LIB_STORAGE_BITCOMPRESSEDVECTOR_H_
 
-#include <math.h>
-#include <stdint.h>
+#include <cassert>
+#include <cmath>
+#include <cstdint>
 #include <cstring>
 
 #include <mutex>

@@ -43,7 +43,7 @@ class FixedLengthVector : public BaseAttributeVector<T> {
 
   void *data() {
     return _values;
-  };
+  }
 
   void setNumRows(size_t s) {
     _rows = s;
@@ -75,7 +75,7 @@ class FixedLengthVector : public BaseAttributeVector<T> {
 
   size_t size() {
     return _rows;
-  };
+  }
 
   void resize(size_t rows) {
     reserve(rows);
