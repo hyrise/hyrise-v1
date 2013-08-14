@@ -2,6 +2,7 @@
 #ifndef SRC_LIB_ACCESS_RESPONSETASK_H_
 #define SRC_LIB_ACCESS_RESPONSETASK_H_
 
+#include <atomic>
 #include <mutex>
 
 #include "helper/epoch.h"
@@ -20,14 +21,21 @@ class ResponseTask : public Task {
   size_t _transmitLimit = 0; // Used for serialization only
   size_t _transmitOffset = 0; // Used for serialization only
 
+  std::atomic<unsigned long> _affectedRows;
+
   epoch_t queryStart = 0;
   performance_vector_t performance_data;
+
+  // Unique refs to the generated keys of all planops
+  std::vector<std::unique_ptr<std::vector<hyrise_int_t>>> _generatedKeyRefs;
+
   std::mutex perfMutex;
   std::mutex errorMutex;
   std::vector<std::string> _error_messages;
  public:
   explicit ResponseTask(net::AbstractConnection *connection) :
       connection(connection) {
+        _affectedRows = 0;
   }
 
   virtual ~ResponseTask() {}
@@ -59,6 +67,10 @@ class ResponseTask : public Task {
 
   void setTransmitOffset(size_t o) {
     _transmitOffset = o;
+  }
+
+  void incAffectedRows(unsigned long inc) {
+    _affectedRows += inc;
   }
 
   performance_vector_t& getPerformanceData() {

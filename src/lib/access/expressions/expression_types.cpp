@@ -15,8 +15,13 @@ expression_map_t getExpressionMap() {
 predicate_map_t getPredicateMap() {
   predicate_map_t d;
   d["EQ"] = PredicateType::EqualsExpression;
+  d["EQ_V"] = PredicateType::EqualsExpressionValue;
   d["LT"] = PredicateType::LessThanExpression;
   d["GT"] = PredicateType::GreaterThanExpression;
+  d["LT_V"] = PredicateType::LessThanExpressionValue;
+  d["GT_V"] = PredicateType::GreaterThanExpressionValue;
+  d["LTE_V"] = PredicateType::LessThanEqualsExpressionValue;
+  d["GTE_V"] = PredicateType::GreaterThanEqualsExpressionValue;
   d["EQ_R"] = PredicateType::EqualsExpressionRaw;
   d["LT_R"] = PredicateType::LessThanExpressionRaw;
   d["GT_R"] = PredicateType::GreaterThanExpressionRaw;

@@ -1,15 +1,19 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "access/InsertScan.h"
+#include "access/system/ResponseTask.h"
 
 #include "json_converters.h"
 
 #include "helper/vector_helpers.h"
 #include "helper/checked_cast.h"
+#include "helper/stringhelpers.h"
 
 #include "io/TransactionManager.h"
-#include "storage/Store.h"
-#include "storage/meta_storage.h"
+#include "io/ResourceManager.h"
 
+#include "storage/Store.h"
+#include "storage/Serial.h"
+#include "storage/meta_storage.h"
 
 namespace hyrise {
 namespace access {
@@ -32,10 +36,35 @@ storage::atable_ptr_t InsertScan::buildFromJson() {
   storage::type_switch<hyrise_basic_types> ts;
 
   auto col_count = input.getTable()->columnCount();
+  auto tab = input.getTable();
+
+  // Storage for field references
+  std::set<field_t> serialFields;
+
+  // Check if table has serial generators defined
+  auto& res_man = io::ResourceManager::getInstance();
+  for(size_t c=0; c < col_count; ++c) {
+    auto serial_name = std::to_string(tab->getUuid()) + "_" + tab->nameOfColumn(c);
+    if (res_man.exists(serial_name)) {
+      serialFields.insert(c);
+    }
+  }
+
   for (size_t r=0, row_count=_raw_data.size(); r < row_count; ++r ) {
+
+    size_t offset = 0;
     for(size_t c=0; c < col_count; ++c) {
-      fun.set(c,r,_raw_data[r][c]);
-      ts(result->typeOfColumn(c), fun);
+      if (serialFields.count(c) != 0) {
+        auto serial_name = std::to_string(tab->getUuid()) + "_" + tab->nameOfColumn(c);
+        auto k = res_man.get<Serial>(serial_name)->next();
+        _generatedKeys->push_back(k);
+        result->setValue<hyrise_int_t>(c, r, k);
+        ++offset;
+      } else {
+        fun.set(c,r,_raw_data[r][c-offset]);
+        ts(result->typeOfColumn(c), fun);        
+      }
+      
     }    
   }
 
@@ -53,10 +82,9 @@ void InsertScan::executePlanOperation() {
     _data = buildFromJson();
 
   // Delta Table Size
-  size_t max = store->getDeltaTable()->size();
   const auto& beforSize = store->size();
 
-  auto writeArea = store->resizeDelta(max + _data->size());
+  auto writeArea = store->appendToDelta(_data->size());
   const auto& hidden = false;
 
   // Get the modifications record
@@ -65,6 +93,10 @@ void InsertScan::executePlanOperation() {
     store->copyRowToDelta(_data, i, writeArea.first+i, _txContext.tid, hidden);
     mods.insertPos(store, beforSize+i);
   }
+
+  auto rsp = getResponseTask();
+  if (rsp != nullptr)
+    rsp->incAffectedRows(_data->size());
 
   addResult(input.getTable(0));
 }

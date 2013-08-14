@@ -5,11 +5,15 @@
 
 #include <helper/types.h>
 #include <helper/vector_helpers.h>
+#include <helper/stringhelpers.h>
 
+#include <storage/storage_types.h>
 #include <storage/meta_storage.h>
 #include <storage/Store.h>
+#include <storage/Serial.h>
 #include <storage/TableBuilder.h>
 
+#include <io/ResourceManager.h>
 
 #include <algorithm>
 #include <iterator>
@@ -59,9 +63,17 @@ void JsonTable::executePlanOperation() {
 		list.appendGroup(_groups[i]);
 
 
-        storage::atable_ptr_t result = storage::TableBuilder::build(list);
+	storage::atable_ptr_t result = storage::TableBuilder::build(list);
 	if (_useStoreFlag) {
 		result = std::make_shared<Store>(result);
+	}
+
+	// Attach all Serial Fields
+	// Get resource manager
+	auto& res_man = io::ResourceManager::getInstance();
+	for(const auto& f : _serialFields) {
+		auto serial_name = std::to_string(result->getUuid()) + "_" + f; 
+		res_man.add(serial_name, std::make_shared<Serial>());
 	}
 
 	// Add the rows if any
@@ -69,7 +81,7 @@ void JsonTable::executePlanOperation() {
 	if (rows > 0 ) {
 
 		if (_useStoreFlag)
-			std::dynamic_pointer_cast<Store>(result)->getDeltaTable()->resize(rows);
+			std::dynamic_pointer_cast<Store>(result)->appendToDelta(rows);
 		else
 			result->resize(rows);
 
@@ -77,15 +89,37 @@ void JsonTable::executePlanOperation() {
 		set_string_value_functor fun(_useStoreFlag ? std::dynamic_pointer_cast<Store>(result)->getDeltaTable() : result);
 		hyrise::storage::type_switch<hyrise_basic_types> ts;
 
+		
 		for(size_t i=0; i < rows; ++i) {
 			auto row = _data[i];
-			if (row.size() != _names.size())
+
+			if ((row.size() + _serialFields.size()) != _names.size())
 				throw std::runtime_error("Mismatch in provided data and number of columns in table!");
 
-			for(size_t j=0, rs = row.size(); j < rs; ++j) {
-				fun.set(j, i, row[j]);
-				ts(result->typeOfColumn(j), fun);
+			// Handle the insertion of all rows and manage the offsets given by the serial fields
+			size_t offset = 0;
+			for(size_t j=0, rs = _names.size(); j < rs; ++j) {
+				if (std::find(_serialFields.begin(), _serialFields.end(), _names[j]) != _serialFields.end()) {
+					auto serial_name = std::to_string(result->getUuid()) + "_" + _names[j];
+					auto ser = res_man.get<Serial>(serial_name);
+					result->setValue<hyrise_int_t>(j, i, ser->next());					
+					offset++;
+				} else {
+					fun.set(j, i, row[j-offset]);
+					ts(result->typeOfColumn(j), fun);	
+				}
 			}
+		}
+
+		if (_useStoreFlag && _mergeFlag) {
+			// Hijacking transactions
+			pos_list_t pl(rows);
+			std::generate(pl.begin(), pl.end(), [](){ 
+				static size_t counter = 0;
+				return counter++;
+			});
+			std::dynamic_pointer_cast<Store>(result)->updateCommitID(pl,1, true);
+			std::dynamic_pointer_cast<Store>(result)->merge();
 		}
 	}
 
@@ -107,6 +141,12 @@ std::shared_ptr<PlanOperation> JsonTable::parse(Json::Value &data) {
 
 	if (data.isMember("useStore")) {
 		result->setUseStore(data["useStore"].asBool());
+		result->setMergeStore(data["mergeStore"].asBool());
+	}
+
+	// Check if we have serial field definitions
+	if (data.isMember("serials")) {
+		result->_serialFields = functional::collect(data["serials"], [](const Json::Value& v) { return v.asString();});
 	}
 
 	return result;
@@ -130,5 +170,9 @@ void JsonTable::setGroups(const std::vector<unsigned> data) {
 
 void JsonTable::setUseStore(const bool v) {
 	_useStoreFlag = v;
+}
+
+void JsonTable::setMergeStore(const bool v) {
+	_mergeFlag = v;
 }
 }}

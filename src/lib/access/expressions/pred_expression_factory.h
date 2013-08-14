@@ -13,6 +13,13 @@
     return new EXPRESSION<ValueType>(_input_index, _field, json_converter::convert<ValueType>(_value)); \
   break;
 
+#define GENERATE_GENERIC_EXPRESSION(NAME, EXPRESSION, OPERATOR)  case PredicateType::NAME: \
+  if (_field_name.size() > 0)                                           \
+    return new EXPRESSION<ValueType, OPERATOR<ValueType> >(_input_index, _field_name, json_converter::convert<ValueType>(_value)); \
+  else                                                                  \
+    return new EXPRESSION<ValueType, OPERATOR<ValueType> >(_input_index, _field, json_converter::convert<ValueType>(_value)); \
+  break;
+
 namespace hyrise {
 namespace access {
 
@@ -57,6 +64,12 @@ struct expression_factory {
       GENERATE_EXPRESSION(EqualsExpressionRaw);
       GENERATE_EXPRESSION(LessThanExpressionRaw);
       GENERATE_EXPRESSION(GreaterThanExpressionRaw);
+
+      GENERATE_GENERIC_EXPRESSION(EqualsExpressionValue, GenericExpressionValue, std::equal_to);
+      GENERATE_GENERIC_EXPRESSION(LessThanExpressionValue, GenericExpressionValue, std::less);
+      GENERATE_GENERIC_EXPRESSION(GreaterThanExpressionValue, GenericExpressionValue, std::greater);
+      GENERATE_GENERIC_EXPRESSION(LessThanEqualsExpressionValue, GenericExpressionValue, std::less_equal);
+      GENERATE_GENERIC_EXPRESSION(GreaterThanEqualsExpressionValue, GenericExpressionValue, std::greater_equal);
       default:
         throw std::runtime_error("Expression Type not supported");
     }

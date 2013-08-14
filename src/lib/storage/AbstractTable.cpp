@@ -12,6 +12,7 @@
 #include <storage/TableDiff.h>
 #include <storage/TableUtils.h>
 
+
 #include <fstream>
 
 #include <iostream>
@@ -317,4 +318,12 @@ const attr_vectors_t AbstractTable::getAttributeVectors(size_t column) const {
 
 void AbstractTable::debugStructure(size_t level) const {
   std::cout << std::string(level, '\t') << "AbstractTable " << this << std::endl;
+}
+
+boost::uuids::uuid AbstractTable::getUuid() const {
+  return _uuid;
+}
+
+void AbstractTable::setUuid(boost::uuids::uuid u) {
+  _uuid = u;
 }

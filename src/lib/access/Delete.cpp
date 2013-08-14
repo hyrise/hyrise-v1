@@ -1,5 +1,7 @@
 #include "Delete.h"
+
 #include <access/system/QueryParser.h>
+#include <access/system/ResponseTask.h>
 
 #include <helper/checked_cast.h>
 
@@ -28,10 +30,12 @@ void DeleteOp::executePlanOperation() {
 	for(const auto& p : *(tab->getPositions())) {
 		LOG4CXX_DEBUG(logger, "Deleting row:" << p);
 		modRecord.deletePos(tab->getActualTable(), p);
-
-		// This is bad as it can override other peoples delete that should fail later
-		// store->setTid(p, _txContext.tid);
 	}
+
+	auto rsp = getResponseTask();
+  if (rsp != nullptr)
+    rsp->incAffectedRows(tab->getPositions()->size());
+
 	addResult(getInputTable(0));
 }
 

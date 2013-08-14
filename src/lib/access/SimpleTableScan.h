@@ -23,6 +23,7 @@ public:
 
 private:
   SimpleExpression *_comparator;
+  bool _ofDelta = false;
 };
 
 }
