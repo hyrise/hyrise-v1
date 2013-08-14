@@ -62,6 +62,8 @@ public:
  */
 class AbstractTable : public AbstractResource {
 
+public:
+
   typedef std::shared_ptr<AbstractDictionary> SharedDictionaryPtr;
 
   /**
@@ -527,11 +529,10 @@ class AbstractTable : public AbstractResource {
   boost::uuids::uuid getUuid() const;
 
   void setUuid(boost::uuids::uuid u = boost::uuids::nil_uuid());
-  
-  void setUuid(boost::uuids::uuid u);
+
  private:
   // Global unique identifier for this object  
-  boost::uuids::uuid _uuid = boost::uuids::nil_uuid()()();
+  boost::uuids::uuid _uuid = boost::uuids::nil_uuid();
 };
 
 #endif  // SRC_LIB_STORAGE_ABSTRACTTABLE_H_
