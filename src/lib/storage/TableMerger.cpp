@@ -1,8 +1,9 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#include <storage/TableMerger.h>
+#include "storage/TableMerger.h"
+
+#include <cassert>
 
 #include "storage/AbstractMerger.h"
-
 
 hyrise::storage::column_mapping_t identityMap(hyrise::storage::atable_ptr_t input) {
   hyrise::storage::column_mapping_t map;
@@ -34,7 +35,6 @@ std::vector<hyrise::storage::atable_ptr_t> TableMerger::mergeToTable(hyrise::sto
   if (tables.tables_to_merge.size() > 0) {
     // copy metadata
     auto mapping = hyrise::storage::calculateMapping(tables.tables_to_merge.front(), dest);
-    dest->setGeneration(tables.tables_to_merge.front()->generation() + 1);
 
     // do the merge
     auto newSize = _strategy->calculateNewSize(tables.tables_to_merge, useValid, valid);
@@ -74,7 +74,6 @@ std::vector<hyrise::storage::atable_ptr_t > TableMerger::merge(std::vector<hyris
 
     // copy metadata
     merged_table = input_tables[0]->copy_structure(nullptr /*fields*/, false /*reuse dict*/, new_size, true /*with containers*/, _compress);
-    merged_table->setGeneration(tables.tables_to_merge.front()->generation() + 1);
 
     // do the merge
     _merger->mergeValues(tables.tables_to_merge, merged_table, identityMap(merged_table), new_size, useValid, valid);

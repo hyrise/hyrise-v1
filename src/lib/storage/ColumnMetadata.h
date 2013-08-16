@@ -10,7 +10,7 @@
 
 class ColumnMetaCreationException : public std::runtime_error {
  public:
-  explicit ColumnMetaCreationException(const std::string &what) : std::runtime_error(what) {};
+  explicit ColumnMetaCreationException(const std::string &what) : std::runtime_error(what) {}
 };
 
 class ColumnMetadata {
@@ -24,7 +24,7 @@ class ColumnMetadata {
 
   ColumnMetadata(std::string n, DataType t) : name(n), type(t) { }
 
-  ColumnMetadata() {};
+  ColumnMetadata() {}
 
   DataType getType() const {
     return type;

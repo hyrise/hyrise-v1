@@ -1,8 +1,11 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#include <storage/Table.h>
+#include "storage/Table.h"
 
+#include <cassert>
 #include <cmath>
+
 #include "storage/AttributeVectorFactory.h"
+#include "storage/ValueIdMap.hpp"
 
 Table::Table(
   std::vector<const ColumnMetadata *> *m,
@@ -195,7 +198,6 @@ hyrise::storage::atable_ptr_t Table::copy() const {
   auto new_table = std::make_shared<table_type>(new std::vector<const ColumnMetadata *>(_metadata.begin(), _metadata.end()));
 
   new_table->width = width;
-  new_table->setGeneration(this->generation());
 
   SharedAttributeVector new_tuples = tuples->copy();
   new_table->setAttributes(new_tuples);

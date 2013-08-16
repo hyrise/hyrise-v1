@@ -19,6 +19,7 @@
 #include "io/CSVLoader.h"
 #include "storage/AbstractIndex.h"
 #include "storage/AbstractTable.h"
+#include "storage/ColumnMetadata.h"
 #include "storage/TableBuilder.h"
 
 namespace hyrise {

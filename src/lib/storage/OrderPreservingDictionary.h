@@ -41,7 +41,7 @@ public:
     _values->reserve(size);
   }
 
-  ;  virtual ~OrderPreservingDictionary() {}
+  virtual ~OrderPreservingDictionary() {}
 
   void shrink() {
     _values->shrink_to_fit();

@@ -2,8 +2,10 @@
 #include "access/GroupByScan.h"
 
 #include "access/system/QueryParser.h"
+#include "storage/ColumnMetadata.h"
 #include "storage/HashTable.h"
 #include "storage/PointerCalculator.h"
+#include "storage/OrderIndifferentDictionary.h"
 #include "storage/meta_storage.h"
 
 namespace hyrise {
