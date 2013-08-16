@@ -66,7 +66,7 @@ all: $(tgts)
 
 $(tgts):
 	@echo 'DIR $@'
-	@$(MAKE) $(MAKEFLAGS) --directory=$@ --no-print-directory
+	@$(MAKE) -$(MAKEFLAGS) --directory=$@ --no-print-directory
 
 # dependencies betweeen binaries and libraries
 
