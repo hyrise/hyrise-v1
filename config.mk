@@ -15,7 +15,6 @@ MANUAL_PERF_IMPRO ?= 0
 COVERAGE_TESTING ?= 0
 PAPI_TRACE ?= 0
 VERBOSE_BUILD ?= 0
-COLOR_TTY ?= 1
 WITH_MYSQL ?= 0
 FLTO ?= 0
 USE_BACKWARD ?= 1
@@ -36,7 +35,6 @@ HYRISE_ALLOCATOR ?=
 # Include actual settings, override environment and others
 -include $(TOP)settings.mk
 
-MAKE := $(MAKE) --no-print-directory -s
 COMPILER ?= g++47
 
 include $(TOP)config.$(COMPILER).mk

@@ -38,7 +38,7 @@ perf_regression		:= $(bin_dir)/perf_regression
 perf_datagen            := $(bin_dir)/perf_datagen
 test_relation_eq	:= $(bin_dir)/test_relation_eq
 
-basic_test_suites := $(unit_tests_helper) $(unit_tests_io) $(unit_tests_storage) $(unit_tests_layouter) $(unit_tests_access) $(unit_tests_taskscheduler) $(unit_tests_memory) $(unit_tests_net) 
+basic_test_suites := $(unit_tests_helper) $(unit_tests_io) $(unit_tests_storage) $(unit_tests_layouter) $(unit_tests_access) $(unit_tests_taskscheduler) $(unit_tests_memory) $(unit_tests_net)
 aux_test_suites := $(test_relation_eq)
 
 regression_suite := $(perf_regression)
@@ -66,7 +66,7 @@ all: $(tgts)
 
 $(tgts):
 	@echo 'DIR $@'
-	@$(MAKE) $(MAKEFLAGS) --directory=$@
+	@$(MAKE) $(MAKEFLAGS) --directory=$@ --no-print-directory
 
 # dependencies betweeen binaries and libraries
 
@@ -141,8 +141,8 @@ clean_targets :=
 define CLEAN_TGT
 clean_targets += $(1)_clean
 $(1)_clean:
-	@$(MAKE) clean --directory=$(1)  
-endef    
+	@$(MAKE) clean --directory=$(1) --no-print-directory
+endef
 $(foreach tgt,$(tgts),$(eval $(call CLEAN_TGT,$(tgt))))
 
 clean: $(clean_targets) clean_dependencies
@@ -161,7 +161,7 @@ codespeed: $(all) benchmark_data
 	HYRISE_DB_PATH=$(IMH_PROJECT_PATH)/benchmark_data $(build_dir)/perf_regression --gtest_catch_exceptions=0 --gtest_output=xml:benchmark.xml
 
 duplicates:
-	-java -jar third_party/simian/simian-2.3.33.jar -excludes="**/units_*/*" -formatter=xml:simian.xml "src/**.cpp" "src/**.h" "src/**.hpp" 
+	-java -jar third_party/simian/simian-2.3.33.jar -excludes="**/units_*/*" -formatter=xml:simian.xml "src/**.cpp" "src/**.h" "src/**.hpp"
 
 pushdocs: doxygen
 	cd docs

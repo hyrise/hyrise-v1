@@ -1,15 +1,8 @@
-ifneq ($(VERBOSE_BUILD), 1)
-ifeq ($(COLOR_TTY), 1)
-echo_prog := $(shell if echo -e | grep -q -- -e; then echo echo; else echo echo -e; fi)
-echo_cmd = @$(echo_prog) "$(COLOR)$(subst $(IMH_PROJECT_PATH)/,,$(1))$(NOCOLOR)";
-else
-echo_cmd = @echo "$(1)";
-endif
+ifneq ($(VERBOSE_BUILD),1)
+echo_cmd = @echo "$(subst $(IMH_PROJECT_PATH)/,,$(1))";
 else # Verbose output
-echo_cmd =
+echo_cmd :=
 endif
-
-.PHONY:: clean
 
 ifdef libname
 lib ?= $(BUILD_DIR)lib$(libname).$(LIB_EXTENSION)
@@ -35,21 +28,24 @@ precompiled_header ?= $(precompiled_header_source).gch
 
 VPATH := $(src_dir)
 
+.PHONY: all clean
+
 all:: $(precompiled_header) $(lib) $(bin)
+	@:
 
 $(bin): $(objects)
 	$(call echo_cmd,BINARY $@) $(LD) -o $@ $(objects) $(LINKER_FLAGS) $(BINARY_LINKER_FLAGS) $(lib_dependencies) $(linker_dir_flags)
 
-$(lib): $(objects) 
+$(lib): $(objects)
 	$(call echo_cmd,LINK $@) $(LD) $(SHARED_LIB) -o $@ $(objects) $(LINKER_FLAGS) $(lib_dependencies) $(linker_dir_flags)
 
-%.cpp.o: %.cpp $(makefiles) $(precompiled_header) 
-	mkdir -p $(@D)
-	$(call echo_cmd,CXX $<) $(CXX) -MMD -MP $(CXX_BUILD_FLAGS) $(include_flags) -Winvalid-pch -include $(precompiled_header_source) -c -o $@ $< 
+%.cpp.o: %.cpp $(makefiles) $(precompiled_header)
+	@mkdir -p $(@D)
+	$(call echo_cmd,CXX $<) $(CXX) -MMD -MP $(CXX_BUILD_FLAGS) $(include_flags) -Winvalid-pch -include $(precompiled_header_source) -c -o $@ $<
 
 %.c.o: %.c $(makefiles)
-	mkdir -p $(@D)
-	$(call echo_cmd,CC $<) $(CC) -MMD -MP $(CC_BUILD_FLAGS) $(include_flags) -c -o $@ $< 
+	@mkdir -p $(@D)
+	$(call echo_cmd,CC $<) $(CC) -MMD -MP $(CC_BUILD_FLAGS) $(include_flags) -c -o $@ $<
 
 clean::
 	-$(call echo_cmd,CLEAN $(bin)$(lib)) $(RM) -rf $(objects) $(dependencies) $(bin) $(lib)
