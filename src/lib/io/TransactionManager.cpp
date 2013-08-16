@@ -47,7 +47,7 @@ bool TXModifications::handleCheck(const map_t& data, const storage::c_atable_ptr
 }
 
 void TXModifications::_handle(locking::Spinlock& mtx, map_t& data, const uintptr_t& key, pos_t pos) {
-  locking::ScopedLock<locking::Spinlock> lck(mtx);
+  std::lock_guard<locking::Spinlock> lck(mtx);
   if(data.find(key) == data.end()) {
     data[key] = pos_list_t();
   }
