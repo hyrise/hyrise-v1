@@ -139,8 +139,14 @@ int main(int argc, char *argv[]) {
   ("logdef,l", po::value<std::string>(&logPropertyFile)->default_value("build/log.properties"), "Log4CXX Log Properties File")
   ("scheduler,s", po::value<std::string>(&scheduler_name)->default_value("WSCoreBoundQueuesScheduler"), "Name of the scheduler to use");
   po::variables_map vm;
-  po::store(po::parse_command_line(argc, argv, desc), vm);
-  po::notify(vm);
+
+  try { 
+    po::store(po::parse_command_line(argc, argv, desc), vm);
+    po::notify(vm);
+  } catch(po::error &e) {
+    std::cerr << e.what() << std::endl;
+    return EXIT_SUCCESS;
+  }
 
   if (vm.count("help")) {
     std::cout << desc << std::endl;
