@@ -3,9 +3,11 @@
 #define SRC_LIB_IO_TRANSACTIONMANAGER_H_
 
 #include <atomic>
+#include <mutex>
 #include <unordered_map>
 
 #include "helper/locking.h"
+#include "helper/Synchronized.h"
 #include "helper/types.h"
 #include "io/TXContext.h"
 #include "storage/storage_types.h"
@@ -50,16 +52,22 @@ private:
   void _handle(locking::Spinlock& mtx, map_t& data, const uintptr_t& key, pos_t pos);
 };
 
+typedef struct TXData {
+  TXContext _context;
+  TXModifications _modifications;
+  TXData(TXContext ctx) : _context(ctx) {}
+} TransactionData;
+
 
 /// Basic transaction manager
 class TransactionManager {
   std::atomic<transaction_id_t> _transactionCount;
   std::atomic<transaction_cid_t> _commitId;
 
-  using map_t = std::unordered_map<transaction_id_t, TXModifications>;
+  using map_t = std::unordered_map<transaction_id_t, std::unique_ptr<TransactionData>>;
 
   // Keeping track of all transactions and their modifications
-  map_t _txData;
+  Synchronized<map_t, locking::Spinlock> _txData;
 
 
   // Spin Lock for transactions

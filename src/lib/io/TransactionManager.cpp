@@ -4,6 +4,8 @@
 #include <limits>
 #include <stdexcept>
 
+#include "helper/make_unique.h"
+
 namespace hyrise {
 namespace tx {
 
@@ -61,18 +63,11 @@ TransactionManager& TransactionManager::getInstance() {
 }
 
 transaction_id_t TransactionManager::getTransactionId() {
-  static locking::Spinlock _mtx;
-  locking::ScopedLock<locking::Spinlock> lck(_mtx);
-
   if (_transactionCount == std::numeric_limits<transaction_id_t>::max()) {
     throw std::runtime_error("Out of transaction ids - reached maximum");
   }
 
-  auto key = ++_transactionCount;
-  // Create a new entry in teh TX Modifications set
-  _txData[key] = TXModifications(key);
-
-  return key;
+  return ++_transactionCount;
 }
 
 transaction_id_t TransactionManager::getLastCommitId() {
@@ -81,8 +76,12 @@ transaction_id_t TransactionManager::getLastCommitId() {
 
 TXContext TransactionManager::buildContext() {
   TXContext ctx(getTransactionId(), getLastCommitId());
+  _txData([&ctx](map_t& txData) {
+      txData[ctx.tid] = make_unique<TransactionData>(ctx);
+    });
   return std::move(ctx);
 }
+
 
 transaction_cid_t TransactionManager::prepareCommit() {
   transaction_id_t result;
@@ -102,16 +101,19 @@ transaction_cid_t TransactionManager::tryPrepareCommit() {
   if (_txLock.tryLock()){
     return getLastCommitId() + 1;
   }
-  return hyrise::tx::UNKNOWN_CID;
+  return tx::UNKNOWN_CID;
 }
 
 
 TXModifications& TransactionManager::operator[](const transaction_id_t& key) {
+  return _txData([&key] (map_t& txData) -> TXModifications& {
 #ifdef EXPENSIVE_ASSERTIONS
-  if (_txData.find(key) == _txData.end())
-    throw std::runtime_error("Retrieving Modification Set without initializing it first.");
+      if (txData.find(key) == txData.end()) {
+        throw std::runtime_error("Retrieving Modification Set without initializing it first.");
+      }
 #endif
-  return _txData[key];
+      return txData[key]->_modifications;
+    });
 }
 
 void TransactionManager::commit(transaction_id_t tid) {
@@ -120,7 +122,7 @@ void TransactionManager::commit(transaction_id_t tid) {
   ++_commitId;
 
   // Clear all relevant data for this transaction
-  _txData.erase(tid);
+  _txData([&tid] (map_t& txData) { txData.erase(tid); });
   _txLock.unlock();
 }
 
@@ -128,7 +130,7 @@ void TransactionManager::commit(transaction_id_t tid) {
 void TransactionManager::reset() {
   _transactionCount = START_TID;
   _commitId = UNKNOWN_CID;
-  _txData.clear();
+  _txData([] (map_t& txData) { txData.clear(); });
 }
 
 }}
