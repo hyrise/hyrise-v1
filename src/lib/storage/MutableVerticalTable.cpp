@@ -222,7 +222,6 @@ atable_ptr_t MutableVerticalTable::copy() const {
   }
 
   auto new_table = std::make_shared<MutableVerticalTable>(cs);
-  new_table->setGeneration(this->generation());
 
   return new_table;
 }

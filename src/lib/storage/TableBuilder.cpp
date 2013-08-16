@@ -2,6 +2,7 @@
 #include "storage/TableBuilder.h"
 
 #include "storage/AbstractTable.h"
+#include "storage/OrderIndifferentDictionary.h"
 #include "storage/Table.h"
 #include "storage/MutableVerticalTable.h"
 

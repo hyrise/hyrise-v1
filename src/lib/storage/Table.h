@@ -52,9 +52,9 @@ private:
   DictionaryVector _dictionaries;
 
   //* Number of columns
-  size_t width;
+  size_t width = 0;
 
-  bool _compressed;
+  bool _compressed = false;
 
 public:
 
@@ -69,9 +69,6 @@ public:
         size_t initial_size = 0,
         bool sorted = true,
         bool compressed = true);
-  
-  Table(): width(0), _compressed(false) {
-  };
 
   ~Table();
 
