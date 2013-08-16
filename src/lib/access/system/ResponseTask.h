@@ -8,6 +8,7 @@
 #include "helper/epoch.h"
 #include "access/system/OutputTask.h"
 #include "net/AbstractConnection.h"
+#include "io/TXContext.h"
 
 namespace hyrise {
 namespace access {
@@ -17,12 +18,12 @@ class PlanOperation;
 class ResponseTask : public Task {
  private:
   net::AbstractConnection *connection;
-  
+
   size_t _transmitLimit = 0; // Used for serialization only
   size_t _transmitOffset = 0; // Used for serialization only
 
   std::atomic<unsigned long> _affectedRows;
-
+  tx::TXContext _txContext;
   epoch_t queryStart = 0;
   performance_vector_t performance_data;
 
@@ -56,7 +57,11 @@ class ResponseTask : public Task {
   std::vector<std::string> getErrorMessages() const {
     return _error_messages;
   }
-  
+
+  void setTxContext(tx::TXContext t) {
+    _txContext = t;
+  }
+
   void setQueryStart(epoch_t start) {
     queryStart = start;
   }
@@ -78,9 +83,9 @@ class ResponseTask : public Task {
   }
 
   task_states_t getState() const;
-  
+
   std::shared_ptr<PlanOperation> getResultTask();
-  
+
   virtual void operator()();
 };
 

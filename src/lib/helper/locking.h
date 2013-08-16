@@ -14,17 +14,19 @@ class Spinlock {
   Spinlock() : _state(Unlocked){}
 
   void lock() {
-    while(!tryLock()) {
+    while(!try_lock()) {
       std::this_thread::yield();
     }
   }
 
-  bool isLocked() {
+  bool is_locked() {
     return _state.load() == Locked;
   }
 
-  bool tryLock() {
-    return (!_state.exchange(Locked, std::memory_order_acquire)) == Locked;
+  bool try_lock() {
+    // exchange returns the value before locking, thus we need
+    // to make sure the lock wasn't already in Locked state before
+    return _state.exchange(Locked, std::memory_order_acquire) != Locked;
   }
 
   void unlock() {

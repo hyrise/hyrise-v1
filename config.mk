@@ -119,7 +119,8 @@ endif
 
 JSON_PATH	:=	$(IMH_PROJECT_PATH)/third_party/jsoncpp
 FTPRINTER_PATH	:=	$(IMH_PROJECT_PATH)/third_party/ftprinter/include
-PROJECT_INCLUDE += $(IMH_PROJECT_PATH)/src/lib $(IMH_PROJECT_PATH)/third_party $(FTPRINTER_PATH) $(JSON_PATH)
+CEREAL_PATH := $(IMH_PROJECT_PATH)/third_party/cereal/include
+PROJECT_INCLUDE += $(IMH_PROJECT_PATH)/src/lib $(IMH_PROJECT_PATH)/third_party $(FTPRINTER_PATH) $(JSON_PATH) $(CEREAL_PATH)
 LINKER_FLAGS += -llog4cxx -lpthread -lboost_system
 BINARY_LINKER_FLAGS += -lbackward-hyr
 

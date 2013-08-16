@@ -19,7 +19,9 @@ namespace tx {
 class TXModifications {
  public:
   // Map type to store position list per table
-  using map_t = std::unordered_map<uintptr_t, storage::pos_list_t>;
+  using map_t = std::map<std::weak_ptr<const AbstractTable>,
+                         storage::pos_list_t,
+                         std::owner_less<std::weak_ptr<const AbstractTable> > >;
 
   // TID identifier for the context
   transaction_id_t tid = UNKNOWN;
@@ -49,7 +51,7 @@ private:
   bool handleCheck(const map_t& data, const storage::c_atable_ptr_t& tab) const;
 
   // Abstraction to the specific inserted and deleted row processes.
-  void _handle(locking::Spinlock& mtx, map_t& data, const uintptr_t& key, pos_t pos);
+  void _handle(locking::Spinlock& mtx, map_t& data, const storage::c_atable_ptr_t& key, pos_t pos);
 };
 
 typedef struct TXData {
@@ -58,26 +60,40 @@ typedef struct TXData {
   TXData(TXContext ctx) : _context(ctx) {}
 } TransactionData;
 
-
-/// Basic transaction manager
+/// Transaction manager based on transaction contexts
 class TransactionManager {
-  std::atomic<transaction_id_t> _transactionCount;
-  std::atomic<transaction_cid_t> _commitId;
+ public:
+  /// \defgroup Transaction Control Mechanism
+  /// Use these methods to control transactions
+  /// @{
 
-  using map_t = std::unordered_map<transaction_id_t, std::unique_ptr<TransactionData>>;
+  /// Starts a new transaction context, creates TransactionData object
+  /// to be accessed through the returned context's `tid`.
+  static TXContext beginTransaction();
 
-  // Keeping track of all transactions and their modifications
-  Synchronized<map_t, locking::Spinlock> _txData;
+  /// Returns transaction data reference for modification
+  /// \param tid transaction id
+  static TransactionData& getTransactionData(transaction_id_t tid);
+  /// Returns context for tid
+  /// \param tid transaction id
+  static TXContext getContext(transaction_id_t tid);
 
+  /// Make all changes visible to other transaction, ending the lifetime
+  /// of the transaction context identified by tid
+  /// \param tid transaction id to commit
+  /// \returns commit id on success
+  static transaction_cid_t commitTransaction(transaction_id_t tid);
 
-  // Spin Lock for transactions
-  locking::Spinlock _txLock;
+  /// Ends a transaction by leaving all changes invisible
+  /// \param tid transaction id to abort
+  static void abortTransaction(transaction_id_t tid);
 
-  TransactionManager();
+  /// Check validity of a transaction
+  /// \param tid transaction id under investigation
+  static bool isRunningTransaction(transaction_id_t tid);
+  static std::vector<TXContext> getRunningTransactionContexts();
+  /// @}
 
-  // Get next transaction id
-  transaction_id_t getTransactionId();
-public:
   // Singleton Constructor
   static TransactionManager& getInstance();
 
@@ -91,7 +107,8 @@ public:
   TXContext buildContext();
 
   /*
-  * Starts the Synchronized Transaction Process
+
+   * Starts the Synchronized Transaction Process
   *
   * The call to prepare commit retrieves the next possible commit ID from the
   * list and locks the call to serialized all incoming transactions. We
@@ -119,6 +136,26 @@ public:
   */
   void commit(transaction_id_t tid);
   void reset();
+
+
+ private:
+  std::atomic<transaction_id_t> _transactionCount;
+  std::atomic<transaction_cid_t> _commitId;
+
+  using map_t = std::unordered_map<transaction_id_t,
+                                   std::unique_ptr<TransactionData>>;
+
+  // Keeping track of all transactions and their modifications
+  Synchronized<map_t, locking::Spinlock> _txData;
+
+
+  // Spin Lock for transactions
+  locking::Spinlock _txLock;
+
+  TransactionManager();
+
+  // Get next transaction id
+  transaction_id_t getTransactionId();
 };
 
 }}

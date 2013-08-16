@@ -9,7 +9,7 @@
 
 #include "access/system/PlanOperation.h"
 #include "access/system/OutputTask.h"
-
+#include "io/TransactionManager.h"
 #include "helper/PapiTracer.h"
 
 #include "net/AsyncConnection.h"
@@ -89,7 +89,7 @@ void ResponseTask::registerPlanOperation(const std::shared_ptr<PlanOperation>& p
   planOp->setPerformanceData(perf);
   planOp->setGeneratedKeysData(genKeys);
 
-  const auto responseTaskPtr = std::dynamic_pointer_cast<ResponseTask>(shared_from_this()); 
+  const auto responseTaskPtr = std::dynamic_pointer_cast<ResponseTask>(shared_from_this());
   planOp->setResponseTask(responseTaskPtr);
 
   perfMutex.lock();
@@ -129,6 +129,10 @@ void ResponseTask::operator()() {
     const auto& result = predecessor->getResultTable();
 
     if (getState() != OpFail) {
+      if (tx::TransactionManager::isRunningTransaction(_txContext.tid)) {
+        response["session_context"] = Json::Value(_txContext.tid);
+      }
+
       if (result) {
         // Make header
         Json::Value json_header(Json::arrayValue);
@@ -182,9 +186,9 @@ void ResponseTask::operator()() {
       response["generatedKeys"] = jsonKeys;
       response["affectedRows"] = Json::Value(_affectedRows);
 
-    } 
+    }
     LOG4CXX_DEBUG(_logger, "Table Use Count: " << result.use_count());
-  } 
+  }
 
   if (!_error_messages.empty()) {
     Json::Value errors;
@@ -193,7 +197,7 @@ void ResponseTask::operator()() {
     }
     response["error"] = errors;
   }
-  
+
   connection->respond(response.toStyledString());
 }
 

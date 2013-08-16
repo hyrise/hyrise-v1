@@ -66,7 +66,7 @@ public:
 
 TEST_F(TransactionTests, read_own_writes) {
 
-  auto writeCtx =hyrise::tx::TransactionManager::getInstance().buildContext(); 
+  auto writeCtx =hyrise::tx::TransactionManager::getInstance().buildContext();
 
   auto& mod = hyrise::tx::TransactionManager::getInstance()[writeCtx.tid];
 
@@ -80,7 +80,7 @@ TEST_F(TransactionTests, read_own_writes) {
   is.execute();
 
   ASSERT_EQ(1u, mod.inserted.size());
-  ASSERT_EQ(1u, mod.inserted[reinterpret_cast<uintptr_t>(linxxxs.get())].size());
+  ASSERT_EQ(1u, mod.inserted[linxxxs].size());
 
 
   ProjectionScan ps;
@@ -100,8 +100,8 @@ TEST_F(TransactionTests, read_own_writes) {
 
 TEST_F(TransactionTests, read_only_commited) {
 
-  auto writeCtx =hyrise::tx::TransactionManager::getInstance().buildContext(); 
-  auto readCtx =hyrise::tx::TransactionManager::getInstance().buildContext(); 
+  auto writeCtx =hyrise::tx::TransactionManager::getInstance().buildContext();
+  auto readCtx =hyrise::tx::TransactionManager::getInstance().buildContext();
 
   size_t before = linxxxs->size();
   // Add One read all
@@ -113,7 +113,7 @@ TEST_F(TransactionTests, read_only_commited) {
 
   auto& mod = hyrise::tx::TransactionManager::getInstance()[readCtx.tid];
   ASSERT_EQ(0u, mod.inserted.size());
-  
+
   ProjectionScan ps;
   ps.addField(0);
   ps.setTXContext(readCtx);
@@ -132,12 +132,12 @@ TEST_F(TransactionTests, read_only_commited) {
 
 TEST_F(TransactionTests, concurrent_writer) {
 
-  auto writeCtx =hyrise::tx::TransactionManager::getInstance().buildContext(); 
-  auto writeCtx2 =hyrise::tx::TransactionManager::getInstance().buildContext(); 
+  auto writeCtx =hyrise::tx::TransactionManager::getInstance().buildContext();
+  auto writeCtx2 =hyrise::tx::TransactionManager::getInstance().buildContext();
 
   auto& mod = hyrise::tx::TransactionManager::getInstance()[writeCtx.tid];
   ASSERT_EQ(0u, mod.inserted.size());
-  
+
 
   size_t before = linxxxs->size();
   // Add One read all
@@ -149,7 +149,7 @@ TEST_F(TransactionTests, concurrent_writer) {
 
 
   ASSERT_EQ(1u, mod.inserted.size());
-  ASSERT_EQ(1u, mod.inserted[reinterpret_cast<uintptr_t>(linxxxs.get())].size());
+  ASSERT_EQ(1u, mod.inserted[linxxxs].size());
 
   // Add One read all
   InsertScan is2;
@@ -158,7 +158,7 @@ TEST_F(TransactionTests, concurrent_writer) {
   is2.setInputData(second_row);
   is2.execute();
 
-  ASSERT_EQ(1u, mod.inserted[reinterpret_cast<uintptr_t>(linxxxs.get())].size());
+  ASSERT_EQ(1u, mod.inserted[linxxxs].size());
 
   ASSERT_EQ(before + 2, linxxxs->size());
 
@@ -167,8 +167,6 @@ TEST_F(TransactionTests, concurrent_writer) {
   c.addInput(linxxxs);
   c.setTXContext(writeCtx);
   c.execute();
-
-  ASSERT_EQ(0u, mod.inserted.size());
 
   ProjectionScan ps;
   ps.addInput(linxxxs);
@@ -183,16 +181,16 @@ TEST_F(TransactionTests, concurrent_writer) {
   vp.execute();
 
   auto res = vp.getResultTable();
-  
+
   ASSERT_EQ(before + 1, res->size());
   ASSERT_EQ(222, res->getValue<hyrise_int_t>(1,res->size()-1));
 }
 
 TEST_F(TransactionTests, delete_op) {
 
-  auto writeCtx =hyrise::tx::TransactionManager::getInstance().buildContext(); 
+  auto writeCtx =hyrise::tx::TransactionManager::getInstance().buildContext();
   size_t before = linxxxs->size();
-  
+
   // Add One read all
   auto pc = PointerCalculator::create(linxxxs, new pos_list_t({0}));
   ASSERT_EQ(1u, pc->size());
@@ -211,7 +209,7 @@ TEST_F(TransactionTests, delete_op) {
   c.setTXContext(writeCtx);
   c.execute();
 
-  auto readCtx =hyrise::tx::TransactionManager::getInstance().buildContext(); 
+  auto readCtx =hyrise::tx::TransactionManager::getInstance().buildContext();
   ProjectionScan ps;
   ps.addInput(linxxxs);
   ps.setTXContext(readCtx);
@@ -225,16 +223,16 @@ TEST_F(TransactionTests, delete_op) {
   vp.execute();
 
   auto res = vp.getResultTable();
-  
-  ASSERT_EQ(before - 1, res->size()); 
+
+  ASSERT_EQ(before - 1, res->size());
 }
 
 
 TEST_F(TransactionTests, read_your_own_deletes) {
 
-  auto writeCtx = hyrise::tx::TransactionManager::getInstance().buildContext(); 
+  auto writeCtx = hyrise::tx::TransactionManager::getInstance().buildContext();
   size_t before = linxxxs->size();
-  
+
   // Add One read all
   auto pc = PointerCalculator::create(linxxxs, new pos_list_t({0}));
   ASSERT_EQ(1u, pc->size());
@@ -260,15 +258,15 @@ TEST_F(TransactionTests, read_your_own_deletes) {
   vp.execute();
 
   auto res = vp.getResultTable();
-  ASSERT_EQ(before-1, res->size()) << "We expect not to see the row we deleted earlier"; 
+  ASSERT_EQ(before-1, res->size()) << "We expect not to see the row we deleted earlier";
 }
 
 
 TEST_F(TransactionTests, delete_op_and_concurrent_read) {
 
-  auto writeCtx =hyrise::tx::TransactionManager::getInstance().buildContext(); 
+  auto writeCtx =hyrise::tx::TransactionManager::getInstance().buildContext();
   size_t before = linxxxs->size();
-  
+
   // Add One read all
   auto pc = PointerCalculator::create(linxxxs, new pos_list_t({0}));
   ASSERT_EQ(1u, pc->size());
@@ -281,7 +279,7 @@ TEST_F(TransactionTests, delete_op_and_concurrent_read) {
   auto& mod = hyrise::tx::TransactionManager::getInstance()[writeCtx.tid];
   ASSERT_EQ(1u, mod.deleted.size());
 
-  auto readCtx =hyrise::tx::TransactionManager::getInstance().buildContext(); 
+  auto readCtx =hyrise::tx::TransactionManager::getInstance().buildContext();
   ProjectionScan ps;
   ps.addInput(linxxxs);
   ps.setTXContext(readCtx);
@@ -295,15 +293,15 @@ TEST_F(TransactionTests, delete_op_and_concurrent_read) {
   vp.execute();
 
   auto res = vp.getResultTable();
-  
-  ASSERT_EQ(before , res->size());  
+
+  ASSERT_EQ(before , res->size());
 }
 
 TEST_F(TransactionTests, delete_op_with_commit_and_concurrent_read) {
 
-  auto writeCtx =hyrise::tx::TransactionManager::getInstance().buildContext(); 
+  auto writeCtx =hyrise::tx::TransactionManager::getInstance().buildContext();
   size_t before = linxxxs->size();
-  
+
   // Delete positiotn 0
   auto pc = PointerCalculator::create(linxxxs, new pos_list_t({0}));
   ASSERT_EQ(1u, pc->size());
@@ -322,12 +320,12 @@ TEST_F(TransactionTests, delete_op_with_commit_and_concurrent_read) {
   linxxxs->updateCommitID(*(pc->getPositions()), writeCtx.cid, false);
 
 
-  
+
   auto& mod = hyrise::tx::TransactionManager::getInstance()[writeCtx.tid];
   ASSERT_EQ(1u, mod.deleted.size());
 
   // read all
-  auto readCtx =hyrise::tx::TransactionManager::getInstance().buildContext(); 
+  auto readCtx =hyrise::tx::TransactionManager::getInstance().buildContext();
   ProjectionScan ps;
   ps.addInput(linxxxs);
   ps.setTXContext(readCtx);
@@ -343,8 +341,8 @@ TEST_F(TransactionTests, delete_op_with_commit_and_concurrent_read) {
   auto res = vp.getResultTable();
 
   txmgr.commit(writeCtx.tid);
-  
-  ASSERT_EQ(before , res->size());  
+
+  ASSERT_EQ(before , res->size());
 }
 
 TEST_F(TransactionTests, delete_op_and_merge) {
@@ -400,12 +398,12 @@ TEST_F(TransactionTests, delete_op_and_merge) {
 
 TEST_F(TransactionTests, update_and_read_values) {
 
-  auto writeCtx =hyrise::tx::TransactionManager::getInstance().buildContext(); 
+  auto writeCtx =hyrise::tx::TransactionManager::getInstance().buildContext();
   auto& mod = hyrise::tx::TransactionManager::getInstance()[writeCtx.tid];
 
   ASSERT_EQ(0u, mod.inserted.size());
   size_t before = linxxxs->size();
-  
+
   // create PC to simulate position
   auto pc = PointerCalculator::create(linxxxs, new pos_list_t({0,4}));
 
@@ -419,10 +417,10 @@ TEST_F(TransactionTests, update_and_read_values) {
   is.execute();
 
   ASSERT_EQ(1u, mod.inserted.size());
-  ASSERT_EQ(2u, mod.inserted[reinterpret_cast<uintptr_t>(linxxxs.get())].size());
+  ASSERT_EQ(2u, mod.inserted[linxxxs].size());
 
   ASSERT_EQ(1u, mod.deleted.size());
-  ASSERT_EQ(2u, mod.deleted[reinterpret_cast<uintptr_t>(linxxxs.get())].size());
+  ASSERT_EQ(2u, mod.deleted[linxxxs].size());
 
   ProjectionScan ps;
   ps.addField(0);
@@ -441,12 +439,12 @@ TEST_F(TransactionTests, update_and_read_values) {
 
 TEST_F(TransactionTests, update_and_merge) {
 
-  auto writeCtx =hyrise::tx::TransactionManager::getInstance().buildContext(); 
+  auto writeCtx =hyrise::tx::TransactionManager::getInstance().buildContext();
   auto& mod = hyrise::tx::TransactionManager::getInstance()[writeCtx.tid];
 
   ASSERT_EQ(0u, mod.inserted.size());
   size_t before = linxxxs->size();
-  
+
   // create PC to simulate position
   auto pc = PointerCalculator::create(linxxxs, new pos_list_t({0,4}));
 
@@ -460,17 +458,17 @@ TEST_F(TransactionTests, update_and_merge) {
   is.execute();
 
   ASSERT_EQ(1u, mod.inserted.size());
-  ASSERT_EQ(2u, mod.inserted[reinterpret_cast<uintptr_t>(linxxxs.get())].size());
+  ASSERT_EQ(2u, mod.inserted[linxxxs].size());
 
   ASSERT_EQ(1u, mod.deleted.size());
-  ASSERT_EQ(2u, mod.deleted[reinterpret_cast<uintptr_t>(linxxxs.get())].size());
+  ASSERT_EQ(2u, mod.deleted[linxxxs].size());
 
   Commit c;
   c.addInput(linxxxs);
   c.setTXContext(writeCtx);
   c.execute();
 
-  writeCtx =hyrise::tx::TransactionManager::getInstance().buildContext(); 
+  writeCtx =hyrise::tx::TransactionManager::getInstance().buildContext();
 
   //No merge the table
   MergeStore mt;
