@@ -51,7 +51,8 @@ void QueryParser::buildTasks(
         throw std::runtime_error("Trying to parallelize " + typeName + ", which is not a subclass of Parallelizable");
       }
     }
-    
+    if (planOperationSpec.isMember("profiling"))
+      planOperation->setProfiling(planOperationSpec["profiling"].asBool());
     planOperation->setOperatorId(members[i]);
     if (planOperationSpec.isMember("core"))
       planOperation->setPreferredCore(planOperationSpec["core"].asInt());

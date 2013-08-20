@@ -17,6 +17,10 @@
 #include "boost/lexical_cast.hpp"
 #include "log4cxx/logger.h"
 
+#ifdef HYRISE_USE_GOOGLE_PROFILER
+#include <gperftools/profiler.h>
+#endif
+
 namespace { auto logger = log4cxx::Logger::getLogger("access.plan.PlanOperation"); }
 
 namespace hyrise { namespace access {
@@ -134,8 +138,28 @@ void PlanOperation::operator()() noexcept {
   setState(OpFail);
 }
 
+struct Profiler {
+#ifdef HYRISE_USE_GOOGLE_PROFILER
+  bool _profile;
+  inline Profiler(bool profile, const std::string& name) : _profile(profile) {
+    if (_profile) {
+      ProfilerStart((name + std::to_string(get_epoch_nanoseconds()) + ".gprof").c_str());
+    }
+  }
+  inline ~Profiler() {
+    if (_profile) {
+      ProfilerStop();
+    }
+  }
+#else
+  Profiler(bool, const std::string&) {}
+#endif
+};
+
 const PlanOperation * PlanOperation::execute() {
   epoch_t startTime = get_epoch_nanoseconds();
+
+  Profiler prof(_profiling, _operatorId);
 
   refreshInput();
 
@@ -177,6 +201,10 @@ void PlanOperation::setTXContext(tx::TXContext ctx) {
 
 void PlanOperation::addInput(storage::c_aresource_ptr_t t) {
   input.addResource(t);
+}
+
+void PlanOperation::setProfiling(bool profiling) {
+  _profiling = profiling;
 }
 
 void PlanOperation::setPlanId(std::string i) {
