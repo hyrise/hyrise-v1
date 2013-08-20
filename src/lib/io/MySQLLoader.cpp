@@ -119,14 +119,14 @@ std::shared_ptr<AbstractTable> MySQLInput::load(
 
 
   // Build the table
-  TableBuilder::param_list list;
+  hyrise::storage::TableBuilder::param_list list;
   std::vector<std::string> typeList;
   while ((row = mysql_fetch_row(res)) != NULL) {
     typeList.push_back(std::string(row[1]));
     list.append().set_type(translations[typeList.back()].first).set_name(std::string(row[0]));
   }
   mysql_free_result(res);
-  auto t = TableBuilder::build(list, args.getCompressed());
+  auto t = hyrise::storage::TableBuilder::build(list, args.getCompressed());
 
 
   mysql_query(conn, ("USE " + _parameters.getSchema()).c_str());
