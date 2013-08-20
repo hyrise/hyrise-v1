@@ -34,7 +34,8 @@ def main():
         running = c.runningTransactions()
         assert len(running["contexts"]) == 1
         assert tid3 == running["contexts"][0]["transaction_id"]
-        c.commit() # close transaction
+        c.rollback() # end transaction by rollback
+        assert not c.runningTransactions()["contexts"] # no contexts should be running
         assert not "session_context" in c.query(query, True) # started a new session, but instantly commit
         running = c.runningTransactions()
         assert len(running["contexts"]) == 0

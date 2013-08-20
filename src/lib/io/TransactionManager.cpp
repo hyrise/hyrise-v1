@@ -116,11 +116,7 @@ void TransactionManager::commit(transaction_id_t tid) {
   ++_commitId;
   _txLock.unlock();
 
-  // Clear all relevant data for this transaction
-  _txData([&tid] (map_t& txData) {
-      std::size_t erased = txData.erase(tid);
-      assert(erased == 1);
-    });
+  endTransaction(tid);
 }
 
 
@@ -167,15 +163,27 @@ storage::store_ptr_t getStore(const storage::c_atable_ptr_t& table) {
       checked_pointer_cast<const Store>(table));
 }
 
-void TransactionManager::abortTransaction(transaction_id_t tid) {
-  // TODO
+void TransactionManager::endTransaction(transaction_id_t tid) {
+  // Clear all relevant data for this transaction
+  _txData([&tid] (map_t& txData) {
+      std::size_t erased = txData.erase(tid);
+      assert(erased == 1);
+    });
 }
 
-transaction_cid_t TransactionManager::commitTransaction(transaction_id_t tid) {
-  auto& txmgr = getInstance();
+void TransactionManager::rollbackTransaction(transaction_id_t tid) {
   if (!isRunningTransaction(tid)) {
     throw std::runtime_error("Transaction is not currently running");
   }
+  // TODO implement properly if relevant changes are made.
+  getInstance().endTransaction(tid);
+}
+
+transaction_cid_t TransactionManager::commitTransaction(transaction_id_t tid) {
+  if (!isRunningTransaction(tid)) {
+    throw std::runtime_error("Transaction is not currently running");
+  }
+  auto& txmgr = getInstance();
   auto& tx_data = getTransactionData(tid);
   auto& _txContext = tx_data._context;
   const auto& modifications = tx_data._modifications;
@@ -183,7 +191,6 @@ transaction_cid_t TransactionManager::commitTransaction(transaction_id_t tid) {
   _txContext.cid = txmgr.prepareCommit();
 
   // Only update the required positions
-  //for(auto& store : tables) {
   for (auto& kv: modifications.deleted) {
     auto weak_table = kv.first;
     // Only deleted records have to be checked for validity as newly inserted

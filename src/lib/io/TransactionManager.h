@@ -86,7 +86,7 @@ class TransactionManager {
 
   /// Ends a transaction by leaving all changes invisible
   /// \param tid transaction id to abort
-  static void abortTransaction(transaction_id_t tid);
+  static void rollbackTransaction(transaction_id_t tid);
 
   /// Check validity of a transaction
   /// \param tid transaction id under investigation
@@ -135,6 +135,9 @@ class TransactionManager {
   * counter;
   */
   void commit(transaction_id_t tid);
+
+  void endTransaction(transaction_id_t tid);
+
   void reset();
 
 

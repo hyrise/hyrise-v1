@@ -499,4 +499,18 @@ TEST_F(TransactionTests, update_and_merge) {
   ASSERT_EQ(99, r1->getValue<hyrise_int_t>(1,4));
 }
 
+TEST_F(TransactionTests, delete_rollback) {
+  auto writeCtx = tx::TransactionManager::beginTransaction();
+  auto pc = PointerCalculator::create(linxxxs, new pos_list_t({0}));
+  ASSERT_EQ(tx::UNKNOWN, linxxxs->tid(0));
+
+  DeleteOp del;
+  del.setTXContext(writeCtx);
+  del.addInput(pc);
+  del.execute();
+
+  tx::TransactionManager::rollbackTransaction(writeCtx.tid);
+  ASSERT_EQ(tx::UNKNOWN, linxxxs->tid(0));
+}
+
 }}
