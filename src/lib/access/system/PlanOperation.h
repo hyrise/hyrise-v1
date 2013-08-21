@@ -50,7 +50,7 @@ class PlanOperation : public OutputTask {
 
   void setLimit(uint64_t l);
   void setProducesPositions(bool p);
-
+  
   void setTXContext(tx::TXContext ctx);
 
   void addInput(storage::c_aresource_ptr_t t);
@@ -65,7 +65,6 @@ class PlanOperation : public OutputTask {
   void addNamedField(const field_name_t& field);
 
   void setPlanId(std::string i);
-  void setProfiling(bool b);
   void setOperatorId(std::string i);
   const std::string& planOperationName() const;
   void setPlanOperationName(const std::string& name);
@@ -97,10 +96,9 @@ class PlanOperation : public OutputTask {
   bool producesPositions = true;
 
   std::string _planId;
-  bool _profiling = false;
   std::string _operatorId;
   std::string _planOperationName;
-
+  
   tx::TXContext _txContext;
 
 };
