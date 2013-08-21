@@ -16,4 +16,4 @@ The following documents give detailed help in developing with HYRISE.
     developing/continuous_integration
     developing/writing_plan_operations
     developing/writing_performance_regressions
-    developing/profiling.rst
+    developing/profiling
