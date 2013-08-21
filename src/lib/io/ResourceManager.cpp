@@ -31,7 +31,7 @@ bool ResourceManager::exists(const std::string& name) const {
 void ResourceManager::assureExists(const std::string& name) const {
   auto lock = lock_guard(_resource_mutex) ;
   if (!exists(name)) {
-    throw ResourceManagerException("Does not exist");
+    throw ResourceNotExistsException("ResourceManager: Resource \'" + name + "\' does not exist");
   }
 }
 
@@ -55,7 +55,7 @@ void ResourceManager::replace(const std::string& name, const  std::shared_ptr<Ab
 void ResourceManager::add(const std::string& name, const std::shared_ptr<AbstractResource>& resource) const {
   auto lock = lock_guard(_resource_mutex) ;
   if (exists(name))
-    throw AlreadyExistsException("ResourceManager: Resource '" + name + "' already exists");
+    throw ResourceAlreadyExistsException("ResourceManager: Resource '" + name + "' already exists");
   _resources.insert(make_pair(name, resource));
 }
 

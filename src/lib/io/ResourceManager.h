@@ -21,9 +21,14 @@ class ResourceManagerException :  public std::runtime_error {
   explicit ResourceManagerException(const std::string &what): std::runtime_error(what) {}
 };
 
-class AlreadyExistsException : public ResourceManagerException {
+class ResourceAlreadyExistsException : public ResourceManagerException {
  public:
-  explicit AlreadyExistsException(const std::string &what): ResourceManagerException(what) {}
+  explicit ResourceAlreadyExistsException(const std::string &what): ResourceManagerException(what) {}
+};
+
+class ResourceNotExistsException : public ResourceManagerException {
+ public:
+  explicit ResourceNotExistsException(const std::string &what): ResourceManagerException(what) {}
 };
 
 /// Manages AbstractResources by name
