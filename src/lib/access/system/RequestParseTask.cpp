@@ -12,10 +12,14 @@
 #include "access/system/ResponseTask.h"
 #include "access/system/PlanOperation.h"
 #include "access/system/QueryTransformationEngine.h"
+#include "access/tx/Commit.h"
+
 #include "helper/epoch.h"
 #include "helper/HttpHelper.h"
+#include "helper/numerical_converter.h"
 #include "helper/PapiTracer.h"
 #include "helper/sha1.h"
+
 #include "io/TransactionManager.h"
 #include "net/Router.h"
 #include "net/AbstractConnection.h"
@@ -69,7 +73,7 @@ void RequestParseTask::operator()() {
   performance_vector_t& performance_data = _responseTask->getPerformanceData();
   // the performance attribute for this operation (at [0])
   performance_data.push_back(std::unique_ptr<performance_attributes_t>(new performance_attributes_t));
-  
+
   std::vector<std::shared_ptr<Task> > tasks;
 
   int priority = Task::DEFAULT_PRIORITY;
@@ -80,12 +84,34 @@ void RequestParseTask::operator()() {
     std::string body(_connection->getBody());
     std::map<std::string, std::string> body_data = parseHTTPFormData(body);
 
+    boost::optional<tx::TXContext> ctx;
+    auto ctx_it = body_data.find("session_context");
+    if (ctx_it != body_data.end()) {
+      boost::optional<tx::transaction_id_t> tid;
+      if ((tid = parseNumeric<tx::transaction_id_t>(ctx_it->second)) &&
+          (tx::TransactionManager::isRunningTransaction(*tid))) {
+        LOG4CXX_DEBUG(_logger, "Picking up transaction id " << *tid);
+        ctx = tx::TransactionManager::getContext(*tid);
+      } else {
+        LOG4CXX_ERROR(_logger, "Invalid transaction id " << *tid);
+        _responseTask->addErrorMessage("Invalid transaction id set, aborting execution.");
+      }
+    } else {
+      ctx = tx::TransactionManager::beginTransaction();
+      LOG4CXX_DEBUG(_logger, "Creating new transaction context " << (*ctx).tid);
+    }
+
     Json::Value request_data;
     Json::Reader reader;
-    if (reader.parse(urldecode(body_data["query"]), request_data)) {
+
+    if (ctx && reader.parse(urldecode(body_data["query"]), request_data)) {
+      _responseTask->setTxContext(*ctx);
+
       LOG4CXX_DEBUG(_query_logger, request_data);
+
       std::string final_hash = hash(request_data);
       std::shared_ptr<Task> result = nullptr;
+
       if(request_data.isMember("priority"))
         priority = request_data["priority"].asInt();
       if(request_data.isMember("sessionId"))
@@ -106,26 +132,36 @@ void RequestParseTask::operator()() {
         result = nullptr;
       }
 
+      auto autocommit_it = body_data.find("autocommit");
+      if (autocommit_it != body_data.end() && (autocommit_it->second == "true")) {
+        auto commit = std::make_shared<Commit>();
+        commit->setOperatorId("__autocommit");
+        commit->setPlanOperationName("Commit");
+        commit->addDependency(result);
+        result = commit;
+        tasks.push_back(commit);
+      }
+
+
       if (result != nullptr) {
         _responseTask->addDependency(result);
       } else {
         LOG4CXX_ERROR(_logger, "Json did not yield tasks");
       }
 
-      auto ctx = tx::TransactionManager::getInstance().buildContext();
-      
       for (const auto & func: tasks) {
         if (auto task = std::dynamic_pointer_cast<PlanOperation>(func)) {
           task->setPriority(priority);
           task->setSessionId(sessionId);
           task->setPlanId(final_hash);
-          task->setTXContext(ctx);
-	  task->setId(ctx.tid);
+          task->setTXContext(*ctx);
+	  task->setId((*ctx).tid);
 	  _responseTask->registerPlanOperation(task);
           if (!task->hasSuccessors()) {
-            // The response has to depend on all tasks, ie. we don't want to respond
-            // before all tasks finished running, even if they don't contribute to the result
-            // This prevents dangling tasks
+            // The response has to depend on all tasks, ie. we don't
+            // want to respond before all tasks finished running, even
+            // if they don't contribute to the result. This prevents
+            // dangling tasks
             _responseTask->addDependency(task);
           }
         }
@@ -146,6 +182,9 @@ void RequestParseTask::operator()() {
   } else {
     LOG4CXX_WARN(_logger, "no body received!");
   }
+
+
+
 
   // high priority tasks are expected to be scheduled sequentially
   if(priority == Task::HIGH_PRIORITY){

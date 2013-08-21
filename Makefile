@@ -13,7 +13,7 @@ lib_io      := $(lib_dir)/io
 lib_testing := $(lib_dir)/testing
 lib_net     := $(lib_dir)/net
 lib_layouter:= $(lib_dir)/layouter
-lib_taskscheduler	:= $(lib_dir)/taskscheduler
+lib_taskscheduler := $(lib_dir)/taskscheduler
 
 # third party dependencies
 json		:= $(build_dir)/jsoncpp
@@ -75,7 +75,7 @@ $(lib_ebb):
 $(lib_helper):
 $(lib_taskscheduler): $(lib_helper)
 $(lib_storage): $(lib_helper) $(lib_ftprinter) $(ext_gtest) $(lib_ftprinter)
-$(lib_io): $(lib_storage) $(lib_helper)
+$(lib_io): $(lib_storage) $(lib_helper) $(lib_net)
 $(lib_access): $(lib_storage) $(lib_helper) $(lib_io) $(lib_layouter) $(json) $(lib_taskscheduler) $(lib_net)
 $(lib_testing): $(ext_gtest) $(lib_storage) $(lib_taskscheduler) $(lib_access)
 $(lib_net): $(lib_helper) $(json) $(lib_taskscheduler) $(lib_ebb)
@@ -122,8 +122,8 @@ endif
 python_test:
 	python tools/test_server.py
 
-basic_test_targets := $(basic_test_binaries)
-all_test_targets := $(all_test_binaries) python_test
+basic_test_targets := $(basic_test_binaries) python_test
+all_test_targets := $(all_test_binaries)
 
 # Test invocation rules
 test: unit_test_params = --minimal

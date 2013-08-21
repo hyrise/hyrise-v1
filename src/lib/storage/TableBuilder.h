@@ -34,6 +34,7 @@ public:
     builder_param_member(std::string, name);
     builder_param_member(std::string, type);
     param(): name(), type() {};
+    param(std::string n, std::string t) : name(n), type(t) {}
   };
 
 

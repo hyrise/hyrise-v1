@@ -1,0 +1,26 @@
+{
+    "operators": {
+        "setup_revenue" : {
+            "type": "TableLoad",
+            "table": "revenue",
+            "filename" : "tables/revenue.tbl"
+        },
+        "retrieve_revenue": {
+            "type" : "GetTable",
+            "name" : "revenue"
+        },
+        "insert" : {
+            "type" : "InsertScan",
+            "data" : [
+                [2013,1,2000],
+                [2013,2,2500],
+                [2013,3,3000],
+                [2013,4,4000]
+            ]
+        }
+    },
+    "edges" : [
+        ["setup_revenue", "retrieve_revenue"],
+        ["retrieve_revenue", "insert"]
+    ]
+}

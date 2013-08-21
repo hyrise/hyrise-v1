@@ -22,7 +22,7 @@ Store::Store() :
 Store::Store(hyrise::storage::atable_ptr_t main_table) :
   delta(main_table->copy_structure_modifiable()),
   merger(nullptr),
-  _validityVector(main_table->size(), true), 
+  _validityVector(main_table->size(), true),
   _cidVector(main_table->size(), hyrise::tx::UNKNOWN),
   _tidVector(main_table->size(), hyrise::tx::UNKNOWN) {
 
@@ -47,7 +47,7 @@ void Store::merge() {
   std::vector<hyrise::storage::c_atable_ptr_t> tmp(main_tables.begin(), main_tables.end());
   tmp.push_back(delta);
   main_tables = merger->merge(tmp, true, _validityVector);
-  
+
   // Fixup the validity and tid vector
   _validityVector = std::vector<bool>(main_tables[0]->size(), true);
   _cidVector = std::vector<hyrise::tx::transaction_cid_t>(main_tables[0]->size(), hyrise::tx::UNKNOWN_CID);
@@ -165,7 +165,7 @@ ValueId Store::getValueId(const size_t column, const size_t row) const {
 
 
 size_t Store::size() const {
-  size_t main_tables_size = hyrise::functional::foldLeft(main_tables, 0ul, 
+  size_t main_tables_size = hyrise::functional::foldLeft(main_tables, 0ul,
     [](size_t s, const hyrise::storage::atable_ptr_t& t){return s + t->size();});
   return main_tables_size + delta->size();
 }
@@ -253,13 +253,13 @@ void Store::debugStructure(size_t level) const {
   delta->debugStructure(level+1);
 }
 
-// This method iterates of the pos list and validates each position 
+// This method iterates of the pos list and validates each position
 void Store::validatePositions(pos_list_t& pos, hyrise::tx::transaction_id_t last_commit_id, hyrise::tx::transaction_id_t tid ) const {
   // Make sure we captured all rows
   assert(_validityVector.size() == size() && _cidVector.size() == size() && _tidVector.size() == size());
 
   // Pos is nullptr, we should circumvent
-  auto end = std::remove_if(std::begin(pos), std::end(pos), [&](const pos_t& v){ 
+  auto end = std::remove_if(std::begin(pos), std::end(pos), [&](const pos_t& v){
 
     // Discard future inserts and past deletes
     // future inserts: lastCID > CID and tid != tx.TID and valid==true
@@ -282,7 +282,7 @@ void Store::validatePositions(pos_list_t& pos, hyrise::tx::transaction_id_t last
 
 pos_list_t Store::buildValidPositions(hyrise::tx::transaction_id_t last_commit_id, hyrise::tx::transaction_id_t tid, bool& all) const {
   pos_list_t result;
-  hyrise::functional::forEachWithIndex(_validityVector, [&](size_t i, bool v){  
+  hyrise::functional::forEachWithIndex(_validityVector, [&](size_t i, bool v){
 
     // Discard future inserts and past deletes
     // future inserts: lastCID > CID and tid != tx.TID and valid==true
@@ -298,7 +298,7 @@ pos_list_t Store::buildValidPositions(hyrise::tx::transaction_id_t last_commit_i
     }
 
 
-    
+
     result.push_back(i);
   });
   return result;
@@ -311,7 +311,7 @@ std::pair<size_t, size_t> Store::resizeDelta(size_t num) {
 
 std::pair<size_t, size_t> Store::appendToDelta(size_t num) {
   static hyrise::locking::Spinlock mtx;
-  hyrise::locking::ScopedLock<hyrise::locking::Spinlock> lck(mtx);
+  std::lock_guard<hyrise::locking::Spinlock> lck(mtx);
 
   size_t start = delta->size();
   std::pair<size_t, size_t> result = {start, start + num};
@@ -319,7 +319,7 @@ std::pair<size_t, size_t> Store::appendToDelta(size_t num) {
   // Update Delta
   delta->resize(start + num);
   // Update CID, TID and valid
-  auto main_tables_size = hyrise::functional::sum(main_tables, 0ul, [](hyrise::storage::atable_ptr_t& t){return t->size();});  
+  auto main_tables_size = hyrise::functional::sum(main_tables, 0ul, [](hyrise::storage::atable_ptr_t& t){return t->size();});
   _cidVector.resize(main_tables_size + start + num, hyrise::tx::UNKNOWN);
   _tidVector.resize(main_tables_size + start + num, hyrise::tx::UNKNOWN);
   _validityVector.resize(main_tables_size + start + num, false);
@@ -327,13 +327,13 @@ std::pair<size_t, size_t> Store::appendToDelta(size_t num) {
 }
 
 void Store::copyRowToDelta(const hyrise::storage::c_atable_ptr_t& source, const size_t src_row, const size_t dst_row, hyrise::tx::transaction_id_t tidv, bool valid) {
-  auto main_tables_size = hyrise::functional::sum(main_tables, 0ul, [](hyrise::storage::atable_ptr_t& t){return t->size();});  
-  
+  auto main_tables_size = hyrise::functional::sum(main_tables, 0ul, [](hyrise::storage::atable_ptr_t& t){return t->size();});
+
   // Update the validity
   _cidVector[main_tables_size + dst_row] = hyrise::tx::UNKNOWN;
   _tidVector[main_tables_size + dst_row] = tidv;
   _validityVector[main_tables_size + dst_row] = valid;
-  delta->copyRowFrom(source, src_row, dst_row, true);  
+  delta->copyRowFrom(source, src_row, dst_row, true);
 }
 
 hyrise::tx::TX_CODE Store::updateCommitID(const pos_list_t& pos, hyrise::tx::transaction_id_t cid, bool valid ) {
@@ -347,7 +347,7 @@ hyrise::tx::TX_CODE Store::updateCommitID(const pos_list_t& pos, hyrise::tx::tra
 
 hyrise::tx::TX_CODE Store::checkCommitID(const pos_list_t& pos, hyrise::tx::transaction_id_t old_cid) {
   for(const auto& p : pos) {
-    if (_cidVector[p] > old_cid) 
+    if (_cidVector[p] > old_cid)
       return hyrise::tx::TX_CODE::TX_FAIL_CONCURRENT_COMMIT;
   }
   return hyrise::tx::TX_CODE::TX_OK;

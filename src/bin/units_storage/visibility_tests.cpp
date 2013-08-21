@@ -66,10 +66,8 @@ TEST_F(VisibilityTests, check_tx_prepare_commit) {
 
 	ASSERT_EQ(hyrise::tx::UNKNOWN, lc);
 	ASSERT_EQ(lc + 1, txmgr.tryPrepareCommit());
-	ASSERT_EQ(hyrise::tx::UNKNOWN, txmgr.tryPrepareCommit());
-	txmgr.commit(hyrise::tx::UNKNOWN);
+	txmgr.commit(ctx.tid);
 	ASSERT_EQ(lc + 1, txmgr.getLastCommitId());
-
 	ASSERT_ANY_THROW(txmgr.commit(hyrise::tx::UNKNOWN)) << "Double commit is not allowed";
 }
 
@@ -91,7 +89,7 @@ TEST_F(VisibilityTests, read_your_own_writes) {
 	std::generate(std::begin(tmp), std::end(tmp), [&i](){ return i++; });
 	linxxxs->validatePositions(tmp, lc, tid_a);
 	ASSERT_EQ(linxxxs->size(), tmp.size());
-	
+
 
 	// the second transaction should only see the base values
 	auto tmp2 = new pos_list_t(linxxxs->size(), 0);
@@ -121,7 +119,7 @@ TEST_F (VisibilityTests, read_writes_after_commit) {
 	std::generate(std::begin(tmp), std::end(tmp), [&i](){ return i++; });
 	linxxxs->validatePositions(tmp, lc, tid_a);
 	ASSERT_EQ(linxxxs->size(), tmp.size());
-	
+
 	auto next_cid = txmgr.prepareCommit();
 	ASSERT_EQ(next_cid, txmgr.getLastCommitId() + 1);
 
@@ -158,7 +156,7 @@ TEST_F (VisibilityTests, read_writes_after_commit_old_cid) {
 	std::generate(std::begin(tmp), std::end(tmp), [&i](){ return i++; });
 	linxxxs->validatePositions(tmp, lc, tid_a);
 	ASSERT_EQ(linxxxs->size(), tmp.size());
-	
+
 	auto next_cid = txmgr.prepareCommit();
 	ASSERT_EQ(next_cid, txmgr.getLastCommitId() + 1);
 	pos_list_t pos_tmp = {linxxxs->size() -1};
