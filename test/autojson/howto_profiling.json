@@ -1,0 +1,29 @@
+{
+    "operators": {
+        "profiling-start" : {
+            "type": "StartProfiling"
+        },
+        "0": {
+            "type": "TableLoad",
+            "table": "profiledload",
+            "filename": "lin_xxs.tbl"
+        },
+        "1": {
+            "type": "ProjectionScan",
+            "fields": [0, 1]
+        },
+        "profiling-stop" : {
+            "type": "StopProfiling"
+        },
+        "2" : {
+            "type" : "ProjectionScan",
+            "fields" : [0]
+        }
+    },
+    "edges": [
+        ["profiling-start", "0"],
+        ["0", "1"],
+        ["1",  "profiling-stop"],
+        ["profiling-stop", "2"]
+    ]
+}

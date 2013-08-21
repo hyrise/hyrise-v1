@@ -17,7 +17,7 @@ PAPI_TRACE ?= 0
 VERBOSE_BUILD ?= 0
 WITH_MYSQL ?= 0
 FLTO ?= 0
-USE_BACKWARD ?= 1
+USE_BACKWARD ?= 0
 
 PLUGINS ?= ccache
 
@@ -87,6 +87,7 @@ ifeq ($(PAPI_TRACE), 1)
 endif
 
 ifeq ($(USE_GOOGLE_PROFILER), 1)
+	BUILD_FLAGS += -D HYRISE_USE_GOOGLE_PROFILER
 	LINKER_FLAGS += -lprofiler
 endif
 
