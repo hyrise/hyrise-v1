@@ -1,8 +1,8 @@
-# VTUNE Non commercial NR47-P8R6PDS6 
-# Intel Compiler Linux NRGF-RCXZGDSC 
+# VTUNE Non commercial NR47-P8R6PDS6
+# Intel Compiler Linux NRGF-RCXZGDSC
 
 # Suppose the standard position for this file (relative to project root), if not already set
-TOP ?= 
+TOP ?=
 
 # Set the project path accordingly
 export IMH_PROJECT_PATH := $(shell pwd)$(TOP)
@@ -21,16 +21,16 @@ USE_BACKWARD ?= 1
 
 PLUGINS ?= ccache
 
-PROJECT_INCLUDE ?= 
-BUILD_FLAGS ?= 
-CC_BUILD_FLAGS ?= 
+PROJECT_INCLUDE ?=
+BUILD_FLAGS ?=
+CC_BUILD_FLAGS ?=
 CXX_BUILD_FLAGS ?=
 LINKER_FLAGS ?=
 LINKER_DIR ?=
 LD_LIBRARY_PATH ?=
 
 # Specify Allocator to use for HYRISE
-HYRISE_ALLOCATOR ?= 
+HYRISE_ALLOCATOR ?=
 
 # Include actual settings, override environment and others
 -include $(TOP)settings.mk
@@ -54,16 +54,16 @@ ifneq (,$(findstring linux,$(OSTYPE)))
 	LIB_EXTENSION := so
 	BUILD_FLAGS += -fPIC -D WITH_NUMA
 	LINKER_FLAGS += -lnuma -ldl -Wl,-no-as-needed
-	SHARED_LIB := -shared 	
+	SHARED_LIB := -shared
 else
 	BUILD_FLAGS += -D NO_PREFETCHING
 	LIB_EXTENSION := dylib
-	SHARED_LIB := -dynamiclib 
+	SHARED_LIB := -dynamiclib
 endif
 
-BUILD_FLAGS += -pipe -msse4.2 -gdwarf-2 -ggdb -Wall -Wextra -Wno-unused-parameter 
+BUILD_FLAGS += -pipe -msse4.2 -gdwarf-2 -ggdb -Wall -Wextra -Wno-unused-parameter
 CXX_BUILD_FLAGS += --std=c++0x
-LINKER_FLAGS += 
+LINKER_FLAGS +=
 
 ifeq ($(PRODUCTION), 1)
 	BUILD_FLAGS += -O3 -funroll-loops -fbranch-target-load-optimize -finline-functions -fexpensive-optimizations -frerun-cse-after-loop -frerun-loop-opt -D NDEBUG -ftree-vectorize -D EXPENSIVE_TESTS -D PRODUCTION
