@@ -1,20 +1,25 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "io/TransactionManager.h"
-
+#include <cassert>
 #include <limits>
 #include <stdexcept>
+
+#include "helper/make_unique.h"
+#include "helper/checked_cast.h"
+#include "helper/vector_helpers.h"
+#include "storage/Store.h"
 
 namespace hyrise {
 namespace tx {
 
 void TXModifications::insertPos(const storage::c_atable_ptr_t& tab, pos_t pos) {
   static locking::Spinlock _mtx;
-  _handle(_mtx, inserted, reinterpret_cast<uintptr_t>(tab.get()), pos);
+  _handle(_mtx, inserted, tab, pos);
 }
 
 void TXModifications::deletePos(const storage::c_atable_ptr_t& tab, pos_t pos) {
   static locking::Spinlock _mtx;
-  _handle(_mtx, deleted, reinterpret_cast<uintptr_t>(tab.get()), pos);
+  _handle(_mtx, deleted, tab, pos);
 }
 
 bool TXModifications::hasDeleted(const storage::c_atable_ptr_t& tab) const {
@@ -26,26 +31,20 @@ bool TXModifications::hasInserted(const storage::c_atable_ptr_t& tab) const {
 }
 
 const pos_list_t& TXModifications::getInserted(const storage::c_atable_ptr_t& tab) const {
-  return inserted.at(reinterpret_cast<uintptr_t>(tab.get()));
+  return inserted.at(tab);
 }
 
 const pos_list_t& TXModifications::getDeleted(const storage::c_atable_ptr_t& tab) const {
-  return deleted.at(reinterpret_cast<uintptr_t>(tab.get()));
+  return deleted.at(tab);
 }
 
 bool TXModifications::handleCheck(const map_t& data, const storage::c_atable_ptr_t& tab) const {
-  if (data.size() == 0)
-    return false;
-
-  auto key = reinterpret_cast<uintptr_t>(tab.get());
-  if (data.find(key) != data.end() && data.at(key).size() > 0)
-    return true;
-  else
-    return false;
+  auto it = data.find(tab);
+  return (it != data.end() && it->second.size() > 0);
 }
 
-void TXModifications::_handle(locking::Spinlock& mtx, map_t& data, const uintptr_t& key, pos_t pos) {
-  locking::ScopedLock<locking::Spinlock> lck(mtx);
+void TXModifications::_handle(locking::Spinlock& mtx, map_t& data, const storage::c_atable_ptr_t& key, pos_t pos) {
+  std::lock_guard<locking::Spinlock> lck(mtx);
   if(data.find(key) == data.end()) {
     data[key] = pos_list_t();
   }
@@ -61,18 +60,11 @@ TransactionManager& TransactionManager::getInstance() {
 }
 
 transaction_id_t TransactionManager::getTransactionId() {
-  static locking::Spinlock _mtx;
-  locking::ScopedLock<locking::Spinlock> lck(_mtx);
-
   if (_transactionCount == std::numeric_limits<transaction_id_t>::max()) {
     throw std::runtime_error("Out of transaction ids - reached maximum");
   }
 
-  auto key = ++_transactionCount;
-  // Create a new entry in teh TX Modifications set
-  _txData[key] = TXModifications(key);
-
-  return key;
+  return ++_transactionCount;
 }
 
 transaction_id_t TransactionManager::getLastCommitId() {
@@ -81,8 +73,12 @@ transaction_id_t TransactionManager::getLastCommitId() {
 
 TXContext TransactionManager::buildContext() {
   TXContext ctx(getTransactionId(), getLastCommitId());
+  _txData([&ctx](map_t& txData) {
+      txData[ctx.tid] = make_unique<TransactionData>(ctx);
+    });
   return std::move(ctx);
 }
+
 
 transaction_cid_t TransactionManager::prepareCommit() {
   transaction_id_t result;
@@ -93,42 +89,144 @@ transaction_cid_t TransactionManager::prepareCommit() {
 }
 
 void TransactionManager::abort() {
-  if (!_txLock.isLocked())
+  if (!_txLock.is_locked())
     throw std::runtime_error("Cannot abort a not running transaction.");
   _txLock.unlock();
 }
 
 transaction_cid_t TransactionManager::tryPrepareCommit() {
-  if (_txLock.tryLock()){
-    return getLastCommitId() + 1;
-  }
-  return hyrise::tx::UNKNOWN_CID;
+  _txLock.lock();
+  return getLastCommitId() + 1;
 }
 
-
 TXModifications& TransactionManager::operator[](const transaction_id_t& key) {
+  return _txData([&key] (map_t& txData) -> TXModifications& {
 #ifdef EXPENSIVE_ASSERTIONS
-  if (_txData.find(key) == _txData.end())
-    throw std::runtime_error("Retrieving Modification Set without initializing it first.");
+      if (txData.find(key) == txData.end()) {
+        throw std::runtime_error("Retrieving Modification Set without initializing it first.");
+      }
 #endif
-  return _txData[key];
+      return txData[key]->_modifications;
+    });
 }
 
 void TransactionManager::commit(transaction_id_t tid) {
-  if (!_txLock.isLocked())
+  if (!_txLock.is_locked())
     throw std::runtime_error("Double commit detected, possible TX corruption");
   ++_commitId;
-
-  // Clear all relevant data for this transaction
-  _txData.erase(tid);
   _txLock.unlock();
+
+  endTransaction(tid);
 }
 
 
 void TransactionManager::reset() {
   _transactionCount = START_TID;
   _commitId = UNKNOWN_CID;
-  _txData.clear();
+  _txData([] (map_t& txData) { txData.clear(); });
+}
+
+TXContext TransactionManager::beginTransaction() {
+  return getInstance().buildContext();
+}
+
+std::vector<TXContext> TransactionManager::getRunningTransactionContexts() {
+  return getInstance()._txData([] (const map_t& data) {
+      std::vector<TXContext> result;
+      for(const auto& kv: data) {
+        result.push_back(kv.second->_context);
+      }
+      return result;
+    });
+}
+
+bool TransactionManager::isRunningTransaction(transaction_id_t tid) {
+  return getInstance()._txData([&] (const map_t& data) {
+      return data.find(tid) != data.end();
+    });
+}
+
+TXContext TransactionManager::getContext(transaction_id_t tid) {
+  return getInstance()._txData([&tid] (const map_t& data) {
+      return data.at(tid)->_context;
+    });
+}
+
+TransactionData& TransactionManager::getTransactionData(transaction_id_t tid) {
+  return getInstance()._txData([&] (const map_t& txData) -> TransactionData& {
+      return *txData.at(tid).get();
+    });
+}
+
+storage::store_ptr_t getStore(const storage::c_atable_ptr_t& table) {
+  return std::const_pointer_cast<Store>(
+      checked_pointer_cast<const Store>(table));
+}
+
+void TransactionManager::endTransaction(transaction_id_t tid) {
+  // Clear all relevant data for this transaction
+  _txData([&tid] (map_t& txData) {
+      std::size_t erased = txData.erase(tid);
+      assert(erased == 1);
+    });
+}
+
+void TransactionManager::rollbackTransaction(transaction_id_t tid) {
+  if (!isRunningTransaction(tid)) {
+    throw std::runtime_error("Transaction is not currently running");
+  }
+  // TODO implement properly if relevant changes are made.
+  getInstance().endTransaction(tid);
+}
+
+transaction_cid_t TransactionManager::commitTransaction(transaction_id_t tid) {
+  if (!isRunningTransaction(tid)) {
+    throw std::runtime_error("Transaction is not currently running");
+  }
+  auto& txmgr = getInstance();
+  auto& tx_data = getTransactionData(tid);
+  auto& _txContext = tx_data._context;
+  const auto& modifications = tx_data._modifications;
+
+  _txContext.cid = txmgr.prepareCommit();
+
+  // Only update the required positions
+  for (auto& kv: modifications.deleted) {
+    auto weak_table = kv.first;
+    // Only deleted records have to be checked for validity as newly inserted
+    // records will be always only written by us
+    if (auto store = getStore(weak_table.lock())) {
+      if (tx::TX_CODE::TX_OK != store->checkCommitID(kv.second, _txContext.lastCid)) {
+        txmgr.abort();
+        throw std::runtime_error("Aborted TX with Last Commit ID != New Commit ID");
+      }
+    }
+  }
+
+  for (auto& kv: modifications.inserted) {
+    auto weak_table = kv.first;
+    if (auto store = getStore(weak_table.lock())) {
+      auto result = store->updateCommitID(kv.second, _txContext.cid, true);
+      if (result != TX_CODE::TX_OK) {
+        txmgr.abort();
+        throw std::runtime_error("Aborted TX with "); // TODO at return code to error message
+      }
+    }
+  }
+
+  for (auto& kv: modifications.deleted) {
+    auto weak_table = kv.first;
+    if (auto store = getStore(weak_table.lock())) {
+      auto result = store->updateCommitID(kv.second, _txContext.cid, false);
+      if (result != TX_CODE::TX_OK) {
+        txmgr.abort();
+        throw std::runtime_error("Aborted TX with "); // TODO at return code to error message
+      }
+    }
+  }
+
+  txmgr.commit(_txContext.tid);
+  return _txContext.cid;
 }
 
 }}
