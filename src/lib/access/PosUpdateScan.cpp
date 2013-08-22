@@ -43,21 +43,26 @@ void PosUpdateScan::executePlanOperation() {
   auto writeArea = store->appendToDelta(c_pc->getPositions()->size());
 
   // Get the modification record for the current transaction
-  auto& modRecord = tx::TransactionManager::getInstance()[_txContext.tid];
+  auto& txmgr = tx::TransactionManager::getInstance(); 
+  auto& modRecord = txmgr[_txContext.tid];
 
   // Functor we use for updating the data
   set_json_value_functor fun(store->getDeltaTable());
   storage::type_switch<hyrise_basic_types> ts;
 
   size_t counter = 0;
-  const auto& hidden = false;
   for(const auto& p : *(c_pc->getPositions())) {
     // First delete the old record
+    bool deleteOk = store->markForDeletion(p, _txContext.tid) == hyrise::tx::TX_CODE::TX_OK;
+    if(!deleteOk) {
+      txmgr.abort();
+      throw std::runtime_error("Aborted TX because TID of other TX found");
+    }
     modRecord.deletePos(store, p);
     //store->setTid(p, _txContext.tid);
 
     // Copy the old row from the main
-    store->copyRowToDelta(store, p, writeArea.first+counter, _txContext.tid, hidden);
+    store->copyRowToDelta(store, p, writeArea.first+counter, _txContext.tid);
     // Update all the necessary values
     for(const auto& kv : _raw_data) {
       const auto& fld = store->numberOfColumn(kv.first);

@@ -3,9 +3,11 @@
 #include <iostream>
 
 #include "storage/PrettyPrinter.h"
+#include "io/TransactionManager.h"
 
 #include <helper/vector_helpers.h>
 #include <helper/locking.h>
+#include <helper/cas.h>
 
 Store::Store(std::vector<std::vector<const ColumnMetadata *> *> md) :
   merger(nullptr) {
@@ -16,14 +18,14 @@ Store::Store() :
   merger(nullptr) {
   setDefaultMerger();
   setUuid();
-  
+
 }
 
 Store::Store(hyrise::storage::atable_ptr_t main_table) :
   delta(main_table->copy_structure_modifiable()),
   merger(nullptr),
-  _validityVector(main_table->size(), true),
-  _cidVector(main_table->size(), hyrise::tx::UNKNOWN),
+  _cidBeginVector(main_table->size(), 0),
+  _cidEndVector(main_table->size(), hyrise::tx::INF_CID),
   _tidVector(main_table->size(), hyrise::tx::UNKNOWN) {
 
   setUuid();
@@ -46,11 +48,18 @@ void Store::merge() {
   // Prepare the merge
   std::vector<hyrise::storage::c_atable_ptr_t> tmp(main_tables.begin(), main_tables.end());
   tmp.push_back(delta);
-  main_tables = merger->merge(tmp, true, _validityVector);
 
-  // Fixup the validity and tid vector
-  _validityVector = std::vector<bool>(main_tables[0]->size(), true);
-  _cidVector = std::vector<hyrise::tx::transaction_cid_t>(main_tables[0]->size(), hyrise::tx::UNKNOWN_CID);
+  // get valid positions
+  std::vector<bool> validPositions(_cidBeginVector.size());
+  hyrise::functional::forEachWithIndex(_cidBeginVector, [&](size_t i, bool v){
+    validPositions[i] = isVisibleForTransaction(i, hyrise::tx::TransactionManager::getInstance().getLastCommitId(), hyrise::tx::MERGE_TID);
+  });
+
+  main_tables = merger->merge(tmp, true, validPositions);
+
+  // Fixup the cid and tid vectors
+  _cidBeginVector = std::vector<hyrise::tx::transaction_cid_t>(main_tables[0]->size(), hyrise::tx::UNKNOWN_CID);
+  _cidEndVector = std::vector<hyrise::tx::transaction_cid_t>(main_tables[0]->size(), hyrise::tx::INF_CID);
   _tidVector = std::vector<hyrise::tx::transaction_id_t>(main_tables[0]->size(), hyrise::tx::UNKNOWN);
 
   // Replace the delta partition
@@ -253,53 +262,55 @@ void Store::debugStructure(size_t level) const {
   delta->debugStructure(level+1);
 }
 
+bool Store::isVisibleForTransaction(pos_t pos, hyrise::tx::transaction_cid_t last_commit_id, hyrise::tx::transaction_id_t tid) const {
+  if (_tidVector[pos] == tid) {
+    if (last_commit_id >= _cidBeginVector[pos]) {
+      // row was inserted and committed by another transaction, then deleted by our transaction
+      // if we have a lock for it but someone else committed a delete, something is wrong
+      assert(_cidEndVector[pos] == hyrise::tx::INF_CID);
+      return false;
+    } else {
+      // we inserted this row - nobody should have deleted it yet
+      assert(_cidEndVector[pos] == hyrise::tx::INF_CID);
+      return true;
+    }
+  } else {
+    if (last_commit_id >= _cidBeginVector[pos]) {
+      // we are looking at a row that was inserted and deleted before we started - we should see it unless it was already deleted again
+      if(last_commit_id >= _cidEndVector[pos]) {
+        // the row was deleted and the delete was committed before we started our transaction
+        return false;
+      } else {
+        // the row was deleted but the commit happened after we started our transaction (or the delete was not committed yet)
+        return true;
+      }
+    } else {
+      // we are looking at a row that was inserted after we started
+      assert(_cidEndVector[pos] > last_commit_id);
+      return false;
+    }
+  }
+}
+
 // This method iterates of the pos list and validates each position
-void Store::validatePositions(pos_list_t& pos, hyrise::tx::transaction_id_t last_commit_id, hyrise::tx::transaction_id_t tid ) const {
+void Store::validatePositions(pos_list_t& pos, hyrise::tx::transaction_cid_t last_commit_id, hyrise::tx::transaction_id_t tid) const {
   // Make sure we captured all rows
-  assert(_validityVector.size() == size() && _cidVector.size() == size() && _tidVector.size() == size());
+  assert(_cidBeginVector.size() == size() && _cidEndVector.size() == size() && _tidVector.size() == size());
 
   // Pos is nullptr, we should circumvent
   auto end = std::remove_if(std::begin(pos), std::end(pos), [&](const pos_t& v){
 
-    // Discard future inserts and past deletes
-    // future inserts: lastCID > CID and tid != tx.TID and valid==true
-    // past deletes: lasCID <= CID and tid != tx.TID and valid==false
-    if (_tidVector[v] != tid) {
-      if (_cidVector[v] > last_commit_id) {
-        if (_validityVector[v] == true)
-          return true;
-      } else {
-        if (_validityVector[v] == false)
-          return true;
-      }
-    }
+    return !isVisibleForTransaction(v, last_commit_id, tid);
 
-    return false;
   } );
   if (end != pos.end())
     pos.erase(end, pos.end());
 }
 
-pos_list_t Store::buildValidPositions(hyrise::tx::transaction_id_t last_commit_id, hyrise::tx::transaction_id_t tid, bool& all) const {
+pos_list_t Store::buildValidPositions(hyrise::tx::transaction_cid_t last_commit_id, hyrise::tx::transaction_id_t tid) const {
   pos_list_t result;
-  hyrise::functional::forEachWithIndex(_validityVector, [&](size_t i, bool v){
-
-    // Discard future inserts and past deletes
-    // future inserts: lastCID > CID and tid != tx.TID and valid==true
-    // past deletes: lasCID <= CID and tid != tx.TID and valid==false
-    if (_tidVector[i] != tid) {
-      if (_cidVector[i] > last_commit_id) {
-        if (v == true)
-          return;
-      } else {
-        if (v == false)
-          return;
-      }
-    }
-
-
-
-    result.push_back(i);
+  hyrise::functional::forEachWithIndex(_cidBeginVector, [&](size_t i, bool v){
+    if(isVisibleForTransaction(i, last_commit_id, tid)) result.push_back(i);
   });
   return result;
 }
@@ -320,35 +331,54 @@ std::pair<size_t, size_t> Store::appendToDelta(size_t num) {
   delta->resize(start + num);
   // Update CID, TID and valid
   auto main_tables_size = hyrise::functional::sum(main_tables, 0ul, [](hyrise::storage::atable_ptr_t& t){return t->size();});
-  _cidVector.resize(main_tables_size + start + num, hyrise::tx::UNKNOWN);
+  _cidBeginVector.resize(main_tables_size + start + num, hyrise::tx::INF_CID);
+  _cidEndVector.resize(main_tables_size + start + num, hyrise::tx::INF_CID);
   _tidVector.resize(main_tables_size + start + num, hyrise::tx::UNKNOWN);
-  _validityVector.resize(main_tables_size + start + num, false);
+
   return std::move(result);
 }
 
-void Store::copyRowToDelta(const hyrise::storage::c_atable_ptr_t& source, const size_t src_row, const size_t dst_row, hyrise::tx::transaction_id_t tidv, bool valid) {
+void Store::copyRowToDelta(const hyrise::storage::c_atable_ptr_t& source, const size_t src_row, const size_t dst_row, hyrise::tx::transaction_id_t tid) {
   auto main_tables_size = hyrise::functional::sum(main_tables, 0ul, [](hyrise::storage::atable_ptr_t& t){return t->size();});
 
   // Update the validity
-  _cidVector[main_tables_size + dst_row] = hyrise::tx::UNKNOWN;
-  _tidVector[main_tables_size + dst_row] = tidv;
-  _validityVector[main_tables_size + dst_row] = valid;
+  _tidVector[main_tables_size + dst_row] = tid;
+
   delta->copyRowFrom(source, src_row, dst_row, true);
 }
 
-hyrise::tx::TX_CODE Store::updateCommitID(const pos_list_t& pos, hyrise::tx::transaction_id_t cid, bool valid ) {
+hyrise::tx::TX_CODE Store::commitPositions(const pos_list_t& pos, const hyrise::tx::transaction_cid_t cid, bool valid) {
   for(const auto& p : pos) {
-    _validityVector[p] = valid;
-    _cidVector[p] = cid;
+    if(valid) {
+      _cidBeginVector[p] = cid;
+    } else {
+      _cidEndVector[p] = cid;
+    }
     _tidVector[p] = hyrise::tx::UNKNOWN;
   }
   return hyrise::tx::TX_CODE::TX_OK;
 }
 
-hyrise::tx::TX_CODE Store::checkCommitID(const pos_list_t& pos, hyrise::tx::transaction_id_t old_cid) {
+hyrise::tx::TX_CODE Store::checkForConcurrentCommit(const pos_list_t& pos, const hyrise::tx::transaction_id_t tid) const {
   for(const auto& p : pos) {
-    if (_cidVector[p] > old_cid)
+    if (_tidVector[p] != tid)
       return hyrise::tx::TX_CODE::TX_FAIL_CONCURRENT_COMMIT;
+  }
+  return hyrise::tx::TX_CODE::TX_OK;
+}
+
+hyrise::tx::TX_CODE Store::markForDeletion(const pos_t pos, const hyrise::tx::transaction_id_t tid) {
+  if(atomic_cas(&_tidVector[pos], hyrise::tx::UNKNOWN, tid)) {
+    return hyrise::tx::TX_CODE::TX_OK;
+  } else {
+    return hyrise::tx::TX_CODE::TX_FAIL_CONCURRENT_COMMIT;
+  }
+}
+
+hyrise::tx::TX_CODE Store::unmarkForDeletion(const pos_list_t& pos, const hyrise::tx::transaction_id_t tid) {
+  for(const auto& p : pos) {
+    if (_tidVector[p] == tid)
+      _tidVector[p] = hyrise::tx::UNKNOWN;
   }
   return hyrise::tx::TX_CODE::TX_OK;
 }

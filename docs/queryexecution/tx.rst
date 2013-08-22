@@ -241,20 +241,72 @@ and should only be used in this context:
      modifications are specified in the JSON of the plan operation. An update
      is basically a delete + insert of the modified tuple\
 
-Possible TID Combinations
-==========================
+Multi Version Concurrency Control (MVCC)
+=========================================
 
-::
+We use MVCC to isolate transactions. This section explains MVCC in general; see the next section for details specific to our implementation.
 
-   +----------------+---------------+--------+--------+---------------+
-   | CID > lastCID  | TID = tx.TID  | valid  | Keep?  | Comment       |
-   +================+===============+========+========+===============+
-   | yes            |  yes          | yes    | --     | impossible    |
-   | no             |  yes          | yes    | --     | impossible    |
-   | yes            |  no           | yes    | --     | Future insert |
-   | yes            |  yes          | no     | --     | impossible    |
-   | no             |  no           | yes    | --     | Past insert   |
-   | yes            |  no           | no     | --     | Future delete |
-   | no             |  yes          | no     | --     | Own write     |
-   | no             |  no           | no     | --     | Past delete   |
-   +----------------+---------------+--------+--------+---------------+
+MVCC is a method to allow multiple transactions to write on the same table concurrently while still adhering to the ACID criteria. This means that every transaction should get the impression that it is the only thing working on the table (isolation). Changes made by other transactions shall only be visible if they have been committed before a transaction was started. Changes that were done in between are not visible. Every transaction has a consistent view of the table. If a transaction commits, its changes will be made visible to new transactions all-or-nothing (atomicity). Changes made by one transaction will not get overwritten by other transactions (durability).
+
+This is done by storing multiple versions of the same row. Instead of updating a row, it is deleted (more correctly, made invisible for new transactions) and inserted with modified data (only visible to new transactions). This means that transactions that were started before the modifying transactions was committed can still access the version that was valid when they started.
+
+Our MVCC Implementation
+========================
+
+
+On the level of a Store we do so by having three vectors storing visibility information about each row:
+
+  * TID stores the TID of the transaction that is currently modifying the row
+  * BeginCID stores the commit id of the committed transaction that inserted the row
+  * EndCID stores the commit id of the committed transaction that deleted the row
+
+The TID vector is used by a transaction to mark that the row is being modified by the transaction identified by TID x. Obviously, the vector can only store one TID per row - thus, every row can only be modified by one transaction.
+
+If a row is inserted (but not committed), it has the TID of the transaction inserting it, but no begin and end commit id (see below). At this point, it is only visible if its TID is equal to the TID of a read operation. If a row is deleted (but the delete is uncommitted), it gets the TID of the deleting transaction. It is now invisible to this transaction but visible to others.
+
+During the commit of an insert, the transaction stores its commit id (acquired from the TransactionManager) in the beginCID vector. As soon as the last commit id is increased in the TransactionManager (meaning that lastCID >= beginCID), the row is visible to new transactions.
+
+The endCID vector behaves similar. It stores the CID of the transaction that successfully deleted the row and was committed.
+
++-------+------------+----------+-----------+-------------------------------+
+| v.TID | v.BeginCID | v.EndCID | LastCID   | Status                        |
++=======+============+==========+===========+===============================+
+| --    | Inf        | Inf      | 12        | Init                          |
++-------+------------+----------+-----------+-------------------------------+
+| 5     | Inf        | Inf      | 12        | Insert uncommitted            |
++-------+------------+----------+-----------+-------------------------------+
+| --    | 13         | Inf      | 12        | Insert commit in prog.        |
++-------+------------+----------+-----------+-------------------------------+
+| --    | 13         | Inf      | 13        | Insert committed              |
++-------+------------+----------+-----------+-------------------------------+
+| 6     | 13         | Inf      | 13        | delete uncommitted            |
++-------+------------+----------+-----------+-------------------------------+
+| --    | 13         | 14       | 13        | delete commit in prog.        |
++-------+------------+----------+-----------+-------------------------------+
+| --    | 13         | 14       | 14        | delete committed              |
++-------+------------+----------+-----------+-------------------------------+
+
+Evaluating the visiblity
+=========================
+
+When checking if a row is visible to a transaction, three checks have to be made. These are shown in the table below.
+
++-----------------+--------------------------+------------------------+----------+---------------------------------------+
+| v.TID == tx.TID | tx.LastCID >= v.BeginCID | tx.LastCID >= v.EndCID | Visible? | Comment                               |
++=================+==========================+========================+==========+=======================================+
+| yes             | yes                      | yes                    | No       | Impossible                            |
++-----------------+--------------------------+------------------------+----------+---------------------------------------+
+| no              | yes                      | yes                    | No       | Past Delete                           |
++-----------------+--------------------------+------------------------+----------+---------------------------------------+
+| yes             | no                       | yes                    | No       | Impossible                            |
++-----------------+--------------------------+------------------------+----------+---------------------------------------+
+| yes             | yes                      | no                     | No       | Own Delete, uncommitted               |
++-----------------+--------------------------+------------------------+----------+---------------------------------------+
+| no              | no                       | yes                    | No       | Impossible                            |
++-----------------+--------------------------+------------------------+----------+---------------------------------------+
+| yes             | no                       | no                     | Yes      | Own Insert                            |
++-----------------+--------------------------+------------------------+----------+---------------------------------------+
+| no              | yes                      | no                     | Yes      | Past Insert or Future Delete          |
++-----------------+--------------------------+------------------------+----------+---------------------------------------+
+| no              | no                       | no                     | No       | Uncommitted Insert or Future Insert   |
++-----------------+--------------------------+------------------------+----------+---------------------------------------+

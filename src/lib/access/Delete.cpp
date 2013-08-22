@@ -24,11 +24,18 @@ void DeleteOp::executePlanOperation() {
 	auto tab = checked_pointer_cast<const PointerCalculator>(input.getTable(0));
 	auto store = std::const_pointer_cast<Store>(checked_pointer_cast<const Store>(tab->getActualTable()));
 
+	auto& txmgr = tx::TransactionManager::getInstance(); 
+
 	// A delete is nothing more than marking the positions as deleted in the TX
-	// Modifications record 
-	auto& modRecord = tx::TransactionManager::getInstance()[_txContext.tid];
+	// Modifications record
+	auto& modRecord = txmgr[_txContext.tid];
 	for(const auto& p : *(tab->getPositions())) {
 		LOG4CXX_DEBUG(logger, "Deleting row:" << p);
+		bool deleteOk = store->markForDeletion(p, _txContext.tid) == hyrise::tx::TX_CODE::TX_OK;
+		if(!deleteOk) {
+			txmgr.abort();
+			throw std::runtime_error("Aborted TX because TID of other TX found");
+		}
 		modRecord.deletePos(tab->getActualTable(), p);
 	}
 

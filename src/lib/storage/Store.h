@@ -14,6 +14,7 @@
 #include <storage/TableMerger.h>
 #include <storage/AbstractMergeStrategy.h>
 #include <storage/SequentialHeapMerger.h>
+#include <storage/PrettyPrinter.h>
 
 #include <helper/types.h>
 
@@ -30,6 +31,8 @@ enum {
  * tables using a to-be-set merger.
  */
 class Store : public AbstractTable {
+  friend class PrettyPrinter;
+
 protected:
   //* Vector containing the main tables
   std::vector< hyrise::storage::atable_ptr_t > main_tables;
@@ -44,11 +47,11 @@ protected:
   table_offset_idx_t responsibleTable(size_t row) const;
 
   // TX Management
-  // Stores a flag per row indicating if it is valid or not
-  std::vector<bool> _validityVector;
-  // Stores the CID for each row when it was modified or UNKNOWN if it was not changed
-  std::vector<hyrise::tx::transaction_id_t> _cidVector;
-  // Stores the TID for each record to read your own writes
+  // Stores the CID of the transaction that created the row
+  std::vector<hyrise::tx::transaction_id_t> _cidBeginVector;
+  // Stores the CID of the transaction that deleted the row
+  std::vector<hyrise::tx::transaction_id_t> _cidEndVector;
+  // Stores the TID for each record to identify your own writes
   std::vector<hyrise::tx::transaction_id_t> _tidVector;
 
 public:
@@ -80,7 +83,7 @@ public:
   const AbstractTable::SharedDictionaryPtr& dictionaryByTableId(const size_t column, const table_id_t table_id) const;
 
   ValueId getValueId(const size_t column, const size_t row) const;
-  
+
   virtual void setValueId(const size_t column, const size_t row, ValueId vid);
 
   size_t size() const;
@@ -137,31 +140,33 @@ public:
 
   std::pair<size_t, size_t> appendToDelta(size_t num);
 
+  bool isVisibleForTransaction(pos_t pos, hyrise::tx::transaction_cid_t last_commit_id, hyrise::tx::transaction_id_t tid) const;
+
   /**
   * This method validates a list of positions to check if it is valid
   */
   void validatePositions(pos_list_t& pos, hyrise::tx::transaction_cid_t last_commit_id, hyrise::tx::transaction_id_t tid ) const;
 
-  pos_list_t buildValidPositions(hyrise::tx::transaction_cid_t last_commit_id, hyrise::tx::transaction_id_t tid, bool& all ) const;
+  pos_list_t buildValidPositions(hyrise::tx::transaction_cid_t last_commit_id, hyrise::tx::transaction_id_t tid) const;
 
   /*
   * Copies a new row to the delta table, sets the validity and the tx id
   * accordningly. It has to be made sure that the delta is resized accordingly
   */
-  void copyRowToDelta(const hyrise::storage::c_atable_ptr_t& source, const size_t src_row, const size_t dst_row, hyrise::tx::transaction_id_t tid, bool valid);
+  void copyRowToDelta(const hyrise::storage::c_atable_ptr_t& source, const size_t src_row, const size_t dst_row, hyrise::tx::transaction_id_t tid);
 
-  hyrise::tx::TX_CODE checkCommitID(const pos_list_t& pos, hyrise::tx::transaction_cid_t old_cid);
+  hyrise::tx::TX_CODE commitPositions(const pos_list_t& pos, const hyrise::tx::transaction_cid_t cid, bool valid);
 
-  hyrise::tx::TX_CODE updateCommitID(const pos_list_t& pos, hyrise::tx::transaction_cid_t cid, bool valid );
-
-  inline bool valid(size_t row) const { return _validityVector[row]; }
-  
   // TID handling
   inline hyrise::tx::transaction_id_t tid(size_t row) const { return _tidVector[row]; }
 
   inline void setTid(size_t row, hyrise::tx::transaction_id_t tid) { _tidVector[row] = tid; }
 
-  inline bool cid(size_t row) const { return _cidVector[row]; }  
+  hyrise::tx::TX_CODE checkForConcurrentCommit(const pos_list_t& pos, const hyrise::tx::transaction_id_t tid) const;
+
+  hyrise::tx::TX_CODE markForDeletion(const pos_t pos, const hyrise::tx::transaction_id_t tid);
+
+  hyrise::tx::TX_CODE unmarkForDeletion(const pos_list_t& pos, const hyrise::tx::transaction_id_t tid);
 
 };
 

@@ -316,8 +316,8 @@ TEST_F(TransactionTests, delete_op_with_commit_and_concurrent_read) {
   auto& txmgr = hyrise::tx::TransactionManager::getInstance();
   writeCtx.cid = txmgr.prepareCommit();
 
-  // write commit id to simulate trnasaction in the process of comitting
-  linxxxs->updateCommitID(*(pc->getPositions()), writeCtx.cid, false);
+  // write commit id to simulate transaction in the process of committing
+  linxxxs->commitPositions(*(pc->getPositions()), writeCtx.cid, false);
 
 
 

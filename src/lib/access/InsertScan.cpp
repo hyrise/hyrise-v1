@@ -62,19 +62,19 @@ storage::atable_ptr_t InsertScan::buildFromJson() {
         ++offset;
       } else {
         fun.set(c,r,_raw_data[r][c-offset]);
-        ts(result->typeOfColumn(c), fun);        
+        ts(result->typeOfColumn(c), fun);
       }
-      
-    }    
+
+    }
   }
 
   return result;
-  
+
 }
 
 void InsertScan::executePlanOperation() {
   const auto& c_store = checked_pointer_cast<const Store>(input.getTable(0));
-  
+
   // Cast the constness away
   auto store = std::const_pointer_cast<Store>(c_store);
 
@@ -85,12 +85,11 @@ void InsertScan::executePlanOperation() {
   const auto& beforSize = store->size();
 
   auto writeArea = store->appendToDelta(_data->size());
-  const auto& hidden = false;
 
   // Get the modifications record
   auto& mods = tx::TransactionManager::getInstance()[_txContext.tid];
   for(size_t i=0, upper = _data->size(); i < upper; ++i) {
-    store->copyRowToDelta(_data, i, writeArea.first+i, _txContext.tid, hidden);
+    store->copyRowToDelta(_data, i, writeArea.first+i, _txContext.tid);
     mods.insertPos(store, beforSize+i);
   }
 

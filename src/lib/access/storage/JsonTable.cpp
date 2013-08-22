@@ -20,13 +20,13 @@
 #include <functional>
 
 namespace hyrise { namespace access	{
-	
+
 namespace {
   auto _ = QueryParser::registerPlanOperation<JsonTable>("JsonTable");
 }
 
 JsonTable::JsonTable() : _useStoreFlag(false) {
-	
+
 }
 
 struct set_string_value_functor {
@@ -58,7 +58,7 @@ void JsonTable::executePlanOperation() {
 
 	for(size_t i=0, attr_size = _names.size(); i < attr_size; ++i)
 		list.append().set_name(_names[i]).set_type(_types[i]);
-	
+
 	for(size_t i=0, groups_size = _groups.size(); i < groups_size; ++i)
 		list.appendGroup(_groups[i]);
 
@@ -72,7 +72,7 @@ void JsonTable::executePlanOperation() {
 	// Get resource manager
 	auto& res_man = io::ResourceManager::getInstance();
 	for(const auto& f : _serialFields) {
-		auto serial_name = std::to_string(result->getUuid()) + "_" + f; 
+		auto serial_name = std::to_string(result->getUuid()) + "_" + f;
 		res_man.add(serial_name, std::make_shared<Serial>());
 	}
 
@@ -89,7 +89,7 @@ void JsonTable::executePlanOperation() {
 		set_string_value_functor fun(_useStoreFlag ? std::dynamic_pointer_cast<Store>(result)->getDeltaTable() : result);
 		hyrise::storage::type_switch<hyrise_basic_types> ts;
 
-		
+
 		for(size_t i=0; i < rows; ++i) {
 			auto row = _data[i];
 
@@ -102,11 +102,11 @@ void JsonTable::executePlanOperation() {
 				if (std::find(_serialFields.begin(), _serialFields.end(), _names[j]) != _serialFields.end()) {
 					auto serial_name = std::to_string(result->getUuid()) + "_" + _names[j];
 					auto ser = res_man.get<Serial>(serial_name);
-					result->setValue<hyrise_int_t>(j, i, ser->next());					
+					result->setValue<hyrise_int_t>(j, i, ser->next());
 					offset++;
 				} else {
 					fun.set(j, i, row[j-offset]);
-					ts(result->typeOfColumn(j), fun);	
+					ts(result->typeOfColumn(j), fun);
 				}
 			}
 		}
@@ -114,11 +114,11 @@ void JsonTable::executePlanOperation() {
 		if (_useStoreFlag && _mergeFlag) {
 			// Hijacking transactions
 			pos_list_t pl(rows);
-			std::generate(pl.begin(), pl.end(), [](){ 
+			std::generate(pl.begin(), pl.end(), [](){
 				static size_t counter = 0;
 				return counter++;
 			});
-			std::dynamic_pointer_cast<Store>(result)->updateCommitID(pl,1, true);
+			std::dynamic_pointer_cast<Store>(result)->commitPositions(pl,1, true);
 			std::dynamic_pointer_cast<Store>(result)->merge();
 		}
 	}

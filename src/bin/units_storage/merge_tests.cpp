@@ -326,8 +326,8 @@ TEST_F(MergeTests, store_merge_compex) {
   auto linxxxs = std::dynamic_pointer_cast<Store>(Loader::shortcuts::load("test/lin_xxxs.tbl"));
   auto ref = std::dynamic_pointer_cast<Store>(Loader::shortcuts::load("test/reference/lin_xxxs_update.tbl"));
   linxxxs->resizeDelta(2);
-  linxxxs->copyRowToDelta(linxxxs, 0, 0, 1, true);
-  linxxxs->copyRowToDelta(linxxxs, 4, 1, 1, true);
+  linxxxs->copyRowToDelta(linxxxs, 0, 0, 1);
+  linxxxs->copyRowToDelta(linxxxs, 4, 1, 1);
 
   linxxxs->getDeltaTable()->setValue<hyrise_int_t>(1,0,99);
   linxxxs->getDeltaTable()->setValue<hyrise_int_t>(1,1,99);

@@ -67,7 +67,7 @@ transaction_id_t TransactionManager::getTransactionId() {
   return ++_transactionCount;
 }
 
-transaction_id_t TransactionManager::getLastCommitId() {
+transaction_cid_t TransactionManager::getLastCommitId() {
   return _commitId;
 }
 
@@ -175,7 +175,14 @@ void TransactionManager::rollbackTransaction(transaction_id_t tid) {
   if (!isRunningTransaction(tid)) {
     throw std::runtime_error("Transaction is not currently running");
   }
-  // TODO implement properly if relevant changes are made.
+
+  // unmark positions previously marked for delete
+  auto& txData = getTransactionData(tid);
+  for(auto& kv : txData._modifications.deleted) {
+    auto store = getStore(kv.first.lock());
+    store->unmarkForDeletion(kv.second, tid);
+  }
+
   getInstance().endTransaction(tid);
 }
 
@@ -196,7 +203,7 @@ transaction_cid_t TransactionManager::commitTransaction(transaction_id_t tid) {
     // Only deleted records have to be checked for validity as newly inserted
     // records will be always only written by us
     if (auto store = getStore(weak_table.lock())) {
-      if (tx::TX_CODE::TX_OK != store->checkCommitID(kv.second, _txContext.lastCid)) {
+      if (tx::TX_CODE::TX_OK != store->checkForConcurrentCommit(kv.second, tid)) {
         txmgr.abort();
         throw std::runtime_error("Aborted TX with Last Commit ID != New Commit ID");
       }
@@ -206,7 +213,7 @@ transaction_cid_t TransactionManager::commitTransaction(transaction_id_t tid) {
   for (auto& kv: modifications.inserted) {
     auto weak_table = kv.first;
     if (auto store = getStore(weak_table.lock())) {
-      auto result = store->updateCommitID(kv.second, _txContext.cid, true);
+      auto result = store->commitPositions(kv.second, _txContext.cid, true);
       if (result != TX_CODE::TX_OK) {
         txmgr.abort();
         throw std::runtime_error("Aborted TX with "); // TODO at return code to error message
@@ -217,7 +224,7 @@ transaction_cid_t TransactionManager::commitTransaction(transaction_id_t tid) {
   for (auto& kv: modifications.deleted) {
     auto weak_table = kv.first;
     if (auto store = getStore(weak_table.lock())) {
-      auto result = store->updateCommitID(kv.second, _txContext.cid, false);
+      auto result = store->commitPositions(kv.second, _txContext.cid, false);
       if (result != TX_CODE::TX_OK) {
         txmgr.abort();
         throw std::runtime_error("Aborted TX with "); // TODO at return code to error message
