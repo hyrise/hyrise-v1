@@ -32,7 +32,7 @@ TEST_F(LoaderTests, load_csv_table_simple) {
   CSVHeader header("test/header.tbl", CSVHeader::params().setCSVParams(csv::CSV_FORMAT));
   hyrise::storage::atable_ptr_t  t = Loader::load(Loader::params().setInput(input)
                                                   .setHeader(header));
-  ASSERT_TRUE((bool)std::dynamic_pointer_cast<Store>(t));
+  ASSERT_TRUE((bool) std::dynamic_pointer_cast<storage::Store>(t));
   ASSERT_EQ(5u, t->columnCount());
   ASSERT_EQ(1u, t->size());
 }
@@ -78,5 +78,3 @@ TEST_F(LoaderTests, load_table_hyrise_format) {
   hyrise::storage::atable_ptr_t  t = loadTable();
   ASSERT_EQ(t->size(), 100u);
 }
-
-

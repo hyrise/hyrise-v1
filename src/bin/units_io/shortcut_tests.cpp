@@ -5,6 +5,8 @@
 #include <storage/Store.h>
 #include <storage/RawTable.h>
 
+using namespace hyrise;
+
 class LoaderShortcutTests : public ::hyrise::Test {};
 
 TEST_F(LoaderShortcutTests, loadMainDelta) {
@@ -18,7 +20,7 @@ TEST_F(LoaderShortcutTests, loadMainDelta) {
 
 TEST_F(LoaderShortcutTests, loadShouldReturnStore) {
   hyrise::storage::atable_ptr_t  t = Loader::shortcuts::load("test/lin_xxs.tbl");
-  ASSERT_TRUE((bool)std::dynamic_pointer_cast<Store>(t));
+  ASSERT_TRUE((bool)std::dynamic_pointer_cast<storage::Store>(t));
 }
 
 TEST_F(LoaderShortcutTests, loadRawShouldReturnRawTable) {
@@ -26,5 +28,3 @@ TEST_F(LoaderShortcutTests, loadRawShouldReturnRawTable) {
   ASSERT_TRUE((bool)std::dynamic_pointer_cast<RawTable>(t));
   ASSERT_LT(0u, t->size());
 }
-
-

@@ -21,7 +21,7 @@ LayoutTable::~LayoutTable() {
 }
 
 void LayoutTable::executePlanOperation() {
-  auto store = std::dynamic_pointer_cast<const Store>(input.getTable());
+  auto store = std::dynamic_pointer_cast<const storage::Store>(input.getTable());
   if (store == nullptr)
     throw std::runtime_error("Input is not a store");
 
@@ -38,7 +38,7 @@ void LayoutTable::executePlanOperation() {
 
   // Switch the tables
   auto ntables = merger.mergeToTable(dest, tables);
-  auto result = std::make_shared<Store>(ntables[0]);
+  auto result = std::make_shared<storage::Store>(ntables[0]);
 
   output.add(result);
 }

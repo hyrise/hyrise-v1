@@ -36,7 +36,7 @@ TEST_F(WriteTests, DISABLED_update_test_one_col) {
   /*   hyrise::storage::atable_ptr_t t = Loader::shortcuts::load("test/lin_xxxs.tbl");
        hyrise::storage::atable_ptr_t u = Loader::shortcuts::load("test/update_col_1.tbl");
 
-       Store * s = new Store(t);
+       storage::Store * s = new Store(t);
 
        UpdateScan us;
        EqualsExpression<int> *eq0 = new EqualsExpression<int>(t, 0, 0);
@@ -65,7 +65,7 @@ TEST_F(WriteTests, DISABLED_update_test_col_all) {
   /*    hyrise::storage::atable_ptr_t t = Loader::shortcuts::load("test/lin_xxxs.tbl");
         hyrise::storage::atable_ptr_t u = Loader::shortcuts::load("test/update_col_all.tbl");
 
-        Store * s = new Store(t);
+        storage::Store * s = new Store(t);
 
         UpdateScan us;
         EqualsExpression<int> *eq0 = new EqualsExpression<int>(t, 0, 0);
@@ -91,7 +91,7 @@ TEST_F(WriteTests, DISABLED_update_test_col_all_rows) {
   /*    hyrise::storage::atable_ptr_t t = Loader::shortcuts::load("test/lin_xxxs.tbl");
         hyrise::storage::atable_ptr_t u = Loader::shortcuts::load("test/update_col_all.tbl");
 
-        Store * s = new Store(t);
+        storage::Store * s = new Store(t);
 
         UpdateScan us;
         TrueExp *truth = new TrueExp(t, 0);
@@ -113,7 +113,7 @@ TEST_F(WriteTests, DISABLED_update_test_col_all_rows) {
 
 TEST_F(WriteTests, DISABLED_update_func_all_rows) {
   /*    hyrise::storage::atable_ptr_t t = Loader::shortcuts::load("test/lin_xxxs.tbl");
-        Store * s = new Store(t);
+        storage::Store * s = new Store(t);
 
         UpdateScan us;
         us.addInput(s);

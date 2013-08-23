@@ -4,9 +4,7 @@
 
 #include "io/Loader.h"
 #include "storage/storage_types.h"
-
-class AbstractTable;
-class Store;
+#include "helper/types.h"
 
 class cloneable {
  public:

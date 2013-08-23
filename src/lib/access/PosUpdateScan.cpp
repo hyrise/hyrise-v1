@@ -30,10 +30,10 @@ PosUpdateScan::~PosUpdateScan() {
 
 void PosUpdateScan::executePlanOperation() {
   auto c_pc = checked_pointer_cast<const PointerCalculator>(input.getTable(0));
-  auto c_store = checked_pointer_cast<const Store>(c_pc->getActualTable());
-  
+  auto c_store = checked_pointer_cast<const storage::Store>(c_pc->getActualTable());
+
   // Cast the constness away
-  auto store = std::const_pointer_cast<Store>(c_store);
+  auto store = std::const_pointer_cast<storage::Store>(c_store);
 
   // Get the current maximum size
   const auto& beforSize = store->size();
@@ -43,7 +43,7 @@ void PosUpdateScan::executePlanOperation() {
   auto writeArea = store->appendToDelta(c_pc->getPositions()->size());
 
   // Get the modification record for the current transaction
-  auto& txmgr = tx::TransactionManager::getInstance(); 
+  auto& txmgr = tx::TransactionManager::getInstance();
   auto& modRecord = txmgr[_txContext.tid];
 
   // Functor we use for updating the data

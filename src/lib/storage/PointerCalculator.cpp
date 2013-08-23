@@ -11,6 +11,8 @@
 #include "storage/Store.h"
 #include "storage/TableRangeView.h"
 
+using namespace hyrise::storage;
+
 template <typename T>
 T* copy_vec(T* orig) {
   if (orig == nullptr) return nullptr;
@@ -377,7 +379,7 @@ std::shared_ptr<PointerCalculator> PointerCalculator::concatenate_many(pc_vector
       result->insert(end(*result), begin(*pl), end(*pl));
     }
   }
-  
+
   return create(table, result, nullptr);
 }
 

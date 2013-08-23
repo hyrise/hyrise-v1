@@ -10,14 +10,17 @@
 #define TABLERANGEVIEW_H_
 
 #include "storage/AbstractTable.h"
+#include "helper/SharedFactory.h"
+namespace hyrise { namespace storage {
 
 /*
  * provides an interface to a sequential range of rows to a table defined by a start and end
  */
 
-class TableRangeView : public AbstractTable {
+class TableRangeView : public AbstractTable,
+                       public SharedFactory<TableRangeView> {
 
-  hyrise::storage::atable_ptr_t _table;
+  atable_ptr_t _table;
 
   size_t _start;
   size_t _end;
@@ -25,15 +28,15 @@ class TableRangeView : public AbstractTable {
   size_t _columnCount;
 
 public:
-  TableRangeView(hyrise::storage::atable_ptr_t t, size_t s, size_t e);
+  TableRangeView(atable_ptr_t t, size_t s, size_t e);
   virtual ~TableRangeView();
 
   size_t getStart() const;
   // specific to TableRangeView
   table_id_t subtableCount() const;
-  hyrise::storage::atable_ptr_t copy() const;
+  atable_ptr_t copy() const;
   void print(const size_t limit = (size_t) -1) const;
-  hyrise::storage::c_atable_ptr_t getTable() const;
+  c_atable_ptr_t getTable() const;
 
   // recalculated rows and routed to underlying table if necessary
   size_t size() const;
@@ -49,7 +52,7 @@ public:
   // just routed to underlying table
   size_t partitionWidth(const size_t slice) const;
   unsigned partitionCount() const;
-  hyrise::storage::atable_ptr_t copy_structure(const field_list_t *fields = nullptr, const bool reuse_dict = false, const size_t initial_size = 0, const bool with_containers = true, const bool compressed = false) const;
+  atable_ptr_t copy_structure(const field_list_t *fields = nullptr, const bool reuse_dict = false, const size_t initial_size = 0, const bool with_containers = true, const bool compressed = false) const;
   const SharedDictionaryPtr & dictionaryByTableId(const size_t column, const table_id_t table_id) const;
   DataType typeOfColumn(const size_t column) const;
   size_t columnCount() const;
@@ -57,5 +60,7 @@ public:
 
   virtual void debugStructure(size_t level=0) const;
 };
+
+}}
 
 #endif /* TABLERANGEVIEW_H_ */

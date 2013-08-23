@@ -18,11 +18,8 @@
 
 #include <helper/types.h>
 
-enum {
-  MainStore,
-  DeltaStore
-};
-
+namespace hyrise {
+namespace storage {
 
 /**
  * Store consists of one or more main tables and a delta store and is the
@@ -31,144 +28,89 @@ enum {
  * tables using a to-be-set merger.
  */
 class Store : public AbstractTable {
-  friend class PrettyPrinter;
+public:
+  Store();
+  explicit Store(atable_ptr_t main_table);
+  virtual ~Store();
 
-protected:
+  std::vector< atable_ptr_t > getMainTables() const;
+  void setDelta(atable_ptr_t _delta);
+  atable_ptr_t getDeltaTable() const;
+  size_t deltaOffset() const;
+  void merge();
+
+  /// Replaces the merger used for merging main tables with delta.
+  /// @param _merger Pointer to a merger instance.
+  void setMerger(TableMerger *_merger);
+
+  /// Resize the current delta size atomically to new size and return
+  /// a pair of start and end for the resized delta that can be used
+  /// as a write area that is safe to use
+  std::pair<size_t, size_t> resizeDelta(size_t num);
+  std::pair<size_t, size_t> appendToDelta(size_t num);
+
+  bool isVisibleForTransaction(pos_t pos, tx::transaction_cid_t last_commit_id, tx::transaction_id_t tid) const;
+
+  /// This method validates a list of positions to check if it is valid
+  void validatePositions(pos_list_t& pos, tx::transaction_cid_t last_commit_id, tx::transaction_id_t tid ) const;
+  pos_list_t buildValidPositions(tx::transaction_cid_t last_commit_id, tx::transaction_id_t tid) const;
+
+  /// Copies a new row to the delta table, sets the validity and the
+  /// tx id accordingly. May need to resize delta.
+  void copyRowToDelta(const c_atable_ptr_t& source, size_t src_row, size_t dst_row, tx::transaction_id_t tid);
+
+  tx::TX_CODE commitPositions(const pos_list_t& pos, const tx::transaction_cid_t cid, bool valid);
+
+  // TID handling
+  inline tx::transaction_id_t tid(size_t row) const { return _tidVector[row]; }
+  inline void setTid(size_t row, tx::transaction_id_t tid) { _tidVector[row] = tid; }
+  tx::TX_CODE checkForConcurrentCommit(const pos_list_t& pos, tx::transaction_id_t tid) const;
+  tx::TX_CODE markForDeletion(pos_t pos,  tx::transaction_id_t tid);
+  tx::TX_CODE unmarkForDeletion(const pos_list_t& pos, tx::transaction_id_t tid);
+
+  /// AbstractTable interface
+  const ColumnMetadata *metadataAt(size_t column_index, size_t row_index = 0, table_id_t table_id = 0) const override;
+  void setDictionaryAt(AbstractTable::SharedDictionaryPtr dict, size_t column, size_t row = 0, table_id_t table_id = 0) override;
+  const AbstractTable::SharedDictionaryPtr& dictionaryAt(size_t column, size_t row = 0, table_id_t table_id = 0) const override;
+  const AbstractTable::SharedDictionaryPtr& dictionaryByTableId(size_t column, table_id_t table_id) const override;
+  ValueId getValueId(size_t column, size_t row) const override;
+  void setValueId(size_t column, size_t row, ValueId vid) override;
+  size_t size() const override;
+  size_t columnCount() const override;
+  unsigned partitionCount() const override;
+  size_t partitionWidth(size_t slice) const override;
+  void print(size_t limit = (size_t) - 1) const override;
+  table_id_t subtableCount() const override {
+    return main_tables.size() + 1;
+  }
+  atable_ptr_t copy() const override;
+  const attr_vectors_t getAttributeVectors(size_t column) const override;
+  void debugStructure(size_t level=0) const override;
+
+ private:
   //* Vector containing the main tables
-  std::vector< hyrise::storage::atable_ptr_t > main_tables;
+  std::vector< atable_ptr_t > main_tables;
 
   //* Delta store
-  hyrise::storage::atable_ptr_t delta;
+  atable_ptr_t delta;
 
   //* Current merger
   TableMerger *merger;
 
-  typedef struct { const hyrise::storage::atable_ptr_t& table; size_t offset_in_table; size_t table_index; } table_offset_idx_t;
+  typedef struct { const atable_ptr_t& table; size_t offset_in_table; size_t table_index; } table_offset_idx_t;
   table_offset_idx_t responsibleTable(size_t row) const;
 
   // TX Management
   // Stores the CID of the transaction that created the row
-  std::vector<hyrise::tx::transaction_id_t> _cidBeginVector;
+  std::vector<tx::transaction_id_t> _cidBeginVector;
   // Stores the CID of the transaction that deleted the row
-  std::vector<hyrise::tx::transaction_id_t> _cidEndVector;
+  std::vector<tx::transaction_id_t> _cidEndVector;
   // Stores the TID for each record to identify your own writes
-  std::vector<hyrise::tx::transaction_id_t> _tidVector;
-
-public:
-
-  explicit Store(std::vector<std::vector<const ColumnMetadata *> *> md);
-
-  explicit Store(hyrise::storage::atable_ptr_t main_table);
-
-  Store();
-
-  virtual ~Store();
-
-  /**
-   * Returns a pointer to the main tables vector.
-   */
-  std::vector< hyrise::storage::atable_ptr_t > getMainTables() const;
-
-  /**
-   * Returns a pointer to the delta store.
-   */
-  hyrise::storage::atable_ptr_t getDeltaTable() const;
-
-  const ColumnMetadata *metadataAt(const size_t column_index, const size_t row_index = 0, const table_id_t table_id = 0) const;
-
-  virtual void setDictionaryAt(AbstractTable::SharedDictionaryPtr dict, const size_t column, const size_t row = 0, const table_id_t table_id = 0);
-
-  const AbstractTable::SharedDictionaryPtr& dictionaryAt(const size_t column, const size_t row = 0, const table_id_t table_id = 0) const;
-
-  const AbstractTable::SharedDictionaryPtr& dictionaryByTableId(const size_t column, const table_id_t table_id) const;
-
-  ValueId getValueId(const size_t column, const size_t row) const;
-
-  virtual void setValueId(const size_t column, const size_t row, ValueId vid);
-
-  size_t size() const;
-
-  size_t deltaOffset() const;
-
-  size_t columnCount() const;
-
-  unsigned partitionCount() const;
-
-  virtual size_t partitionWidth(const size_t slice) const;
-
-  /**
-   * Merges main tables with and resets delta.
-   * @note Merger must be set!
-   */
-  void merge();
-
-  void print(const size_t limit = (size_t) - 1) const;
-
-  /**
-   * Sets the merger used for merging main tables with delta.
-   *
-   * @param _merger Pointer to a merger instance.
-   */
-  void setMerger(TableMerger *_merger);
-
-  void setDefaultMerger();
-
-  /**
-   * Sets the delta table.
-   *
-   * @param _delta New delta.
-   */
-  void setDelta(hyrise::storage::atable_ptr_t _delta);
-
-  virtual table_id_t subtableCount() const {
-    return main_tables.size() + 1;
-  }
-
-  virtual  hyrise::storage::atable_ptr_t copy() const;
-
-
-  virtual const attr_vectors_t getAttributeVectors(size_t column) const;
-
-  virtual void debugStructure(size_t level=0) const;
-
-  /**
-  * Resize the current delta size atomically to new size and return a pair of
-  * start and end for the resized delta that can be used as a write area that
-  * is safe to use
-  */
-  std::pair<size_t, size_t> resizeDelta(size_t num);
-
-  std::pair<size_t, size_t> appendToDelta(size_t num);
-
-  bool isVisibleForTransaction(pos_t pos, hyrise::tx::transaction_cid_t last_commit_id, hyrise::tx::transaction_id_t tid) const;
-
-  /**
-  * This method validates a list of positions to check if it is valid
-  */
-  void validatePositions(pos_list_t& pos, hyrise::tx::transaction_cid_t last_commit_id, hyrise::tx::transaction_id_t tid ) const;
-
-  pos_list_t buildValidPositions(hyrise::tx::transaction_cid_t last_commit_id, hyrise::tx::transaction_id_t tid) const;
-
-  /*
-  * Copies a new row to the delta table, sets the validity and the tx id
-  * accordningly. It has to be made sure that the delta is resized accordingly
-  */
-  void copyRowToDelta(const hyrise::storage::c_atable_ptr_t& source, const size_t src_row, const size_t dst_row, hyrise::tx::transaction_id_t tid);
-
-  hyrise::tx::TX_CODE commitPositions(const pos_list_t& pos, const hyrise::tx::transaction_cid_t cid, bool valid);
-
-  // TID handling
-  inline hyrise::tx::transaction_id_t tid(size_t row) const { return _tidVector[row]; }
-
-  inline void setTid(size_t row, hyrise::tx::transaction_id_t tid) { _tidVector[row] = tid; }
-
-  hyrise::tx::TX_CODE checkForConcurrentCommit(const pos_list_t& pos, const hyrise::tx::transaction_id_t tid) const;
-
-  hyrise::tx::TX_CODE markForDeletion(const pos_t pos, const hyrise::tx::transaction_id_t tid);
-
-  hyrise::tx::TX_CODE unmarkForDeletion(const pos_list_t& pos, const hyrise::tx::transaction_id_t tid);
-
+  std::vector<tx::transaction_id_t> _tidVector;
+  friend class PrettyPrinter;
 };
 
-#endif  // SRC_LIB_STORAGE_STORE_H_
+}}
 
+
+#endif  // SRC_LIB_STORAGE_STORE_H_

@@ -75,7 +75,7 @@
 		return the_result;\
 	}\
 	void name::walk(const std::vector<hyrise::storage::c_atable_ptr_t> &l) {\
-		_store = std::dynamic_pointer_cast<const Store>(l[0]);\
+		_store = std::dynamic_pointer_cast<const storage::Store>(l[0]);\
 		BOOST_PP_SEQ_FOR_EACH(EXPRESSION_EXTRACT_AV_AND_OFFSET,,BOOST_PP_SEQ_TRANSFORM(EXPR_TRANSFORM_FIELD_NAMES,,seq_of_fields));\
 	}\
 	std::unique_ptr<name> name::parse(const Json::Value& val) {\

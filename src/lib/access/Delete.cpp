@@ -22,9 +22,9 @@ namespace {
 
 void DeleteOp::executePlanOperation() {
 	auto tab = checked_pointer_cast<const PointerCalculator>(input.getTable(0));
-	auto store = std::const_pointer_cast<Store>(checked_pointer_cast<const Store>(tab->getActualTable()));
+	auto store = std::const_pointer_cast<storage::Store>(checked_pointer_cast<const storage::Store>(tab->getActualTable()));
 
-	auto& txmgr = tx::TransactionManager::getInstance(); 
+	auto& txmgr = tx::TransactionManager::getInstance();
 
 	// A delete is nothing more than marking the positions as deleted in the TX
 	// Modifications record

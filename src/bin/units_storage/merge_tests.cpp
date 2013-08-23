@@ -323,8 +323,8 @@ TEST_F(MergeTests, merge_with_different_layout_2) {
 
 
 TEST_F(MergeTests, store_merge_compex) {
-  auto linxxxs = std::dynamic_pointer_cast<Store>(Loader::shortcuts::load("test/lin_xxxs.tbl"));
-  auto ref = std::dynamic_pointer_cast<Store>(Loader::shortcuts::load("test/reference/lin_xxxs_update.tbl"));
+  auto linxxxs = std::dynamic_pointer_cast<storage::Store>(Loader::shortcuts::load("test/lin_xxxs.tbl"));
+  auto ref = std::dynamic_pointer_cast<storage::Store>(Loader::shortcuts::load("test/reference/lin_xxxs_update.tbl"));
   linxxxs->resizeDelta(2);
   linxxxs->copyRowToDelta(linxxxs, 0, 0, 1);
   linxxxs->copyRowToDelta(linxxxs, 4, 1, 1);

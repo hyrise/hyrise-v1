@@ -18,7 +18,7 @@ bool check_equality(const storage::c_ahashtable_ptr_t & ht1, const storage::c_ah
   // done by checking that size is equal and then iterate over both to check if pos_lists are equal
   isEqual = isEqual && (ht1->size(), ht2->size());
   isEqual = isEqual && (ht1->numKeys(), ht2->numKeys());
-  //now get Table for one of the HashTables and 
+  //now get Table for one of the HashTables and
   auto table = ht1->getTable();
   auto fields = ht1->getFields();
   pos_list_t p1;
@@ -45,9 +45,9 @@ TEST_F(HashBuildTest, check_equality) {
   hb.execute();
   auto hash = std::dynamic_pointer_cast<const SingleAggregateHashTable >(hb.getResultHashTable());
 
-  auto t1 = std::make_shared<TableRangeView>(t, 0, 4);
-  auto t2 = std::make_shared<TableRangeView>(t, 5, 9);
-  
+  auto t1 = storage::TableRangeView::create(t, 0, 4);
+  auto t2 = storage::TableRangeView::create(t, 5, 9);
+
   HashBuild hb1;
   hb1.addInput(t1);
   hb1.addField(1);
@@ -97,9 +97,9 @@ TEST_F(HashBuildTest, merge_two_tables_test) {
   auto hash = std::dynamic_pointer_cast<const SingleAggregateHashTable >(hb.getResultHashTable());
 
   //test to merge two tables
-  auto t1 = std::make_shared<TableRangeView>(t, 0, 5);
-  auto t2 = std::make_shared<TableRangeView>(t, 5, 10);
-  
+  auto t1 = storage::TableRangeView::create(t, 0, 5);
+  auto t2 = storage::TableRangeView::create(t, 5, 10);
+
   HashBuild hb1;
   hb1.addInput(t1);
   hb1.addField(1);
@@ -120,7 +120,7 @@ TEST_F(HashBuildTest, merge_two_tables_test) {
   mht.setKey("groupby");
   mht.execute();
   auto hash3 = std::dynamic_pointer_cast<const SingleAggregateHashTable >(mht.getResultHashTable());
- 
+
   ASSERT_EQ(hash->size(), hash3->size());
   ASSERT_EQ(hash->numKeys(), hash3->numKeys());
 }

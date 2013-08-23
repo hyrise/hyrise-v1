@@ -42,8 +42,8 @@ public:
 		 one_row->setValue<hyrise_int_t>(1,0, 999);
 
 		 // Convert to store
-		 data = std::make_shared<Store>(TableBuilder::build(list));
-		 linxxxs = std::dynamic_pointer_cast<Store>(Loader::shortcuts::load("test/lin_xxxs.tbl"));
+		 data = std::make_shared<storage::Store>(TableBuilder::build(list));
+		 linxxxs = std::dynamic_pointer_cast<storage::Store>(Loader::shortcuts::load("test/lin_xxxs.tbl"));
 	}
 
 };
