@@ -61,14 +61,14 @@ else
 	SHARED_LIB := -dynamiclib
 endif
 
-BUILD_FLAGS += -pipe -msse4.2 -gdwarf-2 -ggdb -Wall -Wextra -Wno-unused-parameter
+BUILD_FLAGS += -pipe -march=native -ggdb -Wall -Wextra -Wno-unused-parameter
 CXX_BUILD_FLAGS += --std=c++0x
 LINKER_FLAGS +=
 
 ifeq ($(PRODUCTION), 1)
-	BUILD_FLAGS += -O3 -funroll-loops -fbranch-target-load-optimize -finline-functions -fexpensive-optimizations -frerun-cse-after-loop -frerun-loop-opt -D NDEBUG -ftree-vectorize -D EXPENSIVE_TESTS -D PRODUCTION
+	BUILD_FLAGS += -O3 -fbranch-target-load-optimize -frerun-cse-after-loop -D EXPENSIVE_TESTS -D PRODUCTION
 else
-	BUILD_FLAGS += -O0 -gdwarf-2 -D EXPENSIVE_ASSERTIONS
+	BUILD_FLAGS += -O0 -D EXPENSIVE_ASSERTIONS
 endif
 
 # Specify the allocator using a linker flag
