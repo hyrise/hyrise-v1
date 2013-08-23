@@ -5,18 +5,19 @@
 #include "helper.h"
 
 #include <storage/TableRangeView.h>
-#include <storage/TableRangeViewFactory.h>
 #include <io/StorageManager.h>
 #include <io/shortcuts.h>
 #include <io/loaders.h>
+
+using namespace hyrise;
 
 class TableRangeViewTests : public ::hyrise::StorageManagerTest {};
 
 TEST_F(TableRangeViewTests, init_pc) {
   {
-    hyrise::storage::atable_ptr_t t = Loader::shortcuts::load("test/lin_xxs.tbl");
+    storage::atable_ptr_t t = Loader::shortcuts::load("test/lin_xxs.tbl");
 
-    TableRangeView *trv = new TableRangeView(t, 0, t->size());
+    auto trv = new storage::TableRangeView(t, 0, t->size());
     ASSERT_EQ(t->size(), trv->size());
 
     size_t row = 2;
@@ -31,13 +32,13 @@ TEST_F(TableRangeViewTests, init_pc) {
 }
 
 TEST_F(TableRangeViewTests, pc_using_factory) {
-  hyrise::storage::atable_ptr_t t = Loader::shortcuts::load("test/lin_xxs.tbl");
+  storage::atable_ptr_t t = Loader::shortcuts::load("test/lin_xxs.tbl");
   size_t start = 5;
   size_t end = 20;
   size_t row = 10;
   size_t column = 1;
 
-  auto trv = TableRangeViewFactory::createView(t, start, end);
+  auto trv = storage::TableRangeView::create(t, start, end);
 
   ASSERT_EQ(trv->size(), (end-start));
 

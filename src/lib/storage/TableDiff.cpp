@@ -4,6 +4,7 @@
 #include <storage/AbstractTable.h>
 #include <storage/meta_storage.h>
 
+namespace hyrise { namespace storage {
 namespace{
 /// Functor class for usage with hyrise::storage::type_switch to compare table cells by value
 
@@ -119,7 +120,7 @@ TableDiff TableDiff::diffTables(const AbstractTable* const left,
   for (size_t i = 0; i < diff.fields.size(); ++i)
     if (diff.fields[i] != FieldCorrect)
       mapFields.erase(i);
-  
+
   if (!schema_only) {
     //compare rows
     for (size_t line_left = 0; line_left < left->size(); ++line_left) {
@@ -145,3 +146,4 @@ TableDiff TableDiff::diffTables(const AbstractTable* const left,
   return diff;
 }
 
+}}

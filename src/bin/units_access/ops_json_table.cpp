@@ -90,7 +90,7 @@ TEST_F(JsonTableTest, load_and_create_from_json) {
   auto t = Loader::shortcuts::load("test/tables/radix_cluster_mpass.tbl");
   EXPECT_RELATION_SCHEMA_EQ(t, result);
 
-  EXPECT_TRUE(std::dynamic_pointer_cast<const Store>(result) == nullptr);
+  EXPECT_TRUE(std::dynamic_pointer_cast<const storage::Store>(result) == nullptr);
 }
 
 TEST_F(JsonTableTest, load_and_create_from_json_store) {
@@ -99,7 +99,7 @@ TEST_F(JsonTableTest, load_and_create_from_json_store) {
 
   auto t = Loader::shortcuts::load("test/tables/radix_cluster_mpass.tbl");
   EXPECT_RELATION_SCHEMA_EQ(t, result);
-  EXPECT_TRUE(std::dynamic_pointer_cast<const Store>(result) != nullptr);
+  EXPECT_TRUE(std::dynamic_pointer_cast<const storage::Store>(result) != nullptr);
 }
 
 }

@@ -32,7 +32,7 @@ void SimpleTableScan::executePositional() {
   storage::pos_list_t *pos_list = new pos_list_t();
 
 
-  size_t row = _ofDelta ? checked_pointer_cast<const Store>(tbl)->deltaOffset() : 0;
+  size_t row = _ofDelta ? checked_pointer_cast<const storage::Store>(tbl)->deltaOffset() : 0;
   for (size_t input_size=tbl->size(); row < input_size; ++row) {
     if ((*_comparator)(row)) {
       pos_list->push_back(row);
@@ -46,7 +46,7 @@ void SimpleTableScan::executeMaterialized() {
   auto result_table = tbl->copy_structure_modifiable();
   size_t target_row = 0;
 
-  size_t row = _ofDelta ? checked_pointer_cast<const Store>(tbl)->deltaOffset() : 0;
+  size_t row = _ofDelta ? checked_pointer_cast<const storage::Store>(tbl)->deltaOffset() : 0;
   for (size_t input_size=tbl->size();
        row < input_size;
        ++row) {

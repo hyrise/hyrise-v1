@@ -227,10 +227,9 @@ std::shared_ptr<AbstractTable> MPassCSVInput::load(std::shared_ptr<AbstractTable
   for (size_t i = 0; i < intable->columnCount(); ++i)
     kThreads[i].join();
 
-  return std::make_shared<Store>(intable);
+  return std::make_shared<hyrise::storage::Store>(intable);
 }
 
 MPassCSVInput *MPassCSVInput::clone() const {
   return new MPassCSVInput(*this);
 }
-

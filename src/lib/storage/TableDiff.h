@@ -10,6 +10,8 @@
 
 class AbstractTable;
 
+namespace hyrise { namespace storage {
+
 class TableDiff {
 
 public:
@@ -36,5 +38,6 @@ public:
   std::map<size_t,size_t> falsePositionRows;
 };
 
+}}
 
 #endif //SRC_LIB_STORAGE_TABLEDIFF_H_

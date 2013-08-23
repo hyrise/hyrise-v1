@@ -13,8 +13,8 @@
 
   std::stringstream buf;
 
-  PrettyPrinter::print(left.get(), buf, left_exp);
-  PrettyPrinter::print(right.get(), buf, right_exp);
+  hyrise::storage::PrettyPrinter::print(left.get(), buf, left_exp);
+  hyrise::storage::PrettyPrinter::print(right.get(), buf, right_exp);
   return ::testing::AssertionFailure() << buf.str()
                                        << "The content of " << left_exp << " does not equal the content of " << right_exp;
 }

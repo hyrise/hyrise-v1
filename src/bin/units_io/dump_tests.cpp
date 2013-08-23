@@ -19,16 +19,16 @@
 #include <storage/TableMerger.h>
 #include <storage/AbstractMergeStrategy.h>
 #include <storage/SequentialHeapMerger.h>
-
+#include <storage/storage_types.h>
 
 class DumpTests : public ::hyrise::Test {
-  
+
 protected:
 
   hyrise::storage::atable_ptr_t simpleTable;
 
 public:
-  
+
   virtual void SetUp(){
     boost::filesystem::create_directories("./test/dump");
     simpleTable = Loader::shortcuts::load("test/lin_xxs.tbl");
@@ -49,7 +49,7 @@ TEST_F(DumpTests, should_not_dump_other_tables_than_stores) {
 TEST_F(DumpTests, should_not_dump_store_with_muliple_generations) {
 
   TableMerger *merger = new TableMerger(new DefaultMergeStrategy(), new SequentialHeapMerger(), false);
-  auto s = std::dynamic_pointer_cast<Store>(simpleTable);
+  auto s = std::dynamic_pointer_cast<hyrise::storage::Store>(simpleTable);
   s->setMerger(merger);
   s->merge();
 
@@ -78,9 +78,9 @@ TEST_F(DumpTests, should_not_dump_store_with_muliple_generations) {
   s->getDeltaTable()->setValue<hyrise_int_t>(8, 0, 1);
   s->getDeltaTable()->setValue<hyrise_int_t>(9, 0, 1);
   s->merge();
-  
+
   auto dumper = hyrise::storage::SimpleTableDump("./test/dump");
-  dumper.dump("simple", s);  
+  dumper.dump("simple", s);
 }
 
 
@@ -123,10 +123,10 @@ TEST_F(DumpTests, simple_dump_load_all) {
 
 
 TEST_F(DumpTests, simple_dump_should_not_dump_delta) {
-  
+
   ASSERT_EQ(10u, simpleTable->columnCount());
 
-  auto s = std::dynamic_pointer_cast<Store>(simpleTable);
+  auto s = std::dynamic_pointer_cast<hyrise::storage::Store>(simpleTable);
   s->resizeDelta(1);
   s->getDeltaTable()->setValue<hyrise_int_t>(0, 0, 1);
   s->getDeltaTable()->setValue<hyrise_int_t>(1, 0, 1);
@@ -138,7 +138,7 @@ TEST_F(DumpTests, simple_dump_should_not_dump_delta) {
   s->getDeltaTable()->setValue<hyrise_int_t>(7, 0, 1);
   s->getDeltaTable()->setValue<hyrise_int_t>(8, 0, 1);
   s->getDeltaTable()->setValue<hyrise_int_t>(9, 0, 1);
-  
+
   ASSERT_EQ(101u, simpleTable->size());
   auto dumper = hyrise::storage::SimpleTableDump("./test/dump");
   auto result = dumper.dump("simple", simpleTable);

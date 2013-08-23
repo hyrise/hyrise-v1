@@ -33,18 +33,18 @@ namespace hyrise { namespace access {
  * definitino. A field definition is a sequnce in terms of C++ macros and has
  * exactly 4 values. The field name, the type, the comparison operator and the
  * method name used to extract from json.
- * 
+ *
  * An example for such a sequence is:
- *  
+ *
  *     (f1)(hyrise_int_t)(==)(asUInt)
  *
  * The parentheses are extremeley important. Now the paremter to the define
  * macro is bascially a sequence of sequences so it must be defined as
  *
  *     (seq1...)(seq2...)(seqn..)
- * 
+ *
  * The logical operators are defined in the same way as a sequence of operations:
- *  
+ *
  *     ()(&&)(||)
  *
  * The first parameter is always empty and used as a placeholder in the code
@@ -53,7 +53,6 @@ namespace hyrise { namespace access {
  */
  struct GenericExpressionsHelper{
  };
-
 
 #define FLD_1 (f1)(hyrise_int_t)(==)(asUInt64)
 #define FLD_2 (f2)(hyrise_int_t)(==)(asUInt64)
@@ -67,8 +66,8 @@ DEFINE_EXPRESSION_CLASS(Store_FLV_F1_EQ_INT_AND_F2_EQ_INT_AND_F3_EQ_INT, STORE_T
 
 
 
-DEFINE_EXPRESSION_CLASS(Store_FLV_F1_EQ_INT_AND_F2_EQ_INT_AND_F3_EQ_INT_AND_F4_GTE_INT_AND_F5_LTE_INT, 
-  ((f1)(hyrise_int_t)(==)(asUInt64))((f2)(hyrise_int_t)(==)(asUInt64))((f3)(hyrise_int_t)(==)(asUInt64))((f4)(hyrise_int_t)(>=)(asUInt64))((f5)(hyrise_int_t)(<=)(asUInt64)), 
+DEFINE_EXPRESSION_CLASS(Store_FLV_F1_EQ_INT_AND_F2_EQ_INT_AND_F3_EQ_INT_AND_F4_GTE_INT_AND_F5_LTE_INT,
+  ((f1)(hyrise_int_t)(==)(asUInt64))((f2)(hyrise_int_t)(==)(asUInt64))((f3)(hyrise_int_t)(==)(asUInt64))((f4)(hyrise_int_t)(>=)(asUInt64))((f5)(hyrise_int_t)(<=)(asUInt64)),
   ()(&&)(&&)(&&)(&&));
 
 

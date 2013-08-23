@@ -131,15 +131,15 @@ std::shared_ptr<AbstractTable> Loader::load(const params &args) {
   LOG4CXX_DEBUG(logger, "Data done");
 
   if (!args.getModifiableMutableVerticalTable() && input->needs_store_wrap()) {
-    std::shared_ptr<Store> s = std::make_shared<Store>(result);
+    auto s = std::make_shared<storage::Store>(result);
     TableMerger *merger = new TableMerger(new DefaultMergeStrategy(), new SequentialHeapMerger(), args.getCompressed());
     s->setMerger(merger);
     s->merge();
     result = s;
   }
-  
+
   if (!args.getModifiableMutableVerticalTable() && args.getReturnsMutableVerticalTable()) {
-    table = std::dynamic_pointer_cast<Store>(result)->getMainTables()[0];
+    table = std::dynamic_pointer_cast<storage::Store>(result)->getMainTables()[0];
     result = table;
   }
 
