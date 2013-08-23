@@ -12,7 +12,7 @@ class InsertScanTests : public AccessTest {};
 
 TEST_F(InsertScanTests, basic_insert_scan_test) {
   auto row = Loader::shortcuts::load("test/insert_one.tbl");
-  storage::atable_ptr_t table(new Store(row));
+  storage::atable_ptr_t table(new storage::Store(row));
 
   auto ctx = tx::TransactionManager::getInstance().buildContext();
 
@@ -22,7 +22,7 @@ TEST_F(InsertScanTests, basic_insert_scan_test) {
   is.setInputData(row);
   is.execute();
 
-  const auto &result = std::dynamic_pointer_cast<const Store>(is.getResultTable());
+  const auto &result = std::dynamic_pointer_cast<const storage::Store>(is.getResultTable());
 
   ASSERT_TABLE_EQUAL(result->getDeltaTable(), row);
 }

@@ -11,7 +11,6 @@
 #include "storage/AbstractResource.h"
 #include "storage/AbstractHashTable.h"
 #include "storage/AbstractTable.h"
-#include "storage/TableRangeViewFactory.h"
 #include "storage/TableRangeView.h"
 
 #include "boost/lexical_cast.hpp"

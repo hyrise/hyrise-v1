@@ -56,7 +56,7 @@ std::shared_ptr<AbstractTable> Loader::shortcuts::loadWithStringHeader(const std
   return Loader::load(loadWithStringHeaderParams(datafilepath, header));
 };
 
-std::shared_ptr<Store> Loader::shortcuts::loadMainDelta(const std::string &mainfilepath, const std::string &deltafilepath, Loader::params p) {
+std::shared_ptr<hyrise::storage::Store> Loader::shortcuts::loadMainDelta(const std::string &mainfilepath, const std::string &deltafilepath, Loader::params p) {
   std::vector<std::string> filenames;
   filenames.push_back(mainfilepath);
   filenames.push_back(deltafilepath);
@@ -72,7 +72,7 @@ std::shared_ptr<Store> Loader::shortcuts::loadMainDelta(const std::string &mainf
     std::shared_ptr<AbstractTable> table = Loader::load(p);
     tables.push_back(table);
   }
-  auto s = std::make_shared<Store>(tables[0]);
+  auto s = std::make_shared<hyrise::storage::Store>(tables[0]);
   s->setDelta(tables[1]);
   return s;
 };

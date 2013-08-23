@@ -73,10 +73,10 @@ storage::atable_ptr_t InsertScan::buildFromJson() {
 }
 
 void InsertScan::executePlanOperation() {
-  const auto& c_store = checked_pointer_cast<const Store>(input.getTable(0));
+  const auto& c_store = checked_pointer_cast<const storage::Store>(input.getTable(0));
 
   // Cast the constness away
-  auto store = std::const_pointer_cast<Store>(c_store);
+  auto store = std::const_pointer_cast<storage::Store>(c_store);
 
   if (!_data)
     _data = buildFromJson();

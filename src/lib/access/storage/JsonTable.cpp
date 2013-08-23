@@ -65,7 +65,7 @@ void JsonTable::executePlanOperation() {
 
 	storage::atable_ptr_t result = storage::TableBuilder::build(list);
 	if (_useStoreFlag) {
-		result = std::make_shared<Store>(result);
+		result = std::make_shared<storage::Store>(result);
 	}
 
 	// Attach all Serial Fields
@@ -81,12 +81,12 @@ void JsonTable::executePlanOperation() {
 	if (rows > 0 ) {
 
 		if (_useStoreFlag)
-			std::dynamic_pointer_cast<Store>(result)->appendToDelta(rows);
+			std::dynamic_pointer_cast<storage::Store>(result)->appendToDelta(rows);
 		else
 			result->resize(rows);
 
 
-		set_string_value_functor fun(_useStoreFlag ? std::dynamic_pointer_cast<Store>(result)->getDeltaTable() : result);
+		set_string_value_functor fun(_useStoreFlag ? std::dynamic_pointer_cast<storage::Store>(result)->getDeltaTable() : result);
 		hyrise::storage::type_switch<hyrise_basic_types> ts;
 
 
@@ -118,8 +118,8 @@ void JsonTable::executePlanOperation() {
 				static size_t counter = 0;
 				return counter++;
 			});
-			std::dynamic_pointer_cast<Store>(result)->commitPositions(pl,1, true);
-			std::dynamic_pointer_cast<Store>(result)->merge();
+			std::dynamic_pointer_cast<storage::Store>(result)->commitPositions(pl,1, true);
+			std::dynamic_pointer_cast<storage::Store>(result)->merge();
 		}
 	}
 

@@ -18,6 +18,8 @@
 
 #include <iostream>
 
+using namespace hyrise::storage;
+
 hyrise::storage::atable_ptr_t AbstractTable::copy_structure(const field_list_t *fields, const bool reuse_dict, const size_t initial_size, const bool with_containers, const bool compressed) const {
   std::vector<const ColumnMetadata *> metadata;
   std::vector<AbstractTable::SharedDictionaryPtr> *dictionaries = nullptr;

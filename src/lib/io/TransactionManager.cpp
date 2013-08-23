@@ -159,8 +159,8 @@ TransactionData& TransactionManager::getTransactionData(transaction_id_t tid) {
 }
 
 storage::store_ptr_t getStore(const storage::c_atable_ptr_t& table) {
-  return std::const_pointer_cast<Store>(
-      checked_pointer_cast<const Store>(table));
+  return std::const_pointer_cast<storage::Store>(
+      checked_pointer_cast<const storage::Store>(table));
 }
 
 void TransactionManager::endTransaction(transaction_id_t tid) {

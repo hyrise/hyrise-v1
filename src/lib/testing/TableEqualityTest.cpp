@@ -5,6 +5,8 @@
 #include <storage/TableDiff.h>
 #include <storage/PrettyPrinter.h>
 
+using namespace hyrise::storage;
+
 std::string schemaErrors(TableDiff diff, const char* relationName, tblptr table) {
   std::vector<std::string> fieldError, fieldTypeError;
   std::stringstream buf;
@@ -24,7 +26,7 @@ std::string schemaErrors(TableDiff diff, const char* relationName, tblptr table)
         fieldError.push_back(table->nameOfColumn(i));
     }
   }
-  
+
   if (! (fieldError.empty() && fieldTypeError.empty()) ) {
     buf << "Error in \"" << relationName << "\"s relation schema:" << std::endl;
     if (!fieldError.empty()) {
@@ -49,7 +51,7 @@ std::string rowErrors(TableDiff diff, const char* baseRelationName, const char* 
     return "";
 
   std::stringstream buf;
-  
+
   buf << "rows in \"" << baseRelationName << "\" that are not in \""
             << otherRelationName << "\": ";
   for (size_t i = 0; i < diff.wrongRows.size()-1; ++i)
@@ -71,7 +73,7 @@ std::string rowPositionErrors(TableDiff diff, const char* baseRelationName, cons
     buf << (*i).first << " (" << (*i).second << "), ";
   //TODO: don't let the list end with ','
   //buf << (*diff.falsePositionRows.end()).first << "(" << (*diff.falsePositionRows.end()).second << ")" << std::endl;
-  
+
   return buf.str();
 }
 
@@ -167,4 +169,3 @@ std::string rowPositionErrors(TableDiff diff, const char* baseRelationName, cons
 
   return ::testing::AssertionSuccess();
 }
-

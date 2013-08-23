@@ -5,10 +5,8 @@
 #include <memory>
 #include <string>
 
+#include "helper/types.h"
 #include "Loader.h"
-
-class Store;
-class AbstractTable;
 
 namespace Loader {
 
@@ -38,7 +36,7 @@ std::shared_ptr<AbstractTable> loadWithStringHeader(const std::string &datafilep
   @param mainfilepath
   @param deltafilepath
 */
-std::shared_ptr<Store> loadMainDelta(const std::string &mainfilepath, const std::string &deltafilepath, Loader::params p = Loader::params());
+std::shared_ptr<hyrise::storage::Store> loadMainDelta(const std::string &mainfilepath, const std::string &deltafilepath, Loader::params p = Loader::params());
 
 /**
  * Load a table into a raw table container

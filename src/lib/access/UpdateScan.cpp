@@ -45,7 +45,7 @@ void UpdateScan::executePlanOperation() {
 
   std::map<int, int>::iterator it;
 
-  auto s = std::dynamic_pointer_cast<const Store>(input.getTable(0));
+  auto s = std::dynamic_pointer_cast<const storage::Store>(input.getTable(0));
 
   if (!s) {
     throw std::runtime_error("Updates not supported for non delta structures");

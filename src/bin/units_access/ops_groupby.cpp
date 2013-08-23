@@ -90,7 +90,7 @@ TEST_F(GroupByTests, aggregate_group_multi_table_with_delta_not_unique) {
   hyrise::storage::atable_ptr_t reference = Loader::shortcuts::load("test/reference/group_by_delta_2.tbl");
 
   // make it modifiable
-  auto s = std::make_shared< Store>(t);
+  auto s = std::make_shared< storage::Store>(t);
 
   // Do the insert
   s->getDeltaTable()->setValue<hyrise_int_t>(0, 0, 2008);
@@ -546,7 +546,7 @@ TEST_F(GroupByTests,  group_multi_table) {
   hyrise::storage::atable_ptr_t reference = Loader::shortcuts::load("test/reference/group_by_scan_with_sum_and_one_arg.tbl");
 
   // make it modifiable
-  auto s = std::make_shared<Store>(t);
+  auto s = std::make_shared<storage::Store>(t);
 
   auto sum = new SumAggregateFun(0);
 
@@ -587,7 +587,7 @@ TEST_F(GroupByTests, group_multi_table_with_delta) {
   hyrise::storage::atable_ptr_t reference = Loader::shortcuts::load("test/reference/group_by_delta.tbl");
 
   // make it modifiable
-  auto s = std::make_shared<Store>(t);
+  auto s = std::make_shared<storage::Store>(t);
 
   // Do the insert
   s->getDeltaTable()->setValue<hyrise_int_t>(0, 0, 2013);
@@ -641,7 +641,7 @@ TEST_F(GroupByTests, group_multi_table_with_delta_not_unique) {
   hyrise::storage::atable_ptr_t reference = Loader::shortcuts::load("test/reference/group_by_delta_2.tbl");
 
   // make it modifiable
-  auto s = std::make_shared< Store>(t);
+  auto s = std::make_shared< storage::Store>(t);
 
   // Do the insert
   s->getDeltaTable()->setValue<hyrise_int_t>(0, 0, 2008);

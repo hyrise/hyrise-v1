@@ -20,7 +20,7 @@ void MergeTable::executePlanOperation() {
   std::vector<storage::c_atable_ptr_t> tables;
   // Add all tables to the game
   for (auto& table: input.getTables()) {
-    if (auto store = std::dynamic_pointer_cast<const Store>(table)) {
+    if (auto store = std::dynamic_pointer_cast<const storage::Store>(table)) {
       auto mains = store->getMainTables();
       tables.insert(tables.end(), mains.begin(), mains.end());
       tables.push_back(store->getDeltaTable());
@@ -35,7 +35,7 @@ void MergeTable::executePlanOperation() {
 
   // Switch the tables
   auto merged_tables = merger.mergeToTable(new_table, tables);
-  const auto &result = std::make_shared<Store>(new_table);
+  const auto &result = std::make_shared<storage::Store>(new_table);
 
   output.add(result);
 }
@@ -56,8 +56,8 @@ MergeStore::~MergeStore() {
 }
 
 void MergeStore::executePlanOperation() {
-  auto t = checked_pointer_cast<const Store>(getInputTable());
-  auto store = std::const_pointer_cast<Store>(t);
+  auto t = checked_pointer_cast<const storage::Store>(getInputTable());
+  auto store = std::const_pointer_cast<storage::Store>(t);
   store->merge();
   output.add(store);
 }
