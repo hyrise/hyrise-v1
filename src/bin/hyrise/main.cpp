@@ -61,11 +61,11 @@ class PortResource {
     if (remove(PORT_FILE) != 0)
       perror("unlink portfile");
   }
-  
+
   size_t getPort() {
     return _current;
   }
-  
+
  private:
   size_t _current;
 };
@@ -129,6 +129,7 @@ void bindToNode(int node) {
 int main(int argc, char *argv[]) {
 
   size_t port = 0;
+  int worker_threads = 0;
   std::string logPropertyFile;
   std::string scheduler_name;
 
@@ -137,10 +138,11 @@ int main(int argc, char *argv[]) {
   desc.add_options()("help", "Shows this help message")
   ("port,p", po::value<size_t>(&port)->default_value(DEFAULT_PORT), "Server Port")
   ("logdef,l", po::value<std::string>(&logPropertyFile)->default_value("build/log.properties"), "Log4CXX Log Properties File")
-  ("scheduler,s", po::value<std::string>(&scheduler_name)->default_value("WSCoreBoundQueuesScheduler"), "Name of the scheduler to use");
+  ("scheduler,s", po::value<std::string>(&scheduler_name)->default_value("WSCoreBoundQueuesScheduler"), "Name of the scheduler to use")
+  ("threads,t", po::value<int>(&worker_threads)->default_value(getNumberOfCoresOnSystem()), "Number of worker threads for scheduler (only relevant for scheduler with fixed number of threads)");
   po::variables_map vm;
 
-  try { 
+  try {
     po::store(po::parse_command_line(argc, argv, desc), vm);
     po::notify(vm);
   } catch(po::error &e) {
@@ -160,13 +162,15 @@ int main(int argc, char *argv[]) {
 
   // Log File Configuration
   PropertyConfigurator::configure(logPropertyFile);
-  
+
 #ifndef PRODUCTION
   LOG4CXX_WARN(logger, "compiled with development settings, expect substantially lower and non-representative performance");
 #endif
 
-  
-  SharedScheduler::getInstance().init(scheduler_name, getNumberOfCoresOnSystem());
+
+
+  SharedScheduler::getInstance().init(scheduler_name, worker_threads);
+  AbstractTaskScheduler *scheduler = SharedScheduler::getInstance().getScheduler();
 
   signal(SIGINT, &shutdown);
   // MainS erver Loop
@@ -175,13 +179,13 @@ int main(int argc, char *argv[]) {
   // Initialize server based on libev event loop
   ebb_server_init(&server, loop);
 
-  
+
   // Define handler for ebb
   server.new_connection = net::new_connection;
 
   PidFile pi;
   PortResource pa(port, port+100, server);
-  
+
   //ebb_server_listen_on_port(&server, port);
   LOG4CXX_INFO(logger, "Started server on port " << pa.getPort());
   ev_loop(loop, 0);
