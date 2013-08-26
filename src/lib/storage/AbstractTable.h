@@ -17,15 +17,11 @@
 
 #include "helper/types.h"
 #include "helper/locking.h"
+#include "helper/unique_id.h"
 
 #include "storage/AbstractResource.h"
 #include "storage/BaseDictionary.h"
 #include "storage/storage_types.h"
-
-#include <boost/lexical_cast.hpp>
-#include <boost/uuid/uuid.hpp>
-#include <boost/uuid/uuid_generators.hpp>
-#include <boost/uuid/uuid_io.hpp>
 
 
 class ColumnMetadata;
@@ -119,7 +115,7 @@ public:
   virtual const ColumnMetadata *metadataAt(size_t column, size_t row = 0, table_id_t table_id = 0) const = 0;
 
   /**
-   * Returs a list of references to metadata of this table. 
+   * Returs a list of references to metadata of this table.
    *
    * The list is newly created for all calls to this method, but the
    * references stay the same. Thus calling this method incurrs a
@@ -295,7 +291,7 @@ public:
       /*if (map->isOrdered()) {
         throw std::runtime_error("Cannot insert value in an ordered dictionary");
       } else {
-        
+
       }*/
     } else {
       // TODO: We should document that INT_MAX is an invalid document ID
@@ -515,7 +511,7 @@ public:
    */
   virtual hyrise::storage::atable_ptr_t copy() const = 0;
 
-  /** 
+  /**
   * get underlying attribute vectors for column
   *
   * This method returns a struct containing the reference to the attribute
@@ -526,14 +522,13 @@ public:
 
   virtual void debugStructure(size_t level=0) const;
 
-  boost::uuids::uuid getUuid() const;
+  unique_id getUuid() const;
 
-  void setUuid(boost::uuids::uuid u = boost::uuids::nil_uuid());
+  void setUuid(unique_id = unique_id());
 
  private:
-  // Global unique identifier for this object  
-  boost::uuids::uuid _uuid = boost::uuids::nil_uuid();
+  // Global unique identifier for this object
+  unique_id _uuid;
 };
 
 #endif  // SRC_LIB_STORAGE_ABSTRACTTABLE_H_
-
