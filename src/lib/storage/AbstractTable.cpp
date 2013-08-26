@@ -309,13 +309,13 @@ void AbstractTable::debugStructure(size_t level) const {
   std::cout << std::string(level, '\t') << "AbstractTable " << this << std::endl;
 }
 
-boost::uuids::uuid AbstractTable::getUuid() const {
+unique_id AbstractTable::getUuid() const {
   return _uuid;
 }
 
-void AbstractTable::setUuid(boost::uuids::uuid u) {
+void AbstractTable::setUuid(unique_id u) {
   if (u.is_nil()) {
-    _uuid = boost::uuids::random_generator()();
+    _uuid = unique_id::create();
   }
   _uuid = u;
 }
