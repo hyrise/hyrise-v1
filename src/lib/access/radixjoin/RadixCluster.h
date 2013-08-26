@@ -96,21 +96,52 @@ void RadixCluster::executeClustering() {
       data_pos->set(0, pos_to_write, p->getTableRowForRow(row));
     }
   } else {
-    auto ipair = getDataVector(tab);
-    const auto &ivec = ipair.first;
-    const auto &dict = std::dynamic_pointer_cast<OrderPreservingDictionary<T>>(tab->dictionaryAt(field));
-    const auto &offset = field + ipair.second;
 
-    std::hash<T> hasher;
-    for(decltype(tableSize) row = _start; row < _stop; ++row) {
-      // Calculate and increment the position
-      auto hash_value  = hasher(dict->getValueForValueId(ivec->get(offset, row)));//ts(tpe, fun);
-      auto offset = (hash_value & mask) >> _significantOffset;
-      auto pos_to_write = data_prefix_sum->inc(0, offset);
+    // output of radix join is MutableVerticalTable of PointerCalculators
+    auto mvt = std::dynamic_pointer_cast<const storage::MutableVerticalTable>(tab);
+    if(mvt){
 
-      // Perform the clustering
-      data_hash->set(0, pos_to_write, hash_value);
-      data_pos->set(0, pos_to_write, row);
+      auto pc = mvt->containerAt(field);
+      auto p = std::dynamic_pointer_cast<const PointerCalculator>(pc);
+      if(p){
+        auto ipair = getDataVector(p->getActualTable());
+        const auto &ivec = ipair.first;
+
+        const auto &dict = std::dynamic_pointer_cast<OrderPreservingDictionary<T>>(tab->dictionaryAt(p->getTableColumnForColumn(field)));
+        const auto &offset = p->getTableColumnForColumn(field) + ipair.second;
+
+        auto hasher = std::hash<T>();
+        for(decltype(tableSize) row = _start; row < _stop; ++row) {
+          // Calculate and increment the position
+          auto hash_value  = hasher(dict->getValueForValueId(ivec->get(offset, p->getTableRowForRow(row))));//ts(tpe, fun);
+          auto offset = (hash_value & mask) >> _significantOffset;
+          auto pos_to_write = data_prefix_sum->inc(0, offset);
+
+          // Perform the clustering
+          data_hash->set(0, pos_to_write, hash_value);
+          data_pos->set(0, pos_to_write, p->getTableRowForRow(row));
+        }
+
+      } else {
+        throw std::runtime_error("Histogram only supports MutableVerticalTable of PointerCalculators; found other AbstractTable than PointerCalculator inside od MutableVerticalTable.");
+      }
+    } else {
+      auto ipair = getDataVector(tab);
+      const auto &ivec = ipair.first;
+      const auto &dict = std::dynamic_pointer_cast<OrderPreservingDictionary<T>>(tab->dictionaryAt(field));
+      const auto &offset = field + ipair.second;
+
+      std::hash<T> hasher;
+      for(decltype(tableSize) row = _start; row < _stop; ++row) {
+        // Calculate and increment the position
+        auto hash_value  = hasher(dict->getValueForValueId(ivec->get(offset, row)));//ts(tpe, fun);
+        auto offset = (hash_value & mask) >> _significantOffset;
+        auto pos_to_write = data_prefix_sum->inc(0, offset);
+
+        // Perform the clustering
+        data_hash->set(0, pos_to_write, hash_value);
+        data_pos->set(0, pos_to_write, row);
+      }
     }
   }
   addResult(result);

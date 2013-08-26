@@ -58,11 +58,10 @@ public:
   /// Returns the container at a given index.
   /// @param container_index Index of the container.
   atable_ptr_t getContainer(size_t container_index) const;
- protected:
   /// Returns the container for a given column.
   /// @param column_index Index of the column of which to retrieve the container.
   const atable_ptr_t& containerAt(size_t column_index, const bool for_writing = false) const;
-
+ protected:
   /// Returns the offset of a certain column inside its container.
   /// @param column_index Index of the column.
   size_t getOffsetInContainer(size_t column_index) const;
@@ -92,4 +91,3 @@ public:
 }}
 
 #endif  // SRC_LIB_STORAGE_VERTICALTABLE_H_
-

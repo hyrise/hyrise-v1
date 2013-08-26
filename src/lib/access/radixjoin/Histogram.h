@@ -82,6 +82,7 @@ void Histogram::executeHistogram() {
     start = (tableSize / _count) * _part;
     stop = (_count -1) == _part ? tableSize : (tableSize/_count) * (_part + 1);
   }
+
   // check if tab is PointerCalculator; if yes, get underlying table and actual rows and columns
   auto p = std::dynamic_pointer_cast<const PointerCalculator>(tab);
   if (p) {
@@ -96,15 +97,38 @@ void Histogram::executeHistogram() {
       pair.first->inc(0, (hash_value & mask) >> significantOffset());
     }
   } else {
-    auto ipair = getDataVector(tab, field);
-    const auto &ivec = ipair.first;
-    const auto &dict = std::dynamic_pointer_cast<OrderPreservingDictionary<T>>(tab->dictionaryAt(field));
-    const auto &offset =  ipair.second;
 
-    auto hasher = std::hash<T>();
-    for(size_t row = start; row < stop; ++row) {
-      auto hash_value  = hasher(dict->getValueForValueId(ivec->get(offset, row)));
-      pair.first->inc(0, (hash_value & mask) >> significantOffset());
+    // output of radix join is MutableVerticalTable of PointerCalculators
+    auto mvt = std::dynamic_pointer_cast<const storage::MutableVerticalTable>(tab);
+    if(mvt){
+      auto pc = mvt->containerAt(field);
+      auto p = std::dynamic_pointer_cast<const PointerCalculator>(pc);
+      if(p){
+        auto ipair = getDataVector(p->getActualTable(), p->getTableColumnForColumn(field));
+        const auto &ivec = ipair.first;
+        const auto &dict = std::dynamic_pointer_cast<OrderPreservingDictionary<T>>(tab->dictionaryAt(p->getTableColumnForColumn(field)));
+        const auto &offset = ipair.second;
+
+        auto hasher = std::hash<T>();
+        for(size_t row = start; row < stop; ++row) {
+          auto hash_value  = hasher(dict->getValueForValueId(ivec->get(offset, p->getTableRowForRow(row))));
+          pair.first->inc(0, (hash_value & mask) >> significantOffset());
+        }
+      } else {
+        throw std::runtime_error("Histogram only supports MutableVerticalTable of PointerCalculators; found other AbstractTable than PointerCalculator inside od MutableVerticalTable.");
+      }
+    } else {
+      // else; we expect a raw table
+      auto ipair = getDataVector(tab, field);
+      const auto &ivec = ipair.first;
+      const auto &dict = std::dynamic_pointer_cast<OrderPreservingDictionary<T>>(tab->dictionaryAt(field));
+      const auto &offset =  ipair.second;
+
+      auto hasher = std::hash<T>();
+      for(size_t row = start; row < stop; ++row) {
+        auto hash_value  = hasher(dict->getValueForValueId(ivec->get(offset, row)));
+        pair.first->inc(0, (hash_value & mask) >> significantOffset());
+      }
     }
   }
   addResult(result);
