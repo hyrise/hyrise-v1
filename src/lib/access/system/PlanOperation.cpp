@@ -162,10 +162,6 @@ const PlanOperation * PlanOperation::execute() {
   return this;
 }
 
-void PlanOperation::setLimit(uint64_t l) {
-  _limit = l;
-}
-
 void PlanOperation::setProducesPositions(bool p) {
   producesPositions = p;
 }

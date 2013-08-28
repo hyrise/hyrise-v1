@@ -21,10 +21,6 @@ struct BasicParser {
     // For all fields add
     const Json::Value json_fields = data["fields"];
 
-    // limit
-    if (data.isMember("limit"))
-      ps->setLimit(data["limit"].asUInt());
-
     for (unsigned i = 0; i < json_fields.size(); ++i) {
       if (json_fields[i].isNumeric()) {
         ps->addField(json_fields[i].asUInt());
