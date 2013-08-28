@@ -18,8 +18,8 @@ inline bool ExampleExpression::operator()(const size_t& row) {  return _vector->
 
 pos_list_t* ExampleExpression::match(const size_t start, const size_t stop) {
   auto pl = new pos_list_t;
-  for(size_t row=0; row < stop; ++row) {
-    if (this->ExampleExpression::operator()(row)) {
+  for(size_t row = start; row < stop; ++row) {
+    if (operator()(row)) {
       pl->push_back(row);
     }
   }
