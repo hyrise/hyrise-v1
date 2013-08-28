@@ -1,0 +1,51 @@
+{
+    "operators": {
+        "sref" : {
+            "type": "SetTable",    
+            "name": "reference"            
+        },
+        "bref": {
+            "type": "JsonTable",    
+            "names": ["AVG(amount)"],
+            "types" : ["FLOAT"],
+            "groups" : [1],
+            "useStore": true,
+            "data" : [
+                ["2937.5"]
+            ]            
+        },
+        "0": {
+            "type": "JsonTable",    
+            "names": ["year", "quarter", "amount"],
+            "types" : ["INTEGER", "INTEGER", "INTEGER"],
+            "groups" : [1,1,1],
+            "useStore": true,
+            "mergeStore":true,
+            "data" : [
+                ["2009","1","2000"],
+                ["2009","2","2500"],
+                ["2009","3","3000"],
+                ["2009","4","4000"],
+                ["2010","1","2400"],
+                ["2010","2","2800"],
+                ["2010","3","3200"],
+                ["2010","4","3600"]
+            ]            
+        },
+        "vp" : {
+            "type" : "ValidatePositions"
+        },
+        "group" : {
+            "type": "GroupByScan",
+            "functions": [
+                {"type": 2, "field": "amount"}
+            ]
+        }
+    },
+    "edges" : [
+        ["bref", "sref"],
+        ["sref", "0"],
+        ["0", "vp"],
+        ["vp", "group"]
+    ]
+}

@@ -1,6 +1,7 @@
 #ifndef SRC_LIB_HELPERS_VECTOR_HELPERS_H_
 #define SRC_LIB_HELPERS_VECTOR_HELPERS_H_
 
+#include <algorithm>
 #include <functional>
 #include <numeric>
 #include <iterator>

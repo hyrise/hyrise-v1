@@ -1,0 +1,46 @@
+{
+    "operators": {
+        "sref" : {
+            "type": "SetTable",    
+            "name": "reference"            
+        },
+        "bref": {
+            "type": "JsonTable",    
+            "names": ["COUNT(amount)"],
+            "types" : ["INTEGER"],
+            "groups" : [1],
+            "useStore": true,
+            "data" : [
+                ["8"]
+            ]            
+        },
+        "0": {
+            "type": "JsonTable",    
+            "names": ["year", "quarter", "amount"],
+            "types" : ["INTEGER", "INTEGER", "INTEGER"],
+            "groups" : [1,1,1],
+            "useStore": true,
+            "data" : [
+                ["2009","1","2000"],
+                ["2009","2","2500"],
+                ["2009","3","3000"],
+                ["2009","4","4000"],
+                ["2010","1","2400"],
+                ["2010","2","2800"],
+                ["2010","3","3200"],
+                ["2010","4","3600"]
+            ]            
+        },
+        "group" : {
+            "type": "GroupByScan",
+            "functions": [
+                {"type": 1, "field": "amount"}
+            ]
+        }
+    },
+    "edges" : [
+        ["bref", "sref"],
+        ["sref", "0"],
+        ["0", "group"]
+    ]
+}

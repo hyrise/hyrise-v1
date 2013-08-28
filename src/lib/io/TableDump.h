@@ -93,7 +93,7 @@ public:
                                       const Loader::params &args);
 
   bool needs_store_wrap() {
-    return false;
+    return true;
   }
 
   TableDumpLoader *clone() const {

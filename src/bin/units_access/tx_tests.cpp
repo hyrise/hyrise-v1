@@ -502,7 +502,7 @@ TEST_F(TransactionTests, update_and_merge) {
 TEST_F(TransactionTests, delete_rollback) {
   auto writeCtx = tx::TransactionManager::beginTransaction();
   auto pc = PointerCalculator::create(linxxxs, new pos_list_t({0}));
-  ASSERT_EQ(tx::UNKNOWN, linxxxs->tid(0));
+  ASSERT_EQ(tx::START_TID, linxxxs->tid(0));
 
   DeleteOp del;
   del.setTXContext(writeCtx);
@@ -510,7 +510,7 @@ TEST_F(TransactionTests, delete_rollback) {
   del.execute();
 
   tx::TransactionManager::rollbackTransaction(writeCtx.tid);
-  ASSERT_EQ(tx::UNKNOWN, linxxxs->tid(0));
+  ASSERT_EQ(tx::START_TID, linxxxs->tid(0));
 }
 
 }}

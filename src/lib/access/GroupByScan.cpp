@@ -78,10 +78,10 @@ void GroupByScan::setupPlanOperation() {
 
 void GroupByScan::executePlanOperation() {
   if ((_field_definition.size() != 0) && (input.numberOfHashTables() >= 1)) {
-    if (_field_definition.size() == 1)
-      return executeGroupBy<SingleAggregateHashTable, aggregate_single_hash_map_t, aggregate_single_key_t>();
-    else
-      return executeGroupBy<AggregateHashTable, aggregate_hash_map_t, aggregate_key_t>();
+      if (_field_definition.size() == 1)
+        return executeGroupBy<SingleAggregateHashTable, aggregate_single_hash_map_t, aggregate_single_key_t>();
+      else
+        return executeGroupBy<AggregateHashTable, aggregate_hash_map_t, aggregate_key_t>();      
   } else {
     auto resultTab = createResultTableLayout();
     resultTab->resize(1);
@@ -179,6 +179,7 @@ void GroupByScan::writeGroupResult(storage::atable_ptr_t &resultTab,
 template<typename HashTableType, typename MapType, typename KeyType>
 void GroupByScan::executeGroupBy() {
   auto resultTab = createResultTableLayout();
+
   auto groupResults = getInputHashTable();
   // Allocate some memory for the result tab and resize the table
   resultTab->resize(groupResults->numKeys());
@@ -205,7 +206,8 @@ void GroupByScan::executeGroupBy() {
     }
     writeGroupResult(resultTab, pos_list, row);
     row++;
-  }
+  } 
+
   this->addResult(resultTab);
 }
 

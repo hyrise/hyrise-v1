@@ -69,7 +69,7 @@ void average_aggregate_functor::operator()() {
   R sum = 0;
   int count = 0;
 
-  if (rows != NULL) {
+  if (rows != nullptr) {
     for (const auto& currentRow: *rows) {
       sum += input->getValue<R>(sourceField, currentRow);
     }
@@ -82,7 +82,6 @@ void average_aggregate_functor::operator()() {
     }
     count = input->size();
   }
-
   target->setValue<float>(target->numberOfColumn(targetColumn), targetRow, ((float)sum / count));
 }
 

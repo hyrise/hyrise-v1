@@ -226,7 +226,7 @@ atable_ptr_t MutableVerticalTable::copy() const {
   return new_table;
 }
 
-const attr_vectors_t MutableVerticalTable::getAttributeVectors(size_t column) const {
+const attr_vectors_t MutableVerticalTable::getAttributeVectors(size_t column) const {  
   return containerAt(column)->getAttributeVectors(offset_in_container[column]);
 }
 
