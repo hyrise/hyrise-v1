@@ -99,11 +99,99 @@ bool isEdgeEqual(
 
 
 
-std::string loadFromFile(std::string path) {
+std::string loadFromFile(const std::string& path) {
+  parameter_map_t map;
+  return loadParameterized(path, map, false);
+}
+
+template <>
+void addParameter<hyrise_float_t>(parameter_map_t& map, const std::string& name,
+                                  hyrise_float_t value) {
+  map[name] = std::make_shared<FloatParameterValue>(value);
+}
+
+template <>
+void addParameter<hyrise_int_t>(parameter_map_t& map, const std::string& name,
+                                  hyrise_int_t value) {
+  map[name] = std::make_shared<IntParameterValue>(value);
+}
+
+template <>
+void addParameter<hyrise_string_t>(parameter_map_t& map, const std::string& name,
+                                  hyrise_string_t value) {
+  map[name] = std::make_shared<StringParameterValue>(value);
+}
+
+std::string loadParameterized(const std::string &path, const parameter_map_t& params,
+                                 bool exceptionIfUnknownParameter) {
   std::ifstream data_file(path.c_str());
-  std::string result((std::istreambuf_iterator<char>(data_file)), std::istreambuf_iterator<char>());
+  std::string file((std::istreambuf_iterator<char>(data_file)), std::istreambuf_iterator<char>());
   data_file.close();
-  return result;
+
+  std::ostringstream os;
+  char lastChar = 0;
+  bool lineComment = false; // '//[...]'
+  bool comment = false; //     '/*[...]*/
+  bool inString = false; //    '"[...]"
+  size_t parameterStart = 0;
+  size_t currentPos = 0;
+  for (char c : file) {
+    if (lineComment) {
+      if (c == '\n') {
+        lineComment = false;
+        os << c;
+      } 
+    }
+    else if (comment) {
+      if (lastChar == '*' && c == '/') {
+        comment = false;
+        lastChar = c = 0;
+      }
+    }
+    else if (inString) {
+      if (c == '\"')
+        inString = false;
+        os << c;
+	lastChar = c = 0;
+      }
+    else if (parameterStart != 0) {
+      if (c == '>') {
+        const std::string parameterName = file.substr(parameterStart, currentPos - parameterStart);
+        //os << "!PARAMETER(" << parameterName << ")!";
+        if (params.find(parameterName) != params.end())
+	  os << params.at(parameterName)->toString();
+	else if (exceptionIfUnknownParameter)
+	  throw std::runtime_error("Parameter \"" + parameterName + "\" not specified in parameter map");
+        parameterStart = 0;
+	lastChar = c = 0;
+      }
+    }
+    else if (c == '\"') {
+      inString = true;
+      os << c;
+    }
+    else if (c == '/') {
+      if (lastChar == '/')
+        lineComment = true;
+    }
+    else if (c == '*') {
+      if (lastChar == '/')
+        comment = true;
+      else
+        os << c;
+    }
+    else if (c == '<') {
+      parameterStart = currentPos + 1;
+    }
+    else {
+      if (lastChar == '/')
+        os << lastChar;
+      os << c;
+    }
+    lastChar = c;
+    ++currentPos;
+  }
+  return os.str();
 }
 
 class MockedConnection : public hyrise::net::AbstractConnection {
