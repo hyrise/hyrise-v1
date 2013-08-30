@@ -20,8 +20,16 @@ void TableScan::setupPlanOperation() {
 }
 
 void TableScan::executePlanOperation() {
-  pos_list_t* positions = _expr->match(0, getInputTable()->size());
-  addResult(PointerCalculator::create(getInputTable(), positions));
+
+  // When the input is 0, dont bother trying to generate results
+  pos_list_t* positions = nullptr;
+  if (getInputTable()->size() > 0) 
+    positions = _expr->match(0, getInputTable()->size());
+  else 
+    positions = new pos_list_t();
+
+  const auto& result = PointerCalculator::create(getInputTable(), positions);
+  addResult(result);
 }
 
 std::shared_ptr<PlanOperation> TableScan::parse(Json::Value& data) {

@@ -1,6 +1,7 @@
 #ifndef SRC_LIB_HELPER_LOCKING_H_
 #define SRC_LIB_HELPER_LOCKING_H_
 
+#include <thread>
 #include <atomic>
 
 namespace hyrise { namespace locking {

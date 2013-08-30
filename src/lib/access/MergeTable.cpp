@@ -59,7 +59,7 @@ void MergeStore::executePlanOperation() {
   auto t = checked_pointer_cast<const storage::Store>(getInputTable());
   auto store = std::const_pointer_cast<storage::Store>(t);
   store->merge();
-  output.add(store);
+  addResult(store);
 }
 
 std::shared_ptr<PlanOperation> MergeStore::parse(Json::Value& data) {

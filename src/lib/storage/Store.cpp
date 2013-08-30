@@ -2,8 +2,10 @@
 #include <storage/Store.h>
 #include <iostream>
 
-#include "storage/PrettyPrinter.h"
-#include "io/TransactionManager.h"
+
+#include <io/TransactionManager.h>
+#include <storage/storage_types.h>
+#include <storage/PrettyPrinter.h>
 
 #include <helper/vector_helpers.h>
 #include <helper/locking.h>
@@ -12,7 +14,7 @@
 namespace hyrise { namespace storage {
 
 TableMerger* createDefaultMerger() {
-  return new TableMerger(new DefaultMergeStrategy, new SequentialHeapMerger);
+  return new TableMerger(new DefaultMergeStrategy, new SequentialHeapMerger, false);
 }
 
 Store::Store() :
@@ -58,7 +60,7 @@ void Store::merge() {
   // Fixup the cid and tid vectors
   _cidBeginVector = std::vector<tx::transaction_cid_t>(main_tables[0]->size(), tx::UNKNOWN_CID);
   _cidEndVector = std::vector<tx::transaction_cid_t>(main_tables[0]->size(), tx::INF_CID);
-  _tidVector = std::vector<tx::transaction_id_t>(main_tables[0]->size(), tx::UNKNOWN);
+  _tidVector = std::vector<tx::transaction_id_t>(main_tables[0]->size(), tx::START_TID);
 
   // Replace the delta partition
   delta = new_delta;
@@ -197,15 +199,6 @@ size_t Store::partitionWidth(const size_t slice) const {
 
 void Store::print(const size_t limit) const {
   PrettyPrinter::print(this, std::cout, "Store", limit, 0);
-  // for (size_t main = 0; main < main_tables.size(); main++) {
-  //   std::cout << "== Main - Pos:" << main << ", Gen: " << main_tables[main]->generation() << " -" << std::endl;
-  //   main_tables[main]->print(limit);
-  // }
-
-  // if (delta) {
-  //   std::cout << "== Delta:" << std::endl;
-  //   delta->print(limit);
-  // }
 }
 
 void Store::setMerger(TableMerger *_merger) {
@@ -249,9 +242,11 @@ const attr_vectors_t Store::getAttributeVectors(size_t column) const {
 
 void Store::debugStructure(size_t level) const {
   std::cout << std::string(level, '\t') << "Store " << this << std::endl;
+  std::cout << std::string(level, '\t') << "(main) " << this << std::endl;
   for (const auto& m: main_tables) {
     m->debugStructure(level+1);
   }
+  std::cout << std::string(level, '\t') << "(delta) " << this << std::endl;
   delta->debugStructure(level+1);
 }
 
@@ -302,10 +297,10 @@ void Store::validatePositions(pos_list_t& pos, tx::transaction_cid_t last_commit
 
 pos_list_t Store::buildValidPositions(tx::transaction_cid_t last_commit_id, tx::transaction_id_t tid) const {
   pos_list_t result;
-  functional::forEachWithIndex(_cidBeginVector, [&](size_t i, bool v){
+  functional::forEachWithIndex(_cidBeginVector, [&](size_t i, tx::transaction_cid_t v){
     if(isVisibleForTransaction(i, last_commit_id, tid)) result.push_back(i);
   });
-  return result;
+  return std::move(result);
 }
 
 std::pair<size_t, size_t> Store::resizeDelta(size_t num) {
@@ -324,9 +319,10 @@ std::pair<size_t, size_t> Store::appendToDelta(size_t num) {
   delta->resize(start + num);
   // Update CID, TID and valid
   auto main_tables_size = functional::sum(main_tables, 0ul, [](atable_ptr_t& t){return t->size();});
+
   _cidBeginVector.resize(main_tables_size + start + num, tx::INF_CID);
   _cidEndVector.resize(main_tables_size + start + num, tx::INF_CID);
-  _tidVector.resize(main_tables_size + start + num, tx::UNKNOWN);
+  _tidVector.resize(main_tables_size + start + num, tx::START_TID);
 
   return std::move(result);
 }
@@ -347,7 +343,7 @@ tx::TX_CODE Store::commitPositions(const pos_list_t& pos, const tx::transaction_
     } else {
       _cidEndVector[p] = cid;
     }
-    _tidVector[p] = tx::UNKNOWN;
+    _tidVector[p] = tx::START_TID;
   }
   return tx::TX_CODE::TX_OK;
 }
@@ -361,7 +357,7 @@ tx::TX_CODE Store::checkForConcurrentCommit(const pos_list_t& pos, const tx::tra
 }
 
 tx::TX_CODE Store::markForDeletion(const pos_t pos, const tx::transaction_id_t tid) {
-  if(atomic_cas(&_tidVector[pos], tx::UNKNOWN, tid)) {
+  if(atomic_cas(&_tidVector[pos], tx::START_TID, tid)) {
     return tx::TX_CODE::TX_OK;
   } else {
     return tx::TX_CODE::TX_FAIL_CONCURRENT_COMMIT;
@@ -371,7 +367,7 @@ tx::TX_CODE Store::markForDeletion(const pos_t pos, const tx::transaction_id_t t
 tx::TX_CODE Store::unmarkForDeletion(const pos_list_t& pos, const tx::transaction_id_t tid) {
   for(const auto& p : pos) {
     if (_tidVector[p] == tid)
-      _tidVector[p] = tx::UNKNOWN;
+      _tidVector[p] = tx::START_TID;
   }
   return tx::TX_CODE::TX_OK;
 }

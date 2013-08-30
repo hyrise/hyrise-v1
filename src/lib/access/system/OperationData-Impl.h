@@ -1,6 +1,7 @@
 #ifndef SRC_LIB_ACCESS_OPERATIONDATA_IMPL_H_
 #define SRC_LIB_ACCESS_OPERATIONDATA_IMPL_H_
 
+#include <algorithm>
 #include "access/system/OperationData.h"
 
 namespace hyrise { namespace access {

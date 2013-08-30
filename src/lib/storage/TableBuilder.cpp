@@ -49,13 +49,19 @@ hyrise::storage::atable_ptr_t TableBuilder::build(param_list args, const bool co
   checkParams(args);
 
   std::vector<hyrise::storage::atable_ptr_t> base;
-  size_t begin, end;
-  begin = 0;
+  auto offset = args.params().begin();
+
+  // For each group calculate the offset that is used to extract the columns
   for (size_t g = 0; g < args.groups().size(); ++g) {
+
     // Calculate the upper bound for the current layout
-    end = args.groups().size() > g + 1 ? args.groups()[g + 1] : args.size();
-    base.push_back(createTable(args.params().begin() + begin, args.params().begin() + end, compressed));
-    begin = end;
+    auto end = offset;
+    auto tmp = args.groups()[g];
+    while(tmp-- != 0)
+      ++end;
+
+    base.push_back(createTable(offset, end, compressed));
+    offset = end;
   }
 
   return std::move(std::make_shared<MutableVerticalTable>(base));

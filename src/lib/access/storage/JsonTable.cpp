@@ -7,6 +7,8 @@
 #include <helper/vector_helpers.h>
 #include <helper/stringhelpers.h>
 
+#include <io/TransactionManager.h>
+
 #include <storage/storage_types.h>
 #include <storage/meta_storage.h>
 #include <storage/Store.h>
@@ -111,15 +113,20 @@ void JsonTable::executePlanOperation() {
 			}
 		}
 
-		if (_useStoreFlag && _mergeFlag) {
+		if (_useStoreFlag) {
 			// Hijacking transactions
 			pos_list_t pl(rows);
-			std::generate(pl.begin(), pl.end(), [](){
-				static size_t counter = 0;
+			size_t counter = 0;
+			std::generate(pl.begin(), pl.end(), [&counter](){
 				return counter++;
 			});
-			std::dynamic_pointer_cast<storage::Store>(result)->commitPositions(pl,1, true);
-			std::dynamic_pointer_cast<storage::Store>(result)->merge();
+
+			// This can be dangerous..., but as JSONTable with data will be probably
+			// only used for tests, this might be OK.
+			std::dynamic_pointer_cast<storage::Store>(result)->commitPositions(pl,tx::UNKNOWN_CID, true);
+			
+			if (_mergeFlag)
+				std::dynamic_pointer_cast<storage::Store>(result)->merge();
 		}
 	}
 

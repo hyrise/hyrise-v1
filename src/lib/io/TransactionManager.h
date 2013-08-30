@@ -2,7 +2,9 @@
 #ifndef SRC_LIB_IO_TRANSACTIONMANAGER_H_
 #define SRC_LIB_IO_TRANSACTIONMANAGER_H_
 
+#include <algorithm>
 #include <atomic>
+#include <map>
 #include <mutex>
 #include <unordered_map>
 

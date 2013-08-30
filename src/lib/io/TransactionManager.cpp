@@ -3,6 +3,8 @@
 #include <cassert>
 #include <limits>
 #include <stdexcept>
+#include <map>
+
 
 #include "helper/make_unique.h"
 #include "helper/checked_cast.h"
@@ -52,7 +54,8 @@ void TXModifications::_handle(locking::Spinlock& mtx, map_t& data, const storage
 }
 
 TransactionManager::TransactionManager() :
-    _transactionCount(ATOMIC_VAR_INIT(0)) {}
+    _transactionCount(ATOMIC_VAR_INIT(tx::START_TID)),
+    _commitId(ATOMIC_VAR_INIT(tx::UNKNOWN_CID)) {}
 
 TransactionManager& TransactionManager::getInstance() {
   static TransactionManager tm;
