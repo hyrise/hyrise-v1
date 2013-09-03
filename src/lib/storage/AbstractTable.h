@@ -32,6 +32,7 @@ typedef struct {
   std::shared_ptr<AbstractAttributeVector> attribute_vector;
   size_t attribute_offset;
 } attr_vector_offset_t;
+
 typedef std::vector<attr_vector_offset_t> attr_vectors_t;
 
 class StorageException : public std::runtime_error {

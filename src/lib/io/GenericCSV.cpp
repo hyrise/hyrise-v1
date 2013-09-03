@@ -8,6 +8,7 @@
 #include <iostream>
 #include <istream>
 #include <stdexcept>
+#include <memory>
 
 #include <string.h>
 #include <libcsv/csv.h>

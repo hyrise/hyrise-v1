@@ -68,7 +68,7 @@ LINKER_FLAGS +=
 ifeq ($(PRODUCTION), 1)
 	BUILD_FLAGS += -O3 -fbranch-target-load-optimize -frerun-cse-after-loop -D EXPENSIVE_TESTS -D PRODUCTION
 else
-	BUILD_FLAGS += -O0 -D EXPENSIVE_ASSERTIONS
+	BUILD_FLAGS += -O0 -D EXPENSIVE_ASSERTIONS -fno-inline -g3 -ggdb
 endif
 
 # Specify the allocator using a linker flag

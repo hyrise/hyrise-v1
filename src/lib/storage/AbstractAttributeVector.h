@@ -2,6 +2,8 @@
 #ifndef SRC_LIB_STORAGE_ABSTRACTATTRIBUTEVECTOR_H_
 #define SRC_LIB_STORAGE_ABSTRACTATTRIBUTEVECTOR_H_
 
+#include <cstddef>
+
 class AbstractAttributeVector {
  public:
 
