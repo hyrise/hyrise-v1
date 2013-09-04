@@ -1,0 +1,29 @@
+{
+    "operators": {
+        "-1" : {
+          "type" : "TableLoad",
+          "filename" : "tables/metadata.tbl",
+          "table" : "reference"
+        },
+    	"loadCompanies": {
+            "type": "TableLoad",
+            "table": "companies",
+            "filename" : "tables/companies.tbl"
+        },
+        "loadLinXxs": {
+            "type": "TableLoad",
+            "table": "lin_xxs",
+            "filename" : "lin_xxs.tbl"
+        },
+        "loadEmployees": {
+            "type": "TableLoad",
+            "table": "employees",
+            "filename" : "tables/employees.tbl"
+        },
+		"getMetaData" : {
+		    "type" : "MetaData"//,
+            //"input" : ["companies", "lin_xxs", "employees"]  //inputs from table load
+		}
+    },
+    "edges": [["loadCompanies","getMetaData"],["loadLinXxs","getMetaData"],["loadEmployees","getMetaData"]]
+}
