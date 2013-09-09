@@ -386,3 +386,33 @@ LayoutTableLoad
         "filename": "tables/employees.data",
         "input_row": 3
     }
+
+
+
+
+MetaData
+========
+
+Returns either a list of the loaded tables or if specified, the columns with their 
+corresponding datatypes of each input table.
+
+A simple example query to get the table list:
+
+::
+
+    {
+        "operators": {
+            "meta" : {
+                "type" : "MetaData"
+            }
+        }
+    }
+    
+
+And another example query to fetch the column info for some tables, which are loaded beforehand. 
+If the tables are already loaded, specifying them in the input field would suffice to 
+get their column info.
+
+.. literalinclude:: ../test/autojson/meta_data.json
+    :language: javascript
+    :linenos:

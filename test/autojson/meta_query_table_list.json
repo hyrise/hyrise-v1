@@ -1,0 +1,31 @@
+{
+    "operators": {
+        "-1" : {
+          "type" : "TableLoad",
+          "filename" : "tables/tablelist.tbl",
+          "table" : "reference"
+        },
+        "loadCompanies": {
+            "type": "TableLoad",
+            "table": "companies",
+            "filename" : "tables/companies.tbl"
+        },
+        "loadLinXxs": {
+            "type": "TableLoad",
+            "table": "lin_xxs",
+            "filename" : "lin_xxs.tbl"
+        },
+        "loadEmployees": {
+            "type": "TableLoad",
+            "table": "employees",
+            "filename" : "tables/employees.tbl"
+        },
+        "noop": {
+            "type": "NoOp"
+        },
+    	"meta" : {
+		    "type" : "MetaData"
+		}
+    },
+    "edges": [["loadCompanies","noop"],["loadLinXxs","noop"],["loadEmployees","noop"],["noop","meta"]]
+}
