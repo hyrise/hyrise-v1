@@ -50,6 +50,8 @@ Performs a Selection
     "ID": {
         "type":"SimpleTableScan",
         "positions": true,
+        "limit": 5,
+        "offset": 2,
         "predicates": [
             { "type": 7 },
             { "type" : 1, "in" : 0, "f" : "NAME1", "vtype" : 0, "value": 330 },
@@ -59,7 +61,11 @@ Performs a Selection
 
 ``"positions: true"`` save row positions rather than rows in the intermediate result. [optional. true is default.]
 
-``"predicates:"`` is a list of predicates in prefix order, that will be used to build the predicate tree for selection.
+``"limit": 5`` limits the size of the result to 5 [optional. default is no limit]
+
+``"offset": 2`` skips the first 2 rows of the result table. limit will be applied after that. [optional. 0 is default]
+
+``"predicates:"`` is a list of predicates in prefix order, that will be used to build the predicate tree for selection. [optional. if not set the condition checks on all input rows will result in true]
 
 ``"type:"`` boolean operators can be given as string or int:
         == ==========
