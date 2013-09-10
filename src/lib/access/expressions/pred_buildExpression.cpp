@@ -9,13 +9,16 @@
 #include "pred_expression_factory.h"
 #include "storage/meta_storage.h"
 
+namespace hyrise {
+namespace access {
+
 SimpleFieldExpression *buildFieldExpression(PredicateType::type pred_type, Json::Value &predicate) {
-  hyrise::storage::type_switch<hyrise_basic_types> ts;
-  hyrise::access::expression_factory fun;
+  storage::type_switch<hyrise_basic_types> ts;
+  expression_factory fun;
   if (predicate["f"].isNumeric()) {
-    fun = hyrise::access::expression_factory(predicate["in"].asUInt(), predicate["f"].asUInt(), pred_type, predicate["value"]);
+    fun = expression_factory(predicate["in"].asUInt(), predicate["f"].asUInt(), pred_type, predicate["value"]);
   } else if (predicate["f"].isString()) {
-    fun = hyrise::access::expression_factory(predicate["in"].asUInt(), predicate["f"].asString(), pred_type, predicate["value"]);
+    fun = expression_factory(predicate["in"].asUInt(), predicate["f"].asString(), pred_type, predicate["value"]);
   }
   return ts(predicate["vtype"].asUInt(), fun);
 };
@@ -25,7 +28,6 @@ SimpleExpression *buildExpression(Json::Value &predicates) {
 
   Json::Value predicate;
   PredicateType::type pred_type;
-
 
   for (unsigned i = 0; i < predicates.size(); ++i) {
     predicate = predicates[i];
@@ -51,3 +53,10 @@ SimpleExpression *buildExpression(Json::Value &predicates) {
   }
   return b.build();
 };
+
+TrueExpression *trueExpression() {
+  return new TrueExpression();
+}
+
+} } //namespace hyrise::access
+

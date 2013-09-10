@@ -31,12 +31,12 @@ void SimpleTableScan::executePositional() {
   auto tbl = input.getTable(0);
   storage::pos_list_t *pos_list = new pos_list_t();
 
-
   size_t row = _ofDelta ? checked_pointer_cast<const storage::Store>(tbl)->deltaOffset() : 0;
-  for (size_t input_size=tbl->size(); row < input_size; ++row) {
-    if ((*_comparator)(row)) {
+  size_t usedRows = 0;
+  const size_t limit = _offset+_limit;
+  for (; usedRows < limit && row < tbl->size(); ++row) {
+    if ((*_comparator)(row) && ++usedRows > _offset)
       pos_list->push_back(row);
-    }
   }
   addResult(PointerCalculator::create(tbl, pos_list));
 }
@@ -47,10 +47,10 @@ void SimpleTableScan::executeMaterialized() {
   size_t target_row = 0;
 
   size_t row = _ofDelta ? checked_pointer_cast<const storage::Store>(tbl)->deltaOffset() : 0;
-  for (size_t input_size=tbl->size();
-       row < input_size;
-       ++row) {
-    if ((*_comparator)(row)) {
+  size_t usedRows = 0;
+  const size_t limit = _offset+_limit;
+  for (; usedRows < limit && row < tbl->size(); ++row) {
+    if ((*_comparator)(row) && ++usedRows > _offset) {
         // TODO materializing result set will make the allocation the boundary
       result_table->resize(target_row + 1);
       result_table->copyRowFrom(input.getTable(0),
@@ -77,10 +77,21 @@ std::shared_ptr<PlanOperation> SimpleTableScan::parse(Json::Value &data) {
   if (data.isMember("materializing"))
     pop->setProducesPositions(!data["materializing"].asBool());
 
-  if (!data.isMember("predicates")) {
-    throw std::runtime_error("There is no reason for a Selection without predicates");
+  const bool limitSet = data.isMember("limit");
+  const bool offsetSet = data.isMember("offset");
+  const bool predicatesSet = data.isMember("predicates");
+
+  if (!limitSet && !offsetSet && !predicatesSet) {
+    throw std::runtime_error("There is no reason for a Selection without predicates, limit or offset");
   }
-  pop->setPredicate(buildExpression(data["predicates"]));
+  
+  if (predicatesSet)
+    pop->setPredicate(buildExpression(data["predicates"]));
+  else
+    pop->setPredicate(trueExpression());
+  
+  if (limitSet) pop->_limit = data["limit"].asUInt();
+  if (offsetSet) pop->_offset = data["offset"].asUInt();
 
   if (data.isMember("ofDelta")) {
     pop->_ofDelta = data["ofDelta"].asBool();

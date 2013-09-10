@@ -3,6 +3,10 @@
 #define SRC_LIB_ACCESS_PRED_BUILDEXPRESSION_H_
 
 #include "pred_common.h"
+#include "TrueExpression.h"
+
+namespace hyrise {
+namespace access {
 
 class ExpressionBuildError : public std::runtime_error {
  public:
@@ -11,5 +15,9 @@ class ExpressionBuildError : public std::runtime_error {
 
 SimpleFieldExpression *buildFieldExpression(PredicateType::type, Json::Value &);
 SimpleExpression *buildExpression(Json::Value &);
+TrueExpression *trueExpression();
+
+} } // namespace hyrise::access
 
 #endif  // SRC_LIB_ACCESS_PRED_BUILDEXPRESSION_H_
+

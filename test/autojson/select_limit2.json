@@ -1,0 +1,23 @@
+{
+    "operators": {
+        "-1": {
+            "type": "TableLoad",
+            "table": "reference",
+            "filename": "tables/revenue_2009_2.tbl"
+        },
+        "0": {
+            "type": "TableLoad",
+            "table": "revenue",
+            "filename": "tables/revenue.tbl"
+        },
+        "1": {
+            "type": "SimpleTableScan",
+            "predicates" : [
+                {"type": 0, "in": 0, "f": "year", "value": 2009}
+            ],
+	    "limit": 2,
+	    "offset": 1
+        }
+    },
+    "edges": [["0", "1"]]
+}
