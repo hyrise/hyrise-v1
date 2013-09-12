@@ -1,0 +1,31 @@
+{
+    "operators": {
+        "-1": {
+            "type": "TableLoad",
+            "table": "reference",
+            "filename": "tables/totalRevenue.tbl"
+        },
+        "0": {
+            "type": "TableLoad",
+            "table": "employees",
+            "filename": "tables/revenue.tbl"
+        },
+        "1": {
+            "type": "GroupByScan",
+            "fields": [],
+            "functions": [
+                {"type": "SUM", "field": "amount"},
+                {"type": "COUNT", "field": "amount"},
+                {"type": "COUNT", "field": "amount", "distinct": true},
+                {"type": "AVG", "field": "amount"},
+                {"type": "MIN", "field": "amount"},
+                {"type": "MAX", "field": "amount"}
+            ]
+        },
+        "2": {
+            "type": "SortScan",
+            "fields": [0]
+        }
+    },
+    "edges" : [["0", "1"], ["1", "2"]]
+}

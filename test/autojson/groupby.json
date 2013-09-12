@@ -1,0 +1,38 @@
+{
+    "operators": {
+        "-1": {
+            "type": "TableLoad",
+            "table": "reference",
+            "filename": "tables/dates_groupby.tbl"
+        },
+        "0": {
+            "type": "TableLoad",
+            "table": "revenue",
+            "filename": "tables/dates.tbl"
+        },
+
+        "1": {
+            "type": "HashBuild",
+            "fields": ["year"],
+	    "key": "groupby"
+        },
+        "2": {
+            "type": "GroupByScan",
+            "fields": ["year"],
+            "functions": [
+                {"type": "SUM", "field": "amount", "as": "total_amount"},
+                {"type": "COUNT", "field": "date", "distinct": false, "as": "count"},
+                {"type": "COUNT", "field": "date", "distinct": true, "as": "count_distinct"},
+                {"type": "AVG", "field": "amount", "as": "average_amount"},
+                {"type": "MIN", "field": "amount", "as": "minimum_amount"},
+                {"type": "MAX", "field": "amount", "as": "maximum_amount"},
+                {"type": "MIN", "field": "date", "as": "first_of_year"}
+            ]
+        },
+       "sort" : {
+         "type": "SortScan",
+         "field": [0]
+       }
+    },
+    "edges" : [["0", "1"], ["0", "2"], ["1", "2"], ["2", "sort"]]
+}

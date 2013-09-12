@@ -259,7 +259,7 @@ group table by attributes specified in ``"fields":``.
         "type": "GroupByScan",
         "fields": ["employee_company_id"],
         "functions": [
-            {"type": 1, /*COUNT*/ "field": "employee_company_id"}
+            {"type": 1, /*COUNT*/ "field": "employee_company_id", "distinct": true}
             ]
         },
     
@@ -272,9 +272,13 @@ group table by attributes specified in ``"fields":``.
                 0  SUM
                 1  COUNT
                 2  AVERAGE
+                3  MIN
+                4  MAX
                 == =======
                 
 ``"field":`` field the aggregate function is to be performed on.
+
+``"distinct":`` [only for COUNT] determines whether to count distinct. [optional. default is false]
 
 
 
