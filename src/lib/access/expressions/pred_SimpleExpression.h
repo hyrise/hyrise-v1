@@ -12,7 +12,7 @@ class SimpleExpression : public hyrise::access::AbstractExpression {
 
   virtual pos_list_t* match(const size_t start, const size_t stop) {
     auto pl = new pos_list_t;
-    for(size_t row=0; row < stop; ++row) {
+    for(size_t row = start; row < stop; ++row) {
       if (operator()(row)) {
         pl->push_back(row);
       }

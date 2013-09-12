@@ -1,0 +1,20 @@
+{
+  "operators": {
+    "-1": {
+      "type": "TableLoad",
+      "table": "reference",
+      "filename": "tables/employees_less.tbl"
+    },
+    "0": {
+      "type": "TableLoad",
+      "table": "employees",
+      "filename": "tables/employees.tbl"
+    },
+    "1": {
+      "type": "SimpleTableScan",
+      "limit": 3,
+      "offset": 1
+    }
+  },
+  "edges": [["0", "1"]]
+}

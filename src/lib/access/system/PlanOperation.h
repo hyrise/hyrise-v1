@@ -48,7 +48,6 @@ class PlanOperation : public OutputTask {
  public:
   virtual ~PlanOperation();
 
-  void setLimit(uint64_t l);
   void setProducesPositions(bool p);
   
   void setTXContext(tx::TXContext ctx);
@@ -80,9 +79,6 @@ class PlanOperation : public OutputTask {
   /// Containers to store and handle input/output or rather result data.
   access::OperationData input;
   access::OperationData output;
-
-  /// Limits the number of rows read
-  uint64_t _limit = 0;
 
   /// Transaction number
 

@@ -24,9 +24,11 @@ public:
 private:
   SimpleExpression *_comparator;
   bool _ofDelta = false;
+  size_t _limit = (size_t)-1;
+  size_t _offset = 0;
 };
 
-}
-}
+} } // namespace hyrise::access
 
 #endif  // SRC_LIB_ACCESS_SIMPLETABLESCAN_H_
+
