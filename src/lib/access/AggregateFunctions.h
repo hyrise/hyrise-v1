@@ -14,7 +14,9 @@ struct AggregateFunctions {
   enum type {
     SUM,
     COUNT,
-    AVG
+    AVG,
+    MIN,
+    MAX
   };
 };
 
@@ -32,34 +34,45 @@ AggregateFun *parseAggregateFunction(const Json::Value &value);
 */
 class AggregateFun {
  public:
-  field_t  _field;
-  field_name_t _field_name;
-
   AggregateFun() {}
-  explicit AggregateFun(field_t f): _field(f) {}
-  explicit AggregateFun(field_name_t field_name): _field_name(field_name) {}
+  explicit AggregateFun(field_t field) :
+    _field(field) {}
+  explicit AggregateFun(field_name_t field_name) :
+    _field_name(field_name) {}
 
   virtual void walk(const AbstractTable &table);
-  field_t getField() {
-    return _field;
-  };
-  field_name_t getFieldName() {
-    return _field_name;
-  };
-  virtual ~AggregateFun() {};
+  field_t getField();// {
+   // return _field;
+  //}
+  field_name_t getFieldName();// {
+   // return _field_name;
+  //}
+  virtual ~AggregateFun() { }
   virtual void processValuesForRows(const hyrise::storage::c_atable_ptr_t& t, 
     pos_list_t *rows, hyrise::storage::atable_ptr_t& target, size_t targetRow) = 0;
   virtual DataType getType() const = 0;
-  virtual std::string columnName(const std::string &oldName) = 0;
+  std::string columnName() const
+  {
+    return _new_field_name;
+  }
+  void columnName(const std::string &name) {
+    _new_field_name = name;
+  }
+  virtual std::string defaultColumnName(const std::string &oldName) = 0;
+  
+ protected:
+  field_t  _field;
+  field_name_t _field_name;
+  field_name_t _new_field_name;
 };
 
 class SumAggregateFun: public AggregateFun {
-
-  DataType _datatype;
+ protected:
+  DataType _dataType;
 
  public:
-  explicit SumAggregateFun(field_t field): AggregateFun(field) { }
-  explicit SumAggregateFun(field_name_t field): AggregateFun(field) { }
+  explicit SumAggregateFun(field_t field) : AggregateFun(field) { }
+  explicit SumAggregateFun(field_name_t field) : AggregateFun(field) { }
 
   virtual ~SumAggregateFun() {};
 
@@ -72,18 +85,18 @@ class SumAggregateFun: public AggregateFun {
   virtual void processValuesForRows(const hyrise::storage::c_atable_ptr_t& t, pos_list_t *rows, hyrise::storage::atable_ptr_t& target, size_t targetRow);
 
   virtual DataType getType() const {
-    return _datatype;
+    return _dataType;
   }
 
   virtual void walk(const AbstractTable &table) {
     AggregateFun::walk(table);
-    _datatype = table.typeOfColumn(_field);
-    if (_datatype == StringType) {
+    _dataType = table.typeOfColumn(_field);
+    if (_dataType == StringType) {
       throw std::runtime_error("Cannot calculate sum for column of StringType");
     }
   }
 
-  virtual std::string columnName(const std::string &oldName) {
+  virtual std::string defaultColumnName(const std::string &oldName) {
     return "SUM(" + oldName + ")";
   }
 
@@ -91,10 +104,12 @@ class SumAggregateFun: public AggregateFun {
 };
 
 class CountAggregateFun: public AggregateFun {
+ protected:
+  bool _distinct;
+ 
  public:
-
-  explicit CountAggregateFun(field_t field): AggregateFun(field) { }
-  explicit CountAggregateFun(field_name_t field): AggregateFun(field) { }
+  explicit CountAggregateFun(field_t field, bool distinct = false) : AggregateFun(field), _distinct(distinct) { }
+  explicit CountAggregateFun(field_name_t field, bool distinct = false) : AggregateFun(field), _distinct(distinct) { }
   virtual ~CountAggregateFun() {};
 
   /*!
@@ -104,12 +119,23 @@ class CountAggregateFun: public AggregateFun {
    * are considered for counting.
    */
   virtual void processValuesForRows(const hyrise::storage::c_atable_ptr_t& t, pos_list_t *rows, hyrise::storage::atable_ptr_t& target, size_t targetRow);
+  size_t countRows(const hyrise::storage::c_atable_ptr_t& t, pos_list_t *rows);
+  size_t countRowsDistinct(const hyrise::storage::c_atable_ptr_t& t, pos_list_t *rows);
+
+  void setDistinct(bool distinct) {
+    _distinct = distinct;
+  }
+  bool isDistinct() const {
+    return _distinct;
+  }
 
   virtual DataType getType() const {
     return IntegerType;
   }
 
-  virtual std::string columnName(const std::string &oldName) {
+  virtual std::string defaultColumnName(const std::string &oldName) {
+    if (isDistinct())
+      return "COUNT(DISTINCT " + oldName + ")";
     return "COUNT(" + oldName + ")";
   }
 
@@ -117,16 +143,18 @@ class CountAggregateFun: public AggregateFun {
 };
 
 class AverageAggregateFun: public AggregateFun {
+ protected:
+  DataType _dataType;
+
  public:
-  AverageAggregateFun(field_t field): AggregateFun(field) { }
-  AverageAggregateFun(field_name_t field): AggregateFun(field) { }
-  DataType _datatype;
-  virtual ~AverageAggregateFun() {};
+  AverageAggregateFun(field_t field) : AggregateFun(field) { }
+  AverageAggregateFun(field_name_t field) : AggregateFun(field) { }
+  virtual ~AverageAggregateFun() { }
 
   /*!
    * executes the function only considering
    * the given rows in map_range_t rows
-   * if rows == NULL the functor is executed
+   * if rows == nullptr the functor is executed
    * on all rows of the input table
    */
   virtual void processValuesForRows(const hyrise::storage::c_atable_ptr_t& t, pos_list_t *rows, hyrise::storage::atable_ptr_t& target, size_t targetRow) ;
@@ -137,17 +165,84 @@ class AverageAggregateFun: public AggregateFun {
 
   virtual void walk(const AbstractTable &table) {
     AggregateFun::walk(table);
-    _datatype = table.typeOfColumn(_field);
-    if (_datatype == StringType) {
+    _dataType = table.typeOfColumn(_field);
+    if (_dataType == StringType) {
       throw std::runtime_error("Cannot calculate average for column of StringType");
     }
   }
 
-  virtual std::string columnName(const std::string &oldName) {
+  virtual std::string defaultColumnName(const std::string &oldName) {
     return "AVG(" + oldName + ")";
   }
 
   static AggregateFun *parse(const Json::Value &);
 };
 
+class MinAggregateFun: public AggregateFun {
+ protected:
+  DataType _dataType;
+
+ public:
+  MinAggregateFun(field_t field) : AggregateFun(field) { }
+  MinAggregateFun(field_name_t field) : AggregateFun(field) { }
+  virtual ~MinAggregateFun() { }
+
+  /*!
+   * executes the function only considering
+   * the given rows in map_range_t rows
+   * if rows == nullptr the functor is executed
+   * on all rows of the input table
+   */
+  virtual void processValuesForRows(const hyrise::storage::c_atable_ptr_t& t, pos_list_t *rows, hyrise::storage::atable_ptr_t& target, size_t targetRow) ;
+
+  virtual DataType getType() const {
+    return _dataType;
+  }
+  
+  virtual void walk(const AbstractTable &table) {
+    AggregateFun::walk(table);
+    _dataType = table.typeOfColumn(_field);
+  }
+
+  virtual std::string defaultColumnName(const std::string &oldName) {
+    return "MIN(" + oldName + ")";
+  }
+
+  static AggregateFun *parse(const Json::Value &);
+};
+
+class MaxAggregateFun: public AggregateFun {
+ protected:
+  DataType _dataType;
+
+ public:
+  MaxAggregateFun(field_t field) : AggregateFun(field) { }
+  MaxAggregateFun(field_name_t field) : AggregateFun(field) { }
+  virtual ~MaxAggregateFun() { }
+
+  /*!
+   * executes the function only considering
+   * the given rows in map_range_t rows
+   * if rows == nullptr the functor is executed
+   * on all rows of the input table
+   */
+  virtual void processValuesForRows(const hyrise::storage::c_atable_ptr_t& t, pos_list_t *rows, hyrise::storage::atable_ptr_t& target, size_t targetRow) ;
+
+  virtual DataType getType() const {
+    return _dataType;
+  }
+  
+  virtual void walk(const AbstractTable &table) {
+    AggregateFun::walk(table);
+    _dataType = table.typeOfColumn(_field);
+  }
+
+  virtual std::string defaultColumnName(const std::string &oldName) {
+    return "MAX(" + oldName + ")";
+  }
+
+  static AggregateFun *parse(const Json::Value &);
+};
+
 #endif // AGGEGATEFUNCTIONS
+
