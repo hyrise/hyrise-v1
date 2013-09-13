@@ -122,26 +122,34 @@ Commented Code::
     /*adding the result to output*/
     this->addResult(resultTab);
 
-Aggregate Scan (Count and Sum)
+Aggregate Scan (Count, Sum, Average, Min, Max)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-HYRISE supports two different aggregate functions so far.
+HYRISE supports these different aggregate functions so far:
 
-*SumAggregateFun* calculates the sum of a given float or integer column.
-*CountAggregateFun* counts the values in a given column.
-*processValuesForRows* can be called in two different ways. 
+- *SumAggregateFun* calculates the sum of a given float or integer column.
+- *CountAggregateFun* counts the values in a given column (distinct counting is possible).
+- *AverageAggregateFun* calculates the average value of a given float of integer column.
+- *MinAggregateFun* retrieves the minimum value of a given column.
+- *MaxAggregateFun* retrieves the maximum value of a given column.
 
-
+*processValuesForRows* can be called in two different ways.
 In AggregateFunctions.h::
     
    virtual void processValuesForRows(AbstractTable *t, pos_list_t *rows, AbstractTable *target, size_t targetRow) = 0;
 
 The first is to provide a *pos_list_t vector* in order to take a subset of all values into account.
-If this parameter is *NULL* the given *AggregateFun* will compute the result using
+If this parameter is *nullptr* the given *AggregateFun* will compute the result using
 all values.
 
 The result is directly written to *target* in row *targetRow*. *AbstractTable *t* is the input table of the calling
 GroupByScan instance.
+
+The resulting column may be given any name using  *columnName()*. If no name is set the default name will be used
+which looks like *[SUM/COUNT/AVG..](columnName)* (e.g. *MAX(amounts)*).
+
+*CountAggregateFun* may be set to distinct by *setDistinct()* so that the number of different field values will be
+counted. The default is non-distinct counting.
 
 Parallelization
 ^^^^^^^^^^^^^^^
@@ -179,39 +187,13 @@ After that, we replace the original complete HashTable in the operations input b
 correct iterator pair for a given instance. After all instances have completed their grouping tasks the HYRISE
 QueryTransformationEngine automatically attaches a UnionScan writing the results of all instances into one table.
 
-A parallel GroupByScan can be executed with the HYRISE JSON interface as follows::
-      
-      {
-        "operators": {
-            "-1": {
-                "type": "TableLoad",
-                "table": "reference",
-                "filename": "tables/employees_per_company_id.tbl"
-            },
-            "0": {
-                "type": "TableLoad",
-                "table": "employees",
-                "filename": "tables/employees.tbl"
-            },
-            "1": {
-                "type": "HashBuild",
-                "fields": ["employee_company_id"]
-            },
-            "2": {
-                "type": "GroupByScan",
-                "fields": ["employee_company_id"],
-                "instances" : 3,
-                "functions": [
-                    {"type": 1, /*COUNT*/ "field": "employee_company_id"}
-                ]
-            },
-            "3": {
-                "type": "SortScan",
-                "fields": [0]
-            }
-        },
-        "edges" : [["0", "1"], ["0", "2"], ["1", "2"], ["2", "3"]]
-      }
+A parallel GroupByScan can be executed with the HYRISE JSON interface as follows:
 
-The result is a parallel execution of a GroupBy operation resulting in a table describing 
+
+.. literalinclude:: ../../../test/autojson/groupby.json
+    :language: json
+    :linenos:
+
+
+The result is a parallel execution of a GroupBy operation resulting in a table describing
 the number of employees per company.

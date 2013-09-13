@@ -686,6 +686,36 @@ TEST_F(GroupByTests, group_multi_table_with_delta_not_unique) {
 }
 */
 
+TEST_F(GroupByTests, groupby_on_empty_table) {
+  metadata_list metaList = {new ColumnMetadata("field1", IntegerType),
+                            new ColumnMetadata("field2", StringType),
+                            new ColumnMetadata("field2", FloatType) };
+  hyrise::storage::atable_ptr_t t = std::make_shared<Table>(&metaList);
+
+  hyrise::access::GroupByScan gs;
+  gs.addInput(t);
+  gs.addField(0);
+  
+  gs.addFunction(new SumAggregateFun("field1"));
+  gs.addFunction(new AverageAggregateFun("field1"));
+  gs.addFunction(new CountAggregateFun("field1", false));
+  gs.addFunction(new CountAggregateFun("field1", true));
+  gs.addFunction(new MinAggregateFun("field1"));
+  gs.addFunction(new MaxAggregateFun("field1"));
+
+  hyrise::access::HashBuild hs;
+  hs.addInput(t);
+  hs.addField(0);
+  hs.setKey("groupby");
+
+  auto group_map = hs.execute()->getResultHashTable();
+  gs.addInput(group_map);
+
+  hyrise::storage::c_atable_ptr_t result;
+  EXPECT_NO_THROW(result = gs.execute()->getResultTable());
+  EXPECT_EQ(0, result->size());
+}
+
 }
 }
 
