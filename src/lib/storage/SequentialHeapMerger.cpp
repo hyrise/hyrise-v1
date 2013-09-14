@@ -82,6 +82,8 @@ void SequentialHeapMerger::mergeValues(const std::vector<hyrise::storage::c_atab
   merged_table->setDictionaryAt(new_dict, destination_column_index);
 }
 
+
+
 template<typename T>
 struct DictMergeHelper {
 
@@ -89,10 +91,6 @@ struct DictMergeHelper {
   std::vector<bool> ref;
   DictionaryIterator<T> it;
   DictionaryIterator<T> end;
-
-  bool operator<(const DictMergeHelper &other) const {
-    return *it > *(other.it);
-  }
 
   void next() {
     it++;
@@ -104,11 +102,21 @@ struct DictMergeHelper {
   }
 
   bool done() {
-    return it == end;
+    return it.equal(end);
   }
 
   void print() {
     std::cout << tab_index << " " << *it << std::boolalpha << valid() << std::endl;
+  }
+
+};
+
+template<typename T>
+struct DictMergerHelperCompare {
+
+  bool operator()(const std::shared_ptr<DictMergeHelper<T>>& left, 
+      const std::shared_ptr<DictMergeHelper<T>>& right) const {
+    return *(left->it) > *(right->it);
   }
 
 };
@@ -121,7 +129,10 @@ AbstractTable::SharedDictionaryPtr SequentialHeapMerger::createNewDict(const std
                                                                         bool useValid,
                                                                         const std::vector<bool>& valid) {
   // Heap Queue
-  std::priority_queue<DictMergeHelper<T>> queue;
+  std::priority_queue<
+    std::shared_ptr<DictMergeHelper<T>>,
+    std::vector<std::shared_ptr<DictMergeHelper<T>>>,
+    DictMergerHelperCompare<T>> queue;
 
   value_id_mapping.resize(input_tables.size());
 
@@ -131,23 +142,24 @@ AbstractTable::SharedDictionaryPtr SequentialHeapMerger::createNewDict(const std
     auto dict = std::dynamic_pointer_cast<BaseDictionary<T>>(value_id_maps[p]);
     value_id_mapping[p].resize(value_id_maps[p]->size());
 
-    DictMergeHelper<T> helper;
-    helper.it = dict->begin();
-    helper.end = dict->end();
-    helper.tab_index = p;
+    // For each part create a helper that is mapped to the priority queue
+    auto helper = std::make_shared<DictMergeHelper<T>>();
+    helper->it = dict->begin();
+    helper->end = dict->end();
+    helper->tab_index = p;
 
     if (useValid) {
-      helper.ref.resize(dict->size(), false);
+      helper->ref.resize(dict->size(), false);
       for(size_t i=0, tabs = input_tables[p]->size(); i < tabs; ++i) {
         if (valid[part_counter + i]) {
-             helper.ref[input_tables[p]->getValueId(column_index, i).valueId] = true;
+             helper->ref[input_tables[p]->getValueId(column_index, i).valueId] = true;
         }
       }
     } else {
-      helper.ref.resize(dict->size(), true);
+      helper->ref.resize(dict->size(), true);
     }
 
-    if (!helper.done()) {
+    if (!helper->done()) {
       queue.push(helper);
     }
 
@@ -165,24 +177,26 @@ AbstractTable::SharedDictionaryPtr SequentialHeapMerger::createNewDict(const std
 
     auto element = queue.top();
 
-    T curr_val = *(element.it);
+    T curr_val = *(element->it);
     queue.pop();
 
     if (first || !assigned || (last_value != curr_val)) {
-      if (element.valid()) {
+      if (element->valid()) {
         new_dict->addValue(curr_val);
       }
     }
 
-    if (element.valid()) {
-      value_id_mapping[element.tab_index][element.it.getValueId()] = new_dict->size() - 1;
+    if (element->valid()) {
+      value_id_mapping[element->tab_index][element->it.getValueId()] = new_dict->size() - 1;
       last_value = curr_val;
       assigned = true;
     }
 
-    element.next();
-    if (!element.done()) {
+    element->next();
+    if (!element->done()) {
       queue.push(element);
+    } else {
+      //delete element;
     }
     first = false;
   }

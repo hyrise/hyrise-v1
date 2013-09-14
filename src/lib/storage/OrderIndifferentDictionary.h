@@ -32,8 +32,8 @@ public:
     ++_it;
   }
 
-  bool equal(BaseIterator<T> *other) const {
-    return _it == ((OrderIndifferentDictionaryIterator<T> *) other)->_it;
+  bool equal(const std::shared_ptr<BaseIterator<T>>& other) const {
+    return _it == std::dynamic_pointer_cast<OrderIndifferentDictionaryIterator<T>>(other)->_it;
   }
 
   T &dereference() const {
@@ -42,12 +42,7 @@ public:
 
   value_id_t getValueId() const {
     return (*_it).second;
-  }
-
-  virtual BaseIterator<T> *clone() {
-    //std::cout << "t2" << std::endl;
-    return new OrderIndifferentDictionaryIterator<T>(*this);
-  }
+  }  
 
 };
 
@@ -168,12 +163,12 @@ public:
 
   // returns an iterator pointing to the beginning of the tree
   iterator begin() {
-    return iterator(new OrderIndifferentDictionaryIterator<T>(_index.begin()));
+    return iterator(std::make_shared<OrderIndifferentDictionaryIterator<T>>(_index.begin()));
   }
 
   // returns an empty iterator that marks the end of the tree
   iterator end() {
-    return iterator(new OrderIndifferentDictionaryIterator<T>(_index.end()));
+    return iterator(std::make_shared<OrderIndifferentDictionaryIterator<T>>(_index.end()));
   }
 
   void build_index() {
