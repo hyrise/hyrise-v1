@@ -51,8 +51,9 @@ void Store::merge() {
 
   // get valid positions
   std::vector<bool> validPositions(_cidBeginVector.size());
+  tx::transaction_cid_t last_commit_id = tx::TransactionManager::getInstance().getLastCommitId();
   functional::forEachWithIndex(_cidBeginVector, [&](size_t i, bool v){
-    validPositions[i] = isVisibleForTransaction(i, tx::TransactionManager::getInstance().getLastCommitId(), tx::MERGE_TID);
+    validPositions[i] = isVisibleForTransaction(i, last_commit_id, tx::MERGE_TID);
   });
 
   main_tables = merger->merge(tmp, true, validPositions);
@@ -359,9 +360,16 @@ tx::TX_CODE Store::checkForConcurrentCommit(const pos_list_t& pos, const tx::tra
 tx::TX_CODE Store::markForDeletion(const pos_t pos, const tx::transaction_id_t tid) {
   if(atomic_cas(&_tidVector[pos], tx::START_TID, tid)) {
     return tx::TX_CODE::TX_OK;
-  } else {
-    return tx::TX_CODE::TX_FAIL_CONCURRENT_COMMIT;
   }
+
+  if(_tidVector[pos] == tid) {
+    // It is a row that we inserted ourselves. We remove the TID, leaving it with TID=0,begin=0,end=0 which is invisible to everyone
+    // No need for a CAS here since we already have it "locked"
+    _tidVector[pos] = 0;
+    return tx::TX_CODE::TX_OK;
+  }
+
+  return tx::TX_CODE::TX_FAIL_CONCURRENT_COMMIT;
 }
 
 tx::TX_CODE Store::unmarkForDeletion(const pos_list_t& pos, const tx::transaction_id_t tid) {
