@@ -39,6 +39,8 @@ class AsyncConnection : public AbstractConnection {
 
   bool closed;
 
+  int responses_to_write = 0;
+
   // HTPP Code used to send to the client
   size_t code;
 

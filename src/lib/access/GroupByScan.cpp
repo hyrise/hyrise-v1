@@ -71,15 +71,27 @@ void GroupByScan::setupPlanOperation() {
 
 void GroupByScan::executePlanOperation() {
   if ((_field_definition.size() != 0) && (input.numberOfHashTables() >= 1)) {
+  
+    if (_globalAggregation)
       if (_field_definition.size() == 1)
-        return executeGroupBy<SingleAggregateHashTable, aggregate_single_hash_map_t, aggregate_single_key_t>();
+        return executeGroupBy<SingleJoinHashTable, join_single_hash_map_t, join_single_key_t>();      
       else
-        return executeGroupBy<AggregateHashTable, aggregate_hash_map_t, aggregate_key_t>();      
+        return executeGroupBy<JoinHashTable, join_hash_map_t, join_key_t>();      
+
+    if (_field_definition.size() == 1)
+      return executeGroupBy<SingleAggregateHashTable, aggregate_single_hash_map_t, aggregate_single_key_t>();
+    else
+      return executeGroupBy<AggregateHashTable, aggregate_hash_map_t, aggregate_key_t>();  
+
   } else {
     auto resultTab = createResultTableLayout();
-    resultTab->resize(1);
-    for (const auto & funct: _aggregate_functions) {
-      funct->processValuesForRows(getInputTable(0), nullptr, resultTab, 0);
+
+    // If we have an empty table, we cannot do anything
+    if (getInputTable()->size() > 0) {
+      resultTab->resize(1);
+      for (const auto & funct: _aggregate_functions) {
+        funct->processValuesForRows(getInputTable(0), nullptr, resultTab, 0);
+      }
     }
     this->addResult(resultTab);
   }
@@ -99,6 +111,11 @@ std::shared_ptr<PlanOperation> GroupByScan::parse(Json::Value &v) {
       const Json::Value &f = v["functions"][i];
       gs->addFunction(parseAggregateFunction(f));
     }
+  }
+
+  // Check if we need to aggregate by value
+  if (v.isMember("key") && v["key"].asString().compare("value") == 0) {
+    gs->_globalAggregation = true;
   }
   return gs;
 }

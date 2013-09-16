@@ -54,7 +54,15 @@ private:
   /// Depending on the number of fields to group by choose the appropriate map type
   template<typename HashTableType, typename MapType, typename KeyType>
   void executeGroupBy();
+
   std::vector<AggregateFun *> _aggregate_functions;
+
+  // global aggregation is used when we cannot guarantee if there is no delta
+  // partition containing values. Since the aggregate hash table hashes on
+  // valueids instead of values, this can be problematic.
+  //
+  // Default values is to use the valueID hashing
+  bool _globalAggregation = false;
 };
 
 }
