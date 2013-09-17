@@ -84,11 +84,11 @@ class TransactionManager {
   /// of the transaction context identified by tid
   /// \param tid transaction id to commit
   /// \returns commit id on success
-  static transaction_cid_t commitTransaction(transaction_id_t tid);
+  static transaction_cid_t commitTransaction(TXContext ctx);
 
   /// Ends a transaction by leaving all changes invisible
   /// \param tid transaction id to abort
-  static void rollbackTransaction(transaction_id_t tid);
+  static void rollbackTransaction(TXContext ctx);
 
   /// Check validity of a transaction
   /// \param tid transaction id under investigation

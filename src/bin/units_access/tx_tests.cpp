@@ -261,6 +261,43 @@ TEST_F(TransactionTests, read_your_own_deletes) {
   ASSERT_EQ(before-1, res->size()) << "We expect not to see the row we deleted earlier";
 }
 
+TEST_F(TransactionTests, read_your_own_inserted_and_deleted) {
+
+  auto writeCtx = hyrise::tx::TransactionManager::getInstance().buildContext();
+
+  InsertScan is;
+  is.setTXContext(writeCtx);
+  is.addInput(linxxxs);
+  is.setInputData(one_row);
+  is.execute();
+
+  size_t before = linxxxs->size();
+
+  // Add One read all
+  auto pc = PointerCalculator::create(linxxxs, new pos_list_t({before-1}));
+  ASSERT_EQ(1u, pc->size());
+
+  DeleteOp del;
+  del.setTXContext(writeCtx);
+  del.addInput(pc);
+  del.execute();
+
+  ProjectionScan ps;
+  ps.addInput(linxxxs);
+  ps.setTXContext(writeCtx);
+  ps.addField(0);
+  ps.addField(1);
+  ps.execute();
+
+  ValidatePositions vp;
+  vp.setTXContext(writeCtx);
+  vp.addInput(ps.getResultTable());
+  vp.execute();
+
+  auto res = vp.getResultTable();
+  ASSERT_EQ(before-1, res->size()) << "We expect not to see the row we inserted and deleted earlier";
+}
+
 
 TEST_F(TransactionTests, delete_op_and_concurrent_read) {
 
@@ -509,7 +546,7 @@ TEST_F(TransactionTests, delete_rollback) {
   del.addInput(pc);
   del.execute();
 
-  tx::TransactionManager::rollbackTransaction(writeCtx.tid);
+  tx::TransactionManager::rollbackTransaction(writeCtx);
   ASSERT_EQ(tx::START_TID, linxxxs->tid(0));
 }
 
