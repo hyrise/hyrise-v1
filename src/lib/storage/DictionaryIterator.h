@@ -2,6 +2,8 @@
 #ifndef SRC_LIB_STORAGE_DICTIONARYITERATOR_H_
 #define SRC_LIB_STORAGE_DICTIONARYITERATOR_H_
 
+#include <memory>
+
 #include <storage/BaseIterator.h>
 
 #include <boost/iterator/iterator_facade.hpp>
@@ -11,33 +13,17 @@ class DictionaryIterator : public boost::iterator_facade<DictionaryIterator<T>, 
 
  public:
 
-  BaseIterator<T> *_it;
+  typedef BaseIterator<T> base_it_t;
+  typedef std::shared_ptr<base_it_t> shared_it_ptr_t;
+  shared_it_ptr_t _it;
 
   DictionaryIterator(): _it(nullptr) {}
 
-  explicit DictionaryIterator(BaseIterator<T> *it): _it(it) {
+  explicit DictionaryIterator(shared_it_ptr_t it): _it(it) {
     //std::cout << "dict it constr" << std::endl;
   }
 
-  DictionaryIterator(const DictionaryIterator &other) {
-    //std::cout << "copy constr dict it" << std::endl;
-    _it = other._it->clone();
-  }
-
-  DictionaryIterator &operator = (const DictionaryIterator &other) {
-    if (this != &other) {
-      delete _it;
-      //std::cout << "assign dict it" << std::endl;
-      _it = other._it->clone();
-    }
-
-    return *this;
-  }
-
-  virtual ~DictionaryIterator() {
-    //std::cout << "~DI" << std::endl;
-    delete _it;
-  }
+  virtual ~DictionaryIterator() {}
 
   void increment() {
     _it->increment();
@@ -47,7 +33,7 @@ class DictionaryIterator : public boost::iterator_facade<DictionaryIterator<T>, 
     return _it->dereference();
   }
 
-  bool equal(const DictionaryIterator<T> &other) const {
+  bool equal(const DictionaryIterator& other) const {
     return _it->equal(other._it);
   }
 

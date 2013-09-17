@@ -6,6 +6,7 @@
 #include <iostream>
 #include <memory>
 
+#include "helper/checked_cast.h"
 #include "storage/BaseDictionary.h"
 #include "storage/BaseIterator.h"
 #include "storage/DictionaryIterator.h"
@@ -138,11 +139,11 @@ public:
   typedef DictionaryIterator<T> iterator;
 
   iterator begin() {
-    return iterator(new OrderPreservingDictionaryIterator<T>(_values, 0));
+    return iterator(std::make_shared<OrderPreservingDictionaryIterator<T>>(_values, 0));
   }
 
   iterator end() {
-    return iterator(new OrderPreservingDictionaryIterator<T>(_values, _values->size()));
+    return iterator(std::make_shared<OrderPreservingDictionaryIterator<T>>(_values, _values->size()));
   }
 
 };
@@ -160,12 +161,12 @@ class OrderPreservingDictionaryIterator : public BaseIterator<T> {
   typedef typename dictionary_type::shared_vector_type vector_type;
 
 public:
-  vector_type _values;
+  const vector_type& _values;
   size_t _index;
 
-  explicit OrderPreservingDictionaryIterator(vector_type values): _values(values), _index(0) {}
+  explicit OrderPreservingDictionaryIterator(const vector_type& values): _values(values), _index(0) {}
 
-  OrderPreservingDictionaryIterator(vector_type values, size_t index): _values(values), _index(index) {}
+  OrderPreservingDictionaryIterator(const vector_type& values, size_t index): _values(values), _index(index) {}
 
   virtual ~OrderPreservingDictionaryIterator() { }
 
@@ -173,10 +174,10 @@ public:
     ++_index;
   }
 
-  bool equal(BaseIterator<T> *other) const {
+  bool equal(const std::shared_ptr<BaseIterator<T>>& other) const {
     return
-        _values.get() == ((OrderPreservingDictionaryIterator<T> *) other)->_values.get() &&
-        _index  == ((OrderPreservingDictionaryIterator<T> *) other)->_index;
+        _values.get() == std::dynamic_pointer_cast<OrderPreservingDictionaryIterator<T>>(other)->_values.get() &&
+        _index  == std::dynamic_pointer_cast<OrderPreservingDictionaryIterator<T>>(other)->_index;
   }
 
   T &dereference() const {
@@ -185,10 +186,6 @@ public:
 
   value_id_t getValueId() const {
     return _index;
-  }
-
-  virtual BaseIterator<T> *clone() {
-    return new OrderPreservingDictionaryIterator<T>(*this);
   }
 
 };
