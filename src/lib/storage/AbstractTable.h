@@ -16,14 +16,22 @@
 #include <string>
 
 #include "helper/types.h"
+#include "io/logging.h"
 #include "helper/locking.h"
 #include "helper/unique_id.h"
 
+#include <storage/AbstractResource.h>
+#include <storage/storage_types.h>
+#include <storage/ColumnMetadata.h>
 #include "storage/AbstractResource.h"
 #include "storage/BaseDictionary.h"
 #include "storage/storage_types.h"
 
 
+class Table;
+class Store;
+
+class MutableVerticalTable;
 class ColumnMetadata;
 class AbstractDictionary;
 class AbstractAttributeVector;
@@ -59,9 +67,39 @@ public:
  */
 class AbstractTable : public AbstractResource {
 
+  friend class Store;
+
+private:
+
+  unsigned _generation;
+
 public:
 
   typedef std::shared_ptr<AbstractDictionary> SharedDictionaryPtr;
+
+  /**
+   * Constructor.
+   */
+  AbstractTable() : _generation(0) {}
+
+
+  /**
+   * Destructor.
+   */
+  virtual ~AbstractTable() {}
+
+  /**
+   * Returns the generation value.
+   */
+  unsigned generation() const;
+
+
+  /**
+   * Sets the generation value.
+   *
+   * @param generation The generation.
+   */
+  void setGeneration(const unsigned generation);
 
   /**
    * Copy the table's structure.
@@ -289,6 +327,7 @@ public:
       valueId.valueId = map->getValueIdForValue(value);
     } else if (create) {
       valueId.valueId = map->addValue(value);
+      hyrise::io::Logger::getInstance().logDictionary<T>(table_id, column, value, valueId.valueId);
       /*if (map->isOrdered()) {
         throw std::runtime_error("Cannot insert value in an ordered dictionary");
       } else {

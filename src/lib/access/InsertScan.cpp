@@ -11,6 +11,7 @@
 #include "helper/stringhelpers.h"
 
 #include "io/TransactionManager.h"
+#include "io/logging.h"
 #include "io/ResourceManager.h"
 
 #include "storage/Store.h"
@@ -23,8 +24,6 @@ namespace access {
 namespace {
   auto _ = QueryParser::registerPlanOperation<InsertScan>("InsertScan");
 }
-
-
 
 InsertScan::~InsertScan() {
 }
@@ -93,6 +92,10 @@ void InsertScan::executePlanOperation() {
   for(size_t i=0, upper = _data->size(); i < upper; ++i) {
     store->copyRowToDelta(_data, i, writeArea.first+i, _txContext.tid);
     mods.insertPos(store, beforSize+i);
+
+    uint64_t bitmask = (1 << (_data->columnCount() + 1)) - 1;
+    std::vector<ValueId> vids = _data.get()->copyValueIds(i);
+    io::Logger::getInstance().logValue(mods.tid, reinterpret_cast<uintptr_t>(store.get()), beforSize+i, 0, bitmask, &vids);
   }
 
   auto rsp = getResponseTask();

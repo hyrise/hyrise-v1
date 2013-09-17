@@ -1,5 +1,6 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "io/TransactionManager.h"
+#include "io/logging.h"
 #include <cassert>
 #include <limits>
 #include <stdexcept>
@@ -117,6 +118,7 @@ void TransactionManager::commit(transaction_id_t tid) {
   if (!_txLock.is_locked())
     throw std::runtime_error("Double commit detected, possible TX corruption");
   ++_commitId;
+  io::Logger::getInstance().logCommit(tid);
   _txLock.unlock();
 
   endTransaction(tid);
