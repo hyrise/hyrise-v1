@@ -9,7 +9,7 @@ auto reg_rollb = QueryParser::registerTrivialPlanOperation<Rollback>("Rollback")
 }
 
 void Rollback::executePlanOperation() {
-  tx::TransactionManager::rollbackTransaction(_txContext.tid);
+  tx::TransactionManager::rollbackTransaction(_txContext);
 }
 
 }

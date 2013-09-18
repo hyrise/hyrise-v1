@@ -10,7 +10,7 @@ namespace {
 }
 
 void Commit::executePlanOperation() {
-  tx::TransactionManager::commitTransaction(_txContext.tid);
+  tx::TransactionManager::commitTransaction(_txContext);
 }
 
 std::shared_ptr<PlanOperation> Commit::parse(Json::Value &data) {
