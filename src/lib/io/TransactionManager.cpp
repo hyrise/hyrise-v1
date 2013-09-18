@@ -174,31 +174,30 @@ void TransactionManager::endTransaction(transaction_id_t tid) {
     });
 }
 
-void TransactionManager::rollbackTransaction(transaction_id_t tid) {
-  if (!isRunningTransaction(tid)) {
+void TransactionManager::rollbackTransaction(TXContext ctx) {
+  if (!isRunningTransaction(ctx.tid)) {
     throw std::runtime_error("Transaction is not currently running");
   }
 
   // unmark positions previously marked for delete
-  auto& txData = getTransactionData(tid);
+  auto& txData = getTransactionData(ctx.tid);
   for(auto& kv : txData._modifications.deleted) {
     auto store = getStore(kv.first.lock());
-    store->unmarkForDeletion(kv.second, tid);
+    store->unmarkForDeletion(kv.second, ctx.tid);
   }
 
-  getInstance().endTransaction(tid);
+  getInstance().endTransaction(ctx.tid);
 }
 
-transaction_cid_t TransactionManager::commitTransaction(transaction_id_t tid) {
-  if (!isRunningTransaction(tid)) {
+transaction_cid_t TransactionManager::commitTransaction(TXContext ctx) {
+  if (!isRunningTransaction(ctx.tid)) {
     throw std::runtime_error("Transaction is not currently running");
   }
   auto& txmgr = getInstance();
-  auto& tx_data = getTransactionData(tid);
-  auto& _txContext = tx_data._context;
+  auto& tx_data = getTransactionData(ctx.tid);
   const auto& modifications = tx_data._modifications;
 
-  _txContext.cid = txmgr.prepareCommit();
+  ctx.cid = txmgr.prepareCommit();
 
   // Only update the required positions
   for (auto& kv: modifications.deleted) {
@@ -206,7 +205,7 @@ transaction_cid_t TransactionManager::commitTransaction(transaction_id_t tid) {
     // Only deleted records have to be checked for validity as newly inserted
     // records will be always only written by us
     if (auto store = getStore(weak_table.lock())) {
-      if (tx::TX_CODE::TX_OK != store->checkForConcurrentCommit(kv.second, tid)) {
+      if (tx::TX_CODE::TX_OK != store->checkForConcurrentCommit(kv.second, ctx.tid)) {
         txmgr.abort();
         throw std::runtime_error("Aborted TX with Last Commit ID != New Commit ID");
       }
@@ -216,7 +215,7 @@ transaction_cid_t TransactionManager::commitTransaction(transaction_id_t tid) {
   for (auto& kv: modifications.inserted) {
     auto weak_table = kv.first;
     if (auto store = getStore(weak_table.lock())) {
-      auto result = store->commitPositions(kv.second, _txContext.cid, true);
+      auto result = store->commitPositions(kv.second, ctx.cid, true);
       if (result != TX_CODE::TX_OK) {
         txmgr.abort();
         throw std::runtime_error("Aborted TX with "); // TODO at return code to error message
@@ -227,7 +226,7 @@ transaction_cid_t TransactionManager::commitTransaction(transaction_id_t tid) {
   for (auto& kv: modifications.deleted) {
     auto weak_table = kv.first;
     if (auto store = getStore(weak_table.lock())) {
-      auto result = store->commitPositions(kv.second, _txContext.cid, false);
+      auto result = store->commitPositions(kv.second, ctx.cid, false);
       if (result != TX_CODE::TX_OK) {
         txmgr.abort();
         throw std::runtime_error("Aborted TX with "); // TODO at return code to error message
@@ -235,8 +234,8 @@ transaction_cid_t TransactionManager::commitTransaction(transaction_id_t tid) {
     }
   }
 
-  txmgr.commit(_txContext.tid);
-  return _txContext.cid;
+  txmgr.commit(ctx.tid);
+  return ctx.cid;
 }
 
 }}
