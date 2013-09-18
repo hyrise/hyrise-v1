@@ -390,7 +390,7 @@ void PointerCalculator::debugStructure(size_t level) const {
 
 
 void PointerCalculator::validate(hyrise::tx::transaction_id_t tid, hyrise::tx::transaction_id_t cid) {
-  const auto& store = checked_pointer_cast<const Store>(table);
+  const auto& store = checked_pointer_cast<const hyrise::storage::Store>(table);
   if (pos_list == nullptr) {
     pos_list = new pos_list_t(store->buildValidPositions(cid, tid));
   } else {
