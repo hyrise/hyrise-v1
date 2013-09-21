@@ -94,10 +94,7 @@ function runQuery() {
 			}).on("page", printQueryResult);
 			printQueryResult(null, 0);
 		},
-		error: function(e) { 
-			$("#btn_submit").button("reset");
-			console.log(e);
-		}
+		error: function(e) { console.log(e);}
 	})
 
 	// Prevent default
