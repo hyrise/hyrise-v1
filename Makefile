@@ -123,7 +123,7 @@ python_test:
 	python tools/test_server.py
 
 basic_test_targets := $(basic_test_binaries) python_test
-all_test_targets := $(all_test_binaries)
+all_test_targets := $(all_test_binaries) python_test
 
 # Test invocation rules
 test: unit_test_params = --minimal
