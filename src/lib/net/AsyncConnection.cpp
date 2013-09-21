@@ -29,7 +29,7 @@ ebb_connection *new_connection(ebb_server *server, struct sockaddr_in *addr) {
   ebb_connection_init(connection);
   connection->data = connection_data;
   connection->new_request = new_request;
-  //connection->on_close = on_close;
+  connection->on_close = on_close;
   connection->on_timeout = on_timeout;
 
   connection_data->ev_loop = server->loop;
@@ -60,14 +60,6 @@ void request_complete(ebb_request *request) {
   connection_data->connection = connection;
   connection_data->request = request;
   gettimeofday(&connection_data->starttime, nullptr);
-
-
-  //Handle persistent connections
-  if (ebb_request_should_keep_alive(request)) {
-    connection_data->responses_to_write++;
-  } else {
-    connection_data->responses_to_write = 1;
-  }
 
   // Try to route to appropriate handler based on path
   const AbstractRequestHandlerFactory *handler_factory;
@@ -143,12 +135,10 @@ void write_cb(struct ev_loop *loop, struct ev_async *w, int revents) {
     conn->code = conn->code == 0 ? 200 : conn->code;
     conn->contentType = conn->contentType.size() == 0 ? "application/json" : conn->contentType;
     conn->write_buffer_len += snprintf((char *)conn->write_buffer, max_header_length, 
-      "HTTP/1.1 %lu OK\r\nContent-Type: %s\r\nContent-Length: %lu\r\nConnection: %s\r\n\r\n", 
+      "HTTP/1.1 %lu OK\r\nContent-Type: %s\r\nContent-Length: %lu\r\nConnection: close\r\n\r\n", 
       conn->code, 
       conn->contentType.c_str(),
-      conn->response_length,
-      "Keep-Alive");
-      //conn->responses_to_write <= 1 ? "Close" : "Keep-Alive");
+      conn->response_length);
 
     // Append the response
     memcpy(conn->write_buffer + conn->write_buffer_len, conn->response, conn->response_length);
@@ -159,7 +149,6 @@ void write_cb(struct ev_loop *loop, struct ev_async *w, int revents) {
   } else {
     printf("%s [%s] %s %s (%f s) not sent\n", inet_ntoa(conn->addr.sin_addr), timestr, method, conn->path, duration);
   }
-
   ev_async_stop(conn->ev_loop, &conn->ev_write);
   // When connection is nullptr, `continue_responding` won't fire since we never sent data to the client,
   // thus, we'll need to clean up manually here, while connection has already been cleaned up in on `on_response`
@@ -167,13 +156,9 @@ void write_cb(struct ev_loop *loop, struct ev_async *w, int revents) {
 }
 
 void continue_responding(ebb_connection *connection) {
-  AsyncConnection* cd = static_cast<AsyncConnection*>(connection->data);
-  // Close the connection if required
-  // if (--cd->responses_to_write <= 0) {
-  //   delete(AsyncConnection *) connection->data;
-  //   connection->data = nullptr;
-  //   ebb_connection_schedule_close(connection);    
-  // }
+  delete(AsyncConnection *) connection->data;
+  connection->data = nullptr;
+  ebb_connection_schedule_close(connection);
 }
 
 void on_close(ebb_connection *connection) {
