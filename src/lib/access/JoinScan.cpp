@@ -27,6 +27,9 @@ void JoinScan::setupPlanOperation() {
 }
 
 void JoinScan::executePlanOperation() {
+  if (_join_type != JoinType::EQUI) {
+    throw std::runtime_error("Currently only JoinType::EQUI supported by JoinScan");
+  }
   storage::atable_ptr_t left = input.getTable(0)->copy_structure(nullptr, true);
   storage::atable_ptr_t right = input.getTable(1)->copy_structure(nullptr, true);
 
