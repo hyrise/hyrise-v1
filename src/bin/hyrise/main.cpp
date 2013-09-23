@@ -170,7 +170,6 @@ int main(int argc, char *argv[]) {
 
 
   SharedScheduler::getInstance().init(scheduler_name, worker_threads);
-  AbstractTaskScheduler *scheduler = SharedScheduler::getInstance().getScheduler();
 
   signal(SIGINT, &shutdown);
   // MainS erver Loop

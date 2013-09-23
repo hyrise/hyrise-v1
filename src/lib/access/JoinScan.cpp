@@ -27,35 +27,40 @@ void JoinScan::setupPlanOperation() {
 }
 
 void JoinScan::executePlanOperation() {
-  storage::atable_ptr_t left = input.getTable(0)->copy_structure(nullptr, true);
-  storage::atable_ptr_t right = input.getTable(1)->copy_structure(nullptr, true);
+  if (_join_type != JoinType::EQUI) {
+    throw std::runtime_error("Currently only JoinType::EQUI supported by JoinScan");
+  }
 
-  storage::pos_t result_row = 0;
-  size_t reserved = input.getTable(0)->size() > input.getTable(1)->size() ?
-                    input.getTable(0)->size() : input.getTable(1)->size();
+  if (!_join_condition) {
+    throw std::runtime_error("JoinScan needs a defined join condition");
+  }
+
+  auto left_source = input.getTable(0),
+      right_source = input.getTable(1);
+
+  storage::atable_ptr_t left_target = left_source->copy_structure(nullptr, true);
+  storage::atable_ptr_t right_target = right_source->copy_structure(nullptr, true);
+  size_t reserved = std::max(left_source->size(), right_source->size());
 
   // Reserve memory
-  left->reserve(reserved);
-  right->reserve(reserved);
+  left_target->reserve(reserved);
+  right_target->reserve(reserved);
+  storage::pos_t result_row = 0;
 
-  for (storage::pos_t left_row = 0; left_row < input.getTable(0)->size(); left_row++) {
-    for (storage::pos_t right_row = 0; right_row < input.getTable(1)->size(); right_row++) {
-      if (!_join_condition || (*_join_condition)(left_row, right_row)) {
-        left->resize(result_row + 1);
-        right->resize(result_row + 1);
-        left->copyRowFrom(input.getTable(0), left_row, result_row);
-        right->copyRowFrom(input.getTable(1), right_row, result_row++);
+  for (storage::pos_t left_row = 0, left_size = left_source->size(); left_row < left_size; ++left_row) {
+    for (storage::pos_t right_row = 0, right_size = right_source->size(); right_row < right_size; ++right_row) {
+      if ((*_join_condition)(left_row, right_row)) {
+        left_target->resize(result_row + 1);
+        right_target->resize(result_row + 1);
+        left_target->copyRowFrom(left_source, left_row, result_row);
+        right_target->copyRowFrom(right_source, right_row, result_row);
+        result_row++;
       }
     }
   }
 
-  // Create one table
-  std::vector<storage::atable_ptr_t > vc;
-  vc.push_back(left);
-  vc.push_back(right);
-
-  storage::atable_ptr_t result = std::make_shared<storage::MutableVerticalTable>(vc);
-  addResult(result);
+  addResult(std::make_shared<storage::MutableVerticalTable>(
+      std::vector<storage::atable_ptr_t> {left_target, right_target}));
 }
 
 std::shared_ptr<PlanOperation> JoinScan::parse(const Json::Value &v) {

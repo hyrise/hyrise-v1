@@ -45,7 +45,7 @@ MutableVerticalTable::MutableVerticalTable(std::vector<std::vector<const ColumnM
   reserve(size);
 }
 
-MutableVerticalTable::MutableVerticalTable(std::vector< atable_ptr_t > &tables, size_t size) : column_count(0) {
+MutableVerticalTable::MutableVerticalTable(std::vector< atable_ptr_t > tables, size_t size) : column_count(0) {
   size_t cnum = 0;
   slice_count = 0;
 

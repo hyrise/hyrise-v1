@@ -713,7 +713,7 @@ TEST_F(GroupByTests, groupby_on_empty_table) {
 
   hyrise::storage::c_atable_ptr_t result;
   EXPECT_NO_THROW(result = gs.execute()->getResultTable());
-  EXPECT_EQ(0, result->size());
+  EXPECT_EQ(0u, result->size());
 }
 
 }
