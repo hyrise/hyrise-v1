@@ -34,7 +34,7 @@ public:
                        bool sorted = true,
                        AbstractTableFactory *factory = nullptr,
                        bool compressed = true);
-  MutableVerticalTable(std::vector<atable_ptr_t> &cs, size_t size = 0);
+  MutableVerticalTable(std::vector<atable_ptr_t> cs, size_t size = 0);
   virtual ~MutableVerticalTable();
   const ColumnMetadata *metadataAt(size_t column_index, size_t row_index=0, table_id_t table_id=0) const override;
   const adict_ptr_t& dictionaryAt(size_t column, size_t row = 0, table_id_t table_id = 0) const override;
