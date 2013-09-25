@@ -14,11 +14,12 @@
         "1": {
             "type": "HashBuild",
             "fields": ["year"],
-	        "key": "groupby"
+          "key": "join"
         },
         "2": {
             "type": "GroupByScan",
             "fields": ["year"],
+            "key":"value",
             "functions": [
                 {"type": "SUM", "field": "amount", "as": "total_amount"},
                 {"type": "COUNT", "field": "date", "distinct": false, "as": "count"},

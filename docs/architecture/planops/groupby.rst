@@ -197,3 +197,19 @@ A parallel GroupByScan can be executed with the HYRISE JSON interface as follows
 
 The result is a parallel execution of a GroupBy operation resulting in a table describing
 the number of employees per company.
+
+Global Aggregation
+^^^^^^^^^^^^^^^^^^
+
+This group by implementation works only well if either main or delta are
+empty. To alleviate the problem and allow global aggregation it is possible to
+perform value based aggregation instead of value IDs.
+
+This is achieved by manually setting the hash algorithm to values (as used in
+the traditional join) and explicitly setting the aggregation type to global.
+An example is shown in the following test-case:
+
+.. literalinclude:: ../../../test/autojson/groupby_global.json
+    :language: json
+    :linenos:
+
