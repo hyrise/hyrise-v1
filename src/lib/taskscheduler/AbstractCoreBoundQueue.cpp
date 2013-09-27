@@ -61,13 +61,18 @@ void AbstractCoreBoundQueue::launchThread(int core) {
       fprintf(stderr, "Continuing as normal, however, no guarantees\n");
       //throw std::runtime_error(strerror(error));
     }
-    if(hwloc_set_membind (topology, cpuset,  HWLOC_MEMBIND_INTERLEAVE, HWLOC_MEMBIND_STRICT | HWLOC_MEMBIND_THREAD )){
+
+    // assuming single machine system                                                                                                         
+    obj = hwloc_get_obj_by_type(topology, HWLOC_OBJ_MACHINE, 0);
+    // set membind policy interleave for this thread                                                                                          
+    if (hwloc_set_membind_nodeset(topology, obj->nodeset, HWLOC_MEMBIND_INTERLEAVE, HWLOC_MEMBIND_STRICT | HWLOC_MEMBIND_THREAD)) {
       char *str;
       int error = errno;
-      hwloc_bitmap_asprintf(&str, obj->cpuset);
-      fprintf(stderr, "Couldn't bind to memory %s: %s\n", str, strerror(error));
+      hwloc_bitmap_asprintf(&str, obj->nodeset);
+      fprintf(stderr, "Couldn't membind to nodeset  %s: %s\n", str, strerror(error));
       fprintf(stderr, "Continuing as normal, however, no guarantees\n");
-      //throw std::runtime_error(strerror(error));
+      free(str);
+      //throw std::runtime_error(strerror(error));                                                                                            
     }
 
     hwloc_bitmap_free(cpuset);
