@@ -13,7 +13,7 @@
 
 #include "access/system/BasicParser.h"
 
-const std::string autojsonReferenceTableId = "-1";
+const std::string autojsonReferenceTableName = "reference";
 
 class Task;
 
