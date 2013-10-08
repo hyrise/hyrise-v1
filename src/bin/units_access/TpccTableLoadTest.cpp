@@ -25,9 +25,9 @@ TEST_F(TpccTableLoadTests, table_load_with_header_file_test_customer) {
   ASSERT_EQ(10u,tableLoad("customer"));
 }
 
-// Table: district Lines in CSV: 10 (load from test/tpcc/ district.csv, district_header.tbl)
+// Table: district Lines in CSV: 5 (load from test/tpcc/ district.csv, district_header.tbl)
 TEST_F(TpccTableLoadTests, table_load_with_header_file_test_district) {
-  ASSERT_EQ(10u,tableLoad("district"));
+  ASSERT_EQ(5u,tableLoad("district"));
 }
 
 // Table: history Lines in CSV: 10 (load from test/tpcc/ history.csv, history_header.tbl)
@@ -60,9 +60,9 @@ TEST_F(TpccTableLoadTests, table_load_with_header_file_test_stock) {
   ASSERT_EQ(10u,tableLoad("stock"));
 }
 
-// Table: warehouse Lines in CSV: 4 (load from test/tpcc/ warehouse.csv, warehouse_header.tbl)
+// Table: warehouse Lines in CSV: 1 (load from test/tpcc/ warehouse.csv, warehouse_header.tbl)
 TEST_F(TpccTableLoadTests, table_load_with_header_file_test_warehouse) {
-  ASSERT_EQ(4u,tableLoad("warehouse"));
+  ASSERT_EQ(1u,tableLoad("warehouse"));
 }
 
 }
