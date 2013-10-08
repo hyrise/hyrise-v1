@@ -90,6 +90,10 @@ void TableLoad::setTableName(const std::string &tablename) {
   _table_name = tablename;
 }
 
+const std::string TableLoad::getTableName() {
+  return _table_name;
+}
+
 void TableLoad::setFileName(const std::string &filename) {
   _file_name = filename;
 }

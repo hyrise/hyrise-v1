@@ -6,6 +6,7 @@
 #include "helper/vector_helpers.h"
 #include "access/system/PlanOperation.h"
 #include "access/system/ParallelizablePlanOperation.h"
+#include "access/storage/TableLoad.h"
 
 namespace hyrise { namespace access {
 
@@ -113,9 +114,14 @@ std::shared_ptr<Task>  QueryParser::getResultTask(
 
   for (it = task_map.begin(); it != task_map.end(); ++it) {
     currentTask = it->second;
+    
     // Also, exclude autojson reference table task
-    if (!currentTask->hasSuccessors()
-        &&  it->first.asString() != autojsonReferenceTableId) {
+    std::shared_ptr<TableLoad> tableLoad = std::dynamic_pointer_cast<TableLoad>(currentTask);
+    if (tableLoad && tableLoad->getTableName() == autojsonReferenceTableName) {
+      continue;
+    }
+
+    if (!currentTask->hasSuccessors()) {
       resultTask = currentTask;
       break;
     }

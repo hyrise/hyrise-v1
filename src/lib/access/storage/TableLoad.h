@@ -22,6 +22,7 @@ public:
   static std::shared_ptr<PlanOperation> parse(Json::Value &data);
   const std::string vname();
   void setTableName(const std::string &tablename);
+  const std::string getTableName();
   void setFileName(const std::string &filename);
   void setHeaderFileName(const std::string &filename);
   void setHeaderString(const std::string &header);
