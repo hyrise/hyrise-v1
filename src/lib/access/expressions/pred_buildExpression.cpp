@@ -13,9 +13,9 @@ SimpleFieldExpression *buildFieldExpression(PredicateType::type pred_type, Json:
   hyrise::storage::type_switch<hyrise_basic_types> ts;
   hyrise::access::expression_factory fun;
   if (predicate["f"].isNumeric()) {
-    fun = hyrise::access::expression_factory(predicate["in"].asUInt(), predicate["f"].asUInt(), pred_type, predicate["value"]);
+    fun = hyrise::access::expression_factory(predicate["in"].asUInt(), predicate["f"].asUInt(), pred_type, predicate["value"], predicate["value2"]);
   } else if (predicate["f"].isString()) {
-    fun = hyrise::access::expression_factory(predicate["in"].asUInt(), predicate["f"].asString(), pred_type, predicate["value"]);
+    fun = hyrise::access::expression_factory(predicate["in"].asUInt(), predicate["f"].asString(), pred_type, predicate["value"], predicate["value2"]);
   }
   return ts(predicate["vtype"].asUInt(), fun);
 };

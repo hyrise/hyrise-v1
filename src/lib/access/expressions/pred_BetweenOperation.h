@@ -18,16 +18,22 @@ class BetweenExpression : public SimpleFieldExpression {
  public:
 
   BetweenExpression(size_t i, field_t f, T _lower_value, T _upper_value):
-      SimpleFieldExpression(i, f), lower_value(_lower_value), upper_value(_upper_value)
-  {}
+      SimpleFieldExpression(i, f), lower_value(_lower_value), upper_value(_upper_value) {
+    if (lower_value > upper_value)
+      std::swap(lower_value, upper_value);
+  }
 
   BetweenExpression(size_t i, field_name_t f, T _lower_value, T _upper_value):
-      SimpleFieldExpression(i, f), lower_value(_lower_value), upper_value(_upper_value)
-  {}
+      SimpleFieldExpression(i, f), lower_value(_lower_value), upper_value(_upper_value) {
+    if (lower_value > upper_value)
+      std::swap(lower_value, upper_value);
+  }
 
   BetweenExpression(hyrise::storage::c_atable_ptr_t _table, field_t _field, T _lower_value, T _upper_value) :
-      SimpleFieldExpression(_table, _field), lower_value(_lower_value), upper_value(_upper_value)
-  {}
+      SimpleFieldExpression(_table, _field), lower_value(_lower_value), upper_value(_upper_value) {
+    if (lower_value > upper_value)
+      std::swap(lower_value, upper_value);
+  }
 
   virtual void walk(const std::vector<hyrise::storage::c_atable_ptr_t > &l) {
     SimpleFieldExpression::walk(l);
@@ -50,7 +56,7 @@ class BetweenExpression : public SimpleFieldExpression {
 
     if ((valueId.table == lower_bound.table) && (valueId.table == upper_bound.table)) {
       if ((valueId.valueId <= upper_bound.valueId) && (valueId.valueId >= lower_bound.valueId)) {
-        return true;
+	return true;
       }
 
       if ((valueId.valueId > upper_bound.valueId) || (valueId.valueId < lower_bound.valueId)) {
