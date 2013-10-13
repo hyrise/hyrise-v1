@@ -96,18 +96,25 @@ void SortScan::executePlanOperation() {
   // we can just sort by value_id
   // TODO: fix Table<> template
   auto base_table = std::dynamic_pointer_cast<const Table>(table);
-  if ((table->dictionaryAt(_sort_field)->isOrdered()) && (base_table)) {
-    sorted_pos = ColumnSorter<ValueId, ExtractValueId>(table, _sort_field, asc).sort();
+
+  field_t sortField;
+  if (_sort_field_name.size() != 0) // either a column name is specified
+    sortField = table->numberOfColumn(_sort_field_name);
+  else // or a column number
+    sortField = _sort_field;
+
+  if ((table->dictionaryAt(sortField)->isOrdered()) && (base_table)) {
+    sorted_pos = ColumnSorter<ValueId, ExtractValueId>(table, sortField, asc).sort();
   } else {
-    switch (table->metadataAt(_sort_field)->getType()) {
+    switch (table->metadataAt(sortField)->getType()) {
       case IntegerType:
-        sorted_pos = ColumnSorter<hyrise_int_t, ExtractValue>(table, _sort_field, asc).sort();
+        sorted_pos = ColumnSorter<hyrise_int_t, ExtractValue>(table, sortField, asc).sort();
         break;
       case FloatType:
-        sorted_pos = ColumnSorter<hyrise_float_t, ExtractValue>(table, _sort_field, asc).sort();
+        sorted_pos = ColumnSorter<hyrise_float_t, ExtractValue>(table, sortField, asc).sort();
         break;
       case StringType:
-        sorted_pos = ColumnSorter<hyrise_string_t, ExtractValue>(table, _sort_field, asc).sort();
+        sorted_pos = ColumnSorter<hyrise_string_t, ExtractValue>(table, sortField, asc).sort();
         break;
       default:
         throw std::runtime_error("Datatype not supported");
@@ -131,7 +138,15 @@ void SortScan::executePlanOperation() {
 
 std::shared_ptr<PlanOperation> SortScan::parse(Json::Value &data) {
   std::shared_ptr<SortScan> s = std::make_shared<SortScan>();
-  s->setSortField(data["fields"][0u].asUInt());
+  if (data["fields"][0u].isNumeric()) {
+    s->setSortField(data["fields"][0u].asUInt());
+  }
+  else if (data["fields"][0u].isString()) {
+    s->setSortFieldName(data["fields"][0u].asString());
+  }
+  else
+    throw std::runtime_error("Field for SortScan not specified correctly");
+
   if (data.isMember("asc"))
     s->asc = data["asc"].asBool();
   return s;
@@ -142,6 +157,10 @@ const std::string SortScan::vname() {
 }
 void SortScan::setSortField(const unsigned s) {
   _sort_field = s;
+}
+
+void SortScan::setSortFieldName(const std::string& name) {
+  _sort_field_name = name;
 }
 
 }
