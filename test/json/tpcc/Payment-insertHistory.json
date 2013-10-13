@@ -1,0 +1,13 @@
+{
+  "operators": {
+    "load": {
+       "type": "GetTable",
+       "name": "HISTORY"
+    },
+    "insert": {
+       "type": "InsertScan",
+       "data" : [[%(c_id)d, %(c_d_id)d, %(c_w_id)d, %(d_id)d, %(w_id)d, %(date)s, %(h_amount)f, %(h_data)s]]
+    }
+  },
+  "edges": [["load", "insert"]]
+}

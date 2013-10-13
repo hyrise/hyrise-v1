@@ -1,0 +1,19 @@
+{
+  "operators": {
+    "load": {
+       "type": "GetTable",
+       "name": "WAREHOUSE"
+    },
+    "select": {
+       "type": "SimpleTableScan",
+       "predicates": [
+         {"type": "EQ", "in": 0, "f": "W_ID", "vtype": 0 /*Int*/, "value": %(w_id)d}
+       ]
+    },
+    "project": {
+       "type": "ProjectionScan",
+       "fields": ["W_NAME", "W_STREET_1", "W_STREET_2", "W_CITY", "W_STATE", "W_ZIP", "W_YTD"]
+    }
+  },
+  "edges": [["load", "select"], ["select", "project"]]
+}

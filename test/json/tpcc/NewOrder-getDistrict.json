@@ -1,0 +1,21 @@
+{
+  "operators": {
+    "load": {
+       "type": "GetTable",
+       "name": "DISTRICT"
+    },
+    "select": {
+       "type": "SimpleTableScan",
+       "predicates": [
+         {"type": "AND"},
+         {"type": "EQ", "in": 0, "f": "D_W_ID", "vtype": 0 /*Int*/, "value": %(w_id)d},
+         {"type": "EQ", "in": 0, "f": "D_ID", "vtype": 0 /*Int*/, "value": %(d_id)d}
+       ]
+    },
+    "project": {
+       "type": "ProjectionScan",
+       "fields": ["D_TAX", "D_NEXT_O_ID"]
+    }
+  },
+  "edges": [["load", "select"], ["select", "project"]]
+}

@@ -1,0 +1,26 @@
+{
+  "operators": {
+    "load": {
+       "type": "GetTable",
+       "name": "STOCK"
+    },
+    "select": {
+       "type": "SimpleTableScan",
+       "predicates": [
+         {"type": "AND"},
+         {"type": "EQ", "in": 0, "f": "S_I_ID", "vtype": 0 /*Int*/, "value": %(ol_i_id)d},
+         {"type": "EQ", "in": 0, "f": "S_W_ID", "vtype": 0 /*Int*/, "value": %(ol_supply_w_id)d}
+       ]
+    },
+    "update": {
+       "type": "PosUpdateScan",
+       "data": {
+          "S_QUANTITY": %(s_quantity)d,
+          "S_ORDER_CNT": %(s_order_cnt)d,
+          "S_REMOTE_CNT": %(s_remote_cnt)d,
+          "S_YTD": %(s_ytd)f
+       }
+    }
+  },
+  "edges": [["load", "select"], ["select", "update"]]
+}

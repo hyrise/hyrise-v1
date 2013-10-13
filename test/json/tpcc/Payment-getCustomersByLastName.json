@@ -1,0 +1,30 @@
+{
+  "operators": {
+    "load": {
+      "type": "GetTable",
+      "name": "CUSTOMER"
+    },
+    "select": {
+      "type": "SimpleTableScan",
+      "predicates": [
+        {"type": "AND"},
+        {"type": "EQ", "in": 0, "f": "C_W_ID", "vtype": 0 /*Int*/, "value": %(c_w_id)d},
+        {"type": "AND"},
+        {"type": "EQ", "in": 0, "f": "C_W_ID", "vtype": 0 /*Int*/, "value": %(c_w_id)d},
+        {"type": "EQ", "in": 0, "f": "C_LAST", "vtype": 2 /*Str*/, "value": %(c_last)s}
+      ]
+    },
+    "project": {
+      "type": "ProjectionScan",
+      "fields": ["C_ID", "C_FIRST", "C_MIDDLE", "C_LAST", "C_STREET_1", "C_STREET_2",
+                 "C_CITY", "C_STATE", "C_ZIP", "C_PHONE", "C_SINCE", "C_CREDIT",
+                 "C_CREDIT_LIM", "C_DISCOUNT", "C_BALANCE", "C_YTD_PAYMENT",
+                 "C_PAYMENT_CNT", "C_DATA"]
+    },
+    "order": {
+      "type": "SortScan",
+      "fields": ["C_FIRST"]
+    }
+  },
+  "edges": [["load", "select"], ["select", "project"], ["project", "order"]]
+}

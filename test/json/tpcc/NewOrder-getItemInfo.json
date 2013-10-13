@@ -1,0 +1,19 @@
+{
+  "operators": {
+    "load": {
+       "type": "GetTable",
+       "name": "ITEM"
+    },
+    "select": {
+       "type": "SimpleTableScan",
+       "predicates": [
+         {"type": "EQ", "in": 0, "f": "I_ID", "vtype": 0 /*Int*/, "value": %(i_id)d}
+       ]
+    },
+    "project": {
+       "type": "ProjectionScan",
+       "fields": ["I_PRICE", "I_NAME", "I_DATA"]
+    }
+  },
+  "edges": [["load", "select"], ["select", "project"]]
+}

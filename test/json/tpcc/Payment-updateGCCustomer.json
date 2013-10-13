@@ -1,0 +1,27 @@
+{
+  "operators": {
+    "load": {
+       "type": "GetTable",
+       "name": "CUSTOMER"
+    },
+    "select": {
+       "type": "SimpleTableScan",
+       "predicates": [
+         {"type": "AND"},
+         {"type": "EQ", "in": 0, "f": "C_W_ID", "vtype": 0 /*Int*/, "value": %(c_w_id)d},
+         {"type": "AND"},
+         {"type": "EQ", "in": 0, "f": "C_D_ID", "vtype": 0 /*Int*/, "value": %(c_d_id)d},
+         {"type": "EQ", "in": 0, "f": "C_ID", "vtype": 0 /*Int*/, "value": %(c_id)d}
+       ]
+    },
+    "update": {
+       "type": "PosUpdateScan",
+       "data": {
+         "C_BALANCE": %(c_balance)f,
+         "C_YTD_PAYMENT": %(c_ytd_payment)f,
+         "C_PAYMENT_CNT": %(c_payment_cnt)d
+       }
+    }
+  },
+  "edges": [["load", "select"], ["select", "update"]]
+}

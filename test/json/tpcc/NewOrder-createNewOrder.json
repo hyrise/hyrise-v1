@@ -1,0 +1,13 @@
+{
+  "operators": {
+    "load": {
+       "type": "GetTable",
+       "name": "NEW_ORDER"
+    },
+    "insert": {
+       "type": "InsertScan",
+       "data" : [[%(o_id)d, %(d_id)d, %(w_id)d]]
+    }
+  },
+  "edges": [["load", "insert"]]
+}
