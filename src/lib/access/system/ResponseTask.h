@@ -62,6 +62,10 @@ class ResponseTask : public Task {
     _txContext = t;
   }
 
+  tx::TXContext getTxContext() const {
+    return _txContext;
+  }
+
   void setQueryStart(epoch_t start) {
     queryStart = start;
   }

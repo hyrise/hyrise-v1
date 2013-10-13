@@ -200,7 +200,7 @@ TEST_F(JSONTests, parse_papi_event_set) {
   std::string q = loadFromFile("test/json/simple_query_with_papi.json");
 
   std::string papi;
-  const auto& out = executeAndWait(q, 1, &papi);
+  const auto& out = executeAndWait(q, nullptr, 1, &papi);
 
   ASSERT_FALSE(!out);
   ASSERT_TABLE_EQUAL(out, StorageManager::getInstance()->getTable("lin_xxs_comp"));
@@ -217,7 +217,7 @@ TEST_F(JSONTests, parse_papi_badevent_set) {
 
   std::string papi;
   ASSERT_THROW( {
-      executeAndWait(q, 1, &papi);
+      executeAndWait(q, nullptr, 1, &papi);
     }, std::runtime_error);
 
   StorageManager::getInstance()->removeAll();
@@ -231,7 +231,7 @@ TEST_F(JSONTests, parse_papi_event_not_set) {
   std::string q = loadFromFile("test/json/simple_query.json");
 
   std::string papi;
-  const auto& out = executeAndWait(q, 1, &papi);
+  const auto& out = executeAndWait(q, nullptr, 1, &papi);
 
   ASSERT_FALSE(!out);
   ASSERT_TABLE_EQUAL(out, StorageManager::getInstance()->getTable("lin_xxs_comp"));
@@ -355,7 +355,7 @@ TEST_F(JSONTests, parallel_query_positions_parser) {
   //std::string query = loadFromFile("test/json/parallel_query_positions.json");
   std::string query = loadFromFile("test/json/parallel_stc_with_join.json");
 
-  const auto& result = executeAndWait(query, 4);
+  const auto& result = executeAndWait(query, nullptr, 4);
   ASSERT_FALSE(!result);
 
   //ASSERT_TABLE_EQUAL(result, StorageManager::getInstance()->getTable("reference"));
@@ -366,7 +366,7 @@ TEST_F(JSONTests, parallel_query_materializing_parser) {
   StorageManager::getInstance()->loadTableFile("reference", "edges_ref.tbl");
   std::string query = loadFromFile("test/json/parallel_query_materializing.json");
 
-  const auto& result = executeAndWait(query, 4);
+  const auto& result = executeAndWait(query, nullptr, 4);
   ASSERT_FALSE(!result);
 
   ASSERT_TABLE_EQUAL(result, StorageManager::getInstance()->getTable("reference"));

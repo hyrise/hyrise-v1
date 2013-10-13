@@ -12,7 +12,7 @@
 #include "access/SortScan.h"
 
 #include "helper/HttpHelper.h"
-#include "helper/types.h"
+#include "helper/make_unique.h"
 
 #include "net/AbstractConnection.h"
 
@@ -99,11 +99,74 @@ bool isEdgeEqual(
 
 
 
-std::string loadFromFile(std::string path) {
+std::string loadFromFile(const std::string& path) {
+  parameter_map_t map;
+  return loadParameterized(path, map);
+}
+
+void setParameterf(parameter_map_t& map, const std::string& name, float value) {
+  map[name] = std::make_shared<FloatParameterValue>(value);
+}
+
+void setParameteri(parameter_map_t& map, const std::string& name, int value, size_t width) {
+  map[name] = std::make_shared<IntParameterValue>(value, width);
+}
+
+void setParameters(parameter_map_t& map, const std::string& name, const std::string& value) {
+  map[name] = std::make_shared<StringParameterValue>(value);
+}
+
+namespace {
+  enum FormatType { IntFormatType, StringFormatType, FloatFormatType, NoneFormat};
+
+  FormatType getType(char c) {
+    switch (c) {
+      case 'i':
+      case 'd': return IntFormatType;
+      case 'f': return FloatFormatType;
+      case 's': return StringFormatType;
+      default: return NoneFormat;
+    }
+  }
+}
+
+std::string loadParameterized(const std::string &path, const parameter_map_t& params) {
   std::ifstream data_file(path.c_str());
-  std::string result((std::istreambuf_iterator<char>(data_file)), std::istreambuf_iterator<char>());
+  std::string file((std::istreambuf_iterator<char>(data_file)), std::istreambuf_iterator<char>());
   data_file.close();
-  return result;
+
+  for (auto& param : params) {
+    size_t pos = (size_t) -1;
+    //const std::string name = "%(" + param.first + ")";
+    const std::string name = "%(" + param.first + ")";
+    
+    while ((pos = file.find(name, pos + 1)) != file.npos) {
+      size_t curpos = pos + name.length();
+      std::ostringstream os;
+
+      if (isdigit(file.at(curpos))) {
+        char* endptr;
+        size_t width = strtol(file.c_str() + curpos, &endptr, 10);
+	curpos = endptr - file.c_str();
+	os << std::setw(width);
+      }
+      
+      if (!isalpha(file.at(curpos)))
+        throw std::runtime_error("no format set for parameter \'" + param.first + "\'");
+      
+      switch (getType(file.at(curpos))) {
+        case FloatFormatType:
+        case IntFormatType:    os << std::setfill('0'); break;
+	case StringFormatType: os << std::setfill(' '); break;
+	case NoneFormat: throw std::runtime_error("illegal format for parameter \'" + param.first + "\'");
+      }
+
+      os << param.second->toString();
+      file.replace(pos, curpos + 1 - pos, os.str());
+    }
+  }
+
+  return file;
 }
 
 class MockedConnection : public hyrise::net::AbstractConnection {
@@ -142,11 +205,23 @@ class MockedConnection : public hyrise::net::AbstractConnection {
  */
 hyrise::storage::c_atable_ptr_t executeAndWait(
     std::string httpQuery,
+    hyrise::tx::transaction_id_t* tid_ptr,
     size_t poolSize,
     std::string* evt) {
   using namespace hyrise;
   using namespace hyrise::access;
-  std::unique_ptr<MockedConnection> conn(new MockedConnection("query="+httpQuery));
+  using namespace hyrise::tx;
+ 
+  std::stringstream query;
+  query << "query=" << httpQuery;
+  //if (tid_ptr == nullptr)
+  //  query << "&autocommit=true";
+  if (tid_ptr != nullptr && *tid_ptr != UNKNOWN) {
+    const auto tid = *tid_ptr;
+    query << "&session_context=" << tid;
+  }
+
+  std::unique_ptr<MockedConnection> conn = make_unique<MockedConnection>(query.str());
 
   SharedScheduler::getInstance().resetScheduler("WSCoreBoundQueuesScheduler", poolSize);
   AbstractTaskScheduler * scheduler = SharedScheduler::getInstance().getScheduler();
@@ -181,5 +256,13 @@ hyrise::storage::c_atable_ptr_t executeAndWait(
     *evt = result_task->getEvent();
   }
   
+  if (tid_ptr != nullptr) {
+    auto context = response->getTxContext();
+    if (*tid_ptr == UNKNOWN)
+      *tid_ptr = context.tid;
+    else if (context.tid != *tid_ptr)
+      throw std::runtime_error("requested transaction id ignored!");
+  }
+
   return result_task->getResultTable();
 }
