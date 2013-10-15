@@ -1,8 +1,9 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "helper.h"
 
-#include <iostream>
+//#include <iostream>
 #include <fstream>
+#include <sstream>
 #include <memory>
 
 #include "access/HashBuild.h"
@@ -10,6 +11,7 @@
 #include "access/system/RequestParseTask.h"
 #include "access/system/ResponseTask.h"
 #include "access/SortScan.h"
+#include "io/TransactionManager.h"
 
 #include "helper/HttpHelper.h"
 #include "helper/make_unique.h"
@@ -104,15 +106,15 @@ std::string loadFromFile(const std::string& path) {
   return loadParameterized(path, map);
 }
 
-void setParameterf(parameter_map_t& map, const std::string& name, float value) {
+void setParameter(parameter_map_t& map, std::string name, float value) {
   map[name] = std::make_shared<FloatParameterValue>(value);
 }
 
-void setParameteri(parameter_map_t& map, const std::string& name, int value, size_t width) {
-  map[name] = std::make_shared<IntParameterValue>(value, width);
+void setParameter(parameter_map_t& map, std::string name, int value) {
+  map[name] = std::make_shared<IntParameterValue>(value);
 }
 
-void setParameters(parameter_map_t& map, const std::string& name, const std::string& value) {
+void setParameter(parameter_map_t& map, std::string name, std::string value) {
   map[name] = std::make_shared<StringParameterValue>(value);
 }
 
@@ -137,7 +139,6 @@ std::string loadParameterized(const std::string &path, const parameter_map_t& pa
 
   for (auto& param : params) {
     size_t pos = (size_t) -1;
-    //const std::string name = "%(" + param.first + ")";
     const std::string name = "%(" + param.first + ")";
     
     while ((pos = file.find(name, pos + 1)) != file.npos) {
@@ -197,6 +198,10 @@ class MockedConnection : public hyrise::net::AbstractConnection {
   std::string _response;
 };
 
+hyrise::tx::TXContext getNewTXContext() {
+  return hyrise::tx::TransactionManager::beginTransaction();
+}
+
 /**
  * This function is used to simulate the execution of plan operations
  * using the threadpool. The input to this function is a JSON std::string
@@ -205,21 +210,18 @@ class MockedConnection : public hyrise::net::AbstractConnection {
  */
 hyrise::storage::c_atable_ptr_t executeAndWait(
     std::string httpQuery,
-    hyrise::tx::transaction_id_t* tid_ptr,
     size_t poolSize,
-    std::string* evt) {
+    std::string* evt,
+    hyrise::tx::transaction_id_t tid) {
   using namespace hyrise;
   using namespace hyrise::access;
   using namespace hyrise::tx;
  
   std::stringstream query;
   query << "query=" << httpQuery;
-  //if (tid_ptr == nullptr)
-  //  query << "&autocommit=true";
-  if (tid_ptr != nullptr && *tid_ptr != UNKNOWN) {
-    const auto tid = *tid_ptr;
-    query << "&session_context=" << tid;
-  }
+  if (tid == hyrise::tx::UNKNOWN)
+    tid = getNewTXContext().tid;
+  query << "&session_context=" << tid;
 
   std::unique_ptr<MockedConnection> conn = make_unique<MockedConnection>(query.str());
 
@@ -237,12 +239,7 @@ hyrise::storage::c_atable_ptr_t executeAndWait(
 
   wait->wait();
 
-
-  
   auto result_task = response->getResultTask();
-  
-  /*
-  */
   
   if (response->getState() == OpFail) {
     throw std::runtime_error(joinString(response->getErrorMessages(), "\n"));
@@ -256,13 +253,9 @@ hyrise::storage::c_atable_ptr_t executeAndWait(
     *evt = result_task->getEvent();
   }
   
-  if (tid_ptr != nullptr) {
-    auto context = response->getTxContext();
-    if (*tid_ptr == UNKNOWN)
-      *tid_ptr = context.tid;
-    else if (context.tid != *tid_ptr)
-      throw std::runtime_error("requested transaction id ignored!");
-  }
+  auto context = response->getTxContext();
+  if (context.tid != tid)
+    throw std::runtime_error("requested transaction id ignored!");
 
   return result_task->getResultTable();
 }

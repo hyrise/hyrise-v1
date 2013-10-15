@@ -4,9 +4,11 @@
 
 #include <json.h>
 #include <gtest/gtest.h>
+
 #include <helper/HwlocHelper.h>
 #include <helper/types.h>
 #include <storage/AbstractTable.h>
+#include <io/TXContext.h>
 
 //  Joins specified columns of a single table using hash join.
 hyrise::storage::c_atable_ptr_t hashJoinSameTable(
@@ -86,17 +88,19 @@ class StringParameterValue : public ParameterValue {
   const std::string _value;
 };
 
-void setParameteri(parameter_map_t& map, const std::string& name, int value, size_t width = 0);
-void setParameterf(parameter_map_t& map, const std::string& name, float value);
-void setParameters(parameter_map_t& map, const std::string& name, const std::string& value);
+void setParameter(parameter_map_t& map, std::string name, int value);
+void setParameter(parameter_map_t& map, std::string name, float value);
+void setParameter(parameter_map_t& map, std::string name, std::string value);
 
 std::string loadFromFile(const std::string& path);
 std::string loadParameterized(const std::string &path, const parameter_map_t& params);
 
+hyrise::tx::TXContext getNewTXContext();
+
 hyrise::storage::c_atable_ptr_t executeAndWait(
     std::string httpQuery,
-    hyrise::tx::transaction_id_t* tid = nullptr,
     size_t poolSize = getNumberOfCoresOnSystem(),
-    std::string *evt = nullptr);
+    std::string *evt = nullptr,
+    hyrise::tx::transaction_id_t tid = hyrise::tx::UNKNOWN);
 
 #endif  // SRC_BIN_UNITS_ACCESS_HELPER_H_

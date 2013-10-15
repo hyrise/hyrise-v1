@@ -108,7 +108,7 @@ protected:
 
   enum TpccTable { Customer, Orders, OrderLine, Warehouse, NewOrder, District, Item, Stock, History };
 
-  static storage::c_atable_ptr_t loadTable(const TpccTable table, tx::transaction_id_t* tid = nullptr) {
+  static storage::c_atable_ptr_t loadTable(const TpccTable table, tx::transaction_id_t tid = hyrise::tx::UNKNOWN) {
     std::string tableName;
     std::string fileName;
     switch (table) {
@@ -122,8 +122,11 @@ protected:
       case Stock:     tableName = "STOCK"; break;
       case History:   tableName = "HISTORY"; break;
     }
+    if (tid == hyrise::tx::UNKNOWN)
+      tid = getNewTXContext().tid;
+
     return executeAndWait("{\"operators\": {\"load\": {\"type\": \"TableLoad\", \"table\": \"" + tableName + "\"}" +
-                          ", \"validate\": {\"type\": \"ValidatePositions\"}}, \"edges\": [[\"load\", \"validate\"]]}", tid);
+                          ", \"validate\": {\"type\": \"ValidatePositions\"}}, \"edges\": [[\"load\", \"validate\"]]}", 1, nullptr, tid);
   }
 };
 
@@ -161,37 +164,37 @@ void TpccExecuteTest::doDelivery(int w_id, int d_id, int o_carrier_id, std::stri
   assureQueryFilesExist(_deliveryMap);
 
   parameter_map_t map;
-  setParameteri(map, "w_id", w_id);
-  setParameteri(map, "d_id", d_id);
-  setParameteri(map, "o_carrier_id", o_carrier_id);
-  setParameters(map, "date", date);
+  setParameter(map, "w_id", w_id);
+  setParameter(map, "d_id", d_id);
+  setParameter(map, "o_carrier_id", o_carrier_id);
+  setParameter(map, "date", date);
   
-  tx::transaction_id_t tid = tx::UNKNOWN;
+  auto tid = getNewTXContext().tid;
   
   // getNewOrder
-  auto t1 = executeAndWait(loadParameterized(_deliveryMap["getNewOrder"], map), &tid);
+  auto t1 = executeAndWait(loadParameterized(_deliveryMap["getNewOrder"], map), 1, nullptr, tid);
   ASSERT_GE(t1->size(), 1);
   const int no_o_id = t1->getValue<int>("NO_O_ID", 0);
-  setParameteri(map, "no_o_id", no_o_id);
+  setParameter(map, "no_o_id", no_o_id);
 
   // getCId
-  auto t2 = executeAndWait(loadParameterized(_deliveryMap["getCId"], map), &tid);
+  auto t2 = executeAndWait(loadParameterized(_deliveryMap["getCId"], map), 1, nullptr, tid);
   ASSERT_EQ(t2->size(), 1);
   const int c_id = t2->getValue<int>("O_C_ID", 0);
-  setParameteri(map, "c_id", c_id);
+  setParameter(map, "c_id", c_id);
 
   //sumOLAmount
-  auto t3 = executeAndWait(loadParameterized(_deliveryMap["sumOLAmount"], map), &tid);
+  auto t3 = executeAndWait(loadParameterized(_deliveryMap["sumOLAmount"], map), 1, nullptr, tid);
   ASSERT_EQ(1, t3->size());
   ASSERT_EQ(1, t3->columnCount());
   const float ol_total = t3->getValue<float>(0, 0);
-  setParameterf(map, "ol_total", ol_total);
+  setParameter(map, "ol_total", ol_total);
 
-  executeAndWait(loadParameterized(_deliveryMap["deleteNewOrder"], map), &tid); 
-  executeAndWait(loadParameterized(_deliveryMap["updateOrders"], map), &tid);
-  executeAndWait(loadParameterized(_deliveryMap["updateOrderLine"], map), &tid);
-  executeAndWait(loadParameterized(_deliveryMap["updateCustomer"], map), &tid);
-  executeAndWait(_commit, &tid);
+  executeAndWait(loadParameterized(_deliveryMap["deleteNewOrder"], map), 1, nullptr, tid); 
+  executeAndWait(loadParameterized(_deliveryMap["updateOrders"], map), 1, nullptr, tid);
+  executeAndWait(loadParameterized(_deliveryMap["updateOrderLine"], map), 1, nullptr, tid);
+  executeAndWait(loadParameterized(_deliveryMap["updateCustomer"], map), 1, nullptr, tid);
+  executeAndWait(_commit, 1, nullptr, tid);
 
   //simple size checks on tables:
   EXPECT_EQ(i_orders_size, loadTable(Orders)->size()) << "number of rows in ORDERS should not change";
@@ -204,85 +207,84 @@ void TpccExecuteTest::doDelivery(int w_id, int d_id, int o_carrier_id, std::stri
 //TEST_F(TpccExecuteTest, NewOrderTest) {
 void TpccExecuteTest::doNewOrder(int w_id, int d_id, int c_id, int o_carrier_id, std::string ol_dist_info, bool rollback,
                                  std::string date, item_info_list_t items) {
-  const unsigned all_local = std::all_of(items.cbegin(), items.cend(), [&](ItemInfo item) { return item.i_w_id == w_id; });
+  const int all_local = std::all_of(items.cbegin(), items.cend(), [&](ItemInfo item) { return item.i_w_id == w_id; });
   //look for dublicates
   std::sort(items.begin(), items.end(), [](ItemInfo i1, ItemInfo i2) { return i1.i_id <= i2.i_id; });
   auto dublicates = std::unique(items.begin(), items.end(), [](ItemInfo i1, ItemInfo i2) { return i1.i_id == i2.i_id; });
   ASSERT_EQ(dublicates, items.end()) << "i_ids should not contain dublicates!";
 
-  const unsigned ol_cnt = items.size();
+  const int ol_cnt = items.size();
 
   assureQueryFilesExist(_newOrderMap);
 
   parameter_map_t map;
-  setParameteri(map, "w_id", w_id);
-  setParameteri(map, "d_id", d_id);
-  setParameteri(map, "2d_id", d_id, 2);
-  setParameteri(map, "c_id", c_id);
-  setParameters(map, "date", date);
-  setParameteri(map, "o_carrier_id", o_carrier_id);
-  setParameteri(map, "o_ol_cnt", ol_cnt);
-  setParameteri(map, "all_local", all_local);
-  setParameters(map, "ol_dist_info", ol_dist_info);
+  setParameter(map, "w_id", w_id);
+  setParameter(map, "d_id", d_id);
+  setParameter(map, "c_id", c_id);
+  setParameter(map, "date", date);
+  setParameter(map, "o_carrier_id", o_carrier_id);
+  setParameter(map, "o_ol_cnt", ol_cnt);
+  setParameter(map, "all_local", all_local);
+  setParameter(map, "ol_dist_info", ol_dist_info);
 
-  tx::transaction_id_t tid = tx::UNKNOWN;
+  auto tid = getNewTXContext().tid;
 
   typedef struct item_data_t { float price; std::string name; std::string data; } ItemData;
   std::vector<ItemData> itemData(ol_cnt);
 
 // getNewOrder
-  for (unsigned i = 0; i < ol_cnt; ++i) {
-    setParameteri(map, "i_id", items.at(i).i_id);
-    auto t1 = executeAndWait(loadParameterized(_newOrderMap["getItemInfo"], map), &tid);
+  for (int i = 0; i < ol_cnt; ++i) {
+    setParameter(map, "i_id", items.at(i).i_id);
+    auto t1 = executeAndWait(loadParameterized(_newOrderMap["getItemInfo"], map), 1, nullptr, tid);
     ASSERT_EQ(t1->size(), 1);
     itemData[i].price = t1->getValue<float>("I_PRICE", 0);
     itemData[i].name = t1->getValue<std::string>("I_NAME", 0);
     itemData[i].data = t1->getValue<std::string>("I_DATA", 0);
   }
 
-  auto t2 = executeAndWait(loadParameterized(_newOrderMap["getWarehouseTaxRate"], map), &tid);
+  auto t2 = executeAndWait(loadParameterized(_newOrderMap["getWarehouseTaxRate"], map), 1, nullptr, tid);
   ASSERT_EQ(t2->size(), 1);
   const float w_tax = t2->getValue<float>("W_TAX", 0);
 
-  auto t3 = executeAndWait(loadParameterized(_newOrderMap["getDistrict"], map), &tid);
+  auto t3 = executeAndWait(loadParameterized(_newOrderMap["getDistrict"], map), 1, nullptr, tid);
   ASSERT_EQ(t3->size(), 1);
   const float d_tax = t3->getValue<float>("D_TAX", 0);
-  const unsigned o_id = t3->getValue<int>("D_NEXT_O_ID", 0);
-  setParameteri(map, "o_id", o_id);
+  const int o_id = t3->getValue<int>("D_NEXT_O_ID", 0);
+  setParameter(map, "o_id", o_id);
 
-  auto t4 = executeAndWait(loadParameterized(_newOrderMap["getCustomer"], map), &tid);
+  auto t4 = executeAndWait(loadParameterized(_newOrderMap["getCustomer"], map), 1, nullptr, tid);
   ASSERT_EQ(t4->size(), 1);
   const float c_discount = t4->getValue<float>("C_DISCOUNT", 0);
   const std::string c_last = t4->getValue<std::string>("C_LAST", 0);
   const std::string c_credit = t4->getValue<std::string>("C_CREDIT", 0);
 
-  setParameteri(map, "d_next_o_id", o_id + 1);
-  executeAndWait(loadParameterized(_newOrderMap["incrementNextOrderId"], map), &tid);
-  executeAndWait(loadParameterized(_newOrderMap["createOrder"], map), &tid);
-  executeAndWait(loadParameterized(_newOrderMap["createNewOrder"], map), &tid);
+  setParameter(map, "d_next_o_id", o_id + 1);
+  executeAndWait(loadParameterized(_newOrderMap["incrementNextOrderId"], map), 1, nullptr, tid);
+  executeAndWait(loadParameterized(_newOrderMap["createOrder"], map), 1, nullptr, tid);
+  executeAndWait(loadParameterized(_newOrderMap["createNewOrder"], map), 1, nullptr, tid);
 
-  unsigned s_quantity;
+  int s_quantity;
   int s_ytd;
-  unsigned s_order_cnt, s_remote_cnt;
+  int s_order_cnt, s_remote_cnt;
   std::string s_data, s_dist;
-  unsigned ol_supply_w_id, ol_i_id, ol_quantity;
+  int ol_supply_w_id, ol_i_id, ol_quantity;
   float ol_amount, total = 0;
 
-  for (unsigned i = 0; i < ol_cnt; ++i) {
-    setParameteri(map, "ol_number", i + 1);
+  for (int i = 0; i < ol_cnt; ++i) {
+    setParameter(map, "ol_number", i + 1);
     ol_supply_w_id = items.at(i).i_w_id;
-    setParameteri(map, "ol_supply_w_id", ol_supply_w_id);
+    setParameter(map, "ol_supply_w_id", ol_supply_w_id);
     ol_i_id = items.at(i).i_id;
-    setParameteri(map, "ol_i_id", ol_i_id);
+    setParameter(map, "ol_i_id", ol_i_id);
     ol_quantity = items.at(i).quantity;
-    setParameteri(map, "ol_quantity", ol_i_id);
+    setParameter(map, "ol_quantity", ol_i_id);
 
-    auto t5 = executeAndWait(loadParameterized(_newOrderMap["getStockInfo"], map), &tid);
+    auto t5 = executeAndWait(loadParameterized(_newOrderMap["getStockInfo"], map), 1, nullptr, tid);
     ASSERT_EQ(t5->size(), 1);
 
     s_ytd = t5->getValue<int>("S_YTD", 0);
     s_ytd += ol_quantity;
-    setParameteri(map, "s_ytd", s_ytd);
+    setParameter(map, "s_ytd", s_ytd);
 
     s_quantity = t5->getValue<int>("S_QUANTITY", 0);
     s_order_cnt = t5->getValue<int>("S_ORDER_CNT", 0);
@@ -293,28 +295,28 @@ void TpccExecuteTest::doNewOrder(int w_id, int d_id, int c_id, int o_carrier_id,
       s_quantity = s_quantity + 91 - ol_quantity;
       ++s_order_cnt;
     }
-    setParameteri(map, "s_order_cnt", s_order_cnt);
-    setParameteri(map, "s_quantity", s_quantity);
+    setParameter(map, "s_order_cnt", s_order_cnt);
+    setParameter(map, "s_quantity", s_quantity);
 
     s_remote_cnt = t5->getValue<int>("S_REMOTE_CNT", 0);
-    setParameteri(map, "s_remote_cnt", s_remote_cnt);
+    setParameter(map, "s_remote_cnt", s_remote_cnt);
 
     std::string s_data = t5->getValue<std::string>("S_DATA", 0);
     std::string s_dist = t5->getValue<std::string>(5, 0);
 
     ol_amount = ol_quantity * itemData.at(i).price;
-    setParameterf(map, "ol_amount", ol_amount);
+    setParameter(map, "ol_amount", ol_amount);
 
     total += ol_amount;
     
     ASSERT_EQ(t5->columnCount(), 6);
 
-    executeAndWait(loadParameterized(_newOrderMap["updateStock"], map), &tid);
-    executeAndWait(loadParameterized(_newOrderMap["createOrderLine"], map), &tid);
+    executeAndWait(loadParameterized(_newOrderMap["updateStock"], map), 1, nullptr, tid);
+    executeAndWait(loadParameterized(_newOrderMap["createOrderLine"], map), 1, nullptr, tid);
   }
 
   if (rollback) {
-    executeAndWait(_rollback, &tid);
+    executeAndWait(_rollback, 1, nullptr, tid);
   
     EXPECT_EQ(i_stock_size, loadTable(Stock)->size()) << "number of rows in STOCK should not change";
     EXPECT_EQ(i_newOrder_size, loadTable(NewOrder)->size()) << "number of rows in NEW-ORDER should not change";
@@ -326,7 +328,7 @@ void TpccExecuteTest::doNewOrder(int w_id, int d_id, int c_id, int o_carrier_id,
 
   total *=  (1 - c_discount) * (1 + w_tax + d_tax);
 
-  executeAndWait(_commit, &tid);
+  executeAndWait(_commit, 1, nullptr, tid);
 
   //simple size checks on tables:
   EXPECT_EQ(i_stock_size, loadTable(Stock)->size()) << "number of rows in STOCK should not change";
@@ -343,36 +345,36 @@ void TpccExecuteTest::doOrderStatus(int w_id, int d_id, int c_id, std::string c_
   assureQueryFilesExist(_orderStatusMap);
 
   parameter_map_t map;
-  setParameteri(map, "w_id", w_id);
-  setParameteri(map, "d_id", d_id);
-  setParameteri(map, "c_id", c_id);
-  setParameters(map, "c_last", c_last);
+  setParameter(map, "w_id", w_id);
+  setParameter(map, "d_id", d_id);
+  setParameter(map, "c_id", c_id);
+  setParameter(map, "c_last", c_last);
 
-  tx::transaction_id_t tid = tx::UNKNOWN;
+  auto tid = getNewTXContext().tid;
 
   if (!selectByLastName) {
-    auto t1 = executeAndWait(loadParameterized(_orderStatusMap["getCustomerByCId"], map), &tid);
+    auto t1 = executeAndWait(loadParameterized(_orderStatusMap["getCustomerByCId"], map), 1, nullptr, tid);
     ASSERT_EQ(t1->size(), 1);
     ASSERT_EQ(c_id,  t1->getValue<int>("C_ID", 0));
     c_id = t1->getValue<int>("C_ID", 0);
   }
   else {
-    auto t1 = executeAndWait(loadParameterized(_orderStatusMap["getCustomersByLastName"], map), &tid);
+    auto t1 = executeAndWait(loadParameterized(_orderStatusMap["getCustomersByLastName"], map), 1, nullptr, tid);
     ASSERT_GE(t1->size(), 1);
     const size_t chosenOne = (t1->size() - 1) / 2;
     c_id = t1->getValue<int>("C_ID", chosenOne);
   }
-  setParameteri(map, "c_id", c_id);
+  setParameter(map, "c_id", c_id);
 
-  auto t2 = executeAndWait(loadParameterized(_orderStatusMap["getLastOrder"], map), &tid);
+  auto t2 = executeAndWait(loadParameterized(_orderStatusMap["getLastOrder"], map), 1, nullptr, tid);
   ASSERT_GE(t2->size(), 1);
-  const unsigned o_id = t2->getValue<int>("O_ID", 0);
-  setParameteri(map, "o_id", o_id);
+  const int o_id = t2->getValue<int>("O_ID", 0);
+  setParameter(map, "o_id", o_id);
 
-  auto t3 = executeAndWait(loadParameterized(_orderStatusMap["getOrderLines"], map), &tid);
+  auto t3 = executeAndWait(loadParameterized(_orderStatusMap["getOrderLines"], map), 1, nullptr, tid);
   ASSERT_GE(t3->size(), 1);
 
-  executeAndWait(_commit, &tid);
+  executeAndWait(_commit, 1, nullptr, tid);
 }
 
 //TEST_F(TpccExecuteTest, PaymentTest) {
@@ -383,71 +385,71 @@ void TpccExecuteTest::doPayment(int w_id, int d_id, int c_id, std::string c_last
   const float h_amount = 314.16;
 
   parameter_map_t map;
-  setParameteri(map, "w_id", w_id);
-  setParameteri(map, "d_id", d_id);
-  setParameterf(map, "h_amount", h_amount);
-  setParameteri(map, "c_w_id", c_w_id);
-  setParameteri(map, "c_d_id", c_d_id);
-  setParameteri(map, "c_id", c_id);
-  setParameters(map, "c_last", c_last);
-  setParameters(map, "date", date);
+  setParameter(map, "w_id", w_id);
+  setParameter(map, "d_id", d_id);
+  setParameter(map, "h_amount", h_amount);
+  setParameter(map, "c_w_id", c_w_id);
+  setParameter(map, "c_d_id", c_d_id);
+  setParameter(map, "c_id", c_id);
+  setParameter(map, "c_last", c_last);
+  setParameter(map, "date", date);
 
-  tx::transaction_id_t tid = tx::UNKNOWN;
+  auto tid = getNewTXContext().tid;
  
   float c_balance, c_ytd_payment;
   int c_payment_cnt;
   std::string c_data;
 
   if (!selectByLastName) {
-    auto t1 = executeAndWait(loadParameterized(_paymentMap["getCustomerByCId"], map), &tid);
+    auto t1 = executeAndWait(loadParameterized(_paymentMap["getCustomerByCId"], map), 1, nullptr, tid);
     ASSERT_EQ(t1->size(), 1);
-    setParameteri(map, "c_id", t1->getValue<int>("C_ID", 0));
+    setParameter(map, "c_id", t1->getValue<int>("C_ID", 0));
     c_balance = t1->getValue<float>("C_BALANCE", 0);
     c_payment_cnt = t1->getValue<int>("C_PAYMENT_CNT", 0);
     c_ytd_payment = t1->getValue<float>("C_YTD_PAYMENT", 0);
     c_data = t1->getValue<std::string>("C_DATA", 0);
   }
   else {
-    auto t1 = executeAndWait(loadParameterized(_paymentMap["getCustomersByLastName"], map), &tid);
+    auto t1 = executeAndWait(loadParameterized(_paymentMap["getCustomersByLastName"], map), 1, nullptr, tid);
     ASSERT_GE(t1->size(), 1);
     const size_t chosenOne = (t1->size() - 1) / 2;
-    setParameteri(map, "c_id", t1->getValue<int>("C_ID", chosenOne));
+    setParameter(map, "c_id", t1->getValue<int>("C_ID", chosenOne));
     c_balance = t1->getValue<float>("C_BALANCE", 0);
     c_payment_cnt = t1->getValue<int>("C_PAYMENT_CNT", 0);
     c_ytd_payment = t1->getValue<float>("C_YTD_PAYMENT", 0);
     c_data = t1->getValue<std::string>("C_DATA", 0);
   }
   
-  setParameterf(map, "c_balance", c_balance - h_amount);
-  setParameteri(map, "c_payment_cnt", c_payment_cnt + 1);
-  setParameterf(map, "c_ytd_payment", c_ytd_payment + h_amount);
-  setParameters(map, "c_data", c_data);
+  setParameter(map, "c_balance", c_balance - h_amount);
+  setParameter(map, "c_payment_cnt", c_payment_cnt + 1);
+  setParameter(map, "c_ytd_payment", c_ytd_payment + h_amount);
+  setParameter(map, "c_data", c_data);
 
-  auto t2 = executeAndWait(loadParameterized(_paymentMap["getWarehouse"], map), &tid);
+  auto t2 = executeAndWait(loadParameterized(_paymentMap["getWarehouse"], map), 1, nullptr, tid);
   ASSERT_EQ(t2->size(), 1);
   const float w_ytd = t2->getValue<float>("W_YTD", 0);
   const std::string w_name = t2->getValue<std::string>("W_NAME", 0);
-  setParameterf(map, "w_ytd", w_ytd + h_amount);
+  setParameter(map, "w_ytd", w_ytd + h_amount);
   
   auto t3 = executeAndWait(loadParameterized(_paymentMap["getDistrict"], map));
   ASSERT_EQ(t3->size(), 1);
   const float d_ytd = t3->getValue<float>("D_YTD", 0);
   const std::string d_name = t3->getValue<std::string>("D_NAME", 0);
-  setParameterf(map, "d_ytd", d_ytd + h_amount);
+  setParameter(map, "d_ytd", d_ytd + h_amount);
 
-  setParameters(map, "h_data", w_name + "    " + d_name);
+  setParameter(map, "h_data", w_name + "    " + d_name);
 
-  executeAndWait(loadParameterized(_paymentMap["updateWarehouseBalance"], map), &tid);
-  executeAndWait(loadParameterized(_paymentMap["updateDistrictBalance"], map), &tid);
+  executeAndWait(loadParameterized(_paymentMap["updateWarehouseBalance"], map), 1, nullptr, tid);
+  executeAndWait(loadParameterized(_paymentMap["updateDistrictBalance"], map), 1, nullptr, tid);
   
   if (bc_customer)
-    executeAndWait(loadParameterized(_paymentMap["updateBCCustomer"], map), &tid);
+    executeAndWait(loadParameterized(_paymentMap["updateBCCustomer"], map), 1, nullptr, tid);
   else
-    executeAndWait(loadParameterized(_paymentMap["updateGCCustomer"], map), &tid);
+    executeAndWait(loadParameterized(_paymentMap["updateGCCustomer"], map), 1, nullptr, tid);
   
-  executeAndWait(loadParameterized(_paymentMap["insertHistory"], map), &tid);
+  executeAndWait(loadParameterized(_paymentMap["insertHistory"], map), 1, nullptr, tid);
 
-  executeAndWait(_commit, &tid);
+  executeAndWait(_commit, 1, nullptr, tid);
   
   //simple size checks on tables:
   EXPECT_EQ(i_customer_size, loadTable(Customer)->size()) << "number of rows in CUSTOMER should not change";
@@ -461,23 +463,23 @@ void TpccExecuteTest::doStockLevel(int w_id, int d_id, int threshold) {
   assureQueryFilesExist(_stockLevelMap);
 
   parameter_map_t map;
-  setParameteri(map, "w_id", w_id);
-  setParameteri(map, "d_id", d_id);
-  setParameteri(map, "threshold", threshold); //not perfect for real tpcc
+  setParameter(map, "w_id", w_id);
+  setParameter(map, "d_id", d_id);
+  setParameter(map, "threshold", threshold); //not perfect for real tpcc
 
-  tx::transaction_id_t tid = tx::UNKNOWN;
+  auto tid = getNewTXContext().tid;
 
-  auto t1 = executeAndWait(loadParameterized(_stockLevelMap["getOId"], map), &tid);
+  auto t1 = executeAndWait(loadParameterized(_stockLevelMap["getOId"], map), 1, nullptr, tid);
   ASSERT_EQ(1, t1->size());
-  const unsigned o_id = t1->getValue<int>("D_NEXT_O_ID", 0);
-  setParameteri(map, "o_id1", o_id-21);
-  setParameteri(map, "o_id2", o_id+1);
+  const int o_id = t1->getValue<int>("D_NEXT_O_ID", 0);
+  setParameter(map, "o_id1", o_id-21);
+  setParameter(map, "o_id2", o_id+1);
 
-  auto t2 = executeAndWait(loadParameterized(_stockLevelMap["getStockCount"], map), &tid);
+  auto t2 = executeAndWait(loadParameterized(_stockLevelMap["getStockCount"], map), 1, nullptr, tid);
   ASSERT_EQ(1, t2->size());
   ASSERT_EQ(1, t2->columnCount());
 
-  executeAndWait(_commit, &tid);
+  executeAndWait(_commit, 1, nullptr, tid);
 }
 
 
