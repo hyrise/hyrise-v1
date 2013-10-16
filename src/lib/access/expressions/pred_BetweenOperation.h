@@ -35,6 +35,12 @@ class BetweenExpression : public SimpleFieldExpression {
       std::swap(lower_value, upper_value);
   }
 
+  BetweenExpression(hyrise::storage::c_atable_ptr_t _table, field_name_t _field, T _lower_value, T _upper_value) :
+      SimpleFieldExpression(_table, _field), lower_value(_lower_value), upper_value(_upper_value) {
+    if (lower_value > upper_value)
+      std::swap(lower_value, upper_value);
+  }
+
   virtual void walk(const std::vector<hyrise::storage::c_atable_ptr_t > &l) {
     SimpleFieldExpression::walk(l);
 

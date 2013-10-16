@@ -26,6 +26,10 @@ class LessThanExpression : public SimpleFieldExpression {
       SimpleFieldExpression(_table, _field), value(_value)
   {}
 
+  LessThanExpression(hyrise::storage::c_atable_ptr_t _table, field_name_t _field, T _value) :
+      SimpleFieldExpression(_table, _field), value(_value)
+  {}
+
   virtual void walk(const std::vector<hyrise::storage::c_atable_ptr_t > &l) {
 
     SimpleFieldExpression::walk(l);

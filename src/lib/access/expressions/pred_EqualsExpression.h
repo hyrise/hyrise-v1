@@ -32,6 +32,9 @@ class EqualsExpression : public SimpleFieldExpression {
   EqualsExpression(hyrise::storage::c_atable_ptr_t& _table, field_t _field, T _value) : SimpleFieldExpression(_table, _field), value(_value)
   {}
 
+  EqualsExpression(hyrise::storage::c_atable_ptr_t& _table, field_name_t _field, T _value) : SimpleFieldExpression(_table, _field), value(_value)
+  {}
+
   virtual void walk(const std::vector<hyrise::storage::c_atable_ptr_t > &l) {
     SimpleFieldExpression::walk(l);
     valueIdMap = std::dynamic_pointer_cast<BaseDictionary<T>>(table->dictionaryAt(field));
