@@ -11,6 +11,8 @@
 #include <access/ProjectionScan.h>
 #include <access/expressions/pred_EqualsExpression.h>
 #include <access/expressions/pred_CompoundExpression.h>
+#include <access/JoinScan.h>
+#include <access/GroupByScan.h>
 
 #include <access/tx/ValidatePositions.h>
 #include <access/tx/Commit.h>
@@ -68,35 +70,14 @@ result_map_t TPCCStockLevelProcedure::execute() {
 }
 
 storage::c_atable_ptr_t TPCCStockLevelProcedure::getOId() {
-/*{
- * "operators": {
- *   "load": {
- *     "type": "GetTable",
- *     "name": "DISTRICT"
- *   },
- *   "select": {
- *     "type": "SimpleTableScan",
- *     "predicates": [
- *        {"type": "AND"},
- *        {"type": "EQ", "in": 0, "f": "D_W_ID", "vtype": 0, "value": %(w_id)d},
- *        {"type": "EQ", "in": 0, "f": "D_ID", "vtype": 0 , "value": %(d_id)d}
- *      ]
- *    },
- *    "project": {
- *      "type": "ProjectionScan",
- *      "fields": ["D_NEXT_O_ID"]
- *    }
- *  },
- *  "edges": [["load", "select"], ["select", "project"]]
- *}*/
   auto district = loadAndValidate("DISTRICT", _tx);
 
   SimpleTableScan select;
   select.setTXContext(_tx);
   select.addInput(district);
-  auto expr_w_id = new EqualsExpression<hyrise_int_t>(district, "D_W_ID", _w_id);
-  auto expr_d_id = new EqualsExpression<hyrise_int_t>(district, "D_ID", _d_id);
-  auto expr_and = new CompoundExpression(expr_w_id, expr_d_id, AND);
+  auto expr1 = new EqualsExpression<hyrise_int_t>(district, "D_W_ID", _w_id);
+  auto expr2 = new EqualsExpression<hyrise_int_t>(district, "D_ID", _d_id);
+  auto expr_and = new CompoundExpression(expr1, expr2, AND);
   select.setPredicate(expr_and);
   select.execute();
 
@@ -109,7 +90,47 @@ storage::c_atable_ptr_t TPCCStockLevelProcedure::getStockCount() {
   auto order_line = loadAndValidate("ORDER_LINE", _tx);
   auto stock = loadAndValidate("STOCK", _tx);
 
-  //TODO
+  JoinScan join(JoinType::EQUI);
+  join.addInput(order_line);
+  join.addInput(stock);
+  join.addJoinClause<int>(0, "OL_I_ID", 1, "S_I_ID");
+  join.execute();
+  auto joinResult = join.getResultTable();
+
+  SimpleTableScan select;
+  select.setTXContext(_tx);
+  select.addInput(joinResult);
+  {
+    const auto min_o_id = _next_o_id - 21;
+    const auto max_o_id = _next_o_id + 1; //D_NEXT_O_ID shoult be greater than every O_ID
+
+    // comparators
+    auto expr1 = new EqualsExpression<hyrise_int_t>(joinResult, "OL_W_ID", _w_id);
+    auto expr2 = new EqualsExpression<hyrise_int_t>(joinResult, "OL_D_ID", _d_id);
+    auto expr3 = new LessThanExpression<hyrise_int_t>(joinResult, "OL_O_ID", max_o_id);
+    auto expr4 = new GreaterThanExpression<hyrise_int_t>(joinResult, "OL_O_ID", min_o_id);
+    auto expr5 = new EqualsExpression<hyrise_int_t>(joinResult, "S_W_ID", _w_id);
+    auto expr6 = new EqualsExpression<hyrise_int_t>(joinResult, "S_QUANTITY", _threshold);
+
+    // ands
+    auto expr_and1 = new CompoundExpression(expr1, expr2, AND);
+    auto expr_and2 = new CompoundExpression(expr2, expr_and1, AND);
+    auto expr_and3 = new CompoundExpression(expr3, expr_and2, AND);
+    auto expr_and4 = new CompoundExpression(expr4, expr_and3, AND);
+    auto expr_and5 = new CompoundExpression(expr5, expr_and4, AND);
+    auto expr_and6 = new CompoundExpression(expr6, expr_and5, AND);
+    select.setPredicate(expr_and6);
+  }
+  select.execute();
+
+  GroupByScan groupby;
+  groupby.addInput(select.getResultTable());
+  auto count = new CountAggregateFun("OL_I_ID");
+  groupby.addFunction(count);
+  count->setDistinct(true);
+  groupby.execute();
+
+  return groupby.getResultTable();
 }
 
 storage::c_atable_ptr_t TPCCStockLevelProcedure::loadAndValidate(std::string name, const tx::TXContext& tx) {
