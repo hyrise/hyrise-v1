@@ -1,6 +1,6 @@
 // Copyright (c) 2013 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 
-#include "TPCCStockLevelProcedure.h"
+#include "TpccStockLevelProcedure.h"
 
 #include <stdexcept>
 
@@ -19,29 +19,29 @@
 
 namespace hyrise { namespace access {
 
-TPCCStockLevelProcedure::TPCCStockLevelProcedure(int w_id, int d_id, int threshold) :
-  _w_id(w_id),
-  _d_id(d_id),
-  _threshold(threshold) {
-    // maybe check correctness of parameters
+auto _ = net::Router::registerRoute<TpccStockLevelProcedure>(
+             "/Tpcc-StockLevel/");
+
+
+TpccStockLevelProcedure::TpccStockLevelProcedure(net::AbstractConnection* connection) :
+  TpccStoredProcedure(connection) {
 }
 
-TPCCStockLevelProcedure::TPCCStockLevelProcedure() :
-  _w_id(0),
-  _d_id(0),
-  _threshold(0) {
-  throw std::runtime_error("cannot call this constructor for TPCCStockLevelProcedure");
+void TpccStockLevelProcedure::setData(Json::Value& data) {
+  _w_id = data["W_ID"].asInt();
+  _d_id = data["D_ID"].asInt();
+  _threshold = data["threshold"].asInt();
 }
 
-TPCCStockLevelProcedure::TPCCStockLevelProcedure(const TPCCStockLevelProcedure& procedure) :
-  _w_id(0),
-  _d_id(0),
-  _threshold(0) {
-  throw std::runtime_error("cannot call this constructor for TPCCStockLevelProcedure");
+std::string TpccStockLevelProcedure::name() {
+  return "Tpcc-StockLevel";
 }
 
+const std::string TpccStockLevelProcedure::vname() {
+  return "Tpcc-StockLevel";
+}
 
-result_map_t TPCCStockLevelProcedure::execute() {
+Json::Value TpccStockLevelProcedure::execute() {
   // Transaction
   _tx = startTransaction();
 
@@ -55,21 +55,20 @@ result_map_t TPCCStockLevelProcedure::execute() {
   commit(_tx);
 
   // Output
-
   int low_stock = 0;
   if (t2->size() != 0) 
     low_stock = t2->getValue<int>(0, 0);
 
-  result_map_t result_map;
-  result_map["W_ID"] = toString(_w_id);
-  result_map["D_ID"] = toString(_d_id);
-  result_map["threshold"] = toString(_threshold);
-  result_map["low_stock"] = toString(low_stock);
+  Json::Value result;
+  result["W_ID"] = _w_id;
+  result["D_ID"] = _d_id;
+  result["threshold"] = _threshold;
+  result["low_stock"] = low_stock;
 
-  return result_map;
+  return result;
 }
 
-storage::c_atable_ptr_t TPCCStockLevelProcedure::getOId() {
+storage::c_atable_ptr_t TpccStockLevelProcedure::getOId() {
   auto district = loadTpccTable("DISTRICT", _tx);
 
   auto expr1 = new EqualsExpression<hyrise_int_t>(district, "D_W_ID", _w_id);
@@ -82,7 +81,7 @@ storage::c_atable_ptr_t TPCCStockLevelProcedure::getOId() {
   return result;
 }
 
-storage::c_atable_ptr_t TPCCStockLevelProcedure::getStockCount() {
+storage::c_atable_ptr_t TpccStockLevelProcedure::getStockCount() {
   // order_line: load, select and validate
   auto order_line = loadTpccTable("ORDER_LINE", _tx);
   const auto min_o_id = _next_o_id - 21;
@@ -121,53 +120,6 @@ storage::c_atable_ptr_t TPCCStockLevelProcedure::getStockCount() {
   groupby.execute();
 
   return groupby.getResultTable();
-}
-
-storage::c_atable_ptr_t TPCCStockLevelProcedure::loadTpccTable(std::string name, const tx::TXContext& tx) {
-  TableLoad load;
-  load.setTXContext(tx);
-  load.setTableName(name);
-  load.setHeaderFileName(tpccHeaderLocation.at(name));
-  load.setFileName(tpccDataLocation.at(name));
-  load.setDelimiter(tpccDelimiter);
-  load.execute();
-
-  return load.getResultTable();
-}
- 
-storage::c_atable_ptr_t TPCCStockLevelProcedure::selectAndValidate(storage::c_atable_ptr_t table, SimpleExpression *expr, const tx::TXContext& tx) {
-  SimpleTableScan select;
-  select.addInput(table);
-  select.setTXContext(_tx);
-  select.setPredicate(expr);
-  select.execute();
-  
-  ValidatePositions validate;
-  validate.setTXContext(tx);
-  validate.addInput(select.getResultTable());
-  validate.execute();
-
-  return validate.getResultTable();
-}
-
-storage::c_atable_ptr_t TPCCStockLevelProcedure::project(storage::c_atable_ptr_t table, field_name_set_t fields, const tx::TXContext& tx) {
-  ProjectionScan project;
-  project.setTXContext(tx);
-  project.addInput(table);
-  for (auto& field : fields)
-    project.addField(field);
-  project.execute();
-  return project.getResultTable();
-}
-
-tx::TXContext TPCCStockLevelProcedure::startTransaction() {
-  return tx::TransactionManager::beginTransaction();
-}
-
-void TPCCStockLevelProcedure::commit(tx::TXContext tx) {
-  Commit commit;
-  commit.setTXContext(tx);
-  commit.execute();
 }
 
 }} // namespace hyrise::access

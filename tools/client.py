@@ -15,6 +15,11 @@ class Connection(object):
         self._context = json_response.get("session_context", None)
         return json_response
 
+    def stored_procedure(self, name, data):
+        result = requests.post(self._server_base_url + name + "/",
+	                       data = { "data" : data })
+        return result.text
+
     def query_raw(self, query, context, commit=False):
         payload = { "query" : query }
         if context:
