@@ -20,7 +20,7 @@
 namespace hyrise { namespace access {
 
 auto _ = net::Router::registerRoute<TpccStockLevelProcedure>(
-             "/Tpcc-StockLevel/");
+             "/TPCC-StockLevel/");
 
 
 TpccStockLevelProcedure::TpccStockLevelProcedure(net::AbstractConnection* connection) :
@@ -34,11 +34,11 @@ void TpccStockLevelProcedure::setData(Json::Value& data) {
 }
 
 std::string TpccStockLevelProcedure::name() {
-  return "Tpcc-StockLevel";
+  return "TPCC-StockLevel";
 }
 
 const std::string TpccStockLevelProcedure::vname() {
-  return "Tpcc-StockLevel";
+  return "TPCC-StockLevel";
 }
 
 Json::Value TpccStockLevelProcedure::execute() {
@@ -47,10 +47,8 @@ Json::Value TpccStockLevelProcedure::execute() {
 
   auto t1 = getOId();
   _next_o_id = t1->getValue<int>("D_NEXT_O_ID", 0);
-  t1->print();
 
   auto t2 = getStockCount();
-  t2->print();
 
   commit(_tx);
 
@@ -97,12 +95,12 @@ storage::c_atable_ptr_t TpccStockLevelProcedure::getStockCount() {
   auto expr_ol_and3 = new CompoundExpression(expr_ol4, expr_ol_and2, AND);
 
   auto validated_ol = selectAndValidate(order_line, expr_ol_and3, _tx);
- 
+
 
   // stock:      load, select and validate
   auto stock = loadTpccTable("STOCK", _tx);
   auto expr_s1 = new EqualsExpression<hyrise_int_t>(stock, "S_W_ID", _w_id);
-  auto expr_s2 = new EqualsExpression<hyrise_int_t>(stock, "S_QUANTITY", _threshold);
+  auto expr_s2 = new LessThanExpression<hyrise_int_t>(stock, "S_QUANTITY", _threshold);
   auto expr_s_and = new CompoundExpression(expr_s1, expr_s2, AND);
   auto validated_s = selectAndValidate(stock, expr_s_and, _tx);
 

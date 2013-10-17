@@ -42,8 +42,7 @@ Json::Value TpccStoredProcedure::data() {
   if (data == body_data.end()) {
     return Json::Value();
   }
-
-  auto request = urldecode(body_data["query"]);
+  auto request = urldecode(body_data["data"]);
   std::cout << request << std::endl;
 
   Json::Value request_data;
