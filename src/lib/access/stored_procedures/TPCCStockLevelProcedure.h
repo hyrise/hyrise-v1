@@ -4,9 +4,9 @@
 
 #include <helper/types.h>
 #include <io/TXContext.h>
+#include <access/expressions/pred_SimpleExpression.h>
 
 #include "helper.h"
-
 
 namespace hyrise { namespace access {
 
@@ -26,7 +26,8 @@ class TPCCStockLevelProcedure {
   storage::c_atable_ptr_t getStockCount();
 
   //planop helper
-  storage::c_atable_ptr_t loadAndValidate(std::string name, const tx::TXContext& tx);
+  storage::c_atable_ptr_t loadTpccTable(std::string name, const tx::TXContext& tx);
+  storage::c_atable_ptr_t selectAndValidate(storage::c_atable_ptr_t table, SimpleExpression *expr, const tx::TXContext& tx);
   
   typedef std::set<std::string> field_name_set_t;
   storage::c_atable_ptr_t project(storage::c_atable_ptr_t table, field_name_set_t fields, const tx::TXContext& tx);

@@ -70,61 +70,51 @@ result_map_t TPCCStockLevelProcedure::execute() {
 }
 
 storage::c_atable_ptr_t TPCCStockLevelProcedure::getOId() {
-  auto district = loadAndValidate("DISTRICT", _tx);
+  auto district = loadTpccTable("DISTRICT", _tx);
 
-  SimpleTableScan select;
-  select.setTXContext(_tx);
-  select.addInput(district);
   auto expr1 = new EqualsExpression<hyrise_int_t>(district, "D_W_ID", _w_id);
   auto expr2 = new EqualsExpression<hyrise_int_t>(district, "D_ID", _d_id);
   auto expr_and = new CompoundExpression(expr1, expr2, AND);
-  select.setPredicate(expr_and);
-  select.execute();
+  auto validated = selectAndValidate(district, expr_and, _tx);
 
-  auto result = project(select.getResultTable(), {"D_NEXT_O_ID"}, _tx);
+  auto result = project(validated, {"D_NEXT_O_ID"}, _tx);
 
   return result;
 }
 
 storage::c_atable_ptr_t TPCCStockLevelProcedure::getStockCount() {
-  auto order_line = loadAndValidate("ORDER_LINE", _tx);
-  auto stock = loadAndValidate("STOCK", _tx);
+  // order_line: load, select and validate
+  auto order_line = loadTpccTable("ORDER_LINE", _tx);
+  const auto min_o_id = _next_o_id - 21;
+  const auto max_o_id = _next_o_id + 1; //D_NEXT_O_ID shoult be greater than every O_ID
+
+  auto expr_ol1 = new EqualsExpression<hyrise_int_t>(order_line, "OL_W_ID", _w_id);
+  auto expr_ol2 = new EqualsExpression<hyrise_int_t>(order_line, "OL_D_ID", _d_id);
+  auto expr_ol3 = new LessThanExpression<hyrise_int_t>(order_line, "OL_O_ID", max_o_id);
+  auto expr_ol4 = new GreaterThanExpression<hyrise_int_t>(order_line, "OL_O_ID", min_o_id);
+
+  auto expr_ol_and1 = new CompoundExpression(expr_ol1, expr_ol2, AND);
+  auto expr_ol_and2 = new CompoundExpression(expr_ol3, expr_ol_and1, AND);
+  auto expr_ol_and3 = new CompoundExpression(expr_ol4, expr_ol_and2, AND);
+
+  auto validated_ol = selectAndValidate(order_line, expr_ol_and3, _tx);
+ 
+
+  // stock:      load, select and validate
+  auto stock = loadTpccTable("STOCK", _tx);
+  auto expr_s1 = new EqualsExpression<hyrise_int_t>(stock, "S_W_ID", _w_id);
+  auto expr_s2 = new EqualsExpression<hyrise_int_t>(stock, "S_QUANTITY", _threshold);
+  auto expr_s_and = new CompoundExpression(expr_s1, expr_s2, AND);
+  auto validated_s = selectAndValidate(stock, expr_s_and, _tx);
 
   JoinScan join(JoinType::EQUI);
-  join.addInput(order_line);
-  join.addInput(stock);
+  join.addInput(validated_ol);
+  join.addInput(validated_s);
   join.addJoinClause<int>(0, "OL_I_ID", 1, "S_I_ID");
   join.execute();
-  auto joinResult = join.getResultTable();
-
-  SimpleTableScan select;
-  select.setTXContext(_tx);
-  select.addInput(joinResult);
-  {
-    const auto min_o_id = _next_o_id - 21;
-    const auto max_o_id = _next_o_id + 1; //D_NEXT_O_ID shoult be greater than every O_ID
-
-    // comparators
-    auto expr1 = new EqualsExpression<hyrise_int_t>(joinResult, "OL_W_ID", _w_id);
-    auto expr2 = new EqualsExpression<hyrise_int_t>(joinResult, "OL_D_ID", _d_id);
-    auto expr3 = new LessThanExpression<hyrise_int_t>(joinResult, "OL_O_ID", max_o_id);
-    auto expr4 = new GreaterThanExpression<hyrise_int_t>(joinResult, "OL_O_ID", min_o_id);
-    auto expr5 = new EqualsExpression<hyrise_int_t>(joinResult, "S_W_ID", _w_id);
-    auto expr6 = new EqualsExpression<hyrise_int_t>(joinResult, "S_QUANTITY", _threshold);
-
-    // ands
-    auto expr_and1 = new CompoundExpression(expr1, expr2, AND);
-    auto expr_and2 = new CompoundExpression(expr2, expr_and1, AND);
-    auto expr_and3 = new CompoundExpression(expr3, expr_and2, AND);
-    auto expr_and4 = new CompoundExpression(expr4, expr_and3, AND);
-    auto expr_and5 = new CompoundExpression(expr5, expr_and4, AND);
-    auto expr_and6 = new CompoundExpression(expr6, expr_and5, AND);
-    select.setPredicate(expr_and6);
-  }
-  select.execute();
 
   GroupByScan groupby;
-  groupby.addInput(select.getResultTable());
+  groupby.addInput(join.getResultTable());
   auto count = new CountAggregateFun("OL_I_ID");
   groupby.addFunction(count);
   count->setDistinct(true);
@@ -133,7 +123,7 @@ storage::c_atable_ptr_t TPCCStockLevelProcedure::getStockCount() {
   return groupby.getResultTable();
 }
 
-storage::c_atable_ptr_t TPCCStockLevelProcedure::loadAndValidate(std::string name, const tx::TXContext& tx) {
+storage::c_atable_ptr_t TPCCStockLevelProcedure::loadTpccTable(std::string name, const tx::TXContext& tx) {
   TableLoad load;
   load.setTXContext(tx);
   load.setTableName(name);
@@ -141,10 +131,20 @@ storage::c_atable_ptr_t TPCCStockLevelProcedure::loadAndValidate(std::string nam
   load.setFileName(tpccDataLocation.at(name));
   load.setDelimiter(tpccDelimiter);
   load.execute();
+
+  return load.getResultTable();
+}
+ 
+storage::c_atable_ptr_t TPCCStockLevelProcedure::selectAndValidate(storage::c_atable_ptr_t table, SimpleExpression *expr, const tx::TXContext& tx) {
+  SimpleTableScan select;
+  select.addInput(table);
+  select.setTXContext(_tx);
+  select.setPredicate(expr);
+  select.execute();
   
   ValidatePositions validate;
   validate.setTXContext(tx);
-  validate.addInput(load.getResultTable());
+  validate.addInput(select.getResultTable());
   validate.execute();
 
   return validate.getResultTable();
