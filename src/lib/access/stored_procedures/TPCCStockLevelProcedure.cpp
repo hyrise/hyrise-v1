@@ -9,6 +9,8 @@
 #include <access/storage/TableLoad.h>
 #include <access/SimpleTableScan.h>
 #include <access/ProjectionScan.h>
+#include <access/expressions/pred_EqualsExpression.h>
+#include <access/expressions/pred_CompoundExpression.h>
 
 #include <access/tx/ValidatePositions.h>
 #include <access/tx/Commit.h>
@@ -92,15 +94,15 @@ storage::c_atable_ptr_t TPCCStockLevelProcedure::getOId() {
   SimpleTableScan select;
   select.setTXContext(_tx);
   select.addInput(district);
-  //TODO
+  auto expr_w_id = new EqualsExpression<hyrise_int_t>(district, "D_W_ID", _w_id);
+  auto expr_d_id = new EqualsExpression<hyrise_int_t>(district, "D_ID", _d_id);
+  auto expr_and = new CompoundExpression(expr_w_id, expr_d_id, AND);
+  select.setPredicate(expr_and);
   select.execute();
 
-  ProjectionScan project;
-  project.setTXContext(_tx);
-  project.addInput(select.getResultTable());
-  project.addField("D_NEXT_O_ID");
+  auto result = project(select.getResultTable(), {"D_NEXT_O_ID"}, _tx);
 
-  return project.getResultTable();
+  return result;
 }
 
 storage::c_atable_ptr_t TPCCStockLevelProcedure::getStockCount() {
@@ -125,6 +127,16 @@ storage::c_atable_ptr_t TPCCStockLevelProcedure::loadAndValidate(std::string nam
   validate.execute();
 
   return validate.getResultTable();
+}
+
+storage::c_atable_ptr_t TPCCStockLevelProcedure::project(storage::c_atable_ptr_t table, field_name_set_t fields, const tx::TXContext& tx) {
+  ProjectionScan project;
+  project.setTXContext(tx);
+  project.addInput(table);
+  for (auto& field : fields)
+    project.addField(field);
+  project.execute();
+  return project.getResultTable();
 }
 
 tx::TXContext TPCCStockLevelProcedure::startTransaction() {

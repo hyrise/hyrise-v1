@@ -25,8 +25,13 @@ class TPCCStockLevelProcedure {
   storage::c_atable_ptr_t getOId();
   storage::c_atable_ptr_t getStockCount();
 
-  //transaction stuff
+  //planop helper
   storage::c_atable_ptr_t loadAndValidate(std::string name, const tx::TXContext& tx);
+  
+  typedef std::set<std::string> field_name_set_t;
+  storage::c_atable_ptr_t project(storage::c_atable_ptr_t table, field_name_set_t fields, const tx::TXContext& tx);
+  
+  //transaction stuff
   tx::TXContext startTransaction();
   void commit(tx::TXContext tx);
 
