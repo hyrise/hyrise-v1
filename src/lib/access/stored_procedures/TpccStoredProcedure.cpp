@@ -41,7 +41,7 @@ Json::Value TpccStoredProcedure::data() {
   std::map<std::string, std::string> body_data = parseHTTPFormData(_connection->getBody());
   auto data = body_data.find("data");
   if (data == body_data.end()) {
-    return Json::Value();
+    throw std::runtime_error("No data object in json");
   }
   auto request = urldecode(body_data["data"]);
   std::cout << request << std::endl;
