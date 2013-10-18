@@ -1,0 +1,43 @@
+{
+  "operators" : {
+    "getTable" :{
+      "type" : "GetTable",
+      "name" : "order_line"
+      },
+    "select":{
+      "type":"SimpleTableScan",
+      "positions": "true",
+      "predicates": [
+        {"type":"GT", "in":0, "f": "OL_DELIVERY_D", "vtype":2, "value":"2013-08-22 10:12:51.367618"}
+      ]
+    },
+    "project":{
+      "type":"ProjectionScan",
+      "fields":["OL_NUMBER","OL_QUANTITY","OL_DELIVERY_D","OL_AMOUNT"]
+    },
+    "hash":{
+      "type":"HashBuild",
+      "key": "groupby",
+      "fields":["OL_NUMBER"]
+    },
+    "groupBy":{
+      "type": "GroupByScan",
+      "fields": ["OL_NUMBER"],
+      "functions":[
+        {"type":"SUM", "field":"OL_QUANTITY", "as":"sum_qty"},
+        {"type":"SUM", "field":"OL_AMOUNT", "as":"sum_amount"},
+        {"type":"AVG", "field":"OL_QUANTITY", "as":"avg_qty"},
+        {"type":"AVG", "field":"OL_AMOUNT", "as":"avg_amount"},
+        {"type":"COUNT", "field":"OL_AMOUNT", "as":"count_order"}
+      ]
+    },
+    "sort":{
+      "type":"SortScan",
+      "field":"OL_NUMBER"
+    }
+  },
+  "edges": [
+    ["getTable","select"],["select","project"],["project","hash"],
+      ["hash","groupBy"],["project","groupBy"],["groupBy","sort"]
+  ]
+}
