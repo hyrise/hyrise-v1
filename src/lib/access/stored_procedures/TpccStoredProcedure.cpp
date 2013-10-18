@@ -132,5 +132,5 @@ void TpccStoredProcedure::rollback(tx::TXContext tx) {
   rb.execute();
 }
 
-}} // namespace hyrise::access
+} } // namespace hyrise::access
 

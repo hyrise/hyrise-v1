@@ -2,8 +2,6 @@
 
 #include "TpccStockLevelProcedure.h"
 
-#include <stdexcept>
-
 #include <storage/AbstractTable.h>
 #include <access/expressions/pred_EqualsExpression.h>
 #include <access/expressions/pred_CompoundExpression.h>
@@ -12,8 +10,9 @@
 
 namespace hyrise { namespace access {
 
-auto _ = net::Router::registerRoute<TpccStockLevelProcedure>(
-             "/TPCC-StockLevel/");
+namespace {
+  auto _ = net::Router::registerRoute<TpccStockLevelProcedure>("/TPCC-StockLevel/");
+} // namespace
 
 
 TpccStockLevelProcedure::TpccStockLevelProcedure(net::AbstractConnection* connection) :
@@ -113,5 +112,5 @@ storage::c_atable_ptr_t TpccStockLevelProcedure::getStockCount() {
   return groupby.getResultTable();
 }
 
-}} // namespace hyrise::access
+} } // namespace hyrise::access
 

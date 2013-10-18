@@ -1,14 +1,14 @@
 // Copyright (c) 2013 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#ifndef SRC_LIB_ACCESS_STOREDPROCEDURES_TPCCSTOCKLEVEL_H_
-#define SRC_LIB_ACCESS_STOREDPROCEDURES_TPCCSTOCKLEVEL_H_
+#ifndef SRC_LIB_ACCESS_STOREDPROCEDURES_TPCCNEWORDER_H_
+#define SRC_LIB_ACCESS_STOREDPROCEDURES_TPCCNEWORDER_H_
 
 #include "TpccStoredProcedure.h"
 
 namespace hyrise { namespace access {
 
-class TpccStockLevelProcedure : public TpccStoredProcedure {
+class TpccNewOrderProcedure : public TpccStoredProcedure {
  public:
-  TpccStockLevelProcedure(net::AbstractConnection* connection);
+  TpccNewOrderProcedure(net::AbstractConnection* connection);
 
   virtual Json::Value execute();
   virtual void setData(Json::Value& data);
@@ -29,5 +29,5 @@ class TpccStockLevelProcedure : public TpccStoredProcedure {
 
 } } // namespace hyrise::access
 
-#endif // SRC_LIB_ACCESS_STOREDPROCEDURES_TPCCSTOCKLEVEL_H_
+#endif // SRC_LIB_ACCESS_STOREDPROCEDURES_TPCCNEWORDER_H_
 

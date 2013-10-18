@@ -42,7 +42,7 @@ class TpccStoredProcedure : public net::AbstractRequestHandler {
   tx::TXContext _tx;
 };
 
-}} // namespace hyrise::access
+} } // namespace hyrise::access
 
 #endif // SRC_LIB_ACCESS_STOREDPROCEDURES_TPCCSTOREDPROCEDURE_H_
 
