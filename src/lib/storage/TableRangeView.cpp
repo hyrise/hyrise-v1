@@ -8,7 +8,7 @@
 
 #include "TableRangeView.h"
 #include "storage/PrettyPrinter.h"
-
+#include <iostream>
 namespace hyrise { namespace storage {
 
 TableRangeView::TableRangeView(atable_ptr_t t, size_t s, size_t e): _table(t), _start(s), _end(e) {

@@ -3,6 +3,7 @@
 #define SRC_LIB_STORAGE_ORDERPRESERVINGDICTIONARY_H_
 
 #include <assert.h>
+#include <algorithm>
 #include <iostream>
 #include <memory>
 
@@ -78,13 +79,13 @@ public:
   }
       
   value_id_t getValueIdForValue(const T &value) const {
-    auto binary_search = lower_bound(_values->begin(), _values->end(), value);
+    auto binary_search = std::lower_bound(_values->begin(), _values->end(), value);
     size_t index = binary_search - _values->begin();
     return index;
   }
 
   value_id_t getValueIdForValueSmaller(T other) {
-    auto binary_search = lower_bound(_values->begin(), _values->end(), other);
+    auto binary_search = std::lower_bound(_values->begin(), _values->end(), other);
     size_t index = binary_search - _values->begin();
     
     assert(index > 0);
@@ -92,7 +93,7 @@ public:
   }
 
   value_id_t getValueIdForValueGreater(T other) {
-    auto binary_search = upper_bound(_values->begin(), _values->end(), other);
+    auto binary_search = std::upper_bound(_values->begin(), _values->end(), other);
     size_t index = binary_search - _values->begin();
     
     return index;
