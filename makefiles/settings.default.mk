@@ -1,4 +1,4 @@
-COMPILER ?= g++
+COMPILER ?= autog++
 # options: debug|release
 BLD ?= debug
 
