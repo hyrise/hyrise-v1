@@ -4,12 +4,28 @@
 #include "testing/test.h"
 #include <stdlib.h>
 #include <io/loaders.h>
-#include <boost/assign/list_inserter.hpp>
-using boost::assign::push_back;
+#include "storage/AbstractTable.h"
 
-class MySQLTests : public ::hyrise::Test {};
+#include <unistd.h>
 
-TEST_F(MySQLTests, load_test) {
+class MySQLTests : public ::hyrise::Test {
+ protected:
+  std::string _pid_suffix;
+  std::string _schema;
+  virtual void SetUp() override {
+    _pid_suffix = std::to_string(getpid());
+    _schema = "cbtr" + _pid_suffix;
+    std::string cmd = "sh test/sap_data/load.sh " + _pid_suffix;
+    system(cmd.c_str());
+  }
+
+  virtual void TearDown() override {
+    std::string cmd = "sh test/sap_data/drop.sh " + _pid_suffix;
+    system(cmd.c_str());
+  }
+};
+
+TEST(MySQLTestsBase, load_test) {
   hyrise::storage::atable_ptr_t  t = Loader::load(
       Loader::params().setInput(
           MySQLInput(
@@ -24,17 +40,15 @@ TEST_F(MySQLTests, load_test) {
 
 TEST_F(MySQLTests, load_sap_schema) {
   // Load SAP base schema, import KNA1, VBAP, VBAK into MySQL
-  system("sh -ex test/sap_data/load.sh");
 
-  std::vector<const char *> tables;
-  push_back(tables)("KNA1")("VBAP")("VBAK");
+  std::vector<const char *> tables { "KNA1", "VBAP", "VBAK"};
 
   for(std::string table: tables) {
     hyrise::storage::atable_ptr_t  t = Loader::load(
         Loader::params().setInput(
             MySQLInput(
                 MySQLInput::params()
-                .setSchema("cbtr")
+                .setSchema(_schema)
                 .setTable(table)
                        )
                                   )
@@ -45,23 +59,15 @@ TEST_F(MySQLTests, load_sap_schema) {
 
 TEST_F(MySQLTests, convert_date_to_int) {
   // Load SAP base schema, import KNA1, VBAP, VBAK into MySQL
-  system("sh -ex test/sap_data/load.sh");
-
-  std::vector<const char *> tables;
   hyrise::storage::atable_ptr_t  t = Loader::load(
       Loader::params().setInput(
           MySQLInput(
               MySQLInput::params()
-              .setSchema("cbtr")
+              .setSchema(_schema)
               .setTable("VBAK")
                      )));
-
-  
-
   ASSERT_EQ(IntegerType, t->typeOfColumn(2));
   ASSERT_EQ(IntegerType, t->typeOfColumn(5));
-
-  
 }
 
 

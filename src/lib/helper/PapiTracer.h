@@ -141,6 +141,8 @@ class PapiTracer {
     auto index = std::distance(_counters.begin(), item);
     return _results.at(index);
   }
+
+  static bool isPapi() { return true; }
 };
 
 #else
@@ -183,6 +185,7 @@ class FallbackTracer {
                          "Available: " + joinString(_counters, " "));
     return _result;
   }
+  static bool isPapi() { return false; }
 };
 
 typedef FallbackTracer PapiTracer;

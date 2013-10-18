@@ -2,6 +2,8 @@ DOXYFILE = tools/Doxyfile
 doxygen:
 	doxygen $(DOXYFILE)
 
+.PHONY: docs
+
 docs: doxygen
 	bash tools/docs.sh
 

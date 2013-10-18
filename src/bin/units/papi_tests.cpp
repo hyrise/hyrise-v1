@@ -1,15 +1,13 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#include "testing/base_test.h"
+#include "gtest/gtest.h"
 
 #include "helper/PapiTracer.h"
-
-class PapiTests : public ::hyrise::Test {};
 
 void work() {
     for (volatile auto i=0; i<10; i++) { };
 }
 
-TEST_F(PapiTests, trace_basic) {
+TEST(PapiTests, trace_basic) {
   PapiTracer pt;
   pt.addEvent("PAPI_TOT_CYC");
   pt.start();
@@ -21,7 +19,7 @@ TEST_F(PapiTests, trace_basic) {
 #endif
 }
 
-TEST_F(PapiTests, trace_nested_with_disabled_inner) {
+TEST(PapiTests, trace_nested_with_disabled_inner) {
   PapiTracer outer;
   outer.addEvent("PAPI_TOT_CYC");
   outer.start();
@@ -36,7 +34,7 @@ TEST_F(PapiTests, trace_nested_with_disabled_inner) {
   outer.stop();
 }
 
-TEST_F(PapiTests, trace_nested_with_enabled_inner) {
+TEST(PapiTests, trace_nested_with_enabled_inner) {
   PapiTracer outer;
   outer.addEvent("PAPI_TOT_CYC");
   outer.start();
@@ -56,5 +54,14 @@ TEST_F(PapiTests, trace_nested_with_enabled_inner) {
 
 #ifdef USE_PAPI_TRACE
   ASSERT_GT(outer.value("PAPI_TOT_CYC"), 0);
+#endif
+}
+
+
+TEST(PapiTests, test_available) {
+#ifdef USE_PAPI_TRACE
+  ASSERT_TRUE(PapiTracer::isPapi());
+#else
+  ASSERT_FALSE(PapiTracer::isPapi());
 #endif
 }

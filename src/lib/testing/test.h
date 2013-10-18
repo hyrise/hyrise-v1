@@ -2,10 +2,10 @@
 #ifndef SRC_LIB_TESTING_TEST_H_
 #define SRC_LIB_TESTING_TEST_H_
 
-#include <gtest/gtest.h>
+#include <algorithm>
 
+#include "gtest/gtest.h"
 #include "testing/base_test.h"
-#include "access/system/PlanOperation.h"
 #include "io/StorageManager.h"
 
 #include "helper/types.h"
