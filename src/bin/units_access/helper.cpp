@@ -11,12 +11,14 @@
 #include "access/system/RequestParseTask.h"
 #include "access/system/ResponseTask.h"
 #include "access/SortScan.h"
+#include "access/stored_procedures/TpccStoredProcedure.h"
 #include "io/TransactionManager.h"
 
 #include "helper/HttpHelper.h"
 #include "helper/make_unique.h"
 
 #include "net/AbstractConnection.h"
+#include "net/Router.h"
 
 #include "storage/AbstractTable.h"
 #include "storage/AbstractHashTable.h"
@@ -258,4 +260,25 @@ hyrise::storage::c_atable_ptr_t executeAndWait(
     throw std::runtime_error("requested transaction id ignored!");
 
   return result_task->getResultTable();
+}
+
+hyrise::storage::c_atable_ptr_t executeAndWaitStoredProcedure(
+    std::string storedProcedureName,
+    std::string json,
+    size_t poolSize) {
+
+  std::stringstream query;
+  query << "data=" << json;
+  query << "&session_context=" << getNewTXContext().tid;
+
+  std::cout << query.str() << std::endl;
+
+  std::unique_ptr<MockedConnection> conn = make_unique<MockedConnection>(query.str());
+
+  auto procedure2 = (hyrise::net::Router::getInstance().getHandler("/" + storedProcedureName + "/")->create(&*conn));
+
+  auto procedure = std::dynamic_pointer_cast<hyrise::access::TpccStoredProcedure>(hyrise::net::Router::getInstance().getHandler("/" + storedProcedureName + "/")->create(&*conn));
+  (*procedure)();
+
+  return nullptr;
 }

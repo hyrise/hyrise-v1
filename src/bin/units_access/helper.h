@@ -103,4 +103,9 @@ hyrise::storage::c_atable_ptr_t executeAndWait(
     std::string *evt = nullptr,
     hyrise::tx::transaction_id_t tid = hyrise::tx::UNKNOWN);
 
+hyrise::storage::c_atable_ptr_t executeAndWaitStoredProcedure(
+    std::string storedProcedureName,
+    std::string httpQuery,
+    size_t poolSize = getNumberOfCoresOnSystem());
+
 #endif  // SRC_BIN_UNITS_ACCESS_HELPER_H_
