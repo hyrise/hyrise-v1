@@ -10,8 +10,6 @@
 #include <net/Router.h>
 #include <net/AbstractConnection.h>
 
-#include "helper.h"
-
 namespace hyrise { namespace access {
 
 class TpccStoredProcedure : public net::AbstractRequestHandler {
@@ -38,6 +36,7 @@ class TpccStoredProcedure : public net::AbstractRequestHandler {
   //transaction
   static tx::TXContext startTransaction();
   static void commit(tx::TXContext tx);
+  static void rollback(tx::TXContext tx);
 
   net::AbstractConnection* _connection;
   tx::TXContext _tx;

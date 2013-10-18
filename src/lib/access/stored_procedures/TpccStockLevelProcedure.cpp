@@ -5,17 +5,10 @@
 #include <stdexcept>
 
 #include <storage/AbstractTable.h>
-#include <io/TransactionManager.h>
-#include <access/storage/TableLoad.h>
-#include <access/SimpleTableScan.h>
-#include <access/ProjectionScan.h>
 #include <access/expressions/pred_EqualsExpression.h>
 #include <access/expressions/pred_CompoundExpression.h>
 #include <access/JoinScan.h>
 #include <access/GroupByScan.h>
-
-#include <access/tx/ValidatePositions.h>
-#include <access/tx/Commit.h>
 
 namespace hyrise { namespace access {
 

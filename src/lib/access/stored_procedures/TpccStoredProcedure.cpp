@@ -12,6 +12,7 @@
 
 #include <access/tx/ValidatePositions.h>
 #include <access/tx/Commit.h>
+#include <access/tx/Rollback.h>
 
 namespace hyrise { namespace access {
 
@@ -54,6 +55,29 @@ Json::Value TpccStoredProcedure::data() {
 
   return request_data;
 }
+
+namespace {
+  typedef std::map<std::string, std::string> file_map_t;
+
+  static const std::string tpccTableDir = "test/tpcc/";
+  static const std::string tpccDelimiter = ",";
+  const file_map_t tpccHeaderLocation = {{"DISTRICT"  , tpccTableDir + "district_header.tbl"},
+                                       {"WAREHOUSE" , tpccTableDir + "warehouse_header.tbl"},
+                                       {"CUSTOMER"  , tpccTableDir + "customer_header.tbl"},
+                                       {"HISTORY"   , tpccTableDir + "history_header.tbl"},
+                                       {"ORDERS"    , tpccTableDir + "orders_header.tbl"},
+                                       {"NEW_ORDER" , tpccTableDir + "new_order_header.tbl"},
+                                       {"STOCK"     , tpccTableDir + "stock_header.tbl"},
+                                       {"ORDER_LINE", tpccTableDir + "order_line_header.tbl"}};
+  const file_map_t tpccDataLocation = {{"DISTRICT"  , tpccTableDir + "district.csv"},
+                                     {"WAREHOUSE" , tpccTableDir + "warehouse.csv"},
+                                     {"CUSTOMER"  , tpccTableDir + "customer.csv"},
+                                     {"HISTORY"   , tpccTableDir + "history.csv"},
+                                     {"ORDERS"    , tpccTableDir + "orders.csv"},
+                                     {"NEW_ORDER" , tpccTableDir + "new_order.csv"},
+                                     {"STOCK"     , tpccTableDir + "stock.csv"},
+                                     {"ORDER_LINE", tpccTableDir + "order_line.csv"}};
+} // namespace
 
 storage::c_atable_ptr_t TpccStoredProcedure::loadTpccTable(std::string name, const tx::TXContext& tx) {
   TableLoad load;
@@ -100,6 +124,12 @@ void TpccStoredProcedure::commit(tx::TXContext tx) {
   Commit commit;
   commit.setTXContext(tx);
   commit.execute();
+}
+
+void TpccStoredProcedure::rollback(tx::TXContext tx) {
+  Rollback rb;
+  rb.setTXContext(tx);
+  rb.execute();
 }
 
 }} // namespace hyrise::access
