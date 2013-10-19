@@ -199,10 +199,15 @@ OBJDIR := $(PROJECT_ROOT)/.build/$(BLD)_$(OSNAME)
 CPPFLAGS.debug += -DEXPENSIVE_ASSERTIONS
 CPPFLAGS.release += -DEXPENSIVE_TESTS -DPRODUCTION
 
-CFLAGS.debug += -O0
-CFLAGS.release += -O3
+CFLAGS.debug +=
+CFLAGS.release +=
 
-COMMON_FLAGS += -g -Wall -Wextra -Wno-attributes -Wno-unused-parameter
+LDFLAGS.debug +=
+LDFLAGS.release +=
+
+COMMON_FLAGS.debug += -O0
+COMMON_FLAGS.release += -O3 -march=native
+COMMON_FLAGS += -g -Wall -Wextra -Wno-attributes -Wno-unused-parameter $(COMMON_FLAGS.$(BLD))
 
 CPPFLAGS += -MMD -pipe $(CPPFLAGS.$(BLD))
 CFLAGS += $(COMMON_FLAGS) $(CFLAGS.$(BLD))
