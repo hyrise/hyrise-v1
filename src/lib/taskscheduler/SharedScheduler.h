@@ -92,10 +92,7 @@ public:
     return _sharedScheduler;
   }
 
-  static SharedScheduler &getInstance(){
-    static SharedScheduler s;
-    return s;
-  }
+  static SharedScheduler &getInstance();
 };
 
 #endif  // SRC_LIB_TASKSCHEDULER_SHAREDSCHEDULER_H_
