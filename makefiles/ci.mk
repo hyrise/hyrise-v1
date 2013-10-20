@@ -1,3 +1,4 @@
+.PHONY: ci_steps
 ci_steps: coverage.xml sloccount.sc simian.xml
 
 coverage.xml: ci_test
