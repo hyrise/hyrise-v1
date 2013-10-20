@@ -74,7 +74,9 @@ $$($(1).objs) : LIB := $(1)
 ifdef build_debug
 $$(info loaded $(1) with deps $$($(1).deps))
 endif
+ifneq "$(MAKECMDGOALS)" "clean"
 -include $$($(1).cpps:%=$$(OBJDIR)%.d)
+endif
 endif
 endef
 
@@ -84,7 +86,7 @@ ifndef $(1).defined
 $(1).deps ?=
 $(1).cpps ?= $$(wildcard $($(1))/*.cpp)
 $(1).objs ?= $$($(1).cpps:%=$(OBJDIR)%.o)
-$(1).binary ?= $(RESULT_DIR)/$($(1).binname)_$(BLD).bin
+$(1).binary ?= $(RESULT_DIR)/$($(1).binname)_$(BLD)
 $(1).defined := is defined
 $(1).libs ?=
 # rules
@@ -106,8 +108,9 @@ $$($(1).objs) : CPPFLAGS += $$($(1).use_CPPFLAGS)
 ifdef build_debug
 $$(info loaded $(1) with deps $$($(1).deps))
 endif
-
+ifneq "$(MAKECMDGOALS)" "clean"
 -include $$($(1).cpps:%=$$(OBJDIR)%.d)
+endif
 endif
 endef
 
@@ -117,7 +120,7 @@ ifndef $(1).defined
 $(1).deps ?=
 $(1).cpps ?= $$(wildcard $($(1))/*.cpp)
 $(1).objs ?= $$($(1).cpps:%=$(OBJDIR)%.o)
-$(1).binary ?= $(RESULT_DIR)/$($(1).binname)_$(BLD).bin
+$(1).binary ?= $(RESULT_DIR)/$($(1).binname)_$(BLD)
 $(1).defined := is defined
 $(1).libs ?=
 # rules
@@ -139,13 +142,15 @@ $$($(1).objs) : CPPFLAGS += $$($(1).use_CPPFLAGS)
 ifdef build_debug
 $$(info loaded $(1) with deps $$($(1).deps))
 endif
-
+ifneq "$(MAKECMDGOALS)" "clean"
 -include $$($(1).cpps:%=$$(OBJDIR)%.d)
+endif
 endif
 endef
 
 define test-binary
 $(eval $(call binary,$(1)))
+test-binaries += $$($(1).binary)
 test: $$($(1).binary)
 endef
 
@@ -167,7 +172,7 @@ LIBS := log4cxx
 LINK_DIRS :=
 INCLUDE_DIRS :=
 
-WITH_PAPI := $(shell if [ "`papi_avail | grep Yes | wc -l`" -ne "0" ]; then echo 1; else echo 0; fi) 
+WITH_PAPI := $(shell if [ "`papi_avail  2>&1 | grep Yes | wc -l`" -ne "0" ]; then echo 1; else echo 0; fi) 
 WITH_MYSQL:= 1
 
 include settings.mk
@@ -228,7 +233,7 @@ clean:
 
 TESTPARAM = --minimal
 test:
-	@$(foreach _,$(filter %.bin,$^),echo $(_);$(_) $(TESTPARAM);)
+	@$(foreach _,$(filter $(test-binaries),$^),echo $(_);$(_) $(TESTPARAM);)
 
 ci_test: TESTPARAM = --gtest_output=xml:$(_).xml
 ci_test: test
@@ -237,7 +242,11 @@ include makefiles/ci.mk
 
 ci_build: ci_steps
 
-%.bin:
+# a noop to keep make happy
+%.d : %.o
+	@true
+
+% :
 	$(call echo_cmd,LINK $(CXX) $(BLD) $@) $(CXX) $(CXXFLAGS) -o $@ $(filter %.o,$^) -Wl,-whole-archive $(addprefix -l,$(LIBS)) -Wl,-no-whole-archive $(addprefix -L,$(LINK_DIRS)) $(LDFLAGS)
 
 %.a:
