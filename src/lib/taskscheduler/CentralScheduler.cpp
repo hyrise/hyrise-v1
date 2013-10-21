@@ -43,7 +43,7 @@ CentralScheduler::CentralScheduler(int threads) {
         hwloc_bitmap_asprintf(&str, obj->cpuset);
         fprintf(stderr, "Couldn't bind to cpuset %s: %s\n", str, strerror(error));
         fprintf(stderr, "Continuing as normal, however, no guarantees\n");
-        //throw std::runtime_error(strerror(error));
+        free(str);
       }
       
       // assuming single machine system                                                                                                         
@@ -56,7 +56,6 @@ CentralScheduler::CentralScheduler(int threads) {
 	fprintf(stderr, "Couldn't membind to nodeset  %s: %s\n", str, strerror(error));
 	fprintf(stderr, "Continuing as normal, however, no guarantees\n");
 	free(str);
-	//throw std::runtime_error(strerror(error));                                                                                            
       }
 
       _worker_threads.push_back(thread);
