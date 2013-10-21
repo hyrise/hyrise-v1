@@ -54,7 +54,7 @@ void AbstractCoreBoundQueue::launchThread(int core) {
       hwloc_bitmap_asprintf(&str, obj->cpuset);
       fprintf(stderr, "Couldn't bind to cpuset %s: %s\n", str, strerror(error));
       fprintf(stderr, "Continuing as normal, however, no guarantees\n");
-      //throw std::runtime_error(strerror(error));
+      free(str);
     }
 
     // assuming single machine system                                                                                                         
@@ -67,7 +67,6 @@ void AbstractCoreBoundQueue::launchThread(int core) {
       fprintf(stderr, "Couldn't membind to nodeset  %s: %s\n", str, strerror(error));
       fprintf(stderr, "Continuing as normal, however, no guarantees\n");
       free(str);
-      //throw std::runtime_error(strerror(error));                                                                                            
     }
 
     hwloc_bitmap_free(cpuset);

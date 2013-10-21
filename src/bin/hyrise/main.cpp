@@ -123,7 +123,6 @@ void bindToNode(int node) {
     fprintf(stderr, "Couldn't membind to nodeset  %s: %s\n", str, strerror(error));
     fprintf(stderr, "Continuing as normal, however, no guarantees\n");
     free(str);
-    //throw std::runtime_error(strerror(error));
   }
 }
 
