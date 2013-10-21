@@ -1,13 +1,11 @@
-# Build invocation
-ci_test: unit_test_params = --gtest_output=xml:$(subst $(build_dir)/,,$@).xml
-ci_test: all $(all_test_targets)
+.PHONY: ci_steps
+ci_steps: coverage.xml sloccount.sc simian.xml
 
-ci_build_not_parallel: coverage lint sloc duplicates
+coverage.xml: ci_test
+	./tools/gcovr -x -r `pwd` -e '.*/src/bin/' -e '.*/third_party/' > coverage.xml
 
-ci_build: all
-	@$(MAKE) $(MAKEFLAGS) ci_build_not_parallel -j 1
+sloccount.sc:
+	sloccount --wide --details src/ | grep -v src/lib/SQL/parser > sloccount.sc
 
-hudson_test: ci_build
-
-coverage: ci_test
-	./gcovr -x -r `pwd` -e '.*/src/bin/' -e '.*/third_party/' > coverage.xml
+simian.xml:
+	-java -jar third_party/simian/simian-2.3.33.jar -excludes="**/units_*/*" -formatter=xml:simian.xml "src/**.cpp" "src/**.h" "src/**.hpp"

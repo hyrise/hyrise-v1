@@ -4,6 +4,7 @@
 #include "SimpleStoreMerger.h"
 #include "AbstractMergeStrategy.h"
 
+#include <iostream>
 #include <helper/types.h>
 
 namespace hyrise { namespace storage {

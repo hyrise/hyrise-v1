@@ -1,13 +1,16 @@
 import subprocess
 import time
 import signal
+import sys
 
 from client import Connection
 import requests
 
 def main():
     devnull = open('/dev/null', 'w')
-    p = subprocess.Popen("./build/hyrise_server", stdout=devnull)
+    assert(len(sys.argv) == 2)
+    binary = sys.argv[-1]
+    p = subprocess.Popen(binary, stdout=devnull)
     time.sleep(3)
     port = int(open("hyrise_server.port").readlines()[0])
     assert(port != 0)

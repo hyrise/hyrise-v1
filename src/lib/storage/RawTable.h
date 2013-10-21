@@ -156,10 +156,7 @@ public:
 
   void appendRows(const hyrise::storage::atable_ptr_t& rows);
 
-  virtual void debugStructure(size_t level=0) const {
-    std::cout << std::string(level, '\t') << "RawTable " << this << std::endl;
-  }
-
+  virtual void debugStructure(size_t level=0) const;
 
   
   ////////////////////////////////////////////////////////////////////////////////////////

@@ -109,7 +109,7 @@ std::shared_ptr<AbstractTable> MySQLInput::load(
   if (!mysql_real_connect(conn, _parameters.getHost().c_str(),
                           _parameters.getUser().c_str(),
                           _parameters.getPassword().c_str(), "information_schema", 0, NULL, 0)) {
-    //throw std::runtime_error("mysql connection failed " + strerror(errno));
+    throw std::runtime_error(std::string("mysql connection failed "));
   }
 
   std::string q1 = ("SELECT COLUMN_NAME, DATA_TYPE FROM COLUMNS WHERE TABLE_NAME='" + _parameters.getTable() + "' AND TABLE_SCHEMA='" + _parameters.getSchema() + "'");

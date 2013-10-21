@@ -1,6 +1,8 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "RawTable.h"
 
+#include <iostream>
+
 #include "storage/meta_storage.h"
 #include "storage/ColumnMetadata.h"
 
@@ -216,4 +218,8 @@ void RawTable::appendRows(const hyrise::storage::atable_ptr_t& rows) {
     std::unique_ptr<unsigned char> data(rh.build());
     appendRow(data.get());
   }
+}
+
+void RawTable::debugStructure(size_t level) const {
+  std::cout << std::string(level, '\t') << "RawTable " << this << std::endl;
 }

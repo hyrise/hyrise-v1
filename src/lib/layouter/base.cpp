@@ -1032,9 +1032,9 @@ void CandidateLayouter::layout(Schema s, std::string cM) {
       size_t currentSize = subsets[index].size();
 
       // Find end of group
-      size_t stop = index;
+      size_t stop = index+1;
       while (stop < subsets.size())
-        if (subsets[++stop].size() > currentSize)
+        if (subsets[stop++].size() > currentSize)
           break;
 
       // Now for each element inside this block, find possible partners

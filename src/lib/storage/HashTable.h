@@ -3,6 +3,7 @@
 #define SRC_LIB_STORAGE_HASHTABLE_H_
 
 #include <atomic>
+#include <algorithm>
 #include <set>
 #include <unordered_map>
 #include <memory>
