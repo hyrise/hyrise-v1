@@ -147,7 +147,7 @@ void QueryTransformationEngine::appendConsolidateSrcNodeEdges(
   for (unsigned i = 0; i < numberOfInitialEdges; ++i) {
     Json::Value currentEdge = edges[i];
     if (currentEdge[0u].asString() == operatorId) {
-      appendEdge(consolidateOperatorId, currentEdge[1u].asString(), query);
+      query["edges"][i][0u] = consolidateOperatorId;
     }
   }
 }
