@@ -243,8 +243,7 @@ include makefiles/ci.mk
 ci_build: ci_steps
 
 # a noop to keep make happy
-%.d : %.o
-	@true
+%.d :
 
 % :
 	$(call echo_cmd,LINK $(CXX) $(BLD) $@) $(CXX) $(CXXFLAGS) -o $@ $(filter %.o,$^) -Wl,-whole-archive $(addprefix -l,$(LIBS)) -Wl,-no-whole-archive $(addprefix -L,$(LINK_DIRS)) $(LDFLAGS)
