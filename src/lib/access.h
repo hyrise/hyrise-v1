@@ -37,6 +37,7 @@
 #include <access/system/SettingsOperation.h>
 
 #include <access/tx/Commit.h>
+#include <access/tx/Rollback.h>
 #include <access/tx/ValidatePositions.h>
 
 #endif  // SRC_LIB_ACCESS_H_
