@@ -18,7 +18,21 @@ class TpccDeliveryProcedure : public TpccStoredProcedure {
 
  private:
   //queries
-  //TODO
+  void deleteNewOrder();
+  storage::c_atable_ptr_t getCId();
+  storage::c_atable_ptr_t getNewOrder();
+  storage::c_atable_ptr_t sumOLAmount();
+  void updateCustomer();
+  void updateOrderLine();
+  void updateOrders();
+
+  int _w_id;
+  int _d_id;
+  int _o_carrier_id;
+  int _o_id;
+  int _c_id;
+  float _total;
+  std::string _date;
 };
 
 }} // namespace hyrise::access

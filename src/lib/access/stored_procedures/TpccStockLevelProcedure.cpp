@@ -3,10 +3,7 @@
 #include "TpccStockLevelProcedure.h"
 
 #include <storage/AbstractTable.h>
-#include <access/expressions/pred_EqualsExpression.h>
-#include <access/expressions/pred_CompoundExpression.h>
-#include <access/JoinScan.h>
-#include <access/GroupByScan.h>
+#include <access.h>
 
 namespace hyrise { namespace access {
 
@@ -54,47 +51,39 @@ Json::Value TpccStockLevelProcedure::execute() {
   result["D_ID"] = _d_id;
   result["threshold"] = _threshold;
   result["low_stock"] = low_stock;
-
   return result;
 }
 
 storage::c_atable_ptr_t TpccStockLevelProcedure::getOId() {
-  auto district = loadTpccTable("DISTRICT", _tx);
+  auto district = getTpccTable("DISTRICT", _tx);
 
-  auto expr1 = new EqualsExpression<hyrise_int_t>(district, "D_W_ID", _w_id);
-  auto expr2 = new EqualsExpression<hyrise_int_t>(district, "D_ID", _d_id);
-  auto expr_and = new CompoundExpression(expr1, expr2, AND);
-  auto validated = selectAndValidate(district, expr_and, _tx);
+  expr_list_t expressions;
+  expressions.push_back(new EqualsExpression<int>(district, "D_W_ID", _w_id));
+  expressions.push_back(new EqualsExpression<int>(district, "D_ID", _d_id));
+  auto validated = selectAndValidate(district, connectAnd(expressions), _tx);
 
   auto result = project(validated, {"D_NEXT_O_ID"}, _tx);
-
   return result;
 }
 
 storage::c_atable_ptr_t TpccStockLevelProcedure::getStockCount() {
   // order_line: load, select and validate
-  auto order_line = loadTpccTable("ORDER_LINE", _tx);
+  auto order_line = getTpccTable("ORDER_LINE", _tx);
   const auto min_o_id = _next_o_id - 21;
   const auto max_o_id = _next_o_id + 1; //D_NEXT_O_ID shoult be greater than every O_ID
 
-  auto expr_ol1 = new EqualsExpression<hyrise_int_t>(order_line, "OL_W_ID", _w_id);
-  auto expr_ol2 = new EqualsExpression<hyrise_int_t>(order_line, "OL_D_ID", _d_id);
-  auto expr_ol3 = new LessThanExpression<hyrise_int_t>(order_line, "OL_O_ID", max_o_id);
-  auto expr_ol4 = new GreaterThanExpression<hyrise_int_t>(order_line, "OL_O_ID", min_o_id);
+  expr_list_t expressions_ol;
+  expressions_ol.push_back(new EqualsExpression<int>(order_line, "OL_W_ID", _w_id));
+  expressions_ol.push_back(new EqualsExpression<int>(order_line, "OL_D_ID", _d_id));
+  expressions_ol.push_back(new LessThanExpression<int>(order_line, "OL_O_ID", max_o_id));
+  expressions_ol.push_back(new GreaterThanExpression<int>(order_line, "OL_O_ID", min_o_id));
+  auto validated_ol = selectAndValidate(order_line, connectAnd(expressions_ol), _tx);
 
-  auto expr_ol_and1 = new CompoundExpression(expr_ol1, expr_ol2, AND);
-  auto expr_ol_and2 = new CompoundExpression(expr_ol3, expr_ol_and1, AND);
-  auto expr_ol_and3 = new CompoundExpression(expr_ol4, expr_ol_and2, AND);
-
-  auto validated_ol = selectAndValidate(order_line, expr_ol_and3, _tx);
-
-
-  // stock:      load, select and validate
-  auto stock = loadTpccTable("STOCK", _tx);
-  auto expr_s1 = new EqualsExpression<hyrise_int_t>(stock, "S_W_ID", _w_id);
-  auto expr_s2 = new LessThanExpression<hyrise_int_t>(stock, "S_QUANTITY", _threshold);
-  auto expr_s_and = new CompoundExpression(expr_s1, expr_s2, AND);
-  auto validated_s = selectAndValidate(stock, expr_s_and, _tx);
+  auto stock = getTpccTable("STOCK", _tx);
+  expr_list_t expressions_s;
+  expressions_s.push_back(new EqualsExpression<int>(stock, "S_W_ID", _w_id));
+  expressions_s.push_back(new LessThanExpression<int>(stock, "S_QUANTITY", _threshold));
+  auto validated_s = selectAndValidate(stock, connectAnd(expressions_s), _tx);
 
   JoinScan join(JoinType::EQUI);
   join.addInput(validated_ol);
@@ -105,8 +94,8 @@ storage::c_atable_ptr_t TpccStockLevelProcedure::getStockCount() {
   GroupByScan groupby;
   groupby.addInput(join.getResultTable());
   auto count = new CountAggregateFun("OL_I_ID");
-  groupby.addFunction(count);
   count->setDistinct(true);
+  groupby.addFunction(count);
   groupby.execute();
 
   return groupby.getResultTable();

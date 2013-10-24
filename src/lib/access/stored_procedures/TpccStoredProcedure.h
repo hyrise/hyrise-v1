@@ -27,8 +27,15 @@ class TpccStoredProcedure : public net::AbstractRequestHandler {
 
  protected:
   //planop helper
-  static storage::c_atable_ptr_t loadTpccTable(std::string name, const tx::TXContext& tx);
+  static storage::c_atable_ptr_t getTpccTable(std::string name, const tx::TXContext& tx);
   static storage::c_atable_ptr_t selectAndValidate(storage::c_atable_ptr_t table, SimpleExpression *expr, const tx::TXContext& tx);
+  static void insert(storage::atable_ptr_t table, storage::atable_ptr_t rows, const tx::TXContext& tx);
+  static void deleteRows(storage::c_atable_ptr_t rows, const tx::TXContext& tx);
+  static void update(storage::c_atable_ptr_t rows, Json::Value data, const tx::TXContext& tx);
+  static storage::c_atable_ptr_t sort(storage::c_atable_ptr_t table, field_name_t field, bool ascending, const tx::TXContext& tx);
+
+  typedef std::vector<SimpleExpression*> expr_list_t;
+  static SimpleExpression* connectAnd(expr_list_t expressions);
   
   typedef std::set<std::string> field_name_set_t;
   static storage::c_atable_ptr_t project(storage::c_atable_ptr_t table, field_name_set_t fields, const tx::TXContext& tx);
@@ -37,6 +44,8 @@ class TpccStoredProcedure : public net::AbstractRequestHandler {
   static tx::TXContext startTransaction();
   static void commit(tx::TXContext tx);
   static void rollback(tx::TXContext tx);
+
+  static std::string getDate();
 
   net::AbstractConnection* _connection;
   tx::TXContext _tx;
