@@ -433,7 +433,7 @@ CSBTree::leaf_node_ptr CSBTree::split_leaf_node(CSBTree::leaf_node_ptr leaf,
   // Find the insertion point
   insertion_point = 0;
 
-  while (leaf->entries[insertion_point].key < k && insertion_point < number_leaf_values) {
+  while ((insertion_point < number_leaf_values) && (leaf->entries[insertion_point].key < k)) {
     ++insertion_point;
   }
 

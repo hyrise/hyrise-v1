@@ -207,10 +207,10 @@ void RequestParseTask::operator()() {
     _responseTask.reset();  // yield responsibility
 
   } else {
+    scheduler->schedule(_responseTask);
     scheduler->scheduleQuery(tasks);
     *(performance_data.at(0)) = { 0, 0, "NO_PAPI", "RequestParseTask", "requestParse", _queryStart, get_epoch_nanoseconds(), boost::lexical_cast<std::string>(std::this_thread::get_id()) };
     _responseTask->setQueryStart(_queryStart);
-    scheduler->schedule(_responseTask);
     _responseTask.reset();  // yield responsibility
   }
 }

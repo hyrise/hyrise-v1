@@ -40,6 +40,9 @@ byte* RowHelper::build() const {
       memcpy(mov, _tempData[i], 2);
       memcpy(mov+2, _tempData[i]+2, *(uint16_t*) mov);
       mov += 2 + *(uint16_t*) mov;
+    } else if (_m[i].getType() == FloatType) {
+      memcpy(mov, _tempData[i], 4);
+      mov += 4;
     } else {
       memcpy(mov, _tempData[i], 8);
       mov += 8;
@@ -215,7 +218,7 @@ void RawTable::appendRows(const hyrise::storage::atable_ptr_t& rows) {
       type_func tf(rows, rh, column, row);
       ts(rows->typeOfColumn(column), tf);
     }
-    std::unique_ptr<unsigned char> data(rh.build());
+    std::unique_ptr<byte, void (*)(void *)> data(rh.build(), &std::free);
     appendRow(data.get());
   }
 }
