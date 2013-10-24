@@ -1,9 +1,9 @@
 {
     "operators": {
-        "-1" : {
-          "type" : "TableLoad",
-          "filename" : "tables/tablelist.tbl",
-          "table" : "reference"
+        "ref" : {
+            "type" : "TableLoad",
+            "filename" : "tables/tablelist.tbl",
+            "table" : "reference"
         },
         "loadCompanies": {
             "type": "TableLoad",
@@ -24,8 +24,8 @@
             "type": "NoOp"
         },
     	"meta" : {
-		    "type" : "MetaData"
-		}
+	    "type" : "MetaData"
+	}
     },
-    "edges": [["loadCompanies","noop"],["loadLinXxs","noop"],["loadEmployees","noop"],["noop","meta"]]
+    "edges": [["ref", "noop"],["loadCompanies","noop"],["loadLinXxs","noop"],["loadEmployees","noop"],["noop","meta"]]
 }

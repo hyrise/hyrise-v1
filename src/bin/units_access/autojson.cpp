@@ -62,7 +62,7 @@ TEST_P(AutoJsonTest, Query) {
   if (sm->exists("reference")) {
     ASSERT_TRUE((bool)out);
     auto ref = StorageManager::getInstance()->getTable("reference");
-
+    EXPECT_NE(ref.get(), out.get()) << "May not use 'reference' table to compare with itself";
     EXPECT_RELATION_EQ(ref, out);
   }
 }
