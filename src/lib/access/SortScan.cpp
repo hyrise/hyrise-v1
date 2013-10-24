@@ -142,7 +142,7 @@ std::shared_ptr<PlanOperation> SortScan::parse(Json::Value &data) {
     s->setSortField(data["fields"][0u].asUInt());
   }
   else if (data["fields"][0u].isString()) {
-    s->setSortFieldName(data["fields"][0u].asString());
+    s->setSortField(data["fields"][0u].asString());
   }
   else
     throw std::runtime_error("Field for SortScan not specified correctly");
@@ -159,7 +159,7 @@ void SortScan::setSortField(const unsigned s) {
   _sort_field = s;
 }
 
-void SortScan::setSortFieldName(const std::string& name) {
+void SortScan::setSortField(const field_name_t name) {
   _sort_field_name = name;
 }
 

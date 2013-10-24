@@ -15,7 +15,7 @@ public:
   static std::shared_ptr<PlanOperation> parse(Json::Value &data);
   const std::string vname();
   void setSortField(const unsigned s);
-  void setSortFieldName(const std::string& name);
+  void setSortField(const field_name_t name);
 
 private:
   unsigned _sort_field;
