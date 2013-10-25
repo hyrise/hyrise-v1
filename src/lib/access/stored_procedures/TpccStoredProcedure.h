@@ -26,6 +26,9 @@ class TpccStoredProcedure : public net::AbstractRequestHandler {
   Json::Value data();
 
  protected:
+  //json helper
+  static Json::Value assureMemberExists(Json::Value data, const std::string name);
+
   //planop helper
   static storage::c_atable_ptr_t getTpccTable(std::string name, const tx::TXContext& tx);
   static storage::c_atable_ptr_t selectAndValidate(storage::c_atable_ptr_t table, SimpleExpression *expr, const tx::TXContext& tx);

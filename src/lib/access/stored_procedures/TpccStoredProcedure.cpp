@@ -41,7 +41,6 @@ Json::Value TpccStoredProcedure::data() {
     throw std::runtime_error("No data object in json");
   }
   auto request = urldecode(body_data["data"]);
-  std::cout << request << std::endl;
 
   Json::Value request_data;
   Json::Reader reader;
@@ -75,6 +74,12 @@ namespace {
                                        {"STOCK"     , tpccTableDir + "stock.csv"},
                                        {"ORDER_LINE", tpccTableDir + "order_line.csv"}};
 } // namespace
+
+Json::Value TpccStoredProcedure::assureMemberExists(Json::Value data, const std::string name) {
+  if (!data.isMember(name))
+    throw std::runtime_error("Parameter \"" + name + "\" is not defined");
+  return data[name];
+}
 
 storage::c_atable_ptr_t TpccStoredProcedure::getTpccTable(std::string name, const tx::TXContext& tx) {
   TableLoad load;
@@ -156,10 +161,8 @@ SimpleExpression* TpccStoredProcedure::connectAnd(expr_list_t expressions) {
     return expressions.at(0);
 
   auto lastAnd = new CompoundExpression(expressions.at(0), expressions.at(1), AND);
-  for (size_t i = 2; i < expressions.size(); ++i) {
-     std::cout << lastAnd << ";" << i << std::endl;
-     lastAnd = new CompoundExpression(expressions.at(i), lastAnd, AND);
-  }
+  for (size_t i = 2; i < expressions.size(); ++i)
+    lastAnd = new CompoundExpression(expressions.at(i), lastAnd, AND);
   return lastAnd;
 }
 

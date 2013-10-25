@@ -17,13 +17,13 @@ TpccPaymentProcedure::TpccPaymentProcedure(net::AbstractConnection* connection) 
 }
 
 void TpccPaymentProcedure::setData(Json::Value& data) {
-  _w_id = data["W_ID"].asInt();
-  _d_id = data["D_ID"].asInt();
-  _c_w_id = data["C_W_ID"].asInt();
-  _c_d_id = data["C_D_ID"].asInt();
-  _h_amount = data["H_AMOUNT"].asFloat();
+  _w_id =     assureMemberExists(data, "W_ID").asInt();
+  _d_id =     assureMemberExists(data, "D_ID").asInt();
+  _c_w_id =   assureMemberExists(data, "C_W_ID").asInt();
+  _c_d_id =   assureMemberExists(data, "C_D_ID").asInt();
+  _h_amount = assureMemberExists(data, "H_AMOUNT").asFloat();
 
-  const int id = data["C_ID"].isInt();
+  const bool id = data["C_ID"].isInt();
   const bool last = data["C_LAST"].isString();
   if (id && last)
     throw std::runtime_error("Customer selection via either C_ID or C_LAST - both are provided");
@@ -54,11 +54,13 @@ Json::Value TpccPaymentProcedure::execute() {
   std::shared_ptr<const AbstractTable> tCustomer;
   if (_customerById) {
     tCustomer = std::const_pointer_cast<const AbstractTable>(getCustomerByCId());
+    //TODO no customer
     _chosenOne = 0;
     _c_last = tCustomer->getValue<std::string>("C_LAST", 0);
   }
   else {
     tCustomer = std::const_pointer_cast<const AbstractTable>(getCustomersByLastName());
+    //TODO no customer
     _chosenOne = (tCustomer->size() - 1) / 2 - 1; //really -1 again?;
     _c_id = tCustomer->getValue<int>("C_ID", _chosenOne);
   }
@@ -71,11 +73,13 @@ Json::Value TpccPaymentProcedure::execute() {
   _c_data = tCustomer->getValue<float>("C_DATA", _chosenOne);
 
   auto tWarehouse = getWarehouse();
+  //TODO no warehouse
   _w_ytd = tWarehouse->getValue<float>("W_YTD", 0) + _h_amount;
   const std::string w_name = tWarehouse->getValue<std::string>("W_NAME", 0);
   //setParameter(map, "w_ytd", w_ytd + h_amount);
 
   auto tDistrict = getDistrict();
+  //TODO no district
   _d_ytd = tDistrict->getValue<float>("D_YTD", 0) + _h_amount;
   const std::string d_name = tDistrict->getValue<std::string>("D_NAME", 0);
   _h_data = w_name + "    " + d_name;
@@ -138,9 +142,9 @@ storage::c_atable_ptr_t TpccPaymentProcedure::getCustomerByCId() {
   auto customer = getTpccTable("CUSTOMER", _tx);
 
   expr_list_t expressions;
-  expressions.push_back(new EqualsExpression<int>(customer, "C_W_ID", _w_id));
-  expressions.push_back(new EqualsExpression<int>(customer, "C_D_ID", _d_id));
-  expressions.push_back(new EqualsExpression<int>(customer, "C_ID", _c_id));
+  expressions.push_back(new EqualsExpression<hyrise_int_t>(customer, "C_W_ID", _w_id));
+  expressions.push_back(new EqualsExpression<hyrise_int_t>(customer, "C_D_ID", _d_id));
+  expressions.push_back(new EqualsExpression<hyrise_int_t>(customer, "C_ID", _c_id));
   auto validated = selectAndValidate(customer, connectAnd(expressions), _tx);
 
   auto result = project(validated, {"C_ID", "C_FIRST", "C_MIDDLE", "C_LAST", "C_STREET_1",
@@ -154,9 +158,9 @@ storage::c_atable_ptr_t TpccPaymentProcedure::getCustomersByLastName() {
   auto customer = getTpccTable("CUSTOMER", _tx);
 
   expr_list_t expressions;
-  expressions.push_back(new EqualsExpression<int>(customer, "C_W_ID", _w_id));
-  expressions.push_back(new EqualsExpression<int>(customer, "C_D_ID", _d_id));
-  expressions.push_back(new EqualsExpression<std::string>(customer, "C_LAST", _c_last));
+  expressions.push_back(new EqualsExpression<hyrise_int_t>(customer, "C_W_ID", _w_id));
+  expressions.push_back(new EqualsExpression<hyrise_int_t>(customer, "C_D_ID", _d_id));
+  expressions.push_back(new EqualsExpression<hyrise_string_t>(customer, "C_LAST", _c_last));
   auto validated = selectAndValidate(customer, connectAnd(expressions), _tx);
 
   auto sorted = sort(validated, "C_FIRST", true, _tx);
@@ -172,8 +176,8 @@ storage::c_atable_ptr_t TpccPaymentProcedure::getDistrict() {
   auto district = getTpccTable("DISTRICT", _tx);
 
   expr_list_t expressions;
-  expressions.push_back(new EqualsExpression<int>(district, "D_W_ID", _w_id));
-  expressions.push_back(new EqualsExpression<int>(district, "D_ID", _d_id));
+  expressions.push_back(new EqualsExpression<hyrise_int_t>(district, "D_W_ID", _w_id));
+  expressions.push_back(new EqualsExpression<hyrise_int_t>(district, "D_ID", _d_id));
   auto validated = selectAndValidate(district, connectAnd(expressions), _tx);
 
   auto result = project(validated, {"D_NAME", "D_STREET_1", "D_STREET_2", "D_CITY",
@@ -184,7 +188,7 @@ storage::c_atable_ptr_t TpccPaymentProcedure::getDistrict() {
 storage::c_atable_ptr_t TpccPaymentProcedure::getWarehouse() {
   auto warehouse = getTpccTable("WAREHOUSE", _tx);
 
-  auto expr = new EqualsExpression<int>(warehouse, "W_ID", _w_id);
+  auto expr = new EqualsExpression<hyrise_int_t>(warehouse, "W_ID", _w_id);
   auto validated = selectAndValidate(warehouse, expr, _tx);
 
   auto result = project(validated, {"W_NAME", "W_STREET_1", "W_STREET_2", "W_CITY",
@@ -212,8 +216,8 @@ void TpccPaymentProcedure::updateDistrictBalance() {
   auto orders = getTpccTable("DISTRICT", _tx);
 
   expr_list_t expressions;
-  expressions.push_back(new EqualsExpression<int>(orders, "D_W_ID", _w_id));
-  expressions.push_back(new EqualsExpression<int>(orders, "D_ID", _d_id));
+  expressions.push_back(new EqualsExpression<hyrise_int_t>(orders, "D_W_ID", _w_id));
+  expressions.push_back(new EqualsExpression<hyrise_int_t>(orders, "D_ID", _d_id));
   auto validated = selectAndValidate(orders, connectAnd(expressions), _tx);
 
   Json::Value updates;
@@ -225,9 +229,9 @@ void TpccPaymentProcedure::updateBCCustomer() {
   auto orders = getTpccTable("CUSTOMER", _tx);
 
   expr_list_t expressions;
-  expressions.push_back(new EqualsExpression<int>(orders, "C_W_ID", _w_id));
-  expressions.push_back(new EqualsExpression<int>(orders, "C_D_ID", _d_id));
-  expressions.push_back(new EqualsExpression<int>(orders, "C_ID", _c_id));
+  expressions.push_back(new EqualsExpression<hyrise_int_t>(orders, "C_W_ID", _w_id));
+  expressions.push_back(new EqualsExpression<hyrise_int_t>(orders, "C_D_ID", _d_id));
+  expressions.push_back(new EqualsExpression<hyrise_int_t>(orders, "C_ID", _c_id));
   auto validated = selectAndValidate(orders, connectAnd(expressions), _tx);
 
   Json::Value updates;
@@ -242,9 +246,9 @@ void TpccPaymentProcedure::updateGCCustomer() {
   auto orders = getTpccTable("CUSTOMER", _tx);
 
   expr_list_t expressions;
-  expressions.push_back(new EqualsExpression<int>(orders, "C_W_ID", _w_id));
-  expressions.push_back(new EqualsExpression<int>(orders, "C_D_ID", _d_id));
-  expressions.push_back(new EqualsExpression<int>(orders, "C_ID", _c_id));
+  expressions.push_back(new EqualsExpression<hyrise_int_t>(orders, "C_W_ID", _w_id));
+  expressions.push_back(new EqualsExpression<hyrise_int_t>(orders, "C_D_ID", _d_id));
+  expressions.push_back(new EqualsExpression<hyrise_int_t>(orders, "C_ID", _c_id));
   auto validated = selectAndValidate(orders, connectAnd(expressions), _tx);
 
   Json::Value updates;
@@ -257,7 +261,7 @@ void TpccPaymentProcedure::updateGCCustomer() {
 void TpccPaymentProcedure::updateWarehouseBalance() {
   auto orders = getTpccTable("WAREHOUSE", _tx);
 
-  auto expr = new EqualsExpression<int>(orders, "W_ID", _w_id);
+  auto expr = new EqualsExpression<hyrise_int_t>(orders, "W_ID", _w_id);
   auto validated = selectAndValidate(orders, expr, _tx);
 
   Json::Value updates;

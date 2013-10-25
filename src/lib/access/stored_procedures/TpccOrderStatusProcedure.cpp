@@ -17,10 +17,10 @@ TpccOrderStatusProcedure::TpccOrderStatusProcedure(net::AbstractConnection* conn
 }
 
 void TpccOrderStatusProcedure::setData(Json::Value& data) {
-  _w_id = data["W_ID"].asInt();
-  _d_id = data["D_ID"].asInt();
+  _w_id = assureMemberExists(data, "W_ID").asInt();
+  _d_id = assureMemberExists(data, "D_ID").asInt();
 
-  const int id = data["C_ID"].isInt();
+  const bool id = data["C_ID"].isInt();
   const bool last = data["C_LAST"].isString();
   if (id && last)
     throw std::runtime_error("Customer selection via either C_ID or C_LAST - both are provided");
@@ -56,7 +56,7 @@ Json::Value TpccOrderStatusProcedure::execute() {
   else {
     tCustomer = std::const_pointer_cast<AbstractTable>(getCustomersByLastName());
     //TODO what if size = 0?
-    _chosenOne = (tCustomer->size() - 1) / 2;
+    _chosenOne = (tCustomer->size() - 1) / 2 - 1;
     _c_id = tCustomer->getValue<int>("C_ID", _chosenOne);
   }
 
@@ -101,9 +101,9 @@ storage::c_atable_ptr_t TpccOrderStatusProcedure::getCustomerByCId() {
   auto customer = getTpccTable("CUSTOMER", _tx);
 
   expr_list_t expressions;
-  expressions.push_back(new EqualsExpression<int>(customer, "C_W_ID", _w_id));
-  expressions.push_back(new EqualsExpression<int>(customer, "C_D_ID", _d_id));
-  expressions.push_back(new EqualsExpression<int>(customer, "C_ID", _c_id));
+  expressions.push_back(new EqualsExpression<hyrise_int_t>(customer, "C_W_ID", _w_id));
+  expressions.push_back(new EqualsExpression<hyrise_int_t>(customer, "C_D_ID", _d_id));
+  expressions.push_back(new EqualsExpression<hyrise_int_t>(customer, "C_ID", _c_id));
   auto validated = selectAndValidate(customer, connectAnd(expressions), _tx);
 
   auto result = project(validated, {"C_ID", "C_FIRST", "C_MIDDLE", "C_LAST",
@@ -115,9 +115,9 @@ storage::c_atable_ptr_t TpccOrderStatusProcedure::getCustomersByLastName() {
   auto customer = getTpccTable("CUSTOMER", _tx);
 
   expr_list_t expressions;
-  expressions.push_back(new EqualsExpression<int>(customer, "C_W_ID", _w_id));
-  expressions.push_back(new EqualsExpression<int>(customer, "C_D_ID", _d_id));
-  expressions.push_back(new EqualsExpression<std::string>(customer, "C_LAST", _c_last));
+  expressions.push_back(new EqualsExpression<hyrise_int_t>(customer, "C_W_ID", _w_id));
+  expressions.push_back(new EqualsExpression<hyrise_int_t>(customer, "C_D_ID", _d_id));
+  expressions.push_back(new EqualsExpression<hyrise_string_t>(customer, "C_LAST", _c_last));
   auto validated = selectAndValidate(customer, connectAnd(expressions), _tx);
 
   auto sorted = sort(validated, "C_FIRST", true, _tx);
@@ -130,9 +130,9 @@ storage::c_atable_ptr_t TpccOrderStatusProcedure::getLastOrder() {
   auto orders = getTpccTable("ORDERS", _tx);
 
   expr_list_t expressions;
-  expressions.push_back(new EqualsExpression<int>(orders, "O_W_ID", _w_id));
-  expressions.push_back(new EqualsExpression<int>(orders, "O_D_ID", _d_id));
-  expressions.push_back(new EqualsExpression<int>(orders, "O_C_ID", _d_id));
+  expressions.push_back(new EqualsExpression<hyrise_int_t>(orders, "O_W_ID", _w_id));
+  expressions.push_back(new EqualsExpression<hyrise_int_t>(orders, "O_D_ID", _d_id));
+  expressions.push_back(new EqualsExpression<hyrise_int_t>(orders, "O_C_ID", _d_id));
   auto validated = selectAndValidate(orders, connectAnd(expressions), _tx);
 
   auto sorted = sort(validated, "O_ID", true, _tx);
@@ -145,9 +145,9 @@ storage::c_atable_ptr_t TpccOrderStatusProcedure::getOrderLines() {
   auto order_line = getTpccTable("ORDER_LINE", _tx);
 
   expr_list_t expressions;
-  expressions.push_back(new EqualsExpression<int>(order_line, "OL_W_ID", _w_id));
-  expressions.push_back(new EqualsExpression<int>(order_line, "OL_D_ID", _d_id));
-  expressions.push_back(new EqualsExpression<int>(order_line, "OL_O_ID", _o_id));
+  expressions.push_back(new EqualsExpression<hyrise_int_t>(order_line, "OL_W_ID", _w_id));
+  expressions.push_back(new EqualsExpression<hyrise_int_t>(order_line, "OL_D_ID", _d_id));
+  expressions.push_back(new EqualsExpression<hyrise_int_t>(order_line, "OL_O_ID", _o_id));
   auto validated = selectAndValidate(order_line, connectAnd(expressions), _tx);
 
   auto result = project(validated, {"OL_SUPPLY_W_ID", "OL_I_ID", "OL_QUANTITY",
