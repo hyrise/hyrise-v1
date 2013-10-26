@@ -147,11 +147,7 @@ storage::c_atable_ptr_t TpccPaymentProcedure::getCustomerByCId() {
   expressions.push_back(new EqualsExpression<hyrise_int_t>(customer, "C_ID", _c_id));
   auto validated = selectAndValidate(customer, connectAnd(expressions), _tx);
 
-  auto result = project(validated, {"C_ID", "C_FIRST", "C_MIDDLE", "C_LAST", "C_STREET_1",
-                                    "C_STREET_2", "C_CITY", "C_STATE", "C_ZIP", "C_PHONE",
-                                    "C_SINCE", "C_CREDIT", "C_CREDIT_LIM", "C_DISCOUNT",
-                                    "C_BALANCE", "C_YTD_PAYMENT", "C_PAYMENT_CNT", "C_DATA"}, _tx);
-  return result;
+  return validated;
 }
 
 storage::c_atable_ptr_t TpccPaymentProcedure::getCustomersByLastName() {
@@ -164,12 +160,7 @@ storage::c_atable_ptr_t TpccPaymentProcedure::getCustomersByLastName() {
   auto validated = selectAndValidate(customer, connectAnd(expressions), _tx);
 
   auto sorted = sort(validated, "C_FIRST", true, _tx);
-
-  auto result = project(sorted, {"C_ID", "C_FIRST", "C_MIDDLE", "C_LAST", "C_STREET_1",
-                                 "C_STREET_2", "C_CITY", "C_STATE", "C_ZIP", "C_PHONE",
-                                 "C_SINCE", "C_CREDIT", "C_CREDIT_LIM", "C_DISCOUNT",
-                                 "C_BALANCE", "C_YTD_PAYMENT", "C_PAYMENT_CNT", "C_DATA"}, _tx);
-  return result;
+  return sorted;
 }
 
 storage::c_atable_ptr_t TpccPaymentProcedure::getDistrict() {
@@ -180,9 +171,7 @@ storage::c_atable_ptr_t TpccPaymentProcedure::getDistrict() {
   expressions.push_back(new EqualsExpression<hyrise_int_t>(district, "D_ID", _d_id));
   auto validated = selectAndValidate(district, connectAnd(expressions), _tx);
 
-  auto result = project(validated, {"D_NAME", "D_STREET_1", "D_STREET_2", "D_CITY",
-                                    "D_STATE", "D_ZIP", "D_YTD"}, _tx);
-  return result;
+  return validated;
 }
 
 storage::c_atable_ptr_t TpccPaymentProcedure::getWarehouse() {
@@ -191,9 +180,7 @@ storage::c_atable_ptr_t TpccPaymentProcedure::getWarehouse() {
   auto expr = new EqualsExpression<hyrise_int_t>(warehouse, "W_ID", _w_id);
   auto validated = selectAndValidate(warehouse, expr, _tx);
 
-  auto result = project(validated, {"W_NAME", "W_STREET_1", "W_STREET_2", "W_CITY",
-                                    "W_STATE", "W_ZIP", "W_YTD"}, _tx);
-  return result;
+  return validated;
 }
 
 void TpccPaymentProcedure::insertHistory() {

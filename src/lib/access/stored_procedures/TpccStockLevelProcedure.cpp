@@ -62,8 +62,7 @@ storage::c_atable_ptr_t TpccStockLevelProcedure::getOId() {
   expressions.push_back(new EqualsExpression<hyrise_int_t>(district, "D_ID", _d_id));
   auto validated = selectAndValidate(district, connectAnd(expressions), _tx);
 
-  auto result = project(validated, {"D_NEXT_O_ID"}, _tx);
-  return result;
+  return validated;
 }
 
 storage::c_atable_ptr_t TpccStockLevelProcedure::getStockCount() {

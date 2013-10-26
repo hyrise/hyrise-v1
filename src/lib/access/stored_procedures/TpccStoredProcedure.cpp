@@ -108,16 +108,6 @@ storage::c_atable_ptr_t TpccStoredProcedure::selectAndValidate(storage::c_atable
   return validate.getResultTable();
 }
 
-storage::c_atable_ptr_t TpccStoredProcedure::project(storage::c_atable_ptr_t table, field_name_set_t fields, const tx::TXContext& tx) {
-  ProjectionScan project;
-  project.setTXContext(tx);
-  project.addInput(table);
-  for (auto& field : fields)
-    project.addField(field);
-  project.execute();
-  return project.getResultTable();
-}
-
 tx::TXContext TpccStoredProcedure::startTransaction() {
   return tx::TransactionManager::beginTransaction();
 }

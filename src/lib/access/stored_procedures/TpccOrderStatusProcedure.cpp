@@ -106,9 +106,7 @@ storage::c_atable_ptr_t TpccOrderStatusProcedure::getCustomerByCId() {
   expressions.push_back(new EqualsExpression<hyrise_int_t>(customer, "C_ID", _c_id));
   auto validated = selectAndValidate(customer, connectAnd(expressions), _tx);
 
-  auto result = project(validated, {"C_ID", "C_FIRST", "C_MIDDLE", "C_LAST",
-                                    "C_BALANCE"}, _tx);
-  return result;
+  return validated;
 }
 
 storage::c_atable_ptr_t TpccOrderStatusProcedure::getCustomersByLastName() {
@@ -121,9 +119,7 @@ storage::c_atable_ptr_t TpccOrderStatusProcedure::getCustomersByLastName() {
   auto validated = selectAndValidate(customer, connectAnd(expressions), _tx);
 
   auto sorted = sort(validated, "C_FIRST", true, _tx);
-
-  auto result = project(sorted, {"C_ID", "C_FIRST", "C_MIDDLE", "C_LAST", "C_BALANCE"}, _tx);
-  return result;
+  return sorted;
 }
 
 storage::c_atable_ptr_t TpccOrderStatusProcedure::getLastOrder() {
@@ -136,9 +132,7 @@ storage::c_atable_ptr_t TpccOrderStatusProcedure::getLastOrder() {
   auto validated = selectAndValidate(orders, connectAnd(expressions), _tx);
 
   auto sorted = sort(validated, "O_ID", true, _tx);
-
-  auto result = project(sorted, {"O_ID", "O_CARRIER_ID", "O_ENTRY_D"}, _tx);
-  return result;
+  return sorted;
 }
 
 storage::c_atable_ptr_t TpccOrderStatusProcedure::getOrderLines() {
@@ -150,9 +144,7 @@ storage::c_atable_ptr_t TpccOrderStatusProcedure::getOrderLines() {
   expressions.push_back(new EqualsExpression<hyrise_int_t>(order_line, "OL_O_ID", _o_id));
   auto validated = selectAndValidate(order_line, connectAnd(expressions), _tx);
 
-  auto result = project(validated, {"OL_SUPPLY_W_ID", "OL_I_ID", "OL_QUANTITY",
-                                    "OL_AMOUNT", "OL_DELIVERY_D"}, _tx);
-  return result;
+  return validated;
 }
 
 } } // namespace hyrise::access

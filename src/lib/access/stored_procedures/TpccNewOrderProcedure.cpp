@@ -117,7 +117,12 @@ Json::Value TpccNewOrderProcedure::execute() {
     item.s_remote_cnt = t5->getValue<int>("S_REMOTE_CNT", 0);
 
     std::string s_data = t5->getValue<std::string>("S_DATA", 0);
-    std::string s_dist = t5->getValue<std::string>(5, 0); //selects DIST_
+
+    std::ostringstream os;
+    os << "S_DIST_" << std::setw(2) << std::setfill('0') << std::right << _d_id;
+    const std::string s_dist_name = os.str(); //e.g. S_DIST_01
+    std::cout << "<<<<<<" << s_dist_name << std::endl;
+    std::string s_dist = t5->getValue<std::string>(s_dist_name, 0);
 
     total += quantity * _items.at(i).price;
 
@@ -129,7 +134,6 @@ Json::Value TpccNewOrderProcedure::execute() {
     rollback(_tx); //this can skip more actions (2.4.2.3)!
   else
     commit(_tx);
-
 
 
   Json::Value result;
@@ -226,8 +230,7 @@ storage::c_atable_ptr_t TpccNewOrderProcedure::getCustomer() {
   expressions.push_back(new EqualsExpression<hyrise_int_t>(customer, "C_ID", _c_id));
   auto validated = selectAndValidate(customer, connectAnd(expressions), _tx);
 
-  auto result = project(validated, {"C_DISCOUNT", "C_LAST", "C_CREDIT"}, _tx);
-  return result;
+  return validated;
 }
 
 storage::c_atable_ptr_t TpccNewOrderProcedure::getDistrict() {
@@ -238,8 +241,7 @@ storage::c_atable_ptr_t TpccNewOrderProcedure::getDistrict() {
   expressions.push_back(new EqualsExpression<hyrise_int_t>(district, "D_ID", _d_id));
   auto validated = selectAndValidate(district, connectAnd(expressions), _tx);
 
-  auto result = project(validated, {"D_TAX", "D_NEXT_O_ID"}, _tx);
-  return result;
+  return validated;
 }
 
 storage::c_atable_ptr_t TpccNewOrderProcedure::getItemInfo(int i_id) {
@@ -248,8 +250,7 @@ storage::c_atable_ptr_t TpccNewOrderProcedure::getItemInfo(int i_id) {
   auto expr = new EqualsExpression<hyrise_int_t>(item, "I_ID", i_id);
   auto validated = selectAndValidate(item, expr, _tx);
 
-  auto result = project(validated, {"I_PRICE", "I_NAME", "I_DATA"}, _tx);
-  return result;
+  return validated;
 }
 
 storage::c_atable_ptr_t TpccNewOrderProcedure::getStockInfo(int w_id, int i_id) {
@@ -260,12 +261,7 @@ storage::c_atable_ptr_t TpccNewOrderProcedure::getStockInfo(int w_id, int i_id) 
   expressions.push_back(new EqualsExpression<hyrise_int_t>(district, "S_I_ID", i_id));
   auto validated = selectAndValidate(district, connectAnd(expressions), _tx);
 
-  std::ostringstream os;
-  os << "S_DIST_" << std::setw(2) << std::setfill('0') << std::right << _d_id;
-  const std::string s_dist_name = os.str();
-  auto result = project(validated, {"S_QUANTITY", "S_DATA", "S_YTD", "S_ORDER_CNT", "S_REMOTE_CNT", s_dist_name}, _tx);
-
-  return result;
+  return validated;
 }
 
 storage::c_atable_ptr_t TpccNewOrderProcedure::getWarehouseTaxRate() {
@@ -274,9 +270,7 @@ storage::c_atable_ptr_t TpccNewOrderProcedure::getWarehouseTaxRate() {
   auto expr = new EqualsExpression<hyrise_int_t>(district, "W_ID", _w_id);
   auto validated = selectAndValidate(district, expr, _tx);
 
-  auto result = project(validated, {"W_TAX"}, _tx);
-
-  return result;
+  return validated;
 }
 
 void TpccNewOrderProcedure::incrementNextOrderId() {

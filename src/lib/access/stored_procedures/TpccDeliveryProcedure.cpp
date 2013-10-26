@@ -82,9 +82,7 @@ storage::c_atable_ptr_t TpccDeliveryProcedure::getCId() {
   expressions.push_back(new EqualsExpression<hyrise_int_t>(orders, "O_ID", _o_id));
   auto validated = selectAndValidate(orders, connectAnd(expressions), _tx);
 
-  auto result = project(validated, {"O_C_ID"}, _tx);
-
-  return result;
+  return validated;
 }
 
 storage::c_atable_ptr_t TpccDeliveryProcedure::getNewOrder() {
@@ -97,9 +95,7 @@ storage::c_atable_ptr_t TpccDeliveryProcedure::getNewOrder() {
 
   auto sorted = sort(validated, "NO_O_ID", true, _tx);
 
-  auto result = project(sorted, {"NO_O_ID"}, _tx);
-
-  return result;
+  return sorted;
 }
 
 storage::c_atable_ptr_t TpccDeliveryProcedure::sumOLAmount() {

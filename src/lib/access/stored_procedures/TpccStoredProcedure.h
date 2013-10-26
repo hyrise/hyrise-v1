@@ -40,9 +40,6 @@ class TpccStoredProcedure : public net::AbstractRequestHandler {
   typedef std::vector<SimpleExpression*> expr_list_t;
   static SimpleExpression* connectAnd(expr_list_t expressions);
   
-  typedef std::set<std::string> field_name_set_t;
-  static storage::c_atable_ptr_t project(storage::c_atable_ptr_t table, field_name_set_t fields, const tx::TXContext& tx);
-  
   //transaction
   static tx::TXContext startTransaction();
   static void commit(tx::TXContext tx);
