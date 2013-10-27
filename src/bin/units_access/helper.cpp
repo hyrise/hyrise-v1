@@ -27,36 +27,39 @@
 
 #include "testing/test.h"
 
-hyrise::storage::c_atable_ptr_t sortTable(hyrise::storage::c_atable_ptr_t table){
+namespace hyrise {
+namespace access {
+
+storage::c_atable_ptr_t sortTable(storage::c_atable_ptr_t table){
   size_t c = table->columnCount();
   for(size_t f = 0; f < c; f++){
-    hyrise::access::SortScan so;
+    SortScan so;
     so.addInput(table);
     so.setSortField(f);
     table = so.execute()->getResultTable();
   }
   return table;
 }
-const hyrise::storage::c_atable_ptr_t hashJoinSameTable(
+const storage::c_atable_ptr_t hashJoinSameTable(
 
-    hyrise::storage::c_atable_ptr_t& table,
+    storage::c_atable_ptr_t& table,
     field_list_t &columns) {
 
 	/*
-  std::vector<std::shared_ptr<hyrise::access::HashBuild> > hashBuilds;
+  std::vector<std::shared_ptr<HashBuild> > hashBuilds;
   for (unsigned int i = 0; i < columns.size(); ++i) {
-    hashBuilds.push_back(std::make_shared<hyrise::access::HashBuild>());
+    hashBuilds.push_back(std::make_shared<HashBuild>());
     hashBuilds[i]->addInput(table);
     hashBuilds[i]->addField(columns[i]);
   }
 	 */
-	auto hashBuild = std::make_shared<hyrise::access::HashBuild>();
+	auto hashBuild = std::make_shared<HashBuild>();
 	hashBuild->addInput(table);
 	hashBuild->setKey("join");
 	for (unsigned int i = 0; i < columns.size(); ++i) {
 		hashBuild->addField(columns[i]);
 	}
-	auto hashJoinProbe = std::make_shared<hyrise::access::HashJoinProbe>();
+	auto hashJoinProbe = std::make_shared<HashJoinProbe>();
 	hashJoinProbe->addInput(table);
         for (auto col: columns) { hashJoinProbe->addField(col); }
 	hashJoinProbe->addInput(hashBuild->execute()->getResultHashTable());
@@ -172,7 +175,7 @@ std::string loadParameterized(const std::string &path, const parameter_map_t& pa
   return file;
 }
 
-class MockedConnection : public hyrise::net::AbstractConnection {
+class MockedConnection : public net::AbstractConnection {
  public:
   MockedConnection(const std::string& body) : _body(body) {}
 
@@ -200,8 +203,8 @@ class MockedConnection : public hyrise::net::AbstractConnection {
   std::string _response;
 };
 
-hyrise::tx::TXContext getNewTXContext() {
-  return hyrise::tx::TransactionManager::beginTransaction();
+tx::TXContext getNewTXContext() {
+  return tx::TransactionManager::beginTransaction();
 }
 
 /**
@@ -210,18 +213,18 @@ hyrise::tx::TXContext getNewTXContext() {
  * that will be parsed and the necessary plan operations will be
  * instantiated.
  */
-hyrise::storage::c_atable_ptr_t executeAndWait(
+storage::c_atable_ptr_t executeAndWait(
     std::string httpQuery,
     size_t poolSize,
     std::string* evt,
-    hyrise::tx::transaction_id_t tid) {
+    tx::transaction_id_t tid) {
   using namespace hyrise;
-  using namespace hyrise::access;
-  using namespace hyrise::tx;
+  using namespace access;
+  using namespace tx;
  
   std::stringstream query;
   query << "query=" << httpQuery;
-  if (tid == hyrise::tx::UNKNOWN)
+  if (tid == tx::UNKNOWN)
     tid = getNewTXContext().tid;
   query << "&session_context=" << tid;
 
@@ -230,7 +233,7 @@ hyrise::storage::c_atable_ptr_t executeAndWait(
   SharedScheduler::getInstance().resetScheduler("WSCoreBoundQueuesScheduler", poolSize);
   AbstractTaskScheduler * scheduler = SharedScheduler::getInstance().getScheduler();
 
-  auto request = std::make_shared<access::RequestParseTask>(conn.get());
+  auto request = std::make_shared<RequestParseTask>(conn.get());
   auto response = request->getResponseTask();
 
   auto wait = std::make_shared<WaitTask>();
@@ -262,23 +265,23 @@ hyrise::storage::c_atable_ptr_t executeAndWait(
   return result_task->getResultTable();
 }
 
-hyrise::storage::c_atable_ptr_t executeAndWaitStoredProcedure(
+std::string executeStoredProcedureAndWait(
     std::string storedProcedureName,
     std::string json,
     size_t poolSize) {
 
   std::stringstream query;
   query << "data=" << json;
-  query << "&session_context=" << getNewTXContext().tid;
 
-  std::cout << query.str() << std::endl;
+  auto conn = make_unique<MockedConnection>(query.str());
 
-  std::unique_ptr<MockedConnection> conn = make_unique<MockedConnection>(query.str());
+  auto procedure2 = (net::Router::getInstance().getHandler("/" + storedProcedureName + "/")->create(&*conn));
 
-  auto procedure2 = (hyrise::net::Router::getInstance().getHandler("/" + storedProcedureName + "/")->create(&*conn));
-
-  auto procedure = std::dynamic_pointer_cast<hyrise::access::TpccStoredProcedure>(hyrise::net::Router::getInstance().getHandler("/" + storedProcedureName + "/")->create(&*conn));
+  auto procedure = std::dynamic_pointer_cast<TpccStoredProcedure>(net::Router::getInstance().getHandler("/" + storedProcedureName + "/")->create(&*conn));
   (*procedure)();
 
-  return nullptr;
+  return conn->getResponse();
 }
+
+} } //namespace access
+

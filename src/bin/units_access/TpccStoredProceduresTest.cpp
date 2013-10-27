@@ -468,7 +468,7 @@ void TpccStoredProceduresTest::doStockLevel(int w_id, int d_id, int threshold) {
 
   Json::StyledWriter writer;
 
-  executeAndWaitStoredProcedure("TPCC-StockLevel", writer.write(root));
+  executeStoredProcedureAndWait("TPCC-StockLevel", writer.write(root));
 }
 
 

@@ -10,9 +10,12 @@
 #include <storage/AbstractTable.h>
 #include <io/TXContext.h>
 
+namespace hyrise {
+namespace access {
+
 //  Joins specified columns of a single table using hash join.
-hyrise::storage::c_atable_ptr_t hashJoinSameTable(
-    hyrise::storage::atable_ptr_t table,
+storage::c_atable_ptr_t hashJoinSameTable(
+    storage::atable_ptr_t table,
     field_list_t &columns);
 
 //  Used for message chaining to improve code readability when building edges maps
@@ -30,7 +33,7 @@ class EdgesBuilder {
   Json::Value getEdges() const;
 };
 
-hyrise::storage::c_atable_ptr_t sortTable(hyrise::storage::c_atable_ptr_t table);
+storage::c_atable_ptr_t sortTable(storage::c_atable_ptr_t table);
 
 bool isEdgeEqual(
     const Json::Value &edges,
@@ -95,17 +98,20 @@ void setParameter(parameter_map_t& map, std::string name, std::string value);
 std::string loadFromFile(const std::string& path);
 std::string loadParameterized(const std::string &path, const parameter_map_t& params);
 
-hyrise::tx::TXContext getNewTXContext();
+tx::TXContext getNewTXContext();
 
-hyrise::storage::c_atable_ptr_t executeAndWait(
+storage::c_atable_ptr_t executeAndWait(
     std::string httpQuery,
     size_t poolSize = getNumberOfCoresOnSystem(),
     std::string *evt = nullptr,
-    hyrise::tx::transaction_id_t tid = hyrise::tx::UNKNOWN);
+    tx::transaction_id_t tid = tx::UNKNOWN);
 
-hyrise::storage::c_atable_ptr_t executeAndWaitStoredProcedure(
+std::string executeStoredProcedureAndWait(
     std::string storedProcedureName,
     std::string httpQuery,
     size_t poolSize = getNumberOfCoresOnSystem());
 
+} } // namespace hyrise::access
+
 #endif  // SRC_BIN_UNITS_ACCESS_HELPER_H_
+

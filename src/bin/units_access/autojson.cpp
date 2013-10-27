@@ -13,6 +13,7 @@
 #include "testing/TableEqualityTest.h"
 
 namespace hyrise {
+namespace access { 
 
 using namespace boost::filesystem;
 
@@ -101,4 +102,5 @@ INSTANTIATE_TEST_CASE_P(
 TEST(DummyTest, ValueParameterizedTestsAreNotSupportedOnThisPlatform) {}
 #endif
 
-}
+} } // namespace hyrise::access
+
