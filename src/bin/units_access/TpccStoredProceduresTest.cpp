@@ -52,9 +52,6 @@ public:
     _paymentMap["updateBCCustomer"]       = tpccQueryPath + "/Payment-updateBCCustomer.json";
     _paymentMap["updateGCCustomer"]       = tpccQueryPath + "/Payment-updateGCCustomer.json";
     _paymentMap["updateWarehouseBalance"] = tpccQueryPath + "/Payment-updateWarehouseBalance.json";
-
-    _stockLevelMap["getOId"]        = tpccQueryPath + "/StockLevel-getOId.json";
-    _stockLevelMap["getStockCount"] = tpccQueryPath + "/StockLevel-getStockCount.json";
   }
 
   void SetUp() {
@@ -98,7 +95,7 @@ protected:
                   std::string date, item_info_list_t items);
   void doOrderStatus(int w_id, int d_id, int c_id, std::string c_last);
   void doPayment(int w_id, int d_id, int c_id, std::string c_last, int c_w_id, int c_d_id, bool bc_customer, std::string date);
-  void doStockLevel(int w_id, int d_id, int threshold);
+  Json::Value doStockLevel(int w_id, int d_id, int threshold);
 
   file_map_t _deliveryMap, _newOrderMap, _orderStatusMap, _paymentMap, _stockLevelMap;
   size_t i_customer_size, i_orders_size, i_orderLine_size, i_warehouse_size, i_newOrder_size,
@@ -460,15 +457,21 @@ void TpccStoredProceduresTest::doPayment(int w_id, int d_id, int c_id, std::stri
   EXPECT_EQ(i_history_size, loadTable(History)->size() - 1) << "number of rows in NEW-ORDER should be exactly one more";
 }
 
-void TpccStoredProceduresTest::doStockLevel(int w_id, int d_id, int threshold) {
+Json::Value TpccStoredProceduresTest::doStockLevel(int w_id, int d_id, int threshold) {
   Json::Value root;
   root["W_ID"] = w_id;
   root["D_ID"] = d_id;
   root["threshold"] = threshold;
 
   Json::StyledWriter writer;
+    
+  const auto s = executeStoredProcedureAndWait("TPCC-StockLevel", writer.write(root));
+  Json::Reader reader;
+  Json::Value response;
+  if (!reader.parse(s, response))
+    throw std::runtime_error("Failed to parse json");
 
-  executeStoredProcedureAndWait("TPCC-StockLevel", writer.write(root));
+  return response;
 }
 
 
@@ -523,14 +526,30 @@ TEST_F(TpccStoredProceduresTest, Payment_W1D1BARBARATIONlocalGC) {
 
 //============================Stock Level Tests
 
+int assureFieldExists(const Json::Value& data, std::string name) {
+  if (!data.isMember(name))
+    throw std::runtime_error("\"" + name + "\" should be set but is not");
+  return data[name].asInt();
+}
+
 TEST_F(TpccStoredProceduresTest, StockLevel_W1D1T90) {
-  //          (w_id, d_id, threshold);
-  doStockLevel(1   , 1   , 90       );
+  //                                 (w_id, d_id, threshold);
+  const auto& response = doStockLevel(1   , 1   , 90       );
+
+  ASSERT_EQ(1, assureFieldExists(response, "W_ID"));
+  ASSERT_EQ(1, assureFieldExists(response, "D_ID"));
+  ASSERT_EQ(90, assureFieldExists(response, "threshold"));
+  ASSERT_EQ(7, assureFieldExists(response, "low_stock"));
 }
 
 TEST_F(TpccStoredProceduresTest, StockLevel_W1D1T50) {
-  //          (w_id, d_id, threshold);
-  doStockLevel(1   , 1   , 50       );
+  //                                 (w_id, d_id, threshold);
+  const auto& response = doStockLevel(1   , 1   , 50       );
+
+  ASSERT_EQ(1, assureFieldExists(response, "W_ID"));
+  ASSERT_EQ(1, assureFieldExists(response, "D_ID"));
+  ASSERT_EQ(50, assureFieldExists(response, "threshold"));
+  ASSERT_EQ(1, assureFieldExists(response, "low_stock"));
 }
 
 } } // namespace hyrise::access
