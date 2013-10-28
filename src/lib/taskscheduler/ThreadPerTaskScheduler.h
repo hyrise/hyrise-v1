@@ -37,7 +37,7 @@ class ThreadPerTaskScheduler : public AbstractTaskScheduler, public TaskReadyObs
     scheduler_status_t _status;
     // mutex to protect status
     std::mutex _statusMutex;
-
+    std::deque<std::thread> _threads;
     static log4cxx::LoggerPtr _logger;
 public:
   ThreadPerTaskScheduler();

@@ -37,16 +37,16 @@ class AsyncConnection : public AbstractConnection {
   char *write_buffer;
   size_t write_buffer_len;
 
-  bool closed;
-
   // HTPP Code used to send to the client
   size_t code;
 
+  bool keep_alive_flag;
+  bool waiting_for_response = false;
   std::string contentType;
 
   AsyncConnection();
   ~AsyncConnection();
-
+  void reset();
   virtual std::string getBody() const;
   virtual bool hasBody() const;
   virtual std::string getPath() const;
