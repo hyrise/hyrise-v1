@@ -161,8 +161,8 @@ void ResponseTask::operator()() {
 
         // Copy the complete result
         response["real_size"] = result->size();
-        const rapidjson::Document& tmp_rows = generateRowsJson(result, _transmitLimit, _transmitOffset);
-        response.AddMember("rows", std::move(tmp_rows), response.GetAllocator());
+        rapidjson::Document tmp_rows(generateRowsJson(result, _transmitLimit, _transmitOffset));
+        response.AddMember("rows", tmp_rows, response.GetAllocator());
         response["header"] = json_header;
       }
 

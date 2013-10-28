@@ -87,7 +87,7 @@ void PosUpdateScan::setRawData(const rapidjson::Value& d) {
   for(const auto& m : d.getMemberNames()) {
     auto tmp = std::unique_ptr<rapidjson::Document>(new rapidjson::Document());
     d[m].Accept(*tmp);
-    _ram_data.insert(std::pair<std::string, std::unique_ptr<rapidjson::Document>>(m, std::move(tmp)));
+    _raw_data.insert(std::pair<std::string, std::unique_ptr<rapidjson::Document>>(m, std::move(tmp)));
     //_raw_data[m] = stmp;
   }
 }
