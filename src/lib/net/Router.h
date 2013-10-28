@@ -20,6 +20,8 @@ class AbstractRequestHandler : public Task {
  public:
   typedef std::shared_ptr<AbstractRequestHandler> SharedPtr;
   virtual ~AbstractRequestHandler() {}
+ protected:
+  
 };
 
 struct AbstractRequestHandlerFactory {

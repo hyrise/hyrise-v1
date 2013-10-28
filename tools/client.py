@@ -7,7 +7,11 @@ class Connection(object):
         self._host = host
         self._port = port
         self._context = None
+        self._session = requests.Session()
         self._server_base_url = "http://%s:%s/" % (host, port)
+
+    def close(self):
+        self._session.close()
 
     def query(self, json_query, commit=False):
         result = self.query_raw(json.dumps(json_query), self._context, commit)
@@ -21,8 +25,8 @@ class Connection(object):
             payload["session_context"] = context
         if commit:
             payload["autocommit"] = "true"
-        result = requests.post(self._server_base_url + "query/",
-                               data = payload)
+        result = self._session.post(self._server_base_url + "query/",
+                               data = payload, headers={'Connection': 'Keep-Alive'})
         return result.text
 
     def commit(self):
@@ -38,4 +42,4 @@ class Connection(object):
         return r
 
     def runningTransactions(self):
-        return json.loads(requests.get(self._server_base_url + "status/tx").text)
+        return json.loads(self._session.get(self._server_base_url + "status/tx").text)
