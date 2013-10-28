@@ -123,7 +123,7 @@ class EqualsJoinExpression : public JoinExpression {
     return left->getValue<T>(left_field, left_row) == right->getValue<T>(right_field, right_row);
   }
 
-  static EqualsJoinExpression<T> *parse(const Json::Value &value) {
+  static EqualsJoinExpression<T> *parse(const rapidjson::Value &value) {
     if (value["field_right"].isNumeric()) {
       return new EqualsJoinExpression<T>(value["input_left"].asUInt(),
                                          value["field_left"].asUInt(),

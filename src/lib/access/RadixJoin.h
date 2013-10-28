@@ -10,7 +10,7 @@ namespace access {
 class RadixJoin : public PlanOperation {
 public:
   void executePlanOperation();
-  static std::shared_ptr<PlanOperation> parse(Json::Value &data);
+  static std::shared_ptr<PlanOperation> parse(const rapidjson::Value &data);
   const std::string vname();
   void setBits1(const uint32_t b);
   void setBits2(const uint32_t b);

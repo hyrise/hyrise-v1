@@ -39,7 +39,7 @@ public:
   /// Parses the JSON string to create the plan operation, parameters
   /// to the json are:
   ///  - bits: to set the number of used bits for the histogram
-  static std::shared_ptr<PlanOperation> parse(Json::Value &data);
+  static std::shared_ptr<PlanOperation> parse(const rapidjson::Value &data);
   const std::string vname();
   template<typename T>
   void executeHistogram();
@@ -138,7 +138,7 @@ class Histogram2ndPass : public Histogram
 {
 public:
   void executePlanOperation();
-  static std::shared_ptr<PlanOperation> parse(Json::Value &data);
+  static std::shared_ptr<PlanOperation> parse(const rapidjson::Value &data);
   const std::string vname();
 };
 

@@ -4,7 +4,9 @@
 #include <memory>
 #include <map>
 #include <string>
-#include "json.h"
+
+#include "rapidjson/rapidjson.h"
+#include "rapidjson/document.h"
 
 #include "helper/types.h"
 #include "helper/make_unique.h"
@@ -17,7 +19,7 @@ namespace hyrise { namespace access {
 class AbstractExpressionFactory {
  public:
   virtual ~AbstractExpressionFactory() {}
-  virtual expression_uptr_t create(const Json::Value& value) = 0;
+  virtual expression_uptr_t create(const rapidjson::Value& value) = 0;
 };
 
 typedef std::unique_ptr<AbstractExpressionFactory> expression_factory_ptr_t;
@@ -25,7 +27,7 @@ typedef std::unique_ptr<AbstractExpressionFactory> expression_factory_ptr_t;
 template<typename Expression>
 class ExpressionFactory : public AbstractExpressionFactory {
  public:
-  virtual expression_uptr_t create(const Json::Value& value) {
+  virtual expression_uptr_t create(const rapidjson::Value& value) {
     return Expression::parse(value);
   }
 };
@@ -40,14 +42,14 @@ class Expressions : noncopyable {
     return getInstance().addRegistration(callsign, make_unique<ExpressionFactory<Expression>>());
   }
 
-  static expression_uptr_t parse(const std::string& callsign, const Json::Value& value) {
+  static expression_uptr_t parse(const std::string& callsign, const rapidjson::Value& value) {
     return getInstance().createRegistered(callsign, value);
   }
  private:
   std::map<std::string, expression_factory_ptr_t> _registrations;
   
   bool addRegistration(const std::string& callsign, expression_factory_ptr_t ptr);
-  expression_uptr_t createRegistered(const std::string& callsign, const Json::Value& value) const;
+  expression_uptr_t createRegistered(const std::string& callsign, const rapidjson::Value& value) const;
 };
 
 

@@ -44,7 +44,7 @@ void ValidatePositions::executePlanOperation() {
   
 }
 
-std::shared_ptr<PlanOperation> ValidatePositions::parse(Json::Value &data) {
+std::shared_ptr<PlanOperation> ValidatePositions::parse(const rapidjson::Value &data) {
 	return std::make_shared<ValidatePositions>();
 }
 

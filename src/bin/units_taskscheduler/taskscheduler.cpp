@@ -17,6 +17,8 @@
 #include "helper/make_unique.h"
 #include "helper/HwlocHelper.h"
 
+#include "rapidjson/rapidjson.h"
+
 
 namespace hyrise {
 namespace access {

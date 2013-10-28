@@ -34,13 +34,13 @@ predicate_map_t getPredicateMap() {
   return d;
 }
 
-PredicateType::type parsePredicateType(const Json::Value &value) {
+PredicateType::type parsePredicateType(const rapidjson::Value &value) {
   if (value.isString()) return getPredicateMap()[value.asString()];
   else if (value.isNumeric()) return (PredicateType::type) value.asInt();
   else throw std::runtime_error("Predicate '" + value.asString() + "' could not be parsed");
 }
 
-ExpressionType parseExpressionType(const Json::Value &value) {
+ExpressionType parseExpressionType(const rapidjson::Value &value) {
   if (value.isString()) return getExpressionMap()[value.asString()];
   else if (value.isNumeric()) return (ExpressionType) value.asInt();
   else throw std::runtime_error("Expression '" + value.asString() + "' could not be parsed");

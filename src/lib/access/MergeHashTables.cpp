@@ -29,7 +29,7 @@ void MergeHashTables::executePlanOperation() {
   }
 }
 
-std::shared_ptr<PlanOperation> MergeHashTables::parse(Json::Value &data) {
+std::shared_ptr<PlanOperation> MergeHashTables::parse(const rapidjson::Value &data) {
   auto instance = std::make_shared<MergeHashTables>();
   if (data.isMember("key")) {
     instance->setKey(data["key"].asString());

@@ -4,11 +4,13 @@
 
 #include <helper/types.h>
 #include <storage/AbstractTable.h>
-#include <json.h>
+
+#include <rapidjson/rapidjson.h>
+#include <rapidjson/document.h>
 
 struct json_converter {
   template<typename T>
-  static T convert(Json::Value v);
+  static T convert(const rapidjson::Value& v);
 };
 
 struct set_json_value_functor {
@@ -18,14 +20,16 @@ struct set_json_value_functor {
   hyrise::storage::atable_ptr_t tab;
   size_t col;
   size_t row;
-  Json::Value val;
+  rapidjson::Document val;
 
 
   inline set_json_value_functor(hyrise::storage::atable_ptr_t t): tab(t) {
   }
 
-  inline void set(size_t c, size_t r, Json::Value v) {
-    col = c; row = r; val = v;
+  inline void set(size_t c, size_t r, const rapidjson::Value& v) {
+
+    v.Accept(val);
+    col = c; row = r; 
   }
 
   template<typename T>

@@ -12,7 +12,7 @@ namespace access {
 class CreateRadixTable : public PlanOperation {
 public:
   void executePlanOperation();
-  static std::shared_ptr<PlanOperation> parse(Json::Value &data);
+  static std::shared_ptr<PlanOperation> parse(const rapidjson::Value &data);
   const std::string vname();
 };
 
@@ -26,7 +26,7 @@ public:
   RadixCluster();
 
   void executePlanOperation();
-  static std::shared_ptr<PlanOperation> parse(Json::Value &data);
+  static std::shared_ptr<PlanOperation> parse(const rapidjson::Value &data);
   const std::string vname();
   template<typename T>
   void executeClustering();
@@ -155,7 +155,7 @@ public:
   RadixCluster2ndPass();
 
   void executePlanOperation();
-  static std::shared_ptr<PlanOperation> parse(Json::Value &data);
+  static std::shared_ptr<PlanOperation> parse(const rapidjson::Value &data);
   const std::string vname();
   void setBits1(const uint32_t b,
                 const uint32_t sig=0);

@@ -22,7 +22,7 @@ void SettingsOperation::executePlanOperation() {
   Settings::getInstance()->setThreadpoolSize(_threadpoolSize);
 }
 
-std::shared_ptr<PlanOperation> SettingsOperation::parse(Json::Value &data) {
+std::shared_ptr<PlanOperation> SettingsOperation::parse(const rapidjson::Value &data) {
   std::shared_ptr<SettingsOperation> settingsOp = std::make_shared<SettingsOperation>();
   settingsOp->setThreadpoolSize(data["threadpoolSize"].asUInt());
   return settingsOp;

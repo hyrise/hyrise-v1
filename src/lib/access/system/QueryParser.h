@@ -9,7 +9,8 @@
 #include <stdexcept>
 #include <mutex>
 
-#include <json.h>
+#include <rapidjson/rapidjson.h>
+#include <rapidjson/document.h>
 
 #include "access/system/BasicParser.h"
 
@@ -29,7 +30,7 @@ class QueryParserException : public std::runtime_error {
 };
 
 struct AbstractQueryParserFactory {
-  virtual std::shared_ptr<PlanOperation> parse(Json::Value& data) = 0;
+  virtual std::shared_ptr<PlanOperation> parse(const rapidjson::Value& data) = 0;
 
   virtual ~AbstractQueryParserFactory() {}
 };
@@ -43,14 +44,14 @@ struct QueryParserFactory;
 template<typename T>
 struct QueryParserFactory<T, parse_construct> : public AbstractQueryParserFactory {
 
-  virtual std::shared_ptr<PlanOperation> parse(Json::Value& data) {
+  virtual std::shared_ptr<PlanOperation> parse(const rapidjson::Value& data) {
     return T::parse(data);
   }
 };
 
 template<typename T>
 struct QueryParserFactory<T, default_construct> : public AbstractQueryParserFactory {
-  virtual std::shared_ptr<PlanOperation> parse(Json::Value& data) {
+  virtual std::shared_ptr<PlanOperation> parse(const rapidjson::Value& data) {
     typedef ::BasicParser<T> parser_t;
     return parser_t::parse(data);
   }
@@ -62,7 +63,7 @@ struct QueryParserFactory<T, default_construct> : public AbstractQueryParserFact
  */
 class QueryParser {
   typedef std::map< std::string, AbstractQueryParserFactory * > factory_map_t;
-  typedef std::map< Json::Value, std::shared_ptr<Task> > task_map_t;
+  typedef std::map< std::string, std::shared_ptr<Task> > task_map_t;
 
   factory_map_t _factory;
   QueryParser();
@@ -70,23 +71,23 @@ class QueryParser {
   /*  Builds tasks based on query's specifications and collects them in
       tasks and task_map for further processing. */
   void buildTasks(
-      const Json::Value &query,
+      const rapidjson::Value &query,
       std::vector<std::shared_ptr<Task> > &tasks,
       task_map_t &task_map) const;
 
   /*  Defines operations input based on their types.  */
   void setInputs(
       std::shared_ptr<PlanOperation> planOperation,
-      const Json::Value &planOperationSpec) const;
+      const rapidjson::Value &planOperationSpec) const;
 
   //  Returns PAPI event name, if specified.
-  std::string getPapiEventName(const Json::Value &query) const;
+  std::string getPapiEventName(const rapidjson::Value &query) const;
   //  Returns session id, if specified.
-  int getSessionId(const Json::Value &query) const;
+  int getSessionId(const rapidjson::Value &query) const;
 
   //  Builds tasks' dependencies based on task map.
   void setDependencies(
-      const Json::Value &query,
+      const rapidjson::Value &query,
       task_map_t &task_map) const;
 
   //  Output of task without successor is query's result.
@@ -114,7 +115,7 @@ class QueryParser {
     return true;
   }
   
-  std::shared_ptr<PlanOperation> parse(std::string name, Json::Value d);
+  std::shared_ptr<PlanOperation> parse(std::string name, const rapidjson::Value& d);
   
   static QueryParser &instance();
 
@@ -124,7 +125,7 @@ class QueryParser {
       query's specifications and constructs their dependency graph. The task
       delivering the final result will be determined, too.   */
   std::vector<std::shared_ptr<Task> > deserialize(
-      Json::Value query,
+      const rapidjson::Value& query,
       std::shared_ptr<Task> *result) const;
 };
 

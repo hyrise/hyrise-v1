@@ -63,7 +63,7 @@ storage::atable_ptr_t InsertScan::buildFromJson() {
         result->setValue<hyrise_int_t>(c, r, k);
         ++offset;
       } else {
-        fun.set(c,r,_raw_data[r][c-offset]);
+        fun.set(c,r,*(_raw_data[r][c-offset].get()));
         ts(result->typeOfColumn(c), fun);
       }
 
@@ -106,13 +106,22 @@ void InsertScan::setInputData(const storage::atable_ptr_t &c) {
   _data = c;
 }
 
-std::shared_ptr<PlanOperation> InsertScan::parse(Json::Value &data) {
+std::shared_ptr<PlanOperation> InsertScan::parse(const rapidjson::Value &data) {
   auto result = std::make_shared<InsertScan>();
 
-  if (data.isMember("data")) {
-    result->_raw_data = functional::collect(data["data"], [](const Json::Value& v){
-      return functional::collect(v, [](const Json::Value& c){ return Json::Value(c); });
-    });
+  if (data.HasMember("data")) {
+
+
+    for(auto it=data["data"].begin(); it != data["data"].end(); ++it) {
+      std::vector<std::unique_ptr<rapidjson::Document>> row;
+      for(auto jt=it->begin(); jt != it->end(); ++jt) {
+        const rapidjson::Value& v = *jt;
+        std::unique_ptr<rapidjson::Document> d(new rapidjson::Document());
+        v.Accept(*d);
+        row.push_back(std::move(d));
+      }
+      result->_raw_data.push_back(std::move(row));
+    }
   }
   return result;
 }

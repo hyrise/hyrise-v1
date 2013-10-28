@@ -54,7 +54,7 @@ void CreateIndex::executePlanOperation() {
   sm->addInvertedIndex(_index_name, _index);
 }
 
-std::shared_ptr<PlanOperation> CreateIndex::parse(Json::Value &data) {
+std::shared_ptr<PlanOperation> CreateIndex::parse(const rapidjson::Value &data) {
   auto i = BasicParser<CreateIndex>::parse(data);
   i->setIndexName(data["index_name"].asString());
   return i;

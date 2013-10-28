@@ -11,7 +11,8 @@
 #include "helper/types.h"
 #include "storage/AbstractTable.h"
 
-#include "json.h"
+#include <rapidjson/rapidjson.h>
+#include <rapidjson/document.h>
 
 
 namespace hyrise {
@@ -61,7 +62,7 @@ class PlanOperation : public OutputTask {
   storage::c_ahashtable_ptr_t getResultHashTable(size_t index = 0) const;
 
   void addField(field_t field);
-  void addField(const Json::Value &field);
+  void addField(const rapidjson::Value &field);
   void addNamedField(const field_name_t& field);
 
   void setPlanId(std::string i);

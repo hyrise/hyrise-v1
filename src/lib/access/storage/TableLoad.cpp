@@ -68,7 +68,7 @@ void TableLoad::executePlanOperation() {
   addResult(_table);
 }
 
-std::shared_ptr<PlanOperation> TableLoad::parse(Json::Value &data) {
+std::shared_ptr<PlanOperation> TableLoad::parse(const rapidjson::Value &data) {
   std::shared_ptr<TableLoad> s = std::make_shared<TableLoad>();
   s->setTableName(data["table"].asString());
   s->setFileName(data["filename"].asString());

@@ -36,7 +36,7 @@ public:
   void setupPlanOperation();
   void executePlanOperation();
   /// { type: "JoinScan", jtype: "EQUI", predicates: [{type: 0}, {type: 3, in: 0, f:0}, {type: "3"] }
-  static std::shared_ptr<PlanOperation> parse(const Json::Value &v);
+  static std::shared_ptr<PlanOperation> parse(const rapidjson::Value &v);
   const std::string vname();
   template<typename T>
   void addJoinClause(const size_t input_left,
@@ -44,7 +44,7 @@ public:
                      const size_t input_right,
                      const storage::field_t field_right);
   template<typename T>
-  void addJoinClause(const Json::Value &value);
+  void addJoinClause(const rapidjson::Value &value);
   void addCombiningClause(const ExpressionType t);
 
 private:
@@ -67,7 +67,7 @@ void JoinScan::addJoinClause(const size_t input_left,
 }
 
 template<typename T>
-void JoinScan::addJoinClause(const Json::Value &value) {
+void JoinScan::addJoinClause(const rapidjson::Value &value) {
   EqualsJoinExpression<T> *expr1 = EqualsJoinExpression<T>::parse(value);
   addJoinExpression(expr1);
 }

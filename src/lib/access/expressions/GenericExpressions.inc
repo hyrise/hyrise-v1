@@ -78,7 +78,7 @@
 		_store = std::dynamic_pointer_cast<const storage::Store>(l[0]);\
 		BOOST_PP_SEQ_FOR_EACH(EXPRESSION_EXTRACT_AV_AND_OFFSET,,BOOST_PP_SEQ_TRANSFORM(EXPR_TRANSFORM_FIELD_NAMES,,seq_of_fields));\
 	}\
-	std::unique_ptr<name> name::parse(const Json::Value& val) {\
+	std::unique_ptr<name> name::parse(const rapidjson::Value& val) {\
 		auto res = make_unique<name>();\
 		if (val.isMember("withDelta")) res->_with_delta = val["withDelta"].asBool();\
 		BOOST_PP_SEQ_FOR_EACH(EXPR_EXTRACT_FFROM_JSON, res, seq_of_fields);\
@@ -96,7 +96,7 @@
 		name(); \
 		virtual pos_list_t* match(const size_t start, const size_t stop);\
 		virtual void walk(const std::vector<hyrise::storage::c_atable_ptr_t> &l);		\
-		static std::unique_ptr<name> parse(const Json::Value& data);\
+		static std::unique_ptr<name> parse(const rapidjson::Value& data);\
 	};\
 	IMPLEMENT_EXPRESSION_CLASS(name, seq_of_fields, seq_logic);\
 

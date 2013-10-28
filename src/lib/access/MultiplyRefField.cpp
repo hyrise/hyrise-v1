@@ -22,7 +22,7 @@ void MultiplyRefField::executePlanOperation() {
   }
 }
 
-std::shared_ptr<PlanOperation> MultiplyRefField::parse(Json::Value &data) {
+std::shared_ptr<PlanOperation> MultiplyRefField::parse(const rapidjson::Value &data) {
   std::shared_ptr<MultiplyRefField> s = BasicParser<MultiplyRefField>::parse(data);
   return s;
 }

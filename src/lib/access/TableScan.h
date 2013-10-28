@@ -16,7 +16,7 @@ class TableScan : public PlanOperation {
   /// ownership of passed in expression
   explicit TableScan(std::unique_ptr<AbstractExpression> expr);
   /// Parse TableScan from 
-  static std::shared_ptr<PlanOperation> parse(Json::Value& data);
+  static std::shared_ptr<PlanOperation> parse(const rapidjson::Value& data);
   const std::string vname() { return "me"; }
  protected:
   void setupPlanOperation();

@@ -3,12 +3,14 @@
 #define SRC_LIB_ACCESS_AGGEGATEFUNCTIONS_H_
 
 #include <vector>
+#include <map>
 
 #include <storage/AbstractTable.h>
 #include <storage/HashTable.h>
 #include <storage/storage_types.h>
 
-#include <json.h>
+#include <rapidjson/rapidjson.h>
+#include <rapidjson/document.h>
 
 struct AggregateFunctions {
   enum type {
@@ -26,7 +28,7 @@ aggregateFunctionMap_t getAggregateFunctionMap();
 
 class AggregateFun;
 
-AggregateFun *parseAggregateFunction(const Json::Value &value);
+AggregateFun *parseAggregateFunction(const rapidjson::Value &value);
 
 /*
   This is the base function for all aggregate functions. It defers the
@@ -100,7 +102,7 @@ class SumAggregateFun: public AggregateFun {
     return "SUM(" + oldName + ")";
   }
 
-  static AggregateFun *parse(const Json::Value &);
+  static AggregateFun *parse(const rapidjson::Value &);
 };
 
 class CountAggregateFun: public AggregateFun {
@@ -139,7 +141,7 @@ class CountAggregateFun: public AggregateFun {
     return "COUNT(" + oldName + ")";
   }
 
-  static AggregateFun *parse(const Json::Value &);
+  static AggregateFun *parse(const rapidjson::Value &);
 };
 
 class AverageAggregateFun: public AggregateFun {
@@ -175,7 +177,7 @@ class AverageAggregateFun: public AggregateFun {
     return "AVG(" + oldName + ")";
   }
 
-  static AggregateFun *parse(const Json::Value &);
+  static AggregateFun *parse(const rapidjson::Value &);
 };
 
 class MinAggregateFun: public AggregateFun {
@@ -208,7 +210,7 @@ class MinAggregateFun: public AggregateFun {
     return "MIN(" + oldName + ")";
   }
 
-  static AggregateFun *parse(const Json::Value &);
+  static AggregateFun *parse(const rapidjson::Value &);
 };
 
 class MaxAggregateFun: public AggregateFun {
@@ -241,7 +243,7 @@ class MaxAggregateFun: public AggregateFun {
     return "MAX(" + oldName + ")";
   }
 
-  static AggregateFun *parse(const Json::Value &);
+  static AggregateFun *parse(const rapidjson::Value &);
 };
 
 #endif // AGGEGATEFUNCTIONS

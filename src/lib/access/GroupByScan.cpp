@@ -97,7 +97,7 @@ void GroupByScan::executePlanOperation() {
   }
 }
 
-std::shared_ptr<PlanOperation> GroupByScan::parse(Json::Value &v) {
+std::shared_ptr<PlanOperation> GroupByScan::parse(const rapidjson::Value &v) {
   std::shared_ptr<GroupByScan> gs = std::make_shared<GroupByScan>();
 
   if (v.isMember("fields")) {
@@ -108,7 +108,7 @@ std::shared_ptr<PlanOperation> GroupByScan::parse(Json::Value &v) {
 
   if (v.isMember("functions")) {
     for (unsigned i = 0; i < v["functions"].size(); ++i) {
-      const Json::Value &f = v["functions"][i];
+      const rapidjson::Value &f = v["functions"][i];
       gs->addFunction(parseAggregateFunction(f));
     }
   }

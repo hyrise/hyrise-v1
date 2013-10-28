@@ -133,16 +133,16 @@ void JsonTable::executePlanOperation() {
 	addResult(result);
 }
 
-std::shared_ptr<PlanOperation> JsonTable::parse(Json::Value &data) {
+std::shared_ptr<PlanOperation> JsonTable::parse(const rapidjson::Value &data) {
 	auto result = std::make_shared<JsonTable>();
 
-	result->_names = functional::collect(data["names"], [](const Json::Value& v) { return v.asString();});
-	result->_types = functional::collect(data["types"], [](const Json::Value& v) { return v.asString();});
-	result->_groups = functional::collect(data["groups"], [](const Json::Value& v) { return v.asUInt();});
+	result->_names = functional::collect(data["names"], [](const rapidjson::Value& v) { return v.asString();});
+	result->_types = functional::collect(data["types"], [](const rapidjson::Value& v) { return v.asString();});
+	result->_groups = functional::collect(data["groups"], [](const rapidjson::Value& v) { return v.asUInt();});
 
 	if (data.isMember("data")) {
-		result->_data = functional::collect(data["data"], [](const Json::Value& v){
-			return functional::collect(v, [](const Json::Value& c){ return c.asString(); });
+		result->_data = functional::collect(data["data"], [](const rapidjson::Value& v){
+			return functional::collect(v, [](const rapidjson::Value& c){ return c.asString(); });
 		});
 	}
 
@@ -153,7 +153,7 @@ std::shared_ptr<PlanOperation> JsonTable::parse(Json::Value &data) {
 
 	// Check if we have serial field definitions
 	if (data.isMember("serials")) {
-		result->_serialFields = functional::collect(data["serials"], [](const Json::Value& v) { return v.asString();});
+		result->_serialFields = functional::collect(data["serials"], [](const rapidjson::Value& v) { return v.asString();});
 	}
 
 	return result;

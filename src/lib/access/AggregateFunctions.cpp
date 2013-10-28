@@ -1,7 +1,6 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "AggregateFunctions.h"
 #include <storage/meta_storage.h>
-#include "json.h"
 
 namespace hyrise { namespace storage {
 
@@ -177,7 +176,7 @@ aggregateFunctionMap_t getAggregateFunctionMap() {
   return d;
 }
 
-AggregateFun *parseAggregateFunction(const Json::Value &data) {
+AggregateFun *parseAggregateFunction(const rapidjson::Value &data) {
   int ftype = -1;
   if (data["type"].isNumeric()) {
     ftype = data["type"].asUInt();
@@ -229,7 +228,7 @@ void SumAggregateFun::processValuesForRows(const hyrise::storage::c_atable_ptr_t
   ts(_dataType, fun);
 }
 
-AggregateFun *SumAggregateFun::parse(const Json::Value &f) {
+AggregateFun *SumAggregateFun::parse(const rapidjson::Value &f) {
   if (f["field"].isNumeric()) return new SumAggregateFun(f["field"].asUInt());
   else if (f["field"].isString()) return new SumAggregateFun(f["field"].asString());
   else throw std::runtime_error("Could not parse json");
@@ -304,7 +303,7 @@ size_t CountAggregateFun::countRowsDistinct(const hyrise::storage::c_atable_ptr_
   return distinctRows.size();
 }
 
-AggregateFun *CountAggregateFun::parse(const Json::Value &f) {
+AggregateFun *CountAggregateFun::parse(const rapidjson::Value &f) {
   CountAggregateFun* aggregate;
   
   if (f["field"].isNumeric()) aggregate = new CountAggregateFun(f["field"].asUInt());
@@ -325,7 +324,7 @@ void AverageAggregateFun::processValuesForRows(const hyrise::storage::c_atable_p
     ts(_dataType, fun);
 }
 
-AggregateFun *AverageAggregateFun::parse(const Json::Value &f) {
+AggregateFun *AverageAggregateFun::parse(const rapidjson::Value &f) {
   if (f["field"].isNumeric()) return new AverageAggregateFun(f["field"].asUInt());
   else if (f["field"].isString()) return new AverageAggregateFun(f["field"].asString());
   else throw std::runtime_error("Could not parse json");
@@ -339,7 +338,7 @@ void MinAggregateFun::processValuesForRows(const hyrise::storage::c_atable_ptr_t
     ts(_dataType, fun);
 }
 
-AggregateFun *MinAggregateFun::parse(const Json::Value &f) {
+AggregateFun *MinAggregateFun::parse(const rapidjson::Value &f) {
   if (f["field"].isNumeric()) return new MinAggregateFun(f["field"].asUInt());
   else if (f["field"].isString()) return new MinAggregateFun(f["field"].asString());
   else throw std::runtime_error("Could not parse json");
@@ -353,7 +352,7 @@ void MaxAggregateFun::processValuesForRows(const hyrise::storage::c_atable_ptr_t
     ts(_dataType, fun);
 }
 
-AggregateFun *MaxAggregateFun::parse(const Json::Value &f) {
+AggregateFun *MaxAggregateFun::parse(const rapidjson::Value &f) {
   if (f["field"].isNumeric()) return new MaxAggregateFun(f["field"].asUInt());
   else if (f["field"].isString()) return new MaxAggregateFun(f["field"].asString());
   else throw std::runtime_error("Could not parse json");

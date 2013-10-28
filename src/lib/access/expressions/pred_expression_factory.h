@@ -30,14 +30,14 @@ struct expression_factory {
   field_t _field;
   field_name_t _field_name;
   PredicateType::type _predicate;
-  Json::Value _value;
+  const rapidjson::Value& _value;
 
-  expression_factory() {}
+  //expression_factory() {}
 
   expression_factory(size_t input_index,
                      field_t field_index,
                      PredicateType::type predicate,
-                     Json::Value value) :
+                     const rapidjson::Value& value) :
       _input_index(input_index),
       _field(field_index),
       _field_name(""),
@@ -48,7 +48,7 @@ struct expression_factory {
   expression_factory(size_t input_index,
                      field_name_t fieldName,
                      PredicateType::type predicate,
-                     Json::Value value) :
+                     const rapidjson::Value& value) :
       _input_index(input_index),
       _field_name(fieldName),
       _predicate(predicate),

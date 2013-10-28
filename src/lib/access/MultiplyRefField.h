@@ -29,7 +29,7 @@ public:
   ///   "type" : "MultiplyRefField",
   ///   "fields" : ["ref", "value"],
   /// }
-  static std::shared_ptr<PlanOperation> parse(Json::Value &data);
+  static std::shared_ptr<PlanOperation> parse(const rapidjson::Value &data);
   const std::string vname();
 
 private:

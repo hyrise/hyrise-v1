@@ -12,7 +12,7 @@ namespace access {
 class PrefixSum : public ParallelizablePlanOperation {
 public:
   void executePlanOperation();
-  static std::shared_ptr<PlanOperation> parse(Json::Value &data);
+  static std::shared_ptr<PlanOperation> parse(const rapidjson::Value &data);
   const std::string vname();
   void splitInput();
 
@@ -29,7 +29,7 @@ private:
 class MergePrefixSum : public PlanOperation {
 public:
   void executePlanOperation();
-  static std::shared_ptr<PlanOperation> parse(Json::Value &data);
+  static std::shared_ptr<PlanOperation> parse(const rapidjson::Value &data);
   const std::string vname();
 };
 

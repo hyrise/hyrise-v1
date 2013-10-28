@@ -19,7 +19,7 @@ ebb.libname := ebb
 ebb.libs := ev
 $(eval $(call library,ebb))
 
-json := $(tp)/jsoncpp
-json.libname := json
-json.includes := $(tp)/jsoncpp
+json := $(tp)/rapidjson
+json.libname := 
+json.includes := $(tp)/rapidjson/include
 $(eval $(call library,json))

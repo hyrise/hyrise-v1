@@ -11,253 +11,302 @@ bool RadixJoinTransformation::transformation_is_registered = QueryTransformation
 void RadixJoinTransformation::appendEdge(
     const std::string &srcId,
     const std::string &dstId,
-    Json::Value &query) const {
-  Json::Value edge(Json::arrayValue);
-  edge.append(srcId);
-  edge.append(dstId);
-  query["edges"].append(edge);
+    rapidjson::Document &query) const {
+
+  rapidjson::Value edge(rapidjson::kArrayType);
+  edge.PushBack(srcId, query.GetAllocator());
+  edge.PushBack(dstId, query.GetAllocator());
+  query["edges"].PushBack(edge, query.GetAllocator());
 }
 
-Json::Value RadixJoinTransformation::createEdge(std::string in, std::string out){
-  Json::Value edge(Json::arrayValue);
-  edge.append(in);
-  edge.append(out);
-  return edge;
+rapidjson::Document RadixJoinTransformation::createEdge(rapidjson::Document& q, std::string in, std::string out){
+  rapidjson::Document edge;
+  edge.SetArray();
+  edge.PushBack(in, edge.GetAllocator());
+  edge.PushBack(out, edge.GetAllocator());
+  return std::move(edge);
 }
 
 void RadixJoinTransformation::removeOperator(
-    Json::Value &query,
-    const Json::Value &operatorId) const {
-  Json::Value remainingEdges(Json::arrayValue);
-  Json::Value jsonOperatorId(operatorId);
+    rapidjson::Document &query,
+    const rapidjson::Value &operatorId) const {
+
+  rapidjson::Value remainingEdges(rapidjson::kArrayType);
+
   for (unsigned i = 0; i < query["edges"].size(); ++i) {
-    Json::Value currentEdge = query["edges"][i];
-    if (currentEdge[0u] != jsonOperatorId
-        &&  currentEdge[1u] != jsonOperatorId) {
-      remainingEdges.append(currentEdge);
+    
+    // Copy the edge
+    rapidjson::Document currentEdge;
+    query["edges"][i].Accept(currentEdge);
+
+    if (currentEdge[0u].asString() != operatorId.asString()
+        &&  currentEdge[1u].asString() != operatorId.asString()) {
+      remainingEdges.PushBack(currentEdge, query.GetAllocator());
     }
   }
-  query["edges"] = remainingEdges;
-  query["operators"].removeMember(operatorId.asString());
+  
+  query.AddMember("edges", remainingEdges, query.GetAllocator());
+  query["operators"].RemoveMember(operatorId.asString().c_str());
 }
 
-std::vector<std::string> RadixJoinTransformation::getInputIds(const std::string & id, const Json::Value &query){
+std::vector<std::string> RadixJoinTransformation::getInputIds(const std::string & id, const rapidjson::Document &query){
   std::vector<std::string> inputs;
-  Json::Value currentEdge;
+
   for (unsigned i = 0; i < query["edges"].size(); ++i) {
-      currentEdge = query["edges"][i];
-      if (currentEdge[1u] == id) {
-        inputs.push_back(currentEdge[0u].asString());
-      }
+    const rapidjson::Value& currentEdge = query["edges"][i];
+    if (currentEdge[1u].asString() == id) {
+      inputs.push_back(currentEdge[0u].asString());
+    }
   }
   return inputs;
 }
 
-std::vector<std::string> RadixJoinTransformation::getOutputIds(const std::string & id, const  Json::Value &query){
+std::vector<std::string> RadixJoinTransformation::getOutputIds(const std::string & id, const  rapidjson::Document &query){
   std::vector<std::string> outputs;
-  Json::Value currentEdge;
   for (unsigned i = 0; i < query["edges"].size(); ++i) {
-      currentEdge = query["edges"][i];
-      if (currentEdge[0u] == id) {
-        outputs.push_back(currentEdge[1u].asString());
-      }
+    const rapidjson::Value& currentEdge = query["edges"][i];
+    if (currentEdge[0u].asString() == id) {
+      outputs.push_back(currentEdge[1u].asString());
+    }
   }
   return outputs;
 }
 
-ops_and_edges_t RadixJoinTransformation::build_probe_side(std::string prefix,
-                                                          Json::Value &fields,
-                                                          int probe_par,
-                                                          Json::Value & bits1,
-                                                          Json::Value & bits2,
-                                                          std::string in_id){
+ops_and_edges_t RadixJoinTransformation::build_probe_side( rapidjson::Document& query,
+                                                           std::string prefix,
+                                                           rapidjson::Value &fields,
+                                                           int probe_par,
+                                                           const rapidjson::Value & bits1,
+                                                           const rapidjson::Value & bits2,
+                                                           std::string in_id){
   ops_and_edges_t probe_side;
 
-  Json::Value histogram_p1, prefixsum_p1, createradixtable_p1, radixcluster_p1, merge_prefix_sum, barrier;
+  // Creating lots of elements, could be slow
+  rapidjson::Document histogram_p1, prefixsum_p1, createradixtable_p1, radixcluster_p1, merge_prefix_sum, barrier;
+  
+  histogram_p1.SetObject();
+  histogram_p1.AddMember("type", "Histogram", histogram_p1.GetAllocator());
+  histogram_p1.AddMember("fields", fields, histogram_p1.GetAllocator());
+  histogram_p1.AddMember("bits", bits1.asUInt(), histogram_p1.GetAllocator());
 
-  histogram_p1["type"] = "Histogram";
-  histogram_p1["fields"] = fields;
-  histogram_p1["bits"] = bits1;
+  prefixsum_p1.SetObject();
+  prefixsum_p1.AddMember("type", "PrefixSum", prefixsum_p1.GetAllocator());
 
-  prefixsum_p1["type"] = "PrefixSum";
+  createradixtable_p1.SetObject();
+  createradixtable_p1.AddMember("type", "CreateRadixTable", createradixtable_p1.GetAllocator());
 
-  createradixtable_p1["type"] = "CreateRadixTable";
+  radixcluster_p1.SetObject();
+  radixcluster_p1.AddMember("type", "RadixCluster", radixcluster_p1.GetAllocator());
+  radixcluster_p1.AddMember("fields", fields, radixcluster_p1.GetAllocator());
+  radixcluster_p1.AddMember("bits", bits1.asUInt(), radixcluster_p1.GetAllocator());
 
-  radixcluster_p1["type"] = "RadixCluster";
-  radixcluster_p1["fields"] = fields;
-  radixcluster_p1["bits"] = bits1;
+  merge_prefix_sum.SetObject();
+  merge_prefix_sum.AddMember("type", "MergePrefixSum", merge_prefix_sum.GetAllocator());
 
-  merge_prefix_sum["type"] = "MergePrefixSum";
-
-  barrier["type"] = "Barrier";
-  barrier["fields"] = fields;
+  barrier.SetObject();
+  barrier.AddMember("type", "Barrier", barrier.GetAllocator());
+  barrier.AddMember("fields", fields, barrier.GetAllocator());
 
   // First define the plan ops
   // add parallel ops
   for(int i = 0; i < probe_par; i++){
-    Json::Value h = Json::Value(histogram_p1);
-    h["part"] = i;
-    h["numParts"] = probe_par;
-    Json::Value p = Json::Value(prefixsum_p1);
-    p["part"] = i;
-    p["numParts"] = probe_par;
-    Json::Value r = Json::Value(radixcluster_p1);
-    r["part"] = i;
-    r["numParts"] = probe_par;
-    probe_side.ops.push_back(std::pair<std::string, Json::Value>(prefix + "_histogram_p1_" + std::to_string(i), h));
-    probe_side.ops.push_back(std::pair<std::string, Json::Value>(prefix + "_prefixsum_p1_" + std::to_string(i), p));
-    probe_side.ops.push_back(std::pair<std::string, Json::Value>(prefix + "_radixcluster_p1_" + std::to_string(i), r));
+
+    rapidjson::Document h;
+    histogram_p1.Accept(h);
+    h.AddMember("part", i, h.GetAllocator());
+    h.AddMember("numParts", probe_par, h.GetAllocator());
+
+    rapidjson::Document p;
+    prefixsum_p1.Accept(p);
+    p.AddMember("part", i, p.GetAllocator());
+    p.AddMember("numParts", probe_par, p.GetAllocator());
+
+    
+    rapidjson::Document r;
+    radixcluster_p1.Accept(r);
+    r.AddMember("part", i, r.GetAllocator());
+    r.AddMember("numParts", probe_par, r.GetAllocator());
+
+    probe_side.ops.push_back(std::pair<std::string, rapidjson::Document>(prefix + "_histogram_p1_" + std::to_string(i), h));
+    probe_side.ops.push_back(std::pair<std::string, rapidjson::Document>(prefix + "_prefixsum_p1_" + std::to_string(i), p));
+    probe_side.ops.push_back(std::pair<std::string, rapidjson::Document>(prefix + "_radixcluster_p1_" + std::to_string(i), r));
   }
   // add seriable ops
-  probe_side.ops.push_back(std::pair<std::string, Json::Value>(prefix + "_createradixtable_p1", createradixtable_p1));
-  probe_side.ops.push_back(std::pair<std::string, Json::Value>(prefix + "_merge_prefixsum", merge_prefix_sum));
-  probe_side.ops.push_back(std::pair<std::string, Json::Value>(prefix + "_barrier", barrier));
+  probe_side.ops.push_back(std::pair<std::string, rapidjson::Document>(prefix + "_createradixtable_p1", createradixtable_p1));
+  probe_side.ops.push_back(std::pair<std::string, rapidjson::Document>(prefix + "_merge_prefixsum", merge_prefix_sum));
+  probe_side.ops.push_back(std::pair<std::string, rapidjson::Document>(prefix + "_barrier", barrier));
 
   // Then define the edges
 
   // There is an edge from input to create cluster table
-  probe_side.edges.push_back(createEdge(in_id, prefix + "_createradixtable_p1"));
+  probe_side.edges.push_back(createEdge(query, in_id, prefix + "_createradixtable_p1"));
 
   for(int i = 0; i < probe_par; i++){
 
     //the input goes to all histograms
-    probe_side.edges.push_back(createEdge(in_id, prefix + "_histogram_p1_" + std::to_string(i)));
+    probe_side.edges.push_back(createEdge(query, in_id, prefix + "_histogram_p1_" + std::to_string(i)));
 
     //All equal histograms go to all prefix sums
     for(int j = 0; j < probe_par; j++){
-      probe_side.edges.push_back(createEdge(prefix + "_histogram_p1_" + std::to_string(i), prefix + "_prefixsum_p1_" + std::to_string(j)));
+      probe_side.edges.push_back(createEdge(query, prefix + "_histogram_p1_" + std::to_string(i), prefix + "_prefixsum_p1_" + std::to_string(j)));
     }
 
     // And from each input there is a link to radix clustering
-    probe_side.edges.push_back(createEdge(in_id, prefix + "_radixcluster_p1_" + std::to_string(i)));
+    probe_side.edges.push_back(createEdge(query, in_id, prefix + "_radixcluster_p1_" + std::to_string(i)));
 
     // From create radix table to radix cluster for the second pass as well
-    probe_side.edges.push_back(createEdge(prefix + "_createradixtable_p1", prefix + "_radixcluster_p1_" + std::to_string(i)));
+    probe_side.edges.push_back(createEdge(query, prefix + "_createradixtable_p1", prefix + "_radixcluster_p1_" + std::to_string(i)));
 
     // From each prefix sum there is a link to radix clustering
-    probe_side.edges.push_back(createEdge(prefix + "_prefixsum_p1_" + std::to_string(i), prefix + "_radixcluster_p1_" + std::to_string(i)));
+    probe_side.edges.push_back(createEdge(query, prefix + "_prefixsum_p1_" + std::to_string(i), prefix + "_radixcluster_p1_" + std::to_string(i)));
 
     //  Merge all prefix sums
-    probe_side.edges.push_back(createEdge(prefix + "_prefixsum_p1_" + std::to_string(i), prefix + "_merge_prefixsum"));
-    probe_side.edges.push_back(createEdge(prefix + "_radixcluster_p1_" + std::to_string(i), prefix + "_barrier"));
+    probe_side.edges.push_back(createEdge(query, prefix + "_prefixsum_p1_" + std::to_string(i), prefix + "_merge_prefixsum"));
+    probe_side.edges.push_back(createEdge(query, prefix + "_radixcluster_p1_" + std::to_string(i), prefix + "_barrier"));
   }
 
   return probe_side;
 }
 
-ops_and_edges_t RadixJoinTransformation::build_hash_side(std::string prefix,
-                                                         Json::Value &fields,
-                                                         int hash_par,
-                                                         Json::Value & bits1,
-                                                         Json::Value & bits2,
-                                                         std::string in_id){
+ops_and_edges_t RadixJoinTransformation::build_hash_side(
+    rapidjson::Document& query, 
+    std::string prefix,
+    rapidjson::Value &fields,
+    int hash_par,
+    const rapidjson::Value & bits1,
+    const rapidjson::Value & bits2,
+    std::string in_id){
   ops_and_edges_t hash_side;
 
-  Json::Value histogram_p1, prefixsum_p1, createradixtable_p1, radixcluster_p1, histogram_p2, prefixsum_p2, createradixtable_p2, radixcluster_p2, merge_prefix_sum, barrier;
+  rapidjson::Document histogram_p1, prefixsum_p1, createradixtable_p1, 
+      radixcluster_p1, histogram_p2, prefixsum_p2, createradixtable_p2, 
+      radixcluster_p2, merge_prefix_sum, barrier;
 
-  histogram_p1["type"] = "Histogram";
-  histogram_p1["fields"] = fields;
-  histogram_p1["bits"] = bits1;
+  histogram_p1.SetObject();
+  histogram_p1.AddMember("type", "Histogram", histogram_p1.GetAllocator());
+  histogram_p1.AddMember("fields", fields, histogram_p1.GetAllocator());
+  histogram_p1.AddMember("bits", bits1.asUInt(), histogram_p1.GetAllocator());
 
-  prefixsum_p1["type"] = "PrefixSum";
+  prefixsum_p1.SetObject();
+  prefixsum_p1.AddMember("type", "PrefixSum", prefixsum_p1.GetAllocator());
 
-  createradixtable_p1["type"] = "CreateRadixTable";
+  createradixtable_p1.SetObject();
+  createradixtable_p1.AddMember("type", "CreateRadixTable", createradixtable_p1.GetAllocator());
 
-  radixcluster_p1["type"] = "RadixCluster";
-  radixcluster_p1["fields"] = fields;
-  radixcluster_p1["bits"] = bits1;
+  radixcluster_p1.SetObject();
+  radixcluster_p1.AddMember("type", "RadixCluster", radixcluster_p1.GetAllocator());
+  radixcluster_p1.AddMember("fields", fields, radixcluster_p1.GetAllocator());
+  radixcluster_p1.AddMember("bits", bits1.asUInt(), radixcluster_p1.GetAllocator());
 
+  histogram_p2.SetObject();
+  histogram_p2.AddMember("type", "Histogram2ndPass", histogram_p2.GetAllocator());
+  histogram_p2.AddMember("bits", bits1.asUInt(), histogram_p2.GetAllocator());
+  histogram_p2.AddMember("bits2", bits2.asUInt(), histogram_p2.GetAllocator());
+  histogram_p2.AddMember("sig2", bits1.asUInt(), histogram_p2.GetAllocator());
 
-  histogram_p2["type"] = "Histogram2ndPass";
-  histogram_p2["bits"] = bits1;
-  histogram_p2["bits2"] = bits2;
-  histogram_p2["sig2"] = bits1;
+  prefixsum_p2.SetObject();
+  prefixsum_p2.AddMember("type", "PrefixSum", prefixsum_p2.GetAllocator());
 
-  prefixsum_p2["type"] = "PrefixSum";
+  createradixtable_p2.SetObject();
+  createradixtable_p2.AddMember("type", "CreateRadixTable", createradixtable_p2.GetAllocator());
 
-  createradixtable_p2["type"] = "CreateRadixTable";
+  radixcluster_p2.SetObject();
+  radixcluster_p2.AddMember("type", "RadixCluster2ndPass", radixcluster_p2.GetAllocator());
+  radixcluster_p2.AddMember("bits", bits1.asUInt(), radixcluster_p2.GetAllocator());
+  radixcluster_p2.AddMember("bits2", bits2.asUInt(), radixcluster_p2.GetAllocator());
+  radixcluster_p2.AddMember("sig2", bits1.asUInt(), radixcluster_p2.GetAllocator());
 
-  radixcluster_p2["type"] = "RadixCluster2ndPass";
-  radixcluster_p2["bits"] = bits1;
-  radixcluster_p2["bits2"] = bits2;
-  radixcluster_p2["sig2"] = bits1;
+  merge_prefix_sum.SetObject();
+  merge_prefix_sum.AddMember("type", "MergePrefixSum", merge_prefix_sum.GetAllocator());
 
-  merge_prefix_sum["type"] = "MergePrefixSum";
+  barrier.SetObject();
+  barrier.AddMember("type", "Barrier", barrier.GetAllocator());
+  barrier.AddMember("fields", fields, barrier.GetAllocator());
 
-  barrier["type"] = "Barrier";
-  barrier["fields"] = fields;
 
   // add parallel ops
   for(int i = 0; i < hash_par; i++){
-    Json::Value h = Json::Value(histogram_p1);
-    h["part"] = i;
-    h["numParts"] = hash_par;
-    Json::Value p = Json::Value(prefixsum_p1);
-    p["part"] = i;
-    p["numParts"] = hash_par;
-    Json::Value r = Json::Value(radixcluster_p1);
-    r["part"] = i;
-    r["numParts"] = hash_par;
-    Json::Value h2 = Json::Value(histogram_p2);
-    h2["part"] = i;
-    h2["numParts"] = hash_par;
-    Json::Value p2 = Json::Value(prefixsum_p2);
-    p2["part"] = i;
-    p2["numParts"] = hash_par;
-    Json::Value r2 = Json::Value(radixcluster_p2);
-    r2["part"] = i;
-    r2["numParts"] = hash_par;
-    hash_side.ops.push_back(std::pair<std::string, Json::Value>(prefix + "_histogram_p1_" + std::to_string(i), h));
-    hash_side.ops.push_back(std::pair<std::string, Json::Value>(prefix + "_prefixsum_p1_" + std::to_string(i), p));
-    hash_side.ops.push_back(std::pair<std::string, Json::Value>(prefix + "_radixcluster_p1_" + std::to_string(i), r));
-    hash_side.ops.push_back(std::pair<std::string, Json::Value>(prefix + "_histogram_p2_" + std::to_string(i), h2));
-    hash_side.ops.push_back(std::pair<std::string, Json::Value>(prefix + "_prefixsum_p2_" + std::to_string(i), p2));
-    hash_side.ops.push_back(std::pair<std::string, Json::Value>(prefix + "_radixcluster_p2_" + std::to_string(i), r2));
+    rapidjson::Document h;
+    histogram_p1.Accept(h);
+    h.AddMember("part", i, h.GetAllocator());
+    h.AddMember("numParts", hash_par, h.GetAllocator());
+    
+    rapidjson::Document p;
+    prefixsum_p1.Accept(p);
+    p.AddMember("part", i, p.GetAllocator());
+    p.AddMember("numParts", hash_par, p.GetAllocator());
+
+    rapidjson::Document r;
+    radixcluster_p1.Accept(r);
+    r.AddMember("part", i, r.GetAllocator());
+    r.AddMember("numParts", hash_par, r.GetAllocator());
+
+    rapidjson::Document h2;
+    histogram_p2.Accept(h2);
+    h2.AddMember("part", i, h2.GetAllocator());
+    h2.AddMember("numParts", hash_par, h2.GetAllocator());
+    
+    rapidjson::Document p2;
+    prefixsum_p2.Accept(p2);
+    p2.AddMember("part", i, p2.GetAllocator());
+    p2.AddMember("numParts", hash_par, p2.GetAllocator());
+
+    rapidjson::Document r2;
+    radixcluster_p2.Accept(r2);
+    r2.AddMember("part", i, r2.GetAllocator());
+    r2.AddMember("numParts", hash_par, r2.GetAllocator());
+
+    hash_side.ops.push_back(std::pair<std::string, rapidjson::Document>(prefix + "_histogram_p1_" + std::to_string(i), h));
+    hash_side.ops.push_back(std::pair<std::string, rapidjson::Document>(prefix + "_prefixsum_p1_" + std::to_string(i), p));
+    hash_side.ops.push_back(std::pair<std::string, rapidjson::Document>(prefix + "_radixcluster_p1_" + std::to_string(i), r));
+    hash_side.ops.push_back(std::pair<std::string, rapidjson::Document>(prefix + "_histogram_p2_" + std::to_string(i), h2));
+    hash_side.ops.push_back(std::pair<std::string, rapidjson::Document>(prefix + "_prefixsum_p2_" + std::to_string(i), p2));
+    hash_side.ops.push_back(std::pair<std::string, rapidjson::Document>(prefix + "_radixcluster_p2_" + std::to_string(i), r2));
   }
   // add seriable ops
-  hash_side.ops.push_back(std::pair<std::string, Json::Value>(prefix + "_createradixtable_p1", createradixtable_p1));
-  hash_side.ops.push_back(std::pair<std::string, Json::Value>(prefix + "_createradixtable_p2", createradixtable_p2));
-  hash_side.ops.push_back(std::pair<std::string, Json::Value>(prefix + "_merge_prefixsum", merge_prefix_sum));
-  hash_side.ops.push_back(std::pair<std::string, Json::Value>(prefix + "_barrier", barrier));
+  hash_side.ops.push_back(std::pair<std::string, rapidjson::Document>(prefix + "_createradixtable_p1", createradixtable_p1));
+  hash_side.ops.push_back(std::pair<std::string, rapidjson::Document>(prefix + "_createradixtable_p2", createradixtable_p2));
+  hash_side.ops.push_back(std::pair<std::string, rapidjson::Document>(prefix + "_merge_prefixsum", merge_prefix_sum));
+  hash_side.ops.push_back(std::pair<std::string, rapidjson::Document>(prefix + "_barrier", barrier));
 
   // Then define the edges
     // There is an edge from input to create cluster table and for the second pass
-  hash_side.edges.push_back(createEdge(in_id, prefix + "_createradixtable_p1"));
-  hash_side.edges.push_back(createEdge(in_id, prefix + "_createradixtable_p2"));
+  hash_side.edges.push_back(createEdge(query, in_id, prefix + "_createradixtable_p1"));
+  hash_side.edges.push_back(createEdge(query, in_id, prefix + "_createradixtable_p2"));
 
   for(int i = 0; i < hash_par; i++){
 
     //the input goes to all histograms
-    hash_side.edges.push_back(createEdge(in_id, prefix + "_histogram_p1_" + std::to_string(i)));
+    hash_side.edges.push_back(createEdge(query, in_id, prefix + "_histogram_p1_" + std::to_string(i)));
 
     //All equal histograms go to all prefix sums
     for(int j = 0; j < hash_par; j++){
-      hash_side.edges.push_back(createEdge(prefix + "_histogram_p1_" + std::to_string(i), prefix + "_prefixsum_p1_" + std::to_string(j)));
+      hash_side.edges.push_back(createEdge(query, prefix + "_histogram_p1_" + std::to_string(i), prefix + "_prefixsum_p1_" + std::to_string(j)));
     }
 
     // And from each input there is a link to radix clustering
-    hash_side.edges.push_back(createEdge(in_id, prefix + "_radixcluster_p1_" + std::to_string(i)));
+    hash_side.edges.push_back(createEdge(query, in_id, prefix + "_radixcluster_p1_" + std::to_string(i)));
 
     // From create radix table to radix cluster for the second pass as well
-    hash_side.edges.push_back(createEdge(prefix + "_createradixtable_p1", prefix + "_radixcluster_p1_" + std::to_string(i)));
+    hash_side.edges.push_back(createEdge(query, prefix + "_createradixtable_p1", prefix + "_radixcluster_p1_" + std::to_string(i)));
 
     // From each prefix sum there is a link to radix clustering
-    hash_side.edges.push_back(createEdge(prefix + "_prefixsum_p1_" + std::to_string(i), prefix + "_radixcluster_p1_" + std::to_string(i)));
+    hash_side.edges.push_back(createEdge(query, prefix + "_prefixsum_p1_" + std::to_string(i), prefix + "_radixcluster_p1_" + std::to_string(i)));
 
     // now comes the second pass which is like the first only a litte
     // more complicated
     for(int j = 0; j < hash_par; j++){
        //We need an explicit barrier here to avoid that a histogram is calculated before all other
        //first pass radix clusters finished
-      hash_side.edges.push_back(createEdge(prefix + "_radixcluster_p1_" + std::to_string(i), prefix + "_histogram_p2_" + std::to_string(j)));
-      hash_side.edges.push_back(createEdge(prefix + "_histogram_p2_" + std::to_string(j), prefix + "_prefixsum_p2_" + std::to_string(i)));
+      hash_side.edges.push_back(createEdge(query, prefix + "_radixcluster_p1_" + std::to_string(i), prefix + "_histogram_p2_" + std::to_string(j)));
+      hash_side.edges.push_back(createEdge(query, prefix + "_histogram_p2_" + std::to_string(j), prefix + "_prefixsum_p2_" + std::to_string(i)));
     }
     // This builds up the second pass radix cluster, attention order matters
-    hash_side.edges.push_back(createEdge(prefix + "_radixcluster_p1_" + std::to_string(i), prefix + "_radixcluster_p2_" + std::to_string(i)));
-    hash_side.edges.push_back(createEdge(prefix + "_createradixtable_p2", prefix + "_radixcluster_p2_" + std::to_string(i)));
-    hash_side.edges.push_back(createEdge(prefix + "_prefixsum_p2_" + std::to_string(i), prefix + "_radixcluster_p2_" + std::to_string(i)));
-    hash_side.edges.push_back(createEdge(prefix + "_prefixsum_p2_" + std::to_string(i), prefix + "_merge_prefixsum"));
-    hash_side.edges.push_back(createEdge(prefix + "_radixcluster_p2_" + std::to_string(i), prefix + "_barrier"));
+    hash_side.edges.push_back(createEdge(query, prefix + "_radixcluster_p1_" + std::to_string(i), prefix + "_radixcluster_p2_" + std::to_string(i)));
+    hash_side.edges.push_back(createEdge(query, prefix + "_createradixtable_p2", prefix + "_radixcluster_p2_" + std::to_string(i)));
+    hash_side.edges.push_back(createEdge(query, prefix + "_prefixsum_p2_" + std::to_string(i), prefix + "_radixcluster_p2_" + std::to_string(i)));
+    hash_side.edges.push_back(createEdge(query, prefix + "_prefixsum_p2_" + std::to_string(i), prefix + "_merge_prefixsum"));
+    hash_side.edges.push_back(createEdge(query, prefix + "_radixcluster_p2_" + std::to_string(i), prefix + "_barrier"));
   }
   return hash_side;
 }
@@ -277,17 +326,17 @@ void RadixJoinTransformation::distributePartitions(
   last                    = first + partitionsPerJoin + partsExtraElement - 1;
 }
 
-void RadixJoinTransformation::transform(Json::Value &op, const std::string &operatorId, Json::Value &query){
+void RadixJoinTransformation::transform(const rapidjson::Value &op, const std::string &operatorId, rapidjson::Document &query){
   int probe_par = op["probe_par"].asInt();
   int hash_par = op["hash_par"].asInt();
   int join_par = op["join_par"].asInt();
-  Json::Value bits1 = op["bits1"];
-  Json::Value bits2 = op["bits2"];
-  Json::Value fields = op["fields"];
+  const rapidjson::Value& bits1 = op["bits1"];
+  const rapidjson::Value& bits2 = op["bits2"];
+  const rapidjson::Value& fields = op["fields"];
 
-  Json::Value probe_field, hash_field;
-  probe_field.append(fields[0]);
-  hash_field.append(fields[1]);
+  rapidjson::Value probe_field(rapidjson::kArrayType), hash_field(rapidjson::kArrayType);
+  probe_field.PushBack(fields[0u].asUInt(), query.GetAllocator());
+  hash_field.PushBack(fields[1u].asUInt(), query.GetAllocator());
 
   std::vector<std::string> input_edges = getInputIds(operatorId, query);
   std::vector<std::string> output_edges = getOutputIds(operatorId, query);
@@ -296,22 +345,22 @@ void RadixJoinTransformation::transform(Json::Value &op, const std::string &oper
   removeOperator(query, operatorId);
 
   // create ops and edges for probe side
-  ops_and_edges_t probe_side = build_probe_side(operatorId + "_probe", probe_field, probe_par, bits1, bits2, input_edges[0]);
+  ops_and_edges_t probe_side = build_probe_side(query, operatorId + "_probe", probe_field, probe_par, bits1, bits2, input_edges[0]);
   // add ops from probe side to query
   for(size_t i = 0; i < probe_side.ops.size(); i++)
     query["operators"][probe_side.ops.at(i).first] = probe_side.ops.at(i).second;
   // add edges from probe side to query
   for(size_t i = 0; i < probe_side.edges.size(); i++)
-    query["edges"].append(probe_side.edges.at(i));
+    query["edges"].PushBack(probe_side.edges.at(i), query.GetAllocator());
 
   // create ops and edges for hash side
-  ops_and_edges_t hash_side = build_hash_side(operatorId + "_hash", hash_field, hash_par, bits1, bits2, input_edges[1]);
+  ops_and_edges_t hash_side = build_hash_side(query, operatorId + "_hash", hash_field, hash_par, bits1, bits2, input_edges[1]);
   // add ops from hash side to query
   for(size_t i = 0; i < hash_side.ops.size(); i++)
     query["operators"][hash_side.ops.at(i).first] = hash_side.ops.at(i).second;
   // add edges from hash side to query
   for(size_t i = 0; i < hash_side.edges.size(); i++)
-    query["edges"].append(hash_side.edges.at(i));
+    query["edges"].PushBack(hash_side.edges.at(i), query.GetAllocator());
 
   // We have as many partitions as we bits in the first pass have
   int partitions = 1 << bits1.asInt();
@@ -329,16 +378,18 @@ void RadixJoinTransformation::transform(Json::Value &op, const std::string &oper
   if(join_par == 1){
     join_name = operatorId + "_join";
 
-    Json::Value join(Json::objectValue);
-    join["type"] = "NestedLoopEquiJoin";
-    join["bits1"] = op["bits1"];
-    join["bits2"] = op["bits2"];
-    Json::Value parts;
+    rapidjson::Value join(rapidjson::kObjectType);
+    join.AddMember("type", "NestedLoopEquiJoin", query.GetAllocator());
+    join.AddMember("bits1", op["bits1"].asUInt(), query.GetAllocator());
+    join.AddMember("bits2", op["bits2"].asUInt(), query.GetAllocator());
+    
+    rapidjson::Value parts(rapidjson::kArrayType);
     for(int i = 0; i < partitions; i++){
-      parts.append(i);
+      parts.PushBack(i, query.GetAllocator());
     }
-    join["partitions"] = parts;
-    query["operators"][join_name] = join;
+    join.AddMember("partitions", parts, query.GetAllocator());
+    query["operators"].AddMember(join_name.c_str(), join, query.GetAllocator());
+
     for(size_t i = 0; i < output_edges.size(); i++)
       appendEdge(join_name, output_edges[i], query);
     // create edges
@@ -357,10 +408,11 @@ void RadixJoinTransformation::transform(Json::Value &op, const std::string &oper
   } else {
     // case 2: parallel join -> we do need a union and have to connect the output edges to union
 
-    Json::Value unionOperator(Json::objectValue);
-    unionOperator["type"] = "UnionAll";
+    rapidjson::Value unionOperator(rapidjson::kObjectType);
+    unionOperator.AddMember("type", "UnionAll", query.GetAllocator());
+
     std::string unionId = operatorId + "_union";
-    query["operators"][unionId] = unionOperator;
+    query["operators"].AddMember(unionId.c_str(), unionOperator, query.GetAllocator());;
     // build output edges for union
     for(size_t i = 0; i < output_edges.size(); i++)
       appendEdge(unionId, output_edges[i], query);
@@ -379,16 +431,17 @@ void RadixJoinTransformation::transform(Json::Value &op, const std::string &oper
       distributePartitions(partitions, join_par, i, first, last);
       // create join
 
-      Json::Value join(Json::objectValue);
-      join["type"] = "NestedLoopEquiJoin";
-      join["bits1"] = op["bits1"];
-      join["bits2"] = op["bits2"];
-      Json::Value partitions;
+      rapidjson::Value join(rapidjson::kObjectType);
+      join.AddMember("type", "NestedLoopEquiJoin", query.GetAllocator());
+      join.AddMember("bits1", op["bits1"].asUInt(), query.GetAllocator());
+      join.AddMember("bits2", op["bits2"].asUInt(), query.GetAllocator());
+
+      rapidjson::Value partitions(rapidjson::kArrayType);
       for(int i = first; i <= last; i++){
-        partitions.append(i);
+        partitions.PushBack(i, query.GetAllocator());
       }
-      join["partitions"] = partitions;
-      query["operators"][join_name] = join;
+      join.AddMember("partitions", partitions, query.GetAllocator());
+      query["operators"].AddMember(join_name.c_str(), join, query.GetAllocator());
 
       std::string unionId = operatorId + "_union";
       // create edges

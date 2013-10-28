@@ -75,7 +75,7 @@ void PlanOperation::addNamedField(const field_name_t& field) {
   _named_field_definition.push_back(field);
 }
 
-void PlanOperation::addField(const Json::Value &field) {
+void PlanOperation::addField(const rapidjson::Value &field) {
   if (field.isNumeric()) {
     addField(field.asUInt());
   } else if (field.isString()) {

@@ -9,11 +9,11 @@ QueryTransformationEngine::parallelInstanceInfix = "_instance_",
   QueryTransformationEngine::unionSuffix           = "_union",
   QueryTransformationEngine::mergeSuffix           = "_merge";
 
-Json::Value &QueryTransformationEngine::transform(Json::Value &query) {
-  Json::Value::Members operatorIds = query["operators"].getMemberNames();
-  Json::Value operatorConfiguration;
+rapidjson::Document &QueryTransformationEngine::transform(rapidjson::Document &query) {
+
+  const auto& operatorIds = query["operators"].getMemberNames();
   for (size_t i = 0; i < operatorIds.size(); ++i) {
-    operatorConfiguration = query["operators"][operatorIds[i]];
+    const auto& operatorConfiguration = query["operators"][operatorIds[i]];
     // check whether operator should be transformed
     if (_factory.count(operatorConfiguration["type"].asString()) > 0)
       _factory[operatorConfiguration["type"].asString()]->transform(operatorConfiguration, operatorIds[i], query);
@@ -26,92 +26,99 @@ Json::Value &QueryTransformationEngine::transform(Json::Value &query) {
 }
 
 bool QueryTransformationEngine::requestsParallelization(
-    Json::Value &operatorConfiguration) const {
-  const bool parallelize = operatorConfiguration["instances"] >= 2;
+    const rapidjson::Value &operatorConfiguration) const {
+  const bool parallelize = operatorConfiguration["instances"].asUInt() >= 2;
   return parallelize;
 }
 
 void QueryTransformationEngine::applyParallelizationTo(
-    Json::Value &operatorConfiguration,
+    const rapidjson::Value &operatorConfiguration,
     const std::string &operatorId,
-    Json::Value &query) const {
+    rapidjson::Document &query) const {
 
   std::string consolidateOperatorId;
-  Json::Value consolidateOperator;
 
-  if (operatorConfiguration["type"] == "HashBuild") {
+  if (operatorConfiguration["type"].asString() == "HashBuild") {
     consolidateOperatorId = mergeIdFor(operatorId);
-    consolidateOperator = this->mergeOperator(operatorConfiguration["key"].asString());
+    rapidjson::Value&& o = mergeOperator(query, operatorConfiguration["key"].asString());
+    query["operators"].AddMember(consolidateOperatorId.c_str(), o , query.GetAllocator());
   } else {
     consolidateOperatorId = unionIdFor(operatorId);
-    consolidateOperator = this->unionOperator();
+    rapidjson::Value&& o = unionOperator(query);
+    query["operators"].AddMember(consolidateOperatorId.c_str(), o, query.GetAllocator());
   }
-  query["operators"][consolidateOperatorId] = consolidateOperator;
   const size_t numberOfInitialEdges = query["edges"].size();
 
-  std::vector<std::string> *instanceIds = buildInstances(
-        query, operatorConfiguration, operatorId, consolidateOperatorId);
-    replaceOperatorWithInstances(
-        operatorId, *instanceIds, consolidateOperatorId, query, numberOfInitialEdges);
+  std::vector<std::string> *instanceIds = buildInstances(query, operatorConfiguration, operatorId, consolidateOperatorId);
+  replaceOperatorWithInstances(operatorId, *instanceIds, consolidateOperatorId, query, numberOfInitialEdges);
   delete instanceIds;
   
 }
 
 std::vector<std::string> *QueryTransformationEngine::buildInstances(
-    Json::Value &query,
-    Json::Value &operatorConfiguration,
+    rapidjson::Document &query,
+    const rapidjson::Value &operatorConfiguration,
     const std::string &operatorId,
     const std::string &consolidateOperatorId) const {
+
   const size_t numberOfCores = operatorConfiguration["cores"].size();
   const size_t numberOfInstances = operatorConfiguration["instances"].asInt();
   std::vector<std::string> *instanceIds = new std::vector<std::string>;
   instanceIds->reserve(numberOfInstances);
   for (size_t i = 0; i < numberOfInstances; ++i) {
     std::string nextInstanceId = instanceIdFor(operatorId, i);
-    Json::Value nextInstance = nextInstanceOf(
-        operatorConfiguration, operatorId, i, numberOfInstances, numberOfCores);
-    query["operators"][nextInstanceId] = nextInstance;
+
+    rapidjson::Value&& nextInstance = nextInstanceOf(
+        query, operatorConfiguration, operatorId, i, numberOfInstances, numberOfCores);
+
+    query["operators"].AddMember(nextInstanceId.c_str(), nextInstance, query.GetAllocator());
     instanceIds->push_back(nextInstanceId);
   }
   return instanceIds;
 }
 
-Json::Value QueryTransformationEngine::nextInstanceOf(
-    Json::Value &operatorConfiguration,
+rapidjson::Value&& QueryTransformationEngine::nextInstanceOf(
+    rapidjson::Document& doc,
+    const rapidjson::Value &operatorConfiguration,
     const std::string &operatorId,
     const size_t instanceId,
     const size_t numberOfInstances,
     const size_t numberOfCores) const {
-  Json::Value nextInstance(operatorConfiguration);
-  nextInstance["instances"] = 1;
-  nextInstance["part"] = Json::Value((Json::UInt) instanceId);
-  nextInstance["count"] = Json::Value((Json::UInt) numberOfInstances);
+
+  // New instance based on a copy
+  rapidjson::Document nextInstance;
+  operatorConfiguration.Accept(nextInstance);
+  
+  nextInstance.AddMember("instances", 1, doc.GetAllocator());
+  nextInstance.AddMember("part", instanceId, doc.GetAllocator());
+  nextInstance.AddMember("count", numberOfInstances, doc.GetAllocator());
+  
   if (numberOfCores > 0) {
-    nextInstance["core"] = operatorConfiguration["cores"][(int)(instanceId % numberOfCores)];
+    nextInstance.AddMember("core", operatorConfiguration["cores"][(int)(instanceId % numberOfCores)].asUInt(), doc.GetAllocator());
   }
-  return nextInstance;
+  return std::move(nextInstance);
 }
 
-Json::Value QueryTransformationEngine::unionOperator() const {
-  Json::Value unionOperator(Json::objectValue);
-  unionOperator["type"] = "UnionAll";
-  unionOperator["positions"] = true;
-  return unionOperator;
+rapidjson::Value&& QueryTransformationEngine::unionOperator(rapidjson::Document& d) const {
+  rapidjson::Value unionOperator(rapidjson::kObjectType);
+  unionOperator.AddMember("type", "UnionAll", d.GetAllocator());
+  unionOperator.AddMember("positions", "true", d.GetAllocator());
+  return std::move(unionOperator);
 }
 
-Json::Value QueryTransformationEngine::mergeOperator(const std::string &key) const {
-  Json::Value mergeOperator(Json::objectValue);
-  mergeOperator["type"] = "MergeHashTables";
-  mergeOperator["positions"] = true;
-  mergeOperator["key"] = key;
-  return mergeOperator;
+rapidjson::Value&& QueryTransformationEngine::mergeOperator(rapidjson::Document& d,const std::string &key) const {
+  rapidjson::Value mergeOperator(rapidjson::kObjectType);
+  mergeOperator.AddMember("type", "MergeHashTables", d.GetAllocator());
+  mergeOperator.AddMember("positions", "true", d.GetAllocator());
+  mergeOperator.AddMember("key", key, d.GetAllocator());
+  return std::move(mergeOperator);
 }
 
 void QueryTransformationEngine::replaceOperatorWithInstances(
     const std::string &operatorId,
     const std::vector<std::string> &instanceIds,
     const std::string &consolidateOperatorId,
-    Json::Value &query,
+    rapidjson::Document &query,
     const size_t numberOfInitialEdges) const {
   appendInstancesDstNodeEdges(
       operatorId, instanceIds, query, numberOfInitialEdges);
@@ -123,12 +130,12 @@ void QueryTransformationEngine::replaceOperatorWithInstances(
 void QueryTransformationEngine::appendInstancesDstNodeEdges(
     const std::string &operatorId,
     const std::vector<std::string> &instanceIds,
-    Json::Value &query,
+    rapidjson::Document &query,
     const size_t numberOfInitialEdges) const {
-  Json::Value edges = query["edges"];
+  const rapidjson::Value& edges = query["edges"];
   for (const auto& instanceId: instanceIds)
       for (unsigned i = 0; i < numberOfInitialEdges; ++i) {
-        Json::Value currentEdge = edges[i];
+        const rapidjson::Value& currentEdge = edges[i];
         if (currentEdge[1u].asString() == operatorId)
           appendEdge(currentEdge[0u].asString(), instanceId, query);
       }
@@ -138,14 +145,14 @@ void QueryTransformationEngine::appendConsolidateSrcNodeEdges(
     const std::string &operatorId,
     const std::vector<std::string> &instanceIds,
     const std::string &consolidateOperatorId,
-    Json::Value &query,
+    rapidjson::Document &query,
     const size_t numberOfInitialEdges) const {
-  Json::Value edges = query["edges"];
+  const rapidjson::Value& edges = query["edges"];
   for (const auto& instanceId: instanceIds)
       appendEdge(instanceId, consolidateOperatorId, query);
 
   for (unsigned i = 0; i < numberOfInitialEdges; ++i) {
-    Json::Value currentEdge = edges[i];
+    const rapidjson::Value& currentEdge = edges[i];
     if (currentEdge[0u].asString() == operatorId) {
       appendEdge(consolidateOperatorId, currentEdge[1u].asString(), query);
     }
@@ -153,29 +160,36 @@ void QueryTransformationEngine::appendConsolidateSrcNodeEdges(
 }
 
 void QueryTransformationEngine::removeOperatorNodes(
-    Json::Value &query,
-    const Json::Value &operatorId) const {
-  Json::Value remainingEdges(Json::arrayValue);
-  Json::Value jsonOperatorId(operatorId);
+    rapidjson::Document &query,
+    const rapidjson::Value &operatorId) const {
+  rapidjson::Value remainingEdges(rapidjson::kArrayType);
+
   for (unsigned i = 0; i < query["edges"].size(); ++i) {
-    Json::Value currentEdge = query["edges"][i];
-    if (currentEdge[0u] != jsonOperatorId
-        &&  currentEdge[1u] != jsonOperatorId) {
-      remainingEdges.append(currentEdge);
+
+    // Copy the edge
+    rapidjson::Document currentEdge;
+    query["edges"][i].Accept(currentEdge);
+
+    if (currentEdge[0u].asString() != operatorId.asString()
+        &&  currentEdge[1u].asString() != operatorId.asString()) {
+      remainingEdges.PushBack(currentEdge, query.GetAllocator());
     }
   }
-  query["edges"] = remainingEdges;
-  query["operators"].removeMember(operatorId.asString());
+
+  //query["edges"] = remainingEdges;
+  query.AddMember("edges", remainingEdges, query.GetAllocator());
+  query["operators"].RemoveMember(operatorId.asString().c_str());
 }
 
 void QueryTransformationEngine::appendEdge(
     const std::string &srcId,
     const std::string &dstId,
-    Json::Value &query) const {
-  Json::Value edge(Json::arrayValue);
-  edge.append(srcId);
-  edge.append(dstId);
-  query["edges"].append(edge);
+    rapidjson::Document &query) const {
+
+  rapidjson::Value edge(rapidjson::kArrayType);
+  edge.PushBack(srcId, query.GetAllocator());
+  edge.PushBack(dstId, query.GetAllocator());
+  query["edges"].PushBack(edge, query.GetAllocator());
 }
 
 std::string QueryTransformationEngine::instanceIdFor(

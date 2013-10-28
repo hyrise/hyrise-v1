@@ -14,7 +14,7 @@ namespace {
 void RadixJoin::executePlanOperation() {
 }
 
-std::shared_ptr<PlanOperation> RadixJoin::parse(Json::Value &data) {
+std::shared_ptr<PlanOperation> RadixJoin::parse(const rapidjson::Value &data) {
   auto instance = BasicParser<RadixJoin>::parse(data);
   instance->setBits1(data["bits1"].asUInt());
   instance->setBits2(data["bits2"].asUInt());

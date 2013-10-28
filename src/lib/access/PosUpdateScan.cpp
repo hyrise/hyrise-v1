@@ -66,7 +66,7 @@ void PosUpdateScan::executePlanOperation() {
     // Update all the necessary values
     for(const auto& kv : _raw_data) {
       const auto& fld = store->numberOfColumn(kv.first);
-      fun.set(fld, writeArea.first+counter, kv.second);
+      fun.set(fld, writeArea.first+counter, *(kv.second.get()));
       ts(store->typeOfColumn(fld), fun);
     }
 
@@ -83,13 +83,16 @@ void PosUpdateScan::executePlanOperation() {
   addResult(c_store);
 }
 
-void PosUpdateScan::setRawData(Json::Value& d) {
+void PosUpdateScan::setRawData(const rapidjson::Value& d) {
   for(const auto& m : d.getMemberNames()) {
-      _raw_data[m] = Json::Value(d[m]);
-    }
+    auto tmp = std::unique_ptr<rapidjson::Document>(new rapidjson::Document());
+    d[m].Accept(*tmp);
+    _ram_data.insert(std::pair<std::string, std::unique_ptr<rapidjson::Document>>(m, std::move(tmp)));
+    //_raw_data[m] = stmp;
+  }
 }
 
-std::shared_ptr<PlanOperation> PosUpdateScan::parse(Json::Value &data) {
+std::shared_ptr<PlanOperation> PosUpdateScan::parse(const rapidjson::Value &data) {
   auto result = std::make_shared<PosUpdateScan>();
 
   if (data.isMember("data")) {

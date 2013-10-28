@@ -21,13 +21,13 @@ public:
 
   void executePlanOperation();
   
-  static std::shared_ptr<PlanOperation> parse(Json::Value &data);
+  static std::shared_ptr<PlanOperation> parse(const rapidjson::Value &data);
 
-  void setRawData(Json::Value& d);
+  void setRawData(const rapidjson::Value& d);
 
 private:
   
-  std::unordered_map<std::string, Json::Value> _raw_data;
+  std::unordered_map<std::string, std::unique_ptr<rapidjson::Document>> _raw_data;
 };
 
 }

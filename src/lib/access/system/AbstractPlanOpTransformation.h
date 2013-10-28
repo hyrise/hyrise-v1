@@ -2,7 +2,9 @@
 #ifndef SRC_LIB_ACCES_ABSTRACTPLANOPTRANSFORMATION_H
 #define SRC_LIB_ACCES_ABSTRACTPLANOPTRANSFORMATION_H
 
-#include <json.h>
+#include "rapidjson/rapidjson.h"
+#include "rapidjson/document.h"
+
 #include <access/system/PlanOperation.h>
 
 namespace hyrise {
@@ -13,7 +15,7 @@ public:
   AbstractPlanOpTransformation(){};
   virtual ~AbstractPlanOpTransformation(){};
 
-  virtual void transform(Json::Value &op, const std::string &operatorId, Json::Value &query)=0;
+  virtual void transform(const rapidjson::Value &op, const std::string &operatorId, rapidjson::Document &query)=0;
 
   static std::string name() {
     return "RadixJoin";

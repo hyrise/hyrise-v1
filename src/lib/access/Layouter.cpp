@@ -98,16 +98,16 @@ void LayoutSingleTable::executePlanOperation() {
   addResult(result);
 }
 
-std::shared_ptr<PlanOperation> LayoutSingleTable::parse(Json::Value &data) {
+std::shared_ptr<PlanOperation> LayoutSingleTable::parse(const rapidjson::Value &data) {
   std::shared_ptr<LayoutSingleTable> s = std::make_shared<LayoutSingleTable>();
   s->setNumRows(data["num_rows"].asUInt());
 
   if (data.isMember("layouter")) {
-    if (data["layouter"] == "BaseLayouter")
+    if (data["layouter"].asString() == "BaseLayouter")
       s->setLayouter(BaseLayouter);
-    else if (data["layouter"] == "CandidateLayouter")
+    else if (data["layouter"].asString() == "CandidateLayouter")
       s->setLayouter(CandidateLayouter);
-    else if (data["layouter"] == "DivideAndConquerLayouter")
+    else if (data["layouter"].asString() == "DivideAndConquerLayouter")
       s->setLayouter(DivideAndConquerLayouter);
     else
       throw std::runtime_error("Layouter not available, chose different implementation");
@@ -116,7 +116,7 @@ std::shared_ptr<PlanOperation> LayoutSingleTable::parse(Json::Value &data) {
   }
 
   // Parse attributes
-  if (data["attributes"].isArray()) {
+  if (data["attributes"].IsArray()) {
     for (unsigned i = 0; i < data["attributes"].size(); ++i) {
       s->addFieldName(data["attributes"][i].asString());
     }
@@ -125,15 +125,15 @@ std::shared_ptr<PlanOperation> LayoutSingleTable::parse(Json::Value &data) {
   }
 
   // Parse queries
-  if (data["operators"].isArray()) {
-    Json::Value ops = data["operators"];
+  if (data["operators"].IsArray()) {
+    const rapidjson::Value& ops = data["operators"];
     for (unsigned i = 0; i < ops.size(); ++i) {
-      Json::Value q = ops[i];
+      const rapidjson::Value& q = ops[i];
       BaseQuery query;
       query.selectivity = q["selectivity"].asDouble();
       query.weight = q["weight"].asUInt64();
 
-      Json::Value a = q["attributes"];
+      const rapidjson::Value& a = q["attributes"];
       for (unsigned j = 0; j < a.size(); ++j) {
         std::string name = a[j].asString();
         // find name in _names to get the position

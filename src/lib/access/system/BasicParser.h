@@ -4,7 +4,7 @@
 
 #include <stdexcept>
 #include <memory>
-#include "json.h"
+#include <rapidjson/rapidjson.h>
 
 class BasicParsingException : public std::runtime_error {
  public:
@@ -15,21 +15,21 @@ class BasicParsingException : public std::runtime_error {
 
 template<typename T>
 struct BasicParser {
-  static std::shared_ptr<T> parse(Json::Value &data) {
+  static std::shared_ptr<T> parse(const rapidjson::Value &data) {
     std::shared_ptr<T> ps = std::make_shared<T>();
 
     // For all fields add
-    const Json::Value json_fields = data["fields"];
+    const auto& json_fields = data["fields"];
 
     // limit
-    if (data.isMember("limit"))
-      ps->setLimit(data["limit"].asUInt());
+    if (data.HasMember("limit"))
+      ps->setLimit(data["limit"].GetUint());
 
-    for (unsigned i = 0; i < json_fields.size(); ++i) {
-      if (json_fields[i].isNumeric()) {
-        ps->addField(json_fields[i].asUInt());
-      } else if (json_fields[i].isString()) {
-        ps->addField(json_fields[i].asString());
+    for (unsigned i = 0; i < json_fields.Size(); ++i) {
+      if (json_fields[i].IsNumber()) {
+        ps->addField(json_fields[i].GetUint());
+      } else if (json_fields[i].IsString()) {
+        ps->addField(json_fields[i].GetString());
       } else {
         throw BasicParsingException("Could not parse item from 'fields'");
       }

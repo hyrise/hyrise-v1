@@ -3,8 +3,12 @@
 
 #include <sstream>
 #include <string>
+#include <iostream>
 
-#include "json.h"
+#include "rapidjson/rapidjson.h"
+#include "rapidjson/document.h"
+#include "rapidjson/writer.h"
+#include "rapidjson/stringbuffer.h"
 #include "net/AsyncConnection.h"
 
 namespace hyrise {
@@ -26,16 +30,31 @@ const std::string RouteRequestHandler::vname() {
 
 std::string RouteRequestHandler::constructResponse() {
   const auto &router = Router::getInstance();
-  Json::Value result;
-  auto &routes = result["routes"];
+  rapidjson::Document result;
+  result.SetObject();
+
+  rapidjson::Value routes(rapidjson::kArrayType);
+  auto& allocator = result.GetAllocator();
+
   const auto& catch_all = router.getCatchAllRaw();
   for (const auto & route: router.getRouters()) {
-    routes[route.first]["handler"] = router.getHandlerNameForRoute(route.first);
+
+
+    rapidjson::Value entry(rapidjson::kObjectType);
+    entry.AddMember("handler", router.getHandlerNameForRoute(route.first).c_str(), allocator);
+
     if (route.second.get() == catch_all)
-      routes[route.first]["catch_all"] = true;
+      entry.AddMember("catch_all", true, allocator);
+    routes.PushBack(entry, allocator);
   }
-  Json::StyledWriter writer;
-  return writer.write(result);
+ 
+  result.AddMember("routes", routes, allocator);
+
+  rapidjson::StringBuffer wss;
+  rapidjson::Writer<decltype(wss)> w(wss);
+  result.Accept(w);
+
+  return wss.GetString();
 }
 
 void RouteRequestHandler::operator()() {

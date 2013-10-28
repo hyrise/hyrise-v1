@@ -3,7 +3,11 @@
 
 #include <thread>
 
-#include "json.h"
+#include "rapidjson/rapidjson.h"
+#include "rapidjson/document.h"
+#include "rapidjson/stringbuffer.h"
+#include "rapidjson/writer.h"
+
 #include "log4cxx/logger.h"
 #include "boost/lexical_cast.hpp"
 
@@ -28,25 +32,40 @@ log4cxx::LoggerPtr _logger(log4cxx::Logger::getLogger("hyrise.net"));
 
 template <typename T>
 struct json_functor {
-  typedef Json::Value value_type;
+
+  typedef void value_type;
 
   const T& table;
   size_t column;
   size_t row;
 
-  explicit json_functor(const T& t): table(t), column(0), row(0) {}
+  // Used for building the result
+  rapidjson::Document& doc;
+  size_t pos = 0;
+
+  explicit json_functor(const T& t, rapidjson::Document& d): table(t), column(0), row(0), doc(d){}
+
+
+  void beginRow() {
+    rapidjson::Value v(rapidjson::kArrayType);
+    doc.PushBack(v, doc.GetAllocator());
+    pos = doc.size() - 1;
+  }
 
   template <typename R>
-  value_type operator()() {
-    return Json::Value(table->template getValue<R>(column, row));
+  void operator()() {
+    doc[pos].PushBack(table->template getValue<R>(column, row), doc.GetAllocator());
   }
 };
 
 template<typename T>
-Json::Value generateRowsJsonT(const T& table, const size_t transmitLimit, const size_t transmitOffset) {
+rapidjson::Document&& generateRowsJsonT(const T& table, const size_t transmitLimit, const size_t transmitOffset) {
   hyrise::storage::type_switch<hyrise_basic_types> ts;
-  json_functor<T> fun(table);
-  Json::Value rows(Json::arrayValue);
+
+  rapidjson::Document rows;
+  rows.SetArray();
+  json_functor<T> fun(table, rows);
+
   for (size_t row = 0; row < table->size(); ++row) {
 
     // Align offset
@@ -58,23 +77,22 @@ Json::Value generateRowsJsonT(const T& table, const size_t transmitLimit, const 
       break;
 
     fun.row = row;
-    Json::Value json_row(Json::arrayValue);
+    fun.beginRow();
     for (size_t col = 0; col < table->columnCount(); ++col) {
       fun.column = col;
-      json_row.append(ts(table->typeOfColumn(col), fun));
+      ts(table->typeOfColumn(col), fun);
     }
-    rows.append(json_row);
-
   }
-  return rows;
+  return std::move(rows);
 }
 
-Json::Value generateRowsJson(const std::shared_ptr<const AbstractTable>& table,
+rapidjson::Document&& generateRowsJson(const std::shared_ptr<const AbstractTable>& table,
                              const size_t transmitLimit, const size_t transmitOffset) {
+
   if (const auto& store = std::dynamic_pointer_cast<const hyrise::storage::SimpleStore>(table)) {
-      return generateRowsJsonT(store, transmitLimit, transmitOffset);
+    return generateRowsJsonT(store, transmitLimit, transmitOffset);
   } else {
-      return generateRowsJsonT(table, transmitLimit, transmitOffset);
+    return generateRowsJsonT(table, transmitLimit, transmitOffset);
   }
 }
 
@@ -118,7 +136,7 @@ task_states_t ResponseTask::getState() const {
 
 void ResponseTask::operator()() {
   epoch_t responseStart = get_epoch_nanoseconds();
-  Json::Value response;
+  rapidjson::Document response;
 
   if (getDependencyCount() > 0) {
     PapiTracer pt;
@@ -129,76 +147,77 @@ void ResponseTask::operator()() {
     const auto& result = predecessor->getResultTable();
 
     if (getState() != OpFail) {
+
       if (tx::TransactionManager::isRunningTransaction(_txContext.tid)) {
-        response["session_context"] = Json::Value(_txContext.tid);
+        response.AddMember("session_context", _txContext.tid, response.GetAllocator());
       }
 
       if (result) {
         // Make header
-        Json::Value json_header(Json::arrayValue);
+        rapidjson::Value json_header(rapidjson::kArrayType);
         for (unsigned col = 0; col < result->columnCount(); ++col) {
-          Json::Value colname(result->nameOfColumn(col));
-          json_header.append(colname);
+          json_header.PushBack(result->nameOfColumn(col), response.GetAllocator());
         }
 
         // Copy the complete result
         response["real_size"] = result->size();
-        response["rows"] = generateRowsJson(result, _transmitLimit, _transmitOffset);
+        const rapidjson::Document& tmp_rows = generateRowsJson(result, _transmitLimit, _transmitOffset);
+        response.AddMember("rows", std::move(tmp_rows), response.GetAllocator());
         response["header"] = json_header;
       }
 
       // Copy Performance Data
-      Json::Value json_perf(Json::arrayValue);
+      rapidjson::Value json_perf(rapidjson::kArrayType);
       for (const auto & attr: performance_data) {
-        Json::Value element;
-        element["papi_event"] = Json::Value(attr->papiEvent);
-        element["duration"] = Json::Value((Json::UInt64) attr->duration);
-        element["data"] = Json::Value((Json::UInt64) attr->data);
-        element["name"] = Json::Value(attr->name);
-        element["id"] = Json::Value(attr->operatorId);
-        element["startTime"] = Json::Value((double)(attr->startTime - queryStart) / 1000000);
-        element["endTime"] = Json::Value((double)(attr->endTime - queryStart) / 1000000);
-        element["executingThread"] = Json::Value(attr->executingThread);
-        json_perf.append(element);
+        rapidjson::Value element(rapidjson::kObjectType);
+        element.AddMember("papi_event", attr->papiEvent, response.GetAllocator());
+        element.AddMember("duration", attr->duration, response.GetAllocator());
+        element.AddMember("data", attr->data, response.GetAllocator());
+        element.AddMember("name", attr->name, response.GetAllocator());
+        element.AddMember("id", attr->operatorId, response.GetAllocator());
+        element.AddMember("startTime", (double)(attr->startTime - queryStart) / 1000000, response.GetAllocator());
+        element.AddMember("endTime", (double)(attr->endTime - queryStart) / 1000000, response.GetAllocator());
+        element.AddMember("executingThread", attr->executingThread, response.GetAllocator());
+        json_perf.PushBack(element, response.GetAllocator());
       }
       pt.stop();
 
-      Json::Value responseElement;
-      responseElement["duration"] = Json::Value((Json::UInt64) pt.value("PAPI_TOT_CYC"));
-      responseElement["name"] = Json::Value("ResponseTask");
-      responseElement["id"] = Json::Value("respond");
-      responseElement["startTime"] = Json::Value((double)(responseStart - queryStart) / 1000000);
-      responseElement["endTime"] = Json::Value((double)(get_epoch_nanoseconds() - queryStart) / 1000000);
+      rapidjson::Value responseElement(rapidjson::kObjectType);
+      responseElement.AddMember("duration", (uint64_t) pt.value("PAPI_TOT_CYC"), response.GetAllocator());
+      responseElement.AddMember("name", "ResponseTask", response.GetAllocator());
+      responseElement.AddMember("id", "respond", response.GetAllocator());
+      responseElement.AddMember("startTime", (double)(responseStart - queryStart) / 1000000, response.GetAllocator());
+      responseElement.AddMember("endTime", (double)(get_epoch_nanoseconds() - queryStart) / 1000000, response.GetAllocator());
+      responseElement.AddMember("executingThread", boost::lexical_cast<std::string>(std::this_thread::get_id()) , response.GetAllocator());
+      json_perf.PushBack(responseElement, response.GetAllocator());
+                                
+      response.AddMember("performanceData", json_perf, response.GetAllocator());
 
-      std::string threadId = boost::lexical_cast<std::string>(std::this_thread::get_id());
-      responseElement["executingThread"] = Json::Value(threadId);
-      json_perf.append(responseElement);
-
-      response["performanceData"] = json_perf;
-
-      Json::Value jsonKeys(Json::arrayValue);
+      rapidjson::Value jsonKeys(rapidjson::kArrayType);
       for( const auto& x : _generatedKeyRefs) {
         for(const auto& key : *x) {
-          Json::Value element(key);
-          jsonKeys.append(element);
+          jsonKeys.PushBack(key, response.GetAllocator());
         }
       }
-      response["generatedKeys"] = jsonKeys;
-      response["affectedRows"] = Json::Value(_affectedRows);
+      response.AddMember("generatedKeys", jsonKeys, response.GetAllocator());
+      response.AddMember("affectedRows", _affectedRows.load(), response.GetAllocator());
 
     }
     LOG4CXX_DEBUG(_logger, "Table Use Count: " << result.use_count());
   }
 
   if (!_error_messages.empty()) {
-    Json::Value errors;
+    rapidjson::Value errors(rapidjson::kArrayType);
     for (const auto& msg: _error_messages) {
-      errors.append(Json::Value(msg));
+      errors.PushBack(msg, response.GetAllocator());
     }
-    response["error"] = errors;
+    response.AddMember("error", errors, response.GetAllocator());
   }
 
-  connection->respond(response.toStyledString());
+  rapidjson::StringBuffer wss;
+  rapidjson::Writer<decltype(wss)> w(wss);
+  response.Accept(w);
+  connection->respond(wss.GetString());
 }
 
 }

@@ -25,7 +25,7 @@ void SetTable::executePlanOperation() {
   output.add(table);
 }
 
-std::shared_ptr<PlanOperation> SetTable::parse(Json::Value& data) {
+std::shared_ptr<PlanOperation> SetTable::parse(const rapidjson::Value& data) {
   return std::make_shared<SetTable>(data["name"].asString());
 }
 

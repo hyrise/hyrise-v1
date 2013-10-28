@@ -715,7 +715,7 @@ void ScriptOperation::executePlanOperation() {
 
 }
 
-std::shared_ptr<PlanOperation> ScriptOperation::parse(Json::Value &data) {
+std::shared_ptr<PlanOperation> ScriptOperation::parse(const rapidjson::Value &data) {
   auto op = std::make_shared<ScriptOperation>();
   op->setScriptName(data["script"].asString());
 

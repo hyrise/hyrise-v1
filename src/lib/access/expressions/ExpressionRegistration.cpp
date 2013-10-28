@@ -14,7 +14,7 @@ bool Expressions::addRegistration(const std::string& callsign, expression_factor
   return true;
 }
 
-expression_uptr_t Expressions::createRegistered(const std::string& callsign, const Json::Value& value) const {
+expression_uptr_t Expressions::createRegistered(const std::string& callsign, const rapidjson::Value& value) const {
   return _registrations.at(callsign)->create(value);
 }
 

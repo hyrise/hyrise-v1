@@ -13,7 +13,7 @@ void Commit::executePlanOperation() {
   tx::TransactionManager::commitTransaction(_txContext);
 }
 
-std::shared_ptr<PlanOperation> Commit::parse(Json::Value &data) {
+std::shared_ptr<PlanOperation> Commit::parse(const rapidjson::Value &data) {
   return std::make_shared<Commit>();
 }
 

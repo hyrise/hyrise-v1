@@ -9,7 +9,7 @@ class ExpressionBuildError : public std::runtime_error {
   explicit ExpressionBuildError(const std::string &what): std::runtime_error(what) {}
 };
 
-SimpleFieldExpression *buildFieldExpression(PredicateType::type, Json::Value &);
-SimpleExpression *buildExpression(Json::Value &);
+SimpleFieldExpression *buildFieldExpression(PredicateType::type, rapidjson::Value &);
+SimpleExpression *buildExpression(const rapidjson::Value &);
 
 #endif  // SRC_LIB_ACCESS_PRED_BUILDEXPRESSION_H_

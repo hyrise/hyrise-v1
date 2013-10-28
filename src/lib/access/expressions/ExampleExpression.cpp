@@ -35,7 +35,7 @@ void ExampleExpression::walk(const std::vector<hyrise::storage::c_atable_ptr_t> 
   _valueid = _dict->getValueIdForValue(_value);
 }
     
-std::unique_ptr<ExampleExpression> ExampleExpression::parse(const Json::Value& data) {
+std::unique_ptr<ExampleExpression> ExampleExpression::parse(const rapidjson::Value& data) {
   return make_unique<ExampleExpression>(data["column"].asUInt(), data["value"].asUInt());
 }
 

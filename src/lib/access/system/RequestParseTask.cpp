@@ -7,6 +7,10 @@
 #include <vector>
 #include <thread>
 
+#include "rapidjson/document.h"
+#include "rapidjson/prettywriter.h"
+#include "rapidjson/stringbuffer.h"
+
 #include "boost/lexical_cast.hpp"
 
 #include "access/system/ResponseTask.h"
@@ -54,13 +58,12 @@ log4cxx::LoggerPtr _logger(log4cxx::Logger::getLogger("hyrise.access"));
 log4cxx::LoggerPtr _query_logger(log4cxx::Logger::getLogger("hyrise.access.queries"));
 }
 
-std::string hash(const Json::Value &v) {
-  const std::string jsonData(v.toStyledString());
+std::string hash(const std::string &v) {
 
   std::array<unsigned char, 20> hash;
   SHA1_CTX ctx;
   SHA1Init(&ctx);
-  SHA1Update(&ctx, (const unsigned char *) jsonData.c_str(), jsonData.size());
+  SHA1Update(&ctx, (const unsigned char *) v.c_str(), v.size());
   SHA1Final(hash.data(), &ctx);
 
   return std::string(reinterpret_cast<const char*>(hash.data()), 20);
@@ -101,15 +104,16 @@ void RequestParseTask::operator()() {
       LOG4CXX_DEBUG(_logger, "Creating new transaction context " << (*ctx).tid);
     }
 
-    Json::Value request_data;
-    Json::Reader reader;
+    rapidjson::Document request_data;
+    request_data.Parse<0>(urldecode(body_data["query"]).c_str());
 
-    if (ctx && reader.parse(urldecode(body_data["query"]), request_data)) {
+    if (ctx && !request_data.HasParseError()) {
       _responseTask->setTxContext(*ctx);
 
-      LOG4CXX_DEBUG(_query_logger, request_data);
+      // FIXME Query Log debug
+      //LOG4CXX_DEBUG(_query_logger, request_data);
 
-      std::string final_hash = hash(request_data);
+      std::string final_hash = hash(body_data["query"]);
       std::shared_ptr<Task> result = nullptr;
 
       if(request_data.isMember("priority"))
@@ -125,7 +129,11 @@ void RequestParseTask::operator()() {
 
       } catch (const std::exception &ex) {
         // clean up, so we don't end up with a whole mess due to thrown exceptions
-        LOG4CXX_ERROR(_logger, "Received\n:" << request_data);
+        rapidjson::StringBuffer wss;
+        rapidjson::PrettyWriter<decltype(wss)> pw(wss);
+        request_data.Accept(pw);
+
+        LOG4CXX_ERROR(_logger, "Received\n:" << wss.GetString());
         LOG4CXX_ERROR(_logger, "Exception thrown during query deserialization:\n" << ex.what());
         _responseTask->addErrorMessage(std::string("RequestParseTask: ") + ex.what());
         tasks.clear();
@@ -170,7 +178,7 @@ void RequestParseTask::operator()() {
       LOG4CXX_ERROR(_logger, "Failed to parse: "
                     << urldecode(body_data["query"]) << "\n"
                     << body_data["query"] << "\n"
-                    << reader.getFormatedErrorMessages());
+                    << request_data.GetParseError() << " at char " << request_data.GetErrorOffset());
     }
     // Update the transmission limit for the response task
     if (atoi(body_data["limit"].c_str()) > 0)

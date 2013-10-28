@@ -5,28 +5,28 @@
 #include <stdexcept>
 
 template<typename T>
-T json_converter::convert(Json::Value v) {
+T json_converter::convert(const rapidjson::Value& v) {
   throw std::runtime_error("DataType not supported!");
 }
 
 template<>
-int json_converter::convert<int>(Json::Value v) {
-  return v.asInt();
+int json_converter::convert<int>(const rapidjson::Value& v) {
+  return v.GetInt();
 }
 
 template<>
-hyrise_int_t json_converter::convert<hyrise_int_t>(Json::Value v) {
-  return v.asInt64();
+hyrise_int_t json_converter::convert<hyrise_int_t>(const rapidjson::Value& v) {
+  return v.GetInt64();
 }
 
 
 template<>
-float json_converter::convert<float>(Json::Value v) {
-  return v.asDouble();
+float json_converter::convert<float>(const rapidjson::Value& v) {
+  return v.GetDouble();
 }
 
 template<>
-std::string json_converter::convert<std::string>(Json::Value v) {
-  return v.asString();
+std::string json_converter::convert<std::string>(const rapidjson::Value& v) {
+  return v.GetString();
 }
 

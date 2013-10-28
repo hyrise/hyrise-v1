@@ -46,7 +46,7 @@ void HashJoinProbe::executePlanOperation() {
   addResult(buildResultTable(buildTablePosList, probeTablePosList));
 }
 
-std::shared_ptr<PlanOperation> HashJoinProbe::parse(Json::Value &data) {
+std::shared_ptr<PlanOperation> HashJoinProbe::parse(const rapidjson::Value &data) {
   std::shared_ptr<HashJoinProbe> instance = std::make_shared<HashJoinProbe>();
   if (data.isMember("fields")) {
     for (unsigned i = 0; i < data["fields"].size(); ++i) {

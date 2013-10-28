@@ -63,12 +63,12 @@ void JoinScan::executePlanOperation() {
       std::vector<storage::atable_ptr_t> {left_target, right_target}));
 }
 
-std::shared_ptr<PlanOperation> JoinScan::parse(const Json::Value &v) {
+std::shared_ptr<PlanOperation> JoinScan::parse(const rapidjson::Value &v) {
   JoinType::type t = JoinType::type(v["join_type"].asUInt());
   std::shared_ptr<JoinScan> s = std::make_shared<JoinScan>(t);
 
   for (unsigned i = 0; i < v["predicates"].size(); ++i) {
-    Json::Value p = v["predicates"][i];
+    const rapidjson::Value& p = v["predicates"][i];
     if (parseExpressionType(p["type"]) == EXP_EQ) {
       s->addJoinClause<int>(p);
     } else {

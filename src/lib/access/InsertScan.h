@@ -4,6 +4,8 @@
 
 #include "access/system/PlanOperation.h"
 
+#include <memory>
+
 namespace hyrise {
 namespace access {
 
@@ -15,7 +17,7 @@ public:
 
   void setInputData(const storage::atable_ptr_t &c);
 
-  static std::shared_ptr<PlanOperation> parse(Json::Value &data);
+  static std::shared_ptr<PlanOperation> parse(const rapidjson::Value &data);
 
 private:
   
@@ -23,7 +25,7 @@ private:
 
   storage::atable_ptr_t _data;
 
-  std::vector<std::vector<Json::Value>> _raw_data;
+  std::vector<std::vector<std::unique_ptr<rapidjson::Document>>> _raw_data;
 };
 
 }

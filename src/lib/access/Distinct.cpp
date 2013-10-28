@@ -49,7 +49,7 @@ void Distinct::executePlanOperation() {
   addResult(PointerCalculator::create(input.getTable(0), pos));
 }
 
-std::shared_ptr<PlanOperation> Distinct::parse(Json::Value &data) {
+std::shared_ptr<PlanOperation> Distinct::parse(const rapidjson::Value &data) {
   std::shared_ptr<Distinct> s = BasicParser<Distinct>::parse(data);
   return s;
 }

@@ -36,7 +36,7 @@ void ProjectionScan::executePlanOperation() {
   addResult(PointerCalculator::create(input.getTable(0), pos_list, tmp_fd));
 }
 
-std::shared_ptr<PlanOperation> ProjectionScan::parse(Json::Value &data) {
+std::shared_ptr<PlanOperation> ProjectionScan::parse(const rapidjson::Value &data) {
   std::shared_ptr<PlanOperation> p = BasicParser<ProjectionScan>::parse(data);
   return p;
 }

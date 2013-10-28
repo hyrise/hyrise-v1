@@ -16,7 +16,7 @@ NoOp::~NoOp() {
 void NoOp::executePlanOperation() {
 }
 
-std::shared_ptr<PlanOperation> NoOp::parse(Json::Value &data) {
+std::shared_ptr<PlanOperation> NoOp::parse(const rapidjson::Value &data) {
   return std::make_shared<NoOp>();
 }
 

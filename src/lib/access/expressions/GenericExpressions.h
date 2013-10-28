@@ -2,7 +2,8 @@
 #ifndef SRC_LIB_ACCESS_EXPRESSIONS_GENERICEXPRESSIONS_H_
 #define SRC_LIB_ACCESS_EXPRESSIONS_GENERICEXPRESSIONS_H_
 
-#include "json.h"
+#include "rapidjson/rapidjson.h"
+#include "rapidjson/document.h"
 
 #include "access/expressions/AbstractExpression.h"
 #include "access/expressions/GenericExpressions.inc"

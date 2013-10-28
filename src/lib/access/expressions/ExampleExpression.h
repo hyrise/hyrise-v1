@@ -2,7 +2,8 @@
 #ifndef SRC_LIB_ACCESS_SPECIALEXPRESSION_H_
 #define SRC_LIB_ACCESS_SPECIALEXPRESSION_H_
 
-#include "json.h"
+#include "rapidjson/rapidjson.h"
+#include "rapidjson/document.h"
 
 #include "access/expressions/AbstractExpression.h"
 #include "helper/types.h"
@@ -24,7 +25,7 @@ class ExampleExpression : public AbstractExpression {
   bool operator()(const size_t& row);
   virtual pos_list_t* match(const size_t start, const size_t stop);
   virtual void walk(const std::vector<hyrise::storage::c_atable_ptr_t> &l);
-  static std::unique_ptr<ExampleExpression> parse(const Json::Value& data);
+  static std::unique_ptr<ExampleExpression> parse(const rapidjson::Value& data);
 };
 
 }}

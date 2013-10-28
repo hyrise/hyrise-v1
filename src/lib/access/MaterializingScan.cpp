@@ -64,7 +64,7 @@ void MaterializingScan::executePlanOperation() {
   addResult(result);
 }
 
-std::shared_ptr<PlanOperation> MaterializingScan::parse(Json::Value &v) {
+std::shared_ptr<PlanOperation> MaterializingScan::parse(const rapidjson::Value &v) {
   std::shared_ptr<MaterializingScan> pop = std::dynamic_pointer_cast<MaterializingScan>(BasicParser<MaterializingScan>::parse(v));
   if (v.isMember("samples"))
     pop->setSamples(v["samples"].asUInt());

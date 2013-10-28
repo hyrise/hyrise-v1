@@ -111,7 +111,7 @@ void SimpleRawTableScan::executePlanOperation() {
   }
 }
 
-std::shared_ptr<PlanOperation> SimpleRawTableScan::parse(Json::Value &data) {
+std::shared_ptr<PlanOperation> SimpleRawTableScan::parse(const rapidjson::Value &data) {
   if (!data.isMember("predicates")) {
     throw std::runtime_error("There is no reason for a Selection without predicates");
   }
