@@ -32,7 +32,6 @@ const std::string TpccDeliveryProcedure::vname() {
 
 Json::Value TpccDeliveryProcedure::execute() {
   _date = getDate();
-  _tx = startTransaction();
 
   auto tNewOrder = getNewOrder();
   _o_id = tNewOrder->getValue<int>("NO_O_ID", 0);
@@ -51,7 +50,7 @@ Json::Value TpccDeliveryProcedure::execute() {
   updateOrderLine();
   updateCustomer();
 
-  commit(_tx);
+  commit();
 
   Json::Value result;
   result["W_ID"] = _w_id;
@@ -62,50 +61,50 @@ Json::Value TpccDeliveryProcedure::execute() {
 }
 
 void TpccDeliveryProcedure::deleteNewOrder() {
-  auto newOrder = getTpccTable("NEW_ORDER", _tx);
+  auto newOrder = getTpccTable("NEW_ORDER");
 
   expr_list_t expressions;
   expressions.push_back(new EqualsExpression<hyrise_int_t>(newOrder, "NO_W_ID", _w_id));
   expressions.push_back(new EqualsExpression<hyrise_int_t>(newOrder, "NO_D_ID", _d_id));
   expressions.push_back(new EqualsExpression<hyrise_int_t>(newOrder, "NO_O_ID", _o_id));
-  auto validated = selectAndValidate(newOrder, connectAnd(expressions), _tx);
+  auto validated = selectAndValidate(newOrder, connectAnd(expressions));
 
-  deleteRows(validated, _tx);
+  deleteRows(validated);
 }
 
 storage::c_atable_ptr_t TpccDeliveryProcedure::getCId() {
-  auto orders = getTpccTable("ORDERS", _tx);
+  auto orders = getTpccTable("ORDERS");
 
   expr_list_t expressions;
   expressions.push_back(new EqualsExpression<hyrise_int_t>(orders, "O_W_ID", _w_id));
   expressions.push_back(new EqualsExpression<hyrise_int_t>(orders, "O_D_ID", _d_id));
   expressions.push_back(new EqualsExpression<hyrise_int_t>(orders, "O_ID", _o_id));
-  auto validated = selectAndValidate(orders, connectAnd(expressions), _tx);
+  auto validated = selectAndValidate(orders, connectAnd(expressions));
 
   return validated;
 }
 
 storage::c_atable_ptr_t TpccDeliveryProcedure::getNewOrder() {
-  auto newOrder = getTpccTable("NEW_ORDER", _tx);
+  auto newOrder = getTpccTable("NEW_ORDER");
 
   expr_list_t expressions;
   expressions.push_back(new EqualsExpression<hyrise_int_t>(newOrder, "NO_W_ID", _w_id));
   expressions.push_back(new EqualsExpression<hyrise_int_t>(newOrder, "NO_D_ID", _d_id));
-  auto validated = selectAndValidate(newOrder, connectAnd(expressions), _tx);
+  auto validated = selectAndValidate(newOrder, connectAnd(expressions));
 
-  auto sorted = sort(validated, "NO_O_ID", true, _tx);
+  auto sorted = sort(validated, "NO_O_ID", true);
 
   return sorted;
 }
 
 storage::c_atable_ptr_t TpccDeliveryProcedure::sumOLAmount() {
-  auto orderLine = getTpccTable("ORDER_LINE", _tx);
+  auto orderLine = getTpccTable("ORDER_LINE");
 
   expr_list_t expressions;
   expressions.push_back(new EqualsExpression<hyrise_int_t>(orderLine, "OL_W_ID", _w_id));
   expressions.push_back(new EqualsExpression<hyrise_int_t>(orderLine, "OL_D_ID", _d_id));
   expressions.push_back(new EqualsExpression<hyrise_int_t>(orderLine, "OL_O_ID", _o_id));
-  auto validated = selectAndValidate(orderLine, connectAnd(expressions), _tx);
+  auto validated = selectAndValidate(orderLine, connectAnd(expressions));
 
   GroupByScan groupby;
   groupby.addInput(validated);
@@ -118,45 +117,45 @@ storage::c_atable_ptr_t TpccDeliveryProcedure::sumOLAmount() {
 
 void TpccDeliveryProcedure::updateCustomer() {
 
-  auto customer = getTpccTable("CUSTOMER", _tx);
+  auto customer = getTpccTable("CUSTOMER");
 
   expr_list_t expressions;
   expressions.push_back(new EqualsExpression<hyrise_int_t>(customer, "C_ID", _c_id));
   expressions.push_back(new EqualsExpression<hyrise_int_t>(customer, "C_W_ID", _w_id));
   expressions.push_back(new EqualsExpression<hyrise_int_t>(customer, "C_D_ID", _d_id));
-  auto validated = selectAndValidate(customer, connectAnd(expressions), _tx);
+  auto validated = selectAndValidate(customer, connectAnd(expressions));
 
   Json::Value updates;
   updates["C_BALANCE"] = _total;
-  update(validated, updates, _tx);
+  update(validated, updates);
 }
 
 void TpccDeliveryProcedure::updateOrderLine() {
-  auto orderLine = getTpccTable("ORDER_LINE", _tx);
+  auto orderLine = getTpccTable("ORDER_LINE");
 
   expr_list_t expressions;
   expressions.push_back(new EqualsExpression<hyrise_int_t>(orderLine, "OL_W_ID", _w_id));
   expressions.push_back(new EqualsExpression<hyrise_int_t>(orderLine, "OL_D_ID", _d_id));
   expressions.push_back(new EqualsExpression<hyrise_int_t>(orderLine, "OL_O_ID", _o_id));
-  auto validated = selectAndValidate(orderLine, connectAnd(expressions), _tx);
+  auto validated = selectAndValidate(orderLine, connectAnd(expressions));
 
   Json::Value updates;
   updates["OL_DELIVERY_D"] = _date;
-  update(validated, updates, _tx);
+  update(validated, updates);
 }
 
 void TpccDeliveryProcedure::updateOrders() {
-  auto orders = getTpccTable("ORDERS", _tx);
+  auto orders = getTpccTable("ORDERS");
 
   expr_list_t expressions;
   expressions.push_back(new EqualsExpression<hyrise_int_t>(orders, "O_W_ID", _w_id));
   expressions.push_back(new EqualsExpression<hyrise_int_t>(orders, "O_D_ID", _d_id));
   expressions.push_back(new EqualsExpression<hyrise_int_t>(orders, "O_ID", _o_id));
-  auto validated = selectAndValidate(orders, connectAnd(expressions), _tx);
+  auto validated = selectAndValidate(orders, connectAnd(expressions));
 
   Json::Value updates;
   updates["O_CARRIER_ID"] = _o_carrier_id;
-  update(validated, updates, _tx);
+  update(validated, updates);
 }
 
 

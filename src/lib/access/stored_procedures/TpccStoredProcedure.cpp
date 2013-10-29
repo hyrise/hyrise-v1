@@ -18,17 +18,20 @@ TpccStoredProcedure::TpccStoredProcedure(net::AbstractConnection* connection) :
 }
 
 void TpccStoredProcedure::operator()() {
-  try {
-    auto d = data();
-    setData(d);
+  auto d = data();
   
-    auto result = execute();
-    Json::StyledWriter writer;
-    _connection->respond(writer.write(result));
+  try {
+    setData(d);
   }
   catch (std::runtime_error e) {
     _connection->respond(e.what());
+    return;
   }
+  
+  startTransaction();
+  auto result = execute();
+  Json::StyledWriter writer;
+  _connection->respond(writer.write(result));
 }
 
 Json::Value TpccStoredProcedure::data() {
@@ -81,9 +84,9 @@ Json::Value TpccStoredProcedure::assureMemberExists(Json::Value data, const std:
   return data[name];
 }
 
-storage::c_atable_ptr_t TpccStoredProcedure::getTpccTable(std::string name, const tx::TXContext& tx) {
+storage::c_atable_ptr_t TpccStoredProcedure::getTpccTable(std::string name) {
   TableLoad load;
-  load.setTXContext(tx);
+  load.setTXContext(_tx);
   load.setTableName(name);
   load.setHeaderFileName(tpccHeaderLocation.at(name));
   load.setFileName(tpccDataLocation.at(name));
@@ -93,51 +96,52 @@ storage::c_atable_ptr_t TpccStoredProcedure::getTpccTable(std::string name, cons
   return load.getResultTable();
 }
  
-storage::c_atable_ptr_t TpccStoredProcedure::selectAndValidate(storage::c_atable_ptr_t table, SimpleExpression *expr, const tx::TXContext& tx) {
+storage::c_atable_ptr_t TpccStoredProcedure::selectAndValidate(storage::c_atable_ptr_t table, SimpleExpression *expr) {
   SimpleTableScan select;
   select.addInput(table);
-  select.setTXContext(tx);
+  select.setTXContext(_tx);
   select.setPredicate(expr);
   select.execute();
   
   ValidatePositions validate;
-  validate.setTXContext(tx);
+  validate.setTXContext(_tx);
   validate.addInput(select.getResultTable());
   validate.execute();
 
   return validate.getResultTable();
 }
 
-tx::TXContext TpccStoredProcedure::startTransaction() {
-  return tx::TransactionManager::beginTransaction();
+void TpccStoredProcedure::startTransaction() {
+    _tx = tx::TransactionManager::beginTransaction();
 }
 
-void TpccStoredProcedure::insert(storage::atable_ptr_t table, storage::atable_ptr_t rows, const tx::TXContext& tx) {
+void TpccStoredProcedure::insert(storage::atable_ptr_t table, storage::atable_ptr_t rows) {
   InsertScan insert;
-  insert.setTXContext(tx);
+  insert.setTXContext(_tx);
   insert.addInput(table);
   insert.setInputData(rows);
   insert.execute();
 }
 
-void TpccStoredProcedure::deleteRows(storage::c_atable_ptr_t rows, const tx::TXContext& tx) {
+void TpccStoredProcedure::deleteRows(storage::c_atable_ptr_t rows) {
   DeleteOp del;
-  del.setTXContext(tx);
+  del.setTXContext(_tx);
   del.addInput(rows);
   del.execute();
 }
 
-void TpccStoredProcedure::update(storage::c_atable_ptr_t rows, Json::Value data, const tx::TXContext& tx) {
+void TpccStoredProcedure::update(storage::c_atable_ptr_t rows, Json::Value data) {
   PosUpdateScan update;
-  update.setTXContext(tx);
+  update.setTXContext(_tx);
   update.addInput(rows);
 
   update.setRawData(data);
   update.execute();
 }
 
-storage::c_atable_ptr_t TpccStoredProcedure::sort(storage::c_atable_ptr_t table, field_name_t field, bool ascending, const tx::TXContext& tx) {
+storage::c_atable_ptr_t TpccStoredProcedure::sort(storage::c_atable_ptr_t table, field_name_t field, bool ascending) {
   SortScan sort;
+  sort.setTXContext(_tx);
   sort.addInput(table);
   sort.setSortField(field);
   sort.execute();
@@ -156,16 +160,23 @@ SimpleExpression* TpccStoredProcedure::connectAnd(expr_list_t expressions) {
   return lastAnd;
 }
 
-void TpccStoredProcedure::commit(tx::TXContext tx) {
+void TpccStoredProcedure::commit() {
+  if (_finished) return;
+  
+  //*(char*)0 = 0;
   Commit commit;
-  commit.setTXContext(tx);
+  commit.setTXContext(_tx);
   commit.execute();
+  _finished = true;
 }
 
-void TpccStoredProcedure::rollback(tx::TXContext tx) {
+void TpccStoredProcedure::rollback() {
+  if (_finished) return;
+  
   Rollback rb;
-  rb.setTXContext(tx);
+  rb.setTXContext(_tx);
   rb.execute();
+  _finished = true;
 }
 
 //source http://stackoverflow.com/questions/5438482

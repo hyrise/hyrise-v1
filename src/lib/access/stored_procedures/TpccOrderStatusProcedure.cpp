@@ -45,8 +45,6 @@ const std::string TpccOrderStatusProcedure::vname() {
 }
 
 Json::Value TpccOrderStatusProcedure::execute() {
-  _tx = startTransaction();
-
   storage::atable_ptr_t tCustomer;
   if (!_customerById) {
     tCustomer = std::const_pointer_cast<AbstractTable>(getCustomerByCId());
@@ -67,7 +65,7 @@ Json::Value TpccOrderStatusProcedure::execute() {
 
   auto tOrderLines = getOrderLines();
 
-  commit(_tx);
+  commit();
 
   // Output
   Json::Value result;
@@ -98,51 +96,51 @@ Json::Value TpccOrderStatusProcedure::execute() {
 }
 
 storage::c_atable_ptr_t TpccOrderStatusProcedure::getCustomerByCId() {
-  auto customer = getTpccTable("CUSTOMER", _tx);
+  auto customer = getTpccTable("CUSTOMER");
 
   expr_list_t expressions;
   expressions.push_back(new EqualsExpression<hyrise_int_t>(customer, "C_W_ID", _w_id));
   expressions.push_back(new EqualsExpression<hyrise_int_t>(customer, "C_D_ID", _d_id));
   expressions.push_back(new EqualsExpression<hyrise_int_t>(customer, "C_ID", _c_id));
-  auto validated = selectAndValidate(customer, connectAnd(expressions), _tx);
+  auto validated = selectAndValidate(customer, connectAnd(expressions));
 
   return validated;
 }
 
 storage::c_atable_ptr_t TpccOrderStatusProcedure::getCustomersByLastName() {
-  auto customer = getTpccTable("CUSTOMER", _tx);
+  auto customer = getTpccTable("CUSTOMER");
 
   expr_list_t expressions;
   expressions.push_back(new EqualsExpression<hyrise_int_t>(customer, "C_W_ID", _w_id));
   expressions.push_back(new EqualsExpression<hyrise_int_t>(customer, "C_D_ID", _d_id));
   expressions.push_back(new EqualsExpression<hyrise_string_t>(customer, "C_LAST", _c_last));
-  auto validated = selectAndValidate(customer, connectAnd(expressions), _tx);
+  auto validated = selectAndValidate(customer, connectAnd(expressions));
 
-  auto sorted = sort(validated, "C_FIRST", true, _tx);
+  auto sorted = sort(validated, "C_FIRST", true);
   return sorted;
 }
 
 storage::c_atable_ptr_t TpccOrderStatusProcedure::getLastOrder() {
-  auto orders = getTpccTable("ORDERS", _tx);
+  auto orders = getTpccTable("ORDERS");
 
   expr_list_t expressions;
   expressions.push_back(new EqualsExpression<hyrise_int_t>(orders, "O_W_ID", _w_id));
   expressions.push_back(new EqualsExpression<hyrise_int_t>(orders, "O_D_ID", _d_id));
   expressions.push_back(new EqualsExpression<hyrise_int_t>(orders, "O_C_ID", _d_id));
-  auto validated = selectAndValidate(orders, connectAnd(expressions), _tx);
+  auto validated = selectAndValidate(orders, connectAnd(expressions));
 
-  auto sorted = sort(validated, "O_ID", true, _tx);
+  auto sorted = sort(validated, "O_ID", true);
   return sorted;
 }
 
 storage::c_atable_ptr_t TpccOrderStatusProcedure::getOrderLines() {
-  auto order_line = getTpccTable("ORDER_LINE", _tx);
+  auto order_line = getTpccTable("ORDER_LINE");
 
   expr_list_t expressions;
   expressions.push_back(new EqualsExpression<hyrise_int_t>(order_line, "OL_W_ID", _w_id));
   expressions.push_back(new EqualsExpression<hyrise_int_t>(order_line, "OL_D_ID", _d_id));
   expressions.push_back(new EqualsExpression<hyrise_int_t>(order_line, "OL_O_ID", _o_id));
-  auto validated = selectAndValidate(order_line, connectAnd(expressions), _tx);
+  auto validated = selectAndValidate(order_line, connectAnd(expressions));
 
   return validated;
 }

@@ -57,8 +57,6 @@ Json::Value TpccNewOrderProcedure::execute() {
   _date = getDate();
   _all_local = allLocal();
 
-  _tx = startTransaction();
-
   _rollback = false;
   for (auto& item : _items) {
     auto tItem = getItemInfo(item.id);
@@ -131,9 +129,9 @@ Json::Value TpccNewOrderProcedure::execute() {
   }
 
   if (_rollback)
-    rollback(_tx); //this can skip more actions (2.4.2.3)!
+    rollback(); //this can skip more actions (2.4.2.3)!
   else
-    commit(_tx);
+    commit();
 
 
   Json::Value result;
@@ -177,129 +175,129 @@ Json::Value TpccNewOrderProcedure::execute() {
 }
 
 void TpccNewOrderProcedure::createNewOrder() {
-  auto newOrder = std::const_pointer_cast<AbstractTable>(getTpccTable("NEW_ORDER", _tx));
+  auto newOrder = std::const_pointer_cast<AbstractTable>(getTpccTable("NEW_ORDER"));
 
-  auto newRow = newOrder->copy_structure(nullptr, false, 1);
-  newRow->setValue<int>(0, 0, _o_id);
-  newRow->setValue<int>(1, 0, _d_id);
-  newRow->setValue<int>(2, 0, _w_id);
+  auto newRow = newOrder->copy_structure(nullptr, true, 1);
+  newRow->setValue<hyrise_int_t>(0, 0, _o_id);
+  newRow->setValue<hyrise_int_t>(1, 0, _d_id);
+  newRow->setValue<hyrise_int_t>(2, 0, _w_id);
   
-  insert(newOrder, newRow, _tx);
+  insert(newOrder, newRow);
 }
 
 void TpccNewOrderProcedure::createOrderLine(const ItemInfo& item, const int ol_number) {
-  auto orderLine = std::const_pointer_cast<AbstractTable>(getTpccTable("ORDER_LINE", _tx));
+  auto orderLine = std::const_pointer_cast<AbstractTable>(getTpccTable("ORDER_LINE"));
 
-  auto newRow = orderLine->copy_structure(nullptr, false, 1);
-  newRow->setValue<int>(0, 0, _o_id);
-  newRow->setValue<int>(1, 0, _d_id);
-  newRow->setValue<int>(2, 0, _w_id);
-  newRow->setValue<int>(3, 0, ol_number);
-  newRow->setValue<int>(4, 0, item.id);
-  newRow->setValue<int>(5, 0, item.w_id);
-  newRow->setValue<std::string>(6, 0, _date);
-  newRow->setValue<int>(7, 0, item.quantity);
-  newRow->setValue<float>(8, 0, item.amount());
-  newRow->setValue<std::string>(9, 0, _ol_dist_info);
+  auto newRow = orderLine->copy_structure(nullptr, true, 1);
+  newRow->setValue<hyrise_int_t>(0, 0, _o_id);
+  newRow->setValue<hyrise_int_t>(1, 0, _d_id);
+  newRow->setValue<hyrise_int_t>(2, 0, _w_id);
+  newRow->setValue<hyrise_int_t>(3, 0, ol_number);
+  newRow->setValue<hyrise_int_t>(4, 0, item.id);
+  newRow->setValue<hyrise_int_t>(5, 0, item.w_id);
+  newRow->setValue<hyrise_string_t>(6, 0, _date);
+  newRow->setValue<hyrise_int_t>(7, 0, item.quantity);
+  newRow->setValue<hyrise_float_t>(8, 0, item.amount());
+  newRow->setValue<hyrise_string_t>(9, 0, _ol_dist_info);
   
-  insert(orderLine, newRow, _tx);
+  insert(orderLine, newRow);
 }
 
 void TpccNewOrderProcedure::createOrder() {
-  auto orders = std::const_pointer_cast<AbstractTable>(getTpccTable("ORDERS", _tx));
+  auto orders = std::const_pointer_cast<AbstractTable>(getTpccTable("ORDERS"));
 
-  auto newRow = orders->copy_structure(nullptr, false, 1);
-  newRow->setValue<int>(0, 0, _o_id);
-  newRow->setValue<int>(1, 0, _d_id);
-  newRow->setValue<int>(2, 0, _w_id);
-  newRow->setValue<int>(3, 0, _c_id);
-  newRow->setValue<std::string>(4, 0, _date);
-  newRow->setValue<int>(5, 0, _carrier_id);
-  newRow->setValue<int>(6, 0, _ol_cnt);
-  newRow->setValue<int>(7, 0, _all_local);
+  auto newRow = orders->copy_structure(nullptr, true, 1);
+  newRow->setValue<hyrise_int_t>(0, 0, _o_id);
+  newRow->setValue<hyrise_int_t>(1, 0, _d_id);
+  newRow->setValue<hyrise_int_t>(2, 0, _w_id);
+  newRow->setValue<hyrise_int_t>(3, 0, _c_id);
+  newRow->setValue<hyrise_string_t>(4, 0, _date);
+  newRow->setValue<hyrise_int_t>(5, 0, _carrier_id);
+  newRow->setValue<hyrise_int_t>(6, 0, _ol_cnt);
+  newRow->setValue<hyrise_int_t>(7, 0, _all_local);
   
-  insert(orders, newRow, _tx);
+  insert(orders, newRow);
 }
 
 storage::c_atable_ptr_t TpccNewOrderProcedure::getCustomer() {
-  auto customer = getTpccTable("CUSTOMER", _tx);
+  auto customer = getTpccTable("CUSTOMER");
 
   expr_list_t expressions;
   expressions.push_back(new EqualsExpression<hyrise_int_t>(customer, "C_W_ID", _w_id));
   expressions.push_back(new EqualsExpression<hyrise_int_t>(customer, "C_D_ID", _d_id));
   expressions.push_back(new EqualsExpression<hyrise_int_t>(customer, "C_ID", _c_id));
-  auto validated = selectAndValidate(customer, connectAnd(expressions), _tx);
+  auto validated = selectAndValidate(customer, connectAnd(expressions));
 
   return validated;
 }
 
 storage::c_atable_ptr_t TpccNewOrderProcedure::getDistrict() {
-  auto district = getTpccTable("DISTRICT", _tx);
+  auto district = getTpccTable("DISTRICT");
 
   expr_list_t expressions;
   expressions.push_back(new EqualsExpression<hyrise_int_t>(district, "D_W_ID", _w_id));
   expressions.push_back(new EqualsExpression<hyrise_int_t>(district, "D_ID", _d_id));
-  auto validated = selectAndValidate(district, connectAnd(expressions), _tx);
+  auto validated = selectAndValidate(district, connectAnd(expressions));
 
   return validated;
 }
 
 storage::c_atable_ptr_t TpccNewOrderProcedure::getItemInfo(int i_id) {
-  auto item = getTpccTable("ITEM", _tx);
+  auto item = getTpccTable("ITEM");
 
   auto expr = new EqualsExpression<hyrise_int_t>(item, "I_ID", i_id);
-  auto validated = selectAndValidate(item, expr, _tx);
+  auto validated = selectAndValidate(item, expr);
 
   return validated;
 }
 
 storage::c_atable_ptr_t TpccNewOrderProcedure::getStockInfo(int w_id, int i_id) {
-  auto district = getTpccTable("DISTRICT", _tx);
+  auto district = getTpccTable("DISTRICT");
 
   expr_list_t expressions;
   expressions.push_back(new EqualsExpression<hyrise_int_t>(district, "S_W_ID", w_id));
   expressions.push_back(new EqualsExpression<hyrise_int_t>(district, "S_I_ID", i_id));
-  auto validated = selectAndValidate(district, connectAnd(expressions), _tx);
+  auto validated = selectAndValidate(district, connectAnd(expressions));
 
   return validated;
 }
 
 storage::c_atable_ptr_t TpccNewOrderProcedure::getWarehouseTaxRate() {
-  auto district = getTpccTable("WAREHOUSE", _tx);
+  auto district = getTpccTable("WAREHOUSE");
 
   auto expr = new EqualsExpression<hyrise_int_t>(district, "W_ID", _w_id);
-  auto validated = selectAndValidate(district, expr, _tx);
+  auto validated = selectAndValidate(district, expr);
 
   return validated;
 }
 
 void TpccNewOrderProcedure::incrementNextOrderId() {
-  auto district = getTpccTable("DISTRICT", _tx);
+  auto district = getTpccTable("DISTRICT");
 
   expr_list_t expressions;
   expressions.push_back(new EqualsExpression<hyrise_int_t>(district, "D_W_ID", _w_id));
   expressions.push_back(new EqualsExpression<hyrise_int_t>(district, "D_ID", _d_id));
-  auto validated = selectAndValidate(district, connectAnd(expressions), _tx);
+  auto validated = selectAndValidate(district, connectAnd(expressions));
 
   Json::Value updates;
   updates["D_NEXT_O_ID"] = _o_id + 1;
-  update(validated, updates, _tx);
+  update(validated, updates);
 }
 
 void TpccNewOrderProcedure::updateStock(const ItemInfo& item) {
-  auto district = getTpccTable("STOCK", _tx);
+  auto district = getTpccTable("STOCK");
 
   expr_list_t expressions;
   expressions.push_back(new EqualsExpression<hyrise_int_t>(district, "S_W_ID", _w_id));
   expressions.push_back(new EqualsExpression<hyrise_int_t>(district, "S_I_ID", item.id));
-  auto validated = selectAndValidate(district, connectAnd(expressions), _tx);
+  auto validated = selectAndValidate(district, connectAnd(expressions));
 
   Json::Value updates;
   updates["S_QUANTITY"] = item.quantity;
   updates["S_ORDER_CNT"] = item.s_order_cnt;
   updates["S_REMOTE_CNT"] = item.s_remote_cnt;
   updates["S_QUANTITY"] = item.quantity;
-  update(validated, updates, _tx);
+  update(validated, updates);
 }
 
 } } // namespace hyrise::access

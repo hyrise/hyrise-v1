@@ -31,15 +31,12 @@ const std::string TpccStockLevelProcedure::vname() {
 }
 
 Json::Value TpccStockLevelProcedure::execute() {
-  // Transaction
-  _tx = startTransaction();
-
   auto t1 = getOId();
   _next_o_id = t1->getValue<int>("D_NEXT_O_ID", 0);
 
   auto t2 = getStockCount();
 
-  commit(_tx);
+  commit();
 
   // Output
   int low_stock = 0;
@@ -55,19 +52,19 @@ Json::Value TpccStockLevelProcedure::execute() {
 }
 
 storage::c_atable_ptr_t TpccStockLevelProcedure::getOId() {
-  auto district = getTpccTable("DISTRICT", _tx);
+  auto district = getTpccTable("DISTRICT");
 
   expr_list_t expressions;
   expressions.push_back(new EqualsExpression<hyrise_int_t>(district, "D_W_ID", _w_id));
   expressions.push_back(new EqualsExpression<hyrise_int_t>(district, "D_ID", _d_id));
-  auto validated = selectAndValidate(district, connectAnd(expressions), _tx);
+  auto validated = selectAndValidate(district, connectAnd(expressions));
 
   return validated;
 }
 
 storage::c_atable_ptr_t TpccStockLevelProcedure::getStockCount() {
   // order_line: load, select and validate
-  auto order_line = getTpccTable("ORDER_LINE", _tx);
+  auto order_line = getTpccTable("ORDER_LINE");
   const auto min_o_id = _next_o_id - 21;
   const auto max_o_id = _next_o_id + 1; //D_NEXT_O_ID shoult be greater than every O_ID
 
@@ -76,13 +73,13 @@ storage::c_atable_ptr_t TpccStockLevelProcedure::getStockCount() {
   expressions_ol.push_back(new EqualsExpression<hyrise_int_t>(order_line, "OL_D_ID", _d_id));
   expressions_ol.push_back(new LessThanExpression<hyrise_int_t>(order_line, "OL_O_ID", max_o_id));
   expressions_ol.push_back(new GreaterThanExpression<hyrise_int_t>(order_line, "OL_O_ID", min_o_id));
-  auto validated_ol = selectAndValidate(order_line, connectAnd(expressions_ol), _tx);
+  auto validated_ol = selectAndValidate(order_line, connectAnd(expressions_ol));
 
-  auto stock = getTpccTable("STOCK", _tx);
+  auto stock = getTpccTable("STOCK");
   expr_list_t expressions_s;
   expressions_s.push_back(new EqualsExpression<hyrise_int_t>(stock, "S_W_ID", _w_id));
   expressions_s.push_back(new LessThanExpression<hyrise_int_t>(stock, "S_QUANTITY", _threshold));
-  auto validated_s = selectAndValidate(stock, connectAnd(expressions_s), _tx);
+  auto validated_s = selectAndValidate(stock, connectAnd(expressions_s));
 
   JoinScan join(JoinType::EQUI);
   join.addInput(validated_ol);

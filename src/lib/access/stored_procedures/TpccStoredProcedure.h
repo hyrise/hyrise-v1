@@ -30,25 +30,28 @@ class TpccStoredProcedure : public net::AbstractRequestHandler {
   static Json::Value assureMemberExists(Json::Value data, const std::string name);
 
   //planop helper
-  static storage::c_atable_ptr_t getTpccTable(std::string name, const tx::TXContext& tx);
-  static storage::c_atable_ptr_t selectAndValidate(storage::c_atable_ptr_t table, SimpleExpression *expr, const tx::TXContext& tx);
-  static void insert(storage::atable_ptr_t table, storage::atable_ptr_t rows, const tx::TXContext& tx);
-  static void deleteRows(storage::c_atable_ptr_t rows, const tx::TXContext& tx);
-  static void update(storage::c_atable_ptr_t rows, Json::Value data, const tx::TXContext& tx);
-  static storage::c_atable_ptr_t sort(storage::c_atable_ptr_t table, field_name_t field, bool ascending, const tx::TXContext& tx);
+  storage::c_atable_ptr_t getTpccTable(std::string name);
+  storage::c_atable_ptr_t selectAndValidate(storage::c_atable_ptr_t table, SimpleExpression *expr);
+  void insert(storage::atable_ptr_t table, storage::atable_ptr_t rows);
+  void deleteRows(storage::c_atable_ptr_t rows);
+  void update(storage::c_atable_ptr_t rows, Json::Value data);
+  storage::c_atable_ptr_t sort(storage::c_atable_ptr_t table, field_name_t field, bool ascending);
 
   typedef std::vector<SimpleExpression*> expr_list_t;
   static SimpleExpression* connectAnd(expr_list_t expressions);
   
   //transaction
-  static tx::TXContext startTransaction();
-  static void commit(tx::TXContext tx);
-  static void rollback(tx::TXContext tx);
+  void commit();
+  void rollback();
 
   static std::string getDate();
 
   net::AbstractConnection* _connection;
   tx::TXContext _tx;
+
+ private:
+  void startTransaction();
+  bool _finished = false;
 };
 
 } } // namespace hyrise::access
