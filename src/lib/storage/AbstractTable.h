@@ -221,7 +221,6 @@ public:
    */
   virtual void setValueId(size_t column, size_t row, const ValueId valueId);
 
-
   /**
    * Reorganizes the bit vector of a certain column.
    * @warning Throws runtime error if not implemented!
@@ -377,6 +376,10 @@ public:
 
   }
 
+  template <typename T>
+  void setValue(field_name_t column, size_t row, const T &value) {
+    setValue(numberOfColumn(column), row, value);
+  }
 
   /**
    * Templated method for retrieving a value by its ID.
