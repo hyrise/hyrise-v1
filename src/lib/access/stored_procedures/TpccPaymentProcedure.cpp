@@ -192,19 +192,18 @@ void TpccPaymentProcedure::insertHistory() {
   for (const auto& columnData : metadata) {
     list.append(storage::TableBuilder::param(columnData.getName(), data_type_to_string(columnData.getType())));
   }
-  //auto newRow = history->copy_structure(nullptr, false, 1);//storage::TableBuilder::build(list);
   auto newRow = storage::TableBuilder::build(list);
-  newRow->resize(400);
+  newRow->resize(666); //TODO it's halloween for now but there should be a more generic value
   newRow->setValue<hyrise_int_t>("H_C_ID", 0, _c_id);
   newRow->setValue<hyrise_int_t>("H_C_D_ID", 0, _c_d_id);
-  newRow->setValue<hyrise_int_t>(2, 0, _c_w_id);
-  newRow->setValue<hyrise_int_t>(3, 0, _d_id);
-  newRow->setValue<hyrise_int_t>(4, 0, _w_id);
-  newRow->setValue<hyrise_string_t>(5, 0, _date);
-  newRow->setValue<hyrise_float_t>(6, 0, _h_amount);
-  newRow->setValue<hyrise_string_t>(7, 0, _h_data);
+  newRow->setValue<hyrise_int_t>("H_C_W_ID", 0, _c_w_id);
+  newRow->setValue<hyrise_int_t>("H_D_ID", 0, _d_id);
+  newRow->setValue<hyrise_int_t>("H_W_ID", 0, _w_id);
+  newRow->setValue<hyrise_string_t>("H_DATE", 0, _date);
+  newRow->setValue<hyrise_float_t>("H_AMOUNT", 0, _h_amount);
+  newRow->setValue<hyrise_string_t>("H_DATA", 0, _h_data);
   
-  //insert(history, newRow);
+  insert(history, newRow);
 }
 
 void TpccPaymentProcedure::updateDistrictBalance() {

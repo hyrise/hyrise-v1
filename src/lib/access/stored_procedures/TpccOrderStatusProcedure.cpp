@@ -46,15 +46,26 @@ const std::string TpccOrderStatusProcedure::vname() {
 
 Json::Value TpccOrderStatusProcedure::execute() {
   storage::atable_ptr_t tCustomer;
-  if (!_customerById) {
+  if (_customerById) {
     tCustomer = std::const_pointer_cast<AbstractTable>(getCustomerByCId());
+    if (tCustomer->size() == 0) {
+      rollback();
+      std::ostringstream os;
+      os << "No Customer with ID: " << _c_id;
+      throw std::runtime_error(os.str());
+    }
+
     _chosenOne = 0;
     _c_last = tCustomer->getValue<std::string>("C_LAST", 0);
   }
   else {
     tCustomer = std::const_pointer_cast<AbstractTable>(getCustomersByLastName());
-    //TODO what if size = 0?
-    _chosenOne = (tCustomer->size() - 1) / 2 - 1;
+    if (tCustomer->size() == 0) {
+      rollback();
+      throw std::runtime_error("No Customer with ID: " + _c_last);
+    }
+
+    _chosenOne = tCustomer->size() / 2;
     _c_id = tCustomer->getValue<int>("C_ID", _chosenOne);
   }
 

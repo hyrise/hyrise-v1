@@ -5,6 +5,8 @@
 #include <storage/AbstractTable.h>
 #include <access.h>
 
+//TODO 2.7.2 Deferred Execution!
+
 namespace hyrise { namespace access {
 
 namespace {
@@ -34,16 +36,24 @@ Json::Value TpccDeliveryProcedure::execute() {
   _date = getDate();
 
   auto tNewOrder = getNewOrder();
+  if (tNewOrder->size() == 0) {
+    std::ostringstream os;
+    os << "no new order for warehouse " << _w_id << " and district " << _d_id;
+    throw std::runtime_error(os.str());
+  }
   _o_id = tNewOrder->getValue<int>("NO_O_ID", 0);
-  //TODO what if no new order?
 
-  auto tCustomer = getCId();
-  _c_id = tCustomer->getValue<int>("O_C_ID", 0);
-  //TODO what if Customer does not exist?
+  auto tOrder = getCId();
+  if (tOrder->size() == 0) {
+    throw std::runtime_error("internal error: new order is associated with non-existing order");
+  }
+  _c_id = tOrder->getValue<int>("O_C_ID", 0);
 
   auto tSum = sumOLAmount();
+  if (tSum->size() == 0) {
+    throw std::runtime_error("internal error: no order lines for existing order");
+  }
   _total = tSum->getValue<float>(0, 0);
-  //TODO what if no OL ant therefore no sum
 
   deleteNewOrder();
   updateOrders();
@@ -93,7 +103,6 @@ storage::c_atable_ptr_t TpccDeliveryProcedure::getNewOrder() {
   auto validated = selectAndValidate(newOrder, connectAnd(expressions));
 
   auto sorted = sort(validated, "NO_O_ID", true);
-
   return sorted;
 }
 

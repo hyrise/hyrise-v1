@@ -526,30 +526,39 @@ TEST_F(TpccStoredProceduresTest, Payment_W1D1BARBARATIONlocalGC) {
 
 //============================Stock Level Tests
 
-int assureFieldExists(const Json::Value& data, std::string name) {
+void assureFieldExists(const Json::Value& data, const std::string& name) {
   if (!data.isMember(name))
     throw std::runtime_error("\"" + name + "\" should be set but is not");
+}
+
+int getValuei(const Json::Value& data, std::string name) {
+  assureFieldExists(data, name);
   return data[name].asInt();
+}
+
+float getValuef(const Json::Value& data, std::string name) {
+  assureFieldExists(data, name);
+  return data[name].asFloat();
 }
 
 TEST_F(TpccStoredProceduresTest, StockLevel_W1D1T90) {
   //                                 (w_id, d_id, threshold);
   const auto& response = doStockLevel(1   , 1   , 90       );
 
-  ASSERT_EQ(1, assureFieldExists(response, "W_ID"));
-  ASSERT_EQ(1, assureFieldExists(response, "D_ID"));
-  ASSERT_EQ(90, assureFieldExists(response, "threshold"));
-  ASSERT_EQ(7, assureFieldExists(response, "low_stock"));
+  ASSERT_EQ(1, getValuei(response, "W_ID"));
+  ASSERT_EQ(1, getValuei(response, "D_ID"));
+  ASSERT_EQ(90, getValuei(response, "threshold"));
+  ASSERT_EQ(7, getValuei(response, "low_stock"));
 }
 
 TEST_F(TpccStoredProceduresTest, StockLevel_W1D1T50) {
   //                                 (w_id, d_id, threshold);
   const auto& response = doStockLevel(1   , 1   , 50       );
 
-  ASSERT_EQ(1, assureFieldExists(response, "W_ID"));
-  ASSERT_EQ(1, assureFieldExists(response, "D_ID"));
-  ASSERT_EQ(50, assureFieldExists(response, "threshold"));
-  ASSERT_EQ(1, assureFieldExists(response, "low_stock"));
+  ASSERT_EQ(1, getValuei(response, "W_ID"));
+  ASSERT_EQ(1, getValuei(response, "D_ID"));
+  ASSERT_EQ(50, getValuei(response, "threshold"));
+  ASSERT_EQ(1, getValuei(response, "low_stock"));
 }
 
 } } // namespace hyrise::access

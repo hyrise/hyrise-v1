@@ -18,9 +18,8 @@ TpccStoredProcedure::TpccStoredProcedure(net::AbstractConnection* connection) :
 }
 
 void TpccStoredProcedure::operator()() {
-  auto d = data();
-  
   try {
+    auto d = data();
     setData(d);
   }
   catch (std::runtime_error e) {
@@ -29,7 +28,17 @@ void TpccStoredProcedure::operator()() {
   }
   
   startTransaction();
-  auto result = execute();
+  Json::Value result;
+  try {
+    result = execute();
+  }
+  catch (std::runtime_error e) {
+    rollback();
+    _connection->respond(e.what());
+    return;
+  }
+  commit();
+
   Json::StyledWriter writer;
   _connection->respond(writer.write(result));
 }
@@ -67,7 +76,8 @@ namespace {
                                          {"ORDERS"    , tpccTableDir + "orders_header.tbl"},
                                          {"NEW_ORDER" , tpccTableDir + "new_order_header.tbl"},
                                          {"STOCK"     , tpccTableDir + "stock_header.tbl"},
-                                         {"ORDER_LINE", tpccTableDir + "order_line_header.tbl"}};
+                                         {"ORDER_LINE", tpccTableDir + "order_line_header.tbl"},
+                                         {"ITEM"      , tpccTableDir + "item_header.tbl"}};
   const file_map_t tpccDataLocation = {{"DISTRICT"  , tpccTableDir + "district.csv"},
                                        {"WAREHOUSE" , tpccTableDir + "warehouse.csv"},
                                        {"CUSTOMER"  , tpccTableDir + "customer.csv"},
@@ -75,7 +85,8 @@ namespace {
                                        {"ORDERS"    , tpccTableDir + "orders.csv"},
                                        {"NEW_ORDER" , tpccTableDir + "new_order.csv"},
                                        {"STOCK"     , tpccTableDir + "stock.csv"},
-                                       {"ORDER_LINE", tpccTableDir + "order_line.csv"}};
+                                       {"ORDER_LINE", tpccTableDir + "order_line.csv"},
+                                       {"ITEM"      , tpccTableDir + "item.csv"}};
 } // namespace
 
 Json::Value TpccStoredProcedure::assureMemberExists(Json::Value data, const std::string name) {

@@ -4,11 +4,10 @@
 
 #include <iomanip>
 
+#include <storage/TableBuilder.h>
 #include <storage/AbstractTable.h>
-#include <access/expressions/pred_EqualsExpression.h>
-#include <access/expressions/pred_CompoundExpression.h>
-#include <access/JoinScan.h>
-#include <access/GroupByScan.h>
+#include <storage/storage_types_helper.h>
+#include <access.h>
 
 namespace hyrise { namespace access {
 
@@ -61,27 +60,43 @@ Json::Value TpccNewOrderProcedure::execute() {
   for (auto& item : _items) {
     auto tItem = getItemInfo(item.id);
     if (tItem->size() == 0) {
-      ;//TODO not found condition
+      throw std::runtime_error("item not found - fixme");
+      _rollback = true;//TODO not found condition
     }
-    item.price = tItem->getValue<float>("I_PRICE", 0);
-    item.name = tItem->getValue<std::string>("I_NAME", 0);
-    item.data = tItem->getValue<std::string>("I_DATA", 0);
+    item.price = tItem->getValue<hyrise_float_t>("I_PRICE", 0);
+    item.name = tItem->getValue<hyrise_string_t>("I_NAME", 0);
+    item.data = tItem->getValue<hyrise_string_t>("I_DATA", 0);
   }
 
   auto tWarehouse = getWarehouseTaxRate();
-  //TODO no warehouse
-  const float w_tax = tWarehouse->getValue<float>("W_TAX", 0);
+  if (tWarehouse->size() == 0) {
+    std::ostringstream os;
+    os << "no warehouse with id: " << _w_id;
+    throw std::runtime_error(os.str());
+  }
+  const float w_tax = tWarehouse->getValue<hyrise_float_t>("W_TAX", 0);
 
+  getTpccTable("DISTRICT")->print();
   auto tDistrict = getDistrict();
-  //TODO no district
-  const float d_tax = tDistrict->getValue<float>("D_TAX", 0);
-  _o_id = tDistrict->getValue<int>("D_NEXT_O_ID", 0);
+  if (tDistrict->size() == 0) {
+    std::ostringstream os;
+    os << "no district with id " << _d_id << " for warehouse " << _w_id;
+    throw std::runtime_error(os.str());
+  }
+  const float d_tax = tDistrict->getValue<hyrise_float_t>("D_TAX", 0);
+  _o_id = tDistrict->getValue<hyrise_int_t>("D_NEXT_O_ID", 0);
 
   auto tCustomer = getCustomer();
-  //TODO no customer
-  const float c_discount = tCustomer->getValue<float>("C_DISCOUNT", 0);
-  const std::string c_last = tCustomer->getValue<std::string>("C_LAST", 0);
-  const std::string c_credit = tCustomer->getValue<std::string>("C_CREDIT", 0);
+  if (tCustomer->size() == 0) {
+    std::ostringstream os;
+    os << "no customer with id: " << _c_id;
+    throw std::runtime_error(os.str());
+  }
+
+
+  const float c_discount = tCustomer->getValue<hyrise_float_t>("C_DISCOUNT", 0);
+  const std::string c_last = tCustomer->getValue<hyrise_string_t>("C_LAST", 0);
+  const std::string c_credit = tCustomer->getValue<hyrise_string_t>("C_CREDIT", 0);
 
   incrementNextOrderId();
   createOrder();
@@ -95,14 +110,16 @@ Json::Value TpccNewOrderProcedure::execute() {
     auto& item = _items.at(i);
     const int quantity = _items.at(i).quantity;
 
-    auto t5 = getStockInfo(item.w_id, item.id);
-    //TODO no stock info
+    auto tStock = getStockInfo(item.w_id, item.id);
+    if (tStock->size() == 0) {
+      throw std::runtime_error("internal error: no stock information for an item");
+    }
 
-    s_ytd = t5->getValue<int>("S_YTD", 0);
+    s_ytd = tStock->getValue<hyrise_int_t>("S_YTD", 0);
     s_ytd += quantity; //TODO WHAT???
 
-    int s_quantity = t5->getValue<int>("S_QUANTITY", 0);
-    item.s_order_cnt = t5->getValue<int>("S_ORDER_CNT", 0);
+    int s_quantity = tStock->getValue<hyrise_int_t>("S_QUANTITY", 0);
+    item.s_order_cnt = tStock->getValue<hyrise_int_t>("S_ORDER_CNT", 0);
 
     if (s_quantity >= quantity + 10) {
       s_quantity = s_quantity - quantity;
@@ -112,24 +129,24 @@ Json::Value TpccNewOrderProcedure::execute() {
       ++item.s_order_cnt;
     }
     item.s_quantity = s_quantity;
-    item.s_remote_cnt = t5->getValue<int>("S_REMOTE_CNT", 0);
+    item.s_remote_cnt = tStock->getValue<hyrise_int_t>("S_REMOTE_CNT", 0);
 
-    std::string s_data = t5->getValue<std::string>("S_DATA", 0);
+    std::string s_data = tStock->getValue<hyrise_string_t>("S_DATA", 0);
 
     std::ostringstream os;
     os << "S_DIST_" << std::setw(2) << std::setfill('0') << std::right << _d_id;
     const std::string s_dist_name = os.str(); //e.g. S_DIST_01
     std::cout << "<<<<<<" << s_dist_name << std::endl;
-    std::string s_dist = t5->getValue<std::string>(s_dist_name, 0);
+    std::string s_dist = tStock->getValue<hyrise_string_t>(s_dist_name, 0);
 
-    total += quantity * _items.at(i).price;
+    total += item.amount();
 
     updateStock(item);
     createOrderLine(item, i + 1);
   }
 
   if (_rollback)
-    rollback(); //this can skip more actions (2.4.2.3)!
+    rollback(); //TODO this can skip more actions (2.4.2.3)!
   else
     commit();
 
@@ -177,7 +194,13 @@ Json::Value TpccNewOrderProcedure::execute() {
 void TpccNewOrderProcedure::createNewOrder() {
   auto newOrder = std::const_pointer_cast<AbstractTable>(getTpccTable("NEW_ORDER"));
 
-  auto newRow = newOrder->copy_structure(nullptr, true, 1);
+  const auto metadata = newOrder->metadata();
+  storage::TableBuilder::param_list list;
+  for (const auto& columnData : metadata) {
+    list.append(storage::TableBuilder::param(columnData.getName(), data_type_to_string(columnData.getType())));
+  }
+  auto newRow = storage::TableBuilder::build(list);
+  newRow->resize(666); //TODO it's halloween for now but there should be a more generic value
   newRow->setValue<hyrise_int_t>(0, 0, _o_id);
   newRow->setValue<hyrise_int_t>(1, 0, _d_id);
   newRow->setValue<hyrise_int_t>(2, 0, _w_id);
@@ -188,7 +211,13 @@ void TpccNewOrderProcedure::createNewOrder() {
 void TpccNewOrderProcedure::createOrderLine(const ItemInfo& item, const int ol_number) {
   auto orderLine = std::const_pointer_cast<AbstractTable>(getTpccTable("ORDER_LINE"));
 
-  auto newRow = orderLine->copy_structure(nullptr, true, 1);
+  const auto metadata = orderLine->metadata();
+  storage::TableBuilder::param_list list;
+  for (const auto& columnData : metadata) {
+    list.append(storage::TableBuilder::param(columnData.getName(), data_type_to_string(columnData.getType())));
+  }
+  auto newRow = storage::TableBuilder::build(list);
+  newRow->resize(666); //TODO it's halloween for now but there should be a more generic value
   newRow->setValue<hyrise_int_t>(0, 0, _o_id);
   newRow->setValue<hyrise_int_t>(1, 0, _d_id);
   newRow->setValue<hyrise_int_t>(2, 0, _w_id);
@@ -206,7 +235,13 @@ void TpccNewOrderProcedure::createOrderLine(const ItemInfo& item, const int ol_n
 void TpccNewOrderProcedure::createOrder() {
   auto orders = std::const_pointer_cast<AbstractTable>(getTpccTable("ORDERS"));
 
-  auto newRow = orders->copy_structure(nullptr, true, 1);
+  const auto metadata = orders->metadata();
+  storage::TableBuilder::param_list list;
+  for (const auto& columnData : metadata) {
+    list.append(storage::TableBuilder::param(columnData.getName(), data_type_to_string(columnData.getType())));
+  }
+  auto newRow = storage::TableBuilder::build(list);
+  newRow->resize(666); //TODO it's halloween for now but there should be a more generic value
   newRow->setValue<hyrise_int_t>(0, 0, _o_id);
   newRow->setValue<hyrise_int_t>(1, 0, _d_id);
   newRow->setValue<hyrise_int_t>(2, 0, _w_id);
@@ -252,7 +287,7 @@ storage::c_atable_ptr_t TpccNewOrderProcedure::getItemInfo(int i_id) {
 }
 
 storage::c_atable_ptr_t TpccNewOrderProcedure::getStockInfo(int w_id, int i_id) {
-  auto district = getTpccTable("DISTRICT");
+  auto district = getTpccTable("STOCK");
 
   expr_list_t expressions;
   expressions.push_back(new EqualsExpression<hyrise_int_t>(district, "S_W_ID", w_id));
@@ -272,6 +307,7 @@ storage::c_atable_ptr_t TpccNewOrderProcedure::getWarehouseTaxRate() {
 }
 
 void TpccNewOrderProcedure::incrementNextOrderId() {
+  //TODO use other table
   auto district = getTpccTable("DISTRICT");
 
   expr_list_t expressions;
