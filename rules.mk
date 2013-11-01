@@ -150,8 +150,10 @@ endef
 
 define test-binary
 $(eval $(call binary,$(1)))
-test-binaries += $$($(1).binary)
-test: $$($(1).binary)
+test-tgts += test_$$($(1).binary)
+.PHONY: test_$$($(1).binary)
+test_$$($(1).binary): $$($(1).binary)
+	$$($(1).binary) $$(TESTPARAM)
 endef
 
 ### PROJECT SPECIFIC STUFF ###
@@ -161,7 +163,7 @@ OSNAME := $(shell uname -s)
 
 %.mk: makefiles/%.default.mk
 	@[ -e $@ ] || echo "Grabbing default $@"; cp $< $@
-	@touch $@ 
+	@touch $@
 
 CFLAGS :=
 CPPFLAGS :=
@@ -233,9 +235,7 @@ clean:
 
 TESTPARAM = --minimal
 test:
-	@$(foreach _,$(filter $(test-binaries),$^),echo $(_);$(_) $(TESTPARAM);)
-
-ci_test: TESTPARAM = --gtest_output=xml:$(_).xml
+ci_test: TESTPARAM = --gtest_output=xml:$<.xml
 ci_test: test
 
 include makefiles/ci.mk
@@ -257,6 +257,7 @@ ci_build: ci_steps
 
 # Necessary to allow for a second expansio to create dirs
 .SECONDEXPANSION:
+test: $$(test-tgts)
 
 $(OBJDIR)%.cpp.o : %.cpp | $$(@D)/.fake
 	$(call echo_cmd,CXX $(CXX) $(BLD) $<) $(CXX) $(CPPFLAGS) $(CXXFLAGS) $(addprefix -I,$(INCLUDE_DIRS)) -c -o $@ $<
