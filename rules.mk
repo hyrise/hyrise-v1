@@ -153,7 +153,7 @@ $(eval $(call binary,$(1)))
 test-tgts += test_$$($(1).binary)
 .PHONY: test_$$($(1).binary)
 test_$$($(1).binary): $$($(1).binary)
-	$$($(1).binary) $$(TESTPARAM)
+	$$(TESTPREFIX) $$($(1).binary) $$(TESTPARAM)
 endef
 
 ### PROJECT SPECIFIC STUFF ###
@@ -237,7 +237,9 @@ TESTPARAM = --minimal
 test:
 ci_test: TESTPARAM = --gtest_output=xml:$<.xml
 ci_test: test
-
+ci_valgrind_test: TESTPARAM =
+ci_valgrind_test: TESTPREFIX = valgrind --leak-check=full --xml=yes --xml-file=$<.memcheck
+ci_valgrind_test: test
 include makefiles/ci.mk
 
 ci_build: ci_steps
