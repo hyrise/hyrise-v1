@@ -225,7 +225,7 @@ LINK_DIRS += /usr/local/lib
 INCLUDE_DIRS += $(PROJECT_ROOT)/src/lib
 LDFLAGS += $(LDFLAGS.$(BLD))
 
-.PHONY          : all clean test ci_test ci_build
+.PHONY          : all clean test ci_test ci_build ci_valgrind_test
 .DEFAULT_GOAL   := all
 
 all:
