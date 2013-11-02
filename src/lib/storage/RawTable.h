@@ -22,7 +22,6 @@ struct record_header {
 
 struct RowHelper {
   
-  record_header _header;
   const metadata_vec_t& _m;
   std::vector<byte*> _tempData;
 

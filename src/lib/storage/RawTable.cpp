@@ -11,18 +11,20 @@ namespace hyrise { namespace storage {
 namespace rawtable {
 
 RowHelper::RowHelper(const metadata_vec_t& m) : _m(m) {
-  _tempData.resize(m.size());
+  _tempData.resize(m.size(), nullptr);
 }
 
 RowHelper::~RowHelper() {
-  for (auto* b: _tempData) free(b);
+  reset();
 }
 
 void RowHelper::reset() {
-  _header = {0};
-  for(auto d: _tempData)
+  for(auto& d: _tempData) {
     free(d);
-  _tempData.clear();
+    d = nullptr;
+  }
+  //_tempData.clear();
+  //_tempData.resize(_m.size(), nullptr);
 }
   
 byte* RowHelper::build() const {
