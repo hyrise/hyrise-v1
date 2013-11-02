@@ -1,6 +1,7 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "RawTable.h"
 
+#include <cassert>
 #include <iostream>
 
 #include "storage/meta_storage.h"
@@ -23,10 +24,8 @@ void RowHelper::reset() {
     free(d);
     d = nullptr;
   }
-  //_tempData.clear();
-  //_tempData.resize(_m.size(), nullptr);
 }
-  
+
 byte* RowHelper::build() const {
   size_t width = sizeof(record_header);
   for(size_t i=0; i < _m.size(); ++i) {
@@ -68,6 +67,7 @@ void RowHelper::set(size_t index, std::string val) {
   byte* tmp = (byte*) malloc(2 + val.size());
   memcpy(tmp+2, (byte*) val.c_str(), val.size());
   *((unsigned short*) tmp) = static_cast<uint16_t>(val.size());
+  assert(_tempData[index] == nullptr);
   _tempData[index] = tmp;
 }
 
