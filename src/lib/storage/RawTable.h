@@ -27,7 +27,7 @@ struct RowHelper {
   std::vector<byte*> _tempData;
 
   RowHelper(const metadata_vec_t& m);
-
+  ~RowHelper();
   /**
    * Based on the value type add an intermediate memory location and
    * store this until we finalize the record. This method has some
