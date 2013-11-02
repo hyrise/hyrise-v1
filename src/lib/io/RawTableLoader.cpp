@@ -40,6 +40,7 @@ void raw_table_cb_per_line(int separator, struct raw_table_cb_data *data) {
   data->table->appendRow(tmp);
   free(tmp);
   data->column = 0;
+  data->rh.reset();
 }
 
 

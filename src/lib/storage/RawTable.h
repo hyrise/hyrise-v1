@@ -2,6 +2,7 @@
 #ifndef SRC_LIB_STORAGE_RAWTABLE_H_
 #define SRC_LIB_STORAGE_RAWTABLE_H_
 
+#include <cassert>
 #include <cstring>
 #include <cstdint>
 
@@ -22,7 +23,6 @@ struct record_header {
 
 struct RowHelper {
   
-  record_header _header;
   const metadata_vec_t& _m;
   std::vector<byte*> _tempData;
 
@@ -37,6 +37,7 @@ struct RowHelper {
   void set(size_t index, T val) {
     byte* tmp = (byte*) malloc(sizeof(T));
     memcpy(tmp, (byte*) &val, sizeof(T));
+    assert(_tempData[index] == nullptr);
     _tempData[index] = tmp;
   }
 

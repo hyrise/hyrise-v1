@@ -1,6 +1,7 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "RawTable.h"
 
+#include <cassert>
 #include <iostream>
 
 #include "storage/meta_storage.h"
@@ -11,20 +12,20 @@ namespace hyrise { namespace storage {
 namespace rawtable {
 
 RowHelper::RowHelper(const metadata_vec_t& m) : _m(m) {
-  _tempData.resize(m.size());
+  _tempData.resize(m.size(), nullptr);
 }
 
 RowHelper::~RowHelper() {
-  for (auto* b: _tempData) free(b);
+  reset();
 }
 
 void RowHelper::reset() {
-  _header = {0};
-  for(auto d: _tempData)
+  for(auto& d: _tempData) {
     free(d);
-  _tempData.clear();
+    d = nullptr;
+  }
 }
-  
+
 byte* RowHelper::build() const {
   size_t width = sizeof(record_header);
   for(size_t i=0; i < _m.size(); ++i) {
@@ -66,6 +67,7 @@ void RowHelper::set(size_t index, std::string val) {
   byte* tmp = (byte*) malloc(2 + val.size());
   memcpy(tmp+2, (byte*) val.c_str(), val.size());
   *((unsigned short*) tmp) = static_cast<uint16_t>(val.size());
+  assert(_tempData[index] == nullptr);
   _tempData[index] = tmp;
 }
 

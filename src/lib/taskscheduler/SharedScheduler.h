@@ -35,7 +35,7 @@ public:
  * Singleton; provides reference to a shared scheduler object; scheduler is set by string; schedulers can registers
  */
 class SharedScheduler{
-  typedef std::map< std::string, AbstractTaskSchedulerFactory * > factory_map_t;
+  typedef std::map< std::string, std::unique_ptr<AbstractTaskSchedulerFactory>> factory_map_t;
   factory_map_t _schedulers;
   AbstractTaskScheduler * _sharedScheduler = nullptr;
 public:
@@ -53,7 +53,7 @@ public:
   }
 
   void addScheduler(const std::string &scheduler, AbstractTaskSchedulerFactory * factory){
-    _schedulers[scheduler] = factory;
+    _schedulers[scheduler].reset(factory);
   }
 
   bool isInitialized(){
