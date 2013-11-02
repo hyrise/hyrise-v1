@@ -20,13 +20,13 @@ CentralScheduler::CentralScheduler(int threads) {
   if(threads > getNumberOfCoresOnSystem()){
     fprintf(stderr, "Tried to use more threads then cores - no binding of threads takes place\n");
     for(int i = 0; i < threads; i++){
-      _worker_threads.push_back(new std::thread(WorkerThread(*this)));
+      _worker_threads.emplace_back(WorkerThread(*this));
     }
   } else {
     // bind threads to cores
     for(int i = 0; i < threads; i++){
       //_worker_threads.push_back(new std::thread(WorkerThread(*this)));
-      auto thread = new std::thread(WorkerThread(*this));
+      std::thread thread(WorkerThread(*this));
       hwloc_cpuset_t cpuset;
       hwloc_obj_t obj;
       hwloc_topology_t topology = getHWTopology();
@@ -37,7 +37,7 @@ CentralScheduler::CentralScheduler(int threads) {
       // remove hyperthreads
       hwloc_bitmap_singlify(cpuset);
       // bind
-      if (hwloc_set_thread_cpubind(topology, thread->native_handle(), cpuset, HWLOC_CPUBIND_STRICT | HWLOC_CPUBIND_NOMEMBIND)) {
+      if (hwloc_set_thread_cpubind(topology, thread.native_handle(), cpuset, HWLOC_CPUBIND_STRICT | HWLOC_CPUBIND_NOMEMBIND)) {
         char *str;
         int error = errno;
         hwloc_bitmap_asprintf(&str, obj->cpuset);
@@ -45,7 +45,8 @@ CentralScheduler::CentralScheduler(int threads) {
         fprintf(stderr, "Continuing as normal, however, no guarantees\n");
         //throw std::runtime_error(strerror(error));
       }
-      _worker_threads.push_back(thread);
+      hwloc_bitmap_free(cpuset);
+      _worker_threads.push_back(std::move(thread));
     }
   }
   _status = RUN;
@@ -128,7 +129,7 @@ void CentralScheduler::shutdown(){
     _condition.notify_all();
   }
   for(size_t i = 0; i < _worker_threads.size(); i++){
-    _worker_threads[i]->join();
+    _worker_threads[i].join();
   }
   _worker_threads.clear();
 }
