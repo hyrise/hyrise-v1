@@ -14,6 +14,10 @@ RowHelper::RowHelper(const metadata_vec_t& m) : _m(m) {
   _tempData.resize(m.size());
 }
 
+RowHelper::~RowHelper() {
+  for (auto* b: _tempData) free(b);
+}
+
 void RowHelper::reset() {
   _header = {0};
   for(auto d: _tempData)
