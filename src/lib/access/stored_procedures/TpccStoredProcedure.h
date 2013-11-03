@@ -30,12 +30,13 @@ class TpccStoredProcedure : public net::AbstractRequestHandler {
   static Json::Value assureMemberExists(Json::Value data, const std::string name);
 
   //planop helper
-  storage::c_atable_ptr_t getTpccTable(std::string name);
-  storage::c_atable_ptr_t selectAndValidate(storage::c_atable_ptr_t table, SimpleExpression *expr);
-  void insert(storage::atable_ptr_t table, storage::atable_ptr_t rows);
-  void deleteRows(storage::c_atable_ptr_t rows);
-  void update(storage::c_atable_ptr_t rows, Json::Value data);
-  storage::c_atable_ptr_t sort(storage::c_atable_ptr_t table, field_name_t field, bool ascending);
+  storage::c_atable_ptr_t getTpccTable(std::string name) const ;
+  storage::c_atable_ptr_t selectAndValidate(storage::c_atable_ptr_t table, SimpleExpression *expr) const;
+  storage::atable_ptr_t newRowFrom(storage::c_atable_ptr_t table) const;
+  void insert(storage::atable_ptr_t table, storage::atable_ptr_t rows) const;
+  void deleteRows(storage::c_atable_ptr_t rows) const;
+  void update(storage::c_atable_ptr_t rows, Json::Value data) const;
+  storage::c_atable_ptr_t sort(storage::c_atable_ptr_t table, field_name_t field, bool ascending) const;
 
   typedef std::vector<SimpleExpression*> expr_list_t;
   static SimpleExpression* connectAnd(expr_list_t expressions);

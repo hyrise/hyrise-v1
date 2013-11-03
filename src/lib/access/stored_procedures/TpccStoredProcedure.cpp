@@ -5,6 +5,8 @@
 #include <ctime>
 
 #include <storage/AbstractTable.h>
+#include <storage/TableBuilder.h>
+#include <storage/storage_types_helper.h>
 #include <helper/HttpHelper.h>
 
 #include <io/ResourceManager.h>
@@ -23,7 +25,7 @@ void TpccStoredProcedure::operator()() {
     setData(d);
   }
   catch (std::runtime_error e) {
-    _connection->respond(e.what());
+    _connection->respond(std::string("error: ") + e.what());
     return;
   }
   
@@ -34,7 +36,7 @@ void TpccStoredProcedure::operator()() {
   }
   catch (std::runtime_error e) {
     rollback();
-    _connection->respond(e.what());
+    _connection->respond(std::string("error: ") + e.what());
     return;
   }
   commit();
@@ -95,7 +97,7 @@ Json::Value TpccStoredProcedure::assureMemberExists(Json::Value data, const std:
   return data[name];
 }
 
-storage::c_atable_ptr_t TpccStoredProcedure::getTpccTable(std::string name) {
+storage::c_atable_ptr_t TpccStoredProcedure::getTpccTable(std::string name) const {
   TableLoad load;
   load.setTXContext(_tx);
   load.setTableName(name);
@@ -107,7 +109,7 @@ storage::c_atable_ptr_t TpccStoredProcedure::getTpccTable(std::string name) {
   return load.getResultTable();
 }
  
-storage::c_atable_ptr_t TpccStoredProcedure::selectAndValidate(storage::c_atable_ptr_t table, SimpleExpression *expr) {
+storage::c_atable_ptr_t TpccStoredProcedure::selectAndValidate(storage::c_atable_ptr_t table, SimpleExpression *expr) const {
   SimpleTableScan select;
   select.addInput(table);
   select.setTXContext(_tx);
@@ -126,7 +128,19 @@ void TpccStoredProcedure::startTransaction() {
     _tx = tx::TransactionManager::beginTransaction();
 }
 
-void TpccStoredProcedure::insert(storage::atable_ptr_t table, storage::atable_ptr_t rows) {
+storage::atable_ptr_t TpccStoredProcedure::newRowFrom(storage::c_atable_ptr_t table) const {
+  const auto metadata = table->metadata();
+  storage::TableBuilder::param_list list;
+  for (const auto& columnData : metadata) {
+    list.append(storage::TableBuilder::param(columnData.getName(), data_type_to_string(columnData.getType())));
+  }
+  auto newRow = storage::TableBuilder::build(list);
+  newRow->resize(666); //TODO it's halloween for now but there should be a more generic value
+
+  return newRow;
+}
+
+void TpccStoredProcedure::insert(storage::atable_ptr_t table, storage::atable_ptr_t rows) const {
   InsertScan insert;
   insert.setTXContext(_tx);
   insert.addInput(table);
@@ -134,14 +148,14 @@ void TpccStoredProcedure::insert(storage::atable_ptr_t table, storage::atable_pt
   insert.execute();
 }
 
-void TpccStoredProcedure::deleteRows(storage::c_atable_ptr_t rows) {
+void TpccStoredProcedure::deleteRows(storage::c_atable_ptr_t rows) const {
   DeleteOp del;
   del.setTXContext(_tx);
   del.addInput(rows);
   del.execute();
 }
 
-void TpccStoredProcedure::update(storage::c_atable_ptr_t rows, Json::Value data) {
+void TpccStoredProcedure::update(storage::c_atable_ptr_t rows, Json::Value data) const {
   PosUpdateScan update;
   update.setTXContext(_tx);
   update.addInput(rows);
@@ -150,7 +164,7 @@ void TpccStoredProcedure::update(storage::c_atable_ptr_t rows, Json::Value data)
   update.execute();
 }
 
-storage::c_atable_ptr_t TpccStoredProcedure::sort(storage::c_atable_ptr_t table, field_name_t field, bool ascending) {
+storage::c_atable_ptr_t TpccStoredProcedure::sort(storage::c_atable_ptr_t table, field_name_t field, bool ascending) const {
   SortScan sort;
   sort.setTXContext(_tx);
   sort.addInput(table);

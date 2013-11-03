@@ -4,9 +4,7 @@
 
 #include <iomanip>
 
-#include <storage/TableBuilder.h>
 #include <storage/AbstractTable.h>
-#include <storage/storage_types_helper.h>
 #include <access.h>
 
 namespace hyrise { namespace access {
@@ -76,7 +74,6 @@ Json::Value TpccNewOrderProcedure::execute() {
   }
   const float w_tax = tWarehouse->getValue<hyrise_float_t>("W_TAX", 0);
 
-  getTpccTable("DISTRICT")->print();
   auto tDistrict = getDistrict();
   if (tDistrict->size() == 0) {
     std::ostringstream os;
@@ -136,7 +133,6 @@ Json::Value TpccNewOrderProcedure::execute() {
     std::ostringstream os;
     os << "S_DIST_" << std::setw(2) << std::setfill('0') << std::right << _d_id;
     const std::string s_dist_name = os.str(); //e.g. S_DIST_01
-    std::cout << "<<<<<<" << s_dist_name << std::endl;
     std::string s_dist = tStock->getValue<hyrise_string_t>(s_dist_name, 0);
 
     total += item.amount();
@@ -193,14 +189,7 @@ Json::Value TpccNewOrderProcedure::execute() {
 
 void TpccNewOrderProcedure::createNewOrder() {
   auto newOrder = std::const_pointer_cast<AbstractTable>(getTpccTable("NEW_ORDER"));
-
-  const auto metadata = newOrder->metadata();
-  storage::TableBuilder::param_list list;
-  for (const auto& columnData : metadata) {
-    list.append(storage::TableBuilder::param(columnData.getName(), data_type_to_string(columnData.getType())));
-  }
-  auto newRow = storage::TableBuilder::build(list);
-  newRow->resize(666); //TODO it's halloween for now but there should be a more generic value
+  auto newRow = newRowFrom(newOrder);
   newRow->setValue<hyrise_int_t>(0, 0, _o_id);
   newRow->setValue<hyrise_int_t>(1, 0, _d_id);
   newRow->setValue<hyrise_int_t>(2, 0, _w_id);
@@ -210,14 +199,7 @@ void TpccNewOrderProcedure::createNewOrder() {
 
 void TpccNewOrderProcedure::createOrderLine(const ItemInfo& item, const int ol_number) {
   auto orderLine = std::const_pointer_cast<AbstractTable>(getTpccTable("ORDER_LINE"));
-
-  const auto metadata = orderLine->metadata();
-  storage::TableBuilder::param_list list;
-  for (const auto& columnData : metadata) {
-    list.append(storage::TableBuilder::param(columnData.getName(), data_type_to_string(columnData.getType())));
-  }
-  auto newRow = storage::TableBuilder::build(list);
-  newRow->resize(666); //TODO it's halloween for now but there should be a more generic value
+  auto newRow = newRowFrom(orderLine);
   newRow->setValue<hyrise_int_t>(0, 0, _o_id);
   newRow->setValue<hyrise_int_t>(1, 0, _d_id);
   newRow->setValue<hyrise_int_t>(2, 0, _w_id);
@@ -234,14 +216,7 @@ void TpccNewOrderProcedure::createOrderLine(const ItemInfo& item, const int ol_n
 
 void TpccNewOrderProcedure::createOrder() {
   auto orders = std::const_pointer_cast<AbstractTable>(getTpccTable("ORDERS"));
-
-  const auto metadata = orders->metadata();
-  storage::TableBuilder::param_list list;
-  for (const auto& columnData : metadata) {
-    list.append(storage::TableBuilder::param(columnData.getName(), data_type_to_string(columnData.getType())));
-  }
-  auto newRow = storage::TableBuilder::build(list);
-  newRow->resize(666); //TODO it's halloween for now but there should be a more generic value
+  auto newRow = newRowFrom(orders);
   newRow->setValue<hyrise_int_t>(0, 0, _o_id);
   newRow->setValue<hyrise_int_t>(1, 0, _d_id);
   newRow->setValue<hyrise_int_t>(2, 0, _w_id);
