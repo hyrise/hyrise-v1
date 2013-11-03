@@ -19,6 +19,8 @@ TpccOrderStatusProcedure::TpccOrderStatusProcedure(net::AbstractConnection* conn
 void TpccOrderStatusProcedure::setData(Json::Value& data) {
   _w_id = assureMemberExists(data, "W_ID").asInt();
   _d_id = assureMemberExists(data, "D_ID").asInt();
+  if (_d_id < 1 || _d_id > 10)
+    throw std::runtime_error("D_ID must be in between 1 and 10");
 
   const bool id = data["C_ID"].isInt();
   const bool last = data["C_LAST"].isString();
@@ -69,12 +71,14 @@ Json::Value TpccOrderStatusProcedure::execute() {
     _c_id = tCustomer->getValue<int>("C_ID", _chosenOne);
   }
 
-  auto t2 = getLastOrder();
-  _o_id = t2->getValue<int>("O_ID", 0);
-  const std::string o_entry_d = t2->getValue<std::string>("O_ENTRY_D", 0);
-  const int o_carrier_id = t2->getValue<int>("O_CARRIER_ID", 0);
+  auto tOrders = getLastOrder();
+  _o_id = tOrders->getValue<int>("O_ID", 0);
+  const std::string o_entry_d = tOrders->getValue<std::string>("O_ENTRY_D", 0);
+  const int o_carrier_id = tOrders->getValue<int>("O_CARRIER_ID", 0);
 
   auto tOrderLines = getOrderLines();
+  if (tOrderLines->size() < 5 || tOrderLines->size() > 15)
+    throw std::runtime_error("internal error: there must be between 5 and 15 orderlines for every order");
 
   commit();
 

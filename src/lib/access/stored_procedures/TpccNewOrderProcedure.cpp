@@ -27,11 +27,16 @@ void TpccNewOrderProcedure::setData(Json::Value& data) {
 
   const auto itemInfo = assureMemberExists(data, "items");
   _ol_cnt = itemInfo.size();
+  if (_ol_cnt < 5 || _ol_cnt > 15)
+    throw std::runtime_error("there must be between 5 and 15 items in an order");
+
   for (int i = 0; i < _ol_cnt; ++i) {
     ItemInfo info;
     info.id =       assureMemberExists(itemInfo[i],"I_ID").asInt();
     info.w_id =     assureMemberExists(itemInfo[i],"I_W_ID").asInt();
     info.quantity = assureMemberExists(itemInfo[i],"quantity").asInt();
+    if (info.quantity < 1 || info.quantity > 10)
+      throw std::runtime_error("the item quantity for an order line must be between 1 and 10");
     _items.push_back(info);
   }
 }
@@ -109,7 +114,9 @@ Json::Value TpccNewOrderProcedure::execute() {
 
     auto tStock = getStockInfo(item.w_id, item.id);
     if (tStock->size() == 0) {
-      throw std::runtime_error("internal error: no stock information for an item");
+      std::ostringstream os;
+      os << "internal error: no stock information for item: " << item.id << " in warehouse " << item.w_id;
+      throw std::runtime_error(os.str());
     }
 
     s_ytd = tStock->getValue<hyrise_int_t>("S_YTD", 0);
@@ -190,9 +197,9 @@ Json::Value TpccNewOrderProcedure::execute() {
 void TpccNewOrderProcedure::createNewOrder() {
   auto newOrder = std::const_pointer_cast<AbstractTable>(getTpccTable("NEW_ORDER"));
   auto newRow = newRowFrom(newOrder);
-  newRow->setValue<hyrise_int_t>(0, 0, _o_id);
-  newRow->setValue<hyrise_int_t>(1, 0, _d_id);
-  newRow->setValue<hyrise_int_t>(2, 0, _w_id);
+  newRow->setValue<hyrise_int_t>("NO_O_ID", 0, _o_id);
+  newRow->setValue<hyrise_int_t>("NO_D_ID", 0, _d_id);
+  newRow->setValue<hyrise_int_t>("NO_W_ID", 0, _w_id);
   
   insert(newOrder, newRow);
 }
@@ -200,16 +207,16 @@ void TpccNewOrderProcedure::createNewOrder() {
 void TpccNewOrderProcedure::createOrderLine(const ItemInfo& item, const int ol_number) {
   auto orderLine = std::const_pointer_cast<AbstractTable>(getTpccTable("ORDER_LINE"));
   auto newRow = newRowFrom(orderLine);
-  newRow->setValue<hyrise_int_t>(0, 0, _o_id);
-  newRow->setValue<hyrise_int_t>(1, 0, _d_id);
-  newRow->setValue<hyrise_int_t>(2, 0, _w_id);
-  newRow->setValue<hyrise_int_t>(3, 0, ol_number);
-  newRow->setValue<hyrise_int_t>(4, 0, item.id);
-  newRow->setValue<hyrise_int_t>(5, 0, item.w_id);
-  newRow->setValue<hyrise_string_t>(6, 0, _date);
-  newRow->setValue<hyrise_int_t>(7, 0, item.quantity);
-  newRow->setValue<hyrise_float_t>(8, 0, item.amount());
-  newRow->setValue<hyrise_string_t>(9, 0, _ol_dist_info);
+  newRow->setValue<hyrise_int_t>("OL_O_ID", 0, _o_id);
+  newRow->setValue<hyrise_int_t>("OL_D_ID", 0, _d_id);
+  newRow->setValue<hyrise_int_t>("OL_W_ID", 0, _w_id);
+  newRow->setValue<hyrise_int_t>("OL_NUMBER", 0, ol_number);
+  newRow->setValue<hyrise_int_t>("OL_I_ID", 0, item.id);
+  newRow->setValue<hyrise_int_t>("OL_SUPPLY_W_ID", 0, item.w_id);
+  newRow->setValue<hyrise_string_t>("OL_DELIVERY_D", 0, _date); //TODO not NULL?
+  newRow->setValue<hyrise_int_t>("OL_QUANTITY", 0, item.quantity);
+  newRow->setValue<hyrise_float_t>("OL_AMOUNT", 0, item.amount()); //TODO precision xx.xx
+  newRow->setValue<hyrise_string_t>("OL_DIST_INFO", 0, _ol_dist_info);
   
   insert(orderLine, newRow);
 }
@@ -217,14 +224,14 @@ void TpccNewOrderProcedure::createOrderLine(const ItemInfo& item, const int ol_n
 void TpccNewOrderProcedure::createOrder() {
   auto orders = std::const_pointer_cast<AbstractTable>(getTpccTable("ORDERS"));
   auto newRow = newRowFrom(orders);
-  newRow->setValue<hyrise_int_t>(0, 0, _o_id);
-  newRow->setValue<hyrise_int_t>(1, 0, _d_id);
-  newRow->setValue<hyrise_int_t>(2, 0, _w_id);
-  newRow->setValue<hyrise_int_t>(3, 0, _c_id);
-  newRow->setValue<hyrise_string_t>(4, 0, _date);
-  newRow->setValue<hyrise_int_t>(5, 0, _carrier_id);
-  newRow->setValue<hyrise_int_t>(6, 0, _ol_cnt);
-  newRow->setValue<hyrise_int_t>(7, 0, _all_local);
+  newRow->setValue<hyrise_int_t>("O_ID", 0, _o_id);
+  newRow->setValue<hyrise_int_t>("O_D_ID", 0, _d_id);
+  newRow->setValue<hyrise_int_t>("O_W_ID", 0, _w_id);
+  newRow->setValue<hyrise_int_t>("O_C_ID", 0, _c_id);
+  newRow->setValue<hyrise_string_t>("O_ENTRY_D", 0, _date);
+  newRow->setValue<hyrise_int_t>("O_CARRIER_ID", 0, _carrier_id);
+  newRow->setValue<hyrise_int_t>("O_OL_CNT", 0, _ol_cnt);
+  newRow->setValue<hyrise_int_t>("O_ALL_LOCAL", 0, _all_local);
   
   insert(orders, newRow);
 }
@@ -262,21 +269,21 @@ storage::c_atable_ptr_t TpccNewOrderProcedure::getItemInfo(int i_id) {
 }
 
 storage::c_atable_ptr_t TpccNewOrderProcedure::getStockInfo(int w_id, int i_id) {
-  auto district = getTpccTable("STOCK");
+  auto stock = getTpccTable("STOCK");
 
   expr_list_t expressions;
-  expressions.push_back(new EqualsExpression<hyrise_int_t>(district, "S_W_ID", w_id));
-  expressions.push_back(new EqualsExpression<hyrise_int_t>(district, "S_I_ID", i_id));
-  auto validated = selectAndValidate(district, connectAnd(expressions));
+  expressions.push_back(new EqualsExpression<hyrise_int_t>(stock, "S_W_ID", w_id));
+  expressions.push_back(new EqualsExpression<hyrise_int_t>(stock, "S_I_ID", i_id));
+  auto validated = selectAndValidate(stock, connectAnd(expressions));
 
   return validated;
 }
 
 storage::c_atable_ptr_t TpccNewOrderProcedure::getWarehouseTaxRate() {
-  auto district = getTpccTable("WAREHOUSE");
+  auto warehouse = getTpccTable("WAREHOUSE");
 
-  auto expr = new EqualsExpression<hyrise_int_t>(district, "W_ID", _w_id);
-  auto validated = selectAndValidate(district, expr);
+  auto expr = new EqualsExpression<hyrise_int_t>(warehouse, "W_ID", _w_id);
+  auto validated = selectAndValidate(warehouse, expr);
 
   return validated;
 }

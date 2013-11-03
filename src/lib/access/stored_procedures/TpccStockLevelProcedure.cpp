@@ -19,6 +19,8 @@ TpccStockLevelProcedure::TpccStockLevelProcedure(net::AbstractConnection* connec
 void TpccStockLevelProcedure::setData(Json::Value& data) {
   _w_id = assureMemberExists(data, "W_ID").asInt();
   _d_id = assureMemberExists(data, "D_ID").asInt();
+  if (_d_id < 1 || _d_id > 10)
+    throw std::runtime_error("D_ID must be in between 1 and 10");
   _threshold = assureMemberExists(data, "threshold").asInt();
 }
 

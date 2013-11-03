@@ -128,7 +128,7 @@ Json::Value TpccStoredProceduresTest::doDelivery(int w_id, int d_id, int o_carri
   Json::Reader reader;
   Json::Value response;
   if (!reader.parse(s, response))
-    throw std::runtime_error("Failed to parse json");
+    throw TpccError(s);
   return response;
 }
 
@@ -283,20 +283,79 @@ TEST_F(TpccStoredProceduresTest, Delivery_W1D1) {
   const auto response = doDelivery(1   , 1   , 1           );
 }
 
+TEST_F(TpccStoredProceduresTest, Delivery_WrongCarrierId) {
+  //                     (w_id, d_id, o_carrier_id);
+  EXPECT_THROW(doDelivery(1   , 1   , 0           ), TpccError);
+  EXPECT_THROW(doDelivery(1   , 1   , 11          ), TpccError);
+}
+
+TEST_F(TpccStoredProceduresTest, Delivery_WrongDistrictId) {
+  //                     (w_id, d_id, o_carrier_id);
+  EXPECT_THROW(doDelivery(1   , 0   , 1           ), TpccError);
+  EXPECT_THROW(doDelivery(1   , 11  , 1           ), TpccError);
+}
+
 //===========================New Order Tests
+
+TEST_F(TpccStoredProceduresTest, NewOrder_tooFewItems) {
+  //                     (w_id, d_id, c_id, o_carrier_id, ol_dist_info, {{i_id, i_w_id, quantity}});
+  EXPECT_THROW(doNewOrder(1   , 1   , 1   , 1           , "info"      , {{1   , 1     , 1       }}), TpccError);
+}
+
+TEST_F(TpccStoredProceduresTest, NewOrder_wrongQuantity11) {
+  //                     (w_id, d_id, c_id, o_carrier_id, ol_dist_info, {{i_id, i_w_id, quantity}});
+  EXPECT_THROW(doNewOrder(1   , 1   , 1   , 1           , "info"      , {{1   , 1     , 1       },
+                                                                         {2   , 1     , 1       },
+                                                                         {3   , 1     , 1       },
+                                                                         {4   , 1     , 1       },
+                                                                         {5   , 1     , 11      }, }), TpccError);
+}
+
+TEST_F(TpccStoredProceduresTest, NewOrder_wrongQuantity0) {
+  //                     (w_id, d_id, c_id, o_carrier_id, ol_dist_info, {{i_id, i_w_id, quantity}});
+  EXPECT_THROW(doNewOrder(1   , 1   , 1   , 1           , "info"      , {{1   , 1     , 1       },
+                                                                         {2   , 1     , 1       },
+                                                                         {3   , 1     , 1       },
+                                                                         {4   , 1     , 1       },
+                                                                         {5   , 1     , 0       }, }), TpccError);
+}
+
+TEST_F(TpccStoredProceduresTest, NewOrder_twiceTheSameItem) {
+  //                     (w_id, d_id, c_id, o_carrier_id, ol_dist_info, {{i_id, i_w_id, quantity}});
+  //TODO this fails but because stock info for i_id=4 and w_id=1 is missing (which actually isn't)
+  /*EXPECT_THROW(*/doNewOrder(1   , 1   , 1   , 1           , "info"      , {{1   , 1     , 1       },
+                                                                         {2   , 1     , 1       },
+                                                                         {3   , 1     , 1       },
+                                                                         {4   , 1     , 1       },
+                                                                         {4   , 1     , 1       }, });//, TpccError);
+}
 
 TEST_F(TpccStoredProceduresTest, NewOrder_W1D1C1) {
   //                              (w_id, d_id, c_id, o_carrier_id, ol_dist_info, {{i_id, i_w_id, quantity}});
-  const auto response = doNewOrder(1   , 1   , 1   , 1           , "info"      , {{1   , 1     , 10      },
-                                                                                  {5   , 1     , 30      },
-                                                                                  {7   , 1     , 90      }});
+  const auto response = doNewOrder(1   , 1   , 1   , 1           , "info"      , {{1   , 1     , 1       },
+                                                                                  {2   , 1     , 2       },
+                                                                                  {3   , 1     , 3       },
+                                                                                  {4   , 1     , 4       },
+                                                                                  {5   , 1     , 5       }});
 }
 
 TEST_F(TpccStoredProceduresTest, NewOrder_W1D1C1rollback) {
   //                              (w_id, d_id, c_id, o_carrier_id, ol_dist_info, {{i_id, i_w_id, quantity}});
-  const auto response = doNewOrder(1   , 1   , 1   , 1           , "info"      , {{3   , 1     , 40      },
-                                                                                  {11  , 1     , 20      },
-                                                                                  {5   , 1     , 10      }});
+  const auto response = doNewOrder(1   , 1   , 1   , 1           , "info"      , {{1   , 1     , 10      },
+                                                                                  {2   , 1     , 10      },
+                                                                                  {3   , 1     , 10      },
+                                                                                  {4   , 1     , 10      },
+                                                                                  {5   , 1     , 10      },
+                                                                                  {6   , 1     , 10      },
+                                                                                  {7   , 1     , 10      },
+                                                                                  {8   , 1     , 10      },
+                                                                                  {9   , 1     , 10      },
+                                                                                  {10  , 1     , 10      },
+                                                                                  {11  , 1     , 10      },
+                                                                                  {12  , 1     , 10      },
+                                                                                  {13  , 1     , 10      },
+                                                                                  {14  , 1     , 10      },
+                                                                                  {15  , 1     , 10      }});
 }
 
 //===========================Order Status Tests
