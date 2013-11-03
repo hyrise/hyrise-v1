@@ -168,12 +168,15 @@ Json::Value TpccStoredProceduresTest::doNewOrder(int w_id, int d_id, int c_id, i
     throw TpccError(s);
 
   //simple size checks on tables:
-  EXPECT_EQ(i_stock_size, getTable(Stock)->size()) << "number of rows in STOCK should not change";
-  
-  EXPECT_EQ(i_newOrder_size, getTable(NewOrder)->size() - 1) << "number of rows in NEW-ORDER should be exactly one more";
-  EXPECT_EQ(i_orders_size, getTable(Orders)->size() - 1) << "number of rows in ORDERS should be exactly one more";
-  //TODO EXPECT_EQ(i_orderLine_size, getTable(OrderLine)->size() - ol_cnt) << "number of rows in ORDER-LINES should be exactly " << ol_cnt << " more";
-
+  EXPECT_EQ(i_stock_size, getTable(Stock)->size())
+           << "number of rows in STOCK should not change";
+ 
+  EXPECT_EQ(i_newOrder_size, getTable(NewOrder)->size() - 1)
+           << "number of rows in NEW-ORDER should be exactly one more";
+  EXPECT_EQ(i_orders_size, getTable(Orders)->size() - 1)
+           << "number of rows in ORDERS should be exactly one more";
+  EXPECT_EQ(i_orderLine_size, getTable(OrderLine)->size() - items.size())
+           << "number of rows in ORDER-LINES should be exactly " << items.size() << " more";
 
   return response;
 }
@@ -221,8 +224,6 @@ Json::Value TpccStoredProceduresTest::doOrderStatus(int w_id, int d_id, int c_id
   EXPECT_EQ(i_customer_size, getTable(Customer)->size()) << "number of rows in CUSTOMER should not change";
   EXPECT_EQ(i_warehouse_size, getTable(Warehouse)->size()) << "number of rows in WAREHOUSE should not change";
   EXPECT_EQ(i_district_size, getTable(District)->size()) << "number of rows in DISTRICT should not change";
-  
-  EXPECT_EQ(i_history_size, getTable(History)->size() - 1) << "number of rows in NEW-ORDER should be exactly one more";
 
   return response;
 }
@@ -319,7 +320,7 @@ TEST_F(TpccStoredProceduresTest, Payment_W1D1C1localBC) {
 
 TEST_F(TpccStoredProceduresTest, Payment_W1D1Name2localGC) {
   //                             (w_id, d_id, c_id, c_last        , c_w_id, c_d_id, h_amount, bc_customer);
-  const auto response = doPayment(1   , 1   , 1   , "CLNAME2"     , 1     , 1     , 150.0f  , false      );
+  const auto response = doPayment(1   , 1   , 1   , "CLName2"     , 1     , 1     , 150.0f  , false      );
 }
 
 //============================Stock Level Tests
@@ -340,23 +341,23 @@ float getValuef(const Json::Value& data, std::string name) {
 }
 
 TEST_F(TpccStoredProceduresTest, StockLevel_W1D1T90) {
-  //                                 (w_id, d_id, threshold);
+  //                                (w_id, d_id, threshold);
   const auto response = doStockLevel(1   , 1   , 90       );
 
   ASSERT_EQ(1, getValuei(response, "W_ID"));
   ASSERT_EQ(1, getValuei(response, "D_ID"));
   ASSERT_EQ(90, getValuei(response, "threshold"));
-  ASSERT_EQ(7, getValuei(response, "low_stock"));
+  ASSERT_EQ(5, getValuei(response, "low_stock"));
 }
 
 TEST_F(TpccStoredProceduresTest, StockLevel_W1D1T50) {
-  //                                 (w_id, d_id, threshold);
+  //                                (w_id, d_id, threshold);
   const auto response = doStockLevel(1   , 1   , 50       );
 
   ASSERT_EQ(1, getValuei(response, "W_ID"));
   ASSERT_EQ(1, getValuei(response, "D_ID"));
   ASSERT_EQ(50, getValuei(response, "threshold"));
-  ASSERT_EQ(1, getValuei(response, "low_stock"));
+  ASSERT_EQ(0, getValuei(response, "low_stock"));
 }
 
 } } // namespace hyrise::access

@@ -9,7 +9,7 @@
 
 namespace {
   const std::string tpccQueryPath = "test/json/tpcc";
-  const std::string niceDate = "2013-09-20-02-16-31";
+  const std::string niceDate = "2013-09-20";
 }
 
 namespace hyrise {
@@ -476,7 +476,7 @@ void TpccExecuteTest::doStockLevel(int w_id, int d_id, int threshold) {
   setParameter(map, "o_id2", o_id+1);
 
   auto t2 = executeAndWait(loadParameterized(_stockLevelMap["getStockCount"], map), 1, nullptr, tid);
-  ASSERT_EQ(1, t2->size());
+  ASSERT_GE(1, t2->size());
   ASSERT_EQ(1, t2->columnCount());
 
   executeAndWait(_commit, 1, nullptr, tid);
@@ -511,25 +511,25 @@ TEST_F(TpccExecuteTest, NewOrder_W1D1C1rollback) {
 //===========================Order Status Tests
 
 TEST_F(TpccExecuteTest, OrderStatus_W1D1C1) {
-  //           (w_id, d_id, c_id, c_last         );
-  doOrderStatus(1   , 1   , 1   , ""             );
+  //           (w_id, d_id, c_id, c_last    );
+  doOrderStatus(1   , 1   , 1   , ""        );
 }
 
 TEST_F(TpccExecuteTest, OrderStatus_W1D1BARBARBAR) {
-  //           (w_id, d_id, c_id, c_last         );
-  doOrderStatus(1   , 1   , 1   , "BARBARBAR"    );
+  //           (w_id, d_id, c_id, c_last    );
+  doOrderStatus(1   , 1   , 1   , "CLName2" );
 }
 
 //============================Payment Tests
 
 TEST_F(TpccExecuteTest, Payment_W1D1C1localBC) {
-  //       (w_id, d_id, c_id, c_last        , c_w_id, c_d_id, bc_customer, date      );
-  doPayment(1   , 1   , 1   , ""            , 1     , 1     , true       , niceDate  );
+  //       (w_id, d_id, c_id, c_last    , c_w_id, c_d_id, bc_customer, date      );
+  doPayment(1   , 1   , 1   , ""        , 1     , 1     , true       , niceDate  );
 }
 
 TEST_F(TpccExecuteTest, Payment_W1D1BARBARATIONlocalGC) {
-  //       (w_id, d_id, c_id, c_last        , c_w_id, c_d_id, bc_customer, date      );
-  doPayment(1   , 1   , 1   , "BARBARATION" , 1     , 1     , false      , niceDate  );
+  //       (w_id, d_id, c_id, c_last    , c_w_id, c_d_id, bc_customer, date      );
+  doPayment(1   , 1   , 1   , "CLName1" , 1     , 1     , false      , niceDate  );
 }
 
 //============================Stock Level Tests

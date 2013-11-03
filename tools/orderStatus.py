@@ -5,5 +5,5 @@ response = c.stored_procedure("TPCC-OrderStatus", """{ "W_ID": 1, "D_ID": 1, "C_
 print response
 
 d = Connection()
-response = d.stored_procedure("TPCC-OrderStatus", """{ "W_ID": 1, "D_ID": 1, "C_LAST": "BARBARBAR"}""")
+response = d.stored_procedure("TPCC-OrderStatus", """{ "W_ID": 1, "D_ID": 1, "C_LAST": "CLName1"}""")
 print response

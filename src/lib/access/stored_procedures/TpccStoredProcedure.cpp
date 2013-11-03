@@ -135,7 +135,7 @@ storage::atable_ptr_t TpccStoredProcedure::newRowFrom(storage::c_atable_ptr_t ta
     list.append(storage::TableBuilder::param(columnData.getName(), data_type_to_string(columnData.getType())));
   }
   auto newRow = storage::TableBuilder::build(list);
-  newRow->resize(666); //TODO it's halloween for now but there should be a more generic value
+  newRow->resize(1); //TODO it's halloween for now but there should be a more generic value
 
   return newRow;
 }
@@ -188,7 +188,6 @@ SimpleExpression* TpccStoredProcedure::connectAnd(expr_list_t expressions) {
 void TpccStoredProcedure::commit() {
   if (_finished) return;
   
-  //*(char*)0 = 0;
   Commit commit;
   commit.setTXContext(_tx);
   commit.execute();

@@ -32,10 +32,14 @@ const std::string TpccStockLevelProcedure::vname() {
 
 Json::Value TpccStockLevelProcedure::execute() {
   auto t1 = getOId();
+  if (t1->size() == 0) {
+    std::ostringstream os;
+    os << "no district " << _d_id << " for warehouse " << _w_id;
+    throw std::runtime_error(os.str());
+  }
   _next_o_id = t1->getValue<int>("D_NEXT_O_ID", 0);
 
   auto t2 = getStockCount();
-
   commit();
 
   // Output
