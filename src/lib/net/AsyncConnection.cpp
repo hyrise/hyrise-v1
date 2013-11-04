@@ -40,8 +40,7 @@ ebb_connection *new_connection(ebb_server *server, struct sockaddr_in *addr) {
 }
 
 int on_timeout(ebb_connection *connection) {
-  // return STOP so that connection is closed after 30 seconds
-  return EBB_STOP;
+  return EBB_AGAIN;
 }
 
 ebb_request *new_request(ebb_connection *connection) {

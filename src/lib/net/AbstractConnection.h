@@ -13,7 +13,7 @@ class AbstractConnection {
   virtual std::string getBody() const = 0;
   virtual std::string getPath() const = 0;
   virtual bool hasBody() const = 0;
-  virtual void respond(const std::string &message, size_t status=200, const std::string& contentType="text/text") = 0;
+  virtual void respond(const std::string &message, size_t status=200, const std::string& contentType="application/json") = 0;
 };
 
 }
