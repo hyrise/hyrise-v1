@@ -21,7 +21,11 @@ TpccDeliveryProcedure::TpccDeliveryProcedure(net::AbstractConnection* connection
 void TpccDeliveryProcedure::setData(Json::Value& data) {
   _w_id =         assureMemberExists(data, "W_ID").asInt();
   _d_id =         assureMemberExists(data, "D_ID").asInt();
+  if (_d_id < 1 || _d_id > 10)
+    throw std::runtime_error("D_ID must be an integer value between 1 and 10");
   _o_carrier_id = assureMemberExists(data, "O_CARRIER_ID").asInt();
+  if (_o_carrier_id < 1 || _o_carrier_id > 10)
+    throw std::runtime_error("O_CARRIER_ID must be an integer value between 1 and 10");
 }
 
 std::string TpccDeliveryProcedure::name() {
@@ -41,19 +45,19 @@ Json::Value TpccDeliveryProcedure::execute() {
     os << "no new order for warehouse " << _w_id << " and district " << _d_id;
     throw std::runtime_error(os.str());
   }
-  _o_id = tNewOrder->getValue<int>("NO_O_ID", 0);
+  _o_id = tNewOrder->getValue<hyrise_int_t>("NO_O_ID", 0);
 
   auto tOrder = getCId();
   if (tOrder->size() == 0) {
     throw std::runtime_error("internal error: new order is associated with non-existing order");
   }
-  _c_id = tOrder->getValue<int>("O_C_ID", 0);
+  _c_id = tOrder->getValue<hyrise_int_t>("O_C_ID", 0);
 
   auto tSum = sumOLAmount();
   if (tSum->size() == 0) {
     throw std::runtime_error("internal error: no order lines for existing order");
   }
-  _total = tSum->getValue<float>(0, 0);
+  _total = tSum->getValue<hyrise_float_t>(0, 0);
 
   deleteNewOrder();
   updateOrders();
