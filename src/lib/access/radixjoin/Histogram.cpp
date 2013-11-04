@@ -34,7 +34,7 @@ void Histogram::executePlanOperation() {
   }
 }
 
-std::shared_ptr<PlanOperation> Histogram::parse(Json::Value &data) {
+std::shared_ptr<PlanOperation> Histogram::parse(const Json::Value &data) {
   auto hst = BasicParser<Histogram>::parse(data);
   hst->setBits(data["bits"].asUInt(), data["sig"].asUInt());
   if (data.isMember("numParts")) {
@@ -119,7 +119,7 @@ void Histogram2ndPass::executePlanOperation() {
   addResult(result);
 }
 
-std::shared_ptr<PlanOperation> Histogram2ndPass::parse(Json::Value &data) {
+std::shared_ptr<PlanOperation> Histogram2ndPass::parse(const Json::Value &data) {
   auto hst = BasicParser<Histogram2ndPass>::parse(data);
   hst->setBits(data["bits"].asUInt(), data["sig"].asUInt());
   hst->setBits2(data["bits2"].asUInt(), data["sig2"].asUInt());

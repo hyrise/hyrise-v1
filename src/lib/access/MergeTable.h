@@ -12,7 +12,7 @@ public:
   virtual ~MergeTable();
 
   void executePlanOperation();
-  static std::shared_ptr<PlanOperation> parse(Json::Value& data);
+  static std::shared_ptr<PlanOperation> parse(const Json::Value& data);
   const std::string vname();
 };
 
@@ -20,7 +20,7 @@ class MergeStore : public PlanOperation {
 public:
   virtual ~MergeStore();
   void executePlanOperation();
-  static std::shared_ptr<PlanOperation> parse(Json::Value& data);
+  static std::shared_ptr<PlanOperation> parse(const Json::Value& data);
 };
 
 

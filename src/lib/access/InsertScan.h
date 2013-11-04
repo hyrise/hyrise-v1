@@ -15,7 +15,7 @@ public:
 
   void setInputData(const storage::atable_ptr_t &c);
 
-  static std::shared_ptr<PlanOperation> parse(Json::Value &data);
+  static std::shared_ptr<PlanOperation> parse(const Json::Value &data);
 
 private:
   

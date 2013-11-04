@@ -97,7 +97,7 @@ void GroupByScan::executePlanOperation() {
   }
 }
 
-std::shared_ptr<PlanOperation> GroupByScan::parse(Json::Value &v) {
+std::shared_ptr<PlanOperation> GroupByScan::parse(const Json::Value &v) {
   std::shared_ptr<GroupByScan> gs = std::make_shared<GroupByScan>();
 
   if (v.isMember("fields")) {

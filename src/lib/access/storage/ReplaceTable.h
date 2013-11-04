@@ -15,7 +15,7 @@ public:
 
   void executePlanOperation();
   const std::string vname();
-  static std::shared_ptr<PlanOperation> parse(Json::Value &data);
+  static std::shared_ptr<PlanOperation> parse(const Json::Value &data);
 
 private:
   const std::string _name;

@@ -65,7 +65,7 @@ void WorkerThread::operator()(){
       break;
     }
     // lock queue to get task
-    std::unique_lock<std::mutex> ul(scheduler._queueMutex);
+    std::unique_lock<lock_t> ul(scheduler._queueMutex);
     // get task and execute
     if (scheduler._runQueue.size() > 0) {
       std::shared_ptr<Task> task = scheduler._runQueue.front();
@@ -88,6 +88,7 @@ void WorkerThread::operator()(){
         if (scheduler._status != scheduler.RUN)
           continue;
 
+        
         scheduler._condition.wait(ul);
       }
     }
@@ -104,13 +105,13 @@ void CentralScheduler::schedule(std::shared_ptr<Task> task){
   // lock the task - otherwise, a notify might happen prior to the task being added to the wait set
   task->lockForNotifications();
   if (task->isReady()){
-    std::lock_guard<std::mutex> lk(_queueMutex);
+    std::lock_guard<lock_t> lk(_queueMutex);
     _runQueue.push(task);
     _condition.notify_one();
   }
   else {
     task->addReadyObserver(this);
-    std::lock_guard<std::mutex> lk(_setMutex);
+    std::lock_guard<lock_t> lk(_setMutex);
     _waitSet.insert(task);
     LOG4CXX_DEBUG(_logger,  "Task " << std::hex << (void *)task.get() << std::dec << " inserted in wait queue");
   }
@@ -121,7 +122,7 @@ void CentralScheduler::schedule(std::shared_ptr<Task> task){
  */
 void CentralScheduler::shutdown(){
   {
-    std::lock_guard<std::mutex> lk(_queueMutex);
+    std::lock_guard<lock_t> lk(_queueMutex);
     {
       _status = TO_STOP;
     }
@@ -153,7 +154,7 @@ void CentralScheduler::notifyReady(std::shared_ptr<Task> task) {
   // if task was found in wait set, schedule task to next queue
   if (tmp == 1) {
     LOG4CXX_DEBUG(_logger, "Task " << std::hex << (void *)task.get() << std::dec << " ready to run");
-    std::lock_guard<std::mutex> lk(_queueMutex);
+    std::lock_guard<lock_t> lk(_queueMutex);
     _runQueue.push(task);
     _condition.notify_one();
   } else

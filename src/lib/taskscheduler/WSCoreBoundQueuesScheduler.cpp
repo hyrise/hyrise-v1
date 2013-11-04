@@ -19,7 +19,7 @@ WSCoreBoundQueuesScheduler::WSCoreBoundQueuesScheduler(const int queues) : Abstr
   _status = START_UP;
   // set _queues to queues after new queues have been created to new tasks to be assigned to new queues
   // lock _queue mutex as queues are manipulated
-  std::lock_guard<std::mutex> lk(_queuesMutex);
+  std::lock_guard<lock_t> lk(_queuesMutex);
   if (queues <= getNumberOfCoresOnSystem()) {
     for (int i = 0; i < queues; ++i) {
       _taskQueues.push_back(createTaskQueue(i));
@@ -54,7 +54,7 @@ const std::vector<AbstractCoreBoundQueue *> *WSCoreBoundQueuesScheduler::getTask
          || this->_status == AbstractCoreBoundQueuesScheduler::STOPPED)
        return NULL;
    // return const reference to task queues
-   std::lock_guard<std::mutex> lk(this->_queuesMutex);
+   std::lock_guard<lock_t> lk(this->_queuesMutex);
    return &this->_taskQueues;
  }
 
@@ -70,7 +70,7 @@ void WSCoreBoundQueuesScheduler::pushToQueue(std::shared_ptr<Task> task) {
         LOG4CXX_WARN(this->_logger, "Tried to assign task " << std::hex << (void *)task.get() << std::dec << " to core " << std::to_string(core) << " which is not assigned to scheduler; assigned it to next available core");
       // push task to next queue
       {
-        std::lock_guard<std::mutex> lk2(this->_queuesMutex);
+        std::lock_guard<lock_t> lk2(this->_queuesMutex);
         this->_taskQueues[this->_nextQueue]->push(task);
         //std::cout << "Task " <<  task->vname() << "; hex " << std::hex << &task << std::dec << " pushed to queue " << this->_nextQueue << std::endl;
         //round robin on cores

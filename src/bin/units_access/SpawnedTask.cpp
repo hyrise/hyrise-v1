@@ -20,7 +20,7 @@ void SpawnedTask::executePlanOperation() {
 
 }
 
-std::shared_ptr<PlanOperation> SpawnedTask::parse(Json::Value &data) {
+std::shared_ptr<PlanOperation> SpawnedTask::parse(const Json::Value &data) {
   return std::make_shared<SpawnedTask>();
 }
 

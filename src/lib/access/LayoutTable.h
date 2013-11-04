@@ -17,7 +17,7 @@ public:
   void executePlanOperation();
   /// { "type": "LayoutTable",
   ///   "layout": "a|b|c\nINTEGER|INTEGER|INTEGER\nC_0|C_1|C_1" }
-  static std::shared_ptr<PlanOperation> parse(Json::Value &data);
+  static std::shared_ptr<PlanOperation> parse(const Json::Value &data);
   const std::string vname();
 
 private:

@@ -15,7 +15,7 @@ public:
   virtual ~DumpTable() = default;
 
   void executePlanOperation();
-  static std::shared_ptr<PlanOperation> parse(Json::Value &data);
+  static std::shared_ptr<PlanOperation> parse(const Json::Value &data);
 
 };
 
@@ -27,7 +27,7 @@ public:
   virtual ~LoadDumpedTable() = default;
 
   void executePlanOperation();
-  static std::shared_ptr<PlanOperation> parse(Json::Value &data);
+  static std::shared_ptr<PlanOperation> parse(const Json::Value &data);
 
 };
 

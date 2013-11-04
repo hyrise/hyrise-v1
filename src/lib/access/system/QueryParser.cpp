@@ -18,7 +18,7 @@ QueryParser::~QueryParser() {
 }
 
 std::vector<std::shared_ptr<Task> > QueryParser::deserialize(
-    Json::Value query,
+    const Json::Value& query,
     std::shared_ptr<Task> *result) const {
   std::vector<std::shared_ptr<Task> > tasks;
   task_map_t task_map;

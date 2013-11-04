@@ -20,7 +20,7 @@ public:
   /// "database": "cbtr",
   /// "table": "KNA1"
   /// }
-  static std::shared_ptr<PlanOperation> parse(Json::Value &data);
+  static std::shared_ptr<PlanOperation> parse(const Json::Value &data);
   const std::string vname();
   void setDatabaseName(const std::string &databaseName);
   void setTableName(const std::string &tablename);

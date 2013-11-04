@@ -36,6 +36,11 @@ void AbstractCoreBoundQueue::launchThread(int core) {
   //get the number of cores on system
   int NUM_PROCS = getNumberOfCoresOnSystem();
 
+  // NEver ever run antything on core 0, this is where the system runs
+  // and we can only get worse from there thatswhy we use numprocs-1 as the suitable number
+  
+  core = (core % (NUM_PROCS - 2)) + 2;
+
   if (core < NUM_PROCS) {
     _thread = new std::thread(&AbstractTaskQueue::executeTask, this);
     hwloc_cpuset_t cpuset;
@@ -56,7 +61,7 @@ void AbstractCoreBoundQueue::launchThread(int core) {
       fprintf(stderr, "Continuing as normal, however, no guarantees\n");
       //throw std::runtime_error(strerror(error));
     }
-    if(hwloc_set_membind (topology, cpuset,  HWLOC_MEMBIND_FIRSTTOUCH , HWLOC_MEMBIND_THREAD )){
+    if(hwloc_set_membind (topology, cpuset,  HWLOC_MEMBIND_INTERLEAVE, HWLOC_MEMBIND_STRICT | HWLOC_MEMBIND_THREAD )){
       char *str;
       int error = errno;
       hwloc_bitmap_asprintf(&str, obj->cpuset);

@@ -42,7 +42,7 @@ void SpawnParallelSubtasks::setNumberOfSpawns(const size_t number) {
   m_numberOfSpawns = number;
 }
 
-std::shared_ptr<PlanOperation> SpawnParallelSubtasks::parse(Json::Value &data) {
+std::shared_ptr<PlanOperation> SpawnParallelSubtasks::parse(const Json::Value &data) {
   auto planOp =  std::make_shared<SpawnParallelSubtasks>();
   planOp->setNumberOfSpawns(data["amount"].asInt());
   return planOp;

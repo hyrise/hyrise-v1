@@ -33,6 +33,9 @@ class ResponseTask : public Task {
   std::mutex perfMutex;
   std::mutex errorMutex;
   std::vector<std::string> _error_messages;
+
+  bool _recordPerformanceData = true;
+
  public:
   explicit ResponseTask(net::AbstractConnection *connection) :
       connection(connection) {
@@ -42,6 +45,8 @@ class ResponseTask : public Task {
   virtual ~ResponseTask() {}
 
   const std::string vname();
+
+  void setRecordPerformanceData(bool val) { _recordPerformanceData = val;}
 
   epoch_t getQueryStart() {
     return queryStart;

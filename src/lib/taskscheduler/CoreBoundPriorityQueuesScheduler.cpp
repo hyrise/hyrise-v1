@@ -20,7 +20,7 @@ CoreBoundPriorityQueuesScheduler::CoreBoundPriorityQueuesScheduler(const int que
   _status = START_UP;
   // set _queues to queues after new queues have been created to new tasks to be assigned to new queues
   // lock _queue mutex as queues are manipulated
-  std::lock_guard<std::mutex> lk(_queuesMutex);
+  std::lock_guard<lock_t> lk(_queuesMutex);
   if (queues <= getNumberOfCoresOnSystem()) {
     for (int i = 0; i < queues; ++i) {
       _taskQueues.push_back(createTaskQueue(i));
@@ -37,7 +37,7 @@ CoreBoundPriorityQueuesScheduler::CoreBoundPriorityQueuesScheduler(const int que
 }
 
 CoreBoundPriorityQueuesScheduler::~CoreBoundPriorityQueuesScheduler() {
-  std::lock_guard<std::mutex> lk2(this->_queuesMutex);
+  std::lock_guard<lock_t> lk2(this->_queuesMutex);
   task_queue_t *queue;
   for (unsigned i = 0; i < this->_taskQueues.size(); ++i) {
     queue =   this->_taskQueues[i];
@@ -65,7 +65,7 @@ void CoreBoundPriorityQueuesScheduler::pushToQueue(std::shared_ptr<Task> task)
       LOG4CXX_WARN(this->_logger, "Tried to assign task " << std::hex << (void *)task.get() << std::dec << " to core " << std::to_string(core) << " which is not assigned to scheduler; assigned it to next available core");
     {
       // lock queuesMutex to sync pushing to queue and incrementing next queue
-      std::lock_guard<std::mutex> lk2(this->_queuesMutex);
+      std::lock_guard<lock_t> lk2(this->_queuesMutex);
       // simple strategy to avoid blocking of queues; check if queue is blocked - try a couple of times, otherwise schedule on next queue
       size_t retries = 0;
       while (static_cast<CoreBoundPriorityQueue *>(this->_taskQueues[this->_nextQueue])->blocked() && retries < 100) {
