@@ -31,8 +31,6 @@ const char *PID_FILE = "./hyrise_server.pid";
 const char *PORT_FILE = "./hyrise_server.port";
 const size_t DEFAULT_PORT = 5000;
 
-// Global EBB Server instance
-static ebb_server server;
 
 LoggerPtr logger(Logger::getLogger("hyrise"));
 
@@ -86,13 +84,6 @@ class PidFile {
   }
 };
 
-void shutdown(int sig) {
-  std::cout << "Graceful stop" << std::endl;
-  StorageManager::getInstance()->removeAll();
-  sleep(1);
-  ebb_server_unlisten(&server);
-}
-
 void bindToNode(int node) {
   hwloc_topology_t topology = getHWTopology();
   hwloc_cpuset_t cpuset;
@@ -129,7 +120,6 @@ void bindToNode(int node) {
 
 
 int main(int argc, char *argv[]) {
-
   size_t port = 0;
   int worker_threads = 0;
   std::string logPropertyFile;
@@ -173,7 +163,7 @@ int main(int argc, char *argv[]) {
 
   // MainS erver Loop
   struct ev_loop *loop = ev_default_loop(0);
-
+  ebb_server server;
   // Initialize server based on libev event loop
   ebb_server_init(&server, loop);
 
@@ -187,6 +177,6 @@ int main(int argc, char *argv[]) {
   LOG4CXX_INFO(logger, "Started server on port " << pa.getPort());
   ev_loop(loop, 0);
   LOG4CXX_INFO(logger, "Stopping Server...");
-
+  ev_default_destroy ();
   return 0;
 }
