@@ -141,22 +141,29 @@ const PlanOperation * PlanOperation::execute() {
   setupPlanOperation();
 
   PapiTracer pt;
-  pt.addEvent("PAPI_TOT_CYC");
-  pt.addEvent(getEvent());
+  if (!_papi_disabled) {
+    pt.addEvent("PAPI_TOT_CYC");
+    pt.addEvent(getEvent());
+    pt.start();
+  }
 
-  pt.start();
   executePlanOperation();
-  pt.stop();
+  
+  if (!_papi_disabled)
+    pt.stop();
 
   teardownPlanOperation();
 
-  epoch_t endTime = get_epoch_nanoseconds();
-  std::string threadId = boost::lexical_cast<std::string>(std::this_thread::get_id());
+  if (!_papi_disabled) {
+    epoch_t endTime = get_epoch_nanoseconds();
+    std::string threadId = boost::lexical_cast<std::string>(std::this_thread::get_id());
 
-  if (_performance_attr != nullptr)
-    *_performance_attr = (performance_attributes_t) {
-      pt.value("PAPI_TOT_CYC"), pt.value(getEvent()), getEvent() , planOperationName(), _operatorId, startTime, endTime, threadId
-    };
+    if (_performance_attr != nullptr) {
+      *_performance_attr = (performance_attributes_t) {
+        pt.value("PAPI_TOT_CYC"), pt.value(getEvent()), getEvent() , planOperationName(), _operatorId, startTime, endTime, threadId
+      };
+    }
+  }
 
   setState(OpSuccess);
   return this;
@@ -202,6 +209,10 @@ void PlanOperation::setResponseTask(const std::shared_ptr<access::ResponseTask>&
 
 std::shared_ptr<access::ResponseTask> PlanOperation::getResponseTask() const {
   return _responseTask.lock();
+}
+
+void PlanOperation::disablePapiTrace() {
+  _papi_disabled = true;
 }
 
 

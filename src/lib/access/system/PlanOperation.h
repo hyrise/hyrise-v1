@@ -69,6 +69,8 @@ class PlanOperation : public OutputTask {
   const std::string& planOperationName() const;
   void setPlanOperationName(const std::string& name);
 
+  void disablePapiTrace();
+  
   virtual void operator()() noexcept;
   virtual const std::string vname();
   const PlanOperation *execute();
@@ -94,6 +96,7 @@ class PlanOperation : public OutputTask {
   std::weak_ptr<access::ResponseTask> _responseTask;
 
   bool producesPositions = true;
+  bool _papi_disabled = false;
 
   std::string _planId;
   std::string _operatorId;
