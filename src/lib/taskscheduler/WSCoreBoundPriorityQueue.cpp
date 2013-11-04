@@ -32,13 +32,13 @@ void WSCoreBoundPriorityQueue::executeTask() {
       task = stealTasks();
       if (!task){
         //if queue still empty go to sleep and wait until new tasks have been arrived
-        std::unique_lock<std::mutex> ul(_queueMutex);
+        std::unique_lock<lock_t> ul(_queueMutex);
         if (_runQueue.size() < 1) {
           {
             // if thread is about to stop, break execution loop
             if(_status != RUN)
               break;
-            _condition.wait(ul);
+            _condition.wait(ul);            
           }
         }
       }
@@ -91,7 +91,7 @@ std::shared_ptr<Task> WSCoreBoundPriorityQueue::stealTask() {
 
 void WSCoreBoundPriorityQueue::push(std::shared_ptr<Task> task) {
   // mutex is bad! but apparently we need it, otherwise, threads do not know whether they can sleep, cause runqueue.size may be incorrect if not synced
-  std::lock_guard<std::mutex> lk(_queueMutex);
+  std::lock_guard<lock_t> lk(_queueMutex);
   _runQueue.push(task);
   _condition.notify_one();
 }
@@ -102,7 +102,7 @@ std::vector<std::shared_ptr<Task> > WSCoreBoundPriorityQueue::stopQueue() {
     // set status to "TO_STOP" so that the thread either quits after executing the task, or after having been notified by the condition variable
     // we need the mutex here, otherwise, we might call notify prior to the thread going to sleep
     {
-      std::lock_guard<std::mutex> lk(_queueMutex);
+      std::lock_guard<lock_t> lk(_queueMutex);
       _status = TO_STOP;
       //wake up thread in case thread is sleeping
       _condition.notify_one();
@@ -118,7 +118,7 @@ std::vector<std::shared_ptr<Task> > WSCoreBoundPriorityQueue::stopQueue() {
 std::vector<std::shared_ptr<Task> > WSCoreBoundPriorityQueue::emptyQueue() {
   std::vector<std::shared_ptr<Task> > tmp;
   std::shared_ptr<Task> task;
-  std::lock_guard<std::mutex> lk(_queueMutex);
+  std::lock_guard<lock_t> lk(_queueMutex);
   while(!_runQueue.empty())
     _runQueue.try_pop(task);
     tmp.push_back(task);

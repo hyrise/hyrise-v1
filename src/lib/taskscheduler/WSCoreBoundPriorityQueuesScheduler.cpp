@@ -20,7 +20,7 @@ WSCoreBoundPriorityQueuesScheduler::WSCoreBoundPriorityQueuesScheduler(const int
   // set _queues to queues after new queues have been created to new tasks to be assigned to new queues
   // lock _queue mutex as queues are manipulated
   {
-    std::lock_guard<std::mutex> lk(_queuesMutex);
+    std::lock_guard<lock_t> lk(_queuesMutex);
     if (queues <= getNumberOfCoresOnSystem()) {
       for (int i = 0; i < queues; ++i) {
         _taskQueues.push_back(createTaskQueue(i));
@@ -57,7 +57,7 @@ const std::vector<AbstractCoreBoundQueue *> *WSCoreBoundPriorityQueuesScheduler:
       || this->_status == AbstractCoreBoundQueuesScheduler::STOPPED)
     return NULL;
   // return const reference to task queues
-  std::lock_guard<std::mutex> lk(this->_queuesMutex);
+  std::lock_guard<lock_t> lk(this->_queuesMutex);
   return &this->_taskQueues;
  }
 
@@ -77,7 +77,7 @@ void WSCoreBoundPriorityQueuesScheduler::pushToQueue(std::shared_ptr<Task> task)
         this->_taskQueues[this->_nextQueue]->push(task);
         //std::cout << "Task " <<  task->vname() << "; hex " << std::hex << &task << std::dec << " pushed to queue " << this->_nextQueue << std::endl;
         //round robin on cores
-        std::lock_guard<std::mutex> lk2(this->_queuesMutex);
+        std::lock_guard<lock_t> lk2(this->_queuesMutex);
         this->_nextQueue = (this->_nextQueue + 1) % this->_queues;
       }
     }

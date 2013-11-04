@@ -36,7 +36,7 @@ public:
   ///      },
   ///      "edges": [["0", "1"], ["0", "2"], ["1", "2"]]
   ///  }
-  static std::shared_ptr<PlanOperation> parse(Json::Value &v);
+  static std::shared_ptr<PlanOperation> parse(const Json::Value &v);
   const std::string vname();
   /// creates output result table layout using _field_definitions
   /// and added aggregate functions (aggregate_functions)

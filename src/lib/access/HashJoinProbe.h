@@ -41,7 +41,7 @@ public:
   ///     },
   ///     "edges": [["0", "2"], ["2", "3"], ["1", "3"]]
   /// }
-  static std::shared_ptr<PlanOperation> parse(Json::Value &data);
+  static std::shared_ptr<PlanOperation> parse(const Json::Value &data);
   const std::string vname();
   void setBuildTable(const storage::c_atable_ptr_t &table);
   storage::c_atable_ptr_t getBuildTable() const;

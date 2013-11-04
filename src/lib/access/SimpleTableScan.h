@@ -17,7 +17,7 @@ public:
   void executePlanOperation();
   void executePositional();
   void executeMaterialized();
-  static std::shared_ptr<PlanOperation> parse(Json::Value &data);
+  static std::shared_ptr<PlanOperation> parse(const Json::Value &data);
   const std::string vname();
   void setPredicate(SimpleExpression *c);
 

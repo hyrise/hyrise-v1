@@ -40,7 +40,7 @@ void MergeTable::executePlanOperation() {
   output.add(result);
 }
 
-std::shared_ptr<PlanOperation> MergeTable::parse(Json::Value& data) {
+std::shared_ptr<PlanOperation> MergeTable::parse(const Json::Value& data) {
   return std::make_shared<MergeTable>();
 }
 
@@ -62,7 +62,7 @@ void MergeStore::executePlanOperation() {
   addResult(store);
 }
 
-std::shared_ptr<PlanOperation> MergeStore::parse(Json::Value& data) {
+std::shared_ptr<PlanOperation> MergeStore::parse(const Json::Value& data) {
   return std::make_shared<MergeStore>();
 }
 

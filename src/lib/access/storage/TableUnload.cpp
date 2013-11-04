@@ -19,7 +19,7 @@ void TableUnload::executePlanOperation() {
   StorageManager::getInstance()->removeTable(_table_name);
 }
 
-std::shared_ptr<PlanOperation> TableUnload::parse(Json::Value &data) {
+std::shared_ptr<PlanOperation> TableUnload::parse(const Json::Value &data) {
   std::shared_ptr<TableUnload> s = std::make_shared<TableUnload>();
   s->setTableName(data["table"].asString());
   return s;

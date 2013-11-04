@@ -10,16 +10,18 @@
 #define SRC_LIB_TASKSCHEDULER_ABSTRACTTASKQUEUE_H_
 
 #include <memory>
-#include <mutex>
 #include <thread>
 #include <queue>
 #include <condition_variable>
 #include <log4cxx/logger.h>
 #include <taskscheduler/Task.h>
 
+#include "helper/locking.h"
+
 class AbstractTaskQueue {
 
  public:
+
   typedef enum {
     STARTUP = 0,
     RUN = 1,
@@ -27,7 +29,10 @@ class AbstractTaskQueue {
     TO_STOP = 3,
     STOPPED = 4,
   } queue_state;
+
   typedef int queue_status_t;
+
+  typedef hyrise::locking::Spinlock lock_t;
 
   virtual ~AbstractTaskQueue() {};
 

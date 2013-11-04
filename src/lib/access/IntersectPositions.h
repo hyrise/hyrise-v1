@@ -19,7 +19,7 @@ class IntersectPositions: public PlanOperation {
   /// 3. positions to invalidate in delta
   /// Query graph output:
   /// - store with invalidated rows
-  static std::shared_ptr<PlanOperation> parse(Json::Value& data);
+  static std::shared_ptr<PlanOperation> parse(const Json::Value& data);
   void executePlanOperation();
   virtual const std::string vname();
 };

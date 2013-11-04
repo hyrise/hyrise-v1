@@ -26,7 +26,7 @@ void ReplaceTable::executePlanOperation() {
   output.add(table);
 }
 
-std::shared_ptr<PlanOperation> ReplaceTable::parse(Json::Value& data) {
+std::shared_ptr<PlanOperation> ReplaceTable::parse(const Json::Value& data) {
   return std::make_shared<ReplaceTable>(data["name"].asString());
 }
 

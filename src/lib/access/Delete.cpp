@@ -46,7 +46,7 @@ void DeleteOp::executePlanOperation() {
 	addResult(getInputTable(0));
 }
 
-std::shared_ptr<PlanOperation> DeleteOp::parse(Json::Value &data) {
+std::shared_ptr<PlanOperation> DeleteOp::parse(const Json::Value &data) {
 	return std::make_shared<DeleteOp>();
 }
 
