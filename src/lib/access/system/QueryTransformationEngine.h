@@ -35,7 +35,7 @@ class QueryTransformationEngine {
   static const std::string mergeSuffix;
 
 
-  typedef std::map< std::string, hyrise::access::AbstractPlanOpTransformation * > factory_map_t;
+  typedef std::map< std::string, std::unique_ptr<hyrise::access::AbstractPlanOpTransformation> > factory_map_t;
   factory_map_t _factory;
 
   QueryTransformationEngine() {}
@@ -129,13 +129,13 @@ class QueryTransformationEngine {
 
   template<typename T>
   static bool registerTransformation() {
-    QueryTransformationEngine::getInstance()->_factory[T::name()] = new T();
+    QueryTransformationEngine::getInstance()->_factory[T::name()].reset(new T());
     return true;
   }
 
   template<typename T>
   static bool registerPlanOperation(const std::string& name) {
-    QueryTransformationEngine::getInstance()->_factory[name] = new T();
+    QueryTransformationEngine::getInstance()->_factory[name].reset(new T());
     return true;
   }
 
@@ -144,10 +144,8 @@ class QueryTransformationEngine {
   Json::Value &transform(Json::Value &query);
 
   static QueryTransformationEngine *getInstance() {
-    static QueryTransformationEngine *p = nullptr;
-    if (p == nullptr)
-      p = new QueryTransformationEngine();
-    return p;
+    static QueryTransformationEngine p;
+    return &p;
   }
 };
 
