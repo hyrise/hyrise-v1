@@ -1,0 +1,13 @@
+{
+  "operators": {
+    "load": {
+       "type": "GetTable",
+       "name": "ORDER_LINE"
+    },
+    "insert": {
+       "type": "InsertScan",
+       "data" : [[%(o_id)d, %(d_id)d, %(w_id)d, %(ol_number)d, %(ol_i_id)d, %(ol_supply_w_id)d, %(date)s, %(ol_quantity)d, %(ol_amount)f, %(ol_dist_info)s]]
+    }
+  },
+  "edges": [["load", "insert"]]
+}

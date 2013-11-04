@@ -1,0 +1,21 @@
+{
+  "operators": {
+    "load": {
+       "type": "GetTable",
+       "name": "WAREHOUSE"
+    },
+    "select": {
+       "type": "SimpleTableScan",
+       "predicates": [
+         {"type": "EQ", "in": 0, "f": "W_ID", "vtype": 0 /*Int*/, "value": %(w_id)d}
+       ]
+    },
+    "update": {
+       "type": "PosUpdateScan",
+       "data": {
+         "W_YTD": %(w_ytd)f
+       }
+    }
+  },
+  "edges": [["load", "select"], ["select", "update"]]
+}

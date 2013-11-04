@@ -1,0 +1,23 @@
+{
+  "operators": {
+    "load": {
+       "type": "GetTable",
+       "name": "ORDER_LINE"
+    },
+    "select": {
+       "type": "SimpleTableScan",
+       "predicates": [
+         {"type": "AND"},
+         {"type": "EQ", "in": 0, "f": "OL_W_ID", "vtype": 0 /*Int*/, "value": %(w_id)d},
+         {"type": "AND"},
+         {"type": "EQ", "in": 0, "f": "OL_D_ID", "vtype": 0 /*Int*/, "value": %(d_id)d},
+         {"type": "EQ", "in": 0, "f": "OL_O_ID", "vtype": 0 /*Int*/, "value": %(o_id)d}
+       ]
+    },
+    "project": {
+       "type": "ProjectionScan",
+       "fields": ["OL_SUPPLY_W_ID", "OL_I_ID", "OL_QUANTITY", "OL_AMOUNT", "OL_DELIVERY_D"]
+    }
+  },
+  "edges": [["load", "select"], ["select", "project"]]
+}

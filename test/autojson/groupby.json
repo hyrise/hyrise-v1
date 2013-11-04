@@ -14,7 +14,7 @@
         "1": {
             "type": "HashBuild",
             "fields": ["year"],
-	        "key": "groupby"
+            "key": "groupby"
         },
         "2": {
             "type": "GroupByScan",
@@ -29,10 +29,10 @@
                 {"type": "MIN", "field": "date", "as": "first_of_year"}
             ]
         },
-       "sort" : {
-         "type": "SortScan",
-         "field": [0]
-       }
+        "3": {
+            "type": "SortScan",
+            "fields": [0]
+        }
     },
-    "edges" : [["0", "1"], ["0", "2"], ["1", "2"], ["2", "sort"]]
+    "edges" : [["0", "1"], ["0", "2"], ["1", "2"], ["2", "3"]]
 }

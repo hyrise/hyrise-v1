@@ -1,0 +1,13 @@
+{
+  "operators": {
+    "load": {
+       "type": "GetTable",
+       "name": "ORDERS"
+    },
+    "insert": {
+       "type": "InsertScan",
+       "data" : [[%(o_id)d, %(d_id)d, %(w_id)d, %(c_id)d, %(date)s, %(o_carrier_id)d, %(o_ol_cnt)d, %(all_local)d]]
+    }
+  },
+  "edges": [["load", "insert"]]
+}

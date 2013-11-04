@@ -1,0 +1,42 @@
+{
+  "operators": {
+    "load1": {
+       "type": "GetTable",
+       "name": "ORDER_LINE"
+    },
+    "load2": {
+       "type": "GetTable",
+       "name": "STOCK"
+    },
+    "join": {
+       "type":"JoinScan",
+       "predicates": [
+         {"type": 3, "input_left": 0, "field_left": "OL_I_ID", "input_right": 1, "field_right": "S_I_ID"}
+       ]
+    },
+    "select": {
+       "type": "SimpleTableScan",
+       "predicates": [
+         {"type": "AND"},
+         {"type": "EQ", "in": 0, "f": "OL_W_ID", "vtype": 0, "value": %(w_id)d},
+         {"type": "AND"},
+         {"type": "EQ", "in": 0, "f": "OL_D_ID", "vtype": 0, "value": %(d_id)d},
+         {"type": "AND"},
+         {"type": "GT", "in": 0, "f": "OL_O_ID", "vtype": 0, "value": %(o_id1)d},
+         {"type": "AND"},
+         {"type": "LT", "in": 0, "f": "OL_O_ID", "vtype": 0, "value": %(o_id2)d},
+         {"type": "AND"},
+         {"type": "EQ", "in": 0, "f": "S_W_ID", "vtype": 0, "value": %(w_id)d},
+         {"type": "LT", "in": 0, "f": "S_QUANTITY", "vtype": 0, "value": %(threshold)d}
+       ]
+    },
+    "groupby": {
+       "type": "GroupByScan",
+       "fields": [],
+       "functions": [
+         {"type": "COUNT", "field": "OL_I_ID", "distinct": true, "as": "distinct_count"}
+       ]
+    }
+  },
+  "edges": [["load1", "join"], ["load2", "join"], ["join", "select"], ["select", "groupby"]]
+}

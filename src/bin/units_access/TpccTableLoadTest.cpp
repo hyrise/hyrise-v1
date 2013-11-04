@@ -47,7 +47,7 @@ TEST_F(TpccTableLoadTests, table_load_with_header_file_test_new_order) {
 
 // Table: order_line Lines in CSV: 10 (load from test/tpcc/ order_line.csv, order_line_header.tbl)
 TEST_F(TpccTableLoadTests, table_load_with_header_file_test_order_line) {
-  ASSERT_EQ(10u,tableLoad("order_line"));
+  ASSERT_EQ(17u,tableLoad("order_line"));
 }
 
 // Table: orders Lines in CSV: 10 (load from test/tpcc/ orders.csv, orders_header.tbl)

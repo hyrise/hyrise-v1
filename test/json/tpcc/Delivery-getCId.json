@@ -1,0 +1,23 @@
+{
+  "operators": {
+    "load": {
+       "type": "GetTable",
+       "name": "ORDERS"
+    },
+    "select": {
+       "type": "SimpleTableScan",
+       "predicates": [
+         {"type": "AND"},
+         {"type": "EQ", "in": 0, "f": "O_ID", "vtype": 0 /*Int*/, "value": %(no_o_id)d},
+         {"type": "AND"},
+         {"type": "EQ", "in": 0, "f": "O_D_ID", "vtype": 0 /*Int*/, "value": %(d_id)d},
+         {"type": "EQ", "in": 0, "f": "O_W_ID", "vtype": 0 /*Int*/, "value": %(w_id)d}
+       ]
+    },
+    "project": {
+       "type": "ProjectionScan",
+       "fields": ["O_C_ID"]
+    }
+  },
+  "edges": [["load", "select"], ["select", "project"]]
+}
