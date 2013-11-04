@@ -115,6 +115,7 @@ Json::Value TpccStoredProceduresTest::doDelivery(int w_id, int d_id, int o_carri
   Json::Value data;
   data["W_ID"] = w_id;
   data["D_ID"] = d_id;
+  data["O_CARRIER_ID"] = o_carrier_id;
 
   Json::StyledWriter writer;
   const auto s = executeStoredProcedureAndWait("TPCC-Delivery", writer.write(data));
@@ -297,22 +298,35 @@ TEST_F(TpccStoredProceduresTest, Delivery_WrongDistrictId) {
 
 //===========================New Order Tests
 
-TEST_F(TpccStoredProceduresTest, NewOrder_tooFewItems) {
+TEST_F(TpccStoredProceduresTest, NewOrder_wrongItemCount) {
   //                     (w_id, d_id, c_id, o_carrier_id, ol_dist_info, {{i_id, i_w_id, quantity}});
   EXPECT_THROW(doNewOrder(1   , 1   , 1   , 1           , "info"      , {{1   , 1     , 1       }}), TpccError);
+  EXPECT_THROW(doNewOrder(1   , 1   , 1   , 1           , "info"      , {{1   , 1     , 1       },
+                                                                         {2   , 1     , 1       },
+                                                                         {3   , 1     , 1       },
+                                                                         {4   , 1     , 1       },
+                                                                         {5   , 1     , 1       },
+                                                                         {6   , 1     , 1       },
+                                                                         {7   , 1     , 1       },
+                                                                         {8   , 1     , 1       },
+                                                                         {9   , 1     , 1       },
+                                                                         {10  , 1     , 1       },
+                                                                         {11  , 1     , 1       },
+                                                                         {12  , 1     , 1       },
+                                                                         {13  , 1     , 1       },
+                                                                         {14  , 1     , 1       },
+                                                                         {15  , 1     , 1       },
+                                                                         {16  , 1     , 1       }}), TpccError);
 }
 
-TEST_F(TpccStoredProceduresTest, NewOrder_wrongQuantity11) {
+TEST_F(TpccStoredProceduresTest, NewOrder_wrongQuantity) {
   //                     (w_id, d_id, c_id, o_carrier_id, ol_dist_info, {{i_id, i_w_id, quantity}});
   EXPECT_THROW(doNewOrder(1   , 1   , 1   , 1           , "info"      , {{1   , 1     , 1       },
                                                                          {2   , 1     , 1       },
                                                                          {3   , 1     , 1       },
                                                                          {4   , 1     , 1       },
                                                                          {5   , 1     , 11      }, }), TpccError);
-}
-
-TEST_F(TpccStoredProceduresTest, NewOrder_wrongQuantity0) {
-  //                     (w_id, d_id, c_id, o_carrier_id, ol_dist_info, {{i_id, i_w_id, quantity}});
+  
   EXPECT_THROW(doNewOrder(1   , 1   , 1   , 1           , "info"      , {{1   , 1     , 1       },
                                                                          {2   , 1     , 1       },
                                                                          {3   , 1     , 1       },
@@ -401,22 +415,34 @@ float getValuef(const Json::Value& data, std::string name) {
 
 TEST_F(TpccStoredProceduresTest, StockLevel_W1D1T90) {
   //                                (w_id, d_id, threshold);
-  const auto response = doStockLevel(1   , 1   , 90       );
+  const auto response = doStockLevel(1   , 1   , 20       );
 
-  ASSERT_EQ(1, getValuei(response, "W_ID"));
-  ASSERT_EQ(1, getValuei(response, "D_ID"));
-  ASSERT_EQ(90, getValuei(response, "threshold"));
-  ASSERT_EQ(5, getValuei(response, "low_stock"));
+  EXPECT_EQ(1, getValuei(response, "W_ID"));
+  EXPECT_EQ(1, getValuei(response, "D_ID"));
+  EXPECT_EQ(90, getValuei(response, "threshold"));
+  EXPECT_EQ(5, getValuei(response, "low_stock"));
 }
 
 TEST_F(TpccStoredProceduresTest, StockLevel_W1D1T50) {
   //                                (w_id, d_id, threshold);
-  const auto response = doStockLevel(1   , 1   , 50       );
+  const auto response = doStockLevel(1   , 1   , 20       );
 
-  ASSERT_EQ(1, getValuei(response, "W_ID"));
-  ASSERT_EQ(1, getValuei(response, "D_ID"));
-  ASSERT_EQ(50, getValuei(response, "threshold"));
-  ASSERT_EQ(0, getValuei(response, "low_stock"));
+  EXPECT_EQ(1, getValuei(response, "W_ID"));
+  EXPECT_EQ(1, getValuei(response, "D_ID"));
+  EXPECT_EQ(50, getValuei(response, "threshold"));
+  EXPECT_EQ(0, getValuei(response, "low_stock"));
+}
+
+TEST_F(TpccStoredProceduresTest, StockLevel_WrongDistrict) {
+  //                       (w_id, d_id, threshold);
+  EXPECT_THROW(doStockLevel(1   , 0   , 10       ), TpccError);
+  EXPECT_THROW(doStockLevel(1   , 11  , 10       ), TpccError);
+}
+
+TEST_F(TpccStoredProceduresTest, StockLevel_WrongThreshold) {
+  //                       (w_id, d_id, threshold);
+  EXPECT_THROW(doStockLevel(1   , 1   , 9        ), TpccError);
+  EXPECT_THROW(doStockLevel(1   , 1   , 21       ), TpccError);
 }
 
 } } // namespace hyrise::access

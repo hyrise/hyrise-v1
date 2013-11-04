@@ -39,7 +39,7 @@ Json::Value TpccStockLevelProcedure::execute() {
     os << "no district " << _d_id << " for warehouse " << _w_id;
     throw std::runtime_error(os.str());
   }
-  _next_o_id = t1->getValue<int>("D_NEXT_O_ID", 0);
+  _next_o_id = t1->getValue<hyrise_int_t>("D_NEXT_O_ID", 0);
 
   auto t2 = getStockCount();
   commit();
@@ -47,7 +47,7 @@ Json::Value TpccStockLevelProcedure::execute() {
   // Output
   int low_stock = 0;
   if (t2->size() != 0) 
-    low_stock = t2->getValue<int>(0, 0);
+    low_stock = t2->getValue<hyrise_int_t>(0, 0);
 
   Json::Value result;
   result["W_ID"] = _w_id;

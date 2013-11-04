@@ -55,33 +55,48 @@ Json::Value TpccPaymentProcedure::execute() {
   std::shared_ptr<const AbstractTable> tCustomer;
   if (_customerById) {
     tCustomer = std::const_pointer_cast<const AbstractTable>(getCustomerByCId());
-    //TODO no customer
+    if (tCustomer->size() == 0) {
+      std::ostringstream os;
+      os << "no customer with id " << _c_id << " in district " << _d_id << " in warehouse " << _w_id;
+      throw std::runtime_error(os.str());
+    }
     _chosenOne = 0;
     _c_last = tCustomer->getValue<hyrise_string_t>("C_LAST", 0);
   }
   else {
     tCustomer = std::const_pointer_cast<const AbstractTable>(getCustomersByLastName());
-    //TODO no customer
+    if (tCustomer->size() == 0) {
+      std::ostringstream os;
+      os << "no customer with last name \"" << _c_last << "\" in district " << _d_id << " in warehouse " << _w_id;
+      throw std::runtime_error(os.str());
+    }
     _chosenOne = std::max<int>((tCustomer->size() - 1) / 2 - 1, 0); //really -1 again?;
-    _c_id = tCustomer->getValue<int>("C_ID", _chosenOne);
+    _c_id = tCustomer->getValue<hyrise_int_t>("C_ID", _chosenOne);
   }
 
   const std::string c_credit = tCustomer->getValue<hyrise_string_t>("C_CREDIT", _chosenOne);
   const bool bc_customer = (c_credit == "BC");
-  _c_payment_cnt = tCustomer->getValue<int>("C_PAYMENT_CNT", _chosenOne) + 1;
-  _c_balance = tCustomer->getValue<float>("C_BALANCE", _chosenOne) + _h_amount;
-  _c_ytd_payment = tCustomer->getValue<float>("C_YTD_PAYMENT", _chosenOne) + _h_amount;
+  _c_payment_cnt = tCustomer->getValue<hyrise_int_t>("C_PAYMENT_CNT", _chosenOne) + 1;
+  _c_balance = tCustomer->getValue<hyrise_float_t>("C_BALANCE", _chosenOne) + _h_amount;
+  _c_ytd_payment = tCustomer->getValue<hyrise_float_t>("C_YTD_PAYMENT", _chosenOne) + _h_amount;
   _c_data = tCustomer->getValue<hyrise_string_t>("C_DATA", _chosenOne);
 
   auto tWarehouse = getWarehouse();
-  //TODO no warehouse
-  _w_ytd = tWarehouse->getValue<float>("W_YTD", 0) + _h_amount;
+  if (tWarehouse->size() == 0) {
+    std::ostringstream os;
+    os << "no such warehouse: " << _w_id;
+    throw std::runtime_error(os.str());
+  }
+  _w_ytd = tWarehouse->getValue<hyrise_float_t>("W_YTD", 0) + _h_amount;
   const std::string w_name = tWarehouse->getValue<hyrise_string_t>("W_NAME", 0);
-  //setParameter(map, "w_ytd", w_ytd + h_amount);
 
   auto tDistrict = getDistrict();
-  //TODO no district
-  _d_ytd = tDistrict->getValue<float>("D_YTD", 0) + _h_amount;
+  if (tDistrict->size() == 0) {
+    std::ostringstream os;
+    os << "internal error: no district " << _d_id << " for warehouse " << _w_id;
+    throw std::runtime_error(os.str());
+  }
+  _d_ytd = tDistrict->getValue<hyrise_float_t>("D_YTD", 0) + _h_amount;
   const std::string d_name = tDistrict->getValue<hyrise_string_t>("D_NAME", 0);
   _h_data = w_name + "    " + d_name;
 
@@ -187,13 +202,7 @@ storage::c_atable_ptr_t TpccPaymentProcedure::getWarehouse() {
 void TpccPaymentProcedure::insertHistory() {
   auto history = std::const_pointer_cast<AbstractTable>(getTpccTable("HISTORY"));
 
-  const auto metadata = history->metadata();
-  storage::TableBuilder::param_list list;
-  for (const auto& columnData : metadata) {
-    list.append(storage::TableBuilder::param(columnData.getName(), data_type_to_string(columnData.getType())));
-  }
-  auto newRow = storage::TableBuilder::build(list);
-  newRow->resize(666); //TODO it's halloween for now but there should be a more generic value
+  auto newRow = newRowFrom(history);
   newRow->setValue<hyrise_int_t>("H_C_ID", 0, _c_id);
   newRow->setValue<hyrise_int_t>("H_C_D_ID", 0, _c_d_id);
   newRow->setValue<hyrise_int_t>("H_C_W_ID", 0, _c_w_id);
