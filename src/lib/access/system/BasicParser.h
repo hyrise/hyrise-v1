@@ -15,7 +15,7 @@ class BasicParsingException : public std::runtime_error {
 
 template<typename T>
 struct BasicParser {
-  static std::shared_ptr<T> parse(Json::Value &data) {
+  static std::shared_ptr<T> parse(const Json::Value &data) {
     std::shared_ptr<T> ps = std::make_shared<T>();
 
     // For all fields add

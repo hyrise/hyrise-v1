@@ -32,7 +32,7 @@ void TableScan::executePlanOperation() {
   addResult(result);
 }
 
-std::shared_ptr<PlanOperation> TableScan::parse(Json::Value& data) {
+std::shared_ptr<PlanOperation> TableScan::parse(const Json::Value& data) {
   return std::make_shared<TableScan>(Expressions::parse(data["expression"].asString(), data));
 }
 

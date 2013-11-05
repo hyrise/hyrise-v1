@@ -13,6 +13,7 @@
 #include "taskscheduler/SharedScheduler.h"
 #include "access/system/RequestParseTask.h"
 
+
 namespace hyrise {
 namespace net {
 
@@ -22,9 +23,9 @@ ebb_connection *new_connection(ebb_server *server, struct sockaddr_in *addr) {
     return nullptr;
   }
 
-  AsyncConnection *connection_data = new AsyncConnection();
+  AsyncConnection *connection_data = new AsyncConnection;
   connection_data->addr = *addr;
-
+  
   // Initializes the connection
   ebb_connection_init(connection);
   connection->data = connection_data;
@@ -34,8 +35,6 @@ ebb_connection *new_connection(ebb_server *server, struct sockaddr_in *addr) {
 
   connection_data->ev_loop = server->loop;
   connection_data->ev_write.data = connection_data;
-  ev_async_init(&connection_data->ev_write, write_cb);
-  ev_async_start(server->loop, &connection_data->ev_write);
 
   return connection;
 }
@@ -60,6 +59,10 @@ void request_complete(ebb_request *request) {
   connection_data->connection = connection;
   connection_data->request = request;
   gettimeofday(&connection_data->starttime, nullptr);
+  connection_data->keep_alive_flag = ebb_request_should_keep_alive(request);
+
+  ev_async_init(&connection_data->ev_write, write_cb);
+  ev_async_start(connection_data->ev_loop, &connection_data->ev_write);
 
   // Try to route to appropriate handler based on path
   const AbstractRequestHandlerFactory *handler_factory;
@@ -71,12 +74,22 @@ void request_complete(ebb_request *request) {
                              + exception_message);
     return;
   }
+
   std::shared_ptr<Task> task = handler_factory->create(connection_data);
-  // Always map the first task to the first core
-  // task->setPreferredCore(0);
-  // give RequestParseTask high priority
-  task->setPriority(Task::HIGH_PRIORITY);
+  task->setPriority(Task::HIGH_PRIORITY); // give RequestParseTask high priority
   SharedScheduler::getInstance().getScheduler()->schedule(task);
+  connection_data->waiting_for_response = true;
+}
+
+void continue_responding(ebb_connection *connection) {
+  AsyncConnection *connection_data = (AsyncConnection *)connection->data;
+  if (connection_data->keep_alive_flag == false) {
+    ebb_connection_schedule_close(connection);
+  }
+  else {
+    // clear connection for next request
+    connection_data->reset();
+  }
 }
 
 void request_path(ebb_request *request, const char *at, size_t length) {
@@ -116,6 +129,7 @@ void write_cb(struct ev_loop *loop, struct ev_async *w, int revents) {
     default:
       break;
   }
+
   struct timeval endtime;
   gettimeofday(&endtime, nullptr);
   float duration = endtime.tv_sec + endtime.tv_usec / 1000000.0 - conn->starttime.tv_sec - conn->starttime.tv_usec / 1000000.0;
@@ -127,67 +141,62 @@ void write_cb(struct ev_loop *loop, struct ev_async *w, int revents) {
   timeinfo = localtime(&rawtime);
   strftime(timestr, sizeof(timestr), "%Y-%m-%d %H:%M:%S %z", timeinfo);
 
+  // Handle the actual writing
   if (conn->connection != nullptr) {
-    conn->write_buffer = (char *)malloc(max_header_length + conn->response_length);
-    conn->write_buffer_len = 0;
-
-    // Copy the http status code
-    conn->code = conn->code == 0 ? 200 : conn->code;
-    conn->contentType = conn->contentType.size() == 0 ? "application/json" : conn->contentType;
-    conn->write_buffer_len += snprintf((char *)conn->write_buffer, max_header_length, 
-      "HTTP/1.1 %lu OK\r\nContent-Type: %s\r\nContent-Length: %lu\r\nConnection: close\r\n\r\n", 
-      conn->code, 
-      conn->contentType.c_str(),
-      conn->response_length);
-
-    // Append the response
-    memcpy(conn->write_buffer + conn->write_buffer_len, conn->response, conn->response_length);
-    conn->write_buffer_len += conn->response_length;
     ebb_connection_write(conn->connection, conn->write_buffer, conn->write_buffer_len, continue_responding);
-    // We need to wait for `continue_responding` to fire to be sure the client has been sent all the data
     printf("%s [%s] %s %s (%f s)\n", inet_ntoa(conn->addr.sin_addr), timestr, method, conn->path, duration);
   } else {
     printf("%s [%s] %s %s (%f s) not sent\n", inet_ntoa(conn->addr.sin_addr), timestr, method, conn->path, duration);
   }
   ev_async_stop(conn->ev_loop, &conn->ev_write);
+  conn->waiting_for_response = false;
   // When connection is nullptr, `continue_responding` won't fire since we never sent data to the client,
-  // thus, we'll need to clean up manually here, while connection has already been cleaned up in on `on_response`
+  // thus, we'll need to clean up manually here, while connection has already been cleaned up in on `on_close`
   if (conn->connection == nullptr) delete conn;
-}
-
-void continue_responding(ebb_connection *connection) {
-  delete(AsyncConnection *) connection->data;
-  connection->data = nullptr;
-  ebb_connection_schedule_close(connection);
 }
 
 void on_close(ebb_connection *connection) {
   AsyncConnection *connection_data = (AsyncConnection *)connection->data;
-  if (connection_data != nullptr)
-    connection_data->connection = nullptr;
+  connection_data->connection = nullptr;
   free(connection);
+  if (!connection_data->waiting_for_response)
+    delete connection_data;
 }
 
 AsyncConnection::AsyncConnection() :
-    request(nullptr), path(nullptr), body(nullptr), body_len(0), response(nullptr), write_buffer(nullptr), closed(false), code(0) {
+    request(nullptr),
+    path(nullptr),
+    body(nullptr), body_len(0), write_buffer(nullptr) {
 }
 
 AsyncConnection::~AsyncConnection() {
-  free(path);
-  free(write_buffer);
-  free(request);
-  free(body);
-  free(response);
+  reset();
+}
+
+void AsyncConnection::reset() {
+  free(path); path = nullptr;
+  free(body); body_len = 0; body = nullptr;
+  free(request); request = nullptr;
+  free(write_buffer); write_buffer = nullptr;
+  waiting_for_response = false;
 }
 
 void AsyncConnection::respond(const std::string &message, size_t status, const std::string & contentType) {
-  // Noop for dead connection
-  if (connection == nullptr) return;
-  this->code = status;
-  this->contentType = contentType;
-  response = (char *) malloc(message.size());
-  response_length = message.size();
-  memcpy(response, message.c_str(), message.size());
+  if (connection != nullptr) { // when the connection was closed, don't bother allocating here
+    write_buffer = (char *)malloc(max_header_length + message.size());
+    write_buffer_len = 0;
+
+    // Copy the http status code
+    write_buffer_len += snprintf((char *)write_buffer, max_header_length,
+                                 "HTTP/1.1 %lu OK\r\nContent-Type: %s\r\nContent-Length: %lu\r\nConnection: %s\r\n\r\n", 
+                                 status,
+                                 contentType.c_str(),
+                                 message.size(),
+                                 keep_alive_flag ? "Keep-Alive" : "Close");
+
+    memcpy(write_buffer + write_buffer_len, message.c_str(), message.size());
+    write_buffer_len += message.size();
+  }
   send_response();
 }
 

@@ -35,7 +35,7 @@ void HashBuild::executePlanOperation() {
   }
 }
 
-std::shared_ptr<PlanOperation> HashBuild::parse(Json::Value &data) {
+std::shared_ptr<PlanOperation> HashBuild::parse(const Json::Value &data) {
   std::shared_ptr<HashBuild> instance = std::make_shared<HashBuild>();
   if (data.isMember("fields")) {
     for (unsigned i = 0; i < data["fields"].size(); ++i) {

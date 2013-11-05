@@ -11,7 +11,7 @@
 #include <vector>
 #include <iostream>
 #include <stdexcept>
-
+#include <memory>
 int getNumberOfCoresOnSystem(){
   hwloc_topology_t topology = getHWTopology();
   static int NUM_PROCS = hwloc_get_nbobjs_by_type(topology, HWLOC_OBJ_CORE);
@@ -19,12 +19,13 @@ int getNumberOfCoresOnSystem(){
 }
 
 hwloc_topology_t getHWTopology(){
-  static hwloc_topology_t topology;
-  if (topology == nullptr) {
-    hwloc_topology_init(&topology);
-    hwloc_topology_load(topology);
-  }
-  return topology;
+  static std::unique_ptr<hwloc_topology, void(*)(hwloc_topology*)> topology = []() {
+    hwloc_topology_t t;
+    hwloc_topology_init(&t);
+    hwloc_topology_load(t);
+    return decltype(topology)(t, &hwloc_topology_destroy);
+  }();
+  return topology.get();
 }
 
 std::vector<unsigned> getCoresForNode(hwloc_topology_t topology, unsigned node){

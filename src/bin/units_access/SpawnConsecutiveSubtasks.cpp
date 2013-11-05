@@ -42,7 +42,7 @@ void SpawnConsecutiveSubtasks::setNumberOfSpawns(const size_t number) {
   m_numberOfSpawns = number;
 }
 
-std::shared_ptr<PlanOperation> SpawnConsecutiveSubtasks::parse(Json::Value &data) {
+std::shared_ptr<PlanOperation> SpawnConsecutiveSubtasks::parse(const Json::Value &data) {
   auto planOp = std::make_shared<SpawnConsecutiveSubtasks>();
   planOp->setNumberOfSpawns(data["amount"].asInt());
   return planOp;

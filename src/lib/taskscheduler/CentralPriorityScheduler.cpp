@@ -20,13 +20,13 @@ CentralPriorityScheduler::CentralPriorityScheduler(int threads) {
   if(threads > getNumberOfCoresOnSystem()){
     fprintf(stderr, "Tried to use more threads then cores - no binding of threads takes place\n");
     for(int i = 0; i < threads; i++){
-      _worker_threads.push_back(new std::thread(PriorityWorkerThread(*this)));
+      _worker_threads.emplace_back(PriorityWorkerThread(*this));
     }
   } else {
     // bind threads to cores
     for(int i = 0; i < threads; i++){
       //_worker_threads.push_back(new std::thread(WorkerThread(*this)));
-      auto thread = new std::thread(PriorityWorkerThread(*this));
+      std::thread thread(PriorityWorkerThread(*this));
       hwloc_cpuset_t cpuset;
       hwloc_obj_t obj;
       hwloc_topology_t topology = getHWTopology();
@@ -37,7 +37,7 @@ CentralPriorityScheduler::CentralPriorityScheduler(int threads) {
       // remove hyperthreads
       hwloc_bitmap_singlify(cpuset);
       // bind
-      if (hwloc_set_thread_cpubind(topology, thread->native_handle(), cpuset, HWLOC_CPUBIND_STRICT | HWLOC_CPUBIND_NOMEMBIND)) {
+      if (hwloc_set_thread_cpubind(topology, thread.native_handle(), cpuset, HWLOC_CPUBIND_STRICT | HWLOC_CPUBIND_NOMEMBIND)) {
         char *str;
         int error = errno;
         hwloc_bitmap_asprintf(&str, obj->cpuset);
@@ -45,7 +45,8 @@ CentralPriorityScheduler::CentralPriorityScheduler(int threads) {
         fprintf(stderr, "Continuing as normal, however, no guarantees\n");
         //throw std::runtime_error(strerror(error));
       }
-      _worker_threads.push_back(thread);
+      hwloc_bitmap_free(cpuset);
+      _worker_threads.push_back(std::move(thread));
     }
   }
   _status = RUN;
@@ -66,13 +67,16 @@ void PriorityWorkerThread::operator()(){
       break;
 
     // lock queue to get task
-    std::unique_lock<std::mutex> ul(scheduler._queueMutex);
+    std::unique_lock<lock_t> ul(scheduler._queueMutex);
+    
     // get task and execute
     if (scheduler._runQueue.size() > 0) {
       std::shared_ptr<Task> task = scheduler._runQueue.top();
       // get first task
       scheduler._runQueue.pop();
+
       ul.unlock();
+      
       if (task) {
         (*task)();
         LOG4CXX_DEBUG(scheduler._logger, "Executed task " << task->vname() << "; hex " << std::hex << &task << std::dec);
@@ -104,13 +108,13 @@ void CentralPriorityScheduler::schedule(std::shared_ptr<Task> task){
   // lock the task - otherwise, a notify might happen prior to the task being added to the wait set
   task->lockForNotifications();
   if (task->isReady()){
-    std::lock_guard<std::mutex> lk(_queueMutex);
+    std::lock_guard<lock_t> lk(_queueMutex);
     _runQueue.push(task);
     _condition.notify_one();
   }
   else {
     task->addReadyObserver(this);
-    std::lock_guard<std::mutex> lk(_setMutex);
+    std::lock_guard<lock_t> lk(_setMutex);
     _waitSet.insert(task);
     LOG4CXX_DEBUG(_logger,  "Task " << std::hex << (void *)task.get() << std::dec << " inserted in wait queue");
   }
@@ -122,7 +126,7 @@ void CentralPriorityScheduler::schedule(std::shared_ptr<Task> task){
  */
 void CentralPriorityScheduler::shutdown(){
   {
-    std::lock_guard<std::mutex> lk(_queueMutex);
+    std::lock_guard<lock_t> lk(_queueMutex);
     {
       _status = TO_STOP;
     }
@@ -130,7 +134,7 @@ void CentralPriorityScheduler::shutdown(){
     _condition.notify_all();
   }
   for(size_t i = 0; i < _worker_threads.size(); i++){
-    _worker_threads[i]->join();
+    _worker_threads[i].join();
   }
   _worker_threads.clear();
 }
@@ -154,7 +158,7 @@ void CentralPriorityScheduler::notifyReady(std::shared_ptr<Task> task) {
   // if task was found in wait set, schedule task to next queue
   if (tmp == 1) {
     LOG4CXX_DEBUG(_logger, "Task " << std::hex << (void *)task.get() << std::dec << " ready to run");
-    std::lock_guard<std::mutex> lk(_queueMutex);
+    std::lock_guard<lock_t> lk(_queueMutex);
     _runQueue.push(task);
     _condition.notify_one();
   } else

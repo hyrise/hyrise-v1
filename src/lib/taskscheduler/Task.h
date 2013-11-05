@@ -10,10 +10,11 @@
 #define SRC_LIB_TASKSCHEDULER_TASK_H_
 
 #include <vector>
-#include <mutex>
 #include <memory>
 #include <condition_variable>
 #include <string>
+
+#include "helper/locking.h"
 
 class Task;
 
@@ -56,11 +57,11 @@ protected:
 
   int _dependencyWaitCount;
   // mutex for dependencyCount and dependency vector
-  std::mutex _depMutex;
+  hyrise::locking::Spinlock _depMutex;
   // mutex for observer vector
-  std::mutex _observerMutex;
+  hyrise::locking::Spinlock _observerMutex;
   // mutex to stop notifications, while task is being scheduled to wait set in SimpleTaskScheduler
-  std::mutex _notifyMutex;
+  hyrise::locking::Spinlock _notifyMutex;
   // indicates on which core the task should run
   int _preferredCore;
   // indicates on which node the task should run
@@ -199,8 +200,8 @@ class CompareTaskPtr {
 class WaitTask : public Task {
 private:
   bool _finished;
-  std::mutex _mut;
-  std::condition_variable _cond;
+  hyrise::locking::Spinlock _mut;
+  std::condition_variable_any _cond;
 public:
   WaitTask();
   virtual ~WaitTask() {};

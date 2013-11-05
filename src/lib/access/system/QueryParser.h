@@ -29,7 +29,7 @@ class QueryParserException : public std::runtime_error {
 };
 
 struct AbstractQueryParserFactory {
-  virtual std::shared_ptr<PlanOperation> parse(Json::Value& data) = 0;
+  virtual std::shared_ptr<PlanOperation> parse(const Json::Value& data) = 0;
 
   virtual ~AbstractQueryParserFactory() {}
 };
@@ -43,14 +43,14 @@ struct QueryParserFactory;
 template<typename T>
 struct QueryParserFactory<T, parse_construct> : public AbstractQueryParserFactory {
 
-  virtual std::shared_ptr<PlanOperation> parse(Json::Value& data) {
+  virtual std::shared_ptr<PlanOperation> parse(const Json::Value& data) {
     return T::parse(data);
   }
 };
 
 template<typename T>
 struct QueryParserFactory<T, default_construct> : public AbstractQueryParserFactory {
-  virtual std::shared_ptr<PlanOperation> parse(Json::Value& data) {
+  virtual std::shared_ptr<PlanOperation> parse(const Json::Value& data) {
     typedef ::BasicParser<T> parser_t;
     return parser_t::parse(data);
   }
@@ -124,7 +124,7 @@ class QueryParser {
       query's specifications and constructs their dependency graph. The task
       delivering the final result will be determined, too.   */
   std::vector<std::shared_ptr<Task> > deserialize(
-      Json::Value query,
+      const Json::Value& query,
       std::shared_ptr<Task> *result) const;
 };
 

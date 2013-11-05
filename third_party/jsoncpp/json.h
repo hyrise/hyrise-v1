@@ -1674,6 +1674,7 @@ namespace Json {
 # include <vector>
 # include <string>
 # include <iostream>
+# include <sstream>
 
 namespace Json {
 
@@ -1709,7 +1710,7 @@ namespace Json {
    private:
       void writeValue( const Value &value );
 
-      std::string document_;
+      std::ostringstream document_;
       bool yamlCompatiblityEnabled_;
    };
 

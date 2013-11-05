@@ -26,7 +26,7 @@ public:
   ///     },
   ///         "edges": [["0", "1"]]
   /// }
-  static std::shared_ptr<PlanOperation> parse(Json::Value &data);
+  static std::shared_ptr<PlanOperation> parse(const Json::Value &data);
   const std::string vname();
   void setKey(const std::string &key);
   const std::string getKey() const;

@@ -21,6 +21,8 @@
 #include <iostream>
 #include <log4cxx/logger.h>
 #include "helper/HwlocHelper.h"
+#include "helper/locking.h"
+
 
 class AbstractTaskScheduler {
   /*
@@ -35,6 +37,8 @@ class AbstractTaskScheduler {
     STOPPED = 3
   } scheduler_state;
   typedef int scheduler_status_t; 
+
+  typedef hyrise::locking::Spinlock lock_t;
 
   virtual ~AbstractTaskScheduler() {};
   /*

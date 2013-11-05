@@ -31,26 +31,19 @@ class AsyncConnection : public AbstractConnection {
   char *body;
   size_t body_len;
 
-  char *response;
-  size_t response_length;
-
   char *write_buffer;
   size_t write_buffer_len;
 
-  bool closed;
-
-  // HTPP Code used to send to the client
-  size_t code;
-
-  std::string contentType;
+  bool keep_alive_flag;
+  bool waiting_for_response = false;
 
   AsyncConnection();
   ~AsyncConnection();
-
+  void reset();
   virtual std::string getBody() const;
   virtual bool hasBody() const;
   virtual std::string getPath() const;
-  virtual void respond(const std::string &message, size_t status=200, const std::string& contentType="text/text");
+  virtual void respond(const std::string &message, size_t status=200, const std::string& contentType="application/json");
  private:
   virtual void send_response();
 };

@@ -55,7 +55,7 @@ void PosUpdateScan::executePlanOperation() {
     // First delete the old record
     bool deleteOk = store->markForDeletion(p, _txContext.tid) == hyrise::tx::TX_CODE::TX_OK;
     if(!deleteOk) {
-      txmgr.abort();
+      txmgr.rollbackTransaction(_txContext);
       throw std::runtime_error("Aborted TX because TID of other TX found");
     }
     modRecord.deletePos(store, p);
@@ -83,13 +83,13 @@ void PosUpdateScan::executePlanOperation() {
   addResult(c_store);
 }
 
-void PosUpdateScan::setRawData(Json::Value& d) {
+void PosUpdateScan::setRawData(const Json::Value& d) {
   for(const auto& m : d.getMemberNames()) {
       _raw_data[m] = Json::Value(d[m]);
     }
 }
 
-std::shared_ptr<PlanOperation> PosUpdateScan::parse(Json::Value &data) {
+std::shared_ptr<PlanOperation> PosUpdateScan::parse(const Json::Value &data) {
   auto result = std::make_shared<PosUpdateScan>();
 
   if (data.isMember("data")) {

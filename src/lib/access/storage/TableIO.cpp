@@ -32,7 +32,7 @@ void DumpTable::executePlanOperation() {
   // No Output here
 }
 
-std::shared_ptr<PlanOperation> DumpTable::parse(Json::Value& data) {
+std::shared_ptr<PlanOperation> DumpTable::parse(const Json::Value& data) {
   const auto& pop = std::make_shared<DumpTable>();
   pop->_name = data["name"].asString();
   return pop;
@@ -46,7 +46,7 @@ void LoadDumpedTable::executePlanOperation() {
   addResult(checked_pointer_cast<storage::Store>(t));
 }
 
-std::shared_ptr<PlanOperation> LoadDumpedTable::parse(Json::Value& data) {
+std::shared_ptr<PlanOperation> LoadDumpedTable::parse(const Json::Value& data) {
   const auto& pop = std::make_shared<LoadDumpedTable>();
   pop->_name = data["name"].asString();
   return pop;

@@ -54,8 +54,8 @@ log4cxx::LoggerPtr _logger(log4cxx::Logger::getLogger("hyrise.access"));
 log4cxx::LoggerPtr _query_logger(log4cxx::Logger::getLogger("hyrise.access.queries"));
 }
 
-std::string hash(const Json::Value &v) {
-  const std::string jsonData(v.toStyledString());
+std::string hash(const std::string &v) {
+  const std::string& jsonData = v;
 
   std::array<unsigned char, 20> hash;
   SHA1_CTX ctx;
@@ -71,9 +71,10 @@ void RequestParseTask::operator()() {
   AbstractTaskScheduler *scheduler = SharedScheduler::getInstance().getScheduler();
 
   performance_vector_t& performance_data = _responseTask->getPerformanceData();
-  // the performance attribute for this operation (at [0])
-  performance_data.push_back(std::unique_ptr<performance_attributes_t>(new performance_attributes_t));
 
+
+
+  bool recordPerformance = false;
   std::vector<std::shared_ptr<Task> > tasks;
 
   int priority = Task::DEFAULT_PRIORITY;
@@ -104,12 +105,20 @@ void RequestParseTask::operator()() {
     Json::Value request_data;
     Json::Reader reader;
 
-    if (ctx && reader.parse(urldecode(body_data["query"]), request_data)) {
+    const std::string& query_string = urldecode(body_data["query"]);
+
+    if (ctx && reader.parse(query_string, request_data)) {
       _responseTask->setTxContext(*ctx);
+      recordPerformance = request_data["performance"].asBool();
+
+      // the performance attribute for this operation (at [0])
+      if (recordPerformance) {
+        performance_data.push_back(std::unique_ptr<performance_attributes_t>(new performance_attributes_t));
+      }
 
       LOG4CXX_DEBUG(_query_logger, request_data);
 
-      std::string final_hash = hash(request_data);
+      const std::string& final_hash = hash(query_string);
       std::shared_ptr<Task> result = nullptr;
 
       if(request_data.isMember("priority"))
@@ -188,7 +197,12 @@ void RequestParseTask::operator()() {
 
   // high priority tasks are expected to be scheduled sequentially
   if(priority == Task::HIGH_PRIORITY){
-    *(performance_data.at(0)) = { 0, 0, "NO_PAPI", "RequestParseTask", "requestParse", _queryStart, get_epoch_nanoseconds(), boost::lexical_cast<std::string>(std::this_thread::get_id()) };
+    if (recordPerformance) {
+      *(performance_data.at(0)) = { 0, 0, "NO_PAPI", "RequestParseTask", 
+                                    "requestParse", _queryStart, get_epoch_nanoseconds(), 
+                                    boost::lexical_cast<std::string>(std::this_thread::get_id()) };
+    }
+
     int number_of_tasks = tasks.size();
     std::vector<bool> isExecuted(number_of_tasks, false);
     int executedTasks = 0;
@@ -207,10 +221,15 @@ void RequestParseTask::operator()() {
     _responseTask.reset();  // yield responsibility
 
   } else {
-    scheduler->scheduleQuery(tasks);
-    *(performance_data.at(0)) = { 0, 0, "NO_PAPI", "RequestParseTask", "requestParse", _queryStart, get_epoch_nanoseconds(), boost::lexical_cast<std::string>(std::this_thread::get_id()) };
-    _responseTask->setQueryStart(_queryStart);
     scheduler->schedule(_responseTask);
+    scheduler->scheduleQuery(tasks);
+
+    if (recordPerformance) {
+      *(performance_data.at(0)) = { 0, 0, "NO_PAPI", "RequestParseTask", "requestParse", 
+                                    _queryStart, get_epoch_nanoseconds(), 
+                                    boost::lexical_cast<std::string>(std::this_thread::get_id()) };
+    }
+    _responseTask->setQueryStart(_queryStart);
     _responseTask.reset();  // yield responsibility
   }
 }
