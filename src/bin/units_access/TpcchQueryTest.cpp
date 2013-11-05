@@ -11,7 +11,7 @@ class TpcchQueryTest : public AccessTest {};
 TEST_F(TpcchQueryTest, analyt_query1) {
   StorageManager * sm = StorageManager::getInstance();
 
-  sm->loadTableFileWithHeader("order_line", "tpcc/order_line.tbl", "tpcc/order_line_header.tbl");
+  sm->loadTableFileWithHeader("order_line", "tpcc/order_line.csv", "tpcc/order_line_header.tbl");
   sm->loadTableFile("expectedTable", "tpcch/query1_result.tbl");
 
   std::string query = loadFromFile("test/tpcch/query1.json");
