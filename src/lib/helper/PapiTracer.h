@@ -19,6 +19,8 @@ class TracingError : public std::runtime_error {
 };
 
 #ifdef USE_PAPI_TRACE
+#include <mutex>
+
 #include "helper/locking.h"
 
 #include "papi.h"
@@ -62,7 +64,7 @@ class PapiTracer {
 
   static void initialize() {
     static bool initialized = false;
-    static hyrise::locking::SpinLock init_mtx;
+    static hyrise::locking::Spinlock init_mtx;
 
     std::lock_guard<decltype(init_mtx)> guard(init_mtx);
     if (!initialized) {
@@ -73,7 +75,7 @@ class PapiTracer {
   }
 
  public:
-  inline PapiTracer() : _eventSet(PAPI_nullptr), _disabled(false), _running(false) {
+  inline PapiTracer() : _eventSet(PAPI_NULL), _disabled(false), _running(false) {
     PapiTracer::initialize();
   }
 

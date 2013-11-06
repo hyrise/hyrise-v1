@@ -10,7 +10,6 @@
 #include "io/TransactionManager.h"
 #include <io/CSVLoader.h>
 #include "io/shortcuts.h"
-
 //JoinScan Benchmark similar to TPC-C Implementation of Stock-Level Transaction
 //See TPC-C Reference Chapter A.5
 
@@ -32,11 +31,11 @@ class InsertScanBase : public ::testing::Benchmark {
     EmptyInput input;
     CSVHeader header("test/test10k_12.tbl");
     t = Loader::load(Loader::params().setInput(input).setHeader(header));
-
+    is.setEvent("NO_PAPI");
     is.setTXContext(ctx);
     is.addInput(t);
     is.setInputData(data);
-
+    c.setEvent("NO_PAPI");
     c.setTXContext(ctx);
     c.addInput(t);
   }
