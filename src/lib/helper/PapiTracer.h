@@ -73,7 +73,7 @@ class PapiTracer {
   }
 
  public:
-  inline PapiTracer() : _eventSet(PAPI_NULL), _disabled(false), _running(false) {
+  inline PapiTracer() : _eventSet(PAPI_nullptr), _disabled(false), _running(false) {
     PapiTracer::initialize();
   }
 

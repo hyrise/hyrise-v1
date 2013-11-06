@@ -106,7 +106,7 @@ void genericParse(
     // 1GB Buffer
     size_t block_size;
     if (getenv("HYRISE_LOAD_BLOCK_SIZE"))
-      block_size = strtoul(getenv("HYRISE_LOAD_BLOCK_SIZE"), NULL, 0);
+      block_size = strtoul(getenv("HYRISE_LOAD_BLOCK_SIZE"), nullptr, 0);
     else
       block_size = 1024 * 1024;
 

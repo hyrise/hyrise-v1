@@ -57,12 +57,12 @@ public:
   }
 
   bool isInitialized(){
-    return (_sharedScheduler != NULL);
+    return (_sharedScheduler != nullptr);
   }
 
   void init(const std::string &scheduler, int cores = getNumberOfCoresOnSystem()){
 
-    if(_sharedScheduler != NULL)
+    if(_sharedScheduler != nullptr)
       throw SchedulerException("Scheduler has already been initialized");
     if(_schedulers.find(scheduler) != _schedulers.end()){
       _sharedScheduler = _schedulers[scheduler]->create(cores);
@@ -74,7 +74,7 @@ public:
    * stops current scheduler gracefully; starts new scheduler
    */
   void resetScheduler(const std::string &scheduler, int cores = getNumberOfCoresOnSystem()){
-    if(_sharedScheduler != NULL) {
+    if(_sharedScheduler != nullptr) {
       _sharedScheduler->shutdown();
       delete _sharedScheduler;
     }

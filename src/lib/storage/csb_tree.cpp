@@ -372,7 +372,7 @@ void CSBTree::insert(CSBTree::key_type k, CSBTree::value_type v) {
   DEBUG_MSG(k);
 
   // Check if the key already exists
-  if (root != nullptr && find(k) != NULL) {
+  if (root != nullptr && find(k) != nullptr) {
     return;
   }
 

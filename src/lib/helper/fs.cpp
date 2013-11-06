@@ -12,7 +12,7 @@ std::string sys_getcwd()
     const int maxChunks=10240; // 2550 KiBs of current path are more than enough
 
     char stackBuffer[chunkSize]; // Stack buffer for the "normal" case
-    if(getcwd(stackBuffer,sizeof(stackBuffer))!=NULL)
+    if(getcwd(stackBuffer,sizeof(stackBuffer))!=nullptr)
         return stackBuffer;
     if(errno!=ERANGE)
     {
@@ -26,7 +26,7 @@ std::string sys_getcwd()
         // With boost use scoped_ptr; in C++0x, use unique_ptr
         // If you want to be less C++ but more efficient you may want to use realloc
         std::unique_ptr<char> cwd(new char[chunkSize*chunks]); 
-        if(getcwd(cwd.get(),chunkSize*chunks)!=NULL)
+        if(getcwd(cwd.get(),chunkSize*chunks)!=nullptr)
             return cwd.get();
         if(errno!=ERANGE)
         {
