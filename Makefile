@@ -9,6 +9,7 @@ include $(PROJECT_ROOT)/src/bin/units_taskscheduler/Makefile
 include $(PROJECT_ROOT)/src/bin/units_access/Makefile
 include $(PROJECT_ROOT)/src/bin/hyrise/Makefile
 include $(PROJECT_ROOT)/src/bin/hyrise-thrift/Makefile
+include $(PROJECT_ROOT)/src/bin/hyrise-standalone/Makefile
 include $(PROJECT_ROOT)/src/bin/perf_regression/Makefile
 include $(PROJECT_ROOT)/tools/Makefile
 

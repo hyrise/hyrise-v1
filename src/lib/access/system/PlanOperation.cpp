@@ -134,7 +134,12 @@ void PlanOperation::operator()() noexcept {
 }
 
 const PlanOperation * PlanOperation::execute() {
-  epoch_t startTime = get_epoch_nanoseconds();
+  const bool recordPerformance = _performance_attr != nullptr;
+
+  // Check if we really need this
+  epoch_t startTime;
+  if (recordPerformance)
+    startTime = get_epoch_nanoseconds();
 
   refreshInput();
 
@@ -144,19 +149,20 @@ const PlanOperation * PlanOperation::execute() {
   pt.addEvent("PAPI_TOT_CYC");
   pt.addEvent(getEvent());
 
-  pt.start();
+  if (recordPerformance) pt.start();
   executePlanOperation();
-  pt.stop();
+  if (recordPerformance) pt.stop();
 
   teardownPlanOperation();
 
-  epoch_t endTime = get_epoch_nanoseconds();
-  std::string threadId = boost::lexical_cast<std::string>(std::this_thread::get_id());
+  if (recordPerformance) {
 
-  if (_performance_attr != nullptr)
+    epoch_t endTime = get_epoch_nanoseconds();
+    std::string threadId = boost::lexical_cast<std::string>(std::this_thread::get_id());
     *_performance_attr = (performance_attributes_t) {
       pt.value("PAPI_TOT_CYC"), pt.value(getEvent()), getEvent() , planOperationName(), _operatorId, startTime, endTime, threadId
     };
+  }
 
   setState(OpSuccess);
   return this;
