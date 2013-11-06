@@ -18,7 +18,7 @@ class CompoundExpression : public SimpleExpression {
   bool one_leg;
 
   explicit CompoundExpression(ExpressionType t):
-      type(t), lhs(nullptr), rhs(NULL), one_leg(t == NOT)
+      type(t), lhs(nullptr), rhs(nullptr), one_leg(t == NOT)
   {}
 
   CompoundExpression(SimpleExpression *_lhs, SimpleExpression *_rhs, ExpressionType _type) :
@@ -68,7 +68,7 @@ class CompoundExpression : public SimpleExpression {
   }
 
   inline bool isSetup() {
-    return ((one_leg) && (lhs != nullptr)) || ((rhs != NULL) && (lhs != NULL));
+    return ((one_leg) && (lhs != nullptr)) || ((rhs != nullptr) && (lhs != nullptr));
   }
 };
 

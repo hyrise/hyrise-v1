@@ -7,14 +7,14 @@
 
 #include "WSCoreBoundPriorityQueue.h"
 
-WSCoreBoundPriorityQueue::WSCoreBoundPriorityQueue(int core, WSCoreBoundPriorityQueuesScheduler *scheduler): AbstractCoreBoundQueue(), _allQueues(NULL) {
+WSCoreBoundPriorityQueue::WSCoreBoundPriorityQueue(int core, WSCoreBoundPriorityQueuesScheduler *scheduler): AbstractCoreBoundQueue(), _allQueues(nullptr) {
   _core = core;
   _scheduler = scheduler;
   launchThread(_core);
 }
 
 WSCoreBoundPriorityQueue::~WSCoreBoundPriorityQueue() {
-  if (_thread != NULL) stopQueue();
+  if (_thread != nullptr) stopQueue();
 }
 
 void WSCoreBoundPriorityQueue::executeTask() {
@@ -58,15 +58,15 @@ void WSCoreBoundPriorityQueue::executeTask() {
 }
 
 std::shared_ptr<Task> WSCoreBoundPriorityQueue::stealTasks() {
-  std::shared_ptr<Task> task = NULL;
-  if (_allQueues != NULL) {
+  std::shared_ptr<Task> task = nullptr;
+  if (_allQueues != nullptr) {
     int number_of_queues = _allQueues->size();
     if(number_of_queues > 1){
       // steal from the next queue (we only check number_of_queues -1, as we do not have to check the queue taht wants to steal)
       for (int i = 1; i < number_of_queues; i++) {
         // we steal relative from the current queue to distribute stealing over queues
         task = static_cast<WSCoreBoundPriorityQueue *>(_allQueues->at((i + _core) % number_of_queues))->stealTask();
-        if (task != NULL) {
+        if (task != nullptr) {
           //push(task);
           //std::cout << "Queue " << _core << " stole Task " <<  task->vname() << "; hex " << std::hex << &task << std::dec << " from queue " << i << std::endl;
           break;
@@ -78,7 +78,7 @@ std::shared_ptr<Task> WSCoreBoundPriorityQueue::stealTasks() {
 }
 
 std::shared_ptr<Task> WSCoreBoundPriorityQueue::stealTask() {
-  std::shared_ptr<Task> task = NULL;
+  std::shared_ptr<Task> task = nullptr;
   // first check if status of thread is still ok;
   // dont steal tasks if thread is about to stop
   if (_status == RUN && _runQueue.size() >= 1) {
@@ -109,7 +109,7 @@ std::vector<std::shared_ptr<Task> > WSCoreBoundPriorityQueue::stopQueue() {
     }
     _thread->join();
     delete _thread;
-    _thread = NULL;
+    _thread = nullptr;
     _status = STOPPED;
   }
   return emptyQueue();

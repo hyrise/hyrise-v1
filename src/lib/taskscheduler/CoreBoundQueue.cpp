@@ -92,8 +92,8 @@ std::vector<std::shared_ptr<Task> > CoreBoundQueue::stopQueue() {
     }
     _thread->join();
     delete _thread;
-    //just to make sure it points to NULL
-    _thread = NULL;
+    //just to make sure it points to nullptr
+    _thread = nullptr;
 
     _status = STOPPED;
 
@@ -116,5 +116,5 @@ std::vector<std::shared_ptr<Task> > CoreBoundQueue::emptyQueue() {
 }
 
 CoreBoundQueue::~CoreBoundQueue() {
-  if (_thread != NULL) stopQueue();
+  if (_thread != nullptr) stopQueue();
 }
