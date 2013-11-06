@@ -24,7 +24,7 @@ PointerCalculator::PointerCalculator(hyrise::storage::c_atable_ptr_t t, pos_list
   // PointerCalculator instance, combine the old and new
   // pos_list/fields lists
   if (auto p = std::dynamic_pointer_cast<const PointerCalculator>(t)) {
-    if (pos_list != nullptr && p->pos_list != NULL) {
+    if (pos_list != nullptr && p->pos_list != nullptr) {
       pos_list = new pos_list_t(pos->size());
       for (size_t i = 0; i < pos->size(); i++) {
         (*pos_list)[i] = p->pos_list->at(pos->at(i));
@@ -32,7 +32,7 @@ PointerCalculator::PointerCalculator(hyrise::storage::c_atable_ptr_t t, pos_list
       table = p->table;
       delete pos;
     }
-    if (fields != nullptr && p->fields != NULL) {
+    if (fields != nullptr && p->fields != nullptr) {
       fields = new field_list_t(f->size());
       for (size_t i = 0; i < f->size(); i++) {
         (*fields)[i] = p->fields->at(f->at(i));

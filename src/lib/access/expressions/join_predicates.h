@@ -42,7 +42,7 @@ class CompoundJoinExpression : public JoinExpression {
 
   CompoundJoinExpression(JoinExpression *_lhs, JoinExpression *_rhs, ExpressionType _type) : type(_type), lhs(_lhs), rhs(_rhs) { }
 
-  explicit CompoundJoinExpression(ExpressionType t): type(t), lhs(nullptr), rhs(NULL)
+  explicit CompoundJoinExpression(ExpressionType t): type(t), lhs(nullptr), rhs(nullptr)
   {}
 
   virtual void walk(const std::vector<hyrise::storage::c_atable_ptr_t > &i) {

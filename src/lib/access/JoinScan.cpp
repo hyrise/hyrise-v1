@@ -103,7 +103,7 @@ void JoinScan::addJoinExpression(JoinExpression *expression) {
     if (top->rhs == nullptr) top->rhs = expression;
     else if (top->lhs == nullptr) top->lhs = expression;
     else throw std::runtime_error("Invalid expression");
-    if (top->rhs != nullptr && top->lhs != NULL) _compound_stack.pop();
+    if (top->rhs != nullptr && top->lhs != nullptr) _compound_stack.pop();
   }
 }
 

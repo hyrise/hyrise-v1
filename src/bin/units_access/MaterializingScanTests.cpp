@@ -12,7 +12,7 @@ class MaterializingScanTests : public AccessTest {};
 
 TEST_F(MaterializingScanTests, basic_materializing_scan_test) {
   auto t = Loader::shortcuts::load("test/lin_xxs.tbl");
-  auto no_p = (PointerCalculator*) NULL;
+  auto no_p = (PointerCalculator*) nullptr;
 
   ProjectionScan ps;
   ps.addInput(t);

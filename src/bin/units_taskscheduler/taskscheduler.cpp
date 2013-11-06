@@ -56,7 +56,7 @@ TEST_P(SchedulerTest, setScheduler) {
   SharedScheduler::getInstance().resetScheduler("CoreBoundQueuesScheduler");
   AbstractTaskScheduler * scheduler = SharedScheduler::getInstance().getScheduler();
   CoreBoundQueuesScheduler * simple_task_scheduler = dynamic_cast<CoreBoundQueuesScheduler *>(scheduler);
-  bool test = (simple_task_scheduler == NULL);
+  bool test = (simple_task_scheduler == nullptr);
   ASSERT_EQ(test, false);
 
   SharedScheduler::getInstance().resetScheduler(scheduler_name, getNumberOfCoresOnSystem());
@@ -74,7 +74,7 @@ TEST_P(SchedulerTest, wait_task_test) {
 long int getTimeInMillis() {
   /* Linux */
   struct timeval tv;
-  gettimeofday(&tv, NULL);
+  gettimeofday(&tv, nullptr);
   long int ret = tv.tv_usec;
   /* Convert from micro seconds (10^-6) to milliseconds (10^-3) */
   ret /= 1000;
