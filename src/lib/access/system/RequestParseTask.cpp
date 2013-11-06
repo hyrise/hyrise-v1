@@ -71,9 +71,6 @@ void RequestParseTask::operator()() {
   AbstractTaskScheduler *scheduler = SharedScheduler::getInstance().getScheduler();
 
   performance_vector_t& performance_data = _responseTask->getPerformanceData();
-
-
-
   bool recordPerformance = false;
   std::vector<std::shared_ptr<Task> > tasks;
 
