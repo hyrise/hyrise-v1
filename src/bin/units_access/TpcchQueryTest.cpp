@@ -10,13 +10,11 @@ namespace access {
 class TpcchQueryTest : public AccessTest {};
 TEST_F(TpcchQueryTest, analyt_query1) {
   StorageManager * sm = StorageManager::getInstance();
-
-  sm->loadTableFileWithHeader("order_line", "tpcc/order_line.csv", "tpcc/order_line_header.tbl");
   sm->loadTableFile("expectedTable", "tpcch/query1_result.tbl");
 
-  std::string query = loadFromFile("test/tpcch/query1.json");
+  executeAndWait(loadFromFile("test/tpcc/load_tpcc_tables.json"));
 
-  const auto& out = executeAndWait(query);
+  const auto& out = executeAndWait(loadFromFile("test/tpcch/query1.json"));
 
   ASSERT_TRUE(out != nullptr);
 
