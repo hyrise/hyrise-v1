@@ -45,7 +45,7 @@ void testing::Benchmark::logValue(const std::string& key,
 
 void testing::Benchmark::TestBody()
 {
-  std::map<std::string, values_t> counters { {"PAPI_TOT_INS", {} }, /*{PapiEvent(), {}},*/ {"PAPI_L1_DCM", {}} };    
+  std::map<std::string, values_t> counters { {"PAPI_TOT_CYC", {} }, {PapiEvent(), {}} };
   for(int i=0; i < NumIterations() + WarmUp(); ++i) {
       BenchmarkSetUp();
 
