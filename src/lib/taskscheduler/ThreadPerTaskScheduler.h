@@ -27,7 +27,10 @@ public:
   };
 };
 
-class ThreadPerTaskScheduler : public AbstractTaskScheduler, public TaskReadyObserver {
+class ThreadPerTaskScheduler : 
+  public AbstractTaskScheduler,
+  public TaskReadyObserver,
+  public std::enable_shared_from_this<TaskReadyObserver> {
   typedef std::unordered_set<std::shared_ptr<Task> > waiting_tasks_t;
     // set for tasks with open dependencies
     waiting_tasks_t _waitSet;

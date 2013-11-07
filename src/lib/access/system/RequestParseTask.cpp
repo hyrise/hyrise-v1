@@ -68,7 +68,7 @@ std::string hash(const std::string &v) {
 
 void RequestParseTask::operator()() {
   assert((_responseTask != nullptr) && "Response needs to be set");
-  AbstractTaskScheduler *scheduler = SharedScheduler::getInstance().getScheduler();
+  const auto& scheduler = SharedScheduler::getInstance().getScheduler();
 
   performance_vector_t& performance_data = _responseTask->getPerformanceData();
 
