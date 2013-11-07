@@ -139,7 +139,7 @@ public:
       }
 
       // Append autocommit commit operation
-      if (false) {
+      if (true) {
         auto commit = std::make_shared<hyrise::access::Commit>();
         commit->setOperatorId("__autocommit");
         commit->setPlanOperationName("Commit");
