@@ -7,14 +7,14 @@
 
 #include "WSCoreBoundPriorityQueue.h"
 
-WSCoreBoundPriorityQueue::WSCoreBoundPriorityQueue(int core, WSCoreBoundPriorityQueuesScheduler *scheduler): AbstractCoreBoundQueue(), _allQueues(NULL) {
+WSCoreBoundPriorityQueue::WSCoreBoundPriorityQueue(int core, WSCoreBoundPriorityQueuesScheduler *scheduler): AbstractCoreBoundQueue(), _allQueues(nullptr) {
   _core = core;
   _scheduler = scheduler;
   launchThread(_core);
 }
 
 WSCoreBoundPriorityQueue::~WSCoreBoundPriorityQueue() {
-  if (_thread != NULL) stopQueue();
+  if (_thread != nullptr) stopQueue();
 }
 
 void WSCoreBoundPriorityQueue::executeTask() {
@@ -32,13 +32,13 @@ void WSCoreBoundPriorityQueue::executeTask() {
       task = stealTasks();
       if (!task){
         //if queue still empty go to sleep and wait until new tasks have been arrived
-        std::unique_lock<std::mutex> ul(_queueMutex);
+        std::unique_lock<lock_t> ul(_queueMutex);
         if (_runQueue.size() < 1) {
           {
             // if thread is about to stop, break execution loop
             if(_status != RUN)
               break;
-            _condition.wait(ul);
+            _condition.wait(ul);            
           }
         }
       }
@@ -58,15 +58,15 @@ void WSCoreBoundPriorityQueue::executeTask() {
 }
 
 std::shared_ptr<Task> WSCoreBoundPriorityQueue::stealTasks() {
-  std::shared_ptr<Task> task = NULL;
-  if (_allQueues != NULL) {
+  std::shared_ptr<Task> task = nullptr;
+  if (_allQueues != nullptr) {
     int number_of_queues = _allQueues->size();
     if(number_of_queues > 1){
       // steal from the next queue (we only check number_of_queues -1, as we do not have to check the queue taht wants to steal)
       for (int i = 1; i < number_of_queues; i++) {
         // we steal relative from the current queue to distribute stealing over queues
         task = static_cast<WSCoreBoundPriorityQueue *>(_allQueues->at((i + _core) % number_of_queues))->stealTask();
-        if (task != NULL) {
+        if (task != nullptr) {
           //push(task);
           //std::cout << "Queue " << _core << " stole Task " <<  task->vname() << "; hex " << std::hex << &task << std::dec << " from queue " << i << std::endl;
           break;
@@ -78,7 +78,7 @@ std::shared_ptr<Task> WSCoreBoundPriorityQueue::stealTasks() {
 }
 
 std::shared_ptr<Task> WSCoreBoundPriorityQueue::stealTask() {
-  std::shared_ptr<Task> task = NULL;
+  std::shared_ptr<Task> task = nullptr;
   // first check if status of thread is still ok;
   // dont steal tasks if thread is about to stop
   if (_status == RUN && _runQueue.size() >= 1) {
@@ -91,7 +91,7 @@ std::shared_ptr<Task> WSCoreBoundPriorityQueue::stealTask() {
 
 void WSCoreBoundPriorityQueue::push(std::shared_ptr<Task> task) {
   // mutex is bad! but apparently we need it, otherwise, threads do not know whether they can sleep, cause runqueue.size may be incorrect if not synced
-  std::lock_guard<std::mutex> lk(_queueMutex);
+  std::lock_guard<lock_t> lk(_queueMutex);
   _runQueue.push(task);
   _condition.notify_one();
 }
@@ -102,14 +102,14 @@ std::vector<std::shared_ptr<Task> > WSCoreBoundPriorityQueue::stopQueue() {
     // set status to "TO_STOP" so that the thread either quits after executing the task, or after having been notified by the condition variable
     // we need the mutex here, otherwise, we might call notify prior to the thread going to sleep
     {
-      std::lock_guard<std::mutex> lk(_queueMutex);
+      std::lock_guard<lock_t> lk(_queueMutex);
       _status = TO_STOP;
       //wake up thread in case thread is sleeping
       _condition.notify_one();
     }
     _thread->join();
     delete _thread;
-    _thread = NULL;
+    _thread = nullptr;
     _status = STOPPED;
   }
   return emptyQueue();
@@ -118,7 +118,7 @@ std::vector<std::shared_ptr<Task> > WSCoreBoundPriorityQueue::stopQueue() {
 std::vector<std::shared_ptr<Task> > WSCoreBoundPriorityQueue::emptyQueue() {
   std::vector<std::shared_ptr<Task> > tmp;
   std::shared_ptr<Task> task;
-  std::lock_guard<std::mutex> lk(_queueMutex);
+  std::lock_guard<lock_t> lk(_queueMutex);
   while(!_runQueue.empty())
     _runQueue.try_pop(task);
     tmp.push_back(task);

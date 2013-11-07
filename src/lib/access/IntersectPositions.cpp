@@ -8,7 +8,7 @@ namespace access {
 
 namespace { auto _ = QueryParser::registerPlanOperation<IntersectPositions>("IntersectPositions"); }
 
-std::shared_ptr<PlanOperation> IntersectPositions::parse(Json::Value&) {
+std::shared_ptr<PlanOperation> IntersectPositions::parse(const Json::Value&) {
   return std::make_shared<IntersectPositions>();
 }
 

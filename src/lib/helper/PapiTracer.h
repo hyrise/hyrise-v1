@@ -21,6 +21,8 @@ class TracingError : public std::runtime_error {
 #ifdef USE_PAPI_TRACE
 #include <mutex>
 
+#include "helper/locking.h"
+
 #include "papi.h"
 /// Tracing wrapper for PAPI
 ///
@@ -62,9 +64,9 @@ class PapiTracer {
 
   static void initialize() {
     static bool initialized = false;
-    static std::mutex init_mtx;
+    static hyrise::locking::Spinlock init_mtx;
 
-    std::lock_guard<std::mutex> guard(init_mtx);
+    std::lock_guard<decltype(init_mtx)> guard(init_mtx);
     if (!initialized) {
       if (PAPI_library_init(PAPI_VER_CURRENT) != PAPI_VER_CURRENT)
         throw TracingError("PAPI could not be initialized");

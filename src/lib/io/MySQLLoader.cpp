@@ -96,71 +96,70 @@ std::map<std::string, std::pair<hyrise::types::type_t, conversion_func> > transl
     ("datetime", make_pair(hyrise::types::string_t, var_to_string));
 
 std::shared_ptr<AbstractTable> MySQLInput::load(
-  std::shared_ptr<AbstractTable> intable,
-  const compound_metadata_list *meta,
-  const Loader::params &args) {
+    std::shared_ptr<AbstractTable> intable,
+    const compound_metadata_list *meta,
+    const Loader::params &args) {
 
 
   /** Initialize the MySQL connection with the parameters given to the
    * loader, in the second step we will then extract the meta data
    * from the table and load the table with the correct size
    */
-  MYSQL *conn = mysql_init(NULL);
+  std::unique_ptr<MYSQL, void (*)(MYSQL *)> conn_ptr(mysql_init(NULL), &mysql_close);
+  MYSQL* conn = conn_ptr.get();
   if (!mysql_real_connect(conn, _parameters.getHost().c_str(),
                           _parameters.getUser().c_str(),
                           _parameters.getPassword().c_str(), "information_schema", 0, NULL, 0)) {
     throw std::runtime_error(std::string("mysql connection failed "));
   }
 
-  std::string q1 = ("SELECT COLUMN_NAME, DATA_TYPE FROM COLUMNS WHERE TABLE_NAME='" + _parameters.getTable() + "' AND TABLE_SCHEMA='" + _parameters.getSchema() + "'");
-  mysql_query(conn, q1.c_str());
-  MYSQL_RES *res = mysql_use_result(conn);
-  MYSQL_ROW row;
-
-
-  // Build the table
   hyrise::storage::TableBuilder::param_list list;
   std::vector<std::string> typeList;
-  while ((row = mysql_fetch_row(res)) != NULL) {
-    typeList.push_back(std::string(row[1]));
-    list.append().set_type(translations[typeList.back()].first).set_name(std::string(row[0]));
-  }
-  mysql_free_result(res);
-  auto t = hyrise::storage::TableBuilder::build(list, args.getCompressed());
-
-
-  mysql_query(conn, ("USE " + _parameters.getSchema()).c_str());
-
-  uint64_t totalSize;
-  mysql_query(conn, ("SELECT count(*) as count FROM " + _parameters.getTable()).c_str());
-  res = mysql_use_result(conn);
-  row = mysql_fetch_row(res);
-  totalSize = atol(row[0]);
-  mysql_free_result(res);
-
-  totalSize = _parameters.getLimit() == 0 || totalSize < _parameters.getLimit() ? totalSize : _parameters.getLimit();
-
-  t->resize(totalSize);
-  mysql_query(conn, ("SELECT * FROM " + _parameters.getTable() + " LIMIT " + std::to_string(totalSize)).c_str());
-
-
-  /** Iterate over all rows. It is important that we use
-   * mysql_use_con() here so that we don't store the complete result
-   * in HYRISE but rather do it recordwise.
-   */
-  res = mysql_use_result(conn);
-  size_t rownum = 0;
-  size_t column = 0;
-  while ((row = mysql_fetch_row(res)) != NULL) {
-    for (size_t i = 0; i < typeList.size(); ++i) {
-      translations[typeList[i]].second(&row, column, rownum, t.get());
-      ++column;
+  {
+    std::string q1 = ("SELECT COLUMN_NAME, DATA_TYPE FROM COLUMNS WHERE TABLE_NAME='" + _parameters.getTable() + "' AND TABLE_SCHEMA='" + _parameters.getSchema() + "'");
+    mysql_query(conn, q1.c_str());
+    std::unique_ptr<MYSQL_RES, void(*)(MYSQL_RES *)> res (mysql_use_result(conn), &mysql_free_result);
+    MYSQL_ROW row;
+    // Build the table
+    while ((row = mysql_fetch_row(res.get())) != NULL) {
+      typeList.push_back(std::string(row[1]));
+      list.append().set_type(translations[typeList.back()].first).set_name(std::string(row[0]));
     }
-    column = 0;
-    ++rownum;
   }
-  mysql_free_result(res);
-  mysql_close(conn);
+
+  auto t = hyrise::storage::TableBuilder::build(list, args.getCompressed());
+  uint64_t totalSize;
+  {
+    mysql_query(conn, ("USE " + _parameters.getSchema()).c_str());
+    {
+      mysql_query(conn, ("SELECT count(*) as count FROM " + _parameters.getTable()).c_str());
+      std::unique_ptr<MYSQL_RES, void(*)(MYSQL_RES *)> res (mysql_use_result(conn), &mysql_free_result);
+      MYSQL_ROW row = mysql_fetch_row(res.get());
+      totalSize = atol(row[0]);
+    }
+    totalSize = _parameters.getLimit() == 0 || totalSize < _parameters.getLimit() ? totalSize : _parameters.getLimit();
+    t->resize(totalSize);
+    {
+      mysql_query(conn, ("SELECT * FROM " + _parameters.getTable() + " LIMIT " + std::to_string(totalSize)).c_str());
+
+      /** Iterate over all rows. It is important that we use
+       * mysql_use_con() here so that we don't store the complete result
+       * in HYRISE but rather do it recordwise.
+       */
+      std::unique_ptr<MYSQL_RES, void(*)(MYSQL_RES *)> res (mysql_use_result(conn), &mysql_free_result);
+      size_t rownum = 0;
+      size_t column = 0;
+      MYSQL_ROW row;
+      while ((row = mysql_fetch_row(res.get())) != NULL) {
+        for (size_t i = 0; i < typeList.size(); ++i) {
+          translations[typeList[i]].second(&row, column, rownum, t.get());
+          ++column;
+        }
+        column = 0;
+        ++rownum;
+      }
+    }
+  }
   return t;
 }
 

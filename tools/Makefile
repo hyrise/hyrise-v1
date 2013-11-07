@@ -8,4 +8,4 @@ include $(PROJECT_ROOT)/src/bin/hyrise/Makefile
 python_test: $(hyr-server.binary)
 	python $(tools)/test_server.py $<
 
-test: python_test
+test-tgts += python_test

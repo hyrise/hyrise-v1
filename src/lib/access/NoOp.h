@@ -7,21 +7,11 @@
 namespace hyrise {
 namespace access {
 
-// used to test protected methods
-class ParallelExecutionTest_data_distribution_Test;
-
 class NoOp : public PlanOperation {
-  friend class ParallelExecutionTest_data_distribution_Test;
-
 public:
-  virtual ~NoOp();
-
   void executePlanOperation();
-  static std::shared_ptr<PlanOperation> parse(Json::Value &data);
-  const std::string vname();
 };
 
-}
-}
+}}
 
 #endif  // SRC_LIB_ACCESS_NOOP_H_

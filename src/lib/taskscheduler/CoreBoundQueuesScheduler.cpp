@@ -20,7 +20,7 @@ CoreBoundQueuesScheduler::CoreBoundQueuesScheduler(const int queues): AbstractCo
   _status = START_UP;
   // set _queues to queues after new queues have been created to new tasks to be assigned to new queues
   // lock _queue mutex as queues are manipulated
-  std::lock_guard<std::mutex> lk(_queuesMutex);
+  std::lock_guard<lock_t> lk(_queuesMutex);
   if (queues <= getNumberOfCoresOnSystem()) {
     for (int i = 0; i < queues; ++i) {
       _taskQueues.push_back(createTaskQueue(i));
@@ -37,7 +37,7 @@ CoreBoundQueuesScheduler::CoreBoundQueuesScheduler(const int queues): AbstractCo
 }
 
 CoreBoundQueuesScheduler::~CoreBoundQueuesScheduler() {
-  std::lock_guard<std::mutex> lk2(this->_queuesMutex);
+  std::lock_guard<lock_t> lk2(this->_queuesMutex);
   task_queue_t *queue;
   for (unsigned i = 0; i < this->_taskQueues.size(); ++i) {
     queue =   this->_taskQueues[i];
@@ -67,7 +67,7 @@ void CoreBoundQueuesScheduler::pushToQueue(std::shared_ptr<Task> task)
 
     // lock queuesMutex to sync pushing to queue and incrementing next queue
     {
-      std::lock_guard<std::mutex> lk2(this->_queuesMutex);
+      std::lock_guard<lock_t> lk2(this->_queuesMutex);
       // simple strategy to avoid blocking of queues; check if queue is blocked - try a couple of times, otherwise schedule on next queue
       size_t retries = 0;
       while (static_cast<CoreBoundQueue *>(this->_taskQueues[this->_nextQueue])->blocked() && retries < 100) {

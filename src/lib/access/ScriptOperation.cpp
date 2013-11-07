@@ -85,7 +85,7 @@ v8::Handle<v8::Value> LogMessage(const v8::Arguments& args) {
 // @param suffix The suffix of the file, that defaults to ".j"
 std::string readScript(const std::string &name, const std::string &suffix = ".js") {
   FILE* file = fopen((Settings::getInstance()->getScriptPath() + "/" + name + suffix).c_str(), "rb");
-  if (file == NULL) throw std::runtime_error("Could not find file " + name);
+  if (file == nullptr) throw std::runtime_error("Could not find file " + name);
 
   fseek(file, 0, SEEK_END);
   int size = ftell(file);
@@ -715,7 +715,7 @@ void ScriptOperation::executePlanOperation() {
 
 }
 
-std::shared_ptr<PlanOperation> ScriptOperation::parse(Json::Value &data) {
+std::shared_ptr<PlanOperation> ScriptOperation::parse(const Json::Value &data) {
   auto op = std::make_shared<ScriptOperation>();
   op->setScriptName(data["script"].asString());
 

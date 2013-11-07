@@ -106,13 +106,13 @@ void genericParse(
     // 1GB Buffer
     size_t block_size;
     if (getenv("HYRISE_LOAD_BLOCK_SIZE"))
-      block_size = strtoul(getenv("HYRISE_LOAD_BLOCK_SIZE"), NULL, 0);
+      block_size = strtoul(getenv("HYRISE_LOAD_BLOCK_SIZE"), nullptr, 0);
     else
       block_size = 1024 * 1024;
 
     // Read from the buffer
     size_t readBytes = 0;
-    char* rdbuf = (char*) calloc(block_size, 1);
+    char rdbuf[block_size];
 
     // Read the file until we cannot extract more bytes
     do {
@@ -123,13 +123,11 @@ void genericParse(
                     cb_per_field,
                     cb_per_line,
                     data) != (size_t) readBytes) {
-        free(rdbuf);
         throw ParserError(csv_strerror(csv_error(&parser)));
       }
     } while (readBytes == block_size);
 
     if (ferror(file.get())) {
-      free(rdbuf);
       throw ParserError("Could not read file");
     }
 
@@ -137,7 +135,6 @@ void genericParse(
              cb_per_field,
              cb_per_line,
              data);
-    free(rdbuf);
   }
   csv_free(&parser);
 }

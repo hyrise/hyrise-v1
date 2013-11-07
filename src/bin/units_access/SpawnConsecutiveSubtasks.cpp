@@ -14,14 +14,20 @@ namespace {
 
 void SpawnConsecutiveSubtasks::executePlanOperation() {
   std::vector<std::shared_ptr<PlanOperation>> children;
-  std::vector<Task*> successors;
+  std::vector<std::shared_ptr<Task>> successors;
   auto scheduler = SharedScheduler::getInstance().getScheduler();
   
-  for (auto doneObserver : _doneObservers) {
-    Task* const task = dynamic_cast<Task*>(doneObserver);
-    successors.push_back(task);
+  {
+    std::lock_guard<decltype(_observerMutex)> lk(_observerMutex);
+    for (const auto& weakDoneObserver : _doneObservers) {
+      if (auto doneObserver = weakDoneObserver.lock()) {
+        if (const auto task = std::dynamic_pointer_cast<Task>(doneObserver)) {
+          successors.push_back(std::move(task));
+        }
+      }
+    }
   }
-
+  
   for (size_t i = 0; i < m_numberOfSpawns; ++i) {
     children.push_back(QueryParser::instance().parse("SpawnedTask", Json::Value()));
 
@@ -42,7 +48,7 @@ void SpawnConsecutiveSubtasks::setNumberOfSpawns(const size_t number) {
   m_numberOfSpawns = number;
 }
 
-std::shared_ptr<PlanOperation> SpawnConsecutiveSubtasks::parse(Json::Value &data) {
+std::shared_ptr<PlanOperation> SpawnConsecutiveSubtasks::parse(const Json::Value &data) {
   auto planOp = std::make_shared<SpawnConsecutiveSubtasks>();
   planOp->setNumberOfSpawns(data["amount"].asInt());
   return planOp;

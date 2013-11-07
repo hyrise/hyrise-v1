@@ -33,7 +33,7 @@ void DeleteOp::executePlanOperation() {
 		LOG4CXX_DEBUG(logger, "Deleting row:" << p);
 		bool deleteOk = store->markForDeletion(p, _txContext.tid) == hyrise::tx::TX_CODE::TX_OK;
 		if(!deleteOk) {
-			txmgr.abort();
+		  txmgr.rollbackTransaction(_txContext);
 			throw std::runtime_error("Aborted TX because TID of other TX found");
 		}
 		modRecord.deletePos(tab->getActualTable(), p);
@@ -46,7 +46,7 @@ void DeleteOp::executePlanOperation() {
 	addResult(getInputTable(0));
 }
 
-std::shared_ptr<PlanOperation> DeleteOp::parse(Json::Value &data) {
+std::shared_ptr<PlanOperation> DeleteOp::parse(const Json::Value &data) {
 	return std::make_shared<DeleteOp>();
 }
 

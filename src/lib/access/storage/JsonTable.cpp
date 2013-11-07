@@ -133,7 +133,7 @@ void JsonTable::executePlanOperation() {
 	addResult(result);
 }
 
-std::shared_ptr<PlanOperation> JsonTable::parse(Json::Value &data) {
+std::shared_ptr<PlanOperation> JsonTable::parse(const Json::Value &data) {
 	auto result = std::make_shared<JsonTable>();
 
 	result->_names = functional::collect(data["names"], [](const Json::Value& v) { return v.asString();});

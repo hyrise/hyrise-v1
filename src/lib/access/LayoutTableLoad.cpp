@@ -53,7 +53,7 @@ void LayoutTableLoad::executePlanOperation() {
   }
 }
 
-std::shared_ptr<PlanOperation> LayoutTableLoad::parse(Json::Value &data) {
+std::shared_ptr<PlanOperation> LayoutTableLoad::parse(const Json::Value &data) {
   std::shared_ptr<LayoutTableLoad> s = std::make_shared<LayoutTableLoad>();
   s->setTableName(data["table"].asString());
   s->setFileName(data["filename"].asString());

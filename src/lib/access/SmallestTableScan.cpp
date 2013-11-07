@@ -28,7 +28,7 @@ void SmallestTableScan::executePlanOperation() {
   addResult(smallestTable);
 }
 
-std::shared_ptr<PlanOperation> SmallestTableScan::parse(Json::Value &data) {
+std::shared_ptr<PlanOperation> SmallestTableScan::parse(const Json::Value &data) {
   return std::make_shared<SmallestTableScan>();
 }
 

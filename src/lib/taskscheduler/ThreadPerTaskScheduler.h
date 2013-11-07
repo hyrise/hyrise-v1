@@ -11,7 +11,7 @@
 #include "AbstractTaskScheduler.h"
 #include <taskscheduler/SharedScheduler.h>
 #include <memory>
-#include <mutex>
+
 #include <thread>
 #include <queue>
 
@@ -27,17 +27,19 @@ public:
   };
 };
 
-class ThreadPerTaskScheduler : public AbstractTaskScheduler, public TaskReadyObserver {
+class ThreadPerTaskScheduler : 
+  public AbstractTaskScheduler,
+  public TaskReadyObserver,
+  public std::enable_shared_from_this<TaskReadyObserver> {
   typedef std::unordered_set<std::shared_ptr<Task> > waiting_tasks_t;
     // set for tasks with open dependencies
     waiting_tasks_t _waitSet;
     // mutex to protect waitset
-    std::mutex _setMutex;
+    lock_t _setMutex;
     // scheduler status
     scheduler_status_t _status;
     // mutex to protect status
-    std::mutex _statusMutex;
-
+    lock_t _statusMutex;
     static log4cxx::LoggerPtr _logger;
 public:
   ThreadPerTaskScheduler();

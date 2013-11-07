@@ -12,7 +12,10 @@
 #include "AbstractCoreBoundQueue.h"
 #include <atomic>
 
-class AbstractCoreBoundQueuesScheduler : public AbstractTaskScheduler, public TaskReadyObserver{
+class AbstractCoreBoundQueuesScheduler : 
+  public AbstractTaskScheduler,
+  public TaskReadyObserver,
+  public std::enable_shared_from_this<TaskReadyObserver> {
 
  public:
 
@@ -31,9 +34,9 @@ class AbstractCoreBoundQueuesScheduler : public AbstractTaskScheduler, public Ta
   // scheduler status
   std::atomic<scheduler_status_t> _status;
   // mutex to protect waitset
-  std::mutex _setMutex;
+  lock_t _setMutex;
   // mutex to protect task queues
-  std::mutex _queuesMutex;
+  lock_t _queuesMutex;
   // holds the queue that gets the next task (simple roundrobin, first)
   size_t _nextQueue;
 

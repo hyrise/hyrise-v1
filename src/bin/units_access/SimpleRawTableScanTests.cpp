@@ -25,6 +25,7 @@ public:
       data = rh.build();
       main->appendRow(data);
       free(data);
+      rh.reset();
     }
 
     return main;
