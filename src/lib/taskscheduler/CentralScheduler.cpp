@@ -43,8 +43,21 @@ CentralScheduler::CentralScheduler(int threads) {
         hwloc_bitmap_asprintf(&str, obj->cpuset);
         fprintf(stderr, "Couldn't bind to cpuset %s: %s\n", str, strerror(error));
         fprintf(stderr, "Continuing as normal, however, no guarantees\n");
-        //throw std::runtime_error(strerror(error));
+        free(str);
       }
+
+      // assuming single machine system                                                                                                         
+      obj = hwloc_get_obj_by_type(topology, HWLOC_OBJ_MACHINE, 0);
+      // set membind policy interleave for this thread                                                                                          
+      if (hwloc_set_membind_nodeset(topology, obj->nodeset, HWLOC_MEMBIND_INTERLEAVE, HWLOC_MEMBIND_STRICT | HWLOC_MEMBIND_THREAD)) {
+	char *str;
+	int error = errno;
+	hwloc_bitmap_asprintf(&str, obj->nodeset);
+	fprintf(stderr, "Couldn't membind to nodeset  %s: %s\n", str, strerror(error));
+	fprintf(stderr, "Continuing as normal, however, no guarantees\n");
+	free(str);
+      }
+
       hwloc_bitmap_free(cpuset);
       _worker_threads.push_back(std::move(thread));
     }
