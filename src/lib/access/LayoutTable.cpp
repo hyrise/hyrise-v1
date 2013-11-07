@@ -25,14 +25,12 @@ void LayoutTable::executePlanOperation() {
   if (store == nullptr)
     throw std::runtime_error("Input is not a store");
 
-  auto main = store->getMainTables()[0];
+  auto main = store->getMainTable();
   auto dest = createEmptyLayoutedTable(_layout);
 
   // Add all table to the game
-  std::vector<storage::c_atable_ptr_t> tables;
-  tables.push_back(main);
-  tables.push_back(store->getDeltaTable());
-
+  std::vector<storage::c_atable_ptr_t> tables { main, store->getDeltaTable() };
+  
   // Call the Merge
   TableMerger merger(new DefaultMergeStrategy(), new SequentialHeapMerger());
 

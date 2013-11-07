@@ -33,7 +33,7 @@ public:
   explicit Store(atable_ptr_t main_table);
   virtual ~Store();
 
-  std::vector< atable_ptr_t > getMainTables() const;
+  atable_ptr_t getMainTable() const;
   void setDelta(atable_ptr_t _delta);
   atable_ptr_t getDeltaTable() const;
   size_t deltaOffset() const;
@@ -80,16 +80,14 @@ public:
   unsigned partitionCount() const override;
   size_t partitionWidth(size_t slice) const override;
   void print(size_t limit = (size_t) - 1) const override;
-  table_id_t subtableCount() const override {
-    return main_tables.size() + 1;
-  }
+  table_id_t subtableCount() const override { return 2; }
   atable_ptr_t copy() const override;
   const attr_vectors_t getAttributeVectors(size_t column) const override;
   void debugStructure(size_t level=0) const override;
 
  private:
   //* Vector containing the main tables
-  std::vector< atable_ptr_t > main_tables;
+  atable_ptr_t _main_table;
 
   //* Delta store
   atable_ptr_t delta;

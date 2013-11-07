@@ -197,7 +197,7 @@ void SimpleTableDump::verify(std::shared_ptr<AbstractTable> table) {
 
 bool SimpleTableDump::dump(std::string name, std::shared_ptr<AbstractTable> table) {
   verify(table);
-  auto mainTable = std::dynamic_pointer_cast<Store>(table)->getMainTables()[0];
+  auto mainTable = std::dynamic_pointer_cast<Store>(table)->getMainTable();
   prepare(name);
   for(size_t i=0; i < mainTable->columnCount(); ++i) {
     // For each attribute dump dictionary and values

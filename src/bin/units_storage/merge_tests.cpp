@@ -234,7 +234,7 @@ TEST_F(MergeTests, DISABLED_parallel_heap_merger_delta_test) {
 TEST_F(MergeTests, simple_logarithmic_merger_test) {
   auto m = Loader::shortcuts::loadMainDelta("test/merge1_main.tbl", "test/merge1_delta.tbl");
   std::vector<hyrise::storage::c_atable_ptr_t > tables;
-  tables.push_back(m->getMainTables()[0]);
+  tables.push_back(m->getMainTable());
   tables.push_back(m->getDeltaTable());
   TableMerger merger(new DefaultMergeStrategy(), new SequentialHeapMerger());
   const auto& result = merger.merge(tables);
@@ -250,7 +250,7 @@ TEST_F(MergeTests, simple_logarithmic_merger_test) {
 TEST_F(MergeTests, DISABLED_parallel_value_merger_test) {
   auto m = Loader::shortcuts::loadMainDelta("test/merge1_main.tbl", "test/merge1_delta.tbl", Loader::params().setCompressed(false));
   std::vector<hyrise::storage::c_atable_ptr_t > tables;
-  tables.push_back(m->getMainTables()[0]);
+  tables.push_back(m->getMainTable());
   tables.push_back(m->getDeltaTable());
 
   TableMerger merger(new DefaultMergeStrategy(), new SequentialHeapMerger());
@@ -335,7 +335,7 @@ TEST_F(MergeTests, store_merge_compex) {
   TableMerger merger(new DefaultMergeStrategy(), new SequentialHeapMerger());
 
   std::vector<hyrise::storage::c_atable_ptr_t> tables;
-  tables.push_back(linxxxs->getMainTables()[0]);
+  tables.push_back(linxxxs->getMainTable());
   tables.push_back(linxxxs->getDeltaTable());
 
   // Valid Vector
@@ -343,7 +343,7 @@ TEST_F(MergeTests, store_merge_compex) {
   auto result = merger.merge(tables, true, valid);
   ASSERT_EQ(5u, result[0]->size());
 
-  EXPECT_RELATION_EQ(ref, result[0]); 
+  EXPECT_RELATION_EQ(ref, result[0]);
 }
 
 
