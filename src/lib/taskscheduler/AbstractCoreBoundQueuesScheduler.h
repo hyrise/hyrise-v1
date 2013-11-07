@@ -12,7 +12,10 @@
 #include "AbstractCoreBoundQueue.h"
 #include <atomic>
 
-class AbstractCoreBoundQueuesScheduler : public AbstractTaskScheduler, public TaskReadyObserver{
+class AbstractCoreBoundQueuesScheduler : 
+  public AbstractTaskScheduler,
+  public TaskReadyObserver,
+  public std::enable_shared_from_this<TaskReadyObserver> {
 
  public:
 

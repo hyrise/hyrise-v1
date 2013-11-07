@@ -13,15 +13,15 @@
 #include <stdexcept>
 
 struct AbstractTaskSchedulerFactory {
-  virtual AbstractTaskScheduler * create(int cores) const = 0;
+  virtual std::shared_ptr<AbstractTaskScheduler> create(int cores) const = 0;
   virtual ~AbstractTaskSchedulerFactory() {}
 };
 
 /// Factory for schedulers, implements abstract factory pattern
 template<typename T>
 struct TaskSchedulerFactory : public AbstractTaskSchedulerFactory {
-  AbstractTaskScheduler * create(int cores) const {
-    return new T(cores);
+  std::shared_ptr<AbstractTaskScheduler> create(int cores) const {
+    return std::shared_ptr<AbstractTaskScheduler>(new T(cores));
   }
 };
 
@@ -37,11 +37,10 @@ public:
 class SharedScheduler{
   typedef std::map< std::string, std::unique_ptr<AbstractTaskSchedulerFactory>> factory_map_t;
   factory_map_t _schedulers;
-  AbstractTaskScheduler * _sharedScheduler = nullptr;
+  std::shared_ptr<AbstractTaskScheduler> _sharedScheduler;
 public:
 
   ~SharedScheduler(){
-    delete _sharedScheduler;
   }
 
   template<typename TaskSchedulerClass>
@@ -57,12 +56,12 @@ public:
   }
 
   bool isInitialized(){
-    return (_sharedScheduler != nullptr);
+    return bool(_sharedScheduler);
   }
 
   void init(const std::string &scheduler, int cores = getNumberOfCoresOnSystem()){
 
-    if(_sharedScheduler != nullptr)
+    if(_sharedScheduler)
       throw SchedulerException("Scheduler has already been initialized");
     if(_schedulers.find(scheduler) != _schedulers.end()){
       _sharedScheduler = _schedulers[scheduler]->create(cores);
@@ -74,9 +73,8 @@ public:
    * stops current scheduler gracefully; starts new scheduler
    */
   void resetScheduler(const std::string &scheduler, int cores = getNumberOfCoresOnSystem()){
-    if(_sharedScheduler != nullptr) {
+    if(_sharedScheduler) {
       _sharedScheduler->shutdown();
-      delete _sharedScheduler;
     }
     
     if(_schedulers.find(scheduler) != _schedulers.end()){
@@ -85,7 +83,7 @@ public:
       throw SchedulerException("Requested scheduler was not registered");
   }
 
-  AbstractTaskScheduler * getScheduler() {
+  std::shared_ptr<AbstractTaskScheduler> getScheduler() {
     return _sharedScheduler;
   }
 

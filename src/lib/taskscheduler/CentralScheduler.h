@@ -34,7 +34,10 @@ public:
 /**
  * a central scheduler holds a task queue and n worker threads
  */
-class CentralScheduler : public AbstractTaskScheduler, public TaskReadyObserver {
+class CentralScheduler : 
+  public AbstractTaskScheduler,
+  public TaskReadyObserver,
+  public std::enable_shared_from_this<TaskReadyObserver> {
   friend class WorkerThread;
   typedef std::unordered_set<std::shared_ptr<Task> > waiting_tasks_t;
   // set for tasks with open dependencies

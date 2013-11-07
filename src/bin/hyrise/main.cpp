@@ -163,7 +163,7 @@ int main(int argc, char *argv[]) {
 
   SharedScheduler::getInstance().init(scheduler_name, worker_threads);
 
-  // MainS erver Loop
+  // Main Server Loop
   struct ev_loop *loop = ev_default_loop(0);
   ebb_server server;
   // Initialize server based on libev event loop
