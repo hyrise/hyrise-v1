@@ -139,7 +139,7 @@ std::shared_ptr<AbstractTable> Loader::load(const params &args) {
   }
 
   if (!args.getModifiableMutableVerticalTable() && args.getReturnsMutableVerticalTable()) {
-    table = std::dynamic_pointer_cast<storage::Store>(result)->getMainTables()[0];
+    table = std::dynamic_pointer_cast<storage::Store>(result)->getMainTable();
     result = table;
   }
 
