@@ -19,7 +19,7 @@
 #include "helper/numerical_converter.h"
 #include "helper/PapiTracer.h"
 #include "helper/sha1.h"
-
+#include "helper/vector_helpers.h"
 #include "io/TransactionManager.h"
 #include "net/Router.h"
 #include "net/AbstractConnection.h"
@@ -72,8 +72,6 @@ void RequestParseTask::operator()() {
 
   performance_vector_t& performance_data = _responseTask->getPerformanceData();
 
-
-
   bool recordPerformance = false;
   std::vector<std::shared_ptr<Task> > tasks;
 
@@ -109,7 +107,7 @@ void RequestParseTask::operator()() {
 
     if (ctx && reader.parse(query_string, request_data)) {
       _responseTask->setTxContext(*ctx);
-      recordPerformance = request_data["performance"].asBool();
+      recordPerformance = getOrDefault(body_data, "performance", "false") == "true";
 
       // the performance attribute for this operation (at [0])
       if (recordPerformance) {
@@ -127,6 +125,7 @@ void RequestParseTask::operator()() {
         sessionId = request_data["sessionId"].asInt();
       _responseTask->setPriority(priority);
       _responseTask->setSessionId(sessionId);
+      _responseTask->setRecordPerformanceData(recordPerformance);
       try {
         tasks = QueryParser::instance().deserialize(
                   QueryTransformationEngine::getInstance()->transform(request_data),
