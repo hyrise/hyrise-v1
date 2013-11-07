@@ -34,10 +34,10 @@ void QueryParser::buildTasks(
     const Json::Value &query,
     std::vector<std::shared_ptr<Task> > &tasks,
     task_map_t &task_map) const {
-  Json::Value::Members members = query["operators"].getMemberNames();
+  const Json::Value::Members& members = query["operators"].getMemberNames();
   std::string papiEventName = getPapiEventName(query);
   for (unsigned i = 0; i < members.size(); ++i) {
-    Json::Value planOperationSpec = query["operators"][members[i]];
+    const Json::Value& planOperationSpec = query["operators"][members[i]];
     std::string typeName = planOperationSpec["type"].asString();
     std::shared_ptr<PlanOperation> planOperation = QueryParser::instance().parse(
         typeName, planOperationSpec);
@@ -74,17 +74,11 @@ void QueryParser::setInputs(
 }
 
 std::string QueryParser::getPapiEventName(const Json::Value &query) const {
-  if (query.isMember("papi"))
-    return query["papi"].asString();
-  else
-    return "PAPI_TOT_INS";
+  return query.isMember("papi") ? query["papi"].asString() : "PAPI_TOT_INS";
 }
 
 int QueryParser::getSessionId(const Json::Value &query) const {
-  if (query.isMember("sessionId"))
-    return query["sessionId"].asInt();
-  else
-    return 0;
+  return query.isMember("sessionId") ? query["sessionId"].asInt() : 0;
 }
 
 void QueryParser::setDependencies(
@@ -123,7 +117,7 @@ std::shared_ptr<Task>  QueryParser::getResultTask(
   return resultTask;
 }
 
-std::shared_ptr<PlanOperation> QueryParser::parse(std::string name, Json::Value d) {
+std::shared_ptr<PlanOperation> QueryParser::parse(std::string name, const Json::Value& d) {
   if (_factory.count(name) == 0)
     throw std::runtime_error("Operator of type " + name + " not supported");
   auto op = _factory[name]->parse(d);

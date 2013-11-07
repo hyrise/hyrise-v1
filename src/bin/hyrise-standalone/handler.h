@@ -115,7 +115,7 @@ public:
 
       LOG4CXX_DEBUG(slogger, request_data);
 
-      const std::string& final_hash = hash(query_string);
+      const std::string& final_hash = "";//hash(query_string);
       std::shared_ptr<Task> result = nullptr;
 
       if(request_data.isMember("priority"))
