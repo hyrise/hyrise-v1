@@ -21,7 +21,7 @@ JSON Query Execution
 
 #. Now in a different terminal, you can send a query to the server ::
 
-       curl -X POST --data-urlencode "query@test/gettingstarted.json"
+       curl -X POST --data-urlencode query@test/gettingstarted.json --data performance=true
        http://localhost:5000/jsonQuery
 
 Details
@@ -57,6 +57,12 @@ below ::
             },
             "edges": [["0","1"],["1","2"]]
         }
+
+The HYRISE HTTP interface accepts additional parameters through data
+params, in this example, we set `performance` as `true` so we will
+receive extra performance data in the response. Any other value for
+`performance` (or no value at all) will lead to performance data not
+being send back to the client.
 
 Parameters
 **********
