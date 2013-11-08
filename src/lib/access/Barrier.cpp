@@ -16,7 +16,7 @@ void Barrier::executePlanOperation() {
     addResult(getInputTable(i));
 }
 
-std::shared_ptr<PlanOperation> Barrier::parse(Json::Value &data) {
+std::shared_ptr<PlanOperation> Barrier::parse(const Json::Value &data) {
   return BasicParser<Barrier>::parse(data);
 }
 

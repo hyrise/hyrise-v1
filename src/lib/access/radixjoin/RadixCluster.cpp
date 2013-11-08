@@ -30,10 +30,11 @@ void CreateRadixTable::executePlanOperation() {
 
   std::vector<storage::atable_ptr_t> tmp {hashes, positions};
   auto result = std::make_shared<storage::MutableVerticalTable>(tmp);
+
   addResult(result);
 }
 
-std::shared_ptr<PlanOperation> CreateRadixTable::parse(Json::Value &data) {
+std::shared_ptr<PlanOperation> CreateRadixTable::parse(const Json::Value &data) {
   return std::make_shared<CreateRadixTable>();
 }
 
@@ -67,7 +68,7 @@ void RadixCluster::executePlanOperation() {
   }
 }
 
-std::shared_ptr<PlanOperation> RadixCluster::parse(Json::Value &data) {
+std::shared_ptr<PlanOperation> RadixCluster::parse(const Json::Value &data) {
   auto hst = BasicParser<RadixCluster>::parse(data);
   hst->setBits(data["bits"].asUInt(), data["sig"].asUInt());
   if (data.isMember("numParts")) {
@@ -166,7 +167,7 @@ void RadixCluster2ndPass::executePlanOperation() {
   addResult(result);
 }
 
-std::shared_ptr<PlanOperation> RadixCluster2ndPass::parse(Json::Value &data) {
+std::shared_ptr<PlanOperation> RadixCluster2ndPass::parse(const Json::Value &data) {
   auto hst = BasicParser<RadixCluster2ndPass>::parse(data);
   hst->setBits1(data["bits"].asUInt(), data["sig"].asUInt());
   hst->setBits2(data["bits2"].asUInt(), data["sig2"].asUInt());

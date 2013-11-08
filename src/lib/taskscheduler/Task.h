@@ -10,10 +10,11 @@
 #define SRC_LIB_TASKSCHEDULER_TASK_H_
 
 #include <vector>
-#include <mutex>
 #include <memory>
 #include <condition_variable>
 #include <string>
+
+#include "helper/locking.h"
 
 class Task;
 
@@ -51,16 +52,16 @@ public:
 
 protected:
   std::vector<std::shared_ptr<Task> > _dependencies;
-  std::vector<TaskReadyObserver *> _readyObservers;
-  std::vector<TaskDoneObserver *> _doneObservers;
+  std::vector<std::weak_ptr<TaskReadyObserver>> _readyObservers;
+  std::vector<std::weak_ptr<TaskDoneObserver>> _doneObservers;
 
   int _dependencyWaitCount;
   // mutex for dependencyCount and dependency vector
-  std::mutex _depMutex;
+  hyrise::locking::Spinlock _depMutex;
   // mutex for observer vector
-  std::mutex _observerMutex;
+  hyrise::locking::Spinlock _observerMutex;
   // mutex to stop notifications, while task is being scheduled to wait set in SimpleTaskScheduler
-  std::mutex _notifyMutex;
+  hyrise::locking::Spinlock _notifyMutex;
   // indicates on which core the task should run
   int _preferredCore;
   // indicates on which node the task should run
@@ -105,11 +106,11 @@ public:
   /*
    * adds an observer that gets notified if this task is ready to run
    */
-  void addReadyObserver(TaskReadyObserver *observer);
+  void addReadyObserver(const std::shared_ptr<TaskReadyObserver>& observer);
   /*
    * adds an obserer that gets notified if this task is done
    */
-  void addDoneObserver(TaskDoneObserver *observer);
+  void addDoneObserver(const std::shared_ptr<TaskDoneObserver>& observer);
   /*
    * whether this task is ready to run / has open dependencies
    */
@@ -199,8 +200,8 @@ class CompareTaskPtr {
 class WaitTask : public Task {
 private:
   bool _finished;
-  std::mutex _mut;
-  std::condition_variable _cond;
+  hyrise::locking::Spinlock _mut;
+  std::condition_variable_any _cond;
 public:
   WaitTask();
   virtual ~WaitTask() {};

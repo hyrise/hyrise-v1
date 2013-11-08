@@ -21,11 +21,11 @@ protected:
   // specific core thread is bound to
   int _core;
   // mutex to protect the queue
-  std::mutex _queueMutex;
+  lock_t _queueMutex;
   // mutext to protect the thread status
-  std::mutex _threadStatusMutex;
+  lock_t _threadStatusMutex;
   // condition variable to wake up thread
-  std::condition_variable _condition;
+  std::condition_variable_any _condition;
 
   static log4cxx::LoggerPtr logger;
   /*

@@ -4,10 +4,6 @@
 
 #include "access/system/PlanOperation.h"
 
-#include "storage/ColumnMetadata.h"
-#include "storage/MutableVerticalTable.h"
-#include "storage/PointerCalculator.h"
-
 namespace hyrise {
 namespace access {
 
@@ -21,58 +17,22 @@ namespace access {
 /// field defines the value field to use as a mulitplier. The format of the
 /// target field depends on the value field.
 class MultiplyRefField : public PlanOperation {
-public:
+ public:
   void executePlanOperation();
-	/// Example JSON for the plan operation, fields defines the reference and value
-	/// the value field
+  /// Example JSON for the plan operation, fields defines the reference and value
+  /// the value field
   /// "multiply" : {
   ///   "type" : "MultiplyRefField",
   ///   "fields" : ["ref", "value"],
   /// }
-  static std::shared_ptr<PlanOperation> parse(Json::Value &data);
+  static std::shared_ptr<PlanOperation> parse(const Json::Value &data);
   const std::string vname();
 
-private:
-	template<typename T, DataType D>
-	void executeMultiply();
+ private:
+  template<typename T, DataType D>
+  void executeMultiply();
 };
 
-template<typename T, DataType D>
-void MultiplyRefField::executeMultiply() {
-	const auto ref = _field_definition[0];
-	const auto val = _field_definition[1];
-
-	const auto stop = getInputTable()->size();
-	const auto stopInner = getInputTable(1)->size();
-
-	const auto &itab = getInputTable();
-	const auto &mulTab = getInputTable(1);
-
-	std::vector<const ColumnMetadata*> meta {new ColumnMetadata("value", D), new ColumnMetadata("pos", IntegerType)};
-	auto result = std::make_shared<Table>(&meta, nullptr, stop * stopInner, false, false);
-	result->resize(stop * stopInner);
-
-	// Pos list for matching Rows
-	auto pos = new std::vector<size_t>;
-
-	// Nested Loop for Multiplication
-	for(size_t outer=0; outer < stop; ++outer) {
-		const auto tmp = itab->getValue<T>(val, outer);
-		const auto col = itab->getValue<hyrise_int_t>(ref, outer);
-
-		for(size_t inner=0; inner < stopInner; ++inner) {
-			pos->push_back(outer);
-			result->setValue<T>(0, stopInner * outer + inner, mulTab->getValue<T>(col, inner) * tmp);
-			result->setValue<hyrise_int_t>(1, stopInner * outer + inner, inner);
-		}
-	}
-
-	auto left = PointerCalculator::create(getInputTable(), pos);
-
-	std::vector<storage::atable_ptr_t> vc({left, result});
-	storage::atable_ptr_t tt = std::make_shared<storage::MutableVerticalTable>(vc);
-	addResult(tt);
-}
 
 }
 }

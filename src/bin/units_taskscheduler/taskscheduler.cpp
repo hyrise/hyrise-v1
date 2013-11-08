@@ -14,7 +14,6 @@
 #include "taskscheduler/WSCoreBoundQueuesScheduler.h"
 #include "taskscheduler/ThreadPerTaskScheduler.h"
 
-#include "helper/make_unique.h"
 #include "helper/HwlocHelper.h"
 
 
@@ -54,8 +53,8 @@ INSTANTIATE_TEST_CASE_P(
 
 TEST_P(SchedulerTest, setScheduler) {
   SharedScheduler::getInstance().resetScheduler("CoreBoundQueuesScheduler");
-  AbstractTaskScheduler * scheduler = SharedScheduler::getInstance().getScheduler();
-  CoreBoundQueuesScheduler * simple_task_scheduler = dynamic_cast<CoreBoundQueuesScheduler *>(scheduler);
+  const auto& scheduler = SharedScheduler::getInstance().getScheduler();
+  std::shared_ptr<CoreBoundQueuesScheduler> simple_task_scheduler = std::dynamic_pointer_cast<CoreBoundQueuesScheduler>(scheduler);
   bool test = (simple_task_scheduler == NULL);
   ASSERT_EQ(test, false);
 
@@ -64,7 +63,7 @@ TEST_P(SchedulerTest, setScheduler) {
 
 TEST_P(SchedulerTest, wait_task_test) {
   SharedScheduler::getInstance().resetScheduler(scheduler_name);
-  AbstractTaskScheduler *scheduler = SharedScheduler::getInstance().getScheduler();
+  const auto& scheduler = SharedScheduler::getInstance().getScheduler();
 
   std::shared_ptr<WaitTask> waiter = std::make_shared<WaitTask>();
   scheduler->schedule(waiter);
@@ -74,7 +73,7 @@ TEST_P(SchedulerTest, wait_task_test) {
 long int getTimeInMillis() {
   /* Linux */
   struct timeval tv;
-  gettimeofday(&tv, NULL);
+  gettimeofday(&tv, nullptr);
   long int ret = tv.tv_usec;
   /* Convert from micro seconds (10^-6) to milliseconds (10^-3) */
   ret /= 1000;
@@ -87,7 +86,7 @@ long int getTimeInMillis() {
 
 TEST_P(SchedulerTest, sync_task_test) {
   SharedScheduler::getInstance().resetScheduler(scheduler_name);
-  AbstractTaskScheduler *scheduler = SharedScheduler::getInstance().getScheduler();
+  const auto& scheduler = SharedScheduler::getInstance().getScheduler();
 
   //scheduler->resize(2);
 
@@ -113,7 +112,7 @@ TEST_P(SchedulerTest, million_dependencies_test) {
   std::vector<std::shared_ptr<NoOp> > vtasks2;
 
   SharedScheduler::getInstance().resetScheduler(scheduler_name);
-  AbstractTaskScheduler *scheduler = SharedScheduler::getInstance().getScheduler();
+  const auto& scheduler = SharedScheduler::getInstance().getScheduler();
 
   //scheduler->resize(threads1);
 
@@ -148,7 +147,7 @@ TEST_P(SchedulerTest, million_noops_test) {
   std::vector<std::shared_ptr<NoOp> > vtasks1;
 
   SharedScheduler::getInstance().resetScheduler(scheduler_name);
-  AbstractTaskScheduler *scheduler = SharedScheduler::getInstance().getScheduler();
+  const auto& scheduler = SharedScheduler::getInstance().getScheduler();
 
   //scheduler->resize(threads1);
 
@@ -167,7 +166,7 @@ TEST_P(SchedulerTest, million_noops_test) {
 
 TEST_P(SchedulerTest, wait_dependency_task_test) {
   SharedScheduler::getInstance().resetScheduler(scheduler_name);
-  AbstractTaskScheduler *scheduler = SharedScheduler::getInstance().getScheduler();
+  const auto& scheduler = SharedScheduler::getInstance().getScheduler();
 
   //scheduler->resize(2);
   std::shared_ptr<NoOp> nop = std::make_shared<NoOp>();
@@ -185,7 +184,7 @@ TEST_P(SchedulerTest, wait_set_test) {
   int sleeptime = 50;
 
   SharedScheduler::getInstance().resetScheduler(scheduler_name);
-  AbstractTaskScheduler *scheduler = SharedScheduler::getInstance().getScheduler();
+  const auto& scheduler = SharedScheduler::getInstance().getScheduler();
 
   auto waiter = std::make_shared<WaitTask>();
   auto sleeper = std::make_shared<SleepTask>(sleeptime);
@@ -253,14 +252,14 @@ bool long_block_test(AbstractTaskScheduler * scheduler){
 TEST(SchedulerBlockTest, dont_block_test) {
   /* we assign a long running task and a number of smaller tasks with a think time to the queues -
      the scheduler should realize that one queue is blocked and assign tasks to other queues */
-  auto scheduler = make_unique<CoreBoundQueuesScheduler>(2);
+  auto scheduler = std::make_shared<CoreBoundQueuesScheduler>(2);
   // These test currently just check for execute
   long_block_test(scheduler.get());
 }
 
 TEST(SchedulerBlockTest, dont_block_test_with_work_stealing) {
   /*  steal work from that queue */
-  auto scheduler = make_unique<WSCoreBoundQueuesScheduler>(2);
+  auto scheduler = std::make_shared<WSCoreBoundQueuesScheduler>(2);
   long_block_test(scheduler.get());
 }
 

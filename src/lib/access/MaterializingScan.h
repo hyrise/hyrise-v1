@@ -14,7 +14,7 @@ public:
 
   void setupPlanOperation();
   void executePlanOperation();
-  static std::shared_ptr<PlanOperation> parse(Json::Value &v);
+  static std::shared_ptr<PlanOperation> parse(const Json::Value &v);
   const std::string vname();
   void setSamples(const unsigned s);
   void setCopyValues(const bool v);

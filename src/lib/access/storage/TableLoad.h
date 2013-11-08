@@ -19,7 +19,7 @@ public:
   virtual ~TableLoad();
 
   void executePlanOperation();
-  static std::shared_ptr<PlanOperation> parse(Json::Value &data);
+  static std::shared_ptr<PlanOperation> parse(const Json::Value &data);
   const std::string vname();
   void setTableName(const std::string &tablename);
   void setFileName(const std::string &filename);

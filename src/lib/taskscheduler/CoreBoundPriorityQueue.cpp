@@ -42,8 +42,8 @@ void CoreBoundPriorityQueue::executeTask() {
         if(_status != RUN)
           break;
         //std::cout << "queue " << _core << " sleeping " << std::endl;
-        std::unique_lock<std::mutex> ul(_queueMutex);
-        _condition.wait(ul);
+        std::unique_lock<lock_t> ul(_queueMutex);
+        _condition.wait(ul);        
       }
     }
   }
@@ -65,15 +65,15 @@ std::vector<std::shared_ptr<Task> > CoreBoundPriorityQueue::stopQueue() {
     // the thread to be stopped is either executing a task, or waits for the condition variable
     // set status to "TO_STOP" so that the thread either quits after executing the task, or after having been notified by the condition variable
     {
-      std::lock_guard<std::mutex> lk(_queueMutex);
+      std::lock_guard<lock_t> lk(_queueMutex);
       _status = TO_STOP;
       //wake up thread in case thread is sleeping
       _condition.notify_one();
     }
     _thread->join();
     delete _thread;
-    //just to make sure it points to NULL
-    _thread = NULL;
+    //just to make sure it points to nullptr
+    _thread = nullptr;
     _status = STOPPED;
 
   }
@@ -83,7 +83,7 @@ std::vector<std::shared_ptr<Task> > CoreBoundPriorityQueue::stopQueue() {
 std::vector<std::shared_ptr<Task> > CoreBoundPriorityQueue::emptyQueue() {
   // create empty queue
   std::vector<std::shared_ptr<Task> > tmp;
-  std::lock_guard<std::mutex> lk(_queueMutex);
+  std::lock_guard<lock_t> lk(_queueMutex);
 
   //move all elements to vector
   std::shared_ptr<Task> task;
@@ -96,5 +96,5 @@ std::vector<std::shared_ptr<Task> > CoreBoundPriorityQueue::emptyQueue() {
 }
 
 CoreBoundPriorityQueue::~CoreBoundPriorityQueue() {
-  if (_thread != NULL) stopQueue();
+  if (_thread != nullptr) stopQueue();
 }

@@ -106,7 +106,7 @@ void InsertScan::setInputData(const storage::atable_ptr_t &c) {
   _data = c;
 }
 
-std::shared_ptr<PlanOperation> InsertScan::parse(Json::Value &data) {
+std::shared_ptr<PlanOperation> InsertScan::parse(const Json::Value &data) {
   auto result = std::make_shared<InsertScan>();
 
   if (data.isMember("data")) {

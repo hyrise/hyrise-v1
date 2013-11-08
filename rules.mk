@@ -150,8 +150,10 @@ endef
 
 define test-binary
 $(eval $(call binary,$(1)))
-test-binaries += $$($(1).binary)
-test: $$($(1).binary)
+test-tgts += test_$$($(1).binary)
+.PHONY: test_$$($(1).binary)
+test_$$($(1).binary): $$($(1).binary)
+	$$(TESTPREFIX) $$($(1).binary) $$(TESTPARAM)
 endef
 
 ### PROJECT SPECIFIC STUFF ###
@@ -161,7 +163,7 @@ OSNAME := $(shell uname -s)
 
 %.mk: makefiles/%.default.mk
 	@[ -e $@ ] || echo "Grabbing default $@"; cp $< $@
-	@touch $@ 
+	@touch $@
 
 CFLAGS :=
 CPPFLAGS :=
@@ -202,7 +204,7 @@ RESULT_DIR := $(PROJECT_ROOT)/build
 OBJDIR := $(PROJECT_ROOT)/.build/$(BLD)_$(OSNAME)
 
 CPPFLAGS.debug += -DEXPENSIVE_ASSERTIONS
-CPPFLAGS.release += -DEXPENSIVE_TESTS -DPRODUCTION
+CPPFLAGS.release += -DEXPENSIVE_TESTS -DPRODUCTION -DNDEBUG
 
 CFLAGS.debug +=
 CFLAGS.release +=
@@ -212,7 +214,7 @@ LDFLAGS.release +=
 
 COMMON_FLAGS.debug += -O0
 COMMON_FLAGS.release += -O3 -march=native
-COMMON_FLAGS += -g -Wall -Wextra -Wno-attributes -Wno-unused-parameter $(COMMON_FLAGS.$(BLD))
+COMMON_FLAGS += -g -Wall -Wextra -Wno-attributes -Wno-unused-parameter -pthread $(COMMON_FLAGS.$(BLD))
 
 CPPFLAGS += -MMD -pipe $(CPPFLAGS.$(BLD))
 CFLAGS += $(COMMON_FLAGS) $(CFLAGS.$(BLD))
@@ -223,7 +225,7 @@ LINK_DIRS += /usr/local/lib
 INCLUDE_DIRS += $(PROJECT_ROOT)/src/lib
 LDFLAGS += $(LDFLAGS.$(BLD))
 
-.PHONY          : all clean test ci_test ci_build
+.PHONY          : all clean test ci_test ci_build ci_valgrind_test
 .DEFAULT_GOAL   := all
 
 all:
@@ -233,18 +235,17 @@ clean:
 
 TESTPARAM = --minimal
 test:
-	@$(foreach _,$(filter $(test-binaries),$^),echo $(_);$(_) $(TESTPARAM);)
-
-ci_test: TESTPARAM = --gtest_output=xml:$(_).xml
+ci_test: TESTPARAM = --gtest_output=xml:$<.xml
 ci_test: test
-
+ci_valgrind_test: TESTPARAM =
+ci_valgrind_test: TESTPREFIX = valgrind --leak-check=full --xml=yes --xml-file=$<.memcheck
+ci_valgrind_test: test
 include makefiles/ci.mk
 
 ci_build: ci_steps
 
 # a noop to keep make happy
-%.d : %.o
-	@true
+%.d :
 
 % :
 	$(call echo_cmd,LINK $(CXX) $(BLD) $@) $(CXX) $(CXXFLAGS) -o $@ $(filter %.o,$^) -Wl,-whole-archive $(addprefix -l,$(LIBS)) -Wl,-no-whole-archive $(addprefix -L,$(LINK_DIRS)) $(LDFLAGS)
@@ -258,6 +259,7 @@ ci_build: ci_steps
 
 # Necessary to allow for a second expansio to create dirs
 .SECONDEXPANSION:
+test: $$(test-tgts)
 
 $(OBJDIR)%.cpp.o : %.cpp | $$(@D)/.fake
 	$(call echo_cmd,CXX $(CXX) $(BLD) $<) $(CXX) $(CPPFLAGS) $(CXXFLAGS) $(addprefix -I,$(INCLUDE_DIRS)) -c -o $@ $<

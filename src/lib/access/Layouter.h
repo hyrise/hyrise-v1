@@ -26,7 +26,7 @@ public:
   virtual ~LayoutSingleTable();
 
   void executePlanOperation();
-  static std::shared_ptr<PlanOperation> parse(Json::Value &data);
+  static std::shared_ptr<PlanOperation> parse(const Json::Value &data);
   const std::string vname();
   void addFieldName(const std::string &n);
   void addQuery(const BaseQuery &q);

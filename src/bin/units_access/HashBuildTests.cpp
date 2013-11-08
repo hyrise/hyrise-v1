@@ -20,7 +20,7 @@ TEST_F(HashBuildTests, basic_hash_build_for_groupby_test) {
 
   const auto &result = std::dynamic_pointer_cast<const SingleAggregateHashTable>(hb.getResultHashTable());
 
-  ASSERT_NE(result.get(), (SingleAggregateHashTable *) NULL);
+  ASSERT_NE(result.get(), (SingleAggregateHashTable *) nullptr);
 }
 
 TEST_F(HashBuildTests, basic_hash_build_for_join_test) {
@@ -34,7 +34,7 @@ TEST_F(HashBuildTests, basic_hash_build_for_join_test) {
 
   const auto &result = hb.getResultHashTable();
 
-  ASSERT_NE(result.get(), (JoinHashTable *) NULL);
+  ASSERT_NE(result.get(), (JoinHashTable *) nullptr);
 }
 
 }

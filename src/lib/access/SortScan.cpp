@@ -129,7 +129,7 @@ void SortScan::executePlanOperation() {
   addResult(result);
 }
 
-std::shared_ptr<PlanOperation> SortScan::parse(Json::Value &data) {
+std::shared_ptr<PlanOperation> SortScan::parse(const Json::Value &data) {
   std::shared_ptr<SortScan> s = std::make_shared<SortScan>();
   s->setSortField(data["fields"][0u].asUInt());
   if (data.isMember("asc"))

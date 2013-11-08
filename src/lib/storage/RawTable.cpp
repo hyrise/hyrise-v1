@@ -1,6 +1,7 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "RawTable.h"
 
+#include <cassert>
 #include <iostream>
 
 #include "storage/meta_storage.h"
@@ -11,16 +12,20 @@ namespace hyrise { namespace storage {
 namespace rawtable {
 
 RowHelper::RowHelper(const metadata_vec_t& m) : _m(m) {
-  _tempData.resize(m.size());
+  _tempData.resize(m.size(), nullptr);
+}
+
+RowHelper::~RowHelper() {
+  reset();
 }
 
 void RowHelper::reset() {
-  _header = {0};
-  for(auto d: _tempData)
+  for(auto& d: _tempData) {
     free(d);
-  _tempData.clear();
+    d = nullptr;
+  }
 }
-  
+
 byte* RowHelper::build() const {
   size_t width = sizeof(record_header);
   for(size_t i=0; i < _m.size(); ++i) {
@@ -40,6 +45,9 @@ byte* RowHelper::build() const {
       memcpy(mov, _tempData[i], 2);
       memcpy(mov+2, _tempData[i]+2, *(uint16_t*) mov);
       mov += 2 + *(uint16_t*) mov;
+    } else if (_m[i].getType() == FloatType) {
+      memcpy(mov, _tempData[i], 4);
+      mov += 4;
     } else {
       memcpy(mov, _tempData[i], 8);
       mov += 8;
@@ -59,6 +67,7 @@ void RowHelper::set(size_t index, std::string val) {
   byte* tmp = (byte*) malloc(2 + val.size());
   memcpy(tmp+2, (byte*) val.c_str(), val.size());
   *((unsigned short*) tmp) = static_cast<uint16_t>(val.size());
+  assert(_tempData[index] == nullptr);
   _tempData[index] = tmp;
 }
 
@@ -215,7 +224,7 @@ void RawTable::appendRows(const hyrise::storage::atable_ptr_t& rows) {
       type_func tf(rows, rh, column, row);
       ts(rows->typeOfColumn(column), tf);
     }
-    std::unique_ptr<unsigned char> data(rh.build());
+    std::unique_ptr<byte, void (*)(void *)> data(rh.build(), &std::free);
     appendRow(data.get());
   }
 }
