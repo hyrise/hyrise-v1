@@ -20,7 +20,7 @@
  * a task scheduler with thread specific queues
  */
 class CoreBoundPriorityQueuesScheduler : public AbstractCoreBoundQueuesScheduler {
-
+  int count = 0; 
    /**
     * push ready task to the next queue
     */
@@ -30,6 +30,10 @@ class CoreBoundPriorityQueuesScheduler : public AbstractCoreBoundQueuesScheduler
     * create a new task queue
     */
    virtual task_queue_t *createTaskQueue(int core);
+   /*
+    * set next queue to push task to
+    */
+    virtual size_t getNextQueue();
 
 public:
   CoreBoundPriorityQueuesScheduler(int queues = getNumberOfCoresOnSystem());
