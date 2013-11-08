@@ -18,8 +18,11 @@ void CoreBoundPriorityQueue::executeTask() {
   //infinite thread loop
   while (1) {
     //block protected by _threadStatusMutex
-    if (_status == TO_STOP)
-      break;
+    {
+      std::lock_guard<lock_t> lk1(_threadStatusMutex);
+      if (_status == TO_STOP)
+        break;
+    }
     // get task and execute
     std::shared_ptr<Task> task;
     _runQueue.try_pop(task);
@@ -28,24 +31,32 @@ void CoreBoundPriorityQueue::executeTask() {
       _blocked = true;
       //LOG4CXX_DEBUG(logger, "Started executing task" << std::hex << &task << std::dec << " on core " << _core);
       // run task
-      //std::cout << "Executed task " << task->vname() << "; hex " << std::hex << &task << std::dec << " on core " << _core<< std::endl;
       (*task)();
+      //std::cout << "Executed task " << task->vname() << "; hex " << std::hex << &task << std::dec << " on core " << _core<< std::endl;
+
       LOG4CXX_DEBUG(logger, "Executed task " << task->vname() << "; hex " << std::hex << &task << std::dec << " on core " << _core);
       // notify done observers that task is done
       task->notifyDoneObservers();
       _blocked = false;
     }  // no task in runQueue -> sleep and wait for new tasks
+    
+    // CoreBoundPriorityQueue based on tbb's queue keeps spinning for the time beeing;
+    // we cannot trust _runQueue.size() and if we implement our own size(), we can use
+    // a mutexed std::priority_queue 
+
+    /*
     else {
+      std::unique_lock<lock_t> ul(_queueMutex);
       //if queue still empty go to sleep and wait until new tasks have been arrived
       if (_runQueue.size() < 1) {
         // if thread is about to stop, break execution loop
         if(_status != RUN)
           break;
         //std::cout << "queue " << _core << " sleeping " << std::endl;
-        std::unique_lock<lock_t> ul(_queueMutex);
         _condition.wait(ul);        
       }
     }
+    */
   }
 }
 
@@ -55,9 +66,9 @@ CoreBoundPriorityQueue::CoreBoundPriorityQueue(int core): AbstractCoreBoundQueue
 }
 
 void CoreBoundPriorityQueue::push(std::shared_ptr<Task> task) {
-  //std::cout << "TASKQUEUE: task: "  << std::hex << (void * )task.get() << std::dec << " pushed to queue " << _core << std::endl;
+ // std::cout << "TASKQUEUE: task: "  << std::hex << (void * )task.get() << std::dec << " pushed to queue " << _core << std::endl;
   _runQueue.push(task);
-  _condition.notify_one();
+  //_condition.notify_one();
 }
 
 std::vector<std::shared_ptr<Task> > CoreBoundPriorityQueue::stopQueue() {
