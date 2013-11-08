@@ -51,11 +51,11 @@ WSCoreBoundPriorityQueuesScheduler::~WSCoreBoundPriorityQueuesScheduler() {
 }
 
 const std::vector<AbstractCoreBoundQueue *> *WSCoreBoundPriorityQueuesScheduler::getTaskQueues() {
-   // check if task scheduler is about to change structure of scheduler (change number of queues); if yes, return NULL
+   // check if task scheduler is about to change structure of scheduler (change number of queues); if yes, return nullptr
   if (this->_status == AbstractCoreBoundQueuesScheduler::RESIZING
       || this->_status == AbstractCoreBoundQueuesScheduler::TO_STOP
       || this->_status == AbstractCoreBoundQueuesScheduler::STOPPED)
-    return NULL;
+    return nullptr;
   // return const reference to task queues
   std::lock_guard<lock_t> lk(this->_queuesMutex);
   return &this->_taskQueues;

@@ -45,6 +45,12 @@ def test_urls(port):
     assert("/static/" in op)
     assert("/operations/" in op)
 
+def test_perf_flag(port):
+    op = subprocess.check_output("curl -X POST -s --data performance=true --data-urlencode query@test/autojson/NoOp.json localhost:{0}/query/".format(port).split(" "))
+    assert "performanceData" in op
+    op = subprocess.check_output("curl -X POST -s --data performance=false --data-urlencode query@test/autojson/NoOp.json localhost:{0}/query/".format(port).split(" "))
+    assert "performanceData" not in op
+
 def test_sockets(port, pid):
     i = get_num_sockets(pid)
     c = Connection(port=port)
@@ -73,7 +79,7 @@ def main():
 
         test_tx(c)
         test_sockets(port, p.pid)
-
+        test_perf_flag(port)
         send_query_and_terminate_before_response(port)
         time.sleep(2)
         send_query_and_terminate_before_response(port)

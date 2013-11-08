@@ -107,7 +107,9 @@ void bindToNode(int node) {
   // free duplicated cpuset
   hwloc_bitmap_free(cpuset);
 
-  obj = hwloc_get_obj_by_type(topology, HWLOC_OBJ_MACHINE, node);
+  // assuming single machine system
+  obj = hwloc_get_obj_by_type(topology, HWLOC_OBJ_MACHINE, 0);
+  // set membind policy interleave for this thread
   if (hwloc_set_membind_nodeset(topology, obj->nodeset, HWLOC_MEMBIND_INTERLEAVE, HWLOC_MEMBIND_STRICT | HWLOC_MEMBIND_THREAD)) {
     char *str;
     int error = errno;
@@ -161,7 +163,7 @@ int main(int argc, char *argv[]) {
 
   SharedScheduler::getInstance().init(scheduler_name, worker_threads);
 
-  // MainS erver Loop
+  // Main Server Loop
   struct ev_loop *loop = ev_default_loop(0);
   ebb_server server;
   // Initialize server based on libev event loop

@@ -269,7 +269,7 @@ class ParallelSort {
       pthread_t *threads = new pthread_t[merge_thread_count];
 
       for (int i = 0; i < merge_thread_count; i++) {
-        pthread_create(&threads[i], nullptr, thunk<ParallelSort, &ParallelSort::merge_thread>, new std::pair<void *, void *>(this, NULL));
+        pthread_create(&threads[i], nullptr, thunk<ParallelSort, &ParallelSort::merge_thread>, new std::pair<void *, void *>(this, nullptr));
       }
 
       for (int i = 0; i < merge_thread_count; i++) {

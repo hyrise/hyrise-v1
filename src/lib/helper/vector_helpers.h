@@ -63,4 +63,14 @@ bool allValid(Input values) {
   return std::all_of(std::begin(values), std::end(values), [] (decltype(*begin(values)) v) { return v != nullptr; });
 }
 
+template <typename MapType>
+auto getOrDefault(const MapType& map, typename MapType::key_type key, typename MapType::mapped_type def) -> typename MapType::mapped_type {
+  auto f = map.find(key);
+  if (f != std::end(map)) {
+    return f->second;
+  }
+  return def;
+}
+
+
 #endif

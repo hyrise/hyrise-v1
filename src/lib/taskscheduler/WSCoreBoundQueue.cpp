@@ -14,7 +14,7 @@ WSCoreBoundQueue::WSCoreBoundQueue(int core, WSCoreBoundQueuesScheduler *schedul
 }
 
 WSCoreBoundQueue::~WSCoreBoundQueue() {
-  if (_thread != NULL) stopQueue();
+  if (_thread != nullptr) stopQueue();
 }
 
 void WSCoreBoundQueue::executeTask() {
@@ -68,19 +68,19 @@ void WSCoreBoundQueue::executeTask() {
 }
 
 std::shared_ptr<Task> WSCoreBoundQueue::stealTasks() {
-  std::shared_ptr<Task> task = NULL;
+  std::shared_ptr<Task> task = nullptr;
   //check scheduler status
   WSCoreBoundQueuesScheduler::scheduler_status_t status = _scheduler->getSchedulerStatus();
   if (status == WSCoreBoundQueuesScheduler::RUN) {
     auto *queues = _scheduler->getTaskQueues();
-    if (queues != NULL) {
+    if (queues != nullptr) {
       int number_of_queues = queues->size();
       if(number_of_queues > 1){
         // steal from the next queue (we only check number_of_queues -1, as we do not have to check the queue taht wants to steal)
         for (int i = 1; i < number_of_queues; i++) {
           // we steal relative from the current queue to distribute stealing over queues
           task = static_cast<WSCoreBoundQueue *>(queues->at((i + _core) % number_of_queues))->stealTask();
-          if (task != NULL) {
+          if (task != nullptr) {
             //push(task);
             //std::cout << "Queue " << _core << " stole Task " <<  task->vname() << "; hex " << std::hex << &task << std::dec << " from queue " << i << std::endl;
             break;
@@ -93,7 +93,7 @@ std::shared_ptr<Task> WSCoreBoundQueue::stealTasks() {
 }
 
 std::shared_ptr<Task> WSCoreBoundQueue::stealTask() {
-  std::shared_ptr<Task> task = NULL;
+  std::shared_ptr<Task> task = nullptr;
   // hold queueMutex, to avoid race conditions
   std::lock_guard<lock_t> lk1(_queueMutex);
   // dont steal tasks if thread is about to stop
@@ -123,7 +123,7 @@ std::vector<std::shared_ptr<Task> > WSCoreBoundQueue::stopQueue() {
     }
     _thread->join();
     delete _thread;
-    _thread = NULL;
+    _thread = nullptr;
     _status = STOPPED;
   }
   return emptyQueue();

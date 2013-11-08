@@ -18,7 +18,6 @@
 #include <storage/SequentialHeapMerger.h>
 #include <storage/TableGenerator.h>
 #include <storage/TableFactory.h>
-#include <storage/csb_tree.h>
 #include <storage/InvertedIndex.h>
 #include <storage/HashTable.h>
 #include <storage/AbstractHashTable.h>

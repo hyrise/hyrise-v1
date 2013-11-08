@@ -44,7 +44,7 @@ void ThreadPerTaskScheduler::schedule(std::shared_ptr<Task> task){
     t.detach();
   }
   else {
-    task->addReadyObserver(this);
+    task->addReadyObserver(shared_from_this());
     std::lock_guard<lock_t> lk(_setMutex);
     _waitSet.insert(task);
     LOG4CXX_DEBUG(_logger,  "Task " << std::hex << (void *)task.get() << std::dec << " inserted in wait queue");

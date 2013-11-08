@@ -50,32 +50,37 @@ CoreBoundPriorityQueuesScheduler::task_queue_t *CoreBoundPriorityQueuesScheduler
   return new CoreBoundPriorityQueue(core);
 }
 
+size_t CoreBoundPriorityQueuesScheduler::getNextQueue(){
+  //round robin on cores
+  std::lock_guard<lock_t> lk2(_queuesMutex);
+  size_t next = _nextQueue;
+  _nextQueue = (_nextQueue + 1) % _queues;
+  return next;
+}
+
 void CoreBoundPriorityQueuesScheduler::pushToQueue(std::shared_ptr<Task> task)
 {
+  count++;
   // check if task should be scheduled on specific core
   int core = task->getPreferredCore();
-  if (core >= 0 && core < static_cast<int>(this->_queues)) {
+  if (core >= 0 && core < static_cast<int>(_queues)) {
     //potentially assigns task to a queue blocked by long running task
-    this->_taskQueues[core]->push(task);
+    _taskQueues[core]->push(task);
     LOG4CXX_DEBUG(this->_logger,  "Task " << std::hex << (void *)task.get() << std::dec << " pushed to queue " << core);
-  } else if (core == Task::NO_PREFERRED_CORE || core >= static_cast<int>(this->_queues)) {
+  } else if (core == Task::NO_PREFERRED_CORE || core >= static_cast<int>(_queues)) {
 
-    if (core < Task::NO_PREFERRED_CORE || core >= static_cast<int>(this->_queues))
+    if (core < Task::NO_PREFERRED_CORE || core >= static_cast<int>(_queues))
       // Tried to assign task to core which is not assigned to scheduler; assigned to other core, log warning
       LOG4CXX_WARN(this->_logger, "Tried to assign task " << std::hex << (void *)task.get() << std::dec << " to core " << std::to_string(core) << " which is not assigned to scheduler; assigned it to next available core");
-    {
-      // lock queuesMutex to sync pushing to queue and incrementing next queue
-      std::lock_guard<lock_t> lk2(this->_queuesMutex);
-      // simple strategy to avoid blocking of queues; check if queue is blocked - try a couple of times, otherwise schedule on next queue
-      size_t retries = 0;
-      while (static_cast<CoreBoundPriorityQueue *>(this->_taskQueues[this->_nextQueue])->blocked() && retries < 100) {
-        this->_nextQueue = (this->_nextQueue + 1) % this->_queues;
-        ++retries;
-      }
-      this->_taskQueues[this->_nextQueue]->push(task);
-      //std::cout << "Task " <<  task->vname() << "; hex " << std::hex << &task << std::dec << " pushed to queue " << this->_nextQueue << std::endl;
-      //round robin on cores
-      this->_nextQueue = (this->_nextQueue + 1) % this->_queues;
+    
+    size_t q = getNextQueue();      
+    // simple strategy to avoid blocking of queues; check if queue is blocked - try a couple of times, otherwise schedule on next queue
+    size_t retries = 0;
+    while (static_cast<CoreBoundPriorityQueue *>(_taskQueues[q])->blocked() && retries < 100) {
+      q = getNextQueue();
+      ++retries;
     }
+    this->_taskQueues[q]->push(task);
+    //std::cout << "Task " <<  task->vname() << /*"; hex " << std::hex << &task << std::dec << */" pushed to queue " << _nextQueue << " count " << count << std::endl;
   }
 }

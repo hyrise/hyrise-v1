@@ -40,6 +40,6 @@ std::string loadFromFile(std::string path);
 hyrise::storage::c_atable_ptr_t executeAndWait(
     std::string httpQuery,
     size_t poolSize = getNumberOfCoresOnSystem(),
-    std::string *evt = NULL);
+    std::string *evt = nullptr);
 
 #endif  // SRC_BIN_UNITS_ACCESS_HELPER_H_

@@ -22,7 +22,7 @@ TEST_F(CreateIndexTests, basic_create_index_test) {
 
   std::shared_ptr<InvertedIndex<hyrise_int_t>> index = std::dynamic_pointer_cast<InvertedIndex<hyrise_int_t>> (sm->getInvertedIndex(table));
 
-  ASSERT_NE(index.get(), (InvertedIndex<storage::hyrise_int_t> *) NULL);
+  ASSERT_NE(index.get(), (InvertedIndex<storage::hyrise_int_t> *) nullptr);
 }
 
 }
