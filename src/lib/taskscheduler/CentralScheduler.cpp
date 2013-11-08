@@ -16,6 +16,7 @@ bool registered  =
 }
 
 CentralScheduler::CentralScheduler(int threads) {
+    _status = START_UP;
   // create and launch threads
   if(threads > getNumberOfCoresOnSystem()){
     fprintf(stderr, "Tried to use more threads then cores - no binding of threads takes place\n");
