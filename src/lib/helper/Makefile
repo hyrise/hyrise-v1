@@ -6,7 +6,7 @@ hyr-helper.libname := hyr-helper
 
 hyr-helper.libs := hwloc rt
 
-ifneq ($(WITH_PAPI),0)
+ifeq ($(WITH_PAPI),"1")
 hyr-helper.libs += papi
 hyr-helper.CPPFLAGS := -DUSE_PAPI_TRACE
 endif
