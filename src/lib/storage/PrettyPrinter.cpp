@@ -47,7 +47,7 @@ void PrettyPrinter::special_print(T& input, std::ostream& outStream, const std::
   }
 
   if (limit < (size_t) - 1) {
-    outStream << "(showing first " << limit << " rows)" << std::endl;
+    outStream << "(showing first " << limit << " of " << input->size() << " rows)" << std::endl;
   }
 
   if (tableName.size() > 0)
