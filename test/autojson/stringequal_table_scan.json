@@ -1,0 +1,25 @@
+{
+"operators": {
+  "-1" : {
+    "type" : "TableLoad",
+    "filename" : "tables/companies_apple_only.tbl",
+    "table" : "reference"
+  },
+  "0" : {
+      "type" : "TableLoad",
+      "filename" : "tables/companies.tbl",
+      "table" : "companies"
+  },
+  "1" : {
+      "type" : "TableScan",
+      "expression": "hyrise::stringequal",
+      "column": 1,
+      "value": "Apple Inc"
+  },
+  "2" : {
+      "type" : "MaterializingScan",
+      "memcpy" : true
+  }
+    },
+    "edges" : [["0","1"],["1","2"]]
+}
