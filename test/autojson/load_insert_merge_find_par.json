@@ -1,0 +1,65 @@
+{
+    "operators": {
+        "sref" : {
+            "type": "SetTable",    
+            "name": "reference"            
+        },
+        "bref": {
+            "type": "JsonTable",    
+            "names": ["left", "right", "status"],
+            "types" : ["INTEGER", "INTEGER", "INTEGER"],
+            "groups" : [1,1,1],
+            "useStore": true,
+            "data" : [                
+                ["1","4","1"]
+            ]            
+        },
+        "0": {
+            "type": "JsonTable",    
+            "names": ["left", "right", "status"],
+            "types" : ["INTEGER", "INTEGER", "INTEGER"],
+            "groups" : [1,1,1],
+            "useStore": true            
+        },
+        "set" : {
+            "type" : "SetTable",
+            "name" : "check"
+        },
+        "insert" : {
+            "type" : "InsertScan",
+            "data" : [
+                [1,4,1],
+                [1,5,0],
+                [2,12,9]
+            ]
+        },
+        "commit": {
+            "type" : "Commit"
+        },
+        "barrier" : {
+            "type" : "GetTable",
+            "name" : "check"
+        },
+        "merge" : {
+            "type": "MergeStore"
+        },
+        "search" : {
+          "type" : "TableScan",
+          "expression" : "hyrise::Store_FLV_F1_EQ_INT",
+          "withDelta" : true,
+          "f1": 2,
+          "v_f1" : 1,
+	  "instances": 4
+      }
+    },
+    "edges" : [
+        ["bref", "sref"],
+        ["sref", "0"],
+        ["0", "set"],
+        ["0", "insert"],
+        ["insert", "commit"],
+        ["commit", "barrier"],
+        ["barrier", "merge"],
+        ["merge", "search"]
+    ]
+}
