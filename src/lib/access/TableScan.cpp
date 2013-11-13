@@ -6,6 +6,7 @@
 #include "access/expressions/ExpressionRegistration.h"
 #include "storage/AbstractTable.h"
 #include "storage/PointerCalculator.h"
+#include "storage/TableRangeView.h"
 #include "helper/types.h"
 
 namespace hyrise { namespace access {
@@ -16,19 +17,40 @@ TableScan::TableScan(std::unique_ptr<AbstractExpression> expr) : _expr(std::move
 
 void TableScan::setupPlanOperation() {
   const auto& table = getInputTable();
-  _expr->walk({table});
+  auto tablerange = std::dynamic_pointer_cast<const hyrise::storage::TableRangeView>(table);
+  if(tablerange)
+    _expr->walk({tablerange->getActualTable()});
+  else
+    _expr->walk({table});
 }
 
 void TableScan::executePlanOperation() {
+  size_t start, stop;
+  const auto& tablerange = std::dynamic_pointer_cast<const hyrise::storage::TableRangeView>(getInputTable());
+  if(tablerange){
+    start = tablerange->getStart();
+    stop = start + tablerange->size();
+  }
+  else{
+    start = 0;
+    stop = getInputTable()->size();
+  }
+
 
   // When the input is 0, dont bother trying to generate results
   pos_list_t* positions = nullptr;
-  if (getInputTable()->size() > 0) 
-    positions = _expr->match(0, getInputTable()->size());
-  else 
+  if(stop - start > 0)
+    positions = _expr->match(start, stop);
+  else
     positions = new pos_list_t();
 
-  const auto& result = PointerCalculator::create(getInputTable(), positions);
+  std::shared_ptr<PointerCalculator> result;
+
+  if(tablerange)
+    result = PointerCalculator::create(tablerange->getActualTable(), positions);
+  else
+    result = PointerCalculator::create(getInputTable(), positions);
+
   addResult(result);
 }
 
