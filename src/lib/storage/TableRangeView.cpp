@@ -19,6 +19,16 @@ TableRangeView::~TableRangeView() {
   // TODO Auto-generated destructor stub
 }
 
+hyrise::storage::c_atable_ptr_t TableRangeView::getActualTable() const {
+  auto p = std::dynamic_pointer_cast<const TableRangeView>(_table);
+
+  if (!p) {
+    return _table;
+  } else {
+    return p->getActualTable();
+  }
+}
+
 size_t TableRangeView::getStart() const{
   return _start;
 }

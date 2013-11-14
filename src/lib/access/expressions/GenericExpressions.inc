@@ -39,23 +39,39 @@
 #define EXPR_GET_EXPRESSION(r, data, i , seq_field) BOOST_PP_SEQ_ELEM(i, data) EXPR_COMPARE_FIELD( BOOST_PP_SEQ_ELEM(0, seq_field), BOOST_PP_SEQ_ELEM(2, seq_field) , row)
 
 #define EXPR_BUILD_LOOP(pl, seq_of_fields, seq_logic) \
-	auto pl = new pos_list_t; \
-	size_t lower = 0; \
-	pl->clear(); \
-	const auto& first_vector = EXPR_DATA_VECTOR_NAME(EXPR_FIELD_VAL(seq_of_fields, 0)); \
-	size_t part_size = first_vector.size();\
-	part_size -= _with_delta ? 0 : 1;\
-	for(size_t part =0; part < part_size; ++part) {\
-		auto rows_in_part = first_vector[part]->size(); \
-		BOOST_PP_SEQ_FOR_EACH(EXPR_EXTRACT_VID_AND_MAP,, seq_of_fields);\
-		if (stop < (rows_in_part + lower)) \
-			rows_in_part = stop + lower; \
-		for(size_t row=0; row < rows_in_part ; ++row){\
-			if ( BOOST_PP_SEQ_FOR_EACH_I(EXPR_GET_EXPRESSION, seq_logic, seq_of_fields) ) { \
-	 			pl->push_back(lower + row);\
-			}\
- 		}\
-	}
+        auto pl = new pos_list_t; \
+        /* our position in the logical table */ \
+        size_t lower = 0; \
+        /* start position for the scan relative to the part */ \
+        size_t begin_part_scan = 0; \
+        /* end position for the scan relative to the part */ \
+        size_t end_part_scan = 0; \
+        pl->clear(); \
+        const auto& first_vector = EXPR_DATA_VECTOR_NAME(EXPR_FIELD_VAL(seq_of_fields, 0)); \
+        size_t part_size = first_vector.size();\
+        part_size -= _with_delta ? 0 : 1;\
+        for(size_t part =0; part < part_size; ++part) {\
+                auto rows_in_part = first_vector[part]->size(); \
+                /* if stop is below lower, we are running out of the range we need to scan and can stop! */ \
+                if(stop < lower) \
+                        break; \
+                /* if start is equal or smaller than the end of the current part, we need to scan this part! */ \
+                if(start <= lower + rows_in_part){ \
+                        BOOST_PP_SEQ_FOR_EACH(EXPR_EXTRACT_VID_AND_MAP,, seq_of_fields);\
+                        /* if start is bigger than lower, begin at (start - lower), otherwise at beginning of part (=0) */ \
+                        begin_part_scan = (start > lower) ? (start - lower) : 0; \
+                        /* if stop is smaller than the end of this part, only scan until stop, else the whole part */ \
+                        end_part_scan = (stop < (rows_in_part + lower)) ? (stop - lower) : rows_in_part; \
+                        for(size_t row=begin_part_scan; row < end_part_scan ; ++row){\
+                                if ( BOOST_PP_SEQ_FOR_EACH_I(EXPR_GET_EXPRESSION, seq_logic, seq_of_fields) ) { \
+                                        pl->push_back(lower + row);\
+                                }\
+                        }\
+                } \
+                /* else: start is larger than end of this part, nothing to do in this part; */ \
+                /* increment table position to start of next part */ \
+                lower += rows_in_part; \
+        }
 
 #define EXPR_EXTRACT_FFROM_JSON(r, data, seq_field) \
 	data->BOOST_PP_SEQ_ELEM(0, seq_field) = val[BOOST_PP_STRINGIZE(BOOST_PP_SEQ_ELEM(0, seq_field))].asUInt();\
