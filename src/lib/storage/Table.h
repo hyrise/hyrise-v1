@@ -21,6 +21,8 @@
 #include "storage/BaseAttributeVector.h"
 #include "storage/AttributeVectorFactory.h"
 
+#include "storage/GroupMeta.h"
+
 /**
  * Table is the innermost entity in the table structure. It stores the actual
  * values like a regular table and cannot be splitted further.
@@ -70,6 +72,10 @@ public:
         bool sorted = true,
         bool compressed = true);
 
+  // initialize with metadata struct:
+  // GroupMetadata { storageFactory: ptr; columns: [ column { name, type, dictionary_factory = ptr } ] }
+  Table(hyrise::storage::TableMetaGenerator);
+  
   ~Table();
 
   size_t size() const;
