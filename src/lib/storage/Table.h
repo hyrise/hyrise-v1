@@ -14,14 +14,12 @@
 
 #include "helper/types.h"
 
-#include "storage/ColumnMetadata.h"
 #include "storage/AbstractTable.h"
 #include "storage/AbstractDictionary.h"
-
-#include "storage/BaseAttributeVector.h"
 #include "storage/AttributeVectorFactory.h"
-
-#include "storage/GroupMeta.h"
+#include "storage/BaseAttributeVector.h"
+#include "storage/ColumnMetadata.h"
+#include "storage/TableDefinition.h"
 
 /**
  * Table is the innermost entity in the table structure. It stores the actual
@@ -72,7 +70,7 @@ public:
         bool compressed = true);
 
   Table(hyrise::storage::TableDefinition td);
-  
+
   ~Table();
 
   size_t size() const;
@@ -132,4 +130,3 @@ public:
 };
 
 #endif  // SRC_LIB_STORAGE_TABLE_H_
-
