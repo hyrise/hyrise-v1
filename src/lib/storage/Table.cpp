@@ -56,7 +56,19 @@ Table::Table(
   }
 }
 
-
+Table::Table(hyrise::storage::TableDefinition tmg) :
+    _metadata(tmg._columns.size()),
+    _dictionaries(tmg._columns.size()),
+    width(tmg._columns.size()),
+    _compressed(false) {
+  auto i = 0u;
+  for (auto& column: tmg._columns) {
+    _metadata[i] = new ColumnMetadata(column._name, column._type);
+    _dictionaries[i] = column._dictionary_factory->create(column);
+    i++;
+  }
+  tuples = tmg._attribute_vector_factory->create(tmg);
+}
 
 hyrise::storage::atable_ptr_t Table::copy_structure(const field_list_t *fields, const bool reuse_dict, const size_t initial_size, const bool with_containers, const bool compressed) const {
 

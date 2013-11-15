@@ -4,8 +4,9 @@
 
 #include <memory>
 #include <stdexcept>
-#include <storage/AbstractAttributeVector.h>
 
+#include <storage/AbstractAttributeVector.h>
+#include "storage/storage_types.h"
 
 /*
 * This is the base class of the Attribute Vector that is implement in HYRISE.
@@ -54,5 +55,16 @@ public:
   virtual void rewriteColumn(const size_t column, const size_t bits) = 0;
 
 };
+
+namespace hyrise { namespace storage {
+class TableDefinition;
+
+class AbstractAttributeVectorFactory {
+ public:
+  virtual ~AbstractAttributeVectorFactory();
+  virtual std::shared_ptr< BaseAttributeVector<value_id_t> > create(const TableDefinition&) = 0;
+};
+
+}}
 
 #endif  // SRC_LIB_STORAGE_BASEATTRIBUTEVECTOR_H_

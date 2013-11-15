@@ -13,6 +13,7 @@
 #include "storage/storage_types.h"
 #include "storage/BaseDictionary.h"
 #include "storage/DictionaryIterator.h"
+#include "storage/DictionaryFactory.h"
 
 // FIXME should be aware of allocator
 template <typename T>
@@ -180,5 +181,6 @@ public:
 
 };
 
-#endif  // SRC_LIB_STORAGE_ORDERINDIFFERENTDICTIONARY_H_
+using OrderIndifferentDictionaryFactory = hyrise::storage::DictFactory<OrderIndifferentDictionary>;
 
+#endif  // SRC_LIB_STORAGE_ORDERINDIFFERENTDICTIONARY_H_

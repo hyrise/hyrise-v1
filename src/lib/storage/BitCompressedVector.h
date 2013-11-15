@@ -11,8 +11,10 @@
 #include <string>
 #include <stdexcept>
 
+#include "helper/vector_helpers.h"
 #include "memory/MallocStrategy.h"
 #include "storage/BaseAttributeVector.h"
+#include "storage/TableDefinition.h"
 
 #ifndef WORD_LENGTH
 #define WORD_LENGTH 64
@@ -258,6 +260,17 @@ private:
     return data;
   }
 
+};
+
+class BitCompressedVectorFactory : public hyrise::storage::AbstractAttributeVectorFactory {
+ public:
+  virtual std::shared_ptr<BaseAttributeVector<value_id_t>> create(const hyrise::storage::TableDefinition& t) {
+    auto bits = hyrise::functional::collect(t._columns, [] (const hyrise::storage::ColumnDefinition& c) {
+        auto sz =  c._dictionary_factory->size();
+        return sz == 1 ? 1 : std::uint64_t(ceil(log(sz) / log(2.0)));
+      });
+    return std::make_shared<BitCompressedVector<value_id_t>>(t._columns.size(), t._size, bits);
+  }
 };
 
 #endif  // SRC_LIB_STORAGE_BITCOMPRESSEDVECTOR_H_

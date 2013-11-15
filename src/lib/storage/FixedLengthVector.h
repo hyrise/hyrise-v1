@@ -16,6 +16,7 @@
 
 #include "memory/MallocStrategy.h"
 #include "storage/BaseAttributeVector.h"
+#include "storage/TableDefinition.h"
 
 template <typename T>
 class FixedLengthVector : public BaseAttributeVector<T> {
@@ -159,6 +160,13 @@ class FixedLengthVector : public BaseAttributeVector<T> {
                               + std::to_string(_rows) + "' available");
     }
 #endif
+  }
+};
+
+class FixedLengthVectorFactory : public hyrise::storage::AbstractAttributeVectorFactory {
+ public:
+  virtual std::shared_ptr<BaseAttributeVector<value_id_t> > create(const hyrise::storage::TableDefinition& t) {
+    return std::make_shared<FixedLengthVector<value_id_t> >(t._columns.size(), t._size);
   }
 };
 
