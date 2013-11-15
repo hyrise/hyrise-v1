@@ -14,8 +14,6 @@
 #include "helper/vector_helpers.h"
 #include "memory/MallocStrategy.h"
 #include "storage/BaseAttributeVector.h"
-#include "storage/AbstractAttributeVectorFactory.h"
-#include "storage/AbstractDictionaryFactory.h"
 #include "storage/TableDefinition.h"
 
 #ifndef WORD_LENGTH

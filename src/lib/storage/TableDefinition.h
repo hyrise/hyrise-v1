@@ -4,13 +4,10 @@
 #include <string>
 #include <vector>
 
-#include "storage/AbstractDictionaryFactory.h"
-#include "storage/AbstractAttributeVectorFactory.h"
+#include "storage/BaseAttributeVector.h"
+#include "storage/AbstractDictionary.h"
 
 namespace hyrise { namespace storage {
-
-class AbstractDictionaryFactory;
-class AbstractAttributeVectorFactory;
 
 class ColumnDefinition {
  public:
@@ -19,8 +16,7 @@ class ColumnDefinition {
   std::unique_ptr<AbstractDictionaryFactory> _dictionary_factory;
   ColumnDefinition(DataType type,
                    std::string name,
-                   std::unique_ptr<AbstractDictionaryFactory> df) :
-      _type(type), _name(name), _dictionary_factory(std::move(df)) {}
+                   std::unique_ptr<AbstractDictionaryFactory> df);
 };
 
 class TableDefinition {
@@ -30,8 +26,7 @@ class TableDefinition {
   std::vector<ColumnDefinition> _columns;
   TableDefinition(std::size_t size,
                   std::unique_ptr<AbstractAttributeVectorFactory> af,
-                  std::vector<ColumnDefinition> cols) :
-      _size(size), _attribute_vector_factory(std::move(af)), _columns(std::move(cols)) {}
+                  std::vector<ColumnDefinition> cols);
 
 };
 

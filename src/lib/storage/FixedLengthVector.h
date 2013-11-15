@@ -16,7 +16,6 @@
 
 #include "memory/MallocStrategy.h"
 #include "storage/BaseAttributeVector.h"
-#include "storage/AbstractAttributeVectorFactory.h"
 #include "storage/TableDefinition.h"
 
 template <typename T>

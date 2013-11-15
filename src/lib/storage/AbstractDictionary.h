@@ -35,7 +35,7 @@ struct DictionaryFactory {
 
 class AbstractDictionary {
 public:
-  virtual ~AbstractDictionary() {}
+  virtual ~AbstractDictionary();
 
   virtual bool isOrdered() = 0;
 
@@ -54,5 +54,17 @@ public:
 
 };
 
-#endif  // SRC_LIB_STORAGE_ABSTRACTDICTIONARY_H_
+namespace hyrise { namespace storage {
 
+class ColumnDefinition;
+
+class AbstractDictionaryFactory {
+ public:
+  virtual ~AbstractDictionaryFactory();
+  virtual std::size_t size() const;
+  virtual std::shared_ptr< AbstractDictionary > create(const ColumnDefinition&) = 0;
+};
+
+}}
+
+#endif  // SRC_LIB_STORAGE_ABSTRACTDICTIONARY_H_

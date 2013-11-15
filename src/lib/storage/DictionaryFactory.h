@@ -1,6 +1,6 @@
 #pragma once
 
-#include "storage/AbstractDictionaryFactory.h"
+#include "storage/AbstractDictionary.h"
 #include "storage/TableDefinition.h"
 
 namespace hyrise { namespace storage {
