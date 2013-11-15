@@ -95,7 +95,9 @@ public:
 
   void set(size_t column, size_t row, T value) {
     checkAccess(column, row);
-
+#ifdef EXPENSIVE_ASSERTIONS
+    if (value >= (1 << _bits[column])) throw std::out_of_range("trying to insert value larger than can be stored");
+#endif
     auto offset = _blockOffset(row);
     auto colOffset = _offsetForColumn(column);
     auto block = _blockPosition(row) + (offset + colOffset) / _bit_width;
