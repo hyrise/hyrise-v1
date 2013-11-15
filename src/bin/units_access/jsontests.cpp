@@ -61,11 +61,13 @@ TEST_F(JSONTests, operator_replacement) {
 
   QueryTransformationEngine::getInstance()->replaceOperatorWithInstances(
       nodeId, instanceIds, unionId, query, numberOfInitialEdges);
-  ASSERT_TRUE(isEdgeEqual(query["edges"], 0, whatever, instanceId1));
-  ASSERT_TRUE(isEdgeEqual(query["edges"], 1, whatever, instanceId2));
-  ASSERT_TRUE(isEdgeEqual(query["edges"], 2, instanceId1, unionId));
-  ASSERT_TRUE(isEdgeEqual(query["edges"], 3, instanceId2, unionId));
-  ASSERT_TRUE(isEdgeEqual(query["edges"], 4, unionId, whatever));
+
+  ASSERT_TRUE(isEdgeEqual(query["edges"], 0, unionId, whatever));
+  ASSERT_TRUE(isEdgeEqual(query["edges"], 1, whatever, instanceId1));
+  ASSERT_TRUE(isEdgeEqual(query["edges"], 2, whatever, instanceId2));
+  ASSERT_TRUE(isEdgeEqual(query["edges"], 3, instanceId1, unionId));
+  ASSERT_TRUE(isEdgeEqual(query["edges"], 4, instanceId2, unionId));
+
 }
 
 TEST_F(JSONTests, append_instances_nodes) {
@@ -113,10 +115,11 @@ TEST_F(JSONTests, append_merge_node) {
 
   QueryTransformationEngine::getInstance()->appendConsolidateSrcNodeEdges(
       srcNode, instanceIds, srcMergeNode, query, 1);
-  ASSERT_TRUE(isEdgeEqual(query["edges"], 0, srcNode, dstNode));
+
+
+  ASSERT_TRUE(isEdgeEqual(query["edges"], 0, srcMergeNode, dstNode));
   ASSERT_TRUE(isEdgeEqual(query["edges"], 1, srcNodeInstance1, srcMergeNode));
   ASSERT_TRUE(isEdgeEqual(query["edges"], 2, srcNodeInstance2, srcMergeNode));
-  ASSERT_TRUE(isEdgeEqual(query["edges"], 3, srcMergeNode, dstNode));
 }
 
 TEST_F(JSONTests, append_union_node) {
@@ -140,10 +143,9 @@ TEST_F(JSONTests, append_union_node) {
 
   QueryTransformationEngine::getInstance()->appendConsolidateSrcNodeEdges(
       srcNode, instanceIds, srcUnionNode, query, 1);
-  ASSERT_TRUE(isEdgeEqual(query["edges"], 0, srcNode, dstNode));
+  ASSERT_TRUE(isEdgeEqual(query["edges"], 0, srcUnionNode, dstNode));
   ASSERT_TRUE(isEdgeEqual(query["edges"], 1, srcNodeInstance1, srcUnionNode));
   ASSERT_TRUE(isEdgeEqual(query["edges"], 2, srcNodeInstance2, srcUnionNode));
-  ASSERT_TRUE(isEdgeEqual(query["edges"], 3, srcUnionNode, dstNode));
 }
 
 TEST_F(JSONTests, remove_operator_nodes) {
