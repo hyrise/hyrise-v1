@@ -56,7 +56,7 @@ Table::Table(
   }
 }
 
-Table::Table(hyrise::storage::TableMetaGenerator tmg) :
+Table::Table(hyrise::storage::TableDefinition tmg) :
     _metadata(tmg._columns.size()),
     _dictionaries(tmg._columns.size()),
     width(tmg._columns.size()),

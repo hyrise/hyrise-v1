@@ -12,6 +12,7 @@
 #include "storage/BaseIterator.h"
 #include "storage/DictionaryIterator.h"
 #include "storage/storage_types.h"
+#include "storage/DictionaryFactory.h"
 
 template <typename T>
 class OrderPreservingDictionaryIterator;
@@ -190,5 +191,7 @@ public:
   }
 
 };
+
+using OrderPreservingDictionaryFactory = hyrise::storage::DictFactory<OrderPreservingDictionary>;
 
 #endif  // SRC_LIB_STORAGE_ORDERPRESERVINGDICTIONARY_H_

@@ -59,7 +59,6 @@ private:
   bool _compressed = false;
 
 public:
-
   /*
     Main constructor for the table class that is called to create a
     new table. The parameters can be used to set the meta data and
@@ -72,9 +71,7 @@ public:
         bool sorted = true,
         bool compressed = true);
 
-  // initialize with metadata struct:
-  // GroupMetadata { storageFactory: ptr; columns: [ column { name, type, dictionary_factory = ptr } ] }
-  Table(hyrise::storage::TableMetaGenerator);
+  Table(hyrise::storage::TableDefinition td);
   
   ~Table();
 
