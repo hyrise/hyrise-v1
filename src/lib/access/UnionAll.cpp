@@ -34,4 +34,8 @@ void UnionAll::executePlanOperation() {
   addResult(std::make_shared<const storage::HorizontalTable>(tables));
 }
 
+const std::string UnionAll::vname() {
+  return "UnionAll";
+}
+
 }}
