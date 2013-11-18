@@ -1,0 +1,54 @@
+{
+	"operators" : {
+		"rl" : {
+			"type" : "JsonTable",
+			"names" : ["A", "B", "C", "D", "E"],
+			"types" :  ["INTEGER", "INTEGER", "INTEGER", "INTEGER", "INTEGER"],
+			"groups" : [1,1,1,1,1],
+			"useStore" : true,
+			"mergeStore": true,
+			"data" : [
+				[ "3","2","3","4","5"],
+				[ "4","2","5","4","5"]
+			]
+		},
+		"set" : {
+			"type" : "SetTable",
+			"name" : "reference"
+		},
+
+		"build" : {
+			"type" : "JsonTable",
+			"names" : ["A", "B", "C", "D", "E"],
+			"types" :  ["INTEGER", "INTEGER", "INTEGER", "INTEGER", "INTEGER"],
+			"groups" : [1,1,1,1,1],
+			"useStore" : true,
+			"mergeStore": true,
+			"data" : [
+			[ "1","2","3","4","5"],
+			[ "1","2","4","4","5"],
+			[ "1","2","2","4","5"],
+			[ "1","2","1","4","5"],
+			[ "3","2","3","4","5"],
+			[ "4","2","5","4","5"],
+			[ "1","2","6","4","5"],
+			[ "5","2","1","4","5"],
+			[ "1","2","4","4","5"]
+			]
+			},
+		"query" : {
+			"type" : "TableScan",
+			"expression" : "hyrise::STORE_FLV_F1_LTEQ_INT_AND_F2_GTEQ_INT",
+			"f1" : 0,
+			"f2" : 0,
+			"COMMENT": "The from and to values need to be in the dictionary.",
+			"v_f1" : 3,
+			"v_f2" : 4
+		}
+	}, 
+	"edges" : [
+		["rl", "set"],
+		["set", "build"],
+		["build", "query"]
+	]
+}
