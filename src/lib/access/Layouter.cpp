@@ -2,7 +2,7 @@
 #include "access/Layouter.h"
 
 #include "access/system/QueryParser.h"
-
+#include "storage/DictionaryFactory.h"
 #include "storage/OrderIndifferentDictionary.h"
 #include "storage/Table.h"
 
@@ -64,12 +64,12 @@ void LayoutSingleTable::executePlanOperation() {
 
 
   std::vector<AbstractTable::SharedDictionaryPtr > vd;
-  vd.push_back(DictionaryFactory<OrderIndifferentDictionary>::build(StringType));
-  vd.push_back(DictionaryFactory<OrderIndifferentDictionary>::build(IntegerType));
-  vd.push_back(DictionaryFactory<OrderIndifferentDictionary>::build(FloatType));
-  vd.push_back(DictionaryFactory<OrderIndifferentDictionary>::build(IntegerType));
-  vd.push_back(DictionaryFactory<OrderIndifferentDictionary>::build(FloatType));
-  vd.push_back(DictionaryFactory<OrderIndifferentDictionary>::build(FloatType));
+  vd.push_back(storage::makeDictionary<OrderIndifferentDictionary>(StringType));
+  vd.push_back(storage::makeDictionary<OrderIndifferentDictionary>(IntegerType));
+  vd.push_back(storage::makeDictionary<OrderIndifferentDictionary>(FloatType));
+  vd.push_back(storage::makeDictionary<OrderIndifferentDictionary>(IntegerType));
+  vd.push_back(storage::makeDictionary<OrderIndifferentDictionary>(FloatType));
+  vd.push_back(storage::makeDictionary<OrderIndifferentDictionary>(FloatType));
 
   // Allocate a new Table
   result = std::make_shared<Table>(&vc, &vd, _maxResults, false);

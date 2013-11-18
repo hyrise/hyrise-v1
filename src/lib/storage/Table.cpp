@@ -5,7 +5,10 @@
 #include <cmath>
 
 #include "storage/AttributeVectorFactory.h"
+#include "storage/DictionaryFactory.h"
 #include "storage/ValueIdMap.hpp"
+
+using namespace hyrise::storage;
 
 Table::Table(
   std::vector<const ColumnMetadata *> *m,
@@ -35,9 +38,7 @@ Table::Table(
     // for empty tables is not useful
     if (!sorted) {
       for (size_t i = 0; i < width; i++) {
-        _dictionaries[i] = AbstractDictionary::dictionaryWithType <
-                           DictionaryFactory<OrderIndifferentDictionary> > (
-                             _metadata[i]->getType(), initial_size);
+        _dictionaries[i] = makeDictionary<OrderIndifferentDictionary>(_metadata[i]->getType(), initial_size);
       }
     }
   }
@@ -111,17 +112,18 @@ hyrise::storage::atable_ptr_t Table::copy_structure_modifiable(const field_list_
   std::vector<AbstractTable::SharedDictionaryPtr > *dictionaries = new std::vector<AbstractTable::SharedDictionaryPtr >;
 
   if (fields != nullptr) {
-for (const field_t & field: *fields) {
+    for (const field_t & field: *fields) {
       metadata.push_back(metadataAt(field));
-      dictionaries->push_back(AbstractDictionary::dictionaryWithType<DictionaryFactory<OrderIndifferentDictionary> >(metadataAt(field)->getType()));
     }
   } else {
     for (size_t i = 0; i < columnCount(); ++i) {
       metadata.push_back(metadataAt(i));
-      dictionaries->push_back(AbstractDictionary::dictionaryWithType<DictionaryFactory<OrderIndifferentDictionary> >(metadataAt(i)->getType()));
     }
   }
 
+  for (const auto& field: metadata) {
+    dictionaries->push_back(makeDictionary<OrderIndifferentDictionary>(field->getType()));
+  }
 
   auto result = std::make_shared<Table>(&metadata, dictionaries, initial_size, false, _compressed);
   delete dictionaries;
