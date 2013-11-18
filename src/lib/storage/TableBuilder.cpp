@@ -2,6 +2,7 @@
 #include "storage/TableBuilder.h"
 
 #include "storage/AbstractTable.h"
+#include "storage/DictionaryFactory.h"
 #include "storage/OrderIndifferentDictionary.h"
 #include "storage/Table.h"
 #include "storage/MutableVerticalTable.h"
@@ -31,7 +32,7 @@ hyrise::storage::atable_ptr_t TableBuilder::createTable(param_list::param_list_t
   for (; begin != end; ++begin) {
     vc.push_back(ColumnMetadata::metadataFromString((*begin).type, (*begin).name));
     vd.push_back(
-      DictionaryFactory<OrderIndifferentDictionary>::build(vc.back()->getType()));
+      makeDictionary<OrderIndifferentDictionary>(vc.back()->getType()));
   }
 
   auto tmp = std::make_shared<Table>(&vc, &vd, 0, 0, compressed);

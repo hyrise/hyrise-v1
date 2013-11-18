@@ -3,6 +3,7 @@
 
 #include <storage/MutableVerticalTable.h>
 #include <storage/Table.h>
+#include <storage/DictionaryFactory.h>
 #include <storage/Store.h>
 #include <storage/ColumnMetadata.h>
 #include <storage/ColumnMetadata.h>
@@ -58,12 +59,12 @@ hyrise::storage::atable_ptr_t AbstractTable::copy_structure_modifiable(const fie
   if (fields != nullptr) {
 for (const field_t & field: *fields) {
       metadata.push_back(metadataAt(field));
-      dictionaries->push_back(AbstractDictionary::dictionaryWithType<DictionaryFactory<OrderIndifferentDictionary> >(metadataAt(field)->getType()));
+      dictionaries->push_back(makeDictionary<OrderIndifferentDictionary>(metadataAt(field)->getType()));
     }
   } else {
     for (size_t i = 0; i < columnCount(); ++i) {
       metadata.push_back(metadataAt(i));
-      dictionaries->push_back(AbstractDictionary::dictionaryWithType<DictionaryFactory<OrderIndifferentDictionary> >(metadataAt(i)->getType()));
+      dictionaries->push_back(makeDictionary<OrderIndifferentDictionary>(metadataAt(i)->getType()));
     }
   }
 
