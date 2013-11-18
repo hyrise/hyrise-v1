@@ -70,6 +70,9 @@ public:
         bool sorted = true,
         bool compressed = true);
 
+  // Construct table from vector of metadata,
+  // a storage vector and dictionaries
+  // Expects: m.size() == dicts.size()
   Table(std::vector<ColumnMetadata> m,
         SharedAttributeVector av,
         std::vector<SharedDictionary> dicts);
