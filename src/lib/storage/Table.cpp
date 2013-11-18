@@ -57,6 +57,19 @@ Table::Table(
 }
 
 
+Table::Table(std::vector<ColumnMetadata> m,
+             SharedAttributeVector av,
+             std::vector<SharedDictionary> dicts) :
+  tuples(av),
+  _metadata(m.size()),
+  _dictionaries(dicts),
+  width(m.size()) {
+  assert(m.size() == dicts.size() && "Metadata size and dictionaries must match");
+  for (size_t i = 0; i < width; i++) {
+    _metadata[i] = new ColumnMetadata(m.at(i));
+  }
+}
+
 
 hyrise::storage::atable_ptr_t Table::copy_structure(const field_list_t *fields, const bool reuse_dict, const size_t initial_size, const bool with_containers, const bool compressed) const {
 

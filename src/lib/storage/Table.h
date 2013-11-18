@@ -70,6 +70,10 @@ public:
         bool sorted = true,
         bool compressed = true);
 
+  Table(std::vector<ColumnMetadata> m,
+        SharedAttributeVector av,
+        std::vector<SharedDictionary> dicts);
+
   ~Table();
 
   size_t size() const;
