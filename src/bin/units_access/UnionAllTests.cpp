@@ -17,6 +17,11 @@ class UnionAllTests : public Test{
   }
 };
   
+TEST_F(UnionAllTests, union_vname_test) {
+  UnionAll us;
+  ASSERT_EQ("UnionAll", us.vname());
+}
+
 TEST_F(UnionAllTests, basic_union_scan_test) {
   UnionAll us;
   us.addInput(t);
