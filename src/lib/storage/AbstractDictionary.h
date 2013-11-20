@@ -8,41 +8,12 @@
 
 #include "storage/storage_types.h"
 
-class AbstractDictionary;
-
-template < template<typename T> class D >
-struct DictionaryFactory {
-  static std::shared_ptr<AbstractDictionary> build(DataType type, size_t size = 0) {
-    switch (type) {
-      case IntegerType:
-        return std::make_shared<D<hyrise_int_t>>(size);
-        break;
-
-      case FloatType:
-        return std::make_shared<D<hyrise_float_t>>(size);
-        break;
-
-      case StringType:
-        return std::make_shared<D<hyrise_string_t>>(size);
-        break;
-
-      default:
-        throw std::runtime_error("Type not supported for dictionary");
-    }
-  }
-};
-
 
 class AbstractDictionary {
 public:
   virtual ~AbstractDictionary() {}
 
   virtual bool isOrdered() = 0;
-
-  template< class Factory >
-  static std::shared_ptr<AbstractDictionary> dictionaryWithType(DataType type, size_t size = 0) {
-    return Factory::build(type, size);
-  }
 
   virtual void reserve(size_t size) = 0;
 
@@ -54,5 +25,5 @@ public:
 
 };
 
-#endif  // SRC_LIB_STORAGE_ABSTRACTDICTIONARY_H_
 
+#endif  // SRC_LIB_STORAGE_ABSTRACTDICTIONARY_H_

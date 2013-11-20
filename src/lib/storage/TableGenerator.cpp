@@ -13,6 +13,7 @@
 #include <helper/types.h>
 
 #include <storage/AbstractTable.h>
+#include <storage/DictionaryFactory.h>
 #include <storage/MutableVerticalTable.h>
 #include <storage/AbstractMergeStrategy.h>
 #include <storage/SequentialHeapMerger.h>
@@ -363,7 +364,7 @@ hyrise::storage::atable_ptr_t TableGenerator::create_empty_table(size_t rows, st
     md.push_back(m);
 
     auto d = new std::vector<AbstractTable::SharedDictionaryPtr>;
-    auto new_dict = AbstractDictionary::dictionaryWithType<DictionaryFactory<OrderPreservingDictionary> >(IntegerType);
+    auto new_dict = makeDictionary<OrderPreservingDictionary>(IntegerType);
     d->push_back(new_dict);
     dicts.push_back(d);
   }
@@ -433,7 +434,7 @@ hyrise::storage::atable_ptr_t TableGenerator::create_empty_table_modifiable(size
     md.push_back(m);
 
     auto d = new std::vector<AbstractTable::SharedDictionaryPtr>;
-    auto new_dict = AbstractDictionary::dictionaryWithType<DictionaryFactory<OrderIndifferentDictionary> >(IntegerType);
+    auto new_dict = makeDictionary<OrderIndifferentDictionary>(IntegerType);
     d->push_back(new_dict);
     dicts.push_back(d);
   }

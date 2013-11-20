@@ -2,6 +2,7 @@
 #include "access/ExpressionScan.h"
 
 #include "access/system/QueryParser.h"
+#include "storage/DictionaryFactory.h"
 #include "storage/OrderIndifferentDictionary.h"
 #include "storage/MutableVerticalTable.h"
 #include "storage/Table.h"
@@ -48,7 +49,7 @@ void ExpressionScan::executePlanOperation() {
   metadata.push_back(m);
 
   std::vector<AbstractTable::SharedDictionaryPtr> dicts;
-  dicts.push_back(AbstractDictionary::dictionaryWithType<DictionaryFactory<OrderIndifferentDictionary>>(_expression->getType()));
+  dicts.push_back(storage::makeDictionary<OrderIndifferentDictionary>(_expression->getType()));
 
   storage::atable_ptr_t exp_result = std::make_shared<Table>(&metadata, &dicts, 0, false);
   exp_result->resize(input_size);
