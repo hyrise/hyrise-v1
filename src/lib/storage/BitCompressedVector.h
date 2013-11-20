@@ -10,6 +10,7 @@
 #include <mutex>
 #include <string>
 #include <stdexcept>
+#include <type_traits>
 
 #include "memory/MallocStrategy.h"
 #include "storage/BaseAttributeVector.h"
@@ -18,7 +19,14 @@
 #define WORD_LENGTH 64
 #endif
 
-
+// Compute the maximum number representable for n-bit width integers.
+template <typename T,
+          class = typename std::enable_if<std::is_integral<T>::value>::type>
+T maxValueForBits(const std::size_t bits) {
+  assert(bits <= sizeof(T) * 8);
+  if (bits == sizeof(T) * 8) return static_cast<T>(-1);
+  else return (1ull << bits) -1;
+}
 /*
   can only save positive numbers
 */
@@ -96,7 +104,8 @@ public:
   void set(size_t column, size_t row, T value) {
     checkAccess(column, row);
 #ifdef EXPENSIVE_ASSERTIONS
-    if (value >= (1 << _bits[column])) throw std::out_of_range("trying to insert value larger than can be stored");
+    if (value > maxValueForBits<T>(_bits[column]))
+      throw std::out_of_range("trying to insert value larger than can be stored");
 #endif
     auto offset = _blockOffset(row);
     auto colOffset = _offsetForColumn(column);
