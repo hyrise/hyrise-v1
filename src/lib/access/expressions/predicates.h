@@ -10,6 +10,8 @@
 #include "pred_PredicateBuilder.h"
 #include "pred_SimpleExpression.h"
 #include "pred_SimpleFieldExpression.h"
+#include "pred_LikeExpression.h"
+#include "pred_InExpression.h"
 
 #include "pred_buildExpression.h"
 #include "pred_expression_factory.h"

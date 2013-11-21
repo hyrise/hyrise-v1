@@ -10,6 +10,7 @@ include $(PROJECT_ROOT)/src/lib/net/Makefile
 
 hyr-access.libname := hyr-access
 hyr-access.deps := json hyr-net hyr-storage hyr-io hyr-layouter
+hyr-access.libs := boost_regex
 
 ifeq ($(USE_V8), 1)
 hyr-access.CFLAGS += -DWITH_V8

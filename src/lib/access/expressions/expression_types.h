@@ -23,6 +23,8 @@ struct PredicateType {
     EqualsExpressionRaw = 13,
     LessThanExpressionRaw = 14,
     GreaterThanExpressionRaw = 15,
+    LikeExpression = 16,
+    InExpression = 17,
 
     EqualsExpressionValue = 20,
     GreaterThanExpressionValue = 21,

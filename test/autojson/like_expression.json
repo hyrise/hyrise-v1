@@ -1,0 +1,23 @@
+{
+    "operators": {
+        "-1" :  {
+            "type": "TableLoad",
+            "table": "reference",
+            "filename" : "tables/employees_like.tbl" 
+        },
+        "load" : {
+            "type": "LoadFile",
+            "filename": "tables/employees.tbl"
+        },
+    "like" : {
+        "type" : "SimpleTableScan",
+            "positions" : true,
+            "predicates":[
+            { "type" : "OR" },
+            { "type" : "LIKE", "in" : 0, "f" : "employee_name", "vtype" : 2, "value": ".teve .*" },
+            { "type" : "LIKE", "in" : 0, "f" : "employee_name", "vtype" : 2, "value": "Jeffre. .\\. .*ley" }
+            ]
+    }
+    },
+    "edges" : [["load", "like"]]
+}
