@@ -244,20 +244,17 @@ include makefiles/ci.mk
 
 ci_build: ci_steps
 
-# a noop to keep make happy
-%.d :
-
-% :
-	$(call echo_cmd,LINK $(CXX) $(BLD) $@) $(CXX) $(CXXFLAGS) -o $@ $(filter %.o,$^) -Wl,-whole-archive $(addprefix -l,$(LIBS)) -Wl,-no-whole-archive $(addprefix -L,$(LINK_DIRS)) $(LDFLAGS)
-
-%.a:
-	$(call echo_cmd,AR $(AR) $@) $(AR) crs $@ $(filter %.o,$?)
-
 %/.fake:
 	@mkdir -p $(@D)
 	@touch $@
 
-# Necessary to allow for a second expansio to create dirs
+$(RESULT_DIR)/%.a:
+	$(call echo_cmd,AR $(AR) $@) $(AR) crs $@ $(filter %.o,$?)
+
+$(RESULT_DIR)/%:
+	$(call echo_cmd,LINK $(CXX) $(BLD) $@) $(CXX) $(CXXFLAGS) -o $@ $(filter %.o,$^) -Wl,-whole-archive $(addprefix -l,$(LIBS)) -Wl,-no-whole-archive $(addprefix -L,$(LINK_DIRS)) $(LDFLAGS)
+
+# Necessary to allow for a second expansion to create dirs
 .SECONDEXPANSION:
 test: $$(test-tgts)
 
