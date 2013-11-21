@@ -17,6 +17,7 @@
 
 #include "helper/types.h"
 #include "helper/locking.h"
+#include "helper/checked_cast.h"
 #include "helper/unique_id.h"
 
 #include "storage/AbstractResource.h"
@@ -281,7 +282,7 @@ public:
     // FIXME here should be some basic type checking, at least we should check with a better cast and catch the std::exception
     // FIXME horizontal containers will go down here, needs a row index, can be default 0
 
-    const auto& map = std::dynamic_pointer_cast<BaseDictionary<T>>(dictionaryAt(column, 0, table_id));
+    const auto& map = checked_pointer_cast<BaseDictionary<T>>(dictionaryAt(column, 0, table_id));
     ValueId valueId;
     valueId.table = table_id;
 
@@ -318,7 +319,7 @@ public:
     // FIXME here should be some basic type checking, at least we should check with a better cast and catch the std::exception
     // FIXME horizontal containers will go down here, needs a row index, can be default 0
 
-    const auto& map = std::dynamic_pointer_cast<BaseDictionary<T>>(dictionaryByTableId(column, table_id));
+    const auto& map = checked_pointer_cast<BaseDictionary<T>>(dictionaryByTableId(column, table_id));
     ValueId valueId;
     valueId.table = table_id;
 
@@ -347,7 +348,7 @@ public:
    */
   template<typename T>
   inline bool valueExists(const field_t column, const T value, const table_id_t table_id = 0) const {
-    const auto& map = std::dynamic_pointer_cast<BaseDictionary<T>>(dictionaryAt(column, 0, table_id));
+    const auto& map = checked_pointer_cast<BaseDictionary<T>>(dictionaryAt(column, 0, table_id));
     return map->valueExists(value);
   }
 
@@ -360,7 +361,7 @@ public:
    */
   template <typename T>
   void setValue(size_t column, size_t row, const T &value) {
-    const auto& map = std::dynamic_pointer_cast<BaseDictionary<T>>(dictionaryAt(column, row));
+    const auto& map = checked_pointer_cast<BaseDictionary<T>>(dictionaryAt(column, row));
 
     ValueId valueId;
     valueId.table = 0;
