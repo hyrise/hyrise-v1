@@ -31,6 +31,8 @@ predicate_map_t getPredicateMap() {
   d["AND"] = PredicateType::AND;
   d["OR"] = PredicateType::OR;
   d["NOT"] = PredicateType::NOT;
+  d["LIKE"] = PredicateType::LikeExpression;
+  d["IN"] = PredicateType::InExpression;
   return d;
 }
 
