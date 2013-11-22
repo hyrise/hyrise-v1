@@ -1,0 +1,50 @@
+{
+    "operators": {
+        "-1": {
+            "type": "TableLoad",
+            "table": "reference",
+            "filename": "tables/employees_idx.tbl"
+        },
+
+        "0": {
+            "type": "TableLoad",
+            "table": "employees",
+            "filename": "tables/employees.tbl"
+        },
+
+        "scan_gt0" : {
+            "type" : "SimpleTableScan",
+            "predicates" : [
+                {"type": "GT", "in": 0, "f": "employee_company_id", "vtype": 0, "value":0}
+            ]
+        },
+
+        "scan_gt2" : {
+            "type" : "SimpleTableScan",
+            "predicates" : [
+                {"type": "GT", "in": 0, "f": "employee_company_id", "vtype": 0, "value":2}
+            ]
+        },
+
+        "scan_eq3" : {
+            "type" : "SimpleTableScan",
+            "predicates" : [
+                {"type": "EQ", "in": 0, "f": "employee_company_id", "vtype": 0, "value":3}
+            ]
+        },
+
+        "intersect": {
+            "type": "IntersectPositions"
+        }
+
+    },
+    "edges": [
+        ["0", "scan_gt0"],
+        ["0", "scan_gt2"],
+        ["0", "scan_eq3"],
+
+        ["scan_gt0", "intersect"],
+        ["scan_gt2", "intersect"],
+        ["scan_eq3", "intersect"]
+    ]
+}
