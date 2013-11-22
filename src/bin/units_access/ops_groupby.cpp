@@ -542,11 +542,8 @@ TEST_F(GroupByTests, group_by_scan_with_sum_and_one_arg) {
 TEST_F(GroupByTests,  group_multi_table) {
 
   // Load raw data
-  hyrise::storage::atable_ptr_t t = Loader::shortcuts::load("test/10_30_group.tbl");
+  hyrise::storage::atable_ptr_t s = Loader::shortcuts::load("test/10_30_group.tbl");
   hyrise::storage::atable_ptr_t reference = Loader::shortcuts::load("test/reference/group_by_scan_with_sum_and_one_arg.tbl");
-
-  // make it modifiable
-  auto s = std::make_shared<storage::Store>(t);
 
   auto sum = new SumAggregateFun(0);
 

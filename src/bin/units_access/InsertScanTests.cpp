@@ -12,7 +12,7 @@ class InsertScanTests : public AccessTest {};
 
 TEST_F(InsertScanTests, basic_insert_scan_test) {
   auto row = Loader::shortcuts::load("test/insert_one.tbl");
-  storage::atable_ptr_t table(new storage::Store(row));
+  auto table = Loader::shortcuts::load("test/insert_one.tbl");
 
   auto ctx = tx::TransactionManager::getInstance().buildContext();
 

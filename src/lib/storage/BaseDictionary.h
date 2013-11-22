@@ -9,7 +9,7 @@
 template <typename T>
 class BaseDictionary : public AbstractDictionary {
 public:
-
+  using value_type = T;
   virtual value_id_t addValue(T value) = 0;
 
   virtual T getValueForValueId(value_id_t value_id) = 0;

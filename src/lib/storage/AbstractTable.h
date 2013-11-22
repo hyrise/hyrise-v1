@@ -12,6 +12,7 @@
 #include <memory>
 #include <stdexcept>
 
+#include <functional>
 #include <vector>
 #include <string>
 
@@ -93,6 +94,15 @@ public:
    */
   virtual hyrise::storage::atable_ptr_t copy_structure_modifiable(const field_list_t *fields = nullptr, size_t initial_size = 0, bool with_containers = true) const;
 
+  typedef std::function<std::shared_ptr<AbstractDictionary>(DataType)> abstract_dictionary_callback;
+  typedef std::function<std::shared_ptr<AbstractAttributeVector>(std::size_t)> abstract_attribute_vector_callback;
+
+  /**
+   * Copy structure with factory functions to replace attribute vectors and dictionaries
+   * in `Table` instances. May need future enhancement for more fine-grained replacement
+   * (i.e. per column or per main/delta or per partition).
+   */
+  virtual hyrise::storage::atable_ptr_t copy_structure(abstract_dictionary_callback, abstract_attribute_vector_callback) const { throw std::runtime_error("not implemented"); }
 
   /**
    * Get the value-IDs for a certain row.
