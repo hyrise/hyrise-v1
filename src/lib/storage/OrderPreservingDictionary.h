@@ -58,7 +58,7 @@ public:
   value_id_t addValue(T value) {
 #ifdef EXPENSIVE_ASSERTIONS
     if ((_values->size() > 0) && (value <= _values->back()))
-      throw std::runtime_error("Can't insert value smaller than last value");
+      throw std::runtime_error("Can't insert value smaller or equal to last value");
 #endif
     _values->push_back(value);
     return _values->size() - 1;
@@ -73,7 +73,7 @@ public:
   T getValueForValueId(value_id_t value_id) {
 #ifdef EXPENSIVE_ASSERTIONS
     if (value_id >= _values->size())
-      throw std::runtime_error("Trying to access value_id larger than available values");
+      throw std::out_of_range("Trying to access value_id larger than available values");
 #endif
     return (*_values)[value_id];
   }

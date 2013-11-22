@@ -12,6 +12,7 @@
 
 #include "helper/types.h"
 #include "helper/make_unique.h"
+#include "helper/checked_cast.h"
 #include "helper/vector_helpers.h"
 
 

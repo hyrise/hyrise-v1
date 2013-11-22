@@ -18,6 +18,8 @@
 
 #include <helper/types.h>
 
+#include "tbb/concurrent_vector.h"
+
 namespace hyrise {
 namespace storage {
 
@@ -86,6 +88,7 @@ public:
   void debugStructure(size_t level=0) const override;
 
  private:
+  std::atomic<std::size_t> _delta_size;
   //* Vector containing the main tables
   atable_ptr_t _main_table;
 
@@ -97,14 +100,14 @@ public:
 
   typedef struct { const atable_ptr_t& table; size_t offset_in_table; size_t table_index; } table_offset_idx_t;
   table_offset_idx_t responsibleTable(size_t row) const;
-
+ 
   // TX Management
   // Stores the CID of the transaction that created the row
-  std::vector<tx::transaction_id_t> _cidBeginVector;
+  tbb::concurrent_vector<tx::transaction_id_t> _cidBeginVector;
   // Stores the CID of the transaction that deleted the row
-  std::vector<tx::transaction_id_t> _cidEndVector;
+  tbb::concurrent_vector<tx::transaction_id_t> _cidEndVector;
   // Stores the TID for each record to identify your own writes
-  std::vector<tx::transaction_id_t> _tidVector;
+  tbb::concurrent_vector<tx::transaction_id_t> _tidVector;
   friend class PrettyPrinter;
 };
 

@@ -1,8 +1,8 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "testing/test.h"
 
-#include <io.h>
-#include <storage.h>
+#include "storage/OrderIndifferentDictionary.h"
+#include "storage/OrderPreservingDictionary.h"
 
 class DictionaryTest : public ::hyrise::Test {};
 
@@ -123,3 +123,4 @@ TEST_F(DictionaryTest, order_preserving_string_exists) {
   ASSERT_FALSE(dict.valueExists("321"));
 
 }
+
