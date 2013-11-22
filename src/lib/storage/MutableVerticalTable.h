@@ -50,6 +50,7 @@ public:
   size_t partitionWidth(size_t slice) const override;
   atable_ptr_t copy_structure(const field_list_t *fields = nullptr, bool reuse_dict = false, size_t initial_size = 0, bool with_containers = true, bool compressed = false) const override;
   atable_ptr_t copy_structure_modifiable(const field_list_t *fields = nullptr, size_t initial_size = 0, bool with_containers = true) const override;
+  atable_ptr_t copy_structure(abstract_dictionary_callback, abstract_attribute_vector_callback) const override;
   table_id_t subtableCount() const override;
   atable_ptr_t copy() const override;
   const attr_vectors_t getAttributeVectors(size_t column) const override;

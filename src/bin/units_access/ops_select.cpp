@@ -250,9 +250,8 @@ TEST_F(SelectTests, simple_projection_on_empty_table) {
 
 TEST_F(SelectTests, select_after_insert_simple) {
   auto ctx = tx::TransactionManager::getInstance().buildContext();
-  hyrise::storage::atable_ptr_t t = Loader::shortcuts::load("test/lin_xxs.tbl");
-  auto s = std::make_shared<const storage::Store>(t);
-
+  hyrise::storage::atable_ptr_t s = Loader::shortcuts::load("test/lin_xxs.tbl");
+  auto initial_size = s->size();
   hyrise::storage::atable_ptr_t data = s->copy_structure_modifiable(nullptr, s->size());
   data->resize(1);
   for (std::size_t i=0; i <= 9; ++i) {
@@ -266,7 +265,7 @@ TEST_F(SelectTests, select_after_insert_simple) {
   isc.execute();
 
 
-  ASSERT_EQ(t->size() + 1, isc.getResultTable(0)->size());
+  ASSERT_EQ(initial_size + 1, isc.getResultTable(0)->size());
 }
 
 

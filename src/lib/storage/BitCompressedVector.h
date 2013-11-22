@@ -62,7 +62,9 @@ public:
 
   BitCompressedVector(size_t columns,
                       size_t rows,
-                      std::vector<uint64_t> bits): _data(nullptr), _size(0), _allocatedBlocks(0), _columns(columns), _bits(bits) {
+                      std::vector<uint64_t> bits={}): _data(nullptr), _size(0), _allocatedBlocks(0), _columns(columns), _bits(bits) {
+    // When bits is unset, behave like a fixed length vector
+    if (bits.size() == 0) { _bits = std::vector<uint64_t>(_columns, sizeof(T) * 8); }
     reserve(rows);
   }
 

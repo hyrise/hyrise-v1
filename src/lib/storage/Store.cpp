@@ -11,6 +11,10 @@
 #include <helper/locking.h>
 #include <helper/cas.h>
 
+#include "storage/DictionaryFactory.h"
+#include "storage/ConcurrentUnorderedDictionary.h"
+#include "storage/ConcurrentFixedLengthVector.h"
+
 namespace hyrise { namespace storage {
 
 TableMerger* createDefaultMerger() {
@@ -22,9 +26,17 @@ Store::Store() :
   setUuid();
 }
 
+namespace {
+
+auto create_concurrent_dict = [](DataType dt) { return makeDictionary<ConcurrentUnorderedDictionary>(dt); };
+auto create_concurrent_storage = [](std::size_t cols) { return std::make_shared<ConcurrentFixedLengthVector<value_id_t>>(cols, 0); };
+
+}
+
 Store::Store(atable_ptr_t main_table) :
+    _delta_size(0),
     _main_table(main_table),
-    delta(main_table->copy_structure_modifiable()),
+    delta(main_table->copy_structure(create_concurrent_dict, create_concurrent_storage)),
     merger(createDefaultMerger()),
     _cidBeginVector(main_table->size(), 0),
     _cidEndVector(main_table->size(), tx::INF_CID),
@@ -42,7 +54,7 @@ void Store::merge() {
   }
 
   // Create new delta and merge
-  atable_ptr_t new_delta = delta->copy_structure_modifiable();
+  atable_ptr_t new_delta = delta->copy_structure(create_concurrent_dict, create_concurrent_storage);
 
   // Prepare the merge
   std::vector<c_atable_ptr_t> tmp {_main_table, delta};
@@ -58,12 +70,13 @@ void Store::merge() {
   assert(tables.size() == 1);
   _main_table = tables.front();
   // Fixup the cid and tid vectors
-  _cidBeginVector = std::vector<tx::transaction_cid_t>(_main_table->size(), tx::UNKNOWN_CID);
-  _cidEndVector = std::vector<tx::transaction_cid_t>(_main_table->size(), tx::INF_CID);
-  _tidVector = std::vector<tx::transaction_id_t>(_main_table->size(), tx::START_TID);
-
+  _cidBeginVector = tbb::concurrent_vector<tx::transaction_cid_t>(_main_table->size(), tx::UNKNOWN_CID);
+  _cidEndVector = tbb::concurrent_vector<tx::transaction_cid_t>(_main_table->size(), tx::INF_CID);
+  _tidVector = tbb::concurrent_vector<tx::transaction_id_t>(_main_table->size(), tx::START_TID);
+  
   // Replace the delta partition
   delta = new_delta;
+  _delta_size = new_delta->size();
 }
 
 
@@ -258,22 +271,15 @@ std::pair<size_t, size_t> Store::resizeDelta(size_t num) {
 }
 
 std::pair<size_t, size_t> Store::appendToDelta(size_t num) {
-  static locking::Spinlock mtx;
-  std::lock_guard<locking::Spinlock> lck(mtx);
-
-  size_t start = delta->size();
-  std::pair<size_t, size_t> result = {start, start + num};
-
-  // Update Delta
+  std::size_t start =_delta_size.fetch_add(num);
   delta->resize(start + num);
-  // Update CID, TID and valid
-  auto main_tables_size = _main_table->size();
 
+  auto main_tables_size = _main_table->size();
   _cidBeginVector.resize(main_tables_size + start + num, tx::INF_CID);
   _cidEndVector.resize(main_tables_size + start + num, tx::INF_CID);
   _tidVector.resize(main_tables_size + start + num, tx::START_TID);
 
-  return std::move(result);
+  return {start, start + num};
 }
 
 void Store::copyRowToDelta(const c_atable_ptr_t& source, const size_t src_row, const size_t dst_row, tx::transaction_id_t tid) {

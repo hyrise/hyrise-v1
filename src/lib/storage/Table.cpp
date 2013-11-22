@@ -131,6 +131,22 @@ hyrise::storage::atable_ptr_t Table::copy_structure_modifiable(const field_list_
 
 }
 
+hyrise::storage::atable_ptr_t Table::copy_structure(abstract_dictionary_callback ad, abstract_attribute_vector_callback aav) const {
+  std::vector<ColumnMetadata> metadata;
+  std::vector<AbstractTable::SharedDictionaryPtr > dicts;
+
+  for (size_t i = 0; i < columnCount(); ++i) {
+    metadata.push_back(*metadataAt(i));
+  }
+
+  for (const auto& field: metadata) {
+    dicts.push_back(ad(field.getType()));
+  }
+
+  return std::make_shared<Table>(metadata,
+                                 checked_pointer_cast< BaseAttributeVector<value_id_t> >(aav(metadata.size())),
+                                 dicts);
+}
 
 
 Table::~Table() {

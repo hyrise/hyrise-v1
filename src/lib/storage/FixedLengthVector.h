@@ -2,7 +2,6 @@
 #ifndef SRC_LIB_STORAGE_FIXEDLENGTHVECTOR_H_
 #define SRC_LIB_STORAGE_FIXEDLENGTHVECTOR_H_
 
-
 #include <cerrno>
 #include <cstring>
 #include <cmath>
@@ -17,8 +16,15 @@
 #include "memory/MallocStrategy.h"
 #include "storage/BaseAttributeVector.h"
 
+
 template <typename T>
-class FixedLengthVector : public BaseAttributeVector<T> {
+class AbstractFixedLengthVector : public BaseAttributeVector<T> {
+ public:
+  virtual const T& getRef(size_t column, size_t row) const = 0;
+};
+
+template <typename T>
+class FixedLengthVector : public AbstractFixedLengthVector<T> {
  private:
   T *_values;
   size_t _rows;
@@ -108,7 +114,6 @@ class FixedLengthVector : public BaseAttributeVector<T> {
     checkAccess(column, row);
     return __sync_fetch_and_add(&_values[row * _columns + column], 1);
   }
-
 
   const std::string print() {
     std::stringstream buf;

@@ -17,7 +17,7 @@
 
 #define EXPRESSION_EXTRACT_AV_AND_OFFSET(r, data, name) \
 	const	auto& BOOST_PP_CAT(tmp, name) = _store->getAttributeVectors(name); \
-	BOOST_PP_CAT(_vector_,name) = hyrise::functional::collect(BOOST_PP_CAT(tmp, name), [](const attr_vector_offset_t& v) { return std::dynamic_pointer_cast<VectorType>(v.attribute_vector); }); \
+	BOOST_PP_CAT(_vector_,name) = hyrise::functional::collect(BOOST_PP_CAT(tmp, name), [](const attr_vector_offset_t& v) { return checked_pointer_cast<VectorType>(v.attribute_vector); }); \
 	BOOST_PP_CAT(_of_, name) = hyrise::functional::collect(BOOST_PP_CAT(tmp, name), [](const attr_vector_offset_t& v) { return v.attribute_offset; });
 
 
@@ -103,7 +103,7 @@
 
 #define DEFINE_EXPRESSION_CLASS(name, seq_of_fields,seq_logic) \
 	class name : public AbstractExpression { \
-		using VectorType = FixedLengthVector<value_id_t>;\
+		using VectorType = AbstractFixedLengthVector<value_id_t>;\
 		using SharedVectorType = std::shared_ptr<VectorType>;\
 		hyrise::storage::c_store_ptr_t _store;\
 		bool _with_delta=true;\
