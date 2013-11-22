@@ -1,7 +1,8 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "access/IntersectPositions.h"
-
 #include "storage/PointerCalculator.h"
+
+#include <algorithm>
 
 namespace hyrise {
 namespace access {
@@ -13,15 +14,18 @@ std::shared_ptr<PlanOperation> IntersectPositions::parse(const Json::Value&) {
 }
 
 void IntersectPositions::executePlanOperation() {
-  const auto& pc1 = std::dynamic_pointer_cast<const PointerCalculator>(getInputTable(0));
-  const auto& pc2 = std::dynamic_pointer_cast<const PointerCalculator>(getInputTable(1));
-
-  if (pc1 == nullptr) { throw std::runtime_error("Passed input 0 is not a PC!"); }
-  if (pc2 == nullptr) { throw std::runtime_error("Passed input 1 is not a PC!"); }
-
-  auto pc3 = pc1->intersect(pc2);
-
-  addResult(pc3);
+  const auto& tables = input.getTables();
+  std::vector<std::shared_ptr<const PointerCalculator>> pcs(tables.size());
+  std::transform(begin(tables), end(tables),
+                 begin(pcs),
+                 [] (decltype(*begin(tables)) table) {
+                   return std::dynamic_pointer_cast<const PointerCalculator>(table);
+                 });
+  if (std::all_of(begin(pcs), end(pcs), [] (decltype(*begin(tables)) pc) { return pc != nullptr; })) {
+    addResult(PointerCalculator::intersect_many(begin(pcs), end(pcs)));
+  } else {
+    throw std::runtime_error(_planOperationName + " is only supported for PointerCalculators (IntersectPositions.cpp)");
+  }
 }
 
 const std::string IntersectPositions::vname() {
