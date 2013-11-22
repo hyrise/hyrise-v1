@@ -6,6 +6,7 @@
 #include <unordered_set>
 
 #include "helper/checked_cast.h"
+#include "helper/PositionsIntersect.h"
 
 #include "storage/PrettyPrinter.h"
 #include "storage/Store.h"
@@ -317,25 +318,42 @@ hyrise::storage::atable_ptr_t PointerCalculator::copy_structure(const field_list
 }
 
 std::shared_ptr<PointerCalculator> PointerCalculator::intersect(const std::shared_ptr<const PointerCalculator>& other) const {
-  pos_list_t *result = new pos_list_t(std::max(pos_list->size(), other->pos_list->size()));
+  pos_list_t *result = new pos_list_t();
+  result->reserve(std::max(pos_list->size(), other->pos_list->size()));
   assert(std::is_sorted(begin(*pos_list), end(*pos_list)) && std::is_sorted(begin(*other->pos_list), end(*other->pos_list)) && "Both lists have to be sorted");
-  std::set_intersection(pos_list->begin(), pos_list->end(),
-                        other->pos_list->begin(), other->pos_list->end(),
-                        std::back_inserter(*result));
+  
+  intersect_pos_list(
+    pos_list->begin(), pos_list->end(),
+    other->pos_list->begin(), other->pos_list->end(),
+    std::back_inserter(*result));
 
   assert((other->table == this->table) && "Should point to same table");
   return create(table, result, fields);
 }
 
 
+bool PointerCalculator::isSmaller( std::shared_ptr<const PointerCalculator> lx, std::shared_ptr<const PointerCalculator> rx ) {
+  return lx->size() < rx->size() ;
+}
+
+std::shared_ptr<const PointerCalculator> PointerCalculator::intersect_many(pc_vector::iterator it, pc_vector::iterator it_end) {
+  std::sort(it, it_end, PointerCalculator::isSmaller);
+  std::shared_ptr<const PointerCalculator> base = *(it++);
+  for (;it != it_end; ++it) {
+    base = base->intersect(*it);
+  }
+  return base;
+}
+
 std::shared_ptr<PointerCalculator> PointerCalculator::unite(const std::shared_ptr<const PointerCalculator>& other) const {
   assert((other->table == this->table) && "Should point to same table");
   if (pos_list && other->pos_list) {
-    auto result = new pos_list_t(std::max(pos_list->size(), other->pos_list->size()));
+    auto result = new pos_list_t();
+    result->reserve(pos_list->size() + other->pos_list->size());
     assert(std::is_sorted(begin(*pos_list), end(*pos_list)) && std::is_sorted(begin(*other->pos_list), end(*other->pos_list)) && "Both lists have to be sorted");
     std::set_union(pos_list->begin(), pos_list->end(),
                    other->pos_list->begin(), other->pos_list->end(),
-                   result->begin());
+                   std::back_inserter(*result));
     return create(table, result, copy_vec(fields));
   } else {
     pos_list_t* positions = nullptr;

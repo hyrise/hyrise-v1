@@ -1,0 +1,52 @@
+{
+    "operators": {
+        "-1": {
+            "type": "TableLoad",
+            "table": "reference",
+            "filename": "tables/employees.tbl"
+        },
+
+        "0": {
+            "type": "TableLoad",
+            "table": "employees",
+            "filename": "tables/employees.tbl"
+        },
+
+        "scan_gt0" : {
+            "type" : "SimpleTableScan",
+            "predicates" : [
+                {"type": "AND"},
+                {"type": "GT", "in": 0, "f": "employee_company_id", "vtype": 0, "value":0},
+                {"type": "LT", "in": 0, "f": "employee_company_id", "vtype": 0, "value":3}
+            ]
+        },
+
+        "scan_eq3" : {
+            "type" : "SimpleTableScan",
+            "predicates" : [
+                {"type": "EQ", "in": 0, "f": "employee_company_id", "vtype": 0, "value":3}
+            ]
+        },
+
+        "scan_eq4" : {
+            "type" : "SimpleTableScan",
+            "predicates" : [
+                {"type": "EQ", "in": 0, "f": "employee_company_id", "vtype": 0, "value":4}
+            ]
+        },
+
+        "intersect": {
+            "type": "UnionScan"
+        }
+
+    },
+    "edges": [
+        ["0", "scan_gt0"],
+        ["0", "scan_eq3"],
+        ["0", "scan_eq4"],
+
+        ["scan_gt0", "intersect"],
+        ["scan_eq3", "intersect"],
+        ["scan_eq4", "intersect"]
+    ]
+}

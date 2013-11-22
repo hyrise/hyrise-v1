@@ -13,6 +13,7 @@
 class PointerCalculator : public AbstractTable,
                           public SharedFactory<PointerCalculator> {
 public:
+
   PointerCalculator(hyrise::storage::c_atable_ptr_t t, pos_list_t *pos = nullptr, field_list_t *f = nullptr);
   PointerCalculator(const PointerCalculator& other);
   
@@ -27,7 +28,9 @@ public:
 
   typedef std::vector<std::shared_ptr<const PointerCalculator> > pc_vector;
   static std::shared_ptr<const PointerCalculator> unite_many(pc_vector::const_iterator it, pc_vector::const_iterator it_end);
+  static std::shared_ptr<const PointerCalculator> intersect_many(pc_vector::iterator it, pc_vector::iterator it_end);
   static std::shared_ptr<PointerCalculator> concatenate_many(pc_vector::const_iterator it, pc_vector::const_iterator it_end);
+  static bool isSmaller( std::shared_ptr<const PointerCalculator> lx, std::shared_ptr<const PointerCalculator> rx );
 
   const pos_list_t *getPositions() const;
   pos_list_t getActualTablePositions() const;
