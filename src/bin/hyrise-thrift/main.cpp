@@ -238,6 +238,7 @@ class HyriseHandler : virtual public HyriseIf {
                                       boost::lexical_cast<std::string>(std::this_thread::get_id()) };
       }
       _responseTask->setQueryStart(_queryStart);
+      wait->wait();
       _return.result = conn->getResponse();
       delete conn;
     }
