@@ -107,6 +107,7 @@ void RequestParseTask::operator()() {
     if (ctx && reader.parse(query_string, request_data)) {
       _responseTask->setTxContext(*ctx);
       recordPerformance = getOrDefault(body_data, "performance", "false") == "true";
+      _responseTask->setRecordPerformanceData(recordPerformance);
 
       // the performance attribute for this operation (at [0])
       if (recordPerformance) {

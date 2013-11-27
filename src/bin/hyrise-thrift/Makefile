@@ -7,7 +7,7 @@ include $(PROJECT_ROOT)/src/lib/net/Makefile
 
 hyr-thrift-server.binname := hyrise-server-thrift
 hyr-thrift-server.deps := hyr-access
-hyr-thrift-server.libs := boost_program_options thrift
+hyr-thrift-server.libs := boost_program_options thrift thriftnb event
 $(eval $(call full_link_binary,hyr-thrift-server))
 
 all: $(hyr-thrift-server.binary)

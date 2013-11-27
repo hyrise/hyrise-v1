@@ -11,10 +11,17 @@
 
 // Thrift Protocol
 #include "Hyrise.h"
+#include <thrift/concurrency/ThreadManager.h>
+#include <thrift/concurrency/PosixThreadFactory.h>
 #include <thrift/protocol/TBinaryProtocol.h>
+#include <thrift/protocol/TCompactProtocol.h>
 #include <thrift/server/TSimpleServer.h>
+#include <thrift/server/TThreadPoolServer.h>
+#include <thrift/server/TThreadedServer.h>
+#include <thrift/server/TNonblockingServer.h>
 #include <thrift/transport/TServerSocket.h>
-#include <thrift/transport/TBufferTransports.h>
+#include <thrift/transport/TTransportUtils.h>
+
 
 #include "log4cxx/logger.h"
 #include "log4cxx/basicconfigurator.h"
@@ -296,6 +303,17 @@ void bindToNode(int node) {
   }
 }
 
+apache::thrift::server::TThreadedServer *server;
+
+void shutdown(int sig) {
+  std::cout << "Graceful stop" << std::endl;
+  StorageManager::getInstance()->removeAll();
+  sleep(1);
+  server->stop();
+}
+
+
+
 
 int main(int argc, char *argv[]) {
   size_t port = 0;
@@ -340,16 +358,42 @@ int main(int argc, char *argv[]) {
   SharedScheduler::getInstance().init(scheduler_name, worker_threads);
 
   PidFile pi;
+
   boost::shared_ptr<HyriseHandler> handler(new HyriseHandler());
   boost::shared_ptr<apache::thrift::TProcessor> processor(new HyriseProcessor(handler));
   boost::shared_ptr<apache::thrift::transport::TServerTransport> serverTransport(new apache::thrift::transport::TServerSocket(port));
   boost::shared_ptr<apache::thrift::transport::TTransportFactory> transportFactory(new apache::thrift::transport::TBufferedTransportFactory());
-  boost::shared_ptr<apache::thrift::protocol::TProtocolFactory> protocolFactory(new apache::thrift::protocol::TBinaryProtocolFactory());
+  boost::shared_ptr<apache::thrift::protocol::TProtocolFactory> protocolFactory(new apache::thrift::protocol::TCompactProtocolFactory());
+
+  // Thread manager
+  boost::shared_ptr<apache::thrift::concurrency::ThreadManager> threadManager =  apache::thrift::concurrency::ThreadManager::newSimpleThreadManager(12);
+
+  // auto threadFactory = boost::shared_ptr<apache::thrift::concurrency::PosixThreadFactory>(new apache::thrift::concurrency::PosixThreadFactory());
+  // threadManager->threadFactory(threadFactory);
+  // threadManager->start();
+
+
+  // apache::thrift::server::TNonblockingServer server(processor, protocolFactory, port, threadManager);
+  // server.setNumIOThreads(8);
+  // server.setUseHighPriorityIOThreads(true);
+
+  // apache::thrift::server::TThreadPoolServer server(processor,
+  //                          serverTransport,
+  //                          transportFactory,
+  //                          protocolFactory,
+  //                          threadManager);
+  signal(SIGINT, &shutdown);
+  server  = new apache::thrift::server::TThreadedServer(processor,
+                                                 serverTransport,
+                                                 transportFactory,
+                                                 protocolFactory);
+
+  
 
   
   LOG4CXX_INFO(logger, "Started server on port " << DEFAULT_PORT);
-  apache::thrift::server::TSimpleServer server(processor, serverTransport, transportFactory, protocolFactory);
-  server.serve();
+  //apache::thrift::server::TSimpleServer server(processor, serverTransport, transportFactory, protocolFactory);
+  server->serve();
   LOG4CXX_INFO(logger, "Stopping Server...");
 
   return 0;
