@@ -67,7 +67,7 @@ log4cxx::LoggerPtr _query_logger(log4cxx::Logger::getLogger("hyrise.access.queri
 }
 
 class HyriseHandler : virtual public HyriseIf {
-  AbstractTaskScheduler *scheduler;
+  std::shared_ptr<AbstractTaskScheduler> scheduler;
 
 
   // Hash The input to a small string

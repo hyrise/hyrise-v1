@@ -125,7 +125,7 @@ task_states_t ResponseTask::getState() const {
 }
 
 void ResponseTask::operator()() {
-  epoch_t responseStart; // = get_epoch_nanoseconds();
+  epoch_t responseStart = _recordPerformanceData ? get_epoch_nanoseconds() : 0;
   Json::Value response;
 
   if (getDependencyCount() > 0) {
