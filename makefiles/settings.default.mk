@@ -8,6 +8,6 @@ BLD ?= debug
 # WITH_PROFILER := 1
 
 # Per Default HYRISE is compiled with MySQL support, set to 0 to disable
-# WITH_MYSQL := 1
+WITH_MYSQL := 0
 
 include mysql.mk
