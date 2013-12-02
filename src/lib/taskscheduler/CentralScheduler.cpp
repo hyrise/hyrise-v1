@@ -59,7 +59,8 @@ CentralScheduler::CentralScheduler(int threads) {
 	free(str);
       }
 
-      _worker_threads.push_back(thread);
+      hwloc_bitmap_free(cpuset);
+      _worker_threads.push_back(std::move(thread));
     }
   }
   _status = RUN;

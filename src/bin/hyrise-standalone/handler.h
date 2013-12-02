@@ -46,7 +46,7 @@ class HyriseHandler {
   std::string _schedulerName;
   int _workerThreads;
 
-  AbstractTaskScheduler* scheduler = nullptr;
+  std::shared_ptr<AbstractTaskScheduler> scheduler;
 
   
   // Hash The input to a small string

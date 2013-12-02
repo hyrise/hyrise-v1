@@ -57,7 +57,9 @@ CentralPriorityScheduler::CentralPriorityScheduler(int threads) {
 	fprintf(stderr, "Continuing as normal, however, no guarantees\n");
 	free(str);
       }
-      _worker_threads.push_back(thread);
+
+      hwloc_bitmap_free(cpuset);
+      _worker_threads.push_back(std::move(thread));
     }
   }
   _status = RUN;

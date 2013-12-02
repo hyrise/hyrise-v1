@@ -142,23 +142,19 @@ const PlanOperation * PlanOperation::execute() {
     startTime = get_epoch_nanoseconds();
 
   PapiTracer pt;
-  epoch_t startTime, endTime;
-
-  if (_performance_attr != nullptr) 
-    startTime = get_epoch_nanoseconds();
 
   // Start the execution
   refreshInput();
   setupPlanOperation();
 
-  if (_performance_attr != nullptr) {
+  if (recordPerformance) {
     pt.addEvent("PAPI_TOT_CYC");
     pt.addEvent(getEvent());
     pt.start();
   }
 
-  if (recordPerformance) pt.start();
   executePlanOperation();
+
   if (recordPerformance) pt.stop();
 
   teardownPlanOperation();
@@ -169,8 +165,6 @@ const PlanOperation * PlanOperation::execute() {
     *_performance_attr = (performance_attributes_t) {
       pt.value("PAPI_TOT_CYC"), pt.value(getEvent()), getEvent() , planOperationName(), _operatorId, startTime, endTime, threadId
     };
-  }
-
   }
 
   setState(OpSuccess);
