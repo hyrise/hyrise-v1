@@ -191,6 +191,7 @@ ifeq ($(WITH_PROFILER),1)
 PLUGINS += profiler
 endif
 
+
 ifeq ($(WITH_V8),1)
 ifndef V8_BASE_DIRECTORY
 $(error V8_BASE_DIRECTORY is not defined)
@@ -252,7 +253,7 @@ $(RESULT_DIR)/%.a:
 	$(call echo_cmd,AR $(AR) $@) $(AR) crs $@ $(filter %.o,$?)
 
 $(RESULT_DIR)/%:
-	$(call echo_cmd,LINK $(CXX) $(BLD) $@) $(CXX) $(CXXFLAGS) -o $@ $(filter %.o,$^) -Wl,-whole-archive $(addprefix -l,$(LIBS)) -Wl,-no-whole-archive $(addprefix -L,$(LINK_DIRS)) $(LDFLAGS)
+	$(call echo_cmd,LINK $(CXX) $(BLD) $@) $(CXX) $(CXXFLAGS) -o $@ $(filter %.o,$^) -Wl,-whole-archive $(addprefix -l,$(LIBS)) -Wl,-no-whole-archive $(addprefix -L,$(LINK_DIRS)) $(LDFLAGS) $(PROF_LIBS)
 
 # Necessary to allow for a second expansion to create dirs
 .SECONDEXPANSION:
