@@ -1,6 +1,5 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#ifndef SRC_LIB_STORAGE_ABSTRACTMERGER_H_
-#define SRC_LIB_STORAGE_ABSTRACTMERGER_H_
+#pragma once
 
 #include <vector>
 #include <unordered_map>
@@ -8,6 +7,9 @@
 #include <helper/types.h>
 #include <storage/AbstractTable.h>
 #include "storage/TableUtils.h"
+
+namespace hyrise {
+namespace storage {
 
 class AbstractMerger {
 public:
@@ -21,4 +23,5 @@ public:
   virtual AbstractMerger *copy() = 0;
 };
 
-#endif  // SRC_LIB_STORAGE_ABSTRACTMERGER_H_
+} } // namespace hyrise::storage
+

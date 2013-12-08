@@ -6,8 +6,7 @@
  *      Author: jwust
  */
 
-#ifndef TABLERANGEVIEW_H_
-#define TABLERANGEVIEW_H_
+#pragma once
 
 #include "storage/AbstractTable.h"
 #include "helper/SharedFactory.h"
@@ -64,4 +63,3 @@ public:
 
 }}
 
-#endif /* TABLERANGEVIEW_H_ */

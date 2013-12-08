@@ -4,6 +4,8 @@
 #include "storage/AbstractTable.h"
 #include "storage/PrettyPrinter.h"
 
+namespace hyrise {
+
 ::testing::AssertionResult AssertTableContentEquals(const char *left_exp,
                                                     const char *right_exp,
                                                     const hyrise::storage::c_atable_ptr_t left,
@@ -19,3 +21,6 @@
   return ::testing::AssertionFailure() << buf.str()
                                        << "The content of " << left_exp << " does not equal the content of " << right_exp;
 }
+
+} // namespace hyrise
+

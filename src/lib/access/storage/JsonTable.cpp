@@ -75,7 +75,7 @@ void JsonTable::executePlanOperation() {
 	auto& res_man = io::ResourceManager::getInstance();
 	for(const auto& f : _serialFields) {
 		auto serial_name = std::to_string(result->getUuid()) + "_" + f;
-		res_man.add(serial_name, std::make_shared<Serial>());
+		res_man.add(serial_name, std::make_shared<storage::Serial>());
 	}
 
 	// Add the rows if any
@@ -103,7 +103,7 @@ void JsonTable::executePlanOperation() {
 			for(size_t j=0, rs = _names.size(); j < rs; ++j) {
 				if (std::find(_serialFields.begin(), _serialFields.end(), _names[j]) != _serialFields.end()) {
 					auto serial_name = std::to_string(result->getUuid()) + "_" + _names[j];
-					auto ser = res_man.get<Serial>(serial_name);
+					auto ser = res_man.get<storage::Serial>(serial_name);
 					result->setValue<hyrise_int_t>(j, i, ser->next());
 					offset++;
 				} else {

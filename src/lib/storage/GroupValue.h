@@ -1,10 +1,12 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#ifndef SRC_LIB_STORAGE_GROUPVALUE_H_
-#define SRC_LIB_STORAGE_GROUPVALUE_H_
+#pragma once
 
 #include "helper/hash.h"
 #include <storage/storage_types.h>
 #include <memory>
+
+namespace hyrise {
+namespace storage {
 
 class AbstractTable;
 
@@ -59,5 +61,5 @@ class GroupValue {
   }
 };
 
-#endif  // SRC_LIB_STORAGE_GROUPVALUE_H_
+} } // namespace hyrise::storage
 

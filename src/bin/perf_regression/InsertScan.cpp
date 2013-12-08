@@ -19,20 +19,20 @@ class InsertScanBase : public ::testing::Benchmark {
 
  protected:
 
-  hyrise::storage::atable_ptr_t data;
-  hyrise::storage::atable_ptr_t t;
-  hyrise::tx::TXContext ctx;
-  hyrise::access::InsertScan is;
-  hyrise::access::Commit c;
+  storage::atable_ptr_t data;
+  storage::atable_ptr_t t;
+  tx::TXContext ctx;
+  access::InsertScan is;
+  access::Commit c;
 
  public:
   void BenchmarkSetUp() {
-    data = Loader::shortcuts::load("test/test10k_12.tbl");
-    ctx = hyrise::tx::TransactionManager::getInstance().buildContext();
+    data = io::Loader::shortcuts::load("test/test10k_12.tbl");
+    ctx = tx::TransactionManager::getInstance().buildContext();
 
-    EmptyInput input;
-    CSVHeader header("test/test10k_12.tbl");
-    t = Loader::load(Loader::params().setInput(input).setHeader(header));
+    io::EmptyInput input;
+    io::CSVHeader header("test/test10k_12.tbl");
+    t = io::Loader::load(io::Loader::params().setInput(input).setHeader(header));
     is.setEvent("NO_PAPI");
     is.setTXContext(ctx);
     is.addInput(t);
@@ -81,11 +81,11 @@ std::vector<params> generateParams() {
   std::vector<params> results;
   for (std::size_t t:{1,2,4,8,16,32}) {
     for (std::size_t opt=0; opt < 3; opt++) {
-      auto data = Loader::shortcuts::load("test/test10k_12.tbl");
+      auto data = io::Loader::shortcuts::load("test/test10k_12.tbl");
       storage::atable_ptr_t tbl;
       // slightly hack-ish: opt distinguishes different insertion options
       if (opt == 0) {
-        tbl = Loader::shortcuts::load("test/test10k_12.tbl", Loader::params().setReturnsMutableVerticalTable(true));
+        tbl = io::Loader::shortcuts::load("test/test10k_12.tbl", io::Loader::params().setReturnsMutableVerticalTable(true));
       } else {
         tbl = data->copy_structure_modifiable();
         tbl->resize(opt);
@@ -112,7 +112,7 @@ TEST_P(InsertTest, concurrent_writes_single_insert) {
   auto before = std::chrono::high_resolution_clock::now();
   auto l = [&]() {
     for (std::size_t d=0;d<runs;d++) {
-      auto ctx = hyrise::tx::TransactionManager::getInstance().buildContext();
+      auto ctx = tx::TransactionManager::getInstance().buildContext();
       InsertScan is;
       is.setEvent("NO_PAPI");
       is.setTXContext(ctx);

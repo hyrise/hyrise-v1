@@ -146,4 +146,5 @@ TableDiff TableDiff::diffTables(const AbstractTable* const left,
   return diff;
 }
 
-}}
+} } // namespace hyrise::storage
+

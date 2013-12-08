@@ -15,7 +15,7 @@ namespace access {
 
 class PlanOperation;
 
-class ResponseTask : public Task {
+class ResponseTask : public taskscheduler::Task {
  private:
   net::AbstractConnection *connection;
 

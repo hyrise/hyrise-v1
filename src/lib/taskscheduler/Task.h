@@ -6,8 +6,7 @@
  *      Author: jwust
  */
 
-#ifndef SRC_LIB_TASKSCHEDULER_TASK_H_
-#define SRC_LIB_TASKSCHEDULER_TASK_H_
+#pragma once
 
 #include <vector>
 #include <memory>
@@ -15,6 +14,9 @@
 #include <string>
 
 #include "helper/locking.h"
+
+namespace hyrise {
+namespace taskscheduler {
 
 class Task;
 
@@ -230,4 +232,5 @@ public:
   const std::string vname(){return "SyncTask";};
 };
 
-#endif  // SRC_LIB_TASKSCHEDULER_TASK_H_
+} } // namespace hyrise::taskscheduler
+

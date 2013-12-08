@@ -23,7 +23,7 @@ TEST_F(PriorityTaskTest, compare_test){
   t2->setPriority(2);
   t3->setPriority(3);
 
-  std::priority_queue<std::shared_ptr<Task>, std::vector<std::shared_ptr<Task>>, CompareTaskPtr> _runQueue;
+  std::priority_queue<std::shared_ptr<taskscheduler::Task>, std::vector<std::shared_ptr<taskscheduler::Task>>, taskscheduler::CompareTaskPtr> _runQueue;
 
   _runQueue.push(t1);
   _runQueue.push(t3);

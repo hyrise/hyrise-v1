@@ -9,8 +9,8 @@ namespace access {
 class ProjectionScanTests : public AccessTest {};
 
 TEST_F(ProjectionScanTests, basic_projection_scan_test) {
-  auto t = Loader::shortcuts::load("test/lin_xxs.tbl");
-  auto reference = Loader::shortcuts::load("test/reference/simple_projection.tbl");
+  auto t = io::Loader::shortcuts::load("test/lin_xxs.tbl");
+  auto reference = io::Loader::shortcuts::load("test/reference/simple_projection.tbl");
 
   ProjectionScan ps;
   ps.addInput(t);

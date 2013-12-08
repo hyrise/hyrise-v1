@@ -1,5 +1,4 @@
-#ifndef SRC_LIB_HELPER_NONCOPYABLE_H_
-#define SRC_LIB_HELPER_NONCOPYABLE_H_
+#pragma once
 
 /// Non-copyable baseclass, use to protect your class from copying
 class noncopyable {
@@ -9,4 +8,3 @@ class noncopyable {
   noncopyable& operator=( const noncopyable& ) = delete; // non copyable
 };
 
-#endif

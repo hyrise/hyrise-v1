@@ -32,7 +32,7 @@ void LayoutTable::executePlanOperation() {
   std::vector<storage::c_atable_ptr_t> tables { main, store->getDeltaTable() };
   
   // Call the Merge
-  TableMerger merger(new DefaultMergeStrategy(), new SequentialHeapMerger());
+  storage::TableMerger merger(new storage::DefaultMergeStrategy(), new storage::SequentialHeapMerger());
 
   // Switch the tables
   auto ntables = merger.mergeToTable(dest, tables);
@@ -49,18 +49,18 @@ const std::string LayoutTable::vname() {
   return "LayoutTable";
 }
 
-std::shared_ptr<AbstractTable> LayoutTable::createEmptyLayoutedTable(const std::string &layout) const {
+storage::atable_ptr_t LayoutTable::createEmptyLayoutedTable(const std::string &layout) const {
   // Prepare the new table by defining an empty input and load the
   // partitioning for the table from the string header
-  EmptyInput input;
-  StringHeader header(layout);
+  io::EmptyInput input;
+  io::StringHeader header(layout);
 
-  Loader::params p;
+  io::Loader::params p;
   p.setInput(input);
   p.setHeader(header);
   p.setReturnsMutableVerticalTable(true);
   p.setReferenceTable(this->input.getTable());
-  return Loader::load(p);
+  return io::Loader::load(p);
 }
 
 }

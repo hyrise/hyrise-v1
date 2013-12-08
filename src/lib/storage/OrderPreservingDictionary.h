@@ -1,6 +1,5 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#ifndef SRC_LIB_STORAGE_ORDERPRESERVINGDICTIONARY_H_
-#define SRC_LIB_STORAGE_ORDERPRESERVINGDICTIONARY_H_
+#pragma once
 
 #include <assert.h>
 #include <algorithm>
@@ -12,6 +11,9 @@
 #include "storage/BaseIterator.h"
 #include "storage/DictionaryIterator.h"
 #include "storage/storage_types.h"
+
+namespace hyrise {
+namespace storage {
 
 template <typename T>
 class OrderPreservingDictionaryIterator;
@@ -191,4 +193,5 @@ public:
 
 };
 
-#endif  // SRC_LIB_STORAGE_ORDERPRESERVINGDICTIONARY_H_
+} } // namespace hyrise::storage
+

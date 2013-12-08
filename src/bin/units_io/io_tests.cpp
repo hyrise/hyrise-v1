@@ -5,6 +5,9 @@
 #include "io/shortcuts.h"
 #include "storage/AbstractTable.h"
 
+namespace hyrise {
+namespace io {
+
 class IoTest : public ::hyrise::Test {
 
  protected:
@@ -68,4 +71,6 @@ TEST_F(IoTest, wrong_file) {
   //         OldLoader::load_with_string_header(fail_file_4, "themen | epic\nINTEGER|INTEGER\n0_R|0_R");
   //     }, OldLoaderError);
 }
+
+} } // namespace hyrise::io
 

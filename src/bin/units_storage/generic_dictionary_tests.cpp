@@ -7,10 +7,13 @@
 #include "storage/OrderIndifferentDictionary.h"
 #include "storage/OrderPreservingDictionary.h"
 
-class DictionaryTest : public ::hyrise::Test {};
+namespace hyrise {
+namespace storage {
+
+class DictionaryTest : public Test {};
 
 template <typename T>
-class DictTests : public ::hyrise::Test {};
+class DictTests : public Test {};
 
 typedef testing::Types <
   OrderIndifferentDictionary<hyrise_int_t>, OrderIndifferentDictionary<hyrise_float_t>, OrderIndifferentDictionary<hyrise_string_t>, 
@@ -113,4 +116,7 @@ TYPED_TEST(DictTests, iterator_test) {
   }
   EXPECT_TRUE(std::is_sorted(p.begin(), p.end())) << "Resulting iterator should be sorted";
 }
+
+} } // namespace hyrise::storage
+
 

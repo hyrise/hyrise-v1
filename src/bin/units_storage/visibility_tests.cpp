@@ -19,10 +19,10 @@ class VisibilityTests : public ::hyrise::Test {
 
 public:
 
-	hyrise::storage::c_atable_ptr_t data;
-	hyrise::storage::store_ptr_t linxxxs;
+	storage::c_atable_ptr_t data;
+	storage::store_ptr_t linxxxs;
 
-	hyrise::storage::atable_ptr_t one_row;
+	storage::atable_ptr_t one_row;
 
 	void SetUp() {
 		 TableBuilder::param_list list;
@@ -42,8 +42,8 @@ public:
 		 one_row->setValue<hyrise_int_t>(1,0, 999);
 
 		 // Convert to store
-		 data = std::make_shared<storage::Store>(TableBuilder::build(list));
-		 linxxxs = std::dynamic_pointer_cast<storage::Store>(Loader::shortcuts::load("test/lin_xxxs.tbl"));
+		 data = std::make_shared<storage::Store>(storage::TableBuilder::build(list));
+		 linxxxs = std::dynamic_pointer_cast<storage::Store>(io::Loader::shortcuts::load("test/lin_xxxs.tbl"));
 	}
 
 };
@@ -99,7 +99,7 @@ TEST_F(VisibilityTests, read_your_own_writes) {
 	ASSERT_EQ(linxxxs->size()-1, tmp2->size());
 
 	auto r = std::make_shared<PointerCalculator>(linxxxs, tmp2);
-	EXPECT_RELATION_EQ(Loader::shortcuts::load("test/lin_xxxs.tbl"), r);
+	EXPECT_RELATION_EQ(io::Loader::shortcuts::load("test/lin_xxxs.tbl"), r);
 }
 
 TEST_F (VisibilityTests, read_writes_after_commit) {
@@ -171,7 +171,7 @@ TEST_F (VisibilityTests, read_writes_after_commit_old_cid) {
 	ASSERT_EQ(linxxxs->size() -1, tmp2->size());
 
 	auto r = std::make_shared<PointerCalculator>(linxxxs, tmp2);
-	EXPECT_RELATION_EQ(Loader::shortcuts::load("test/lin_xxxs.tbl"), r);
+	EXPECT_RELATION_EQ(io::Loader::shortcuts::load("test/lin_xxxs.tbl"), r);
 }
 
 }}

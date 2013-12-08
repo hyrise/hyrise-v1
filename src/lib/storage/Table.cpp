@@ -3,12 +3,14 @@
 
 #include <cassert>
 #include <cmath>
+#include <iostream>
 
 #include "storage/AttributeVectorFactory.h"
 #include "storage/DictionaryFactory.h"
 #include "storage/ValueIdMap.hpp"
 
-using namespace hyrise::storage;
+namespace hyrise {
+namespace storage {
 
 Table::Table(
   std::vector<const ColumnMetadata *> *m,
@@ -72,7 +74,7 @@ Table::Table(std::vector<ColumnMetadata> m,
 }
 
 
-hyrise::storage::atable_ptr_t Table::copy_structure(const field_list_t *fields, const bool reuse_dict, const size_t initial_size, const bool with_containers, const bool compressed) const {
+atable_ptr_t Table::copy_structure(const field_list_t *fields, const bool reuse_dict, const size_t initial_size, const bool with_containers, const bool compressed) const {
 
   std::vector<const ColumnMetadata *> metadata;
   std::vector<AbstractTable::SharedDictionaryPtr> *dictionaries = nullptr;
@@ -106,7 +108,7 @@ hyrise::storage::atable_ptr_t Table::copy_structure(const field_list_t *fields, 
 }
 
 
-hyrise::storage::atable_ptr_t Table::copy_structure_modifiable(const field_list_t *fields, const size_t initial_size, const bool with_containers) const {
+atable_ptr_t Table::copy_structure_modifiable(const field_list_t *fields, const size_t initial_size, const bool with_containers) const {
 
   std::vector<const ColumnMetadata *> metadata;
   std::vector<AbstractTable::SharedDictionaryPtr > *dictionaries = new std::vector<AbstractTable::SharedDictionaryPtr >;
@@ -131,7 +133,7 @@ hyrise::storage::atable_ptr_t Table::copy_structure_modifiable(const field_list_
 
 }
 
-hyrise::storage::atable_ptr_t Table::copy_structure(abstract_dictionary_callback ad, abstract_attribute_vector_callback aav) const {
+atable_ptr_t Table::copy_structure(abstract_dictionary_callback ad, abstract_attribute_vector_callback aav) const {
   std::vector<ColumnMetadata> metadata;
   std::vector<AbstractTable::SharedDictionaryPtr > dicts;
 
@@ -225,7 +227,7 @@ void Table::setAttributes(SharedAttributeVector doc) {
 }
 
 
-hyrise::storage::atable_ptr_t Table::copy() const {
+atable_ptr_t Table::copy() const {
   auto new_table = std::make_shared<table_type>(new std::vector<const ColumnMetadata *>(_metadata.begin(), _metadata.end()));
 
   new_table->width = width;
@@ -241,4 +243,10 @@ hyrise::storage::atable_ptr_t Table::copy() const {
 
   return new_table;
 }
+
+void Table::debugStructure(size_t level) const {
+  std::cout << std::string(level, '\t') << "Table " << this << std::endl;
+}
+
+} } // namespace hyrise::storage
 

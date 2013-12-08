@@ -1,5 +1,4 @@
-#ifndef STORAGE_DICTIONARYFACTORY_H_
-#define STORAGE_DICTIONARYFACTORY_H_
+#pragma once
 
 #include <memory>
 
@@ -19,7 +18,7 @@ struct DictionaryCreator {
   }
 };
 
-} // ns detail
+} // namespace detail
 
 // Create dictionary for type and size,
 // Usage: makeDictionary<OrderIndifferentDictionary>(IntegerType, 10),
@@ -33,4 +32,3 @@ std::shared_ptr<AbstractDictionary> makeDictionary(DataType type, size_t size=0)
 
 }}
 
-#endif

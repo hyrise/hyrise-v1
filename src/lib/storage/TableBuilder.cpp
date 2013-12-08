@@ -70,3 +70,4 @@ hyrise::storage::atable_ptr_t TableBuilder::build(param_list args, const bool co
 
 
 }}
+

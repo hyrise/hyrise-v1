@@ -1,5 +1,4 @@
-#ifndef SRC_LIB_HELPER_SHAREDFACTORY_H
-#define SRC_LIB_HELPER_SHAREDFACTORY_H
+#pragma once
 
 #include <memory>
 
@@ -12,5 +11,3 @@ class SharedFactory : public std::enable_shared_from_this<T> {
   }
 };
 
-
-#endif

@@ -7,6 +7,8 @@
 
 #include "ThreadPerTaskScheduler.h"
 
+namespace hyrise {
+namespace taskscheduler {
 
 log4cxx::LoggerPtr ThreadPerTaskScheduler::_logger = log4cxx::Logger::getLogger("taskscheduler.ThreadPerTaskScheduler");
 
@@ -78,3 +80,6 @@ void ThreadPerTaskScheduler::notifyReady(std::shared_ptr<Task> task) {
     LOG4CXX_ERROR(_logger, "Task that notified to be ready to run was not found / found more than once in waitSet! " << std::to_string(tmp));
   }
 }
+
+} } // namespace hyrise::taskscheduler
+

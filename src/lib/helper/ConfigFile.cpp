@@ -3,8 +3,6 @@
 
 #include "ConfigFile.h"
 
-
-
 ConfigFile::ConfigFile(std::string filename, std::string delimiter,
                        std::string comment, std::string sentry)
     : myDelimiter(delimiter), myComment(comment), mySentry(sentry) {
@@ -160,3 +158,4 @@ std::istream &operator>>(std::istream &is, ConfigFile &cf) {
 
   return is;
 }
+

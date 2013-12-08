@@ -1,9 +1,11 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#ifndef SRC_LIB_ACCESS_PRED_SIMPLEFIELDEXPRESSION_H_
-#define SRC_LIB_ACCESS_PRED_SIMPLEFIELDEXPRESSION_H_
+#pragma once
 
 #include "helper/types.h"
 #include "pred_common.h"
+
+namespace hyrise {
+namespace access {
 
 class SimpleFieldExpression : public SimpleExpression {
  protected:
@@ -75,5 +77,5 @@ class GenericExpressionValue : public SimpleFieldExpression {
   }
 };
 
+} } // namespace hyrise::access
 
-#endif  // SRC_LIB_ACCESS_PRED_SIMPLEFIELDEXPRESSION_H_

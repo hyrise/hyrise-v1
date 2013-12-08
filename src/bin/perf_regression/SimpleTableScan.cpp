@@ -16,7 +16,7 @@ class SimpleTableScanBase : public ::testing::Benchmark {
 
  protected:
 
-  StorageManager *sm;
+  io::StorageManager *sm;
   SimpleTableScan *ts;
   storage::c_atable_ptr_t order_line;
   storage::c_atable_ptr_t customer;
@@ -26,7 +26,7 @@ class SimpleTableScanBase : public ::testing::Benchmark {
     ts = new SimpleTableScan();
     ts->setEvent("NO_PAPI");
 
-    sm = StorageManager::getInstance();
+    sm = io::StorageManager::getInstance();
     order_line = sm->getTable("order_line");
     customer = sm->getTable("customer");
   }

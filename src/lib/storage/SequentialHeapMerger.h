@@ -1,10 +1,12 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#ifndef SRC_LIB_STORAGE_SEQUENTIALHEAPMERGER_H_
-#define SRC_LIB_STORAGE_SEQUENTIALHEAPMERGER_H_
+#pragma once
 
 #include <storage/ValueIdMap.hpp>
 #include <storage/AbstractTable.h>
 #include <storage/AbstractMerger.h>
+
+namespace hyrise {
+namespace storage {
 
 class SequentialHeapMerger : public AbstractMerger {
 public:
@@ -49,4 +51,5 @@ private:
 
 };
 
-#endif  // SRC_LIB_STORAGE_SEQUENTIALHEAPMERGER_H_
+} } // namespace hyrise::storage
+

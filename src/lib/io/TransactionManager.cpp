@@ -239,3 +239,4 @@ transaction_cid_t TransactionManager::commitTransaction(TXContext ctx) {
 }
 
 }}
+

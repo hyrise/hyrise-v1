@@ -13,7 +13,7 @@ class ExpressionTests : public AccessTest {
 protected:
   virtual void SetUp() {
     AccessTest::SetUp();    
-    students = Loader::shortcuts::load("test/students.tbl");
+    students = io::Loader::shortcuts::load("test/students.tbl");
     scan = new SimpleTableScan;
     scan->addInput(students);
   }

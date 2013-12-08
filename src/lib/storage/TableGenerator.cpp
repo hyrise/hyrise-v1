@@ -1,7 +1,6 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include <storage/TableGenerator.h>
 
-
 #include <math.h>
 #include <assert.h>
 #include <algorithm>
@@ -972,3 +971,4 @@ hyrise::storage::atable_ptr_t TableGenerator::int_random_weighted_delta(size_t r
 
 
 }}
+

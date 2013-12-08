@@ -177,3 +177,4 @@ void SimpleStoreMerger::mergeValues(const std::vector<hyrise::storage::c_atable_
 }
 
 }}
+

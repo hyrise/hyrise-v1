@@ -1,6 +1,5 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#ifndef SRC_LIB_ACCESS_PRED_EXPRESSION_FACTORY_H_
-#define SRC_LIB_ACCESS_PRED_EXPRESSION_FACTORY_H_
+#pragma once
 
 #include "expression_types.h"
 #include "../json_converters.h"
@@ -92,7 +91,6 @@ struct expression_factory {
     }
   }
 };
-} /*ns access*/
-} /*ns hyrise*/
+} /*namespace access*/
+} /*namessace hyrise*/
 
-#endif  // SRC_LIB_ACCESS_PRED_EXPRESSION_FACTORY_H_

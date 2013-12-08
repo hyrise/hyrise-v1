@@ -12,7 +12,8 @@
 #include "storage/Store.h"
 #include "storage/TableRangeView.h"
 
-using namespace hyrise::storage;
+namespace hyrise {
+namespace storage {
 
 template <typename T>
 T* copy_vec(T* orig) {
@@ -424,3 +425,6 @@ void PointerCalculator::remove(const pos_list_t& pl) {
   });
   (*pos_list).erase(res, pos_list->end());
 }
+
+} } // namespace hyrise::storage
+

@@ -1,6 +1,5 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#ifndef SRC_LIB_ACCESS_AGGEGATEFUNCTIONS_H_
-#define SRC_LIB_ACCESS_AGGEGATEFUNCTIONS_H_
+#pragma once
 
 #include <vector>
 
@@ -9,6 +8,9 @@
 #include <storage/storage_types.h>
 
 #include <json.h>
+
+namespace hyrise {
+namespace access {
 
 struct AggregateFunctions {
   enum type {
@@ -40,7 +42,7 @@ class AggregateFun {
   explicit AggregateFun(field_name_t field_name) :
     _field_name(field_name) {}
 
-  virtual void walk(const AbstractTable &table);
+  virtual void walk(const storage::AbstractTable &table);
   field_t getField();// {
    // return _field;
   //}
@@ -88,7 +90,7 @@ class SumAggregateFun: public AggregateFun {
     return _dataType;
   }
 
-  virtual void walk(const AbstractTable &table) {
+  virtual void walk(const storage::AbstractTable &table) {
     AggregateFun::walk(table);
     _dataType = table.typeOfColumn(_field);
     if (_dataType == StringType) {
@@ -163,7 +165,7 @@ class AverageAggregateFun: public AggregateFun {
     return FloatType;
   }
 
-  virtual void walk(const AbstractTable &table) {
+  virtual void walk(const storage::AbstractTable &table) {
     AggregateFun::walk(table);
     _dataType = table.typeOfColumn(_field);
     if (_dataType == StringType) {
@@ -199,7 +201,7 @@ class MinAggregateFun: public AggregateFun {
     return _dataType;
   }
   
-  virtual void walk(const AbstractTable &table) {
+  virtual void walk(const storage::AbstractTable &table) {
     AggregateFun::walk(table);
     _dataType = table.typeOfColumn(_field);
   }
@@ -232,7 +234,7 @@ class MaxAggregateFun: public AggregateFun {
     return _dataType;
   }
   
-  virtual void walk(const AbstractTable &table) {
+  virtual void walk(const storage::AbstractTable &table) {
     AggregateFun::walk(table);
     _dataType = table.typeOfColumn(_field);
   }
@@ -244,5 +246,5 @@ class MaxAggregateFun: public AggregateFun {
   static AggregateFun *parse(const Json::Value &);
 };
 
-#endif // AGGEGATEFUNCTIONS
+} } // namespace hyrise::access
 

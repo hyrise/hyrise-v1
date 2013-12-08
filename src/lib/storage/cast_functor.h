@@ -1,6 +1,5 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#ifndef SRC_LIB_ACCESS_CAST_FUNCTOR_H_
-#define SRC_LIB_ACCESS_CAST_FUNCTOR_H_
+#pragma once
 
 #include <boost/lexical_cast.hpp>
 
@@ -44,4 +43,3 @@ struct cast_functor_by_row {
 
 }}
 
-#endif

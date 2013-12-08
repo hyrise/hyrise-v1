@@ -21,12 +21,12 @@ class SelectTests : public AccessTest {
 
  public:
 
-  std::shared_ptr<AbstractTable> createRawTable() {
-    metadata_vec_t cols({ *ColumnMetadata::metadataFromString("INTEGER", "col1"),
-            *ColumnMetadata::metadataFromString("STRING", "col2"),
-            *ColumnMetadata::metadataFromString("FLOAT", "col3") });
+  std::shared_ptr<storage::AbstractTable> createRawTable() {
+    storage::metadata_vec_t cols({*storage::ColumnMetadata::metadataFromString("INTEGER", "col1"),
+                                  *storage::ColumnMetadata::metadataFromString("STRING", "col2"),
+                                  *storage::ColumnMetadata::metadataFromString("FLOAT", "col3") });
 
-    auto main = std::make_shared<RawTable>(cols);
+    auto main = std::make_shared<storage::RawTable>(cols);
     for (size_t i=0; i < 100; ++i) {
       hyrise::storage::rawtable::RowHelper rh(cols);
       rh.set<hyrise_int_t>(0, i);
@@ -43,19 +43,19 @@ class SelectTests : public AccessTest {
 };
 
 TEST_F(SelectTests, simple_projection_with_position) {
-  auto t = Loader::shortcuts::load("test/lin_xxs.tbl");
+  auto t = io::Loader::shortcuts::load("test/lin_xxs.tbl");
   ProjectionScan gs;
   gs.setProducesPositions(true);
   gs.addInput(t);
   gs.addField(0);
 
   const auto& result = gs.execute()->getResultTable();
-  const auto& reference = Loader::shortcuts::load("test/reference/simple_projection.tbl");
+  const auto& reference = io::Loader::shortcuts::load("test/reference/simple_projection.tbl");
   ASSERT_TRUE(result->contentEquals(reference));
 }
 
 TEST_F(SelectTests, simple_projection_with_position_mat) {
-  auto t = Loader::shortcuts::load("test/lin_xxs.tbl");
+  auto t = io::Loader::shortcuts::load("test/lin_xxs.tbl");
   ProjectionScan gs;
   gs.setProducesPositions(true);
   gs.addInput(t);
@@ -65,12 +65,12 @@ TEST_F(SelectTests, simple_projection_with_position_mat) {
   MaterializingScan ms(false);
   ms.addInput(result);
   const auto& result2 = ms.execute()->getResultTable();
-  const auto& reference = Loader::shortcuts::load("test/reference/simple_projection.tbl");
+  const auto& reference = io::Loader::shortcuts::load("test/reference/simple_projection.tbl");
   ASSERT_TRUE(result2->contentEquals(reference));
 }
 
 TEST_F(SelectTests, simple_projection_with_position_all_mat) {
-  auto t = Loader::shortcuts::load("test/lin_xxxs.tbl");
+  auto t = io::Loader::shortcuts::load("test/lin_xxxs.tbl");
   ProjectionScan gs;
   gs.setProducesPositions(true);
   gs.addInput(t);
@@ -81,14 +81,14 @@ TEST_F(SelectTests, simple_projection_with_position_all_mat) {
   MaterializingScan ms(false);
   ms.addInput(result);
   const auto& result2 = ms.execute()->getResultTable();
-  const auto& reference = Loader::shortcuts::load("test/lin_xxxs.tbl");
+  const auto& reference = io::Loader::shortcuts::load("test/lin_xxxs.tbl");
   ASSERT_TRUE(result2->contentEquals(reference));
 }
 
 
 
 TEST_F(SelectTests, simple_projection_with_position_mat_memcpy) {
-  auto t = Loader::shortcuts::load("test/lin_xxs.tbl");
+  auto t = io::Loader::shortcuts::load("test/lin_xxs.tbl");
   ProjectionScan gs;
   gs.setProducesPositions(true);
   gs.addInput(t);
@@ -102,14 +102,14 @@ TEST_F(SelectTests, simple_projection_with_position_mat_memcpy) {
   const auto& result2 = ms.execute()->getResultTable();
 
   ASSERT_EQ((unsigned) 100, result2->size());
-  const auto& reference = Loader::shortcuts::load("test/reference/simple_projection.tbl");
+  const auto& reference = io::Loader::shortcuts::load("test/reference/simple_projection.tbl");
 
   ASSERT_TABLE_EQUAL(reference, result2);
 }
 
 
 TEST_F(SelectTests, simple_projection_with_position_mat_and_sample) {
-  auto t = Loader::shortcuts::load("test/lin_xxs.tbl");
+  auto t = io::Loader::shortcuts::load("test/lin_xxs.tbl");
   ProjectionScan gs;
   gs.setProducesPositions(true);
   gs.addInput(t);
@@ -127,7 +127,7 @@ TEST_F(SelectTests, simple_projection_with_position_mat_and_sample) {
 
 
 TEST_F(SelectTests, simple_projection_with_materialization) {
-  auto t = Loader::shortcuts::load("test/lin_xxs.tbl");
+  auto t = io::Loader::shortcuts::load("test/lin_xxs.tbl");
 
   ProjectionScan gs;
   gs.addInput(t);
@@ -136,12 +136,12 @@ TEST_F(SelectTests, simple_projection_with_materialization) {
 
   const auto& result = gs.execute()->getResultTable();
 
-  const auto& reference = Loader::shortcuts::load("test/reference/simple_projection.tbl");
+  const auto& reference = io::Loader::shortcuts::load("test/reference/simple_projection.tbl");
   ASSERT_TRUE(result->contentEquals(reference));
 }
 
 TEST_F(SelectTests, simple_expression) {
-  auto t = Loader::shortcuts::load("test/lin_xxxs.tbl");
+  auto t = io::Loader::shortcuts::load("test/lin_xxxs.tbl");
 
   hyrise::access::ExpressionScan *es = new hyrise::access::ExpressionScan();
   es->addInput(t);
@@ -150,7 +150,7 @@ TEST_F(SelectTests, simple_expression) {
 
   const auto& result = es->execute()->getResultTable();
 
-  const auto& reference = Loader::shortcuts::load("test/reference/simple_expression.tbl");
+  const auto& reference = io::Loader::shortcuts::load("test/reference/simple_expression.tbl");
   ASSERT_TRUE(result->contentEquals(reference));
 }
 
@@ -162,7 +162,7 @@ TEST_F(SelectTests, should_throw_without_predicates) {
 
 
 TEST_F(SelectTests, simple_select) {
-  hyrise::storage::c_atable_ptr_t t = Loader::shortcuts::load("test/groupby_xs.tbl");
+  hyrise::storage::c_atable_ptr_t t = io::Loader::shortcuts::load("test/groupby_xs.tbl");
 
   EqualsExpression<hyrise_int_t> *expr1 = new EqualsExpression<hyrise_int_t>(t, 0, 2009);
   EqualsExpression<hyrise_int_t> *expr2 = new EqualsExpression<hyrise_int_t>(t, 1, 1);
@@ -175,13 +175,13 @@ TEST_F(SelectTests, simple_select) {
   scan->setPredicate(expr4);
   scan->setProducesPositions(true);
   const auto& out = scan->execute()->getResultTable();
-  const auto& reference = Loader::shortcuts::load("test/reference/simple_select_1.tbl");
+  const auto& reference = io::Loader::shortcuts::load("test/reference/simple_select_1.tbl");
 
   ASSERT_TRUE(out->contentEquals(reference));
 }
 
 TEST_F(SelectTests, simple_select_2) {
-  hyrise::storage::c_atable_ptr_t t = Loader::shortcuts::load("test/groupby_xs.tbl");
+  hyrise::storage::c_atable_ptr_t t = io::Loader::shortcuts::load("test/groupby_xs.tbl");
 
   auto *expr5 = new LessThanExpression<hyrise_int_t>(t, 0, 2010);
   auto scan = std::make_shared<SimpleTableScan>();
@@ -190,14 +190,14 @@ TEST_F(SelectTests, simple_select_2) {
   scan->setProducesPositions(true);
 
   const auto& out = scan->execute()->getResultTable();
-  const auto& reference = Loader::shortcuts::load("test/reference/simple_select_2.tbl");
+  const auto& reference = io::Loader::shortcuts::load("test/reference/simple_select_2.tbl");
 
   ASSERT_TRUE(out->contentEquals(reference));
 }
 
 
 TEST_F(SelectTests, simple_select_3) {
-  hyrise::storage::c_atable_ptr_t t = Loader::shortcuts::load("test/groupby_xs.tbl");
+  hyrise::storage::c_atable_ptr_t t = io::Loader::shortcuts::load("test/groupby_xs.tbl");
 
   GreaterThanExpression<hyrise_int_t> *expr6 = new GreaterThanExpression<hyrise_int_t>(t, 0, 2009);
   GreaterThanExpression<hyrise_int_t> *expr8 = new GreaterThanExpression<hyrise_int_t>(t, 0, 2008);
@@ -211,14 +211,14 @@ TEST_F(SelectTests, simple_select_3) {
   scan->setProducesPositions(true);
 
   const auto& out = scan->execute()->getResultTable();
-  const auto& reference = Loader::shortcuts::load("test/reference/simple_select_3.tbl");
+  const auto& reference = io::Loader::shortcuts::load("test/reference/simple_select_3.tbl");
 
   ASSERT_TRUE(out->contentEquals(reference));
 
 }
 
 TEST_F(SelectTests, select_between) {
-  hyrise::storage::c_atable_ptr_t t = Loader::shortcuts::load("test/groupby_xs.tbl");
+  hyrise::storage::c_atable_ptr_t t = io::Loader::shortcuts::load("test/groupby_xs.tbl");
 
   auto stc = std::make_shared<SimpleTableScan>();
   BetweenExpression<hyrise_int_t> *between = new BetweenExpression<hyrise_int_t>(t, t->numberOfColumn("month"), 2, 4);
@@ -226,13 +226,13 @@ TEST_F(SelectTests, select_between) {
   stc->setPredicate(between);
 
   const auto& result = stc->execute()->getResultTable();
-  const auto& reference = Loader::shortcuts::load("test/reference/select_between.tbl");
+  const auto& reference = io::Loader::shortcuts::load("test/reference/select_between.tbl");
 
   ASSERT_TRUE(result->contentEquals(reference));
 }
 
 TEST_F(SelectTests, simple_projection_on_empty_table) {
-  hyrise::storage::c_atable_ptr_t t = Loader::shortcuts::load("test/empty.tbl");
+  hyrise::storage::c_atable_ptr_t t = io::Loader::shortcuts::load("test/empty.tbl");
 
   ProjectionScan gs;
   gs.setProducesPositions(true);
@@ -244,13 +244,13 @@ TEST_F(SelectTests, simple_projection_on_empty_table) {
   gs.addField(6);
 
   const auto& result = gs.execute()->getResultTable();
-  const auto& reference = Loader::shortcuts::load("test/reference/empty_after_projection.tbl");
+  const auto& reference = io::Loader::shortcuts::load("test/reference/empty_after_projection.tbl");
   ASSERT_TRUE(result->contentEquals(reference));
 }
 
 TEST_F(SelectTests, select_after_insert_simple) {
   auto ctx = tx::TransactionManager::getInstance().buildContext();
-  hyrise::storage::atable_ptr_t s = Loader::shortcuts::load("test/lin_xxs.tbl");
+  hyrise::storage::atable_ptr_t s = io::Loader::shortcuts::load("test/lin_xxs.tbl");
   auto initial_size = s->size();
   hyrise::storage::atable_ptr_t data = s->copy_structure_modifiable(nullptr, s->size());
   data->resize(1);
@@ -270,7 +270,7 @@ TEST_F(SelectTests, select_after_insert_simple) {
 
 
 TEST_F(SelectTests, simple_select_with_raw_table_fails_because_input_is_not_raw) {
-  hyrise::storage::c_atable_ptr_t t = Loader::shortcuts::load("test/groupby_xs.tbl");
+  hyrise::storage::c_atable_ptr_t t = io::Loader::shortcuts::load("test/groupby_xs.tbl");
 
   EqualsExpression<hyrise_int_t> *expr1 = new EqualsExpression<hyrise_int_t>(t, 0, 2009);
   auto scan = std::make_shared<SimpleRawTableScan>(expr1);
@@ -280,7 +280,7 @@ TEST_F(SelectTests, simple_select_with_raw_table_fails_because_input_is_not_raw)
 }
 
 TEST_F(SelectTests, simple_select_with_raw_table_fails_because_predicate_is_wrong) {
-  hyrise::storage::c_atable_ptr_t t = Loader::shortcuts::load("test/groupby_xs.tbl");
+  hyrise::storage::c_atable_ptr_t t = io::Loader::shortcuts::load("test/groupby_xs.tbl");
 
   EqualsExpression<hyrise_int_t> *expr1 = new EqualsExpression<hyrise_int_t>(t, 0, 2009);
   auto scan = std::make_shared<SimpleRawTableScan>(expr1);
@@ -309,7 +309,7 @@ TEST_F(SelectTests, simple_select_with_raw_table_equals_predicate) {
 
   ASSERT_EQ(1u, scan->getResultTable(0)->size());
   const auto& out = scan->getResultTable();
-  const auto& reference = Loader::shortcuts::load("test/reference/simple_raw_select_integer.tbl");
+  const auto& reference = io::Loader::shortcuts::load("test/reference/simple_raw_select_integer.tbl");
   ASSERT_TABLE_EQUAL(reference, out);
 }
 
@@ -322,7 +322,7 @@ TEST_F(SelectTests, simple_select_with_raw_table_less_than_predicate) {
 
   scan->execute();
   const auto& out = scan->getResultTable();
-  const auto& reference = Loader::shortcuts::load("test/reference/simple_raw_select_integer_less_than.tbl");
+  const auto& reference = io::Loader::shortcuts::load("test/reference/simple_raw_select_integer_less_than.tbl");
   ASSERT_TABLE_EQUAL(reference, out);
 }
 
@@ -335,7 +335,7 @@ TEST_F(SelectTests, simple_select_with_raw_table_greater_than_predicate) {
 
   scan->execute();
   const auto& out = scan->getResultTable();
-  const auto& reference = Loader::shortcuts::load("test/reference/simple_raw_select_integer_greater_than.tbl");
+  const auto& reference = io::Loader::shortcuts::load("test/reference/simple_raw_select_integer_greater_than.tbl");
   ASSERT_TABLE_EQUAL(reference, out);
 }
 
@@ -351,7 +351,7 @@ TEST_F(SelectTests, simple_select_with_raw_table_equals_predicate_string) {
 
   ASSERT_EQ(1u, scan->getResultTable(0)->size());
   const auto& out = scan->getResultTable();
-  const auto& reference = Loader::shortcuts::load("test/reference/simple_raw_select_integer.tbl");
+  const auto& reference = io::Loader::shortcuts::load("test/reference/simple_raw_select_integer.tbl");
   ASSERT_TABLE_EQUAL(reference, out);
 }
 
@@ -366,7 +366,7 @@ TEST_F(SelectTests, simple_select_with_raw_table_equals_predicate_float) {
 
   ASSERT_EQ(1u, scan->getResultTable(0)->size());
   const auto& out = scan->getResultTable();
-  const auto& reference = Loader::shortcuts::load("test/reference/simple_raw_select_integer.tbl");
+  const auto& reference = io::Loader::shortcuts::load("test/reference/simple_raw_select_integer.tbl");
   ASSERT_TABLE_EQUAL(reference, out);
 }
 

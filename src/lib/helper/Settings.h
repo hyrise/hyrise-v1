@@ -1,6 +1,5 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#ifndef SRC_LIB_HELPER_SETTINGS_H_
-#define SRC_LIB_HELPER_SETTINGS_H_
+#pragma once
 
 #include <cstddef>
 #include <string>
@@ -40,6 +39,4 @@ class Settings {
   size_t getThreadpoolSize() const;
   void setThreadpoolSize(const size_t newSize);
 };
-
-#endif  // SRC_LIB_HELPER_SETTINGS_H_
 

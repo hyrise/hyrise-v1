@@ -5,6 +5,8 @@
 #include <string>
 #include <algorithm>
 
+namespace hyrise {
+
 std::string data_type_to_string(DataType d) {
   switch (d) {
     case IntegerType:
@@ -37,4 +39,6 @@ pos_list_t *pos_list_intersection(pos_list_t *p1, pos_list_t *p2, const bool del
 
   return result;
 }
+
+} // namespace hyrise
 

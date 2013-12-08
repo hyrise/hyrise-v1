@@ -33,14 +33,14 @@ void HashJoinProbe::executePlanOperation() {
 
   if (_selfjoin) {
     if (_field_definition.size() == 1)
-      fetchPositions<SingleAggregateHashTable>(buildTablePosList, probeTablePosList);
+      fetchPositions<storage::SingleAggregateHashTable>(buildTablePosList, probeTablePosList);
     else
-      fetchPositions<AggregateHashTable>(buildTablePosList, probeTablePosList);
+      fetchPositions<storage::AggregateHashTable>(buildTablePosList, probeTablePosList);
   } else {
     if (_field_definition.size() == 1)
-      fetchPositions<SingleJoinHashTable>(buildTablePosList, probeTablePosList);
+      fetchPositions<storage::SingleJoinHashTable>(buildTablePosList, probeTablePosList);
     else
-      fetchPositions<JoinHashTable>(buildTablePosList, probeTablePosList);
+      fetchPositions<storage::JoinHashTable>(buildTablePosList, probeTablePosList);
   }
 
   addResult(buildResultTable(buildTablePosList, probeTablePosList));
@@ -100,8 +100,8 @@ storage::atable_ptr_t HashJoinProbe::buildResultTable(storage::pos_list_t *build
                                                       storage::pos_list_t *probeTablePosList) const {
   std::vector<storage::atable_ptr_t> parts;
 
-  auto buildTableRows = PointerCalculator::create(getBuildTable(), buildTablePosList);
-  auto probeTableRows = PointerCalculator::create(getProbeTable(), probeTablePosList);
+  auto buildTableRows = storage::PointerCalculator::create(getBuildTable(), buildTablePosList);
+  auto probeTableRows = storage::PointerCalculator::create(getProbeTable(), probeTablePosList);
 
   parts.push_back(probeTableRows);
   parts.push_back(buildTableRows);

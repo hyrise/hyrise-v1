@@ -14,7 +14,7 @@ public:
 
   virtual void SetUp() {
     AccessTest::SetUp();
-    t = Loader::shortcuts::load("test/index_test.tbl");
+    t = io::Loader::shortcuts::load("test/index_test.tbl");
     CreateIndex ci;
     ci.addInput(t);
     ci.addField(0);
@@ -26,7 +26,7 @@ public:
 };
 
 TEST_F(IndexScanTests, basic_index_scan_test) {
-  auto reference = Loader::shortcuts::load("test/reference/index_test_result.tbl");
+  auto reference = io::Loader::shortcuts::load("test/reference/index_test_result.tbl");
 
   IndexScan is;
   is.addInput(t);

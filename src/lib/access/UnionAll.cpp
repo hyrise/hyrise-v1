@@ -10,21 +10,21 @@ namespace { auto _ = QueryParser::registerTrivialPlanOperation<UnionAll>("UnionA
 
 void UnionAll::executePlanOperation() {
   const auto& tables = input.getTables();
-  auto pcs = convert<const PointerCalculator>(tables);
+  auto pcs = convert<const storage::PointerCalculator>(tables);
   if (allValid(pcs)) {
-    addResult(PointerCalculator::concatenate_many(begin(pcs), end(pcs)));
+    addResult(storage::PointerCalculator::concatenate_many(begin(pcs), end(pcs)));
     return;
   }
 
   auto mtvs = convert<const storage::MutableVerticalTable>(tables);
   if (allValid(mtvs)) {
-    auto left_pcs = functional::collect(mtvs, [] (const std::shared_ptr<const storage::MutableVerticalTable>& mtv) { return std::dynamic_pointer_cast<const PointerCalculator>(mtv->getContainer(0)); });
-    auto right_pcs = functional::collect(mtvs, [] (const std::shared_ptr<const storage::MutableVerticalTable>& mtv) { return std::dynamic_pointer_cast<const PointerCalculator>(mtv->getContainer(1)); });
+    auto left_pcs = functional::collect(mtvs, [] (const std::shared_ptr<const storage::MutableVerticalTable>& mtv) { return std::dynamic_pointer_cast<const storage::PointerCalculator>(mtv->getContainer(0)); });
+    auto right_pcs = functional::collect(mtvs, [] (const std::shared_ptr<const storage::MutableVerticalTable>& mtv) { return std::dynamic_pointer_cast<const storage::PointerCalculator>(mtv->getContainer(1)); });
 
 
     if (allValid(left_pcs) && allValid(right_pcs)) {
-      auto l_concat = PointerCalculator::concatenate_many(std::begin(left_pcs), std::end(left_pcs));
-      auto r_concat = PointerCalculator::concatenate_many(std::begin(right_pcs), std::end(right_pcs));
+      auto l_concat = storage::PointerCalculator::concatenate_many(std::begin(left_pcs), std::end(left_pcs));
+      auto r_concat = storage::PointerCalculator::concatenate_many(std::begin(right_pcs), std::end(right_pcs));
       std::vector<storage::atable_ptr_t> pcs = {l_concat, r_concat};
       addResult(std::make_shared<storage::MutableVerticalTable>(pcs));
       return;

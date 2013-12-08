@@ -1,6 +1,5 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#ifndef SRC_LIB_HELPER_MEMORYHELPER_H_
-#define SRC_LIB_HELPER_MEMORYHELPER_H_
+#pragma once
 
 /* reallocs space and fills with value if needed */
 void *realloc_and_fill(size_t fill, void *pBuffer, size_t oldSize, size_t newSize) {
@@ -24,4 +23,3 @@ size_t round_to_8(size_t bits) {
   return bits;
 }
 
-#endif  // SRC_LIB_HELPER_MEMORYHELPER_H_

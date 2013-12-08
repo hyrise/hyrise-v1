@@ -11,7 +11,7 @@ namespace access {
 class LayoutTableTests : public AccessTest {};
 
 TEST_F(LayoutTableTests, basic_layout_table_test) {
-  auto t = Loader::shortcuts::load("test/tables/partitions.tbl");
+  auto t = io::Loader::shortcuts::load("test/tables/partitions.tbl");
   ASSERT_EQ(3u, t->partitionCount());
 
   LayoutTable lt("a|c|b|d\nINTEGER|INTEGER|INTEGER|INTEGER\n0_C|0_C|1_C|1_C");

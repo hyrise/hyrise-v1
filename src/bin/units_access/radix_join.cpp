@@ -13,13 +13,14 @@
 
 namespace hyrise {
 namespace access {
+
 using storage::TableBuilder;
 
 class RadixJoinTest : public AccessTest {};
 
 TEST_F(RadixJoinTest, histogram_parallel_4x) {
 
-  auto table = Loader::shortcuts::load("test/tables/hash_table_test.tbl");
+  auto table = io::Loader::shortcuts::load("test/tables/hash_table_test.tbl");
 
   Histogram h1;
   h1.addInput(table);
@@ -140,8 +141,8 @@ TEST_F(RadixJoinTest, histogram_parallel_4x) {
 
 TEST_F(RadixJoinTest, check_prefixsum) {
   // create input Table
-  std::shared_ptr<AbstractTable> t1 = Loader::shortcuts::load("test/prefix_sum.tbl");
-  std::shared_ptr<AbstractTable> reference = Loader::shortcuts::load("test/prefix_sum_result.tbl");
+  auto t1 = io::Loader::shortcuts::load("test/prefix_sum.tbl");
+  auto reference = io::Loader::shortcuts::load("test/prefix_sum_result.tbl");
 
   PrefixSum ps;
   ps.addInput(t1);
@@ -156,9 +157,9 @@ TEST_F(RadixJoinTest, check_prefixsum) {
 TEST_F(RadixJoinTest, check_prefixsum_parallel_p3) {
   TableBuilder::param_list list;
   list.append().set_type("INTEGER").set_name("count");
-  hyrise::storage::atable_ptr_t  t1 = TableBuilder::build(list, false);
-  hyrise::storage::atable_ptr_t  t2 = TableBuilder::build(list, false);
-  hyrise::storage::atable_ptr_t  t3 = TableBuilder::build(list, false);
+  auto t1 = TableBuilder::build(list, false);
+  auto t2 = TableBuilder::build(list, false);
+  auto t3 = TableBuilder::build(list, false);
 
   t1->resize(2); t2->resize(2); t3->resize(2);
   t1->setValueId(0,0, {10,0});
@@ -187,9 +188,9 @@ TEST_F(RadixJoinTest, check_prefixsum_parallel_p3) {
 TEST_F(RadixJoinTest, check_prefixsum_parallel_p2) {
   TableBuilder::param_list list;
   list.append().set_type("INTEGER").set_name("count");
-  hyrise::storage::atable_ptr_t  t1 = TableBuilder::build(list, false);
-  hyrise::storage::atable_ptr_t  t2 = TableBuilder::build(list, false);
-  hyrise::storage::atable_ptr_t  t3 = TableBuilder::build(list, false);
+  auto t1 = TableBuilder::build(list, false);
+  auto t2 = TableBuilder::build(list, false);
+  auto t3 = TableBuilder::build(list, false);
 
   t1->resize(2); t2->resize(2); t3->resize(2);
   t1->setValueId(0,0, {10,0});
@@ -217,9 +218,9 @@ TEST_F(RadixJoinTest, check_prefixsum_parallel_p2) {
 TEST_F(RadixJoinTest, check_prefixsum_parallel_p1) {
   TableBuilder::param_list list;
   list.append().set_type("INTEGER").set_name("count");
-  hyrise::storage::atable_ptr_t  t1 = TableBuilder::build(list, false);
-  hyrise::storage::atable_ptr_t  t2 = TableBuilder::build(list, false);
-  hyrise::storage::atable_ptr_t  t3 = TableBuilder::build(list, false);
+  auto t1 = TableBuilder::build(list, false);
+  auto t2 = TableBuilder::build(list, false);
+  auto t3 = TableBuilder::build(list, false);
 
   t1->resize(2); t2->resize(2); t3->resize(2);
   t1->setValueId(0,0, {10,0});
@@ -248,9 +249,9 @@ TEST_F(RadixJoinTest, check_prefixsum_parallel_p1) {
 TEST_F(RadixJoinTest, check_prefixsum_parallel_merge) {
   TableBuilder::param_list list;
   list.append().set_type("INTEGER").set_name("count");
-  hyrise::storage::atable_ptr_t  t1 = TableBuilder::build(list, false);
-  hyrise::storage::atable_ptr_t  t2 = TableBuilder::build(list, false);
-  hyrise::storage::atable_ptr_t  t3 = TableBuilder::build(list, false);
+  auto t1 = TableBuilder::build(list, false);
+  auto t2 = TableBuilder::build(list, false);
+  auto t3 = TableBuilder::build(list, false);
 
   t1->resize(2); t2->resize(2); t3->resize(2);
   t1->setValueId(0,0, {0,0});
@@ -277,7 +278,7 @@ TEST_F(RadixJoinTest, check_prefixsum_parallel_merge) {
 
 TEST_F(RadixJoinTest, hist_prefix_radix_cluster) {
 
-  auto table = Loader::shortcuts::load("test/tables/hash_table_test.tbl");
+  auto table = io::Loader::shortcuts::load("test/tables/hash_table_test.tbl");
   hyrise::access::Histogram hst;
   hst.setBits(2);
   hst.addField(0);
@@ -329,7 +330,7 @@ TEST_F(RadixJoinTest, hist_prefix_radix_cluster) {
 
 TEST_F(RadixJoinTest, hist_prefix_radix_cluster_string) {
 
-  auto table = Loader::shortcuts::load("test/tables/hash_table_test.tbl");
+  auto table = io::Loader::shortcuts::load("test/tables/hash_table_test.tbl");
   hyrise::access::Histogram hst;
   hst.setBits(2);
   hst.addField(1);
@@ -380,7 +381,7 @@ TEST_F(RadixJoinTest, hist_prefix_radix_cluster_string) {
 }
 
 TEST_F(RadixJoinTest, multi_pass_radix_cluster) {
-  auto table = Loader::shortcuts::load("test/tables/radix_cluster_mpass.tbl");
+  auto table = io::Loader::shortcuts::load("test/tables/radix_cluster_mpass.tbl");
 
   // Create a histogram
   Histogram hst;
@@ -502,7 +503,7 @@ TEST_F(RadixJoinTest, multi_pass_radix_cluster) {
 }
 
 TEST_F(RadixJoinTest, multi_pass_radix_cluster_parallel) {
-  auto table = Loader::shortcuts::load("test/tables/radix_cluster_mpass.tbl");
+  auto table = io::Loader::shortcuts::load("test/tables/radix_cluster_mpass.tbl");
 
   // Create a histogram
   Histogram hst;

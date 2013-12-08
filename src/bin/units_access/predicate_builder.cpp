@@ -16,7 +16,7 @@ namespace access {
 class PredicateBldr : public AccessTest {};
 
 TEST_F(PredicateBldr, one_field) {
-  EqualsExpression<hyrise_int_t> *e = new EqualsExpression<hyrise_int_t>((size_t)0, 0, 2009);
+  auto e = new EqualsExpression<hyrise_int_t>((size_t)0, 0, 2009);
 
   PredicateBuilder b;
   b.add(e);
@@ -29,8 +29,8 @@ TEST_F(PredicateBldr, one_field) {
 }
 
 TEST_F(PredicateBldr, one_leg_expression) {
-  CompoundExpression *c = new CompoundExpression(NOT);
-  EqualsExpression<hyrise_int_t> *e = new EqualsExpression<hyrise_int_t>((size_t)0, 0, 2009);
+  auto c = new CompoundExpression(NOT);
+  auto e = new EqualsExpression<hyrise_int_t>((size_t)0, 0, 2009);
 
   PredicateBuilder b;
   b.add(c);
@@ -44,12 +44,12 @@ TEST_F(PredicateBldr, one_leg_expression) {
 }
 
 TEST_F(PredicateBldr, complex_expression) {
-  hyrise::storage::c_atable_ptr_t t = Loader::shortcuts::load("test/groupby_xs.tbl");
+  storage::c_atable_ptr_t t = io::Loader::shortcuts::load("test/groupby_xs.tbl");
 
-  EqualsExpression<hyrise_int_t> *expr1 = new EqualsExpression<hyrise_int_t>(t, 0, 2009);
-  EqualsExpression<hyrise_int_t> *expr2 = new EqualsExpression<hyrise_int_t>(t, 1, 1);
-  CompoundExpression *expr3 = new CompoundExpression(OR);
-  CompoundExpression *expr4 = new CompoundExpression(NOT);
+  auto expr1 = new EqualsExpression<hyrise_int_t>(t, 0, 2009);
+  auto expr2 = new EqualsExpression<hyrise_int_t>(t, 1, 1);
+  auto expr3 = new CompoundExpression(OR);
+  auto expr4 = new CompoundExpression(NOT);
 
   PredicateBuilder b;
   b.add(expr4);
@@ -66,7 +66,7 @@ TEST_F(PredicateBldr, complex_expression) {
   scan->setProducesPositions(true);
 
   auto out = scan->execute()->getResultTable();
-  const auto& reference = Loader::shortcuts::load("test/reference/simple_select_1.tbl");
+  const auto& reference = io::Loader::shortcuts::load("test/reference/simple_select_1.tbl");
 
   ASSERT_TRUE(out->contentEquals(reference));
 }

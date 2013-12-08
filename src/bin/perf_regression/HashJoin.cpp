@@ -18,7 +18,7 @@ class HashJoinBase : public ::testing::Benchmark {
 
  protected:
 
-  StorageManager *sm;
+  io::StorageManager *sm;
 
   HashBuild *hb;
   HashJoinProbe *hjp;
@@ -32,7 +32,7 @@ class HashJoinBase : public ::testing::Benchmark {
     hjp->setEvent("NO_PAPI");
     hb->setKey("join");
     hb->setEvent("NO_PAPI");
-    sm = StorageManager::getInstance();
+    sm = io::StorageManager::getInstance();
 
     t1 = sm->getTable("stock");
     t2 = sm->getTable("order_line");

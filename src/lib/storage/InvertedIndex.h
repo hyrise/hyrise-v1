@@ -1,6 +1,5 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#ifndef SRC_LIB_STORAGE_INVERTEDINDEX_H_
-#define SRC_LIB_STORAGE_INVERTEDINDEX_H_
+#pragma once
 
 #include <vector>
 #include <map>
@@ -14,6 +13,9 @@
 #include "storage/AbstractTable.h"
 
 #include <memory>
+
+namespace hyrise {
+namespace storage {
 
 template<typename T>
 class InvertedIndex : public AbstractIndex {
@@ -59,4 +61,6 @@ for (auto & e : _index)
   };
 
 };
-#endif  // SRC_LIB_STORAGE_INVERTEDINDEX_H_
+
+} } // namespace hyrise::storage
+

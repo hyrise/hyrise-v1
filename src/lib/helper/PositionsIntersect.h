@@ -1,6 +1,5 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#ifndef SRC_LIB_HELPER_POSITIONSINTERESECT_H_
-#define SRC_LIB_HELPER_POSITIONSINTERESECT_H_
+#pragma once
 
 #include <algorithm>
 #include <iterator>
@@ -76,4 +75,3 @@ void intersect_pos_list(IterT beg1, IterT end1, IterT beg2, IterT end2, OutputIt
   }
 }
 
-#endif

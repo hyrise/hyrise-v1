@@ -165,7 +165,9 @@ struct max_aggregate_functor : aggregate_functor{
   }
 };
 
-} } // namespace hyrise::storage
+} // namespace storage
+
+namespace access {
 
 aggregateFunctionMap_t getAggregateFunctionMap() {
   aggregateFunctionMap_t d;
@@ -209,7 +211,7 @@ AggregateFun *parseAggregateFunction(const Json::Value &data) {
   return aggregate;
 }
 
-void AggregateFun::walk(const AbstractTable &table) {
+void AggregateFun::walk(const storage::AbstractTable &table) {
   if (_field_name.size() > 0) { //either _field_name is set
     _field = table.numberOfColumn(_field_name);
   } else { //or _field
@@ -358,4 +360,6 @@ AggregateFun *MaxAggregateFun::parse(const Json::Value &f) {
   else if (f["field"].isString()) return new MaxAggregateFun(f["field"].asString());
   else throw std::runtime_error("Could not parse json");
 }
+
+} } // namespace hyrise::access
 

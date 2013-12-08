@@ -1,8 +1,10 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#ifndef SRC_LIB_IO_COLUMNLOADER_H_
-#define SRC_LIB_IO_COLUMNLOADER_H_
+#pragma once
 
 #include "storage/AbstractTable.h"
+
+namespace hyrise {
+namespace io {
 
 class AbstractColumnLoader {
  public:
@@ -26,14 +28,14 @@ class ColumnLoader : public AbstractColumnLoader {
     _values.push_back(value);
   }
 
-  void write_to_table(AbstractTable *table, size_t column) {
+  void write_to_table(storage::AbstractTable *table, size_t column) {
 
     if (_values.size() == 0) {
       return;
     }
 
 
-    BaseDictionary<T> *dict = (BaseDictionary<T> *)table->dictionaryAt(column);
+    auto *dict = (storage::BaseDictionary<T> *)table->dictionaryAt(column);
 
     if (dict->isOrdered()) {
       // Create the sorted list for the input
@@ -67,4 +69,5 @@ class ColumnLoader : public AbstractColumnLoader {
   }
 };
 
-#endif  // SRC_LIB_IO_COLUMNLOADER_H_
+} } // namespace hyrise::io
+

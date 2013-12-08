@@ -1,6 +1,5 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#ifndef SRC_LIB_STORAGE_HASHTABLE_H_
-#define SRC_LIB_STORAGE_HASHTABLE_H_
+#pragma once
 
 #include <atomic>
 #include <algorithm>
@@ -15,6 +14,9 @@
 #include "storage/AbstractHashTable.h"
 #include "storage/AbstractTable.h"
 #include "storage/storage_types.h"
+
+namespace hyrise {
+namespace storage {
 
 template<class MAP, class KEY> class HashTableView;
 
@@ -398,4 +400,5 @@ public:
   }
 };
 
-#endif  // SRC_LIB_STORAGE_HASHTABLE_H_
+} } // namespace hyrise::storage
+

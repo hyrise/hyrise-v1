@@ -1,6 +1,5 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#ifndef SRC_LIB_STORAGE_POINTERCALCULATOR_H_
-#define SRC_LIB_STORAGE_POINTERCALCULATOR_H_
+#pragma once
 
 #include <vector>
 
@@ -9,6 +8,9 @@
 
 #include "storage/AbstractTable.h"
 #include "storage/MutableVerticalTable.h"
+
+namespace hyrise {
+namespace storage {
 
 class PointerCalculator : public AbstractTable,
                           public SharedFactory<PointerCalculator> {
@@ -80,5 +82,5 @@ public:
   size_t slice_count;
 };
 
-#endif  // SRC_LIB_STORAGE_POINTERCALCULATOR_H_
+} } // namespace hyrise::storage
 

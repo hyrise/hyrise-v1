@@ -13,15 +13,15 @@ namespace hyrise { namespace io {
 
 namespace {
   storage::aresource_ptr_t emptyResource() {
-    return std::make_shared<AbstractResource>();
+    return std::make_shared<storage::AbstractResource>();
   }
 
   storage::atable_ptr_t emptyTable() {
-    std::shared_ptr<metadata_list> metadata = std::make_shared<metadata_list>();
-    return std::make_shared<Table>(metadata.get());
+    auto metadata = std::make_shared<storage::metadata_list>();
+    return std::make_shared<storage::Table>(metadata.get());
   }
 
-  class FakeIndex : public AbstractIndex {
+  class FakeIndex : public storage::AbstractIndex {
    public:
     void shrink() {}
   };
@@ -217,13 +217,13 @@ TEST_F(ResourceManagerTests, get_typed_resource) {
   rm->add("Table", table);
   rm->add("Index", index);
 
-  const storage::aresource_ptr_t resource_g = rm->get<AbstractResource>("Resource");
+  const storage::aresource_ptr_t resource_g = rm->get<storage::AbstractResource>("Resource");
   EXPECT_EQ(resource, resource_g);
 
-  const auto table_g = rm->get<AbstractTable>("Table");
+  const auto table_g = rm->get<storage::AbstractTable>("Table");
   EXPECT_EQ(table, table_g);
 
-  const storage::aindex_ptr_t index_g = rm->get<AbstractIndex>("Index");
+  const storage::aindex_ptr_t index_g = rm->get<storage::AbstractIndex>("Index");
   EXPECT_EQ(index, index_g);
 }
 
@@ -232,18 +232,18 @@ TEST_F(ResourceManagerTests, get_typed_resource_throws_exception) {
   rm->add("Table", emptyTable());
   rm->add("Index", emptyIndex());
 
-  EXPECT_NO_THROW(rm->get<AbstractResource>("Resource"));
-  EXPECT_NO_THROW(rm->get<AbstractTable>("Table"));
-  EXPECT_NO_THROW(rm->get<AbstractIndex>("Index"));
+  EXPECT_NO_THROW(rm->get<storage::AbstractResource>("Resource"));
+  EXPECT_NO_THROW(rm->get<storage::AbstractTable>("Table"));
+  EXPECT_NO_THROW(rm->get<storage::AbstractIndex>("Index"));
   
-  EXPECT_THROW(   rm->get<AbstractTable>("Resource"), std::runtime_error);
-  EXPECT_THROW(   rm->get<AbstractIndex>("Resource"), std::runtime_error);
+  EXPECT_THROW(   rm->get<storage::AbstractTable>("Resource"), std::runtime_error);
+  EXPECT_THROW(   rm->get<storage::AbstractIndex>("Resource"), std::runtime_error);
 
-  EXPECT_NO_THROW(rm->get<AbstractResource>("Table"));
-  EXPECT_THROW(   rm->get<AbstractIndex>("Table"), std::runtime_error);
+  EXPECT_NO_THROW(rm->get<storage::AbstractResource>("Table"));
+  EXPECT_THROW(   rm->get<storage::AbstractIndex>("Table"), std::runtime_error);
 
-  EXPECT_NO_THROW(rm->get<AbstractResource>("Index"));
-  EXPECT_THROW(   rm->get<AbstractTable>("Index"), std::runtime_error);
+  EXPECT_NO_THROW(rm->get<storage::AbstractResource>("Index"));
+  EXPECT_THROW(   rm->get<storage::AbstractTable>("Index"), std::runtime_error);
 }
 
 } } // namespace hyrise::io

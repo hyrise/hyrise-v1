@@ -21,7 +21,7 @@ SetTable::~SetTable() {
 void SetTable::executePlanOperation() {
   auto table = input.getTable();
   // TODO: For now do the bad way, SM should have const tables
-  StorageManager::getInstance()->loadTable(_name, std::const_pointer_cast<AbstractTable>(table));
+  io::StorageManager::getInstance()->loadTable(_name, std::const_pointer_cast<storage::AbstractTable>(table));
   output.add(table);
 }
 

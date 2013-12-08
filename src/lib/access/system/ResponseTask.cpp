@@ -69,9 +69,9 @@ Json::Value generateRowsJsonT(const T& table, const size_t transmitLimit, const 
   return rows;
 }
 
-Json::Value generateRowsJson(const std::shared_ptr<const AbstractTable>& table,
+Json::Value generateRowsJson(const std::shared_ptr<const storage::AbstractTable>& table,
                              const size_t transmitLimit, const size_t transmitOffset) {
-  if (const auto& store = std::dynamic_pointer_cast<const hyrise::storage::SimpleStore>(table)) {
+  if (const auto& store = std::dynamic_pointer_cast<const storage::SimpleStore>(table)) {
     return generateRowsJsonT(store, transmitLimit, transmitOffset);
   } else {
     return generateRowsJsonT(table, transmitLimit, transmitOffset);

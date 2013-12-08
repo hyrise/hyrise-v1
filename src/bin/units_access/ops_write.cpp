@@ -17,9 +17,9 @@ namespace access {
 class WriteTests : public AccessTest {};
 
 TEST_F(WriteTests, insert_test) {
-  auto writeCtx =hyrise::tx::TransactionManager::getInstance().buildContext(); 
-  hyrise::storage::atable_ptr_t s = Loader::shortcuts::load("test/lin_xxxs.tbl");
-  hyrise::storage::atable_ptr_t i = Loader::shortcuts::load("test/insert_one.tbl");
+  auto writeCtx = tx::TransactionManager::getInstance().buildContext(); 
+  hyrise::storage::atable_ptr_t s = io::Loader::shortcuts::load("test/lin_xxxs.tbl");
+  hyrise::storage::atable_ptr_t i = io::Loader::shortcuts::load("test/insert_one.tbl");
 
   InsertScan gs;
   gs.setTXContext(writeCtx);
@@ -27,7 +27,7 @@ TEST_F(WriteTests, insert_test) {
   gs.setInputData(i);
 
   const auto& result = gs.execute()->getResultTable();
-  const auto& reference = Loader::shortcuts::load("test/reference/lin_xxxs_insert.tbl");
+  const auto& reference = io::Loader::shortcuts::load("test/reference/lin_xxxs_insert.tbl");
 
   ASSERT_TRUE(result->contentEquals(reference));
 }

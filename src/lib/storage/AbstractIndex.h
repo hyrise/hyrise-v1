@@ -4,11 +4,12 @@
  * Contains class definition for InvertedIndex Base Class
  *
  */
-
-#ifndef SRC_LIB_STORAGE_ABSTRACTINDEX_H_
-#define SRC_LIB_STORAGE_ABSTRACTINDEX_H_
+#pragma once
 
 #include <storage/AbstractResource.h>
+
+namespace hyrise {
+namespace storage {
 
 class AbstractIndex : public AbstractResource {
 
@@ -21,5 +22,6 @@ public:
   virtual void shrink() = 0;
 };
 
-#endif  // SRC_LIB_STORAGE_ABSTRACTINDEX_H_
+} } // namespace hyrise::storage
+
 

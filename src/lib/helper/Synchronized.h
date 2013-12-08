@@ -1,5 +1,4 @@
-#ifndef SYNCHRONIZED_H_
-#define SYNCHRONIZED_H_
+#pragma once
 
 #include <memory>
 
@@ -24,4 +23,3 @@ struct Synchronized {
   Synchronized(Synchronized &&) = delete;
 };
 
-#endif

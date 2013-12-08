@@ -1,12 +1,13 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-
-#ifndef SRC_LIB_STORAGE_COLUMNMETADATA_H_
-#define SRC_LIB_STORAGE_COLUMNMETADATA_H_
+#pragma once
 
 #include <storage/storage_types.h>
 
 #include <string>
 #include <stdexcept>
+
+namespace hyrise {
+namespace storage {
 
 class ColumnMetaCreationException : public std::runtime_error {
  public:
@@ -52,5 +53,5 @@ class ColumnMetadata {
   }
 };
 
-#endif  // SRC_LIB_STORAGE_COLUMNMETADATA_H_
+} } // namespace hyrise::storage
 

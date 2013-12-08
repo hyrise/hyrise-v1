@@ -1,6 +1,5 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#ifndef SRC_LIB_STORAGE_RAWTABLE_H_
-#define SRC_LIB_STORAGE_RAWTABLE_H_
+#pragma once
 
 #include <cassert>
 #include <cstring>
@@ -68,9 +67,7 @@ void RowHelper::set(size_t index, std::string val);
 template<>
 std::string RowHelper::convert(const byte *d, DataType t);
 
-
-}}}
-
+} // namespace rawtable
 
 class RawTable : public AbstractTable {
   typedef unsigned char byte;
@@ -162,11 +159,11 @@ public:
   
   ////////////////////////////////////////////////////////////////////////////////////////
   // Disabled Methodsw 
-  virtual hyrise::storage::atable_ptr_t copy_structure(const field_list_t *fields = nullptr, 
-                                                        const bool reuse_dict = false, 
-                                                        const size_t initial_size = 0, 
-                                                        const bool with_containers = true, 
-                                                        const bool compressed = false) const {
+  virtual atable_ptr_t copy_structure(const field_list_t *fields = nullptr, 
+                                      const bool reuse_dict = false, 
+                                      const size_t initial_size = 0, 
+                                      const bool with_containers = true, 
+                                      const bool compressed = false) const {
     STORAGE_NOT_IMPLEMENTED(RawTable, copy_structure());
   }
 
@@ -207,4 +204,6 @@ public:
 
 
 };
-#endif // SRC_LIB_STORAGE_RAWTABLE_H_
+
+} } // namespace hyrise::storage
+

@@ -20,7 +20,8 @@ namespace {
   auto _ = QueryParser::registerTrivialPlanOperation<MetaData>("MetaData");
 }
 
-size_t addEntriesForTableToResultTable(std::shared_ptr<const AbstractTable> table, std::string tableName, std::shared_ptr<AbstractTable> result, size_t row_count) {
+size_t addEntriesForTableToResultTable(std::shared_ptr<const storage::AbstractTable> table, std::string tableName,
+                                       std::shared_ptr<storage::AbstractTable> result, size_t row_count) {
   result->resize(result->size() + table->columnCount());
   for (field_t i = 0; i != table->columnCount(); ++i) {
     result->setValue<hyrise_string_t>(result->numberOfColumn("table"), row_count, tableName);
@@ -41,7 +42,7 @@ void MetaData::executePlanOperation() {
   auto meta_data = storage::TableBuilder::build(list);
 
   size_t row_count = 0;
-  const auto &storageManager = StorageManager::getInstance();
+  const auto &storageManager = io::StorageManager::getInstance();
   const auto& loaded_tables = storageManager->all();
 
   if (input.numberOfTables() == 0) {

@@ -9,7 +9,7 @@ namespace access {
 class LoadFileTests : public AccessTest {};
 
 TEST_F(LoadFileTests, basic_load_file_test) {
-  auto t = Loader::shortcuts::load("test/tables/employees.tbl");
+  auto t = io::Loader::shortcuts::load("test/tables/employees.tbl");
 
   LoadFile lf("tables/employees.tbl");
   lf.execute();

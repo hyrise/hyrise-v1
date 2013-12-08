@@ -5,8 +5,7 @@
  * For any undocumented method see AbstractTable.
  * @see AbstractTable
  */
-#ifndef SRC_LIB_STORAGE_HORIZONTALTABLE_H_
-#define SRC_LIB_STORAGE_HORIZONTALTABLE_H_
+#pragma once
 
 #include <vector>
 #include <string>
@@ -47,6 +46,4 @@ class HorizontalTable : public AbstractTable {
 };
 
 }}
-
-#endif  // SRC_LIB_STORAGE_HORIZONTALTABLE_H_
 

@@ -1,6 +1,5 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#ifndef SRC_LIB_ACCESS_PRED_LIKEEXPRESSION_H_
-#define SRC_LIB_ACCESS_PRED_LIKEEXPRESSION_H_
+#pragma once
 
 #include <boost/regex.hpp>
 
@@ -8,6 +7,8 @@
 #include <helper/types.h>
 #include <boost/regex.hpp>
 
+namespace hyrise {
+namespace access {
 
 /// LIKE expression for string comparison using regular expressions.
 
@@ -51,4 +52,5 @@ private:
   const boost::regex regExpr;
 };
 
-#endif // SRC_LIB_ACCESS_PRED_LIKEEXPRESSION_H_
+} } // namesapce hyrise::access
+

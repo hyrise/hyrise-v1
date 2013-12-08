@@ -1,6 +1,5 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#ifndef SRC_LIB_STORAGE_STORAGE_TYPES_H_
-#define SRC_LIB_STORAGE_STORAGE_TYPES_H_
+#pragma once
 
 #include <vector>
 #include <string>
@@ -90,10 +89,12 @@ class ValueId {
 
 typedef std::vector<ValueId> ValueIdList;
 
+namespace hyrise { namespace storage {
+
 class ColumnMetadata;
 typedef std::vector<const ColumnMetadata *> metadata_list;
 typedef std::vector<metadata_list *> compound_metadata_list;
 typedef std::vector<ColumnMetadata> metadata_vec_t;
 
-#endif  // SRC_LIB_STORAGE_STORAGE_TYPES_H_
+} } // namespace hyrise::storage
 

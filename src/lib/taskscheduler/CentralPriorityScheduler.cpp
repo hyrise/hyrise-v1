@@ -7,6 +7,9 @@
 
 #include "CentralPriorityScheduler.h"
 
+namespace hyrise {
+namespace taskscheduler {
+
 log4cxx::LoggerPtr CentralPriorityScheduler::_logger = log4cxx::Logger::getLogger("taskscheduler.CentralPriorityScheduler");
 
 // register Scheduler at SharedScheduler
@@ -177,3 +180,6 @@ void CentralPriorityScheduler::notifyReady(std::shared_ptr<Task> task) {
     // should never happen, but check to identify potential race conditions
     LOG4CXX_ERROR(_logger, "Task that notified to be ready to run was not found / found more than once in waitSet! " << std::to_string(tmp));
 }
+
+} } // namespace hyrise::taskscheduler
+

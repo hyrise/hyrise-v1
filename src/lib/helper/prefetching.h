@@ -1,6 +1,5 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#ifndef SRC_LIB_HELPER_PREFETCHING_H_
-#define SRC_LIB_HELPER_PREFETCHING_H_
+#pragma once
 
 #include <stdint.h>
 
@@ -22,4 +21,3 @@ void prefetch_data_logic(int cpu);
 
 void prefetch_stream(int cpu);
 
-#endif  // SRC_LIB_HELPER_PREFETCHING_H_

@@ -22,3 +22,4 @@ column_mapping_t calculateMapping(
 }
 
 }}
+

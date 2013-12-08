@@ -13,13 +13,16 @@
 
 #include "testing/TableEqualityTest.h"
 
-typedef std::shared_ptr<AbstractTable> tbl_ptr;
+namespace hyrise {
+namespace access {
 
-hyrise::storage::c_atable_ptr_t join(const tbl_ptr &left,
-                                    const tbl_ptr &right,
-                                    const std::vector<size_t> &fields_left,
-                                    const std::vector<size_t> &fields_right) {
-  hyrise::access::HashBuild hashBuild;
+typedef std::shared_ptr<storage::AbstractTable> tbl_ptr;
+
+storage::c_atable_ptr_t join(const tbl_ptr &left,
+                             const tbl_ptr &right,
+                             const std::vector<size_t> &fields_left,
+                             const std::vector<size_t> &fields_right) {
+  HashBuild hashBuild;
   hashBuild.addInput(left);
   hashBuild.setKey("join");
   for (auto & field_left: fields_left) hashBuild.addField(field_left);
@@ -51,11 +54,11 @@ class HashTestJoinIdentical : public ::testing::TestWithParam<identicalJoinParam
 
 TEST_P(HashTestJoinIdentical, join_identical) {
   auto params = GetParam();
-  auto left = Loader::shortcuts::loadWithStringHeader("test/tables/hash_table_test.tbl", header_a);
-  auto right = Loader::shortcuts::loadWithStringHeader("test/tables/hash_table_test.tbl", header_b);
+  auto left = io::Loader::shortcuts::loadWithStringHeader("test/tables/hash_table_test.tbl", header_a);
+  auto right = io::Loader::shortcuts::loadWithStringHeader("test/tables/hash_table_test.tbl", header_b);
 
   auto result = join(left, right, params.fields, params.fields);
-  auto reference = Loader::shortcuts::load(params.result);
+  auto reference = io::Loader::shortcuts::load(params.result);
 
   EXPECT_RELATION_EQ(result, reference);
 }
@@ -92,4 +95,6 @@ INSTANTIATE_TEST_CASE_P(HashTestWithoutDelta,
 INSTANTIATE_TEST_CASE_P(HashTestWithDelta,
                         HashTestJoinIdenticalWithDelta,
                         ::testing::ValuesIn(cases));
+
+} } // namespace hyrise::access
 

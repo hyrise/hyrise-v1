@@ -1,6 +1,5 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#ifndef SRC_LIB_STORAGE_BITCOMPRESSEDVECTOR_H_
-#define SRC_LIB_STORAGE_BITCOMPRESSEDVECTOR_H_
+#pragma once
 
 #include <cassert>
 #include <cmath>
@@ -19,6 +18,9 @@
 #define WORD_LENGTH 64
 #endif
 
+namespace hyrise {
+namespace storage {
+
 // Compute the maximum number representable for n-bit width integers.
 template <typename T,
           class = typename std::enable_if<std::is_integral<T>::value>::type>
@@ -32,7 +34,7 @@ T maxValueForBits(const std::size_t bits) {
 */
 template <typename T>
 class BitCompressedVector : public BaseAttributeVector<T> {
-  using Strategy = MallocStrategy;
+  using Strategy = memory::MallocStrategy;
   // Typedef for the data
   typedef uint64_t storage_t;
   typedef std::vector<uint64_t> bit_size_list_t;
@@ -273,4 +275,5 @@ private:
 
 };
 
-#endif  // SRC_LIB_STORAGE_BITCOMPRESSEDVECTOR_H_
+} } // namespace hyrise::storage
+

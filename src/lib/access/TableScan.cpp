@@ -4,7 +4,6 @@
 #include "access/expressions/ExampleExpression.h"
 #include "access/expressions/pred_SimpleExpression.h"
 #include "access/expressions/ExpressionRegistration.h"
-#include "storage/AbstractTable.h"
 #include "storage/PointerCalculator.h"
 #include "storage/TableRangeView.h"
 #include "helper/types.h"
@@ -44,12 +43,12 @@ void TableScan::executePlanOperation() {
   else
     positions = new pos_list_t();
 
-  std::shared_ptr<PointerCalculator> result;
+  std::shared_ptr<storage::PointerCalculator> result;
 
   if(tablerange)
-    result = PointerCalculator::create(tablerange->getActualTable(), positions);
+    result = storage::PointerCalculator::create(tablerange->getActualTable(), positions);
   else
-    result = PointerCalculator::create(getInputTable(), positions);
+    result = storage::PointerCalculator::create(getInputTable(), positions);
 
   addResult(result);
 }

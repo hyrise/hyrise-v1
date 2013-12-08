@@ -5,12 +5,14 @@
  *      Author: jwust
  */
 
-#ifndef COREBOUNDQUEUE_H_
-#define COREBOUNDQUEUE_H_
+#pragma once
 
 #include "AbstractCoreBoundQueue.h"
 #include <vector>
 #include <queue>
+
+namespace hyrise {
+namespace taskscheduler {
 
 /*
  * A queue with a dedicated worker thread; used by SimpleTaskScheduler to run tasks
@@ -50,4 +52,5 @@ class CoreBoundQueue : public AbstractCoreBoundQueue {
   }
 };
 
-#endif /* COREBOUNDQUEUE_H_ */
+} } // namespace hyrise::taskscheduler
+

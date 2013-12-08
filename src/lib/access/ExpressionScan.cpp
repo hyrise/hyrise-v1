@@ -44,14 +44,14 @@ ExpressionScan::~ExpressionScan() {
 void ExpressionScan::executePlanOperation() {
   size_t input_size = input.getTable(0)->size();
 
-  metadata_list metadata;
-  ColumnMetadata *m = new ColumnMetadata(_column_name, _expression->getType());
+  storage::metadata_list metadata;
+  auto m = new storage::ColumnMetadata(_column_name, _expression->getType());
   metadata.push_back(m);
 
-  std::vector<AbstractTable::SharedDictionaryPtr> dicts;
-  dicts.push_back(storage::makeDictionary<OrderIndifferentDictionary>(_expression->getType()));
+  std::vector<storage::AbstractTable::SharedDictionaryPtr> dicts;
+  dicts.push_back(storage::makeDictionary<storage::OrderIndifferentDictionary>(_expression->getType()));
 
-  storage::atable_ptr_t exp_result = std::make_shared<Table>(&metadata, &dicts, 0, false);
+  storage::atable_ptr_t exp_result = std::make_shared<storage::Table>(&metadata, &dicts, 0, false);
   exp_result->resize(input_size);
 
   for (size_t row = 0; row < input_size; ++row) {
@@ -60,7 +60,7 @@ void ExpressionScan::executePlanOperation() {
   }
 
   std::vector<storage::atable_ptr_t> vc;
-  vc.push_back(std::const_pointer_cast<AbstractTable>(input.getTable(0)));
+  vc.push_back(std::const_pointer_cast<storage::AbstractTable>(input.getTable(0)));
   vc.push_back(exp_result);
 
   addResult(std::make_shared<const storage::MutableVerticalTable>(vc));

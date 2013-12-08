@@ -1,9 +1,11 @@
-#ifndef SRC_LIB_STORAGE_SERIAL_H_
-#define SRC_LIB_STORAGE_SERIAL_H_
+#pragma once
 
 #include "AbstractResource.h"
 
 #include <atomic>
+
+namespace hyrise {
+namespace storage {
 
 /// A Serial class that can be used to define auto_increment columns for
 //tables. For each column a serial will be stored in the resource manager
@@ -24,5 +26,5 @@ class Serial : public AbstractResource {
   serial_t next();
 };
 
-#endif
+} } // namespace hyrise::storage
 

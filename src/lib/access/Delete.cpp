@@ -21,7 +21,7 @@ namespace {
 
 
 void DeleteOp::executePlanOperation() {
-	auto tab = checked_pointer_cast<const PointerCalculator>(input.getTable(0));
+	auto tab = checked_pointer_cast<const storage::PointerCalculator>(input.getTable(0));
 	auto store = std::const_pointer_cast<storage::Store>(checked_pointer_cast<const storage::Store>(tab->getActualTable()));
 
 	auto& txmgr = tx::TransactionManager::getInstance();

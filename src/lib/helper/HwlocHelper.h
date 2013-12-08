@@ -6,8 +6,7 @@
  *      Author: jwust
  */
 
-#ifndef HWLOCHELPER_H_
-#define HWLOCHELPER_H_
+#pragma once
 
 #include <hwloc.h>
 #include <vector>
@@ -19,4 +18,3 @@ std::vector<unsigned> getCoresForNode(hwloc_topology_t topology, unsigned node);
 unsigned getNumberOfNodes(hwloc_topology_t topology);
 unsigned getNumberOfCoresPerNumaNode();
 
-#endif /* HWLOCHELPER_H_ */

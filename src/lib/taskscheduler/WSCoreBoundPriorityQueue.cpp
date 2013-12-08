@@ -7,6 +7,9 @@
 
 #include "WSCoreBoundPriorityQueue.h"
 
+namespace hyrise {
+namespace taskscheduler {
+
 WSCoreBoundPriorityQueue::WSCoreBoundPriorityQueue(int core, WSCoreBoundPriorityQueuesScheduler *scheduler): AbstractCoreBoundQueue(), _allQueues(nullptr) {
   _core = core;
   _scheduler = scheduler;
@@ -134,3 +137,6 @@ std::vector<std::shared_ptr<Task> > WSCoreBoundPriorityQueue::emptyQueue() {
 void WSCoreBoundPriorityQueue::refreshQueues(){
   _allQueues = _scheduler->getTaskQueues();
 }
+
+} } // namespace hyrise::taskscheduler
+

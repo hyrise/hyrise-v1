@@ -5,8 +5,7 @@
  * For any undocumented method see AbstractTable.
  * @see AbstractTable
  */
-#ifndef SRC_LIB_STORAGE_TABLE_H_
-#define SRC_LIB_STORAGE_TABLE_H_
+#pragma once
 
 #include <string>
 #include <vector>
@@ -20,6 +19,9 @@
 
 #include "storage/BaseAttributeVector.h"
 #include "storage/AttributeVectorFactory.h"
+
+namespace hyrise {
+namespace storage {
 
 /**
  * Table is the innermost entity in the table structure. It stores the actual
@@ -130,10 +132,8 @@ public:
     return { t };
   }
 
-  virtual void debugStructure(size_t level=0) const {
-    std::cout << std::string(level, '\t') << "Table " << this << std::endl;
-  }
+  virtual void debugStructure(size_t level=0) const;
 };
 
-#endif  // SRC_LIB_STORAGE_TABLE_H_
+} } // namespace hyrise::storage
 

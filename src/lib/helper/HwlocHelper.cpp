@@ -12,6 +12,7 @@
 #include <iostream>
 #include <stdexcept>
 #include <memory>
+
 int getNumberOfCoresOnSystem(){
   hwloc_topology_t topology = getHWTopology();
   static int NUM_PROCS = hwloc_get_nbobjs_by_type(topology, HWLOC_OBJ_CORE);

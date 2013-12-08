@@ -7,6 +7,8 @@
 #include "storage/DictionaryIterator.h"
 #include "storage/ColumnMetadata.h"
 
+namespace hyrise {
+namespace storage {
 
 void SequentialHeapMerger::mergeValues(const std::vector<hyrise::storage::c_atable_ptr_t > &input_tables,
                                        hyrise::storage::atable_ptr_t merged_table,
@@ -236,3 +238,6 @@ void SequentialHeapMerger::copyValues(const std::vector<hyrise::storage::c_atabl
 AbstractMerger *SequentialHeapMerger::copy() {
   return new SequentialHeapMerger();
 }
+
+} } // namespace hyrise::storage
+

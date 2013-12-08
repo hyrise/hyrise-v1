@@ -161,7 +161,7 @@ int main(int argc, char *argv[]) {
   LOG4CXX_WARN(logger, "compiled with development settings, expect substantially lower and non-representative performance");
 #endif
 
-  SharedScheduler::getInstance().init(scheduler_name, worker_threads);
+  taskscheduler::SharedScheduler::getInstance().init(scheduler_name, worker_threads);
 
   // Main Server Loop
   struct ev_loop *loop = ev_default_loop(0);

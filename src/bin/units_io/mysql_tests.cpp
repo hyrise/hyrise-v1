@@ -8,6 +8,9 @@
 
 #include <unistd.h>
 
+namespace hyrise {
+namespace io {
+
 class MySQLTests : public ::hyrise::Test {
  protected:
   std::string _pid_suffix;
@@ -70,6 +73,6 @@ TEST_F(MySQLTests, convert_date_to_int) {
   ASSERT_EQ(IntegerType, t->typeOfColumn(5));
 }
 
-
+} } // namespace hyrise::io
 
 #endif

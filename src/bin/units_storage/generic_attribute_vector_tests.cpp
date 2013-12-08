@@ -8,6 +8,9 @@
 #include "storage/ConcurrentFixedLengthVector.h"
 #include "storage/AttributeVectorFactory.h"
 
+namespace hyrise {
+namespace storage {
+
 template <typename T>
 class AttributeVectorTests : public ::hyrise::Test {};
 
@@ -60,3 +63,6 @@ TYPED_TEST(AttributeVectorTests, copy) {
   auto cp = tuples.copy();
   ASSERT_EQ(tuples.size(), cp->size());
 }
+
+} } // namespace hyrise::storage
+

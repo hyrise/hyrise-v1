@@ -1,13 +1,14 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-
-#ifndef SRC_LIB_STORAGE_TABLEMERGER_H_
-#define SRC_LIB_STORAGE_TABLEMERGER_H_
+#pragma once
 
 #include <vector>
 #include <helper/types.h>
 #include <storage/AbstractTable.h>
 #include <storage/AbstractMergeStrategy.h>
 #include <storage/AbstractMerger.h>
+
+namespace hyrise {
+namespace storage {
 
 class TableMerger {
 public:
@@ -36,4 +37,4 @@ private:
   const bool _compress;
 };
 
-#endif  // SRC_LIB_STORAGE_TABLEMERGER_H_
+} } // namespace hyrise::storage
