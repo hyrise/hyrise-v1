@@ -11,7 +11,6 @@
 
 #include "storage/Store.h"
 #include "storage/PointerCalculator.h"
-#include "storage/AbstractTable.h"
 #include "storage/meta_storage.h"
 
 
@@ -29,7 +28,7 @@ PosUpdateScan::~PosUpdateScan() {
 
 
 void PosUpdateScan::executePlanOperation() {
-  auto c_pc = checked_pointer_cast<const PointerCalculator>(input.getTable(0));
+  auto c_pc = checked_pointer_cast<const storage::PointerCalculator>(input.getTable(0));
   auto c_store = checked_pointer_cast<const storage::Store>(c_pc->getActualTable());
 
   // Cast the constness away

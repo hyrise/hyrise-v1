@@ -1,6 +1,5 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#ifndef SRC_LIB_ACCESS_PRED_INEXPRESSION_H_
-#define SRC_LIB_ACCESS_PRED_INEXPRESSION_H_
+#pragma once
 
 #include "pred_common.h"
 #include <vector>
@@ -8,6 +7,9 @@
 #include <json.h>
 #include "../json_converters.h"
 #include "helper/stringhelpers.h"
+
+namespace hyrise {
+namespace access {
 
 ///
 /// IN Expression for comparing a column to multiple values
@@ -19,7 +21,6 @@
 ///     }
 /// This is equal to the mysql syntax: SELECT * FROM table WHERE quarter IN(2,3,4);
 ///
-
 template <typename T>
 class InExpression : public SimpleFieldExpression {
 public:
@@ -65,4 +66,5 @@ private:
   }
 };
 
-#endif  // SRC_LIB_ACCESS_PRED_INEXPRESSION_H_
+} } // namespace hyrise::access
+

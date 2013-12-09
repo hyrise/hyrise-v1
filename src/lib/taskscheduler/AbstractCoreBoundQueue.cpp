@@ -14,6 +14,9 @@
 #include <iostream>
 #include <helper/HwlocHelper.h>
 
+namespace hyrise {
+namespace taskscheduler {
+
 log4cxx::LoggerPtr AbstractCoreBoundQueue::logger(log4cxx::Logger::getLogger("taskscheduler.AbstractCoreBoundQueue"));
 
 
@@ -81,3 +84,6 @@ void AbstractCoreBoundQueue::launchThread(int core) {
     throw std::logic_error("CPU to run thread on is larger than number of total cores; seems that TaskQueue was initialized outside of SimpleTaskScheduler, which should not happen");
   }
 }
+
+} } // namespace hyrise::taskscheduler
+

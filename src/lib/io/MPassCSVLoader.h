@@ -1,6 +1,5 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#ifndef SRC_LIB_IO_MPASSCSVLOADER_H_
-#define SRC_LIB_IO_MPASSCSVLOADER_H_
+#pragma once
 
 #include <memory>
 
@@ -9,8 +8,8 @@
 #include "GenericCSV.h"
 #include "CSVLoader.h"
 
-
-
+namespace hyrise {
+namespace io {
 
 class MPassCSVInput : public AbstractInput {
  public:
@@ -25,7 +24,7 @@ class MPassCSVInput : public AbstractInput {
       _parameters(parameters)
   {}
 
-  std::shared_ptr<AbstractTable> load(std::shared_ptr<AbstractTable>, const compound_metadata_list *, const Loader::params &args);
+  std::shared_ptr<storage::AbstractTable> load(std::shared_ptr<storage::AbstractTable>, const storage::compound_metadata_list *, const Loader::params &args);
 
   bool needs_store_wrap() {
     return false;
@@ -37,5 +36,5 @@ class MPassCSVInput : public AbstractInput {
   params _parameters;
 };
 
+} } // namespace hyrise::io
 
-#endif  // SRC_LIB_IO_MPASSCSVLOADER_H_

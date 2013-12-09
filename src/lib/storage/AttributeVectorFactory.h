@@ -1,12 +1,14 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#ifndef SRC_LIB_STORAGE_ATTRIBUTEVECTORFACTORY_H_
-#define SRC_LIB_STORAGE_ATTRIBUTEVECTORFACTORY_H_
+#pragma once
 
 #include <memory>
 
 #include <storage/BaseAttributeVector.h>
 #include <storage/FixedLengthVector.h>
 #include <storage/BitCompressedVector.h>
+
+namespace hyrise {
+namespace storage {
 
 class AttributeVectorFactory {
 public:
@@ -34,4 +36,5 @@ public:
   }
 };
 
-#endif  // SRC_LIB_STORAGE_ATTRIBUTEVECTORFACTORY_H_
+} } // namespace hyrise::storage
+

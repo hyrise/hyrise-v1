@@ -7,8 +7,8 @@
 namespace hyrise { namespace access {
 
 TEST(UnionScanTests, basic_union_scan_test) {
-  auto t = Loader::shortcuts::load("test/lin_xxs.tbl");
-  auto pc = std::make_shared<PointerCalculator>(t, nullptr, nullptr);
+  auto t = io::Loader::shortcuts::load("test/lin_xxs.tbl");
+  auto pc = std::make_shared<storage::PointerCalculator>(t, nullptr, nullptr);
 
   UnionScan us;
   us.addInput(pc);

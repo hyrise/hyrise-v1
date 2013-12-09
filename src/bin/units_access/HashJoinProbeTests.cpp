@@ -16,9 +16,9 @@ TEST_F(HashJoinProbeTests, DISABLED_basic_hash_join_probe_test) {
   const std::string header_left("A|B|C\nINTEGER|STRING|FLOAT\n0_R|0_R|0_R");
   const std::string header_right("D|E|F\nINTEGER|STRING|FLOAT\n0_R|0_R|0_R");
   const std::string header_ref("A|B|C|D|E|F\nINTEGER|STRING|FLOAT|INTEGER|STRING|FLOAT\n0_R|0_R|0_R|0_R|0_R|0_R");
-  auto left      = Loader::shortcuts::loadWithStringHeader("test/tables/hash_table_test.tbl", header_left);
-  auto right     = Loader::shortcuts::loadWithStringHeader("test/tables/hash_table_test.tbl", header_right);
-  auto reference = Loader::shortcuts::loadWithStringHeader("test/reference/hash_table_test_int.tbl", header_ref);
+  auto left      = io::Loader::shortcuts::loadWithStringHeader("test/tables/hash_table_test.tbl", header_left);
+  auto right     = io::Loader::shortcuts::loadWithStringHeader("test/tables/hash_table_test.tbl", header_right);
+  auto reference = io::Loader::shortcuts::loadWithStringHeader("test/reference/hash_table_test_int.tbl", header_ref);
 
   HashBuild hb;
   hb.addInput(right);

@@ -1,6 +1,5 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#ifndef SRC_LIB_STORAGE_TABLEFACTORY_H_
-#define SRC_LIB_STORAGE_TABLEFACTORY_H_
+#pragma once
 
 #include <memory>
 
@@ -8,6 +7,9 @@
 
 #include "storage/AbstractTable.h"
 #include "storage/Table.h"
+
+namespace hyrise {
+namespace storage {
 
 class AbstractTableFactory {
 public:
@@ -30,4 +32,5 @@ class TableFactory : public AbstractTableFactory {
   }
 };
 
-#endif  // SRC_LIB_STORAGE_TABLEFACTORY_H_
+} } // namespace hyrise::storage
+

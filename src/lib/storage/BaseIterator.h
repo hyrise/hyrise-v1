@@ -1,8 +1,10 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#ifndef SRC_LIB_STORAGE_BASEITERATOR_H_
-#define SRC_LIB_STORAGE_BASEITERATOR_H_
+#pragma once
 
 #include <memory>
+
+namespace hyrise {
+namespace storage {
 
 template<typename T>
 class BaseIterator {
@@ -21,4 +23,5 @@ class BaseIterator {
 
 };
 
-#endif  // SRC_LIB_STORAGE_BASEITERATOR_H_
+} } // namespace hyrise::storage
+

@@ -1,9 +1,10 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#ifndef SRC_BIN_UNITS_STORAGE_TABLE_EQUAL_TEST_H
-#define SRC_BIN_UNITS_STORAGE_TABLE_EQUAL_TEST_H
+#pragma once
 
 #include "gtest/gtest.h"
 #include "helper/types.h"
+
+namespace hyrise {
 
 typedef const hyrise::storage::c_atable_ptr_t& tblptr;
 
@@ -59,4 +60,6 @@ typedef const hyrise::storage::c_atable_ptr_t& tblptr;
 #define EXPECT_SORTED_RELATION_EQ EXPECT_PRED_FORMAT2(SortedRelationEquals, a, b)
 #define EXPECT_SORTED_RELATION_NEQ EXPECT_PRED_FORMAT2(SortedRelationEquals, a, b)
 
-#endif //SRC_BIN_UNITS_STORAGE_TABLE_EQUAL_TEST_H
+} // namespace hyrise
+
+

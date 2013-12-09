@@ -1,9 +1,11 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-  #ifndef SRC_LIB_ACCESS_PRED_BETWEENOPERATION_H_
-#define SRC_LIB_ACCESS_PRED_BETWEENOPERATION_H_
+#pragma once
 
 #include "helper/types.h"
 #include "pred_common.h"
+
+namespace hyrise {
+namespace access {
 
 template <typename T>
 class BetweenExpression : public SimpleFieldExpression {
@@ -12,7 +14,7 @@ class BetweenExpression : public SimpleFieldExpression {
   ValueId upper_bound;
   T lower_value;
   T upper_value;
-  std::shared_ptr<BaseDictionary<T>> valueIdMap;
+  std::shared_ptr<storage::BaseDictionary<T>> valueIdMap;
   bool lower_value_exists;
   bool upper_value_exists;
  public:
@@ -32,7 +34,7 @@ class BetweenExpression : public SimpleFieldExpression {
   virtual void walk(const std::vector<hyrise::storage::c_atable_ptr_t > &l) {
     SimpleFieldExpression::walk(l);
 
-    valueIdMap = std::dynamic_pointer_cast<BaseDictionary<T>>(table->dictionaryAt(field));
+    valueIdMap = std::dynamic_pointer_cast<storage::BaseDictionary<T>>(table->dictionaryAt(field));
 
     lower_bound.table = 0;
     lower_bound.valueId = valueIdMap->getValueIdForValue(lower_value);
@@ -66,4 +68,6 @@ class BetweenExpression : public SimpleFieldExpression {
     return (value <= upper_value) && (value >= lower_value);
   }
 };
-#endif  // SRC_LIB_ACCESS_PRED_BETWEENOPERATION_H_
+
+} } // namespace hyrise::access
+

@@ -1,10 +1,12 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#ifndef SRC_LIB_ACCESS_PRED_SIMPLEEXPRESSION_H_
-#define SRC_LIB_ACCESS_PRED_SIMPLEEXPRESSION_H_
+#pragma once
 
 #include "storage/storage_types.h"
 #include "helper/types.h"
 #include "access/expressions/AbstractExpression.h"
+
+namespace hyrise {
+namespace access {
 
 class SimpleExpression : public hyrise::access::AbstractExpression {
  public:
@@ -25,5 +27,5 @@ class SimpleExpression : public hyrise::access::AbstractExpression {
   }
 };
 
+} } // namespace hyrise::access
 
-#endif  // SRC_LIB_ACCESS_PRED_SIMPLEEXPRESSION_H_

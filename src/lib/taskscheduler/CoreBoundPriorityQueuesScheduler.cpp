@@ -10,6 +10,9 @@
 #include "SharedScheduler.h"
 #include <memory>
 
+namespace hyrise {
+namespace taskscheduler {
+
 // register Scheduler at SharedScheduler
 namespace {
 bool registered  =
@@ -58,8 +61,7 @@ size_t CoreBoundPriorityQueuesScheduler::getNextQueue(){
   return next;
 }
 
-void CoreBoundPriorityQueuesScheduler::pushToQueue(std::shared_ptr<Task> task)
-{
+void CoreBoundPriorityQueuesScheduler::pushToQueue(std::shared_ptr<Task> task) {
   count++;
   // check if task should be scheduled on specific core
   int core = task->getPreferredCore();
@@ -84,3 +86,6 @@ void CoreBoundPriorityQueuesScheduler::pushToQueue(std::shared_ptr<Task> task)
     //std::cout << "Task " <<  task->vname() << /*"; hex " << std::hex << &task << std::dec << */" pushed to queue " << _nextQueue << " count " << count << std::endl;
   }
 }
+
+} } // namespace hyrise::taskscheduler
+

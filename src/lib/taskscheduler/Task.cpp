@@ -11,6 +11,9 @@
 #include <iostream>
 #include <thread>
 
+namespace hyrise {
+namespace taskscheduler {
+
 void Task::lockForNotifications() {
   _notifyMutex.lock();
 }
@@ -140,3 +143,6 @@ void SleepTask::operator()() {
 void SyncTask::operator()() {
   //do nothing
 }
+
+} } // namespace hyrise::taskscheduler
+

@@ -5,6 +5,9 @@
 
 #include "storage/AbstractMerger.h"
 
+namespace hyrise {
+namespace storage {
+
 hyrise::storage::column_mapping_t identityMap(hyrise::storage::atable_ptr_t input) {
   hyrise::storage::column_mapping_t map;
   for (size_t column_index = 0; column_index < input->columnCount(); ++column_index)
@@ -88,4 +91,7 @@ std::vector<hyrise::storage::atable_ptr_t > TableMerger::merge(std::vector<hyris
 TableMerger *TableMerger::copy() {
   return new TableMerger(_strategy->copy(), _merger->copy());
 }
+
+} } // namespace hyrise::storage
+
 

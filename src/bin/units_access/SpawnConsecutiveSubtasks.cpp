@@ -15,7 +15,7 @@ namespace {
 void SpawnConsecutiveSubtasks::executePlanOperation() {
   std::vector<std::shared_ptr<PlanOperation>> children;
   std::vector<std::shared_ptr<Task>> successors;
-  auto scheduler = SharedScheduler::getInstance().getScheduler();
+  auto scheduler = taskscheduler::SharedScheduler::getInstance().getScheduler();
   
   {
     std::lock_guard<decltype(_observerMutex)> lk(_observerMutex);

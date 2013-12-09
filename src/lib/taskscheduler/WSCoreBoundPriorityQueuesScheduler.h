@@ -5,11 +5,13 @@
  *      Author: jwust
  */
 
-#ifndef WSCOREBOUNDPRIORITYQUEUESSCHEDULER_H_
-#define WSCOREBOUNDPRIORITYQUEUESSCHEDULER_H_
+#pragma once
 
 #include "AbstractCoreBoundQueuesScheduler.h"
 #include "AbstractCoreBoundQueue.h"
+
+namespace hyrise {
+namespace taskscheduler {
 
 class WSCoreBoundPriorityQueuesScheduler : public AbstractCoreBoundQueuesScheduler {
 
@@ -31,5 +33,5 @@ public:
   const std::vector<AbstractCoreBoundQueue *> *getTaskQueues();
 };
 
+} } // namespace hyrise::taskscheduler
 
-#endif /* WSCOREBOUNDPRIORITYQUEUESSCHEDULER_H_ */

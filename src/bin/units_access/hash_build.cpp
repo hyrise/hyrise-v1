@@ -36,14 +36,14 @@ bool check_equality(const storage::c_ahashtable_ptr_t & ht1, const storage::c_ah
 }
 
 TEST_F(HashBuildTest, check_equality) {
-  std::shared_ptr<AbstractTable> t = Loader::shortcuts::load("test/10_30_group.tbl");
+  auto t = io::Loader::shortcuts::load("test/10_30_group.tbl");
 
   HashBuild hb;
   hb.addInput(t);
   hb.addField(1);
   hb.setKey("groupby");
   hb.execute();
-  auto hash = std::dynamic_pointer_cast<const SingleAggregateHashTable >(hb.getResultHashTable());
+  auto hash = std::dynamic_pointer_cast<const storage::SingleAggregateHashTable >(hb.getResultHashTable());
 
   auto t1 = storage::TableRangeView::create(t, 0, 4);
   auto t2 = storage::TableRangeView::create(t, 5, 9);
@@ -53,34 +53,34 @@ TEST_F(HashBuildTest, check_equality) {
   hb1.addField(1);
   hb1.setKey("groupby");
   hb1.execute();
-  auto hash1 = std::dynamic_pointer_cast<const SingleAggregateHashTable >(hb1.getResultHashTable());
+  auto hash1 = std::dynamic_pointer_cast<const storage::SingleAggregateHashTable >(hb1.getResultHashTable());
 
   HashBuild hb2;
   hb2.addInput(t2);
   hb2.addField(1);
   hb2.setKey("groupby");
   hb2.execute();
-  auto hash2 = std::dynamic_pointer_cast<const SingleAggregateHashTable >(hb2.getResultHashTable());
+  auto hash2 = std::dynamic_pointer_cast<const storage::SingleAggregateHashTable >(hb2.getResultHashTable());
 
   ASSERT_TRUE(check_equality(hash, hash));
   ASSERT_FALSE(check_equality(hash1, hash2));
 }
 
 TEST_F(HashBuildTest, merge_one_table_test) {
-  std::shared_ptr<AbstractTable> t = Loader::shortcuts::load("test/10_30_group.tbl");
+  auto t = io::Loader::shortcuts::load("test/10_30_group.tbl");
 
   HashBuild hb;
   hb.addInput(t);
   hb.addField(1);
   hb.setKey("groupby");
   hb.execute();
-  auto hash1 = std::dynamic_pointer_cast<const SingleAggregateHashTable >(hb.getResultHashTable());
+  auto hash1 = std::dynamic_pointer_cast<const storage::SingleAggregateHashTable >(hb.getResultHashTable());
 
   MergeHashTables mht;
   mht.addInput(hash1);
   mht.setKey("groupby");
   mht.execute();
-  auto hash2 = std::dynamic_pointer_cast<const SingleAggregateHashTable >(mht.getResultHashTable());
+  auto hash2 = std::dynamic_pointer_cast<const storage::SingleAggregateHashTable >(mht.getResultHashTable());
 
 
   ASSERT_TRUE(check_equality(hash1, hash2));
@@ -88,13 +88,13 @@ TEST_F(HashBuildTest, merge_one_table_test) {
 
 TEST_F(HashBuildTest, merge_two_tables_test) {
   // reference hash Table
-  std::shared_ptr<AbstractTable> t = Loader::shortcuts::load("test/10_30_group.tbl");
+  auto t = io::Loader::shortcuts::load("test/10_30_group.tbl");
   HashBuild hb;
   hb.addInput(t);
   hb.addField(1);
   hb.setKey("groupby");
   hb.execute();
-  auto hash = std::dynamic_pointer_cast<const SingleAggregateHashTable >(hb.getResultHashTable());
+  auto hash = std::dynamic_pointer_cast<const storage::SingleAggregateHashTable >(hb.getResultHashTable());
 
   //test to merge two tables
   auto t1 = storage::TableRangeView::create(t, 0, 5);
@@ -105,21 +105,21 @@ TEST_F(HashBuildTest, merge_two_tables_test) {
   hb1.addField(1);
   hb1.setKey("groupby");
   hb1.execute();
-  auto hash1 = std::dynamic_pointer_cast<const SingleAggregateHashTable >(hb1.getResultHashTable());
+  auto hash1 = std::dynamic_pointer_cast<const storage::SingleAggregateHashTable >(hb1.getResultHashTable());
 
   HashBuild hb2;
   hb2.addInput(t2);
   hb2.addField(1);
   hb2.setKey("groupby");
   hb2.execute();
-  auto hash2 = std::dynamic_pointer_cast<const SingleAggregateHashTable >(hb2.getResultHashTable());
+  auto hash2 = std::dynamic_pointer_cast<const storage::SingleAggregateHashTable >(hb2.getResultHashTable());
 
   MergeHashTables mht;
   mht.addInput(hash1);
   mht.addInput(hash2);
   mht.setKey("groupby");
   mht.execute();
-  auto hash3 = std::dynamic_pointer_cast<const SingleAggregateHashTable >(mht.getResultHashTable());
+  auto hash3 = std::dynamic_pointer_cast<const storage::SingleAggregateHashTable >(mht.getResultHashTable());
 
   ASSERT_EQ(hash->size(), hash3->size());
   ASSERT_EQ(hash->numKeys(), hash3->numKeys());

@@ -11,8 +11,8 @@ namespace access {
 class InsertScanTests : public AccessTest {};
 
 TEST_F(InsertScanTests, basic_insert_scan_test) {
-  auto row = Loader::shortcuts::load("test/insert_one.tbl");
-  auto table = Loader::shortcuts::load("test/insert_one.tbl");
+  auto row = io::Loader::shortcuts::load("test/insert_one.tbl");
+  auto table = io::Loader::shortcuts::load("test/insert_one.tbl");
 
   auto ctx = tx::TransactionManager::getInstance().buildContext();
 

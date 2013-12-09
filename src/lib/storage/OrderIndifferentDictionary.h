@@ -1,6 +1,5 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#ifndef SRC_LIB_STORAGE_ORDERINDIFFERENTDICTIONARY_H_
-#define SRC_LIB_STORAGE_ORDERINDIFFERENTDICTIONARY_H_
+#pragma once
 
 #include <exception>
 #include <vector>
@@ -13,6 +12,9 @@
 #include "storage/storage_types.h"
 #include "storage/BaseDictionary.h"
 #include "storage/DictionaryIterator.h"
+
+namespace hyrise {
+namespace storage {
 
 // FIXME should be aware of allocator
 template <typename T>
@@ -174,5 +176,5 @@ public:
 
 };
 
-#endif  // SRC_LIB_STORAGE_ORDERINDIFFERENTDICTIONARY_H_
+} } // namespace hyrise::storage
 

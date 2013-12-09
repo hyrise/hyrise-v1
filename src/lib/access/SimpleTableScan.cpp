@@ -38,7 +38,7 @@ void SimpleTableScan::executePositional() {
       pos_list->push_back(row);
     }
   }
-  addResult(PointerCalculator::create(tbl, pos_list));
+  addResult(storage::PointerCalculator::create(tbl, pos_list));
 }
 
 void SimpleTableScan::executeMaterialized() {

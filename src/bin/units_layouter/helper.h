@@ -1,6 +1,5 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#ifndef SRC_BIN_UNITS_LAYOUTER_HELPER_H_
-#define SRC_BIN_UNITS_LAYOUTER_HELPER_H_
+#pragma once
 
 #include "testing/test.h"
 
@@ -8,4 +7,3 @@
 
 std::string loadFromFile(std::string path);
 
-#endif  // SRC_BIN_UNITS_LAYOUTER_HELPER_H_

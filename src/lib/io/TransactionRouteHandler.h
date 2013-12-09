@@ -1,6 +1,5 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#ifndef SRC_LIB_IO_TRANSACTIONROUTEHANDLER_
-#define SRC_LIB_IO_TRANSACTIONROUTEHANDLER_
+#pragma once
 
 #include <string>
 
@@ -28,4 +27,3 @@ class TransactionStatusHandler : public RequestHandler {
 
 }}
 
-#endif  // SRC_LIB_IO_TRANSACTIONROUTEHANDLER_

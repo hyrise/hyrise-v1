@@ -1,11 +1,12 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-
-#ifndef SRC_LIB_STORAGE_ABSTRACTMERGESTRATEGY_H_
-#define SRC_LIB_STORAGE_ABSTRACTMERGESTRATEGY_H_
+#pragma once
 
 #include <vector>
 #include <storage/AbstractTable.h>
 #include <helper/vector_helpers.h>
+
+namespace hyrise {
+namespace storage {
 
 typedef struct _merge_tables {
 
@@ -61,4 +62,5 @@ public:
 
 };
 
-#endif  // SRC_LIB_STORAGE_ABSTRACTMERGESTRATEGY_H_
+} } // namespace hyrise::storage
+

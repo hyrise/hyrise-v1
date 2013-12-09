@@ -17,7 +17,7 @@ class GroupByScanBase : public ::testing::Benchmark {
 
  protected:
 
-  StorageManager *sm;
+  io::StorageManager *sm;
   std::shared_ptr<GroupByScan> gs;
   storage::atable_ptr_t t;
   SumAggregateFun *sum;
@@ -25,7 +25,7 @@ class GroupByScanBase : public ::testing::Benchmark {
  public:
 
   void BenchmarkSetUp() {
-    sm = StorageManager::getInstance();
+    sm = io::StorageManager::getInstance();
 
     t = sm->getTable("order_line");
 

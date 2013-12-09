@@ -1,6 +1,5 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#ifndef SRC_LIB_IO_CSVLOADER_H_
-#define SRC_LIB_IO_CSVLOADER_H_
+#pragma once
 
 #include <memory>
 
@@ -8,9 +7,8 @@
 #include "io/GenericCSV.h"
 #include "io/LoaderException.h"
 
-
-
-
+namespace hyrise {
+namespace io {
 
 bool detectHeader(const std::string &filename);
 
@@ -29,13 +27,12 @@ class CSVInput : public AbstractInput {
     params() : CSVParams(), Unsafe(false) {}
   };
 
-  CSVInput(std::string filename,
-           const params &parameters = params()) :
+  CSVInput(std::string filename, const params &parameters = params()) :
       _filename(filename),
       _parameters(parameters)
   {}
 
-  std::shared_ptr<AbstractTable> load(std::shared_ptr<AbstractTable>, const compound_metadata_list *, const Loader::params &args);
+  std::shared_ptr<storage::AbstractTable> load(std::shared_ptr<storage::AbstractTable>, const storage::compound_metadata_list *, const Loader::params &args);
 
   CSVInput *clone() const;
  private:
@@ -54,11 +51,12 @@ class CSVHeader : public AbstractHeader {
 
   CSVHeader(std::string filename, const params &parameters = params()) : _filename(filename), _parameters(parameters) {
   }
-  compound_metadata_list *load(const Loader::params &args);
+  storage::compound_metadata_list *load(const Loader::params &args);
   CSVHeader *clone() const;
  private:
   std::string _filename;
   params _parameters;
 };
 
-#endif  // SRC_LIB_IO_CSVLOADER_H_
+} } // namepsace hyrise::io
+

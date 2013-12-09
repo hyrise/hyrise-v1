@@ -5,11 +5,13 @@
  *      Author: jwust
  */
 
-#ifndef ABSTRACTCOREBOUNDQUEUE_H_
-#define ABSTRACTCOREBOUNDQUEUE_H_
+#pragma once
 
 #include "taskscheduler/AbstractTaskQueue.h"
 #include <atomic>
+
+namespace hyrise {
+namespace taskscheduler {
 
 class AbstractCoreBoundQueue : public AbstractTaskQueue{
 
@@ -60,5 +62,5 @@ public:
   }
 };
 
-#endif /* ABSTRACTCOREBOUNDQUEUE_H_ */
+} } // namespace hyrise::taskscheduler
 

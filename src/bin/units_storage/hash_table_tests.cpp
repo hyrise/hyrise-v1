@@ -8,8 +8,11 @@
 #include "storage/HashTable.h"
 #include "storage/Store.h"
 
+namespace hyrise {
+namespace storage {
+
 template <typename HT>
-::testing::AssertionResult TestCoverage(const hyrise::storage::atable_ptr_t &table,
+::testing::AssertionResult TestCoverage(const atable_ptr_t &table,
                                         const field_list_t &columns) {
   HT ht(table, columns);
   if (testHashTableFullCoverage(ht, table, columns)) {
@@ -22,7 +25,7 @@ template <typename HT>
 
 template <typename HT>
 bool testHashTableFullCoverage(const HT &hashTable,
-                               const hyrise::storage::atable_ptr_t &table,
+                               const atable_ptr_t &table,
                                const field_list_t &columns) {
   bool result = true;
   for (pos_t row = 0; row < table->size(); ++row) {
@@ -41,7 +44,7 @@ public:
   std::shared_ptr<AbstractTable> table;
 
   virtual void SetUp() {
-    table = Loader::shortcuts::load("test/join_exchange.tbl");
+    table = io::Loader::shortcuts::load("test/join_exchange.tbl");
   }
 };
 
@@ -67,7 +70,7 @@ public:
   std::shared_ptr<AbstractTable> table;
 
   virtual void SetUp() {
-    table = Loader::shortcuts::load("test/join_exchange.tbl");
+    table = io::Loader::shortcuts::load("test/join_exchange.tbl");
   }
 };
 
@@ -112,7 +115,7 @@ TYPED_TEST(HashTableTest, load_key_test) {
 const std::vector<field_list_t> combinations {{0}, {1}, {2}, {0, 1}, {1, 2},  {0, 1, 2}};
 
 TYPED_TEST(HashTableTest, test_column_combinations) {
-  hyrise::storage::atable_ptr_t table = Loader::shortcuts::load("test/tables/hash_table_test.tbl");
+  hyrise::storage::atable_ptr_t table = io::Loader::shortcuts::load("test/tables/hash_table_test.tbl");
 for (auto & cols: combinations) {
     SCOPED_TRACE(joinString(cols, ","));
     EXPECT_TRUE(TestCoverage<TypeParam>(table, cols));
@@ -120,7 +123,7 @@ for (auto & cols: combinations) {
 }
 
 TYPED_TEST(HashTableTest, test_column_combinations_store) {
-  hyrise::storage::atable_ptr_t store = Loader::shortcuts::loadMainDelta("test/tables/hash_table_test_main.tbl",
+  hyrise::storage::atable_ptr_t store = io::Loader::shortcuts::loadMainDelta("test/tables/hash_table_test_main.tbl",
                                         "test/tables/hash_table_test_delta.tbl");
 for (auto & cols: combinations) {
     SCOPED_TRACE(joinString(cols, ","));
@@ -133,7 +136,7 @@ class HashTableViewTest : public ::hyrise::Test {
 protected:
   hyrise::storage::atable_ptr_t table;
   virtual void SetUp() {
-    table = Loader::shortcuts::load("test/tables/hash_table_test.tbl");
+    table = io::Loader::shortcuts::load("test/tables/hash_table_test.tbl");
   }
 };
 
@@ -197,4 +200,5 @@ TYPED_TEST(HashTableViewTest, partial_range) {
   }
 }
 
+} } // namespace hyrise::storage
 

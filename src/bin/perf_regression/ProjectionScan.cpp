@@ -14,7 +14,7 @@ class ProjectionScanBase : public ::testing::Benchmark {
 
  protected:
 
-  StorageManager *sm;
+  io::StorageManager *sm;
   ProjectionScan *ps;
   storage::atable_ptr_t t;
 
@@ -23,7 +23,7 @@ class ProjectionScanBase : public ::testing::Benchmark {
     ps = new ProjectionScan();
     ps->setEvent("NO_PAPI");
 
-    sm = StorageManager::getInstance();
+    sm = io::StorageManager::getInstance();
 
     t = sm->getTable("district");
 

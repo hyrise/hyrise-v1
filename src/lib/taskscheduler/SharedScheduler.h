@@ -6,11 +6,13 @@
  *      Author: jwust
  */
 
-#ifndef SRC_LIB_TASKSCHEDULER_SHAREDSCHEDULER_H_
-#define SRC_LIB_TASKSCHEDULER_SHAREDSCHEDULER_H_
+#pragma once
 
 #include <taskscheduler/AbstractTaskScheduler.h>
 #include <stdexcept>
+
+namespace hyrise {
+namespace taskscheduler {
 
 struct AbstractTaskSchedulerFactory {
   virtual std::shared_ptr<AbstractTaskScheduler> create(int cores) const = 0;
@@ -90,4 +92,5 @@ public:
   static SharedScheduler &getInstance();
 };
 
-#endif  // SRC_LIB_TASKSCHEDULER_SHAREDSCHEDULER_H_
+} } // namespace hyrise::taskscheduler
+

@@ -1,6 +1,5 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#ifndef SRC_LIB_IO_TXCONTEXT_H_
-#define SRC_LIB_IO_TXCONTEXT_H_
+#pragma once
 
 #include <helper/types.h>
 #include "cereal/cereal.hpp"
@@ -30,4 +29,3 @@ struct TXContext {
 
 }}
 
-#endif //SRC_LIB_IO_TXCONTEXT_H_

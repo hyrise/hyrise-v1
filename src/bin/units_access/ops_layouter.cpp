@@ -95,7 +95,7 @@ TEST_F(LayouterOpsTest, parse_full_scenario_candidate) {
 
 
 TEST_F(LayouterOpsTest, layouting_table_op_basic) {
-  auto table = Loader::shortcuts::load("test/tables/partitions.tbl");
+  auto table = io::Loader::shortcuts::load("test/tables/partitions.tbl");
   ASSERT_EQ(table->partitionCount(), 3u);
 
   LayoutTable op("a|b|c|d\nINTEGER|INTEGER|INTEGER|INTEGER\n0_C|0_C|1_C|1_C");
@@ -106,7 +106,7 @@ TEST_F(LayouterOpsTest, layouting_table_op_basic) {
 }
 
 TEST_F(LayouterOpsTest, layouting_table_op_reordering) {
-  auto table = Loader::shortcuts::load("test/tables/partitions.tbl");
+  auto table = io::Loader::shortcuts::load("test/tables/partitions.tbl");
   ASSERT_EQ(table->partitionCount(), 3u);
 
   LayoutTable op("a|c|b|d\nINTEGER|INTEGER|INTEGER|INTEGER\n0_C|0_C|1_C|1_C");
@@ -122,7 +122,7 @@ TEST_F(LayouterOpsTest, load_layout_replace) {
   std::string data = loadFromFile("test/json/load_layout_replace.json");
   const auto& e = executeAndWait(data);
   ASSERT_EQ(e->partitionCount(), 3u);
-  ASSERT_EQ(3u, StorageManager::getInstance()->getTable("revenue")->partitionCount());
+  ASSERT_EQ(3u, io::StorageManager::getInstance()->getTable("revenue")->partitionCount());
 }
 
 }

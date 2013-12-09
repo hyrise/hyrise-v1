@@ -11,7 +11,7 @@ namespace access {
 class RegressionTests : public AccessTest {};
 
 TEST_F(RegressionTests, projection_fail) {
-  auto w = Loader::shortcuts::loadWithHeader("test/regression/projection_fail.data", "test/regression/projection_fail.tbl");
+  auto w = io::Loader::shortcuts::loadWithHeader("test/regression/projection_fail.data", "test/regression/projection_fail.tbl");
 
   ProjectionScan ps;
   ps.addInput(w);

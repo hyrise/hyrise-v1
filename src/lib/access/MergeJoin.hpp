@@ -86,8 +86,8 @@ public:
     }
 
     std::vector<storage::atable_ptr_t> parts({
-      std::dynamic_pointer_cast<AbstractTable>(PointerCalculator::create(input.getTable(0), left_pos)),
-      std::dynamic_pointer_cast<AbstractTable>(PointerCalculator::create(input.getTable(1), right_pos))
+      std::dynamic_pointer_cast<storage::AbstractTable>(storage::PointerCalculator::create(input.getTable(0), left_pos)),
+      std::dynamic_pointer_cast<storage::AbstractTable>(storage::PointerCalculator::create(input.getTable(1), right_pos))
     });
 
     addResult(std::make_shared<storage::MutableVerticalTable>(parts));

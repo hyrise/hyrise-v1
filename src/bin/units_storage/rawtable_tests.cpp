@@ -8,7 +8,11 @@
 #include "storage/SimpleStore.h"
 #include "storage/TableGenerator.h"
 
-class RawTableTests : public ::hyrise::Test {
+namespace hyrise {
+namespace storage {
+namespace rawtable {
+
+class RawTableTests : public Test {
  public:
   metadata_vec_t intList(size_t num=2) {
     metadata_vec_t result;
@@ -42,7 +46,7 @@ TEST_F(RawTableTests, test_raw_table_constructor) {
 TEST_F(RawTableTests, test_write) {
   auto cols = allTypeMeta();
   RawTable main(cols);
-  auto toInsert = Loader::shortcuts::load("test/alltypes.tbl");
+  auto toInsert = io::Loader::shortcuts::load("test/alltypes.tbl");
   main.appendRows(toInsert);
 }
 
@@ -91,7 +95,7 @@ TYPED_TEST(RawWriteTests, write_default_value) {
   size_t column = TypeParam::column;
   const auto& values = testValues<ColumnType>::values;
 
-  table.appendRows(Loader::shortcuts::load("test/alltypes.tbl"));
+  table.appendRows(io::Loader::shortcuts::load("test/alltypes.tbl"));
   for(size_t row=0; row < table.size(); ++row) {
     table.setValue(column, row, values.at(row));
   }
@@ -204,20 +208,20 @@ TEST_F(RawTableTests, test_raw_table_record_builder_with_1k_rows_and_get_value) 
 }
 
 TEST_F(RawTableTests, simple_store_initialize_and_should_behave_like_normal_table) {
-  hyrise::storage::atable_ptr_t t = Loader::shortcuts::load("test/lin_xxs.tbl");
+  hyrise::storage::atable_ptr_t t = io::Loader::shortcuts::load("test/lin_xxs.tbl");
   hyrise::storage::atable_ptr_t tab = std::make_shared<hyrise::storage::SimpleStore>(t);
   ASSERT_TABLE_EQUAL(tab, t);
 }
 
 TEST_F(RawTableTests, simple_store_throws_unsopported) {
-  hyrise::storage::atable_ptr_t t = Loader::shortcuts::load("test/lin_xxs.tbl");
+  hyrise::storage::atable_ptr_t t = io::Loader::shortcuts::load("test/lin_xxs.tbl");
   hyrise::storage::SimpleStore tab(t);
 
   ASSERT_THROW(tab.copy(), std::runtime_error);
 }
 
 TEST_F(RawTableTests, simple_store_insert_new_row_in_delta) {
-  hyrise::storage::atable_ptr_t t = Loader::shortcuts::load("test/lin_xxs.tbl");
+  hyrise::storage::atable_ptr_t t = io::Loader::shortcuts::load("test/lin_xxs.tbl");
   auto tab = std::make_shared<hyrise::storage::SimpleStore>(t);
   auto delta = tab->getDelta();
   auto meta = delta->metadata();
@@ -240,8 +244,8 @@ TEST_F(RawTableTests, simple_store_insert_new_row_in_delta) {
 
 
 TEST_F(RawTableTests, simple_store_insert_and_merge) {
-  hyrise::storage::atable_ptr_t t = Loader::shortcuts::load("test/lin_xxs.tbl");
-  hyrise::storage::atable_ptr_t ref = Loader::shortcuts::load("test/reference/lin_xxs_raw_merged.tbl");
+  hyrise::storage::atable_ptr_t t = io::Loader::shortcuts::load("test/lin_xxs.tbl");
+  hyrise::storage::atable_ptr_t ref = io::Loader::shortcuts::load("test/reference/lin_xxs_raw_merged.tbl");
 
   auto tab = std::make_shared<hyrise::storage::SimpleStore>(t);
   auto delta = tab->getDelta();
@@ -263,8 +267,8 @@ TEST_F(RawTableTests, simple_store_insert_and_merge) {
 }
 
 TEST_F(RawTableTests, simple_store_insert_and_merge_new_values) {
-  hyrise::storage::atable_ptr_t t = Loader::shortcuts::load("test/lin_xxs.tbl");
-  hyrise::storage::atable_ptr_t ref = Loader::shortcuts::load("test/reference/lin_xxs_raw_merged2.tbl");
+  hyrise::storage::atable_ptr_t t = io::Loader::shortcuts::load("test/lin_xxs.tbl");
+  hyrise::storage::atable_ptr_t ref = io::Loader::shortcuts::load("test/reference/lin_xxs_raw_merged2.tbl");
 
   auto tab = std::make_shared<hyrise::storage::SimpleStore>(t);
   auto delta = tab->getDelta();
@@ -282,4 +286,7 @@ TEST_F(RawTableTests, simple_store_insert_and_merge_new_values) {
 
   tab->merge();
   ASSERT_TABLE_EQUAL(ref, tab);
-  }
+}
+
+} } } // namespace hyrise::storage::rawtable
+

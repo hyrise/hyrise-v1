@@ -11,13 +11,13 @@ namespace access {
 
 class HistogramTest : public AccessTest {
 public:
-  HistogramTest() : AccessTest(), _table(Loader::shortcuts::load("test/tables/hash_table_test.tbl")) {}
-  std::shared_ptr<AbstractTable> _table;
+  HistogramTest() : AccessTest(), _table(io::Loader::shortcuts::load("test/tables/hash_table_test.tbl")) {}
+  std::shared_ptr<storage::AbstractTable> _table;
 };
 
 TEST_F(HistogramTest, 2bit_test) {
 	
-  hyrise::access::Histogram hst;
+  Histogram hst;
   hst.setBits(2);
   hst.addField(0);
   hst.addInput(_table);
@@ -31,7 +31,7 @@ TEST_F(HistogramTest, 2bit_test) {
 
 TEST_F(HistogramTest, 2bit_test_string) {
 	
-  hyrise::access::Histogram hst;
+  Histogram hst;
   hst.setBits(2);
   hst.addField(1);
   hst.addInput(_table);
@@ -45,7 +45,7 @@ TEST_F(HistogramTest, 2bit_test_string) {
 
 TEST_F(HistogramTest, 1bit_test) {
 	
-  hyrise::access::Histogram hst;
+  Histogram hst;
   hst.setBits(1);
   hst.addField(0);
   hst.addInput(_table);

@@ -1,5 +1,4 @@
-#ifndef NUMERICAL_CONVERTER_H
-#define NUMERICAL_CONVERTER_H
+#pragma once
 
 #include "boost/optional.hpp"
 
@@ -34,4 +33,3 @@ boost::optional<toType> parseNumeric(const std::string& s) {
   return value;
 }
 
-#endif

@@ -14,13 +14,13 @@ class SortScanBase : public ::testing::Benchmark {
 
  protected:
 
-  StorageManager *sm;
+  io::StorageManager *sm;
   SortScan *sc;
   storage::c_atable_ptr_t t;
 
  public:
   void BenchmarkSetUp() {
-    sm = StorageManager::getInstance();
+    sm = io::StorageManager::getInstance();
 
     sc = new SortScan();
     sc->setEvent("NO_PAPI");

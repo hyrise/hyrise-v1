@@ -4,6 +4,9 @@
 #include <storage.h>
 #include <storage/BitCompressedVector.h>
 
+namespace hyrise {
+namespace storage {
+
 class MockStrategyTest : public ::hyrise::Test {};
 
 
@@ -40,3 +43,6 @@ TEST_F(MockStrategyTest, base_test) {
   delete a;
   ASSERT_EQ(MockMallocStrategy::allocates + MockMallocStrategy::reallocates, MockMallocStrategy::deallocates);
 }
+
+} } // namespace hyrise::storage
+

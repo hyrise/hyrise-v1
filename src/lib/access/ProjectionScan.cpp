@@ -33,7 +33,7 @@ void ProjectionScan::executePlanOperation() {
 
   // copy the field definition
   std::vector<field_t> *tmp_fd = new std::vector<field_t>(_field_definition);
-  addResult(PointerCalculator::create(input.getTable(0), pos_list, tmp_fd));
+  addResult(storage::PointerCalculator::create(input.getTable(0), pos_list, tmp_fd));
 }
 
 std::shared_ptr<PlanOperation> ProjectionScan::parse(const Json::Value &data) {

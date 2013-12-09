@@ -10,8 +10,8 @@ namespace access {
 class DistinctTests : public AccessTest {};
 
 TEST_F(DistinctTests, basic_distinct_test) {
-  auto t = Loader::shortcuts::load("test/tables/employees.tbl");
-  auto reference = Loader::shortcuts::load("test/tables/employees_distinct.tbl");
+  auto t = io::Loader::shortcuts::load("test/tables/employees.tbl");
+  auto reference = io::Loader::shortcuts::load("test/tables/employees_distinct.tbl");
 
   Distinct d;
   d.addInput(t);
@@ -24,7 +24,7 @@ TEST_F(DistinctTests, basic_distinct_test) {
 }
 
 TEST_F(DistinctTests, distinct_on_distinct_column_test) {
-  auto t = Loader::shortcuts::load("test/tables/employees.tbl");
+  auto t = io::Loader::shortcuts::load("test/tables/employees.tbl");
 
   Distinct d;
   d.addInput(t);

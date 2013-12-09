@@ -1,6 +1,5 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#ifndef SRC_LIB_STORAGE_SIMPLESTORE_H_
-#define SRC_LIB_STORAGE_SIMPLESTORE_H_
+#pragma once
 
 #include <helper/types.h>
 
@@ -150,4 +149,3 @@ private:
 
 }}
 
-#endif //SRC_LIB_STORAGE_SIMPLESTORE_H_

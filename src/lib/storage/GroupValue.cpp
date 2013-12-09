@@ -9,6 +9,9 @@
 
 #include "boost/functional/hash.hpp"
 
+namespace hyrise {
+namespace storage {
+
 u_int64_t GroupValue::hash_vids(const ValueIdList &vids) {
   u_int64_t h = FNV1_64_INIT;
   for(const ValueId& v: vids) {
@@ -34,4 +37,6 @@ size_t GroupValue::hash_group_values(hyrise::storage::atable_ptr_t source, const
 
   return seed;
 }
+
+} } // namespace hyrise::storage
 

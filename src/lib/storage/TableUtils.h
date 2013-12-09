@@ -1,14 +1,12 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#ifndef SRC_LIB_STORAGE_TABLEUTILS_H_
-#define SRC_LIB_STORAGE_TABLEUTILS_H_
+#pragma once
 
 #include <memory>
 #include <unordered_map>
 
-class AbstractTable;
-
 namespace hyrise {
 namespace storage {
+class AbstractTable;
 
 typedef std::unordered_map<size_t, size_t> column_mapping_t;
 
@@ -21,4 +19,3 @@ column_mapping_t calculateMapping(const AbstractTable &input,
 
 }}
 
-#endif

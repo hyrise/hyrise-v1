@@ -5,8 +5,7 @@
  * For any undocumented method see AbstractTable.
  * @see AbstractTable
  */
-#ifndef SRC_LIB_STORAGE_VERTICALTABLE_H_
-#define SRC_LIB_STORAGE_VERTICALTABLE_H_
+#pragma once
 
 #include <vector>
 #include <string>
@@ -91,4 +90,3 @@ public:
 
 }}
 
-#endif  // SRC_LIB_STORAGE_VERTICALTABLE_H_

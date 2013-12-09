@@ -6,6 +6,10 @@
 #include "storage/DictionaryIterator.h"
 #include "tbb/concurrent_vector.h"
 #include "tbb/concurrent_unordered_map.h"
+
+namespace hyrise {
+namespace storage {
+
 template <typename T>
 class ConcurrentUnorderedDictionaryIterator : public BaseIterator<T> {
   typedef ConcurrentUnorderedDictionaryIterator<T> iter_type;
@@ -111,3 +115,6 @@ class ConcurrentUnorderedDictionary : public BaseDictionary<T> {
   tbb::concurrent_vector<T> _values;
   std::map<T, value_id_t> _index;
 };
+
+} } // namespace hyrise::storage
+

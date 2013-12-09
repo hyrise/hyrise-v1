@@ -1,5 +1,4 @@
-#ifndef SRC_LIB_HELPER_MAKE_UNIQUE
-#define SRC_LIB_HELPER_MAKE_UNIQUE
+#pragma once
 
 #include <memory>
 #include <type_traits>
@@ -26,4 +25,3 @@ std::unique_ptr<T> make_unique(Args&&... args) {
   return make_unique_helper<T>(std::is_array<T>(), std::forward<Args>(args)...);
 }
 
-#endif 

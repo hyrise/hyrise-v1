@@ -9,8 +9,8 @@ namespace access {
 class SortScanTests : public AccessTest {};
 
 TEST_F(SortScanTests, basic_sort_scan_test) {
-  auto t = Loader::shortcuts::load("test/reference/group_by_scan_using_table_2.tbl");
-  auto reference = Loader::shortcuts::load("test/sort_test.tbl");
+  auto t = io::Loader::shortcuts::load("test/reference/group_by_scan_using_table_2.tbl");
+  auto reference = io::Loader::shortcuts::load("test/sort_test.tbl");
 
   SortScan ss;
   ss.addInput(t);

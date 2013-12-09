@@ -32,7 +32,7 @@ TEST_F(JsonTableTest, simple_test) {
   op.setTypes({"INTEGER", "STRING", "FLOAT"});
   op.setGroups({3});
 
-  auto t = Loader::shortcuts::load("test/tables/radix_cluster_mpass.tbl");
+  auto t = io::Loader::shortcuts::load("test/tables/radix_cluster_mpass.tbl");
 
   op.execute();
   auto result = op.getResultTable();
@@ -49,7 +49,7 @@ TEST_F(JsonTableTest, simple_test_with_data) {
   op.setGroups({1,1});
   op.setData({ {"1", "Apple Inc"}, {"2", "Microsoft"}, {"3", "SAP AG"}, {"4", "Oracle"}  });
 
-  auto t = Loader::shortcuts::load("test/tables/companies.tbl");
+  auto t = io::Loader::shortcuts::load("test/tables/companies.tbl");
 
   op.execute();
   auto result = op.getResultTable();
@@ -67,7 +67,7 @@ TEST_F(JsonTableTest, builder_should_raise_in_case_of_errors_wrong_groups) {
   op.setTypes({"INTEGER", "STRING", "FLOAT"});
   op.setGroups({3,3,3,3,3,3});
 
-  auto t = Loader::shortcuts::load("test/tables/radix_cluster_mpass.tbl");
+  auto t = io::Loader::shortcuts::load("test/tables/radix_cluster_mpass.tbl");
   ASSERT_ANY_THROW(op.execute());
 }
 
@@ -79,7 +79,7 @@ TEST_F(JsonTableTest, builder_should_raise_in_case_of_errors_wrong_type) {
   op.setTypes({"ISNTEGER", "STRING", "FLOAT"});
   op.setGroups({3,3,3});
 
-  auto t = Loader::shortcuts::load("test/tables/radix_cluster_mpass.tbl");
+  auto t = io::Loader::shortcuts::load("test/tables/radix_cluster_mpass.tbl");
   ASSERT_ANY_THROW(op.execute());
 }
 
@@ -87,7 +87,7 @@ TEST_F(JsonTableTest, load_and_create_from_json) {
   auto data = loadFromFile(_good_file);
   auto result = executeAndWait(data);
 
-  auto t = Loader::shortcuts::load("test/tables/radix_cluster_mpass.tbl");
+  auto t = io::Loader::shortcuts::load("test/tables/radix_cluster_mpass.tbl");
   EXPECT_RELATION_SCHEMA_EQ(t, result);
 
   EXPECT_TRUE(std::dynamic_pointer_cast<const storage::Store>(result) == nullptr);
@@ -97,7 +97,7 @@ TEST_F(JsonTableTest, load_and_create_from_json_store) {
   auto data = loadFromFile(_good_file_store);
   auto result = executeAndWait(data);
 
-  auto t = Loader::shortcuts::load("test/tables/radix_cluster_mpass.tbl");
+  auto t = io::Loader::shortcuts::load("test/tables/radix_cluster_mpass.tbl");
   EXPECT_RELATION_SCHEMA_EQ(t, result);
   EXPECT_TRUE(std::dynamic_pointer_cast<const storage::Store>(result) != nullptr);
 }

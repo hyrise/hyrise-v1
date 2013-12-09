@@ -11,7 +11,7 @@ namespace access {
 class SimpleTableScanTests : public AccessTest {};
 
 TEST_F(SimpleTableScanTests, basic_simple_table_scan_test) {
-  storage::c_atable_ptr_t t = Loader::shortcuts::load("test/lin_xxs.tbl");
+  storage::c_atable_ptr_t t = io::Loader::shortcuts::load("test/lin_xxs.tbl");
   auto expr = new EqualsExpression<storage::hyrise_int_t>(t, 0, 100);
 
   SimpleTableScan sts;
@@ -27,7 +27,7 @@ TEST_F(SimpleTableScanTests, basic_simple_table_scan_test) {
 
 // Same as above, but manually parallelized
 TEST_F(SimpleTableScanTests, parallelized_simple_table_scan) {
-  storage::c_atable_ptr_t t = Loader::shortcuts::load("test/lin_xxs.tbl");
+  storage::c_atable_ptr_t t = io::Loader::shortcuts::load("test/lin_xxs.tbl");
 
   SimpleTableScan sts1;
   sts1.addInput(t);

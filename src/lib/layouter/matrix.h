@@ -1,6 +1,5 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#ifndef SRC_LIB_LAYOUTER_MATRIX_H_
-#define SRC_LIB_LAYOUTER_MATRIX_H_
+#pragma once
 
 #include <assert.h>
 #include <stdlib.h>
@@ -8,6 +7,9 @@
 #include <iostream>
 #include <sstream>
 #include <vector>
+
+namespace hyrise {
+namespace layouter {
 
 struct adj_t {
   int *xadj;
@@ -158,4 +160,5 @@ void Matrix<T>::print() const {
   std::cout << buffer.str() << std::endl;
 }
 
-#endif  // SRC_LIB_LAYOUTER_MATRIX_H_
+} } // namespace hyrise::layouter
+

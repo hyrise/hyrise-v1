@@ -22,12 +22,12 @@ const OperationData::aresource_vec_t& OperationData::all() const {
 }
 
 table_list_t OperationData::getTables() const {
-  return allOf<AbstractTable>();
+  return allOf<storage::AbstractTable>();
 }
 
 
 hash_table_list_t OperationData::getHashTables() const {
-  return allOf<AbstractHashTable>();
+  return allOf<storage::AbstractHashTable>();
 }
 
 void OperationData::add(storage::c_atable_ptr_t input) {
@@ -51,19 +51,19 @@ void OperationData::setHash(storage::c_ahashtable_ptr_t input, size_t index) {
 }
 
 storage::c_atable_ptr_t OperationData::getTable(const size_t index) const {
-  return nthOf<AbstractTable>(index);
+  return nthOf<storage::AbstractTable>(index);
 }
 
 storage::c_ahashtable_ptr_t OperationData::getHashTable(const size_t index) const {
-  return nthOf<AbstractHashTable>(index);
+  return nthOf<storage::AbstractHashTable>(index);
 }
 
 size_t OperationData::numberOfTables() const {
-  return sizeOf<AbstractTable>();
+  return sizeOf<storage::AbstractTable>();
 }
 
 size_t OperationData::numberOfHashTables() const {
-  return sizeOf<AbstractHashTable>();
+  return sizeOf<storage::AbstractHashTable>();
 }
 
 bool OperationData::emptyTables() const {

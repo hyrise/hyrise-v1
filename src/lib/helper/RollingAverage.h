@@ -1,8 +1,7 @@
+// Copyright (c) 2013 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
+#pragma once
 
 #include <vector>
-
-#ifndef ROLLINGAVERAGE_H_
-#define ROLLINGAVERAGE_H_
 
 template <class T>
 class RollingAverage {
@@ -49,4 +48,3 @@ public:
 	}
 };
 
-#endif /* ROLLINGAVERAGE_H_ */

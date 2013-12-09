@@ -9,8 +9,8 @@ namespace access {
 class ExpressionScanTests : public AccessTest {};
 
 TEST_F(ExpressionScanTests, basic_expression_scan_test) {
-  auto t = Loader::shortcuts::load("test/lin_xxxs.tbl");
-  auto reference = Loader::shortcuts::load("test/reference/simple_expression.tbl");
+  auto t = io::Loader::shortcuts::load("test/lin_xxxs.tbl");
+  auto reference = io::Loader::shortcuts::load("test/reference/simple_expression.tbl");
 
   AddExp plus(t, 0, 1);
 

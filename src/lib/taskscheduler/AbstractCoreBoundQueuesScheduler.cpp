@@ -7,6 +7,9 @@
 
 #include "AbstractCoreBoundQueuesScheduler.h"
 
+namespace hyrise {
+namespace taskscheduler {
+
 log4cxx::LoggerPtr AbstractCoreBoundQueuesScheduler::_logger = log4cxx::Logger::getLogger("taskscheduler.AbstractCoreBoundQueuesScheduler");
 
 
@@ -86,3 +89,6 @@ void AbstractCoreBoundQueuesScheduler::shutdown() {
   }
   _status = STOPPED;
 }
+
+} } // namespace hyrise::taskscheduler
+

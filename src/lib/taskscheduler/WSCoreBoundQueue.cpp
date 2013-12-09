@@ -7,6 +7,9 @@
 
 #include "WSCoreBoundQueue.h"
 
+namespace hyrise {
+namespace taskscheduler {
+
 WSCoreBoundQueue::WSCoreBoundQueue(int core, WSCoreBoundQueuesScheduler *scheduler): AbstractCoreBoundQueue() {
   _core = core;
   _scheduler = scheduler;
@@ -136,3 +139,6 @@ std::vector<std::shared_ptr<Task> > WSCoreBoundQueue::emptyQueue() {
     tmp.push_back(*it);
   return tmp;
 }
+
+} } // namespace hyrise::taskscheduler
+

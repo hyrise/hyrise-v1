@@ -1,5 +1,4 @@
-#ifndef HYRISE_UNIQUE_ID_H_
-#define HYRISE_UNIQUE_ID_H_
+#pragma once
 
 #include <cstdint>
 #include <array>
@@ -24,4 +23,3 @@ struct unique_id {
   type value;
 };
 
-#endif

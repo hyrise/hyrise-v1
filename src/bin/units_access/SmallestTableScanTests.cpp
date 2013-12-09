@@ -9,9 +9,9 @@ namespace access {
 class SmallestTableScanTests : public AccessTest {};
 
 TEST_F(SmallestTableScanTests, basic_smallest_table_scan_test) {
-  auto t1 = Loader::shortcuts::load("test/10_30_group.tbl");
-  auto t2 = Loader::shortcuts::load("test/lin_xxs.tbl");
-  auto t3 = Loader::shortcuts::load("test/lin_xxxs.tbl");
+  auto t1 = io::Loader::shortcuts::load("test/10_30_group.tbl");
+  auto t2 = io::Loader::shortcuts::load("test/lin_xxs.tbl");
+  auto t3 = io::Loader::shortcuts::load("test/lin_xxxs.tbl");
 
   SmallestTableScan stc;
   stc.addInput(t1);

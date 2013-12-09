@@ -75,9 +75,9 @@ void request_complete(ebb_request *request) {
     return;
   }
 
-  std::shared_ptr<Task> task = handler_factory->create(connection_data);
-  task->setPriority(Task::HIGH_PRIORITY); // give RequestParseTask high priority
-  SharedScheduler::getInstance().getScheduler()->schedule(task);
+  auto task = handler_factory->create(connection_data);
+  task->setPriority(taskscheduler::Task::HIGH_PRIORITY); // give RequestParseTask high priority
+  taskscheduler::SharedScheduler::getInstance().getScheduler()->schedule(task);
   connection_data->waiting_for_response = true;
 }
 

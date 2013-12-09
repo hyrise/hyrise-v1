@@ -4,6 +4,9 @@
 #include "io/loaders.h"
 #include "storage/AbstractTable.h"
 
+namespace hyrise {
+namespace io {
+
 class OldLoaderTests : public ::hyrise::Test {};
 
 /*TEST_F(OldLoaderTests, generate_validity_table_from_tab) {
@@ -53,3 +56,6 @@ TEST_F(OldLoaderTests, unsafe_table_unsafe_load_set_true) {
   hyrise::storage::atable_ptr_t reference = Loader::shortcuts::load("test/tables/revenue_small.tbl");
   ASSERT_TRUE(loadedTable->contentEquals(reference));
 }
+
+} } // namespace hyrise::io
+

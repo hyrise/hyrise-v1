@@ -9,6 +9,9 @@
 #include "pred_expression_factory.h"
 #include "storage/meta_storage.h"
 
+namespace hyrise {
+namespace access {
+
 SimpleFieldExpression *buildFieldExpression(PredicateType::type pred_type, const Json::Value &predicate) {
   hyrise::storage::type_switch<hyrise_basic_types> ts;
   hyrise::access::expression_factory fun;
@@ -51,3 +54,6 @@ SimpleExpression *buildExpression(const Json::Value &predicates) {
   }
   return b.build();
 };
+
+} } // namespace hyrise::access
+

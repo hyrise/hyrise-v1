@@ -43,7 +43,7 @@ class TXBase : public ::testing::Benchmark {
     one_row->setValue<hyrise_int_t>(0,0, 99);
     one_row->setValue<hyrise_int_t>(1,0, 999);
 
-    linxxxs = checked_pointer_cast<storage::Store>(Loader::shortcuts::load("test/lin_xxxs.tbl"));
+    linxxxs = checked_pointer_cast<storage::Store>(io::Loader::shortcuts::load("test/lin_xxxs.tbl"));
   }
 };
 

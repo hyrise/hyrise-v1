@@ -1,6 +1,5 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#ifndef SRC_LIB_IO_METADATACREATION_H_
-#define SRC_LIB_IO_METADATACREATION_H_
+#pragma once
 
 #include <memory>
 #include <string>
@@ -10,8 +9,12 @@
 #include "io/LoaderException.h"
 #include "storage/storage_types.h"
 
-
+namespace hyrise {
+namespace storage {
 class AbstractTable;
+} // namespace storage
+
+namespace io {
 
 class MetadataCreationError : public Loader::Error {
  public:
@@ -22,7 +25,8 @@ class MetadataCreationError : public Loader::Error {
 /**
  * Transforms a nested std::vector<std::vector<std::string> > into metadata vector
  **/
-compound_metadata_list *createMetadata(const std::vector<std::vector<std::string> > &lines,
-                                       hyrise::storage::c_atable_ptr_t tab = std::shared_ptr<const AbstractTable>());
+storage::compound_metadata_list *createMetadata(const std::vector<std::vector<std::string> > &lines,
+                                                storage::c_atable_ptr_t tab = nullptr);
 
-#endif  // SRC_LIB_IO_METADATACREATION_H_
+} } // namespace hyrise::io
+

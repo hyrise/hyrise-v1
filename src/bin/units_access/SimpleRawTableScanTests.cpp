@@ -11,10 +11,10 @@ namespace access {
 class SimpleRawTableScanTests : public AccessTest {
 public:
   storage::atable_ptr_t createRawTable() {
-    metadata_vec_t columns({ *ColumnMetadata::metadataFromString("INTEGER", "col1"),
-                             *ColumnMetadata::metadataFromString("STRING", "col2"),
-                             *ColumnMetadata::metadataFromString("FLOAT", "col3") });
-    auto main = std::make_shared<RawTable>(columns);
+    storage::metadata_vec_t columns({*storage::ColumnMetadata::metadataFromString("INTEGER", "col1"),
+                                     *storage::ColumnMetadata::metadataFromString("STRING", "col2"),
+                                     *storage::ColumnMetadata::metadataFromString("FLOAT", "col3") });
+    auto main = std::make_shared<storage::RawTable>(columns);
     storage::rawtable::RowHelper rh(columns);
     unsigned char *data = nullptr;
 
@@ -47,7 +47,7 @@ TEST_F(SimpleRawTableScanTests, basic_simple_raw_table_scan_test) {
 }
 
 TEST_F(SimpleRawTableScanTests, simple_raw_table_scan_fail_on_not_raw_test) {
-  auto t = Loader::shortcuts::load("test/lin_xxs.tbl");
+  auto t = io::Loader::shortcuts::load("test/lin_xxs.tbl");
   auto expr = new EqualsExpressionRaw<storage::hyrise_int_t>(t, 0, 5);
 
   SimpleRawTableScan srts(expr);

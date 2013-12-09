@@ -1,6 +1,5 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#ifndef SRC_LIB_HELPER_RANGEITER_H_
-#define SRC_LIB_HELPER_RANGEITER_H_
+#pragma once
 
 /// Range iterator to be used for numerical ranges
 ///
@@ -31,4 +30,3 @@ class RangeIter {
   }
 };
 
-#endif

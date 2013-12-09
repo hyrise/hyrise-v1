@@ -11,8 +11,8 @@ namespace access {
 class MaterializingScanTests : public AccessTest {};
 
 TEST_F(MaterializingScanTests, basic_materializing_scan_test) {
-  auto t = Loader::shortcuts::load("test/lin_xxs.tbl");
-  auto no_p = (PointerCalculator*) nullptr;
+  auto t = io::Loader::shortcuts::load("test/lin_xxs.tbl");
+  auto no_p = (storage::PointerCalculator*) nullptr;
 
   ProjectionScan ps;
   ps.addInput(t);
@@ -21,7 +21,7 @@ TEST_F(MaterializingScanTests, basic_materializing_scan_test) {
   ps.execute();
 
   const auto &t2 = ps.getResultTable();
-  ASSERT_NE(no_p, dynamic_cast<const PointerCalculator*>(t2.get()));
+  ASSERT_NE(no_p, dynamic_cast<const storage::PointerCalculator*>(t2.get()));
 
   MaterializingScan ms;
   ms.addInput(t2);
@@ -29,7 +29,7 @@ TEST_F(MaterializingScanTests, basic_materializing_scan_test) {
   ms.execute();
 
   const auto &result = ms.getResultTable();
-  ASSERT_EQ(no_p, dynamic_cast<const PointerCalculator*>(result.get()));
+  ASSERT_EQ(no_p, dynamic_cast<const storage::PointerCalculator*>(result.get()));
   ASSERT_EQ(100u, result->size());
   ASSERT_EQ(1u, result->columnCount());
 }

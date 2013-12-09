@@ -1,6 +1,5 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#ifndef SRC_LIB_IO_RAWTABLELOADER_H_
-#define SRC_LIB_IO_RAWTABLELOADER_H_
+#pragma once
 
 #include "io/AbstractLoader.h"
 #include "io/GenericCSV.h"
@@ -28,9 +27,9 @@ public:
 
   virtual ~RawTableLoader() {}
 
-  std::shared_ptr<AbstractTable> load(std::shared_ptr<AbstractTable>,
-                                      const compound_metadata_list *,
-                                      const Loader::params &args);
+  std::shared_ptr<storage::AbstractTable> load(std::shared_ptr<storage::AbstractTable>,
+                                               const storage::compound_metadata_list *,
+                                               const Loader::params &args);
 
 
   /// Never wrap a raw table with a store
@@ -45,7 +44,5 @@ public:
 
 };
 
-} }
+} } // namespace hyrise::io
 
-
-#endif // SRC_LIB_IO_RAWTABLELOADER_H_

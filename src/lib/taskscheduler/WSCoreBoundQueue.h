@@ -5,12 +5,14 @@
  *      Author: jwust
  */
 
-#ifndef WSCOREBOUNDQUEUE_H_
-#define WSCOREBOUNDQUEUE_H_
+#pragma once
 
 #include <deque>
 #include "WSCoreBoundQueuesScheduler.h"
 #include "AbstractCoreBoundQueue.h"
+
+namespace hyrise {
+namespace taskscheduler {
 
 class WSCoreBoundQueuesScheduler;
 
@@ -50,4 +52,5 @@ public:
   std::shared_ptr<Task> stealTask();
 };
 
-#endif /* WSCOREBOUNDQUEUE_H_ */
+} } // namespace hyrise::taskscheduler
+

@@ -5,18 +5,22 @@
 #include "storage/AbstractTable.h"
 #include "testing/TableEqualityTest.h"
 
+namespace hyrise {
+namespace access {
+
 class TableEqualityTests : public ::testing::Test {};
 
 TEST_F(TableEqualityTests, test_equal) {
-  auto
-      t1 = Loader::shortcuts::load("test/tables/employees.tbl"),
-      t2 = Loader::shortcuts::load("test/tables/employees.tbl");
+  auto t1 = io::Loader::shortcuts::load("test/tables/employees.tbl"),
+       t2 = io::Loader::shortcuts::load("test/tables/employees.tbl");
   EXPECT_RELATION_EQ(t1, t2);
 }
 
 TEST_F(TableEqualityTests, test_not_equal) {
-  auto
-      t1 = Loader::shortcuts::load("test/tables/employees.tbl"),
-      t2 = Loader::shortcuts::load("test/tables/employees_revised.tbl");
+  auto t1 = io::Loader::shortcuts::load("test/tables/employees.tbl"),
+       t2 = io::Loader::shortcuts::load("test/tables/employees_revised.tbl");
   EXPECT_RELATION_NEQ(t1, t2);
 }
+
+} } // namespace hyrise::access
+

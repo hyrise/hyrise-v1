@@ -7,9 +7,7 @@
 #include "storage/meta_storage.h"
 #include "storage/ColumnMetadata.h"
 
-namespace hyrise { namespace storage {
-
-namespace rawtable {
+namespace hyrise { namespace storage { namespace rawtable {
 
 RowHelper::RowHelper(const metadata_vec_t& m) : _m(m) {
   _tempData.resize(m.size(), nullptr);
@@ -71,26 +69,7 @@ void RowHelper::set(size_t index, std::string val) {
   _tempData[index] = tmp;
 }
 
-
-}
-
-
-
-}
-
-template <typename T>
-std::string to_string(T val) {
-  return std::to_string(val);
-}
-
-template <>
-std::string to_string(const std::string& val) { return val; }
-template <>
-std::string to_string(std::string& val) { return val; }
-template <>
-std::string to_string(std::string val) { return val; }
-
-}
+} // namespace rawtable
 
 RawTable::RawTable(const metadata_vec_t& m,
                    size_t initial_size) : _metadata(m), _width(m.size()), _size(0) {
@@ -149,6 +128,18 @@ RawTable::byte* RawTable::computePosition(const size_t& column, const size_t& ro
   return tuple;
 }
 
+template <typename T>
+std::string to_string(T val) {
+  return std::to_string(val);
+}
+
+template <>
+std::string to_string(const std::string& val) { return val; }
+template <>
+std::string to_string(std::string& val) { return val; }
+template <>
+std::string to_string(std::string val) { return val; }
+
 struct convert_to_string_functor {
   typedef std::string value_type;
   const RawTable& _table;
@@ -162,13 +153,12 @@ struct convert_to_string_functor {
 
   template<typename R>
   std::string operator()() {
-    return hyrise::to_string(_table.template getValue<R>(_col, _row));
+    return to_string(_table.template getValue<R>(_col, _row));
   }
 };
 
-
 std::string RawTable::printValue(const size_t col, const size_t row) const {
-  hyrise::storage::type_switch<hyrise_basic_types> ts;
+  type_switch<hyrise_basic_types> ts;
   convert_to_string_functor f(*this, col, row);
   return ts(_metadata.at(col).getType(), f);
 }
@@ -200,13 +190,13 @@ void RawTable::appendRow(byte* tuple) {
 struct type_func {
   typedef void value_type;
 
-  const hyrise::storage::atable_ptr_t& _source;
-  hyrise::storage::rawtable::RowHelper& _rh;
+  const atable_ptr_t& _source;
+  rawtable::RowHelper& _rh;
   const size_t& _col;
   const size_t& _row;
 
   type_func(const hyrise::storage::atable_ptr_t& source,
-            hyrise::storage::rawtable::RowHelper& rh,
+            rawtable::RowHelper& rh,
             const size_t& column,
             const size_t& row) : _source(source), _rh(rh), _col(column), _row(row) {}
 
@@ -219,7 +209,7 @@ struct type_func {
 void RawTable::appendRows(const hyrise::storage::atable_ptr_t& rows) {
   hyrise::storage::type_switch<hyrise_basic_types> ts;
   for(size_t row=0; row < rows->size(); ++row) {
-    hyrise::storage::rawtable::RowHelper rh(_metadata);
+   rawtable::RowHelper rh(_metadata);
     for(size_t column=0; column < _metadata.size(); ++column) {
       type_func tf(rows, rh, column, row);
       ts(rows->typeOfColumn(column), tf);
@@ -232,3 +222,5 @@ void RawTable::appendRows(const hyrise::storage::atable_ptr_t& rows) {
 void RawTable::debugStructure(size_t level) const {
   std::cout << std::string(level, '\t') << "RawTable " << this << std::endl;
 }
+
+} } // namespace hyrise::storage

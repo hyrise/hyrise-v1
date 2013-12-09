@@ -6,8 +6,7 @@
  * @see AbstractTable
  */
 
-#ifndef SRC_LIB_STORAGE_STORE_H_
-#define SRC_LIB_STORAGE_STORE_H_
+#pragma once
 
 #include <storage/MutableVerticalTable.h>
 #include <storage/AbstractTable.h>
@@ -113,5 +112,3 @@ public:
 
 }}
 
-
-#endif  // SRC_LIB_STORAGE_STORE_H_

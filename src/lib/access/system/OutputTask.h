@@ -39,7 +39,7 @@ typedef struct {
 
 typedef std::vector<std::unique_ptr<performance_attributes_t>> performance_vector_t;
 
-class OutputTask : public Task {
+class OutputTask : public taskscheduler::Task {
  protected:
 
   performance_attributes_t *_performance_attr = nullptr;

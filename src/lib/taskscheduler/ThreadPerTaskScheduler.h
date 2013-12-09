@@ -5,8 +5,7 @@
  *      Author: jwust
  */
 
-#ifndef THREADPERTASKSCHEDULER_H_
-#define THREADPERTASKSCHEDULER_H_
+#pragma once
 
 #include "AbstractTaskScheduler.h"
 #include <taskscheduler/SharedScheduler.h>
@@ -15,6 +14,8 @@
 #include <thread>
 #include <queue>
 
+namespace hyrise {
+namespace taskscheduler {
 
 // our worker thread objects
 class TaskExecutor {
@@ -64,4 +65,5 @@ public:
   void notifyReady(std::shared_ptr<Task> task);
 };
 
-#endif /* THREADPERTASKSCHEDULER_H_ */
+} } // namespace hyrise::taskscheduler
+

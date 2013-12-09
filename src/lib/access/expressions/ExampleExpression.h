@@ -14,8 +14,8 @@ namespace hyrise { namespace access {
 
 class ExampleExpression : public AbstractExpression {
   storage::c_atable_ptr_t _table;
-  std::shared_ptr<FixedLengthVector<value_id_t>> _vector;
-  std::shared_ptr<OrderPreservingDictionary<hyrise_int_t>> _dict;
+  std::shared_ptr<storage::FixedLengthVector<value_id_t>> _vector;
+  std::shared_ptr<storage::OrderPreservingDictionary<hyrise_int_t>> _dict;
   const size_t _column;
   const hyrise_int_t _value;
   value_id_t _valueid;
@@ -23,7 +23,7 @@ class ExampleExpression : public AbstractExpression {
   ExampleExpression(const size_t& column, const hyrise_int_t& value);
   bool operator()(const size_t& row);
   virtual pos_list_t* match(const size_t start, const size_t stop);
-  virtual void walk(const std::vector<hyrise::storage::c_atable_ptr_t> &l);
+  virtual void walk(const std::vector<storage::c_atable_ptr_t> &l);
   static std::unique_ptr<ExampleExpression> parse(const Json::Value& data);
 };
 

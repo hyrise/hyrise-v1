@@ -58,7 +58,7 @@ storage::atable_ptr_t InsertScan::buildFromJson() {
     for(size_t c=0; c < col_count; ++c) {
       if (serialFields.count(c) != 0) {
         auto serial_name = std::to_string(tab->getUuid()) + "_" + tab->nameOfColumn(c);
-        auto k = res_man.get<Serial>(serial_name)->next();
+        auto k = res_man.get<storage::Serial>(serial_name)->next();
         _generatedKeys->push_back(k);
         result->setValue<hyrise_int_t>(c, r, k);
         ++offset;

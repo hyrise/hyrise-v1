@@ -34,15 +34,15 @@ struct CreateIndexValueFunctor {
 struct ScanIndexFunctor {
   typedef storage::pos_list_t *value_type;
 
-  std::shared_ptr<AbstractIndex> _index;
+  std::shared_ptr<storage::AbstractIndex> _index;
   AbstractIndexValue *_indexValue;
 
-  ScanIndexFunctor(AbstractIndexValue *i, std::shared_ptr<AbstractIndex> d):
+  ScanIndexFunctor(AbstractIndexValue *i, std::shared_ptr<storage::AbstractIndex> d):
     _index(d), _indexValue(i) {}
 
   template<typename ValueType>
   value_type operator()() {
-    auto idx = std::dynamic_pointer_cast<InvertedIndex<ValueType>>(_index);
+    auto idx = std::dynamic_pointer_cast<storage::InvertedIndex<ValueType>>(_index);
     auto v = static_cast<IndexValue<ValueType>*>(_indexValue);
     storage::pos_list_t *result = new storage::pos_list_t(idx->getPositionsForKey(v->value));
     return result;
@@ -58,7 +58,7 @@ IndexScan::~IndexScan() {
 }
 
 void IndexScan::executePlanOperation() {
-  StorageManager *sm = StorageManager::getInstance();
+  auto sm = io::StorageManager::getInstance();
   auto idx = sm->getInvertedIndex(_indexName);
 
   // Handle type of index and value
@@ -66,7 +66,7 @@ void IndexScan::executePlanOperation() {
   ScanIndexFunctor fun(_value, idx);
   storage::pos_list_t *pos = ts(input.getTable(0)->typeOfColumn(_field_definition[0]), fun);
 
-  addResult(PointerCalculator::create(input.getTable(0), pos));
+  addResult(storage::PointerCalculator::create(input.getTable(0), pos));
 }
 
 std::shared_ptr<PlanOperation> IndexScan::parse(const Json::Value &data) {
@@ -94,8 +94,8 @@ MergeIndexScan::~MergeIndexScan() {
 }
 
 void MergeIndexScan::executePlanOperation() {
-  auto left = std::dynamic_pointer_cast<const PointerCalculator>(input.getTable(0));
-  auto right = std::dynamic_pointer_cast<const PointerCalculator>(input.getTable(1));
+  auto left = std::dynamic_pointer_cast<const storage::PointerCalculator>(input.getTable(0));
+  auto right = std::dynamic_pointer_cast<const storage::PointerCalculator>(input.getTable(1));
 
   storage::pos_list_t result(std::max(left->getPositions()->size(), right->getPositions()->size()));
 
@@ -105,7 +105,7 @@ void MergeIndexScan::executePlanOperation() {
                                   right->getPositions()->end(),
                                   result.begin());
 
-  auto tmp = PointerCalculator::create(left->getActualTable(), new storage::pos_list_t(result.begin(), it));
+  auto tmp = storage::PointerCalculator::create(left->getActualTable(), new storage::pos_list_t(result.begin(), it));
   addResult(tmp);
 }
 

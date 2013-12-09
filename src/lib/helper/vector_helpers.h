@@ -1,5 +1,4 @@
-#ifndef SRC_LIB_HELPERS_VECTOR_HELPERS_H_
-#define SRC_LIB_HELPERS_VECTOR_HELPERS_H_
+#pragma once
 
 #include <algorithm>
 #include <functional>
@@ -72,5 +71,3 @@ auto getOrDefault(const MapType& map, typename MapType::key_type key, typename M
   return def;
 }
 
-
-#endif

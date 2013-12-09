@@ -1,9 +1,11 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#ifndef SRC_LIB_ACCESS_JOIN_PREDICATES_H_
-#define SRC_LIB_ACCESS_JOIN_PREDICATES_H_
+#pragma once
 
 #include <helper/types.h>
 #include "expression_types.h"
+
+namespace hyrise {
+namespace access {
 
 /*
  * @brief Basice Join Expression like left.a == right.b
@@ -140,5 +142,5 @@ class EqualsJoinExpression : public JoinExpression {
   }
 };
 
+} } // namespace hyrise::access
 
-#endif  // SRC_LIB_ACCESS_JOIN_PREDICATES_H_

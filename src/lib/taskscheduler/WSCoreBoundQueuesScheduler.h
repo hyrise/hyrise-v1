@@ -5,11 +5,13 @@
  *      Author: jwust
  */
 
-#ifndef WSCOREBOUNDQUEUESSCHEDULER_H_
-#define WSCOREBOUNDQUEUESSCHEDULER_H_
+#pragma once
 
 #include "AbstractCoreBoundQueuesScheduler.h"
 #include "AbstractCoreBoundQueue.h"
+
+namespace hyrise {
+namespace taskscheduler {
 
 class WSCoreBoundQueuesScheduler : public AbstractCoreBoundQueuesScheduler {
 
@@ -32,5 +34,5 @@ public:
 
 };
 
+} } // namespace hyrise::taskscheduler
 
-#endif /* WSCOREBOUNDQUEUESSCHEDULER_H_ */

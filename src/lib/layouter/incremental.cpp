@@ -5,6 +5,7 @@
 #include <boost/foreach.hpp>
 #include <map>
 
+namespace hyrise {
 namespace layouter {
 
 void IncrementalCandidateLayouter::clearState() {
@@ -164,4 +165,6 @@ void IncrementalCandidateLayouter::incrementalLayout(Query *q) {
   results.push_back(best);
 
 }
-}
+
+} } // namespace hyrise::layouter
+

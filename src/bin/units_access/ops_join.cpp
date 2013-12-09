@@ -14,10 +14,10 @@ namespace access {
 class JoinTests : public AccessTest {};
 
 TEST_F(JoinTests, DISABLED_join_column_renaming) {
-  const auto& table1 = Loader::shortcuts::load("test/join_transactions.tbl");
-  const auto& table2 = Loader::shortcuts::load("test/join_transactions_2.tbl");
+  const auto& table1 = io::Loader::shortcuts::load("test/join_transactions.tbl");
+  const auto& table2 = io::Loader::shortcuts::load("test/join_transactions_2.tbl");
 
-  auto join = std::make_shared<hyrise::access::JoinScan>(hyrise::access::JoinType::EQUI);
+  auto join = std::make_shared<JoinScan>(JoinType::EQUI);
   join->addInput(table1);
   join->addInput(table2);
   join->addCombiningClause(AND);
@@ -38,10 +38,10 @@ TEST_F(JoinTests, DISABLED_join_column_renaming) {
 }
 
 TEST_F(JoinTests, join_exchange_rates) {
-  hyrise::storage::c_atable_ptr_t table1 = Loader::shortcuts::load("test/join_transactions.tbl");
-  hyrise::storage::c_atable_ptr_t table2 = Loader::shortcuts::load("test/join_exchange.tbl");
+  storage::c_atable_ptr_t table1 = io::Loader::shortcuts::load("test/join_transactions.tbl");
+  storage::c_atable_ptr_t table2 = io::Loader::shortcuts::load("test/join_exchange.tbl");
 
-  EqualsExpression<std::string> *expr4 = new EqualsExpression<std::string>(table2, 2, "USD");
+  auto expr4 = new EqualsExpression<std::string>(table2, 2, "USD");
 
   auto scan = std::make_shared<SimpleTableScan>();
   scan->addInput(table2);
@@ -60,15 +60,15 @@ TEST_F(JoinTests, join_exchange_rates) {
 
   const auto& out = join->execute()->getResultTable();
 
-  const auto& reference = Loader::shortcuts::load("test/reference/join_exchange_rates.tbl");
+  const auto& reference = io::Loader::shortcuts::load("test/reference/join_exchange_rates.tbl");
   ASSERT_TRUE(out->contentEquals(reference));
 }
 
 TEST_F(JoinTests, hash_join_exchange_rates_multiple_columns) {
-  hyrise::storage::c_atable_ptr_t table1 = Loader::shortcuts::load("test/join_transactions.tbl");
-  hyrise::storage::c_atable_ptr_t table2 = Loader::shortcuts::load("test/join_exchange.tbl");
+  storage::c_atable_ptr_t table1 = io::Loader::shortcuts::load("test/join_transactions.tbl");
+  storage::c_atable_ptr_t table2 = io::Loader::shortcuts::load("test/join_exchange.tbl");
 
-  EqualsExpression<std::string> *expr4 = new EqualsExpression<std::string>(table2, 2, "USD");
+  auto expr4 = new EqualsExpression<std::string>(table2, 2, "USD");
 
   auto scan = std::make_shared<SimpleTableScan>();
   scan->addInput(table2);
@@ -93,7 +93,7 @@ TEST_F(JoinTests, hash_join_exchange_rates_multiple_columns) {
   auto result = hashJoinProbe->execute()->getResultTable();
 
 
-  const auto& reference = Loader::shortcuts::load("test/reference/join_exchange_rates.tbl");
+  const auto& reference = io::Loader::shortcuts::load("test/reference/join_exchange_rates.tbl");
   ASSERT_TRUE(result->contentEquals(reference));
 
 }

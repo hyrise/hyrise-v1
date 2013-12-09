@@ -8,7 +8,7 @@
 namespace hyrise { namespace access {
 
 TEST(TableScan, test) {
-  auto tbl = Loader::shortcuts::load("test/tables/companies.tbl");
+  auto tbl = io::Loader::shortcuts::load("test/tables/companies.tbl");
   TableScan ts(std::unique_ptr<EqualsExpression<hyrise_int_t> >(new EqualsExpression<hyrise_int_t>(0, 0, 1)));
   ts.addInput(tbl);
   const auto& result = ts.execute()->getResultTable();
@@ -17,7 +17,7 @@ TEST(TableScan, test) {
 
 TEST(TableScan, test2) {
   auto eq = std::unique_ptr<EqualsExpression<hyrise_string_t> >(new EqualsExpression<hyrise_string_t>(0, 1, "Apple Inc"));
-  auto tbl = Loader::shortcuts::load("test/tables/companies.tbl");
+  auto tbl = io::Loader::shortcuts::load("test/tables/companies.tbl");
   TableScan ts(std::move(eq));
   ts.addInput(tbl);
   const auto& result = ts.execute()->getResultTable();

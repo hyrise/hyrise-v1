@@ -1,6 +1,5 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#ifndef SRC_LIB_HELPER_PAPITRACER_H_
-#define SRC_LIB_HELPER_PAPITRACER_H_
+#pragma once
 
 #include <stdio.h>
 #include <sys/time.h>
@@ -194,5 +193,3 @@ typedef FallbackTracer PapiTracer;
 
 #endif
 
-
-#endif  // SRC_LIB_HELPER_PAPITRACER_H_

@@ -23,7 +23,7 @@ TEST_F(MergeTableOpTests, simple) {
   mop.addInput(load_delta);
   auto result = mop.execute()->getResultTable();
 
-  ASSERT_TABLE_EQUAL(Loader::shortcuts::load("test/tables/employees_revised.tbl"), result);
+  ASSERT_TABLE_EQUAL(io::Loader::shortcuts::load("test/tables/employees_revised.tbl"), result);
 }
 
 }

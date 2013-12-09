@@ -1,12 +1,13 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#ifndef SRC_LIB_STORAGE_STORAGE_TYPES_HELPER_H_
-#define SRC_LIB_STORAGE_STORAGE_TYPES_HELPER_H_
+#pragma once
 
 #include <memory>
 
 #include "storage/meta_storage.h"
 #include "storage/cast_functor.h"
 #include "storage/PointerCalculator.h"
+
+namespace hyrise {
 
 std::string data_type_to_string(DataType d);
 
@@ -21,9 +22,9 @@ struct HyriseHelper {
    * @param valueId ID of the value to be casted.
    */
   template <typename T>
-  static T castValue(const AbstractTable *table, const size_t column, const ValueId valueId) {
-    hyrise::storage::cast_functor_by_value_id<T> f(const_cast<AbstractTable *>(table), column, valueId);
-    hyrise::storage::type_switch<hyrise_basic_types> ts;
+  static T castValue(const storage::AbstractTable *table, const size_t column, const ValueId valueId) {
+    storage::cast_functor_by_value_id<T> f(const_cast<storage::AbstractTable *>(table), column, valueId);
+    storage::type_switch<hyrise_basic_types> ts;
     return ts(table->typeOfColumn(column), f);
   }
 
@@ -35,15 +36,13 @@ struct HyriseHelper {
    * @param row    Row of the cell containing the value.
    */
   template <typename T>
-  static T castValueByColumnRow(const AbstractTable *table, const size_t column, const size_t row) {
-    hyrise::storage::cast_functor_by_row<T> f(const_cast<AbstractTable *>(table), column, row);
-    hyrise::storage::type_switch<hyrise_basic_types> ts;
+  static T castValueByColumnRow(const storage::AbstractTable *table, const size_t column, const size_t row) {
+    storage::cast_functor_by_row<T> f(const_cast<storage::AbstractTable *>(table), column, row);
+    storage::type_switch<hyrise_basic_types> ts;
     return ts(table->typeOfColumn(column), f);
   }
 
 };
 
-
-
-#endif  // SRC_LIB_STORAGE_STORAGE_TYPES_HELPER_H_
+} // namespace hyrise
 

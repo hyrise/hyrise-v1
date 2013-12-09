@@ -5,6 +5,9 @@
 #include <io/StorageManager.h>
 #include <storage/MutableVerticalTable.h>
 
+namespace hyrise {
+namespace io {
+
 class StorageManagerTests : public ::hyrise::Test {
 
 public:
@@ -71,3 +74,6 @@ TEST_F(StorageManagerTests, load_table_header_data) {
 
   ASSERT_EQ(0u, sm->getTableNames().size());
 }
+
+} } // namespace hyrise::io
+

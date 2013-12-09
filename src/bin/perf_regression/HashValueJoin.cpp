@@ -17,7 +17,7 @@ class HashValueJoinBase : public ::testing::Benchmark {
 
  protected:
 
-  StorageManager *sm;
+  io::StorageManager *sm;
   HashValueJoin<int> *hs;
   storage::c_atable_ptr_t t1;
   storage::c_atable_ptr_t t2;
@@ -27,7 +27,7 @@ class HashValueJoinBase : public ::testing::Benchmark {
     hs = new HashValueJoin<int>();
     hs->setEvent("NO_PAPI");
 
-    sm = StorageManager::getInstance();
+    sm = io::StorageManager::getInstance();
 
     hs->setProducesPositions(true);
 

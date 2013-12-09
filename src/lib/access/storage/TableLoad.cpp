@@ -27,19 +27,19 @@ TableLoad::~TableLoad() {
 }
 
 void TableLoad::executePlanOperation() {
-  StorageManager *sm = StorageManager::getInstance();
+  auto sm = io::StorageManager::getInstance();
   if (!sm->exists(_table_name)) {
 
     // Load Raw Table
     if (_raw) {
-      Loader::params p;
-      p.setHeader(CSVHeader(_file_name));
+      io::Loader::params p;
+      p.setHeader(io::CSVHeader(_file_name));
       p.setInput(io::RawTableLoader(_file_name));
       sm->loadTable(_table_name, p);
 
     } else if (!_header_string.empty()) {
       // Load based on header string
-      Loader::params p = Loader::shortcuts::loadWithStringHeaderParams(_file_name, _header_string);
+      auto p = io::Loader::shortcuts::loadWithStringHeaderParams(_file_name, _header_string);
       sm->loadTable(_table_name, p);
 
     } else if (_header_file_name.empty()) {
@@ -48,13 +48,13 @@ void TableLoad::executePlanOperation() {
 
     } else if ((!_table_name.empty()) && (!_file_name.empty()) && (!_header_file_name.empty())) {
       // Load with dedicated header file
-      Loader::params p;
+      io::Loader::params p;
       p.setCompressed(false);
-      p.setHeader(CSVHeader(_header_file_name));
-      auto params = CSVInput::params().setUnsafe(_unsafe);
+      p.setHeader(io::CSVHeader(_header_file_name));
+      auto params = io::CSVInput::params().setUnsafe(_unsafe);
       if (_hasDelimiter)
-        params.setCSVParams(csv::params().setDelimiter(_delimiter.at(0)));
-      p.setInput(CSVInput(_file_name, params));
+        params.setCSVParams(io::csv::params().setDelimiter(_delimiter.at(0)));
+      p.setInput(io::CSVInput(_file_name, params));
       sm->loadTable(_table_name, p);
     }
 

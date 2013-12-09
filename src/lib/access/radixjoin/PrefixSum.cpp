@@ -20,12 +20,12 @@ void PrefixSum::executePlanOperation() {
   const size_t table_size = in->size();
 
   // get attribute vector of output table
-  std::vector<const ColumnMetadata *> metadata;
+  std::vector<const storage::ColumnMetadata *> metadata;
   metadata.push_back(in->metadataAt(0));
-  auto output = std::make_shared<Table>(&metadata, nullptr, table_size, true, false);
+  auto output = std::make_shared<storage::Table>(&metadata, nullptr, table_size, true, false);
   output->resize(table_size);
   const auto &oavs = output->getAttributeVectors(0);
-  auto ovector = std::dynamic_pointer_cast<FixedLengthVector<value_id_t>>(oavs.at(0).attribute_vector);
+  auto ovector = std::dynamic_pointer_cast<storage::FixedLengthVector<value_id_t>>(oavs.at(0).attribute_vector);
 
   // Build ivector list to avoid lock contention while getting the vectors
   const size_t ivec_size = input.numberOfTables();
@@ -94,13 +94,13 @@ void MergePrefixSum::executePlanOperation() {
   }
 
   const auto resultSize = getInputTable()->size();
-  std::vector<const ColumnMetadata *> meta {ColumnMetadata::metadataFromString(types::integer_t, "count")};
-  auto result = std::make_shared<Table>(&meta, nullptr, resultSize, true, false);
+  std::vector<const storage::ColumnMetadata *> meta {storage::ColumnMetadata::metadataFromString(types::integer_t, "count")};
+  auto result = std::make_shared<storage::Table>(&meta, nullptr, resultSize, true, false);
   result->resize(resultSize);
 
   const auto &res_vec = getDataVector(result).first;
 
-  std::vector<std::shared_ptr<FixedLengthVector<value_id_t>>> vecs;
+  std::vector<std::shared_ptr<storage::FixedLengthVector<value_id_t>>> vecs;
   for(size_t i=0, stop=input.numberOfTables(); i < stop; ++i) {
     vecs.emplace_back(getDataVector(getInputTable(i)).first);
   }

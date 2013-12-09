@@ -1,6 +1,5 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#ifndef SRC_LIB_IO_GENERICCSV_H_
-#define SRC_LIB_IO_GENERICCSV_H_
+#pragma once
 
 #include <iosfwd>
 #include <stdexcept>
@@ -11,8 +10,8 @@
 
 #include "storage/storage_types.h"
 
-
-
+namespace hyrise {
+namespace io {
 
 typedef std::vector<std::string> line_t;
 typedef void (*field_cb_t)(void *, size_t, void *);
@@ -70,7 +69,7 @@ void vector_cb_per_field(char *field_buffer, size_t field_length, struct vector_
 void vector_cb_per_line(int separator, struct vector_cb_data *data);
 
 
-} //ns csv
+} //namespace csv
 
+} } // namespace hyrise::io
 
-#endif  // SRC_LIB_IO_GENERICCSV_H_

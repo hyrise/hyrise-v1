@@ -5,8 +5,7 @@
  *      Author: jwust
  */
 
-#ifndef CENTRALSCHEDULER_H_
-#define CENTRALSCHEDULER_H_
+#pragma once
 
 #include "AbstractTaskScheduler.h"
 #include "helper/HwlocHelper.h"
@@ -15,6 +14,9 @@
 #include <queue>
 #include <condition_variable>
 #include <taskscheduler/SharedScheduler.h>
+
+namespace hyrise {
+namespace taskscheduler {
 
 class CentralScheduler;
 
@@ -82,4 +84,5 @@ public:
 
 };
 
-#endif /* CENTRALSCHEDULER_H_ */
+} } // namespace hyrise::taskscheduler
+

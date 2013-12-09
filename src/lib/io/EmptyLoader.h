@@ -1,17 +1,19 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#ifndef SRC_LIB_IO_EMPTYLOADER_H_
-#define SRC_LIB_IO_EMPTYLOADER_H_
+#pragma once
 
 #include <memory>
 
 #include "io/AbstractLoader.h"
+
+namespace hyrise {
+namespace io {
 
 class EmptyInput : public AbstractInput {
  public:
   EmptyInput() {
   }
   EmptyInput *clone() const;
-  std::shared_ptr<AbstractTable> load(std::shared_ptr<AbstractTable>, const compound_metadata_list *, const Loader::params &args);
+  std::shared_ptr<storage::AbstractTable> load(std::shared_ptr<storage::AbstractTable>, const storage::compound_metadata_list *, const Loader::params &args);
 };
 
 class EmptyHeader : public AbstractHeader {
@@ -19,8 +21,8 @@ class EmptyHeader : public AbstractHeader {
   EmptyHeader() {
   }
   EmptyHeader *clone() const;
-  compound_metadata_list *load(const Loader::params &args);
+  storage::compound_metadata_list *load(const Loader::params &args);
 };
 
+} } // namespace hyrise::io
 
-#endif  // SRC_LIB_IO_EMPTYLOADER_H_

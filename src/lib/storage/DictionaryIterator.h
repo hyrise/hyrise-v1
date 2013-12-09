@@ -1,12 +1,14 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#ifndef SRC_LIB_STORAGE_DICTIONARYITERATOR_H_
-#define SRC_LIB_STORAGE_DICTIONARYITERATOR_H_
+#pragma once
 
 #include <memory>
 
 #include <storage/BaseIterator.h>
 
 #include <boost/iterator/iterator_facade.hpp>
+
+namespace hyrise {
+namespace storage {
 
 template<typename T>
 class DictionaryIterator : public boost::iterator_facade<DictionaryIterator<T>, T, boost::forward_traversal_tag> {
@@ -43,4 +45,5 @@ class DictionaryIterator : public boost::iterator_facade<DictionaryIterator<T>, 
 
 };
 
-#endif  // SRC_LIB_STORAGE_DICTIONARYITERATOR_H_
+} } // namespace hyrise::storage
+

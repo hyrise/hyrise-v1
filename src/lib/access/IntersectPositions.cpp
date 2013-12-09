@@ -15,14 +15,14 @@ std::shared_ptr<PlanOperation> IntersectPositions::parse(const Json::Value&) {
 
 void IntersectPositions::executePlanOperation() {
   const auto& tables = input.getTables();
-  std::vector<std::shared_ptr<const PointerCalculator>> pcs(tables.size());
+  std::vector<std::shared_ptr<const storage::PointerCalculator>> pcs(tables.size());
   std::transform(begin(tables), end(tables),
                  begin(pcs),
                  [] (decltype(*begin(tables)) table) {
-                   return std::dynamic_pointer_cast<const PointerCalculator>(table);
+                   return std::dynamic_pointer_cast<const storage::PointerCalculator>(table);
                  });
   if (std::all_of(begin(pcs), end(pcs), [] (decltype(*begin(tables)) pc) { return pc != nullptr; })) {
-    addResult(PointerCalculator::intersect_many(begin(pcs), end(pcs)));
+    addResult(storage::PointerCalculator::intersect_many(begin(pcs), end(pcs)));
   } else {
     throw std::runtime_error(_planOperationName + " is only supported for PointerCalculators (IntersectPositions.cpp)");
   }

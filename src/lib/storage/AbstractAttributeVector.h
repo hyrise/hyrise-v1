@@ -1,8 +1,10 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#ifndef SRC_LIB_STORAGE_ABSTRACTATTRIBUTEVECTOR_H_
-#define SRC_LIB_STORAGE_ABSTRACTATTRIBUTEVECTOR_H_
+#pragma once
 
 #include <cstddef>
+
+namespace hyrise {
+namespace storage {
 
 class AbstractAttributeVector {
  public:
@@ -14,4 +16,5 @@ class AbstractAttributeVector {
 
 };
 
-#endif  // SRC_LIB_STORAGE_ABSTRACTATTRIBUTEVECTOR_H_
+} } // namespace hyrise::storage
+

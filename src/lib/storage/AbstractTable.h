@@ -4,9 +4,7 @@
  * Contains the class definition of AbstractTable.
  *
  */
-
-#ifndef SRC_LIB_STORAGE_ABSTRACTTABLE_H_
-#define SRC_LIB_STORAGE_ABSTRACTTABLE_H_
+#pragma once
 
 #include <limits>
 #include <memory>
@@ -25,6 +23,8 @@
 #include "storage/BaseDictionary.h"
 #include "storage/storage_types.h"
 
+namespace hyrise {
+namespace storage {
 
 class ColumnMetadata;
 class AbstractDictionary;
@@ -543,4 +543,5 @@ public:
   unique_id _uuid;
 };
 
-#endif  // SRC_LIB_STORAGE_ABSTRACTTABLE_H_
+} } // namespace hyrise::storage
+
