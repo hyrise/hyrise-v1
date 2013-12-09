@@ -83,16 +83,15 @@ void InsertScan::executePlanOperation() {
   if (!_data)
     _data = buildFromJson();
 
-  // Delta Table Size
-  const auto& beforSize = store->size();
-
   auto writeArea = store->appendToDelta(_data->size());
+
+  const size_t firstPosition = store->getMainTable()->size() + writeArea.first;
 
   // Get the modifications record
   auto& mods = tx::TransactionManager::getInstance()[_txContext.tid];
   for(size_t i=0, upper = _data->size(); i < upper; ++i) {
     store->copyRowToDelta(_data, i, writeArea.first+i, _txContext.tid);
-    mods.insertPos(store, beforSize+i);
+    mods.insertPos(store, firstPosition+i);
   }
 
   auto rsp = getResponseTask();
