@@ -34,12 +34,11 @@ void PosUpdateScan::executePlanOperation() {
   // Cast the constness away
   auto store = std::const_pointer_cast<storage::Store>(c_store);
 
-  // Get the current maximum size
-  const auto& beforSize = store->size();
-
   // Get the offset for inserts into the delta and the size of the delta that
   // we need to increase by the positions we are inserting
   auto writeArea = store->appendToDelta(c_pc->getPositions()->size());
+
+  const size_t firstPosition = store->getMainTable()->size() + writeArea.first;
 
   // Get the modification record for the current transaction
   auto& txmgr = tx::TransactionManager::getInstance();
@@ -70,7 +69,7 @@ void PosUpdateScan::executePlanOperation() {
     }
 
     // Insert the new one
-    modRecord.insertPos(store, beforSize+counter);
+    modRecord.insertPos(store, firstPosition+counter);
     ++counter;
   }
 
