@@ -92,8 +92,8 @@ void RequestParseTask::operator()() {
         LOG4CXX_DEBUG(_logger, "Picking up transaction id " << *tid);
         ctx = tx::TransactionManager::getContext(*tid);
       } else {
-        LOG4CXX_ERROR(_logger, "Invalid transaction id " << *tid);
-        _responseTask->addErrorMessage("Invalid transaction id set, aborting execution.");
+        LOG4CXX_ERROR(_logger, "Invalid transaction id " << ctx_it->second);
+        _responseTask->addErrorMessage("Invalid transaction id '"+ ctx_it->second +"' set, aborting execution");
       }
     } else {
       ctx = tx::TransactionManager::beginTransaction();
