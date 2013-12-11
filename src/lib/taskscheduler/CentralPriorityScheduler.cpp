@@ -6,6 +6,7 @@
  */
 
 #include "CentralPriorityScheduler.h"
+#include "SharedScheduler.h"
 
 namespace hyrise {
 namespace taskscheduler {

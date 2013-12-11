@@ -15,10 +15,47 @@
 
 #include "boost/lexical_cast.hpp"
 #include "log4cxx/logger.h"
+#include <algorithm>
 
 namespace { auto logger = log4cxx::Logger::getLogger("access.plan.PlanOperation"); }
 
 namespace hyrise { namespace access {
+
+size_t PlanOperation::getTotalTableSize(){
+  return 0;
+}
+
+size_t PlanOperation::determineDynamicCount(size_t maxTaskRunTime) {
+  // this can never be satisfied. Default to NO parallelization.
+  if (maxTaskRunTime == 0) {
+    return 1;
+  }
+  
+  auto totalTableSize = getTotalTableSize();
+  
+  // Table is empty or in case of RadixJoin at least one operand is empty.
+  // Also if getTotalTableSize() uses default implementation.
+  if (totalTableSize == 0) {
+    return 1;
+  }
+  
+  auto totalTblSizeIn100k = totalTableSize / 100000.0;
+
+  // this is the b of the mts = a / instances + b  model
+  auto minMts = min_mts_a() * totalTblSizeIn100k + min_mts_b();
+  
+  if (maxTaskRunTime < minMts) {
+    LOG4CXX_ERROR(logger, planOperationName() << ": Could not honor MTS request. Too small.");
+    return 1024;
+  } 
+
+  auto a = a_a() * totalTblSizeIn100k + a_b();
+  size_t numTasks = std::max(1, static_cast<int>(round(a/(maxTaskRunTime - minMts))));
+
+  LOG4CXX_DEBUG(logger, planOperationName() << ": tts(in 100k): " << totalTblSizeIn100k << ", numTasks: " << numTasks);
+
+  return numTasks;
+}
 
 PlanOperation::~PlanOperation() = default;
 

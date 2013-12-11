@@ -43,6 +43,7 @@ void QueryParser::buildTasks(
         typeName, planOperationSpec);
     planOperation->setEvent(papiEventName);
     setInputs(planOperation, planOperationSpec);
+    planOperation->setDynamic(planOperationSpec["dynamic"].asBool());
     if (auto para = std::dynamic_pointer_cast<ParallelizablePlanOperation>(planOperation)) {
       para->setPart(planOperationSpec["part"].asUInt());
       para->setCount(planOperationSpec["count"].asUInt());

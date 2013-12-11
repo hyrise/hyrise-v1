@@ -41,6 +41,7 @@ class CentralScheduler :
   public TaskReadyObserver,
   public std::enable_shared_from_this<TaskReadyObserver> {
   friend class WorkerThread;
+protected:
   typedef std::unordered_set<std::shared_ptr<Task> > waiting_tasks_t;
   // set for tasks with open dependencies
   waiting_tasks_t _waitSet;
@@ -70,7 +71,7 @@ public:
   /*
    * schedule a task for execution
    */
-  void schedule(std::shared_ptr<Task> task);
+  virtual void schedule(std::shared_ptr<Task> task);
   /*
    * shutdown task scheduler; makes sure all underlying threads are stopped
    */
@@ -80,7 +81,7 @@ public:
    */
   size_t getNumberOfWorker() const;
 
-  void notifyReady(std::shared_ptr<Task> task);
+  virtual void notifyReady(std::shared_ptr<Task> task);
 
 };
 

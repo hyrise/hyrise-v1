@@ -13,6 +13,7 @@
 #include "taskscheduler/CoreBoundQueuesScheduler.h"
 #include "taskscheduler/WSCoreBoundQueuesScheduler.h"
 #include "taskscheduler/ThreadPerTaskScheduler.h"
+#include "taskscheduler/DynamicPriorityScheduler.h"
 
 #include "helper/HwlocHelper.h"
 
@@ -33,7 +34,8 @@ std::vector<std::string> getSchedulersToTest() {
            "CentralPriorityScheduler",
            "CoreBoundPriorityQueuesScheduler",
            "WSCoreBoundPriorityQueuesScheduler",
-           "ThreadPerTaskScheduler"};
+           "ThreadPerTaskScheduler",
+           "DynamicPriorityScheduler"};
 }
 
 class SchedulerTest : public TestWithParam<std::string> {
