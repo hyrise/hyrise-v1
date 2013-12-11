@@ -27,11 +27,11 @@ class BetweenExpression : public SimpleFieldExpression {
       SimpleFieldExpression(i, f), lower_value(_lower_value), upper_value(_upper_value)
   {}
 
-  BetweenExpression(hyrise::storage::c_atable_ptr_t _table, field_t _field, T _lower_value, T _upper_value) :
+  BetweenExpression(storage::c_atable_ptr_t _table, field_t _field, T _lower_value, T _upper_value) :
       SimpleFieldExpression(_table, _field), lower_value(_lower_value), upper_value(_upper_value)
   {}
 
-  virtual void walk(const std::vector<hyrise::storage::c_atable_ptr_t > &l) {
+  virtual void walk(const std::vector<storage::c_atable_ptr_t > &l) {
     SimpleFieldExpression::walk(l);
 
     valueIdMap = std::dynamic_pointer_cast<storage::BaseDictionary<T>>(table->dictionaryAt(field));

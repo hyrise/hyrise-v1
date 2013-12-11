@@ -16,7 +16,7 @@ TableScan::TableScan(std::unique_ptr<AbstractExpression> expr) : _expr(std::move
 
 void TableScan::setupPlanOperation() {
   const auto& table = getInputTable();
-  auto tablerange = std::dynamic_pointer_cast<const hyrise::storage::TableRangeView>(table);
+  auto tablerange = std::dynamic_pointer_cast<const storage::TableRangeView>(table);
   if(tablerange)
     _expr->walk({tablerange->getActualTable()});
   else
@@ -25,7 +25,7 @@ void TableScan::setupPlanOperation() {
 
 void TableScan::executePlanOperation() {
   size_t start, stop;
-  const auto& tablerange = std::dynamic_pointer_cast<const hyrise::storage::TableRangeView>(getInputTable());
+  const auto& tablerange = std::dynamic_pointer_cast<const storage::TableRangeView>(getInputTable());
   if(tablerange){
     start = tablerange->getStart();
     stop = start + tablerange->size();

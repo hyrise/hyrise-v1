@@ -24,12 +24,12 @@ class GreaterThanExpression : public SimpleFieldExpression {
       SimpleFieldExpression(i, f), value(v)
   {}
 
-  GreaterThanExpression(hyrise::storage::c_atable_ptr_t _table, field_t _field, T _value) : SimpleFieldExpression(_table, _field), value(_value)
+  GreaterThanExpression(storage::c_atable_ptr_t _table, field_t _field, T _value) : SimpleFieldExpression(_table, _field), value(_value)
   {}
 
   virtual ~GreaterThanExpression() { }
 
-  virtual void walk(const std::vector<hyrise::storage::c_atable_ptr_t > &l) {
+  virtual void walk(const std::vector<storage::c_atable_ptr_t > &l) {
     SimpleFieldExpression::walk(l);
 
     valueIdMap = std::dynamic_pointer_cast<storage::BaseDictionary<T>>(table->dictionaryAt(field));
@@ -77,7 +77,7 @@ class GreaterThanExpressionRaw : public SimpleFieldExpression {
       SimpleFieldExpression(i, f), value(_value)
   {}
 
-  GreaterThanExpressionRaw(const hyrise::storage::c_atable_ptr_t& _table, field_t _field, T _value) :
+  GreaterThanExpressionRaw(const storage::c_atable_ptr_t& _table, field_t _field, T _value) :
       SimpleFieldExpression(_table, _field), value(_value)
   {}
 

@@ -32,7 +32,7 @@ public:
     regExpr(boost::regex(value))
   { }
 
-  LikeExpression(const hyrise::storage::c_atable_ptr_t& _table, field_t _field, const hyrise_string_t& value) :
+  LikeExpression(const storage::c_atable_ptr_t& _table, field_t _field, const hyrise_string_t& value) :
     SimpleFieldExpression(_table, _field),
     regExpr(boost::regex(value))
   { }

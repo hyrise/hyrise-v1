@@ -8,9 +8,9 @@
 namespace hyrise {
 namespace access {
 
-class SimpleExpression : public hyrise::access::AbstractExpression {
+class SimpleExpression : public access::AbstractExpression {
  public:
-  virtual void walk(const std::vector<hyrise::storage::c_atable_ptr_t> &l) = 0;
+  virtual void walk(const std::vector<storage::c_atable_ptr_t> &l) = 0;
 
   virtual pos_list_t* match(const size_t start, const size_t stop) {
     auto pl = new pos_list_t;

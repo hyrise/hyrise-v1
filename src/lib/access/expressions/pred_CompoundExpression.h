@@ -35,7 +35,7 @@ class CompoundExpression : public SimpleExpression {
     }
   }
 
-  virtual void walk(const std::vector<hyrise::storage::c_atable_ptr_t > &l) {
+  virtual void walk(const std::vector<storage::c_atable_ptr_t > &l) {
     lhs->walk(l);
 
     if (!one_leg) {
