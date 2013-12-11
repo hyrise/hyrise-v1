@@ -8,8 +8,10 @@
 #include "access/radixjoin/NestedLoopEquiJoin.h"
 #include "testing/TableEqualityTest.h"
 #include <storage/TableBuilder.h>
-
-
+#include "access/RadixJoin.h"
+#include "access/storage/TableLoad.h"
+#include "access/Barrier.h"
+#include "taskscheduler/ThreadPerTaskScheduler.h"
 
 namespace hyrise {
 namespace access {
@@ -754,5 +756,102 @@ TEST_F(RadixJoinTest, multi_pass_radix_cluster_parallel) {
   EXPECT_EQ(11u, merged_prx->getValueId(0,6).valueId);
   EXPECT_EQ(12u, merged_prx->getValueId(0,7).valueId);
 }
+
+TEST_F(RadixJoinTest, determine_dynamic_count) {
+  size_t MTS = 100;
+  auto tbl = io::Loader::shortcuts::load("test/tables/companies.tbl");
+
+  auto resizedTbl = tbl->copy_structure();
+  resizedTbl->resize(100000); /// 100k
+  auto fakeTask1 = std::shared_ptr<PlanOperation>(new Barrier());
+  auto fakeTask2 = std::shared_ptr<PlanOperation>(new Barrier());
+  fakeTask1->addInput(resizedTbl);
+  fakeTask1->addField(0);
+  fakeTask2->addInput(resizedTbl);
+  fakeTask2->addField(0);
+  (*fakeTask1)();
+  (*fakeTask2)();
+  std::shared_ptr<PlanOperation> radix = std::shared_ptr<PlanOperation>(new RadixJoin());
+  radix->addField(0);
+  radix->addField(0);
+  radix->addDependency(fakeTask1);
+  radix->addDependency(fakeTask2); 
+  auto dynamicCount1 = radix->determineDynamicCount(MTS);
+
+  auto resizedTbl2 = tbl->copy_structure();
+  resizedTbl2->resize(10000000); // 10 million
+  auto fakeTask3 = std::shared_ptr<PlanOperation>(new Barrier());
+  auto fakeTask4 = std::shared_ptr<PlanOperation>(new Barrier());
+  fakeTask3->addInput(resizedTbl2);
+  fakeTask3->addField(0);
+  fakeTask4->addInput(resizedTbl2);
+  fakeTask4->addField(0);
+  (*fakeTask3)();
+  (*fakeTask4)();
+  std::shared_ptr<PlanOperation> radix2 = std::shared_ptr<PlanOperation>(new RadixJoin());
+  radix2->addField(0);
+  radix2->addField(0);
+  radix2->addDependency(fakeTask3);
+  radix2->addDependency(fakeTask4); 
+  auto dynamicCount2 = radix2->determineDynamicCount(MTS);
+
+  ASSERT_GT(dynamicCount2, dynamicCount1);
+}
+
+class RadixDynamicCountTest : public AccessTest, public ::testing::WithParamInterface<int> {};
+
+TEST_P(RadixDynamicCountTest, apply_dynamic_parallelization) {
+  auto dynamicCount = GetParam();
+
+  auto companies = std::make_shared<TableLoad>();
+  companies->setFileName("tables/companies.tbl");
+  companies->setTableName("companies");
+  (*companies)();
+  
+  auto employees = std::make_shared<TableLoad>();
+  employees->setFileName("tables/employees.tbl");
+  employees->setTableName("employees");
+  (*employees)();
+
+  auto radix = std::make_shared<RadixJoin>();
+  radix->addField(0);
+  radix->addField(1);
+  radix->setBits1(4);
+  radix->setBits2(4);
+  radix->setOperatorId("testRadix");
+  radix->addDependency(companies);
+  radix->addDependency(employees);
+
+  auto tasks = radix->applyDynamicParallelization(dynamicCount);
+  auto finalTaskIt = std::find_if_not(tasks.begin(), tasks.end(), [] (taskscheduler::task_ptr_t t) {
+    return t->hasSuccessors();
+  });
+  if (finalTaskIt == tasks.end()) { // no final element could be found
+    //we should never get here.
+    FAIL() << "Could not find final, indepedent output element of RadixJoin.";
+  }
+
+  auto finalOp = std::dynamic_pointer_cast<PlanOperation>(*finalTaskIt);
+  
+  if (!finalOp) {
+    FAIL() << "finalOp should have been a PlanOperation.";
+  }
+
+  auto waiter = std::make_shared<taskscheduler::WaitTask>();
+  waiter->addDependency(finalOp);
+  tasks.push_back(waiter);
+
+  auto scheduler = std::make_shared<taskscheduler::ThreadPerTaskScheduler>();
+  scheduler->scheduleQuery(tasks);
+  waiter->wait();
+
+  auto resultTable = finalOp->getResultTable();
+  
+  auto referenceTable = io::Loader::shortcuts::load("test/tables/companies_employees_joined.tbl");
+  
+  ASSERT_TRUE(referenceTable->contentEquals(resultTable));
+}
+
+INSTANTIATE_TEST_CASE_P(RadixJoinDynamicParallelizationTest, RadixDynamicCountTest, ::testing::Values(1, 4));
 
 }}

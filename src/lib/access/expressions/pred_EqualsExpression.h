@@ -44,6 +44,10 @@ class EqualsExpression : public SimpleFieldExpression {
       lower_bound = table->getValueIdForValue(field, value);
     }
   }
+ 
+  virtual std::unique_ptr<AbstractExpression> clone(){
+    return std::unique_ptr<EqualsExpression<T>>(new EqualsExpression<T>(table, field, value));
+  }
 
   virtual ~EqualsExpression() { }
 
