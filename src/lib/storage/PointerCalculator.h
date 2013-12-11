@@ -16,7 +16,7 @@ class PointerCalculator : public AbstractTable,
                           public SharedFactory<PointerCalculator> {
 public:
 
-  PointerCalculator(hyrise::storage::c_atable_ptr_t t, pos_list_t *pos = nullptr, field_list_t *f = nullptr);
+  PointerCalculator(c_atable_ptr_t t, pos_list_t *pos = nullptr, field_list_t *f = nullptr);
   PointerCalculator(const PointerCalculator& other);
   
   virtual ~PointerCalculator();
@@ -40,8 +40,8 @@ public:
   size_t getTableRowForRow(const size_t row) const;
   size_t getTableColumnForColumn(const size_t column) const;
 
-  hyrise::storage::c_atable_ptr_t getTable() const;
-  hyrise::storage::c_atable_ptr_t getActualTable() const;
+  c_atable_ptr_t getTable() const;
+  c_atable_ptr_t getActualTable() const;
 
   /**
   * Checks the internal table of the pointer calculator to only contain valid positions.
@@ -50,13 +50,13 @@ public:
   * all valid positions and if positions are provided will use those positions
   * to validate
   */
-  void validate(hyrise::tx::transaction_id_t tid, hyrise::tx::transaction_id_t cid);
+  void validate(tx::transaction_id_t tid, tx::transaction_id_t cid);
 
   void remove(const pos_list_t& pl);
   
   // AbstractTable interface
-  hyrise::storage::atable_ptr_t copy() const override;
-  hyrise::storage::atable_ptr_t copy_structure(const field_list_t *fields = nullptr, const bool reuse_dict = false, const size_t initial_size = 0, const bool with_containers = true, const bool compressed = false) const override;
+  atable_ptr_t copy() const override;
+  atable_ptr_t copy_structure(const field_list_t *fields = nullptr, const bool reuse_dict = false, const size_t initial_size = 0, const bool with_containers = true, const bool compressed = false) const override;
   const ColumnMetadata *metadataAt(const size_t column_index, const size_t row_index = 0, const table_id_t table_id = 0) const override;
   const AbstractTable::SharedDictionaryPtr& dictionaryAt(const size_t column, const size_t row = 0, const table_id_t table_id = 0) const override;
   const AbstractTable::SharedDictionaryPtr& dictionaryByTableId(const size_t column, const table_id_t table_id) const override;
@@ -72,7 +72,7 @@ public:
  protected:
   void updateFieldMapping();
  private:
-  hyrise::storage::c_atable_ptr_t table;
+  c_atable_ptr_t table;
   pos_list_t *pos_list;
   field_list_t *fields;
 

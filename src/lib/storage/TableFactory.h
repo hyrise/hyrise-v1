@@ -14,7 +14,7 @@ namespace storage {
 class AbstractTableFactory {
 public:
   virtual ~AbstractTableFactory();
-  virtual hyrise::storage::atable_ptr_t generate(std::vector<const ColumnMetadata*> *meta,
+  virtual atable_ptr_t generate(std::vector<const ColumnMetadata*> *meta,
       std::vector<AbstractTable::SharedDictionaryPtr> *d = nullptr,
       size_t initial_size = 0,
       bool sorted = true,
@@ -23,7 +23,7 @@ public:
 
 class TableFactory : public AbstractTableFactory {
  public:
-  hyrise::storage::atable_ptr_t generate(std::vector<const ColumnMetadata *> *m,
+  atable_ptr_t generate(std::vector<const ColumnMetadata *> *m,
                                                  std::vector<AbstractTable::SharedDictionaryPtr> *d = nullptr,
                                                  size_t initial_size = 0,
                                                  bool sorted = true,

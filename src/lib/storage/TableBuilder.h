@@ -95,7 +95,7 @@ public:
 
   /*
    */
-  static hyrise::storage::atable_ptr_t build(param_list args, const bool compressed = false);
+  static atable_ptr_t build(param_list args, const bool compressed = false);
 
 
 private:
@@ -103,7 +103,7 @@ private:
   /*
     Based on a give iterator over a sequence of param_t this method
   */
-  static hyrise::storage::atable_ptr_t createTable(param_list::param_list_t::const_iterator b,
+  static atable_ptr_t createTable(param_list::param_list_t::const_iterator b,
       param_list::param_list_t::const_iterator e,
       const bool compressed);
 

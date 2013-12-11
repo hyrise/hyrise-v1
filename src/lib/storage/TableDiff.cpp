@@ -8,7 +8,7 @@ namespace hyrise { namespace storage {
 namespace{
 /// Functor class for usage with hyrise::storage::type_switch to compare table cells by value
 
-hyrise::storage::type_switch<hyrise_basic_types> ts;
+type_switch<hyrise_basic_types> ts;
 
 class EqualValueFunctor {
 private:

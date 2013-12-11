@@ -108,7 +108,7 @@ table_id_t RawTable::subtableCount() const {
   return 1;
 }
 
-hyrise::storage::atable_ptr_t RawTable::copy() const {
+atable_ptr_t RawTable::copy() const {
   return nullptr;
 }
 
@@ -117,7 +117,7 @@ RawTable::byte* RawTable::computePosition(const size_t& column, const size_t& ro
     throw std::out_of_range("Column out of range in getValue()");
   }
   byte* tuple = getRow(row);
-  tuple += sizeof(hyrise::storage::rawtable::record_header);
+  tuple += sizeof(rawtable::record_header);
   for(size_t i=0; i < column; ++i) {
     if (_metadata[i].getType() == StringType) {
       tuple += 2 /* size of the length */ + *((unsigned short*) tuple);
@@ -167,12 +167,12 @@ RawTable::byte* RawTable::getRow(size_t index) const {
   if (index >= _size) throw std::out_of_range("Index out of range for getRow()");
   byte *data = _data;
   for(size_t i=0; i < index; ++i)
-    data += ((hyrise::storage::rawtable::record_header*) data)->width;
+    data += ((rawtable::record_header*) data)->width;
   return data;
 }
 
 void RawTable::appendRow(byte* tuple) {
-  size_t width  = ((hyrise::storage::rawtable::record_header*) tuple)->width;
+  size_t width  = ((rawtable::record_header*) tuple)->width;
   if ((_endOfData + width) > _endOfStorage) {
     size_t amount = ((_endOfData + width) - _data) * 2;
     size_t dist = _endOfData - _data;
@@ -195,7 +195,7 @@ struct type_func {
   const size_t& _col;
   const size_t& _row;
 
-  type_func(const hyrise::storage::atable_ptr_t& source,
+  type_func(const atable_ptr_t& source,
             rawtable::RowHelper& rh,
             const size_t& column,
             const size_t& row) : _source(source), _rh(rh), _col(column), _row(row) {}
@@ -206,10 +206,10 @@ struct type_func {
   }
 };
 
-void RawTable::appendRows(const hyrise::storage::atable_ptr_t& rows) {
-  hyrise::storage::type_switch<hyrise_basic_types> ts;
+void RawTable::appendRows(const atable_ptr_t& rows) {
+  type_switch<hyrise_basic_types> ts;
   for(size_t row=0; row < rows->size(); ++row) {
-   rawtable::RowHelper rh(_metadata);
+    rawtable::RowHelper rh(_metadata);
     for(size_t column=0; column < _metadata.size(); ++column) {
       type_func tf(rows, rh, column, row);
       ts(rows->typeOfColumn(column), tf);

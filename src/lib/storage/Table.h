@@ -101,10 +101,10 @@ public:
 
   virtual void setDictionaryAt(AbstractTable::SharedDictionaryPtr dict, const size_t column, const size_t row = 0, const table_id_t table_id = 0);
 
-  virtual  hyrise::storage::atable_ptr_t copy_structure(const field_list_t *fields = nullptr, const bool reuse_dict = false, const size_t initial_size = 0, const bool with_containers = true, const bool compressed = false) const;
+  virtual  atable_ptr_t copy_structure(const field_list_t *fields = nullptr, const bool reuse_dict = false, const size_t initial_size = 0, const bool with_containers = true, const bool compressed = false) const;
 
-  virtual  hyrise::storage::atable_ptr_t copy_structure_modifiable(const field_list_t *fields = nullptr, const size_t initial_size = 0, const bool with_containers = true) const;
-  virtual hyrise::storage::atable_ptr_t copy_structure(abstract_dictionary_callback, abstract_attribute_vector_callback) const override;
+  virtual  atable_ptr_t copy_structure_modifiable(const field_list_t *fields = nullptr, const size_t initial_size = 0, const bool with_containers = true) const;
+  virtual atable_ptr_t copy_structure(abstract_dictionary_callback, abstract_attribute_vector_callback) const override;
 
   void setAttributes(SharedAttributeVector b);
 
@@ -120,7 +120,7 @@ public:
     return columnCount();
   }
 
-  virtual hyrise::storage::atable_ptr_t copy() const;
+  virtual atable_ptr_t copy() const;
 
   void setNumRows(size_t s) {
     tuples->setNumRows(s);

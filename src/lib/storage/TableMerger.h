@@ -19,7 +19,7 @@ public:
     delete _merger;
   }
 
-  std::vector<hyrise::storage::atable_ptr_t> merge(std::vector<hyrise::storage::c_atable_ptr_t> &input_tables, bool useValid = false, std::vector<bool> valid=std::vector<bool>()) const;
+  std::vector<atable_ptr_t> merge(std::vector<c_atable_ptr_t> &input_tables, bool useValid = false, std::vector<bool> valid=std::vector<bool>()) const;
 
   /*
     This method allows to specify directly a table that is the
@@ -27,7 +27,7 @@ public:
     process. This allows to modify the layout of the result table
     without interfering with the merge algorithms itself.
   */
-  std::vector<hyrise::storage::atable_ptr_t > mergeToTable(hyrise::storage::atable_ptr_t dest, std::vector<hyrise::storage::c_atable_ptr_t> &input_tables, bool useValid = false, std::vector<bool> valid=std::vector<bool>()) const;
+  std::vector<atable_ptr_t > mergeToTable(atable_ptr_t dest, std::vector<c_atable_ptr_t> &input_tables, bool useValid = false, std::vector<bool> valid=std::vector<bool>()) const;
 
   TableMerger *copy();
 

@@ -31,7 +31,7 @@ for (auto & e : _index)
       e.second.shrink_to_fit();
   }
 
-  explicit InvertedIndex(const hyrise::storage::c_atable_ptr_t& in, field_t column) {
+  explicit InvertedIndex(const c_atable_ptr_t& in, field_t column) {
     if (in != nullptr) {
       for (size_t row = 0; row < in->size(); ++row) {
         T tmp = in->getValue<T>(column, row);
