@@ -10,7 +10,7 @@ namespace io {
 namespace Loader {
 namespace shortcuts {
 
-Loader::params loadParams(const std::string &filename, Loader::params &p) {
+params loadParams(const std::string &filename, params &p) {
   CSVInput input(filename);
   CSVHeader header(filename);
 
@@ -19,10 +19,10 @@ Loader::params loadParams(const std::string &filename, Loader::params &p) {
   return p;
 }
 
-Loader::params loadWithHeaderParams(const std::string &datafilepath, const std::string &headerfilepath) {
+params loadWithHeaderParams(const std::string &datafilepath, const std::string &headerfilepath) {
   CSVInput input(datafilepath, CSVInput::params().setUnsafe(true));
   CSVHeader header(headerfilepath);
-  Loader::params p;
+  params p;
   p.setReturnsMutableVerticalTable(true);
   p.setInput(input);
   p.setHeader(header);
@@ -30,10 +30,10 @@ Loader::params loadWithHeaderParams(const std::string &datafilepath, const std::
 
 }
 
-Loader::params loadWithStringHeaderParams(const std::string &datafilepath, const std::string &header) {
+params loadWithStringHeaderParams(const std::string &datafilepath, const std::string &header) {
   CSVInput input(datafilepath);
   StringHeader sheader(header);
-  Loader::params p;
+  params p;
   p.setInput(input);
   p.setHeader(sheader);
   return p;
@@ -58,7 +58,7 @@ std::shared_ptr<storage::AbstractTable> Loader::shortcuts::loadWithStringHeader(
   return Loader::load(loadWithStringHeaderParams(datafilepath, header));
 };
 
-std::shared_ptr<hyrise::storage::Store> Loader::shortcuts::loadMainDelta(const std::string &mainfilepath, const std::string &deltafilepath, Loader::params p) {
+std::shared_ptr<storage::Store> Loader::shortcuts::loadMainDelta(const std::string &mainfilepath, const std::string &deltafilepath, Loader::params p) {
   std::vector<std::string> filenames;
   filenames.push_back(mainfilepath);
   filenames.push_back(deltafilepath);
@@ -71,16 +71,16 @@ std::shared_ptr<hyrise::storage::Store> Loader::shortcuts::loadMainDelta(const s
     p.setInput(input);
     p.setHeader(header);
     p.setReturnsMutableVerticalTable(true);
-    std::shared_ptr<storage::AbstractTable> table = Loader::load(p);
+    std::shared_ptr<storage::AbstractTable> table = load(p);
     tables.push_back(table);
   }
-  auto s = std::make_shared<hyrise::storage::Store>(tables[0]);
+  auto s = std::make_shared<storage::Store>(tables[0]);
   s->setDelta(tables[1]);
   return s;
 };
 
 std::shared_ptr<storage::AbstractTable> Loader::shortcuts::loadRaw(const std::string &file) {
-  hyrise::io::RawTableLoader input(file);
+  RawTableLoader input(file);
   CSVHeader header(file);
 
   Loader::params p;

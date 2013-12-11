@@ -12,13 +12,13 @@ namespace io {
 namespace Loader {
 namespace shortcuts {
 
-Loader::params loadWithStringHeaderParams(const std::string &datafilepath, const std::string &header);
+params loadWithStringHeaderParams(const std::string &datafilepath, const std::string &header);
 
 /*! Loads a table for a given filename, assuming it contains header and data in HYRISE format.
   @param filepath
 */
 std::shared_ptr<storage::AbstractTable> load(const std::string &filepath);
-std::shared_ptr<storage::AbstractTable> load(const std::string &filepath, Loader::params &params);
+std::shared_ptr<storage::AbstractTable> load(const std::string &filepath, params &params);
 
 /*! Load a table from a given filename, while supplying the header from another file. Must be HYRISE formatted.
   @param datafilepath
@@ -36,7 +36,7 @@ std::shared_ptr<storage::AbstractTable> loadWithStringHeader(const std::string &
   @param mainfilepath
   @param deltafilepath
 */
-std::shared_ptr<hyrise::storage::Store> loadMainDelta(const std::string &mainfilepath, const std::string &deltafilepath, params p = params());
+std::shared_ptr<storage::Store> loadMainDelta(const std::string &mainfilepath, const std::string &deltafilepath, params p = params());
 
 /**
  * Load a table into a raw table container

@@ -42,7 +42,7 @@ public:
 
   std::shared_ptr<storage::AbstractTable> load(std::shared_ptr<storage::AbstractTable>,
                                                const storage::compound_metadata_list *,
-                                               const io::Loader::params &args);
+                                               const Loader::params &args);
 
   MySQLInput *clone() const;
 

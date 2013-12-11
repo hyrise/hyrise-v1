@@ -162,7 +162,7 @@ void parallel_load(std::shared_ptr<storage::AbstractTable> intable, size_t attr,
   size_t result = 0;
   char *buffer = (char *) malloc(size);
 
-  hyrise::storage::type_switch<hyrise_basic_types> global_ts;
+  storage::type_switch<hyrise_basic_types> global_ts;
 
 
   data->buffer = (char *) malloc(2 * LOAD_SIZE);
@@ -174,7 +174,7 @@ void parallel_load(std::shared_ptr<storage::AbstractTable> intable, size_t attr,
     memcpy(data->iter, buffer, result);
     data->buffSize += result;
 
-    hyrise::io::MPassLoader::cast_functor fun(data);
+    MPassLoader::cast_functor fun(data);
     global_ts(intable->typeOfColumn(attr), fun);
 
     ++blocks;
@@ -184,7 +184,7 @@ void parallel_load(std::shared_ptr<storage::AbstractTable> intable, size_t attr,
   // Append last newline
   *data->iter = '\n';
   ++data->buffSize;
-  hyrise::io::MPassLoader::cast_functor fun(data);
+  MPassLoader::cast_functor fun(data);
   global_ts(intable->typeOfColumn(attr), fun);
 
   close(fp);
@@ -193,8 +193,8 @@ void parallel_load(std::shared_ptr<storage::AbstractTable> intable, size_t attr,
 }
 
 void pass2(std::shared_ptr<storage::AbstractTable> intable, MPassLoader::parallel_data *data, size_t attr) {
-  hyrise::storage::type_switch<hyrise_basic_types> global_ts;
-  hyrise::io::MPassLoader::do_load_functor loader(intable, data, attr);
+  storage::type_switch<hyrise_basic_types> global_ts;
+  MPassLoader::do_load_functor loader(intable, data, attr);
   global_ts(intable->typeOfColumn(attr), loader);
 }
 
@@ -202,12 +202,12 @@ void pass2(std::shared_ptr<storage::AbstractTable> intable, MPassLoader::paralle
 std::shared_ptr<storage::AbstractTable> MPassCSVInput::load(std::shared_ptr<storage::AbstractTable> intable, const storage::compound_metadata_list *meta, const Loader::params &args) {
 
   std::vector<std::thread> kThreads(intable->columnCount());
-  auto buckets = std::vector<hyrise::io::MPassLoader::parallel_data *>(intable->columnCount());
+  auto buckets = std::vector<MPassLoader::parallel_data *>(intable->columnCount());
 
   // Each attribute as a file in the base directory that we read and map
   for (size_t i = 0; i < intable->columnCount(); ++i) {
     std::string fn = _directory + "/" + intable->metadataAt(i)->getName() + ".data";
-    auto data = new hyrise::io::MPassLoader::parallel_data();
+    auto data = new MPassLoader::parallel_data();
     buckets[i] = data;
 
     kThreads[i] = std::thread(parallel_load, intable, i, fn, data);
@@ -225,7 +225,7 @@ std::shared_ptr<storage::AbstractTable> MPassCSVInput::load(std::shared_ptr<stor
   for (size_t i = 0; i < intable->columnCount(); ++i)
     kThreads[i].join();
 
-  return std::make_shared<hyrise::storage::Store>(intable);
+  return std::make_shared<storage::Store>(intable);
 }
 
 MPassCSVInput *MPassCSVInput::clone() const {

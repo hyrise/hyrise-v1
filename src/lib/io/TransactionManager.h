@@ -121,7 +121,7 @@ class TransactionManager {
   void abort();
   /**
   * Tries to acquire the spin lock for the prepare commit call and returns
-  * hyrise::tx::UNKNOWN in case of failure or the next commit ID in case of
+  * UNKNOWN in case of failure or the next commit ID in case of
   * success
   */
   transaction_cid_t tryPrepareCommit();

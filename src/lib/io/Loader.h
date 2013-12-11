@@ -22,7 +22,7 @@ class AbstractHeader;
 
 typedef struct {
   bool InsertOnly;
-  hyrise::tx::transaction_id_t transaction_id;
+  tx::transaction_id_t transaction_id;
 } InsertOnlyParam;
 
 namespace Loader {
