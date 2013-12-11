@@ -15,11 +15,11 @@ class AbstractConnection;
 class StaticRequestHandler : public net::AbstractRequestHandler {
 private:
   static bool _registered;
-  net::AbstractConnection *_connection;
+  AbstractConnection *_connection;
   std::string _rootPath;
 
 public:
-  explicit StaticRequestHandler(net::AbstractConnection *connection);
+  explicit StaticRequestHandler(AbstractConnection *connection);
   virtual void operator()();
   static std::string name() { return "StaticRequestHandler"; }
   const std::string vname() { return "StaticRequestHandler"; }
