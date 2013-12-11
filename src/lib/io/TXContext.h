@@ -9,13 +9,13 @@ namespace hyrise { namespace tx {
 struct TXContext {
   using id_t = transaction_id_t;
 
-  transaction_id_t tid = hyrise::tx::UNKNOWN;
-  transaction_id_t lastCid = hyrise::tx::UNKNOWN;
-  transaction_id_t cid = hyrise::tx::UNKNOWN;
+  transaction_id_t tid = UNKNOWN;
+  transaction_id_t lastCid = UNKNOWN;
+  transaction_id_t cid = UNKNOWN;
 
   TXContext() = default;
 
-  TXContext(id_t _tid, id_t _lastCid, id_t _cid = hyrise::tx::UNKNOWN):
+  TXContext(id_t _tid, id_t _lastCid, id_t _cid = UNKNOWN):
       tid(_tid), lastCid(_lastCid), cid(_cid) {}
 
   template<class Archive>

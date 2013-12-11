@@ -26,7 +26,7 @@ param_member_impl(Loader::params, storage::AbstractTableFactory *, Factory)
 param_member_impl(Loader::params, bool, ModifiableMutableVerticalTable)
 param_member_impl(Loader::params, bool, ReturnsMutableVerticalTable)
 param_member_impl(Loader::params, bool, Compressed)
-param_member_impl(Loader::params, hyrise::storage::c_atable_ptr_t, ReferenceTable)
+param_member_impl(Loader::params, storage::c_atable_ptr_t, ReferenceTable)
 
 Loader::params::params() :
   Input(nullptr),

@@ -51,7 +51,7 @@ void PosUpdateScan::executePlanOperation() {
   size_t counter = 0;
   for(const auto& p : *(c_pc->getPositions())) {
     // First delete the old record
-    bool deleteOk = store->markForDeletion(p, _txContext.tid) == hyrise::tx::TX_CODE::TX_OK;
+    bool deleteOk = store->markForDeletion(p, _txContext.tid) == tx::TX_CODE::TX_OK;
     if(!deleteOk) {
       txmgr.rollbackTransaction(_txContext);
       throw std::runtime_error("Aborted TX because TID of other TX found");

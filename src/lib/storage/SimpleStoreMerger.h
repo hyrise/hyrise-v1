@@ -9,8 +9,8 @@ class SimpleStoreMerger : public AbstractMerger {
 
   virtual ~SimpleStoreMerger(){}
 
-  void mergeValues(const std::vector<hyrise::storage::c_atable_ptr_t> &input_tables,
-                   hyrise::storage::atable_ptr_t merged_table,
+  void mergeValues(const std::vector<c_atable_ptr_t> &input_tables,
+                   atable_ptr_t merged_table,
                    const column_mapping_t &column_mapping,
                    const uint64_t newSize,
                    bool useValid = false,

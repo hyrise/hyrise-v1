@@ -92,7 +92,7 @@ size_t HorizontalTable::partitionWidth(const size_t slice) const {
   return _parts[0]->partitionWidth(slice);
 }
 
-hyrise::storage::atable_ptr_t HorizontalTable::copy() const {
+atable_ptr_t HorizontalTable::copy() const {
   throw std::runtime_error("Not implemented");
 }
 

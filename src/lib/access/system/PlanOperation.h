@@ -74,12 +74,12 @@ class PlanOperation : public OutputTask {
   const PlanOperation *execute();
 
   void setErrorMessage(const std::string& message);
-  void setResponseTask(const std::shared_ptr<access::ResponseTask>& responseTask);
-  std::shared_ptr<access::ResponseTask> getResponseTask() const;
+  void setResponseTask(const std::shared_ptr<ResponseTask>& responseTask);
+  std::shared_ptr<ResponseTask> getResponseTask() const;
  protected:
   /// Containers to store and handle input/output or rather result data.
-  access::OperationData input;
-  access::OperationData output;
+  OperationData input;
+  OperationData output;
 
   /// Limits the number of rows read
   uint64_t _limit = 0;
@@ -91,7 +91,7 @@ class PlanOperation : public OutputTask {
   field_name_list_t _named_field_definition;
   field_list_t _indexed_field_definition;
 
-  std::weak_ptr<access::ResponseTask> _responseTask;
+  std::weak_ptr<ResponseTask> _responseTask;
 
   bool producesPositions = true;
 

@@ -26,7 +26,7 @@ pos_list_t* ExampleExpression::match(const size_t start, const size_t stop) {
   return pl;
 }
 
-void ExampleExpression::walk(const std::vector<hyrise::storage::c_atable_ptr_t> &tables) {
+void ExampleExpression::walk(const std::vector<storage::c_atable_ptr_t> &tables) {
   _table = tables.at(0);
   const auto& avs = _table->getAttributeVectors(_column);
   _vector = std::dynamic_pointer_cast<storage::FixedLengthVector<value_id_t>>(avs.at(0).attribute_vector);

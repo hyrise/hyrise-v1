@@ -25,11 +25,11 @@ public:
   virtual size_t size() const = 0;
 
   /// Get positions for values in the table cells of given row and columns.
-  virtual pos_list_t get(const hyrise::storage::c_atable_ptr_t& table,
+  virtual pos_list_t get(const c_atable_ptr_t& table,
                          const field_list_t &columns,
                          const pos_t row) const = 0;
 
-  virtual hyrise::storage::c_atable_ptr_t getTable() const = 0;
+  virtual c_atable_ptr_t getTable() const = 0;
 
   virtual field_list_t getFields() const = 0;
 

@@ -89,7 +89,7 @@ void JsonTable::executePlanOperation() {
 
 
 		set_string_value_functor fun(_useStoreFlag ? std::dynamic_pointer_cast<storage::Store>(result)->getDeltaTable() : result);
-		hyrise::storage::type_switch<hyrise_basic_types> ts;
+		storage::type_switch<hyrise_basic_types> ts;
 
 
 		for(size_t i=0; i < rows; ++i) {

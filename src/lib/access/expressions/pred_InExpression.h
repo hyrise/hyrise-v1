@@ -34,7 +34,7 @@ public:
     values(getValues(value))
   {}
 
-  InExpression(hyrise::storage::c_atable_ptr_t _table, field_t _field, const Json::Value& value):
+  InExpression(storage::c_atable_ptr_t _table, field_t _field, const Json::Value& value):
     SimpleFieldExpression(_table, _field),
     values(getValues(value))
   {}

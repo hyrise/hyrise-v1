@@ -20,11 +20,11 @@ class PrettyPrinter {
   static void print(const AbstractTable* const input,
                     std::ostream& outStream, const std::string tableName = "",
                     const size_t& limit = (size_t) -1, const size_t& start = 0);
-  static void printDiff(const hyrise::storage::c_atable_ptr_t& input, const TableDiff& diff,
+  static void printDiff(const c_atable_ptr_t& input, const TableDiff& diff,
                         std::ostream& outStream, const std::string tableName = "",
                         const size_t& limit = (size_t) -1, const size_t& start = 0);
-  static void writeTid(ftprinter::FTPrinter &tp, hyrise::tx::transaction_id_t tid);
-  static void writeCid(ftprinter::FTPrinter &tp, hyrise::tx::transaction_cid_t cid);
+  static void writeTid(ftprinter::FTPrinter &tp, tx::transaction_id_t tid);
+  static void writeCid(ftprinter::FTPrinter &tp, tx::transaction_cid_t cid);
 };
 
 }}

@@ -50,8 +50,8 @@ class AggregateFun {
    // return _field_name;
   //}
   virtual ~AggregateFun() { }
-  virtual void processValuesForRows(const hyrise::storage::c_atable_ptr_t& t, 
-    pos_list_t *rows, hyrise::storage::atable_ptr_t& target, size_t targetRow) = 0;
+  virtual void processValuesForRows(const storage::c_atable_ptr_t& t, 
+    pos_list_t *rows, storage::atable_ptr_t& target, size_t targetRow) = 0;
   virtual DataType getType() const = 0;
   std::string columnName() const
   {
@@ -84,7 +84,7 @@ class SumAggregateFun: public AggregateFun {
    * if rows == nullptr the functor is executed
    * on all rows of the input table
    */
-  virtual void processValuesForRows(const hyrise::storage::c_atable_ptr_t& t, pos_list_t *rows, hyrise::storage::atable_ptr_t& target, size_t targetRow);
+  virtual void processValuesForRows(const storage::c_atable_ptr_t& t, pos_list_t *rows, storage::atable_ptr_t& target, size_t targetRow);
 
   virtual DataType getType() const {
     return _dataType;
@@ -120,9 +120,9 @@ class CountAggregateFun: public AggregateFun {
    * if map_range_t rows == nullptr all values
    * are considered for counting.
    */
-  virtual void processValuesForRows(const hyrise::storage::c_atable_ptr_t& t, pos_list_t *rows, hyrise::storage::atable_ptr_t& target, size_t targetRow);
-  size_t countRows(const hyrise::storage::c_atable_ptr_t& t, pos_list_t *rows);
-  size_t countRowsDistinct(const hyrise::storage::c_atable_ptr_t& t, pos_list_t *rows);
+  virtual void processValuesForRows(const storage::c_atable_ptr_t& t, pos_list_t *rows, storage::atable_ptr_t& target, size_t targetRow);
+  size_t countRows(const storage::c_atable_ptr_t& t, pos_list_t *rows);
+  size_t countRowsDistinct(const storage::c_atable_ptr_t& t, pos_list_t *rows);
 
   void setDistinct(bool distinct) {
     _distinct = distinct;
@@ -159,7 +159,7 @@ class AverageAggregateFun: public AggregateFun {
    * if rows == nullptr the functor is executed
    * on all rows of the input table
    */
-  virtual void processValuesForRows(const hyrise::storage::c_atable_ptr_t& t, pos_list_t *rows, hyrise::storage::atable_ptr_t& target, size_t targetRow) ;
+  virtual void processValuesForRows(const storage::c_atable_ptr_t& t, pos_list_t *rows, storage::atable_ptr_t& target, size_t targetRow) ;
 
   virtual DataType getType() const {
     return FloatType;
@@ -195,7 +195,7 @@ class MinAggregateFun: public AggregateFun {
    * if rows == nullptr the functor is executed
    * on all rows of the input table
    */
-  virtual void processValuesForRows(const hyrise::storage::c_atable_ptr_t& t, pos_list_t *rows, hyrise::storage::atable_ptr_t& target, size_t targetRow) ;
+  virtual void processValuesForRows(const storage::c_atable_ptr_t& t, pos_list_t *rows, storage::atable_ptr_t& target, size_t targetRow) ;
 
   virtual DataType getType() const {
     return _dataType;
@@ -228,7 +228,7 @@ class MaxAggregateFun: public AggregateFun {
    * if rows == nullptr the functor is executed
    * on all rows of the input table
    */
-  virtual void processValuesForRows(const hyrise::storage::c_atable_ptr_t& t, pos_list_t *rows, hyrise::storage::atable_ptr_t& target, size_t targetRow) ;
+  virtual void processValuesForRows(const storage::c_atable_ptr_t& t, pos_list_t *rows, storage::atable_ptr_t& target, size_t targetRow) ;
 
   virtual DataType getType() const {
     return _dataType;

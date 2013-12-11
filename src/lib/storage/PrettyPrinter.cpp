@@ -105,7 +105,7 @@ void PrettyPrinter::special_print(const Store* store, std::ostream& outStream, c
   tp.printFooter();
 }
 
-void PrettyPrinter::printDiff(const storage::c_atable_ptr_t& input, const TableDiff& diff,
+void PrettyPrinter::printDiff(const c_atable_ptr_t& input, const TableDiff& diff,
                               std::ostream& outStream, const std::string tableName,
 			      const size_t& limit, const size_t& start) {
   ftprinter::FTPrinter tp(tableName, outStream);
@@ -179,7 +179,7 @@ void PrettyPrinter::print(const AbstractTable* const input, std::ostream& outStr
   }
 }
 
-void PrettyPrinter::writeTid(ftprinter::FTPrinter &tp, hyrise::tx::transaction_id_t tid) {
+void PrettyPrinter::writeTid(ftprinter::FTPrinter &tp, tx::transaction_id_t tid) {
   switch(tid) {
     case tx::MERGE_TID:
       tp << "MERGE";
@@ -199,7 +199,7 @@ void PrettyPrinter::writeTid(ftprinter::FTPrinter &tp, hyrise::tx::transaction_i
   }
 }
 
-void PrettyPrinter::writeCid(ftprinter::FTPrinter &tp, hyrise::tx::transaction_cid_t cid) {
+void PrettyPrinter::writeCid(ftprinter::FTPrinter &tp, tx::transaction_cid_t cid) {
   switch(cid) {
     case tx::UNKNOWN_CID:
       tp << "NONE";

@@ -87,16 +87,16 @@ void date_to_int(MYSQL_ROW *r, size_t col, size_t row, storage::AbstractTable *t
 
   MYSQLTYPESTRING->[HYRISETYPESTRING, CONVERSION_FUNCTION_PTR]
 */
-std::map<std::string, std::pair<hyrise::types::type_t, conversion_func> > translations = map_list_of
-    ("varchar",  make_pair(hyrise::types::string_t, var_to_string))
-    ("char",     make_pair(hyrise::types::string_t, var_to_string))
-    ("bigint",   make_pair(hyrise::types::integer_t, bigint_to_integer))
-    ("int",      make_pair(hyrise::types::integer_t, int_to_integer))
-    ("smallint", make_pair(hyrise::types::integer_t, int_to_integer))
-    ("double",   make_pair(hyrise::types::float_t, double_to_float))
-    ("date",     make_pair(hyrise::types::integer_t, date_to_int))
-    ("time",     make_pair(hyrise::types::string_t, var_to_string))
-    ("datetime", make_pair(hyrise::types::string_t, var_to_string));
+std::map<std::string, std::pair<types::type_t, conversion_func> > translations = map_list_of
+    ("varchar",  make_pair(types::string_t, var_to_string))
+    ("char",     make_pair(types::string_t, var_to_string))
+    ("bigint",   make_pair(types::integer_t, bigint_to_integer))
+    ("int",      make_pair(types::integer_t, int_to_integer))
+    ("smallint", make_pair(types::integer_t, int_to_integer))
+    ("double",   make_pair(types::float_t, double_to_float))
+    ("date",     make_pair(types::integer_t, date_to_int))
+    ("time",     make_pair(types::string_t, var_to_string))
+    ("datetime", make_pair(types::string_t, var_to_string));
 
 std::shared_ptr<storage::AbstractTable> MySQLInput::load(
     std::shared_ptr<storage::AbstractTable> intable,
@@ -116,7 +116,7 @@ std::shared_ptr<storage::AbstractTable> MySQLInput::load(
     throw std::runtime_error(std::string("mysql connection failed "));
   }
 
-  hyrise::storage::TableBuilder::param_list list;
+  storage::TableBuilder::param_list list;
   std::vector<std::string> typeList;
   {
     std::string q1 = ("SELECT COLUMN_NAME, DATA_TYPE FROM COLUMNS WHERE TABLE_NAME='" + _parameters.getTable() + "' AND TABLE_SCHEMA='" + _parameters.getSchema() + "'");
@@ -130,7 +130,7 @@ std::shared_ptr<storage::AbstractTable> MySQLInput::load(
     }
   }
 
-  auto t = hyrise::storage::TableBuilder::build(list, args.getCompressed());
+  auto t = storage::TableBuilder::build(list, args.getCompressed());
   uint64_t totalSize;
   {
     mysql_query(conn, ("USE " + _parameters.getSchema()).c_str());

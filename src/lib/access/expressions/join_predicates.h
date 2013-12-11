@@ -15,7 +15,7 @@ class JoinExpression {
   JoinExpression() { }
   virtual ~JoinExpression() { }
 
-  virtual void walk(const std::vector<hyrise::storage::c_atable_ptr_t > &i) = 0;
+  virtual void walk(const std::vector<storage::c_atable_ptr_t > &i) = 0;
 
   inline virtual bool operator()(size_t left_row, size_t right_row) {
     throw std::runtime_error("Cannot call base class");
@@ -47,7 +47,7 @@ class CompoundJoinExpression : public JoinExpression {
   explicit CompoundJoinExpression(ExpressionType t): type(t), lhs(nullptr), rhs(nullptr)
   {}
 
-  virtual void walk(const std::vector<hyrise::storage::c_atable_ptr_t > &i) {
+  virtual void walk(const std::vector<storage::c_atable_ptr_t > &i) {
     lhs->walk(i);
     rhs->walk(i);
   }
@@ -79,8 +79,8 @@ class CompoundJoinExpression : public JoinExpression {
 template <typename T>
 class EqualsJoinExpression : public JoinExpression {
  private:
-  hyrise::storage::c_atable_ptr_t left;
-  hyrise::storage::c_atable_ptr_t right;
+  storage::c_atable_ptr_t left;
+  storage::c_atable_ptr_t right;
 
   field_t left_field;
   field_t right_field;
@@ -103,9 +103,9 @@ class EqualsJoinExpression : public JoinExpression {
       right_input(r)
   {}
 
-  EqualsJoinExpression(hyrise::storage::c_atable_ptr_t _left,
+  EqualsJoinExpression(storage::c_atable_ptr_t _left,
                        field_t _left_field,
-                       hyrise::storage::c_atable_ptr_t _right,
+                       storage::c_atable_ptr_t _right,
                        field_t _right_field) :
       left(_left), right(_right), left_field(_left_field), right_field(_right_field) { }
 
@@ -113,7 +113,7 @@ class EqualsJoinExpression : public JoinExpression {
   ~EqualsJoinExpression() {
   }
 
-  virtual void walk(const std::vector<hyrise::storage::c_atable_ptr_t > &i) {
+  virtual void walk(const std::vector<storage::c_atable_ptr_t > &i) {
     left = i[left_input];
     right = i[right_input];
 

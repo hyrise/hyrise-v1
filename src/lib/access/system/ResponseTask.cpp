@@ -44,7 +44,7 @@ struct json_functor {
 
 template<typename T>
 Json::Value generateRowsJsonT(const T& table, const size_t transmitLimit, const size_t transmitOffset) {
-  hyrise::storage::type_switch<hyrise_basic_types> ts;
+  storage::type_switch<hyrise_basic_types> ts;
   json_functor<T> fun(table);
   Json::Value rows(Json::arrayValue);
   for (size_t row = 0; row < table->size(); ++row) {
