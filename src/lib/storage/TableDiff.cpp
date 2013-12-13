@@ -1,6 +1,7 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "TableDiff.h"
 
+#include <iostream>
 #include <storage/AbstractTable.h>
 #include <storage/meta_storage.h>
 

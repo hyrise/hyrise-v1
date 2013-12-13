@@ -117,7 +117,7 @@ class QueryParser {
     return true;
   }
   
-  std::shared_ptr<PlanOperation> parse(std::string name, Json::Value d);
+  std::shared_ptr<PlanOperation> parse(std::string name, const Json::Value& d);
   
   static QueryParser &instance();
 

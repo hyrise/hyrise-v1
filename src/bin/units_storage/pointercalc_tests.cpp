@@ -26,6 +26,14 @@ atable_ptr_t createTable(std::string description) {
   return io::Loader::load(params);
 }
 
+TEST_F(PointerCalcTests, rename_field) {
+  auto t = createTable(table_7);
+  auto res = PointerCalculator::create(t);
+  ASSERT_EQ(t->nameOfColumn(0), res->nameOfColumn(0));
+  res->rename(0, "NoMobile");
+  ASSERT_EQ("NoMobile", res->nameOfColumn(0));
+}
+
 TEST_F(PointerCalcTests, pc_from_vertical_table_slice_count) {
   auto t = createTable(table_7);
   ASSERT_EQ(7u, t->partitionCount());

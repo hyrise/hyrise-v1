@@ -10,6 +10,7 @@ hyr-server.binname := hyrise-server
 hyr-server.deps := hyr-access extensions
 hyr-server.libs := boost_program_options
 $(eval $(call full_link_binary,hyr-server))
+
 all: $(hyr-server.binary)
 
 
