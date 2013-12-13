@@ -125,13 +125,14 @@ task_states_t ResponseTask::getState() const {
 }
 
 void ResponseTask::operator()() {
-  epoch_t responseStart = get_epoch_nanoseconds();
+  epoch_t responseStart = _recordPerformanceData ? get_epoch_nanoseconds() : 0;
   Json::Value response;
 
   if (getDependencyCount() > 0) {
     PapiTracer pt;
     pt.addEvent("PAPI_TOT_CYC");
-    pt.start();
+
+    if(_recordPerformanceData) pt.start();
 
     auto predecessor = getResultTask();
     const auto& result = predecessor->getResultTable();
@@ -171,6 +172,7 @@ void ResponseTask::operator()() {
           element["executingThread"] = Json::Value(attr->executingThread);
           json_perf.append(element);
         }
+        
         pt.stop();
 
         Json::Value responseElement;
@@ -208,6 +210,8 @@ void ResponseTask::operator()() {
     }
     response["error"] = errors;
   }
+
+  LOG4CXX_DEBUG(_logger, response);
 
   Json::FastWriter fw;
   connection->respond(fw.write(response));

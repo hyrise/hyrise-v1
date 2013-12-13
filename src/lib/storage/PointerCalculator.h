@@ -2,6 +2,7 @@
 #pragma once
 
 #include <vector>
+#include <memory>
 
 #include "helper/types.h"
 #include "helper/SharedFactory.h"
@@ -53,7 +54,10 @@ public:
   void validate(tx::transaction_id_t tid, tx::transaction_id_t cid);
 
   void remove(const pos_list_t& pl);
+
+  void rename(const field_t f, const std::string newName);
   
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // AbstractTable interface
   atable_ptr_t copy() const override;
   atable_ptr_t copy_structure(const field_list_t *fields = nullptr, const bool reuse_dict = false, const size_t initial_size = 0, const bool with_containers = true, const bool compressed = false) const override;
@@ -75,6 +79,9 @@ public:
   c_atable_ptr_t table;
   pos_list_t *pos_list;
   field_list_t *fields;
+
+  // Vector mapping the renaed field names
+  std::unique_ptr<std::vector<ColumnMetadata*>> _renamed;
 
   std::vector<size_t> slice_for_slice;
   std::vector<size_t> offset_in_slice;

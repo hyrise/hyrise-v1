@@ -12,6 +12,7 @@
 #include "storage/AbstractIndex.h"
 #include "storage/AbstractTable.h"
 
+#include <unordered_map>
 #include <memory>
 
 namespace hyrise {
@@ -20,15 +21,17 @@ namespace storage {
 template<typename T>
 class InvertedIndex : public AbstractIndex {
 private:
-  typedef std::map<T, pos_list_t> inverted_index_t;
+  //using inverted_index_t = std::map<T, pos_list_t>;
+  using inverted_index_t = std::unordered_map<T, pos_list_t>;
   inverted_index_t _index;
 
 public:
   virtual ~InvertedIndex() {};
 
   void shrink() {
-for (auto & e : _index)
+    for (auto & e : _index) {
       e.second.shrink_to_fit();
+    }
   }
 
   explicit InvertedIndex(const c_atable_ptr_t& in, field_t column) {
