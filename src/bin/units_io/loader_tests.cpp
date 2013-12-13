@@ -4,11 +4,13 @@
 #include <io/CSVLoader.h>
 #include <io/EmptyLoader.h>
 #include <io/Loader.h>
+#include <io/StringLoader.h>
 
 #include <storage/MutableVerticalTable.h>
 #include <storage/Store.h>
 
-using namespace hyrise;
+namespace hyrise {
+namespace io {
 
 class LoaderTests : public ::hyrise::Test {};
 
@@ -53,8 +55,6 @@ TEST_F(LoaderTests, load_table_simple_empty) {
   ASSERT_EQ(t->columnCount(), 5u);
 }
 
-#include <io/StringLoader.h>
-
 TEST_F(LoaderTests, load_string_header) {
   StringHeader header("a|b|c|d|e\nINTEGER|INTEGER|INTEGER|INTEGER|INTEGER\n0_R|0_R|1_R|2_R|3_R");
   hyrise::storage::atable_ptr_t  t =  Loader::load(Loader::params().setHeader(header));
@@ -78,3 +78,6 @@ TEST_F(LoaderTests, load_table_hyrise_format) {
   hyrise::storage::atable_ptr_t  t = loadTable();
   ASSERT_EQ(t->size(), 100u);
 }
+
+} } // namespace hyrise::io
+

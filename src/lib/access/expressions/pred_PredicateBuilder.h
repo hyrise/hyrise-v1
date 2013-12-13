@@ -1,19 +1,20 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#ifndef SRC_LIB_ACCESS_PRED_PREDICATEBUILDER_H_
-#define SRC_LIB_ACCESS_PRED_PREDICATEBUILDER_H_
+#pragma once
 #include <stack>
 
 #include "pred_common.h"
 #include "pred_CompoundExpression.h"
 
-/*
+namespace hyrise {
+namespace access {
+
+/**
  * @brief Creates the predicate tree required for Selections
  *
  * All predicates both SimpleFieldExpression and CompoundExpression
  * have to be added in the correct execution order using prefix
  * notation.
  */
-
 class PredicateBuilder {
   std::stack<CompoundExpression *> previous;
   SimpleExpression *root;
@@ -26,4 +27,5 @@ class PredicateBuilder {
   SimpleExpression *build();
 };
 
-#endif  // SRC_LIB_ACCESS_PRED_PREDICATEBUILDER_H_
+} } // namespace hyrise::access
+

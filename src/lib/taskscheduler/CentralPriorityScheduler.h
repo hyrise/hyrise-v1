@@ -5,8 +5,7 @@
  *      Author: jwust
  */
 
-#ifndef CENTRALPRIORITYSCHEDULER_H_
-#define CENTRALPRIORITYSCHEDULER_H_
+#pragma once
 
 #include "AbstractTaskScheduler.h"
 #include "helper/HwlocHelper.h"
@@ -15,7 +14,9 @@
 #include <queue>
 #include <vector>
 #include <condition_variable>
-#include <taskscheduler/SharedScheduler.h>
+
+namespace hyrise {
+namespace taskscheduler {
 
 class CentralPriorityScheduler;
 
@@ -40,6 +41,7 @@ class CentralPriorityScheduler :
   public TaskReadyObserver,
   public std::enable_shared_from_this<TaskReadyObserver> {
   friend class PriorityWorkerThread;
+protected:
   typedef std::unordered_set<std::shared_ptr<Task> > waiting_tasks_t;
   // set for tasks with open dependencies
   waiting_tasks_t _waitSet;
@@ -83,4 +85,5 @@ public:
 
 };
 
-#endif /* CENTRALPRIORITYSCHEDULER_H_ */
+} } // namespace hyrise::taskscheduler
+

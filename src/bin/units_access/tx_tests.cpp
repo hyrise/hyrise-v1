@@ -24,11 +24,11 @@ class TransactionTests : public AccessTest {
 
 public:
 
-  hyrise::storage::c_atable_ptr_t data;
-  hyrise::storage::store_ptr_t linxxxs;
+  storage::c_atable_ptr_t data;
+  storage::store_ptr_t linxxxs;
 
-  hyrise::storage::atable_ptr_t one_row;
-  hyrise::storage::atable_ptr_t second_row;
+  storage::atable_ptr_t one_row;
+  storage::atable_ptr_t second_row;
 
   void SetUp() {
 
@@ -56,8 +56,8 @@ public:
     second_row->setValue<hyrise_int_t>(1,0, 222);
 
     // Convert to store
-    data = std::make_shared<storage::Store>(TableBuilder::build(list));
-    linxxxs = std::dynamic_pointer_cast<storage::Store>(Loader::shortcuts::load("test/lin_xxxs.tbl"));
+    data = std::make_shared<storage::Store>(storage::TableBuilder::build(list));
+    linxxxs = std::dynamic_pointer_cast<storage::Store>(io::Loader::shortcuts::load("test/lin_xxxs.tbl"));
   }
 
 
@@ -100,8 +100,8 @@ TEST_F(TransactionTests, read_own_writes) {
 
 TEST_F(TransactionTests, read_only_commited) {
 
-  auto writeCtx =hyrise::tx::TransactionManager::getInstance().buildContext();
-  auto readCtx =hyrise::tx::TransactionManager::getInstance().buildContext();
+  auto writeCtx = tx::TransactionManager::getInstance().buildContext();
+  auto readCtx = tx::TransactionManager::getInstance().buildContext();
 
   size_t before = linxxxs->size();
   // Add One read all
@@ -111,7 +111,7 @@ TEST_F(TransactionTests, read_only_commited) {
   is.setInputData(one_row);
   is.execute();
 
-  auto& mod = hyrise::tx::TransactionManager::getInstance()[readCtx.tid];
+  auto& mod = tx::TransactionManager::getInstance()[readCtx.tid];
   ASSERT_EQ(0u, mod.inserted.size());
 
   ProjectionScan ps;
@@ -132,10 +132,10 @@ TEST_F(TransactionTests, read_only_commited) {
 
 TEST_F(TransactionTests, concurrent_writer) {
 
-  auto writeCtx =hyrise::tx::TransactionManager::getInstance().buildContext();
-  auto writeCtx2 =hyrise::tx::TransactionManager::getInstance().buildContext();
+  auto writeCtx = tx::TransactionManager::getInstance().buildContext();
+  auto writeCtx2 = tx::TransactionManager::getInstance().buildContext();
 
-  auto& mod = hyrise::tx::TransactionManager::getInstance()[writeCtx.tid];
+  auto& mod = tx::TransactionManager::getInstance()[writeCtx.tid];
   ASSERT_EQ(0u, mod.inserted.size());
 
 
@@ -188,11 +188,11 @@ TEST_F(TransactionTests, concurrent_writer) {
 
 TEST_F(TransactionTests, delete_op) {
 
-  auto writeCtx =hyrise::tx::TransactionManager::getInstance().buildContext();
+  auto writeCtx = tx::TransactionManager::getInstance().buildContext();
   size_t before = linxxxs->size();
 
   // Add One read all
-  auto pc = PointerCalculator::create(linxxxs, new pos_list_t({0}));
+  auto pc = storage::PointerCalculator::create(linxxxs, new pos_list_t({0}));
   ASSERT_EQ(1u, pc->size());
 
   DeleteOp del;
@@ -200,7 +200,7 @@ TEST_F(TransactionTests, delete_op) {
   del.addInput(pc);
   del.execute();
 
-  auto& mod = hyrise::tx::TransactionManager::getInstance()[writeCtx.tid];
+  auto& mod = tx::TransactionManager::getInstance()[writeCtx.tid];
   ASSERT_EQ(1u, mod.deleted.size());
 
   // Commit the changes from the first TX and check that we still dont see it for the second
@@ -209,7 +209,7 @@ TEST_F(TransactionTests, delete_op) {
   c.setTXContext(writeCtx);
   c.execute();
 
-  auto readCtx =hyrise::tx::TransactionManager::getInstance().buildContext();
+  auto readCtx = tx::TransactionManager::getInstance().buildContext();
   ProjectionScan ps;
   ps.addInput(linxxxs);
   ps.setTXContext(readCtx);
@@ -230,11 +230,11 @@ TEST_F(TransactionTests, delete_op) {
 
 TEST_F(TransactionTests, read_your_own_deletes) {
 
-  auto writeCtx = hyrise::tx::TransactionManager::getInstance().buildContext();
+  auto writeCtx = tx::TransactionManager::getInstance().buildContext();
   size_t before = linxxxs->size();
 
   // Add One read all
-  auto pc = PointerCalculator::create(linxxxs, new pos_list_t({0}));
+  auto pc = storage::PointerCalculator::create(linxxxs, new pos_list_t({0}));
   ASSERT_EQ(1u, pc->size());
 
   DeleteOp del;
@@ -242,7 +242,7 @@ TEST_F(TransactionTests, read_your_own_deletes) {
   del.addInput(pc);
   del.execute();
 
-  auto& mod = hyrise::tx::TransactionManager::getInstance()[writeCtx.tid];
+  auto& mod = tx::TransactionManager::getInstance()[writeCtx.tid];
   ASSERT_EQ(1u, mod.deleted.size());
 
   ProjectionScan ps;
@@ -263,7 +263,7 @@ TEST_F(TransactionTests, read_your_own_deletes) {
 
 TEST_F(TransactionTests, read_your_own_inserted_and_deleted) {
 
-  auto writeCtx = hyrise::tx::TransactionManager::getInstance().buildContext();
+  auto writeCtx = tx::TransactionManager::getInstance().buildContext();
 
   InsertScan is;
   is.setTXContext(writeCtx);
@@ -274,7 +274,7 @@ TEST_F(TransactionTests, read_your_own_inserted_and_deleted) {
   size_t before = linxxxs->size();
 
   // Add One read all
-  auto pc = PointerCalculator::create(linxxxs, new pos_list_t({before-1}));
+  auto pc = storage::PointerCalculator::create(linxxxs, new pos_list_t({before-1}));
   ASSERT_EQ(1u, pc->size());
 
   DeleteOp del;
@@ -301,11 +301,11 @@ TEST_F(TransactionTests, read_your_own_inserted_and_deleted) {
 
 TEST_F(TransactionTests, delete_op_and_concurrent_read) {
 
-  auto writeCtx =hyrise::tx::TransactionManager::getInstance().buildContext();
+  auto writeCtx = tx::TransactionManager::getInstance().buildContext();
   size_t before = linxxxs->size();
 
   // Add One read all
-  auto pc = PointerCalculator::create(linxxxs, new pos_list_t({0}));
+  auto pc = storage::PointerCalculator::create(linxxxs, new pos_list_t({0}));
   ASSERT_EQ(1u, pc->size());
 
   DeleteOp del;
@@ -316,7 +316,7 @@ TEST_F(TransactionTests, delete_op_and_concurrent_read) {
   auto& mod = hyrise::tx::TransactionManager::getInstance()[writeCtx.tid];
   ASSERT_EQ(1u, mod.deleted.size());
 
-  auto readCtx =hyrise::tx::TransactionManager::getInstance().buildContext();
+  auto readCtx = tx::TransactionManager::getInstance().buildContext();
   ProjectionScan ps;
   ps.addInput(linxxxs);
   ps.setTXContext(readCtx);
@@ -336,11 +336,11 @@ TEST_F(TransactionTests, delete_op_and_concurrent_read) {
 
 TEST_F(TransactionTests, delete_op_with_commit_and_concurrent_read) {
 
-  auto writeCtx =hyrise::tx::TransactionManager::getInstance().buildContext();
+  auto writeCtx = tx::TransactionManager::getInstance().buildContext();
   size_t before = linxxxs->size();
 
   // Delete positiotn 0
-  auto pc = PointerCalculator::create(linxxxs, new pos_list_t({0}));
+  auto pc = storage::PointerCalculator::create(linxxxs, new pos_list_t({0}));
   ASSERT_EQ(1u, pc->size());
 
   DeleteOp del;
@@ -358,11 +358,11 @@ TEST_F(TransactionTests, delete_op_with_commit_and_concurrent_read) {
 
 
 
-  auto& mod = hyrise::tx::TransactionManager::getInstance()[writeCtx.tid];
+  auto& mod = tx::TransactionManager::getInstance()[writeCtx.tid];
   ASSERT_EQ(1u, mod.deleted.size());
 
   // read all
-  auto readCtx =hyrise::tx::TransactionManager::getInstance().buildContext();
+  auto readCtx = tx::TransactionManager::getInstance().buildContext();
   ProjectionScan ps;
   ps.addInput(linxxxs);
   ps.setTXContext(readCtx);
@@ -384,11 +384,11 @@ TEST_F(TransactionTests, delete_op_with_commit_and_concurrent_read) {
 
 TEST_F(TransactionTests, delete_op_and_merge) {
 
-  auto writeCtx =hyrise::tx::TransactionManager::getInstance().buildContext();
+  auto writeCtx = tx::TransactionManager::getInstance().buildContext();
   size_t before = linxxxs->size();
 
   // Add One read all
-  auto pc = PointerCalculator::create(linxxxs, new pos_list_t({0}));
+  auto pc = storage::PointerCalculator::create(linxxxs, new pos_list_t({0}));
   ASSERT_EQ(1u, pc->size());
 
   DeleteOp del;
@@ -414,7 +414,7 @@ TEST_F(TransactionTests, delete_op_and_merge) {
 
 
   // Check after merge
-  auto readCtx =hyrise::tx::TransactionManager::getInstance().buildContext();
+  auto readCtx = tx::TransactionManager::getInstance().buildContext();
   ProjectionScan ps;
   ps.addInput(result);
   ps.setTXContext(readCtx);
@@ -435,14 +435,14 @@ TEST_F(TransactionTests, delete_op_and_merge) {
 
 TEST_F(TransactionTests, update_and_read_values) {
 
-  auto writeCtx =hyrise::tx::TransactionManager::getInstance().buildContext();
-  auto& mod = hyrise::tx::TransactionManager::getInstance()[writeCtx.tid];
+  auto writeCtx = tx::TransactionManager::getInstance().buildContext();
+  auto& mod = tx::TransactionManager::getInstance()[writeCtx.tid];
 
   ASSERT_EQ(0u, mod.inserted.size());
   size_t before = linxxxs->size();
 
   // create PC to simulate position
-  auto pc = PointerCalculator::create(linxxxs, new pos_list_t({0,4}));
+  auto pc = storage::PointerCalculator::create(linxxxs, new pos_list_t({0,4}));
 
   PosUpdateScan is;
   is.setTXContext(writeCtx);
@@ -476,14 +476,14 @@ TEST_F(TransactionTests, update_and_read_values) {
 
 TEST_F(TransactionTests, update_and_merge) {
 
-  auto writeCtx =hyrise::tx::TransactionManager::getInstance().buildContext();
-  auto& mod = hyrise::tx::TransactionManager::getInstance()[writeCtx.tid];
+  auto writeCtx = tx::TransactionManager::getInstance().buildContext();
+  auto& mod = tx::TransactionManager::getInstance()[writeCtx.tid];
 
   ASSERT_EQ(0u, mod.inserted.size());
   size_t before = linxxxs->size();
 
   // create PC to simulate position
-  auto pc = PointerCalculator::create(linxxxs, new pos_list_t({0,4}));
+  auto pc = storage::PointerCalculator::create(linxxxs, new pos_list_t({0,4}));
 
   PosUpdateScan is;
   is.setTXContext(writeCtx);
@@ -514,7 +514,7 @@ TEST_F(TransactionTests, update_and_merge) {
   mt.execute();
 
   auto result = mt.getResultTable();
-  const auto& ref =  Loader::shortcuts::load("test/reference/lin_xxxs_update.tbl");
+  const auto& ref =  io::Loader::shortcuts::load("test/reference/lin_xxxs_update.tbl");
   EXPECT_RELATION_EQ(ref, result);
 
 
@@ -538,7 +538,7 @@ TEST_F(TransactionTests, update_and_merge) {
 
 TEST_F(TransactionTests, delete_rollback) {
   auto writeCtx = tx::TransactionManager::beginTransaction();
-  auto pc = PointerCalculator::create(linxxxs, new pos_list_t({0}));
+  auto pc = storage::PointerCalculator::create(linxxxs, new pos_list_t({0}));
   ASSERT_EQ(tx::START_TID, linxxxs->tid(0));
 
   DeleteOp del;

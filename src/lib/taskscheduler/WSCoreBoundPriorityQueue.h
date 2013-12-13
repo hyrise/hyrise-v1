@@ -5,12 +5,14 @@
  *      Author: jwust
  */
 
-#ifndef WSCOREBOUNDPRIORITYQUEUE_H_
-#define WSCOREBOUNDPRIORITYQUEUE_H_
+#pragma once
 
 #include "WSCoreBoundPriorityQueuesScheduler.h"
 #include "AbstractCoreBoundQueue.h"
 #include "tbb/concurrent_priority_queue.h"
+
+namespace hyrise {
+namespace taskscheduler {
 
 class WSCoreBoundPriorityQueuesScheduler;
 
@@ -56,4 +58,5 @@ public:
   void refreshQueues();
 };
 
-#endif /* WSCOREBOUNDPRIORITYQUEUE_H_ */
+} } // namespace hyrise::taskscheduler
+

@@ -1,6 +1,7 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "access/storage/UnloadAll.h"
 #include "io/shortcuts.h"
+#include "io/StorageManager.h"
 #include "testing/test.h"
 
 namespace hyrise {
@@ -9,10 +10,10 @@ namespace access {
 class UnloadAllTests : public AccessTest {};
 
 TEST_F(UnloadAllTests, basic_unload_all_test) {
-  auto sm = StorageManager::getInstance();
-  auto t1 = Loader::shortcuts::load("test/lin_xxs.tbl");
-  auto t2 = Loader::shortcuts::load("test/lin_xxxs.tbl");
-  auto t3 = Loader::shortcuts::load("test/10_30_group.tbl");
+  auto sm = io::StorageManager::getInstance();
+  auto t1 = io::Loader::shortcuts::load("test/lin_xxs.tbl");
+  auto t2 = io::Loader::shortcuts::load("test/lin_xxxs.tbl");
+  auto t3 = io::Loader::shortcuts::load("test/10_30_group.tbl");
 
   ASSERT_THROW(sm->getTable("table1"), io::ResourceManagerException);
   ASSERT_THROW(sm->getTable("table2"), io::ResourceManagerException);

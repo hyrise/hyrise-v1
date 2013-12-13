@@ -11,7 +11,7 @@ namespace access {
 class GroupByScanTests : public AccessTest {};
 
 TEST_F(GroupByScanTests, basic_group_by_test) {
-  auto t = Loader::shortcuts::load("test/10_30_group.tbl");
+  auto t = io::Loader::shortcuts::load("test/10_30_group.tbl");
 
   HashBuild hb;
   hb.addInput(t);
@@ -33,8 +33,8 @@ TEST_F(GroupByScanTests, basic_group_by_test) {
 }
 
 TEST_F(GroupByScanTests, group_by_with_multiple_fields) {
-  auto t = Loader::shortcuts::load("test/10_30_group.tbl");
-  auto reference = Loader::shortcuts::load("test/10_30_group_multi_result.tbl");
+  auto t = io::Loader::shortcuts::load("test/10_30_group.tbl");
+  auto reference = io::Loader::shortcuts::load("test/10_30_group_multi_result.tbl");
 
   HashBuild hb;
   hb.addInput(t);
@@ -58,8 +58,8 @@ TEST_F(GroupByScanTests, group_by_with_multiple_fields) {
 }
 
 TEST_F(GroupByScanTests, group_by_with_aggregate_function) {
-  auto t = Loader::shortcuts::load("test/10_30_group.tbl");
-  auto reference = Loader::shortcuts::load("test/10_30_group_count_result.tbl");
+  auto t = io::Loader::shortcuts::load("test/10_30_group.tbl");
+  auto reference = io::Loader::shortcuts::load("test/10_30_group_count_result.tbl");
 
   auto count = new CountAggregateFun(0);
 

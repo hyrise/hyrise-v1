@@ -1,13 +1,14 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#ifndef SRC_LIB_LAYOUTER_CONFIG_H_
-#define SRC_LIB_LAYOUTER_CONFIG_H_
+#pragma once
 
 #define CACHE_LINE_SIZE 64
 #define HYRISE_COST "HYRISECost"
 #define ROW_COST "RowCost"
 #define COL_COST "ColumnCost"
 
+namespace hyrise {
 namespace layouter {
+
 struct LayouterConfiguration {
   typedef enum {
     access_type_fullprojection,
@@ -15,5 +16,5 @@ struct LayouterConfiguration {
     access_type_default
   } access_type_t;
 };
-}
-#endif  // SRC_LIB_LAYOUTER_CONFIG_H_
+
+} } // namespace hyrise::layouter

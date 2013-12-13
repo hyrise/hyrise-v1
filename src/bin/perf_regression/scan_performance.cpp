@@ -22,7 +22,7 @@
 //#include "gperftools/profiler.h"
 
 namespace hyrise {
-using namespace access;
+namespace access {
 
 static const size_t BNUM_VALUES = 10000000;
 static const size_t DISTINCT_VALUES = BNUM_VALUES/100;
@@ -53,10 +53,10 @@ class ScanBench : public ::testing::Benchmark {
     SetWarmUp(2);
 
     init_data();
-    auto p = Loader::params()
-        .setInput(VectorInput({_data}))
-        .setHeader(StringHeader("col1\nINTEGER\n0_R"));
-    _table = Loader::load(p);
+    auto p = io::Loader::params()
+        .setInput(io::VectorInput({_data}))
+        .setHeader(io::StringHeader("col1\nINTEGER\n0_R"));
+    _table = io::Loader::load(p);
     _value = _data[_data.size()-1];
   }
 
@@ -99,4 +99,5 @@ BENCHMARK_F(ScanBench, CMP_scanperformance_hyriseSpecial) {
   _tablescanSpecial->execute();
 }
 
-}
+} } // namespace hyrise::access
+

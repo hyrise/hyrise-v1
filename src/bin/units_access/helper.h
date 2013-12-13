@@ -1,16 +1,16 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#ifndef SRC_BIN_UNITS_ACCESS_HELPER_H_
-#define SRC_BIN_UNITS_ACCESS_HELPER_H_
+#pragma once
 
 #include <json.h>
 #include <gtest/gtest.h>
 #include "helper/HwlocHelper.h"
 #include <storage/AbstractTable.h>
 
+namespace hyrise {
+namespace access {
+
 //  Joins specified columns of a single table using hash join.
-hyrise::storage::c_atable_ptr_t hashJoinSameTable(
-    hyrise::storage::atable_ptr_t table,
-    field_list_t &columns);
+storage::c_atable_ptr_t hashJoinSameTable(storage::atable_ptr_t table, field_list_t &columns);
 
 //  Used for message chaining to improve code readability when building edges maps
 class EdgesBuilder {
@@ -27,7 +27,7 @@ class EdgesBuilder {
   Json::Value getEdges() const;
 };
 
-hyrise::storage::c_atable_ptr_t sortTable(hyrise::storage::c_atable_ptr_t table);
+storage::c_atable_ptr_t sortTable(storage::c_atable_ptr_t table);
 
 bool isEdgeEqual(
     const Json::Value &edges,
@@ -37,9 +37,9 @@ bool isEdgeEqual(
 
 std::string loadFromFile(std::string path);
 
-hyrise::storage::c_atable_ptr_t executeAndWait(
+storage::c_atable_ptr_t executeAndWait(
     std::string httpQuery,
     size_t poolSize = getNumberOfCoresOnSystem(),
     std::string *evt = nullptr);
 
-#endif  // SRC_BIN_UNITS_ACCESS_HELPER_H_
+} } // namespace hyrise::access

@@ -1,6 +1,5 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#ifndef SRC_LIB_HELPER_TYPES_H_
-#define SRC_LIB_HELPER_TYPES_H_
+#pragma once
 
 #include <cstdint>
 #include <string>
@@ -8,11 +7,13 @@
 #include <memory>
 #include <vector>
 
+namespace hyrise { namespace storage {
 class AbstractResource;
 class AbstractTable;
 class AbstractIndex;
 class AbstractHashTable;
 class AbstractDictionary;
+} } // namespace hyrise::storage
 
 
 class PointerCalculator;
@@ -96,11 +97,13 @@ typedef std::vector<pos_t> pos_list_t;
 typedef std::vector<field_t> field_list_t;
 }
 
+namespace taskscheduler {
+  class Task;
+  typedef std::shared_ptr<Task> task_ptr_t;
+}
+
 // constraints
 static_assert(std::is_same<tx::transaction_id_t, storage::hyrise_int_t>::value,
               "transaction_id_t and hyrise_int_t need to be of the same type");
 }
 
-
-
-#endif

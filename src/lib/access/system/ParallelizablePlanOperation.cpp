@@ -18,7 +18,7 @@ void ParallelizablePlanOperation::splitInput() {
   const auto& tables = input.getTables();
   if (_count > 0 && !tables.empty()) {
     auto r = distribute(tables[0]->size(), _part, _count);
-    input.setTable(storage::TableRangeView::create(std::const_pointer_cast<AbstractTable>(tables[0]), r.first, r.second), 0);
+    input.setTable(storage::TableRangeView::create(std::const_pointer_cast<storage::AbstractTable>(tables[0]), r.first, r.second), 0);
   }
 }
 

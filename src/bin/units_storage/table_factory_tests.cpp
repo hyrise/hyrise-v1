@@ -4,7 +4,10 @@
 #include "storage/AbstractTable.h"
 #include "storage/TableFactory.h"
 
-class TableFactoryTests : public ::hyrise::Test {};
+namespace hyrise {
+namespace storage {
+
+class TableFactoryTests : public Test {};
 
 TEST_F(TableFactoryTests, number_of_column) {
   TableFactory t;
@@ -12,3 +15,5 @@ TEST_F(TableFactoryTests, number_of_column) {
   meta.push_back(new ColumnMetadata("basti", IntegerType));
   hyrise::storage::atable_ptr_t  table = t.generate(&meta);
 }
+
+} } // namespace hyrise::storage

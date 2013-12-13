@@ -1,0 +1,26 @@
+{
+"operators": {
+  "-1" : {
+    "type" : "TableLoad",
+    "filename" : "tables/revenue_2009.tbl",
+    "table" : "reference"
+  },
+  "0" : {
+      "type" : "TableLoad",
+      "filename" : "tables/revenue.tbl",
+      "table" : "revenue"
+  },
+  "1" : {
+      "type" : "TableScan",
+      "dynamic": true,
+      "expression": "hyrise::example",
+      "column": 0,
+      "value": 2009
+  },
+  "2" : {
+      "type" : "MaterializingScan",
+      "memcpy" : true
+  }
+    },
+    "edges" : [["0","1"],["1","2"]]
+}

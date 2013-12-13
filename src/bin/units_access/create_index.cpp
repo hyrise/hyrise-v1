@@ -15,7 +15,7 @@ class IndexTests : public AccessTest {};
 TEST_F(IndexTests, basic_index_test) {
   std::string table = "test_table1";
 
-  std::shared_ptr<AbstractTable> t = Loader::shortcuts::load("test/index_test.tbl");
+  auto t = io::Loader::shortcuts::load("test/index_test.tbl");
 
   hyrise::access::CreateIndex i;
   i.addInput(t);
@@ -23,8 +23,8 @@ TEST_F(IndexTests, basic_index_test) {
   i.setIndexName(table);
   i.execute();
 
-  StorageManager *sm = StorageManager::getInstance();
-  std::shared_ptr<InvertedIndex<hyrise_int_t>> index = std::dynamic_pointer_cast<InvertedIndex<hyrise_int_t>> (sm->getInvertedIndex(table));
+  auto sm = io::StorageManager::getInstance();
+  auto index = std::dynamic_pointer_cast<storage::InvertedIndex<hyrise_int_t>> (sm->getInvertedIndex(table));
   int key = 30;
   pos_list_t positions = index->getPositionsForKey(key);
   pos_t first_pos = positions[0];
@@ -35,15 +35,15 @@ TEST_F(IndexTests, basic_index_test) {
 
 TEST_F(IndexTests, multiple_positions_index_test) {
   std::string table = "test_table2";
-  std::shared_ptr<AbstractTable> t = Loader::shortcuts::load("test/index_test2.tbl");
-  hyrise::access::CreateIndex i;
+  auto t = io::Loader::shortcuts::load("test/index_test2.tbl");
+  CreateIndex i;
   i.addInput(t);
   i.addField(1);
   i.setIndexName(table);
   i.execute();
 
-  StorageManager *sm = StorageManager::getInstance();
-  std::shared_ptr<InvertedIndex<hyrise_string_t>> index = std::dynamic_pointer_cast<InvertedIndex<hyrise_string_t>> (sm->getInvertedIndex(table));
+  auto sm = io::StorageManager::getInstance();
+  auto index = std::dynamic_pointer_cast<storage::InvertedIndex<hyrise_string_t>> (sm->getInvertedIndex(table));
   std::string key1 = "Bayer";
   std::string key2 = "RWE";
   pos_list_t positions1 = index->getPositionsForKey(key1);
@@ -64,7 +64,7 @@ TEST_F(IndexTests, multiple_positions_index_test) {
 TEST_F(IndexTests, basic_index_test_float) {
   std::string table = "test_table3";
 
-  std::shared_ptr<AbstractTable> t = Loader::shortcuts::load("test/index_test.tbl");
+  auto t = io::Loader::shortcuts::load("test/index_test.tbl");
 
   hyrise::access::CreateIndex i;
   i.addInput(t);
@@ -72,8 +72,8 @@ TEST_F(IndexTests, basic_index_test_float) {
   i.setIndexName(table);
   i.execute();
 
-  StorageManager *sm = StorageManager::getInstance();
-  std::shared_ptr<InvertedIndex<hyrise_float_t>> index = std::dynamic_pointer_cast<InvertedIndex<hyrise_float_t>> (sm->getInvertedIndex(table));
+  auto sm = io::StorageManager::getInstance();
+  auto index = std::dynamic_pointer_cast<storage::InvertedIndex<hyrise_float_t>> (sm->getInvertedIndex(table));
   float key = 71.1;
   pos_list_t positions = index->getPositionsForKey(key);
   pos_t first_pos = positions[0];

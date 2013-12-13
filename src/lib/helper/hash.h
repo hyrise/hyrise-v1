@@ -1,6 +1,5 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#ifndef SRC_LIB_HELPER_HASH_H_
-#define SRC_LIB_HELPER_HASH_H_
+#pragma once
 
 #include <sys/types.h>
 
@@ -32,7 +31,3 @@
 u_int64_t
 fnv_64a_int(u_int64_t hash, u_int64_t integer, size_t size);
 
-
-
-
-#endif  // SRC_LIB_HELPER_HASH_H_

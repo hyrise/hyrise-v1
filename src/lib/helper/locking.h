@@ -1,5 +1,4 @@
-#ifndef SRC_LIB_HELPER_LOCKING_H_
-#define SRC_LIB_HELPER_LOCKING_H_
+#pragma once
 
 #include <thread>
 #include <atomic>
@@ -37,4 +36,3 @@ class Spinlock {
 
 }}
 
-#endif // SRC_LIB_HELPER_LOCKING_H_

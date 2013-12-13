@@ -9,6 +9,9 @@
 #include "WSCoreBoundPriorityQueue.h"
 #include "SharedScheduler.h"
 
+namespace hyrise {
+namespace taskscheduler {
+
 // register Scheduler at SharedScheduler
 namespace {
 bool registered  =
@@ -85,5 +88,7 @@ void WSCoreBoundPriorityQueuesScheduler::pushToQueue(std::shared_ptr<Task> task)
 
 WSCoreBoundPriorityQueuesScheduler::task_queue_t *WSCoreBoundPriorityQueuesScheduler::createTaskQueue(int core) {
     return new WSCoreBoundPriorityQueue(core, this);
-  }
+}
+
+} } // namespace hyrise::taskscheduler
 

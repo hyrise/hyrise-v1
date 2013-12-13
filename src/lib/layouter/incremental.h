@@ -1,12 +1,12 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#ifndef SRC_LIB_LAYOUTER_INCREMENTAL_H_
-#define SRC_LIB_LAYOUTER_INCREMENTAL_H_
+#pragma once
 
 #include "base.h"
 
 #include <vector>
 #include <map>
 
+namespace hyrise {
 namespace layouter {
 /*
  *  This class defines an incremental layouter, based on the
@@ -57,6 +57,5 @@ class IncrementalCandidateLayouter : public CandidateLayouter {
 
 };
 
-}
+} } // namespace layouter
 
-#endif  // SRC_LIB_LAYOUTER_INCREMENTAL_H_

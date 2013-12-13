@@ -43,10 +43,10 @@ void LayoutTableLoad::executePlanOperation() {
 
     std::string table_description = joinString(description_lines, "\n");
 
-    StringHeader header(table_description);
-    CSVInput input(_file_name, CSVInput::params().setCSVParams(csv::HYRISE_FORMAT));
-    StorageManager *sm = StorageManager::getInstance();
-    sm->loadTable(_table_name, Loader::params().setHeader(header).setInput(input));
+    io::StringHeader header(table_description);
+    io::CSVInput input(_file_name, io::CSVInput::params().setCSVParams(io::csv::HYRISE_FORMAT));
+    auto sm = io::StorageManager::getInstance();
+    sm->loadTable(_table_name, io::Loader::params().setHeader(header).setInput(input));
     addResult(sm->getTable(_table_name));
   } else {
     throw std::runtime_error("Input of LayoutTableLoad doesn't have at least one field to begin with");

@@ -44,7 +44,7 @@ struct json_functor {
 
 template<typename T>
 Json::Value generateRowsJsonT(const T& table, const size_t transmitLimit, const size_t transmitOffset) {
-  hyrise::storage::type_switch<hyrise_basic_types> ts;
+  storage::type_switch<hyrise_basic_types> ts;
   json_functor<T> fun(table);
   Json::Value rows(Json::arrayValue);
   for (size_t row = 0; row < table->size(); ++row) {
@@ -69,9 +69,9 @@ Json::Value generateRowsJsonT(const T& table, const size_t transmitLimit, const 
   return rows;
 }
 
-Json::Value generateRowsJson(const std::shared_ptr<const AbstractTable>& table,
+Json::Value generateRowsJson(const std::shared_ptr<const storage::AbstractTable>& table,
                              const size_t transmitLimit, const size_t transmitOffset) {
-  if (const auto& store = std::dynamic_pointer_cast<const hyrise::storage::SimpleStore>(table)) {
+  if (const auto& store = std::dynamic_pointer_cast<const storage::SimpleStore>(table)) {
     return generateRowsJsonT(store, transmitLimit, transmitOffset);
   } else {
     return generateRowsJsonT(table, transmitLimit, transmitOffset);
@@ -125,13 +125,14 @@ task_states_t ResponseTask::getState() const {
 }
 
 void ResponseTask::operator()() {
-  epoch_t responseStart = get_epoch_nanoseconds();
+  epoch_t responseStart = _recordPerformanceData ? get_epoch_nanoseconds() : 0;
   Json::Value response;
 
   if (getDependencyCount() > 0) {
     PapiTracer pt;
     pt.addEvent("PAPI_TOT_CYC");
-    pt.start();
+
+    if(_recordPerformanceData) pt.start();
 
     auto predecessor = getResultTask();
     const auto& result = predecessor->getResultTable();
@@ -171,6 +172,7 @@ void ResponseTask::operator()() {
           element["executingThread"] = Json::Value(attr->executingThread);
           json_perf.append(element);
         }
+        
         pt.stop();
 
         Json::Value responseElement;
@@ -208,6 +210,8 @@ void ResponseTask::operator()() {
     }
     response["error"] = errors;
   }
+
+  LOG4CXX_DEBUG(_logger, response);
 
   Json::FastWriter fw;
   connection->respond(fw.write(response));

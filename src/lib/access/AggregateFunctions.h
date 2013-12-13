@@ -1,6 +1,5 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#ifndef SRC_LIB_ACCESS_AGGEGATEFUNCTIONS_H_
-#define SRC_LIB_ACCESS_AGGEGATEFUNCTIONS_H_
+#pragma once
 
 #include <vector>
 
@@ -9,6 +8,9 @@
 #include <storage/storage_types.h>
 
 #include <json.h>
+
+namespace hyrise {
+namespace access {
 
 struct AggregateFunctions {
   enum type {
@@ -40,7 +42,7 @@ class AggregateFun {
   explicit AggregateFun(field_name_t field_name) :
     _field_name(field_name) {}
 
-  virtual void walk(const AbstractTable &table);
+  virtual void walk(const storage::AbstractTable &table);
   field_t getField();// {
    // return _field;
   //}
@@ -48,8 +50,8 @@ class AggregateFun {
    // return _field_name;
   //}
   virtual ~AggregateFun() { }
-  virtual void processValuesForRows(const hyrise::storage::c_atable_ptr_t& t, 
-    pos_list_t *rows, hyrise::storage::atable_ptr_t& target, size_t targetRow) = 0;
+  virtual void processValuesForRows(const storage::c_atable_ptr_t& t, 
+    pos_list_t *rows, storage::atable_ptr_t& target, size_t targetRow) = 0;
   virtual DataType getType() const = 0;
   std::string columnName() const
   {
@@ -82,13 +84,13 @@ class SumAggregateFun: public AggregateFun {
    * if rows == nullptr the functor is executed
    * on all rows of the input table
    */
-  virtual void processValuesForRows(const hyrise::storage::c_atable_ptr_t& t, pos_list_t *rows, hyrise::storage::atable_ptr_t& target, size_t targetRow);
+  virtual void processValuesForRows(const storage::c_atable_ptr_t& t, pos_list_t *rows, storage::atable_ptr_t& target, size_t targetRow);
 
   virtual DataType getType() const {
     return _dataType;
   }
 
-  virtual void walk(const AbstractTable &table) {
+  virtual void walk(const storage::AbstractTable &table) {
     AggregateFun::walk(table);
     _dataType = table.typeOfColumn(_field);
     if (_dataType == StringType) {
@@ -118,9 +120,9 @@ class CountAggregateFun: public AggregateFun {
    * if map_range_t rows == nullptr all values
    * are considered for counting.
    */
-  virtual void processValuesForRows(const hyrise::storage::c_atable_ptr_t& t, pos_list_t *rows, hyrise::storage::atable_ptr_t& target, size_t targetRow);
-  size_t countRows(const hyrise::storage::c_atable_ptr_t& t, pos_list_t *rows);
-  size_t countRowsDistinct(const hyrise::storage::c_atable_ptr_t& t, pos_list_t *rows);
+  virtual void processValuesForRows(const storage::c_atable_ptr_t& t, pos_list_t *rows, storage::atable_ptr_t& target, size_t targetRow);
+  size_t countRows(const storage::c_atable_ptr_t& t, pos_list_t *rows);
+  size_t countRowsDistinct(const storage::c_atable_ptr_t& t, pos_list_t *rows);
 
   void setDistinct(bool distinct) {
     _distinct = distinct;
@@ -157,13 +159,13 @@ class AverageAggregateFun: public AggregateFun {
    * if rows == nullptr the functor is executed
    * on all rows of the input table
    */
-  virtual void processValuesForRows(const hyrise::storage::c_atable_ptr_t& t, pos_list_t *rows, hyrise::storage::atable_ptr_t& target, size_t targetRow) ;
+  virtual void processValuesForRows(const storage::c_atable_ptr_t& t, pos_list_t *rows, storage::atable_ptr_t& target, size_t targetRow) ;
 
   virtual DataType getType() const {
     return FloatType;
   }
 
-  virtual void walk(const AbstractTable &table) {
+  virtual void walk(const storage::AbstractTable &table) {
     AggregateFun::walk(table);
     _dataType = table.typeOfColumn(_field);
     if (_dataType == StringType) {
@@ -193,13 +195,13 @@ class MinAggregateFun: public AggregateFun {
    * if rows == nullptr the functor is executed
    * on all rows of the input table
    */
-  virtual void processValuesForRows(const hyrise::storage::c_atable_ptr_t& t, pos_list_t *rows, hyrise::storage::atable_ptr_t& target, size_t targetRow) ;
+  virtual void processValuesForRows(const storage::c_atable_ptr_t& t, pos_list_t *rows, storage::atable_ptr_t& target, size_t targetRow) ;
 
   virtual DataType getType() const {
     return _dataType;
   }
   
-  virtual void walk(const AbstractTable &table) {
+  virtual void walk(const storage::AbstractTable &table) {
     AggregateFun::walk(table);
     _dataType = table.typeOfColumn(_field);
   }
@@ -226,13 +228,13 @@ class MaxAggregateFun: public AggregateFun {
    * if rows == nullptr the functor is executed
    * on all rows of the input table
    */
-  virtual void processValuesForRows(const hyrise::storage::c_atable_ptr_t& t, pos_list_t *rows, hyrise::storage::atable_ptr_t& target, size_t targetRow) ;
+  virtual void processValuesForRows(const storage::c_atable_ptr_t& t, pos_list_t *rows, storage::atable_ptr_t& target, size_t targetRow) ;
 
   virtual DataType getType() const {
     return _dataType;
   }
   
-  virtual void walk(const AbstractTable &table) {
+  virtual void walk(const storage::AbstractTable &table) {
     AggregateFun::walk(table);
     _dataType = table.typeOfColumn(_field);
   }
@@ -244,5 +246,5 @@ class MaxAggregateFun: public AggregateFun {
   static AggregateFun *parse(const Json::Value &);
 };
 
-#endif // AGGEGATEFUNCTIONS
+} } // namespace hyrise::access
 

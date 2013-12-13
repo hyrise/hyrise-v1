@@ -9,7 +9,7 @@ namespace access {
 class PerformanceDataTests : public AccessTest {};
 
 TEST_F(PerformanceDataTests, single_op_data) {
-  hyrise::storage::atable_ptr_t w = Loader::shortcuts::loadWithHeader("test/regression/projection_fail.data", "test/regression/projection_fail.tbl");
+  storage::atable_ptr_t w = io::Loader::shortcuts::loadWithHeader("test/regression/projection_fail.data", "test/regression/projection_fail.tbl");
 
   ProjectionScan ps;
   ps.addInput(w);

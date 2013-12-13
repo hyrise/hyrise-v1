@@ -1,15 +1,16 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#ifndef SRC_LIB_TESTING_TEST_H_
-#define SRC_LIB_TESTING_TEST_H_
+#pragma once
 
 #include <algorithm>
 
 #include "gtest/gtest.h"
 #include "testing/base_test.h"
-#include "io/StorageManager.h"
+#include "io/ResourceManager.h"
 
 #include "helper/types.h"
 #include "helper/stringhelpers.h"
+
+namespace hyrise {
 
 template<typename It1, typename It2>
 ::testing::AssertionResult contains_all(const It1 a, const It2 b) {
@@ -36,16 +37,12 @@ template<typename It1, typename It2>
 #define ASSERT_TABLE_EQUAL(a,b) EXPECT_PRED_FORMAT2(AssertTableContentEquals, a, b)
 
 
-
-namespace hyrise {
-
 class StorageManagerTest : public Test {
  public:
   virtual ~StorageManagerTest() {};
 
   virtual void SetUp() {
-    StorageManager *sm = StorageManager::getInstance();
-    sm->removeAll();
+    io::ResourceManager::getInstance().clear();
   }
 
   virtual void TearDown() {
@@ -57,14 +54,13 @@ namespace access {
 class AccessTest : public Test {
  public:
   virtual void SetUp() {
-    StorageManager *sm = StorageManager::getInstance();
-    sm->removeAll();
+    io::ResourceManager::getInstance().clear();
   }
 
   virtual void TearDown() {
   }
 };
 
-}
-}
-#endif  // SRC_LIB_TESTING_TEST_H_
+} // namespace access
+} // namespace hyrise
+

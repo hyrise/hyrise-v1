@@ -13,7 +13,7 @@ class UnionAllTests : public Test{
  public:
   storage::atable_ptr_t t;
   void SetUp() {
-    t = Loader::shortcuts::load("test/lin_xxs.tbl");
+    t = io::Loader::shortcuts::load("test/lin_xxs.tbl");
   }
 };
   
@@ -30,8 +30,8 @@ TEST_F(UnionAllTests, basic_union_scan_test) {
 
 
 TEST_F(UnionAllTests, pointer_calc_input) {
-  auto pc1 = std::make_shared<PointerCalculator>(t, nullptr, nullptr);
-  auto pc2 = std::make_shared<PointerCalculator>(t, nullptr, nullptr);
+  auto pc1 = std::make_shared<storage::PointerCalculator>(t, nullptr, nullptr);
+  auto pc2 = std::make_shared<storage::PointerCalculator>(t, nullptr, nullptr);
 
   UnionAll us;
   us.addInput(pc1);
@@ -40,14 +40,14 @@ TEST_F(UnionAllTests, pointer_calc_input) {
 
   const auto &result = us.getResultTable();
 
-  ASSERT_TRUE(std::dynamic_pointer_cast<const PointerCalculator>(result) != nullptr);
+  ASSERT_TRUE(std::dynamic_pointer_cast<const storage::PointerCalculator>(result) != nullptr);
 }
 
 
 TEST_F(UnionAllTests, many_pointer_calc_input) {
-  auto pc1 = std::make_shared<PointerCalculator>(t, nullptr, nullptr);
-  auto pc2 = std::make_shared<PointerCalculator>(t, nullptr, nullptr);
-  auto pc3 = std::make_shared<PointerCalculator>(t, nullptr, nullptr);
+  auto pc1 = std::make_shared<storage::PointerCalculator>(t, nullptr, nullptr);
+  auto pc2 = std::make_shared<storage::PointerCalculator>(t, nullptr, nullptr);
+  auto pc3 = std::make_shared<storage::PointerCalculator>(t, nullptr, nullptr);
 
   UnionAll us;
   us.addInput(pc1);
@@ -57,17 +57,17 @@ TEST_F(UnionAllTests, many_pointer_calc_input) {
 
   const auto &result = us.getResultTable();
   ASSERT_EQ(3 * t->size(), result->size()) << "Needs to be three times as large as original table";
-  ASSERT_TRUE(std::dynamic_pointer_cast<const PointerCalculator>(result) != nullptr);
+  ASSERT_TRUE(std::dynamic_pointer_cast<const storage::PointerCalculator>(result) != nullptr);
 }
 
 TEST_F(UnionAllTests, vertical_nested_pointer_calculators) {
-  auto pc1_l = std::make_shared<PointerCalculator>(t, new std::vector<size_t> {1}, new std::vector<size_t> {0, 1});
-  auto pc1_r = std::make_shared<PointerCalculator>(t, new std::vector<size_t> {5}, new std::vector<size_t> {2, 3, 4});
+  auto pc1_l = std::make_shared<storage::PointerCalculator>(t, new std::vector<size_t> {1}, new std::vector<size_t> {0, 1});
+  auto pc1_r = std::make_shared<storage::PointerCalculator>(t, new std::vector<size_t> {5}, new std::vector<size_t> {2, 3, 4});
   std::vector<storage::atable_ptr_t> pc1 {pc1_l , pc1_r};
   auto mtv1  = std::make_shared<storage::MutableVerticalTable>(pc1);
   
-  auto pc2_l = std::make_shared<PointerCalculator>(t, new std::vector<size_t> {2, 3}, new std::vector<size_t> {0, 1});
-  auto pc2_r = std::make_shared<PointerCalculator>(t, new std::vector<size_t> {2, 6}, new std::vector<size_t> {2, 3, 4});
+  auto pc2_l = std::make_shared<storage::PointerCalculator>(t, new std::vector<size_t> {2, 3}, new std::vector<size_t> {0, 1});
+  auto pc2_r = std::make_shared<storage::PointerCalculator>(t, new std::vector<size_t> {2, 6}, new std::vector<size_t> {2, 3, 4});
   std::vector<storage::atable_ptr_t> pc2 {pc2_l , pc2_r};
   auto mtv2  = std::make_shared<storage::MutableVerticalTable>(pc2);
 
@@ -82,8 +82,8 @@ TEST_F(UnionAllTests, vertical_nested_pointer_calculators) {
 }
 
 TEST_F(UnionAllTests, mixed_input) {
-  auto pc1 = std::make_shared<PointerCalculator>(t, nullptr, nullptr);
-  auto pc2 = std::make_shared<PointerCalculator>(t, nullptr, nullptr);
+  auto pc1 = std::make_shared<storage::PointerCalculator>(t, nullptr, nullptr);
+  auto pc2 = std::make_shared<storage::PointerCalculator>(t, nullptr, nullptr);
 
   UnionAll us;
   us.addInput(pc1);

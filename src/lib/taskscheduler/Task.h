@@ -6,8 +6,7 @@
  *      Author: jwust
  */
 
-#ifndef SRC_LIB_TASKSCHEDULER_TASK_H_
-#define SRC_LIB_TASKSCHEDULER_TASK_H_
+#pragma once
 
 #include <vector>
 #include <memory>
@@ -15,6 +14,10 @@
 #include <string>
 
 #include "helper/locking.h"
+#include "helper/types.h"
+
+namespace hyrise {
+namespace taskscheduler {
 
 class Task;
 
@@ -23,7 +26,7 @@ class TaskReadyObserver {
    * notify that task has changed state
    */
 public:
-  virtual void notifyReady(std::shared_ptr<Task> task) = 0;
+  virtual void notifyReady(task_ptr_t task) = 0;
   virtual ~TaskReadyObserver() {
   };
 };
@@ -33,7 +36,7 @@ class TaskDoneObserver {
    * notify that task has changed state
    */
 public:
-  virtual void notifyDone(std::shared_ptr<Task> task) = 0;
+  virtual void notifyDone(task_ptr_t task) = 0;
   virtual ~TaskDoneObserver() {
   };
 };
@@ -49,9 +52,17 @@ public:
   static const int NO_PREFERRED_CORE = -1;
   static const int NO_PREFERRED_NODE = -1;
   static const int SESSION_ID_NOT_SET = 0;
+  // split up the operator in as many instances as indicated by dynamicCount
+  virtual std::vector<task_ptr_t> applyDynamicParallelization(size_t dynamicCount);
+  // determine the number of instances necessary to adhere to a max task size.
+  // should be overridden in operators
+  // currently all implementing operators are fine-tuned for server gaza.
+  virtual size_t determineDynamicCount(size_t maxTaskRunTime) {
+    return 1;
+  }
 
 protected:
-  std::vector<std::shared_ptr<Task> > _dependencies;
+  std::vector<task_ptr_t> _dependencies;
   std::vector<std::weak_ptr<TaskReadyObserver>> _readyObservers;
   std::vector<std::weak_ptr<TaskDoneObserver>> _doneObservers;
 
@@ -74,6 +85,9 @@ protected:
   int _sessionId;
   // id - equals transaction id
   int _id;
+
+  // if true, the DynamicPriorityScheduler will determine the number of instances.
+  bool _dynamic = false;
 
 public:
   Task();
@@ -98,11 +112,30 @@ public:
   /*
    * adds dependency; the task is ready to run if all tasks this tasks depends on are finished
    */
-  void addDependency(std::shared_ptr<Task> dependency);
+  void addDependency(task_ptr_t dependency);
+  /*
+   * adds dependency, but do not increase dependencyWaitCount or register as DoneObserver, as dependency is known to be done
+   */
+  void addDoneDependency(task_ptr_t dependency);
+  /*
+   * removes dependency; 
+   */
+  void removeDependency(task_ptr_t dependency);
+  /*
+   * change dependency; 
+   */
+  void changeDependency(task_ptr_t from, task_ptr_t to);
+
   /*
    * gets the number of dependencies
    */
   int getDependencyCount();
+  /*
+   * set dependencies directly and not managed by Task; make sure dependency count and dependencies match;
+   * currently used to set dependencies for a task that is ready to run (no unmet dependencies), but needs to get inputs
+   */
+   void setDependencies(std::vector<task_ptr_t> dependencies, int count);
+
   /*
    * adds an observer that gets notified if this task is ready to run
    */
@@ -118,7 +151,7 @@ public:
   /*
    * notify that task is done
    */
-  void notifyDone(std::shared_ptr<Task> task);
+  void notifyDone(task_ptr_t task);
   /*
    * notify all ready observers that task is ready
    */
@@ -183,12 +216,16 @@ public:
     _sessionId = sessionId;
   }
 
-  ;
+  // used in the DynamicPriorityScheduler
+  // if true and task is ParallizablePlanOperation the number of instances is determined
+  // by an operators determineDynamicCount operation.
+  void setDynamic(bool dynamic) {_dynamic = dynamic;}
+  bool isDynamic() {return _dynamic;}
 };
 
 class CompareTaskPtr {
     public:
-    bool operator()(const std::shared_ptr<Task> & t1, const std::shared_ptr<Task> & t2) // Returns true if t1 is lower priority than t2
+    bool operator()(const task_ptr_t & t1, const task_ptr_t & t2) // Returns true if t1 is lower priority than t2
     {
        if (t1->getPriority() > t2->getPriority()) return true;
        else if((t1->getPriority() == t2->getPriority()) && t1->getId() > t2->getId()) return true;
@@ -230,4 +267,5 @@ public:
   const std::string vname(){return "SyncTask";};
 };
 
-#endif  // SRC_LIB_TASKSCHEDULER_TASK_H_
+} } // namespace hyrise::taskscheduler
+

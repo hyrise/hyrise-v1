@@ -19,9 +19,10 @@
 
 #include <iostream>
 
-using namespace hyrise::storage;
+namespace hyrise {
+namespace storage {
 
-hyrise::storage::atable_ptr_t AbstractTable::copy_structure(const field_list_t *fields, const bool reuse_dict, const size_t initial_size, const bool with_containers, const bool compressed) const {
+atable_ptr_t AbstractTable::copy_structure(const field_list_t *fields, const bool reuse_dict, const size_t initial_size, const bool with_containers, const bool compressed) const {
   std::vector<const ColumnMetadata *> metadata;
   std::vector<AbstractTable::SharedDictionaryPtr> *dictionaries = nullptr;
 
@@ -52,7 +53,7 @@ for (const field_t & field: *fields) {
   return res;
 }
 
-hyrise::storage::atable_ptr_t AbstractTable::copy_structure_modifiable(const field_list_t *fields, const size_t initial_size, const bool with_containers) const {
+atable_ptr_t AbstractTable::copy_structure_modifiable(const field_list_t *fields, const size_t initial_size, const bool with_containers) const {
   std::vector<const ColumnMetadata *> metadata;
   std::vector<AbstractTable::SharedDictionaryPtr > *dictionaries = new std::vector<AbstractTable::SharedDictionaryPtr >;
 
@@ -104,7 +105,7 @@ std::string AbstractTable::printValue(const size_t column, const size_t row) con
   return HyriseHelper::castValueByColumnRow<std::string>(this, column, row);
 }
 
-void AbstractTable::copyValueFrom(const hyrise::storage::c_atable_ptr_t& source, const size_t src_col, const size_t src_row, const size_t dst_col, const size_t dst_row) {
+void AbstractTable::copyValueFrom(const c_atable_ptr_t& source, const size_t src_col, const size_t src_row, const size_t dst_col, const size_t dst_row) {
   switch (source->typeOfColumn(src_col)) {
     case IntegerType:
       copyValueFrom<hyrise_int_t>(source, src_col, src_row, dst_col, dst_row);
@@ -120,7 +121,7 @@ void AbstractTable::copyValueFrom(const hyrise::storage::c_atable_ptr_t& source,
   }
 }
 
-void AbstractTable::copyValueFrom(const hyrise::storage::c_atable_ptr_t& source, const size_t src_col, const ValueId vid, const size_t dst_col, const size_t dst_row) {
+void AbstractTable::copyValueFrom(const c_atable_ptr_t& source, const size_t src_col, const ValueId vid, const size_t dst_col, const size_t dst_row) {
   switch (source->typeOfColumn(src_col)) {
     case IntegerType:
       setValue<hyrise_int_t>(dst_col, dst_row, source->getValueForValueId<hyrise_int_t>(src_col, vid));
@@ -136,7 +137,7 @@ void AbstractTable::copyValueFrom(const hyrise::storage::c_atable_ptr_t& source,
   }
 }
 
-void AbstractTable::copyRowFrom(const hyrise::storage::c_atable_ptr_t& source, const size_t src_row, const size_t dst_row, const bool copy_values, const bool use_memcpy) {
+void AbstractTable::copyRowFrom(const c_atable_ptr_t& source, const size_t src_row, const size_t dst_row, const bool copy_values, const bool use_memcpy) {
   if (copy_values) {
     for (size_t column = 0; column < source->columnCount(); column++) {
       copyValueFrom(source, column, src_row, column, dst_row);
@@ -215,7 +216,7 @@ void AbstractTable::write(const std::string &filename) const {
 }
 
 
-bool AbstractTable::contentEquals(const hyrise::storage::c_atable_ptr_t& other) const {
+bool AbstractTable::contentEquals(const c_atable_ptr_t& other) const {
 
   if (size() != other->size()) {
     return false;
@@ -320,3 +321,6 @@ void AbstractTable::setUuid(unique_id u) {
   }
   _uuid = u;
 }
+
+} } // namespace hyrise::storage
+

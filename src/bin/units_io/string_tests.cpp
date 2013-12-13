@@ -4,6 +4,9 @@
 #include "io/loaders.h"
 #include "storage/AbstractTable.h"
 
+namespace hyrise {
+namespace io {
+
 class StringLoaderTests : public ::hyrise::Test {};
 
 TEST_F(StringLoaderTests, load_test) {
@@ -39,3 +42,6 @@ TEST_F(StringLoaderTests, load_test_typesafe) {
 
   ASSERT_EQ(t->typeOfColumn(2), res->typeOfColumn(2));
 }
+
+} } // namespace hyrise::io
+

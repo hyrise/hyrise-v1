@@ -4,7 +4,8 @@
 #include "helper/not_implemented.h"
 #include "tbb/concurrent_vector.h"
 
-
+namespace hyrise {
+namespace storage {
 
 template <typename T>
 class ConcurrentFixedLengthVector : public AbstractFixedLengthVector<T> {
@@ -61,3 +62,6 @@ class ConcurrentFixedLengthVector : public AbstractFixedLengthVector<T> {
   const std::size_t _columns;
   tbb::concurrent_vector<T> _values;
 };
+
+} } // namespace hyrise::storage
+

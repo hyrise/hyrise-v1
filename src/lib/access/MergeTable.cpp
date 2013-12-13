@@ -29,7 +29,7 @@ void MergeTable::executePlanOperation() {
   }
 
   // Call the Merge
-  TableMerger merger(new DefaultMergeStrategy(), new SequentialHeapMerger());
+  storage::TableMerger merger(new storage::DefaultMergeStrategy(), new storage::SequentialHeapMerger());
   auto new_table = input.getTable(0)->copy_structure();
 
   // Switch the tables

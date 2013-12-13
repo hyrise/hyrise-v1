@@ -31,12 +31,12 @@ struct MergeDictFunctor {
   // Result type value definition
   typedef result value_type;
 
-  hyrise::storage::c_atable_ptr_t _main;
+  c_atable_ptr_t _main;
   std::shared_ptr<const SimpleStore::delta_table_t> _delta;
   field_t _column;
 
 
-  void prepare(hyrise::storage::c_atable_ptr_t m, std::shared_ptr<const SimpleStore::delta_table_t> d, field_t c) {
+  void prepare(c_atable_ptr_t m, std::shared_ptr<const SimpleStore::delta_table_t> d, field_t c) {
     _main = m;
     _delta = d;
     _column = c;
@@ -96,13 +96,13 @@ struct MergeDictFunctor {
 struct MapValueForValueId {
   typedef void value_type;
 
-  hyrise::storage::atable_ptr_t _main;
+  atable_ptr_t _main;
   std::shared_ptr<AbstractDictionary> _dict;
   std::shared_ptr<const SimpleStore::delta_table_t> _delta;
   field_t _col;
   field_t _dstCol;
 
-  void prepare(hyrise::storage::atable_ptr_t m, field_t dst, std::shared_ptr<AbstractDictionary> d, 
+  void prepare(atable_ptr_t m, field_t dst, std::shared_ptr<AbstractDictionary> d, 
                size_t col, std::shared_ptr<const SimpleStore::delta_table_t> de) {
     _main = m;
     _dstCol = dst;
@@ -123,8 +123,8 @@ struct MapValueForValueId {
 };
 
 
-void SimpleStoreMerger::mergeValues(const std::vector<hyrise::storage::c_atable_ptr_t > &input_tables,
-                              hyrise::storage::atable_ptr_t merged_table,
+void SimpleStoreMerger::mergeValues(const std::vector<c_atable_ptr_t > &input_tables,
+                              atable_ptr_t merged_table,
                               const column_mapping_t &column_mapping,
                               const uint64_t newSize,
                               bool useValid,
@@ -177,3 +177,4 @@ void SimpleStoreMerger::mergeValues(const std::vector<hyrise::storage::c_atable_
 }
 
 }}
+

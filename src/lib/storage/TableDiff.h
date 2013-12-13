@@ -1,6 +1,5 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#ifndef SRC_LIB_STORAGE_TABLEDIFF_H_
-#define SRC_LIB_STORAGE_TABLEDIFF_H_
+#pragma once
 
 #include <vector>
 #include <map>
@@ -8,12 +7,11 @@
 
 #include <storage/storage_types.h>
 
-class AbstractTable;
 
 namespace hyrise { namespace storage {
+class AbstractTable;
 
 class TableDiff {
-
 public:
   enum RelationEqType {RelationEq, RelationEqSorted};
   enum FieldCorrectness {FieldCorrect, FieldWrongType, FieldWrong};
@@ -40,4 +38,3 @@ public:
 
 }}
 
-#endif //SRC_LIB_STORAGE_TABLEDIFF_H_

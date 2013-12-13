@@ -24,7 +24,6 @@
 
 #include <metis.h>
 
-using namespace layouter;
 using namespace boost::assign;
 
 
@@ -32,7 +31,7 @@ using namespace boost::assign;
 namespace std {
 
 template<>
-struct hash<subset_t> {
+struct hash<hyrise::layouter::subset_t> {
 public:
 
   size_t operator()(const std::vector<unsigned> &ref) const {
@@ -44,10 +43,10 @@ for (auto t : ref)
   }
 };
 
-}
+} // namespace std
 
-
-
+namespace hyrise {
+namespace layouter {
 
 Query::Query(LayouterConfiguration::access_type_t type, std::vector<unsigned> qA, double parameter, int weight):
   type(type), queryAttributes(qA), parameter(parameter), weight(weight) {
@@ -1449,3 +1448,6 @@ for (subset_t t : l.raw())
   iterateThroughLayouts();
   std::sort(results.begin(), results.end());
 }
+
+} } // namespace hyrise::layouter
+

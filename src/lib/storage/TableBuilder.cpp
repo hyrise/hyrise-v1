@@ -22,7 +22,7 @@ for (const auto & i: args.groups())
     throw TableBuilderError("Specified Layout does not match number of columns");
 }
 
-hyrise::storage::atable_ptr_t TableBuilder::createTable(param_list::param_list_t::const_iterator begin,
+atable_ptr_t TableBuilder::createTable(param_list::param_list_t::const_iterator begin,
     param_list::param_list_t::const_iterator end,
     const bool compressed) {
   // Meta data container
@@ -43,13 +43,13 @@ for (const auto & column_meta: vc)
   return tmp;
 }
 
-hyrise::storage::atable_ptr_t TableBuilder::build(param_list args, const bool compressed) {
+atable_ptr_t TableBuilder::build(param_list args, const bool compressed) {
   if (args.groups().size() == 0)
     args.appendGroup(args.size());
 
   checkParams(args);
 
-  std::vector<hyrise::storage::atable_ptr_t> base;
+  std::vector<atable_ptr_t> base;
   auto offset = args.params().begin();
 
   // For each group calculate the offset that is used to extract the columns
@@ -70,3 +70,4 @@ hyrise::storage::atable_ptr_t TableBuilder::build(param_list args, const bool co
 
 
 }}
+

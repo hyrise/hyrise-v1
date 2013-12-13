@@ -1,13 +1,14 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-
-#ifndef SRC_LIB_STORAGE_TABLEMERGER_H_
-#define SRC_LIB_STORAGE_TABLEMERGER_H_
+#pragma once
 
 #include <vector>
 #include <helper/types.h>
 #include <storage/AbstractTable.h>
 #include <storage/AbstractMergeStrategy.h>
 #include <storage/AbstractMerger.h>
+
+namespace hyrise {
+namespace storage {
 
 class TableMerger {
 public:
@@ -18,7 +19,7 @@ public:
     delete _merger;
   }
 
-  std::vector<hyrise::storage::atable_ptr_t> merge(std::vector<hyrise::storage::c_atable_ptr_t> &input_tables, bool useValid = false, std::vector<bool> valid=std::vector<bool>()) const;
+  std::vector<atable_ptr_t> merge(std::vector<c_atable_ptr_t> &input_tables, bool useValid = false, std::vector<bool> valid=std::vector<bool>()) const;
 
   /*
     This method allows to specify directly a table that is the
@@ -26,7 +27,7 @@ public:
     process. This allows to modify the layout of the result table
     without interfering with the merge algorithms itself.
   */
-  std::vector<hyrise::storage::atable_ptr_t > mergeToTable(hyrise::storage::atable_ptr_t dest, std::vector<hyrise::storage::c_atable_ptr_t> &input_tables, bool useValid = false, std::vector<bool> valid=std::vector<bool>()) const;
+  std::vector<atable_ptr_t > mergeToTable(atable_ptr_t dest, std::vector<c_atable_ptr_t> &input_tables, bool useValid = false, std::vector<bool> valid=std::vector<bool>()) const;
 
   TableMerger *copy();
 
@@ -36,4 +37,4 @@ private:
   const bool _compress;
 };
 
-#endif  // SRC_LIB_STORAGE_TABLEMERGER_H_
+} } // namespace hyrise::storage

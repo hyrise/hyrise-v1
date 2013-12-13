@@ -6,22 +6,32 @@
 
 #include <storage/PointerCalculator.h>
 #include <io/StorageManager.h>
+#include <io/StringLoader.h>
 #include <io/shortcuts.h>
 #include <io/loaders.h>
 
-class PointerCalcTests : public ::hyrise::StorageManagerTest {
+namespace hyrise {
+namespace storage {
+
+class PointerCalcTests : public StorageManagerTest {
  protected:
   std::string table_7 = "Mobile | ID | Name | Mail | Company | Phone | Org\nINTEGER | INTEGER | INTEGER | INTEGER | INTEGER | INTEGER | INTEGER\n0_R | 1_R | 2_R | 3_R | 4_R | 5_R | 6_R";
   std::string table_5 = "Mobile | ID | Name | Mail | Company | Phone | Org\nINTEGER | INTEGER | INTEGER | INTEGER | INTEGER | INTEGER | INTEGER\n0_R | 1_R | 1_R | 1_R | 2_R | 3_R | 4_R";
 };
 
-using namespace hyrise::storage;
-
 atable_ptr_t createTable(std::string description) {
-  Loader::params params;
-  params.setHeader(StringHeader(description));
-  params.setInput(CSVInput("test/tables/10_col_only_data.tbl", CSVInput::params().setUnsafe(true).setCSVParams(csv::HYRISE_FORMAT)));
-  return Loader::load(params);
+  io::Loader::params params;
+  params.setHeader(io::StringHeader(description));
+  params.setInput(io::CSVInput("test/tables/10_col_only_data.tbl", io::CSVInput::params().setUnsafe(true).setCSVParams(io::csv::HYRISE_FORMAT)));
+  return io::Loader::load(params);
+}
+
+TEST_F(PointerCalcTests, rename_field) {
+  auto t = createTable(table_7);
+  auto res = PointerCalculator::create(t);
+  ASSERT_EQ(t->nameOfColumn(0), res->nameOfColumn(0));
+  res->rename(0, "NoMobile");
+  ASSERT_EQ("NoMobile", res->nameOfColumn(0));
 }
 
 TEST_F(PointerCalcTests, pc_from_vertical_table_slice_count) {
@@ -63,7 +73,7 @@ TEST_F(PointerCalcTests, pc_from_vertical_table_slice_count_1_group_projection) 
 
 
 TEST_F(PointerCalcTests, pc_using_factory) {
-  auto t = Loader::shortcuts::load("test/lin_xxs.tbl");
+  auto t = io::Loader::shortcuts::load("test/lin_xxs.tbl");
   auto pc = PointerCalculator::create(t);
 
   ASSERT_TRUE(pc->columnCount() == 10);
@@ -76,7 +86,7 @@ TEST_F(PointerCalcTests, pc_using_factory) {
 
 
 TEST_F(PointerCalcTests, pc_on_selected_columns) {
-  hyrise::storage::atable_ptr_t t = Loader::shortcuts::load("test/lin_xxs.tbl");
+  atable_ptr_t t = io::Loader::shortcuts::load("test/lin_xxs.tbl");
 
   field_list_t field_definition {1, 3, 5, 7};
 
@@ -89,4 +99,6 @@ TEST_F(PointerCalcTests, pc_on_selected_columns) {
   ASSERT_TRUE(pc->metadataAt(2)->matches(t->metadataAt(5)));
   ASSERT_TRUE(pc->metadataAt(3)->matches(t->metadataAt(7)));
 }
+
+} } // namespace hyrise::storage
 

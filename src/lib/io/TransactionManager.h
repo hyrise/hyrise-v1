@@ -1,6 +1,5 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#ifndef SRC_LIB_IO_TRANSACTIONMANAGER_H_
-#define SRC_LIB_IO_TRANSACTIONMANAGER_H_
+#pragma once
 
 #include <algorithm>
 #include <atomic>
@@ -21,9 +20,9 @@ namespace tx {
 class TXModifications {
  public:
   // Map type to store position list per table
-  using map_t = std::map<std::weak_ptr<const AbstractTable>,
+  using map_t = std::map<std::weak_ptr<const storage::AbstractTable>,
                          storage::pos_list_t,
-                         std::owner_less<std::weak_ptr<const AbstractTable> > >;
+                         std::owner_less<std::weak_ptr<const storage::AbstractTable> > >;
 
   // TID identifier for the context
   transaction_id_t tid = UNKNOWN;
@@ -122,7 +121,7 @@ class TransactionManager {
   void abort();
   /**
   * Tries to acquire the spin lock for the prepare commit call and returns
-  * hyrise::tx::UNKNOWN in case of failure or the next commit ID in case of
+  * UNKNOWN in case of failure or the next commit ID in case of
   * success
   */
   transaction_cid_t tryPrepareCommit();
@@ -165,4 +164,3 @@ class TransactionManager {
 
 }}
 
-#endif

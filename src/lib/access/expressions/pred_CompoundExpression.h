@@ -1,8 +1,10 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#ifndef SRC_LIB_ACCESS_PRED_COMPOUNDEXPRESSION_H_
-#define SRC_LIB_ACCESS_PRED_COMPOUNDEXPRESSION_H_
+#pragma once
 
 #include "pred_common.h"
+
+namespace hyrise {
+namespace access {
 
 class CompoundExpression : public SimpleExpression {
  private:
@@ -33,7 +35,7 @@ class CompoundExpression : public SimpleExpression {
     }
   }
 
-  virtual void walk(const std::vector<hyrise::storage::c_atable_ptr_t > &l) {
+  virtual void walk(const std::vector<storage::c_atable_ptr_t > &l) {
     lhs->walk(l);
 
     if (!one_leg) {
@@ -72,4 +74,5 @@ class CompoundExpression : public SimpleExpression {
   }
 };
 
-#endif  // SRC_LIB_ACCESS_PRED_COMPOUNDEXPRESSION_H_
+} } // namespace hyrise::access
+

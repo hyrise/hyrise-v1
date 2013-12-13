@@ -1,11 +1,13 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#ifndef SRC_LIB_STORAGE_BASEATTRIBUTEVECTOR_H_
-#define SRC_LIB_STORAGE_BASEATTRIBUTEVECTOR_H_
+#pragma once
 
 #include <memory>
 #include <stdexcept>
 #include <storage/AbstractAttributeVector.h>
 
+
+namespace hyrise {
+namespace storage {
 
 /*
 * This is the base class of the Attribute Vector that is implement in HYRISE.
@@ -55,4 +57,5 @@ public:
 
 };
 
-#endif  // SRC_LIB_STORAGE_BASEATTRIBUTEVECTOR_H_
+} } // namespace hyrise::storage
+

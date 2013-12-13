@@ -46,20 +46,20 @@ void ResourceManager::remove(const std::string& name) const {
   _resources.erase(name);
 }
 
-void ResourceManager::replace(const std::string& name, const  std::shared_ptr<AbstractResource>& resource) const {
+void ResourceManager::replace(const std::string& name, const  std::shared_ptr<storage::AbstractResource>& resource) const {
   auto lock = lock_guard(_resource_mutex) ;
   assureExists(name);
   _resources.at(name) = resource;
 }
 
-void ResourceManager::add(const std::string& name, const std::shared_ptr<AbstractResource>& resource) const {
+void ResourceManager::add(const std::string& name, const std::shared_ptr<storage::AbstractResource>& resource) const {
   auto lock = lock_guard(_resource_mutex) ;
   if (exists(name))
     throw ResourceAlreadyExistsException("ResourceManager: Resource '" + name + "' already exists");
   _resources.insert(make_pair(name, resource));
 }
 
-std::shared_ptr<AbstractResource> ResourceManager::getResource(const std::string& name) const {
+std::shared_ptr<storage::AbstractResource> ResourceManager::getResource(const std::string& name) const {
   auto lock = lock_guard(_resource_mutex) ;
   assureExists(name);
   return _resources.at(name);
@@ -70,6 +70,5 @@ ResourceManager::resource_map ResourceManager::all() const {
   return _resources;
 }
 
-}
-} // namespace hyrise::io
+} } // namespace hyrise::io
 

@@ -1,6 +1,7 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "access/storage/GetTable.h"
 #include "io/shortcuts.h"
+#include "io/StorageManager.h"
 #include "testing/test.h"
 
 namespace hyrise {
@@ -8,14 +9,14 @@ namespace access {
 
 class GetTableTests : public AccessTest {
 public:
-  GetTableTests() : _table(Loader::shortcuts::load("test/empty.tbl")) {
+  GetTableTests() : _table(io::Loader::shortcuts::load("test/empty.tbl")) {
   }
 
   storage::atable_ptr_t _table;
 };
 
 TEST_F(GetTableTests, basic_get_table_test) {
-  StorageManager::getInstance()->loadTable("new_table", _table);
+  io::StorageManager::getInstance()->loadTable("new_table", _table);
 
   GetTable gt("new_table");
   gt.execute();

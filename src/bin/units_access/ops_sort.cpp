@@ -16,8 +16,8 @@ namespace access {
 class SortTest : public AccessTest {};
 
 TEST_F(SortTest, simple_sort_test) {
-  auto data = Loader::shortcuts::load("test/reference/group_by_scan_using_table_2.tbl");
-  const auto& reference = Loader::shortcuts::load("test/sort_test.tbl");
+  auto data = io::Loader::shortcuts::load("test/reference/group_by_scan_using_table_2.tbl");
+  const auto& reference = io::Loader::shortcuts::load("test/sort_test.tbl");
 
   SortScan s2;
   s2.addInput(data);
@@ -30,13 +30,13 @@ TEST_F(SortTest, simple_sort_test) {
 
 // TODO: Loader should be able to differentiate modifiable/nonmodifiable
 TEST_F(SortTest, DISABLED_simple_sort_test_modifiable) {
-  Loader::params p;
-  p.setHeader(CSVHeader("test/reference/group_by_scan_using_table_2.tbl"));
-  p.setInput(CSVInput("test/reference/group_by_scan_using_table_2.tbl"));
+  io::Loader::params p;
+  p.setHeader(io::CSVHeader("test/reference/group_by_scan_using_table_2.tbl"));
+  p.setInput(io::CSVInput("test/reference/group_by_scan_using_table_2.tbl"));
   p.setModifiableMutableVerticalTable(true);
 
-  auto data = Loader::load(p);
-  const auto& reference = Loader::shortcuts::load("test/sort_test.tbl");
+  auto data = io::Loader::load(p);
+  const auto& reference = io::Loader::shortcuts::load("test/sort_test.tbl");
 
   SortScan s2;
   s2.addInput(data);
@@ -48,7 +48,7 @@ TEST_F(SortTest, DISABLED_simple_sort_test_modifiable) {
 }
 
 TEST_F(SortTest, simple_sort_test_modifiable_unsorted) {
-  const auto& reference = Loader::shortcuts::load("test/reference/unsorted_sort.tbl");
+  const auto& reference = io::Loader::shortcuts::load("test/reference/unsorted_sort.tbl");
   auto data = reference->copy_structure_modifiable();
 
   data->resize(3);

@@ -74,15 +74,15 @@ void GroupByScan::executePlanOperation() {
   if ((_field_definition.size() != 0) && (input.numberOfHashTables() >= 1)) {
     if (_globalAggregation) {
       if (_field_definition.size() == 1) {
-        return executeGroupBy<SingleJoinHashTable, join_single_hash_map_t, join_single_key_t>();
+        return executeGroupBy<storage::SingleJoinHashTable, storage::join_single_hash_map_t, storage::join_single_key_t>();
       } else {
-        return executeGroupBy<JoinHashTable, join_hash_map_t, join_key_t>();
+        return executeGroupBy<storage::JoinHashTable, storage::join_hash_map_t, storage::join_key_t>();
       }
     }
     if (_field_definition.size() == 1) {
-      return executeGroupBy<SingleAggregateHashTable, aggregate_single_hash_map_t, aggregate_single_key_t>();
+      return executeGroupBy<storage::SingleAggregateHashTable, storage::aggregate_single_hash_map_t, storage::aggregate_single_key_t>();
     } else {
-      return executeGroupBy<AggregateHashTable, aggregate_hash_map_t, aggregate_key_t>();
+      return executeGroupBy<storage::AggregateHashTable, storage::aggregate_hash_map_t, storage::aggregate_key_t>();
     }
   } else {
     auto resultTab = createResultTableLayout();
@@ -126,17 +126,17 @@ const std::string GroupByScan::vname() {
 }
 
 storage::atable_ptr_t GroupByScan::createResultTableLayout() {
-  metadata_list  metadata;
-  std::vector<AbstractTable::SharedDictionaryPtr> dictionaries;
+  storage::metadata_list  metadata;
+  std::vector<storage::AbstractTable::SharedDictionaryPtr> dictionaries;
   //creating fields from grouping fields
   storage::atable_ptr_t group_tab = getInputTable(0)->copy_structure_modifiable(&_field_definition);
   //creating fields from aggregate functions
   for (const auto & fun: _aggregate_functions) {
-    ColumnMetadata *m = new ColumnMetadata(fun->columnName(), fun->getType());
+    auto m = new storage::ColumnMetadata(fun->columnName(), fun->getType());
     metadata.push_back(m);
-    dictionaries.push_back(storage::makeDictionary<OrderIndifferentDictionary>(fun->getType()));
+    dictionaries.push_back(storage::makeDictionary<storage::OrderIndifferentDictionary>(fun->getType()));
   }
-  storage::atable_ptr_t agg_tab = std::make_shared<Table>(&metadata, &dictionaries, 0, false);
+  storage::atable_ptr_t agg_tab = std::make_shared<storage::Table>(&metadata, &dictionaries, 0, false);
 
   //Clean the metadata
   for (auto e : metadata)
@@ -165,9 +165,9 @@ void GroupByScan::splitInput() {
     auto r = distribute(hashTables[0]->numKeys(), _part, _count);
 
     if ((_indexed_field_definition.size() + _named_field_definition.size()) == 1)
-      input.setHash(std::dynamic_pointer_cast<const SingleAggregateHashTable>(hashTables[0])->view(r.first, r.second), 0);
+      input.setHash(std::dynamic_pointer_cast<const storage::SingleAggregateHashTable>(hashTables[0])->view(r.first, r.second), 0);
     else
-      input.setHash(std::dynamic_pointer_cast<const AggregateHashTable>(hashTables[0])->view(r.first, r.second), 0);
+      input.setHash(std::dynamic_pointer_cast<const storage::AggregateHashTable>(hashTables[0])->view(r.first, r.second), 0);
   } else if(_count > 0 && hashTables.empty()){
     ParallelizablePlanOperation::splitInput();
   }
@@ -204,7 +204,7 @@ void GroupByScan::executeGroupBy() {
     it1 = aggregateHashTable->getMapBegin();
     end = aggregateHashTable->getMapEnd();
   } else {
-    auto hashTableView = std::dynamic_pointer_cast<const HashTableView<MapType, KeyType> >(groupResults);
+    auto hashTableView = std::dynamic_pointer_cast<const storage::HashTableView<MapType, KeyType> >(groupResults);
     it1 = hashTableView->getMapBegin();
     end = hashTableView->getMapEnd();
   }

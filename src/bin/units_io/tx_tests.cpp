@@ -4,7 +4,10 @@
 
 #include "io/TransactionManager.h"
 
-using namespace hyrise::tx;
+namespace hyrise {
+namespace tx {
+
+
 using TM = TransactionManager;
 
 TEST(TX, begin_commit) {
@@ -45,3 +48,6 @@ TEST(TX, rollback_transaction) {
   auto after = TM::getInstance().getLastCommitId();
   EXPECT_EQ(before, after) << "No commits are made when doing a rollback";
 }
+
+} } // namespace hyrise::tx
+

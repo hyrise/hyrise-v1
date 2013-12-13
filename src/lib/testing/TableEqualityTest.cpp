@@ -5,7 +5,9 @@
 #include <storage/TableDiff.h>
 #include <storage/PrettyPrinter.h>
 
-using namespace hyrise::storage;
+namespace hyrise {
+
+using namespace storage;
 
 std::string schemaErrors(TableDiff diff, const char* relationName, tblptr table) {
   std::vector<std::string> fieldError, fieldTypeError;
@@ -169,3 +171,6 @@ std::string rowPositionErrors(TableDiff diff, const char* baseRelationName, cons
 
   return ::testing::AssertionSuccess();
 }
+
+} // namespace hyrise
+

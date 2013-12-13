@@ -1,6 +1,5 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#ifndef SRC_LIB_ACCESS_PRED_COMMON_H_
-#define SRC_LIB_ACCESS_PRED_COMMON_H_
+#pragma once
 
 #include <vector>
 #include <stdexcept>
@@ -18,7 +17,3 @@
 #include "pred_SimpleExpression.h"
 #include "pred_SimpleFieldExpression.h"
 
-
-
-
-#endif  // SRC_LIB_ACCESS_PRED_COMMON_H_

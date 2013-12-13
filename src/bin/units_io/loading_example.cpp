@@ -4,6 +4,9 @@
 #include <io/CSVLoader.h>
 #include <io/Loader.h>
 
+namespace hyrise {
+namespace io {
+
 class LoaderExample : public ::hyrise::Test {};
 
 TEST_F(LoaderExample, load_with_basepath) {
@@ -14,3 +17,6 @@ TEST_F(LoaderExample, load_with_basepath) {
       .setBasePath("test/tables/")
                                                   );
 }
+
+} } // namespace hyrise::io
+

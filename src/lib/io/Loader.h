@@ -1,6 +1,5 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#ifndef SRC_LIB_IO_LOADER_H_
-#define SRC_LIB_IO_LOADER_H_
+#pragma once
 
 #include <memory>
 #include <string>
@@ -9,14 +8,21 @@
 #include "storage/storage_types.h"
 
 
+namespace hyrise {
+
+namespace storage {
 class AbstractTable;
+class AbstractTableFactory;
+} // namespace storage
+
+namespace io {
 class AbstractInput;
 class AbstractHeader;
-class AbstractTableFactory;
+
 
 typedef struct {
   bool InsertOnly;
-  hyrise::tx::transaction_id_t transaction_id;
+  tx::transaction_id_t transaction_id;
 } InsertOnlyParam;
 
 namespace Loader {
@@ -28,7 +34,7 @@ private:
   /// Header import
   param_ref_member(AbstractHeader, Header);
   /// Factory for tables
-  param_member(AbstractTableFactory *, Factory);
+  param_member(storage::AbstractTableFactory *, Factory);
   /// Base path for imports
   param_member(std::string, BasePath);
   /// Currently no effect:
@@ -38,7 +44,7 @@ private:
   /// Use bitcompressed table
   param_member(bool, Compressed);
   /// Reference table used for type detection
-  param_member(hyrise::storage::c_atable_ptr_t , ReferenceTable);
+  param_member(storage::c_atable_ptr_t , ReferenceTable);
 public:
   params();
   ~params();
@@ -47,7 +53,8 @@ public:
   params *clone() const;
 };
 
-std::shared_ptr<AbstractTable> load(const params &args);
+std::shared_ptr<storage::AbstractTable> load(const params &args);
 };
 
-#endif  // SRC_LIB_IO_LOADER_H_
+} } // namespace hyrise::io
+

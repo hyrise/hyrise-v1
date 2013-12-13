@@ -14,8 +14,8 @@ Json::Value &QueryTransformationEngine::transform(Json::Value &query) {
   Json::Value operatorConfiguration;
   for (size_t i = 0; i < operatorIds.size(); ++i) {
     operatorConfiguration = query["operators"][operatorIds[i]];
-    // check whether operator should be transformed
-    if (_factory.count(operatorConfiguration["type"].asString()) > 0)
+    // check whether operator should be transformed; postpone transformation if dynamic transformation is required
+    if (operatorConfiguration["dynamic"].asBool() == false && _factory.count(operatorConfiguration["type"].asString()) > 0)
       _factory[operatorConfiguration["type"].asString()]->transform(operatorConfiguration, operatorIds[i], query);
     // check whether operator needs to be parallelized
     if (requestsParallelization(operatorConfiguration))

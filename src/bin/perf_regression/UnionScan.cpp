@@ -17,13 +17,13 @@ class UnionScanBase : public ::testing::Benchmark {
  protected:
 
   UnionAll *us;
-  StorageManager *sm;
+  io::StorageManager *sm;
   storage::c_atable_ptr_t t1;
   storage::c_atable_ptr_t t2;
 
  public:
   void BenchmarkSetUp() {
-    sm = StorageManager::getInstance();
+    sm = io::StorageManager::getInstance();
 
     us = new UnionAll();
     us->setEvent("NO_PAPI");

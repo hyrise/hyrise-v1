@@ -3,10 +3,11 @@
 #include "access/system/OperationData-Impl.h"
 #include "storage/AbstractResource.h"
 
-using namespace hyrise::access;
+namespace hyrise {
+namespace access {
 
-class CustomResource1 : public AbstractResource {};
-class CustomResource2 : public AbstractResource {};
+class CustomResource1 : public storage::AbstractResource {};
+class CustomResource2 : public storage::AbstractResource {};
 
 namespace {
 auto cr1a = std::make_shared<CustomResource1>();
@@ -68,3 +69,6 @@ TEST(OperationDataTests, merging) {
   EXPECT_EQ(2u, op.sizeOf<CustomResource1>());
   EXPECT_EQ(1u, op.sizeOf<CustomResource2>());
 }
+
+} } // namespace hyrise::access
+

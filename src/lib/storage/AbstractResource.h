@@ -1,5 +1,7 @@
-#ifndef SRC_LIB_STORAGE_ABSTRACTRESOURCE_H_
-#define SRC_LIB_STORAGE_ABSTRACTRESOURCE_H_
+#pragma once
+
+namespace hyrise {
+namespace storage {
 
 /// Base class for all storable resources to
 /// be used in plans.
@@ -8,5 +10,5 @@ class AbstractResource {
   virtual ~AbstractResource();
 };
 
-#endif
+} } // namespace hyrise::storage
 

@@ -19,6 +19,9 @@
 #include "storage/storage_types.h"
 #include "storage/TableBuilder.h"
 
+namespace hyrise {
+namespace io {
+
 param_member_impl(MySQLInput::params, std::string, Host);
 param_member_impl(MySQLInput::params, std::string, Port);
 param_member_impl(MySQLInput::params, std::string, User);
@@ -43,31 +46,31 @@ using namespace boost::assign;
   * sql::ResultSet* column access is 1-based, thus all accesses should use col+1
   */
 
-typedef void (*conversion_func)(MYSQL_ROW *, size_t, size_t, AbstractTable *);
+typedef void (*conversion_func)(MYSQL_ROW *, size_t, size_t, storage::AbstractTable *);
 
-void var_to_string(MYSQL_ROW *r, size_t col, size_t row, AbstractTable *t) {
+void var_to_string(MYSQL_ROW *r, size_t col, size_t row, storage::AbstractTable *t) {
   if ((*r)[col] == 0)
     t->setValue<hyrise_string_t>(col, row, "");
   else
     t->setValue<hyrise_string_t>(col, row, std::string((const char *)(*r)[col]));
 }
 
-void bigint_to_integer(MYSQL_ROW *r, size_t col, size_t row, AbstractTable *t) {
+void bigint_to_integer(MYSQL_ROW *r, size_t col, size_t row, storage::AbstractTable *t) {
   hyrise_int_t data = (*r)[col] == 0 ? 0 : atoll((*r)[col]);
   t->setValue<hyrise_int_t>(col, row, data);
 }
 
-void int_to_integer(MYSQL_ROW *r, size_t col, size_t row, AbstractTable *t) {
+void int_to_integer(MYSQL_ROW *r, size_t col, size_t row, storage::AbstractTable *t) {
   hyrise_int_t data = (*r)[col] == 0 ? 0 : atoi((*r)[col]);
   t->setValue<hyrise_int_t>(col, row, data);
 }
 
-void double_to_float(MYSQL_ROW *r, size_t col, size_t row, AbstractTable *t) {
+void double_to_float(MYSQL_ROW *r, size_t col, size_t row, storage::AbstractTable *t) {
   hyrise_float_t data = (*r)[col] == 0 ? 0 : atof((*r)[col]);
   t->setValue<hyrise_float_t>(col, row, data);
 }
 
-void date_to_int(MYSQL_ROW *r, size_t col, size_t row, AbstractTable *t) {
+void date_to_int(MYSQL_ROW *r, size_t col, size_t row, storage::AbstractTable *t) {
   // Replace dashes with nothing and we have the int
   if ((*r)[col] == 0)
     t->setValue<hyrise_int_t>(col, row, 1);// std::stoll(s));
@@ -84,21 +87,21 @@ void date_to_int(MYSQL_ROW *r, size_t col, size_t row, AbstractTable *t) {
 
   MYSQLTYPESTRING->[HYRISETYPESTRING, CONVERSION_FUNCTION_PTR]
 */
-std::map<std::string, std::pair<hyrise::types::type_t, conversion_func> > translations = map_list_of
-    ("varchar",  make_pair(hyrise::types::string_t, var_to_string))
-    ("char",     make_pair(hyrise::types::string_t, var_to_string))
-    ("bigint",   make_pair(hyrise::types::integer_t, bigint_to_integer))
-    ("int",      make_pair(hyrise::types::integer_t, int_to_integer))
-    ("smallint", make_pair(hyrise::types::integer_t, int_to_integer))
-    ("double",   make_pair(hyrise::types::float_t, double_to_float))
-    ("date",     make_pair(hyrise::types::integer_t, date_to_int))
-    ("time",     make_pair(hyrise::types::string_t, var_to_string))
-    ("datetime", make_pair(hyrise::types::string_t, var_to_string));
+std::map<std::string, std::pair<types::type_t, conversion_func> > translations = map_list_of
+    ("varchar",  make_pair(types::string_t, var_to_string))
+    ("char",     make_pair(types::string_t, var_to_string))
+    ("bigint",   make_pair(types::integer_t, bigint_to_integer))
+    ("int",      make_pair(types::integer_t, int_to_integer))
+    ("smallint", make_pair(types::integer_t, int_to_integer))
+    ("double",   make_pair(types::float_t, double_to_float))
+    ("date",     make_pair(types::integer_t, date_to_int))
+    ("time",     make_pair(types::string_t, var_to_string))
+    ("datetime", make_pair(types::string_t, var_to_string));
 
-std::shared_ptr<AbstractTable> MySQLInput::load(
-    std::shared_ptr<AbstractTable> intable,
-    const compound_metadata_list *meta,
-    const Loader::params &args) {
+std::shared_ptr<storage::AbstractTable> MySQLInput::load(
+    std::shared_ptr<storage::AbstractTable> intable,
+    const storage::compound_metadata_list *meta,
+    const io::Loader::params &args) {
 
 
   /** Initialize the MySQL connection with the parameters given to the
@@ -113,7 +116,7 @@ std::shared_ptr<AbstractTable> MySQLInput::load(
     throw std::runtime_error(std::string("mysql connection failed "));
   }
 
-  hyrise::storage::TableBuilder::param_list list;
+  storage::TableBuilder::param_list list;
   std::vector<std::string> typeList;
   {
     std::string q1 = ("SELECT COLUMN_NAME, DATA_TYPE FROM COLUMNS WHERE TABLE_NAME='" + _parameters.getTable() + "' AND TABLE_SCHEMA='" + _parameters.getSchema() + "'");
@@ -127,7 +130,7 @@ std::shared_ptr<AbstractTable> MySQLInput::load(
     }
   }
 
-  auto t = hyrise::storage::TableBuilder::build(list, args.getCompressed());
+  auto t = storage::TableBuilder::build(list, args.getCompressed());
   uint64_t totalSize;
   {
     mysql_query(conn, ("USE " + _parameters.getSchema()).c_str());
@@ -166,5 +169,7 @@ std::shared_ptr<AbstractTable> MySQLInput::load(
 MySQLInput *MySQLInput::clone() const {
   return new MySQLInput(*this);
 }
+
+} } // namespace hyrise::io
 
 #endif

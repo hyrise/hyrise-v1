@@ -13,6 +13,8 @@
 #include <string.h>
 #include <libcsv/csv.h>
 
+namespace hyrise {
+namespace io {
 
 param_member_impl(csv::params, unsigned char, Delimiter);
 param_member_impl(csv::params, ssize_t, LineStart);
@@ -180,6 +182,5 @@ std::vector< line_t > parse_file(const std::string &filename, const params &para
   return data.lines;
 }
 
+} } } // namespace hyrise::io::csv
 
-
-}

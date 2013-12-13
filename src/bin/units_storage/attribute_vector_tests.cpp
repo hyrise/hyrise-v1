@@ -7,6 +7,9 @@
 #include "storage/BitCompressedVector.h"
 #include "storage/FixedLengthVector.h"
 
+namespace hyrise {
+namespace storage {
+
 TEST(BitCompressedTests, set_retrieve_bits) {
   std::vector<uint64_t> bits {1, 2, 4, 8, 13};
   BitCompressedVector<value_id_t> tuples(5, 2, bits);
@@ -46,3 +49,5 @@ TEST(FixedLengthVectorTest, increment_test) {
   EXPECT_EQ(1u, tuples.atomic_inc(0,0));
   EXPECT_EQ(2u, tuples.get(0,0));
 }
+
+} } // namespace hyrise::storage

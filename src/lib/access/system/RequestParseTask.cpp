@@ -68,7 +68,7 @@ std::string hash(const std::string &v) {
 
 void RequestParseTask::operator()() {
   assert((_responseTask != nullptr) && "Response needs to be set");
-  const auto& scheduler = SharedScheduler::getInstance().getScheduler();
+  const auto& scheduler = taskscheduler::SharedScheduler::getInstance().getScheduler();
 
   performance_vector_t& performance_data = _responseTask->getPerformanceData();
 
@@ -92,8 +92,8 @@ void RequestParseTask::operator()() {
         LOG4CXX_DEBUG(_logger, "Picking up transaction id " << *tid);
         ctx = tx::TransactionManager::getContext(*tid);
       } else {
-        LOG4CXX_ERROR(_logger, "Invalid transaction id " << *tid);
-        _responseTask->addErrorMessage("Invalid transaction id set, aborting execution.");
+        LOG4CXX_ERROR(_logger, "Invalid transaction id " << ctx_it->second);
+        _responseTask->addErrorMessage("Invalid transaction id '"+ ctx_it->second +"' set, aborting execution");
       }
     } else {
       ctx = tx::TransactionManager::beginTransaction();
@@ -108,6 +108,7 @@ void RequestParseTask::operator()() {
     if (ctx && reader.parse(query_string, request_data)) {
       _responseTask->setTxContext(*ctx);
       recordPerformance = getOrDefault(body_data, "performance", "false") == "true";
+      _responseTask->setRecordPerformanceData(recordPerformance);
 
       // the performance attribute for this operation (at [0])
       if (recordPerformance) {
@@ -179,6 +180,9 @@ void RequestParseTask::operator()() {
                     << urldecode(body_data["query"]) << "\n"
                     << body_data["query"] << "\n"
                     << reader.getFormatedErrorMessages());
+
+      // Forward parsing error
+      _responseTask->addErrorMessage("Parsing: " + reader.getFormatedErrorMessages());      
     }
     // Update the transmission limit for the response task
     if (atoi(body_data["limit"].c_str()) > 0)
@@ -190,8 +194,6 @@ void RequestParseTask::operator()() {
   } else {
     LOG4CXX_WARN(_logger, "no body received!");
   }
-
-
 
 
   // high priority tasks are expected to be scheduled sequentially

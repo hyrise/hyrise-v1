@@ -12,7 +12,7 @@ namespace hyrise {
 namespace access {
 
 // Extracts the AV from the table at given column
-template<typename Table, typename VectorType=FixedLengthVector<value_id_t>>
+template<typename Table, typename VectorType = storage::FixedLengthVector<value_id_t>>
 inline std::pair<std::shared_ptr<VectorType>, size_t> _getDataVector(const Table &tab,
                                                                      const size_t column = 0) {
   const auto &avs = tab->getAttributeVectors(column);
@@ -21,7 +21,7 @@ inline std::pair<std::shared_ptr<VectorType>, size_t> _getDataVector(const Table
   return {data, avs.at(0).attribute_offset};
 }
 
-template<typename VectorType=FixedLengthVector<value_id_t> >
+template<typename VectorType = storage::FixedLengthVector<value_id_t> >
 inline std::pair<std::shared_ptr<VectorType>, size_t> getDataVector(const storage::c_atable_ptr_t &tab,
                                                                     const size_t column = 0) {
   return _getDataVector<decltype(tab), VectorType>(tab, column);
@@ -53,7 +53,7 @@ public:
   uint32_t significantOffset() const;
 
 protected:
-  std::shared_ptr<Table> createOutputTable(const size_t size) const;
+  std::shared_ptr<storage::Table> createOutputTable(const size_t size) const;
 
   uint32_t _bits;
   uint32_t _significantOffset;
@@ -84,11 +84,11 @@ void Histogram::executeHistogram() {
   }
 
   // check if tab is PointerCalculator; if yes, get underlying table and actual rows and columns
-  auto p = std::dynamic_pointer_cast<const PointerCalculator>(tab);
+  auto p = std::dynamic_pointer_cast<const storage::PointerCalculator>(tab);
   if (p) {
     auto ipair = getDataVector(p->getActualTable(), p->getTableColumnForColumn(field));
     const auto &ivec = ipair.first;
-    const auto &dict = std::dynamic_pointer_cast<OrderPreservingDictionary<T>>(tab->dictionaryAt(p->getTableColumnForColumn(field)));
+    const auto &dict = std::dynamic_pointer_cast<storage::OrderPreservingDictionary<T>>(tab->dictionaryAt(p->getTableColumnForColumn(field)));
     const auto &offset = ipair.second;
 
     auto hasher = std::hash<T>();
@@ -102,11 +102,11 @@ void Histogram::executeHistogram() {
     auto mvt = std::dynamic_pointer_cast<const storage::MutableVerticalTable>(tab);
     if(mvt){
       auto pc = mvt->containerAt(field);
-      auto p = std::dynamic_pointer_cast<const PointerCalculator>(pc);
+      auto p = std::dynamic_pointer_cast<const storage::PointerCalculator>(pc);
       if(p){
         auto ipair = getDataVector(p->getActualTable(), p->getTableColumnForColumn(field));
         const auto &ivec = ipair.first;
-        const auto &dict = std::dynamic_pointer_cast<OrderPreservingDictionary<T>>(tab->dictionaryAt(p->getTableColumnForColumn(field)));
+        const auto &dict = std::dynamic_pointer_cast<storage::OrderPreservingDictionary<T>>(tab->dictionaryAt(p->getTableColumnForColumn(field)));
         const auto &offset = ipair.second;
 
         auto hasher = std::hash<T>();
@@ -121,7 +121,7 @@ void Histogram::executeHistogram() {
       // else; we expect a raw table
       auto ipair = getDataVector(tab, field);
       const auto &ivec = ipair.first;
-      const auto &dict = std::dynamic_pointer_cast<OrderPreservingDictionary<T>>(tab->dictionaryAt(field));
+      const auto &dict = std::dynamic_pointer_cast<storage::OrderPreservingDictionary<T>>(tab->dictionaryAt(field));
       const auto &offset =  ipair.second;
 
       auto hasher = std::hash<T>();

@@ -21,7 +21,6 @@ TEST_F(LoadTests, simple_load_op) {
 
   // Workaround. Else, "groupme" will be released to often at block end.
   t.output.getTables().clear();
-  StorageManager::getInstance()->removeAll();
 }
 
 
@@ -32,7 +31,7 @@ TEST_F(LoadTests, simple_unloadall_op) {
   const auto& r = t.execute()->getResultTable();
   ASSERT_TRUE((bool)r) << "A table should be returned";
 
-  StorageManager *sm = StorageManager::getInstance();
+  auto sm = io::StorageManager::getInstance();
 
   ASSERT_TRUE(sm->size() > 0) << "A table should be loaded";
 
@@ -49,7 +48,6 @@ TEST_F(LoadTests, simple_query_with_loadops) {
   std::string q = loadFromFile("test/json/simple_query_with_loadop.json");
   const auto& out = executeAndWait(q);
   ASSERT_TRUE((bool)out);
-  StorageManager::getInstance()->removeAll();
 }
 
 TEST_F(LoadTests, simple_query_with_two_loadops) {
@@ -59,7 +57,6 @@ TEST_F(LoadTests, simple_query_with_two_loadops) {
     q = loadFromFile("test/json/unload_io.json");
     const auto& out = executeAndWait(q);
     ASSERT_TRUE(!out);
-    StorageManager::getInstance()->removeAll();
   }
 }
 
@@ -67,7 +64,6 @@ TEST_F(LoadTests, simple_query_with_load_with_header) {
   std::string q = loadFromFile("test/json/simple_query_load_with_header.json");
   const auto& out = executeAndWait(q);
   ASSERT_TRUE((bool)out);
-  StorageManager::getInstance()->removeAll();
 }
 
 TEST_F(LoadTests, load_exception) {
@@ -97,7 +93,6 @@ TEST_F(LoadTests, sql_table_load_op) {
   std::string q = loadFromFile("test/json/mysql_table_load.json");
   const auto& out = executeAndWait(q);
   ASSERT_TRUE((bool)out);
-  StorageManager::getInstance()->removeAll();
 }
 
 #endif

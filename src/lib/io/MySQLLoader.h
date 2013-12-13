@@ -1,6 +1,5 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#ifndef SRC_LIB_IO_MYSQLLOADER_H_
-#define SRC_LIB_IO_MYSQLLOADER_H_
+#pragma once
 
 #ifdef WITH_MYSQL
 
@@ -8,6 +7,9 @@
 
 #include "helper/Environment.h"
 #include "io/AbstractLoader.h"
+
+namespace hyrise {
+namespace io {
 
 const std::string ENV_MYSQL_HOST = "HYRISE_MYSQL_HOST";
 const std::string ENV_MYSQL_PORT = "HYRISE_MYSQL_PORT";
@@ -38,7 +40,9 @@ public:
     _parameters(parameters)
   {}
 
-  std::shared_ptr<AbstractTable> load(std::shared_ptr<AbstractTable>, const compound_metadata_list *, const Loader::params &args);
+  std::shared_ptr<storage::AbstractTable> load(std::shared_ptr<storage::AbstractTable>,
+                                               const storage::compound_metadata_list *,
+                                               const Loader::params &args);
 
   MySQLInput *clone() const;
 
@@ -46,6 +50,7 @@ private:
   params _parameters;
 };
 
+} } // namespace hyrise::io
+
 #endif
 
-#endif  // SRC_LIB_IO_MYSQLLOADER_H_

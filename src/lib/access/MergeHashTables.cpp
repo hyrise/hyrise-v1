@@ -16,14 +16,14 @@ void MergeHashTables::executePlanOperation() {
   // get first HashTable and merge subsequent tables into HashTable
   if (_key == "groupby" || _key == "selfjoin" ) {
   	if (getInputHashTable(0)->getFieldCount() == 1)
-  		addResult(std::make_shared<SingleAggregateHashTable>(input.getHashTables()));
+  		addResult(std::make_shared<storage::SingleAggregateHashTable>(input.getHashTables()));
   	else
-  		addResult(std::make_shared<AggregateHashTable>(input.getHashTables()));
+  		addResult(std::make_shared<storage::AggregateHashTable>(input.getHashTables()));
   } else if (_key == "join") {
   	if (getInputHashTable(0)->getFieldCount() == 1)
-  		addResult(std::make_shared<SingleJoinHashTable>(input.getHashTables()));
+  		addResult(std::make_shared<storage::SingleJoinHashTable>(input.getHashTables()));
   	else
-  		addResult(std::make_shared<JoinHashTable>(input.getHashTables()));
+  		addResult(std::make_shared<storage::JoinHashTable>(input.getHashTables()));
   } else {
     throw std::runtime_error("Type in Plan operation HashBuild not supported; key: " + _key);
   }

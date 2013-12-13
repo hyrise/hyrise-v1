@@ -2,15 +2,18 @@
 #include "io/VectorLoader.h"
 #include "storage/AbstractTable.h"
 
+namespace hyrise {
+namespace io {
+
 VectorInput::VectorInput(value_vectors_t vectors) : _vectors(vectors) {}
 
 VectorInput* VectorInput::clone() const {
   return new VectorInput(*this);
 }
 
-std::shared_ptr<AbstractTable> VectorInput::load(std::shared_ptr<AbstractTable> table,
-                                                 const compound_metadata_list * meta,
-                                                 const Loader::params &args) {
+std::shared_ptr<storage::AbstractTable> VectorInput::load(std::shared_ptr<storage::AbstractTable> table,
+                                                          const storage::compound_metadata_list * meta,
+                                                          const Loader::params &args) {
   size_t column = 0;
   for (const auto& column_values: _vectors) {
     size_t row = 0;
@@ -23,3 +26,6 @@ std::shared_ptr<AbstractTable> VectorInput::load(std::shared_ptr<AbstractTable> 
   }
   return table;
 }
+
+} } // namespace hyrise::io
+

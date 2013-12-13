@@ -43,8 +43,8 @@ class HashValueJoin : public PlanOperation {
     T value;
 
     // always use the smaller table as the 'build' table
-    hyrise::storage::c_atable_ptr_t build_table;
-    hyrise::storage::c_atable_ptr_t probe_table;
+    storage::c_atable_ptr_t build_table;
+    storage::c_atable_ptr_t probe_table;
     field_t build_field, probe_field;
     if (input.getTable(0)->size() <= input.getTable(1)->size()) {
       build_table = input.getTable(0);
@@ -85,10 +85,10 @@ class HashValueJoin : public PlanOperation {
 
     // input.getTable(0) will always be the left part of our output, no matter
     // if it's the build table or not
-    std::vector<hyrise::storage::atable_ptr_t > parts;
+    std::vector<storage::atable_ptr_t > parts;
     // FIXME: Worst stuff ever
-    auto build_pc = std::const_pointer_cast<AbstractTable>(std::dynamic_pointer_cast<const AbstractTable>(PointerCalculator::create(build_table, build_pos)));
-    auto probe_pc = std::const_pointer_cast<AbstractTable>(std::dynamic_pointer_cast<const AbstractTable>(PointerCalculator::create(probe_table, probe_pos)));
+    auto build_pc = std::const_pointer_cast<storage::AbstractTable>(std::dynamic_pointer_cast<const storage::AbstractTable>(storage::PointerCalculator::create(build_table, build_pos)));
+    auto probe_pc = std::const_pointer_cast<storage::AbstractTable>(std::dynamic_pointer_cast<const storage::AbstractTable>(storage::PointerCalculator::create(probe_table, probe_pos)));
     if (build_table == input.getTable(0)) {
       parts.push_back(build_pc);
       parts.push_back(probe_pc);

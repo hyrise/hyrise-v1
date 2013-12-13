@@ -1,6 +1,5 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#ifndef SRC_LIB_STORAGE_PRETTYPRINTER_H_
-#define SRC_LIB_STORAGE_PRETTYPRINTER_H_
+#pragma once
 
 #include "helper/types.h"
 #include "ftprinter/FTPrinter.h"
@@ -21,12 +20,12 @@ class PrettyPrinter {
   static void print(const AbstractTable* const input,
                     std::ostream& outStream, const std::string tableName = "",
                     const size_t& limit = (size_t) -1, const size_t& start = 0);
-  static void printDiff(const hyrise::storage::c_atable_ptr_t& input, const TableDiff& diff,
+  static void printDiff(const c_atable_ptr_t& input, const TableDiff& diff,
                         std::ostream& outStream, const std::string tableName = "",
                         const size_t& limit = (size_t) -1, const size_t& start = 0);
-  static void writeTid(ftprinter::FTPrinter &tp, hyrise::tx::transaction_id_t tid);
-  static void writeCid(ftprinter::FTPrinter &tp, hyrise::tx::transaction_cid_t cid);
+  static void writeTid(ftprinter::FTPrinter &tp, tx::transaction_id_t tid);
+  static void writeCid(ftprinter::FTPrinter &tp, tx::transaction_cid_t cid);
 };
 
 }}
-#endif // SRC_LIB_STORAGE_PRETTYPRINTER_H_
+

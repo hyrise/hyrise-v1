@@ -13,12 +13,13 @@
 #include "taskscheduler/CoreBoundQueuesScheduler.h"
 #include "taskscheduler/WSCoreBoundQueuesScheduler.h"
 #include "taskscheduler/ThreadPerTaskScheduler.h"
+#include "taskscheduler/DynamicPriorityScheduler.h"
 
 #include "helper/HwlocHelper.h"
 
 
 namespace hyrise {
-namespace access {
+namespace taskscheduler {
 
 #if GTEST_HAS_PARAM_TEST
 
@@ -33,7 +34,8 @@ std::vector<std::string> getSchedulersToTest() {
            "CentralPriorityScheduler",
            "CoreBoundPriorityQueuesScheduler",
            "WSCoreBoundPriorityQueuesScheduler",
-           "ThreadPerTaskScheduler"};
+           "ThreadPerTaskScheduler",
+           "DynamicPriorityScheduler"};
 }
 
 class SchedulerTest : public TestWithParam<std::string> {
@@ -90,8 +92,8 @@ TEST_P(SchedulerTest, sync_task_test) {
 
   //scheduler->resize(2);
 
-  std::shared_ptr<NoOp> nop1 = std::make_shared<NoOp>();
-  std::shared_ptr<NoOp> nop2 = std::make_shared<NoOp>();
+  auto nop1 = std::make_shared<access::NoOp>();
+  auto nop2 = std::make_shared<access::NoOp>();
   std::shared_ptr<SyncTask> syn = std::make_shared<SyncTask>();
   std::shared_ptr<WaitTask> waiter = std::make_shared<WaitTask>();
   syn->addDependency(nop1);
@@ -108,8 +110,8 @@ TEST_P(SchedulerTest, million_dependencies_test) {
 #ifdef EXPENSIVE_TESTS
   int tasks_group1 = 1000;
   int tasks_group2 = 1000;
-  std::vector<std::shared_ptr<NoOp> > vtasks1;
-  std::vector<std::shared_ptr<NoOp> > vtasks2;
+  std::vector<std::shared_ptr<access::NoOp> > vtasks1;
+  std::vector<std::shared_ptr<access::NoOp> > vtasks2;
 
   SharedScheduler::getInstance().resetScheduler(scheduler_name);
   const auto& scheduler = SharedScheduler::getInstance().getScheduler();
@@ -119,10 +121,10 @@ TEST_P(SchedulerTest, million_dependencies_test) {
   std::shared_ptr<WaitTask> waiter = std::make_shared<WaitTask>();
 
   for (int i = 0; i < tasks_group1; ++i) {
-    vtasks1.push_back(std::make_shared<NoOp>());
+    vtasks1.push_back(std::make_shared<access::NoOp>());
   }
   for (int i = 0; i < tasks_group2; ++i) {
-    vtasks2.push_back(std::make_shared<NoOp>());
+    vtasks2.push_back(std::make_shared<access::NoOp>());
     for (int j = 0; j < tasks_group1; ++j) {
       vtasks2[i]->addDependency(vtasks1[j]);
     }
@@ -144,7 +146,7 @@ TEST_P(SchedulerTest, million_noops_test) {
 #ifdef EXPENSIVE_TESTS
   //chaned to 10.000, 1.000.000 takes too long on small computers
   int tasks_group1 = 10000;
-  std::vector<std::shared_ptr<NoOp> > vtasks1;
+  std::vector<std::shared_ptr<access::NoOp> > vtasks1;
 
   SharedScheduler::getInstance().resetScheduler(scheduler_name);
   const auto& scheduler = SharedScheduler::getInstance().getScheduler();
@@ -154,7 +156,7 @@ TEST_P(SchedulerTest, million_noops_test) {
   std::shared_ptr<WaitTask> waiter = std::make_shared<WaitTask>();
 
   for (int i = 0; i < tasks_group1; ++i) {
-    vtasks1.push_back(std::make_shared<NoOp>());
+    vtasks1.push_back(std::make_shared<access::NoOp>());
     waiter->addDependency(vtasks1[i]);
     scheduler->schedule(vtasks1[i]);
   }
@@ -169,8 +171,8 @@ TEST_P(SchedulerTest, wait_dependency_task_test) {
   const auto& scheduler = SharedScheduler::getInstance().getScheduler();
 
   //scheduler->resize(2);
-  std::shared_ptr<NoOp> nop = std::make_shared<NoOp>();
-  std::shared_ptr<WaitTask> waiter = std::make_shared<WaitTask>();
+  auto nop = std::make_shared<access::NoOp>();
+  auto waiter = std::make_shared<WaitTask>();
   waiter->addDependency(nop);
   scheduler->schedule(nop);
   scheduler->schedule(waiter);
@@ -189,9 +191,9 @@ TEST_P(SchedulerTest, wait_set_test) {
   auto waiter = std::make_shared<WaitTask>();
   auto sleeper = std::make_shared<SleepTask>(sleeptime);
 
-  std::vector<std::shared_ptr<NoOp> > vtasks;
+  std::vector<std::shared_ptr<access::NoOp> > vtasks;
   for (int i = 0; i < tasks; ++i) {
-    vtasks.push_back(std::make_shared<NoOp>());
+    vtasks.push_back(std::make_shared<access::NoOp>());
     sleeper->addDependency(vtasks[i]);
     scheduler->schedule(vtasks[i]);
   }
@@ -263,6 +265,5 @@ TEST(SchedulerBlockTest, dont_block_test_with_work_stealing) {
   long_block_test(scheduler.get());
 }
 
+} } // namespace hyrise::taskscheduler
 
-}
-}

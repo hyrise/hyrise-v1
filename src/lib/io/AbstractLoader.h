@@ -1,10 +1,12 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#ifndef SRC_LIB_IO_ABSTRACTLOADER_H_
-#define SRC_LIB_IO_ABSTRACTLOADER_H_
+#pragma once
 
 #include "io/Loader.h"
 #include "storage/storage_types.h"
 #include "helper/types.h"
+
+namespace hyrise {
+namespace io {
 
 class cloneable {
  public:
@@ -26,7 +28,9 @@ class AbstractInput : public cloneable {
     @param metadata The original metadata
     @param args Loader arguments that may influence loading
   */
-  virtual std::shared_ptr<AbstractTable> load(std::shared_ptr<AbstractTable> intable, const compound_metadata_list *metadata, const Loader::params &args) = 0;
+  virtual std::shared_ptr<storage::AbstractTable> load(std::shared_ptr<storage::AbstractTable> intable,
+                                                       const storage::compound_metadata_list *metadata,
+                                                       const Loader::params &args) = 0;
 
   virtual AbstractInput *clone() const = 0;
 
@@ -43,9 +47,9 @@ class AbstractHeader : public cloneable {
   /*! Construct metadata.
     @param args Loader arguments that may influence header creation
   */
-  virtual compound_metadata_list *load(const Loader::params &args) = 0;
+  virtual storage::compound_metadata_list *load(const Loader::params &args) = 0;
   virtual AbstractHeader *clone() const = 0;
 };
 
+} } // namesapce hyrise::io
 
-#endif  // SRC_LIB_IO_ABSTRACTLOADER_H_

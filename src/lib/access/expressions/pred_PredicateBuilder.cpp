@@ -1,6 +1,9 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "pred_PredicateBuilder.h"
 
+namespace hyrise {
+namespace access {
+
 PredicateBuilder::PredicateBuilder(): root(nullptr) {
 }
 
@@ -33,3 +36,5 @@ void PredicateBuilder::add(CompoundExpression *e) {
 SimpleExpression *PredicateBuilder::build() {
   return root;
 }
+
+} } // namespace hyrise::access

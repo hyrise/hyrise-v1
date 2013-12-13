@@ -211,9 +211,12 @@ bool SimpleTableDump::dump(std::string name, std::shared_ptr<AbstractTable> tabl
   return true;
 }
 
+} // namespace storage
+
+namespace io {
 
 size_t TableDumpLoader::getSize() {
-  std::string path = DumpHelper::buildPath({_base, _table, DumpHelper::META_DATA_EXT});
+  std::string path = storage::DumpHelper::buildPath({_base, _table, storage::DumpHelper::META_DATA_EXT});
   std::ifstream data (path, std::ios::binary);
   size_t numRows;
   data >> numRows;
@@ -222,23 +225,19 @@ size_t TableDumpLoader::getSize() {
 }
 
 
-void TableDumpLoader::loadDictionary(std::string name, 
-                                                      size_t col, std::shared_ptr<AbstractTable> intable) {
-  std::string path = DumpHelper::buildPath({_base, _table, name}) + DumpHelper::DICT_EXT;
+void TableDumpLoader::loadDictionary(std::string name, size_t col, std::shared_ptr<storage::AbstractTable> intable) {
+  std::string path = storage::DumpHelper::buildPath({_base, _table, name}) + storage::DumpHelper::DICT_EXT;
   std::ifstream data (path, std::ios::binary);
 
-  write_to_dict_functor fun(data, intable, col);
-  type_switch<hyrise_basic_types> ts;
+  storage::write_to_dict_functor fun(data, intable, col);
+  storage::type_switch<hyrise_basic_types> ts;
   ts(intable->typeOfColumn(col), fun);
 
   data.close();
 }
 
-void TableDumpLoader::loadAttribute(std::string name, 
-                                                     size_t col, 
-                                                     size_t size,
-                                                     std::shared_ptr<AbstractTable> intable) {
-  std::string path = DumpHelper::buildPath({_base, _table, name}) + DumpHelper::ATTR_EXT;
+void TableDumpLoader::loadAttribute(std::string name, size_t col, size_t size, std::shared_ptr<storage::AbstractTable> intable) {
+  std::string path = storage::DumpHelper::buildPath({_base, _table, name}) + storage::DumpHelper::ATTR_EXT;
   std::ifstream data (path, std::ios::binary);
   
   ValueId vid;
@@ -251,9 +250,9 @@ void TableDumpLoader::loadAttribute(std::string name,
 }
 
 
-std::shared_ptr<AbstractTable> TableDumpLoader::load(std::shared_ptr<AbstractTable> intable, 
-                                      const compound_metadata_list *meta, 
-                                      const Loader::params &args)
+std::shared_ptr<storage::AbstractTable> TableDumpLoader::load(std::shared_ptr<storage::AbstractTable> intable, 
+                                                              const storage::compound_metadata_list *meta, 
+                                                              const Loader::params &args)
 {
 
   // First extract the dictionaries
@@ -274,4 +273,5 @@ std::shared_ptr<AbstractTable> TableDumpLoader::load(std::shared_ptr<AbstractTab
   return intable;
 }
 
-}}
+} } // namespace hyrise::io
+

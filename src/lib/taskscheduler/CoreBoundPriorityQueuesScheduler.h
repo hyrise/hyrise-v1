@@ -5,8 +5,7 @@
  *      Author: jwust
  */
 
-#ifndef COREBOUNDPRIORITYQUEUESSCHEDULER_H_
-#define COREBOUNDPRIORITYQUEUESSCHEDULER_H_
+#pragma once
 
 #include "taskscheduler/Task.h"
 #include "taskscheduler/CoreBoundPriorityQueue.h"
@@ -15,6 +14,8 @@
 #include <unordered_set>
 #include <log4cxx/logger.h>
 
+namespace hyrise {
+namespace taskscheduler {
 
 /**
  * a task scheduler with thread specific queues
@@ -41,5 +42,5 @@ public:
 
 };
 
-#endif /* COREBOUNDPRIORITYQUEUESSCHEDULER_H_ */
+} } // namespace hyrise::taskscheduler
 

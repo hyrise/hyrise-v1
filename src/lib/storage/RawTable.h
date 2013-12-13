@@ -1,6 +1,5 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#ifndef SRC_LIB_STORAGE_RAWTABLE_H_
-#define SRC_LIB_STORAGE_RAWTABLE_H_
+#pragma once
 
 #include <cassert>
 #include <cstring>
@@ -68,9 +67,7 @@ void RowHelper::set(size_t index, std::string val);
 template<>
 std::string RowHelper::convert(const byte *d, DataType t);
 
-
-}}}
-
+} // namespace rawtable
 
 class RawTable : public AbstractTable {
   typedef unsigned char byte;
@@ -116,14 +113,14 @@ public:
 
   virtual table_id_t subtableCount() const;
   
-  virtual hyrise::storage::atable_ptr_t copy() const;
+  virtual atable_ptr_t copy() const;
 
   byte* computePosition(const size_t& column, const size_t& row) const;
 
   template <typename T>
   T getValue(const size_t column, const size_t row) const {
     const byte* tuple = computePosition(column, row);
-    return hyrise::storage::rawtable::RowHelper::convert<T>(tuple, _metadata[column].getType());
+    return rawtable::RowHelper::convert<T>(tuple, _metadata[column].getType());
   }
 
 
@@ -155,22 +152,22 @@ public:
   void appendRow(byte* tuple);
 
 
-  void appendRows(const hyrise::storage::atable_ptr_t& rows);
+  void appendRows(const atable_ptr_t& rows);
 
   virtual void debugStructure(size_t level=0) const;
 
   
   ////////////////////////////////////////////////////////////////////////////////////////
   // Disabled Methodsw 
-  virtual hyrise::storage::atable_ptr_t copy_structure(const field_list_t *fields = nullptr, 
-                                                        const bool reuse_dict = false, 
-                                                        const size_t initial_size = 0, 
-                                                        const bool with_containers = true, 
-                                                        const bool compressed = false) const {
+  virtual atable_ptr_t copy_structure(const field_list_t *fields = nullptr, 
+                                      const bool reuse_dict = false, 
+                                      const size_t initial_size = 0, 
+                                      const bool with_containers = true, 
+                                      const bool compressed = false) const {
     STORAGE_NOT_IMPLEMENTED(RawTable, copy_structure());
   }
 
-  virtual hyrise::storage::atable_ptr_t copy_structure_modifiable(const field_list_t *fields = nullptr, 
+  virtual atable_ptr_t copy_structure_modifiable(const field_list_t *fields = nullptr, 
                                                                    const size_t initial_size = 0, 
                                                                    const bool with_containers = true) const {
     STORAGE_NOT_IMPLEMENTED(RawTable, copy_structure_modifiable());
@@ -207,4 +204,6 @@ public:
 
 
 };
-#endif // SRC_LIB_STORAGE_RAWTABLE_H_
+
+} } // namespace hyrise::storage
+

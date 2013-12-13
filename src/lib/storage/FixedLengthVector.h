@@ -1,6 +1,5 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#ifndef SRC_LIB_STORAGE_FIXEDLENGTHVECTOR_H_
-#define SRC_LIB_STORAGE_FIXEDLENGTHVECTOR_H_
+#pragma once
 
 #include <cerrno>
 #include <cstring>
@@ -13,9 +12,11 @@
 #include <stdexcept>
 #include <sstream>
 
-#include "memory/MallocStrategy.h"
+#include <memory/MallocStrategy.h>
 #include "storage/BaseAttributeVector.h"
 
+namespace hyrise {
+namespace storage {
 
 template <typename T>
 class AbstractFixedLengthVector : public BaseAttributeVector<T> {
@@ -32,7 +33,7 @@ class FixedLengthVector : public AbstractFixedLengthVector<T> {
   size_t _allocated_bytes;
 
   std::mutex _allocate_mtx;
-  using Strategy = MallocStrategy;
+  using Strategy = memory::MallocStrategy;
  public:
   typedef T value_type;
   
@@ -167,4 +168,5 @@ class FixedLengthVector : public AbstractFixedLengthVector<T> {
   }
 };
 
-#endif  // SRC_LIB_STORAGE_FIXEDLENGTHVECTOR_H_
+} } // namespace hyrise::storage
+

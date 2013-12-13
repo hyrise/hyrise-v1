@@ -1,6 +1,5 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 
-
 #include <storage/ColumnMetadata.h>
 
 #include <string>
@@ -8,6 +7,9 @@
 #include <stdexcept>
 
 #include <boost/algorithm/string.hpp>
+
+namespace hyrise {
+namespace storage {
 
 ColumnMetadata *ColumnMetadata::metadataFromString(std::string typestring, std::string name) {
   boost::trim(typestring);
@@ -27,5 +29,5 @@ ColumnMetadata *ColumnMetadata::metadataFromString(std::string typestring, std::
 
 }
 
-
+} } // namespace hyrise::storage
 

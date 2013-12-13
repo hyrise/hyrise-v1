@@ -27,7 +27,7 @@ StaticRequestHandler::StaticRequestHandler(net::AbstractConnection *connection):
   if (data_path != nullptr)
     _rootPath = std::string(data_path) + "/";
   else
-    _rootPath = hyrise::helper::sys_getcwd() + "/static/";
+    _rootPath = helper::sys_getcwd() + "/static/";
 }
 
 std::unordered_map<std::string, std::string> parseMimeTypes() {

@@ -2,6 +2,9 @@
 #include "testing/test.h"
 #include <io/loaders.h>
 
+namespace hyrise {
+namespace io {
+
 class CSVTests : public ::hyrise::Test {};
 
 TEST_F(CSVTests, load_test) {
@@ -20,4 +23,6 @@ TEST_F(CSVTests, DISABLED_load_test_mpass) {
       .setInput(MPassCSVInput("test/loader/demo"))
                                                   );
 }
+
+} } // namespace hyrise::io
 

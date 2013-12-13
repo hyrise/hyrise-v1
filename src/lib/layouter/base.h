@@ -1,6 +1,5 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#ifndef SRC_LIB_LAYOUTER_BASE_H_
-#define SRC_LIB_LAYOUTER_BASE_H_
+#pragma once
 
 #include "config.h"
 #include "matrix.h"
@@ -15,6 +14,7 @@
 #include <algorithm>
 #include <unordered_map>
 
+namespace hyrise {
 namespace layouter {
 
 class Query;
@@ -382,5 +382,5 @@ class DivideAndConquerLayouter : public CandidateLayouter {
   static int numCuts;
 
 };
-}
-#endif  // SRC_LIB_LAYOUTER_BASE_H_
+
+} } // namespace hyrise::layouter

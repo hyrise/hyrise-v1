@@ -1,5 +1,9 @@
 #include "Serial.h"
 
+namespace hyrise {
+namespace storage {
+
+
 Serial::Serial() {
   reset();
 }
@@ -11,3 +15,5 @@ void Serial::reset() {
 Serial::serial_t Serial::next() {
   return _serial++;
 }
+
+} } // namespace hyrise::storage

@@ -13,6 +13,9 @@
 #include <algorithm>
 #include <sched.h>
 
+namespace hyrise {
+namespace taskscheduler {
+
 void CoreBoundQueue::executeTask() {
   size_t retries = 0;
   //infinite thread loop
@@ -118,3 +121,6 @@ std::vector<std::shared_ptr<Task> > CoreBoundQueue::emptyQueue() {
 CoreBoundQueue::~CoreBoundQueue() {
   if (_thread != nullptr) stopQueue();
 }
+
+} } // namespace hyrise::taskscheduler
+

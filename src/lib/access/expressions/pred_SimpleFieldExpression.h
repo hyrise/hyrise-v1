@@ -1,13 +1,15 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#ifndef SRC_LIB_ACCESS_PRED_SIMPLEFIELDEXPRESSION_H_
-#define SRC_LIB_ACCESS_PRED_SIMPLEFIELDEXPRESSION_H_
+#pragma once
 
 #include "helper/types.h"
 #include "pred_common.h"
 
+namespace hyrise {
+namespace access {
+
 class SimpleFieldExpression : public SimpleExpression {
  protected:
-  hyrise::storage::c_atable_ptr_t table;
+  storage::c_atable_ptr_t table;
   field_t field;
   field_name_t field_name;
   size_t input;
@@ -16,7 +18,7 @@ class SimpleFieldExpression : public SimpleExpression {
   SimpleFieldExpression(size_t input_index, field_t field_index): field(field_index),
                                                                   input(input_index) { }
 
-  SimpleFieldExpression(hyrise::storage::c_atable_ptr_t table, field_t field_index) : table(table),
+  SimpleFieldExpression(storage::c_atable_ptr_t table, field_t field_index) : table(table),
                                                                                     field(field_index),
                                                                                     input(0) { }
 
@@ -24,7 +26,7 @@ class SimpleFieldExpression : public SimpleExpression {
                                                                       field_name(field_name),
                                                                       input(input_index) { }
 
-  SimpleFieldExpression(hyrise::storage::c_atable_ptr_t table, field_name_t field_name) : table(table),
+  SimpleFieldExpression(storage::c_atable_ptr_t table, field_name_t field_name) : table(table),
                                                                                         field(0),
                                                                                         field_name(field_name),
                                                                                         input(0) { }
@@ -32,7 +34,7 @@ class SimpleFieldExpression : public SimpleExpression {
 
   virtual ~SimpleFieldExpression() { }
 
-  virtual void walk(const std::vector<hyrise::storage::c_atable_ptr_t > &l) {
+  virtual void walk(const std::vector<storage::c_atable_ptr_t > &l) {
     if (!table) {
       table = l.at(input);
     }
@@ -63,7 +65,7 @@ class GenericExpressionValue : public SimpleFieldExpression {
       SimpleFieldExpression(i, f), value(_value)
   {}
 
-  GenericExpressionValue(const hyrise::storage::c_atable_ptr_t& _table, field_t _field, T _value) :
+  GenericExpressionValue(const storage::c_atable_ptr_t& _table, field_t _field, T _value) :
       SimpleFieldExpression(_table, _field), value(_value)
   {}
 
@@ -75,5 +77,5 @@ class GenericExpressionValue : public SimpleFieldExpression {
   }
 };
 
+} } // namespace hyrise::access
 
-#endif  // SRC_LIB_ACCESS_PRED_SIMPLEFIELDEXPRESSION_H_

@@ -6,8 +6,7 @@
  *      Author: jwust
  */
 
-#ifndef SRC_LIB_TASKSCHEDULER_ABSTRACTTASKQUEUE_H_
-#define SRC_LIB_TASKSCHEDULER_ABSTRACTTASKQUEUE_H_
+#pragma once
 
 #include <memory>
 #include <thread>
@@ -17,6 +16,9 @@
 #include <taskscheduler/Task.h>
 
 #include "helper/locking.h"
+
+namespace hyrise {
+namespace taskscheduler {
 
 class AbstractTaskQueue {
 
@@ -47,4 +49,5 @@ class AbstractTaskQueue {
   virtual void join() = 0;
 };
 
-#endif  // SRC_LIB_TASKSCHEDULER_ABSTRACTTASKQUEUE_H_
+} } // namespace hyrise::taskscheduler
+

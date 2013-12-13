@@ -13,6 +13,9 @@
 #include <algorithm>
 #include <sched.h>
 
+namespace hyrise {
+namespace taskscheduler {
+
 void CoreBoundPriorityQueue::executeTask() {
 
   //infinite thread loop
@@ -109,3 +112,6 @@ std::vector<std::shared_ptr<Task> > CoreBoundPriorityQueue::emptyQueue() {
 CoreBoundPriorityQueue::~CoreBoundPriorityQueue() {
   if (_thread != nullptr) stopQueue();
 }
+
+} } // namespace hyrise::taskscheduler
+

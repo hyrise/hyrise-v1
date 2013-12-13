@@ -1,6 +1,5 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#ifndef SRC_LIB_IO_TABLE_DUMP_H_
-#define SRC_LIB_IO_TABLE_DUMP_H_
+#pragma once
 
 #include <memory>
 #include <string>
@@ -8,9 +7,10 @@
 
 #include "io/AbstractLoader.h"
 
-class AbstractTable;
 
 namespace hyrise { namespace storage {
+
+class AbstractTable;
 /**
  * This is the class that allows dumping a table instance in a very
  * simple way directly to the file system without using a third party
@@ -70,27 +70,31 @@ public:
   bool dump(std::string name, std::shared_ptr<AbstractTable> table);
 };
 
+} // namespace storage
+
+namespace io {
+
 class TableDumpLoader : public AbstractInput {
   std::string _base;
   std::string _table;
 
   size_t getSize();
 
-  void loadDictionary(std::string name, size_t col, std::shared_ptr<AbstractTable> intable);
+  void loadDictionary(std::string name, size_t col, std::shared_ptr<storage::AbstractTable> intable);
 
   void loadAttribute(std::string name,
                      size_t col,
                      size_t size,
-                     std::shared_ptr<AbstractTable> intable);
+                     std::shared_ptr<storage::AbstractTable> intable);
 
 public:
   TableDumpLoader(std::string base, std::string table) :
     _base(base), _table(table) {
   }
 
-  std::shared_ptr<AbstractTable> load(std::shared_ptr<AbstractTable>,
-                                      const compound_metadata_list *,
-                                      const Loader::params &args);
+  std::shared_ptr<storage::AbstractTable> load(std::shared_ptr<storage::AbstractTable>,
+                                               const storage::compound_metadata_list *,
+                                               const Loader::params &args);
 
   bool needs_store_wrap() {
     return true;
@@ -101,6 +105,5 @@ public:
   }
 };
 
-}}
+} } // namespace hyrise::io
 
-#endif // SRC_LIB_IO_TABLE_DUMP_H_

@@ -21,6 +21,9 @@
 #include <storage/SequentialHeapMerger.h>
 #include <storage/storage_types.h>
 
+namespace hyrise {
+namespace io {
+
 class DumpTests : public ::hyrise::Test {
 
 protected:
@@ -48,7 +51,7 @@ TEST_F(DumpTests, should_not_dump_other_tables_than_stores) {
 
 TEST_F(DumpTests, should_not_dump_store_with_muliple_generations) {
 
-  TableMerger *merger = new TableMerger(new DefaultMergeStrategy(), new SequentialHeapMerger(), false);
+  auto *merger = new storage::TableMerger(new storage::DefaultMergeStrategy(), new storage::SequentialHeapMerger(), false);
   auto s = std::dynamic_pointer_cast<hyrise::storage::Store>(simpleTable);
   s->setMerger(merger);
   s->merge();
@@ -113,9 +116,9 @@ TEST_F(DumpTests, simple_dump_load_all) {
   ASSERT_TRUE(result);
 
 
-  hyrise::storage::TableDumpLoader input("./test/dump", "simple");
+  TableDumpLoader input("./test/dump", "simple");
   CSVHeader header("test/dump/simple/header.dat", CSVHeader::params().setCSVParams(csv::HYRISE_FORMAT));
-  hyrise::storage::atable_ptr_t  t = Loader::load(Loader::params().setInput(input).setHeader(header));
+  auto t = Loader::load(Loader::params().setInput(input).setHeader(header));
   ASSERT_EQ(t->size(), 100u);
   ASSERT_EQ(t->columnCount(), simpleTable->columnCount());
   ASSERT_TABLE_EQUAL(t, simpleTable);
@@ -147,10 +150,13 @@ TEST_F(DumpTests, simple_dump_should_not_dump_delta) {
   // Reload table
   simpleTable = Loader::shortcuts::load("test/lin_xxs.tbl");
 
-  hyrise::storage::TableDumpLoader input("./test/dump", "simple");
+  TableDumpLoader input("./test/dump", "simple");
   CSVHeader header("test/dump/simple/header.dat", CSVHeader::params().setCSVParams(csv::HYRISE_FORMAT));
-  hyrise::storage::atable_ptr_t  t = Loader::load(Loader::params().setInput(input).setHeader(header));
+  auto t = Loader::load(Loader::params().setInput(input).setHeader(header));
   ASSERT_EQ(t->size(), 100u);
   ASSERT_EQ(t->columnCount(), simpleTable->columnCount());
   ASSERT_TABLE_EQUAL(t, simpleTable);
 }
+
+} } // namespace hyrise::io
+

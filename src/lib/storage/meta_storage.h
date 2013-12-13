@@ -1,6 +1,5 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#ifndef SRC_LIB_STORAGE_META_STORAGE_H_
-#define SRC_LIB_STORAGE_META_STORAGE_H_
+#pragma once
 
 #include <stdexcept>
 
@@ -54,6 +53,4 @@ struct type_switch<L, N, true> {
 
 
 }}
-
-#endif  // SRC_LIB_STORAGE_META_STORAGE_H_
 

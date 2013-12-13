@@ -14,20 +14,20 @@ void SimpleStore::createDelta() {
   _delta = std::make_shared<delta_table_t>(_main->metadata());
 }
 
-SimpleStore::SimpleStore(hyrise::storage::atable_ptr_t t) : _main(t) {
+SimpleStore::SimpleStore(atable_ptr_t t) : _main(t) {
   createDelta();
   _merger = std::unique_ptr<TableMerger>(new TableMerger(new DefaultMergeStrategy(), new SimpleStoreMerger()));
 }
 
 void SimpleStore::merge() {
-  std::vector<hyrise::storage::c_atable_ptr_t> tables { _main, _delta };
+  std::vector<c_atable_ptr_t> tables { _main, _delta };
   const auto& tmp = _merger->merge(tables);
   _main = tmp[0];
   createDelta();
 }
 
 void SimpleStore::mergeWith(std::unique_ptr<TableMerger> merger) {
-  std::vector<hyrise::storage::c_atable_ptr_t> tables { _main, _delta };
+  std::vector<c_atable_ptr_t> tables { _main, _delta };
   const auto& tmp = merger->merge(tables);
   _main = tmp[0];
   createDelta();
@@ -82,7 +82,7 @@ unsigned int SimpleStore::partitionCount() const {
   return _main->partitionCount();
 }
 
-hyrise::storage::atable_ptr_t SimpleStore::copy() const {
+atable_ptr_t SimpleStore::copy() const {
   STORAGE_NOT_IMPLEMENTED(SimpleStore, copy());
 }
 
@@ -95,3 +95,4 @@ void SimpleStore::debugStructure(size_t level) const {
 
 
 }}
+

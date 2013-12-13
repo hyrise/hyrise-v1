@@ -57,10 +57,14 @@ function runQuery() {
 			}
 
 			// Do the dot transformation
-			d = JSON.parse(d);
-			var performance = parsePerformanceData(d["performanceData"]);
+                        if (typeof(d) != "object")
+			  d = JSON.parse(d);
 
-			$("#msg").append(" " + totalTime(d["performanceData"]) + "ms");
+                        var performance = null;
+                        if (d["performanceData"]) {
+			  performance = parsePerformanceData(d["performanceData"]);
+			  $("#msg").append(" " + totalTime(d["performanceData"]) + "ms");
+                        }
 
 			var svg = Viz(toDot(JSON.parse($("#txtquery").val()), performance), "svg");
 			if (svg) {
@@ -148,13 +152,15 @@ function makeKey(key) {
 
 function maxPerf(performance) {
 	var result  = 0;
-	$.each(performance, function(k,v){result = v > result ? v : result;});
+        if (performance)
+	  $.each(performance, function(k,v){result = v > result ? v : result;});
 	return result;
 }
 
 function minPerf(performance) {
 	var result = Number.MAX_VALUE;
-	$.each(performance, function(k,v){result = v < result ? v : result;});
+        if (performance)
+	  $.each(performance, function(k,v){result = v < result ? v : result;});
 	return result;
 }
 
@@ -175,10 +181,17 @@ function toDot(json_graph, performance) {
 
 	$.each(json_graph["operators"], function(key, value){
 		result += "operator_" + makeKey(key) + " [label=\"{"+value["type"]+"|";
-		result += simpleFormat(performance[key], 4) + " ms";
+
+                if (performance)
+		  result += simpleFormat(performance[key], 4) + " ms";
+
 		result +="}\""; 
-		var fontSize = Math.round((performance[key] - minp) / perfStep)  * stepping + minf;
-		result += ",fontsize="+ fontSize;
+          
+                if (performance) {
+		  var fontSize = Math.round((performance[key] - minp) / perfStep)  * stepping + minf;
+		  result += ",fontsize="+ fontSize;
+                }
+
 		result += "];\n"
 	});
 	$.each(json_graph["edges"], function(i,v){

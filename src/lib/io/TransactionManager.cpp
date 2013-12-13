@@ -205,7 +205,7 @@ transaction_cid_t TransactionManager::commitTransaction(TXContext ctx) {
     // Only deleted records have to be checked for validity as newly inserted
     // records will be always only written by us
     if (auto store = getStore(weak_table.lock())) {
-      if (tx::TX_CODE::TX_OK != store->checkForConcurrentCommit(kv.second, ctx.tid)) {
+      if (TX_CODE::TX_OK != store->checkForConcurrentCommit(kv.second, ctx.tid)) {
         txmgr.abort();
         throw std::runtime_error("Aborted TX with Last Commit ID != New Commit ID");
       }
@@ -239,3 +239,4 @@ transaction_cid_t TransactionManager::commitTransaction(TXContext ctx) {
 }
 
 }}
+

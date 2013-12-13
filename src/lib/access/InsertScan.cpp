@@ -58,7 +58,7 @@ storage::atable_ptr_t InsertScan::buildFromJson() {
     for(size_t c=0; c < col_count; ++c) {
       if (serialFields.count(c) != 0) {
         auto serial_name = std::to_string(tab->getUuid()) + "_" + tab->nameOfColumn(c);
-        auto k = res_man.get<Serial>(serial_name)->next();
+        auto k = res_man.get<storage::Serial>(serial_name)->next();
         _generatedKeys->push_back(k);
         result->setValue<hyrise_int_t>(c, r, k);
         ++offset;
@@ -83,16 +83,15 @@ void InsertScan::executePlanOperation() {
   if (!_data)
     _data = buildFromJson();
 
-  // Delta Table Size
-  const auto& beforSize = store->size();
-
   auto writeArea = store->appendToDelta(_data->size());
+
+  const size_t firstPosition = store->getMainTable()->size() + writeArea.first;
 
   // Get the modifications record
   auto& mods = tx::TransactionManager::getInstance()[_txContext.tid];
   for(size_t i=0, upper = _data->size(); i < upper; ++i) {
     store->copyRowToDelta(_data, i, writeArea.first+i, _txContext.tid);
-    mods.insertPos(store, beforSize+i);
+    mods.insertPos(store, firstPosition+i);
   }
 
   auto rsp = getResponseTask();

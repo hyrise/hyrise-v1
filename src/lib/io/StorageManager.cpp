@@ -38,11 +38,11 @@ StorageManager *StorageManager::getInstance() {
   return static_cast<StorageManager*>(&ResourceManager::getInstance());
 }
 
-void StorageManager::loadTable(std::string name, std::shared_ptr<AbstractTable> table) {
+void StorageManager::loadTable(std::string name, std::shared_ptr<storage::AbstractTable> table) {
   add(name, table);
 }
 
-void StorageManager::replaceTable(std::string name, std::shared_ptr<AbstractTable> table) {
+void StorageManager::replaceTable(std::string name, std::shared_ptr<storage::AbstractTable> table) {
   replace(name, table);
 }
 
@@ -76,7 +76,7 @@ std::string StorageManager::makePath(std::string fileName) {
   return Settings::getInstance()->getDBPath() + "/" + fileName;
 }
 
-std::shared_ptr<AbstractTable> StorageManager::getTable(std::string name) {
+std::shared_ptr<storage::AbstractTable> StorageManager::getTable(std::string name) {
   if (!exists(name)) {
     std::string tbl_file = Settings::getInstance()->getDBPath() + "/" + name + ".tbl";
     struct stat stFileInfo;
@@ -84,7 +84,7 @@ std::shared_ptr<AbstractTable> StorageManager::getTable(std::string name) {
     if (stat(tbl_file.c_str(), &stFileInfo) == 0)
       loadTableFile(name, name + ".tbl");
   }
-  return get<AbstractTable>(name);
+  return get<storage::AbstractTable>(name);
 }
 
 void StorageManager::removeTable(std::string name) {
@@ -95,7 +95,7 @@ void StorageManager::removeTable(std::string name) {
 std::vector<std::string> StorageManager::getTableNames() const {
   std::vector<std::string> ret;
   for (const auto &resource : all())
-    if (std::dynamic_pointer_cast<AbstractTable>(resource.second) != nullptr)
+    if (std::dynamic_pointer_cast<storage::AbstractTable>(resource.second) != nullptr)
       ret.push_back(resource.first);
   return ret;
 }
@@ -109,7 +109,7 @@ void StorageManager::printResources() const {
   for (const auto &kv : all()) {
     const auto &name = kv.first;
     const auto &resource = kv.second;
-    if (auto table = std::dynamic_pointer_cast<AbstractTable>(resource)) {
+    if (auto table = std::dynamic_pointer_cast<storage::AbstractTable>(resource)) {
       std::cout << "Table "
                 << table->size() << " rows "
                 << table->columnCount() << " columns" << std::endl
@@ -117,7 +117,7 @@ void StorageManager::printResources() const {
 
       for (field_t i = 0; i != table->columnCount(); i++)
          std::cout << " " << table->metadataAt(i)->getName();
-    } else if (std::dynamic_pointer_cast<AbstractIndex>(resource)) {
+    } else if (std::dynamic_pointer_cast<storage::AbstractIndex>(resource)) {
       std::cout << "Index " << name;
     } else {
       std::cout << "Unknown resource type " << name;
@@ -127,14 +127,13 @@ void StorageManager::printResources() const {
   std::cout << "====================" << std::endl;
 }
 
-void StorageManager::addInvertedIndex(std::string name, std::shared_ptr<AbstractIndex> index) {
+void StorageManager::addInvertedIndex(std::string name, std::shared_ptr<storage::AbstractIndex> index) {
   add(name, index);
 }
 
-std::shared_ptr<AbstractIndex> StorageManager::getInvertedIndex(std::string name) {
-  return get<AbstractIndex>(name);
+std::shared_ptr<storage::AbstractIndex> StorageManager::getInvertedIndex(std::string name) {
+  return get<storage::AbstractIndex>(name);
 }
 
-}
-} // namespace hyrise::io
+} } // namespace hyrise::io
 

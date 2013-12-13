@@ -41,8 +41,7 @@
 //
 // See file example.cpp for more examples.
 
-#ifndef SRC_LIB_HELPER_CONFIGFILE_H_
-#define SRC_LIB_HELPER_CONFIGFILE_H_
+#pragma once
 
 #include <string>
 #include <map>
@@ -257,8 +256,6 @@ void ConfigFile::add(std::string key, const T &value) {
   myContents[key] = v;
   return;
 }
-
-#endif  // SRC_LIB_HELPER_CONFIGFILE_H_
 
 // Release notes:
 // v1.0  21 May 1999

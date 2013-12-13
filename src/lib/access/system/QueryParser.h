@@ -15,9 +15,12 @@
 
 const std::string autojsonReferenceTableId = "-1";
 
+namespace hyrise {
+namespace taskscheduler {
 class Task;
+} // namespace taskscheduler
 
-namespace hyrise { namespace access {
+namespace access {
 
 class PlanOperation;
 
@@ -62,7 +65,7 @@ struct QueryParserFactory<T, default_construct> : public AbstractQueryParserFact
  */
 class QueryParser {
   typedef std::map< std::string, AbstractQueryParserFactory * > factory_map_t;
-  typedef std::map< Json::Value, std::shared_ptr<Task> > task_map_t;
+  typedef std::map< Json::Value, std::shared_ptr<taskscheduler::Task> > task_map_t;
 
   factory_map_t _factory;
   QueryParser();
@@ -71,7 +74,7 @@ class QueryParser {
       tasks and task_map for further processing. */
   void buildTasks(
       const Json::Value &query,
-      std::vector<std::shared_ptr<Task> > &tasks,
+      std::vector<std::shared_ptr<taskscheduler::Task> > &tasks,
       task_map_t &task_map) const;
 
   /*  Defines operations input based on their types.  */
@@ -90,7 +93,7 @@ class QueryParser {
       task_map_t &task_map) const;
 
   //  Output of task without successor is query's result.
-  std::shared_ptr<Task> getResultTask(
+  std::shared_ptr<taskscheduler::Task> getResultTask(
       const task_map_t &task_map) const;
 
  public:
@@ -114,7 +117,7 @@ class QueryParser {
     return true;
   }
   
-  std::shared_ptr<PlanOperation> parse(std::string name, Json::Value d);
+  std::shared_ptr<PlanOperation> parse(std::string name, const Json::Value& d);
   
   static QueryParser &instance();
 
@@ -123,9 +126,9 @@ class QueryParser {
   /*  Main method. Builds and returns executable PlanOperation tasks based on the
       query's specifications and constructs their dependency graph. The task
       delivering the final result will be determined, too.   */
-  std::vector<std::shared_ptr<Task> > deserialize(
+  std::vector<std::shared_ptr<taskscheduler::Task> > deserialize(
       const Json::Value& query,
-      std::shared_ptr<Task> *result) const;
+      std::shared_ptr<taskscheduler::Task> *result) const;
 };
 
 }}

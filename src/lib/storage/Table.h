@@ -5,8 +5,7 @@
  * For any undocumented method see AbstractTable.
  * @see AbstractTable
  */
-#ifndef SRC_LIB_STORAGE_TABLE_H_
-#define SRC_LIB_STORAGE_TABLE_H_
+#pragma once
 
 #include <string>
 #include <vector>
@@ -20,6 +19,9 @@
 
 #include "storage/BaseAttributeVector.h"
 #include "storage/AttributeVectorFactory.h"
+
+namespace hyrise {
+namespace storage {
 
 /**
  * Table is the innermost entity in the table structure. It stores the actual
@@ -99,10 +101,10 @@ public:
 
   virtual void setDictionaryAt(AbstractTable::SharedDictionaryPtr dict, const size_t column, const size_t row = 0, const table_id_t table_id = 0);
 
-  virtual  hyrise::storage::atable_ptr_t copy_structure(const field_list_t *fields = nullptr, const bool reuse_dict = false, const size_t initial_size = 0, const bool with_containers = true, const bool compressed = false) const;
+  virtual  atable_ptr_t copy_structure(const field_list_t *fields = nullptr, const bool reuse_dict = false, const size_t initial_size = 0, const bool with_containers = true, const bool compressed = false) const;
 
-  virtual  hyrise::storage::atable_ptr_t copy_structure_modifiable(const field_list_t *fields = nullptr, const size_t initial_size = 0, const bool with_containers = true) const;
-  virtual hyrise::storage::atable_ptr_t copy_structure(abstract_dictionary_callback, abstract_attribute_vector_callback) const override;
+  virtual  atable_ptr_t copy_structure_modifiable(const field_list_t *fields = nullptr, const size_t initial_size = 0, const bool with_containers = true) const;
+  virtual atable_ptr_t copy_structure(abstract_dictionary_callback, abstract_attribute_vector_callback) const override;
 
   void setAttributes(SharedAttributeVector b);
 
@@ -118,7 +120,7 @@ public:
     return columnCount();
   }
 
-  virtual hyrise::storage::atable_ptr_t copy() const;
+  virtual atable_ptr_t copy() const;
 
   void setNumRows(size_t s) {
     tuples->setNumRows(s);
@@ -130,10 +132,8 @@ public:
     return { t };
   }
 
-  virtual void debugStructure(size_t level=0) const {
-    std::cout << std::string(level, '\t') << "Table " << this << std::endl;
-  }
+  virtual void debugStructure(size_t level=0) const;
 };
 
-#endif  // SRC_LIB_STORAGE_TABLE_H_
+} } // namespace hyrise::storage
 

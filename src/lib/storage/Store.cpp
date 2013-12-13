@@ -2,7 +2,6 @@
 #include <storage/Store.h>
 #include <iostream>
 
-
 #include <io/TransactionManager.h>
 #include <storage/storage_types.h>
 #include <storage/PrettyPrinter.h>

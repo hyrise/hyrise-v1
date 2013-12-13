@@ -17,8 +17,8 @@
 
 #define EXPRESSION_EXTRACT_AV_AND_OFFSET(r, data, name) \
 	const	auto& BOOST_PP_CAT(tmp, name) = _store->getAttributeVectors(name); \
-	BOOST_PP_CAT(_vector_,name) = hyrise::functional::collect(BOOST_PP_CAT(tmp, name), [](const attr_vector_offset_t& v) { return checked_pointer_cast<VectorType>(v.attribute_vector); }); \
-	BOOST_PP_CAT(_of_, name) = hyrise::functional::collect(BOOST_PP_CAT(tmp, name), [](const attr_vector_offset_t& v) { return v.attribute_offset; });
+	BOOST_PP_CAT(_vector_,name) = hyrise::functional::collect(BOOST_PP_CAT(tmp, name), [](const storage::attr_vector_offset_t& v) { return checked_pointer_cast<VectorType>(v.attribute_vector); }); \
+	BOOST_PP_CAT(_of_, name) = hyrise::functional::collect(BOOST_PP_CAT(tmp, name), [](const storage::attr_vector_offset_t& v) { return v.attribute_offset; });
 
 
 #define EXPR_DATA_VECTOR_NAME(name) BOOST_PP_CAT(_vector_, name)
@@ -86,6 +86,7 @@
 
 #define IMPLEMENT_EXPRESSION_CLASS(name, seq_of_fields, seq_logic) \
 	name::name(){}\
+	name::name(const Json::Value& val) : _orig_json_val(val) {} \
 	pos_list_t* name::match(const size_t start, const size_t stop) {\
 		EXPR_BUILD_LOOP(the_result, seq_of_fields, seq_logic );\
 		return the_result;\
@@ -95,7 +96,7 @@
 		BOOST_PP_SEQ_FOR_EACH(EXPRESSION_EXTRACT_AV_AND_OFFSET,,BOOST_PP_SEQ_TRANSFORM(EXPR_TRANSFORM_FIELD_NAMES,,seq_of_fields));\
 	}\
 	std::unique_ptr<name> name::parse(const Json::Value& val) {\
-		auto res = make_unique<name>();\
+		auto res = make_unique<name>(val);\
 		if (val.isMember("withDelta")) res->_with_delta = val["withDelta"].asBool();\
 		BOOST_PP_SEQ_FOR_EACH(EXPR_EXTRACT_FFROM_JSON, res, seq_of_fields);\
 		return res;\
@@ -103,16 +104,21 @@
 
 #define DEFINE_EXPRESSION_CLASS(name, seq_of_fields,seq_logic) \
 	class name : public AbstractExpression { \
-		using VectorType = AbstractFixedLengthVector<value_id_t>;\
+		using VectorType = storage::AbstractFixedLengthVector<value_id_t>;\
 		using SharedVectorType = std::shared_ptr<VectorType>;\
+		Json::Value _orig_json_val;\
 		hyrise::storage::c_store_ptr_t _store;\
 		bool _with_delta=true;\
 		BOOST_PP_SEQ_FOR_EACH(EXPRESSION_ADD_REFERENCE_FIELD,,seq_of_fields);\
 	public:\
 		name(); \
+		name(const Json::Value &val); \
 		virtual pos_list_t* match(const size_t start, const size_t stop);\
 		virtual void walk(const std::vector<hyrise::storage::c_atable_ptr_t> &l);		\
 		static std::unique_ptr<name> parse(const Json::Value& data);\
+                virtual std::unique_ptr<AbstractExpression> clone() { \
+		    return name::parse(_orig_json_val); \
+		}; \
 	};\
 	IMPLEMENT_EXPRESSION_CLASS(name, seq_of_fields, seq_logic);\
 

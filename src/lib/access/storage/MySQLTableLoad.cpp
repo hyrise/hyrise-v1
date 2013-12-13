@@ -21,16 +21,16 @@ MySQLTableLoad::~MySQLTableLoad() {
 }
 
 void MySQLTableLoad::executePlanOperation() {
-  StorageManager *sm = StorageManager::getInstance();
+  auto sm = io::StorageManager::getInstance();
   storage::atable_ptr_t t;
   if (sm->exists(_table_name)) {
     t = sm->getTable(_table_name);
     addResult(t);
   } else {
-    t = Loader::load(
-          Loader::params().setInput(
-            MySQLInput(
-              MySQLInput::params()
+    t = io::Loader::load(
+          io::Loader::params().setInput(
+            io::MySQLInput(
+              io::MySQLInput::params()
               .setSchema(_database_name)
               .setTable(_table_name)
               .setLimit(_load_limit)

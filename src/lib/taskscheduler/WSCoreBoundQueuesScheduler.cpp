@@ -9,6 +9,9 @@
 #include "WSCoreBoundQueue.h"
 #include "SharedScheduler.h"
 
+namespace hyrise {
+namespace taskscheduler {
+
 // register Scheduler at SharedScheduler
 namespace {
 bool registered  =
@@ -79,6 +82,9 @@ void WSCoreBoundQueuesScheduler::pushToQueue(std::shared_ptr<Task> task) {
     }
   }
 
-  WSCoreBoundQueuesScheduler::task_queue_t *WSCoreBoundQueuesScheduler::createTaskQueue(int core) {
-    return new WSCoreBoundQueue(core, this);
-  }
+WSCoreBoundQueuesScheduler::task_queue_t *WSCoreBoundQueuesScheduler::createTaskQueue(int core) {
+  return new WSCoreBoundQueue(core, this);
+}
+
+} } // namespace hyrise::taskscheduler
+

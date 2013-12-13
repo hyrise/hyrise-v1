@@ -22,7 +22,7 @@ LoadFile::~LoadFile() {
 }
 
 void LoadFile::executePlanOperation() {
-  output.add(Loader::shortcuts::load(StorageManager::getInstance()->makePath(_filename)));
+  output.add(io::Loader::shortcuts::load(io::StorageManager::getInstance()->makePath(_filename)));
 }
 
 std::shared_ptr<PlanOperation> LoadFile::parse(const Json::Value &data) {

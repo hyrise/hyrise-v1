@@ -1,14 +1,16 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#ifndef SRC_LIB_ACCESS_PRED_SIMPLEEXPRESSION_H_
-#define SRC_LIB_ACCESS_PRED_SIMPLEEXPRESSION_H_
+#pragma once
 
 #include "storage/storage_types.h"
 #include "helper/types.h"
 #include "access/expressions/AbstractExpression.h"
 
-class SimpleExpression : public hyrise::access::AbstractExpression {
+namespace hyrise {
+namespace access {
+
+class SimpleExpression : public access::AbstractExpression {
  public:
-  virtual void walk(const std::vector<hyrise::storage::c_atable_ptr_t> &l) = 0;
+  virtual void walk(const std::vector<storage::c_atable_ptr_t> &l) = 0;
 
   virtual pos_list_t* match(const size_t start, const size_t stop) {
     auto pl = new pos_list_t;
@@ -25,5 +27,5 @@ class SimpleExpression : public hyrise::access::AbstractExpression {
   }
 };
 
+} } // namespace hyrise::access
 
-#endif  // SRC_LIB_ACCESS_PRED_SIMPLEEXPRESSION_H_

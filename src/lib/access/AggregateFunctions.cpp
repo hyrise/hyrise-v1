@@ -8,15 +8,15 @@ namespace hyrise { namespace storage {
 struct aggregate_functor { 
   typedef void value_type;
   
-  const hyrise::storage::c_atable_ptr_t& input;
-  hyrise::storage::atable_ptr_t& target;
+  const c_atable_ptr_t& input;
+  atable_ptr_t& target;
   pos_list_t *rows;
   field_t sourceField;
   std::string targetColumn;
   size_t targetRow;
   
-  aggregate_functor(const hyrise::storage::c_atable_ptr_t& i,
-                    hyrise::storage::atable_ptr_t& t,
+  aggregate_functor(const c_atable_ptr_t& i,
+                    atable_ptr_t& t,
                     pos_list_t *forRows,
                     field_t sourceF,
                     std::string column,
@@ -24,8 +24,8 @@ struct aggregate_functor {
 };
 
 struct sum_aggregate_functor : aggregate_functor {
-  sum_aggregate_functor(const hyrise::storage::c_atable_ptr_t& i,
-                        hyrise::storage::atable_ptr_t& t,
+  sum_aggregate_functor(const c_atable_ptr_t& i,
+                        atable_ptr_t& t,
                         pos_list_t *forRows,
                         field_t sourceF,
                         std::string column,
@@ -60,8 +60,8 @@ void sum_aggregate_functor::operator()<std::string>() {
 }
 
 struct average_aggregate_functor : aggregate_functor {
-  average_aggregate_functor(const hyrise::storage::c_atable_ptr_t& i,
-                            hyrise::storage::atable_ptr_t& t,
+  average_aggregate_functor(const c_atable_ptr_t& i,
+                            atable_ptr_t& t,
                             pos_list_t *forRows,
                             field_t sourceF,
                             std::string column,
@@ -98,8 +98,8 @@ void average_aggregate_functor::operator()<std::string>() {
 }
 
 struct min_aggregate_functor : aggregate_functor {
-  min_aggregate_functor(const hyrise::storage::c_atable_ptr_t& i,
-                            hyrise::storage::atable_ptr_t& t,
+  min_aggregate_functor(const c_atable_ptr_t& i,
+                            atable_ptr_t& t,
                             pos_list_t *forRows,
                             field_t sourceF,
                             std::string column,
@@ -132,8 +132,8 @@ struct min_aggregate_functor : aggregate_functor {
 };
 
 struct max_aggregate_functor : aggregate_functor{
-  max_aggregate_functor(const hyrise::storage::c_atable_ptr_t& i,
-                            hyrise::storage::atable_ptr_t& t,
+  max_aggregate_functor(const c_atable_ptr_t& i,
+                            atable_ptr_t& t,
                             pos_list_t *forRows,
                             field_t sourceF,
                             std::string column,
@@ -165,7 +165,9 @@ struct max_aggregate_functor : aggregate_functor{
   }
 };
 
-} } // namespace hyrise::storage
+} // namespace storage
+
+namespace access {
 
 aggregateFunctionMap_t getAggregateFunctionMap() {
   aggregateFunctionMap_t d;
@@ -209,7 +211,7 @@ AggregateFun *parseAggregateFunction(const Json::Value &data) {
   return aggregate;
 }
 
-void AggregateFun::walk(const AbstractTable &table) {
+void AggregateFun::walk(const storage::AbstractTable &table) {
   if (_field_name.size() > 0) { //either _field_name is set
     _field = table.numberOfColumn(_field_name);
   } else { //or _field
@@ -222,10 +224,10 @@ void AggregateFun::walk(const AbstractTable &table) {
 }
 
 
-void SumAggregateFun::processValuesForRows(const hyrise::storage::c_atable_ptr_t& t, pos_list_t *rows,
-                                           hyrise::storage::atable_ptr_t& target, size_t targetRow) {
-  hyrise::storage::sum_aggregate_functor fun(t, target, rows, _field, columnName(), targetRow);
-  hyrise::storage::type_switch<hyrise_basic_types> ts;
+void SumAggregateFun::processValuesForRows(const storage::c_atable_ptr_t& t, pos_list_t *rows,
+                                           storage::atable_ptr_t& target, size_t targetRow) {
+  storage::sum_aggregate_functor fun(t, target, rows, _field, columnName(), targetRow);
+  storage::type_switch<hyrise_basic_types> ts;
   ts(_dataType, fun);
 }
 
@@ -236,8 +238,8 @@ AggregateFun *SumAggregateFun::parse(const Json::Value &f) {
 }
 
 
-void CountAggregateFun::processValuesForRows(const hyrise::storage::c_atable_ptr_t& t, pos_list_t *rows,
-                                             hyrise::storage::atable_ptr_t& target, size_t targetRow) {
+void CountAggregateFun::processValuesForRows(const storage::c_atable_ptr_t& t, pos_list_t *rows,
+                                             storage::atable_ptr_t& target, size_t targetRow) {
   size_t count;
 
   if (isDistinct())
@@ -248,7 +250,7 @@ void CountAggregateFun::processValuesForRows(const hyrise::storage::c_atable_ptr
   target->setValue<hyrise_int_t>(target->numberOfColumn(columnName()), targetRow, count);
 }
 
-size_t CountAggregateFun::countRows(const hyrise::storage::c_atable_ptr_t& t, pos_list_t *rows) {
+size_t CountAggregateFun::countRows(const storage::c_atable_ptr_t& t, pos_list_t *rows) {
   if (rows != nullptr)
     return rows->size();
   return t->size();
@@ -258,11 +260,11 @@ namespace {
   struct row_comparison_functor {
     typedef bool value_type;
 
-    const hyrise::storage::c_atable_ptr_t& table;
+    const storage::c_atable_ptr_t& table;
     size_t col;
     pos_t row1, row2;
 
-    row_comparison_functor(const hyrise::storage::c_atable_ptr_t& t, size_t col, pos_t row1, pos_t row2):
+    row_comparison_functor(const storage::c_atable_ptr_t& t, size_t col, pos_t row1, pos_t row2):
       table(t), col(col), row1(row1), row2(row2) {}
 
     template <typename R>
@@ -271,13 +273,13 @@ namespace {
     }
   };
 
-  bool rowsEqual(const hyrise::storage::c_atable_ptr_t& t, size_t col, pos_t r1, pos_t r2) {
+  bool rowsEqual(const storage::c_atable_ptr_t& t, size_t col, pos_t r1, pos_t r2) {
     row_comparison_functor fun(t, col, r1, r2);
-    hyrise::storage::type_switch<hyrise_basic_types> ts;
+    storage::type_switch<hyrise_basic_types> ts;
     return ts(t->typeOfColumn(col), fun);
   }
 
-  bool equalRowIn(const hyrise::storage::c_atable_ptr_t&t, size_t col, const pos_list_t &rows, pos_t row) { 
+  bool equalRowIn(const storage::c_atable_ptr_t&t, size_t col, const pos_list_t &rows, pos_t row) { 
     for (const auto& currentRow: rows) {
       if (rowsEqual(t, col, row, currentRow))
         return true;
@@ -286,7 +288,7 @@ namespace {
   }
 } // namespace
 
-size_t CountAggregateFun::countRowsDistinct(const hyrise::storage::c_atable_ptr_t& t, pos_list_t *rows) {
+size_t CountAggregateFun::countRowsDistinct(const storage::c_atable_ptr_t& t, pos_list_t *rows) {
   pos_list_t distinctRows;
 
   if (rows == nullptr) {
@@ -318,10 +320,10 @@ AggregateFun *CountAggregateFun::parse(const Json::Value &f) {
 }
 
 
-void AverageAggregateFun::processValuesForRows(const hyrise::storage::c_atable_ptr_t& t, pos_list_t *rows,
-                                               hyrise::storage::atable_ptr_t& target, size_t targetRow) { 
-    hyrise::storage::average_aggregate_functor fun(t, target, rows, _field, columnName(), targetRow);
-    hyrise::storage::type_switch<hyrise_basic_types> ts;
+void AverageAggregateFun::processValuesForRows(const storage::c_atable_ptr_t& t, pos_list_t *rows,
+                                               storage::atable_ptr_t& target, size_t targetRow) { 
+    storage::average_aggregate_functor fun(t, target, rows, _field, columnName(), targetRow);
+    storage::type_switch<hyrise_basic_types> ts;
     ts(_dataType, fun);
 }
 
@@ -332,10 +334,10 @@ AggregateFun *AverageAggregateFun::parse(const Json::Value &f) {
 }
 
 
-void MinAggregateFun::processValuesForRows(const hyrise::storage::c_atable_ptr_t& t, pos_list_t *rows,
-                                           hyrise::storage::atable_ptr_t& target, size_t targetRow) { 
-    hyrise::storage::min_aggregate_functor fun(t, target, rows, _field, columnName(), targetRow);
-    hyrise::storage::type_switch<hyrise_basic_types> ts;
+void MinAggregateFun::processValuesForRows(const storage::c_atable_ptr_t& t, pos_list_t *rows,
+                                           storage::atable_ptr_t& target, size_t targetRow) { 
+    storage::min_aggregate_functor fun(t, target, rows, _field, columnName(), targetRow);
+    storage::type_switch<hyrise_basic_types> ts;
     ts(_dataType, fun);
 }
 
@@ -346,10 +348,10 @@ AggregateFun *MinAggregateFun::parse(const Json::Value &f) {
 }
 
 
-void MaxAggregateFun::processValuesForRows(const hyrise::storage::c_atable_ptr_t& t, pos_list_t *rows,
-                                           hyrise::storage::atable_ptr_t& target, size_t targetRow) { 
-    hyrise::storage::max_aggregate_functor fun(t, target, rows, _field, columnName(), targetRow);
-    hyrise::storage::type_switch<hyrise_basic_types> ts;
+void MaxAggregateFun::processValuesForRows(const storage::c_atable_ptr_t& t, pos_list_t *rows,
+                                           storage::atable_ptr_t& target, size_t targetRow) { 
+    storage::max_aggregate_functor fun(t, target, rows, _field, columnName(), targetRow);
+    storage::type_switch<hyrise_basic_types> ts;
     ts(_dataType, fun);
 }
 
@@ -358,4 +360,6 @@ AggregateFun *MaxAggregateFun::parse(const Json::Value &f) {
   else if (f["field"].isString()) return new MaxAggregateFun(f["field"].asString());
   else throw std::runtime_error("Could not parse json");
 }
+
+} } // namespace hyrise::access
 

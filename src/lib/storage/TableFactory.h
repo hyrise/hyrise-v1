@@ -1,6 +1,5 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#ifndef SRC_LIB_STORAGE_TABLEFACTORY_H_
-#define SRC_LIB_STORAGE_TABLEFACTORY_H_
+#pragma once
 
 #include <memory>
 
@@ -9,10 +8,13 @@
 #include "storage/AbstractTable.h"
 #include "storage/Table.h"
 
+namespace hyrise {
+namespace storage {
+
 class AbstractTableFactory {
 public:
   virtual ~AbstractTableFactory();
-  virtual hyrise::storage::atable_ptr_t generate(std::vector<const ColumnMetadata*> *meta,
+  virtual atable_ptr_t generate(std::vector<const ColumnMetadata*> *meta,
       std::vector<AbstractTable::SharedDictionaryPtr> *d = nullptr,
       size_t initial_size = 0,
       bool sorted = true,
@@ -21,7 +23,7 @@ public:
 
 class TableFactory : public AbstractTableFactory {
  public:
-  hyrise::storage::atable_ptr_t generate(std::vector<const ColumnMetadata *> *m,
+  atable_ptr_t generate(std::vector<const ColumnMetadata *> *m,
                                                  std::vector<AbstractTable::SharedDictionaryPtr> *d = nullptr,
                                                  size_t initial_size = 0,
                                                  bool sorted = true,
@@ -30,4 +32,5 @@ class TableFactory : public AbstractTableFactory {
   }
 };
 
-#endif  // SRC_LIB_STORAGE_TABLEFACTORY_H_
+} } // namespace hyrise::storage
+

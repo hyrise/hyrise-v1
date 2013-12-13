@@ -30,6 +30,8 @@ namespace  {
 const char *PID_FILE = "./hyrise_server.pid";
 const char *PORT_FILE = "./hyrise_server.port";
 const size_t DEFAULT_PORT = 5000;
+// default maximum task size. 0 is disabled.
+const size_t DEFAULT_MTS = 0;
 
 
 LoggerPtr logger(Logger::getLogger("hyrise"));
@@ -126,12 +128,14 @@ int main(int argc, char *argv[]) {
   int worker_threads = 0;
   std::string logPropertyFile;
   std::string scheduler_name;
+  size_t maxTaskSize;
 
   // Program Options
   po::options_description desc("Allowed Parameters");
   desc.add_options()("help", "Shows this help message")
   ("port,p", po::value<size_t>(&port)->default_value(DEFAULT_PORT), "Server Port")
   ("logdef,l", po::value<std::string>(&logPropertyFile)->default_value("build/log.properties"), "Log4CXX Log Properties File")
+  ("maxTaskSize,m", po::value<size_t>(&maxTaskSize)->default_value(DEFAULT_MTS), "Maximum task size used in dynamic parallelization scheduler. Use 0 for unbounded task run time.")
   ("scheduler,s", po::value<std::string>(&scheduler_name)->default_value("ThreadPerTaskScheduler"), "Name of the scheduler to use")
   ("threads,t", po::value<int>(&worker_threads)->default_value(getNumberOfCoresOnSystem()), "Number of worker threads for scheduler (only relevant for scheduler with fixed number of threads)");
   po::variables_map vm;
@@ -161,7 +165,7 @@ int main(int argc, char *argv[]) {
   LOG4CXX_WARN(logger, "compiled with development settings, expect substantially lower and non-representative performance");
 #endif
 
-  SharedScheduler::getInstance().init(scheduler_name, worker_threads);
+  taskscheduler::SharedScheduler::getInstance().init(scheduler_name, worker_threads, maxTaskSize);
 
   // Main Server Loop
   struct ev_loop *loop = ev_default_loop(0);

@@ -45,8 +45,19 @@ class PlanOperation : public OutputTask {
   /* Returns all errors of dependencies as one concatenated std::string */
   std::string getDependencyErrorMessages();
 
+  /* for determineDynamicCount */
+  virtual size_t getTotalTableSize();
+  // these are a and b for two straight lines y=a*x+b used in the model.
+  // override in subclasses for actual fitting parameters.
+  virtual double min_mts_a() { return 0; }
+  virtual double min_mts_b() { return 0; }
+  virtual double a_a() { return 0; }
+  virtual double a_b() { return 0; }
+
  public:
   virtual ~PlanOperation();
+
+  virtual size_t determineDynamicCount(size_t maxTaskRunTime);
 
   void setLimit(uint64_t l);
   void setProducesPositions(bool p);
@@ -74,12 +85,12 @@ class PlanOperation : public OutputTask {
   const PlanOperation *execute();
 
   void setErrorMessage(const std::string& message);
-  void setResponseTask(const std::shared_ptr<access::ResponseTask>& responseTask);
-  std::shared_ptr<access::ResponseTask> getResponseTask() const;
+  void setResponseTask(const std::shared_ptr<ResponseTask>& responseTask);
+  std::shared_ptr<ResponseTask> getResponseTask() const;
  protected:
   /// Containers to store and handle input/output or rather result data.
-  access::OperationData input;
-  access::OperationData output;
+  OperationData input;
+  OperationData output;
 
   /// Limits the number of rows read
   uint64_t _limit = 0;
@@ -91,7 +102,7 @@ class PlanOperation : public OutputTask {
   field_name_list_t _named_field_definition;
   field_list_t _indexed_field_definition;
 
-  std::weak_ptr<access::ResponseTask> _responseTask;
+  std::weak_ptr<ResponseTask> _responseTask;
 
   bool producesPositions = true;
 

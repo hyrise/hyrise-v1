@@ -1,6 +1,5 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#ifndef SRC_LIB_ACCESS_PRED_EQUALSEXPRESSION_H_
-#define SRC_LIB_ACCESS_PRED_EQUALSEXPRESSION_H_
+#pragma once
 
 #include "helper/types.h"
 
@@ -9,11 +8,14 @@
 // Required for Raw Table Scan
 #include <storage/RawTable.h>
 
+namespace hyrise {
+namespace access {
+
 template <typename T>
 class EqualsExpression : public SimpleFieldExpression {
  private:
   ValueId lower_bound;
-  std::shared_ptr<BaseDictionary<T>> valueIdMap;
+  std::shared_ptr<storage::BaseDictionary<T>> valueIdMap;
   bool value_exists;
 
  public:
@@ -29,18 +31,22 @@ class EqualsExpression : public SimpleFieldExpression {
   {}
 
 
-  EqualsExpression(hyrise::storage::c_atable_ptr_t& _table, field_t _field, T _value) : SimpleFieldExpression(_table, _field), value(_value)
+  EqualsExpression(storage::c_atable_ptr_t& _table, field_t _field, T _value) : SimpleFieldExpression(_table, _field), value(_value)
   {}
 
-  virtual void walk(const std::vector<hyrise::storage::c_atable_ptr_t > &l) {
+  virtual void walk(const std::vector<storage::c_atable_ptr_t > &l) {
     SimpleFieldExpression::walk(l);
-    valueIdMap = std::dynamic_pointer_cast<BaseDictionary<T>>(table->dictionaryAt(field));
+    valueIdMap = std::dynamic_pointer_cast<storage::BaseDictionary<T>>(table->dictionaryAt(field));
 
     value_exists = valueIdMap->valueExists(value);
 
     if (value_exists) {
       lower_bound = table->getValueIdForValue(field, value);
     }
+  }
+ 
+  virtual std::unique_ptr<AbstractExpression> clone(){
+    return std::unique_ptr<EqualsExpression<T>>(new EqualsExpression<T>(table, field, value));
   }
 
   virtual ~EqualsExpression() { }
@@ -70,15 +76,15 @@ class EqualsExpressionRaw : public SimpleFieldExpression {
       SimpleFieldExpression(_input, _field), value(_value)
   {}
 
-  EqualsExpressionRaw(const hyrise::storage::c_atable_ptr_t& _table, field_t _field, T _value) : SimpleFieldExpression(_table, _field), value(_value)
+  EqualsExpressionRaw(const storage::c_atable_ptr_t& _table, field_t _field, T _value) : SimpleFieldExpression(_table, _field), value(_value)
   {}
 
   virtual ~EqualsExpressionRaw() { }
 
   inline virtual bool operator()(size_t row) {
-    return (std::dynamic_pointer_cast<const RawTable>(table))->template getValue<T>(field, row) == value;
+    return (std::dynamic_pointer_cast<const storage::RawTable>(table))->template getValue<T>(field, row) == value;
   }
 };
 
-#endif  // SRC_LIB_ACCESS_PRED_EQUALSEXPRESSION_H_
+} } // namespace hyrise::access
 

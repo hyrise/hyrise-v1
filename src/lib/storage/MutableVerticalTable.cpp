@@ -1,5 +1,8 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "storage/MutableVerticalTable.h"
+
+#include <iostream>
+
 #include "helper/vector_helpers.h"
 
 namespace hyrise { namespace storage {
@@ -211,7 +214,7 @@ atable_ptr_t MutableVerticalTable::copy_structure_modifiable(const field_list_t 
 }
 
 atable_ptr_t MutableVerticalTable::copy_structure(abstract_dictionary_callback a, abstract_attribute_vector_callback b) const {
-  auto new_containers = hyrise::functional::collect(containers, [&](const atable_ptr_t& t) { return t->copy_structure(a, b); });
+  auto new_containers = functional::collect(containers, [&](const atable_ptr_t& t) { return t->copy_structure(a, b); });
   return std::make_shared<MutableVerticalTable>(new_containers);
 }
 

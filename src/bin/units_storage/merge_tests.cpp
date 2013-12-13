@@ -20,11 +20,11 @@ class MergeTests : public ::hyrise::Test {};
 
 
 TEST_F(MergeTests, simple_merge_test_with_rows) {
-  hyrise::storage::atable_ptr_t main = Loader::shortcuts::load("test/merge1_main_row.tbl");
-  hyrise::storage::atable_ptr_t delta = Loader::shortcuts::load("test/merge1_delta.tbl"); 
-  hyrise::storage::atable_ptr_t correct_result = Loader::shortcuts::load("test/merge1_result.tbl");
+  auto main = io::Loader::shortcuts::load("test/merge1_main_row.tbl");
+  auto delta = io::Loader::shortcuts::load("test/merge1_delta.tbl"); 
+  auto correct_result = io::Loader::shortcuts::load("test/merge1_result.tbl");
 
-  std::vector<hyrise::storage::c_atable_ptr_t > tables;
+  std::vector<storage::c_atable_ptr_t > tables;
   tables.push_back(main);
   tables.push_back(delta);
 
@@ -41,9 +41,9 @@ TEST_F(MergeTests, simple_merge_test_with_rows) {
 
 
 TEST_F(MergeTests, simple_merge_test) {
-  hyrise::storage::atable_ptr_t main = Loader::shortcuts::load("test/merge1_main.tbl");
-  hyrise::storage::atable_ptr_t delta = Loader::shortcuts::load("test/merge1_delta.tbl");
-  hyrise::storage::atable_ptr_t correct_result = Loader::shortcuts::load("test/merge1_result.tbl");
+  auto main = io::Loader::shortcuts::load("test/merge1_main.tbl");
+  auto delta = io::Loader::shortcuts::load("test/merge1_delta.tbl");
+  auto correct_result = io::Loader::shortcuts::load("test/merge1_result.tbl");
 
   std::vector<hyrise::storage::c_atable_ptr_t > tables;
   tables.push_back(main);
@@ -61,9 +61,9 @@ TEST_F(MergeTests, simple_merge_test) {
 }
 
 TEST_F(MergeTests, simple_merge_test_valid_rows) {
-  hyrise::storage::atable_ptr_t main = Loader::shortcuts::load("test/merge1_main.tbl");
-  hyrise::storage::atable_ptr_t delta = Loader::shortcuts::load("test/merge1_delta.tbl");
-  hyrise::storage::atable_ptr_t correct_result = Loader::shortcuts::load("test/merge1_result.tbl");
+  auto main = io::Loader::shortcuts::load("test/merge1_main.tbl");
+  auto delta = io::Loader::shortcuts::load("test/merge1_delta.tbl");
+  auto correct_result = io::Loader::shortcuts::load("test/merge1_result.tbl");
 
   std::vector<hyrise::storage::c_atable_ptr_t > tables;
   tables.push_back(main);
@@ -232,14 +232,14 @@ TEST_F(MergeTests, DISABLED_parallel_heap_merger_delta_test) {
 }
 
 TEST_F(MergeTests, simple_logarithmic_merger_test) {
-  auto m = Loader::shortcuts::loadMainDelta("test/merge1_main.tbl", "test/merge1_delta.tbl");
+  auto m = io::Loader::shortcuts::loadMainDelta("test/merge1_main.tbl", "test/merge1_delta.tbl");
   std::vector<hyrise::storage::c_atable_ptr_t > tables;
   tables.push_back(m->getMainTable());
   tables.push_back(m->getDeltaTable());
   TableMerger merger(new DefaultMergeStrategy(), new SequentialHeapMerger());
   const auto& result = merger.merge(tables);
 
-  const auto& correct_result = Loader::shortcuts::load("test/merge1_result.tbl");
+  const auto& correct_result = io::Loader::shortcuts::load("test/merge1_result.tbl");
   ASSERT_TRUE(result[0]->contentEquals(correct_result));
   ASSERT_TRUE(result[0]->dictionaryAt(0)->size() == 7);
   ASSERT_TRUE(result[0]->dictionaryAt(1)->size() == 7);
@@ -248,7 +248,7 @@ TEST_F(MergeTests, simple_logarithmic_merger_test) {
 }
 
 TEST_F(MergeTests, DISABLED_parallel_value_merger_test) {
-  auto m = Loader::shortcuts::loadMainDelta("test/merge1_main.tbl", "test/merge1_delta.tbl", Loader::params().setCompressed(false));
+  auto m = io::Loader::shortcuts::loadMainDelta("test/merge1_main.tbl", "test/merge1_delta.tbl", io::Loader::params().setCompressed(false));
   std::vector<hyrise::storage::c_atable_ptr_t > tables;
   tables.push_back(m->getMainTable());
   tables.push_back(m->getDeltaTable());
@@ -257,7 +257,7 @@ TEST_F(MergeTests, DISABLED_parallel_value_merger_test) {
 
   const auto& result = merger.merge(tables);
 
-  const auto& correct_result = Loader::shortcuts::load("test/merge1_result.tbl");
+  const auto& correct_result = io::Loader::shortcuts::load("test/merge1_result.tbl");
   ASSERT_TRUE(result[0]->contentEquals(correct_result));
   ASSERT_TRUE(result[0]->dictionaryAt(0)->size() == 7);
   ASSERT_TRUE(result[0]->dictionaryAt(1)->size() == 7);
@@ -266,11 +266,11 @@ TEST_F(MergeTests, DISABLED_parallel_value_merger_test) {
 }
 
 TEST_F(MergeTests, merge_with_different_layout) {
-  hyrise::storage::atable_ptr_t main = Loader::shortcuts::load("test/merge1_main.tbl");
-  hyrise::storage::atable_ptr_t delta = Loader::shortcuts::load("test/merge1_delta.tbl"); //, Loader::params().set_modifiable(true));
-  hyrise::storage::atable_ptr_t correct_result = Loader::shortcuts::load("test/merge1_result.tbl");
+  auto main = io::Loader::shortcuts::load("test/merge1_main.tbl");
+  auto delta = io::Loader::shortcuts::load("test/merge1_delta.tbl"); //, io::Loader::params().set_modifiable(true));
+  auto correct_result = io::Loader::shortcuts::load("test/merge1_result.tbl");
 
-  hyrise::storage::atable_ptr_t dest = Loader::shortcuts::load("test/merge1_newlayout.tbl", Loader::params().setModifiableMutableVerticalTable(true));
+ auto dest = io::Loader::shortcuts::load("test/merge1_newlayout.tbl", io::Loader::params().setModifiableMutableVerticalTable(true));
 
   ASSERT_EQ(3u, main->partitionCount());
   ASSERT_EQ(1u, dest->partitionCount());
@@ -294,11 +294,11 @@ TEST_F(MergeTests, merge_with_different_layout) {
 }
 
 TEST_F(MergeTests, merge_with_different_layout_2) {
-  hyrise::storage::atable_ptr_t main = Loader::shortcuts::load("test/merge1_main.tbl");
-  hyrise::storage::atable_ptr_t delta = Loader::shortcuts::load("test/merge1_delta.tbl"); //, Loader::params().set_modifiable(true));
-  hyrise::storage::atable_ptr_t correct_result = Loader::shortcuts::load("test/merge1_result.tbl");
+  auto main = io::Loader::shortcuts::load("test/merge1_main.tbl");
+  auto delta = io::Loader::shortcuts::load("test/merge1_delta.tbl"); //, io::Loader::params().set_modifiable(true));
+  auto correct_result = io::Loader::shortcuts::load("test/merge1_result.tbl");
 
-  hyrise::storage::atable_ptr_t dest = Loader::shortcuts::load("test/merge1_newlayout_2.tbl", Loader::params().setModifiableMutableVerticalTable(true));
+  hyrise::storage::atable_ptr_t dest = io::Loader::shortcuts::load("test/merge1_newlayout_2.tbl", io::Loader::params().setModifiableMutableVerticalTable(true));
 
   ASSERT_EQ(3u, main->partitionCount());
   ASSERT_EQ(2u, dest->partitionCount());
@@ -323,8 +323,8 @@ TEST_F(MergeTests, merge_with_different_layout_2) {
 
 
 TEST_F(MergeTests, store_merge_compex) {
-  auto linxxxs = std::dynamic_pointer_cast<storage::Store>(Loader::shortcuts::load("test/lin_xxxs.tbl"));
-  auto ref = std::dynamic_pointer_cast<storage::Store>(Loader::shortcuts::load("test/reference/lin_xxxs_update.tbl"));
+  auto linxxxs = std::dynamic_pointer_cast<storage::Store>(io::Loader::shortcuts::load("test/lin_xxxs.tbl"));
+  auto ref = std::dynamic_pointer_cast<storage::Store>(io::Loader::shortcuts::load("test/reference/lin_xxxs_update.tbl"));
   linxxxs->resizeDelta(2);
   linxxxs->copyRowToDelta(linxxxs, 0, 0, 1);
   linxxxs->copyRowToDelta(linxxxs, 4, 1, 1);
@@ -346,5 +346,5 @@ TEST_F(MergeTests, store_merge_compex) {
   EXPECT_RELATION_EQ(ref, result[0]);
 }
 
-
 }}
+

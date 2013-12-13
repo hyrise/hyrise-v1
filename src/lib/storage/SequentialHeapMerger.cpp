@@ -7,10 +7,12 @@
 #include "storage/DictionaryIterator.h"
 #include "storage/ColumnMetadata.h"
 
+namespace hyrise {
+namespace storage {
 
-void SequentialHeapMerger::mergeValues(const std::vector<hyrise::storage::c_atable_ptr_t > &input_tables,
-                                       hyrise::storage::atable_ptr_t merged_table,
-                                       const hyrise::storage::column_mapping_t &column_mapping,
+void SequentialHeapMerger::mergeValues(const std::vector<c_atable_ptr_t > &input_tables,
+                                       atable_ptr_t merged_table,
+                                       const column_mapping_t &column_mapping,
                                        const uint64_t newSize,
                                        bool useValid,
                                        const std::vector<bool>& valid) {
@@ -53,9 +55,9 @@ void SequentialHeapMerger::mergeValues(const std::vector<hyrise::storage::c_atab
 }
 
 template <typename T>
-void SequentialHeapMerger::mergeValues(const std::vector<hyrise::storage::c_atable_ptr_t > &input_tables,
+void SequentialHeapMerger::mergeValues(const std::vector<c_atable_ptr_t > &input_tables,
                                        size_t source_column_index,
-                                       hyrise::storage::atable_ptr_t merged_table,
+                                       atable_ptr_t merged_table,
                                        size_t destination_column_index,
                                        value_id_mapping_t &value_id_mapping,
                                        bool useValid,
@@ -122,7 +124,7 @@ struct DictMergerHelperCompare {
 };
 
 template <typename T>
-AbstractTable::SharedDictionaryPtr SequentialHeapMerger::createNewDict(const std::vector<hyrise::storage::c_atable_ptr_t > &input_tables, 
+AbstractTable::SharedDictionaryPtr SequentialHeapMerger::createNewDict(const std::vector<c_atable_ptr_t > &input_tables, 
                                                                         std::vector<AbstractTable::SharedDictionaryPtr > &value_id_maps, 
                                                                         std::vector<std::vector<value_id_t> > &value_id_mapping, 
                                                                         size_t column_index,
@@ -172,7 +174,7 @@ AbstractTable::SharedDictionaryPtr SequentialHeapMerger::createNewDict(const std
   bool assigned = false;
 
   T last_value;
-  auto new_dict = std::make_shared<OrderPreservingDictionary<T>>( hyrise::functional::sum(value_id_mapping, 0ul, [](std::vector<value_id_t>& v){ return v.size(); }));
+  auto new_dict = std::make_shared<OrderPreservingDictionary<T>>( functional::sum(value_id_mapping, 0ul, [](std::vector<value_id_t>& v){ return v.size(); }));
   while(!queue.empty()) {
 
     auto element = queue.top();
@@ -205,9 +207,9 @@ AbstractTable::SharedDictionaryPtr SequentialHeapMerger::createNewDict(const std
   return new_dict;
 }
 
-void SequentialHeapMerger::copyValues(const std::vector<hyrise::storage::c_atable_ptr_t > &input_tables,
+void SequentialHeapMerger::copyValues(const std::vector<c_atable_ptr_t > &input_tables,
                                       size_t source_column_index,
-                                      hyrise::storage::atable_ptr_t &merged_table,
+                                      atable_ptr_t &merged_table,
                                       size_t destination_column_index,
                                       std::vector<std::vector<value_id_t> > &value_id_mapping,
                                       bool useValid,
@@ -236,3 +238,6 @@ void SequentialHeapMerger::copyValues(const std::vector<hyrise::storage::c_atabl
 AbstractMerger *SequentialHeapMerger::copy() {
   return new SequentialHeapMerger();
 }
+
+} } // namespace hyrise::storage
+
