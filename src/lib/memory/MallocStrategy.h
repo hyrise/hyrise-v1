@@ -3,20 +3,33 @@
 
 #include <cstdint>
 
+#include "MemoryStrategy.h"
+
 namespace hyrise {
 namespace memory {
 
 class MallocStrategy {
+private:
+  explicit MallocStrategy() {}
+  MallocStrategy(const MallocStrategy&) = delete;
+
 public:
-  static void *allocate(size_t sz) {
+  static MallocStrategy& instance() {
+    static auto instance = new MallocStrategy();
+    return *instance;
+  }
+
+  ~MallocStrategy() {}
+
+  virtual void *allocate(size_t sz) {
     return malloc(sz);
   }
 
-  static void *reallocate(void *old, size_t sz, size_t osz /*old_size*/) {
+  virtual void *reallocate(void *old, size_t sz, size_t osz /*old_size*/) {
     return realloc(old, sz);
   }
 
-  static void deallocate(void *p, size_t sz) {
+  virtual void deallocate(void *p, size_t sz) {
     free(p);
   }
 };

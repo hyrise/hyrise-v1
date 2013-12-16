@@ -12,20 +12,20 @@
 #include <stdexcept>
 #include <sstream>
 
-#include <memory/MallocStrategy.h>
+#include <memory/MmapStrategy.h>
 #include "storage/BaseAttributeVector.h"
 
 namespace hyrise {
 namespace storage {
 
 template <typename T>
-class AbstractFixedLengthVector : public BaseAttributeVector<T> {
+class AbstractFixedMmapVector : public BaseAttributeVector<T> {
  public:
   virtual const T& getRef(size_t column, size_t row) const = 0;
 };
 
 template <typename T>
-class FixedLengthVector : public AbstractFixedLengthVector<T> {
+class FixedMmapVector : public AbstractFixedMmapVector<T> {
  private:
   T *_values;
   size_t _rows;
@@ -33,18 +33,18 @@ class FixedLengthVector : public AbstractFixedLengthVector<T> {
   size_t _allocated_bytes;
 
   std::mutex _allocate_mtx;
-  using Strategy = memory::MallocStrategy;
+  using Strategy = memory::MmapStrategy;
  public:
   typedef T value_type;
   
-  FixedLengthVector(size_t columns,  size_t rows)  :
+  FixedMmapVector(size_t columns,  size_t rows)  :
       _values(nullptr), _rows(0), _columns(columns), _allocated_bytes(0) {
     if (rows > 0) {
       reserve(rows);
     }
   }
 
-  virtual ~FixedLengthVector() {
+  virtual ~FixedMmapVector() {
     Strategy::instance().deallocate(_values, _allocated_bytes);
   }
 
@@ -97,7 +97,7 @@ class FixedLengthVector : public AbstractFixedLengthVector<T> {
   }
 
   std::shared_ptr<BaseAttributeVector<T>> copy() {
-    auto copy = std::make_shared<FixedLengthVector<T>>(_columns, _rows);
+    auto copy = std::make_shared<FixedMmapVector<T>>(_columns, _rows);
     copy->_rows = _rows;
     copy->allocate(_allocated_bytes);
     memcpy(copy->_values, _values, _allocated_bytes);

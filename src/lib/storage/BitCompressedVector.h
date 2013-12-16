@@ -71,7 +71,7 @@ public:
   }
 
   virtual ~BitCompressedVector() {
-    Strategy::deallocate(_data, _allocatedBlocks * sizeof(storage_t));
+    Strategy::instance().deallocate(_data, _allocatedBlocks * sizeof(storage_t));
   }
 
   void *data() {
@@ -150,7 +150,7 @@ public:
 
       // Only deallocate if there was something allocated
       if (newMemory != nullptr)
-        Strategy::deallocate(newMemory, _allocatedBlocks * sizeof(storage_t));
+        Strategy::instance().deallocate(newMemory, _allocatedBlocks * sizeof(storage_t));
 
       // set new allocarted blocks
       _allocatedBlocks = _blocks(rows);
@@ -163,7 +163,7 @@ public:
    */
   void clear() {
     _size = 0;
-    Strategy::deallocate(_data, _allocatedBlocks * sizeof(storage_t));
+    Strategy::instance().deallocate(_data, _allocatedBlocks * sizeof(storage_t));
     _data = nullptr;
   }
 
@@ -264,9 +264,9 @@ private:
   */
   inline storage_t *_allocate(uint64_t numBlocks) {
 
-    auto data = static_cast<storage_t *>(Strategy::allocate(numBlocks * sizeof(storage_t)));
+    auto data = static_cast<storage_t *>(Strategy::instance().allocate(numBlocks * sizeof(storage_t)));
     if (data == nullptr) {
-      Strategy::deallocate(data, numBlocks * sizeof(storage_t));
+      Strategy::instance().deallocate(data, numBlocks * sizeof(storage_t));
       throw std::bad_alloc();
     }
     std::memset(data, 0, numBlocks * sizeof(storage_t));
