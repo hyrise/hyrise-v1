@@ -16,7 +16,9 @@ private:
   virtual ~MmapStrategy();
 
 const size_t _size;
-char* const _start;
+const std::string _fileName;
+const int _fd;
+char* _start;
 char* _cur;
 
 public:

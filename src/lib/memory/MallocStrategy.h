@@ -15,8 +15,8 @@ private:
 
 public:
   static MallocStrategy& instance() {
-    static auto instance = new MallocStrategy();
-    return *instance;
+    static MallocStrategy instance;
+    return instance;
   }
 
   ~MallocStrategy() {}
