@@ -22,36 +22,47 @@ T* copy_vec(T* orig) {
   return new T(begin(*orig), end(*orig));
 }
 
-PointerCalculator::PointerCalculator(c_atable_ptr_t t, pos_list_t *pos, field_list_t *f) : table(t), pos_list(pos), fields(f) {
+void PointerCalculator::unnest() {
   // prevent nested pos_list/fields: if the input table is a
   // PointerCalculator instance, combine the old and new
   // pos_list/fields lists
-  if (auto p = std::dynamic_pointer_cast<const PointerCalculator>(t)) {
+  if (auto p = std::dynamic_pointer_cast<const PointerCalculator>(table)) {
+
+    // if our actual table is a PC, we have to unfold the positions
     if (pos_list != nullptr && p->pos_list != nullptr) {
-      pos_list = new pos_list_t(pos->size());
-      for (size_t i = 0; i < pos->size(); i++) {
-        (*pos_list)[i] = p->pos_list->at(pos->at(i));
-      }
+      auto tmp_list = new pos_list_t(pos_list->size());
+      std::transform(std::begin(*(pos_list)), std::end(*(pos_list)), std::begin(*tmp_list), [p](const pos_t& i) -> pos_t {
+	  return p->pos_list->at(i);
+	});
       table = p->table;
-      delete pos;
+      std::swap(pos_list, tmp_list);
+      delete tmp_list;
     }
+
+    // WARN: There might be a bug here, since it's not clear who owns
+    // the memory for the fields pointer
     if (fields != nullptr && p->fields != nullptr) {
-      fields = new field_list_t(f->size());
-      for (size_t i = 0; i < f->size(); i++) {
-        (*fields)[i] = p->fields->at(f->at(i));
+      fields = new field_list_t(fields->size());
+      for (size_t i = 0; i < fields->size(); i++) {
+        (*fields)[i] = p->fields->at(fields->at(i));
       }
       table = p->table;
     }
   }
-  if (auto trv = std::dynamic_pointer_cast<const TableRangeView>(t)){
+
+  if (auto trv = std::dynamic_pointer_cast<const TableRangeView>(table)){
     const auto start =  trv->getStart();
     if (pos_list != nullptr && start != 0) {
-      for (size_t i = 0; i < pos->size(); i++) {
+      for (size_t i = 0; i < pos_list->size(); i++) {
         (*pos_list)[i] += start;
       }
     }
     table = trv->getTable();
   }
+}
+
+PointerCalculator::PointerCalculator(c_atable_ptr_t t, pos_list_t *pos, field_list_t *f) : table(t), pos_list(pos), fields(f) {
+  unnest();
   updateFieldMapping();
 }
 
@@ -61,6 +72,11 @@ PointerCalculator::PointerCalculator(const PointerCalculator& other) : table(oth
 
 atable_ptr_t PointerCalculator::copy() const {
   return create(table, fields, pos_list);
+}
+
+PointerCalculator::PointerCalculator(c_atable_ptr_t t, pos_list_t pos) : table(t), pos_list(new pos_list_t(std::move(pos))) {
+  unnest();
+  updateFieldMapping();
 }
 
 PointerCalculator::~PointerCalculator() {

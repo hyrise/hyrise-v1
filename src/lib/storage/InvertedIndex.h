@@ -63,6 +63,16 @@ public:
     }
   };
 
+  
+  bool exists(T key) const {
+    return _index.count(key) > 0;
+  }
+
+  const pos_list_t& getPositionsForKeyRef(T key) {
+    const auto& it = _index.find(key);
+    return it->second;
+  };
+
 };
 
 } } // namespace hyrise::storage
