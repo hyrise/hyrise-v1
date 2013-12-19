@@ -106,4 +106,3 @@ namespace taskscheduler {
 static_assert(std::is_same<tx::transaction_id_t, storage::hyrise_int_t>::value,
               "transaction_id_t and hyrise_int_t need to be of the same type");
 }
-

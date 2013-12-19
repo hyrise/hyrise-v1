@@ -25,6 +25,7 @@ class ResponseTask : public taskscheduler::Task {
   std::atomic<unsigned long> _affectedRows;
   tx::TXContext _txContext;
   epoch_t queryStart = 0;
+  bool _isAutoCommit = false;
   performance_vector_t performance_data;
 
   // Unique refs to the generated keys of all planops
@@ -62,7 +63,10 @@ class ResponseTask : public taskscheduler::Task {
   std::vector<std::string> getErrorMessages() const {
     return _error_messages;
   }
-
+  void setIsAutoCommit(bool b) {
+    _isAutoCommit = b;
+  }
+  
   void setTxContext(tx::TXContext t) {
     _txContext = t;
   }

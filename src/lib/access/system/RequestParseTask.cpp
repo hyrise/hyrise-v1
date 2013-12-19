@@ -2,8 +2,10 @@
 #include "access/system/RequestParseTask.h"
 
 #include <array>
+#include <iomanip>
 #include <map>
 #include <string>
+#include <sstream>
 #include <vector>
 #include <thread>
 
@@ -86,15 +88,10 @@ void RequestParseTask::operator()() {
     boost::optional<tx::TXContext> ctx;
     auto ctx_it = body_data.find("session_context");
     if (ctx_it != body_data.end()) {
-      boost::optional<tx::transaction_id_t> tid;
-      if ((tid = parseNumeric<tx::transaction_id_t>(ctx_it->second)) &&
-          (tx::TransactionManager::isRunningTransaction(*tid))) {
-        LOG4CXX_DEBUG(_logger, "Picking up transaction id " << *tid);
-        ctx = tx::TransactionManager::getContext(*tid);
-      } else {
-        LOG4CXX_ERROR(_logger, "Invalid transaction id " << ctx_it->second);
-        _responseTask->addErrorMessage("Invalid transaction id '"+ ctx_it->second +"' set, aborting execution");
-      }
+      std::size_t pos;
+      tx::transaction_id_t tid = std::stoll(ctx_it->second.c_str(), &pos);
+      tx::transaction_id_t cid = std::stoll(ctx_it->second.c_str() + pos + 1, &pos);
+      ctx = tx::TXContext(tid, cid);
     } else {
       ctx = tx::TransactionManager::beginTransaction();
       LOG4CXX_DEBUG(_logger, "Creating new transaction context " << (*ctx).tid);
@@ -149,6 +146,7 @@ void RequestParseTask::operator()() {
         commit->addDependency(result);
         result = commit;
         tasks.push_back(commit);
+        _responseTask->setIsAutoCommit(true);
       }
 
 

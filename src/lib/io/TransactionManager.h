@@ -13,6 +13,7 @@
 #include "io/TXContext.h"
 #include "storage/storage_types.h"
 
+#include "optional.hpp"
 namespace hyrise {
 namespace tx {
 
@@ -58,7 +59,6 @@ private:
 typedef struct TXData {
   TXContext _context;
   TXModifications _modifications;
-  TXData(TXContext ctx) : _context(ctx) {}
 } TransactionData;
 
 /// Transaction manager based on transaction contexts
@@ -89,10 +89,11 @@ class TransactionManager {
   /// \param tid transaction id to abort
   static void rollbackTransaction(TXContext ctx);
 
-  /// Check validity of a transaction
+  /// Check validity of a transactionId - this doesn't guarantee
+  /// that the transaction is uncommitted
   /// \param tid transaction id under investigation
-  static bool isRunningTransaction(transaction_id_t tid);
-  static std::vector<TXContext> getRunningTransactionContexts();
+  static bool isValidTransactionId(transaction_id_t tid);
+  static std::vector<TXContext> getCurrentModifyingTransactionContexts();
   /// @}
 
   // Singleton Constructor
@@ -143,6 +144,8 @@ class TransactionManager {
 
 
  private:
+  std::optional<const TXModifications&> getModifications(const transaction_id_t key) const;
+
   std::atomic<transaction_id_t> _transactionCount;
   std::atomic<transaction_cid_t> _commitId;
 
@@ -151,7 +154,6 @@ class TransactionManager {
 
   // Keeping track of all transactions and their modifications
   Synchronized<map_t, locking::Spinlock> _txData;
-
 
   // Spin Lock for transactions
   locking::Spinlock _txLock;

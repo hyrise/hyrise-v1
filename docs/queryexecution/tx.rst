@@ -101,7 +101,7 @@ leave the context in an uncommitted state.
 The server will the send a response similar to the following::
 
     {
-       "session_context" : 12355,
+       "session_context" : "somecontext",
        "performanceData" : { /*...*/ },
        /* and more ... */
     }
@@ -109,6 +109,17 @@ The server will the send a response similar to the following::
 Since the session was not ended, it is up to the client to re-use the
 ``session_context`` returned by the query to eventually use the
 ``Commit`` or ``Rollback`` plan operation to end the session.
+
+.. note:
+
+   The composition of `session_context` may change and should not be altered
+   by the client. It is possible to send multiple queries concurrently with
+   the same `session_context`.
+
+.. note:
+
+   When a session did not alter any data, there is no need to commit
+   or rollback the session explicitly.
 
 The following sequence diagram illustrates the first request.
 
