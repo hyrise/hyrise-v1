@@ -135,7 +135,10 @@ public:
    * currently used to set dependencies for a task that is ready to run (no unmet dependencies), but needs to get inputs
    */
    void setDependencies(std::vector<task_ptr_t> dependencies, int count);
-
+  /*
+   * check if the supplied task is a direct dependency of this task.
+   */
+  bool isDependency(const task_ptr_t& task);
   /*
    * adds an observer that gets notified if this task is ready to run
    */

@@ -24,10 +24,12 @@ protected:
   // for determineDynamicCount
   // overridden from PlanOperation
   virtual size_t getTotalTableSize();
-  virtual double min_mts_a() { return 0.208081598456783; }
-  virtual double min_mts_b() { return -5.12106533314949; }
-  virtual double a_a() { return 137.365747455395; }
-  virtual double a_b() { return -3540.54997935958; }
+  virtual double calcMinMts(double totalTblSizeIn100k);
+  virtual double calcA(double totalTblSizeIn100k);
+  virtual double min_mts_a() { return -32.7333223568781 ; }
+  virtual double min_mts_b() { return 20.6071622571548 ; }
+  virtual double a_a() { return 0.0499042793549051 ; }
+  virtual double a_b() { return 251.463168551956 ; }
 
 private:
   uint32_t _bits1;
