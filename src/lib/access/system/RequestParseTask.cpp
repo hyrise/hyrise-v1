@@ -85,7 +85,7 @@ void RequestParseTask::operator()() {
     std::string body(_connection->getBody());
     std::map<std::string, std::string> body_data = parseHTTPFormData(body);
 
-    boost::optional<tx::TXContext> ctx;
+    tx::TXContext ctx;
     auto ctx_it = body_data.find("session_context");
     if (ctx_it != body_data.end()) {
       std::size_t pos;
@@ -94,7 +94,7 @@ void RequestParseTask::operator()() {
       ctx = tx::TXContext(tid, cid);
     } else {
       ctx = tx::TransactionManager::beginTransaction();
-      LOG4CXX_DEBUG(_logger, "Creating new transaction context " << (*ctx).tid);
+      LOG4CXX_DEBUG(_logger, "Creating new transaction context " << ctx.tid);
     }
 
     Json::Value request_data;
@@ -102,8 +102,8 @@ void RequestParseTask::operator()() {
 
     const std::string& query_string = urldecode(body_data["query"]);
 
-    if (ctx && reader.parse(query_string, request_data)) {
-      _responseTask->setTxContext(*ctx);
+    if (reader.parse(query_string, request_data)) {
+      _responseTask->setTxContext(ctx);
       recordPerformance = getOrDefault(body_data, "performance", "false") == "true";
       _responseTask->setRecordPerformanceData(recordPerformance);
 
@@ -161,9 +161,9 @@ void RequestParseTask::operator()() {
           task->setPriority(priority);
           task->setSessionId(sessionId);
           task->setPlanId(final_hash);
-          task->setTXContext(*ctx);
-	  task->setId((*ctx).tid);
-	  _responseTask->registerPlanOperation(task);
+          task->setTXContext(ctx);
+          task->setId(ctx.tid);
+          _responseTask->registerPlanOperation(task);
           if (!task->hasSuccessors()) {
             // The response has to depend on all tasks, ie. we don't
             // want to respond before all tasks finished running, even
