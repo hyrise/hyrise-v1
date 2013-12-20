@@ -2,8 +2,10 @@
 #include "access/system/RequestParseTask.h"
 
 #include <array>
+#include <iomanip>
 #include <map>
 #include <string>
+#include <sstream>
 #include <vector>
 #include <thread>
 
@@ -83,21 +85,16 @@ void RequestParseTask::operator()() {
     std::string body(_connection->getBody());
     std::map<std::string, std::string> body_data = parseHTTPFormData(body);
 
-    boost::optional<tx::TXContext> ctx;
+    tx::TXContext ctx;
     auto ctx_it = body_data.find("session_context");
     if (ctx_it != body_data.end()) {
-      boost::optional<tx::transaction_id_t> tid;
-      if ((tid = parseNumeric<tx::transaction_id_t>(ctx_it->second)) &&
-          (tx::TransactionManager::isRunningTransaction(*tid))) {
-        LOG4CXX_DEBUG(_logger, "Picking up transaction id " << *tid);
-        ctx = tx::TransactionManager::getContext(*tid);
-      } else {
-        LOG4CXX_ERROR(_logger, "Invalid transaction id " << ctx_it->second);
-        _responseTask->addErrorMessage("Invalid transaction id '"+ ctx_it->second +"' set, aborting execution");
-      }
+      std::size_t pos;
+      tx::transaction_id_t tid = std::stoll(ctx_it->second.c_str(), &pos);
+      tx::transaction_id_t cid = std::stoll(ctx_it->second.c_str() + pos + 1, &pos);
+      ctx = tx::TXContext(tid, cid);
     } else {
       ctx = tx::TransactionManager::beginTransaction();
-      LOG4CXX_DEBUG(_logger, "Creating new transaction context " << (*ctx).tid);
+      LOG4CXX_DEBUG(_logger, "Creating new transaction context " << ctx.tid);
     }
 
     Json::Value request_data;
@@ -105,8 +102,8 @@ void RequestParseTask::operator()() {
 
     const std::string& query_string = urldecode(body_data["query"]);
 
-    if (ctx && reader.parse(query_string, request_data)) {
-      _responseTask->setTxContext(*ctx);
+    if (reader.parse(query_string, request_data)) {
+      _responseTask->setTxContext(ctx);
       recordPerformance = getOrDefault(body_data, "performance", "false") == "true";
       _responseTask->setRecordPerformanceData(recordPerformance);
 
@@ -149,6 +146,7 @@ void RequestParseTask::operator()() {
         commit->addDependency(result);
         result = commit;
         tasks.push_back(commit);
+        _responseTask->setIsAutoCommit(true);
       }
 
 
@@ -163,9 +161,9 @@ void RequestParseTask::operator()() {
           task->setPriority(priority);
           task->setSessionId(sessionId);
           task->setPlanId(final_hash);
-          task->setTXContext(*ctx);
-	  task->setId((*ctx).tid);
-	  _responseTask->registerPlanOperation(task);
+          task->setTXContext(ctx);
+          task->setId(ctx.tid);
+          _responseTask->registerPlanOperation(task);
           if (!task->hasSuccessors()) {
             // The response has to depend on all tasks, ie. we don't
             // want to respond before all tasks finished running, even

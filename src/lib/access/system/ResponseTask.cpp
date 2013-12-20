@@ -138,8 +138,8 @@ void ResponseTask::operator()() {
     const auto& result = predecessor->getResultTable();
 
     if (getState() != OpFail) {
-      if (tx::TransactionManager::isRunningTransaction(_txContext.tid)) {
-        response["session_context"] = Json::Value(_txContext.tid);
+      if (!_isAutoCommit) {
+        response["session_context"] = std::to_string(_txContext.tid).append(" ").append(std::to_string(_txContext.lastCid));
       }
 
       if (result) {

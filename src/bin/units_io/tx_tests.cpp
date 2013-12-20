@@ -22,32 +22,27 @@ TEST(TX, commit_invalid) {
   TXContext tx = TM::beginTransaction();
   transaction_id_t oldtid = tx.tid;
   transaction_id_t invalid = std::numeric_limits<transaction_id_t>::max();
-  EXPECT_FALSE(TM::isRunningTransaction(invalid));
+  EXPECT_FALSE(TM::isValidTransactionId(invalid)) << "id is larger than acceptable";
   tx.tid = invalid;
-  EXPECT_ANY_THROW(TM::commitTransaction(tx));
+  TM::commitTransaction(tx); // "Commiting an invalid txid works.";
   tx.tid = oldtid;
   TM::commitTransaction(tx);
 }
 
-TEST(TX, active_transactions) {
-  ASSERT_EQ(TM::getRunningTransactionContexts().size(), 0u);
+TEST(TX, modifying_transactions) {
+  EXPECT_EQ(TM::getCurrentModifyingTransactionContexts().size(), 0u);
   auto t1 = TM::beginTransaction();
-  auto t2 = TM::beginTransaction();
-  EXPECT_EQ(TM::getRunningTransactionContexts().size(), 2u);
+  EXPECT_EQ(TM::getCurrentModifyingTransactionContexts().size(), 0u);
   TM::commitTransaction(t1);
-  TM::commitTransaction(t2);
-  EXPECT_EQ(TM::getRunningTransactionContexts().size(), 0u);
+  EXPECT_EQ(TM::getCurrentModifyingTransactionContexts().size(), 0u);
 }
 
 TEST(TX, rollback_transaction) {
   auto before = TM::getInstance().getLastCommitId();
-  ASSERT_EQ(TM::getRunningTransactionContexts().size(), 0u);
   auto t1 = TM::beginTransaction();
   TM::rollbackTransaction(t1);
-  EXPECT_EQ(TM::getRunningTransactionContexts().size(), 0u);
   auto after = TM::getInstance().getLastCommitId();
   EXPECT_EQ(before, after) << "No commits are made when doing a rollback";
 }
 
 } } // namespace hyrise::tx
-
