@@ -1,6 +1,6 @@
 #pragma once
 
-#include "boost/optional.hpp"
+#include "optional.hpp"
 
 namespace numerical_detail {
 
@@ -25,11 +25,11 @@ CONVERTER(long long, std::strtoll);
 }
 
 template <typename toType>
-boost::optional<toType> parseNumeric(const std::string& s) {
-  boost::optional<toType> value;
+std::optional<toType> parseNumeric(const std::string& s) {
+  std::optional<toType> value;
   char * endptr;
   value = numerical_detail::converter<toType>::func(s.c_str(), &endptr, 10);
-  if (&(*s.end()) != endptr) { value = boost::optional<toType>(); }
+  if (&(*s.end()) != endptr) { value = std::nullopt; }
   return value;
 }
 

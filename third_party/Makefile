@@ -23,3 +23,5 @@ json := $(tp)/jsoncpp
 json.libname := json
 json.includes := $(tp)/jsoncpp
 $(eval $(call library,json))
+
+optional.use_INCLUDE_DIRS := $(tp)/optional

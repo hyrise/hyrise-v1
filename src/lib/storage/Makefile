@@ -7,6 +7,6 @@ include $(PROJECT_ROOT)/src/lib/memory/Makefile
 include $(PROJECT_ROOT)/third_party/Makefile
 
 hyr-storage.libname := hyr-storage
-hyr-storage.libs := hwloc rt 
-hyr-storage.deps := hyr-helper hyr-memory ftprinter cereal
+hyr-storage.libs := hwloc rt
+hyr-storage.deps := hyr-helper hyr-memory ftprinter cereal optional
 $(eval $(call library,hyr-storage))
