@@ -9,6 +9,9 @@
 
 #include "log4cxx/logger.h"
 
+#include <iostream>
+//#include "access/SortScan.h"
+
 namespace hyrise {
 namespace access {
 
@@ -56,6 +59,30 @@ void TableLoad::executePlanOperation() {
         params.setCSVParams(io::csv::params().setDelimiter(_delimiter.at(0)));
       p.setInput(io::CSVInput(_file_name, params));
       sm->loadTable(_table_name, p);
+    }
+
+    // Correct Aging information
+    const auto table = sm->getTable(_table_name);
+    try {
+      const field_t pvField = table->numberOfColumn("$PV");
+      if (table->typeOfColumn(pvField) != IntegerType)
+        throw std::runtime_error("field $PV exists but is not of type INTEGER");
+
+      //now we may just create an aging store accordingly
+      std::cout << "\n\nBINGO FOUND IT\n\n";
+
+      table->print();
+
+      /*SortScan sort;
+      sort.setSortField(pvField);
+      sort.addInput(table);
+      sort.ascending(false);
+      sort.execute();
+      sort.getResultTable()->print();*/
+       
+    }
+    catch (std::exception e) {
+      //no such column just continue ...
     }
 
     // We don't load unless the necessary prerequisites are met,

@@ -144,5 +144,9 @@ void SortScan::setSortField(const unsigned s) {
   _sort_field = s;
 }
 
+void SortScan::ascending(bool ascending) {
+  asc = ascending;
+}
+
 }
 }
