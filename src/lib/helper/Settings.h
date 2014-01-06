@@ -21,7 +21,9 @@ class Settings {
   size_t threadpoolSize;
 
   ADD_MEMBER(std::string, ScriptPath);
+  ADD_MEMBER(std::string, ProfilePath);
   ADD_MEMBER(std::string, DBPath);
+
 
   Settings();
 

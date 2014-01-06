@@ -2,6 +2,7 @@
 
 #ifdef HYRISE_USE_GOOGLE_PROFILER
 #include <gperftools/profiler.h>
+#include <helper/Settings.h>
 #endif
 
 namespace hyrise {
@@ -14,7 +15,7 @@ auto reg_pstop = QueryParser::registerTrivialPlanOperation<StopProfiling>("StopP
 void StartProfiling::executePlanOperation() {
   output = input;
 #ifdef HYRISE_USE_GOOGLE_PROFILER
-  ProfilerStart(("profile_" + std::to_string(get_epoch_nanoseconds()) + ".gprof").c_str());
+  ProfilerStart(( Settings::getInstance()->getProfilePath() + "/profile_" + std::to_string(get_epoch_nanoseconds()) + ".gprof").c_str());
 #endif
 }
 
