@@ -46,6 +46,8 @@ enum class TX_CODE {
 namespace access {
 class AbstractExpression;
 typedef std::unique_ptr<AbstractExpression> expression_uptr_t;
+
+typedef uint16_t query_id_t;
 }
 
 namespace storage {
@@ -85,12 +87,10 @@ typedef float hyrise_float_t;
 typedef std::string hyrise_string_t;
 
 typedef uint32_t value_id_t;
-typedef unsigned char table_id_t;
+typedef unsigned short table_id_t;
 
 typedef size_t pos_t;
 typedef size_t field_t;
-
-typedef uint16_t query_id_t;
 
 typedef std::string field_name_t;
 typedef std::vector<field_name_t> field_name_list_t;

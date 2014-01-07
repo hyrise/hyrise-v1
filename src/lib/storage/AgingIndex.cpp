@@ -35,7 +35,7 @@ AgingIndex::~AgingIndex() {}
 
 void AgingIndex::shrink() {}
 
-bool isHot(query_id_t query, std::vector<value_id_t> values) {
+bool isHot(access::query_id_t query, std::vector<value_id_t> values) {
   return false;
 }
 
