@@ -72,6 +72,8 @@ void TableLoad::executePlanOperation() {
       std::cout << "\n\nBINGO FOUND IT\n\n";
 
       table->print();
+      auto agingIndex = std::make_shared<storage::AgingIndex>(table);
+      sm->setAgingIndexFor(_table_name, agingIndex);
 
       /*SortScan sort;
       sort.setSortField(pvField);

@@ -90,6 +90,8 @@ typedef unsigned char table_id_t;
 typedef size_t pos_t;
 typedef size_t field_t;
 
+typedef uint16_t query_id_t;
+
 typedef std::string field_name_t;
 typedef std::vector<field_name_t> field_name_list_t;
 

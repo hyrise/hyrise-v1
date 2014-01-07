@@ -8,6 +8,8 @@
 #include <string>
 #include <vector>
 
+#include <storage/AgingIndex.h>
+
 #include "io/ResourceManager.h"
 
 namespace hyrise {
@@ -75,6 +77,10 @@ class StorageManager : public ResourceManager {
 
   /// saves the inverted index as name.
   void addInvertedIndex(std::string name, std::shared_ptr<storage::AbstractIndex> _index);
+
+  std::shared_ptr<storage::AgingIndex> getAgingIndexFor(const std::string& name);
+  void setAgingIndexFor(const std::string& name, const std::shared_ptr<storage::AgingIndex>& index);
+  bool hasAgingIndex(const std::string& name);
 
   /// returns the index stored under name name.
   std::shared_ptr<storage::AbstractIndex> getInvertedIndex(std::string name);
