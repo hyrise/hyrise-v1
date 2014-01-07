@@ -1,0 +1,44 @@
+{
+  "operators" : {
+    "loadTable" :{
+      "type": "MySQLTableLoad",
+      "table": "ORDER_LINE",
+      "database": "TPCC1W4"
+    },
+    "select":{
+      "type":"SimpleTableScan",
+      "positions": "true",
+      "predicates": [
+        {"type":"GT", "in":0, "f": "OL_DELIVERY_D", "vtype":0, "value":20130822}
+      ]
+    },
+    "project":{
+      "type":"ProjectionScan",
+      "fields":["OL_NUMBER","OL_QUANTITY","OL_DELIVERY_D","OL_AMOUNT"]
+    },
+    "hash":{
+      "type":"HashBuild",
+      "key": "groupby",
+      "fields":["OL_NUMBER"]
+    },
+    "groupBy":{
+      "type": "GroupByScan",
+      "fields": ["OL_NUMBER"],
+      "functions":[
+        {"type":"SUM", "field":"OL_QUANTITY", "as":"SUM_QTY"},
+        {"type":"SUM", "field":"OL_AMOUNT", "as":"SUM_AMOUNT"},
+        {"type":"AVG", "field":"OL_QUANTITY", "as":"AVG_QTY"},
+        {"type":"AVG", "field":"OL_AMOUNT", "as":"AVG_AMOUNT"},
+        {"type":"COUNT", "field":"OL_AMOUNT", "as":"COUNT_ORDER"}
+      ]
+    },
+    "sort":{
+      "type":"SortScan",
+      "field":"OL_NUMBER"
+    }
+  },
+  "edges": [
+    ["loadTable","select"],["select","project"],["project","hash"],
+      ["hash","groupBy"],["project","groupBy"],["groupBy","sort"]
+  ]
+}

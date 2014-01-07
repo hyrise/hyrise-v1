@@ -1,0 +1,35 @@
+{
+  "operators" : {
+    "getTableOrderLine" :{
+      "type" : "GetTable",
+      "name" : "ORDER_LINE"
+      },
+    "select":{
+      "type":"SimpleTableScan",
+      "positions": true,
+      "predicates": [
+        {"type":"AND"},
+        {"type":"AND"},
+        {"type":"AND"},
+        {"type":"GT", "in":0, "f":"OL_DELIVERY_D","vtype":2, "value":"2013-08-22 10:12:50.000000"},
+        {"type":"LT", "in":0, "f": "OL_DELIVERY_D", "vtype":2, "value":"2013-10-30 10:12:51.000000"},
+        {"type":"GT", "in":0, "f": "OL_QUANTITY", "vtype":0, "value":0},
+        {"type":"LT", "in":0, "f": "OL_QUANTITY", "vtype":0, "value":100001}
+      ]
+    },
+    "groupBy":{
+      "type": "GroupByScan",
+      "functions":[
+        {"type":"SUM", "field":"OL_AMOUNT", "as":"REVENUE"}
+      ]
+    },
+    "project":{
+      "type":"ProjectionScan",
+      "fields":["REVENUE"]
+    }
+  },
+  "edges": [
+    ["getTableOrderLine","select"],
+      ["select","groupBy"],["groupBy","project"]
+  ]
+}
