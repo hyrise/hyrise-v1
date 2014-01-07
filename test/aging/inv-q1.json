@@ -1,0 +1,28 @@
+{
+  "operators": {
+    "load" : {
+      "type" : "TableLoad",
+      "filename" : "aging/inv.tbl",
+      "table" : "INV"
+    },
+    "register" : {
+      "type" : "RegisterQuery",
+      "name" : "inv-Q1",
+      "parameters" : [["INV", "year"], ["INV", "customer"]]
+    },
+    "check" : {
+      "type" : "AgingCheck",
+      "query" : "inv-Q1",
+      "parameters" : [["INV", "year", %(year)d], ["INV", "customer", %(customer)s]]
+    },
+    "select" : {
+      "type" : "SimpleTableScan",
+      "predicates" : [
+        {"type" : "AND"},
+        {"type" : "EQ", "in" : 0, "f" : "year"    , "vtype": 0 /*Int*/, "value" : %(year)d},
+        {"type" : "EQ", "in" : 0, "f" : "customer", "vtype": 2 /*Str*/, "value" : %(customer)s}
+      ]
+    }
+  },
+  "edges" : [["load","register"],["register","check"],["check","select"]]
+}
