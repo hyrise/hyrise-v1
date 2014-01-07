@@ -102,11 +102,73 @@ bool isEdgeEqual(
 
 
 
-std::string loadFromFile(std::string path) {
+std::string loadFromFile(const std::string& path) {
+  parameter_map_t map;
+  return loadParameterized(path, map);
+}
+
+void setParameter(parameter_map_t& map, std::string name, float value) {
+  map[name] = new ConcreteParameterValue<float>(value);
+}
+
+void setParameter(parameter_map_t& map, std::string name, int value) {
+  map[name] = new ConcreteParameterValue<int>(value);
+}
+
+void setParameter(parameter_map_t& map, std::string name, std::string value) {
+  map[name] = new ConcreteParameterValue<std::string>(value);
+}
+
+namespace {
+  enum FormatType { IntFormatType, StringFormatType, FloatFormatType, NoneFormat};
+
+  FormatType getType(char c) {
+    switch (c) {
+      case 'i':
+      case 'd': return IntFormatType;
+      case 'f': return FloatFormatType;
+      case 's': return StringFormatType;
+      default: return NoneFormat;
+    }
+  }
+}
+
+std::string loadParameterized(const std::string &path, const parameter_map_t& params) {
   std::ifstream data_file(path.c_str());
-  std::string result((std::istreambuf_iterator<char>(data_file)), std::istreambuf_iterator<char>());
+  std::string file((std::istreambuf_iterator<char>(data_file)), std::istreambuf_iterator<char>());
   data_file.close();
-  return result;
+
+  for (auto& param : params) {
+    size_t pos = (size_t) -1;
+    const std::string name = "%(" + param.first + ")";
+    
+    while ((pos = file.find(name, pos + 1)) != file.npos) {
+      size_t curpos = pos + name.length();
+      std::ostringstream os;
+
+      if (isdigit(file.at(curpos))) {
+        char* endptr;
+        size_t width = strtol(file.c_str() + curpos, &endptr, 10);
+        curpos = endptr - file.c_str();
+        os << std::setw(width);
+      }
+      
+      if (!isalpha(file.at(curpos)))
+        throw std::runtime_error("no format set for parameter \'" + param.first + "\'");
+      
+      switch (getType(file.at(curpos))) {
+        case FloatFormatType:
+        case IntFormatType:    os << std::setfill('0'); break;
+        case StringFormatType: os << std::setfill(' '); break;
+        case NoneFormat: throw std::runtime_error("illegal format for parameter \'" + param.first + "\'");
+      }
+
+      os << param.second->toString();
+      file.replace(pos, curpos + 1 - pos, os.str());
+    }
+  }
+
+  return file;
 }
 
 class MockedConnection : public hyrise::net::AbstractConnection {

@@ -35,7 +35,36 @@ bool isEdgeEqual(
     const std::string &src,
     const std::string &dst);
 
-std::string loadFromFile(std::string path);
+
+class AbstractParameterValue {
+ public:
+  virtual std::string toString() const = 0;
+};
+
+template <typename T>
+class ConcreteParameterValue : public AbstractParameterValue {
+ public:
+  ConcreteParameterValue(T value) : _value(value) {}
+
+  virtual std::string toString() const {
+    std::ostringstream os;
+    os << _value;
+    return os.str();
+  }
+  
+ protected:
+  const T _value;
+};
+
+typedef std::map<std::string, AbstractParameterValue*> parameter_map_t;
+//TODO removed memory leaks
+
+void setParameter(parameter_map_t& map, std::string name, int value);
+void setParameter(parameter_map_t& map, std::string name, float value);
+void setParameter(parameter_map_t& map, std::string name, std::string value);
+
+std::string loadFromFile(const std::string& path);
+std::string loadParameterized(const std::string &path, const parameter_map_t& params);
 
 storage::c_atable_ptr_t executeAndWait(
     std::string httpQuery,
