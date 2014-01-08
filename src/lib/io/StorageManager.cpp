@@ -137,7 +137,7 @@ namespace {
   }
 } // namespace
 
-std::shared_ptr<storage::AgingIndex> StorageManager::getAgingIndexFor(const std::string& name) {
+std::shared_ptr<storage::AgingIndex> StorageManager::getAgingIndexFor(const std::string& name) const {
   if (hasAgingIndex(name))
     return get<storage::AgingIndex>(agingIndexName(name));
   throw std::runtime_error("there is no aging index. it might automaticly created here ... might ... maybe");
@@ -148,7 +148,7 @@ void StorageManager::setAgingIndexFor(const std::string& name, const std::shared
   add(agingIndexName(name), index);
 }
 
-bool StorageManager::hasAgingIndex(const std::string& name) {
+bool StorageManager::hasAgingIndex(const std::string& name) const {
   get<storage::AbstractTable>(name); // check whether "name" exists and is a table
   const auto indexName = agingIndexName(name);
   if (!exists(indexName))

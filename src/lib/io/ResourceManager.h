@@ -91,7 +91,6 @@ class ResourceManager {
   ResourceManager() = default;
   ResourceManager(const ResourceManager &) = delete;
   ResourceManager &operator= (const ResourceManager &) = delete;
-
 };
 
 }}  // namespace hyrise::io

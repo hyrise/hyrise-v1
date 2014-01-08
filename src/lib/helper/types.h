@@ -88,6 +88,7 @@ typedef std::string hyrise_string_t;
 
 typedef uint32_t value_id_t;
 typedef uint8_t table_id_t;
+typedef uint32_t resource_id_t;
 
 typedef size_t pos_t;
 typedef size_t field_t;

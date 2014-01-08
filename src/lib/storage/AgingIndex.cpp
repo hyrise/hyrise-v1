@@ -9,6 +9,25 @@
 namespace hyrise {
 namespace storage {
 
+namespace {
+  template <typename T>
+  static AgingIndex::value_id_map_t createVIdMap(const atable_ptr_t& table, field_t column){
+    AgingIndex::value_id_map_t ret;
+    //TODO maybe better function for getting the dictionary
+    const auto& dict = checked_pointer_cast<BaseDictionary<T>>(table->dictionaryAt(column));
+
+    auto it = dict->begin();
+    const auto& end = dict->end();
+    unsigned count = 0;
+    while (it != end) {
+       ret.insert(std::make_pair(it.getValueId(), count++));
+       ++it;
+    }
+
+    return ret;
+  }
+} // namespace
+
 AgingIndex::AgingIndex(const atable_ptr_t& table) {
   const field_t numberOfFields = table->columnCount();
   for (field_t i = 0; i < numberOfFields; ++i) {
@@ -23,11 +42,13 @@ AgingIndex::AgingIndex(const atable_ptr_t& table) {
       case FloatType:   vIdMap = createVIdMap<hyrise_float_t>(table, i); break;
       case StringType:  vIdMap = createVIdMap<hyrise_string_t>(table, i); break;
     }
-    _value_id_table.insert(std::make_pair(i, vIdMap));
+    _valueIdTable.insert(std::make_pair(i, vIdMap));
 
-    hotness_map_t hotness;
+    hotness_map_t hotnessMap;
 
-    _hotness_table.insert(std::make_pair(i, hotness));
+    //TODO create hotnessMap
+
+    _hotnessTable.insert(std::make_pair(i, hotnessMap));
   }
 }
 
@@ -35,8 +56,18 @@ AgingIndex::~AgingIndex() {}
 
 void AgingIndex::shrink() {}
 
-bool isHot(access::query_id_t query, std::vector<value_id_t> values) {
-  return false;
+bool AgingIndex::isHot(access::query_id_t query, field_t field, value_id_t vid) {
+  if (_hotnessTable.find(field) == _hotnessTable.end())
+    throw std::runtime_error("field id not saved in AgingIndex");
+  const auto& hotnessMap = _hotnessTable.find(field)->second;
+
+  if (hotnessMap.find(query) == hotnessMap.end())
+    throw std::runtime_error("query not registered for this field and table");
+  const auto& hotnessVector = hotnessMap.find(query)->second;
+
+  const auto& internalId = _valueIdTable.find(field)->second.find(vid)->second;
+
+  return hotnessVector.at(internalId);
 }
 
 } } // namespace hyrise::storage

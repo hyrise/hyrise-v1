@@ -2,15 +2,13 @@
 #pragma once
 
 #include <helper/types.h>
-
-#include <storage/AbstractTable.h>
 #include <access/system/PlanOperation.h>
 
 namespace hyrise {
 namespace access {
 
 struct param_t {
-  std::weak_ptr<storage::AbstractTable> table;
+  storage::resource_id_t table;
   field_t field;
 };
 typedef std::vector<param_t> param_vector_t;

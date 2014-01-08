@@ -21,12 +21,12 @@ void RegisterQuery::executePlanOperation() {
   for (const auto& table : _fields) {
     const auto& tableName = table.first;
     sm.assureExists(tableName);
-    const auto& t = sm.get<storage::AbstractTable>(tableName);
+    const auto& t = sm.get<storage::AbstractTable>(tableName); // test if its a table
 
     const auto& fields = table.second;
     for (const auto& field: fields) {
       field_t fieldId = t->numberOfColumn(field);
-      paramVector.push_back({t, fieldId});
+      paramVector.push_back({t->id(), fieldId});
       std::cout << tableName << "." << field << "[" << fieldId << "], ";
     }
   }
