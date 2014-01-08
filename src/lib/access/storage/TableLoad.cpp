@@ -1,7 +1,10 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "TableLoad.h"
 
+#include <iostream>
+
 #include "access/system/QueryParser.h"
+#include "access/system/QueryManager.h"
 
 #include "io/loaders.h"
 #include "io/shortcuts.h"
@@ -9,7 +12,6 @@
 
 #include "log4cxx/logger.h"
 
-#include <iostream>
 //#include "access/SortScan.h"
 
 namespace hyrise {
@@ -63,28 +65,11 @@ void TableLoad::executePlanOperation() {
 
     // Correct Aging information
     const auto table = sm->getTable(_table_name);
-    try {
-      const field_t pvField = table->numberOfColumn("$PV");
-      if (table->typeOfColumn(pvField) != IntegerType)
-        throw std::runtime_error("field $PV exists but is not of type INTEGER");
-
-      //now we may just create an aging store accordingly
-      std::cout << "\n\nBINGO FOUND IT\n\n";
-
+    if (_agingInfo) {
       table->print();
       auto agingIndex = std::make_shared<storage::AgingIndex>(table);
       sm->setAgingIndexFor(_table_name, agingIndex);
-
-      /*SortScan sort;
-      sort.setSortField(pvField);
-      sort.addInput(table);
-      sort.ascending(false);
-      sort.execute();
-      sort.getResultTable()->print();*/
-       
-    }
-    catch (std::exception e) {
-      //no such column just continue ...
+      QueryManager::instance().registerAgingIndex(agingIndex);
     }
 
     // We don't load unless the necessary prerequisites are met,
@@ -105,6 +90,8 @@ std::shared_ptr<PlanOperation> TableLoad::parse(const Json::Value &data) {
   s->setHeaderString(data["header_string"].asString());
   s->setUnsafe(data["unsafe"].asBool());
   s->setRaw(data["raw"].asBool());
+  if (data.isMember("with_aging_information"))
+    s->setAgingInfo(data["with_aging_information"].asBool());
   if (data.isMember("delimiter")) {
     s->setDelimiter(data["delimiter"].asString());
   }
@@ -148,5 +135,8 @@ void TableLoad::setDelimiter(const std::string &d) {
   _hasDelimiter = true;
 }
 
+void TableLoad::setAgingInfo(bool agingInfo) {
+  _agingInfo = agingInfo;
 }
-}
+
+} } // namespace hyrise::access

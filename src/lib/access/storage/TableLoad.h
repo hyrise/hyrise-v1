@@ -29,6 +29,7 @@ public:
   void setUnsafe(const bool unsafe);
   void setRaw(const bool raw);
   void setDelimiter(const std::string &d);
+  void setAgingInfo(bool agingInfo);
 
 private:
   std::string _table_name;
@@ -40,6 +41,7 @@ private:
   bool _binary;
   bool _unsafe;
   bool _raw;
+  bool _agingInfo = false;
 };
 
 }

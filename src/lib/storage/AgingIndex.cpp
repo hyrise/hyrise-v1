@@ -1,4 +1,4 @@
-// Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
+// Copyright (c) 2014 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include <storage/AgingIndex.h>
 
 #include <iostream>
@@ -11,7 +11,7 @@ namespace storage {
 
 namespace {
   template <typename T>
-  static AgingIndex::value_id_map_t createVIdMap(const atable_ptr_t& table, field_t column){
+  static AgingIndex::value_id_map_t createVIdMap(const atable_ptr_t& table, field_t column) {
     AgingIndex::value_id_map_t ret;
     //TODO maybe better function for getting the dictionary
     const auto& dict = checked_pointer_cast<BaseDictionary<T>>(table->dictionaryAt(column));
@@ -28,7 +28,8 @@ namespace {
   }
 } // namespace
 
-AgingIndex::AgingIndex(const atable_ptr_t& table) {
+AgingIndex::AgingIndex(const atable_ptr_t& table) :
+    _table(table) {
   const field_t numberOfFields = table->columnCount();
   for (field_t i = 0; i < numberOfFields; ++i) {
     if (table->nameOfColumn(i).at(0) == '$') continue;

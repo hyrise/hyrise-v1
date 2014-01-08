@@ -30,6 +30,8 @@ public:
 private:
   value_id_table_t _valueIdTable;
   hotness_table_t _hotnessTable;
+
+  const atable_ptr_t _table;
 };
 
 } } // namespace hyrise::storage

@@ -2,6 +2,7 @@
 #pragma once
 
 #include <helper/types.h>
+#include <storage/AgingIndex.h>
 #include <access/system/PlanOperation.h>
 
 namespace hyrise {
@@ -28,11 +29,17 @@ public:
   param_vector_t parametersOf(const std::string& query) const;
   param_vector_t parametersOf(query_id_t query) const;
 
+  void registerAgingIndex(std::shared_ptr<storage::AgingIndex> index);
+
 private:
   QueryManager();
 
+  void cleanRegistered();
+
   std::vector<param_vector_t> _queryParameters;
   std::map<std::string, query_id_t> _queryNames;
+
+  std::vector<std::weak_ptr<storage::AgingIndex>> _registered;
 };
 
 } } // namespace hyrise::access

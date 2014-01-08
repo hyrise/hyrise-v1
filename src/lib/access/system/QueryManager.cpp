@@ -2,6 +2,7 @@
 #include "QueryManager.h"
 
 #include <iostream>
+#include <algorithm>
 
 namespace hyrise {
 namespace access {
@@ -50,6 +51,17 @@ param_vector_t QueryManager::parametersOf(query_id_t query) const {
   if (query >= _queryParameters.size())
     throw std::runtime_error("invalid query id");
   return _queryParameters.at(query);
+}
+
+void QueryManager::registerAgingIndex(std::shared_ptr<storage::AgingIndex> index) {
+  
+}
+
+void QueryManager::cleanRegistered() {
+  _registered.erase(
+    std::remove_if(_registered.begin(), _registered.end(),
+        [](const std::weak_ptr<storage::AgingIndex>& index) { return index.expired(); }),
+    _registered.end());
 }
 
 } } // namespace hyrise::access
