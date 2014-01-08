@@ -29,12 +29,49 @@ function totalTime(data) {
 	return simpleFormat(result, 2);
 }
 
+function addQuery(q) {
+    if (localStorage) {
+	if (q["id"]) {
+	    localStorage[q["id"]] = JSON.stringify(q, null, 2);
+	} else {
+	    var d = new Date();
+	    localStorage[d.toISOString()] = JSON.stringify(q, null, 2);
+	}
+    }
+}
+
+function getQuery(id) {
+    if (localStorage) {
+	return localStorage[id];
+    }
+}
+
+function getQueries() {
+    var result = {};
+    for (var i=0; i < localStorage.length; ++i) {
+	var k = localStorage.key(i);
+	result[k] = localStorage[k];
+    }
+    return result;
+}
+
+function updateQueryHistory() {
+    $("#query_history").html("");
+    $("#query_history").append("<option></option>");
+    // Get all history queries
+    var queries = getQueries();
+    $.each(queries, function(k,v) {
+      $("#query_history").append("<option value=\"" + k + "\">"+ k + "</option>");
+    });
+
+}
+
 function runQuery() {
 	// Clear the inner HTML
 	$("#msg").empty();
 	$("#msg_error").empty();
 	$("#json_result").empty();
-	$("#btn_submit").button("loading");
+	//$("#btn_submit").button("loading");
 	$("#txtquery").attr("rows", 2);
 
 	
@@ -66,7 +103,10 @@ function runQuery() {
 			  $("#msg").append(" " + totalTime(d["performanceData"]) + "ms");
                         }
 
-			var svg = Viz(toDot(JSON.parse($("#txtquery").val()), performance), "svg");
+		        // Add Query to localstorage
+		        var qJson = JSON.parse($("#txtquery").val());
+                      
+			var svg = Viz(toDot(qJson, performance), "svg");
 			if (svg) {
 			  $("#query_plan").html(svg);
 			}
