@@ -798,57 +798,69 @@ TEST_F(RadixJoinTest, determine_dynamic_count) {
   ASSERT_GT(dynamicCount2, dynamicCount1);
 }
 
-class RadixDynamicCountTest : public AccessTest, public ::testing::WithParamInterface<int> {};
+class RadixDynamicCountTest : public AccessTest, public ::testing::WithParamInterface<int> {
+  protected:
+    virtual void SetUp() {
+      auto companies = std::make_shared<TableLoad>();
+      companies->setFileName("tables/companies.tbl");
+      companies->setTableName("companies");
+      (*companies)();
+      
+      auto employees = std::make_shared<TableLoad>();
+      employees->setFileName("tables/employees.tbl");
+      employees->setTableName("employees");
+      (*employees)();
 
-TEST_P(RadixDynamicCountTest, apply_dynamic_parallelization) {
-  auto dynamicCount = GetParam();
+      radix = std::make_shared<RadixJoin>();
+      radix->addField(0);
+      radix->addField(1);
+      radix->setBits1(4);
+      radix->setBits2(4);
+      radix->setOperatorId("testRadix");
+      radix->addDependency(companies);
+      radix->addDependency(employees);
 
-  auto companies = std::make_shared<TableLoad>();
-  companies->setFileName("tables/companies.tbl");
-  companies->setTableName("companies");
-  (*companies)();
-  
-  auto employees = std::make_shared<TableLoad>();
-  employees->setFileName("tables/employees.tbl");
-  employees->setTableName("employees");
-  (*employees)();
+      // Adding the waiter before applyDynamicParallelization ensures,
+      // that the task with radix as dependency get properly rerouted.
+      waiter = std::make_shared<taskscheduler::WaitTask>();
+      waiter->addDependency(radix);
 
-  auto radix = std::make_shared<RadixJoin>();
-  radix->addField(0);
-  radix->addField(1);
-  radix->setBits1(4);
-  radix->setBits2(4);
-  radix->setOperatorId("testRadix");
-  radix->addDependency(companies);
-  radix->addDependency(employees);
+      auto dynamicCount = GetParam();
 
-  auto tasks = radix->applyDynamicParallelization(dynamicCount);
-  auto finalTaskIt = std::find_if_not(tasks.begin(), tasks.end(), [] (taskscheduler::task_ptr_t t) {
-    return t->hasSuccessors();
-  });
-  if (finalTaskIt == tasks.end()) { // no final element could be found
-    //we should never get here.
-    FAIL() << "Could not find final, indepedent output element of RadixJoin.";
-  }
+      tasks = radix->applyDynamicParallelization(dynamicCount);
 
-  auto finalOp = std::dynamic_pointer_cast<PlanOperation>(*finalTaskIt);
-  
-  if (!finalOp) {
-    FAIL() << "finalOp should have been a PlanOperation.";
-  }
+    }
 
-  auto waiter = std::make_shared<taskscheduler::WaitTask>();
-  waiter->addDependency(finalOp);
+    std::shared_ptr<RadixJoin> radix;
+    std::shared_ptr<taskscheduler::WaitTask> waiter;
+    std::vector<taskscheduler::task_ptr_t> tasks;
+};
+
+TEST_P(RadixDynamicCountTest, virtual_radix_no_longer_dependency) {
+  // Radix should no longer be a dependency of the waiter.
+  // It should have been replaced by a concrete taks of the radix transformation.
+  ASSERT_FALSE(waiter->isDependency(radix));
+}
+
+TEST_P(RadixDynamicCountTest, concrete_radix_is_dependency) {
+  auto finalOp = std::dynamic_pointer_cast<PlanOperation>(tasks.back());
+
+  // The final op of the radix transformation tasks should be a new dependency of the waiter
+  ASSERT_TRUE(waiter->isDependency(finalOp));
+}
+
+TEST_P(RadixDynamicCountTest, execute_and_check_result) {
+  auto finalOp = std::dynamic_pointer_cast<PlanOperation>(tasks.back());
   tasks.push_back(waiter);
 
   auto scheduler = std::make_shared<taskscheduler::ThreadPerTaskScheduler>();
   scheduler->scheduleQuery(tasks);
+
   waiter->wait();
 
   auto resultTable = finalOp->getResultTable();
-  
   auto referenceTable = io::Loader::shortcuts::load("test/tables/companies_employees_joined.tbl");
-  
+
   ASSERT_TRUE(referenceTable->contentEquals(resultTable));
 }
 

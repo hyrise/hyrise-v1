@@ -15,11 +15,19 @@ namespace storage {
 
 class PointerCalculator : public AbstractTable,
                           public SharedFactory<PointerCalculator> {
+
+  /**
+  * Helper funciton to flatten a pos list
+  */
+  void unnest();
+
 public:
 
   PointerCalculator(c_atable_ptr_t t, pos_list_t *pos = nullptr, field_list_t *f = nullptr);
   PointerCalculator(const PointerCalculator& other);
   
+  PointerCalculator(c_atable_ptr_t t, pos_list_t pos);
+
   virtual ~PointerCalculator();
 
   void setPositions(const pos_list_t pos);

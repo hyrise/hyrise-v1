@@ -21,6 +21,7 @@ public:
 
 private:
   size_t _threadpoolSize;
+  Json::Value _data;
 };
 
 }

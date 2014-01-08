@@ -19,12 +19,18 @@ SettingsOperation::~SettingsOperation() {
 }
 
 void SettingsOperation::executePlanOperation() {
-  Settings::getInstance()->setThreadpoolSize(_threadpoolSize);
+  
+  if (_data.isMember("threadpoolSize"))
+    Settings::getInstance()->setThreadpoolSize(_data["threadpoolSize"].asUInt());
+
+  if (_data.isMember("profilePath"))
+    Settings::getInstance()->setProfilePath(_data["profilePath"].asString());
+
 }
 
 std::shared_ptr<PlanOperation> SettingsOperation::parse(const Json::Value &data) {
   std::shared_ptr<SettingsOperation> settingsOp = std::make_shared<SettingsOperation>();
-  settingsOp->setThreadpoolSize(data["threadpoolSize"].asUInt());
+  settingsOp->_data = data;
   return settingsOp;
 }
 

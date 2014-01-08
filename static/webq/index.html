@@ -22,9 +22,12 @@
 <div class="container">
   <h1>HYRISE Web Query Interface</h1>
   <h2>Query</h2>
+  <div class="container">
+    Query History: <select id="query_history"></select><a href="#" id="clear_history">X</a>
+  </div>
   <div id="standard">
     <form action="/query" method="POST" id="query_form">
-      <textarea id="txtquery" name="query" rows="2" style="width:100%;"></textarea>
+      <textarea id="txtquery" name="query" rows="15" style="width:100%;"></textarea>
       <div class="control-group">
         <label class="control-label" for="txt_limit">Limit</label>
         <div class="controls">
@@ -33,12 +36,12 @@
       </div>
       <div class="control-group">
         <input id="btn_submit" type="submit" class="btn btn-primary" data-loading-text="Executing..." value="Submit" />
+	<a href="#" id="addHistory">Save</a>
         <p class="text-success" id="msg"></p>
         <p class="text-error" id="msg_error"></p>
       </div>
     </form>
   </div>
-
 </div>
 <div class="container" id="result_view">
   <h2>Result View</h2>
@@ -61,6 +64,25 @@
     $("#result_view").hide();
     $("#plan_cont").hide();    
 
+    updateQueryHistory();
+
+    $("#query_history").change(function() {
+      var q = getQuery($("#query_history :selected").val())
+      $("#txtquery").val(q);
+    });
+
+    $("#clear_history").click(function(){
+      localStorage.clear();
+      $("#msg").html("History Cleared");
+      return false;
+    });
+
+    $("#addHistory").click(function() {
+      var qJson = JSON.parse($("#txtquery").val());
+      addQuery(qJson);
+      updateQueryHistory();
+      return false;
+    });
 
     $("#query_form").submit(runQuery);
     $("#txtquery").focus(function(){
