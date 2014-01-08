@@ -3,13 +3,14 @@
 
 #include <helper/types.h>
 
-#include "access/system/PlanOperation.h"
+#include <storage/AbstractTable.h>
+#include <access/system/PlanOperation.h>
 
 namespace hyrise {
 namespace access {
 
 struct param_t {
-  storage::table_id_t table;
+  std::weak_ptr<storage::AbstractTable> table;
   field_t field;
 };
 typedef std::vector<param_t> param_vector_t;

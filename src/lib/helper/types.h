@@ -87,7 +87,7 @@ typedef float hyrise_float_t;
 typedef std::string hyrise_string_t;
 
 typedef uint32_t value_id_t;
-typedef unsigned short table_id_t;
+typedef uint8_t table_id_t;
 
 typedef size_t pos_t;
 typedef size_t field_t;

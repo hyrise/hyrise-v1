@@ -1,0 +1,26 @@
+{
+  "operators": {
+    "load" : {
+      "type" : "TableLoad",
+      "filename" : "aging/inv.tbl",
+      "table" : "INV"
+    },
+    "register" : {
+      "type" : "RegisterQuery",
+      "name" : "inv-Q5",
+      "parameters" : [{"table": "INV", "fields": ["id"]}]
+    },
+    "check" : {
+      "type" : "AgingCheck",
+      "query" : "inv-Q5",
+      "parameters" : [{"table": "INV", "parameters": [["id", %(id)d]]}]
+    },
+    "select" : {
+      "type" : "SimpleTableScan",
+      "predicates" : [
+        {"type" : "EQ", "in" : 0, "f" : "id", "vtype": 0 /*Str*/, "value" : %(id)s}
+      ]
+    }
+  },
+  "edges" : [["load","register"],["register","check"],["check","select"]]
+}

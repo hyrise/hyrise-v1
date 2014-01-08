@@ -7,20 +7,20 @@
     },
     "register" : {
       "type" : "RegisterQuery",
-      "name" : "inv-Q1",
-      "parameters" : [{"table": "INV", "fields": ["year", "customer"]}]
+      "name" : "inv-Q3",
+      "parameters" : [{"table": "INV", "fields": ["year", "status"]}]
     },
     "check" : {
       "type" : "AgingCheck",
-      "query" : "inv-Q1",
-      "parameters" : [{"table": "INV", "parameters": [["year", %(year)d], ["customer", %(customer)s]]}]
+      "query" : "inv-Q3",
+      "parameters" : [{"table": "INV", "parameters": [["year", %(year)d], ["status", %(status)s]]}]
     },
     "select" : {
       "type" : "SimpleTableScan",
       "predicates" : [
         {"type" : "AND"},
         {"type" : "EQ", "in" : 0, "f" : "year"    , "vtype": 0 /*Int*/, "value" : %(year)d},
-        {"type" : "EQ", "in" : 0, "f" : "customer", "vtype": 2 /*Str*/, "value" : %(customer)s}
+        {"type" : "EQ", "in" : 0, "f" : "status", "vtype": 2 /*Str*/, "value" : %(status)s}
       ]
     }
   },
