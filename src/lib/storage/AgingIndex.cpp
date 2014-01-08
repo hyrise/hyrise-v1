@@ -46,9 +46,6 @@ AgingIndex::AgingIndex(const atable_ptr_t& table) :
     _valueIdTable.insert(std::make_pair(i, vIdMap));
 
     hotness_map_t hotnessMap;
-
-    //TODO create hotnessMap
-
     _hotnessTable.insert(std::make_pair(i, hotnessMap));
   }
 }
@@ -57,18 +54,63 @@ AgingIndex::~AgingIndex() {}
 
 void AgingIndex::shrink() {}
 
-bool AgingIndex::isHot(access::query_id_t query, field_t field, value_id_t vid) {
-  if (_hotnessTable.find(field) == _hotnessTable.end())
-    throw std::runtime_error("field id not saved in AgingIndex");
-  const auto& hotnessMap = _hotnessTable.find(field)->second;
+void AgingIndex::addForQuery(access::query_id_t query, const std::vector<field_t>& fields) {
+  const auto& pvVectors = table()->getAttributeVectors(table()->numberOfColumn("$PV"));
+  value_id_t hotValue = 1; //TODO not best
 
-  if (hotnessMap.find(query) == hotnessMap.end())
-    throw std::runtime_error("query not registered for this field and table");
-  const auto& hotnessVector = hotnessMap.find(query)->second;
+  std::cout << ">>>>>>>>>>>>>>>updating AgingIndex" << std::endl;
+  for (const auto& field : fields) {
+    if (_hotnessTable.find(field) == _hotnessTable.end())
+      throw std::runtime_error("Field is not registered for aging");
+    auto& hotnessMap = _hotnessTable.find(field)->second;
 
-  const auto& internalId = _valueIdTable.find(field)->second.find(vid)->second;
+    if (hotnessMap.find(query) != hotnessMap.end())
+      throw std::runtime_error("Query is already registered");
+    const auto& valueMap = _valueIdTable.find(field)->second;
 
-  return hotnessVector.at(internalId);
+    const auto& fieldVectors = table()->getAttributeVectors(field);
+    AgingIndex::hotness_vector_t hotnessVector(valueMap.size(), true);
+
+    // maybe later more tables
+    const auto& fieldVector = checked_pointer_cast<storage::BaseAttributeVector<value_id_t>>(fieldVectors.at(0).attribute_vector);
+    const auto& pvVector = checked_pointer_cast<storage::BaseAttributeVector<value_id_t>>(pvVectors.at(0).attribute_vector);
+
+    for (unsigned i = 0; i < fieldVector->size(); ++i) {
+      const auto& valueId = fieldVector->get(0, i);
+      const auto& internalId = valueMap.find(valueId)->second;
+      bool hotval = hotnessVector.at(internalId);
+      hotnessVector.at(internalId) = hotval & (pvVector->get(0, i) == hotValue);
+    }
+
+    for (const auto& hot : hotnessVector)
+      std::cout << ">>" << (hot ? "HOT" : "COLD") << std::endl;
+
+    std::cout << "create hotness Vector for Query " << query << " and field " << field << std::endl;
+
+    hotnessMap.insert(std::make_pair(query, hotnessVector));
+  }
+}
+
+bool AgingIndex::isHot(access::query_id_t query, std::vector<param_t> params) {
+  bool hot = true;
+  for (const auto& param : params) {
+    if (_hotnessTable.find(param.field) == _hotnessTable.end())
+      throw std::runtime_error("field id not saved in AgingIndex");
+    const auto& hotnessMap = _hotnessTable.find(param.field)->second;
+
+    if (hotnessMap.find(query) == hotnessMap.end())
+      throw std::runtime_error("query not registered for this field and table");
+    const auto& hotnessVector = hotnessMap.find(query)->second;
+
+    const auto& internalId = _valueIdTable.find(param.field)->second.find(param.vid)->second;
+
+    hot &= hotnessVector.at(internalId);
+  }
+  return hot;
+}
+
+atable_ptr_t AgingIndex::table() {
+  return _table.lock();
 }
 
 } } // namespace hyrise::storage

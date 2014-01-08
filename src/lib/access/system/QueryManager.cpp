@@ -24,11 +24,25 @@ void QueryManager::registerQuery(const std::string& name, const param_vector_t& 
   _queryParameters.push_back(params);
   _queryNames.insert(std::make_pair(name, id));
 
-  std::cout << "registeres Query \"" << name << "\"" << std::endl;
+  std::cout << "register Query \"" << name << "\"" << std::endl;
+
+  cleanRegistered();
+
+  for (const auto& registeredIndex : _registered) {
+    const auto& index = registeredIndex.lock();
+    const auto tableId = index->table()->id();
+    std::vector<field_t> fields;
+    for (const auto& param : params) {
+      if (param.table == tableId)
+        fields.push_back(param.field);
+    }
+    if (fields.size() > 0)
+      index->addForQuery(id, fields);
+  }
 }
 
 bool QueryManager::exists(const std::string& name) const {
-  return _queryNames.find(name) == _queryNames.end();
+  return _queryNames.find(name) != _queryNames.end();
 }
 
 void QueryManager::assureExists(const std::string& name) const {
@@ -54,7 +68,20 @@ param_vector_t QueryManager::parametersOf(query_id_t query) const {
 }
 
 void QueryManager::registerAgingIndex(std::shared_ptr<storage::AgingIndex> index) {
-  
+  const auto tableId = index->table()->id();
+  std::vector<field_t> fields;
+
+  for (query_id_t id = 0; id < _queryParameters.size(); ++id) {
+    const auto& query = _queryParameters.at(id);
+    for (const auto& param : query) {
+      if (param.table == tableId)
+        fields.push_back(param.field);
+    }
+    if (fields.size() > 0)
+      index->addForQuery(id, fields);
+  }
+
+  _registered.push_back(index);
 }
 
 void QueryManager::cleanRegistered() {

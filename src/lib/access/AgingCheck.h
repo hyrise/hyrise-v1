@@ -16,12 +16,12 @@ public:
 private:
   std::string _queryName;
   struct field_data_t {
-    std::string table;
     std::string name;
     DataType type;
     void* data;
   };
-  std::vector<field_data_t> _fields;
+  typedef std::vector<field_data_t> field_vector_t;
+  std::map<std::string, field_vector_t> _fields;
 };
 
 } } // namespace hyrise::access

@@ -18,7 +18,15 @@ public:
 
   virtual void shrink();
 
-  bool isHot(access::query_id_t query, field_t field, value_id_t vid);
+  void addForQuery(access::query_id_t query, const std::vector<field_t>& fields);
+
+  struct param_t {
+    field_t field;
+    value_id_t vid;
+  };
+  bool isHot(access::query_id_t query, std::vector<param_t> params);
+
+  atable_ptr_t table();
 
   typedef std::map<value_id_t, unsigned> value_id_map_t; // mapping for one row
   typedef std::map<field_t, value_id_map_t> value_id_table_t; // mapping for all relevant fields
@@ -31,7 +39,7 @@ private:
   value_id_table_t _valueIdTable;
   hotness_table_t _hotnessTable;
 
-  const atable_ptr_t _table;
+  const std::weak_ptr<storage::AbstractTable> _table;
 };
 
 } } // namespace hyrise::storage

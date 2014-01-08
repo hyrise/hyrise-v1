@@ -19,11 +19,14 @@ namespace {
 
 
 AgingCheck::~AgingCheck() {
-  for (const auto& field : _fields) {
-    switch (field.type) {
-      case IntegerType: delete (hyrise_int_t*) field.data; break;
-      case FloatType: delete (hyrise_float_t*) field.data; break;
-      case StringType: delete (hyrise_string_t*) field.data; break;
+  for (const auto& table : _fields) {
+    const auto tableParams = table.second;
+    for (const auto& field : tableParams) {
+      switch (field.type) {
+        case IntegerType: delete (hyrise_int_t*) field.data; break;
+        case FloatType: delete (hyrise_float_t*) field.data; break;
+        case StringType: delete (hyrise_string_t*) field.data; break;
+      }
     }
   }
 }
@@ -32,38 +35,43 @@ void AgingCheck::executePlanOperation() {
   const auto& sm = *io::StorageManager::getInstance();
   const auto& qm = QueryManager::instance();
 
-  bool hot = true;
-
   qm.assureExists(_queryName);
-  for (const auto& field : _fields) {
-    if (!sm.hasAgingIndex(field.table)) {
-      hot = false;
-      break;
+  for (const auto& tableParams : _fields) {
+    const auto& tableName = tableParams.first;
+    sm.assureExists(tableName);
+
+    const auto& table = sm.get<storage::AbstractTable>(tableName);
+    if (!sm.hasAgingIndex(tableName)) {
+      std::cout << "no aging index: COLD";
+      continue;
     }
 
-    sm.assureExists(field.table);
-    const auto& table = sm.get<storage::AbstractTable>(field.table);
-    const field_t col = table->numberOfColumn(field.name);
-    if (table->typeOfColumn(col) != field.type)
-      throw std::runtime_error("type of " + field.name + " is of type " + data_type_to_string(field.type));
+    std::vector<storage::AgingIndex::param_t> params;
+    for (const auto& field : tableParams.second) {
+      const field_t col = table->numberOfColumn(field.name);
 
-    value_id_t vid;
+      if (table->typeOfColumn(col) != field.type)
+        throw std::runtime_error("type of " + field.name + " is of type " +
+                                 data_type_to_string(field.type));
 
-    switch (field.type) {
-      case IntegerType:
-        vid = table->getValueIdForValue<hyrise_int_t>(col, *(hyrise_int_t*)field.data).valueId;
-        break;
-      case FloatType:
-        vid = table->getValueIdForValue<hyrise_float_t>(col, *(hyrise_float_t*)field.data).valueId;
-        break;
-      case StringType:
-        vid = table->getValueIdForValue<hyrise_string_t>(col, *(hyrise_string_t*)field.data).valueId;
-        break;
-     }
+      value_id_t vid;
 
-     hot &= sm.getAgingIndexFor(field.table)->isHot(qm.getId(_queryName), col, vid);
+      switch (field.type) {
+        case IntegerType:
+          vid = table->getValueIdForValue<hyrise_int_t>(col, *(hyrise_int_t*)field.data).valueId;
+          break;
+        case FloatType:
+          vid = table->getValueIdForValue<hyrise_float_t>(col, *(hyrise_float_t*)field.data).valueId;
+          break;
+        case StringType:
+          vid = table->getValueIdForValue<hyrise_string_t>(col, *(hyrise_string_t*)field.data).valueId;
+          break;
+      }
+      params.push_back({col, vid}); 
+    }
+    const bool hot = sm.getAgingIndexFor(tableName)->isHot(qm.getId(_queryName), params);
+    std::cout << tableName << ": " << (hot ? "HOT" : "COLD") << std::endl;
   }
-  std::cout << (hot ? "HOT" : "COLD") << std::endl;
 
   output = input; // don't stand in the way of calculation, pass everything on
 }
@@ -83,6 +91,7 @@ std::shared_ptr<PlanOperation> AgingCheck::parse(const Json::Value &data) {
          throw std::runtime_error("A table needs to be specified for a parameter list");
        const auto& tableName = table["table"].asString();
 
+       field_vector_t fieldVector;
        if (table.isMember("parameters")) {
          const auto& fields = table["parameters"];
          for (unsigned j = 0; j < fields.size(); ++j) {
@@ -94,15 +103,17 @@ std::shared_ptr<PlanOperation> AgingCheck::parse(const Json::Value &data) {
            const auto& value = fieldData[1];
 
            if (value.isInt())
-             ac->_fields.push_back({tableName, fieldName, IntegerType, new hyrise_int_t(value.asInt())});
+             fieldVector.push_back({fieldName, IntegerType, new hyrise_int_t(value.asInt())});
            else if (value.isDouble())
-             ac->_fields.push_back({tableName, fieldName, FloatType, new hyrise_float_t(value.asDouble())});
+             fieldVector.push_back({fieldName, FloatType, new hyrise_float_t(value.asDouble())});
            else if (value.isString())
-             ac->_fields.push_back({tableName, fieldName, StringType, new hyrise_string_t(value.asString())});
+             fieldVector.push_back({fieldName, StringType, new hyrise_string_t(value.asString())});
            else
              throw std::runtime_error("cannot recognize data type");
          }
        }
+
+       ac->_fields.insert(std::make_pair(tableName, fieldVector));
      }
   }
 
