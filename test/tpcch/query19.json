@@ -1,0 +1,143 @@
+{
+  "operators" : {
+    "getTableOrderLine" :{
+      "type" : "GetTable",
+      "name" : "ORDER_LINE"
+    },
+    "getTableItem" :{
+      "type" : "GetTable",
+      "name" : "ITEM"
+    },
+    "projectOrderLine" : {
+      "type": "ProjectionScan",
+      "fields": ["OL_I_ID", "OL_W_ID", "OL_QUANTITY", "OL_AMOUNT"]
+    },
+    "projectItem" : {
+      "type": "ProjectionScan",
+      "fields": ["I_ID", "I_PRICE", "I_DATA"]
+    },
+    "join_a": {
+      "type" : "JoinScan",
+      "predicates" : [
+        { "type" : 3,
+          "input_left" : 0,
+          "field_left" : "OL_I_ID",
+          "input_right" : 1,
+          "field_right" : "I_ID"
+        }
+      ]
+    },
+    "scan_a" : {
+      "type" : "SimpleTableScan",
+        "positions" : true,
+        "predicates" : [
+          { "type": "AND" },
+            { "type": "LIKE", "in": 0, "f": "I_DATA", "vtype": 2, "value": ".*1" },
+            { "type": "AND" },
+              { "type": "AND" },
+                { "type": "GT", "in": 0, "f": "OL_QUANTITY", "vtype": 0, "value": 0},
+                { "type": "LT", "in": 0, "f": "OL_QUANTITY", "vtype": 0, "value": 10 },
+              { "type": "AND" },
+                { "type": "AND" },
+                  { "type": "GT", "in": 0, "f": "I_PRICE", "vtype": 1, "value": 1.0 },
+                  { "type": "LT", "in": 0, "f": "I_PRICE", "vtype": 1, "value": 10.0},
+                { "type": "IN", "in": 0, "f": "OL_W_ID", "vtype": 0, "value": [1, 2, 3]}
+        ]
+    },
+    "join_b": {
+      "type" : "JoinScan",
+      "predicates" : [
+        { "type" : 3,
+          "input_left" : 0,
+          "field_left" : "OL_I_ID",
+          "input_right" : 1,
+          "field_right" : "I_ID"
+        }
+      ]
+    },
+    "scan_b" : {
+      "type" : "SimpleTableScan",
+        "positions" : true,
+        "predicates" : [
+          { "type": "AND" },
+            { "type": "LIKE", "in": 0, "f": "I_DATA", "vtype": 2, "value": ".*2" },
+            { "type": "AND" },
+              { "type": "AND" },
+                { "type": "GT", "in": 0, "f": "OL_QUANTITY", "vtype": 0, "value": 0},
+                { "type": "LT", "in": 0, "f": "OL_QUANTITY", "vtype": 0, "value": 10 },
+              { "type": "AND" },
+                { "type": "AND" },
+                  { "type": "GT", "in": 0, "f": "I_PRICE", "vtype": 1, "value": 1.0 },
+                  { "type": "LT", "in": 0, "f": "I_PRICE", "vtype": 1, "value": 10.0},
+                { "type": "IN", "in": 0, "f": "OL_W_ID", "vtype": 0, "value": [1, 2, 4]}
+        ]
+    },
+    "join_c": {
+      "type" : "JoinScan",
+      "predicates" : [
+        { "type" : 3,
+          "input_left" : 0,
+          "field_left" : "OL_I_ID",
+          "input_right" : 1,
+          "field_right" : "I_ID"
+        }
+      ]
+    },
+    "scan_c" : {
+      "type" : "SimpleTableScan",
+        "positions" : true,
+        "predicates" : [
+          { "type": "AND" },
+            { "type": "LIKE", "in": 0, "f": "I_DATA", "vtype": 2, "value": ".*3" },
+            { "type": "AND" },
+              { "type": "AND" },
+                { "type": "GT", "in": 0, "f": "OL_QUANTITY", "vtype": 0, "value": 0},
+                { "type": "LT", "in": 0, "f": "OL_QUANTITY", "vtype": 0, "value": 10 },
+              { "type": "AND" },
+                { "type": "AND" },
+                  { "type": "GT", "in": 0, "f": "I_PRICE", "vtype": 1, "value": 1.0 },
+                  { "type": "LT", "in": 0, "f": "I_PRICE", "vtype": 1, "value": 10.0},
+                { "type": "IN", "in": 0, "f": "OL_W_ID", "vtype": 0, "value": [1, 5, 3]}
+        ]
+    },
+    "unionall" : {
+      "type": "UnionAll"
+    },
+    "projectAmount" : {
+      "type" : "ProjectionScan",
+      "fields" : ["OL_AMOUNT"]
+    },
+    "hash":{
+      "type":"HashBuild",
+      "key": "groupby",
+      "fields": ["OL_AMOUNT"]
+    },
+    "groupBy":{
+      "type": "GroupByScan",
+      "fields": ["OL_AMOUNT"],
+      "functions":[
+        {"type":"SUM", "field":"OL_AMOUNT", "as":"REVENUE"}
+      ]
+    },
+    "getRevenue" : {
+      "type": "ProjectionScan",
+      "fields": ["REVENUE"]
+    }
+  },
+  "edges": [
+    ["getTableOrderLine", "projectOrderLine"],
+    ["getTableItem", "projectItem"],
+    ["projectOrderLine", "join_a"], ["projectItem", "join_a"],
+    ["projectOrderLine", "join_b"], ["projectItem", "join_b"],
+    ["projectOrderLine", "join_c"], ["projectItem", "join_c"],
+    ["join_a", "scan_a"],
+    ["join_b", "scan_b"],
+    ["join_c", "scan_c"],
+    ["scan_a", "unionall"],
+    ["scan_b", "unionall"],
+    ["scan_c", "unionall"],
+    ["unionall", "projectAmount"],
+    ["projectAmount", "hash"], ["projectAmount", "groupBy"], ["hash", "groupBy"],
+    ["groupBy", "getRevenue"]
+  ]
+}

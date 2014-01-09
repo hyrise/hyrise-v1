@@ -96,7 +96,8 @@ std::map<std::string, std::pair<types::type_t, conversion_func> > translations =
     ("double",   make_pair(types::float_t, double_to_float))
     ("date",     make_pair(types::integer_t, date_to_int))
     ("time",     make_pair(types::string_t, var_to_string))
-    ("datetime", make_pair(types::string_t, var_to_string));
+    ("datetime", make_pair(types::string_t, var_to_string))
+    ("decimal",  make_pair(types::float_t, double_to_float));
 
 std::shared_ptr<storage::AbstractTable> MySQLInput::load(
     std::shared_ptr<storage::AbstractTable> intable,

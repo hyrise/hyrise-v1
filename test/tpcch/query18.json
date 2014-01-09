@@ -1,0 +1,109 @@
+{
+  "operators" : {
+    "getTableCustomers" :{
+      "type"     : "GetTable",
+      "name"    : "CUSTOMER"
+      },
+    "getTableOrders" :{
+      "type"     : "GetTable",
+      "name"    : "ORDERS"
+      },
+    "getTableOrderline" :{
+      "type"     : "GetTable",
+      "name"    : "ORDER_LINE"
+      },
+    "joinOrders": {
+    "type":"JoinScan",
+    "predicates": [
+         {"type": 0},
+            {   
+              "type": 3,
+                "input_left": 0,
+                "field_left": "C_W_ID",
+                "input_right": 1,
+                "field_right": "O_W_ID"
+            },
+            {   
+              "type": 3,
+                "input_left": 0,
+                "field_left": "C_D_ID",
+                "input_right": 1,
+                "field_right": "O_D_ID"
+            }
+          ]
+    },
+    "joinOrderline": {
+    "type":"JoinScan",
+    "predicates": [
+         {"type": 0},
+          {"type": 0},
+          {   
+            "type": 3,
+              "input_left": 0,
+              "field_left": "O_W_ID",
+              "input_right": 1,
+              "field_right": "OL_W_ID"
+          },
+            {   
+              "type": 3,
+                "input_left": 0,
+                "field_left": "O_D_ID",
+                "input_right": 1,
+                "field_right": "OL_D_ID"
+            },
+            {   
+              "type": 3,
+                "input_left": 0,
+                "field_left": "O_ID",
+                "input_right": 1,
+                "field_right": "OL_O_ID"
+            }
+          ]
+    },
+    "firstProject":{
+      "type":"ProjectionScan",
+      "fields": ["O_ID","O_W_ID","O_D_ID","C_ID","C_LAST","O_ENTRY_D","O_OL_CNT","OL_AMOUNT"]
+    },
+    "hash":{
+      "type":"HashBuild",
+      "key": "groupby",
+      "fields": ["O_ID","O_W_ID","O_D_ID","C_ID","C_LAST","O_ENTRY_D","O_OL_CNT"]
+    },
+    "groupBy":{
+      "type": "GroupByScan",
+      "fields": ["O_ID","O_W_ID","O_D_ID","C_ID","C_LAST","O_ENTRY_D","O_OL_CNT"],
+      "functions":[
+        {"type":"SUM", "field":"OL_AMOUNT", "as":"REVENUE"}
+      ]
+    }
+    , "select":{
+      "type":"SimpleTableScan",
+      "positions": true,
+      "predicates": [
+        {"type":"GT_V", "in":0, "f": "REVENUE", "vtype":1, "value":1.0}
+      ]
+    }
+    ,"secondProject":{
+      "type":"ProjectionScan",
+      "fields":["C_LAST","C_ID","O_ID","O_ENTRY_D","O_OL_CNT","REVENUE"]
+    },
+    "sort_REVENUE":{
+      "type":"SortScan",
+      "fields": [5],
+      "asc": false
+    },
+    "sort_O_ENTRY_D":{
+      "type":"SortScan",
+      "fields": [3],
+      "asc": true
+    }
+  },
+  "edges": [
+    ["getTableCustomers","joinOrders"],["getTableOrders","joinOrders"],
+    ["joinOrders","joinOrderline"],["getTableOrderline","joinOrderline"],
+    ["joinOrderline","firstProject"],
+    ["firstProject","hash"],["hash","groupBy"],["firstProject","groupBy"],["groupBy","select"],
+    ["select","secondProject"],
+    ["secondProject", "sort_REVENUE"], ["sort_REVENUE", "sort_O_ENTRY_D"]
+  ]
+}
