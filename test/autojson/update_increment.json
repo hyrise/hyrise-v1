@@ -1,0 +1,29 @@
+{
+    "operators" : {
+        "-1" : { 
+            "type": "TableLoad",
+            "table" : "reference",
+            "filename" : "tables/revenue_plus1000.tbl"
+        },
+        "load" : { "type": "TableLoad",
+                   "table": "revenue",
+                   "filename" : "tables/revenue.tbl"  },
+        "select": { "type" : "SimpleTableScan",
+                    "predicates" : [
+                        {"type": 0, "in": 0, "f": "year", "value": 2010}
+                    ]},
+        "updateinc" : { "type" : "PosUpdateIncrementScan",
+                        "column" : "amount",
+                        "offset" : 1000 },
+        /* TODO: this is a temporary hack until ValidatePositions can handle this directly */
+        "project" : {
+            "type" : "ProjectionScan",
+            "fields" : ["*"]
+        },
+
+        "validate" : {
+            "type" : "ValidatePositions"
+        }
+    },
+    "edges" : [["load", "select"], ["select", "updateinc"], ["updateinc", "project"], ["project", "validate"]]
+}
