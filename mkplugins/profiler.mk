@@ -1,2 +1,3 @@
 LIBS += profiler
+export PROF_LIBS:=-lprofiler
 CPPFLAGS += -DHYRISE_USE_GOOGLE_PROFILER

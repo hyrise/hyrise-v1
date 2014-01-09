@@ -48,7 +48,8 @@ class AutoJsonTest : public TestWithParam<std::string> {
 TEST_P(AutoJsonTest, Query) {
   RecordProperty("JSONFile", json_name.c_str());
 
-  std::string q = loadFromFile("test/autojson/" + json_name);
+  //std::string q = loadFromFile("test/autojson/" + json_name);
+  std::string q = loadFromFile(json_name);
 
   auto has_xfail = json_name.find("xfail") != std::string::npos;
 
@@ -71,7 +72,8 @@ TEST_P(AutoJsonTest, Query) {
 
 struct pathname_of {
   std::string operator()(const directory_entry &p) const {
-    return p.path().filename().c_str();
+    //return p.path().filename().c_str();
+    return p.path().c_str();
   }
 };
 
@@ -83,10 +85,18 @@ std::vector<std::string> GetParameterStrings() {
             back_it,
             pathname_of());
 
+  // If we have extensions check them as well
+  if (exists("extensions/autojson/")) {
+    std::transform(directory_iterator("extensions/autojson/"),
+		   directory_iterator(),
+		   back_it,
+		   pathname_of());
+  }
+
   std::vector<std::string> result;
   for (const auto& filename: files) {
     if ((filename.substr(filename.size() - 5).compare(".json") == 0)
-        && (!(filename.substr(0, 3).compare("DIS")==0)))
+        && (!(filename.find("DIS") != std::string::npos)))
       result.push_back(filename);
   }
 

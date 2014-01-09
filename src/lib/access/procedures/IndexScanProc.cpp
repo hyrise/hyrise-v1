@@ -23,6 +23,8 @@ IndexScanProcedure::IndexScanProcedure(net::AbstractConnection *data) : _connect
 
 
 void IndexScanProcedure::operator()() {
+  const auto& scheduler = taskscheduler::SharedScheduler::getInstance().getScheduler();
+
   // Parse the query string
   std::map<std::string, std::string> body_data = parseHTTPFormData(_connection_data->getBody());
 

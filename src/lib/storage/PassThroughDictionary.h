@@ -35,6 +35,55 @@ public:
 
   explicit PassThroughDictionary(size_t s = 0) {}
 
+<<<<<<< HEAD
+  inline value_id_t addValue(T value) { 
+    return pt_dict_union_t(value).vid;
+  }
+
+  inline T getValueForValueId(value_id_t value_id) { 
+    return pt_dict_union_t(value_id).value;
+  }
+
+  inline value_id_t getValueIdForValue(const T& value) const {
+    return pt_dict_union_t(value).vid;
+  }
+
+  inline value_id_t getValueIdForValueSmaller(T other) {
+    STORAGE_NOT_IMPLEMENTED(PassThroughDictionary, getValueIdForValueSmaller());
+  }
+
+  inline value_id_t getValueIdForValueGreater(T other) {
+    STORAGE_NOT_IMPLEMENTED(PassThroughDictionary, getValueIdForValueGreater());
+  }
+
+  inline const T getSmallestValue() {
+    STORAGE_NOT_IMPLEMENTED(PassThroughDictionary, getSmallestValue());
+  }
+
+  inline const T getGreatestValue() {
+    STORAGE_NOT_IMPLEMENTED(PassThroughDictionary, getGreatestValue());
+  }
+
+  inline bool isValueIdValid(value_id_t value_id) { return true; };
+
+  inline bool valueExists(const T& value) const { return true; };
+
+  inline void reserve(size_t) {};
+
+  inline size_t size() { return 0; }
+
+  inline std::shared_ptr<AbstractDictionary> copy() {
+    return std::move(copy_empty());
+  }
+
+  inline std::shared_ptr<AbstractDictionary> copy_empty() {
+    return std::make_shared<PassThroughDictionary<T> >();
+  }
+
+  inline void shrink(){}
+
+  inline bool isOrdered() { return false; }
+=======
   value_id_t addValue(T value) { 
     return pt_dict_union_t(value).vid;
   }
@@ -82,6 +131,7 @@ public:
   void shrink(){}
 
   bool isOrdered() { return false; }
+>>>>>>> origin/master
 
   using iterator = DictionaryIterator<T>;
 
@@ -97,9 +147,15 @@ public:
  */
 template <typename T>
 class PassThroughDictionaryIterator : public BaseIterator<T> {
+<<<<<<< HEAD
+  inline void increment() {}
+
+  inline bool equal(const std::shared_ptr<BaseIterator<T>>& other) const {
+=======
   void increment() {}
 
   bool equal(const std::shared_ptr<BaseIterator<T>>& other) const {
+>>>>>>> origin/master
     return true;
   }
 
