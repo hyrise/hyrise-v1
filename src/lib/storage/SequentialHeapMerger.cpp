@@ -6,6 +6,7 @@
 #include "helper/vector_helpers.h"
 #include "storage/DictionaryIterator.h"
 #include "storage/ColumnMetadata.h"
+#include "storage/DictionaryFactory.h"
 
 namespace hyrise {
 namespace storage {
@@ -25,21 +26,29 @@ void SequentialHeapMerger::mergeValues(const std::vector<c_atable_ptr_t > &input
   for (const auto & kv: column_mapping) {
     const auto &source = kv.first;
     const auto &destination = kv.second;
-    switch (merged_table->metadataAt(destination)->getType()) {
-      case IntegerType:
-        mergeValues<hyrise_int_t>(input_tables, source, merged_table, destination, mappingPerAtrtibute[source], useValid, valid);
-        break;
-
-      case FloatType:
-        mergeValues<hyrise_float_t>(input_tables, source, merged_table, destination, mappingPerAtrtibute[source], useValid, valid);
-        break;
-
-      case StringType:
-        mergeValues<hyrise_string_t>(input_tables, source, merged_table, destination, mappingPerAtrtibute[source], useValid, valid);
-        break;
-
-      default:
-        break;
+    switch (merged_table->metadataAt(destination).getType()) {
+    case IntegerType:
+    case IntegerTypeDelta:
+    case IntegerTypeDeltaConcurrent:
+      mergeValues<hyrise_int_t>(input_tables, source, merged_table, destination, mappingPerAtrtibute[source], useValid, valid);
+    break;
+    
+    case FloatType:
+    case FloatTypeDelta:
+    case FloatTypeDeltaConcurrent:
+      mergeValues<hyrise_float_t>(input_tables, source, merged_table, destination, mappingPerAtrtibute[source], useValid, valid);
+      break;
+      
+    case StringType:
+    case StringTypeDelta:
+    case StringTypeDeltaConcurrent:
+      mergeValues<hyrise_string_t>(input_tables, source, merged_table, destination, mappingPerAtrtibute[source], useValid, valid);
+      break;
+    case IntegerNoDictType:
+    case FloatNoDictType:
+      merged_table->setDictionaryAt(makeDictionary(merged_table->typeOfColumn(destination)), destination);
+    default:
+      break;
     }
   }
 
@@ -70,8 +79,8 @@ void SequentialHeapMerger::mergeValues(const std::vector<c_atable_ptr_t > &input
   value_id_maps.reserve(input_tables.size());
 
   for (size_t table = 0; table < input_tables.size(); table++) {
-    if ((merged_table->metadataAt(destination_column_index)->getType() !=
-         input_tables[table]->metadataAt(source_column_index)->getType())) {
+    if (!types::isCompatible(merged_table->metadataAt(destination_column_index).getType(),
+         input_tables[table]->metadataAt(source_column_index).getType())) {
       throw std::runtime_error("Dictionary types don't match");
     }
     auto dict = std::dynamic_pointer_cast<BaseDictionary<T>>(input_tables[table]->dictionaryAt(source_column_index));
@@ -220,17 +229,38 @@ void SequentialHeapMerger::copyValues(const std::vector<c_atable_ptr_t > &input_
   // and apply value id mapping
   size_t merged_table_row = 0;
 
-  size_t part_counter = 0;
-  for (size_t table = 0; table < input_tables.size(); table++) {
-    for (size_t row = 0; row < input_tables[table]->size(); row++) {
-      if (!useValid || (useValid && valid[part_counter + row])) {
-        value_id.valueId = input_tables[table]->getValueId(source_column_index, row).valueId;
-        value_id.valueId = value_id_mapping[table][value_id.valueId]; // translate value id to new dict
-        merged_table->setValueId(destination_column_index, merged_table_row, value_id);
-        merged_table_row++;
+  // Only apply the mapping if we have one, for non-dict columns, we
+  // just copy the "value_ids". We use almost identical source code
+  // here to avoid the additional branch in the inner loop. Not pretty
+  // but it works.
+  if (value_id_mapping.size() > 0) {
+    size_t part_counter = 0;
+    for (size_t table = 0; table < input_tables.size(); table++) {
+      for (size_t row = 0; row < input_tables[table]->size(); row++) {
+	if (!useValid || (useValid && valid[part_counter + row])) {
+	  value_id.valueId = input_tables[table]->getValueId(source_column_index, row).valueId;
+	  value_id.valueId = value_id_mapping[table][value_id.valueId]; // translate value id to new dict
+	  merged_table->setValueId(destination_column_index, merged_table_row, value_id);
+	  merged_table_row++;
+	}
       }
+      part_counter += input_tables[table]->size();
     }
-    part_counter += input_tables[table]->size();
+  } else {
+    
+    // No dict columns
+    size_t part_counter = 0;
+    for (size_t table = 0; table < input_tables.size(); table++) {
+      for (size_t row = 0; row < input_tables[table]->size(); row++) {
+	if (!useValid || (useValid && valid[part_counter + row])) {
+	  value_id.valueId = input_tables[table]->getValueId(source_column_index, row).valueId;
+	  merged_table->setValueId(destination_column_index, merged_table_row, value_id);
+	  merged_table_row++;
+	}
+      }
+      part_counter += input_tables[table]->size();
+    }
+
   }
 
 }

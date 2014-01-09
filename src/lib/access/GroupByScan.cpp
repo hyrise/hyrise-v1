@@ -8,6 +8,7 @@
 #include "storage/PointerCalculator.h"
 #include "storage/OrderIndifferentDictionary.h"
 #include "storage/meta_storage.h"
+#include "storage/storage_types.h"
 
 namespace hyrise {
 namespace storage {
@@ -132,15 +133,10 @@ storage::atable_ptr_t GroupByScan::createResultTableLayout() {
   storage::atable_ptr_t group_tab = getInputTable(0)->copy_structure_modifiable(&_field_definition);
   //creating fields from aggregate functions
   for (const auto & fun: _aggregate_functions) {
-    auto m = new storage::ColumnMetadata(fun->columnName(), fun->getType());
-    metadata.push_back(m);
-    dictionaries.push_back(storage::makeDictionary<storage::OrderIndifferentDictionary>(fun->getType()));
+    metadata.emplace_back(fun->columnName(), types::getUnorderedType(fun->getType()));
+    dictionaries.push_back(storage::makeDictionary(metadata.back()));
   }
   storage::atable_ptr_t agg_tab = std::make_shared<storage::Table>(&metadata, &dictionaries, 0, false);
-
-  //Clean the metadata
-  for (auto e : metadata)
-    delete e;
 
   std::vector<storage::atable_ptr_t> vc;
   if (_field_definition.size() == 0 && _aggregate_functions.size() != 0) {

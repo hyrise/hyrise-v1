@@ -14,7 +14,7 @@ public:
   int generate_call_cnt;
   MockTableFactory() : generate_call_cnt(0)  {}
   ~MockTableFactory() {}
-  storage::atable_ptr_t  generate(std::vector<const storage::ColumnMetadata *> *m,
+  storage::atable_ptr_t  generate(std::vector<storage::ColumnMetadata> *m,
                                   std::vector<storage::AbstractTable::SharedDictionaryPtr> *d = nullptr,
                                   size_t initial_size = 0,
                                   bool sorted = true,

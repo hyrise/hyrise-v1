@@ -115,16 +115,12 @@ std::shared_ptr<storage::AbstractTable> Loader::load(const params &args) {
   } catch (std::exception& e) {
     // TODO: Memory management is not exception safe
     for (const auto & ml : *meta) {
-      for (const auto & f : *ml)
-        delete f;
       delete ml;
     }
     throw Loader::Error(e.what());
   }
   // Memory Cleanup, this is so dirty here, it makes me shiver
   for (auto e : *meta) {
-    for (auto f: *e)
-      delete f;
     delete e;
   }
   delete meta;

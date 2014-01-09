@@ -69,7 +69,9 @@ public:
   // AbstractTable interface
   atable_ptr_t copy() const override;
   atable_ptr_t copy_structure(const field_list_t *fields = nullptr, const bool reuse_dict = false, const size_t initial_size = 0, const bool with_containers = true, const bool compressed = false) const override;
-  const ColumnMetadata *metadataAt(const size_t column_index, const size_t row_index = 0, const table_id_t table_id = 0) const override;
+
+  const ColumnMetadata& metadataAt(const size_t column_index, const size_t row_index = 0, const table_id_t table_id = 0) const override;
+
   const AbstractTable::SharedDictionaryPtr& dictionaryAt(const size_t column, const size_t row = 0, const table_id_t table_id = 0) const override;
   const AbstractTable::SharedDictionaryPtr& dictionaryByTableId(const size_t column, const table_id_t table_id) const override;
   void setDictionaryAt(AbstractTable::SharedDictionaryPtr dict, const size_t column, const size_t row = 0, const table_id_t table_id = 0) override;
@@ -89,7 +91,7 @@ public:
   field_list_t *fields;
 
   // Vector mapping the renaed field names
-  std::unique_ptr<std::vector<ColumnMetadata*>> _renamed;
+  std::unique_ptr<std::vector<ColumnMetadata>> _renamed;
 
   std::vector<size_t> slice_for_slice;
   std::vector<size_t> offset_in_slice;

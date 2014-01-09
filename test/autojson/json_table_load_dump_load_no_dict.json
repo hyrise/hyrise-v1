@@ -1,0 +1,39 @@
+{
+    "operators": {
+        "-1" : {
+            "type": "TableLoad",    
+            "table": "reference",
+            "filename" : "tables/revenue.tbl" 
+        },
+        "0": {
+            "type": "JsonTable",    
+            "names": ["year", "quarter", "amount"],
+            "types" : ["INTEGER_NO_DICT", "INTEGER", "INTEGER_NO_DICT"],
+            "groups" : [1,1,1],
+            "useStore": true,
+            "mergeStore": true,
+            "data" : [
+                ["2009","1","2000"],
+                ["2009","2","2500"],
+                ["2009","3","3000"],
+                ["2009","4","4000"],
+                ["2010","1","2400"],
+                ["2010","2","2800"],
+                ["2010","3","3200"],
+                ["2010","4","3600"]
+            ]            
+        },
+        "1" : {
+            "type" : "DumpTable",
+            "name" : "dump"
+        },
+        "2" : {
+            "type": "LoadDumpedTable",
+            "name" : "dump"
+        }
+    },
+    "edges" : [
+    ["0", "1"],
+    ["1", "2"]
+    ]
+}

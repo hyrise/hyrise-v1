@@ -22,9 +22,9 @@ class SelectTests : public AccessTest {
  public:
 
   std::shared_ptr<storage::AbstractTable> createRawTable() {
-    storage::metadata_vec_t cols({*storage::ColumnMetadata::metadataFromString("INTEGER", "col1"),
-                                  *storage::ColumnMetadata::metadataFromString("STRING", "col2"),
-                                  *storage::ColumnMetadata::metadataFromString("FLOAT", "col3") });
+    storage::metadata_vec_t cols({storage::ColumnMetadata::metadataFromString("INTEGER", "col1"),
+                                  storage::ColumnMetadata::metadataFromString("STRING", "col2"),
+                                  storage::ColumnMetadata::metadataFromString("FLOAT", "col3") });
 
     auto main = std::make_shared<storage::RawTable>(cols);
     for (size_t i=0; i < 100; ++i) {
