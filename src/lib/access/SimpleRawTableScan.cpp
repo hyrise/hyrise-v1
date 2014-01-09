@@ -79,7 +79,7 @@ void SimpleRawTableScan::executePlanOperation() {
     meta[i] = table->metadataAt(i);
   auto result = std::make_shared<storage::Table>(&meta,
                                                  nullptr,
-                                                 1,  /* initial size */
+                                                 0,  /* initial size */
                                                  false, /* sorted */
                                                  false /* compressed */);
 

@@ -8,16 +8,16 @@
 #include <stdint.h>
 
 #include <random>
+#include <sstream>
 
 #include <helper/types.h>
-
+#include <helper/Progress.h>
 #include <storage/AbstractTable.h>
 #include <storage/DictionaryFactory.h>
 #include <storage/MutableVerticalTable.h>
 #include <storage/AbstractMergeStrategy.h>
 #include <storage/SequentialHeapMerger.h>
 #include <storage/TableMerger.h>
-#include <helper/Progress.h>
 
 namespace hyrise { namespace storage {
 
