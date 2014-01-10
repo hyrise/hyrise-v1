@@ -113,7 +113,7 @@ struct DictMergeHelper {
   }
 
   bool done() {
-    return it.equal(end);
+    return it == end;
   }
 
   void print() {

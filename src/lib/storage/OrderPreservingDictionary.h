@@ -87,21 +87,6 @@ public:
     return index;
   }
 
-  value_id_t getValueIdForValueSmaller(T other) {
-    auto binary_search = std::lower_bound(_values->begin(), _values->end(), other);
-    size_t index = binary_search - _values->begin();
-    
-    assert(index > 0);
-    return index - 1;
-  }
-
-  value_id_t getValueIdForValueGreater(T other) {
-    auto binary_search = std::upper_bound(_values->begin(), _values->end(), other);
-    size_t index = binary_search - _values->begin();
-    
-    return index;
-  }
-
   const T getSmallestValue() {
     assert(_values->size() > 0);
     return (*_values)[0];
@@ -185,7 +170,7 @@ public:
         _index  == std::dynamic_pointer_cast<OrderPreservingDictionaryIterator<T>>(other)->_index;
   }
 
-  T dereference() const {
+  T dereference() {
     return (*_values)[_index];
   }
 
@@ -197,13 +182,40 @@ public:
 
 
 /// String Dictionary Specialization
-class OrderPreservingDictionaryIteratorString;
+class OrderPreservingDictionaryIteratorString : public BaseIterator<std::string> {
+
+  using dictionary_type =  OrderPreservingDictionary<std::string>;
+  using base_type = OrderPreservingDictionaryIteratorString;
+
+  dictionary_type *_data = nullptr;
+  size_t _index = 0;
+
+  std::string _value;
+
+public:
+  explicit OrderPreservingDictionaryIteratorString(dictionary_type *values);
+
+  OrderPreservingDictionaryIteratorString(dictionary_type *values, size_t index);
+
+  void increment();
+
+  bool equal(const std::shared_ptr<BaseIterator<std::string>>& other) const;
+
+  std::string dereference();
+
+  value_id_t getValueId() const;
+
+};
+
+
+
 
 template <>
 class OrderPreservingDictionary<std::string> : public BaseDictionary<std::string> {
 
   using char_trait = std::char_traits<char>;
   using char_ptr_t = char_trait::char_type*;
+  using str_size_t = unsigned;
 
   // Offset into the char memory
   std::vector<char_trait::off_type> _offset;
@@ -212,20 +224,22 @@ class OrderPreservingDictionary<std::string> : public BaseDictionary<std::string
   char_ptr_t _end = nullptr;
   char_ptr_t _endOfStorage = nullptr;
 
+  // Basic offset for storing the size o the string
+  constexpr static size_t _basicOffset = sizeof(str_size_t);
 
   /*
-   * Returns a const char pointer to the string
+   * Returns a const char pointer to the string and shift by the size
+   * of the string
    */
-  char_ptr_t get_c(size_t index) const {
-    return _data + _offset[index];
+  char_ptr_t get_c_offset(size_t offset) const {
+    return _data + offset + _basicOffset;
   }
 
-  size_t strlen(size_t index) const {
-    if ((index + 1) < _offset.size()) {
-      return _offset[index+1] - _offset[index];
-    } else {
-      return _end - (_data + _offset[index]);
-    }
+  /* 
+   * Returns the size of the string, based on the offset
+   */
+  str_size_t get_strlen(size_t offset) const {
+    return *reinterpret_cast<str_size_t*>(_data + offset);
   }
 
 
@@ -245,12 +259,17 @@ public:
 
   OrderPreservingDictionary() {
   }
+
+  OrderPreservingDictionary(const OrderPreservingDictionary& other) = delete;
+  
+  OrderPreservingDictionary& operator= (OrderPreservingDictionary& other) = delete;
   
   explicit OrderPreservingDictionary(size_t size) {
   }
 
   virtual ~OrderPreservingDictionary() {
-    free(_data);
+    if (_data != nullptr)
+      free(_data);
   }
 
   void shrink() {
@@ -267,14 +286,18 @@ public:
 //    if ((_values->size() > 0) && (value <= _values->back()))
 //      throw std::runtime_error("Can't insert value smaller or equal to last value");
 #endif
-    if ((_end + value.size()) > _endOfStorage) {
-      reserve_raw(allocated() * 2);
+    if ((_end + value.size() + _basicOffset) > _endOfStorage) {
+      // Allocate at least one object plus its size
+      reserve_raw(value.size() + _basicOffset + (allocated() * 2) );
     }
 
-    memcpy(_end, value.c_str(), value.size());
+    // Copy the data
+    str_size_t s = value.size();
+    memcpy(_end, &s, _basicOffset);
+    memcpy(_end + _basicOffset, value.c_str(), s);
     _offset.emplace_back(_end - _data);
-    _end = _end + value.size();
-    return _offset.back();
+    _end = _end + s + _basicOffset;
+    return _offset.size() - 1;
   }
 
 
@@ -282,7 +305,8 @@ public:
    * String transformation
    */
   std::string get_s(size_t index) const {
-    return std::string(get_c(index), strlen(index));
+    const auto off = _offset[index];
+    return std::string(get_c_offset(off), get_strlen(off));
   }
   
   /**
@@ -293,43 +317,25 @@ public:
    */
   std::string getValueForValueId(value_id_t value_id) {
 #ifdef EXPENSIVE_ASSERTIONS
-    // if (value_id >= _values->size())
-    //   throw std::out_of_range("Trying to access value_id larger than available values");
+    if (value_id >= _offset.size())
+      throw std::out_of_range("Trying to access value_id larger than available values");
 #endif
-    std::string tmp(get_c(value_id), strlen(value_id)); 
-    return std::move(tmp);
+    return std::move(get_s(value_id));
   }
       
   value_id_t getValueIdForValue(const std::string &value) const {
     auto binary_search = std::lower_bound(std::begin(_offset), std::end(_offset), value, [&](const char_trait::off_type& o, const std::string& v){
-        return std::strncmp(get_c(o), v.c_str(), strlen(o)) < 0;
+        return std::strncmp(get_c_offset(o), v.c_str(), get_strlen(o)) < 0;
       });
-    return *binary_search;
-  }
-
-  value_id_t getValueIdForValueSmaller(std::string other) {
-    // auto binary_search = std::lower_bound(_values->begin(), _values->end(), other);
-    // size_t index = binary_search - _values->begin();
-    
-    // assert(index > 0);
-    // return index - 1;
-    return 0;
-  }
-
-  value_id_t getValueIdForValueGreater(std::string other) {
-    // auto binary_search = std::upper_bound(_values->begin(), _values->end(), other);
-    // size_t index = binary_search - _values->begin();
-    
-    // return index;
-    return 0;
+    return binary_search - std::begin(_offset);
   }
 
   const std::string getSmallestValue() {
-    return std::string(get_c(0), strlen(0));
+    return std::string(get_c_offset(0), get_strlen(0));
   }
     
   const std::string getGreatestValue() {
-    return std::string(get_c(_offset.back()), strlen(_offset.back()));
+    return get_s(_offset.size() - 1);
   }
 
   bool isValueIdValid(value_id_t value_id) {
@@ -337,10 +343,12 @@ public:
   }
 
   bool valueExists(const std::string &value) const {
-    auto res = std::lower_bound(std::begin(_offset), std::end(_offset), value, [&](const char_trait::off_type& o, const std::string& v){
-        return std::strncmp(get_c(o), v.c_str(), strlen(o)) < 0;
-      });
-    return res != std::end(_offset);
+    auto res = std::lower_bound(std::begin(_offset), std::end(_offset), value, 
+                                [&](const char_trait::off_type& o, const std::string& v){
+                                  return std::strncmp(get_c_offset(o), v.c_str(), get_strlen(o)) < 0;
+                                });
+
+    return (!(res == std::end(_offset)) && !(std::strncmp(value.c_str(), get_c_offset(*res), get_strlen(*res)) < 0));
   }
 
   void reserve(size_t size) {
@@ -365,54 +373,14 @@ public:
   typedef DictionaryIterator<std::string> iterator;
 
   iterator begin() {
-    return iterator(std::make_shared<OrderPreservingDictionaryIteratorString >(this, 0));
+    return iterator(std::make_shared<OrderPreservingDictionaryIteratorString >(this));
   }
 
   iterator end() {
-    
+    return iterator(std::make_shared<OrderPreservingDictionaryIteratorString>(this, _offset.size()));
   }
 
 };
-
-class OrderPreservingDictionaryIteratorString : public BaseIterator<std::string> {
-
-  using dictionary_type =  OrderPreservingDictionary<std::string>;
-  using base_type = OrderPreservingDictionaryIteratorString;
-
-  dictionary_type *_data = nullptr;
-  size_t _index = 0;
-
-public:
-
-  explicit OrderPreservingDictionaryIteratorString(dictionary_type *values): _data(values) {}
-
-  OrderPreservingDictionaryIteratorString(dictionary_type *values, size_t index): _data(values), _index(index) {}
-
-  virtual ~OrderPreservingDictionaryIteratorString() { }
-
-  void increment() {
-    ++_index;
-  }
-
-  bool equal(const std::shared_ptr<BaseIterator<std::string>>& other) const {
-    return 
-      _data == std::dynamic_pointer_cast<base_type>(other)->_data &&
-      _index  == std::dynamic_pointer_cast<base_type>(other)->_index;
-  }
-
-  std::string dereference() const {
-    return std::move(_data->get_s(_index));
-  }
-
-  value_id_t getValueId() const {
-    return _index;
-  }
-
-};
-
-
-
-
 
 
 
