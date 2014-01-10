@@ -80,7 +80,7 @@ public:
     resize(count);
     if (val != _defaultValue) {
       for(size_t i=oldSize; i < count; ++i) {
-	set(i, val);
+        set(i, val);
       }
     }
 
@@ -90,8 +90,8 @@ public:
     typename map_t::accessor c;
     if (_data.insert(c, index)) {
       if (val == _defaultValue) {
-	_data.erase(c);
-	return;
+        _data.erase(c);
+        return;
       }
     }
     c->second = val;
@@ -104,12 +104,12 @@ public:
     // In addition we use the accessor as a write lock o the key
     if (_data.insert(c, index)) {
       if (oldVal == _defaultValue) {
-	c->second = newVal;
-	return true;
+        c->second = newVal;
+        return true;
       } else {
-	// Clear the newly inserted key
-	_data.erase(c);
-	return false;
+        // Clear the newly inserted key
+        _data.erase(c);
+        return false;
       }
     } else {
 
@@ -117,14 +117,14 @@ public:
       // remove the newval if it is the default value
       if ( c->second == oldVal) {
 
-	if (newVal == _defaultValue) {
-	  _data.erase(c);
-	} else {
-	  c->second = newVal;
-	}
-	return true;
+        if (newVal == _defaultValue) {
+          _data.erase(c);
+        } else {
+          c->second = newVal;
+        }
+        return true;
       } else {
-	return false;
+        return false;
       }
     }
   }
