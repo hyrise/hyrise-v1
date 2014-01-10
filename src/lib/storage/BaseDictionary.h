@@ -1,6 +1,8 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #pragma once
 
+#include <limits>
+
 #include <storage/storage_types.h>
 #include <storage/AbstractDictionary.h>
 #include <storage/DictionaryIterator.h>
@@ -45,7 +47,23 @@ public:
   virtual DictionaryIterator<T> begin() = 0;
   virtual DictionaryIterator<T> end() = 0;
 
+  // Inserts a value into dictionary
+  value_id_t insert(const T& value) {
+    return getValueId(value, true);
+  }
+
+  // Retrieves value_id for given value, optionally creates
+  // a new dictionary entry
+  value_id_t getValueId(const T& value, bool create) {
+    if (valueExists(value)) {
+      return getValueIdForValue(value);
+    } else if (create) {
+      return addValue(value);
+    } else {
+      // TODO: We should document that INT_MAX is an invalid document ID
+      return std::numeric_limits<value_id_t>::max();
+    }
+  }
 };
 
 } } // namespace hyrise::storage
-
