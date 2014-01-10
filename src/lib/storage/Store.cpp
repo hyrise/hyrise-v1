@@ -64,7 +64,7 @@ void Store::merge() {
   // get valid positions
   std::vector<bool> validPositions(_cidBeginVector.size());
   tx::transaction_cid_t last_commit_id = tx::TransactionManager::getInstance().getLastCommitId();
-  functional::forEachWithIndex(_cidBeginVector, [&](size_t i, bool v){
+  functional::forEachWithIndex(_cidBeginVector, [&](size_t i, tx::transaction_cid_t v){
     validPositions[i] = isVisibleForTransaction(i, last_commit_id, tx::MERGE_TID);
   });
 
@@ -72,9 +72,9 @@ void Store::merge() {
   assert(tables.size() == 1);
   _main_table = tables.front();
   // Fixup the cid and tid vectors
-  _cidBeginVector = tbb::concurrent_vector<tx::transaction_cid_t>(_main_table->size(), tx::UNKNOWN_CID);
-  _cidEndVector = tbb::concurrent_vector<tx::transaction_cid_t>(_main_table->size(), tx::INF_CID);
-  _tidVector = tbb::concurrent_vector<tx::transaction_id_t>(_main_table->size(), tx::START_TID);
+  _cidBeginVector = cvec_type(_main_table->size(), tx::UNKNOWN_CID);
+  _cidEndVector = cvec_type(_main_table->size(), tx::INF_CID);
+  _tidVector = cvec_type(_main_table->size(), tx::START_TID);
   
   // Replace the delta partition
   delta = new_delta;
@@ -314,9 +314,15 @@ tx::TX_CODE Store::checkForConcurrentCommit(const pos_list_t& pos, const tx::tra
 }
 
 tx::TX_CODE Store::markForDeletion(const pos_t pos, const tx::transaction_id_t tid) {
-  if(atomic_cas(&_tidVector[pos], tx::START_TID, tid)) {
+  // if(atomic_cas(&_tidVector[pos], tx::START_TID, tid)) {
+  //   return tx::TX_CODE::TX_OK;
+  // }
+  auto v = _tidVector[pos];
+  if (v == tx::START_TID) {
+    _tidVector[pos] = tid;
     return tx::TX_CODE::TX_OK;
   }
+
 
   if(_tidVector[pos] == tid) {
     // It is a row that we inserted ourselves. We remove the TID, leaving it with TID=0,begin=0,end=0 which is invisible to everyone

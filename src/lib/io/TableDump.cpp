@@ -95,6 +95,7 @@ struct write_to_dict_functor {
       std::getline(data, tmp);
       if (!data.good() && tmp.size() == 0)
         break;
+      tmp.shrink_to_fit();
       map->addValue(boost::lexical_cast<R>(tmp));
       tmp.clear();
     }
