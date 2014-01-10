@@ -38,8 +38,8 @@ public:
     return _it == std::dynamic_pointer_cast<OrderIndifferentDictionaryIterator<T>>(other)->_it;
   }
 
-  T &dereference() const {
-    return (T &)(*_it).first;
+  T dereference() const {
+    return (*_it).first;
   }
 
   value_id_t getValueId() const {

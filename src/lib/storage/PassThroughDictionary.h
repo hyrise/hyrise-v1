@@ -103,7 +103,7 @@ class PassThroughDictionaryIterator : public BaseIterator<T> {
     return true;
   }
 
-  T &dereference() const {
+  T dereference() const {
     STORAGE_NOT_IMPLEMENTED(PassThroughDictionaryIterator, dereference());
   }
 

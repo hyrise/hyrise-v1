@@ -31,7 +31,7 @@ class DictionaryIterator : public boost::iterator_facade<DictionaryIterator<T>, 
     _it->increment();
   }
 
-  T &dereference() const {
+  T dereference() const {
     return _it->dereference();
   }
 

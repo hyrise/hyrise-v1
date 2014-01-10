@@ -26,8 +26,8 @@ public:
     return (_it == std::static_pointer_cast<iter_type>(other)->_it);
   }
 
-  T &dereference() const {
-    return (T&) _it->first;
+  T dereference() const {
+    return _it->first;
   }
 
   value_id_t getValueId() const {
