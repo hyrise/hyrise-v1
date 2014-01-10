@@ -283,8 +283,8 @@ public:
    */
   value_id_t addValue(std::string value) {
 #ifdef EXPENSIVE_ASSERTIONS
-//    if ((_values->size() > 0) && (value <= _values->back()))
-//      throw std::runtime_error("Can't insert value smaller or equal to last value");
+    if ((_offset.size() > 0) && (value <= get_s(_offset.size() - 1)))
+      throw std::runtime_error("Can't insert value smaller or equal to last value");
 #endif
     if ((_end + value.size() + _basicOffset) > _endOfStorage) {
       // Allocate at least one object plus its size
