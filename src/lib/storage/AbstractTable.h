@@ -288,23 +288,11 @@ public:
    */
   template <typename T>
   inline ValueId getValueIdForValue(const size_t column, const T value, const bool create = false, const table_id_t table_id = 0) const {
-
-    // FIXME here should be some basic type checking, at least we should check with a better cast and catch the std::exception
     // FIXME horizontal containers will go down here, needs a row index, can be default 0
-
     const auto& map = checked_pointer_cast<BaseDictionary<T>>(dictionaryAt(column, 0, table_id));
     ValueId valueId;
     valueId.table = table_id;
-
-    if (map->valueExists(value)) {
-      valueId.valueId = map->getValueIdForValue(value);
-    } else if (create) {
-      valueId.valueId = map->addValue(value);
-    } else {
-      // TODO: We should document that INT_MAX is an invalid document ID
-      valueId.valueId = std::numeric_limits<value_id_t>::max();
-    }
-
+    valueId.valueId = map->getValueId(value, create);
     return valueId;
   }
 
@@ -331,20 +319,10 @@ public:
   template <typename T>
   void setValue(size_t column, size_t row, const T &value) {
     const auto& map = checked_pointer_cast<BaseDictionary<T>>(dictionaryAt(column, row));
-
     ValueId valueId;
     valueId.table = 0;
-
-    if (map->valueExists(value)) {
-      valueId.valueId = map->getValueIdForValue(value);
-    } else {
-      valueId.valueId = map->addValue(value);
-    }
-
-    //return valueId;
-    //ValueId valueId = getValueIdForValue(column, value, true);
+    valueId.valueId = map->insert(value);
     setValueId(column, row, valueId);
-
   }
 
 
