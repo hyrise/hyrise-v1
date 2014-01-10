@@ -25,8 +25,8 @@ size_t addEntriesForTableToResultTable(std::shared_ptr<const storage::AbstractTa
   result->resize(result->size() + table->columnCount());
   for (field_t i = 0; i != table->columnCount(); ++i) {
     result->setValue<hyrise_string_t>(result->numberOfColumn("table"), row_count, tableName);
-    result->setValue<hyrise_string_t>(result->numberOfColumn("column"), row_count, table->metadataAt(i)->getName());
-    result->setValue<hyrise_int_t>(result->numberOfColumn("data_type"), row_count, table->metadataAt(i)->getType());
+    result->setValue<hyrise_string_t>(result->numberOfColumn("column"), row_count, table->metadataAt(i).getName());
+    result->setValue<hyrise_int_t>(result->numberOfColumn("data_type"), row_count, table->metadataAt(i).getType());
 
     ++row_count;
   }

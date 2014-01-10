@@ -4,7 +4,7 @@
 #include <storage/AbstractTable.h>
 #include <storage/TableDiff.h>
 #include <storage/PrettyPrinter.h>
-
+#include <storage/storage_types_helper.h>
 namespace hyrise {
 
 using namespace storage;
@@ -16,12 +16,7 @@ std::string schemaErrors(TableDiff diff, const char* relationName, tblptr table)
   for (field_t i = 0; i < diff.fields.size(); ++i) {
     if (diff.fields[i] != TableDiff::FieldCorrect) {
       if (diff.fields[i] == TableDiff::FieldWrongType) {
-        hyrise::types::type_t type;
-        switch (table->typeOfColumn(i)) {
-          case IntegerType: type = hyrise::types::integer_t; break;
-          case FloatType: type = hyrise::types::float_t; break;
-          case StringType: type = hyrise::types::string_t; break;
-        }
+        hyrise::types::type_t type = data_type_to_string(table->typeOfColumn(i));
         fieldTypeError.push_back(table->nameOfColumn(i) + "(" + type + ")");
       }
       else

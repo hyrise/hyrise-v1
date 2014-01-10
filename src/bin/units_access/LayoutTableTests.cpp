@@ -21,7 +21,7 @@ TEST_F(LayoutTableTests, basic_layout_table_test) {
   const auto &result = lt.getResultTable();
 
   ASSERT_EQ(2u, result->partitionCount());
-  ASSERT_EQ("c", result->metadataAt(1)->getName());
+  ASSERT_EQ("c", result->metadataAt(1).getName());
   ASSERT_EQ(3, result->getValue<storage::hyrise_int_t>(1, 0));
 }
 

@@ -21,7 +21,7 @@ class ColumnMetadata {
   DataType type;
 
  public:
-  static ColumnMetadata *metadataFromString(std::string typestring, std::string name = "");
+  static ColumnMetadata metadataFromString(std::string typestring, std::string name = "");
 
   ColumnMetadata(std::string n, DataType t) : name(n), type(t) { }
 
@@ -29,6 +29,10 @@ class ColumnMetadata {
 
   DataType getType() const {
     return type;
+  }
+
+  void setType(DataType t) {
+    type = t;
   }
 
   std::string getName() const {
@@ -48,8 +52,8 @@ class ColumnMetadata {
     return new ColumnMetadata(name, type);
   }
 
-  bool matches(const ColumnMetadata *col) const {
-    return (col->getName() == name) && (col->getType() == type);
+  bool matches(const ColumnMetadata& col) const {
+    return (col.getName() == name) && (col.getType() == type);
   }
 };
 

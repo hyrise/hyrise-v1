@@ -114,7 +114,7 @@ TEST_F(LayouterOpsTest, layouting_table_op_reordering) {
   auto result = op.execute()->getResultTable();
 
   ASSERT_EQ(result->partitionCount(), 2u);
-  ASSERT_EQ(result->metadataAt(1)->getName(), "c");
+  ASSERT_EQ(result->metadataAt(1).getName(), "c");
   ASSERT_EQ(result->getValue<hyrise_int_t>(1, 0), 3);
 }
 

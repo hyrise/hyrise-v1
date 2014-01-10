@@ -94,10 +94,10 @@ TEST_F(PointerCalcTests, pc_on_selected_columns) {
 
   ASSERT_TRUE(pc->columnCount() == 4);
 
-  ASSERT_TRUE(pc->metadataAt(0)->matches(t->metadataAt(1)));
-  ASSERT_TRUE(pc->metadataAt(1)->matches(t->metadataAt(3)));
-  ASSERT_TRUE(pc->metadataAt(2)->matches(t->metadataAt(5)));
-  ASSERT_TRUE(pc->metadataAt(3)->matches(t->metadataAt(7)));
+  ASSERT_TRUE(pc->metadataAt(0).matches(t->metadataAt(1)));
+  ASSERT_TRUE(pc->metadataAt(1).matches(t->metadataAt(3)));
+  ASSERT_TRUE(pc->metadataAt(2).matches(t->metadataAt(5)));
+  ASSERT_TRUE(pc->metadataAt(3).matches(t->metadataAt(7)));
 }
 
 } } // namespace hyrise::storage

@@ -7,7 +7,7 @@
 namespace hyrise { namespace storage {
 
 TEST(factory, creation) {
-  auto d = makeDictionary<OrderIndifferentDictionary>(IntegerType, 10);
+  auto d = makeDictionary(IntegerType, 10);
 }
 
 }}

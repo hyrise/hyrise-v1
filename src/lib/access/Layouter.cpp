@@ -64,12 +64,12 @@ void LayoutSingleTable::executePlanOperation() {
 
 
   std::vector<storage::AbstractTable::SharedDictionaryPtr > vd;
-  vd.push_back(storage::makeDictionary<storage::OrderIndifferentDictionary>(StringType));
-  vd.push_back(storage::makeDictionary<storage::OrderIndifferentDictionary>(IntegerType));
-  vd.push_back(storage::makeDictionary<storage::OrderIndifferentDictionary>(FloatType));
-  vd.push_back(storage::makeDictionary<storage::OrderIndifferentDictionary>(IntegerType));
-  vd.push_back(storage::makeDictionary<storage::OrderIndifferentDictionary>(FloatType));
-  vd.push_back(storage::makeDictionary<storage::OrderIndifferentDictionary>(FloatType));
+  vd.push_back(storage::makeDictionary(StringTypeDelta));
+  vd.push_back(storage::makeDictionary(IntegerTypeDelta));
+  vd.push_back(storage::makeDictionary(FloatTypeDelta));
+  vd.push_back(storage::makeDictionary(IntegerTypeDelta));
+  vd.push_back(storage::makeDictionary(FloatTypeDelta));
+  vd.push_back(storage::makeDictionary(FloatTypeDelta));
 
   // Allocate a new Table
   result = std::make_shared<storage::Table>(&vc, &vd, _maxResults, false);
@@ -88,9 +88,7 @@ void LayoutSingleTable::executePlanOperation() {
 
   // Free the memory
   delete bl;
-  for (const auto & m: vc) {
-    delete m;
-  }
+
   for (const auto & q: qs) {
     delete q;
   }

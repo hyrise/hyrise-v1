@@ -21,7 +21,7 @@ class HorizontalTable : public AbstractTable {
  public:
   explicit HorizontalTable(std::vector<c_atable_ptr_t> parts);
   virtual ~HorizontalTable();
-  const ColumnMetadata *metadataAt(size_t column_index, size_t row_index=0, table_id_t table_id=0) const override;
+  const ColumnMetadata& metadataAt(const size_t column_index, const size_t row_index = 0, const table_id_t table_id = 0) const override;
   const adict_ptr_t& dictionaryAt(size_t column, size_t row=0, table_id_t table_id=0) const override;
   const adict_ptr_t& dictionaryByTableId(size_t column, table_id_t table_id) const override;
   void setDictionaryAt(adict_ptr_t dict, size_t column, size_t row=0, table_id_t table_id=0) override;

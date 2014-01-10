@@ -112,7 +112,7 @@ TableDiff TableDiff::diffTables(const AbstractTable* const left,
   //compare relation scheme
   diff.fields.resize(left->columnCount(), TableDiff::FieldWrong);
   for (auto i = mapFields.begin(); i != mapFields.end(); ++i) {
-    if (right->typeOfColumn(i->second) == left->typeOfColumn(i->first))
+    if (types::isCompatible(right->typeOfColumn(i->second),left->typeOfColumn(i->first)))
       diff.fields[i->first] = TableDiff::FieldCorrect;
     else
       diff.fields[i->first] = TableDiff::FieldWrongType;

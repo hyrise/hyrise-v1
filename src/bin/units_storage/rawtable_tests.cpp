@@ -1,5 +1,6 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "testing/test.h"
+#include "testing/TableEqualityTest.h"
 
 #include "io/shortcuts.h"
 #include "storage/AbstractTable.h"
@@ -7,6 +8,8 @@
 #include "storage/storage_types.h"
 #include "storage/SimpleStore.h"
 #include "storage/TableGenerator.h"
+#include "storage/storage_types.h"
+
 
 namespace hyrise {
 namespace storage {
@@ -17,14 +20,14 @@ class RawTableTests : public Test {
   metadata_vec_t intList(size_t num=2) {
     metadata_vec_t result;
     for(size_t i=0; i < num; ++i)
-      result.push_back(*ColumnMetadata::metadataFromString("INTEGER", "col" + std::to_string(i)));
+      result.push_back(ColumnMetadata::metadataFromString("INTEGER", "col" + std::to_string(i)));
     return result;
   }
 
   metadata_vec_t intstringlist() {
     metadata_vec_t result;
-    result.push_back(*ColumnMetadata::metadataFromString("INTEGER", "col1"));
-    result.push_back(*ColumnMetadata::metadataFromString("STRING", "col1"));
+    result.push_back(ColumnMetadata::metadataFromString("INTEGER", "col1"));
+    result.push_back(ColumnMetadata::metadataFromString("STRING", "col1"));
     return result;
   }
 
@@ -32,9 +35,9 @@ class RawTableTests : public Test {
 };
 
 metadata_vec_t allTypeMeta() {
-  return { *ColumnMetadata::metadataFromString("INTEGER", "col_int"),
-        *ColumnMetadata::metadataFromString("STRING", "col_string"),
-        *ColumnMetadata::metadataFromString("FLOAT", "col_float")};
+  return { ColumnMetadata::metadataFromString("INTEGER", "col_int"),
+        ColumnMetadata::metadataFromString("STRING", "col_string"),
+        ColumnMetadata::metadataFromString("FLOAT", "col_float")};
 }
 
 
@@ -262,7 +265,7 @@ TEST_F(RawTableTests, simple_store_insert_and_merge) {
   }
 
   tab->merge();
-  ASSERT_TABLE_EQUAL(ref, tab);
+  EXPECT_RELATION_EQ(ref, tab);
 
 }
 

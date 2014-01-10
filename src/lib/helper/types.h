@@ -81,6 +81,7 @@ typedef std::shared_ptr<SimpleStore> simplestore_ptr_t;
 typedef std::shared_ptr<const SimpleStore> c_simplestore_ptr_t;
 
 typedef int64_t hyrise_int_t;
+typedef int32_t hyrise_int32_t;
 typedef float hyrise_float_t;
 typedef std::string hyrise_string_t;
 

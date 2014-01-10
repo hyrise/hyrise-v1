@@ -124,7 +124,7 @@ public:
    * @param row      Row in that column (default=0).
    * @param table_id ID of the table from which to extract (default=0).
    */
-  virtual const ColumnMetadata *metadataAt(size_t column, size_t row = 0, table_id_t table_id = 0) const = 0;
+  virtual const ColumnMetadata& metadataAt(size_t column, size_t row = 0, table_id_t table_id = 0) const = 0;
 
   /**
    * Returs a list of references to metadata of this table.

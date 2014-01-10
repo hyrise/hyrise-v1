@@ -1,0 +1,46 @@
+{
+    "operators": {
+       "result": {
+            "type": "JsonTable",    
+            "names": ["year", "quarter", "amount"],
+            "types" : ["INTEGER_DELTA_CONC", "INTEGER", "INTEGER"],
+            "groups" : [1,1,1],
+            "data" : [
+                ["2009","1","2000"],
+                ["2009","2","2500"],
+                ["2009","3","3000"],
+                ["2009","4","4000"],
+                ["2010","1","2400"],
+                ["2010","2","2800"],
+                ["2010","3","3200"],
+                ["2010","4","3600"]
+            ]            
+        },
+        "base": {
+            "type": "JsonTable",    
+            "names": ["year", "quarter", "amount"],
+            "types" : ["INTEGER_NO_DICT", "INTEGER", "INTEGER_DELTA_CONC"],
+            "groups" : [1,1,1],
+	    "useStore" : true,
+	    "mergeStore" : true,
+            "data" : [
+                ["2009","1","2000"],
+                ["2009","2","2500"],
+                ["2009","3","3000"],
+                ["2009","4","4000"],
+                ["2010","1","2400"],
+                ["2010","2","2800"],
+                ["2010","3","3200"],
+                ["2010","4","3600"]
+            ]            
+        },
+	"setr" : {
+	       "type" : "SetTable",
+	       "name" : "reference"
+	}
+    },
+    "edges" : [
+	    ["result", "setr"], 
+	    ["setr", "base"]
+	]
+}

@@ -1,0 +1,53 @@
+{
+    "operators": {
+       "result": {
+            "type": "JsonTable",    
+            "names": ["table", "column", "data_type"],
+            "types" : ["STRING", "STRING", "INTEGER"],
+            "groups" : [1,1,1],
+            "data" : [
+                ["data","year","9"],
+                ["data","quarter","0"],
+                ["data","amount","0"],
+		["reference", "table", "5"],
+		["reference", "column", "5"],
+		["reference", "data_type", 3]
+            ]            
+        },
+        "base": {
+            "type": "JsonTable",    
+            "names": ["year", "quarter", "amount"],
+            "types" : ["INTEGER_NO_DICT", "INTEGER", "INTEGER"],
+            "groups" : [1,1,1],
+	    "useStore" : true,
+	    "mergeStore" : true,
+            "data" : [
+                ["2009","1","2000"],
+                ["2009","2","2500"],
+                ["2009","3","3000"],
+                ["2009","4","4000"],
+                ["2010","1","2400"],
+                ["2010","2","2800"],
+                ["2010","3","3200"],
+                ["2010","4","3600"]
+            ]            
+        },
+	"set" : {
+	      "type" : "SetTable",
+	      "name" : "data"
+	},
+	"setr" : {
+	       "type" : "SetTable",
+	       "name" : "reference"
+	},
+	"md" : {
+	     "type" : "MetaData"
+	}
+    },
+    "edges" : [
+    	    ["base", "set"], 
+	    ["result", "setr"], 
+	    ["set", "md"], 
+	    ["setr", "md"]
+	]
+}

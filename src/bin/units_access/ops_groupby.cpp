@@ -684,9 +684,9 @@ TEST_F(GroupByTests, group_multi_table_with_delta_not_unique) {
 */
 
 TEST_F(GroupByTests, groupby_on_empty_table) {
-  storage::metadata_list metaList = {new storage::ColumnMetadata("field1", IntegerType),
-                                     new storage::ColumnMetadata("field2", StringType),
-                                     new storage::ColumnMetadata("field2", FloatType) };
+  storage::metadata_list metaList = { storage::ColumnMetadata("field1", IntegerType),
+                                      storage::ColumnMetadata("field2", StringType),
+                                      storage::ColumnMetadata("field2", FloatType) };
   auto t = std::make_shared<storage::Table>(&metaList);
 
   GroupByScan gs;

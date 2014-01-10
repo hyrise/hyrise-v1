@@ -19,7 +19,7 @@ TEST_F(RegressionTests, projection_fail) {
 
   const auto& p = ps.execute()->getResultTable();
   ASSERT_EQ(1u, p->columnCount());
-  ASSERT_EQ(p->metadataAt(0)->getName(), "w_tax");
+  ASSERT_EQ(p->metadataAt(0).getName(), "w_tax");
   ASSERT_EQ(0u, p->numberOfColumn("w_tax"));
   ASSERT_EQ(p->getValue<float>(0, 0), p->getValue<float>("w_tax", 0));
 
