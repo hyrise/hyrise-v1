@@ -103,8 +103,8 @@ public:
   typedef struct { const atable_ptr_t& table; size_t offset_in_table; size_t table_index; } table_offset_idx_t;
   table_offset_idx_t responsibleTable(size_t row) const;
   
-  //using cvec_type = tbb::concurrent_vector<tx::transaction_id_t>;
-  using cvec_type = helper::ConcurrentSparseVector<tx::transaction_id_t>;
+  using cvec_type = tbb::concurrent_vector<tx::transaction_id_t>;
+  //using cvec_type = helper::ConcurrentSparseVector<tx::transaction_id_t>;
 
   // TX Management
   // Stores the CID of the transaction that created the row
