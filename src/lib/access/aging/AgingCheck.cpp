@@ -1,5 +1,5 @@
 // Copyright (c) 2014 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#include "access/AgingCheck.h"
+#include "AgingCheck.h"
 
 #include <iostream>
 
@@ -7,7 +7,7 @@
 #include <storage/storage_types_helper.h>
 #include <storage/BaseDictionary.h>
 #include <io/StorageManager.h>
-#include <access/system/QueryManager.h>
+#include <access/aging/QueryManager.h>
 #include <access/system/QueryParser.h>
 
 namespace hyrise {

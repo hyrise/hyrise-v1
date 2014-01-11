@@ -1,10 +1,11 @@
 // Copyright (c) 2014 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#include "access/RegisterQuery.h"
+#include "RegisterQuery.h"
 
 #include <iostream>
 
 #include <io/StorageManager.h>
 #include <access/system/QueryParser.h>
+#include <access/aging/QueryManager.h>
 
 namespace hyrise {
 namespace access {
