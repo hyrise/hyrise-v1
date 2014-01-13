@@ -14,7 +14,7 @@
 /// For errors generally related to tracing
 class TracingError : public std::runtime_error {
  public:
-  TracingError(std::string what) : std::runtime_error("TracingError: " + what) {}
+  TracingError(std::string what_) : std::runtime_error("TracingError: " + what_) {}
 };
 
 #ifdef USE_PAPI_TRACE

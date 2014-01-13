@@ -20,18 +20,15 @@ class AbstractRessource;
 namespace io {
 
 class ResourceManagerException :  public std::runtime_error {
- public:
-  explicit ResourceManagerException(const std::string &what): std::runtime_error(what) {}
+  using std::runtime_error::runtime_error;
 };
 
 class ResourceAlreadyExistsException : public ResourceManagerException {
- public:
-  explicit ResourceAlreadyExistsException(const std::string &what): ResourceManagerException(what) {}
+  using ResourceManagerException::ResourceManagerException;
 };
 
 class ResourceNotExistsException : public ResourceManagerException {
- public:
-  explicit ResourceNotExistsException(const std::string &what): ResourceManagerException(what) {}
+  using ResourceManagerException::ResourceManagerException;
 };
 
 /// Manages AbstractResources by name

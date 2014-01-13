@@ -58,8 +58,8 @@ class ConcurrentUnorderedDictionary : public BaseDictionary<T> {
 
   virtual value_id_t getValueIdForValue(const T& value) const override {
 #ifdef EXPENSIVE_ASSERTIONS
-    auto end = _values.end();
-    assert(std::find(_values.begin(), end, value) != end);
+    auto last = _values.end();
+    assert(std::find(_values.begin(), last, value) != last);
 #endif
     return _index_unordered.at(value);
   }

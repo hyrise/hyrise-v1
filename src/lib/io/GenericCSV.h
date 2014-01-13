@@ -19,9 +19,7 @@ typedef void (*line_cb_t)(int, void *);
 
 namespace csv {
 class ParserError : public std::runtime_error {
- public:
-  explicit ParserError(const std::string &what): std::runtime_error(what)
-  {}
+  using std::runtime_error::runtime_error;
 };
 
 class params {

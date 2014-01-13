@@ -173,10 +173,10 @@ public:
     Allocate memory for size rows and increase the size of the data
     container to size
    */
-  void resize(size_t size) {
-    if (size == 0) return;
-    reserve(size);
-    _size = size;
+  void resize(size_t sz) {
+    if (sz == 0) return;
+    reserve(sz);
+    _size = sz;
   }
 
   inline uint64_t capacity() {
@@ -261,16 +261,14 @@ private:
   * Allocate memory given by the number of blocks
   */
   inline storage_t *_allocate(uint64_t numBlocks) {
-
-    auto data = static_cast<storage_t *>(malloc(numBlocks * sizeof(storage_t)));
-    if (data == nullptr) {
+    auto new_data = static_cast<storage_t *>(malloc(numBlocks * sizeof(storage_t)));
+    if (new_data == nullptr) {
       throw std::bad_alloc();
     }
-    std::memset(data, 0, numBlocks * sizeof(storage_t));
-    return data;
+    std::memset(new_data, 0, numBlocks * sizeof(storage_t));
+    return new_data;
   }
 
 };
 
 } } // namespace hyrise::storage
-

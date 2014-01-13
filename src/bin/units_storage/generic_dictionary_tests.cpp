@@ -94,6 +94,7 @@ TYPED_TEST(DictTests, test_nonexisting_value) {
   if (p.isOrdered())
     std::sort(values.begin(), values.end());
 
+
   for (std::size_t i = 0u; i < values.size() - 2; ++i) {
     p.addValue(values[i]);
   }
