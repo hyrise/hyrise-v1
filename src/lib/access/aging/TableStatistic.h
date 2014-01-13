@@ -16,11 +16,13 @@ public:
   //TODO override is a keyword hrng
   void addStatisticTable(const std::string& field, storage::atable_ptr_t table, bool overRide = false);
 
-  virtual bool isHot(query_id_t query, storage::field_t field, storage::value_id_t value);
-  virtual bool isRegistered(query_id_t query, storage::field_t field) const;
+  virtual bool isHot(query_t query, storage::field_t field, storage::value_id_t value);
+  virtual bool isRegistered(query_t query, storage::field_t field) const;
+
+protected:
+  virtual void valuesDo(std::function<void(query_t, storage::field_t, storage::value_id_t, bool)> func) const;
 
 private:
-  const storage::atable_ptr_t _table;
   std::map<storage::field_t, storage::atable_ptr_t> _statisticTables;
 };
 

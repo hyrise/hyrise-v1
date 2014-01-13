@@ -47,7 +47,7 @@ namespace access {
 class AbstractExpression;
 typedef std::unique_ptr<AbstractExpression> expression_uptr_t;
 
-typedef uint16_t query_id_t;
+typedef uint16_t query_t;
 }
 
 namespace storage {

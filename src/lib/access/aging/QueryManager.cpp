@@ -20,7 +20,7 @@ void QueryManager::registerQuery(const std::string& name, const param_vector_t& 
   if (exists(name))
     return; //TODO throw std::runtime_error("Query \"" + name + "\" already exists");
 
-  const query_id_t id = _queryParameters.size();
+  const query_t id = _queryParameters.size();
   _queryParameters.push_back(params);
   _queryNames.insert(std::make_pair(name, id));
 
@@ -50,7 +50,7 @@ void QueryManager::assureExists(const std::string& name) const {
     throw std::runtime_error("Query \"" + name + "\" does not exist");
 }
 
-query_id_t QueryManager::getId(const std::string& name) const {
+query_t QueryManager::getId(const std::string& name) const {
   const auto& it = _queryNames.find(name);
   if (it == _queryNames.end())
     assureExists(name); // which will fail, but no need to rewrite the error code
@@ -61,7 +61,7 @@ param_vector_t QueryManager::parametersOf(const std::string& query) const {
   return parametersOf(getId(query));
 }
 
-param_vector_t QueryManager::parametersOf(query_id_t query) const {
+param_vector_t QueryManager::parametersOf(query_t query) const {
   if (query >= _queryParameters.size())
     throw std::runtime_error("invalid query id");
   return _queryParameters.at(query);
@@ -71,7 +71,7 @@ void QueryManager::registerAgingIndex(std::shared_ptr<storage::AgingIndex> index
   const auto tableId = index->table()->id();
   std::vector<field_t> fields;
 
-  for (query_id_t id = 0; id < _queryParameters.size(); ++id) {
+  for (query_t id = 0; id < _queryParameters.size(); ++id) {
     const auto& query = _queryParameters.at(id);
     for (const auto& param : query) {
       if (param.table == tableId)

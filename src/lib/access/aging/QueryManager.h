@@ -24,10 +24,10 @@ public:
 
   bool exists(const std::string& name) const;
   void assureExists(const std::string& name) const;
-  query_id_t getId(const std::string& name) const;
+  query_t getId(const std::string& name) const;
 
   param_vector_t parametersOf(const std::string& query) const;
-  param_vector_t parametersOf(query_id_t query) const;
+  param_vector_t parametersOf(query_t query) const;
 
   void registerAgingIndex(std::shared_ptr<storage::AgingIndex> index);
 
@@ -37,7 +37,7 @@ private:
   void cleanRegistered();
 
   std::vector<param_vector_t> _queryParameters;
-  std::map<std::string, query_id_t> _queryNames;
+  std::map<std::string, query_t> _queryNames;
 
   std::vector<std::weak_ptr<storage::AgingIndex>> _registered;
 };
