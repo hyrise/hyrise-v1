@@ -14,8 +14,8 @@ public:
 private:
   std::string _name;
 
-  typedef std::vector<std::string> field_vector_t;
-  std::map<std::string, field_vector_t> _fields;
+  typedef std::vector<std::string> field_list_t;
+  std::map<std::string, field_list_t> _fields;
 };
 
 } } // namespace hyrise::access

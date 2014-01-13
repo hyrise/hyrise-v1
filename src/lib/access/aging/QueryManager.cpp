@@ -16,7 +16,7 @@ QueryManager& QueryManager::instance() {
   return *qm;
 }
 
-void QueryManager::registerQuery(const std::string& name, const param_vector_t& params) {
+void QueryManager::registerQuery(const std::string& name, const param_list_t& params) {
   if (exists(name))
     return; //TODO throw std::runtime_error("Query \"" + name + "\" already exists");
 
@@ -57,11 +57,11 @@ query_t QueryManager::getId(const std::string& name) const {
   return it->second;
 }
 
-param_vector_t QueryManager::parametersOf(const std::string& query) const {
+param_list_t QueryManager::parametersOf(const std::string& query) const {
   return parametersOf(getId(query));
 }
 
-param_vector_t QueryManager::parametersOf(query_t query) const {
+param_list_t QueryManager::parametersOf(query_t query) const {
   if (query >= _queryParameters.size())
     throw std::runtime_error("invalid query id");
   return _queryParameters.at(query);

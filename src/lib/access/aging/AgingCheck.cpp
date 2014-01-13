@@ -91,7 +91,7 @@ std::shared_ptr<PlanOperation> AgingCheck::parse(const Json::Value &data) {
          throw std::runtime_error("A table needs to be specified for a parameter list");
        const auto& tableName = table["table"].asString();
 
-       field_vector_t fieldVector;
+       field_data_list_t fieldVector;
        if (table.isMember("parameters")) {
          const auto& fields = table["parameters"];
          for (unsigned j = 0; j < fields.size(); ++j) {

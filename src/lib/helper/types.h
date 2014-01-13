@@ -7,50 +7,14 @@
 #include <memory>
 #include <vector>
 
-namespace hyrise { namespace storage {
+namespace hyrise {
+namespace storage {
 class AbstractResource;
 class AbstractTable;
 class AbstractIndex;
 class AbstractHashTable;
 class AbstractDictionary;
-} } // namespace hyrise::storage
-
-
 class PointerCalculator;
-
-namespace hyrise {
-
-namespace tx {
-
-// FIXME: TX Count is limited to 2^63-1 instead of 2^64-1
-typedef int64_t transaction_id_t;
-typedef int64_t transaction_cid_t;
-
-static const transaction_id_t MERGE_TID = 1;
-	// the merge needs its own TID so that it is isolated from the other transactions
-static const transaction_id_t START_TID = 2;
-static const transaction_id_t MAX_TID = std::numeric_limits<transaction_id_t>::max();
-
-static const transaction_id_t UNKNOWN = 0;
-static const transaction_cid_t UNKNOWN_CID = 0;
-static const transaction_cid_t INF_CID = std::numeric_limits<transaction_cid_t>::max();
-
-enum class TX_CODE {
-	TX_OK,
-	TX_FAIL_CONCURRENT_COMMIT,
-	TX_FAIL_OTHER
-};
-
-}
-
-namespace access {
-class AbstractExpression;
-typedef std::unique_ptr<AbstractExpression> expression_uptr_t;
-
-typedef uint16_t query_t;
-}
-
-namespace storage {
 class SimpleStore;
 class MutableVerticalTable;
 class Store;
@@ -88,7 +52,7 @@ typedef std::string hyrise_string_t;
 
 typedef uint32_t value_id_t;
 typedef uint8_t table_id_t;
-typedef uint32_t resource_id_t;
+typedef uint16_t resource_id_t;
 
 typedef size_t pos_t;
 typedef size_t field_t;
@@ -98,6 +62,57 @@ typedef std::vector<field_name_t> field_name_list_t;
 
 typedef std::vector<pos_t> pos_list_t;
 typedef std::vector<field_t> field_list_t;
+} // namespace storage
+
+namespace tx {
+
+// FIXME: TX Count is limited to 2^63-1 instead of 2^64-1
+typedef int64_t transaction_id_t;
+typedef int64_t transaction_cid_t;
+
+static const transaction_id_t MERGE_TID = 1;
+	// the merge needs its own TID so that it is isolated from the other transactions
+static const transaction_id_t START_TID = 2;
+static const transaction_id_t MAX_TID = std::numeric_limits<transaction_id_t>::max();
+
+static const transaction_id_t UNKNOWN = 0;
+static const transaction_cid_t UNKNOWN_CID = 0;
+static const transaction_cid_t INF_CID = std::numeric_limits<transaction_cid_t>::max();
+
+enum class TX_CODE {
+	TX_OK,
+	TX_FAIL_CONCURRENT_COMMIT,
+	TX_FAIL_OTHER
+};
+
+} // namespace tx
+
+namespace access {
+class AbstractExpression;
+typedef std::unique_ptr<AbstractExpression> expression_uptr_t;
+
+typedef uint16_t query_t;
+
+struct param_t {
+  //storage::resource_id_t table; TODO why did I do that exactly?
+  storage::resource_id_t table;
+  storage::field_t field;
+};
+typedef std::vector<param_t> param_list_t;
+
+struct param_value_t {
+  param_t param;
+  storage::value_id_t vid;
+};
+typedef std::vector<param_value_t> param_value_list_t;
+
+struct field_value_t {
+  field_value_t(const param_value_t& param) : field(param.param.field), vid(param.vid) {}
+
+  storage::field_t field;
+  storage::value_id_t vid;
+};
+typedef std::vector<param_value_t> field_value_list_t;
 }
 
 namespace taskscheduler {

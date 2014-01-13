@@ -18,7 +18,7 @@ void RegisterQuery::executePlanOperation() {
   auto& qm = QueryManager::instance();
   auto& sm = *io::StorageManager::getInstance();
 
-  param_vector_t paramVector;
+  param_list_t paramVector;
   for (const auto& table : _fields) {
     const auto& tableName = table.first;
     sm.assureExists(tableName);
@@ -54,7 +54,7 @@ std::shared_ptr<PlanOperation> RegisterQuery::parse(const Json::Value &data) {
 
       if (param.isMember("fields")) {
         const auto& fields = param["fields"];
-        field_vector_t fv;
+        field_list_t fv;
         for (unsigned j = 0; j < fields.size(); ++j)
           fv.push_back(fields[j].asString());
         rq->_fields.insert(std::make_pair(table, fv));

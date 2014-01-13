@@ -20,8 +20,8 @@ private:
     DataType type;
     void* data;
   };
-  typedef std::vector<field_data_t> field_vector_t;
-  std::map<std::string, field_vector_t> _fields;
+  typedef std::vector<field_data_t> field_data_list_t;
+  std::map<std::string, field_data_list_t> _fields;
 };
 
 } } // namespace hyrise::access
