@@ -20,7 +20,7 @@ void PrefixSum::executePlanOperation() {
   const size_t table_size = in->size();
 
   // get attribute vector of output table
-  std::vector<const storage::ColumnMetadata *> metadata;
+  std::vector<storage::ColumnMetadata> metadata;
   metadata.push_back(in->metadataAt(0));
   auto output = std::make_shared<storage::Table>(&metadata, nullptr, table_size, true, false);
   output->resize(table_size);
@@ -94,7 +94,7 @@ void MergePrefixSum::executePlanOperation() {
   }
 
   const auto resultSize = getInputTable()->size();
-  std::vector<const storage::ColumnMetadata *> meta {storage::ColumnMetadata::metadataFromString(types::integer_t, "count")};
+  std::vector<storage::ColumnMetadata> meta {storage::ColumnMetadata::metadataFromString(types::integer_name, "count")};
   auto result = std::make_shared<storage::Table>(&meta, nullptr, resultSize, true, false);
   result->resize(resultSize);
 

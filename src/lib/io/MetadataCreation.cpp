@@ -52,11 +52,11 @@ storage::compound_metadata_list *createMetadata(const std::vector<std::vector<st
       last_part = part;
     }
 
-    storage::ColumnMetadata *metadata;
+    storage::ColumnMetadata metadata;
     if (tab == nullptr)
       metadata = storage::ColumnMetadata::metadataFromString(types[i], names[i]);
     else
-      metadata = new storage::ColumnMetadata(names[i], tab->typeOfColumn(tab->numberOfColumn(names[i])));
+      metadata = storage::ColumnMetadata(names[i], tab->typeOfColumn(tab->numberOfColumn(names[i])));
 
     current->push_back(metadata);
   }

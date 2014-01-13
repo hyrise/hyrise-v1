@@ -6,6 +6,7 @@
 #include "storage/ConcurrentUnorderedDictionary.h"
 #include "storage/OrderIndifferentDictionary.h"
 #include "storage/OrderPreservingDictionary.h"
+#include "storage/PassThroughDictionary.h"
 
 namespace hyrise {
 namespace storage {
@@ -16,9 +17,9 @@ template <typename T>
 class DictTests : public Test {};
 
 typedef testing::Types <
-  OrderIndifferentDictionary<hyrise_int_t>, OrderIndifferentDictionary<hyrise_float_t>, OrderIndifferentDictionary<hyrise_string_t>, 
-  OrderPreservingDictionary<hyrise_int_t>, OrderPreservingDictionary<hyrise_float_t>, OrderPreservingDictionary<hyrise_string_t>,
-  ConcurrentUnorderedDictionary<hyrise_int_t>, ConcurrentUnorderedDictionary<hyrise_float_t>, ConcurrentUnorderedDictionary<hyrise_string_t>
+  OrderIndifferentDictionary<hyrise_int_t>,OrderIndifferentDictionary<hyrise_int32_t>, OrderIndifferentDictionary<hyrise_float_t>, OrderIndifferentDictionary<hyrise_string_t>, 
+  OrderPreservingDictionary<hyrise_int_t>, OrderPreservingDictionary<hyrise_int32_t>, OrderPreservingDictionary<hyrise_float_t>, OrderPreservingDictionary<hyrise_string_t>,
+  ConcurrentUnorderedDictionary<hyrise_int_t>, ConcurrentUnorderedDictionary<hyrise_int32_t>, ConcurrentUnorderedDictionary<hyrise_float_t>, ConcurrentUnorderedDictionary<hyrise_string_t>
   > Dicts;
 
 TYPED_TEST_CASE(DictTests, Dicts);
@@ -28,6 +29,11 @@ std::vector<T> dict_values();
 
 template <>
 std::vector<hyrise_int_t> dict_values() {
+  return {9, 0, 1, 4, 5, 6, 8};
+}
+
+template <>
+std::vector<hyrise_int32_t> dict_values() {
   return {9, 0, 1, 4, 5, 6, 8};
 }
 

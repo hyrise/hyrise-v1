@@ -5,6 +5,7 @@
 #include <io/TransactionManager.h>
 #include <storage/storage_types.h>
 #include <storage/PrettyPrinter.h>
+#include <storage/storage_types.h>
 
 #include <helper/vector_helpers.h>
 #include <helper/locking.h>
@@ -27,8 +28,10 @@ Store::Store() :
 
 namespace {
 
-auto create_concurrent_dict = [](DataType dt) { return makeDictionary<ConcurrentUnorderedDictionary>(dt); };
-auto create_concurrent_storage = [](std::size_t cols) { return std::make_shared<ConcurrentFixedLengthVector<value_id_t>>(cols, 0); };
+auto create_concurrent_dict = [](DataType dt) { return makeDictionary(types::getConcurrentType(dt)); };
+auto create_concurrent_storage = [](std::size_t cols) { return std::make_shared<ConcurrentFixedLengthVector<value_id_t>>(cols, 0); 
+
+};
 
 }
 
@@ -87,7 +90,7 @@ atable_ptr_t Store::getDeltaTable() const {
   return delta;
 }
 
-const ColumnMetadata *Store::metadataAt(const size_t column_index, const size_t row_index, const table_id_t table_id) const {
+const ColumnMetadata& Store::metadataAt(const size_t column_index, const size_t row_index, const table_id_t table_id) const {
   size_t offset = _main_table->size();
   if (row_index < offset) {
     return _main_table->metadataAt(column_index, row_index, table_id);

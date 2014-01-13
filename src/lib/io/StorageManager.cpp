@@ -116,7 +116,7 @@ void StorageManager::printResources() const {
                 << "    Columns:";
 
       for (field_t i = 0; i != table->columnCount(); i++)
-         std::cout << " " << table->metadataAt(i)->getName();
+         std::cout << " " << table->metadataAt(i).getName();
     } else if (std::dynamic_pointer_cast<storage::AbstractIndex>(resource)) {
       std::cout << "Index " << name;
     } else {

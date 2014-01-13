@@ -1,0 +1,37 @@
+{
+  "operators" : {
+    "loadTable" :{
+      "type": "MySQLTableLoad",
+      "table": "ORDER_LINE",
+      "database": "TPCC1W4"
+    },
+    "select":{
+      "type":"SimpleTableScan",
+      "positions": "true",
+      "predicates": [
+        {"type":"AND"},
+        {"type":"AND"},
+        {"type":"AND"},
+        {"type":"GT", "in":0, "f":"OL_DELIVERY_D","vtype":0, "value":20130822},
+        {"type":"LT", "in":0, "f": "OL_DELIVERY_D", "vtype":0, "value":20131030},
+        {"type":"GT", "in":0, "f": "OL_QUANTITY", "vtype":1, "value":0},
+        {"type":"LT", "in":0, "f": "OL_QUANTITY", "vtype":1, "value":100001}
+      ]
+    },
+    "groupBy":{
+      "type": "GroupByScan",
+      "fields": [],
+      "functions":[
+        {"type":"SUM", "field":"OL_AMOUNT", "as":"REVENUE"}
+      ]
+    },
+    "project":{
+      "type":"ProjectionScan",
+      "fields":["REVENUE"]
+    }
+  },
+  "edges": [
+    ["loadTable","select"],
+      ["select","groupBy"],["groupBy","project"]
+  ]
+}

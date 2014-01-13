@@ -1,0 +1,51 @@
+{
+	"operators" : {
+		"rl" : {
+			"type" : "JsonTable",
+			"names" : ["A", "B", "C", "D", "E"],
+			"types" :  ["INTEGER", "INTEGER", "INTEGER", "FLOAT", "STRING"],
+			"groups" : [1,1,1,1,1],
+			"useStore" : true,
+			"data" : [
+				[ "99","2","3","3.2","Welt"],
+				[ "4","2","1","1.0","5"]
+			]
+		},
+		"set" : {
+			"type" : "SetTable",
+			"name" : "reference"
+		},
+
+		"build" : {
+			"type" : "JsonTable",
+			"names" : ["A", "B", "C", "D", "E"],
+			"types" :  ["INTEGER_NO_DICT", "INTEGER_NO_DICT", "INTEGER_NO_DICT", "FLOAT_NO_DICT", "STRING"],
+			"groups" : [1,1,1,1,1],
+			"useStore" : true,
+			"data" : [
+			[ "1","2","3","3.2","5"],
+			[ "99","2","3","3.2","Welt"],
+			[ "1","2","4","3.2","Welte"],
+			[ "1","2","1","3.2","5"],
+			[ "1","2","3","3.2","5"],
+			[ "4","2","5","3.2","5"],
+			[ "1","2","6","3.2","5"],
+			[ "4","2","1","1.0","5"],
+			[ "1","2","4","3.2","5"]
+			]
+			},
+		"query" : {
+			"type" : "TableScan",
+			"expression" : "hyrise::Store_FLV_F1_EQ_INT32_OR_F2_NEQ_FLOAT",
+			"f1" : 0,
+			"v_f1" : 99,
+			"f2" : 3,
+			"v_f2" : 3.2
+		}
+	}, 
+	"edges" : [
+		["rl", "set"],
+		["set", "build"],
+		["build", "query"]
+	]
+}

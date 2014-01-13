@@ -11,9 +11,9 @@ namespace access {
 class SimpleRawTableScanTests : public AccessTest {
 public:
   storage::atable_ptr_t createRawTable() {
-    storage::metadata_vec_t columns({*storage::ColumnMetadata::metadataFromString("INTEGER", "col1"),
-                                     *storage::ColumnMetadata::metadataFromString("STRING", "col2"),
-                                     *storage::ColumnMetadata::metadataFromString("FLOAT", "col3") });
+    storage::metadata_vec_t columns({storage::ColumnMetadata::metadataFromString("INTEGER", "col1"),
+                                     storage::ColumnMetadata::metadataFromString("STRING", "col2"),
+                                     storage::ColumnMetadata::metadataFromString("FLOAT", "col3") });
     auto main = std::make_shared<storage::RawTable>(columns);
     storage::rawtable::RowHelper rh(columns);
     unsigned char *data = nullptr;

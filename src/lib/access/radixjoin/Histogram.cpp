@@ -25,12 +25,21 @@ Histogram::Histogram() : _bits(0),
 // field, hashing the value and incresing the count for this entry
 void Histogram::executePlanOperation() {
   switch(getInputTable()->typeOfColumn(_field_definition[0])) {
-    case IntegerType:
-      return executeHistogram<storage::hyrise_int_t>();
-    case FloatType:
-      return executeHistogram<storage::hyrise_float_t>();
-    case StringType:
-      return executeHistogram<storage::hyrise_string_t>();
+  case IntegerType:
+  case IntegerTypeDelta:
+  case IntegerTypeDeltaConcurrent:
+    return executeHistogram<storage::hyrise_int_t>();
+  case IntegerNoDictType:
+    return executeHistogram<storage::hyrise_int32_t>();
+  case FloatType:
+  case FloatTypeDelta:
+  case FloatTypeDeltaConcurrent:
+  case FloatNoDictType:
+    return executeHistogram<storage::hyrise_float_t>();
+  case StringType:
+  case StringTypeDelta:
+  case StringTypeDeltaConcurrent:
+    return executeHistogram<storage::hyrise_string_t>();
   }
 }
 
@@ -77,10 +86,9 @@ uint32_t Histogram::significantOffset() const {
 }
 
 std::shared_ptr<storage::Table> Histogram::createOutputTable(const size_t size) const {
-  std::vector<const storage::ColumnMetadata*> meta {storage::ColumnMetadata::metadataFromString(types::integer_t, "count")};
+  std::vector<storage::ColumnMetadata> meta {storage::ColumnMetadata::metadataFromString(types::integer_name, "count")};
   auto result = std::make_shared<storage::Table>(&meta, nullptr, size, true, false);
   result->resize(size);
-  for (auto* c: meta) delete c;
   return result;
 }
 

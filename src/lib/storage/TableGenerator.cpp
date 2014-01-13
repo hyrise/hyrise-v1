@@ -8,16 +8,16 @@
 #include <stdint.h>
 
 #include <random>
+#include <sstream>
 
 #include <helper/types.h>
-
+#include <helper/Progress.h>
 #include <storage/AbstractTable.h>
 #include <storage/DictionaryFactory.h>
 #include <storage/MutableVerticalTable.h>
 #include <storage/AbstractMergeStrategy.h>
 #include <storage/SequentialHeapMerger.h>
 #include <storage/TableMerger.h>
-#include <helper/Progress.h>
 
 namespace hyrise { namespace storage {
 
@@ -354,16 +354,16 @@ for (const auto & i: ordered_main) {
 
 atable_ptr_t TableGenerator::create_empty_table(size_t rows, std::vector<std::string> names) {
   std::vector<std::vector<AbstractTable::SharedDictionaryPtr> *> dicts;
-  std::vector<std::vector<const ColumnMetadata *> *> md;
+  std::vector<std::vector<ColumnMetadata > *> md;
   const auto& cols = names.size();
   for (size_t col = 0; col < cols; ++col) {
-    std::vector<const ColumnMetadata *> *m = new std::vector<const ColumnMetadata *>;
+    std::vector<ColumnMetadata > *m = new std::vector<ColumnMetadata >;
     std::string colname(col < names.size() ? names.at(col) : "attr" + std::to_string(col)); 
-    m->push_back(new ColumnMetadata(colname, IntegerType));
+    m->emplace_back(colname, IntegerType);
     md.push_back(m);
 
     auto d = new std::vector<AbstractTable::SharedDictionaryPtr>;
-    auto new_dict = makeDictionary<OrderPreservingDictionary>(IntegerType);
+    auto new_dict = makeDictionary(IntegerType);
     d->push_back(new_dict);
     dicts.push_back(d);
   }
@@ -374,16 +374,14 @@ atable_ptr_t TableGenerator::create_empty_table(size_t rows, std::vector<std::st
     delete d;
   
   for (const auto & m : md) {
-    for (const auto & f: *m)
-      delete f;
-    delete m;
+      delete m;
   }
   new_table->resize(rows);
   return new_table;
 }
 
 atable_ptr_t TableGenerator::create_empty_table(size_t rows, size_t cols, std::vector<unsigned> containers) {
-  std::vector<std::vector<const ColumnMetadata *> *> md;
+  std::vector<std::vector<ColumnMetadata > *> md;
 
   bool skip = containers.size() == 0 ? true : false;
 
@@ -392,15 +390,15 @@ atable_ptr_t TableGenerator::create_empty_table(size_t rows, size_t cols, std::v
   unsigned currentSize = 0;
   unsigned contSize = skip ? cols : containers[0];
 
-  std::vector<const ColumnMetadata *> *m = nullptr;
+  std::vector<ColumnMetadata > *m = nullptr;
 
   for (size_t col = 0; col < cols; ++col) {
     if (currentSize == 0 || skip)
-      m = new std::vector<const ColumnMetadata *>;
+      m = new std::vector<ColumnMetadata >;
 
     std::stringstream s;
     s << "attr" << col;
-    m->push_back(new ColumnMetadata(s.str(), IntegerType));
+    m->emplace_back(s.str(), IntegerType);
 
 
     if (++currentSize == contSize || skip) {
@@ -424,16 +422,16 @@ for (const auto & vc: md) {
 
 atable_ptr_t TableGenerator::create_empty_table_modifiable(size_t rows, size_t cols, std::vector<std::string> names) {
   std::vector<std::vector<AbstractTable::SharedDictionaryPtr> *> dicts;
-  std::vector<std::vector<const ColumnMetadata *> *> md;
+  std::vector<std::vector<ColumnMetadata > *> md;
 
   for (size_t col = 0; col < cols; ++col) {
-    std::vector<const ColumnMetadata *> *m = new std::vector<const ColumnMetadata *>;
+    std::vector<ColumnMetadata > *m = new std::vector<ColumnMetadata >;
     std::string colname(col < names.size() ? names.at(col) : "attr" + std::to_string(col)); 
-    m->push_back(new ColumnMetadata(colname, IntegerType));
+    m->emplace_back(colname, IntegerTypeDelta);
     md.push_back(m);
 
     auto d = new std::vector<AbstractTable::SharedDictionaryPtr>;
-    auto new_dict = makeDictionary<OrderIndifferentDictionary>(IntegerType);
+    auto new_dict = makeDictionary(IntegerTypeDelta);
     d->push_back(new_dict);
     dicts.push_back(d);
   }
@@ -444,8 +442,6 @@ atable_ptr_t TableGenerator::create_empty_table_modifiable(size_t rows, size_t c
     delete d;
   
   for (const auto & m : md) {
-    for (const auto & f: *m)
-      delete f;
     delete m;
   }
   new_table->resize(rows);

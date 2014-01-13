@@ -27,7 +27,7 @@ void RowHelper::reset() {
 byte* RowHelper::build() const {
   size_t width = sizeof(record_header);
   for(size_t i=0; i < _m.size(); ++i) {
-    if (_m[i].getType() == StringType)
+    if (types::isCompatible(_m[i].getType(),StringType))
       width += *(uint16_t*) _tempData[i] + 2; // string length in bytes plus length var
     else
       width += 8;
@@ -39,7 +39,7 @@ byte* RowHelper::build() const {
   // Copy the complete data based on the simplification of data types
   byte *mov = data + sizeof(record_header);
   for(size_t i=0; i < _tempData.size(); ++i) {
-    if (_m[i].getType() == StringType) {
+    if (types::isCompatible(_m[i].getType(),StringType)) {
       memcpy(mov, _tempData[i], 2);
       memcpy(mov+2, _tempData[i]+2, *(uint16_t*) mov);
       mov += 2 + *(uint16_t*) mov;
@@ -94,10 +94,11 @@ void RawTable::reserve(const size_t nr_of_values) {}
 void RawTable::resize(const size_t nr_of_values) {}
 
 
-const ColumnMetadata *RawTable::metadataAt(const size_t column, const size_t row, 
+const ColumnMetadata& RawTable::metadataAt(const size_t column, const size_t row, 
                                            const table_id_t table_id) const {
-  return &(_metadata.at(column));
+  return _metadata.at(column);
 }
+
 
 unsigned RawTable::partitionCount() const {
   // sh: reduced to zero, prevents PointerCalculator from updating fields
@@ -119,7 +120,7 @@ RawTable::byte* RawTable::computePosition(const size_t& column, const size_t& ro
   byte* tuple = getRow(row);
   tuple += sizeof(rawtable::record_header);
   for(size_t i=0; i < column; ++i) {
-    if (_metadata[i].getType() == StringType) {
+    if (types::isCompatible(_metadata[i].getType(),StringType)) {
       tuple += 2 /* size of the length */ + *((unsigned short*) tuple);
     } else {
       tuple += 8;

@@ -82,9 +82,6 @@ PointerCalculator::PointerCalculator(c_atable_ptr_t t, pos_list_t pos) : table(t
 PointerCalculator::~PointerCalculator() {
   delete fields;
   delete pos_list;
-
-  if (_renamed)
-    std::for_each(std::begin(*_renamed), std::end(*_renamed), [](ColumnMetadata *e){ delete e; });
 }
 
 void PointerCalculator::updateFieldMapping() {
@@ -139,13 +136,14 @@ void PointerCalculator::setFields(const field_list_t f) {
   updateFieldMapping();
 }
 
-const ColumnMetadata *PointerCalculator::metadataAt(const size_t column_index, const size_t row_index, const table_id_t table_id) const {
+
+const ColumnMetadata& PointerCalculator::metadataAt(const size_t column_index, const size_t row_index, const table_id_t table_id) const {
   size_t actual_column;
 
   if (fields) {
 
     // Check if we have to access a renamed field
-    if (_renamed && (*_renamed)[column_index])
+    if (_renamed)
       return (*_renamed)[column_index];
 
     actual_column = fields->at(column_index);
@@ -153,7 +151,7 @@ const ColumnMetadata *PointerCalculator::metadataAt(const size_t column_index, c
     actual_column = column_index;
   }
 
-  if (_renamed && (*_renamed)[actual_column])
+  if (_renamed)
     return (*_renamed)[actual_column];
   else
     return table->metadataAt(actual_column);
@@ -316,7 +314,7 @@ pos_list_t PointerCalculator::getActualTablePositions() const {
 
 //FIXME: Template this method
 atable_ptr_t PointerCalculator::copy_structure(const field_list_t *fields, const bool reuse_dict, const size_t initial_size, const bool with_containers, const bool compressed) const {
-  std::vector<const ColumnMetadata *> metadata;
+  std::vector<ColumnMetadata > metadata;
   std::vector<AbstractTable::SharedDictionaryPtr> *dictionaries = nullptr;
 
   if (reuse_dict) {
@@ -459,14 +457,10 @@ void PointerCalculator::remove(const pos_list_t& pl) {
 void PointerCalculator::rename(field_t f, const std::string newName) {
 
   if (!_renamed) {
-    _renamed = make_unique<std::vector<ColumnMetadata*>>(fields ? fields->size() : table->columnCount(), nullptr);
+    _renamed = make_unique<std::vector<ColumnMetadata>>(metadata());
   }
 
-  if ((*_renamed)[f]) {
-    delete (*_renamed)[f];
-  }
-
-  (*_renamed)[f] = new ColumnMetadata(newName, table->typeOfColumn(f));
+  (*_renamed)[f] = ColumnMetadata(newName, table->typeOfColumn(f));
 }
 
 } } // namespace hyrise::storage

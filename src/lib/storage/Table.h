@@ -36,7 +36,7 @@ private:
   typedef std::vector<SharedDictionary> DictionaryVector;
 
   typedef Table table_type;
-  typedef std::vector<const ColumnMetadata *> MetadataVector;
+  typedef std::vector<ColumnMetadata > MetadataVector;
 
 
   // The shared ptr to the attributes we store inside the table
@@ -93,7 +93,7 @@ public:
 
   void resize(const size_t nr_of_values);
 
-  virtual const ColumnMetadata *metadataAt(const size_t column, const size_t row = 0, const table_id_t table_id = 0) const;
+  const ColumnMetadata& metadataAt(const size_t column_index, const size_t row_index = 0, const table_id_t table_id = 0) const override;
 
   virtual const AbstractTable::SharedDictionaryPtr& dictionaryAt(const size_t column, const size_t row = 0, const table_id_t table_id = 0) const;
 

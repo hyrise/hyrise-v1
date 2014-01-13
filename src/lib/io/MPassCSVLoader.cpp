@@ -206,7 +206,7 @@ std::shared_ptr<storage::AbstractTable> MPassCSVInput::load(std::shared_ptr<stor
 
   // Each attribute as a file in the base directory that we read and map
   for (size_t i = 0; i < intable->columnCount(); ++i) {
-    std::string fn = _directory + "/" + intable->metadataAt(i)->getName() + ".data";
+    std::string fn = _directory + "/" + intable->metadataAt(i).getName() + ".data";
     auto data = new MPassLoader::parallel_data();
     buckets[i] = data;
 

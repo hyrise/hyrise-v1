@@ -44,7 +44,7 @@ public:
   /**
    * @see AbstractTable
    */
-  const ColumnMetadata* metadataAt(size_t c, size_t r, table_id_t t) const { return _main->metadataAt(c,r,t); }
+  const ColumnMetadata& metadataAt(size_t c, size_t r, table_id_t t) const { return _main->metadataAt(c,r,t); }
 
   /**
    * @see AbstractTable

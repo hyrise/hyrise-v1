@@ -31,14 +31,14 @@ void UpdateScan::executePlanOperation() {
       for (size_t j = 0; i < input.getTable(0)->columnCount(); j++) {
         auto tgt_field = input.getTable(0)->metadataAt(j);
 
-        if (tgt_field->matches(src_field)) {
+        if (tgt_field.matches(src_field)) {
           mapping[i] = j;
           break;
         }
       }
 
       if (mapping.count(i) != 1) {
-        throw std::runtime_error(src_field->getName() + " did not find a match!");
+        throw std::runtime_error(src_field.getName() + " did not find a match!");
       }
     }
   }

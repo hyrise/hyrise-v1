@@ -1,0 +1,147 @@
+{
+  "operators" : {
+    "getTableCustomer" :{
+      "type"     : "GetTable",
+      "name"    : "CUSTOMER"
+    },
+    "getTableNeworder" :{
+      "type"     : "GetTable",
+      "name"    : "NEW_ORDER"
+    },
+    "getTableOrders" :{
+      "type"     : "GetTable",
+      "name"    : "ORDERS"
+    },
+    "getTableOrderline" :{
+      "type"     : "GetTable",
+      "name"    : "ORDER_LINE"
+    },
+    "selectCustomer":{
+      "type":"SimpleTableScan",
+      "positions": true,
+      "predicates": [
+        {"type":"LIKE", "in":0, "f": "C_STATE", "vtype":2, "value":".*2"}
+      ]
+    },
+    "selectOrders":{
+      "type":"SimpleTableScan",
+      "positions": true,
+      "predicates": [
+        {"type":"GT", "in":0, "f": "O_ENTRY_D", "vtype":2, "value":"2013-09-15"}
+      ]
+    },
+    "joinCustomerOrders": {
+    "type":"JoinScan",
+    "predicates": [
+         {"type": 0},
+          {"type": 0},
+          {   
+            "type": 3,
+              "input_left": 0,
+              "field_left": "C_ID",
+              "input_right": 1,
+              "field_right": "O_C_ID"
+          },
+            {   
+              "type": 3,
+                "input_left": 0,
+                "field_left": "C_W_ID",
+                "input_right": 1,
+                "field_right": "O_W_ID"
+            },
+            {   
+              "type": 3,
+                "input_left": 0,
+                "field_left": "C_D_ID",
+                "input_right": 1,
+                "field_right": "O_D_ID"
+            }
+          ]
+    },
+    "joinNeworder": {
+    "type":"JoinScan",
+    "predicates": [
+         {"type": 0},
+          {"type": 0},
+          {   
+            "type": 3,
+              "input_left": 0,
+              "field_left": "O_W_ID",
+              "input_right": 1,
+              "field_right": "NO_W_ID"
+          },
+            {   
+              "type": 3,
+                "input_left": 0,
+                "field_left": "O_D_ID",
+                "input_right": 1,
+                "field_right": "NO_D_ID"
+            },
+            {   
+              "type": 3,
+                "input_left": 0,
+                "field_left": "O_ID",
+                "input_right": 1,
+                "field_right": "NO_O_ID"
+            }
+          ]
+    },
+    "joinOrderline": {
+    "type":"JoinScan",
+    "predicates": [
+         {"type": 0},
+          {"type": 0},
+          {   
+            "type": 3,
+              "input_left": 0,
+              "field_left": "O_W_ID",
+              "input_right": 1,
+              "field_right": "OL_W_ID"
+          },
+            {   
+              "type": 3,
+                "input_left": 0,
+                "field_left": "O_D_ID",
+                "input_right": 1,
+                "field_right": "OL_D_ID"
+            },
+            {   
+              "type": 3,
+                "input_left": 0,
+                "field_left": "O_ID",
+                "input_right": 1,
+                "field_right": "OL_O_ID"
+            }
+          ]
+    },
+    "project":{
+      "type":"ProjectionScan",
+      "fields":["OL_O_ID", "OL_W_ID", "OL_D_ID", "O_ENTRY_D", "OL_AMOUNT"]
+    },
+    "hash":{
+      "type":"HashBuild",
+      "key": "groupby",
+      "fields":["OL_O_ID", "OL_W_ID", "OL_D_ID", "O_ENTRY_D"]
+    },
+    "groupBy":{
+      "type": "GroupByScan",
+      "fields": ["OL_O_ID", "OL_W_ID", "OL_D_ID", "O_ENTRY_D"],
+      "functions":[
+        {"type":"SUM", "field":"OL_AMOUNT", "as":"REVENUE"}
+      ]
+    },
+    "sort":{
+      "type":"SortScan",
+      "fields":[3, 4]
+    }
+  },
+  "edges": [
+    ["getTableCustomer","selectCustomer"],["getTableOrders","selectOrders"],
+    ["selectCustomer","joinCustomerOrders"],["selectOrders","joinCustomerOrders"],
+    ["joinCustomerOrders","joinNeworder"],["getTableNeworder","joinNeworder"],
+    ["joinNeworder","joinOrderline"],["getTableOrderline","joinOrderline"],
+    ["joinOrderline","project"],
+    ["project","hash"],["hash","groupBy"],["project","groupBy"],
+    ["groupBy", "sort"]
+  ]
+}

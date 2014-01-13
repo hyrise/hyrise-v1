@@ -99,14 +99,20 @@ void SortScan::executePlanOperation() {
   if ((table->dictionaryAt(_sort_field)->isOrdered()) && (base_table)) {
     sorted_pos = ColumnSorter<ValueId, ExtractValueId>(table, _sort_field, asc).sort();
   } else {
-    switch (table->metadataAt(_sort_field)->getType()) {
-      case IntegerType:
-        sorted_pos = ColumnSorter<hyrise_int_t, ExtractValue>(table, _sort_field, asc).sort();
-        break;
-      case FloatType:
-        sorted_pos = ColumnSorter<hyrise_float_t, ExtractValue>(table, _sort_field, asc).sort();
-        break;
-      case StringType:
+    switch (table->metadataAt(_sort_field).getType()) {
+    case IntegerType:
+    case IntegerTypeDelta:
+    case IntegerTypeDeltaConcurrent:
+      sorted_pos = ColumnSorter<hyrise_int_t, ExtractValue>(table, _sort_field, asc).sort();
+      break;
+    case FloatType:
+    case FloatTypeDelta:
+    case FloatTypeDeltaConcurrent:
+      sorted_pos = ColumnSorter<hyrise_float_t, ExtractValue>(table, _sort_field, asc).sort();
+      break;
+    case StringType:
+    case StringTypeDelta:
+    case StringTypeDeltaConcurrent:
         sorted_pos = ColumnSorter<hyrise_string_t, ExtractValue>(table, _sort_field, asc).sort();
         break;
       default:

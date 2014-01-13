@@ -8,7 +8,7 @@ namespace hyrise {
 namespace access {
 
 class TpccTableLoadTests : public AccessTest {};
-uint tableLoad(std::string tableName){
+uint tableSize(std::string tableName){
     TableLoad tl;
     tl.setFileName("tpcc/"+tableName+".csv");
     tl.setDelimiter(",");
@@ -20,49 +20,40 @@ uint tableLoad(std::string tableName){
     return result->size();
 }
 
-// Table: customer Lines in CSV: 10 (load from test/tpcc/ customer.csv, customer_header.tbl)
 TEST_F(TpccTableLoadTests, table_load_with_header_file_test_customer) {
-  ASSERT_EQ(10u,tableLoad("customer"));
+  ASSERT_EQ(45u,tableSize("customer"));
 }
 
-// Table: district Lines in CSV: 5 (load from test/tpcc/ district.csv, district_header.tbl)
 TEST_F(TpccTableLoadTests, table_load_with_header_file_test_district) {
-  ASSERT_EQ(5u,tableLoad("district"));
+  ASSERT_EQ(20u,tableSize("district"));
 }
 
-// Table: history Lines in CSV: 10 (load from test/tpcc/ history.csv, history_header.tbl)
 TEST_F(TpccTableLoadTests, table_load_with_header_file_test_history) {
-  ASSERT_EQ(10u,tableLoad("history"));
+  ASSERT_EQ(45u,tableSize("history"));
 }
 
-// Table: item Lines in CSV: 10 (load from test/tpcc/ item.csv, item_header.tbl)
 TEST_F(TpccTableLoadTests, table_load_with_header_file_test_item) {
-  ASSERT_EQ(10u,tableLoad("item"));
+  ASSERT_EQ(15u,tableSize("item"));
 }
 
-// Table: new_order Lines in CSV: 10 (load from test/tpcc/ new_order.csv, new_order_header.tbl)
 TEST_F(TpccTableLoadTests, table_load_with_header_file_test_new_order) {
-  ASSERT_EQ(10u,tableLoad("new_order"));
+  ASSERT_EQ(45u,tableSize("new_order"));
 }
 
-// Table: order_line Lines in CSV: 10 (load from test/tpcc/ order_line.csv, order_line_header.tbl)
 TEST_F(TpccTableLoadTests, table_load_with_header_file_test_order_line) {
-  ASSERT_EQ(10u,tableLoad("order_line"));
+  ASSERT_EQ(225u,tableSize("order_line"));
 }
 
-// Table: orders Lines in CSV: 10 (load from test/tpcc/ orders.csv, orders_header.tbl)
 TEST_F(TpccTableLoadTests, table_load_with_header_file_test_orders) {
-  ASSERT_EQ(10u,tableLoad("orders"));
+  ASSERT_EQ(45u,tableSize("orders"));
 }
 
-// Table: stock Lines in CSV: 10 (load from test/tpcc/ stock.csv, stock_header.tbl)
 TEST_F(TpccTableLoadTests, table_load_with_header_file_test_stock) {
-  ASSERT_EQ(10u,tableLoad("stock"));
+  ASSERT_EQ(30u,tableSize("stock"));
 }
 
-// Table: warehouse Lines in CSV: 1 (load from test/tpcc/ warehouse.csv, warehouse_header.tbl)
 TEST_F(TpccTableLoadTests, table_load_with_header_file_test_warehouse) {
-  ASSERT_EQ(1u,tableLoad("warehouse"));
+  ASSERT_EQ(2u,tableSize("warehouse"));
 }
 
 }

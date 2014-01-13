@@ -11,6 +11,7 @@
 #include "storage/RawTable.h"
 #include "storage/SimpleStore.h"
 #include "storage/TableGenerator.h"
+#include "storage/storage_types.h"
 
 namespace hyrise { namespace storage {
 
@@ -33,6 +34,12 @@ public:
 
 };
 
+TEST_F(TableTests, builds_correct_meta_data_for_no_dict) {
+  auto t = ColumnMetadata::metadataFromString("INTEGER_NO_DICT", "col1");
+  ASSERT_EQ(IntegerNoDictType, t.getType());
+}
+
+
 TEST_F(TableTests, does_copy_structure_copy_structure) {
   hyrise::storage::atable_ptr_t  input = io::Loader::shortcuts::load("test/lin_xxs.tbl");
   ASSERT_EQ(3u, input->partitionCount());
@@ -44,8 +51,9 @@ TEST_F(TableTests, does_copy_structure_copy_structure) {
 TEST_F(TableTests, copy_structure_replacement) {
   auto input = io::Loader::shortcuts::load("test/lin_xxs.tbl", io::Loader::params().setReturnsMutableVerticalTable(true));
   ASSERT_EQ(3u, input->partitionCount());
-  auto order_indifferent = [](DataType dt) { return makeDictionary<OrderIndifferentDictionary>(dt); };
-  auto order_preserving = [](DataType dt) { return makeDictionary<OrderPreservingDictionary>(dt); };
+  auto order_indifferent = [](DataType dt) { return makeDictionary(types::getUnorderedType(dt)); };
+  auto order_preserving = [](DataType dt) { return makeDictionary(types::getOrderedType(dt)); };
+
   auto b = [](std::size_t cols) { return std::make_shared<FixedLengthVector<value_id_t>>(cols, 0); };
   hyrise::storage::atable_ptr_t copy  = input->copy_structure(order_preserving, b); 
   ASSERT_TRUE(std::dynamic_pointer_cast<OrderPreservingDictionary<hyrise_int_t>>(copy->dictionaryAt(0,0)) != nullptr);
@@ -139,7 +147,6 @@ TEST_F(TableTests, test_table_copy) {
   hyrise::storage::atable_ptr_t b = a->copy();
   b->setValue<hyrise_int_t>(0, 0, 50);
   b->setValue<hyrise_int_t>(0, 1, 100);
-
 }
 
 

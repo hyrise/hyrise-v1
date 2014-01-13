@@ -18,8 +18,8 @@ void CreateRadixTable::executePlanOperation() {
   auto tableSize = getInputTable()->size();
 
   // Prepare output
-  std::vector<const storage::ColumnMetadata*> meta1 {storage::ColumnMetadata::metadataFromString(types::integer_t, "hash")};
-  std::vector<const storage::ColumnMetadata*> meta2 {storage::ColumnMetadata::metadataFromString(types::integer_t, "pos")};
+  std::vector<storage::ColumnMetadata> meta1 {storage::ColumnMetadata::metadataFromString(types::integer_name, "hash")};
+  std::vector<storage::ColumnMetadata> meta2 {storage::ColumnMetadata::metadataFromString(types::integer_name, "pos")};
 
   // Create the result tables
   auto hashes = std::make_shared<storage::Table>(&meta1, nullptr, tableSize, true, false);
@@ -56,15 +56,25 @@ RadixCluster::RadixCluster(): _bits(0),
 
 void RadixCluster::executePlanOperation() {
   switch(getInputTable()->typeOfColumn(_field_definition[0])) {
-    case IntegerType:
-      executeClustering<storage::hyrise_int_t>();
-      break;
-    case FloatType:
-      executeClustering<storage::hyrise_float_t>();
-      break;
-    case StringType:
-      executeClustering<storage::hyrise_string_t>();
-      break;
+  case IntegerType:
+  case IntegerTypeDelta:
+  case IntegerTypeDeltaConcurrent:
+    executeClustering<storage::hyrise_int_t>();
+    break;
+  case IntegerNoDictType:
+    executeClustering<storage::hyrise_int32_t>();
+    break;
+  case FloatType:
+  case FloatTypeDelta:
+  case FloatTypeDeltaConcurrent:
+  case FloatNoDictType:
+    executeClustering<storage::hyrise_float_t>();
+    break;
+  case StringType:
+  case StringTypeDelta:
+  case StringTypeDeltaConcurrent:
+    executeClustering<storage::hyrise_string_t>();
+    break;
   }
 }
 

@@ -88,15 +88,16 @@ void date_to_int(MYSQL_ROW *r, size_t col, size_t row, storage::AbstractTable *t
   MYSQLTYPESTRING->[HYRISETYPESTRING, CONVERSION_FUNCTION_PTR]
 */
 std::map<std::string, std::pair<types::type_t, conversion_func> > translations = map_list_of
-    ("varchar",  make_pair(types::string_t, var_to_string))
-    ("char",     make_pair(types::string_t, var_to_string))
-    ("bigint",   make_pair(types::integer_t, bigint_to_integer))
-    ("int",      make_pair(types::integer_t, int_to_integer))
-    ("smallint", make_pair(types::integer_t, int_to_integer))
-    ("double",   make_pair(types::float_t, double_to_float))
-    ("date",     make_pair(types::integer_t, date_to_int))
-    ("time",     make_pair(types::string_t, var_to_string))
-    ("datetime", make_pair(types::string_t, var_to_string));
+    ("varchar",  make_pair(types::string_name, var_to_string))
+    ("char",     make_pair(types::string_name, var_to_string))
+    ("bigint",   make_pair(types::integer_name, bigint_to_integer))
+    ("int",      make_pair(types::integer_name, int_to_integer))
+    ("smallint", make_pair(types::integer_name, int_to_integer))
+    ("double",   make_pair(types::float_name, double_to_float))
+    ("date",     make_pair(types::integer_name, date_to_int))
+    ("time",     make_pair(types::string_name, var_to_string))
+    ("datetime", make_pair(types::string_name, var_to_string))
+    ("decimal",   make_pair(types::float_name, double_to_float));
 
 std::shared_ptr<storage::AbstractTable> MySQLInput::load(
     std::shared_ptr<storage::AbstractTable> intable,
