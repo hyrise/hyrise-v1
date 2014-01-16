@@ -173,7 +173,7 @@ LDFLAGS :=
 LIBS := log4cxx
 LINK_DIRS :=
 INCLUDE_DIRS :=
-
+TOOLING :=
 WITH_PAPI := $(shell if [ "`papi_avail  2>&1 | grep Yes | wc -l`" -ne "0" ]; then echo 1; else echo 0; fi) 
 WITH_MYSQL:= 1
 
@@ -245,10 +245,10 @@ ci_build: ci_steps
 	@mkdir -p $(@D)
 	@touch $@
 
-$(RESULT_DIR)/%.a:
+$(RESULT_DIR)/%.a: $(TOOLING)
 	$(call echo_cmd,AR $(AR) $@) $(AR) crs $@ $(filter %.o,$?)
 
-$(RESULT_DIR)/%:
+$(RESULT_DIR)/%: $(TOOLING)
 	$(call echo_cmd,LINK $(CXX) $(BLD) $@) $(CXX) $(CXXFLAGS) -o $@ $(filter %.o,$^) -Wl,-whole-archive $(addprefix -l,$(LIBS)) -Wl,-no-whole-archive $(addprefix -L,$(LINK_DIRS)) $(LDFLAGS)
 
 # Necessary to allow for a second expansion to create dirs
@@ -262,10 +262,10 @@ clean:
 	rm -rf $(OBJDIR) $(all)
 
 
-$(OBJDIR)%.cpp.o : %.cpp | $$(@D)/.fake
+$(OBJDIR)%.cpp.o : %.cpp $(TOOLING) | $$(@D)/.fake
 	$(call echo_cmd,CXX $(CXX) $(BLD) $<) $(CXX) $(CPPFLAGS) $(CXXFLAGS) $(addprefix -I,$(INCLUDE_DIRS)) -c -o $@ $<
 
-$(OBJDIR)%.c.o : %.c | $$(@D)/.fake
+$(OBJDIR)%.c.o : %.c $(TOOLING) | $$(@D)/.fake
 	$(call echo_cmd,CC $(CC) $(BLD) $<) $(CC) $(CPPFLAGS) $(CFLAGS) $(addprefix -I,$(INCLUDE_DIRS)) -c -o $@ $<
 
 # Ensure that intermediate files (e.g. the foo.o caused by "foo : foo.c")

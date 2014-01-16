@@ -68,7 +68,7 @@ Check out [this repository](https://github.com/hyrise/hyrise_puppet/) to easily 
 
 #### Ubuntu
 
-It should be sufficient to run the `install.sh` script from the `tools/autosetup` folder.
+It should be sufficient to run the `install_$version.sh` script from the `tools/` folder, where version corresponds to a Ubuntu version.
   
 ## Building
 

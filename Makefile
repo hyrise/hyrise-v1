@@ -13,4 +13,5 @@ include $(PROJECT_ROOT)/src/bin/perf_regression/Makefile
 include $(PROJECT_ROOT)/tools/Makefile
 
 include $(PROJECT_ROOT)/makefiles/docs.mk
-
+include $(PROJECT_ROOT)/makefiles/reformat.mk
+include $(PROJECT_ROOT)/tooling.mk
