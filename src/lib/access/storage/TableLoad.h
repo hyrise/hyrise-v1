@@ -29,7 +29,7 @@ public:
   void setUnsafe(const bool unsafe);
   void setRaw(const bool raw);
   void setDelimiter(const std::string &d);
-  void setAgingInfo(bool agingInfo);
+  void addAgingTable(const std::string& field, const std::string& file, bool overRide = false);
 
 private:
   std::string _table_name;
@@ -41,7 +41,11 @@ private:
   bool _binary;
   bool _unsafe;
   bool _raw;
-  bool _agingInfo = false;
+  struct aging_table_data_t {
+    std::string table;
+    bool overRide;
+  };
+  std::map<std::string, aging_table_data_t> _agingTables;
 };
 
 }

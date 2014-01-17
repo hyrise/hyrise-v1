@@ -5,10 +5,12 @@
 
 #include "access/system/QueryParser.h"
 #include "access/aging/QueryManager.h"
+#include "access/aging/TableStatistic.h"
 
 #include "io/loaders.h"
 #include "io/shortcuts.h"
 #include "io/StorageManager.h"
+#include "io/CSVLoader.h"
 
 #include "log4cxx/logger.h"
 
@@ -63,20 +65,38 @@ void TableLoad::executePlanOperation() {
       sm->loadTable(_table_name, p);
     }
 
-    // Correct Aging information
-    const auto table = sm->getTable(_table_name);
-    if (_agingInfo) {
-      table->print();
-      auto agingIndex = std::make_shared<storage::AgingIndex>(table);
-      sm->setAgingIndexFor(_table_name, agingIndex);
-      QueryManager::instance().registerAgingIndex(agingIndex);
-    }
-
     // We don't load unless the necessary prerequisites are met,
     // let StorageManager error if table does not exist
   } else {
     sm->getTable(_table_name);
   }
+
+  // Correct Aging information
+  const auto table = sm->getTable(_table_name);
+  if (_agingTables.size() != 0) {
+    auto tableStatistic = std::make_shared<TableStatistic>(table);
+    for (const auto& agingTable : _agingTables) {
+      io::CSVInput input(sm->makePath(agingTable.second.table));
+      io::CSVHeader header(sm->makePath(agingTable.second.table));
+      io::Loader::params p;
+      p.setInput(input);
+      p.setHeader(header);
+      const auto& curTable = io::Loader::load(p);
+      //TODO add the result to something
+      std::cout << "(" << agingTable.first << ")" << std::endl;
+      curTable->print();
+
+      tableStatistic->addStatisticTable(agingTable.first, curTable, agingTable.second.overRide);
+      tableStatistic->valuesDo([](query_t q, storage::field_t f, storage::value_id_t v, bool h)
+                               {std::cout << "Q: " << q << ";F: " << f << ";V: " << v << "hot: " << h << std::endl;});
+
+    }
+    table->print();
+    auto agingIndex = std::make_shared<storage::AgingIndex>(table);
+    //TODO sm->setAgingIndexFor(_table_name, agingIndex);
+    //TODO QueryManager::instance().registerAgingIndex(agingIndex);
+  }
+
   auto _table = sm->getTable(_table_name);
   LOG4CXX_DEBUG(logger, "Loaded Table Size" << _table->size());
   addResult(_table);
@@ -90,8 +110,20 @@ std::shared_ptr<PlanOperation> TableLoad::parse(const Json::Value &data) {
   s->setHeaderString(data["header_string"].asString());
   s->setUnsafe(data["unsafe"].asBool());
   s->setRaw(data["raw"].asBool());
-  if (data.isMember("with_aging_information"))
-    s->setAgingInfo(data["with_aging_information"].asBool());
+  if (data.isMember("aging_info")) {
+    const auto& aging_info = data["aging_info"];
+    for (unsigned i = 0; i < aging_info.size(); ++i) {
+      const auto& cur = aging_info[i];
+      bool overRide = false;
+      if (!cur.isMember("field"))
+        throw std::runtime_error("you need to specify a field for which to apply a table for");
+      if (!cur.isMember("table"))
+        throw std::runtime_error("you need to specify where to load the table from");
+      if (cur.isMember("override"))
+        overRide = cur["override"].asBool();
+      s->addAgingTable(cur["field"].asString(), cur["table"].asString(), overRide);
+    }
+  }
   if (data.isMember("delimiter")) {
     s->setDelimiter(data["delimiter"].asString());
   }
@@ -135,8 +167,11 @@ void TableLoad::setDelimiter(const std::string &d) {
   _hasDelimiter = true;
 }
 
-void TableLoad::setAgingInfo(bool agingInfo) {
-  _agingInfo = agingInfo;
+void TableLoad::addAgingTable(const std::string& field, const std::string& file, bool overRide) {
+  const aging_table_data_t data = {file, overRide};
+  const auto& r = _agingTables.insert(std::make_pair(field, data));
+  if (r.second == false)
+    throw std::runtime_error("double registration of field \"" + field + "\"");
 }
 
 } } // namespace hyrise::access

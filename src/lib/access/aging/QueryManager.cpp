@@ -57,6 +57,14 @@ query_t QueryManager::getId(const std::string& name) const {
   return it->second;
 }
 
+const std::string& QueryManager::getName(query_t query) const {
+  for (const auto& queryName : _queryNames) {
+    if (queryName.second == query)
+      return queryName.first;
+  }
+  throw std::runtime_error("QueryID is not registered");
+}
+
 param_list_t QueryManager::parametersOf(const std::string& query) const {
   return parametersOf(getId(query));
 }

@@ -4,7 +4,8 @@
       "type" : "TableLoad",
       "filename" : "aging/inv.tbl",
       "table" : "INV",
-      "with_aging_information": true
+      "aging_info": [{"field": "year", "table": "aging/aging_inv_year.tbl", "override": false},
+                     {"field": "customer", "table": "aging/aging_inv_customer.tbl", "override": false}]
     },
     "register" : {
       "type" : "RegisterQuery",

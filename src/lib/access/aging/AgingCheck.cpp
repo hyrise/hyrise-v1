@@ -26,6 +26,7 @@ AgingCheck::~AgingCheck() {
         case IntegerType: delete (hyrise_int_t*) field.data; break;
         case FloatType: delete (hyrise_float_t*) field.data; break;
         case StringType: delete (hyrise_string_t*) field.data; break;
+        default: throw std::runtime_error("unsupported field type");
       }
     }
   }
@@ -66,6 +67,7 @@ void AgingCheck::executePlanOperation() {
         case StringType:
           vid = table->getValueIdForValue<hyrise_string_t>(col, *(hyrise_string_t*)field.data).valueId;
           break;
+        default: throw std::runtime_error("unsupported field type");
       }
       params.push_back({col, vid}); 
     }

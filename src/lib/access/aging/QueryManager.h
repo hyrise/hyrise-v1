@@ -22,6 +22,7 @@ public:
   bool exists(const std::string& name) const;
   void assureExists(const std::string& name) const;
   query_t getId(const std::string& name) const;
+  const std::string& getName(query_t query) const;
 
   param_list_t parametersOf(const std::string& query) const;
   param_list_t parametersOf(query_t query) const;
