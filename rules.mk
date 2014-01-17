@@ -174,7 +174,7 @@ LIBS := log4cxx
 LINK_DIRS :=
 INCLUDE_DIRS :=
 TOOLING :=
-WITH_PAPI := $(shell if [ "`papi_avail  2>&1 | grep Yes | wc -l`" -ne "0" ]; then echo 1; else echo 0; fi) 
+WITH_PAPI := $(shell if [ "`papi_avail  2>&1 | grep Yes | wc -l`" -ne "0" ]; then echo 1; else echo 0; fi)
 WITH_MYSQL:= 1
 
 include $(PROJECT_ROOT)/settings.mk
