@@ -80,7 +80,7 @@ TEST_F(AgingTests , Query3) {
   parameter_map_t map;\
   setParameter(map, "customer", customer);\
   setParameter(map, "year", year);\
-  setParameter(map, "status", customer);\
+  setParameter(map, "status", status);\
 \
   const auto file = loadParameterized(QUERY4, map);\
   executeAndWait(file);\

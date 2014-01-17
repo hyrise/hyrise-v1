@@ -43,7 +43,7 @@ void AgingCheck::executePlanOperation() {
 
     const auto& table = sm.get<storage::AbstractTable>(tableName);
     if (!sm.hasAgingIndex(tableName)) {
-      std::cout << "no aging index: COLD";
+      std::cout << "no aging index => COLD";
       continue;
     }
 

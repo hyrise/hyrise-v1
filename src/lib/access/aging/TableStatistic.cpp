@@ -40,15 +40,51 @@ void TableStatistic::addStatisticTable(field_t field, storage::c_atable_ptr_t st
   _tables[field] = statisticTable;
 }
 
-bool TableStatistic::isHot(const std::string& query, field_t field, value_id_t value) const {
+namespace {
+
+template <typename T>
+bool isHotHelper(storage::atable_ptr_t table, storage::field_t field,
+                 storage::c_atable_ptr_t statisticTable, const std::string& query,
+                 storage::value_id_t vid) {
+  const auto& dict = checked_pointer_cast<storage::BaseDictionary<T>>(table->dictionaryAt(field));
+  const T value = dict->getValueForValueId(vid);
+
+  const auto valueField = statisticTable->numberOfColumn("value");
+  const auto& statisticDict = checked_pointer_cast<storage::BaseDictionary<T>>(statisticTable->dictionaryAt(valueField));
+  const auto& statisticVid = statisticDict->getValueIdForValue(value);
+
+  const auto size = statisticTable->size();
+  for (size_t row = 0; row < size; ++row)
+    if (statisticTable->getValueId(valueField, row).valueId == statisticVid)
+      return statisticTable->getValue<hyrise_int_t>(query, row);
+
+  return false;
+  //TODO we might need some exception handling
+}
+
+} // namespace
+
+bool TableStatistic::isHot(const std::string& query, field_t field, value_id_t vid) const {
   if (!isRegistered(query, field)) {
-    std::cout << ">>>>unregistered value!" << std::endl;
+    std::cout << ">>>>unregistered value! (\"" << query << "\", field: " << field
+              << ", vid: " << vid << ")" << std::endl;
     return false;
   }
   const auto statisticTable = _tables.at(field);
-  //return statisticTable.getValue<hyrise_int_t>(query,
-  //TODO
-  return false;
+
+  switch (table()->typeOfColumn(field)) {
+    case IntegerType:
+      return isHotHelper<hyrise_int_t>(table(), field, statisticTable, query, vid);
+      break;
+    case FloatType:
+      return isHotHelper<hyrise_float_t>(table(), field, statisticTable, query, vid);
+      break;
+    case StringType:
+      return isHotHelper<hyrise_string_t>(table(), field, statisticTable, query, vid);
+      break;
+    default:
+      throw std::runtime_error("unsupported type");
+  }
 }
 
 bool TableStatistic::isHot(query_t query, field_t field, value_id_t value) const {

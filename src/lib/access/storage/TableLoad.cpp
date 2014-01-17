@@ -73,7 +73,8 @@ void TableLoad::executePlanOperation() {
 
   // Correct Aging information
   const auto table = sm->getTable(_table_name);
-  if (_agingTables.size() != 0 && sm->hasAgingIndex(_table_name)) {
+  if (_agingTables.size() != 0 && !sm->hasAgingIndex(_table_name)) {
+    std::cout << "<<<<<<create AgingIndex" << std::endl;
     auto tableStatistic = std::make_shared<TableStatistic>(table);
     for (const auto& agingTable : _agingTables) {
       io::CSVInput input(sm->makePath(agingTable.second.table));
@@ -91,7 +92,7 @@ void TableLoad::executePlanOperation() {
     table->print();
     auto agingIndex = std::make_shared<storage::AgingIndex>(table, tableStatistic);
     sm->setAgingIndexFor(_table_name, agingIndex);
-    //QueryManager::instance().registerAgingIndex(agingIndex); TODO not needed now
+    QueryManager::instance().registerAgingIndex(agingIndex);
   }
 
   auto _table = sm->getTable(_table_name);
