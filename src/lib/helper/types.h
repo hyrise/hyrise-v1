@@ -12,6 +12,7 @@ namespace storage {
 class AbstractResource;
 class AbstractTable;
 class AbstractIndex;
+class AbstractStatistic;
 class AbstractHashTable;
 class AbstractDictionary;
 class PointerCalculator;
@@ -30,6 +31,9 @@ typedef std::shared_ptr<const AbstractTable> c_atable_ptr_t;
 
 typedef std::shared_ptr<AbstractIndex> aindex_ptr_t;
 typedef std::shared_ptr<const AbstractIndex> c_aindex_ptr_t;
+
+typedef std::shared_ptr<AbstractStatistic> astat_ptr_t;
+typedef std::shared_ptr<const AbstractStatistic> c_astat_ptr_t;
 
 typedef std::shared_ptr<AbstractHashTable> ahashtable_ptr_t;
 typedef std::shared_ptr<const AbstractHashTable> c_ahashtable_ptr_t;

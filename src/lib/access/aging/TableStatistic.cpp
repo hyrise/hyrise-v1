@@ -79,25 +79,21 @@ template <typename T>
 void valuesDoHelper(storage::atable_ptr_t table, storage::field_t field, storage::c_atable_ptr_t statisticTable,
                     std::function<void(query_t, storage::field_t, storage::value_id_t, bool)> func) {
   const auto& valueField = statisticTable->numberOfColumn("value");
-  std::cout << statisticTable->typeOfColumn(valueField) << ";" << table->typeOfColumn(field) << std::endl;
   //TODO right dict function?
   const auto& dict = checked_pointer_cast<storage::BaseDictionary<T>>(table->dictionaryAt(field));
   const auto& qm = QueryManager::instance();
 
   const size_t size = statisticTable->size();
   const auto fieldc = statisticTable->columnCount();
-  std::cout << "==========" << size << "====" << fieldc << std::endl;
 
   for (size_t col = 0; col < fieldc; ++col) {
     const auto& queryName = statisticTable->nameOfColumn(col);
     if (col == valueField || !qm.exists(queryName)) continue;
-    std::cout << "DDDDDDDDDDDDDDDDDDDDDDDD" << std::endl;
     const query_t query = qm.getId(queryName);
 
     for (size_t row = 0; row < size; ++row) {
       //I suspect inverse dict access to be terribly slow
       const T value = statisticTable->getValue<T>(valueField, row);
-      std::cout << value << "<<<<<<<" << std::endl;
       const auto valueId = dict->getValueIdForValue(value);
       const bool hotVal = statisticTable->getValue<hyrise_int_t>(col, row); //0 cold, 1 hot
       func(query, field, valueId, hotVal);
