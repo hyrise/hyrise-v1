@@ -31,12 +31,13 @@ template <typename T>
 void PrettyPrinter::special_print(T& input, std::ostream& outStream, const std::string tableName, const size_t& limit, const size_t& start) {
   ftprinter::FTPrinter tp(tableName, outStream);
   tp.addColumn("#rowid", 6);
+  auto prepareLimit = (limit < (size_t) -1) ? limit : input->size(); 
   const size_t columns = input->columnCount();
   for (size_t column_index = 0; column_index < columns; ++column_index) {
     // Auto adjusting widths means iterating over the table twice, but we use it for
     // debugging purposes only, anyways, so we'll go with beauty of output here
     auto name = input->nameOfColumn(column_index);
-    size_t width = std::accumulate(RangeIter(0), RangeIter(input->size()),
+    size_t width = std::accumulate(RangeIter(0), RangeIter(prepareLimit),
                                    // minimum width is 4
                                    name.size() > 4 ? name.size() : 4,
                                    [&] (size_t max, const size_t& row) -> size_t {
@@ -67,11 +68,12 @@ void PrettyPrinter::special_print(const Store* store, std::ostream& outStream, c
   ftprinter::FTPrinter tp(tableName, outStream);
   tp.addColumn("#rowid", 6);
   const size_t columns = store->columnCount();
+  auto prepareLimit = (limit < (size_t) -1) ? limit : store->size(); 
   for (size_t column_index = 0; column_index < columns; ++column_index) {
     // Auto adjusting widths means iterating over the table twice, but we use it for
     // debugging purposes only, anyways, so we'll go with beauty of output here
     auto name = store->nameOfColumn(column_index);
-    size_t width = std::accumulate(RangeIter(0), RangeIter(store->size()),
+    size_t width = std::accumulate(RangeIter(0), RangeIter(prepareLimit),
                                    // minimum width is 4
                                    name.size() > 4 ? name.size() : 4,
                                    [&] (size_t max, const size_t row) -> size_t {
