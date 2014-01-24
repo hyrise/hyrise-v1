@@ -1,29 +1,24 @@
-// Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-/** @file AgingStore.h
- *
- * Contains the class definition of AgingStore.
- * For any undocumented method see AbstractTable.
- * @see AbstractTable
- */
+// Copyright (c) 2014 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 
 #pragma once
 
+#include <helper/types.h>
 #include <storage/Store.h>
 
 namespace hyrise {
 namespace storage {
 
-/**
- * AgingStore consists of one or more main tables and a delta store and is the
- * only entity capable of modifying the content of the table(s) after
- * initialization via the delta store. It can be merged into the main
- * tables using a to-be-set merger.
- */
 class AgingStore : public Store {
 public:
-  AgingStore();
-  explicit AgingStore(atable_ptr_t main_table);
+  AgingStore() = delete;
+  explicit AgingStore(const store_ptr_t& store);
+  explicit AgingStore(const Store& store);
   virtual ~AgingStore();
+
+  virtual void debugStructure(size_t level = 0) const;
+
+private:
+  atable_ptr_t makeAgingMain(const atable_ptr_t& table);
 };
 
 } } // namespace hyrise::storage

@@ -87,7 +87,7 @@ public:
   const attr_vectors_t getAttributeVectors(size_t column) const override;
   void debugStructure(size_t level=0) const override;
 
- private:
+ protected:
   std::atomic<std::size_t> _delta_size;
   //* Vector containing the main tables
   atable_ptr_t _main_table;

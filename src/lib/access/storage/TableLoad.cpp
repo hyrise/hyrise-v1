@@ -3,6 +3,7 @@
 
 #include <iostream>
 
+#include "storage/AgingStore.h"
 #include "access/system/QueryParser.h"
 #include "access/aging/QueryManager.h"
 #include "access/aging/TableStatistic.h"
@@ -89,6 +90,7 @@ void TableLoad::executePlanOperation() {
       //tableStatistic->valuesDo([](query_t q, storage::field_t f, storage::value_id_t v, bool h)
        //                        {std::cout << "Q: " << q << ";F: " << f << ";V: " << v << "hot: " << h << std::endl;});
     }
+    const auto agingStore = std::make_shared<storage::AgingStore>(checked_pointer_cast<storage::Store>(table));
     table->print();
     auto agingIndex = std::make_shared<storage::AgingIndex>(table, tableStatistic);
     sm->setAgingIndexFor(_table_name, agingIndex);

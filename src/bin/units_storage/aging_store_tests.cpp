@@ -11,14 +11,11 @@ class AgingStoreTests : public Test {};
 
 TableGenerator tga(true);
 
-TEST_F(AgingStoreTests, basic_instantiation) {
-  AgingStore s;
-}
-
 /// Test that stores based on modifiable tables can be modified even in their main
 TEST_F(AgingStoreTests, test_write_through) {
   auto table = tga.one_value_delta(1, 1, 0);
-  AgingStore s(table);
+  Store store(table);
+  AgingStore s(store);
   s.setValue<hyrise_int_t>(0, 0, 10);
 }
 
@@ -26,7 +23,8 @@ TEST_F(AgingStoreTests, test_write_through) {
 /// when writing values out of order
 TEST_F(AgingStoreTests, test_write_through_fail) {
   auto table = tga.one_value(1, 1, 0);
-  AgingStore s(table);
+  Store store(table);
+  AgingStore s(store);
   s.setValue<hyrise_int_t>(0, 0, 11); // 11 is larger than 0, so it'll
                                       // just add an extra item to dict
 #ifdef EXPENSIVE_ASSERTIONS
