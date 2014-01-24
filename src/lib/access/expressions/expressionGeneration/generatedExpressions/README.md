@@ -1,0 +1,1 @@
+Execute python generator.py in parent directory
