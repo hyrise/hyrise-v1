@@ -10,13 +10,7 @@ namespace hyrise { namespace access {
 
 class {{ expression.name }} : public Expression{
 public:
-  union ValueContainer {
-  	hyrise_int_t intValue;
-  	hyrise_float_t floatValue;
-    // hyrise_string_t stringValue;
-  };
-
-  {{ expression.name }}(const std::array<size_t, NUMBER_OF_COLUMNS> columns, const std::array<ValueContainer, NUMBER_OF_COLUMNS> values);
+  {{ expression.name }}(const Json::Value& data);
   static std::unique_ptr<Expression> creator(const Json::Value& data);
 
   void setup(const storage::c_atable_ptr_t &table);
@@ -25,13 +19,13 @@ private:
   void evaluateDelta(pos_list_t *results);
 
   std::array<size_t, NUMBER_OF_COLUMNS> _columns;
-  std::array<ValueContainer, NUMBER_OF_COLUMNS> _values;
 
   bool deltaExists();
 
   {% for number in range(0,expression.numberOfColumns) %}
   std::shared_ptr<hyrise::storage::OrderPreservingDictionary<{{ expression.dataTypes[number] }}>> _mainDictionary{{number}};
   std::shared_ptr<hyrise::storage::ConcurrentUnorderedDictionary<{{ expression.dataTypes[number] }}>> _deltaDictionary{{number}};
+  {{ expression.dataTypes[number] }} _value{{number}};
   {% endfor %}
 
   std::shared_ptr<hyrise::storage::FixedLengthVector<value_id_t>> _mainVector[NUMBER_OF_COLUMNS];

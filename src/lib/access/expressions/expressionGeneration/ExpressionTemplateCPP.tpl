@@ -12,21 +12,18 @@ namespace {
 
 bool {{ expression.name }}::deltaExists() { return _table->size() > _mainVector[0]->size(); }
 
-{{ expression.name }}::{{ expression.name }}(const std::array<size_t, NUMBER_OF_COLUMNS> columns, const std::array<ValueContainer, NUMBER_OF_COLUMNS> values) : Expression(), _columns(columns), _values(values) {
-}
-
-std::unique_ptr<Expression> {{ expression.name }}::creator(const Json::Value& data) {
-  std::array<size_t, NUMBER_OF_COLUMNS> columns;
-  std::array<ValueContainer, NUMBER_OF_COLUMNS> values;
+{{ expression.name }}::{{ expression.name }}(const Json::Value& data) : Expression() {
   for (size_t i = 0; i < NUMBER_OF_COLUMNS; ++i) {
-    columns[i] = data["columns"][(Json::UInt)i].asUInt();
+    _columns[i] = data["columns"][(Json::UInt)i].asUInt();
   }
 
   {% for dataType in expression.dataTypes %}
-  values[{{loop.index - 1}}].{{expression.unionMappings[loop.index - 1]}} = data["values"][(Json::UInt){{loop.index - 1}}].{{ expression.jsonParseMethods[loop.index - 1] }};
+  _value{{loop.index - 1}} = data["values"][(Json::UInt){{loop.index - 1}}].{{ expression.jsonParseMethods[loop.index - 1] }};
   {% endfor %}
+}
 
-  return make_unique<{{ expression.name }}>(columns, values);
+std::unique_ptr<Expression> {{ expression.name }}::creator(const Json::Value& data) {
+  return make_unique<{{ expression.name }}>(data);
 }
 
 void {{ expression.name }}::evaluateMain(pos_list_t *results) {
@@ -34,14 +31,14 @@ void {{ expression.name }}::evaluateMain(pos_list_t *results) {
   int64_t valueIdExtended[NUMBER_OF_COLUMNS] = {0};
 
   {% for number in range(0,expression.numberOfColumns) %}
-    valueIdExtended[{{number}}] = _mainDictionary{{number}}->getValueIdForValue(_values[{{number}}].{{expression.unionMappings[number]}});
-    if (!_mainDictionary{{number}}->valueExists(_values[{{number}}].{{expression.unionMappings[number]}}))
+    valueIdExtended[{{number}}] = _mainDictionary{{number}}->getValueIdForValue(_value{{number}});
+    if (!_mainDictionary{{number}}->valueExists(_value{{number}}))
       {% if expression.operators[number] == '==' %}
         valueIdExtended[{{number}}] = -2;
       {% elif expression.operators[number] == '>' %}
-        valueIdExtended[{{number}}] = _mainDictionary{{number}}->getValueIdForValueGreater(_values[{{number}}].{{expression.unionMappings[number]}}) - 1;
+        valueIdExtended[{{number}}] = _mainDictionary{{number}}->getValueIdForValueGreater(_value{{number}}) - 1;
       {% else %}
-        valueIdExtended[{{number}}] = _mainDictionary{{number}}->getValueIdForValueSmaller(_values[{{number}}].{{expression.unionMappings[number]}}) + 1;
+        valueIdExtended[{{number}}] = _mainDictionary{{number}}->getValueIdForValueSmaller(_value{{number}}) + 1;
       {% endif %}
   {% endfor %}
 
