@@ -10,12 +10,15 @@ jsonParsMethodDict = {
 	"STRING": "asString()"
 }
 
-operatorDict = {
+comparisonOperatorDict = {
 	"EQ": "==",
 	"LT": "<",
 	"GT": ">",
 	"LTEQ": "<=",
-	"GTEQ": ">=",
+	"GTEQ": ">="
+}
+
+generalOperatorDict = {
 	"AND": "&&",
 	"OR": "||",
 	"(": "(",
@@ -45,7 +48,7 @@ class Expression(object):
 		self.jsonParseMethods.append(jsonParsMethodDict[dataType])
 
 	def appendOperator(self, operator):
-		self.operators.append(operatorDict[operator])
+		self.operators.append(comparisonOperatorDict[operator])
 
 
 from jinja2 import Template
@@ -64,18 +67,18 @@ while expressionToGenerate != '':
 	expression.numberOfColumns = 0
 
 	for expressionPart in expressionSplit:
-		if expressionPart == "INT" or expressionPart == "FLOAT" or expressionPart == "STRING":
+		if expressionPart in dataTypeDict:
 			expression.appendDatatype(expressionPart)
 
 	for expressionPart in expressionSplit:
-		if expressionPart == "EQ" or expressionPart == "LT" or expressionPart == "GT" or expressionPart == "LTEQ" or expressionPart == "GTEQ":
-			expression.evaluationString += "_mainVector[" + str(expression.numberOfColumns) + "]->getRef(_columns[" + str(expression.numberOfColumns) + "], currentRow) " + operatorDict[expressionPart] + " valueIdExtended[" + str(expression.numberOfColumns) + "]"
-			expression.evaluationStringDelta += "_deltaDictionary" + str(expression.numberOfColumns) + "->getValueForValueId(_deltaVector[" + str(expression.numberOfColumns) + "]->getRef(_columns[" + str(expression.numberOfColumns) + "], currentRow)) " + operatorDict[expressionPart] + " _value" + str(expression.numberOfColumns)
+		if expressionPart in comparisonOperatorDict:
+			expression.evaluationString += "_mainVector[" + str(expression.numberOfColumns) + "]->getRef(_columns[" + str(expression.numberOfColumns) + "], currentRow) " + comparisonOperatorDict[expressionPart] + " valueIdExtended[" + str(expression.numberOfColumns) + "]"
+			expression.evaluationStringDelta += "_deltaDictionary" + str(expression.numberOfColumns) + "->getValueForValueId(_deltaVector[" + str(expression.numberOfColumns) + "]->getRef(_columns[" + str(expression.numberOfColumns) + "], currentRow)) " + comparisonOperatorDict[expressionPart] + " _value" + str(expression.numberOfColumns)
 			expression.numberOfColumns += 1
 			expression.appendOperator(expressionPart)
-		elif expressionPart == "AND" or expressionPart == "OR" or expressionPart == "(" or expressionPart == ")":
-			expression.evaluationString += " " + operatorDict[expressionPart] + " "
-			expression.evaluationStringDelta += " " + operatorDict[expressionPart] + " "
+		elif expressionPart in generalOperatorDict:
+			expression.evaluationString += " " + generalOperatorDict[expressionPart] + " "
+			expression.evaluationStringDelta += " " + generalOperatorDict[expressionPart] + " "
 
 
 	expressionHeaderTemplateFile = open("./ExpressionTemplateH.tpl", "r")
