@@ -37,6 +37,10 @@ void {{ expression.name }}::evaluateMain(pos_list_t *results) {
         valueIdExtended[{{number}}] = -2;
       {% elif expression.operators[number] == '>' %}
         valueIdExtended[{{number}}] = _mainDictionary{{number}}->getValueIdForValueGreater(_value{{number}}) - 1;
+      {% elif expression.operators[number] == '>=' %}
+        valueIdExtended[{{number}}] = _mainDictionary{{number}}->getValueIdForValueGreater(_value{{number}});
+      {% elif expression.operators[number] == '<=' %}
+        valueIdExtended[{{number}}] = _mainDictionary{{number}}->getValueIdForValueSmaller(_value{{number}});
       {% else %}
         valueIdExtended[{{number}}] = _mainDictionary{{number}}->getValueIdForValueSmaller(_value{{number}}) + 1;
       {% endif %}

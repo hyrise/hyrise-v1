@@ -14,8 +14,8 @@ operatorDict = {
 	"EQ": "==",
 	"LT": "<",
 	"GT": ">",
-	# "LTEQ": "<=",
-	# "GTEQ": ">="
+	"LTEQ": "<=",
+	"GTEQ": ">=",
 	"AND": "&&",
 	"OR": "||",
 	"(": "(",
@@ -68,7 +68,7 @@ while expressionToGenerate != '':
 			expression.appendDatatype(expressionPart)
 
 	for expressionPart in expressionSplit:
-		if expressionPart == "EQ" or expressionPart == "LT" or expressionPart == "GT":
+		if expressionPart == "EQ" or expressionPart == "LT" or expressionPart == "GT" or expressionPart == "LTEQ" or expressionPart == "GTEQ":
 			expression.evaluationString += "_mainVector[" + str(expression.numberOfColumns) + "]->getRef(_columns[" + str(expression.numberOfColumns) + "], currentRow) " + operatorDict[expressionPart] + " valueIdExtended[" + str(expression.numberOfColumns) + "]"
 			expression.evaluationStringDelta += "_deltaDictionary" + str(expression.numberOfColumns) + "->getValueForValueId(_deltaVector[" + str(expression.numberOfColumns) + "]->getRef(_columns[" + str(expression.numberOfColumns) + "], currentRow)) " + operatorDict[expressionPart] + " _value" + str(expression.numberOfColumns)
 			expression.numberOfColumns += 1
