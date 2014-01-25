@@ -53,9 +53,13 @@ class Expression(object):
 
 
 from jinja2 import Template
-from collections import deque
+import sys
 
-expressionsToGenerateFile = open("./expressionsToGenerate.txt", "r")
+try:
+	expressionsToGenerateFile = open("./expressionsToGenerate.txt", "r")
+except:
+	print "Looking for file expressionsToGenerate.txt in expressionGeneration directory"
+	sys.exit()
 expressionToGenerate = expressionsToGenerateFile.readline().rstrip("\n")
 
 i = 0
