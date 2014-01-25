@@ -39,6 +39,7 @@ class Expression(object):
 		self.evaluationString = ""
 		self.evaluationStringDelta = ""
 		self.numberOfColumns = 4
+		self.numberOfEQComparisons = 0
 
 	def appendDatatype(self, dataType):
 		self.dataTypes.append(dataTypeDict[dataType])
@@ -73,7 +74,11 @@ while expressionToGenerate != '':
 	for expressionPart in expressionSplit:
 		if expressionPart in comparisonOperatorDict:
 			expression.evaluationString += "_mainVector[" + str(expression.numberOfColumns) + "]->getRef(_columns[" + str(expression.numberOfColumns) + "], currentRow) " + comparisonOperatorDict[expressionPart] + " valueIdExtended[" + str(expression.numberOfColumns) + "]"
-			expression.evaluationStringDelta += "_deltaDictionary" + str(expression.numberOfColumns) + "->getValueForValueId(_deltaVector[" + str(expression.numberOfColumns) + "]->getRef(_columns[" + str(expression.numberOfColumns) + "], currentRow)) " + comparisonOperatorDict[expressionPart] + " _value" + str(expression.numberOfColumns)
+			if expressionPart == "EQ":
+				expression.evaluationStringDelta += "_deltaVector[" + str(expression.numberOfColumns) + "]->getRef(_columns[" + str(expression.numberOfColumns) + "], currentRow) " + comparisonOperatorDict[expressionPart] + " valueId" + str(expression.numberOfEQComparisons)
+				expression.numberOfEQComparisons += 1
+			else :
+				expression.evaluationStringDelta += "_deltaDictionary" + str(expression.numberOfColumns) + "->getValueForValueId(_deltaVector[" + str(expression.numberOfColumns) + "]->getRef(_columns[" + str(expression.numberOfColumns) + "], currentRow)) " + comparisonOperatorDict[expressionPart] + " _value" + str(expression.numberOfColumns)
 			expression.numberOfColumns += 1
 			expression.appendOperator(expressionPart)
 		elif expressionPart in generalOperatorDict:

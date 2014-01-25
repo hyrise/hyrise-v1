@@ -53,8 +53,13 @@ void {{ expression.name }}::evaluateMain(pos_list_t *results) {
 }
 
 void {{ expression.name }}::evaluateDelta(pos_list_t *results) {
-  value_id_t valueId;
   size_t deltaOffsetInTable = _mainVector[0]->size();
+  {% for number in range(0,expression.numberOfEQComparisons) %}
+    value_id_t valueId{{number}};
+    valueId{{number}} = _deltaDictionary{{number}}->getValueIdForValue(_value{{number}});
+    if (!_deltaDictionary{{number}}->valueExists(_value{{number}}))
+      valueId{{number}} = std::numeric_limits<value_id_t>::max();
+  {% endfor %}
 
   for(size_t currentRow = 0; currentRow < _deltaVector[0]->size(); ++currentRow) {
     if ( {{expression.evaluationStringDelta}} )
