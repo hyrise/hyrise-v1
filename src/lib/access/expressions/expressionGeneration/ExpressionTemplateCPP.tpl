@@ -27,23 +27,24 @@ std::unique_ptr<Expression> {{ expression.name }}::creator(const Json::Value& da
 }
 
 void {{ expression.name }}::evaluateMain(pos_list_t *results) {
-  //value_id_t is preferable, but cannot take -1 value, which is necessary for getValueIdForValue bug
-  int64_t valueIdExtended[NUMBER_OF_COLUMNS] = {0};
+  value_id_t valueIds[NUMBER_OF_COLUMNS] = {0};
 
   {% for number in range(0,expression.numberOfColumns) %}
-    valueIdExtended[{{number}}] = _mainDictionary{{number}}->getValueIdForValue(_value{{number}});
-    if (!_mainDictionary{{number}}->valueExists(_value{{number}}))
-      {% if expression.operators[number] == '==' %}
-        valueIdExtended[{{number}}] = -2;
-      {% elif expression.operators[number] == '>' %}
-        valueIdExtended[{{number}}] = _mainDictionary{{number}}->getValueIdForValueGreater(_value{{number}}) - 1;
-      {% elif expression.operators[number] == '>=' %}
-        valueIdExtended[{{number}}] = _mainDictionary{{number}}->getValueIdForValueGreater(_value{{number}});
-      {% elif expression.operators[number] == '<=' %}
-        valueIdExtended[{{number}}] = _mainDictionary{{number}}->getValueIdForValueSmaller(_value{{number}});
-      {% else %}
-        valueIdExtended[{{number}}] = _mainDictionary{{number}}->getValueIdForValueSmaller(_value{{number}}) + 1;
+    {% if expression.operators[number] == '>' %}
+      valueIds[{{number}}] = _mainDictionary{{number}}->getValueIdForValueGreater(_value{{number}});
+    {% elif expression.operators[number] == '<' %}
+      valueIds[{{number}}] = _mainDictionary{{number}}->getValueIdForValueSmaller(_value{{number}});
+    {% else %}
+      valueIds[{{number}}] = _mainDictionary{{number}}->getValueId(_value{{number}}, false);
+      {% if expression.operators[number] != '==' %}
+        if (valueIds[{{number}}] == std::numeric_limits<value_id_t>::max())
+        {% if expression.operators[number] == '>=' %}
+          valueIds[{{number}}] = _mainDictionary{{number}}->getValueIdForValueGreater(_value{{number}});
+        {% else %}
+          valueIds[{{number}}] = _mainDictionary{{number}}->getValueIdForValueSmaller(_value{{number}});
+        {% endif %}
       {% endif %}
+    {% endif %}
   {% endfor %}
 
   for(size_t currentRow = 0; currentRow < _mainVector[0]->size(); ++currentRow) {
@@ -56,9 +57,7 @@ void {{ expression.name }}::evaluateDelta(pos_list_t *results) {
   size_t deltaOffsetInTable = _mainVector[0]->size();
   {% for number in range(0,expression.numberOfEQComparisons) %}
     value_id_t valueId{{number}};
-    valueId{{number}} = _deltaDictionary{{number}}->getValueIdForValue(_value{{number}});
-    if (!_deltaDictionary{{number}}->valueExists(_value{{number}}))
-      valueId{{number}} = std::numeric_limits<value_id_t>::max();
+    valueId{{number}} = _deltaDictionary{{number}}->getValueId(_value{{number}}, false);
   {% endfor %}
 
   for(size_t currentRow = 0; currentRow < _deltaVector[0]->size(); ++currentRow) {

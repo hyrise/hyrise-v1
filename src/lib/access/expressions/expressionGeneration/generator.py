@@ -18,6 +18,14 @@ comparisonOperatorDict = {
 	"GTEQ": ">="
 }
 
+comparisonOperatorMainDict = {
+	"EQ": "==",
+	"LT": "<=",
+	"GT": ">=",
+	"LTEQ": "<=",
+	"GTEQ": ">="
+}
+
 generalOperatorDict = {
 	"AND": "&&",
 	"OR": "||",
@@ -77,7 +85,7 @@ while expressionToGenerate != '':
 
 	for expressionPart in expressionSplit:
 		if expressionPart in comparisonOperatorDict:
-			expression.evaluationString += "_mainVector[" + str(expression.numberOfColumns) + "]->getRef(_columns[" + str(expression.numberOfColumns) + "], currentRow) " + comparisonOperatorDict[expressionPart] + " valueIdExtended[" + str(expression.numberOfColumns) + "]"
+			expression.evaluationString += "_mainVector[" + str(expression.numberOfColumns) + "]->getRef(_columns[" + str(expression.numberOfColumns) + "], currentRow) " + comparisonOperatorMainDict[expressionPart] + " valueIds[" + str(expression.numberOfColumns) + "]"
 			if expressionPart == "EQ":
 				expression.evaluationStringDelta += "_deltaVector[" + str(expression.numberOfColumns) + "]->getRef(_columns[" + str(expression.numberOfColumns) + "], currentRow) " + comparisonOperatorDict[expressionPart] + " valueId" + str(expression.numberOfEQComparisons)
 				expression.numberOfEQComparisons += 1
