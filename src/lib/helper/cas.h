@@ -15,6 +15,6 @@ inline bool atomic_cas_vector(T& vector, size_t index, V oldV, V newV) {
 
 
 template<>
-inline bool atomic_cas_vector<hyrise::helper::ConcurrentSparseVector<hyrise::tx::transaction_id_t>, hyrise::tx::transaction_id_t>(hyrise::helper::ConcurrentSparseVector<hyrise::tx::transaction_id_t>& vector, size_t index, hyrise::tx::transaction_id_t oldVal, hyrise::tx::transaction_id_t newVal) {
+inline bool atomic_cas_vector<hyrise::helper::SparseVector<hyrise::tx::transaction_id_t>, hyrise::tx::transaction_id_t>(hyrise::helper::SparseVector<hyrise::tx::transaction_id_t>& vector, size_t index, hyrise::tx::transaction_id_t oldVal, hyrise::tx::transaction_id_t newVal) {
   return vector.cmpxchg(index, oldVal, newVal);
 }
