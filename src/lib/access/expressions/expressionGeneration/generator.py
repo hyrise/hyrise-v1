@@ -85,12 +85,14 @@ while expressionToGenerate != '':
 
 	for expressionPart in expressionSplit:
 		if expressionPart in comparisonOperatorDict:
-			expression.evaluationString += "_mainVector[" + str(expression.numberOfColumns) + "]->getRef(_columns[" + str(expression.numberOfColumns) + "], currentRow) " + comparisonOperatorMainDict[expressionPart] + " valueIds[" + str(expression.numberOfColumns) + "]"
+			expression.evaluationString += "_mainVector[{numberOfColumn}]->getRef(_columns[{numberOfColumn}], currentRow) {expressionPart} valueIds[{numberOfColumn}]"
 			if expressionPart == "EQ":
-				expression.evaluationStringDelta += "_deltaVector[" + str(expression.numberOfColumns) + "]->getRef(_columns[" + str(expression.numberOfColumns) + "], currentRow) " + comparisonOperatorDict[expressionPart] + " valueId" + str(expression.numberOfEQComparisons)
+				expression.evaluationStringDelta += "_deltaVector[{numberOfColumn}]->getRef(_columns[{numberOfColumn}], currentRow) {expressionPart} valueId{numberOfEQComparisons}"
 				expression.numberOfEQComparisons += 1
 			else :
-				expression.evaluationStringDelta += "_deltaDictionary" + str(expression.numberOfColumns) + "->getValueForValueId(_deltaVector[" + str(expression.numberOfColumns) + "]->getRef(_columns[" + str(expression.numberOfColumns) + "], currentRow)) " + comparisonOperatorDict[expressionPart] + " _value" + str(expression.numberOfColumns)
+				expression.evaluationStringDelta += "_deltaDictionary{numberOfColumn}->getValueForValueId(_deltaVector[{numberOfColumn}]->getRef(_columns[{numberOfColumn}], currentRow)) {expressionPart} _value{numberOfColumn}"
+			expression.evaluationString = expression.evaluationString.format(numberOfColumn = expression.numberOfColumns, expressionPart = comparisonOperatorMainDict[expressionPart])
+			expression.evaluationStringDelta = expression.evaluationStringDelta.format(numberOfColumn = expression.numberOfColumns, numberOfEQComparisons = expression.numberOfEQComparisons - 1, expressionPart = comparisonOperatorDict[expressionPart])
 			expression.numberOfColumns += 1
 			expression.appendOperator(expressionPart)
 		elif expressionPart in generalOperatorDict:
