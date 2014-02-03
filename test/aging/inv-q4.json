@@ -11,12 +11,17 @@
     "register" : {
       "type" : "RegisterQuery",
       "name" : "inv-Q4",
-      "parameters" : [{"table": "INV", "fields": ["year", "customer", "status"]}]
+      "select" : {"operation": "AND",
+                  "sub": [{"table": "INV", "field": "year", "operation": "EQ"},
+                          {"table": "INV", "field": "customer", "operation": "EQ"},
+                          {"table": "INV", "field": "status", "operation": "EQ"}]}
     },
     "check" : {
       "type" : "AgingCheck",
       "query" : "inv-Q4",
-      "parameters" : [{"table": "INV", "parameters": [["year", %(year)d], ["customer", %(customer)s], ["status", %(status)s]]}]
+      "parameters" : [{"table": "INV", "field": "year", "value": %(year)d},
+                      {"table": "INV", "field": "customer", "value": %(customer)s},
+                      {"table": "INV", "field": "status", "value": %(status)s}]
     },
     "select" : {
       "type" : "SimpleTableScan",

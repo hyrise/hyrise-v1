@@ -8,12 +8,12 @@
     "register" : {
       "type" : "RegisterQuery",
       "name" : "inv-Q5",
-      "parameters" : [{"table": "INV", "fields": ["id"]}]
+      "select" : {"table": "INV", "field": "id", "operation": "EQ"}
     },
     "check" : {
       "type" : "AgingCheck",
       "query" : "inv-Q5",
-      "parameters" : [{"table": "INV", "parameters": [["id", %(id)d]]}]
+      "parameters" : [{"table": "INV", "field": "id", "value": %(id)d}]
     },
     "select" : {
       "type" : "SimpleTableScan",

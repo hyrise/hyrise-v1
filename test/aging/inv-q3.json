@@ -11,12 +11,15 @@
     "register" : {
       "type" : "RegisterQuery",
       "name" : "inv-Q3",
-      "parameters" : [{"table": "INV", "fields": ["year", "status"]}]
+      "select" : {"operation": "AND",
+                  "sub": [{"table": "INV", "field": "year", "operation": "EQ"},
+                          {"table": "INV", "field": "status", "operation": "EQ"}]}
     },
     "check" : {
       "type" : "AgingCheck",
       "query" : "inv-Q3",
-      "parameters" : [{"table": "INV", "parameters": [["year", %(year)d], ["status", %(status)s]]}]
+      "parameters" : [{"table": "INV", "field": "year", "value": %(year)d},
+                      {"table": "INV", "field": "status", "value": %(status)s}]
     },
     "select" : {
       "type" : "SimpleTableScan",
