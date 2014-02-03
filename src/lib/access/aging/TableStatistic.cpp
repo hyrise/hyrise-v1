@@ -10,42 +10,21 @@
 namespace hyrise {
 namespace access {
 
-TableStatistic::TableStatistic(storage::atable_ptr_t table) :
-    storage::AbstractStatistic(table) {}
+TableStatistic::TableStatistic(storage::atable_ptr_t table, storage::field_t field,
+                               storage::c_atable_ptr_t statisticTable) :
+    storage::AbstractStatistic(table, field),
+    _statisticTable(statisticTable) {
+  if (table->typeOfColumn(field) != statisticTable->typeOfColumn(statisticTable->numberOfColumn("value")))
+    throw std::runtime_error("Type of tables field and statistic tables value field does not match");
+}
 
 TableStatistic::~TableStatistic() {}
-
-void TableStatistic::addStatisticTable(const std::string& field, storage::c_atable_ptr_t statisticTable, bool overRide) {
-  const auto& fieldId = table()->numberOfColumn(field);
-  addStatisticTable(fieldId, statisticTable, overRide);
-}
-
-void TableStatistic::addStatisticTable(field_t field, storage::c_atable_ptr_t statisticTable, bool overRide) {
-  if (!overRide && _tables.find(field) != _tables.end()) {
-    std::cout << "statistic table already exists - merging not implemented" << std::endl;
-    return;
-  }
-
-  std::cout << ">>>>>>>>>>>>>save statistics" << std::endl;
-  const auto valueField = statisticTable->numberOfColumn("value"); //just checking ...
-  if (statisticTable->typeOfColumn(valueField) != table()->typeOfColumn(field))
-    throw std::runtime_error("invalid statistic table: \"value\" column needs to have same type as table column");
-
-  const size_t fieldc = statisticTable->columnCount();
-  for (size_t col = 0; col < fieldc; ++col) {
-    if (col != valueField && statisticTable->typeOfColumn(col) != IntegerType)
-      throw std::runtime_error("hotness values may only be stored in INTEGER columns");
-  }
-
-  _tables[field] = statisticTable;
-}
 
 namespace {
 
 template <typename T>
-bool isHotHelper(storage::atable_ptr_t table, storage::field_t field,
-                 storage::c_atable_ptr_t statisticTable, const std::string& query,
-                 storage::value_id_t vid) {
+bool isHotHelper(storage::atable_ptr_t table, storage::c_atable_ptr_t statisticTable,
+                 storage::field_t field, const std::string& query, storage::value_id_t vid) {
   const auto& dict = checked_pointer_cast<storage::BaseDictionary<T>>(table->dictionaryAt(field));
   const T value = dict->getValueForValueId(vid);
 
@@ -54,9 +33,11 @@ bool isHotHelper(storage::atable_ptr_t table, storage::field_t field,
   const auto& statisticVid = statisticDict->getValueIdForValue(value);
 
   const auto size = statisticTable->size();
-  for (size_t row = 0; row < size; ++row)
+
+  for (size_t row = 0; row < size; ++row) {
     if (statisticTable->getValueId(valueField, row).valueId == statisticVid)
       return statisticTable->getValue<hyrise_int_t>(query, row);
+  }
 
   return false;
   //TODO we might need some exception handling
@@ -64,56 +45,52 @@ bool isHotHelper(storage::atable_ptr_t table, storage::field_t field,
 
 } // namespace
 
-bool TableStatistic::isHot(const std::string& query, field_t field, value_id_t vid) const {
-  if (!isRegistered(query, field)) {
-    std::cout << ">>>>unregistered value! (\"" << query << "\", field: " << field
+bool TableStatistic::isHot(const std::string& query, value_id_t vid) const {
+  if (!isRegistered(query)) {
+    std::cout << ">>>>unregistered value! (\"" << query << "\", field: " << table()->nameOfColumn(field())
               << ", vid: " << vid << ")" << std::endl;
     return false;
   }
-  const auto statisticTable = _tables.at(field);
 
-  switch (table()->typeOfColumn(field)) {
+  switch (table()->typeOfColumn(field())) {
     case IntegerType:
-      return isHotHelper<hyrise_int_t>(table(), field, statisticTable, query, vid);
+      return isHotHelper<hyrise_int_t>(table(), _statisticTable, field(), query, vid);
       break;
     case FloatType:
-      return isHotHelper<hyrise_float_t>(table(), field, statisticTable, query, vid);
+      return isHotHelper<hyrise_float_t>(table(), _statisticTable, field(), query, vid);
       break;
     case StringType:
-      return isHotHelper<hyrise_string_t>(table(), field, statisticTable, query, vid);
+      return isHotHelper<hyrise_string_t>(table(), _statisticTable, field(), query, vid);
       break;
     default:
       throw std::runtime_error("unsupported type");
   }
 }
 
-bool TableStatistic::isHot(query_t query, field_t field, value_id_t value) const {
+bool TableStatistic::isHot(query_t query, value_id_t value) const {
   const auto& qm = QueryManager::instance();
-  return isHot(qm.getName(query), field, value);
+  return isHot(qm.getName(query), value);
 }
 
-bool TableStatistic::isRegistered(const std::string& query, field_t field) const {
-  const auto& table = _tables.find(field);
-  if (table == _tables.end())
-    return false;
+bool TableStatistic::isRegistered(const std::string& query) const {
   try {
-    table->second->numberOfColumn(query);
+    _statisticTable->numberOfColumn(query);
     return true;
   }
   catch(...) {}
   return false;
 }
 
-bool TableStatistic::isRegistered(query_t query, field_t field) const {
+bool TableStatistic::isRegistered(query_t query) const {
   const auto& qm = QueryManager::instance();
-  return isRegistered(qm.getName(query), field);
+  return isRegistered(qm.getName(query));
 }
 
 namespace {
 
 template <typename T>
-void valuesDoHelper(storage::atable_ptr_t table, storage::field_t field, storage::c_atable_ptr_t statisticTable,
-                    std::function<void(query_t, storage::field_t, storage::value_id_t, bool)> func) {
+void valuesDoHelper(storage::atable_ptr_t table, storage::c_atable_ptr_t statisticTable,
+                    storage::field_t field, std::function<void(query_t, storage::value_id_t, bool)> func) {
   const auto& valueField = statisticTable->numberOfColumn("value");
   //TODO right dict function?
   const auto& dict = checked_pointer_cast<storage::BaseDictionary<T>>(table->dictionaryAt(field));
@@ -132,23 +109,19 @@ void valuesDoHelper(storage::atable_ptr_t table, storage::field_t field, storage
       const T value = statisticTable->getValue<T>(valueField, row);
       const auto valueId = dict->getValueIdForValue(value);
       const bool hotVal = statisticTable->getValue<hyrise_int_t>(col, row); //0 cold, 1 hot
-      func(query, field, valueId, hotVal);
+      func(query, valueId, hotVal);
     }
   }
 }
 
 } // namespace
 
-void TableStatistic::valuesDo(std::function<void(query_t, storage::field_t, storage::value_id_t, bool)> func) const {
-  for (const auto& t : _tables) {
-    const auto& field = t.first;
-    const auto& statisticTable = t.second;
-    switch (table()->typeOfColumn(field)) {
-      case IntegerType: valuesDoHelper<hyrise_int_t>   (table(), field, statisticTable, func); break;
-      case FloatType:   valuesDoHelper<hyrise_float_t> (table(), field, statisticTable, func); break;
-      case StringType:  valuesDoHelper<hyrise_string_t>(table(), field, statisticTable, func); break;
-      default: throw std::runtime_error("unsupported field type");
-    }
+void TableStatistic::valuesDo(std::function<void(query_t, storage::value_id_t, bool)> func) const {
+  switch (table()->typeOfColumn(field())) {
+    case IntegerType: valuesDoHelper<hyrise_int_t>   (table(), _statisticTable, field(), func); break;
+    case FloatType:   valuesDoHelper<hyrise_float_t> (table(), _statisticTable, field(), func); break;
+    case StringType:  valuesDoHelper<hyrise_string_t>(table(), _statisticTable, field(), func); break;
+    default: throw std::runtime_error("unsupported field type");
   }
 }
 

@@ -9,19 +9,21 @@ namespace storage {
 
 class AbstractStatistic : public AbstractResource {
 public:
-  AbstractStatistic(atable_ptr_t table);
+  AbstractStatistic(atable_ptr_t table, field_t field);
   virtual ~AbstractStatistic();
 
-  virtual bool isHot(access::query_t query, field_t field, value_id_t value) const = 0;
-  virtual bool isRegistered(access::query_t query, field_t field) const = 0;
+  virtual bool isHot(access::query_t query, value_id_t value) const = 0;
+  virtual bool isRegistered(access::query_t query) const = 0;
 
-  virtual void valuesDo(std::function<void(access::query_t, field_t, value_id_t, bool)> func) const = 0;
+  virtual void valuesDo(std::function<void(access::query_t, value_id_t, bool)> func) const = 0;
 
 protected:
   atable_ptr_t table() const;
+  field_t field() const;
 
 private:
-  const atable_ptr_t _table;
+  const std::weak_ptr<AbstractTable> _table;
+  const field_t _field;
 };
 
 } } // namespace hyrise::storage

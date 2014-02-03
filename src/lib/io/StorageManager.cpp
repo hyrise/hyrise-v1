@@ -132,25 +132,27 @@ void StorageManager::addInvertedIndex(std::string name, std::shared_ptr<storage:
 }
 
 namespace {
-  std::string agingIndexName(const std::string& tableName) {
-    return "__ai::" + tableName;
+  std::string agingIndexName(const std::string& tableName, const std::string& fieldName) {
+    return "__ai::" + tableName + "::" + fieldName;
   }
 } // namespace
 
-std::shared_ptr<storage::AgingIndex> StorageManager::getAgingIndexFor(const std::string& name) const {
-  if (hasAgingIndex(name))
-    return get<storage::AgingIndex>(agingIndexName(name));
+std::shared_ptr<storage::AgingIndex> StorageManager::getAgingIndexFor(const std::string& name, const std::string& field) const {
+  if (hasAgingIndex(name, field))
+    return get<storage::AgingIndex>(agingIndexName(name, field));
   throw std::runtime_error("there is no aging index. it might automaticly created here ... might ... maybe");
 }
 
-void StorageManager::setAgingIndexFor(const std::string& name, const std::shared_ptr<storage::AgingIndex>& index) {
-  if (hasAgingIndex(name)) throw std::runtime_error("there already is a aging index for table \"" + name + "\"");
-  add(agingIndexName(name), index);
+void StorageManager::setAgingIndexFor(const std::string& name, const std::string& field,
+                                      const std::shared_ptr<storage::AgingIndex>& index) {
+  if (hasAgingIndex(name, field)) throw std::runtime_error("there already is a aging index for table \"" + name + "\"");
+  get<storage::AbstractTable>(name)->numberOfColumn(field); // check for existance
+  add(agingIndexName(name, field), index);
 }
 
-bool StorageManager::hasAgingIndex(const std::string& name) const {
+bool StorageManager::hasAgingIndex(const std::string& name, const std::string& field) const {
   get<storage::AbstractTable>(name); // check whether "name" exists and is a table
-  const auto indexName = agingIndexName(name);
+  const auto indexName = agingIndexName(name, field);
   if (!exists(indexName))
     return false;
   get<storage::AgingIndex>(indexName); // checks whether "indexname" actually is an AgingIndex

@@ -36,8 +36,6 @@ void QueryManager::registerQuery(const std::string& name, const param_list_t& pa
       if (param.table == tableId)
         fields.push_back(param.field);
     }
-    if (fields.size() > 0)
-      index->addForQuery(id, fields);
   }
 }
 
@@ -85,8 +83,6 @@ void QueryManager::registerAgingIndex(std::shared_ptr<storage::AgingIndex> index
       if (param.table == tableId)
         fields.push_back(param.field);
     }
-    if (fields.size() > 0)
-      index->addForQuery(id, fields);
   }
 
   _registered.push_back(index);

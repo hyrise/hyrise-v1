@@ -42,14 +42,15 @@ void AgingCheck::executePlanOperation() {
     sm.assureExists(tableName);
 
     const auto& table = sm.get<storage::AbstractTable>(tableName);
-    if (!sm.hasAgingIndex(tableName)) {
-      std::cout << "no aging index => COLD";
-      continue;
-    }
 
-    std::vector<storage::AgingIndex::param_t> params;
+    bool hot = true;
     for (const auto& field : tableParams.second) {
       const field_t col = table->numberOfColumn(field.name);
+
+      if (!sm.hasAgingIndex(tableName, field.name)) {
+        std::cout << "no aging index => COLD"; //TODO checkme
+        continue;
+      }
 
       if (table->typeOfColumn(col) != field.type)
         throw std::runtime_error("type of " + field.name + " is of type " +
@@ -60,19 +61,28 @@ void AgingCheck::executePlanOperation() {
       switch (field.type) {
         case IntegerType:
           vid = table->getValueIdForValue<hyrise_int_t>(col, *(hyrise_int_t*)field.data).valueId;
+          std::cout << "<<" << *(hyrise_int_t*)field.data << ">>" << std::endl;
           break;
         case FloatType:
           vid = table->getValueIdForValue<hyrise_float_t>(col, *(hyrise_float_t*)field.data).valueId;
+          std::cout << "<<" << *(hyrise_float_t*)field.data << ">>" << std::endl;
           break;
         case StringType:
           vid = table->getValueIdForValue<hyrise_string_t>(col, *(hyrise_string_t*)field.data).valueId;
+          std::cout << "<<" << *(hyrise_string_t*)field.data << ">>" << std::endl;
           break;
         default: throw std::runtime_error("unsupported field type");
       }
-      params.push_back({col, vid}); 
+
+      if (!sm.getAgingIndexFor(tableName, field.name)->isHot(qm.getId(_queryName), vid)) {
+        hot = false;
+        std::cout << tableName << ":" << field.name << " COLD" << std::endl;
+        break;
+      }
+      std::cout << tableName << ":" << field.name << " HOT" << std::endl;
     }
-    const bool hot = sm.getAgingIndexFor(tableName)->isHot(qm.getId(_queryName), params);
-    std::cout << tableName << ": " << (hot ? "HOT" : "COLD") << std::endl;
+
+    std::cout << ">>>>>>>>>" << tableName << ": " << (hot ? "HOT" : "COLD") << std::endl;
   }
 
   output = input; // don't stand in the way of calculation, pass everything on

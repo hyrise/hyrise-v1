@@ -19,15 +19,8 @@ void AgingIndex::shrink() {
   //TODO ... implement it?
 }
 
-void AgingIndex::addForQuery(access::query_t query, const std::vector<field_t>& fields) {
-  //TODO ... is this still needed?
-}
-
-bool AgingIndex::isHot(access::query_t query, std::vector<param_t> params) const {
-  bool hot = true;
-  for (const auto& param : params)
-    hot &= _statistic->isHot(query, param.field, param.vid);
-  return hot;
+bool AgingIndex::isHot(access::query_t query, value_id_t vid) const {
+  return _statistic->isHot(query, vid);
 }
 
 atable_ptr_t AgingIndex::table() {

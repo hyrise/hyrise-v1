@@ -36,6 +36,7 @@ TEST_F(AgingTests , Query1) {
   executeQuery1("\"Customer3\"" , 2010, true       );
   executeQuery1("\"Customer10\"", 2013, true       );
   executeQuery1("\"Customer12\"", 2013, false      );
+  executeQuery1("\"Customer4\"" , 2011, false      );
 }
 
 
