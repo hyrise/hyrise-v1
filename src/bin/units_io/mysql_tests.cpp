@@ -19,12 +19,16 @@ class MySQLTests : public ::hyrise::Test {
     _pid_suffix = std::to_string(getpid());
     _schema = "cbtr" + _pid_suffix;
     std::string cmd = "sh test/sap_data/load.sh " + _pid_suffix;
-    system(cmd.c_str());
+    if (system(cmd.c_str()) != 0) {
+      throw std::runtime_error(cmd + " _failed");
+    };
   }
 
   virtual void TearDown() override {
     std::string cmd = "sh test/sap_data/drop.sh " + _pid_suffix;
-    system(cmd.c_str());
+    if (system(cmd.c_str()) != 0) {
+      throw std::runtime_error(cmd + " _failed");
+    };
   }
 };
 
