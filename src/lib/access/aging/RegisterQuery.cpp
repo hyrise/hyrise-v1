@@ -33,7 +33,7 @@ void RegisterQuery::executePlanOperation() {
     }
   }
   std::cout << std::endl;
-  qm.registerQuery(_name, paramVector);
+  qm.registerQuery(_name, std::move(_select)); //TODO this make it only executable once
 
   output = input; // don't stand in the way of calculation, pass everything on
 }
@@ -46,7 +46,7 @@ std::shared_ptr<PlanOperation> RegisterQuery::parse(const Json::Value& data) {
   rq->_name = data["name"].asString();
 
   if (data.isMember("select")) {
-    const auto& select = aging::SelectExpression::parse(data["select"]);
+    rq->_select = std::move(aging::SelectExpression::parse(data["select"]));
   }
   else {
     throw std::runtime_error("empty select expression currently not supported"); //TODO

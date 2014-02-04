@@ -16,19 +16,20 @@ QueryManager& QueryManager::instance() {
   return *qm;
 }
 
-void QueryManager::registerQuery(const std::string& name, const param_list_t& params) {
+void QueryManager::registerQuery(const std::string& name, std::unique_ptr<aging::SelectExpression>&& select) {
   if (exists(name))
     return; //TODO throw std::runtime_error("Query \"" + name + "\" already exists");
+  select->verify();
 
   const query_t id = _queryParameters.size();
-  _queryParameters.push_back(params);
+  _queryParameters.push_back(std::move(select));
   _queryNames.insert(std::make_pair(name, id));
 
   std::cout << "register Query \"" << name << "\"" << std::endl;
 
   cleanRegistered();
 
-  for (const auto& registeredIndex : _registered) {
+  /*TODO for (const auto& registeredIndex : _registered) {
     const auto& index = registeredIndex.lock();
     const auto tableId = index->table()->id();
     std::vector<field_t> fields;
@@ -36,7 +37,7 @@ void QueryManager::registerQuery(const std::string& name, const param_list_t& pa
       if (param.table == tableId)
         fields.push_back(param.field);
     }
-  }
+  }*/
 }
 
 bool QueryManager::exists(const std::string& name) const {
@@ -63,18 +64,18 @@ const std::string& QueryManager::getName(query_t query) const {
   throw std::runtime_error("QueryID is not registered");
 }
 
-param_list_t QueryManager::parametersOf(const std::string& query) const {
-  return parametersOf(getId(query));
+aging::SelectExpression* QueryManager::selectExpressionOf(const std::string& query) const {
+  return selectExpressionOf(getId(query));
 }
 
-param_list_t QueryManager::parametersOf(query_t query) const {
+aging::SelectExpression* QueryManager::selectExpressionOf(query_t query) const {
   if (query >= _queryParameters.size())
     throw std::runtime_error("invalid query id");
-  return _queryParameters.at(query);
+  return _queryParameters.at(query).get();
 }
 
 void QueryManager::registerAgingIndex(std::shared_ptr<storage::AgingIndex> index) {
-  const auto tableId = index->table()->id();
+  /*TODO const auto tableId = index->table()->id();
   std::vector<field_t> fields;
 
   for (query_t id = 0; id < _queryParameters.size(); ++id) {
@@ -83,12 +84,13 @@ void QueryManager::registerAgingIndex(std::shared_ptr<storage::AgingIndex> index
       if (param.table == tableId)
         fields.push_back(param.field);
     }
-  }
+  }*/
 
   _registered.push_back(index);
 }
 
 void QueryManager::cleanRegistered() {
+  //TODO necessary
   _registered.erase(
     std::remove_if(_registered.begin(), _registered.end(),
         [](const std::weak_ptr<storage::AgingIndex>& index) { return index.expired(); }),

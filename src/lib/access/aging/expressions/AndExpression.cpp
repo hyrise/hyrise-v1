@@ -9,8 +9,13 @@ namespace hyrise {
 namespace access {
 namespace aging {
 
-std::unique_ptr<AbstractExpression> AndExpression::expression() {
+std::unique_ptr<AbstractExpression> AndExpression::expression() const {
   //TODO
+}
+
+void AndExpression::verify() const {
+  for (const auto& subExpression : _subExpressions)
+    subExpression->verify();
 }
 
 std::unique_ptr<AndExpression> AndExpression::parse(const Json::Value& data) {

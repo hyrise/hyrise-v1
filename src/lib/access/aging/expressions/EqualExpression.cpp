@@ -4,13 +4,20 @@
 #include <iostream>
 
 #include <helper/make_unique.h>
+#include <io/StorageManager.h>
 
 namespace hyrise {
 namespace access {
 namespace aging {
 
-std::unique_ptr<AbstractExpression> EqualExpression::expression() {
+std::unique_ptr<AbstractExpression> EqualExpression::expression() const {
   //TODO
+}
+
+void EqualExpression::verify() const {
+  const auto& sm = *io::StorageManager::getInstance();
+  const auto& table = sm.get<storage::AbstractTable>(_table);
+  table->numberOfColumn(_field);
 }
 
 std::unique_ptr<EqualExpression> EqualExpression::parse(const Json::Value& data) {

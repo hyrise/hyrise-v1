@@ -14,7 +14,8 @@ class SelectExpression {
 public:
   virtual ~SelectExpression() {}
 
-  virtual std::unique_ptr<AbstractExpression> expression() = 0;
+  virtual std::unique_ptr<AbstractExpression> expression() const = 0;
+  virtual void verify() const = 0;
 
   static std::unique_ptr<SelectExpression> parse(const Json::Value& data);
 };

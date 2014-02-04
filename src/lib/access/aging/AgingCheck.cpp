@@ -19,27 +19,32 @@ namespace {
 
 
 AgingCheck::~AgingCheck() {
-  for (const auto& table : _fields) {
-    const auto tableParams = table.second;
-    for (const auto& field : tableParams) {
-      switch (field.type) {
-        case IntegerType: delete (hyrise_int_t*) field.data; break;
-        case FloatType: delete (hyrise_float_t*) field.data; break;
-        case StringType: delete (hyrise_string_t*) field.data; break;
-        default: throw std::runtime_error("unsupported field type");
-      }
+  for (const auto& param : _paramList) {
+    switch (param.type) {
+      case IntegerType: delete (hyrise_int_t*) param.data; break;
+      case FloatType: delete (hyrise_float_t*) param.data; break;
+      case StringType: delete (hyrise_string_t*) param.data; break;
+      default: throw std::runtime_error("unsupported field type");
     }
   }
 }
 
 void AgingCheck::executePlanOperation() {
-  const auto& sm = *io::StorageManager::getInstance();
-  const auto& qm = QueryManager::instance();
+  output = input; //TODO rethink maybe
 
-  qm.assureExists(_queryName);
-  for (const auto& tableParams : _fields) {
-    const auto& tableName = tableParams.first;
-    sm.assureExists(tableName);
+  const auto& qm = QueryManager::instance();
+  if (!qm.exists(_queryName)) {
+    std::cout << "query not registered => COLD" << std::endl;
+    return;
+  }
+
+  while (_paramList.size() > 0 ) {
+    const auto ret = handleOneTable(_paramList);
+    std::cout << ">>>>>>>>>" << ret.first << ": " << (ret.second ? "HOT" : "COLD") << std::endl;
+  }
+
+  /*for (const auto& param : _paramList) {
+    sm.assureExists(param.table);
 
     const auto& table = sm.get<storage::AbstractTable>(tableName);
 
@@ -83,9 +88,31 @@ void AgingCheck::executePlanOperation() {
     }
 
     std::cout << ">>>>>>>>>" << tableName << ": " << (hot ? "HOT" : "COLD") << std::endl;
+  }*/
+}
+
+std::pair<std::string, bool> AgingCheck::handleOneTable(std::vector<param_data_t>& paramList) {
+  if (paramList.size() == 0)
+    throw std::runtime_error("this should not happen");
+  const std::string table = paramList[0].table;
+
+  const auto& sm = *io::StorageManager::getInstance();
+  const auto& qm = QueryManager::instance();
+
+  auto it = paramList.begin();
+  while(it != paramList.end()) {
+    if ((*it).table == table) {
+      //TODO
+
+      std::cout << "AgingCheck for " << table << "." << (*it).field << std::endl;
+      paramList.erase(it);
+    }
+    else {
+      ++it;
+    }
   }
 
-  output = input; // don't stand in the way of calculation, pass everything on
+  return std::make_pair(table, true);
 }
 
 std::shared_ptr<PlanOperation> AgingCheck::parse(const Json::Value &data) {
@@ -96,37 +123,29 @@ std::shared_ptr<PlanOperation> AgingCheck::parse(const Json::Value &data) {
   ac->_queryName = data["query"].asString();
 
   if (data.isMember("parameters")) {
-     const auto& params = data["parameters"];
-     for (unsigned i = 0; i < params.size(); ++i) {
-       const auto& table = params[i];
-       if (!table.isMember("table"))
-         throw std::runtime_error("A table needs to be specified for a parameter list");
-       const auto& tableName = table["table"].asString();
+    const auto& params = data["parameters"];
+    for (unsigned i = 0; i < params.size(); ++i) {
+      const auto& param = params[i];
+      if (!param.isMember("table"))
+        throw std::runtime_error("A table needs to be specified for a parameter");
+      const auto& tableName = param["table"].asString();
 
-       field_data_list_t fieldVector;
-       if (table.isMember("parameters")) {
-         const auto& fields = table["parameters"];
-         for (unsigned j = 0; j < fields.size(); ++j) {
-           const auto& fieldData = fields[j];
-           if (fieldData.size() != 2)
-             throw std::runtime_error("there have to be exactly two members, one"
-                                      " for the field name and one for the value");
-           const auto& fieldName = fieldData[0].asString();
-           const auto& value = fieldData[1];
+      if (!param.isMember("field"))
+        throw std::runtime_error("A field needs to be specified for a parameter");
+      const auto& fieldName = param["field"].asString();
 
-           if (value.isInt())
-             fieldVector.push_back({fieldName, IntegerType, new hyrise_int_t(value.asInt())});
-           else if (value.isDouble())
-             fieldVector.push_back({fieldName, FloatType, new hyrise_float_t(value.asDouble())});
-           else if (value.isString())
-             fieldVector.push_back({fieldName, StringType, new hyrise_string_t(value.asString())});
-           else
-             throw std::runtime_error("cannot recognize data type");
-         }
-       }
-
-       ac->_fields.insert(std::make_pair(tableName, fieldVector));
-     }
+      if (!param.isMember("value"))
+        throw std::runtime_error("A value needs to be specified for a parameter");
+      const auto& value = param["value"];
+      if (value.isInt())
+        ac->_paramList.push_back({tableName, fieldName, IntegerType, new hyrise_int_t(value.asInt())});
+      else if (value.isDouble())
+        ac->_paramList.push_back({tableName, fieldName, FloatType, new hyrise_float_t(value.asDouble())});
+      else if (value.isString())
+        ac->_paramList.push_back({tableName, fieldName, StringType, new hyrise_string_t(value.asString())});
+      else
+        throw std::runtime_error("cannot recognize data type");
+    }
   }
 
   return ac;

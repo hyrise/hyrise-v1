@@ -11,7 +11,8 @@ class AndExpression : public SelectExpression {
 public:
   virtual ~AndExpression() {}
 
-  virtual std::unique_ptr<AbstractExpression> expression();
+  virtual std::unique_ptr<AbstractExpression> expression() const;
+  virtual void verify() const;
 
   static std::unique_ptr<AndExpression> parse(const Json::Value& data);
 

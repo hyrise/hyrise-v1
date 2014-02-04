@@ -11,7 +11,8 @@ class EqualExpression : public SelectExpression {
 public:
   virtual ~EqualExpression() {}
 
-  virtual std::unique_ptr<AbstractExpression> expression();
+  virtual std::unique_ptr<AbstractExpression> expression() const;
+  virtual void verify() const;
 
   static std::unique_ptr<EqualExpression> parse(const Json::Value& data);
 
