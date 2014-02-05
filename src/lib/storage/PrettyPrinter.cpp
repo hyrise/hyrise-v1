@@ -68,7 +68,10 @@ void PrettyPrinter::special_print(const Store* store, std::ostream& outStream, c
   ftprinter::FTPrinter tp(tableName, outStream);
   tp.addColumn("#rowid", 6);
   const size_t columns = store->columnCount();
-  auto prepareLimit = (limit < (size_t) -1) ? limit : store->size(); 
+  
+  // TODO: how about using limit=0 as parameter to print whole table instead of strange -1 for unsigned?
+  auto prepareLimit = (limit < (size_t) -1) ? std::min(limit, store->size()) : store->size();
+
   for (size_t column_index = 0; column_index < columns; ++column_index) {
     // Auto adjusting widths means iterating over the table twice, but we use it for
     // debugging purposes only, anyways, so we'll go with beauty of output here
