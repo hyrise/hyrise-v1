@@ -13,9 +13,14 @@ public:
   virtual ~AbstractStatistic();
 
   virtual bool isHot(access::query_t query, value_id_t value) const = 0;
-  virtual bool isRegistered(access::query_t query) const = 0;
+  virtual bool isQueryRegistered(access::query_t query) const = 0;
+  virtual bool isValueRegistered(value_id_t vid) const = 0;
 
-  virtual void valuesDo(std::function<void(access::query_t, value_id_t, bool)> func) const = 0;
+  virtual void valuesDo(access::query_t query, std::function<void(value_id_t, bool)> func) const = 0;
+  virtual void valuesDo(std::function<void(access::query_t, value_id_t, bool)> func) const;
+
+  virtual std::vector<access::query_t> queries() const = 0;
+  virtual std::vector<value_id_t> vids() const = 0;
 
 protected:
   atable_ptr_t table() const;

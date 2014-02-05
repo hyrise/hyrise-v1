@@ -16,10 +16,15 @@ public:
   bool isHot(const std::string& query, storage::value_id_t value) const;
   virtual bool isHot(query_t query, storage::value_id_t value) const;
 
-  bool isRegistered(const std::string& query) const;
-  virtual bool isRegistered(query_t query) const;
+  bool isQueryRegistered(const std::string& query) const;
+  virtual bool isQueryRegistered(query_t query) const;
+  bool isValueRegistered(const std::string& value) const;
+  virtual bool isValueRegistered(storage::value_id_t vid) const;
 
-  virtual void valuesDo(std::function<void(query_t, storage::value_id_t, bool)> func) const;
+  virtual void valuesDo(query_t query, std::function<void(storage::value_id_t, bool)> func) const;
+
+  virtual std::vector<query_t> queries() const;
+  virtual std::vector<storage::value_id_t> vids() const;
 
 private:
   const storage::c_atable_ptr_t _statisticTable;

@@ -15,6 +15,12 @@ AbstractStatistic::AbstractStatistic(atable_ptr_t table, field_t field) :
 
 AbstractStatistic::~AbstractStatistic() {}
 
+void AbstractStatistic::valuesDo(std::function<void(access::query_t, value_id_t, bool)> func) const {
+  const auto& queries = this->queries();
+  for (const auto& query : queries)
+    valuesDo(query, [&query, &func] (value_id_t vid, bool hot) { func(query, vid, hot); });
+}
+
 atable_ptr_t AbstractStatistic::table() const {
   return _table.lock();
 }

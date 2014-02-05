@@ -1,8 +1,82 @@
 // Copyright (c) 2014 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#include "MapStatistic.h"
+#include "StatisticSnapshot.h"
+
+#include <access/aging/QueryManager.h>
 
 namespace hyrise {
 namespace access {
+
+namespace {
+
+value_id_map_t createVidMap(const std::vector<storage::value_id_t>& vids) {
+  value_id_map_t map;
+  size_t cur = 0;
+
+  for (const auto& vid : vids) {
+    const auto x = map.insert(std::make_pair(vid, cur++));
+    if (!x.second)
+      throw std::runtime_error("value id exists multiple times!");
+  }
+
+  return map;
+}
+
+} // namespace
+
+StatisticSnapshot::StatisticSnapshot(const storage::AbstractStatistic& other) :
+    AbstractStatistic(other),
+    _vidMap(createVidMap(other.vids())) {
+  //TODO create hotnessMap
+}
+
+bool StatisticSnapshot::isHot(query_t query, storage::value_id_t value) const {
+  const auto& hotnessVector = _hotnessMap.find(query);
+  if (hotnessVector == _hotnessMap.cend())
+    return false;
+
+  const auto& internalId = _vidMap.find(value);
+  if (internalId == _vidMap.cend())
+    return false;
+  
+  return hotnessVector->second.at(internalId->second);
+}
+
+bool StatisticSnapshot::isQueryRegistered(query_t query) const {
+  return _hotnessMap.find(query) != _hotnessMap.cend();
+}
+
+bool StatisticSnapshot::isValueRegistered(storage::value_id_t vid) const {
+  return _vidMap.find(vid) != _vidMap.cend();
+}
+
+void StatisticSnapshot::valuesDo(query_t query, std::function<void(storage::value_id_t, bool)> func) const {
+  if (!isQueryRegistered(query)) {
+    //TODO maybe delete for performance
+    const auto& qm = QueryManager::instance();
+    if (!qm.exists(qm.getName(query)))
+      throw std::runtime_error("QueryID does not exists");
+    return;
+  }
+  const auto& hotnessVector = _hotnessMap.at(query);
+  for (const auto& vid : _vidMap)
+    func(vid.first, hotnessVector.at(vid.second));
+}
+
+std::vector<query_t> StatisticSnapshot::queries() const {
+  std::vector<query_t> ret(_hotnessMap.size());
+  size_t cur = 0;
+  for (const auto& query : _hotnessMap)
+    ret[cur++] = query.first;
+  return ret;
+}
+
+std::vector<storage::value_id_t> StatisticSnapshot::vids() const {
+  std::vector<storage::value_id_t> ret(_vidMap.size());
+  size_t cur = 0;
+  for (const auto& vid : _vidMap)
+    ret[cur++] = vid.first;
+  return ret;
+}
 
 } } // namespace hyrise::access
 
