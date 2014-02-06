@@ -272,16 +272,21 @@ std::pair<size_t, size_t> Store::resizeDelta(size_t num) {
   return appendToDelta(num - delta->size());
 }
 
-std::pair<size_t, size_t> Store::appendToDelta(size_t num) {
-  std::size_t start =_delta_size.fetch_add(num);
-  delta->resize(start + num);
-
-  auto main_tables_size = _main_table->size();
-  _cidBeginVector.resize(main_tables_size + start + num, tx::INF_CID);
-  _cidEndVector.resize(main_tables_size + start + num, tx::INF_CID);
-  _tidVector.resize(main_tables_size + start + num, tx::START_TID);
-
-  return {start, start + num};
+std::pair<size_t, size_t> Store::appendToDelta(size_t num_rows) {
+  // By atomically drawing a range of rows unique to the calling thread...
+  std::size_t prior_delta_size =_delta_size.fetch_add(num_rows);
+  delta->resize(prior_delta_size + num_rows);  
+  auto main_size = _main_table->size();
+  auto new_size = main_size + prior_delta_size + num_rows;
+  auto grow_and_fill = [=] (tbb::concurrent_vector<tx::transaction_id_t>& vector, tx::transaction_id_t value) {
+    vector.grow_to_at_least(new_size);
+    // ... we can fill the drawn range without interferring with other threads
+    std::fill(std::begin(vector) + main_size + prior_delta_size, std::begin(vector) + new_size, value);
+  };
+  grow_and_fill(_cidBeginVector, tx::INF_CID);
+  grow_and_fill(_cidEndVector, tx::INF_CID);
+  grow_and_fill(_tidVector, tx::START_TID);
+  return {prior_delta_size, prior_delta_size + num_rows};
 }
 
 void Store::copyRowToDelta(const c_atable_ptr_t& source, const size_t src_row, const size_t dst_row, tx::transaction_id_t tid) {
