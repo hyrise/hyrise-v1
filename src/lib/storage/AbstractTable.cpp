@@ -134,30 +134,6 @@ void AbstractTable::copyValueFrom(const c_atable_ptr_t& source, const size_t src
   }
 }
 
-void AbstractTable::copyValueFrom(const c_atable_ptr_t& source, const size_t src_col, const ValueId vid, const size_t dst_col, const size_t dst_row) {
-  switch (source->typeOfColumn(src_col)) {
-  case IntegerType:
-  case IntegerTypeDelta:
-  case IntegerTypeDeltaConcurrent:
-    setValue<hyrise_int_t>(dst_col, dst_row, source->getValueForValueId<hyrise_int_t>(src_col, vid));
-    break;
-  case IntegerNoDictType:
-    setValue<hyrise_int32_t>(dst_col, dst_row, source->getValueForValueId<hyrise_int32_t>(src_col, vid));
-    break;
-  case FloatType:
-  case FloatTypeDelta:
-  case FloatTypeDeltaConcurrent:
-  case FloatNoDictType:
-    setValue<hyrise_float_t>(dst_col, dst_row, source->getValueForValueId<hyrise_float_t>(src_col, vid));
-    break;
-  case StringType:
-  case StringTypeDelta:
-  case StringTypeDeltaConcurrent:
-    setValue<hyrise_string_t>(dst_col, dst_row, source->getValueForValueId<hyrise_string_t>(src_col, vid));
-    break;
-  }
-}
-
 void AbstractTable::copyRowFrom(const c_atable_ptr_t& source, const size_t src_row, const size_t dst_row, const bool copy_values, const bool use_memcpy) {
   if (copy_values) {
     for (size_t column = 0; column < source->columnCount(); column++) {
