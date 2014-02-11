@@ -1,7 +1,9 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "io/CSVLoader.h"
 
+#include <algorithm>
 #include <fstream>
+#include <iostream>
 
 #include "io/GenericCSV.h"
 #include "io/MetadataCreation.h"
@@ -73,26 +75,23 @@ void cb_per_line(int separator, struct cb_data *data) {
 
 uint64_t countLines(const std::string &filename) {
   int numLines = 0;
+
   std::ifstream in(filename);
+  
   std::string l;
   while (std::getline(in, l))
-    ++numLines;
-
-  //  if (l.size() == 0)
-  //  --numLines;
-
-  return numLines;
+    ++numLines; 
+  return numLines; 
 }
 
 bool detectHeader(const std::string &filename) {
   // Take a peak into file to check wether it features a header
-  std::ifstream file(filename.c_str());
+  std::ifstream file(filename);
   if (file.fail()) {
     throw CSVLoaderError("File '" + filename + "' does not exist");
   }
   std::string line;
   for (int i = 0; i < 4; ++i) getline(file, line);
-  file.close();
   return "===" == line;
 }
 

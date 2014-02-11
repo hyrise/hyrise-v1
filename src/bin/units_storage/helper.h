@@ -6,7 +6,7 @@
 #include <storage/storage_types.h>
 #include <storage/Table.h>
 #include <storage/HashTable.h>
-#include <storage/GroupValue.h>
+
 #include <algorithm>
 
 template <typename HT>
