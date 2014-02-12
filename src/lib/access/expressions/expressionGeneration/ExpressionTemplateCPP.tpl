@@ -47,7 +47,8 @@ void {{ expression.name }}::evaluateMain(pos_list_t *results) {
     {% endif %}
   {% endfor %}
 
-  for(size_t currentRow = 0; currentRow < _mainVector[0]->size(); ++currentRow) {
+  size_t mainVectorSize = _mainVector[0]->size();
+  for(size_t currentRow = 0; currentRow < mainVectorSize; ++currentRow) {
     if ( {{expression.evaluationString}} )
       results->push_back(currentRow);
   }
@@ -60,7 +61,8 @@ void {{ expression.name }}::evaluateDelta(pos_list_t *results) {
     valueId{{number}} = _deltaDictionary{{number}}->getValueId(_value{{number}}, false);
   {% endfor %}
 
-  for(size_t currentRow = 0; currentRow < _deltaVector[0]->size(); ++currentRow) {
+  size_t deltaVectorSize = _deltaVector[0]->size();
+  for(size_t currentRow = 0; currentRow < deltaVectorSize; ++currentRow) {
     if ( {{expression.evaluationStringDelta}} )
       results->push_back(currentRow + deltaOffsetInTable);
   }
