@@ -64,13 +64,10 @@ Table::Table(std::vector<ColumnMetadata> m,
              SharedAttributeVector av,
              std::vector<SharedDictionary> dicts) :
   tuples(av),
-  _metadata(m.size()),
+  _metadata(m),
   _dictionaries(dicts),
   width(m.size()) {
   assert(m.size() == dicts.size() && "Metadata size and dictionaries must match");
-  for (size_t i = 0; i < width; i++) {
-    _metadata[i] = m.at(i);
-  }
 }
 
 

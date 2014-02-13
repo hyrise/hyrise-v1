@@ -11,8 +11,6 @@ namespace hyrise {
 
 std::string data_type_to_string(DataType d);
 
-pos_list_t *pos_list_intersection(pos_list_t *p1, pos_list_t *p2, const bool deleteInput = false);
-
 struct HyriseHelper {
 
   /**

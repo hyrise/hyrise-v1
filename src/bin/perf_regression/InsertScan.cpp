@@ -71,31 +71,42 @@ void bench(F func, std::size_t threads_sz=10) {
   }
 }
 
-typedef struct { storage::atable_ptr_t base; storage::atable_ptr_t insert; std::size_t threads; } params;
+typedef struct { std::function<std::pair<storage::atable_ptr_t, storage::atable_ptr_t>()> base; std::size_t threads; } params;
 
 class InsertTest : public ::testing::TestWithParam<params> {
+ public:
+  storage::atable_ptr_t data, tbl;
+  std::size_t threads;
+  void SetUp() {
+    auto param = GetParam();
+    std::tie(data, tbl) = param.base();
+    threads = param.threads;
 
+  }
 };
 
 std::vector<params> generateParams() {
   std::vector<params> results;
   for (std::size_t t:{1,2,4,8,16,32}) {
     for (std::size_t opt=0; opt < 3; opt++) {
-      auto data = io::Loader::shortcuts::load("test/test10k_12.tbl");
-      storage::atable_ptr_t tbl;
-      // slightly hack-ish: opt distinguishes different insertion options
-      if (opt == 0) {
-        tbl = io::Loader::shortcuts::load("test/test10k_12.tbl", io::Loader::params().setReturnsMutableVerticalTable(true));
-      } else {
-        tbl = data->copy_structure_modifiable();
-        tbl->resize(opt);
-        for (auto col=0u; col<20; ++col) {
-          for (auto row=0u; row<opt; ++row) {
-            tbl->setValue<hyrise_int_t>(col, row, row+col);
+      auto func = [=] () {
+        auto data = io::Loader::shortcuts::load("test/test10k_12.tbl");
+        storage::atable_ptr_t tbl;
+        // slightly hack-ish: opt distinguishes different insertion options
+        if (opt == 0) {
+          tbl = io::Loader::shortcuts::load("test/test10k_12.tbl", io::Loader::params().setReturnsMutableVerticalTable(true));
+        } else {
+          tbl = data->copy_structure_modifiable();
+          tbl->resize(opt);
+          for (auto col=0u; col<20; ++col) {
+            for (auto row=0u; row<opt; ++row) {
+              tbl->setValue<hyrise_int_t>(col, row, row+col);
+            }
           }
         }
-      }
-      results.push_back({data, tbl, t});
+        return std::make_pair(data, tbl);
+      };
+      results.push_back({func, t});
     }
   }
   return results;
@@ -103,12 +114,9 @@ std::vector<params> generateParams() {
 
 
 TEST_P(InsertTest, concurrent_writes_single_insert) {
-  auto param = GetParam();
-  auto data = param.base;
-  auto tbl = param.insert;
   auto d_before = data->size();
   auto insert_rows = tbl->size();
-  const auto runs = 1000000 / insert_rows / param.threads;
+  const auto runs = 1000000 / insert_rows / threads;
   auto before = std::chrono::high_resolution_clock::now();
   auto l = [&]() {
     for (std::size_t d=0;d<runs;d++) {
@@ -125,11 +133,11 @@ TEST_P(InsertTest, concurrent_writes_single_insert) {
       c.execute();
     }
   };
-  bench(l, param.threads);
+  bench(l, threads);
 
   auto after = std::chrono::high_resolution_clock::now();
   auto ms = std::chrono::duration_cast<std::chrono::milliseconds>(after - before).count();
-  this->RecordProperty("threads", param.threads);
+  this->RecordProperty("threads", threads);
   this->RecordProperty("inserts/commit", tbl->size());
   this->RecordProperty("rows/ms", (data->size() - d_before) / ms);
 }

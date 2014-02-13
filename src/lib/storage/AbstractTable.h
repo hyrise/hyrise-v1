@@ -405,19 +405,6 @@ public:
    */
   void copyValueFrom(const c_atable_ptr_t& source, size_t src_col, size_t src_row, size_t dst_col, size_t dst_row);
 
-
-  /**
-   * Copies a value from another table by column and value-ID.
-   *
-   * @param source  Table from which to copy the value.
-   * @param src_col Column of the source cell.
-   * @param vid     Value-ID in the source Column.
-   * @param dst_col Column of the target cell.
-   * @param dst_row Row of the target cell.
-   */
-  void copyValueFrom(const c_atable_ptr_t& source, size_t src_col, ValueId vid, size_t dst_col, size_t dst_row);
-
-
   /**
    * Copies a row from another table with or without values.
    *
