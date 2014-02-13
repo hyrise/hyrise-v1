@@ -14,6 +14,7 @@
 #include <queue>
 #include <condition_variable>
 #include <taskscheduler/SharedScheduler.h>
+#include "tbb/concurrent_queue.h"
 
 namespace hyrise {
 namespace taskscheduler {
@@ -42,27 +43,12 @@ class CentralScheduler :
   public std::enable_shared_from_this<TaskReadyObserver> {
   friend class WorkerThread;
 protected:
-  typedef std::unordered_set<std::shared_ptr<Task> > waiting_tasks_t;
-  // set for tasks with open dependencies
-  waiting_tasks_t _waitSet;
-  // mutex to protect waitset
-  lock_t _setMutex;
   // queue of tasks that are ready to run
-  std::queue<std::shared_ptr<Task> > _runQueue;
-  // mutex to protect ready queue
-  lock_t _queueMutex;
-  // vector of worker threads
+  tbb::concurrent_queue<std::shared_ptr<Task>> _runQueue;
   std::vector<std::thread> _worker_threads;
-  // condition variable to wake up workers
-  std::condition_variable_any _condition;
   // scheduler status
   scheduler_status_t _status;
-  // mutex to protect status
-  lock_t _statusMutex;
-
   static log4cxx::LoggerPtr _logger;
-
-
 public:
   CentralScheduler(int threads = getNumberOfCoresOnSystem());
   virtual ~CentralScheduler();

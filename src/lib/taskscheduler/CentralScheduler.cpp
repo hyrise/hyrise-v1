@@ -76,38 +76,15 @@ CentralScheduler::~CentralScheduler() {
 }
 
 void WorkerThread::operator()(){
-  //infinite thread loop
-  while (1) {
-    if (scheduler._status == scheduler.TO_STOP){
-      break;
-    }
-    // lock queue to get task
-    std::unique_lock<lock_t> ul(scheduler._queueMutex);
-    // get task and execute
-    if (scheduler._runQueue.size() > 0) {
-      std::shared_ptr<Task> task = scheduler._runQueue.front();
-      // get first task
-      scheduler._runQueue.pop();
-      ul.unlock();
-      if (task) {
-        (*task)();
-        LOG4CXX_DEBUG(scheduler._logger, "Executed task " << task->vname() << "; hex " << std::hex << &task << std::dec);
-        // notify done observers that task is done
-        task->notifyDoneObservers();
-      }
-    }
-    // no task in runQueue -> sleep and wait for new tasks
-    else {
-      //if queue still empty go to sleep and wait until new tasks have been arrived
-      if (scheduler._runQueue.size() < 1) {
-        // if thread is about to stop, break execution loop
-
-        if (scheduler._status != scheduler.RUN)
-          continue;
-
-        
-        scheduler._condition.wait(ul);
-      }
+  // worker loop
+  while (true) {
+    if (scheduler._status == scheduler.TO_STOP) { break; } // break out when asked
+    std::shared_ptr<Task> task = nullptr;
+    if (scheduler._runQueue.try_pop(task)) {
+      (*task)();
+      task->notifyDoneObservers();
+    } else {
+      std::this_thread::yield();
     }
   }
 }
@@ -116,35 +93,21 @@ void WorkerThread::operator()(){
  * schedule a task for execution
  */
 void CentralScheduler::schedule(std::shared_ptr<Task> task){
-  // simple strategy: check if task is ready to run -> push to run_queue
-  // otherwise store in wait list
-
-  // lock the task - otherwise, a notify might happen prior to the task being added to the wait set
   task->lockForNotifications();
-  if (task->isReady()){
-    std::lock_guard<lock_t> lk(_queueMutex);
+  if (task->isReady()) {
     _runQueue.push(task);
-    _condition.notify_one();
-  }
-  else {
+  } else {
     task->addReadyObserver(shared_from_this());
-    std::lock_guard<lock_t> lk(_setMutex);
-    _waitSet.insert(task);
-    LOG4CXX_DEBUG(_logger,  "Task " << std::hex << (void *)task.get() << std::dec << " inserted in wait queue");
   }
   task->unlockForNotifications();
 }
+
 /*
  * shutdown task scheduler; makes sure all underlying threads are stopped
  */
 void CentralScheduler::shutdown(){
   {
-    std::lock_guard<lock_t> lk(_queueMutex);
-    {
-      _status = TO_STOP;
-    }
-    //wake up thread in case thread is sleeping
-    _condition.notify_all();
+    _status = TO_STOP;
   }
   for(size_t i = 0; i < _worker_threads.size(); i++){
     _worker_threads[i].join();
@@ -163,20 +126,7 @@ size_t CentralScheduler::getNumberOfWorker() const{
  * notify scheduler that a given task is ready
  */
 void CentralScheduler::notifyReady(std::shared_ptr<Task> task) {
-  // remove task from wait set
-  _setMutex.lock();
-  int tmp = _waitSet.erase(task);
-  _setMutex.unlock();
-
-  // if task was found in wait set, schedule task to next queue
-  if (tmp == 1) {
-    LOG4CXX_DEBUG(_logger, "Task " << std::hex << (void *)task.get() << std::dec << " ready to run");
-    std::lock_guard<lock_t> lk(_queueMutex);
-    _runQueue.push(task);
-    _condition.notify_one();
-  } else
-    // should never happen, but check to identify potential race conditions
-    LOG4CXX_ERROR(_logger, "Task that notified to be ready to run was not found / found more than once in waitSet! " << std::to_string(tmp));
+  _runQueue.push(task);
 }
 
 } } // namespace hyrise::taskscheduler
