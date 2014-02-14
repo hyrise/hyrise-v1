@@ -16,13 +16,13 @@ QueryManager& QueryManager::instance() {
   return *qm;
 }
 
-void QueryManager::registerQuery(const std::string& name, std::unique_ptr<aging::SelectExpression>&& select) {
+void QueryManager::registerQuery(const std::string& name, std::shared_ptr<aging::SelectExpression> select) {
   if (exists(name))
     return; //TODO throw std::runtime_error("Query \"" + name + "\" already exists");
   select->verify();
 
-  const query_t id = _queryParameters.size();
-  _queryParameters.push_back(std::move(select));
+  const query_t id = _selectExpressions.size();
+  _selectExpressions.push_back(select);
   _queryNames.insert(std::make_pair(name, id));
 
   std::cout << "register Query \"" << name << "\"" << std::endl;
@@ -64,29 +64,19 @@ const std::string& QueryManager::getName(query_t query) const {
   throw std::runtime_error("QueryID is not registered");
 }
 
-aging::SelectExpression* QueryManager::selectExpressionOf(const std::string& query) const {
-  return selectExpressionOf(getId(query));
-}
-
-aging::SelectExpression* QueryManager::selectExpressionOf(query_t query) const {
-  if (query >= _queryParameters.size())
+std::shared_ptr<aging::SelectExpression> QueryManager::selectExpressionOf(query_t query) const {
+  if (query >= _selectExpressions.size())
     throw std::runtime_error("invalid query id");
-  return _queryParameters.at(query).get();
+  return _selectExpressions.at(query);
 }
 
-void QueryManager::registerAgingIndex(std::shared_ptr<storage::AgingIndex> index) {
-  /*TODO const auto tableId = index->table()->id();
-  std::vector<field_t> fields;
-
-  for (query_t id = 0; id < _queryParameters.size(); ++id) {
-    const auto& query = _queryParameters.at(id);
-    for (const auto& param : query) {
-      if (param.table == tableId)
-        fields.push_back(param.field);
-    }
-  }*/
-
-  _registered.push_back(index);
+std::vector<query_t> QueryManager::queriesOfTable(storage::atable_ptr_t table) {
+  std::vector<query_t> ret;
+  for (unsigned i = 0; i < _selectExpressions.size(); ++i) {
+    if (_selectExpressions.at(i)->accessesTable(table))
+      ret.push_back(i);
+  }
+  return ret;
 }
 
 void QueryManager::cleanRegistered() {

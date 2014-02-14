@@ -96,8 +96,9 @@ std::pair<std::string, bool> AgingCheck::handleOneTable(std::vector<param_data_t
     throw std::runtime_error("this should not happen");
   const std::string table = paramList[0].table;
 
-  const auto& sm = *io::StorageManager::getInstance();
-  const auto& qm = QueryManager::instance();
+  //TODO
+  //const auto& sm = *io::StorageManager::getInstance();
+  //const auto& qm = QueryManager::instance();
 
   auto it = paramList.begin();
   while(it != paramList.end()) {

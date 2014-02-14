@@ -9,17 +9,19 @@ namespace aging {
 
 class AndExpression : public SelectExpression {
 public:
+  AndExpression(const std::vector<std::shared_ptr<SelectExpression>>& subExpressions);
   virtual ~AndExpression() {}
 
-  virtual std::unique_ptr<AbstractExpression> expression() const;
+  virtual SimpleExpression* expression(storage::atable_ptr_t table,
+                                       const std::map<storage::field_t, std::vector<storage::value_id_t>>& vids) const;
   virtual void verify() const;
 
-  static std::unique_ptr<AndExpression> parse(const Json::Value& data);
+  static std::shared_ptr<AndExpression> parse(const Json::Value& data);
+
+  virtual bool accessesTable(storage::atable_ptr_t table) const;
 
 private:
-  AndExpression(std::vector<std::unique_ptr<SelectExpression>>&& subExpressions);
-
-  std::vector<std::unique_ptr<SelectExpression>> _subExpressions;
+  std::vector<std::shared_ptr<SelectExpression>> _subExpressions;
 };
 
 } } } // namespace aging::hyrise::access

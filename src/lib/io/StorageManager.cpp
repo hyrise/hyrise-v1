@@ -22,6 +22,7 @@
 #include "storage/AbstractTable.h"
 #include "storage/ColumnMetadata.h"
 #include "storage/TableBuilder.h"
+#include "storage/AbstractStatistic.h"
 
 namespace hyrise {
 namespace io {
@@ -132,32 +133,62 @@ void StorageManager::addInvertedIndex(std::string name, std::shared_ptr<storage:
 }
 
 namespace {
-  std::string agingIndexName(const std::string& tableName, const std::string& fieldName) {
+  std::string getAgingIndexName(const std::string& tableName, const std::string& fieldName) {
     return "__ai::" + tableName + "::" + fieldName;
   }
 } // namespace
 
-std::shared_ptr<storage::AgingIndex> StorageManager::getAgingIndexFor(const std::string& name, const std::string& field) const {
-  if (hasAgingIndex(name, field))
-    return get<storage::AgingIndex>(agingIndexName(name, field));
+storage::aging_index_ptr_t StorageManager::getAgingIndexFor(const std::string& table, const std::string& field) const {
+  if (hasAgingIndex(table, field))
+    return get<storage::AgingIndex>(getAgingIndexName(table, field));
   throw std::runtime_error("there is no aging index. it might automaticly created here ... might ... maybe");
 }
 
-void StorageManager::setAgingIndexFor(const std::string& name, const std::string& field,
-                                      const std::shared_ptr<storage::AgingIndex>& index) {
-  if (hasAgingIndex(name, field)) throw std::runtime_error("there already is a aging index for table \"" + name + "\"");
-  get<storage::AbstractTable>(name)->numberOfColumn(field); // check for existance
-  add(agingIndexName(name, field), index);
+void StorageManager::setAgingIndexFor(const std::string& table, const std::string& field,
+                                      const storage::aging_index_ptr_t& index) {
+  if (hasAgingIndex(table, field)) throw std::runtime_error("there already is a aging index for " + table + "." + field);
+  get<storage::AbstractTable>(table)->numberOfColumn(field); // check for existance
+  add(getAgingIndexName(table, field), index);
 }
 
-bool StorageManager::hasAgingIndex(const std::string& name, const std::string& field) const {
-  get<storage::AbstractTable>(name); // check whether "name" exists and is a table
-  const auto indexName = agingIndexName(name, field);
+bool StorageManager::hasAgingIndex(const std::string& table, const std::string& field) const {
+  get<storage::AbstractTable>(table); // check whether "table" exists and is a table
+  const auto indexName = getAgingIndexName(table, field);
   if (!exists(indexName))
     return false;
   get<storage::AgingIndex>(indexName); // checks whether "indexname" actually is an AgingIndex
   return true;
 }
+
+
+namespace {
+  std::string getStatisticName(const std::string& tableName, const std::string& fieldName) {
+    return "__stat::" + tableName + "::" + fieldName;
+  }
+} // namespace
+
+storage::astat_ptr_t StorageManager::getStatisticFor(const std::string& table, const std::string& field) const {
+  if (hasStatistic(table, field))
+    return get<storage::AbstractStatistic>(getStatisticName(table, field));
+  throw std::runtime_error("there is no statistic for " + table + "." + field);
+}
+
+void StorageManager::setStatisticFor(const std::string& table, const std::string& field,
+                                     const storage::astat_ptr_t& statistic) {
+  if (hasStatistic(table, field)) throw std::runtime_error("there already is a statistic for " + table + "." + field);
+  get<storage::AbstractTable>(table)->numberOfColumn(field); // check for existance
+  add(getStatisticName(table, field), statistic);
+}
+
+bool StorageManager::hasStatistic(const std::string& table, const std::string& field) const {
+  get<storage::AbstractTable>(table); // check whether "table" exists and is a table
+  const auto statisticName = getStatisticName(table, field);
+  if (!exists(statisticName))
+    return false;
+  get<storage::AbstractStatistic>(statisticName); // checks whether "statisticName" actually is a Statistic
+  return true;
+}
+
 
 std::shared_ptr<storage::AbstractIndex> StorageManager::getInvertedIndex(std::string name) {
   return get<storage::AbstractIndex>(name);

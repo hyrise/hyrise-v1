@@ -22,7 +22,6 @@ public:
   virtual std::vector<access::query_t> queries() const = 0;
   virtual std::vector<value_id_t> vids() const = 0;
 
-protected:
   atable_ptr_t table() const;
   field_t field() const;
 

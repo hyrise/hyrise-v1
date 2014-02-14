@@ -8,6 +8,7 @@
 #define QUERY3 "test/aging/inv-q3.json"
 #define QUERY4 "test/aging/inv-q4.json"
 #define QUERY5 "test/aging/inv-q5.json"
+#define AGING_RUN "test/aging/agingrun.json"
 
 namespace hyrise {
 namespace access {
@@ -108,6 +109,12 @@ TEST_F(AgingTests , Query5) {
 //executeQuery5(id, shouldBeHot);
   executeQuery5(1 , true       );
   executeQuery5(17, false      );
+}
+
+TEST_F(AgingTests , AgingRun) {
+  //TODO make somehow sure enough Queries are registered
+  const auto file = loadFromFile(AGING_RUN);
+  executeAndWait(file);
 }
 
 } } // namespace hyrise::access

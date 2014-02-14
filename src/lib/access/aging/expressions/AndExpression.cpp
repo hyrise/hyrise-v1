@@ -1,16 +1,34 @@
 // Copyright (c) 2014 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "AndExpression.h"
 
-#include <iostream>
-
-#include <helper/make_unique.h>
+#include <access/expressions/pred_CompoundExpression.h>
 
 namespace hyrise {
 namespace access {
 namespace aging {
 
-std::unique_ptr<AbstractExpression> AndExpression::expression() const {
-  //TODO
+AndExpression::AndExpression(const std::vector<std::shared_ptr<SelectExpression>>& subExpressions) :
+    _subExpressions(subExpressions) {}
+
+SimpleExpression* AndExpression::expression(storage::atable_ptr_t table,
+                                            const std::map<storage::field_t, std::vector<storage::value_id_t>>& vids) const {
+  std::vector<SimpleExpression*> subExprs;
+  for (const auto& subExpression : _subExpressions) {
+    auto expr = subExpression->expression(table, vids);
+    if (expr != nullptr)
+      subExprs.push_back(expr);
+  }
+
+  if (subExprs.size() == 0)
+    return nullptr;
+  else if (subExprs.size() == 1)
+    return subExprs.front();
+
+  SimpleExpression* last = subExprs.front();
+  for (unsigned i = 1; i < subExprs.size(); ++i) {
+    last = new CompoundExpression(last, subExprs.at(i), AND);
+  }
+  return last;
 }
 
 void AndExpression::verify() const {
@@ -18,21 +36,23 @@ void AndExpression::verify() const {
     subExpression->verify();
 }
 
-std::unique_ptr<AndExpression> AndExpression::parse(const Json::Value& data) {
-  std::vector<std::unique_ptr<SelectExpression>> subs;
+std::shared_ptr<AndExpression> AndExpression::parse(const Json::Value& data) {
+  std::vector<std::shared_ptr<SelectExpression>> subs;
   if (data.isMember("sub")) {
     const auto sub = data["sub"];
-    std::cout << ">>>>>>>>>>>>>>>>>" << sub.size() << std::endl;
     for (unsigned i = 0; i < sub.size(); ++i)
       subs.push_back(SelectExpression::parse(sub[i]));
   }
   
-  return std::unique_ptr<AndExpression>(new AndExpression(std::move(subs)));
+  return std::make_shared<AndExpression>(subs);
 }
 
-AndExpression::AndExpression(std::vector<std::unique_ptr<SelectExpression>>&& subExpressions) :
-    _subExpressions(std::move(subExpressions)) {
-  std::cout << "creating AndExpression with " << _subExpressions.size() << " subexpressions" << std::endl;
+bool AndExpression::accessesTable(storage::atable_ptr_t table) const {
+  for (const auto& subExpression : _subExpressions) {
+    if (subExpression->accessesTable(table))
+      return true;
+  }
+  return false;
 }
 
 } } } // namespace aging::hyrise::access

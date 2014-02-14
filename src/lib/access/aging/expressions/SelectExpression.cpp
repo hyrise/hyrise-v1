@@ -9,7 +9,7 @@ namespace hyrise {
 namespace access {
 namespace aging {
 
-std::unique_ptr<SelectExpression> SelectExpression::parse(const Json::Value& data) {
+std::shared_ptr<SelectExpression> SelectExpression::parse(const Json::Value& data) {
   if (!data.isMember("operation"))
     throw std::runtime_error("an operation needs to be specified");
 

@@ -18,7 +18,7 @@ public:
 
   static QueryManager& instance();
 
-  void registerQuery(const std::string& name, std::unique_ptr<aging::SelectExpression>&& select);
+  void registerQuery(const std::string& name, std::shared_ptr<aging::SelectExpression> select);
 
   bool exists(const std::string& name) const;
   void assureExists(const std::string& name) const;
@@ -26,23 +26,19 @@ public:
   query_t getId(const std::string& name) const;
   const std::string& getName(query_t query) const;
 
-  aging::SelectExpression* selectExpressionOf(const std::string& query) const;
-  aging::SelectExpression* selectExpressionOf(query_t query) const;
+  std::shared_ptr<aging::SelectExpression> selectExpressionOf(query_t query) const;
 
-  //TODO necessary?
-  void registerAgingIndex(std::shared_ptr<storage::AgingIndex> index);
-
-  std::shared_ptr<storage::PointerCalculator> executeQuery(query_t query, param_list_t params);
+  std::vector<query_t> queriesOfTable(storage::atable_ptr_t table);
 
 private:
   QueryManager();
 
   void cleanRegistered();
 
-  std::vector<std::unique_ptr<aging::SelectExpression>> _queryParameters;
+  std::vector<std::shared_ptr<aging::SelectExpression>> _selectExpressions;
   std::unordered_map<std::string, query_t> _queryNames;
 
-  std::vector<std::weak_ptr<storage::AgingIndex>> _registered;
+  std::vector<std::weak_ptr<storage::AgingIndex>> _registered; //TODO
 };
 
 } } // namespace hyrise::access

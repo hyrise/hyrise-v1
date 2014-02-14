@@ -76,12 +76,12 @@ void TableLoad::executePlanOperation() {
   const auto table = sm->getTable(_table_name);
   if (_agingTables.size() != 0) {
     for (const auto& agingTable : _agingTables) {
-      if (sm->hasAgingIndex(_table_name, agingTable.first)) {
+      if (sm->hasStatistic(_table_name, agingTable.first)) {
         if (agingTable.second.overRide)
           std::cout << "OVERRIDE"; //TODO
         continue;
       }
-      std::cout << "<<<<<<create AgingIndex [" << _table_name << ":" << agingTable.first << "]" << std::endl;
+      std::cout << "<<<<<<create Statistics [" << _table_name << ":" << agingTable.first << "]" << std::endl;
       io::CSVInput input(sm->makePath(agingTable.second.table));
       io::CSVHeader header(sm->makePath(agingTable.second.table));
       io::Loader::params p;
@@ -90,12 +90,11 @@ void TableLoad::executePlanOperation() {
       const auto& curTable = io::Loader::load(p);
       curTable->print();
 
+      //TODO this should not be named aging table any more
       const auto field = table->numberOfColumn(agingTable.first);
 
       auto tableStatistic = std::make_shared<TableStatistic>(table, field, curTable);
-      auto agingIndex = std::make_shared<storage::AgingIndex>(table, tableStatistic);
-      sm->setAgingIndexFor(_table_name, agingTable.first, agingIndex);
-      QueryManager::instance().registerAgingIndex(agingIndex);
+      sm->setStatisticFor(_table_name, agingTable.first, tableStatistic);
     }
   }
 

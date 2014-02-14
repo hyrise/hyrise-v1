@@ -14,7 +14,7 @@ public:
 
 private:
   std::string _name;
-  std::unique_ptr<aging::SelectExpression> _select;
+  std::shared_ptr<aging::SelectExpression> _select;
 
   typedef std::vector<std::string> field_list_t;
   std::map<std::string, field_list_t> _fields;

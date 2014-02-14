@@ -9,16 +9,18 @@ namespace aging {
 
 class EqualExpression : public SelectExpression {
 public:
+  EqualExpression(const std::string& table, const std::string& field);
   virtual ~EqualExpression() {}
 
-  virtual std::unique_ptr<AbstractExpression> expression() const;
+  virtual SimpleExpression* expression(storage::atable_ptr_t table,
+                                       const std::map<storage::field_t, std::vector<storage::value_id_t>>& vids) const;
   virtual void verify() const;
 
-  static std::unique_ptr<EqualExpression> parse(const Json::Value& data);
+  static std::shared_ptr<EqualExpression> parse(const Json::Value& data);
+
+  virtual bool accessesTable(storage::atable_ptr_t table) const;
 
 private:
-  EqualExpression(const std::string& table, const std::string& field);
-
   const std::string _table;
   const std::string _field;
 };

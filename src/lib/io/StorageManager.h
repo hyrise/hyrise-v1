@@ -8,6 +8,7 @@
 #include <string>
 #include <vector>
 
+#include <helper/types.h>
 #include <storage/AgingIndex.h>
 
 #include "io/ResourceManager.h"
@@ -78,10 +79,17 @@ class StorageManager : public ResourceManager {
   /// saves the inverted index as name.
   void addInvertedIndex(std::string name, std::shared_ptr<storage::AbstractIndex> _index);
 
-  std::shared_ptr<storage::AgingIndex> getAgingIndexFor(const std::string& name, const std::string& field) const;
-  void setAgingIndexFor(const std::string& name, const std::string& field,
-                        const std::shared_ptr<storage::AgingIndex>& index);
-  bool hasAgingIndex(const std::string& name, const std::string& field) const;
+  storage::aging_index_ptr_t getAgingIndexFor(const std::string& table, const std::string& field) const;
+  void setAgingIndexFor(const std::string& table, const std::string& field,
+                        const storage::aging_index_ptr_t& index);
+  bool hasAgingIndex(const std::string& table, const std::string& field) const;
+
+
+  storage::astat_ptr_t getStatisticFor(const std::string& table, const std::string& field) const;
+  void setStatisticFor(const std::string& table, const std::string& field,
+                       const storage::astat_ptr_t& statistic);
+  bool hasStatistic(const std::string& table, const std::string& field) const;
+
 
   /// returns the index stored under name name.
   std::shared_ptr<storage::AbstractIndex> getInvertedIndex(std::string name);

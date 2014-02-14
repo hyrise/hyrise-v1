@@ -1,0 +1,18 @@
+{
+  "operators": {
+    "load" : {
+      "type" : "TableLoad",
+      "filename" : "aging/inv.tbl",
+      "table" : "INV",
+      "aging_info": [{"field": "year", "table": "aging/aging_inv_year.tbl", "override": false},
+                     {"field": "customer", "table": "aging/aging_inv_customer.tbl", "override": false},
+                     {"field": "status", "table": "aging/aging_inv_status.tbl", "override": false}]
+    },
+    "agingrun" : {
+      "type" : "AgingRun",
+      "filename" : "aging/inv.tbl",
+      "table" : "INV"
+    }
+  },
+  "edges" : [["load","agingrun"]]
+}

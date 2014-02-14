@@ -19,6 +19,8 @@ class PointerCalculator;
 class SimpleStore;
 class MutableVerticalTable;
 class Store;
+class AgingStore;
+class AgingIndex;
 
 typedef std::shared_ptr<AbstractResource> aresource_ptr_t;
 typedef std::shared_ptr<const AbstractResource> c_aresource_ptr_t;
@@ -43,6 +45,12 @@ typedef std::shared_ptr<const MutableVerticalTable> c_vtable_ptr_t;
 
 typedef std::shared_ptr<Store> store_ptr_t;
 typedef std::shared_ptr<const Store> c_store_ptr_t;
+
+typedef std::shared_ptr<AgingStore> aging_store_ptr_t;
+typedef std::shared_ptr<const AgingStore> c_aging_store_ptr_t;
+
+typedef std::shared_ptr<AgingIndex> aging_index_ptr_t;
+typedef std::shared_ptr<const AgingIndex> c_aging_index_ptr_t;
 
 typedef std::shared_ptr<PointerCalculator> calc_ptr_t;
 typedef std::shared_ptr<const PointerCalculator> c_calc_ptr_t;

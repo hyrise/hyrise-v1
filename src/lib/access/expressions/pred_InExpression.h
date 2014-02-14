@@ -39,6 +39,11 @@ public:
     values(getValues(value))
   {}
 
+  InExpression(storage::c_atable_ptr_t _table, field_t _field, const std::vector<T>& _values) :
+    SimpleFieldExpression(_table, _field),
+    values(_values)
+  {}
+
   ///
   /// @return true if the value at column[field,row] matches any values of the list named "values"
   ///

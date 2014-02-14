@@ -24,6 +24,7 @@ TableStatistic::~TableStatistic() {}
 
 namespace {
 
+//TODO make me functor
 template <typename T>
 bool isHotHelper(storage::atable_ptr_t table, storage::c_atable_ptr_t statisticTable,
                  storage::field_t field, const std::string& query, storage::value_id_t vid) {
@@ -140,6 +141,8 @@ void TableStatistic::valuesDo(query_t query, std::function<void(storage::value_i
   const auto& qm = QueryManager::instance();
   if (!qm.exists(qm.getName(query)))
     throw std::runtime_error("QueryID does not exists");
+  if (!isQueryRegistered(query))
+    return;
   const auto& queryField = _statisticTable->numberOfColumn(qm.getName(query));
 
   values_do_functor functor(table(), field(), _statisticTable, queryField, func);
