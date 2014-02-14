@@ -10,6 +10,33 @@ jsonParsMethodDict = {
 	"STRING": "asString()"
 }
 
+# We have Dfferent dicts for main and delta operators due to the fact
+# that LT and GT comparisons are executed on valueIds on Main.
+# getValueIdForValueGreater/Smaller is used to retrieve the valueId
+# for the closest value in the dictionary in case the actual value
+# is not part of the dictionary. Since the closest valueId does not
+# represent the actual value properly because it is greater/smaller
+# the use of "<" or ">" will deliver wrong results.
+#
+# Example:
+# Expression: columnA < 4
+# Operator: LT (<)
+# Table: | columnA |
+#		 	  1 => valueId: 0
+#			  2 => valueId: 1
+#			  3 => valueId: 2
+#
+# getValueIdForValueSmaller(4) would return 2. The evaluation would
+# look like valueId(every value of columnA) < 2 which would only
+# return the values 1 and 2. Value 3 would be excluded because it
+# was used as the closest value to value 4 which is not part of
+# the dictionary. If we change the comparison operator now to "<="
+# the result will contain the values 1, 2, 3 and hence be correct.
+#
+# This does not apply for evaluations on delta because they are
+# executed on actual values, not IDs.
+
+
 comparisonOperatorDict = {
 	"EQ": "==",
 	"LT": "<",
@@ -85,7 +112,6 @@ while expressionToGenerate != '':
 	#if line is a comment jump to next one
 	if (expressionToGenerate[0] == COMMENT_SYMBOL):
 		expressionToGenerate = expressionsToGenerateFile.readline().rstrip("\n")
-		numberOfExpressions += 1
 		continue
 
 	expression = Expression(expressionToGenerate)
@@ -106,10 +132,12 @@ while expressionToGenerate != '':
 				expression.numberOfEQComparisons += 1
 			else :
 				expression.evaluationStringDelta += "_deltaDictionary{numberOfColumn}->getValueForValueId(_deltaVector[{numberOfColumn}]->getRef(_columns[{numberOfColumn}], currentRow)) {expressionPart} _value{numberOfColumn}"
+
 			expression.evaluationString = expression.evaluationString.format(numberOfColumn = expression.numberOfColumns, expressionPart = comparisonOperatorMainDict[expressionPart])
 			expression.evaluationStringDelta = expression.evaluationStringDelta.format(numberOfColumn = expression.numberOfColumns, numberOfEQComparisons = expression.numberOfEQComparisons - 1, expressionPart = comparisonOperatorDict[expressionPart])
 			expression.numberOfColumns += 1
 			expression.appendOperator(expressionPart)
+
 		elif expressionPart in generalOperatorDict:
 			expression.evaluationString += " " + generalOperatorDict[expressionPart] + " "
 			expression.evaluationStringDelta += " " + generalOperatorDict[expressionPart] + " "
