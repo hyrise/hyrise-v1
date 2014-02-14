@@ -35,7 +35,6 @@ generalOperatorDict = {
 
 
 
-
 class Expression(object):
 	def __init__(self, expressionString):
 		self.callName = expressionString
@@ -62,6 +61,15 @@ class Expression(object):
 
 from jinja2 import Template
 import sys
+import shutil
+import os
+
+COMMENT_SYMBOL = "#"
+
+#cleanup expression directory if necessary and rebuild
+if os.path.isdir("generatedExpressions"):
+	shutil.rmtree("generatedExpressions")
+os.mkdir("generatedExpressions")
 
 try:
 	expressionsToGenerateFile = open("./expressionsToGenerate.txt", "r")
@@ -70,9 +78,16 @@ except:
 	sys.exit()
 expressionToGenerate = expressionsToGenerateFile.readline().rstrip("\n")
 
-i = 0
+numberOfExpressions = 0
 
 while expressionToGenerate != '':
+
+	#if line is a comment jump to next one
+	if (expressionToGenerate[0] == COMMENT_SYMBOL):
+		expressionToGenerate = expressionsToGenerateFile.readline().rstrip("\n")
+		numberOfExpressions += 1
+		continue
+
 	expression = Expression(expressionToGenerate)
 
 	expressionSplit = expressionToGenerate.split("_")
@@ -112,3 +127,8 @@ while expressionToGenerate != '':
 	open("./generatedExpressions/" + expression.name + ".cpp", "w").write(expressionImplTemplate.render(expression = expression))
 
 	expressionToGenerate = expressionsToGenerateFile.readline().rstrip("\n")
+
+	numberOfExpressions += 1
+
+logText = "Successfully generated {0} expressions\n".format(numberOfExpressions)
+open("./generatedExpressions/generationLogFile.txt", "w").write(logText)
