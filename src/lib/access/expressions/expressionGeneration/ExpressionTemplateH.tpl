@@ -22,7 +22,7 @@ private:
 
   bool deltaExists();
 
-  {% for number in range(0,expression.numberOfColumns) %}
+  {% for number in range(0, expression.numberOfColumns) %}
   std::shared_ptr<hyrise::storage::OrderPreservingDictionary<{{ expression.dataTypes[number] }}>> _mainDictionary{{number}};
   std::shared_ptr<hyrise::storage::ConcurrentUnorderedDictionary<{{ expression.dataTypes[number] }}>> _deltaDictionary{{number}};
   {{ expression.dataTypes[number] }} _value{{number}};
