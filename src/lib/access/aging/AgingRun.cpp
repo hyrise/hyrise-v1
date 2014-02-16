@@ -51,7 +51,7 @@ void AgingRun::executePlanOperation() {
   std::cout << "create classification queries" << std::endl;
   std::vector<SimpleExpression*> expressions;
   for (const auto& query : relevantQueries) {
-    std::cout << "QUERY: " << query << " (" << qm.getName(query) << ")<<<<<<<<<<<" << std::endl;
+    std::cout << "QUERY: " << query << " (" << qm.getName(query) << ")" << std::endl;
     std::cout << "\tcollecting hot values" << std::endl;
     std::map<storage::field_t, std::vector<storage::value_id_t>> vids;
     for (const auto& statistic : statistics) {
@@ -67,6 +67,13 @@ void AgingRun::executePlanOperation() {
   for (const auto& expression : expressions) {
     if (expression == nullptr)
       continue;
+
+    /*SimpleTableScan scan;
+    scan.addInput(table);
+    scan.setPredicate(expression);
+    scan.setProducesPositions(true);
+    scan.execute();
+    scan.getResultTable()->print();*/
 
     if (expr == nullptr)
       expr = expression;
@@ -93,6 +100,9 @@ void AgingRun::executePlanOperation() {
   /*for (const auto& pos : posList)
     std::cout << pos << ", ";
   std::cout << std::endl;*/
+
+  //auto hotTable = std::make_shared<storage::Table>(table->dictionaries();
+  
 
   const size_t rowc = table->size();
   size_t curIndex = 0;

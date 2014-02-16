@@ -55,5 +55,29 @@ bool AndExpression::accessesTable(storage::atable_ptr_t table) const {
   return false;
 }
 
+std::vector<std::string> AndExpression::accessedTables() const {
+  std::vector<std::string> ret;
+  for (const auto& subExpression : _subExpressions) {
+    const auto& tables = subExpression->accessedTables();
+    for (const auto& table : tables)
+      ret.push_back(table);
+  }
+  const auto& newEnd = std::unique(ret.begin(), ret.end());
+  ret.erase(newEnd, ret.end());
+  return ret;
+}
+
+std::vector<std::string> AndExpression::accessedFields(const std::string& table) const {
+  std::vector<std::string> ret;
+  for (const auto& subExpression : _subExpressions) {
+    const auto& fields = subExpression->accessedFields(table);
+    for (const auto& field : fields)
+      ret.push_back(field);
+  }
+  const auto& newEnd = std::unique(ret.begin(), ret.end());
+  ret.erase(newEnd, ret.end());
+  return ret;
+}
+
 } } } // namespace aging::hyrise::access
 

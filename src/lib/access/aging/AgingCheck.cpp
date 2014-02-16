@@ -30,13 +30,70 @@ AgingCheck::~AgingCheck() {
 }
 
 void AgingCheck::executePlanOperation() {
-  output = input; //TODO rethink maybe
-
   const auto& qm = QueryManager::instance();
+  const auto& sm = *io::StorageManager::getInstance();
+
   if (!qm.exists(_queryName)) {
+    output = input;
     std::cout << "query not registered => COLD" << std::endl;
     return;
   }
+  const query_t query = qm.getId(_queryName);
+
+  const auto& selection = qm.selectExpressionOf(query);
+  const auto& tableNames = selection->accessedTables();
+  std::cout << ">>>>";
+  for (const auto t : tableNames)
+    std::cout << t << ", ";
+  std::cout << std::endl;
+  std::vector<storage::c_atable_ptr_t> tables;
+  for (const auto& tableName : tableNames)
+    tables.push_back(sm.get<storage::AbstractTable>(tableName));
+
+  const auto& inputTables = input.all();
+  for (const auto& inputTable : inputTables) {
+    const auto& casted = std::dynamic_pointer_cast<const storage::AbstractTable>(inputTable);
+    if (casted == nullptr)
+      throw std::runtime_error("at least one input resource is not a table");
+
+    // this needs not to be optimized as usuall queries will only one or two tables
+    size_t i;
+    for (i = 0; i < tables.size(); ++i) {
+      if (tables.at(i) == casted)
+        break;
+    }
+    if (i == tables.size()) {
+      output.add(casted);
+      std::cout << "\t found irrelevant table" << std::endl;
+      continue; // table is irrelevant for aging - but should not occure either
+    }
+
+    const auto& tableName = tableNames.at(i);
+    std::cout << "\t found relevant table: " << tableName << std::endl;
+
+    const auto& fieldNames = selection->accessedFields(tableName);
+
+    std::vector<storage::aging_index_ptr_t> agingIndices;
+    std::cout << "\t>>>>";
+    for (const auto fieldName : fieldNames) {
+      std::cout << fieldName << ", ";
+      if (sm.hasAgingIndex(tableName, fieldName))
+        agingIndices.push_back(sm.getAgingIndexFor(tableName, fieldName));
+    }
+    std::cout << std::endl;
+
+    if (agingIndices.size() == 0) {
+      std::cout << "found no aging information at all => COLD" << std::endl;
+      continue;
+    }
+    
+    std::cout << "Woohoo, found at least one AgingIndex" << std::endl;
+  }
+
+  
+
+  output = input; //TODO rethink maybe
+
 
   while (_paramList.size() > 0 ) {
     const auto ret = handleOneTable(_paramList);

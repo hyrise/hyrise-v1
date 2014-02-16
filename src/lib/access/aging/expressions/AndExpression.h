@@ -20,6 +20,9 @@ public:
 
   virtual bool accessesTable(storage::atable_ptr_t table) const;
 
+  virtual std::vector<std::string> accessedTables() const;
+  virtual std::vector<std::string> accessedFields(const std::string& table) const;
+
 private:
   std::vector<std::shared_ptr<SelectExpression>> _subExpressions;
 };

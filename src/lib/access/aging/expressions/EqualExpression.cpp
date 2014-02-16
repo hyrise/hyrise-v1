@@ -93,5 +93,16 @@ bool EqualExpression::accessesTable(storage::atable_ptr_t table) const {
   return sm.get<storage::AbstractTable>(_table) == table;
 }
 
+std::vector<std::string> EqualExpression::accessedTables() const {
+  return {_table};
+}
+
+std::vector<std::string> EqualExpression::accessedFields(const std::string& table) const {
+  if (table == _table)
+    return {_field};
+  else
+    return std::vector<std::string>();
+}
+
 } } } // namespace aging::hyrise::access
 

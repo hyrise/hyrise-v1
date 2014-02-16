@@ -2,6 +2,7 @@
 #pragma once
 
 #include <memory>
+#include <string>
 #include <jsoncpp/json.h>
 
 #include <access/expressions/pred_SimpleExpression.h>
@@ -26,6 +27,9 @@ public:
 
   virtual bool accessesTable(storage::atable_ptr_t table) const = 0;
   //TODO virtual bool accessesField(storage::atable_ptr_t table, field) const = 0;
+
+  virtual std::vector<std::string> accessedTables() const = 0;
+  virtual std::vector<std::string> accessedFields(const std::string& table) const = 0;
 };
 
 } } } // namespace aging::hyrise::access
