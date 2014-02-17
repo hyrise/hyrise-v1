@@ -4,13 +4,13 @@
 
 #include "helper.h"
 
-#include <access.h>
-#include <helper/types.h>
-#include <storage.h>
-
-#include <io.h>
-#include <io/shortcuts.h>
-#include <helper/PapiTracer.h>
+#include "access/SortScan.h"
+#include "access/GroupByScan.h"
+#include "access/HashBuild.h"
+#include "helper/types.h"
+#include "io/shortcuts.h"
+#include "storage/ColumnMetadata.h"
+#include "storage/Table.h"
 
 namespace hyrise {
 namespace access {

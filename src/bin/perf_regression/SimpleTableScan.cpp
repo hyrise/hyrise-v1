@@ -2,10 +2,11 @@
 #include <gtest/gtest-bench.h>
 #include <gtest/gtest.h>
 #include <string>
-#include <memory>
-#include <access.h>
-#include <storage.h>
-#include <io.h>
+
+#include "io/StorageManager.h"
+#include "access/MaterializingScan.h"
+#include "access/SimpleTableScan.h"
+#include "access/expressions/predicates.h"
 
 namespace hyrise {
 namespace access {

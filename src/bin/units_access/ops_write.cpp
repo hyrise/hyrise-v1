@@ -4,12 +4,9 @@
 
 #include "helper.h"
 
-//#include <access.h>
-#include <access/InsertScan.h>
-#include <storage.h>
-#include <io.h>
-#include <io/shortcuts.h>
-#include <io/TransactionManager.h>
+#include "access/InsertScan.h"
+#include "io/shortcuts.h"
+#include "io/TransactionManager.h"
 
 namespace hyrise {
 namespace access {
