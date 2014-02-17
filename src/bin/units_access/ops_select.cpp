@@ -4,15 +4,19 @@
 
 #include "helper.h"
 
-#include <access.h>
-
 #include "testing/test.h"
+#include "access/ExpressionScan.h"
+#include "access/InsertScan.h"
+#include "access/MaterializingScan.h"
+#include "access/ProjectionScan.h"
+#include "access/SimpleTableScan.h"
+#include "access/SimpleRawTableScan.h"
+#include "access/expressions/predicates.h"
+#include "storage/AbstractTable.h"
+#include "storage/ColumnMetadata.h"
+#include "io/shortcuts.h"
+#include "io/TransactionManager.h"
 
-#include <io.h>
-#include <io/shortcuts.h>
-#include <io/TransactionManager.h>
-
-#include <storage.h>
 
 namespace hyrise {
 namespace access {

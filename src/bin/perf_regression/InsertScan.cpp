@@ -1,17 +1,16 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include <gtest/gtest-bench.h>
 #include <gtest/gtest.h>
+
 #include <string>
 #include <chrono>
-#include <access.h>
-#include <storage.h>
-#include <io.h>
-#include <io/EmptyLoader.h>
+
+#include "io/EmptyLoader.h"
 #include "io/TransactionManager.h"
-#include <io/CSVLoader.h>
+#include "io/CSVLoader.h"
 #include "io/shortcuts.h"
-//JoinScan Benchmark similar to TPC-C Implementation of Stock-Level Transaction
-//See TPC-C Reference Chapter A.5
+#include "access/InsertScan.h"
+#include "access/tx/Commit.h"
 
 namespace hyrise { namespace access {
 

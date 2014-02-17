@@ -3,9 +3,9 @@
 #include <gtest/gtest.h>
 #include <string>
 
-#include <access.h>
-#include <storage.h>
-#include <io.h>
+
+#include "access/JoinScan.h"
+#include "io/StorageManager.h"
 
 //JoinScan Benchmark similar to TPC-C Implementation of Stock-Level Transaction
 //See TPC-C Reference Chapter A.5
@@ -26,12 +26,12 @@ class JoinScanBase : public ::testing::Benchmark {
   void BenchmarkSetUp() {
     sm = io::StorageManager::getInstance();
 
-    auto js = std::make_shared<JoinScan>(JoinType::EQUI);
+    js = std::make_shared<JoinScan>(JoinType::EQUI);
     js->setEvent("NO_PAPI");
 
     t1 = sm->getTable("order_line");
-    t2 = sm->getTable("stock");
-
+    t2 = sm->getTable("order");
+    js->addJoinClause<hyrise_int_t>(0, 0, 1, 0);
     js->addInput(t1);
     js->addInput(t2);
   }
@@ -46,10 +46,9 @@ class JoinScanBase : public ::testing::Benchmark {
 };
 
 /*BENCHMARK_F(JoinScanBase, stock_level_equi_join)
-  {
-  js->addJoinClause<int>(0, 4, 1, 0);
-
-  hyrise::storage::atable_ptr_t result = js->execute();
+{
+  auto result = js->execute()->getResultTable();
+  std::cout << "Scunned " << std::endl;
   }*/
 
 } } // namespace hyrise::access

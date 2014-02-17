@@ -2,11 +2,14 @@
 #include "testing/test.h"
 #include <string>
 #include "helper.h"
-#include <access.h>
-#include <storage.h>
 
-
-#include <io/shortcuts.h>
+#include "access/JoinScan.h"
+#include "access/SimpleTableScan.h"
+#include "access/HashBuild.h"
+#include "access/HashJoinProbe.h"
+#include "io/shortcuts.h"
+#include "storage/AbstractTable.h"
+#include "storage/AbstractHashTable.h"
 
 namespace hyrise {
 namespace access {

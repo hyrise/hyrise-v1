@@ -5,14 +5,15 @@
 
 #include <cstdlib>
 
-#include <io.h>
-#include <io/shortcuts.h>
 
-#include <storage.h>
+#include "io/shortcuts.h"
 
-#include <helper/PapiTracer.h>
-#include <helper/types.h>
-#include <helper/vector_helpers.h>
+#include "storage/AbstractTable.h"
+#include "storage/Store.h"
+#include "storage/TableGenerator.h"
+
+#include "helper/types.h"
+#include "helper/vector_helpers.h"
 
 namespace hyrise { namespace storage {
 

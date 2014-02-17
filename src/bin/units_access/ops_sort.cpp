@@ -4,9 +4,7 @@
 
 #include "helper.h"
 
-#include <access.h>
-#include <storage.h>
-
+#include "access/SortScan.h"
 #include "io/shortcuts.h"
 #include "io/loaders.h"
 

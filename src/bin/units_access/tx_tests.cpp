@@ -4,15 +4,22 @@
 
 #include "helper.h"
 
-#include <access.h>
+
 #include <algorithm>
 
-#include <io/shortcuts.h>
-#include <storage/Store.h>
-#include <storage/PointerCalculator.h>
-#include <storage/TableBuilder.h>
-#include <helper/types.h>
-#include <io/TransactionManager.h>
+#include "access/Delete.h"
+#include "access/InsertScan.h"
+#include "access/MergeTable.h"
+#include "access/PosUpdateScan.h"
+#include "access/ProjectionScan.h"
+#include "access/tx/Commit.h"
+#include "access/tx/ValidatePositions.h"
+#include "io/shortcuts.h"
+#include "storage/Store.h"
+#include "storage/PointerCalculator.h"
+#include "storage/TableBuilder.h"
+#include "helper/types.h"
+#include "io/TransactionManager.h"
 
 #include <testing/TableEqualityTest.h>
 

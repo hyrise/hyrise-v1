@@ -1,11 +1,12 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "testing/test.h"
 
-#include <access.h>
 
 #include "io/StorageManager.h"
 #include "io/shortcuts.h"
 #include "access/LayoutTable.h"
+#include "access/Layouter.h"
+#include "storage/ColumnMetadata.h"
 #include "helper.h"
 
 namespace hyrise {
