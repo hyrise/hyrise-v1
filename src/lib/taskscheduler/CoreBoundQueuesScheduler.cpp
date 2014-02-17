@@ -24,18 +24,12 @@ CoreBoundQueuesScheduler::CoreBoundQueuesScheduler(const int queues): AbstractCo
   // set _queues to queues after new queues have been created to new tasks to be assigned to new queues
   // lock _queue mutex as queues are manipulated
   std::lock_guard<lock_t> lk(_queuesMutex);
-  if (queues <= getNumberOfCoresOnSystem()) {
-    for (int i = 0; i < queues; ++i) {
-      _taskQueues.push_back(createTaskQueue(i));
-    }
-    _queues = queues;
-  } else {
-    LOG4CXX_WARN(_logger, "number of queues exceeds available cores; set it to max available cores, which equals to " << std::to_string(getNumberOfCoresOnSystem()));
-    for (int i = 0; i < getNumberOfCoresOnSystem(); ++i) {
-      _taskQueues.push_back(createTaskQueue(i));
-    }
-    _queues = getNumberOfCoresOnSystem();
+  
+  for (int i = 0; i < queues; ++i) {
+    _taskQueues.push_back(createTaskQueue(i));
   }
+  _queues = queues;
+  
   _status = RUN;
 }
 
