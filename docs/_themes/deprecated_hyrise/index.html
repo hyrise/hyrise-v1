@@ -1,0 +1,90 @@
+<div id="intro">
+    <div class="story container">
+        <div class="float-left">
+      <h2>HYRISE</h2>
+          <p>...is a new relational storage engine for main memory database systems. It is built on the premise that enterprise application workloads can benefit from a dedicated main-memory storage engine.</p>
+          </div>
+      </div> <!--.story-->
+  </div>
+<div id="second">
+  <div class="container">
+    {%- include 'globaltoc.html' %}
+    <div class="container-fluid">
+      <div class="row-fluid without">
+        <div class="col-md-12">
+          <div class="col-md-4 overview">
+            <h4>
+              In-Memory Data Storage
+            </h4>
+            <p>
+              With the use of In-Memory Data Storage predictable access times are guaranteed.
+            </p>
+          </div>
+          <div class="col-md-4 overview">
+            <h4>
+              Hybrid Partitions
+            </h4>
+            <p>
+              Hybrid layouts optimize overall performance compared to single query performance.
+            </p>
+          </div>
+          <div class="col-md-4 overview">
+            <h4>
+              Dynamic Layouts
+            </h4>
+            <p>
+              Due to changing application workload on the database, dynamic layouts increase performance visibly.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="row-fluid">
+        <div class="col-md-6 feature">
+          <h4>
+            In-Memory Data Storage
+          </h4>
+          <p>
+            Transactional database workloads are executed in Row Stores. Typical are single tuple lookups, many modifications and simple predicate evaluation. On the other hand analytical database workloads are executed in Column Stores (Aggregation, Full Attribute Scans, Specialized Joins). With HYRISE it is possible to combine both workloads and to find the optimal storage strusture.
+          </p>
+        </div>
+        <div class="col-md-6 image">
+          <img src="_static/overview.png">
+        </div>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="section">
+      <div class="row-fluid">
+        <div class="col-md-6 image">
+          <img src="_static/row_column.png" width="450px">
+        </div>
+        <div class="col-md-6 feature">
+          <h4>
+            Hybrid Partitions
+          </h4>
+          <p>
+            Transactional database workloads are executed in Row Stores. Typical are single tuple lookups, many modifications and simple predicate evaluation. On the other hand analytical database workloads are executed in Column Stores (Aggregation, Full Attribute Scans, Specialized Joins). When combining both workloads, what is the optimal storage structure?
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="section">
+      <div class="row-fluid">
+        <div class="col-md-6 feature">
+          <h4>
+            Dynamic Layouts
+          </h4>
+          <p>
+            In static layout selection the layout is chosen before application deployment. For narrow tables, finding the optimal layout is easy and can be done through exhaustive enumeration. But enterprise applications can have super-wide schemas  with up to 300 attributes, this would result in billions of possible layouts. However, application workload on the database might change. So workload change may require adaptation.
+            See also at <a href="projects.html">Projects</a>
+          </p>
+        </div>
+        <div class="col-md-6 image">
+          <img src="_static/layout.png">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -169,7 +169,6 @@ div.indexwrapper h1 {
     height: {{ theme_index_logo_height }};
 }
 {% endif %}
- 
 div.body h1 { margin-top: 0; padding-top: 0; font-size: 240%; }
 div.body h2 { font-size: 180%; }
 div.body h3 { font-size: 150%; }
@@ -343,7 +342,7 @@ ul, ol {
 }
  
 pre {
-    background: #ddd;
+    background: #eee;
     padding: 7px 30px;
     margin: 15px -30px;
     line-height: 1.3em;
@@ -392,4 +391,46 @@ a.footnote-reference:hover {
 
 a:hover tt {
     background: #EEE;
+}
+
+
+
+/* scrollbars */
+
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-button:start:decrement,
+::-webkit-scrollbar-button:end:increment {
+    display: block;
+    height: 10px;
+}
+
+::-webkit-scrollbar-button:vertical:increment {
+    background-color: #fff;
+}
+
+::-webkit-scrollbar-track-piece {
+    background-color: #eee;
+    -webkit-border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:vertical {
+    height: 50px;
+    background-color: #ccc;
+    -webkit-border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:horizontal {
+    width: 50px;
+    background-color: #ccc;
+    -webkit-border-radius: 3px;
+}
+
+/* misc. */
+
+.revsys-inline {
+    display: none!important;
 }

@@ -1,0 +1,334 @@
+body, html {
+  font: 14px/1.6 "Helvetica Neue", Helvetica, "proxima-nova", Arial, sans-serif;
+  color: #2C2C2C;
+  font-weight: 200;
+}
+
+body {
+  position: relative;
+  height: 100%;
+}
+
+h1 {
+  text-align: right;
+  font-weight: 100;
+}
+
+h2 {
+  font-weight: 100;
+  border-bottom: 1px solid silver;
+}
+
+a {
+  color: #2A5E8C;
+  text-decoration: none;
+}
+
+a.reference, a.reference:hover {
+  border: none;
+}
+
+a:hover {
+  color: #7595BF;
+  text-decoration: underline;
+}
+
+blockquote {
+  padding: 0 10px;
+  margin: 0 20px 10px;
+  border-left: 5px solid #C7CFD9;
+}
+
+blockquote blockquote {
+  border-left: none;
+}
+
+.list .list-group-item {
+  list-style: none;
+  border-bottom: 1px solid #eee;
+  padding: 5px;
+  font-size: 12px;
+  font-weight: normal;
+}
+
+.list .list-group-item:last-child {
+  border-bottom: none;
+}
+
+/**
+ * SIDE NAVBAR
+ */
+
+.hyrisesidebar {
+  box-shadow: 5px 0 20px -15px;
+  overflow: auto;
+  margin-top: 50px;
+}
+
+/*@media (max-width: 979px) {
+
+  .navbar-wrapper {
+    display: none;
+  }
+
+  .hyrisesidebar {
+    position: fixed !important;
+    top: 0 !important;
+    margin-top: 0;
+    background: white;
+    z-index: 1;
+    padding-left: 40px;
+    transition: width 100ms;
+    -moz-transition: width 100ms;
+    -webkit-transition: width 100ms;
+    width: 336px;
+    left: 0;
+  }
+
+  .hyrisesidebar .resize-handle {
+    width: 24px;
+    height: 100%;
+    background: #fafafa;
+    border-right: 1px solid #ddd;
+    top: 0;
+    position: fixed;
+    left: 0;
+  }
+
+  .hyrisesidebar.sidebar-collapsed {
+    padding: 0;
+    width: 24px;
+    overflow: hidden;
+  }
+
+  .hyrisesidebar.sidebar-collapsed .resize-handle {
+    left: 0px;
+  }
+
+  .container div[role=main] {
+    margin-left: 24px;
+  }
+
+  .container div[role=main] > .section {
+    margin-top: 0 !important;
+  }
+
+  .row.footer_toc .toc-general {
+    display: none !important;
+  }
+}*/
+
+.hyrisesidebar {
+  width: 228px;
+}
+
+.hyrisesidebar .resize-handle {
+  display: none;
+}
+
+@media (min-width: 1200px) {
+  .hyrisesidebar {
+    width: 263px;
+  }
+
+  .hyrisesidebar .resize-handle {
+    display: none;
+  }
+}
+
+.hyrisesidebar.affix-bottom {
+  position: absolute;
+}
+
+.hyrisesidebar .logo {
+  background: url('skyline.png') no-repeat scroll 0 0 transparent;
+  width: 100%;
+  background-size: contain;
+  color: black;
+  height: 75px;
+}
+
+.hyrisesidebar > ul {
+  margin-left: 10px;
+}
+
+.hyrisesidebar ul {
+  list-style: none;
+}
+
+.hyrisesidebar ul li {
+  list-style: none;
+  margin-left: -10px;
+}
+
+.hyrisesidebar .leaf.active {
+  border-right: 2px solid #428bca;
+}
+
+.hyrisesidebar .list-group-item:first-child {
+  border-radius: 0;
+}
+
+/**
+ * PAGE CONTAINER
+ */
+
+.wrapper {
+  background: #F2F2F2;
+  overflow: hidden;
+}
+
+.inner-wrapper > .container {
+  background: white;
+  /*padding-top: 20px;*/
+  box-shadow: 0px 5px 15px -5px;
+  position: relative;
+  min-height: 400px;
+  margin-bottom: 20px;
+}
+
+.container div[role=main] {
+  min-height: 500px;
+}
+
+.container div[role=main] > .section > h1 {
+  display: none;
+}
+
+.container .content .section {
+  margin-top: 60px;
+}
+
+.container .row.upper {
+  /*box-shadow: 0 5px 10px -5px;*/
+}
+
+/* footer */
+
+.container .row.footer_toc {
+  background: rgba(30,30,30,.8);
+}
+
+.container .row.footer_toc h3 {
+  color: #cccccc;
+}
+
+.container .row.footer_toc .toc-general {
+  margin-bottom: 20px;
+}
+
+.container .row.footer_toc .toc-general ul {
+  list-style-type: none;
+  margin: 0;  
+}
+
+.container .row.footer_toc .toc-general ul:last-child {
+  margin-top: 20px;
+}
+
+.container .row.footer_toc,
+.container .row.footer_toc a {
+  color: #cccccc;
+}
+
+#people .section {
+  clear: both;
+  min-height: 250px;
+}
+
+#hyrise-documentation .section {
+  clear: both;
+}
+
+#hyrise-documentation .section img {
+  margin-bottom: 50px;
+  margin-top: -32px;
+}
+
+#hyrise-documentation #hybrid-partitions h3 {
+  text-align: right;
+}
+
+#people .section h3 {
+  margin-left: 160px;
+}
+
+#people .section img {
+  margin-top: -36px;
+}
+
+.container{
+  min-width: 980px !important;
+  max-width: 1200px;
+}
+
+.container div[role=main] > .section {
+  margin-top: 60px;
+}
+
+#projects, #getting-started {
+  min-height: 350px;
+}
+
+/**
+ * NAVBAR
+ */
+
+.navbar-wrapper {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  width: 100%;
+  z-index: 10;
+}
+
+.navbar-wrapper .container {
+  position: absolute;
+  left: 0;
+  margin: auto;
+  right: 0;
+  box-shadow: none;
+}
+
+.navbar-wrapper h1 {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 5px;
+  padding: 1px;
+  margin-right: 30px;
+  letter-spacing: 1px;
+}
+
+/**
+ * BACK TO TOP BUTTON
+ */
+
+#backToTop {
+  -webkit-transition: opacity 100ms;
+  -moz-transition: opacity 100ms;
+  cursor: pointer;
+}
+#backToTop p {
+  margin: 0;
+  margin-top: -5px;
+}
+#backToTop span {
+  font-size: 20px;
+}
+  
+#backToTop, #backToTop.affix {
+  text-align: center;
+  position: fixed;
+  bottom: 10px;
+  left: 15px;
+  opacity: 1;
+}
+#backToTop.affix-bottom {
+  position: absolute;
+  bottom: 70px;
+}
+#backToTop.affix-top {
+  opacity: 0;
+}
