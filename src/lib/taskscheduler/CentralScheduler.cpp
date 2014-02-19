@@ -19,52 +19,48 @@ bool registered  =
 }
 
 CentralScheduler::CentralScheduler(int threads) {
-    _status = START_UP;
-  // create and launch threads
-  if(threads > getNumberOfCoresOnSystem()){
-    fprintf(stderr, "Tried to use more threads then cores - no binding of threads takes place\n");
-    for(int i = 0; i < threads; i++){
-      _worker_threads.emplace_back(WorkerThread(*this));
+  _status = START_UP;
+  int core = 0;
+  int NUM_PROCS = getNumberOfCoresOnSystem();
+  // bind threads to cores                                                                                                                                        
+  for(int i = 0; i < threads; i++){
+    std::thread thread(WorkerThread(*this));
+    hwloc_cpuset_t cpuset;
+    hwloc_obj_t obj;
+    hwloc_topology_t topology = getHWTopology();
+    
+    core = (core % (NUM_PROCS - 1)) + 1;
+    
+    obj = hwloc_get_obj_by_type(topology, HWLOC_OBJ_CORE, core);
+    // the bitmap to modify                                                                                                                                       
+    cpuset = hwloc_bitmap_dup(obj->cpuset);
+    // remove hyperthreads                                                                                                                                        
+    hwloc_bitmap_singlify(cpuset);
+    
+    // bind                                                                                                                                                       
+    if (hwloc_set_thread_cpubind(topology, thread.native_handle(), cpuset, HWLOC_CPUBIND_STRICT | HWLOC_CPUBIND_NOMEMBIND)) {
+      char *str;
+      int error = errno;
+      hwloc_bitmap_asprintf(&str, obj->cpuset);
+      fprintf(stderr, "Couldn't bind to cpuset %s: %s\n", str, strerror(error));
+      fprintf(stderr, "Continuing as normal, however, no guarantees\n");
+      free(str);
     }
-  } else {
-    // bind threads to cores
-    for(int i = 0; i < threads; i++){
-      //_worker_threads.push_back(new std::thread(WorkerThread(*this)));
-      std::thread thread(WorkerThread(*this));
-      hwloc_cpuset_t cpuset;
-      hwloc_obj_t obj;
-      hwloc_topology_t topology = getHWTopology();
-
-      obj = hwloc_get_obj_by_type(topology, HWLOC_OBJ_CORE, i);
-      // the bitmap to modify
-      cpuset = hwloc_bitmap_dup(obj->cpuset);
-      // remove hyperthreads
-      hwloc_bitmap_singlify(cpuset);
-      // bind
-      if (hwloc_set_thread_cpubind(topology, thread.native_handle(), cpuset, HWLOC_CPUBIND_STRICT | HWLOC_CPUBIND_NOMEMBIND)) {
-        char *str;
-        int error = errno;
-        hwloc_bitmap_asprintf(&str, obj->cpuset);
-        fprintf(stderr, "Couldn't bind to cpuset %s: %s\n", str, strerror(error));
-        fprintf(stderr, "Continuing as normal, however, no guarantees\n");
-        free(str);
-      }
-
-      // assuming single machine system                                                                                                         
-      obj = hwloc_get_obj_by_type(topology, HWLOC_OBJ_MACHINE, 0);
-      // set membind policy interleave for this thread                                                                                          
-      if (hwloc_set_membind_nodeset(topology, obj->nodeset, HWLOC_MEMBIND_INTERLEAVE, HWLOC_MEMBIND_STRICT | HWLOC_MEMBIND_THREAD)) {
-	char *str;
-	int error = errno;
-	hwloc_bitmap_asprintf(&str, obj->nodeset);
-	fprintf(stderr, "Couldn't membind to nodeset  %s: %s\n", str, strerror(error));
-	fprintf(stderr, "Continuing as normal, however, no guarantees\n");
-	free(str);
-      }
-
-      hwloc_bitmap_free(cpuset);
-      _worker_threads.push_back(std::move(thread));
+    
+    // assuming single machine system                                                                                                                             
+    obj = hwloc_get_obj_by_type(topology, HWLOC_OBJ_MACHINE, 0);
+    // set membind policy interleave for this thread                                                                                                              
+    if (hwloc_set_membind_nodeset(topology, obj->nodeset, HWLOC_MEMBIND_INTERLEAVE, HWLOC_MEMBIND_STRICT | HWLOC_MEMBIND_THREAD)) {
+      char *str;
+      int error = errno;
+      hwloc_bitmap_asprintf(&str, obj->nodeset);
+      fprintf(stderr, "Couldn't membind to nodeset  %s: %s\n", str, strerror(error));
+      fprintf(stderr, "Continuing as normal, however, no guarantees\n");
+      free(str);
     }
+    
+    hwloc_bitmap_free(cpuset);
+    _worker_threads.push_back(std::move(thread));                                                                                                                                                         
   }
   _status = RUN;
 }
