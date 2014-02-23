@@ -8,13 +8,13 @@ namespace access {
 
 class AgingRun : public PlanOperation {
 public:
+  AgingRun(const std::string& table);
+
   void executePlanOperation();
   static std::shared_ptr<PlanOperation> parse(const Json::Value& data);
 
-  void setTable(const std::string& table);
-
 private:
-  std::string _tableName;
+  const std::string _tableName;
 };
 
 } } // namespace hyrise::access

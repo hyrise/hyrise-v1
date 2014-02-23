@@ -2,6 +2,8 @@
 #include "testing/test.h"
 #include "helper.h"
 
+#include <io/StorageManager.h>
+
 
 #define QUERY1 "test/aging/inv-q1.json"
 #define QUERY2 "test/aging/inv-q2.json"
@@ -9,15 +11,20 @@
 #define QUERY4 "test/aging/inv-q4.json"
 #define QUERY5 "test/aging/inv-q5.json"
 #define AGING_RUN "test/aging/agingrun.json"
+#define LOAD_STATS "test/aging/loadStatistic.json"
 
 namespace hyrise {
 namespace access {
 
 class AgingTests : public Test {
  public:
-  virtual void SetUp() {}
+  virtual void SetUp() {
+    const auto file = loadFromFile(LOAD_STATS);\
+    executeAndWait(file);\
+  }
 
   virtual void TearDown() {
+    io::StorageManager::getInstance()->clear();
   }
 };
 

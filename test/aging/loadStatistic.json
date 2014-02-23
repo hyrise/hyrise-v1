@@ -1,0 +1,46 @@
+{
+  "operators": {
+    "load" : {
+      "type" : "TableLoad",
+      "filename" : "aging/inv.tbl",
+      "table" : "INV"
+    },
+
+    "load_year_stat": {
+      "type": "TableLoad",
+      "filename" : "aging/aging_inv_year.tbl",
+      "table": "tmp_year"
+    },
+    "register_year_stat": {
+      "type": "RegisterTableStatistic",
+      "table": "INV",
+      "field": "year"
+    },
+
+    "load_customer_stat": {
+      "type": "TableLoad",
+      "filename" : "aging/aging_inv_customer.tbl",
+      "table": "tmp_customer"
+    },
+    "register_customer_stat": {
+      "type": "RegisterTableStatistic",
+      "table": "INV",
+      "field": "customer"
+    },
+
+    "load_status_stat": {
+      "type": "TableLoad",
+      "filename" : "aging/aging_inv_status.tbl",
+      "table": "tmp_status"
+    },
+    "register_status_stat": {
+      "type": "RegisterTableStatistic",
+      "table": "INV",
+      "field": "status"
+    }
+  },
+
+  "edges" : [["load", "load_year_stat"], ["load_year_stat", "register_year_stat"],
+             ["load", "load_customer_stat"], ["load_customer_stat", "register_customer_stat"],
+             ["load", "load_status_stat"], ["load_status_stat", "register_status_stat"]]
+}

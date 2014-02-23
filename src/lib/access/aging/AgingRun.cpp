@@ -19,6 +19,10 @@ namespace {
   auto _ = QueryParser::registerPlanOperation<AgingRun>("AgingRun");
 } // namespace
 
+AgingRun::AgingRun(const std::string& table) :
+  PlanOperation(),
+  _tableName(table) {}
+
 void AgingRun::executePlanOperation() {
   auto& sm = *io::StorageManager::getInstance();
   auto& qm = QueryManager::instance();
@@ -122,19 +126,11 @@ void AgingRun::executePlanOperation() {
 }
 
 std::shared_ptr<PlanOperation> AgingRun::parse(const Json::Value &data) {
-  std::shared_ptr<AgingRun> ar = std::make_shared<AgingRun>();
-
   if (!data.isMember("table"))
     throw std::runtime_error("A table must be specified for the AgingRun");
-  ar->_tableName = data["table"].asString();
+  const auto table = data["table"].asString();
 
-  //TODO maybe some more options
-
-  return ar;
-}
-
-void AgingRun::setTable(const std::string& table) {
-  _tableName = table;
+  return std::make_shared<AgingRun>(table);
 }
 
 } } // namespace hyrise::access

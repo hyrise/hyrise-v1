@@ -15,43 +15,33 @@ namespace {
   auto _ = QueryParser::registerPlanOperation<RegisterQuery>("RegisterQuery");
 }
 
+RegisterQuery::RegisterQuery(const std::string& name) :
+  PlanOperation(),
+  _name(name) {}
+
 void RegisterQuery::executePlanOperation() {
   auto& qm = QueryManager::instance();
-  auto& sm = *io::StorageManager::getInstance();
 
-  param_list_t paramVector;
-  for (const auto& table : _fields) {
-    const auto& tableName = table.first;
-    sm.assureExists(tableName);
-    const auto& t = sm.get<storage::AbstractTable>(tableName); // test if its a table
-
-    const auto& fields = table.second;
-    for (const auto& field: fields) {
-      field_t fieldId = t->numberOfColumn(field);
-      paramVector.push_back({t->id(), fieldId});
-      std::cout << tableName << "." << field << "[" << fieldId << "], ";
-    }
-  }
-  std::cout << std::endl;
-  qm.registerQuery(_name, _select); //TODO this make it only executable once
+  qm.registerQuery(_name, _select); //TODO this make it only executable once - why? what?
   _select = nullptr;
 
   output = input; // don't stand in the way of calculation, pass everything on
 }
 
-std::shared_ptr<PlanOperation> RegisterQuery::parse(const Json::Value& data) {
-  std::shared_ptr<RegisterQuery> rq = std::make_shared<RegisterQuery>();
+void RegisterQuery::selectExpression(const std::shared_ptr<aging::SelectExpression>& select) {
+  _select = select;
+}
 
+std::shared_ptr<PlanOperation> RegisterQuery::parse(const Json::Value& data) {
   if (!data.isMember("name"))
     throw std::runtime_error("A name is needed to register a query for");
-  rq->_name = data["name"].asString();
+  const auto& name = data["name"].asString();
 
-  if (data.isMember("select")) {
-    rq->_select = aging::SelectExpression::parse(data["select"]);
-  }
-  else {
+  auto rq = std::make_shared<RegisterQuery>(name);
+
+  if (!data.isMember("select"))
     throw std::runtime_error("empty select expression currently not supported"); //TODO
-  }
+  rq->_select = aging::SelectExpression::parse(data["select"]);
 
   return rq;
 }

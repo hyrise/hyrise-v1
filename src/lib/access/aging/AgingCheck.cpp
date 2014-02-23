@@ -18,6 +18,10 @@ namespace {
 } // namespace
 
 
+AgingCheck::AgingCheck(const std::string& query) :
+  PlanOperation(),
+  _queryName(query) {}
+
 AgingCheck::~AgingCheck() {
   for (const auto& param : _paramList) {
     switch (param.type) {
@@ -88,6 +92,8 @@ void AgingCheck::executePlanOperation() {
     }
     
     std::cout << "Woohoo, found at least one AgingIndex" << std::endl;
+
+    const auto& fields = selection->accessedFields(tableName);
   }
 
   
@@ -148,6 +154,10 @@ void AgingCheck::executePlanOperation() {
   }*/
 }
 
+void AgingCheck::parameter(const std::vector<param_data_t>& parameter) {
+  _paramList = parameter;
+}
+
 std::pair<std::string, bool> AgingCheck::handleOneTable(std::vector<param_data_t>& paramList) {
   if (paramList.size() == 0)
     throw std::runtime_error("this should not happen");
@@ -174,11 +184,11 @@ std::pair<std::string, bool> AgingCheck::handleOneTable(std::vector<param_data_t
 }
 
 std::shared_ptr<PlanOperation> AgingCheck::parse(const Json::Value &data) {
-  std::shared_ptr<AgingCheck> ac = std::make_shared<AgingCheck>();
-
   if (!data.isMember("query"))
     throw std::runtime_error("A query must be specified for the AgingCheck");
-  ac->_queryName = data["query"].asString();
+  const auto& queryName = data["query"].asString();
+
+  std::shared_ptr<AgingCheck> ac = std::make_shared<AgingCheck>(queryName);
 
   if (data.isMember("parameters")) {
     const auto& params = data["parameters"];

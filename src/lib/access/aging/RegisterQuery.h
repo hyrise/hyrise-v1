@@ -9,15 +9,17 @@ namespace access {
 
 class RegisterQuery : public PlanOperation {
 public:
+  RegisterQuery(const std::string& name);
+
   void executePlanOperation();
+
+  void selectExpression(const std::shared_ptr<aging::SelectExpression>& select);
+
   static std::shared_ptr<PlanOperation> parse(const Json::Value &data);
 
 private:
-  std::string _name;
+  const std::string _name;
   std::shared_ptr<aging::SelectExpression> _select;
-
-  typedef std::vector<std::string> field_list_t;
-  std::map<std::string, field_list_t> _fields;
 };
 
 } } // namespace hyrise::access

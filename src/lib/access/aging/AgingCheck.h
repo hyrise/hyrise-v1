@@ -15,15 +15,19 @@ class AgingCheck : public PlanOperation {
   };
 
 public:
+  AgingCheck(const std::string& query);
   ~AgingCheck();
 
   void executePlanOperation();
-  std::pair<std::string, bool> handleOneTable(std::vector<param_data_t>& paramList);
+
+  void parameter(const std::vector<param_data_t>& parameter);
 
   static std::shared_ptr<PlanOperation> parse(const Json::Value &data);
 
 private:
-  std::string _queryName;
+  std::pair<std::string, bool> handleOneTable(std::vector<param_data_t>& paramList);
+
+  const std::string _queryName;
   std::vector<param_data_t> _paramList;
 };
 
