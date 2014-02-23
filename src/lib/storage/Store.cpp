@@ -324,9 +324,11 @@ tx::TX_CODE Store::markForDeletion(const pos_t pos, const tx::transaction_id_t t
   }
 
   if(_tidVector[pos] == tid) {
-    // It is a row that we inserted ourselves. We remove the TID, leaving it with TID=0,begin=0,end=0 which is invisible to everyone
+    // It is a row that we inserted ourselves. So we leave it as it is.
     // No need for a CAS here since we already have it "locked"
-    _tidVector[pos] = 0;
+    // WARNING:
+    // This only works as long as inserted pos as committed before deleted.
+    // Otherwise we need to remove the position from the inserted list
     return tx::TX_CODE::TX_OK;
   }
 

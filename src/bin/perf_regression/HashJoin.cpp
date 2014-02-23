@@ -3,10 +3,12 @@
 #include <gtest/gtest.h>
 #include <string>
 
-#include <helper/types.h>
-#include <access.h>
-#include <storage.h>
-#include <io.h>
+#include "access/HashBuild.h"
+#include "access/HashJoinProbe.h"
+#include "access/MaterializingScan.h"
+#include "helper/types.h"
+#include "io/StorageManager.h"
+#include "storage/AbstractHashTable.h"
 
 namespace hyrise {
 namespace access {
