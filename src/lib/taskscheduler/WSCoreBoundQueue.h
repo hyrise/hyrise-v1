@@ -28,6 +28,10 @@ private:
 public:
   WSCoreBoundQueue(int core, WSCoreBoundQueuesScheduler *scheduler);
   virtual ~WSCoreBoundQueue();
+  /*
+   * init task scheduler
+   */
+  virtual void init();
 
   /*
    * Is executed by dedicated thread to work the queue

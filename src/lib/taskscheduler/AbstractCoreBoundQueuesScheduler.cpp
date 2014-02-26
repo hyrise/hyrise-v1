@@ -13,8 +13,8 @@ namespace taskscheduler {
 log4cxx::LoggerPtr AbstractCoreBoundQueuesScheduler::_logger = log4cxx::Logger::getLogger("taskscheduler.AbstractCoreBoundQueuesScheduler");
 
 
-AbstractCoreBoundQueuesScheduler::AbstractCoreBoundQueuesScheduler(): _queues(0), _status(START_UP), _nextQueue(0) {
-}
+AbstractCoreBoundQueuesScheduler::AbstractCoreBoundQueuesScheduler(int queues): _queues(queues), _status(START_UP), _nextQueue(0) {}
+
 
 AbstractCoreBoundQueuesScheduler::~AbstractCoreBoundQueuesScheduler() {
   // TODO Auto-generated destructor stub

@@ -36,6 +36,7 @@ protected:
   void launchThread(int core);
 
   AbstractCoreBoundQueue();
+  AbstractCoreBoundQueue(int core);
 
 public:
 

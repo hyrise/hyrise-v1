@@ -37,6 +37,10 @@ class AbstractTaskQueue {
   typedef hyrise::locking::Spinlock lock_t;
 
   virtual ~AbstractTaskQueue() {};
+  /*
+   * init task queue
+   */
+  virtual void init(){}
 
   virtual void executeTask() = 0;
   /*

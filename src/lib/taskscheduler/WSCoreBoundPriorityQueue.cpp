@@ -10,9 +10,9 @@
 namespace hyrise {
 namespace taskscheduler {
 
-WSCoreBoundPriorityQueue::WSCoreBoundPriorityQueue(int core, WSCoreBoundPriorityQueuesScheduler *scheduler): AbstractCoreBoundQueue(), _allQueues(nullptr) {
-  _core = core;
-  _scheduler = scheduler;
+WSCoreBoundPriorityQueue::WSCoreBoundPriorityQueue(int core, WSCoreBoundPriorityQueuesScheduler *scheduler): AbstractCoreBoundQueue(core), _allQueues(nullptr), _scheduler(scheduler){}
+
+void WSCoreBoundPriorityQueue::init(){
   launchThread(_core);
 }
 

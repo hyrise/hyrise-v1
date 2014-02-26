@@ -63,8 +63,10 @@ void CoreBoundPriorityQueue::executeTask() {
   }
 }
 
-CoreBoundPriorityQueue::CoreBoundPriorityQueue(int core): AbstractCoreBoundQueue(), _blocked(false) {
-  _core = core;
+CoreBoundPriorityQueue::CoreBoundPriorityQueue(int core): AbstractCoreBoundQueue(core), _blocked(false) {}
+
+
+void CoreBoundPriorityQueue::init(){
   launchThread(_core);
 }
 

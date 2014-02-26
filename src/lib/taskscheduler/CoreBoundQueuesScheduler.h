@@ -32,10 +32,16 @@ class CoreBoundQueuesScheduler : public AbstractCoreBoundQueuesScheduler {
     */
    virtual task_queue_t *createTaskQueue(int core);
 
-public:
+public:  
+
   CoreBoundQueuesScheduler(int queues = getNumberOfCoresOnSystem());
+
   virtual ~CoreBoundQueuesScheduler();
 
+  /*
+   * init task scheduler
+   */
+  virtual void init();
 };
 
 } } // namespace hyrise::taskscheduler

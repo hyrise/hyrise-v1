@@ -59,6 +59,8 @@ protected:
   scheduler_status_t _status;
   // mutex to protect status
   lock_t _statusMutex;
+  // number of threads
+  int _threads;
 
   static log4cxx::LoggerPtr _logger;
 
@@ -66,6 +68,10 @@ protected:
 public:
   CentralPriorityScheduler(int threads = getNumberOfCoresOnSystem());
   virtual ~CentralPriorityScheduler();
+  /*
+   * init task scheduler
+   */
+  virtual void init();
 
   void worker_loop();
   /*
