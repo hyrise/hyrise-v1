@@ -1,0 +1,27 @@
+{#
+    basic/footertoc.html
+    ~~~~~~~~~~~~~~~~~~~
+
+    Footer template: local table of contents.
+
+    :copyright: Copyright 2007-2013 by the Sphinx team, see AUTHORS.
+    :license: BSD, see LICENSE for details.
+#}
+<!--   <h3><a href="{{ pathto(master_doc) }}">{{ _('Contents') }}</a></h3> -->
+<div class="col-md-offset-1 col-md-3">
+  <div class='toc-general'>
+  	<h3>Navigation</h3>
+	{{ toctree(maxdepth=1) }}
+  </div>
+</div>
+<div class="col-md-7">
+	<h3>License</h3>
+	HYRISE is licensed as open source after the OpenSource “Licence of the Hasso-Plattner Institute” declared in the LICENSE file of this project.
+
+	Question: Why does HYRISE not use MIT or BSD or XX license. The reason for our approach comes with the German copyright law. Common BSD and MIT licenses are not necessarily compatible and thus can potentially lead to problems. To overcome this problem this project uses an specifically designed open source license to be compatible with German law. The most prominent difference is the exclusion of all liabilities which is not possible in Germany.
+
+	<h3>Copyright</h3>
+    &copy; {{ copyright }}.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+
+</div>

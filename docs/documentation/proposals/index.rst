@@ -1,0 +1,9 @@
+#########
+Proposals
+#########
+
+
+.. toctree::
+    :glob:
+
+    overview
