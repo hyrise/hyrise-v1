@@ -82,6 +82,7 @@ storage::c_ahashtable_ptr_t PlanOperation::getInputHashTable(size_t index) const
 storage::c_ahashtable_ptr_t PlanOperation::getResultHashTable(size_t index) const { return output.getHashTable(index); }
 
 bool PlanOperation::allDependenciesSuccessful() {
+  // FIXME not thread safe.
   for (size_t i = 0; i < _dependencies.size(); ++i) {
     if (std::dynamic_pointer_cast<OutputTask>(_dependencies[i])->getState() == OpFail)
       return false;

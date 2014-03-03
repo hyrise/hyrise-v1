@@ -106,6 +106,7 @@ void ResponseTask::registerPlanOperation(const std::shared_ptr<PlanOperation>& p
 
 
 std::shared_ptr<PlanOperation> ResponseTask::getResultTask() {
+  // FIXME not thread safe!
   if (getDependencyCount() > 0) {
     return std::dynamic_pointer_cast<PlanOperation>(_dependencies[0]);
   }
@@ -114,6 +115,7 @@ std::shared_ptr<PlanOperation> ResponseTask::getResultTask() {
 
 
 task_states_t ResponseTask::getState() const {
+  // FIXME not thread safe!
   for (const auto& dep : _dependencies) {
     if (auto ot = std::dynamic_pointer_cast<OutputTask>(dep)) {
       if (ot->getState() != OpSuccess)

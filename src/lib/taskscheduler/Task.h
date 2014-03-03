@@ -150,6 +150,45 @@ class Task : public TaskDoneObserver, public std::enable_shared_from_this<Task> 
    */
   bool addDoneObserver(const std::shared_ptr<TaskDoneObserver>& observer);
   /*
+   * Returns all successors of the specified type T.
+   */
+  template <typename T>
+  const std::vector<std::shared_ptr<T>> getAllSuccessorsOf() const {
+    std::vector<std::weak_ptr<TaskDoneObserver>> targets;
+    {
+      std::lock_guard<decltype(_observerMutex)> lk(_observerMutex);
+      targets = _doneObservers;
+    }
+    std::vector<std::shared_ptr<T>> result;
+    for (auto& target : targets) {
+      if (auto successor = target.lock()) {
+        if (auto typedSuccessor = std::dynamic_pointer_cast<T>(successor)) {
+          result.push_back(typedSuccessor);
+        }
+      }
+    }
+    return result;
+  }
+
+  /*
+   * Get first predecessor of type T. Throws exception if none is found.
+   */
+  template <typename T>
+  std::shared_ptr<T> getFirstPredecessorOf() const {
+    std::vector<std::shared_ptr<Task>> targets;
+    {
+      std::lock_guard<decltype(this->_depMutex)> lk(_depMutex);
+      targets = _dependencies;
+    }
+    for (auto target : targets) {
+      if (auto typed_target = std::dynamic_pointer_cast<T>(target)) {
+        return typed_target;
+      }
+    }
+    throw std::runtime_error("Could not find any predecessor of requested type.");
+  }
+
+  /*
    * whether this task is ready to run / has open dependencies
    */
   bool isReady();
