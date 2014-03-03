@@ -1,0 +1,53 @@
+{
+    "operators": {
+        "-1": {
+          "type": "TableLoad",
+          "table": "reference",
+          "filename": "tables/companies_employees_double_joined.tbl"
+        },
+        "0": {
+          "type": "TableLoad",
+          "table": "companies",
+          "filename": "tables/companies.tbl"
+        },
+        "1": {
+          "type": "TableLoad",
+          "table": "employees",
+          "filename": "tables/employees.tbl"
+        },
+        "2": {
+          "type": "HashBuild",
+          "fields": [0],
+          "key": "join"
+        },
+        "3": {
+          "type": "HashBuild",
+          "fields": [0],
+          "key": "join"
+        },
+        "4": {
+          "type": "PipeliningHashProbe",
+          "COMMENT": "The chunk size is set low to trigger the chunking/unioning",
+          "chunkSize": 1,
+          "fields": [1]
+        },
+        "5": {
+          "type": "PipeliningHashProbe",
+          "COMMENT": "The chunk size is set low to trigger the chunking/unioning",
+          "chunkSize": 1,
+          "fields": [1]
+        },
+        "6": {
+          "type": "PipelineUnion"
+        }
+    },
+    "edges": [
+     ["0", "2"],
+     ["2", "4"],
+     ["1", "4"],
+     ["0", "3"],
+     ["3", "5"],
+     ["4", "5"],
+     ["5", "6"]
+    ]
+}
