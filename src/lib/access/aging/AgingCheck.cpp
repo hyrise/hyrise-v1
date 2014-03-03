@@ -93,7 +93,20 @@ void AgingCheck::executePlanOperation() {
     
     std::cout << "Woohoo, found at least one AgingIndex" << std::endl;
 
-    const auto& fields = selection->accessedFields(tableName);
+    bool hot = true;
+    for (const auto& agingIndex : agingIndices) {
+      const param_data_t* data = nullptr;
+      const auto& fieldName = casted->nameOfColumn(agingIndex->field());
+      for (const auto& param : _paramList) {
+        if (param.table == tableName && param.field == fieldName) {
+          data = &param;
+          break;
+        }
+      }
+
+      if (data == nullptr)
+        throw std::runtime_error("no value specified for " + tableName + "." + fieldName);
+    }
   }
 
   

@@ -27,5 +27,9 @@ atable_ptr_t AgingIndex::table() {
   return _table.lock();
 }
 
+field_t AgingIndex::field() {
+  return _statistic->field();
+}
+
 } } // namespace hyrise::storage
 
