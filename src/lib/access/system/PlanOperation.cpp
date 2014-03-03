@@ -202,6 +202,7 @@ void PlanOperation::addInput(storage::c_aresource_ptr_t t) { input.addResource(t
 void PlanOperation::setPlanId(std::string i) { _planId = i; }
 void PlanOperation::setOperatorId(std::string i) { _operatorId = i; }
 
+const std::string& PlanOperation::getOperatorId() { return _operatorId; }
 const std::string& PlanOperation::planOperationName() const { return _planOperationName; }
 void PlanOperation::setPlanOperationName(const std::string& name) { _planOperationName = name; }
 

@@ -93,6 +93,7 @@ class PlanOperation : public OutputTask {
 
   void setPlanId(std::string i);
   void setOperatorId(std::string i);
+  const std::string& getOperatorId();
   const std::string& planOperationName() const;
   void setPlanOperationName(const std::string& name);
 
