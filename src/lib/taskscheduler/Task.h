@@ -66,9 +66,11 @@ class Task : public TaskDoneObserver, public std::enable_shared_from_this<Task> 
 
   int _dependencyWaitCount;
   // mutex for dependencyCount and dependency vector
-  hyrise::locking::Spinlock _depMutex;
-  // mutex for observer vector
-  hyrise::locking::Spinlock _observerMutex;
+  mutable hyrise::locking::Spinlock _depMutex;
+  // mutex for observer vector and _notifiedDoneObservers.
+  mutable hyrise::locking::Spinlock _observerMutex;
+  // indicates if notification of done observers already took place --> task is finised.
+  bool _notifiedDoneObservers = false;
   // mutex to stop notifications, while task is being scheduled to wait set in SimpleTaskScheduler
   // hyrise::locking::Spinlock _notifyMutex;
   // indicates on which core the task should run
@@ -111,6 +113,8 @@ class Task : public TaskDoneObserver, public std::enable_shared_from_this<Task> 
   bool hasSuccessors();
   /*
    * adds dependency; the task is ready to run if all tasks this tasks depends on are finished
+   * If dependency is done, it will not increase the dependencyWaitCount.
+   * This fixes the problem of tasks waiting for their final done notification indefinitely.
    */
   void addDependency(const task_ptr_t& dependency);
   /*
@@ -140,9 +144,11 @@ class Task : public TaskDoneObserver, public std::enable_shared_from_this<Task> 
    */
   void addReadyObserver(const std::shared_ptr<TaskReadyObserver>& observer);
   /*
-   * adds an obserer that gets notified if this task is done
+   * adds an observer that gets notified if this task is done
+   * returns true, if done observer was added since the task was not finished.
+   * returns false, if done observer was not added since the task has already been finished.
    */
-  void addDoneObserver(const std::shared_ptr<TaskDoneObserver>& observer);
+  bool addDoneObserver(const std::shared_ptr<TaskDoneObserver>& observer);
   /*
    * whether this task is ready to run / has open dependencies
    */
