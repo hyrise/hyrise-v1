@@ -30,6 +30,10 @@ private:
 public:
   WSCoreBoundPriorityQueue(int core, WSCoreBoundPriorityQueuesScheduler *scheduler);
   virtual ~WSCoreBoundPriorityQueue();
+    /*
+   * init task scheduler
+   */
+  virtual void init();
 
   /*
    * Is executed by dedicated thread to work the queue

@@ -43,6 +43,10 @@ class AbstractTaskScheduler {
 
   virtual ~AbstractTaskScheduler() {};
   /*
+   * init task scheduler
+   */
+  virtual void init(){}
+  /*
    * schedule a task for execution
    */
   virtual void schedule(std::shared_ptr<Task> task) = 0;

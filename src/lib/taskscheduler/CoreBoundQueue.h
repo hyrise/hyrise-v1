@@ -28,6 +28,10 @@ class CoreBoundQueue : public AbstractCoreBoundQueue {
   CoreBoundQueue(int core);
   ~CoreBoundQueue();
   /*
+   * init task scheduler
+   */
+  virtual void init();
+  /*
    * Is executed by dedicated thread to work the queue
    */
   void executeTask();

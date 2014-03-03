@@ -49,9 +49,15 @@ protected:
   // scheduler status
   scheduler_status_t _status;
   static log4cxx::LoggerPtr _logger;
+    // number of threads
+  int _threads;
 public:
   CentralScheduler(int threads = getNumberOfCoresOnSystem());
   virtual ~CentralScheduler();
+  /*
+   * init task scheduler
+   */
+  virtual void init();
 
   void worker_loop();
   /*

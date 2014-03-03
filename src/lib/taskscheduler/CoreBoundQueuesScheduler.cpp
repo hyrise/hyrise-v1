@@ -19,17 +19,19 @@ bool registered  =
     SharedScheduler::registerScheduler<CoreBoundQueuesScheduler>("CoreBoundQueuesScheduler");
 }
 
-CoreBoundQueuesScheduler::CoreBoundQueuesScheduler(const int queues): AbstractCoreBoundQueuesScheduler(){
+CoreBoundQueuesScheduler::CoreBoundQueuesScheduler(const int queues):AbstractCoreBoundQueuesScheduler(queues){}
+
+void CoreBoundQueuesScheduler::init(){
   _status = START_UP;
   // set _queues to queues after new queues have been created to new tasks to be assigned to new queues
   // lock _queue mutex as queues are manipulated
   std::lock_guard<lock_t> lk(_queuesMutex);
   
-  for (int i = 0; i < queues; ++i) {
-    _taskQueues.push_back(createTaskQueue(i));
+  for (int i = 0; i < _queues; ++i) {
+    task_queue_t *queue = createTaskQueue(i);
+    queue->init();
+    _taskQueues.push_back(queue);
   }
-  _queues = queues;
-  
   _status = RUN;
 }
 

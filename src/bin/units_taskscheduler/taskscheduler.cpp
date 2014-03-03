@@ -255,6 +255,7 @@ TEST(SchedulerBlockTest, dont_block_test) {
   /* we assign a long running task and a number of smaller tasks with a think time to the queues -
      the scheduler should realize that one queue is blocked and assign tasks to other queues */
   auto scheduler = std::make_shared<CoreBoundQueuesScheduler>(2);
+  scheduler->init();
   // These test currently just check for execute
   long_block_test(scheduler.get());
 }
@@ -262,6 +263,7 @@ TEST(SchedulerBlockTest, dont_block_test) {
 TEST(SchedulerBlockTest, dont_block_test_with_work_stealing) {
   /*  steal work from that queue */
   auto scheduler = std::make_shared<WSCoreBoundQueuesScheduler>(2);
+  scheduler->init();
   long_block_test(scheduler.get());
 }
 

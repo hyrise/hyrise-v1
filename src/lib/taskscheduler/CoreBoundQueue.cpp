@@ -68,8 +68,9 @@ void CoreBoundQueue::executeTask() {
   }
 }
 
-CoreBoundQueue::CoreBoundQueue(int core): AbstractCoreBoundQueue(), _blocked(false) {
-  _core = core;
+CoreBoundQueue::CoreBoundQueue(int core): AbstractCoreBoundQueue(core), _blocked(false){}
+
+void CoreBoundQueue::init(){
   launchThread(_core);
 }
 

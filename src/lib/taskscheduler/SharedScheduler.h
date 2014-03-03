@@ -70,6 +70,7 @@ public:
       throw SchedulerException("Scheduler has already been initialized");
     if(_schedulers.find(scheduler) != _schedulers.end()){
       _sharedScheduler = _schedulers[scheduler]->create(cores);
+      _sharedScheduler->init();
       if (auto dynamicScheduler = std::dynamic_pointer_cast<DynamicPriorityScheduler>(_sharedScheduler)) {
       	dynamicScheduler->setMaxTaskSize(maxTaskSize);
       }
@@ -87,6 +88,7 @@ public:
     
     if(_schedulers.find(scheduler) != _schedulers.end()){
       _sharedScheduler = _schedulers[scheduler]->create(cores);
+      _sharedScheduler->init();
     } else
       throw SchedulerException("Requested scheduler was not registered");
   }

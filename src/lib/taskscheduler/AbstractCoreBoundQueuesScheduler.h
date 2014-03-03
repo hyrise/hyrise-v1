@@ -55,7 +55,7 @@ class AbstractCoreBoundQueuesScheduler :
   virtual task_queue_t *createTaskQueue(int core) = 0;
 
  public:
-  AbstractCoreBoundQueuesScheduler();
+  AbstractCoreBoundQueuesScheduler(int queues);
 
   virtual ~AbstractCoreBoundQueuesScheduler();
   /*

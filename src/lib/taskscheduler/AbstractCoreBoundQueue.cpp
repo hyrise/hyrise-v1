@@ -22,8 +22,9 @@ log4cxx::LoggerPtr AbstractCoreBoundQueue::logger(log4cxx::Logger::getLogger("ta
 
 AbstractCoreBoundQueue::AbstractCoreBoundQueue(): _status(RUN){
   // TODO Auto-generated constructor stub
-
 }
+
+AbstractCoreBoundQueue::AbstractCoreBoundQueue(int core): _status(RUN), _core(core){}
 
 AbstractCoreBoundQueue::~AbstractCoreBoundQueue() {
   // TODO Auto-generated destructor stub

@@ -28,6 +28,10 @@ class CoreBoundPriorityQueue : public AbstractCoreBoundQueue {
    */
   CoreBoundPriorityQueue(int core);
   ~CoreBoundPriorityQueue();
+    /*
+   * init task scheduler
+   */
+  virtual void init();
   /*
    * Is executed by dedicated thread to work the queue
    */

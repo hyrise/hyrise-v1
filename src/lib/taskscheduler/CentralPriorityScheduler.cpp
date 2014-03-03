@@ -19,12 +19,14 @@ bool registered  =
     SharedScheduler::registerScheduler<CentralPriorityScheduler>("CentralPriorityScheduler");
 }
 
-CentralPriorityScheduler::CentralPriorityScheduler(int threads) {
+CentralPriorityScheduler::CentralPriorityScheduler(int threads): _threads(threads) {}
+
+void CentralPriorityScheduler::init(){
   _status = START_UP;
   int core = 0;
   int NUM_PROCS = getNumberOfCoresOnSystem();
   // bind threads to cores                                                                                                                                        
-  for(int i = 0; i < threads; i++){
+  for(int i = 0; i < _threads; i++){
     std::thread thread(PriorityWorkerThread(*this));
     hwloc_cpuset_t cpuset;
     hwloc_obj_t obj;
