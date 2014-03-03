@@ -12,34 +12,27 @@ namespace hyrise { namespace storage {
 AgingStore::AgingStore(const store_ptr_t& store) : AgingStore(*store) {}
 
 AgingStore::AgingStore(const Store& store) :
-    Store(makeAgingMain(store.getMainTable())) {
-
-}
+    Store(makeAgingMain(store.getMainTable())) {}
 
 AgingStore::~AgingStore() {}
 
 
 atable_ptr_t AgingStore::makeAgingMain(const atable_ptr_t& table) {
-  const auto& vtable = checked_pointer_cast<MutableVerticalTable>(table);
-  std::vector<atable_ptr_t> htables;
-  bool createNew = false;
-  for (unsigned i = 0; i < vtable->subtableCount(); ++i) {
-    const auto& subtable = vtable->getContainer(i);
-    auto htable = std::dynamic_pointer_cast<MutableHorizontalTable>(subtable);
-    if (htable != nullptr)
-      htables.push_back(htable);
-    else {
-      createNew = true;
-      const std::vector<atable_ptr_t> tableList = {checked_pointer_cast<Table>(subtable)};
-      htables.push_back(std::make_shared<MutableHorizontalTable>(tableList));
-    }
-  }
+  std::vector<atable_ptr_t> tables;
+  for (unsigned i = 0; i < table->columnCount(); ++i) {
+    std::vector<std::shared_ptr<AbstractDictionary>> dicts = {table->dictionaryAt(i)};
+    metadata_list metadata = {table->metadataAt(i)};
+    const size_t size = table->size();
 
-  if (createNew == false) {
-    std::cout << "already only MutableHorizontalTables?" << std::endl;
-    return vtable;
+    const auto& newTable = std::make_shared<Table>(&metadata, &dicts);
+    newTable->resize(size);
+    for (size_t row = 0; row < size; ++row)
+      newTable->copyValueFrom(table, i, row, 0, row);
+
+    std::vector<atable_ptr_t> parts = {newTable};
+    tables.push_back(std::make_shared<MutableHorizontalTable>(parts));
   }
-  return std::make_shared<MutableVerticalTable>(htables);
+  return std::make_shared<MutableVerticalTable>(tables);
 }
 
 void AgingStore::debugStructure(size_t level) const {

@@ -32,11 +32,13 @@ class MutableHorizontalTable : public AbstractTable {
                               abstract_attribute_vector_callback b) const override;
 
   void debugStructure(size_t level=0) const override;
+  const std::vector<atable_ptr_t>& parts();
+
  private:
   size_t partForRow(size_t row) const;
   size_t computeSize() const;
   /// subtables
-  const std::vector<atable_ptr_t> _parts;
+  std::vector<atable_ptr_t> _parts;
   const std::vector<size_t> _offsets;
   const std::vector<table_id_t> _table_id_offsets;
   /// Offset for each subtable

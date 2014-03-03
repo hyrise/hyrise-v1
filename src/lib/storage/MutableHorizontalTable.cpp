@@ -128,5 +128,8 @@ size_t MutableHorizontalTable::computeSize() const {
                          [] (size_t r, const atable_ptr_t& t) { return r + t->size(); });
 }
 
+const std::vector<atable_ptr_t>& MutableHorizontalTable::parts() {
+  return _parts;
+}
 
 }}
