@@ -19,7 +19,7 @@ namespace storage {
 
 class TableRangeView : public AbstractTable, public SharedFactory<TableRangeView> {
 
-  atable_ptr_t _table;
+  c_atable_ptr_t _table;
 
   size_t _start;
   size_t _end;
@@ -27,7 +27,7 @@ class TableRangeView : public AbstractTable, public SharedFactory<TableRangeView
   size_t _columnCount;
 
  public:
-  TableRangeView(atable_ptr_t t, size_t s, size_t e);
+  TableRangeView(c_atable_ptr_t t, size_t s, size_t e);
   virtual ~TableRangeView();
 
   size_t getStart() const;
@@ -40,7 +40,6 @@ class TableRangeView : public AbstractTable, public SharedFactory<TableRangeView
 
   // recalculated rows and routed to underlying table if necessary
   size_t size() const;
-  void setValueId(const size_t column, const size_t row, const ValueId valueId);
   ValueId getValueId(const size_t column, const size_t row) const;
 
   const ColumnMetadata& metadataAt(const size_t column, const size_t row = 0, const table_id_t table_id = 0) const

@@ -14,7 +14,7 @@
 namespace hyrise {
 namespace storage {
 
-TableRangeView::TableRangeView(atable_ptr_t t, size_t s, size_t e) : _table(t), _start(s), _end(e) {
+TableRangeView::TableRangeView(c_atable_ptr_t t, size_t s, size_t e) : _table(t), _start(s), _end(e) {
   _columnCount = _table->columnCount();
 }
 
@@ -37,13 +37,6 @@ size_t TableRangeView::getStart() const { return _start; }
 c_atable_ptr_t TableRangeView::getTable() const { return _table; }
 
 size_t TableRangeView::size() const { return _end - _start; }
-
-void TableRangeView::setValueId(const size_t column, const size_t row, const ValueId valueId) {
-  size_t actual_row;
-  actual_row = row + _start;
-
-  return _table->setValueId(column, actual_row, valueId);
-}
 
 ValueId TableRangeView::getValueId(const size_t column, const size_t row) const {
   size_t actual_row;
