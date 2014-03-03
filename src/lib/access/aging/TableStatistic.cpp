@@ -169,7 +169,7 @@ struct collect_table_vids_functor {
   typedef void value_type;
 
   collect_table_vids_functor(storage::atable_ptr_t table, storage::field_t field, storage::c_atable_ptr_t statisticTable) :
-    vids(_statisticTable->size()),
+    vids(statisticTable->size()),
     _table(table),
     _field(field),
     _statisticTable(statisticTable) {}
@@ -182,6 +182,8 @@ struct collect_table_vids_functor {
 
     for (size_t row = 0; row < rowc; ++row)
       vids.at(row) = dict->getValueIdForValue(_statisticTable->getValue<T>(valueField, row));
+
+    vids.shrink_to_fit();
   }
 
   std::vector<storage::value_id_t> vids;

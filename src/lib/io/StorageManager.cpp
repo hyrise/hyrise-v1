@@ -141,18 +141,21 @@ namespace {
 storage::aging_index_ptr_t StorageManager::getAgingIndexFor(const std::string& table, const std::string& field) const {
   if (hasAgingIndex(table, field))
     return get<storage::AgingIndex>(getAgingIndexName(table, field));
-  throw std::runtime_error("there is no aging index. it might automaticly created here ... might ... maybe");
+  throw std::runtime_error("there is no such aging index");
 }
 
 void StorageManager::setAgingIndexFor(const std::string& table, const std::string& field,
                                       const storage::aging_index_ptr_t& index) {
-  if (hasAgingIndex(table, field)) throw std::runtime_error("there already is a aging index for " + table + "." + field);
   get<storage::AbstractTable>(table)->numberOfColumn(field); // check for existance
-  add(getAgingIndexName(table, field), index);
+  const auto& indexName = getAgingIndexName(table, field);
+  if (hasAgingIndex(table, field))
+    replace(indexName, index);
+  else
+    add(indexName, index);
 }
 
 bool StorageManager::hasAgingIndex(const std::string& table, const std::string& field) const {
-  get<storage::AbstractTable>(table); // check whether "table" exists and is a table
+  get<storage::AbstractTable>(table)->numberOfColumn(field); // check for existance
   const auto indexName = getAgingIndexName(table, field);
   if (!exists(indexName))
     return false;

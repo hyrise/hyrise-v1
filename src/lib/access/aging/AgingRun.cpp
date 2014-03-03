@@ -11,6 +11,7 @@
 #include <access/SimpleTableScan.h>
 #include <access/expressions/pred_CompoundExpression.h>
 #include <access/aging/QueryManager.h>
+#include <access/aging/StatisticSnapshot.h>
 
 namespace hyrise {
 namespace access {
@@ -122,6 +123,14 @@ void AgingRun::executePlanOperation() {
     else {
       std::cout << row << ": COLD" << std::endl;
     }
+  }
+
+  std::cout << "create statistic snapshots and aging indices" << std::endl;
+  table->print();
+  for (size_t i = 0; i < statistics.size(); ++i) {
+    const auto snapshot = std::make_shared<StatisticSnapshot>(*statistics.at(i));
+    const auto agingIndex = std::make_shared<storage::AgingIndex>(table, snapshot);
+    sm.setAgingIndexFor(_tableName, table->nameOfColumn(snapshot->field()), agingIndex);
   }
 }
 
