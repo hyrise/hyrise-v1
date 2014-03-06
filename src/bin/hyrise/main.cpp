@@ -161,11 +161,13 @@ int main(int argc, char *argv[]) {
       (scheduler_name == "WSCoreBoundPriorityQueuesScheduler") || 
       (scheduler_name == "CoreBoundPriorityQueuesScheduler")){
     bindToNode(0);
-    worker_threads = getNumberOfCoresOnSystem()-1;
+    if(worker_threads == -1)
+      worker_threads = getNumberOfCoresOnSystem()-1;
   }
   // if no core bound scheduler, set the number of threads to core-count
   else{
-    worker_threads = getNumberOfCoresOnSystem();
+    if(worker_threads == -1)
+      worker_threads = getNumberOfCoresOnSystem();
   }
 
   // Log File Configuration
