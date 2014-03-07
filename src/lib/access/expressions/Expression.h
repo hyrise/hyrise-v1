@@ -15,6 +15,8 @@
 #include "storage/OrderPreservingDictionary.h"
 #include "storage/ConcurrentUnorderedDictionary.h"
 
+#include <array>
+
 namespace hyrise { namespace access {
 
 class Expression {
