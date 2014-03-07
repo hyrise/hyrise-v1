@@ -14,9 +14,7 @@ namespace hyrise { namespace storage {
 
 class TableBuilderError : public std::runtime_error {
 public:
-
-  explicit TableBuilderError(const std::string &what): std::runtime_error(what)
-  {}
+  using std::runtime_error::runtime_error;
 };
 
 #define builder_param_member(type, name) type name; param &set_##name(type t) { name = t; return *this; }

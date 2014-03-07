@@ -64,7 +64,7 @@ public:
 
   // TID handling
   inline tx::transaction_id_t tid(size_t row) const { return _tidVector[row]; }
-  inline void setTid(size_t row, tx::transaction_id_t tid) { _tidVector[row] = tid; }
+  inline void setTid(size_t row, tx::transaction_id_t tid_) { _tidVector[row] = tid_; }
   tx::TX_CODE checkForConcurrentCommit(const pos_list_t& pos, tx::transaction_id_t tid) const;
   tx::TX_CODE markForDeletion(pos_t pos,  tx::transaction_id_t tid);
   tx::TX_CODE unmarkForDeletion(const pos_list_t& pos, tx::transaction_id_t tid);

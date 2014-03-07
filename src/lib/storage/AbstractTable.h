@@ -38,19 +38,11 @@ typedef struct {
 typedef std::vector<attr_vector_offset_t> attr_vectors_t;
 
 class StorageException : public std::runtime_error {
-
-public:
-
-  explicit StorageException(const std::string &msg): std::runtime_error(msg)
-  {}
-
+  using std::runtime_error::runtime_error;
 };
 
 class MissingColumnException : public std::runtime_error {
-public:
-
-  explicit MissingColumnException(const std::string &what): std::runtime_error(what)
-  {}
+  using std::runtime_error::runtime_error;
 };
 
 

@@ -9,9 +9,7 @@ namespace io {
 namespace Loader {
 
 class Error : public std::runtime_error {
- public:
-  explicit Error(std::string msg) : std::runtime_error(msg)
-  {}
+  using std::runtime_error::runtime_error;
 };
 
 } } } // namespace hyrise::io::Loader

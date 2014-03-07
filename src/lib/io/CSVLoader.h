@@ -13,9 +13,7 @@ namespace io {
 bool detectHeader(const std::string &filename);
 
 class CSVLoaderError : public Loader::Error {
- public:
-  explicit CSVLoaderError(const std::string &what): Loader::Error(what)
-  {}
+  using Loader::Error::Error;
 };
 
 class CSVInput : public AbstractInput {

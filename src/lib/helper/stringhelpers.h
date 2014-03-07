@@ -43,13 +43,13 @@ T inline fromString(const std::string &s) {
 }
 
 struct infix {
-  std::string sep;
-  infix(const std::string& sep) : sep(sep) {}
+  const std::string _sep;
+  infix(const std::string sep) : _sep(sep) {}
 
   inline std::string operator()(const std::string& lhs, const std::string& rhs) {
     std::string rz(lhs);
     if(!lhs.empty() && !rhs.empty())
-      rz += sep;
+      rz += _sep;
     rz += rhs;
     return rz;
   }

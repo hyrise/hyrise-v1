@@ -40,9 +40,9 @@ public:
     _values = std::make_shared<vector_type>();
   }
   
-  explicit OrderPreservingDictionary(size_t size) {
-    _values = std::make_shared<vector_type>();
-    _values->reserve(size);
+  explicit OrderPreservingDictionary(size_t sz) :
+    _values(std::make_shared<vector_type>()) {
+    _values->reserve(sz);
   }
 
   virtual ~OrderPreservingDictionary() {}
@@ -119,8 +119,8 @@ public:
     return binary_search(_values->begin(), _values->end(), value);
   }
 
-  void reserve(size_t size) {
-    _values->reserve(size);
+  void reserve(size_t sz) {
+    _values->reserve(sz);
   }
   
   size_t size() {

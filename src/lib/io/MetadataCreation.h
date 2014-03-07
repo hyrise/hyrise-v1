@@ -17,9 +17,7 @@ class AbstractTable;
 namespace io {
 
 class MetadataCreationError : public Loader::Error {
- public:
-  explicit MetadataCreationError(const std::string &what) : Loader::Error(what)
-  {}
+  using Loader::Error::Error;
 };
 
 /**

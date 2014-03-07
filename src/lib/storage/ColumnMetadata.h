@@ -10,8 +10,7 @@ namespace hyrise {
 namespace storage {
 
 class ColumnMetaCreationException : public std::runtime_error {
- public:
-  explicit ColumnMetaCreationException(const std::string &what) : std::runtime_error(what) {}
+  using std::runtime_error::runtime_error;
 };
 
 class ColumnMetadata {
