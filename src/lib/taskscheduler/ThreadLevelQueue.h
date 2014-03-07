@@ -7,7 +7,7 @@
 #include "PriorityQueueType.h"
 #include "BasicQueueType.h"
 #include <tbb/concurrent_queue.h>
-#include <mutex>
+#include <atomic>
 
 namespace hyrise {
 namespace taskscheduler {
@@ -57,7 +57,7 @@ public:
     if (task->isReady()) {
       task->unlockForNotifications();
       _runQueue.push(task);
-      _queuecheck.notify_one();
+      _queuecheck.notify_all();
     } else {
       task->addReadyObserver(shared_from_this());
     }
@@ -69,9 +69,13 @@ public:
    */
   virtual void shutdown(){
     if (_status != STOPPED) {
-      _status = TO_STOP;
+      {
+        std::unique_lock<lock_t> locker(_lockqueue);
+        _status = TO_STOP;
+      }
+      _queuecheck.notify_all();
       for(size_t i = 0; i < _threadCount; i++){
-        _queuecheck.notify_all();
+        
         _threads[i]->join();
         delete _threads[i];
         //just to make sure it points to nullptr
@@ -94,7 +98,7 @@ public:
 
   virtual void notifyReady(std::shared_ptr<Task> task) {
     _runQueue.push(task);
-    _queuecheck.notify_one();
+    _queuecheck.notify_all();
   }
 
 protected:  
@@ -116,12 +120,16 @@ protected:
         task->notifyDoneObservers();
         _blocked = false;
       } else {
-        if (retries++ < 1000) {
+        if (retries++ < 10000) {
           if (retries > 300) 
             std::this_thread::yield();
-        } else {;
+        } 
+        else {
           std::unique_lock<lock_t> locker(_lockqueue);
-          _queuecheck.wait(locker);  
+          if(_status != RUN)
+              break;
+          _queuecheck.wait(locker);
+          retries = 0;
         }
       }
     }

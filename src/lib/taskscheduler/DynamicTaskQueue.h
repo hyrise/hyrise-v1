@@ -33,12 +33,14 @@ public:
       for (const auto& i : tasks) {
         if (i->isReady()) {
           _runQueue.push(i);
+          ThreadLevelQueue<QUEUE>::_queuecheck.notify_all();
         } else {   
           i->addReadyObserver(ThreadLevelQueue<QUEUE>::shared_from_this());
         }
       }
     } else { // task is not dynamic
       _runQueue.push(task);
+      ThreadLevelQueue<QUEUE>::_queuecheck.notify_all();
     }
   }    
 

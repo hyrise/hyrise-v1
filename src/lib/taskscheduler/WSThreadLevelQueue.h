@@ -89,12 +89,15 @@ protected:
       if (!_runQueue.try_pop(task)) {
         // if not, try to steal task
         if(!(task = stealTasks())){
-          if (retries++ < 1000){ 
+          if (retries++ < 10000){ 
             if (retries > 300) 
               std::this_thread::yield();
          } else {
             std::unique_lock<AbstractTaskScheduler::lock_t> locker(ThreadLevelQueue<QUEUE>::_lockqueue);
-            ThreadLevelQueue<QUEUE>::_queuecheck.wait(locker);  
+            if(_status != AbstractTaskScheduler::RUN)
+              break;
+            ThreadLevelQueue<QUEUE>::_queuecheck.wait(locker);
+            retries = 0;
           }
         }
       }
