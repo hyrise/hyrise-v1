@@ -19,16 +19,6 @@ public:
   virtual T getValueForValueId(value_id_t value_id) = 0;
   virtual value_id_t getValueIdForValue(const T &value) const = 0;
 
-  /*
-   * Returns the value id of the first value that is smaller
-   * than other.
-   *
-   * @note needs to be implemented in each subclass
-   * @param other the value to compare with
-   */
-  virtual value_id_t getValueIdForValueSmaller(T other) = 0;
-  virtual value_id_t getValueIdForValueGreater(T other) = 0;
-
   virtual const T getSmallestValue() = 0;
   virtual const T getGreatestValue() = 0;
 

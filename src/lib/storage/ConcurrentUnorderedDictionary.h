@@ -26,8 +26,8 @@ public:
     return (_it == std::static_pointer_cast<iter_type>(other)->_it);
   }
 
-  T &dereference() const {
-    return (T&) _it->first;
+  T dereference() {
+    return _it->first;
   }
 
   value_id_t getValueId() const {
@@ -108,8 +108,7 @@ class ConcurrentUnorderedDictionary : public BaseDictionary<T> {
   virtual iterator end() override {
     return iterator(std::make_shared<ConcurrentUnorderedDictionaryIterator<T> >(_index.end()));
   }
-  virtual value_id_t getValueIdForValueSmaller(T other) { NOT_IMPLEMENTED }
-  virtual value_id_t getValueIdForValueGreater(T other) { NOT_IMPLEMENTED }
+
  private:
   tbb::concurrent_unordered_map<T, value_id_t> _index_unordered; // a potentially laggy set
   tbb::concurrent_vector<T> _values;

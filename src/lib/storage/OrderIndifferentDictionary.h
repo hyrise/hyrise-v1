@@ -38,8 +38,8 @@ public:
     return _it == std::dynamic_pointer_cast<OrderIndifferentDictionaryIterator<T>>(other)->_it;
   }
 
-  T &dereference() const {
-    return (T &)(*_it).first;
+  T dereference() {
+    return ((*_it).first);
   }
 
   value_id_t getValueId() const {
@@ -137,14 +137,6 @@ public:
       throw std::out_of_range("Value not found");
     }
     return _index.at(value);
-  }
-
-  value_id_t getValueIdForValueSmaller(T other) {
-    throw std::runtime_error("This cannot be called since value ids have no ordered meaning");
-  }
-
-  value_id_t getValueIdForValueGreater(T other) {
-    throw std::runtime_error("This cannot be calles since value ids have no ordered meaning");
   }
 
   const T getSmallestValue() {

@@ -47,14 +47,6 @@ public:
     return pt_dict_union_t(value).vid;
   }
 
-  value_id_t getValueIdForValueSmaller(T other) {
-    STORAGE_NOT_IMPLEMENTED(PassThroughDictionary, getValueIdForValueSmaller());
-  }
-
-  value_id_t getValueIdForValueGreater(T other) {
-    STORAGE_NOT_IMPLEMENTED(PassThroughDictionary, getValueIdForValueGreater());
-  }
-
   const T getSmallestValue() {
     STORAGE_NOT_IMPLEMENTED(PassThroughDictionary, getSmallestValue());
   }
@@ -103,7 +95,7 @@ class PassThroughDictionaryIterator : public BaseIterator<T> {
     return true;
   }
 
-  T &dereference() const {
+  T dereference()  {
     STORAGE_NOT_IMPLEMENTED(PassThroughDictionaryIterator, dereference());
   }
 

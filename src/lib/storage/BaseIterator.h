@@ -15,7 +15,7 @@ class BaseIterator {
 
   virtual void increment() = 0;
 
-  virtual T &dereference() const = 0;
+  virtual T dereference() = 0;
 
   virtual bool equal(const std::shared_ptr<BaseIterator<T>>& other) const = 0;
 
