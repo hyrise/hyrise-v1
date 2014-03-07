@@ -71,6 +71,7 @@ public:
     if (_status != STOPPED) {
       _status = TO_STOP;
       for(size_t i = 0; i < _threadCount; i++){
+        _queuecheck.notify_all();
         _threads[i]->join();
         delete _threads[i];
         //just to make sure it points to nullptr
@@ -93,6 +94,7 @@ public:
 
   virtual void notifyReady(std::shared_ptr<Task> task) {
     _runQueue.push(task);
+    _queuecheck.notify_one();
   }
 
 protected:  
@@ -117,7 +119,7 @@ protected:
         if (retries++ < 1000) {
           if (retries > 300) 
             std::this_thread::yield();
-        } else {
+        } else {;
           std::unique_lock<lock_t> locker(_lockqueue);
           _queuecheck.wait(locker);  
         }
