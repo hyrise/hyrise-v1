@@ -99,19 +99,6 @@ bool PlanOperation::allDependenciesSuccessful() {
   return true;
 }
 
-/*
-std::string PlanOperation::getDependencyErrorMessages() {
-  std::string result;
-
-  std::shared_ptr<OutputTask> task;
-  for (size_t i = 0; i < _dependencies.size(); ++i) {
-    task = std::dynamic_pointer_cast<OutputTask>(_dependencies[i]);
-    if (task->getState() == OpFail) result += task->getErrorMessage() + "\n";
-  }
-
-  return result;
-  }*/
-
 void PlanOperation::addField(field_t field) {
   _indexed_field_definition.push_back(field);
 }
