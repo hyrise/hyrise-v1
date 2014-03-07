@@ -81,17 +81,25 @@ protected:
    * Is executed by dedicated thread to work the queue
    */
   virtual void executeTasks(){
+    size_t retries = 0;
+    //infinite thread loop
     while (true) {
       if (_status == ThreadLevelQueue<QUEUE>::TO_STOP) { break; } // break out when asked
-        std::shared_ptr<Task> task = nullptr;
-      // try to get task from own queue
+      std::shared_ptr<Task> task = nullptr;
       if (!_runQueue.try_pop(task)) {
         // if not, try to steal task
-        if(!(task = stealTasks()))
-        // if not yield
-          std::this_thread::yield();
+        if(!(task = stealTasks())){
+          if (retries++ < 1000){ 
+            if (retries > 300) 
+              std::this_thread::yield();
+         } else {
+            std::unique_lock<AbstractTaskScheduler::lock_t> locker(ThreadLevelQueue<QUEUE>::_lockqueue);
+            ThreadLevelQueue<QUEUE>::_queuecheck.wait(locker);  
+          }
+        }
       }
       if(task){
+        retries = 0;
         (*task)();
         LOG4CXX_DEBUG(_logger,  "Executed task " << task->vname());
         task->notifyDoneObservers();

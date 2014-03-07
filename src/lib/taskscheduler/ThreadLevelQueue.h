@@ -7,6 +7,7 @@
 #include "PriorityQueueType.h"
 #include "BasicQueueType.h"
 #include <tbb/concurrent_queue.h>
+#include <mutex>
 
 namespace hyrise {
 namespace taskscheduler {
@@ -32,6 +33,8 @@ protected:
   scheduler_status_t _status;
   static log4cxx::LoggerPtr _logger;
   bool _blocked;
+  lock_t _lockqueue;
+  std::condition_variable_any _queuecheck;
 
 public:
   ThreadLevelQueue(size_t threads):_threadCount(threads), _status(START_UP), _blocked(false) {}
@@ -54,6 +57,7 @@ public:
     if (task->isReady()) {
       task->unlockForNotifications();
       _runQueue.push(task);
+      _queuecheck.notify_one();
     } else {
       task->addReadyObserver(shared_from_this());
     }
@@ -97,18 +101,26 @@ protected:
   }
 
   virtual void executeTasks(){
-  //infinite thread loop
+    size_t retries = 0;
+    //infinite thread loop
     while (true) {
       if (_status == TO_STOP) { break; } // break out when asked
       std::shared_ptr<Task> task = nullptr;
       if (_runQueue.try_pop(task)) {
+        retries = 0;
         _blocked = true;
         (*task)();
         LOG4CXX_DEBUG(_logger,  "Executed task " << task->vname());
         task->notifyDoneObservers();
-      } else {
         _blocked = false;
-        std::this_thread::yield();
+      } else {
+        if (retries++ < 1000) {
+          if (retries > 300) 
+            std::this_thread::yield();
+        } else {
+          std::unique_lock<lock_t> locker(_lockqueue);
+          _queuecheck.wait(locker);  
+        }
       }
     }
   }
