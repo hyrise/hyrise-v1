@@ -88,7 +88,7 @@ DEFINE_EXPRESSION_CLASS(Store_FLV_F1_EQ_INT, STORE_ONE_FIELD_SEQ, ());
 DEFINE_EXPRESSION_CLASS(Store_FLV_F1_EQ_STRING, ((f1)(hyrise_string_t)(==)(asString)), ());
 DEFINE_EXPRESSION_CLASS(Store_FLV_F1_EQ_STRING_OR_F2_NEQ_FLOAT, ((f1)(hyrise_string_t)(==)(asString))((f2)(hyrise_float_t)(!=)(asFloat)), ()(||));
 DEFINE_EXPRESSION_CLASS(Store_FLV_F1_EQ_INT32_OR_F2_NEQ_FLOAT, ((f1)(hyrise_int32_t)(==)(asInt))((f2)(hyrise_float_t)(!=)(asFloat)), ()(||));
-
+DEFINE_EXPRESSION_CLASS(Store_FLV_F1_EQ_STRING_AND_F2_GT_INT, ((f1)(hyrise_string_t)(==)(asString))((f2)(hyrise_int_t)(<)(asInt)), ()(&&));
 
 #define STORE_TWO_FIELD_SEQ_FLD1 (f1)(hyrise_int_t)(==)(asUInt64)
 #define STORE_TWO_FIELD_SEQ_FLD2 (f2)(hyrise_int_t)(==)(asUInt64)

@@ -136,9 +136,9 @@ int main(int argc, char *argv[]) {
   ("port,p", po::value<size_t>(&port)->default_value(DEFAULT_PORT), "Server Port")
   ("logdef,l", po::value<std::string>(&logPropertyFile)->default_value("build/log.properties"), "Log4CXX Log Properties File")
   ("maxTaskSize,m", po::value<size_t>(&maxTaskSize)->default_value(DEFAULT_MTS), "Maximum task size used in dynamic parallelization scheduler. Use 0 for unbounded task run time.")
-  ("scheduler,s", po::value<std::string>(&scheduler_name)->default_value("CentralScheduler"), "Name of the scheduler to use")
+  ("scheduler,s", po::value<std::string>(&scheduler_name)->default_value("WSNodeBoundQueuesScheduler"), "Name of the scheduler to use")
     // set default number of worker threads to #cores-1, as main thread with event loop is bound to core 0 
-  ("threads,t", po::value<int>(&worker_threads)->default_value(getNumberOfCoresOnSystem()-1), "Number of worker threads for scheduler (only relevant for scheduler with fixed number of threads)");
+  ("threads,t", po::value<int>(&worker_threads)->default_value(-1), "Number of worker threads for scheduler (only relevant for scheduler with fixed number of threads)");
   po::variables_map vm;
 
   try {
@@ -153,11 +153,22 @@ int main(int argc, char *argv[]) {
     std::cout << desc << std::endl;
     return EXIT_SUCCESS;
   }
-
-
+  
   //Bind the program to the first NUMA node for schedulers that have core bound threads
-  if((scheduler_name == "CoreBoundQueuesScheduler") || (scheduler_name == "CoreBoundQueuesScheduler") ||  (scheduler_name == "WSCoreBoundQueuesScheduler") || (scheduler_name == "WSCoreBoundPriorityQueuesScheduler"))
+  //set number of threads to core-count -1
+  if((scheduler_name == "CoreBoundQueuesScheduler") || 
+      (scheduler_name == "WSCoreBoundQueuesScheduler") ||  
+      (scheduler_name == "WSCoreBoundPriorityQueuesScheduler") || 
+      (scheduler_name == "CoreBoundPriorityQueuesScheduler")){
     bindToNode(0);
+    if(worker_threads == -1)
+      worker_threads = getNumberOfCoresOnSystem()-1;
+  }
+  // if no core bound scheduler, set the number of threads to core-count
+  else{
+    if(worker_threads == -1)
+      worker_threads = getNumberOfCoresOnSystem();
+  }
 
   // Log File Configuration
   PropertyConfigurator::configure(logPropertyFile);

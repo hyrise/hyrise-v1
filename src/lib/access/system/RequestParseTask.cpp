@@ -72,7 +72,11 @@ std::string hash(const std::string &v) {
 
 void RequestParseTask::operator()() {
   assert((_responseTask != nullptr) && "Response needs to be set");
-  const auto& scheduler = taskscheduler::SharedScheduler::getInstance().getScheduler();
+  std::shared_ptr<hyrise::taskscheduler::AbstractTaskScheduler> scheduler;
+  if(_scheduler)
+    scheduler = _scheduler;
+  else
+    scheduler = taskscheduler::SharedScheduler::getInstance().getScheduler();
 
   performance_vector_t& performance_data = _responseTask->getPerformanceData();
 
@@ -233,6 +237,10 @@ void RequestParseTask::operator()() {
     _responseTask->setQueryStart(_queryStart);
     _responseTask.reset();  // yield responsibility
   }
+}
+
+void RequestParseTask::setScheduler(std::shared_ptr<hyrise::taskscheduler::AbstractTaskScheduler> scheduler){
+  _scheduler = scheduler;
 }
 
 std::shared_ptr<ResponseTask> RequestParseTask::getResponseTask() const {

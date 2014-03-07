@@ -16,10 +16,13 @@
 #include "helper/locking.h"
 #include "helper/types.h"
 
+#include "taskscheduler/AbstractTaskScheduler.h" 
+
 namespace hyrise {
 namespace taskscheduler {
 
 class Task;
+class AbstractTaskScheduler;
 
 class TaskReadyObserver {
   /*
@@ -72,7 +75,7 @@ protected:
   // mutex for observer vector
   hyrise::locking::Spinlock _observerMutex;
   // mutex to stop notifications, while task is being scheduled to wait set in SimpleTaskScheduler
-  hyrise::locking::Spinlock _notifyMutex;
+  //hyrise::locking::Spinlock _notifyMutex;
   // indicates on which core the task should run
   int _preferredCore;
   // indicates on which node the task should run
@@ -88,6 +91,8 @@ protected:
 
   // if true, the DynamicPriorityScheduler will determine the number of instances.
   bool _dynamic = false;
+
+  std::shared_ptr<AbstractTaskScheduler> _scheduler;
 
 public:
   Task();
@@ -224,6 +229,8 @@ public:
   // by an operators determineDynamicCount operation.
   void setDynamic(bool dynamic) {_dynamic = dynamic;}
   bool isDynamic() {return _dynamic;}
+
+  void setScheduler(std::shared_ptr<AbstractTaskScheduler> scheduler){_scheduler = scheduler;}
 };
 
 class CompareTaskPtr {
