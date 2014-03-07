@@ -14,8 +14,10 @@
 #include <storage/AbstractMergeStrategy.h>
 #include <storage/SequentialHeapMerger.h>
 #include <storage/PrettyPrinter.h>
+#include <storage/storage_types.h>
 
 #include <helper/types.h>
+#include <helper/SparseVector.h>
 
 #include "tbb/concurrent_vector.h"
 
@@ -100,14 +102,17 @@ public:
 
   typedef struct { const atable_ptr_t& table; size_t offset_in_table; size_t table_index; } table_offset_idx_t;
   table_offset_idx_t responsibleTable(size_t row) const;
- 
+  
+  using cvec_type = tbb::concurrent_vector<tx::transaction_id_t>;
+  //using cvec_type = helper::SparseVector<tx::transaction_id_t>;
+
   // TX Management
   // Stores the CID of the transaction that created the row
-  tbb::concurrent_vector<tx::transaction_id_t> _cidBeginVector;
+  cvec_type _cidBeginVector;
   // Stores the CID of the transaction that deleted the row
-  tbb::concurrent_vector<tx::transaction_id_t> _cidEndVector;
+  cvec_type _cidEndVector;
   // Stores the TID for each record to identify your own writes
-  tbb::concurrent_vector<tx::transaction_id_t> _tidVector;
+  cvec_type _tidVector;
   friend class PrettyPrinter;
 };
 

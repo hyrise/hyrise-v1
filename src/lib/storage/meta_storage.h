@@ -10,7 +10,7 @@
 #include "storage/storage_types.h"
 
 #include "boost/mpl/vector.hpp"
-//#include "boost/mpl/map.hpp"
+
 
 // This are the basic types used in HYRISE, the enum above can
 // be used to directly offset into the list at compile time

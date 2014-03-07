@@ -27,8 +27,8 @@ class TXBase : public ::testing::Benchmark {
 
  public:
   TXBase() {
-    SetNumIterations(1000);
-    SetWarmUp(10);
+    SetNumIterations(10000);
+    SetWarmUp(2);
   }
 
   void BenchmarkSetUp() {

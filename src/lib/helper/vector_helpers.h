@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <functional>
 #include <numeric>
+#include <memory>
 #include <iterator>
 
 namespace hyrise { namespace functional {
