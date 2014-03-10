@@ -4,7 +4,8 @@
 
 #include <storage/TableBuilder.h>
 
-namespace hyrise { namespace storage {
+namespace hyrise {
+namespace storage {
 
 class TableBuilderTest : public ::hyrise::Test {};
 
@@ -43,8 +44,8 @@ TEST_F(TableBuilderTest, build_table) {
   list.append().set_type("STRING").set_name("second");
 
 
-  hyrise::storage::atable_ptr_t  result = TableBuilder::build(list);
-  ASSERT_TRUE((bool) result);
+  hyrise::storage::atable_ptr_t result = TableBuilder::build(list);
+  ASSERT_TRUE((bool)result);
   ASSERT_EQ(2u, result->columnCount());
 }
 
@@ -60,8 +61,8 @@ TEST_F(TableBuilderTest, build_table_with_layout) {
   // Set the layout
   list.appendGroup(1).appendGroup(2);
 
-  hyrise::storage::atable_ptr_t  result = TableBuilder::build(list);
-  ASSERT_TRUE((bool) result);
+  hyrise::storage::atable_ptr_t result = TableBuilder::build(list);
+  ASSERT_TRUE((bool)result);
   ASSERT_EQ(3u, result->columnCount());
   ASSERT_EQ(2u, result->partitionCount());
 }
@@ -78,8 +79,8 @@ TEST_F(TableBuilderTest, build_table_with_layout_all_columns) {
   // Set the layout
   list.appendGroup(1).appendGroup(1).appendGroup(1).appendGroup(1);
 
-  hyrise::storage::atable_ptr_t  result = TableBuilder::build(list);
-  ASSERT_TRUE((bool) result);
+  hyrise::storage::atable_ptr_t result = TableBuilder::build(list);
+  ASSERT_TRUE((bool)result);
   ASSERT_EQ(4u, result->columnCount());
   ASSERT_EQ(4u, result->partitionCount());
 }
@@ -95,11 +96,10 @@ TEST_F(TableBuilderTest, build_table_with_layout_all_row) {
   // Set the layout
   list.appendGroup(4);
 
-  hyrise::storage::atable_ptr_t  result = TableBuilder::build(list);
-  ASSERT_TRUE((bool) result);
+  hyrise::storage::atable_ptr_t result = TableBuilder::build(list);
+  ASSERT_TRUE((bool)result);
   ASSERT_EQ(4u, result->columnCount());
   ASSERT_EQ(1u, result->partitionCount());
-
 }
 
 TEST_F(TableBuilderTest, build_table_with_layout_order_check) {
@@ -113,11 +113,10 @@ TEST_F(TableBuilderTest, build_table_with_layout_order_check) {
   // Set the layout
   list.appendGroup(1).appendGroup(3);
 
-  hyrise::storage::atable_ptr_t  result = TableBuilder::build(list);
-  ASSERT_TRUE((bool) result);
+  hyrise::storage::atable_ptr_t result = TableBuilder::build(list);
+  ASSERT_TRUE((bool)result);
   ASSERT_EQ(4u, result->columnCount());
   ASSERT_EQ(2u, result->partitionCount());
-
 }
 
 TEST_F(TableBuilderTest, build_table_with_bad_layout_should_throw) {
@@ -133,5 +132,5 @@ TEST_F(TableBuilderTest, build_table_with_bad_layout_should_throw) {
 
   ASSERT_THROW(TableBuilder::build(list), TableBuilderError);
 }
-
-}}
+}
+}

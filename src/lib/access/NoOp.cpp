@@ -7,9 +7,9 @@ namespace hyrise {
 namespace access {
 
 namespace {
-  auto _ = QueryParser::registerTrivialPlanOperation<NoOp>("NoOp");
+auto _ = QueryParser::registerTrivialPlanOperation<NoOp>("NoOp");
 }
 
 void NoOp::executePlanOperation() {}
-
-}}
+}
+}

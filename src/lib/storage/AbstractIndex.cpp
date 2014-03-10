@@ -5,6 +5,5 @@ namespace hyrise {
 namespace storage {
 
 AbstractIndex::~AbstractIndex() {}
-
-} } // namespace hyrise::storage
-
+}
+}  // namespace hyrise::storage

@@ -18,18 +18,18 @@
 namespace hyrise {
 namespace storage {
 
-template<typename T>
+template <typename T>
 class InvertedIndex : public AbstractIndex {
-private:
-  //using inverted_index_t = std::map<T, pos_list_t>;
+ private:
+  // using inverted_index_t = std::map<T, pos_list_t>;
   using inverted_index_t = std::unordered_map<T, pos_list_t>;
   inverted_index_t _index;
 
-public:
+ public:
   virtual ~InvertedIndex() {};
 
   void shrink() {
-    for (auto & e : _index) {
+    for (auto& e : _index) {
       e.second.shrink_to_fit();
     }
   }
@@ -63,17 +63,13 @@ public:
     }
   };
 
-  
-  bool exists(T key) const {
-    return _index.count(key) > 0;
-  }
+
+  bool exists(T key) const { return _index.count(key) > 0; }
 
   const pos_list_t& getPositionsForKeyRef(T key) {
     const auto& it = _index.find(key);
     return it->second;
   };
-
 };
-
-} } // namespace hyrise::storage
-
+}
+}  // namespace hyrise::storage

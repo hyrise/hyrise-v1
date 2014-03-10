@@ -8,7 +8,8 @@
 #include "io/AbstractLoader.h"
 
 
-namespace hyrise { namespace storage {
+namespace hyrise {
+namespace storage {
 
 class AbstractTable;
 /**
@@ -58,11 +59,9 @@ class SimpleTableDump {
    */
   void verify(std::shared_ptr<AbstractTable>);
 
-public:
-
+ public:
   // Initialize a new object based on the base path for the output
-  explicit SimpleTableDump(std::string outputDir): _baseDirectory(outputDir) {
-  }
+  explicit SimpleTableDump(std::string outputDir) : _baseDirectory(outputDir) {}
 
   /**
    * For a table identified by name and table perform the dump
@@ -70,7 +69,7 @@ public:
   bool dump(std::string name, std::shared_ptr<AbstractTable> table);
 };
 
-} // namespace storage
+}  // namespace storage
 
 namespace io {
 
@@ -82,28 +81,18 @@ class TableDumpLoader : public AbstractInput {
 
   void loadDictionary(std::string name, size_t col, std::shared_ptr<storage::AbstractTable> intable);
 
-  void loadAttribute(std::string name,
-                     size_t col,
-                     size_t size,
-                     std::shared_ptr<storage::AbstractTable> intable);
+  void loadAttribute(std::string name, size_t col, size_t size, std::shared_ptr<storage::AbstractTable> intable);
 
-public:
-  TableDumpLoader(std::string base, std::string table) :
-    _base(base), _table(table) {
-  }
+ public:
+  TableDumpLoader(std::string base, std::string table) : _base(base), _table(table) {}
 
   std::shared_ptr<storage::AbstractTable> load(std::shared_ptr<storage::AbstractTable>,
-                                               const storage::compound_metadata_list *,
-                                               const Loader::params &args);
+                                               const storage::compound_metadata_list*,
+                                               const Loader::params& args);
 
-  bool needs_store_wrap() {
-    return true;
-  }
+  bool needs_store_wrap() { return true; }
 
-  TableDumpLoader *clone() const {
-    return new TableDumpLoader(*this);
-  }
+  TableDumpLoader* clone() const { return new TableDumpLoader(*this); }
 };
-
-} } // namespace hyrise::io
-
+}
+}  // namespace hyrise::io

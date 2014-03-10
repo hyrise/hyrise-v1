@@ -14,11 +14,10 @@ namespace hyrise {
 namespace access {
 
 namespace {
-  auto _ = QueryParser::registerPlanOperation<Distinct>("Distinct");
+auto _ = QueryParser::registerPlanOperation<Distinct>("Distinct");
 }
 
-Distinct::~Distinct() {
-}
+Distinct::~Distinct() {}
 
 // Executing this on a store with delta results in undefined behavior
 // Execution with horizontal tables results in undefined behavior
@@ -28,7 +27,7 @@ void Distinct::executePlanOperation() {
   auto distinct = _field_definition[0];
 
   // iterate over all rows
-  const auto &in = input.getTable(0);
+  const auto& in = input.getTable(0);
   uint64_t numRows = in->size();
   ValueId val;
 
@@ -39,24 +38,21 @@ void Distinct::executePlanOperation() {
       map[val.valueId] = i;
   }
 
-  //Build result list
+  // Build result list
   storage::atable_ptr_t result;
   auto pos = new storage::pos_list_t;
-  for (const auto &e : map)
+  for (const auto& e : map)
     pos->push_back(e.second);
 
   // Return pointer calculator
   addResult(storage::PointerCalculator::create(input.getTable(0), pos));
 }
 
-std::shared_ptr<PlanOperation> Distinct::parse(const Json::Value &data) {
+std::shared_ptr<PlanOperation> Distinct::parse(const Json::Value& data) {
   std::shared_ptr<Distinct> s = BasicParser<Distinct>::parse(data);
   return s;
 }
 
-const std::string Distinct::vname() {
-  return "Distinct";
-}
-
+const std::string Distinct::vname() { return "Distinct"; }
 }
 }

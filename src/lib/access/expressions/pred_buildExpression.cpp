@@ -12,7 +12,7 @@
 namespace hyrise {
 namespace access {
 
-SimpleFieldExpression *buildFieldExpression(PredicateType::type pred_type, const Json::Value &predicate) {
+SimpleFieldExpression* buildFieldExpression(PredicateType::type pred_type, const Json::Value& predicate) {
   storage::type_switch<hyrise_basic_types> ts;
   expression_factory fun;
   if (predicate["f"].isNumeric()) {
@@ -23,7 +23,7 @@ SimpleFieldExpression *buildFieldExpression(PredicateType::type pred_type, const
   return ts(predicate["vtype"].asUInt(), fun);
 };
 
-SimpleExpression *buildExpression(const Json::Value &predicates) {
+SimpleExpression* buildExpression(const Json::Value& predicates) {
   PredicateBuilder b;
 
   Json::Value predicate;
@@ -54,6 +54,5 @@ SimpleExpression *buildExpression(const Json::Value &predicates) {
   }
   return b.build();
 };
-
-} } // namespace hyrise::access
-
+}
+}  // namespace hyrise::access

@@ -25,7 +25,7 @@ TEST_F(TableRangeViewTests, init_pc) {
     size_t column = 2;
 
     ValueId i = trv->getValueId(column, row);
-    ValueId i2 = t->getValueId(column,row);
+    ValueId i2 = t->getValueId(column, row);
     ASSERT_EQ(i.valueId, i2.valueId);
 
     delete trv;
@@ -41,13 +41,12 @@ TEST_F(TableRangeViewTests, pc_using_factory) {
 
   auto trv = TableRangeView::create(t, start, end);
 
-  ASSERT_EQ(trv->size(), (end-start));
+  ASSERT_EQ(trv->size(), (end - start));
 
-  ValueId i = trv->getValueId(column, row-start);
-  ValueId i2 = t->getValueId(column,row);
+  ValueId i = trv->getValueId(column, row - start);
+  ValueId i2 = t->getValueId(column, row);
 
   ASSERT_EQ(i.valueId, i2.valueId);
 }
-
-} } // namespace hyrise::storage
-
+}
+}  // namespace hyrise::storage

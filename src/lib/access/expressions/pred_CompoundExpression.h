@@ -8,24 +8,19 @@ namespace access {
 
 class CompoundExpression : public SimpleExpression {
  private:
-
   ExpressionType type;
 
  public:
-
-  SimpleExpression *lhs;
-  SimpleExpression *rhs;
+  SimpleExpression* lhs;
+  SimpleExpression* rhs;
 
   // If the compound expression only has one child
   bool one_leg;
 
-  explicit CompoundExpression(ExpressionType t):
-      type(t), lhs(nullptr), rhs(nullptr), one_leg(t == NOT)
-  {}
+  explicit CompoundExpression(ExpressionType t) : type(t), lhs(nullptr), rhs(nullptr), one_leg(t == NOT) {}
 
-  CompoundExpression(SimpleExpression *_lhs, SimpleExpression *_rhs, ExpressionType _type) :
-      SimpleExpression(), type(_type), lhs(_lhs), rhs(_rhs), one_leg(_type == NOT)
-  {}
+  CompoundExpression(SimpleExpression* _lhs, SimpleExpression* _rhs, ExpressionType _type)
+      : SimpleExpression(), type(_type), lhs(_lhs), rhs(_rhs), one_leg(_type == NOT) {}
 
   virtual ~CompoundExpression() {
     delete lhs;
@@ -35,7 +30,7 @@ class CompoundExpression : public SimpleExpression {
     }
   }
 
-  virtual void walk(const std::vector<storage::c_atable_ptr_t > &l) {
+  virtual void walk(const std::vector<storage::c_atable_ptr_t>& l) {
     lhs->walk(l);
 
     if (!one_leg) {
@@ -63,16 +58,16 @@ class CompoundExpression : public SimpleExpression {
     }
   }
 
-  inline void add(SimpleExpression *e) {
-    if (!lhs) lhs = e;
-    else if (!rhs) rhs = e;
-    else throw std::runtime_error("full");
+  inline void add(SimpleExpression* e) {
+    if (!lhs)
+      lhs = e;
+    else if (!rhs)
+      rhs = e;
+    else
+      throw std::runtime_error("full");
   }
 
-  inline bool isSetup() {
-    return ((one_leg) && (lhs != nullptr)) || ((rhs != nullptr) && (lhs != nullptr));
-  }
+  inline bool isSetup() { return ((one_leg) && (lhs != nullptr)) || ((rhs != nullptr) && (lhs != nullptr)); }
 };
-
-} } // namespace hyrise::access
-
+}
+}  // namespace hyrise::access

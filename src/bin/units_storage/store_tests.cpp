@@ -11,9 +11,7 @@ class StoreTests : public Test {};
 
 TableGenerator tg(true);
 
-TEST_F(StoreTests, basic_instantiation) {
-  Store s;
-}
+TEST_F(StoreTests, basic_instantiation) { Store s; }
 
 /// Test that stores based on modifiable tables can be modified even in their main
 TEST_F(StoreTests, test_write_through) {
@@ -27,13 +25,12 @@ TEST_F(StoreTests, test_write_through) {
 TEST_F(StoreTests, test_write_through_fail) {
   auto table = tg.one_value(1, 1, 0);
   Store s(table);
-  s.setValue<hyrise_int_t>(0, 0, 11); // 11 is larger than 0, so it'll
-                                      // just add an extra item to dict
+  s.setValue<hyrise_int_t>(0, 0, 11);  // 11 is larger than 0, so it'll
+// just add an extra item to dict
 #ifdef EXPENSIVE_ASSERTIONS
   ASSERT_THROW({ s.setValue<hyrise_int_t>(0, 0, 10); }, std::runtime_error);
-  // fails since the order_preserving dictionary has to be filled in-order
+// fails since the order_preserving dictionary has to be filled in-order
 #endif
 }
-
 }
 }

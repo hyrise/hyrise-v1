@@ -46,13 +46,13 @@ class PlanOperation : public OutputTask {
   std::string getDependencyErrorMessages();
 
 
-  /* 
+  /*
    * The model used is based on a/x + b as an equation, whereas x
    * is the number of instances used. The result is the mean task execution time
    * for this operator. a and b are parameters based on the input table size.
    * b also denotes the minimal possible mean task execution time.
    * It thus sets the minimal achievable mts.
-   * for determineDynamicCount 
+   * for determineDynamicCount
    */
   virtual size_t getTotalTableSize();
   /* determine the b parameter also known as minimal achievable mts */
@@ -77,7 +77,7 @@ class PlanOperation : public OutputTask {
 
   void setLimit(uint64_t l);
   void setProducesPositions(bool p);
-  
+
   void setTXContext(tx::TXContext ctx);
 
   void addInput(storage::c_aresource_ptr_t t);
@@ -88,7 +88,7 @@ class PlanOperation : public OutputTask {
   storage::c_ahashtable_ptr_t getResultHashTable(size_t index = 0) const;
 
   void addField(field_t field);
-  void addField(const Json::Value &field);
+  void addField(const Json::Value& field);
   void addNamedField(const field_name_t& field);
 
   void setPlanId(std::string i);
@@ -98,11 +98,12 @@ class PlanOperation : public OutputTask {
 
   virtual void operator()() noexcept;
   virtual const std::string vname();
-  const PlanOperation *execute();
+  const PlanOperation* execute();
 
   void setErrorMessage(const std::string& message);
   void setResponseTask(const std::shared_ptr<ResponseTask>& responseTask);
   std::shared_ptr<ResponseTask> getResponseTask() const;
+
  protected:
   /// Containers to store and handle input/output or rather result data.
   OperationData input;
@@ -125,12 +126,10 @@ class PlanOperation : public OutputTask {
   std::string _planId;
   std::string _operatorId;
   std::string _planOperationName;
-  
+
   tx::TXContext _txContext;
-
 };
-
-
-}}
+}
+}
 
 #endif  // SRC_LIB_ACCESS_PLANOPERATION_H_

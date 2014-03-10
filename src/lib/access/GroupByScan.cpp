@@ -21,32 +21,27 @@ struct write_group_functor {
  public:
   typedef void value_type;
 
-  write_group_functor(const c_atable_ptr_t &t,
-                      atable_ptr_t &tg,
+  write_group_functor(const c_atable_ptr_t& t,
+                      atable_ptr_t& tg,
                       const pos_t sourceRow,
                       const field_t column,
-                      const pos_t toRow) :
-      _input(t),
-      _target(tg),
-      _sourceRow(sourceRow),
-      _columnNr(column),
-      _row(toRow) {
-  }
+                      const pos_t toRow)
+      : _input(t), _target(tg), _sourceRow(sourceRow), _columnNr(column), _row(toRow) {}
 
   template <typename R>
   void operator()() {
-    _target->setValue<R>(_target->numberOfColumn(_input->nameOfColumn(_columnNr)), _row, _input->getValue<R>(_columnNr, _sourceRow));
+    _target->setValue<R>(
+        _target->numberOfColumn(_input->nameOfColumn(_columnNr)), _row, _input->getValue<R>(_columnNr, _sourceRow));
   }
 
-  
+
  private:
-  const c_atable_ptr_t &_input;
-  atable_ptr_t &_target;
+  const c_atable_ptr_t& _input;
+  atable_ptr_t& _target;
   pos_t _sourceRow;
   field_t _columnNr;
   pos_t _row;
 };
-
 }
 }
 
@@ -54,7 +49,7 @@ namespace hyrise {
 namespace access {
 
 namespace {
-  auto _ = QueryParser::registerPlanOperation<GroupByScan>("GroupByScan");
+auto _ = QueryParser::registerPlanOperation<GroupByScan>("GroupByScan");
 }
 
 GroupByScan::~GroupByScan() {
@@ -65,8 +60,8 @@ GroupByScan::~GroupByScan() {
 void GroupByScan::setupPlanOperation() {
   ParallelizablePlanOperation::setupPlanOperation();
 
-  const auto &t = getInputTable(0);
-  for (const auto & function: _aggregate_functions) {
+  const auto& t = getInputTable(0);
+  for (const auto& function : _aggregate_functions) {
     function->walk(*t);
   }
 }
@@ -75,13 +70,17 @@ void GroupByScan::executePlanOperation() {
   if ((_field_definition.size() != 0) && (input.numberOfHashTables() >= 1)) {
     if (_globalAggregation) {
       if (_field_definition.size() == 1) {
-        return executeGroupBy<storage::SingleJoinHashTable, storage::join_single_hash_map_t, storage::join_single_key_t>();
+        return executeGroupBy<storage::SingleJoinHashTable,
+                              storage::join_single_hash_map_t,
+                              storage::join_single_key_t>();
       } else {
         return executeGroupBy<storage::JoinHashTable, storage::join_hash_map_t, storage::join_key_t>();
       }
     }
     if (_field_definition.size() == 1) {
-      return executeGroupBy<storage::SingleAggregateHashTable, storage::aggregate_single_hash_map_t, storage::aggregate_single_key_t>();
+      return executeGroupBy<storage::SingleAggregateHashTable,
+                            storage::aggregate_single_hash_map_t,
+                            storage::aggregate_single_key_t>();
     } else {
       return executeGroupBy<storage::AggregateHashTable, storage::aggregate_hash_map_t, storage::aggregate_key_t>();
     }
@@ -91,7 +90,7 @@ void GroupByScan::executePlanOperation() {
     // If we have an empty table, we cannot do anything
     if (getInputTable()->size() > 0) {
       resultTab->resize(1);
-      for (const auto & funct: _aggregate_functions) {
+      for (const auto& funct : _aggregate_functions) {
         funct->processValuesForRows(getInputTable(0), nullptr, resultTab, 0);
       }
     }
@@ -99,18 +98,18 @@ void GroupByScan::executePlanOperation() {
   }
 }
 
-std::shared_ptr<PlanOperation> GroupByScan::parse(const Json::Value &v) {
+std::shared_ptr<PlanOperation> GroupByScan::parse(const Json::Value& v) {
   std::shared_ptr<GroupByScan> gs = std::make_shared<GroupByScan>();
 
   if (v.isMember("fields")) {
-    for (unsigned i = 0; i <  v["fields"].size(); ++i) {
+    for (unsigned i = 0; i < v["fields"].size(); ++i) {
       gs->addField(v["fields"][i]);
     }
   }
 
   if (v.isMember("functions")) {
     for (unsigned i = 0; i < v["functions"].size(); ++i) {
-      const Json::Value &f = v["functions"][i];
+      const Json::Value& f = v["functions"][i];
       gs->addFunction(parseAggregateFunction(f));
     }
   }
@@ -122,17 +121,15 @@ std::shared_ptr<PlanOperation> GroupByScan::parse(const Json::Value &v) {
   return gs;
 }
 
-const std::string GroupByScan::vname() {
-  return "GroupByScan";
-}
+const std::string GroupByScan::vname() { return "GroupByScan"; }
 
 storage::atable_ptr_t GroupByScan::createResultTableLayout() {
-  storage::metadata_list  metadata;
+  storage::metadata_list metadata;
   std::vector<storage::AbstractTable::SharedDictionaryPtr> dictionaries;
-  //creating fields from grouping fields
+  // creating fields from grouping fields
   storage::atable_ptr_t group_tab = getInputTable(0)->copy_structure_modifiable(&_field_definition);
-  //creating fields from aggregate functions
-  for (const auto & fun: _aggregate_functions) {
+  // creating fields from aggregate functions
+  for (const auto& fun : _aggregate_functions) {
     metadata.emplace_back(fun->columnName(), types::getUnorderedType(fun->getType()));
     dictionaries.push_back(storage::makeDictionary(metadata.back()));
   }
@@ -151,9 +148,7 @@ storage::atable_ptr_t GroupByScan::createResultTableLayout() {
   }
 }
 
-void GroupByScan::addFunction(AggregateFun *fun) {
-  this->_aggregate_functions.push_back(fun);
-}
+void GroupByScan::addFunction(AggregateFun* fun) { this->_aggregate_functions.push_back(fun); }
 
 void GroupByScan::splitInput() {
   hash_table_list_t hashTables = input.getHashTables();
@@ -161,29 +156,32 @@ void GroupByScan::splitInput() {
     auto r = distribute(hashTables[0]->numKeys(), _part, _count);
 
     if ((_indexed_field_definition.size() + _named_field_definition.size()) == 1)
-      input.setHash(std::dynamic_pointer_cast<const storage::SingleAggregateHashTable>(hashTables[0])->view(r.first, r.second), 0);
+      input.setHash(
+          std::dynamic_pointer_cast<const storage::SingleAggregateHashTable>(hashTables[0])->view(r.first, r.second),
+          0);
     else
-      input.setHash(std::dynamic_pointer_cast<const storage::AggregateHashTable>(hashTables[0])->view(r.first, r.second), 0);
-  } else if(_count > 0 && hashTables.empty()){
+      input.setHash(
+          std::dynamic_pointer_cast<const storage::AggregateHashTable>(hashTables[0])->view(r.first, r.second), 0);
+  } else if (_count > 0 && hashTables.empty()) {
     ParallelizablePlanOperation::splitInput();
   }
 }
 
-void GroupByScan::writeGroupResult(storage::atable_ptr_t &resultTab,
-                                   const std::shared_ptr<storage::pos_list_t> &hit,
+void GroupByScan::writeGroupResult(storage::atable_ptr_t& resultTab,
+                                   const std::shared_ptr<storage::pos_list_t>& hit,
                                    const size_t row) {
-  for (const auto & columnNr: _field_definition) {
+  for (const auto& columnNr : _field_definition) {
     storage::write_group_functor fun(getInputTable(0), resultTab, hit->at(0), (size_t)columnNr, row);
     storage::type_switch<hyrise_basic_types> ts;
     ts(getInputTable(0)->typeOfColumn(columnNr), fun);
   }
 
-  for (const auto & funct: _aggregate_functions) {
+  for (const auto& funct : _aggregate_functions) {
     funct->processValuesForRows(getInputTable(0), hit.get(), resultTab, row);
   }
 }
 
-template<typename HashTableType, typename MapType, typename KeyType>
+template <typename HashTableType, typename MapType, typename KeyType>
 void GroupByScan::executeGroupBy() {
   auto resultTab = createResultTableLayout();
 
@@ -193,7 +191,8 @@ void GroupByScan::executeGroupBy() {
 
   pos_t row = 0;
   typename HashTableType::map_const_iterator_t it1, it2, end;
-  // set iterators: in the sequential case, getInputTable() returns an AggregateHashTable, in the parallel case a HashTableView<>
+  // set iterators: in the sequential case, getInputTable() returns an AggregateHashTable, in the parallel case a
+  // HashTableView<>
   // Alternatively, a common type could be introduced
   if (_count < 1) {
     auto aggregateHashTable = std::dynamic_pointer_cast<const HashTableType>(groupResults);
@@ -213,10 +212,9 @@ void GroupByScan::executeGroupBy() {
     }
     writeGroupResult(resultTab, pos_list, row);
     row++;
-  } 
+  }
 
   this->addResult(resultTab);
 }
-
 }
 }

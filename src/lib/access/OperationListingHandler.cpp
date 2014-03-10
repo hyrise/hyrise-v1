@@ -8,24 +8,18 @@
 namespace hyrise {
 namespace access {
 
-bool OperationListingHandler::registered =
-    net::Router::registerRoute<OperationListingHandler>("/operations/");
+bool OperationListingHandler::registered = net::Router::registerRoute<OperationListingHandler>("/operations/");
 
-OperationListingHandler::OperationListingHandler(net::AbstractConnection *data)
-    : _connection_data(data) {}
+OperationListingHandler::OperationListingHandler(net::AbstractConnection* data) : _connection_data(data) {}
 
-std::string OperationListingHandler::name() {
-  return "OperationListingHandler";
-}
+std::string OperationListingHandler::name() { return "OperationListingHandler"; }
 
-const std::string OperationListingHandler::vname() {
-  return "OperationListingHandler";
-}
+const std::string OperationListingHandler::vname() { return "OperationListingHandler"; }
 
 std::string OperationListingHandler::constructResponse() {
-  auto &qp = QueryParser::instance();
+  auto& qp = QueryParser::instance();
   Json::Value result;
-  for (const auto & name: qp.getOperationNames()) {
+  for (const auto& name : qp.getOperationNames()) {
     result[name] = Json::Value(Json::objectValue);
   }
   Json::StyledWriter writer;

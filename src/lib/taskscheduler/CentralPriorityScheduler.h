@@ -22,27 +22,27 @@ class CentralPriorityScheduler;
 
 // our worker thread objects
 class PriorityWorkerThread {
-private:
-    CentralPriorityScheduler &scheduler;
-public:
+ private:
+  CentralPriorityScheduler& scheduler;
 
+ public:
   typedef AbstractTaskScheduler::lock_t lock_t;
 
-    PriorityWorkerThread(CentralPriorityScheduler &s) : scheduler(s) { }
-    void operator()();
+  PriorityWorkerThread(CentralPriorityScheduler& s) : scheduler(s) {}
+  void operator()();
 };
 
 
 /**
  * a central scheduler holds a task queue and n worker threads
  */
-class CentralPriorityScheduler : 
-  public AbstractTaskScheduler,
-  public TaskReadyObserver,
-  public std::enable_shared_from_this<TaskReadyObserver> {
+class CentralPriorityScheduler : public AbstractTaskScheduler,
+                                 public TaskReadyObserver,
+                                 public std::enable_shared_from_this<TaskReadyObserver> {
   friend class PriorityWorkerThread;
-protected:
-  typedef std::unordered_set<std::shared_ptr<Task> > waiting_tasks_t;
+
+ protected:
+  typedef std::unordered_set<std::shared_ptr<Task>> waiting_tasks_t;
   // set for tasks with open dependencies
   waiting_tasks_t _waitSet;
   // mutex to protect waitset
@@ -65,7 +65,7 @@ protected:
   static log4cxx::LoggerPtr _logger;
 
 
-public:
+ public:
   CentralPriorityScheduler(int threads = getNumberOfCoresOnSystem());
   virtual ~CentralPriorityScheduler();
   /*
@@ -88,8 +88,6 @@ public:
   size_t getNumberOfWorker() const;
 
   virtual void notifyReady(std::shared_ptr<Task> task);
-
 };
-
-} } // namespace hyrise::taskscheduler
-
+}
+}  // namespace hyrise::taskscheduler

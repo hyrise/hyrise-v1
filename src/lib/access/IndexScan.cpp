@@ -17,45 +17,42 @@ namespace hyrise {
 namespace access {
 
 struct CreateIndexValueFunctor {
-  typedef AbstractIndexValue *value_type;
+  typedef AbstractIndexValue* value_type;
 
-  const Json::Value &_d;
+  const Json::Value& _d;
 
-  explicit CreateIndexValueFunctor(const Json::Value &c): _d(c) {}
+  explicit CreateIndexValueFunctor(const Json::Value& c) : _d(c) {}
 
-  template<typename R>
+  template <typename R>
   value_type operator()() {
-    IndexValue<R> *v = new IndexValue<R>();
+    IndexValue<R>* v = new IndexValue<R>();
     v->value = json_converter::convert<R>(_d["value"]);
     return v;
   }
 };
 
 struct ScanIndexFunctor {
-  typedef storage::pos_list_t *value_type;
+  typedef storage::pos_list_t* value_type;
 
   std::shared_ptr<storage::AbstractIndex> _index;
-  AbstractIndexValue *_indexValue;
+  AbstractIndexValue* _indexValue;
 
-  ScanIndexFunctor(AbstractIndexValue *i, std::shared_ptr<storage::AbstractIndex> d):
-    _index(d), _indexValue(i) {}
+  ScanIndexFunctor(AbstractIndexValue* i, std::shared_ptr<storage::AbstractIndex> d) : _index(d), _indexValue(i) {}
 
-  template<typename ValueType>
+  template <typename ValueType>
   value_type operator()() {
     auto idx = std::dynamic_pointer_cast<storage::InvertedIndex<ValueType>>(_index);
     auto v = static_cast<IndexValue<ValueType>*>(_indexValue);
-    storage::pos_list_t *result = new storage::pos_list_t(idx->getPositionsForKey(v->value));
+    storage::pos_list_t* result = new storage::pos_list_t(idx->getPositionsForKey(v->value));
     return result;
   }
 };
 
 namespace {
-  auto _ = QueryParser::registerPlanOperation<IndexScan>("IndexScan");
+auto _ = QueryParser::registerPlanOperation<IndexScan>("IndexScan");
 }
 
-IndexScan::~IndexScan() {
-  delete _value;
-}
+IndexScan::~IndexScan() { delete _value; }
 
 void IndexScan::executePlanOperation() {
   auto sm = io::StorageManager::getInstance();
@@ -64,12 +61,12 @@ void IndexScan::executePlanOperation() {
   // Handle type of index and value
   storage::type_switch<hyrise_basic_types> ts;
   ScanIndexFunctor fun(_value, idx);
-  storage::pos_list_t *pos = ts(input.getTable(0)->typeOfColumn(_field_definition[0]), fun);
+  storage::pos_list_t* pos = ts(input.getTable(0)->typeOfColumn(_field_definition[0]), fun);
 
   addResult(storage::PointerCalculator::create(input.getTable(0), pos));
 }
 
-std::shared_ptr<PlanOperation> IndexScan::parse(const Json::Value &data) {
+std::shared_ptr<PlanOperation> IndexScan::parse(const Json::Value& data) {
   std::shared_ptr<IndexScan> s = BasicParser<IndexScan>::parse(data);
   storage::type_switch<hyrise_basic_types> ts;
   CreateIndexValueFunctor civf(data);
@@ -78,20 +75,15 @@ std::shared_ptr<PlanOperation> IndexScan::parse(const Json::Value &data) {
   return s;
 }
 
-const std::string IndexScan::vname() {
-  return "IndexScan";
-}
+const std::string IndexScan::vname() { return "IndexScan"; }
 
-void IndexScan::setIndexName(const std::string &name) {
-  _indexName = name;
-}
+void IndexScan::setIndexName(const std::string& name) { _indexName = name; }
 
 namespace {
-  auto _2 = QueryParser::registerPlanOperation<MergeIndexScan>("MergeIndexScan");
+auto _2 = QueryParser::registerPlanOperation<MergeIndexScan>("MergeIndexScan");
 }
 
-MergeIndexScan::~MergeIndexScan() {
-}
+MergeIndexScan::~MergeIndexScan() {}
 
 void MergeIndexScan::executePlanOperation() {
   auto left = std::dynamic_pointer_cast<const storage::PointerCalculator>(input.getTable(0));
@@ -109,13 +101,10 @@ void MergeIndexScan::executePlanOperation() {
   addResult(tmp);
 }
 
-std::shared_ptr<PlanOperation> MergeIndexScan::parse(const Json::Value &data) {
+std::shared_ptr<PlanOperation> MergeIndexScan::parse(const Json::Value& data) {
   return BasicParser<MergeIndexScan>::parse(data);
 }
 
-const std::string MergeIndexScan::vname() {
-  return "MergeIndexScan";
-}
-
+const std::string MergeIndexScan::vname() { return "MergeIndexScan"; }
 }
 }

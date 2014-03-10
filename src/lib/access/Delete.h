@@ -4,18 +4,17 @@
 
 #include <access/system/PlanOperation.h>
 
-namespace hyrise { namespace access {
+namespace hyrise {
+namespace access {
 
 class DeleteOp : public PlanOperation {
 
-public:
+ public:
+  void executePlanOperation();
 
-	void executePlanOperation();
-
-	static std::shared_ptr<PlanOperation> parse(const Json::Value &data);
-
+  static std::shared_ptr<PlanOperation> parse(const Json::Value& data);
 };
+}
+}
 
-}}
-
-#endif // SRC_LIB_ACCESS_DELETE_H_
+#endif  // SRC_LIB_ACCESS_DELETE_H_

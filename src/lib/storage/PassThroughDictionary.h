@@ -23,29 +23,21 @@ class PassThroughDictionary : public BaseDictionary<T> {
     const value_id_t vid;
     const T value;
 
-    explicit pt_dict_union_t(const value_id_t v): vid(v){}
-    explicit pt_dict_union_t(const T v): value(v){}
-
+    explicit pt_dict_union_t(const value_id_t v) : vid(v) {}
+    explicit pt_dict_union_t(const T v) : value(v) {}
   };
 
-  static_assert(sizeof(T) == sizeof(value_id_t), 
-		     "PassThroughDictionary can only be used with types contained in value_id_t");
+  static_assert(sizeof(T) == sizeof(value_id_t),
+                "PassThroughDictionary can only be used with types contained in value_id_t");
 
-public:
-
+ public:
   explicit PassThroughDictionary(size_t s = 0) {}
 
-  value_id_t addValue(T value) { 
-    return pt_dict_union_t(value).vid;
-  }
+  value_id_t addValue(T value) { return pt_dict_union_t(value).vid; }
 
-  T getValueForValueId(value_id_t value_id) { 
-    return pt_dict_union_t(value_id).value;
-  }
+  T getValueForValueId(value_id_t value_id) { return pt_dict_union_t(value_id).value; }
 
-  value_id_t getValueIdForValue(const T& value) const {
-    return pt_dict_union_t(value).vid;
-  }
+  value_id_t getValueIdForValue(const T& value) const { return pt_dict_union_t(value).vid; }
 
   value_id_t getValueIdForValueSmaller(T other) {
     STORAGE_NOT_IMPLEMENTED(PassThroughDictionary, getValueIdForValueSmaller());
@@ -55,39 +47,34 @@ public:
     STORAGE_NOT_IMPLEMENTED(PassThroughDictionary, getValueIdForValueGreater());
   }
 
-  const T getSmallestValue() {
-    STORAGE_NOT_IMPLEMENTED(PassThroughDictionary, getSmallestValue());
-  }
+  const T getSmallestValue() { STORAGE_NOT_IMPLEMENTED(PassThroughDictionary, getSmallestValue()); }
 
-  const T getGreatestValue() {
-    STORAGE_NOT_IMPLEMENTED(PassThroughDictionary, getGreatestValue());
-  }
+  const T getGreatestValue() { STORAGE_NOT_IMPLEMENTED(PassThroughDictionary, getGreatestValue()); }
 
-  bool isValueIdValid(value_id_t value_id) { return true; };
+  bool isValueIdValid(value_id_t value_id) {
+    return true;
+  };
 
-  bool valueExists(const T& value) const { return true; };
+  bool valueExists(const T& value) const {
+    return true;
+  };
 
   void reserve(size_t) {};
 
   size_t size() { return 0; }
 
-  std::shared_ptr<AbstractDictionary> copy() {
-    return copy_empty();
-  }
+  std::shared_ptr<AbstractDictionary> copy() { return copy_empty(); }
 
-  std::shared_ptr<AbstractDictionary> copy_empty() {
-    return std::make_shared<PassThroughDictionary<T> >();
-  }
+  std::shared_ptr<AbstractDictionary> copy_empty() { return std::make_shared<PassThroughDictionary<T>>(); }
 
-  void shrink(){}
+  void shrink() {}
 
   bool isOrdered() { return false; }
 
   using iterator = DictionaryIterator<T>;
 
-  DictionaryIterator<T> begin(){ return iterator(std::make_shared<PassThroughDictionaryIterator<T> >()); }
-  DictionaryIterator<T> end() { return iterator(std::make_shared<PassThroughDictionaryIterator<T> >()); }
-    
+  DictionaryIterator<T> begin() { return iterator(std::make_shared<PassThroughDictionaryIterator<T>>()); }
+  DictionaryIterator<T> end() { return iterator(std::make_shared<PassThroughDictionaryIterator<T>>()); }
 };
 
 /*
@@ -99,18 +86,11 @@ template <typename T>
 class PassThroughDictionaryIterator : public BaseIterator<T> {
   void increment() {}
 
-  bool equal(const std::shared_ptr<BaseIterator<T>>& other) const {
-    return true;
-  }
+  bool equal(const std::shared_ptr<BaseIterator<T>>& other) const { return true; }
 
-  T &dereference() const {
-    STORAGE_NOT_IMPLEMENTED(PassThroughDictionaryIterator, dereference());
-  }
+  T& dereference() const { STORAGE_NOT_IMPLEMENTED(PassThroughDictionaryIterator, dereference()); }
 
-  value_id_t getValueId() const {
-    STORAGE_NOT_IMPLEMENTED(PassThroughDictionaryIterator, getValueId());
-  }
+  value_id_t getValueId() const { STORAGE_NOT_IMPLEMENTED(PassThroughDictionaryIterator, getValueId()); }
 };
-
-
-}}
+}
+}

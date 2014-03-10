@@ -24,6 +24,5 @@ TEST_F(ReplaceTableTests, basic_replace_table_test) {
 
   ASSERT_TABLE_EQUAL(t2, sm->getTable("replaceMe"));
 }
-
 }
 }

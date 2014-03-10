@@ -6,4 +6,4 @@
 
 #include "helper/types.h"
 
-#endif // SRC_BIN_UNITS_IO_HELPER_H_
+#endif  // SRC_BIN_UNITS_IO_HELPER_H_

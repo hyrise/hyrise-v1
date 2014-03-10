@@ -21,10 +21,9 @@ TEST_F(CreateIndexTests, basic_create_index_test) {
   i.setIndexName(table);
   i.execute();
 
-  auto index = std::dynamic_pointer_cast<storage::InvertedIndex<hyrise_int_t>> (sm->getInvertedIndex(table));
+  auto index = std::dynamic_pointer_cast<storage::InvertedIndex<hyrise_int_t>>(sm->getInvertedIndex(table));
 
-  ASSERT_NE(index.get(), (storage::InvertedIndex<storage::hyrise_int_t> *) nullptr);
+  ASSERT_NE(index.get(), (storage::InvertedIndex<storage::hyrise_int_t>*)nullptr);
 }
-
 }
 }

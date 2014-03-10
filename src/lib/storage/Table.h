@@ -29,14 +29,13 @@ namespace storage {
  */
 
 class Table : public AbstractTable {
-private:
-
+ private:
   // Typedefs for all dependent types
   typedef std::shared_ptr<AbstractDictionary> SharedDictionary;
   typedef std::vector<SharedDictionary> DictionaryVector;
 
   typedef Table table_type;
-  typedef std::vector<ColumnMetadata > MetadataVector;
+  typedef std::vector<ColumnMetadata> MetadataVector;
 
 
   // The shared ptr to the attributes we store inside the table
@@ -58,16 +57,15 @@ private:
 
   bool _compressed = false;
 
-public:
-
+ public:
   /*
     Main constructor for the table class that is called to create a
     new table. The parameters can be used to set the meta data and
     dictionaries for the table. Passing dictionaries allows to reuse
     alread created dictionary data.
   */
-  Table(metadata_list *m,
-        std::vector<SharedDictionary> *d = nullptr,
+  Table(metadata_list* m,
+        std::vector<SharedDictionary>* d = nullptr,
         size_t initial_size = 0,
         bool sorted = true,
         bool compressed = true);
@@ -75,9 +73,7 @@ public:
   // Construct table from vector of metadata,
   // a storage vector and dictionaries
   // Expects: m.size() == dicts.size()
-  Table(std::vector<ColumnMetadata> m,
-        SharedAttributeVector av,
-        std::vector<SharedDictionary> dicts);
+  Table(std::vector<ColumnMetadata> m, SharedAttributeVector av, std::vector<SharedDictionary> dicts);
 
   ~Table();
 
@@ -93,47 +89,52 @@ public:
 
   void resize(const size_t nr_of_values);
 
-  const ColumnMetadata& metadataAt(const size_t column_index, const size_t row_index = 0, const table_id_t table_id = 0) const override;
+  const ColumnMetadata& metadataAt(const size_t column_index,
+                                   const size_t row_index = 0,
+                                   const table_id_t table_id = 0) const override;
 
-  virtual const AbstractTable::SharedDictionaryPtr& dictionaryAt(const size_t column, const size_t row = 0, const table_id_t table_id = 0) const;
+  virtual const AbstractTable::SharedDictionaryPtr& dictionaryAt(const size_t column,
+                                                                 const size_t row = 0,
+                                                                 const table_id_t table_id = 0) const;
 
-  virtual const AbstractTable::SharedDictionaryPtr& dictionaryByTableId(const size_t column, const table_id_t table_id) const;
+  virtual const AbstractTable::SharedDictionaryPtr& dictionaryByTableId(const size_t column,
+                                                                        const table_id_t table_id) const;
 
-  virtual void setDictionaryAt(AbstractTable::SharedDictionaryPtr dict, const size_t column, const size_t row = 0, const table_id_t table_id = 0);
+  virtual void setDictionaryAt(AbstractTable::SharedDictionaryPtr dict,
+                               const size_t column,
+                               const size_t row = 0,
+                               const table_id_t table_id = 0);
 
-  virtual  atable_ptr_t copy_structure(const field_list_t *fields = nullptr, const bool reuse_dict = false, const size_t initial_size = 0, const bool with_containers = true, const bool compressed = false) const;
+  virtual atable_ptr_t copy_structure(const field_list_t* fields = nullptr,
+                                      const bool reuse_dict = false,
+                                      const size_t initial_size = 0,
+                                      const bool with_containers = true,
+                                      const bool compressed = false) const;
 
-  virtual  atable_ptr_t copy_structure_modifiable(const field_list_t *fields = nullptr, const size_t initial_size = 0, const bool with_containers = true) const;
+  virtual atable_ptr_t copy_structure_modifiable(const field_list_t* fields = nullptr,
+                                                 const size_t initial_size = 0,
+                                                 const bool with_containers = true) const;
   virtual atable_ptr_t copy_structure(abstract_dictionary_callback, abstract_attribute_vector_callback) const override;
 
   void setAttributes(SharedAttributeVector b);
 
-  unsigned partitionCount() const {
-    return 1;
-  }
+  unsigned partitionCount() const { return 1; }
 
-  virtual table_id_t subtableCount() const {
-    return 1;
-  }
+  virtual table_id_t subtableCount() const { return 1; }
 
-  virtual size_t partitionWidth(const size_t slice) const {
-    return columnCount();
-  }
+  virtual size_t partitionWidth(const size_t slice) const { return columnCount(); }
 
   virtual atable_ptr_t copy() const;
 
-  void setNumRows(size_t s) {
-    tuples->setNumRows(s);
-  }
+  void setNumRows(size_t s) { tuples->setNumRows(s); }
 
   virtual const attr_vectors_t getAttributeVectors(size_t column) const {
-    //attr_vector_ref_t tpl_ref(tuples);
-    attr_vector_offset_t t { tuples, column};
-    return { t };
+    // attr_vector_ref_t tpl_ref(tuples);
+    attr_vector_offset_t t{tuples, column};
+    return {t};
   }
 
-  virtual void debugStructure(size_t level=0) const;
+  virtual void debugStructure(size_t level = 0) const;
 };
-
-} } // namespace hyrise::storage
-
+}
+}  // namespace hyrise::storage

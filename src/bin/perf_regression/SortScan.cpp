@@ -13,9 +13,8 @@ namespace access {
 class SortScanBase : public ::testing::Benchmark {
 
  protected:
-
-  io::StorageManager *sm;
-  SortScan *sc;
+  io::StorageManager* sm;
+  SortScan* sc;
   storage::c_atable_ptr_t t;
 
  public:
@@ -29,9 +28,7 @@ class SortScanBase : public ::testing::Benchmark {
     sc->addInput(t);
   }
 
-  void BenchmarkTearDown() {
-
-  }
+  void BenchmarkTearDown() {}
   SortScanBase() {
     SetNumIterations(10);
     SetWarmUp(2);
@@ -62,56 +59,52 @@ BENCHMARK_F(SortScanBase, simple_sort_scan_int_mat) {
   sc->setSortField(1);
   auto result = sc->execute()->getResultTable();
 
-  MaterializingScan *ms = new MaterializingScan(false);
+  MaterializingScan* ms = new MaterializingScan(false);
   ms->setEvent("NO_PAPI");
 
   ms->addInput(result);
 
   auto result_mat = ms->execute()->getResultTable();
-
 }
 
 BENCHMARK_F(SortScanBase, simple_sort_scan_int_mat_memcpy) {
   sc->setSortField(1);
   auto result = sc->execute()->getResultTable();
 
-  MaterializingScan *ms = new MaterializingScan(true);
+  MaterializingScan* ms = new MaterializingScan(true);
   ms->setEvent("NO_PAPI");
   ms->addInput(result);
 
   auto result_mat = ms->execute()->getResultTable();
-
 }
 
 BENCHMARK_F(SortScanBase, simple_sort_scan_string_mat) {
   sc->setSortField(4);
   auto result = sc->execute()->getResultTable();
 
-  MaterializingScan *ms = new MaterializingScan(false);
+  MaterializingScan* ms = new MaterializingScan(false);
   ms->setEvent("NO_PAPI");
   ms->addInput(result);
 
   auto result_mat = ms->execute()->getResultTable();
-
 }
 
 BENCHMARK_F(SortScanBase, simple_sort_scan_string_mat_memcpy) {
   sc->setSortField(4);
   auto result = sc->execute()->getResultTable();
 
-  MaterializingScan *ms = new MaterializingScan(true);
+  MaterializingScan* ms = new MaterializingScan(true);
   ms->setEvent("NO_PAPI");
   ms->addInput(result);
 
   auto result_mat = ms->execute()->getResultTable();
-
 }
 
 BENCHMARK_F(SortScanBase, simple_sort_scan_sorted_int_mat) {
   sc->setSortField(0);
   auto result = sc->execute()->getResultTable();
 
-  MaterializingScan *ms = new MaterializingScan(false);
+  MaterializingScan* ms = new MaterializingScan(false);
   ms->setEvent("NO_PAPI");
   ms->addInput(result);
 
@@ -122,13 +115,11 @@ BENCHMARK_F(SortScanBase, simple_sort_scan_sorted_int_mat_memcpy) {
   sc->setSortField(0);
   auto result = sc->execute()->getResultTable();
 
-  MaterializingScan *ms = new MaterializingScan(true);
+  MaterializingScan* ms = new MaterializingScan(true);
   ms->setEvent("NO_PAPI");
   ms->addInput(result);
 
   auto result_mat = ms->execute()->getResultTable();
-
 }
-
 }
 }

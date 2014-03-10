@@ -17,7 +17,7 @@ TEST_F(PredicateBldr, one_field) {
   PredicateBuilder b;
   b.add(e);
 
-  SimpleExpression *r = b.build();
+  SimpleExpression* r = b.build();
 
   ASSERT_TRUE(r == e);
 
@@ -32,11 +32,10 @@ TEST_F(PredicateBldr, one_leg_expression) {
   b.add(c);
   b.add(e);
 
-  SimpleExpression *r = b.build();
+  SimpleExpression* r = b.build();
   ASSERT_TRUE(r == c);
 
-  ASSERT_EQ(((CompoundExpression *) r)->lhs, e);
-
+  ASSERT_EQ(((CompoundExpression*)r)->lhs, e);
 }
 
 TEST_F(PredicateBldr, complex_expression) {
@@ -55,7 +54,6 @@ TEST_F(PredicateBldr, complex_expression) {
 
 
 
-
   auto scan = std::make_shared<SimpleTableScan>();
   scan->addInput(t);
   scan->setPredicate(b.build());
@@ -66,7 +64,5 @@ TEST_F(PredicateBldr, complex_expression) {
 
   ASSERT_TRUE(out->contentEquals(reference));
 }
-
 }
 }
-

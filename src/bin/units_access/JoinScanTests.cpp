@@ -18,14 +18,13 @@ TEST_F(JoinScanTests, basic_join_scan_test) {
   js.addInput(t1);
   js.addInput(t2);
   js.addCombiningClause(AND);
-  js.addJoinClause<int>(0,0,1,0);
-  js.addJoinClause<std::string>(0,1,1,1);
+  js.addJoinClause<int>(0, 0, 1, 0);
+  js.addJoinClause<std::string>(0, 1, 1, 1);
   js.execute();
 
-  const auto &result = js.getResultTable();
+  const auto& result = js.getResultTable();
 
   ASSERT_TABLE_EQUAL(result, reference);
 }
-
 }
 }

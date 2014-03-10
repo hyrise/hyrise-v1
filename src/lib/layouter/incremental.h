@@ -31,7 +31,7 @@ class IncrementalCandidateLayouter : public CandidateLayouter {
     Based on the affected attribute and the query we build a new
     schema that is used for the incremental layout step.
   */
-  Schema buildSchema(subset_t attributes, Query *q);
+  Schema buildSchema(subset_t attributes, Query* q);
 
   /*
     The intermediate result is mapped to the intermediate
@@ -48,14 +48,11 @@ class IncrementalCandidateLayouter : public CandidateLayouter {
     The current layout is split into two parts, those partitions
     that are accessed by the query and those which are not
   */
-  void detectAffectedPartitions(Query *q);
+  void detectAffectedPartitions(Query* q);
 
 
  public:
-
-  void incrementalLayout(Query *q);
-
+  void incrementalLayout(Query* q);
 };
-
-} } // namespace layouter
-
+}
+}  // namespace layouter

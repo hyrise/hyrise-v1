@@ -10,21 +10,17 @@
 #include <algorithm>
 
 template <typename HT>
-::testing::AssertionResult AssertHashTableFully(hyrise::storage::atable_ptr_t table,
-    const field_list_t &columns) {
+::testing::AssertionResult AssertHashTableFully(hyrise::storage::atable_ptr_t table, const field_list_t& columns) {
   HT ht(table, columns);
   if (testHashTableFullCoverage(ht, table, columns)) {
     return ::testing::AssertionSuccess();
   } else {
-    return ::testing::AssertionFailure() <<
-           "The HashTable did not map the table correctly!";
+    return ::testing::AssertionFailure() << "The HashTable did not map the table correctly!";
   }
 }
 
 template <typename HT>
-bool testHashTableFullCoverage(const HT &hashTable,
-                               hyrise::storage::atable_ptr_t table,
-                               const field_list_t &columns) {
+bool testHashTableFullCoverage(const HT& hashTable, hyrise::storage::atable_ptr_t table, const field_list_t& columns) {
   bool result = true;
   for (pos_t row = 0; row < table->size(); ++row) {
     pos_list_t positions = hashTable.get(table, columns, row);
@@ -36,4 +32,3 @@ bool testHashTableFullCoverage(const HT &hashTable,
   return result;
 }
 #endif  // SRC_BIN_UNITS_STORAGE_HELPER_H_
-

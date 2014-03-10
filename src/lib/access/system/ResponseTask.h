@@ -17,10 +17,10 @@ class PlanOperation;
 
 class ResponseTask : public taskscheduler::Task {
  private:
-  net::AbstractConnection *connection;
+  net::AbstractConnection* connection;
 
-  size_t _transmitLimit = 0; // Used for serialization only
-  size_t _transmitOffset = 0; // Used for serialization only
+  size_t _transmitLimit = 0;  // Used for serialization only
+  size_t _transmitOffset = 0;  // Used for serialization only
 
   std::atomic<unsigned long> _affectedRows;
   tx::TXContext _txContext;
@@ -38,20 +38,15 @@ class ResponseTask : public taskscheduler::Task {
   bool _recordPerformanceData = true;
 
  public:
-  explicit ResponseTask(net::AbstractConnection *connection) :
-      connection(connection) {
-        _affectedRows = 0;
-  }
+  explicit ResponseTask(net::AbstractConnection* connection) : connection(connection) { _affectedRows = 0; }
 
   virtual ~ResponseTask() {}
 
   const std::string vname();
 
-  void setRecordPerformanceData(bool val) { _recordPerformanceData = val;}
+  void setRecordPerformanceData(bool val) { _recordPerformanceData = val; }
 
-  epoch_t getQueryStart() {
-    return queryStart;
-  }
+  epoch_t getQueryStart() { return queryStart; }
 
   void registerPlanOperation(const std::shared_ptr<PlanOperation>& planOp);
 
@@ -60,36 +55,20 @@ class ResponseTask : public taskscheduler::Task {
     _error_messages.push_back(message);
   }
 
-  std::vector<std::string> getErrorMessages() const {
-    return _error_messages;
-  }
-  void setIsAutoCommit(bool b) {
-    _isAutoCommit = b;
-  }
-  
-  void setTxContext(tx::TXContext t) {
-    _txContext = t;
-  }
+  std::vector<std::string> getErrorMessages() const { return _error_messages; }
+  void setIsAutoCommit(bool b) { _isAutoCommit = b; }
 
-  void setQueryStart(epoch_t start) {
-    queryStart = start;
-  }
+  void setTxContext(tx::TXContext t) { _txContext = t; }
 
-  void setTransmitLimit(size_t l) {
-    _transmitLimit = l;
-  }
+  void setQueryStart(epoch_t start) { queryStart = start; }
 
-  void setTransmitOffset(size_t o) {
-    _transmitOffset = o;
-  }
+  void setTransmitLimit(size_t l) { _transmitLimit = l; }
 
-  void incAffectedRows(unsigned long inc) {
-    _affectedRows += inc;
-  }
+  void setTransmitOffset(size_t o) { _transmitOffset = o; }
 
-  performance_vector_t& getPerformanceData() {
-    return performance_data;
-  }
+  void incAffectedRows(unsigned long inc) { _affectedRows += inc; }
+
+  performance_vector_t& getPerformanceData() { return performance_data; }
 
   task_states_t getState() const;
 
@@ -97,7 +76,6 @@ class ResponseTask : public taskscheduler::Task {
 
   virtual void operator()();
 };
-
 }
 }
 

@@ -2,6 +2,5 @@
 #pragma once
 
 #include <stdint.h>
-typedef uint64_t epoch_t; // time in nanoseconds since some undefined starting point (use differences only)
+typedef uint64_t epoch_t;  // time in nanoseconds since some undefined starting point (use differences only)
 epoch_t get_epoch_nanoseconds();
-

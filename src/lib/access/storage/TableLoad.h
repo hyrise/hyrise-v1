@@ -14,23 +14,23 @@ class TableLoad : public PlanOperation {
   friend class LoadTests_simple_load_op_Test;
   friend class LoadTests_simple_unloadall_op_Test;
 
-public:
+ public:
   TableLoad();
   virtual ~TableLoad();
 
   void executePlanOperation();
-  static std::shared_ptr<PlanOperation> parse(const Json::Value &data);
+  static std::shared_ptr<PlanOperation> parse(const Json::Value& data);
   const std::string vname();
-  void setTableName(const std::string &tablename);
-  void setFileName(const std::string &filename);
-  void setHeaderFileName(const std::string &filename);
-  void setHeaderString(const std::string &header);
+  void setTableName(const std::string& tablename);
+  void setFileName(const std::string& filename);
+  void setHeaderFileName(const std::string& filename);
+  void setHeaderString(const std::string& header);
   void setBinary(const bool binary);
   void setUnsafe(const bool unsafe);
   void setRaw(const bool raw);
-  void setDelimiter(const std::string &d);
+  void setDelimiter(const std::string& d);
 
-private:
+ private:
   std::string _table_name;
   std::string _header_file_name;
   std::string _file_name;
@@ -41,7 +41,6 @@ private:
   bool _unsafe;
   bool _raw;
 };
-
 }
 }
 

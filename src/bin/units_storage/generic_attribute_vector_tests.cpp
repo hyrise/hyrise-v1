@@ -14,11 +14,9 @@ namespace storage {
 template <typename T>
 class AttributeVectorTests : public ::hyrise::Test {};
 
-typedef testing::Types <
-  BitCompressedVector<value_id_t>,
-  FixedLengthVector<value_id_t>,
-  ConcurrentFixedLengthVector<value_id_t>
-  > Vectors;
+typedef testing::Types<BitCompressedVector<value_id_t>,
+                       FixedLengthVector<value_id_t>,
+                       ConcurrentFixedLengthVector<value_id_t> > Vectors;
 
 TYPED_TEST_CASE(AttributeVectorTests, Vectors);
 
@@ -26,8 +24,8 @@ template <typename T>
 void insertVals(T& tuples, std::size_t cols, std::size_t rows) {
   value_id_t vid = 0;
   tuples.resize(rows);
-  for (std::size_t r=0; r < rows; ++r) {
-    for (std::size_t c=0; c < cols; ++c) {
+  for (std::size_t r = 0; r < rows; ++r) {
+    for (std::size_t c = 0; c < cols; ++c) {
       tuples.set(c, r, vid++);
     }
   }
@@ -63,6 +61,5 @@ TYPED_TEST(AttributeVectorTests, copy) {
   auto cp = tuples.copy();
   ASSERT_EQ(tuples.size(), cp->size());
 }
-
-} } // namespace hyrise::storage
-
+}
+}  // namespace hyrise::storage

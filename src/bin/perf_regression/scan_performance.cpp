@@ -25,7 +25,7 @@ namespace hyrise {
 namespace access {
 
 static const size_t BNUM_VALUES = 10000000;
-static const size_t DISTINCT_VALUES = BNUM_VALUES/100;
+static const size_t DISTINCT_VALUES = BNUM_VALUES / 100;
 class ScanBench : public ::testing::Benchmark {
  public:
   std::vector<std::uint64_t> _data;
@@ -39,11 +39,11 @@ class ScanBench : public ::testing::Benchmark {
     _data.reserve(BNUM_VALUES);
     std::mt19937 gen(0);
     std::uniform_int_distribution<std::uint64_t> dis(0, DISTINCT_VALUES);
-    for (size_t i=0; i < BNUM_VALUES; ++i) {
+    for (size_t i = 0; i < BNUM_VALUES; ++i) {
       _data.push_back(dis(gen));
     }
     _dict.resize(DISTINCT_VALUES);
-    for (size_t i=0; i < DISTINCT_VALUES; ++i) {
+    for (size_t i = 0; i < DISTINCT_VALUES; ++i) {
       _dict[i] = i;
     }
   }
@@ -53,15 +53,13 @@ class ScanBench : public ::testing::Benchmark {
     SetWarmUp(2);
 
     init_data();
-    auto p = io::Loader::params()
-        .setInput(io::VectorInput({_data}))
-        .setHeader(io::StringHeader("col1\nINTEGER\n0_R"));
+    auto p = io::Loader::params().setInput(io::VectorInput({_data})).setHeader(io::StringHeader("col1\nINTEGER\n0_R"));
     _table = io::Loader::load(p);
-    _value = _data[_data.size()-1];
+    _value = _data[_data.size() - 1];
   }
 
 
-  
+
   void BenchmarkSetUp() {
     _tablescanNormal = std::make_shared<TableScan>(make_unique<EqualsExpression<hyrise_int_t>>(0, 0, _value));
     _tablescanNormal->setEvent("NO_PAPI");
@@ -72,14 +70,15 @@ class ScanBench : public ::testing::Benchmark {
     _tablescanSpecial->addInput(_table);
   }
 
-  void BenchmarkTearDown() {
-  }
+  void BenchmarkTearDown() {}
 };
 
-pos_list_t scan(const std::vector<std::uint64_t>& data, const std::vector<std::uint64_t>& dict, const std::uint64_t value) {
+pos_list_t scan(const std::vector<std::uint64_t>& data,
+                const std::vector<std::uint64_t>& dict,
+                const std::uint64_t value) {
   pos_list_t positions;
   std::uint64_t valueid = dict[value];
-  for (size_t index=0, end=data.size(); index < end; ++index) {
+  for (size_t index = 0, end = data.size(); index < end; ++index) {
     if (data[index] == valueid) {
       positions.push_back(index);
     }
@@ -87,17 +86,10 @@ pos_list_t scan(const std::vector<std::uint64_t>& data, const std::vector<std::u
   return positions;
 }
 
-BENCHMARK_F(ScanBench, CMP_scanperformance_vector_seq) {
-  scan(_data, _dict, _value).size();
+BENCHMARK_F(ScanBench, CMP_scanperformance_vector_seq) { scan(_data, _dict, _value).size(); }
+
+BENCHMARK_F(ScanBench, CMP_scanperformance_hyriseDefault) { _tablescanNormal->execute(); }
+
+BENCHMARK_F(ScanBench, CMP_scanperformance_hyriseSpecial) { _tablescanSpecial->execute(); }
 }
-
-BENCHMARK_F(ScanBench, CMP_scanperformance_hyriseDefault) {
-  _tablescanNormal->execute();
-}
-
-BENCHMARK_F(ScanBench, CMP_scanperformance_hyriseSpecial) {
-  _tablescanSpecial->execute();
-}
-
-} } // namespace hyrise::access
-
+}  // namespace hyrise::access

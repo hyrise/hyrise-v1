@@ -1,8 +1,9 @@
 #include "access/expressions/ExpressionRegistration.h"
 
-namespace hyrise { namespace access {
+namespace hyrise {
+namespace access {
 
-//std::map<std::string, expression_factory_ptr_t> Expressions::_registrations;
+// std::map<std::string, expression_factory_ptr_t> Expressions::_registrations;
 
 Expressions& Expressions::getInstance() {
   static Expressions e;
@@ -17,5 +18,5 @@ bool Expressions::addRegistration(const std::string& callsign, expression_factor
 expression_uptr_t Expressions::createRegistered(const std::string& callsign, const Json::Value& value) const {
   return _registrations.at(callsign)->create(value);
 }
-
-}}
+}
+}

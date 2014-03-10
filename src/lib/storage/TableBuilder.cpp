@@ -7,15 +7,16 @@
 #include "storage/Table.h"
 #include "storage/MutableVerticalTable.h"
 
-namespace hyrise { namespace storage {
+namespace hyrise {
+namespace storage {
 
-void TableBuilder::checkParams(const param_list &args) {
+void TableBuilder::checkParams(const param_list& args) {
   if (args.size() == 0)
     throw TableBuilderError("Cannot build a table with no columns");
 
   // TODO check if the number of columns in groups is correct
   size_t sum = 0;
-for (const auto & i: args.groups())
+  for (const auto& i : args.groups())
     sum += i;
 
   if (sum != args.size())
@@ -23,11 +24,11 @@ for (const auto & i: args.groups())
 }
 
 atable_ptr_t TableBuilder::createTable(param_list::param_list_t::const_iterator begin,
-    param_list::param_list_t::const_iterator end,
-    const bool compressed) {
+                                       param_list::param_list_t::const_iterator end,
+                                       const bool compressed) {
   // Meta data container
-  std::vector<ColumnMetadata > vc;
-  std::vector<AbstractTable::SharedDictionaryPtr > vd;
+  std::vector<ColumnMetadata> vc;
+  std::vector<AbstractTable::SharedDictionaryPtr> vd;
 
   for (; begin != end; ++begin) {
     vc.push_back(ColumnMetadata::metadataFromString((*begin).type, (*begin).name));
@@ -54,7 +55,7 @@ atable_ptr_t TableBuilder::build(param_list args, const bool compressed) {
     // Calculate the upper bound for the current layout
     auto end = offset;
     auto tmp = args.groups()[g];
-    while(tmp-- != 0)
+    while (tmp-- != 0)
       ++end;
 
     base.push_back(createTable(offset, end, compressed));
@@ -63,7 +64,5 @@ atable_ptr_t TableBuilder::build(param_list args, const bool compressed) {
 
   return std::move(std::make_shared<MutableVerticalTable>(base));
 }
-
-
-}}
-
+}
+}

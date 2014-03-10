@@ -5,6 +5,5 @@ namespace hyrise {
 namespace storage {
 
 AbstractTableFactory::~AbstractTableFactory() {}
-
-} } // namespace hyrise::storage
-
+}
+}  // namespace hyrise::storage

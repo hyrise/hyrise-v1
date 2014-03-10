@@ -24,7 +24,7 @@ TEST(TX, commit_invalid) {
   transaction_id_t invalid = std::numeric_limits<transaction_id_t>::max();
   EXPECT_FALSE(TM::isValidTransactionId(invalid)) << "id is larger than acceptable";
   tx.tid = invalid;
-  TM::commitTransaction(tx); // "Commiting an invalid txid works.";
+  TM::commitTransaction(tx);  // "Commiting an invalid txid works.";
   tx.tid = oldtid;
   TM::commitTransaction(tx);
 }
@@ -44,5 +44,5 @@ TEST(TX, rollback_transaction) {
   auto after = TM::getInstance().getLastCommitId();
   EXPECT_EQ(before, after) << "No commits are made when doing a rollback";
 }
-
-} } // namespace hyrise::tx
+}
+}  // namespace hyrise::tx

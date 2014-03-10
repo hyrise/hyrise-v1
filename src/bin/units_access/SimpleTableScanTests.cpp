@@ -19,7 +19,7 @@ TEST_F(SimpleTableScanTests, basic_simple_table_scan_test) {
   sts.setPredicate(expr);
   sts.execute();
 
-  const auto &result = sts.getResultTable();
+  const auto& result = sts.getResultTable();
 
   ASSERT_EQ(1u, result->size());
   ASSERT_EQ(100, result->getValue<storage::hyrise_int_t>(0, 0));
@@ -56,6 +56,5 @@ TEST_F(SimpleTableScanTests, parallelized_simple_table_scan) {
   ASSERT_EQ(1u, result->size());
   ASSERT_EQ(100, result->getValue<storage::hyrise_int_t>(0, 0));
 }
-
 }
 }

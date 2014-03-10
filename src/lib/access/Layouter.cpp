@@ -10,29 +10,25 @@ namespace hyrise {
 namespace access {
 
 namespace {
-  auto _ = QueryParser::registerPlanOperation<LayoutSingleTable>("LayoutSingleTable");
+auto _ = QueryParser::registerPlanOperation<LayoutSingleTable>("LayoutSingleTable");
 }
 
-LayoutSingleTable::LayoutSingleTable() : _numRows(0),
-                                         _layouter(CandidateLayouter),
-                                         _maxResults(1) {
-}
+LayoutSingleTable::LayoutSingleTable() : _numRows(0), _layouter(CandidateLayouter), _maxResults(1) {}
 
-LayoutSingleTable::~LayoutSingleTable() {
-}
+LayoutSingleTable::~LayoutSingleTable() {}
 
 void LayoutSingleTable::executePlanOperation() {
   layouter::Schema s(_atts, _numRows, _names);
 
-  std::vector<layouter::Query *> qs;
-  for (const auto & q: _queries) {
-    layouter::Query *tmp = parseQuery(q);
+  std::vector<layouter::Query*> qs;
+  for (const auto& q : _queries) {
+    layouter::Query* tmp = parseQuery(q);
     qs.push_back(tmp);
     s.add(tmp);
   }
 
   // Perform Layout Calculation
-  layouter::BaseLayouter *bl;
+  layouter::BaseLayouter* bl;
   std::vector<layouter::Result> r;
   size_t size = 0;
 
@@ -63,7 +59,7 @@ void LayoutSingleTable::executePlanOperation() {
   vc.push_back(storage::ColumnMetadata::metadataFromString("FLOAT", "rowCost"));
 
 
-  std::vector<storage::AbstractTable::SharedDictionaryPtr > vd;
+  std::vector<storage::AbstractTable::SharedDictionaryPtr> vd;
   vd.push_back(storage::makeDictionary(StringTypeDelta));
   vd.push_back(storage::makeDictionary(IntegerTypeDelta));
   vd.push_back(storage::makeDictionary(FloatTypeDelta));
@@ -89,14 +85,14 @@ void LayoutSingleTable::executePlanOperation() {
   // Free the memory
   delete bl;
 
-  for (const auto & q: qs) {
+  for (const auto& q : qs) {
     delete q;
   }
 
   addResult(result);
 }
 
-std::shared_ptr<PlanOperation> LayoutSingleTable::parse(const Json::Value &data) {
+std::shared_ptr<PlanOperation> LayoutSingleTable::parse(const Json::Value& data) {
   auto s = std::make_shared<LayoutSingleTable>();
   s->setNumRows(data["num_rows"].asUInt());
 
@@ -156,43 +152,32 @@ std::shared_ptr<PlanOperation> LayoutSingleTable::parse(const Json::Value &data)
   return s;
 }
 
-const std::string LayoutSingleTable::vname() {
-  return "LayoutSingleTable";
-}
+const std::string LayoutSingleTable::vname() { return "LayoutSingleTable"; }
 
-void LayoutSingleTable::addFieldName(const std::string &n) {
+void LayoutSingleTable::addFieldName(const std::string& n) {
   _names.push_back(n);
 
   // TODO suport different attribute sizes
   _atts.push_back(4);
 }
 
-void LayoutSingleTable::addQuery(const BaseQuery &q) {
-  _queries.push_back(q);
-}
+void LayoutSingleTable::addQuery(const BaseQuery& q) { _queries.push_back(q); }
 
-void LayoutSingleTable::setLayouter(const layouter_type c) {
-  _layouter = c;
-}
+void LayoutSingleTable::setLayouter(const layouter_type c) { _layouter = c; }
 
-void LayoutSingleTable::setNumRows(const size_t n) {
-  _numRows = n;
-}
+void LayoutSingleTable::setNumRows(const size_t n) { _numRows = n; }
 
-void LayoutSingleTable::setMaxResults(const size_t n) {
-  _maxResults = n;
-}
+void LayoutSingleTable::setMaxResults(const size_t n) { _maxResults = n; }
 
-layouter::Query *LayoutSingleTable::parseQuery(const BaseQuery &q) {
-  layouter::LayouterConfiguration::access_type_t t = (q.selectivity == 1.0 ?
-      layouter::LayouterConfiguration::access_type_fullprojection :
-      layouter::LayouterConfiguration::access_type_outoforder);
+layouter::Query* LayoutSingleTable::parseQuery(const BaseQuery& q) {
+  layouter::LayouterConfiguration::access_type_t t =
+      (q.selectivity == 1.0 ? layouter::LayouterConfiguration::access_type_fullprojection
+                            : layouter::LayouterConfiguration::access_type_outoforder);
 
   double sel = q.selectivity == 1.0 ? -1.0 : q.selectivity;
-  layouter::Query *q1 = new layouter::Query(t, q.positions, sel, q.weight);
+  layouter::Query* q1 = new layouter::Query(t, q.positions, sel, q.weight);
 
   return q1;
 }
-
 }
 }

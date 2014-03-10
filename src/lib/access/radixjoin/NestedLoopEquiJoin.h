@@ -24,9 +24,9 @@ namespace access {
 /// This Operation is used for the Radix Join
 /// implementation
 class NestedLoopEquiJoin : public PlanOperation {
-public:
+ public:
   void executePlanOperation();
-  static std::shared_ptr<PlanOperation> parse(const Json::Value &data);
+  static std::shared_ptr<PlanOperation> parse(const Json::Value& data);
   const std::string vname();
   void setBits1(const uint32_t b);
   void setBits2(const uint32_t b);
@@ -34,12 +34,11 @@ public:
   uint32_t bits2() const;
   void addPartition(const int p);
 
-private:
+ private:
   uint32_t _bits1;
   uint32_t _bits2;
   std::vector<int> _partitions;
 };
-
 }
 }
 

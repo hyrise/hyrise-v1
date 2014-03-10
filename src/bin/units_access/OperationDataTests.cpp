@@ -51,8 +51,8 @@ TEST(OperationDataTests, retrieving) {
   EXPECT_EQ(op.nthOf<CustomResource1>(1), cr1b);
   EXPECT_EQ(op.nthOf<CustomResource2>(0), cr2a);
 
-  std::vector<std::shared_ptr<const CustomResource1>> c1_v {cr1a, cr1b};
-  std::vector<std::shared_ptr<const CustomResource2>> c2_v {cr2a};
+  std::vector<std::shared_ptr<const CustomResource1>> c1_v{cr1a, cr1b};
+  std::vector<std::shared_ptr<const CustomResource2>> c2_v{cr2a};
   EXPECT_EQ(c1_v, op.allOf<CustomResource1>());
   EXPECT_EQ(c2_v, op.allOf<CustomResource2>());
 }
@@ -69,6 +69,5 @@ TEST(OperationDataTests, merging) {
   EXPECT_EQ(2u, op.sizeOf<CustomResource1>());
   EXPECT_EQ(1u, op.sizeOf<CustomResource2>());
 }
-
-} } // namespace hyrise::access
-
+}
+}  // namespace hyrise::access

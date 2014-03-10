@@ -15,29 +15,24 @@ class LessThanExpression : public SimpleFieldExpression {
   bool value_exists;
 
  public:
+  LessThanExpression(size_t i, field_t f, T _value) : SimpleFieldExpression(i, f), value(_value) {}
 
-  LessThanExpression(size_t i, field_t f, T _value):
-      SimpleFieldExpression(i, f), value(_value)
-  {}
+  LessThanExpression(size_t i, field_name_t f, T _value) : SimpleFieldExpression(i, f), value(_value) {}
 
-  LessThanExpression(size_t i, field_name_t f, T _value):
-      SimpleFieldExpression(i, f), value(_value)
-  {}
+  LessThanExpression(storage::c_atable_ptr_t _table, field_t _field, T _value)
+      : SimpleFieldExpression(_table, _field), value(_value) {}
 
-  LessThanExpression(storage::c_atable_ptr_t _table, field_t _field, T _value) :
-      SimpleFieldExpression(_table, _field), value(_value)
-  {}
-
-  virtual void walk(const std::vector<storage::c_atable_ptr_t > &l) {
+  virtual void walk(const std::vector<storage::c_atable_ptr_t>& l) {
 
     SimpleFieldExpression::walk(l);
     valueIdMap = std::dynamic_pointer_cast<storage::BaseDictionary<T>>(table->dictionaryAt(field));
     lower_bound.table = 0;
     lower_bound.valueId = valueIdMap->getValueIdForValue(value);
-    value_exists = valueIdMap->isValueIdValid(lower_bound.valueId) && value == valueIdMap->getValueForValueId(lower_bound.valueId);
+    value_exists =
+        valueIdMap->isValueIdValid(lower_bound.valueId) && value == valueIdMap->getValueForValueId(lower_bound.valueId);
   }
 
-  virtual ~LessThanExpression() { }
+  virtual ~LessThanExpression() {}
 
   inline virtual bool operator()(size_t row) {
     ValueId valueId = table->getValueId(field, row);
@@ -55,26 +50,19 @@ class LessThanExpressionRaw : public SimpleFieldExpression {
   T value;
 
  public:
+  LessThanExpressionRaw(size_t i, field_t f, T _value) : SimpleFieldExpression(i, f), value(_value) {}
 
-  LessThanExpressionRaw(size_t i, field_t f, T _value):
-      SimpleFieldExpression(i, f), value(_value)
-  {}
+  LessThanExpressionRaw(size_t i, field_name_t f, T _value) : SimpleFieldExpression(i, f), value(_value) {}
 
-  LessThanExpressionRaw(size_t i, field_name_t f, T _value):
-      SimpleFieldExpression(i, f), value(_value)
-  {}
-
-  LessThanExpressionRaw(const storage::c_atable_ptr_t& _table, field_t _field, T _value) :
-      SimpleFieldExpression(_table, _field), value(_value)
-  {}
+  LessThanExpressionRaw(const storage::c_atable_ptr_t& _table, field_t _field, T _value)
+      : SimpleFieldExpression(_table, _field), value(_value) {}
 
 
-  virtual ~LessThanExpressionRaw() { }
+  virtual ~LessThanExpressionRaw() {}
 
   inline virtual bool operator()(size_t row) {
     return (std::dynamic_pointer_cast<const storage::RawTable>(table))->template getValue<T>(field, row) < value;
   }
 };
-
-} } // pragma once
-
+}
+}  // pragma once

@@ -13,17 +13,16 @@
 namespace hyrise {
 namespace access {
 
-//HashJoinScan Benchmark similar to TPC-C Implementation of Stock-Level Transaction
-//See TPC-C Reference Chapter A.5
+// HashJoinScan Benchmark similar to TPC-C Implementation of Stock-Level Transaction
+// See TPC-C Reference Chapter A.5
 
 class HashJoinBase : public ::testing::Benchmark {
 
  protected:
+  io::StorageManager* sm;
 
-  io::StorageManager *sm;
-
-  HashBuild *hb;
-  HashJoinProbe *hjp;
+  HashBuild* hb;
+  HashJoinProbe* hjp;
   storage::c_atable_ptr_t t1;
   storage::c_atable_ptr_t t2;
 
@@ -43,12 +42,9 @@ class HashJoinBase : public ::testing::Benchmark {
     hb->addField(0);
     hjp->addInput(t2);
     hjp->addField(4);
-
   }
 
-  void BenchmarkTearDown() {
-
-  }
+  void BenchmarkTearDown() {}
 
   HashJoinBase() {
     SetNumIterations(10);
@@ -68,12 +64,11 @@ BENCHMARK_F(HashJoinBase, stock_level_hash_join_mat) {
   hjp->addInput(hashedColumn);
   auto result = hjp->execute()->getResultTable();
 
-  MaterializingScan *ms = new MaterializingScan(false);
+  MaterializingScan* ms = new MaterializingScan(false);
   ms->setEvent("NO_PAPI");
   ms->addInput(result);
 
   auto result_mat = ms->execute()->getResultTable();
-
 }
 
 BENCHMARK_F(HashJoinBase, stock_level_hash_join_mat_memcpy) {
@@ -81,12 +76,11 @@ BENCHMARK_F(HashJoinBase, stock_level_hash_join_mat_memcpy) {
   hjp->addInput(hashedColumn);
   auto result = hjp->execute()->getResultTable();
 
-  MaterializingScan *ms = new MaterializingScan(true);
+  MaterializingScan* ms = new MaterializingScan(true);
   ms->setEvent("NO_PAPI");
   ms->addInput(result);
 
   auto result_mat = ms->execute()->getResultTable();
 }
-
 }
 }

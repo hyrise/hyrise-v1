@@ -9,41 +9,34 @@
 #include <storage/AbstractIndex.h>
 #include <storage/Table.h>
 
-namespace hyrise { namespace io {
+namespace hyrise {
+namespace io {
 
 namespace {
-  storage::aresource_ptr_t emptyResource() {
-    return std::make_shared<storage::AbstractResource>();
-  }
+storage::aresource_ptr_t emptyResource() { return std::make_shared<storage::AbstractResource>(); }
 
-  storage::atable_ptr_t emptyTable() {
-    auto metadata = std::make_shared<storage::metadata_list>();
-    return std::make_shared<storage::Table>(metadata.get());
-  }
+storage::atable_ptr_t emptyTable() {
+  auto metadata = std::make_shared<storage::metadata_list>();
+  return std::make_shared<storage::Table>(metadata.get());
+}
 
-  class FakeIndex : public storage::AbstractIndex {
-   public:
-    void shrink() {}
-  };
+class FakeIndex : public storage::AbstractIndex {
+ public:
+  void shrink() {}
+};
 
-  storage::aindex_ptr_t emptyIndex() {
-    return std::make_shared<FakeIndex>();
-  }
-} // namespace
+storage::aindex_ptr_t emptyIndex() { return std::make_shared<FakeIndex>(); }
+}  // namespace
 
 
 class ResourceManagerTests : public Test {
 
-public:
-  ResourceManagerTests() {
-    rm = &ResourceManager::getInstance();
-  }
+ public:
+  ResourceManagerTests() { rm = &ResourceManager::getInstance(); }
 
-  virtual void SetUp() {
-    rm->clear();
-  }
-  
-  ResourceManager *rm;
+  virtual void SetUp() { rm->clear(); }
+
+  ResourceManager* rm;
 };
 
 TEST_F(ResourceManagerTests, is_singleton) {
@@ -78,14 +71,14 @@ TEST_F(ResourceManagerTests, add_increase_size) {
 TEST_F(ResourceManagerTests, added_resources_exist) {
   EXPECT_FALSE(rm->exists("Resource1"));
   EXPECT_FALSE(rm->exists("Resource2"));
-  
+
   rm->add("Resource1", emptyResource());
-  EXPECT_TRUE(rm->exists("Resource1")); 
-  EXPECT_FALSE(rm->exists("Resource2")); 
+  EXPECT_TRUE(rm->exists("Resource1"));
+  EXPECT_FALSE(rm->exists("Resource2"));
 
   rm->add("Resource2", emptyResource());
-  EXPECT_TRUE(rm->exists("Resource1")); 
-  EXPECT_TRUE(rm->exists("Resource2")); 
+  EXPECT_TRUE(rm->exists("Resource1"));
+  EXPECT_TRUE(rm->exists("Resource2"));
 }
 
 TEST_F(ResourceManagerTests, assure_exists_throws_exception) {
@@ -140,7 +133,7 @@ TEST_F(ResourceManagerTests, removed_resources_do_not_exists) {
   rm->remove("Resource1");
   EXPECT_FALSE(rm->exists("Resource1"));
   EXPECT_TRUE(rm->exists("Resource2"));
-  
+
   rm->remove("Resource2");
   EXPECT_FALSE(rm->exists("Resource1"));
   EXPECT_FALSE(rm->exists("Resource2"));
@@ -180,39 +173,39 @@ TEST_F(ResourceManagerTests, replace_throws_exception) {
 TEST_F(ResourceManagerTests, multiple_contexts) {
   const auto resource1 = emptyResource();
   const auto resource2 = emptyResource();
-  
-  { //add
+
+  {  // add
     auto rm = &ResourceManager::getInstance();
     rm->add("Resource", resource1);
   }
 
-  { //get
+  {  // get
     auto rm = &ResourceManager::getInstance();
     ASSERT_EQ(resource1, rm->getResource("Resource"));
   }
 
-  { //replace
+  {  // replace
     auto rm = &ResourceManager::getInstance();
     rm->replace("Resource", resource2);
   }
 
-  { //remove
+  {  // remove
     ASSERT_EQ(resource2, rm->getResource("Resource"));
     auto rm = &ResourceManager::getInstance();
     rm->remove("Resource");
   }
 
-  {//test
+  {  // test
     auto rm = &ResourceManager::getInstance();
     ASSERT_FALSE(rm->exists("Resource"));
   }
 }
 
-TEST_F(ResourceManagerTests, get_typed_resource) { 
+TEST_F(ResourceManagerTests, get_typed_resource) {
   const auto resource = emptyResource();
   const auto table = emptyTable();
   const auto index = emptyIndex();
- 
+
   rm->add("Resource", resource);
   rm->add("Table", table);
   rm->add("Index", index);
@@ -235,16 +228,15 @@ TEST_F(ResourceManagerTests, get_typed_resource_throws_exception) {
   EXPECT_NO_THROW(rm->get<storage::AbstractResource>("Resource"));
   EXPECT_NO_THROW(rm->get<storage::AbstractTable>("Table"));
   EXPECT_NO_THROW(rm->get<storage::AbstractIndex>("Index"));
-  
-  EXPECT_THROW(   rm->get<storage::AbstractTable>("Resource"), std::runtime_error);
-  EXPECT_THROW(   rm->get<storage::AbstractIndex>("Resource"), std::runtime_error);
+
+  EXPECT_THROW(rm->get<storage::AbstractTable>("Resource"), std::runtime_error);
+  EXPECT_THROW(rm->get<storage::AbstractIndex>("Resource"), std::runtime_error);
 
   EXPECT_NO_THROW(rm->get<storage::AbstractResource>("Table"));
-  EXPECT_THROW(   rm->get<storage::AbstractIndex>("Table"), std::runtime_error);
+  EXPECT_THROW(rm->get<storage::AbstractIndex>("Table"), std::runtime_error);
 
   EXPECT_NO_THROW(rm->get<storage::AbstractResource>("Index"));
-  EXPECT_THROW(   rm->get<storage::AbstractTable>("Index"), std::runtime_error);
+  EXPECT_THROW(rm->get<storage::AbstractTable>("Index"), std::runtime_error);
 }
-
-} } // namespace hyrise::io
-
+}
+}  // namespace hyrise::io

@@ -22,31 +22,29 @@ namespace taskscheduler {
  */
 class CoreBoundPriorityQueuesScheduler : public AbstractCoreBoundQueuesScheduler {
   int count = 0;
-   
 
-   /**
-    * push ready task to the next queue
-    */
-   virtual void pushToQueue(std::shared_ptr<Task> task);
 
-   /*
-    * create a new task queue
-    */
-   virtual task_queue_t *createTaskQueue(int core);
-   /*
-    * set next queue to push task to
-    */
-    virtual size_t getNextQueue();
+  /**
+   * push ready task to the next queue
+   */
+  virtual void pushToQueue(std::shared_ptr<Task> task);
 
-public:
+  /*
+   * create a new task queue
+   */
+  virtual task_queue_t* createTaskQueue(int core);
+  /*
+   * set next queue to push task to
+   */
+  virtual size_t getNextQueue();
+
+ public:
   CoreBoundPriorityQueuesScheduler(int queues = getNumberOfCoresOnSystem());
   virtual ~CoreBoundPriorityQueuesScheduler();
-    /*
-   * init task scheduler
-   */
+  /*
+ * init task scheduler
+ */
   virtual void init();
-
 };
-
-} } // namespace hyrise::taskscheduler
-
+}
+}  // namespace hyrise::taskscheduler

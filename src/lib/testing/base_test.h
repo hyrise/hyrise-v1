@@ -12,5 +12,4 @@ class Test : public ::testing::Test {
   virtual void TearDown() {}
 };
 
-} // namespace hyrise
-
+}  // namespace hyrise

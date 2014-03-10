@@ -17,20 +17,19 @@
 #include <cstdio>
 #include <functional>
 
-namespace hyrise { namespace access { 
+namespace hyrise {
+namespace access {
 
 namespace {
-  log4cxx::LoggerPtr _logger(log4cxx::Logger::getLogger("hyrise.access"));
-  auto _ = QueryParser::registerPlanOperation<ScriptOperation>("ScriptOperation");
+log4cxx::LoggerPtr _logger(log4cxx::Logger::getLogger("hyrise.access"));
+auto _ = QueryParser::registerPlanOperation<ScriptOperation>("ScriptOperation");
 }
 
-ScriptOperation::ScriptOperation() {
-
-}
+ScriptOperation::ScriptOperation() {}
 
 #ifdef WITH_V8
 
-template<typename T>
+template <typename T>
 v8::Local<v8::Object> wrapAttributeVector(std::shared_ptr<const T> table, size_t internal);
 
 // This is the context data that we use in the isolate data per process.
@@ -43,7 +42,7 @@ struct IsolateContextData {
 
 
 
-template<typename T>
+template <typename T>
 void releaseTableSharedPtr(v8::Isolate* isolate, v8::Persistent<v8::Value> persistentObj, void* pData) {
   auto pspNative = reinterpret_cast<std::shared_ptr<const T>*>(pData);
   delete pspNative;
@@ -54,8 +53,8 @@ void releaseTableSharedPtr(v8::Isolate* isolate, v8::Persistent<v8::Value> persi
 
 
 /// This is a helper function that frees allocated objects that were
-/// created using new. 
-template<typename T>
+/// created using new.
+template <typename T>
 void deleteAllocated(v8::Isolate* isolate, v8::Persistent<v8::Value> persitentObj, void* data) {
   auto native = reinterpret_cast<T*>(data);
   delete native;
@@ -66,8 +65,11 @@ void deleteAllocated(v8::Isolate* isolate, v8::Persistent<v8::Value> persitentOb
 
 /// Helper function that wraps the current local handle in a
 /// persistent handle to register destructors and embedd native data
-v8::Persistent<v8::Object> makePersistent(v8::Isolate *isolate, v8::Handle<v8::Object> object, void *embedded, v8::NearDeathCallback callback) {
-  v8::Persistent<v8::Object> persistentObj( v8::Persistent<v8::Object>::New(isolate, object));
+v8::Persistent<v8::Object> makePersistent(v8::Isolate* isolate,
+                                          v8::Handle<v8::Object> object,
+                                          void* embedded,
+                                          v8::NearDeathCallback callback) {
+  v8::Persistent<v8::Object> persistentObj(v8::Persistent<v8::Object>::New(isolate, object));
   persistentObj.MakeWeak(isolate, embedded, callback);
   return persistentObj;
 }
@@ -83,9 +85,10 @@ v8::Handle<v8::Value> LogMessage(const v8::Arguments& args) {
 //
 // @param name The name / relative path of the file
 // @param suffix The suffix of the file, that defaults to ".j"
-std::string readScript(const std::string &name, const std::string &suffix = ".js") {
+std::string readScript(const std::string& name, const std::string& suffix = ".js") {
   FILE* file = fopen((Settings::getInstance()->getScriptPath() + "/" + name + suffix).c_str(), "rb");
-  if (file == nullptr) throw std::runtime_error("Could not find file " + name);
+  if (file == nullptr)
+    throw std::runtime_error("Could not find file " + name);
 
   fseek(file, 0, SEEK_END);
   int size = ftell(file);
@@ -106,23 +109,24 @@ std::string readScript(const std::string &name, const std::string &suffix = ".js
 // Implementation of the helper method that allows to include other JavaScript
 // file read from local files and compile and run them into the VM
 v8::Handle<v8::Value> Include(const v8::Arguments& args) {
-    for (int i = 0; i < args.Length(); i++) {
-        v8::String::Utf8Value str(args[i]);
+  for (int i = 0; i < args.Length(); i++) {
+    v8::String::Utf8Value str(args[i]);
 
-        std::string js_file;
-        try {
-          js_file = readScript(*str);
-        } catch (std::exception &e) {
-          return v8::ThrowException(v8::String::New(e.what()));
-        }
-
-        if(js_file.length() > 0) {
-            v8::Handle<v8::String> source = v8::String::New(js_file.c_str());
-            v8::Handle<v8::Script> script = v8::Script::Compile(source);
-            return script->Run();
-        }
+    std::string js_file;
+    try {
+      js_file = readScript(*str);
     }
-    return v8::Undefined();
+    catch (std::exception& e) {
+      return v8::ThrowException(v8::String::New(e.what()));
+    }
+
+    if (js_file.length() > 0) {
+      v8::Handle<v8::String> source = v8::String::New(js_file.c_str());
+      v8::Handle<v8::Script> script = v8::Script::Compile(source);
+      return script->Run();
+    }
+  }
+  return v8::Undefined();
 }
 
 // Return the value Id for the Value given to this class, based on the type of
@@ -144,18 +148,12 @@ v8::Handle<v8::Value> TableGetValueIdForValue(const v8::Arguments& args) {
 
     auto num = val->ToNumber();
 
-    return handle_scope.Close(
-        v8::Integer::New(
-          tab->getValueIdForValue<hyrise_int_t>(args[0]->Uint32Value(), val->IntegerValue(), false, tabId ).valueId
-        )
-      );
-  } else { // val == string 
+    return handle_scope.Close(v8::Integer::New(
+        tab->getValueIdForValue<hyrise_int_t>(args[0]->Uint32Value(), val->IntegerValue(), false, tabId).valueId));
+  } else {  // val == string
     v8::String::Utf8Value u(val->ToString());
     return handle_scope.Close(
-        v8::Integer::New(
-          tab->getValueIdForValue<hyrise_string_t>(args[0]->Uint32Value(), *u, false, tabId ).valueId
-        )
-      );
+        v8::Integer::New(tab->getValueIdForValue<hyrise_string_t>(args[0]->Uint32Value(), *u, false, tabId).valueId));
   }
 }
 
@@ -183,14 +181,12 @@ v8::Handle<v8::Value> TableGetColumnCount(const v8::Arguments& args) {
 
 // Simple Converter form std::string to v8::String
 struct StringToV8String {
-  static v8::Handle<v8::String> New(std::string a) {
-    return v8::String::New(a.c_str());
-  }
+  static v8::Handle<v8::String> New(std::string a) { return v8::String::New(a.c_str()); }
 };
 
 // Templated method to allow easy wrapping of the getValue<type> method from
 // the table
-template<typename In, typename Out>
+template <typename In, typename Out>
 v8::Handle<v8::Value> TableGetValue(const v8::Arguments& args) {
   v8::Isolate* isolate = v8::Isolate::GetCurrent();
   v8::HandleScope handle_scope(isolate);
@@ -202,7 +198,7 @@ v8::Handle<v8::Value> TableGetValue(const v8::Arguments& args) {
 
 // Helper function that checks if the object has a property set that is called
 // _isModifiable. This property defines if the table is modifiable or not
-bool IsModifiable(const v8::Local<v8::Object> &ext) {
+bool IsModifiable(const v8::Local<v8::Object>& ext) {
   return ext->Get(v8::String::New("_isModifiable"))->ToBoolean()->Value();
 }
 
@@ -213,11 +209,12 @@ v8::Handle<v8::Value> TableSetValueInt(const v8::Arguments& args) {
   v8::HandleScope handle_scope(isolate);
 
   auto wrap = v8::Local<v8::External>::Cast(args.This()->GetInternalField(0));
-  if(!IsModifiable(args.This())) {
+  if (!IsModifiable(args.This())) {
     return v8::ThrowException(v8::String::New("Table is not modifiable."));
   }
   void* ptr = wrap->Value();
-  static_cast<AbstractTable*>(ptr)->setValue<hyrise_int_t>(args[0]->Uint32Value(), args[1]->Uint32Value(),args[2]->Int32Value());
+  static_cast<AbstractTable*>(ptr)
+      ->setValue<hyrise_int_t>(args[0]->Uint32Value(), args[1]->Uint32Value(), args[2]->Int32Value());
   return handle_scope.Close(v8::Undefined());
 }
 
@@ -226,11 +223,12 @@ v8::Handle<v8::Value> TableSetValueFloat(const v8::Arguments& args) {
   v8::HandleScope handle_scope(isolate);
 
   auto wrap = v8::Local<v8::External>::Cast(args.This()->GetInternalField(0));
-  if(!IsModifiable(args.This())) {
+  if (!IsModifiable(args.This())) {
     return v8::ThrowException(v8::String::New("Table is not modifiable."));
   }
   void* ptr = wrap->Value();
-  static_cast<AbstractTable*>(ptr)->setValue<hyrise_float_t>(args[0]->Uint32Value(), args[1]->Uint32Value(),v8::Local<v8::Number>::Cast(args[2])->Value());
+  static_cast<AbstractTable*>(ptr)->setValue<hyrise_float_t>(
+      args[0]->Uint32Value(), args[1]->Uint32Value(), v8::Local<v8::Number>::Cast(args[2])->Value());
   return handle_scope.Close(v8::Undefined());
 }
 
@@ -239,12 +237,13 @@ v8::Handle<v8::Value> TableSetValueString(const v8::Arguments& args) {
   v8::HandleScope handle_scope(isolate);
 
   auto wrap = v8::Local<v8::External>::Cast(args.This()->GetInternalField(0));
-  if(!IsModifiable(args.This())) {
+  if (!IsModifiable(args.This())) {
     return v8::ThrowException(v8::String::New("Table is not modifiable."));
   }
   void* ptr = wrap->Value();
   v8::String::Utf8Value u(args[2]->ToString());
-  static_cast<AbstractTable*>(ptr)->setValue<hyrise_string_t>(args[0]->Uint32Value(), args[1]->Uint32Value(),hyrise_string_t(*u));
+  static_cast<AbstractTable*>(ptr)
+      ->setValue<hyrise_string_t>(args[0]->Uint32Value(), args[1]->Uint32Value(), hyrise_string_t(*u));
   return handle_scope.Close(v8::Undefined());
 }
 
@@ -257,7 +256,7 @@ v8::Handle<v8::Value> TableResize(const v8::Arguments& args) {
   v8::HandleScope handle_scope(isolate);
 
   auto wrap = v8::Local<v8::External>::Cast(args.This()->GetInternalField(0));
-  if(!IsModifiable(args.This())) {
+  if (!IsModifiable(args.This())) {
     return v8::ThrowException(v8::String::New("Table is not modifiable."));
   }
   void* ptr = wrap->Value();
@@ -269,7 +268,7 @@ v8::Handle<v8::Value> TableResize(const v8::Arguments& args) {
     auto casted2 = dynamic_cast<Table<>*>(tab);
     casted2->resize(args[0]->Uint32Value());
   }
-  
+
   return handle_scope.Close(v8::Undefined());
 }
 
@@ -281,7 +280,7 @@ v8::Handle<v8::Value> TableGetValueId(const v8::Arguments& args) {
   auto wrap = v8::Local<v8::External>::Cast(args.This()->GetInternalField(0));
   void* ptr = wrap->Value();
   auto vid = static_cast<AbstractTable*>(ptr)->getValueId(args[0]->Uint32Value(), args[1]->Uint32Value());
-  
+
   v8::Handle<v8::Object> templ = v8::Object::New();
   templ->Set(v8::String::New("valueId"), v8::Integer::New(vid.valueId));
   templ->Set(v8::String::New("tableId"), v8::Integer::New(vid.table));
@@ -305,10 +304,10 @@ v8::Handle<v8::Value> TableGetValueIdVRange(const v8::Arguments& args) {
   v8::Isolate* isolate = v8::Isolate::GetCurrent();
   v8::HandleScope handle_scope(isolate);
 
-  
+
   size_t col = args[0]->ToInteger()->Value();
   size_t row = args[1]->ToInteger()->Value();
-  size_t stop =  args[2]->ToInteger()->Value();
+  size_t stop = args[2]->ToInteger()->Value();
 
   auto wrap = v8::Local<v8::External>::Cast(args.This()->GetInternalField(0));
   void* ptr = wrap->Value();
@@ -317,13 +316,13 @@ v8::Handle<v8::Value> TableGetValueIdVRange(const v8::Arguments& args) {
   auto data = v8::Object::New();
 
   auto vids = new std::vector<value_id_t>;
-  for(size_t i=row, j=0; i < stop; ++i, ++j) {
+  for (size_t i = row, j = 0; i < stop; ++i, ++j) {
     auto vid = tab->getValueId(col, i).valueId;
     vids->push_back(vid);
   }
 
   // We wrap the data in a persistent object to be able to free the vids once we are done
-  data->SetIndexedPropertiesToExternalArrayData( &(vids->at(0)), v8::kExternalUnsignedIntArray, (stop-row));
+  data->SetIndexedPropertiesToExternalArrayData(&(vids->at(0)), v8::kExternalUnsignedIntArray, (stop - row));
   auto persistent = makePersistent(isolate, data, vids, deleteAllocated<std::vector<value_id_t>>);
   return persistent;
 }
@@ -366,27 +365,26 @@ v8::Handle<v8::Value> AttributeVectorGetRange(const v8::Arguments& args) {
   auto data = v8::Object::New();
 
   auto vids = new std::vector<value_id_t>();
-  for(size_t i=row; i < stop; ++i) {
+  for (size_t i = row; i < stop; ++i) {
     auto vid = casted->get(col, i);
     vids->push_back(vid);
   }
 
   // FIXME: we have to make sure that data has no longer lifespan than data
-  data->SetIndexedPropertiesToExternalArrayData( vids->data(), v8::kExternalUnsignedIntArray, (stop-row));
+  data->SetIndexedPropertiesToExternalArrayData(vids->data(), v8::kExternalUnsignedIntArray, (stop - row));
   return handle_scope.Close(data);
 }
 
 
-    
 
 // Represents the Internal id of the table in the input list of the plan
 // operation
-v8::Handle<v8::Value> GetInternalId(v8::Local<v8::String> property, const v8::AccessorInfo &info) {
+v8::Handle<v8::Value> GetInternalId(v8::Local<v8::String> property, const v8::AccessorInfo& info) {
   return v8::Local<v8::Integer>::Cast(info.Data());
 }
 
 
-template<typename T>
+template <typename T>
 v8::Local<v8::Object> wrapAttributeVector(std::shared_ptr<T> table, size_t internal) {
 
   v8::Isolate* isolate = v8::Isolate::GetCurrent();
@@ -418,8 +416,8 @@ v8::Handle<v8::Value> TableGetAttributeVectors(const v8::Arguments& args) {
   auto attr_vectors = tab->getAttributeVectors(args[0]->ToInteger()->Value());
   auto result = v8::Array::New(attr_vectors.size());
 
-  size_t i=0;
-  for(auto &av : attr_vectors) {
+  size_t i = 0;
+  for (auto& av : attr_vectors) {
     auto obj = v8::Object::New();
     obj->Set(v8::String::New("attribute_vector"), wrapAttributeVector<AbstractAttributeVector>(av.attribute_vector, i));
     obj->Set(v8::String::New("attribute_offset"), v8::Number::New(av.attribute_offset));
@@ -432,7 +430,7 @@ v8::Handle<v8::Value> TableGetAttributeVectors(const v8::Arguments& args) {
 // Basic function to wrap an abstract table and expose the main methods, the
 // most important methods are to access the number of fields, size and the
 // valueId and values at a given set of column row coordinates
-template<typename T>
+template <typename T>
 v8::Local<v8::Object> wrapTable(std::shared_ptr<const T> table, size_t internal) {
   v8::Isolate* isolate = v8::Isolate::GetCurrent();
   v8::HandleScope handle_scope(isolate);
@@ -448,8 +446,9 @@ v8::Local<v8::Object> wrapTable(std::shared_ptr<const T> table, size_t internal)
   templ->Set(v8::String::New("valueIdVRange"), v8::FunctionTemplate::New(TableGetValueIdVRange));
   templ->Set(v8::String::New("getValueInt"), v8::FunctionTemplate::New(TableGetValue<hyrise_int_t, v8::Number>));
   templ->Set(v8::String::New("getValueFloat"), v8::FunctionTemplate::New(TableGetValue<hyrise_float_t, v8::Number>));
-  templ->Set(v8::String::New("getValueString"), v8::FunctionTemplate::New(TableGetValue<hyrise_string_t, StringToV8String>));
-  
+  templ->Set(v8::String::New("getValueString"),
+             v8::FunctionTemplate::New(TableGetValue<hyrise_string_t, StringToV8String>));
+
   templ->Set(v8::String::New("setValueInt"), v8::FunctionTemplate::New(TableSetValueInt));
   templ->Set(v8::String::New("setValueFloat"), v8::FunctionTemplate::New(TableSetValueFloat));
   templ->Set(v8::String::New("setValueString"), v8::FunctionTemplate::New(TableSetValueString));
@@ -477,7 +476,7 @@ v8::Handle<v8::Value> createPointerCalculator(const v8::Arguments& args) {
   v8::Isolate* isolate = v8::Isolate::GetCurrent();
   v8::HandleScope handle_scope(isolate);
 
-  IsolateContextData *isoContext = static_cast<IsolateContextData*>(isolate->GetData());
+  IsolateContextData* isoContext = static_cast<IsolateContextData*>(isolate->GetData());
 
   // The base table
   auto object = v8::Local<v8::Object>::Cast(args[0]);
@@ -488,14 +487,14 @@ v8::Handle<v8::Value> createPointerCalculator(const v8::Arguments& args) {
   auto size = positions->Length();
 
   auto pos = new pos_list_t;
-  for(size_t i=0; i < size; ++i) {
+  for (size_t i = 0; i < size; ++i) {
     pos->push_back(positions->Get(v8::Integer::New(i))->Uint32Value());
   }
 
   // Create a new table based from the position list and input table
   auto result = std::make_shared<PointerCalculator>(isoContext->tables[internal], pos);
   isoContext->tables.push_back(result);
-  auto obj = wrapTable<PointerCalculator>(result, isoContext->tables.size()-1);
+  auto obj = wrapTable<PointerCalculator>(result, isoContext->tables.size() - 1);
   return handle_scope.Close(obj);
 }
 
@@ -505,7 +504,7 @@ v8::Handle<v8::Value> CopyStructureModifiable(const v8::Arguments& args) {
   v8::Isolate* isolate = v8::Isolate::GetCurrent();
   v8::HandleScope handle_scope(isolate);
 
-  IsolateContextData *isoContext = static_cast<IsolateContextData*>(isolate->GetData());
+  IsolateContextData* isoContext = static_cast<IsolateContextData*>(isolate->GetData());
 
   // The base table
   auto object = v8::Local<v8::Object>::Cast(args[0]);
@@ -514,7 +513,7 @@ v8::Handle<v8::Value> CopyStructureModifiable(const v8::Arguments& args) {
   // Create a new table based from the position list and input table
   auto result = isoContext->tables[internal]->copy_structure_modifiable();
   isoContext->tables.push_back(result);
-  auto obj = wrapTable<AbstractTable>(result, isoContext->tables.size()-1);
+  auto obj = wrapTable<AbstractTable>(result, isoContext->tables.size() - 1);
   obj->Set(v8::String::New("_isModifiable"), v8::Boolean::New(true));
 
   return handle_scope.Close(obj);
@@ -528,7 +527,7 @@ v8::Handle<v8::Value> BuildTable(const v8::Arguments& args) {
   v8::Isolate* isolate = v8::Isolate::GetCurrent();
   v8::HandleScope handle_scope(isolate);
 
-  IsolateContextData *isoContext = static_cast<IsolateContextData*>(isolate->GetData());
+  IsolateContextData* isoContext = static_cast<IsolateContextData*>(isolate->GetData());
 
   if (!args[0]->IsArray() && !args[1]->IsArray()) {
     return v8::ThrowException(v8::String::New("Arguments must be two arrays with field decls and groups"));
@@ -538,36 +537,36 @@ v8::Handle<v8::Value> BuildTable(const v8::Arguments& args) {
   auto groups = v8::Local<v8::Array>::Cast(args[1]);
 
   TableBuilder::param_list list;
-  for(size_t i=0; i < fields->Length(); ++i ) {
+  for (size_t i = 0; i < fields->Length(); ++i) {
     auto tmp = v8::Local<v8::Object>::Cast(fields->Get(i));
     list.append().set_type(*v8::String::Utf8Value(tmp->Get(v8::String::New("type")))).set_name(
-      *v8::String::Utf8Value(tmp->Get(v8::String::New("name"))));
+        *v8::String::Utf8Value(tmp->Get(v8::String::New("name"))));
   }
 
-  for(size_t i=0; i < groups->Length(); ++i ) {
+  for (size_t i = 0; i < groups->Length(); ++i) {
     auto tmp = v8::Local<v8::Integer>::Cast(groups->Get(i));
     list.appendGroup(tmp->Value());
   }
 
-  
-  storage::atable_ptr_t  result = TableBuilder::build(list);
+
+  storage::atable_ptr_t result = TableBuilder::build(list);
   isoContext->tables.push_back(result);
-  auto obj = wrapTable<AbstractTable>(result, isoContext->tables.size()-1);
+  auto obj = wrapTable<AbstractTable>(result, isoContext->tables.size() - 1);
   obj->Set(v8::String::New("_isModifiable"), v8::Boolean::New(true));
 
   return handle_scope.Close(obj);
 }
 
 // Create a new vertical table based on the number of arguments in the input
-// list. We use the internal id of the object to lookup all tables in the 
+// list. We use the internal id of the object to lookup all tables in the
 // global table list.
 v8::Handle<v8::Value> BuildVerticalTable(const v8::Arguments& args) {
   v8::Isolate* isolate = v8::Isolate::GetCurrent();
   v8::HandleScope handle_scope(isolate);
 
-  IsolateContextData *isoContext = static_cast<IsolateContextData*>(isolate->GetData());
+  IsolateContextData* isoContext = static_cast<IsolateContextData*>(isolate->GetData());
   std::vector<storage::atable_ptr_t> tabs;
-  for(int i=0; i < args.Length(); ++i) {
+  for (int i = 0; i < args.Length(); ++i) {
     // The base table
     auto object = v8::Local<v8::Object>::Cast(args[i]);
     auto internal = object->Get(v8::String::New("_internalId"))->Uint32Value();
@@ -578,7 +577,7 @@ v8::Handle<v8::Value> BuildVerticalTable(const v8::Arguments& args) {
   // Create a new table based from the position list and input table
   auto result = std::make_shared<MutableVerticalTable>(tabs);
   isoContext->tables.push_back(result);
-  auto obj = wrapTable<AbstractTable>(result, isoContext->tables.size()-1);
+  auto obj = wrapTable<AbstractTable>(result, isoContext->tables.size() - 1);
   obj->Set(v8::String::New("_isModifiable"), v8::Boolean::New(false));
 
   return handle_scope.Close(obj);
@@ -591,11 +590,13 @@ v8::Handle<v8::Value> BuildVerticalTable(const v8::Arguments& args) {
 //   * create a new modifiable table based on the old table meta data
 //   * create a new modifiable table using the table builder
 //   * create a combination as a vertical table
-void ScriptOperation::createResultHelpers(v8::Persistent<v8::Context> &context) {
+void ScriptOperation::createResultHelpers(v8::Persistent<v8::Context>& context) {
   auto global = context->Global();
 
-  global->Set(v8::String::New("createPointerCalculator"), v8::FunctionTemplate::New(createPointerCalculator)->GetFunction());
-  global->Set(v8::String::New("copyStructureModifiable"), v8::FunctionTemplate::New(CopyStructureModifiable)->GetFunction());
+  global->Set(v8::String::New("createPointerCalculator"),
+              v8::FunctionTemplate::New(createPointerCalculator)->GetFunction());
+  global->Set(v8::String::New("copyStructureModifiable"),
+              v8::FunctionTemplate::New(CopyStructureModifiable)->GetFunction());
   global->Set(v8::String::New("buildTable"), v8::FunctionTemplate::New(BuildTable)->GetFunction());
   global->Set(v8::String::New("buildVerticalTable"), v8::FunctionTemplate::New(BuildVerticalTable)->GetFunction());
   global->Set(v8::String::New("include"), v8::FunctionTemplate::New(Include)->GetFunction());
@@ -612,21 +613,21 @@ v8::Handle<v8::Array> ScriptOperation::prepareInputs() {
 
   v8::Handle<v8::Array> result = v8::Array::New(input.size());
   // Fill out the values
-  for(size_t i=0; i < input.size(); ++i) {
+  for (size_t i = 0; i < input.size(); ++i) {
     // FIXME evil wrapper handling for our const inputs
     result->Set(i, wrapTable<AbstractTable>(input.getTable(i), i));
   }
-  
+
   // Return the value through Close.
   return handle_scope.Close(result);
 }
 
 v8::Handle<v8::Object> ScriptOperation::prepareParameters() {
   v8::Isolate* isolate = v8::Isolate::GetCurrent();
-  v8::HandleScope handle_scope(isolate);  
+  v8::HandleScope handle_scope(isolate);
 
   v8::Handle<v8::Object> templ = v8::Object::New();
-  for(auto& k : _parameters) {
+  for (auto& k : _parameters) {
     const auto& kcstr = k.first.data();
     const auto& vcstr = k.second.data();
     templ->Set(v8::String::New(kcstr, k.first.size()), v8::String::New(vcstr, k.second.size()));
@@ -641,16 +642,15 @@ void ScriptOperation::executePlanOperation() {
 
 #ifdef WITH_V8
   v8::Isolate* isolate = v8::Isolate::GetCurrent();
-  if (isolate == nullptr)
-  {
+  if (isolate == nullptr) {
     isolate = v8::Isolate::New();
     isolate->Enter();
   }
-  
+
 
   // Set the data in the isolate context
   auto isoContext = new IsolateContextData();
-  for( const auto& t : input.allOf<AbstractTable>()) {
+  for (const auto& t : input.allOf<AbstractTable>()) {
     isoContext->tables.push_back(t);
   }
   isolate->SetData(isoContext);
@@ -661,9 +661,9 @@ void ScriptOperation::executePlanOperation() {
 
   // Create a new context.
   v8::Persistent<v8::Context> context = v8::Context::New();
-  
+
   // Enter the created context for compiling and
-  // running the script. 
+  // running the script.
   v8::Context::Scope context_scope(context);
 
   // Create a string containing the JavaScript source code.
@@ -678,7 +678,7 @@ void ScriptOperation::executePlanOperation() {
   createResultHelpers(context);
 
 
-  // Compile the source code. 
+  // Compile the source code.
   {
     v8::TryCatch trycatch;
     v8::Handle<v8::Script> script = v8::Script::Compile(source);
@@ -692,7 +692,8 @@ void ScriptOperation::executePlanOperation() {
 
     // Once the source is compiled there must be a method available whis is
     // called hyrise_run_op
-    v8::Local<v8::Function> fun = v8::Local<v8::Function>::Cast(context->Global()->Get(v8::String::New("hyrise_run_op")));
+    v8::Local<v8::Function> fun =
+        v8::Local<v8::Function>::Cast(context->Global()->Get(v8::String::New("hyrise_run_op")));
     if (fun->IsFunction()) {
       // Call the plan op with the inputs we converted
       v8::Handle<v8::Value> argv[] = {prepareInputs(), prepareParameters()};
@@ -711,21 +712,19 @@ void ScriptOperation::executePlanOperation() {
 
   // Dispose the persistent context.
   context.Dispose(isolate);
-#endif 
-
+#endif
 }
 
-std::shared_ptr<PlanOperation> ScriptOperation::parse(const Json::Value &data) {
+std::shared_ptr<PlanOperation> ScriptOperation::parse(const Json::Value& data) {
   auto op = std::make_shared<ScriptOperation>();
   op->setScriptName(data["script"].asString());
 
 
-  for(const auto& v : data.getMemberNames()) {
+  for (const auto& v : data.getMemberNames()) {
     op->_parameters[v] = data[v].asString();
   }
 
   return op;
 }
-
-}}
-
+}
+}

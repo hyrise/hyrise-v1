@@ -16,7 +16,7 @@ void IncrementalCandidateLayouter::clearState() {
   _reverse_query_conversion = std::map<unsigned, unsigned>();
 }
 
-void IncrementalCandidateLayouter::detectAffectedPartitions(Query *q) {
+void IncrementalCandidateLayouter::detectAffectedPartitions(Query* q) {
   // Now get all containers and compare to the best original
   // layout
   Result currentBest = getBestResult();
@@ -35,13 +35,13 @@ void IncrementalCandidateLayouter::detectAffectedPartitions(Query *q) {
         if (baseAttr == queryAttr) {
           current.erase(queryAttr);
           found = true;
-          break; // exit to container
+          break;  // exit to container
         }
       }
 
       if (found) {
         _splittedSets.push_back(base);
-        break; // exit to next container
+        break;  // exit to next container
       }
     }
 
@@ -52,7 +52,7 @@ void IncrementalCandidateLayouter::detectAffectedPartitions(Query *q) {
   }
 }
 
-Schema IncrementalCandidateLayouter::buildSchema(subset_t attributes, Query *q) {
+Schema IncrementalCandidateLayouter::buildSchema(subset_t attributes, Query* q) {
   // Modify Schema
   Schema s = schema;
   s.attributes = attributes;
@@ -65,9 +65,9 @@ Schema IncrementalCandidateLayouter::buildSchema(subset_t attributes, Query *q) 
 
   // remove all queries that are not used and rewrite the uesed
   // ones to the new layout
-  std::vector<Query *> newQueries;
+  std::vector<Query*> newQueries;
   for (size_t j = 0; j < s.queries.size(); ++j) {
-    Query *newQ = new Query(*s.queries[j]);
+    Query* newQ = new Query(*s.queries[j]);
 
     // we have to check if this accesses the original
     // attributes
@@ -102,16 +102,14 @@ Result IncrementalCandidateLayouter::rewriteResult(Result affectedBest) {
 
   BOOST_FOREACH(subset_t t, affectedBest.layout.raw()) {
     subset_t newContainer;
-    BOOST_FOREACH(unsigned i, t) {
-      newContainer.push_back(_reverse_query_conversion[i]);
-    }
+    BOOST_FOREACH(unsigned i, t) { newContainer.push_back(_reverse_query_conversion[i]); }
 
     rewritten.add(newContainer);
   }
 
   // Add the unused partitions to the new result layout
   BOOST_FOREACH(subset_t t, _unusedPartitions)
-      rewritten.add(t);
+  rewritten.add(t);
 
   // SInce we cached the cost for all queries (including the new
   // one) we can now insert the modified cost at the slots where
@@ -124,12 +122,12 @@ Result IncrementalCandidateLayouter::rewriteResult(Result affectedBest) {
   }
 
   // Recalculate cost
-  //Result newresult(rewritten, getCost(rewritten));
+  // Result newresult(rewritten, getCost(rewritten));
   Result newresult(rewritten, _unusedCostForPartitions);
   return newresult;
 }
 
-void IncrementalCandidateLayouter::incrementalLayout(Query *q) {
+void IncrementalCandidateLayouter::incrementalLayout(Query* q) {
   clearState();
   detectAffectedPartitions(q);
 
@@ -163,8 +161,6 @@ void IncrementalCandidateLayouter::incrementalLayout(Query *q) {
   Result mappedBest = bl.getBestResult();
   Result best = rewriteResult(mappedBest);
   results.push_back(best);
-
 }
-
-} } // namespace hyrise::layouter
-
+}
+}  // namespace hyrise::layouter

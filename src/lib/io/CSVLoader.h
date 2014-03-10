@@ -10,12 +10,11 @@
 namespace hyrise {
 namespace io {
 
-bool detectHeader(const std::string &filename);
+bool detectHeader(const std::string& filename);
 
 class CSVLoaderError : public Loader::Error {
  public:
-  explicit CSVLoaderError(const std::string &what): Loader::Error(what)
-  {}
+  explicit CSVLoaderError(const std::string& what) : Loader::Error(what) {}
 };
 
 class CSVInput : public AbstractInput {
@@ -27,14 +26,14 @@ class CSVInput : public AbstractInput {
     params() : CSVParams(), Unsafe(false) {}
   };
 
-  CSVInput(std::string filename, const params &parameters = params()) :
-      _filename(filename),
-      _parameters(parameters)
-  {}
+  CSVInput(std::string filename, const params& parameters = params()) : _filename(filename), _parameters(parameters) {}
 
-  std::shared_ptr<storage::AbstractTable> load(std::shared_ptr<storage::AbstractTable>, const storage::compound_metadata_list *, const Loader::params &args);
+  std::shared_ptr<storage::AbstractTable> load(std::shared_ptr<storage::AbstractTable>,
+                                               const storage::compound_metadata_list*,
+                                               const Loader::params& args);
 
-  CSVInput *clone() const;
+  CSVInput* clone() const;
+
  private:
   std::string _filename;
   params _parameters;
@@ -45,18 +44,16 @@ class CSVHeader : public AbstractHeader {
   class params {
 #include "parameters.inc"
     param_member(csv::params, CSVParams);
-    params() : CSVParams()
-    {}
+    params() : CSVParams() {}
   };
 
-  CSVHeader(std::string filename, const params &parameters = params()) : _filename(filename), _parameters(parameters) {
-  }
-  storage::compound_metadata_list *load(const Loader::params &args);
-  CSVHeader *clone() const;
+  CSVHeader(std::string filename, const params& parameters = params()) : _filename(filename), _parameters(parameters) {}
+  storage::compound_metadata_list* load(const Loader::params& args);
+  CSVHeader* clone() const;
+
  private:
   std::string _filename;
   params _parameters;
 };
-
-} } // namepsace hyrise::io
-
+}
+}  // namepsace hyrise::io

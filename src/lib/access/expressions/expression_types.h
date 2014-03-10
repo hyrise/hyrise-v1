@@ -9,7 +9,12 @@
 namespace hyrise {
 namespace access {
 
-enum ExpressionType { AND = 0, OR = 1, NOT = 2, EXP_EQ = 3 };
+enum ExpressionType {
+  AND = 0,
+  OR = 1,
+  NOT = 2,
+  EXP_EQ = 3
+};
 
 struct PredicateType {
   typedef enum {
@@ -27,7 +32,6 @@ struct PredicateType {
     GreaterThanExpressionRaw = 15,
     LikeExpression = 16,
     InExpression = 17,
-
     EqualsExpressionValue = 20,
     GreaterThanExpressionValue = 21,
     LessThanExpressionValue = 22,
@@ -39,8 +43,7 @@ struct PredicateType {
 typedef std::map<std::string, PredicateType::type> predicate_map_t;
 typedef std::map<std::string, ExpressionType> expression_map_t;
 
-PredicateType::type parsePredicateType(const Json::Value &value);
-ExpressionType parseExpressionType(const Json::Value &value);
-
-} } // namespace hyrise::access
-
+PredicateType::type parsePredicateType(const Json::Value& value);
+ExpressionType parseExpressionType(const Json::Value& value);
+}
+}  // namespace hyrise::access

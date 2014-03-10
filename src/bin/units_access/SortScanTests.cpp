@@ -17,10 +17,9 @@ TEST_F(SortScanTests, basic_sort_scan_test) {
   ss.setSortField(0);
   ss.execute();
 
-  const auto &result = ss.getResultTable();
+  const auto& result = ss.getResultTable();
 
   ASSERT_TRUE(result->contentEquals(reference));
 }
-
 }
 }

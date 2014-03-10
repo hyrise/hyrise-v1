@@ -12,9 +12,9 @@ namespace hyrise {
 namespace layouter {
 
 struct adj_t {
-  int *xadj;
-  int *adjncy;
-  int *adjwgt;
+  int* xadj;
+  int* adjncy;
+  int* adjwgt;
 };
 
 /*
@@ -22,11 +22,10 @@ struct adj_t {
  * with easy accessors
  *
  */
-template<typename T>
+template <typename T>
 class Matrix {
 
  public:
-
   typedef T value_type;
   typedef Matrix<T> matrix_t;
 
@@ -44,15 +43,13 @@ class Matrix {
    * Skalar Operators
    */
   T get(size_t row, size_t col) const;
-  Matrix<T> &set(size_t row, size_t col, T val);
+  Matrix<T>& set(size_t row, size_t col, T val);
 
   // Graph Ops
   // Number of columns
   int numEdges() const;
   // Number of coordinates where the value is > 0
-  int numVertices() const {
-    return _numCols;
-  }
+  int numVertices() const { return _numCols; }
 
 
   adj_t buildAdjacency() const;
@@ -61,13 +58,12 @@ class Matrix {
   void print() const;
 
  private:
-
   int _numRows;
   int _numCols;
   std::vector<value_type> _data;
 };
 
-template<typename T>
+template <typename T>
 int Matrix<T>::numEdges() const {
   size_t result = 0;
 
@@ -80,12 +76,12 @@ int Matrix<T>::numEdges() const {
   return result;
 }
 
-template<typename T>
+template <typename T>
 adj_t Matrix<T>::buildAdjacency() const {
   adj_t result;
-  result.xadj = (int *) malloc((numVertices() + 1) * sizeof(*result.xadj));
-  result.adjncy = (int *) malloc(2 * numEdges() * sizeof(*result.adjncy));
-  result.adjwgt = (int *) malloc(2 * numEdges() * sizeof(*result.adjwgt));
+  result.xadj = (int*)malloc((numVertices() + 1) * sizeof(*result.xadj));
+  result.adjncy = (int*)malloc(2 * numEdges() * sizeof(*result.adjncy));
+  result.adjwgt = (int*)malloc(2 * numEdges() * sizeof(*result.adjwgt));
 
   // Now write the output, for each vertice we have to write all edges
   int currentAdjxPos = 0;
@@ -112,45 +108,47 @@ adj_t Matrix<T>::buildAdjacency() const {
   return result;
 }
 
-template<typename T>
-Matrix<T>::Matrix(size_t columns): _numRows((int)columns), _numCols((int)columns) {
+template <typename T>
+Matrix<T>::Matrix(size_t columns)
+    : _numRows((int)columns), _numCols((int)columns) {
   _data = std::vector<value_type>(_numCols * _numRows, 0);
 }
 
-template<typename T>
-Matrix<T>::~Matrix() {
-}
+template <typename T>
+Matrix<T>::~Matrix() {}
 
-template<typename T>
+template <typename T>
 T Matrix<T>::get(size_t row, size_t col) const {
   return _data[row * _numCols + col];
 }
 
-template<typename T>
-Matrix<T> &Matrix<T>::set(size_t row, size_t col, T val) {
+template <typename T>
+Matrix<T>& Matrix<T>::set(size_t row, size_t col, T val) {
   _data[row * _numCols + col] = val;
   return *this;
 }
 
 
-template<typename T>
+template <typename T>
 void Matrix<T>::print() const {
   std::stringstream buffer;
 
   buffer << "\t";
 
-  //prepare header
-  for (int i = 1; i <= _numCols ; ++i)
+  // prepare header
+  for (int i = 1; i <= _numCols; ++i)
     buffer << "| " << i << "\t";
   buffer << std::endl;
 
 
   // Now each row
-  for (int i = 0; i < _numRows ; ++i) {
+  for (int i = 0; i < _numRows; ++i) {
     buffer << i + 1 << "\t";
-    for (int j = 0; j < _numCols ; ++j) {
+    for (int j = 0; j < _numCols; ++j) {
       if (i == j)
-        buffer << "| " << "-" << "\t";
+        buffer << "| "
+               << "-"
+               << "\t";
       else
         buffer << "| " << get(i, j) << "\t";
     }
@@ -159,6 +157,5 @@ void Matrix<T>::print() const {
 
   std::cout << buffer.str() << std::endl;
 }
-
-} } // namespace hyrise::layouter
-
+}
+}  // namespace hyrise::layouter

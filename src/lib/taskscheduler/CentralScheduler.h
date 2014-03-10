@@ -23,35 +23,36 @@ class CentralScheduler;
 
 // our worker thread objects
 class WorkerThread {
-private:
-    CentralScheduler &scheduler;
-public:
+ private:
+  CentralScheduler& scheduler;
 
-    typedef AbstractTaskScheduler::lock_t lock_t;
+ public:
+  typedef AbstractTaskScheduler::lock_t lock_t;
 
-    WorkerThread(CentralScheduler &s) : scheduler(s) { }
-    void operator()();
+  WorkerThread(CentralScheduler& s) : scheduler(s) {}
+  void operator()();
 };
 
 
 /**
  * a central scheduler holds a task queue and n worker threads
  */
-class CentralScheduler : 
-  public AbstractTaskScheduler,
-  public TaskReadyObserver,
-  public std::enable_shared_from_this<TaskReadyObserver> {
+class CentralScheduler : public AbstractTaskScheduler,
+                         public TaskReadyObserver,
+                         public std::enable_shared_from_this<TaskReadyObserver> {
   friend class WorkerThread;
-protected:
+
+ protected:
   // queue of tasks that are ready to run
   tbb::concurrent_queue<std::shared_ptr<Task>> _runQueue;
   std::vector<std::thread> _worker_threads;
   // scheduler status
   scheduler_status_t _status;
   static log4cxx::LoggerPtr _logger;
-    // number of threads
+  // number of threads
   int _threads;
-public:
+
+ public:
   CentralScheduler(int threads = getNumberOfCoresOnSystem());
   virtual ~CentralScheduler();
   /*
@@ -74,8 +75,6 @@ public:
   size_t getNumberOfWorker() const;
 
   virtual void notifyReady(std::shared_ptr<Task> task);
-
 };
-
-} } // namespace hyrise::taskscheduler
-
+}
+}  // namespace hyrise::taskscheduler

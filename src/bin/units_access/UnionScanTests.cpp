@@ -4,7 +4,8 @@
 #include "storage/PointerCalculator.h"
 #include "testing/test.h"
 
-namespace hyrise { namespace access {
+namespace hyrise {
+namespace access {
 
 TEST(UnionScanTests, basic_union_scan_test) {
   auto t = io::Loader::shortcuts::load("test/lin_xxs.tbl");
@@ -15,9 +16,9 @@ TEST(UnionScanTests, basic_union_scan_test) {
   us.addInput(pc);
   us.execute();
 
-  const auto &result = us.getResultTable();
+  const auto& result = us.getResultTable();
 
   ASSERT_EQ(t->size(), result->size());
 }
-
-}}
+}
+}

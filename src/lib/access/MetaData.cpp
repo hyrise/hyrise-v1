@@ -17,11 +17,13 @@ namespace hyrise {
 namespace access {
 
 namespace {
-  auto _ = QueryParser::registerTrivialPlanOperation<MetaData>("MetaData");
+auto _ = QueryParser::registerTrivialPlanOperation<MetaData>("MetaData");
 }
 
-size_t addEntriesForTableToResultTable(std::shared_ptr<const storage::AbstractTable> table, std::string tableName,
-                                       std::shared_ptr<storage::AbstractTable> result, size_t row_count) {
+size_t addEntriesForTableToResultTable(std::shared_ptr<const storage::AbstractTable> table,
+                                       std::string tableName,
+                                       std::shared_ptr<storage::AbstractTable> result,
+                                       size_t row_count) {
   result->resize(result->size() + table->columnCount());
   for (field_t i = 0; i != table->columnCount(); ++i) {
     result->setValue<hyrise_string_t>(result->numberOfColumn("table"), row_count, tableName);
@@ -34,20 +36,20 @@ size_t addEntriesForTableToResultTable(std::shared_ptr<const storage::AbstractTa
 }
 
 void MetaData::executePlanOperation() {
- 
+
   storage::TableBuilder::param_list list;
   list.append().set_type("STRING").set_name("table");
   list.append().set_type("STRING").set_name("column");
-  list.append().set_type("INTEGER").set_name("data_type"); //output as string?
+  list.append().set_type("INTEGER").set_name("data_type");  // output as string?
   auto meta_data = storage::TableBuilder::build(list);
 
   size_t row_count = 0;
-  const auto &storageManager = io::StorageManager::getInstance();
+  const auto& storageManager = io::StorageManager::getInstance();
   const auto& loaded_tables = storageManager->all();
 
   if (input.numberOfTables() == 0) {
 
-    for (const auto & tableName: storageManager->getTableNames()) {
+    for (const auto& tableName : storageManager->getTableNames()) {
       auto table = storageManager->getTable(tableName);
       row_count = addEntriesForTableToResultTable(table, tableName, meta_data, row_count);
     }
@@ -55,11 +57,11 @@ void MetaData::executePlanOperation() {
   } else {
 
     for (size_t i = 0; i < input.numberOfTables(); ++i) {
-      
+
       auto inputTable = input.getTable(i);
       std::string tableName = "unknown/temporary";
 
-      for (const auto& table: loaded_tables) {
+      for (const auto& table : loaded_tables) {
         if (table.second == inputTable) {
           tableName = table.first;
           break;
@@ -72,6 +74,5 @@ void MetaData::executePlanOperation() {
 
   addResult(meta_data);
 }
-
 }
 }

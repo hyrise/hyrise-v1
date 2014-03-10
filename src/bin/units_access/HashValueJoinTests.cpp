@@ -23,10 +23,9 @@ TEST_F(HashValueJoinTests, basic_hash_value_join_test) {
   hvj->addField(0);
   hvj->execute();
 
-  const auto &result = hvj->getResultTable();
+  const auto& result = hvj->getResultTable();
 
   EXPECT_RELATION_EQ(result, reference);
 }
-
 }
 }

@@ -25,7 +25,5 @@ TEST_F(MergeTableOpTests, simple) {
 
   ASSERT_TABLE_EQUAL(io::Loader::shortcuts::load("test/tables/employees_revised.tbl"), result);
 }
-
 }
 }
-

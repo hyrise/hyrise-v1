@@ -9,26 +9,19 @@ namespace hyrise {
 namespace access {
 
 namespace {
-  auto _ = QueryParser::registerPlanOperation<GetTable>("GetTable");
+auto _ = QueryParser::registerPlanOperation<GetTable>("GetTable");
 }
 
-GetTable::GetTable(const std::string &name) : _name(name) {
-}
+GetTable::GetTable(const std::string& name) : _name(name) {}
 
-GetTable::~GetTable() {
-}
+GetTable::~GetTable() {}
 
-void GetTable::executePlanOperation() {
-  output.add(io::StorageManager::getInstance()->getTable(_name));
-}
+void GetTable::executePlanOperation() { output.add(io::StorageManager::getInstance()->getTable(_name)); }
 
 std::shared_ptr<PlanOperation> GetTable::parse(const Json::Value& data) {
   return std::make_shared<GetTable>(data["name"].asString());
 }
 
-const std::string GetTable::vname() {
-  return "GetTable";
-}
-
+const std::string GetTable::vname() { return "GetTable"; }
 }
 }

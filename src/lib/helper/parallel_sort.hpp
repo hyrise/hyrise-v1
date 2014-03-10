@@ -11,10 +11,10 @@
 #include <assert.h>
 
 
-template<class T, void(T::*mem_fn)(void *)>
-void *thunk(void *p) {
-  std::pair<void *, void *> *a = static_cast<std::pair<void *, void *>* >(p);
-  (static_cast<T *>(a->first)->*mem_fn)(a->second);
+template <class T, void (T::*mem_fn)(void*)>
+void* thunk(void* p) {
+  std::pair<void*, void*>* a = static_cast<std::pair<void*, void*>*>(p);
+  (static_cast<T*>(a->first)->*mem_fn)(a->second);
   delete a;
   return 0;
 }
@@ -22,13 +22,13 @@ void *thunk(void *p) {
 template <typename T>
 class ParallelSort {
   typedef struct {
-    std::vector<T> *data;
+    std::vector<T>* data;
     size_t begin;
     size_t end;
   } sort_arg_t;
 
   typedef struct {
-    std::vector<T> *data;
+    std::vector<T>* data;
     size_t begin;
     size_t end;
     bool delete_data_when_done;
@@ -39,9 +39,7 @@ class ParallelSort {
     T value;
     size_t slice;
     size_t pos;
-    friend bool operator<(const merge_data_t &a, const merge_data_t &b) {
-      return a.value >= b.value;
-    }
+    friend bool operator<(const merge_data_t& a, const merge_data_t& b) { return a.value >= b.value; }
   };
 
   std::queue<merge_arg_t> pending_parts;
@@ -50,14 +48,15 @@ class ParallelSort {
   pthread_mutex_t parts_mutex;
   pthread_mutex_t parts_exist_mutex;
 
-  std::vector<T> *data;
+  std::vector<T>* data;
   size_t thread_count;
 
-  void sort_thread(void *arg) {
-    std::sort(((sort_arg_t *)arg)->data->begin() + ((sort_arg_t *)arg)->begin, ((sort_arg_t *)arg)->data->begin() + ((sort_arg_t *)arg)->end);
+  void sort_thread(void* arg) {
+    std::sort(((sort_arg_t*)arg)->data->begin() + ((sort_arg_t*)arg)->begin,
+              ((sort_arg_t*)arg)->data->begin() + ((sort_arg_t*)arg)->end);
   }
 
-  void merge_thread(void *arg) {
+  void merge_thread(void* arg) {
     merge_arg_t a, b, c;
     bool cont, quit;
 
@@ -108,8 +107,8 @@ class ParallelSort {
     }
   }
 
-  static std::vector<T> *merge_sorted(merge_arg_t left, merge_arg_t right) {
-    std::vector<T> *out = new std::vector<T>();
+  static std::vector<T>* merge_sorted(merge_arg_t left, merge_arg_t right) {
+    std::vector<T>* out = new std::vector<T>();
     size_t i_left = left.begin, i_right = right.begin;
 
     while (i_left < left.end && i_right < right.end) {
@@ -141,12 +140,10 @@ class ParallelSort {
   }
 
  public:
-
-  ParallelSort(std::vector<T> *_data, size_t _thread_count) : data(_data), thread_count(_thread_count) {
-  }
+  ParallelSort(std::vector<T>* _data, size_t _thread_count) : data(_data), thread_count(_thread_count) {}
 
   void sort() {
-    sort_arg_t *thread_data;
+    sort_arg_t* thread_data;
 
     //          struct timeval t1, t2;
     //          gettimeofday(&t1, nullptr);
@@ -156,7 +153,7 @@ class ParallelSort {
     }
     // divide input data on threads for sorting
     else {
-      pthread_t *threads = new pthread_t[thread_count];
+      pthread_t* threads = new pthread_t[thread_count];
       thread_data = new sort_arg_t[thread_count];
 
       size_t begin = 0;
@@ -172,7 +169,10 @@ class ParallelSort {
       }
 
       for (int i = 0; i < thread_count; i++) {
-        pthread_create(&threads[i], nullptr, thunk<ParallelSort, &ParallelSort::sort_thread>, new std::pair<void *, void *>(this, &thread_data[i]));
+        pthread_create(&threads[i],
+                       nullptr,
+                       thunk<ParallelSort, &ParallelSort::sort_thread>,
+                       new std::pair<void*, void*>(this, &thread_data[i]));
       }
 
       for (int i = 0; i < thread_count; i++) {
@@ -202,7 +202,7 @@ class ParallelSort {
       b.end = thread_data[1].end;
       b.delete_data_when_done = false;
 
-      std::vector<T> *out = ParallelSort::merge_sorted(a, b);
+      std::vector<T>* out = ParallelSort::merge_sorted(a, b);
       data->swap(*out);
       delete out;
     }
@@ -264,10 +264,13 @@ class ParallelSort {
 
       pthread_mutex_lock(&parts_exist_mutex);
 
-      pthread_t *threads = new pthread_t[merge_thread_count];
+      pthread_t* threads = new pthread_t[merge_thread_count];
 
       for (int i = 0; i < merge_thread_count; i++) {
-        pthread_create(&threads[i], nullptr, thunk<ParallelSort, &ParallelSort::merge_thread>, new std::pair<void *, void *>(this, nullptr));
+        pthread_create(&threads[i],
+                       nullptr,
+                       thunk<ParallelSort, &ParallelSort::merge_thread>,
+                       new std::pair<void*, void*>(this, nullptr));
       }
 
       for (int i = 0; i < merge_thread_count; i++) {
@@ -291,9 +294,8 @@ class ParallelSort {
     }
   }
 
-  static void sort(std::vector<T> *data, size_t thread_count) {
+  static void sort(std::vector<T>* data, size_t thread_count) {
     ParallelSort s(data, thread_count);
     s.sort();
   }
 };
-

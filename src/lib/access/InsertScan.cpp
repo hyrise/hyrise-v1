@@ -21,13 +21,12 @@ namespace hyrise {
 namespace access {
 
 namespace {
-  auto _ = QueryParser::registerPlanOperation<InsertScan>("InsertScan");
+auto _ = QueryParser::registerPlanOperation<InsertScan>("InsertScan");
 }
 
 
 
-InsertScan::~InsertScan() {
-}
+InsertScan::~InsertScan() {}
 
 storage::atable_ptr_t InsertScan::buildFromJson() {
 
@@ -45,17 +44,17 @@ storage::atable_ptr_t InsertScan::buildFromJson() {
 
   // Check if table has serial generators defined
   auto& res_man = io::ResourceManager::getInstance();
-  for(size_t c=0; c < col_count; ++c) {
+  for (size_t c = 0; c < col_count; ++c) {
     auto serial_name = std::to_string(tab->getUuid()) + "_" + tab->nameOfColumn(c);
     if (res_man.exists(serial_name)) {
       serialFields.insert(c);
     }
   }
 
-  for (size_t r=0, row_count=_raw_data.size(); r < row_count; ++r ) {
+  for (size_t r = 0, row_count = _raw_data.size(); r < row_count; ++r) {
 
     size_t offset = 0;
-    for(size_t c=0; c < col_count; ++c) {
+    for (size_t c = 0; c < col_count; ++c) {
       if (serialFields.count(c) != 0) {
         auto serial_name = std::to_string(tab->getUuid()) + "_" + tab->nameOfColumn(c);
         auto k = res_man.get<storage::Serial>(serial_name)->next();
@@ -63,15 +62,13 @@ storage::atable_ptr_t InsertScan::buildFromJson() {
         result->setValue<hyrise_int_t>(c, r, k);
         ++offset;
       } else {
-        fun.set(c,r,_raw_data[r][c-offset]);
+        fun.set(c, r, _raw_data[r][c - offset]);
         ts(result->typeOfColumn(c), fun);
       }
-
     }
   }
 
   return result;
-
 }
 
 void InsertScan::executePlanOperation() {
@@ -89,9 +86,9 @@ void InsertScan::executePlanOperation() {
 
   // Get the modifications record
   auto& mods = tx::TransactionManager::getInstance()[_txContext.tid];
-  for(size_t i=0, upper = _data->size(); i < upper; ++i) {
-    store->copyRowToDelta(_data, i, writeArea.first+i, _txContext.tid);
-    mods.insertPos(store, firstPosition+i);
+  for (size_t i = 0, upper = _data->size(); i < upper; ++i) {
+    store->copyRowToDelta(_data, i, writeArea.first + i, _txContext.tid);
+    mods.insertPos(store, firstPosition + i);
   }
 
   auto rsp = getResponseTask();
@@ -101,20 +98,17 @@ void InsertScan::executePlanOperation() {
   addResult(input.getTable(0));
 }
 
-void InsertScan::setInputData(const storage::atable_ptr_t &c) {
-  _data = c;
-}
+void InsertScan::setInputData(const storage::atable_ptr_t& c) { _data = c; }
 
-std::shared_ptr<PlanOperation> InsertScan::parse(const Json::Value &data) {
+std::shared_ptr<PlanOperation> InsertScan::parse(const Json::Value& data) {
   auto result = std::make_shared<InsertScan>();
 
   if (data.isMember("data")) {
-    result->_raw_data = functional::collect(data["data"], [](const Json::Value& v){
-      return functional::collect(v, [](const Json::Value& c){ return Json::Value(c); });
+    result->_raw_data = functional::collect(data["data"], [](const Json::Value& v) {
+      return functional::collect(v, [](const Json::Value& c) { return Json::Value(c); });
     });
   }
   return result;
 }
-
 }
 }

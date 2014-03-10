@@ -20,4 +20,3 @@ void prefetch_l2_off(int cpu);
 void prefetch_data_logic(int cpu);
 
 void prefetch_stream(int cpu);
-

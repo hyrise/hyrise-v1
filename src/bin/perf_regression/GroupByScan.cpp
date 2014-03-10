@@ -17,14 +17,12 @@ namespace access {
 class GroupByScanBase : public ::testing::Benchmark {
 
  protected:
-
-  io::StorageManager *sm;
+  io::StorageManager* sm;
   std::shared_ptr<GroupByScan> gs;
   storage::atable_ptr_t t;
-  SumAggregateFun *sum;
+  SumAggregateFun* sum;
 
  public:
-
   void BenchmarkSetUp() {
     sm = io::StorageManager::getInstance();
 
@@ -39,8 +37,7 @@ class GroupByScanBase : public ::testing::Benchmark {
     gs->addFunction(sum);
   }
 
-  void BenchmarkTearDown() {
-  }
+  void BenchmarkTearDown() {}
 
   GroupByScanBase() {
     SetNumIterations(10);
@@ -48,14 +45,12 @@ class GroupByScanBase : public ::testing::Benchmark {
   }
 };
 
-BENCHMARK_F(GroupByScanBase, group_by_tpc_c_delivery) {
-  gs->execute()->getResultTable();
-}
+BENCHMARK_F(GroupByScanBase, group_by_tpc_c_delivery) { gs->execute()->getResultTable(); }
 
 BENCHMARK_F(GroupByScanBase, group_by_tpc_c_delivery_mat) {
   auto result = gs->execute()->getResultTable();
 
-  MaterializingScan *ms = new MaterializingScan(false);
+  MaterializingScan* ms = new MaterializingScan(false);
   ms->setEvent("NO_PAPI");
   ms->addInput(result);
 
@@ -65,7 +60,7 @@ BENCHMARK_F(GroupByScanBase, group_by_tpc_c_delivery_mat) {
 BENCHMARK_F(GroupByScanBase, group_by_tpc_c_delivery_mat_memcpy) {
   auto result = gs->execute()->getResultTable();
 
-  MaterializingScan *ms = new MaterializingScan(true);
+  MaterializingScan* ms = new MaterializingScan(true);
   ms->setEvent("NO_PAPI");
   ms->addInput(result);
 
@@ -151,8 +146,6 @@ BENCHMARK_F(GroupByScanBase, group_by_scan_multiple_fields_mat_memcpy) {
   ms.addInput(result);
 
   ms.execute()->getResultTable();
-
 }
-
 }
 }

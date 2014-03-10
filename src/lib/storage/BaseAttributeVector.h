@@ -15,11 +15,10 @@ namespace storage {
 */
 template <typename T>
 class BaseAttributeVector : public AbstractAttributeVector {
-public:
+ public:
   typedef T value_type;
 
-  virtual ~BaseAttributeVector() {
-  }
+  virtual ~BaseAttributeVector() {}
 
   /*
   * Get a single value identified by column and row
@@ -54,8 +53,6 @@ public:
   virtual std::shared_ptr<BaseAttributeVector<T>> copy() = 0;
 
   virtual void rewriteColumn(const size_t column, const size_t bits) = 0;
-
 };
-
-} } // namespace hyrise::storage
-
+}
+}  // namespace hyrise::storage

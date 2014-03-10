@@ -39,18 +39,13 @@ typedef std::vector<attr_vector_offset_t> attr_vectors_t;
 
 class StorageException : public std::runtime_error {
 
-public:
-
-  explicit StorageException(const std::string &msg): std::runtime_error(msg)
-  {}
-
+ public:
+  explicit StorageException(const std::string& msg) : std::runtime_error(msg) {}
 };
 
 class MissingColumnException : public std::runtime_error {
-public:
-
-  explicit MissingColumnException(const std::string &what): std::runtime_error(what)
-  {}
+ public:
+  explicit MissingColumnException(const std::string& what) : std::runtime_error(what) {}
 };
 
 
@@ -61,8 +56,7 @@ public:
  */
 class AbstractTable : public AbstractResource {
 
-public:
-
+ public:
   typedef std::shared_ptr<AbstractDictionary> SharedDictionaryPtr;
 
   /**
@@ -78,7 +72,11 @@ public:
    * @param with_containers Only used by derived classes.
    * @param compressed      Sets the compressed storage for the new table
    */
-  virtual atable_ptr_t copy_structure(const field_list_t *fields = nullptr, bool reuse_dict = false, size_t initial_size = 0, bool with_containers = true, bool compressed = false) const;
+  virtual atable_ptr_t copy_structure(const field_list_t* fields = nullptr,
+                                      bool reuse_dict = false,
+                                      size_t initial_size = 0,
+                                      bool with_containers = true,
+                                      bool compressed = false) const;
 
 
   /**
@@ -92,7 +90,9 @@ public:
    * @param initial_size    Initial size of the returned table (default=0).
    * @param with_containers Only used by derived classes.
    */
-  virtual atable_ptr_t copy_structure_modifiable(const field_list_t *fields = nullptr, size_t initial_size = 0, bool with_containers = true) const;
+  virtual atable_ptr_t copy_structure_modifiable(const field_list_t* fields = nullptr,
+                                                 size_t initial_size = 0,
+                                                 bool with_containers = true) const;
 
   typedef std::function<std::shared_ptr<AbstractDictionary>(DataType)> abstract_dictionary_callback;
   typedef std::function<std::shared_ptr<AbstractAttributeVector>(std::size_t)> abstract_attribute_vector_callback;
@@ -102,7 +102,9 @@ public:
    * in `Table` instances. May need future enhancement for more fine-grained replacement
    * (i.e. per column or per main/delta or per partition).
    */
-  virtual atable_ptr_t copy_structure(abstract_dictionary_callback, abstract_attribute_vector_callback) const { throw std::runtime_error("not implemented"); }
+  virtual atable_ptr_t copy_structure(abstract_dictionary_callback, abstract_attribute_vector_callback) const {
+    throw std::runtime_error("not implemented");
+  }
 
   /**
    * Get the value-IDs for a certain row.
@@ -112,7 +114,7 @@ public:
    * @param row    Row from which to extract the ValueIDs.
    * @param fields List of respected fields (all if empty).
    */
-  ValueIdList copyValueIds(size_t row, const field_list_t *fields = nullptr) const;
+  ValueIdList copyValueIds(size_t row, const field_list_t* fields = nullptr) const;
 
 
   /**
@@ -160,7 +162,7 @@ public:
    * Get all dictionaries.
    *
    */
-  std::vector<SharedDictionaryPtr> *dictionaries() const;
+  std::vector<SharedDictionaryPtr>* dictionaries() const;
 
 
   /**
@@ -202,7 +204,7 @@ public:
    *
    * @param column Name of the column as String.
    */
-  field_t numberOfColumn(const std::string &column) const;
+  field_t numberOfColumn(const std::string& column) const;
 
   /**
    * Returns the name of a column by its number.
@@ -269,7 +271,7 @@ public:
   /**
    * Prints the table
    */
-  virtual void print(size_t limit = (size_t) -1) const;
+  virtual void print(size_t limit = (size_t) - 1) const;
 
   /**
    * Returns the number of horizontal subtables.
@@ -287,7 +289,10 @@ public:
    * @param table_id ID of the table containing the value (default=0).
    */
   template <typename T>
-  inline ValueId getValueIdForValue(const size_t column, const T value, const bool create = false, const table_id_t table_id = 0) const {
+  inline ValueId getValueIdForValue(const size_t column,
+                                    const T value,
+                                    const bool create = false,
+                                    const table_id_t table_id = 0) const {
     // FIXME horizontal containers will go down here, needs a row index, can be default 0
     const auto& map = checked_pointer_cast<BaseDictionary<T>>(dictionaryAt(column, 0, table_id));
     ValueId valueId;
@@ -303,7 +308,7 @@ public:
    * @param value    Value to look for.
    * @param table_id ID of the table (default=0).
    */
-  template<typename T>
+  template <typename T>
   inline bool valueExists(const field_t column, const T value, const table_id_t table_id = 0) const {
     const auto& map = checked_pointer_cast<BaseDictionary<T>>(dictionaryAt(column, 0, table_id));
     return map->valueExists(value);
@@ -317,7 +322,7 @@ public:
    * @param value  Value to be assigned to the cell.
    */
   template <typename T>
-  void setValue(size_t column, size_t row, const T &value) {
+  void setValue(size_t column, size_t row, const T& value) {
     const auto& map = checked_pointer_cast<BaseDictionary<T>>(dictionaryAt(column, row));
     ValueId valueId;
     valueId.table = 0;
@@ -333,12 +338,13 @@ public:
    * @param valueId ID of the value to be returned.
    */
   template <typename T>
-  inline T getValueForValueId(const field_t column, const ValueId valueId, const size_t row=0) const {
+  inline T getValueForValueId(const field_t column, const ValueId valueId, const size_t row = 0) const {
     typedef BaseDictionary<T> dict_t;
     if (valueId.table != 0) {
-      return (static_cast<dict_t *>(dictionaryByTableId(column, valueId.table).get()))->getValueForValueId(valueId.valueId);
+      return (static_cast<dict_t*>(dictionaryByTableId(column, valueId.table).get()))
+          ->getValueForValueId(valueId.valueId);
     } else {
-      return (static_cast<dict_t *>(dictionaryAt(column, row).get()))->getValueForValueId(valueId.valueId);
+      return (static_cast<dict_t*>(dictionaryAt(column, row).get()))->getValueForValueId(valueId.valueId);
     }
   }
 
@@ -363,7 +369,7 @@ public:
    * @param row    Row of the cell.
    */
   template <typename T>
-  T getValue(const field_name_t &column_name, const size_t row) const {
+  T getValue(const field_name_t& column_name, const size_t row) const {
     size_t column = numberOfColumn(column_name);
     return getValue<T>(column, row);
   }
@@ -388,7 +394,11 @@ public:
    * @param dst_row Row of the target cell.
    */
   template <typename T>
-  void copyValueFrom(const c_atable_ptr_t& source, const size_t src_col, const size_t src_row, const size_t dst_col, const size_t dst_row) {
+  void copyValueFrom(const c_atable_ptr_t& source,
+                     const size_t src_col,
+                     const size_t src_row,
+                     const size_t dst_col,
+                     const size_t dst_row) {
     T value = source->getValue<T>(src_col, src_row);
     setValue<T>(dst_col, dst_row, value);
   }
@@ -414,7 +424,11 @@ public:
    * @param copy_values Also copy the values (default=true).
    * @param use_memcpy  Use memcpy for the copying (default=true).
    */
-  void copyRowFrom(const c_atable_ptr_t& source, size_t src_row, size_t dst_row, bool copy_values = true, bool use_memcpy = true);
+  void copyRowFrom(const c_atable_ptr_t& source,
+                   size_t src_row,
+                   size_t dst_row,
+                   bool copy_values = true,
+                   bool use_memcpy = true);
 
 
   /**
@@ -422,7 +436,7 @@ public:
    *
    * @param filename Name of the file to be written to.
    */
-  void write(const std::string &filename) const;
+  void write(const std::string& filename) const;
 
 
 
@@ -449,7 +463,7 @@ public:
   */
   virtual const attr_vectors_t getAttributeVectors(size_t column) const;
 
-  virtual void debugStructure(size_t level=0) const;
+  virtual void debugStructure(size_t level = 0) const;
 
   unique_id getUuid() const;
 
@@ -459,6 +473,5 @@ public:
   // Global unique identifier for this object
   unique_id _uuid;
 };
-
-} } // namespace hyrise::storage
-
+}
+}  // namespace hyrise::storage

@@ -10,7 +10,8 @@
 #include "storage/OrderPreservingDictionary.h"
 #include "storage/storage_types.h"
 
-namespace hyrise { namespace access {
+namespace hyrise {
+namespace access {
 
 class ExampleExpression : public AbstractExpression {
   storage::c_atable_ptr_t _table;
@@ -19,14 +20,15 @@ class ExampleExpression : public AbstractExpression {
   const size_t _column;
   const hyrise_int_t _value;
   value_id_t _valueid;
+
  public:
   ExampleExpression(const size_t& column, const hyrise_int_t& value);
   bool operator()(const size_t& row);
   virtual pos_list_t* match(const size_t start, const size_t stop);
-  virtual void walk(const std::vector<storage::c_atable_ptr_t> &l);
+  virtual void walk(const std::vector<storage::c_atable_ptr_t>& l);
   static std::unique_ptr<ExampleExpression> parse(const Json::Value& data);
 };
-
-}}
+}
+}
 
 #endif

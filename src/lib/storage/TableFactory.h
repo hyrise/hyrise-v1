@@ -12,25 +12,24 @@ namespace hyrise {
 namespace storage {
 
 class AbstractTableFactory {
-public:
+ public:
   virtual ~AbstractTableFactory();
-  virtual atable_ptr_t generate(std::vector<ColumnMetadata> *meta,
-      std::vector<AbstractTable::SharedDictionaryPtr> *d = nullptr,
-      size_t initial_size = 0,
-      bool sorted = true,
-      bool compressed = false) = 0;
+  virtual atable_ptr_t generate(std::vector<ColumnMetadata>* meta,
+                                std::vector<AbstractTable::SharedDictionaryPtr>* d = nullptr,
+                                size_t initial_size = 0,
+                                bool sorted = true,
+                                bool compressed = false) = 0;
 };
 
 class TableFactory : public AbstractTableFactory {
  public:
-  atable_ptr_t generate(std::vector<ColumnMetadata> *m,
-                                                 std::vector<AbstractTable::SharedDictionaryPtr> *d = nullptr,
-                                                 size_t initial_size = 0,
-                                                 bool sorted = true,
-                                                 bool compressed = true) {
+  atable_ptr_t generate(std::vector<ColumnMetadata>* m,
+                        std::vector<AbstractTable::SharedDictionaryPtr>* d = nullptr,
+                        size_t initial_size = 0,
+                        bool sorted = true,
+                        bool compressed = true) {
     return std::make_shared<Table>(m, d, initial_size, sorted, compressed);
   }
 };
-
-} } // namespace hyrise::storage
-
+}
+}  // namespace hyrise::storage

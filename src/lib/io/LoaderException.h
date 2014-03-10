@@ -10,9 +10,8 @@ namespace Loader {
 
 class Error : public std::runtime_error {
  public:
-  explicit Error(std::string msg) : std::runtime_error(msg)
-  {}
+  explicit Error(std::string msg) : std::runtime_error(msg) {}
 };
-
-} } } // namespace hyrise::io::Loader
-
+}
+}
+}  // namespace hyrise::io::Loader

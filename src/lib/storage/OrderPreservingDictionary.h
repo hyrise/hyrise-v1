@@ -20,26 +20,23 @@ class OrderPreservingDictionaryIterator;
 
 template <typename T>
 class OrderPreservingDictionary : public BaseDictionary<T> {
-public:
+ public:
   typedef std::vector<T> vector_type;
   typedef std::shared_ptr<vector_type> shared_vector_type;
-private:
+
+ private:
   shared_vector_type _values;
 
-protected:
-
+ protected:
   // This constructor is only used for copying purposes
   explicit OrderPreservingDictionary(vector_type values) {
-      _values = std::make_shared<vector_type>();
-      std::copy(values.begin(), values.end(), values->begin());
-  }
-
-public:
-
-  OrderPreservingDictionary() {
     _values = std::make_shared<vector_type>();
+    std::copy(values.begin(), values.end(), values->begin());
   }
-  
+
+ public:
+  OrderPreservingDictionary() { _values = std::make_shared<vector_type>(); }
+
   explicit OrderPreservingDictionary(size_t size) {
     _values = std::make_shared<vector_type>();
     _values->reserve(size);
@@ -47,9 +44,7 @@ public:
 
   virtual ~OrderPreservingDictionary() {}
 
-  void shrink() {
-    _values->shrink_to_fit();
-  }
+  void shrink() { _values->shrink_to_fit(); }
 
   /**
    * Return value of given value id
@@ -79,8 +74,8 @@ public:
 #endif
     return (*_values)[value_id];
   }
-      
-  value_id_t getValueIdForValue(const T &value) const {
+
+  value_id_t getValueIdForValue(const T& value) const {
     auto binary_search = std::lower_bound(_values->begin(), _values->end(), value);
     size_t index = binary_search - _values->begin();
     return index;
@@ -89,7 +84,7 @@ public:
   value_id_t getValueIdForValueSmaller(T other) {
     auto binary_search = std::lower_bound(_values->begin(), _values->end(), other);
     size_t index = binary_search - _values->begin();
-    
+
     assert(index > 0);
     return index - 1;
   }
@@ -97,7 +92,7 @@ public:
   value_id_t getValueIdForValueGreater(T other) {
     auto binary_search = std::upper_bound(_values->begin(), _values->end(), other);
     size_t index = binary_search - _values->begin();
-    
+
     return index;
   }
 
@@ -105,50 +100,31 @@ public:
     assert(_values->size() > 0);
     return (*_values)[0];
   }
-    
+
   const T getGreatestValue() {
     assert(_values->size() > 0);
     return (*_values)[_values->size() - 1];
   }
 
-  bool isValueIdValid(value_id_t value_id) {
-    return value_id < _values->size();
-  }
+  bool isValueIdValid(value_id_t value_id) { return value_id < _values->size(); }
 
-  bool valueExists(const T &value) const {
-    return binary_search(_values->begin(), _values->end(), value);
-  }
+  bool valueExists(const T& value) const { return binary_search(_values->begin(), _values->end(), value); }
 
-  void reserve(size_t size) {
-    _values->reserve(size);
-  }
-  
-  size_t size() {
-    return _values->size();
-  }
+  void reserve(size_t size) { _values->reserve(size); }
 
-  std::shared_ptr<AbstractDictionary> copy() {
-    throw std::runtime_error("Dictionaries cannot be copied");
-  }
+  size_t size() { return _values->size(); }
 
-  std::shared_ptr<AbstractDictionary> copy_empty() {
-    return std::make_shared<OrderPreservingDictionary<T> >();
-  }
-  
-  bool isOrdered() {
-    return true;
-  }
+  std::shared_ptr<AbstractDictionary> copy() { throw std::runtime_error("Dictionaries cannot be copied"); }
+
+  std::shared_ptr<AbstractDictionary> copy_empty() { return std::make_shared<OrderPreservingDictionary<T>>(); }
+
+  bool isOrdered() { return true; }
 
   typedef DictionaryIterator<T> iterator;
 
-  iterator begin() {
-    return iterator(std::make_shared<OrderPreservingDictionaryIterator<T>>(_values, 0));
-  }
+  iterator begin() { return iterator(std::make_shared<OrderPreservingDictionaryIterator<T>>(_values, 0)); }
 
-  iterator end() {
-    return iterator(std::make_shared<OrderPreservingDictionaryIterator<T>>(_values, _values->size()));
-  }
-
+  iterator end() { return iterator(std::make_shared<OrderPreservingDictionaryIterator<T>>(_values, _values->size())); }
 };
 
 
@@ -163,35 +139,26 @@ class OrderPreservingDictionaryIterator : public BaseIterator<T> {
   typedef OrderPreservingDictionary<T> dictionary_type;
   typedef typename dictionary_type::shared_vector_type vector_type;
 
-public:
+ public:
   const vector_type& _values;
   size_t _index;
 
-  explicit OrderPreservingDictionaryIterator(const vector_type& values): _values(values), _index(0) {}
+  explicit OrderPreservingDictionaryIterator(const vector_type& values) : _values(values), _index(0) {}
 
-  OrderPreservingDictionaryIterator(const vector_type& values, size_t index): _values(values), _index(index) {}
+  OrderPreservingDictionaryIterator(const vector_type& values, size_t index) : _values(values), _index(index) {}
 
-  virtual ~OrderPreservingDictionaryIterator() { }
+  virtual ~OrderPreservingDictionaryIterator() {}
 
-  void increment() {
-    ++_index;
-  }
+  void increment() { ++_index; }
 
   bool equal(const std::shared_ptr<BaseIterator<T>>& other) const {
-    return
-        _values.get() == std::dynamic_pointer_cast<OrderPreservingDictionaryIterator<T>>(other)->_values.get() &&
-        _index  == std::dynamic_pointer_cast<OrderPreservingDictionaryIterator<T>>(other)->_index;
+    return _values.get() == std::dynamic_pointer_cast<OrderPreservingDictionaryIterator<T>>(other)->_values.get() &&
+           _index == std::dynamic_pointer_cast<OrderPreservingDictionaryIterator<T>>(other)->_index;
   }
 
-  T &dereference() const {
-    return (*_values)[_index];
-  }
+  T& dereference() const { return (*_values)[_index]; }
 
-  value_id_t getValueId() const {
-    return _index;
-  }
-
+  value_id_t getValueId() const { return _index; }
 };
-
-} } // namespace hyrise::storage
-
+}
+}  // namespace hyrise::storage

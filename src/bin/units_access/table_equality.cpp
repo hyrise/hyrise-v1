@@ -21,6 +21,5 @@ TEST_F(TableEqualityTests, test_not_equal) {
        t2 = io::Loader::shortcuts::load("test/tables/employees_revised.tbl");
   EXPECT_RELATION_NEQ(t1, t2);
 }
-
-} } // namespace hyrise::access
-
+}
+}  // namespace hyrise::access

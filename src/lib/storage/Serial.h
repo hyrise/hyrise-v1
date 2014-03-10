@@ -8,7 +8,7 @@ namespace hyrise {
 namespace storage {
 
 /// A Serial class that can be used to define auto_increment columns for
-//tables. For each column a serial will be stored in the resource manager
+// tables. For each column a serial will be stored in the resource manager
 class Serial : public AbstractResource {
 
   typedef unsigned long serial_t;
@@ -16,7 +16,6 @@ class Serial : public AbstractResource {
   std::atomic<serial_t> _serial;
 
  public:
-
   virtual ~Serial() {}
 
   Serial();
@@ -25,6 +24,5 @@ class Serial : public AbstractResource {
 
   serial_t next();
 };
-
-} } // namespace hyrise::storage
-
+}
+}  // namespace hyrise::storage

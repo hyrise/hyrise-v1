@@ -11,12 +11,12 @@ namespace hyrise {
 namespace storage {
 
 TEST(BitCompressedTests, set_retrieve_bits) {
-  std::vector<uint64_t> bits {1, 2, 4, 8, 13};
+  std::vector<uint64_t> bits{1, 2, 4, 8, 13};
   BitCompressedVector<value_id_t> tuples(5, 2, bits);
   tuples.resize(2);
   auto col = 0;
-  for (auto bit: bits) {
-    auto maxval = (1 << bit) - 1; // Maximum value that can be stored is 2^bit-1
+  for (auto bit : bits) {
+    auto maxval = (1 << bit) - 1;  // Maximum value that can be stored is 2^bit-1
     tuples.set(col, 0, 0);
     tuples.set(col, 1, maxval);
     EXPECT_EQ(0u, tuples.get(col, 0));
@@ -43,11 +43,11 @@ TEST(FixedLengthVectorTest, increment_test) {
 
   FixedLengthVector<value_id_t> tuples(cols, rows);
   tuples.resize(rows);
-  EXPECT_EQ(0u, tuples.get(0,0));
-  EXPECT_EQ(0u, tuples.inc(0,0));
-  EXPECT_EQ(1u, tuples.get(0,0));
-  EXPECT_EQ(1u, tuples.atomic_inc(0,0));
-  EXPECT_EQ(2u, tuples.get(0,0));
+  EXPECT_EQ(0u, tuples.get(0, 0));
+  EXPECT_EQ(0u, tuples.inc(0, 0));
+  EXPECT_EQ(1u, tuples.get(0, 0));
+  EXPECT_EQ(1u, tuples.atomic_inc(0, 0));
+  EXPECT_EQ(2u, tuples.get(0, 0));
 }
-
-} } // namespace hyrise::storage
+}
+}  // namespace hyrise::storage

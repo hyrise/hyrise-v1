@@ -11,6 +11,5 @@ TEST(AbstractTable_getAttributeVectors, test) {
   const auto& vectors = table->getAttributeVectors(1);
   EXPECT_EQ(2u, vectors.size());
 }
-
-} } // namespace hyrise::storage
-
+}
+}  // namespace hyrise::storage

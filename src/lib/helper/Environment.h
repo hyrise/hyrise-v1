@@ -4,4 +4,3 @@
 #include <string>
 
 std::string getEnv(std::string var, std::string _default);
-

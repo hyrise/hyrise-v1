@@ -9,22 +9,20 @@ namespace hyrise {
 namespace access {
 
 class SimpleRawTableScan : public PlanOperation {
-public:
-  SimpleRawTableScan(SimpleExpression *comp,
-                     const bool materializing = true);
+ public:
+  SimpleRawTableScan(SimpleExpression* comp, const bool materializing = true);
   virtual ~SimpleRawTableScan();
 
   void setupPlanOperation();
   void executePlanOperation();
-  static std::shared_ptr<PlanOperation> parse(const Json::Value &data);
+  static std::shared_ptr<PlanOperation> parse(const Json::Value& data);
   const std::string vname();
 
-private:
+ private:
   // Comparison Field
   std::unique_ptr<SimpleExpression> _comparator;
   const bool _materializing;
 };
-
 }
 }
 

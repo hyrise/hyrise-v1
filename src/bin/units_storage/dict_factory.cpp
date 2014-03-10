@@ -4,10 +4,9 @@
 #include "storage/OrderPreservingDictionary.h"
 #include "storage/OrderIndifferentDictionary.h"
 
-namespace hyrise { namespace storage {
+namespace hyrise {
+namespace storage {
 
-TEST(factory, creation) {
-  auto d = makeDictionary(IntegerType, 10);
+TEST(factory, creation) { auto d = makeDictionary(IntegerType, 10); }
 }
-
-}}
+}

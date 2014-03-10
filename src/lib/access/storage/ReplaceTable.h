@@ -9,18 +9,17 @@ namespace access {
 
 /// Provides the ability to put a table into the StorageManager
 class ReplaceTable : public PlanOperation {
-public:
-  ReplaceTable(const std::string &name);
+ public:
+  ReplaceTable(const std::string& name);
   virtual ~ReplaceTable();
 
   void executePlanOperation();
   const std::string vname();
-  static std::shared_ptr<PlanOperation> parse(const Json::Value &data);
+  static std::shared_ptr<PlanOperation> parse(const Json::Value& data);
 
-private:
+ private:
   const std::string _name;
 };
-
 }
 }
 

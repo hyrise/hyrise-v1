@@ -18,21 +18,21 @@ class WSCoreBoundPriorityQueuesScheduler;
 
 class WSCoreBoundPriorityQueue : public AbstractCoreBoundQueue {
 
-  typedef tbb::concurrent_priority_queue<std::shared_ptr<Task> , CompareTaskPtr> run_queue_t;
+  typedef tbb::concurrent_priority_queue<std::shared_ptr<Task>, CompareTaskPtr> run_queue_t;
   run_queue_t _runQueue;
-  WSCoreBoundPriorityQueuesScheduler * _scheduler;
-  const std::vector<AbstractCoreBoundQueue *> * _allQueues;
+  WSCoreBoundPriorityQueuesScheduler* _scheduler;
+  const std::vector<AbstractCoreBoundQueue*>* _allQueues;
 
 
-private:
+ private:
   std::shared_ptr<Task> stealTasks();
 
-public:
-  WSCoreBoundPriorityQueue(int core, WSCoreBoundPriorityQueuesScheduler *scheduler);
+ public:
+  WSCoreBoundPriorityQueue(int core, WSCoreBoundPriorityQueuesScheduler* scheduler);
   virtual ~WSCoreBoundPriorityQueue();
-    /*
-   * init task scheduler
-   */
+  /*
+ * init task scheduler
+ */
   virtual void init();
 
   /*
@@ -61,6 +61,5 @@ public:
    */
   void refreshQueues();
 };
-
-} } // namespace hyrise::taskscheduler
-
+}
+}  // namespace hyrise::taskscheduler
