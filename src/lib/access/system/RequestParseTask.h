@@ -8,6 +8,7 @@
 #include "helper/epoch.h"
 #include "net/Router.h"
 #include "net/AbstractConnection.h"
+#include "taskscheduler/AbstractTaskScheduler.h"
 
 namespace hyrise {
 namespace access {
@@ -27,6 +28,7 @@ class RequestParseTask : public net::AbstractRequestHandler {
   virtual void operator()();
   static std::string name();
   const std::string vname();
+  void setScheduler(std::shared_ptr<hyrise::taskscheduler::AbstractTaskScheduler> scheduler);
 };
 }
 }
