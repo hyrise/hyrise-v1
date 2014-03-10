@@ -27,9 +27,9 @@ std::vector<std::shared_ptr<Task>> Task::applyDynamicParallelization(size_t dyna
   return {shared_from_this()};
 }
 
-void Task::lockForNotifications() { _notifyMutex.lock(); }
+void Task::lockForNotifications() { _depMutex.lock(); }
 
-void Task::unlockForNotifications() { _notifyMutex.unlock(); }
+void Task::unlockForNotifications() { _depMutex.unlock(); }
 
 void Task::notifyReadyObservers() {
   // Lock and copy observers.
@@ -140,15 +140,12 @@ void Task::notifyDone(std::shared_ptr<Task> task) {
   if (t == 0) {
     if (_preferredCore == NO_PREFERRED_CORE && _preferredNode == NO_PREFERRED_NODE)
       _preferredNode = task->getActualNode();
-    std::lock_guard<decltype(_notifyMutex)> lk(_notifyMutex);
+    // std::lock_guard<decltype(_notifyMutex)> lk(_notifyMutex);
     notifyReadyObservers();
   }
 }
 
-bool Task::isReady() {
-  std::lock_guard<decltype(_depMutex)> lk(_depMutex);
-  return (_dependencyWaitCount == 0);
-}
+bool Task::isReady() { return (_dependencyWaitCount == 0); }
 
 int Task::getDependencyCount() { return _dependencies.size(); }
 

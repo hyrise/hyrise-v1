@@ -19,6 +19,19 @@ int getNumberOfCoresOnSystem() {
   return NUM_PROCS;
 }
 
+
+unsigned getNumberOfNodesOnSystem() {
+  hwloc_topology_t topology = getHWTopology();
+  static int NUM_NODES = hwloc_get_nbobjs_by_type(topology, HWLOC_OBJ_NODE);
+  return NUM_NODES;
+}
+
+unsigned getNumberOfCoresPerNodeOnSystem() {
+  // we calculate this by dividing the number cores by the number of nodes; this assumes a system with nodes with an
+  // equal number of cores!
+  return getNumberOfCoresOnSystem() / getNumberOfNodesOnSystem();
+}
+
 hwloc_topology_t getHWTopology() {
   static std::unique_ptr<hwloc_topology, void (*)(hwloc_topology*)> topology = []() {
     hwloc_topology_t t;
