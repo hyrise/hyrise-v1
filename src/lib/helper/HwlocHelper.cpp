@@ -15,7 +15,7 @@
 #include <memory>
 
 int getNumberOfCoresOnSystem() {
-  static int NUM_PROCS = [] () {
+  static int NUM_PROCS = []() {
     hwloc_topology_t topology = getHWTopology();
     return hwloc_get_nbobjs_by_type(topology, HWLOC_OBJ_CORE);
   }();
@@ -25,7 +25,7 @@ int getNumberOfCoresOnSystem() {
 
 
 unsigned getNumberOfNodesOnSystem() {
-  static int NUM_NODES = [] () {
+  static int NUM_NODES = []() {
     hwloc_topology_t topology = getHWTopology();
     return std::max(hwloc_get_nbobjs_by_type(topology, HWLOC_OBJ_NODE), 1);
   }();
@@ -49,7 +49,7 @@ std::vector<unsigned> getCoresForNode(hwloc_topology_t topology, unsigned node) 
   // get number of cores by type
   unsigned number_of_cores = hwloc_get_nbobjs_by_type(topology, HWLOC_OBJ_CORE);
   hwloc_obj_t obj = hwloc_get_obj_by_type(topology, HWLOC_OBJ_NODE, node);
-  if (obj == nullptr) { // in case there is no node...
+  if (obj == nullptr) {  // in case there is no node...
     children.resize(number_of_cores);
     std::iota(children.begin(), children.end(), 0);
     return children;
@@ -80,4 +80,3 @@ unsigned getNodeForCore(unsigned core) {
   }
   throw std::runtime_error("expected to find node for core");
 }
-

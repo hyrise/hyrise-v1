@@ -31,7 +31,7 @@ ThreadPerTaskScheduler::~ThreadPerTaskScheduler() {
 /*
  * schedule a task for execution
  */
-void ThreadPerTaskScheduler::schedule(std::shared_ptr<Task> task) {
+void ThreadPerTaskScheduler::schedule(const std::shared_ptr<Task>& task) {
   // simple strategy: check if task is ready to run -> create new thread and run
   // otherwise store in wait list
 
@@ -54,7 +54,7 @@ void ThreadPerTaskScheduler::shutdown() {}
 /*
  * notify scheduler that a given task is ready
  */
-void ThreadPerTaskScheduler::notifyReady(std::shared_ptr<Task> task) {
+void ThreadPerTaskScheduler::notifyReady(const std::shared_ptr<Task>& task) {
   // if task was found in wait set, schedule task
   std::thread t((TaskExecutor(task)));
   t.detach();

@@ -28,7 +28,7 @@ class DynamicTaskQueue : public ThreadLevelQueue<QUEUE> {
   DynamicTaskQueue(size_t threads) : ThreadLevelQueue<QUEUE>(threads), _maxTaskSize(0) {}
   ~DynamicTaskQueue() {}
 
-  virtual void notifyReady(std::shared_ptr<Task> task) {
+  virtual void notifyReady(const std::shared_ptr<Task>& task) {
     if (task->isDynamic()) {
       auto dynamicCount = task->determineDynamicCount(_maxTaskSize);
       auto tasks = task->applyDynamicParallelization(dynamicCount);
@@ -46,7 +46,7 @@ class DynamicTaskQueue : public ThreadLevelQueue<QUEUE> {
     }
   }
 
-  virtual void schedule(std::shared_ptr<Task> task) {
+  virtual void schedule(const std::shared_ptr<Task>& task) {
     if (task->isDynamic() && task->isReady()) {
       uint dynamicCount = task->determineDynamicCount(_maxTaskSize);
       auto tasks = task->applyDynamicParallelization(dynamicCount);

@@ -25,7 +25,7 @@ class CoreBoundQueuesScheduler : virtual public ThreadLevelQueuesScheduler<QUEUE
   using ThreadLevelQueuesScheduler<QUEUE>::_logger;
 
  protected:
-  virtual void pushToQueue(std::shared_ptr<Task> task) {
+  virtual void pushToQueue(const std::shared_ptr<Task>& task) {
 
     // check if task should be scheduled on specific core
     int core = task->getPreferredCore();
@@ -61,7 +61,7 @@ class CoreBoundQueuesScheduler : virtual public ThreadLevelQueuesScheduler<QUEUE
   CoreBoundQueuesScheduler(int queues) : ThreadLevelQueuesScheduler<QUEUE>(queues) {};
   ~CoreBoundQueuesScheduler() {};
 
-  virtual void schedule(std::shared_ptr<Task> task, int core) {
+  virtual void schedule(const std::shared_ptr<Task>& task, int core) {
     task->setPreferredCore(core);
     ThreadLevelQueuesScheduler<QUEUE>::schedule(task);
   }

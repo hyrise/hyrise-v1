@@ -50,7 +50,7 @@ class ThreadPerTaskScheduler : public AbstractTaskScheduler,
   /*
    * schedule a task for execution
    */
-  virtual void schedule(std::shared_ptr<Task> task);
+  virtual void schedule(const std::shared_ptr<Task>& task);
   /*
    * shutdown task scheduler; makes sure all underlying threads are stopped
    */
@@ -64,7 +64,7 @@ class ThreadPerTaskScheduler : public AbstractTaskScheduler,
     return 0;
   };
 
-  void notifyReady(std::shared_ptr<Task> task);
+  void notifyReady(const std::shared_ptr<Task>& task);
 };
 }
 }  // namespace hyrise::taskscheduler
