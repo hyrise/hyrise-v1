@@ -8,17 +8,16 @@
 #include "storage/storage_types.h"
 #include "storage/TableMerger.h"
 
-namespace hyrise { namespace storage {
+namespace hyrise {
+namespace storage {
 
 class SimpleStore : public AbstractTable {
 
-private:
-
+ private:
   atable_ptr_t _main;
   std::shared_ptr<RawTable> _delta;
 
-public:
-
+ public:
   typedef RawTable delta_table_t;
   typedef AbstractTable main_table_t;
 
@@ -44,15 +43,16 @@ public:
   /**
    * @see AbstractTable
    */
-  const ColumnMetadata& metadataAt(size_t c, size_t r, table_id_t t) const { return _main->metadataAt(c,r,t); }
+  const ColumnMetadata& metadataAt(size_t c, size_t r, table_id_t t) const { return _main->metadataAt(c, r, t); }
 
   /**
    * @see AbstractTable
    */
-  atable_ptr_t copy_structure_modifiable(const field_list_t *fields = nullptr, 
-                                                                   const size_t initial_size = 0, 
-                                                                   const bool with_containers = true) const {
-    throw std::runtime_error("RawTable ("+ STORAGE_DEBUG_WHERE_WHAT(__FILE__, __LINE__) +") does not support copy structure modifiable"); 
+  atable_ptr_t copy_structure_modifiable(const field_list_t* fields = nullptr,
+                                         const size_t initial_size = 0,
+                                         const bool with_containers = true) const {
+    throw std::runtime_error("RawTable (" + STORAGE_DEBUG_WHERE_WHAT(__FILE__, __LINE__) +
+                             ") does not support copy structure modifiable");
   }
 
   template <typename T>
@@ -93,21 +93,22 @@ public:
   /**
    * @see AbstractTable
    */
-  const AbstractTable::SharedDictionaryPtr& dictionaryAt(const size_t column, 
-                                                  const size_t row = 0, 
-                                                  const table_id_t table_id = 0) const;
+  const AbstractTable::SharedDictionaryPtr& dictionaryAt(const size_t column,
+                                                         const size_t row = 0,
+                                                         const table_id_t table_id = 0) const;
 
   /**
    * @see AbstractTable
    */
-  const AbstractTable::SharedDictionaryPtr& dictionaryByTableId(const size_t column, 
-                                                         const table_id_t table_id) const;
+  const AbstractTable::SharedDictionaryPtr& dictionaryByTableId(const size_t column, const table_id_t table_id) const;
 
   /**
    * @see AbstractTable
    */
-  void setDictionaryAt(AbstractTable::SharedDictionaryPtr dict, 
-                       const size_t column, const size_t row = 0, const table_id_t table_id = 0);
+  void setDictionaryAt(AbstractTable::SharedDictionaryPtr dict,
+                       const size_t column,
+                       const size_t row = 0,
+                       const table_id_t table_id = 0);
 
   unsigned int partitionCount() const;
 
@@ -122,30 +123,27 @@ public:
   /**
    * @see AbstractTable
    */
-  atable_ptr_t copy_structure(const field_list_t *fields = nullptr, 
-                                                        const bool reuse_dict = false, 
-                                                        const size_t initial_size = 0, 
-                                                        const bool with_containers = true, 
-                                                        const bool compressed = false) const {
+  atable_ptr_t copy_structure(const field_list_t* fields = nullptr,
+                              const bool reuse_dict = false,
+                              const size_t initial_size = 0,
+                              const bool with_containers = true,
+                              const bool compressed = false) const {
     STORAGE_NOT_IMPLEMENTED(SimpleStore, copy_structure());
   }
 
   void merge();
   void mergeWith(std::unique_ptr<TableMerger> merger);
-  virtual void print(const size_t limit = (size_t) -1) const;
+  virtual void print(const size_t limit = (size_t) - 1) const;
 
-  virtual void debugStructure(size_t level=0) const;
+  virtual void debugStructure(size_t level = 0) const;
 
-private:
-
+ private:
   /**
    * Create the delta partition based on the structure of the main table
    */
   void createDelta();
 
   std::unique_ptr<TableMerger> _merger;
-
 };
-
-}}
-
+}
+}

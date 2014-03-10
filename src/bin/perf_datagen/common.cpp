@@ -20,35 +20,25 @@
 
 char output_path[256] = "";
 char a_string_char[A_STRING_CHAR_LEN];
-const char *n_string_char = "0123456789";
-const char *l_string_char =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+const char* n_string_char = "0123456789";
+const char* l_string_char = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
-const char *c_last_syl[C_LAST_SYL_MAX] = {
-  "BAR", "OUGHT", "ABLE", "PRI", "PRES", "ESE", "ANTI", "CALLY", "ATION",
-  "EING"
-};
+const char* c_last_syl[C_LAST_SYL_MAX] = {"BAR", "OUGHT", "ABLE",  "PRI",   "PRES",
+                                          "ESE", "ANTI",  "CALLY", "ATION", "EING"};
 
-const char transaction_short_name[TRANSACTION_MAX] =
-{ 'd', 'n', 'o', 'p', 's' };
+const char transaction_short_name[TRANSACTION_MAX] = {'d', 'n', 'o', 'p', 's'};
 
-const char *transaction_name[TRANSACTION_MAX] = {
-  "delivery    ",
-  "new-order   ",
-  "order-status",
-  "payment     ",
-  "stock-level "
-};
+const char* transaction_name[TRANSACTION_MAX] = {"delivery    ", "new-order   ", "order-status",
+                                                 "payment     ", "stock-level "};
 
 struct table_cardinality_t table_cardinality;
 
 double difftimeval(struct timeval rt1, struct timeval rt0) {
-  return (rt1.tv_sec - rt0.tv_sec) +
-      (double)(rt1.tv_usec - rt0.tv_usec) / 1000000.00;
+  return (rt1.tv_sec - rt0.tv_sec) + (double)(rt1.tv_usec - rt0.tv_usec) / 1000000.00;
 }
 
 /* Clause 4.3.2.2.  */
-void get_a_string(char *a_string, int x, int y) {
+void get_a_string(char* a_string, int x, int y) {
   int length;
   int i;
 
@@ -63,7 +53,7 @@ void get_a_string(char *a_string, int x, int y) {
 }
 
 /* Clause 4.3.2.3 */
-int get_c_last(char *c_last, int i) {
+int get_c_last(char* c_last, int i) {
   char tmp[4];
 
   c_last[0] = '\0';
@@ -81,7 +71,7 @@ int get_c_last(char *c_last, int i) {
   return OK;
 }
 
-void get_l_string(char *a_string, int x, int y) {
+void get_l_string(char* a_string, int x, int y) {
   int length;
   int i;
 
@@ -96,7 +86,7 @@ void get_l_string(char *a_string, int x, int y) {
 }
 
 /* Clause 4.3.2.2.  */
-void get_n_string(char *n_string, int x, int y) {
+void get_n_string(char* n_string, int x, int y) {
   int length;
   int i;
 
@@ -111,18 +101,12 @@ void get_n_string(char *n_string, int x, int y) {
 }
 
 /* Clause 2.1.6 */
-int get_nurand(int a, int x, int y) {
-  return ((get_random(a + 1) | (x + get_random(y + 1))) % (y - x + 1)) + x;
-}
+int get_nurand(int a, int x, int y) { return ((get_random(a + 1) | (x + get_random(y + 1))) % (y - x + 1)) + x; }
 
 /* Return a number from 0 to max. */
-double get_percentage() {
-  return (double) rand() / (double) RAND_MAX;
-}
+double get_percentage() { return (double)rand() / (double)RAND_MAX; }
 
-int get_random(int max) {
-  return rand() % max;
-}
+int get_random(int max) { return rand() % max; }
 
 /*
  * Clause 5.2.5.4
@@ -132,9 +116,7 @@ int get_random(int max) {
  * r: random number, where 0 < r <= 1
  * mean_think_time = mean think time, in milliseconds
  */
-int get_think_time(int mean_think_time) {
-  return (-1.0 * log(get_percentage() + 0.000001) * mean_think_time);
-}
+int get_think_time(int mean_think_time) { return (-1.0 * log(get_percentage() + 0.000001) * mean_think_time); }
 
 int init_common() {
   int i, j;
@@ -154,17 +136,17 @@ int init_common() {
    * Clause 4.3.2.2.
    */
   j = 0;
-  a_string_char[j++] = (char) 33;
+  a_string_char[j++] = (char)33;
   for (i = 35; i <= 43; i++) {
-    a_string_char[j++] = (char) i;
+    a_string_char[j++] = (char)i;
   }
   for (i = 45; i <= 126; i++) {
     if (i != 124) {
-      a_string_char[j++] = (char) i;
+      a_string_char[j++] = (char)i;
     }
   }
   for (i = 220; i <= 255; i++) {
-    a_string_char[j++] = (char) i;
+    a_string_char[j++] = (char)i;
   }
 
   return OK;

@@ -7,13 +7,15 @@
 #include <memory>
 #include <vector>
 
-namespace hyrise { namespace storage {
+namespace hyrise {
+namespace storage {
 class AbstractResource;
 class AbstractTable;
 class AbstractIndex;
 class AbstractHashTable;
 class AbstractDictionary;
-} } // namespace hyrise::storage
+}
+}  // namespace hyrise::storage
 
 
 class PointerCalculator;
@@ -27,7 +29,7 @@ typedef int64_t transaction_id_t;
 typedef int64_t transaction_cid_t;
 
 static const transaction_id_t MERGE_TID = 1;
-	// the merge needs its own TID so that it is isolated from the other transactions
+// the merge needs its own TID so that it is isolated from the other transactions
 static const transaction_id_t START_TID = 2;
 static const transaction_id_t MAX_TID = std::numeric_limits<transaction_id_t>::max();
 
@@ -36,11 +38,10 @@ static const transaction_cid_t UNKNOWN_CID = 0;
 static const transaction_cid_t INF_CID = std::numeric_limits<transaction_cid_t>::max();
 
 enum class TX_CODE {
-	TX_OK,
-	TX_FAIL_CONCURRENT_COMMIT,
-	TX_FAIL_OTHER
+  TX_OK,
+  TX_FAIL_CONCURRENT_COMMIT,
+  TX_FAIL_OTHER
 };
-
 }
 
 namespace access {
@@ -99,8 +100,8 @@ typedef std::vector<field_t> field_list_t;
 }
 
 namespace taskscheduler {
-  class Task;
-  typedef std::shared_ptr<Task> task_ptr_t;
+class Task;
+typedef std::shared_ptr<Task> task_ptr_t;
 }
 
 // constraints

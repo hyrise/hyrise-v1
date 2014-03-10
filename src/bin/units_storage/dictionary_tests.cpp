@@ -11,17 +11,17 @@ namespace storage {
 class DictionaryTest : public Test {};
 
 TEST_F(DictionaryTest, PassThroughDictionaries) {
-  
+
   PassThroughDictionary<hyrise_int32_t> d;
   ASSERT_EQ(99, d.addValue(99));
   ASSERT_FALSE(d.isOrdered());
-  
+
   ASSERT_TRUE(d.isValueIdValid(382));
   ASSERT_TRUE(d.valueExists(83821));
 
   ASSERT_EQ(876, d.getValueIdForValue(876));
   ASSERT_EQ(876, d.getValueForValueId(876));
-  
+
   PassThroughDictionary<hyrise_float_t> d2;
 
   float o = 84.2638;
@@ -30,14 +30,13 @@ TEST_F(DictionaryTest, PassThroughDictionaries) {
 
   ASSERT_EQ(v, d2.addValue(o));
   ASSERT_FALSE(d2.isOrdered());
-  
+
   ASSERT_TRUE(d2.isValueIdValid(382));
   ASSERT_TRUE(d2.valueExists(83821));
 
 
   ASSERT_EQ(v, d2.getValueIdForValue(o));
   ASSERT_EQ(o, d2.getValueForValueId(v));
-
 }
 
 TEST_F(DictionaryTest, create_dictionary) {
@@ -123,7 +122,6 @@ TEST_F(DictionaryTest, order_indifferent_iterator_test) {
   ++it;
 
   ASSERT_TRUE(it == dict.end());
-
 }
 
 TEST_F(DictionaryTest, order_indifferent_string_iterator_test) {
@@ -155,8 +153,6 @@ TEST_F(DictionaryTest, order_preserving_string_exists) {
   ASSERT_TRUE(dict.valueExists("a"));
   ASSERT_FALSE(dict.valueExists("c"));
   ASSERT_FALSE(dict.valueExists("321"));
-
 }
-
-} } // namepsace hyrise::storage
-
+}
+}  // namepsace hyrise::storage

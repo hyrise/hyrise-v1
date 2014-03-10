@@ -23,7 +23,6 @@ namespace taskscheduler {
 class AbstractTaskQueue {
 
  public:
-
   typedef enum {
     STARTUP = 0,
     RUN = 1,
@@ -40,7 +39,7 @@ class AbstractTaskQueue {
   /*
    * init task queue
    */
-  virtual void init(){}
+  virtual void init() {}
 
   virtual void executeTask() = 0;
   /*
@@ -52,6 +51,5 @@ class AbstractTaskQueue {
    */
   virtual void join() = 0;
 };
-
-} } // namespace hyrise::taskscheduler
-
+}
+}  // namespace hyrise::taskscheduler

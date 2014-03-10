@@ -16,33 +16,33 @@ namespace storage {
 class AbstractTable;
 class AbstractIndex;
 class AbstractResource;
-} // namespace storage
+}  // namespace storage
 
 namespace io {
-namespace Loader { 
+namespace Loader {
 class params;
-} // namespace Loader                          
+}  // namespace Loader
 
 /// Central holder of schema information
 class StorageManager : public ResourceManager {
  protected:
   StorageManager() = delete;
-  StorageManager(const StorageManager &) = delete;
-  StorageManager &operator= (const StorageManager &) = delete;
+  StorageManager(const StorageManager&) = delete;
+  StorageManager& operator=(const StorageManager&) = delete;
 
   /// Adds a new storage table to _schema, forwards to all constructors of StorageTable
   /// that start with (std::string name, ....)
-  template<typename... Args>
-  void addStorageTable(std::string name, Args&& ... args);
+  template <typename... Args>
+  void addStorageTable(std::string name, Args&&... args);
 
  public:
   /// Retrieve singleton storage-manager instance
-  static StorageManager *getInstance();
+  static StorageManager* getInstance();
 
   /// Table loading with parameters
   /// @param[in] name Table name
   /// @param[in] parameters Loader parameters for delayed load
-  void loadTable(std::string name, const Loader::params &parameters);
+  void loadTable(std::string name, const Loader::params& parameters);
 
   /// Table loading with table
   /// @param[in] name Table name
@@ -58,8 +58,7 @@ class StorageManager : public ResourceManager {
   /// @param[in] name Table name
   /// @param[in] dataFileName Path to to hyrise-format data file
   /// @param[in] headerFileName Path to to hyrise-format header file
-  void loadTableFileWithHeader(std::string name, std::string dataFileName,
-                               std::string headerFileName);
+  void loadTableFileWithHeader(std::string name, std::string dataFileName, std::string headerFileName);
   /// Replace existing table
   /// @param[in] name Table name to be replaced
   /// @param[in] table Shared table pointer
@@ -89,6 +88,5 @@ class StorageManager : public ResourceManager {
   /// @param[in] fileName fileName
   std::string makePath(std::string fileName);
 };
-
-} }  // namespace hyrise::io
-
+}
+}  // namespace hyrise::io

@@ -8,21 +8,16 @@ namespace hyrise {
 namespace access {
 
 namespace {
-  auto _ = QueryParser::registerPlanOperation<Barrier>("Barrier");
+auto _ = QueryParser::registerPlanOperation<Barrier>("Barrier");
 }
 
 void Barrier::executePlanOperation() {
-  for(size_t i=0; i < _field_definition.size(); ++i)
+  for (size_t i = 0; i < _field_definition.size(); ++i)
     addResult(getInputTable(i));
 }
 
-std::shared_ptr<PlanOperation> Barrier::parse(const Json::Value &data) {
-  return BasicParser<Barrier>::parse(data);
-}
+std::shared_ptr<PlanOperation> Barrier::parse(const Json::Value& data) { return BasicParser<Barrier>::parse(data); }
 
-const std::string Barrier::vname() {
-  return "Barrier";
-}
-
+const std::string Barrier::vname() { return "Barrier"; }
 }
 }

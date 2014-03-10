@@ -35,7 +35,6 @@ TEST_F(JoinTests, DISABLED_join_column_renaming) {
   ASSERT_EQ(table1_join_table2->metadataAt(4).getName(), std::string("currency") + RENAMED_COLUMN_APPENDIX_RIGHT);
   ASSERT_EQ(table1_join_table2->metadataAt(5).getName(), std::string("amount") + RENAMED_COLUMN_APPENDIX_RIGHT);
   ASSERT_EQ(table1_join_table2->metadataAt(6).getName(), "testcolumn");
-
 }
 
 TEST_F(JoinTests, join_exchange_rates) {
@@ -96,9 +95,6 @@ TEST_F(JoinTests, hash_join_exchange_rates_multiple_columns) {
 
   const auto& reference = io::Loader::shortcuts::load("test/reference/join_exchange_rates.tbl");
   ASSERT_TRUE(result->contentEquals(reference));
-
-}
-
 }
 }
-
+}

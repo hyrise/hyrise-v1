@@ -15,7 +15,7 @@ namespace access {
 
 template <typename T>
 class MergeJoin : public PlanOperation {
-public:
+ public:
   virtual ~MergeJoin() {}
 
   void executePlanOperation() {
@@ -29,7 +29,7 @@ public:
     T value;
 
     for (pos_t row = 0; row < left_input_size; row++) {
-      const auto &t = input.getTable(0);
+      const auto& t = input.getTable(0);
       value = t->template getValue<T>(_field_definition[0], row);
       left_values.push_back(std::pair<T, storage::pos_t>(value, row));
     }
@@ -47,8 +47,8 @@ public:
 
     std::sort(right_values.begin(), right_values.end());
 
-    std::vector<storage::pos_t> *left_pos = new std::vector<storage::pos_t>();
-    std::vector<storage::pos_t> *right_pos = new std::vector<storage::pos_t>();
+    std::vector<storage::pos_t>* left_pos = new std::vector<storage::pos_t>();
+    std::vector<storage::pos_t>* right_pos = new std::vector<storage::pos_t>();
 
     pos_t left_i = 0, right_i = 0;
     std::pair<T, storage::pos_t> left_value = left_values[0];
@@ -85,19 +85,16 @@ public:
       }
     }
 
-    std::vector<storage::atable_ptr_t> parts({
-      std::dynamic_pointer_cast<storage::AbstractTable>(storage::PointerCalculator::create(input.getTable(0), left_pos)),
-      std::dynamic_pointer_cast<storage::AbstractTable>(storage::PointerCalculator::create(input.getTable(1), right_pos))
-    });
+    std::vector<storage::atable_ptr_t> parts({std::dynamic_pointer_cast<storage::AbstractTable>(
+                                                  storage::PointerCalculator::create(input.getTable(0), left_pos)),
+                                              std::dynamic_pointer_cast<storage::AbstractTable>(
+                                                  storage::PointerCalculator::create(input.getTable(1), right_pos))});
 
     addResult(std::make_shared<storage::MutableVerticalTable>(parts));
   }
 
-  const std::string vname() {
-    return "MergeJoin";
-  }
+  const std::string vname() { return "MergeJoin"; }
 };
-
 }
 }
 

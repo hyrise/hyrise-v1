@@ -4,13 +4,14 @@
 
 #include "access/system/PlanOperation.h"
 
-namespace hyrise { namespace access {
+namespace hyrise {
+namespace access {
 
 class UnionScan : public PlanOperation {
  public:
   void executePlanOperation();
 };
-
-}}
+}
+}
 
 #endif  // SRC_LIB_ACCESS_UNIONSCAN_H_

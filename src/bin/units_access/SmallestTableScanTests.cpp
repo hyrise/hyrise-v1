@@ -19,10 +19,9 @@ TEST_F(SmallestTableScanTests, basic_smallest_table_scan_test) {
   stc.addInput(t3);
   stc.execute();
 
-  const auto &result = stc.getResultTable();
+  const auto& result = stc.getResultTable();
 
   ASSERT_TABLE_EQUAL(result, t3);
 }
-
 }
 }

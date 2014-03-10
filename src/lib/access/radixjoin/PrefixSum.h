@@ -10,16 +10,16 @@ namespace hyrise {
 namespace access {
 
 class PrefixSum : public ParallelizablePlanOperation {
-public:
+ public:
   void executePlanOperation();
-  static std::shared_ptr<PlanOperation> parse(const Json::Value &data);
+  static std::shared_ptr<PlanOperation> parse(const Json::Value& data);
   const std::string vname();
   void splitInput();
 
-private:
+ private:
   typedef std::shared_ptr<storage::FixedLengthVector<storage::value_id_t>> vec_ref_t;
   storage::value_id_t sumForIndex(const size_t ivec_size,
-                                  const std::vector<vec_ref_t> &ivecs,
+                                  const std::vector<vec_ref_t>& ivecs,
                                   const size_t index) const;
   storage::value_id_t sumForIndexPrev(const size_t ivec_size,
                                       const std::vector<vec_ref_t>& ivecs,
@@ -27,12 +27,11 @@ private:
 };
 
 class MergePrefixSum : public PlanOperation {
-public:
+ public:
   void executePlanOperation();
-  static std::shared_ptr<PlanOperation> parse(const Json::Value &data);
+  static std::shared_ptr<PlanOperation> parse(const Json::Value& data);
   const std::string vname();
 };
-
 }
 }
 

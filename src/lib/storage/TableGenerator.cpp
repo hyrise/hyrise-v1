@@ -19,13 +19,12 @@
 #include <storage/SequentialHeapMerger.h>
 #include <storage/TableMerger.h>
 
-namespace hyrise { namespace storage {
+namespace hyrise {
+namespace storage {
 
-TableGenerator::TableGenerator(bool quiet) : _quiet(quiet), _steps(50), _prepareSize(0) {
-}
+TableGenerator::TableGenerator(bool quiet) : _quiet(quiet), _steps(50), _prepareSize(0) {}
 
-TableGenerator::~TableGenerator() {
-}
+TableGenerator::~TableGenerator() {}
 
 void TableGenerator::prepare(size_t p) {
   if (p <= _prepareSize)
@@ -68,7 +67,6 @@ void TableGenerator::prepare(size_t p) {
   while (_values.size() < _prepareSize) {
     _values.insert(dist(gen));
   }
-
 }
 
 void TableGenerator::start(size_t rows, size_t cols, size_t total) {
@@ -93,7 +91,7 @@ void TableGenerator::increment() {
   }
 }
 
-std::vector<atable_ptr_t > TableGenerator::distinct_cols(size_t cols, size_t main_size, size_t delta_size) {
+std::vector<atable_ptr_t> TableGenerator::distinct_cols(size_t cols, size_t main_size, size_t delta_size) {
 
   atable_ptr_t main = create_empty_table(main_size, cols);
   atable_ptr_t delta = create_empty_table_modifiable(delta_size, cols);
@@ -117,12 +115,12 @@ std::vector<atable_ptr_t > TableGenerator::distinct_cols(size_t cols, size_t mai
       dict_size_delta = delta_size * distinct / 100;
     }
 
-    std::vector<int64_t> *dict_values;
+    std::vector<int64_t>* dict_values;
     dict_values = create_dicts(dict_size_main, dict_size_delta, 0, 0);
 
     // create main dict
     Progress p(dict_size_main);
-    OrderPreservingDictionary<int64_t> *main_dict = new OrderPreservingDictionary<int64_t>;
+    OrderPreservingDictionary<int64_t>* main_dict = new OrderPreservingDictionary<int64_t>;
 
     for (size_t j = 0; j < dict_size_main; ++j) {
       main_dict->addValue(dict_values->at(j));
@@ -133,7 +131,7 @@ std::vector<atable_ptr_t > TableGenerator::distinct_cols(size_t cols, size_t mai
 
     // create delta dict
     Progress p1(dict_size_delta);
-    OrderIndifferentDictionary<int64_t> *delta_dict = new OrderIndifferentDictionary<int64_t>;
+    OrderIndifferentDictionary<int64_t>* delta_dict = new OrderIndifferentDictionary<int64_t>;
 
     for (size_t j = 0; j < dict_size_delta; ++j) {
       delta_dict->addValue(dict_values->at(j + dict_size_main));
@@ -184,19 +182,21 @@ std::vector<atable_ptr_t > TableGenerator::distinct_cols(size_t cols, size_t mai
       delta->setValueId(col, j, v);
       p3.tick();
     }
-
   }
 
-  std::vector<atable_ptr_t > v;
+  std::vector<atable_ptr_t> v;
   v.push_back(main);
   v.push_back(delta);
   return v;
 }
 
-std::vector<int64_t> *TableGenerator::create_dicts(size_t dict_size_main, size_t dict_size_delta, size_t intersection, size_t tail) {
+std::vector<int64_t>* TableGenerator::create_dicts(size_t dict_size_main,
+                                                   size_t dict_size_delta,
+                                                   size_t intersection,
+                                                   size_t tail) {
   Progress p(dict_size_main + dict_size_delta);
 
-  std::vector<int64_t> *v = new std::vector<int64_t>;
+  std::vector<int64_t>* v = new std::vector<int64_t>;
   v->reserve(dict_size_main + dict_size_delta);
 
   // maindict
@@ -228,8 +228,13 @@ std::vector<int64_t> *TableGenerator::create_dicts(size_t dict_size_main, size_t
   return v;
 }
 
-std::vector<atable_ptr_t > TableGenerator::one_column_main_delta(size_t rows_main, size_t rows_delta, size_t dict_size_main, size_t dict_size_delta, size_t intersection, size_t tail) {
-  std::vector<int64_t> *dict_values = create_dicts(dict_size_main, dict_size_delta, intersection, tail);
+std::vector<atable_ptr_t> TableGenerator::one_column_main_delta(size_t rows_main,
+                                                                size_t rows_delta,
+                                                                size_t dict_size_main,
+                                                                size_t dict_size_delta,
+                                                                size_t intersection,
+                                                                size_t tail) {
+  std::vector<int64_t>* dict_values = create_dicts(dict_size_main, dict_size_delta, intersection, tail);
   TableGenerator table_generator;
 
   atable_ptr_t main = table_generator.create_empty_table(rows_main, 1);
@@ -243,9 +248,9 @@ std::vector<atable_ptr_t > TableGenerator::one_column_main_delta(size_t rows_mai
     ordered_main.insert(dict_values->at(i));
   }
 
-  OrderPreservingDictionary<int64_t> *main_dict = new OrderPreservingDictionary<int64_t>;
+  OrderPreservingDictionary<int64_t>* main_dict = new OrderPreservingDictionary<int64_t>;
 
-for (const auto & i: ordered_main) {
+  for (const auto& i : ordered_main) {
     main_dict->addValue(i);
   }
 
@@ -254,7 +259,7 @@ for (const auto & i: ordered_main) {
 
   // create delta dict
   Progress p1(dict_size_delta);
-  OrderIndifferentDictionary<int64_t> *delta_dict = new OrderIndifferentDictionary<int64_t>;
+  OrderIndifferentDictionary<int64_t>* delta_dict = new OrderIndifferentDictionary<int64_t>;
 
   for (size_t j = 0; j < dict_size_delta; ++j) {
     delta_dict->addValue(dict_values->at(j + dict_size_main));
@@ -282,7 +287,7 @@ for (const auto & i: ordered_main) {
     p.tick();
   }
 
-  std::vector<atable_ptr_t > tables;
+  std::vector<atable_ptr_t> tables;
   tables.push_back(main);
   tables.push_back(delta);
   return tables;
@@ -290,9 +295,13 @@ for (const auto & i: ordered_main) {
 
 
 
-
-std::vector<atable_ptr_t > TableGenerator::value_order_successively(size_t rows_main, size_t rows_delta, size_t dict_size_main, size_t dict_size_delta, size_t intersection, size_t tail) {
-  std::vector<int64_t> *dict_values = create_dicts(dict_size_main, dict_size_delta, intersection, tail);
+std::vector<atable_ptr_t> TableGenerator::value_order_successively(size_t rows_main,
+                                                                   size_t rows_delta,
+                                                                   size_t dict_size_main,
+                                                                   size_t dict_size_delta,
+                                                                   size_t intersection,
+                                                                   size_t tail) {
+  std::vector<int64_t>* dict_values = create_dicts(dict_size_main, dict_size_delta, intersection, tail);
   TableGenerator table_generator;
 
   atable_ptr_t main = table_generator.create_empty_table(rows_main, 1);
@@ -306,9 +315,9 @@ std::vector<atable_ptr_t > TableGenerator::value_order_successively(size_t rows_
     ordered_main.insert(dict_values->at(i));
   }
 
-  OrderPreservingDictionary<int64_t> *main_dict = new OrderPreservingDictionary<int64_t>;
+  OrderPreservingDictionary<int64_t>* main_dict = new OrderPreservingDictionary<int64_t>;
 
-for (const auto & i: ordered_main) {
+  for (const auto& i : ordered_main) {
     main_dict->addValue(i);
   }
 
@@ -317,7 +326,7 @@ for (const auto & i: ordered_main) {
 
   // create delta dict
   Progress p1(dict_size_delta);
-  OrderIndifferentDictionary<int64_t> *delta_dict = new OrderIndifferentDictionary<int64_t>;
+  OrderIndifferentDictionary<int64_t>* delta_dict = new OrderIndifferentDictionary<int64_t>;
 
   for (size_t j = 0; j < dict_size_delta; ++j) {
     delta_dict->addValue(dict_values->at(j + dict_size_main));
@@ -344,7 +353,7 @@ for (const auto & i: ordered_main) {
     p.tick();
   }
 
-  std::vector<atable_ptr_t > v;
+  std::vector<atable_ptr_t> v;
   v.push_back(main);
   v.push_back(delta);
   return v;
@@ -353,12 +362,12 @@ for (const auto & i: ordered_main) {
 
 
 atable_ptr_t TableGenerator::create_empty_table(size_t rows, std::vector<std::string> names) {
-  std::vector<std::vector<AbstractTable::SharedDictionaryPtr> *> dicts;
-  std::vector<std::vector<ColumnMetadata > *> md;
+  std::vector<std::vector<AbstractTable::SharedDictionaryPtr>*> dicts;
+  std::vector<std::vector<ColumnMetadata>*> md;
   const auto& cols = names.size();
   for (size_t col = 0; col < cols; ++col) {
-    std::vector<ColumnMetadata > *m = new std::vector<ColumnMetadata >;
-    std::string colname(col < names.size() ? names.at(col) : "attr" + std::to_string(col)); 
+    std::vector<ColumnMetadata>* m = new std::vector<ColumnMetadata>;
+    std::string colname(col < names.size() ? names.at(col) : "attr" + std::to_string(col));
     m->emplace_back(colname, IntegerType);
     md.push_back(m);
 
@@ -370,18 +379,18 @@ atable_ptr_t TableGenerator::create_empty_table(size_t rows, std::vector<std::st
 
   auto new_table = std::make_shared<MutableVerticalTable>(md, &dicts, rows, false);
 
-  for (const auto & d : dicts)
+  for (const auto& d : dicts)
     delete d;
-  
-  for (const auto & m : md) {
-      delete m;
+
+  for (const auto& m : md) {
+    delete m;
   }
   new_table->resize(rows);
   return new_table;
 }
 
 atable_ptr_t TableGenerator::create_empty_table(size_t rows, size_t cols, std::vector<unsigned> containers) {
-  std::vector<std::vector<ColumnMetadata > *> md;
+  std::vector<std::vector<ColumnMetadata>*> md;
 
   bool skip = containers.size() == 0 ? true : false;
 
@@ -390,11 +399,11 @@ atable_ptr_t TableGenerator::create_empty_table(size_t rows, size_t cols, std::v
   unsigned currentSize = 0;
   unsigned contSize = skip ? cols : containers[0];
 
-  std::vector<ColumnMetadata > *m = nullptr;
+  std::vector<ColumnMetadata>* m = nullptr;
 
   for (size_t col = 0; col < cols; ++col) {
     if (currentSize == 0 || skip)
-      m = new std::vector<ColumnMetadata >;
+      m = new std::vector<ColumnMetadata>;
 
     std::stringstream s;
     s << "attr" << col;
@@ -412,7 +421,7 @@ atable_ptr_t TableGenerator::create_empty_table(size_t rows, size_t cols, std::v
 
   auto new_table = std::shared_ptr<MutableVerticalTable>(new MutableVerticalTable(md, nullptr, rows, false));
 
-for (const auto & vc: md) {
+  for (const auto& vc : md) {
     delete vc;
   }
 
@@ -421,12 +430,12 @@ for (const auto & vc: md) {
 }
 
 atable_ptr_t TableGenerator::create_empty_table_modifiable(size_t rows, size_t cols, std::vector<std::string> names) {
-  std::vector<std::vector<AbstractTable::SharedDictionaryPtr> *> dicts;
-  std::vector<std::vector<ColumnMetadata > *> md;
+  std::vector<std::vector<AbstractTable::SharedDictionaryPtr>*> dicts;
+  std::vector<std::vector<ColumnMetadata>*> md;
 
   for (size_t col = 0; col < cols; ++col) {
-    std::vector<ColumnMetadata > *m = new std::vector<ColumnMetadata >;
-    std::string colname(col < names.size() ? names.at(col) : "attr" + std::to_string(col)); 
+    std::vector<ColumnMetadata>* m = new std::vector<ColumnMetadata>;
+    std::string colname(col < names.size() ? names.at(col) : "attr" + std::to_string(col));
     m->emplace_back(colname, IntegerTypeDelta);
     md.push_back(m);
 
@@ -438,10 +447,10 @@ atable_ptr_t TableGenerator::create_empty_table_modifiable(size_t rows, size_t c
 
   auto new_table = std::make_shared<MutableVerticalTable>(md, &dicts, rows, false);
 
-  for (const auto & d : dicts)
+  for (const auto& d : dicts)
     delete d;
-  
-  for (const auto & m : md) {
+
+  for (const auto& m : md) {
     delete m;
   }
   new_table->resize(rows);
@@ -453,7 +462,7 @@ atable_ptr_t TableGenerator::create_empty_table_modifiable(size_t rows, size_t c
 atable_ptr_t TableGenerator::int_random_delta(size_t rows, size_t cols, size_t mod, std::vector<unsigned> layout) {
 
   start(rows, cols, rows * cols);
-  unsigned seed = (unsigned) clock();
+  unsigned seed = (unsigned)clock();
 
 
   atable_ptr_t new_table = create_empty_table(rows, cols, layout);
@@ -461,7 +470,7 @@ atable_ptr_t TableGenerator::int_random_delta(size_t rows, size_t cols, size_t m
 
   for (size_t col = 0; col < cols; ++col) {
 
-    OrderIndifferentDictionary<int64_t> *dict = new OrderIndifferentDictionary<int64_t>();
+    OrderIndifferentDictionary<int64_t>* dict = new OrderIndifferentDictionary<int64_t>();
 
     // assume that we do not generate the same value twice...
     for (size_t row = 0; row < rows; ++row) {
@@ -492,10 +501,9 @@ atable_ptr_t TableGenerator::int_random_delta(size_t rows, size_t cols, size_t m
     std::cout << std::endl;
   }
 
-  //new_table->sortDictionary();
+  // new_table->sortDictionary();
 
   return new_table;
-
 }
 
 // create table with order preserving dict
@@ -515,7 +523,7 @@ atable_ptr_t TableGenerator::int_random(size_t rows, size_t cols, size_t mod, st
 
   for (size_t col = 0; col < cols; ++col) {
 
-    OrderPreservingDictionary<int64_t> *dict = new OrderPreservingDictionary<int64_t>();
+    OrderPreservingDictionary<int64_t>* dict = new OrderPreservingDictionary<int64_t>();
     std::set<int64_t>::const_iterator it = _values.begin();
     for (size_t r = 0; r < rows; ++r) {
       if (mod == 0)
@@ -544,7 +552,7 @@ atable_ptr_t TableGenerator::int_random(size_t rows, size_t cols, size_t mod, st
 
     for (size_t row = 0; row < rows; ++row) {
       ValueId v;
-      v.valueId = row;//attribute_vector[row];
+      v.valueId = row;  // attribute_vector[row];
       v.table = 0;
       new_table->setValueId(col, row, v);
     }
@@ -555,20 +563,19 @@ atable_ptr_t TableGenerator::int_random(size_t rows, size_t cols, size_t mod, st
   }
 
   return new_table;
-
 }
 
 
 std::string TableGenerator::random_string(const int len) {
   static const char alphanum[] =
-    "0123456789"
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    "abcdefghijklmnopqrstuvwxyz";
+      "0123456789"
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+      "abcdefghijklmnopqrstuvwxyz";
 
   std::string s;
   s.resize(len);
 
-  unsigned seed = (unsigned) clock();
+  unsigned seed = (unsigned)clock();
   for (int i = 0; i < len; ++i) {
     s[i] = alphanum[rand_r(&seed) % (sizeof(alphanum) - 1)];
   }
@@ -592,8 +599,8 @@ atable_ptr_t TableGenerator::string_random(size_t rows, size_t cols, int string_
       increment();
     }
 
-    OrderPreservingDictionary<std::string> *dict = new OrderPreservingDictionary<std::string>();
-for (const auto & i: values) {
+    OrderPreservingDictionary<std::string>* dict = new OrderPreservingDictionary<std::string>();
+    for (const auto& i : values) {
       dict->addValue(i);
     }
     new_table->setDictionaryAt(AbstractTable::SharedDictionaryPtr(dict), col);
@@ -645,12 +652,11 @@ atable_ptr_t TableGenerator::string_random_delta(size_t rows, size_t cols, int s
     std::vector<std::string> values_vector(values.begin(), values.end());
     random_shuffle(values_vector.begin(), values_vector.end());
 
-    OrderIndifferentDictionary<std::string> *dict = new OrderIndifferentDictionary<std::string>();
-for (const auto & i: values_vector) {
+    OrderIndifferentDictionary<std::string>* dict = new OrderIndifferentDictionary<std::string>();
+    for (const auto& i : values_vector) {
       dict->addValue(i);
     }
     new_table->setDictionaryAt(AbstractTable::SharedDictionaryPtr(dict), col);
-
   }
 
   new_table->resize(rows);
@@ -680,7 +686,8 @@ for (const auto & i: values_vector) {
   return new_table;
 }
 
-//vector<hyrise::storage::atable_ptr_t > TableGenerator::int_overlapping(size_t rows, size_t cols, size_t tables, size_t overlapping)
+// vector<hyrise::storage::atable_ptr_t > TableGenerator::int_overlapping(size_t rows, size_t cols, size_t tables,
+// size_t overlapping)
 //{
 //    std::vector<hyrise::storage::atable_ptr_t > r;
 //
@@ -727,14 +734,20 @@ for (const auto & i: values_vector) {
 //    return r;
 //}
 
-atable_ptr_t TableGenerator::int_offset(size_t rows, size_t cols, size_t offset1, size_t offset2, size_t offset2_start, size_t factor, int big_value_at_end) {
+atable_ptr_t TableGenerator::int_offset(size_t rows,
+                                        size_t cols,
+                                        size_t offset1,
+                                        size_t offset2,
+                                        size_t offset2_start,
+                                        size_t factor,
+                                        int big_value_at_end) {
   start(rows, cols, rows * cols);
   srand(clock());
 
   atable_ptr_t new_table = create_empty_table(rows, cols);
 
   for (size_t col = 0; col < cols; ++col) {
-    OrderPreservingDictionary<int64_t> *dict = new OrderPreservingDictionary<int64_t>();
+    OrderPreservingDictionary<int64_t>* dict = new OrderPreservingDictionary<int64_t>();
     new_table->setDictionaryAt(AbstractTable::SharedDictionaryPtr(dict), col);
     for (size_t row = 0; row < rows; ++row) {
       int value = row * factor + offset1;
@@ -766,17 +779,22 @@ atable_ptr_t TableGenerator::int_offset(size_t rows, size_t cols, size_t offset1
   }
 
   return new_table;
-
 }
 
-atable_ptr_t TableGenerator::int_offset_delta(size_t rows, size_t cols, size_t offset1, size_t offset2, size_t offset2_start, size_t factor, int big_value_at_end) {
+atable_ptr_t TableGenerator::int_offset_delta(size_t rows,
+                                              size_t cols,
+                                              size_t offset1,
+                                              size_t offset2,
+                                              size_t offset2_start,
+                                              size_t factor,
+                                              int big_value_at_end) {
   start(rows, cols, rows * cols);
   srand(clock());
 
   atable_ptr_t new_table = create_empty_table(rows, cols);
 
   for (size_t col = 0; col < cols; ++col) {
-    OrderIndifferentDictionary<int64_t> *dict = new OrderIndifferentDictionary<int64_t>();
+    OrderIndifferentDictionary<int64_t>* dict = new OrderIndifferentDictionary<int64_t>();
     new_table->setDictionaryAt(AbstractTable::SharedDictionaryPtr(dict), col);
     for (size_t row = 0; row < rows; ++row) {
       int value = row * factor + offset1;
@@ -807,7 +825,6 @@ atable_ptr_t TableGenerator::int_offset_delta(size_t rows, size_t cols, size_t o
   }
 
   return new_table;
-
 }
 
 atable_ptr_t TableGenerator::one_value_delta(size_t rows, size_t cols, int value) {
@@ -817,7 +834,7 @@ atable_ptr_t TableGenerator::one_value_delta(size_t rows, size_t cols, int value
   atable_ptr_t new_table = create_empty_table(rows, cols);
 
   for (size_t col = 0; col < cols; ++col) {
-    OrderIndifferentDictionary<int64_t> *dict = new OrderIndifferentDictionary<int64_t>();
+    OrderIndifferentDictionary<int64_t>* dict = new OrderIndifferentDictionary<int64_t>();
     new_table->setDictionaryAt(AbstractTable::SharedDictionaryPtr(dict), col);
 
     dict->addValue(value);
@@ -845,7 +862,7 @@ atable_ptr_t TableGenerator::one_value(size_t rows, size_t cols, int value) {
   atable_ptr_t new_table = create_empty_table(rows, cols);
 
   for (size_t col = 0; col < cols; ++col) {
-    OrderPreservingDictionary<int64_t> *dict = new OrderPreservingDictionary<int64_t>();
+    OrderPreservingDictionary<int64_t>* dict = new OrderPreservingDictionary<int64_t>();
     new_table->setDictionaryAt(AbstractTable::SharedDictionaryPtr(dict), col);
 
     dict->addValue(value);
@@ -868,7 +885,7 @@ atable_ptr_t TableGenerator::one_value(size_t rows, size_t cols, int value) {
 // creates one table with distinct_count distinct values
 atable_ptr_t TableGenerator::int_distinct(size_t row_count, size_t column_count, size_t distinct_count) {
   size_t x = row_count / distinct_count;
-  std::vector<c_atable_ptr_t > tables;
+  std::vector<c_atable_ptr_t> tables;
   const auto& base_table = int_random(distinct_count, column_count);
   tables.push_back(base_table);
 
@@ -888,12 +905,12 @@ atable_ptr_t TableGenerator::int_distinct(size_t row_count, size_t column_count,
 }
 
 int TableGenerator::selfsimilar(int64_t n, double h) {
-  unsigned seed  = (unsigned) clock();
+  unsigned seed = (unsigned)clock();
   return (int)(n * pow(rand_r(&seed), log(h) / log(1.0 - h)));
 }
 
 atable_ptr_t TableGenerator::int_random_weighted(size_t rows, size_t cols, size_t n, size_t h) {
-  unsigned seed = (unsigned) clock();
+  unsigned seed = (unsigned)clock();
 
   atable_ptr_t new_table = create_empty_table(rows, cols);
 
@@ -906,8 +923,8 @@ atable_ptr_t TableGenerator::int_random_weighted(size_t rows, size_t cols, size_
       values.insert(r);
     }
 
-    OrderPreservingDictionary<int64_t> *dict = new OrderPreservingDictionary<int64_t>();
-for (const auto & i: values) {
+    OrderPreservingDictionary<int64_t>* dict = new OrderPreservingDictionary<int64_t>();
+    for (const auto& i : values) {
       dict->addValue(i);
     }
     new_table->setDictionaryAt(AbstractTable::SharedDictionaryPtr(dict), col);
@@ -932,13 +949,13 @@ for (const auto & i: values) {
 }
 
 atable_ptr_t TableGenerator::int_random_weighted_delta(size_t rows, size_t cols, size_t n, size_t h) {
-  unsigned seed = (unsigned) clock();
+  unsigned seed = (unsigned)clock();
 
   atable_ptr_t new_table = create_empty_table(rows, cols);
 
   for (size_t col = 0; col < cols; ++col) {
 
-    OrderIndifferentDictionary<int64_t> *dict = new OrderIndifferentDictionary<int64_t>();
+    OrderIndifferentDictionary<int64_t>* dict = new OrderIndifferentDictionary<int64_t>();
 
     while (dict->size() < n) {
       int r = rand_r(&seed);
@@ -964,7 +981,5 @@ atable_ptr_t TableGenerator::int_random_weighted_delta(size_t rows, size_t cols,
 
   return new_table;
 }
-
-
-}}
-
+}
+}

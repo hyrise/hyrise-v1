@@ -14,41 +14,31 @@ namespace access {
 
 template <typename T>
 struct ExtractValue {
-  static inline T extractValue(const storage::c_atable_ptr_t &table,
-                               const size_t &col,
-                               const size_t &row) {
+  static inline T extractValue(const storage::c_atable_ptr_t& table, const size_t& col, const size_t& row) {
     return table->getValue<T>(col, row);
   }
 };
 
 template <typename T>
 struct ExtractValueId {
-  static inline ValueId extractValue(const storage::c_atable_ptr_t &table,
-                                     const size_t &col,
-                                     const size_t &row) {
+  static inline ValueId extractValue(const storage::c_atable_ptr_t& table, const size_t& col, const size_t& row) {
     return table->getValueId(col, row);
   }
 };
 
-template <typename T, template<typename> class ExtractFunctor>
+template <typename T, template <typename> class ExtractFunctor>
 class ColumnSorter {
   typedef struct pair {
-      T value;
-      size_t row;
+    T value;
+    size_t row;
   } pair_t;
 
-  const storage::c_atable_ptr_t &_t;
+  const storage::c_atable_ptr_t& _t;
   field_t _f;
   bool _asc;
 
-public:
-  ColumnSorter(const storage::c_atable_ptr_t &t,
-               const field_t f,
-               const bool asc):
-               _t(t),
-               _f(f),
-               _asc(asc) {
-  }
+ public:
+  ColumnSorter(const storage::c_atable_ptr_t& t, const field_t f, const bool asc) : _t(t), _f(f), _asc(asc) {}
 
   std::vector<pos_t>* sort() const {
     std::vector<pair_t> result;
@@ -57,23 +47,16 @@ public:
       result.push_back({ExtractFunctor<T>::extractValue(_t, _f, row), row});
     }
 
-    auto asc_sort = [](const pair_t& left, const pair_t& right) { 
-      return (left.value < right.value); 
-    };
+    auto asc_sort = [](const pair_t& left, const pair_t& right) { return (left.value < right.value); };
 
-    auto desc_sort = [](const pair_t& left, const pair_t& right) { 
-      return (left.value > right.value); 
-    };
+    auto desc_sort = [](const pair_t& left, const pair_t& right) { return (left.value > right.value); };
 
 
-    std::stable_sort(result.begin(),
-                     result.end(),
-                     _asc ? asc_sort : desc_sort
-                     );
+    std::stable_sort(result.begin(), result.end(), _asc ? asc_sort : desc_sort);
 
     auto r = new std::vector<pos_t>;
     r->reserve(result.size());
-    for (const pair_t& p: result)
+    for (const pair_t& p : result)
       r->push_back(p.row);
 
     return r;
@@ -81,16 +64,15 @@ public:
 };
 
 namespace {
-  auto _ = QueryParser::registerPlanOperation<SortScan>("SortScan");
+auto _ = QueryParser::registerPlanOperation<SortScan>("SortScan");
 }
 
-SortScan::~SortScan() {
-}
+SortScan::~SortScan() {}
 
 void SortScan::executePlanOperation() {
   const auto& table = input.getTable(0);
   // Sorted Position List
-  std::vector<pos_t> *sorted_pos;
+  std::vector<pos_t>* sorted_pos;
 
   // When table is not only a table but also using an ordered dictionary on sort field,
   // we can just sort by value_id
@@ -100,19 +82,19 @@ void SortScan::executePlanOperation() {
     sorted_pos = ColumnSorter<ValueId, ExtractValueId>(table, _sort_field, asc).sort();
   } else {
     switch (table->metadataAt(_sort_field).getType()) {
-    case IntegerType:
-    case IntegerTypeDelta:
-    case IntegerTypeDeltaConcurrent:
-      sorted_pos = ColumnSorter<hyrise_int_t, ExtractValue>(table, _sort_field, asc).sort();
-      break;
-    case FloatType:
-    case FloatTypeDelta:
-    case FloatTypeDeltaConcurrent:
-      sorted_pos = ColumnSorter<hyrise_float_t, ExtractValue>(table, _sort_field, asc).sort();
-      break;
-    case StringType:
-    case StringTypeDelta:
-    case StringTypeDeltaConcurrent:
+      case IntegerType:
+      case IntegerTypeDelta:
+      case IntegerTypeDeltaConcurrent:
+        sorted_pos = ColumnSorter<hyrise_int_t, ExtractValue>(table, _sort_field, asc).sort();
+        break;
+      case FloatType:
+      case FloatTypeDelta:
+      case FloatTypeDeltaConcurrent:
+        sorted_pos = ColumnSorter<hyrise_float_t, ExtractValue>(table, _sort_field, asc).sort();
+        break;
+      case StringType:
+      case StringTypeDelta:
+      case StringTypeDeltaConcurrent:
         sorted_pos = ColumnSorter<hyrise_string_t, ExtractValue>(table, _sort_field, asc).sort();
         break;
       default:
@@ -127,7 +109,7 @@ void SortScan::executePlanOperation() {
   } else {
     result = table->copy_structure_modifiable(nullptr, true);
     size_t result_row = 0;
-    for (const auto& p: *sorted_pos) {
+    for (const auto& p : *sorted_pos) {
       result->copyRowFrom(table, p, result_row++);
     }
     delete sorted_pos;
@@ -135,7 +117,7 @@ void SortScan::executePlanOperation() {
   addResult(result);
 }
 
-std::shared_ptr<PlanOperation> SortScan::parse(const Json::Value &data) {
+std::shared_ptr<PlanOperation> SortScan::parse(const Json::Value& data) {
   std::shared_ptr<SortScan> s = std::make_shared<SortScan>();
   s->setSortField(data["fields"][0u].asUInt());
   if (data.isMember("asc"))
@@ -143,12 +125,7 @@ std::shared_ptr<PlanOperation> SortScan::parse(const Json::Value &data) {
   return s;
 }
 
-const std::string SortScan::vname() {
-  return "SortScan";
-}
-void SortScan::setSortField(const unsigned s) {
-  _sort_field = s;
-}
-
+const std::string SortScan::vname() { return "SortScan"; }
+void SortScan::setSortField(const unsigned s) { _sort_field = s; }
 }
 }

@@ -2,7 +2,8 @@
 
 #include <string>
 
-namespace hyrise { namespace helper {
-	std::string sys_getcwd();
-}}
-
+namespace hyrise {
+namespace helper {
+std::string sys_getcwd();
+}
+}

@@ -23,19 +23,18 @@ class WSCoreBoundPriorityQueuesScheduler : public AbstractCoreBoundQueuesSchedul
   /*
    * create a new task queue
    */
-  virtual WSCoreBoundPriorityQueuesScheduler::task_queue_t *createTaskQueue(int core);
+  virtual WSCoreBoundPriorityQueuesScheduler::task_queue_t* createTaskQueue(int core);
 
 
-public:
+ public:
   WSCoreBoundPriorityQueuesScheduler(int queues = getNumberOfCoresOnSystem());
   virtual ~WSCoreBoundPriorityQueuesScheduler();
-    /*
-   * init task scheduler
-   */
+  /*
+ * init task scheduler
+ */
   virtual void init();
 
-  const std::vector<AbstractCoreBoundQueue *> *getTaskQueues();
+  const std::vector<AbstractCoreBoundQueue*>* getTaskQueues();
 };
-
-} } // namespace hyrise::taskscheduler
-
+}
+}  // namespace hyrise::taskscheduler

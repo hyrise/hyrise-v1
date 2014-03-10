@@ -18,13 +18,12 @@ namespace hyrise {
 namespace access {
 
 namespace {
-  auto _ = QueryParser::registerPlanOperation<PosUpdateScan>("PosUpdateScan");
+auto _ = QueryParser::registerPlanOperation<PosUpdateScan>("PosUpdateScan");
 }
 
 
 
-PosUpdateScan::~PosUpdateScan() {
-}
+PosUpdateScan::~PosUpdateScan() {}
 
 
 void PosUpdateScan::executePlanOperation() {
@@ -49,27 +48,27 @@ void PosUpdateScan::executePlanOperation() {
   storage::type_switch<hyrise_basic_types> ts;
 
   size_t counter = 0;
-  for(const auto& p : *(c_pc->getPositions())) {
+  for (const auto& p : *(c_pc->getPositions())) {
     // First delete the old record
     bool deleteOk = store->markForDeletion(p, _txContext.tid) == tx::TX_CODE::TX_OK;
-    if(!deleteOk) {
+    if (!deleteOk) {
       txmgr.rollbackTransaction(_txContext);
       throw std::runtime_error("Aborted TX because TID of other TX found");
     }
     modRecord.deletePos(store, p);
-    //store->setTid(p, _txContext.tid);
+    // store->setTid(p, _txContext.tid);
 
     // Copy the old row from the main
-    store->copyRowToDelta(store, p, writeArea.first+counter, _txContext.tid);
+    store->copyRowToDelta(store, p, writeArea.first + counter, _txContext.tid);
     // Update all the necessary values
-    for(const auto& kv : _raw_data) {
+    for (const auto& kv : _raw_data) {
       const auto& fld = store->numberOfColumn(kv.first);
-      fun.set(fld, writeArea.first+counter, kv.second);
+      fun.set(fld, writeArea.first + counter, kv.second);
       ts(store->typeOfColumn(fld), fun);
     }
 
     // Insert the new one
-    modRecord.insertPos(store, firstPosition+counter);
+    modRecord.insertPos(store, firstPosition + counter);
     ++counter;
   }
 
@@ -82,12 +81,12 @@ void PosUpdateScan::executePlanOperation() {
 }
 
 void PosUpdateScan::setRawData(const Json::Value& d) {
-  for(const auto& m : d.getMemberNames()) {
-      _raw_data[m] = Json::Value(d[m]);
-    }
+  for (const auto& m : d.getMemberNames()) {
+    _raw_data[m] = Json::Value(d[m]);
+  }
 }
 
-std::shared_ptr<PlanOperation> PosUpdateScan::parse(const Json::Value &data) {
+std::shared_ptr<PlanOperation> PosUpdateScan::parse(const Json::Value& data) {
   auto result = std::make_shared<PosUpdateScan>();
 
   if (data.isMember("data")) {
@@ -95,6 +94,5 @@ std::shared_ptr<PlanOperation> PosUpdateScan::parse(const Json::Value &data) {
   }
   return result;
 }
-
 }
 }

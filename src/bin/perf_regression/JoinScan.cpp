@@ -7,8 +7,8 @@
 #include "access/JoinScan.h"
 #include "io/StorageManager.h"
 
-//JoinScan Benchmark similar to TPC-C Implementation of Stock-Level Transaction
-//See TPC-C Reference Chapter A.5
+// JoinScan Benchmark similar to TPC-C Implementation of Stock-Level Transaction
+// See TPC-C Reference Chapter A.5
 
 namespace hyrise {
 namespace access {
@@ -16,8 +16,7 @@ namespace access {
 class JoinScanBase : public ::testing::Benchmark {
 
  protected:
-
-  io::StorageManager *sm;
+  io::StorageManager* sm;
   std::shared_ptr<JoinScan> js;
   storage::atable_ptr_t t1;
   storage::atable_ptr_t t2;
@@ -36,8 +35,7 @@ class JoinScanBase : public ::testing::Benchmark {
     js->addInput(t2);
   }
 
-  void BenchmarkTearDown() {
-  }
+  void BenchmarkTearDown() {}
 
   JoinScanBase() {
     SetNumIterations(10);
@@ -50,6 +48,5 @@ class JoinScanBase : public ::testing::Benchmark {
   auto result = js->execute()->getResultTable();
   std::cout << "Scunned " << std::endl;
   }*/
-
-} } // namespace hyrise::access
-
+}
+}  // namespace hyrise::access

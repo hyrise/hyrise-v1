@@ -15,30 +15,25 @@ class ConcurrentUnorderedDictionaryIterator : public BaseIterator<T> {
   typedef ConcurrentUnorderedDictionaryIterator<T> iter_type;
   typedef typename std::map<T, value_id_t>::iterator iter_t;
   iter_t _it;
-public:
+
+ public:
   ConcurrentUnorderedDictionaryIterator(iter_t it) : _it(it) {}
 
-  void increment() {
-    _it++;
-  }
+  void increment() { _it++; }
 
   bool equal(const std::shared_ptr<BaseIterator<T>>& other) const {
     return (_it == std::static_pointer_cast<iter_type>(other)->_it);
   }
 
-  T &dereference() const {
-    return (T&) _it->first;
-  }
+  T& dereference() const { return (T&)_it->first; }
 
-  value_id_t getValueId() const {
-    return _it->second;
-  }
+  value_id_t getValueId() const { return _it->second; }
 };
 
 template <typename T>
 class ConcurrentUnorderedDictionary : public BaseDictionary<T> {
  public:
-  explicit ConcurrentUnorderedDictionary(const size_t s=0) : _values(s) { }
+  explicit ConcurrentUnorderedDictionary(const size_t s = 0) : _values(s) {}
 
   // Semantics differ from other dictionaries: adding the same value twice yields
   // the same valueId. This is due to multiple threads pushing back the same
@@ -52,9 +47,7 @@ class ConcurrentUnorderedDictionary : public BaseDictionary<T> {
     return r.first->second;
   }
 
-  virtual T getValueForValueId(value_id_t value_id) override {
-    return _values.at(value_id);
-  }
+  virtual T getValueForValueId(value_id_t value_id) override { return _values.at(value_id); }
 
   virtual value_id_t getValueIdForValue(const T& value) const override {
 #ifdef EXPENSIVE_ASSERTIONS
@@ -64,28 +57,14 @@ class ConcurrentUnorderedDictionary : public BaseDictionary<T> {
     return _index_unordered.at(value);
   }
 
-  virtual bool isValueIdValid(value_id_t value_id) override {
-    return value_id < _values.size();
-  }
+  virtual bool isValueIdValid(value_id_t value_id) override { return value_id < _values.size(); }
 
-  virtual bool valueExists(const T& value) const override {
-    return _index_unordered.count(value) >= 1;
-  }
-  virtual const T getSmallestValue() {
-    return *std::min(_values.begin(), _values.end());
-  }
-  virtual const T getGreatestValue() {
-    return *std::max(_values.begin(), _values.end());
-  }
-  virtual void reserve(std::size_t s) override {
-    _values.grow_to_at_least(s);
-  }
-  virtual std::size_t size() override {
-    return _values.size();
-  }
-  virtual bool isOrdered() override {
-    return false;
-  }
+  virtual bool valueExists(const T& value) const override { return _index_unordered.count(value) >= 1; }
+  virtual const T getSmallestValue() { return *std::min(_values.begin(), _values.end()); }
+  virtual const T getGreatestValue() { return *std::max(_values.begin(), _values.end()); }
+  virtual void reserve(std::size_t s) override { _values.grow_to_at_least(s); }
+  virtual std::size_t size() override { return _values.size(); }
+  virtual bool isOrdered() override { return false; }
   virtual std::shared_ptr<AbstractDictionary> copy() override {
     auto d = std::make_shared<ConcurrentUnorderedDictionary<T>>(size());
     d->_values = _values;
@@ -103,18 +82,18 @@ class ConcurrentUnorderedDictionary : public BaseDictionary<T> {
   virtual iterator begin() override {
     _index.clear();
     _index.insert(_index_unordered.begin(), _index_unordered.end());
-    return iterator(std::make_shared<ConcurrentUnorderedDictionaryIterator<T> >(_index.begin()));
+    return iterator(std::make_shared<ConcurrentUnorderedDictionaryIterator<T>>(_index.begin()));
   }
   virtual iterator end() override {
-    return iterator(std::make_shared<ConcurrentUnorderedDictionaryIterator<T> >(_index.end()));
+    return iterator(std::make_shared<ConcurrentUnorderedDictionaryIterator<T>>(_index.end()));
   }
   virtual value_id_t getValueIdForValueSmaller(T other) { NOT_IMPLEMENTED }
   virtual value_id_t getValueIdForValueGreater(T other) { NOT_IMPLEMENTED }
+
  private:
-  tbb::concurrent_unordered_map<T, value_id_t> _index_unordered; // a potentially laggy set
+  tbb::concurrent_unordered_map<T, value_id_t> _index_unordered;  // a potentially laggy set
   tbb::concurrent_vector<T> _values;
   std::map<T, value_id_t> _index;
 };
-
-} } // namespace hyrise::storage
-
+}
+}  // namespace hyrise::storage

@@ -9,7 +9,7 @@ namespace hyrise {
 namespace access {
 
 class SimpleTableScan : public ParallelizablePlanOperation {
-public:
+ public:
   SimpleTableScan();
   virtual ~SimpleTableScan();
 
@@ -17,15 +17,14 @@ public:
   void executePlanOperation();
   void executePositional();
   void executeMaterialized();
-  static std::shared_ptr<PlanOperation> parse(const Json::Value &data);
+  static std::shared_ptr<PlanOperation> parse(const Json::Value& data);
   const std::string vname();
-  void setPredicate(SimpleExpression *c);
+  void setPredicate(SimpleExpression* c);
 
-private:
-  SimpleExpression *_comparator;
+ private:
+  SimpleExpression* _comparator;
   bool _ofDelta = false;
 };
-
 }
 }
 

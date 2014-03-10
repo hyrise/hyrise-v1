@@ -10,24 +10,18 @@ namespace hyrise {
 namespace access {
 
 class ExpressionTests : public AccessTest {
-protected:
+ protected:
   virtual void SetUp() {
-    AccessTest::SetUp();    
+    AccessTest::SetUp();
     students = io::Loader::shortcuts::load("test/students.tbl");
     scan = new SimpleTableScan;
     scan->addInput(students);
   }
-  virtual void TearDown() {
-    delete scan;
-  }
-  const storage::c_atable_ptr_t result() {
-    return scan->getResultTable();
-  }
-  size_t resultSize() {
-    return result()->size();
-  }
+  virtual void TearDown() { delete scan; }
+  const storage::c_atable_ptr_t result() { return scan->getResultTable(); }
+  size_t resultSize() { return result()->size(); }
   storage::c_atable_ptr_t students;
-  SimpleTableScan * scan;
+  SimpleTableScan* scan;
 };
 
 TEST_F(ExpressionTests, like_n_chars_test) {
@@ -41,16 +35,14 @@ TEST_F(ExpressionTests, like_n_chars_test) {
   ASSERT_EQ(703598, result()->getValue<hyrise_int_t>(field_name_t("student_number"), 3));
 }
 
-TEST_F(ExpressionTests, like_one_char_test)
-{
+TEST_F(ExpressionTests, like_one_char_test) {
   scan->setPredicate(new LikeExpression(0, field_name_t("city"), hyrise_string_t("Be.l.n")));
   scan->execute();
 
   ASSERT_EQ(34u, resultSize());
-} 
+}
 
-TEST_F(ExpressionTests, in_string_test)
-{
+TEST_F(ExpressionTests, in_string_test) {
   Json::Value values(Json::ValueType::arrayValue);
   values.append("Frohnau");
   values.append("Berlin");
@@ -58,22 +50,20 @@ TEST_F(ExpressionTests, in_string_test)
   scan->setPredicate(new InExpression<hyrise_string_t>(0, field_name_t("city"), values));
   scan->execute();
 
-  ASSERT_EQ(5u+34u, resultSize());
+  ASSERT_EQ(5u + 34u, resultSize());
 }
 
-TEST_F(ExpressionTests, in_float_test)
-{
+TEST_F(ExpressionTests, in_float_test) {
   Json::Value values(Json::ValueType::arrayValue);
   values.append(1.3f);
   values.append(5.f);
   scan->setPredicate(new InExpression<hyrise_float_t>(0, field_name_t("grade"), values));
   scan->execute();
 
-  ASSERT_EQ(7u+1u, resultSize());
+  ASSERT_EQ(7u + 1u, resultSize());
 }
 
-TEST_F(ExpressionTests, in_int_test)
-{
+TEST_F(ExpressionTests, in_int_test) {
   Json::Value values(Json::ValueType::arrayValue);
   values.append(703591);
   values.append(703613);
@@ -88,10 +78,8 @@ TEST_F(ExpressionTests, in_int_test)
   ASSERT_EQ(hyrise_string_t("Lukas Ruppersberger"), result()->getValue<hyrise_string_t>(field_name_t("name"), 2));
 }
 
-TEST_F(ExpressionTests, in_error_on_non_array_value_test)
-{
+TEST_F(ExpressionTests, in_error_on_non_array_value_test) {
   ASSERT_ANY_THROW(new InExpression<hyrise_int_t>(0, field_name_t("student_number"), hyrise_int_t(42)));
 }
- 
 }
 }

@@ -11,80 +11,82 @@
 namespace hyrise {
 namespace taskscheduler {
 
-log4cxx::LoggerPtr CentralPriorityScheduler::_logger = log4cxx::Logger::getLogger("taskscheduler.CentralPriorityScheduler");
+log4cxx::LoggerPtr CentralPriorityScheduler::_logger =
+    log4cxx::Logger::getLogger("taskscheduler.CentralPriorityScheduler");
 
 // register Scheduler at SharedScheduler
 namespace {
-bool registered  =
-    SharedScheduler::registerScheduler<CentralPriorityScheduler>("CentralPriorityScheduler");
+bool registered = SharedScheduler::registerScheduler<CentralPriorityScheduler>("CentralPriorityScheduler");
 }
 
-CentralPriorityScheduler::CentralPriorityScheduler(int threads): _threads(threads) {}
+CentralPriorityScheduler::CentralPriorityScheduler(int threads) : _threads(threads) {}
 
-void CentralPriorityScheduler::init(){
+void CentralPriorityScheduler::init() {
   _status = START_UP;
   int core = 0;
   int NUM_PROCS = getNumberOfCoresOnSystem();
-  // bind threads to cores                                                                                                                                        
-  for(int i = 0; i < _threads; i++){
+  // bind threads to cores
+  for (int i = 0; i < _threads; i++) {
     std::thread thread(PriorityWorkerThread(*this));
     hwloc_cpuset_t cpuset;
     hwloc_obj_t obj;
     hwloc_topology_t topology = getHWTopology();
-    
+
     core = (core % (NUM_PROCS - 1)) + 1;
-    
+
     obj = hwloc_get_obj_by_type(topology, HWLOC_OBJ_CORE, core);
-    // the bitmap to modify                                                                                                                                       
+    // the bitmap to modify
     cpuset = hwloc_bitmap_dup(obj->cpuset);
-    // remove hyperthreads                                                                                                                                        
+    // remove hyperthreads
     hwloc_bitmap_singlify(cpuset);
-    
-    // bind                                                                                                                                                       
-    if (hwloc_set_thread_cpubind(topology, thread.native_handle(), cpuset, HWLOC_CPUBIND_STRICT | HWLOC_CPUBIND_NOMEMBIND)) {
-      char *str;
+
+    // bind
+    if (hwloc_set_thread_cpubind(
+            topology, thread.native_handle(), cpuset, HWLOC_CPUBIND_STRICT | HWLOC_CPUBIND_NOMEMBIND)) {
+      char* str;
       int error = errno;
       hwloc_bitmap_asprintf(&str, obj->cpuset);
       fprintf(stderr, "Couldn't bind to cpuset %s: %s\n", str, strerror(error));
       fprintf(stderr, "Continuing as normal, however, no guarantees\n");
       free(str);
     }
-    
-    // assuming single machine system                                                                                                                             
+
+    // assuming single machine system
     obj = hwloc_get_obj_by_type(topology, HWLOC_OBJ_MACHINE, 0);
-    // set membind policy interleave for this thread                                                                                                              
-    if (hwloc_set_membind_nodeset(topology, obj->nodeset, HWLOC_MEMBIND_INTERLEAVE, HWLOC_MEMBIND_STRICT | HWLOC_MEMBIND_THREAD)) {
-      char *str;
+    // set membind policy interleave for this thread
+    if (hwloc_set_membind_nodeset(
+            topology, obj->nodeset, HWLOC_MEMBIND_INTERLEAVE, HWLOC_MEMBIND_STRICT | HWLOC_MEMBIND_THREAD)) {
+      char* str;
       int error = errno;
       hwloc_bitmap_asprintf(&str, obj->nodeset);
       fprintf(stderr, "Couldn't membind to nodeset  %s: %s\n", str, strerror(error));
       fprintf(stderr, "Continuing as normal, however, no guarantees\n");
       free(str);
     }
-    
+
     hwloc_bitmap_free(cpuset);
-    _worker_threads.push_back(std::move(thread));                                                                                                                                                         
+    _worker_threads.push_back(std::move(thread));
   }
   _status = RUN;
 }
 
 CentralPriorityScheduler::~CentralPriorityScheduler() {
   // wait until all threads have joined
-  if(_worker_threads.size() > 0)
+  if (_worker_threads.size() > 0)
     shutdown();
 }
 
-void PriorityWorkerThread::operator()(){
-  //infinite thread loop
+void PriorityWorkerThread::operator()() {
+  // infinite thread loop
   while (1) {
-    //block protected by _threadStatusMutex
+    // block protected by _threadStatusMutex
 
     if (scheduler._status == scheduler.TO_STOP)
       break;
 
     // lock queue to get task
     std::unique_lock<lock_t> ul(scheduler._queueMutex);
-    
+
     // get task and execute
     if (scheduler._runQueue.size() > 0) {
       std::shared_ptr<Task> task = scheduler._runQueue.top();
@@ -92,17 +94,18 @@ void PriorityWorkerThread::operator()(){
       scheduler._runQueue.pop();
 
       ul.unlock();
-      
+
       if (task) {
         (*task)();
-        LOG4CXX_DEBUG(scheduler._logger, "Executed task " << task->vname() << "; hex " << std::hex << &task << std::dec);
+        LOG4CXX_DEBUG(scheduler._logger,
+                      "Executed task " << task->vname() << "; hex " << std::hex << &task << std::dec);
         // notify done observers that task is done
         task->notifyDoneObservers();
       }
     }
     // no task in runQueue -> sleep and wait for new tasks
     else {
-      //if queue still empty go to sleep and wait until new tasks have been arrived
+      // if queue still empty go to sleep and wait until new tasks have been arrived
       if (scheduler._runQueue.size() < 1) {
         // if thread is about to stop, break execution loop
         if (scheduler._status != scheduler.RUN)
@@ -117,22 +120,21 @@ void PriorityWorkerThread::operator()(){
 /*
  * schedule a task for execution
  */
-void CentralPriorityScheduler::schedule(std::shared_ptr<Task> task){
+void CentralPriorityScheduler::schedule(std::shared_ptr<Task> task) {
   // simple strategy: check if task is ready to run -> push to run_queue
   // otherwise store in wait list
 
   // lock the task - otherwise, a notify might happen prior to the task being added to the wait set
   task->lockForNotifications();
-  if (task->isReady()){
+  if (task->isReady()) {
     std::lock_guard<lock_t> lk(_queueMutex);
     _runQueue.push(task);
     _condition.notify_one();
-  }
-  else {
+  } else {
     task->addReadyObserver(shared_from_this());
     std::lock_guard<lock_t> lk(_setMutex);
     _waitSet.insert(task);
-    LOG4CXX_DEBUG(_logger,  "Task " << std::hex << (void *)task.get() << std::dec << " inserted in wait queue");
+    LOG4CXX_DEBUG(_logger, "Task " << std::hex << (void*)task.get() << std::dec << " inserted in wait queue");
   }
   task->unlockForNotifications();
 }
@@ -140,16 +142,14 @@ void CentralPriorityScheduler::schedule(std::shared_ptr<Task> task){
 /*
  * shutdown task scheduler; makes sure all underlying threads are stopped
  */
-void CentralPriorityScheduler::shutdown(){
+void CentralPriorityScheduler::shutdown() {
   {
     std::lock_guard<lock_t> lk(_queueMutex);
-    {
-      _status = TO_STOP;
-    }
-    //wake up thread in case thread is sleeping
+    { _status = TO_STOP; }
+    // wake up thread in case thread is sleeping
     _condition.notify_all();
   }
-  for(size_t i = 0; i < _worker_threads.size(); i++){
+  for (size_t i = 0; i < _worker_threads.size(); i++) {
     _worker_threads[i].join();
   }
   _worker_threads.clear();
@@ -158,9 +158,7 @@ void CentralPriorityScheduler::shutdown(){
 /**
  * get number of worker
  */
-size_t CentralPriorityScheduler::getNumberOfWorker() const{
-  return _worker_threads.size();
-}
+size_t CentralPriorityScheduler::getNumberOfWorker() const { return _worker_threads.size(); }
 
 /*
  * notify scheduler that a given task is ready
@@ -173,14 +171,15 @@ void CentralPriorityScheduler::notifyReady(std::shared_ptr<Task> task) {
 
   // if task was found in wait set, schedule task to next queue
   if (tmp == 1) {
-    LOG4CXX_DEBUG(_logger, "Task " << std::hex << (void *)task.get() << std::dec << " ready to run");
+    LOG4CXX_DEBUG(_logger, "Task " << std::hex << (void*)task.get() << std::dec << " ready to run");
     std::lock_guard<lock_t> lk(_queueMutex);
     _runQueue.push(task);
     _condition.notify_one();
   } else
     // should never happen, but check to identify potential race conditions
-    LOG4CXX_ERROR(_logger, "Task that notified to be ready to run was not found / found more than once in waitSet! " << std::to_string(tmp));
+    LOG4CXX_ERROR(_logger,
+                  "Task that notified to be ready to run was not found / found more than once in waitSet! "
+                      << std::to_string(tmp));
 }
-
-} } // namespace hyrise::taskscheduler
-
+}
+}  // namespace hyrise::taskscheduler

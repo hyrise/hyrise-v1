@@ -22,10 +22,9 @@ TEST_F(InsertScanTests, basic_insert_scan_test) {
   is.setInputData(row);
   is.execute();
 
-  const auto &result = std::dynamic_pointer_cast<const storage::Store>(is.getResultTable());
+  const auto& result = std::dynamic_pointer_cast<const storage::Store>(is.getResultTable());
 
   ASSERT_TABLE_EQUAL(result->getDeltaTable(), row);
 }
-
 }
 }

@@ -6,17 +6,17 @@
 
 
 
-static std::vector< std::pair<std::string, std::string> > warehouse_layout;
-static std::vector< std::pair<std::string, std::string> > district_layout;
-static std::vector< std::pair<std::string, std::string> > customer_layout;
-static std::vector< std::pair<std::string, std::string> > item_layout;
-static std::vector< std::pair<std::string, std::string> > order_layout;
-static std::vector< std::pair<std::string, std::string> > order_line_layout;
-static std::vector< std::pair<std::string, std::string> > stock_layout;
-static std::vector< std::pair<std::string, std::string> > history_layout;
-static std::vector< std::pair<std::string, std::string> > new_order_layout;
+static std::vector<std::pair<std::string, std::string> > warehouse_layout;
+static std::vector<std::pair<std::string, std::string> > district_layout;
+static std::vector<std::pair<std::string, std::string> > customer_layout;
+static std::vector<std::pair<std::string, std::string> > item_layout;
+static std::vector<std::pair<std::string, std::string> > order_layout;
+static std::vector<std::pair<std::string, std::string> > order_line_layout;
+static std::vector<std::pair<std::string, std::string> > stock_layout;
+static std::vector<std::pair<std::string, std::string> > history_layout;
+static std::vector<std::pair<std::string, std::string> > new_order_layout;
 
-static std::map< std::string, std::vector<std::pair<std::string, std::string> > > layouts;
+static std::map<std::string, std::vector<std::pair<std::string, std::string> > > layouts;
 
 void loadHyriseLayouts() {
   warehouse_layout.push_back(std::pair<std::string, std::string>("W_ID", "INTEGER"));

@@ -14,19 +14,16 @@
 namespace hyrise {
 namespace taskscheduler {
 
-class AbstractCoreBoundQueuesScheduler : 
-  public AbstractTaskScheduler,
-  public TaskReadyObserver,
-  public std::enable_shared_from_this<TaskReadyObserver> {
+class AbstractCoreBoundQueuesScheduler : public AbstractTaskScheduler,
+                                         public TaskReadyObserver,
+                                         public std::enable_shared_from_this<TaskReadyObserver> {
 
  public:
-
   typedef AbstractCoreBoundQueue task_queue_t;
   typedef std::unordered_set<std::shared_ptr<Task> > waiting_tasks_t;
-  typedef std::vector<task_queue_t *> task_queues_t;
+  typedef std::vector<task_queue_t*> task_queues_t;
 
  protected:
-
   // set for tasks with open dependencies
   waiting_tasks_t _waitSet;
   // task queues to dispatch tasks to
@@ -52,7 +49,7 @@ class AbstractCoreBoundQueuesScheduler :
   /*
    * create a new task queue
    */
-  virtual task_queue_t *createTaskQueue(int core) = 0;
+  virtual task_queue_t* createTaskQueue(int core) = 0;
 
  public:
   AbstractCoreBoundQueuesScheduler(int queues);
@@ -83,8 +80,6 @@ class AbstractCoreBoundQueuesScheduler :
   size_t getNumberOfWorker() const;
 
   virtual void shutdown();
-
 };
-
-} } // namespace hyrise::taskscheduler
-
+}
+}  // namespace hyrise::taskscheduler

@@ -25,6 +25,5 @@ TEST_F(TableUnloadTests, basic_table_unload_test) {
 
   ASSERT_THROW(sm->getTable("myTable"), io::ResourceManagerException);
 }
-
 }
 }

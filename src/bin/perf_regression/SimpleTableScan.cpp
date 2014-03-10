@@ -11,14 +11,13 @@
 namespace hyrise {
 namespace access {
 
-//See TPC-C reference Page 108 Chapter A.3 (New-Order Transaction)
-//Skipping projection since this is benchmarked in ProjectionScan.cpp
+// See TPC-C reference Page 108 Chapter A.3 (New-Order Transaction)
+// Skipping projection since this is benchmarked in ProjectionScan.cpp
 class SimpleTableScanBase : public ::testing::Benchmark {
 
  protected:
-
-  io::StorageManager *sm;
-  SimpleTableScan *ts;
+  io::StorageManager* sm;
+  SimpleTableScan* ts;
   storage::c_atable_ptr_t order_line;
   storage::c_atable_ptr_t customer;
 
@@ -32,8 +31,7 @@ class SimpleTableScanBase : public ::testing::Benchmark {
     customer = sm->getTable("customer");
   }
 
-  void BenchmarkTearDown() {
-  }
+  void BenchmarkTearDown() {}
 
   SimpleTableScanBase() {
     SetNumIterations(10);
@@ -60,15 +58,12 @@ class SimpleTableScanBase : public ::testing::Benchmark {
  c_w_id = 1
 */
 
-CompoundExpression *customer_selection(hyrise::storage::c_atable_ptr_t &customer) {
-  auto
-      expr_c_id = new EqualsExpression<hyrise_int_t>(customer, 0, 2564l),
-      expr_c_d_id = new EqualsExpression<hyrise_int_t>(customer, 1, 9l),
-      expr_c_w_id = new EqualsExpression<hyrise_int_t>(customer, 2, 1l);
+CompoundExpression* customer_selection(hyrise::storage::c_atable_ptr_t& customer) {
+  auto expr_c_id = new EqualsExpression<hyrise_int_t>(customer, 0, 2564l),
+       expr_c_d_id = new EqualsExpression<hyrise_int_t>(customer, 1, 9l),
+       expr_c_w_id = new EqualsExpression<hyrise_int_t>(customer, 2, 1l);
 
-  auto
-      first_and = new CompoundExpression(AND),
-      scnd_and = new CompoundExpression(AND);
+  auto first_and = new CompoundExpression(AND), scnd_and = new CompoundExpression(AND);
 
   first_and->add(expr_c_id);
   first_and->add(expr_c_d_id);
@@ -137,10 +132,10 @@ BENCHMARK_F(SimpleTableScanBase, table_scan_order_status_line_tpcc) {
 
   ts->addInput(order_line);
 
-  EqualsExpression<hyrise_int_t> *expr_ol_o_id = new EqualsExpression<hyrise_int_t>(order_line, 0, 2758);
-  EqualsExpression<hyrise_int_t> *expr_ol_d_id = new EqualsExpression<hyrise_int_t>(order_line, 1, 10);
+  EqualsExpression<hyrise_int_t>* expr_ol_o_id = new EqualsExpression<hyrise_int_t>(order_line, 0, 2758);
+  EqualsExpression<hyrise_int_t>* expr_ol_d_id = new EqualsExpression<hyrise_int_t>(order_line, 1, 10);
 
-  CompoundExpression *expr_and = new CompoundExpression(AND);
+  CompoundExpression* expr_and = new CompoundExpression(AND);
 
   expr_and->add(expr_ol_o_id);
   expr_and->add(expr_ol_d_id);
@@ -165,10 +160,10 @@ BENCHMARK_F(SimpleTableScanBase, table_scan_order_status_line_tpcc_mat) {
 
   ts->addInput(order_line);
 
-  EqualsExpression<hyrise_int_t> *expr_ol_o_id = new EqualsExpression<hyrise_int_t>(order_line, 0, 2758);
-  EqualsExpression<hyrise_int_t> *expr_ol_d_id = new EqualsExpression<hyrise_int_t>(order_line, 1, 10);
+  EqualsExpression<hyrise_int_t>* expr_ol_o_id = new EqualsExpression<hyrise_int_t>(order_line, 0, 2758);
+  EqualsExpression<hyrise_int_t>* expr_ol_d_id = new EqualsExpression<hyrise_int_t>(order_line, 1, 10);
 
-  CompoundExpression *expr_and = new CompoundExpression(AND);
+  CompoundExpression* expr_and = new CompoundExpression(AND);
 
   expr_and->add(expr_ol_o_id);
   expr_and->add(expr_ol_d_id);
@@ -193,10 +188,10 @@ BENCHMARK_F(SimpleTableScanBase, table_scan_order_status_line_tpcc_mat_memcpy) {
 
   ts->addInput(order_line);
 
-  EqualsExpression<hyrise_int_t> *expr_ol_o_id = new EqualsExpression<hyrise_int_t>(order_line, 0, 2758);
-  EqualsExpression<hyrise_int_t> *expr_ol_d_id = new EqualsExpression<hyrise_int_t>(order_line, 1, 10);
+  EqualsExpression<hyrise_int_t>* expr_ol_o_id = new EqualsExpression<hyrise_int_t>(order_line, 0, 2758);
+  EqualsExpression<hyrise_int_t>* expr_ol_d_id = new EqualsExpression<hyrise_int_t>(order_line, 1, 10);
 
-  CompoundExpression *expr_and = new CompoundExpression(AND);
+  CompoundExpression* expr_and = new CompoundExpression(AND);
 
   expr_and->add(expr_ol_o_id);
   expr_and->add(expr_ol_d_id);
@@ -206,6 +201,5 @@ BENCHMARK_F(SimpleTableScanBase, table_scan_order_status_line_tpcc_mat_memcpy) {
 
   auto result = ts->execute()->getResultTable();
 }
-
 }
 }

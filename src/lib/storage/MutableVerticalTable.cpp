@@ -5,16 +5,17 @@
 
 #include "helper/vector_helpers.h"
 
-namespace hyrise { namespace storage {
+namespace hyrise {
+namespace storage {
 
-MutableVerticalTable::MutableVerticalTable(std::vector<std::vector<ColumnMetadata > *> metadata,
-                                           std::vector<std::vector<adict_ptr_t> *> *dictionaries,
+MutableVerticalTable::MutableVerticalTable(std::vector<std::vector<ColumnMetadata>*> metadata,
+                                           std::vector<std::vector<adict_ptr_t>*>* dictionaries,
                                            size_t size,
                                            bool sorted,
-                                           AbstractTableFactory *factory,
+                                           AbstractTableFactory* factory,
                                            bool compressed) {
   for (size_t i = 0; i < metadata.size(); i++) {
-    std::vector<AbstractTable::SharedDictionaryPtr> *dict = nullptr;
+    std::vector<AbstractTable::SharedDictionaryPtr>* dict = nullptr;
 
     if (dictionaries)
       dict = dictionaries->at(i);
@@ -31,7 +32,7 @@ MutableVerticalTable::MutableVerticalTable(std::vector<std::vector<ColumnMetadat
     column_count += containers[i]->columnCount();
   }
 
-  //size_t container = 0;
+  // size_t container = 0;
   slice_count = 0;
 
   for (size_t i = 0; i < containers.size(); i++) {
@@ -49,11 +50,11 @@ MutableVerticalTable::MutableVerticalTable(std::vector<std::vector<ColumnMetadat
   reserve(size);
 }
 
-MutableVerticalTable::MutableVerticalTable(std::vector< atable_ptr_t > tables, size_t size) : column_count(0) {
+MutableVerticalTable::MutableVerticalTable(std::vector<atable_ptr_t> tables, size_t size) : column_count(0) {
   size_t cnum = 0;
   slice_count = 0;
 
-for (const auto & c: tables) {
+  for (const auto& c : tables) {
     containers.push_back(c);
     size_t cc = c->columnCount();
 
@@ -73,8 +74,7 @@ for (const auto & c: tables) {
   }
 }
 
-MutableVerticalTable::~MutableVerticalTable() {
-}
+MutableVerticalTable::~MutableVerticalTable() {}
 
 const atable_ptr_t& MutableVerticalTable::containerAt(const size_t column_index, const bool for_writing) const {
   return containers[container_for_column[column_index]];
@@ -84,11 +84,15 @@ size_t MutableVerticalTable::getOffsetInContainer(const size_t column_index) con
   return offset_in_container[column_index];
 }
 
-const ColumnMetadata& MutableVerticalTable::metadataAt(const size_t column_index, const size_t row_index, const table_id_t table_id) const {
+const ColumnMetadata& MutableVerticalTable::metadataAt(const size_t column_index,
+                                                       const size_t row_index,
+                                                       const table_id_t table_id) const {
   return containerAt(column_index)->metadataAt(offset_in_container[column_index]);
 }
 
-const adict_ptr_t& MutableVerticalTable::dictionaryAt(const size_t column, const size_t row, const table_id_t table_id) const {
+const adict_ptr_t& MutableVerticalTable::dictionaryAt(const size_t column,
+                                                      const size_t row,
+                                                      const table_id_t table_id) const {
   return containerAt(column)->dictionaryAt(offset_in_container[column], row, table_id);
 }
 
@@ -96,18 +100,20 @@ const adict_ptr_t& MutableVerticalTable::dictionaryByTableId(const size_t column
   return containerAt(column)->dictionaryByTableId(offset_in_container[column], table_id);
 }
 
-void MutableVerticalTable::setDictionaryAt(adict_ptr_t dict, const size_t column, const size_t row, const table_id_t table_id) {
+void MutableVerticalTable::setDictionaryAt(adict_ptr_t dict,
+                                           const size_t column,
+                                           const size_t row,
+                                           const table_id_t table_id) {
   containerAt(column)->setDictionaryAt(dict, offset_in_container[column], row, table_id);
 }
 
 size_t MutableVerticalTable::size() const {
-  if (column_count == 0) return 0;
+  if (column_count == 0)
+    return 0;
   return containers[0]->size();
 }
 
-size_t MutableVerticalTable::columnCount() const {
-  return column_count;
-}
+size_t MutableVerticalTable::columnCount() const { return column_count; }
 
 ValueId MutableVerticalTable::getValueId(const size_t column, const size_t row) const {
   size_t tmp = offset_in_container[column];
@@ -119,31 +125,31 @@ void MutableVerticalTable::setValueId(const size_t column, const size_t row, con
 }
 
 void MutableVerticalTable::reserve(const size_t nr_of_values) {
-for (auto & c : containers)
+  for (auto& c : containers)
     c->reserve(nr_of_values);
 }
 
 void MutableVerticalTable::resize(const size_t rows) {
   if (rows > 0) {
-    for (auto & c : containers)
+    for (auto& c : containers)
       c->resize(rows);
   }
 }
 
-unsigned MutableVerticalTable::partitionCount() const {
-  return slice_count;
-}
+unsigned MutableVerticalTable::partitionCount() const { return slice_count; }
 
 size_t MutableVerticalTable::partitionWidth(const size_t slice) const {
   return containers[container_for_slice[slice]]->partitionWidth(slice_offset_in_container[slice]);
 }
 
-atable_ptr_t MutableVerticalTable::getContainer(const size_t c) const {
-  return containers[c];
-}
+atable_ptr_t MutableVerticalTable::getContainer(const size_t c) const { return containers[c]; }
 
-atable_ptr_t MutableVerticalTable::copy_structure(const field_list_t *fields, const bool reuse_dict, const size_t initial_size, const bool with_containers, const bool compressed) const {
-  std::vector< atable_ptr_t > new_containers;
+atable_ptr_t MutableVerticalTable::copy_structure(const field_list_t* fields,
+                                                  const bool reuse_dict,
+                                                  const size_t initial_size,
+                                                  const bool with_containers,
+                                                  const bool compressed) const {
+  std::vector<atable_ptr_t> new_containers;
   size_t offset = 0;
   size_t i = 0;
 
@@ -168,7 +174,8 @@ atable_ptr_t MutableVerticalTable::copy_structure(const field_list_t *fields, co
     offset += containers[c]->columnCount();
 
     if (!temp_field_list.empty()) {
-      atable_ptr_t new_table = containers[c]->copy_structure(&temp_field_list, reuse_dict, initial_size, with_containers, compressed);
+      atable_ptr_t new_table =
+          containers[c]->copy_structure(&temp_field_list, reuse_dict, initial_size, with_containers, compressed);
       new_containers.push_back(new_table);
     }
   }
@@ -178,8 +185,10 @@ atable_ptr_t MutableVerticalTable::copy_structure(const field_list_t *fields, co
   return r;
 }
 
-atable_ptr_t MutableVerticalTable::copy_structure_modifiable(const field_list_t *fields, const size_t initial_size, const bool with_containers) const {
-  std::vector< atable_ptr_t > new_containers;
+atable_ptr_t MutableVerticalTable::copy_structure_modifiable(const field_list_t* fields,
+                                                             const size_t initial_size,
+                                                             const bool with_containers) const {
+  std::vector<atable_ptr_t> new_containers;
   size_t offset = 0;
   size_t i = 0;
 
@@ -204,7 +213,8 @@ atable_ptr_t MutableVerticalTable::copy_structure_modifiable(const field_list_t 
     offset += containers[c]->columnCount();
 
     if (!temp_field_list.empty()) {
-      atable_ptr_t new_table = containers[c]->copy_structure_modifiable(&temp_field_list, initial_size, with_containers);
+      atable_ptr_t new_table =
+          containers[c]->copy_structure_modifiable(&temp_field_list, initial_size, with_containers);
       new_containers.push_back(new_table);
     }
   }
@@ -213,18 +223,17 @@ atable_ptr_t MutableVerticalTable::copy_structure_modifiable(const field_list_t 
   return r;
 }
 
-atable_ptr_t MutableVerticalTable::copy_structure(abstract_dictionary_callback a, abstract_attribute_vector_callback b) const {
+atable_ptr_t MutableVerticalTable::copy_structure(abstract_dictionary_callback a,
+                                                  abstract_attribute_vector_callback b) const {
   auto new_containers = functional::collect(containers, [&](const atable_ptr_t& t) { return t->copy_structure(a, b); });
   return std::make_shared<MutableVerticalTable>(new_containers);
 }
 
-table_id_t MutableVerticalTable::subtableCount() const {
-  return 1;
-}
+table_id_t MutableVerticalTable::subtableCount() const { return 1; }
 
 atable_ptr_t MutableVerticalTable::copy() const {
   // copy containers
-  std::vector< atable_ptr_t > cs;
+  std::vector<atable_ptr_t> cs;
 
   for (size_t i = 0; i < containers.size(); ++i) {
     cs.push_back(containers[i]->copy());
@@ -235,15 +244,15 @@ atable_ptr_t MutableVerticalTable::copy() const {
   return new_table;
 }
 
-const attr_vectors_t MutableVerticalTable::getAttributeVectors(size_t column) const {  
+const attr_vectors_t MutableVerticalTable::getAttributeVectors(size_t column) const {
   return containerAt(column)->getAttributeVectors(offset_in_container[column]);
 }
 
 void MutableVerticalTable::debugStructure(size_t level) const {
   std::cout << std::string(level, '\t') << "MutableVerticalTable" << this << std::endl;
-  for(const auto& c: containers) {
-    c->debugStructure(level+1);
+  for (const auto& c : containers) {
+    c->debugStructure(level + 1);
   }
 }
-
-}}
+}
+}

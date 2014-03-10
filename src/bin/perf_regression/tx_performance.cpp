@@ -40,8 +40,8 @@ class TXBase : public ::testing::Benchmark {
 
     one_row = storage::TableBuilder::build(list2);
     one_row->resize(1);
-    one_row->setValue<hyrise_int_t>(0,0, 99);
-    one_row->setValue<hyrise_int_t>(1,0, 999);
+    one_row->setValue<hyrise_int_t>(0, 0, 99);
+    one_row->setValue<hyrise_int_t>(1, 0, 999);
 
     linxxxs = checked_pointer_cast<storage::Store>(io::Loader::shortcuts::load("test/lin_xxxs.tbl"));
   }
@@ -49,20 +49,19 @@ class TXBase : public ::testing::Benchmark {
 
 
 BENCHMARK_F(TXBase, simple_insert_commit) {
-    auto& txmgr = tx::TransactionManager::getInstance();
-    auto ctx = txmgr.buildContext();
+  auto& txmgr = tx::TransactionManager::getInstance();
+  auto ctx = txmgr.buildContext();
 
-    access::InsertScan is;
-    is.setEvent("NO_PAPI");
-    is.setTXContext(ctx);
-    is.addInput(linxxxs);
-    is.setInputData(one_row);
-    is.execute();
+  access::InsertScan is;
+  is.setEvent("NO_PAPI");
+  is.setTXContext(ctx);
+  is.addInput(linxxxs);
+  is.setInputData(one_row);
+  is.execute();
 
-    access::Commit c;
-    c.setEvent("NO_PAPI");
-    c.addInput(linxxxs);
-    c.setTXContext(ctx);
-    c.execute();
+  access::Commit c;
+  c.setEvent("NO_PAPI");
+  c.addInput(linxxxs);
+  c.setTXContext(ctx);
+  c.execute();
 }
-

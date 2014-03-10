@@ -9,7 +9,7 @@ namespace hyrise {
 namespace access {
 
 class GroupByScan : public ParallelizablePlanOperation {
-public:
+ public:
   virtual ~GroupByScan();
 
   void setupPlanOperation();
@@ -36,7 +36,7 @@ public:
   ///      },
   ///      "edges": [["0", "1"], ["0", "2"], ["1", "2"]]
   ///  }
-  static std::shared_ptr<PlanOperation> parse(const Json::Value &v);
+  static std::shared_ptr<PlanOperation> parse(const Json::Value& v);
   const std::string vname();
   /// creates output result table layout using _field_definitions
   /// and added aggregate functions (aggregate_functions)
@@ -44,18 +44,18 @@ public:
   /// added (grouping) fields
   storage::atable_ptr_t createResultTableLayout();
   /// adds a given AggregateFunction to group by scan instance SUM or COUNT
-  void addFunction(AggregateFun *fun);
+  void addFunction(AggregateFun* fun);
 
-private:
+ private:
   void splitInput();
-  void writeGroupResult(storage::atable_ptr_t &resultTab,
-                        const std::shared_ptr<storage::pos_list_t> &hit,
+  void writeGroupResult(storage::atable_ptr_t& resultTab,
+                        const std::shared_ptr<storage::pos_list_t>& hit,
                         const size_t row);
   /// Depending on the number of fields to group by choose the appropriate map type
-  template<typename HashTableType, typename MapType, typename KeyType>
+  template <typename HashTableType, typename MapType, typename KeyType>
   void executeGroupBy();
 
-  std::vector<AggregateFun *> _aggregate_functions;
+  std::vector<AggregateFun*> _aggregate_functions;
 
   // global aggregation is used when we cannot guarantee if there is no delta
   // partition containing values. Since the aggregate hash table hashes on
@@ -64,7 +64,6 @@ private:
   // Default values is to use the valueID hashing
   bool _globalAggregation = false;
 };
-
 }
 }
 

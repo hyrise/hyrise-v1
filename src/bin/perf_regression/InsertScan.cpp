@@ -12,12 +12,12 @@
 #include "access/InsertScan.h"
 #include "access/tx/Commit.h"
 
-namespace hyrise { namespace access {
+namespace hyrise {
+namespace access {
 
 class InsertScanBase : public ::testing::Benchmark {
 
  protected:
-
   storage::atable_ptr_t data;
   storage::atable_ptr_t t;
   tx::TXContext ctx;
@@ -47,30 +47,29 @@ class InsertScanBase : public ::testing::Benchmark {
   }
 };
 
-BENCHMARK_F(InsertScanBase, insert_single_tx_no_commit)
-{
-  is.execute();
-}
+BENCHMARK_F(InsertScanBase, insert_single_tx_no_commit) { is.execute(); }
 
-BENCHMARK_F(InsertScanBase, insert_single_tx_commit)
-{
+BENCHMARK_F(InsertScanBase, insert_single_tx_commit) {
   is.execute();
   c.execute();
 }
 
 
 template <typename F>
-void bench(F func, std::size_t threads_sz=10) {
+void bench(F func, std::size_t threads_sz = 10) {
   std::vector<std::thread> threads;
-  for (std::size_t i=0;i<threads_sz; i++) {
+  for (std::size_t i = 0; i < threads_sz; i++) {
     threads.emplace_back(func);
   }
-  for (auto& t: threads) {
+  for (auto& t : threads) {
     t.join();
   }
 }
 
-typedef struct { std::function<std::pair<storage::atable_ptr_t, storage::atable_ptr_t>()> base; std::size_t threads; } params;
+typedef struct {
+  std::function<std::pair<storage::atable_ptr_t, storage::atable_ptr_t>()> base;
+  std::size_t threads;
+} params;
 
 class InsertTest : public ::testing::TestWithParam<params> {
  public:
@@ -80,26 +79,26 @@ class InsertTest : public ::testing::TestWithParam<params> {
     auto param = GetParam();
     std::tie(data, tbl) = param.base();
     threads = param.threads;
-
   }
 };
 
 std::vector<params> generateParams() {
   std::vector<params> results;
-  for (std::size_t t:{1,2,4,8,16,32}) {
-    for (std::size_t opt=0; opt < 3; opt++) {
-      auto func = [=] () {
+  for (std::size_t t : {1, 2, 4, 8, 16, 32}) {
+    for (std::size_t opt = 0; opt < 3; opt++) {
+      auto func = [=]() {
         auto data = io::Loader::shortcuts::load("test/test10k_12.tbl");
         storage::atable_ptr_t tbl;
         // slightly hack-ish: opt distinguishes different insertion options
         if (opt == 0) {
-          tbl = io::Loader::shortcuts::load("test/test10k_12.tbl", io::Loader::params().setReturnsMutableVerticalTable(true));
+          tbl = io::Loader::shortcuts::load("test/test10k_12.tbl",
+                                            io::Loader::params().setReturnsMutableVerticalTable(true));
         } else {
           tbl = data->copy_structure_modifiable();
           tbl->resize(opt);
-          for (auto col=0u; col<20; ++col) {
-            for (auto row=0u; row<opt; ++row) {
-              tbl->setValue<hyrise_int_t>(col, row, row+col);
+          for (auto col = 0u; col < 20; ++col) {
+            for (auto row = 0u; row < opt; ++row) {
+              tbl->setValue<hyrise_int_t>(col, row, row + col);
             }
           }
         }
@@ -118,7 +117,7 @@ TEST_P(InsertTest, concurrent_writes_single_insert) {
   const auto runs = 1000000 / insert_rows / threads;
   auto before = std::chrono::high_resolution_clock::now();
   auto l = [&]() {
-    for (std::size_t d=0;d<runs;d++) {
+    for (std::size_t d = 0; d < runs; d++) {
       auto ctx = tx::TransactionManager::getInstance().buildContext();
       InsertScan is;
       is.setEvent("NO_PAPI");
@@ -141,9 +140,6 @@ TEST_P(InsertTest, concurrent_writes_single_insert) {
   this->RecordProperty("rows/ms", (data->size() - d_before) / ms);
 }
 
-INSTANTIATE_TEST_CASE_P(InsertTestInst,
-                        InsertTest,
-                        ::testing::ValuesIn(generateParams()));
-
-
-}}
+INSTANTIATE_TEST_CASE_P(InsertTestInst, InsertTest, ::testing::ValuesIn(generateParams()));
+}
+}

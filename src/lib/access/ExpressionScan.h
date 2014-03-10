@@ -9,52 +9,46 @@ namespace hyrise {
 namespace access {
 
 class ColumnExpression {
-public:
-  explicit ColumnExpression(const storage::atable_ptr_t &t);
+ public:
+  explicit ColumnExpression(const storage::atable_ptr_t& t);
   virtual ~ColumnExpression();
 
-  virtual void setResult(const storage::atable_ptr_t &result,
+  virtual void setResult(const storage::atable_ptr_t& result,
                          const storage::field_t column,
                          const storage::pos_t row) const = 0;
   virtual std::string getName() const = 0;
   virtual DataType getType() const = 0;
 
-protected:
+ protected:
   storage::atable_ptr_t _table;
 };
 
 class AddExp : public ColumnExpression {
-public:
-  AddExp(const storage::atable_ptr_t &t,
-         const storage::field_t field1,
-         const storage::field_t field2);
+ public:
+  AddExp(const storage::atable_ptr_t& t, const storage::field_t field1, const storage::field_t field2);
   virtual ~AddExp();
 
-  void setResult(const storage::atable_ptr_t &result,
-                 const storage::field_t column,
-                 const storage::pos_t row) const;
+  void setResult(const storage::atable_ptr_t& result, const storage::field_t column, const storage::pos_t row) const;
   std::string getName() const;
   DataType getType() const;
 
-private:
+ private:
   storage::field_t _field1;
   storage::field_t _field2;
 };
 
 class ExpressionScan : public PlanOperation {
-public:
+ public:
   virtual ~ExpressionScan();
 
   virtual void executePlanOperation();
   const std::string vname();
-  virtual void setExpression(const std::string &name,
-                             ColumnExpression *expression);
+  virtual void setExpression(const std::string& name, ColumnExpression* expression);
 
-private:
-  ColumnExpression *_expression;
+ private:
+  ColumnExpression* _expression;
   std::string _column_name;
 };
-
 }
 }
 

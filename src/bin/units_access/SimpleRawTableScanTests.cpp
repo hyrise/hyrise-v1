@@ -9,19 +9,19 @@ namespace hyrise {
 namespace access {
 
 class SimpleRawTableScanTests : public AccessTest {
-public:
+ public:
   storage::atable_ptr_t createRawTable() {
     storage::metadata_vec_t columns({storage::ColumnMetadata::metadataFromString("INTEGER", "col1"),
                                      storage::ColumnMetadata::metadataFromString("STRING", "col2"),
-                                     storage::ColumnMetadata::metadataFromString("FLOAT", "col3") });
+                                     storage::ColumnMetadata::metadataFromString("FLOAT", "col3")});
     auto main = std::make_shared<storage::RawTable>(columns);
     storage::rawtable::RowHelper rh(columns);
-    unsigned char *data = nullptr;
+    unsigned char* data = nullptr;
 
-    for(size_t i=0; i<10; i++) {
+    for (size_t i = 0; i < 10; i++) {
       rh.set<storage::hyrise_int_t>(0, i);
       rh.set<storage::hyrise_string_t>(1, "SomeText" + std::to_string(i));
-      rh.set<storage::hyrise_float_t>(2, 1.1*i);
+      rh.set<storage::hyrise_float_t>(2, 1.1 * i);
       data = rh.build();
       main->appendRow(data);
       free(data);
@@ -40,7 +40,7 @@ TEST_F(SimpleRawTableScanTests, basic_simple_raw_table_scan_test) {
   srts.addInput(t);
   srts.execute();
 
-  const auto &result = srts.getResultTable();
+  const auto& result = srts.getResultTable();
 
   ASSERT_EQ(1u, result->size());
   ASSERT_EQ(5u, result->getValue<storage::hyrise_int_t>(0, 0));
@@ -55,6 +55,5 @@ TEST_F(SimpleRawTableScanTests, simple_raw_table_scan_fail_on_not_raw_test) {
 
   ASSERT_THROW(srts.execute(), std::runtime_error);
 }
-
 }
 }

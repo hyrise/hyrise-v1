@@ -13,19 +13,17 @@
 namespace hyrise {
 namespace storage {
 
-class PointerCalculator : public AbstractTable,
-                          public SharedFactory<PointerCalculator> {
+class PointerCalculator : public AbstractTable, public SharedFactory<PointerCalculator> {
 
   /**
   * Helper funciton to flatten a pos list
   */
   void unnest();
 
-public:
-
-  PointerCalculator(c_atable_ptr_t t, pos_list_t *pos = nullptr, field_list_t *f = nullptr);
+ public:
+  PointerCalculator(c_atable_ptr_t t, pos_list_t* pos = nullptr, field_list_t* f = nullptr);
   PointerCalculator(const PointerCalculator& other);
-  
+
   PointerCalculator(c_atable_ptr_t t, pos_list_t pos);
 
   virtual ~PointerCalculator();
@@ -37,13 +35,15 @@ public:
   std::shared_ptr<PointerCalculator> unite(const std::shared_ptr<const PointerCalculator>& other) const;
   std::shared_ptr<PointerCalculator> concatenate(const std::shared_ptr<const PointerCalculator>& other) const;
 
-  typedef std::vector<std::shared_ptr<const PointerCalculator> > pc_vector;
-  static std::shared_ptr<const PointerCalculator> unite_many(pc_vector::const_iterator it, pc_vector::const_iterator it_end);
+  typedef std::vector<std::shared_ptr<const PointerCalculator>> pc_vector;
+  static std::shared_ptr<const PointerCalculator> unite_many(pc_vector::const_iterator it,
+                                                             pc_vector::const_iterator it_end);
   static std::shared_ptr<const PointerCalculator> intersect_many(pc_vector::iterator it, pc_vector::iterator it_end);
-  static std::shared_ptr<PointerCalculator> concatenate_many(pc_vector::const_iterator it, pc_vector::const_iterator it_end);
-  static bool isSmaller( std::shared_ptr<const PointerCalculator> lx, std::shared_ptr<const PointerCalculator> rx );
+  static std::shared_ptr<PointerCalculator> concatenate_many(pc_vector::const_iterator it,
+                                                             pc_vector::const_iterator it_end);
+  static bool isSmaller(std::shared_ptr<const PointerCalculator> lx, std::shared_ptr<const PointerCalculator> rx);
 
-  const pos_list_t *getPositions() const;
+  const pos_list_t* getPositions() const;
   pos_list_t getActualTablePositions() const;
 
   size_t getTableRowForRow(const size_t row) const;
@@ -64,31 +64,45 @@ public:
   void remove(const pos_list_t& pl);
 
   void rename(const field_t f, const std::string newName);
-  
+
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // AbstractTable interface
   atable_ptr_t copy() const override;
-  atable_ptr_t copy_structure(const field_list_t *fields = nullptr, const bool reuse_dict = false, const size_t initial_size = 0, const bool with_containers = true, const bool compressed = false) const override;
+  atable_ptr_t copy_structure(const field_list_t* fields = nullptr,
+                              const bool reuse_dict = false,
+                              const size_t initial_size = 0,
+                              const bool with_containers = true,
+                              const bool compressed = false) const override;
 
-  const ColumnMetadata& metadataAt(const size_t column_index, const size_t row_index = 0, const table_id_t table_id = 0) const override;
+  const ColumnMetadata& metadataAt(const size_t column_index,
+                                   const size_t row_index = 0,
+                                   const table_id_t table_id = 0) const override;
 
-  const AbstractTable::SharedDictionaryPtr& dictionaryAt(const size_t column, const size_t row = 0, const table_id_t table_id = 0) const override;
-  const AbstractTable::SharedDictionaryPtr& dictionaryByTableId(const size_t column, const table_id_t table_id) const override;
-  void setDictionaryAt(AbstractTable::SharedDictionaryPtr dict, const size_t column, const size_t row = 0, const table_id_t table_id = 0) override;
+  const AbstractTable::SharedDictionaryPtr& dictionaryAt(const size_t column,
+                                                         const size_t row = 0,
+                                                         const table_id_t table_id = 0) const override;
+  const AbstractTable::SharedDictionaryPtr& dictionaryByTableId(const size_t column, const table_id_t table_id) const
+      override;
+  void setDictionaryAt(AbstractTable::SharedDictionaryPtr dict,
+                       const size_t column,
+                       const size_t row = 0,
+                       const table_id_t table_id = 0) override;
   size_t size() const override;
   size_t columnCount() const override;
   ValueId getValueId(const size_t column, const size_t row) const override;
   unsigned partitionCount() const override;
   size_t partitionWidth(const size_t slice) const override;
-  void print(const size_t limit = (size_t) -1) const override;
+  void print(const size_t limit = (size_t) - 1) const override;
   table_id_t subtableCount() const override { return 1; }
-  void debugStructure(size_t level=0) const override;
+  void debugStructure(size_t level = 0) const override;
+
  protected:
   void updateFieldMapping();
+
  private:
   c_atable_ptr_t table;
-  pos_list_t *pos_list;
-  field_list_t *fields;
+  pos_list_t* pos_list;
+  field_list_t* fields;
 
   // Vector mapping the renaed field names
   std::unique_ptr<std::vector<ColumnMetadata>> _renamed;
@@ -98,6 +112,5 @@ public:
   std::vector<size_t> width_for_slice;
   size_t slice_count;
 };
-
-} } // namespace hyrise::storage
-
+}
+}  // namespace hyrise::storage

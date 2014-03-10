@@ -29,7 +29,7 @@ TEST_F(LayouterOpsTest, simple_op) {
   s.addQuery(q);
 
   s.executePlanOperation();
-  const auto&  res = s.getResultTable();
+  const auto& res = s.getResultTable();
   std::string header = loadFromFile("test/header/layouter_simple_cand.tbl");
 
   ASSERT_EQ(res->getValue<std::string>(0, 0), header);
@@ -52,7 +52,7 @@ TEST_F(LayouterOpsTest, simple_op_count) {
   s.addQuery(q);
 
   s.executePlanOperation();
-  const auto&  res = s.getResultTable();
+  const auto& res = s.getResultTable();
 
   std::string header = loadFromFile("test/header/layouter_simple.tbl");
 
@@ -125,7 +125,5 @@ TEST_F(LayouterOpsTest, load_layout_replace) {
   ASSERT_EQ(e->partitionCount(), 3u);
   ASSERT_EQ(3u, io::StorageManager::getInstance()->getTable("revenue")->partitionCount());
 }
-
 }
 }
-

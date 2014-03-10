@@ -4,11 +4,13 @@
 #include <cstddef>
 #include <string>
 
-#define ADD_MEMBER(type, member) private: \
-  type _##member; \
-  public: \
-  type get##member() const { return _##member;} \
-  void set##member(const type nm ) { _##member = nm;}\
+#define ADD_MEMBER(type, member)                 \
+ private:                                        \
+  type _##member;                                \
+                                                 \
+ public:                                         \
+  type get##member() const { return _##member; } \
+  void set##member(const type nm) { _##member = nm; }
 
 
 
@@ -17,7 +19,7 @@
     implementing certain decisions are missing. */
 
 class Settings {
-  
+
   size_t threadpoolSize;
 
   ADD_MEMBER(std::string, ScriptPath);
@@ -28,10 +30,9 @@ class Settings {
   Settings();
 
  public:
-
   ~Settings() {}
-  static Settings *getInstance() {
-    static Settings *instance = nullptr;
+  static Settings* getInstance() {
+    static Settings* instance = nullptr;
     if (instance == nullptr)
       instance = new Settings();
     return instance;
@@ -41,4 +42,3 @@ class Settings {
   size_t getThreadpoolSize() const;
   void setThreadpoolSize(const size_t newSize);
 };
-

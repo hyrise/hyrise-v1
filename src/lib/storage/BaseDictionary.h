@@ -12,12 +12,12 @@ namespace storage {
 
 template <typename T>
 class BaseDictionary : public AbstractDictionary {
-public:
+ public:
   using value_type = T;
   virtual value_id_t addValue(T value) = 0;
 
   virtual T getValueForValueId(value_id_t value_id) = 0;
-  virtual value_id_t getValueIdForValue(const T &value) const = 0;
+  virtual value_id_t getValueIdForValue(const T& value) const = 0;
 
   /*
    * Returns the value id of the first value that is smaller
@@ -33,7 +33,7 @@ public:
   virtual const T getGreatestValue() = 0;
 
   virtual bool isValueIdValid(value_id_t value_id) = 0;
-  virtual bool valueExists(const T &value) const = 0;
+  virtual bool valueExists(const T& value) const = 0;
 
   virtual void reserve(size_t size) = 0;
   virtual size_t size() = 0;
@@ -48,9 +48,7 @@ public:
   virtual DictionaryIterator<T> end() = 0;
 
   // Inserts a value into dictionary
-  value_id_t insert(const T& value) {
-    return getValueId(value, true);
-  }
+  value_id_t insert(const T& value) { return getValueId(value, true); }
 
   // Retrieves value_id for given value, optionally creates
   // a new dictionary entry
@@ -65,5 +63,5 @@ public:
     }
   }
 };
-
-} } // namespace hyrise::storage
+}
+}  // namespace hyrise::storage

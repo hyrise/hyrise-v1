@@ -8,8 +8,13 @@
 // adapting to the smaller list size, whereas std::set_intersection
 // iterates over both lists with linear complexity.
 template <typename IterT, typename OutputIter>
-void intersect_pos_list(IterT beg1, IterT end1, IterT beg2, IterT end2, OutputIter resultIter, bool first_sorted=true, bool second_sorted=true)
-{
+void intersect_pos_list(IterT beg1,
+                        IterT end1,
+                        IterT beg2,
+                        IterT end2,
+                        OutputIter resultIter,
+                        bool first_sorted = true,
+                        bool second_sorted = true) {
   std::vector<typename std::iterator_traits<IterT>::value_type> input1_sorted, input2_sorted;
 
   auto size_1 = std::distance(beg1, end1);
@@ -34,15 +39,17 @@ void intersect_pos_list(IterT beg1, IterT end1, IterT beg2, IterT end2, OutputIt
 
   // if one of the inputs is empty,
   // return as intersect is empty
-  if ((size_1 <= 0) or (size_2 <= 0)) return;
+  if ((size_1 <= 0)or(size_2 <= 0))
+    return;
 
   // if input 1 and input 2 do not overlap at all,
   // return as intersect is empty
-  if ((*(end1 - 1) < *beg2) or (*(end2 - 1) < *beg1)) return;
+  if ((*(end1 - 1) < *beg2)or(*(end2 - 1) < *beg1))
+    return;
 
   // if both lists are very small,
   // use std intersection as iterating is faster than binary search
-  if ((size_1+size_2) < 20) {
+  if ((size_1 + size_2) < 20) {
     std::set_intersection(beg1, end1, beg2, end2, resultIter);
     return;
   }
@@ -67,11 +74,10 @@ void intersect_pos_list(IterT beg1, IterT end1, IterT beg2, IterT end2, OutputIt
   // and recursively do the rest
   if (*m_in_1 == *m) {
     intersect_pos_list(beg1, m_in_1, beg2, m, resultIter);
-    *resultIter++ = *m; // add m to result iterator
-    intersect_pos_list(m_in_1+1, end1, m+1, end2, resultIter);
+    *resultIter++ = *m;  // add m to result iterator
+    intersect_pos_list(m_in_1 + 1, end1, m + 1, end2, resultIter);
   } else {
     intersect_pos_list(beg1, m_in_1, beg2, m, resultIter);
-    intersect_pos_list(m_in_1, end1, m+1, end2, resultIter);
+    intersect_pos_list(m_in_1, end1, m + 1, end2, resultIter);
   }
 }
-

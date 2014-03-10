@@ -18,7 +18,7 @@ TEST_F(TableLoadTests, basic_table_load_test) {
   tl.setTableName("myTable");
   tl.execute();
 
-  const auto &result = tl.getResultTable();
+  const auto& result = tl.getResultTable();
 
   ASSERT_TRUE(result->contentEquals(t));
 }
@@ -32,7 +32,7 @@ TEST_F(TableLoadTests, table_load_existing_test) {
   tl.setTableName("myTable2");
   tl.execute();
 
-  const auto &result = tl.getResultTable();
+  const auto& result = tl.getResultTable();
 
   ASSERT_TRUE(result->contentEquals(t));
 }
@@ -44,7 +44,7 @@ TEST_F(TableLoadTests, raw_table_load_test) {
   tl.setRaw(true);
   tl.execute();
 
-  const auto &result = tl.getResultTable();
+  const auto& result = tl.getResultTable();
   auto raw = std::dynamic_pointer_cast<const storage::RawTable>(result);
 
   ASSERT_NE(raw, nullptr);
@@ -53,7 +53,8 @@ TEST_F(TableLoadTests, raw_table_load_test) {
 TEST_F(TableLoadTests, table_load_with_string_header_test) {
   auto t = io::Loader::shortcuts::loadWithHeader("test/header/data.tbl", "test/header/header.data");
 
-  std::string header = "col1_0|col1_1|col1_2|col1_3|col1_4|col1_5|col1_6|col1_7|col1_8|col1_9\n \
+  std::string header =
+      "col1_0|col1_1|col1_2|col1_3|col1_4|col1_5|col1_6|col1_7|col1_8|col1_9\n \
                         INTEGER|INTEGER|INTEGER|INTEGER|INTEGER|INTEGER|INTEGER|INTEGER|INTEGER|INTEGER\n \
                         0_R|0_R|0_R|0_R|0_R|0_R|0_R|0_R|0_R|0_R";
 
@@ -63,7 +64,7 @@ TEST_F(TableLoadTests, table_load_with_string_header_test) {
   tl.setTableName("myTable4");
   tl.execute();
 
-  const auto &result = tl.getResultTable();
+  const auto& result = tl.getResultTable();
 
   ASSERT_TRUE(result->contentEquals(t));
 }
@@ -77,10 +78,9 @@ TEST_F(TableLoadTests, table_load_with_header_file_test) {
   tl.setTableName("myTable5");
   tl.execute();
 
-  const auto &result = tl.getResultTable();
+  const auto& result = tl.getResultTable();
 
   ASSERT_TRUE(result->contentEquals(t));
 }
-
 }
 }

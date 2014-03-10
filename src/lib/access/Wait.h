@@ -11,11 +11,12 @@ class Wait : public PlanOperation {
  public:
   Wait(std::chrono::milliseconds wait);
   void executePlanOperation();
-  static std::shared_ptr<PlanOperation> parse(const Json::Value &data);
+  static std::shared_ptr<PlanOperation> parse(const Json::Value& data);
+
  private:
   std::chrono::milliseconds _wait;
 };
-
-}}
+}
+}
 
 #endif  // SRC_LIB_ACCESS_NOOP_H_

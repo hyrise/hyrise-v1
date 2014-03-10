@@ -11,8 +11,7 @@ UpdateScan::UpdateScan() {
   _func = nullptr;
 }
 
-UpdateScan::~UpdateScan() {
-}
+UpdateScan::~UpdateScan() {}
 
 void UpdateScan::executePlanOperation() {
   size_t input_size = input.getTable(0)->size();
@@ -74,21 +73,12 @@ void UpdateScan::executePlanOperation() {
   addResult(input.getTable(0));
 }
 
-const std::string UpdateScan::vname() {
-  return "UpdateScan";
-}
+const std::string UpdateScan::vname() { return "UpdateScan"; }
 
-void UpdateScan::setUpdateTable(const storage::atable_ptr_t &c) {
-  _data = c;
-}
+void UpdateScan::setUpdateTable(const storage::atable_ptr_t& c) { _data = c; }
 
-void UpdateScan::setUpdateFunction(UpdateFun *f) {
-  _func = f;
-}
+void UpdateScan::setUpdateFunction(UpdateFun* f) { _func = f; }
 
-void UpdateScan::setPredicate(SimpleExpression *e) {
-  _comparator = e;
-}
-
+void UpdateScan::setPredicate(SimpleExpression* e) { _comparator = e; }
 }
 }

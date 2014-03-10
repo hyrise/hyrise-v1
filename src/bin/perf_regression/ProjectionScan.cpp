@@ -13,9 +13,8 @@ namespace access {
 class ProjectionScanBase : public ::testing::Benchmark {
 
  protected:
-
-  io::StorageManager *sm;
-  ProjectionScan *ps;
+  io::StorageManager* sm;
+  ProjectionScan* ps;
   storage::atable_ptr_t t;
 
  public:
@@ -33,8 +32,7 @@ class ProjectionScanBase : public ::testing::Benchmark {
     ps->addField(1);
   }
 
-  void BenchmarkTearDown() {
-  }
+  void BenchmarkTearDown() {}
 
   ProjectionScanBase() {
     SetNumIterations(10);
@@ -43,16 +41,16 @@ class ProjectionScanBase : public ::testing::Benchmark {
 };
 
 BENCHMARK_F(ProjectionScanBase, project_new_order_tpcc_district) {
-  //SELECT d_next_o_id, d_tax FROM district
+  // SELECT d_next_o_id, d_tax FROM district
   auto result = ps->execute()->getResultTable();
 }
 
 BENCHMARK_F(ProjectionScanBase, project_new_order_tpcc_district_mat) {
-  //SELECT d_next_o_id, d_tax FROM district
-  //materialized
+  // SELECT d_next_o_id, d_tax FROM district
+  // materialized
   auto result = ps->execute()->getResultTable();
 
-  MaterializingScan *ms = new MaterializingScan(false);
+  MaterializingScan* ms = new MaterializingScan(false);
   ms->setEvent("NO_PAPI");
   ms->addInput(result);
 
@@ -60,18 +58,17 @@ BENCHMARK_F(ProjectionScanBase, project_new_order_tpcc_district_mat) {
 }
 
 BENCHMARK_F(ProjectionScanBase, project_new_order_tpcc_district_mat_memcpy) {
-  //SELECT d_next_o_idd_tax FROM district
-  //materialized
-  //memcpy
+  // SELECT d_next_o_idd_tax FROM district
+  // materialized
+  // memcpy
 
   auto result = ps->execute()->getResultTable();
 
-  MaterializingScan *ms = new MaterializingScan(true);
+  MaterializingScan* ms = new MaterializingScan(true);
   ms->setEvent("NO_PAPI");
   ms->addInput(result);
 
   auto result_mat = ms->execute()->getResultTable();
 }
-
 }
 }

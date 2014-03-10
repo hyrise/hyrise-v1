@@ -17,36 +17,31 @@ namespace access {
 /// operation itself in JavaScript instead of C++ for rapid prototyping
 class ScriptOperation : public PlanOperation {
 
-private:
-
+ private:
   // The Script Name to execute
   std::string _scriptName;
 
   std::unordered_map<std::string, std::string> _parameters;
 
-public:
-  
+ public:
   ScriptOperation();
-  
+
   void executePlanOperation();
 
-  static std::shared_ptr<PlanOperation> parse(const Json::Value &data);
+  static std::shared_ptr<PlanOperation> parse(const Json::Value& data);
 
   inline void setScriptName(std::string n) { _scriptName = n; }
 
-private:
-
+ private:
 #ifdef WITH_V8
   // Convert the input to an JS Array
   v8::Handle<v8::Array> prepareInputs();
 
   v8::Handle<v8::Object> prepareParameters();
 
-  void createResultHelpers(v8::Persistent<v8::Context> &context);
+  void createResultHelpers(v8::Persistent<v8::Context>& context);
 #endif
-  
 };
-
 }
 }
 

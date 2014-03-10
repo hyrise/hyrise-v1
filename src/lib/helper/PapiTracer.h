@@ -39,6 +39,7 @@ class TracingError : public std::runtime_error {
 class PapiTracer {
  public:
   typedef long long result_t;
+
  private:
   //! the initialized eventset from PAPI
   int _eventSet;
@@ -54,7 +55,7 @@ class PapiTracer {
   /// @param[in] function PAPI function to call that returns PAPI error codes
   /// @param[in] activity Information about the activity currently conducted, for error reporting
   /// @param[in] args parameters of the function to call
-  template<typename Func, typename ActivityT, typename... Args>
+  template <typename Func, typename ActivityT, typename... Args>
   static void handle(Func function, ActivityT activity, Args&&... args) {
     int retval = function(std::forward<Args>(args)...);
     if (retval != PAPI_OK)
@@ -74,13 +75,9 @@ class PapiTracer {
   }
 
  public:
-  inline PapiTracer() : _eventSet(PAPI_NULL), _disabled(false), _running(false) {
-    PapiTracer::initialize();
-  }
+  inline PapiTracer() : _eventSet(PAPI_NULL), _disabled(false), _running(false) { PapiTracer::initialize(); }
 
-  inline ~PapiTracer() {
-    stop();
-  }
+  inline ~PapiTracer() { stop(); }
 
   /// Add a new event counter
   ///
@@ -104,10 +101,8 @@ class PapiTracer {
     if (_counters.empty())
       throw std::runtime_error("No events set");
 
-    for(const auto& eventName: _counters) {
-      handle(PAPI_add_named_event,
-             "Adding event " + eventName + " to event set",
-             _eventSet, (char*) eventName.c_str());
+    for (const auto& eventName : _counters) {
+      handle(PAPI_add_named_event, "Adding event " + eventName + " to event set", _eventSet, (char*)eventName.c_str());
     }
 
     _results.clear();
@@ -115,13 +110,14 @@ class PapiTracer {
 
     _running = true;
 
-    //handle(PAPI_reset, "Reset counter", _eventSet);
+    // handle(PAPI_reset, "Reset counter", _eventSet);
     handle(PAPI_start, "Starting counter", _eventSet);
   }
 
   /// Stop performance counter
   inline void stop() {
-    if (_disabled || !_running) return;
+    if (_disabled || !_running)
+      return;
 
     handle(PAPI_stop, "Stopping Counter", _eventSet, _results.data());
 
@@ -133,12 +129,15 @@ class PapiTracer {
 
   /// Retrieve performance counter values
   inline long long value(const std::string& eventName) const {
-    if (_disabled) return 0ull;
+    if (_disabled)
+      return 0ull;
 
     auto item = std::find(_counters.begin(), _counters.end(), eventName);
     if (item == _counters.end())
-      throw TracingError("Trying to access unregistered event '" + eventName +"' "
-                         "Available: " + joinString(_counters, " "));
+      throw TracingError("Trying to access unregistered event '" + eventName +
+                         "' "
+                         "Available: " +
+                         joinString(_counters, " "));
     auto index = std::distance(_counters.begin(), item);
     return _results.at(index);
   }
@@ -157,14 +156,14 @@ class PapiTracer {
 class FallbackTracer {
  public:
   typedef long long result_t;
+
  private:
   std::vector<std::string> _counters;
   result_t _result;
   struct timeval _start;
+
  public:
-  inline void addEvent(std::string eventName) {
-    _counters.push_back(eventName);
-  }
+  inline void addEvent(std::string eventName) { _counters.push_back(eventName); }
 
   inline void start() {
     if (_counters.empty())
@@ -182,8 +181,10 @@ class FallbackTracer {
   inline long long value(const std::string& eventName) const {
     auto item = find(_counters.begin(), _counters.end(), eventName);
     if (item == _counters.end())
-      throw TracingError("Trying to access unregistered event '" + eventName +"' "
-                         "Available: " + joinString(_counters, " "));
+      throw TracingError("Trying to access unregistered event '" + eventName +
+                         "' "
+                         "Available: " +
+                         joinString(_counters, " "));
     return _result;
   }
   static bool isPapi() { return false; }
@@ -192,4 +193,3 @@ class FallbackTracer {
 typedef FallbackTracer PapiTracer;
 
 #endif
-

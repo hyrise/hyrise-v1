@@ -3,8 +3,7 @@
 
 #include "ConfigFile.h"
 
-ConfigFile::ConfigFile(std::string filename, std::string delimiter,
-                       std::string comment, std::string sentry)
+ConfigFile::ConfigFile(std::string filename, std::string delimiter, std::string comment, std::string sentry)
     : myDelimiter(delimiter), myComment(comment), mySentry(sentry) {
   // Construct a ConfigFile, getting keys and values from given file
 
@@ -18,20 +17,19 @@ ConfigFile::ConfigFile(std::string filename, std::string delimiter,
 }
 
 
-ConfigFile::ConfigFile()
-    : myDelimiter(std::string(1, '=')), myComment(std::string(1, '#')) {
+ConfigFile::ConfigFile() : myDelimiter(std::string(1, '=')), myComment(std::string(1, '#')) {
   // Construct a ConfigFile without a file; empty
 }
 
 
-void ConfigFile::remove(const std::string &key) {
+void ConfigFile::remove(const std::string& key) {
   // Remove key and its value
   myContents.erase(myContents.find(key));
   return;
 }
 
 
-bool ConfigFile::keyExists(const std::string &key) const {
+bool ConfigFile::keyExists(const std::string& key) const {
   // Indicate whether key is found
   mapci p = myContents.find(key);
   return (p != myContents.end());
@@ -39,7 +37,7 @@ bool ConfigFile::keyExists(const std::string &key) const {
 
 
 /* static */
-void ConfigFile::trim(std::string &s) {
+void ConfigFile::trim(std::string& s) {
   // Remove leading and trailing whitespace
   static const char whitespace[] = " \n\t\v\r\f";
   s.erase(0, s.find_first_not_of(whitespace));
@@ -55,17 +53,16 @@ std::string ConfigFile::getExecutable(std::string key, std::string fileName) {
     if (config.keyExists(key)) {
       command = config.read<std::string>(key, "") + "/" + key;
     }
-  } catch (file_not_found) {
+  }
+  catch (file_not_found) {
   }
 
   return command;
 }
 
-std::ostream &operator<<(std::ostream &os, const ConfigFile &cf) {
+std::ostream& operator<<(std::ostream& os, const ConfigFile& cf) {
   // Save a ConfigFile to os
-  for (ConfigFile::mapci p = cf.myContents.begin();
-       p != cf.myContents.end();
-       ++p) {
+  for (ConfigFile::mapci p = cf.myContents.begin(); p != cf.myContents.end(); ++p) {
     os << p->first << " " << cf.myDelimiter << " ";
     os << p->second << std::endl;
   }
@@ -74,14 +71,14 @@ std::ostream &operator<<(std::ostream &os, const ConfigFile &cf) {
 }
 
 
-std::istream &operator>>(std::istream &is, ConfigFile &cf) {
+std::istream& operator>>(std::istream& is, ConfigFile& cf) {
   // Load a ConfigFile from is
   // Read in keys and values, keeping internal whitespace
   typedef std::string::size_type pos;
-  const std::string &delim  = cf.myDelimiter;  // separator
-  const std::string &comm   = cf.myComment;    // comment
-  const std::string &sentry = cf.mySentry;     // end of file sentry
-  const pos skip = delim.length();        // length of separator
+  const std::string& delim = cf.myDelimiter;  // separator
+  const std::string& comm = cf.myComment;  // comment
+  const std::string& sentry = cf.mySentry;  // end of file sentry
+  const pos skip = delim.length();  // length of separator
 
   std::string nextline = "";  // might need to read ahead to see where value ends
 
@@ -158,4 +155,3 @@ std::istream &operator>>(std::istream &is, ConfigFile &cf) {
 
   return is;
 }
-

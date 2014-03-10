@@ -15,40 +15,35 @@
 #include "storage/ConcurrentUnorderedDictionary.h"
 #include "storage/ConcurrentFixedLengthVector.h"
 
-namespace hyrise { namespace storage {
+namespace hyrise {
+namespace storage {
 
 TableMerger* createDefaultMerger() {
   return new TableMerger(new DefaultMergeStrategy, new SequentialHeapMerger, false);
 }
 
-Store::Store() :
-  merger(createDefaultMerger()) {
-  setUuid();
-}
+Store::Store() : merger(createDefaultMerger()) { setUuid(); }
 
 namespace {
 
 auto create_concurrent_dict = [](DataType dt) { return makeDictionary(types::getConcurrentType(dt)); };
-auto create_concurrent_storage = [](std::size_t cols) { return std::make_shared<ConcurrentFixedLengthVector<value_id_t>>(cols, 0); 
-
+auto create_concurrent_storage = [](std::size_t cols) {
+  return std::make_shared<ConcurrentFixedLengthVector<value_id_t> >(cols, 0);
 };
-
 }
 
-Store::Store(atable_ptr_t main_table) :
-    _delta_size(0),
-    _main_table(main_table),
-    delta(main_table->copy_structure(create_concurrent_dict, create_concurrent_storage)),
-    merger(createDefaultMerger()),
-    _cidBeginVector(main_table->size(), 0),
-    _cidEndVector(main_table->size(), tx::INF_CID),
-    _tidVector(main_table->size(), tx::UNKNOWN) {
+Store::Store(atable_ptr_t main_table)
+    : _delta_size(0),
+      _main_table(main_table),
+      delta(main_table->copy_structure(create_concurrent_dict, create_concurrent_storage)),
+      merger(createDefaultMerger()),
+      _cidBeginVector(main_table->size(), 0),
+      _cidEndVector(main_table->size(), tx::INF_CID),
+      _tidVector(main_table->size(), tx::UNKNOWN) {
   setUuid();
 }
 
-Store::~Store() {
-  delete merger;
-}
+Store::~Store() { delete merger; }
 
 void Store::merge() {
   if (merger == nullptr) {
@@ -59,12 +54,12 @@ void Store::merge() {
   atable_ptr_t new_delta = delta->copy_structure(create_concurrent_dict, create_concurrent_storage);
 
   // Prepare the merge
-  std::vector<c_atable_ptr_t> tmp {_main_table, delta};
+  std::vector<c_atable_ptr_t> tmp{_main_table, delta};
 
   // get valid positions
   std::vector<bool> validPositions(_cidBeginVector.size());
   tx::transaction_cid_t last_commit_id = tx::TransactionManager::getInstance().getLastCommitId();
-  functional::forEachWithIndex(_cidBeginVector, [&](size_t i, bool v){
+  functional::forEachWithIndex(_cidBeginVector, [&](size_t i, bool v) {
     validPositions[i] = isVisibleForTransaction(i, last_commit_id, tx::MERGE_TID);
   });
 
@@ -75,22 +70,20 @@ void Store::merge() {
   _cidBeginVector = tbb::concurrent_vector<tx::transaction_cid_t>(_main_table->size(), tx::UNKNOWN_CID);
   _cidEndVector = tbb::concurrent_vector<tx::transaction_cid_t>(_main_table->size(), tx::INF_CID);
   _tidVector = tbb::concurrent_vector<tx::transaction_id_t>(_main_table->size(), tx::START_TID);
-  
+
   // Replace the delta partition
   delta = new_delta;
   _delta_size = new_delta->size();
 }
 
 
-atable_ptr_t Store::getMainTable() const {
-  return _main_table;
-}
+atable_ptr_t Store::getMainTable() const { return _main_table; }
 
-atable_ptr_t Store::getDeltaTable() const {
-  return delta;
-}
+atable_ptr_t Store::getDeltaTable() const { return delta; }
 
-const ColumnMetadata& Store::metadataAt(const size_t column_index, const size_t row_index, const table_id_t table_id) const {
+const ColumnMetadata& Store::metadataAt(const size_t column_index,
+                                        const size_t row_index,
+                                        const table_id_t table_id) const {
   size_t offset = _main_table->size();
   if (row_index < offset) {
     return _main_table->metadataAt(column_index, row_index, table_id);
@@ -98,7 +91,10 @@ const ColumnMetadata& Store::metadataAt(const size_t column_index, const size_t 
   return delta->metadataAt(column_index, row_index - offset, table_id);
 }
 
-void Store::setDictionaryAt(AbstractTable::SharedDictionaryPtr dict, const size_t column, const size_t row, const table_id_t table_id) {
+void Store::setDictionaryAt(AbstractTable::SharedDictionaryPtr dict,
+                            const size_t column,
+                            const size_t row,
+                            const table_id_t table_id) {
   size_t offset = _main_table->size();
   if (row < offset) {
     _main_table->setDictionaryAt(dict, column, row, table_id);
@@ -106,7 +102,9 @@ void Store::setDictionaryAt(AbstractTable::SharedDictionaryPtr dict, const size_
   delta->setDictionaryAt(dict, column, row - offset, table_id);
 }
 
-const AbstractTable::SharedDictionaryPtr& Store::dictionaryAt(const size_t column, const size_t row, const table_id_t table_id) const {
+const AbstractTable::SharedDictionaryPtr& Store::dictionaryAt(const size_t column,
+                                                              const size_t row,
+                                                              const table_id_t table_id) const {
   size_t offset = _main_table->size();
   if (row < offset) {
     return _main_table->dictionaryAt(column, row);
@@ -114,7 +112,8 @@ const AbstractTable::SharedDictionaryPtr& Store::dictionaryAt(const size_t colum
   return delta->dictionaryAt(column, row - offset);
 }
 
-const AbstractTable::SharedDictionaryPtr& Store::dictionaryByTableId(const size_t column, const table_id_t table_id) const {
+const AbstractTable::SharedDictionaryPtr& Store::dictionaryByTableId(const size_t column,
+                                                                     const table_id_t table_id) const {
   if (table_id == 0)
     return _main_table->dictionaryByTableId(column, table_id);
   else
@@ -126,7 +125,7 @@ inline Store::table_offset_idx_t Store::responsibleTable(const size_t row) const
   if (row < offset) {
     return {_main_table, row, 0};
   }
-  assert( row - offset < delta->size() );
+  assert(row - offset < delta->size());
   return {delta, row - offset, 1};
 }
 
@@ -143,41 +142,29 @@ ValueId Store::getValueId(const size_t column, const size_t row) const {
 }
 
 
-size_t Store::size() const {
-  return _main_table->size() + delta->size();
-}
+size_t Store::size() const { return _main_table->size() + delta->size(); }
 
-size_t Store::deltaOffset() const {
-  return _main_table->size();
-}
+size_t Store::deltaOffset() const { return _main_table->size(); }
 
-size_t Store::columnCount() const {
-  return delta->columnCount();
-}
+size_t Store::columnCount() const { return delta->columnCount(); }
 
-unsigned Store::partitionCount() const {
-  return _main_table->partitionCount();
-}
+unsigned Store::partitionCount() const { return _main_table->partitionCount(); }
 
 size_t Store::partitionWidth(const size_t slice) const {
   // TODO we now require that all main tables have the same layout
-  //return main_tables[0]->partitionWidth(slice);
-  return  _main_table->partitionWidth(slice);
+  // return main_tables[0]->partitionWidth(slice);
+  return _main_table->partitionWidth(slice);
 }
 
 
-void Store::print(const size_t limit) const {
-  PrettyPrinter::print(this, std::cout, "Store", limit, 0);
-}
+void Store::print(const size_t limit) const { PrettyPrinter::print(this, std::cout, "Store", limit, 0); }
 
-void Store::setMerger(TableMerger *_merger) {
+void Store::setMerger(TableMerger* _merger) {
   delete merger;
   merger = _merger;
 }
 
-void Store::setDelta(atable_ptr_t _delta) {
-  delta = _delta;
-}
+void Store::setDelta(atable_ptr_t _delta) { delta = _delta; }
 
 atable_ptr_t Store::copy() const {
   std::shared_ptr<Store> new_store = std::make_shared<Store>();
@@ -209,9 +196,9 @@ const attr_vectors_t Store::getAttributeVectors(size_t column) const {
 void Store::debugStructure(size_t level) const {
   std::cout << std::string(level, '\t') << "Store " << this << std::endl;
   std::cout << std::string(level, '\t') << "(main) " << this << std::endl;
-  _main_table->debugStructure(level+1);
+  _main_table->debugStructure(level + 1);
   std::cout << std::string(level, '\t') << "(delta) " << this << std::endl;
-  delta->debugStructure(level+1);
+  delta->debugStructure(level + 1);
 }
 
 bool Store::isVisibleForTransaction(pos_t pos, tx::transaction_cid_t last_commit_id, tx::transaction_id_t tid) const {
@@ -228,12 +215,14 @@ bool Store::isVisibleForTransaction(pos_t pos, tx::transaction_cid_t last_commit
     }
   } else {
     if (last_commit_id >= _cidBeginVector[pos]) {
-      // we are looking at a row that was inserted and deleted before we started - we should see it unless it was already deleted again
-      if(last_commit_id >= _cidEndVector[pos]) {
+      // we are looking at a row that was inserted and deleted before we started - we should see it unless it was
+      // already deleted again
+      if (last_commit_id >= _cidEndVector[pos]) {
         // the row was deleted and the delete was committed before we started our transaction
         return false;
       } else {
-        // the row was deleted but the commit happened after we started our transaction (or the delete was not committed yet)
+        // the row was deleted but the commit happened after we started our transaction (or the delete was not committed
+        // yet)
         return true;
       }
     } else {
@@ -250,19 +239,17 @@ void Store::validatePositions(pos_list_t& pos, tx::transaction_cid_t last_commit
   assert(_cidBeginVector.size() == size() && _cidEndVector.size() == size() && _tidVector.size() == size());
 
   // Pos is nullptr, we should circumvent
-  auto end = std::remove_if(std::begin(pos), std::end(pos), [&](const pos_t& v){
-
-    return !isVisibleForTransaction(v, last_commit_id, tid);
-
-  } );
+  auto end = std::remove_if(
+      std::begin(pos), std::end(pos), [&](const pos_t& v) { return !isVisibleForTransaction(v, last_commit_id, tid); });
   if (end != pos.end())
     pos.erase(end, pos.end());
 }
 
 pos_list_t Store::buildValidPositions(tx::transaction_cid_t last_commit_id, tx::transaction_id_t tid) const {
   pos_list_t result;
-  functional::forEachWithIndex(_cidBeginVector, [&](size_t i, tx::transaction_cid_t v){
-    if(isVisibleForTransaction(i, last_commit_id, tid)) result.push_back(i);
+  functional::forEachWithIndex(_cidBeginVector, [&](size_t i, tx::transaction_cid_t v) {
+    if (isVisibleForTransaction(i, last_commit_id, tid))
+      result.push_back(i);
   });
   return std::move(result);
 }
@@ -274,11 +261,11 @@ std::pair<size_t, size_t> Store::resizeDelta(size_t num) {
 
 std::pair<size_t, size_t> Store::appendToDelta(size_t num_rows) {
   // By atomically drawing a range of rows unique to the calling thread...
-  std::size_t prior_delta_size =_delta_size.fetch_add(num_rows);
-  delta->resize(prior_delta_size + num_rows);  
+  std::size_t prior_delta_size = _delta_size.fetch_add(num_rows);
+  delta->resize(prior_delta_size + num_rows);
   auto main_size = _main_table->size();
   auto new_size = main_size + prior_delta_size + num_rows;
-  auto grow_and_fill = [=] (tbb::concurrent_vector<tx::transaction_id_t>& vector, tx::transaction_id_t value) {
+  auto grow_and_fill = [=](tbb::concurrent_vector<tx::transaction_id_t>& vector, tx::transaction_id_t value) {
     vector.grow_to_at_least(new_size);
     // ... we can fill the drawn range without interferring with other threads
     std::fill(std::begin(vector) + main_size + prior_delta_size, std::begin(vector) + new_size, value);
@@ -289,7 +276,10 @@ std::pair<size_t, size_t> Store::appendToDelta(size_t num_rows) {
   return {prior_delta_size, prior_delta_size + num_rows};
 }
 
-void Store::copyRowToDelta(const c_atable_ptr_t& source, const size_t src_row, const size_t dst_row, tx::transaction_id_t tid) {
+void Store::copyRowToDelta(const c_atable_ptr_t& source,
+                           const size_t src_row,
+                           const size_t dst_row,
+                           tx::transaction_id_t tid) {
   auto main_tables_size = _main_table->size();
 
   // Update the validity
@@ -299,8 +289,8 @@ void Store::copyRowToDelta(const c_atable_ptr_t& source, const size_t src_row, c
 }
 
 tx::TX_CODE Store::commitPositions(const pos_list_t& pos, const tx::transaction_cid_t cid, bool valid) {
-  for(const auto& p : pos) {
-    if(valid) {
+  for (const auto& p : pos) {
+    if (valid) {
       _cidBeginVector[p] = cid;
     } else {
       _cidEndVector[p] = cid;
@@ -311,7 +301,7 @@ tx::TX_CODE Store::commitPositions(const pos_list_t& pos, const tx::transaction_
 }
 
 tx::TX_CODE Store::checkForConcurrentCommit(const pos_list_t& pos, const tx::transaction_id_t tid) const {
-  for(const auto& p : pos) {
+  for (const auto& p : pos) {
     if (_tidVector[p] != tid)
       return tx::TX_CODE::TX_FAIL_CONCURRENT_COMMIT;
   }
@@ -319,11 +309,11 @@ tx::TX_CODE Store::checkForConcurrentCommit(const pos_list_t& pos, const tx::tra
 }
 
 tx::TX_CODE Store::markForDeletion(const pos_t pos, const tx::transaction_id_t tid) {
-  if(atomic_cas(&_tidVector[pos], tx::START_TID, tid)) {
+  if (atomic_cas(&_tidVector[pos], tx::START_TID, tid)) {
     return tx::TX_CODE::TX_OK;
   }
 
-  if(_tidVector[pos] == tid) {
+  if (_tidVector[pos] == tid) {
     // It is a row that we inserted ourselves. So we leave it as it is.
     // No need for a CAS here since we already have it "locked"
     // WARNING:
@@ -336,11 +326,11 @@ tx::TX_CODE Store::markForDeletion(const pos_t pos, const tx::transaction_id_t t
 }
 
 tx::TX_CODE Store::unmarkForDeletion(const pos_list_t& pos, const tx::transaction_id_t tid) {
-  for(const auto& p : pos) {
+  for (const auto& p : pos) {
     if (_tidVector[p] == tid)
       _tidVector[p] = tx::START_TID;
   }
   return tx::TX_CODE::TX_OK;
 }
-
-}}
+}
+}

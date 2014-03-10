@@ -13,9 +13,8 @@ namespace access {
 class UnionScanBase : public ::testing::Benchmark {
 
  protected:
-
-  UnionAll *us;
-  io::StorageManager *sm;
+  UnionAll* us;
+  io::StorageManager* sm;
   storage::c_atable_ptr_t t1;
   storage::c_atable_ptr_t t2;
 
@@ -36,9 +35,7 @@ class UnionScanBase : public ::testing::Benchmark {
     us->setProducesPositions(true);
   }
 
-  void BenchmarkTearDown() {
-
-  }
+  void BenchmarkTearDown() {}
 
   UnionScanBase() {
     SetNumIterations(10);
@@ -46,31 +43,26 @@ class UnionScanBase : public ::testing::Benchmark {
   }
 };
 
-BENCHMARK_F(UnionScanBase, standard_union_with_pos) {
-  auto result = us->execute()->getResultTable();
-}
+BENCHMARK_F(UnionScanBase, standard_union_with_pos) { auto result = us->execute()->getResultTable(); }
 
 BENCHMARK_F(UnionScanBase, standard_union_mat) {
   auto result = us->execute()->getResultTable();
 
-  MaterializingScan *ms = new MaterializingScan(false);
+  MaterializingScan* ms = new MaterializingScan(false);
   ms->setEvent("NO_PAPI");
   ms->addInput(result);
 
   auto result_mat = ms->execute()->getResultTable();
-
 }
 
 BENCHMARK_F(UnionScanBase, standard_union_mat_memcpy) {
   auto result = us->execute()->getResultTable();
 
-  MaterializingScan *ms = new MaterializingScan(true);
+  MaterializingScan* ms = new MaterializingScan(true);
   ms->setEvent("NO_PAPI");
   ms->addInput(result);
 
   auto result_mat = ms->execute()->getResultTable();
-
 }
-
 }
 }

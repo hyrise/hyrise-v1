@@ -4,13 +4,11 @@
 namespace hyrise {
 namespace access {
 
-PredicateBuilder::PredicateBuilder(): root(nullptr) {
-}
+PredicateBuilder::PredicateBuilder() : root(nullptr) {}
 
-PredicateBuilder::~PredicateBuilder() {
-}
+PredicateBuilder::~PredicateBuilder() {}
 
-void PredicateBuilder::add(SimpleFieldExpression *e) {
+void PredicateBuilder::add(SimpleFieldExpression* e) {
   if (root == nullptr) {
     root = e;
   } else {
@@ -20,10 +18,9 @@ void PredicateBuilder::add(SimpleFieldExpression *e) {
   if (previous.size() > 0 && previous.top()->isSetup()) {
     previous.pop();
   }
-
 }
 
-void PredicateBuilder::add(CompoundExpression *e) {
+void PredicateBuilder::add(CompoundExpression* e) {
   if (root == nullptr) {
     root = e;
   } else {
@@ -33,8 +30,6 @@ void PredicateBuilder::add(CompoundExpression *e) {
   previous.push(e);
 }
 
-SimpleExpression *PredicateBuilder::build() {
-  return root;
+SimpleExpression* PredicateBuilder::build() { return root; }
 }
-
-} } // namespace hyrise::access
+}  // namespace hyrise::access

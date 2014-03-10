@@ -26,9 +26,9 @@
 namespace hyrise {
 namespace access {
 
-storage::c_atable_ptr_t sortTable(storage::c_atable_ptr_t table){
+storage::c_atable_ptr_t sortTable(storage::c_atable_ptr_t table) {
   size_t c = table->columnCount();
-  for(size_t f = 0; f < c; f++){
+  for (size_t f = 0; f < c; f++) {
     hyrise::access::SortScan so;
     so.addInput(table);
     so.setSortField(f);
@@ -36,50 +36,47 @@ storage::c_atable_ptr_t sortTable(storage::c_atable_ptr_t table){
   }
   return table;
 }
-const hyrise::storage::c_atable_ptr_t hashJoinSameTable(
+const hyrise::storage::c_atable_ptr_t hashJoinSameTable(hyrise::storage::c_atable_ptr_t& table, field_list_t& columns) {
 
-    hyrise::storage::c_atable_ptr_t& table,
-    field_list_t &columns) {
-
-	/*
-  std::vector<std::shared_ptr<hyrise::access::HashBuild> > hashBuilds;
+  /*
+std::vector<std::shared_ptr<hyrise::access::HashBuild> > hashBuilds;
+for (unsigned int i = 0; i < columns.size(); ++i) {
+hashBuilds.push_back(std::make_shared<hyrise::access::HashBuild>());
+hashBuilds[i]->addInput(table);
+hashBuilds[i]->addField(columns[i]);
+}
+   */
+  auto hashBuild = std::make_shared<hyrise::access::HashBuild>();
+  hashBuild->addInput(table);
+  hashBuild->setKey("join");
   for (unsigned int i = 0; i < columns.size(); ++i) {
-    hashBuilds.push_back(std::make_shared<hyrise::access::HashBuild>());
-    hashBuilds[i]->addInput(table);
-    hashBuilds[i]->addField(columns[i]);
+    hashBuild->addField(columns[i]);
   }
-	 */
-	auto hashBuild = std::make_shared<hyrise::access::HashBuild>();
-	hashBuild->addInput(table);
-	hashBuild->setKey("join");
-	for (unsigned int i = 0; i < columns.size(); ++i) {
-		hashBuild->addField(columns[i]);
-	}
-	auto hashJoinProbe = std::make_shared<hyrise::access::HashJoinProbe>();
-	hashJoinProbe->addInput(table);
-        for (auto col: columns) { hashJoinProbe->addField(col); }
-	hashJoinProbe->addInput(hashBuild->execute()->getResultHashTable());
+  auto hashJoinProbe = std::make_shared<hyrise::access::HashJoinProbe>();
+  hashJoinProbe->addInput(table);
+  for (auto col : columns) {
+    hashJoinProbe->addField(col);
+  }
+  hashJoinProbe->addInput(hashBuild->execute()->getResultHashTable());
 
-	return hashJoinProbe->execute()->getResultTable();
+  return hashJoinProbe->execute()->getResultTable();
 }
 
-EdgesBuilder &EdgesBuilder::clear() {
-	edges.clear();
-	return *this;
+EdgesBuilder& EdgesBuilder::clear() {
+  edges.clear();
+  return *this;
 }
 
-EdgesBuilder &EdgesBuilder::appendEdge(
-		const std::string &src,
-		const std::string &dst) {
-	const edge_t newEdge = edge_t(src, dst);
-	edges.push_back(newEdge);
-	return *this;
+EdgesBuilder& EdgesBuilder::appendEdge(const std::string& src, const std::string& dst) {
+  const edge_t newEdge = edge_t(src, dst);
+  edges.push_back(newEdge);
+  return *this;
 }
 
 Json::Value EdgesBuilder::getEdges() const {
-	Json::Value jsonEdges = Json::Value(Json::arrayValue);
-	for (edges_map_iterator it = this->edges.begin(); it != this->edges.end(); ++it) {
-		Json::Value srcNode(it->first);
+  Json::Value jsonEdges = Json::Value(Json::arrayValue);
+  for (edges_map_iterator it = this->edges.begin(); it != this->edges.end(); ++it) {
+    Json::Value srcNode(it->first);
     Json::Value dstNode(it->second);
     Json::Value edge(Json::arrayValue);
     edge.append(srcNode);
@@ -90,15 +87,10 @@ Json::Value EdgesBuilder::getEdges() const {
 }
 
 
-bool isEdgeEqual(
-    const Json::Value &edges,
-    const unsigned position,
-    const std::string &src,
-    const std::string &dst) {
+bool isEdgeEqual(const Json::Value& edges, const unsigned position, const std::string& src, const std::string& dst) {
   Json::Value currentEdge = edges[position];
   return currentEdge[0u] == src && currentEdge[1u] == dst;
 }
-
 
 
 
@@ -113,25 +105,16 @@ class MockedConnection : public hyrise::net::AbstractConnection {
  public:
   MockedConnection(const std::string& body) : _body(body) {}
 
-  virtual void respond(const std::string& r, std::size_t code, const std::string& contentType) {
-    _response = r;
-  }
+  virtual void respond(const std::string& r, std::size_t code, const std::string& contentType) { _response = r; }
 
-  std::string getResponse() {
-    return _response;
-  }
+  std::string getResponse() { return _response; }
 
-  bool hasBody() const {
-    return !_body.empty();
-  }
+  bool hasBody() const { return !_body.empty(); }
 
-  std::string getBody() const {
-    return _body;
-  }
+  std::string getBody() const { return _body; }
 
-  std::string getPath() const {
-    return "";
-  }
+  std::string getPath() const { return ""; }
+
  private:
   std::string _body;
   std::string _response;
@@ -143,13 +126,10 @@ class MockedConnection : public hyrise::net::AbstractConnection {
  * that will be parsed and the necessary plan operations will be
  * instantiated.
  */
-storage::c_atable_ptr_t executeAndWait(
-    std::string httpQuery,
-    size_t poolSize,
-    std::string* evt) {
+storage::c_atable_ptr_t executeAndWait(std::string httpQuery, size_t poolSize, std::string* evt) {
   using namespace hyrise;
   using namespace hyrise::access;
-  std::unique_ptr<MockedConnection> conn(new MockedConnection("performance=true&query="+httpQuery));
+  std::unique_ptr<MockedConnection> conn(new MockedConnection("performance=true&query=" + httpQuery));
 
   taskscheduler::SharedScheduler::getInstance().resetScheduler("WSCoreBoundQueuesScheduler", poolSize);
   const auto& scheduler = taskscheduler::SharedScheduler::getInstance().getScheduler();
@@ -166,12 +146,12 @@ storage::c_atable_ptr_t executeAndWait(
   wait->wait();
 
 
-  
+
   auto result_task = response->getResultTask();
-  
+
   /*
   */
-  
+
   if (response->getState() == OpFail) {
     throw std::runtime_error(joinString(response->getErrorMessages(), "\n"));
   }
@@ -183,9 +163,8 @@ storage::c_atable_ptr_t executeAndWait(
   if (evt != nullptr) {
     *evt = result_task->getEvent();
   }
-  
+
   return result_task->getResultTable();
 }
-
-} } // namespace hyrise::access
-
+}
+}  // namespace hyrise::access

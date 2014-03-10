@@ -13,7 +13,6 @@ class StartProfiling : public PlanOperation {
 class StopProfiling : public PlanOperation {
   void executePlanOperation();
 };
-
 }
 }
 

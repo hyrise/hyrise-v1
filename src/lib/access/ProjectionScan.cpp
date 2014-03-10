@@ -11,18 +11,16 @@ namespace hyrise {
 namespace access {
 
 namespace {
-  auto _ = QueryParser::registerPlanOperation<ProjectionScan>("ProjectionScan");
+auto _ = QueryParser::registerPlanOperation<ProjectionScan>("ProjectionScan");
 }
 
-void ProjectionScan::setupPlanOperation() {
-  computeDeferredIndexes();
-}
+void ProjectionScan::setupPlanOperation() { computeDeferredIndexes(); }
 
 void ProjectionScan::executePlanOperation() {
   _limit = _limit == 0 ? input.getTable(0)->size() : _limit;
   _limit = _limit > input.getTable(0)->size() ? input.getTable(0)->size() : _limit;
 
-  storage::pos_list_t *pos_list = nullptr;
+  storage::pos_list_t* pos_list = nullptr;
   if (_limit != input.getTable(0)->size()) {
     pos_list = new pos_list_t();
 
@@ -32,18 +30,15 @@ void ProjectionScan::executePlanOperation() {
   }
 
   // copy the field definition
-  std::vector<field_t> *tmp_fd = new std::vector<field_t>(_field_definition);
+  std::vector<field_t>* tmp_fd = new std::vector<field_t>(_field_definition);
   addResult(storage::PointerCalculator::create(input.getTable(0), pos_list, tmp_fd));
 }
 
-std::shared_ptr<PlanOperation> ProjectionScan::parse(const Json::Value &data) {
+std::shared_ptr<PlanOperation> ProjectionScan::parse(const Json::Value& data) {
   std::shared_ptr<PlanOperation> p = BasicParser<ProjectionScan>::parse(data);
   return p;
 }
 
-const std::string ProjectionScan::vname() {
-  return "ProjectionScan";
-}
-
+const std::string ProjectionScan::vname() { return "ProjectionScan"; }
 }
 }

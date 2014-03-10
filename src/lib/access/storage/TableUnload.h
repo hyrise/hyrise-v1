@@ -8,18 +8,17 @@ namespace hyrise {
 namespace access {
 
 class TableUnload : public PlanOperation {
-public:
+ public:
   virtual ~TableUnload();
 
   void executePlanOperation();
-  static std::shared_ptr<PlanOperation> parse(const Json::Value &data);
+  static std::shared_ptr<PlanOperation> parse(const Json::Value& data);
   const std::string vname();
-  void setTableName(const std::string &tablename);
+  void setTableName(const std::string& tablename);
 
-private:
+ private:
   std::string _table_name;
 };
-
 }
 }
 

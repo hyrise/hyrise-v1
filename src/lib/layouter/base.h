@@ -29,7 +29,7 @@ class Schema {
   std::vector<std::string> attnames;
 
  public:
-  std::vector<Query *> queries;
+  std::vector<Query*> queries;
   size_t nbAttributes;
   size_t nbTuples;
 
@@ -39,23 +39,18 @@ class Schema {
 
   Schema(std::vector<unsigned> a, int nbA, std::vector<std::string> an);
 
-  void add(const Query *q);
+  void add(const Query* q);
 
   void removeLastQuery();
 
-  std::vector<std::string> getAttributeNames() const {
-    return attnames;
-  }
+  std::vector<std::string> getAttributeNames() const { return attnames; }
 
   double costForSubset(subset_t t, std::string costModel) const;
 
   Schema baseCopy() const;
 
 
-  void print() {
-    std::cout << "<Schema: attrs:" << nbAttributes << " queries:" << queries.size() << ">" << std::endl;
-  }
-
+  void print() { std::cout << "<Schema: attrs:" << nbAttributes << " queries:" << queries.size() << ">" << std::endl; }
 };
 
 /*
@@ -64,7 +59,6 @@ class Schema {
 class Query {
 
  public:
-
   // Maps to the different query types, full projection, out of order, etc..
   LayouterConfiguration::access_type_t type;
 
@@ -78,7 +72,6 @@ class Query {
   unsigned weight;
 
  private:
-
   // Constant std::string value for the cost model
   std::string _costModel;
   // Reference to the schema
@@ -95,7 +88,6 @@ class Query {
   unsigned _previousLine;
 
  public:
-
   Query(LayouterConfiguration::access_type_t type, std::vector<unsigned> qA, double parameter, int weight);
 
   unsigned getContainerWidth();
@@ -107,7 +99,6 @@ class Query {
   double hyriseEquivalentProjection(bool v);
   double hyriseOOO();
   double hyriseSingleOOO(int po, int pw);
-
 };
 
 class Layout {
@@ -121,39 +112,37 @@ class Layout {
 
   void add(std::vector<unsigned> subset);
 
-  bool operator==(const Layout &l) const;
+  bool operator==(const Layout& l) const;
 
   void removeLast();
 
-  inline size_t containerCount() const {
-    return _layout.size();
-  }
+  inline size_t containerCount() const { return _layout.size(); }
 
   inline size_t size() const {
     size_t sum = 0;
-    for (subset_t t: _layout) {
+    for (subset_t t : _layout) {
       sum += t.size();
     }
     return sum;
   }
 
-  inline bool canAdd(const subset_t &subset) const {
-    for (const auto& tmp: _cached_layout) {
+  inline bool canAdd(const subset_t& subset) const {
+    for (const auto& tmp : _cached_layout) {
       // If it is included in the layout
-      for (const auto& i: subset)
-          if (tmp.count(i) > 0)
-            return false;
+      for (const auto& i : subset)
+        if (tmp.count(i) > 0)
+          return false;
 
-      //if (tmp.end() != find_first_of(tmp.begin(), tmp.end(), subset.begin(), subset.end()))
-      //return false;
+      // if (tmp.end() != find_first_of(tmp.begin(), tmp.end(), subset.begin(), subset.end()))
+      // return false;
     }
     return true;
   }
 
   inline void print() const {
-    for (const auto& tmp: _layout) {
+    for (const auto& tmp : _layout) {
       std::cout << "|";
-      for (const auto& i: tmp) {
+      for (const auto& i : tmp) {
         std::cout << i << " ";
       }
       std::cout << "|";
@@ -161,18 +150,14 @@ class Layout {
     std::cout << std::endl;
   }
 
-  inline internal_layout_t raw() const {
-    return _layout;
-  }
+  inline internal_layout_t raw() const { return _layout; }
 
  private:
-
   internal_layout_t _layout;
 
   // Set based layout type
   typedef std::vector<std::set<unsigned> > _set_based_layout_t;
   _set_based_layout_t _cached_layout;
-
 };
 
 
@@ -180,31 +165,25 @@ class Result {
   std::vector<std::string> _names;
 
  public:
-
   Layout layout;
   std::vector<double> cost;
   double totalCost;
 
-  Result(Layout &l, std::vector<double> c);
+  Result(Layout& l, std::vector<double> c);
 
   Result() {};
 
-  bool operator==(const Result &r) const;
+  bool operator==(const Result& r) const;
 
-  bool layoutEquals(const Result &r) const;
+  bool layoutEquals(const Result& r) const;
 
-  bool operator<(const Result &other) const {
-    return totalCost < other.totalCost;
-  }
+  bool operator<(const Result& other) const { return totalCost < other.totalCost; }
 
   void print() const;
 
-  void setNames(std::vector<std::string> n) {
-    _names = n;
-  }
+  void setNames(std::vector<std::string> n) { _names = n; }
 
   std::string output() const;
-
 };
 
 
@@ -215,7 +194,6 @@ class Result {
 class BaseLayouter {
 
  public:
-
   std::vector<subset_t> subsets;
   int nbLayouts;
 
@@ -244,9 +222,7 @@ class BaseLayouter {
 
   Result getResult(std::string newCostModel, int idx);
 
-  size_t count() {
-    return results.size();
-  }
+  size_t count() { return results.size(); }
 
   Result findEqualLayout(std::string newCostModel, Result other);
 
@@ -256,15 +232,13 @@ class BaseLayouter {
 
   void generateSubSetsK(unsigned k, unsigned nbAtts);
 
-  void generateSet(std::vector<subset_t> &ctx,
-                   subset_t s, unsigned position,
-                   unsigned nextInt, unsigned k, unsigned N);
+  void generateSet(std::vector<subset_t>& ctx, subset_t s, unsigned position, unsigned nextInt, unsigned k, unsigned N);
 
   void iterateThroughLayouts();
 
   void generateLayouts(Layout l, size_t iter);
 
-  bool tryToAddSubset(const Layout &l, const subset_t &subset) const;
+  bool tryToAddSubset(const Layout& l, const subset_t& subset) const;
 
   // Get cost for column layout
   double getColumnCost() const;
@@ -287,17 +261,20 @@ class BaseLayouter {
     \param curr_attr The current number of attributes
     \return A list of combinations
   */
-  std::vector<std::vector<subset_t> > iterateThroughLayoutSubsetsFast(size_t n, std::vector<subset_t> list, size_t current_size, size_t dest_size, size_t max_attr, size_t curr_attr);
-    
- protected:
+  std::vector<std::vector<subset_t> > iterateThroughLayoutSubsetsFast(size_t n,
+                                                                      std::vector<subset_t> list,
+                                                                      size_t current_size,
+                                                                      size_t dest_size,
+                                                                      size_t max_attr,
+                                                                      size_t curr_attr);
 
+ protected:
   size_t checkLowerBound(subset_t input, Layout::internal_layout_t subsets);
 
   void iterateLayoutSubsets(subset_t input, Layout::internal_layout_t subsets);
 
 
   Layout::internal_layout_t eliminateInvalidSubsets(subset_t reference, Layout::internal_layout_t input);
-
 };
 
 
@@ -306,13 +283,15 @@ class BaseLayouter {
   iterate over the complete result set but rather optimizes the
   partitions to check.
 */
-class CandidateLayouter: public BaseLayouter {
+class CandidateLayouter : public BaseLayouter {
 
  protected:
+  std::vector<std::set<unsigned> > _candidateList;
 
-  std::vector< std::set<unsigned> > _candidateList;
-
-  std::vector<subset_t> candidateMergePath(subset_t initial, subset_t rest, std::vector<subset_t> &mapping, std::unordered_map<std::string, double> &_cache);
+  std::vector<subset_t> candidateMergePath(subset_t initial,
+                                           subset_t rest,
+                                           std::vector<subset_t>& mapping,
+                                           std::unordered_map<std::string, double>& _cache);
 
  public:
   CandidateLayouter();
@@ -323,7 +302,7 @@ class CandidateLayouter: public BaseLayouter {
 
   void generateCandidateList();
 
-  std::vector<subset_t> externalCombineCandidates(std::vector<std::set< unsigned> > candidateList);
+  std::vector<subset_t> externalCombineCandidates(std::vector<std::set<unsigned> > candidateList);
 
   void combineCandidates();
 };
@@ -335,7 +314,6 @@ class CandidateLayouter: public BaseLayouter {
 */
 class FastCandidateLayouter : public CandidateLayouter {
  protected:
-
   Layout::internal_layout_t result;
   std::vector<subset_t> _mapping;
 
@@ -345,12 +323,9 @@ class FastCandidateLayouter : public CandidateLayouter {
   void generateResults(subset_t initial, subset_t other);
 
  public:
-
-  FastCandidateLayouter(): CandidateLayouter()
-  {}
+  FastCandidateLayouter() : CandidateLayouter() {}
 
   virtual void layout(Schema s, std::string costModel);
-
 };
 
 
@@ -361,7 +336,6 @@ class FastCandidateLayouter : public CandidateLayouter {
 class DivideAndConquerLayouter : public CandidateLayouter {
 
  protected:
-
   std::vector<std::vector<set_subset_t> > partitionGraph(Matrix<int> m);
 
   /*
@@ -372,7 +346,6 @@ class DivideAndConquerLayouter : public CandidateLayouter {
   Matrix<int> createAffinityMatrix();
 
  public:
-
   DivideAndConquerLayouter();
 
   virtual ~DivideAndConquerLayouter() {}
@@ -380,7 +353,6 @@ class DivideAndConquerLayouter : public CandidateLayouter {
   virtual void layout(Schema s, std::string costModel);
 
   static int numCuts;
-
 };
-
-} } // namespace hyrise::layouter
+}
+}  // namespace hyrise::layouter

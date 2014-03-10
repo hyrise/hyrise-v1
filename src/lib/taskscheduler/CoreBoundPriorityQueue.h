@@ -19,7 +19,7 @@ namespace taskscheduler {
  * A queue with a dedicated worker thread; used by SimpleTaskScheduler to run tasks
  */
 class CoreBoundPriorityQueue : public AbstractCoreBoundQueue {
-  tbb::concurrent_priority_queue<std::shared_ptr<Task> , CompareTaskPtr> _runQueue;
+  tbb::concurrent_priority_queue<std::shared_ptr<Task>, CompareTaskPtr> _runQueue;
   bool _blocked;
 
  public:
@@ -28,9 +28,9 @@ class CoreBoundPriorityQueue : public AbstractCoreBoundQueue {
    */
   CoreBoundPriorityQueue(int core);
   ~CoreBoundPriorityQueue();
-    /*
-   * init task scheduler
-   */
+  /*
+ * init task scheduler
+ */
   virtual void init();
   /*
    * Is executed by dedicated thread to work the queue
@@ -52,10 +52,7 @@ class CoreBoundPriorityQueue : public AbstractCoreBoundQueue {
   /*
    * check whether queue is blocked / queue is blocked if it is currently executing a task
    */
-  bool blocked() {
-    return _blocked;
-  }
+  bool blocked() { return _blocked; }
 };
-
-} } // namespace hyrise::taskscheduler
-
+}
+}  // namespace hyrise::taskscheduler

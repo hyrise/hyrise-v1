@@ -4,17 +4,16 @@
 
 #include <sys/stat.h>
 
-int main(int argc, char **argv) {
+int main(int argc, char** argv) {
   ::testing::InitGoogleTest(&argc, argv);
 
   // Gets hold of the event listener list.
-  ::testing::TestEventListeners &listeners =
-        ::testing::UnitTest::GetInstance()->listeners();
+  ::testing::TestEventListeners& listeners = ::testing::UnitTest::GetInstance()->listeners();
 
   delete listeners.Release(listeners.default_result_printer());
   listeners.Append(new testing::BenchmarkPrinter);
 
-  //preload environment
+  // preload environment
 
   if (getenv("HYRISE_DB_PATH") == nullptr) {
     std::cout << "HYRISE_DB_PATH environment variable is not set!" << std::endl;

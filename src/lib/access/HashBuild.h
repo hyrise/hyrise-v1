@@ -8,7 +8,7 @@ namespace hyrise {
 namespace access {
 
 class HashBuild : public ParallelizablePlanOperation {
-public:
+ public:
   virtual ~HashBuild();
 
   void executePlanOperation();
@@ -26,15 +26,14 @@ public:
   ///     },
   ///         "edges": [["0", "1"]]
   /// }
-  static std::shared_ptr<PlanOperation> parse(const Json::Value &data);
+  static std::shared_ptr<PlanOperation> parse(const Json::Value& data);
   const std::string vname();
-  void setKey(const std::string &key);
+  void setKey(const std::string& key);
   const std::string getKey() const;
 
-private:
+ private:
   std::string _key;
 };
-
 }
 }
 

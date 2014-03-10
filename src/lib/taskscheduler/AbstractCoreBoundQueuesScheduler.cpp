@@ -10,10 +10,12 @@
 namespace hyrise {
 namespace taskscheduler {
 
-log4cxx::LoggerPtr AbstractCoreBoundQueuesScheduler::_logger = log4cxx::Logger::getLogger("taskscheduler.AbstractCoreBoundQueuesScheduler");
+log4cxx::LoggerPtr AbstractCoreBoundQueuesScheduler::_logger =
+    log4cxx::Logger::getLogger("taskscheduler.AbstractCoreBoundQueuesScheduler");
 
 
-AbstractCoreBoundQueuesScheduler::AbstractCoreBoundQueuesScheduler(int queues): _queues(queues), _status(START_UP), _nextQueue(0) {}
+AbstractCoreBoundQueuesScheduler::AbstractCoreBoundQueuesScheduler(int queues)
+    : _queues(queues), _status(START_UP), _nextQueue(0) {}
 
 
 AbstractCoreBoundQueuesScheduler::~AbstractCoreBoundQueuesScheduler() {
@@ -37,7 +39,7 @@ void AbstractCoreBoundQueuesScheduler::schedule(std::shared_ptr<Task> task) {
     task->addReadyObserver(shared_from_this());
     std::lock_guard<lock_t> lk(_setMutex);
     _waitSet.insert(task);
-    LOG4CXX_DEBUG(_logger,  "Task " << std::hex << (void *)task.get() << std::dec << " inserted in wait queue");
+    LOG4CXX_DEBUG(_logger, "Task " << std::hex << (void*)task.get() << std::dec << " inserted in wait queue");
   }
   task->unlockForNotifications();
 }
@@ -61,11 +63,13 @@ void AbstractCoreBoundQueuesScheduler::notifyReady(std::shared_ptr<Task> task) {
 
   // if task was found in wait set, schedule task to next queue
   if (tmp == 1) {
-    LOG4CXX_DEBUG(_logger, "Task " << std::hex << (void *)task.get() << std::dec << " ready to run");
+    LOG4CXX_DEBUG(_logger, "Task " << std::hex << (void*)task.get() << std::dec << " ready to run");
     pushToQueue(task);
   } else
     // should never happen, but check to identify potential race conditions
-    LOG4CXX_ERROR(_logger, "Task that notified to be ready to run was not found / found more than once in waitSet! " << std::to_string(tmp));
+    LOG4CXX_ERROR(_logger,
+                  "Task that notified to be ready to run was not found / found more than once in waitSet! "
+                      << std::to_string(tmp));
 }
 
 /*
@@ -77,9 +81,7 @@ void AbstractCoreBoundQueuesScheduler::wait() {
   }
 }
 
-size_t AbstractCoreBoundQueuesScheduler::getNumberOfWorker() const {
-  return _queues;
-}
+size_t AbstractCoreBoundQueuesScheduler::getNumberOfWorker() const { return _queues; }
 
 
 void AbstractCoreBoundQueuesScheduler::shutdown() {
@@ -89,6 +91,5 @@ void AbstractCoreBoundQueuesScheduler::shutdown() {
   }
   _status = STOPPED;
 }
-
-} } // namespace hyrise::taskscheduler
-
+}
+}  // namespace hyrise::taskscheduler

@@ -51,10 +51,7 @@ class CoreBoundQueue : public AbstractCoreBoundQueue {
   /*
    * check whether queue is blocked / queue is blocked if it is currently executing a task
    */
-  bool blocked() {
-    return _blocked;
-  }
+  bool blocked() { return _blocked; }
 };
-
-} } // namespace hyrise::taskscheduler
-
+}
+}  // namespace hyrise::taskscheduler

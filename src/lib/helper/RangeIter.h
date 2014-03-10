@@ -9,24 +9,16 @@
 class RangeIter {
  private:
   size_t _value;
+
  public:
   RangeIter() {}
   RangeIter(size_t val) : _value(val) {}
 
-  inline bool operator==(const RangeIter& other) {
-    return _value == other._value;
-  }
+  inline bool operator==(const RangeIter& other) { return _value == other._value; }
 
-  inline bool operator!=(const RangeIter& other) {
-    return _value != other._value;
-  }
+  inline bool operator!=(const RangeIter& other) { return _value != other._value; }
 
-  inline size_t operator*() {
-    return _value;
-  }
+  inline size_t operator*() { return _value; }
 
-  inline void operator++() {
-    _value++;
-  }
+  inline void operator++() { _value++; }
 };
-

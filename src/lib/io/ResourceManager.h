@@ -15,23 +15,23 @@ class AbstractResource;
 namespace hyrise {
 namespace storage {
 class AbstractRessource;
-} // namespace storage
+}  // namespace storage
 
 namespace io {
 
-class ResourceManagerException :  public std::runtime_error {
+class ResourceManagerException : public std::runtime_error {
  public:
-  explicit ResourceManagerException(const std::string &what): std::runtime_error(what) {}
+  explicit ResourceManagerException(const std::string& what) : std::runtime_error(what) {}
 };
 
 class ResourceAlreadyExistsException : public ResourceManagerException {
  public:
-  explicit ResourceAlreadyExistsException(const std::string &what): ResourceManagerException(what) {}
+  explicit ResourceAlreadyExistsException(const std::string& what) : ResourceManagerException(what) {}
 };
 
 class ResourceNotExistsException : public ResourceManagerException {
  public:
-  explicit ResourceNotExistsException(const std::string &what): ResourceManagerException(what) {}
+  explicit ResourceNotExistsException(const std::string& what) : ResourceManagerException(what) {}
 };
 
 /// Manages AbstractResources by name
@@ -63,7 +63,7 @@ class ResourceManager {
 
   /// Replaces an existing resource
   void replace(const std::string& name, const std::shared_ptr<storage::AbstractResource>& resource) const;
-  
+
   /// Removes all resources
   void clear() const;
 
@@ -77,11 +77,12 @@ class ResourceManager {
 
   /// Return number of elements in storage
   size_t size() const;
-  
+
   /// Get a copy of the full resource map, otherwise, we would need to
   /// lock the whole structure while other operations are running on
   /// top of it
   resource_map all() const;
+
  private:
   /// The actual schema
   mutable resource_map _resources;
@@ -89,10 +90,8 @@ class ResourceManager {
   mutable std::recursive_mutex _resource_mutex;
 
   ResourceManager() = default;
-  ResourceManager(const ResourceManager &) = delete;
-  ResourceManager &operator= (const ResourceManager &) = delete;
-
+  ResourceManager(const ResourceManager&) = delete;
+  ResourceManager& operator=(const ResourceManager&) = delete;
 };
-
-}}  // namespace hyrise::io
-
+}
+}  // namespace hyrise::io
