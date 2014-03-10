@@ -88,7 +88,7 @@ void RadixCluster::executeClustering() {
     for (decltype(tableSize) row = _start; row < _stop; ++row) {
       // Calculate and increment the position
       auto hash_value = hasher(dict->getValueForValueId(ivec->get(offset, p->getTableRowForRow(row))));  // ts(tpe,
-                                                                                                         // fun);
+      // fun);
       auto offset = (hash_value & mask) >> _significantOffset;
       auto pos_to_write = data_prefix_sum->inc(0, offset);
 
