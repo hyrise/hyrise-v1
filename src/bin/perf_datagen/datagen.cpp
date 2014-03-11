@@ -57,26 +57,30 @@ int mode_string = MODE_PGSQL;
 char delimiter = ',';
 char null_str[16] = "\"nullptr\"";
 
-#define ERR_MSG( fn ) { (void)fflush(stderr);           \
-    (void)fprintf(stderr, __FILE__ ":%d:" #fn ": %s\n", \
-                  __LINE__, strerror(errno)); }
-#define METAPRINTF( args ) if( fprintf args < 0  ) ERR_MSG( fn )
+#define ERR_MSG(fn)                                                                  \
+  {                                                                                  \
+    (void) fflush(stderr);                                                           \
+    (void) fprintf(stderr, __FILE__ ":%d:" #fn ": %s\n", __LINE__, strerror(errno)); \
+  }
+#define METAPRINTF(args) \
+  if (fprintf args < 0)  \
+  ERR_MSG(fn)
 
 /* Oh my gosh, is there a better way to do this? */
-#define FPRINTF(a, b, c)                                                \
-  if (mode_string == MODE_SAPDB) {                                      \
-    METAPRINTF((a, "\"" b "\"", c));                                      \
+#define FPRINTF(a, b, c)                                                                             \
+  if (mode_string == MODE_SAPDB) {                                                                   \
+    METAPRINTF((a, "\"" b "\"", c));                                                                 \
   } else if (mode_string == MODE_PGSQL || mode_string == MODE_MYSQL || mode_string == MODE_HYRISE) { \
-    METAPRINTF((a, b, c));                                              \
+    METAPRINTF((a, b, c));                                                                           \
   }
-#define FPRINTF2(a, b)                                                  \
-  if (mode_string == MODE_SAPDB) {                                      \
-    METAPRINTF((a, "\"" b "\""));                                         \
+#define FPRINTF2(a, b)                                                                               \
+  if (mode_string == MODE_SAPDB) {                                                                   \
+    METAPRINTF((a, "\"" b "\""));                                                                    \
   } else if (mode_string == MODE_PGSQL || mode_string == MODE_MYSQL || mode_string == MODE_HYRISE) { \
-    METAPRINTF((a, b));                                                 \
+    METAPRINTF((a, b));                                                                              \
   }
 
-void escape_me(char *str) {
+void escape_me(char* str) {
   /* Shouldn't need a buffer bigger than this. */
   char buffer[4096] = "";
   int i = 0;
@@ -96,19 +100,34 @@ void escape_me(char *str) {
   }
 }
 
-void print_timestamp(FILE *ofile, struct tm *date) {
+void print_timestamp(FILE* ofile, struct tm* date) {
   if (mode_string == MODE_SAPDB) {
-    METAPRINTF((ofile, "\"%04d%02d%02d%02d%02d%02d000000\"",
-                date->tm_year + 1900, date->tm_mon + 1, date->tm_mday,
-                date->tm_hour, date->tm_min, date->tm_sec));
+    METAPRINTF((ofile,
+                "\"%04d%02d%02d%02d%02d%02d000000\"",
+                date->tm_year + 1900,
+                date->tm_mon + 1,
+                date->tm_mday,
+                date->tm_hour,
+                date->tm_min,
+                date->tm_sec));
   } else if (mode_string == MODE_PGSQL || mode_string == MODE_MYSQL) {
-    METAPRINTF((ofile, "%04d-%02d-%02d %02d:%02d:%02d",
-                date->tm_year + 1900, date->tm_mon + 1, date->tm_mday,
-                date->tm_hour, date->tm_min, date->tm_sec));
+    METAPRINTF((ofile,
+                "%04d-%02d-%02d %02d:%02d:%02d",
+                date->tm_year + 1900,
+                date->tm_mon + 1,
+                date->tm_mday,
+                date->tm_hour,
+                date->tm_min,
+                date->tm_sec));
   } else if (mode_string == MODE_HYRISE) {
-    METAPRINTF((ofile, "%04d-%02d-%02d-%02d-%02d-%02d",
-                date->tm_year + 1900, date->tm_mon + 1, date->tm_mday,
-                date->tm_hour, date->tm_min, date->tm_sec));
+    METAPRINTF((ofile,
+                "%04d-%02d-%02d-%02d-%02d-%02d",
+                date->tm_year + 1900,
+                date->tm_mon + 1,
+                date->tm_mday,
+                date->tm_hour,
+                date->tm_min,
+                date->tm_sec));
 
   } else {
     printf("unknown std::string mode: %d\n", mode_string);
@@ -118,13 +137,14 @@ void print_timestamp(FILE *ofile, struct tm *date) {
 
 // header function patched for hyrise - SB270911
 
-void gen_table_header(FILE *output, std::string table_name) {
+void gen_table_header(FILE* output, std::string table_name) {
   std::vector<std::pair<std::string, std::string> > table_layout = layouts[table_name];
   std::stringstream fields;
   std::stringstream types;
   std::stringstream layout;
 
-  for (std::vector<std::pair<std::string, std::string> >::iterator it = table_layout.begin(); it != table_layout.end(); ++it) {
+  for (std::vector<std::pair<std::string, std::string> >::iterator it = table_layout.begin(); it != table_layout.end();
+       ++it) {
     fields << (*it).first.c_str();
     types << (*it).second.c_str();
     layout << "0_R";
@@ -134,7 +154,7 @@ void gen_table_header(FILE *output, std::string table_name) {
       types << delimiter;
       layout << delimiter;
     } else {
-      //this is the last field
+      // this is the last field
       fields << "\n";
       types << "\n";
       layout << "\n";
@@ -145,16 +165,16 @@ void gen_table_header(FILE *output, std::string table_name) {
   FPRINTF(output, "%s", types.str().c_str());
   FPRINTF(output, "%s", layout.str().c_str());
 
-  //writing content delimiter
+  // writing content delimiter
   METAPRINTF((output, "===\n"));
 }
 
 /* Clause 4.3.3.1 */
 void gen_customers() {
-  FILE *output;
+  FILE* output;
   int i, j, k;
   char a_string[1024];
-  struct tm *tm1;
+  struct tm* tm1;
   time_t t1;
   char filename[1024] = "\0";
 
@@ -172,7 +192,7 @@ void gen_customers() {
     return;
   }
 
-  //patched for hyrise - SB270911
+  // patched for hyrise - SB270911
   if (mode_string == MODE_HYRISE) {
     gen_table_header(output, "customer");
   }
@@ -304,7 +324,7 @@ void gen_customers() {
 
 /* Clause 4.3.3.1 */
 void gen_districts() {
-  FILE *output;
+  FILE* output;
   int i, j;
   char a_string[48];
   char filename[1024] = "\0";
@@ -323,7 +343,7 @@ void gen_districts() {
     return;
   }
 
-  //patched for hyrise - SB270911
+  // patched for hyrise - SB270911
   if (mode_string == MODE_HYRISE) {
     gen_table_header(output, "district");
   }
@@ -393,10 +413,10 @@ void gen_districts() {
 
 /* Clause 4.3.3.1 */
 void gen_history() {
-  FILE *output;
+  FILE* output;
   int i, j, k;
   char a_string[64];
-  struct tm *tm1;
+  struct tm* tm1;
   time_t t1;
   char filename[1024] = "\0";
 
@@ -414,7 +434,7 @@ void gen_history() {
     return;
   }
 
-  //patched for hyrise - SB270911
+  // patched for hyrise - SB270911
   if (mode_string == MODE_HYRISE) {
     gen_table_header(output, "history");
   }
@@ -473,7 +493,7 @@ void gen_history() {
 
 /* Clause 4.3.3.1 */
 void gen_items() {
-  FILE *output;
+  FILE* output;
   int i;
   char a_string[128];
   int j;
@@ -493,7 +513,7 @@ void gen_items() {
     return;
   }
 
-  //patched for hyrise - SB270911
+  // patched for hyrise - SB270911
   if (mode_string == MODE_HYRISE) {
     gen_table_header(output, "item");
   }
@@ -514,7 +534,7 @@ void gen_items() {
     METAPRINTF((output, "%c", delimiter));
 
     /* i_price */
-    FPRINTF(output, "%0.2f", ((double) get_random(9900) + 100.0) / 100.0);
+    FPRINTF(output, "%0.2f", ((double)get_random(9900) + 100.0) / 100.0);
     METAPRINTF((output, "%c", delimiter));
 
     /* i_data */
@@ -535,7 +555,7 @@ void gen_items() {
 
 /* Clause 4.3.3.1 */
 void gen_new_orders() {
-  FILE *output;
+  FILE* output;
   int i, j, k;
   char filename[1024] = "\0";
 
@@ -553,7 +573,7 @@ void gen_new_orders() {
     return;
   }
 
-  //patched for hyrise - SB270911
+  // patched for hyrise - SB270911
   if (mode_string == MODE_HYRISE) {
     gen_table_header(output, "new_order");
   }
@@ -583,21 +603,21 @@ void gen_new_orders() {
 
 /* Clause 4.3.3.1 */
 void gen_orders() {
-  FILE *order, *order_line;
+  FILE* order, *order_line;
   int i, j, k, l;
   char a_string[64];
-  struct tm *tm1;
+  struct tm* tm1;
   time_t t1;
   char filename[1024] = "\0";
 
   struct node_t {
     int value;
-    struct node_t *next;
+    struct node_t* next;
   };
-  struct node_t *head;
-  struct node_t *current;
-  struct node_t *prev;
-  struct node_t *new_node;
+  struct node_t* head;
+  struct node_t* current;
+  struct node_t* prev;
+  struct node_t* new_node;
   int iter;
 
   int o_ol_cnt;
@@ -628,11 +648,10 @@ void gen_orders() {
     return;
   }
 
-  //patched for hyrise - SB270911
+  // patched for hyrise - SB270911
   if (mode_string == MODE_HYRISE) {
     gen_table_header(order, "order");
     gen_table_header(order_line, "order_line");
-
   }
 
   for (i = 0; i < warehouses; i++) {
@@ -640,7 +659,7 @@ void gen_orders() {
       /*
        * Create a random list of numbers from 1 to customers for o_c_id.
        */
-      head = (struct node_t *) malloc(sizeof(struct node_t));
+      head = (struct node_t*)malloc(sizeof(struct node_t));
       head->value = 1;
       head->next = nullptr;
       for (k = 2; k <= customers; k++) {
@@ -655,7 +674,7 @@ void gen_orders() {
         }
 
         /* Insert the number. */
-        new_node = (struct node_t *) malloc(sizeof(struct node_t));
+        new_node = (struct node_t*)malloc(sizeof(struct node_t));
         if (current == prev) {
           /* Insert at the head of the list. */
           new_node->next = head;
@@ -742,8 +761,7 @@ void gen_orders() {
           METAPRINTF((order_line, "%c", delimiter));
 
           /* ol_i_id */
-          FPRINTF(order_line, "%d",
-                  get_random(ITEM_CARDINALITY - 1) + 1);
+          FPRINTF(order_line, "%d", get_random(ITEM_CARDINALITY - 1) + 1);
           METAPRINTF((order_line, "%c", delimiter));
 
           /* ol_supply_w_id */
@@ -774,8 +792,7 @@ void gen_orders() {
           if (k < 2101) {
             FPRINTF2(order_line, "0.00");
           } else {
-            FPRINTF(order_line, "%f",
-                    (double)(get_random(999998) + 1) / 100.0);
+            FPRINTF(order_line, "%f", (double)(get_random(999998) + 1) / 100.0);
           }
           METAPRINTF((order_line, "%c", delimiter));
 
@@ -801,7 +818,7 @@ void gen_orders() {
 
 /* Clause 4.3.3.1 */
 void gen_stock() {
-  FILE *output;
+  FILE* output;
   int i, j, k;
   char a_string[128];
   char filename[1024] = "\0";
@@ -820,7 +837,7 @@ void gen_stock() {
     return;
   }
 
-  //patched for hyrise - SB270911
+  // patched for hyrise - SB270911
   if (mode_string == MODE_HYRISE) {
     gen_table_header(output, "stock");
   }
@@ -920,7 +937,7 @@ void gen_stock() {
 
 /* Clause 4.3.3.1 */
 void gen_warehouses() {
-  FILE *output;
+  FILE* output;
   int i;
   char a_string[48];
   char filename[1024] = "\0";
@@ -940,7 +957,7 @@ void gen_warehouses() {
     return;
   }
 
-  //patched for hyrise - SB270911
+  // patched for hyrise - SB270911
   if (mode_string == MODE_HYRISE) {
     gen_table_header(output, "warehouse");
   }
@@ -998,7 +1015,7 @@ void gen_warehouses() {
   return;
 }
 
-int main(int argc, char *argv[]) {
+int main(int argc, char* argv[]) {
   struct stat st;
 
   /* For getoptlong(). */
@@ -1027,8 +1044,8 @@ int main(int argc, char *argv[]) {
     printf("\tformat data for PostgreSQL\n");
     printf("--mysql\n");
     printf("\tformat data for MySQL\n");
-    printf("--hyrise\n");                   //patched for hyrise
-    printf("\tformat data for HYRISE\n");   //SB270911
+    printf("--hyrise\n");  // patched for hyrise
+    printf("\tformat data for HYRISE\n");  // SB270911
     return 1;
   }
 
@@ -1036,15 +1053,13 @@ int main(int argc, char *argv[]) {
   while (1) {
     int option_index = 0;
     static struct option long_options[] = {
-      { "pgsql", no_argument, &mode_string, MODE_PGSQL },
-      { "sapdb", no_argument, &mode_string, MODE_SAPDB },
-      { "mysql", no_argument, &mode_string, MODE_MYSQL },
-      { "hyrise", no_argument, &mode_string, MODE_HYRISE }, //patched for hyrise, SB270911
-      { 0, 0, 0, 0 }
-    };
+        {"pgsql", no_argument, &mode_string, MODE_PGSQL},
+        {"sapdb", no_argument, &mode_string, MODE_SAPDB},
+        {"mysql", no_argument, &mode_string, MODE_MYSQL},
+        {"hyrise", no_argument, &mode_string, MODE_HYRISE},  // patched for hyrise, SB270911
+        {0, 0, 0, 0}};
 
-    c = getopt_long(argc, argv, "c:d:i:n:o:w:",
-                    long_options, &option_index);
+    c = getopt_long(argc, argv, "c:d:i:n:o:w:", long_options, &option_index);
     if (c == -1) {
       break;
     }
@@ -1081,8 +1096,7 @@ int main(int argc, char *argv[]) {
     return 3;
   }
 
-  if (strlen(output_path) > 0 && ((stat(output_path, &st) < 0) ||
-                                  (st.st_mode & S_IFMT) != S_IFDIR)) {
+  if (strlen(output_path) > 0 && ((stat(output_path, &st) < 0) || (st.st_mode & S_IFMT) != S_IFDIR)) {
     printf("Output directory of data files '%s' not exists\n", output_path);
     return 3;
   }
@@ -1094,10 +1108,10 @@ int main(int argc, char *argv[]) {
   } else if (mode_string == MODE_PGSQL || mode_string == MODE_MYSQL) {
     delimiter = '\t';
     strcpy(null_str, "");
-  } else if (mode_string == MODE_HYRISE) {  //patched for hyrise
-    delimiter = '|';                  //
-    strcpy(null_str, "");             //
-    loadHyriseLayouts();              //SB270911
+  } else if (mode_string == MODE_HYRISE) {  // patched for hyrise
+    delimiter = '|';  //
+    strcpy(null_str, "");  //
+    loadHyriseLayouts();  // SB270911
   }
 
   printf("warehouses = %d\n", warehouses);

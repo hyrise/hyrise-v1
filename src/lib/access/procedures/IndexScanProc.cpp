@@ -13,13 +13,13 @@
 
 
 
-namespace hyrise { namespace access {
+namespace hyrise {
+namespace access {
 
 bool IndexScanProcedure::registered = net::Router::registerRoute<IndexScanProcedure>("/proc/indexscan");
 
 
-IndexScanProcedure::IndexScanProcedure(net::AbstractConnection *data) : _connection_data(data) {
-}
+IndexScanProcedure::IndexScanProcedure(net::AbstractConnection* data) : _connection_data(data) {}
 
 
 void IndexScanProcedure::operator()() {
@@ -27,14 +27,14 @@ void IndexScanProcedure::operator()() {
   std::map<std::string, std::string> body_data = parseHTTPFormData(_connection_data->getBody());
 
   auto gt = std::make_shared<access::GetTable>(body_data["table"]);
-  
+
   auto id = std::make_shared<access::IndexScan>();
   id->setIndexName(body_data["index"]);
   id->addField(0);
   id->setPriority(1);
   id->setValue<hyrise_int_t>(atol(body_data["value"].c_str()));
 
-  auto ctx= tx::TransactionManager::beginTransaction();
+  auto ctx = tx::TransactionManager::beginTransaction();
   auto ci = std::make_shared<access::Commit>();
   ci->setTXContext(ctx);
 
@@ -53,7 +53,7 @@ void IndexScanProcedure::operator()() {
 
   if (atoi(body_data["limit"].c_str()) > 0)
     rt->setTransmitLimit(atol(body_data["limit"].c_str()));
-  
+
   if (atoi(body_data["offset"].c_str()) > 0)
     rt->setTransmitOffset(atol(body_data["offset"].c_str()));
 
@@ -69,4 +69,5 @@ void IndexScanProcedure::operator()() {
   (*rt)();
   rt.reset();
 }
-}}
+}
+}

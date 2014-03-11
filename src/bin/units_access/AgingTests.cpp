@@ -3,125 +3,261 @@
 #include "helper.h"
 
 #include <io/StorageManager.h>
+#include <access/aging/QueryManager.h>
 
+#define QUERYC   "test/aging/inv-qc.json"
+#define QUERYS   "test/aging/inv-qs.json"
+#define QUERYY   "test/aging/inv-qy.json"
+#define QUERYCS  "test/aging/inv-qcs.json"
+#define QUERYCY  "test/aging/inv-qcy.json"
+#define QUERYSY  "test/aging/inv-qsy.json"
+#define QUERYCSY "test/aging/inv-qcsy.json"
+#define QUERYId  "test/aging/inv-qid.json"
 
-#define QUERY1 "test/aging/inv-q1.json"
-#define QUERY2 "test/aging/inv-q2.json"
-#define QUERY3 "test/aging/inv-q3.json"
-#define QUERY4 "test/aging/inv-q4.json"
-#define QUERY5 "test/aging/inv-q5.json"
 #define AGING_RUN "test/aging/agingrun.json"
 #define LOAD_STATS "test/aging/loadStatistic.json"
+#define REGISTER_QUERIES "test/aging/registerQueries.json"
 
 namespace hyrise {
 namespace access {
 
-class AgingTests : public Test {
+class JsonAgingTests : public Test {
  public:
   virtual void SetUp() {
-    const auto file = loadFromFile(LOAD_STATS);\
-    executeAndWait(file);\
+      const auto file = loadFromFile(REGISTER_QUERIES);
+      executeAndWait(file);
   }
 
   virtual void TearDown() {
     io::StorageManager::getInstance()->clear();
+    QueryManager::instance().clear();
   }
 };
 
+class JsonAgingTestsAged : public JsonAgingTests {
+ public:
+  virtual void SetUp() {
+    JsonAgingTests::SetUp();
+    {
+      const auto file = loadFromFile(LOAD_STATS);
+      executeAndWait(file);
+    }
+    {    
+      const auto file = loadFromFile(AGING_RUN);
+      std::cout << "????????????????????????????????????????????????????????????" << std::endl;
+      executeAndWait(file);
+      std::cout << "************************************************************" << std::endl;
+    }
+  }
 
-#define executeQuery1(customer, year, shouldBeHot) \
+  virtual void TearDown() {
+    JsonAgingTests::TearDown();
+  }
+};
+
+#define executeJson(query, map) \
+  const auto file = loadParameterized(query, map);\
+  const auto& result = executeAndWait(file);\
+  EXPECT_GE(result->size(), 1);
+
+
+#define executeQueryC(customer) \
 {\
   parameter_map_t map;\
   setParameter(map, "customer", customer);\
-  setParameter(map, "year", year);\
-\
-  const auto file = loadParameterized(QUERY1, map);\
-  executeAndWait(file);\
+  executeJson(QUERYC, map);\
 }
 
-TEST_F(AgingTests , Query1) {
-//executeQuery1(customer        , year, shouldBeHot);
-  executeQuery1("\"Customer3\"" , 2010, true       );
-  executeQuery1("\"Customer10\"", 2013, true       );
-  executeQuery1("\"Customer12\"", 2013, false      );
-  executeQuery1("\"Customer4\"" , 2011, false      );
-}
-
-
-#define executeQuery2(customer, status, shouldBeHot) \
-{\
-  parameter_map_t map;\
-  setParameter(map, "customer", customer);\
-  setParameter(map, "status", status);\
-\
-  const auto file = loadParameterized(QUERY2, map);\
-  executeAndWait(file);\
-}
-
-TEST_F(AgingTests , Query2) {
-//executeQuery2(customer        , status          , shouldBeHot);
-  executeQuery2("\"Customer1\"" , "\"open\""      , true       );
-  executeQuery2("\"Customer11\"", "\"in process\"", true       );
-  executeQuery2("\"Customer12\"", "\"in process\"", false      );
-}
-
-
-#define executeQuery3(status, year, shouldBeHot) \
+#define executeQueryS(status) \
 {\
   parameter_map_t map;\
   setParameter(map, "status", status);\
-  setParameter(map, "year", year);\
-\
-  const auto file = loadParameterized(QUERY3, map);\
-  executeAndWait(file);\
+  executeJson(QUERYS, map);\
 }
 
-TEST_F(AgingTests , Query3) {
-//executeQuery3(customer        , year, shouldBeHot);
-  executeQuery3("\"on hold\""   , 2013, true       );
-  executeQuery3("\"on hold\""   , 2013, true       );
-  executeQuery3("\"in process\"", 2014, false      );
-}
-
-
-#define executeQuery4(customer, year, status, shouldBeHot) \
+#define executeQueryY(year) \
 {\
   parameter_map_t map;\
-  setParameter(map, "customer", customer);\
   setParameter(map, "year", year);\
-  setParameter(map, "status", status);\
-\
-  const auto file = loadParameterized(QUERY4, map);\
-  executeAndWait(file);\
+  executeJson(QUERYY, map);\
 }
 
-TEST_F(AgingTests , Query4) {
-//executeQuery4(customer        , year, status          , shouldBeHot);
-  executeQuery4("\"Customer1\"" , 2013, "\"closed\""    , true       );
-  executeQuery4("\"Customer3\"" , 2014, "\"deprecated\"", true       );
-  executeQuery4("\"Customer11\"", 2013, "\"on hold\""   , false      );
-}
-
-
-#define executeQuery5(id, shouldBeHot) \
+#define executeQueryId(id) \
 {\
   parameter_map_t map;\
   setParameter(map, "id", id);\
-\
-  const auto file = loadParameterized(QUERY5, map);\
-  executeAndWait(file);\
+  executeJson(QUERYId, map);\
 }
 
-TEST_F(AgingTests , Query5) {
-//executeQuery5(id, shouldBeHot);
-  executeQuery5(1 , true       );
-  executeQuery5(17, false      );
+
+#define executeQueryCS(customer, status) \
+{\
+  parameter_map_t map;\
+  setParameter(map, "customer", customer);\
+  setParameter(map, "status", status);\
+  executeJson(QUERYCS, map);\
 }
 
-TEST_F(AgingTests , AgingRun) {
-  //TODO make somehow sure enough Queries are registered
-  const auto file = loadFromFile(AGING_RUN);
-  executeAndWait(file);
+#define executeQueryCY(customer, year) \
+{\
+  parameter_map_t map;\
+  setParameter(map, "customer", customer);\
+  setParameter(map, "year", year);\
+  executeJson(QUERYCY, map);\
+}
+
+#define executeQuerySY(status, year) \
+{\
+  parameter_map_t map;\
+  setParameter(map, "status", status);\
+  setParameter(map, "year", year);\
+  executeJson(QUERYSY, map);\
+}
+
+#define executeQueryCSY(customer, year, status) \
+{\
+  parameter_map_t map;\
+  setParameter(map, "customer", customer);\
+  setParameter(map, "status", status);\
+  setParameter(map, "year", year);\
+  executeJson(QUERYCSY, map);\
+}
+
+TEST_F(JsonAgingTests, QueryC) {
+//executeQueryC(customer         );
+  executeQueryC("\"Customer1\""  );
+  executeQueryC("\"Customer2\""  );
+  executeQueryC("\"Customer5\""  );
+  executeQueryC("\"Customer15\"" );
+  executeQueryC("\"Customer19\"" );
+  executeQueryC("\"Customer20\"" );
+}
+
+TEST_F(JsonAgingTests, QueryS) {
+//executeQueryS(status          );
+  executeQueryS("\"on hold\""   );
+  executeQueryS("\"in process\"");
+  executeQueryS("\"open\""      );
+  executeQueryS("\"closed\""    );
+  executeQueryS("\"deprecated\"");
+}
+
+TEST_F(JsonAgingTests, QueryY) {
+//executeQueryY(year);
+  executeQueryY(2005);
+  executeQueryY(2007);
+  executeQueryY(2014);
+}
+
+TEST_F(JsonAgingTests, QueryCY) {
+//executeQueryCY(customer        , year);
+  executeQueryCY("\"Customer3\"" , 2007);
+  executeQueryCY("\"Customer9\"" , 2009);
+  executeQueryCY("\"Customer15\"", 2012);
+  executeQueryCY("\"Customer19\"", 2014);
+}
+
+TEST_F(JsonAgingTests, QueryCS) {
+//executeQueryCS(customer        , status          );
+  executeQueryCS("\"Customer10\"", "\"in process\"");
+  executeQueryCS("\"Customer4\"" , "\"closed\""    );
+  executeQueryCS("\"Customer20\"", "\"open\""      );
+}
+
+TEST_F(JsonAgingTests, QuerySY) {
+//executeQuery3(status           , year);
+  executeQuerySY("\"in process\"", 2007);
+  executeQuerySY("\"closed\""    , 2012);
+  executeQuerySY("\"in process\"", 2014);
+  executeQuerySY("\"closed\""    , 2006);
+  executeQuerySY("\"open\""     , 2013);
+}
+
+TEST_F(JsonAgingTests, QueryCSY) {
+//executeQueryCSY(customer        , year, status          );
+  executeQueryCSY("\"Customer4\"" , 2008, "\"deprecated\"");
+  executeQueryCSY("\"Customer9\"" , 2014, "\"on hold\""   );
+  executeQueryCSY("\"Customer1\"" , 2005, "\"closed\""    );
+  executeQueryCSY("\"Customer12\"", 2011, "\"in process\"");
+  executeQueryCSY("\"Customer4\"" , 2007, "\"closed\""    );
+}
+
+TEST_F(JsonAgingTests, QueryId) {
+//executeQueryId(id);
+  executeQueryId(1 );
+  executeQueryId(17);
+  executeQueryId(41);
+}
+
+
+
+
+
+
+TEST_F(JsonAgingTestsAged, QueryC) {
+//executeQueryC(customer         );
+  executeQueryC("\"Customer1\""  );
+  executeQueryC("\"Customer2\""  );
+  executeQueryC("\"Customer5\""  );
+  executeQueryC("\"Customer15\"" );
+  executeQueryC("\"Customer19\"" );
+  executeQueryC("\"Customer20\"" );
+}
+
+TEST_F(JsonAgingTestsAged, QueryS) {
+//executeQueryS(status          );
+  executeQueryS("\"on hold\""   );
+  executeQueryS("\"in process\"");
+  executeQueryS("\"open\""      );
+  executeQueryS("\"closed\""    );
+  executeQueryS("\"deprecated\"");
+}
+
+TEST_F(JsonAgingTestsAged, QueryY) {
+//executeQueryY(year);
+  executeQueryY(2005);
+  executeQueryY(2007);
+  executeQueryY(2014);
+}
+
+TEST_F(JsonAgingTestsAged, QueryCY) {
+//executeQueryCY(customer        , year);
+  executeQueryCY("\"Customer3\"" , 2007);
+  executeQueryCY("\"Customer9\"" , 2009);
+  executeQueryCY("\"Customer15\"", 2012);
+  executeQueryCY("\"Customer19\"", 2014);
+}
+
+TEST_F(JsonAgingTestsAged, QueryCS) {
+//executeQueryCS(customer        , status          );
+  executeQueryCS("\"Customer10\"", "\"in process\"");
+  executeQueryCS("\"Customer4\"" , "\"closed\""    );
+  executeQueryCS("\"Customer20\"", "\"open\""      );
+}
+
+TEST_F(JsonAgingTestsAged, QuerySY) {
+//executeQuery3(status           , year);
+  executeQuerySY("\"in process\"", 2007);
+  executeQuerySY("\"closed\""    , 2012);
+  executeQuerySY("\"in process\"", 2014);
+  executeQuerySY("\"closed\""    , 2006);
+  executeQuerySY("\"open\""     , 2013);
+}
+
+TEST_F(JsonAgingTestsAged, QueryCSY) {
+//executeQueryCSY(customer        , year, status          );
+  executeQueryCSY("\"Customer4\"" , 2008, "\"deprecated\"");
+  executeQueryCSY("\"Customer9\"" , 2014, "\"on hold\""   );
+  executeQueryCSY("\"Customer1\"" , 2005, "\"closed\""    );
+  executeQueryCSY("\"Customer12\"", 2011, "\"in process\"");
+  executeQueryCSY("\"Customer4\"" , 2007, "\"closed\""    );
+}
+
+TEST_F(JsonAgingTestsAged, QueryId) {
+//executeQueryId(id);
+  executeQueryId(1 );
+  executeQueryId(17);
+  executeQueryId(41);
 }
 
 } } // namespace hyrise::access

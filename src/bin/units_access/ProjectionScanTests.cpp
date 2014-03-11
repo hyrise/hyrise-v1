@@ -17,10 +17,9 @@ TEST_F(ProjectionScanTests, basic_projection_scan_test) {
   ps.addField(0);
   ps.execute();
 
-  const auto &result = ps.getResultTable();
+  const auto& result = ps.getResultTable();
 
   ASSERT_TRUE(result->contentEquals(reference));
 }
-
-
-}}
+}
+}

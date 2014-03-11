@@ -24,48 +24,49 @@ struct cb_data {
   const bool unsafe;
   std::shared_ptr<storage::AbstractTable> table;
 
-  cb_data(size_t columns, bool unsafe): row(0), column(0), table_columns(columns), unsafe(unsafe) {
-  }
+  cb_data(size_t columns, bool unsafe) : row(0), column(0), table_columns(columns), unsafe(unsafe) {}
 };
 
 
-void cb_per_field(char *field_buffer, size_t field_length, struct cb_data *data) {
+void cb_per_field(char* field_buffer, size_t field_length, struct cb_data* data) {
   if (data->column >= data->table_columns) {
-    if (data->unsafe) goto ignore_data;
-    else throw CSVLoaderError("There is more data than columns!");
+    if (data->unsafe)
+      goto ignore_data;
+    else
+      throw CSVLoaderError("There is more data than columns!");
   }
   switch (data->table->typeOfColumn(data->column)) {
-  case IntegerType:
-  case IntegerTypeDelta:
-  case IntegerTypeDeltaConcurrent:
-    data->table->setValue<hyrise_int_t>(data->column, data->row, atol(field_buffer));
-    break;
-  case IntegerNoDictType:
-    data->table->setValue<hyrise_int32_t>(data->column, data->row, atoi(field_buffer));
-    break;
-    
-  case FloatType:
-  case FloatTypeDelta:
-  case FloatTypeDeltaConcurrent:
-  case FloatNoDictType:
-    data->table->setValue<hyrise_float_t>(data->column, data->row, atof(field_buffer));
-    break;
+    case IntegerType:
+    case IntegerTypeDelta:
+    case IntegerTypeDeltaConcurrent:
+      data->table->setValue<hyrise_int_t>(data->column, data->row, atol(field_buffer));
+      break;
+    case IntegerNoDictType:
+      data->table->setValue<hyrise_int32_t>(data->column, data->row, atoi(field_buffer));
+      break;
 
-  case StringType:
-  case StringTypeDelta:
-  case StringTypeDeltaConcurrent:
-    data->table->setValue<hyrise_string_t>(data->column, data->row, std::string(field_buffer));
-    break;
+    case FloatType:
+    case FloatTypeDelta:
+    case FloatTypeDeltaConcurrent:
+    case FloatNoDictType:
+      data->table->setValue<hyrise_float_t>(data->column, data->row, atof(field_buffer));
+      break;
 
-  default:
-    throw std::runtime_error("FUUUU");
-    break;
+    case StringType:
+    case StringTypeDelta:
+    case StringTypeDeltaConcurrent:
+      data->table->setValue<hyrise_string_t>(data->column, data->row, std::string(field_buffer));
+      break;
+
+    default:
+      throw std::runtime_error("FUUUU");
+      break;
   }
 ignore_data:
   ++data->column;
 }
 
-void cb_per_line(int separator, struct cb_data *data) {
+void cb_per_line(int separator, struct cb_data* data) {
   if ((!data->unsafe) && (data->column != data->table_columns)) {
     throw CSVLoaderError("Less data than columns");
   }
@@ -73,45 +74,47 @@ void cb_per_line(int separator, struct cb_data *data) {
   data->column = 0;
 }
 
-uint64_t countLines(const std::string &filename) {
+uint64_t countLines(const std::string& filename) {
   int numLines = 0;
 
   std::ifstream in(filename);
-  
+
   std::string l;
   while (std::getline(in, l))
-    ++numLines; 
-  return numLines; 
+    ++numLines;
+  return numLines;
 }
 
-bool detectHeader(const std::string &filename) {
+bool detectHeader(const std::string& filename) {
   // Take a peak into file to check wether it features a header
   std::ifstream file(filename);
   if (file.fail()) {
     throw CSVLoaderError("File '" + filename + "' does not exist");
   }
   std::string line;
-  for (int i = 0; i < 4; ++i) getline(file, line);
+  for (int i = 0; i < 4; ++i)
+    getline(file, line);
   return "===" == line;
 }
 
-std::shared_ptr<storage::AbstractTable> CSVInput::load(std::shared_ptr<storage::AbstractTable> intable, const storage::compound_metadata_list *meta, const Loader::params &args) {
+std::shared_ptr<storage::AbstractTable> CSVInput::load(std::shared_ptr<storage::AbstractTable> intable,
+                                                       const storage::compound_metadata_list* meta,
+                                                       const Loader::params& args) {
   cb_data data(intable->columnCount(), _parameters.getUnsafe());
   data.table = intable;
   csv::params params(_parameters.getCSVParams());
 
-  if (detectHeader(args.getBasePath() + _filename)) params.setLineStart(5);
+  if (detectHeader(args.getBasePath() + _filename))
+    params.setLineStart(5);
 
   // Resize the table based on the file size
   data.table->resize(countLines(args.getBasePath() + _filename) - params.getLineStart() + 1);
 
   try {
-    csv::genericParseFile(args.getBasePath() + _filename,
-                          (field_cb_t) cb_per_field,
-                          (line_cb_t) cb_per_line,
-                          &data,
-                          params);
-  } catch (const csv::ParserError &e) {
+    csv::genericParseFile(
+        args.getBasePath() + _filename, (field_cb_t)cb_per_field, (line_cb_t)cb_per_line, &data, params);
+  }
+  catch (const csv::ParserError& e) {
     throw Loader::Error(e.what());
   }
 
@@ -119,25 +122,20 @@ std::shared_ptr<storage::AbstractTable> CSVInput::load(std::shared_ptr<storage::
   return intable;
 }
 
-CSVInput *CSVInput::clone() const {
-  return new CSVInput(*this);
-}
+CSVInput* CSVInput::clone() const { return new CSVInput(*this); }
 
-CSVHeader *CSVHeader::clone() const {
-  return new CSVHeader(*this);
-}
+CSVHeader* CSVHeader::clone() const { return new CSVHeader(*this); }
 
-storage::compound_metadata_list *CSVHeader::load(const Loader::params &args) {
+storage::compound_metadata_list* CSVHeader::load(const Loader::params& args) {
   csv::params p(_parameters.getCSVParams());
   p.setLineCount(4);
   try {
     std::vector<line_t> lines(csv::parse_file(args.getBasePath() + _filename, p));
     return createMetadata(lines);
-  } catch (std::runtime_error &e) {
+  }
+  catch (std::runtime_error& e) {
     throw Loader::Error(e.what());
   }
-
 }
-
-} } // namespace hyrise::io
-
+}
+}  // namespace hyrise::io

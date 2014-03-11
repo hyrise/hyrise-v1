@@ -33,50 +33,31 @@ class MySQLTests : public ::hyrise::Test {
 };
 
 TEST(MySQLTestsBase, load_test) {
-  hyrise::storage::atable_ptr_t  t = Loader::load(
-      Loader::params().setInput(
-          MySQLInput(
-              MySQLInput::params()
-              .setSchema("information_schema")
-              .setTable("TABLES")
-                     )
-                                )
-                                                  );
+  hyrise::storage::atable_ptr_t t = Loader::load(
+      Loader::params().setInput(MySQLInput(MySQLInput::params().setSchema("information_schema").setTable("TABLES"))));
 }
 
 
 TEST_F(MySQLTests, load_sap_schema) {
   // Load SAP base schema, import KNA1, VBAP, VBAK into MySQL
 
-  std::vector<const char *> tables { "KNA1", "VBAP", "VBAK"};
+  std::vector<const char*> tables{"KNA1", "VBAP", "VBAK"};
 
-  for(std::string table: tables) {
-    hyrise::storage::atable_ptr_t  t = Loader::load(
-        Loader::params().setInput(
-            MySQLInput(
-                MySQLInput::params()
-                .setSchema(_schema)
-                .setTable(table)
-                       )
-                                  )
-                                                    );
+  for (std::string table : tables) {
+    hyrise::storage::atable_ptr_t t =
+        Loader::load(Loader::params().setInput(MySQLInput(MySQLInput::params().setSchema(_schema).setTable(table))));
     ASSERT_EQ(t->size(), 5u) << table << " should have 5 entries";
   }
 }
 
 TEST_F(MySQLTests, convert_date_to_int) {
   // Load SAP base schema, import KNA1, VBAP, VBAK into MySQL
-  hyrise::storage::atable_ptr_t  t = Loader::load(
-      Loader::params().setInput(
-          MySQLInput(
-              MySQLInput::params()
-              .setSchema(_schema)
-              .setTable("VBAK")
-                     )));
+  hyrise::storage::atable_ptr_t t =
+      Loader::load(Loader::params().setInput(MySQLInput(MySQLInput::params().setSchema(_schema).setTable("VBAK"))));
   ASSERT_EQ(IntegerType, t->typeOfColumn(2));
   ASSERT_EQ(IntegerType, t->typeOfColumn(5));
 }
-
-} } // namespace hyrise::io
+}
+}  // namespace hyrise::io
 
 #endif

@@ -16,11 +16,13 @@ column_mapping_t identityMap(atable_ptr_t input) {
 }
 
 std::vector<atable_ptr_t> TableMerger::mergeToTable(atable_ptr_t dest,
-                                                                     std::vector<c_atable_ptr_t > &input_tables,
-                                                                     bool useValid, std::vector<bool> valid) const {
+                                                    std::vector<c_atable_ptr_t>& input_tables,
+                                                    bool useValid,
+                                                    std::vector<bool> valid) const {
 
   // Check that the valid vector has the right size
-  assert(!useValid || (useValid && valid.size() == functional::sum(input_tables, 0ul, [](c_atable_ptr_t& t){ return t->size(); })));
+  assert(!useValid ||
+         (useValid && valid.size() == functional::sum(input_tables, 0ul, [](c_atable_ptr_t& t) { return t->size(); })));
 
   // at least two tables
   if (input_tables.size() == 0) {
@@ -32,7 +34,7 @@ std::vector<atable_ptr_t> TableMerger::mergeToTable(atable_ptr_t dest,
 
   // Prepare modifiable output vector
   std::vector<atable_ptr_t> result;
-  for(const auto& tab : tables.tables_not_to_merge)
+  for (const auto& tab : tables.tables_not_to_merge)
     result.push_back(std::const_pointer_cast<AbstractTable>(tab));
 
   if (tables.tables_to_merge.size() > 0) {
@@ -50,16 +52,18 @@ std::vector<atable_ptr_t> TableMerger::mergeToTable(atable_ptr_t dest,
   return result;
 }
 
-std::vector<atable_ptr_t > TableMerger::merge(std::vector<c_atable_ptr_t > &input_tables,
-                                                                bool useValid, std::vector<bool> valid) const {
+std::vector<atable_ptr_t> TableMerger::merge(std::vector<c_atable_ptr_t>& input_tables,
+                                             bool useValid,
+                                             std::vector<bool> valid) const {
   atable_ptr_t merged_table;
 
   // Check that the valid vector has the right size
-  assert(!useValid || (useValid && valid.size() == functional::sum(input_tables, 0ul, [](c_atable_ptr_t& t){ return t->size(); })));
+  assert(!useValid ||
+         (useValid && valid.size() == functional::sum(input_tables, 0ul, [](c_atable_ptr_t& t) { return t->size(); })));
 
   // at least two tables
   if (input_tables.size() < 2) {
-   throw std::runtime_error("Cannot call TableMerger with a less than two tables to merge");
+    throw std::runtime_error("Cannot call TableMerger with a less than two tables to merge");
   }
 
   merge_tables tables = _strategy->determineTablesToMerge(input_tables);
@@ -67,7 +71,7 @@ std::vector<atable_ptr_t > TableMerger::merge(std::vector<c_atable_ptr_t > &inpu
 
   // Prepare modifiable output vector
   std::vector<atable_ptr_t> result;
-  for(const auto& tab : tables.tables_not_to_merge)
+  for (const auto& tab : tables.tables_not_to_merge)
     result.push_back(std::const_pointer_cast<AbstractTable>(tab));
 
   if (tables.tables_to_merge.size() > 1) {
@@ -76,7 +80,8 @@ std::vector<atable_ptr_t > TableMerger::merge(std::vector<c_atable_ptr_t > &inpu
     size_t new_size = _strategy->calculateNewSize(tables.tables_to_merge, useValid, valid);
 
     // copy metadata
-    merged_table = input_tables[0]->copy_structure(nullptr /*fields*/, false /*reuse dict*/, new_size, true /*with containers*/, _compress);
+    merged_table = input_tables[0]->copy_structure(
+        nullptr /*fields*/, false /*reuse dict*/, new_size, true /*with containers*/, _compress);
 
     // do the merge
     _merger->mergeValues(tables.tables_to_merge, merged_table, identityMap(merged_table), new_size, useValid, valid);
@@ -88,10 +93,6 @@ std::vector<atable_ptr_t > TableMerger::merge(std::vector<c_atable_ptr_t > &inpu
   return result;
 }
 
-TableMerger *TableMerger::copy() {
-  return new TableMerger(_strategy->copy(), _merger->copy());
+TableMerger* TableMerger::copy() { return new TableMerger(_strategy->copy(), _merger->copy()); }
 }
-
-} } // namespace hyrise::storage
-
-
+}  // namespace hyrise::storage

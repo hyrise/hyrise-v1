@@ -27,28 +27,26 @@
 namespace hyrise {
 namespace io {
 
-template<typename... Args>
-void StorageManager::addStorageTable(std::string name, Args && ... args) {
+template <typename... Args>
+void StorageManager::addStorageTable(std::string name, Args&&... args) {
   add(name, Loader::load(std::forward<Args>(args)...));
 }
 
-StorageManager *StorageManager::getInstance() {
+StorageManager* StorageManager::getInstance() {
   // TODO: This is a hack for the moment, since StorageManager only adds to the interface
   // but does not have its own members. This keeps the old interface intact until we migrate
   // remaining code.
   return static_cast<StorageManager*>(&ResourceManager::getInstance());
 }
 
-void StorageManager::loadTable(std::string name, std::shared_ptr<storage::AbstractTable> table) {
-  add(name, table);
-}
+void StorageManager::loadTable(std::string name, std::shared_ptr<storage::AbstractTable> table) { add(name, table); }
 
 void StorageManager::replaceTable(std::string name, std::shared_ptr<storage::AbstractTable> table) {
   replace(name, table);
 }
 
-void StorageManager::loadTable(std::string name, const Loader::params &parameters) {
-  Loader::params *p = parameters.clone();
+void StorageManager::loadTable(std::string name, const Loader::params& parameters) {
+  Loader::params* p = parameters.clone();
   p->setBasePath(Settings::getInstance()->getDBPath() + "/");
   addStorageTable(name, *p);
   delete p;
@@ -63,8 +61,7 @@ void StorageManager::loadTableFile(std::string name, std::string fileName) {
   addStorageTable(name, p);
 }
 
-void StorageManager::loadTableFileWithHeader(std::string name, std::string datafileName,
-                                             std::string headerFileName) {
+void StorageManager::loadTableFileWithHeader(std::string name, std::string datafileName, std::string headerFileName) {
   CSVInput input(makePath(datafileName));
   CSVHeader header(makePath(headerFileName));
   Loader::params p;
@@ -95,29 +92,25 @@ void StorageManager::removeTable(std::string name) {
 
 std::vector<std::string> StorageManager::getTableNames() const {
   std::vector<std::string> ret;
-  for (const auto &resource : all())
+  for (const auto& resource : all())
     if (std::dynamic_pointer_cast<storage::AbstractTable>(resource.second) != nullptr)
       ret.push_back(resource.first);
   return ret;
 }
 
-void StorageManager::removeAll() {
-  ResourceManager::clear();
-}
+void StorageManager::removeAll() { ResourceManager::clear(); }
 
 void StorageManager::printResources() const {
   std::cout << "======= Resources =======" << std::endl;
-  for (const auto &kv : all()) {
-    const auto &name = kv.first;
-    const auto &resource = kv.second;
+  for (const auto& kv : all()) {
+    const auto& name = kv.first;
+    const auto& resource = kv.second;
     if (auto table = std::dynamic_pointer_cast<storage::AbstractTable>(resource)) {
-      std::cout << "Table "
-                << table->size() << " rows "
-                << table->columnCount() << " columns" << std::endl
+      std::cout << "Table " << table->size() << " rows " << table->columnCount() << " columns" << std::endl
                 << "    Columns:";
 
       for (field_t i = 0; i != table->columnCount(); i++)
-         std::cout << " " << table->metadataAt(i).getName();
+        std::cout << " " << table->metadataAt(i).getName();
     } else if (std::dynamic_pointer_cast<storage::AbstractIndex>(resource)) {
       std::cout << "Index " << name;
     } else {
@@ -196,6 +189,5 @@ bool StorageManager::hasStatistic(const std::string& table, const std::string& f
 std::shared_ptr<storage::AbstractIndex> StorageManager::getInvertedIndex(std::string name) {
   return get<storage::AbstractIndex>(name);
 }
-
-} } // namespace hyrise::io
-
+}
+}  // namespace hyrise::io

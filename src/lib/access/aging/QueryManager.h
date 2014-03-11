@@ -30,6 +30,8 @@ public:
 
   std::vector<query_t> queriesOfTable(storage::atable_ptr_t table);
 
+  void clear();
+
 private:
   QueryManager();
 

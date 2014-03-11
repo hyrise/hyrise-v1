@@ -4,7 +4,6 @@
 class noncopyable {
  protected:
   noncopyable() {};
-  noncopyable( const noncopyable& other ) = delete; // non construction-copyable
-  noncopyable& operator=( const noncopyable& ) = delete; // non copyable
+  noncopyable(const noncopyable& other) = delete;  // non construction-copyable
+  noncopyable& operator=(const noncopyable&) = delete;  // non copyable
 };
-

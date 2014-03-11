@@ -4,9 +4,12 @@
 #include "storage/PointerCalculator.h"
 #include "storage/HorizontalTable.h"
 
-namespace hyrise { namespace access {
+namespace hyrise {
+namespace access {
 
-namespace { auto _ = QueryParser::registerTrivialPlanOperation<UnionAll>("UnionAll"); }
+namespace {
+auto _ = QueryParser::registerTrivialPlanOperation<UnionAll>("UnionAll");
+}
 
 void UnionAll::executePlanOperation() {
   const auto& tables = input.getTables();
@@ -18,8 +21,12 @@ void UnionAll::executePlanOperation() {
 
   auto mtvs = convert<const storage::MutableVerticalTable>(tables);
   if (allValid(mtvs)) {
-    auto left_pcs = functional::collect(mtvs, [] (const std::shared_ptr<const storage::MutableVerticalTable>& mtv) { return std::dynamic_pointer_cast<const storage::PointerCalculator>(mtv->getContainer(0)); });
-    auto right_pcs = functional::collect(mtvs, [] (const std::shared_ptr<const storage::MutableVerticalTable>& mtv) { return std::dynamic_pointer_cast<const storage::PointerCalculator>(mtv->getContainer(1)); });
+    auto left_pcs = functional::collect(mtvs, [](const std::shared_ptr<const storage::MutableVerticalTable>& mtv) {
+      return std::dynamic_pointer_cast<const storage::PointerCalculator>(mtv->getContainer(0));
+    });
+    auto right_pcs = functional::collect(mtvs, [](const std::shared_ptr<const storage::MutableVerticalTable>& mtv) {
+      return std::dynamic_pointer_cast<const storage::PointerCalculator>(mtv->getContainer(1));
+    });
 
 
     if (allValid(left_pcs) && allValid(right_pcs)) {
@@ -30,8 +37,8 @@ void UnionAll::executePlanOperation() {
       return;
     }
   }
-  
+
   addResult(std::make_shared<const storage::HorizontalTable>(tables));
 }
-
-}}
+}
+}

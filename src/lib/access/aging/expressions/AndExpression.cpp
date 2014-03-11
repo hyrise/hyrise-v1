@@ -1,7 +1,10 @@
 // Copyright (c) 2014 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "AndExpression.h"
 
+#include <unordered_set>
+
 #include <access/expressions/pred_CompoundExpression.h>
+#include <access/expressions/pred_TrueExpression.h>
 
 namespace hyrise {
 namespace access {
@@ -19,15 +22,16 @@ SimpleExpression* AndExpression::expression(storage::atable_ptr_t table,
       subExprs.push_back(expr);
   }
 
-  if (subExprs.size() == 0)
-    return nullptr;
-  else if (subExprs.size() == 1)
-    return subExprs.front();
-
-  SimpleExpression* last = subExprs.front();
-  for (unsigned i = 1; i < subExprs.size(); ++i) {
-    last = new CompoundExpression(last, subExprs.at(i), AND);
+  SimpleExpression* last = nullptr;
+  for (const auto& subExpr : subExprs) {
+    if (subExpr != nullptr) {
+      if (last == nullptr)
+        last = subExpr;
+      else
+        last = new CompoundExpression(last, subExpr, AND);
+    }
   }
+
   return last;
 }
 
@@ -77,6 +81,19 @@ std::vector<std::string> AndExpression::accessedFields(const std::string& table)
   const auto& newEnd = std::unique(ret.begin(), ret.end());
   ret.erase(newEnd, ret.end());
   return ret;
+}
+
+std::vector<storage::value_id_t> AndExpression::vids(const std::string& tableName,
+                                                     const storage::c_atable_ptr_t& table,
+                                                     const std::string& field) const {
+  std::unordered_set<storage::value_id_t> ret;
+
+  for (const auto& subExpression : _subExpressions) {
+    const auto& vids = subExpression->vids(tableName, table, field);
+    ret.insert(vids.begin(), vids.end());
+  }
+
+  return std::vector<storage::value_id_t>(ret.begin(), ret.end());
 }
 
 } } } // namespace aging::hyrise::access

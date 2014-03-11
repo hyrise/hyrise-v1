@@ -26,9 +26,8 @@ namespace layouter {
 class LayouterTests : public ::testing::Test {
 
  public:
-
   Schema simpleSchema() {
-    std::vector< std::string > names;
+    std::vector<std::string> names;
     names.push_back("A");
     names.push_back("B");
     names.push_back("C");
@@ -43,7 +42,7 @@ class LayouterTests : public ::testing::Test {
   }
 
   Schema wideSchema() {
-    std::vector< std::string > names;
+    std::vector<std::string> names;
     names.push_back("A");
     names.push_back("B");
     names.push_back("C");
@@ -88,7 +87,6 @@ class LayouterTests : public ::testing::Test {
 
     return bl.getBestResult();
   }
-
 };
 
 
@@ -107,7 +105,6 @@ TEST_F(LayouterTests, test_subset_ordering) {
   ASSERT_EQ(c, all[0]);
   ASSERT_EQ(b, all[1]);
   ASSERT_EQ(a, all[2]);
-
 }
 
 
@@ -117,8 +114,8 @@ TEST_F(LayouterTests, selection_experiment_for_thesis) {
 
     std::vector<std::string> names;
     std::vector<unsigned> atts;
-    std::vector<unsigned>  pq;
-    std::vector<unsigned>  sq;
+    std::vector<unsigned> pq;
+    std::vector<unsigned> sq;
 
 
     for (size_t i = 0; i < numAttrs; ++i) {
@@ -132,22 +129,22 @@ TEST_F(LayouterTests, selection_experiment_for_thesis) {
 
     // Add projection
     pq += 0;
-    Query *q1 = new Query(LayouterConfiguration::access_type_fullprojection, pq, -1.0, 1);
+    Query* q1 = new Query(LayouterConfiguration::access_type_fullprojection, pq, -1.0, 1);
     s.add(q1);
 
 
     // Add selection
-    Query *q2 = new Query(LayouterConfiguration::access_type_outoforder, sq, 0.1, 1);
+    Query* q2 = new Query(LayouterConfiguration::access_type_outoforder, sq, 0.1, 1);
     s.add(q2);
 
     // Check the cost
-    // std::cout << numAttrs << " " <<  q1->containerCost(sq, s, HYRISE_COST) << " " << q2->containerCost(sq, s, HYRISE_COST) << std::endl;
+    // std::cout << numAttrs << " " <<  q1->containerCost(sq, s, HYRISE_COST) << " " << q2->containerCost(sq, s,
+    // HYRISE_COST) << std::endl;
   }
-
 }
 
 TEST_F(LayouterTests, cost_calculation_with_att_order) {
-  std::vector< std::string > names;
+  std::vector<std::string> names;
   names.push_back("ID");
   names.push_back("NAME");
   names.push_back("MAIL");
@@ -176,14 +173,13 @@ TEST_F(LayouterTests, cost_calculation_with_att_order) {
   part.push_back(1);
   part.push_back(2);
   part.push_back(3);
-  //part.push_back(1);
+  // part.push_back(1);
   ASSERT_NEAR(19555.2, q2.containerCost(part, s, HYRISE_COST), 0.02);
-
 }
 
 
 TEST_F(LayouterTests, DISABLED_correct_cost_calculation) {
-  std::vector< std::string > names;
+  std::vector<std::string> names;
   names.push_back("ID");
   names.push_back("NAME");
   names.push_back("MAIL");
@@ -208,7 +204,7 @@ TEST_F(LayouterTests, DISABLED_correct_cost_calculation) {
   Query q1(LayouterConfiguration::access_type_fullprojection, aq1, -1.0, 2);
   s.add(&q1);
 
-  //Add second query
+  // Add second query
   std::vector<unsigned> aq2;
   aq2.push_back(1);
   aq2.push_back(2);
@@ -216,7 +212,7 @@ TEST_F(LayouterTests, DISABLED_correct_cost_calculation) {
   s.add(&q2);
 
 
-  //Add second query
+  // Add second query
   std::vector<unsigned> aq3;
   aq3.push_back(1);
   aq3.push_back(3);
@@ -252,12 +248,12 @@ TEST_F(LayouterTests, divide_and_conquer_affinity) {
     names.push_back(a.str());
   }
 
-  Schema *s = new Schema(atts, 1000000, names);
+  Schema* s = new Schema(atts, 1000000, names);
 
   std::vector<unsigned> aq;
   aq += 0, 1, 2;
 
-  Query *q;
+  Query* q;
   q = new Query(LayouterConfiguration::access_type_fullprojection, aq, -1.0, 2);
   s->add(q);
 
@@ -318,10 +314,10 @@ TEST_F(LayouterTests, divide_and_conquer_affinity) {
 
 
 
-  BaseLayouter *l = new DivideAndConquerLayouter();
+  BaseLayouter* l = new DivideAndConquerLayouter();
   l->layout(*s, HYRISE_COST);
 
-  //l->getBestResult().print();
+  // l->getBestResult().print();
 }
 
 TEST_F(LayouterTests, divide_and_conquer_with_larger_group) {
@@ -335,7 +331,7 @@ TEST_F(LayouterTests, divide_and_conquer_with_larger_group) {
     names.push_back(a.str());
   }
 
-  Schema *s = new Schema(atts, 1000000, names);
+  Schema* s = new Schema(atts, 1000000, names);
 
   // Add the queries
   for (int i = 0; i < 10; ++i) {
@@ -343,16 +339,16 @@ TEST_F(LayouterTests, divide_and_conquer_with_larger_group) {
     for (int j = 0; j < i; ++j)
       aq.push_back(j);
 
-    Query *q = new Query(LayouterConfiguration::access_type_fullprojection, aq, -1.0, 1);
+    Query* q = new Query(LayouterConfiguration::access_type_fullprojection, aq, -1.0, 1);
     s->add(q);
   }
 
-  BaseLayouter *l = new DivideAndConquerLayouter();
+  BaseLayouter* l = new DivideAndConquerLayouter();
   l->layout(*s, HYRISE_COST);
 }
 
 TEST_F(LayouterTests, candidate_layouter_only_one_primary_partition) {
-  std::vector< std::string > names;
+  std::vector<std::string> names;
   names.push_back("ID");
   names.push_back("NAME");
   names.push_back("MAIL");
@@ -391,11 +387,10 @@ TEST_F(LayouterTests, candidate_layouter_only_one_primary_partition) {
 
   std::vector<Result> results = cl.getNBestResults(9999);
   ASSERT_LT(0u, results.size()) << "Even with one primary partition there should be a result";
-
 }
 
 TEST_F(LayouterTests, DISABLED_candidate_test_from_presentation) {
-  std::vector< std::string > names;
+  std::vector<std::string> names;
   names.push_back("ID");
   names.push_back("NAME");
   names.push_back("MAIL");
@@ -477,7 +472,6 @@ TEST_F(LayouterTests, matrix_metis_test) {
   ASSERT_EQ(42, t.adjwgt[1]);
   ASSERT_EQ(99, t.adjwgt[2]);
   ASSERT_EQ(42, t.adjwgt[3]);
-
 }
 
 
@@ -509,11 +503,11 @@ TEST_F(LayouterTests, simple_divide_and_conquer) {
 
   DivideAndConquerLayouter bl;
   bl.layout(s, HYRISE_COST);
-  //std::cout << bl.getColumnCost() << " " << bl.getRowCost() << std::endl;
+  // std::cout << bl.getColumnCost() << " " << bl.getRowCost() << std::endl;
 
 
   Result r = bl.getBestResult();
-  double tmp =  r.totalCost;
+  double tmp = r.totalCost;
 
   CandidateLayouter cl;
   cl.layout(s, HYRISE_COST);
@@ -524,8 +518,6 @@ TEST_F(LayouterTests, simple_divide_and_conquer) {
 
 
   ASSERT_DOUBLE_EQ(tmp, r.totalCost);
-
-
 }
 
 TEST_F(LayouterTests, layout_print_full_names) {
@@ -549,7 +541,7 @@ TEST_F(LayouterTests, layout_load_table_from_output) {
 
 
 TEST_F(LayouterTests, initial_layouter_test) {
-  std::vector< std::string > names;
+  std::vector<std::string> names;
   names.push_back("A");
   names.push_back("B");
 
@@ -575,7 +567,7 @@ TEST_F(LayouterTests, initial_layouter_test) {
 }
 
 TEST_F(LayouterTests, more_complex_layouter_test) {
-  std::vector< std::string > names;
+  std::vector<std::string> names;
   names.push_back("A");
   names.push_back("B");
   names.push_back("C");
@@ -590,7 +582,7 @@ TEST_F(LayouterTests, more_complex_layouter_test) {
 
   std::vector<unsigned> aq1;
   aq1.push_back(0);
-  //aq1.push_back(1);
+  // aq1.push_back(1);
 
   // type, attributes, selection, weight
   Query q1(LayouterConfiguration::access_type_fullprojection, aq1, -1.0, 1);
@@ -604,7 +596,7 @@ TEST_F(LayouterTests, more_complex_layouter_test) {
 }
 
 TEST_F(LayouterTests, layouter_two_queries) {
-  std::vector< std::string > names;
+  std::vector<std::string> names;
   names.push_back("A");
   names.push_back("B");
   names.push_back("C");
@@ -641,22 +633,22 @@ TEST_F(LayouterTests, layouter_two_queries) {
 
 
 TEST_F(LayouterTests, initial_layouter_test_candidate) {
-  std::vector< std::string > names;
+  std::vector<std::string> names;
   names.push_back("A");
   names.push_back("B");
-  //names.push_back("C");
+  // names.push_back("C");
 
   std::vector<unsigned> atts;
   atts.push_back(4);
   atts.push_back(4);
-  //atts.push_back(4);
+  // atts.push_back(4);
 
   Schema s(atts, 1000, names);
 
 
   std::vector<unsigned> aq1;
   aq1.push_back(0);
-  //aq1.push_back(1);
+  // aq1.push_back(1);
 
   // type, attributes, selection, weight
   Query q1(LayouterConfiguration::access_type_fullprojection, aq1, -1.0, 1);
@@ -671,14 +663,12 @@ TEST_F(LayouterTests, initial_layouter_test_candidate) {
 
 
   Result r = bl.getBestResult();
-  //r.print();
+  // r.print();
   ASSERT_EQ(r.layout.containerCount(), 2u);
-
-
 }
 
 TEST_F(LayouterTests, layouter_two_queries_candidate) {
-  std::vector< std::string > names;
+  std::vector<std::string> names;
   names.push_back("A");
   names.push_back("B");
   names.push_back("C");
@@ -715,13 +705,12 @@ TEST_F(LayouterTests, layouter_two_queries_candidate) {
 
 
   Result r = bl.getBestResult();
-  //r.print();
+  // r.print();
   ASSERT_EQ(r.layout.containerCount(), 3u);
-
 }
 
 TEST_F(LayouterTests, incremental_layouter_initial) {
-  std::vector< std::string > names;
+  std::vector<std::string> names;
   names.push_back("ID");
   names.push_back("NAME");
   names.push_back("MAIL");
@@ -751,7 +740,7 @@ TEST_F(LayouterTests, incremental_layouter_initial) {
 
   Result r = cl.getBestResult();
 
-  //Add second query
+  // Add second query
   std::vector<unsigned> aq2;
   aq2.push_back(0);
   aq2.push_back(1);
@@ -764,12 +753,11 @@ TEST_F(LayouterTests, incremental_layouter_initial) {
   r = cl.getBestResult();
 
   ASSERT_EQ(3u, r.layout.containerCount());
-
 }
 
 
 TEST_F(LayouterTests, candidate_layoute_merged) {
-  std::vector< std::string > names;
+  std::vector<std::string> names;
   names.push_back("ID");
   names.push_back("NAME");
   names.push_back("MAIL");
@@ -794,7 +782,7 @@ TEST_F(LayouterTests, candidate_layoute_merged) {
   Query q1(LayouterConfiguration::access_type_fullprojection, aq1, -1.0, 2);
   s.add(&q1);
 
-  //Add second query
+  // Add second query
   std::vector<unsigned> aq2;
   aq2.push_back(0);
   aq2.push_back(1);
@@ -830,11 +818,11 @@ TEST_F(LayouterTests, candidate_layoute_merged) {
   Result r = cl.getBestResult();
   // r.print();
 
-  //ASSERT_TRUE(cl.getBestResult() == fcl.getBestResult());
+  // ASSERT_TRUE(cl.getBestResult() == fcl.getBestResult());
 }
 
 TEST_F(LayouterTests, incrementalLayout_layoute_merged) {
-  std::vector< std::string > names;
+  std::vector<std::string> names;
   names.push_back("ID");
   names.push_back("NAME");
   names.push_back("MAIL");
@@ -861,9 +849,9 @@ TEST_F(LayouterTests, incrementalLayout_layoute_merged) {
   s.add(&q1);
   sinc.add(&q1);
 
-  //Add second query
+  // Add second query
   std::vector<unsigned> aq2;
-  //aq2.push_back(0);
+  // aq2.push_back(0);
   aq2.push_back(1);
   aq2.push_back(2);
   Query q2(LayouterConfiguration::access_type_outoforder, aq2, 0.02, 1);
@@ -871,7 +859,7 @@ TEST_F(LayouterTests, incrementalLayout_layoute_merged) {
   sinc.add(&q2);
 
   std::vector<unsigned> aq3;
-  //aq3.push_back(0);
+  // aq3.push_back(0);
   aq3.push_back(1);
   aq3.push_back(3);
   Query q3(LayouterConfiguration::access_type_outoforder, aq3, 0.02, 1);
@@ -902,7 +890,7 @@ TEST_F(LayouterTests, incrementalLayout_layoute_merged) {
 }
 
 TEST_F(LayouterTests, incrementalLayout_layoute_merged_merge_groups) {
-  std::vector< std::string > names;
+  std::vector<std::string> names;
   names.push_back("ID");
   names.push_back("NAME");
   names.push_back("MAIL");
@@ -929,9 +917,9 @@ TEST_F(LayouterTests, incrementalLayout_layoute_merged_merge_groups) {
   s.add(&q1);
   sinc.add(&q1);
 
-  //Add second query
+  // Add second query
   std::vector<unsigned> aq2;
-  //aq2.push_back(0);
+  // aq2.push_back(0);
   aq2.push_back(1);
   aq2.push_back(2);
   Query q2(LayouterConfiguration::access_type_outoforder, aq2, 0.1, 1);
@@ -939,14 +927,14 @@ TEST_F(LayouterTests, incrementalLayout_layoute_merged_merge_groups) {
   sinc.add(&q2);
 
   std::vector<unsigned> aq3;
-  //aq3.push_back(0);
+  // aq3.push_back(0);
   aq3.push_back(1);
   aq3.push_back(3);
   Query q3(LayouterConfiguration::access_type_outoforder, aq3, 0.1, 1);
   s.add(&q3);
 
   std::vector<unsigned> aq4;
-  //aq3.push_back(0);
+  // aq3.push_back(0);
   aq4.push_back(2);
   aq4.push_back(3);
   aq4.push_back(4);
@@ -957,7 +945,7 @@ TEST_F(LayouterTests, incrementalLayout_layoute_merged_merge_groups) {
   std::vector<unsigned> aq5;
   aq5.push_back(4);
   Query q5(LayouterConfiguration::access_type_fullprojection, aq5, -1, 1);
-  //s.add(&q5);
+  // s.add(&q5);
 
 
 
@@ -977,7 +965,7 @@ TEST_F(LayouterTests, incrementalLayout_layoute_merged_merge_groups) {
   // Incrementally add
   il.incrementalLayout(&q3);
   il.incrementalLayout(&q4);
-  //il.incrementalLayout(&q5);
+  // il.incrementalLayout(&q5);
   Result r2 = il.getBestResult();
   // r2.print();
 
@@ -985,7 +973,7 @@ TEST_F(LayouterTests, incrementalLayout_layoute_merged_merge_groups) {
 }
 
 TEST_F(LayouterTests, paper_layouter_performance) {
-  std::vector< std::string > names;
+  std::vector<std::string> names;
   names += "a1", "a2", "a3", "a4", "a5", "a6", "a7", "a8", "a9";
 
   std::vector<unsigned> atts;
@@ -1002,7 +990,7 @@ TEST_F(LayouterTests, paper_layouter_performance) {
   s.add(&q1);
   sinc.add(&q1);
 
-  //Add second query
+  // Add second query
   std::vector<unsigned> aq2;
   aq2 += 2, 3, 4;
 
@@ -1059,7 +1047,7 @@ TEST_F(LayouterTests, paper_layouter_performance) {
 
 TEST_F(LayouterTests, group_merge_performance) {
 
-  std::vector< std::string > names;
+  std::vector<std::string> names;
   names += "ID", "NAME", "MAIL", "COMPANY", "PHONE", "ORG";
 
   std::vector<unsigned> atts;
@@ -1074,7 +1062,7 @@ TEST_F(LayouterTests, group_merge_performance) {
   Query q1(LayouterConfiguration::access_type_fullprojection, aq1, -1.0, 2);
   s.add(&q1);
 
-  //Add second query
+  // Add second query
   std::vector<unsigned> aq2;
   aq2.push_back(0);
   aq2.push_back(1);
@@ -1108,7 +1096,7 @@ TEST_F(LayouterTests, group_merge_performance) {
 
 
   Result r = cl.getBestResult();
-  //r.print();
+  // r.print();
 
   // Primary Partitions
   subset_t p1;
@@ -1157,13 +1145,11 @@ TEST_F(LayouterTests, group_merge_performance) {
   // std::cout << "p4 "  << s.costForSubset(p4, HYRISE_COST) << std::endl;
   // std::cout << "p5 "  << s.costForSubset(p5, HYRISE_COST) << std::endl;
   // std::cout << "merged "  << s.costForSubset(merged, HYRISE_COST) << std::endl;
-
-
 }
 
 
-TEST_F(LayouterTests , cost_distribution_test) {
-  std::vector< std::string > names;
+TEST_F(LayouterTests, cost_distribution_test) {
+  std::vector<std::string> names;
   names += "a", "b", "c", "d", "e", "f", "g";
 
   std::vector<unsigned> atts;
@@ -1203,12 +1189,11 @@ TEST_F(LayouterTests , cost_distribution_test) {
 
   Result r = cl.getBestResult();
   // r.print();
-
 }
 
 
 TEST_F(LayouterTests, candidate_generation_performance) {
-  std::vector< std::string > names;
+  std::vector<std::string> names;
   names += "1", "2", "3", "4", "5", "6", "7", "8", "9";
 
   std::vector<unsigned> atts;
@@ -1246,11 +1231,11 @@ TEST_F(LayouterTests, candidate_generation_performance) {
 
   subset_t a8 = subset_t(1, 7);
   Query q8(LayouterConfiguration::access_type_fullprojection, a8, -1.0, 2);
-  //s.add(&q8);
+  // s.add(&q8);
 
   subset_t a9 = subset_t(1, 8);
   Query q9(LayouterConfiguration::access_type_fullprojection, a9, -1.0, 2);
-  //s.add(&q9);
+  // s.add(&q9);
 
   CandidateLayouter cl;
   cl.layout(s, HYRISE_COST);
@@ -1262,14 +1247,13 @@ TEST_F(LayouterTests, candidate_generation_performance) {
 
   Result r = cl.getBestResult();
   // r.print();
-
-
 }
 
 TEST_F(LayouterTests, candidate_iteration_performance) {
 #ifdef EXPENSIVE_TESTS
-  std::vector< std::string > names;
-  names += "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23";
+  std::vector<std::string> names;
+  names += "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19",
+      "20", "21", "22", "23";
 
   std::vector<unsigned> atts;
   atts += 4, repeat(22, 4);
@@ -1346,19 +1330,19 @@ TEST_F(LayouterTests, candidate_iteration_performance) {
 
   subset_t a18 = subset_t(1, 17);
   Query q18(LayouterConfiguration::access_type_fullprojection, a18, -1.0, 2);
-  //s.add(&q18);
+  // s.add(&q18);
 
   subset_t a19 = subset_t(1, 18);
   Query q19(LayouterConfiguration::access_type_fullprojection, a19, -1.0, 2);
-  //s.add(&q19);
+  // s.add(&q19);
 
   subset_t a20 = subset_t(1, 19);
   Query q20(LayouterConfiguration::access_type_fullprojection, a20, -1.0, 2);
-  //s.add(&q20);
+  // s.add(&q20);
 
   subset_t a21 = subset_t(1, 20);
   Query q21(LayouterConfiguration::access_type_fullprojection, a21, -1.0, 2);
-  //s.add(&q21);
+  // s.add(&q21);
 
   CandidateLayouter cl;
   cl.layout(s, HYRISE_COST);
@@ -1369,31 +1353,23 @@ TEST_F(LayouterTests, candidate_iteration_performance) {
 
 // This is some kind of performance regression that should only be build in produciton mode
 
-TEST_F(LayouterTests, candidate_iteration_performance_fast_version) 
-{
+TEST_F(LayouterTests, candidate_iteration_performance_fast_version) {
 #ifdef EXPENSIVE_TESTS
-  std::vector< std::string > names {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
+  std::vector<std::string> names{"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
 
   std::vector<unsigned> atts;
   atts += 4, repeat(9, 4);
 
-  #include "builder.h"
+#include "builder.h"
 
   Schema s(atts, 1000000, names);
   CandidateLayouter cl;
 
-  for(size_t i=1; i <= names.size(); ++i)
-  {
-      auto intermediate_results = cl.iterateThroughLayoutSubsetsFast(i,
-                                                                  data,
-                                                                  0,
-                                                                  i,
-                                                                  names.size(),
-                                                                  0);
-      // std::cout << intermediate_results.size() << std::endl;
+  for (size_t i = 1; i <= names.size(); ++i) {
+    auto intermediate_results = cl.iterateThroughLayoutSubsetsFast(i, data, 0, i, names.size(), 0);
+    // std::cout << intermediate_results.size() << std::endl;
   }
 #endif
 }
-
-} } // namespace hyrise::layouter
-
+}
+}  // namespace hyrise::layouter

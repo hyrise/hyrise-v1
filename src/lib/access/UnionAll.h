@@ -3,14 +3,13 @@
 
 #include "access/system/PlanOperation.h"
 
-namespace hyrise { namespace access {
+namespace hyrise {
+namespace access {
 
 class UnionAll : public PlanOperation {
   void executePlanOperation();
 };
-
-}}
+}
+}
 
 #endif
-
-

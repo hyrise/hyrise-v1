@@ -10,7 +10,7 @@ namespace io {
 namespace Loader {
 namespace shortcuts {
 
-params loadParams(const std::string &filename, params &p) {
+params loadParams(const std::string& filename, params& p) {
   CSVInput input(filename);
   CSVHeader header(filename);
 
@@ -19,7 +19,7 @@ params loadParams(const std::string &filename, params &p) {
   return p;
 }
 
-params loadWithHeaderParams(const std::string &datafilepath, const std::string &headerfilepath) {
+params loadWithHeaderParams(const std::string& datafilepath, const std::string& headerfilepath) {
   CSVInput input(datafilepath, CSVInput::params().setUnsafe(true));
   CSVHeader header(headerfilepath);
   params p;
@@ -27,10 +27,9 @@ params loadWithHeaderParams(const std::string &datafilepath, const std::string &
   p.setInput(input);
   p.setHeader(header);
   return p;
-
 }
 
-params loadWithStringHeaderParams(const std::string &datafilepath, const std::string &header) {
+params loadWithStringHeaderParams(const std::string& datafilepath, const std::string& header) {
   CSVInput input(datafilepath);
   StringHeader sheader(header);
   params p;
@@ -38,27 +37,31 @@ params loadWithStringHeaderParams(const std::string &datafilepath, const std::st
   p.setHeader(sheader);
   return p;
 }
+}
+}  // namesapce Loader::shortcuts
 
-} } // namesapce Loader::shortcuts
-
-std::shared_ptr<storage::AbstractTable> Loader::shortcuts::load(const std::string &filepath) {
+std::shared_ptr<storage::AbstractTable> Loader::shortcuts::load(const std::string& filepath) {
   Loader::params p;
   return Loader::load(loadParams(filepath, p));
 };
 
-std::shared_ptr<storage::AbstractTable> Loader::shortcuts::load(const std::string &filepath, Loader::params &params) {
+std::shared_ptr<storage::AbstractTable> Loader::shortcuts::load(const std::string& filepath, Loader::params& params) {
   return Loader::load(loadParams(filepath, params));
 };
 
-std::shared_ptr<storage::AbstractTable> Loader::shortcuts::loadWithHeader(const std::string &datafilepath, const std::string &headerfilepath) {
+std::shared_ptr<storage::AbstractTable> Loader::shortcuts::loadWithHeader(const std::string& datafilepath,
+                                                                          const std::string& headerfilepath) {
   return Loader::load(loadWithHeaderParams(datafilepath, headerfilepath));
 };
 
-std::shared_ptr<storage::AbstractTable> Loader::shortcuts::loadWithStringHeader(const std::string &datafilepath, const std::string &header) {
+std::shared_ptr<storage::AbstractTable> Loader::shortcuts::loadWithStringHeader(const std::string& datafilepath,
+                                                                                const std::string& header) {
   return Loader::load(loadWithStringHeaderParams(datafilepath, header));
 };
 
-std::shared_ptr<storage::Store> Loader::shortcuts::loadMainDelta(const std::string &mainfilepath, const std::string &deltafilepath, Loader::params p) {
+std::shared_ptr<storage::Store> Loader::shortcuts::loadMainDelta(const std::string& mainfilepath,
+                                                                 const std::string& deltafilepath,
+                                                                 Loader::params p) {
   std::vector<std::string> filenames;
   filenames.push_back(mainfilepath);
   filenames.push_back(deltafilepath);
@@ -79,7 +82,7 @@ std::shared_ptr<storage::Store> Loader::shortcuts::loadMainDelta(const std::stri
   return s;
 };
 
-std::shared_ptr<storage::AbstractTable> Loader::shortcuts::loadRaw(const std::string &file) {
+std::shared_ptr<storage::AbstractTable> Loader::shortcuts::loadRaw(const std::string& file) {
   RawTableLoader input(file);
   CSVHeader header(file);
 
@@ -89,5 +92,5 @@ std::shared_ptr<storage::AbstractTable> Loader::shortcuts::loadRaw(const std::st
   p.setReturnsMutableVerticalTable(false);
   return Loader::load(p);
 }
-
-} } // namespace hyrise::io
+}
+}  // namespace hyrise::io

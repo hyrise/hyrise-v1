@@ -3,22 +3,21 @@
 
 #include "AbstractMerger.h"
 
-namespace hyrise { namespace storage {
+namespace hyrise {
+namespace storage {
 
 class SimpleStoreMerger : public AbstractMerger {
 
-  virtual ~SimpleStoreMerger(){}
+  virtual ~SimpleStoreMerger() {}
 
-  void mergeValues(const std::vector<c_atable_ptr_t> &input_tables,
+  void mergeValues(const std::vector<c_atable_ptr_t>& input_tables,
                    atable_ptr_t merged_table,
-                   const column_mapping_t &column_mapping,
+                   const column_mapping_t& column_mapping,
                    const uint64_t newSize,
                    bool useValid = false,
                    const std::vector<bool>& valid = std::vector<bool>());
-  
+
   AbstractMerger* copy() { return nullptr; }
-
 };
-
-}}
-
+}
+}

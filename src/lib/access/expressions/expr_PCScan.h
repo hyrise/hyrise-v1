@@ -12,7 +12,8 @@
 #include "storage/storage_types.h"
 #include "helper/make_unique.h"
 
-namespace hyrise { namespace access {
+namespace hyrise {
+namespace access {
 
 /*
  * Simple class that allows to compare a single field value with one
@@ -20,7 +21,7 @@ namespace hyrise { namespace access {
  * STD Lib functional types and the Value Type should be one of the
  * HYRISE types
 */
-template<typename ValueType, typename Operator=std::equal_to<ValueType> >
+template <typename ValueType, typename Operator = std::equal_to<ValueType> >
 class PCScan_F1_OP_TYPE : public AbstractExpression {
 
   using TableType = storage::AbstractTable;
@@ -29,30 +30,29 @@ class PCScan_F1_OP_TYPE : public AbstractExpression {
   ValueType _v0;
 
   std::shared_ptr<const TableType> _table;
-                                                
+
   // The Operator implementation
   Operator op;
 
   // Pos List of the other table
-  const pos_list_t *_tab_pos_list = nullptr;
+  const pos_list_t* _tab_pos_list = nullptr;
 
  public:
-
   virtual pos_list_t* match(const size_t start, const size_t stop) {
     auto pl = new pos_list_t;
     auto size = _tab_pos_list->size();
     auto lower = start;
     auto upper = size > stop ? stop : size;
 
-    for(size_t r=lower; r < upper; ++r) {
+    for (size_t r = lower; r < upper; ++r) {
       auto curr_pos = (*_tab_pos_list)[r];
-      if (op(_table->getValue<hyrise_int_t>(_f0, curr_pos), _v0)) 
+      if (op(_table->getValue<hyrise_int_t>(_f0, curr_pos), _v0))
         pl->push_back(r);
     }
     return pl;
   }
 
-  virtual void walk(const std::vector<hyrise::storage::c_atable_ptr_t> &l) {
+  virtual void walk(const std::vector<hyrise::storage::c_atable_ptr_t>& l) {
     auto tmp = std::dynamic_pointer_cast<const storage::PointerCalculator>(l[0]);
     _table = tmp->getActualTable();
     _tab_pos_list = tmp->getPositions();
@@ -64,9 +64,8 @@ class PCScan_F1_OP_TYPE : public AbstractExpression {
     res->_v0 = data["v_f1"].asInt();
     return res;
   }
-
 };
-
-}}
+}
+}
 
 #endif

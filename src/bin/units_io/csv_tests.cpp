@@ -8,21 +8,15 @@ namespace io {
 class CSVTests : public ::hyrise::Test {};
 
 TEST_F(CSVTests, load_test) {
-  hyrise::storage::atable_ptr_t  t = Loader::load(
-      Loader::params()
-      .setHeader(CSVHeader("test/tables/employees.tbl"))
-      .setInput(CSVInput("test/tables/employees.data"))
-                                                  );
+  hyrise::storage::atable_ptr_t t =
+      Loader::load(Loader::params().setHeader(CSVHeader("test/tables/employees.tbl")).setInput(
+          CSVInput("test/tables/employees.data")));
 }
 
 
 TEST_F(CSVTests, DISABLED_load_test_mpass) {
-  hyrise::storage::atable_ptr_t  t = Loader::load(
-      Loader::params()
-      .setHeader(CSVHeader("test/loader/demo/demo.tbl"))
-      .setInput(MPassCSVInput("test/loader/demo"))
-                                                  );
+  hyrise::storage::atable_ptr_t t = Loader::load(
+      Loader::params().setHeader(CSVHeader("test/loader/demo/demo.tbl")).setInput(MPassCSVInput("test/loader/demo")));
 }
-
-} } // namespace hyrise::io
-
+}
+}  // namespace hyrise::io

@@ -1,7 +1,6 @@
 // Copyright (c) 2014 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "QueryManager.h"
 
-#include <iostream>
 #include <algorithm>
 
 namespace hyrise {
@@ -24,20 +23,6 @@ void QueryManager::registerQuery(const std::string& name, std::shared_ptr<aging:
   const query_t id = _selectExpressions.size();
   _selectExpressions.push_back(select);
   _queryNames.insert(std::make_pair(name, id));
-
-  std::cout << "register Query \"" << name << "\"" << std::endl;
-
-  cleanRegistered();
-
-  /*TODO for (const auto& registeredIndex : _registered) {
-    const auto& index = registeredIndex.lock();
-    const auto tableId = index->table()->id();
-    std::vector<field_t> fields;
-    for (const auto& param : params) {
-      if (param.table == tableId)
-        fields.push_back(param.field);
-    }
-  }*/
 }
 
 bool QueryManager::exists(const std::string& name) const {
@@ -79,12 +64,9 @@ std::vector<query_t> QueryManager::queriesOfTable(storage::atable_ptr_t table) {
   return ret;
 }
 
-void QueryManager::cleanRegistered() {
-  //TODO necessary
-  _registered.erase(
-    std::remove_if(_registered.begin(), _registered.end(),
-        [](const std::weak_ptr<storage::AgingIndex>& index) { return index.expired(); }),
-    _registered.end());
+void QueryManager::clear() {
+  _selectExpressions.clear();
+  _queryNames.clear();
 }
 
 } } // namespace hyrise::access

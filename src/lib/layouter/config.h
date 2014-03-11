@@ -16,5 +16,5 @@ struct LayouterConfiguration {
     access_type_default
   } access_type_t;
 };
-
-} } // namespace hyrise::layouter
+}
+}  // namespace hyrise::layouter

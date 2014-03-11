@@ -18,5 +18,6 @@ AbstractResource::~AbstractResource() {}
 resource_id_t AbstractResource::id() const {
   return _id;
 }
-} } // namespace hyrise::storage
 
+}
+}  // namespace hyrise::storage

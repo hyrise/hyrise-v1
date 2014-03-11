@@ -13,7 +13,7 @@ namespace storage {
 
 class AbstractIndex : public AbstractResource {
 
-public:
+ public:
   /**
    * Destructor.
    */
@@ -21,7 +21,5 @@ public:
 
   virtual void shrink() = 0;
 };
-
-} } // namespace hyrise::storage
-
-
+}
+}  // namespace hyrise::storage

@@ -28,50 +28,46 @@ struct JoinType {
 /// A join statement takes two tables as input. For all join types
 /// there must be predicates specifying the join condition for the
 /// input tables
-class JoinScan: public ParallelizablePlanOperation {
-public:
+class JoinScan : public ParallelizablePlanOperation {
+ public:
   JoinScan(const JoinType::type t);
   virtual ~JoinScan();
 
   void setupPlanOperation();
   void executePlanOperation();
   /// { type: "JoinScan", jtype: "EQUI", predicates: [{type: 0}, {type: 3, in: 0, f:0}, {type: "3"] }
-  static std::shared_ptr<PlanOperation> parse(const Json::Value &v);
+  static std::shared_ptr<PlanOperation> parse(const Json::Value& v);
   const std::string vname();
-  template<typename T>
+  template <typename T>
   void addJoinClause(const size_t input_left,
                      const storage::field_t field_left,
                      const size_t input_right,
                      const storage::field_t field_right);
-  template<typename T>
-  void addJoinClause(const Json::Value &value);
+  template <typename T>
+  void addJoinClause(const Json::Value& value);
   void addCombiningClause(const ExpressionType t);
 
-private:
-  void addJoinExpression(JoinExpression *);
+ private:
+  void addJoinExpression(JoinExpression*);
   JoinType::type _join_type;
-  JoinExpression *_join_condition;
-  std::stack<CompoundJoinExpression *> _compound_stack;
+  JoinExpression* _join_condition;
+  std::stack<CompoundJoinExpression*> _compound_stack;
 };
 
-template<typename T>
+template <typename T>
 void JoinScan::addJoinClause(const size_t input_left,
                              const storage::field_t field_left,
                              const size_t input_right,
                              const storage::field_t field_right) {
-  auto expr1 = new EqualsJoinExpression<T>(input_left,
-                                           field_left,
-                                           input_right,
-                                           field_right);
+  auto expr1 = new EqualsJoinExpression<T>(input_left, field_left, input_right, field_right);
   addJoinExpression(expr1);
 }
 
-template<typename T>
-void JoinScan::addJoinClause(const Json::Value &value) {
-  EqualsJoinExpression<T> *expr1 = EqualsJoinExpression<T>::parse(value);
+template <typename T>
+void JoinScan::addJoinClause(const Json::Value& value) {
+  EqualsJoinExpression<T>* expr1 = EqualsJoinExpression<T>::parse(value);
   addJoinExpression(expr1);
 }
-
 }
 }
 

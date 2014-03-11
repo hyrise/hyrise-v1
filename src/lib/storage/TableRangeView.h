@@ -10,14 +10,14 @@
 
 #include "storage/AbstractTable.h"
 #include "helper/SharedFactory.h"
-namespace hyrise { namespace storage {
+namespace hyrise {
+namespace storage {
 
 /*
  * provides an interface to a sequential range of rows to a table defined by a start and end
  */
 
-class TableRangeView : public AbstractTable,
-                       public SharedFactory<TableRangeView> {
+class TableRangeView : public AbstractTable, public SharedFactory<TableRangeView> {
 
   atable_ptr_t _table;
 
@@ -26,7 +26,7 @@ class TableRangeView : public AbstractTable,
   // store number of columns to avoid subsequent calls to table->columnCount()
   size_t _columnCount;
 
-public:
+ public:
   TableRangeView(atable_ptr_t t, size_t s, size_t e);
   virtual ~TableRangeView();
 
@@ -34,7 +34,7 @@ public:
   // specific to TableRangeView
   table_id_t subtableCount() const;
   atable_ptr_t copy() const;
-  void print(const size_t limit = (size_t) -1) const;
+  void print(const size_t limit = (size_t) - 1) const;
   c_atable_ptr_t getTable() const;
   c_atable_ptr_t getActualTable() const;
 
@@ -43,25 +43,34 @@ public:
   void setValueId(const size_t column, const size_t row, const ValueId valueId);
   ValueId getValueId(const size_t column, const size_t row) const;
 
-  const ColumnMetadata& metadataAt(const size_t column, const size_t row = 0, const table_id_t table_id = 0) const override;
+  const ColumnMetadata& metadataAt(const size_t column, const size_t row = 0, const table_id_t table_id = 0) const
+      override;
 
-  const SharedDictionaryPtr & dictionaryAt(const size_t column, const size_t row = 0, const table_id_t table_id = 0) const;
+  const SharedDictionaryPtr& dictionaryAt(const size_t column,
+                                          const size_t row = 0,
+                                          const table_id_t table_id = 0) const;
 
   // throw exceptions if called
-  void setDictionaryAt(SharedDictionaryPtr dict, const size_t column, const size_t row = 0, const table_id_t table_id = 0);
+  void setDictionaryAt(SharedDictionaryPtr dict,
+                       const size_t column,
+                       const size_t row = 0,
+                       const table_id_t table_id = 0);
   void sortDictionary();
 
   // just routed to underlying table
   size_t partitionWidth(const size_t slice) const;
   unsigned partitionCount() const;
-  atable_ptr_t copy_structure(const field_list_t *fields = nullptr, const bool reuse_dict = false, const size_t initial_size = 0, const bool with_containers = true, const bool compressed = false) const;
-  const SharedDictionaryPtr & dictionaryByTableId(const size_t column, const table_id_t table_id) const;
+  atable_ptr_t copy_structure(const field_list_t* fields = nullptr,
+                              const bool reuse_dict = false,
+                              const size_t initial_size = 0,
+                              const bool with_containers = true,
+                              const bool compressed = false) const;
+  const SharedDictionaryPtr& dictionaryByTableId(const size_t column, const table_id_t table_id) const;
   DataType typeOfColumn(const size_t column) const;
   size_t columnCount() const;
   std::string nameOfColumn(const size_t column) const;
 
-  virtual void debugStructure(size_t level=0) const;
+  virtual void debugStructure(size_t level = 0) const;
 };
-
-}}
-
+}
+}

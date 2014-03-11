@@ -24,26 +24,23 @@ namespace access {
 class SelectTests : public AccessTest {
 
  public:
-
   std::shared_ptr<storage::AbstractTable> createRawTable() {
     storage::metadata_vec_t cols({storage::ColumnMetadata::metadataFromString("INTEGER", "col1"),
                                   storage::ColumnMetadata::metadataFromString("STRING", "col2"),
-                                  storage::ColumnMetadata::metadataFromString("FLOAT", "col3") });
+                                  storage::ColumnMetadata::metadataFromString("FLOAT", "col3")});
 
     auto main = std::make_shared<storage::RawTable>(cols);
-    for (size_t i=0; i < 100; ++i) {
+    for (size_t i = 0; i < 100; ++i) {
       hyrise::storage::rawtable::RowHelper rh(cols);
       rh.set<hyrise_int_t>(0, i);
       rh.set<hyrise_string_t>(1, "MeinNameIstSlimShady" + std::to_string(i));
-      rh.set<hyrise_float_t>(2, 1.1*i);
-      unsigned char *data = rh.build();
+      rh.set<hyrise_float_t>(2, 1.1 * i);
+      unsigned char* data = rh.build();
       main->appendRow(data);
       free(data);
     }
     return main;
   }
-
-
 };
 
 TEST_F(SelectTests, simple_projection_with_position) {
@@ -98,14 +95,14 @@ TEST_F(SelectTests, simple_projection_with_position_mat_memcpy) {
   gs.addInput(t);
   gs.addField(0);
 
-  ASSERT_EQ((unsigned) 10, t->columnCount());
+  ASSERT_EQ((unsigned)10, t->columnCount());
 
   auto result = gs.execute()->getResultTable();
   MaterializingScan ms(true);
   ms.addInput(result);
   const auto& result2 = ms.execute()->getResultTable();
 
-  ASSERT_EQ((unsigned) 100, result2->size());
+  ASSERT_EQ((unsigned)100, result2->size());
   const auto& reference = io::Loader::shortcuts::load("test/reference/simple_projection.tbl");
 
   ASSERT_TABLE_EQUAL(reference, result2);
@@ -125,8 +122,7 @@ TEST_F(SelectTests, simple_projection_with_position_mat_and_sample) {
   ms.setSamples(3);
   const auto& result2 = ms.execute()->getResultTable();
 
-  ASSERT_EQ((unsigned) 3, result2->size());
-
+  ASSERT_EQ((unsigned)3, result2->size());
 }
 
 
@@ -147,7 +143,7 @@ TEST_F(SelectTests, simple_projection_with_materialization) {
 TEST_F(SelectTests, simple_expression) {
   auto t = io::Loader::shortcuts::load("test/lin_xxxs.tbl");
 
-  hyrise::access::ExpressionScan *es = new hyrise::access::ExpressionScan();
+  hyrise::access::ExpressionScan* es = new hyrise::access::ExpressionScan();
   es->addInput(t);
   hyrise::access::AddExp plus(t, 0, 1);
   es->setExpression("plus", &plus);
@@ -168,10 +164,10 @@ TEST_F(SelectTests, should_throw_without_predicates) {
 TEST_F(SelectTests, simple_select) {
   hyrise::storage::c_atable_ptr_t t = io::Loader::shortcuts::load("test/groupby_xs.tbl");
 
-  EqualsExpression<hyrise_int_t> *expr1 = new EqualsExpression<hyrise_int_t>(t, 0, 2009);
-  EqualsExpression<hyrise_int_t> *expr2 = new EqualsExpression<hyrise_int_t>(t, 1, 1);
-  CompoundExpression *expr3 = new CompoundExpression(expr1, expr2, OR);
-  CompoundExpression *expr4 = new CompoundExpression(NOT);
+  EqualsExpression<hyrise_int_t>* expr1 = new EqualsExpression<hyrise_int_t>(t, 0, 2009);
+  EqualsExpression<hyrise_int_t>* expr2 = new EqualsExpression<hyrise_int_t>(t, 1, 1);
+  CompoundExpression* expr3 = new CompoundExpression(expr1, expr2, OR);
+  CompoundExpression* expr4 = new CompoundExpression(NOT);
   expr4->lhs = expr3;
 
   auto scan = std::make_shared<SimpleTableScan>();
@@ -187,7 +183,7 @@ TEST_F(SelectTests, simple_select) {
 TEST_F(SelectTests, simple_select_2) {
   hyrise::storage::c_atable_ptr_t t = io::Loader::shortcuts::load("test/groupby_xs.tbl");
 
-  auto *expr5 = new LessThanExpression<hyrise_int_t>(t, 0, 2010);
+  auto* expr5 = new LessThanExpression<hyrise_int_t>(t, 0, 2010);
   auto scan = std::make_shared<SimpleTableScan>();
   scan->addInput(t);
   scan->setPredicate(expr5);
@@ -203,12 +199,12 @@ TEST_F(SelectTests, simple_select_2) {
 TEST_F(SelectTests, simple_select_3) {
   hyrise::storage::c_atable_ptr_t t = io::Loader::shortcuts::load("test/groupby_xs.tbl");
 
-  GreaterThanExpression<hyrise_int_t> *expr6 = new GreaterThanExpression<hyrise_int_t>(t, 0, 2009);
-  GreaterThanExpression<hyrise_int_t> *expr8 = new GreaterThanExpression<hyrise_int_t>(t, 0, 2008);
-  CompoundExpression *expr7 = new CompoundExpression(NOT);
+  GreaterThanExpression<hyrise_int_t>* expr6 = new GreaterThanExpression<hyrise_int_t>(t, 0, 2009);
+  GreaterThanExpression<hyrise_int_t>* expr8 = new GreaterThanExpression<hyrise_int_t>(t, 0, 2008);
+  CompoundExpression* expr7 = new CompoundExpression(NOT);
   expr7->lhs = expr6;
 
-  CompoundExpression *expr9 = new CompoundExpression(expr8, expr7, AND);
+  CompoundExpression* expr9 = new CompoundExpression(expr8, expr7, AND);
   auto scan = std::make_shared<SimpleTableScan>();
   scan->addInput(t);
   scan->setPredicate(expr9);
@@ -218,14 +214,13 @@ TEST_F(SelectTests, simple_select_3) {
   const auto& reference = io::Loader::shortcuts::load("test/reference/simple_select_3.tbl");
 
   ASSERT_TRUE(out->contentEquals(reference));
-
 }
 
 TEST_F(SelectTests, select_between) {
   hyrise::storage::c_atable_ptr_t t = io::Loader::shortcuts::load("test/groupby_xs.tbl");
 
   auto stc = std::make_shared<SimpleTableScan>();
-  BetweenExpression<hyrise_int_t> *between = new BetweenExpression<hyrise_int_t>(t, t->numberOfColumn("month"), 2, 4);
+  BetweenExpression<hyrise_int_t>* between = new BetweenExpression<hyrise_int_t>(t, t->numberOfColumn("month"), 2, 4);
   stc->addInput(t);
   stc->setPredicate(between);
 
@@ -258,8 +253,8 @@ TEST_F(SelectTests, select_after_insert_simple) {
   auto initial_size = s->size();
   hyrise::storage::atable_ptr_t data = s->copy_structure_modifiable(nullptr, s->size());
   data->resize(1);
-  for (std::size_t i=0; i <= 9; ++i) {
-    data->setValue<hyrise_int_t>(i, 0, 1000+i);
+  for (std::size_t i = 0; i <= 9; ++i) {
+    data->setValue<hyrise_int_t>(i, 0, 1000 + i);
   }
   // insert data
   InsertScan isc;
@@ -276,7 +271,7 @@ TEST_F(SelectTests, select_after_insert_simple) {
 TEST_F(SelectTests, simple_select_with_raw_table_fails_because_input_is_not_raw) {
   hyrise::storage::c_atable_ptr_t t = io::Loader::shortcuts::load("test/groupby_xs.tbl");
 
-  EqualsExpression<hyrise_int_t> *expr1 = new EqualsExpression<hyrise_int_t>(t, 0, 2009);
+  EqualsExpression<hyrise_int_t>* expr1 = new EqualsExpression<hyrise_int_t>(t, 0, 2009);
   auto scan = std::make_shared<SimpleRawTableScan>(expr1);
   scan->addInput(t);
 
@@ -286,7 +281,7 @@ TEST_F(SelectTests, simple_select_with_raw_table_fails_because_input_is_not_raw)
 TEST_F(SelectTests, simple_select_with_raw_table_fails_because_predicate_is_wrong) {
   hyrise::storage::c_atable_ptr_t t = io::Loader::shortcuts::load("test/groupby_xs.tbl");
 
-  EqualsExpression<hyrise_int_t> *expr1 = new EqualsExpression<hyrise_int_t>(t, 0, 2009);
+  EqualsExpression<hyrise_int_t>* expr1 = new EqualsExpression<hyrise_int_t>(t, 0, 2009);
   auto scan = std::make_shared<SimpleRawTableScan>(expr1);
   scan->addInput(t);
 
@@ -296,7 +291,7 @@ TEST_F(SelectTests, simple_select_with_raw_table_fails_because_predicate_is_wron
 TEST_F(SelectTests, simple_select_with_raw_table_fails_due_to_equals_predicate_implementation) {
   hyrise::storage::c_atable_ptr_t t = createRawTable();
 
-  EqualsExpression<hyrise_int_t> *expr1 = new EqualsExpression<hyrise_int_t>(t, 0, 2009);
+  EqualsExpression<hyrise_int_t>* expr1 = new EqualsExpression<hyrise_int_t>(t, 0, 2009);
   auto scan = std::make_shared<SimpleRawTableScan>(expr1);
   scan->addInput(t);
 
@@ -373,7 +368,5 @@ TEST_F(SelectTests, simple_select_with_raw_table_equals_predicate_float) {
   const auto& reference = io::Loader::shortcuts::load("test/reference/simple_raw_select_integer.tbl");
   ASSERT_TABLE_EQUAL(reference, out);
 }
-
 }
 }
-

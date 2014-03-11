@@ -1,35 +1,25 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "TableLoad.h"
 
-#include <iostream>
-
 #include "access/system/QueryParser.h"
 
 #include "io/loaders.h"
 #include "io/shortcuts.h"
 #include "io/StorageManager.h"
-#include "io/CSVLoader.h"
 
 #include "log4cxx/logger.h"
-
-//#include "access/SortScan.h"
 
 namespace hyrise {
 namespace access {
 
 namespace {
-  auto _ = QueryParser::registerPlanOperation<TableLoad>("TableLoad");
-  log4cxx::LoggerPtr logger(log4cxx::Logger::getLogger("access.plan.PlanOperation"));
+auto _ = QueryParser::registerPlanOperation<TableLoad>("TableLoad");
+log4cxx::LoggerPtr logger(log4cxx::Logger::getLogger("access.plan.PlanOperation"));
 }
 
-TableLoad::TableLoad(): _hasDelimiter(false),
-                        _binary(false),
-                        _unsafe(false),
-                        _raw(false) {
-}
+TableLoad::TableLoad() : _hasDelimiter(false), _binary(false), _unsafe(false), _raw(false) {}
 
-TableLoad::~TableLoad() {
-}
+TableLoad::~TableLoad() {}
 
 void TableLoad::executePlanOperation() {
   auto sm = io::StorageManager::getInstance();
@@ -68,13 +58,12 @@ void TableLoad::executePlanOperation() {
   } else {
     sm->getTable(_table_name);
   }
-
   auto _table = sm->getTable(_table_name);
   LOG4CXX_DEBUG(logger, "Loaded Table Size" << _table->size());
   addResult(_table);
 }
 
-std::shared_ptr<PlanOperation> TableLoad::parse(const Json::Value &data) {
+std::shared_ptr<PlanOperation> TableLoad::parse(const Json::Value& data) {
   std::shared_ptr<TableLoad> s = std::make_shared<TableLoad>();
   s->setTableName(data["table"].asString());
   s->setFileName(data["filename"].asString());
@@ -82,48 +71,31 @@ std::shared_ptr<PlanOperation> TableLoad::parse(const Json::Value &data) {
   s->setHeaderString(data["header_string"].asString());
   s->setUnsafe(data["unsafe"].asBool());
   s->setRaw(data["raw"].asBool());
-  
   if (data.isMember("delimiter")) {
     s->setDelimiter(data["delimiter"].asString());
   }
   return s;
 }
 
-const std::string TableLoad::vname() {
-  return "TableLoad";
-}
+const std::string TableLoad::vname() { return "TableLoad"; }
 
-void TableLoad::setTableName(const std::string &tablename) {
-  _table_name = tablename;
-}
+void TableLoad::setTableName(const std::string& tablename) { _table_name = tablename; }
 
-void TableLoad::setFileName(const std::string &filename) {
-  _file_name = filename;
-}
+void TableLoad::setFileName(const std::string& filename) { _file_name = filename; }
 
-void TableLoad::setHeaderFileName(const std::string &filename) {
-  _header_file_name = filename;
-}
+void TableLoad::setHeaderFileName(const std::string& filename) { _header_file_name = filename; }
 
-void TableLoad::setHeaderString(const std::string &header) {
-  _header_string = header;
-}
+void TableLoad::setHeaderString(const std::string& header) { _header_string = header; }
 
-void TableLoad::setBinary(const bool binary) {
-  _binary = binary;
-}
+void TableLoad::setBinary(const bool binary) { _binary = binary; }
 
-void TableLoad::setUnsafe(const bool unsafe) {
-  _unsafe = unsafe;
-}
+void TableLoad::setUnsafe(const bool unsafe) { _unsafe = unsafe; }
 
-void TableLoad::setRaw(const bool raw) {
-  _raw = raw;
-}
+void TableLoad::setRaw(const bool raw) { _raw = raw; }
 
-void TableLoad::setDelimiter(const std::string &d) {
+void TableLoad::setDelimiter(const std::string& d) {
   _delimiter = d;
   _hasDelimiter = true;
 }
-
-} } // namespace hyrise::access
+}
+}

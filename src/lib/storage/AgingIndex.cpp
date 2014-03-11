@@ -9,22 +9,19 @@
 namespace hyrise {
 namespace storage {
 
-AgingIndex::AgingIndex(const atable_ptr_t& table, const c_astat_ptr_t& statistic) :
-    _table(table),
+AgingIndex::AgingIndex(const c_astat_ptr_t& statistic) :
     _statistic(statistic) {}
 
 AgingIndex::~AgingIndex() {}
 
-void AgingIndex::shrink() {
-  //TODO ... implement it?
-}
+void AgingIndex::shrink() { /*no shrinking*/ }
 
 bool AgingIndex::isHot(access::query_t query, value_id_t vid) const {
   return _statistic->isHot(query, vid);
 }
 
 atable_ptr_t AgingIndex::table() {
-  return _table.lock();
+  return _statistic->table();
 }
 
 field_t AgingIndex::field() {

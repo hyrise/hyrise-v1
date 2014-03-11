@@ -11,7 +11,8 @@ namespace access {
 class RegressionTests : public AccessTest {};
 
 TEST_F(RegressionTests, projection_fail) {
-  auto w = io::Loader::shortcuts::loadWithHeader("test/regression/projection_fail.data", "test/regression/projection_fail.tbl");
+  auto w = io::Loader::shortcuts::loadWithHeader("test/regression/projection_fail.data",
+                                                 "test/regression/projection_fail.tbl");
 
   ProjectionScan ps;
   ps.addInput(w);
@@ -22,8 +23,6 @@ TEST_F(RegressionTests, projection_fail) {
   ASSERT_EQ(p->metadataAt(0).getName(), "w_tax");
   ASSERT_EQ(0u, p->numberOfColumn("w_tax"));
   ASSERT_EQ(p->getValue<float>(0, 0), p->getValue<float>("w_tax", 0));
-
 }
-
 }
 }

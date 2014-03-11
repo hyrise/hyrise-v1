@@ -4,6 +4,5 @@ namespace hyrise {
 namespace storage {
 
 AbstractAttributeVector::~AbstractAttributeVector() {}
-
-} } // namespace hyrise::storage
-
+}
+}  // namespace hyrise::storage

@@ -10,7 +10,7 @@ namespace hyrise {
 namespace access {
 
 class MySQLTableLoad : public PlanOperation {
-public:
+ public:
   MySQLTableLoad();
   virtual ~MySQLTableLoad();
 
@@ -20,18 +20,17 @@ public:
   /// "database": "cbtr",
   /// "table": "KNA1"
   /// }
-  static std::shared_ptr<PlanOperation> parse(const Json::Value &data);
+  static std::shared_ptr<PlanOperation> parse(const Json::Value& data);
   const std::string vname();
-  void setDatabaseName(const std::string &databaseName);
-  void setTableName(const std::string &tablename);
+  void setDatabaseName(const std::string& databaseName);
+  void setTableName(const std::string& tablename);
   void setLoadLimit(const uint64_t l);
 
-private:
+ private:
   std::string _table_name;
   std::string _database_name;
   uint64_t _load_limit;
 };
-
 }
 }
 

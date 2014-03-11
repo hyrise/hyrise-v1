@@ -15,7 +15,7 @@
 namespace hyrise {
 namespace access {
 
-storage::c_atable_ptr_t sort(storage::c_atable_ptr_t table, field_t field=0) {
+storage::c_atable_ptr_t sort(storage::c_atable_ptr_t table, field_t field = 0) {
   SortScan ss;
   ss.addInput(table);
   ss.setSortField(field);
@@ -196,9 +196,8 @@ TEST_F(GroupByTests, aggregated_group_by_scan_using_table_2) {
 
 
 
-
 TEST_F(GroupByTests, DISABLED_group_by_performance) {
-  auto  t = io::Loader::shortcuts::load("test/test10k_12.tbl");
+  auto t = io::Loader::shortcuts::load("test/test10k_12.tbl");
 
   GroupByScan gs;
   gs.addInput(t);
@@ -233,7 +232,7 @@ TEST_F(GroupByTests, group_by_scan_using_table_2) {
     hs->setKey("groupby");
 
     auto group_map = hs->execute()->getResultHashTable();
-    
+
     gs->addInput(group_map);
 
     const auto& result = gs->execute()->getResultTable();
@@ -341,7 +340,6 @@ TEST_F(GroupByTests, group_by_scan_with_count) {
   const auto& ref2 = so2.execute()->getResultTable();
 
   ASSERT_TABLE_EQUAL(r2, ref2);
-
 }
 
 TEST_F(GroupByTests, group_by_scan_with_sum) {
@@ -421,9 +419,7 @@ TEST_F(GroupByTests, group_by_scan_with_avg_on_string) {
   auto group_map = hs.execute()->getResultHashTable();
   gs.addInput(group_map);
 
-  ASSERT_THROW( {
-      gs.execute();
-    }, std::runtime_error);
+  ASSERT_THROW({ gs.execute(); }, std::runtime_error);
 }
 
 TEST_F(GroupByTests, group_by_scan_with_sum_and_two_args) {
@@ -448,7 +444,6 @@ TEST_F(GroupByTests, group_by_scan_with_sum_and_two_args) {
   const auto& ref2 = so2.execute()->getResultTable();
 
   ASSERT_TABLE_EQUAL(r2, ref2);
-
 }
 
 TEST_F(GroupByTests, group_by_scan_with_count_and_two_args) {
@@ -467,7 +462,7 @@ TEST_F(GroupByTests, group_by_scan_with_count_and_two_args) {
   hs.addField(1);
   hs.setKey("groupby");
 
-  
+
   auto group_map = hs.execute()->getResultHashTable();
   gs.addInput(group_map);
 
@@ -536,10 +531,9 @@ TEST_F(GroupByTests, group_by_scan_with_sum_and_one_arg) {
   const auto& ref2 = so2.execute()->getResultTable();
 
   ASSERT_TABLE_EQUAL(r2, ref2);
-
 }
 
-TEST_F(GroupByTests,  group_multi_table) {
+TEST_F(GroupByTests, group_multi_table) {
 
   // Load raw data
   auto s = io::Loader::shortcuts::load("test/10_30_group.tbl");
@@ -573,7 +567,6 @@ TEST_F(GroupByTests,  group_multi_table) {
   const auto& ref2 = so2.execute()->getResultTable();
 
   ASSERT_TABLE_EQUAL(r2, ref2);
-
 }
 
 /*
@@ -684,15 +677,15 @@ TEST_F(GroupByTests, group_multi_table_with_delta_not_unique) {
 */
 
 TEST_F(GroupByTests, groupby_on_empty_table) {
-  storage::metadata_list metaList = { storage::ColumnMetadata("field1", IntegerType),
-                                      storage::ColumnMetadata("field2", StringType),
-                                      storage::ColumnMetadata("field2", FloatType) };
+  storage::metadata_list metaList = {storage::ColumnMetadata("field1", IntegerType),
+                                     storage::ColumnMetadata("field2", StringType),
+                                     storage::ColumnMetadata("field2", FloatType)};
   auto t = std::make_shared<storage::Table>(&metaList);
 
   GroupByScan gs;
   gs.addInput(t);
   gs.addField(0);
-  
+
   gs.addFunction(new SumAggregateFun("field1"));
   gs.addFunction(new AverageAggregateFun("field1"));
   gs.addFunction(new CountAggregateFun("field1", false));
@@ -712,7 +705,5 @@ TEST_F(GroupByTests, groupby_on_empty_table) {
   EXPECT_NO_THROW(result = gs.execute()->getResultTable());
   EXPECT_EQ(0u, result->size());
 }
-
 }
 }
-

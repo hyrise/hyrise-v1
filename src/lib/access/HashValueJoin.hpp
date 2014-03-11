@@ -11,21 +11,17 @@
 #include <access/system/PlanOperation.h>
 #include <storage/PointerCalculator.h>
 
-namespace hyrise { namespace access {
+namespace hyrise {
+namespace access {
 
 template <typename T>
 class HashValueJoin : public PlanOperation {
  public:
-
   typedef std::unordered_multimap<T, pos_t> map_type;
 
-  HashValueJoin() {
-    
-  }
+  HashValueJoin() {}
 
-  virtual ~HashValueJoin() {
-    
-  }
+  virtual ~HashValueJoin() {}
 
   /*
    * Expects two inputs
@@ -37,8 +33,8 @@ class HashValueJoin : public PlanOperation {
     }
 
     map_type hash;
-    std::vector<pos_t> *build_pos = new std::vector<pos_t>();
-    std::vector<pos_t> *probe_pos = new std::vector<pos_t>();
+    std::vector<pos_t>* build_pos = new std::vector<pos_t>();
+    std::vector<pos_t>* probe_pos = new std::vector<pos_t>();
 
     T value;
 
@@ -85,10 +81,14 @@ class HashValueJoin : public PlanOperation {
 
     // input.getTable(0) will always be the left part of our output, no matter
     // if it's the build table or not
-    std::vector<storage::atable_ptr_t > parts;
+    std::vector<storage::atable_ptr_t> parts;
     // FIXME: Worst stuff ever
-    auto build_pc = std::const_pointer_cast<storage::AbstractTable>(std::dynamic_pointer_cast<const storage::AbstractTable>(storage::PointerCalculator::create(build_table, build_pos)));
-    auto probe_pc = std::const_pointer_cast<storage::AbstractTable>(std::dynamic_pointer_cast<const storage::AbstractTable>(storage::PointerCalculator::create(probe_table, probe_pos)));
+    auto build_pc =
+        std::const_pointer_cast<storage::AbstractTable>(std::dynamic_pointer_cast<const storage::AbstractTable>(
+            storage::PointerCalculator::create(build_table, build_pos)));
+    auto probe_pc =
+        std::const_pointer_cast<storage::AbstractTable>(std::dynamic_pointer_cast<const storage::AbstractTable>(
+            storage::PointerCalculator::create(probe_table, probe_pos)));
     if (build_table == input.getTable(0)) {
       parts.push_back(build_pc);
       parts.push_back(probe_pc);
@@ -100,12 +100,8 @@ class HashValueJoin : public PlanOperation {
     addResult(std::make_shared<const storage::MutableVerticalTable>(parts));
   }
 
-  const std::string vname() {
-    return "HashValueJoin";
-  }
-
+  const std::string vname() { return "HashValueJoin"; }
 };
-
-}}
+}
+}
 #endif  // SRC_LIB_ACCESS_HASHVALUEJOIN_HPP_
-

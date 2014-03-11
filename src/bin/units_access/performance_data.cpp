@@ -11,7 +11,8 @@ namespace access {
 class PerformanceDataTests : public AccessTest {};
 
 TEST_F(PerformanceDataTests, single_op_data) {
-  storage::atable_ptr_t w = io::Loader::shortcuts::loadWithHeader("test/regression/projection_fail.data", "test/regression/projection_fail.tbl");
+  storage::atable_ptr_t w = io::Loader::shortcuts::loadWithHeader("test/regression/projection_fail.data",
+                                                                  "test/regression/projection_fail.tbl");
 
   ProjectionScan ps;
   ps.addInput(w);
@@ -27,7 +28,5 @@ TEST_F(PerformanceDataTests, single_op_data) {
   ASSERT_GT(perf.startTime, 0u) << "start time should be set";
   ASSERT_GT(perf.endTime, 0u) << "end time should be set";
 }
-
 }
 }
-

@@ -16,9 +16,7 @@ namespace test {
 
 // http://www.geekhideout.com/urlcode.shtml
 
-char from_hex(char ch) {
-  return isdigit(ch) ? ch - '0' : tolower(ch) - 'a' + 10;
-}
+char from_hex(char ch) { return isdigit(ch) ? ch - '0' : tolower(ch) - 'a' + 10; }
 
 /* Converts an integer value to its hex character*/
 char to_hex(char code) {
@@ -28,9 +26,9 @@ char to_hex(char code) {
 
 /* Returns a url-decoded version of str */
 /* IMPORTANT: be sure to free() the returned string after use */
-std::unique_ptr<char, decltype(&std::free)> url_decode(const char *str) {
-  const char *pstr = str;
-  char *buf = (char*) malloc(strlen(str) + 1), *pbuf = buf;
+std::unique_ptr<char, decltype(&std::free)> url_decode(const char* str) {
+  const char* pstr = str;
+  char* buf = (char*)malloc(strlen(str) + 1), *pbuf = buf;
   while (*pstr) {
     if (*pstr == '%') {
       if (pstr[1] && pstr[2]) {
@@ -47,7 +45,6 @@ std::unique_ptr<char, decltype(&std::free)> url_decode(const char *str) {
   *pbuf = '\0';
   return {buf, &std::free};
 }
-
 }
 
 
@@ -58,8 +55,8 @@ std::map<std::string, std::string> parseHTTPFormData(std::string formData, const
   std::map<std::string, std::string> result;
 
   // Iterate over all elements
-  for (string_split_iterator it = boost::make_split_iterator(formData,
-                                                             boost::first_finder(elem_sep, boost::is_equal()));
+  for (string_split_iterator it =
+           boost::make_split_iterator(formData, boost::first_finder(elem_sep, boost::is_equal()));
        it != string_split_iterator();
        ++it) {
     // *it points to the element std::string that needs to be splited into two parts
@@ -71,7 +68,7 @@ std::map<std::string, std::string> parseHTTPFormData(std::string formData, const
   return result;
 }
 
-std::string urldecode(const std::string &input) {
+std::string urldecode(const std::string& input) {
   auto t = test::url_decode(input.c_str());
   std::string res(t.get());
   return std::move(res);

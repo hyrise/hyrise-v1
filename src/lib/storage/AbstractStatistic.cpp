@@ -21,6 +21,10 @@ void AbstractStatistic::valuesDo(std::function<void(access::query_t, value_id_t,
     valuesDo(query, [&query, &func] (value_id_t vid, bool hot) { func(query, vid, hot); });
 }
 
+void AbstractStatistic::table(atable_ptr_t table) {
+  _table = table;
+}
+
 atable_ptr_t AbstractStatistic::table() const {
   return _table.lock();
 }

@@ -14,11 +14,12 @@
 #include "access/UnionAll.h"
 #include "access/system/ResponseTask.h"
 
-namespace hyrise { namespace access {
+namespace hyrise {
+namespace access {
 
 namespace {
-  auto _ = QueryParser::registerPlanOperation<TableScan>("TableScan");
-  log4cxx::LoggerPtr _logger(log4cxx::Logger::getLogger("hyrise.access"));
+auto _ = QueryParser::registerPlanOperation<TableScan>("TableScan");
+log4cxx::LoggerPtr _logger(log4cxx::Logger::getLogger("hyrise.access"));
 }
 
 TableScan::TableScan(std::unique_ptr<AbstractExpression> expr) : _expr(std::move(expr)) {}
@@ -26,7 +27,7 @@ TableScan::TableScan(std::unique_ptr<AbstractExpression> expr) : _expr(std::move
 void TableScan::setupPlanOperation() {
   const auto& table = getInputTable();
   auto tablerange = std::dynamic_pointer_cast<const storage::TableRangeView>(table);
-  if(tablerange)
+  if (tablerange)
     _expr->walk({tablerange->getActualTable()});
   else
     _expr->walk({table});
@@ -35,7 +36,7 @@ void TableScan::setupPlanOperation() {
 void TableScan::executePlanOperation() {
   size_t start, stop;
   const auto& tablerange = std::dynamic_pointer_cast<const storage::TableRangeView>(getInputTable());
-  if(tablerange){
+  if (tablerange) {
     start = tablerange->getStart();
     stop = start + tablerange->size();
   } else {
@@ -45,14 +46,14 @@ void TableScan::executePlanOperation() {
 
   // When the input is 0, dont bother trying to generate results
   pos_list_t* positions = nullptr;
-  if(stop - start > 0)
+  if (stop - start > 0)
     positions = _expr->match(start, stop);
   else
     positions = new pos_list_t();
 
   std::shared_ptr<storage::PointerCalculator> result;
 
-  if(tablerange)
+  if (tablerange)
     result = storage::PointerCalculator::create(tablerange->getActualTable(), positions);
   else
     result = storage::PointerCalculator::create(getInputTable(), positions);
@@ -70,7 +71,7 @@ size_t TableScan::getTotalTableSize() {
   return inputTable->size();
 }
 
-std::vector<taskscheduler::task_ptr_t> TableScan::applyDynamicParallelization(size_t dynamicCount){
+std::vector<taskscheduler::task_ptr_t> TableScan::applyDynamicParallelization(size_t dynamicCount) {
 
   std::vector<taskscheduler::task_ptr_t> tasks;
 
@@ -100,7 +101,7 @@ std::vector<taskscheduler::task_ptr_t> TableScan::applyDynamicParallelization(si
   _operatorId = opIdBase + "_0";
 
   // create other TableScans
-  for(size_t i = 1; i < dynamicCount; i++){
+  for (size_t i = 1; i < dynamicCount; i++) {
     auto t = std::make_shared<TableScan>(_expr->clone());
 
     t->setOperatorId(opIdBase + "_" + std::to_string(i));
@@ -117,7 +118,7 @@ std::vector<taskscheduler::task_ptr_t> TableScan::applyDynamicParallelization(si
     t->setEvent(_papiEvent);
 
     // set dependencies equal to current task
-    for(auto d : _dependencies)
+    for (auto d : _dependencies)
       t->addDoneDependency(d);
 
     t->setPlanOperationName("TableScan");
@@ -141,7 +142,7 @@ std::vector<taskscheduler::task_ptr_t> TableScan::applyDynamicParallelization(si
   unionall->setEvent(_papiEvent);
 
 
-  for(auto t: tasks)
+  for (auto t : tasks)
     unionall->addDependency(t);
 
   // set union as dependency to all successors
@@ -156,6 +157,5 @@ std::vector<taskscheduler::task_ptr_t> TableScan::applyDynamicParallelization(si
 
   return tasks;
 }
-
-
-}}
+}
+}

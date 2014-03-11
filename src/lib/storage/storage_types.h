@@ -10,8 +10,9 @@
 
 #define STORAGE_XSTR(x) STORAGE_STR(x)
 #define STORAGE_STR(x) #x
-#define STORAGE_DEBUG_WHERE_WHAT(file, line)  std::string(#file ":" #line)
-#define STORAGE_NOT_IMPLEMENTED(class, method) throw std::runtime_error(#class "(" STORAGE_XSTR(__FILE__) ":" STORAGE_XSTR(__LINE__) ") does not "  #method); 
+#define STORAGE_DEBUG_WHERE_WHAT(file, line) std::string(#file ":" #line)
+#define STORAGE_NOT_IMPLEMENTED(class, method) \
+  throw std::runtime_error(#class "(" STORAGE_XSTR(__FILE__) ":" STORAGE_XSTR(__LINE__) ") does not " #method);
 
 /**
  * These Types reflect the basic types that are available in
@@ -44,7 +45,7 @@ namespace hyrise {
 namespace types {
 
 namespace detail {
-  const int num_basic_types = 3;
+const int num_basic_types = 3;
 }
 
 typedef std::string type_t;
@@ -67,67 +68,62 @@ const std::string string_name_main = "STRING_MAIN";
  */
 inline DataType getConcurrentType(DataType t) {
   switch (t) {
-  case IntegerTypeDelta:
-  case IntegerTypeDeltaConcurrent:
-    return IntegerTypeDeltaConcurrent;
-  case FloatTypeDelta:
-  case FloatTypeDeltaConcurrent:
-    return FloatTypeDeltaConcurrent;
-  case StringTypeDelta:
-  case StringTypeDeltaConcurrent:
-    return StringTypeDeltaConcurrent;
+    case IntegerTypeDelta:
+    case IntegerTypeDeltaConcurrent:
+      return IntegerTypeDeltaConcurrent;
+    case FloatTypeDelta:
+    case FloatTypeDeltaConcurrent:
+      return FloatTypeDeltaConcurrent;
+    case StringTypeDelta:
+    case StringTypeDeltaConcurrent:
+      return StringTypeDeltaConcurrent;
 
-  default:
-    return t;
+    default:
+      return t;
   }
 }
 
 inline DataType getOrderedType(DataType t) {
   switch (t) {
-  case IntegerTypeDelta:
-  case IntegerTypeDeltaConcurrent:
-  case IntegerNoDictType:
-    return IntegerType;
-  case FloatTypeDelta:
-  case FloatTypeDeltaConcurrent:
-  case FloatNoDictType:
-    return FloatType;
-  case StringTypeDelta:
-  case StringTypeDeltaConcurrent:
-    return StringType;
-  default:
-    return t;
+    case IntegerTypeDelta:
+    case IntegerTypeDeltaConcurrent:
+    case IntegerNoDictType:
+      return IntegerType;
+    case FloatTypeDelta:
+    case FloatTypeDeltaConcurrent:
+    case FloatNoDictType:
+      return FloatType;
+    case StringTypeDelta:
+    case StringTypeDeltaConcurrent:
+      return StringType;
+    default:
+      return t;
   }
 }
 
 inline DataType getUnorderedType(DataType t) {
   switch (t) {
-  case IntegerType:
-  case IntegerTypeDeltaConcurrent:
-    return IntegerTypeDelta;
-  case FloatType:
-  case FloatTypeDeltaConcurrent:
-    return FloatTypeDelta;
-  case StringType:
-  case StringTypeDeltaConcurrent:
-    return StringTypeDelta;
-  default:
-    return t;
+    case IntegerType:
+    case IntegerTypeDeltaConcurrent:
+      return IntegerTypeDelta;
+    case FloatType:
+    case FloatTypeDeltaConcurrent:
+      return FloatTypeDelta;
+    case StringType:
+    case StringTypeDeltaConcurrent:
+      return StringTypeDelta;
+    default:
+      return t;
   }
 }
 
-inline bool isUnordered(DataType t) {
-  return t > StringType;
-}
+inline bool isUnordered(DataType t) { return t > StringType; }
 
-inline bool isDictionaryEncoded(DataType t) {
-  return t >= IntegerNoDictType ;
-}
+inline bool isDictionaryEncoded(DataType t) { return t >= IntegerNoDictType; }
 
 inline bool isCompatible(DataType a, DataType b) {
   return (a % detail::num_basic_types) == (b % detail::num_basic_types);
 }
-
 }
 }
 
@@ -157,43 +153,39 @@ class ValueId {
   value_id_t valueId;
   table_id_t table;
 
-  ValueId() { }
-  ValueId(value_id_t _valueId, table_id_t _table) : valueId(_valueId), table(_table) { }
+  ValueId() {}
+  ValueId(value_id_t _valueId, table_id_t _table) : valueId(_valueId), table(_table) {}
 
 
-  bool operator==(ValueId &o) {
-    return valueId == o.valueId && table == o.table;
-  }
+  bool operator==(ValueId& o) { return valueId == o.valueId && table == o.table; }
 
-  bool operator!=(ValueId &o) {
-    return valueId != o.valueId && table == o.table;
-  }
-  bool operator<(const ValueId &o) const {
-    if (table!=o.table)
+  bool operator!=(ValueId& o) { return valueId != o.valueId && table == o.table; }
+  bool operator<(const ValueId& o) const {
+    if (table != o.table)
       throw std::runtime_error("comparing value ids of different tables");
-    return valueId<o.valueId;
+    return valueId < o.valueId;
   }
 
-  bool operator>(const ValueId &o) const {
-    if (table!=o.table)
+  bool operator>(const ValueId& o) const {
+    if (table != o.table)
       throw std::runtime_error("comparing value ids of different tables");
-    return valueId>o.valueId;
+    return valueId > o.valueId;
   }
 
   friend inline std::ostream& operator<<(std::ostream& os, const ValueId& v) {
-    os << "<ValueID v:" << v.valueId << " t:" << (int) v.table << ">";
+    os << "<ValueID v:" << v.valueId << " t:" << (int)v.table << ">";
     return os;
   }
 };
 
 typedef std::vector<ValueId> ValueIdList;
 
-namespace hyrise { namespace storage {
+namespace hyrise {
+namespace storage {
 
 class ColumnMetadata;
-typedef std::vector<ColumnMetadata > metadata_list;
-typedef std::vector<metadata_list *> compound_metadata_list;
+typedef std::vector<ColumnMetadata> metadata_list;
+typedef std::vector<metadata_list*> compound_metadata_list;
 typedef std::vector<ColumnMetadata> metadata_vec_t;
-
-} } // namespace hyrise::storage
-
+}
+}  // namespace hyrise::storage

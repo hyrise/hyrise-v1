@@ -5,5 +5,5 @@ namespace hyrise {
 namespace net {
 
 AbstractConnection::~AbstractConnection() {}
-
-}}
+}
+}

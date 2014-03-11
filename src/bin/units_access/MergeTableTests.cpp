@@ -20,11 +20,10 @@ TEST_F(MergeTableTests, basic_merge_table_test) {
   mt.addInput(s);
   mt.execute();
 
-  const auto &result = mt.getResultTable();
+  const auto& result = mt.getResultTable();
 
   ASSERT_EQ(9u, result->size());
   ASSERT_TABLE_EQUAL(result, reference);
 }
-
 }
 }

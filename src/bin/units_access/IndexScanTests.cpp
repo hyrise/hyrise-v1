@@ -9,7 +9,7 @@ namespace hyrise {
 namespace access {
 
 class IndexScanTests : public AccessTest {
-public:
+ public:
   IndexScanTests() {}
 
   virtual void SetUp() {
@@ -39,6 +39,5 @@ TEST_F(IndexScanTests, basic_index_scan_test) {
 
   ASSERT_TABLE_EQUAL(result, reference);
 }
-
 }
 }

@@ -59,7 +59,7 @@ SimpleExpression* EqualExpression::expression(storage::atable_ptr_t table,
   const auto field = table->numberOfColumn(_field);
 
   if (vids.find(field) == vids.end()) {
-    std::cout << "(no value ids for field)" << std::endl;
+    std::cout << "(no value ids for field: " << _table << "." << _field <<std::endl;
     return nullptr; //TODO really? not sure
   }
 
@@ -102,6 +102,20 @@ std::vector<std::string> EqualExpression::accessedFields(const std::string& tabl
     return {_field};
   else
     return std::vector<std::string>();
+}
+
+std::vector<storage::value_id_t> EqualExpression::vids(const std::string& tableName,
+                                                       const storage::c_atable_ptr_t& table,
+                                                       const std::string& field) const {
+  std::vector<storage::value_id_t> ret;
+  if (tableName != _table || field != _field)
+    return ret;
+
+  const auto& col = table->numberOfColumn(field);
+
+  //TODO
+
+  return ret;
 }
 
 } } } // namespace aging::hyrise::access

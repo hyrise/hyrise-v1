@@ -12,7 +12,8 @@
 #include "helper/epoch.h"
 #include "taskscheduler/Task.h"
 
-namespace hyrise { namespace access {
+namespace hyrise {
+namespace access {
 
 // A execution task can end up in different states, if the state is
 // set to OpFail, the result of the operation will be discarded and
@@ -41,47 +42,31 @@ typedef std::vector<std::unique_ptr<performance_attributes_t>> performance_vecto
 
 class OutputTask : public taskscheduler::Task {
  protected:
-
-  performance_attributes_t *_performance_attr = nullptr;
+  performance_attributes_t* _performance_attr = nullptr;
   // Indicate whether an operation has failed
   // Subclass has to explicitly set on success
   task_states_t _state = OpUnknown;
-  
+
   std::string _papiEvent = "PAPI_TOT_INS";
 
   // Collect the generated keys
-  std::vector<hyrise_int_t> *_generatedKeys;
+  std::vector<hyrise_int_t>* _generatedKeys;
 
  public:
-  task_states_t getState() const {
-    return _state;
-  }
+  task_states_t getState() const { return _state; }
 
-  void setState(task_states_t state) {
-    _state = state;
-  }
+  void setState(task_states_t state) { _state = state; }
 
-  performance_attributes_t& getPerformanceData() {
-    return *_performance_attr;
-  }
-  
-  void setPerformanceData(performance_attributes_t *attr) {
-    _performance_attr = attr;
-  }
+  performance_attributes_t& getPerformanceData() { return *_performance_attr; }
 
-  void setGeneratedKeysData(std::vector<hyrise_int_t>* d) {
-    _generatedKeys = d;
-  }
+  void setPerformanceData(performance_attributes_t* attr) { _performance_attr = attr; }
 
-  void setEvent(std::string ev) {
-    _papiEvent = ev;
-  }
+  void setGeneratedKeysData(std::vector<hyrise_int_t>* d) { _generatedKeys = d; }
 
-  const std::string getEvent() const {
-    return _papiEvent;
-  }
+  void setEvent(std::string ev) { _papiEvent = ev; }
+
+  const std::string getEvent() const { return _papiEvent; }
 };
-
-}}
+}
+}
 #endif  // SRC_LIB_ACCESS_OUTPUTTASK_H_
-

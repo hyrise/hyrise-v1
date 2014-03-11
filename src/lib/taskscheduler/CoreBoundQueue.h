@@ -28,6 +28,10 @@ class CoreBoundQueue : public AbstractCoreBoundQueue {
   CoreBoundQueue(int core);
   ~CoreBoundQueue();
   /*
+   * init task scheduler
+   */
+  virtual void init();
+  /*
    * Is executed by dedicated thread to work the queue
    */
   void executeTask();
@@ -47,10 +51,7 @@ class CoreBoundQueue : public AbstractCoreBoundQueue {
   /*
    * check whether queue is blocked / queue is blocked if it is currently executing a task
    */
-  bool blocked() {
-    return _blocked;
-  }
+  bool blocked() { return _blocked; }
 };
-
-} } // namespace hyrise::taskscheduler
-
+}
+}  // namespace hyrise::taskscheduler

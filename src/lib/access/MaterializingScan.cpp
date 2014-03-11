@@ -13,17 +13,13 @@ namespace hyrise {
 namespace access {
 
 namespace {
-  auto _ = QueryParser::registerPlanOperation<MaterializingScan>("MaterializingScan");
+auto _ = QueryParser::registerPlanOperation<MaterializingScan>("MaterializingScan");
 }
 
-MaterializingScan::MaterializingScan(const bool use_memcpy) :
-                                     _use_memcpy(use_memcpy),
-                                     _copy_values(false),
-                                     _num_samples(0) {
-}
+MaterializingScan::MaterializingScan(const bool use_memcpy)
+    : _use_memcpy(use_memcpy), _copy_values(false), _num_samples(0) {}
 
-MaterializingScan::~MaterializingScan() {
-}
+MaterializingScan::~MaterializingScan() {}
 
 void MaterializingScan::setupPlanOperation() {
   // Call super impl
@@ -64,8 +60,9 @@ void MaterializingScan::executePlanOperation() {
   addResult(result);
 }
 
-std::shared_ptr<PlanOperation> MaterializingScan::parse(const Json::Value &v) {
-  std::shared_ptr<MaterializingScan> pop = std::dynamic_pointer_cast<MaterializingScan>(BasicParser<MaterializingScan>::parse(v));
+std::shared_ptr<PlanOperation> MaterializingScan::parse(const Json::Value& v) {
+  std::shared_ptr<MaterializingScan> pop =
+      std::dynamic_pointer_cast<MaterializingScan>(BasicParser<MaterializingScan>::parse(v));
   if (v.isMember("samples"))
     pop->setSamples(v["samples"].asUInt());
 
@@ -80,17 +77,10 @@ std::shared_ptr<PlanOperation> MaterializingScan::parse(const Json::Value &v) {
   return pop;
 }
 
-const std::string MaterializingScan::vname() {
-  return "MaterializingScan";
-}
+const std::string MaterializingScan::vname() { return "MaterializingScan"; }
 
-void MaterializingScan::setSamples(const unsigned s) {
-  _num_samples = s;
-}
+void MaterializingScan::setSamples(const unsigned s) { _num_samples = s; }
 
-void MaterializingScan::setCopyValues(const bool v) {
-  _copy_values = v;
-}
-
+void MaterializingScan::setCopyValues(const bool v) { _copy_values = v; }
 }
 }

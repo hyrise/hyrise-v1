@@ -23,7 +23,7 @@ class TXModifications {
   // Map type to store position list per table
   using map_t = std::map<std::weak_ptr<const storage::AbstractTable>,
                          storage::pos_list_t,
-                         std::owner_less<std::weak_ptr<const storage::AbstractTable> > >;
+                         std::owner_less<std::weak_ptr<const storage::AbstractTable>>>;
 
   // TID identifier for the context
   transaction_id_t tid = UNKNOWN;
@@ -49,7 +49,7 @@ class TXModifications {
   const storage::pos_list_t& getInserted(const storage::c_atable_ptr_t& tab) const;
   const storage::pos_list_t& getDeleted(const storage::c_atable_ptr_t& tab) const;
 
-private:
+ private:
   bool handleCheck(const map_t& data, const storage::c_atable_ptr_t& tab) const;
 
   // Abstraction to the specific inserted and deleted row processes.
@@ -149,8 +149,7 @@ class TransactionManager {
   std::atomic<transaction_id_t> _transactionCount;
   std::atomic<transaction_cid_t> _commitId;
 
-  using map_t = std::unordered_map<transaction_id_t,
-                                   std::unique_ptr<TransactionData>>;
+  using map_t = std::unordered_map<transaction_id_t, std::unique_ptr<TransactionData>>;
 
   // Keeping track of all transactions and their modifications
   Synchronized<map_t, locking::Spinlock> _txData;
@@ -163,6 +162,5 @@ class TransactionManager {
   // Get next transaction id
   transaction_id_t getTransactionId();
 };
-
-}}
-
+}
+}

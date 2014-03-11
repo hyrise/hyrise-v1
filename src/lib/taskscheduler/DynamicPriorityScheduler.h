@@ -9,21 +9,19 @@ namespace taskscheduler {
 
 class DynamicPriorityScheduler : public CentralPriorityScheduler {
 
-public:
-  DynamicPriorityScheduler (int threads = getNumberOfCoresOnSystem());
+ public:
+  DynamicPriorityScheduler(int threads = getNumberOfCoresOnSystem());
 
   virtual void notifyReady(std::shared_ptr<Task> task);
 
   virtual void schedule(std::shared_ptr<Task> task);
-  
-  void setMaxTaskSize(size_t maxTaskSize) {
-    _maxTaskSize = maxTaskSize;
-  }
 
-private:
+  void setMaxTaskSize(size_t maxTaskSize) { _maxTaskSize = maxTaskSize; }
+
+ private:
   size_t _maxTaskSize = 0;
 };
-
-}}
+}
+}
 
 #endif /* DYNAMICPRIORITYSCHEDULER_H_ */

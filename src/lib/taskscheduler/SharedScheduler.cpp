@@ -7,6 +7,5 @@ SharedScheduler& SharedScheduler::getInstance() {
   static SharedScheduler s;
   return s;
 }
-
-} } // namespace hyrise::taskscheduler
-
+}
+}  // namespace hyrise::taskscheduler

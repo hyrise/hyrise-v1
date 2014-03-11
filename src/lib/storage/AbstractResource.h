@@ -17,6 +17,5 @@ public:
 private:
   const resource_id_t _id;
 };
-
-} } // namespace hyrise::storage
-
+}
+}  // namespace hyrise::storage

@@ -24,7 +24,7 @@ TEST_F(IndexTests, basic_index_test) {
   i.execute();
 
   auto sm = io::StorageManager::getInstance();
-  auto index = std::dynamic_pointer_cast<storage::InvertedIndex<hyrise_int_t>> (sm->getInvertedIndex(table));
+  auto index = std::dynamic_pointer_cast<storage::InvertedIndex<hyrise_int_t>>(sm->getInvertedIndex(table));
   int key = 30;
   pos_list_t positions = index->getPositionsForKey(key);
   pos_t first_pos = positions[0];
@@ -43,7 +43,7 @@ TEST_F(IndexTests, multiple_positions_index_test) {
   i.execute();
 
   auto sm = io::StorageManager::getInstance();
-  auto index = std::dynamic_pointer_cast<storage::InvertedIndex<hyrise_string_t>> (sm->getInvertedIndex(table));
+  auto index = std::dynamic_pointer_cast<storage::InvertedIndex<hyrise_string_t>>(sm->getInvertedIndex(table));
   std::string key1 = "Bayer";
   std::string key2 = "RWE";
   pos_list_t positions1 = index->getPositionsForKey(key1);
@@ -73,7 +73,7 @@ TEST_F(IndexTests, basic_index_test_float) {
   i.execute();
 
   auto sm = io::StorageManager::getInstance();
-  auto index = std::dynamic_pointer_cast<storage::InvertedIndex<hyrise_float_t>> (sm->getInvertedIndex(table));
+  auto index = std::dynamic_pointer_cast<storage::InvertedIndex<hyrise_float_t>>(sm->getInvertedIndex(table));
   float key = 71.1;
   pos_list_t positions = index->getPositionsForKey(key);
   pos_t first_pos = positions[0];
@@ -81,7 +81,5 @@ TEST_F(IndexTests, basic_index_test_float) {
 
   ASSERT_EQ(first_pos, expected);
 }
-
 }
 }
-

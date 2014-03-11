@@ -7,21 +7,20 @@
 namespace hyrise {
 namespace access {
 
-///This class implements an operation that spawns a number of subtasks for testing purposes.
-///The successor tasks will be executed after all spawned tasks are done
+/// This class implements an operation that spawns a number of subtasks for testing purposes.
+/// The successor tasks will be executed after all spawned tasks are done
 class SpawnParallelSubtasks : public PlanOperation {
-public:
+ public:
   void executePlanOperation();
-  static std::shared_ptr<PlanOperation> parse(const Json::Value &data);
+  static std::shared_ptr<PlanOperation> parse(const Json::Value& data);
   const std::string vname();
 
   void setNumberOfSpawns(size_t number);
 
-private:
+ private:
   size_t m_numberOfSpawns;
 };
-
 }
 }
 
-#endif // SRC_LIB_ACCESS_SPAWNPARALLELSUBTASKS_H
+#endif  // SRC_LIB_ACCESS_SPAWNPARALLELSUBTASKS_H

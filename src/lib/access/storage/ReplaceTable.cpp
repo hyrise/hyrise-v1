@@ -9,14 +9,12 @@ namespace hyrise {
 namespace access {
 
 namespace {
-  auto _ = QueryParser::registerPlanOperation<ReplaceTable>("ReplaceTable");
+auto _ = QueryParser::registerPlanOperation<ReplaceTable>("ReplaceTable");
 }
 
-ReplaceTable::ReplaceTable(const std::string &name) : _name(name) {
-}
+ReplaceTable::ReplaceTable(const std::string& name) : _name(name) {}
 
-ReplaceTable::~ReplaceTable() {
-}
+ReplaceTable::~ReplaceTable() {}
 
 void ReplaceTable::executePlanOperation() {
   auto table = input.getTable();
@@ -30,9 +28,6 @@ std::shared_ptr<PlanOperation> ReplaceTable::parse(const Json::Value& data) {
   return std::make_shared<ReplaceTable>(data["name"].asString());
 }
 
-const std::string ReplaceTable::vname() {
-  return "ReplaceTable";
-}
-
+const std::string ReplaceTable::vname() { return "ReplaceTable"; }
 }
 }

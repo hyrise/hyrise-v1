@@ -13,11 +13,11 @@
 namespace hyrise {
 namespace taskscheduler {
 
-class AbstractCoreBoundQueue : public AbstractTaskQueue{
+class AbstractCoreBoundQueue : public AbstractTaskQueue {
 
-protected:
+ protected:
   // worker thread
-  std::thread *_thread;
+  std::thread* _thread;
   // the core the thread should run on
   std::atomic<queue_status_t> _status;
   // specific core thread is bound to
@@ -36,9 +36,9 @@ protected:
   void launchThread(int core);
 
   AbstractCoreBoundQueue();
+  AbstractCoreBoundQueue(int core);
 
-public:
-
+ public:
   virtual ~AbstractCoreBoundQueue();
 
   /**
@@ -57,10 +57,7 @@ public:
   virtual std::vector<std::shared_ptr<Task> > stopQueue() = 0;
 
   // getter/setter
-  int getCore() const{
-    return _core;
-  }
+  int getCore() const { return _core; }
 };
-
-} } // namespace hyrise::taskscheduler
-
+}
+}  // namespace hyrise::taskscheduler

@@ -2,5 +2,3 @@
 #include "testing/base_test.h"
 #include <string>
 #include <vector>
-
-

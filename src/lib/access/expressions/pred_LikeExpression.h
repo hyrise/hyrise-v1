@@ -21,21 +21,15 @@ namespace access {
 /// matches employee_name "Jeffrey O. Henley".
 ///
 class LikeExpression : public SimpleFieldExpression {
-public:
-  LikeExpression(size_t i, field_t f, const hyrise_string_t& value) :
-    SimpleFieldExpression(i, f),
-    regExpr(boost::regex(value))
-  { }
+ public:
+  LikeExpression(size_t i, field_t f, const hyrise_string_t& value)
+      : SimpleFieldExpression(i, f), regExpr(boost::regex(value)) {}
 
-  LikeExpression(size_t i, field_name_t f, const hyrise_string_t& value) :
-    SimpleFieldExpression(i, f),
-    regExpr(boost::regex(value))
-  { }
+  LikeExpression(size_t i, field_name_t f, const hyrise_string_t& value)
+      : SimpleFieldExpression(i, f), regExpr(boost::regex(value)) {}
 
-  LikeExpression(const storage::c_atable_ptr_t& _table, field_t _field, const hyrise_string_t& value) :
-    SimpleFieldExpression(_table, _field),
-    regExpr(boost::regex(value))
-  { }
+  LikeExpression(const storage::c_atable_ptr_t& _table, field_t _field, const hyrise_string_t& value)
+      : SimpleFieldExpression(_table, _field), regExpr(boost::regex(value)) {}
 
   ///
   /// Applies the like expression on each field using the generated regex object.
@@ -47,10 +41,9 @@ public:
     return boost::regex_match(currentValue, regExpr);
   }
 
-private:
+ private:
   /// Hold the regular expression object. Generated in constructor.
   const boost::regex regExpr;
 };
-
-} } // namesapce hyrise::access
-
+}
+}  // namesapce hyrise::access

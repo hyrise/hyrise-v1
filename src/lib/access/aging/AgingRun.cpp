@@ -36,101 +36,83 @@ void AgingRun::executePlanOperation() {
     const auto& store = checked_pointer_cast<storage::Store>(table);
     agingStore = std::make_shared<storage::AgingStore>(store);
     //TODO just replace like that?
-    sm.replace(_tableName, agingStore);
   }
   else {
     agingStore = checked_pointer_cast<storage::AgingStore>(table);
   }
 
-  const auto relevantQueries = qm.queriesOfTable(agingStore);
+  const auto relevantQueries = qm.queriesOfTable(table);
 
   std::cout << "looking for available statistics" << std::endl;
   std::vector<storage::astat_ptr_t> statistics;
   for (storage::field_t col = 0; col < table->columnCount(); ++col) {
     if (sm.hasStatistic(_tableName, table->nameOfColumn(col))) {
       statistics.push_back(sm.getStatisticFor(_tableName, table->nameOfColumn(col)));
+      //statistics.back()->table(agingStore);
       std::cout << "\tfound for column: " << table->nameOfColumn(col) << std::endl;
     }
   }
 
+  std::cout << "create statistic snapshots" << std::endl;
+  std::vector<std::shared_ptr<StatisticSnapshot>> snapshots;
+  for (size_t i = 0; i < statistics.size(); ++i)
+    snapshots.push_back(std::make_shared<StatisticSnapshot>(*statistics.at(i)));
+
   std::cout << "create classification queries" << std::endl;
   std::vector<SimpleExpression*> expressions;
   for (const auto& query : relevantQueries) {
-    std::cout << "QUERY: " << query << " (" << qm.getName(query) << ")" << std::endl;
-    std::cout << "\tcollecting hot values" << std::endl;
     std::map<storage::field_t, std::vector<storage::value_id_t>> vids;
-    for (const auto& statistic : statistics) {
-      auto& vidList = vids[statistic->field()];
-      std::cout << "\t(" << table->nameOfColumn(statistic->field()) << ")" << std::endl;
-      statistic->valuesDo(query, [&vidList](storage::value_id_t vid, bool hot)
-                                  { if (hot) vidList.push_back(vid); });
+    for (const auto& snapshot : snapshots) {
+      auto& vidList = vids[snapshot->field()];
+      snapshot->valuesDo(query, [&vidList](storage::value_id_t vid, bool hot) { if (hot) vidList.push_back(vid); });
     }
-    expressions.push_back(qm.selectExpressionOf(query)->expression(table, vids));
+    const auto expr = qm.selectExpressionOf(query)->expression(agingStore, vids);
+    if (expr != nullptr)
+      expressions.push_back(expr);
   }
 
   SimpleExpression* expr = nullptr;
   for (const auto& expression : expressions) {
-    if (expression == nullptr)
-      continue;
-
-    /*SimpleTableScan scan;
-    scan.addInput(table);
-    scan.setPredicate(expression);
-    scan.setProducesPositions(true);
-    scan.execute();
-    scan.getResultTable()->print();*/
-
     if (expr == nullptr)
       expr = expression;
-    else {
+    else
       expr = new CompoundExpression(expr, expression, OR);
-    }
   }
 
-  if (expr == nullptr) //nothing to do no information
+  if (expr == nullptr) {
+    std::cout << "no aging information - aborting" << std::endl;
     return;
+  }
 
+  std::cout << "execute the classification queries" << std::endl;
   SimpleTableScan scan;
-  scan.addInput(table);
+  scan.addInput(agingStore);
   scan.setPredicate(expr);
   scan.setProducesPositions(true);
   scan.execute();
 
+  std::cout << "do the aging!" << std::endl; //TODO columnwise
   const auto& pointerCalculator = checked_pointer_cast<const storage::PointerCalculator>(scan.getResultTable());
   pointerCalculator->print();
+  pos_list_t posList(pointerCalculator->getPositions()->begin(), pointerCalculator->getPositions()->end());
 
-  auto posList = *pointerCalculator->getPositions();
-  std::sort(posList.begin(), posList.end());
+  if (posList.size() == 0) {
+    std::cout << "no hot tuples - aborting" << std::endl;
+    return;
+  }
+  //TODO is already sorted? std::sort(posList.begin(), posList.end());
+  agingStore->age(posList);
 
-  /*for (const auto& pos : posList)
-    std::cout << pos << ", ";
-  std::cout << std::endl;*/
-
-  //auto hotTable = std::make_shared<storage::Table>(table->dictionaries();
-  
-
-  const size_t rowc = table->size();
-  size_t curIndex = 0;
-  for (size_t row = 0; row < rowc; ++row) {
-    /*while (row > posList.at(curIndex)) {
-      std::cout << "actually this should not occur" << std::endl;
-      ++curIndex;
-    }*/
-    if (curIndex < posList.size() && row == posList.at(curIndex)) {
-      std::cout << row << ": HOT" << std::endl;
-      ++curIndex;
-    }
-    else {
-      std::cout << row << ": COLD" << std::endl;
-    }
+  if (table != agingStore) {
+    std::cout << "replace table with aging store" << std::endl;
+    sm.replace(_tableName, agingStore);
   }
 
-  std::cout << "create statistic snapshots and aging indices" << std::endl;
-  table->print();
-  for (size_t i = 0; i < statistics.size(); ++i) {
-    const auto snapshot = std::make_shared<StatisticSnapshot>(*statistics.at(i));
-    const auto agingIndex = std::make_shared<storage::AgingIndex>(table, snapshot);
-    sm.setAgingIndexFor(_tableName, table->nameOfColumn(snapshot->field()), agingIndex);
+  std::cout << "register AgingIdices" << std::endl;
+  for (const auto& snapshot : snapshots) {
+    snapshot->table(agingStore);
+    const auto agingIndex = std::make_shared<storage::AgingIndex>(snapshot);
+    sm.setAgingIndexFor(_tableName, agingStore->nameOfColumn(snapshot->field()), agingIndex);
   }
 }
 

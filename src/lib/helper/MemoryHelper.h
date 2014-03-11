@@ -2,12 +2,12 @@
 #pragma once
 
 /* reallocs space and fills with value if needed */
-void *realloc_and_fill(size_t fill, void *pBuffer, size_t oldSize, size_t newSize) {
-  void *pNew = realloc(pBuffer, newSize);
+void* realloc_and_fill(size_t fill, void* pBuffer, size_t oldSize, size_t newSize) {
+  void* pNew = realloc(pBuffer, newSize);
 
   if (newSize > oldSize && pNew) {
     size_t diff = newSize - oldSize;
-    void *pStart = ((char *)pNew) + oldSize;
+    void* pStart = ((char*)pNew) + oldSize;
     memset(pStart, fill, diff);
   }
 
@@ -22,4 +22,3 @@ size_t round_to_8(size_t bits) {
 
   return bits;
 }
-

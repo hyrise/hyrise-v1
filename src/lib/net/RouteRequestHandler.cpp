@@ -10,26 +10,20 @@
 namespace hyrise {
 namespace net {
 
-bool RouteRequestHandler::registered =
-    Router::registerRoute<RouteRequestHandler>("/urls/");
+bool RouteRequestHandler::registered = Router::registerRoute<RouteRequestHandler>("/urls/");
 
-RouteRequestHandler::RouteRequestHandler(AbstractConnection *data)
-    : _connection_data(data) {}
+RouteRequestHandler::RouteRequestHandler(AbstractConnection* data) : _connection_data(data) {}
 
-std::string RouteRequestHandler::name() {
-  return "RouteRequestHandler";
-}
+std::string RouteRequestHandler::name() { return "RouteRequestHandler"; }
 
-const std::string RouteRequestHandler::vname() {
-  return "RouteRequestHandler";
-}
+const std::string RouteRequestHandler::vname() { return "RouteRequestHandler"; }
 
 std::string RouteRequestHandler::constructResponse() {
-  const auto &router = Router::getInstance();
+  const auto& router = Router::getInstance();
   Json::Value result;
-  auto &routes = result["routes"];
+  auto& routes = result["routes"];
   const auto& catch_all = router.getCatchAllRaw();
-  for (const auto & route: router.getRouters()) {
+  for (const auto& route : router.getRouters()) {
     routes[route.first]["handler"] = router.getHandlerNameForRoute(route.first);
     if (route.second.get() == catch_all)
       routes[route.first]["catch_all"] = true;

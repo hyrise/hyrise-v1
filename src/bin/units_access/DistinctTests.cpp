@@ -18,7 +18,7 @@ TEST_F(DistinctTests, basic_distinct_test) {
   d.addField(1);
   d.execute();
 
-  const auto &result = d.getResultTable();
+  const auto& result = d.getResultTable();
 
   EXPECT_RELATION_EQ(result, reference);
 }
@@ -31,10 +31,9 @@ TEST_F(DistinctTests, distinct_on_distinct_column_test) {
   d.addField(0);
   d.execute();
 
-  const auto &result = d.getResultTable();
+  const auto& result = d.getResultTable();
 
   EXPECT_RELATION_EQ(result, t);
 }
-
 }
 }

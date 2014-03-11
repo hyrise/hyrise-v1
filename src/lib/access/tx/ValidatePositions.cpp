@@ -8,16 +8,18 @@
 #include <helper/checked_cast.h>
 #include <log4cxx/logger.h>
 
-namespace hyrise { namespace access {
+namespace hyrise {
+namespace access {
 
 namespace {
-  auto _ = QueryParser::registerPlanOperation<ValidatePositions>("ValidatePositions");
-  log4cxx::LoggerPtr logger(log4cxx::Logger::getLogger("access.plan.ValidatePositions"));
+auto _ = QueryParser::registerPlanOperation<ValidatePositions>("ValidatePositions");
+log4cxx::LoggerPtr logger(log4cxx::Logger::getLogger("access.plan.ValidatePositions"));
 }
 
 
 void ValidatePositions::executePlanOperation() {
-  LOG4CXX_DEBUG(logger, "Validating Positions with: " << _txContext.tid << "(tid) and " << _txContext.lastCid << "(lCID)");
+  LOG4CXX_DEBUG(logger,
+                "Validating Positions with: " << _txContext.tid << "(tid) and " << _txContext.lastCid << "(lCID)");
 
   // Allow to operate directly on the store
   if (std::dynamic_pointer_cast<const storage::Store>(getInputTable(0))) {
@@ -40,12 +42,10 @@ void ValidatePositions::executePlanOperation() {
       pc->remove(modifications.getDeleted(store));
     addResult(getInputTable(0));
   }
-
-  
 }
 
-std::shared_ptr<PlanOperation> ValidatePositions::parse(const Json::Value &data) {
-	return std::make_shared<ValidatePositions>();
+std::shared_ptr<PlanOperation> ValidatePositions::parse(const Json::Value& data) {
+  return std::make_shared<ValidatePositions>();
 }
-
-}}
+}
+}

@@ -16,10 +16,10 @@ struct unique_id {
   unique_id() = default;
   static unique_id create();
   bool is_nil() { return value.empty(); }
+
  private:
   friend std::string std::to_string(const unique_id&);
   typedef std::array<std::uint8_t, 16> type;
   unique_id(type);
   type value;
 };
-

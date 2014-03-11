@@ -25,6 +25,8 @@ class MutableHorizontalTable : public AbstractTable {
   ValueId getValueId(size_t column, size_t row) const override;
   void setValueId(size_t column, size_t row, const ValueId valueId) override;
   unsigned partitionCount() const override;
+  unsigned partitionAt(size_t row) const;
+  size_t offsetOfPartition(unsigned partition) const;
   size_t partitionWidth(size_t slice) const override;
   table_id_t subtableCount() const override;
   atable_ptr_t copy() const override;

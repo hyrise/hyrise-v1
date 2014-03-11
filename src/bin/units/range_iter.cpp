@@ -7,5 +7,5 @@
 
 TEST(RangeIterTest, basic_test) {
   size_t r = std::accumulate(RangeIter(0), RangeIter(5), 0u);
-  ASSERT_EQ(r, 0u+1u+2u+3u+4u);
+  ASSERT_EQ(r, 0u + 1u + 2u + 3u + 4u);
 }

@@ -17,6 +17,11 @@ public:
 
   virtual void debugStructure(size_t level = 0) const;
 
+  void age(const pos_list_t& posList);
+  void age(field_t field, const pos_list_t& posList);
+
+  size_t hotSize(const std::vector<storage::field_t>& fields = std::vector<storage::field_t>()) const;
+
 private:
   atable_ptr_t makeAgingMain(const atable_ptr_t& table);
 };

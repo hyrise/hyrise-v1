@@ -12,15 +12,50 @@ namespace storage {
 class AbstractResource;
 class AbstractTable;
 class AbstractIndex;
-class AbstractStatistic;
 class AbstractHashTable;
 class AbstractDictionary;
+class AbstractStatistic;
+class AgingStore;
+class AgingIndex;
+}
+}  // namespace hyrise::storage
+
+
 class PointerCalculator;
+
+namespace hyrise {
+
+namespace tx {
+
+// FIXME: TX Count is limited to 2^63-1 instead of 2^64-1
+typedef int64_t transaction_id_t;
+typedef int64_t transaction_cid_t;
+
+static const transaction_id_t MERGE_TID = 1;
+// the merge needs its own TID so that it is isolated from the other transactions
+static const transaction_id_t START_TID = 2;
+static const transaction_id_t MAX_TID = std::numeric_limits<transaction_id_t>::max();
+
+static const transaction_id_t UNKNOWN = 0;
+static const transaction_cid_t UNKNOWN_CID = 0;
+static const transaction_cid_t INF_CID = std::numeric_limits<transaction_cid_t>::max();
+
+enum class TX_CODE {
+  TX_OK,
+  TX_FAIL_CONCURRENT_COMMIT,
+  TX_FAIL_OTHER
+};
+}
+
+namespace access {
+class AbstractExpression;
+typedef std::unique_ptr<AbstractExpression> expression_uptr_t;
+}
+
+namespace storage {
 class SimpleStore;
 class MutableVerticalTable;
 class Store;
-class AgingStore;
-class AgingIndex;
 
 typedef std::shared_ptr<AbstractResource> aresource_ptr_t;
 typedef std::shared_ptr<const AbstractResource> c_aresource_ptr_t;
@@ -34,9 +69,6 @@ typedef std::shared_ptr<const AbstractTable> c_atable_ptr_t;
 typedef std::shared_ptr<AbstractIndex> aindex_ptr_t;
 typedef std::shared_ptr<const AbstractIndex> c_aindex_ptr_t;
 
-typedef std::shared_ptr<AbstractStatistic> astat_ptr_t;
-typedef std::shared_ptr<const AbstractStatistic> c_astat_ptr_t;
-
 typedef std::shared_ptr<AbstractHashTable> ahashtable_ptr_t;
 typedef std::shared_ptr<const AbstractHashTable> c_ahashtable_ptr_t;
 
@@ -46,17 +78,21 @@ typedef std::shared_ptr<const MutableVerticalTable> c_vtable_ptr_t;
 typedef std::shared_ptr<Store> store_ptr_t;
 typedef std::shared_ptr<const Store> c_store_ptr_t;
 
+typedef std::shared_ptr<PointerCalculator> calc_ptr_t;
+typedef std::shared_ptr<const PointerCalculator> c_calc_ptr_t;
+
+typedef std::shared_ptr<SimpleStore> simplestore_ptr_t;
+typedef std::shared_ptr<const SimpleStore> c_simplestore_ptr_t;
+
+typedef std::shared_ptr<AbstractStatistic> astat_ptr_t;
+typedef std::shared_ptr<const AbstractStatistic> c_astat_ptr_t;
+
 typedef std::shared_ptr<AgingStore> aging_store_ptr_t;
 typedef std::shared_ptr<const AgingStore> c_aging_store_ptr_t;
 
 typedef std::shared_ptr<AgingIndex> aging_index_ptr_t;
 typedef std::shared_ptr<const AgingIndex> c_aging_index_ptr_t;
 
-typedef std::shared_ptr<PointerCalculator> calc_ptr_t;
-typedef std::shared_ptr<const PointerCalculator> c_calc_ptr_t;
-
-typedef std::shared_ptr<SimpleStore> simplestore_ptr_t;
-typedef std::shared_ptr<const SimpleStore> c_simplestore_ptr_t;
 
 typedef int64_t hyrise_int_t;
 typedef int32_t hyrise_int32_t;
@@ -64,8 +100,8 @@ typedef float hyrise_float_t;
 typedef std::string hyrise_string_t;
 
 typedef uint32_t value_id_t;
-typedef uint8_t table_id_t;
-typedef uint16_t resource_id_t;
+typedef unsigned char table_id_t;
+typedef uint16_t resource_id_t; //TODO needed?
 
 typedef size_t pos_t;
 typedef size_t field_t;
@@ -75,30 +111,7 @@ typedef std::vector<field_name_t> field_name_list_t;
 
 typedef std::vector<pos_t> pos_list_t;
 typedef std::vector<field_t> field_list_t;
-} // namespace storage
-
-namespace tx {
-
-// FIXME: TX Count is limited to 2^63-1 instead of 2^64-1
-typedef int64_t transaction_id_t;
-typedef int64_t transaction_cid_t;
-
-static const transaction_id_t MERGE_TID = 1;
-	// the merge needs its own TID so that it is isolated from the other transactions
-static const transaction_id_t START_TID = 2;
-static const transaction_id_t MAX_TID = std::numeric_limits<transaction_id_t>::max();
-
-static const transaction_id_t UNKNOWN = 0;
-static const transaction_cid_t UNKNOWN_CID = 0;
-static const transaction_cid_t INF_CID = std::numeric_limits<transaction_cid_t>::max();
-
-enum class TX_CODE {
-	TX_OK,
-	TX_FAIL_CONCURRENT_COMMIT,
-	TX_FAIL_OTHER
-};
-
-} // namespace tx
+}
 
 namespace access {
 class AbstractExpression;
@@ -129,8 +142,8 @@ typedef std::vector<param_value_t> field_value_list_t;
 }
 
 namespace taskscheduler {
-  class Task;
-  typedef std::shared_ptr<Task> task_ptr_t;
+class Task;
+typedef std::shared_ptr<Task> task_ptr_t;
 }
 
 // constraints

@@ -37,11 +37,15 @@ class AbstractTaskScheduler {
     TO_STOP = 2,
     STOPPED = 3
   } scheduler_state;
-  typedef int scheduler_status_t; 
+  typedef int scheduler_status_t;
 
   typedef hyrise::locking::Spinlock lock_t;
 
   virtual ~AbstractTaskScheduler() {};
+  /*
+   * init task scheduler
+   */
+  virtual void init() {}
   /*
    * schedule a task for execution
    */
@@ -49,8 +53,8 @@ class AbstractTaskScheduler {
   /*
    * schedule a list of tasks belonging to a query for execution
    */
-  virtual void scheduleQuery(std::vector<std::shared_ptr<Task> > tasks){
-    for (const auto& task: tasks) {
+  virtual void scheduleQuery(std::vector<std::shared_ptr<Task> > tasks) {
+    for (const auto& task : tasks) {
       schedule(task);
     }
   }
@@ -63,6 +67,5 @@ class AbstractTaskScheduler {
    */
   virtual size_t getNumberOfWorker() const = 0;
 };
-
-} } // namespace hyrise::taskscheduler
-
+}
+}  // namespace hyrise::taskscheduler

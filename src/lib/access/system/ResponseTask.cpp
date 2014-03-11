@@ -34,7 +34,7 @@ struct json_functor {
   size_t column;
   size_t row;
 
-  explicit json_functor(const T& t): table(t), column(0), row(0) {}
+  explicit json_functor(const T& t) : table(t), column(0), row(0) {}
 
   template <typename R>
   value_type operator()() {
@@ -42,7 +42,7 @@ struct json_functor {
   }
 };
 
-template<typename T>
+template <typename T>
 Json::Value generateRowsJsonT(const T& table, const size_t transmitLimit, const size_t transmitOffset) {
   storage::type_switch<hyrise_basic_types> ts;
   json_functor<T> fun(table);
@@ -64,13 +64,13 @@ Json::Value generateRowsJsonT(const T& table, const size_t transmitLimit, const 
       json_row.append(ts(table->typeOfColumn(col), fun));
     }
     rows.append(json_row);
-
   }
   return rows;
 }
 
 Json::Value generateRowsJson(const std::shared_ptr<const storage::AbstractTable>& table,
-                             const size_t transmitLimit, const size_t transmitOffset) {
+                             const size_t transmitLimit,
+                             const size_t transmitOffset) {
   if (const auto& store = std::dynamic_pointer_cast<const storage::SimpleStore>(table)) {
     return generateRowsJsonT(store, transmitLimit, transmitOffset);
   } else {
@@ -78,9 +78,7 @@ Json::Value generateRowsJson(const std::shared_ptr<const storage::AbstractTable>
   }
 }
 
-const std::string ResponseTask::vname() {
-  return "ResponseTask";
-}
+const std::string ResponseTask::vname() { return "ResponseTask"; }
 
 void ResponseTask::registerPlanOperation(const std::shared_ptr<PlanOperation>& planOp) {
   performance_attributes_t* perf;
@@ -90,7 +88,7 @@ void ResponseTask::registerPlanOperation(const std::shared_ptr<PlanOperation>& p
     perf = new performance_attributes_t;
     planOp->setPerformanceData(perf);
   }
-  
+
   planOp->setGeneratedKeysData(genKeys);
 
   const auto responseTaskPtr = std::dynamic_pointer_cast<ResponseTask>(shared_from_this());
@@ -108,7 +106,7 @@ void ResponseTask::registerPlanOperation(const std::shared_ptr<PlanOperation>& p
 
 
 std::shared_ptr<PlanOperation> ResponseTask::getResultTask() {
-  if (getDependencyCount() >  0) {
+  if (getDependencyCount() > 0) {
     return std::dynamic_pointer_cast<PlanOperation>(_dependencies[0]);
   }
   return nullptr;
@@ -116,9 +114,10 @@ std::shared_ptr<PlanOperation> ResponseTask::getResultTask() {
 
 
 task_states_t ResponseTask::getState() const {
-  for (const auto& dep: _dependencies) {
+  for (const auto& dep : _dependencies) {
     if (auto ot = std::dynamic_pointer_cast<OutputTask>(dep)) {
-      if (ot->getState() != OpSuccess) return OpFail;
+      if (ot->getState() != OpSuccess)
+        return OpFail;
     }
   }
   return OpSuccess;
@@ -132,14 +131,16 @@ void ResponseTask::operator()() {
     PapiTracer pt;
     pt.addEvent("PAPI_TOT_CYC");
 
-    if(_recordPerformanceData) pt.start();
+    if (_recordPerformanceData)
+      pt.start();
 
     auto predecessor = getResultTask();
     const auto& result = predecessor->getResultTable();
 
     if (getState() != OpFail) {
       if (!_isAutoCommit) {
-        response["session_context"] = std::to_string(_txContext.tid).append(" ").append(std::to_string(_txContext.lastCid));
+        response["session_context"] =
+            std::to_string(_txContext.tid).append(" ").append(std::to_string(_txContext.lastCid));
       }
 
       if (result) {
@@ -160,11 +161,11 @@ void ResponseTask::operator()() {
       // Copy Performance Data
       if (_recordPerformanceData) {
         Json::Value json_perf(Json::arrayValue);
-        for (const auto & attr: performance_data) {
+        for (const auto& attr : performance_data) {
           Json::Value element;
           element["papi_event"] = Json::Value(attr->papiEvent);
-          element["duration"] = Json::Value((Json::UInt64) attr->duration);
-          element["data"] = Json::Value((Json::UInt64) attr->data);
+          element["duration"] = Json::Value((Json::UInt64)attr->duration);
+          element["data"] = Json::Value((Json::UInt64)attr->data);
           element["name"] = Json::Value(attr->name);
           element["id"] = Json::Value(attr->operatorId);
           element["startTime"] = Json::Value((double)(attr->startTime - queryStart) / 1000000);
@@ -172,11 +173,11 @@ void ResponseTask::operator()() {
           element["executingThread"] = Json::Value(attr->executingThread);
           json_perf.append(element);
         }
-        
+
         pt.stop();
 
         Json::Value responseElement;
-        responseElement["duration"] = Json::Value((Json::UInt64) pt.value("PAPI_TOT_CYC"));
+        responseElement["duration"] = Json::Value((Json::UInt64)pt.value("PAPI_TOT_CYC"));
         responseElement["name"] = Json::Value("ResponseTask");
         responseElement["id"] = Json::Value("respond");
         responseElement["startTime"] = Json::Value((double)(responseStart - queryStart) / 1000000);
@@ -190,22 +191,21 @@ void ResponseTask::operator()() {
       }
 
       Json::Value jsonKeys(Json::arrayValue);
-      for( const auto& x : _generatedKeyRefs) {
-        for(const auto& key : *x) {
+      for (const auto& x : _generatedKeyRefs) {
+        for (const auto& key : *x) {
           Json::Value element(key);
           jsonKeys.append(element);
         }
       }
       response["generatedKeys"] = jsonKeys;
       response["affectedRows"] = Json::Value(_affectedRows);
-
     }
     LOG4CXX_DEBUG(_logger, "Table Use Count: " << result.use_count());
   }
 
   if (!_error_messages.empty()) {
     Json::Value errors;
-    for (const auto& msg: _error_messages) {
+    for (const auto& msg : _error_messages) {
       errors.append(Json::Value(msg));
     }
     response["error"] = errors;
@@ -216,6 +216,5 @@ void ResponseTask::operator()() {
   Json::FastWriter fw;
   connection->respond(fw.write(response));
 }
-
 }
 }

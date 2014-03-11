@@ -11,7 +11,7 @@ namespace hyrise {
 namespace storage {
 
 class AbstractDictionary {
-public:
+ public:
   virtual ~AbstractDictionary() {}
 
   virtual bool isOrdered() = 0;
@@ -23,8 +23,6 @@ public:
   virtual size_t size() = 0;
 
   virtual void shrink() = 0;
-
 };
-
-} } // namespace hyrise::storage
-
+}
+}  // namespace hyrise::storage

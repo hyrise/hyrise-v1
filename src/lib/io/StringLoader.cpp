@@ -9,15 +9,12 @@
 namespace hyrise {
 namespace io {
 
-storage::compound_metadata_list *StringHeader::load(const Loader::params &args) {
+storage::compound_metadata_list* StringHeader::load(const Loader::params& args) {
   std::istringstream is(_header);
-  std::vector<line_t>lines(csv::parse_stream(is, csv::HYRISE_FORMAT));
+  std::vector<line_t> lines(csv::parse_stream(is, csv::HYRISE_FORMAT));
   return createMetadata(lines, args.getReferenceTable());
 }
 
-StringHeader *StringHeader::clone() const {
-  return new StringHeader(*this);
+StringHeader* StringHeader::clone() const { return new StringHeader(*this); }
 }
-
-} } // namespace hyrise::io
-
+}  // namespace hyrise::io

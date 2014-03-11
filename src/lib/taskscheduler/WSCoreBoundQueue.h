@@ -20,14 +20,18 @@ class WSCoreBoundQueue : public AbstractCoreBoundQueue {
 
   typedef std::deque<std::shared_ptr<Task> > run_queue_t;
   run_queue_t _runQueue;
-  WSCoreBoundQueuesScheduler * _scheduler;
+  WSCoreBoundQueuesScheduler* _scheduler;
 
-private:
+ private:
   std::shared_ptr<Task> stealTasks();
 
-public:
-  WSCoreBoundQueue(int core, WSCoreBoundQueuesScheduler *scheduler);
+ public:
+  WSCoreBoundQueue(int core, WSCoreBoundQueuesScheduler* scheduler);
   virtual ~WSCoreBoundQueue();
+  /*
+   * init task scheduler
+   */
+  virtual void init();
 
   /*
    * Is executed by dedicated thread to work the queue
@@ -51,6 +55,5 @@ public:
    * */
   std::shared_ptr<Task> stealTask();
 };
-
-} } // namespace hyrise::taskscheduler
-
+}
+}  // namespace hyrise::taskscheduler

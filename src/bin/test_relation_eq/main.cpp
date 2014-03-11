@@ -10,14 +10,12 @@
 #include "testing/TableEqualityTest.h"
 
 
-int main (int argc, char** args) {
-  hyrise::storage::atable_ptr_t  t = Loader::load(
-    Loader::params()
-      .setHeader(CSVHeader("employees.tbl"))
-      .setInput(CSVInput("employees.tbl"))
-      .setBasePath("test/tables/"));
+int main(int argc, char** args) {
+  hyrise::storage::atable_ptr_t t = Loader::load(
+      Loader::params().setHeader(CSVHeader("employees.tbl")).setInput(CSVInput("employees.tbl")).setBasePath(
+          "test/tables/"));
 
-  std::vector<std::string> tables { "wrong1.tbl", "wrong2.tbl", "wrong3.tbl" };
+  std::vector<std::string> tables{"wrong1.tbl", "wrong2.tbl", "wrong3.tbl"};
 
   hyrise::storage::atable_ptr_t tw;
 
@@ -27,12 +25,10 @@ int main (int argc, char** args) {
   std::cout << std::endl;
 
   for (unsigned int i = 0; i < tables.size(); i++) {
-    tw = Loader::load( Loader::params()
-        .setHeader(CSVHeader(tables[i]))
-        .setInput(CSVInput(tables[i]))
-        .setBasePath("test/tables/wrongs/"));
-    std::cout << "****************TABLE::" << i+1 << "*****************" << std::endl;
-    EXPECT_RELATION_EQ(t , tw);
+    tw = Loader::load(Loader::params().setHeader(CSVHeader(tables[i])).setInput(CSVInput(tables[i])).setBasePath(
+        "test/tables/wrongs/"));
+    std::cout << "****************TABLE::" << i + 1 << "*****************" << std::endl;
+    EXPECT_RELATION_EQ(t, tw);
     EXPECT_RELATION_EQ(tw, t);
   }
 

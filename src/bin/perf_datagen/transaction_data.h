@@ -146,6 +146,6 @@ union transaction_data_t {
   struct integrity_t integrity;
 };
 
-int dump(FILE *fp, int type, void *data);
+int dump(FILE* fp, int type, void* data);
 
 #endif  // SRC_BIN_PERF_DATAGEN_TRANSACTION_DATA_H_

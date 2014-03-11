@@ -10,20 +10,16 @@ namespace io {
 
 class StorageManagerTests : public ::hyrise::Test {
 
-public:
-  StorageManagerTests() {
-    sm = StorageManager::getInstance();
-  }
+ public:
+  StorageManagerTests() { sm = StorageManager::getInstance(); }
 
-  virtual void SetUp() {
-    sm->removeAll();
-  }
-  
-  StorageManager *sm;
+  virtual void SetUp() { sm->removeAll(); }
+
+  StorageManager* sm;
 };
 
 TEST_F(StorageManagerTests, base) {
-  StorageManager *sm2;
+  StorageManager* sm2;
   sm2 = StorageManager::getInstance();
 
   ASSERT_TRUE(sm == sm2);
@@ -31,21 +27,21 @@ TEST_F(StorageManagerTests, base) {
 
 TEST_F(StorageManagerTests, load_table_multiple_contexts) {
   {
-    StorageManager *sm = StorageManager::getInstance();
+    StorageManager* sm = StorageManager::getInstance();
     sm->loadTableFile("LINXXS", "lin_xxs.tbl");
   }
 
   {
-    StorageManager *sm = StorageManager::getInstance();
-    ASSERT_TRUE((bool) sm->getTable("LINXXS"));
+    StorageManager* sm = StorageManager::getInstance();
+    ASSERT_TRUE((bool)sm->getTable("LINXXS"));
     hyrise::storage::atable_ptr_t t = sm->getTable("LINXXS");
   }
 
   {
-    StorageManager *sm = StorageManager::getInstance();
+    StorageManager* sm = StorageManager::getInstance();
     sm->removeTable("LINXXS");
   }
-  StorageManager *sm = StorageManager::getInstance();
+  StorageManager* sm = StorageManager::getInstance();
 
   ASSERT_EQ(0u, sm->getTableNames().size());
 
@@ -66,7 +62,8 @@ TEST_F(StorageManagerTests, load_table_header_data) {
   sm->loadTableFileWithHeader("HEADERDATA", "header/data.tbl", "header/header.data");
 
   hyrise::storage::atable_ptr_t tbl = sm->getTable("HEADERDATA");
-  hyrise::storage::atable_ptr_t ref = Loader::shortcuts::loadWithHeader("test/header/data.tbl", "test/header/header.data");
+  hyrise::storage::atable_ptr_t ref =
+      Loader::shortcuts::loadWithHeader("test/header/data.tbl", "test/header/header.data");
 
   ASSERT_TRUE(tbl->contentEquals(ref));
 
@@ -74,6 +71,5 @@ TEST_F(StorageManagerTests, load_table_header_data) {
 
   ASSERT_EQ(0u, sm->getTableNames().size());
 }
-
-} } // namespace hyrise::io
-
+}
+}  // namespace hyrise::io

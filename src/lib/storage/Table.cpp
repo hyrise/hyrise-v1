@@ -12,16 +12,12 @@
 namespace hyrise {
 namespace storage {
 
-Table::Table(
-  std::vector<ColumnMetadata > *m,
-  std::vector<SharedDictionary> *d,
-  size_t initial_size,
-  bool sorted,
-  bool compressed) :
-  _metadata(m->size()),
-  _dictionaries(m->size()),
-  width(m->size()),
-  _compressed(compressed) {
+Table::Table(std::vector<ColumnMetadata>* m,
+             std::vector<SharedDictionary>* d,
+             size_t initial_size,
+             bool sorted,
+             bool compressed)
+    : _metadata(m->size()), _dictionaries(m->size()), width(m->size()), _compressed(compressed) {
 
   // Ownership change for meta data
   for (size_t i = 0; i < width; i++) {
@@ -60,28 +56,27 @@ Table::Table(
 }
 
 
-Table::Table(std::vector<ColumnMetadata> m,
-             SharedAttributeVector av,
-             std::vector<SharedDictionary> dicts) :
-  tuples(av),
-  _metadata(m),
-  _dictionaries(dicts),
-  width(m.size()) {
+Table::Table(std::vector<ColumnMetadata> m, SharedAttributeVector av, std::vector<SharedDictionary> dicts)
+    : tuples(av), _metadata(m), _dictionaries(dicts), width(m.size()) {
   assert(m.size() == dicts.size() && "Metadata size and dictionaries must match");
 }
 
 
-atable_ptr_t Table::copy_structure(const field_list_t *fields, const bool reuse_dict, const size_t initial_size, const bool with_containers, const bool compressed) const {
+atable_ptr_t Table::copy_structure(const field_list_t* fields,
+                                   const bool reuse_dict,
+                                   const size_t initial_size,
+                                   const bool with_containers,
+                                   const bool compressed) const {
 
-  std::vector<ColumnMetadata > metadata;
-  std::vector<AbstractTable::SharedDictionaryPtr> *dictionaries = nullptr;
+  std::vector<ColumnMetadata> metadata;
+  std::vector<AbstractTable::SharedDictionaryPtr>* dictionaries = nullptr;
 
   if (reuse_dict) {
     dictionaries = new std::vector<AbstractTable::SharedDictionaryPtr>();
   }
 
   if (fields != nullptr) {
-    for (const field_t & field: *fields) {
+    for (const field_t& field : *fields) {
       metadata.push_back(metadataAt(field));
 
       if (dictionaries != nullptr) {
@@ -98,20 +93,21 @@ atable_ptr_t Table::copy_structure(const field_list_t *fields, const bool reuse_
     }
   }
 
-  auto res =  std::make_shared<Table>(&metadata, dictionaries, initial_size, true, compressed);
+  auto res = std::make_shared<Table>(&metadata, dictionaries, initial_size, true, compressed);
   delete dictionaries;
   return res;
-
 }
 
 
-atable_ptr_t Table::copy_structure_modifiable(const field_list_t *fields, const size_t initial_size, const bool with_containers) const {
+atable_ptr_t Table::copy_structure_modifiable(const field_list_t* fields,
+                                              const size_t initial_size,
+                                              const bool with_containers) const {
 
-  std::vector<ColumnMetadata > metadata;
-  std::vector<AbstractTable::SharedDictionaryPtr > *dictionaries = new std::vector<AbstractTable::SharedDictionaryPtr >;
+  std::vector<ColumnMetadata> metadata;
+  std::vector<AbstractTable::SharedDictionaryPtr>* dictionaries = new std::vector<AbstractTable::SharedDictionaryPtr>;
 
   if (fields != nullptr) {
-    for (const field_t & field: *fields) {
+    for (const field_t& field : *fields) {
       metadata.push_back(metadataAt(field));
     }
   } else {
@@ -120,45 +116,39 @@ atable_ptr_t Table::copy_structure_modifiable(const field_list_t *fields, const 
     }
   }
 
-  for (const auto& field: metadata) {
+  for (const auto& field : metadata) {
     dictionaries->push_back(makeDictionary(field.getType()));
   }
 
   auto result = std::make_shared<Table>(&metadata, dictionaries, initial_size, false, _compressed);
   delete dictionaries;
   return result;
-
 }
 
 atable_ptr_t Table::copy_structure(abstract_dictionary_callback ad, abstract_attribute_vector_callback aav) const {
   std::vector<ColumnMetadata> metadata;
-  std::vector<AbstractTable::SharedDictionaryPtr > dicts;
+  std::vector<AbstractTable::SharedDictionaryPtr> dicts;
 
   for (size_t i = 0; i < columnCount(); ++i) {
     metadata.push_back(metadataAt(i));
   }
 
-  for (const auto& field: metadata) {
+  for (const auto& field : metadata) {
     dicts.push_back(ad(field.getType()));
   }
 
-  return std::make_shared<Table>(metadata,
-                                 checked_pointer_cast< BaseAttributeVector<value_id_t> >(aav(metadata.size())),
-                                 dicts);
+  return std::make_shared<Table>(
+      metadata, checked_pointer_cast<BaseAttributeVector<value_id_t> >(aav(metadata.size())), dicts);
 }
 
 
 Table::~Table() {}
 
 
-size_t Table::size() const {
-  return tuples->size();
-}
+size_t Table::size() const { return tuples->size(); }
 
 
-size_t Table::columnCount() const {
-  return width;
-}
+size_t Table::columnCount() const { return width; }
 
 
 ValueId Table::getValueId(const size_t column, const size_t row) const {
@@ -182,9 +172,7 @@ void Table::reserve(const size_t nr_of_values) {
 }
 
 
-void Table::resize(const size_t rows) {
-  tuples->resize(rows);
-}
+void Table::resize(const size_t rows) { tuples->resize(rows); }
 
 
 const ColumnMetadata& Table::metadataAt(const size_t column, const size_t row_index, const table_id_t table_id) const {
@@ -192,17 +180,23 @@ const ColumnMetadata& Table::metadataAt(const size_t column, const size_t row_in
 }
 
 
-const AbstractTable::SharedDictionaryPtr& Table::dictionaryAt(const size_t column, const size_t row, const table_id_t table_id) const {
+const AbstractTable::SharedDictionaryPtr& Table::dictionaryAt(const size_t column,
+                                                              const size_t row,
+                                                              const table_id_t table_id) const {
   return _dictionaries[column];
 }
 
 
-const AbstractTable::SharedDictionaryPtr& Table::dictionaryByTableId(const size_t column, const table_id_t table_id) const {
+const AbstractTable::SharedDictionaryPtr& Table::dictionaryByTableId(const size_t column,
+                                                                     const table_id_t table_id) const {
   return _dictionaries[column];
 }
 
 
-void Table::setDictionaryAt(AbstractTable::SharedDictionaryPtr dict, const size_t column, const size_t row, const table_id_t table_id) {
+void Table::setDictionaryAt(AbstractTable::SharedDictionaryPtr dict,
+                            const size_t column,
+                            const size_t row,
+                            const table_id_t table_id) {
 
   // Swap the dictionaries
   if (_dictionaries[column] == nullptr || _dictionaries[column]->size() != dict->size()) {
@@ -211,7 +205,7 @@ void Table::setDictionaryAt(AbstractTable::SharedDictionaryPtr dict, const size_
   }
 
   // Check if we need to upgrade the type
-  if (types::isUnordered(_metadata[column].getType()) && dict->isOrdered() ) {
+  if (types::isUnordered(_metadata[column].getType()) && dict->isOrdered()) {
     _metadata[column].setType(types::getOrderedType(_metadata[column].getType()));
   }
 
@@ -220,13 +214,11 @@ void Table::setDictionaryAt(AbstractTable::SharedDictionaryPtr dict, const size_
 
 
 
-void Table::setAttributes(SharedAttributeVector doc) {
-  tuples = doc;
-}
+void Table::setAttributes(SharedAttributeVector doc) { tuples = doc; }
 
 
 atable_ptr_t Table::copy() const {
-  auto new_table = std::make_shared<table_type>(new std::vector<ColumnMetadata >(_metadata.begin(), _metadata.end()));
+  auto new_table = std::make_shared<table_type>(new std::vector<ColumnMetadata>(_metadata.begin(), _metadata.end()));
 
   new_table->width = width;
 
@@ -245,6 +237,5 @@ atable_ptr_t Table::copy() const {
 void Table::debugStructure(size_t level) const {
   std::cout << std::string(level, '\t') << "Table " << this << std::endl;
 }
-
-} } // namespace hyrise::storage
-
+}
+}  // namespace hyrise::storage

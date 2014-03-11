@@ -97,6 +97,29 @@ table_id_t MutableHorizontalTable::subtableCount() const {
   return _table_id_offsets.back();
 }
 
+unsigned MutableHorizontalTable::partitionAt(size_t row) const {
+  unsigned part = 0;
+  size_t curOffset = 0;
+  while (true) {
+     const size_t size = _parts.at(part)->size();
+     if (size + curOffset >= row)
+       break;
+     ++part;
+     curOffset += size;
+  }
+  return part;
+}
+
+size_t MutableHorizontalTable::offsetOfPartition(unsigned partition) const {
+  if (partition == 0)
+    return 0;
+
+  size_t offset = 0;
+  for (unsigned i = 0; i < partition - 1; ++i)
+    offset+= _parts.at(i)->size();
+  return offset;
+}
+
 size_t MutableHorizontalTable::partitionWidth(const size_t slice) const {
   return _parts[0]->partitionWidth(slice);
 }

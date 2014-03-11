@@ -13,7 +13,7 @@ const std::string RowType = "R";
 const std::string ColType = "C";
 const std::string TypeSeparator = "_";
 
-void checkTypePartErrors(const std::vector<std::string> &type_parts, const std::string &original) {
+void checkTypePartErrors(const std::vector<std::string>& type_parts, const std::string& original) {
   if (type_parts.size() != 2) {
     throw MetadataCreationError("Structure specification does not match {colnr}_{type}, but is '" + original + "'");
   }
@@ -25,20 +25,19 @@ void checkTypePartErrors(const std::vector<std::string> &type_parts, const std::
 
 typedef std::vector<std::string> line_t;
 
-storage::compound_metadata_list *createMetadata(const std::vector<std::vector<std::string> > &lines,
+storage::compound_metadata_list* createMetadata(const std::vector<std::vector<std::string> >& lines,
                                                 storage::c_atable_ptr_t tab) {
   line_t names(lines[0]);
   line_t types(lines[1]);
   line_t structure(lines[2]);
 
-  if (names.size() != types.size()
-      || names.size() != structure.size()) {
+  if (names.size() != types.size() || names.size() != structure.size()) {
     throw MetadataCreationError("Names, types and structure information do not match in length");
   }
 
   int last_part = 0;
-  auto *current = new storage::metadata_list();
-  auto *result = new std::vector<storage::metadata_list *>();
+  auto* current = new storage::metadata_list();
+  auto* result = new std::vector<storage::metadata_list*>();
   for (size_t i = 0; i < names.size(); ++i) {
     std::vector<std::string> type_parts;
     splitString(type_parts, structure[i], TypeSeparator);
@@ -67,6 +66,5 @@ storage::compound_metadata_list *createMetadata(const std::vector<std::vector<st
 
   return result;
 }
-
-} } // namespace hyrise::io
-
+}
+}  // namespace hyrise::io
