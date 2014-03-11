@@ -5,16 +5,9 @@
       "filename" : "aging/inv.tbl",
       "table" : "INV"
     },
-    "register" : {
-      "type" : "RegisterQuery",
-      "name" : "inv-Q2",
-      "select" : {"operation": "AND",
-                  "sub": [{"table": "INV", "field": "customer", "operation": "EQ"},
-                          {"table": "INV", "field": "status", "operation": "EQ"}]}
-    },
     "check" : {
       "type" : "AgingCheck",
-      "query" : "inv-Q2",
+      "query" : "inv-QCS",
       "parameters" : [{"table": "INV", "field": "customer", "value": %(customer)s},
                       {"table": "INV", "field": "status", "value": %(status)s}]
     },
@@ -22,10 +15,10 @@
       "type" : "SimpleTableScan",
       "predicates" : [
         {"type" : "AND"},
-        {"type" : "EQ", "in" : 0, "f" : "status"  , "vtype": 2 /*Int*/, "value" : %(status)s},
+        {"type" : "EQ", "in" : 0, "f" : "status"  , "vtype": 2 /*Str*/, "value" : %(status)s},
         {"type" : "EQ", "in" : 0, "f" : "customer", "vtype": 2 /*Str*/, "value" : %(customer)s}
       ]
     }
   },
-  "edges" : [["load","register"],["register","check"],["check","select"]]
+  "edges" : [["load","check"],["check","select"]]
 }

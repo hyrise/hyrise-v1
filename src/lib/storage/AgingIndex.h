@@ -17,6 +17,7 @@ public:
   virtual ~AgingIndex();
   virtual void shrink();
 
+  bool isVidRegistered(value_id_t vid) const;
   bool isHot(access::query_t query, value_id_t vid) const;
 
   atable_ptr_t table();

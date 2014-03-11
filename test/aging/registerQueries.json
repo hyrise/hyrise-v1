@@ -1,0 +1,63 @@
+{
+  "operators": {
+    "load" : {
+      "type" : "TableLoad",
+      "filename" : "aging/inv.tbl",
+      "table" : "INV"
+    },
+    "register-QC" : {
+      "type" : "RegisterQuery",
+      "name" : "inv-QC",
+      "select" : {"table": "INV", "field": "customer", "operation": "EQ"}
+    },
+    "register-QS" : {
+      "type" : "RegisterQuery",
+      "name" : "inv-QS",
+      "select" : {"table": "INV", "field": "status", "operation": "EQ"}
+    },
+    "register-QY" : {
+      "type" : "RegisterQuery",
+      "name" : "inv-QY",
+      "select" : {"table": "INV", "field": "year", "operation": "EQ"}
+    },
+    "register-Qid" : {
+      "type" : "RegisterQuery",
+      "name" : "inv-Qid",
+      "select" : {"table": "INV", "field": "id", "operation": "EQ"}
+    },
+
+    "register-QCY" : {
+      "type" : "RegisterQuery",
+      "name" : "inv-QCY",
+      "select" : {"operation": "AND",
+                  "sub": [{"table": "INV", "field": "customer", "operation": "EQ"},
+                          {"table": "INV", "field": "year", "operation": "EQ"}]}
+    },
+    "register-QCS" : {
+      "type" : "RegisterQuery",
+      "name" : "inv-QCS",
+      "select" : {"operation": "AND",
+                  "sub": [{"table": "INV", "field": "customer", "operation": "EQ"},
+                          {"table": "INV", "field": "status", "operation": "EQ"}]}
+    },
+    "register-QSY" : {
+      "type" : "RegisterQuery",
+      "name" : "inv-QSY",
+      "select" : {"operation": "AND",
+                  "sub": [{"table": "INV", "field": "status", "operation": "EQ"},
+                          {"table": "INV", "field": "year", "operation": "EQ"}]}
+    },
+
+    "register-QCSY" : {
+      "type" : "RegisterQuery",
+      "name" : "inv-QCSY",
+      "select" : {"operation": "AND",
+                  "sub": [{"table": "INV", "field": "customer", "operation": "EQ"},
+                          {"table": "INV", "field": "status", "operation": "EQ"},
+                          {"table": "INV", "field": "year", "operation": "EQ"}]}
+    }
+  },
+  "edges" : [["load","register-QC"],["load","register-QS"],["load","register-QY"],["load","register-Qid"],
+             ["load","register-QCY"],["load","register-QCS"],["load","register-QSY"],
+             ["load","register-QCSY"]]
+}

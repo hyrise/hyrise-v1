@@ -16,6 +16,10 @@ AgingIndex::~AgingIndex() {}
 
 void AgingIndex::shrink() { /*no shrinking*/ }
 
+bool AgingIndex::isVidRegistered(value_id_t vid) const {
+  return _statistic->isVidRegistered(vid);
+}
+
 bool AgingIndex::isHot(access::query_t query, value_id_t vid) const {
   return _statistic->isHot(query, vid);
 }

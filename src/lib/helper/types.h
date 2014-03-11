@@ -14,9 +14,6 @@ class AbstractTable;
 class AbstractIndex;
 class AbstractHashTable;
 class AbstractDictionary;
-class AbstractStatistic;
-class AgingStore;
-class AgingIndex;
 }
 }  // namespace hyrise::storage
 
@@ -56,6 +53,10 @@ namespace storage {
 class SimpleStore;
 class MutableVerticalTable;
 class Store;
+class AbstractStatistic;
+class AgingStore;
+class AgingIndex;
+class StoreRangeView;
 
 typedef std::shared_ptr<AbstractResource> aresource_ptr_t;
 typedef std::shared_ptr<const AbstractResource> c_aresource_ptr_t;

@@ -44,9 +44,7 @@ class JsonAgingTestsAged : public JsonAgingTests {
     }
     {    
       const auto file = loadFromFile(AGING_RUN);
-      std::cout << "????????????????????????????????????????????????????????????" << std::endl;
       executeAndWait(file);
-      std::cout << "************************************************************" << std::endl;
     }
   }
 
@@ -128,7 +126,7 @@ TEST_F(JsonAgingTests, QueryC) {
   executeQueryC("\"Customer1\""  );
   executeQueryC("\"Customer2\""  );
   executeQueryC("\"Customer5\""  );
-  executeQueryC("\"Customer15\"" );
+  executeQueryC("\"Customer15\"" ); // hot
   executeQueryC("\"Customer19\"" );
   executeQueryC("\"Customer20\"" );
 }
@@ -144,7 +142,7 @@ TEST_F(JsonAgingTests, QueryS) {
 
 TEST_F(JsonAgingTests, QueryY) {
 //executeQueryY(year);
-  executeQueryY(2005);
+  executeQueryY(2005); // hot
   executeQueryY(2007);
   executeQueryY(2014);
 }
@@ -153,13 +151,14 @@ TEST_F(JsonAgingTests, QueryCY) {
 //executeQueryCY(customer        , year);
   executeQueryCY("\"Customer3\"" , 2007);
   executeQueryCY("\"Customer9\"" , 2009);
-  executeQueryCY("\"Customer15\"", 2012);
+  executeQueryCY("\"Customer14\"", 2011); // hot
   executeQueryCY("\"Customer19\"", 2014);
 }
 
 TEST_F(JsonAgingTests, QueryCS) {
 //executeQueryCS(customer        , status          );
   executeQueryCS("\"Customer10\"", "\"in process\"");
+  executeQueryCS("\"Customer15\"", "\"open\""      ); // hot
   executeQueryCS("\"Customer4\"" , "\"closed\""    );
   executeQueryCS("\"Customer20\"", "\"open\""      );
 }
@@ -170,7 +169,7 @@ TEST_F(JsonAgingTests, QuerySY) {
   executeQuerySY("\"closed\""    , 2012);
   executeQuerySY("\"in process\"", 2014);
   executeQuerySY("\"closed\""    , 2006);
-  executeQuerySY("\"open\""     , 2013);
+  executeQuerySY("\"open\""      , 2013); // hot
 }
 
 TEST_F(JsonAgingTests, QueryCSY) {
@@ -180,13 +179,14 @@ TEST_F(JsonAgingTests, QueryCSY) {
   executeQueryCSY("\"Customer1\"" , 2005, "\"closed\""    );
   executeQueryCSY("\"Customer12\"", 2011, "\"in process\"");
   executeQueryCSY("\"Customer4\"" , 2007, "\"closed\""    );
+  executeQueryCSY("\"Customer6\"" , 2008, "\"deprecated\"");
 }
 
 TEST_F(JsonAgingTests, QueryId) {
 //executeQueryId(id);
-  executeQueryId(1 );
+  executeQueryId(0 );
   executeQueryId(17);
-  executeQueryId(41);
+  executeQueryId(40);
 }
 
 
@@ -199,7 +199,7 @@ TEST_F(JsonAgingTestsAged, QueryC) {
   executeQueryC("\"Customer1\""  );
   executeQueryC("\"Customer2\""  );
   executeQueryC("\"Customer5\""  );
-  executeQueryC("\"Customer15\"" );
+  executeQueryC("\"Customer15\"" ); // hot
   executeQueryC("\"Customer19\"" );
   executeQueryC("\"Customer20\"" );
 }
@@ -215,7 +215,7 @@ TEST_F(JsonAgingTestsAged, QueryS) {
 
 TEST_F(JsonAgingTestsAged, QueryY) {
 //executeQueryY(year);
-  executeQueryY(2005);
+  executeQueryY(2005); // hot
   executeQueryY(2007);
   executeQueryY(2014);
 }
@@ -224,13 +224,14 @@ TEST_F(JsonAgingTestsAged, QueryCY) {
 //executeQueryCY(customer        , year);
   executeQueryCY("\"Customer3\"" , 2007);
   executeQueryCY("\"Customer9\"" , 2009);
-  executeQueryCY("\"Customer15\"", 2012);
+  executeQueryCY("\"Customer14\"", 2011); // hot
   executeQueryCY("\"Customer19\"", 2014);
 }
 
 TEST_F(JsonAgingTestsAged, QueryCS) {
 //executeQueryCS(customer        , status          );
   executeQueryCS("\"Customer10\"", "\"in process\"");
+  executeQueryCS("\"Customer15\"", "\"open\""      ); // hot
   executeQueryCS("\"Customer4\"" , "\"closed\""    );
   executeQueryCS("\"Customer20\"", "\"open\""      );
 }
@@ -241,7 +242,7 @@ TEST_F(JsonAgingTestsAged, QuerySY) {
   executeQuerySY("\"closed\""    , 2012);
   executeQuerySY("\"in process\"", 2014);
   executeQuerySY("\"closed\""    , 2006);
-  executeQuerySY("\"open\""     , 2013);
+  executeQuerySY("\"open\""      , 2013); // hot
 }
 
 TEST_F(JsonAgingTestsAged, QueryCSY) {
@@ -251,13 +252,14 @@ TEST_F(JsonAgingTestsAged, QueryCSY) {
   executeQueryCSY("\"Customer1\"" , 2005, "\"closed\""    );
   executeQueryCSY("\"Customer12\"", 2011, "\"in process\"");
   executeQueryCSY("\"Customer4\"" , 2007, "\"closed\""    );
+  executeQueryCSY("\"Customer6\"" , 2008, "\"deprecated\"");
 }
 
 TEST_F(JsonAgingTestsAged, QueryId) {
 //executeQueryId(id);
-  executeQueryId(1 );
+  executeQueryId(0 );
   executeQueryId(17);
-  executeQueryId(41);
+  executeQueryId(40);
 }
 
 } } // namespace hyrise::access

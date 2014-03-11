@@ -40,7 +40,7 @@ bool StatisticSnapshot::isQueryRegistered(query_t query) const {
   return _hotnessMap.find(query) != _hotnessMap.cend();
 }
 
-bool StatisticSnapshot::isValueRegistered(storage::value_id_t vid) const {
+bool StatisticSnapshot::isVidRegistered(storage::value_id_t vid) const {
   return (vid < numberOfVids());
 }
 

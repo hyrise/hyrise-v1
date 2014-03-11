@@ -18,8 +18,8 @@ public:
 
   bool isQueryRegistered(const std::string& query) const;
   virtual bool isQueryRegistered(query_t query) const;
-  bool isValueRegistered(const std::string& value) const;
-  virtual bool isValueRegistered(storage::value_id_t vid) const;
+  bool isVidRegistered(const std::string& value) const;
+  virtual bool isVidRegistered(storage::value_id_t vid) const;
 
   virtual void valuesDo(query_t query, std::function<void(storage::value_id_t, bool)> func) const;
 

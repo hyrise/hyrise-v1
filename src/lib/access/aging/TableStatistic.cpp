@@ -86,12 +86,12 @@ bool TableStatistic::isQueryRegistered(query_t query) const {
   return isQueryRegistered(qm.getName(query));
 }
 
-bool TableStatistic::isValueRegistered(const std::string& value) const {
+bool TableStatistic::isVidRegistered(const std::string& value) const {
   //TODO
   return false;
 }
 
-bool TableStatistic::isValueRegistered(storage::value_id_t vid) const {
+bool TableStatistic::isVidRegistered(storage::value_id_t vid) const {
   //TODO
   return false;
 }

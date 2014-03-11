@@ -50,11 +50,10 @@ struct create_in_expr_functor {
 
 SimpleExpression* EqualExpression::expression(storage::atable_ptr_t table,
                                               const std::map<storage::field_t, std::vector<storage::value_id_t>>& vids) const {
-  /*TODO this is currently not working as the table is replaced
   if (!accessesTable(table)) {
     std::cout << "(query does not access table)" << std::endl;
     return nullptr;
-  }*/
+  }
 
   const auto field = table->numberOfColumn(_field);
 

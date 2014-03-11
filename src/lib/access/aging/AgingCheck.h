@@ -6,13 +6,14 @@
 namespace hyrise {
 namespace access {
 
+struct param_data_t {
+  std::string table;
+  std::string field;
+  DataType type;
+  void* data;
+};
+
 class AgingCheck : public PlanOperation {
-  struct param_data_t {
-    std::string table;
-    std::string field;
-    DataType type;
-    void* data;
-  };
 
 public:
   AgingCheck(const std::string& query);
@@ -23,10 +24,7 @@ public:
   void parameter(const std::vector<param_data_t>& parameter);
 
   static std::shared_ptr<PlanOperation> parse(const Json::Value &data);
-
 private:
-  std::pair<std::string, bool> handleOneTable(std::vector<param_data_t>& paramList);
-
   const std::string _queryName;
   std::vector<param_data_t> _paramList;
 };

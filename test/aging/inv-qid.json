@@ -5,22 +5,17 @@
       "filename" : "aging/inv.tbl",
       "table" : "INV"
     },
-    "register" : {
-      "type" : "RegisterQuery",
-      "name" : "inv-Q5",
-      "select" : {"table": "INV", "field": "id", "operation": "EQ"}
-    },
     "check" : {
       "type" : "AgingCheck",
-      "query" : "inv-Q5",
+      "query" : "inv-Qid",
       "parameters" : [{"table": "INV", "field": "id", "value": %(id)d}]
     },
     "select" : {
       "type" : "SimpleTableScan",
       "predicates" : [
-        {"type" : "EQ", "in" : 0, "f" : "id", "vtype": 0 /*Str*/, "value" : %(id)s}
+        {"type" : "EQ", "in" : 0, "f" : "id", "vtype": 0 /*Int*/, "value" : %(id)d}
       ]
     }
   },
-  "edges" : [["load","register"],["register","check"],["check","select"]]
+  "edges" : [["load","check"],["check","select"]]
 }

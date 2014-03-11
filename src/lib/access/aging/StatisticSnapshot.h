@@ -18,7 +18,7 @@ class StatisticSnapshot : public storage::AbstractStatistic {
 
   virtual bool isHot(query_t query, storage::value_id_t vid) const;
   virtual bool isQueryRegistered(query_t query) const;
-  bool isValueRegistered(storage::value_id_t vid) const;
+  bool isVidRegistered(storage::value_id_t vid) const;
 
   virtual void valuesDo(query_t query, std::function<void(storage::value_id_t, bool)> func) const;
 

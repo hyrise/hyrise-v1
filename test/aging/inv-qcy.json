@@ -1,0 +1,24 @@
+{
+  "operators": {
+    "load" : {
+      "type" : "TableLoad",
+      "filename" : "aging/inv.tbl",
+      "table" : "INV"
+    },
+    "check" : {
+      "type" : "AgingCheck",
+      "query" : "inv-QCY",
+      "parameters" : [{"table": "INV", "field": "customer", "value": %(customer)s},
+                      {"table": "INV", "field": "year", "value": %(year)d}]
+    },
+    "select" : {
+      "type" : "SimpleTableScan",
+      "predicates" : [
+        {"type" : "AND"},
+        {"type" : "EQ", "in" : 0, "f" : "year"    , "vtype": 0 /*Int*/, "value" : %(year)d},
+        {"type" : "EQ", "in" : 0, "f" : "customer", "vtype": 2 /*Str*/, "value" : %(customer)s}
+      ]
+    }
+  },
+  "edges" : [["load","check"],["check","select"]]
+}

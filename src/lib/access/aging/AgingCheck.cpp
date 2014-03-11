@@ -1,11 +1,14 @@
 // Copyright (c) 2014 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "AgingCheck.h"
 
-#include <iostream>
+//#include <iostream>
 
 #include <storage/storage_types.h>
 #include <storage/storage_types_helper.h>
 #include <storage/BaseDictionary.h>
+#include <storage/AgingStore.h>
+#include <storage/StoreRangeView.h>
+
 #include <io/StorageManager.h>
 #include <access/aging/QueryManager.h>
 #include <access/system/QueryParser.h>
@@ -25,6 +28,7 @@ AgingCheck::AgingCheck(const std::string& query) :
 AgingCheck::~AgingCheck() {
   for (const auto& param : _paramList) {
     switch (param.type) {
+      //TODO type switch
       case IntegerType: delete (hyrise_int_t*) param.data; break;
       case FloatType: delete (hyrise_float_t*) param.data; break;
       case StringType: delete (hyrise_string_t*) param.data; break;
@@ -33,167 +37,138 @@ AgingCheck::~AgingCheck() {
   }
 }
 
+
+namespace {
+struct get_vid_functor {
+ public:
+  typedef void value_type;
+
+  get_vid_functor(storage::atable_ptr_t table, const param_data_t& data) :
+    _table(table),
+    _data(data) {}
+
+  template <typename T>
+  void operator()() {
+    const auto& field = _table->numberOfColumn(_data.field);
+    const auto& dict = checked_pointer_cast<storage::BaseDictionary<T>>(_table->dictionaryAt(field));
+
+    vid = dict->getValueIdForValue(*(T*)_data.data);
+  }
+
+  storage::value_id_t vid;
+
+ private:
+  const storage::atable_ptr_t _table;
+  const param_data_t& _data;
+};
+
+} // namespace
+
 void AgingCheck::executePlanOperation() {
   const auto& qm = QueryManager::instance();
   const auto& sm = *io::StorageManager::getInstance();
 
   if (!qm.exists(_queryName)) {
     output = input;
-    std::cout << "query not registered => COLD" << std::endl;
+    //std::cout << "query not registered => COLD" << std::endl;
     return;
   }
   const query_t query = qm.getId(_queryName);
 
   const auto& selection = qm.selectExpressionOf(query);
   const auto& tableNames = selection->accessedTables();
-  std::cout << ">>>>";
-  for (const auto t : tableNames)
-    std::cout << t << ", ";
-  std::cout << std::endl;
+
   std::vector<storage::c_atable_ptr_t> tables;
   for (const auto& tableName : tableNames)
     tables.push_back(sm.get<storage::AbstractTable>(tableName));
 
-  const auto& inputTables = input.all();
-  for (const auto& inputTable : inputTables) {
-    const auto& casted = std::dynamic_pointer_cast<const storage::AbstractTable>(inputTable);
-    if (casted == nullptr)
-      throw std::runtime_error("at least one input resource is not a table");
+  const auto& inputResources = input.all();
+  for (const auto& inputResource : inputResources) {
+    const auto& nonConst = std::const_pointer_cast<storage::AbstractResource>(inputResource);
+    const auto& agingStore = std::dynamic_pointer_cast<storage::AgingStore>(nonConst);
+    if (agingStore == nullptr) {
+      output.addResource(inputResource);
+      //std::cout << "resource is not an AgingStore => COLD" << std::endl;
+      continue;
+    }
 
     // this needs not to be optimized as usuall queries will only one or two tables
     size_t i;
     for (i = 0; i < tables.size(); ++i) {
-      if (tables.at(i) == casted)
+      if (tables.at(i) == agingStore)
         break;
     }
     if (i == tables.size()) {
-      output.add(casted);
-      std::cout << "\t found irrelevant table" << std::endl;
+      output.add(agingStore);
+      //std::cout << "found irrelevant table" << std::endl;
       continue; // table is irrelevant for aging - but should not occure either
     }
 
     const auto& tableName = tableNames.at(i);
-    std::cout << "\t found relevant table: " << tableName << std::endl;
-
     const auto& fieldNames = selection->accessedFields(tableName);
 
+    bool indexMissing = false;
     std::vector<storage::aging_index_ptr_t> agingIndices;
-    std::cout << "\t>>>>";
     for (const auto fieldName : fieldNames) {
-      std::cout << fieldName << ", ";
       if (sm.hasAgingIndex(tableName, fieldName))
         agingIndices.push_back(sm.getAgingIndexFor(tableName, fieldName));
+      else {
+        indexMissing = true;
+        break;
+      }
     }
-    std::cout << std::endl;
 
-    if (agingIndices.size() == 0) {
-      std::cout << "found no aging information at all => COLD" << std::endl;
+    if (indexMissing) {
+      //std::cout << "Missing aging index for at least one field" << std::endl;
+      output.add(agingStore);
       continue;
     }
-    
-    std::cout << "Woohoo, found at least one AgingIndex" << std::endl;
 
     bool hot = true;
+    bool skip = false;
     for (const auto& agingIndex : agingIndices) {
       const param_data_t* data = nullptr;
-      const auto& fieldName = casted->nameOfColumn(agingIndex->field());
+      const auto& fieldName = agingStore->nameOfColumn(agingIndex->field());
       for (const auto& param : _paramList) {
         if (param.table == tableName && param.field == fieldName) {
           data = &param;
           break;
         }
       }
-
       if (data == nullptr)
         throw std::runtime_error("no value specified for " + tableName + "." + fieldName);
-    }
-  }
+      
+      get_vid_functor functor(agingStore, *data);
+      storage::type_switch<hyrise_basic_types> ts;
+      ts(data->type, functor);
 
-  
-
-  output = input; //TODO rethink maybe
-
-
-  while (_paramList.size() > 0 ) {
-    const auto ret = handleOneTable(_paramList);
-    std::cout << ">>>>>>>>>" << ret.first << ": " << (ret.second ? "HOT" : "COLD") << std::endl;
-  }
-
-  /*for (const auto& param : _paramList) {
-    sm.assureExists(param.table);
-
-    const auto& table = sm.get<storage::AbstractTable>(tableName);
-
-    bool hot = true;
-    for (const auto& field : tableParams.second) {
-      const field_t col = table->numberOfColumn(field.name);
-
-      if (!sm.hasAgingIndex(tableName, field.name)) {
-        std::cout << "no aging index => COLD"; //TODO checkme
-        continue;
-      }
-
-      if (table->typeOfColumn(col) != field.type)
-        throw std::runtime_error("type of " + field.name + " is of type " +
-                                 data_type_to_string(field.type));
-
-      value_id_t vid;
-
-      switch (field.type) {
-        case IntegerType:
-          vid = table->getValueIdForValue<hyrise_int_t>(col, *(hyrise_int_t*)field.data).valueId;
-          std::cout << "<<" << *(hyrise_int_t*)field.data << ">>" << std::endl;
-          break;
-        case FloatType:
-          vid = table->getValueIdForValue<hyrise_float_t>(col, *(hyrise_float_t*)field.data).valueId;
-          std::cout << "<<" << *(hyrise_float_t*)field.data << ">>" << std::endl;
-          break;
-        case StringType:
-          vid = table->getValueIdForValue<hyrise_string_t>(col, *(hyrise_string_t*)field.data).valueId;
-          std::cout << "<<" << *(hyrise_string_t*)field.data << ">>" << std::endl;
-          break;
-        default: throw std::runtime_error("unsupported field type");
-      }
-
-      if (!sm.getAgingIndexFor(tableName, field.name)->isHot(qm.getId(_queryName), vid)) {
-        hot = false;
-        std::cout << tableName << ":" << field.name << " COLD" << std::endl;
+      if (!agingIndex->isVidRegistered(functor.vid)) {
+        skip = true;
         break;
       }
-      std::cout << tableName << ":" << field.name << " HOT" << std::endl;
+      else if (!agingIndex->isHot(query, functor.vid)) {
+        hot = false;
+        break;
+      }
     }
 
-    std::cout << ">>>>>>>>>" << tableName << ": " << (hot ? "HOT" : "COLD") << std::endl;
-  }*/
+    if (skip) {
+      //std::cout << "Value obviously not in table => SKIP" << std::endl;
+      output.add(agingStore->getDeltaTable());
+    }
+    else if (hot) {
+      //std::cout << "Hot-only scan => HOT" << std::endl;
+      output.add(std::make_shared<storage::StoreRangeView>(agingStore, agingStore->hotSize()));
+    }
+    else {
+      //std::cout << "Normal Scan => COLD" << std::endl;
+      output.add(agingStore);
+    }
+  }
 }
 
 void AgingCheck::parameter(const std::vector<param_data_t>& parameter) {
   _paramList = parameter;
-}
-
-std::pair<std::string, bool> AgingCheck::handleOneTable(std::vector<param_data_t>& paramList) {
-  if (paramList.size() == 0)
-    throw std::runtime_error("this should not happen");
-  const std::string table = paramList[0].table;
-
-  //TODO
-  //const auto& sm = *io::StorageManager::getInstance();
-  //const auto& qm = QueryManager::instance();
-
-  auto it = paramList.begin();
-  while(it != paramList.end()) {
-    if ((*it).table == table) {
-      //TODO
-
-      std::cout << "AgingCheck for " << table << "." << (*it).field << std::endl;
-      paramList.erase(it);
-    }
-    else {
-      ++it;
-    }
-  }
-
-  return std::make_pair(table, true);
 }
 
 std::shared_ptr<PlanOperation> AgingCheck::parse(const Json::Value &data) {
