@@ -83,5 +83,5 @@ std::vector<std::string> AndExpression::accessedFields(const std::string& table)
   return ret;
 }
 
-} } } // namespace aging::hyrise::access
+} } } // namespace hyrise::access::aging
 

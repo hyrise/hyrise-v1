@@ -20,5 +20,5 @@ std::shared_ptr<SelectExpression> SelectExpression::parse(const Json::Value& dat
   else throw std::runtime_error("unsupported operation: \"" + op + "\"");
 }
 
-} } } // namespace aging::hyrise::access
+} } } // namespace hyrise::access::aging
 

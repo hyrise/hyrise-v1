@@ -17,7 +17,7 @@ QueryManager& QueryManager::instance() {
 
 void QueryManager::registerQuery(const std::string& name, std::shared_ptr<aging::SelectExpression> select) {
   if (exists(name))
-    return; //TODO throw std::runtime_error("Query \"" + name + "\" already exists");
+    return;
   select->verify();
 
   const query_t id = _selectExpressions.size();

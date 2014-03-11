@@ -21,16 +21,11 @@ public:
 
   static std::shared_ptr<SelectExpression> parse(const Json::Value& data);
 
-  //TODO
-  //std::vector<param_t> getParameters() const;
-  //std::vector<field_t> getParameters(storage::resource_id_t resource) const;
-
   virtual bool accessesTable(storage::atable_ptr_t table) const = 0;
-  //TODO virtual bool accessesField(storage::atable_ptr_t table, field) const = 0;
 
   virtual std::vector<std::string> accessedTables() const = 0;
   virtual std::vector<std::string> accessedFields(const std::string& table) const = 0;
 };
 
-} } } // namespace aging::hyrise::access
+} } } // namespace hyrise::access::aging
 

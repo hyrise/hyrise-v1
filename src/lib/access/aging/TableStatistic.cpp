@@ -116,7 +116,6 @@ struct values_do_functor {
     const auto coldValueId = hotnessDict->getValueIdForValue(0);
 
     for (size_t row = 0; row < rowc; ++row) {
-      //TODO I suspect inverse dict access to be terribly slow
       const T& value = _statisticTable->getValue<T>(valueField, row);
       const auto valueId = dict->getValueIdForValue(value);
       const auto hotValueId = _statisticTable->getValueId(_queryField, row).valueId;

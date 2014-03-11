@@ -39,8 +39,6 @@ private:
 
   std::vector<std::shared_ptr<aging::SelectExpression>> _selectExpressions;
   std::unordered_map<std::string, query_t> _queryNames;
-
-  std::vector<std::weak_ptr<storage::AgingIndex>> _registered; //TODO
 };
 
 } } // namespace hyrise::access

@@ -35,7 +35,6 @@ void AgingRun::executePlanOperation() {
     //std::cout << "The table currently is no AgingStore - trying to fix this" << std::endl;
     const auto& store = checked_pointer_cast<storage::Store>(table);
     agingStore = std::make_shared<storage::AgingStore>(store);
-    //TODO just replace like that?
   }
   else {
     agingStore = checked_pointer_cast<storage::AgingStore>(table);
@@ -90,7 +89,7 @@ void AgingRun::executePlanOperation() {
   scan.setProducesPositions(true);
   scan.execute();
 
-  //std::cout << "Do the aging!" << std::endl; //TODO columnwise
+  //std::cout << "Do the aging!" << std::endl;
   const auto& pointerCalculator = checked_pointer_cast<const storage::PointerCalculator>(scan.getResultTable());
   pos_list_t posList(pointerCalculator->getPositions()->begin(), pointerCalculator->getPositions()->end());
 

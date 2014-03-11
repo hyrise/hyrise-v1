@@ -31,7 +31,7 @@ bool StatisticSnapshot::isHot(query_t query, storage::value_id_t vid) const {
     return false;
 
   if (vid >= numberOfVids())
-    return false; //TODO not true?
+    return false; //false to be sure ... however, in aging pocesses true will usually be (more) correct
   
   return hotnessVector->second.at(vid);
 }
@@ -46,7 +46,6 @@ bool StatisticSnapshot::isVidRegistered(storage::value_id_t vid) const {
 
 void StatisticSnapshot::valuesDo(query_t query, std::function<void(storage::value_id_t, bool)> func) const {
   if (!isQueryRegistered(query)) {
-    //TODO maybe delete for performance
     const auto& qm = QueryManager::instance();
     if (!qm.exists(qm.getName(query)))
       throw std::runtime_error("QueryID does not exists");

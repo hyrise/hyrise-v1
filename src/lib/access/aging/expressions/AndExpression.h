@@ -27,5 +27,5 @@ private:
   std::vector<std::shared_ptr<SelectExpression>> _subExpressions;
 };
 
-} } } // namespace aging::hyrise::access
+} } } // namespace hyrise::access::aging
 

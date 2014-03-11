@@ -103,5 +103,5 @@ std::vector<std::string> EqualExpression::accessedFields(const std::string& tabl
     return std::vector<std::string>();
 }
 
-} } } // namespace aging::hyrise::access
+} } } // namespace hyrise::access::aging
 

@@ -28,5 +28,5 @@ private:
   const std::string _field;
 };
 
-} } } // namespace aging::hyrise::access
+} } } // namespace hyrise::access::aging
 
