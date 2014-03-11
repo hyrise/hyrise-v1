@@ -9,7 +9,6 @@
 #include <vector>
 
 #include <helper/types.h>
-#include <storage/AgingIndex.h>
 
 #include "io/ResourceManager.h"
 

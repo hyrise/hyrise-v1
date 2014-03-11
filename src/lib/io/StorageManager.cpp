@@ -23,6 +23,7 @@
 #include "storage/ColumnMetadata.h"
 #include "storage/TableBuilder.h"
 #include "storage/AbstractStatistic.h"
+#include "storage/AgingIndex.h"
 
 namespace hyrise {
 namespace io {

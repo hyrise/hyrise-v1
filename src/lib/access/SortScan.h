@@ -15,7 +15,6 @@ class SortScan : public PlanOperation {
   static std::shared_ptr<PlanOperation> parse(const Json::Value& data);
   const std::string vname();
   void setSortField(const unsigned s);
-  void ascending(bool ascending);
 
  private:
   unsigned _sort_field;
