@@ -23,9 +23,6 @@ public:
   virtual std::vector<std::string> accessedTables() const;
   virtual std::vector<std::string> accessedFields(const std::string& table) const;
 
-  virtual std::vector<storage::value_id_t> vids(const std::string& tableName, const storage::c_atable_ptr_t& table,
-                                               const std::string& field) const;
-
 private:
   const std::string _table;
   const std::string _field;

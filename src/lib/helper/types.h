@@ -102,7 +102,6 @@ typedef std::string hyrise_string_t;
 
 typedef uint32_t value_id_t;
 typedef unsigned char table_id_t;
-typedef uint16_t resource_id_t; //TODO needed?
 
 typedef size_t pos_t;
 typedef size_t field_t;
@@ -119,27 +118,6 @@ class AbstractExpression;
 typedef std::unique_ptr<AbstractExpression> expression_uptr_t;
 
 typedef uint16_t query_t;
-
-struct param_t {
-  //storage::resource_id_t table; TODO why did I do that exactly?
-  storage::resource_id_t table;
-  storage::field_t field;
-};
-typedef std::vector<param_t> param_list_t;
-
-struct param_value_t {
-  param_t param;
-  storage::value_id_t vid;
-};
-typedef std::vector<param_value_t> param_value_list_t;
-
-struct field_value_t {
-  field_value_t(const param_value_t& param) : field(param.param.field), vid(param.vid) {}
-
-  storage::field_t field;
-  storage::value_id_t vid;
-};
-typedef std::vector<param_value_t> field_value_list_t;
 }
 
 namespace taskscheduler {

@@ -1,10 +1,7 @@
 // Copyright (c) 2014 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "RegisterTableStatistic.h"
 
-#include <iostream>
-
 #include <io/StorageManager.h>
-
 #include <access/aging/TableStatistic.h>
 
 namespace hyrise {

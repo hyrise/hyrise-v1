@@ -83,18 +83,5 @@ std::vector<std::string> AndExpression::accessedFields(const std::string& table)
   return ret;
 }
 
-std::vector<storage::value_id_t> AndExpression::vids(const std::string& tableName,
-                                                     const storage::c_atable_ptr_t& table,
-                                                     const std::string& field) const {
-  std::unordered_set<storage::value_id_t> ret;
-
-  for (const auto& subExpression : _subExpressions) {
-    const auto& vids = subExpression->vids(tableName, table, field);
-    ret.insert(vids.begin(), vids.end());
-  }
-
-  return std::vector<storage::value_id_t>(ret.begin(), ret.end());
-}
-
 } } } // namespace aging::hyrise::access
 

@@ -18,6 +18,36 @@ namespace access {
 
 namespace {
   auto _ = QueryParser::registerPlanOperation<AgingCheck>("AgingCheck");
+
+
+struct create_data_functor {
+  typedef void value_type;
+  create_data_functor(void* data) : _data(data) {}
+
+  template <typename T>
+  void operator()() {
+    data = new T(*_data);
+  }
+
+  void* data;
+
+ private:
+  void* _data;
+};
+
+struct delete_data_functor {
+  typedef void value_type;
+  delete_data_functor(void* data) : _data(data) {}
+
+  template <typename T>
+  void operator()() {
+    delete (T*)_data;
+  }
+
+ private:
+  void* _data;
+};
+
 } // namespace
 
 
@@ -27,13 +57,9 @@ AgingCheck::AgingCheck(const std::string& query) :
 
 AgingCheck::~AgingCheck() {
   for (const auto& param : _paramList) {
-    switch (param.type) {
-      //TODO type switch
-      case IntegerType: delete (hyrise_int_t*) param.data; break;
-      case FloatType: delete (hyrise_float_t*) param.data; break;
-      case StringType: delete (hyrise_string_t*) param.data; break;
-      default: throw std::runtime_error("unsupported field type");
-    }
+    delete_data_functor functor(param.data);
+    storage::type_switch<hyrise_basic_types> ts;
+    ts(param.type, functor);
   }
 }
 

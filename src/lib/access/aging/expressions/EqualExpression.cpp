@@ -1,7 +1,7 @@
 // Copyright (c) 2014 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "EqualExpression.h"
 
-#include <iostream>
+//#include <iostream>
 
 #include <storage/storage_types_helper.h>
 #include <io/StorageManager.h>
@@ -51,14 +51,14 @@ struct create_in_expr_functor {
 SimpleExpression* EqualExpression::expression(storage::atable_ptr_t table,
                                               const std::map<storage::field_t, std::vector<storage::value_id_t>>& vids) const {
   if (!accessesTable(table)) {
-    std::cout << "(query does not access table)" << std::endl;
+    //std::cout << "(query does not access table)" << std::endl;
     return nullptr;
   }
 
   const auto field = table->numberOfColumn(_field);
 
   if (vids.find(field) == vids.end()) {
-    std::cout << "(no value ids for field: " << _table << "." << _field <<std::endl;
+    //std::cout << "(no value ids for field: " << _table << "." << _field <<std::endl;
     return nullptr; //TODO really? not sure
   }
 
@@ -101,20 +101,6 @@ std::vector<std::string> EqualExpression::accessedFields(const std::string& tabl
     return {_field};
   else
     return std::vector<std::string>();
-}
-
-std::vector<storage::value_id_t> EqualExpression::vids(const std::string& tableName,
-                                                       const storage::c_atable_ptr_t& table,
-                                                       const std::string& field) const {
-  std::vector<storage::value_id_t> ret;
-  if (tableName != _table || field != _field)
-    return ret;
-
-  const auto& col = table->numberOfColumn(field);
-
-  //TODO
-
-  return ret;
 }
 
 } } } // namespace aging::hyrise::access

@@ -8,7 +8,7 @@ BLD ?= debug
 # WITH_PROFILER := 1
 
 # Per Default HYRISE is compiled with MySQL support, set to 0 to disable
-WITH_MYSQL := 0
+# WITH_MYSQL := 1
 
 # To enable Link Time Optimization
 # PLUGINS += lto

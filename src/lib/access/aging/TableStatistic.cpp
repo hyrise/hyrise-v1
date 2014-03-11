@@ -1,8 +1,6 @@
 // Copyright (c) 2014 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "TableStatistic.h"
 
-#include <iostream>
-
 #include <helper/types.h>
 #include <storage/storage_types_helper.h>
 #include <storage/AbstractTable.h>
@@ -50,8 +48,6 @@ bool isHotHelper(storage::atable_ptr_t table, storage::c_atable_ptr_t statisticT
 
 bool TableStatistic::isHot(const std::string& query, value_id_t vid) const {
   if (!isQueryRegistered(query)) {
-    std::cout << ">>>>unregistered value! (\"" << query << "\", field: " << table()->nameOfColumn(field())
-              << ", vid: " << vid << ")" << std::endl;
     return false;
   }
 
