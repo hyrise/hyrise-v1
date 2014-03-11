@@ -13,6 +13,7 @@
 
 #include "helper/HttpHelper.h"
 #include "helper/types.h"
+#include "helper/make_unique.h"
 
 #include "net/AbstractConnection.h"
 
@@ -100,15 +101,15 @@ std::string loadFromFile(const std::string& path) {
 }
 
 void setParameter(parameter_map_t& map, std::string name, float value) {
-  map[name] = new ConcreteParameterValue<float>(value);
+  map[name] = std::move(make_unique<ConcreteParameterValue<float>>(value));
 }
 
 void setParameter(parameter_map_t& map, std::string name, int value) {
-  map[name] = new ConcreteParameterValue<int>(value);
+  map[name] = std::move(make_unique<ConcreteParameterValue<int>>(value));
 }
 
 void setParameter(parameter_map_t& map, std::string name, std::string value) {
-  map[name] = new ConcreteParameterValue<std::string>(value);
+  map[name] = std::move(make_unique<ConcreteParameterValue<std::string>>(value));
 }
 
 namespace {

@@ -52,8 +52,7 @@ class ConcreteParameterValue : public AbstractParameterValue {
   const T _value;
 };
 
-typedef std::map<std::string, AbstractParameterValue*> parameter_map_t;
-//TODO removed memory leaks
+typedef std::map<std::string, std::unique_ptr<AbstractParameterValue>> parameter_map_t;
 
 void setParameter(parameter_map_t& map, std::string name, int value);
 void setParameter(parameter_map_t& map, std::string name, float value);

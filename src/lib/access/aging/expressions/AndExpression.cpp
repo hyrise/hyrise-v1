@@ -24,13 +24,19 @@ SimpleExpression* AndExpression::expression(storage::atable_ptr_t table,
 
   SimpleExpression* last = nullptr;
   for (const auto& subExpr : subExprs) {
-    if (subExpr != nullptr) {
+    if (dynamic_cast<TrueExpression*>(subExpr) == nullptr) {
       if (last == nullptr)
         last = subExpr;
       else
         last = new CompoundExpression(last, subExpr, AND);
     }
+    else {
+      delete subExpr;
+    }
   }
+
+  if (last == nullptr)
+    return new TrueExpression();
 
   return last;
 }

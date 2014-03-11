@@ -21,29 +21,43 @@ TableStatistic::TableStatistic(storage::atable_ptr_t table, storage::field_t fie
 TableStatistic::~TableStatistic() {}
 
 namespace {
+struct find_row_functor {
+ public:
+  typedef void value_type;
 
-//TODO make me functor
-template <typename T>
-bool isHotHelper(storage::atable_ptr_t table, storage::c_atable_ptr_t statisticTable,
-                 storage::field_t field, const std::string& query, storage::value_id_t vid) {
-  const auto& dict = checked_pointer_cast<storage::BaseDictionary<T>>(table->dictionaryAt(field));
-  const T value = dict->getValueForValueId(vid);
+  find_row_functor(storage::atable_ptr_t table,
+                   storage::c_atable_ptr_t statisticTable,
+                   storage::field_t field,
+                   storage::value_id_t vid) :
+    _table(table),
+    _statisticTable(statisticTable),
+    _field(field),
+    _vid(vid) {}
 
-  const auto valueField = statisticTable->numberOfColumn("value");
-  const auto& statisticDict = checked_pointer_cast<storage::BaseDictionary<T>>(statisticTable->dictionaryAt(valueField));
-  const auto& statisticVid = statisticDict->getValueIdForValue(value);
+  template <typename T>
+  void operator()() {
+    const auto& dict = checked_pointer_cast<storage::BaseDictionary<T>>(_table->dictionaryAt(_field));
+    const T value = dict->getValueForValueId(_vid);
 
-  const auto size = statisticTable->size();
+    const auto valueField = _statisticTable->numberOfColumn("value");
+    const auto& statisticDict = checked_pointer_cast<storage::BaseDictionary<T>>(_statisticTable->dictionaryAt(valueField));
+    const auto& statisticVid = statisticDict->getValueIdForValue(value);
 
-  for (size_t row = 0; row < size; ++row) {
-    if (statisticTable->getValueId(valueField, row).valueId == statisticVid)
-      return statisticTable->getValue<hyrise_int_t>(query, row);
+    const auto size = _statisticTable->size();
+    for (row = 0; row < size; ++row) {
+      if (_statisticTable->getValueId(valueField, row).valueId == statisticVid)
+        return;
+    }
   }
 
-  return false;
-  //TODO we might need some exception handling
-}
+  size_t row;
 
+ private:
+  const storage::atable_ptr_t _table;
+  const storage::c_atable_ptr_t _statisticTable;
+  const storage::field_t _field;
+  const storage::value_id_t _vid;
+};
 } // namespace
 
 bool TableStatistic::isHot(const std::string& query, value_id_t vid) const {
@@ -51,16 +65,13 @@ bool TableStatistic::isHot(const std::string& query, value_id_t vid) const {
     return false;
   }
 
-  switch (table()->typeOfColumn(field())) {
-    case IntegerType:
-      return isHotHelper<hyrise_int_t>(table(), _statisticTable, field(), query, vid);
-    case FloatType:
-      return isHotHelper<hyrise_float_t>(table(), _statisticTable, field(), query, vid);
-    case StringType:
-      return isHotHelper<hyrise_string_t>(table(), _statisticTable, field(), query, vid);
-    default:
-      throw std::runtime_error("unsupported type");
-  }
+  find_row_functor functor(table(), _statisticTable, field(), vid);
+  storage::type_switch<hyrise_basic_types> ts;
+  ts(table()->typeOfColumn(field()), functor);
+
+  if (functor.row >= _statisticTable->size())
+    return false; // vid not found
+  return _statisticTable->getValue<hyrise_int_t>(query, functor.row);
 }
 
 bool TableStatistic::isHot(query_t query, value_id_t value) const {
@@ -82,18 +93,15 @@ bool TableStatistic::isQueryRegistered(query_t query) const {
   return isQueryRegistered(qm.getName(query));
 }
 
-bool TableStatistic::isVidRegistered(const std::string& value) const {
-  //TODO
-  return false;
-}
-
 bool TableStatistic::isVidRegistered(storage::value_id_t vid) const {
-  //TODO
-  return false;
+  find_row_functor functor(table(), _statisticTable, field(), vid);
+  storage::type_switch<hyrise_basic_types> ts;
+  ts(table()->typeOfColumn(field()), functor);
+
+  return (functor.row >= _statisticTable->size());
 }
 
 namespace {
-
 struct values_do_functor {
   typedef void value_type;
 

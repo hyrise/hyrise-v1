@@ -11,5 +11,6 @@ class TrueExpression : public SimpleExpression {
   virtual void walk(const std::vector<storage::c_atable_ptr_t>& l) {}
   inline virtual bool operator()(size_t row) { return true; }
 };
-}
-}  // namespace hyrise::access
+
+} }  // namespace hyrise::access
+

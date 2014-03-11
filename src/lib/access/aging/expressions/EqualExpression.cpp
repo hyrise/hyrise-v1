@@ -7,6 +7,8 @@
 #include <io/StorageManager.h>
 
 #include <access/expressions/pred_InExpression.h>
+#include <access/expressions/pred_TrueExpression.h>
+#include <access/expressions/pred_FalseExpression.h>
 
 namespace hyrise {
 namespace access {
@@ -52,14 +54,14 @@ SimpleExpression* EqualExpression::expression(storage::atable_ptr_t table,
                                               const std::map<storage::field_t, std::vector<storage::value_id_t>>& vids) const {
   if (!accessesTable(table)) {
     //std::cout << "(query does not access table)" << std::endl;
-    return nullptr;
+    return new FalseExpression();
   }
 
   const auto field = table->numberOfColumn(_field);
 
   if (vids.find(field) == vids.end()) {
     //std::cout << "(no value ids for field: " << _table << "." << _field <<std::endl;
-    return nullptr; //TODO really? not sure
+    return new TrueExpression();
   }
 
   create_in_expr_functor functor(table, field, vids.at(field));
