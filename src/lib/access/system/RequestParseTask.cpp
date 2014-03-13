@@ -233,10 +233,6 @@ void RequestParseTask::operator()() {
   }
 }
 
-void RequestParseTask::setScheduler(std::shared_ptr<hyrise::taskscheduler::AbstractTaskScheduler> scheduler) {
-  _scheduler = scheduler;
-}
-
 std::shared_ptr<ResponseTask> RequestParseTask::getResponseTask() const { return _responseTask; }
 }
 }

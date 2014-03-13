@@ -52,7 +52,7 @@ class ThreadLevelQueue : public AbstractTaskScheduler,
   /*
    * schedule a task for execution
    */
-  virtual void schedule(std::shared_ptr<Task> task) {
+  virtual void schedule(const std::shared_ptr<Task>& task) {
     task->lockForNotifications();
     if (task->isReady()) {
       task->unlockForNotifications();
@@ -92,7 +92,7 @@ class ThreadLevelQueue : public AbstractTaskScheduler,
   */
   virtual bool blocked() { return _blocked; }
 
-  virtual void notifyReady(std::shared_ptr<Task> task) {
+  virtual void notifyReady(const std::shared_ptr<Task>& task) {
     _runQueue.push(task);
     _queuecheck.notify_all();
   }

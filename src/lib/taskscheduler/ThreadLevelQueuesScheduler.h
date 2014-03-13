@@ -39,7 +39,7 @@ class ThreadLevelQueuesScheduler : public AbstractTaskScheduler,
     return _nextQueue;
   }
 
-  virtual void pushToQueue(std::shared_ptr<Task> task) {
+  virtual void pushToQueue(const std::shared_ptr<Task>& task) {
     size_t q = getNextQueue();
     // simple strategy to avoid blocking of queues; check if queue is blocked - try a couple of times, otherwise
     // schedule on next queue
@@ -72,7 +72,7 @@ class ThreadLevelQueuesScheduler : public AbstractTaskScheduler,
   /*
    * schedule a task for execution
    */
-  virtual void schedule(std::shared_ptr<Task> task) {
+  virtual void schedule(const std::shared_ptr<Task>& task) {
     task->lockForNotifications();
     if (task->isReady()) {
       task->unlockForNotifications();
@@ -97,7 +97,7 @@ class ThreadLevelQueuesScheduler : public AbstractTaskScheduler,
    */
   virtual size_t getNumberOfWorker() const { return _queueCount; }
 
-  virtual void notifyReady(std::shared_ptr<Task> task) { pushToQueue(task); }
+  virtual void notifyReady(const std::shared_ptr<Task>& task) { pushToQueue(task); }
 };
 
 template <class QUEUE>

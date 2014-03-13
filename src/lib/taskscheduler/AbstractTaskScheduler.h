@@ -43,7 +43,7 @@ class AbstractTaskScheduler {
   /*
    * schedule a task for execution
    */
-  virtual void schedule(std::shared_ptr<Task> task) = 0;
+  virtual void schedule(const std::shared_ptr<Task>& task) = 0;
   /*
    * schedule a list of tasks belonging to a query for execution
    */

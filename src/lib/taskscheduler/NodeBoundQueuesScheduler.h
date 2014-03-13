@@ -57,7 +57,7 @@ class NodeBoundQueuesScheduler : virtual public ThreadLevelQueuesScheduler<QUEUE
   /*
    * schedule a task for execution
    */
-  void schedule(std::shared_ptr<Task> task) {
+  void schedule(const std::shared_ptr<Task>& task) {
     int nextQueue = getNextQueue();
     // Set scheduler for RequestParseTasks, so that new tasks arrive directly at the node level scheduler
     if (task->vname() == "RequestParseTask") {
