@@ -17,6 +17,7 @@ namespace hyrise {
 namespace io {
 
 param_member_impl(csv::params, unsigned char, Delimiter);
+param_member_impl(csv::params, unsigned char, Quote);
 param_member_impl(csv::params, ssize_t, LineStart);
 param_member_impl(csv::params, ssize_t, LineCount);  // -1 means unlimited
 
@@ -30,8 +31,9 @@ void genericLineBasedParsing(std::istream& file,
   struct csv_parser parser;
 
   if (!csv_init(&parser, 0)) {
-    csv_set_opts(&parser, CSV_APPEND_NULL);
+    csv_set_opts(&parser, CSV_STRICT | CSV_APPEND_NULL);
     csv_set_delim(&parser, params.getDelimiter());
+    csv_set_quote(&parser, params.getQuote());
 
     std::string line;
     int line_start = params.getLineStart();
@@ -82,8 +84,9 @@ void genericParse(
   struct csv_parser parser;
 
   if (!csv_init(&parser, 0)) {
-    csv_set_opts(&parser, CSV_APPEND_NULL);
+    csv_set_opts(&parser, CSV_STRICT | CSV_APPEND_NULL);
     csv_set_delim(&parser, params.getDelimiter());
+    csv_set_quote(&parser, params.getQuote());
 
     int line_start = params.getLineStart();
     if (line_start > 1) {
