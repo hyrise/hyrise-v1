@@ -125,9 +125,12 @@ struct values_do_functor {
 
     for (size_t row = 0; row < rowc; ++row) {
       const T& value = _statisticTable->getValue<T>(valueField, row);
-      const auto valueId = dict->getValueIdForValue(value);
-      const auto hotValueId = _statisticTable->getValueId(_queryField, row).valueId;
-      _func(valueId, hotValueId != coldValueId);
+      try {
+        const auto valueId = dict->getValueIdForValue(value);
+        const auto hotValueId = _statisticTable->getValueId(_queryField, row).valueId;
+        _func(valueId, hotValueId != coldValueId);
+      }
+      catch (...) {}
     }
   }
 
@@ -183,10 +186,16 @@ struct collect_table_vids_functor {
     const auto& dict = checked_pointer_cast<storage::BaseDictionary<T>>(_table->dictionaryAt(_field));
     const auto& rowc = _statisticTable->size();
 
-    for (size_t row = 0; row < rowc; ++row)
-      vids.at(row) = dict->getValueIdForValue(_statisticTable->getValue<T>(valueField, row));
-
-    vids.shrink_to_fit();
+    size_t diff = 0;
+    for (size_t row = 0; row < rowc; ++row) {
+      try {
+        vids.at(row - diff) = dict->getValueIdForValue(_statisticTable->getValue<T>(valueField, row));
+      }
+      catch (...) { // usually this means the vid does not exist
+        ++diff;
+      }
+    }
+    vids.erase(vids.end() - diff, vids.end());
   }
 
   std::vector<storage::value_id_t> vids;

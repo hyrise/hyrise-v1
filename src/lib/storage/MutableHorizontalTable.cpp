@@ -58,7 +58,6 @@ const adict_ptr_t& MutableHorizontalTable::dictionaryByTableId(const size_t colu
 }
 
 void MutableHorizontalTable::setDictionaryAt(AbstractTable::SharedDictionaryPtr dict, const size_t column, const size_t row, const table_id_t table_id) {
-  *(char*)42 = 42;
   throw std::runtime_error("Cannot set dictionary for MutableHorizontalTable");
 }
 
