@@ -51,10 +51,9 @@ $(1).CFLAGS ?=
 $(1).CXXFLAGS ?=
 
 # rules
-$$($(1).lib) : $$($(1).objs)
-all += $$($(1).lib)
+all += $$($(1).objs)
 # inheriting information by first filling in our pieces...
-$(1).use_deps := $$($(1).lib)
+$(1).use_deps := $$($(1).objs)
 $(1).use_LIBS := $$($(1).libname)_$(BLD) $$($(1).libs)
 $(1).use_EXT_LIBS := $$($(1).libs)
 $(1).use_LINK_DIRS := $$(realpath $$(dir $$($(1).lib)))
@@ -149,7 +148,7 @@ endif
 endef
 
 define test-binary
-$(eval $(call binary,$(1)))
+$(eval $(call full_link_binary,$(1)))
 test-tgts += test_$$($(1).binary)
 .PHONY: test_$$($(1).binary)
 test_$$($(1).binary): $$($(1).binary)
@@ -270,7 +269,7 @@ $(OBJDIR)%.c.o : %.c $(TOOLING) | $$(@D)/.fake
 
 # Ensure that intermediate files (e.g. the foo.o caused by "foo : foo.c")
 #  are not auto-deleted --- causing a re-compile every second "make".
-.SECONDARY  	:
+.SECONDARY:
 .SUFFIXES:
 %.              :;@echo '$($*)'
 
