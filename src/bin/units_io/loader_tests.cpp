@@ -5,7 +5,7 @@
 #include <io/EmptyLoader.h>
 #include <io/Loader.h>
 #include <io/StringLoader.h>
-
+#include "io/shortcuts.h"
 #include <storage/MutableVerticalTable.h>
 #include <storage/Store.h>
 
@@ -13,6 +13,12 @@ namespace hyrise {
 namespace io {
 
 class LoaderTests : public ::hyrise::Test {};
+
+TEST_F(LoaderTests, weirdlyQuotedTableShouldLoad) {
+  auto t = Loader::shortcuts::load("test/quotes.tbl");
+  EXPECT_EQ(t->size(), 2);
+  EXPECT_EQ(t->columnCount(), 2);
+}
 
 TEST_F(LoaderTests, load_with_empty_params_yields_empty_table) {
   hyrise::storage::atable_ptr_t t = Loader::load(Loader::params());

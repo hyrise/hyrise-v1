@@ -1,3 +1,5 @@
+// Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
+
 /*
  * ThreadPerTaskScheduler.h
  *
@@ -28,15 +30,13 @@ class TaskExecutor {
     _task->notifyDoneObservers();
   };
 };
-
+/*
+* A scheduler that starts a new thread for each arriving task
+*/
 class ThreadPerTaskScheduler : public AbstractTaskScheduler,
                                public TaskReadyObserver,
                                public std::enable_shared_from_this<TaskReadyObserver> {
   typedef std::unordered_set<std::shared_ptr<Task> > waiting_tasks_t;
-  // set for tasks with open dependencies
-  waiting_tasks_t _waitSet;
-  // mutex to protect waitset
-  lock_t _setMutex;
   // scheduler status
   scheduler_status_t _status;
   // mutex to protect status
@@ -50,12 +50,13 @@ class ThreadPerTaskScheduler : public AbstractTaskScheduler,
   /*
    * schedule a task for execution
    */
-  virtual void schedule(std::shared_ptr<Task> task);
+  virtual void schedule(const std::shared_ptr<Task>& task);
   /*
    * shutdown task scheduler; makes sure all underlying threads are stopped
    */
   virtual void shutdown();
 
+  virtual void init();
   /**
    * get number of worker
    */
@@ -63,7 +64,7 @@ class ThreadPerTaskScheduler : public AbstractTaskScheduler,
     return 0;
   };
 
-  void notifyReady(std::shared_ptr<Task> task);
+  void notifyReady(const std::shared_ptr<Task>& task);
 };
 }
 }  // namespace hyrise::taskscheduler

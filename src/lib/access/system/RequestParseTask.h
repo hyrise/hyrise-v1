@@ -8,6 +8,7 @@
 #include "helper/epoch.h"
 #include "net/Router.h"
 #include "net/AbstractConnection.h"
+#include "taskscheduler/AbstractTaskScheduler.h"
 
 namespace hyrise {
 namespace access {

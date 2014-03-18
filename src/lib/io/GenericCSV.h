@@ -27,14 +27,15 @@ class params {
  public:
 #include "parameters.inc"
   param_member(unsigned char, Delimiter);
+  param_member(unsigned char, Quote);
   param_member(ssize_t, LineStart);
   param_member(ssize_t, LineCount);  // -1 means unlimited
-  params() : Delimiter('|'), LineStart(0), LineCount(-1) {}
+  params() : Delimiter('|'), Quote('\0'), LineStart(0), LineCount(-1) {}
 };
 
-const params HYRISE_FORMAT(params().setDelimiter('|'));
-const params HYRISE_HEADER(params().setDelimiter('|').setLineCount(3));
-const params CSV_FORMAT(params().setDelimiter(CSV_COMMA));
+const params HYRISE_FORMAT(params().setDelimiter('|').setQuote('\0'));
+const params HYRISE_HEADER(params().setDelimiter('|').setLineCount(3).setQuote('\0'));
+const params CSV_FORMAT(params().setDelimiter(CSV_COMMA).setQuote(CSV_QUOTE));
 
 /**
  * Generically parsing an std::istream with libcsv

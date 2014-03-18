@@ -3,35 +3,35 @@
 #pragma once
 
 #include "WSThreadLevelQueue.h"
-#include "CoreBoundQueue.h"
+#include "NodeBoundQueue.h"
 
 namespace hyrise {
 namespace taskscheduler {
 
 template <class QUEUE>
-class WSCoreBoundQueue;
-typedef WSCoreBoundQueue<PriorityQueueType> WSCoreBoundPriorityQueue;
-typedef WSCoreBoundQueue<BasicQueueType> WSCoreBoundBasicQueue;
+class WSNodeBoundQueue;
+typedef WSNodeBoundQueue<PriorityQueueType> WSNodeBoundPriorityQueue;
+typedef WSNodeBoundQueue<BasicQueueType> WSNodeBoundBasicQueue;
 
 /*
 * A Queue that asynchronously executes the tasks by threads
-* that are bound to a given core. If empty the queue tries to
+* that are bound to a given node. If empty the queue tries to
 * steal tasks from other known nodes
 */
 template <class QUEUE>
-class WSCoreBoundQueue : virtual public WSThreadLevelQueue<QUEUE>, virtual public CoreBoundQueue<QUEUE> {
+class WSNodeBoundQueue : virtual public WSThreadLevelQueue<QUEUE>, virtual public NodeBoundQueue<QUEUE> {
 
-  using CoreBoundQueue<QUEUE>::_core;
+  using NodeBoundQueue<QUEUE>::_node;
   using WSThreadLevelQueue<QUEUE>::_otherQueues;
   using WSThreadLevelQueue<QUEUE>::_numberOfOtherQueues;
 
  protected:
  public:
-  WSCoreBoundQueue(WSThreadLevelQueuesScheduler<QUEUE>* scheduler, size_t core, size_t threads)
+  WSNodeBoundQueue(WSThreadLevelQueuesScheduler<QUEUE>* scheduler, size_t core, size_t threads)
       : ThreadLevelQueue<QUEUE>(threads),
         WSThreadLevelQueue<QUEUE>(scheduler, threads),
-        CoreBoundQueue<QUEUE>(core, threads) {}
-  ~WSCoreBoundQueue() {}
+        NodeBoundQueue<QUEUE>(core, threads) {}
+  ~WSNodeBoundQueue() {}
 
   std::shared_ptr<Task> stealTasks() {
     // WSThreadLevelQueuesScheduler::scheduler_status_t status = 0;
@@ -40,7 +40,7 @@ class WSCoreBoundQueue : virtual public WSThreadLevelQueue<QUEUE>, virtual publi
     // quick check if scheduler is still running
     if (_numberOfOtherQueues > 0) {
       // we iterate over the queues provided by the scheduler with a random start position to distribute queues.
-      int start = _core;
+      int start = _node;
       for (size_t i = 0; i < _numberOfOtherQueues; i++) {
         // std::cout << "Workerhread tries to steal task from queue " << i<< "  scheduler status " << status <<
         // std::endl;

@@ -15,5 +15,4 @@ int getNumberOfCoresOnSystem();
 unsigned getNodeForCore(unsigned core);
 hwloc_topology_t getHWTopology();
 std::vector<unsigned> getCoresForNode(hwloc_topology_t topology, unsigned node);
-unsigned getNumberOfNodes(hwloc_topology_t topology);
-unsigned getNumberOfCoresPerNumaNode();
+unsigned getNumberOfNodesOnSystem();

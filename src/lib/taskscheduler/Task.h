@@ -16,17 +16,20 @@
 #include "helper/locking.h"
 #include "helper/types.h"
 
+#include "taskscheduler/AbstractTaskScheduler.h"
+
 namespace hyrise {
 namespace taskscheduler {
 
 class Task;
+class AbstractTaskScheduler;
 
 class TaskReadyObserver {
   /*
    * notify that task has changed state
    */
  public:
-  virtual void notifyReady(task_ptr_t task) = 0;
+  virtual void notifyReady(const task_ptr_t& task) = 0;
   virtual ~TaskReadyObserver() {};
 };
 
@@ -35,7 +38,7 @@ class TaskDoneObserver {
    * notify that task has changed state
    */
  public:
-  virtual void notifyDone(task_ptr_t task) = 0;
+  virtual void notifyDone(const task_ptr_t& task) = 0;
   virtual ~TaskDoneObserver() {};
 };
 
@@ -43,7 +46,6 @@ class TaskDoneObserver {
  * a task that can be scheduled by a Task Scheduler
  */
 class Task : public TaskDoneObserver, public std::enable_shared_from_this<Task> {
-
  public:
   static const int DEFAULT_PRIORITY = 999;
   static const int HIGH_PRIORITY = 1;
@@ -68,7 +70,7 @@ class Task : public TaskDoneObserver, public std::enable_shared_from_this<Task> 
   // mutex for observer vector
   hyrise::locking::Spinlock _observerMutex;
   // mutex to stop notifications, while task is being scheduled to wait set in SimpleTaskScheduler
-  hyrise::locking::Spinlock _notifyMutex;
+  // hyrise::locking::Spinlock _notifyMutex;
   // indicates on which core the task should run
   int _preferredCore;
   // indicates on which node the task should run
@@ -84,6 +86,8 @@ class Task : public TaskDoneObserver, public std::enable_shared_from_this<Task> 
 
   // if true, the DynamicPriorityScheduler will determine the number of instances.
   bool _dynamic = false;
+
+  std::shared_ptr<AbstractTaskScheduler> _scheduler;
 
  public:
   Task();
@@ -108,30 +112,25 @@ class Task : public TaskDoneObserver, public std::enable_shared_from_this<Task> 
   /*
    * adds dependency; the task is ready to run if all tasks this tasks depends on are finished
    */
-  void addDependency(task_ptr_t dependency);
+  void addDependency(const task_ptr_t& dependency);
   /*
    * adds dependency, but do not increase dependencyWaitCount or register as DoneObserver, as dependency is known to be
    * done
    */
-  void addDoneDependency(task_ptr_t dependency);
+  void addDoneDependency(const task_ptr_t& dependency);
   /*
    * removes dependency;
    */
-  void removeDependency(task_ptr_t dependency);
+  void removeDependency(const task_ptr_t& dependency);
   /*
    * change dependency;
    */
-  void changeDependency(task_ptr_t from, task_ptr_t to);
+  void changeDependency(const task_ptr_t& from, const task_ptr_t& to);
 
   /*
    * gets the number of dependencies
    */
   int getDependencyCount();
-  /*
-   * set dependencies directly and not managed by Task; make sure dependency count and dependencies match;
-   * currently used to set dependencies for a task that is ready to run (no unmet dependencies), but needs to get inputs
-   */
-  void setDependencies(std::vector<task_ptr_t> dependencies, int count);
   /*
    * check if the supplied task is a direct dependency of this task.
    */
@@ -151,7 +150,7 @@ class Task : public TaskDoneObserver, public std::enable_shared_from_this<Task> 
   /*
    * notify that task is done
    */
-  void notifyDone(task_ptr_t task);
+  void notifyDone(const task_ptr_t& task);
   /*
    * notify all ready observers that task is ready
    */
@@ -198,6 +197,8 @@ class Task : public TaskDoneObserver, public std::enable_shared_from_this<Task> 
   // by an operators determineDynamicCount operation.
   void setDynamic(bool dynamic) { _dynamic = dynamic; }
   bool isDynamic() { return _dynamic; }
+
+  void setScheduler(std::shared_ptr<AbstractTaskScheduler> scheduler) { _scheduler = scheduler; }
 };
 
 class CompareTaskPtr {

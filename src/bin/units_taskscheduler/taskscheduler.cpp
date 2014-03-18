@@ -10,10 +10,8 @@
 #include "access/NoOp.h"
 
 #include "taskscheduler/SharedScheduler.h"
-#include "taskscheduler/CoreBoundQueuesScheduler.h"
-#include "taskscheduler/WSCoreBoundQueuesScheduler.h"
-#include "taskscheduler/ThreadPerTaskScheduler.h"
-#include "taskscheduler/DynamicPriorityScheduler.h"
+#include "taskscheduler/ThreadLevelQueuesScheduler.h"
+#include "taskscheduler/WSThreadLevelQueuesScheduler.h"
 
 #include "helper/HwlocHelper.h"
 
@@ -28,9 +26,13 @@ using ::testing::ValuesIn;
 
 // list schedulers to be tested
 std::vector<std::string> getSchedulersToTest() {
-  return {"WSCoreBoundQueuesScheduler", "CoreBoundQueuesScheduler",         "CentralScheduler",
-          "CentralPriorityScheduler",   "CoreBoundPriorityQueuesScheduler", "WSCoreBoundPriorityQueuesScheduler",
-          "ThreadPerTaskScheduler",     "DynamicPriorityScheduler"};
+  return {
+      "WSThreadLevelQueuesScheduler",     "ThreadLevelQueuesScheduler",           "CoreBoundQueuesScheduler",
+      "WSCoreBoundQueuesScheduler",       "WSThreadLevelPriorityQueuesScheduler", "ThreadLevelPriorityQueuesScheduler",
+      "CoreBoundPriorityQueuesScheduler", "WSCoreBoundPriorityQueuesScheduler",   "CentralScheduler",
+      "CentralPriorityScheduler",         "ThreadPerTaskScheduler",               "DynamicPriorityScheduler",
+      "DynamicScheduler",                 "NodeBoundQueuesScheduler",             "WSNodeBoundQueuesScheduler",
+      "NodeBoundPriorityQueuesScheduler", "WSNodeBoundPriorityQueuesScheduler"};
 }
 
 class SchedulerTest : public TestWithParam<std::string> {
@@ -44,10 +46,10 @@ class SchedulerTest : public TestWithParam<std::string> {
 INSTANTIATE_TEST_CASE_P(Scheduler, SchedulerTest, ValuesIn(getSchedulersToTest()));
 
 TEST_P(SchedulerTest, setScheduler) {
-  SharedScheduler::getInstance().resetScheduler("CoreBoundQueuesScheduler");
+  SharedScheduler::getInstance().resetScheduler("ThreadLevelQueuesScheduler");
   const auto& scheduler = SharedScheduler::getInstance().getScheduler();
-  std::shared_ptr<CoreBoundQueuesScheduler> simple_task_scheduler =
-      std::dynamic_pointer_cast<CoreBoundQueuesScheduler>(scheduler);
+  std::shared_ptr<ThreadLevelBasicQueuesScheduler> simple_task_scheduler =
+      std::dynamic_pointer_cast<ThreadLevelBasicQueuesScheduler>(scheduler);
   bool test = (simple_task_scheduler == NULL);
   ASSERT_EQ(test, false);
 
@@ -245,17 +247,21 @@ bool long_block_test(AbstractTaskScheduler* scheduler) {
 TEST(SchedulerBlockTest, dont_block_test) {
   /* we assign a long running task and a number of smaller tasks with a think time to the queues -
      the scheduler should realize that one queue is blocked and assign tasks to other queues */
-  auto scheduler = std::make_shared<CoreBoundQueuesScheduler>(2);
+  auto scheduler = std::make_shared<ThreadLevelBasicQueuesScheduler>(2);
   scheduler->init();
   // These test currently just check for execute
   long_block_test(scheduler.get());
+
+  scheduler->shutdown();
 }
 
 TEST(SchedulerBlockTest, dont_block_test_with_work_stealing) {
   /*  steal work from that queue */
-  auto scheduler = std::make_shared<WSCoreBoundQueuesScheduler>(2);
+  auto scheduler = std::make_shared<WSThreadLevelBasicQueuesScheduler>(2);
   scheduler->init();
-  long_block_test(scheduler.get());
+  bool test = long_block_test(scheduler.get());
+  ASSERT_EQ(test, true);
+  scheduler->shutdown();
 }
 }
 }  // namespace hyrise::taskscheduler
