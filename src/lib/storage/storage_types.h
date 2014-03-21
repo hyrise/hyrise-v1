@@ -68,53 +68,66 @@ const std::string string_name_main = "STRING_MAIN";
  */
 inline DataType getConcurrentType(DataType t) {
   switch (t) {
+    case IntegerType:
     case IntegerTypeDelta:
     case IntegerTypeDeltaConcurrent:
       return IntegerTypeDeltaConcurrent;
+    case FloatType:
     case FloatTypeDelta:
     case FloatTypeDeltaConcurrent:
       return FloatTypeDeltaConcurrent;
+    case StringType:
     case StringTypeDelta:
     case StringTypeDeltaConcurrent:
       return StringTypeDeltaConcurrent;
-
-    default:
-      return t;
+    case IntegerNoDictType:
+      return IntegerNoDictType;
+    case FloatNoDictType:
+      return FloatNoDictType;
   }
+  throw std::runtime_error("No concurrent mapping for datatype");
 }
 
 inline DataType getOrderedType(DataType t) {
   switch (t) {
+    case IntegerType:
     case IntegerTypeDelta:
     case IntegerTypeDeltaConcurrent:
     case IntegerNoDictType:
       return IntegerType;
+    case FloatType:
     case FloatTypeDelta:
     case FloatTypeDeltaConcurrent:
     case FloatNoDictType:
       return FloatType;
+    case StringType:
     case StringTypeDelta:
     case StringTypeDeltaConcurrent:
       return StringType;
-    default:
-      return t;
   }
+  throw std::runtime_error("No ordered mapping for datatype");
 }
 
 inline DataType getUnorderedType(DataType t) {
   switch (t) {
     case IntegerType:
+    case IntegerTypeDelta:
     case IntegerTypeDeltaConcurrent:
       return IntegerTypeDelta;
     case FloatType:
+    case FloatTypeDelta:
     case FloatTypeDeltaConcurrent:
       return FloatTypeDelta;
     case StringType:
+    case StringTypeDelta:
     case StringTypeDeltaConcurrent:
       return StringTypeDelta;
-    default:
-      return t;
+    case IntegerNoDictType:
+      return IntegerNoDictType;
+    case FloatNoDictType:
+      return FloatNoDictType;
   }
+  throw std::runtime_error("No unordered mapping for datatype");
 }
 
 inline bool isUnordered(DataType t) { return t > StringType; }
