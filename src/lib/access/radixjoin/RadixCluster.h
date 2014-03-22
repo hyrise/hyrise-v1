@@ -57,14 +57,10 @@ void RadixCluster::executeClustering() {
   // Get the prefix sum from the input
   const auto& prefix_sum = getInputTable(2);
   const auto& data_prefix_sum = std::dynamic_pointer_cast<storage::AbstractFixedLengthVector<value_id_t>>(
-      getDataVector(prefix_sum).first->copy());
+      getFixedDataVector(prefix_sum).first->copy());
 
-  // Prepare mask
-  auto mask = ((1 << bits()) - 1) << significantOffset();
-
-  // Cast the vectors to the lowest part in the hierarchy
-  const auto& data_hash = getDataVector(result).first;
-  const auto& data_pos = getDataVector(result, 1).first;
+  const auto& data_hash = getFixedDataVector(result).first;
+  const auto& data_pos = getFixedDataVector(result, 1).first;
 
   // Calculate start stop
   _start = 0;
@@ -74,81 +70,8 @@ void RadixCluster::executeClustering() {
     _stop = (_count - 1) == _part ? tableSize : (tableSize / _count) * (_part + 1);
   }
 
-  // check if tab is PointerCalculator; if yes, get underlying table and actual rows and columns
-  auto p = std::dynamic_pointer_cast<const storage::PointerCalculator>(tab);
-  if (p) {
-    auto ipair = getDataVector(p->getActualTable());
-    const auto& ivec = ipair.first;
+  _executeRadixHashing<T>(tab, field, _start, _stop, bits(), significantOffset(), data_prefix_sum, data_hash, data_pos);
 
-    const auto& dict = std::dynamic_pointer_cast<storage::OrderPreservingDictionary<T>>(
-        tab->dictionaryAt(p->getTableColumnForColumn(field)));
-    const auto& offset = p->getTableColumnForColumn(field) + ipair.second;
-
-    auto hasher = std::hash<T>();
-    for (decltype(tableSize) row = _start; row < _stop; ++row) {
-      // Calculate and increment the position
-      auto hash_value = hasher(dict->getValueForValueId(ivec->get(offset, p->getTableRowForRow(row))));  // ts(tpe,
-      // fun);
-      auto offset = (hash_value & mask) >> _significantOffset;
-      auto pos_to_write = data_prefix_sum->inc(0, offset);
-
-      // Perform the clustering
-      data_hash->set(0, pos_to_write, hash_value);
-      data_pos->set(0, pos_to_write, p->getTableRowForRow(row));
-    }
-  } else {
-
-    // output of radix join is MutableVerticalTable of PointerCalculators
-    auto mvt = std::dynamic_pointer_cast<const storage::MutableVerticalTable>(tab);
-    if (mvt) {
-
-      auto pc = mvt->containerAt(field);
-      auto p = std::dynamic_pointer_cast<const storage::PointerCalculator>(pc);
-      if (p) {
-        auto ipair = getDataVector(p->getActualTable());
-        const auto& ivec = ipair.first;
-
-        const auto& dict = std::dynamic_pointer_cast<storage::OrderPreservingDictionary<T>>(
-            tab->dictionaryAt(p->getTableColumnForColumn(field)));
-        const auto& offset = p->getTableColumnForColumn(field) + ipair.second;
-
-        auto hasher = std::hash<T>();
-        for (decltype(tableSize) row = _start; row < _stop; ++row) {
-          // Calculate and increment the position
-          auto hash_value =
-              hasher(dict->getValueForValueId(ivec->get(offset, p->getTableRowForRow(row))));  // ts(tpe, fun);
-          auto offset = (hash_value & mask) >> _significantOffset;
-          auto pos_to_write = data_prefix_sum->inc(0, offset);
-
-          // Perform the clustering
-          data_hash->set(0, pos_to_write, hash_value);
-          data_pos->set(0, pos_to_write, p->getTableRowForRow(row));
-        }
-
-      } else {
-        throw std::runtime_error(
-            "Histogram only supports MutableVerticalTable of PointerCalculators; found other AbstractTable than "
-            "PointerCalculator inside od MutableVerticalTable.");
-      }
-    } else {
-      auto ipair = getDataVector(tab);
-      const auto& ivec = ipair.first;
-      const auto& dict = std::dynamic_pointer_cast<storage::OrderPreservingDictionary<T>>(tab->dictionaryAt(field));
-      const auto& offset = field + ipair.second;
-
-      std::hash<T> hasher;
-      for (decltype(tableSize) row = _start; row < _stop; ++row) {
-        // Calculate and increment the position
-        auto hash_value = hasher(dict->getValueForValueId(ivec->get(offset, row)));  // ts(tpe, fun);
-        auto offset = (hash_value & mask) >> _significantOffset;
-        auto pos_to_write = data_prefix_sum->inc(0, offset);
-
-        // Perform the clustering
-        data_hash->set(0, pos_to_write, hash_value);
-        data_pos->set(0, pos_to_write, row);
-      }
-    }
-  }
   addResult(result);
 }
 

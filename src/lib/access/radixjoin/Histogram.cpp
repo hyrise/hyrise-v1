@@ -89,10 +89,10 @@ void Histogram2ndPass::executePlanOperation() {
 
   // Prepare Output Table
   auto result = createOutputTable((1 << _bits2) * (1 << _bits));
-  auto o_data = getDataVector(result).first;
+  auto o_data = getFixedDataVector(result).first;
 
   // Get input vector
-  auto i_data = getDataVector(tab).first;
+  auto i_data = getFixedDataVector(tab).first;
 
   // Iterate and hash based on the part description
   size_t start = 0, stop = tableSize;

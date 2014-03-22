@@ -104,15 +104,6 @@ void NestedLoopEquiJoin::executePlanOperation() {
     }
   }
 
-  // if underlying table is pointer calc, get Actual Table as base for output pointer calc
-  const auto& rp = std::dynamic_pointer_cast<const storage::PointerCalculator>(right);
-  const auto& lp = std::dynamic_pointer_cast<const storage::PointerCalculator>(left);
-
-  if (lp)
-    left = lp->getActualTable();
-  if (rp)
-    right = rp->getActualTable();
-
   // create PointerCalculator and pos_lists for output
   auto loutput = storage::PointerCalculator::create(left, lpos_list);
   auto routput = storage::PointerCalculator::create(right, rpos_list);

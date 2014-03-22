@@ -269,6 +269,11 @@ size_t PointerCalculator::getTableRowForRow(const size_t row) const {
 
 size_t PointerCalculator::getTableColumnForColumn(const size_t column) const {
   size_t actual_column;
+#ifdef EXPENSIVE_ASSERTIONS
+  if (column >= columnCount()) {
+    throw std::out_of_range("Accessing column beyond boundaries");
+  }
+#endif
   // resolve field mapping of THIS pointer calculator
   if (fields) {
     actual_column = fields->at(column);

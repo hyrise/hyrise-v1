@@ -103,5 +103,17 @@ TEST_F(PointerCalcTests, pc_on_selected_columns) {
   ASSERT_TRUE(pc->metadataAt(2).matches(t->metadataAt(5)));
   ASSERT_TRUE(pc->metadataAt(3).matches(t->metadataAt(7)));
 }
+
+#ifdef EXPENSIVE_ASSERTIONS
+TEST_F(PointerCalcTests, accessing_non_existing_column) {
+  auto t = io::Loader::shortcuts::load("test/lin_xxs.tbl");
+  auto pc = PointerCalculator::create(t);
+
+  auto numColumns = pc->columnCount();
+
+  // accessing non-existent column
+  ASSERT_THROW(pc->getTableColumnForColumn(numColumns), std::out_of_range);
+}
+#endif
 }
 }  // namespace hyrise::storage

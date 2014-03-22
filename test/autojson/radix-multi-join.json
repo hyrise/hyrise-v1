@@ -1,0 +1,45 @@
+{
+    // This is meant to test the offset specification of a column in a container 
+    // of a MutableVerticalTable, which is the result of a previous join.
+    "operators": {
+        "-1": {
+          "type": "TableLoad",
+          "table": "reference",
+          "filename": "tables/companies_employees_double_joined.tbl"
+        },
+        "0": {
+          "type": "TableLoad",
+          "table": "companies",
+          "filename": "tables/companies.tbl"
+        },
+        "1": {
+          "type": "TableLoad",
+          "table": "employees",
+          "filename": "tables/employees.tbl"
+        },
+        "2": {
+          "type": "RadixJoin",
+          "fields": [0,1],
+          "hash_par": 1,
+          "probe_par": 1,
+          "join_par": 1,
+          "bits1": 1,
+          "bits2": 2
+        },
+        "3": {
+          "type": "RadixJoin",
+          "fields": [0,3],
+          "hash_par": 1,
+          "probe_par": 1,
+          "join_par": 1,
+          "bits1": 2,
+          "bits2": 1
+        }
+    },
+    "edges": [
+     ["0", "2"],
+     ["1", "2"],
+     ["0", "3"],
+     ["2", "3"]
+    ]
+}

@@ -118,17 +118,17 @@ void RadixCluster2ndPass::executePlanOperation() {
   auto result = getInputTable(1);
 
   // Get the prefix sum from the input
-  const auto& in_data = getDataVector(getInputTable(2)).first;
+  const auto& in_data = getFixedDataVector(getInputTable(2)).first;
 
   auto prefix = std::dynamic_pointer_cast<storage::AbstractFixedLengthVector<value_id_t>>(in_data->copy());
 
   // Cast the vectors to the lowest part in the hierarchy
-  auto data_hash = getDataVector(result).first;
-  auto data_pos = getDataVector(result, 1).first;
+  auto data_hash = getFixedDataVector(result).first;
+  auto data_pos = getFixedDataVector(result, 1).first;
 
   // Get the check data
-  const auto& rx_hashes = getDataVector(tab).first;
-  const auto& rx_pos = getDataVector(tab, 1).first;
+  const auto& rx_hashes = getFixedDataVector(tab).first;
+  const auto& rx_pos = getFixedDataVector(tab, 1).first;
 
   auto mask1 = ((1 << _bits1) - 1) << _significantOffset1;
   auto mask2 = ((1 << _bits2) - 1) << _significantOffset2;
