@@ -3,6 +3,7 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
+#include <sys/time.h>
 #include <stdexcept>
 
 #include <hwloc.h>
@@ -16,8 +17,10 @@
 #include <boost/program_options.hpp>
 
 #include "helper/HwlocHelper.h"
+#include "helper/Settings.h"
 #include "net/AsyncConnection.h"
 #include "io/StorageManager.h"
+#include "access/CheckpointDaemon.h"
 #include "taskscheduler/SharedScheduler.h"
 
 namespace po = boost::program_options;
@@ -36,6 +39,7 @@ const size_t DEFAULT_MTS = 0;
 
 LoggerPtr logger(Logger::getLogger("hyrise"));
 }
+
 
 /// To prevent multiple hyrise instances from using the same port
 /// we initialize
@@ -84,50 +88,17 @@ class PidFile {
   }
 };
 
-void bindToNode(int node) {
-  hwloc_topology_t topology = getHWTopology();
-  hwloc_cpuset_t cpuset;
-  hwloc_obj_t obj;
-
-  // The actual core
-  obj = hwloc_get_obj_by_type(topology, HWLOC_OBJ_CORE, node);
-  cpuset = hwloc_bitmap_dup(obj->cpuset);
-  hwloc_bitmap_singlify(cpuset);
-
-  // bind
-  if (hwloc_set_cpubind(topology, cpuset, HWLOC_CPUBIND_STRICT | HWLOC_CPUBIND_NOMEMBIND | HWLOC_CPUBIND_PROCESS)) {
-    char* str;
-    int error = errno;
-    hwloc_bitmap_asprintf(&str, obj->cpuset);
-    printf("Couldn't bind to cpuset %s: %s\n", str, strerror(error));
-    free(str);
-    throw std::runtime_error(strerror(error));
-  }
-
-  // free duplicated cpuset
-  hwloc_bitmap_free(cpuset);
-
-  // assuming single machine system
-  obj = hwloc_get_obj_by_type(topology, HWLOC_OBJ_MACHINE, 0);
-  // set membind policy interleave for this thread
-  if (hwloc_set_membind_nodeset(
-          topology, obj->nodeset, HWLOC_MEMBIND_INTERLEAVE, HWLOC_MEMBIND_STRICT | HWLOC_MEMBIND_THREAD)) {
-    char* str;
-    int error = errno;
-    hwloc_bitmap_asprintf(&str, obj->nodeset);
-    fprintf(stderr, "Couldn't membind to nodeset  %s: %s\n", str, strerror(error));
-    fprintf(stderr, "Continuing as normal, however, no guarantees\n");
-    free(str);
-  }
-}
-
-
 int main(int argc, char* argv[]) {
   size_t port = 0;
   int worker_threads = 0;
   std::string logPropertyFile;
   std::string scheduler_name;
   size_t maxTaskSize;
+  size_t core_offset = 0;
+  size_t checkpoint_interval = 0;
+  bool recover = 0;
+  bool recoverAndExit = 0;
+  size_t commit_window_ms = 0;
 
   // Program Options
   po::options_description desc("Allowed Parameters");
@@ -140,12 +111,24 @@ int main(int argc, char* argv[]) {
       po::value<size_t>(&maxTaskSize)->default_value(DEFAULT_MTS),
       "Maximum task size used in dynamic parallelization scheduler. Use 0 for unbounded task run time.")(
       "scheduler,s",
-      po::value<std::string>(&scheduler_name)->default_value("WSNodeBoundQueuesScheduler"),
+      po::value<std::string>(&scheduler_name)->default_value("WSCoreBoundQueuesScheduler"),
       "Name of the scheduler to use")
       // set default number of worker threads to #cores-1, as main thread with event loop is bound to core 0
       ("threads,t",
-       po::value<int>(&worker_threads)->default_value(-1),
-       "Number of worker threads for scheduler (only relevant for scheduler with fixed number of threads)");
+       po::value<int>(&worker_threads)->default_value(getNumberOfCoresPerNumaNode() - NUM_RESERVED_CORES),
+       "Number of worker threads for scheduler (only relevant for scheduler with fixed number of threads)")(
+          "recover,r", po::value<bool>(&recover)->zero_tokens(), "Recover tables on load")(
+          "recoverAndExit,x",
+          po::value<bool>(&recoverAndExit)->zero_tokens(),
+          "Recover tables on load and exit (for benchmarking purposes)")(
+          "coreOffset", po::value<size_t>(&core_offset)->default_value(0), "Offset for binding threads to cores")
+#ifdef PERSISTENCY_BUFFEREDLOGGER
+      ("checkpointInterval,c",
+       po::value<size_t>(&checkpoint_interval)->default_value(0),
+       "Interval for checkpointing in ms")(
+          "commitWindow", po::value<size_t>(&commit_window_ms)->default_value(50), "Commit window in ms")
+#endif
+      ;
   po::variables_map vm;
 
   try {
@@ -167,7 +150,7 @@ int main(int argc, char* argv[]) {
   if ((scheduler_name == "CoreBoundQueuesScheduler") || (scheduler_name == "WSCoreBoundQueuesScheduler") ||
       (scheduler_name == "WSCoreBoundPriorityQueuesScheduler") ||
       (scheduler_name == "CoreBoundPriorityQueuesScheduler")) {
-    bindToNode(0);
+    bindCurrentThreadToCore(core_offset);
     if (worker_threads == -1)
       worker_threads = getNumberOfCoresOnSystem() - 1;
   }
@@ -176,6 +159,35 @@ int main(int argc, char* argv[]) {
     if (worker_threads == -1)
       worker_threads = getNumberOfCoresOnSystem();
   }
+
+  Settings::getInstance()->worker_threads = worker_threads;
+  Settings::getInstance()->port = port;
+  Settings::getInstance()->scheduler_name = scheduler_name;
+  Settings::getInstance()->checkpoint_interval = checkpoint_interval;
+  Settings::getInstance()->core_offset = core_offset;
+  Settings::getInstance()->commit_window_ms = commit_window_ms;
+  Settings::getInstance()->printInfo();
+
+
+  // recovery?
+  if (recover || recoverAndExit) {
+    struct timeval start = {0, 0}, end = {0, 0};
+    std::cout << "Recovering tables..." << std::endl;
+    gettimeofday(&start, nullptr);
+    io::StorageManager::getInstance()->recoverTables();
+    gettimeofday(&end, nullptr);
+    auto recoveryTime = (end.tv_sec - start.tv_sec) * 1000000 + (end.tv_usec - start.tv_usec);
+    std::cout << "Done. Recovery time was " << recoveryTime << std::endl;
+    if (recoverAndExit) {
+      return 0;
+    }
+  }
+
+  // start checkpointing daemon?
+  if (checkpoint_interval > 0) {
+    io::CheckpointDaemon::getInstance().start(checkpoint_interval);
+  }
+
 
   // Log File Configuration
   PropertyConfigurator::configure(logPropertyFile);

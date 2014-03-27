@@ -409,7 +409,6 @@ atable_ptr_t TableGenerator::create_empty_table(size_t rows, size_t cols, std::v
     s << "attr" << col;
     m->emplace_back(s.str(), IntegerType);
 
-
     if (++currentSize == contSize || skip) {
       md.push_back(m);
       currentSize = 0;

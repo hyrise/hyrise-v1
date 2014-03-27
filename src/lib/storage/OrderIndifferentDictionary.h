@@ -6,6 +6,7 @@
 #include <map>
 #include <memory>
 #include <limits.h>
+#include <mutex>
 
 #include <map>
 
@@ -53,7 +54,7 @@ class OrderIndifferentDictionary : public BaseDictionary<T> {
 
   // This is the main index
   index_type _index;
-
+  std::mutex _writeLock;
 
  public:
   // This is used for the values
@@ -63,6 +64,16 @@ class OrderIndifferentDictionary : public BaseDictionary<T> {
     if (s > 0) {
       reserve(s);
     }
+  }
+
+  OrderIndifferentDictionary(const std::shared_ptr<vector_type>& value_list) {
+    // first, copy the value list
+    _value_list = *(value_list.get());
+
+    // second, build tree index on top of this
+    size_t s = _value_list.size();
+    for (size_t i = 0; i < s; ++i)
+      _index.insert(std::pair<T, value_id_t>(_value_list[i], i));
   }
 
   virtual ~OrderIndifferentDictionary() {}
@@ -95,9 +106,12 @@ class OrderIndifferentDictionary : public BaseDictionary<T> {
   }
 
   virtual value_id_t addValue(T value) {
+    _writeLock.lock();
     _value_list.push_back(value);
     addValueToIndex(value);
-    return _value_list.size() - 1;
+    size_t new_size = _value_list.size() - 1;
+    _writeLock.unlock();
+    return new_size;
   }
 
   inline void addValueToIndex(T value) { _index.insert(std::pair<T, value_id_t>(value, _value_list.size() - 1)); }
@@ -113,11 +127,20 @@ class OrderIndifferentDictionary : public BaseDictionary<T> {
     return _index.at(value);
   }
 
-  value_id_t getValueIdForValueSmaller(T other) {
+  virtual value_id_t findValueIdForValue(const T& value) const {
+    typename index_type::const_iterator it = _index.find(value);
+    if (it != _index.end()) {
+      return it->second;
+    } else {
+      return std::numeric_limits<value_id_t>::max();
+    }
+  }
+
+  value_id_t getLowerBoundValueIdForValue(T other) {
     throw std::runtime_error("This cannot be called since value ids have no ordered meaning");
   }
 
-  value_id_t getValueIdForValueGreater(T other) {
+  value_id_t getUpperBoundValueIdForValue(T other) {
     throw std::runtime_error("This cannot be calles since value ids have no ordered meaning");
   }
 
@@ -138,6 +161,15 @@ class OrderIndifferentDictionary : public BaseDictionary<T> {
     for (size_t i = 0; i < _value_list.size(); ++i) {
       addValueToIndex(_value_list[i]);
     }
+  }
+
+  virtual void setValue(T value, value_id_t value_id) {
+    // this is used when restoring the database. You probably don't want to use this during regular
+    // operations
+    if (_value_list.size() <= value_id)
+      _value_list.resize(value_id + 1);
+    _value_list[value_id] = value;
+    _index.insert(std::pair<T, value_id_t>(value, value_id));
   }
 };
 }

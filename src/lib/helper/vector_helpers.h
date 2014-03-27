@@ -35,7 +35,7 @@ auto sum(T values, U initial, F func) -> U {
 }
 
 template <typename T, typename F>
-void forEachWithIndex(T values, F func) {
+void forEachWithIndex(T&& values, F func) {
   auto begin = std::begin(values);
   auto end = std::end(values);
   for (size_t index = 0; begin != end; ++index, ++begin) {

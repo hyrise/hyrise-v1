@@ -6,6 +6,10 @@
 #include <stdexcept>
 #include <stdint.h>
 #include <ostream>
+#include <iostream>
+#include <cassert>
+#include <array>
+#include <memory>
 
 
 #define STORAGE_XSTR(x) STORAGE_STR(x)
@@ -39,7 +43,6 @@ typedef enum {
   IntegerNoDictType,
   FloatNoDictType
 } DataType;
-
 
 namespace hyrise {
 namespace types {
@@ -157,6 +160,9 @@ typedef std::vector<field_name_t> field_name_list_t;
 typedef std::vector<pos_t> pos_list_t;
 typedef std::vector<field_t> field_list_t;
 
+constexpr int compound_value_key_size = 40;
+typedef std::array<uint8_t, compound_value_key_size> compound_value_key_t;
+typedef uint64_t compound_valueid_key_t;
 
 /*
   This is the ValueID class used to store important information
@@ -166,7 +172,7 @@ class ValueId {
   value_id_t valueId;
   table_id_t table;
 
-  ValueId() {}
+  ValueId() : valueId(0), table(0) {}
   ValueId(value_id_t _valueId, table_id_t _table) : valueId(_valueId), table(_table) {}
 
 
@@ -200,5 +206,33 @@ class ColumnMetadata;
 typedef std::vector<ColumnMetadata> metadata_list;
 typedef std::vector<metadata_list*> compound_metadata_list;
 typedef std::vector<ColumnMetadata> metadata_vec_t;
+
+
+class PositionRange {
+ protected:
+  std::shared_ptr<pos_list_t> _vector;
+  pos_list_t::const_iterator _cbegin;
+  pos_list_t::const_iterator _cend;
+  bool _sorted;
+
+
+ public:
+  PositionRange(pos_list_t::const_iterator cbegin,
+                pos_list_t::const_iterator cend,
+                bool sorted = false,
+                std::shared_ptr<pos_list_t> vector = nullptr)
+      : _vector(vector), _cbegin(cbegin), _cend(cend), _sorted(sorted) {
+    assert(std::distance(_cbegin, _cend) >= 0);
+  }
+
+
+  pos_list_t::const_iterator cbegin() const { return _cbegin; }
+
+  pos_list_t::const_iterator cend() const { return _cend; }
+
+  size_t size() const { return std::distance(_cbegin, _cend); }
+
+  bool isSorted() const { return _sorted; }
+};
 }
 }  // namespace hyrise::storage

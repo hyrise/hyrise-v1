@@ -96,6 +96,12 @@ void HorizontalTable::debugStructure(size_t level) const {
   }
 }
 
+void HorizontalTable::persist_scattered(const pos_list_t& elements, bool new_elements) const {
+  for (const auto& p : _parts) {
+    p->persist_scattered(elements, new_elements);
+  }
+}
+
 size_t HorizontalTable::computeSize() const {
   return std::accumulate(
       _parts.begin(), _parts.end(), 0, [](size_t r, const c_atable_ptr_t& t) { return r + t->size(); });

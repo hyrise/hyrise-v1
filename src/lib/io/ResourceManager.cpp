@@ -4,6 +4,8 @@
 #include "helper/stringhelpers.h"
 #include "helper/Environment.h"
 #include "storage/AbstractResource.h"
+#include "storage/Store.h"
+#include <iostream>
 
 namespace hyrise {
 namespace io {
@@ -23,14 +25,16 @@ size_t ResourceManager::size() const {
   return _resources.size();
 }
 
-bool ResourceManager::exists(const std::string& name) const {
-  auto lock = lock_guard(_resource_mutex);
+bool ResourceManager::exists(const std::string& name, bool unsafe) const {
+  if (!unsafe)
+    auto lock = lock_guard(_resource_mutex);
   return _resources.count(name) == 1;
 }
 
-void ResourceManager::assureExists(const std::string& name) const {
-  auto lock = lock_guard(_resource_mutex);
-  if (!exists(name)) {
+void ResourceManager::assureExists(const std::string& name, bool unsafe) const {
+  if (!unsafe)
+    auto lock = lock_guard(_resource_mutex);
+  if (!exists(name, unsafe)) {
     throw ResourceNotExistsException("ResourceManager: Resource \'" + name + "\' does not exist");
   }
 }
@@ -55,14 +59,21 @@ void ResourceManager::replace(const std::string& name,
 
 void ResourceManager::add(const std::string& name, const std::shared_ptr<storage::AbstractResource>& resource) const {
   auto lock = lock_guard(_resource_mutex);
-  if (exists(name))
+  if (exists(name)) {
     throw ResourceAlreadyExistsException("ResourceManager: Resource '" + name + "' already exists");
+  }
+
+  auto store = std::dynamic_pointer_cast<storage::Store>(resource);
+  if (store) {
+    store->enableLogging();
+  }
   _resources.insert(make_pair(name, resource));
 }
 
-std::shared_ptr<storage::AbstractResource> ResourceManager::getResource(const std::string& name) const {
-  auto lock = lock_guard(_resource_mutex);
-  assureExists(name);
+std::shared_ptr<storage::AbstractResource> ResourceManager::getResource(const std::string& name, bool unsafe) const {
+  if (!unsafe)
+    auto lock = lock_guard(_resource_mutex);
+  assureExists(name, unsafe);
   return _resources.at(name);
 }
 

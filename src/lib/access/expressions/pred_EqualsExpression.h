@@ -34,11 +34,8 @@ class EqualsExpression : public SimpleFieldExpression {
     SimpleFieldExpression::walk(l);
     valueIdMap = std::dynamic_pointer_cast<storage::BaseDictionary<T>>(table->dictionaryAt(field));
 
-    value_exists = valueIdMap->valueExists(value);
-
-    if (value_exists) {
-      lower_bound = table->getValueIdForValue(field, value);
-    }
+    value_exists =
+        (lower_bound.valueId = valueIdMap->findValueIdForValue(value)) != std::numeric_limits<value_id_t>::max();
   }
 
   virtual std::unique_ptr<AbstractExpression> clone() {

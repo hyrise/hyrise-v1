@@ -139,7 +139,6 @@ void PointerCalculator::setFields(const field_list_t f) {
   updateFieldMapping();
 }
 
-
 const ColumnMetadata& PointerCalculator::metadataAt(const size_t column_index,
                                                     const size_t row_index,
                                                     const table_id_t table_id) const {

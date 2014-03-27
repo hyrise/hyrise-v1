@@ -21,7 +21,8 @@ class TableMerger {
 
   std::vector<atable_ptr_t> merge(std::vector<c_atable_ptr_t>& input_tables,
                                   bool useValid = false,
-                                  std::vector<bool> valid = std::vector<bool>()) const;
+                                  std::vector<bool> valid = std::vector<bool>(),
+                                  const std::string& tableName = "") const;
 
   /*
     This method allows to specify directly a table that is the

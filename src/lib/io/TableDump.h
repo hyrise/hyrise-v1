@@ -6,12 +6,14 @@
 #include <vector>
 
 #include "io/AbstractLoader.h"
-
+#include "helper/types.h"
 
 namespace hyrise {
 namespace storage {
 
-class AbstractTable;
+// class AbstractTable;
+// class Store;
+
 /**
  * This is the class that allows dumping a table instance in a very
  * simple way directly to the file system without using a third party
@@ -38,26 +40,30 @@ class SimpleTableDump {
    * Dumps the dictionary and performs simple conversion based on the
    * ofstream structure
    */
-  void dumpDictionary(std::string name, std::shared_ptr<AbstractTable> t, size_t col);
+  void dumpDictionary(std::string name, atable_ptr_t t, size_t col, bool delta = false);
 
   /**
    * Dumps the attrbite but writes the attribute data binary since its
    * all value_id_t
    */
-  void dumpAttribute(std::string name, std::shared_ptr<AbstractTable> t, size_t col);
+  void dumpAttribute(std::string name, atable_ptr_t t, size_t col);
 
   /**
    */
-  void dumpMetaData(std::string name, std::shared_ptr<AbstractTable> t);
+  void dumpMetaData(std::string name, atable_ptr_t t);
 
   /**
    */
-  void dumpHeader(std::string name, std::shared_ptr<AbstractTable> t);
+  void dumpHeader(std::string name, atable_ptr_t t);
+
+  /**
+   */
+  void dumpIndices(std::string name, store_ptr_t s);
 
   /**
    * Check if the file is a store and not a horizontal table
    */
-  void verify(std::shared_ptr<AbstractTable>);
+  void verify(atable_ptr_t);
 
  public:
   // Initialize a new object based on the base path for the output
@@ -67,6 +73,16 @@ class SimpleTableDump {
    * For a table identified by name and table perform the dump
    */
   bool dump(std::string name, std::shared_ptr<AbstractTable> table);
+
+  /**
+   * For a table identified by name and table perform the dump of the delta
+   */
+  bool dumpDelta(std::string name, std::shared_ptr<AbstractTable> table);
+
+  /**
+   * For a table identified by name and table perform the dump of CID vectors
+   */
+  bool dumpCidVectors(std::string name, atable_ptr_t table);
 };
 
 }  // namespace storage
@@ -79,18 +95,24 @@ class TableDumpLoader : public AbstractInput {
 
   size_t getSize();
 
-  void loadDictionary(std::string name, size_t col, std::shared_ptr<storage::AbstractTable> intable);
+  void loadDictionary(std::string name, size_t col, storage::atable_ptr_t intable);
+  void loadDeltaDictionary(std::string name, size_t col, storage::atable_ptr_t intable);
 
-  void loadAttribute(std::string name, size_t col, size_t size, std::shared_ptr<storage::AbstractTable> intable);
+  void loadAttribute(std::string name, size_t col, size_t size, storage::atable_ptr_t intable);
 
  public:
   TableDumpLoader(std::string base, std::string table) : _base(base), _table(table) {}
 
-  std::shared_ptr<storage::AbstractTable> load(std::shared_ptr<storage::AbstractTable>,
-                                               const storage::compound_metadata_list*,
-                                               const Loader::params& args);
+  storage::atable_ptr_t load(storage::atable_ptr_t, const storage::compound_metadata_list*, const Loader::params& args);
+
+  void loadIndices(storage::atable_ptr_t intable);
+
+
+  bool loadCidVectors(std::string name, storage::atable_ptr_t table);
 
   bool needs_store_wrap() { return true; }
+
+  bool needs_merge() { return true; }
 
   TableDumpLoader* clone() const { return new TableDumpLoader(*this); }
 };

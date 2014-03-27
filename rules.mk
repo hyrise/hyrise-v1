@@ -176,6 +176,16 @@ TOOLING :=
 WITH_PAPI := $(shell if [ "`papi_avail  2>&1 | grep Yes | wc -l`" -ne "0" ]; then echo 1; else echo 0; fi)
 WITH_MYSQL:= 1
 
+PERSISTENCY ?= NONE
+NVRAM_MOUNTPOINT ?= /mnt/pmfs
+NVRAM_FOLDER ?= /mnt/pmfs/$(USER)
+NVRAM_FILENAME ?= hyrise
+NVRAM_FILESIZE ?= 1024
+NVSIMULATOR_FLUSH_NS ?= 0
+NVSIMULATOR_READ_NS ?= 0
+NVSIMULATOR_WRITE_NS ?= 0
+VERBOSE_BUILD ?= 0
+
 include $(PROJECT_ROOT)/settings.mk
 
 BLD ?= debug
@@ -190,12 +200,36 @@ ifeq ($(WITH_PROFILER),1)
 PLUGINS += profiler
 endif
 
-
 ifeq ($(WITH_V8),1)
 ifndef V8_BASE_DIRECTORY
 $(error V8_BASE_DIRECTORY is not defined)
 endif
 endif
+
+ifeq ($(WITH_NVRAM), 1)
+        COMMON_FLAGS += -D WITH_NVRAM
+endif
+
+ifeq ($(PERSISTENCY),BUFFEREDLOGGER)
+        COMMON_FLAGS += -D PERSISTENCY_BUFFEREDLOGGER
+else ifeq ($(PERSISTENCY),NVRAM)
+        COMMON_FLAGS += -D PERSISTENCY_NVRAM
+        COMMON_FLAGS += -D NVRAM_MOUNTPOINT=\"$(NVRAM_MOUNTPOINT)\"
+        COMMON_FLAGS += -D NVRAM_FOLDER=\"$(NVRAM_FOLDER)\"
+        COMMON_FLAGS += -D NVRAM_FILENAME=\"$(NVRAM_FILENAME)\"
+        COMMON_FLAGS += -D NVRAM_FILESIZE=$(NVRAM_FILESIZE)ul
+        COMMON_FLAGS += -D NVSIMULATOR_FLUSH_NS=$(NVSIMULATOR_FLUSH_NS)
+        COMMON_FLAGS += -D NVSIMULATOR_READ_NS=$(NVSIMULATOR_READ_NS)
+        COMMON_FLAGS += -D NVSIMULATOR_WRITE_NS=$(NVSIMULATOR_WRITE_NS)
+        COMMON_FLAGS += -lcpufreq -lrt -lpmem -lpmemalloc
+else
+        COMMON_FLAGS += -D PERSISTENCY_NONE
+endif
+
+ifeq ($(VERBOSE_BUILD),1)
+	echo_cmd =
+endif
+
 
 include $(PROJECT_ROOT)/makefiles/config.$(COMPILER).mk
 include $(PLUGINS:%=$(PROJECT_ROOT)/mkplugins/%.mk)
@@ -212,9 +246,9 @@ CFLAGS.release +=
 LDFLAGS.debug +=
 LDFLAGS.release +=
 
-COMMON_FLAGS.debug += -O0
-COMMON_FLAGS.release += -O3 -march=native
-COMMON_FLAGS += -g -Wall -Wextra -Wno-attributes -Wno-unused-parameter -pthread $(COMMON_FLAGS.$(BLD))
+COMMON_FLAGS.debug += -O0 
+COMMON_FLAGS.release += -O3
+COMMON_FLAGS += -g -march=native -Wall -Wextra -Wno-attributes -Wno-unused-parameter -pthread $(COMMON_FLAGS.$(BLD))
 
 CPPFLAGS += -MMD -pipe $(CPPFLAGS.$(BLD))
 CFLAGS += $(COMMON_FLAGS) $(CFLAGS.$(BLD))

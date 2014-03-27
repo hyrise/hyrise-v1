@@ -23,6 +23,9 @@ storage::atable_ptr_t emptyTable() {
 class FakeIndex : public storage::AbstractIndex {
  public:
   void shrink() {}
+  void write_lock() {}
+  void read_lock() {}
+  void unlock() {}
 };
 
 storage::aindex_ptr_t emptyIndex() { return std::make_shared<FakeIndex>(); }

@@ -62,7 +62,355 @@
             "filename": "tpcc/warehouse.csv",
             "header": "tpcc/warehouse_header.tbl",
             "delimiter": ","
-        }
+        },
+        "nop" : {
+            "type" : "NoOp"
+        },
+        "mcidx__NEW_ORDER__NO_W_ID": {
+              "type": "CreateGroupkeyIndex",
+              "fields": ["NO_W_ID"],
+              "index_name": "mcidx__NEW_ORDER__main__NO_W_ID"
+        },
+        "mcidx__ITEM__I_ID": {
+              "type": "CreateGroupkeyIndex",
+              "fields": ["I_ID"],
+              "index_name": "mcidx__ITEM__main__I_ID"
+        },
+        "mcidx__CUSTOMER__C_ID": {
+              "type": "CreateGroupkeyIndex",
+              "fields": ["C_ID"],
+              "index_name": "mcidx__CUSTOMER__main__C_ID"
+        },
+        "mcidx__CUSTOMER__C_LAST": {
+              "type": "CreateGroupkeyIndex",
+              "fields": ["C_LAST"],
+              "index_name": "mcidx__CUSTOMER__main__C_LAST"
+        },
+        "mcidx__DISTRICT__D_W_ID": {
+              "type": "CreateGroupkeyIndex",
+              "fields": ["D_W_ID"],
+              "index_name": "mcidx__DISTRICT__main__D_W_ID"
+        },
+        "mcidx__NEW_ORDER__NO_D_ID": {
+              "type": "CreateGroupkeyIndex",
+              "fields": ["NO_D_ID"],
+              "index_name": "mcidx__NEW_ORDER__main__NO_D_ID"
+        },
+        "mcidx__WAREHOUSE__W_ID": {
+              "type": "CreateGroupkeyIndex",
+              "fields": ["W_ID"],
+              "index_name": "mcidx__WAREHOUSE__main__W_ID"
+        },
+        "mcidx__CUSTOMER__C_W_ID": {
+              "type": "CreateGroupkeyIndex",
+              "fields": ["C_W_ID"],
+              "index_name": "mcidx__CUSTOMER__main__C_W_ID"
+        },
+        "mcidx__DISTRICT__D_ID": {
+              "type": "CreateGroupkeyIndex",
+              "fields": ["D_ID"],
+              "index_name": "mcidx__DISTRICT__main__D_ID"
+        },
+        "mcidx__CUSTOMER__C_D_ID": {
+              "type": "CreateGroupkeyIndex",
+              "fields": ["C_D_ID"],
+              "index_name": "mcidx__CUSTOMER__main__C_D_ID"
+        },
+        "mcidx__ORDER_LINE__OL_O_ID": {
+              "type": "CreateGroupkeyIndex",
+              "fields": ["OL_O_ID"],
+              "index_name": "mcidx__ORDER_LINE__main__OL_O_ID"
+        },
+        "mcidx__ORDERS__O_C_ID": {
+              "type": "CreateGroupkeyIndex",
+              "fields": ["O_C_ID"],
+              "index_name": "mcidx__ORDERS__main__O_C_ID"
+        },
+        "mcidx__ORDERS__O_W_ID": {
+              "type": "CreateGroupkeyIndex",
+              "fields": ["O_W_ID"],
+              "index_name": "mcidx__ORDERS__main__O_W_ID"
+        },
+        "mcidx__ORDER_LINE__OL_W_ID": {
+              "type": "CreateGroupkeyIndex",
+              "fields": ["OL_W_ID"],
+              "index_name": "mcidx__ORDER_LINE__main__OL_W_ID"
+        },
+        "mcidx__ORDERS__O_D_ID": {
+              "type": "CreateGroupkeyIndex",
+              "fields": ["O_D_ID"],
+              "index_name": "mcidx__ORDERS__main__O_D_ID"
+        },
+        "mcidx__ORDER_LINE__OL_D_ID": {
+              "type": "CreateGroupkeyIndex",
+              "fields": ["OL_D_ID"],
+              "index_name": "mcidx__ORDER_LINE__main__OL_D_ID"
+        },
+        "mcidx__ORDERS__O_ID": {
+              "type": "CreateGroupkeyIndex",
+              "fields": ["O_ID"],
+              "index_name": "mcidx__ORDERS__main__O_ID"
+        },
+        "mcidx__NEW_ORDER__NO_O_ID": {
+              "type": "CreateGroupkeyIndex",
+              "fields": ["NO_O_ID"],
+              "index_name": "mcidx__NEW_ORDER__main__NO_O_ID"
+        },
+        "0_idx0_delta": {
+            "type": "CreateDeltaIndex",
+            "index_name" : "mcidx__CUSTOMER__delta__C_ID",
+            "fields" : ["C_ID"]
+            },
+        "0_idx1_delta": {
+            "type": "CreateDeltaIndex",
+            "index_name" : "mcidx__CUSTOMER__delta__C_D_ID",
+            "fields" : ["C_D_ID"]
+            },
+        "0_idx2_delta": {
+            "type": "CreateDeltaIndex",
+            "index_name" : "mcidx__CUSTOMER__delta__C_W_ID",
+            "fields" : ["C_W_ID"]
+            },
+        "0_idx3_delta": {
+            "type": "CreateDeltaIndex",
+            "index_name" : "mcidx__CUSTOMER__delta__C_LAST",
+            "fields" : ["C_LAST"]
+            },
+            "1_idx0_delta": {
+                "type": "CreateDeltaIndex",
+                "index_name" : "mcidx__DISTRICT__delta__D_ID",
+                "fields" : ["D_ID"]
+                },
+            "1_idx1_delta": {
+                "type": "CreateDeltaIndex",
+                "index_name" : "mcidx__DISTRICT__delta__D_W_ID",
+                "fields" : ["D_W_ID"]
+                },
+            "3_idx0_delta": {
+                "type": "CreateDeltaIndex",
+                "index_name" : "mcidx__ITEM__delta__I_ID",
+                "fields" : ["I_ID"]
+                },
+            "4_idx0_delta": {
+                "type": "CreateDeltaIndex",
+                "index_name" : "mcidx__NEW_ORDER__delta__NO_D_ID",
+                "fields" : ["NO_D_ID"]
+                },
+            "4_idx1_delta": {
+                "type": "CreateDeltaIndex",
+                "index_name" : "mcidx__NEW_ORDER__delta__NO_W_ID",
+                "fields" : ["NO_W_ID"]
+                },
+            "4_idx2_delta": {
+                "type": "CreateDeltaIndex",
+                "index_name" : "mcidx__NEW_ORDER__delta__NO_O_ID",
+                "fields" : ["NO_O_ID"]
+                },
+            "5_idx0_delta": {
+                "type": "CreateDeltaIndex",
+                "index_name" : "mcidx__ORDER_LINE__delta__OL_O_ID",
+                "fields" : ["OL_O_ID"]
+                },
+            "5_idx1_delta": {
+                "type": "CreateDeltaIndex",
+                "index_name" : "mcidx__ORDER_LINE__delta__OL_W_ID",
+                "fields" : ["OL_W_ID"]
+                },
+            "5_idx2_delta": {
+                "type": "CreateDeltaIndex",
+                "index_name" : "mcidx__ORDER_LINE__delta__OL_D_ID",
+                "fields" : ["OL_D_ID"]
+                },
+            "6_idx0_delta": {
+                "type": "CreateDeltaIndex",
+                "index_name" : "mcidx__ORDERS__delta__O_ID",
+                "fields" : ["O_ID"]
+                },
+            "6_idx1_delta": {
+                "type": "CreateDeltaIndex",
+                "index_name" : "mcidx__ORDERS__delta__O_D_ID",
+                "fields" : ["O_D_ID"]
+                },
+            "6_idx2_delta": {
+                "type": "CreateDeltaIndex",
+                "index_name" : "mcidx__ORDERS__delta__O_W_ID",
+                "fields" : ["O_W_ID"]
+                },
+            "6_idx3_delta": {
+                "type": "CreateDeltaIndex",
+                "index_name" : "mcidx__ORDERS__delta__O_C_ID",
+                "fields" : ["O_C_ID"]
+                },
+            "8_idx0_delta": {
+                "type": "CreateDeltaIndex",
+                "index_name" : "mcidx__WAREHOUSE__delta__W_ID",
+                "fields" : ["W_ID"]
+                },
+            "nop2" : {
+            "type" : "NoOp"
+            },
+            "mc_0_idx0": {
+                "type": "CreateGroupkeyIndex",
+                "index_name" : "mcidx__CUSTOMER__main__C_W_ID__C_ID__C_D_ID",
+                "fields" : ["C_W_ID", "C_ID", "C_D_ID"]
+                },
+            "mc_0_idx0_delta": {
+                "type": "CreateDeltaIndex",
+                "index_name" : "mcidx__CUSTOMER__delta__C_W_ID__C_ID__C_D_ID",
+                "fields" : ["C_W_ID", "C_ID", "C_D_ID"]
+                },
+            "mc_0_idx1": {
+                "type": "CreateGroupkeyIndex",
+                "index_name" : "mcidx__CUSTOMER__main__C_W_ID__C_D_ID__C_LAST",
+                "fields" : ["C_W_ID", "C_D_ID", "C_LAST"]
+                },
+            "mc_0_idx1_delta": {
+                "type": "CreateDeltaIndex",
+                "index_name" : "mcidx__CUSTOMER__delta__C_W_ID__C_D_ID__C_LAST",
+                "fields" : [ "C_W_ID", "C_D_ID", "C_LAST"]
+                },
+            "mc_1_idx0": {
+                "type": "CreateGroupkeyIndex",
+                "index_name" : "mcidx__DISTRICT__main__D_W_ID__D_ID",
+                "fields" : ["D_W_ID", "D_ID"]
+                },
+            "mc_1_idx0_delta": {
+                "type": "CreateDeltaIndex",
+                "index_name" : "mcidx__DISTRICT__delta__D_W_ID__D_ID",
+                "fields" : ["D_W_ID", "D_ID"]
+                },
+            "mc_4_idx0": {
+                "type": "CreateGroupkeyIndex",
+                "index_name" : "mcidx__NEW_ORDER__main__NO_W_ID__NO_D_ID__NO_O_ID",
+                "fields" : ["NO_W_ID", "NO_D_ID", "NO_O_ID"]
+                },
+            "mc_4_idx0_delta": {
+                "type": "CreateDeltaIndex",
+                "index_name" : "mcidx__NEW_ORDER__delta__NO_W_ID__NO_D_ID__NO_O_ID",
+                "fields" : ["NO_W_ID", "NO_D_ID", "NO_O_ID"]
+                },
+            "mc_5_idx3": {
+                "type": "CreateGroupkeyIndex",
+                "index_name" : "mcidx__ORDER_LINE__main__OL_W_ID__OL_D_ID__OL_O_ID",
+                "fields" : ["OL_W_ID", "OL_D_ID", "OL_O_ID"]
+                },
+            "mc_5_idx3_delta": {
+                "type": "CreateDeltaIndex",
+                "index_name" : "mcidx__ORDER_LINE__delta__OL_W_ID__OL_D_ID__OL_O_ID",
+                "fields" : ["OL_W_ID", "OL_D_ID", "OL_O_ID"]
+                },
+            "mc_6_idx0": {
+                "type": "CreateGroupkeyIndex",
+                "index_name" : "mcidx__ORDERS__main__O_W_ID__O_D_ID__O_ID",
+                "fields" : ["O_W_ID", "O_D_ID","O_ID"]
+                },
+            "mc_6_idx0_delta": {
+                "type": "CreateDeltaIndex",
+                "index_name" : "mcidx__ORDERS__delta__O_W_ID__O_D_ID__O_ID",
+                "fields" : ["O_W_ID", "O_D_ID","O_ID"]
+                },
+            "mc_6_idx1": {
+                "type": "CreateGroupkeyIndex",
+                "index_name" : "mcidx__ORDERS__main__O_W_ID__O_D_ID__O_C_ID",
+                "fields" : ["O_W_ID", "O_D_ID", "O_C_ID"]
+                },
+            "mc_6_idx1_delta": {
+                "type": "CreateDeltaIndex",
+                "index_name" : "mcidx__ORDERS__delta__O_W_ID__O_D_ID__O_C_ID",
+                "fields" : ["O_W_ID", "O_D_ID", "O_C_ID"]
+                },
+            "mc_7_idx3": {
+                "type": "CreateGroupkeyIndex",
+                "index_name" : "mcidx__STOCK__main__S_W_ID__S_I_ID",
+                "fields" : ["S_W_ID", "S_I_ID"]
+                },
+            "mc_7_idx3_delta": {
+                "type": "CreateDeltaIndex",
+                "index_name" : "mcidx__STOCK__delta__S_W_ID__S_I_ID",
+                "fields" : ["S_W_ID", "S_I_ID"]
+                }
     },
-    "edges" : [["load_customer","load_district"], ["load_district","load_history"], ["load_history","load_item"], ["load_item","load_new_order"], ["load_new_order","load_order_line"], ["load_order_line","load_orders"], ["load_orders","load_stock"], ["load_stock","load_warehouse"]]
+    "edges" : [
+      ["load_customer","load_district"],
+      ["load_district","load_history"],
+      ["load_history","load_item"],
+      ["load_item","load_new_order"],
+      ["load_new_order","load_order_line"],
+      ["load_order_line","load_orders"],
+      ["load_orders","load_stock"],
+      ["load_stock","load_warehouse"],
+      ["load_warehouse", "nop"],
+      ["load_new_order", "mcidx__NEW_ORDER__NO_W_ID"],
+      ["mcidx__NEW_ORDER__NO_W_ID", "nop"],
+      ["load_item", "mcidx__ITEM__I_ID"],
+      ["mcidx__ITEM__I_ID", "nop"],
+      ["load_customer", "mcidx__CUSTOMER__C_ID"],
+      ["mcidx__CUSTOMER__C_ID", "nop"],
+      ["load_customer", "mcidx__CUSTOMER__C_LAST"],
+      ["mcidx__CUSTOMER__C_LAST", "nop"],
+      ["load_district", "mcidx__DISTRICT__D_W_ID"],
+      ["mcidx__DISTRICT__D_W_ID", "nop"],
+      ["load_new_order", "mcidx__NEW_ORDER__NO_D_ID"],
+      ["mcidx__NEW_ORDER__NO_D_ID", "nop"],
+      ["load_warehouse", "mcidx__WAREHOUSE__W_ID"],
+      ["mcidx__WAREHOUSE__W_ID", "nop"],
+      ["load_customer", "mcidx__CUSTOMER__C_W_ID"],
+      ["mcidx__CUSTOMER__C_W_ID", "nop"],
+      ["load_district", "mcidx__DISTRICT__D_ID"],
+      ["mcidx__DISTRICT__D_ID", "nop"],
+      ["load_customer", "mcidx__CUSTOMER__C_D_ID"],
+      ["mcidx__CUSTOMER__C_D_ID", "nop"],
+      ["load_order_line", "mcidx__ORDER_LINE__OL_O_ID"],
+      ["mcidx__ORDER_LINE__OL_O_ID", "nop"],
+      ["load_orders", "mcidx__ORDERS__O_C_ID"],
+      ["mcidx__ORDERS__O_C_ID", "nop"],
+      ["load_orders", "mcidx__ORDERS__O_W_ID"],
+      ["mcidx__ORDERS__O_W_ID", "nop"],
+      ["load_order_line", "mcidx__ORDER_LINE__OL_W_ID"],
+      ["mcidx__ORDER_LINE__OL_W_ID", "nop"],
+      ["load_orders", "mcidx__ORDERS__O_D_ID"],
+      ["mcidx__ORDERS__O_D_ID", "nop"],
+      ["load_order_line", "mcidx__ORDER_LINE__OL_D_ID"],
+      ["mcidx__ORDER_LINE__OL_D_ID", "nop"],
+      ["load_orders", "mcidx__ORDERS__O_ID"],
+      ["mcidx__ORDERS__O_ID", "nop"],
+      ["load_new_order", "mcidx__NEW_ORDER__NO_O_ID"],
+      ["mcidx__NEW_ORDER__NO_O_ID", "nop"],
+      ["load_customer", "mc_0_idx0"], ["mc_0_idx0", "nop"],
+      ["load_customer", "mc_0_idx0_delta"], ["mc_0_idx0_delta", "nop"],
+      ["load_customer", "mc_0_idx1"], ["mc_0_idx1", "nop"],
+      ["load_customer", "mc_0_idx1_delta"], ["mc_0_idx1_delta", "nop"],
+      ["load_district", "mc_1_idx0"], ["mc_1_idx0", "nop"],
+      ["load_district", "mc_1_idx0_delta"], ["mc_1_idx0_delta", "nop"],
+      ["load_new_order", "mc_4_idx0"], ["mc_4_idx0", "nop"],
+      ["load_new_order", "mc_4_idx0_delta"], ["mc_4_idx0_delta", "nop"],
+      ["load_order_line", "mc_5_idx3"], ["mc_5_idx3", "nop"],
+      ["load_order_line", "mc_5_idx3_delta"], ["mc_5_idx3_delta", "nop"],
+      ["load_orders", "mc_6_idx0"], ["mc_6_idx0", "nop"],
+      ["load_orders", "mc_6_idx0_delta"], ["mc_6_idx0_delta", "nop"],
+      ["load_orders", "mc_6_idx1"], ["mc_6_idx1", "nop"],
+      ["load_orders", "mc_6_idx1_delta"], ["mc_6_idx1_delta", "nop"],
+      ["load_stock", "mc_7_idx3"], ["mc_7_idx3", "nop"],
+      ["load_stock", "mc_7_idx3_delta"], ["mc_7_idx3_delta", "nop"],
+      ["nop", "nop2"],
+
+        ["load_customer","0_idx0_delta"],["0_idx0_delta","nop2"],
+        ["load_customer","0_idx1_delta"],["0_idx1_delta","nop2"],
+        ["load_customer","0_idx2_delta"],["0_idx2_delta","nop2"],
+        ["load_customer","0_idx3_delta"],["0_idx3_delta","nop2"],
+        ["load_district","1_idx0_delta"],["1_idx0_delta","nop2"],
+        ["load_district","1_idx1_delta"],["1_idx1_delta","nop2"],
+        ["load_item","3_idx0_delta"],["3_idx0_delta","nop2"],
+        ["load_new_order","4_idx0_delta"],["4_idx0_delta","nop2"],
+        ["load_new_order","4_idx1_delta"],["4_idx1_delta","nop2"],
+        ["load_new_order","4_idx2_delta"],["4_idx2_delta","nop2"],
+        ["load_order_line","5_idx0_delta"],["5_idx0_delta","nop2"],
+        ["load_order_line","5_idx1_delta"],["5_idx1_delta","nop2"],
+        ["load_order_line","5_idx2_delta"],["5_idx2_delta","nop2"],
+        ["load_orders","6_idx0_delta"],["6_idx0_delta","nop2"],
+        ["load_orders","6_idx1_delta"],["6_idx1_delta","nop2"],
+        ["load_orders","6_idx2_delta"],["6_idx2_delta","nop2"],
+        ["load_orders","6_idx3_delta"],["6_idx3_delta","nop2"],
+        ["load_warehouse","8_idx0_delta"],["8_idx0_delta","nop2"]
+      ]
 }

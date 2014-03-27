@@ -1,6 +1,7 @@
 #include "testing/test.h"
 
 #include <limits>
+#include <fstream>
 
 #include "io/TransactionManager.h"
 
@@ -14,8 +15,11 @@ TEST(TX, begin_commit) {
   TXContext tx = TM::beginTransaction();
   EXPECT_GT(tx.tid, 0);
   EXPECT_EQ(tx.cid, UNKNOWN);
-  auto cid = TM::commitTransaction(tx);
-  EXPECT_NE(cid, UNKNOWN);
+  auto commit_context_list = TM::commitTransaction(tx);
+
+  EXPECT_EQ(commit_context_list.size(), 1);
+  auto commit_context = commit_context_list[0];
+  EXPECT_NE(commit_context->cid, UNKNOWN);
 }
 
 TEST(TX, commit_invalid) {
@@ -24,7 +28,7 @@ TEST(TX, commit_invalid) {
   transaction_id_t invalid = std::numeric_limits<transaction_id_t>::max();
   EXPECT_FALSE(TM::isValidTransactionId(invalid)) << "id is larger than acceptable";
   tx.tid = invalid;
-  TM::commitTransaction(tx);  // "Commiting an invalid txid works.";
+  EXPECT_THROW(TM::commitTransaction(tx), std::runtime_error);  // "Commiting an invalid txid works.";
   tx.tid = oldtid;
   TM::commitTransaction(tx);
 }

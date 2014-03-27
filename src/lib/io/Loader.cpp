@@ -3,6 +3,7 @@
 
 #include <log4cxx/logger.h>
 
+#include "helper/types.h"
 #include "io/EmptyLoader.h"
 #include "io/LoaderException.h"
 #include "storage/AbstractTable.h"
@@ -22,25 +23,30 @@ log4cxx::LoggerPtr logger(log4cxx::Logger::getLogger("hyrise.io.Loader"));
 param_ref_member_impl(Loader::params, AbstractInput, Input)
 param_ref_member_impl(Loader::params, AbstractHeader, Header)
 param_member_impl(Loader::params, std::string, BasePath)
+param_member_impl(Loader::params, std::string, TableName)
 param_member_impl(Loader::params, storage::AbstractTableFactory*, Factory)
 param_member_impl(Loader::params, bool, ModifiableMutableVerticalTable)
 param_member_impl(Loader::params, bool, ReturnsMutableVerticalTable)
 param_member_impl(Loader::params, bool, Compressed)
 param_member_impl(Loader::params, storage::c_atable_ptr_t, ReferenceTable)
+param_member_impl(Loader::params, bool, DeltaDataStructure)
 
 Loader::params::params()
     : Input(nullptr),
       Header(nullptr),
       Factory(nullptr),
       BasePath(""),
+      TableName(""),
       ModifiableMutableVerticalTable(false),
       ReturnsMutableVerticalTable(false),
       Compressed(false),
-      ReferenceTable() {}
+      ReferenceTable(),
+      DeltaDataStructure(false) {}
 
 Loader::params::params(const Loader::params& other)
     : Factory(other.getFactory()),
       BasePath(other.getBasePath()),
+      TableName(other.getTableName()),
       ModifiableMutableVerticalTable(other.getModifiableMutableVerticalTable()),
       ReturnsMutableVerticalTable(other.getReturnsMutableVerticalTable()),
       Compressed(other.getCompressed()) {
@@ -61,6 +67,7 @@ Loader::params& Loader::params::operator=(const Loader::params& other) {
     Input = other.getInput()->clone();
     Header = other.getHeader()->clone();
     setBasePath(other.getBasePath());
+    setTableName(other.getTableName());
     setFactory(other.getFactory());
     setReturnsMutableVerticalTable(other.getReturnsMutableVerticalTable());
     setModifiableMutableVerticalTable(other.getModifiableMutableVerticalTable());
@@ -78,6 +85,7 @@ Loader::params* Loader::params::clone() const {
   if (Header != nullptr)
     p->setHeader(*Header);
   p->setBasePath(BasePath);
+  p->setTableName(TableName);
   p->setFactory(Factory);
   p->setReturnsMutableVerticalTable(ReturnsMutableVerticalTable);
   p->setModifiableMutableVerticalTable(ModifiableMutableVerticalTable);
@@ -136,11 +144,18 @@ std::shared_ptr<storage::AbstractTable> Loader::load(const params& args) {
   LOG4CXX_DEBUG(logger, "Data done");
 
   if (!args.getModifiableMutableVerticalTable() && input->needs_store_wrap()) {
-    auto s = std::make_shared<storage::Store>(result);
+    storage::store_ptr_t s;
+    if (args.getTableName().empty()) {
+      s = std::make_shared<storage::Store>(result);
+    } else {
+      s = std::make_shared<storage::Store>(args.getTableName(), result);
+    }
     auto merger = new storage::TableMerger(
         new storage::DefaultMergeStrategy(), new storage::SequentialHeapMerger(), args.getCompressed());
     s->setMerger(merger);
-    s->merge();
+    if (input->needs_merge()) {
+      s->merge();
+    }
     result = s;
   }
 

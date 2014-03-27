@@ -55,7 +55,7 @@ void ExpressionScan::executePlanOperation() {
   vc.push_back(std::const_pointer_cast<storage::AbstractTable>(input.getTable(0)));
   vc.push_back(exp_result);
 
-  addResult(std::make_shared<const storage::MutableVerticalTable>(vc));
+  addResult(std::make_shared<storage::MutableVerticalTable>(vc));
 }
 
 const std::string ExpressionScan::vname() { return "ExpressionScan"; }

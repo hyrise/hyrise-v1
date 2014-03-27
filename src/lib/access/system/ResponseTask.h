@@ -5,6 +5,8 @@
 #include <atomic>
 #include <mutex>
 
+#include "json.h"
+
 #include "helper/epoch.h"
 #include "access/system/OutputTask.h"
 #include "net/AbstractConnection.h"
@@ -37,6 +39,8 @@ class ResponseTask : public taskscheduler::Task {
 
   bool _recordPerformanceData = true;
 
+  bool _group_commit = false;
+
  public:
   explicit ResponseTask(net::AbstractConnection* connection) : connection(connection) { _affectedRows = 0; }
 
@@ -60,6 +64,8 @@ class ResponseTask : public taskscheduler::Task {
 
   void setTxContext(tx::TXContext t) { _txContext = t; }
 
+  tx::TXContext getTxContext() const { return _txContext; }
+
   void setQueryStart(epoch_t start) { queryStart = start; }
 
   void setTransmitLimit(size_t l) { _transmitLimit = l; }
@@ -73,6 +79,10 @@ class ResponseTask : public taskscheduler::Task {
   task_states_t getState() const;
 
   std::shared_ptr<PlanOperation> getResultTask();
+
+  void setGroupCommit(bool group_commit);
+
+  Json::Value generateResponseJson();
 
   virtual void operator()();
 };

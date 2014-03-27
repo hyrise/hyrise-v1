@@ -13,6 +13,11 @@ class Commit : public PlanOperation {
   void executePlanOperation();
 
   static std::shared_ptr<PlanOperation> parse(const Json::Value& data);
+
+  void setFlushLog(bool flush_log);
+
+ protected:
+  bool _flush_log = true;
 };
 }
 }

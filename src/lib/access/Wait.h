@@ -19,4 +19,4 @@ class Wait : public PlanOperation {
 }
 }
 
-#endif  // SRC_LIB_ACCESS_NOOP_H_
+#endif  // SRC_LIB_ACCESS_WAIT_H_

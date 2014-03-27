@@ -156,7 +156,7 @@ const PlanOperation* PlanOperation::execute() {
   const bool recordPerformance = _performance_attr != nullptr;
 
   // Check if we really need this
-  epoch_t startTime;
+  epoch_t startTime = 0;
   if (recordPerformance)
     startTime = get_epoch_nanoseconds();
 
@@ -212,5 +212,7 @@ void PlanOperation::setResponseTask(const std::shared_ptr<access::ResponseTask>&
 }
 
 std::shared_ptr<access::ResponseTask> PlanOperation::getResponseTask() const { return _responseTask.lock(); }
+
+void PlanOperation::disablePapiTrace() { _papi_disabled = true; }
 }
 }

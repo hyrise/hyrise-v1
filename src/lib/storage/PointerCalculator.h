@@ -23,7 +23,6 @@ class PointerCalculator : public AbstractTable, public SharedFactory<PointerCalc
  public:
   PointerCalculator(c_atable_ptr_t t, pos_list_t* pos = nullptr, field_list_t* f = nullptr);
   PointerCalculator(const PointerCalculator& other);
-
   PointerCalculator(c_atable_ptr_t t, pos_list_t pos);
 
   virtual ~PointerCalculator();
@@ -95,6 +94,10 @@ class PointerCalculator : public AbstractTable, public SharedFactory<PointerCalc
   void print(const size_t limit = (size_t) - 1) const override;
   table_id_t subtableCount() const override { return 1; }
   void debugStructure(size_t level = 0) const override;
+
+  void persist_scattered(const pos_list_t& elements, bool new_elements = true) const override {
+    STORAGE_NOT_IMPLEMENTED(RawTable, persist_scattered());
+  }
 
  protected:
   void updateFieldMapping();

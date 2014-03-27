@@ -7,10 +7,9 @@ namespace hyrise {
 namespace access {
 
 class CompoundExpression : public SimpleExpression {
- private:
+ public:
   ExpressionType type;
 
- public:
   SimpleExpression* lhs;
   SimpleExpression* rhs;
 

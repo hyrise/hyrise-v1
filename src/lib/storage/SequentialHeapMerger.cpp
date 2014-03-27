@@ -177,9 +177,10 @@ AbstractTable::SharedDictionaryPtr SequentialHeapMerger::createNewDict(
   bool first = true;
   bool assigned = false;
 
-  T last_value;
+  T last_value{};
   auto new_dict = std::make_shared<OrderPreservingDictionary<T>>(
       functional::sum(value_id_mapping, 0ul, [](std::vector<value_id_t>& v) { return v.size(); }));
+
   while (!queue.empty()) {
 
     auto element = queue.top();

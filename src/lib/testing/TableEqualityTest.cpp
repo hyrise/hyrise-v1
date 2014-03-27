@@ -5,6 +5,7 @@
 #include <storage/TableDiff.h>
 #include <storage/PrettyPrinter.h>
 #include <storage/storage_types_helper.h>
+
 namespace hyrise {
 
 using namespace storage;

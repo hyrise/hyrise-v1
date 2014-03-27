@@ -23,23 +23,27 @@ class TableLoad : public PlanOperation {
   const std::string vname();
   void setTableName(const std::string& tablename);
   void setFileName(const std::string& filename);
+  void setPath(const std::string& path);
   void setHeaderFileName(const std::string& filename);
   void setHeaderString(const std::string& header);
   void setBinary(const bool binary);
   void setUnsafe(const bool unsafe);
   void setRaw(const bool raw);
   void setDelimiter(const std::string& d);
+  void setNonvolatile(const bool nonvolatile);
 
  private:
   std::string _table_name;
   std::string _header_file_name;
   std::string _file_name;
+  std::string _path;
   std::string _header_string;
   std::string _delimiter;
   bool _hasDelimiter;
   bool _binary;
   bool _unsafe;
   bool _raw;
+  bool _nonvolatile;
 };
 }
 }

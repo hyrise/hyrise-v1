@@ -38,6 +38,8 @@ class AbstractInput : public cloneable {
   virtual bool needs_store_wrap() {
     return true;
   };
+
+  virtual bool needs_merge() { return true; }
 };
 
 

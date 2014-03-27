@@ -12,10 +12,46 @@
 #include "helper/types.h"
 #include "io/TXContext.h"
 #include "storage/storage_types.h"
+#include "net/AbstractConnection.h"
 
 #include "optional.hpp"
+
+
 namespace hyrise {
 namespace tx {
+
+class TXCommitContext {
+ public:
+  transaction_id_t tid = UNKNOWN;
+  transaction_cid_t cid = UNKNOWN;
+  std::string response;
+  net::AbstractConnection* connection;
+  std::atomic<bool> finished_but_uncommitted;
+  std::atomic<size_t> ref_count;
+  TXCommitContext* next __attribute__((aligned(16)));
+
+  TXCommitContext(TXContext& ctx)
+      : tid(ctx.tid), cid(UNKNOWN), response(""), finished_but_uncommitted(false), ref_count(1), next(nullptr) {}
+
+  TXCommitContext()
+      : tid(UNKNOWN), cid(UNKNOWN), response(""), finished_but_uncommitted(false), ref_count(1), next(nullptr) {}
+
+  ~TXCommitContext() {
+    if (next != nullptr) {
+      next->release();
+    }
+  }
+
+  void retain() { ++ref_count; }
+
+  void release() {
+    assert(ref_count > 0);
+    if (ref_count.fetch_sub(1) == 1) {
+      delete this;
+    }
+  }
+};
+
 
 // Stores all modifications for a given transaction
 class TXModifications {
@@ -27,6 +63,7 @@ class TXModifications {
 
   // TID identifier for the context
   transaction_id_t tid = UNKNOWN;
+
 
   // Map to store the values
   map_t inserted;
@@ -83,7 +120,16 @@ class TransactionManager {
   /// of the transaction context identified by tid
   /// \param tid transaction id to commit
   /// \returns commit id on success
-  static transaction_cid_t commitTransaction(TXContext ctx);
+  static std::vector<TXCommitContext*> commitTransaction(TXContext ctx,
+                                                         bool _use_group_commit = true,
+                                                         net::AbstractConnection* connection = nullptr,
+                                                         std::string response = "");
+
+
+  static void commitAndRespond(TXContext& ctx,
+                               bool flush_log = true,
+                               net::AbstractConnection* connection = nullptr,
+                               std::string response = "");
 
   /// Ends a transaction by leaving all changes invisible
   /// \param tid transaction id to abort
@@ -108,56 +154,45 @@ class TransactionManager {
   */
   TXContext buildContext();
 
-  /*
-
-   * Starts the Synchronized Transaction Process
-  *
-  * The call to prepare commit retrieves the next possible commit ID from the
-  * list and locks the call to serialized all incoming transactions. We
-  * protect this method using a spin lock. The lock is released in the
-  * @commit() method.
-  */
-  transaction_cid_t prepareCommit();
 
   void abort();
-  /**
-  * Tries to acquire the spin lock for the prepare commit call and returns
-  * UNKNOWN in case of failure or the next commit ID in case of
-  * success
-  */
-  transaction_cid_t tryPrepareCommit();
 
   /*
   * Returns the modifications set for the given transaction id
   */
   TXModifications& operator[](const transaction_id_t& key);
 
-  /**
-  * This call relases the prepare commit lock and increments the commit ID
-  * counter;
-  */
-  void commit(transaction_id_t tid);
-
-  void endTransaction(transaction_id_t tid);
+  void endTransaction(transaction_id_t tid, bool flush_log);
 
   void reset();
+
+  /*
+  * Blocks until all currently running transactions have finished
+  */
+  void waitForAllCurrentlyRunningTransactions() const;
 
 
  private:
   std::optional<const TXModifications&> getModifications(const transaction_id_t key) const;
+  void commitModifiedPositions(TXContext& ctx, bool flush_log);
+  void commitPendingTransactions(std::vector<TXCommitContext*>& commit_context_list, TXCommitContext* commit_context);
+  TXCommitContext* startCommitPhase(TXContext& ctx);
+  std::vector<TXCommitContext*> finishCommitPhase(TXCommitContext* commit_context, bool flush_log);
+
 
   std::atomic<transaction_id_t> _transactionCount;
-  std::atomic<transaction_cid_t> _commitId;
+  std::atomic<transaction_cid_t> _nextCommitId;
+
+  transaction_cid_t _lastFinishedCommitId __attribute__((aligned(16)));
+  TXCommitContext* _lastTXCommitContext __attribute__((aligned(16)));
 
   using map_t = std::unordered_map<transaction_id_t, std::unique_ptr<TransactionData>>;
 
   // Keeping track of all transactions and their modifications
   Synchronized<map_t, locking::Spinlock> _txData;
 
-  // Spin Lock for transactions
-  locking::Spinlock _txLock;
-
   TransactionManager();
+  ~TransactionManager();
 
   // Get next transaction id
   transaction_id_t getTransactionId();

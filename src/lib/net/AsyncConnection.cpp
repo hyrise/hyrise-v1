@@ -12,7 +12,7 @@
 #include "net/Router.h"
 #include "taskscheduler/SharedScheduler.h"
 #include "access/system/RequestParseTask.h"
-
+#include "helper/Settings.h"
 
 namespace hyrise {
 namespace net {
@@ -56,7 +56,9 @@ void request_complete(ebb_request* request) {
   AsyncConnection* connection_data = (AsyncConnection*)connection->data;
   connection_data->connection = connection;
   connection_data->request = request;
+#ifndef NDEBUG
   gettimeofday(&connection_data->starttime, nullptr);
+#endif
   connection_data->keep_alive_flag = ebb_request_should_keep_alive(request);
 
   ev_async_init(&connection_data->ev_write, write_cb);
@@ -75,6 +77,29 @@ void request_complete(ebb_request* request) {
 
   auto task = handler_factory->create(connection_data);
   task->setPriority(taskscheduler::Task::HIGH_PRIORITY);  // give RequestParseTask high priority
+
+  // for tpcc stored procedure the second part of the path is the warehouse id which we use for scheduling the task
+  const char proc_path[] = "/procedure/";
+  const int proc_path_len = strlen(proc_path);
+  if (strncmp(connection_data->path, proc_path, proc_path_len) == 0 && connection_data->path[proc_path_len] != '0' &&
+      connection_data->body_len >= 4) {
+    char id_buffer[16];
+    int i = 0;
+    while (connection_data->path[i + proc_path_len] != '\0') {
+      if (connection_data->path[i + proc_path_len] == '/') {
+        break;
+      } else if (i >= 15) {
+        printf("WARNING: id for precedure is larger than buffer!\n");
+        break;
+      } else {
+        id_buffer[i] = connection_data->path[i + proc_path_len];
+        ++i;
+      }
+    }
+    id_buffer[i] = '\0';
+    int core = atoi(id_buffer) % Settings::getInstance()->worker_threads;
+    task->setPreferredCore(core);
+  }
   taskscheduler::SharedScheduler::getInstance().getScheduler()->schedule(task);
   connection_data->waiting_for_response = true;
 }
@@ -112,9 +137,24 @@ void request_body(ebb_request* request, const char* at, size_t length) {
   connection_data->body_len += length;
 }
 
+void request_header(ebb_request* request, const char* at, size_t length) {
+  ebb_connection* connection = (ebb_connection*)request->data;
+  AsyncConnection* connection_data = (AsyncConnection*)connection->data;
+
+  if (!connection_data->body) {
+    connection_data->body = (char*)malloc(length);
+    connection_data->body_len = 0;
+  } else {
+    connection_data->body = (char*)realloc(connection_data->body, connection_data->body_len + length);
+  }
+  memcpy(connection_data->body + connection_data->body_len, at, length);
+  connection_data->body_len += length;
+}
+
 void write_cb(struct ev_loop* loop, struct ev_async* w, int revents) {
   AsyncConnection* conn = (AsyncConnection*)w->data;
 
+#ifndef NDEBUG
   char* method = (char*)"";
   switch (conn->request->method) {
     case EBB_GET:
@@ -138,13 +178,18 @@ void write_cb(struct ev_loop* loop, struct ev_async* w, int revents) {
   time(&rawtime);
   timeinfo = localtime(&rawtime);
   strftime(timestr, sizeof(timestr), "%Y-%m-%d %H:%M:%S %z", timeinfo);
+#endif
 
   // Handle the actual writing
   if (conn->connection != nullptr) {
     ebb_connection_write(conn->connection, conn->write_buffer, conn->write_buffer_len, continue_responding);
+#ifndef NDEBUG
     printf("%s [%s] %s %s (%f s)\n", inet_ntoa(conn->addr.sin_addr), timestr, method, conn->path, duration);
+#endif
   } else {
+#ifndef NDEBUG
     printf("%s [%s] %s %s (%f s) not sent\n", inet_ntoa(conn->addr.sin_addr), timestr, method, conn->path, duration);
+#endif
   }
   ev_async_stop(conn->ev_loop, &conn->ev_write);
   conn->waiting_for_response = false;

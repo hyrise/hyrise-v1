@@ -81,18 +81,24 @@ class OrderPreservingDictionary : public BaseDictionary<T> {
     return index;
   }
 
-  value_id_t getValueIdForValueSmaller(T other) {
-    auto binary_search = std::lower_bound(_values->begin(), _values->end(), other);
-    size_t index = binary_search - _values->begin();
-
-    assert(index > 0);
-    return index - 1;
+  value_id_t findValueIdForValue(const T& value) const {
+    auto binary_search = std::lower_bound(_values->begin(), _values->end(), value);
+    if (binary_search != _values->end() && *binary_search == value) {
+      return binary_search - _values->begin();
+    } else {
+      return std::numeric_limits<value_id_t>::max();
+    }
   }
 
-  value_id_t getValueIdForValueGreater(T other) {
+  value_id_t getLowerBoundValueIdForValue(T other) {
+    auto binary_search = std::lower_bound(_values->begin(), _values->end(), other);
+    size_t index = binary_search - _values->begin();
+    return index;
+  }
+
+  value_id_t getUpperBoundValueIdForValue(T other) {
     auto binary_search = std::upper_bound(_values->begin(), _values->end(), other);
     size_t index = binary_search - _values->begin();
-
     return index;
   }
 
@@ -125,6 +131,12 @@ class OrderPreservingDictionary : public BaseDictionary<T> {
   iterator begin() { return iterator(std::make_shared<OrderPreservingDictionaryIterator<T>>(_values, 0)); }
 
   iterator end() { return iterator(std::make_shared<OrderPreservingDictionaryIterator<T>>(_values, _values->size())); }
+
+  const shared_vector_type& getValueList() const { return _values; }
+
+  void setValueVector(vector_type& new_values) { _values = std::shared_ptr<vector_type>(&new_values); }
+
+  void swapValues(vector_type& new_values) { std::swap((*_values), new_values); }
 };
 
 

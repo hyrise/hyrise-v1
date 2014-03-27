@@ -6,6 +6,7 @@
 #include "helper.h"
 
 #include <algorithm>
+#include <thread>
 
 #include "access/Delete.h"
 #include "access/InsertScan.h"
@@ -15,11 +16,13 @@
 #include "access/expressions/predicates.h"
 #include "access/tx/Commit.h"
 #include "access/tx/ValidatePositions.h"
+#include "access/expressions/predicates.h"
 #include "io/shortcuts.h"
 #include "storage/Store.h"
 #include "storage/PointerCalculator.h"
 #include "storage/TableBuilder.h"
 #include "helper/types.h"
+#include "helper/HwlocHelper.h"
 #include "io/TransactionManager.h"
 
 #include <testing/TableEqualityTest.h>
@@ -136,6 +139,68 @@ TEST_F(TransactionTests, read_only_commited) {
 
   auto r1 = vp.getResultTable();
   ASSERT_EQ(before, r1->size());
+}
+
+void parallel_writer_thread_function(storage::store_ptr_t linxxxs,
+                                     storage::atable_ptr_t one_row,
+                                     const size_t inserts_per_thread) {
+
+  // do 1K inserts
+  for (size_t i = 0; i < inserts_per_thread; ++i) {
+
+    auto writeCtx = tx::TransactionManager::getInstance().buildContext();
+
+    InsertScan is;
+    is.setTXContext(writeCtx);
+    is.addInput(linxxxs);
+    is.setInputData(one_row);
+    is.execute();
+
+    // Commit the changes
+    tx::TransactionManager::commitAndRespond(writeCtx, true);
+  }
+}
+
+TEST_F(TransactionTests, parallel_writer) {
+
+  // first insert a lot in parallel
+  const size_t thread_count = getNumberOfCoresOnSystem();
+  const size_t inserts_per_thread = 1000;
+
+  std::vector<std::thread> threads;
+
+  for (size_t i = 0; i < thread_count; ++i) {
+    threads.push_back(std::thread(parallel_writer_thread_function, linxxxs, one_row, inserts_per_thread));
+  }
+
+  for (auto& thread : threads) {
+    thread.join();
+  }
+
+  // read all inserted rows and check if correct
+  auto readCtx = tx::TransactionManager::getInstance().buildContext();
+
+  // std::cout << "read context. cid: " << readCtx.cid << ". lastCid: " << readCtx.lastCid << ". tid: " << readCtx.tid
+  // << std::endl;
+  ProjectionScan ps;
+  ps.addInput(linxxxs);
+  ps.setTXContext(readCtx);
+  ps.addField(0);
+  ps.addField(1);
+  ps.execute();
+
+  ValidatePositions vp;
+  vp.setTXContext(readCtx);
+  vp.addInput(ps.getResultTable());
+  vp.execute();
+  auto res = vp.getResultTable();
+
+  auto size = res->size();
+  long sum = 0;
+  for (size_t i = 0; i < size; ++i) {
+    sum += res->getValue<hyrise_int_t>(0, i);
+  }
+  ASSERT_EQ(sum, (thread_count * inserts_per_thread * 99) + 8 + 6 + 400 + 200);
 }
 
 TEST_F(TransactionTests, concurrent_writer) {
@@ -342,53 +407,53 @@ TEST_F(TransactionTests, delete_op_and_concurrent_read) {
   ASSERT_EQ(before, res->size());
 }
 
-TEST_F(TransactionTests, delete_op_with_commit_and_concurrent_read) {
+// TEST_F(TransactionTests, delete_op_with_commit_and_concurrent_read) {
 
-  auto writeCtx = tx::TransactionManager::getInstance().buildContext();
-  size_t before = linxxxs->size();
+//   auto writeCtx = tx::TransactionManager::getInstance().buildContext();
+//   size_t before = linxxxs->size();
 
-  // Delete positiotn 0
-  auto pc = storage::PointerCalculator::create(linxxxs, new pos_list_t({0}));
-  ASSERT_EQ(1u, pc->size());
+//   // Delete positiotn 0
+//   auto pc = storage::PointerCalculator::create(linxxxs, new pos_list_t({0}));
+//   ASSERT_EQ(1u, pc->size());
 
-  DeleteOp del;
-  del.setTXContext(writeCtx);
-  del.addInput(pc);
-  del.execute();
-
-
-  // Acquire the TX Lock
-  auto& txmgr = hyrise::tx::TransactionManager::getInstance();
-  writeCtx.cid = txmgr.prepareCommit();
-
-  // write commit id to simulate transaction in the process of committing
-  linxxxs->commitPositions(*(pc->getPositions()), writeCtx.cid, false);
+//   DeleteOp del;
+//   del.setTXContext(writeCtx);
+//   del.addInput(pc);
+//   del.execute();
 
 
+//   // Acquire the TX Lock
+//   auto& txmgr = hyrise::tx::TransactionManager::getInstance();
+//   writeCtx.cid = txmgr.prepareCommit();
 
-  auto& mod = tx::TransactionManager::getInstance()[writeCtx.tid];
-  ASSERT_EQ(1u, mod.deleted.size());
+//   // write commit id to simulate transaction in the process of committing
+//   linxxxs->commitPositions(*(pc->getPositions()), writeCtx.cid, false);
 
-  // read all
-  auto readCtx = tx::TransactionManager::getInstance().buildContext();
-  ProjectionScan ps;
-  ps.addInput(linxxxs);
-  ps.setTXContext(readCtx);
-  ps.addField(0);
-  ps.addField(1);
-  ps.execute();
 
-  ValidatePositions vp;
-  vp.setTXContext(readCtx);
-  vp.addInput(ps.getResultTable());
-  vp.execute();
 
-  auto res = vp.getResultTable();
+//   auto& mod = tx::TransactionManager::getInstance()[writeCtx.tid];
+//   ASSERT_EQ(1u, mod.deleted.size());
 
-  txmgr.commit(writeCtx.tid);
+//   // read all
+//   auto readCtx = tx::TransactionManager::getInstance().buildContext();
+//   ProjectionScan ps;
+//   ps.addInput(linxxxs);
+//   ps.setTXContext(readCtx);
+//   ps.addField(0);
+//   ps.addField(1);
+//   ps.execute();
 
-  ASSERT_EQ(before, res->size());
-}
+//   ValidatePositions vp;
+//   vp.setTXContext(readCtx);
+//   vp.addInput(ps.getResultTable());
+//   vp.execute();
+
+//   auto res = vp.getResultTable();
+
+//   txmgr.commit(writeCtx.tid);
+
+//   ASSERT_EQ(before , res->size());
+// }
 
 TEST_F(TransactionTests, delete_op_and_merge) {
 
@@ -487,8 +552,10 @@ TEST_F(TransactionTests, update_and_read_values) {
 TEST_F(TransactionTests, update_and_delete_same_row) {
 
   auto reference = io::Loader::shortcuts::load("test/reference/txtest_update_and_delete_same_row.tbl");
+
   auto writeCtx = tx::TransactionManager::getInstance().buildContext();
   auto& mod = tx::TransactionManager::getInstance()[writeCtx.tid];
+
 
   ASSERT_EQ(0u, mod.inserted.size());
   size_t before = linxxxs->size();
@@ -529,6 +596,7 @@ TEST_F(TransactionTests, update_and_delete_same_row) {
 
   // load table and validate positions for reference
   auto readCtx = tx::TransactionManager::getInstance().buildContext();
+
   auto expr = std::unique_ptr<GreaterThanExpression<storage::hyrise_int_t> >(
       new GreaterThanExpression<storage::hyrise_int_t>(0, 1, 0));
 
@@ -558,6 +626,7 @@ TEST_F(TransactionTests, update_and_delete_same_row) {
 TEST_F(TransactionTests, insert_and_delete_same_row) {
 
   auto reference = io::Loader::shortcuts::load("test/lin_xxxs.tbl");
+
   auto writeCtx = tx::TransactionManager::getInstance().buildContext();
   auto& mod = tx::TransactionManager::getInstance()[writeCtx.tid];
 
@@ -597,6 +666,7 @@ TEST_F(TransactionTests, insert_and_delete_same_row) {
 
   // load table and validate positions for reference
   auto readCtx = tx::TransactionManager::getInstance().buildContext();
+
   auto expr = std::unique_ptr<GreaterThanExpression<storage::hyrise_int_t> >(
       new GreaterThanExpression<storage::hyrise_int_t>(0, 1, 0));
 

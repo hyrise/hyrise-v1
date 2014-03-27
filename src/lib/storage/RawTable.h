@@ -106,7 +106,6 @@ class RawTable : public AbstractTable {
 
   void resize(const size_t nr_of_values);
 
-
   const ColumnMetadata& metadataAt(const size_t column_index,
                                    const size_t row_index = 0,
                                    const table_id_t table_id = 0) const override;
@@ -200,6 +199,10 @@ class RawTable : public AbstractTable {
                                const size_t row = 0,
                                const table_id_t table_id = 0) {
     STORAGE_NOT_IMPLEMENTED(RawTable, dictionaryAt());
+  }
+
+  void persist_scattered(const pos_list_t& elements, bool new_elements = true) const override {
+    STORAGE_NOT_IMPLEMENTED(RawTable, persist_scattered());
   }
 };
 }

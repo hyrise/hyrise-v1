@@ -80,3 +80,97 @@ unsigned getNodeForCore(unsigned core) {
   }
   throw std::runtime_error("expected to find node for core");
 }
+
+// assumes equal number of cores per node
+unsigned getNumberOfCoresPerNumaNode() {
+  hwloc_topology_t topology = getHWTopology();
+  int number_of_cores, number_of_nodes;
+  number_of_cores = hwloc_get_nbobjs_by_type(topology, HWLOC_OBJ_CORE);
+  number_of_nodes = hwloc_get_nbobjs_by_type(topology, HWLOC_OBJ_NODE);
+  if (number_of_nodes > 0)
+    return number_of_cores / number_of_nodes;
+  if (number_of_nodes == 0)
+    return number_of_cores;
+  throw std::runtime_error("Multi-Level NUMA handling not implemented");
+};
+
+void bindCurrentThreadToCore(int core) {
+  hwloc_topology_t topology = getHWTopology();
+  hwloc_cpuset_t cpuset;
+  hwloc_obj_t obj;
+
+  // The actual core
+  obj = hwloc_get_obj_by_type(topology, HWLOC_OBJ_CORE, core);
+  cpuset = hwloc_bitmap_dup(obj->cpuset);
+  hwloc_bitmap_singlify(cpuset);
+
+  // bind
+  if (hwloc_set_cpubind(topology, cpuset, HWLOC_CPUBIND_STRICT | HWLOC_CPUBIND_NOMEMBIND | HWLOC_CPUBIND_THREAD)) {
+    char* str;
+    int error = errno;
+    hwloc_bitmap_asprintf(&str, obj->cpuset);
+    printf("Couldn't bind to cpuset %s: %s\n", str, strerror(error));
+    free(str);
+    throw std::runtime_error(strerror(error));
+  }
+
+  // free duplicated cpuset
+  hwloc_bitmap_free(cpuset);
+
+  // assuming single machine system
+  obj = hwloc_get_obj_by_type(topology, HWLOC_OBJ_MACHINE, 0);
+  // set membind policy interleave for this thread
+  if (hwloc_set_membind_nodeset(
+          topology, obj->nodeset, HWLOC_MEMBIND_INTERLEAVE, HWLOC_MEMBIND_STRICT | HWLOC_MEMBIND_THREAD)) {
+    char* str;
+    int error = errno;
+    hwloc_bitmap_asprintf(&str, obj->nodeset);
+    fprintf(stderr, "Couldn't membind to nodeset  %s: %s\n", str, strerror(error));
+    fprintf(stderr, "Continuing as normal, however, no guarantees\n");
+    free(str);
+  }
+}
+
+void bindCurrentThreadToNumaNode(int node) {
+  hwloc_topology_t topology = getHWTopology();
+  hwloc_cpuset_t cpuset;
+  hwloc_obj_t obj;
+
+  // The actual node
+  obj = hwloc_get_obj_by_type(topology, HWLOC_OBJ_NODE, node);
+
+  // obj is nullptr on non NUMA machines
+  if (obj == nullptr) {
+    fprintf(stderr, "Couldn't get hwloc object, bindCurrentThreadToNumaNode failed!\n");
+    return;
+  }
+
+  cpuset = hwloc_bitmap_dup(obj->cpuset);
+  // hwloc_bitmap_singlify(cpuset);
+
+  // bind
+  if (hwloc_set_cpubind(topology, cpuset, HWLOC_CPUBIND_STRICT | HWLOC_CPUBIND_NOMEMBIND | HWLOC_CPUBIND_THREAD)) {
+    char* str;
+    int error = errno;
+    hwloc_bitmap_asprintf(&str, obj->cpuset);
+    printf("Couldn't bind to cpuset %s: %s\n", str, strerror(error));
+    free(str);
+    throw std::runtime_error(strerror(error));
+  }
+
+  // free duplicated cpuset
+  hwloc_bitmap_free(cpuset);
+
+  // assuming single machine system
+  obj = hwloc_get_obj_by_type(topology, HWLOC_OBJ_MACHINE, 0);
+  // set membind policy interleave for this thread
+  if (hwloc_set_membind_nodeset(
+          topology, obj->nodeset, HWLOC_MEMBIND_INTERLEAVE, HWLOC_MEMBIND_STRICT | HWLOC_MEMBIND_THREAD)) {
+    char* str;
+    int error = errno;
+    hwloc_bitmap_asprintf(&str, obj->nodeset);
+    fprintf(stderr, "Couldn't membind to nodeset  %s: %s\n", str, strerror(error));
+    fprintf(stderr, "Continuing as normal, however, no guarantees\n");
+    free(str);
+  }
+}

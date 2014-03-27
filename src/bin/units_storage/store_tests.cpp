@@ -11,8 +11,6 @@ class StoreTests : public Test {};
 
 TableGenerator tg(true);
 
-TEST_F(StoreTests, basic_instantiation) { Store s; }
-
 /// Test that stores based on modifiable tables can be modified even in their main
 TEST_F(StoreTests, test_write_through) {
   auto table = tg.one_value_delta(1, 1, 0);

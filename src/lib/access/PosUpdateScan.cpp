@@ -12,6 +12,7 @@
 #include "storage/Store.h"
 #include "storage/PointerCalculator.h"
 #include "storage/meta_storage.h"
+#include "io/TransactionError.h"
 
 
 namespace hyrise {
@@ -53,13 +54,15 @@ void PosUpdateScan::executePlanOperation() {
     bool deleteOk = store->markForDeletion(p, _txContext.tid) == tx::TX_CODE::TX_OK;
     if (!deleteOk) {
       txmgr.rollbackTransaction(_txContext);
-      throw std::runtime_error("Aborted TX because TID of other TX found");
+      throw tx::transaction_error("Aborted TX because TID of other TX found (Op: PosUpdateScan, Table: " +
+                                  store->getName() + ")");
     }
     modRecord.deletePos(store, p);
     // store->setTid(p, _txContext.tid);
 
     // Copy the old row from the main
     store->copyRowToDelta(store, p, writeArea.first + counter, _txContext.tid);
+
     // Update all the necessary values
     for (const auto& kv : _raw_data) {
       const auto& fld = store->numberOfColumn(kv.first);
@@ -67,8 +70,20 @@ void PosUpdateScan::executePlanOperation() {
       ts(store->typeOfColumn(fld), fun);
     }
 
+    // Update delta indices
+    store->addRowToDeltaIndices(firstPosition + counter);
+
     // Insert the new one
     modRecord.insertPos(store, firstPosition + counter);
+
+#ifdef PERSISTENCY_BUFFEREDLOGGER
+    std::vector<ValueId> vids = store->copyValueIds(firstPosition + counter);
+    if (store->loggingEnabled()) {
+      io::Logger::getInstance().logValue(_txContext.tid, store->getName(), firstPosition + counter, &vids);
+      io::Logger::getInstance().logInvalidation(_txContext.tid, store->getName(), p);
+    }
+#endif
+
     ++counter;
   }
 

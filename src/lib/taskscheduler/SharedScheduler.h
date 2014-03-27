@@ -12,6 +12,8 @@
 #include <taskscheduler/DynamicTaskQueue.h>
 #include <stdexcept>
 
+#define NUM_RESERVED_CORES 1
+
 namespace hyrise {
 namespace taskscheduler {
 
@@ -59,8 +61,9 @@ class SharedScheduler {
 
   bool isInitialized() { return bool(_sharedScheduler); }
 
-  void init(const std::string& scheduler, int threads = getNumberOfCoresOnSystem(), int maxTaskSize = 0) {
-
+  void init(const std::string& scheduler,
+            int threads = getNumberOfCoresOnSystem() - NUM_RESERVED_CORES,
+            int maxTaskSize = 0) {
     if (_sharedScheduler)
       throw SchedulerException("Scheduler has already been initialized");
     if (_schedulers.find(scheduler) != _schedulers.end()) {
@@ -76,7 +79,7 @@ class SharedScheduler {
   /*
    * stops current scheduler gracefully; starts new scheduler
    */
-  void resetScheduler(const std::string& scheduler, int threads = getNumberOfCoresOnSystem()) {
+  void resetScheduler(const std::string& scheduler, int threads = getNumberOfCoresOnSystem() - NUM_RESERVED_CORES) {
     if (_sharedScheduler) {
       _sharedScheduler->shutdown();
     }
