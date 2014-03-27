@@ -79,8 +79,8 @@ class ThreadLevelQueuesScheduler : public AbstractTaskScheduler,
       pushToQueue(task);
     } else {
       task->addReadyObserver(shared_from_this());
+      task->unlockForNotifications();
     }
-    task->unlockForNotifications();
   }
   /*
    * shutdown task scheduler; makes sure all underlying threads are stopped

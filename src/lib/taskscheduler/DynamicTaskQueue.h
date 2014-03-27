@@ -40,8 +40,8 @@ class DynamicTaskQueue : public ThreadLevelQueue<QUEUE> {
           ThreadLevelQueue<QUEUE>::_queuecheck.notify_all();
         } else {
           i->addReadyObserver(ThreadLevelQueue<QUEUE>::shared_from_this());
+          i->unlockForNotifications();
         }
-        i->unlockForNotifications();
       }
     } else {  // task is not dynamic
       _runQueue.push(task);
@@ -61,8 +61,8 @@ class DynamicTaskQueue : public ThreadLevelQueue<QUEUE> {
         }
       } else {
         task->addReadyObserver(ThreadLevelQueue<QUEUE>::shared_from_this());
+        task->unlockForNotifications();
       }
-      task->unlockForNotifications();
     } else {
       ThreadLevelQueue<QUEUE>::schedule(task);
     }
