@@ -16,7 +16,7 @@ TEST(BitCompressedTests, set_retrieve_bits) {
   tuples.resize(2);
   auto col = 0;
   for (auto bit : bits) {
-    auto maxval = (1 << bit) - 1;  // Maximum value that can be stored is 2^bit-1
+    uint64_t maxval = (1 << bit) - 1;  // Maximum value that can be stored is 2^bit-1
     tuples.set(col, 0, 0);
     tuples.set(col, 1, maxval);
     EXPECT_EQ(0u, tuples.get(col, 0));
