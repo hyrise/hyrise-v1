@@ -23,8 +23,11 @@ class WSNodeBoundQueuesScheduler : virtual public ThreadLevelQueuesScheduler<QUE
                                    virtual public NodeBoundQueuesScheduler<QUEUE> {
 
   using ThreadLevelQueuesScheduler<QUEUE>::_queues;
+  using ThreadLevelQueuesScheduler<QUEUE>::_status;
   using ThreadLevelQueuesScheduler<QUEUE>::getNextQueue;
   using ThreadLevelQueuesScheduler<QUEUE>::_queueCount;
+  using NodeBoundQueuesScheduler<QUEUE>::_threadsPerNode;
+  using NodeBoundQueuesScheduler<QUEUE>::_totalThreads;
 
  public:
   WSNodeBoundQueuesScheduler(int queues)
@@ -33,10 +36,30 @@ class WSNodeBoundQueuesScheduler : virtual public ThreadLevelQueuesScheduler<QUE
         NodeBoundQueuesScheduler<QUEUE>(queues) {};
   ~WSNodeBoundQueuesScheduler() {};
 
-  virtual void init() { NodeBoundQueuesScheduler<QUEUE>::init(); }
+  virtual void init() {
+    // get Number of Nodes
+    _queueCount = getNumberOfNodesOnSystem();
+    _threadsPerNode = _totalThreads / _queueCount;
 
-  std::shared_ptr<typename ThreadLevelQueuesScheduler<QUEUE>::task_queue_t> createTaskQueue(int core) {
+    // create Processor Level Schedulers
+    for (size_t i = 0; i < _queueCount; i++) {
+      auto q = createTaskQueue(i, _threadsPerNode);
+      q->init();
+      _queues.push_back(q);
+    }
+    for (unsigned i = 0; i < _queues.size(); ++i) {
+      std::dynamic_pointer_cast<WSThreadLevelQueue<QUEUE>>(_queues[i])->setOtherQueues();
+    }
+    _status = AbstractTaskScheduler::RUN;
+  }
+
+  virtual std::shared_ptr<typename ThreadLevelQueuesScheduler<QUEUE>::task_queue_t> createTaskQueue(int core) {
     return std::make_shared<WSNodeBoundQueue<QUEUE>>(this, core, 1);
+  }
+
+  virtual std::shared_ptr<typename ThreadLevelQueuesScheduler<QUEUE>::task_queue_t> createTaskQueue(int core,
+                                                                                                    int threads) {
+    return std::make_shared<WSNodeBoundQueue<QUEUE>>(this, core, threads);
   }
 };
 }
