@@ -36,7 +36,7 @@ class WSNodeBoundQueuesScheduler : virtual public ThreadLevelQueuesScheduler<QUE
         NodeBoundQueuesScheduler<QUEUE>(queues) {};
   ~WSNodeBoundQueuesScheduler() {};
 
-  virtual void init() { 
+  virtual void init() {
     // get Number of Nodes
     _queueCount = getNumberOfNodesOnSystem();
     _threadsPerNode = _totalThreads / _queueCount;
@@ -57,7 +57,8 @@ class WSNodeBoundQueuesScheduler : virtual public ThreadLevelQueuesScheduler<QUE
     return std::make_shared<WSNodeBoundQueue<QUEUE>>(this, core, 1);
   }
 
-  virtual std::shared_ptr<typename ThreadLevelQueuesScheduler<QUEUE>::task_queue_t> createTaskQueue(int core, int threads) {
+  virtual std::shared_ptr<typename ThreadLevelQueuesScheduler<QUEUE>::task_queue_t> createTaskQueue(int core,
+                                                                                                    int threads) {
     return std::make_shared<WSNodeBoundQueue<QUEUE>>(this, core, threads);
   }
 };

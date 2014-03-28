@@ -45,7 +45,7 @@ class WSNodeBoundQueue : virtual public WSThreadLevelQueue<QUEUE>, virtual publi
       for (size_t i = 0; i < _numberOfOtherQueues; i++) {
         task = _otherQueues.at((start + i) % _numberOfOtherQueues)->stealTask();
         if (task != nullptr) {
-          LOG4CXX_DEBUG(_logger, "WorkerThreadLevelQueue "<< _node << " stole task from " << i);
+          LOG4CXX_DEBUG(_logger, "WorkerThreadLevelQueue " << _node << " stole task from " << i);
           break;
         }
       }

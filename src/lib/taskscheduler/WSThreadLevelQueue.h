@@ -54,7 +54,7 @@ class WSThreadLevelQueue : virtual public ThreadLevelQueue<QUEUE> {
     auto all_queues = _scheduler->getTaskQueues();
     for (size_t i = 0; i < all_queues->size(); i++) {
       auto q = std::dynamic_pointer_cast<WSThreadLevelQueue>(all_queues->at(i));
-      if (q != ThreadLevelQueue<QUEUE>::shared_from_this()){
+      if (q != ThreadLevelQueue<QUEUE>::shared_from_this()) {
         _otherQueues.push_back(q);
       }
     }
