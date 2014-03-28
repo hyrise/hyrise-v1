@@ -1,8 +1,11 @@
 #pragma once
 
+#include <pthread.h>
+#include <immintrin.h>
+
 #include <thread>
 #include <atomic>
-#include <immintrin.h>
+
 namespace hyrise {
 namespace locking {
 
@@ -35,3 +38,39 @@ class Spinlock {
 };
 }
 }
+
+// Simple RAII-wrapper for pthread_rwlock_t
+struct RWMutex {
+  mutable pthread_rwlock_t _rw_lock;
+  // can only be moved, not copied
+ public:
+  RWMutex(RWMutex const&) = delete;
+  RWMutex& operator=(RWMutex const&) = delete;
+  RWMutex() {
+    pthread_rwlock_init(&_rw_lock, nullptr);
+  }
+  ~RWMutex() {
+    pthread_rwlock_destroy(&_rw_lock);
+  }
+  void lock_shared() const {
+    pthread_rwlock_rdlock(&_rw_lock);
+  }
+  void lock_exclusive() const {
+    pthread_rwlock_wrlock(&_rw_lock);
+  }
+  void unlock() const {
+    pthread_rwlock_unlock(&_rw_lock);
+  }
+};
+
+struct SharedLock {
+  const RWMutex& _mtx;
+  SharedLock(const RWMutex& mtx) : _mtx(mtx) { mtx.lock_shared(); }
+  ~SharedLock() { _mtx.unlock(); }
+};
+
+struct ExclusiveLock {
+  const RWMutex& _mtx;
+  ExclusiveLock(const RWMutex& mtx) : _mtx(mtx) { mtx.lock_exclusive(); }
+  ~ExclusiveLock() { _mtx.unlock(); }
+};
