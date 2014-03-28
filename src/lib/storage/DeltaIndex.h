@@ -39,19 +39,16 @@ class DeltaIndex : public AbstractIndex {
 
   inverted_index_t _index;
   RWMutex _mtx;
+
  public:
   virtual ~DeltaIndex() {}
 
   void shrink() { throw std::runtime_error("Shrink not supported for DeltaIndex"); }
 
-  void write_lock() {
-    _mtx.lock_exclusive();
-  }
+  void write_lock() { _mtx.lock_exclusive(); }
 
-  void unlock() {
-    _mtx.unlock();
-  }
-  
+  void unlock() { _mtx.unlock(); }
+
   explicit DeltaIndex(std::string id = "volatile_delta_index", size_t capacity = 1000000) {}
 
   void add(T value, pos_t pos) {
@@ -82,8 +79,8 @@ class DeltaIndex : public AbstractIndex {
     std::shared_ptr<pos_list_t> pos_list(new pos_list_t);
     {
       SharedLock sl(_mtx);
-        auto range = _index.equal_range(key);
-        copy(range.first, range.second, pos_list);
+      auto range = _index.equal_range(key);
+      copy(range.first, range.second, pos_list);
     }
     return PositionRange(pos_list->cbegin(), pos_list->cend(), false, pos_list);
   };
@@ -92,17 +89,17 @@ class DeltaIndex : public AbstractIndex {
     std::shared_ptr<pos_list_t> pos_list(new pos_list_t);
     {
       SharedLock sl(_mtx);
-        copy(_index.begin(), _index.lower_bound(key), pos_list);
-      }
+      copy(_index.begin(), _index.lower_bound(key), pos_list);
+    }
     return PositionRange(pos_list->cbegin(), pos_list->cend(), false, pos_list);
   };
 
   PositionRange getPositionsForKeyLTE(T key) {
     std::shared_ptr<pos_list_t> pos_list(new pos_list_t);
-   {
-        SharedLock sl(_mtx);
-        copy(_index.begin(), _index.upper_bound(key), pos_list);
-      }
+    {
+      SharedLock sl(_mtx);
+      copy(_index.begin(), _index.upper_bound(key), pos_list);
+    }
     return PositionRange(pos_list->cbegin(), pos_list->cend(), false, pos_list);
   };
 
@@ -112,27 +109,27 @@ class DeltaIndex : public AbstractIndex {
       std::swap(a, b);
     std::shared_ptr<pos_list_t> pos_list(new pos_list_t);
     {
-        SharedLock sl(_mtx);
-        copy(_index.lower_bound(a), _index.upper_bound(b), pos_list);
-      }
+      SharedLock sl(_mtx);
+      copy(_index.lower_bound(a), _index.upper_bound(b), pos_list);
+    }
     return PositionRange(pos_list->cbegin(), pos_list->cend(), false, pos_list);
   };
 
   PositionRange getPositionsForKeyGT(T key) {
     std::shared_ptr<pos_list_t> pos_list(new pos_list_t);
-     {
-        SharedLock sl(_mtx);
-        copy(_index.upper_bound(key), _index.end(), pos_list);
-      }
+    {
+      SharedLock sl(_mtx);
+      copy(_index.upper_bound(key), _index.end(), pos_list);
+    }
     return PositionRange(pos_list->cbegin(), pos_list->cend(), false, pos_list);
   };
 
   PositionRange getPositionsForKeyGTE(T key) {
     std::shared_ptr<pos_list_t> pos_list(new pos_list_t);
     {
-        SharedLock sl(_mtx);
-        copy(_index.lower_bound(key), _index.end(), pos_list);
-      }
+      SharedLock sl(_mtx);
+      copy(_index.lower_bound(key), _index.end(), pos_list);
+    }
     return PositionRange(pos_list->cbegin(), pos_list->cend(), false, pos_list);
   };
 };

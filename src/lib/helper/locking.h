@@ -46,21 +46,11 @@ struct RWMutex {
  public:
   RWMutex(RWMutex const&) = delete;
   RWMutex& operator=(RWMutex const&) = delete;
-  RWMutex() {
-    pthread_rwlock_init(&_rw_lock, nullptr);
-  }
-  ~RWMutex() {
-    pthread_rwlock_destroy(&_rw_lock);
-  }
-  void lock_shared() const {
-    pthread_rwlock_rdlock(&_rw_lock);
-  }
-  void lock_exclusive() const {
-    pthread_rwlock_wrlock(&_rw_lock);
-  }
-  void unlock() const {
-    pthread_rwlock_unlock(&_rw_lock);
-  }
+  RWMutex() { pthread_rwlock_init(&_rw_lock, nullptr); }
+  ~RWMutex() { pthread_rwlock_destroy(&_rw_lock); }
+  void lock_shared() const { pthread_rwlock_rdlock(&_rw_lock); }
+  void lock_exclusive() const { pthread_rwlock_wrlock(&_rw_lock); }
+  void unlock() const { pthread_rwlock_unlock(&_rw_lock); }
 };
 
 struct SharedLock {
