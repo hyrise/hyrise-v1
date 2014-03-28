@@ -7,11 +7,5 @@ include $(PROJECT_ROOT)/src/bin/hyrise/Makefile
 
 python_test: $(hyr-server.binary)
 	python $(tools)/test_server.py $<
-ifeq ($(PERSISTENCY),NVRAM)
-	python $(tools)/test_recovery.py $<
-	python $(tools)/test_transactional_recovery/test.py $<
-else
-	@echo Not testing persistency - enable persistency testing in tools/Makefile.
-endif
 
 test-tgts += python_test

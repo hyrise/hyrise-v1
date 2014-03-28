@@ -200,10 +200,6 @@ $(error V8_BASE_DIRECTORY is not defined)
 endif
 endif
 
-ifeq ($(WITH_NVRAM), 1)
-        COMMON_FLAGS += -D WITH_NVRAM
-endif
-
 include $(PROJECT_ROOT)/makefiles/config.$(COMPILER).mk
 include $(PLUGINS:%=$(PROJECT_ROOT)/mkplugins/%.mk)
 
