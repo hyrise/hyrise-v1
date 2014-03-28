@@ -140,7 +140,7 @@ int main(int argc, char* argv[]) {
       po::value<size_t>(&maxTaskSize)->default_value(DEFAULT_MTS),
       "Maximum task size used in dynamic parallelization scheduler. Use 0 for unbounded task run time.")(
       "scheduler,s",
-      po::value<std::string>(&scheduler_name)->default_value("WSNodeBoundQueuesScheduler"),
+      po::value<std::string>(&scheduler_name)->default_value("CentralScheduler"),
       "Name of the scheduler to use")
       // set default number of worker threads to #cores-1, as main thread with event loop is bound to core 0
       ("threads,t",
