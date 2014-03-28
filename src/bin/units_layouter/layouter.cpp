@@ -90,7 +90,7 @@ class LayouterTests : public ::testing::Test {
 };
 
 
-TEST_F(LayouterTests, DISABLED_test_subset_ordering) {
+TEST_F(LayouterTests, test_subset_ordering) {
 
   subset_t a, b, c;
   std::vector<subset_t> all;
@@ -108,7 +108,7 @@ TEST_F(LayouterTests, DISABLED_test_subset_ordering) {
 }
 
 
-TEST_F(LayouterTests, DISABLED_selection_experiment_for_thesis) {
+TEST_F(LayouterTests, selection_experiment_for_thesis) {
 
   for (size_t numAttrs = 1; numAttrs <= 100; ++numAttrs) {
 
@@ -143,7 +143,7 @@ TEST_F(LayouterTests, DISABLED_selection_experiment_for_thesis) {
   }
 }
 
-TEST_F(LayouterTests, DISABLED_cost_calculation_with_att_order) {
+TEST_F(LayouterTests, cost_calculation_with_att_order) {
   std::vector<std::string> names;
   names.push_back("ID");
   names.push_back("NAME");
@@ -237,7 +237,7 @@ TEST_F(LayouterTests, DISABLED_correct_cost_calculation) {
 }
 
 
-TEST_F(LayouterTests, DISABLED_divide_and_conquer_affinity) {
+TEST_F(LayouterTests, divide_and_conquer_affinity) {
   std::vector<unsigned> atts;
   std::vector<std::string> names;
 
@@ -320,7 +320,7 @@ TEST_F(LayouterTests, DISABLED_divide_and_conquer_affinity) {
   // l->getBestResult().print();
 }
 
-TEST_F(LayouterTests, DISABLED_divide_and_conquer_with_larger_group) {
+TEST_F(LayouterTests, divide_and_conquer_with_larger_group) {
   std::vector<unsigned> atts;
   std::vector<std::string> names;
 
@@ -347,7 +347,7 @@ TEST_F(LayouterTests, DISABLED_divide_and_conquer_with_larger_group) {
   l->layout(*s, HYRISE_COST);
 }
 
-TEST_F(LayouterTests, DISABLED_candidate_layouter_only_one_primary_partition) {
+TEST_F(LayouterTests, candidate_layouter_only_one_primary_partition) {
   std::vector<std::string> names;
   names.push_back("ID");
   names.push_back("NAME");
@@ -447,7 +447,7 @@ TEST_F(LayouterTests, DISABLED_candidate_test_from_presentation) {
   ASSERT_DOUBLE_EQ(cl.getBestResult().totalCost, bl.getBestResult().totalCost);
 }
 
-TEST_F(LayouterTests, DISABLED_matrix_metis_test) {
+TEST_F(LayouterTests, matrix_metis_test) {
   Matrix<int> m(3);
 
   m.set(0, 1, 99).set(1, 0, 99);
@@ -475,7 +475,7 @@ TEST_F(LayouterTests, DISABLED_matrix_metis_test) {
 }
 
 
-TEST_F(LayouterTests, DISABLED_simple_divide_and_conquer) {
+TEST_F(LayouterTests, simple_divide_and_conquer) {
   Schema s = wideSchema();
 
   // type, attributes, selection, weight
@@ -520,7 +520,7 @@ TEST_F(LayouterTests, DISABLED_simple_divide_and_conquer) {
   ASSERT_DOUBLE_EQ(tmp, r.totalCost);
 }
 
-TEST_F(LayouterTests, DISABLED_layout_print_full_names) {
+TEST_F(LayouterTests, layout_print_full_names) {
   Result r = executeSimpleQuery();
 
   std::string tmp = r.output();
@@ -528,7 +528,7 @@ TEST_F(LayouterTests, DISABLED_layout_print_full_names) {
   ASSERT_EQ(cmp, tmp);
 }
 
-TEST_F(LayouterTests, DISABLED_layout_load_table_from_output) {
+TEST_F(LayouterTests, layout_load_table_from_output) {
   Result r = executeSimpleQuery();
   std::string tmp = r.output();
 
@@ -540,7 +540,7 @@ TEST_F(LayouterTests, DISABLED_layout_load_table_from_output) {
 
 
 
-TEST_F(LayouterTests, DISABLED_initial_layouter_test) {
+TEST_F(LayouterTests, initial_layouter_test) {
   std::vector<std::string> names;
   names.push_back("A");
   names.push_back("B");
@@ -566,7 +566,7 @@ TEST_F(LayouterTests, DISABLED_initial_layouter_test) {
   ASSERT_EQ(r.layout.containerCount(), 2u);
 }
 
-TEST_F(LayouterTests, DISABLED_more_complex_layouter_test) {
+TEST_F(LayouterTests, more_complex_layouter_test) {
   std::vector<std::string> names;
   names.push_back("A");
   names.push_back("B");
@@ -595,7 +595,7 @@ TEST_F(LayouterTests, DISABLED_more_complex_layouter_test) {
   ASSERT_EQ(r.layout.containerCount(), 2u);
 }
 
-TEST_F(LayouterTests, DISABLED_layouter_two_queries) {
+TEST_F(LayouterTests, layouter_two_queries) {
   std::vector<std::string> names;
   names.push_back("A");
   names.push_back("B");
@@ -632,7 +632,7 @@ TEST_F(LayouterTests, DISABLED_layouter_two_queries) {
 }
 
 
-TEST_F(LayouterTests, DISABLED_initial_layouter_test_candidate) {
+TEST_F(LayouterTests, initial_layouter_test_candidate) {
   std::vector<std::string> names;
   names.push_back("A");
   names.push_back("B");
@@ -667,7 +667,7 @@ TEST_F(LayouterTests, DISABLED_initial_layouter_test_candidate) {
   ASSERT_EQ(r.layout.containerCount(), 2u);
 }
 
-TEST_F(LayouterTests, DISABLED_layouter_two_queries_candidate) {
+TEST_F(LayouterTests, layouter_two_queries_candidate) {
   std::vector<std::string> names;
   names.push_back("A");
   names.push_back("B");
@@ -709,7 +709,7 @@ TEST_F(LayouterTests, DISABLED_layouter_two_queries_candidate) {
   ASSERT_EQ(r.layout.containerCount(), 3u);
 }
 
-TEST_F(LayouterTests, DISABLED_incremental_layouter_initial) {
+TEST_F(LayouterTests, incremental_layouter_initial) {
   std::vector<std::string> names;
   names.push_back("ID");
   names.push_back("NAME");
@@ -756,7 +756,7 @@ TEST_F(LayouterTests, DISABLED_incremental_layouter_initial) {
 }
 
 
-TEST_F(LayouterTests, DISABLED_candidate_layoute_merged) {
+TEST_F(LayouterTests, candidate_layoute_merged) {
   std::vector<std::string> names;
   names.push_back("ID");
   names.push_back("NAME");
@@ -821,7 +821,7 @@ TEST_F(LayouterTests, DISABLED_candidate_layoute_merged) {
   // ASSERT_TRUE(cl.getBestResult() == fcl.getBestResult());
 }
 
-TEST_F(LayouterTests, DISABLED_incrementalLayout_layoute_merged) {
+TEST_F(LayouterTests, incrementalLayout_layoute_merged) {
   std::vector<std::string> names;
   names.push_back("ID");
   names.push_back("NAME");
@@ -889,7 +889,7 @@ TEST_F(LayouterTests, DISABLED_incrementalLayout_layoute_merged) {
   ASSERT_TRUE(r == r2);
 }
 
-TEST_F(LayouterTests, DISABLED_incrementalLayout_layoute_merged_merge_groups) {
+TEST_F(LayouterTests, incrementalLayout_layoute_merged_merge_groups) {
   std::vector<std::string> names;
   names.push_back("ID");
   names.push_back("NAME");
@@ -972,7 +972,7 @@ TEST_F(LayouterTests, DISABLED_incrementalLayout_layoute_merged_merge_groups) {
   ASSERT_TRUE(r == r2);
 }
 
-TEST_F(LayouterTests, DISABLED_paper_layouter_performance) {
+TEST_F(LayouterTests, paper_layouter_performance) {
   std::vector<std::string> names;
   names += "a1", "a2", "a3", "a4", "a5", "a6", "a7", "a8", "a9";
 
@@ -1045,7 +1045,7 @@ TEST_F(LayouterTests, DISABLED_paper_layouter_performance) {
 }
 
 
-TEST_F(LayouterTests, DISABLED_group_merge_performance) {
+TEST_F(LayouterTests, group_merge_performance) {
 
   std::vector<std::string> names;
   names += "ID", "NAME", "MAIL", "COMPANY", "PHONE", "ORG";
@@ -1148,7 +1148,7 @@ TEST_F(LayouterTests, DISABLED_group_merge_performance) {
 }
 
 
-TEST_F(LayouterTests, DISABLED_cost_distribution_test) {
+TEST_F(LayouterTests, cost_distribution_test) {
   std::vector<std::string> names;
   names += "a", "b", "c", "d", "e", "f", "g";
 
@@ -1192,7 +1192,7 @@ TEST_F(LayouterTests, DISABLED_cost_distribution_test) {
 }
 
 
-TEST_F(LayouterTests, DISABLED_candidate_generation_performance) {
+TEST_F(LayouterTests, candidate_generation_performance) {
   std::vector<std::string> names;
   names += "1", "2", "3", "4", "5", "6", "7", "8", "9";
 
@@ -1249,7 +1249,7 @@ TEST_F(LayouterTests, DISABLED_candidate_generation_performance) {
   // r.print();
 }
 
-TEST_F(LayouterTests, DISABLED_candidate_iteration_performance) {
+TEST_F(LayouterTests, candidate_iteration_performance) {
 #ifdef EXPENSIVE_TESTS
   std::vector<std::string> names;
   names += "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19",
@@ -1353,7 +1353,7 @@ TEST_F(LayouterTests, DISABLED_candidate_iteration_performance) {
 
 // This is some kind of performance regression that should only be build in produciton mode
 
-TEST_F(LayouterTests, DISABLED_candidate_iteration_performance_fast_version) {
+TEST_F(LayouterTests, candidate_iteration_performance_fast_version) {
 #ifdef EXPENSIVE_TESTS
   std::vector<std::string> names{"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
 
