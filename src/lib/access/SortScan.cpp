@@ -74,6 +74,10 @@ void SortScan::executePlanOperation() {
   // Sorted Position List
   std::vector<pos_t>* sorted_pos;
 
+  if (!_sort_field_name.empty()) {
+    _sort_field = table->numberOfColumn(_sort_field_name);
+  }
+
   // When table is not only a table but also using an ordered dictionary on sort field,
   // we can just sort by value_id
   // TODO: fix Table<> template
@@ -119,13 +123,22 @@ void SortScan::executePlanOperation() {
 
 std::shared_ptr<PlanOperation> SortScan::parse(const Json::Value& data) {
   std::shared_ptr<SortScan> s = std::make_shared<SortScan>();
-  s->setSortField(data["fields"][0u].asUInt());
+  if (data["fields"][0u].isNumeric()) {
+    s->setSortField(data["fields"][0u].asUInt());
+  } else if (data["fields"][0u].isString()) {
+    s->setSortField(data["fields"][0u].asString());
+  } else
+    throw std::runtime_error("Field for SortScan not specified correctly");
+
   if (data.isMember("asc"))
     s->asc = data["asc"].asBool();
   return s;
 }
 
 const std::string SortScan::vname() { return "SortScan"; }
+
 void SortScan::setSortField(const unsigned s) { _sort_field = s; }
+
+void SortScan::setSortField(const std::string& s) { _sort_field_name = s; }
 }
 }

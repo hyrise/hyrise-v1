@@ -9,6 +9,7 @@
 namespace hyrise {
 namespace storage {
 
+
 class ColumnMetaCreationException : public std::runtime_error {
  public:
   explicit ColumnMetaCreationException(const std::string& what) : std::runtime_error(what) {}
@@ -23,7 +24,7 @@ class ColumnMetadata {
  public:
   static ColumnMetadata metadataFromString(std::string typestring, std::string name = "");
 
-  ColumnMetadata(std::string n, DataType t) : name(n), type(t) {}
+  ColumnMetadata(const std::string& n, DataType t) : name(n), type(t) {}
 
   ColumnMetadata() {}
 
@@ -31,9 +32,9 @@ class ColumnMetadata {
 
   void setType(DataType t) { type = t; }
 
-  std::string getName() const { return name; }
+  const std::string& getName() const { return name; }
 
-  void setName(std::string new_name) { this->name = new_name; }
+  void setName(const std::string& new_name) { this->name = new_name; }
 
   size_t getWidth() const {
     // TODO add actual width field

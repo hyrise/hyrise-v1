@@ -90,7 +90,6 @@ void RawTable::reserve(const size_t nr_of_values) {}
 
 void RawTable::resize(const size_t nr_of_values) {}
 
-
 const ColumnMetadata& RawTable::metadataAt(const size_t column, const size_t row, const table_id_t table_id) const {
   return _metadata.at(column);
 }

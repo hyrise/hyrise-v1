@@ -60,7 +60,8 @@ atable_ptr_t AbstractTable::copy_structure(const field_list_t* fields,
 
 atable_ptr_t AbstractTable::copy_structure_modifiable(const field_list_t* fields,
                                                       const size_t initial_size,
-                                                      const bool with_containers) const {
+                                                      const bool with_containers,
+                                                      const bool nonvolatile) const {
   std::vector<ColumnMetadata> metadata;
   auto dictionaries = std::unique_ptr<std::vector<AbstractTable::SharedDictionaryPtr> >(
       new std::vector<AbstractTable::SharedDictionaryPtr>);
@@ -80,7 +81,6 @@ atable_ptr_t AbstractTable::copy_structure_modifiable(const field_list_t* fields
       dictionaries->push_back(makeDictionary(m));
     }
   }
-
 
   auto result = std::make_shared<Table>(&metadata, dictionaries.get(), initial_size, false);
   return result;
@@ -121,7 +121,6 @@ void AbstractTable::copyValueFrom(const c_atable_ptr_t& source,
                                   const size_t src_row,
                                   const size_t dst_col,
                                   const size_t dst_row) {
-
   switch (source->typeOfColumn(src_col)) {
     case IntegerType:
     case IntegerTypeDelta:
@@ -158,6 +157,60 @@ void AbstractTable::copyRowFrom(const c_atable_ptr_t& source,
     // Copy single values
     for (size_t column = 0; column < source->columnCount(); column++) {
       setValueId(column, dst_row, source->getValueId(column, src_row));
+    }
+  }
+}
+
+void AbstractTable::copyRowFromJSONVector(const std::vector<Json::Value>& source, size_t dst_row) {
+  /// source must match the table layout! [no checks]
+  for (size_t column = 0; column < columnCount(); column++) {
+    switch (typeOfColumn(column)) {
+      case IntegerType:
+      case IntegerTypeDelta:
+      case IntegerTypeDeltaConcurrent:
+        setValue<hyrise_int_t>(column, dst_row, source[column].asInt());
+        break;
+      case IntegerNoDictType:
+        setValue<hyrise_int32_t>(column, dst_row, source[column].asInt());
+        break;
+      case FloatType:
+      case FloatTypeDelta:
+      case FloatTypeDeltaConcurrent:
+      case FloatNoDictType:
+        setValue<hyrise_float_t>(column, dst_row, source[column].asFloat());
+        break;
+      case StringType:
+      case StringTypeDelta:
+      case StringTypeDeltaConcurrent:
+        setValue<hyrise_string_t>(column, dst_row, source[column].asString());
+        break;
+    }
+  }
+}
+
+void AbstractTable::copyRowFromStringVector(const std::vector<std::string>& source, size_t dst_row) {
+  /// source must match the table layout! [no checks]
+  for (size_t column = 0; column < columnCount(); column++) {
+    switch (typeOfColumn(column)) {
+      case IntegerType:
+      case IntegerTypeDelta:
+      case IntegerTypeDeltaConcurrent:
+        setValue<hyrise_int_t>(column, dst_row, atoi(source[column].c_str()));
+        break;
+      case IntegerNoDictType:
+        setValue<hyrise_int32_t>(column, dst_row, atoi(source[column].c_str()));
+        break;
+      case FloatType:
+      case FloatTypeDelta:
+      case FloatTypeDeltaConcurrent:
+      case FloatNoDictType:
+        setValue<hyrise_float_t>(column, dst_row, atof(source[column].c_str()));
+        break;
+      case StringType:
+      case StringTypeDelta:
+      case StringTypeDeltaConcurrent:
+        setValue<hyrise_string_t>(column, dst_row, source[column].c_str());
+        break;
     }
   }
 }
@@ -306,7 +359,7 @@ void AbstractTable::print(const size_t limit) const {
 
 DataType AbstractTable::typeOfColumn(const size_t column) const { return metadataAt(column).getType(); }
 
-std::string AbstractTable::nameOfColumn(const size_t column) const { return metadataAt(column).getName(); }
+const std::string& AbstractTable::nameOfColumn(const size_t column) const { return metadataAt(column).getName(); }
 
 metadata_vec_t AbstractTable::metadata() const {
   metadata_vec_t result(columnCount());
@@ -331,5 +384,9 @@ void AbstractTable::setUuid(unique_id u) {
   }
   _uuid = u;
 }
+
+void AbstractTable::setName(const std::string name) { _name = name; }
+
+const std::string AbstractTable::getName() const { return _name; }
 }
 }  // namespace hyrise::storage

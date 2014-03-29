@@ -83,5 +83,10 @@ void SimpleStore::debugStructure(size_t level) const {
   _main->debugStructure(level + 1);
   _delta->debugStructure(level + 1);
 }
+
+void SimpleStore::persist_scattered(const pos_list_t& elements, bool new_elements) const {
+  _main->persist_scattered(elements, new_elements);
+  _delta->persist_scattered(elements, new_elements);
+}
 }
 }

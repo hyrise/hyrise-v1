@@ -38,7 +38,8 @@ void PrettyPrinter::special_print(T& input,
                                   const size_t& start) {
   ftprinter::FTPrinter tp(tableName, outStream);
   tp.addColumn("#rowid", 6);
-  auto prepareLimit = (limit < (size_t) - 1) ? limit : input->size();
+
+  auto prepareLimit = (limit < (size_t) - 1) ? std::min(limit, input->size()) : input->size();
   const size_t columns = input->columnCount();
   for (size_t column_index = 0; column_index < columns; ++column_index) {
     // Auto adjusting widths means iterating over the table twice, but we use it for

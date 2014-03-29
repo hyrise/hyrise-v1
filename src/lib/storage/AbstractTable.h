@@ -15,13 +15,17 @@
 #include <string>
 
 #include "helper/types.h"
+#include "io/logging.h"
 #include "helper/locking.h"
 #include "helper/checked_cast.h"
 #include "helper/unique_id.h"
 
 #include "storage/AbstractResource.h"
+
 #include "storage/BaseDictionary.h"
 #include "storage/storage_types.h"
+
+#include <json.h>
 
 namespace hyrise {
 namespace storage {
@@ -92,7 +96,8 @@ class AbstractTable : public AbstractResource {
    */
   virtual atable_ptr_t copy_structure_modifiable(const field_list_t* fields = nullptr,
                                                  size_t initial_size = 0,
-                                                 bool with_containers = true) const;
+                                                 bool with_containers = true,
+                                                 bool nonvolatile = false) const;
 
   typedef std::function<std::shared_ptr<AbstractDictionary>(DataType)> abstract_dictionary_callback;
   typedef std::function<std::shared_ptr<AbstractAttributeVector>(std::size_t)> abstract_attribute_vector_callback;
@@ -211,7 +216,7 @@ class AbstractTable : public AbstractResource {
    *
    * @param column Number of the column as numeric value.
    */
-  std::string nameOfColumn(size_t column) const;
+  const std::string& nameOfColumn(size_t column) const;
 
 
   /**
@@ -233,7 +238,6 @@ class AbstractTable : public AbstractResource {
    * @param valueId New value-ID of the cell.
    */
   virtual void setValueId(size_t column, size_t row, const ValueId valueId);
-
 
   /**
    * Reorganizes the bit vector of a certain column.
@@ -326,10 +330,18 @@ class AbstractTable : public AbstractResource {
     const auto& map = checked_pointer_cast<BaseDictionary<T>>(dictionaryAt(column, row));
     ValueId valueId;
     valueId.table = 0;
-    valueId.valueId = map->insert(value);
+    valueId.valueId = map->findValueIdForValue(value);
+    if (valueId.valueId == std::numeric_limits<value_id_t>::max()) {
+      valueId.valueId = map->addValue(value);
+      io::Logger::getInstance().logDictionary<T>(getName(), column, value, valueId.valueId);
+    }
     setValueId(column, row, valueId);
   }
 
+  template <typename T>
+  void setValue(field_name_t column, size_t row, const T& value) {
+    setValue(numberOfColumn(column), row, value);
+  }
 
   /**
    * Templated method for retrieving a value by its ID.
@@ -430,6 +442,9 @@ class AbstractTable : public AbstractResource {
                    bool copy_values = true,
                    bool use_memcpy = true);
 
+  void copyRowFromJSONVector(const std::vector<Json::Value>& source, size_t dst_row);
+
+  void copyRowFromStringVector(const std::vector<std::string>& source, size_t dst_row);
 
   /**
    * Write the table data into a file as-is.
@@ -469,9 +484,37 @@ class AbstractTable : public AbstractResource {
 
   void setUuid(unique_id = unique_id());
 
- private:
+  virtual void setName(const std::string name);
+  const std::string getName() const;
+
+  virtual void persist_scattered(const pos_list_t& elements, bool new_elements = true) const = 0;
+
+  bool loggingEnabled() const {
+    return logging;
+  };
+  virtual void enableLogging() { logging = true; }
+
+
+  size_t _checkpoint_size = std::numeric_limits<size_t>::max();
+  size_t checkpointSize() {
+    if (_checkpoint_size != std::numeric_limits<size_t>::max()) {
+      return _checkpoint_size;
+    } else {
+      return size();
+    }
+  };
+  void prepareCheckpoint() {
+    _checkpoint_size = this->size();
+    for (size_t i = 0; i < columnCount(); ++i) {
+      this->dictionaryAt(i)->prepareCheckpoint();
+    }
+  }
+
+ protected:
   // Global unique identifier for this object
   unique_id _uuid;
+  std::string _name;
+  bool logging;
 };
 }
 }  // namespace hyrise::storage

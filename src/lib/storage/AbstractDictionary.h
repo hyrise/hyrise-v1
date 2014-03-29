@@ -23,6 +23,10 @@ class AbstractDictionary {
   virtual size_t size() = 0;
 
   virtual void shrink() = 0;
+
+  size_t _checkpoint_size = 0;
+  virtual void prepareCheckpoint() { _checkpoint_size = this->size(); }
+  std::size_t checkpointSize() { return _checkpoint_size; }
 };
 }
 }  // namespace hyrise::storage

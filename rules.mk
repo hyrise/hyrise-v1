@@ -176,6 +176,8 @@ TOOLING :=
 WITH_PAPI := $(shell if [ "`papi_avail  2>&1 | grep Yes | wc -l`" -ne "0" ]; then echo 1; else echo 0; fi)
 WITH_MYSQL:= 1
 
+PERSISTENCY ?= NONE
+
 include $(PROJECT_ROOT)/settings.mk
 
 BLD ?= debug
@@ -186,10 +188,11 @@ ifeq ($(WITH_COVERAGE),1)
 PLUGINS += coverage
 endif
 
+COMMON_FLAGS += -D PERSISTENCY_$(PERSISTENCY)
+
 ifeq ($(WITH_PROFILER),1)
 PLUGINS += profiler
 endif
-
 
 ifeq ($(WITH_V8),1)
 ifndef V8_BASE_DIRECTORY
@@ -213,8 +216,8 @@ LDFLAGS.debug +=
 LDFLAGS.release +=
 
 COMMON_FLAGS.debug += -O0
-COMMON_FLAGS.release += -O3 -march=native
-COMMON_FLAGS += -g -Wall -Wextra -Wno-attributes -Wno-unused-parameter -pthread $(COMMON_FLAGS.$(BLD))
+COMMON_FLAGS.release += -O3
+COMMON_FLAGS += -g -march=native -Wall -Wextra -Wno-attributes -Wno-unused-parameter -pthread $(COMMON_FLAGS.$(BLD))
 
 CPPFLAGS += -MMD -pipe $(CPPFLAGS.$(BLD))
 CFLAGS += $(COMMON_FLAGS) $(CFLAGS.$(BLD))

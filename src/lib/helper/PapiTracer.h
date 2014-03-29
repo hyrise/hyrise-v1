@@ -7,9 +7,11 @@
 #include <algorithm>
 #include <vector>
 #include <string>
+#include <mutex>
 #include <stdexcept>
 
 #include "helper/stringhelpers.h"
+#include "helper/locking.h"
 
 /// For errors generally related to tracing
 class TracingError : public std::runtime_error {

@@ -4,6 +4,8 @@
 #include <io/shortcuts.h>
 #include <io/StorageManager.h>
 #include <storage/MutableVerticalTable.h>
+#include "storage/Store.h"
+#include "helper/checked_cast.h"
 
 namespace hyrise {
 namespace io {
@@ -70,6 +72,17 @@ TEST_F(StorageManagerTests, load_table_header_data) {
   sm->removeTable("HEADERDATA");
 
   ASSERT_EQ(0u, sm->getTableNames().size());
+}
+
+TEST_F(StorageManagerTests, load_persist_and_recover_table) {
+
+  sm->loadTableFile("LINXXS", "lin_xxs.tbl");
+  ASSERT_TRUE(sm->exists("LINXXS"));
+  sm->persistTable("LINXXS");
+  sm->removeTable("LINXXS");
+  ASSERT_FALSE(sm->exists("LINXXS"));
+  sm->recoverTable("LINXXS");
+  ASSERT_TRUE(sm->exists("LINXXS"));
 }
 }
 }  // namespace hyrise::io

@@ -5,6 +5,7 @@
 #include "access/system/ParallelizablePlanOperation.h"
 
 #include "storage/FixedLengthVector.h"
+#include "storage/ConcurrentFixedLengthVector.h"
 
 namespace hyrise {
 namespace access {
@@ -17,7 +18,7 @@ class PrefixSum : public ParallelizablePlanOperation {
   void splitInput();
 
  private:
-  typedef std::shared_ptr<storage::FixedLengthVector<storage::value_id_t>> vec_ref_t;
+  typedef std::shared_ptr<storage::ConcurrentFixedLengthVector<storage::value_id_t>> vec_ref_t;
   storage::value_id_t sumForIndex(const size_t ivec_size,
                                   const std::vector<vec_ref_t>& ivecs,
                                   const size_t index) const;

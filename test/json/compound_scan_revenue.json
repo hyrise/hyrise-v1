@@ -1,0 +1,21 @@
+{
+  "operators": {
+    "0": {
+      "type": "TableLoad",
+      "table": "test_recovery_revenue"
+    },
+
+    "1": {
+      "type": "CompoundIndexScan",
+      "predicates" : [
+        [0, 2009],
+        [2, 3000]
+      ],
+      "mainindex": "mcidx__test_recovery_revenue__main__year__amount",
+      "deltaindex": "mcidx__test_recovery_revenue__delta__year__amount"
+    } 
+  },
+  "edges": [
+    ["0", "1"]
+  ]
+}

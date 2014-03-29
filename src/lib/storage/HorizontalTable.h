@@ -46,6 +46,8 @@ class HorizontalTable : public AbstractTable {
   const std::vector<size_t> _offsets;
   const std::vector<table_id_t> _table_id_offsets;
   /// Offset for each subtable
+
+  void persist_scattered(const pos_list_t& elements, bool new_elements = true) const override;
 };
 }
 }

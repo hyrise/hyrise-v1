@@ -52,7 +52,13 @@ namespace {
 auto _ = QueryParser::registerPlanOperation<IndexScan>("IndexScan");
 }
 
-IndexScan::~IndexScan() { delete _value; }
+
+IndexScan::IndexScan() : _value(nullptr) {}
+
+IndexScan::~IndexScan() {
+  if (_value)
+    delete _value;
+}
 
 void IndexScan::executePlanOperation() {
   auto sm = io::StorageManager::getInstance();

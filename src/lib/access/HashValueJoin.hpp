@@ -97,7 +97,7 @@ class HashValueJoin : public PlanOperation {
       parts.push_back(build_pc);
     }
     // TOOD add TableView
-    addResult(std::make_shared<const storage::MutableVerticalTable>(parts));
+    addResult(std::make_shared<storage::MutableVerticalTable>(parts));
   }
 
   const std::string vname() { return "HashValueJoin"; }

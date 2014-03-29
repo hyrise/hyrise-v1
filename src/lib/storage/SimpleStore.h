@@ -137,6 +137,8 @@ class SimpleStore : public AbstractTable {
 
   virtual void debugStructure(size_t level = 0) const;
 
+  void persist_scattered(const pos_list_t& elements, bool new_elements = true) const override;
+
  private:
   /**
    * Create the delta partition based on the structure of the main table

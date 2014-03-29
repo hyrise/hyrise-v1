@@ -164,8 +164,10 @@ TEST_F(SelectTests, should_throw_without_predicates) {
 TEST_F(SelectTests, simple_select) {
   hyrise::storage::c_atable_ptr_t t = io::Loader::shortcuts::load("test/groupby_xs.tbl");
 
-  EqualsExpression<hyrise_int_t>* expr1 = new EqualsExpression<hyrise_int_t>(t, 0, 2009);
-  EqualsExpression<hyrise_int_t>* expr2 = new EqualsExpression<hyrise_int_t>(t, 1, 1);
+  GenericExpressionValue<hyrise_int_t, std::equal_to<hyrise_int_t>>* expr1 =
+      new GenericExpressionValue<hyrise_int_t, std::equal_to<hyrise_int_t>>(t, 0, 2009);
+  GenericExpressionValue<hyrise_int_t, std::equal_to<hyrise_int_t>>* expr2 =
+      new GenericExpressionValue<hyrise_int_t, std::equal_to<hyrise_int_t>>(t, 1, 1);
   CompoundExpression* expr3 = new CompoundExpression(expr1, expr2, OR);
   CompoundExpression* expr4 = new CompoundExpression(NOT);
   expr4->lhs = expr3;

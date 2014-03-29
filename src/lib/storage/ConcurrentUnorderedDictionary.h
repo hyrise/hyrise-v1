@@ -33,7 +33,19 @@ class ConcurrentUnorderedDictionaryIterator : public BaseIterator<T> {
 template <typename T>
 class ConcurrentUnorderedDictionary : public BaseDictionary<T> {
  public:
-  explicit ConcurrentUnorderedDictionary(const size_t s = 0) : _values(s) {}
+  explicit ConcurrentUnorderedDictionary(const size_t s = 0) : _values(s), _size(s) {}
+
+  ConcurrentUnorderedDictionary(const std::shared_ptr<std::vector<T>>& value_list) {
+    _writeLock.lock();
+    for (auto value : *value_list) {
+      auto inserted = _values.push_back(value);
+      auto result = std::distance(_values.begin(), inserted);
+      _index.insert({value, result});
+      ++_size;
+    }
+    _writeLock.unlock();
+  }
+
 
   // Semantics differ from other dictionaries: adding the same value twice yields
   // the same valueId. This is due to multiple threads pushing back the same
@@ -43,9 +55,14 @@ class ConcurrentUnorderedDictionary : public BaseDictionary<T> {
   virtual value_id_t addValue(T value) override {
     auto inserted = _values.push_back(value);
     auto result = std::distance(_values.begin(), inserted);
-    auto r = _index_unordered.insert({value, result});
+    _writeLock.lock();
+    auto r = _index.insert({value, result});
+    _writeLock.unlock();
+    ++_size;
     return r.first->second;
   }
+
+
 
   virtual T getValueForValueId(value_id_t value_id) override { return _values.at(value_id); }
 
@@ -54,21 +71,31 @@ class ConcurrentUnorderedDictionary : public BaseDictionary<T> {
     auto end = _values.end();
     assert(std::find(_values.begin(), end, value) != end);
 #endif
-    return _index_unordered.at(value);
+    return _index.find(value)->second;
   }
 
-  virtual bool isValueIdValid(value_id_t value_id) override { return value_id < _values.size(); }
+  virtual value_id_t findValueIdForValue(const T& value) const {
+    auto it = _index.find(value);
+    if (it != _index.end()) {
+      return it->second;
+    } else {
+      return std::numeric_limits<value_id_t>::max();
+    }
+  }
 
-  virtual bool valueExists(const T& value) const override { return _index_unordered.count(value) >= 1; }
+  virtual bool isValueIdValid(value_id_t value_id) override { return value_id < _size; }
+
+  virtual bool valueExists(const T& value) const override { return _index.find(value) != _index.end(); }
   virtual const T getSmallestValue() { return *std::min(_values.begin(), _values.end()); }
   virtual const T getGreatestValue() { return *std::max(_values.begin(), _values.end()); }
   virtual void reserve(std::size_t s) override { _values.grow_to_at_least(s); }
-  virtual std::size_t size() override { return _values.size(); }
+  virtual std::size_t size() override { return _size; }
+
   virtual bool isOrdered() override { return false; }
   virtual std::shared_ptr<AbstractDictionary> copy() override {
     auto d = std::make_shared<ConcurrentUnorderedDictionary<T>>(size());
     d->_values = _values;
-    d->_index_unordered = _index_unordered;
+    d->_index = _index;
     return d;
   }
   virtual std::shared_ptr<AbstractDictionary> copy_empty() override {
@@ -80,20 +107,48 @@ class ConcurrentUnorderedDictionary : public BaseDictionary<T> {
 
   // Unsafe method, calling this assumes no concurrent callers
   virtual iterator begin() override {
-    _index.clear();
-    _index.insert(_index_unordered.begin(), _index_unordered.end());
-    return iterator(std::make_shared<ConcurrentUnorderedDictionaryIterator<T>>(_index.begin()));
+    _index_sorted.clear();
+    _index_sorted.insert(_index.begin(), _index.end());
+    return iterator(std::make_shared<ConcurrentUnorderedDictionaryIterator<T>>(_index_sorted.begin()));
   }
   virtual iterator end() override {
-    return iterator(std::make_shared<ConcurrentUnorderedDictionaryIterator<T>>(_index.end()));
+    return iterator(std::make_shared<ConcurrentUnorderedDictionaryIterator<T>>(_index_sorted.end()));
   }
-  virtual value_id_t getValueIdForValueSmaller(T other) { NOT_IMPLEMENTED }
-  virtual value_id_t getValueIdForValueGreater(T other) { NOT_IMPLEMENTED }
+
+  virtual value_id_t getLowerBoundValueIdForValue(T other) {
+    STORAGE_NOT_IMPLEMENTED(PassThroughDictionary, getValueIdForValueSmaller());
+  }
+
+  virtual value_id_t getUpperBoundValueIdForValue(T other) {
+    STORAGE_NOT_IMPLEMENTED(PassThroughDictionary, getValueIdForValueGreater());
+  }
+
+  void setValueId(T value, value_id_t valueId) {
+    // WARNING: do not use this, it's only for table recovery
+    if (_size <= valueId) {
+      reserve(valueId + 1);
+      _size = valueId + 1;
+    }
+    _values[valueId] = value;
+    _index.insert({value, valueId});
+  }
+
+
+
+  // These iterators are used to directly access the underlying vector for checkpointing.
+  typedef typename tbb::concurrent_vector<T>::iterator unsorted_iterator;
+  // returns an iterator pointing to the beginning of the tree
+  unsorted_iterator unsorted_begin() { return _values.begin(); }
+
+  // returns an empty iterator that marks the end of the tree
+  unsorted_iterator unsorted_end() { return _values.end(); }
 
  private:
-  tbb::concurrent_unordered_map<T, value_id_t> _index_unordered;  // a potentially laggy set
   tbb::concurrent_vector<T> _values;
-  std::map<T, value_id_t> _index;
+  tbb::concurrent_unordered_map<T, value_id_t> _index;
+  std::map<T, value_id_t> _index_sorted;
+  size_t _size;
+  std::mutex _writeLock;
 };
 }
 }  // namespace hyrise::storage

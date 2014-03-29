@@ -3,6 +3,7 @@
 #define SRC_LIB_ACCESS_INDEX_SCAN
 
 #include "access/system/PlanOperation.h"
+#include "access/expressions/expression_types.h"
 
 namespace hyrise {
 namespace access {
@@ -16,10 +17,13 @@ class IndexValue : public AbstractIndexValue {
   value_type value;
 };
 
+class IndexAwareTableScan;
+
 /// Scan an existing index for the result. Currently only EQ predicates
 /// allowed for the index.
 class IndexScan : public PlanOperation {
  public:
+  IndexScan();
   virtual ~IndexScan();
 
   void executePlanOperation();
@@ -33,7 +37,9 @@ class IndexScan : public PlanOperation {
     _value = static_cast<AbstractIndexValue*>(val);
   }
 
- private:
+  friend class IndexAwareTableScan;
+
+ protected:
   std::string _indexName;
   AbstractIndexValue* _value;
 };

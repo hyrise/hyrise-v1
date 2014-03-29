@@ -41,8 +41,8 @@ TEST_F(PredicateBldr, one_leg_expression) {
 TEST_F(PredicateBldr, complex_expression) {
   storage::c_atable_ptr_t t = io::Loader::shortcuts::load("test/groupby_xs.tbl");
 
-  auto expr1 = new EqualsExpression<hyrise_int_t>(t, 0, 2009);
-  auto expr2 = new EqualsExpression<hyrise_int_t>(t, 1, 1);
+  auto expr1 = new GenericExpressionValue<hyrise_int_t, std::equal_to<hyrise_int_t>>(t, 0, 2009);
+  auto expr2 = new GenericExpressionValue<hyrise_int_t, std::equal_to<hyrise_int_t>>(t, 1, 1);
   auto expr3 = new CompoundExpression(OR);
   auto expr4 = new CompoundExpression(NOT);
 

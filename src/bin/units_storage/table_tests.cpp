@@ -8,6 +8,7 @@
 #include "storage/FixedLengthVector.h"
 #include "storage/OrderIndifferentDictionary.h"
 #include "storage/OrderPreservingDictionary.h"
+#include "storage/ConcurrentUnorderedDictionary.h"
 #include "storage/RawTable.h"
 #include "storage/SimpleStore.h"
 #include "storage/TableGenerator.h"
@@ -59,7 +60,7 @@ TEST_F(TableTests, copy_structure_replacement) {
   hyrise::storage::atable_ptr_t copy = input->copy_structure(order_preserving, b);
   ASSERT_TRUE(std::dynamic_pointer_cast<OrderPreservingDictionary<hyrise_int_t>>(copy->dictionaryAt(0, 0)) != nullptr);
   hyrise::storage::atable_ptr_t copy2 = input->copy_structure(order_indifferent, b);
-  ASSERT_TRUE(std::dynamic_pointer_cast<OrderIndifferentDictionary<hyrise_int_t>>(copy2->dictionaryAt(0, 0)) !=
+  ASSERT_TRUE(std::dynamic_pointer_cast<ConcurrentUnorderedDictionary<hyrise_int_t>>(copy2->dictionaryAt(0, 0)) !=
               nullptr);
 }
 

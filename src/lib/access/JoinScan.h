@@ -44,6 +44,11 @@ class JoinScan : public ParallelizablePlanOperation {
                      const size_t input_right,
                      const storage::field_t field_right);
   template <typename T>
+  void addJoinClause(const size_t input_left,
+                     const storage::field_name_t field_left,
+                     const size_t input_right,
+                     const storage::field_name_t field_right);
+  template <typename T>
   void addJoinClause(const Json::Value& value);
   void addCombiningClause(const ExpressionType t);
 
@@ -59,6 +64,15 @@ void JoinScan::addJoinClause(const size_t input_left,
                              const storage::field_t field_left,
                              const size_t input_right,
                              const storage::field_t field_right) {
+  auto expr1 = new EqualsJoinExpression<T>(input_left, field_left, input_right, field_right);
+  addJoinExpression(expr1);
+}
+
+template <typename T>
+void JoinScan::addJoinClause(const size_t input_left,
+                             const storage::field_name_t field_left,
+                             const size_t input_right,
+                             const storage::field_name_t field_right) {
   auto expr1 = new EqualsJoinExpression<T>(input_left, field_left, input_right, field_right);
   addJoinExpression(expr1);
 }

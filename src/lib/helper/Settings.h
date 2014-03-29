@@ -3,6 +3,7 @@
 
 #include <cstddef>
 #include <string>
+#include <vector>
 
 #define ADD_MEMBER(type, member)                 \
  private:                                        \
@@ -20,12 +21,12 @@
 
 class Settings {
 
+
   size_t threadpoolSize;
 
   ADD_MEMBER(std::string, ScriptPath);
   ADD_MEMBER(std::string, ProfilePath);
   ADD_MEMBER(std::string, DBPath);
-
 
   Settings();
 
@@ -41,4 +42,25 @@ class Settings {
   //  Control the maximum number of parallel executable operation tasks.
   size_t getThreadpoolSize() const;
   void setThreadpoolSize(const size_t newSize);
+  void printInfo();
+
+  size_t worker_threads;
+  size_t port;
+  size_t checkpoint_interval;
+  size_t core_offset;
+  std::string scheduler_name;
+  size_t commit_window_ms;
+
+  std::string getPersistencyDir() {
+    return getDBPath() + "/persistency/";
+  };
+  std::string getLogDir() {
+    return getPersistencyDir() + "/logs/";
+  };
+  std::string getTableDumpDir() {
+    return getPersistencyDir() + "/tables/";
+  };
+  std::string getCheckpointDir() {
+    return getPersistencyDir() + "/checkpoints/";
+  };
 };

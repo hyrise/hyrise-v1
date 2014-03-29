@@ -9,6 +9,7 @@
 #include "storage/DictionaryFactory.h"
 #include "storage/ValueIdMap.hpp"
 
+
 namespace hyrise {
 namespace storage {
 
@@ -16,7 +17,9 @@ Table::Table(std::vector<ColumnMetadata>* m,
              std::vector<SharedDictionary>* d,
              size_t initial_size,
              bool sorted,
-             bool compressed)
+             bool compressed,
+             bool nonvolatile,
+             const std::string& tableName)
     : _metadata(m->size()), _dictionaries(m->size()), width(m->size()), _compressed(compressed) {
 
   // Ownership change for meta data
@@ -41,17 +44,25 @@ Table::Table(std::vector<ColumnMetadata>* m,
     }
   }
 
+  std::string id;
 
   /** Build the attribute vector */
-  if (!sorted)
-    tuples = AttributeVectorFactory::getAttributeVector<value_id_t>(width, initial_size);
-  else {
+  if (!sorted) {
+    if (m->size() == 1) {
+      id = tableName + "__delta_col__" + m->at(0).getName();
+    }
+    tuples = AttributeVectorFactory::getAttributeVector<value_id_t>(width, initial_size, 1, false, nonvolatile, id);
+  } else {
+    if (m->size() == 1) {
+      id = tableName + "__main_col__" + m->at(0).getName();
+    }
     std::vector<uint64_t> bits(_dictionaries.size(), 0);
     if (d) {
       for (size_t i = 0; i < _dictionaries.size(); ++i)
         bits[i] = _dictionaries[i]->size() == 1 ? 1 : ceil(log(_dictionaries[i]->size()) / log(2.0));
     }
-    tuples = AttributeVectorFactory::getAttributeVector2<value_id_t>(width, initial_size, compressed, bits);
+    tuples =
+        AttributeVectorFactory::getAttributeVector2<value_id_t>(width, initial_size, compressed, bits, nonvolatile, id);
   }
 }
 
@@ -67,7 +78,6 @@ atable_ptr_t Table::copy_structure(const field_list_t* fields,
                                    const size_t initial_size,
                                    const bool with_containers,
                                    const bool compressed) const {
-
   std::vector<ColumnMetadata> metadata;
   std::vector<AbstractTable::SharedDictionaryPtr>* dictionaries = nullptr;
 
@@ -102,7 +112,6 @@ atable_ptr_t Table::copy_structure(const field_list_t* fields,
 atable_ptr_t Table::copy_structure_modifiable(const field_list_t* fields,
                                               const size_t initial_size,
                                               const bool with_containers) const {
-
   std::vector<ColumnMetadata> metadata;
   std::vector<AbstractTable::SharedDictionaryPtr>* dictionaries = new std::vector<AbstractTable::SharedDictionaryPtr>;
 
@@ -138,7 +147,7 @@ atable_ptr_t Table::copy_structure(abstract_dictionary_callback ad, abstract_att
   }
 
   return std::make_shared<Table>(
-      metadata, checked_pointer_cast<BaseAttributeVector<value_id_t> >(aav(metadata.size())), dicts);
+      metadata, checked_pointer_cast<BaseAttributeVector<value_id_t>>(aav(metadata.size())), dicts);
 }
 
 
@@ -233,6 +242,8 @@ atable_ptr_t Table::copy() const {
 
   return new_table;
 }
+
+void Table::persist_scattered(const pos_list_t& elements, bool new_elements) const {}
 
 void Table::debugStructure(size_t level) const {
   std::cout << std::string(level, '\t') << "Table " << this << std::endl;

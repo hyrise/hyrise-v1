@@ -3,7 +3,6 @@
 
 #include <thread>
 
-#include "json.h"
 #include "log4cxx/logger.h"
 #include "boost/lexical_cast.hpp"
 
@@ -17,6 +16,7 @@
 #include "storage/AbstractTable.h"
 #include "storage/SimpleStore.h"
 #include "storage/meta_storage.h"
+#include "io/GroupCommitter.h"
 
 
 namespace hyrise {
@@ -123,98 +123,114 @@ task_states_t ResponseTask::getState() const {
   return OpSuccess;
 }
 
-void ResponseTask::operator()() {
+Json::Value ResponseTask::generateResponseJson() {
+  Json::Value response;
   epoch_t responseStart = _recordPerformanceData ? get_epoch_nanoseconds() : 0;
+  PapiTracer pt;
+  pt.addEvent("PAPI_TOT_CYC");
+
+  if (_recordPerformanceData)
+    pt.start();
+
+  auto predecessor = getResultTask();
+  const auto& result = predecessor->getResultTable();
+
+  if (getState() != OpFail) {
+    if (!_isAutoCommit) {
+      response["session_context"] =
+          std::to_string(_txContext.tid).append(" ").append(std::to_string(_txContext.lastCid));
+    }
+
+    if (result) {
+      // Make header
+      Json::Value json_header(Json::arrayValue);
+      for (unsigned col = 0; col < result->columnCount(); ++col) {
+        Json::Value colname(result->nameOfColumn(col));
+        json_header.append(colname);
+      }
+
+      // Copy the complete result
+      response["real_size"] = result->size();
+      response["rows"] = generateRowsJson(result, _transmitLimit, _transmitOffset);
+      response["header"] = json_header;
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////
+    // Copy Performance Data
+    if (_recordPerformanceData) {
+      Json::Value json_perf(Json::arrayValue);
+      for (const auto& attr : performance_data) {
+        Json::Value element;
+        element["papi_event"] = Json::Value(attr->papiEvent);
+        element["duration"] = Json::Value((Json::UInt64)attr->duration);
+        element["data"] = Json::Value((Json::UInt64)attr->data);
+        element["name"] = Json::Value(attr->name);
+        element["id"] = Json::Value(attr->operatorId);
+        element["startTime"] = Json::Value((double)(attr->startTime - queryStart) / 1000000);
+        element["endTime"] = Json::Value((double)(attr->endTime - queryStart) / 1000000);
+        element["executingThread"] = Json::Value(attr->executingThread);
+        json_perf.append(element);
+      }
+
+      pt.stop();
+
+      Json::Value responseElement;
+      responseElement["duration"] = Json::Value((Json::UInt64)pt.value("PAPI_TOT_CYC"));
+      responseElement["name"] = Json::Value("ResponseTask");
+      responseElement["id"] = Json::Value("respond");
+      responseElement["startTime"] = Json::Value((double)(responseStart - queryStart) / 1000000);
+      responseElement["endTime"] = Json::Value((double)(get_epoch_nanoseconds() - queryStart) / 1000000);
+
+      std::string threadId = boost::lexical_cast<std::string>(std::this_thread::get_id());
+      responseElement["executingThread"] = Json::Value(threadId);
+      json_perf.append(responseElement);
+
+      response["performanceData"] = json_perf;
+    }
+
+    Json::Value jsonKeys(Json::arrayValue);
+    for (const auto& x : _generatedKeyRefs) {
+      for (const auto& key : *x) {
+        Json::Value element(key);
+        jsonKeys.append(element);
+      }
+    }
+    response["generatedKeys"] = jsonKeys;
+    response["affectedRows"] = Json::Value(_affectedRows);
+  }
+  LOG4CXX_DEBUG(_logger, "Table Use Count: " << result.use_count());
+
+  return response;
+}
+
+void ResponseTask::operator()() {
   Json::Value response;
 
   if (getDependencyCount() > 0) {
-    PapiTracer pt;
-    pt.addEvent("PAPI_TOT_CYC");
-
-    if (_recordPerformanceData)
-      pt.start();
-
-    auto predecessor = getResultTask();
-    const auto& result = predecessor->getResultTable();
-
-    if (getState() != OpFail) {
-      if (!_isAutoCommit) {
-        response["session_context"] =
-            std::to_string(_txContext.tid).append(" ").append(std::to_string(_txContext.lastCid));
-      }
-
-      if (result) {
-        // Make header
-        Json::Value json_header(Json::arrayValue);
-        for (unsigned col = 0; col < result->columnCount(); ++col) {
-          Json::Value colname(result->nameOfColumn(col));
-          json_header.append(colname);
-        }
-
-        // Copy the complete result
-        response["real_size"] = result->size();
-        response["rows"] = generateRowsJson(result, _transmitLimit, _transmitOffset);
-        response["header"] = json_header;
-      }
-
-      ////////////////////////////////////////////////////////////////////////////////////////
-      // Copy Performance Data
-      if (_recordPerformanceData) {
-        Json::Value json_perf(Json::arrayValue);
-        for (const auto& attr : performance_data) {
-          Json::Value element;
-          element["papi_event"] = Json::Value(attr->papiEvent);
-          element["duration"] = Json::Value((Json::UInt64)attr->duration);
-          element["data"] = Json::Value((Json::UInt64)attr->data);
-          element["name"] = Json::Value(attr->name);
-          element["id"] = Json::Value(attr->operatorId);
-          element["startTime"] = Json::Value((double)(attr->startTime - queryStart) / 1000000);
-          element["endTime"] = Json::Value((double)(attr->endTime - queryStart) / 1000000);
-          element["executingThread"] = Json::Value(attr->executingThread);
-          json_perf.append(element);
-        }
-
-        pt.stop();
-
-        Json::Value responseElement;
-        responseElement["duration"] = Json::Value((Json::UInt64)pt.value("PAPI_TOT_CYC"));
-        responseElement["name"] = Json::Value("ResponseTask");
-        responseElement["id"] = Json::Value("respond");
-        responseElement["startTime"] = Json::Value((double)(responseStart - queryStart) / 1000000);
-        responseElement["endTime"] = Json::Value((double)(get_epoch_nanoseconds() - queryStart) / 1000000);
-
-        std::string threadId = boost::lexical_cast<std::string>(std::this_thread::get_id());
-        responseElement["executingThread"] = Json::Value(threadId);
-        json_perf.append(responseElement);
-
-        response["performanceData"] = json_perf;
-      }
-
-      Json::Value jsonKeys(Json::arrayValue);
-      for (const auto& x : _generatedKeyRefs) {
-        for (const auto& key : *x) {
-          Json::Value element(key);
-          jsonKeys.append(element);
-        }
-      }
-      response["generatedKeys"] = jsonKeys;
-      response["affectedRows"] = Json::Value(_affectedRows);
-    }
-    LOG4CXX_DEBUG(_logger, "Table Use Count: " << result.use_count());
+    response = generateResponseJson();
   }
 
+  size_t status = 200;
   if (!_error_messages.empty()) {
     Json::Value errors;
     for (const auto& msg : _error_messages) {
       errors.append(Json::Value(msg));
     }
     response["error"] = errors;
+    status = 500;
   }
 
   LOG4CXX_DEBUG(_logger, response);
 
   Json::FastWriter fw;
-  connection->respond(fw.write(response));
+  if (_group_commit) {
+    io::GroupCommitter::getInstance().push(
+        std::tuple<net::AbstractConnection*, size_t, std::string>(connection, status, fw.write(response)));
+  } else {
+    connection->respond(fw.write(response), status);
+  }
 }
+
+void ResponseTask::setGroupCommit(bool group_commit) { _group_commit = group_commit; }
 }
 }

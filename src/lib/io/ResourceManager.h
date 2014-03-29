@@ -10,9 +10,8 @@
 #include "helper/types.h"
 #include "helper/checked_cast.h"
 
-class AbstractResource;
-
 namespace hyrise {
+
 namespace storage {
 class AbstractRessource;
 }  // namespace storage
@@ -50,12 +49,12 @@ class ResourceManager {
   void add(const std::string& name, const std::shared_ptr<storage::AbstractResource>& resource) const;
 
   /// Retrieves a resource by name
-  std::shared_ptr<storage::AbstractResource> getResource(const std::string& name) const;
+  std::shared_ptr<storage::AbstractResource> getResource(const std::string& name, bool unsafe = false) const;
 
   /// Retrieves a resource by name and assures its type T
   template <typename T>
-  std::shared_ptr<T> get(const std::string& name) const {
-    return checked_pointer_cast<T>(getResource(name));
+  std::shared_ptr<T> get(const std::string& name, bool unsafe = false) const {
+    return checked_pointer_cast<T>(getResource(name, unsafe));
   }
 
   /// Removes a named resource
@@ -69,11 +68,11 @@ class ResourceManager {
 
   /// Test for resource existance
   /// @param[in] name Resource name
-  bool exists(const std::string& name) const;
+  bool exists(const std::string& name, bool unsafe = false) const;
 
   /// Test for resource existance, throws ResourceManagerException
   /// @param[in] name Resource name
-  void assureExists(const std::string& name) const;
+  void assureExists(const std::string& name, bool unsafe = false) const;
 
   /// Return number of elements in storage
   size_t size() const;

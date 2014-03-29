@@ -4,6 +4,9 @@
 #include <cassert>
 
 #include "storage/AbstractMerger.h"
+#include "storage/ColumnMetadata.h"
+#include "storage/Table.h"
+#include "storage/MutableVerticalTable.h"
 
 namespace hyrise {
 namespace storage {
@@ -54,7 +57,8 @@ std::vector<atable_ptr_t> TableMerger::mergeToTable(atable_ptr_t dest,
 
 std::vector<atable_ptr_t> TableMerger::merge(std::vector<c_atable_ptr_t>& input_tables,
                                              bool useValid,
-                                             std::vector<bool> valid) const {
+                                             std::vector<bool> valid,
+                                             const std::string& tableName) const {
   atable_ptr_t merged_table;
 
   // Check that the valid vector has the right size

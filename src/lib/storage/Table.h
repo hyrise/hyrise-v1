@@ -68,7 +68,9 @@ class Table : public AbstractTable {
         std::vector<SharedDictionary>* d = nullptr,
         size_t initial_size = 0,
         bool sorted = true,
-        bool compressed = true);
+        bool compressed = true,
+        bool nonvolatile = false,
+        const std::string& tableName = "");
 
   // Construct table from vector of metadata,
   // a storage vector and dictionaries
@@ -133,6 +135,8 @@ class Table : public AbstractTable {
     attr_vector_offset_t t{tuples, column};
     return {t};
   }
+
+  void persist_scattered(const pos_list_t& elements, bool new_elements = true) const override;
 
   virtual void debugStructure(size_t level = 0) const;
 };

@@ -53,7 +53,7 @@ TEST_P(SchedulerTest, setScheduler) {
   bool test = (simple_task_scheduler == NULL);
   ASSERT_EQ(test, false);
 
-  SharedScheduler::getInstance().resetScheduler(scheduler_name, getNumberOfCoresOnSystem());
+  SharedScheduler::getInstance().resetScheduler(scheduler_name);
 }
 
 TEST_P(SchedulerTest, wait_task_test) {

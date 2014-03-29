@@ -130,8 +130,14 @@ storage::atable_ptr_t GroupByScan::createResultTableLayout() {
   storage::atable_ptr_t group_tab = getInputTable(0)->copy_structure_modifiable(&_field_definition);
   // creating fields from aggregate functions
   for (const auto& fun : _aggregate_functions) {
+    /*<<<<<<< HEAD
+        auto m = storage::ColumnMetadata(fun->columnName(), fun->getType());
+        metadata.push_back(m);
+        dictionaries.push_back(storage::makeDictionary<storage::OrderIndifferentDictionary>(fun->getType()));
+    =======*/
     metadata.emplace_back(fun->columnName(), types::getUnorderedType(fun->getType()));
     dictionaries.push_back(storage::makeDictionary(metadata.back()));
+    //>>>>>>> master
   }
   storage::atable_ptr_t agg_tab = std::make_shared<storage::Table>(&metadata, &dictionaries, 0, false);
 

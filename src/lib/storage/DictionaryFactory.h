@@ -26,16 +26,18 @@ typedef boost::mpl::vector<OrderPreservingDictionary<hyrise_int_t>,
                            OrderPreservingDictionary<hyrise_float_t>,
                            OrderPreservingDictionary<hyrise_string_t>,
                            // Delta Types
-                           OrderIndifferentDictionary<hyrise_int_t>,
-                           OrderIndifferentDictionary<hyrise_float_t>,
-                           OrderIndifferentDictionary<hyrise_string_t>,
+                           // OrderIndifferentDictionary<hyrise_int_t>, OrderIndifferentDictionary<hyrise_float_t>,
+                           // OrderIndifferentDictionary<hyrise_string_t>,
+                           ConcurrentUnorderedDictionary<hyrise_int_t>,
+                           ConcurrentUnorderedDictionary<hyrise_float_t>,
+                           ConcurrentUnorderedDictionary<hyrise_string_t>,
                            // Concurrent Types
                            ConcurrentUnorderedDictionary<hyrise_int_t>,
                            ConcurrentUnorderedDictionary<hyrise_float_t>,
                            ConcurrentUnorderedDictionary<hyrise_string_t>,
                            // No Dict Types
                            PassThroughDictionary<hyrise_int32_t>,
-                           PassThroughDictionary<hyrise_float_t> > dictionary_mapping_types;
+                           PassThroughDictionary<hyrise_float_t>> dictionary_mapping_types;
 
 
 struct DictionaryCreatorDetail {

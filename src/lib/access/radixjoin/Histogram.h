@@ -5,6 +5,7 @@
 #include "access/system/ParallelizablePlanOperation.h"
 
 #include "storage/FixedLengthVector.h"
+#include "storage/ConcurrentFixedLengthVector.h"
 #include "storage/OrderPreservingDictionary.h"
 #include "storage/PointerCalculator.h"
 
@@ -12,7 +13,7 @@ namespace hyrise {
 namespace access {
 
 // Extracts the AV from the table at given column
-template <typename Table, typename VectorType = storage::FixedLengthVector<value_id_t>>
+template <typename Table, typename VectorType = storage::ConcurrentFixedLengthVector<value_id_t>>
 inline std::pair<std::shared_ptr<VectorType>, size_t> _getDataVector(const Table& tab, const size_t column = 0) {
   const auto& avs = tab->getAttributeVectors(column);
   const auto data = std::dynamic_pointer_cast<VectorType>(avs.at(0).attribute_vector);
@@ -20,7 +21,7 @@ inline std::pair<std::shared_ptr<VectorType>, size_t> _getDataVector(const Table
   return {data, avs.at(0).attribute_offset};
 }
 
-template <typename VectorType = storage::FixedLengthVector<value_id_t>>
+template <typename VectorType = storage::ConcurrentFixedLengthVector<value_id_t>>
 inline std::pair<std::shared_ptr<VectorType>, size_t> getDataVector(const storage::c_atable_ptr_t& tab,
                                                                     const size_t column = 0) {
   return _getDataVector<decltype(tab), VectorType>(tab, column);
