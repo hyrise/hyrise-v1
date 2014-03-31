@@ -1,0 +1,43 @@
+{
+    "operators" : {
+        "rl" : {
+            "type" : "JsonTable",
+            "names" : ["A", "B", "C", "D", "E"],
+            "types" :  ["INTEGER", "INTEGER", "INTEGER", "FLOAT", "STRING"],
+            "groups" : [1,1,1,1,1],
+            "useStore" : true,
+            "data" : [
+                [ "1","2","4","3.2","Welte"],
+                [ "5","2","1","1.0","5"],
+                [ "1","2","4","3.2","5"]
+            ]
+        },
+        "set" : {
+            "type" : "SetTable",
+            "name" : "reference"
+        },
+        "build" : {
+            "type" : "JsonTable",
+            "names" : ["A", "B", "C", "D", "E"],
+            "types" :  ["INTEGER", "INTEGER", "INTEGER", "FLOAT", "STRING"],
+            "groups" : [1,1,1,1,1],
+            "useStore" : true,
+            "data" : [
+                [ "1","2","4","3.2","Welte"],
+                [ "5","2","1","1.0","5"],
+                [ "1","2","4","3.2","5"],
+                [ "5","5","5","1.2","5"]
+            ]
+        },
+        "query" : {
+            "type" : "AdhocSelection",
+            "expression" : "(A+B == 3 and B == 2 and C == 4) or (D == 1.0) or (E == \"Welt\")",
+            "instances" : 3
+        }
+    },
+    "edges" : [
+        ["rl", "set"],
+        ["set", "build"],
+        ["build", "query"]
+    ]
+}

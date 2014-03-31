@@ -10,7 +10,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
-
+#include <iomanip>
 
 namespace test {
 
@@ -72,4 +72,23 @@ std::string urldecode(const std::string& input) {
   auto t = test::url_decode(input.c_str());
   std::string res(t.get());
   return std::move(res);
+}
+
+std::string urlencode(const std::string& value) {
+  std::ostringstream escaped;
+  escaped.fill('0');
+  escaped << std::hex;
+
+  for (auto i = value.begin(), n = value.end(); i != n; ++i) {
+    std::string::value_type c = (*i);
+    if (isalnum(c) || c == '-' || c == '_' || c == '.' || c == '~') {
+      escaped << c;
+    } else if (c == ' ') {
+      escaped << '+';
+    } else {
+      escaped << '%' << std::setw(2) << ((int)c) << std::setw(0);
+    }
+  }
+
+  return escaped.str();
 }
