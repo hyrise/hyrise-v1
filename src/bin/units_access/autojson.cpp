@@ -11,6 +11,7 @@
 #include "access/system/PlanOperation.h"
 #include "io/TransactionManager.h"
 #include "io/StorageManager.h"
+#include "helper/HttpHelper.h"
 #include "testing/TableEqualityTest.h"
 
 namespace hyrise {
@@ -44,7 +45,7 @@ class AutoJsonTest : public TestWithParam<std::string> {
 TEST_P(AutoJsonTest, Query) {
   RecordProperty("JSONFile", json_name.c_str());
 
-  std::string q = loadFromFile("test/autojson/" + json_name);
+  std::string q = urlencode(loadFromFile("test/autojson/" + json_name));
 
   auto has_xfail = json_name.find("xfail") != std::string::npos;
 
