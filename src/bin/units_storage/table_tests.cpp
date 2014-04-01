@@ -14,6 +14,7 @@
 #include "storage/RawTable.h"
 #include "storage/SimpleStore.h"
 #include "storage/storage_types.h"
+#include "storage/Store.h"
 
 namespace hyrise {
 namespace storage {
@@ -119,6 +120,16 @@ TEST_F(TableTests, test_table_copy) {
   hyrise::storage::atable_ptr_t b = a->copy();
   b->setValue<hyrise_int_t>(0, 0, 50);
   b->setValue<hyrise_int_t>(0, 1, 100);
+}
+
+TEST_F(TableTests, test_main_storage_is_fixedLengthVector) {
+  hyrise::storage::atable_ptr_t input = io::Loader::shortcuts::load("test/tables/companies.tbl");
+  const auto& store = std::dynamic_pointer_cast<Store>(input);
+  const auto& main = store->getMainTable();
+  const auto& avs = main->getAttributeVectors(0);
+  for (const auto& av : avs) {
+    ASSERT_NE(std::dynamic_pointer_cast<FixedLengthVector<value_id_t>>(av.attribute_vector), nullptr);
+  }
 }
 }
 }

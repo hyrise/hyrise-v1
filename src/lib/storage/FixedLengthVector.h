@@ -17,6 +17,7 @@ template <typename T>
 class AbstractFixedLengthVector : public BaseAttributeVector<T> {
  public:
   virtual const T& getRef(size_t column, size_t row) const = 0;
+  virtual T inc(size_t column, size_t row) = 0;
 };
 
 template <typename T>
@@ -25,7 +26,7 @@ class FixedLengthVector : public AbstractFixedLengthVector<T> {
   FixedLengthVector(std::size_t columns, std::size_t rows) : _columns(columns), _values(columns * rows) {}
 
   // Increment the value by 1
-  T inc(size_t column, size_t row) {
+  T inc(size_t column, size_t row) override {
     check_access(column, row);
     return _values[row * _columns + column]++;
   }
