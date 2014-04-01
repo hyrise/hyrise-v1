@@ -120,7 +120,7 @@ void RadixCluster2ndPass::executePlanOperation() {
   // Get the prefix sum from the input
   const auto& in_data = getDataVector(getInputTable(2)).first;
 
-  auto prefix = std::dynamic_pointer_cast<storage::ConcurrentFixedLengthVector<value_id_t>>(in_data->copy());
+  auto prefix = std::dynamic_pointer_cast<storage::AbstractFixedLengthVector<value_id_t>>(in_data->copy());
 
   // Cast the vectors to the lowest part in the hierarchy
   auto data_hash = getDataVector(result).first;

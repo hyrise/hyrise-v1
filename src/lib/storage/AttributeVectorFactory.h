@@ -33,7 +33,7 @@ class AttributeVectorFactory {
                                                                      bool nonvolatile = false,
                                                                      const std::string& id = "") {
     if (!compressed) {
-      { return std::make_shared<ConcurrentFixedLengthVector<T>>(columns, rows); }
+      { return std::make_shared<FixedLengthVector<T>>(columns, rows); }
     } else {
       return std::make_shared<BitCompressedVector<T>>(columns, rows, bits);
     }

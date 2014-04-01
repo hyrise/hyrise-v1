@@ -56,7 +56,7 @@ void RadixCluster::executeClustering() {
 
   // Get the prefix sum from the input
   const auto& prefix_sum = getInputTable(2);
-  const auto& data_prefix_sum = std::dynamic_pointer_cast<storage::ConcurrentFixedLengthVector<value_id_t>>(
+  const auto& data_prefix_sum = std::dynamic_pointer_cast<storage::AbstractFixedLengthVector<value_id_t>>(
       getDataVector(prefix_sum).first->copy());
 
   // Prepare mask
