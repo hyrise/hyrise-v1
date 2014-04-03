@@ -12,7 +12,6 @@ MutableVerticalTable::MutableVerticalTable(std::vector<std::vector<ColumnMetadat
                                            std::vector<std::vector<adict_ptr_t>*>* dictionaries,
                                            size_t size,
                                            bool sorted,
-                                           AbstractTableFactory* factory,
                                            bool compressed) {
   for (size_t i = 0; i < metadata.size(); i++) {
     std::vector<AbstractTable::SharedDictionaryPtr>* dict = nullptr;
@@ -20,10 +19,7 @@ MutableVerticalTable::MutableVerticalTable(std::vector<std::vector<ColumnMetadat
     if (dictionaries)
       dict = dictionaries->at(i);
 
-    if (factory)
-      containers.push_back(factory->generate(metadata[i], dict, size, sorted, compressed));
-    else
-      containers.push_back(std::make_shared<Table>(metadata[i], dict, size, sorted));
+    containers.push_back(std::make_shared<Table>(metadata[i], dict, size, sorted));
   }
 
   column_count = 0;
