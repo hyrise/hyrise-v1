@@ -7,14 +7,14 @@
 #include "access/MaterializingScan.h"
 #include "access/SimpleTableScan.h"
 #include "access/expressions/predicates.h"
+#include "access/AdhocSelection.h"
 
-namespace hyrise {
-namespace access {
+using namespace hyrise;
+using namespace hyrise::access;
 
 // See TPC-C reference Page 108 Chapter A.3 (New-Order Transaction)
 // Skipping projection since this is benchmarked in ProjectionScan.cpp
 class SimpleTableScanBase : public ::testing::Benchmark {
-
  protected:
   io::StorageManager* sm;
   SimpleTableScan* ts;
@@ -22,16 +22,20 @@ class SimpleTableScanBase : public ::testing::Benchmark {
   storage::c_atable_ptr_t customer;
 
  public:
-  void BenchmarkSetUp() {
-    ts = new SimpleTableScan();
-    ts->setEvent("NO_PAPI");
-
+  void SetUp() {
     sm = io::StorageManager::getInstance();
     order_line = sm->getTable("order_line");
     customer = sm->getTable("customer");
   }
 
-  void BenchmarkTearDown() {}
+  void BenchmarkSetUp() override {
+    ts = new SimpleTableScan();
+    ts->setEvent("NO_PAPI");
+  }
+
+  void BenchmarkTearDown() override { delete ts; }
+
+  void TearDown() override { sm->clear(); }
 
   SimpleTableScanBase() {
     SetNumIterations(10);
@@ -40,25 +44,13 @@ class SimpleTableScanBase : public ::testing::Benchmark {
 };
 
 
-
 /*
  * We do no projection, thus some colums are getting fixed values
-
- SELECT c_balance,
- c_first,
- c_middle,
- c_last
- FROM
- customer
- WHERE
- c_id = 2564
- AND
- c_d_id = 9
- AND
- c_w_id = 1
+ SELECT c_balance, c_first, c_middle, c_last
+ FROM customer
+ WHERE c_id = 2564 AND  c_d_id = 9  AND c_w_id = 1
 */
-
-CompoundExpression* customer_selection(hyrise::storage::c_atable_ptr_t& customer) {
+CompoundExpression* customer_selection(storage::c_atable_ptr_t& customer) {
   auto expr_c_id = new EqualsExpression<hyrise_int_t>(customer, 0, 2564l),
        expr_c_d_id = new EqualsExpression<hyrise_int_t>(customer, 1, 9l),
        expr_c_w_id = new EqualsExpression<hyrise_int_t>(customer, 2, 1l);
@@ -89,7 +81,6 @@ BENCHMARK_F(SimpleTableScanBase, simple_test_scan) {
   auto result = ts->execute()->getResultTable();
 }
 
-
 BENCHMARK_F(SimpleTableScanBase, table_scan_order_status_cust_tpcc_mat) {
   ts->addInput(customer);
   ts->setPredicate(customer_selection(customer));
@@ -104,36 +95,12 @@ BENCHMARK_F(SimpleTableScanBase, table_scan_order_status_cust_tpcc_mat) {
   auto result_mat = ms.execute()->getResultTable();
 }
 
-BENCHMARK_F(SimpleTableScanBase, table_scan_order_status_cust_tpcc_mat_memcpy) {
-  ts->addInput(customer);
-  ts->setPredicate(customer_selection(customer));
-  ts->setProducesPositions(true);
-
-  auto result = ts->execute()->getResultTable();
-
-  MaterializingScan ms(true);
-  ms.setEvent("NO_PAPI");
-  ms.addInput(result);
-
-  auto result_mat = ms.execute()->getResultTable();
-}
-
-BENCHMARK_F(SimpleTableScanBase, table_scan_order_status_line_tpcc) {
-  /*
-    SELECT o_i_id,
-    ol_supply_w_id,
-    ol_quantity
-    FROM
-    order_line
-    WHERE
-    ol_o_id = 1
-    AND
-    ol_d_id = 6 */
-
+BENCHMARK_F(SimpleTableScanBase, table_scan_order_status_line_tpcc_simple_select) {
+  /* SELECT ...  FROM order_line WHERE ol_o_id = 1 AND ol_d_id = 6 */
   ts->addInput(order_line);
 
-  EqualsExpression<hyrise_int_t>* expr_ol_o_id = new EqualsExpression<hyrise_int_t>(order_line, 0, 2758);
-  EqualsExpression<hyrise_int_t>* expr_ol_d_id = new EqualsExpression<hyrise_int_t>(order_line, 1, 10);
+  auto expr_ol_o_id = new EqualsExpression<hyrise_int_t>(order_line, 0, 2758);
+  auto expr_ol_d_id = new EqualsExpression<hyrise_int_t>(order_line, 1, 10);
 
   CompoundExpression* expr_and = new CompoundExpression(AND);
 
@@ -146,60 +113,35 @@ BENCHMARK_F(SimpleTableScanBase, table_scan_order_status_line_tpcc) {
   auto result = ts->execute()->getResultTable();
 }
 
-BENCHMARK_F(SimpleTableScanBase, table_scan_order_status_line_tpcc_mat) {
-  /*
-    SELECT o_i_id,
-    ol_supply_w_id,
-    ol_quantity
-    FROM
-    order_line
-    WHERE
-    ol_o_id = 1
-    AND
-    ol_d_id = 6 */
 
-  ts->addInput(order_line);
 
-  EqualsExpression<hyrise_int_t>* expr_ol_o_id = new EqualsExpression<hyrise_int_t>(order_line, 0, 2758);
-  EqualsExpression<hyrise_int_t>* expr_ol_d_id = new EqualsExpression<hyrise_int_t>(order_line, 1, 10);
+class AdhocScanBench : public ::testing::Benchmark {
 
-  CompoundExpression* expr_and = new CompoundExpression(AND);
+ protected:
+  io::StorageManager* sm;
 
-  expr_and->add(expr_ol_o_id);
-  expr_and->add(expr_ol_d_id);
+  storage::c_atable_ptr_t order_line;
 
-  ts->setPredicate(expr_and);
-  ts->setProducesPositions(true);
+ public:
+  void SetUp() {
+    sm = io::StorageManager::getInstance();
+    order_line = sm->getTable("order_line");
+  }
+  void BenchmarkSetup() {}
 
-  auto result = ts->execute()->getResultTable();
-}
+  void TearDown() { sm->clear(); }
 
-BENCHMARK_F(SimpleTableScanBase, table_scan_order_status_line_tpcc_mat_memcpy) {
-  /*
-    SELECT o_i_id,
-    ol_supply_w_id,
-    ol_quantity
-    FROM
-    order_line
-    WHERE
-    ol_o_id = 1
-    AND
-    ol_d_id = 6 */
+  AdhocScanBench() {
+    SetNumIterations(10);
+    SetWarmUp(2);
+  }
+};
 
-  ts->addInput(order_line);
 
-  EqualsExpression<hyrise_int_t>* expr_ol_o_id = new EqualsExpression<hyrise_int_t>(order_line, 0, 2758);
-  EqualsExpression<hyrise_int_t>* expr_ol_d_id = new EqualsExpression<hyrise_int_t>(order_line, 1, 10);
 
-  CompoundExpression* expr_and = new CompoundExpression(AND);
-
-  expr_and->add(expr_ol_o_id);
-  expr_and->add(expr_ol_d_id);
-
-  ts->setPredicate(expr_and);
-  ts->setProducesPositions(true);
-
-  auto result = ts->execute()->getResultTable();
-}
-}
+BENCHMARK_F(AdhocScanBench, simple_select) {
+  AdhocSelection scan("OL_O_ID == 2758 and OL_D_ID == 10");
+  scan.setEvent("NO_PAPI");
+  scan.addInput(order_line);
+  auto result = scan.execute()->getResultTable();
 }
