@@ -31,7 +31,7 @@ class MutableVerticalTable : public AbstractTable {
                        std::vector<std::vector<adict_ptr_t>*>* dictionaries = nullptr,
                        size_t size = 0,
                        bool sorted = true,
-                       bool compressed = true);
+                       bool compressed = true) __attribute__((deprecated));
   MutableVerticalTable(std::vector<atable_ptr_t> cs, size_t size = 0);
   virtual ~MutableVerticalTable();
 
