@@ -219,7 +219,7 @@ COMMON_FLAGS.debug += -O0
 COMMON_FLAGS.release += -O3
 COMMON_FLAGS += -g -march=native -Wall -Wextra -Wno-attributes -Wno-unused-parameter -pthread $(COMMON_FLAGS.$(BLD))
 
-CPPFLAGS += -MMD -pipe $(CPPFLAGS.$(BLD))
+CPPFLAGS += -MMD -MP -pipe $(CPPFLAGS.$(BLD))
 CFLAGS += $(COMMON_FLAGS) $(CFLAGS.$(BLD))
 CXXFLAGS += -std=c++11 $(COMMON_FLAGS) $(CXXFLAGS.$(BLD))
 
