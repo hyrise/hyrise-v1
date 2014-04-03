@@ -19,6 +19,7 @@
 #include "storage/ConcurrentUnorderedDictionary.h"
 #include "storage/ConcurrentFixedLengthVector.h"
 #include "storage/CompoundValueKeyBuilder.h"
+#include "storage/GroupkeyIndex.h"
 
 
 #define DELTA_SIZE_DEFAULT_MAX 10000000
@@ -32,6 +33,21 @@ TableMerger* createDefaultMerger() {
 }
 
 Store::Store() : merger(createDefaultMerger()) { setUuid(); }
+
+struct MergeRowFunctor {
+  typedef void value_type;
+  size_t column;
+  Store* s;
+  atable_ptr_t newMain;
+
+  MergeRowFunctor(size_t c, Store* sp, atable_ptr_t newMain):
+    column(c), s(sp), newMain(newMain) {}
+
+  template<typename R>
+  value_type operator()() {
+    s->altMergeDictionary<R>(column, newMain);
+  }
+};
 
 namespace {
 
@@ -145,6 +161,128 @@ void Store::merge() {
 #endif
 }
 
+template <typename T>
+void Store::altMergeDictionary(uint64_t i, atable_ptr_t newMain) {
+  std::shared_ptr<OrderPreservingDictionary<T>> newDict = nullptr;
+
+  if (_main_indices.size() < _currentIndexToMerge + 1 || _main_indices.at(_currentIndexToMerge).second.at(0) != i || !_main_indices.at(_currentIndexToMerge++).first->recreateIndexMergeDict(i, _main_table, delta, newMain, newDict, x, Vd.at(i))) {
+      std::shared_ptr<hyrise::storage::OrderPreservingDictionary<T>> mainDictionary = std::dynamic_pointer_cast<storage::OrderPreservingDictionary<T>>(_main_table->dictionaryAt(i, 0, 0));
+
+      std::shared_ptr<hyrise::storage::ConcurrentFixedLengthVector<value_id_t>> deltaVector = std::dynamic_pointer_cast<storage::ConcurrentFixedLengthVector<value_id_t>>(delta->getAttributeVectors(i).at(0).attribute_vector);
+      std::shared_ptr<hyrise::storage::ConcurrentUnorderedDictionary<T>> deltaDictionary = std::dynamic_pointer_cast<storage::ConcurrentUnorderedDictionary<T>>(delta->dictionaryAt(i, 0, 0));
+
+      newDict = std::make_shared<OrderPreservingDictionary<T>>(deltaDictionary->size());
+
+
+      auto it = mainDictionary->begin();
+      auto itDelta = deltaDictionary->begin();
+      auto deltaEnd = deltaDictionary->end();
+
+      ValueId vid;
+
+      uint64_t m = 0, n = 0;
+      std::vector<value_id_t> xColumn;
+
+      while (itDelta != deltaDictionary->end() || m != mainDictionary->size()) {
+        // TODO: store result of mainDictionary->getValueForValueId(m) in variable
+        bool processM = (m != mainDictionary->size() && (mainDictionary->getValueForValueId(m) <= *itDelta || itDelta == deltaDictionary->end()));
+        bool processD = (m == mainDictionary->size() || *itDelta <= mainDictionary->getValueForValueId(m));
+
+        if (processM) {
+          vid.valueId = newDict->addValue(mainDictionary->getValueForValueId(m));
+
+          xColumn.push_back(n - m);
+          ++m;
+        }
+
+        if (processD) {
+          if (!newDict->valueExists(*itDelta))
+            vid.valueId = newDict->addValue(*itDelta);
+
+          // TODO: optimize
+          for (size_t j = 0; j < deltaVector->size(); ++j) {
+            if (deltaDictionary->getValueForValueId(deltaVector->getRef(i, j)) == *itDelta) {
+              Vd.at(i)[j] = n;
+            }
+          }
+          ++itDelta;
+        }
+        ++n;
+      }
+
+      newMain->setDictionaryAt(newDict, i);
+      x.push_back(xColumn);
+
+      // Index present, but recreateIndexMergeDict not implemented
+      if (_main_indices.size() > 0 && _main_indices.at(_currentIndexToMerge > 0 ? _currentIndexToMerge - 1 : 0).second.at(0) == i) {
+        _main_indices.at(0).first->recreateIndex(newMain);
+      }
+  }
+}
+
+void Store::altMergeValues(uint64_t i, atable_ptr_t newMain) {
+  size_t mainTableSize = _main_table->size();
+  size_t overAllSize = this->size();
+  std::shared_ptr<hyrise::storage::BaseAttributeVector<value_id_t>> mainVector = std::dynamic_pointer_cast<storage::BaseAttributeVector<value_id_t>>(_main_table->getAttributeVectors(i).at(0).attribute_vector);
+
+  for (size_t j = 0; j < mainTableSize; ++j) {
+    newMain->setValueId(i, j, ValueId{mainVector->get(i, j) + x.at(i).at(mainVector->get(i, j)), 0});
+  }
+
+  for (size_t j = mainTableSize; j < overAllSize; ++j) {
+    newMain->setValueId(i, j, ValueId{Vd.at(i)[j - mainTableSize], 0});
+  }
+}
+
+void Store::altMerge() {
+  size_t overAllSize = this->size();
+  atable_ptr_t newMain;
+
+  field_list_t temp_field_list;
+  for (size_t i = 0; i < columnCount(); ++i)
+    temp_field_list.push_back(i);
+  newMain = _main_table->copy_structure(&temp_field_list, false, overAllSize, true, true);
+
+  // std::cout << "############## BEFORE TABLES ##############" << std::endl;
+  // this->print();
+  // _main_table->print();
+  // delta->print();
+
+  _currentIndexToMerge = 0;
+
+  for (size_t i = 0; i < columnCount(); ++i) {
+    value_id_t* VdColumn = (value_id_t*)malloc(sizeof(value_id_t) * delta->size());
+    Vd.push_back(VdColumn);
+
+    MergeRowFunctor fun(i, this, newMain);
+    storage::type_switch<hyrise_basic_types> ts;
+    ts(_main_table->typeOfColumn(i), fun);
+  }
+
+  newMain->resize(overAllSize);
+
+  for (size_t i = 0; i < columnCount(); ++i) {
+    altMergeValues(i, newMain);
+    free(Vd.at(i));
+  }
+
+  Vd.erase(Vd.begin(), Vd.end());
+  x.erase(x.begin(), x.end());
+
+  atable_ptr_t newDelta = delta->copy_structure(create_concurrent_dict, create_concurrent_storage);
+  newDelta->setName(getName());
+  if(loggingEnabled()) newDelta->enableLogging();
+
+  delta = newDelta;
+  _delta_size = 0;
+
+  _main_table = newMain;
+
+  // std::cout << "############## AFTER ##############" << std::endl;
+  // this->print();
+  // _main_table->print();
+  // delta->print();
+}
 
 atable_ptr_t Store::getMainTable() const { return _main_table; }
 

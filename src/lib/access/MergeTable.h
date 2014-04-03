@@ -22,6 +22,14 @@ class MergeStore : public PlanOperation {
   void executePlanOperation();
   static std::shared_ptr<PlanOperation> parse(const Json::Value& data);
 };
+
+class MergeStoreAlt : public PlanOperation {
+public:
+  virtual ~MergeStoreAlt();
+  void executePlanOperation();
+  static std::shared_ptr<PlanOperation> parse(const Json::Value& data);
+};
+
 }
 }
 

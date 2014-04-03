@@ -56,5 +56,24 @@ void MergeStore::executePlanOperation() {
 }
 
 std::shared_ptr<PlanOperation> MergeStore::parse(const Json::Value& data) { return std::make_shared<MergeStore>(); }
+
+namespace {
+  auto _3 = QueryParser::registerPlanOperation<MergeStoreAlt>("MergeStoreAlt");
+}
+
+MergeStoreAlt::~MergeStoreAlt() {
+}
+
+void MergeStoreAlt::executePlanOperation() {
+  auto t = checked_pointer_cast<const storage::Store>(getInputTable());
+  auto store = std::const_pointer_cast<storage::Store>(t);
+  store->altMerge();
+  addResult(store);
+}
+
+std::shared_ptr<PlanOperation> MergeStoreAlt::parse(const Json::Value& data) {
+  return std::make_shared<MergeStoreAlt>();
+}
+
 }
 }
