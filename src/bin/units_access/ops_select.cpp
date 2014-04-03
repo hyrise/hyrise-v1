@@ -164,7 +164,7 @@ TEST_F(SelectTests, should_throw_without_predicates) {
   cereal::JSONInputArchive archive(ss);
 
   typename SimpleTableScan::Parameters params;
-  
+
   ASSERT_THROW(params.serialize(archive), std::runtime_error);
 }
 

@@ -11,9 +11,8 @@ namespace access {
 
 class SimpleTableScan : public ParallelizablePlanOperation {
 
-public:
-  struct Parameters
-  {
+ public:
+  struct Parameters {
     std::string type;
     Json::Value predicates;
     std::optional<bool> materializing, ofDelta;
@@ -21,9 +20,9 @@ public:
     SERIALIZE(type, predicates, materializing, ofDelta)
   };
 
-public:
+ public:
   SimpleTableScan();
-  SimpleTableScan(const Parameters & parameters);
+  SimpleTableScan(const Parameters& parameters);
   virtual ~SimpleTableScan();
 
   void setupPlanOperation();
@@ -34,10 +33,9 @@ public:
   const std::string vname();
   void setPredicate(SimpleExpression* c);
 
-private:
+ private:
   SimpleExpression* _comparator;
   bool _ofDelta;
-
 };
 }
 }

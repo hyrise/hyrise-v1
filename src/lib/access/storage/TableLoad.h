@@ -14,24 +14,23 @@ class LoadTests_simple_unloadall_op_Test;
 class TableLoad : public PlanOperation {
   friend class LoadTests_simple_load_op_Test;
   friend class LoadTests_simple_unloadall_op_Test;
-  
-public:
-  struct Parameters
-  {
+
+ public:
+  struct Parameters {
     std::string type, table, filename;
     std::optional<std::string> header, header_string, delimiter, path;
     std::optional<bool> unsafe, raw;
 
     SERIALIZE(type, table, filename, header, header_string, delimiter, path, unsafe, raw)
   };
-  
-public:
+
+ public:
   TableLoad();
-  TableLoad(const Parameters & parameters);
+  TableLoad(const Parameters& parameters);
   virtual ~TableLoad();
 
   void executePlanOperation();
-  
+
   const std::string vname();
   void setTableName(const std::string& tablename);
   void setFileName(const std::string& filename);

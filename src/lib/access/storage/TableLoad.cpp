@@ -16,25 +16,33 @@ namespace hyrise {
 namespace access {
 
 namespace {
-  auto _ = QueryParser::registerSerializablePlanOperation<TableLoad>("TableLoad");
-  log4cxx::LoggerPtr logger(log4cxx::Logger::getLogger("access.plan.PlanOperation"));
+auto _ = QueryParser::registerSerializablePlanOperation<TableLoad>("TableLoad");
+log4cxx::LoggerPtr logger(log4cxx::Logger::getLogger("access.plan.PlanOperation"));
 }
 
 
-TableLoad::TableLoad(const Parameters & parameters):
-  _table_name(parameters.table),
-  _file_name(parameters.filename),
-  _header_file_name(parameters.header),
-  _header_string(parameters.header_string),
-  _delimiter(parameters.delimiter),
-  _path(parameters.path),
-  _unsafe(parameters.unsafe),
-  _raw(parameters.raw)
-  {
-    if (parameters.path) _path = *parameters.path; else _path = std::string("");
-    if (parameters.unsafe) _unsafe = *parameters.unsafe; else _unsafe = false;
-    if (parameters.raw) _raw = *parameters.raw; else _raw = false;
-  }
+TableLoad::TableLoad(const Parameters& parameters)
+    : _table_name(parameters.table),
+      _file_name(parameters.filename),
+      _header_file_name(parameters.header),
+      _header_string(parameters.header_string),
+      _delimiter(parameters.delimiter),
+      _path(parameters.path),
+      _unsafe(parameters.unsafe),
+      _raw(parameters.raw) {
+  if (parameters.path)
+    _path = *parameters.path;
+  else
+    _path = std::string("");
+  if (parameters.unsafe)
+    _unsafe = *parameters.unsafe;
+  else
+    _unsafe = false;
+  if (parameters.raw)
+    _raw = *parameters.raw;
+  else
+    _raw = false;
+}
 
 TableLoad::TableLoad() : _path(std::string("")), _unsafe(false), _raw(false), _nonvolatile(false), _binary(false) {}
 
@@ -93,28 +101,18 @@ void TableLoad::setTableName(const std::string& tablename) { _table_name = table
 
 void TableLoad::setFileName(const std::string& filename) { _file_name = filename; }
 
-void TableLoad::setHeaderFileName(const std::string &filename) {
+void TableLoad::setHeaderFileName(const std::string& filename) {
   _header_file_name = std::optional<std::string>(filename);
 }
 
-void TableLoad::setHeaderString(const std::string &header) {
-  _header_string = std::optional<std::string>(header);
-}
+void TableLoad::setHeaderString(const std::string& header) { _header_string = std::optional<std::string>(header); }
 
-void TableLoad::setUnsafe(const bool unsafe) {
-  _unsafe = std::optional<bool>(unsafe);
-}
+void TableLoad::setUnsafe(const bool unsafe) { _unsafe = std::optional<bool>(unsafe); }
 
-void TableLoad::setRaw(const bool raw) {
-  _raw = std::optional<bool>(raw);
-}
+void TableLoad::setRaw(const bool raw) { _raw = std::optional<bool>(raw); }
 
-void TableLoad::setDelimiter(const std::string &d) {
-  _delimiter = std::optional<std::string>(d);
-}
-void TableLoad::setPath(const std::string& path) {
-  _path = std::optional<std::string>(path);
-}
+void TableLoad::setDelimiter(const std::string& d) { _delimiter = std::optional<std::string>(d); }
+void TableLoad::setPath(const std::string& path) { _path = std::optional<std::string>(path); }
 
 void TableLoad::setBinary(const bool binary) { _binary = binary; }
 

@@ -16,22 +16,17 @@ namespace hyrise {
 namespace access {
 
 namespace {
-  auto _ = QueryParser::registerSerializablePlanOperation<SimpleTableScan>("SimpleTableScan");
+auto _ = QueryParser::registerSerializablePlanOperation<SimpleTableScan>("SimpleTableScan");
 }
 
-SimpleTableScan::SimpleTableScan():
-  _comparator(nullptr),
-  _ofDelta(false)
-{
-}
+SimpleTableScan::SimpleTableScan() : _comparator(nullptr), _ofDelta(false) {}
 
-SimpleTableScan::SimpleTableScan(const Parameters & parameters):
-  _comparator(nullptr),
-  _ofDelta(false)
-{
+SimpleTableScan::SimpleTableScan(const Parameters& parameters) : _comparator(nullptr), _ofDelta(false) {
   setPredicate(buildExpression(parameters.predicates));
-  if (parameters.materializing) setProducesPositions(!*parameters.materializing);
-  if (parameters.ofDelta) _ofDelta = *parameters.ofDelta;
+  if (parameters.materializing)
+    setProducesPositions(!*parameters.materializing);
+  if (parameters.ofDelta)
+    _ofDelta = *parameters.ofDelta;
 }
 
 SimpleTableScan::~SimpleTableScan() {

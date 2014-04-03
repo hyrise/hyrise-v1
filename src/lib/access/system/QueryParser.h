@@ -59,7 +59,7 @@ struct QueryParserFactory<T, default_construct> : public AbstractQueryParserFact
   }
 };
 
-template<typename T>
+template <typename T>
 struct QueryParserFactory<T, cereal_construct> : public AbstractQueryParserFactory {
 
   virtual std::shared_ptr<PlanOperation> parse(const Json::Value& data) {
@@ -127,7 +127,7 @@ class QueryParser {
     return true;
   }
 
-  template<typename T>
+  template <typename T>
   static bool registerSerializablePlanOperation(const std::string& name) {
     QueryParser::instance()._factory[name] = new QueryParserFactory<T, cereal_construct>();
     return true;
