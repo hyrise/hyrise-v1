@@ -8,10 +8,10 @@
 #include "io/LoaderException.h"
 #include "storage/AbstractTable.h"
 #include "storage/AbstractMergeStrategy.h"
+#include "storage/DictionaryFactory.h"
 #include "storage/SequentialHeapMerger.h"
 #include "storage/SimpleStore.h"
 #include "storage/Store.h"
-#include "storage/TableGenerator.h"
 #include "storage/MutableVerticalTable.h"
 
 namespace hyrise {
@@ -111,8 +111,19 @@ std::shared_ptr<storage::AbstractTable> Loader::load(const params& args) {
   storage::compound_metadata_list* meta = header->load(args);
   LOG4CXX_DEBUG(logger, "Header done");
 
+  std::vector<storage::atable_ptr_t> tables;
+  for (const auto& partition : *meta) {
+    std::vector<storage::adict_ptr_t> dicts;
+    for (const auto& column : *partition) {
+      dicts.push_back(storage::makeDictionary(column));
+    }
+    auto tbl = std::make_shared<storage::Table>(
+        *partition, std::make_shared<storage::FixedLengthVector<value_id_t>>(dicts.size(), 0), dicts);
+    tables.push_back(tbl);
+  }
+
   std::shared_ptr<storage::AbstractTable> result,  // initialize empty
-      table = std::make_shared<storage::MutableVerticalTable>(*meta, nullptr, 0, false, args.getCompressed());
+      table = std::make_shared<storage::MutableVerticalTable>(tables);
 
   LOG4CXX_DEBUG(logger, "Loading data");
   try {
