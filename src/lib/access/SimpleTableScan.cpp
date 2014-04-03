@@ -8,14 +8,30 @@
 
 #include "helper/checked_cast.h"
 
+#include <cereal/archives/json.hpp>
+#include <cereal/types/string.hpp>
+#include <sstream>
+
 namespace hyrise {
 namespace access {
 
 namespace {
-  auto _ = QueryParser::registerPlanOperation<SimpleTableScan>("SimpleTableScan");
+  auto _ = QueryParser::registerSerializablePlanOperation<SimpleTableScan>("SimpleTableScan");
 }
 
-SimpleTableScan::SimpleTableScan(): _comparator(nullptr) {
+SimpleTableScan::SimpleTableScan():
+  _comparator(nullptr),
+  _ofDelta(false)
+{
+}
+
+SimpleTableScan::SimpleTableScan(const Parameters & parameters):
+  _comparator(nullptr),
+  _ofDelta(false)
+{
+  setPredicate(buildExpression(parameters.predicates));
+  if (parameters.materializing) setProducesPositions(!*parameters.materializing);
+  if (parameters.ofDelta) _ofDelta = *parameters.ofDelta;
 }
 
 SimpleTableScan::~SimpleTableScan() {
@@ -69,24 +85,6 @@ void SimpleTableScan::executePlanOperation() {
   } else {
     executeMaterialized();
   }
-}
-
-std::shared_ptr<PlanOperation> SimpleTableScan::parse(const Json::Value &data) {
-  std::shared_ptr<SimpleTableScan> pop = std::make_shared<SimpleTableScan>();
-
-  if (data.isMember("materializing"))
-    pop->setProducesPositions(!data["materializing"].asBool());
-
-  if (!data.isMember("predicates")) {
-    throw std::runtime_error("There is no reason for a Selection without predicates");
-  }
-  pop->setPredicate(buildExpression(data["predicates"]));
-
-  if (data.isMember("ofDelta")) {
-    pop->_ofDelta = data["ofDelta"].asBool();
-  }
-
-  return pop;
 }
 
 const std::string SimpleTableScan::vname() {

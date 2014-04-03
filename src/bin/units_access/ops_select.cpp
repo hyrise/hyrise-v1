@@ -157,7 +157,15 @@ TEST_F(SelectTests, simple_expression) {
 TEST_F(SelectTests, should_throw_without_predicates) {
   Json::Value v(Json::objectValue);
   v["type"] = "SimpleTableScan";
-  ASSERT_THROW(SimpleTableScan::parse(v), std::runtime_error);
+
+  std::stringstream ss;
+  ss << v.toStyledString();
+
+  cereal::JSONInputArchive archive(ss);
+
+  typename SimpleTableScan::Parameters params;
+  
+  ASSERT_THROW(params.serialize(archive), std::runtime_error);
 }
 
 

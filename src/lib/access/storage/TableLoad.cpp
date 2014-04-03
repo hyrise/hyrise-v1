@@ -13,13 +13,25 @@ namespace hyrise {
 namespace access {
 
 namespace {
-  auto _ = QueryParser::registerPlanOperation<TableLoad>("TableLoad");
+  auto _ = QueryParser::registerSerializablePlanOperation<TableLoad>("TableLoad");
   log4cxx::LoggerPtr logger(log4cxx::Logger::getLogger("access.plan.PlanOperation"));
 }
 
-TableLoad::TableLoad(): _hasDelimiter(false),
-                        _binary(false),
-                        _unsafe(false),
+
+TableLoad::TableLoad(const Parameters & parameters):
+  _table_name(parameters.table),
+  _file_name(parameters.filename),
+  _header_file_name(parameters.header),
+  _header_string(parameters.header_string),
+  _delimiter(parameters.delimiter),
+  _unsafe(parameters.unsafe),
+  _raw(parameters.raw)
+  {
+    if (parameters.unsafe) _unsafe = *parameters.unsafe; else _unsafe = false;
+    if (parameters.raw) _raw = *parameters.raw; else _raw = false;
+  }
+
+TableLoad::TableLoad(): _unsafe(false),
                         _raw(false) {
 }
 
@@ -31,29 +43,29 @@ void TableLoad::executePlanOperation() {
   if (!sm->exists(_table_name)) {
 
     // Load Raw Table
-    if (_raw) {
+    if (*_raw) {
       io::Loader::params p;
       p.setHeader(io::CSVHeader(_file_name));
       p.setInput(io::RawTableLoader(_file_name));
       sm->loadTable(_table_name, p);
 
-    } else if (!_header_string.empty()) {
+    } else if (_header_string) {
       // Load based on header string
-      auto p = io::Loader::shortcuts::loadWithStringHeaderParams(_file_name, _header_string);
+      auto p = io::Loader::shortcuts::loadWithStringHeaderParams(_file_name, *_header_string);
       sm->loadTable(_table_name, p);
 
-    } else if (_header_file_name.empty()) {
+    } else if (!_header_file_name) {
       // Load only with single file
       sm->loadTableFile(_table_name, _file_name);
 
-    } else if ((!_table_name.empty()) && (!_file_name.empty()) && (!_header_file_name.empty())) {
+    } else if ((!_table_name.empty()) && (!_file_name.empty()) && (_header_file_name)) {
       // Load with dedicated header file
       io::Loader::params p;
       p.setCompressed(false);
-      p.setHeader(io::CSVHeader(_header_file_name));
-      auto params = io::CSVInput::params().setUnsafe(_unsafe);
-      if (_hasDelimiter)
-        params.setCSVParams(io::csv::params().setDelimiter(_delimiter.at(0)));
+      p.setHeader(io::CSVHeader(*_header_file_name));
+      auto params = io::CSVInput::params().setUnsafe(*_unsafe);
+      if (_delimiter)
+        params.setCSVParams(io::csv::params().setDelimiter((*_delimiter).at(0)));
       p.setInput(io::CSVInput(_file_name, params));
       sm->loadTable(_table_name, p);
     }
@@ -66,20 +78,6 @@ void TableLoad::executePlanOperation() {
   auto _table = sm->getTable(_table_name);
   LOG4CXX_DEBUG(logger, "Loaded Table Size" << _table->size());
   addResult(_table);
-}
-
-std::shared_ptr<PlanOperation> TableLoad::parse(const Json::Value &data) {
-  std::shared_ptr<TableLoad> s = std::make_shared<TableLoad>();
-  s->setTableName(data["table"].asString());
-  s->setFileName(data["filename"].asString());
-  s->setHeaderFileName(data["header"].asString());
-  s->setHeaderString(data["header_string"].asString());
-  s->setUnsafe(data["unsafe"].asBool());
-  s->setRaw(data["raw"].asBool());
-  if (data.isMember("delimiter")) {
-    s->setDelimiter(data["delimiter"].asString());
-  }
-  return s;
 }
 
 const std::string TableLoad::vname() {
@@ -95,28 +93,23 @@ void TableLoad::setFileName(const std::string &filename) {
 }
 
 void TableLoad::setHeaderFileName(const std::string &filename) {
-  _header_file_name = filename;
+  _header_file_name = std::optional<std::string>(filename);
 }
 
 void TableLoad::setHeaderString(const std::string &header) {
-  _header_string = header;
-}
-
-void TableLoad::setBinary(const bool binary) {
-  _binary = binary;
+  _header_string = std::optional<std::string>(header);
 }
 
 void TableLoad::setUnsafe(const bool unsafe) {
-  _unsafe = unsafe;
+  _unsafe = std::optional<bool>(unsafe);
 }
 
 void TableLoad::setRaw(const bool raw) {
-  _raw = raw;
+  _raw = std::optional<bool>(raw);
 }
 
 void TableLoad::setDelimiter(const std::string &d) {
-  _delimiter = d;
-  _hasDelimiter = true;
+  _delimiter = std::optional<std::string>(d);
 }
 
 }
