@@ -121,15 +121,14 @@ class GroupkeyIndex : public AbstractIndex {
     auto offsetIterator = offsetsBegin();
 
     while (itDelta != deltaDictionary->end() || m != mainDictionary->size()) {
+      // TODO: store result of mainDictionary->getValueForValueId(m) in variable
       bool processM = (m != mainDictionary->size() && (mainDictionary->getValueForValueId(m) <= *itDelta || itDelta == deltaDictionary->end()));
       bool processD = (m == mainDictionary->size() || *itDelta <= mainDictionary->getValueForValueId(m));
 
       newOffsets.push_back(c);
 
       if (processM) {
-        // check necessary?
-        if (!newDict->valueExists(mainDictionary->getValueForValueId(m)))
-          vid.valueId = newDict->addValue(mainDictionary->getValueForValueId(m));
+        vid.valueId = newDict->addValue(mainDictionary->getValueForValueId(m));
 
         xColumn.push_back(n - m);
         ++m;
@@ -144,7 +143,6 @@ class GroupkeyIndex : public AbstractIndex {
       }
 
       if (processD) {
-        // check necessary?
         if (!newDict->valueExists(*itDelta))
           vid.valueId = newDict->addValue(*itDelta);
 
