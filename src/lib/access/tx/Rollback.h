@@ -9,7 +9,6 @@ namespace access {
 class Rollback : public PlanOperation {
   void executePlanOperation();
 };
-
 }
 }
 

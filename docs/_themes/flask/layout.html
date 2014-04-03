@@ -1,27 +1,92 @@
 {%- extends "basic/layout.html" %}
+
 {%- block extrahead %}
   {{ super() }}
   {% if theme_touch_icon %}
   <link rel="apple-touch-icon" href="{{ pathto('_static/' ~ theme_touch_icon, 1) }}" />
   {% endif %}
-  <link media="only screen and (max-device-width: 480px)" href="{{
-    pathto('_static/small_flask.css', 1) }}" type= "text/css" rel="stylesheet" />
-{% endblock %}
-{%- block relbar2 %}
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
 
+  <link rel="stylesheet" href="{{ pathto('_static/bootstrap.css', 1) }}" type="text/css" />
+  <link rel="stylesheet" href="{{ pathto('_static/hyrise_template.css', 1) }}" type="text/css" />
+  <link rel="stylesheet" href="{{ pathto('_static/hyrise.css', 1) }}" type="text/css" />
+  <link rel="stylesheet" href="{{ pathto('_static/hyrise-pygments.css', 1) }}" type="text/css" />
+
+  <script src="{{ pathto('_static/jquery-1.9.1.js', 1) }}"></script>
+  <script src="{{ pathto('_static/jquery-fix.js', 1) }}"></script>
+  <script src="{{ pathto('_static/bootstrap.js', 1) }}"></script>
+  <script src="{{ pathto('_static/layouting.js', 1) }}"></script>
 {% endblock %}
+
+{%- block relbar2 %}
+{% endblock %}
+ 
+{%- macro hyrise_sidebar() %}
+  {%- if render_sidebar %}
+  <div class="col-md-3">
+    <div class="hyrisesidebar nav">
+      <div class="resize-handle"></div>
+      {%- block sidebarlogo %}  
+      {%- if logo %}
+        <p class="logo"><a href="{{ pathto(master_doc) }}">
+          <img class="logo" src="{{ pathto('_static/' + logo, 1) }}" alt="Logo"/>
+        </a></p>
+      {%- endif %}
+      {%- endblock %}
+      {%- if sidebars != None %}
+        {#- new style sidebar: explicitly include/exclude templates #}
+        {%- for sidebartemplate in sidebars %}
+        {%- include sidebartemplate %}
+        {%- endfor %}
+      {%- else %}
+        {#- old style sidebars: using blocks -- should be deprecated #}
+        {%- block sidebartoc %}
+        {%- include "globaltoc.html" %}
+        {%- endblock %}
+        {%- block sidebarrel %}
+        {%- include "relations.html" %}
+        {%- endblock %}
+        {%- block sidebarsourcelink %}
+        {%- include "sourcelink.html" %}
+        {%- endblock %}
+        {%- if customsidebar %}
+        {%- include customsidebar %}
+        {%- endif %}
+        {%- block sidebarsearch %}
+        {%- include "searchbox.html" %}
+        {%- endblock %}
+      {%- endif %}
+    </div>
+  </div>
+  {%- endif %}
+{%- endmacro %}
+
 {% block header %}
   {{ super() }}
   {% if pagename == 'index' %}
   <div class=indexwrapper>
   {% endif %}
 {% endblock %}
+
+{%- block content %}
+  <div class="wrapper">
+    <div class="inner-wrapper">
+        <div class="container">
+          {%- include 'topnav.html' %}
+            <div class="row upper">
+              {{ hyrise_sidebar() }}
+              <div class="col-md-9" role="main">
+                {% block body %} {% endblock %}
+              </div>
+            </div>
+            <div class="row footer_toc">
+              {%- include 'footertoc.html' %}
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
 {%- block footer %}
-  <div class="footer">
-    &copy; Copyright {{ copyright }}.
-    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
-  </div>
-  {% if pagename == 'index' %}
-  </div>
-  {% endif %}
-{%- endblock %}
+{% endblock %}

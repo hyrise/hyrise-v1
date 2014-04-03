@@ -1,0 +1,14 @@
+{
+    "operators": {
+        "retrieve_revenue": {
+            "type" : "GetTable",
+            "name" : "test_recovery_revenue"
+        },
+        "validate" : {
+            "type" : "ValidatePositions"
+        }
+    },
+    "edges" : [
+        ["retrieve_revenue", "validate"]
+    ]
+}

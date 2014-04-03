@@ -8,10 +8,10 @@ namespace hyrise {
 namespace access {
 
 class NoOp : public PlanOperation {
-public:
+ public:
   void executePlanOperation();
 };
-
-}}
+}
+}
 
 #endif  // SRC_LIB_ACCESS_NOOP_H_

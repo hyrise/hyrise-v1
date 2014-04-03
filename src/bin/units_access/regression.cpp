@@ -1,9 +1,9 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "testing/test.h"
-#include <io/shortcuts.h>
-#include <access.h>
 
-#include <helper/epoch.h>
+#include "access/ProjectionScan.h"
+#include "io/shortcuts.h"
+#include "storage/ColumnMetadata.h"
 
 namespace hyrise {
 namespace access {
@@ -11,7 +11,8 @@ namespace access {
 class RegressionTests : public AccessTest {};
 
 TEST_F(RegressionTests, projection_fail) {
-  auto w = io::Loader::shortcuts::loadWithHeader("test/regression/projection_fail.data", "test/regression/projection_fail.tbl");
+  auto w = io::Loader::shortcuts::loadWithHeader("test/regression/projection_fail.data",
+                                                 "test/regression/projection_fail.tbl");
 
   ProjectionScan ps;
   ps.addInput(w);
@@ -19,11 +20,9 @@ TEST_F(RegressionTests, projection_fail) {
 
   const auto& p = ps.execute()->getResultTable();
   ASSERT_EQ(1u, p->columnCount());
-  ASSERT_EQ(p->metadataAt(0)->getName(), "w_tax");
+  ASSERT_EQ(p->metadataAt(0).getName(), "w_tax");
   ASSERT_EQ(0u, p->numberOfColumn("w_tax"));
   ASSERT_EQ(p->getValue<float>(0, 0), p->getValue<float>("w_tax", 0));
-
 }
-
 }
 }

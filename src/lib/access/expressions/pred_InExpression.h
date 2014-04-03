@@ -23,21 +23,14 @@ namespace access {
 ///
 template <typename T>
 class InExpression : public SimpleFieldExpression {
-public:
-  InExpression(size_t i, field_t f, const Json::Value& value):
-    SimpleFieldExpression(i, f),
-    values(getValues(value))
-  {}
+ public:
+  InExpression(size_t i, field_t f, const Json::Value& value) : SimpleFieldExpression(i, f), values(getValues(value)) {}
 
-  InExpression(size_t i, field_name_t f, const Json::Value& value):
-    SimpleFieldExpression(i, f),
-    values(getValues(value))
-  {}
+  InExpression(size_t i, field_name_t f, const Json::Value& value)
+      : SimpleFieldExpression(i, f), values(getValues(value)) {}
 
-  InExpression(storage::c_atable_ptr_t _table, field_t _field, const Json::Value& value):
-    SimpleFieldExpression(_table, _field),
-    values(getValues(value))
-  {}
+  InExpression(storage::c_atable_ptr_t _table, field_t _field, const Json::Value& value)
+      : SimpleFieldExpression(_table, _field), values(getValues(value)) {}
 
   ///
   /// @return true if the value at column[field,row] matches any values of the list named "values"
@@ -47,24 +40,23 @@ public:
     return std::find(values.cbegin(), values.cend(), currentValue) != values.cend();
   }
 
-private:
+ private:
   const std::vector<T> values;
   ///
   /// converts the string containing the values to a vector of values of the right type
   /// @return list of values to compare
   ///
-  const std::vector<T> getValues(const Json::Value & values) const {
+  const std::vector<T> getValues(const Json::Value& values) const {
     if (!values.isArray())
       throw std::runtime_error("IN Expression value must be an array.");
 
     std::vector<T> converted;
 
-    for (const auto &v : values) {
+    for (const auto& v : values) {
       converted.push_back(json_converter::convert<T>(v));
     }
     return converted;
   }
 };
-
-} } // namespace hyrise::access
-
+}
+}  // namespace hyrise::access

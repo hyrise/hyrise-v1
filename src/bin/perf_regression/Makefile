@@ -9,7 +9,7 @@ include $(PROJECT_ROOT)/src/bin/perf_datagen/Makefile
 hyr-perf.binname := hyrise-perf
 hyr-perf.deps := hyr-access gtest
 #hyr-perf.libs := boost_program_options
-$(eval $(call binary,hyr-perf))
+$(eval $(call full_link_binary,hyr-perf))
 all: $(hyr-perf.binary)
 
 .PHONY: codespeed

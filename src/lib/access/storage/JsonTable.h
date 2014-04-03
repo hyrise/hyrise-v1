@@ -11,30 +11,29 @@ namespace access {
 
 /**
 * Create a new Table based on a Json Plan Operation
-* 
+*
 * This class provides a simple to use interface to the functionality that is
-* provided by the TableBuilder class. 
+* provided by the TableBuilder class.
 *
 */
 class JsonTable : public PlanOperation {
 
-	std::vector<std::string> _names;
-	std::vector<std::string> _types;
-	std::vector<unsigned> _groups;
+  std::vector<std::string> _names;
+  std::vector<std::string> _types;
+  std::vector<unsigned> _groups;
   std::vector<std::vector<std::string>> _data;
 
 
   std::vector<std::string> _serialFields;
-	bool _useStoreFlag;
+  bool _useStoreFlag;
   bool _mergeFlag;
 
-public:
-
-	JsonTable();
+ public:
+  JsonTable();
 
   void executePlanOperation();
 
-  static std::shared_ptr<PlanOperation> parse(const Json::Value &data);
+  static std::shared_ptr<PlanOperation> parse(const Json::Value& data);
 
   // set the names to be used as attribute names in the table
   void setNames(const std::vector<std::string> names);
@@ -49,10 +48,8 @@ public:
   void setMergeStore(const bool);
 
   void setData(const std::vector<std::vector<std::string>> data);
-
 };
-
 }
 }
 
-#endif // SRC_LIB_ACCESS_JSONTABLE_H_
+#endif  // SRC_LIB_ACCESS_JSONTABLE_H_

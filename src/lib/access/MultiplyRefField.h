@@ -25,16 +25,14 @@ class MultiplyRefField : public PlanOperation {
   ///   "type" : "MultiplyRefField",
   ///   "fields" : ["ref", "value"],
   /// }
-  static std::shared_ptr<PlanOperation> parse(const Json::Value &data);
+  static std::shared_ptr<PlanOperation> parse(const Json::Value& data);
   const std::string vname();
 
  private:
-  template<typename T, DataType D>
+  template <typename T, DataType D>
   void executeMultiply();
 };
-
-
 }
 }
 
-#endif // SRC_LIB_ACCES_MULTIPLYREFFIELD_H
+#endif  // SRC_LIB_ACCES_MULTIPLYREFFIELD_H

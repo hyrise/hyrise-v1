@@ -19,22 +19,20 @@ class MPassCSVInput : public AbstractInput {
     params() : Unsafe(false) {}
   };
 
-  MPassCSVInput(std::string directory, const params &parameters = params()) :
-      _directory(directory),
-      _parameters(parameters)
-  {}
+  MPassCSVInput(std::string directory, const params& parameters = params())
+      : _directory(directory), _parameters(parameters) {}
 
-  std::shared_ptr<storage::AbstractTable> load(std::shared_ptr<storage::AbstractTable>, const storage::compound_metadata_list *, const Loader::params &args);
+  std::shared_ptr<storage::AbstractTable> load(std::shared_ptr<storage::AbstractTable>,
+                                               const storage::compound_metadata_list*,
+                                               const Loader::params& args);
 
-  bool needs_store_wrap() {
-    return false;
-  }
+  bool needs_store_wrap() { return false; }
 
-  MPassCSVInput *clone() const;
+  MPassCSVInput* clone() const;
+
  private:
   std::string _directory;
   params _parameters;
 };
-
-} } // namespace hyrise::io
-
+}
+}  // namespace hyrise::io

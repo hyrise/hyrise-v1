@@ -19,10 +19,9 @@ TEST_F(ExpressionScanTests, basic_expression_scan_test) {
   es.setExpression("plus", &plus);
   es.execute();
 
-  const auto &result = es.getResultTable();
+  const auto& result = es.getResultTable();
 
   ASSERT_TABLE_EQUAL(result, reference);
 }
-
 }
 }

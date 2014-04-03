@@ -8,10 +8,9 @@ namespace hyrise {
 namespace access {
 
 class MetaData : public PlanOperation {
-public:
+ public:
   void executePlanOperation();
 };
-
 }
 }
 

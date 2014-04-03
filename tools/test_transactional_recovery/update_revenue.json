@@ -1,0 +1,29 @@
+{
+    "operators": {
+        "retrieve_revenue": {
+            "type" : "GetTable",
+            "name" : "test_recovery_revenue"
+        },
+        "find" : {
+            "type": "CompoundIndexScan",
+            "predicates" : [
+                [0, 2010],
+                [2, 3200]
+            ],
+            "mainindex": "mcidx__test_recovery_revenue__main__year__amount",
+            "deltaindex": "mcidx__test_recovery_revenue__delta__year__amount"
+        },
+        "update": {
+           "type": "PosUpdateScan",
+           "data": {
+              "amount": "10000"
+           }
+        },
+        "nop" : {
+            "type" : "NoOp"
+        }
+    },
+    "edges" : [
+        ["retrieve_revenue", "find"], ["find", "update"], ["update", "nop"]
+    ]
+}

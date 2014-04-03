@@ -9,26 +9,23 @@
 namespace hyrise {
 namespace storage {
 
-template<typename T>
+template <typename T>
 struct hash_functor {
   typedef T value_type;
-  const AbstractTable *table;
+  const AbstractTable* table;
   size_t f;
   ValueId vid;
 
-  hash_functor(): table(0) {}
+  hash_functor() : table(0) {}
 
-  void setValueId(ValueId v) {
-    vid = vid;
-  }
+  void setValueId(ValueId v) { vid = vid; }
 
-  hash_functor(const AbstractTable *t, const size_t f, const ValueId v=ValueId()): table(t), f(f), vid(v) {}
+  hash_functor(const AbstractTable* t, const size_t f, const ValueId v = ValueId()) : table(t), f(f), vid(v) {}
 
-  template<typename R>
+  template <typename R>
   T operator()() {
     return std::hash<R>()(table->getValueForValueId<R>(f, vid));
   }
 };
-
-}}
-
+}
+}

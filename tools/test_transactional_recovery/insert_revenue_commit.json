@@ -1,0 +1,23 @@
+{
+    "operators": {
+        "retrieve_revenue": {
+            "type" : "GetTable",
+            "name" : "test_recovery_revenue"
+        },
+        "insert" : {
+            "type" : "InsertScan",
+            "data" : [
+                [2013,1,2000],
+                [2013,2,2500],
+                [2013,3,3000],
+                [2013,4,4000]
+            ]
+        },
+        "commit" : {
+            "type" : "Commit"
+        }
+    },
+    "edges" : [
+        ["retrieve_revenue", "insert"], ["insert", "commit"]
+    ]
+}

@@ -20,19 +20,19 @@ class AbstractRequestHandler : public taskscheduler::Task {
  public:
   typedef std::shared_ptr<AbstractRequestHandler> SharedPtr;
   virtual ~AbstractRequestHandler() {}
+
  protected:
-  
 };
 
 struct AbstractRequestHandlerFactory {
-  virtual AbstractRequestHandler::SharedPtr create(AbstractConnection *connection) const = 0;
+  virtual AbstractRequestHandler::SharedPtr create(AbstractConnection* connection) const = 0;
   virtual ~AbstractRequestHandlerFactory() {}
 };
 
 /// Factory for request handlers, implements abstract factory pattern
-template<typename T>
+template <typename T>
 struct RequestHandlerFactory : public AbstractRequestHandlerFactory {
-  AbstractRequestHandler::SharedPtr create(AbstractConnection *connection) const {
+  AbstractRequestHandler::SharedPtr create(AbstractConnection* connection) const {
     return std::make_shared<T>(connection);
   }
 };
@@ -40,21 +40,25 @@ struct RequestHandlerFactory : public AbstractRequestHandlerFactory {
 /// For all routing related exceptions
 class RouterException : public std::runtime_error {
  public:
-  explicit RouterException(const std::string &message);
+  explicit RouterException(const std::string& message);
 };
 
 /// Central routing class, implements handling of requests mapped to registered
 /// factories
 class Router {
   friend class RouteRequestHandler;
+
  public:
   Router();
-  Router(const Router &) = delete;
+  Router(const Router&) = delete;
   Router& operator=(const Router&) = delete;
 
-  typedef enum class DISPATCH { CATCH_ALL, EXACT } route_t;
+  typedef enum class DISPATCH {
+    CATCH_ALL,
+    EXACT
+  } route_t;
   typedef std::unique_ptr<AbstractRequestHandlerFactory> handler_uptr;
-  typedef const AbstractRequestHandlerFactory *handler_ptr;
+  typedef const AbstractRequestHandlerFactory* handler_ptr;
   typedef std::unordered_map<std::string, handler_uptr> route_map_t;
   typedef std::unordered_map<std::string, std::string> route_name_t;
 
@@ -62,7 +66,7 @@ class Router {
   /// handler class, caller still has to call create to obtain their
   /// own handler
   /// @param[in] url URL
-  static handler_ptr route(const std::string &url);
+  static handler_ptr route(const std::string& url);
 
   /// Static initialization registration method for registering handler
   /// classes with urls, or to be more precisely, URL prefixes.
@@ -86,10 +90,9 @@ class Router {
   ///
   /// This will register `klass` to be a handler of all urls that would otherwise
   /// not match any handlers at all.
-  template<typename RequestHandlerClass>
-  static bool registerRoute(const std::string &url,
-                            route_t route = route_t::EXACT) {
-    auto &router = Router::getInstance();
+  template <typename RequestHandlerClass>
+  static bool registerRoute(const std::string& url, route_t route = route_t::EXACT) {
+    auto& router = Router::getInstance();
     handler_uptr factory(new RequestHandlerFactory<RequestHandlerClass>);
     router.addRoute(url, std::move(factory), route, RequestHandlerClass::name());
     return true;
@@ -100,10 +103,10 @@ class Router {
   /// protected:
 
   /// Returns global Router instance
-  static Router &getInstance();
+  static Router& getInstance();
 
   /// Returns routing map of registered classes
-  const route_map_t &getRouters() const;
+  const route_map_t& getRouters() const;
 
   /// Setter for catchAll
   void setCatchAll(handler_ptr handler);
@@ -116,26 +119,22 @@ class Router {
 
   /// Return appropriate handler
   /// @param[in] url Url to resolve
-  handler_ptr getHandler(const std::string &url) const;
+  handler_ptr getHandler(const std::string& url) const;
 
   /// Return name of handler for route
-  std::string getHandlerNameForRoute(const std::string &url) const;
+  std::string getHandlerNameForRoute(const std::string& url) const;
 
   /// Add a new route
   /// @param[in] url url prefix
   /// @param[in] factory factory that returns RequestHandler
   /// @param[in] route route mode
   /// @param[in] name name of the registered handler
-  void addRoute(const std::string &url,
-                handler_uptr factory,
-                route_t route,
-                const std::string &name = "undefined");
+  void addRoute(const std::string& url, handler_uptr factory, route_t route, const std::string& name = "undefined");
 
  private:
   route_map_t _route;
   handler_ptr _catch_all;
   route_name_t _route_names;
-
 };
 }
 }

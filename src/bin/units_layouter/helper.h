@@ -6,4 +6,3 @@
 #include "helper/types.h"
 
 std::string loadFromFile(std::string path);
-

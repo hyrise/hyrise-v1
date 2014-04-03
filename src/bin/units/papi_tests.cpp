@@ -4,7 +4,8 @@
 #include "helper/PapiTracer.h"
 
 void work() {
-    for (volatile auto i=0; i<10; i++) { };
+  for (volatile auto i = 0; i < 10; i++) {
+  };
 }
 
 TEST(PapiTests, trace_basic) {

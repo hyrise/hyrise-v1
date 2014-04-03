@@ -14,14 +14,12 @@ namespace access {
 
 class JsonTableTest : public AccessTest {
 
-protected:
-
+ protected:
   std::string _good_file;
   std::string _good_file_store;
 
-  JsonTableTest(): _good_file("test/json/build_table_good.json"), _good_file_store("test/json/build_table_good_store.json") {
-  }
-
+  JsonTableTest()
+      : _good_file("test/json/build_table_good.json"), _good_file_store("test/json/build_table_good_store.json") {}
 };
 
 TEST_F(JsonTableTest, simple_test) {
@@ -46,8 +44,8 @@ TEST_F(JsonTableTest, simple_test_with_data) {
 
   op.setNames({"company_id", "company_name"});
   op.setTypes({"INTEGER", "STRING"});
-  op.setGroups({1,1});
-  op.setData({ {"1", "Apple Inc"}, {"2", "Microsoft"}, {"3", "SAP AG"}, {"4", "Oracle"}  });
+  op.setGroups({1, 1});
+  op.setData({{"1", "Apple Inc"}, {"2", "Microsoft"}, {"3", "SAP AG"}, {"4", "Oracle"}});
 
   auto t = io::Loader::shortcuts::load("test/tables/companies.tbl");
 
@@ -65,7 +63,7 @@ TEST_F(JsonTableTest, builder_should_raise_in_case_of_errors_wrong_groups) {
 
   op.setNames({"A", "B", "C"});
   op.setTypes({"INTEGER", "STRING", "FLOAT"});
-  op.setGroups({3,3,3,3,3,3});
+  op.setGroups({3, 3, 3, 3, 3, 3});
 
   auto t = io::Loader::shortcuts::load("test/tables/radix_cluster_mpass.tbl");
   ASSERT_ANY_THROW(op.execute());
@@ -77,7 +75,7 @@ TEST_F(JsonTableTest, builder_should_raise_in_case_of_errors_wrong_type) {
 
   op.setNames({"A", "B", "C"});
   op.setTypes({"ISNTEGER", "STRING", "FLOAT"});
-  op.setGroups({3,3,3});
+  op.setGroups({3, 3, 3});
 
   auto t = io::Loader::shortcuts::load("test/tables/radix_cluster_mpass.tbl");
   ASSERT_ANY_THROW(op.execute());
@@ -101,6 +99,5 @@ TEST_F(JsonTableTest, load_and_create_from_json_store) {
   EXPECT_RELATION_SCHEMA_EQ(t, result);
   EXPECT_TRUE(std::dynamic_pointer_cast<const storage::Store>(result) != nullptr);
 }
-
 }
 }

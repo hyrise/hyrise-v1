@@ -13,18 +13,17 @@ namespace net {
 class AbstractConnection;
 
 class StaticRequestHandler : public net::AbstractRequestHandler {
-private:
+ private:
   static bool _registered;
-  AbstractConnection *_connection;
+  AbstractConnection* _connection;
   std::string _rootPath;
 
-public:
-  explicit StaticRequestHandler(AbstractConnection *connection);
+ public:
+  explicit StaticRequestHandler(AbstractConnection* connection);
   virtual void operator()();
   static std::string name() { return "StaticRequestHandler"; }
   const std::string vname() { return "StaticRequestHandler"; }
 };
-
 }
 }
 

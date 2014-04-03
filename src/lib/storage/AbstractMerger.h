@@ -12,16 +12,15 @@ namespace hyrise {
 namespace storage {
 
 class AbstractMerger {
-public:
+ public:
   virtual ~AbstractMerger() {}
-  virtual void mergeValues(const std::vector<c_atable_ptr_t > &input_tables,
+  virtual void mergeValues(const std::vector<c_atable_ptr_t>& input_tables,
                            atable_ptr_t merged_table,
-                           const column_mapping_t &column_mapping,
+                           const column_mapping_t& column_mapping,
                            const uint64_t newSize,
                            bool useValid = false,
                            const std::vector<bool>& valid = std::vector<bool>()) = 0;
-  virtual AbstractMerger *copy() = 0;
+  virtual AbstractMerger* copy() = 0;
 };
-
-} } // namespace hyrise::storage
-
+}
+}  // namespace hyrise::storage

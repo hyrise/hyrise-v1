@@ -51,10 +51,9 @@ $(1).CFLAGS ?=
 $(1).CXXFLAGS ?=
 
 # rules
-$$($(1).lib) : $$($(1).objs)
-all += $$($(1).lib)
+all += $$($(1).objs)
 # inheriting information by first filling in our pieces...
-$(1).use_deps := $$($(1).lib)
+$(1).use_deps := $$($(1).objs)
 $(1).use_LIBS := $$($(1).libname)_$(BLD) $$($(1).libs)
 $(1).use_EXT_LIBS := $$($(1).libs)
 $(1).use_LINK_DIRS := $$(realpath $$(dir $$($(1).lib)))
@@ -149,7 +148,7 @@ endif
 endef
 
 define test-binary
-$(eval $(call binary,$(1)))
+$(eval $(call full_link_binary,$(1)))
 test-tgts += test_$$($(1).binary)
 .PHONY: test_$$($(1).binary)
 test_$$($(1).binary): $$($(1).binary)
@@ -173,9 +172,11 @@ LDFLAGS :=
 LIBS := log4cxx
 LINK_DIRS :=
 INCLUDE_DIRS :=
-
-WITH_PAPI := $(shell if [ "`papi_avail  2>&1 | grep Yes | wc -l`" -ne "0" ]; then echo 1; else echo 0; fi) 
+TOOLING :=
+WITH_PAPI := $(shell if [ "`papi_avail  2>&1 | grep Yes | wc -l`" -ne "0" ]; then echo 1; else echo 0; fi)
 WITH_MYSQL:= 1
+
+PERSISTENCY ?= NONE
 
 include $(PROJECT_ROOT)/settings.mk
 
@@ -187,10 +188,11 @@ ifeq ($(WITH_COVERAGE),1)
 PLUGINS += coverage
 endif
 
+COMMON_FLAGS += -D PERSISTENCY_$(PERSISTENCY)
+
 ifeq ($(WITH_PROFILER),1)
 PLUGINS += profiler
 endif
-
 
 ifeq ($(WITH_V8),1)
 ifndef V8_BASE_DIRECTORY
@@ -214,10 +216,10 @@ LDFLAGS.debug +=
 LDFLAGS.release +=
 
 COMMON_FLAGS.debug += -O0
-COMMON_FLAGS.release += -O3 -march=native
-COMMON_FLAGS += -g -Wall -Wextra -Wno-attributes -Wno-unused-parameter -pthread $(COMMON_FLAGS.$(BLD))
+COMMON_FLAGS.release += -O3
+COMMON_FLAGS += -g -march=native -Wall -Wextra -Wno-attributes -Wno-unused-parameter -pthread $(COMMON_FLAGS.$(BLD))
 
-CPPFLAGS += -MMD -pipe $(CPPFLAGS.$(BLD))
+CPPFLAGS += -MMD -MP -pipe $(CPPFLAGS.$(BLD))
 CFLAGS += $(COMMON_FLAGS) $(CFLAGS.$(BLD))
 CXXFLAGS += -std=c++11 $(COMMON_FLAGS) $(CXXFLAGS.$(BLD))
 
@@ -245,10 +247,10 @@ ci_build: ci_steps
 	@mkdir -p $(@D)
 	@touch $@
 
-$(RESULT_DIR)/%.a:
+$(RESULT_DIR)/%.a: $(TOOLING)
 	$(call echo_cmd,AR $(AR) $@) $(AR) crs $@ $(filter %.o,$?)
 
-$(RESULT_DIR)/%:
+$(RESULT_DIR)/%: $(TOOLING)
 	$(call echo_cmd,LINK $(CXX) $(BLD) $@) $(CXX) $(CXXFLAGS) -o $@ $(filter %.o,$^) -Wl,-whole-archive $(addprefix -l,$(LIBS)) -Wl,-no-whole-archive $(addprefix -L,$(LINK_DIRS)) $(LDFLAGS)
 
 # Necessary to allow for a second expansion to create dirs
@@ -262,15 +264,15 @@ clean:
 	rm -rf $(OBJDIR) $(all)
 
 
-$(OBJDIR)%.cpp.o : %.cpp | $$(@D)/.fake
+$(OBJDIR)%.cpp.o : %.cpp $(TOOLING) | $$(@D)/.fake
 	$(call echo_cmd,CXX $(CXX) $(BLD) $<) $(CXX) $(CPPFLAGS) $(CXXFLAGS) $(addprefix -I,$(INCLUDE_DIRS)) -c -o $@ $<
 
-$(OBJDIR)%.c.o : %.c | $$(@D)/.fake
+$(OBJDIR)%.c.o : %.c $(TOOLING) | $$(@D)/.fake
 	$(call echo_cmd,CC $(CC) $(BLD) $<) $(CC) $(CPPFLAGS) $(CFLAGS) $(addprefix -I,$(INCLUDE_DIRS)) -c -o $@ $<
 
 # Ensure that intermediate files (e.g. the foo.o caused by "foo : foo.c")
 #  are not auto-deleted --- causing a re-compile every second "make".
-.SECONDARY  	:
+.SECONDARY:
 .SUFFIXES:
 %.              :;@echo '$($*)'
 

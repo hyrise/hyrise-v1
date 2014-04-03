@@ -4,9 +4,7 @@
 
 #include "helper.h"
 
-#include <access.h>
-#include <storage.h>
-
+#include "access/SortScan.h"
 #include "io/shortcuts.h"
 #include "io/loaders.h"
 
@@ -25,7 +23,6 @@ TEST_F(SortTest, simple_sort_test) {
   auto ref2 = s2.execute()->getResultTable();
 
   ASSERT_TRUE(reference->contentEquals(ref2));
-
 }
 
 // TODO: Loader should be able to differentiate modifiable/nonmodifiable
@@ -44,7 +41,6 @@ TEST_F(SortTest, DISABLED_simple_sort_test_modifiable) {
   auto ref2 = s2.execute()->getResultTable();
 
   ASSERT_TABLE_EQUAL(reference, ref2);
-
 }
 
 TEST_F(SortTest, simple_sort_test_modifiable_unsorted) {
@@ -62,9 +58,6 @@ TEST_F(SortTest, simple_sort_test_modifiable_unsorted) {
   auto ref2 = s2.execute()->getResultTable();
 
   ASSERT_TABLE_EQUAL(reference, ref2);
-
-}
-
 }
 }
-
+}

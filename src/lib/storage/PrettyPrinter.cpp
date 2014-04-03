@@ -14,7 +14,8 @@
 #include "storage/storage_types.h"
 #include "storage/TableDiff.h"
 
-namespace hyrise { namespace storage {
+namespace hyrise {
+namespace storage {
 
 template <typename T>
 std::string generateValue(T& input, const size_t column, const size_t row) {
@@ -22,27 +23,36 @@ std::string generateValue(T& input, const size_t column, const size_t row) {
   buffer << input->printValue(column, row);
   try {
     ValueId valueId = input->getValueId(column, row);
-    buffer << "(" << valueId.valueId << "@" << std::dec << (unsigned) valueId.table << ")";
-  } catch (const std::runtime_error&) {}
+    buffer << "(" << valueId.valueId << "@" << std::dec << (unsigned)valueId.table << ")";
+  }
+  catch (const std::runtime_error&) {
+  }
   return buffer.str();
 }
 
 template <typename T>
-void PrettyPrinter::special_print(T& input, std::ostream& outStream, const std::string tableName, const size_t& limit, const size_t& start) {
+void PrettyPrinter::special_print(T& input,
+                                  std::ostream& outStream,
+                                  const std::string tableName,
+                                  const size_t& limit,
+                                  const size_t& start) {
   ftprinter::FTPrinter tp(tableName, outStream);
   tp.addColumn("#rowid", 6);
+
+  auto prepareLimit = (limit < (size_t) - 1) ? std::min(limit, input->size()) : input->size();
   const size_t columns = input->columnCount();
   for (size_t column_index = 0; column_index < columns; ++column_index) {
     // Auto adjusting widths means iterating over the table twice, but we use it for
     // debugging purposes only, anyways, so we'll go with beauty of output here
     auto name = input->nameOfColumn(column_index);
-    size_t width = std::accumulate(RangeIter(0), RangeIter(input->size()),
+    size_t width = std::accumulate(RangeIter(0),
+                                   RangeIter(prepareLimit),
                                    // minimum width is 4
                                    name.size() > 4 ? name.size() : 4,
-                                   [&] (size_t max, const size_t& row) -> size_t {
-                                     size_t sz = generateValue(input, column_index, row).size();
-                                     return sz > max ? sz : max;
-                                   });
+                                   [&](size_t max, const size_t & row)->size_t {
+      size_t sz = generateValue(input, column_index, row).size();
+      return sz > max ? sz : max;
+    });
     tp.addColumn(name, width);
   }
 
@@ -63,26 +73,35 @@ void PrettyPrinter::special_print(T& input, std::ostream& outStream, const std::
 }
 
 
-void PrettyPrinter::special_print(const Store* store, std::ostream& outStream, const std::string tableName, const size_t& limit, const size_t& start) {
+void PrettyPrinter::special_print(const Store* store,
+                                  std::ostream& outStream,
+                                  const std::string tableName,
+                                  const size_t& limit,
+                                  const size_t& start) {
   ftprinter::FTPrinter tp(tableName, outStream);
   tp.addColumn("#rowid", 6);
   const size_t columns = store->columnCount();
+
+  // TODO: how about using limit=0 as parameter to print whole table instead of strange -1 for unsigned?
+  auto prepareLimit = (limit < (size_t) - 1) ? std::min(limit, store->size()) : store->size();
+
   for (size_t column_index = 0; column_index < columns; ++column_index) {
     // Auto adjusting widths means iterating over the table twice, but we use it for
     // debugging purposes only, anyways, so we'll go with beauty of output here
     auto name = store->nameOfColumn(column_index);
-    size_t width = std::accumulate(RangeIter(0), RangeIter(store->size()),
+    size_t width = std::accumulate(RangeIter(0),
+                                   RangeIter(prepareLimit),
                                    // minimum width is 4
                                    name.size() > 4 ? name.size() : 4,
-                                   [&] (size_t max, const size_t row) -> size_t {
-                                     size_t sz = generateValue(store, column_index, row).size();
-                                     return sz > max ? sz : max;
-                                   });
+                                   [&](size_t max, const size_t row)->size_t {
+      size_t sz = generateValue(store, column_index, row).size();
+      return sz > max ? sz : max;
+    });
     tp.addColumn(name, width);
   }
-  tp.addColumn("$tid",6);
-  tp.addColumn("$cidbeg",6);
-  tp.addColumn("$cidend",6);
+  tp.addColumn("$tid", 6);
+  tp.addColumn("$cidbeg", 6);
+  tp.addColumn("$cidend", 6);
 
   if (limit < (size_t) - 1) {
     outStream << "(showing first " << limit << " rows)" << std::endl;
@@ -105,9 +124,12 @@ void PrettyPrinter::special_print(const Store* store, std::ostream& outStream, c
   tp.printFooter();
 }
 
-void PrettyPrinter::printDiff(const c_atable_ptr_t& input, const TableDiff& diff,
-                              std::ostream& outStream, const std::string tableName,
-			      const size_t& limit, const size_t& start) {
+void PrettyPrinter::printDiff(const c_atable_ptr_t& input,
+                              const TableDiff& diff,
+                              std::ostream& outStream,
+                              const std::string tableName,
+                              const size_t& limit,
+                              const size_t& start) {
   ftprinter::FTPrinter tp(tableName, outStream);
   tp.addColumn("#rowid", 6);
   const size_t columns = input->columnCount();
@@ -116,17 +138,18 @@ void PrettyPrinter::printDiff(const c_atable_ptr_t& input, const TableDiff& diff
     // Auto adjusting widths means iterating over the table twice, but we use it for
     // debugging purposes only, anyways, so we'll go with beauty of output here
     auto name = input->nameOfColumn(column_index);
-    size_t width = std::accumulate(RangeIter(0), RangeIter(input->size()),
+    size_t width = std::accumulate(RangeIter(0),
+                                   RangeIter(input->size()),
                                    // minimum width is 4
                                    name.size() > 4 ? name.size() : 4,
-                                   [&] (size_t max, const size_t& row) -> size_t {
-                                     size_t sz = generateValue(input, column_index, row).size();
-                                     return sz > max ? sz : max;
-                                   });
+                                   [&](size_t max, const size_t & row)->size_t {
+      size_t sz = generateValue(input, column_index, row).size();
+      return sz > max ? sz : max;
+    });
     ftprinter::PrintFormat format = ftprinter::format::basic;
     if (diff.fields[column_index] == TableDiff::FieldWrong)
       format = ftprinter::format::red;
-    else if(diff.fields[column_index] == TableDiff::FieldWrongType)
+    else if (diff.fields[column_index] == TableDiff::FieldWrongType)
       format = ftprinter::format::magenta;
 
     tp.addColumn(name, width, format);
@@ -140,8 +163,10 @@ void PrettyPrinter::printDiff(const c_atable_ptr_t& input, const TableDiff& diff
   auto iWrong = diff.wrongRows.begin();
   auto iFalsePos = diff.falsePositionRows.begin();
 
-  while (iWrong != diff.wrongRows.end() && *iWrong < start) iWrong++;
-  while (iFalsePos != diff.falsePositionRows.end() && (*iFalsePos).first < start) iFalsePos++;
+  while (iWrong != diff.wrongRows.end() && *iWrong < start)
+    iWrong++;
+  while (iFalsePos != diff.falsePositionRows.end() && (*iFalsePos).first < start)
+    iFalsePos++;
 
   if (tableName.size() > 0)
     tp.printTableName();
@@ -166,7 +191,11 @@ void PrettyPrinter::printDiff(const c_atable_ptr_t& input, const TableDiff& diff
   tp.printFooter();
 };
 
-void PrettyPrinter::print(const AbstractTable* const input, std::ostream& outStream, const std::string tableName, const size_t& limit, const size_t& start) {
+void PrettyPrinter::print(const AbstractTable* const input,
+                          std::ostream& outStream,
+                          const std::string tableName,
+                          const size_t& limit,
+                          const size_t& start) {
   auto* r = dynamic_cast<const RawTable*>(input);
   if (r) {
     special_print(r, outStream, tableName, limit, start);
@@ -179,8 +208,8 @@ void PrettyPrinter::print(const AbstractTable* const input, std::ostream& outStr
   }
 }
 
-void PrettyPrinter::writeTid(ftprinter::FTPrinter &tp, tx::transaction_id_t tid) {
-  switch(tid) {
+void PrettyPrinter::writeTid(ftprinter::FTPrinter& tp, tx::transaction_id_t tid) {
+  switch (tid) {
     case tx::MERGE_TID:
       tp << "MERGE";
       break;
@@ -199,8 +228,8 @@ void PrettyPrinter::writeTid(ftprinter::FTPrinter &tp, tx::transaction_id_t tid)
   }
 }
 
-void PrettyPrinter::writeCid(ftprinter::FTPrinter &tp, tx::transaction_cid_t cid) {
-  switch(cid) {
+void PrettyPrinter::writeCid(ftprinter::FTPrinter& tp, tx::transaction_cid_t cid) {
+  switch (cid) {
     case tx::UNKNOWN_CID:
       tp << "NONE";
       break;
@@ -212,5 +241,5 @@ void PrettyPrinter::writeCid(ftprinter::FTPrinter &tp, tx::transaction_cid_t cid
       break;
   }
 }
-
-}}
+}
+}

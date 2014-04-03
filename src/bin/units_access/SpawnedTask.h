@@ -10,13 +10,12 @@ namespace access {
 /// This class implements an operation doing nothing but sleeping for a short random time
 /// It's designed for testing the task spawning
 class SpawnedTask : public PlanOperation {
-public:
+ public:
   void executePlanOperation();
-  static std::shared_ptr<PlanOperation> parse(const Json::Value &data);
+  static std::shared_ptr<PlanOperation> parse(const Json::Value& data);
   const std::string vname();
 };
-
 }
 }
 
-#endif // SRC_LIB_ACCESS_SPAWNEDTASK_H
+#endif  // SRC_LIB_ACCESS_SPAWNEDTASK_H

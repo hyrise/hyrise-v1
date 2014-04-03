@@ -3,22 +3,25 @@
 #include <gtest/gtest.h>
 #include <string>
 
-#include <access.h>
-#include <storage.h>
-#include <io.h>
+
+#include "access/HashValueJoin.hpp"
+#include "access/MaterializingScan.h"
+#include "helper/types.h"
+#include "io/StorageManager.h"
+#include "storage/AbstractHashTable.h"
+
 
 namespace hyrise {
 namespace access {
 
-//HashValueJoin Benchmark similar to TPC-C Implementation of Stock-Level Transaction
-//See TPC-C Reference Chapter A.5
+// HashValueJoin Benchmark similar to TPC-C Implementation of Stock-Level Transaction
+// See TPC-C Reference Chapter A.5
 
 class HashValueJoinBase : public ::testing::Benchmark {
 
  protected:
-
-  io::StorageManager *sm;
-  HashValueJoin<int> *hs;
+  io::StorageManager* sm;
+  HashValueJoin<int>* hs;
   storage::c_atable_ptr_t t1;
   storage::c_atable_ptr_t t2;
 
@@ -35,8 +38,7 @@ class HashValueJoinBase : public ::testing::Benchmark {
     t2 = sm->getTable("order_line");
   }
 
-  void BenchmarkTearDown() {
-  }
+  void BenchmarkTearDown() {}
 
   HashValueJoinBase() {
     SetNumIterations(10);
@@ -83,6 +85,5 @@ BENCHMARK_F(HashValueJoinBase, stock_level_hash_value_join_mat_memcpy) {
 
   ms.execute()->getResultTable();
 }
-
 }
 }

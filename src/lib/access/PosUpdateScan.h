@@ -15,21 +15,18 @@ namespace access {
 * value data from the JSON string.
 */
 class PosUpdateScan : public PlanOperation {
-public:
-
+ public:
   virtual ~PosUpdateScan();
 
   void executePlanOperation();
-  
-  static std::shared_ptr<PlanOperation> parse(const Json::Value &data);
+
+  static std::shared_ptr<PlanOperation> parse(const Json::Value& data);
 
   void setRawData(const Json::Value& d);
 
-private:
-  
+ private:
   std::unordered_map<std::string, Json::Value> _raw_data;
 };
-
 }
 }
 

@@ -8,14 +8,13 @@ namespace hyrise {
 namespace access {
 
 class UnloadAll : public PlanOperation {
-public:
+ public:
   virtual ~UnloadAll();
 
   void executePlanOperation();
-  static std::shared_ptr<PlanOperation> parse(const Json::Value &data);
+  static std::shared_ptr<PlanOperation> parse(const Json::Value& data);
   const std::string vname();
 };
-
 }
 }
 

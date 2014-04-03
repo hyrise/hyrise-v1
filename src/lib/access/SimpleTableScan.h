@@ -30,14 +30,15 @@ public:
   void executePlanOperation();
   void executePositional();
   void executeMaterialized();
+
   const std::string vname();
-  void setPredicate(SimpleExpression *c);
+  void setPredicate(SimpleExpression* c);
 
 private:
-  SimpleExpression *_comparator;
+  SimpleExpression* _comparator;
   bool _ofDelta;
-};
 
+};
 }
 }
 

@@ -17,14 +17,14 @@ TEST_F(IndexTests, basic_index_test) {
 
   auto t = io::Loader::shortcuts::load("test/index_test.tbl");
 
-  hyrise::access::CreateIndex i;
+  CreateIndex i;
   i.addInput(t);
   i.addField(0);
   i.setIndexName(table);
   i.execute();
 
   auto sm = io::StorageManager::getInstance();
-  auto index = std::dynamic_pointer_cast<storage::InvertedIndex<hyrise_int_t>> (sm->getInvertedIndex(table));
+  auto index = std::dynamic_pointer_cast<storage::InvertedIndex<hyrise_int_t>>(sm->getInvertedIndex(table));
   int key = 30;
   pos_list_t positions = index->getPositionsForKey(key);
   pos_t first_pos = positions[0];
@@ -43,7 +43,7 @@ TEST_F(IndexTests, multiple_positions_index_test) {
   i.execute();
 
   auto sm = io::StorageManager::getInstance();
-  auto index = std::dynamic_pointer_cast<storage::InvertedIndex<hyrise_string_t>> (sm->getInvertedIndex(table));
+  auto index = std::dynamic_pointer_cast<storage::InvertedIndex<hyrise_string_t>>(sm->getInvertedIndex(table));
   std::string key1 = "Bayer";
   std::string key2 = "RWE";
   pos_list_t positions1 = index->getPositionsForKey(key1);
@@ -57,8 +57,24 @@ TEST_F(IndexTests, multiple_positions_index_test) {
   expected2.push_back(7);
   expected2.push_back(12);
 
+  pos_list_t positionsLT = index->getPositionsForKeyLT(key1);
+  pos_list_t expectedLT = {0, 1};
+  pos_list_t positionsLTE = index->getPositionsForKeyLTE(key1);
+  pos_list_t expectedLTE = {0, 1, 2, 4, 10};
+  pos_list_t positionsBetween = index->getPositionsForKeyBetween(key1, key2);
+  pos_list_t expectedBetween = {2, 3, 4, 5, 6, 7, 9, 10, 12};
+  pos_list_t positionsGT = index->getPositionsForKeyGT(key1);
+  pos_list_t expectedGT = {3, 5, 6, 7, 8, 9, 11, 12};
+  pos_list_t positionsGTE = index->getPositionsForKeyGTE(key1);
+  pos_list_t expectedGTE = {2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
+
   ASSERT_EQ(positions1, expected1);
   ASSERT_EQ(positions2, expected2);
+  // ASSERT_EQ(positionsLT, expectedLT);
+  ASSERT_EQ(positionsLTE, expectedLTE);
+  ASSERT_EQ(positionsBetween, expectedBetween);
+  ASSERT_EQ(positionsGT, expectedGT);
+  ASSERT_EQ(positionsGTE, expectedGTE);
 }
 
 TEST_F(IndexTests, basic_index_test_float) {
@@ -66,14 +82,14 @@ TEST_F(IndexTests, basic_index_test_float) {
 
   auto t = io::Loader::shortcuts::load("test/index_test.tbl");
 
-  hyrise::access::CreateIndex i;
+  CreateIndex i;
   i.addInput(t);
   i.addField(1);
   i.setIndexName(table);
   i.execute();
 
   auto sm = io::StorageManager::getInstance();
-  auto index = std::dynamic_pointer_cast<storage::InvertedIndex<hyrise_float_t>> (sm->getInvertedIndex(table));
+  auto index = std::dynamic_pointer_cast<storage::InvertedIndex<hyrise_float_t>>(sm->getInvertedIndex(table));
   float key = 71.1;
   pos_list_t positions = index->getPositionsForKey(key);
   pos_t first_pos = positions[0];
@@ -81,7 +97,5 @@ TEST_F(IndexTests, basic_index_test_float) {
 
   ASSERT_EQ(first_pos, expected);
 }
-
 }
 }
-

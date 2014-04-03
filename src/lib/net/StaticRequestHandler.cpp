@@ -13,16 +13,18 @@
 
 #include "log4cxx/logger.h"
 
-namespace hyrise { namespace net {
+namespace hyrise {
+namespace net {
 
-namespace { log4cxx::LoggerPtr logger(log4cxx::Logger::getLogger("access.plan.PlanOperation")); }
+namespace {
+log4cxx::LoggerPtr logger(log4cxx::Logger::getLogger("access.plan.PlanOperation"));
+}
 
 bool StaticRequestHandler::_registered = Router::registerRoute<StaticRequestHandler>("/static/");
 
-StaticRequestHandler::StaticRequestHandler(net::AbstractConnection *connection): _connection(connection)
-{
+StaticRequestHandler::StaticRequestHandler(net::AbstractConnection* connection) : _connection(connection) {
   // Whats the root path of the system
-  char *data_path;
+  char* data_path;
   data_path = getenv("HYRISE_STATIC_PATH");
   if (data_path != nullptr)
     _rootPath = std::string(data_path) + "/";
@@ -35,11 +37,11 @@ std::unordered_map<std::string, std::string> parseMimeTypes() {
   std::ifstream infile("./third_party/mime/mime.types");
   if (infile.good()) {
     std::string buffer;
-    while(infile.good()) {
+    while (infile.good()) {
       std::getline(infile, buffer);
 
       // Handle Comments
-      if (buffer[0]=='#' || buffer.size() == 0)
+      if (buffer[0] == '#' || buffer.size() == 0)
         continue;
 
       // Split and parse the rest
@@ -51,12 +53,10 @@ std::unordered_map<std::string, std::string> parseMimeTypes() {
       boost::algorithm::split(allKinds, extensions, boost::is_any_of(" "));
       boost::algorithm::trim(mime_type);
 
-      for(const auto& t : allKinds) {
+      for (const auto& t : allKinds) {
         // Now strip the types to get rid of extra spaces
         result[boost::algorithm::trim_copy(t)] = mime_type;
-
       }
-
     }
   }
   result[""] = "application/binary";
@@ -79,13 +79,12 @@ void StaticRequestHandler::operator()() {
   // Check if File exists and load the content write to the conneciton buffer and exit
   std::ifstream infile(complete_path);
   if (infile.good()) {
-    std::string contents { std::istreambuf_iterator<char>(infile),
-                           std::istreambuf_iterator<char>() };
+    std::string contents{std::istreambuf_iterator<char>(infile), std::istreambuf_iterator<char>()};
     const auto dotPos = path.rfind(".");
-    _connection->respond(contents, 200, mimeTypes[path.substr(dotPos+1)]);
+    _connection->respond(contents, 200, mimeTypes[path.substr(dotPos + 1)]);
   } else {
     _connection->respond("404 - could not open file: " + complete_path, 404);
   }
 }
-
-}}
+}
+}

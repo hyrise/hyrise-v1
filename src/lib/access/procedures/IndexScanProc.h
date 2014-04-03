@@ -4,26 +4,22 @@
 #include <string>
 #include "net/Router.h"
 
-namespace hyrise { namespace access {
+namespace hyrise {
+namespace access {
 
 class IndexScanProcedure : public net::AbstractRequestHandler {
 
   static bool registered;
-  net::AbstractConnection *_connection_data;
-  
-public:
-      
-  explicit IndexScanProcedure(net::AbstractConnection *data);
+  net::AbstractConnection* _connection_data;
+
+ public:
+  explicit IndexScanProcedure(net::AbstractConnection* data);
 
   void operator()();
 
 
   static std::string name() { return "IndexScanProc"; }
   const std::string vname() { return "IndexScanProc"; }
-
-
 };
-
-
-}}
-
+}
+}

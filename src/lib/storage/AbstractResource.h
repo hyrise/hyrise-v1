@@ -9,6 +9,5 @@ class AbstractResource {
  public:
   virtual ~AbstractResource();
 };
-
-} } // namespace hyrise::storage
-
+}
+}  // namespace hyrise::storage

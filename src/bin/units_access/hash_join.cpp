@@ -18,19 +18,21 @@ namespace access {
 
 typedef std::shared_ptr<storage::AbstractTable> tbl_ptr;
 
-storage::c_atable_ptr_t join(const tbl_ptr &left,
-                             const tbl_ptr &right,
-                             const std::vector<size_t> &fields_left,
-                             const std::vector<size_t> &fields_right) {
+storage::c_atable_ptr_t join(const tbl_ptr& left,
+                             const tbl_ptr& right,
+                             const std::vector<size_t>& fields_left,
+                             const std::vector<size_t>& fields_right) {
   HashBuild hashBuild;
   hashBuild.addInput(left);
   hashBuild.setKey("join");
-  for (auto & field_left: fields_left) hashBuild.addField(field_left);
+  for (auto& field_left : fields_left)
+    hashBuild.addField(field_left);
   auto hashes = hashBuild.execute()->getResultHashTable();
 
-  hyrise::access::HashJoinProbe hjp;  
+  hyrise::access::HashJoinProbe hjp;
   hjp.addInput(right);
-  for (auto & field_right: fields_right) hjp.addField(field_right);
+  for (auto& field_right : fields_right)
+    hjp.addField(field_right);
   hjp.addInput(hashes);
 
   return hjp.execute()->getResultTable();
@@ -45,9 +47,7 @@ typedef struct joinIdenticalParams {
   std::string result;
 } identicalJoinParams_t;
 
-std::string PrintToString(const identicalJoinParams_t &t) {
-  return t.name;
-}
+std::string PrintToString(const identicalJoinParams_t& t) { return t.name; }
 
 
 class HashTestJoinIdentical : public ::testing::TestWithParam<identicalJoinParams_t> {};
@@ -80,21 +80,14 @@ TEST_P(HashTestJoinIdenticalWithDelta, join_identical) {
 }
 */
 
-const std::vector<identicalJoinParams_t> cases = {
-  {"int", {0}, "test/reference/hash_table_test_int.tbl"},
-  {"string", {1}, "test/reference/hash_table_test_string.tbl"},
-  {"float", {2}, "test/reference/hash_table_test_float.tbl"},
-  {"all", {0, 1, 2}, "test/reference/hash_table_test_all.tbl"}
-};
+const std::vector<identicalJoinParams_t> cases = {{"int", {0}, "test/reference/hash_table_test_int.tbl"},
+                                                  {"string", {1}, "test/reference/hash_table_test_string.tbl"},
+                                                  {"float", {2}, "test/reference/hash_table_test_float.tbl"},
+                                                  {"all", {0, 1, 2}, "test/reference/hash_table_test_all.tbl"}};
 
-INSTANTIATE_TEST_CASE_P(HashTestWithoutDelta,
-                        HashTestJoinIdentical,
-                        ::testing::ValuesIn(cases));
+INSTANTIATE_TEST_CASE_P(HashTestWithoutDelta, HashTestJoinIdentical, ::testing::ValuesIn(cases));
 
 
-INSTANTIATE_TEST_CASE_P(HashTestWithDelta,
-                        HashTestJoinIdenticalWithDelta,
-                        ::testing::ValuesIn(cases));
-
-} } // namespace hyrise::access
-
+INSTANTIATE_TEST_CASE_P(HashTestWithDelta, HashTestJoinIdenticalWithDelta, ::testing::ValuesIn(cases));
+}
+}  // namespace hyrise::access

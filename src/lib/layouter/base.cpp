@@ -30,35 +30,31 @@ using namespace boost::assign;
 
 namespace std {
 
-template<>
+template <>
 struct hash<hyrise::layouter::subset_t> {
-public:
-
-  size_t operator()(const std::vector<unsigned> &ref) const {
+ public:
+  size_t operator()(const std::vector<unsigned>& ref) const {
     size_t test = 0;
     std::hash<unsigned int> h;
-for (auto t : ref)
+    for (auto t : ref)
       test ^= (h(t) << 1);
     return test;
   }
 };
 
-} // namespace std
+}  // namespace std
 
 namespace hyrise {
 namespace layouter {
 
-Query::Query(LayouterConfiguration::access_type_t type, std::vector<unsigned> qA, double parameter, int weight):
-  type(type), queryAttributes(qA), parameter(parameter), weight(weight) {
+Query::Query(LayouterConfiguration::access_type_t type, std::vector<unsigned> qA, double parameter, int weight)
+    : type(type), queryAttributes(qA), parameter(parameter), weight(weight) {
   std::sort(queryAttributes.begin(), queryAttributes.end());
-
 }
 
 unsigned Query::getContainerWidth() {
   unsigned width = 0;
-  BOOST_FOREACH(unsigned a, _container) {
-    width += _schema.attributes[a];
-  }
+  BOOST_FOREACH(unsigned a, _container) { width += _schema.attributes[a]; }
   return width;
 }
 
@@ -83,7 +79,7 @@ void Query::getAttUnion() {
 }
 
 double Query::containerCost(std::vector<unsigned> container, Schema s, std::string costModel) {
-  _container  = container;
+  _container = container;
   _schema = s;
   _costModel = costModel;
 
@@ -143,7 +139,6 @@ double Query::hyriseProjection() {
   } else {
     return hyriseEquivalentProjection(false);
   }
-
 }
 
 double Query::hyrisePartialProjection(unsigned po, unsigned pw) {
@@ -192,7 +187,7 @@ double Query::hyriseEquivalentProjection(bool isSelective) {
 
     // if the attribute is projected, add it to projection
     if (std::find(queryAttributes.begin(), queryAttributes.end(), att) == queryAttributes.end())
-      // att is not projected
+        // att is not projected
     {
       continue;
     } else {
@@ -219,7 +214,7 @@ double Query::hyriseEquivalentProjection(bool isSelective) {
     }
   }
 
-  //compute the gap between the first and last projection
+  // compute the gap between the first and last projection
   if (currentProjection > 0) {
     int interRowGap = eqProjectionOffset[0] + containerWidth - eqProjectionEnd[currentProjection];
 
@@ -231,7 +226,6 @@ double Query::hyriseEquivalentProjection(bool isSelective) {
       eqProjectionOffset.pop_back();
       eqProjectionEnd.pop_back();
     }
-
   }
 
   double misses = 0;
@@ -273,7 +267,7 @@ double Query::hyriseOOO() {
 double Query::hyriseSingleOOO(int po, int pw) {
   double misses = 0;
 
-  //int cacheLineTransitionPoint = CACHE_LINE_SIZE - (pw % CACHE_LINE_SIZE) + 1;
+  // int cacheLineTransitionPoint = CACHE_LINE_SIZE - (pw % CACHE_LINE_SIZE) + 1;
   int nbPossibleOffsets = LCM(CACHE_LINE_SIZE, _containerWidth) / _containerWidth;
 
   for (int r = 0; r < nbPossibleOffsets; r++) {
@@ -301,13 +295,11 @@ double Query::hyriseSingleOOO(int po, int pw) {
   return misses;
 }
 
-Layout::Layout(internal_layout_t l): _layout(l) {
-}
+Layout::Layout(internal_layout_t l) : _layout(l) {}
 
-Layout::Layout(): _layout() {
-}
+Layout::Layout() : _layout() {}
 
-bool Layout::operator==(const Layout &l) const {
+bool Layout::operator==(const Layout& l) const {
   if (_layout.size() == 0) {
     return false;
   }
@@ -338,11 +330,9 @@ void Layout::add(std::vector<unsigned> subset) {
   _cached_layout.push_back(tmp);
 }
 
-void Layout::removeLast() {
-  _layout.pop_back();
-}
+void Layout::removeLast() { _layout.pop_back(); }
 
-Result::Result(Layout &l, std::vector<double> c) {
+Result::Result(Layout& l, std::vector<double> c) {
   layout = Layout(l);
   cost = c;
   totalCost = 0;
@@ -352,27 +342,19 @@ Result::Result(Layout &l, std::vector<double> c) {
   }
 }
 
-bool Result::operator==(const Result &r) const {
-  return totalCost == r.totalCost;
-}
+bool Result::operator==(const Result& r) const { return totalCost == r.totalCost; }
 
-bool Result::layoutEquals(const Result &r) const {
-  return layout == r.layout;
-}
+bool Result::layoutEquals(const Result& r) const { return layout == r.layout; }
 
 void Result::print() const {
   BOOST_FOREACH(subset_t s, layout.raw()) {
     std::cout << "|";
-    BOOST_FOREACH(unsigned t, s) {
-      std::cout << " " << t << " ";
-    }
+    BOOST_FOREACH(unsigned t, s) { std::cout << " " << t << " "; }
     std::cout << "|";
   }
 
   std::cout << " Cost: " << totalCost << " [";
-  BOOST_FOREACH(double d, cost) {
-    std::cout << " " << d;
-  }
+  BOOST_FOREACH(double d, cost) { std::cout << " " << d; }
   std::cout << " ]" << std::endl;
 }
 
@@ -397,16 +379,12 @@ std::string Result::output() const {
 }
 
 
-Schema::Schema(std::vector<unsigned> a, int nbA, std::vector<std::string> an): attnames(an), nbAttributes(a.size()), nbTuples(nbA), attributes(a) {
-}
+Schema::Schema(std::vector<unsigned> a, int nbA, std::vector<std::string> an)
+    : attnames(an), nbAttributes(a.size()), nbTuples(nbA), attributes(a) {}
 
-void Schema::add(const Query *q) {
-  queries.push_back(new Query(*q));
-}
+void Schema::add(const Query* q) { queries.push_back(new Query(*q)); }
 
-void Schema::removeLastQuery() {
-  queries.pop_back();
-}
+void Schema::removeLastQuery() { queries.pop_back(); }
 
 double Schema::costForSubset(subset_t t, std::string costModel) const {
   size_t num_queries = queries.size();
@@ -424,8 +402,7 @@ Schema Schema::baseCopy() const {
   return result;
 }
 
-BaseLayouter::BaseLayouter(): nbLayouts(0) {
-}
+BaseLayouter::BaseLayouter() : nbLayouts(0) {}
 
 void BaseLayouter::layout(Schema s, std::string cM) {
   schema = s;
@@ -467,7 +444,7 @@ void BaseLayouter::iterateLayoutSubsets(subset_t input, Layout::internal_layout_
   Layout::internal_layout_t eliminated = eliminateInvalidSubsets(front, rest);
 
   std::vector<uint32_t> elimSizes;
-for (subset_t t : eliminated)
+  for (subset_t t : eliminated)
     elimSizes.push_back(t.size());
 
   unsigned upperBound = eliminated.size() < schema.nbAttributes ? eliminated.size() : schema.nbAttributes;
@@ -493,8 +470,8 @@ for (subset_t t : eliminated)
     for (unsigned j = 0; j < eliminated.size(); ++j)
       combi += j;
 
-    //std::cout << "Combinations " << eliminated.size() << " over " << i << std::endl;
-    size_t combinations  = 0;
+    // std::cout << "Combinations " << eliminated.size() << " over " << i << std::endl;
+    size_t combinations = 0;
     size_t noAttr = 0;
     do {
       size_t nb = 0;
@@ -522,18 +499,18 @@ for (subset_t t : eliminated)
           }
         }
 
-        //std::cout << "New layout?" << std::endl;
+        // std::cout << "New layout?" << std::endl;
         if (nb == schema.nbAttributes) {
           Result r(l, getCost(l));
           nbLayouts++;
           results.push_back(r);
         }
       }
-contLoop:
+    contLoop:
       ++combinations;
     } while (boost::next_combination(combi.begin(), combi.begin() + i, combi.end()));
 
-    //std::cout << combinations << " / " << noAttr << std::endl;
+    // std::cout << combinations << " / " << noAttr << std::endl;
 
     // if all combinations had more attributes than we can add to the table we can break the loop
     // here since there will be no case where adding a partition will have std::less attributes
@@ -565,12 +542,13 @@ size_t BaseLayouter::checkLowerBound(subset_t input, Layout::internal_layout_t s
 }
 
 std::vector<std::vector<subset_t> > BaseLayouter::iterateThroughLayoutSubsetsFast(size_t n,
-    std::vector<subset_t> list,
-    size_t current_size,
-    size_t dest_size,
-    size_t max_attr,
-    size_t curr_attr) {
-//    std::cout << "Recurse with " << n << " " << current_size << " " << dest_size << " " << max_attr << " " << curr_attr << std::endl;
+                                                                                  std::vector<subset_t> list,
+                                                                                  size_t current_size,
+                                                                                  size_t dest_size,
+                                                                                  size_t max_attr,
+                                                                                  size_t curr_attr) {
+  //    std::cout << "Recurse with " << n << " " << current_size << " " << dest_size << " " << max_attr << " " <<
+  // curr_attr << std::endl;
   typedef std::vector<std::vector<subset_t> > iterate_result_t;
   // Recursion abortion defined here
   if (n == 1 or list.size() == 1) {
@@ -590,7 +568,7 @@ std::vector<std::vector<subset_t> > BaseLayouter::iterateThroughLayoutSubsetsFas
   while (index < list.size()) {
 
     // FXIME
-    //if (list.size() - 1 < n - 1 or list.size() == index+1 or list.size() - index < dest_size - current_size)
+    // if (list.size() - 1 < n - 1 or list.size() == index+1 or list.size() - index < dest_size - current_size)
     //    return result;
 
     // Check if it makes sense to proceed with recursion Potential
@@ -616,13 +594,13 @@ std::vector<std::vector<subset_t> > BaseLayouter::iterateThroughLayoutSubsetsFas
         for (auto r : x)
           if (f == r)
             goto bbb;
-          
+
       new_rest.push_back(x);
 
-      bbb:
+    bbb:
       continue;
     }
-    
+
     rest_list = new_rest;
     // rest_list.erase(std::remove_if(rest_list.begin(), rest_list.end(), [&left_list](subset_t& e){
     //             for( const auto& f : left_list)
@@ -634,34 +612,29 @@ std::vector<std::vector<subset_t> > BaseLayouter::iterateThroughLayoutSubsetsFas
 
     iterate_result_t all;
 
-    if (rest_list.size() > 0 &&
-      curr_attr + rest_list[0].size() <= max_attr &&
-      (rest_list[0].size() * (n - 1) + curr_attr <= max_attr or list.size() < n)) {
-      all = iterateThroughLayoutSubsetsFast(n - 1,
-        rest_list,
-        current_size + 1,
-        dest_size,
-        max_attr,
-        curr_attr + list[index].size());
-  }
-  
-  for (auto part : all) {
+    if (rest_list.size() > 0 && curr_attr + rest_list[0].size() <= max_attr &&
+        (rest_list[0].size() * (n - 1) + curr_attr <= max_attr or list.size() < n)) {
+      all = iterateThroughLayoutSubsetsFast(
+          n - 1, rest_list, current_size + 1, dest_size, max_attr, curr_attr + list[index].size());
+    }
+
+    for (auto part : all) {
       /*
         Now we need a fast way to identify that we will not have
         a single elemnt doubled.
        */
-        std::vector<subset_t> tmp {list[index]};
-        tmp.insert(tmp.end(), part.begin(), part.end());
-        result.push_back(tmp);
-      }
-      ++index;
+      std::vector<subset_t> tmp{list[index]};
+      tmp.insert(tmp.end(), part.begin(), part.end());
+      result.push_back(tmp);
     }
-    return result;
+    ++index;
   }
-  
+  return result;
+}
+
 void BaseLayouter::iterateThroughLayouts() {
   std::sort(subsets.begin(), subsets.end(), subset_t_lt);
-  
+
   if (subsets.size() == 1) {
     Layout l;
     l.add(subsets[0]);
@@ -686,12 +659,7 @@ void BaseLayouter::iterateThroughLayouts() {
     auto start_min = schema.nbAttributes / subsets.back().size();
 
     for (size_t i = start_min; i <= schema.nbAttributes; ++i) {
-      auto intermediate_results = iterateThroughLayoutSubsetsFast(i,
-                                  subsets,
-                                  0,
-                                  i,
-                                  schema.nbAttributes,
-                                  0);
+      auto intermediate_results = iterateThroughLayoutSubsetsFast(i, subsets, 0, i, schema.nbAttributes, 0);
 
       for (auto x : intermediate_results) {
         Layout l;
@@ -704,9 +672,9 @@ void BaseLayouter::iterateThroughLayouts() {
     }
   } else {
 
-    //list<subset_t> down(subsets.begin(), subsets.end());
+    // list<subset_t> down(subsets.begin(), subsets.end());
 
-    //Layout l;
+    // Layout l;
     //    iterateThroughLayoutSubsets2(l, down);
 
     for (size_t s = 0; s < subsets.size(); ++s) {
@@ -750,7 +718,7 @@ void BaseLayouter::generateLayouts(Layout layout, size_t iter) {
     generateLayouts(original, iter + 1);
 }
 
-bool BaseLayouter::tryToAddSubset(const Layout &l, const subset_t &subset) const {
+bool BaseLayouter::tryToAddSubset(const Layout& l, const subset_t& subset) const {
   if (l.size() + subset.size() > schema.nbAttributes)
     return false;
 
@@ -783,12 +751,15 @@ std::vector<subset_t> BaseLayouter::externalGenerateSubSetsK(unsigned k, unsigne
   return result;
 }
 
-void BaseLayouter::generateSubSetsK(unsigned k, unsigned nbAtts) {
-  subsets += externalGenerateSubSetsK(k, nbAtts);
-}
+void BaseLayouter::generateSubSetsK(unsigned k, unsigned nbAtts) { subsets += externalGenerateSubSetsK(k, nbAtts); }
 
 
-void BaseLayouter::generateSet(std::vector<subset_t> &ctx, std::vector<unsigned> s, unsigned position, unsigned nextInt, unsigned k, unsigned N) {
+void BaseLayouter::generateSet(std::vector<subset_t>& ctx,
+                               std::vector<unsigned> s,
+                               unsigned position,
+                               unsigned nextInt,
+                               unsigned k,
+                               unsigned N) {
   if (position == k) {
     // create the subset
     subset_t newSubSet(k);
@@ -835,9 +806,7 @@ Result BaseLayouter::getBestResult(std::string newCostModel) {
   return r;
 }
 
-std::vector<std::string> BaseLayouter::getAttributeNames() const {
-  return schema.getAttributeNames();
-}
+std::vector<std::string> BaseLayouter::getAttributeNames() const { return schema.getAttributeNames(); }
 
 double BaseLayouter::getRowCost() const {
   // build layout
@@ -903,13 +872,10 @@ void FastCandidateLayouter::layout(Schema s, std::string costModel) {
 
   // Prepare result
   std::vector<double> costs;
-  BOOST_FOREACH(subset_t s, result) {
-    costs.push_back(schema.costForSubset(s, HYRISE_COST));
-  }
+  BOOST_FOREACH(subset_t s, result) { costs.push_back(schema.costForSubset(s, HYRISE_COST)); }
   Layout l(result);
   Result r(l, costs);
   results.push_back(r);
-
 }
 
 double FastCandidateLayouter::costFor(subset_t first) {
@@ -923,9 +889,7 @@ double FastCandidateLayouter::costFor(subset_t first) {
   return result;
 }
 
-double FastCandidateLayouter::costFor(subset_t first, subset_t second) {
-  return costFor(first) + costFor(second);
-}
+double FastCandidateLayouter::costFor(subset_t first, subset_t second) { return costFor(first) + costFor(second); }
 
 void FastCandidateLayouter::generateResults(subset_t initial, subset_t other) {
   Layout::internal_layout_t intermediate;
@@ -971,7 +935,7 @@ void FastCandidateLayouter::generateResults(subset_t initial, subset_t other) {
       min = mergedCost;
     }
 
-  } while (boost::next_partial_permutation(other.begin(), other.begin() + 1,  other.end()));
+  } while (boost::next_partial_permutation(other.begin(), other.begin() + 1, other.end()));
 
   std::cout << "Finished calculation, checking for result " << intermediate.size() << std::endl;
 
@@ -993,8 +957,7 @@ void FastCandidateLayouter::generateResults(subset_t initial, subset_t other) {
 }
 
 
-CandidateLayouter::CandidateLayouter(): BaseLayouter(), _candidateList() {
-}
+CandidateLayouter::CandidateLayouter() : BaseLayouter(), _candidateList() {}
 
 void CandidateLayouter::layout(Schema s, std::string cM) {
   results.clear();
@@ -1031,7 +994,7 @@ void CandidateLayouter::layout(Schema s, std::string cM) {
       size_t currentSize = subsets[index].size();
 
       // Find end of group
-      size_t stop = index+1;
+      size_t stop = index + 1;
       while (stop < subsets.size())
         if (subsets[stop++].size() > currentSize)
           break;
@@ -1064,7 +1027,6 @@ void CandidateLayouter::layout(Schema s, std::string cM) {
               validSubsets[j] = 0;
           }
         }
-
       }
     }
     ++index;
@@ -1084,15 +1046,13 @@ void CandidateLayouter::layout(Schema s, std::string cM) {
 void CandidateLayouter::generateCandidateList() {
   BOOST_FOREACH(Query * q, schema.queries) {
     std::set<unsigned> newQuery;
-    BOOST_FOREACH(unsigned i, q->queryAttributes) {
-      newQuery.insert(i);
-    }
+    BOOST_FOREACH(unsigned i, q->queryAttributes) { newQuery.insert(i); }
 
     if (_candidateList.size() == 0) {
       _candidateList.push_back(newQuery);
     } else {
-      std::vector< std::set<unsigned> > newSets;
-      BOOST_FOREACH(std::set<unsigned> &oldSet, _candidateList) {
+      std::vector<std::set<unsigned> > newSets;
+      BOOST_FOREACH(std::set<unsigned> & oldSet, _candidateList) {
         std::set<unsigned> intersect;
         BOOST_FOREACH(unsigned i, newQuery) {
           if (oldSet.count(i) > 0) {
@@ -1113,9 +1073,7 @@ void CandidateLayouter::generateCandidateList() {
 
       // add new sets, i.e. add query and intersect
       _candidateList.push_back(newQuery);
-      BOOST_FOREACH(std::set<unsigned> newSet, newSets) {
-        _candidateList.push_back(newSet);
-      }
+      BOOST_FOREACH(std::set<unsigned> newSet, newSets) { _candidateList.push_back(newSet); }
 
       // Delete empty sets
       std::vector<unsigned> toDelete;
@@ -1157,20 +1115,16 @@ void CandidateLayouter::generateCandidateList() {
 
 std::string strval(subset_t m) {
   std::stringstream strs;
-  BOOST_FOREACH(unsigned i, m) {
-    strs << i << " ";
-  }
+  BOOST_FOREACH(unsigned i, m) { strs << i << " "; }
 
   return strs.str();
 }
 
 
-subset_t merge_subsets(subset_t base, std::vector<subset_t> &mapping) {
+subset_t merge_subsets(subset_t base, std::vector<subset_t>& mapping) {
   subset_t result;
   BOOST_FOREACH(unsigned i, base) {
-    BOOST_FOREACH(unsigned j, mapping[i]) {
-      result.push_back(j);
-    }
+    BOOST_FOREACH(unsigned j, mapping[i]) { result.push_back(j); }
   }
 
   return result;
@@ -1185,7 +1139,11 @@ struct _intermediate {
   subset_t merged;
   double merge_cost;
 
-  static _intermediate create(subset_t base, std::vector<subset_t> &mapping, Schema &schema, std::string &costModel, cache_t &cache) {
+  static _intermediate create(subset_t base,
+                              std::vector<subset_t>& mapping,
+                              Schema& schema,
+                              std::string& costModel,
+                              cache_t& cache) {
     _intermediate res;
     res.single_cost = 0.0;
     res.merge_cost = 0.0;
@@ -1200,21 +1158,18 @@ struct _intermediate {
       }
 
       res.single_cost += cache[tmp_val];
-      //res.single_cost += schema.costForSubset(mapping[i], costModel);
+      // res.single_cost += schema.costForSubset(mapping[i], costModel);
 
-      BOOST_FOREACH(unsigned j, mapping[i]) {
-        res.merged.push_back(j);
-      }
+      BOOST_FOREACH(unsigned j, mapping[i]) { res.merged.push_back(j); }
     }
 
     res.merge_cost = schema.costForSubset(res.merged, costModel);
     return res;
   }
-
 };
 
 
-std::vector<subset_t> CandidateLayouter::externalCombineCandidates(std::vector<std::set< unsigned> > candidateList) {
+std::vector<subset_t> CandidateLayouter::externalCombineCandidates(std::vector<std::set<unsigned> > candidateList) {
 
   std::vector<subset_t> mapping;
   for (unsigned i = 0; i < candidateList.size(); ++i) {
@@ -1226,9 +1181,9 @@ std::vector<subset_t> CandidateLayouter::externalCombineCandidates(std::vector<s
 
   cache_t _cache;
 
-  //The first step is to build a list of permutations of the input
-  //candidate list, so that if the input is [1][2,3] -> the output
-  //will be [1], [2,3], [1,2,3]
+  // The first step is to build a list of permutations of the input
+  // candidate list, so that if the input is [1][2,3] -> the output
+  // will be [1], [2,3], [1,2,3]
   std::vector<subset_t> result;
 
   subset_t tmp(candidateList.size(), 0);
@@ -1243,7 +1198,10 @@ std::vector<subset_t> CandidateLayouter::externalCombineCandidates(std::vector<s
   return result;
 }
 
-std::vector<subset_t> CandidateLayouter::candidateMergePath(subset_t initial, subset_t rest, std::vector<subset_t> &mapping, std::unordered_map<std::string, double> &_cache) {
+std::vector<subset_t> CandidateLayouter::candidateMergePath(subset_t initial,
+                                                            subset_t rest,
+                                                            std::vector<subset_t>& mapping,
+                                                            std::unordered_map<std::string, double>& _cache) {
   std::vector<subset_t> result;
   do {
 
@@ -1268,16 +1226,13 @@ std::vector<subset_t> CandidateLayouter::candidateMergePath(subset_t initial, su
 }
 
 
-void CandidateLayouter::combineCandidates() {
-  subsets = externalCombineCandidates(_candidateList);
-}
+void CandidateLayouter::combineCandidates() { subsets = externalCombineCandidates(_candidateList); }
 
 /////////////////////////////////////////////////////////////////////////
 
 int layouter::DivideAndConquerLayouter::numCuts = 4;
 
-DivideAndConquerLayouter::DivideAndConquerLayouter(): CandidateLayouter() {
-}
+DivideAndConquerLayouter::DivideAndConquerLayouter() : CandidateLayouter() {}
 
 
 Matrix<int> DivideAndConquerLayouter::createAffinityMatrix() {
@@ -1293,17 +1248,13 @@ Matrix<int> DivideAndConquerLayouter::createAffinityMatrix() {
       subset_t otherSubset = subsets[j];
 
       // Now check both subsets if they appear in the queries together
-      BOOST_FOREACH(Query * q, schema. queries) {
+      BOOST_FOREACH(Query * q, schema.queries) {
 
-        subset_t::iterator l = std::find_first_of(q->queryAttributes.begin(),
-                               q->queryAttributes.end(),
-                               subsetToCheck.begin(),
-                               subsetToCheck.end());
+        subset_t::iterator l = std::find_first_of(
+            q->queryAttributes.begin(), q->queryAttributes.end(), subsetToCheck.begin(), subsetToCheck.end());
 
-        subset_t::iterator r = std::find_first_of(q->queryAttributes.begin(),
-                               q->queryAttributes.end(),
-                               otherSubset.begin(),
-                               otherSubset.end());
+        subset_t::iterator r = std::find_first_of(
+            q->queryAttributes.begin(), q->queryAttributes.end(), otherSubset.begin(), otherSubset.end());
 
         if (l != q->queryAttributes.end() && r != q->queryAttributes.end()) {
           // Found a hit
@@ -1328,7 +1279,7 @@ std::vector<std::vector<set_subset_t> > DivideAndConquerLayouter::partitionGraph
   options[METIS_OPTION_PTYPE] = METIS_PTYPE_KWAY;
   options[METIS_OPTION_OBJTYPE] = METIS_OBJTYPE_CUT;
   options[METIS_OPTION_NUMBERING] = 0;
-  //options[METIS_OPTION_DBGLVL] = METIS_DBG_INFO | METIS_DBG_MEMORY | METIS_DBG_COARSEN;
+  // options[METIS_OPTION_DBGLVL] = METIS_DBG_INFO | METIS_DBG_MEMORY | METIS_DBG_COARSEN;
   options[METIS_OPTION_DBGLVL] = 0;
 
   int ncon = 1;
@@ -1336,26 +1287,26 @@ std::vector<std::vector<set_subset_t> > DivideAndConquerLayouter::partitionGraph
   // K defines the size of the parition, while k is the number of cuts the
   // partitioner will have to do, so we can calculate k by
   // dividing P/K
-  int nparts = numvertices > numCuts ? numvertices / numCuts : 1; // - 1 < numCuts ? numvertices - 1 : numCuts;
+  int nparts = numvertices > numCuts ? numvertices / numCuts : 1;  // - 1 < numCuts ? numvertices - 1 : numCuts;
   if (nparts == 1)
     nparts = 2;
 
   int edgecut = 0;
 
-  int *part = (int *) malloc(1 * numvertices * sizeof(numvertices));
+  int* part = (int*)malloc(1 * numvertices * sizeof(numvertices));
   int res = METIS_PartGraphKway(&numvertices,  // Number of Vertices
                                 &ncon,  // Number of balancing constraints
                                 t.xadj,
                                 t.adjncy,
-                                nullptr, // vertices weight
-                                nullptr, // vertices size
-                                t.adjwgt, // edege weight
-                                &nparts, // number of parts to partition
-                                nullptr, // targeted partition weight
-                                nullptr, // ubvec, load imbalance bla bla
+                                nullptr,  // vertices weight
+                                nullptr,  // vertices size
+                                t.adjwgt,  // edege weight
+                                &nparts,  // number of parts to partition
+                                nullptr,  // targeted partition weight
+                                nullptr,  // ubvec, load imbalance bla bla
                                 options,
                                 &edgecut,
-                                part); // result parts
+                                part);  // result parts
 
 
   if (res == METIS_OK) {
@@ -1363,7 +1314,7 @@ std::vector<std::vector<set_subset_t> > DivideAndConquerLayouter::partitionGraph
 
     // Based on the partitions of the graph, we can now
     // merge the subsets to new subsets
-    std::vector<std::vector<set_subset_t> > candidatePartitions(nparts); // Create at least nparts buckets
+    std::vector<std::vector<set_subset_t> > candidatePartitions(nparts);  // Create at least nparts buckets
     for (int i = 0; i < numvertices; ++i) {
       int current = part[i];
       set_subset_t oldsubset = set_subset_t(subsets[i].begin(), subsets[i].end());
@@ -1399,9 +1350,7 @@ void DivideAndConquerLayouter::layout(Schema s, std::string cm) {
   generateCandidateList();
   subsets.clear();
 
-  BOOST_FOREACH(std::set<unsigned> l, _candidateList) {
-    subsets.push_back(subset_t(l.begin(), l.end()));
-  }
+  BOOST_FOREACH(std::set<unsigned> l, _candidateList) { subsets.push_back(subset_t(l.begin(), l.end())); }
 
 
   Matrix<int> m = createAffinityMatrix();
@@ -1410,8 +1359,8 @@ void DivideAndConquerLayouter::layout(Schema s, std::string cm) {
   // lists that are layouted independently
   std::vector<std::vector<set_subset_t> > partitions = partitionGraph(m);
 
-  //The partitions variable holds a list of subset lists, which are
-  //layouted individually.
+  // The partitions variable holds a list of subset lists, which are
+  // layouted individually.
   subsets.clear();
 
   size_t nbAtt = schema.nbAttributes;
@@ -1424,8 +1373,8 @@ void DivideAndConquerLayouter::layout(Schema s, std::string cm) {
 
     std::vector<subset_t> permutations = externalCombineCandidates(tmp);
     std::set<unsigned> current;
-for (subset_t t : permutations)
-for (unsigned u: t)
+    for (subset_t t : permutations)
+      for (unsigned u : t)
         current.insert(u);
 
     schema.nbAttributes = current.size();
@@ -1438,7 +1387,7 @@ for (unsigned u: t)
     Result r = results[0];
     Layout l = r.layout;
 
-for (subset_t t : l.raw())
+    for (subset_t t : l.raw())
       global += t;
   }
 
@@ -1448,6 +1397,5 @@ for (subset_t t : l.raw())
   iterateThroughLayouts();
   std::sort(results.begin(), results.end());
 }
-
-} } // namespace hyrise::layouter
-
+}
+}  // namespace hyrise::layouter

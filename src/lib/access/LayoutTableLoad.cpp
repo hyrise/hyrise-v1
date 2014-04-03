@@ -13,14 +13,13 @@ namespace hyrise {
 namespace access {
 
 namespace {
-  auto _ = QueryParser::registerPlanOperation<LayoutTableLoad>("LayoutTableLoad");
+auto _ = QueryParser::registerPlanOperation<LayoutTableLoad>("LayoutTableLoad");
 }
 
-LayoutTableLoad::~LayoutTableLoad() {
-}
+LayoutTableLoad::~LayoutTableLoad() {}
 
 void LayoutTableLoad::executePlanOperation() {
-  const auto &input = this->input.getTable(0);
+  const auto& input = this->input.getTable(0);
   if ((input->columnCount() >= 1) && (input->size() >= _input_row)) {
     std::string tmp_table_description = input->getValue<std::string>(0, _input_row);
 
@@ -53,7 +52,7 @@ void LayoutTableLoad::executePlanOperation() {
   }
 }
 
-std::shared_ptr<PlanOperation> LayoutTableLoad::parse(const Json::Value &data) {
+std::shared_ptr<PlanOperation> LayoutTableLoad::parse(const Json::Value& data) {
   std::shared_ptr<LayoutTableLoad> s = std::make_shared<LayoutTableLoad>();
   s->setTableName(data["table"].asString());
   s->setFileName(data["filename"].asString());
@@ -63,29 +62,16 @@ std::shared_ptr<PlanOperation> LayoutTableLoad::parse(const Json::Value &data) {
   return s;
 }
 
-const std::string LayoutTableLoad::vname() {
-  return "LayoutTableLoad";
-}
+const std::string LayoutTableLoad::vname() { return "LayoutTableLoad"; }
 
-void LayoutTableLoad::setTableName(const std::string &tablename) {
-  _table_name = tablename;
-}
+void LayoutTableLoad::setTableName(const std::string& tablename) { _table_name = tablename; }
 
-void LayoutTableLoad::setFileName(const std::string &filename) {
-  _file_name = filename;
-}
+void LayoutTableLoad::setFileName(const std::string& filename) { _file_name = filename; }
 
-void LayoutTableLoad::setOverrideGroup(const std::string &group) {
-  _override_group = group;
-}
+void LayoutTableLoad::setOverrideGroup(const std::string& group) { _override_group = group; }
 
-void LayoutTableLoad::setInputRow(const size_t row) {
-  _input_row = row;
-}
+void LayoutTableLoad::setInputRow(const size_t row) { _input_row = row; }
 
-void LayoutTableLoad::setUnsafe(const bool unsafe) {
-  _unsafe = unsafe;
-}
-
+void LayoutTableLoad::setUnsafe(const bool unsafe) { _unsafe = unsafe; }
 }
 }

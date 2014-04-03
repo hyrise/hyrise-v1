@@ -11,7 +11,7 @@ expression_map_t getExpressionMap() {
   d["AND"] = AND;
   d["OR"] = OR;
   d["NOT"] = NOT;
-  d["EQ"] =  EXP_EQ;
+  d["EQ"] = EXP_EQ;
   return d;
 }
 
@@ -39,17 +39,22 @@ predicate_map_t getPredicateMap() {
   return d;
 }
 
-PredicateType::type parsePredicateType(const Json::Value &value) {
-  if (value.isString()) return getPredicateMap()[value.asString()];
-  else if (value.isNumeric()) return (PredicateType::type) value.asInt();
-  else throw std::runtime_error("Predicate '" + value.asString() + "' could not be parsed");
+PredicateType::type parsePredicateType(const Json::Value& value) {
+  if (value.isString())
+    return getPredicateMap()[value.asString()];
+  else if (value.isNumeric())
+    return (PredicateType::type)value.asInt();
+  else
+    throw std::runtime_error("Predicate '" + value.asString() + "' could not be parsed");
 }
 
-ExpressionType parseExpressionType(const Json::Value &value) {
-  if (value.isString()) return getExpressionMap()[value.asString()];
-  else if (value.isNumeric()) return (ExpressionType) value.asInt();
-  else throw std::runtime_error("Expression '" + value.asString() + "' could not be parsed");
+ExpressionType parseExpressionType(const Json::Value& value) {
+  if (value.isString())
+    return getExpressionMap()[value.asString()];
+  else if (value.isNumeric())
+    return (ExpressionType)value.asInt();
+  else
+    throw std::runtime_error("Expression '" + value.asString() + "' could not be parsed");
 }
-
-} } // namespace hyrise::access
-
+}
+}  // namespace hyrise::access

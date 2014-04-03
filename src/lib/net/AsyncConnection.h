@@ -21,17 +21,17 @@ namespace net {
 class AsyncConnection : public AbstractConnection {
  public:
   ev_async ev_write;
-  struct ev_loop *ev_loop;
-  ebb_connection *connection;
-  ebb_request *request;
+  struct ev_loop* ev_loop;
+  ebb_connection* connection;
+  ebb_request* request;
   struct sockaddr_in addr;
   struct timeval starttime;
-  char *path;
+  char* path;
 
-  char *body;
+  char* body;
   size_t body_len;
 
-  char *write_buffer;
+  char* write_buffer;
   size_t write_buffer_len;
 
   bool keep_alive_flag;
@@ -43,29 +43,31 @@ class AsyncConnection : public AbstractConnection {
   virtual std::string getBody() const;
   virtual bool hasBody() const;
   virtual std::string getPath() const;
-  virtual void respond(const std::string &message, size_t status=200, const std::string& contentType="application/json");
+  virtual void respond(const std::string& message,
+                       size_t status = 200,
+                       const std::string& contentType = "application/json");
+
  private:
   virtual void send_response();
 };
 
-ebb_connection *new_connection(ebb_server *server, struct sockaddr_in *addr);
+ebb_connection* new_connection(ebb_server* server, struct sockaddr_in* addr);
 
-ebb_request *new_request(ebb_connection *connection);
+ebb_request* new_request(ebb_connection* connection);
 
-void request_complete(ebb_request *request);
+void request_complete(ebb_request* request);
 
-void request_path(ebb_request *request, const char *at, size_t length);
+void request_path(ebb_request* request, const char* at, size_t length);
 
-void request_body(ebb_request *request, const char *at, size_t length);
+void request_body(ebb_request* request, const char* at, size_t length);
 
-void write_cb(struct ev_loop *loop, struct ev_async *w, int revents);
+void write_cb(struct ev_loop* loop, struct ev_async* w, int revents);
 
-void continue_responding(ebb_connection *connection);
+void continue_responding(ebb_connection* connection);
 
-void on_close(ebb_connection *connection);
+void on_close(ebb_connection* connection);
 
-int on_timeout(ebb_connection *connection);
-
+int on_timeout(ebb_connection* connection);
 }
 }
 

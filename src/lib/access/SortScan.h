@@ -8,19 +8,20 @@ namespace hyrise {
 namespace access {
 
 class SortScan : public PlanOperation {
-public:
+ public:
   virtual ~SortScan();
 
   void executePlanOperation();
-  static std::shared_ptr<PlanOperation> parse(const Json::Value &data);
+  static std::shared_ptr<PlanOperation> parse(const Json::Value& data);
   const std::string vname();
   void setSortField(const unsigned s);
+  void setSortField(const std::string& s);
 
-private:
+ private:
   unsigned _sort_field;
+  std::string _sort_field_name;
   bool asc = true;
 };
-
 }
 }
 

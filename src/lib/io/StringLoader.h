@@ -8,14 +8,12 @@ namespace io {
 
 class StringHeader : public AbstractHeader {
  public:
-  explicit StringHeader(std::string header) :
-      _header(header) {
-  }
-  storage::compound_metadata_list *load(const Loader::params &args);
-  StringHeader *clone() const;
+  explicit StringHeader(std::string header) : _header(header) {}
+  storage::compound_metadata_list* load(const Loader::params& args);
+  StringHeader* clone() const;
+
  private:
   std::string _header;
 };
-
-} } // namespace hyrise::io
-
+}
+}  // namespace hyrise::io

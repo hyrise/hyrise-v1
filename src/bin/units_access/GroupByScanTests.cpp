@@ -19,7 +19,7 @@ TEST_F(GroupByScanTests, basic_group_by_test) {
   hb.setKey("groupby");
   hb.execute();
 
-  const auto &hash = hb.getResultHashTable();
+  const auto& hash = hb.getResultHashTable();
 
   GroupByScan gs;
   gs.addInput(t);
@@ -27,7 +27,7 @@ TEST_F(GroupByScanTests, basic_group_by_test) {
   gs.addField(1);
   gs.execute();
 
-  const auto &result = gs.getResultTable();
+  const auto& result = gs.getResultTable();
 
   ASSERT_EQ(8u, result->size());
 }
@@ -43,7 +43,7 @@ TEST_F(GroupByScanTests, group_by_with_multiple_fields) {
   hb.setKey("groupby");
   hb.execute();
 
-  const auto &hash = hb.getResultHashTable();
+  const auto& hash = hb.getResultHashTable();
 
   GroupByScan gs;
   gs.addInput(t);
@@ -52,7 +52,7 @@ TEST_F(GroupByScanTests, group_by_with_multiple_fields) {
   gs.addField(1);
   gs.execute();
 
-  const auto &result = gs.getResultTable();
+  const auto& result = gs.getResultTable();
 
   EXPECT_RELATION_EQ(reference, result);
 }
@@ -69,7 +69,7 @@ TEST_F(GroupByScanTests, group_by_with_aggregate_function) {
   hb.setKey("groupby");
   hb.execute();
 
-  const auto &hash = hb.getResultHashTable();
+  const auto& hash = hb.getResultHashTable();
 
   GroupByScan gs;
   gs.addInput(t);
@@ -78,9 +78,8 @@ TEST_F(GroupByScanTests, group_by_with_aggregate_function) {
   gs.addField(1);
   gs.execute();
 
-  const auto &result = gs.getResultTable();
+  const auto& result = gs.getResultTable();
   EXPECT_RELATION_EQ(reference, result);
 }
-
 }
 }

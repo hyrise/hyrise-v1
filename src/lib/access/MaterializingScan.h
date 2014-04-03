@@ -8,24 +8,23 @@ namespace hyrise {
 namespace access {
 
 class MaterializingScan : public PlanOperation {
-public:
+ public:
   explicit MaterializingScan(const bool use_memcpy = true);
   virtual ~MaterializingScan();
 
   void setupPlanOperation();
   void executePlanOperation();
-  static std::shared_ptr<PlanOperation> parse(const Json::Value &v);
+  static std::shared_ptr<PlanOperation> parse(const Json::Value& v);
   const std::string vname();
   void setSamples(const unsigned s);
   void setCopyValues(const bool v);
 
-private:
+ private:
   bool _use_memcpy;
   bool _copy_values;
   unsigned _num_samples;
   std::vector<unsigned> _samples;
 };
-
 }
 }
 

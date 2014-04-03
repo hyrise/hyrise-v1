@@ -7,15 +7,12 @@ namespace hyrise {
 namespace access {
 
 namespace {
-  auto _ = QueryParser::registerPlanOperation<SmallestTableScan>("SmallestTableScan");
+auto _ = QueryParser::registerPlanOperation<SmallestTableScan>("SmallestTableScan");
 }
 
-SmallestTableScan::~SmallestTableScan() {
-}
+SmallestTableScan::~SmallestTableScan() {}
 
-void SmallestTableScan::setupPlanOperation() {
-  computeDeferredIndexes();
-}
+void SmallestTableScan::setupPlanOperation() { computeDeferredIndexes(); }
 
 void SmallestTableScan::executePlanOperation() {
   auto smallestTable = getInputTable(0);
@@ -28,13 +25,10 @@ void SmallestTableScan::executePlanOperation() {
   addResult(smallestTable);
 }
 
-std::shared_ptr<PlanOperation> SmallestTableScan::parse(const Json::Value &data) {
+std::shared_ptr<PlanOperation> SmallestTableScan::parse(const Json::Value& data) {
   return std::make_shared<SmallestTableScan>();
 }
 
-const std::string SmallestTableScan::vname() {
-  return "SmallestTableScan";
-}
-
+const std::string SmallestTableScan::vname() { return "SmallestTableScan"; }
 }
 }

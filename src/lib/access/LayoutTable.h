@@ -10,21 +10,20 @@ namespace access {
 /// Operator to implement re-layouting of one input table
 /// into a completely new result table
 class LayoutTable : public PlanOperation {
-public:
-  explicit LayoutTable(const std::string &layout);
+ public:
+  explicit LayoutTable(const std::string& layout);
   virtual ~LayoutTable();
 
   void executePlanOperation();
   /// { "type": "LayoutTable",
   ///   "layout": "a|b|c\nINTEGER|INTEGER|INTEGER\nC_0|C_1|C_1" }
-  static std::shared_ptr<PlanOperation> parse(const Json::Value &data);
+  static std::shared_ptr<PlanOperation> parse(const Json::Value& data);
   const std::string vname();
 
-private:
-  storage::atable_ptr_t createEmptyLayoutedTable(const std::string &layout) const;
+ private:
+  storage::atable_ptr_t createEmptyLayoutedTable(const std::string& layout) const;
   const std::string _layout;
 };
-
 }
 }
 

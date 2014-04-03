@@ -30,9 +30,9 @@
                 {"type": "MIN", "field": "date", "as": "first_of_year"}
             ]
         },
-       "sort" : {
+       "sort": {
          "type": "SortScan",
-         "field": [0]
+         "fields": [0]
        }
     },
     "edges" : [["0", "1"], ["0", "2"], ["1", "2"], ["2", "sort"]]

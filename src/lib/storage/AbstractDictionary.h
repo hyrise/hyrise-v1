@@ -11,7 +11,7 @@ namespace hyrise {
 namespace storage {
 
 class AbstractDictionary {
-public:
+ public:
   virtual ~AbstractDictionary() {}
 
   virtual bool isOrdered() = 0;
@@ -24,7 +24,9 @@ public:
 
   virtual void shrink() = 0;
 
+  size_t _checkpoint_size = 0;
+  virtual void prepareCheckpoint() { _checkpoint_size = this->size(); }
+  std::size_t checkpointSize() { return _checkpoint_size; }
 };
-
-} } // namespace hyrise::storage
-
+}
+}  // namespace hyrise::storage

@@ -8,9 +8,6 @@ namespace {
 auto reg_rollb = QueryParser::registerTrivialPlanOperation<Rollback>("Rollback");
 }
 
-void Rollback::executePlanOperation() {
-  tx::TransactionManager::rollbackTransaction(_txContext);
-}
-
+void Rollback::executePlanOperation() { tx::TransactionManager::rollbackTransaction(_txContext); }
 }
 }

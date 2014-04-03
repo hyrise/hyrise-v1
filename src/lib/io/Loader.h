@@ -13,7 +13,7 @@ namespace hyrise {
 namespace storage {
 class AbstractTable;
 class AbstractTableFactory;
-} // namespace storage
+}  // namespace storage
 
 namespace io {
 class AbstractInput;
@@ -27,16 +27,18 @@ typedef struct {
 
 namespace Loader {
 class params {
-private:
+ private:
 #include "parameters.inc"
   /// Data import
   param_ref_member(AbstractInput, Input);
   /// Header import
   param_ref_member(AbstractHeader, Header);
   /// Factory for tables
-  param_member(storage::AbstractTableFactory *, Factory);
+  param_member(storage::AbstractTableFactory*, Factory);
   /// Base path for imports
   param_member(std::string, BasePath);
+  /// Name for the table to be created
+  param_member(std::string, TableName);
   /// Currently no effect:
   param_member(bool, ModifiableMutableVerticalTable);
   /// Return result without wrapping in Store
@@ -44,17 +46,19 @@ private:
   /// Use bitcompressed table
   param_member(bool, Compressed);
   /// Reference table used for type detection
-  param_member(storage::c_atable_ptr_t , ReferenceTable);
-public:
+  param_member(storage::c_atable_ptr_t, ReferenceTable);
+
+  param_member(bool, DeltaDataStructure);
+
+ public:
   params();
   ~params();
-  params(const params &other);
-  params &operator= (const params &other);
-  params *clone() const;
+  params(const params& other);
+  params& operator=(const params& other);
+  params* clone() const;
 };
 
-std::shared_ptr<storage::AbstractTable> load(const params &args);
+std::shared_ptr<storage::AbstractTable> load(const params& args);
 };
-
-} } // namespace hyrise::io
-
+}
+}  // namespace hyrise::io

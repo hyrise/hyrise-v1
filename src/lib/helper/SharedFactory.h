@@ -10,4 +10,3 @@ class SharedFactory : public std::enable_shared_from_this<T> {
     return std::make_shared<T>(std::forward<ARGS>(args)...);
   }
 };
-

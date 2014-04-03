@@ -12,15 +12,13 @@ namespace hyrise {
 namespace access {
 
 namespace {
-  auto _ = QueryParser::registerPlanOperation<HashJoinProbe>("HashJoinProbe");
-  log4cxx::LoggerPtr logger(log4cxx::Logger::getLogger("access.plan.PlanOperation"));
+auto _ = QueryParser::registerPlanOperation<HashJoinProbe>("HashJoinProbe");
+log4cxx::LoggerPtr logger(log4cxx::Logger::getLogger("access.plan.PlanOperation"));
 }
 
-HashJoinProbe::HashJoinProbe() : _selfjoin(false) {
-}
+HashJoinProbe::HashJoinProbe() : _selfjoin(false) {}
 
-HashJoinProbe::~HashJoinProbe() {
-}
+HashJoinProbe::~HashJoinProbe() {}
 
 void HashJoinProbe::setupPlanOperation() {
   PlanOperation::setupPlanOperation();
@@ -28,8 +26,8 @@ void HashJoinProbe::setupPlanOperation() {
 }
 
 void HashJoinProbe::executePlanOperation() {
-  storage::pos_list_t *buildTablePosList = new pos_list_t;
-  storage::pos_list_t *probeTablePosList = new pos_list_t;
+  storage::pos_list_t* buildTablePosList = new pos_list_t;
+  storage::pos_list_t* probeTablePosList = new pos_list_t;
 
   if (_selfjoin) {
     if (_field_definition.size() == 1)
@@ -46,7 +44,7 @@ void HashJoinProbe::executePlanOperation() {
   addResult(buildResultTable(buildTablePosList, probeTablePosList));
 }
 
-std::shared_ptr<PlanOperation> HashJoinProbe::parse(const Json::Value &data) {
+std::shared_ptr<PlanOperation> HashJoinProbe::parse(const Json::Value& data) {
   std::shared_ptr<HashJoinProbe> instance = std::make_shared<HashJoinProbe>();
   if (data.isMember("fields")) {
     for (unsigned i = 0; i < data["fields"].size(); ++i) {
@@ -57,25 +55,16 @@ std::shared_ptr<PlanOperation> HashJoinProbe::parse(const Json::Value &data) {
   return instance;
 }
 
-const std::string HashJoinProbe::vname() {
-  return "HashJoinProbe";
-}
+const std::string HashJoinProbe::vname() { return "HashJoinProbe"; }
 
-void HashJoinProbe::setBuildTable(const storage::c_atable_ptr_t &table) {
-  _buildTable = table;
-}
+void HashJoinProbe::setBuildTable(const storage::c_atable_ptr_t& table) { _buildTable = table; }
 
-storage::c_atable_ptr_t HashJoinProbe::getBuildTable() const {
-  return _buildTable;
-}
+storage::c_atable_ptr_t HashJoinProbe::getBuildTable() const { return _buildTable; }
 
-storage::c_atable_ptr_t HashJoinProbe::getProbeTable() const {
-  return getInputTable();
-}
+storage::c_atable_ptr_t HashJoinProbe::getProbeTable() const { return getInputTable(); }
 
-template<class HashTable>
-void HashJoinProbe::fetchPositions(storage::pos_list_t *buildTablePosList,
-                                   storage::pos_list_t *probeTablePosList) {
+template <class HashTable>
+void HashJoinProbe::fetchPositions(storage::pos_list_t* buildTablePosList, storage::pos_list_t* probeTablePosList) {
   const auto& probeTable = getProbeTable();
   const auto& hash_table = std::dynamic_pointer_cast<const HashTable>(getInputHashTable(0));
   assert(hash_table != nullptr);
@@ -96,8 +85,8 @@ void HashJoinProbe::fetchPositions(storage::pos_list_t *buildTablePosList,
   LOG4CXX_DEBUG(logger, "Done Probing");
 }
 
-storage::atable_ptr_t HashJoinProbe::buildResultTable(storage::pos_list_t *buildTablePosList,
-                                                      storage::pos_list_t *probeTablePosList) const {
+storage::atable_ptr_t HashJoinProbe::buildResultTable(storage::pos_list_t* buildTablePosList,
+                                                      storage::pos_list_t* probeTablePosList) const {
   std::vector<storage::atable_ptr_t> parts;
 
   auto buildTableRows = storage::PointerCalculator::create(getBuildTable(), buildTablePosList);
@@ -109,6 +98,5 @@ storage::atable_ptr_t HashJoinProbe::buildResultTable(storage::pos_list_t *build
   storage::atable_ptr_t result = std::make_shared<storage::MutableVerticalTable>(parts);
   return result;
 }
-
 }
 }

@@ -4,12 +4,9 @@
 
 #include "helper.h"
 
-//#include <access.h>
-#include <access/InsertScan.h>
-#include <storage.h>
-#include <io.h>
-#include <io/shortcuts.h>
-#include <io/TransactionManager.h>
+#include "access/InsertScan.h"
+#include "io/shortcuts.h"
+#include "io/TransactionManager.h"
 
 namespace hyrise {
 namespace access {
@@ -17,7 +14,7 @@ namespace access {
 class WriteTests : public AccessTest {};
 
 TEST_F(WriteTests, insert_test) {
-  auto writeCtx = tx::TransactionManager::getInstance().buildContext(); 
+  auto writeCtx = tx::TransactionManager::getInstance().buildContext();
   hyrise::storage::atable_ptr_t s = io::Loader::shortcuts::load("test/lin_xxxs.tbl");
   hyrise::storage::atable_ptr_t i = io::Loader::shortcuts::load("test/insert_one.tbl");
 
@@ -100,7 +97,8 @@ TEST_F(WriteTests, DISABLED_update_test_col_all_rows) {
         us.setPredicate(truth);
         hyrise::storage::atable_ptr_t result = us.execute()->getResultTable();
 
-        hyrise::storage::atable_ptr_t reference = Loader::shortcuts::load("test/reference/update_test_col_all_rows.tbl");
+        hyrise::storage::atable_ptr_t reference =
+     Loader::shortcuts::load("test/reference/update_test_col_all_rows.tbl");
         ASSERT_TRUE(result->contentEquals(reference));
 
         delete reference;
@@ -130,7 +128,5 @@ TEST_F(WriteTests, DISABLED_update_func_all_rows) {
         delete result;
         delete s; */
 }
-
 }
 }
-

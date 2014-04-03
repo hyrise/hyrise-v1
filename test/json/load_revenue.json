@@ -1,0 +1,38 @@
+{
+    "operators": {
+        "0": { 
+            "type": "TableLoad",
+            "table": "test_recovery_revenue",
+            "filename" : "tables/revenue.tbl",
+            "nonvolatile": true
+        },
+        "1": {
+          "type": "CreateGroupkeyIndex",
+          "fields": ["year", "amount"],
+          "index_name": "mcidx__test_recovery_revenue__main__year__amount"
+        },
+
+        "2": {
+          "type": "CreateDeltaIndex",
+          "fields": ["year", "amount"],
+          "index_name": "mcidx__test_recovery_revenue__delta__year__amount"
+        },
+        "nop": {
+            "type": "NoOp"
+        },
+        "3" : {
+            "type" : "InsertScan",
+            "data" : [
+                [2009,1,2000],
+                [2009,2,2500],
+                [2009,5,3000],
+                [2009,4,4000]
+            ]
+        },
+        "nop2": {
+            "type": "NoOp"
+        }
+
+    },
+    "edges" : [["0", "1"], ["0", "2"], ["1", "nop"], ["2", "nop"], ["0", "3"], ["nop", "3"], ["3", "nop2"]]
+}

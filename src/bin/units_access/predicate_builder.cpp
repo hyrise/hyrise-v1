@@ -1,14 +1,10 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "testing/test.h"
-
-#include <access.h>
-#include <io.h>
-#include <io/shortcuts.h>
-#include <storage.h>
-#include <helper/types.h>
-
 #include "helper.h"
-#include <json.h>
+
+#include "access/SimpleTableScan.h"
+#include "access/expressions/predicates.h"
+#include "io/shortcuts.h"
 
 namespace hyrise {
 namespace access {
@@ -21,7 +17,7 @@ TEST_F(PredicateBldr, one_field) {
   PredicateBuilder b;
   b.add(e);
 
-  SimpleExpression *r = b.build();
+  SimpleExpression* r = b.build();
 
   ASSERT_TRUE(r == e);
 
@@ -36,18 +32,17 @@ TEST_F(PredicateBldr, one_leg_expression) {
   b.add(c);
   b.add(e);
 
-  SimpleExpression *r = b.build();
+  SimpleExpression* r = b.build();
   ASSERT_TRUE(r == c);
 
-  ASSERT_EQ(((CompoundExpression *) r)->lhs, e);
-
+  ASSERT_EQ(((CompoundExpression*)r)->lhs, e);
 }
 
 TEST_F(PredicateBldr, complex_expression) {
   storage::c_atable_ptr_t t = io::Loader::shortcuts::load("test/groupby_xs.tbl");
 
-  auto expr1 = new EqualsExpression<hyrise_int_t>(t, 0, 2009);
-  auto expr2 = new EqualsExpression<hyrise_int_t>(t, 1, 1);
+  auto expr1 = new GenericExpressionValue<hyrise_int_t, std::equal_to<hyrise_int_t>>(t, 0, 2009);
+  auto expr2 = new GenericExpressionValue<hyrise_int_t, std::equal_to<hyrise_int_t>>(t, 1, 1);
   auto expr3 = new CompoundExpression(OR);
   auto expr4 = new CompoundExpression(NOT);
 
@@ -56,7 +51,6 @@ TEST_F(PredicateBldr, complex_expression) {
   b.add(expr3);
   b.add(expr1);
   b.add(expr2);
-
 
 
 
@@ -70,7 +64,5 @@ TEST_F(PredicateBldr, complex_expression) {
 
   ASSERT_TRUE(out->contentEquals(reference));
 }
-
 }
 }
-

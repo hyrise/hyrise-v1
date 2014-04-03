@@ -25,25 +25,19 @@ struct copy_value_functor_raw_table {
   size_t _destRow;
   size_t _field;
 
-  copy_value_functor_raw_table(atable_ptr_t d,
-                               std::shared_ptr<const RawTable> s) :
-                               _dest(d),
-                               _src(s) {
-  }
+  copy_value_functor_raw_table(atable_ptr_t d, std::shared_ptr<const RawTable> s) : _dest(d), _src(s) {}
 
-  void setValues(const size_t destRow,
-                 const size_t srcRow,
-                 const size_t field ) {
+  void setValues(const size_t destRow, const size_t srcRow, const size_t field) {
     _destRow = destRow;
-    _srcRow = srcRow; _field = field;
+    _srcRow = srcRow;
+    _field = field;
   }
 
-  template<typename R>
+  template <typename R>
   void operator()() {
     _dest->setValue<R>(_field, _destRow, _src->getValue<R>(_field, _srcRow));
   }
 };
-
 }
 }
 
@@ -51,22 +45,15 @@ namespace hyrise {
 namespace access {
 
 namespace {
-  auto _ = QueryParser::registerPlanOperation<SimpleRawTableScan>("SimpleRawTableScan");
+auto _ = QueryParser::registerPlanOperation<SimpleRawTableScan>("SimpleRawTableScan");
 }
 
-SimpleRawTableScan::SimpleRawTableScan(SimpleExpression* comp,
-                                       const bool materializing) :
-                                       PlanOperation(),
-                                       _comparator(comp),
-                                       _materializing(materializing) {
-}
+SimpleRawTableScan::SimpleRawTableScan(SimpleExpression* comp, const bool materializing)
+    : PlanOperation(), _comparator(comp), _materializing(materializing) {}
 
-SimpleRawTableScan::~SimpleRawTableScan() {
-}
+SimpleRawTableScan::~SimpleRawTableScan() {}
 
-void SimpleRawTableScan::setupPlanOperation() {
-  _comparator->walk(input.getTables());
-}
+void SimpleRawTableScan::setupPlanOperation() { _comparator->walk(input.getTables()); }
 
 void SimpleRawTableScan::executePlanOperation() {
   auto table = std::dynamic_pointer_cast<const storage::RawTable>(input.getTable(0));
@@ -75,11 +62,11 @@ void SimpleRawTableScan::executePlanOperation() {
 
   // Prepare a result that contains the result semi-compressed, and only row-wise
   storage::metadata_list meta(table->columnCount());
-  for(size_t i=0; i<table->columnCount(); ++i)
+  for (size_t i = 0; i < table->columnCount(); ++i)
     meta[i] = table->metadataAt(i);
   auto result = std::make_shared<storage::Table>(&meta,
                                                  nullptr,
-                                                 0,  /* initial size */
+                                                 0, /* initial size */
                                                  false, /* sorted */
                                                  false /* compressed */);
 
@@ -89,16 +76,15 @@ void SimpleRawTableScan::executePlanOperation() {
   auto positions = new storage::pos_list_t;
 
   size_t tabSize = table->size();
-  for(size_t row=0; row < tabSize; ++row) {
+  for (size_t row = 0; row < tabSize; ++row) {
     if ((*_comparator)(row)) {
       if (_materializing) {
         result->resize(result->size() + 1);
-        for(size_t i=0; i < result->columnCount(); ++i) {
+        for (size_t i = 0; i < result->columnCount(); ++i) {
           fun.setValues(result->size() - 1, row, i);
           ts(table->typeOfColumn(i), fun);
         }
-      }
-      else {
+      } else {
         positions->push_back(row);
       }
     }
@@ -111,7 +97,7 @@ void SimpleRawTableScan::executePlanOperation() {
   }
 }
 
-std::shared_ptr<PlanOperation> SimpleRawTableScan::parse(const Json::Value &data) {
+std::shared_ptr<PlanOperation> SimpleRawTableScan::parse(const Json::Value& data) {
   if (!data.isMember("predicates")) {
     throw std::runtime_error("There is no reason for a Selection without predicates");
   }
@@ -120,9 +106,6 @@ std::shared_ptr<PlanOperation> SimpleRawTableScan::parse(const Json::Value &data
   return std::make_shared<SimpleRawTableScan>(buildExpression(data["predicates"]), mat);
 }
 
-const std::string SimpleRawTableScan::vname() {
-  return "SimpleRawTableScan";
-}
-
+const std::string SimpleRawTableScan::vname() { return "SimpleRawTableScan"; }
 }
 }
