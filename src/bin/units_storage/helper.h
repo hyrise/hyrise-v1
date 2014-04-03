@@ -9,6 +9,13 @@
 
 #include <algorithm>
 
+// a random int table generator
+hyrise::storage::atable_ptr_t int_random_table(const size_t rows,
+                                               const size_t cols,
+                                               std::vector<size_t> partitions = {});
+// a modifiable empty table generator
+hyrise::storage::atable_ptr_t empty_table(const size_t rows, const size_t cols, std::vector<size_t> partitions = {});
+
 template <typename HT>
 ::testing::AssertionResult AssertHashTableFully(hyrise::storage::atable_ptr_t table, const field_list_t& columns) {
   HT ht(table, columns);
