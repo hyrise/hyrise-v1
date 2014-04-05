@@ -30,6 +30,26 @@ void insertDelta(std::shared_ptr<storage::AbstractTable> main, std::string delta
   is.execute();
 }
 
+template <std::size_t numberOfOffsets, std::size_t numberOfPostings, typename T>
+void assertIndex(std::string indexName, std::array<pos_t, numberOfOffsets>& offsetsResults, std::array<pos_t, numberOfPostings>& postingsResults) {
+  auto sm = io::StorageManager::getInstance();
+
+  auto index = std::dynamic_pointer_cast<storage::GroupkeyIndex<T>>(sm->getInvertedIndex(indexName));
+
+  auto postingsIterator = index->postingsBegin();
+  auto offsetsIterator = index->offsetsBegin();
+
+  for (uint32_t i = 0; i < numberOfOffsets; ++i, ++offsetsIterator) {
+    ASSERT_EQ(*offsetsIterator, offsetsResults[i]);
+  }
+  ASSERT_EQ(offsetsIterator, index->offsetsEnd());
+
+  for (uint32_t i = 0; i < numberOfPostings; ++i, ++postingsIterator) {
+    ASSERT_EQ(*postingsIterator, postingsResults[i]);
+  }
+  ASSERT_EQ(postingsIterator, index->postingsEnd());
+}
+
 TEST_F(StoreAltMergeTests, singleColumnInt) {
   auto table = io::Loader::shortcuts::load("test/tables/employee_id.tbl");
   auto reference = io::Loader::shortcuts::load("test/reference/AltStoreMerge_singleColumnInt.tbl");
@@ -189,6 +209,46 @@ TEST_F(StoreAltMergeTests, threeColumnsWithGroupKeyIndex) {
     ASSERT_EQ(*postingsIterator, postingsResults[i]);
   }
   ASSERT_EQ(postingsIterator, index->postingsEnd());
+}
+
+TEST_F(StoreAltMergeTests, threeColumnsWithThreeGroupKeyIndexes) {
+  auto table = io::Loader::shortcuts::load("test/tables/employeesAlternative.tbl");
+
+  CreateGroupkeyIndex ci;
+  ci.addInput(table);
+  ci.addField(0);
+  ci.setIndexName("test_main_idx_0");
+  ci.execute();
+
+  CreateGroupkeyIndex ci2;
+  ci2.addInput(table);
+  ci2.addField(1);
+  ci2.setIndexName("test_main_idx_1");
+  ci2.execute();
+
+  CreateGroupkeyIndex ci3;
+  ci3.addInput(table);
+  ci3.addField(2);
+  ci3.setIndexName("test_main_idx_2");
+  ci3.execute();
+
+  insertDelta(table, "test/tables/employeesAlternative_delta.tbl");
+
+  MergeStoreAlt msa;
+  msa.addInput(table);
+  msa.execute();
+
+  std::array<pos_t, 10> offsetsResults0 = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+  std::array<pos_t, 9> postingsResults0 = {0, 1, 2, 3, 4, 5, 6, 7, 8};
+  assertIndex<10, 9, hyrise_int_t>("test_main_idx_0", offsetsResults0, postingsResults0);
+
+  std::array<pos_t, 8> offsetsResults1 = {0, 1, 2, 3, 5, 6, 7, 9};
+  std::array<pos_t, 9> postingsResults1 = {1, 4, 2, 7, 8, 3, 5, 0, 6};
+  assertIndex<8, 9, hyrise_float_t>("test_main_idx_1", offsetsResults1, postingsResults1);
+
+  std::array<pos_t, 10> offsetsResults2 = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+  std::array<pos_t, 9> postingsResults2 = {2, 8, 5, 4, 7, 1, 0, 6, 3};
+  assertIndex<10, 9, hyrise_string_t>("test_main_idx_2", offsetsResults2, postingsResults2);
 }
 
 TEST_F(StoreAltMergeTests, singleColumnWithGroupKeyIndexDoubleMerge) {
