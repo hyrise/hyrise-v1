@@ -31,7 +31,7 @@ void insertDelta(std::shared_ptr<storage::AbstractTable> main, std::string delta
 }
 
 template <std::size_t numberOfOffsets, std::size_t numberOfPostings, typename T>
-void assertIndex(std::string indexName, std::array<pos_t, numberOfOffsets>& offsetsResults, std::array<pos_t, numberOfPostings>& postingsResults) {
+void assertIndexEQ(std::string indexName, std::array<pos_t, numberOfOffsets>& offsetsResults, std::array<pos_t, numberOfPostings>& postingsResults) {
   auto sm = io::StorageManager::getInstance();
 
   auto index = std::dynamic_pointer_cast<storage::GroupkeyIndex<T>>(sm->getInvertedIndex(indexName));
@@ -138,9 +138,6 @@ TEST_F(StoreAltMergeTests, singleColumnDoubleMerge) {
 TEST_F(StoreAltMergeTests, singleColumnWithGroupKeyIndex) {
   auto table = io::Loader::shortcuts::load("test/tables/employee_id.tbl");
 
-  const uint32_t numberOfOffsets = 10;
-  const uint32_t numberOfPostings = 13;
-
   CreateGroupkeyIndex ci;
   ci.addInput(table);
   ci.addField(0);
@@ -153,31 +150,13 @@ TEST_F(StoreAltMergeTests, singleColumnWithGroupKeyIndex) {
   msa.addInput(table);
   msa.execute();
 
-  auto sm = io::StorageManager::getInstance();
-  auto index = std::dynamic_pointer_cast<storage::GroupkeyIndex<hyrise_int_t>>(sm->getInvertedIndex("test_main_idx_0"));
-
-  auto postingsIterator = index->postingsBegin();
-  auto offsetsIterator = index->offsetsBegin();
-
-  pos_t offsetsResults[numberOfOffsets] = {0, 1, 3, 4, 6, 7, 9, 10, 12, 13};
-  pos_t postingsResults[numberOfPostings] = {0, 1, 11, 3, 2, 4, 5, 6, 10, 8, 9, 12, 7};
-
-  for (uint32_t i = 0; i < numberOfOffsets; ++i, ++offsetsIterator) {
-    ASSERT_EQ(*offsetsIterator, offsetsResults[i]);
-  }
-  ASSERT_EQ(offsetsIterator, index->offsetsEnd());
-
-  for (uint32_t i = 0; i < numberOfPostings; ++i, ++postingsIterator) {
-    ASSERT_EQ(*postingsIterator, postingsResults[i]);
-  }
-  ASSERT_EQ(postingsIterator, index->postingsEnd());
+  std::array<pos_t, 10> offsetsResults = {0, 1, 3, 4, 6, 7, 9, 10, 12, 13};
+  std::array<pos_t, 13> postingsResults = {0, 1, 11, 3, 2, 4, 5, 6, 10, 8, 9, 12, 7};
+  assertIndexEQ<10, 13, hyrise_int_t>("test_main_idx_0", offsetsResults, postingsResults);
 }
 
 TEST_F(StoreAltMergeTests, threeColumnsWithGroupKeyIndex) {
   auto table = io::Loader::shortcuts::load("test/tables/employeesAlternative.tbl");
-
-  const uint32_t numberOfOffsets = 8;
-  const uint32_t numberOfPostings = 9;
 
   CreateGroupkeyIndex ci;
   ci.addInput(table);
@@ -191,24 +170,9 @@ TEST_F(StoreAltMergeTests, threeColumnsWithGroupKeyIndex) {
   msa.addInput(table);
   msa.execute();
 
-  auto sm = io::StorageManager::getInstance();
-  auto index = std::dynamic_pointer_cast<storage::GroupkeyIndex<hyrise_float_t>>(sm->getInvertedIndex("test_main_idx_1"));
-
-  auto postingsIterator = index->postingsBegin();
-  auto offsetsIterator = index->offsetsBegin();
-
-  pos_t offsetsResults[numberOfOffsets] = {0, 1, 2, 3, 5, 6, 7, 9};
-  pos_t postingsResults[numberOfPostings] = {1, 4, 2, 7, 8, 3, 5, 0, 6};
-
-  for (uint32_t i = 0; i < numberOfOffsets; ++i, ++offsetsIterator) {
-    ASSERT_EQ(*offsetsIterator, offsetsResults[i]);
-  }
-  ASSERT_EQ(offsetsIterator, index->offsetsEnd());
-
-  for (uint32_t i = 0; i < numberOfPostings; ++i, ++postingsIterator) {
-    ASSERT_EQ(*postingsIterator, postingsResults[i]);
-  }
-  ASSERT_EQ(postingsIterator, index->postingsEnd());
+  std::array<pos_t, 8> offsetsResults = {0, 1, 2, 3, 5, 6, 7, 9};
+  std::array<pos_t, 9> postingsResults = {1, 4, 2, 7, 8, 3, 5, 0, 6};
+  assertIndexEQ<8, 9, hyrise_float_t>("test_main_idx_1", offsetsResults, postingsResults);
 }
 
 TEST_F(StoreAltMergeTests, threeColumnsWithThreeGroupKeyIndexes) {
@@ -240,22 +204,19 @@ TEST_F(StoreAltMergeTests, threeColumnsWithThreeGroupKeyIndexes) {
 
   std::array<pos_t, 10> offsetsResults0 = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
   std::array<pos_t, 9> postingsResults0 = {0, 1, 2, 3, 4, 5, 6, 7, 8};
-  assertIndex<10, 9, hyrise_int_t>("test_main_idx_0", offsetsResults0, postingsResults0);
+  assertIndexEQ<10, 9, hyrise_int_t>("test_main_idx_0", offsetsResults0, postingsResults0);
 
   std::array<pos_t, 8> offsetsResults1 = {0, 1, 2, 3, 5, 6, 7, 9};
   std::array<pos_t, 9> postingsResults1 = {1, 4, 2, 7, 8, 3, 5, 0, 6};
-  assertIndex<8, 9, hyrise_float_t>("test_main_idx_1", offsetsResults1, postingsResults1);
+  assertIndexEQ<8, 9, hyrise_float_t>("test_main_idx_1", offsetsResults1, postingsResults1);
 
   std::array<pos_t, 10> offsetsResults2 = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
   std::array<pos_t, 9> postingsResults2 = {2, 8, 5, 4, 7, 1, 0, 6, 3};
-  assertIndex<10, 9, hyrise_string_t>("test_main_idx_2", offsetsResults2, postingsResults2);
+  assertIndexEQ<10, 9, hyrise_string_t>("test_main_idx_2", offsetsResults2, postingsResults2);
 }
 
 TEST_F(StoreAltMergeTests, singleColumnWithGroupKeyIndexDoubleMerge) {
   auto table = io::Loader::shortcuts::load("test/tables/employee_id.tbl");
-
-  const uint32_t numberOfOffsets = 11;
-  const uint32_t numberOfPostings = 20;
 
   CreateGroupkeyIndex ci;
   ci.addInput(table);
@@ -274,24 +235,9 @@ TEST_F(StoreAltMergeTests, singleColumnWithGroupKeyIndexDoubleMerge) {
   msa.addInput(table);
   msa.execute();
 
-  auto sm = io::StorageManager::getInstance();
-  auto index = std::dynamic_pointer_cast<storage::GroupkeyIndex<hyrise_int_t>>(sm->getInvertedIndex("test_main_idx_0"));
-
-  auto postingsIterator = index->postingsBegin();
-  auto offsetsIterator = index->offsetsBegin();
-
-  pos_t offsetsResults[numberOfOffsets] = {0, 1, 4, 5, 7, 8, 11, 13, 17, 19, 20};
-  pos_t postingsResults[numberOfPostings] = {0, 1, 11, 17, 3, 2, 4, 5, 6, 10, 16, 8, 14, 9, 12, 15, 18, 7, 13, 19};
-
-  for (uint32_t i = 0; i < numberOfOffsets; ++i, ++offsetsIterator) {
-    ASSERT_EQ(*offsetsIterator, offsetsResults[i]);
-  }
-  ASSERT_EQ(offsetsIterator, index->offsetsEnd());
-
-  for (uint32_t i = 0; i < numberOfPostings; ++i, ++postingsIterator) {
-    ASSERT_EQ(*postingsIterator, postingsResults[i]);
-  }
-  ASSERT_EQ(postingsIterator, index->postingsEnd());
+  std::array<pos_t, 11> offsetsResults = {0, 1, 4, 5, 7, 8, 11, 13, 17, 19, 20};
+  std::array<pos_t, 20> postingsResults = {0, 1, 11, 17, 3, 2, 4, 5, 6, 10, 16, 8, 14, 9, 12, 15, 18, 7, 13, 19};
+  assertIndexEQ<11, 20, hyrise_int_t>("test_main_idx_0", offsetsResults, postingsResults);
 }
 
 }
