@@ -30,9 +30,9 @@ void insertDelta(std::shared_ptr<storage::AbstractTable> main, std::string delta
   is.execute();
 }
 
-TEST_F(StoreAltMergeTests, singleColumn) {
+TEST_F(StoreAltMergeTests, singleColumnInt) {
   auto table = io::Loader::shortcuts::load("test/tables/employee_id.tbl");
-  auto reference = io::Loader::shortcuts::load("test/reference/AltStoreMerge_singleColumn.tbl");
+  auto reference = io::Loader::shortcuts::load("test/reference/AltStoreMerge_singleColumnInt.tbl");
 
   insertDelta(table, "test/tables/employee_id_delta.tbl");
 
@@ -43,6 +43,38 @@ TEST_F(StoreAltMergeTests, singleColumn) {
   const auto &result = msa.getResultTable();
 
   ASSERT_EQ(13u, result->size());
+  ASSERT_TABLE_EQUAL(result, reference);
+}
+
+TEST_F(StoreAltMergeTests, singleColumnFloat) {
+  auto table = io::Loader::shortcuts::load("test/tables/employee_value.tbl");
+  auto reference = io::Loader::shortcuts::load("test/reference/AltStoreMerge_singleColumnFloat.tbl");
+
+  insertDelta(table, "test/tables/employee_value_delta.tbl");
+
+  MergeStoreAlt msa;
+  msa.addInput(table);
+  msa.execute();
+
+  const auto &result = msa.getResultTable();
+
+  ASSERT_EQ(9u, result->size());
+  ASSERT_TABLE_EQUAL(result, reference);
+}
+
+TEST_F(StoreAltMergeTests, singleColumnString) {
+  auto table = io::Loader::shortcuts::load("test/tables/employee_name.tbl");
+  auto reference = io::Loader::shortcuts::load("test/reference/AltStoreMerge_singleColumnString.tbl");
+
+  insertDelta(table, "test/tables/employee_name_delta.tbl");
+
+  MergeStoreAlt msa;
+  msa.addInput(table);
+  msa.execute();
+
+  const auto &result = msa.getResultTable();
+
+  ASSERT_EQ(9u, result->size());
   ASSERT_TABLE_EQUAL(result, reference);
 }
 
