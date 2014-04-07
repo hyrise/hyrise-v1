@@ -109,13 +109,7 @@ class Store : public AbstractTable {
   void addDeltaIndex(std::shared_ptr<AbstractIndex> index, std::vector<size_t> columns);
   void addRowToDeltaIndices(pos_t row);
   std::vector<std::vector<size_t>> getIndexedColumns() const;
-  void lock() {
-    _write_lock.lock();
-    ;
-  };
-  void unlock() {
-    _write_lock.unlock();
-  };
+
   virtual void enableLogging();
   virtual void setName(const std::string name);
 
@@ -150,12 +144,6 @@ class Store : public AbstractTable {
   }
 
  private:
-  // RW-lock protecting store data structures
-  mutable pthread_rwlock_t _rw_lock;
-
-  // lock for high congestion tables
-  locking::Spinlock _write_lock;
-
   std::atomic<std::size_t> _delta_size;
   // size_t _max_delta_size;
 
