@@ -4,6 +4,7 @@
 #include "access/system/BasicParser.h"
 #include "access/system/QueryParser.h"
 
+#include "storage/FixedLengthVector.h"
 #include "storage/MutableVerticalTable.h"
 #include "storage/PointerCalculator.h"
 

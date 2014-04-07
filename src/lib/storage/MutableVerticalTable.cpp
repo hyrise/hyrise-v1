@@ -8,44 +8,6 @@
 namespace hyrise {
 namespace storage {
 
-MutableVerticalTable::MutableVerticalTable(std::vector<std::vector<ColumnMetadata>*> metadata,
-                                           std::vector<std::vector<adict_ptr_t>*>* dictionaries,
-                                           size_t size,
-                                           bool sorted,
-                                           bool compressed) {
-  for (size_t i = 0; i < metadata.size(); i++) {
-    std::vector<AbstractTable::SharedDictionaryPtr>* dict = nullptr;
-
-    if (dictionaries)
-      dict = dictionaries->at(i);
-
-    containers.push_back(std::make_shared<Table>(metadata[i], dict, size, sorted));
-  }
-
-  column_count = 0;
-
-  for (size_t i = 0; i < containers.size(); i++) {
-    column_count += containers[i]->columnCount();
-  }
-
-  // size_t container = 0;
-  slice_count = 0;
-
-  for (size_t i = 0; i < containers.size(); i++) {
-    for (size_t j = 0; j < containers[i]->columnCount(); j++) {
-      container_for_column.push_back(i);
-      offset_in_container.push_back(j);
-    }
-
-    for (size_t s = 0; s < containers[i]->partitionCount(); s++) {
-      container_for_slice.push_back(i);
-      slice_offset_in_container.push_back(s);
-      slice_count++;
-    }
-  }
-  reserve(size);
-}
-
 MutableVerticalTable::MutableVerticalTable(std::vector<atable_ptr_t> tables, size_t size) : column_count(0) {
   size_t cnum = 0;
   slice_count = 0;

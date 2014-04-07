@@ -25,13 +25,7 @@ namespace storage {
  * can be any subclass of AbstractTable.
  */
 class MutableVerticalTable : public AbstractTable {
-
  public:
-  MutableVerticalTable(std::vector<std::vector<ColumnMetadata>*> metadata,
-                       std::vector<std::vector<adict_ptr_t>*>* dictionaries = nullptr,
-                       size_t size = 0,
-                       bool sorted = true,
-                       bool compressed = true) __attribute__((deprecated));
   MutableVerticalTable(std::vector<atable_ptr_t> cs, size_t size = 0);
   virtual ~MutableVerticalTable();
 
