@@ -70,7 +70,8 @@ class Table : public AbstractTable {
         bool sorted = true,
         bool compressed = true,
         bool nonvolatile = false,
-        const std::string& tableName = "");
+        const std::string& tableName = "")
+  __attribute__((deprecated("Use Table(meta, attrv, vector-of-dicts instead)")));
 
   // Construct table from vector of metadata,
   // a storage vector and dictionaries
@@ -111,11 +112,12 @@ class Table : public AbstractTable {
                                       const bool reuse_dict = false,
                                       const size_t initial_size = 0,
                                       const bool with_containers = true,
-                                      const bool compressed = false) const;
+                                      const bool compressed = false) const override;
 
   virtual atable_ptr_t copy_structure_modifiable(const field_list_t* fields = nullptr,
                                                  const size_t initial_size = 0,
-                                                 const bool with_containers = true) const;
+                                                 const bool with_containers = true,
+                                                 bool nonvolatile = false) const override;
   virtual atable_ptr_t copy_structure(abstract_dictionary_callback, abstract_attribute_vector_callback) const override;
 
   void setAttributes(SharedAttributeVector b);
@@ -139,6 +141,18 @@ class Table : public AbstractTable {
   void persist_scattered(const pos_list_t& elements, bool new_elements = true) const override;
 
   virtual void debugStructure(size_t level = 0) const;
+
+ private:
+  enum class DICTIONARY_FLAG {
+    CREATE,
+    REUSE
+  };
+
+  atable_ptr_t copy_structure_common(const std::vector<size_t>& fields_to_copy,
+                                     size_t initial_size,
+                                     DICTIONARY_FLAG dictionary_policy,
+                                     COMPRESSION_FLAG compression,
+                                     CONCURRENCY_FLAG concurrency) const;
 };
 }
 }  // namespace hyrise::storage

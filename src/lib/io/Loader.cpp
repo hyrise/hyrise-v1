@@ -9,6 +9,7 @@
 #include "storage/AbstractTable.h"
 #include "storage/AbstractMergeStrategy.h"
 #include "storage/DictionaryFactory.h"
+#include "storage/FixedLengthVector.h"
 #include "storage/SequentialHeapMerger.h"
 #include "storage/SimpleStore.h"
 #include "storage/Store.h"
