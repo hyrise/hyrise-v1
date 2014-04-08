@@ -14,7 +14,7 @@ class ConcurrentFixedLengthVector : public AbstractFixedLengthVector<T> {
       : _columns(columns), _size(rows), _values(columns * rows) {}
 
   // Increment the value by 1
-  T inc(size_t column, size_t row) {
+  virtual T inc(size_t column, size_t row) override {
     check_access(column, row);
     return _values.at(row * _columns + column)++;
   }

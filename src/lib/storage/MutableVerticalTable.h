@@ -13,7 +13,6 @@
 #include "helper/types.h"
 
 #include "storage/Table.h"
-#include "storage/TableFactory.h"
 #include "storage/ColumnMetadata.h"
 #include "storage/AbstractTable.h"
 
@@ -26,14 +25,7 @@ namespace storage {
  * can be any subclass of AbstractTable.
  */
 class MutableVerticalTable : public AbstractTable {
-
  public:
-  MutableVerticalTable(std::vector<std::vector<ColumnMetadata>*> metadata,
-                       std::vector<std::vector<adict_ptr_t>*>* dictionaries = nullptr,
-                       size_t size = 0,
-                       bool sorted = true,
-                       AbstractTableFactory* factory = nullptr,
-                       bool compressed = true);
   MutableVerticalTable(std::vector<atable_ptr_t> cs, size_t size = 0);
   virtual ~MutableVerticalTable();
 

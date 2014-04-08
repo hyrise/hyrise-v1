@@ -4,6 +4,7 @@
 #include "access/system/BasicParser.h"
 #include "access/system/QueryParser.h"
 
+#include "storage/FixedLengthVector.h"
 #include "storage/MutableVerticalTable.h"
 #include "storage/PointerCalculator.h"
 
@@ -31,27 +32,27 @@ void NestedLoopEquiJoin::executePlanOperation() {
   // cast down left hash table, first column contains hashes (value_id_t), second column contains pos_t
   const auto& lavs0 = hleft->getAttributeVectors(0);
   const auto& lhvector =
-      std::dynamic_pointer_cast<storage::ConcurrentFixedLengthVector<value_id_t>>(lavs0.at(0).attribute_vector);
+      std::dynamic_pointer_cast<storage::AbstractFixedLengthVector<value_id_t>>(lavs0.at(0).attribute_vector);
   const auto& lavs1 = hleft->getAttributeVectors(1);
   const auto& lpvector =
-      std::dynamic_pointer_cast<storage::ConcurrentFixedLengthVector<value_id_t>>(lavs1.at(0).attribute_vector);
+      std::dynamic_pointer_cast<storage::AbstractFixedLengthVector<value_id_t>>(lavs1.at(0).attribute_vector);
   // cast down left prefix sum table
   const auto& lavsp = pleft->getAttributeVectors(0);
   const auto& lprefixvector =
-      std::dynamic_pointer_cast<storage::ConcurrentFixedLengthVector<value_id_t>>(lavsp.at(0).attribute_vector);
+      std::dynamic_pointer_cast<storage::AbstractFixedLengthVector<value_id_t>>(lavsp.at(0).attribute_vector);
   const size_t lprefixvector_size = lprefixvector->size();
 
   // cast down right hash table
   const auto& ravs0 = hright->getAttributeVectors(0);
   const auto& rhvector =
-      std::dynamic_pointer_cast<storage::ConcurrentFixedLengthVector<value_id_t>>(ravs0.at(0).attribute_vector);
+      std::dynamic_pointer_cast<storage::AbstractFixedLengthVector<value_id_t>>(ravs0.at(0).attribute_vector);
   const auto& ravs1 = hright->getAttributeVectors(1);
   const auto& rpvector =
-      std::dynamic_pointer_cast<storage::ConcurrentFixedLengthVector<value_id_t>>(ravs1.at(0).attribute_vector);
+      std::dynamic_pointer_cast<storage::AbstractFixedLengthVector<value_id_t>>(ravs1.at(0).attribute_vector);
   // cast down right first prefix sum table
   const auto& ravsp = pright->getAttributeVectors(0);
   const auto& rprefixvector =
-      std::dynamic_pointer_cast<storage::ConcurrentFixedLengthVector<value_id_t>>(ravsp.at(0).attribute_vector);
+      std::dynamic_pointer_cast<storage::AbstractFixedLengthVector<value_id_t>>(ravsp.at(0).attribute_vector);
   const size_t rprefixvector_size = rprefixvector->size();
 
   // Prepare mask for right prefix sum

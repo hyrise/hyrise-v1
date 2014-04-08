@@ -25,8 +25,7 @@ void PrefixSum::executePlanOperation() {
   auto output = std::make_shared<storage::Table>(&metadata, nullptr, table_size, true, false);
   output->resize(table_size);
   const auto& oavs = output->getAttributeVectors(0);
-  auto ovector =
-      std::dynamic_pointer_cast<storage::ConcurrentFixedLengthVector<value_id_t>>(oavs.at(0).attribute_vector);
+  auto ovector = std::dynamic_pointer_cast<storage::AbstractFixedLengthVector<value_id_t>>(oavs.at(0).attribute_vector);
 
   // Build ivector list to avoid lock contention while getting the vectors
   const size_t ivec_size = input.numberOfTables();
@@ -98,7 +97,7 @@ void MergePrefixSum::executePlanOperation() {
 
   const auto& res_vec = getDataVector(result).first;
 
-  std::vector<std::shared_ptr<storage::ConcurrentFixedLengthVector<value_id_t>>> vecs;
+  std::vector<std::shared_ptr<storage::AbstractFixedLengthVector<value_id_t>>> vecs;
   for (size_t i = 0, stop = input.numberOfTables(); i < stop; ++i) {
     vecs.emplace_back(getDataVector(getInputTable(i)).first);
   }

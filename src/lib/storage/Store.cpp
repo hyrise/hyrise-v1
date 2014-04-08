@@ -311,8 +311,8 @@ std::pair<size_t, size_t> Store::resizeDelta(size_t num) {
 
 
 std::pair<size_t, size_t> Store::appendToDelta(size_t num_rows) {
-
-  std::lock_guard<locking::Spinlock> lck(_write_lock);
+  static locking::Spinlock append_lock;
+  std::lock_guard<locking::Spinlock> lck(append_lock);
   // NOTE: there are some problems if we execute this without above spinlock, which have to be found yet.
 
   // By atomically drawing a range of rows unique to the calling thread...

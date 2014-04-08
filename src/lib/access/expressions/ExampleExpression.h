@@ -15,7 +15,7 @@ namespace access {
 
 class ExampleExpression : public AbstractExpression {
   storage::c_atable_ptr_t _table;
-  std::shared_ptr<storage::ConcurrentFixedLengthVector<value_id_t>> _vector;
+  std::shared_ptr<storage::FixedLengthVector<value_id_t>> _vector;
   std::shared_ptr<storage::OrderPreservingDictionary<hyrise_int_t>> _dict;
   const size_t _column;
   const hyrise_int_t _value;
