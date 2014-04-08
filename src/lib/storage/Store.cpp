@@ -165,10 +165,10 @@ template <typename T>
 void Store::columnStoreMergeDictionary(uint64_t i, atable_ptr_t newMain) {
   std::shared_ptr<OrderPreservingDictionary<T>> newDict = nullptr;
 
-  if (_main_indices.size() < _currentIndexToMerge + 1 || _main_indices.at(_currentIndexToMerge).second.at(0) != i || !_main_indices.at(_currentIndexToMerge++).first->recreateIndexMergeDict(i, _main_table, delta, newMain, newDict, x, Vd.at(i))) {
+  if (_main_indices.size() < _currentIndexToMerge + 1 || _main_indices[_currentIndexToMerge].second[0] != i || !_main_indices[_currentIndexToMerge++].first->recreateIndexMergeDict(i, _main_table, delta, newMain, newDict, x, Vd[i])) {
       std::shared_ptr<hyrise::storage::OrderPreservingDictionary<T>> mainDictionary = std::dynamic_pointer_cast<storage::OrderPreservingDictionary<T>>(_main_table->dictionaryAt(i, 0, 0));
 
-      std::shared_ptr<hyrise::storage::ConcurrentFixedLengthVector<value_id_t>> deltaVector = std::dynamic_pointer_cast<storage::ConcurrentFixedLengthVector<value_id_t>>(delta->getAttributeVectors(i).at(0).attribute_vector);
+      std::shared_ptr<hyrise::storage::ConcurrentFixedLengthVector<value_id_t>> deltaVector = std::dynamic_pointer_cast<storage::ConcurrentFixedLengthVector<value_id_t>>(delta->getAttributeVectors(i)[0].attribute_vector);
       std::shared_ptr<hyrise::storage::ConcurrentUnorderedDictionary<T>> deltaDictionary = std::dynamic_pointer_cast<storage::ConcurrentUnorderedDictionary<T>>(delta->dictionaryAt(i, 0, 0));
 
       newDict = std::make_shared<OrderPreservingDictionary<T>>(deltaDictionary->size());
@@ -202,7 +202,7 @@ void Store::columnStoreMergeDictionary(uint64_t i, atable_ptr_t newMain) {
           // TODO: optimize
           for (size_t j = 0; j < deltaVector->size(); ++j) {
             if (deltaDictionary->getValueForValueId(deltaVector->getRef(0, j)) == *itDelta) {
-              Vd.at(i)[j] = n;
+              Vd[i][j] = n;
             }
           }
           ++itDelta;
@@ -214,8 +214,8 @@ void Store::columnStoreMergeDictionary(uint64_t i, atable_ptr_t newMain) {
       x.push_back(xColumn);
 
       // Index present, but recreateIndexMergeDict not implemented
-      if (_main_indices.size() > 0 && _main_indices.at(_currentIndexToMerge > 0 ? _currentIndexToMerge - 1 : 0).second.at(0) == i) {
-        _main_indices.at(0).first->recreateIndex(newMain);
+      if (_main_indices.size() > 0 && _main_indices[_currentIndexToMerge > 0 ? _currentIndexToMerge - 1 : 0].second[0] == i) {
+        _main_indices[0].first->recreateIndex(newMain);
       }
   }
 }
@@ -226,11 +226,11 @@ void Store::columnStoreMergeValues(uint64_t i, atable_ptr_t newMain) {
   std::shared_ptr<hyrise::storage::BaseAttributeVector<value_id_t>> mainVector = std::dynamic_pointer_cast<storage::BaseAttributeVector<value_id_t>>(_main_table->getAttributeVectors(i).at(0).attribute_vector);
 
   for (size_t j = 0; j < mainTableSize; ++j) {
-    newMain->setValueId(i, j, ValueId{mainVector->get(0, j) + x.at(i).at(mainVector->get(0, j)), 0});
+    newMain->setValueId(i, j, ValueId{mainVector->get(0, j) + x[i][mainVector->get(0, j)], 0});
   }
 
   for (size_t j = mainTableSize; j < overAllSize; ++j) {
-    newMain->setValueId(i, j, ValueId{Vd.at(i)[j - mainTableSize], 0});
+    newMain->setValueId(i, j, ValueId{Vd[i][j - mainTableSize], 0});
   }
 }
 
@@ -263,7 +263,7 @@ void Store::columnStoreMerge() {
 
   for (size_t i = 0; i < columnCount(); ++i) {
     columnStoreMergeValues(i, newMain);
-    free(Vd.at(i));
+    free(Vd[i]);
   }
 
   Vd.erase(Vd.begin(), Vd.end());
