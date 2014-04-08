@@ -21,8 +21,7 @@ class SimpleTableScan : public ParallelizablePlanOperation {
   };
 
  public:
-  SimpleTableScan();
-  SimpleTableScan(const Parameters& parameters);
+  SimpleTableScan(const Parameters& parameters = Parameters());
   virtual ~SimpleTableScan();
 
   void setupPlanOperation();
@@ -34,8 +33,9 @@ class SimpleTableScan : public ParallelizablePlanOperation {
   void setPredicate(SimpleExpression* c);
 
  private:
+  Parameters _parameters;
+
   SimpleExpression* _comparator;
-  bool _ofDelta;
 };
 }
 }

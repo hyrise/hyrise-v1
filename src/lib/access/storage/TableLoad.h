@@ -25,8 +25,7 @@ class TableLoad : public PlanOperation {
   };
 
  public:
-  TableLoad();
-  TableLoad(const Parameters& parameters);
+  TableLoad(const Parameters& parameters = Parameters());
   virtual ~TableLoad();
 
   void executePlanOperation();
@@ -37,23 +36,12 @@ class TableLoad : public PlanOperation {
   void setPath(const std::string& path);
   void setHeaderFileName(const std::string& filename);
   void setHeaderString(const std::string& header);
-  void setBinary(const bool binary);
   void setUnsafe(const bool unsafe);
   void setRaw(const bool raw);
   void setDelimiter(const std::string& d);
-  void setNonvolatile(const bool nonvolatile);
 
  private:
-  std::string _table_name;
-  std::string _file_name;
-  std::optional<std::string> _header_file_name;
-  std::optional<std::string> _header_string;
-  std::optional<std::string> _delimiter;
-  std::optional<std::string> _path;
-  std::optional<bool> _unsafe;
-  std::optional<bool> _raw;
-  bool _nonvolatile;
-  bool _binary;
+  Parameters _parameters;
 };
 }
 }
