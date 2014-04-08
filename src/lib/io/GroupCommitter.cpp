@@ -27,9 +27,6 @@ GroupCommitter::~GroupCommitter() {
 }
 
 void GroupCommitter::run() {
-
-  std::cout << "Group-Committer started..." << std::endl;
-
   // bind to numa node
   bindCurrentThreadToNumaNode(0);
 
