@@ -64,7 +64,8 @@ struct QueryParserFactory<T, cereal_construct> : public AbstractQueryParserFacto
 
   virtual std::shared_ptr<PlanOperation> parse(const Json::Value& data) {
     std::stringstream ss;
-    ss << data.toStyledString();
+    Json::FastWriter writer;
+    ss << writer.write(data);
 
     cereal::JSONInputArchive archive(ss);
 
