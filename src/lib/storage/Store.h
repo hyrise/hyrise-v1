@@ -47,9 +47,9 @@ class Store : public AbstractTable {
   atable_ptr_t getDeltaTable() const;
   size_t deltaOffset() const;
   void merge();
-  template <typename T> void altMergeDictionary(uint64_t i, atable_ptr_t newMain);
-  void altMergeValues(uint64_t i, atable_ptr_t newMain);
-  void altMerge();
+  template <typename T> void columnStoreMergeDictionary(uint64_t i, atable_ptr_t newMain);
+  void columnStoreMergeValues(uint64_t i, atable_ptr_t newMain);
+  void columnStoreMerge();
 
   /// Replaces the merger used for merging main tables with delta.
   /// @param _merger Pointer to a merger instance.

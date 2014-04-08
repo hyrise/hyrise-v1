@@ -149,7 +149,7 @@ class GroupkeyIndex : public AbstractIndex {
         count = 0;
         // TODO: optimize
         for (size_t j = 0; j < deltaVector->size(); ++j) {
-          if (deltaDictionary->getValueForValueId(deltaVector->getRef(i, j)) == *itDelta) {
+          if (deltaDictionary->getValueForValueId(deltaVector->getRef(0, j)) == *itDelta) {
             ++count;
             newPostings.push_back(j + mainTableSize);
             VdColumn[j] = n;

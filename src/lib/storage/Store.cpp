@@ -34,18 +34,18 @@ TableMerger* createDefaultMerger() {
 
 Store::Store() : merger(createDefaultMerger()) { setUuid(); }
 
-struct MergeRowFunctor {
+struct MergeColumnFunctor {
   typedef void value_type;
   size_t column;
   Store* s;
   atable_ptr_t newMain;
 
-  MergeRowFunctor(size_t c, Store* sp, atable_ptr_t newMain):
+  MergeColumnFunctor(size_t c, Store* sp, atable_ptr_t newMain):
     column(c), s(sp), newMain(newMain) {}
 
   template<typename R>
   value_type operator()() {
-    s->altMergeDictionary<R>(column, newMain);
+    s->columnStoreMergeDictionary<R>(column, newMain);
   }
 };
 
@@ -162,7 +162,7 @@ void Store::merge() {
 }
 
 template <typename T>
-void Store::altMergeDictionary(uint64_t i, atable_ptr_t newMain) {
+void Store::columnStoreMergeDictionary(uint64_t i, atable_ptr_t newMain) {
   std::shared_ptr<OrderPreservingDictionary<T>> newDict = nullptr;
 
   if (_main_indices.size() < _currentIndexToMerge + 1 || _main_indices.at(_currentIndexToMerge).second.at(0) != i || !_main_indices.at(_currentIndexToMerge++).first->recreateIndexMergeDict(i, _main_table, delta, newMain, newDict, x, Vd.at(i))) {
@@ -201,7 +201,7 @@ void Store::altMergeDictionary(uint64_t i, atable_ptr_t newMain) {
 
           // TODO: optimize
           for (size_t j = 0; j < deltaVector->size(); ++j) {
-            if (deltaDictionary->getValueForValueId(deltaVector->getRef(i, j)) == *itDelta) {
+            if (deltaDictionary->getValueForValueId(deltaVector->getRef(0, j)) == *itDelta) {
               Vd.at(i)[j] = n;
             }
           }
@@ -220,13 +220,13 @@ void Store::altMergeDictionary(uint64_t i, atable_ptr_t newMain) {
   }
 }
 
-void Store::altMergeValues(uint64_t i, atable_ptr_t newMain) {
+void Store::columnStoreMergeValues(uint64_t i, atable_ptr_t newMain) {
   size_t mainTableSize = _main_table->size();
   size_t overAllSize = this->size();
   std::shared_ptr<hyrise::storage::BaseAttributeVector<value_id_t>> mainVector = std::dynamic_pointer_cast<storage::BaseAttributeVector<value_id_t>>(_main_table->getAttributeVectors(i).at(0).attribute_vector);
 
   for (size_t j = 0; j < mainTableSize; ++j) {
-    newMain->setValueId(i, j, ValueId{mainVector->get(i, j) + x.at(i).at(mainVector->get(i, j)), 0});
+    newMain->setValueId(i, j, ValueId{mainVector->get(0, j) + x.at(i).at(mainVector->get(0, j)), 0});
   }
 
   for (size_t j = mainTableSize; j < overAllSize; ++j) {
@@ -234,7 +234,7 @@ void Store::altMergeValues(uint64_t i, atable_ptr_t newMain) {
   }
 }
 
-void Store::altMerge() {
+void Store::columnStoreMerge() {
   size_t overAllSize = this->size();
   atable_ptr_t newMain;
 
@@ -254,7 +254,7 @@ void Store::altMerge() {
     value_id_t* VdColumn = (value_id_t*)malloc(sizeof(value_id_t) * delta->size());
     Vd.push_back(VdColumn);
 
-    MergeRowFunctor fun(i, this, newMain);
+    MergeColumnFunctor fun(i, this, newMain);
     storage::type_switch<hyrise_basic_types> ts;
     ts(_main_table->typeOfColumn(i), fun);
   }
@@ -262,7 +262,7 @@ void Store::altMerge() {
   newMain->resize(overAllSize);
 
   for (size_t i = 0; i < columnCount(); ++i) {
-    altMergeValues(i, newMain);
+    columnStoreMergeValues(i, newMain);
     free(Vd.at(i));
   }
 
