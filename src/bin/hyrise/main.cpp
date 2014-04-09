@@ -5,6 +5,7 @@
 #include <sstream>
 #include <sys/time.h>
 #include <stdexcept>
+#include <boost/algorithm/string.hpp>
 
 #include <hwloc.h>
 #include <signal.h>
@@ -94,7 +95,7 @@ int main(int argc, char* argv[]) {
   std::string logPropertyFile;
   std::string scheduler_name;
   size_t maxTaskSize;
-  size_t core_offset = 0;
+  std::string numa_nodes_str;
   size_t checkpoint_interval = 0;
   bool recover = 0;
   bool recoverAndExit = 0;
@@ -120,8 +121,8 @@ int main(int argc, char* argv[]) {
           "recover,r", po::value<bool>(&recover)->zero_tokens(), "Recover tables on load")(
           "recoverAndExit,x",
           po::value<bool>(&recoverAndExit)->zero_tokens(),
-          "Recover tables on load and exit (for benchmarking purposes)")(
-          "coreOffset", po::value<size_t>(&core_offset)->default_value(0), "Offset for binding threads to cores")
+          "Recover tables on load and exit (for benchmarking purposes)")
+      ("nodes", po::value<std::string>(&numa_nodes_str)->default_value(""), "comma-separated list of NUMA-nodes to use (e.g., 0,2) - defaults to all - CURRENTLY UNUSED")
 #ifdef PERSISTENCY_BUFFEREDLOGGER
       ("checkpointInterval,c",
        po::value<size_t>(&checkpoint_interval)->default_value(0),
@@ -145,12 +146,30 @@ int main(int argc, char* argv[]) {
     return EXIT_SUCCESS;
   }
 
+  // separate numa_nodes
+  std::vector<size_t> numa_nodes;
+  if(!numa_nodes_str.empty()) {
+    std::vector<std::string> numa_nodes_str_v;
+    boost::split(numa_nodes_str_v, numa_nodes_str, boost::is_any_of(","));
+    for(auto&&n : numa_nodes_str_v) numa_nodes.push_back(atoi(n.c_str()));
+  } else {
+    uint number_of_nodes = getNumberOfNodesOnSystem();
+    for(uint i = 0; i < number_of_nodes; ++i) numa_nodes.push_back(i);
+  }
+
+  // get available cores
+  std::vector<size_t> numa_cores;
+  for(auto n: numa_nodes) {
+    for(auto c: getCoresForNode(getHWTopology(), n)) numa_cores.push_back(c);
+  }
+
+
   // Bind the program to the first NUMA node for schedulers that have core bound threads
   // set number of threads to core-count -1
   if ((scheduler_name == "CoreBoundQueuesScheduler") || (scheduler_name == "WSCoreBoundQueuesScheduler") ||
       (scheduler_name == "WSCoreBoundPriorityQueuesScheduler") ||
       (scheduler_name == "CoreBoundPriorityQueuesScheduler")) {
-    bindCurrentThreadToCore(core_offset);
+    bindCurrentThreadToCore(0);
     if (worker_threads == -1)
       worker_threads = getNumberOfCoresOnSystem() - 1;
   }
@@ -164,7 +183,8 @@ int main(int argc, char* argv[]) {
   Settings::getInstance()->port = port;
   Settings::getInstance()->scheduler_name = scheduler_name;
   Settings::getInstance()->checkpoint_interval = checkpoint_interval;
-  Settings::getInstance()->core_offset = core_offset;
+  Settings::getInstance()->numa_nodes = numa_nodes;
+  Settings::getInstance()->numa_cores = numa_cores;
   Settings::getInstance()->commit_window_ms = commit_window_ms;
   Settings::getInstance()->printInfo();
 
