@@ -867,5 +867,13 @@ TEST_P(RadixDynamicCountTest, execute_and_check_result) {
 }
 
 INSTANTIATE_TEST_CASE_P(RadixJoinDynamicParallelizationTest, RadixDynamicCountTest, ::testing::Values(1, 4));
+
+// Test assures that the default MTS value of 0
+// results in a degree of 1. This ensures that applyDynamicParallelization
+// will work properly.
+TEST(RadixDynamicCountTest, mts_0_results_in_degree_1) {
+  RadixJoin rj;
+  ASSERT_EQ(rj.determineDynamicCount(0), 1U);
+}
 }
 }

@@ -57,5 +57,14 @@ TEST(TableScan, testDynamicParallelization) {
 
   ASSERT_GT(dynamicCount2, dynamicCount1);
 }
+
+// Test assures that the default MTS value of 0
+// results in a degree of 1. This ensures that applyDynamicParallelization
+// will work properly.
+TEST(TableScan, test_mts_0_results_in_degree_1) {
+  auto eq = make_unique<EqualsExpression<hyrise_string_t>>(0, 1, "Apple Inc");
+  TableScan ts(std::move(eq));
+  ASSERT_EQ(ts.determineDynamicCount(0), 1U);
+}
 }
 }

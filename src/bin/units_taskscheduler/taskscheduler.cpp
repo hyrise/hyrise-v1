@@ -263,5 +263,21 @@ TEST(SchedulerBlockTest, dont_block_test_with_work_stealing) {
   ASSERT_EQ(test, true);
   scheduler->shutdown();
 }
+
+class DynamicDummyTask : public Task {
+ public:
+  virtual const std::string vname() { return "DynamicDummyTask"; }
+
+ protected:
+  bool _dynamic = true;
+};
+
+// Test assures that the default MTS value of 0
+// results in a degree of 1. This ensures that applyDynamicParallelization
+// will work properly.
+TEST(DynamicParallelization, mts_0_results_in_degree_1) {
+  DynamicDummyTask task;
+  ASSERT_EQ(task.determineDynamicCount(0), 1U);
+}
 }
 }  // namespace hyrise::taskscheduler
