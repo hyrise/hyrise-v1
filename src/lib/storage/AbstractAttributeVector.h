@@ -12,6 +12,7 @@ class AbstractAttributeVector {
 
   virtual void* data() = 0;
   virtual void setNumRows(size_t s) = 0;
+  virtual size_t getColumns() const = 0;
 };
 }
 }  // namespace hyrise::storage

@@ -48,6 +48,8 @@ class ConcurrentFixedLengthVector : public AbstractFixedLengthVector<T> {
 
   virtual std::uint64_t size() override { return _size; }
 
+  size_t getColumns() const override { return _columns; }
+
   virtual void setNumRows(std::size_t num) override { NOT_IMPLEMENTED }
 
   virtual std::shared_ptr<BaseAttributeVector<T>> copy() override {
