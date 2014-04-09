@@ -80,7 +80,7 @@ def main():
         binary = sys.argv[-1]
         myenv = os.environ.copy()
         myenv["HYRISE_DB_PATH"] = os.getcwd() + "/test/"
-        p = subprocess.Popen(binary, stdout=devnull, env=myenv)
+        p = subprocess.Popen([binary, "--port=0"], env=myenv, stdout=devnull)
         print "Started process", p.pid
 
     time.sleep(1)

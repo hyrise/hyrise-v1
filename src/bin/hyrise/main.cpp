@@ -40,52 +40,23 @@ const size_t DEFAULT_MTS = 0;
 LoggerPtr logger(Logger::getLogger("hyrise"));
 }
 
-
-/// To prevent multiple hyrise instances from using the same port
-/// we initialize
-class PortResource {
+class InfoFile {
  public:
-  PortResource(size_t start, size_t end, ebb_server& s) : _current(0) {
-    assert((start < end) && "start must be smaller than end");
-    for (size_t current = start; current < end; ++current) {
-      if (ebb_server_listen_on_port(&s, current) != -1) {
-        _current = current;
-        break;
-      } else {
-        std::cout << "Port " << current << " already in use, retrying" << std::endl;
-      }
-    }
-    if (_current == 0) {
-      std::cout << "no port available in range [" + std::to_string(start) + ", " + std::to_string(end) + "]"
-                << std::endl;
-      std::exit(1);
-    }
-    std::ofstream port_file(PORT_FILE);
-    port_file << _current;
+  template <typename T>
+  InfoFile(std::string filename, T value)
+      : _filename(filename) {
+    std::ofstream of(filename);
+    of << value;
   }
 
-  ~PortResource() {
-    if (remove(PORT_FILE) != 0)
-      perror("unlink portfile");
+  ~InfoFile() {
+    if (remove(_filename.c_str()) != 0) {
+      perror(("unlinking info file" + _filename).c_str());
+    }
   }
-
-  size_t getPort() { return _current; }
 
  private:
-  size_t _current;
-};
-
-class PidFile {
- public:
-  PidFile() {
-    std::ofstream pidf(PID_FILE);
-    pidf << getpid();
-  }
-
-  ~PidFile() {
-    if (remove(PID_FILE) != 0)
-      perror("unlink pidfile");
-  }
+  std::string _filename;
 };
 
 int main(int argc, char* argv[]) {
@@ -209,12 +180,17 @@ int main(int argc, char* argv[]) {
   // Define handler for ebb
   server.new_connection = net::new_connection;
 
-  PidFile pi;
-  PortResource pa(port, port + 100, server);
+  if (ebb_server_listen_on_port(&server, port) == -1) {
+    std::cout << "Failed to start server" << std::endl;
+    return EXIT_FAILURE;
+  }
 
-  LOG4CXX_INFO(logger, "Started server on port " << pa.getPort());
+  InfoFile port_file(PORT_FILE, server.port);
+  InfoFile pid_file(PID_FILE, getpid());
+
+  std::cout << "Started server on port " << server.port << std::endl;
   ev_loop(loop, 0);
   LOG4CXX_INFO(logger, "Stopping Server...");
   ev_default_destroy();
-  return 0;
+  return EXIT_SUCCESS;
 }
