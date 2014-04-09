@@ -163,6 +163,7 @@ class BitCompressedVector : public BaseAttributeVector<T> {
 
   size_t size() { return _size; }
 
+  size_t getColumns() { return _columns; }
   /*
     Allocate memory for size rows and increase the size of the data
     container to size
