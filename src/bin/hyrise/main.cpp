@@ -121,8 +121,10 @@ int main(int argc, char* argv[]) {
           "recover,r", po::value<bool>(&recover)->zero_tokens(), "Recover tables on load")(
           "recoverAndExit,x",
           po::value<bool>(&recoverAndExit)->zero_tokens(),
-          "Recover tables on load and exit (for benchmarking purposes)")
-      ("nodes", po::value<std::string>(&numa_nodes_str)->default_value(""), "comma-separated list of NUMA-nodes to use (e.g., 0,2) - defaults to all - CURRENTLY UNUSED")
+          "Recover tables on load and exit (for benchmarking purposes)")(
+          "nodes",
+          po::value<std::string>(&numa_nodes_str)->default_value(""),
+          "comma-separated list of NUMA-nodes to use (e.g., 0,2) - defaults to all - CURRENTLY UNUSED")
 #ifdef PERSISTENCY_BUFFEREDLOGGER
       ("checkpointInterval,c",
        po::value<size_t>(&checkpoint_interval)->default_value(0),
@@ -148,19 +150,22 @@ int main(int argc, char* argv[]) {
 
   // separate numa_nodes
   std::vector<size_t> numa_nodes;
-  if(!numa_nodes_str.empty()) {
+  if (!numa_nodes_str.empty()) {
     std::vector<std::string> numa_nodes_str_v;
     boost::split(numa_nodes_str_v, numa_nodes_str, boost::is_any_of(","));
-    for(auto&&n : numa_nodes_str_v) numa_nodes.push_back(atoi(n.c_str()));
+    for (auto&& n : numa_nodes_str_v)
+      numa_nodes.push_back(atoi(n.c_str()));
   } else {
     uint number_of_nodes = getNumberOfNodesOnSystem();
-    for(uint i = 0; i < number_of_nodes; ++i) numa_nodes.push_back(i);
+    for (uint i = 0; i < number_of_nodes; ++i)
+      numa_nodes.push_back(i);
   }
 
   // get available cores
   std::vector<size_t> numa_cores;
-  for(auto n: numa_nodes) {
-    for(auto c: getCoresForNode(getHWTopology(), n)) numa_cores.push_back(c);
+  for (auto n : numa_nodes) {
+    for (auto c : getCoresForNode(getHWTopology(), n))
+      numa_cores.push_back(c);
   }
 
 
