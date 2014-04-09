@@ -12,8 +12,10 @@
 #include "storage/AbstractIndex.h"
 #include "storage/AbstractTable.h"
 #include "storage/OrderPreservingDictionary.h"
+#include "storage/ConcurrentUnorderedDictionary.h"
 #include "storage/CompoundValueIdKeyBuilder.h"
 #include "storage/meta_storage.h"
+#include "storage/ConcurrentFixedLengthVector.h"
 
 #include <memory>
 
@@ -54,11 +56,126 @@ class GroupkeyIndex : public AbstractIndex {
  public:
   virtual ~GroupkeyIndex() {}
 
+  std::vector<pos_t>::iterator offsetsBegin() {
+    return _offsets.begin();
+  }
+
+  std::vector<pos_t>::iterator offsetsEnd() {
+    return _offsets.end();
+  }
+
+  std::vector<pos_t>::iterator postingsBegin() {
+    return _postings.begin();
+  }
+
+  std::vector<pos_t>::iterator postingsEnd() {
+    return _postings.end();
+  }
+
   void shrink() { throw std::runtime_error("Shrink not supported for GroupkeyIndex"); }
 
   void write_lock() {}
 
   void unlock() {}
+
+  void print() {
+    auto postingsIterator = postingsBegin();
+    uint64_t i = 0;
+    for (auto offsetsIterator = offsetsBegin(); offsetsIterator != offsetsEnd(); ++offsetsIterator) {
+      std::cout << i << ": " << *offsetsIterator << ": ";
+      if (offsetsIterator + 1 != offsetsEnd()) {
+        size_t p = *(offsetsIterator + 1) - *offsetsIterator;
+        for (size_t y = 0; y < p; ++y) {
+          std::cout << *postingsIterator << ", ";
+          postingsIterator++;
+        }
+      }
+      std::cout << std::endl;
+      i++;
+    }
+  }
+
+  bool recreateIndexMergeDict(size_t i, atable_ptr_t oldMain, atable_ptr_t oldDelta, atable_ptr_t newMain, std::shared_ptr<hyrise::storage::AbstractDictionary> newDictResult, std::vector<std::vector<value_id_t>> &x, value_id_t* VdColumn) {
+    // std::cout << "############## BEFORE INDEX ##############" << std::endl;
+    // print();
+    size_t mainTableSize = oldMain->size();
+    std::shared_ptr<hyrise::storage::ConcurrentFixedLengthVector<value_id_t>> deltaVector = std::dynamic_pointer_cast<storage::ConcurrentFixedLengthVector<value_id_t>>(oldDelta->getAttributeVectors(i).at(0).attribute_vector);
+
+    std::shared_ptr<hyrise::storage::OrderPreservingDictionary<T>> mainDictionary = std::dynamic_pointer_cast<storage::OrderPreservingDictionary<T>>(oldMain->dictionaryAt(i, 0, 0));
+    std::shared_ptr<hyrise::storage::ConcurrentUnorderedDictionary<T>> deltaDictionary = std::dynamic_pointer_cast<storage::ConcurrentUnorderedDictionary<T>>(oldDelta->dictionaryAt(i, 0, 0));
+
+    auto newDict = std::make_shared<OrderPreservingDictionary<T>>(deltaDictionary->size());
+
+    auto it = mainDictionary->begin();
+    auto itDelta = deltaDictionary->begin();
+    auto deltaEnd = deltaDictionary->end();
+
+    std::vector<pos_t> newPostings;
+    std::vector<pos_t> newOffsets;
+
+    ValueId vid;
+
+    uint64_t count, c = 0, m = 0, n = 0;
+    std::vector<value_id_t> xColumn;
+    auto postingIterator = postingsBegin();
+    auto offsetIterator = offsetsBegin();
+
+    while (itDelta != deltaDictionary->end() || m != mainDictionary->size()) {
+      // TODO: store result of mainDictionary->getValueForValueId(m) in variable
+      bool processM = (m != mainDictionary->size() && (mainDictionary->getValueForValueId(m) <= *itDelta || itDelta == deltaDictionary->end()));
+      bool processD = (m == mainDictionary->size() || *itDelta <= mainDictionary->getValueForValueId(m));
+
+      newOffsets.push_back(c);
+
+      if (processM) {
+        vid.valueId = newDict->addValue(mainDictionary->getValueForValueId(m));
+
+        xColumn.push_back(n - m);
+        ++m;
+
+        count = *(offsetIterator + 1) - *offsetIterator;
+        c += count;
+        for (size_t j = 0; j < count; ++j) {
+          newPostings.push_back(*postingIterator);
+          ++postingIterator;
+        }
+        ++offsetIterator;
+      }
+
+      if (processD) {
+        if (!newDict->valueExists(*itDelta))
+          vid.valueId = newDict->addValue(*itDelta);
+
+        count = 0;
+        // TODO: optimize
+        for (size_t j = 0; j < deltaVector->size(); ++j) {
+          if (deltaDictionary->getValueForValueId(deltaVector->getRef(0, j)) == *itDelta) {
+            ++count;
+            newPostings.push_back(j + mainTableSize);
+            VdColumn[j] = n;
+          }
+        }
+        c += count;
+        ++itDelta;
+      }
+      ++n;
+    }
+
+    newOffsets.push_back(c);
+
+    newMain->setDictionaryAt(newDict, i);
+    x.push_back(xColumn);
+
+    _offsets = newOffsets;
+    _postings = newPostings;
+
+    // std::cout << "############## AFTER INDEX ##############" << std::endl;
+    // print();
+
+    newDictResult = newDict;
+
+    return true;
+  }
 
   explicit GroupkeyIndex(const c_atable_ptr_t& in,
                          field_t column,

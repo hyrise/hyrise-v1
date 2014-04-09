@@ -47,6 +47,9 @@ class Store : public AbstractTable {
   atable_ptr_t getDeltaTable() const;
   size_t deltaOffset() const;
   void merge();
+  template <typename T> void columnStoreMergeDictionary(uint64_t i, atable_ptr_t newMain);
+  void columnStoreMergeValues(uint64_t i, atable_ptr_t newMain);
+  void columnStoreMerge();
 
   /// Replaces the merger used for merging main tables with delta.
   /// @param _merger Pointer to a merger instance.
@@ -155,6 +158,11 @@ class Store : public AbstractTable {
 
   //* checkpointing housekeeping
   size_t _checkpoint_size;
+
+  //* merge helper variables
+  size_t _currentIndexToMerge;
+  std::vector<std::vector<value_id_t>> x;
+  std::vector<value_id_t*> Vd;
 
   //* Indices for the Store
   std::vector<std::pair<std::shared_ptr<AbstractIndex>, std::vector<field_t>>> _main_indices, _delta_indices;
