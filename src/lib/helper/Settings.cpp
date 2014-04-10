@@ -22,7 +22,6 @@ Settings::Settings() : threadpoolSize(1) {
   _mkdir(getLogDir());
   _mkdir(getTableDumpDir());
   _mkdir(getCheckpointDir());
-  core_offset = 0;
 }
 
 size_t Settings::getThreadpoolSize() const { return this->threadpoolSize; }
@@ -35,7 +34,6 @@ void Settings::printInfo() {
   std::cout << del << "DB Path: " << getDBPath() << std::endl;
   std::cout << del << "Scheduler: " << scheduler_name << std::endl;
   std::cout << del << "Worker Threads: " << worker_threads << std::endl;
-  std::cout << del << "Core Offset: " << core_offset << std::endl;
   std::cout << del << "Port:" << port << std::endl;
 
 #ifdef PERSISTENCY_NONE

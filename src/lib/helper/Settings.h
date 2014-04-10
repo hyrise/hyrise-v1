@@ -47,7 +47,7 @@ class Settings {
   size_t worker_threads;
   size_t port;
   size_t checkpoint_interval;
-  size_t core_offset;
+  std::vector<size_t> numa_nodes, numa_cores;
   std::string scheduler_name;
   size_t commit_window_ms;
 
