@@ -1,5 +1,6 @@
 #include "helper.h"
 
+#include <random>
 #include <vector>
 
 #include "helper/types.h"
@@ -10,6 +11,11 @@
 #include "storage/FixedLengthVector.h"
 
 using namespace hyrise;
+
+namespace {
+std::random_device rd;
+std::mt19937 gen(rd());
+}
 
 storage::atable_ptr_t int_random_table(const size_t rows, const size_t cols, std::vector<size_t> partitions) {
   if (partitions.size() == 0) {
@@ -33,8 +39,9 @@ storage::atable_ptr_t int_random_table(const size_t rows, const size_t cols, std
       for (hyrise_int_t value = 0; value < rows; ++value) {
         dict->addValue(value);  // value range is 0 to rows
       }
+      std::uniform_int_distribution<> dis(0, rows - 1);
       for (size_t row = 0; row < rows; ++row) {
-        av->set(0, row, rows - row - 1);  // TODO: replace with RNG
+        av->set(0, row, dis(gen));
       }
       dicts.push_back(dict);
       column_count++;
