@@ -10,7 +10,8 @@ namespace storage {
 baseattr_ptr_tr create_compressed_attribute_vector(size_t cols, size_t rows, std::vector<adict_ptr_t>& dicts) {
   std::vector<uint64_t> bits(dicts.size(), 0);
   std::transform(dicts.begin(), dicts.end(), bits.begin(), [](const adict_ptr_t& dict) {
-    return std::max(1ul, static_cast<uint64_t>(ceil(log(dict->size()) / log(2.0))));
+    auto sz = dict->size();
+    return sz == 0 ? 0ul : std::max(1ul, static_cast<uint64_t>(ceil(log(sz) / log(2.0))));
   });
   return std::make_shared<BitCompressedVector<value_id_t>>(cols, rows, bits);
 }
