@@ -30,7 +30,7 @@ class WSThreadLevelQueue : virtual public ThreadLevelQueue<QUEUE> {
  protected:
   WSThreadLevelQueuesScheduler<QUEUE>* _scheduler;
   std::vector<std::shared_ptr<WSThreadLevelQueue> > _otherQueues;
-  size_t _numberOfOtherQueues;
+  size_t _numberOfOtherQueues = 0;
 
  public:
   WSThreadLevelQueue(WSThreadLevelQueuesScheduler<QUEUE>* scheduler, size_t threads)
