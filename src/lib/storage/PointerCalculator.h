@@ -104,8 +104,8 @@ class PointerCalculator : public AbstractTable, public SharedFactory<PointerCalc
 
  private:
   c_atable_ptr_t table;
-  pos_list_t* pos_list;
-  field_list_t* fields;
+  pos_list_t* pos_list = nullptr;
+  field_list_t* fields = nullptr;
 
   // Vector mapping the renaed field names
   std::unique_ptr<std::vector<ColumnMetadata>> _renamed;
