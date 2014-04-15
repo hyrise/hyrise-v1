@@ -9,9 +9,6 @@ namespace storage {
 class AbstractAttributeVector {
  public:
   virtual ~AbstractAttributeVector();
-
-  virtual void* data() = 0;
-  virtual void setNumRows(size_t s) = 0;
   virtual size_t getColumns() const = 0;
 };
 }

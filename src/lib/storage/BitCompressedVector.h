@@ -72,9 +72,6 @@ class BitCompressedVector : public BaseAttributeVector<T> {
 
   virtual ~BitCompressedVector() { free(_data); }
 
-  void* data() { throw std::runtime_error("Direct data access not allowed"); }
-  void setNumRows(size_t s) { throw std::runtime_error("Direct data access not allowed"); }
-
   T get(size_t column, size_t row) const {
     checkAccess(column, row);
 
