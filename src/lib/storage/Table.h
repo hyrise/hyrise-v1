@@ -130,8 +130,6 @@ class Table : public AbstractTable {
 
   virtual atable_ptr_t copy() const;
 
-  void setNumRows(size_t s) { tuples->setNumRows(s); }
-
   virtual const attr_vectors_t getAttributeVectors(size_t column) const {
     // attr_vector_ref_t tpl_ref(tuples);
     attr_vector_offset_t t{tuples, column};
