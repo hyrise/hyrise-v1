@@ -21,7 +21,7 @@ class AbstractFixedLengthVector : public BaseAttributeVector<T> {
 };
 
 template <typename T>
-class FixedLengthVector : public AbstractFixedLengthVector<T> {
+class FixedLengthVector final : public AbstractFixedLengthVector<T> {
  public:
   FixedLengthVector(std::size_t columns, std::size_t rows) : _columns(columns), _values(columns * rows) {}
 

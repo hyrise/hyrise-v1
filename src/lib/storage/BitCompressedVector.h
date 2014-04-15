@@ -33,7 +33,7 @@ T maxValueForBits(const std::size_t bits) {
   can only save positive numbers
 */
 template <typename T>
-class BitCompressedVector : public BaseAttributeVector<T> {
+class BitCompressedVector final : public BaseAttributeVector<T> {
   // Typedef for the data
   typedef uint64_t storage_t;
   typedef std::vector<uint64_t> bit_size_list_t;
