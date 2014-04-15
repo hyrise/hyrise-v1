@@ -8,7 +8,7 @@ namespace hyrise {
 namespace storage {
 
 template <typename T>
-class ConcurrentFixedLengthVector : public AbstractFixedLengthVector<T> {
+class ConcurrentFixedLengthVector final : public AbstractFixedLengthVector<T> {
  public:
   ConcurrentFixedLengthVector(std::size_t columns, std::size_t rows)
       : _columns(columns), _size(rows), _values(columns * rows) {}
