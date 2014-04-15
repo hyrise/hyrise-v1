@@ -30,7 +30,6 @@ namespace storage {
 
 class Table : public AbstractTable {
  private:
-  // Typedefs for all dependent types
   typedef std::shared_ptr<AbstractDictionary> SharedDictionary;
   typedef std::vector<SharedDictionary> DictionaryVector;
 
@@ -41,21 +40,6 @@ class Table : public AbstractTable {
   // The shared ptr to the attributes we store inside the table
   typedef BaseAttributeVector<value_id_t> AttributeVector;
   typedef std::shared_ptr<AttributeVector> SharedAttributeVector;
-
-
-  //* Attribute Vector
-  SharedAttributeVector tuples;
-
-  //* Table structure
-  MetadataVector _metadata;
-
-  //* Vector storing the dictionaries
-  DictionaryVector _dictionaries;
-
-  //* Number of columns
-  size_t width = 0;
-
-  bool _compressed = false;
 
  public:
   /*
@@ -80,17 +64,19 @@ class Table : public AbstractTable {
 
   ~Table();
 
-  size_t size() const;
+  void setAttributes(SharedAttributeVector b);
 
-  size_t columnCount() const;
+  size_t size() const override;
 
-  ValueId getValueId(const size_t column, const size_t row) const;
+  size_t columnCount() const override;
 
-  void setValueId(const size_t column, const size_t row, const ValueId valueId);
+  ValueId getValueId(const size_t column, const size_t row) const override;
 
-  void reserve(const size_t nr_of_values);
+  void setValueId(const size_t column, const size_t row, const ValueId valueId) override;
 
-  void resize(const size_t nr_of_values);
+  void reserve(const size_t nr_of_values) override;
+
+  void resize(const size_t nr_of_values) override;
 
   const ColumnMetadata& metadataAt(const size_t column_index,
                                    const size_t row_index = 0,
@@ -98,15 +84,15 @@ class Table : public AbstractTable {
 
   virtual const AbstractTable::SharedDictionaryPtr& dictionaryAt(const size_t column,
                                                                  const size_t row = 0,
-                                                                 const table_id_t table_id = 0) const;
+                                                                 const table_id_t table_id = 0) const override;
 
   virtual const AbstractTable::SharedDictionaryPtr& dictionaryByTableId(const size_t column,
-                                                                        const table_id_t table_id) const;
+                                                                        const table_id_t table_id) const override;
 
   virtual void setDictionaryAt(AbstractTable::SharedDictionaryPtr dict,
                                const size_t column,
                                const size_t row = 0,
-                               const table_id_t table_id = 0);
+                               const table_id_t table_id = 0) override;
 
   virtual atable_ptr_t copy_structure(const field_list_t* fields = nullptr,
                                       const bool reuse_dict = false,
@@ -120,17 +106,15 @@ class Table : public AbstractTable {
                                                  bool nonvolatile = false) const override;
   virtual atable_ptr_t copy_structure(abstract_dictionary_callback, abstract_attribute_vector_callback) const override;
 
-  void setAttributes(SharedAttributeVector b);
+  unsigned partitionCount() const override { return 1; }
 
-  unsigned partitionCount() const { return 1; }
+  virtual table_id_t subtableCount() const override { return 1; }
 
-  virtual table_id_t subtableCount() const { return 1; }
+  virtual size_t partitionWidth(const size_t slice) const override { return columnCount(); }
 
-  virtual size_t partitionWidth(const size_t slice) const { return columnCount(); }
+  virtual atable_ptr_t copy() const override;
 
-  virtual atable_ptr_t copy() const;
-
-  virtual const attr_vectors_t getAttributeVectors(size_t column) const {
+  virtual const attr_vectors_t getAttributeVectors(size_t column) const override {
     // attr_vector_ref_t tpl_ref(tuples);
     attr_vector_offset_t t{tuples, column};
     return {t};
@@ -138,7 +122,7 @@ class Table : public AbstractTable {
 
   void persist_scattered(const pos_list_t& elements, bool new_elements = true) const override;
 
-  virtual void debugStructure(size_t level = 0) const;
+  virtual void debugStructure(size_t level = 0) const override;
 
  private:
   enum class DICTIONARY_FLAG {
@@ -151,6 +135,21 @@ class Table : public AbstractTable {
                                      DICTIONARY_FLAG dictionary_policy,
                                      COMPRESSION_FLAG compression,
                                      CONCURRENCY_FLAG concurrency) const;
+
+
+  //* Attribute Vector
+  SharedAttributeVector tuples;
+
+  //* Table structure
+  MetadataVector _metadata;
+
+  //* Vector storing the dictionaries
+  DictionaryVector _dictionaries;
+
+  //* Number of columns
+  size_t width = 0;
+
+  bool _compressed = false;
 };
 }
 }  // namespace hyrise::storage
