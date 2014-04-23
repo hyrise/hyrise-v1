@@ -64,7 +64,6 @@ class MutableVerticalTable : public AbstractTable {
   /// @param column_index Index of the column of which to retrieve the container.
   const atable_ptr_t& containerAt(size_t column_index, const bool for_writing = false) const;
 
- protected:
   /// Returns the offset of a certain column inside its container.
   /// @param column_index Index of the column.
   size_t getOffsetInContainer(size_t column_index) const;

@@ -31,7 +31,7 @@ void PrefixSum::executePlanOperation() {
   const size_t ivec_size = input.numberOfTables();
   std::vector<vec_ref_t> ivecs;
   for (size_t i = 0; i < input.numberOfTables(); ++i) {
-    ivecs.emplace_back(getDataVector(getInputTable(i)).first);
+    ivecs.emplace_back(getFixedDataVector(getInputTable(i)).first);
   }
 
   // calculate the prefix sum based on the index and the number of inputs
@@ -95,11 +95,11 @@ void MergePrefixSum::executePlanOperation() {
   auto result = std::make_shared<storage::Table>(&meta, nullptr, resultSize, true, false);
   result->resize(resultSize);
 
-  const auto& res_vec = getDataVector(result).first;
+  const auto& res_vec = getFixedDataVector(result).first;
 
   std::vector<std::shared_ptr<storage::AbstractFixedLengthVector<value_id_t>>> vecs;
   for (size_t i = 0, stop = input.numberOfTables(); i < stop; ++i) {
-    vecs.emplace_back(getDataVector(getInputTable(i)).first);
+    vecs.emplace_back(getFixedDataVector(getInputTable(i)).first);
   }
 
   for (size_t i = 0; i < resultSize; ++i) {
