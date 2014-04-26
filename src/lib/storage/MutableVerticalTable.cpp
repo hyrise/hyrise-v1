@@ -94,6 +94,12 @@ void MutableVerticalTable::resize(const size_t rows) {
   }
 }
 
+void MutableVerticalTable::resize(const size_t rows, const size_t column) {
+  if (rows > 0) {
+    containerAt(column)->resize(rows);
+  }
+}
+
 unsigned MutableVerticalTable::partitionCount() const { return slice_count; }
 
 size_t MutableVerticalTable::partitionWidth(const size_t slice) const {

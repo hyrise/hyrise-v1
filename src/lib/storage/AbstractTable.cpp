@@ -225,6 +225,7 @@ void AbstractTable::reserve(const size_t nr_of_values) {
 
 void AbstractTable::resize(const size_t) { throw std::runtime_error("Resizing is not supported for Abstract Tables"); }
 
+void AbstractTable::resize(const size_t, const size_t) { throw std::runtime_error("Resizing is not supported for Abstract Tables"); }
 
 void AbstractTable::write(const std::string& filename) const {
   std::ofstream file(filename.c_str());
