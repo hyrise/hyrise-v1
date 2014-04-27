@@ -28,7 +28,9 @@ GroupCommitter::~GroupCommitter() {
 
 void GroupCommitter::run() {
   // bind to numa node
-  bindCurrentThreadToNumaNode(0);
+  if (getNumberOfNodesOnSystem() > 1) {
+    bindCurrentThreadToNumaNode(0);
+  }
 
   struct timeval time_start, time_cur;
   unsigned long long elapsed_usec;
