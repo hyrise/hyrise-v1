@@ -40,6 +40,7 @@ class MutableVerticalTable : public AbstractTable {
   void setValueId(size_t column, size_t row, ValueId valueId) override;
   void reserve(size_t nr_of_values) override;
   void resize(size_t rows) override;
+  void resize(size_t rows, size_t column) override;
   unsigned partitionCount() const override;
   size_t partitionWidth(size_t slice) const override;
   atable_ptr_t copy_structure(const field_list_t* fields = nullptr,

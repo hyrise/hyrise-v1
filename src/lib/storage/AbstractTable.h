@@ -257,6 +257,16 @@ class AbstractTable : public AbstractResource {
   virtual void resize(size_t rows);
 
   /**
+   * Resize the specific column of a table to the given number
+   * of rows based on the parameter
+   * @warning Throws runtime error if not implemented
+   *
+   * @param rows           The new number of rows in this table
+   * @param column         The column to resize
+   */
+  virtual void resize(size_t rows, size_t column);
+
+  /**
    * Returns the number of partitions in this table.
    * @note Must be implemented by any derived class!
    */
