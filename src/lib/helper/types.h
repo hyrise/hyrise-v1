@@ -46,7 +46,10 @@ enum class TX_CODE {
 
 namespace access {
 class AbstractExpression;
+class PlanOperation;
+
 typedef std::unique_ptr<AbstractExpression> expression_uptr_t;
+typedef std::shared_ptr<PlanOperation> planop_ptr_t;
 }
 
 namespace storage {

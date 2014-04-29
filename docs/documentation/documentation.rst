@@ -185,6 +185,7 @@ alphabetical order :)
   * Jens Krueger
   * Johannes Wust
   * Jonas Witt
+  * Kai Hoewelmeyer
   * Karsten Tausche
   * Marco Hornung
   * Martin Boissier

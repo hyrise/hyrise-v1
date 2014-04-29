@@ -93,10 +93,13 @@ class PlanOperation : public OutputTask {
 
   void setPlanId(std::string i);
   void setOperatorId(std::string i);
+  const std::string& getOperatorId();
   const std::string& planOperationName() const;
   void setPlanOperationName(const std::string& name);
 
   void disablePapiTrace();
+
+  virtual std::shared_ptr<PlanOperation> copy() { throw std::runtime_error("Copy not implemented for this operator"); }
 
   virtual void operator()() noexcept;
   virtual const std::string vname();

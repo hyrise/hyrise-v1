@@ -53,6 +53,7 @@ void Task::notifyDoneObservers() {
   {
     std::lock_guard<decltype(_observerMutex)> lk(_observerMutex);
     targets = _doneObservers;
+    _notifiedDoneObservers = true;
   }
   for (const auto& target : targets) {
     if (auto observer = target.lock()) {
@@ -73,9 +74,11 @@ void Task::addDependency(const task_ptr_t& dependency) {
   {
     std::lock_guard<decltype(_depMutex)> lk(_depMutex);
     _dependencies.push_back(dependency);
+  }
+  if (dependency->addDoneObserver(shared_from_this())) {  // task was not done
+    std::lock_guard<decltype(_depMutex)> lk(_depMutex);
     ++_dependencyWaitCount;
   }
-  dependency->addDoneObserver(shared_from_this());
 }
 
 void Task::addDoneDependency(const task_ptr_t& dependency) {
@@ -119,10 +122,15 @@ void Task::addReadyObserver(const std::shared_ptr<TaskReadyObserver>& observer) 
   _readyObservers.push_back(observer);
 }
 
-void Task::addDoneObserver(const std::shared_ptr<TaskDoneObserver>& observer) {
-
+bool Task::addDoneObserver(const std::shared_ptr<TaskDoneObserver>& observer) {
   std::lock_guard<decltype(_observerMutex)> lk(_observerMutex);
-  _doneObservers.push_back(observer);
+  // If this task has not yet notified the done observers / is done
+  if (!_notifiedDoneObservers) {
+    _doneObservers.push_back(observer);
+    return true;
+  } else {
+    return false;
+  }
 }
 
 void Task::notifyDone(const task_ptr_t& task) {
