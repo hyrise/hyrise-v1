@@ -3,7 +3,6 @@
 #include "log4cxx/logger.h"
 
 #include "access/UnionAll.h"
-#include "access/PipeliningHashBuild.h"
 #include "access/system/OperationData-Impl.h"
 
 #include "storage/AbstractTable.h"

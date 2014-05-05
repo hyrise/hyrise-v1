@@ -14,7 +14,6 @@
 #include "storage/AbstractHashTable.h"
 #include "storage/AbstractTable.h"
 #include "storage/storage_types.h"
-#include "storage/PointerCalculator.h"
 
 namespace hyrise {
 namespace storage {
@@ -161,20 +160,6 @@ class HashTable : public AbstractHashTable, public std::enable_shared_from_this<
     _dirty = true;
     size_t fieldSize = _fields.size();
     size_t tableSize = _table->size();
-    // If the underlying table is a pc,
-    // unnest by using the actual table
-    // and the actual positions in the actual table.
-    if (auto pc = std::dynamic_pointer_cast<const PointerCalculator>(_table)) {
-      const auto& pl = pc->getPositions();
-      if (pl) {
-        _table = pc->getActualTable();
-        for (auto pos : *pl) {
-          key_t key = MAP::hasher::getGroupKey(_table, _fields, fieldSize, pos);
-          _map.insert(typename map_t::value_type(key, pos));
-        }
-        return;
-      }
-    }
     for (pos_t row = 0; row < tableSize; ++row) {
       key_t key = MAP::hasher::getGroupKey(_table, _fields, fieldSize, row);
       _map.insert(typename map_t::value_type(key, row + row_offset));
@@ -196,17 +181,12 @@ class HashTable : public AbstractHashTable, public std::enable_shared_from_this<
   HashTable() {}
 
   // create a new HashTable based on a number of HashTables
-  // The supplied HashTables have to base upon the same Table, though.
   explicit HashTable(const std::vector<std::shared_ptr<const AbstractHashTable>>& hashTables) {
     _dirty = true;
     for (auto& nextElement : hashTables) {
       const auto& ht = checked_pointer_cast<const HashTable<MAP, KEY>>(nextElement);
       _map.insert(ht->getMapBegin(), ht->getMapEnd());
     }
-    // we need to set _table. We use the _table of the first hashtable.
-    // This assumes that all hashtables are ultimately based on the same table.
-    auto firstTable = checked_pointer_cast<const HashTable<MAP, KEY>>(hashTables.front())->_table;
-    _table = firstTable;
   }
 
   // Hash given table's columns directly into the new HashTable
