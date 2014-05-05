@@ -142,12 +142,13 @@ void gen_table_header(FILE* output, std::string table_name) {
   std::stringstream fields;
   std::stringstream types;
   std::stringstream layout;
+  size_t i = 0;
 
   for (std::vector<std::pair<std::string, std::string> >::iterator it = table_layout.begin(); it != table_layout.end();
-       ++it) {
+       ++it, i++) {
     fields << (*it).first.c_str();
     types << (*it).second.c_str();
-    layout << "0_R";
+    layout << i << "_C";
 
     if (it != --table_layout.end()) {
       fields << delimiter;
