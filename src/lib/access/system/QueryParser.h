@@ -8,9 +8,11 @@
 #include <string>
 #include <stdexcept>
 #include <mutex>
+#include <sstream>
 
 #include <json.h>
 
+#include "helper/cereal/HyriseCerealJsonArchive.h"
 #include "access/system/BasicParser.h"
 
 const std::string autojsonReferenceTableId = "-1";
@@ -38,6 +40,7 @@ struct AbstractQueryParserFactory {
 
 struct parse_construct {};
 struct default_construct {};
+struct cereal_construct {};
 
 template <typename T, typename parse_construction>
 struct QueryParserFactory;
@@ -53,6 +56,23 @@ struct QueryParserFactory<T, default_construct> : public AbstractQueryParserFact
   virtual std::shared_ptr<PlanOperation> parse(const Json::Value& data) {
     typedef ::BasicParser<T> parser_t;
     return parser_t::parse(data);
+  }
+};
+
+template <typename T>
+struct QueryParserFactory<T, cereal_construct> : public AbstractQueryParserFactory {
+
+  virtual std::shared_ptr<PlanOperation> parse(const Json::Value& data) {
+    std::stringstream ss;
+    Json::FastWriter writer;
+    ss << writer.write(data);
+
+    cereal::JSONInputArchive archive(ss);
+
+    typename T::Parameters params;
+    params.serialize(archive);
+
+    return std::make_shared<T>(params);
   }
 };
 
@@ -105,6 +125,12 @@ class QueryParser {
   template <typename T>
   static bool registerTrivialPlanOperation(const std::string& name) {
     QueryParser::instance()._factory[name] = new QueryParserFactory<T, default_construct>();
+    return true;
+  }
+
+  template <typename T>
+  static bool registerSerializablePlanOperation(const std::string& name) {
+    QueryParser::instance()._factory[name] = new QueryParserFactory<T, cereal_construct>();
     return true;
   }
 
