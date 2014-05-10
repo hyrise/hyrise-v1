@@ -68,7 +68,7 @@ std::vector<unsigned> getCoresForNode(hwloc_topology_t topology, unsigned node) 
 
 unsigned getNumberOfNodes(hwloc_topology_t topology) { return hwloc_get_nbobjs_by_type(topology, HWLOC_OBJ_NODE); }
 
-unsigned getNodeForCore(unsigned core) {
+signed getNodeForCore(unsigned core) {
   hwloc_topology_t topology = getHWTopology();
   unsigned nodes = getNumberOfNodes(topology);
   hwloc_obj_t core_obj = hwloc_get_obj_by_type(topology, HWLOC_OBJ_CORE, core);
@@ -78,7 +78,7 @@ unsigned getNodeForCore(unsigned core) {
       return i;
     }
   }
-  throw std::runtime_error("expected to find node for core");
+  return -1;
 }
 
 // assumes equal number of cores per node
@@ -173,4 +173,24 @@ void bindCurrentThreadToNumaNode(int node) {
     fprintf(stderr, "Continuing as normal, however, no guarantees\n");
     free(str);
   }
+}
+
+signed getCurrentNode() {
+  auto cur_core = getCurrentCore();
+  if (cur_core != -1) {
+    return getNodeForCore(cur_core);
+  } else {
+    return -1;
+  }
+}
+
+signed getCurrentCore() {
+  hwloc_topology_t topology = getHWTopology();
+  hwloc_cpuset_t cpu_set = hwloc_bitmap_alloc();
+  if (hwloc_get_last_cpu_location(topology, cpu_set, HWLOC_CPUBIND_THREAD) < 0) {
+    return -1;
+  }
+  hwloc_obj_t current_core = hwloc_get_next_obj_covering_cpuset_by_type(topology, cpu_set, HWLOC_OBJ_CORE, NULL);
+  hwloc_bitmap_free(cpu_set);
+  return current_core->logical_index;
 }

@@ -183,9 +183,11 @@ const PlanOperation* PlanOperation::execute() {
   if (recordPerformance) {
     epoch_t endTime = get_epoch_nanoseconds();
     std::string threadId = boost::lexical_cast<std::string>(std::this_thread::get_id());
-    *_performance_attr =
-        (performance_attributes_t) {pt.value("PAPI_TOT_CYC"), pt.value(getEvent()), getEvent(), planOperationName(),
-                                    _operatorId,              startTime,            endTime,    threadId};
+    unsigned core = getCurrentCore();
+    unsigned node = getCurrentNode();
+    *_performance_attr = (performance_attributes_t) {
+        pt.value("PAPI_TOT_CYC"), pt.value(getEvent()), getEvent(), planOperationName(), _operatorId,
+        startTime,                endTime,              threadId,   core,                node};
   }
 
   setState(OpSuccess);
