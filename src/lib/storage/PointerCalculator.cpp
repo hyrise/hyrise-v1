@@ -13,6 +13,8 @@
 #include "storage/Store.h"
 #include "storage/TableRangeView.h"
 
+#include <numeric>
+
 namespace hyrise {
 namespace storage {
 
@@ -304,7 +306,13 @@ pos_list_t PointerCalculator::getActualTablePositions() const {
   auto p = std::dynamic_pointer_cast<const PointerCalculator>(table);
 
   if (!p) {
-    return *pos_list;
+    if (pos_list) {
+      return *pos_list;
+    } else {  // entire table selected
+      pos_list_t result(table->size());
+      std::iota(result.begin(), result.end(), 0);
+      return result;
+    }
   }
 
   pos_list_t result(pos_list->size());

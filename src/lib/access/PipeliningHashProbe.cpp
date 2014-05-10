@@ -75,7 +75,7 @@ storage::c_atable_ptr_t PipeliningHashProbe::getBuildTable() const { return _bui
 
 storage::c_atable_ptr_t PipeliningHashProbe::getProbeTable() const { return getInputTable(); }
 
-std::shared_ptr<PlanOperation> PipeliningHashProbe::copy() {
+std::shared_ptr<AbstractPipelineObserver> PipeliningHashProbe::clone() {
   std::shared_ptr<PipeliningHashProbe> instance = std::make_shared<PipeliningHashProbe>();
   for (auto field : _indexed_field_definition) {
     instance->addField(field);

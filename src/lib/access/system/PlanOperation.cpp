@@ -17,6 +17,8 @@
 #include "log4cxx/logger.h"
 #include <algorithm>
 
+#include "optional.hpp"
+
 namespace {
 auto logger = log4cxx::Logger::getLogger("access.plan.PlanOperation");
 }
@@ -66,7 +68,15 @@ PlanOperation::~PlanOperation() = default;
 
 void PlanOperation::addResult(storage::c_aresource_ptr_t result) { output.addResource(result); }
 
-const storage::c_atable_ptr_t PlanOperation::getInputTable(size_t index) const { return input.getTable(index); }
+static const storage::atable_ptr_t empty_input;
+
+const storage::c_atable_ptr_t PlanOperation::getInputTable(size_t index) const {
+  if (input.numberOfTables()) {
+    return input.getTable(index);
+  } else {
+    return empty_input;
+  }
+}
 
 static const storage::atable_ptr_t empty_result;
 
@@ -185,6 +195,19 @@ const PlanOperation* PlanOperation::execute() {
     std::string threadId = boost::lexical_cast<std::string>(std::this_thread::get_id());
 
     size_t cardinality;
+    unsigned core = getCurrentCore();
+    unsigned node = getCurrentNode();
+
+    std::optional<size_t> in_size;
+    if (const auto& in = getInputTable()) {
+      in_size = in->size();
+    }
+
+    std::optional<size_t> out_size;
+    if (const auto& out = getResultTable()) {
+      out_size = out->size();
+    }
+
     if (getResultTable() != empty_result)
       cardinality = getResultTable()->size();
     else
@@ -193,7 +216,9 @@ const PlanOperation* PlanOperation::execute() {
 
     *_performance_attr = (performance_attributes_t) {pt.value("PAPI_TOT_CYC"), pt.value(getEvent()), getEvent(),
                                                      planOperationName(),      _operatorId,          startTime,
-                                                     endTime,                  threadId,             cardinality};
+                                                     endTime,                  threadId,             cardinality,
+                                                     core,                     node,                 in_size,
+                                                     out_size};
   }
 
   setState(OpSuccess);

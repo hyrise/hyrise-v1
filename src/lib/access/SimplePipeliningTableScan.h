@@ -23,7 +23,7 @@ class SimplePipeliningTableScan : public PlanOperation,
   void setupPlanOperation();
   void executePlanOperation();
   static std::shared_ptr<PlanOperation> parse(const Json::Value& data);
-  virtual std::shared_ptr<PlanOperation> copy();
+  virtual std::shared_ptr<AbstractPipelineObserver> clone();
   void setPredicate(SimpleExpression* c);
 
  private:

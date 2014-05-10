@@ -48,29 +48,29 @@ class PipelineObserver : public AbstractPipelineObserver {
 
     LOG4CXX_DEBUG(_observerLogger, opId << ": notifyNewChunk");
 
-    auto copy = static_cast<T*>(this)->copy();
-    copy->setPlanOperationName(opName + "_chunk");
-    copy->setOperatorId(getChunkIdentifier(opId));
+    auto clone = std::static_pointer_cast<T>(this->clone());
+    clone->setPlanOperationName(opName + "_chunk");
+    clone->setOperatorId(getChunkIdentifier(opId));
 
     // input for this new instance is chunk
-    copy->addInput(chunk);
+    clone->addInput(chunk);
 
     // set dependencies
     // a) this new chunk task is dependency to all successors.
     auto successors = static_cast<T*>(this)->template getAllSuccessorsOf<PlanOperation>();
-    std::for_each(successors.begin(), successors.end(), [&copy](std::shared_ptr<PlanOperation>& obs) {
-      obs->addDependency(copy);
+    std::for_each(successors.begin(), successors.end(), [&clone](std::shared_ptr<PlanOperation>& obs) {
+      obs->addDependency(clone);
     });
 
     // b) allow to add additional dependencies, e.g. hashtable for probes
-    addCustomDependencies(copy);
+    addCustomDependencies(clone);
 
     // schedule task
     auto scheduler = taskscheduler::SharedScheduler::getInstance().getScheduler();
     if (const auto& responseTask = static_cast<T*>(this)->getResponseTask()) {
-      responseTask->registerPlanOperation(copy);
+      responseTask->registerPlanOperation(clone);
     }
-    scheduler->schedule(copy);
+    scheduler->schedule(clone);
   }
 
  protected:
@@ -81,6 +81,7 @@ class PipelineObserver : public AbstractPipelineObserver {
    * do it here.
    */
   virtual void addCustomDependencies(taskscheduler::task_ptr_t newChunkTask) {}
+  virtual std::shared_ptr<AbstractPipelineObserver> clone() = 0;
 };
 }
 }

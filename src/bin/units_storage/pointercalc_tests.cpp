@@ -115,5 +115,15 @@ TEST_F(PointerCalcTests, accessing_non_existing_column) {
   ASSERT_THROW(pc->getTableColumnForColumn(numColumns), std::out_of_range);
 }
 #endif
+
+TEST_F(PointerCalcTests, getActualTablePositions_for_null) {
+  auto t = io::Loader::shortcuts::load("test/lin_xxs.tbl");
+  // PointerCalculator has nullptr as pos_list
+  auto pc = PointerCalculator::create(t);
+  auto positions = pc->getActualTablePositions();
+  pos_list_t expected_positions(t->size());
+  std::iota(expected_positions.begin(), expected_positions.end(), 0);
+  ASSERT_EQ(positions, expected_positions);
+}
 }
 }  // namespace hyrise::storage

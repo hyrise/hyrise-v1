@@ -33,6 +33,9 @@ class TestObserver : public PlanOperation, public PipelineObserver<TestObserver>
   }
 
  private:
+  virtual std::shared_ptr<AbstractPipelineObserver> clone() override {
+    throw std::runtime_error("Spy should not have been cloned.");
+  }
   Synchronized<std::set<storage::c_aresource_ptr_t>, std::mutex> _receivedChunks;
 };
 

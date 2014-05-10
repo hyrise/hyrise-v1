@@ -39,14 +39,12 @@
 #define EXPR_GET_EXPRESSION(r, data, i , seq_field) BOOST_PP_SEQ_ELEM(i, data) EXPR_COMPARE_FIELD( BOOST_PP_SEQ_ELEM(0, seq_field), BOOST_PP_SEQ_ELEM(2, seq_field) , row)
 
 #define EXPR_BUILD_LOOP(pl, seq_of_fields, seq_logic) \
-        auto pl = new pos_list_t; \
         /* our position in the logical table */ \
         size_t lower = 0; \
         /* start position for the scan relative to the part */ \
         size_t begin_part_scan = 0; \
         /* end position for the scan relative to the part */ \
         size_t end_part_scan = 0; \
-        pl->clear(); \
         const auto& first_vector = EXPR_DATA_VECTOR_NAME(EXPR_FIELD_VAL(seq_of_fields, 0)); \
         size_t part_size = first_vector.size();\
         part_size -= _with_delta ? 0 : 1;\
@@ -87,9 +85,8 @@
 #define IMPLEMENT_EXPRESSION_CLASS(name, seq_of_fields, seq_logic) \
 	name::name(){}\
 	name::name(const Json::Value& val) : _orig_json_val(val) {} \
-	pos_list_t* name::match(const size_t start, const size_t stop) {\
-		EXPR_BUILD_LOOP(the_result, seq_of_fields, seq_logic );\
-		return the_result;\
+	void name::match(storage::pos_list_t* pl, const size_t start, const size_t stop) {\
+		EXPR_BUILD_LOOP(pl, seq_of_fields, seq_logic );\
 	}\
 	void name::walk(const std::vector<hyrise::storage::c_atable_ptr_t> &l) {\
 		_store = std::dynamic_pointer_cast<const storage::Store>(l[0]);\
@@ -113,7 +110,7 @@
 	public:\
 		name(); \
 		name(const Json::Value &val); \
-		virtual pos_list_t* match(const size_t start, const size_t stop);\
+		virtual void match(storage::pos_list_t* pl, const size_t start, const size_t stop);\
 		virtual void walk(const std::vector<hyrise::storage::c_atable_ptr_t> &l);		\
 		static std::unique_ptr<name> parse(const Json::Value& data);\
                 virtual std::unique_ptr<AbstractExpression> clone() { \

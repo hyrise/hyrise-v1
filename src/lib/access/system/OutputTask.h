@@ -12,6 +12,8 @@
 #include "helper/epoch.h"
 #include "taskscheduler/Task.h"
 
+#include "optional.hpp"
+
 namespace hyrise {
 namespace access {
 
@@ -37,6 +39,10 @@ typedef struct {
   epoch_t endTime;
   std::string executingThread;
   size_t cardinality;
+  unsigned core;
+  unsigned node;
+  std::optional<size_t> in_rows;
+  std::optional<size_t> out_rows;
 } performance_attributes_t;
 
 typedef std::vector<std::unique_ptr<performance_attributes_t>> performance_vector_t;

@@ -25,6 +25,9 @@ class PipelineUnion : public PlanOperation, public PipelineObserver<PipelineUnio
 
  private:
   Synchronized<OperationData, std::mutex> _pipelineInput;
+  virtual std::shared_ptr<AbstractPipelineObserver> clone() override {
+    throw std::runtime_error("It should not have been attempted to clone a PipelineUnion!");
+  }
 
   storage::c_atable_ptr_t unionTables(std::vector<storage::c_atable_ptr_t> tables);
 };

@@ -45,11 +45,10 @@ void TableScan::executePlanOperation() {
   }
 
   // When the input is 0, dont bother trying to generate results
-  pos_list_t* positions = nullptr;
-  if (stop - start > 0)
-    positions = _expr->match(start, stop);
-  else
-    positions = new pos_list_t();
+  pos_list_t* positions = new pos_list_t();
+  if (stop - start > 0) {
+    _expr->match(positions, start, stop);
+  }
 
   std::shared_ptr<storage::PointerCalculator> result;
 
