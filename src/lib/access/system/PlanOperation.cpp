@@ -66,7 +66,15 @@ PlanOperation::~PlanOperation() = default;
 
 void PlanOperation::addResult(storage::c_aresource_ptr_t result) { output.addResource(result); }
 
-const storage::c_atable_ptr_t PlanOperation::getInputTable(size_t index) const { return input.getTable(index); }
+static const storage::atable_ptr_t empty_input;
+
+const storage::c_atable_ptr_t PlanOperation::getInputTable(size_t index) const {
+  if (input.numberOfTables()) {
+    return input.getTable(index);
+  } else {
+    return empty_input;
+  }
+}
 
 static const storage::atable_ptr_t empty_result;
 
