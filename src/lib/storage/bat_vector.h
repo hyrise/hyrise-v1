@@ -4,11 +4,15 @@
 namespace hyrise {
 namespace storage {
 
+#include "storage/BaseAttributeVector.h"
+
+
 #include <stdexcept>
 #include <algorithm>
 #include <cstdint>
 #include <vector>
 #include <tuple>
+
 
 #define LIKELY(x) __builtin_expect(x, 1)
 #define UNLIKELY(x) __builtin_expect(x, 0)
@@ -17,7 +21,7 @@ namespace storage {
 This is the bat vector, not storing most frequent values
 */
 template<typename T, bool WithBV = true>
-class BATVector {
+class BATVector : public BaseAttributeVector<T>{
 
 public:
 
@@ -45,12 +49,7 @@ void push_back(value_type v) {
   ++_size;
 }
 
-/**
-Positional access to an element. Since we cant use the index directly we
-have to perform binary search to find the position we are looking for
-*/
-value_type operator[](const size_t& idx) const {
-
+value_type get(size_t column, size_t idx) const override {
   // Only when we have the bitvector
   if (WithBV && _nullCheck[idx] ) return _default;
 
@@ -66,6 +65,14 @@ value_type operator[](const size_t& idx) const {
     else
       return _default;
   }
+}
+
+/**
+Positional access to an element. Since we cant use the index directly we
+have to perform binary search to find the position we are looking for
+*/
+value_type operator[](const size_t& idx) const {
+  return get(0, idx);
 }
 
 /**
@@ -90,8 +97,11 @@ std::vector<uint64_t> match(uint64_t start, uint64_t stop, value_type value) {
   }
   return result;
 }
+ size_t getColumns() const override {
+  return 1;
+ }
 
-size_t size() const {
+size_t size() {
   return _size;
 }
 
@@ -99,6 +109,32 @@ size_t compressed_size() const {
   return _data.size();
 }
 
+void set(size_t column, size_t row, T value) override {
+
+}
+
+void reserve(size_t rows) override {
+
+}
+
+void resize(size_t rows) override {
+
+}
+
+uint64_t capacity() override {
+  return 0;
+}
+
+void clear() override {
+  _data.clear();
+  _nullCheck.clear();
+}
+
+std::shared_ptr<BaseAttributeVector<T>> copy() override {
+  return std::make_shared<BATVector<T, true>>(*this);
+}
+
+void rewriteColumn(const size_t, const size_t) {}
 
 private:
 
