@@ -6,9 +6,57 @@
 #include "storage/storage_types.h"
 #include "storage/BitCompressedVector.h"
 #include "storage/FixedLengthVector.h"
+#include "storage/bat_vector.h"
 
 namespace hyrise {
 namespace storage {
+
+
+TEST(BatVectorTests, append_values ) {
+  BATVector<uint64_t, true> bat(3);
+
+  bat.push_back(2);
+  EXPECT_EQ(1ul, bat.size());
+  EXPECT_EQ(1ul, bat.compressed_size());
+  bat.push_back(3);
+  EXPECT_EQ(2ul, bat.size());
+  EXPECT_EQ(1ul, bat.compressed_size());
+  bat.push_back(0);
+  EXPECT_EQ(3ul, bat.size());
+  EXPECT_EQ(2ul, bat.compressed_size());
+}
+
+TEST(BatVectorTests, get_values ) {
+  BATVector<uint64_t, true> bat(3);
+
+  bat.push_back(2);
+  bat.push_back(3);
+  bat.push_back(0);
+
+  EXPECT_EQ(0ul, bat[2]);
+  EXPECT_EQ(2ul, bat[0]);
+  EXPECT_EQ(3ul, bat[1]);
+
+}
+
+TEST(BatVectorTests, match_values ) {
+  using bv = BATVector<uint64_t, true>;
+  BATVector<uint64_t, true> bat(3);
+
+  bat.push_back(2);
+  bat.push_back(3);
+  bat.push_back(0);
+  bat.push_back(3);
+  bat.push_back(2);
+
+  auto res = bat.match<std::equal_to<bv::value_type>>(0, bat.size(), 2);
+  EXPECT_EQ(2ul, res.size());
+  EXPECT_EQ(0ul, res[0]);
+  EXPECT_EQ(4ul, res[1]);
+
+}
+
+
 
 TEST(BitCompressedTests, set_retrieve_bits) {
   std::vector<uint64_t> bits{1, 2, 4, 8, 13};

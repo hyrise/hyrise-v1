@@ -2,6 +2,7 @@
 
 #include <cstdint>
 #include <array>
+#include <string>
 
 // forward declare unique_id, so we can write a to_string
 // specialization to later on befriend it
