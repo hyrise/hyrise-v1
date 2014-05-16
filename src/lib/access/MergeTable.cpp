@@ -6,11 +6,18 @@
 #include "helper/checked_cast.h"
 #include "storage/Store.h"
 
+#include "storage/DictionaryFactory.h"
+#include "storage/ConcurrentUnorderedDictionary.h"
+#include "storage/ConcurrentFixedLengthVector.h"
+#include "storage/CompoundValueKeyBuilder.h"
+
+
 namespace hyrise {
 namespace access {
 
 namespace {
 auto _ = QueryParser::registerPlanOperation<MergeTable>("MergeTable");
+
 }
 
 MergeTable::~MergeTable() {}

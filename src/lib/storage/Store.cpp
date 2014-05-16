@@ -222,7 +222,7 @@ unsigned Store::partitionCount() const { return _main_table->partitionCount(); }
 size_t Store::partitionWidth(const size_t slice) const { return _main_table->partitionWidth(slice); }
 
 
-void Store::print(const size_t limit, const size_t offset) const {
+void Store::print_offset(const size_t limit, const size_t offset) const {
   PrettyPrinter::print(this, std::cout, "Store:" + _name, limit, offset);
 }
 
@@ -538,5 +538,11 @@ void Store::setName(const std::string name) {
   if (delta)
     delta->setName(name);
 }
+
+
+atable_ptr_t Store::copy_structure(abstract_dictionary_callback c, abstract_attribute_vector_callback a) const {
+  return _main_table->copy_structure(c, a);
+}
+
 }
 }

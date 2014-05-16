@@ -96,7 +96,12 @@ class Store : public AbstractTable {
   size_t columnCount() const override;
   unsigned partitionCount() const override;
   size_t partitionWidth(size_t slice) const override;
-  void print(size_t limit = (size_t) - 1, size_t offset = 0) const;
+
+  void print(size_t limit = (size_t) -1 ) const override {
+    print_offset(limit);
+  }
+  void print_offset(size_t limit = (size_t) - 1, size_t offset = 0) const;
+
   table_id_t subtableCount() const override { return 2; }
   atable_ptr_t copy() const override;
   const attr_vectors_t getAttributeVectors(size_t column) const override;
@@ -139,6 +144,8 @@ class Store : public AbstractTable {
     _main_table->prepareCheckpoint();
     delta->prepareCheckpoint();
   }
+
+  virtual atable_ptr_t copy_structure(abstract_dictionary_callback, abstract_attribute_vector_callback) const;
 
  private:
   std::atomic<std::size_t> _delta_size;
