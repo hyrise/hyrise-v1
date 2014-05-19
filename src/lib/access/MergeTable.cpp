@@ -1,4 +1,4 @@
-// Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
+  // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "access/MergeTable.h"
 
 #include "access/system/QueryParser.h"
@@ -36,7 +36,20 @@ void MergeTable::executePlanOperation() {
 
   // Call the Merge
   storage::TableMerger merger(new storage::DefaultMergeStrategy(), new storage::SequentialHeapMerger());
-  auto new_table = input.getTable(0)->copy_structure();
+
+  storage::atable_ptr_t new_table;
+  if (_useStatistics) {
+    // Prepare the callback for the firs table, we wrap the actual model
+    // callback in a shared pointer to circumvent the problem of copying the
+    // callbacks
+    auto amc = std::make_shared<storage::model::AttributeModelCallback>(tables.front());
+    auto model_avc = [amc](std::size_t t) { return (*amc)(t);};
+    auto order_preserving = [](DataType dt) { return storage::makeDictionary(types::getOrderedType(dt)); };
+
+    new_table = input.getTable(0)->copy_structure(order_preserving, model_avc);
+  } else {
+    new_table = input.getTable(0)->copy_structure();
+  }
 
   // Switch the tables
   auto merged_tables = merger.mergeToTable(new_table, tables);

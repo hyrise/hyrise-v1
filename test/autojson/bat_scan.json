@@ -1,0 +1,33 @@
+/* Test merging of tables through MergeTable operator */
+{
+  "operators": {
+    "load_reference": {
+      "type": "TableLoad",
+      "table": "reference",
+      "filename": "tables/model_1_filter.tbl"
+    },
+    "noop" : {
+      "type" : "NoOp"
+    },
+    "load_main" : {
+      "type" : "TableLoad",
+      "table": "main", //TODO: Remove
+      "filename": "tables/model_1.tbl"
+    },
+    "merge": {
+      "type" : "MergeTable",
+      "statistics" : true
+    },
+    "scan" : {
+      "type" : "TableScan",
+      "expression" : "hyrise::bat::eq",
+      "column" : 0,
+      "value" : 2
+    }
+  },
+  "edges": [["load_reference", "noop"],
+            ["noop", "load_main"],
+            ["load_main", "merge"],
+            ["merge", "scan"]
+            ]
+}

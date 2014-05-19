@@ -9,10 +9,15 @@
 #include "helper/types.h"
 
 #include "storage/bat_vector.h"
+#include "storage/FixedLengthVector.h"
 #include "storage/AbstractTable.h"
 #include "storage/AbstractAttributeVector.h"
 
+#include <log4cxx/logger.h>
+
 namespace hyrise { namespace storage { namespace model {
+
+
 
   using avcb = storage::AbstractTable::abstract_attribute_vector_callback;
 
@@ -24,11 +29,14 @@ namespace hyrise { namespace storage { namespace model {
   */
   struct AttributeModelCallback {
 
+    static log4cxx::LoggerPtr logger;
+
     const storage::c_atable_ptr_t& tab;
 
     uint32_t current_attribute = 0;
 
-    AttributeModelCallback(const storage::c_atable_ptr_t& t): tab(t) {
+    AttributeModelCallback(const storage::c_atable_ptr_t& t): tab(t), current_attribute(0) {
+      LOG4CXX_DEBUG(logger, "Creating Attribute Model");
     }
 
 
@@ -36,6 +44,7 @@ namespace hyrise { namespace storage { namespace model {
      * This is the function that is called for the actual implementation of choosing the right storage type
      */
     std::shared_ptr<storage::AbstractAttributeVector> operator()(const size_t width) {
+      LOG4CXX_DEBUG(logger, "Checking Model Statistics for :" << tab << " at col: " << current_attribute);
 
       // First check the distinct value count for this attribute based on the
       // dictionary and then calculate the most frequent value
@@ -54,11 +63,14 @@ namespace hyrise { namespace storage { namespace model {
       auto mem_flv = 32 * tab->size();
       auto mem_bat = tab->size() / 8.0 + (tab->size() - std::get<1>(mf)) * 2 * 8;
 
+      LOG4CXX_DEBUG(logger, "Storage Size: " << mem_flv << " (FLV) vs. " << mem_bat << " (BAT) ");
       if (mem_flv < mem_bat ) {
         current_attribute++;
+        LOG4CXX_DEBUG(logger, "Creating FLV");
         return std::make_shared<storage::FixedLengthVector<value_id_t>>(width, 0);
       } else {
         current_attribute++;
+        LOG4CXX_DEBUG(logger, "Creating BAT");
         return std::make_shared<storage::BATVector<value_id_t, true>>(std::get<0>(mf));
       }
 
