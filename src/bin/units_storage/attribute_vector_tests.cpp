@@ -3,13 +3,59 @@
 
 #include <limits>
 
+#include "helper/checked_cast.h"
+
+#include "io/shortcuts.h"
+
 #include "storage/storage_types.h"
 #include "storage/BitCompressedVector.h"
+#include "storage/BaseAttributeVector.h"
 #include "storage/FixedLengthVector.h"
 #include "storage/bat_vector.h"
+#include "storage/model/attribute_model.h"
+#include <storage/TableBuilder.h>
+#include "storage/Store.h"
 
 namespace hyrise {
 namespace storage {
+
+TEST(AttributeModel, simple) {
+
+  hyrise::storage::atable_ptr_t input = io::Loader::shortcuts::load("test/tables/model_1.tbl");
+  const auto& store = std::dynamic_pointer_cast<Store>(input);
+  const auto& avs = store->getAttributeVectors(0);
+  const auto& flv = avs.front();
+  model::AttributeModelCallback amc(store);
+
+  const auto& mostFrequent = amc.mostFrequent(checked_pointer_cast<FixedLengthVector<value_id_t>>(flv.attribute_vector), flv.attribute_offset);
+
+  EXPECT_EQ(0ul, std::get<0>(mostFrequent));
+  EXPECT_EQ(input->size() - 3, std::get<1>(mostFrequent));
+
+}
+
+TEST(AttributeModel, column_model) {
+
+  hyrise::storage::atable_ptr_t input = io::Loader::shortcuts::load("test/tables/model_1.tbl");
+  const auto& store = std::dynamic_pointer_cast<Store>(input);
+  model::AttributeModelCallback amc(store);
+
+  const auto& new_av= amc(1);
+  const auto& comp = checked_pointer_cast<BATVector<value_id_t, true>>(new_av);
+  ASSERT_TRUE(nullptr != comp);
+
+  const auto& new_av2= amc(1);
+  const auto& comp2 = checked_pointer_cast<BATVector<value_id_t, true>>(new_av2);
+  ASSERT_TRUE(nullptr != comp2);
+
+  const auto& new_av3= amc(1);
+  const auto& comp3 = std::dynamic_pointer_cast<BATVector<value_id_t, true>>(new_av3);
+  ASSERT_TRUE(nullptr == comp3);
+
+  const auto& comp4 = checked_pointer_cast<FixedLengthVector<value_id_t>>(new_av3);
+  ASSERT_TRUE(nullptr != comp4);
+
+}
 
 
 TEST(BatVectorTests, append_values ) {

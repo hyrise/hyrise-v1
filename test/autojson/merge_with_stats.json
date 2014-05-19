@@ -1,0 +1,32 @@
+/* Test merging of tables through MergeTable operator */
+{
+  "operators": {
+    "load_reference": {
+      "type": "TableLoad",
+      "table": "reference",
+      "filename": "tables/employees_revised.tbl"
+    },
+    "noop" : {
+      "type" : "NoOp"
+    },
+    "load_main" : {
+      "type" : "TableLoad",
+      "table": "main", //TODO: Remove
+      "filename": "tables/employees.tbl"
+    },
+    "load_delta" : {
+      "type": "TableLoad",
+      "table": "delta", //TODO: Remove
+      "filename": "tables/employees_new_row.tbl"
+    },
+    "merge": {
+      "type" : "MergeTable",
+      "statistics" : true
+    }
+  },
+  "edges": [["load_reference", "noop"],
+            ["noop", "load_main"],
+            ["noop", "load_delta"],
+            ["load_main", "merge"],
+            ["load_delta", "merge"]]
+}

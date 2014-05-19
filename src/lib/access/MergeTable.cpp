@@ -10,7 +10,7 @@
 #include "storage/ConcurrentUnorderedDictionary.h"
 #include "storage/ConcurrentFixedLengthVector.h"
 #include "storage/CompoundValueKeyBuilder.h"
-
+#include "storage/model/attribute_model.h"
 
 namespace hyrise {
 namespace access {
@@ -45,7 +45,13 @@ void MergeTable::executePlanOperation() {
   output.add(result);
 }
 
-std::shared_ptr<PlanOperation> MergeTable::parse(const Json::Value& data) { return std::make_shared<MergeTable>(); }
+std::shared_ptr<PlanOperation> MergeTable::parse(const Json::Value& data) {
+  auto op = std::make_shared<MergeTable>();
+  if (data.isMember("statistics")) {
+    op->_useStatistics = data["statistics"].asBool();
+  }
+  return op;
+}
 
 const std::string MergeTable::vname() { return "MergeTable"; }
 

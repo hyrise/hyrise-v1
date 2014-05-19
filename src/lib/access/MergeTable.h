@@ -8,6 +8,9 @@ namespace hyrise {
 namespace access {
 
 class MergeTable : public PlanOperation {
+
+  bool _useStatistics = false;
+
  public:
   virtual ~MergeTable();
 
