@@ -10,8 +10,14 @@
 #include "storage/AbstractTable.h"
 #include "storage/ColumnMetadata.h"
 
+#include <log4cxx/logger.h>
+
 namespace hyrise {
 namespace io {
+
+namespace {
+  log4cxx::LoggerPtr logger(log4cxx::Logger::getLogger("io.loader.CSVLoader"));
+}
 
 param_member_impl(CSVInput::params, csv::params, CSVParams);
 param_member_impl(CSVInput::params, bool, Unsafe);
@@ -70,19 +76,43 @@ void cb_per_line(int separator, struct cb_data* data) {
   if ((!data->unsafe) && (data->column != data->table_columns)) {
     throw CSVLoaderError("Less data than columns");
   }
+
+  if (data->row % 5000 == 0) {
+    LOG4CXX_DEBUG(logger, "Loading data " << data->row);
+  }
+
   data->row++;
   data->column = 0;
 }
 
 uint64_t countLines(const std::string& filename) {
-  int numLines = 0;
+  static const auto BUFFER_SIZE = 16*1024;
+    int fd = open(filename.c_str(), O_RDONLY);
+    if(fd == -1) {
+      perror("open");
+      exit(255);
+    }
 
-  std::ifstream in(filename);
+    /* Advise the kernel of our access pattern.  */
+    posix_fadvise(fd, 0, 0, 1);  // FDADVICE_SEQUENTIAL
 
-  std::string l;
-  while (std::getline(in, l))
-    ++numLines;
-  return numLines;
+    char buf[BUFFER_SIZE + 1];
+    uintmax_t lines = 0;
+
+    while(size_t bytes_read = read(fd, buf, BUFFER_SIZE))
+    {
+        if(bytes_read == (size_t)-1) {
+          perror("read fail");
+          exit(255);
+        }
+        if (!bytes_read)
+            break;
+
+        for(char *p = buf; (p = (char*) memchr(p, '\n', (buf + bytes_read) - p)); ++p)
+            ++lines;
+    }
+
+    return lines;
 }
 
 bool detectHeader(const std::string& filename) {
@@ -108,8 +138,16 @@ std::shared_ptr<storage::AbstractTable> CSVInput::load(std::shared_ptr<storage::
     params.setLineStart(5);
 
   // Resize the table based on the file size
-  data.table->resize(countLines(args.getBasePath() + _filename) - params.getLineStart() + 1);
+  LOG4CXX_DEBUG(logger, "Resizing input table...");
+  if (params.getLineCount() == (ssize_t) -1 ) {
+    data.table->resize(countLines(args.getBasePath() + _filename) - params.getLineStart() + 1);
+  } else {
+    LOG4CXX_DEBUG(logger, "User defined line count: " << params.getLineCount());
+    data.table->resize(params.getLineCount());
+  }
 
+
+  LOG4CXX_DEBUG(logger, "Done Resizing...");
   try {
     csv::genericParseFile(
         args.getBasePath() + _filename, (field_cb_t)cb_per_field, (line_cb_t)cb_per_line, &data, params);

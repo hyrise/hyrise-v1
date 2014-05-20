@@ -53,8 +53,15 @@ void TableLoad::executePlanOperation() {
       p.setCompressed(false);
       p.setHeader(io::CSVHeader(_header_file_name));
       auto params = io::CSVInput::params().setUnsafe(_unsafe);
+      auto csv_params = params.getCSVParams();
+
       if (_hasDelimiter)
-        params.setCSVParams(io::csv::params().setDelimiter(_delimiter.at(0)));
+        csv_params.setDelimiter(_delimiter.at(0));
+
+      csv_params.setLineCount(_line_count);
+
+      params.setCSVParams(csv_params);
+
       p.setInput(io::CSVInput(_file_name, params));
       sm->loadTable(_table_name, p, _path);
     }
@@ -87,6 +94,10 @@ std::shared_ptr<PlanOperation> TableLoad::parse(const Json::Value& data) {
   } else {
     s->setPath("");
   }
+
+  if (data.isMember("line_count")) {
+    s->setLineCount(data["line_count"].asInt());
+  }
   return s;
 }
 
@@ -107,6 +118,8 @@ void TableLoad::setBinary(const bool binary) { _binary = binary; }
 void TableLoad::setUnsafe(const bool unsafe) { _unsafe = unsafe; }
 
 void TableLoad::setRaw(const bool raw) { _raw = raw; }
+
+void TableLoad::setLineCount(const ssize_t count) { _line_count = count; }
 
 void TableLoad::setDelimiter(const std::string& d) {
   _delimiter = d;

@@ -31,6 +31,7 @@ class TableLoad : public PlanOperation {
   void setRaw(const bool raw);
   void setDelimiter(const std::string& d);
   void setNonvolatile(const bool nonvolatile);
+  void setLineCount(const ssize_t count);
 
  private:
   std::string _table_name;
@@ -44,6 +45,7 @@ class TableLoad : public PlanOperation {
   bool _unsafe;
   bool _raw;
   bool _nonvolatile;
+  ssize_t _line_count = -1;
 };
 }
 }
