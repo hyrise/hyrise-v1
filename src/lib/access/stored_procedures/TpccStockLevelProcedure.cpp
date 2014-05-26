@@ -3,7 +3,7 @@
 #include "TpccStockLevelProcedure.h"
 
 #include <storage/AbstractTable.h>
-#include <access.h>
+
 #include "access/CompoundIndexScan.h"
 #include "access/CompoundIndexRangeScan.h"
 #include "storage/PointerCalculator.h"

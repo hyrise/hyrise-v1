@@ -3,7 +3,7 @@
 #include "TpccOrderStatusProcedure.h"
 
 #include <storage/AbstractTable.h>
-#include <access.h>
+
 #include "access/CompoundIndexScan.h"
 
 namespace hyrise {

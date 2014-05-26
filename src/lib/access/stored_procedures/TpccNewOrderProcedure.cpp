@@ -6,9 +6,9 @@
 
 #include <helper/make_unique.h>
 #include <storage/AbstractTable.h>
-#include <access.h>
-#include "access/CompoundIndexScan.h"
 
+#include "access/CompoundIndexScan.h"
+#include "access/IndexAwareTableScan.h"
 namespace hyrise {
 namespace access {
 

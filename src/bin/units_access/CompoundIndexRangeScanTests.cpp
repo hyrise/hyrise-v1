@@ -3,10 +3,12 @@
 #include "access/CreateDeltaIndex.h"
 #include "access/CompoundIndexRangeScan.h"
 #include "access/InsertScan.h"
+#include "access/tx/Commit.h"
+
 #include "storage/Store.h"
 #include "io/shortcuts.h"
 #include "io/TransactionManager.h"
-#include <access.h>
+
 #include "testing/test.h"
 
 namespace hyrise {

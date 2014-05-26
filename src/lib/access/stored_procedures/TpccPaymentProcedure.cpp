@@ -5,8 +5,9 @@
 #include <storage/AbstractTable.h>
 #include <storage/TableBuilder.h>
 #include <storage/storage_types_helper.h>
-#include <access.h>
+
 #include "access/CompoundIndexScan.h"
+#include "access/expressions/pred_SimpleFieldExpression.h"
 
 namespace hyrise {
 namespace access {

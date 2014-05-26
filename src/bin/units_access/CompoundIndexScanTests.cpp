@@ -2,14 +2,16 @@
 #include "access/CompoundIndexScan.h"
 #include "access/CreateGroupkeyIndex.h"
 #include "access/CreateDeltaIndex.h"
-#include <access.h>
+
 #include "helper/types.h"
 #include "io/shortcuts.h"
 #include "testing/test.h"
 #include "helper/checked_cast.h"
 #include "access/InsertScan.h"
+#include "access/tx/Commit.h"
 #include "storage/Store.h"
 #include "io/TransactionManager.h"
+#include "storage/RawTable.h"
 #include "access/expressions/pred_LessThanExpression.h"
 #include "testing/TableEqualityTest.h"
 

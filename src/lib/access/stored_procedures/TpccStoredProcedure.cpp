@@ -12,8 +12,15 @@
 #include <io/ResourceManager.h>
 #include <io/StorageManager.h>
 #include <io/TransactionManager.h>
-#include <access.h>
+
 #include "access/storage/GetTable.h"
+#include "access/SortScan.h"
+#include "access/PosUpdateScan.h"
+#include "access/IndexAwareTableScan.h"
+#include "access/tx/Rollback.h"
+#include "access/Delete.h"
+#include "access/expressions/pred_CompoundExpression.h"
+
 #include "io/TransactionError.h"
 #include "io/GroupCommitter.h"
 #include "helper/Settings.h"
