@@ -1,6 +1,6 @@
 hyr-units-io := $(realpath $(dir $(lastword $(MAKEFILE_LIST))))
 
--include ../../../rules.mk
+include $(hyr-units-io)/../../../rules.mk
 
 include $(PROJECT_ROOT)/src/lib/io/Makefile
 include $(PROJECT_ROOT)/src/lib/access/Makefile

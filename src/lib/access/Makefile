@@ -1,6 +1,7 @@
+ifndef hyr-access
 hyr-access := $(realpath $(dir $(lastword $(MAKEFILE_LIST))))
 
--include ../../../rules.mk
+include $(hyr-access)/../../../rules.mk
 
 include $(PROJECT_ROOT)/third_party/Makefile
 include $(PROJECT_ROOT)/src/lib/storage/Makefile
@@ -24,3 +25,5 @@ hyr-access.libs += profiler
 endif
 
 $(eval $(call library,hyr-access))
+
+endif

@@ -1,6 +1,6 @@
 tools := $(realpath $(dir $(lastword $(MAKEFILE_LIST))))
 
--include ../rules.mk
+include $(tools)/../rules.mk
 include $(PROJECT_ROOT)/src/bin/hyrise/Makefile
 
 .PHONY : python_test
