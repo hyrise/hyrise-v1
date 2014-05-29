@@ -49,8 +49,7 @@ class MutableVerticalTable : public AbstractTable {
                               bool compressed = false) const override;
   atable_ptr_t copy_structure_modifiable(const field_list_t* fields = nullptr,
                                          size_t initial_size = 0,
-                                         bool with_containers = true,
-                                         bool nonvolatile = false) const override;
+                                         bool with_containers = true) const override;
   atable_ptr_t copy_structure(abstract_dictionary_callback, abstract_attribute_vector_callback) const override;
   table_id_t subtableCount() const override;
   atable_ptr_t copy() const override;

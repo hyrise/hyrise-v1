@@ -96,8 +96,7 @@ class AbstractTable : public AbstractResource {
    */
   virtual atable_ptr_t copy_structure_modifiable(const field_list_t* fields = nullptr,
                                                  size_t initial_size = 0,
-                                                 bool with_containers = true,
-                                                 bool nonvolatile = false) const;
+                                                 bool with_containers = true) const;
 
   typedef std::function<std::shared_ptr<AbstractDictionary>(DataType)> abstract_dictionary_callback;
   typedef std::function<std::shared_ptr<AbstractAttributeVector>(std::size_t)> abstract_attribute_vector_callback;

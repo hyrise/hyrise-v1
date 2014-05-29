@@ -18,7 +18,6 @@ Table::Table(std::vector<ColumnMetadata>* m,
              size_t initial_size,
              bool sorted,
              bool compressed,
-             bool nonvolatile,
              const std::string& tableName)
     : _metadata(m->size()), _dictionaries(m->size()), width(m->size()), _compressed(compressed) {
   // Ownership change for meta data
@@ -116,8 +115,7 @@ atable_ptr_t Table::copy_structure(const field_list_t* fields,
 
 atable_ptr_t Table::copy_structure_modifiable(const field_list_t* fields,
                                               const size_t initial_size,
-                                              const bool with_containers,
-                                              bool nonvolatile) const {
+                                              const bool with_containers) const {
   auto fields_to_copy = proper_fields(fields, _metadata.size());
   return copy_structure_common(fields_to_copy,
                                initial_size,

@@ -170,7 +170,7 @@ class RawTable : public AbstractTable {
 
   virtual atable_ptr_t copy_structure_modifiable(const field_list_t* fields = nullptr,
                                                  const size_t initial_size = 0,
-                                                 const bool with_containers = true) const {
+                                                 const bool with_containers = true) const override {
     STORAGE_NOT_IMPLEMENTED(RawTable, copy_structure_modifiable());
   }
 

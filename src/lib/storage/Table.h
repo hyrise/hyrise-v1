@@ -53,7 +53,6 @@ class Table : public AbstractTable {
         size_t initial_size = 0,
         bool sorted = true,
         bool compressed = true,
-        bool nonvolatile = false,
         const std::string& tableName = "")
   __attribute__((deprecated("Use Table(meta, attrv, vector-of-dicts instead)")));
 
@@ -102,8 +101,7 @@ class Table : public AbstractTable {
 
   virtual atable_ptr_t copy_structure_modifiable(const field_list_t* fields = nullptr,
                                                  const size_t initial_size = 0,
-                                                 const bool with_containers = true,
-                                                 bool nonvolatile = false) const override;
+                                                 const bool with_containers = true) const override;
   virtual atable_ptr_t copy_structure(abstract_dictionary_callback, abstract_attribute_vector_callback) const override;
 
   unsigned partitionCount() const override { return 1; }
