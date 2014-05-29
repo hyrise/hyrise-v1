@@ -2,7 +2,7 @@
 #include "access/IndexAwareTableScan.h"
 #include "access/CreateGroupkeyIndex.h"
 #include "access/CreateDeltaIndex.h"
-#include <access.h>
+
 #include "helper/types.h"
 #include "io/shortcuts.h"
 #include "testing/test.h"
@@ -11,6 +11,7 @@
 #include "storage/Store.h"
 #include "io/TransactionManager.h"
 #include "access/expressions/pred_LessThanExpression.h"
+#include "access/expressions/pred_CompoundExpression.h"
 #include "testing/TableEqualityTest.h"
 
 namespace hyrise {

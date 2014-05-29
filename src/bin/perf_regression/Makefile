@@ -1,6 +1,6 @@
 hyr-perf := $(realpath $(dir $(lastword $(MAKEFILE_LIST))))
 
--include ../../../rules.mk
+include $(hyr-perf)/../../../rules.mk
 
 include $(PROJECT_ROOT)/src/lib/access/Makefile
 include $(PROJECT_ROOT)/third_party/Makefile

@@ -1,6 +1,6 @@
 hyr-units-layouter := $(realpath $(dir $(lastword $(MAKEFILE_LIST))))
 
--include ../../../rules.mk
+include $(hyr-units-layouter)/../../../rules.mk
 
 include $(PROJECT_ROOT)/src/lib/layouter/Makefile
 include $(PROJECT_ROOT)/src/lib/io/Makefile

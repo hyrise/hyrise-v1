@@ -1,6 +1,6 @@
 hyr-units-taskscheduler := $(realpath $(dir $(lastword $(MAKEFILE_LIST))))
 
--include ../../../rules.mk
+include $(hyr-units-taskscheduler)/../../../rules.mk
 
 include $(PROJECT_ROOT)/src/lib/taskscheduler/Makefile
 include $(PROJECT_ROOT)/src/lib/access/Makefile

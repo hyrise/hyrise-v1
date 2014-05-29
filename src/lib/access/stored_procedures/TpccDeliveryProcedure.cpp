@@ -3,9 +3,12 @@
 #include "TpccDeliveryProcedure.h"
 
 #include <storage/AbstractTable.h>
-#include <access.h>
-#include <unistd.h>
 #include "access/CompoundIndexScan.h"
+#include "access/HashBuild.h"
+#include "access/GroupByScan.h"
+
+#include <unistd.h>
+
 
 namespace hyrise {
 namespace access {

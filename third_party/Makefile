@@ -1,6 +1,7 @@
+ifndef tp
 tp := $(realpath $(dir $(lastword $(MAKEFILE_LIST))))
 
--include ../rules.mk
+-include $(tp)/../rules.mk
 
 ftprinter := $(tp)/ftprinter
 
@@ -31,3 +32,5 @@ muparser.libname := muparser
 muparser.cpps := $(wildcard $(muparser)/parser/*.cpp)
 muparser.includes := $(muparser)/parser
 $(eval $(call library,muparser))
+
+endif

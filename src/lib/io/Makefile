@@ -1,6 +1,7 @@
+ifndef hyr-io
 hyr-io := $(realpath $(dir $(lastword $(MAKEFILE_LIST))))
 
--include ../../../rules.mk
+include $(hyr-io)/../../../rules.mk
 
 include $(PROJECT_ROOT)/third_party/Makefile
 include $(PROJECT_ROOT)/src/lib/helper/Makefile
@@ -17,3 +18,4 @@ hyr-io.CPPFLAGS += -DWITH_MYSQL
 endif
 
 $(eval $(call library,hyr-io))
+endif

@@ -1,6 +1,6 @@
 hyr-server := $(realpath $(dir $(lastword $(MAKEFILE_LIST))))
 
--include ../../../rules.mk
+include $(hyr-server)/../../../rules.mk
 
 include $(PROJECT_ROOT)/src/lib/access/Makefile
 include $(PROJECT_ROOT)/src/lib/net/Makefile
