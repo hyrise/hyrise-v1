@@ -48,7 +48,12 @@ class InvertedIndex : public AbstractIndex {
 
   void unlock() {};
 
-  explicit InvertedIndex(const c_atable_ptr_t& in, field_t column) {
+  std::shared_ptr<AbstractIndex> recreateIndex(const c_atable_ptr_t& in, field_t column) {
+    return std::make_shared<InvertedIndex<T>>(in, column);
+  }
+
+  explicit InvertedIndex(const c_atable_ptr_t& in, field_t column, std::string id = "inverted_index")
+      : AbstractIndex(id) {
     if (in != nullptr) {
       for (size_t row = 0; row < in->size(); ++row) {
         T tmp = in->getValue<T>(column, row);

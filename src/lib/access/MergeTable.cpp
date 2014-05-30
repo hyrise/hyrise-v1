@@ -5,6 +5,7 @@
 
 #include "helper/checked_cast.h"
 #include "storage/Store.h"
+#include "storage/ColumnStoreMerger.h"
 
 namespace hyrise {
 namespace access {
@@ -56,5 +57,34 @@ void MergeStore::executePlanOperation() {
 }
 
 std::shared_ptr<PlanOperation> MergeStore::parse(const Json::Value& data) { return std::make_shared<MergeStore>(); }
+
+namespace {
+auto _3 = QueryParser::registerPlanOperation<MergeColumnStore>("MergeColumnStore");
+}
+
+MergeColumnStore::MergeColumnStore(bool forceFullIndexRebuild) : _forceFullIndexRebuild(forceFullIndexRebuild) {};
+
+MergeColumnStore::~MergeColumnStore() {}
+
+void MergeColumnStore::executePlanOperation() {
+  auto t = checked_pointer_cast<const storage::Store>(getInputTable());
+  auto store = std::const_pointer_cast<storage::Store>(t);
+  storage::ColumnStoreMerger merger = storage::ColumnStoreMerger(store, _forceFullIndexRebuild);
+
+  if (!store->isColumnStore())
+    throw std::runtime_error("Column Store Merge applied to a table with row or hybrid layout");
+
+  merger.merge();
+  addResult(store);
+}
+
+std::shared_ptr<PlanOperation> MergeColumnStore::parse(const Json::Value& data) {
+  if (data.isMember("force_full_index_rebuild"))
+    return std::make_shared<MergeColumnStore>(data["force_full_index_rebuild"].asBool());
+
+  return std::make_shared<MergeColumnStore>(false);
+}
+
+void MergeColumnStore::setForceFullIndexRebuild(bool force) { _forceFullIndexRebuild = force; }
 }
 }

@@ -1,0 +1,29 @@
+{
+  "operators": {
+    "-1": {
+      "type": "TableLoad",
+      "table": "reference",
+      "filename": "reference/ColumnStoreMerge_threeColumns.tbl"
+    },
+    "loadMain": {
+      "type": "TableLoad",
+      "table": "employees",
+      "filename": "tables/employeesAlternative.tbl"
+    },
+    "insertDelta": {
+      "type": "InsertScan",
+      "data": [
+                [7, 13.4, "Tim Cook"],
+                [8, 5.1, "Peter Sippel"],
+                [9, 5.1, "Frank Walter"]
+              ]
+    },
+    "merge": {
+      "type": "MergeColumnStore"
+    }
+  },
+  "edges": [
+    ["loadMain", "insertDelta"],
+    ["insertDelta", "merge"]
+  ]
+}

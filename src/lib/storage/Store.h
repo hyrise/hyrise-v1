@@ -43,6 +43,7 @@ class Store : public AbstractTable {
   virtual ~Store();
 
   atable_ptr_t getMainTable() const;
+  void setMain(atable_ptr_t main);
   void setDelta(atable_ptr_t _delta);
   atable_ptr_t getDeltaTable() const;
   size_t deltaOffset() const;
@@ -104,6 +105,8 @@ class Store : public AbstractTable {
   void addDeltaIndex(std::shared_ptr<AbstractIndex> index, std::vector<size_t> columns);
   void addRowToDeltaIndices(pos_t row);
   std::vector<std::vector<size_t>> getIndexedColumns() const;
+  const std::vector<std::pair<std::shared_ptr<AbstractIndex>, std::vector<field_t>>>& getMainIndices() const;
+  void clearIndices();
 
   virtual void enableLogging();
   virtual void setName(const std::string name);
@@ -137,6 +140,8 @@ class Store : public AbstractTable {
     _main_table->prepareCheckpoint();
     delta->prepareCheckpoint();
   }
+
+  bool isColumnStore();
 
  private:
   std::atomic<std::size_t> _delta_size;

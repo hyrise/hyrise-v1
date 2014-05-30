@@ -49,7 +49,7 @@ class DeltaIndex : public AbstractIndex {
 
   void unlock() { _mtx.unlock(); }
 
-  explicit DeltaIndex(std::string id = "volatile_delta_index", size_t capacity = 1000000) {}
+  explicit DeltaIndex(std::string id = "volatile_delta_index", size_t capacity = 1000000) : AbstractIndex(id) {}
 
   void add(T value, pos_t pos) {
     _index.insert({value, pos});
