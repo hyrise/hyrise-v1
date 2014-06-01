@@ -54,7 +54,6 @@ class MutableVerticalTable : public AbstractTable {
   table_id_t subtableCount() const override;
   atable_ptr_t copy() const override;
   const attr_vectors_t getAttributeVectors(size_t column) const override;
-  void debugStructure(size_t level = 0) const override;
 
   /// Returns the container at a given index.
   /// @param container_index Index of the container.

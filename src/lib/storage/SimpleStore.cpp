@@ -77,13 +77,6 @@ unsigned int SimpleStore::partitionCount() const { return _main->partitionCount(
 
 atable_ptr_t SimpleStore::copy() const { STORAGE_NOT_IMPLEMENTED(SimpleStore, copy()); }
 
-
-void SimpleStore::debugStructure(size_t level) const {
-  std::cout << std::string(level, '\t') << "SimpleStore " << this << std::endl;
-  _main->debugStructure(level + 1);
-  _delta->debugStructure(level + 1);
-}
-
 void SimpleStore::persist_scattered(const pos_list_t& elements, bool new_elements) const {
   _main->persist_scattered(elements, new_elements);
   _delta->persist_scattered(elements, new_elements);

@@ -95,7 +95,6 @@ class Store : public AbstractTable {
   table_id_t subtableCount() const override { return 2; }
   atable_ptr_t copy() const override;
   const attr_vectors_t getAttributeVectors(size_t column) const override;
-  void debugStructure(size_t level = 0) const override;
   void persist_scattered(const pos_list_t& elements, bool new_elements = true) const override;
   void addMainIndex(std::shared_ptr<AbstractIndex> index, std::vector<size_t> columns);
   void addDeltaIndex(std::shared_ptr<AbstractIndex> index, std::vector<size_t> columns);

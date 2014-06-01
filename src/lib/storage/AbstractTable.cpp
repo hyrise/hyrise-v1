@@ -371,10 +371,6 @@ const attr_vectors_t AbstractTable::getAttributeVectors(size_t column) const {
   throw std::runtime_error("getAttributeVectors not implemented");
 }
 
-void AbstractTable::debugStructure(size_t level) const {
-  std::cout << std::string(level, '\t') << "AbstractTable " << this << std::endl;
-}
-
 unique_id AbstractTable::getUuid() const { return _uuid; }
 
 void AbstractTable::setUuid(unique_id u) {

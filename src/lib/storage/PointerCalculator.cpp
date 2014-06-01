@@ -457,11 +457,6 @@ std::shared_ptr<PointerCalculator> PointerCalculator::concatenate_many(pc_vector
   return create(table, result, nullptr);
 }
 
-void PointerCalculator::debugStructure(size_t level) const {
-  std::cout << std::string(level, '\t') << "PointerCalculator " << this << std::endl;
-  table->debugStructure(level + 1);
-}
-
 
 void PointerCalculator::validate(tx::transaction_id_t tid, tx::transaction_id_t cid) {
   const auto& store = checked_pointer_cast<const Store>(table);

@@ -454,7 +454,6 @@ class AbstractTable : public AbstractResource {
   void write(const std::string& filename) const;
 
 
-
   /**
    * Test for equality of this table's content with another table's.
    *
@@ -477,8 +476,6 @@ class AbstractTable : public AbstractResource {
   * access to the memory and keeping the high-level data structures.
   */
   virtual const attr_vectors_t getAttributeVectors(size_t column) const;
-
-  virtual void debugStructure(size_t level = 0) const;
 
   unique_id getUuid() const;
 

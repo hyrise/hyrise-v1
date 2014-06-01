@@ -93,8 +93,6 @@ class PointerCalculator : public AbstractTable, public SharedFactory<PointerCalc
   size_t partitionWidth(const size_t slice) const override;
   void print(const size_t limit = (size_t) - 1) const override;
   table_id_t subtableCount() const override { return 1; }
-  void debugStructure(size_t level = 0) const override;
-
   void persist_scattered(const pos_list_t& elements, bool new_elements = true) const override {
     STORAGE_NOT_IMPLEMENTED(RawTable, persist_scattered());
   }
