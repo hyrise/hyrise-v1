@@ -60,8 +60,7 @@ atable_ptr_t AbstractTable::copy_structure(const field_list_t* fields,
 
 atable_ptr_t AbstractTable::copy_structure_modifiable(const field_list_t* fields,
                                                       const size_t initial_size,
-                                                      const bool with_containers,
-                                                      const bool nonvolatile) const {
+                                                      const bool with_containers) const {
   std::vector<ColumnMetadata> metadata;
   auto dictionaries = std::unique_ptr<std::vector<AbstractTable::SharedDictionaryPtr> >(
       new std::vector<AbstractTable::SharedDictionaryPtr>);

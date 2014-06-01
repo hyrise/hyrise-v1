@@ -96,7 +96,7 @@ class Store : public AbstractTable {
   size_t columnCount() const override;
   unsigned partitionCount() const override;
   size_t partitionWidth(size_t slice) const override;
-  void print(size_t limit = (size_t) - 1, size_t offset = 0) const;
+  void print(size_t limit = (size_t) - 1) const override;
   table_id_t subtableCount() const override { return 2; }
   atable_ptr_t copy() const override;
   const attr_vectors_t getAttributeVectors(size_t column) const override;

@@ -30,7 +30,6 @@ class TableLoad : public PlanOperation {
   void setUnsafe(const bool unsafe);
   void setRaw(const bool raw);
   void setDelimiter(const std::string& d);
-  void setNonvolatile(const bool nonvolatile);
 
  private:
   std::string _table_name;
@@ -43,7 +42,6 @@ class TableLoad : public PlanOperation {
   bool _binary;
   bool _unsafe;
   bool _raw;
-  bool _nonvolatile;
 };
 }
 }
