@@ -195,11 +195,14 @@ void RequestParseTask::operator()() {
       _responseTask->addErrorMessage("Parsing: " + reader.getFormatedErrorMessages());
     }
     // Update the transmission limit for the response task
-    if (atoi(body_data["limit"].c_str()) > 0)
-      _responseTask->setTransmitLimit(atol(body_data["limit"].c_str()));
-
-    if (atoi(body_data["offset"].c_str()) > 0)
-      _responseTask->setTransmitOffset(atol(body_data["offset"].c_str()));
+    auto limit = atol(getOrDefault(body_data, "limit", "0").c_str());
+    if (limit > 0 ) {
+        _responseTask->setTransmitLimit(limit);
+    }
+    auto offset = atol(getOrDefault(body_data, "offset", "0").c_str());
+    if (offset > 0) {
+        _responseTask->setTransmitOffset(offset);
+    }
 
   } else {
     LOG4CXX_WARN(_logger, "no body received!");

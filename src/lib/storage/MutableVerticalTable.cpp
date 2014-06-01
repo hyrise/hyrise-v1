@@ -218,5 +218,27 @@ void MutableVerticalTable::persist_scattered(const pos_list_t& elements, bool ne
     c->persist_scattered(elements, new_elements);
   }
 }
+
+Visitation MutableVerticalTable::accept(StorageVisitor& visitor) const {
+  if (visitor.visitEnter(*this) == Visitation::next) {
+    for (auto& c : containers) {
+      if (c->accept(visitor) == Visitation::skip) {
+        break;
+      }
+    }
+  }
+  return visitor.visitLeave(*this);
+}
+
+Visitation MutableVerticalTable::accept(MutableStorageVisitor& visitor) {
+  if (visitor.visitEnter(*this) == Visitation::next) {
+    for (auto& c : containers) {
+      if (c->accept(visitor) == Visitation::skip) {
+        break;
+      }
+    }
+  }
+  return visitor.visitLeave(*this);
+}
 }
 }

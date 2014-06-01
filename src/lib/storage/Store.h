@@ -11,26 +11,21 @@
 #include <map>
 #include <set>
 
-#include <storage/MutableVerticalTable.h>
-#include <storage/AbstractTable.h>
-#include <storage/TableMerger.h>
-#include <storage/AbstractMergeStrategy.h>
-#include <storage/SequentialHeapMerger.h>
-#include <storage/PrettyPrinter.h>
-
-#include <helper/types.h>
-#include "helper/locking.h"
-
-#include <json.h>
-
-
+#include "json.h"
 #include "tbb/concurrent_vector.h"
+
+#include "helper/types.h"
+#include "helper/locking.h"
+#include "storage/AbstractTable.h"
+#include "storage/TableMerger.h"
+#include "storage/AbstractMergeStrategy.h"
+#include "storage/SequentialHeapMerger.h"
 
 namespace hyrise {
 namespace storage {
 
 /**
- * Store consists of one or more main tables and a delta store and is the
+ * Store consists of one main table and a delta store and is the
  * only entity capable of modifying the content of the table(s) after
  * initialization via the delta store. It can be merged into the main
  * tables using a to-be-set merger.
@@ -106,6 +101,9 @@ class Store : public AbstractTable {
   void addDeltaIndex(std::shared_ptr<AbstractIndex> index, std::vector<size_t> columns);
   void addRowToDeltaIndices(pos_t row);
   std::vector<std::vector<size_t>> getIndexedColumns() const;
+
+  Visitation accept(StorageVisitor&) const override;
+  Visitation accept(MutableStorageVisitor&) override;
 
   virtual void enableLogging();
   virtual void setName(const std::string name);

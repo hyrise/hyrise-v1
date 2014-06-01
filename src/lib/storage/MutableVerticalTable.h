@@ -67,6 +67,9 @@ class MutableVerticalTable : public AbstractTable {
   /// @param column_index Index of the column.
   size_t getOffsetInContainer(size_t column_index) const;
 
+  Visitation accept(StorageVisitor&) const override;
+  Visitation accept(MutableStorageVisitor&) override;
+
  private:
   /// Vector storing the containers
   std::vector<atable_ptr_t> containers;

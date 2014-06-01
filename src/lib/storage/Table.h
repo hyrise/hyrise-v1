@@ -122,6 +122,9 @@ class Table : public AbstractTable {
 
   virtual void debugStructure(size_t level = 0) const override;
 
+  Visitation accept(StorageVisitor&) const override;
+  Visitation accept(MutableStorageVisitor&) override;
+
  private:
   enum class DICTIONARY_FLAG {
     CREATE,

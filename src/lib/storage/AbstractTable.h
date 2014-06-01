@@ -24,6 +24,7 @@
 
 #include "storage/BaseDictionary.h"
 #include "storage/storage_types.h"
+#include "storage/HierarchyVisitor.h"
 
 #include <json.h>
 
@@ -508,6 +509,9 @@ class AbstractTable : public AbstractResource {
       this->dictionaryAt(i)->prepareCheckpoint();
     }
   }
+
+  virtual Visitation accept(StorageVisitor&) const;
+  virtual Visitation accept(MutableStorageVisitor&);
 
  protected:
   // Global unique identifier for this object

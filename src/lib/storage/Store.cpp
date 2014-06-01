@@ -529,6 +529,24 @@ void Store::enableLogging() {
   delta->enableLogging();
 }
 
+Visitation Store::accept(StorageVisitor& visitor) const {
+  if (visitor.visitEnter(*this) == Visitation::next) {
+    if (_main_table->accept(visitor) == Visitation::next) {
+      delta->accept(visitor);  // ignore result, nothing to continue
+    }
+  }
+  return visitor.visitLeave(*this);
+}
+
+Visitation Store::accept(MutableStorageVisitor& visitor) {
+  if (visitor.visitEnter(*this) == Visitation::next) {
+    if (_main_table->accept(visitor) == Visitation::next) {
+      delta->accept(visitor);
+    }
+  }
+  return visitor.visitLeave(*this);
+}
+
 void Store::setName(const std::string name) {
   _name = name;
   if (_main_table)

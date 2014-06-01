@@ -106,5 +106,27 @@ size_t HorizontalTable::computeSize() const {
   return std::accumulate(
       _parts.begin(), _parts.end(), 0, [](size_t r, const c_atable_ptr_t& t) { return r + t->size(); });
 }
+Visitation HorizontalTable::accept(StorageVisitor& visitor) const {
+  if (visitor.visitEnter(*this) == Visitation::next) {
+    for (auto& c : _parts) {
+      if (c->accept(visitor) == Visitation::skip) {
+        break;
+      }
+    }
+  }
+  return visitor.visitLeave(*this);
+}
+
+Visitation HorizontalTable::accept(MutableStorageVisitor& visitor) {
+  if (visitor.visitEnter(*this) == Visitation::next) {
+    for (auto& part : _parts) {
+      auto c = std::const_pointer_cast<AbstractTable>(part);
+      if (c->accept(visitor) == Visitation::skip) {
+        break;
+      }
+    }
+  }
+  return visitor.visitLeave(*this);
+}
 }
 }

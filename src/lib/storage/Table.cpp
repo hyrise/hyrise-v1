@@ -238,5 +238,9 @@ void Table::persist_scattered(const pos_list_t& elements, bool new_elements) con
 void Table::debugStructure(size_t level) const {
   std::cout << std::string(level, '\t') << "Table " << this << std::endl;
 }
+
+Visitation Table::accept(StorageVisitor& visitor) const { return visitor.visit(*this); }
+
+Visitation Table::accept(MutableStorageVisitor& visitor) { return visitor.visit(*this); }
 }
 }  // namespace hyrise::storage

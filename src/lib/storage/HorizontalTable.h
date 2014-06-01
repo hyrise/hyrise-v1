@@ -38,6 +38,9 @@ class HorizontalTable : public AbstractTable {
   atable_ptr_t copy() const override;
   void debugStructure(size_t level = 0) const override;
 
+  Visitation accept(StorageVisitor&) const override;
+  Visitation accept(MutableStorageVisitor&) override;
+
  private:
   size_t partForRow(size_t row) const;
   size_t computeSize() const;

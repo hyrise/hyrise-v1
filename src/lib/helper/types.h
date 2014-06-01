@@ -55,8 +55,10 @@ typedef std::shared_ptr<PlanOperation> planop_ptr_t;
 namespace storage {
 class SimpleStore;
 class MutableVerticalTable;
+class HorizontalTable;
 class Store;
 class AbstractAttributeVector;
+class Table;
 
 typedef std::shared_ptr<AbstractResource> aresource_ptr_t;
 typedef std::shared_ptr<const AbstractResource> c_aresource_ptr_t;
