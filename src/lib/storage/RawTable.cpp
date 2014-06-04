@@ -26,7 +26,9 @@ byte* RowHelper::build() const {
   size_t width = sizeof(record_header);
   for (size_t i = 0; i < _m.size(); ++i) {
     if (types::isCompatible(_m[i].getType(), StringType))
-      width += *(uint16_t*)_tempData[i] + 2;  // string length in bytes plus length var
+      width += 2 + *(uint16_t*)_tempData[i];  // string length in bytes plus length var
+    else if (types::isCompatible(_m[i].getType(), FloatType))
+      width += 4;
     else
       width += 8;
   }
@@ -41,7 +43,7 @@ byte* RowHelper::build() const {
       memcpy(mov, _tempData[i], 2);
       memcpy(mov + 2, _tempData[i] + 2, *(uint16_t*)mov);
       mov += 2 + *(uint16_t*)mov;
-    } else if (_m[i].getType() == FloatType) {
+    } else if (types::isCompatible(_m[i].getType(), FloatType)) {
       memcpy(mov, _tempData[i], 4);
       mov += 4;
     } else {
@@ -113,6 +115,8 @@ RawTable::byte* RawTable::computePosition(const size_t& column, const size_t& ro
   for (size_t i = 0; i < column; ++i) {
     if (types::isCompatible(_metadata[i].getType(), StringType)) {
       tuple += 2 /* size of the length */ + *((unsigned short*)tuple);
+    } else if (types::isCompatible(_metadata[i].getType(), FloatType)) {
+      tuple += 4;
     } else {
       tuple += 8;
     }
