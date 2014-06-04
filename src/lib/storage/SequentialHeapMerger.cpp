@@ -146,7 +146,7 @@ AbstractTable::SharedDictionaryPtr SequentialHeapMerger::createNewDict(
   for (size_t p = 0, stop = input_tables.size(); p < stop; ++p) {
 
     auto dict = std::dynamic_pointer_cast<BaseDictionary<T>>(value_id_maps[p]);
-    value_id_mapping[p].resize(value_id_maps[p]->size());
+    value_id_mapping[p].resize(dict->size());
 
     // For each part create a helper that is mapped to the priority queue
     auto helper = std::make_shared<DictMergeHelper<T>>();
