@@ -42,6 +42,9 @@ void MinimalistPrinter::OnTestProgramEnd(const ::testing::UnitTest &unit) {
                                         [](size_t acc, decltype(*_tests.begin()) value) -> size_t {
                                           return acc + value.second.size();
                                         });
+  if (failed_tests) {
+      printf("\n");
+  }
   for (const auto & kvs: _tests) {
     if (kvs.second.size())
       printf("%s\n", kvs.first.c_str());
