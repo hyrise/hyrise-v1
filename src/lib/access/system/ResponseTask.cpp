@@ -171,6 +171,8 @@ Json::Value ResponseTask::generateResponseJson() {
         element["startTime"] = Json::Value((double)(attr->startTime - queryStart) / 1000000);
         element["endTime"] = Json::Value((double)(attr->endTime - queryStart) / 1000000);
         element["executingThread"] = Json::Value(attr->executingThread);
+        element["lastCore"] = Json::Value(attr->core);
+        element["lastNode"] = Json::Value(attr->node);
         json_perf.append(element);
       }
 
@@ -185,6 +187,10 @@ Json::Value ResponseTask::generateResponseJson() {
 
       std::string threadId = boost::lexical_cast<std::string>(std::this_thread::get_id());
       responseElement["executingThread"] = Json::Value(threadId);
+
+      responseElement["lastCore"] = Json::Value(getCurrentCore());
+      responseElement["lastNode"] = Json::Value(getCurrentNode());
+
       json_perf.append(responseElement);
 
       response["performanceData"] = json_perf;
