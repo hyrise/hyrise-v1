@@ -465,7 +465,8 @@ void wrapTable(v8::Isolate* isolate, const std::shared_ptr<T>& table, size_t int
 
   obj = templ->NewInstance();
   obj->Set(OneByteString(isolate, "_isModifiable"), v8::Boolean::New(isolate, false));
-  obj->SetInternalField(0, v8::External::New(isolate, const_cast<T*>(table.get())));
+
+  obj->SetInternalField(0, v8::External::New(isolate, const_cast<typename std::remove_const<T>::type*>(table.get())));
 }
 
 // Create a pointer calculator based on the input, the function has two
