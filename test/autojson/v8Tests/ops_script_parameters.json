@@ -3,12 +3,13 @@
 		"-1" : {
 			"type": "TableLoad",
             "table": "reference",
-            "filename": "tables/companies.tbl"
+            "filename": "tables/companies_apple_only.tbl"
 		},
 		"script" : {
 			"type" : "ScriptOperation",
-			"script": "build_vtab",
-			"param1" : "10"
+			"script": "build_vtab_with_param",
+			"length": 1,
+			"company": "Apple Inc"
 		}
 	},
 

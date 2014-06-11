@@ -173,8 +173,15 @@ PLUGINS += profiler
 endif
 
 ifeq ($(WITH_V8),1)
-ifndef V8_BASE_DIRECTORY
-$(error V8_BASE_DIRECTORY is not defined)
+COMMON_FLAGS += -D WITH_V8
+LDFLAGS += -lv8_base.x64 -lv8_snapshot -L/$(V8_BUILD_DIRECTORY)/obj.target/tools/gyp -licui18n -licuuc -licudata -L/$(V8_BUILD_DIRECTORY)/obj.target/third_party/icu
+ifndef V8_INCLUDE_DIRECTORY
+$(error V8_INCLUDE_DIRECTORY is not defined)
+else
+INCLUDE_DIRS += $(V8_INCLUDE_DIRECTORY)
+endif
+ifndef V8_BUILD_DIRECTORY
+$(error V8_BUILD_DIRECTORY is not defined)
 endif
 endif
 

@@ -5,6 +5,7 @@
 
 #include "helper.h"
 #include <io/shortcuts.h>
+#include <io/Loader.h>
 #include <helper/Settings.h>
 #include <access/ScriptOperation.h>
 #include <testing/TableEqualityTest.h>
@@ -17,10 +18,10 @@ class ScriptOperationTests : public AccessTest {
   ScriptOperationTests() {
     auto s = Settings::getInstance();
     s->setScriptPath("./test/script");
-    tab = Loader::shortcuts::load("test/index_test.tbl");
+    tab = io::Loader::shortcuts::load("test/index_test.tbl");
   }
 
-  hyrise::storage::c_atable_ptr_t tab;
+  storage::c_atable_ptr_t tab;
 };
 
 TEST_F(ScriptOperationTests, pointer_calculator) {
@@ -29,7 +30,7 @@ TEST_F(ScriptOperationTests, pointer_calculator) {
   op.setScriptName("hello");
   op.execute();
 
-  auto reference = Loader::shortcuts::load("test/reference/ops_script_pc_ref.tbl");
+  auto reference = io::Loader::shortcuts::load("test/reference/ops_script_pc_ref.tbl");
   auto result = op.getResultTable();
   EXPECT_RELATION_EQ(result, reference);
 }
@@ -40,7 +41,7 @@ TEST_F(ScriptOperationTests, copy_structure_modifiable) {
   op.setScriptName("copy_structure");
   op.execute();
 
-  auto reference = Loader::shortcuts::load("test/reference/ops_script_mutable_ref.tbl");
+  auto reference = io::Loader::shortcuts::load("test/reference/ops_script_mutable_ref.tbl");
   auto result = op.getResultTable();
   EXPECT_RELATION_EQ(result, reference);
 }
@@ -72,7 +73,7 @@ TEST_F(ScriptOperationTests, build_table) {
   op.setScriptName("build_table");
   op.execute();
 
-  auto reference = Loader::shortcuts::load("test/tables/companies.tbl");
+  auto reference = io::Loader::shortcuts::load("test/tables/companies.tbl");
   auto result = op.getResultTable();
   EXPECT_RELATION_EQ(result, reference);
 }
@@ -90,7 +91,7 @@ TEST_F(ScriptOperationTests, build_vertical_table) {
   op.setScriptName("build_vtab");
   op.execute();
 
-  auto reference = Loader::shortcuts::load("test/tables/companies.tbl");
+  auto reference = io::Loader::shortcuts::load("test/tables/companies.tbl");
   auto result = op.getResultTable();
   EXPECT_RELATION_EQ(result, reference);
 }
@@ -101,7 +102,7 @@ TEST_F(ScriptOperationTests, get_attribute_vectors_scan) {
   op.setScriptName("get_attribute_vectors_scan");
   op.execute();
 
-  auto reference = Loader::shortcuts::load("test/reference/ops_script_pc_ref.tbl");
+  auto reference = io::Loader::shortcuts::load("test/reference/ops_script_pc_ref.tbl");
   auto result = op.getResultTable();
   EXPECT_RELATION_EQ(result, reference);
 }
@@ -112,7 +113,7 @@ TEST_F(ScriptOperationTests, get_attribute_vectors_scan_range) {
   op.setScriptName("get_attribute_vectors_scan_range");
   op.execute();
 
-  auto reference = Loader::shortcuts::load("test/reference/ops_script_pc_ref.tbl");
+  auto reference = io::Loader::shortcuts::load("test/reference/ops_script_pc_ref.tbl");
   auto result = op.getResultTable();
   EXPECT_RELATION_EQ(result, reference);
 }

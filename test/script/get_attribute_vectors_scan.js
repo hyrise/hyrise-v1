@@ -9,7 +9,7 @@ function hyrise_run_op(input) {
 	var pos = []
 	for(var i=0; i < size; ++i) {
 		var tmp = av0.get(of0, i);
-		if ( tmp < 5 && tmp % 2 == 0)
+		if (tmp < 5 && tmp % 2 == 0)
 			pos.push(i);
 	}
 
