@@ -81,14 +81,13 @@ class Table : public AbstractTable {
                                    const size_t row_index = 0,
                                    const table_id_t table_id = 0) const override;
 
-  virtual const AbstractTable::SharedDictionaryPtr& dictionaryAt(const size_t column,
-                                                                 const size_t row = 0,
-                                                                 const table_id_t table_id = 0) const override;
+  virtual const adict_ptr_t& dictionaryAt(const size_t column,
+                                          const size_t row = 0,
+                                          const table_id_t table_id = 0) const override;
 
-  virtual const AbstractTable::SharedDictionaryPtr& dictionaryByTableId(const size_t column,
-                                                                        const table_id_t table_id) const override;
+  virtual const adict_ptr_t& dictionaryByTableId(const size_t column, const table_id_t table_id) const override;
 
-  virtual void setDictionaryAt(AbstractTable::SharedDictionaryPtr dict,
+  virtual void setDictionaryAt(adict_ptr_t dict,
                                const size_t column,
                                const size_t row = 0,
                                const table_id_t table_id = 0) override;

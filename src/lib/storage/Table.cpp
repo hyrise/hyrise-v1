@@ -77,7 +77,7 @@ atable_ptr_t Table::copy_structure_common(const std::vector<size_t>& fields_to_c
                                           COMPRESSION_FLAG compression,
                                           CONCURRENCY_FLAG concurrency) const {
   std::vector<ColumnMetadata> metadata;
-  std::vector<AbstractTable::SharedDictionaryPtr> dictionaries;
+  std::vector<adict_ptr_t> dictionaries;
   for (const auto& field : fields_to_copy) {
     metadata.push_back(_metadata.at(field));
     dictionaries.push_back(dictionary_policy == DICTIONARY_FLAG::REUSE ? _dictionaries.at(field)
@@ -126,7 +126,7 @@ atable_ptr_t Table::copy_structure_modifiable(const field_list_t* fields,
 
 atable_ptr_t Table::copy_structure(abstract_dictionary_callback ad, abstract_attribute_vector_callback aav) const {
   std::vector<ColumnMetadata> metadata;
-  std::vector<AbstractTable::SharedDictionaryPtr> dicts;
+  std::vector<adict_ptr_t> dicts;
 
   for (size_t i = 0; i < columnCount(); ++i) {
     metadata.push_back(metadataAt(i));
@@ -179,23 +179,17 @@ const ColumnMetadata& Table::metadataAt(const size_t column, const size_t row_in
 }
 
 
-const AbstractTable::SharedDictionaryPtr& Table::dictionaryAt(const size_t column,
-                                                              const size_t row,
-                                                              const table_id_t table_id) const {
+const adict_ptr_t& Table::dictionaryAt(const size_t column, const size_t row, const table_id_t table_id) const {
   return _dictionaries[column];
 }
 
 
-const AbstractTable::SharedDictionaryPtr& Table::dictionaryByTableId(const size_t column,
-                                                                     const table_id_t table_id) const {
+const adict_ptr_t& Table::dictionaryByTableId(const size_t column, const table_id_t table_id) const {
   return _dictionaries[column];
 }
 
 
-void Table::setDictionaryAt(AbstractTable::SharedDictionaryPtr dict,
-                            const size_t column,
-                            const size_t row,
-                            const table_id_t table_id) {
+void Table::setDictionaryAt(adict_ptr_t dict, const size_t column, const size_t row, const table_id_t table_id) {
 
   // Swap the dictionaries
   if (_dictionaries[column] == nullptr || _dictionaries[column]->size() != dict->size()) {

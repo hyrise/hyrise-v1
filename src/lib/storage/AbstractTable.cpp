@@ -29,10 +29,10 @@ atable_ptr_t AbstractTable::copy_structure(const field_list_t* fields,
                                            const bool with_containers,
                                            const bool compressed) const {
   std::vector<ColumnMetadata> metadata;
-  std::vector<AbstractTable::SharedDictionaryPtr>* dictionaries = nullptr;
+  std::vector<adict_ptr_t>* dictionaries = nullptr;
 
   if (reuse_dict) {
-    dictionaries = new std::vector<AbstractTable::SharedDictionaryPtr>();
+    dictionaries = new std::vector<adict_ptr_t>();
   }
 
   if (fields != nullptr) {
@@ -62,8 +62,7 @@ atable_ptr_t AbstractTable::copy_structure_modifiable(const field_list_t* fields
                                                       const size_t initial_size,
                                                       const bool with_containers) const {
   std::vector<ColumnMetadata> metadata;
-  auto dictionaries = std::unique_ptr<std::vector<AbstractTable::SharedDictionaryPtr> >(
-      new std::vector<AbstractTable::SharedDictionaryPtr>);
+  auto dictionaries = std::unique_ptr<std::vector<adict_ptr_t> >(new std::vector<adict_ptr_t>);
 
   if (fields != nullptr) {
     for (const field_t& field : *fields) {
@@ -85,8 +84,8 @@ atable_ptr_t AbstractTable::copy_structure_modifiable(const field_list_t* fields
   return result;
 }
 
-std::vector<AbstractTable::SharedDictionaryPtr>* AbstractTable::dictionaries() const {
-  auto result = new std::vector<AbstractTable::SharedDictionaryPtr>();
+std::vector<adict_ptr_t>* AbstractTable::dictionaries() const {
+  auto result = new std::vector<adict_ptr_t>();
 
   for (size_t c = 0; c < columnCount(); c++) {
     result->push_back(dictionaryAt(c));

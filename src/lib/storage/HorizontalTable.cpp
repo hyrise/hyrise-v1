@@ -59,7 +59,7 @@ const adict_ptr_t& HorizontalTable::dictionaryByTableId(const size_t column, con
   return _parts[table_id]->dictionaryByTableId(column, 0);
 }
 
-void HorizontalTable::setDictionaryAt(AbstractTable::SharedDictionaryPtr dict,
+void HorizontalTable::setDictionaryAt(adict_ptr_t dict,
                                       const size_t column,
                                       const size_t row,
                                       const table_id_t table_id) {

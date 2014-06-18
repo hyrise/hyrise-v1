@@ -79,21 +79,20 @@ const ColumnMetadata& TableRangeView::metadataAt(const size_t column,
   return _table->metadataAt(column, actual_row, table_id);
 };
 
-const AbstractTable::SharedDictionaryPtr& TableRangeView::dictionaryAt(const size_t column,
-                                                                       const size_t row,
-                                                                       const table_id_t table_id) const {
+const adict_ptr_t& TableRangeView::dictionaryAt(const size_t column,
+                                                const size_t row,
+                                                const table_id_t table_id) const {
   size_t actual_row;
   actual_row = row + _start;
 
   return _table->dictionaryAt(column, actual_row, table_id);
 }
 
-const AbstractTable::SharedDictionaryPtr& TableRangeView::dictionaryByTableId(const size_t column,
-                                                                              const table_id_t table_id) const {
+const adict_ptr_t& TableRangeView::dictionaryByTableId(const size_t column, const table_id_t table_id) const {
   return _table->dictionaryByTableId(column, table_id);
 }
 
-void TableRangeView::setDictionaryAt(SharedDictionaryPtr dict,
+void TableRangeView::setDictionaryAt(adict_ptr_t dict,
                                      const size_t column,
                                      const size_t row,
                                      const table_id_t table_id) {

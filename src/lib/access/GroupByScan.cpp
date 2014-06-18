@@ -125,7 +125,7 @@ const std::string GroupByScan::vname() { return "GroupByScan"; }
 
 storage::atable_ptr_t GroupByScan::createResultTableLayout() {
   storage::metadata_list metadata;
-  std::vector<storage::AbstractTable::SharedDictionaryPtr> dictionaries;
+  std::vector<storage::adict_ptr_t> dictionaries;
   // creating fields from grouping fields
   storage::atable_ptr_t group_tab = getInputTable(0)->copy_structure_modifiable(&_field_definition);
   // creating fields from aggregate functions
