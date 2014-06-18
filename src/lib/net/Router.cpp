@@ -7,7 +7,8 @@
 namespace hyrise {
 namespace net {
 
-RouterException::RouterException(const std::string& message) : std::runtime_error(message) {}
+AbstractRequestHandler::~AbstractRequestHandler() = default;
+AbstractRequestHandlerFactory::~AbstractRequestHandlerFactory() = default;
 
 Router::Router() : _catch_all(nullptr) {}
 
