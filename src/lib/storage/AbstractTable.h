@@ -511,7 +511,7 @@ class AbstractTable : public AbstractResource {
   // Global unique identifier for this object
   unique_id _uuid;
   std::string _name;
-  bool logging;
+  bool logging = false;
 };
 }
 }  // namespace hyrise::storage
