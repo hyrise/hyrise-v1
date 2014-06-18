@@ -19,14 +19,12 @@ namespace net {
 class AbstractRequestHandler : public taskscheduler::Task {
  public:
   typedef std::shared_ptr<AbstractRequestHandler> SharedPtr;
-  virtual ~AbstractRequestHandler() {}
-
- protected:
+  virtual ~AbstractRequestHandler();
 };
 
 struct AbstractRequestHandlerFactory {
   virtual AbstractRequestHandler::SharedPtr create(AbstractConnection* connection) const = 0;
-  virtual ~AbstractRequestHandlerFactory() {}
+  virtual ~AbstractRequestHandlerFactory();
 };
 
 /// Factory for request handlers, implements abstract factory pattern
@@ -39,8 +37,7 @@ struct RequestHandlerFactory : public AbstractRequestHandlerFactory {
 
 /// For all routing related exceptions
 class RouterException : public std::runtime_error {
- public:
-  explicit RouterException(const std::string& message);
+  using std::runtime_error::runtime_error;
 };
 
 /// Central routing class, implements handling of requests mapped to registered

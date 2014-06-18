@@ -14,18 +14,15 @@
 #include <vector>
 #include <string>
 
-#include "helper/types.h"
 #include "io/logging.h"
-#include "helper/locking.h"
 #include "helper/checked_cast.h"
+#include "helper/types.h"
 #include "helper/unique_id.h"
-
 #include "storage/AbstractResource.h"
-
 #include "storage/BaseDictionary.h"
 #include "storage/storage_types.h"
 
-#include <json.h>
+#include "json.h"
 
 namespace hyrise {
 namespace storage {
@@ -42,16 +39,12 @@ typedef struct {
 typedef std::vector<attr_vector_offset_t> attr_vectors_t;
 
 class StorageException : public std::runtime_error {
-
- public:
-  explicit StorageException(const std::string& msg) : std::runtime_error(msg) {}
+  using std::runtime_error::runtime_error;
 };
 
 class MissingColumnException : public std::runtime_error {
- public:
-  explicit MissingColumnException(const std::string& what) : std::runtime_error(what) {}
+  using std::runtime_error::runtime_error;
 };
-
 
 /**
  * Abstract table is the magic base class for all data storages, it is used
@@ -511,7 +504,7 @@ class AbstractTable : public AbstractResource {
   // Global unique identifier for this object
   unique_id _uuid;
   std::string _name;
-  bool logging;
+  bool logging = false;
 };
 }
 }  // namespace hyrise::storage
