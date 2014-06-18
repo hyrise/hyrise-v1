@@ -77,15 +77,11 @@ class PointerCalculator : public AbstractTable, public SharedFactory<PointerCalc
                                    const size_t row_index = 0,
                                    const table_id_t table_id = 0) const override;
 
-  const AbstractTable::SharedDictionaryPtr& dictionaryAt(const size_t column,
-                                                         const size_t row = 0,
-                                                         const table_id_t table_id = 0) const override;
-  const AbstractTable::SharedDictionaryPtr& dictionaryByTableId(const size_t column, const table_id_t table_id) const
+  const adict_ptr_t& dictionaryAt(const size_t column, const size_t row = 0, const table_id_t table_id = 0) const
       override;
-  void setDictionaryAt(AbstractTable::SharedDictionaryPtr dict,
-                       const size_t column,
-                       const size_t row = 0,
-                       const table_id_t table_id = 0) override;
+  const adict_ptr_t& dictionaryByTableId(const size_t column, const table_id_t table_id) const override;
+  void setDictionaryAt(adict_ptr_t dict, const size_t column, const size_t row = 0, const table_id_t table_id = 0)
+      override;
   size_t size() const override;
   size_t columnCount() const override;
   ValueId getValueId(const size_t column, const size_t row) const override;

@@ -59,7 +59,7 @@ void LayoutSingleTable::executePlanOperation() {
   vc.push_back(storage::ColumnMetadata::metadataFromString("FLOAT", "rowCost"));
 
 
-  std::vector<storage::AbstractTable::SharedDictionaryPtr> vd;
+  std::vector<storage::adict_ptr_t> vd;
   vd.push_back(storage::makeDictionary(StringTypeDelta));
   vd.push_back(storage::makeDictionary(IntegerTypeDelta));
   vd.push_back(storage::makeDictionary(FloatTypeDelta));

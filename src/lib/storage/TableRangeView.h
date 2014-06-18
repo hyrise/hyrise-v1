@@ -45,15 +45,10 @@ class TableRangeView : public AbstractTable, public SharedFactory<TableRangeView
   const ColumnMetadata& metadataAt(const size_t column, const size_t row = 0, const table_id_t table_id = 0) const
       override;
 
-  const SharedDictionaryPtr& dictionaryAt(const size_t column,
-                                          const size_t row = 0,
-                                          const table_id_t table_id = 0) const;
+  const adict_ptr_t& dictionaryAt(const size_t column, const size_t row = 0, const table_id_t table_id = 0) const;
 
   // throw exceptions if called
-  void setDictionaryAt(SharedDictionaryPtr dict,
-                       const size_t column,
-                       const size_t row = 0,
-                       const table_id_t table_id = 0);
+  void setDictionaryAt(adict_ptr_t dict, const size_t column, const size_t row = 0, const table_id_t table_id = 0);
   void sortDictionary();
 
   // just routed to underlying table
@@ -64,7 +59,7 @@ class TableRangeView : public AbstractTable, public SharedFactory<TableRangeView
                               const size_t initial_size = 0,
                               const bool with_containers = true,
                               const bool compressed = false) const;
-  const SharedDictionaryPtr& dictionaryByTableId(const size_t column, const table_id_t table_id) const;
+  const adict_ptr_t& dictionaryByTableId(const size_t column, const table_id_t table_id) const;
   DataType typeOfColumn(const size_t column) const;
   size_t columnCount() const;
   std::string nameOfColumn(const size_t column) const;

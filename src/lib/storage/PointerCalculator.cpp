@@ -161,16 +161,16 @@ const ColumnMetadata& PointerCalculator::metadataAt(const size_t column_index,
     return table->metadataAt(actual_column);
 }
 
-void PointerCalculator::setDictionaryAt(AbstractTable::SharedDictionaryPtr dict,
+void PointerCalculator::setDictionaryAt(adict_ptr_t dict,
                                         const size_t column,
                                         const size_t row,
                                         const table_id_t table_id) {
   throw std::runtime_error("Can't set PointerCalculator dictionary");
 }
 
-const AbstractTable::SharedDictionaryPtr& PointerCalculator::dictionaryAt(const size_t column,
-                                                                          const size_t row,
-                                                                          const table_id_t table_id) const {
+const adict_ptr_t& PointerCalculator::dictionaryAt(const size_t column,
+                                                   const size_t row,
+                                                   const table_id_t table_id) const {
   size_t actual_column, actual_row;
 
   if (fields) {
@@ -188,8 +188,7 @@ const AbstractTable::SharedDictionaryPtr& PointerCalculator::dictionaryAt(const 
   return table->dictionaryAt(actual_column, actual_row, table_id);
 }
 
-const AbstractTable::SharedDictionaryPtr& PointerCalculator::dictionaryByTableId(const size_t column,
-                                                                                 const table_id_t table_id) const {
+const adict_ptr_t& PointerCalculator::dictionaryByTableId(const size_t column, const table_id_t table_id) const {
   size_t actual_column;
 
   if (fields) {
@@ -326,10 +325,10 @@ atable_ptr_t PointerCalculator::copy_structure(const field_list_t* fields,
                                                const bool with_containers,
                                                const bool compressed) const {
   std::vector<ColumnMetadata> metadata;
-  std::vector<AbstractTable::SharedDictionaryPtr>* dictionaries = nullptr;
+  std::vector<adict_ptr_t>* dictionaries = nullptr;
 
   if (reuse_dict) {
-    dictionaries = new std::vector<AbstractTable::SharedDictionaryPtr>();
+    dictionaries = new std::vector<adict_ptr_t>();
   }
 
   if (fields != nullptr) {

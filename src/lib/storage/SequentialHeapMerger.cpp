@@ -75,8 +75,8 @@ void SequentialHeapMerger::mergeValues(const std::vector<c_atable_ptr_t>& input_
                                        bool useValid,
                                        const std::vector<bool>& valid) {
 
-  std::vector<AbstractTable::SharedDictionaryPtr> value_id_maps;
-  AbstractTable::SharedDictionaryPtr new_dict;
+  std::vector<adict_ptr_t> value_id_maps;
+  adict_ptr_t new_dict;
 
   // shortcut for dicts
   value_id_maps.reserve(input_tables.size());
@@ -128,13 +128,12 @@ struct DictMergerHelperCompare {
 };
 
 template <typename T>
-AbstractTable::SharedDictionaryPtr SequentialHeapMerger::createNewDict(
-    const std::vector<c_atable_ptr_t>& input_tables,
-    std::vector<AbstractTable::SharedDictionaryPtr>& value_id_maps,
-    std::vector<std::vector<value_id_t>>& value_id_mapping,
-    size_t column_index,
-    bool useValid,
-    const std::vector<bool>& valid) {
+adict_ptr_t SequentialHeapMerger::createNewDict(const std::vector<c_atable_ptr_t>& input_tables,
+                                                std::vector<adict_ptr_t>& value_id_maps,
+                                                std::vector<std::vector<value_id_t>>& value_id_mapping,
+                                                size_t column_index,
+                                                bool useValid,
+                                                const std::vector<bool>& valid) {
   // Heap Queue
   std::priority_queue<std::shared_ptr<DictMergeHelper<T>>,
                       std::vector<std::shared_ptr<DictMergeHelper<T>>>,

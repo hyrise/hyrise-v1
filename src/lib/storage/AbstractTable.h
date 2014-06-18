@@ -61,8 +61,6 @@ class MissingColumnException : public std::runtime_error {
 class AbstractTable : public AbstractResource {
 
  public:
-  typedef std::shared_ptr<AbstractDictionary> SharedDictionaryPtr;
-
   /**
    * Copy the table's structure.
    * Returns a pointer to an AbstractTable with a copy of the current table's
@@ -149,7 +147,7 @@ class AbstractTable : public AbstractResource {
    * @param row      Row in that column (default=0).
    * @param table_id ID of the table from which to extract (default=0).
    */
-  virtual const SharedDictionaryPtr& dictionaryAt(size_t column, size_t row = 0, table_id_t table_id = 0) const = 0;
+  virtual const adict_ptr_t& dictionaryAt(size_t column, size_t row = 0, table_id_t table_id = 0) const = 0;
 
 
   /**
@@ -159,14 +157,14 @@ class AbstractTable : public AbstractResource {
    * @param column   Column from which to extract the dictionary.
    * @param table_id ID of the table from which to extract.
    */
-  virtual const SharedDictionaryPtr& dictionaryByTableId(size_t column, table_id_t table_id) const = 0;
+  virtual const adict_ptr_t& dictionaryByTableId(size_t column, table_id_t table_id) const = 0;
 
 
   /**
    * Get all dictionaries.
    *
    */
-  std::vector<SharedDictionaryPtr>* dictionaries() const;
+  std::vector<adict_ptr_t>* dictionaries() const;
 
 
   /**
@@ -178,7 +176,7 @@ class AbstractTable : public AbstractResource {
    * @param row      Row in that column (default=0).
    * @param table_id ID of the table (default=0).
    */
-  virtual void setDictionaryAt(SharedDictionaryPtr dict, size_t column, size_t row = 0, table_id_t table_id = 0) = 0;
+  virtual void setDictionaryAt(adict_ptr_t dict, size_t column, size_t row = 0, table_id_t table_id = 0) = 0;
 
 
   /**

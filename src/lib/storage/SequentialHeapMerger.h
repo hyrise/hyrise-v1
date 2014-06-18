@@ -40,12 +40,12 @@ class SequentialHeapMerger : public AbstractMerger {
                   const std::vector<bool>& valid);
 
   template <typename T>
-  AbstractTable::SharedDictionaryPtr createNewDict(const std::vector<c_atable_ptr_t>& input_tables,
-                                                   std::vector<AbstractTable::SharedDictionaryPtr>& value_id_maps,
-                                                   std::vector<std::vector<value_id_t> >& value_id_mapping,
-                                                   size_t column_index,
-                                                   bool useValid,
-                                                   const std::vector<bool>& valid);
+  adict_ptr_t createNewDict(const std::vector<c_atable_ptr_t>& input_tables,
+                            std::vector<adict_ptr_t>& value_id_maps,
+                            std::vector<std::vector<value_id_t> >& value_id_mapping,
+                            size_t column_index,
+                            bool useValid,
+                            const std::vector<bool>& valid);
 };
 }
 }  // namespace hyrise::storage
