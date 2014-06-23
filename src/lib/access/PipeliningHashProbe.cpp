@@ -113,19 +113,19 @@ void PipeliningHashProbe::fetchPositions() {
     // As soon as the current n causes the output table to reach the _chunkSize threshold,
     // we will emit a chunk and reset the _buildTablePosList and _probeTablePosList.
     if (_buildTablePosList->size() > _chunkSize) {
-      emitChunk();
+      createAndEmitChunk();
     }
   }
 
   // Emit final results.
   if (_buildTablePosList->size() > 0) {
-    emitChunk();
+    createAndEmitChunk();
   }
 
   LOG4CXX_DEBUG(logger, "Done Probing");
 }
 
-void PipeliningHashProbe::emitChunk() {
+void PipeliningHashProbe::createAndEmitChunk() {
   LOG4CXX_DEBUG(pipelineLogger, _operatorId << ": Emitting chunk.");
   PipelineEmitter<PipeliningHashProbe>::emitChunk(buildResultTable());
   // reset the positions lists

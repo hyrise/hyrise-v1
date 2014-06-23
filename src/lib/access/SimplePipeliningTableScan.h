@@ -32,7 +32,7 @@ class SimplePipeliningTableScan : public PlanOperation,
   bool _ofDelta = false;
   storage::pos_list_t* _pos_list = new pos_list_t();
   storage::c_atable_ptr_t _tbl = nullptr;
-  void emitChunk();
+  void createAndEmitChunk();
 };
 }
 }
