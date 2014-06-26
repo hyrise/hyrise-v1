@@ -804,6 +804,7 @@ TEST_F(RadixJoinTest, determine_dynamic_count) {
 class RadixDynamicCountTest : public AccessTest, public ::testing::WithParamInterface<int> {
  protected:
   virtual void SetUp() {
+    AccessTest::SetUp();
     auto companies = std::make_shared<TableLoad>();
     companies->setFileName("tables/companies.tbl");
     companies->setTableName("companies");
