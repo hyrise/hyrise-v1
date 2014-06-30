@@ -26,11 +26,17 @@ TEST_F(CompoundGroupkeyIndexTest, search_two_ints) {
   auto t = io::Loader::shortcuts::load("test/index_test.tbl");
 
   std::vector<field_t> fields = {0, 3};
+  std::vector<hyrise_int_t> values = {30, 33};
   auto gki = std::make_shared<storage::GroupkeyIndex<compound_valueid_key_t>>(t, fields);
 
   CompoundValueIdKeyBuilder builder;
-  builder.add(t->getValueIdForValue<hyrise_int_t>(0, 30).valueId, t->dictionaryAt(0)->size());
-  builder.add(t->getValueIdForValue<hyrise_int_t>(3, 33).valueId, t->dictionaryAt(3)->size());
+  size_t i = 0;
+  for (auto&& field : fields) {
+    auto part = t->getPart(field, 0);
+    auto dict = checked_pointer_cast<storage::BaseDictionary<hyrise_int_t>>(part.table->dictionaryAt(part.column));
+    builder.add(dict->getValueIdForValue(values[i]), dict->size());
+    i++;
+  }
 
   PositionRange result = gki->getPositionsForKey(builder.get());
 
@@ -45,8 +51,16 @@ TEST_F(CompoundGroupkeyIndexTest, search_int_and_string) {
   auto gki = std::make_shared<storage::GroupkeyIndex<compound_valueid_key_t>>(t, fields);
 
   CompoundValueIdKeyBuilder builder;
-  builder.add(t->getValueIdForValue<hyrise_int_t>(0, 40).valueId, t->dictionaryAt(0)->size());
-  builder.add(t->getValueIdForValue<hyrise_string_t>(2, "42").valueId, t->dictionaryAt(3)->size());
+  {
+    auto part = t->getPart(0, 0);
+    auto dict = checked_pointer_cast<storage::BaseDictionary<hyrise_int_t>>(part.table->dictionaryAt(part.column));
+    builder.add(dict->getValueIdForValue(40), dict->size());
+  }
+  {
+    auto part = t->getPart(2, 0);
+    auto dict = checked_pointer_cast<storage::BaseDictionary<hyrise_string_t>>(part.table->dictionaryAt(part.column));
+    builder.add(dict->getValueIdForValue("42"), dict->size());
+  }
 
   PositionRange result = gki->getPositionsForKey(builder.get());
 

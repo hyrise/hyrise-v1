@@ -31,7 +31,7 @@ typedef value_id_t aggregate_single_key_t;
 // Single Hashed Value
 typedef size_t join_single_key_t;
 
-size_t hash_value(const c_atable_ptr_t& source, const size_t& f, const ValueId& vid);
+// size_t hash_value(const c_atable_ptr_t &source, const size_t &f, const ValueId &vid);
 
 template <typename HashResult>
 inline typename HashResult::value_type extract(const c_atable_ptr_t& table, const size_t& field, const ValueId& vid);
@@ -40,7 +40,7 @@ template <>
 inline typename join_key_t::value_type extract<join_key_t>(const c_atable_ptr_t& table,
                                                            const size_t& field,
                                                            const ValueId& vid) {
-  return hash_value(table, field, vid);
+  return vid.valueId;  // hash_value(table, field, vid);
 }
 
 template <>
@@ -58,7 +58,7 @@ template <>
 inline join_single_key_t extractSingle<join_single_key_t>(const c_atable_ptr_t& table,
                                                           const size_t& field,
                                                           const ValueId& vid) {
-  return hash_value(table, field, vid);
+  return vid.valueId;  // hash_value(table, field, vid);
 }
 
 template <>

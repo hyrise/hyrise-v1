@@ -169,30 +169,35 @@ typedef uint64_t compound_valueid_key_t;
 */
 class ValueId {
  public:
-  value_id_t valueId;
-  table_id_t table;
-
-  ValueId() : valueId(0), table(0) {}
-  ValueId(value_id_t _valueId, table_id_t _table) : valueId(_valueId), table(_table) {}
+  value_id_t valueId = 0;
+  // const table_id_t table = 0;
 
 
-  bool operator==(ValueId& o) { return valueId == o.valueId && table == o.table; }
+  ValueId() {}
+  ValueId(value_id_t _valueId) : valueId(_valueId) {}
 
-  bool operator!=(ValueId& o) { return valueId != o.valueId && table == o.table; }
+  bool operator==(ValueId& o) {
+    return valueId == o.valueId;  //&& table == o.table;
+  }
+
+  bool operator!=(ValueId& o) {
+    return valueId != o.valueId;  //&& table == o.table;
+  }
+
   bool operator<(const ValueId& o) const {
-    if (table != o.table)
-      throw std::runtime_error("comparing value ids of different tables");
+    // if (table!=o.table)
+    //      throw std::runtime_error("comparing value ids of different tables");
     return valueId < o.valueId;
   }
 
   bool operator>(const ValueId& o) const {
-    if (table != o.table)
-      throw std::runtime_error("comparing value ids of different tables");
+    // if (table!=o.table)
+    //      throw std::runtime_error("comparing value ids of different tables");
     return valueId > o.valueId;
   }
 
   friend inline std::ostream& operator<<(std::ostream& os, const ValueId& v) {
-    os << "<ValueID v:" << v.valueId << " t:" << (int)v.table << ">";
+    os << "<ValueID v:" << v.valueId << ">";  // t:" << (int) v.table << ">";
     return os;
   }
 };

@@ -8,23 +8,23 @@
 
 namespace hyrise {
 namespace storage {
-
+/*
 template <typename T>
 struct cast_functor_by_value_id {
   typedef T value_type;
 
-  AbstractTable* table;
+  AbstractTable *table;
   size_t column;
   ValueId vid;
 
-  cast_functor_by_value_id(AbstractTable* t, const size_t f, const ValueId v) : table(t), column(f), vid(v) {}
+  cast_functor_by_value_id(AbstractTable *t, const size_t f, const ValueId v): table(t), column(f), vid(v) {}
 
   template <typename R>
   T operator()() {
     return boost::lexical_cast<T>(table->getValueForValueId<R>(column, vid));
   }
 };
-
+*/
 template <typename T>
 struct cast_functor_by_row {
   typedef T value_type;

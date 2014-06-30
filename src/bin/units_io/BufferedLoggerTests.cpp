@@ -36,9 +36,9 @@ TEST_F(BufferedLoggerTests, log_test) {
   BufferedLogger::getInstance().logDictionary<float>(table_name, 2, 2.0f, 42);
   BufferedLogger::getInstance().logDictionary<std::string>(table_name, 3, "zwei", 53);
   std::vector<ValueId> vids;
-  vids.push_back(ValueId(31, 1));
-  vids.push_back(ValueId(42, 2));
-  vids.push_back(ValueId(53, 3));
+  vids.push_back(ValueId(31));
+  vids.push_back(ValueId(42));
+  vids.push_back(ValueId(53));
   BufferedLogger::getInstance().logValue(tx, table_name, 3, &vids);
   BufferedLogger::getInstance().logInvalidation(tx, table_name, 2);
   BufferedLogger::getInstance().logCommit(tx);

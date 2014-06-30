@@ -26,7 +26,9 @@
 #define EXPR_VALUE_VAR_NAME(name) BOOST_PP_CAT(v_,name)
 
 #define EXPR_EXTRACT_VID_AND_MAP(r, data, seq_field) \
-	auto BOOST_PP_CAT(vid_v_, BOOST_PP_SEQ_ELEM(0,seq_field)) = _store->getValueIdForValue< BOOST_PP_SEQ_ELEM(1,seq_field) >( BOOST_PP_SEQ_ELEM(0, seq_field), BOOST_PP_CAT(v_, BOOST_PP_SEQ_ELEM(0, seq_field)), false, part).valueId; \
+        auto BOOST_PP_CAT(part_, BOOST_PP_SEQ_ELEM(0,seq_field)) = _store->getPart(BOOST_PP_SEQ_ELEM(0, seq_field), start); \
+        auto BOOST_PP_CAT(dict_, BOOST_PP_SEQ_ELEM(0,seq_field)) = dynamic_cast< storage::BaseDictionary<BOOST_PP_SEQ_ELEM(1,seq_field)>* >(BOOST_PP_CAT(part_, BOOST_PP_SEQ_ELEM(0,seq_field)).table->dictionaryAt(BOOST_PP_CAT(part_, BOOST_PP_SEQ_ELEM(0,seq_field)).column).get()); \
+     	auto BOOST_PP_CAT(vid_v_, BOOST_PP_SEQ_ELEM(0,seq_field)) = BOOST_PP_CAT(dict_, BOOST_PP_SEQ_ELEM(0,seq_field))->getValueIdForValue( BOOST_PP_CAT(v_, BOOST_PP_SEQ_ELEM(0, seq_field))); \
 	auto BOOST_PP_CAT(o, BOOST_PP_SEQ_ELEM(0,seq_field)) = BOOST_PP_CAT(_of_, BOOST_PP_SEQ_ELEM(0,seq_field))[part]; \
 	auto BOOST_PP_CAT(ve_, BOOST_PP_SEQ_ELEM(0,seq_field)) = EXPR_DATA_VECTOR_NAME(BOOST_PP_SEQ_ELEM(0,seq_field))[part];
 

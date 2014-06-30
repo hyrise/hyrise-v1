@@ -43,7 +43,7 @@ class SimpleStore : public AbstractTable {
   /**
    * @see AbstractTable
    */
-  const ColumnMetadata& metadataAt(size_t c, size_t r, table_id_t t) const { return _main->metadataAt(c, r, t); }
+  const ColumnMetadata& metadataAt(size_t c, size_t r) const { return _main->metadataAt(c, r); }
 
   /**
    * @see AbstractTable
@@ -75,6 +75,12 @@ class SimpleStore : public AbstractTable {
     }
   }
 
+  cpart_t getPart(std::size_t column, std::size_t row) const {
+    if (row >= _main->size())
+      STORAGE_NOT_IMPLEMENTED(SimpleStore, dictionaryAt());
+    return _main->getPart(column, row);
+  }
+
   /**
    * @see AbstractTable
    */
@@ -93,17 +99,12 @@ class SimpleStore : public AbstractTable {
   /**
    * @see AbstractTable
    */
-  const adict_ptr_t& dictionaryAt(const size_t column, const size_t row = 0, const table_id_t table_id = 0) const;
+  const adict_ptr_t& dictionaryAt(const size_t column, const size_t row = 0) const;
 
   /**
    * @see AbstractTable
    */
-  const adict_ptr_t& dictionaryByTableId(const size_t column, const table_id_t table_id) const;
-
-  /**
-   * @see AbstractTable
-   */
-  void setDictionaryAt(adict_ptr_t dict, const size_t column, const size_t row = 0, const table_id_t table_id = 0);
+  void setDictionaryAt(adict_ptr_t dict, const size_t column, const size_t row = 0);
 
   unsigned int partitionCount() const;
 

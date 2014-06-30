@@ -39,14 +39,14 @@ class BetweenExpression : public SimpleFieldExpression {
 
     valueIdMap = std::dynamic_pointer_cast<storage::BaseDictionary<T>>(table->dictionaryAt(field));
 
-    lower_bound.table = 0;
     lower_bound.valueId = valueIdMap->getValueIdForValue(lower_value);
     lower_value_exists = valueIdMap->isValueIdValid(lower_bound.valueId) &&
                          lower_value == valueIdMap->getValueForValueId(lower_bound.valueId);
-    upper_bound.table = 0;
     upper_bound.valueId = valueIdMap->getValueIdForValue(upper_value);
     upper_value_exists = valueIdMap->isValueIdValid(upper_bound.valueId) &&
                          upper_value == valueIdMap->getValueForValueId(upper_bound.valueId);
+    if (!upper_value_exists || !lower_value_exists)
+      throw std::logic_error("Between only works for values with existing value ids");
   }
 
 
@@ -54,23 +54,7 @@ class BetweenExpression : public SimpleFieldExpression {
 
   inline virtual bool operator()(size_t row) {
     ValueId valueId = table->getValueId(field, row);
-
-    if ((valueId.table == lower_bound.table) && (valueId.table == upper_bound.table)) {
-      if ((valueId.valueId <= upper_bound.valueId) && (valueId.valueId >= lower_bound.valueId)) {
-        return true;
-      }
-
-      if ((valueId.valueId > upper_bound.valueId) || (valueId.valueId < lower_bound.valueId)) {
-        return false;
-      }
-
-      if (upper_value_exists && lower_value_exists) {
-        return false;
-      }
-    }
-
-    T value = table->getValue<T>(field, row);
-    return (value <= upper_value) && (value >= lower_value);
+    return (lower_bound.valueId <= valueId.valueId) && (valueId.valueId <= upper_bound.valueId);
   }
 };
 }

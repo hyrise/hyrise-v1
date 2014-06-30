@@ -31,14 +31,14 @@ class GreaterThanExpression : public SimpleFieldExpression {
     SimpleFieldExpression::walk(l);
 
     valueIdMap = std::dynamic_pointer_cast<storage::BaseDictionary<T>>(table->dictionaryAt(field));
-    lower_bound.table = 0;
+    // lower_bound.table = 0;
     lower_bound.valueId = valueIdMap->getValueIdForValue(value);
     value_exists =
         valueIdMap->isValueIdValid(lower_bound.valueId) && value == valueIdMap->getValueForValueId(lower_bound.valueId);
   }
 
   inline virtual bool operator()(size_t row) {
-    ValueId valueId = table->getValueId(field, row);
+    /*ValueId valueId = table->getValueId(field, row);
 
     if (valueId.table == lower_bound.table) {
       if (valueId.valueId > lower_bound.valueId) {
@@ -52,7 +52,7 @@ class GreaterThanExpression : public SimpleFieldExpression {
       if (value_exists) {
         return false;
       }
-    }
+      }*/
 
     return table->getValue<T>(field, row) > value;
   }

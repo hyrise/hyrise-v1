@@ -106,9 +106,7 @@ class RawTable : public AbstractTable {
 
   void resize(const size_t nr_of_values);
 
-  const ColumnMetadata& metadataAt(const size_t column_index,
-                                   const size_t row_index = 0,
-                                   const table_id_t table_id = 0) const override;
+  const ColumnMetadata& metadataAt(const size_t column_index, const size_t row_index = 0) const override;
 
   unsigned partitionCount() const;
 
@@ -183,20 +181,11 @@ class RawTable : public AbstractTable {
 
   virtual size_t partitionWidth(const size_t slice) const { STORAGE_NOT_IMPLEMENTED(RawTable, partitionWidth()); }
 
-  virtual const adict_ptr_t& dictionaryAt(const size_t column,
-                                          const size_t row = 0,
-                                          const table_id_t table_id = 0) const {
+  virtual const adict_ptr_t& dictionaryAt(const size_t column, const size_t row = 0) const {
     STORAGE_NOT_IMPLEMENTED(RawTable, dictionaryAt());
   }
 
-  virtual const adict_ptr_t& dictionaryByTableId(const size_t column, const table_id_t table_id) const {
-    STORAGE_NOT_IMPLEMENTED(RawTable, dictionaryByTableId());
-  }
-
-  virtual void setDictionaryAt(adict_ptr_t dict,
-                               const size_t column,
-                               const size_t row = 0,
-                               const table_id_t table_id = 0) {
+  virtual void setDictionaryAt(adict_ptr_t dict, const size_t column, const size_t row = 0) {
     STORAGE_NOT_IMPLEMENTED(RawTable, dictionaryAt());
   }
 

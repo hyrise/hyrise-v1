@@ -44,7 +44,7 @@ class EqualsExpression : public SimpleFieldExpression {
 
   virtual ~EqualsExpression() {}
 
-  inline virtual bool operator()(size_t row) { return value_exists && table->getValueId(field, row) == lower_bound; }
+  inline virtual bool operator()(size_t row) { return value_exists && table->getValue<T>(field, row) == value; }
 };
 
 

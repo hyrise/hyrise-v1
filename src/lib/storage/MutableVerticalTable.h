@@ -29,11 +29,10 @@ class MutableVerticalTable : public AbstractTable {
   MutableVerticalTable(std::vector<atable_ptr_t> cs, size_t size = 0);
   virtual ~MutableVerticalTable();
 
-  const ColumnMetadata& metadataAt(size_t column_index, size_t row_index = 0, table_id_t table_id = 0) const override;
-
-  const adict_ptr_t& dictionaryAt(size_t column, size_t row = 0, table_id_t table_id = 0) const override;
-  const adict_ptr_t& dictionaryByTableId(size_t column, table_id_t table_id) const override;
-  void setDictionaryAt(adict_ptr_t dict, size_t column, size_t row = 0, table_id_t table_id = 0) override;
+  const ColumnMetadata& metadataAt(size_t column_index, size_t row_index = 0) const override;
+  cpart_t getPart(std::size_t column, std::size_t row) const override;
+  const adict_ptr_t& dictionaryAt(size_t column, size_t row = 0) const override;
+  void setDictionaryAt(adict_ptr_t dict, size_t column, size_t row = 0) override;
   size_t size() const override;
   size_t columnCount() const override;
   ValueId getValueId(size_t column, size_t row) const override;
@@ -66,6 +65,8 @@ class MutableVerticalTable : public AbstractTable {
   /// Returns the offset of a certain column inside its container.
   /// @param column_index Index of the column.
   size_t getOffsetInContainer(size_t column_index) const;
+
+  virtual void collectParts(std::list<cpart_t>& parts, size_t col_offset, size_t row_offset) const override;
 
  private:
   /// Vector storing the containers

@@ -81,13 +81,11 @@ class Store : public AbstractTable {
   tx::TX_CODE unmarkForDeletion(const pos_list_t& pos, tx::transaction_id_t tid);
 
   /// AbstractTable interface
-  const ColumnMetadata& metadataAt(const size_t column_index,
-                                   const size_t row_index = 0,
-                                   const table_id_t table_id = 0) const override;
+  const ColumnMetadata& metadataAt(const size_t column_index, const size_t row_index = 0) const override;
+  cpart_t getPart(std::size_t column, std::size_t row) const;
+  void setDictionaryAt(adict_ptr_t dict, size_t column, size_t row = 0) override;
+  const adict_ptr_t& dictionaryAt(size_t column, size_t row = 0) const override;
 
-  void setDictionaryAt(adict_ptr_t dict, size_t column, size_t row = 0, table_id_t table_id = 0) override;
-  const adict_ptr_t& dictionaryAt(size_t column, size_t row = 0, table_id_t table_id = 0) const override;
-  const adict_ptr_t& dictionaryByTableId(size_t column, table_id_t table_id) const override;
   ValueId getValueId(size_t column, size_t row) const override;
   void setValueId(size_t column, size_t row, ValueId vid) override;
   size_t size() const override;
@@ -122,6 +120,7 @@ class Store : public AbstractTable {
   };
 
 
+  virtual void collectParts(std::list<cpart_t>& parts, size_t col_offset, size_t row_offset) const override;
 
   tbb::concurrent_vector<tx::transaction_cid_t>::iterator cidBeginIteratorForRecovery() {
     return _cidBeginVector.begin();

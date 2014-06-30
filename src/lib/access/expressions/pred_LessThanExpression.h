@@ -25,7 +25,7 @@ class LessThanExpression : public SimpleFieldExpression {
   virtual void walk(const std::vector<storage::c_atable_ptr_t>& l) {
     SimpleFieldExpression::walk(l);
     valueIdMap = std::dynamic_pointer_cast<storage::BaseDictionary<T>>(table->dictionaryAt(field));
-    lower_bound.table = 0;
+    // lower_bound.table = 0;
     lower_bound.valueId = valueIdMap->getValueIdForValue(value);
     value_exists =
         valueIdMap->isValueIdValid(lower_bound.valueId) && value == valueIdMap->getValueForValueId(lower_bound.valueId);

@@ -121,7 +121,7 @@ struct MapValueForValueId {
     size_t tabSize = _main->size();
     size_t start = _main->size() - _delta->size();
     for (size_t row = start; row < tabSize; ++row) {
-      _main->setValueId(_dstCol, row, ValueId{d->getValueIdForValue(_delta->getValue<R>(_col, row - start)), 0});
+      _main->setValueId(_dstCol, row, ValueId{d->getValueIdForValue(_delta->getValue<R>(_col, row - start))});
     }
   }
 };
@@ -167,8 +167,7 @@ void SimpleStoreMerger::mergeValues(const std::vector<c_atable_ptr_t>& input_tab
     for (const auto& kv : column_mapping) {
       const auto& col = kv.first;
       const auto& dst = kv.second;
-      merged_table->setValueId(
-          dst, row, ValueId{mergedDictionaries[col].mapping[main->getValueId(col, row).valueId], 0});
+      merged_table->setValueId(dst, row, ValueId{mergedDictionaries[col].mapping[main->getValueId(col, row).valueId]});
     }
   }
 

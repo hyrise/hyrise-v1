@@ -643,7 +643,7 @@ void BufferedLogger::restore_thread(char* logfile,
         for (size_t i = 1; i <= store->columnCount(); i++) {
           value_id = read_value<storage::value_id_t>(cursor);
           // columns were logged in ascending order - we get the last column first
-          store->getDeltaTable()->setValueId(store->columnCount() - i, pos_in_delta, ValueId(value_id, 1));
+          store->getDeltaTable()->setValueId(store->columnCount() - i, pos_in_delta, ValueId(value_id));
         }
 
         // add row to indices

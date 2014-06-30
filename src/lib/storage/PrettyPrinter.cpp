@@ -23,7 +23,7 @@ std::string generateValue(T& input, const size_t column, const size_t row) {
   buffer << input->printValue(column, row);
   try {
     ValueId valueId = input->getValueId(column, row);
-    buffer << "(" << valueId.valueId << "@" << std::dec << (unsigned)valueId.table << ")";
+    buffer << "(" << valueId << ")";
   }
   catch (const std::runtime_error&) {
   }

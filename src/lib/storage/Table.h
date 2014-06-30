@@ -77,20 +77,11 @@ class Table : public AbstractTable {
 
   void resize(const size_t nr_of_values) override;
 
-  const ColumnMetadata& metadataAt(const size_t column_index,
-                                   const size_t row_index = 0,
-                                   const table_id_t table_id = 0) const override;
+  const ColumnMetadata& metadataAt(const size_t column_index, const size_t row_index = 0) const override;
+  cpart_t getPart(std::size_t column, std::size_t row) const override;
+  virtual const adict_ptr_t& dictionaryAt(const size_t column, const size_t row = 0) const override;
 
-  virtual const adict_ptr_t& dictionaryAt(const size_t column,
-                                          const size_t row = 0,
-                                          const table_id_t table_id = 0) const override;
-
-  virtual const adict_ptr_t& dictionaryByTableId(const size_t column, const table_id_t table_id) const override;
-
-  virtual void setDictionaryAt(adict_ptr_t dict,
-                               const size_t column,
-                               const size_t row = 0,
-                               const table_id_t table_id = 0) override;
+  virtual void setDictionaryAt(adict_ptr_t dict, const size_t column, const size_t row = 0) override;
 
   virtual atable_ptr_t copy_structure(const field_list_t* fields = nullptr,
                                       const bool reuse_dict = false,
@@ -120,6 +111,11 @@ class Table : public AbstractTable {
   void persist_scattered(const pos_list_t& elements, bool new_elements = true) const override;
 
   virtual void debugStructure(size_t level = 0) const override;
+
+  virtual void collectParts(std::list<cpart_t>& parts, size_t col_offset, size_t row_offset) const override {
+    parts.push_back({this, col_offset, row_offset});
+    // throw std::runtime_error(std::string("allPartsCollect was not implemented by ") + typeid(*this).name());
+  }
 
  private:
   enum class DICTIONARY_FLAG {

@@ -13,10 +13,12 @@
 #include <functional>
 #include <vector>
 #include <string>
+#include <list>
 
-#include "io/logging.h"
-#include "helper/checked_cast.h"
 #include "helper/types.h"
+#include "io/logging.h"
+#include "helper/locking.h"
+#include "helper/checked_cast.h"
 #include "helper/unique_id.h"
 #include "storage/AbstractResource.h"
 #include "storage/BaseDictionary.h"
@@ -121,7 +123,7 @@ class AbstractTable : public AbstractResource {
    * @param row      Row in that column (default=0).
    * @param table_id ID of the table from which to extract (default=0).
    */
-  virtual const ColumnMetadata& metadataAt(size_t column, size_t row = 0, table_id_t table_id = 0) const = 0;
+  virtual const ColumnMetadata& metadataAt(size_t column, size_t row = 0) const = 0;
 
   /**
    * Returs a list of references to metadata of this table.
@@ -138,20 +140,8 @@ class AbstractTable : public AbstractResource {
    *
    * @param column   Column from which to extract the dictionary.
    * @param row      Row in that column (default=0).
-   * @param table_id ID of the table from which to extract (default=0).
    */
-  virtual const adict_ptr_t& dictionaryAt(size_t column, size_t row = 0, table_id_t table_id = 0) const = 0;
-
-
-  /**
-   * Get the dictionary for a certain column by table ID.
-   * @note Must be implemented by any derived class!
-   *
-   * @param column   Column from which to extract the dictionary.
-   * @param table_id ID of the table from which to extract.
-   */
-  virtual const adict_ptr_t& dictionaryByTableId(size_t column, table_id_t table_id) const = 0;
-
+  virtual const adict_ptr_t& dictionaryAt(size_t column, size_t row = 0) const = 0;
 
   /**
    * Get all dictionaries.
@@ -167,9 +157,8 @@ class AbstractTable : public AbstractResource {
    * @param dict     Dictionary to be used.
    * @param column   Column for which to set the dictionary.
    * @param row      Row in that column (default=0).
-   * @param table_id ID of the table (default=0).
    */
-  virtual void setDictionaryAt(adict_ptr_t dict, size_t column, size_t row = 0, table_id_t table_id = 0) = 0;
+  virtual void setDictionaryAt(adict_ptr_t dict, size_t column, size_t row = 0) = 0;
 
 
   /**
@@ -273,39 +262,35 @@ class AbstractTable : public AbstractResource {
    */
   virtual table_id_t subtableCount() const = 0;
 
+  using part_t = struct part {
+    AbstractTable* table;
+    std::size_t column;
+    std::size_t row;
+  };
+  using cpart_t = struct cpart {
+    const AbstractTable* table;
+    std::size_t column;
+    std::size_t row;
+  };
 
-  /**
-   * Templated method to retrieve the value-ID for a given value.
-   *
-   * @param column   Column containing the value.
-   * @param value    The value.
-   * @param create   Create the value if it is not existing (default=false)
-   * @param table_id ID of the table containing the value (default=0).
-   */
-  template <typename T>
-  inline ValueId getValueIdForValue(const size_t column,
-                                    const T value,
-                                    const bool create = false,
-                                    const table_id_t table_id = 0) const {
-    // FIXME horizontal containers will go down here, needs a row index, can be default 0
-    const auto& map = checked_pointer_cast<BaseDictionary<T>>(dictionaryAt(column, 0, table_id));
-    ValueId valueId;
-    valueId.table = table_id;
-    valueId.valueId = map->getValueId(value, create);
-    return valueId;
+  part_t getMutablePart(std::size_t column, std::size_t row) {
+    auto cpart = static_cast<const AbstractTable*>(this)->getPart(column, row);
+    return {const_cast<AbstractTable*>(cpart.table), cpart.column, cpart.row};
+  }
+  virtual cpart_t getPart(std::size_t column, std::size_t row) const {
+    throw std::runtime_error(std::string("getPart was not implemented by ") + typeid(*this).name());
   }
 
-  /**
-   * Templated method, checks whether or not a value is contained in a column.
-   *
-   * @param column   Column to check.
-   * @param value    Value to look for.
-   * @param table_id ID of the table (default=0).
-   */
-  template <typename T>
-  inline bool valueExists(const field_t column, const T value, const table_id_t table_id = 0) const {
-    const auto& map = checked_pointer_cast<BaseDictionary<T>>(dictionaryAt(column, 0, table_id));
-    return map->valueExists(value);
+
+  std::list<cpart> allParts() const {
+    std::list<cpart> parts;
+    collectParts(parts, 0, 0);
+    return parts;
+  }
+
+
+  virtual void collectParts(std::list<cpart_t>& parts, size_t col_offset, size_t row_offset) const {
+    throw std::runtime_error(std::string("allPartsCollect was not implemented by ") + typeid(*this).name());
   }
 
   /**
@@ -317,37 +302,20 @@ class AbstractTable : public AbstractResource {
    */
   template <typename T>
   void setValue(size_t column, size_t row, const T& value) {
-    const auto& map = checked_pointer_cast<BaseDictionary<T>>(dictionaryAt(column, row));
+    auto part = getMutablePart(column, row);
+    const auto& map = checked_pointer_cast<BaseDictionary<T>>(part.table->dictionaryAt(part.column, part.row));
     ValueId valueId;
-    valueId.table = 0;
     valueId.valueId = map->findValueIdForValue(value);
     if (valueId.valueId == std::numeric_limits<value_id_t>::max()) {
       valueId.valueId = map->addValue(value);
       io::Logger::getInstance().logDictionary<T>(getName(), column, value, valueId.valueId);
     }
-    setValueId(column, row, valueId);
+    part.table->setValueId(part.column, part.row, valueId);
   }
 
   template <typename T>
   void setValue(field_name_t column, size_t row, const T& value) {
     setValue(numberOfColumn(column), row, value);
-  }
-
-  /**
-   * Templated method for retrieving a value by its ID.
-   *
-   * @param column  Column containing the value.
-   * @param valueId ID of the value to be returned.
-   */
-  template <typename T>
-  inline T getValueForValueId(const field_t column, const ValueId valueId, const size_t row = 0) const {
-    typedef BaseDictionary<T> dict_t;
-    if (valueId.table != 0) {
-      return (static_cast<dict_t*>(dictionaryByTableId(column, valueId.table).get()))
-          ->getValueForValueId(valueId.valueId);
-    } else {
-      return (static_cast<dict_t*>(dictionaryAt(column, row).get()))->getValueForValueId(valueId.valueId);
-    }
   }
 
 
@@ -359,8 +327,10 @@ class AbstractTable : public AbstractResource {
    */
   template <typename T>
   T getValue(const field_t column, const size_t row) const {
-    ValueId valueId = getValueId(column, row);
-    return getValueForValueId<T>(column, valueId, row);
+    auto part = getPart(column, row);
+    ValueId valueId = part.table->getValueId(part.column, part.row);
+    return static_cast<BaseDictionary<T>*>(part.table->dictionaryAt(part.column, part.row).get())
+        ->getValueForValueId(valueId.valueId);
   }
 
 

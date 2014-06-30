@@ -50,6 +50,13 @@ class PointerCalculator : public AbstractTable, public SharedFactory<PointerCalc
 
   c_atable_ptr_t getTable() const;
   c_atable_ptr_t getActualTable() const;
+  cpart_t getPart(std::size_t column, std::size_t row) const {
+    if (fields)
+      column = fields->at(column);
+    if (pos_list)
+      row = pos_list->at(row);
+    return getTable()->getPart(column, row);
+  }
 
   /**
   * Checks the internal table of the pointer calculator to only contain valid positions.
@@ -73,15 +80,11 @@ class PointerCalculator : public AbstractTable, public SharedFactory<PointerCalc
                               const bool with_containers = true,
                               const bool compressed = false) const override;
 
-  const ColumnMetadata& metadataAt(const size_t column_index,
-                                   const size_t row_index = 0,
-                                   const table_id_t table_id = 0) const override;
+  const ColumnMetadata& metadataAt(const size_t column_index, const size_t row_index = 0) const override;
 
-  const adict_ptr_t& dictionaryAt(const size_t column, const size_t row = 0, const table_id_t table_id = 0) const
-      override;
-  const adict_ptr_t& dictionaryByTableId(const size_t column, const table_id_t table_id) const override;
-  void setDictionaryAt(adict_ptr_t dict, const size_t column, const size_t row = 0, const table_id_t table_id = 0)
-      override;
+  const adict_ptr_t& dictionaryAt(const size_t column, const size_t row = 0) const override;
+
+  void setDictionaryAt(adict_ptr_t dict, const size_t column, const size_t row = 0) override;
   size_t size() const override;
   size_t columnCount() const override;
   ValueId getValueId(const size_t column, const size_t row) const override;

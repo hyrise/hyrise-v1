@@ -237,9 +237,7 @@ TEST_F(RawTableTests, simple_store_insert_new_row_in_delta) {
   }
 
   ASSERT_EQ(delta->size(), 5u);
-  ASSERT_THROW(tab->dictionaryByTableId(0, 1), std::runtime_error);
   ASSERT_THROW(tab->dictionaryAt(0, t->size()), std::runtime_error);
-  ASSERT_THROW(tab->dictionaryAt(0, 0, 1), std::runtime_error);
 }
 
 

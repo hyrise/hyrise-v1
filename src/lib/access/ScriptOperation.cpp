@@ -131,27 +131,28 @@ void Include(const v8::FunctionCallbackInfo<v8::Value>& args) {
 // Return the value Id for the Value given to this class, based on the type of
 // the argument call the right method
 void TableGetValueIdForValue(const v8::FunctionCallbackInfo<v8::Value>& args) {
-  v8::Isolate* isolate = args.GetIsolate();
+  throw std::runtime_error("getValueIdForValue was deprecated");
+  /*v8::Isolate* isolate = args.GetIsolate();
 
-  auto val = args[1];
+auto val = args[1];
 
-  auto tabId = args.Length() > 2 ? args[2]->Uint32Value() : 0u;
+auto tabId = args.Length() > 2 ? args[2]->Uint32Value() : 0u;
 
 
-  auto wrap = v8::Local<v8::External>::Cast(args.This()->GetInternalField(0));
-  void* ptr = wrap->Value();
-  auto tab = static_cast<storage::AbstractTable*>(ptr);
+auto wrap = v8::Local<v8::External>::Cast(args.This()->GetInternalField(0));
+void* ptr = wrap->Value();
+auto tab = static_cast<storage::AbstractTable*>(ptr);
 
-  if (val->IsNumber()) {
+if (val->IsNumber()) {
 
-    args.GetReturnValue().Set(v8::Integer::New(
-        isolate,
-        tab->getValueIdForValue<hyrise_int_t>(args[0]->Uint32Value(), val->IntegerValue(), false, tabId).valueId));
-  } else {  // val == string
-    v8::String::Utf8Value u(val->ToString());
-    args.GetReturnValue().Set(v8::Integer::New(
-        isolate, tab->getValueIdForValue<hyrise_string_t>(args[0]->Uint32Value(), *u, false, tabId).valueId));
-  }
+  args.GetReturnValue().Set(v8::Integer::New(
+      isolate,
+      tab->getValueIdForValue<hyrise_int_t>(args[0]->Uint32Value(), val->IntegerValue(), false, tabId).valueId));
+} else {  // val == string
+  v8::String::Utf8Value u(val->ToString());
+  args.GetReturnValue().Set(v8::Integer::New(
+      isolate, tab->getValueIdForValue<hyrise_string_t>(args[0]->Uint32Value(), *u, false, tabId).valueId));
+      }*/
 }
 
 // These are the wrapped functions of the abstract table
@@ -284,7 +285,7 @@ void TableGetValueId(const v8::FunctionCallbackInfo<v8::Value>& args) {
 
   v8::Handle<v8::Object> templ = v8::Object::New(isolate);
   templ->Set(OneByteString(isolate, "valueId"), v8::Integer::New(isolate, vid.valueId));
-  templ->Set(OneByteString(isolate, "tableId"), v8::Integer::New(isolate, vid.table));
+  // templ->Set(OneByteString(isolate, "tableId"), v8::Integer::New(isolate, vid.table));
 
   args.GetReturnValue().Set(templ);
 }

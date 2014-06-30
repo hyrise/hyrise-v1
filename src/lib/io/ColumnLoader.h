@@ -38,15 +38,10 @@ class ColumnLoader : public AbstractColumnLoader {
       for (const auto& value : vec_sorted) {
         dict.addValue(value);
       }
-      size_t row = 0;
-      for (const auto& value : _values) {
-        table->setValueId(column, row++, table->getValueIdForValue<T>(column, value));
-      }
-    } else {
-      size_t row = 0;
-      for (const auto& value : _values) {
-        table->setValue<T>(column, row++, value);
-      }
+    }
+    size_t row = 0;
+    for (const auto& value : _values) {
+      table->setValue<T>(column, row++, value);
     }
   }
 };
