@@ -53,7 +53,6 @@ class MutableVerticalTable : public AbstractTable {
   table_id_t subtableCount() const override;
   atable_ptr_t copy() const override;
   const attr_vectors_t getAttributeVectors(size_t column) const override;
-  void debugStructure(size_t level = 0) const override;
 
   /// Returns the container at a given index.
   /// @param container_index Index of the container.
@@ -66,7 +65,11 @@ class MutableVerticalTable : public AbstractTable {
   /// @param column_index Index of the column.
   size_t getOffsetInContainer(size_t column_index) const;
 
+
   virtual void collectParts(std::list<cpart_t>& parts, size_t col_offset, size_t row_offset) const override;
+
+  Visitation accept(StorageVisitor&) const override;
+  Visitation accept(MutableStorageVisitor&) override;
 
  private:
   /// Vector storing the containers

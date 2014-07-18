@@ -257,14 +257,6 @@ const attr_vectors_t Store::getAttributeVectors(size_t column) const {
   return tables;
 }
 
-void Store::debugStructure(size_t level) const {
-  std::cout << std::string(level, '\t') << "Store " << this << std::endl;
-  std::cout << std::string(level, '\t') << "(main) " << this << std::endl;
-  _main_table->debugStructure(level + 1);
-  std::cout << std::string(level, '\t') << "(delta) " << this << std::endl;
-  delta->debugStructure(level + 1);
-}
-
 bool Store::isVisibleForTransaction(pos_t pos, tx::transaction_cid_t last_commit_id, tx::transaction_id_t tid) const {
   return last_commit_id < _cidEndVector[pos] && (last_commit_id >= _cidBeginVector[pos] || _tidVector[pos] == tid);
 }
@@ -517,6 +509,24 @@ void Store::enableLogging() {
   logging = true;
   _main_table->enableLogging();
   delta->enableLogging();
+}
+
+Visitation Store::accept(StorageVisitor& visitor) const {
+  if (visitor.visitEnter(*this) == Visitation::next) {
+    if (_main_table->accept(visitor) == Visitation::next) {
+      delta->accept(visitor);  // ignore result, nothing to continue
+    }
+  }
+  return visitor.visitLeave(*this);
+}
+
+Visitation Store::accept(MutableStorageVisitor& visitor) {
+  if (visitor.visitEnter(*this) == Visitation::next) {
+    if (_main_table->accept(visitor) == Visitation::next) {
+      delta->accept(visitor);
+    }
+  }
+  return visitor.visitLeave(*this);
 }
 
 void Store::setName(const std::string name) {

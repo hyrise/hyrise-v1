@@ -110,7 +110,8 @@ class Table : public AbstractTable {
 
   void persist_scattered(const pos_list_t& elements, bool new_elements = true) const override;
 
-  virtual void debugStructure(size_t level = 0) const override;
+  Visitation accept(StorageVisitor&) const override;
+  Visitation accept(MutableStorageVisitor&) override;
 
   virtual void collectParts(std::list<cpart_t>& parts, size_t col_offset, size_t row_offset) const override {
     parts.push_back({this, col_offset, row_offset});

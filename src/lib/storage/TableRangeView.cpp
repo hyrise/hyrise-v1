@@ -107,10 +107,5 @@ std::string TableRangeView::nameOfColumn(const size_t column) const { return _ta
 
 unsigned TableRangeView::partitionCount() const { return _table->partitionCount(); }
 
-
-void TableRangeView::debugStructure(size_t level) const {
-  std::cout << std::string(level, '\t') << "TableRangeView " << this << std::endl;
-  _table->debugStructure(level + 1);
-}
 }
 }

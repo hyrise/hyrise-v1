@@ -23,6 +23,7 @@
 #include "storage/AbstractResource.h"
 #include "storage/BaseDictionary.h"
 #include "storage/storage_types.h"
+#include "storage/HierarchyVisitor.h"
 
 #include "json.h"
 
@@ -414,7 +415,6 @@ class AbstractTable : public AbstractResource {
   void write(const std::string& filename) const;
 
 
-
   /**
    * Test for equality of this table's content with another table's.
    *
@@ -437,8 +437,6 @@ class AbstractTable : public AbstractResource {
   * access to the memory and keeping the high-level data structures.
   */
   virtual const attr_vectors_t getAttributeVectors(size_t column) const;
-
-  virtual void debugStructure(size_t level = 0) const;
 
   unique_id getUuid() const;
 
@@ -469,6 +467,9 @@ class AbstractTable : public AbstractResource {
       this->dictionaryAt(i)->prepareCheckpoint();
     }
   }
+
+  virtual Visitation accept(StorageVisitor&) const;
+  virtual Visitation accept(MutableStorageVisitor&);
 
  protected:
   // Global unique identifier for this object

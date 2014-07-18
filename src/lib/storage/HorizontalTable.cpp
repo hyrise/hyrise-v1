@@ -86,13 +86,6 @@ size_t HorizontalTable::partitionWidth(const size_t slice) const { return _parts
 
 atable_ptr_t HorizontalTable::copy() const { throw std::runtime_error("Not implemented"); }
 
-void HorizontalTable::debugStructure(size_t level) const {
-  std::cout << std::string(level, '\t') << "HorizontalTable " << this << std::endl;
-  for (const auto& p : _parts) {
-    p->debugStructure(level + 1);
-  }
-}
-
 void HorizontalTable::persist_scattered(const pos_list_t& elements, bool new_elements) const {
   for (const auto& p : _parts) {
     p->persist_scattered(elements, new_elements);
@@ -110,5 +103,29 @@ void HorizontalTable::collectParts(std::list<cpart_t>& parts, size_t col_offset,
     row_offset += part->size();
   }
 }
+
+Visitation HorizontalTable::accept(StorageVisitor& visitor) const {
+  if (visitor.visitEnter(*this) == Visitation::next) {
+    for (auto& c : _parts) {
+      if (c->accept(visitor) == Visitation::skip) {
+        break;
+      }
+    }
+  }
+  return visitor.visitLeave(*this);
+}
+
+Visitation HorizontalTable::accept(MutableStorageVisitor& visitor) {
+  if (visitor.visitEnter(*this) == Visitation::next) {
+    for (auto& part : _parts) {
+      auto c = std::const_pointer_cast<AbstractTable>(part);
+      if (c->accept(visitor) == Visitation::skip) {
+        break;
+      }
+    }
+  }
+  return visitor.visitLeave(*this);
+}
+
 }
 }

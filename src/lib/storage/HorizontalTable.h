@@ -34,7 +34,9 @@ class HorizontalTable : public AbstractTable {
   size_t partitionWidth(size_t slice) const override;
   table_id_t subtableCount() const override;
   atable_ptr_t copy() const override;
-  void debugStructure(size_t level = 0) const override;
+
+  Visitation accept(StorageVisitor&) const override;
+  Visitation accept(MutableStorageVisitor&) override;
 
   virtual void collectParts(std::list<cpart_t>& parts, size_t col_offset, size_t row_offset) const override;
 
