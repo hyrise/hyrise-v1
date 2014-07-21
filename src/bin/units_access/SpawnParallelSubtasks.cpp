@@ -3,6 +3,7 @@
 
 #include "access/system/QueryParser.h"
 #include "access/system/ResponseTask.h"
+#include "storage/ColumnMetadata.h"
 #include "taskscheduler/SharedScheduler.h"
 
 namespace hyrise {

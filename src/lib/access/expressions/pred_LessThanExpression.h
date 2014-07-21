@@ -41,27 +41,5 @@ class LessThanExpression : public SimpleFieldExpression {
       return false;
   }
 };
-
-
-template <typename T>
-class LessThanExpressionRaw : public SimpleFieldExpression {
- private:
-  T value;
-
- public:
-  LessThanExpressionRaw(size_t i, field_t f, T _value) : SimpleFieldExpression(i, f), value(_value) {}
-
-  LessThanExpressionRaw(size_t i, field_name_t f, T _value) : SimpleFieldExpression(i, f), value(_value) {}
-
-  LessThanExpressionRaw(const storage::c_atable_ptr_t& _table, field_t _field, T _value)
-      : SimpleFieldExpression(_table, _field), value(_value) {}
-
-
-  virtual ~LessThanExpressionRaw() {}
-
-  inline virtual bool operator()(size_t row) {
-    return (std::dynamic_pointer_cast<const storage::RawTable>(table))->template getValue<T>(field, row) < value;
-  }
-};
 }
 }  // pragma once

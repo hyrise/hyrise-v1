@@ -53,7 +53,6 @@ typedef std::shared_ptr<PlanOperation> planop_ptr_t;
 }
 
 namespace storage {
-class SimpleStore;
 class MutableVerticalTable;
 class Store;
 class AbstractAttributeVector;
@@ -84,9 +83,6 @@ typedef std::shared_ptr<const Store> c_store_ptr_t;
 
 typedef std::shared_ptr<PointerCalculator> calc_ptr_t;
 typedef std::shared_ptr<const PointerCalculator> c_calc_ptr_t;
-
-typedef std::shared_ptr<SimpleStore> simplestore_ptr_t;
-typedef std::shared_ptr<const SimpleStore> c_simplestore_ptr_t;
 
 typedef int64_t hyrise_int_t;
 typedef int32_t hyrise_int32_t;

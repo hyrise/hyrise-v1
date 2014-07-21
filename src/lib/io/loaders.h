@@ -7,4 +7,3 @@
 #include "StringLoader.h"
 #include "EmptyLoader.h"
 #include "MySQLLoader.h"
-#include "RawTableLoader.h"

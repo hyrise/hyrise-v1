@@ -11,7 +11,6 @@
 #include "access/tx/Commit.h"
 #include "storage/Store.h"
 #include "io/TransactionManager.h"
-#include "storage/RawTable.h"
 #include "access/expressions/pred_LessThanExpression.h"
 #include "testing/TableEqualityTest.h"
 

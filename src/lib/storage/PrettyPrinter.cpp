@@ -10,7 +10,6 @@
 #include "helper/RangeIter.h"
 #include "storage/AbstractTable.h"
 #include "storage/Store.h"
-#include "storage/RawTable.h"
 #include "storage/storage_types.h"
 #include "storage/TableDiff.h"
 
@@ -196,16 +195,11 @@ void PrettyPrinter::print(const AbstractTable* const input,
                           const std::string tableName,
                           const size_t& limit,
                           const size_t& start) {
-  auto* r = dynamic_cast<const RawTable*>(input);
-  if (r) {
-    special_print(r, outStream, tableName, limit, start);
-  } else {
-    const Store* s = dynamic_cast<const Store*>(input);
-    if (s)
-      special_print(s, outStream, tableName, limit, start);
-    else
-      special_print(input, outStream, tableName, limit, start);
-  }
+  const Store* s = dynamic_cast<const Store*>(input);
+  if (s)
+    special_print(s, outStream, tableName, limit, start);
+  else
+    special_print(input, outStream, tableName, limit, start);
 }
 
 void PrettyPrinter::writeTid(ftprinter::FTPrinter& tp, tx::transaction_id_t tid) {
