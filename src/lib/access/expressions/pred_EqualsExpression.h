@@ -2,11 +2,12 @@
 #pragma once
 
 #include "helper/types.h"
-
+#include "helper/checked_cast.h"
 #include "pred_common.h"
 
 // Required for Raw Table Scan
 #include <storage/RawTable.h>
+#include "storage/column_extract.h"
 
 namespace hyrise {
 namespace access {
@@ -45,6 +46,36 @@ class EqualsExpression : public SimpleFieldExpression {
   virtual ~EqualsExpression() {}
 
   inline virtual bool operator()(size_t row) { return value_exists && table->getValue<T>(field, row) == value; }
+
+  virtual storage::pos_list_t matchAll(storage::pos_list_t& pos) {
+      storage::pos_list_t res;
+      auto it = pos.begin(), e = pos.end();
+      while (it != e) {
+
+          it++;
+      }
+      return res;
+  }
+  virtual storage::pos_list_t matchAll(size_t start, size_t stop) {
+      auto parts = storage::column_parts_extract(*table.get(), field);
+      storage::pos_list_t results;
+      for (auto part : parts) {
+          if (part.verticalStart > start) break;
+          if (part.verticalEnd > start) continue; // next part, not yet at the right part
+
+          auto dict = checked_pointer_cast<storage::BaseDictionary<T>>(part.table.dictionaryAt(part.columnOffset));
+          if (dict->valueExists(value)) continue; // next part, this one doesn't have our value
+          auto vid = dict->getValueIdForValue(value);
+          auto aav = checked_pointer_cast<storage::BaseAttributeVector<value_id_t> >(part.table.getAttributeVectors(part.columnOffset).at(0).attribute_vector);
+
+          for (std::size_t p = start - part.verticalStart, e = p + part.verticalEnd - stop; p < e; p++) {
+              if (aav->get(part.columnOffset, p) == vid) results.push_back(part.verticalStart + p);
+          }
+      }
+      return results;
+
+  }
+
 };
 
 
