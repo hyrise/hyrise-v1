@@ -196,12 +196,12 @@ void RequestParseTask::operator()() {
     }
     // Update the transmission limit for the response task
     auto limit = atol(getOrDefault(body_data, "limit", "0").c_str());
-    if (limit > 0 ) {
-        _responseTask->setTransmitLimit(limit);
+    if (limit > 0) {
+      _responseTask->setTransmitLimit(limit);
     }
     auto offset = atol(getOrDefault(body_data, "offset", "0").c_str());
     if (offset > 0) {
-        _responseTask->setTransmitOffset(offset);
+      _responseTask->setTransmitOffset(offset);
     }
 
   } else {

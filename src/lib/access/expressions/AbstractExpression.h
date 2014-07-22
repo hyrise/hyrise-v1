@@ -18,8 +18,12 @@ class AbstractExpression {
     throw std::runtime_error("Cannot clone base class; implement in derived");
   }
 
-  virtual storage::pos_list_t matchAll(storage::pos_list_t&) { throw std::runtime_error(std::string() + typeid(*this).name() + " did not implement matchAll(pos)") ; }
-  virtual storage::pos_list_t matchAll(size_t start, size_t stop) { throw std::runtime_error(std::string() + typeid(*this).name() + " did not implement matchAll(pos)") ; }
+  virtual storage::pos_list_t matchAll(storage::pos_list_t&) {
+    throw std::runtime_error(std::string() + typeid(*this).name() + " did not implement matchAll(pos)");
+  }
+  virtual storage::pos_list_t matchAll(size_t start, size_t stop) {
+    throw std::runtime_error(std::string() + typeid(*this).name() + " did not implement matchAll(pos)");
+  }
 };
 }
 }

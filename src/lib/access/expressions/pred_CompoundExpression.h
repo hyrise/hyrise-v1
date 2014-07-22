@@ -56,6 +56,43 @@ class CompoundExpression : public SimpleExpression {
         break;
     }
   }
+  virtual storage::pos_list_t matchAll(storage::pos_list_t& pos) {
+    switch (type) {
+      case AND: {
+        auto lhs_result = lhs->matchAll(pos);
+        return rhs->matchAll(lhs_result);
+      }
+      case OR: {
+        auto lhs_result = lhs->matchAll(pos);
+        auto rhs_result = rhs->matchAll(pos);
+        storage::pos_list_t uni;
+        std::set_union(
+            lhs_result.begin(), lhs_result.end(), rhs_result.begin(), rhs_result.end(), std::back_inserter(uni));
+        return uni;
+      }
+      default:
+        throw std::runtime_error("Unknown Expression Type");
+    }
+  }
+
+  virtual storage::pos_list_t matchAll(size_t start, size_t stop) {
+    switch (type) {
+      case AND: {
+        auto lhs_result = lhs->matchAll(start, stop);
+        return rhs->matchAll(lhs_result);
+      }
+      case OR: {
+        auto lhs_result = lhs->matchAll(start, stop);
+        auto rhs_result = rhs->matchAll(start, stop);
+        storage::pos_list_t uni;
+        std::set_union(
+            lhs_result.begin(), lhs_result.end(), rhs_result.begin(), rhs_result.end(), std::back_inserter(uni));
+        return uni;
+      }
+      default:
+        throw std::runtime_error("Unknown Expression Type");
+    }
+  }
 
   inline void add(SimpleExpression* e) {
     if (!lhs)

@@ -64,5 +64,46 @@ TEST_F(PredicateBldr, complex_expression) {
 
   ASSERT_TRUE(out->contentEquals(reference));
 }
+
+TEST_F(PredicateBldr, complex_expression_matchall) {
+  storage::c_atable_ptr_t t = io::Loader::shortcuts::load("test/groupby_xs.tbl");
+
+  {
+    auto expr3 = new CompoundExpression(AND);
+    auto expr1 = new EqualsExpression<hyrise_int_t>(t, 0, 2009);
+    auto expr2 = new EqualsExpression<hyrise_int_t>(t, 1, 7);
+
+    PredicateBuilder b;
+    b.add(expr3);
+    b.add(expr1);
+    b.add(expr2);
+
+    auto p = b.build();
+    p->walk({t});
+
+    auto x = p->matchAll(0, t->size());
+    EXPECT_EQ(x.size(), 3);
+  }
+  {
+    auto expr3 = new CompoundExpression(AND);
+    auto expr1 = new EqualsExpression<hyrise_int_t>(t, 0, 2009);
+    auto expr2 = new EqualsExpression<hyrise_int_t>(t, 1, 7);
+
+    PredicateBuilder b;
+    b.add(expr3);
+    b.add(expr2);
+    b.add(expr1);
+
+    auto p = b.build();
+    p->walk({t});
+
+    auto x = p->matchAll(0, t->size());
+    EXPECT_EQ(x.size(), 3);
+  }
+  // auto out = scan->execute()->getResultTable();
+  // const auto& reference = io::Loader::shortcuts::load("test/reference/simple_select_1.tbl");
+
+  // ASSERT_TRUE(out->contentEquals(reference));
+}
 }
 }

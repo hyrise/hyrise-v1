@@ -126,6 +126,5 @@ Visitation HorizontalTable::accept(MutableStorageVisitor& visitor) {
   }
   return visitor.visitLeave(*this);
 }
-
 }
 }

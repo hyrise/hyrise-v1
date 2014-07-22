@@ -106,6 +106,5 @@ size_t TableRangeView::columnCount() const { return _columnCount; }
 std::string TableRangeView::nameOfColumn(const size_t column) const { return _table->nameOfColumn(column); }
 
 unsigned TableRangeView::partitionCount() const { return _table->partitionCount(); }
-
 }
 }

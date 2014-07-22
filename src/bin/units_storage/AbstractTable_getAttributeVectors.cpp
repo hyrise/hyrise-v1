@@ -29,7 +29,7 @@ TEST(AbstractTable_getAttributeVectors, test) {
 
   EXPECT_EQ(2u, vectors.size());
 
-  auto parts = column_parts_extract(*table.get(), 1);
+  auto parts = column_parts_extract(*table.get(), 1, 0, table->size());
   EXPECT_EQ(2u, parts.size());
 }
 
@@ -39,12 +39,10 @@ TEST(AbstractTable_getAttributeVectors, test2) {
   EXPECT_EQ(2u, vectors.size());
 }
 
-TEST(AbstractTable_getAttributeVectors, test3 ) {
+TEST(AbstractTable_getAttributeVectors, test3) {
   const auto& table = io::Loader::shortcuts::load("test/partitioned_test.tbl");
   TableVisitor dv;
   table->accept(dv);
-
 }
-
 }
 }  // namespace hyrise::storage
