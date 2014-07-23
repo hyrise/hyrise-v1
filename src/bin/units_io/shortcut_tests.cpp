@@ -3,7 +3,6 @@
 #include <io/shortcuts.h>
 #include <storage/AbstractTable.h>
 #include <storage/Store.h>
-#include <storage/RawTable.h>
 
 namespace hyrise {
 namespace io {
@@ -20,12 +19,6 @@ TEST_F(LoaderShortcutTests, loadMainDelta) {
 TEST_F(LoaderShortcutTests, loadShouldReturnStore) {
   hyrise::storage::atable_ptr_t t = Loader::shortcuts::load("test/lin_xxs.tbl");
   ASSERT_TRUE((bool)std::dynamic_pointer_cast<storage::Store>(t));
-}
-
-TEST_F(LoaderShortcutTests, loadRawShouldReturnRawTable) {
-  auto t = Loader::shortcuts::loadRaw("test/lin_xxs.tbl");
-  ASSERT_TRUE((bool)std::dynamic_pointer_cast<storage::RawTable>(t));
-  ASSERT_LT(0u, t->size());
 }
 }
 }  // namespace hyrise::io

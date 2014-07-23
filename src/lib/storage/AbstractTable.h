@@ -22,6 +22,7 @@
 #include "helper/unique_id.h"
 #include "storage/AbstractResource.h"
 #include "storage/BaseDictionary.h"
+#include "storage/ColumnMetadata.h"
 #include "storage/storage_types.h"
 #include "storage/HierarchyVisitor.h"
 
@@ -30,7 +31,7 @@
 namespace hyrise {
 namespace storage {
 
-class ColumnMetadata;
+
 class AbstractDictionary;
 class AbstractAttributeVector;
 

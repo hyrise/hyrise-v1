@@ -11,8 +11,6 @@
 #include "storage/OrderIndifferentDictionary.h"
 #include "storage/OrderPreservingDictionary.h"
 #include "storage/ConcurrentUnorderedDictionary.h"
-#include "storage/RawTable.h"
-#include "storage/SimpleStore.h"
 #include "storage/storage_types.h"
 #include "storage/Store.h"
 

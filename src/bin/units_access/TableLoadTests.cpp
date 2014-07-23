@@ -2,7 +2,6 @@
 #include "access/storage/TableLoad.h"
 #include "io/shortcuts.h"
 #include "io/StorageManager.h"
-#include "storage/RawTable.h"
 #include "testing/test.h"
 
 namespace hyrise {
@@ -35,19 +34,6 @@ TEST_F(TableLoadTests, table_load_existing_test) {
   const auto& result = tl.getResultTable();
 
   ASSERT_TRUE(result->contentEquals(t));
-}
-
-TEST_F(TableLoadTests, raw_table_load_test) {
-  TableLoad tl;
-  tl.setFileName("lin_xxs.tbl");
-  tl.setTableName("myTable3");
-  tl.setRaw(true);
-  tl.execute();
-
-  const auto& result = tl.getResultTable();
-  auto raw = std::dynamic_pointer_cast<const storage::RawTable>(result);
-
-  ASSERT_NE(raw, nullptr);
 }
 
 TEST_F(TableLoadTests, table_load_with_string_header_test) {
