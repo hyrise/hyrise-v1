@@ -57,28 +57,5 @@ class GreaterThanExpression : public SimpleFieldExpression {
     return table->getValue<T>(field, row) > value;
   }
 };
-
-
-
-template <typename T>
-class GreaterThanExpressionRaw : public SimpleFieldExpression {
- private:
-  T value;
-
- public:
-  GreaterThanExpressionRaw(size_t i, field_t f, T _value) : SimpleFieldExpression(i, f), value(_value) {}
-
-  GreaterThanExpressionRaw(size_t i, field_name_t f, T _value) : SimpleFieldExpression(i, f), value(_value) {}
-
-  GreaterThanExpressionRaw(const storage::c_atable_ptr_t& _table, field_t _field, T _value)
-      : SimpleFieldExpression(_table, _field), value(_value) {}
-
-
-  virtual ~GreaterThanExpressionRaw() {}
-
-  inline virtual bool operator()(size_t row) {
-    return (std::dynamic_pointer_cast<const storage::RawTable>(table))->template getValue<T>(field, row) > value;
-  }
-};
 }
 }  // namespace hyrise::access

@@ -14,7 +14,6 @@
 #include "net/AsyncConnection.h"
 
 #include "storage/AbstractTable.h"
-#include "storage/SimpleStore.h"
 #include "storage/meta_storage.h"
 #include "io/GroupCommitter.h"
 
@@ -71,11 +70,7 @@ Json::Value generateRowsJsonT(const T& table, const size_t transmitLimit, const 
 Json::Value generateRowsJson(const std::shared_ptr<const storage::AbstractTable>& table,
                              const size_t transmitLimit,
                              const size_t transmitOffset) {
-  if (const auto& store = std::dynamic_pointer_cast<const storage::SimpleStore>(table)) {
-    return generateRowsJsonT(store, transmitLimit, transmitOffset);
-  } else {
-    return generateRowsJsonT(table, transmitLimit, transmitOffset);
-  }
+  return generateRowsJsonT(table, transmitLimit, transmitOffset);
 }
 
 const std::string ResponseTask::vname() { return "ResponseTask"; }

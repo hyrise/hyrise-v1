@@ -29,15 +29,7 @@ void TableLoad::executePlanOperation() {
   if (!sm->exists(_table_name)) {
 
     // load from absolute path?
-
-    // Load Raw Table
-    if (_raw) {
-      io::Loader::params p;
-      p.setHeader(io::CSVHeader(_file_name));
-      p.setInput(io::RawTableLoader(_file_name));
-      sm->loadTable(_table_name, p, _path);
-
-    } else if (!_header_string.empty()) {
+    if (!_header_string.empty()) {
       // Load based on header string
       auto p = io::Loader::shortcuts::loadWithStringHeaderParams(_file_name, _header_string);
       sm->loadTable(_table_name, p, _path);
@@ -78,7 +70,6 @@ std::shared_ptr<PlanOperation> TableLoad::parse(const Json::Value& data) {
   s->setHeaderFileName(data["header"].asString());
   s->setHeaderString(data["header_string"].asString());
   s->setUnsafe(data["unsafe"].asBool());
-  s->setRaw(data["raw"].asBool());
   if (data.isMember("delimiter")) {
     s->setDelimiter(data["delimiter"].asString());
   }
@@ -105,8 +96,6 @@ void TableLoad::setHeaderString(const std::string& header) { _header_string = he
 void TableLoad::setBinary(const bool binary) { _binary = binary; }
 
 void TableLoad::setUnsafe(const bool unsafe) { _unsafe = unsafe; }
-
-void TableLoad::setRaw(const bool raw) { _raw = raw; }
 
 void TableLoad::setDelimiter(const std::string& d) {
   _delimiter = d;
