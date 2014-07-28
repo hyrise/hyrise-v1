@@ -8,13 +8,13 @@ namespace hyrise {
 namespace storage {
 
 struct Part {
-  std::size_t columnOffset, verticalStart, verticalEnd;
+  std::size_t columnOffset, verticalStart, verticalEnd, iterStart, iterEnd;
   Table const& table;
 };
 
 inline std::ostream& operator<<(std::ostream& os, const storage::Part& part) {
-  return os << "Part column:" << part.columnOffset << " rows: [" << part.verticalStart << " " << part.verticalEnd
-            << "]";
+  return os << "Part column:" << part.columnOffset << " rows: [" << part.verticalStart << " " << part.verticalEnd << "]"
+            << " iter (" << part.iterStart << " " << part.iterEnd << ")";
 }
 
 

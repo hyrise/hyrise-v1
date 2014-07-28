@@ -5,6 +5,7 @@
 #include "access/SimpleTableScan.h"
 #include "access/expressions/predicates.h"
 #include "io/shortcuts.h"
+#include "storage/HorizontalTable.h"
 
 namespace hyrise {
 namespace access {
@@ -67,7 +68,8 @@ TEST_F(PredicateBldr, complex_expression) {
 
 TEST_F(PredicateBldr, complex_expression_matchall) {
   storage::c_atable_ptr_t t = io::Loader::shortcuts::load("test/groupby_xs.tbl");
-
+  storage::c_atable_ptr_t two =
+      std::make_shared<const storage::HorizontalTable>(std::vector<storage::c_atable_ptr_t>{t, t});
   {
     auto expr3 = new CompoundExpression(AND);
     auto expr1 = new EqualsExpression<hyrise_int_t>(t, 0, 2009);
@@ -100,10 +102,23 @@ TEST_F(PredicateBldr, complex_expression_matchall) {
     auto x = p->matchAll(0, t->size());
     EXPECT_EQ(x.size(), 3);
   }
-  // auto out = scan->execute()->getResultTable();
-  // const auto& reference = io::Loader::shortcuts::load("test/reference/simple_select_1.tbl");
 
-  // ASSERT_TRUE(out->contentEquals(reference));
+  {
+    auto expr3 = new CompoundExpression(AND);
+    auto expr1 = new EqualsExpression<hyrise_int_t>(two, 0, 2009);
+    auto expr2 = new EqualsExpression<hyrise_int_t>(two, 1, 7);
+
+    PredicateBuilder b;
+    b.add(expr3);
+    b.add(expr2);
+    b.add(expr1);
+
+    auto p = b.build();
+    p->walk({two});
+    std::cout << two->size() << "two size " << std::endl;
+    auto x = p->matchAll(0, two->size());
+    EXPECT_EQ(6, x.size());
+  }
 }
 }
 }

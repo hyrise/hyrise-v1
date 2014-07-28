@@ -46,6 +46,17 @@ class EqualsExpression : public SimpleFieldExpression {
 
   inline virtual bool operator()(size_t row) { return value_exists && table->getValue<T>(field, row) == value; }
 
+  inline void op(const storage::BaseAttributeVector<value_id_t>& aav,
+                 size_t col,
+                 size_t av_pos,
+                 size_t abs_pos,
+                 value_id_t vid,
+                 storage::pos_list_t& results) {
+    if (aav.get(col, av_pos) == vid) {
+      results.push_back(abs_pos);
+    }
+  }
+
   virtual storage::pos_list_t matchAll(storage::pos_list_t& pos) {
     storage::pos_list_t results;
     if (pos.size() == 0)
@@ -58,7 +69,11 @@ class EqualsExpression : public SimpleFieldExpression {
     auto parts = storage::column_parts_extract(*table.get(), field, start, stop);
     assert(parts.size() != 0);
     auto it = pos.begin();
+    auto et = pos.end();
     for (const auto& part : parts) {
+      //  std::cout << part << std::endl;
+      if (part.iterStart == part.iterEnd)
+        continue;
       auto dict = checked_pointer_cast<storage::BaseDictionary<T>>(part.table.dictionaryAt(part.columnOffset));
       if (!dict->valueExists(value)) {
         while (*(it++) < part.verticalEnd) {
@@ -70,12 +85,17 @@ class EqualsExpression : public SimpleFieldExpression {
       auto aav = checked_pointer_cast<storage::BaseAttributeVector<value_id_t>>(
           part.table.getAttributeVectors(part.columnOffset).at(0).attribute_vector);
       do {
-        auto p = *it;
-        if (aav->get(part.columnOffset, p - part.verticalStart) == vid) {
-          results.push_back(p);
-        }
-      } while (*(++it) < part.verticalEnd);
+        // std::cout << "checking" << *it << " " << pos.size() << std::endl;
+        auto p = *it - part.verticalStart;
+
+        op(*aav.get(), part.columnOffset, p, part.verticalStart + p, vid, results);
+        // if (aav->get(part.columnOffset, p) == vid) {
+        // results.push_back(part.verticalStart + p);
+        //}
+        ++it;
+      } while ((*it < part.verticalEnd) && (it != et));
     }
+    // std::cout << results.size() << std::endl;
     return results;
   }
 
@@ -85,23 +105,30 @@ class EqualsExpression : public SimpleFieldExpression {
     storage::pos_list_t results;
 
     for (const auto& part : parts) {
+      // std::cout << part << std::endl;
+      if (part.iterStart == part.iterEnd)
+        continue;
       auto pdict = part.table.dictionaryAt(part.columnOffset);
 
       auto dict = checked_pointer_cast<storage::BaseDictionary<T>>(pdict);
-      if (!dict->valueExists(value))
+      if (!dict->valueExists(value)) {
+        // std::cout << "Bailing, vid not found" << std::endl;
         continue;  // next part, this one doesn't have our value
-
+      }
       auto vid = dict->getValueIdForValue(value);
       auto aav = checked_pointer_cast<storage::BaseAttributeVector<value_id_t>>(
           part.table.getAttributeVectors(part.columnOffset).at(0).attribute_vector);
 
-      for (std::size_t p = start - part.verticalStart, e = std::min(stop - start, part.verticalEnd - start); p < e;
-           p++) {
-        if (aav->get(part.columnOffset, p) == vid) {
-          results.push_back(part.verticalStart + p);
-        }
+      for (std::size_t p = part.iterStart, e = part.iterEnd; p < e; p++) {
+        // std::cout << "checking" << p << " " << e << std::endl;
+        op(*aav.get(), part.columnOffset, p, part.verticalStart + p, vid, results);
+        // if (aav->get(part.columnOffset, p) == vid) {
+        // results.push_back(part.verticalStart + p);
+        //}
       }
+      start = part.verticalEnd + 1;
     }
+    // std::cout << results.size() << std::endl;
     return results;
   }
 };

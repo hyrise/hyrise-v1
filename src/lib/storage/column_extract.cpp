@@ -29,9 +29,9 @@ class ColumnPartsCollector : public StorageVisitor {
     if (_verticalOffset + tableOffset > _column) {
       auto ts = t.size();
       if (!((_stop < _horizontalOffset)or(_start > _horizontalOffset + ts))) {
-        // auto start = std::max(_start, _horizontalOffset);
-        // auto stop =  std::min(_stop, _horizontalOffset + ts);
-        _parts.emplace_back(Part{_column - _verticalOffset, _horizontalOffset, _horizontalOffset + ts, t});
+        auto start = std::max(_start, _horizontalOffset) - _horizontalOffset;
+        auto stop = std::min(_stop, _horizontalOffset + ts) - _horizontalOffset;
+        _parts.emplace_back(Part{_column - _verticalOffset, _horizontalOffset, _horizontalOffset + ts, start, stop, t});
       }
       _horizontalOffset += ts;
       return Visitation::skip;
