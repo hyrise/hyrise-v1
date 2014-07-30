@@ -64,7 +64,7 @@ class ConcurrentUnorderedDictionary : public BaseDictionary<T> {
 
 
 
-  virtual T getValueForValueId(value_id_t value_id) override { return _values.at(value_id); }
+  virtual T getValueForValueId(value_id_t value_id) const override { return _values.at(value_id); }
 
   virtual value_id_t getValueIdForValue(const T& value) const override {
 #ifdef EXPENSIVE_ASSERTIONS

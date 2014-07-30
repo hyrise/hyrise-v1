@@ -96,7 +96,7 @@ class OrderIndifferentDictionary : public BaseDictionary<T> {
 
   void reserve(size_t s) { _value_list.reserve(s); }
 
-  virtual T getValueForValueId(value_id_t value_id) {
+  virtual T getValueForValueId(value_id_t value_id) const {
 #ifdef EXPENSIVE_ASSERTIONS
     if (value_id >= _value_list.size()) {
       throw std::out_of_range("value id out of range");

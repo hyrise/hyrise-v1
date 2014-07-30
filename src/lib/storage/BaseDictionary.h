@@ -16,7 +16,7 @@ class BaseDictionary : public AbstractDictionary {
   using value_type = T;
   virtual value_id_t addValue(T value) = 0;
 
-  virtual T getValueForValueId(value_id_t value_id) = 0;
+  virtual T getValueForValueId(value_id_t value_id) const = 0;
   virtual value_id_t getValueIdForValue(const T& value) const = 0;
   virtual value_id_t findValueIdForValue(const T& value) const = 0;
 

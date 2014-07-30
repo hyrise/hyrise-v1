@@ -4,6 +4,7 @@
 
 #include "access/SimpleTableScan.h"
 #include "access/expressions/predicates.h"
+#include "access/expressions/pred_EqualsExpression.h"
 #include "io/shortcuts.h"
 #include "storage/HorizontalTable.h"
 
@@ -66,42 +67,49 @@ TEST_F(PredicateBldr, complex_expression) {
   ASSERT_TRUE(out->contentEquals(reference));
 }
 
-TEST_F(PredicateBldr, complex_expression_matchall) {
+TEST(Expression, matchall) {
+  storage::c_atable_ptr_t t = io::Loader::shortcuts::load("test/groupby_xs.tbl");
+  auto expr3 = new CompoundExpression(AND);
+  auto expr1 = new EqualsExpression<hyrise_int_t>(t, 0, 2009);
+  auto expr2 = new EqualsExpression<hyrise_int_t>(t, 1, 7);
+
+  PredicateBuilder b;
+  b.add(expr3);
+  b.add(expr1);
+  b.add(expr2);
+
+  auto p = b.build();
+  p->walk({t});
+
+  auto x = p->matchAll(0, t->size());
+  EXPECT_EQ(x.size(), 3);
+}
+
+TEST(Expressions, matchall2) {
+  storage::c_atable_ptr_t t = io::Loader::shortcuts::load("test/groupby_xs.tbl");
+
+
+  auto expr3 = new CompoundExpression(AND);
+  auto expr1 = new EqualsExpression<hyrise_int_t>(t, 0, 2009);
+  auto expr2 = new EqualsExpression<hyrise_int_t>(t, 1, 7);
+
+  PredicateBuilder b;
+  b.add(expr3);
+  b.add(expr2);
+  b.add(expr1);
+
+  auto p = b.build();
+  p->walk({t});
+
+  auto x = p->matchAll(0, t->size());
+  EXPECT_EQ(x.size(), 3);
+}
+
+
+TEST(Expressions, matchall3) {
   storage::c_atable_ptr_t t = io::Loader::shortcuts::load("test/groupby_xs.tbl");
   storage::c_atable_ptr_t two =
       std::make_shared<const storage::HorizontalTable>(std::vector<storage::c_atable_ptr_t>{t, t});
-  {
-    auto expr3 = new CompoundExpression(AND);
-    auto expr1 = new EqualsExpression<hyrise_int_t>(t, 0, 2009);
-    auto expr2 = new EqualsExpression<hyrise_int_t>(t, 1, 7);
-
-    PredicateBuilder b;
-    b.add(expr3);
-    b.add(expr1);
-    b.add(expr2);
-
-    auto p = b.build();
-    p->walk({t});
-
-    auto x = p->matchAll(0, t->size());
-    EXPECT_EQ(x.size(), 3);
-  }
-  {
-    auto expr3 = new CompoundExpression(AND);
-    auto expr1 = new EqualsExpression<hyrise_int_t>(t, 0, 2009);
-    auto expr2 = new EqualsExpression<hyrise_int_t>(t, 1, 7);
-
-    PredicateBuilder b;
-    b.add(expr3);
-    b.add(expr2);
-    b.add(expr1);
-
-    auto p = b.build();
-    p->walk({t});
-
-    auto x = p->matchAll(0, t->size());
-    EXPECT_EQ(x.size(), 3);
-  }
 
   {
     auto expr3 = new CompoundExpression(AND);
@@ -115,7 +123,6 @@ TEST_F(PredicateBldr, complex_expression_matchall) {
 
     auto p = b.build();
     p->walk({two});
-    std::cout << two->size() << "two size " << std::endl;
     auto x = p->matchAll(0, two->size());
     EXPECT_EQ(6, x.size());
   }
