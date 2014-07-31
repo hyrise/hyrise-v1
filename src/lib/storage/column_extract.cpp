@@ -3,8 +3,6 @@
 namespace hyrise {
 namespace storage {
 
-
-
 class ColumnPartsCollector : public StorageVisitor {
  public:
   ColumnPartsCollector(std::size_t column, std::size_t start, std::size_t stop)

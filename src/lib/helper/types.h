@@ -18,7 +18,6 @@ class AbstractDictionary;
 }  // namespace hyrise::storage
 
 
-class PointerCalculator;
 
 namespace hyrise {
 
@@ -58,7 +57,7 @@ class HorizontalTable;
 class Store;
 class AbstractAttributeVector;
 class Table;
-
+class PointerCalculator;
 typedef std::shared_ptr<AbstractResource> aresource_ptr_t;
 typedef std::shared_ptr<const AbstractResource> c_aresource_ptr_t;
 

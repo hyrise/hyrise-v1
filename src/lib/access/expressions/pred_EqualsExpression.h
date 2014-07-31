@@ -30,7 +30,29 @@ class OpExpression : public SimpleFieldExpression {
       : SimpleFieldExpression(_table, _field), value(_value) {}
 
   virtual std::unique_ptr<AbstractExpression> clone() { return make_unique<operator_type>(table, field, value); }
-  inline virtual bool operator()(size_t row) { return _value_operator(table->getValue<T>(field, row), value); }
+
+  virtual bool operator()(size_t row) { return _value_operator(table->getValue<T>(field, row), value); }
+
+
+  std::function<value_id_t(T)> retrieveVid(storage::BaseDictionary<T>& dict, std::equal_to<value_id_t>&) {
+    return std::bind(&storage::BaseDictionary<T>::getValueIdForValue, &dict, std::placeholders::_1);
+  }
+
+  std::function<value_id_t(T)> retrieveVid(storage::BaseDictionary<T>& dict, std::less<value_id_t>&) {
+    return std::bind(&storage::BaseDictionary<T>::getLowerBoundValueIdForValue, &dict, std::placeholders::_1);
+  }
+
+  std::function<value_id_t(T)> retrieveVid(storage::BaseDictionary<T>& dict, std::greater<value_id_t>&) {
+    return std::bind(&storage::BaseDictionary<T>::getUpperBoundValueIdForValue, &dict, std::placeholders::_1);
+  }
+
+  std::function<value_id_t(T)> retrieveVid(storage::BaseDictionary<T>& dict, std::less_equal<value_id_t>&) {
+    return std::bind(&storage::BaseDictionary<T>::getUpperBoundValueIdForValue, &dict, std::placeholders::_1);
+  }
+
+  std::function<value_id_t(T)> retrieveVid(storage::BaseDictionary<T>& dict, std::greater_equal<value_id_t>&) {
+    return std::bind(&storage::BaseDictionary<T>::getLowerBoundValueIdForValue, &dict, std::placeholders::_1);
+  }
 
   inline void op(const storage::BaseAttributeVector<value_id_t>& aav,
                  size_t col,
@@ -60,7 +82,6 @@ class OpExpression : public SimpleFieldExpression {
     storage::pos_list_t results;
     if (pos.size() == 0)
       return results;
-
     // Assuming that position list is ordered, we can extract min and max
     auto start = pos.front();
     auto stop = pos.back();
@@ -69,18 +90,10 @@ class OpExpression : public SimpleFieldExpression {
     assert(parts.size() != 0);
     auto it = pos.begin();
     auto et = pos.end();
+    parts.remove_if([](decltype(*parts.begin()) & part) { return part.iterStart == part.iterEnd; });
     for (const auto& part : parts) {
-      if (part.iterStart == part.iterEnd) {
-        continue;
-      }
-      const auto pdict = part.table.dictionaryAt(part.columnOffset);
-      const auto dict = checked_pointer_cast<storage::BaseDictionary<T>>(pdict);
+      const auto dict = checked_pointer_cast<storage::BaseDictionary<T>>(part.table.dictionaryAt(part.columnOffset));
       const auto vid = retrieveVid (*dict.get(), _vid_operator)(value);
-      if (vid == std::numeric_limits<value_id_t>::max()) {
-        while (*(it++) < part.verticalEnd) {
-        }
-        continue;
-      }
       const auto aav = checked_pointer_cast<storage::BaseAttributeVector<value_id_t>>(
           part.table.getAttributeVectors(part.columnOffset).at(0).attribute_vector);
       if (dict->isOrdered()) {
@@ -98,34 +111,16 @@ class OpExpression : public SimpleFieldExpression {
     return results;
   }
 
-
-  std::function<value_id_t(T)> retrieveVid(storage::BaseDictionary<T>& dict, std::equal_to<value_id_t>&) {
-    return std::bind(&storage::BaseDictionary<T>::getValueIdForValue, &dict, std::placeholders::_1);
-  }
-
-  std::function<value_id_t(T)> retrieveVid(storage::BaseDictionary<T>& dict, std::less<value_id_t>&) {
-    return std::bind(&storage::BaseDictionary<T>::getUpperBoundValueIdForValue, &dict, std::placeholders::_1);
-  }
-
-
   virtual storage::pos_list_t matchAll(size_t start, size_t stop) {
     auto parts = storage::column_parts_extract(*table.get(), field, start, stop);
     assert(parts.size() != 0);
     storage::pos_list_t results;
-
+    parts.remove_if([](decltype(*parts.begin()) & part) { return part.iterStart == part.iterEnd; });
     for (const auto& part : parts) {
-      if (part.iterStart == part.iterEnd) {
-        continue;
-      }
-      const auto pdict = part.table.dictionaryAt(part.columnOffset);
-      const auto dict = checked_pointer_cast<storage::BaseDictionary<T>>(pdict);
+      const auto dict = checked_pointer_cast<storage::BaseDictionary<T>>(part.table.dictionaryAt(part.columnOffset));
       const auto vid = retrieveVid (*dict.get(), _vid_operator)(value);
-      if (vid == std::numeric_limits<value_id_t>::max()) {
-        continue;
-      }
       const auto aav = checked_pointer_cast<storage::BaseAttributeVector<value_id_t>>(
           part.table.getAttributeVectors(part.columnOffset).at(0).attribute_vector);
-
       if (dict->isOrdered()) {
         for (std::size_t p = part.iterStart, e = part.iterEnd; p < e; p++) {
           op(*aav.get(), part.columnOffset, p, part.verticalStart + p, vid, results);
@@ -146,5 +141,14 @@ using EqualsExpression = OpExpression<T, std::equal_to>;
 
 template <typename T>
 using LessExpression = OpExpression<T, std::less>;
+
+template <typename T>
+using LessEqualExpression = OpExpression<T, std::less_equal>;
+
+template <typename T>
+using GreaterExpression = OpExpression<T, std::greater>;
+
+template <typename T>
+using GreaterEqualExpression = OpExpression<T, std::greater_equal>;
 }
 }  // namespace hyrise::access

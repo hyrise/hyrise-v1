@@ -465,5 +465,19 @@ void PointerCalculator::rename(field_t f, const std::string newName) {
 
   (*_renamed)[f] = ColumnMetadata(newName, table->typeOfColumn(f));
 }
+
+Visitation PointerCalculator::accept(StorageVisitor& visitor) const {
+  if (visitor.visitEnter(*this) == Visitation::next) {
+    table->accept(visitor);
+  }
+  return visitor.visitLeave(*this);
+}
+
+Visitation PointerCalculator::accept(MutableStorageVisitor& visitor) {
+  if (visitor.visitEnter(*this) == Visitation::next) {
+    std::const_pointer_cast<AbstractTable>(table)->accept(visitor);
+  }
+  return visitor.visitLeave(*this);
+}
 }
 }  // namespace hyrise::storage

@@ -2,7 +2,6 @@
 
 #include "helper/types.h"
 
-
 namespace hyrise {
 namespace storage {
 
@@ -33,7 +32,6 @@ class StorageVisitor {
   VISIT(const Store);
   VISIT(const Table);
   VISIT(const HorizontalTable);
-
   VISIT(const PointerCalculator);
 };
 

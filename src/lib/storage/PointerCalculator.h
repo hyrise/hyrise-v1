@@ -95,6 +95,8 @@ class PointerCalculator : public AbstractTable, public SharedFactory<PointerCalc
   void persist_scattered(const pos_list_t& elements, bool new_elements = true) const override {
     STORAGE_NOT_IMPLEMENTED(RawTable, persist_scattered());
   }
+  Visitation accept(StorageVisitor&) const override;
+  Visitation accept(MutableStorageVisitor&) override;
 
  protected:
   void updateFieldMapping();
