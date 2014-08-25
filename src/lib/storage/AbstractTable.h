@@ -14,23 +14,21 @@
 #include <vector>
 #include <string>
 
-#include "helper/types.h"
 #include "io/logging.h"
-#include "helper/locking.h"
 #include "helper/checked_cast.h"
+#include "helper/types.h"
 #include "helper/unique_id.h"
-
 #include "storage/AbstractResource.h"
-
 #include "storage/BaseDictionary.h"
+#include "storage/ColumnMetadata.h"
 #include "storage/storage_types.h"
 
-#include <json.h>
+#include "json.h"
 
 namespace hyrise {
 namespace storage {
 
-class ColumnMetadata;
+
 class AbstractDictionary;
 class AbstractAttributeVector;
 
@@ -42,16 +40,12 @@ typedef struct {
 typedef std::vector<attr_vector_offset_t> attr_vectors_t;
 
 class StorageException : public std::runtime_error {
-
- public:
-  explicit StorageException(const std::string& msg) : std::runtime_error(msg) {}
+  using std::runtime_error::runtime_error;
 };
 
 class MissingColumnException : public std::runtime_error {
- public:
-  explicit MissingColumnException(const std::string& what) : std::runtime_error(what) {}
+  using std::runtime_error::runtime_error;
 };
-
 
 /**
  * Abstract table is the magic base class for all data storages, it is used
@@ -61,8 +55,6 @@ class MissingColumnException : public std::runtime_error {
 class AbstractTable : public AbstractResource {
 
  public:
-  typedef std::shared_ptr<AbstractDictionary> SharedDictionaryPtr;
-
   /**
    * Copy the table's structure.
    * Returns a pointer to an AbstractTable with a copy of the current table's
@@ -149,7 +141,7 @@ class AbstractTable : public AbstractResource {
    * @param row      Row in that column (default=0).
    * @param table_id ID of the table from which to extract (default=0).
    */
-  virtual const SharedDictionaryPtr& dictionaryAt(size_t column, size_t row = 0, table_id_t table_id = 0) const = 0;
+  virtual const adict_ptr_t& dictionaryAt(size_t column, size_t row = 0, table_id_t table_id = 0) const = 0;
 
 
   /**
@@ -159,14 +151,14 @@ class AbstractTable : public AbstractResource {
    * @param column   Column from which to extract the dictionary.
    * @param table_id ID of the table from which to extract.
    */
-  virtual const SharedDictionaryPtr& dictionaryByTableId(size_t column, table_id_t table_id) const = 0;
+  virtual const adict_ptr_t& dictionaryByTableId(size_t column, table_id_t table_id) const = 0;
 
 
   /**
    * Get all dictionaries.
    *
    */
-  std::vector<SharedDictionaryPtr>* dictionaries() const;
+  std::vector<adict_ptr_t>* dictionaries() const;
 
 
   /**
@@ -178,7 +170,7 @@ class AbstractTable : public AbstractResource {
    * @param row      Row in that column (default=0).
    * @param table_id ID of the table (default=0).
    */
-  virtual void setDictionaryAt(SharedDictionaryPtr dict, size_t column, size_t row = 0, table_id_t table_id = 0) = 0;
+  virtual void setDictionaryAt(adict_ptr_t dict, size_t column, size_t row = 0, table_id_t table_id = 0) = 0;
 
 
   /**
@@ -513,7 +505,7 @@ class AbstractTable : public AbstractResource {
   // Global unique identifier for this object
   unique_id _uuid;
   std::string _name;
-  bool logging;
+  bool logging = false;
 };
 }
 }  // namespace hyrise::storage

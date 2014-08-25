@@ -65,9 +65,6 @@ class TXModifications {
   transaction_id_t tid = UNKNOWN;
 
 
-  // Map to store the values
-  map_t inserted;
-  map_t deleted;
 
   TXModifications() {};
 
@@ -86,9 +83,14 @@ class TXModifications {
   const storage::pos_list_t& getInserted(const storage::c_atable_ptr_t& tab) const;
   const storage::pos_list_t& getDeleted(const storage::c_atable_ptr_t& tab) const;
 
- private:
-  bool handleCheck(const map_t& data, const storage::c_atable_ptr_t& tab) const;
+  // Map to store the values
+  map_t inserted;
+  map_t deleted;
 
+ private:
+  locking::Spinlock _insert_mtx;
+  locking::Spinlock _delete_mtx;
+  bool handleCheck(const map_t& data, const storage::c_atable_ptr_t& tab) const;
   // Abstraction to the specific inserted and deleted row processes.
   void _handle(locking::Spinlock& mtx, map_t& data, const storage::c_atable_ptr_t& key, pos_t pos);
 };

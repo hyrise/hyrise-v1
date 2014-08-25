@@ -28,7 +28,7 @@ atable_ptr_t TableBuilder::createTable(param_list::param_list_t::const_iterator 
                                        const bool compressed) {
   // Meta data container
   std::vector<ColumnMetadata> vc;
-  std::vector<AbstractTable::SharedDictionaryPtr> vd;
+  std::vector<adict_ptr_t> vd;
 
   for (; begin != end; ++begin) {
     vc.push_back(ColumnMetadata::metadataFromString((*begin).type, (*begin).name));

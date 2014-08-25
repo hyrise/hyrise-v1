@@ -94,9 +94,6 @@ struct expression_factory {
       GENERATE_EXPRESSION(EqualsExpression);
       GENERATE_EXPRESSION(LessThanExpression);
       GENERATE_EXPRESSION(GreaterThanExpression);
-      GENERATE_EXPRESSION(EqualsExpressionRaw);
-      GENERATE_EXPRESSION(LessThanExpressionRaw);
-      GENERATE_EXPRESSION(GreaterThanExpressionRaw);
       GENERATE_EXPRESSION_OF_TYPE(LikeExpression, hyrise_string_t);
       GENERATE_EXPRESSION_WITH_VALUE_VECTOR(InExpression);
 

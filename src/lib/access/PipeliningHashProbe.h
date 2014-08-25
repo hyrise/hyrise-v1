@@ -36,7 +36,7 @@ class PipeliningHashProbe : public PlanOperation,
   template <class HashTable>
   void fetchPositions();
   std::shared_ptr<PlanOperation> getHashBuildPredecessor() const { return getFirstPredecessorOf<HashBuild>(); }
-  void emitChunk();
+  void createAndEmitChunk();
   /// Constructs resulting table from given build and probe tables' rows.
   storage::atable_ptr_t buildResultTable() const;
   void resetPosLists();

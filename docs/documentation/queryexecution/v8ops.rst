@@ -16,17 +16,12 @@ achieved and how the interface between JavaScript and C++ is defined.
 Using JavaScript for Plan Operations
 ====================================
 
-Googles V8 is integrated as a separate and independent component that will be
-included and linked during compile time. Currently, we propose to download the
-most recent version of V8 from their website and compile manually. To enable
-JavaScript plan operations you have to set the following variables in the
-``settings.mk`` file::
+V8 can be activated by adding::
 
-	USE_V8 = 1
-	V8_BASE_DIRECTORY=path/to/v8/base
+    WITH_V8 := 1
 
-Now, the ScriptPlan operation is enabled and allows to write new plan
-operations in JavaScript.
+to ``settings.mk``. This will result in the automated download and build of the
+appropriate version of V8.
 
 Once you started HYRISE you can call plan operations that are stored in plain
 text JavaScript files that are available to the server. The environment

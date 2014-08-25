@@ -147,7 +147,7 @@ class ConcurrentUnorderedDictionary : public BaseDictionary<T> {
   tbb::concurrent_vector<T> _values;
   tbb::concurrent_unordered_map<T, value_id_t> _index;
   std::map<T, value_id_t> _index_sorted;
-  size_t _size;
+  size_t _size = 0;
   std::mutex _writeLock;
 };
 }

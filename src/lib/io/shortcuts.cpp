@@ -81,16 +81,5 @@ std::shared_ptr<storage::Store> Loader::shortcuts::loadMainDelta(const std::stri
   s->setDelta(tables[1]);
   return s;
 };
-
-std::shared_ptr<storage::AbstractTable> Loader::shortcuts::loadRaw(const std::string& file) {
-  RawTableLoader input(file);
-  CSVHeader header(file);
-
-  Loader::params p;
-  p.setInput(input);
-  p.setHeader(header);
-  p.setReturnsMutableVerticalTable(false);
-  return Loader::load(p);
-}
 }
 }  // namespace hyrise::io

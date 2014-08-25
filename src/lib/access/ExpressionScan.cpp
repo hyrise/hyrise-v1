@@ -40,7 +40,7 @@ void ExpressionScan::executePlanOperation() {
   auto m = storage::ColumnMetadata(_column_name, _expression->getType());
   metadata.push_back(m);
 
-  std::vector<storage::AbstractTable::SharedDictionaryPtr> dicts;
+  std::vector<storage::adict_ptr_t> dicts;
   dicts.push_back(storage::makeDictionary(types::getUnorderedType(_expression->getType())));
 
   storage::atable_ptr_t exp_result = std::make_shared<storage::Table>(&metadata, &dicts, 0, false);

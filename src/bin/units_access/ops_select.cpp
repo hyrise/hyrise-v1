@@ -10,7 +10,6 @@
 #include "access/MaterializingScan.h"
 #include "access/ProjectionScan.h"
 #include "access/SimpleTableScan.h"
-#include "access/SimpleRawTableScan.h"
 #include "access/expressions/predicates.h"
 #include "storage/AbstractTable.h"
 #include "storage/ColumnMetadata.h"
@@ -22,25 +21,7 @@ namespace hyrise {
 namespace access {
 
 class SelectTests : public AccessTest {
-
  public:
-  std::shared_ptr<storage::AbstractTable> createRawTable() {
-    storage::metadata_vec_t cols({storage::ColumnMetadata::metadataFromString("INTEGER", "col1"),
-                                  storage::ColumnMetadata::metadataFromString("STRING", "col2"),
-                                  storage::ColumnMetadata::metadataFromString("FLOAT", "col3")});
-
-    auto main = std::make_shared<storage::RawTable>(cols);
-    for (size_t i = 0; i < 100; ++i) {
-      hyrise::storage::rawtable::RowHelper rh(cols);
-      rh.set<hyrise_int_t>(0, i);
-      rh.set<hyrise_string_t>(1, "MeinNameIstSlimShady" + std::to_string(i));
-      rh.set<hyrise_float_t>(2, 1.1 * i);
-      unsigned char* data = rh.build();
-      main->appendRow(data);
-      free(data);
-    }
-    return main;
-  }
 };
 
 TEST_F(SelectTests, simple_projection_with_position) {
@@ -267,108 +248,6 @@ TEST_F(SelectTests, select_after_insert_simple) {
 
 
   ASSERT_EQ(initial_size + 1, isc.getResultTable(0)->size());
-}
-
-
-TEST_F(SelectTests, simple_select_with_raw_table_fails_because_input_is_not_raw) {
-  hyrise::storage::c_atable_ptr_t t = io::Loader::shortcuts::load("test/groupby_xs.tbl");
-
-  EqualsExpression<hyrise_int_t>* expr1 = new EqualsExpression<hyrise_int_t>(t, 0, 2009);
-  auto scan = std::make_shared<SimpleRawTableScan>(expr1);
-  scan->addInput(t);
-
-  ASSERT_THROW(scan->execute(), std::runtime_error);
-}
-
-TEST_F(SelectTests, simple_select_with_raw_table_fails_because_predicate_is_wrong) {
-  hyrise::storage::c_atable_ptr_t t = io::Loader::shortcuts::load("test/groupby_xs.tbl");
-
-  EqualsExpression<hyrise_int_t>* expr1 = new EqualsExpression<hyrise_int_t>(t, 0, 2009);
-  auto scan = std::make_shared<SimpleRawTableScan>(expr1);
-  scan->addInput(t);
-
-  ASSERT_THROW(scan->execute(), std::runtime_error);
-}
-
-TEST_F(SelectTests, simple_select_with_raw_table_fails_due_to_equals_predicate_implementation) {
-  hyrise::storage::c_atable_ptr_t t = createRawTable();
-
-  EqualsExpression<hyrise_int_t>* expr1 = new EqualsExpression<hyrise_int_t>(t, 0, 2009);
-  auto scan = std::make_shared<SimpleRawTableScan>(expr1);
-  scan->addInput(t);
-
-  ASSERT_THROW(scan->execute(), std::runtime_error);
-}
-
-TEST_F(SelectTests, simple_select_with_raw_table_equals_predicate) {
-  hyrise::storage::c_atable_ptr_t t = createRawTable();
-
-  auto expr1 = new EqualsExpressionRaw<hyrise_int_t>(t, 0, 75);
-  auto scan = std::make_shared<SimpleRawTableScan>(expr1);
-  scan->addInput(t);
-  scan->execute();
-
-  ASSERT_EQ(1u, scan->getResultTable(0)->size());
-  const auto& out = scan->getResultTable();
-  const auto& reference = io::Loader::shortcuts::load("test/reference/simple_raw_select_integer.tbl");
-  ASSERT_TABLE_EQUAL(reference, out);
-}
-
-TEST_F(SelectTests, simple_select_with_raw_table_less_than_predicate) {
-  auto t = createRawTable();
-
-  auto expr1 = new LessThanExpressionRaw<hyrise_int_t>(t, 0, 3);
-  auto scan = std::make_shared<SimpleRawTableScan>(expr1);
-  scan->addInput(t);
-
-  scan->execute();
-  const auto& out = scan->getResultTable();
-  const auto& reference = io::Loader::shortcuts::load("test/reference/simple_raw_select_integer_less_than.tbl");
-  ASSERT_TABLE_EQUAL(reference, out);
-}
-
-TEST_F(SelectTests, simple_select_with_raw_table_greater_than_predicate) {
-  auto t = createRawTable();
-
-  auto expr1 = new GreaterThanExpressionRaw<hyrise_int_t>(t, 0, 98);
-  auto scan = std::make_shared<SimpleRawTableScan>(expr1);
-  scan->addInput(t);
-
-  scan->execute();
-  const auto& out = scan->getResultTable();
-  const auto& reference = io::Loader::shortcuts::load("test/reference/simple_raw_select_integer_greater_than.tbl");
-  ASSERT_TABLE_EQUAL(reference, out);
-}
-
-
-TEST_F(SelectTests, simple_select_with_raw_table_equals_predicate_string) {
-  auto t = createRawTable();
-
-  auto expr1 = new EqualsExpressionRaw<hyrise_string_t>(t, 1, "MeinNameIstSlimShady75");
-  auto scan = std::make_shared<SimpleRawTableScan>(expr1);
-  scan->addInput(t);
-
-  scan->execute();
-
-  ASSERT_EQ(1u, scan->getResultTable(0)->size());
-  const auto& out = scan->getResultTable();
-  const auto& reference = io::Loader::shortcuts::load("test/reference/simple_raw_select_integer.tbl");
-  ASSERT_TABLE_EQUAL(reference, out);
-}
-
-TEST_F(SelectTests, simple_select_with_raw_table_equals_predicate_float) {
-  auto t = createRawTable();
-
-  auto expr1 = new EqualsExpressionRaw<hyrise_float_t>(t, 2, 82.5);
-  auto scan = std::make_shared<SimpleRawTableScan>(expr1);
-  scan->addInput(t);
-
-  scan->execute();
-
-  ASSERT_EQ(1u, scan->getResultTable(0)->size());
-  const auto& out = scan->getResultTable();
-  const auto& reference = io::Loader::shortcuts::load("test/reference/simple_raw_select_integer.tbl");
-  ASSERT_TABLE_EQUAL(reference, out);
 }
 }
 }

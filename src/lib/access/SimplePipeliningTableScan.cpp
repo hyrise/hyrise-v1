@@ -61,19 +61,19 @@ void SimplePipeliningTableScan::executePlanOperation() {
     if ((*_comparator)(row)) {
       _pos_list->push_back(row);
       if (_pos_list->size() > _chunkSize) {
-        emitChunk();
+        createAndEmitChunk();
       }
     }
   }
   if (_pos_list->size() > 0) {
     LOG4CXX_DEBUG(_pipelineLogger, "Emitting final chunk.");
-    emitChunk();
+    createAndEmitChunk();
   } else {
     LOG4CXX_DEBUG(_pipelineLogger, "No final chunk necessary.");
   }
 }
 
-void SimplePipeliningTableScan::emitChunk() {
+void SimplePipeliningTableScan::createAndEmitChunk() {
   LOG4CXX_DEBUG(_pipelineLogger, "Emitting new chunk.");
   auto chunk = storage::PointerCalculator::create(_tbl, _pos_list);
   PipelineEmitter::emitChunk(chunk);

@@ -56,15 +56,16 @@ $(1).LDFLAGS ?=
 $(1).CPPFLAGS ?=
 $(1).CFLAGS ?=
 $(1).CXXFLAGS ?=
+$(1).LINK_DIRS ?=
 
 # rules
 # inheriting information by first filling in our pieces...
-$(1).use_deps := $$($(1).objs)
-$(1).use_LIBS := $$($(1).libname)_$(BLD) $$($(1).libs)
-$(1).use_EXT_LIBS := $$($(1).libs)
-$(1).use_LINK_DIRS := $$(realpath $$(dir $$($(1).lib)))
-$(1).use_INCLUDE_DIRS := $$($(1).includes)
-$(1).use_LDFLAGS := $$($(1).LDFLAGS)
+$(1).use_deps += $$($(1).objs)
+$(1).use_LIBS += $$($(1).libname)_$(BLD) $$($(1).libs)
+$(1).use_EXT_LIBS += $$($(1).libs)
+$(1).use_LINK_DIRS += $$(realpath $$(dir $$($(1).lib))) $$($(1).LINK_DIRS)
+$(1).use_INCLUDE_DIRS += $$($(1).includes)
+$(1).use_LDFLAGS += $$($(1).LDFLAGS)
 $(1).use_CPPFLAGS := $$($(1).CPPFLAGS)
 $(1).use_CFLAGS := $$($(1).CFLAGS)
 $(1).use_CXXFLAGS := $$($(1).CXXFLAGS)
@@ -79,8 +80,6 @@ $$($(1).objs) : CXXFLAGS += $$($(1).use_CXXFLAGS)
 
 ifdef build_debug
 $$(info loaded $(1) with deps $$($(1).deps))
-$$(info > $$($(1).use_INCLUDE_DIRS))
-$$(info > $$(basename $$($(1).objs)))
 endif
 ifneq "$(MAKECMDGOALS)" "clean"
 -include $$($(1).cpps:%=$$(OBJDIR)%.d)
@@ -101,16 +100,18 @@ $(1).libs ?=
 $(1).use_OBJS := $$($(1).objs)
 $$(eval $$(call inherit_all,$(1)))
 
-$$($(1).binary) : $$($(1).use_OBJS)
+
 all: $$($(1).binary)
 all += $$($(1).binary)
+
+$$($(1).binary) : $$($(1).use_OBJS)
+$$($(1).binary) : LDFLAGS += $$($(1).use_LDFLAGS)
+$$($(1).binary) : LINK_DIRS += $$($(1).use_LINK_DIRS)
+$$($(1).binary) : LIBS += $$($(1).use_EXT_LIBS) $$($(1).libs)
 
 $$($(1).binary): $(TOOLING)
 	$(call echo_cmd,LINK $(CXX) $(BLD) $$@) $$(CXX) $$(CXXFLAGS) -o $$@ $$(filter %.o,$$^) -Wl,-whole-archive $$(addprefix -l,$$(LIBS)) -Wl,-no-whole-archive $$(addprefix -L,$$(LINK_DIRS)) $$(LDFLAGS)
 
-$$($(1).binary) : LDFLAGS += $$($(1).use_LDFLAGS)
-$$($(1).binary) : LINK_DIRS += $$($(1).use_LINK_DIRS)
-$$($(1).binary) : LIBS += $$($(1).use_EXT_LIBS) $$($(1).libs)
 $$($(1).objs) : INCLUDE_DIRS += $$($(1).use_INCLUDE_DIRS)
 $$($(1).objs) : CXXFLAGS += $$($(1).use_CXXFLAGS)
 $$($(1).objs) : CFLAGS += $$($(1).use_CFLAGS)
@@ -172,12 +173,6 @@ ifeq ($(WITH_PROFILER),1)
 PLUGINS += profiler
 endif
 
-ifeq ($(WITH_V8),1)
-ifndef V8_BASE_DIRECTORY
-$(error V8_BASE_DIRECTORY is not defined)
-endif
-endif
-
 include $(PROJECT_ROOT)/makefiles/config.$(COMPILER).mk
 include $(PLUGINS:%=$(PROJECT_ROOT)/mkplugins/%.mk)
 
@@ -230,7 +225,7 @@ ci_build: ci_steps
 
 .SECONDEXPANSION:
 
-$(OBJDIR)%.cpp.o: %.cpp | $$(@D)/.fake
+$(OBJDIR)%.cpp.o: %.cpp $$(TOOLING) | $$(@D)/.fake
 	$(call echo_cmd,CXX $(CXX) $(BLD) $<) $(CXX) $(CPPFLAGS) $(CXXFLAGS) $(addprefix -I,$(INCLUDE_DIRS)) -c -o $@ $<
 
 $(OBJDIR)%.c.o : %.c $$(TOOLING) | $$(@D)/.fake

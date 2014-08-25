@@ -23,13 +23,11 @@ namespace hyrise {
 namespace tx {
 
 void TXModifications::insertPos(const storage::c_atable_ptr_t& tab, pos_t pos) {
-  static locking::Spinlock _mtx;
-  _handle(_mtx, inserted, tab, pos);
+  _handle(_insert_mtx, inserted, tab, pos);
 }
 
 void TXModifications::deletePos(const storage::c_atable_ptr_t& tab, pos_t pos) {
-  static locking::Spinlock _mtx;
-  _handle(_mtx, deleted, tab, pos);
+  _handle(_delete_mtx, deleted, tab, pos);
 }
 
 bool TXModifications::hasDeleted(const storage::c_atable_ptr_t& tab) const { return handleCheck(deleted, tab); }

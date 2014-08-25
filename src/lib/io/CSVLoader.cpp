@@ -33,7 +33,9 @@ void cb_per_field(char* field_buffer, size_t field_length, struct cb_data* data)
     if (data->unsafe)
       goto ignore_data;
     else
-      throw CSVLoaderError("There is more data than columns!");
+      throw CSVLoaderError(std::string() + "There is more data than columns! : Trying to load " +
+                           std::to_string(data->column) + " where " + std::to_string(data->table_columns) +
+                           " available.");
   }
   switch (data->table->typeOfColumn(data->column)) {
     case IntegerType:

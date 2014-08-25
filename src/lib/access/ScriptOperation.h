@@ -35,11 +35,11 @@ class ScriptOperation : public PlanOperation {
  private:
 #ifdef WITH_V8
   // Convert the input to an JS Array
-  v8::Handle<v8::Array> prepareInputs();
+  v8::Handle<v8::Array> prepareInputs(v8::Isolate* isolate);
 
-  v8::Handle<v8::Object> prepareParameters();
+  v8::Handle<v8::Object> prepareParameters(v8::Isolate* isolate);
 
-  void createResultHelpers(v8::Persistent<v8::Context>& context);
+  void createResultHelpers(v8::Isolate* isolate);
 #endif
 };
 }
