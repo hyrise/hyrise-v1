@@ -1,0 +1,94 @@
+{
+  "operators" : {
+    "getTableStock" :{
+      "type": "TableLoad",
+      "table": "stock",
+      "filename": "tpcc/stock.csv",
+      "header": "tpcc/stock_header.tbl",
+      "delimiter": ","
+    },
+    "getTableItem" :{
+      "type": "TableLoad",
+      "table": "item",
+      "filename": "tpcc/item.csv",
+      "header": "tpcc/item_header.tbl",
+      "delimiter": ","
+    },
+    "selectItem":{
+      "type":"SimpleTableScan",
+      "positions": true,
+      "predicates": [
+        {"type": "NOT"},
+        {"type":"LIKE", "in":0, "f": "I_DATA", "vtype":2, "value":".*1"}
+      ]
+    },
+    "joinItemStock": {
+      "type":"JoinScan",
+      "predicates": [
+        {   
+          "type": 3,
+          "input_left": 0,
+          "field_left": "S_I_ID",
+          "input_right": 1,
+          "field_right": "I_ID"
+        }
+      ]
+    },
+    "suppKeysMult":{
+      "type" : "Mult",
+      "fields" : ["S_W_ID", "S_I_ID"],
+      "vtype" : 0,
+      "as" : "MULT_FIELD"
+    },
+    "suppKeysMod":{
+      "type" : "Mod",
+      "fields" : ["MULT_FIELD"],
+      "vtype" : 0,
+      "divisor" : 10000,
+      "as" : "MOD_FIELD"
+    },
+    "selectSubStr": {
+      "type" : "SubString",
+      "fields" : ["I_DATA"],
+      "strstart" : [2],
+      "strcount" : [4],
+      "as" : ["BRAND"]
+    },
+    "project": {
+      "type": "ProjectionScan",
+      "fields": ["I_NAME", "BRAND", "I_PRICE", "MOD_FIELD"]
+    },
+    "hash":{
+      "type":"HashBuild",
+      "key": "groupby",
+      "fields":["I_NAME", "BRAND", "I_PRICE"]
+    },
+    "groupBy":{
+      "type": "GroupByScan",
+      "fields": ["I_NAME", "BRAND", "I_PRICE"],
+      "functions":[
+        {"type":"COUNT", "field":"MOD_FIELD", "as":"SUPPLIER_CNT"}
+      ],
+      "distinct": true
+    },
+    "sort":{
+      "type":"SortScan",
+      "fields":[3],
+      "asc": false
+    }
+  },
+  "edges": [
+    ["getTableStock","joinItemStock"],
+    ["getTableItem","selectItem"], ["selectItem", "joinItemStock"],
+
+    ["joinItemStock", "suppKeysMult"],
+    ["suppKeysMult", "suppKeysMod"],
+    ["suppKeysMod", "selectSubStr"],
+
+    ["selectSubStr", "project"],
+
+    ["project","hash"],["project","groupBy"],["hash","groupBy"],
+
+    ["groupBy", "sort"]
+  ]
+}
