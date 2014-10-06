@@ -233,7 +233,8 @@ void AsyncConnection::respond(const std::string& message, size_t status, const s
     // Copy the http status code
     write_buffer_len += snprintf((char*)write_buffer,
                                  max_header_length,
-                                 "HTTP/1.1 %lu OK\r\nContent-Type: %s\r\nContent-Length: %lu\r\nConnection: %s\r\n\r\n",
+                                 "HTTP/1.1 %lu OK\r\nContent-Type: %s;charset=utf-8\r\nAccess-Control-Allow-Origin: "
+                                 "*\r\nContent-Length: %lu\r\nConnection: %s\r\n\r\n",
                                  status,
                                  contentType.c_str(),
                                  message.size(),

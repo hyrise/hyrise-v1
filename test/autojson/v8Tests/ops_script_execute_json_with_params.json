@@ -1,0 +1,17 @@
+{
+	"operators" : {
+		"-1" : {
+			"type": "TableLoad",
+            "table": "reference",
+            "filename": "tables/companies_no_oracle.tbl"
+		},
+		"script" : {
+			"type" : "ScriptOperation",
+			"script": "execute_json_with_params"
+		}
+	},
+
+	"edges" : [
+	["script", "script"]
+	]
+}

@@ -103,7 +103,7 @@ class PlanOperation : public OutputTask {
 
   virtual void operator()() noexcept;
   virtual const std::string vname();
-  const PlanOperation* execute();
+  virtual const PlanOperation* execute();
 
   void setErrorMessage(const std::string& message);
   void setResponseTask(const std::shared_ptr<ResponseTask>& responseTask);

@@ -1,0 +1,17 @@
+{
+	"operators" : {
+		"-1" : {
+			"type": "TableLoad",
+            "table": "reference",
+            "filename": "tables/companies.tbl"
+		},
+		"script" : {
+			"type" : "ScriptOperation",
+			"script": "execute_json_output"
+		}
+	},
+
+	"edges" : [
+	["script", "script"]
+	]
+}

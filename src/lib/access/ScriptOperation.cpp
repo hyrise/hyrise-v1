@@ -7,6 +7,17 @@
 #include <storage/AbstractTable.h>
 #include <storage/Table.h>
 
+// MF execute query from js
+#include <taskscheduler/AbstractTaskScheduler.h>
+#include <taskscheduler/SharedScheduler.h>
+#include <io/TXContext.h>
+#include <helper/sha1.h>
+#include <io/TransactionManager.h>
+#include <access/system/QueryTransformationEngine.h>
+#include <access/system/ResponseTask.h>
+#include <boost/lexical_cast.hpp>
+#include "helper/PapiTracer.h"
+
 #include <helper/Settings.h>
 #include <helper/types.h>
 
@@ -22,6 +33,12 @@ namespace {
 log4cxx::LoggerPtr _logger(log4cxx::Logger::getLogger("hyrise.access"));
 auto _ = QueryParser::registerPlanOperation<ScriptOperation>("ScriptOperation");
 }
+
+enum getValueType {
+  getValueIntegerType,
+  getValueFloatType,
+  getValueStringType
+};
 
 ScriptOperation::ScriptOperation() {}
 
@@ -39,15 +56,6 @@ void wrapAttributeVector(v8::Isolate* isolate,
                          std::shared_ptr<const T>& table,
                          size_t internal,
                          v8::Local<v8::Object>& obj);
-
-// This is the context data that we use in the isolate data per process.
-// Basically it contains a map of all available tables to the plan operation
-// with given keys. The key is the offset in this table. The first tables in
-// this list are always the input tables of the plan operation
-struct IsolateContextData {
-  std::vector<storage::c_atable_ptr_t> tables;
-};
-
 
 
 template <typename T>
@@ -69,8 +77,21 @@ void deleteAllocated(v8::Isolate* isolate,
   delete native;
 }
 
+v8::Handle<v8::String> toJsonString(v8::Isolate* isolate, v8::Handle<v8::Value> object) {
+  v8::EscapableHandleScope scope(isolate);
+
+  v8::Handle<v8::Object> global = isolate->GetCurrentContext()->Global();
+
+  v8::Handle<v8::Object> JSON = global->Get(OneByteString(isolate, "JSON"))->ToObject();
+  v8::Handle<v8::Function> JSON_stringify =
+      v8::Handle<v8::Function>::Cast(JSON->Get(OneByteString(isolate, "stringify")));
+
+  return scope.Escape(v8::Local<v8::String>::Cast(JSON_stringify->Call(JSON, 1, &object)));
+}
+
 void LogMessage(const v8::FunctionCallbackInfo<v8::Value>& args) {
-  v8::String::Utf8Value str(args[0]);
+  v8::String::Utf8Value str(toJsonString(args.GetIsolate(), args[0]));
+  std::cout << *str << std::endl;
   LOG4CXX_DEBUG(_logger, *str);
   args.GetReturnValue().Set(v8::Undefined(args.GetIsolate()));
 }
@@ -328,6 +349,75 @@ void TableGetValueIdVRange(const v8::FunctionCallbackInfo<v8::Value>& args) {
   args.GetReturnValue().Set(v8::Handle<v8::Value>());
 }
 
+void TableMap(const v8::FunctionCallbackInfo<v8::Value>& args) {
+  v8::Isolate* isolate = args.GetIsolate();
+  v8::Handle<v8::Object> global = isolate->GetCurrentContext()->Global();
+  auto f = v8::Local<v8::Function>::Cast(args[0]);
+
+  auto wrap = v8::Local<v8::External>::Cast(args.This()->GetInternalField(0));
+  void* ptr = wrap->Value();
+  auto table = static_cast<storage::AbstractTable*>(ptr);
+
+  std::vector<std::function<v8::Local<v8::Value>(const field_t, const size_t)>> getValueFunctions;
+  auto getValueInt = [&](const field_t f, const size_t s) {
+    hyrise_int_t val = table->getValue<hyrise_int_t>(f, s);
+    return v8::Number::New(isolate, val);
+  };
+  auto getValueFloat = [&](const field_t f, const size_t s) {
+    hyrise_float_t val = table->getValue<hyrise_float_t>(f, s);
+    return v8::Number::New(isolate, val);
+  };
+  auto getValueString = [&](const field_t f, const size_t s) {
+    hyrise_string_t val = table->getValue<hyrise_string_t>(f, s);
+    return StringToV8String::New(isolate, val);
+  };
+
+  getValueFunctions.push_back(getValueInt);
+  getValueFunctions.push_back(getValueFloat);
+  getValueFunctions.push_back(getValueString);
+
+  std::vector<getValueType> columnTypeDatatypeMap;
+  columnTypeDatatypeMap.reserve(table->columnCount());
+
+  for (size_t i = 0; i < table->columnCount(); ++i) {
+    auto md = table->metadataAt(i);
+
+    switch (md.getType()) {
+      case IntegerType:
+      case IntegerTypeDelta:
+      case IntegerTypeDeltaConcurrent:
+      case IntegerNoDictType:
+        columnTypeDatatypeMap.push_back(getValueIntegerType);
+        break;
+
+      case FloatType:
+      case FloatTypeDelta:
+      case FloatTypeDeltaConcurrent:
+        columnTypeDatatypeMap.push_back(getValueFloatType);
+        break;
+
+      case StringType:
+      case StringTypeDelta:
+      case StringTypeDeltaConcurrent:
+        columnTypeDatatypeMap.push_back(getValueStringType);
+        break;
+
+      default:
+        break;
+    }
+  }
+
+  v8::Local<v8::Value>* cols = (v8::Local<v8::Value>*)malloc(sizeof(v8::Local<v8::Value>) * table->columnCount());
+
+  for (size_t row = 0; row < table->size(); ++row) {
+    for (size_t column = 0; column < table->columnCount(); ++column) {
+      cols[column] = getValueFunctions[columnTypeDatatypeMap[column]](column, row);
+    }
+    f->Call(global, table->columnCount(), cols);
+  }
+
+  free(cols);
+}
 
 static void AttributeVectorGetSize(const v8::FunctionCallbackInfo<v8::Value>& args) {
   auto wrap = v8::Local<v8::External>::Cast(args.This()->GetInternalField(0));
@@ -377,7 +467,57 @@ void AttributeVectorGetRange(const v8::FunctionCallbackInfo<v8::Value>& args) {
   args.GetReturnValue().Set(data);
 }
 
+void AsArray(const v8::FunctionCallbackInfo<v8::Value>& args) {
+  v8::Isolate* isolate = args.GetIsolate();
+  v8::HandleScope handle_scope(isolate);
+  auto wrap = v8::Local<v8::External>::Cast(args.This()->GetInternalField(0));
+  void* ptr = wrap->Value();
+  auto table = static_cast<storage::AbstractTable*>(ptr);
 
+  auto resultArray = v8::Array::New(isolate, table->columnCount());
+
+  for (size_t i = 0; i < table->columnCount(); ++i) {
+    auto md = table->metadataAt(i);
+    auto column = v8::Array::New(isolate, table->size());
+
+    switch (md.getType()) {
+      case IntegerType:
+      case IntegerTypeDelta:
+      case IntegerTypeDeltaConcurrent:
+      case IntegerNoDictType:
+        for (size_t j = 0; j < table->size(); ++j) {
+          auto val = table->getValue<hyrise_int_t>(i, j);
+          column->Set(j, v8::Number::New(isolate, val));
+        }
+        break;
+
+      case FloatType:
+      case FloatTypeDelta:
+      case FloatTypeDeltaConcurrent:
+        for (size_t j = 0; j < table->size(); ++j) {
+          auto val = table->getValue<hyrise_float_t>(i, j);
+          column->Set(j, v8::Number::New(isolate, val));
+        }
+        break;
+
+      case StringType:
+      case StringTypeDelta:
+      case StringTypeDeltaConcurrent:
+        for (size_t j = 0; j < table->size(); ++j) {
+          auto val = table->getValue<std::string>(i, j);
+          column->Set(j, StringToV8String::New(isolate, val));
+        }
+        break;
+
+      default:
+        break;
+    }
+
+    resultArray->Set(i, column);
+  }
+
+  args.GetReturnValue().Set(resultArray);
+}
 
 // Represents the Internal id of the table in the input list of the plan
 // operation
@@ -392,10 +532,9 @@ void wrapAttributeVector(v8::Isolate* isolate, std::shared_ptr<T>& table, size_t
   v8::Handle<v8::ObjectTemplate> templ = v8::ObjectTemplate::New();
   templ->SetInternalFieldCount(1);
 
-  templ->Set(OneByteString(isolate, "size"), v8::FunctionTemplate::New(isolate, AttributeVectorGetSize)->GetFunction());
-  templ->Set(OneByteString(isolate, "get"), v8::FunctionTemplate::New(isolate, AttributeVectorGet)->GetFunction());
-  templ->Set(OneByteString(isolate, "getRange"),
-             v8::FunctionTemplate::New(isolate, AttributeVectorGetRange)->GetFunction());
+  templ->Set(OneByteString(isolate, "size"), v8::FunctionTemplate::New(isolate, AttributeVectorGetSize));
+  templ->Set(OneByteString(isolate, "get"), v8::FunctionTemplate::New(isolate, AttributeVectorGet));
+  templ->Set(OneByteString(isolate, "getRange"), v8::FunctionTemplate::New(isolate, AttributeVectorGetRange));
 
   templ->SetAccessor(
       OneByteString(isolate, "_internalId"), GetInternalId, nullptr, v8::Integer::New(isolate, internal));
@@ -431,7 +570,7 @@ void TableGetAttributeVectors(const v8::FunctionCallbackInfo<v8::Value>& args) {
 // most important methods are to access the number of fields, size and the
 // valueId and values at a given set of column row coordinates
 template <typename T>
-void wrapTable(v8::Isolate* isolate, const std::shared_ptr<T>& table, size_t internal, v8::Local<v8::Object>& obj) {
+void wrapTable(v8::Isolate* isolate, std::shared_ptr<const T> table, size_t internal, v8::Local<v8::Object>& obj) {
 
   v8::Handle<v8::ObjectTemplate> templ = v8::ObjectTemplate::New();
   templ->SetInternalFieldCount(1);
@@ -457,16 +596,134 @@ void wrapTable(v8::Isolate* isolate, const std::shared_ptr<T>& table, size_t int
   templ->Set(OneByteString(isolate, "getAttributeVectors"),
              v8::FunctionTemplate::New(isolate, TableGetAttributeVectors));
 
+  templ->Set(OneByteString(isolate, "asArray"), v8::FunctionTemplate::New(isolate, AsArray));
+
   // Map ValueIds to Values
   templ->Set(OneByteString(isolate, "getValueIdForValue"), v8::FunctionTemplate::New(isolate, TableGetValueIdForValue));
+
+  templ->Set(OneByteString(isolate, "map"), v8::FunctionTemplate::New(isolate, TableMap));
+  templ->Set(OneByteString(isolate, "filter"), v8::FunctionTemplate::New(isolate, TableFilter));
 
   templ->SetAccessor(
       OneByteString(isolate, "_internalId"), GetInternalId, nullptr, v8::Integer::New(isolate, internal));
 
   obj = templ->NewInstance();
   obj->Set(OneByteString(isolate, "_isModifiable"), v8::Boolean::New(isolate, false));
+  obj->SetInternalField(0, v8::External::New(isolate, const_cast<T*>(table.get())));
+}
 
-  obj->SetInternalField(0, v8::External::New(isolate, const_cast<typename std::remove_const<T>::type*>(table.get())));
+void TableFilter(const v8::FunctionCallbackInfo<v8::Value>& args) {
+  v8::Isolate* isolate = args.GetIsolate();
+  IsolateContextData* isoContext = static_cast<IsolateContextData*>(isolate->GetData(0));
+  PapiTracer pt;
+  epoch_t startTime = 0;
+
+  if (isoContext->recordPerformance) {
+    startTime = get_epoch_nanoseconds();
+
+    pt.addEvent("PAPI_TOT_CYC");
+    pt.start();
+  }
+
+  v8::Handle<v8::Object> global = isolate->GetCurrentContext()->Global();
+  auto f = v8::Local<v8::Function>::Cast(args[0]);
+
+  auto wrap = v8::Local<v8::External>::Cast(args.This()->GetInternalField(0));
+  void* ptr = wrap->Value();
+  // second parameter is null-deleter to prevent ptr from being double-freed
+  auto table = storage::c_atable_ptr_t((const storage::AbstractTable*)ptr, [](const storage::AbstractTable*) {});
+
+  std::vector<std::function<v8::Local<v8::Value>(const field_t, const size_t)>> getValueFunctions;
+  auto getValueInt = [&](const field_t f, const size_t s) {
+    hyrise_int_t val = table->getValue<hyrise_int_t>(f, s);
+    return v8::Number::New(isolate, val);
+  };
+  auto getValueFloat = [&](const field_t f, const size_t s) {
+    hyrise_float_t val = table->getValue<hyrise_float_t>(f, s);
+    return v8::Number::New(isolate, val);
+  };
+  auto getValueString = [&](const field_t f, const size_t s) {
+    hyrise_string_t val = table->getValue<hyrise_string_t>(f, s);
+    return StringToV8String::New(isolate, val);
+  };
+  getValueFunctions.push_back(getValueInt);
+  getValueFunctions.push_back(getValueFloat);
+  getValueFunctions.push_back(getValueString);
+
+  std::vector<getValueType> columnTypeDatatypeMap;
+  columnTypeDatatypeMap.reserve(table->columnCount());
+
+  for (size_t i = 0; i < table->columnCount(); ++i) {
+    auto md = table->metadataAt(i);
+
+    switch (md.getType()) {
+      case IntegerType:
+      case IntegerTypeDelta:
+      case IntegerTypeDeltaConcurrent:
+      case IntegerNoDictType:
+        columnTypeDatatypeMap.push_back(getValueIntegerType);
+        break;
+
+      case FloatType:
+      case FloatTypeDelta:
+      case FloatTypeDeltaConcurrent:
+        columnTypeDatatypeMap.push_back(getValueFloatType);
+        break;
+
+      case StringType:
+      case StringTypeDelta:
+      case StringTypeDeltaConcurrent:
+        columnTypeDatatypeMap.push_back(getValueStringType);
+        break;
+
+      default:
+        break;
+    }
+  }
+
+  v8::Local<v8::Value>* cols = (v8::Local<v8::Value>*)malloc(sizeof(v8::Local<v8::Value>) * table->columnCount());
+  auto positionList = pos_list_t();
+
+  for (size_t row = 0; row < table->size(); ++row) {
+    for (size_t column = 0; column < table->columnCount(); ++column) {
+      try {
+        cols[column] = getValueFunctions[columnTypeDatatypeMap[column]](column, row);
+      }
+      catch (std::exception& e) {
+        args.GetReturnValue().Set(isolate->ThrowException(OneByteString(isolate, e.what())));
+        return;
+      }
+    }
+    auto result = v8::Local<v8::Value>::Cast(f->Call(global, table->columnCount(), cols));
+    if (result->BooleanValue())
+      positionList.push_back(row);
+  }
+
+  free(cols);
+
+  auto outputTable = std::make_shared<storage::PointerCalculator>(table, positionList);
+  isoContext->tables.push_back(outputTable);
+
+  convertDataflowDataToJson(isolate, isoContext->tables.size() - 1, outputTable->size(), isoContext->jsonQueryDataflow);
+
+  v8::Local<v8::Object> obj;
+  wrapTable<storage::PointerCalculator>(isolate, outputTable, isoContext->tables.size() - 1, obj);
+
+  if (isoContext->recordPerformance) {
+    pt.stop();
+    epoch_t endTime = get_epoch_nanoseconds();
+    std::string threadId = boost::lexical_cast<std::string>(std::this_thread::get_id());
+    performance_attributes_t* pa = new performance_attributes_t();
+    *pa = (performance_attributes_t) {pt.value("PAPI_TOT_CYC"), 0,              "NO_PAPI",
+                                      "filter",                 "noOperatorId", startTime,
+                                      endTime,                  threadId,       std::numeric_limits<size_t>::max()};
+    std::vector<std::unique_ptr<performance_attributes_t>> performanceVector;
+    performanceVector.push_back(std::unique_ptr<performance_attributes_t>(pa));
+
+    convertPerformanceDataToJson(isolate, performanceVector, 0, isoContext->jsonQueryPerformanceValues);
+  }
+
+  args.GetReturnValue().Set(obj);
 }
 
 // Create a pointer calculator based on the input, the function has two
@@ -478,6 +735,11 @@ void createPointerCalculator(const v8::FunctionCallbackInfo<v8::Value>& args) {
 
   // The base table
   auto object = v8::Local<v8::Object>::Cast(args[0]);
+  if (!object->IsObject()) {
+    args.GetReturnValue().Set(isolate->ThrowException(OneByteString(isolate, "Argument invalid")));
+    return;
+  }
+
   auto internal = object->Get(OneByteString(isolate, "_internalId"))->Uint32Value();
 
   // Get the JS Array and build a vector
@@ -494,7 +756,7 @@ void createPointerCalculator(const v8::FunctionCallbackInfo<v8::Value>& args) {
   isoContext->tables.push_back(result);
 
   v8::Local<v8::Object> obj;
-  wrapTable(isolate, result, isoContext->tables.size() - 1, obj);
+  wrapTable<storage::PointerCalculator>(isolate, result, isoContext->tables.size() - 1, obj);
   args.GetReturnValue().Set(obj);
 }
 
@@ -507,6 +769,11 @@ void CopyStructureModifiable(const v8::FunctionCallbackInfo<v8::Value>& args) {
 
   // The base table
   auto object = v8::Local<v8::Object>::Cast(args[0]);
+  if (!object->IsObject()) {
+    args.GetReturnValue().Set(isolate->ThrowException(OneByteString(isolate, "Argument invalid")));
+    return;
+  }
+
   auto internal = object->Get(OneByteString(isolate, "_internalId"))->Uint32Value();
 
   // Create a new table based from the position list and input table
@@ -514,7 +781,87 @@ void CopyStructureModifiable(const v8::FunctionCallbackInfo<v8::Value>& args) {
   isoContext->tables.push_back(result);
 
   v8::Local<v8::Object> obj;
-  wrapTable(isolate, result, isoContext->tables.size() - 1, obj);
+
+  wrapTable<storage::AbstractTable>(isolate, result, isoContext->tables.size() - 1, obj);
+  obj->Set(OneByteString(isolate, "_isModifiable"), v8::Boolean::New(isolate, true));
+
+  args.GetReturnValue().Set(obj);
+}
+
+void BuildTableShort(const v8::FunctionCallbackInfo<v8::Value>& args) {
+  v8::Isolate* isolate = args.GetIsolate();
+
+  IsolateContextData* isoContext = static_cast<IsolateContextData*>(isolate->GetData(0));
+
+  if (!args[0]->IsObject()) {
+    args.GetReturnValue().Set(
+        isolate->ThrowException(OneByteString(isolate, "First argument must be a dictionary like: name -> type ...")));
+    return;
+  }
+
+  auto fields = v8::Local<v8::Object>::Cast(args[0]);
+  auto fieldNames = v8::Local<v8::Array>::Cast(fields->GetPropertyNames());
+
+  storage::TableBuilder::param_list list;
+  for (size_t i = 0; i < fieldNames->Length(); ++i) {
+    v8::String::Utf8Value fieldName(fieldNames->Get(i));
+    v8::String::Utf8Value fieldType(fields->Get(OneByteString(isolate, *(fieldName))));
+
+    list.append().set_type(*(fieldType)).set_name(*(fieldName));
+  }
+
+  storage::atable_ptr_t result = storage::TableBuilder::build(list);
+  isoContext->tables.push_back(result);
+
+  if (args.Length() > 1 && args[1]->IsUint32()) {
+    result->resize(args[1]->Uint32Value());
+  }
+
+  v8::Local<v8::Object> obj;
+  wrapTable<storage::AbstractTable>(isolate, result, isoContext->tables.size() - 1, obj);
+  obj->Set(OneByteString(isolate, "_isModifiable"), v8::Boolean::New(isolate, true));
+
+  args.GetReturnValue().Set(obj);
+}
+
+void BuildTableColumn(const v8::FunctionCallbackInfo<v8::Value>& args) {
+  v8::Isolate* isolate = args.GetIsolate();
+
+  IsolateContextData* isoContext = static_cast<IsolateContextData*>(isolate->GetData(0));
+
+  if (!args[0]->IsObject() || !args[1]->IsUint32()) {
+    args.GetReturnValue().Set(isolate->ThrowException(
+        OneByteString(isolate, "First argument must be a dictionary like: name -> type. Second the table size.")));
+    return;
+  }
+
+  auto fields = v8::Local<v8::Object>::Cast(args[0]);
+  auto fieldNames = v8::Local<v8::Array>::Cast(fields->GetPropertyNames());
+
+  std::vector<storage::atable_ptr_t> tabs;
+
+  for (size_t i = 0; i < fieldNames->Length(); ++i) {
+    storage::TableBuilder::param_list list;
+
+    v8::String::Utf8Value fieldName(fieldNames->Get(i));
+    v8::String::Utf8Value fieldType(fields->Get(OneByteString(isolate, *(fieldName))));
+
+    list.append().set_type(*(fieldType)).set_name(*(fieldName));
+
+    storage::atable_ptr_t tab = storage::TableBuilder::build(list);
+    tab->resize(args[1]->Uint32Value());
+
+    tabs.push_back(tab);
+  }
+
+  auto result = std::make_shared<storage::MutableVerticalTable>(tabs);
+  isoContext->tables.push_back(result);
+
+  result->resize(args[1]->Uint32Value());
+
+  v8::Local<v8::Object> obj;
+  wrapTable<storage::AbstractTable>(isolate, result, isoContext->tables.size() - 1, obj);
+
   obj->Set(OneByteString(isolate, "_isModifiable"), v8::Boolean::New(isolate, true));
 
   args.GetReturnValue().Set(obj);
@@ -529,7 +876,7 @@ void BuildTable(const v8::FunctionCallbackInfo<v8::Value>& args) {
 
   IsolateContextData* isoContext = static_cast<IsolateContextData*>(isolate->GetData(0));
 
-  if (!args[0]->IsArray() && !args[1]->IsArray()) {
+  if (!args[0]->IsArray() || !args[1]->IsArray()) {
     args.GetReturnValue().Set(
         isolate->ThrowException(OneByteString(isolate, "Arguments must be two arrays with field decls and groups")));
     return;
@@ -555,7 +902,9 @@ void BuildTable(const v8::FunctionCallbackInfo<v8::Value>& args) {
 
 
   v8::Local<v8::Object> obj;
-  wrapTable(isolate, result, isoContext->tables.size() - 1, obj);
+
+  wrapTable<storage::AbstractTable>(isolate, result, isoContext->tables.size() - 1, obj);
+
   obj->Set(OneByteString(isolate, "_isModifiable"), v8::Boolean::New(isolate, true));
 
   args.GetReturnValue().Set(obj);
@@ -583,8 +932,306 @@ void BuildVerticalTable(const v8::FunctionCallbackInfo<v8::Value>& args) {
   isoContext->tables.push_back(result);
 
   v8::Local<v8::Object> obj;
-  wrapTable(isolate, result, isoContext->tables.size() - 1, obj);
+
+  wrapTable<storage::AbstractTable>(isolate, result, isoContext->tables.size() - 1, obj);
   obj->Set(OneByteString(isolate, "_isModifiable"), v8::Boolean::New(isolate, false));
+
+  args.GetReturnValue().Set(obj);
+}
+
+void printRecursive(const v8::CpuProfileNode* node, std::string prefix, std::stringstream& output) {
+  output << prefix << *v8::String::Utf8Value(node->GetFunctionName()) << ":" << node->GetLineNumber() << ","
+         << node->GetColumnNumber() << " - " << node->GetHitCount() << std::endl;
+
+  for (int i = 0; i < node->GetChildrenCount(); i++)
+    printRecursive(node->GetChild(i), prefix + "-", output);
+}
+
+
+
+std::string parseCpuProfile(v8::CpuProfile* cpuProfile) {
+  std::stringstream s;
+
+  s << "StartTime: " << cpuProfile->GetStartTime() << std::endl << "EndTime: " << cpuProfile->GetEndTime() << std::endl
+    << "SampleCount: " << cpuProfile->GetSamplesCount() << std::endl;
+
+  const v8::CpuProfileNode* node = cpuProfile->GetTopDownRoot();
+
+  printRecursive(node, "|", s);
+
+  return s.str();
+}
+
+void convertPerformanceDataToJson(v8::Isolate* isolate,
+                                  performance_vector_t& perfDataVector,
+                                  epoch_t queryStart,
+                                  Json::Value& result) {
+  Json::Value jsonPerfArray(Json::arrayValue);
+
+  for (const auto& attr : perfDataVector) {
+    Json::Value element;
+    element["papi_event"] = Json::Value(attr->papiEvent);
+    element["duration"] = Json::Value((Json::UInt64)attr->duration);
+    element["data"] = Json::Value((Json::UInt64)attr->data);
+    element["name"] = Json::Value(attr->name);
+    element["id"] = Json::Value(attr->operatorId);
+    element["startTime"] = Json::Value((double)(attr->startTime - queryStart) / 1000000);
+    element["endTime"] = Json::Value((double)(attr->endTime - queryStart) / 1000000);
+    element["executingThread"] = Json::Value(attr->executingThread);
+    if (attr->cardinality != std::numeric_limits<size_t>::max())
+      element["cardinality"] = Json::Value(attr->cardinality);
+
+    jsonPerfArray.append(element);
+  }
+
+  // @todo what about deeper stacktraces?
+  v8::Local<v8::StackTrace> stackTrace = v8::StackTrace::CurrentStackTrace(isolate, 1);
+  int lineNumber = -1;
+  if (stackTrace->GetFrameCount()) {
+    lineNumber = stackTrace->GetFrame(0)->GetLineNumber();
+  }
+
+  result[std::to_string(lineNumber)] = jsonPerfArray;
+}
+
+void convertDataflowDataToJson(v8::Isolate* isolate, size_t internalId, size_t cardinality, Json::Value& result) {
+  // @todo what about deeper stacktraces?
+  v8::Local<v8::StackTrace> stackTrace = v8::StackTrace::CurrentStackTrace(isolate, 1);
+  int lineNumber = -1;
+  if (stackTrace->GetFrameCount()) {
+    lineNumber = stackTrace->GetFrame(0)->GetLineNumber();
+  }
+
+  if (result.isMember(std::to_string(internalId))) {
+    result[std::to_string(internalId)][std::to_string(lineNumber)] = cardinality;
+  } else {
+    Json::Value idResult;
+    idResult[std::to_string(lineNumber)] = cardinality;
+    result[std::to_string(internalId)] = idResult;
+  }
+}
+
+/**
+ *  parses a json query string, generates tasks from it and executes them via the responseTask
+ *
+ *  basically copied from: void RequestParseTask::operator()() in RequestParseTask.cpp:67
+ *
+ */
+void internalExecuteQuery(const std::string& query_string,
+                          std::shared_ptr<ResponseTask> responseTask,
+                          const storage::c_atable_ptr_t inputTable,
+                          bool recordPerformance,
+                          const std::string& papiEvent) {
+  std::shared_ptr<hyrise::taskscheduler::AbstractTaskScheduler> scheduler;
+
+  if (!taskscheduler::SharedScheduler::getInstance().isInitialized()) {
+    //@TODO quick fix for no scheduler while unit testing, fix me, or maybe just dont unit test me :)
+    taskscheduler::SharedScheduler::getInstance().init("CentralScheduler");
+  }
+
+  scheduler = taskscheduler::SharedScheduler::getInstance().getScheduler();
+  epoch_t queryStart = get_epoch_nanoseconds();
+  responseTask->setQueryStart(queryStart);
+
+  std::vector<std::shared_ptr<hyrise::taskscheduler::Task>> tasks;
+
+  Json::Value request_data;
+  Json::Reader reader;
+
+  if (reader.parse(query_string, request_data)) {
+    responseTask->setRecordPerformanceData(recordPerformance);
+
+    std::shared_ptr<hyrise::taskscheduler::Task> result = nullptr;
+
+    try {
+      tasks = QueryParser::instance().deserialize(QueryTransformationEngine::getInstance()->transform(request_data),
+                                                  &result);
+    }
+    catch (const std::exception& ex) {
+      // clean up, so we don't end up with a whole mess due to thrown exceptions
+      responseTask->addErrorMessage(std::string("RequestParseTask: ") + ex.what());
+      tasks.clear();
+      result = nullptr;
+    }
+
+    if (result != nullptr) {
+      responseTask->addDependency(result);
+    } else {
+      responseTask->addErrorMessage(std::string("Json did not yield tasks"));
+    }
+
+    for (const auto& func : tasks) {
+      if (auto task = std::dynamic_pointer_cast<PlanOperation>(func)) {
+        if (!papiEvent.empty()) {
+          task->setEvent(papiEvent);
+        }
+        responseTask->registerPlanOperation(task);
+        if (!task->hasSuccessors()) {
+          responseTask->addDependency(task);
+        }
+      }
+    }
+
+    if (!tasks.empty()) {
+      auto task = std::dynamic_pointer_cast<PlanOperation>(tasks[0]);
+      if (task)
+        task->addInput(inputTable);
+    }
+
+  } else {
+    // Forward parsing error
+    responseTask->addErrorMessage("Parsing: " + reader.getFormatedErrorMessages());
+  }
+
+  int number_of_tasks = tasks.size();
+  std::vector<bool> isExecuted(number_of_tasks, false);
+  int executedTasks = 0;
+  while (executedTasks < number_of_tasks) {
+    for (int i = 0; i < number_of_tasks; i++) {
+      if (!isExecuted[i] && tasks[i]->isReady()) {
+        (*tasks[i])();
+        tasks[i]->notifyDoneObservers();
+        executedTasks++;
+        isExecuted[i] = true;
+      }
+    }
+  }
+  responseTask->setQueryStart(queryStart);
+}
+
+std::string getStringForPreparedStatement(v8::Isolate* isolate, v8::Local<v8::Object> object, std::string& key) {
+  std::string returnString;
+
+  auto value = object->Get(OneByteString(isolate, key.c_str()));
+  if (value->IsUint32() || value->IsInt32()) {
+    returnString = std::to_string(value->IntegerValue());
+  } else if (value->IsNumber()) {
+    returnString = std::to_string(value->NumberValue());
+  } else if (value->IsBoolean()) {
+    returnString = std::to_string(value->BooleanValue());
+  } else if (value->IsString()) {
+    v8::String::Utf8Value utf8String(value);
+
+    returnString = *utf8String;
+    returnString = "\"" + returnString + "\"";
+  } else {
+    throw std::runtime_error("Could not parse key: " + key + " - maybe it is not part of the dictionary?");
+  }
+
+  return returnString;
+}
+
+/**
+ * Method exposed to JS for execution of JSON queries
+ * JS-Parameters are <JSON-Query (string)> <input table>
+ */
+void ExecuteQuery(const v8::FunctionCallbackInfo<v8::Value>& args) {
+  v8::Isolate* isolate = args.GetIsolate();
+  IsolateContextData* isoContext = static_cast<IsolateContextData*>(isolate->GetData(0));
+  storage::c_atable_ptr_t inputTable;
+
+  // check arguments
+
+  if (args.Length() < 1) {
+    args.GetReturnValue().Set(isolate->ThrowException(OneByteString(isolate, "need at least json query")));
+    return;
+  }
+
+  if ((args.Length() > 1) &&
+      (!args[1]->IsNull())) {  // if second param (input table) is null, dont sanity check but ignore it
+    auto object = v8::Local<v8::Object>::Cast(args[1]);
+    if (!object->IsObject()) {
+      args.GetReturnValue().Set(isolate->ThrowException(OneByteString(isolate, "input table (2. argument) invalid")));
+      return;
+    }
+    auto internal = object->Get(OneByteString(isolate, "_internalId"))->Uint32Value();
+
+    if (internal >= isoContext->tables.size()) {
+      args.GetReturnValue().Set(
+          isolate->ThrowException(OneByteString(isolate, "input table (2. argument) invalid/ idx outofrange")));
+      return;
+    }
+
+    inputTable = isoContext->tables[internal];
+  }
+
+  v8::String::Utf8Value inputString(toJsonString(isolate, args[0]));
+  std::string queryString = *inputString;
+
+  if (args.Length() > 2) {
+    // parameters for "preparedStatements" provided
+
+    auto object = v8::Local<v8::Object>::Cast(args[2]);
+
+    size_t position = queryString.find("#{");
+    while (position != std::string::npos) {
+      size_t positionEnd = queryString.find("}", position + 1);
+      auto key = queryString.substr(position + 2, positionEnd - position - 2);
+
+      std::string preparedString;
+      try {
+        preparedString = getStringForPreparedStatement(isolate, object, key);
+      }
+      catch (std::exception const& e) {
+        args.GetReturnValue().Set(isolate->ThrowException(OneByteString(isolate, e.what())));
+        return;
+      }
+
+      queryString.replace(position - 1, (positionEnd - position) + 3, preparedString);
+      position = queryString.find("#{", position + 1);
+    }
+  }
+
+  auto responseTask = std::make_shared<ResponseTask>(nullptr);
+
+  // execute query
+
+  internalExecuteQuery(queryString, responseTask, inputTable, isoContext->recordPerformance, isoContext->papiEvent);
+
+  // get results
+
+  const auto& errors = responseTask->getErrorMessages();
+
+  // check for errors
+
+  if (!errors.empty()) {
+    std::string errorMsgs;
+    for (const auto& msg : errors) {
+      errorMsgs += msg + "\n";
+    }
+    args.GetReturnValue().Set(isolate->ThrowException(OneByteString(isolate, errorMsgs.c_str())));
+    return;
+  }
+
+  // save performance data of sub-query
+
+  convertPerformanceDataToJson(isolate,
+                               responseTask->getPerformanceData(),
+                               responseTask->getQueryStart(),
+                               isoContext->jsonQueryPerformanceValues);
+
+  // save result tables
+
+  auto resultTable = responseTask->getResultTask()->getResultTable();
+  isoContext->tables.push_back(resultTable);
+
+  convertDataflowDataToJson(isolate, isoContext->tables.size() - 1, resultTable->size(), isoContext->jsonQueryDataflow);
+
+  v8::Local<v8::Object> obj;
+  wrapTable<hyrise::storage::AbstractTable>(isolate, resultTable, isoContext->tables.size() - 1, obj);
+  obj->Set(OneByteString(isolate, "_isModifiable"), v8::Boolean::New(isolate, true));
+
+  args.GetReturnValue().Set(obj);
+}
+
+void BuildQuery(const v8::FunctionCallbackInfo<v8::Value>& args) {
+  v8::Isolate* isolate = args.GetIsolate();
+  v8::Local<v8::Object> obj = v8::Object::New(isolate);
+  auto operators = v8::Local<v8::Object>::Cast(args[0]);
+  auto edges = v8::Local<v8::Array>::Cast(args[1]);
+
+  obj->Set(OneByteString(isolate, "operators"), operators);
+  obj->Set(OneByteString(isolate, "edges"), edges);
 
   args.GetReturnValue().Set(obj);
 }
@@ -596,18 +1243,19 @@ void BuildVerticalTable(const v8::FunctionCallbackInfo<v8::Value>& args) {
 //   * create a new modifiable table based on the old table meta data
 //   * create a new modifiable table using the table builder
 //   * create a combination as a vertical table
-void ScriptOperation::createResultHelpers(v8::Isolate* isolate) {
-  auto global = isolate->GetCurrentContext()->Global();
-
+void ScriptOperation::createResultHelpers(v8::Isolate* isolate, v8::Handle<v8::ObjectTemplate> global) {
   global->Set(OneByteString(isolate, "createPointerCalculator"),
-              v8::FunctionTemplate::New(isolate, createPointerCalculator)->GetFunction());
+              v8::FunctionTemplate::New(isolate, createPointerCalculator));
   global->Set(OneByteString(isolate, "copyStructureModifiable"),
-              v8::FunctionTemplate::New(isolate, CopyStructureModifiable)->GetFunction());
-  global->Set(OneByteString(isolate, "buildTable"), v8::FunctionTemplate::New(isolate, BuildTable)->GetFunction());
-  global->Set(OneByteString(isolate, "buildVerticalTable"),
-              v8::FunctionTemplate::New(isolate, BuildVerticalTable)->GetFunction());
-  global->Set(OneByteString(isolate, "include"), v8::FunctionTemplate::New(isolate, Include)->GetFunction());
-  global->Set(OneByteString(isolate, "log"), v8::FunctionTemplate::New(isolate, LogMessage)->GetFunction());
+              v8::FunctionTemplate::New(isolate, CopyStructureModifiable));
+  global->Set(OneByteString(isolate, "buildTableShort"), v8::FunctionTemplate::New(isolate, BuildTableShort));
+  global->Set(OneByteString(isolate, "buildTableColumn"), v8::FunctionTemplate::New(isolate, BuildTableColumn));
+  global->Set(OneByteString(isolate, "buildTable"), v8::FunctionTemplate::New(isolate, BuildTable));
+  global->Set(OneByteString(isolate, "buildVerticalTable"), v8::FunctionTemplate::New(isolate, BuildVerticalTable));
+  global->Set(OneByteString(isolate, "include"), v8::FunctionTemplate::New(isolate, Include));
+  global->Set(OneByteString(isolate, "log"), v8::FunctionTemplate::New(isolate, LogMessage));
+  global->Set(OneByteString(isolate, "executeQuery"), v8::FunctionTemplate::New(isolate, ExecuteQuery));
+  global->Set(OneByteString(isolate, "buildQuery"), v8::FunctionTemplate::New(isolate, BuildQuery));
 }
 
 // Helper method that wraps the input of the plan operation into table objects
@@ -620,7 +1268,7 @@ v8::Handle<v8::Array> ScriptOperation::prepareInputs(v8::Isolate* isolate) {
   // Fill out the values
   for (size_t i = 0; i < input.size(); ++i) {
     // FIXME evil wrapper handling for our const inputs
-    wrapTable(isolate, input.getTable(i), i, locals[i]);
+    wrapTable<storage::AbstractTable>(isolate, input.getTable(i), i, locals[i]);
     result->Set(i, locals[i]);
   }
 
@@ -628,110 +1276,211 @@ v8::Handle<v8::Array> ScriptOperation::prepareInputs(v8::Isolate* isolate) {
   return result;
 }
 
-v8::Handle<v8::Object> ScriptOperation::prepareParameters(v8::Isolate* isolate) {
+#endif
 
-  v8::Handle<v8::Object> templ = v8::Object::New(isolate);
-  for (auto& k : _parameters) {
-    const auto& kcstr = k.first.data();
-    const auto& vcstr = k.second.data();
-    templ->Set(OneByteString(isolate, kcstr, v8::String::kNormalString, k.first.size()),
-               OneByteString(isolate, vcstr, v8::String::kNormalString, k.second.size()));
-  }
+void ScriptOperation::setParameters(const std::vector<std::string>& params) { _parameters = params; }
 
-  return templ;
+void ScriptOperation::setScriptSource(const std::string& source) { _scriptSource = source; }
+
+void ScriptOperation::setPapiEvent(const std::string& papiEvent) { _papiEvent = papiEvent; }
+
+
+Json::Value ScriptOperation::getSubQueryPerformanceData() {
+#ifdef WITH_V8
+  return _isoContext.jsonQueryPerformanceValues;
+#endif
+  return Json::Value();
 }
 
-
+Json::Value ScriptOperation::getSubQueryDataflow() {
+#ifdef WITH_V8
+  return _isoContext.jsonQueryDataflow;
 #endif
+  return Json::Value();
+}
 
 void ScriptOperation::executePlanOperation() {
 
 #ifdef WITH_V8
   // is this necessary?
-  // v8::V8::SetFlagsFromString("--gdbjit --prof", 15);
-  v8::Isolate* isolate = v8::Isolate::GetCurrent();
-  if (isolate == nullptr) {
-    isolate = v8::Isolate::New();
-    isolate->Enter();
-  }
+  const char* flags = "";  //--prof --trace-opt";
+  v8::V8::InitializeICU();
+  v8::V8::SetFlagsFromString(flags, strlen(flags));
 
+  v8::Isolate* isolate;
+  isolate = v8::Isolate::New();
+  isolate->Enter();
 
   // Set the data in the isolate context
-  auto isoContext = new IsolateContextData();
   for (const auto& t : input.allOf<storage::AbstractTable>()) {
-    isoContext->tables.push_back(t);
+    _isoContext.tables.push_back(t);
   }
-  isolate->SetData(0, isoContext);
+  _isoContext.recordPerformance = true;  //_performance_attr != nullptr; @todo
+  _isoContext.papiEvent = getEvent();
 
-
-  // Create a stack-allocated handle scope.
-  v8::HandleScope handle_scope(isolate);
-
-  // Create a new context.
-  v8::Local<v8::Context> context = v8::Context::New(isolate);
-
-  // Enter the created context for compiling and
-  // running the script.
-  v8::Context::Scope context_scope(context);
-
-  // Create a string containing the JavaScript source code.
-  auto content = readScript(_scriptName);
-  if (content.size() == 0) {
-    throw std::runtime_error("Script is empty, cannot run empty script: " + _scriptName);
-  }
-
-  v8::Handle<v8::String> source = OneByteString(isolate, content.c_str(), v8::String::kNormalString, content.size());
-
-  // Add Helper Functions
-  createResultHelpers(isolate);
-
-
-  // Compile the source code.
   {
-    v8::TryCatch trycatch;
-    v8::Handle<v8::Script> script = v8::Script::Compile(source);
-    if (script.IsEmpty()) {
-      throw std::runtime_error(*v8::String::Utf8Value(trycatch.Exception()));
-    }
-    auto check = script->Run();
-    if (check.IsEmpty()) {
-      throw std::runtime_error(*v8::String::Utf8Value(trycatch.Exception()));
+    v8::Isolate::Scope isolate_scope(isolate);
+
+    isolate->SetData(0, &_isoContext);
+
+    // Create a stack-allocated handle scope.
+    v8::HandleScope handle_scope(isolate);
+
+
+    // Create a template for the global object.
+    v8::Handle<v8::ObjectTemplate> global = v8::ObjectTemplate::New(isolate);
+
+    // Add Helper Functions
+    createResultHelpers(isolate, global);
+
+    // Create a new context.
+    v8::Local<v8::Context> context = v8::Context::New(isolate, NULL, global);
+
+    // Enter the created context for compiling and
+    // running the script.
+    v8::Context::Scope context_scope(context);
+
+    // start v8 profiler
+    // auto cpuProfiler = isolate->GetCpuProfiler();
+    // cpuProfiler->SetSamplingInterval(1000/*us*/);
+    // cpuProfiler->StartProfiling(v8::String::NewFromUtf8(isolate, "ScriptOperation"), true);//record_samples=false);
+
+    // Create a string containing the JavaScript source code.
+    std::string content;
+    if (_scriptSource == "")
+      content = readScript(_scriptName);
+    else
+      content = _scriptSource;
+
+    if (content.size() == 0) {
+      throw std::runtime_error("Script is empty, cannot run empty script: " + _scriptName);
     }
 
-    // Once the source is compiled there must be a method available whis is
-    // called hyrise_run_op
-    v8::Local<v8::Function> fun =
-        v8::Local<v8::Function>::Cast(context->Global()->Get(OneByteString(isolate, "hyrise_run_op")));
-    if (fun->IsFunction()) {
-      // Call the plan op with the inputs we converted
-      v8::Handle<v8::Value> argv[] = {prepareInputs(isolate), prepareParameters(isolate)};
-      auto result = v8::Local<v8::Object>::Cast(fun->Call(fun, 2, argv));
+    // std::cout << "going to compile/run the following script:\n" << content.c_str() << std::endl;
 
-      if (result.IsEmpty()) {
+    v8::Handle<v8::String> source = OneByteString(isolate, content.c_str(), v8::String::kNormalString, content.size());
+
+    // Compile the source code.
+    {
+      v8::TryCatch trycatch;
+      v8::Handle<v8::Script> script = v8::Script::Compile(source);
+
+      if (script.IsEmpty()) {
         throw std::runtime_error(*v8::String::Utf8Value(trycatch.Exception()));
       }
 
-      // Unwrap the data and extract the shared_ptr for the result
-      size_t internal = result->Get(OneByteString(isolate, "_internalId"))->Uint32Value();
-      addResult(isoContext->tables[internal]);
+      auto check = script->Run();
+
+      if (check.IsEmpty()) {
+        throw std::runtime_error(*v8::String::Utf8Value(trycatch.Exception()));
+      }
+
+      // Once the source is compiled there must be a method available whis is
+      // called hyrise_run_op
+      v8::Local<v8::Function> fun =
+          v8::Local<v8::Function>::Cast(context->Global()->Get(OneByteString(isolate, "hyrise_run_op")));
+      if (fun->IsFunction()) {
+
+        // Call the plan op with the inputs we converted
+
+        v8::Handle<v8::Value>* argv = new v8::Handle<v8::Value>[_parameters.size() + 1];
+
+        argv[0] = prepareInputs(isolate);
+
+        for (int i = 1; i < _parameters.size() + 1; i++) {
+          argv[i] = v8::JSON::Parse(OneByteString(isolate, _parameters[i - 1].c_str()));
+        }
+
+        v8::Local<v8::Object> result;
+
+        try {
+          result = v8::Local<v8::Object>::Cast(fun->Call(context->Global(), _parameters.size() + 1, argv));
+        }
+        catch (...) {
+          std::exception_ptr p = std::current_exception();
+          std::cout << "scriptop:" << (p ? p.__cxa_exception_type()->name() : "null") << std::endl;
+        }
+
+        delete[] argv;
+
+        if (result.IsEmpty()) {
+          std::string errorMsg = *v8::String::Utf8Value(trycatch.Exception());
+          v8::Handle<v8::Message> message = trycatch.Message();
+          if (!message.IsEmpty()) {
+            int linenum = message->GetLineNumber();
+            if (_scriptName != "")
+              errorMsg.insert(0, "error in script <" + _scriptName + ".js:" + std::to_string(linenum) + "> ");
+            else
+              errorMsg.insert(0, "error in script line " + std::to_string(linenum) + "> ");
+          }
+          throw std::runtime_error(errorMsg);
+        }
+
+        // Unwrap the data and extract the shared_ptr for the result
+        if (!result->IsUndefined()) {
+          size_t internal = result->Get(OneByteString(isolate, "_internalId"))->Uint32Value();
+          addResult(_isoContext.tables[internal]);
+        }
+      }
     }
+
+    // auto cpuProfile = cpuProfiler->StopProfiling(v8::String::NewFromUtf8(isolate, "ScriptOperation"));
+    // std::cout << parseCpuProfile(cpuProfile) << std::endl;
+    // cpuProfile->Delete();
   }
 
-  // free the isolation context data we use
-  delete isoContext;
-
-// Dispose the persistent context.
+  // Dispose the persistent context.
+  isolate->Exit();
+  isolate->Dispose();
 #endif
+}
+
+const PlanOperation* ScriptOperation::execute() {
+  const bool recordPerformance = _performance_attr != nullptr;
+
+  // Check if we really need this
+  epoch_t startTime = 0;
+  if (recordPerformance)
+    startTime = get_epoch_nanoseconds();
+
+  PapiTracer pt;
+
+  // Start the execution
+  refreshInput();
+  setupPlanOperation();
+
+  // if (recordPerformance) {
+  //   pt.addEvent("PAPI_TOT_CYC");
+  //   pt.addEvent(getEvent());
+  //   pt.start();
+  // }
+
+  executePlanOperation();
+
+  // if (recordPerformance)
+  //   pt.stop();
+
+  teardownPlanOperation();
+
+  if (recordPerformance) {
+    epoch_t endTime = get_epoch_nanoseconds();
+    std::string threadId = boost::lexical_cast<std::string>(std::this_thread::get_id());
+
+    int64_t duration = endTime - startTime;
+
+    *_performance_attr = (performance_attributes_t) {
+        duration,            0 /*pt.value("PAPI_TOT_CYC"), pt.value(getEvent())*/, "NO_PAPI_duration_in_ns",
+        planOperationName(), _operatorId,                                          startTime,
+        endTime,             threadId,                                             std::numeric_limits<size_t>::max()};
+  }
+
+  setState(OpSuccess);
+  return this;
 }
 
 std::shared_ptr<PlanOperation> ScriptOperation::parse(const Json::Value& data) {
   auto op = std::make_shared<ScriptOperation>();
   op->setScriptName(data["script"].asString());
-
-
-  for (const auto& v : data.getMemberNames()) {
-    op->_parameters[v] = data[v].asString();
-  }
 
   return op;
 }

@@ -14,6 +14,8 @@
 #include "helper/HttpHelper.h"
 #include "testing/TableEqualityTest.h"
 
+#include <helper/Settings.h>
+
 namespace hyrise {
 namespace access {
 
@@ -77,6 +79,7 @@ std::vector<std::string> GetParameterStrings() {
   std::transform(directory_iterator("test/autojson/"), directory_iterator(), back_it, pathname_of());
 
 #ifdef WITH_V8
+  Settings::getInstance()->setScriptPath("test/script");
   std::transform(directory_iterator("test/autojson/v8Tests/"), directory_iterator(), back_it, pathname_of());
 #endif
 
