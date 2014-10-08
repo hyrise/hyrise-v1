@@ -183,9 +183,17 @@ const PlanOperation* PlanOperation::execute() {
   if (recordPerformance) {
     epoch_t endTime = get_epoch_nanoseconds();
     std::string threadId = boost::lexical_cast<std::string>(std::this_thread::get_id());
-    *_performance_attr =
-        (performance_attributes_t) {pt.value("PAPI_TOT_CYC"), pt.value(getEvent()), getEvent(), planOperationName(),
-                                    _operatorId,              startTime,            endTime,    threadId};
+
+    size_t cardinality;
+    if (getResultTable() != empty_result)
+      cardinality = getResultTable()->size();
+    else
+      // the cardinality is max(size_t) by convention if there is no return table
+      cardinality = std::numeric_limits<size_t>::max();
+
+    *_performance_attr = (performance_attributes_t) {pt.value("PAPI_TOT_CYC"), pt.value(getEvent()), getEvent(),
+                                                     planOperationName(),      _operatorId,          startTime,
+                                                     endTime,                  threadId,             cardinality};
   }
 
   setState(OpSuccess);

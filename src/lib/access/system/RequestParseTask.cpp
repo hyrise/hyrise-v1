@@ -210,9 +210,11 @@ void RequestParseTask::operator()() {
   if (priority == Task::HIGH_PRIORITY) {
     if (recordPerformance) {
       *(performance_data.at(0)) = {
-          0,                       0,                                                           "NO_PAPI",
-          "RequestParseTask",      "requestParse",                                              _queryStart,
-          get_epoch_nanoseconds(), boost::lexical_cast<std::string>(std::this_thread::get_id())};
+          0,                                 0,
+          "NO_PAPI",                         "RequestParseTask",
+          "requestParse",                    _queryStart,
+          get_epoch_nanoseconds(),           boost::lexical_cast<std::string>(std::this_thread::get_id()),
+          std::numeric_limits<size_t>::max()};
     }
 
     int number_of_tasks = tasks.size();
@@ -238,9 +240,11 @@ void RequestParseTask::operator()() {
 
     if (recordPerformance) {
       *(performance_data.at(0)) = {
-          0,                       0,                                                           "NO_PAPI",
-          "RequestParseTask",      "requestParse",                                              _queryStart,
-          get_epoch_nanoseconds(), boost::lexical_cast<std::string>(std::this_thread::get_id())};
+          0,                                 0,
+          "NO_PAPI",                         "RequestParseTask",
+          "requestParse",                    _queryStart,
+          get_epoch_nanoseconds(),           boost::lexical_cast<std::string>(std::this_thread::get_id()),
+          std::numeric_limits<size_t>::max()};
     }
     _responseTask->setQueryStart(_queryStart);
     _responseTask.reset();  // yield responsibility

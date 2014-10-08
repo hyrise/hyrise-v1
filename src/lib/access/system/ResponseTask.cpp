@@ -166,6 +166,11 @@ Json::Value ResponseTask::generateResponseJson() {
         element["startTime"] = Json::Value((double)(attr->startTime - queryStart) / 1000000);
         element["endTime"] = Json::Value((double)(attr->endTime - queryStart) / 1000000);
         element["executingThread"] = Json::Value(attr->executingThread);
+
+        if (_getSubQueryPerformanceData) {
+          element["subQueryPerformanceData"] = _scriptOperation->getSubQueryPerformanceData();
+        }
+
         json_perf.append(element);
       }
 
@@ -194,6 +199,10 @@ Json::Value ResponseTask::generateResponseJson() {
     }
     response["generatedKeys"] = jsonKeys;
     response["affectedRows"] = Json::Value(_affectedRows);
+
+    if (_getSubQueryPerformanceData) {
+      response["subQueryDataflow"] = _scriptOperation->getSubQueryDataflow();
+    }
   }
   LOG4CXX_DEBUG(_logger, "Table Use Count: " << result.use_count());
 

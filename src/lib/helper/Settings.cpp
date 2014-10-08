@@ -10,7 +10,7 @@ Settings::Settings() : threadpoolSize(1) {
 
   // Initiate the class based on Enviroment Variables
   setDBPath(getEnv("HYRISE_DB_PATH", ""));
-  setScriptPath(getEnv("HYRISE_SCRIPT_PATH", "test/script"));
+  setScriptPath(getEnv("HYRISE_SCRIPT_PATH", "procedures"));
   setProfilePath(getEnv("HYRISE_PROFILE_PATH", "."));
 
   if (getDBPath().empty()) {
@@ -22,6 +22,7 @@ Settings::Settings() : threadpoolSize(1) {
   _mkdir(getLogDir());
   _mkdir(getTableDumpDir());
   _mkdir(getCheckpointDir());
+  _mkdir(getScriptPath());
 }
 
 size_t Settings::getThreadpoolSize() const { return this->threadpoolSize; }

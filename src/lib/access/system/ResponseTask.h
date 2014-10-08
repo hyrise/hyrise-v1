@@ -11,6 +11,7 @@
 #include "access/system/OutputTask.h"
 #include "net/AbstractConnection.h"
 #include "io/TXContext.h"
+#include "access/ScriptOperation.h"
 
 namespace hyrise {
 namespace access {
@@ -41,8 +42,15 @@ class ResponseTask : public taskscheduler::Task {
 
   bool _group_commit = false;
 
+  bool _getSubQueryPerformanceData;
+
+  std::shared_ptr<ScriptOperation> _scriptOperation;
+
  public:
-  explicit ResponseTask(net::AbstractConnection* connection) : connection(connection) { _affectedRows = 0; }
+  explicit ResponseTask(net::AbstractConnection* connection)
+      : connection(connection), _getSubQueryPerformanceData(false) {
+    _affectedRows = 0;
+  }
 
   virtual ~ResponseTask() {}
 
@@ -81,6 +89,11 @@ class ResponseTask : public taskscheduler::Task {
   std::shared_ptr<PlanOperation> getResultTask();
 
   void setGroupCommit(bool group_commit);
+
+  void enableGetSubQueryPerformanceData(std::shared_ptr<ScriptOperation> scriptOperation) {
+    _getSubQueryPerformanceData = true;
+    _scriptOperation = scriptOperation;
+  }
 
   Json::Value generateResponseJson();
 

@@ -1,0 +1,17 @@
+{
+	"operators" : {
+		"-1" : {
+			"type": "TableLoad",
+            "table": "reference",
+            "filename": "tables/companies_apple_only.tbl"
+		},
+		"script" : {
+			"type" : "ScriptOperation",
+			"script": "execute_json_with_params_without_input"
+		}
+	},
+
+	"edges" : [
+	["script", "script"]
+	]
+}

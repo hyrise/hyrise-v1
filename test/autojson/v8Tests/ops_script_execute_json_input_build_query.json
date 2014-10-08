@@ -1,0 +1,22 @@
+{
+	"operators" : {
+		"input" : {
+			"type": "TableLoad",
+            "table": "input",
+            "filename": "tables/companies.tbl"
+		},
+		"-1" : {
+			"type": "TableLoad",
+            "table": "reference",
+            "filename": "tables/companies_apple_only.tbl"
+		},
+		"script" : {
+			"type" : "ScriptOperation",
+			"script": "execute_json_input_build_query"
+		}
+	},
+
+	"edges" : [
+	["input", "script"]
+	]
+}

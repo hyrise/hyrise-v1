@@ -36,6 +36,7 @@ typedef struct {
   epoch_t startTime;
   epoch_t endTime;
   std::string executingThread;
+  size_t cardinality;
 } performance_attributes_t;
 
 typedef std::vector<std::unique_ptr<performance_attributes_t>> performance_vector_t;
