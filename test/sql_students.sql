@@ -1,0 +1,1 @@
+SELECT name, city, grade FROM (SELECT name, city, grade FROM students WHERE grade < 3.0) t1 WHERE grade < 1.5 OR (city = 'Berlin' AND grade > 2.0);
