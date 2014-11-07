@@ -158,6 +158,7 @@ alphabetical order :)
   * Kai Höwelmeyer
   * Karsten Tausche
   * Marco Hornung
+  * Markus Dreseler
   * Martin Boissier
   * Martin Faust
   * Martin Grund
