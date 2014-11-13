@@ -31,9 +31,9 @@ class SQLQueryParser {
   /**
    * Builds the task list out of the given sql query.
    * @param[in]  query      SQL query string
-   * @param[out] tasks  	List of tasks that were extracted from the query
+   *
    */
-  void buildTaskList(const std::string& query, task_list_t& tasks);
+  task_list_t buildTaskList(const std::string& query);
 };
 
 } // namespace sql

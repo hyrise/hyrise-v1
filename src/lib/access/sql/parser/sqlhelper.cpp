@@ -27,11 +27,11 @@ void printTableRefInfo(TableRef* table, uint num_indent) {
     case kTableJoin:
       inprint("Join Table", num_indent);
       inprint("Left", num_indent+1);
-      printTableRefInfo(table->left, num_indent+2);
+      printTableRefInfo(table->join->left, num_indent+2);
       inprint("Right", num_indent+1);
-      printTableRefInfo(table->right, num_indent+2);
+      printTableRefInfo(table->join->right, num_indent+2);
       inprint("Join Condition", num_indent+1);
-      printExpression(table->join_condition, num_indent+2);
+      printExpression(table->join->condition, num_indent+2);
       break;
     case kTableCrossProduct:
       for (TableRef* tbl : table->list->vector()) printTableRefInfo(tbl, num_indent);
@@ -61,7 +61,7 @@ void printExpression(Expr* expr, uint num_indent) {
   switch (expr->type) {
     case kExprStar: inprint("*", num_indent); break;
     case kExprColumnRef: inprint(expr->name, num_indent); break;
-    case kExprTableColumnRef: inprint(expr->table, expr->name, num_indent); break;
+    // case kExprTableColumnRef: inprint(expr->table, expr->name, num_indent); break;
     case kExprLiteralFloat: inprint(expr->fval, num_indent); break;
     case kExprLiteralInt: inprint(expr->ival, num_indent); break;
     case kExprLiteralString: inprint(expr->name, num_indent); break;

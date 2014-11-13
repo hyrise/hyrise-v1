@@ -348,7 +348,7 @@ extern int hsql_lex \
 #undef YY_DECL
 #endif
 
-#line 154 "flex_lexer.l"
+#line 160 "flex_lexer.l"
 
 
 #line 355 "flex_lexer.h"

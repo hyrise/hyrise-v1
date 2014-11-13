@@ -36,9 +36,7 @@ task_list_t SQLQueryParser::transformSQLQuery(const std::string& query, task_t* 
 
 
   // Build the task list
-  std::vector<std::shared_ptr<taskscheduler::Task> > task_list;
-  buildTaskList(query, task_list);
-
+  task_list_t task_list = buildTaskList(query);
 
   // Result task is the last item within the task list.
   if (task_list.size() > 0) *result = task_list.back();
@@ -55,7 +53,7 @@ task_list_t SQLQueryParser::transformSQLQuery(const std::string& query, task_t* 
 
 
 
-void SQLQueryParser::buildTaskList(const std::string& query, task_list_t& task_list) {
+task_list_t SQLQueryParser::buildTaskList(const std::string& query) {
   // Parse the sql
   StatementList* stmt_list = SQLParser::parseSQLString(query.c_str());
 
@@ -64,12 +62,17 @@ void SQLQueryParser::buildTaskList(const std::string& query, task_list_t& task_l
     throw std::runtime_error("SQL Parsing failed! " + std::string(stmt_list->parser_msg));
   }
 
+  // Build the task list
   // TODO: Confirm that tasks are executed sequentially
+  task_list_t all_tasks;
   int i = 1;
   for (Statement* stmt : stmt_list->vector()) {
     SQLStatementTransformer transformer = SQLStatementTransformer(std::to_string(i++) + ".");
-    transformer.transformStatement(stmt, task_list);
+    transformer.transformStatement(stmt);
+    task_list_t tasks = transformer.getTaskList();
+    all_tasks.insert(all_tasks.end(), tasks.begin(), tasks.end());
   }
+  return all_tasks;
 }
 
 
