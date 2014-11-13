@@ -188,7 +188,10 @@ AggregateFun* parseAggregateFunction(const Json::Value& data) {
   if (data["type"].isNumeric()) {
     ftype = data["type"].asUInt();
   } else if (data["type"].isString()) {
-    ftype = getAggregateFunctionMap()[data["type"].asString()];
+    aggregateFunctionMap_t map = getAggregateFunctionMap();
+    if (map.count(data["type"].asString()) > 0) {
+      ftype = map[data["type"].asString()];
+    }
   }
   AggregateFun* aggregate;
   switch (ftype) {

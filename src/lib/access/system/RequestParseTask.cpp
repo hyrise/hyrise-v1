@@ -15,6 +15,7 @@
 #include "access/system/PlanOperation.h"
 #include "access/system/QueryTransformationEngine.h"
 #include "access/tx/Commit.h"
+#include "access/sql/SQLQueryParser.h"
 
 #include "helper/epoch.h"
 #include "helper/HttpHelper.h"
@@ -97,12 +98,34 @@ void RequestParseTask::operator()() {
       LOG4CXX_DEBUG(_logger, "Creating new transaction context " << ctx.tid);
     }
 
-    Json::Value request_data;
+    // Query parsing
+    // SQL Query variables
+    bool is_sql_query = false;
+    std::string sql_query;
+
+    // JSON Query variables
+    bool is_json_query = false;
+    std::string query_string = "";
+    Json::Value json_request_data;
     Json::Reader reader;
 
-    const std::string& query_string = urldecode(body_data["query"]);
+    // indicates the query was successfully parsed
+    bool parse_was_successful = false;
 
-    if (reader.parse(query_string, request_data)) {
+    if (body_data.find("sql") != body_data.end()) {
+      is_sql_query = true;
+      sql_query = urldecode(body_data["sql"]);
+      parse_was_successful = true;
+
+    } else if (body_data.find("query") != body_data.end()) {
+      is_json_query = true;
+      query_string = urldecode(body_data["query"]);
+      parse_was_successful = reader.parse(query_string, json_request_data);
+    }
+
+
+    // Evaluate the parsed query
+    if (parse_was_successful) {
       _responseTask->setTxContext(ctx);
       recordPerformance = getOrDefault(body_data, "performance", "false") == "true";
       _responseTask->setRecordPerformanceData(recordPerformance);
@@ -112,25 +135,40 @@ void RequestParseTask::operator()() {
         performance_data.push_back(std::unique_ptr<performance_attributes_t>(new performance_attributes_t));
       }
 
-      LOG4CXX_DEBUG(_query_logger, request_data);
+      if (is_json_query) LOG4CXX_DEBUG(_query_logger, json_request_data);
+      if (is_sql_query) LOG4CXX_DEBUG(_query_logger, sql_query);
 
       const std::string& final_hash = hash(query_string);
       std::shared_ptr<Task> result = nullptr;
 
-      if (request_data.isMember("priority"))
-        priority = request_data["priority"].asInt();
-      if (request_data.isMember("sessionId"))
-        sessionId = request_data["sessionId"].asInt();
+      if (is_json_query) {
+        if (json_request_data.isMember("priority"))
+          priority = json_request_data["priority"].asInt();
+        if (json_request_data.isMember("sessionId"))
+          sessionId = json_request_data["sessionId"].asInt();
+      } // json specific block
+
       _responseTask->setPriority(priority);
       _responseTask->setSessionId(sessionId);
       _responseTask->setRecordPerformanceData(recordPerformance);
       try {
-        tasks = QueryParser::instance().deserialize(QueryTransformationEngine::getInstance()->transform(request_data),
-                                                    &result);
+        // Generate tasks from query
+        if (is_json_query) {
+          tasks = QueryParser::instance().deserialize(
+                    QueryTransformationEngine::getInstance()->transform(json_request_data),
+                    &result);
+
+        } else if (is_sql_query) {
+
+          sql::SQLQueryParser parser;
+          tasks = parser.transformSQLQuery(sql_query, &result);
+          
+        }
       }
       catch (const std::exception& ex) {
         // clean up, so we don't end up with a whole mess due to thrown exceptions
-        LOG4CXX_ERROR(_logger, "Received\n:" << request_data);
+        if (is_json_query) LOG4CXX_ERROR(_logger, "Received\n:" << json_request_data);
+        if (is_sql_query) LOG4CXX_ERROR(_logger, "Received\n:" << sql_query);
         LOG4CXX_ERROR(_logger, "Exception thrown during query deserialization:\n" << ex.what());
         _responseTask->addErrorMessage(std::string("RequestParseTask: ") + ex.what());
         tasks.clear();
@@ -161,7 +199,7 @@ void RequestParseTask::operator()() {
       if (result != nullptr) {
         _responseTask->addDependency(result);
       } else {
-        LOG4CXX_ERROR(_logger, "Json did not yield tasks");
+        LOG4CXX_ERROR(_logger, "Parsing of query did not yield tasks");
       }
 
       for (const auto& func : tasks) {
