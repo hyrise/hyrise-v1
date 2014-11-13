@@ -1152,8 +1152,6 @@ extern int hsql_wrap (yyscan_t yyscanner );
 #endif
 #endif
 
-    static void yyunput (int c,char *buf_ptr  ,yyscan_t yyscanner);
-    
 #ifndef yytext_ptr
 static void yy_flex_strncpy (char *,yyconst char *,int ,yyscan_t yyscanner);
 #endif
@@ -1283,10 +1281,10 @@ YY_DECL
 	register int yy_act;
     struct yyguts_t * yyg = (struct yyguts_t*)yyscanner;
 
-#line 49 "flex_lexer.l"
+#line 50 "flex_lexer.l"
 
 
-#line 1290 "flex_lexer.cpp"
+#line 1288 "flex_lexer.cpp"
 
     yylval = yylval_param;
 
@@ -1369,316 +1367,316 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 51 "flex_lexer.l"
+#line 52 "flex_lexer.l"
 BEGIN(COMMENT);
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 52 "flex_lexer.l"
+#line 53 "flex_lexer.l"
 /* skipping comment content until a end of line is read */;
 	YY_BREAK
 case 3:
 /* rule 3 can match eol */
 YY_RULE_SETUP
-#line 53 "flex_lexer.l"
+#line 54 "flex_lexer.l"
 BEGIN(INITIAL);
 	YY_BREAK
 case 4:
 /* rule 4 can match eol */
 YY_RULE_SETUP
-#line 56 "flex_lexer.l"
+#line 57 "flex_lexer.l"
 /* skip whitespace */;
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 59 "flex_lexer.l"
+#line 60 "flex_lexer.l"
 TOKEN(DATABASE)
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 60 "flex_lexer.l"
+#line 61 "flex_lexer.l"
 TOKEN(DISTINCT)
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 61 "flex_lexer.l"
+#line 62 "flex_lexer.l"
 TOKEN(BETWEEN)
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 62 "flex_lexer.l"
+#line 63 "flex_lexer.l"
 TOKEN(CONTROL)
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 63 "flex_lexer.l"
+#line 64 "flex_lexer.l"
 TOKEN(NATURAL)
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 64 "flex_lexer.l"
+#line 65 "flex_lexer.l"
 TOKEN(COLUMN)
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 65 "flex_lexer.l"
+#line 66 "flex_lexer.l"
 TOKEN(CREATE)
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 66 "flex_lexer.l"
+#line 67 "flex_lexer.l"
 TOKEN(DELETE)
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 67 "flex_lexer.l"
+#line 68 "flex_lexer.l"
 TOKEN(HAVING)
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 68 "flex_lexer.l"
+#line 69 "flex_lexer.l"
 TOKEN(IMPORT)
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 69 "flex_lexer.l"
+#line 70 "flex_lexer.l"
 TOKEN(INSERT)
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 70 "flex_lexer.l"
+#line 71 "flex_lexer.l"
 TOKEN(ISNULL)
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 71 "flex_lexer.l"
+#line 72 "flex_lexer.l"
 TOKEN(OFFSET)
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 72 "flex_lexer.l"
+#line 73 "flex_lexer.l"
 TOKEN(RENAME)
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 73 "flex_lexer.l"
+#line 74 "flex_lexer.l"
 TOKEN(SELECT)
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 74 "flex_lexer.l"
+#line 75 "flex_lexer.l"
 TOKEN(UNLOAD)
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 75 "flex_lexer.l"
+#line 76 "flex_lexer.l"
 TOKEN(UPDATE)
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 76 "flex_lexer.l"
+#line 77 "flex_lexer.l"
 TOKEN(ALTER)
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 77 "flex_lexer.l"
+#line 78 "flex_lexer.l"
 TOKEN(CROSS)
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 78 "flex_lexer.l"
+#line 79 "flex_lexer.l"
 TOKEN(GROUP)
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 79 "flex_lexer.l"
+#line 80 "flex_lexer.l"
 TOKEN(INDEX)
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 80 "flex_lexer.l"
+#line 81 "flex_lexer.l"
 TOKEN(INNER)
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 81 "flex_lexer.l"
+#line 82 "flex_lexer.l"
 TOKEN(LIMIT)
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 82 "flex_lexer.l"
+#line 83 "flex_lexer.l"
 TOKEN(ORDER)
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 83 "flex_lexer.l"
+#line 84 "flex_lexer.l"
 TOKEN(OUTER)
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 84 "flex_lexer.l"
+#line 85 "flex_lexer.l"
 TOKEN(RIGHT)
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 85 "flex_lexer.l"
+#line 86 "flex_lexer.l"
 TOKEN(TABLE)
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 86 "flex_lexer.l"
+#line 87 "flex_lexer.l"
 TOKEN(UNION)
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 87 "flex_lexer.l"
+#line 88 "flex_lexer.l"
 TOKEN(USING)
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 88 "flex_lexer.l"
+#line 89 "flex_lexer.l"
 TOKEN(WHERE)
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 89 "flex_lexer.l"
+#line 90 "flex_lexer.l"
 TOKEN(DESC)
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 90 "flex_lexer.l"
+#line 91 "flex_lexer.l"
 TOKEN(DROP)
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 91 "flex_lexer.l"
+#line 92 "flex_lexer.l"
 TOKEN(FILE)
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 92 "flex_lexer.l"
+#line 93 "flex_lexer.l"
 TOKEN(FROM)
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 93 "flex_lexer.l"
+#line 94 "flex_lexer.l"
 TOKEN(INTO)
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 94 "flex_lexer.l"
+#line 95 "flex_lexer.l"
 TOKEN(JOIN)
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 95 "flex_lexer.l"
+#line 96 "flex_lexer.l"
 TOKEN(LEFT)
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
-#line 96 "flex_lexer.l"
+#line 97 "flex_lexer.l"
 TOKEN(LIKE)
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
-#line 97 "flex_lexer.l"
+#line 98 "flex_lexer.l"
 TOKEN(LOAD)
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
-#line 98 "flex_lexer.l"
+#line 99 "flex_lexer.l"
 TOKEN(NULL)
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
-#line 99 "flex_lexer.l"
+#line 100 "flex_lexer.l"
 TOKEN(ALL)
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
-#line 100 "flex_lexer.l"
+#line 101 "flex_lexer.l"
 TOKEN(AND)
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
-#line 101 "flex_lexer.l"
+#line 102 "flex_lexer.l"
 TOKEN(ASC)
 	YY_BREAK
 case 48:
 YY_RULE_SETUP
-#line 102 "flex_lexer.l"
+#line 103 "flex_lexer.l"
 TOKEN(CSV)
 	YY_BREAK
 case 49:
 YY_RULE_SETUP
-#line 103 "flex_lexer.l"
+#line 104 "flex_lexer.l"
 TOKEN(NOT)
 	YY_BREAK
 case 50:
 YY_RULE_SETUP
-#line 104 "flex_lexer.l"
+#line 105 "flex_lexer.l"
 TOKEN(TBL)
 	YY_BREAK
 case 51:
 YY_RULE_SETUP
-#line 105 "flex_lexer.l"
+#line 106 "flex_lexer.l"
 TOKEN(TOP)
 	YY_BREAK
 case 52:
 YY_RULE_SETUP
-#line 106 "flex_lexer.l"
+#line 107 "flex_lexer.l"
 TOKEN(AS)
 	YY_BREAK
 case 53:
 YY_RULE_SETUP
-#line 107 "flex_lexer.l"
+#line 108 "flex_lexer.l"
 TOKEN(BY)
 	YY_BREAK
 case 54:
 YY_RULE_SETUP
-#line 108 "flex_lexer.l"
+#line 109 "flex_lexer.l"
 TOKEN(IN)
 	YY_BREAK
 case 55:
 YY_RULE_SETUP
-#line 109 "flex_lexer.l"
+#line 110 "flex_lexer.l"
 TOKEN(IS)
 	YY_BREAK
 case 56:
 YY_RULE_SETUP
-#line 110 "flex_lexer.l"
+#line 111 "flex_lexer.l"
 TOKEN(ON)
 	YY_BREAK
 case 57:
 YY_RULE_SETUP
-#line 111 "flex_lexer.l"
+#line 112 "flex_lexer.l"
 TOKEN(OR)
 	YY_BREAK
 case 58:
 YY_RULE_SETUP
-#line 114 "flex_lexer.l"
+#line 115 "flex_lexer.l"
 TOKEN(NOTEQUALS)
 	YY_BREAK
 case 59:
 YY_RULE_SETUP
-#line 115 "flex_lexer.l"
+#line 116 "flex_lexer.l"
 TOKEN(LESSEQ)
 	YY_BREAK
 case 60:
 YY_RULE_SETUP
-#line 116 "flex_lexer.l"
+#line 117 "flex_lexer.l"
 TOKEN(GREATEREQ)
 	YY_BREAK
 case 61:
 YY_RULE_SETUP
-#line 119 "flex_lexer.l"
+#line 120 "flex_lexer.l"
 { return yytext[0]; }
 	YY_BREAK
 case 62:
-#line 123 "flex_lexer.l"
+#line 124 "flex_lexer.l"
 case 63:
 YY_RULE_SETUP
-#line 123 "flex_lexer.l"
+#line 124 "flex_lexer.l"
 {
 	yylval->fval = atof(yytext);
 	return SQL_FLOAT;
@@ -1686,7 +1684,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 64:
 YY_RULE_SETUP
-#line 128 "flex_lexer.l"
+#line 129 "flex_lexer.l"
 {
 	yylval->ival = atol(yytext);
 	return SQL_INT;
@@ -1694,7 +1692,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 65:
 YY_RULE_SETUP
-#line 133 "flex_lexer.l"
+#line 134 "flex_lexer.l"
 {
 	// Crop the leading and trailing quote char
 	yylval->sval = hsql::substr(yytext, 1, strlen(yytext)-1);
@@ -1703,7 +1701,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 66:
 YY_RULE_SETUP
-#line 139 "flex_lexer.l"
+#line 140 "flex_lexer.l"
 {
 	yylval->sval = strdup(yytext);
 	return SQL_IDENTIFIER;
@@ -1711,7 +1709,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 67:
 YY_RULE_SETUP
-#line 145 "flex_lexer.l"
+#line 146 "flex_lexer.l"
 {
 	// Crop the leading and trailing quote char
 	yylval->sval = hsql::substr(yytext, 1, strlen(yytext)-1);
@@ -1720,10 +1718,10 @@ YY_RULE_SETUP
 	YY_BREAK
 case 68:
 YY_RULE_SETUP
-#line 154 "flex_lexer.l"
+#line 155 "flex_lexer.l"
 ECHO;
 	YY_BREAK
-#line 1727 "flex_lexer.cpp"
+#line 1725 "flex_lexer.cpp"
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(COMMENT):
 	yyterminate();
@@ -2055,44 +2053,6 @@ static int yy_get_next_buffer (yyscan_t yyscanner)
 	yy_is_jam = (yy_current_state == 454);
 
 	return yy_is_jam ? 0 : yy_current_state;
-}
-
-    static void yyunput (int c, register char * yy_bp , yyscan_t yyscanner)
-{
-	register char *yy_cp;
-    struct yyguts_t * yyg = (struct yyguts_t*)yyscanner;
-
-    yy_cp = yyg->yy_c_buf_p;
-
-	/* undo effects of setting up yytext */
-	*yy_cp = yyg->yy_hold_char;
-
-	if ( yy_cp < YY_CURRENT_BUFFER_LVALUE->yy_ch_buf + 2 )
-		{ /* need to shift things up to make room */
-		/* +2 for EOB chars. */
-		register int number_to_move = yyg->yy_n_chars + 2;
-		register char *dest = &YY_CURRENT_BUFFER_LVALUE->yy_ch_buf[
-					YY_CURRENT_BUFFER_LVALUE->yy_buf_size + 2];
-		register char *source =
-				&YY_CURRENT_BUFFER_LVALUE->yy_ch_buf[number_to_move];
-
-		while ( source > YY_CURRENT_BUFFER_LVALUE->yy_ch_buf )
-			*--dest = *--source;
-
-		yy_cp += (int) (dest - source);
-		yy_bp += (int) (dest - source);
-		YY_CURRENT_BUFFER_LVALUE->yy_n_chars =
-			yyg->yy_n_chars = YY_CURRENT_BUFFER_LVALUE->yy_buf_size;
-
-		if ( yy_cp < YY_CURRENT_BUFFER_LVALUE->yy_ch_buf + 2 )
-			YY_FATAL_ERROR( "flex scanner push-back overflow" );
-		}
-
-	*--yy_cp = (char) c;
-
-	yyg->yytext_ptr = yy_bp;
-	yyg->yy_hold_char = *yy_cp;
-	yyg->yy_c_buf_p = yy_cp;
 }
 
 #ifndef YY_NO_INPUT
@@ -2888,7 +2848,7 @@ void hsql_free (void * ptr , yyscan_t yyscanner)
 
 #define YYTABLES_NAME "yytables"
 
-#line 154 "flex_lexer.l"
+#line 155 "flex_lexer.l"
 
 
 /***************************
