@@ -2,14 +2,18 @@
 set -x
 set -e
 
+apt-get -y install build-essential wget bzip2 ccache cmake git liblog4cxx10 liblog4cxx10-dev libmysqlclient-dev libunwind8-dev libev-dev libtbb-dev libboost-all-dev libhwloc-dev binutils-dev libgoogle-perftools-dev  gfortran curl git
+
 mkdir -p dependencies
 cd dependencies
+
+# install libcsv 
+#########################
 
 if [ ! -e libcsv-3.0.1 ]; then
   wget http://downloads.sourceforge.net/project/libcsv/libcsv/libcsv-3.0.1/libcsv-3.0.1.tar.gz
   tar -xf libcsv-3.0.1.tar.gz
   cd libcsv-3.0.1
-  echo pwd
   make -j 4
   cd ..
 fi
@@ -19,38 +23,44 @@ make install
 cd ..
 
 
+# install metis 
+#########################
+
+if [ ! -e metis-5.1.0 ]; then
+  wget http://glaros.dtc.umn.edu/gkhome/fetch/sw/metis/metis-5.1.0.tar.gz
+  tar -xf metis-5.1.0.tar.gz
+  cd metis-5.1.0
+  make config
+  make -j 4
+  cd ..
+fi
+
+cd metis-5.1.0
+make install
+cd ..
+
+# install papi 
+#########################
+
+if [ ! -e papi-5.3.0 ]; then
+  wget http://icl.cs.utk.edu/projects/papi/downloads/papi-5.3.0.tar.gz
+  tar -xf papi-5.3.0.tar.gz
+  cd papi-5.3.0/src
+  ./configure
+  make -j 4
+  cd ..
+fi
+
+cd papi-5.3.0/src
+make install
 cd ..
 
 
+# go back
+################
+cd ..
 
-# apt-get -y install build-essential wget bzip2 ccache cmake git liblog4cxx10 liblog4cxx10-dev libmysqlclient-dev libunwind8-dev libev-dev libtbb-dev libboost-all-dev libhwloc-dev binutils-dev libgoogle-perftools-dev  gfortran curl git
 
-# mkdir /tmp/.tmp
-# cd /tmp/.tmp
-# wget 
-# wget http://icl.cs.utk.edu/projects/papi/downloads/papi-5.3.0.tar.gz
-# wget http://glaros.dtc.umn.edu/gkhome/fetch/sw/metis/metis-5.1.0.tar.gz
-
-# tar 
-# tar -xf papi-5.3.0.tar.gz
-# tar -xf metis-5.1.0.tar.gz
-
-# cd libcsv-3.0.1
-# make install -j 4
-# cd ..
-
-# cd metis-5.1.0
-# make config
-# make -j 4
-# make install
-# cd ..
-
-# cd papi-5.3.0/src
-# ./configure
-# make -j 4
-# make install
-# cd ..
-# rm -rf /tmp/.tmp
 
 # debconf-set-selections <<< 'mysql-server mysql-server/root_password password somerootpass'
 # debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password somerootpass'
