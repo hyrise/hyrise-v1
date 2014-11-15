@@ -51,7 +51,7 @@ if [ ! -e papi-5.3.0 ]; then
   cd papi-5.3.0/src
   ./configure
   make -j 4
-  cd ..
+  cd ../..
 fi
 
 cd papi-5.3.0/src
