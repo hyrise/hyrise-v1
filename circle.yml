@@ -1,0 +1,16 @@
+
+
+dependencies:
+  pre:
+    - sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
+    - sudo apt-get install gcc-4.8 g++-4.8
+    - ./tools/install_ubuntu1310.sh
+
+checkout:
+  post:
+    - git submodule sync
+    - git submodule update --init
+
+test:
+  override:
+    - make test
