@@ -17,7 +17,7 @@ if [ ! -e libcsv-3.0.1 ]; then
   wget http://downloads.sourceforge.net/project/libcsv/libcsv/libcsv-3.0.1/libcsv-3.0.1.tar.gz
   tar -xf libcsv-3.0.1.tar.gz
   cd libcsv-3.0.1
-  make -j 4
+  make -j
   cd ..
 fi
 
@@ -34,7 +34,7 @@ if [ ! -e metis-5.1.0 ]; then
   tar -xf metis-5.1.0.tar.gz
   cd metis-5.1.0
   make config
-  make -j 4
+  make -j
   cd ..
 fi
 
@@ -50,7 +50,7 @@ if [ ! -e papi-5.3.0 ]; then
   tar -xf papi-5.3.0.tar.gz
   cd papi-5.3.0/src
   ./configure
-  make -j 4
+  make -j
   cd ../..
 fi
 
