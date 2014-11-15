@@ -1,6 +1,8 @@
 
 
 dependencies:
+  cache_directories:
+    - "~/cache" # relative to the user's home directory
   pre:
     - sudo bash ./tools/install_circleci.sh
     - sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y

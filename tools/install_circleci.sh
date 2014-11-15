@@ -2,6 +2,9 @@
 set -x
 set -e
 
+mkdir cache
+cd cache
+
 if [ ! -e libcsv-3.0.1 ]; then
   wget http://downloads.sourceforge.net/project/libcsv/libcsv/libcsv-3.0.1/libcsv-3.0.1.tar.gz
   tar -xf libcsv-3.0.1.tar.gz
@@ -14,7 +17,7 @@ cd libcsv-3.0.1
 make install
 cd ..
 
-
+cd ..
 
 
 # apt-get -y install build-essential wget bzip2 ccache cmake git liblog4cxx10 liblog4cxx10-dev libmysqlclient-dev libunwind8-dev libev-dev libtbb-dev libboost-all-dev libhwloc-dev binutils-dev libgoogle-perftools-dev  gfortran curl git
