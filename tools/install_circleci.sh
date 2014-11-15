@@ -2,7 +2,10 @@
 set -x
 set -e
 
-apt-get -y install build-essential wget bzip2 ccache cmake git liblog4cxx10 liblog4cxx10-dev libmysqlclient-dev libunwind8-dev libev-dev libtbb-dev libboost-all-dev libhwloc-dev binutils-dev libgoogle-perftools-dev  gfortran curl git
+
+apt-get -y install libboost-all-dev
+
+apt-get -y install build-essential wget bzip2 ccache cmake git liblog4cxx10 liblog4cxx10-dev libmysqlclient-dev libunwind8-dev libev-dev libtbb-dev libhwloc-dev binutils-dev libgoogle-perftools-dev  gfortran curl git
 
 mkdir -p dependencies
 cd dependencies
