@@ -2,7 +2,7 @@
 set -x
 set -e
 
-mkdir dependencies
+mkdir -p dependencies
 cd dependencies
 
 if [ ! -e libcsv-3.0.1 ]; then
