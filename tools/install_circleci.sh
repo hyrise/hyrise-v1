@@ -3,7 +3,7 @@ set -x
 set -e
 
 
-apt-get -y install libboost-filesystem1.54-dev libboost-program-options1.54-dev libboost-regex1.54-dev libboost-system1.54-dev 
+apt-get -y install libboost-filesystem1.54-dev libboost-program-options1.54-dev libboost-regex1.54-dev libboost-system1.54-dev libboost1.54-dev
 
 apt-get -y install build-essential wget bzip2 ccache cmake git liblog4cxx10 liblog4cxx10-dev libmysqlclient-dev libunwind8-dev libev-dev libtbb-dev libhwloc-dev binutils-dev libgoogle-perftools-dev  gfortran curl git
 
