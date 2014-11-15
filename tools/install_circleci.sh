@@ -2,13 +2,14 @@
 set -x
 set -e
 
-mkdir cache
-cd cache
+mkdir dependencies
+cd dependencies
 
 if [ ! -e libcsv-3.0.1 ]; then
   wget http://downloads.sourceforge.net/project/libcsv/libcsv/libcsv-3.0.1/libcsv-3.0.1.tar.gz
   tar -xf libcsv-3.0.1.tar.gz
   cd libcsv-3.0.1
+  echo pwd
   make -j 4
   cd ..
 fi
