@@ -3,6 +3,9 @@
 dependencies:
   cache_directories:
     - "dependencies"
+    - "~/.ccache"
+    - "build"
+    - ".build"
 
   pre:
     - sudo bash ./tools/install_circleci.sh
@@ -13,6 +16,8 @@ checkout:
   post:
     - git submodule sync
     - git submodule update --init
+    - cp makefiles/settings.default.mk settings.mk
+    - sed -i '4i WITH_MYSQL := 0' settings.mk
 
 test:
   override:
