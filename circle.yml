@@ -17,5 +17,5 @@ checkout:
     - cp ./makefiles/settings.default.mk ./settings.mk
 
 test:
-  - case $CIRCLE_NODE_INDEX in 0) make -j 2 ci_test ;; 1) sed -i 's/debug/release/g' settings.mk && make ci_test ;; esac:
+  - case $CIRCLE_NODE_INDEX in 0) BLD=release make -j 2 ci_test ;; 1) BLD=debug make ci_test ;; esac:
       parallel: true
