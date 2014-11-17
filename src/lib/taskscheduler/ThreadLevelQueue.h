@@ -121,7 +121,7 @@ class ThreadLevelQueue : public AbstractTaskScheduler,
             std::this_thread::yield();
         } else {
           std::unique_lock<lock_t> locker(_lockqueue);
-          if (_status != RUN)
+          if (_status == TO_STOP)
             break;
           _queuecheck.wait(locker);
           retries = 0;
