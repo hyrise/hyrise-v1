@@ -17,7 +17,5 @@ checkout:
     - cp ./makefiles/settings.default.mk ./settings.mk
 
 test:
-  pre:
-    - make -j 8
-  override:
-    - make ci_test
+  - case $CIRCLE_NODE_INDEX in 0) make -j 2 ci_test ;; 1) sed -i 's/debug/release/g' settings.mk && make ci_test ;; esac:
+      parallel: true
