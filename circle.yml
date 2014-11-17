@@ -3,8 +3,6 @@
 dependencies:
   cache_directories:
     - "~/hyrise/dependencies/"
-    - "~/hyrise/build/"
-    - "~/hyrise/.build/"
 
   pre:
     - sudo bash ./tools/install_circleci.sh
@@ -16,6 +14,7 @@ checkout:
     - git submodule sync
     - git submodule update --init
     - echo -e "export HYRISE_MYSQL_HOST ?= 127.0.0.1\nexport HYRISE_MYSQL_PORT ?= 3306\nexport HYRISE_MYSQL_USER ?= ubuntu\nexport HYRISE_MYSQL_PASS ?= \n" > mysql.mk
+    - cp ./makefiles/settings.default.mk ./settings.mk
 
 test:
   pre:
