@@ -31,10 +31,14 @@ class SQLStatementTransformer {
    */
   TransformationResult transformStatement(hsql::Statement* stmt, task_list_t& task_list);
 
+  /**
+   * Throws a runtime execption
+   * @param[in] msg   Message describing the error.
+   */
+  static inline void throwError(std::string msg) { throw std::runtime_error("Error when transforming SQL: " + msg); }
 
  protected:
   // Documentation for the protected methods can be found in the .cpp file
-
   TransformationResult transformCreateStatement(hsql::CreateStatement*, task_list_t&);
   TransformationResult transformSelectStatement(hsql::SelectStatement*, task_list_t&);
   TransformationResult transformGroupByClause(hsql::SelectStatement*, task_list_t&);
@@ -42,13 +46,6 @@ class SQLStatementTransformer {
   TransformationResult transformTableRef(hsql::TableRef*, task_list_t&);
   TransformationResult transformJoinTable(hsql::TableRef*, task_list_t&);
 
-  int identifyTableForColumnRef(hsql::Expr* col, TransformationResult t1, TransformationResult t2);
-
-  /**
-   * Throws a runtime execption
-   * @param[in] msg   Message describing the error.
-   */
-  inline void throwError(std::string msg) { throw std::runtime_error("Error when transforming SQL: " + msg); }
   
   /**
    * Returns the next ID for an operator
@@ -65,7 +62,6 @@ class SQLStatementTransformer {
   inline void appendPlanOp(std::shared_ptr<PlanOperation> task, std::string name, task_list_t& task_list) {
     task->setPlanOperationName(name);
     task->setOperatorId(nextTaskId() + " " + name);
-    // printf("Task added: %s\n", name.c_str());
     task_list.push_back(task);
   }
 
@@ -84,26 +80,26 @@ struct TransformationResult {
   task_t last_task;
 
   // Information about the table
-  int num_columns;
-  std::vector<std::string> column_names;
+  std::vector<std::string> fields;
   std::vector<DataType> data_types;
   std::string table_name;
 
-  inline void addField(std::string field) { column_names.push_back(field); num_columns = column_names.size(); }
+  inline void addField(std::string field) { fields.push_back(field); }
   inline void addField(std::string field, DataType type) { addField(field); data_types.push_back(type); }
-  inline bool containsField(std::string field) { return std::find(column_names.begin(), column_names.end(), field) != column_names.end(); }
+  inline bool containsField(std::string field) { return std::find(fields.begin(), fields.end(), field) != fields.end(); }
   inline bool isTable(std::string name) { return name.compare(table_name) == 0; }
+  inline size_t numColumns() { return fields.size(); }
 };
 
 // Zero initializes a Transformation Result struct without causing warnings
-#define ALLOC_TRANSFORMATIONRESULT() { NULL, NULL, 0, std::vector<std::string>(), std::vector<DataType>(), "" }
+#define ALLOC_TRANSFORMATIONRESULT() { NULL, NULL, std::vector<std::string>(), std::vector<DataType>(), "" }
+
+
+
+
 
 
 } // namespace sql
 } // namespace access
 } // namespace hyrise
-
-
-
-
 #endif

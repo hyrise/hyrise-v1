@@ -62,7 +62,7 @@ struct TableRef {
 	 * Convenience accessor methods
 	 */
 	inline bool hasSchema() { return schema != NULL; }
-
+	inline bool hasName() { return getName() != NULL; }
 	inline char* getName() {
 		if (alias != NULL) return alias;
 		else return name;
