@@ -1,0 +1,22 @@
+
+
+dependencies:
+  cache_directories:
+    - "~/hyrise/dependencies/"
+
+  pre:
+    - sudo bash ./tools/install_circleci.sh
+    - sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
+    - sudo apt-get install gcc-4.8 g++-4.8
+    
+checkout:
+  post:
+    - git submodule sync
+    - git submodule update --init
+    - echo -e "export HYRISE_MYSQL_HOST ?= 127.0.0.1\nexport HYRISE_MYSQL_PORT ?= 3306\nexport HYRISE_MYSQL_USER ?= ubuntu\nexport HYRISE_MYSQL_PASS ?= \n" > mysql.mk
+    - cp ./makefiles/settings.default.mk ./settings.mk
+
+test:
+  override:  
+    - case $CIRCLE_NODE_INDEX in 0) BLD=release make -j 2 ci_test ;; 1) BLD=debug make ci_test ;; esac:
+        parallel: true
