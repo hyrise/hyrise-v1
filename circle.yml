@@ -20,5 +20,7 @@ checkout:
     - sed -i '4i WITH_MYSQL := 0' settings.mk
 
 test:
+  pre:
+    - make -j 8
   override:
-    - make test -j 8
+    - make ci_test
