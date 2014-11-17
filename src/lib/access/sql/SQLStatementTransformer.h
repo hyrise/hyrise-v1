@@ -40,6 +40,7 @@ class SQLStatementTransformer {
   TransformationResult transformGroupByClause(hsql::SelectStatement*, task_list_t&);
   TransformationResult transformSelectionList(hsql::SelectStatement*, TransformationResult info, task_list_t&);
   TransformationResult transformTableRef(hsql::TableRef*, task_list_t&);
+  TransformationResult transformJoinTable(hsql::TableRef*, task_list_t&);
 
   /**
    * Throws a runtime execption
@@ -62,6 +63,7 @@ class SQLStatementTransformer {
   inline void appendPlanOp(std::shared_ptr<PlanOperation> task, std::string name, task_list_t& task_list) {
     task->setPlanOperationName(name);
     task->setOperatorId(nextTaskId() + " " + name);
+    // printf("Task added: %s\n", name.c_str());
     task_list.push_back(task);
   }
 

@@ -14,6 +14,7 @@
 #include "access/HashBuild.h"
 #include "access/SimpleTableScan.h"
 #include "access/UnionScan.h"
+#include "access/JoinScan.h"
 #include "access/ProjectionScan.h"
 #include "access/GroupByScan.h"
 #include "access/NoOp.h"
@@ -320,7 +321,7 @@ TransformationResult SQLStatementTransformer::transformTableRef(TableRef* table_
     case kTableSelect:
       return transformSelectStatement(table_ref->select, task_list);
     case kTableJoin:
-      throwError("Join table not supported yet");
+      return transformJoinTable(table_ref, task_list);
     case kTableCrossProduct:
       throwError("Cross table not supported yet");
   }
@@ -328,6 +329,38 @@ TransformationResult SQLStatementTransformer::transformTableRef(TableRef* table_
 }
 
 
+TransformationResult SQLStatementTransformer::transformJoinTable(TableRef* table_ref, task_list_t& task_list) {
+  TransformationResult left_res = transformTableRef(table_ref->left, task_list);
+  TransformationResult right_res = transformTableRef(table_ref->right, task_list);
+  TransformationResult res = ALLOC_TRANSFORMATIONRESULT();
+  
+  // join_type is not in use atm, only equi join is supported
+  auto scan = std::make_shared<JoinScan>(JoinType::EQUI);
+  Expr* join_condition = table_ref->join_condition;
+
+  // TODO: allow compound expressions
+  if (join_condition->op_type == Expr::SIMPLE_OP && join_condition->op_char == '=') {
+    // TODO: detect aliases for left and right
+    // TODO: Fail check for subexpressions
+    Json::Value pred;
+    pred["input_left"] = 0;
+    pred["input_right"] = 1;
+    pred["field_left"] = join_condition->expr->name;
+    pred["field_right"] = join_condition->expr2->name;
+    scan->addJoinClause<int>(pred);
+  } else {
+    throwError("Join condition not supported yet");
+  }
+
+  scan->addDependency(left_res.last_task);
+  scan->addDependency(right_res.last_task);
+  appendPlanOp(scan, "ScanJoin", task_list);
+  res.first_task = left_res.first_task;
+  // TODO: add both column_names vectors here
+  res.column_names = left_res.column_names;
+  res.last_task = scan;
+  return res;
+}
 
 
 SQLStatementTransformer::SQLStatementTransformer(std::string id_prefix) : id_prefix(id_prefix) {
