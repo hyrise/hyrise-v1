@@ -2,6 +2,7 @@
 
 #include "access/sql/SQLStatementTransformer.h"
 #include "access/sql/predicate_helper.h"
+#include "access/sql/transformation_helper.h"
 #include "access/sql/parser/sqlhelper.h"
 
 #include "io/StorageManager.h"
@@ -14,6 +15,7 @@
 #include "access/HashBuild.h"
 #include "access/SimpleTableScan.h"
 #include "access/UnionScan.h"
+#include "access/JoinScan.h"
 #include "access/ProjectionScan.h"
 #include "access/GroupByScan.h"
 #include "access/NoOp.h"
@@ -24,22 +26,6 @@ namespace hyrise {
 namespace access {
 namespace sql {
 
-#define LOG_META(meta) for (int i = 0; i < meta.num_columns; ++i) printf("%s ", meta.column_names[i].c_str()); printf("\n");
-
-namespace { log4cxx::LoggerPtr _logger(log4cxx::Logger::getLogger("hyrise.access")); }
-
-/** 
- * buildFunctionRefColumnName
- *
- *
- */
-std::string buildFunctionRefColumnName(Expr* func_ref) {
-  std::string column_name = std::string(func_ref->name) + "(" + std::string(func_ref->expr->name) + ")";
-  return column_name;
-}
-
-
-
 /** 
  * transformStatement
  *
@@ -47,7 +33,7 @@ std::string buildFunctionRefColumnName(Expr* func_ref) {
  */
 TransformationResult SQLStatementTransformer::transformStatement(Statement* stmt, task_list_t& task_list) {
   switch (stmt->type) {
-    case kStmtSelect: return transformSelectStatement((SelectStatement*)stmt, task_list);
+    case kStmtSelect: printSelectStatementInfo((SelectStatement*)stmt, 0); return transformSelectStatement((SelectStatement*)stmt, task_list);
     case kStmtCreate: return transformCreateStatement((CreateStatement*)stmt, task_list);
     default: throwError("Unsupported statement type!\n");
   }
@@ -86,7 +72,6 @@ TransformationResult SQLStatementTransformer::transformCreateStatement(CreateSta
  *
  */
 TransformationResult SQLStatementTransformer::transformSelectStatement(SelectStatement* stmt, task_list_t& task_list) {
-  printSelectStatementInfo(stmt, 0);
   TransformationResult meta = ALLOC_TRANSFORMATIONRESULT();
 
   // SQL Order of Operations: http://www.bennadel.com/blog/70-sql-query-order-of-operations.htm
@@ -121,22 +106,16 @@ TransformationResult SQLStatementTransformer::transformSelectStatement(SelectSta
   // GROUP BY clause
   if (stmt->group_by != nullptr) {
     TransformationResult group_res = transformGroupByClause(stmt, task_list);
-    meta.num_columns = group_res.num_columns;
-    meta.column_names = group_res.column_names;
+    meta.fields = group_res.fields;
     meta.data_types = group_res.data_types;
     meta.last_task = group_res.last_task;
   }
 
   // SELECT clause
-  // If there is only SELECT * specified we usually don't have to do a projection
-  // but since a union also requires a produced position list, we remove the condition here for now
-  // to make sure that positions have been produced
-  // TODO: fix
+  // If there is only SELECT * specified we don't have to do a projection
   if (stmt->select_list->at(0)->type != kExprStar || stmt->select_list->size() > 1) {
-  // if (true) {
     TransformationResult res = transformSelectionList(stmt, meta, task_list);
-    meta.num_columns = res.num_columns;
-    meta.column_names = res.column_names;
+    meta.fields = res.fields;
     meta.data_types = res.data_types;
     meta.last_task = res.last_task;
   }
@@ -148,33 +127,28 @@ TransformationResult SQLStatementTransformer::transformSelectStatement(SelectSta
 
   // LIMIT clause
   if (stmt->limit != nullptr) {
-    // Projection Scan is the only op I found that supports limit
+    // Projection Scan is the only op I could find that supports limit
     // Problem: Offset not supported by operator
     if (stmt->limit->offset != kNoOffset) throwError("Offset not supported yet");
     
     std::shared_ptr<ProjectionScan> scan = std::make_shared<ProjectionScan>();
-    for (std::string column : meta.column_names) scan->addField(column);
+    for (std::string column : meta.fields) scan->addField(column);
     scan->setLimit(stmt->limit->limit);
     scan->addDependency(meta.last_task);
     appendPlanOp(scan, "LimitScan", task_list);
     meta.last_task = scan;
   }
 
-
   // UNION
-  // Problem: UnionScan can only work on the same table, if positions have been produced
+  // Problem: UnionScan can only work on the same table and only if positions have been produced
   if (stmt->union_select != nullptr) {
     TransformationResult t_res = transformSelectStatement(stmt->union_select, task_list);
-
     std::shared_ptr<UnionScan> scan = std::make_shared<UnionScan>();
     scan->addDependency(meta.last_task);
     scan->addDependency(t_res.last_task);
     appendPlanOp(scan, "UnionScan", task_list);
     meta.last_task = scan;
   }
-
-  // Expected result
-  // LOG_META(meta);
 
   return meta;
 }
@@ -266,9 +240,9 @@ TransformationResult SQLStatementTransformer::transformSelectionList(hsql::Selec
         break;
       case kExprStar:
         // This can only work if there is meta information available about the table
-        for (int i = 0; i < info.num_columns; ++i) {
-          scan->addField(info.column_names[i]);
-          res.addField(info.column_names[i]);
+        for (size_t i = 0; i < info.numColumns(); ++i) {
+          scan->addField(info.fields[i]);
+          res.addField(info.fields[i]);
         }
         break;
       case kExprFunctionRef: {
@@ -310,24 +284,81 @@ TransformationResult SQLStatementTransformer::transformTableRef(TableRef* table_
       // because the parsing and transformation of subsequent statements will be done before it is actually loaded.
       if (io::StorageManager::getInstance()->exists(table_ref->name)) {
         std::shared_ptr<storage::AbstractTable> table = io::StorageManager::getInstance()->getTable(table_ref->name);
-        meta.num_columns = table->columnCount();
         for (field_t i = 0; i != table->columnCount(); ++i) {
           meta.addField(table->metadataAt(i).getName(), table->metadataAt(i).getType());
         }
       }
-      return meta;
+      break;
     }
     case kTableSelect:
-      return transformSelectStatement(table_ref->select, task_list);
+      meta = transformSelectStatement(table_ref->select, task_list);
+      break;
     case kTableJoin:
-      throwError("Join table not supported yet");
+      meta = transformJoinTable(table_ref, task_list);
+      break;
     case kTableCrossProduct:
       throwError("Cross table not supported yet");
   }
+  
+  if (table_ref->getName() != NULL) meta.table_name = table_ref->getName();
+  LOG_META(meta);
   return meta;
 }
 
 
+
+TransformationResult SQLStatementTransformer::transformJoinTable(TableRef* table_ref, task_list_t& task_list) {
+  TransformationResult left = transformTableRef(table_ref->left, task_list);
+  TransformationResult right = transformTableRef(table_ref->right, task_list);
+  TransformationResult res = ALLOC_TRANSFORMATIONRESULT();
+  
+  // join_type is not in use atm, only equi join is supported
+  auto scan = std::make_shared<JoinScan>(JoinType::EQUI);
+  Expr* join_condition = table_ref->join_condition;
+
+  // TODO: allow compound expressions
+  if (join_condition->op_type == Expr::SIMPLE_OP && join_condition->op_char == '=') {
+    if (join_condition->expr->type != kExprColumnRef || 
+        join_condition->expr2->type != kExprColumnRef) {
+      throwError("Join condition operator contains unsupported sub-expressions");
+    }
+
+    // Detect referenced fields
+    int tid1 = identifyTableForColumnRef(join_condition->expr, left, right);
+    int tid2 = identifyTableForColumnRef(join_condition->expr2, left, right);
+
+    if (tid1 == -1 || tid2 == -1) {
+      throwError("Column in join condition found in both tables. Can't be matched securely");
+    } else if (tid1 == -2 || tid2 == -2) {
+      throwError("Column in join condition can't be found in tables");
+    } else if (tid1 == tid2) {
+      throwError("Columns in join condition can't be from the same table");
+    }
+
+    Json::Value pred;
+    pred["input_left"] = 0;
+    pred["input_right"] = 1;
+    if (tid1 == 0) {
+      pred["field_left"] = join_condition->expr->name;  
+      pred["field_right"] = join_condition->expr2->name;
+    } else {
+      pred["field_left"] = join_condition->expr2->name;  
+      pred["field_right"] = join_condition->expr->name;
+    }
+    
+    scan->addJoinClause<int>(pred);
+  } else {
+    throwError("Expression in join condition not supported yet");
+  }
+
+  scan->addDependency(left.last_task);
+  scan->addDependency(right.last_task);
+  appendPlanOp(scan, "ScanJoin", task_list);
+  res.first_task = left.first_task;
+  res.fields = combineVectors<std::string>(left.fields, right.fields);
+  res.last_task = scan;
+  return res;
+}
 
 
 SQLStatementTransformer::SQLStatementTransformer(std::string id_prefix) : id_prefix(id_prefix) {
