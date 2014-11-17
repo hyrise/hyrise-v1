@@ -3,9 +3,9 @@
 #ifndef SRC_LIB_ACCESS_SQL_SQLSTATEMENTTRANSFORMER_H_
 #define SRC_LIB_ACCESS_SQL_SQLSTATEMENTTRANSFORMER_H_
 
+#include <algorithm>
 
 #include "access/sql/SQLQueryParser.h"
-
 
 namespace hyrise {
 namespace access {
@@ -41,6 +41,8 @@ class SQLStatementTransformer {
   TransformationResult transformSelectionList(hsql::SelectStatement*, TransformationResult info, task_list_t&);
   TransformationResult transformTableRef(hsql::TableRef*, task_list_t&);
   TransformationResult transformJoinTable(hsql::TableRef*, task_list_t&);
+
+  int identifyTableForColumnRef(hsql::Expr* col, TransformationResult t1, TransformationResult t2);
 
   /**
    * Throws a runtime execption
@@ -85,13 +87,16 @@ struct TransformationResult {
   int num_columns;
   std::vector<std::string> column_names;
   std::vector<DataType> data_types;
+  std::string table_name;
 
   inline void addField(std::string field) { column_names.push_back(field); num_columns = column_names.size(); }
   inline void addField(std::string field, DataType type) { addField(field); data_types.push_back(type); }
+  inline bool containsField(std::string field) { return std::find(column_names.begin(), column_names.end(), field) != column_names.end(); }
+  inline bool isTable(std::string name) { return name.compare(table_name) == 0; }
 };
 
 // Zero initializes a Transformation Result struct without causing warnings
-#define ALLOC_TRANSFORMATIONRESULT() { NULL, NULL, 0, std::vector<std::string>(), std::vector<DataType>() }
+#define ALLOC_TRANSFORMATIONRESULT() { NULL, NULL, 0, std::vector<std::string>(), std::vector<DataType>(), "" }
 
 
 } // namespace sql

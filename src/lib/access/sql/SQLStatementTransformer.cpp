@@ -316,16 +316,37 @@ TransformationResult SQLStatementTransformer::transformTableRef(TableRef* table_
           meta.addField(table->metadataAt(i).getName(), table->metadataAt(i).getType());
         }
       }
-      return meta;
+      break;
     }
     case kTableSelect:
-      return transformSelectStatement(table_ref->select, task_list);
+      meta = transformSelectStatement(table_ref->select, task_list);
+      break;
     case kTableJoin:
-      return transformJoinTable(table_ref, task_list);
+      meta = transformJoinTable(table_ref, task_list);
+      break;
     case kTableCrossProduct:
       throwError("Cross table not supported yet");
   }
+  
+  if (table_ref->getName() != NULL) meta.table_name = table_ref->getName();
   return meta;
+}
+
+
+int SQLStatementTransformer::identifyTableForColumnRef(Expr* col, TransformationResult t1, TransformationResult t2) {
+  if (col->hasTable()) {
+    // printf("%s %s %s\n", col->table, t1.table_name.c_str(), t2.table_name.c_str());
+    if (t1.isTable(col->table)) return 0;
+    if (t2.isTable(col->table)) return 1;
+    else throwError("Can't find table referenced in column");
+  } 
+
+  bool inT1 = t1.containsField(col->name);
+  bool inT2 = t2.containsField(col->name);
+  if (inT1 && inT2) return -1; // In both tables
+  if (inT1) return 0;
+  if (inT2) return 1;
+  return -2; // In neither table
 }
 
 
@@ -340,16 +361,38 @@ TransformationResult SQLStatementTransformer::transformJoinTable(TableRef* table
 
   // TODO: allow compound expressions
   if (join_condition->op_type == Expr::SIMPLE_OP && join_condition->op_char == '=') {
-    // TODO: detect aliases for left and right
-    // TODO: Fail check for subexpressions
+    if (join_condition->expr->type != kExprColumnRef || 
+        join_condition->expr2->type != kExprColumnRef) {
+      throwError("Join condition operator contains unsupported sub-expressions");
+    }
+
+    // Detect referenced fields
+    int tid1 = identifyTableForColumnRef(join_condition->expr, left_res, right_res);
+    int tid2 = identifyTableForColumnRef(join_condition->expr2, left_res, right_res);
+
+    if (tid1 == -1 || tid2 == -1) {
+      throwError("Column in join condition found in both tables. Can't be matched securely");
+    } else if (tid1 == -2 || tid2 == -2) {
+      throwError("Column in join condition can't be found in tables");
+    } else if (tid1 == tid2) {
+      throwError("Columns in join condition can't be from the same table");
+    }
+
+    printf("%d %s:::%d %s\n", tid1, join_condition->expr->name, tid2, join_condition->expr2->name);
     Json::Value pred;
     pred["input_left"] = 0;
     pred["input_right"] = 1;
-    pred["field_left"] = join_condition->expr->name;
-    pred["field_right"] = join_condition->expr2->name;
+    if (tid1 == 0) {
+      pred["field_left"] = join_condition->expr->name;  
+      pred["field_right"] = join_condition->expr2->name;
+    } else {
+      pred["field_left"] = join_condition->expr2->name;  
+      pred["field_right"] = join_condition->expr->name;
+    }
+    
     scan->addJoinClause<int>(pred);
   } else {
-    throwError("Join condition not supported yet");
+    throwError("Expression in join condition not supported yet");
   }
 
   scan->addDependency(left_res.last_task);
