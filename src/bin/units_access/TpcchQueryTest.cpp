@@ -15,7 +15,7 @@ class TpcchQueryTest : public ::testing::TestWithParam<const char*> {
     std::string numberString(GetParam());
 
     // load input tables
-    executeAndWait(loadFromFile("test/tpcc/load_tpcc_tables.json"));
+    executeJsonAndWait(loadFromFile("test/tpcc/load_tpcc_tables.json"));
 
     // load expected output table
     hyrise::io::StorageManager* sm = hyrise::io::StorageManager::getInstance();
@@ -33,7 +33,7 @@ class TpcchQueryTest : public ::testing::TestWithParam<const char*> {
 };
 
 TEST_P(TpcchQueryTest, query_execute_test) {
-  const auto& out = executeAndWait(this->query);
+  const auto& out = executeJsonAndWait(this->query);
 
   ASSERT_TRUE(out != nullptr);
 

@@ -80,7 +80,7 @@ TEST_F(LayouterOpsTest, simple_parse_json) {
 
 TEST_F(LayouterOpsTest, parse_full_scenario) {
   std::string data = loadFromFile("test/json/simple_layouter.json");
-  const auto& e = executeAndWait(data);
+  const auto& e = executeJsonAndWait(data);
   std::string header = loadFromFile("test/header/layouter_simple.tbl");
 
   ASSERT_EQ(e->getValue<std::string>(0, 0), header);
@@ -88,7 +88,7 @@ TEST_F(LayouterOpsTest, parse_full_scenario) {
 
 TEST_F(LayouterOpsTest, parse_full_scenario_candidate) {
   std::string data = loadFromFile("test/json/simple_layouter_candidate.json");
-  const auto& e = executeAndWait(data);
+  const auto& e = executeJsonAndWait(data);
   std::string header = loadFromFile("test/header/layouter_simple_cand.tbl");
 
   ASSERT_EQ(e->getValue<std::string>(0, 0), header);
@@ -121,7 +121,7 @@ TEST_F(LayouterOpsTest, layouting_table_op_reordering) {
 
 TEST_F(LayouterOpsTest, load_layout_replace) {
   std::string data = loadFromFile("test/json/load_layout_replace.json");
-  const auto& e = executeAndWait(data);
+  const auto& e = executeJsonAndWait(data);
   ASSERT_EQ(e->partitionCount(), 3u);
   ASSERT_EQ(3u, io::StorageManager::getInstance()->getTable("revenue")->partitionCount());
 }

@@ -1,0 +1,26 @@
+/*
+ Files in this directory with the ending .json will be
+ run and evaluated by src/bin/access/autosql.cpp.
+ Queries in the "test"-field of this json object will be evaluated
+ against the query specified in the "reference"-field.
+
+ "prepare" defines a SQL statement that will be run before "test".
+ This should be used to load tables ahead of SQL queries that use those tables. 
+
+ "test" is expected to be an SQL string, that will be executed
+
+ "reference" can be either a SQL string or a JSON-query, which
+ will be executed and compared with the result of "test"
+ */
+{
+    "prepare": "CREATE TABLE students FROM TBL FILE 'students.tbl';",
+    "test": "SELECT * FROM students",
+    "reference": {
+    	"operators": {
+	        "0": {
+	            "type": "TableLoad",
+	            "filename": "students.tbl"
+	        }
+    	}
+    }
+}

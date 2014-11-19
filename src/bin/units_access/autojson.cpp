@@ -53,7 +53,7 @@ TEST_P(AutoJsonTest, Query) {
 
   hyrise::storage::c_atable_ptr_t out;
   try {
-    out = executeAndWait(q);
+    out = executeJsonAndWait(q);
   }
   catch (const std::runtime_error& e) {
     if (!has_xfail) {

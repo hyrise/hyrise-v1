@@ -204,13 +204,25 @@ class MockedConnection : public net::AbstractConnection {
 
 tx::TXContext getNewTXContext() { return tx::TransactionManager::beginTransaction(); }
 
+
 /**
  * This function is used to simulate the execution of plan operations
  * using the threadpool. The input to this function is a JSON std::string
  * that will be parsed and the necessary plan operations will be
  * instantiated.
  */
-storage::c_atable_ptr_t executeAndWait(std::string httpQuery,
+storage::c_atable_ptr_t executeSQLAndWait(std::string query) {
+  std::string httpQuery = "sql=" + urlencode(query);
+  return executeHttpQueryAndWait(httpQuery);
+}
+
+storage::c_atable_ptr_t executeJsonAndWait(std::string jsonString, size_t poolSize,
+                                           std::string* evt, tx::transaction_id_t tid) {
+  std::string httpQuery = "query=" + jsonString;
+  return executeHttpQueryAndWait(httpQuery, poolSize, evt, tid);
+}
+
+storage::c_atable_ptr_t executeHttpQueryAndWait(std::string httpQuery,
                                        size_t poolSize,
                                        std::string* evt,
                                        tx::transaction_id_t tid) {
@@ -218,7 +230,7 @@ storage::c_atable_ptr_t executeAndWait(std::string httpQuery,
   using namespace hyrise::access;
 
 
-  std::unique_ptr<MockedConnection> conn(new MockedConnection("performance=true&query=" + httpQuery));
+  std::unique_ptr<MockedConnection> conn(new MockedConnection("performance=true&" + httpQuery));
 
   taskscheduler::SharedScheduler::getInstance().resetScheduler("CentralScheduler", poolSize);
   const auto& scheduler = taskscheduler::SharedScheduler::getInstance().getScheduler();
@@ -270,5 +282,6 @@ std::string executeStoredProcedureAndWait(std::string storedProcedureName, std::
 
   return conn->getResponse();
 }
+
 }
 }  // namespace hyrise::access

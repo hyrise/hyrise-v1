@@ -158,7 +158,7 @@ TEST_F(JSONTests, parse_papi_event_set) {
   std::string q = loadFromFile("test/json/simple_query_with_papi.json");
 
   std::string papi;
-  const auto& out = executeAndWait(q, 1, &papi);
+  const auto& out = executeJsonAndWait(q, 1, &papi);
 
   ASSERT_FALSE(!out);
   ASSERT_TABLE_EQUAL(out, io::StorageManager::getInstance()->getTable("lin_xxs_comp"));
@@ -173,7 +173,7 @@ TEST_F(JSONTests, parse_papi_badevent_set) {
   std::string q = loadFromFile("test/json/simple_query_with_papi_bad.json");
 
   std::string papi;
-  ASSERT_THROW({ executeAndWait(q, 1, &papi); }, std::runtime_error);
+  ASSERT_THROW({ executeJsonAndWait(q, 1, &papi); }, std::runtime_error);
 }
 #endif
 
@@ -184,7 +184,7 @@ TEST_F(JSONTests, parse_papi_event_not_set) {
   std::string q = loadFromFile("test/json/simple_query.json");
 
   std::string papi;
-  const auto& out = executeAndWait(q, 1, &papi);
+  const auto& out = executeJsonAndWait(q, 1, &papi);
 
   ASSERT_FALSE(!out);
   ASSERT_TABLE_EQUAL(out, io::StorageManager::getInstance()->getTable("lin_xxs_comp"));
@@ -243,7 +243,7 @@ TEST_F(JSONTests, simple_query_parser) {
 
   std::string q = loadFromFile("test/json/simple_query.json");
 
-  const auto& out = executeAndWait(q);
+  const auto& out = executeJsonAndWait(q);
 
   ASSERT_FALSE(!out);
 
@@ -256,7 +256,7 @@ TEST_F(JSONTests, simple_query_with_names_parser) {
 
   std::string q = loadFromFile("test/json/simple_query_with_names.json");
 
-  const auto& out = executeAndWait(q);
+  const auto& out = executeJsonAndWait(q);
 
   ASSERT_FALSE(!out);
 
@@ -270,7 +270,7 @@ TEST_F(JSONTests, DISABLED_group_by_parser) {
 
   std::string q = loadFromFile("test/json/group_by_query.json");
 
-  const auto& out = executeAndWait(q);
+  const auto& out = executeJsonAndWait(q);
 
   ASSERT_FALSE(!out);
 
@@ -284,7 +284,7 @@ TEST_F(JSONTests, complex_query_parser) {
 
   std::string q = loadFromFile("test/json/complex_query.json");
 
-  const auto& out = executeAndWait(q);
+  const auto& out = executeJsonAndWait(q);
 
   ASSERT_FALSE(!out);
 
@@ -296,7 +296,7 @@ TEST_F(JSONTests, edges_query_parser) {
 
 
   std::string query = loadFromFile("test/json/edges_query.json");
-  const auto& result = executeAndWait(query);
+  const auto& result = executeJsonAndWait(query);
   ASSERT_FALSE(!result);
   ASSERT_TABLE_EQUAL(result, io::StorageManager::getInstance()->getTable("reference"));
 }
@@ -306,7 +306,7 @@ TEST_F(JSONTests, parallel_query_positions_parser) {
   // std::string query = loadFromFile("test/json/parallel_query_positions.json");
   std::string query = loadFromFile("test/json/parallel_stc_with_join.json");
 
-  const auto& result = executeAndWait(query, 4);
+  const auto& result = executeJsonAndWait(query, 4);
   ASSERT_FALSE(!result);
 
   // ASSERT_TABLE_EQUAL(result, StorageManager::getInstance()->getTable("reference"));
@@ -316,7 +316,7 @@ TEST_F(JSONTests, parallel_query_materializing_parser) {
   io::StorageManager::getInstance()->loadTableFile("reference", "edges_ref.tbl");
   std::string query = loadFromFile("test/json/parallel_query_materializing.json");
 
-  const auto& result = executeAndWait(query, 4);
+  const auto& result = executeJsonAndWait(query, 4);
   ASSERT_FALSE(!result);
 
   ASSERT_TABLE_EQUAL(result, io::StorageManager::getInstance()->getTable("reference"));

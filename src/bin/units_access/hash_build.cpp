@@ -127,12 +127,12 @@ TEST_F(HashBuildTest, merge_two_tables_test) {
 /*
 TEST_F(HashBuildTest, performance_test) {
   // reference hash Table
-  executeAndWait(loadFromFile("big_build.json"));
+  executeJsonAndWait(loadFromFile("big_build.json"));
   ProfilerStart("/home/jwust/bigbuild.prof");
-  executeAndWait(loadFromFile("big_build.json"));
+  executeJsonAndWait(loadFromFile("big_build.json"));
   ProfilerStop();
   ProfilerStart("/home/jwust/bigbuild_p.prof");
-  executeAndWait(loadFromFile("big_build_p.json"));
+  executeJsonAndWait(loadFromFile("big_build_p.json"));
   ProfilerStop();
 }*/
 }
