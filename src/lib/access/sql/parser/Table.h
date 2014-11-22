@@ -2,9 +2,12 @@
 #define __TABLEREF_H__
 
 #include <stdio.h>
+
 namespace hsql {
 
-class SelectStatement;
+struct SelectStatement;
+struct JoinDefinition;
+struct TableRef;
 
 /**
  * TableRef
@@ -18,45 +21,74 @@ typedef enum {
 } TableRefType;
 
 
-typedef enum {
-	kJoinInner,
-	kJoinOuter,
-	kJoinLeft,
-	kJoinRight
-} JoinType;
 
-
-typedef struct TableRef TableRef;
 
 struct TableRef {
 	TableRef(TableRefType type) :
 		type(type),
+		schema(NULL),
 		name(NULL),
 		alias(NULL),
 		select(NULL),
 		list(NULL),
-		left(NULL),
-		right(NULL),
-		join_condition(NULL) {}
+		join(NULL) {}
 		
 	virtual ~TableRef(); // defined in destructors.cpp
 
 	TableRefType type;
 
+	char* schema;
 	char* name;
 	char* alias;
 
 	SelectStatement* select;
 	List<TableRef*>* list;
+	JoinDefinition* join;
 
-	// Join memberbs
-	TableRef* left;
-	TableRef* right;
-	JoinType join_type;
-	Expr* join_condition;
+
+	/**
+	 * Convenience accessor methods
+	 */
+	inline bool hasSchema() { return schema != NULL; }
+
+	inline char* getName() {
+		if (alias != NULL) return alias;
+		else return name;
+	}
 };
 
 
-} // namespace hsql
+/**
+ * Following are definitions needed to specify join tables
+ */ 
 
+typedef enum {
+	kJoinInner,
+	kJoinOuter,
+	kJoinLeft,
+	kJoinRight,
+} JoinType;
+
+/**
+ * Definition of a join table
+ */
+struct JoinDefinition {
+	JoinDefinition() :
+		left(NULL),
+		right(NULL),
+		condition(NULL),
+		type(kJoinInner) {}
+
+	virtual ~JoinDefinition(); // defined in destructors.cpp
+
+	TableRef* left;
+	TableRef* right;
+	Expr* condition;
+
+	JoinType type;
+};
+
+
+
+} // namespace hsql
 #endif
