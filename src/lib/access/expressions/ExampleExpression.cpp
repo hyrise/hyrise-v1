@@ -19,14 +19,12 @@ ExampleExpression::ExampleExpression(const size_t& column, const hyrise_int_t& v
 
 inline bool ExampleExpression::operator()(const size_t& row) { return _vector->getRef(_column, row) == _valueid; }
 
-pos_list_t* ExampleExpression::match(const size_t start, const size_t stop) {
-  auto pl = new pos_list_t;
+void ExampleExpression::match(storage::pos_list_t* pl, const size_t start, const size_t stop) {
   for (size_t row = start; row < stop; ++row) {
     if (this->ExampleExpression::operator()(row)) {
       pl->push_back(row);
     }
   }
-  return pl;
 }
 
 void ExampleExpression::walk(const std::vector<storage::c_atable_ptr_t>& tables) {

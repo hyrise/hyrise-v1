@@ -13,7 +13,7 @@ class AbstractExpression {
  public:
   virtual ~AbstractExpression() {}
   virtual void walk(const std::vector<storage::c_atable_ptr_t>& l) = 0;
-  virtual storage::pos_list_t* match(const size_t start, const size_t stop) = 0;
+  virtual void match(storage::pos_list_t* pl, const size_t start, const size_t stop) = 0;
   virtual std::unique_ptr<AbstractExpression> clone() {
     throw std::runtime_error("Cannot clone base class; implement in derived");
   }

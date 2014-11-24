@@ -21,7 +21,7 @@ namespace access {
 class SpyObserver : public PlanOperation, public PipelineObserver<SpyObserver> {
 
  public:
-  virtual planop_ptr_t copy() override {
+  virtual std::shared_ptr<AbstractPipelineObserver> clone() override {
     auto copy = std::make_shared<SpyObserver>();
     _copies([&copy](std::set<planop_ptr_t>& copies) { copies.insert(copy); });
     return copy;

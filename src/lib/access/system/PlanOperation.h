@@ -99,8 +99,6 @@ class PlanOperation : public OutputTask {
 
   void disablePapiTrace();
 
-  virtual std::shared_ptr<PlanOperation> copy() { throw std::runtime_error("Copy not implemented for this operator"); }
-
   virtual void operator()() noexcept;
   virtual const std::string vname();
   virtual const PlanOperation* execute();

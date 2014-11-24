@@ -38,8 +38,7 @@ class PCScan_F1_OP_TYPE : public AbstractExpression {
   const pos_list_t* _tab_pos_list = nullptr;
 
  public:
-  virtual pos_list_t* match(const size_t start, const size_t stop) {
-    auto pl = new pos_list_t;
+  virtual void match(storage::pos_list_t* pl, const size_t start, const size_t stop) {
     auto size = _tab_pos_list->size();
     auto lower = start;
     auto upper = size > stop ? stop : size;
@@ -49,7 +48,6 @@ class PCScan_F1_OP_TYPE : public AbstractExpression {
       if (op(_table->getValue<hyrise_int_t>(_f0, curr_pos), _v0))
         pl->push_back(r);
     }
-    return pl;
   }
 
   virtual void walk(const std::vector<hyrise::storage::c_atable_ptr_t>& l) {

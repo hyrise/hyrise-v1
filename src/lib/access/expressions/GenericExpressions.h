@@ -87,6 +87,7 @@ DEFINE_EXPRESSION_CLASS(Store_FLV_F1_EQ_INT_AND_F2_EQ_INT_AND_F3_EQ_INT_AND_F4_G
 #define STORE_ONE_FIELD_SEQ ((f1)(hyrise_int_t)(== )(asUInt64))
 DEFINE_EXPRESSION_CLASS(Store_FLV_F1_EQ_INT, STORE_ONE_FIELD_SEQ, ());
 DEFINE_EXPRESSION_CLASS(Store_FLV_F1_EQ_STRING, ((f1)(hyrise_string_t)(== )(asString)), ());
+DEFINE_EXPRESSION_CLASS(Store_FLV_F1_LTEQ_INT, ((f1)(hyrise_int_t)(>= )(asUInt64)), ());
 DEFINE_EXPRESSION_CLASS(Store_FLV_F1_EQ_STRING_OR_F2_NEQ_FLOAT,
                         ((f1)(hyrise_string_t)(== )(asString))((f2)(hyrise_float_t)(!= )(asFloat)),
                         ()(|| ));

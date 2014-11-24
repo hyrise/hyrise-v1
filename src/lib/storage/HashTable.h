@@ -14,6 +14,8 @@
 #include "storage/AbstractHashTable.h"
 #include "storage/AbstractTable.h"
 #include "storage/storage_types.h"
+#include "storage/PointerCalculator.h"
+#include "storage/TableRangeView.h"
 
 namespace hyrise {
 namespace storage {
@@ -155,6 +157,15 @@ class HashTable : public AbstractHashTable, public std::enable_shared_from_this<
   mutable std::atomic<bool> _dirty;
 
  private:
+  void setTable(c_atable_ptr_t table) {
+#ifdef EXPENSIVE_ASSERTIONS
+    if (_table) {
+      assert(_table == table);
+    }
+#endif
+    _table = table;
+  }
+
   // populates map with values
   inline void populate_map(size_t row_offset = 0) {
     _dirty = true;
@@ -163,6 +174,10 @@ class HashTable : public AbstractHashTable, public std::enable_shared_from_this<
     for (pos_t row = 0; row < tableSize; ++row) {
       key_t key = MAP::hasher::getGroupKey(_table, _fields, fieldSize, row);
       _map.insert(typename map_t::value_type(key, row + row_offset));
+    }
+    // Unwrap table range view since absolute positions will be saved anyway
+    if (const auto& trv = std::dynamic_pointer_cast<const TableRangeView>(_table)) {
+      _table = trv->getActualTable();
     }
   }
 
@@ -185,7 +200,21 @@ class HashTable : public AbstractHashTable, public std::enable_shared_from_this<
     _dirty = true;
     for (auto& nextElement : hashTables) {
       const auto& ht = checked_pointer_cast<const HashTable<MAP, KEY>>(nextElement);
-      _map.insert(ht->getMapBegin(), ht->getMapEnd());
+      // unpack pointer calculator to find common denominator of all hash tables
+      // At the moment, only used in MergeHashTables. This is correct, but
+      // potentially slow. Since MergeHashTables is conceptually slow, we opted
+      // for the correct way here.
+      if (const auto& pc = std::dynamic_pointer_cast<const PointerCalculator>(ht->getTable())) {
+        const auto actual_table = pc->getActualTable();
+        const auto actual_positions = pc->getActualTablePositions();
+        for (auto it = ht->getMapBegin(); it != ht->getMapEnd(); ++it) {
+          _map.insert(typename map_t::value_type((*it).first, actual_positions[(*it).second]));
+        }
+        setTable(actual_table);
+      } else {
+        _map.insert(ht->getMapBegin(), ht->getMapEnd());
+        setTable(ht->getTable());
+      }
     }
   }
 

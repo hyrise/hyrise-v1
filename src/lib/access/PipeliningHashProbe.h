@@ -26,7 +26,7 @@ class PipeliningHashProbe : public PlanOperation,
   storage::c_atable_ptr_t getBuildTable() const;
   storage::c_atable_ptr_t getProbeTable() const;
 
-  virtual std::shared_ptr<PlanOperation> copy();
+  virtual std::shared_ptr<AbstractPipelineObserver> clone();
 
   virtual void addCustomDependencies(taskscheduler::task_ptr_t newChunkTask);
 

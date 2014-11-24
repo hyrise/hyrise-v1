@@ -19,9 +19,12 @@ class PipelineEmitter {
  protected:
   virtual void emitChunk(storage::c_aresource_ptr_t chunk) {
     auto observers = static_cast<U*>(this)->template getAllSuccessorsOf<AbstractPipelineObserver>();
-    std::for_each(observers.begin(), observers.end(), [&chunk](std::shared_ptr<AbstractPipelineObserver>& obs) {
+    if (observers.size() == 0) {
+      throw std::runtime_error("Did you forget a PipelineUnion/PipelineMergeHashTables?");
+    }
+    for (auto& obs : observers) {
       obs->notifyNewChunk(chunk);
-    });
+    }
   }
 
   size_t _chunkSize = 100000;

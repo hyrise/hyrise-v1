@@ -100,7 +100,7 @@ std::shared_ptr<PlanOperation> SimplePipeliningTableScan::parse(const Json::Valu
   return pop;
 }
 
-std::shared_ptr<PlanOperation> SimplePipeliningTableScan::copy() {
+std::shared_ptr<AbstractPipelineObserver> SimplePipeliningTableScan::clone() {
   auto plop = std::make_shared<SimplePipeliningTableScan>();
   plop->_predicates = _predicates;
   plop->_ofDelta = _ofDelta;
