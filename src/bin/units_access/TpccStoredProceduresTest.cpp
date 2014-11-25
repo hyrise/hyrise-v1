@@ -30,7 +30,7 @@ void TpccStoredProceduresTest::SetUp() {
 
 void TpccStoredProceduresTest::TearDown() { io::ResourceManager::getInstance().clear(); }
 
-void TpccStoredProceduresTest::loadTables() { executeAndWait(loadFromFile("test/tpcc/load_tpcc_tables.json")); }
+void TpccStoredProceduresTest::loadTables() { executeJsonAndWait(loadFromFile("test/tpcc/load_tpcc_tables.json")); }
 
 storage::c_atable_ptr_t TpccStoredProceduresTest::getTable(const TpccTable& table) {
   std::string tableName;
@@ -65,7 +65,7 @@ storage::c_atable_ptr_t TpccStoredProceduresTest::getTable(const TpccTable& tabl
       break;
   }
 
-  return executeAndWait("{\"operators\": {\"load\": {\"type\": \"GetTable\", \"name\": \"" + tableName + "\"}" +
+  return executeJsonAndWait("{\"operators\": {\"load\": {\"type\": \"GetTable\", \"name\": \"" + tableName + "\"}" +
                         ", \"validate\": {\"type\": \"ValidatePositions\"}}, \"edges\": [[\"load\", \"validate\"]]}");
 }
 

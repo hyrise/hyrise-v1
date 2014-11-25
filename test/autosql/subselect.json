@@ -1,0 +1,5 @@
+{
+    "prepare": "CREATE TABLE students FROM TBL FILE 'students.tbl';",
+    "test": "SELECT * FROM (SELECT name FROM (SELECT name, city FROM students) t) t;",
+    "reference": "SELECT name FROM (SELECT name, city FROM (SELECT * FROM students) t) t;"
+}

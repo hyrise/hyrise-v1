@@ -43,7 +43,9 @@ SQLStatementTransformer::SQLStatementTransformer(std::string id_prefix) : _id_pr
  */
 TransformationResult SQLStatementTransformer::transformStatement(Statement* stmt) {
   switch (stmt->type) {
-    case kStmtSelect: printSelectStatementInfo((SelectStatement*)stmt, 0); return transformSelectStatement((SelectStatement*)stmt);
+    case kStmtSelect:
+      // printSelectStatementInfo((SelectStatement*)stmt, 0);
+      return transformSelectStatement((SelectStatement*)stmt);
     case kStmtCreate: return transformCreateStatement((CreateStatement*)stmt);
     default: throwError("Unsupported statement type!\n");
   }

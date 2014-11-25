@@ -91,13 +91,19 @@ tx::TXContext getNewTXContext();
 
 std::string loadFromFile(const std::string& path);
 
-storage::c_atable_ptr_t executeAndWait(std::string httpQuery,
-                                       size_t poolSize = getNumberOfCoresOnSystem(),
-                                       std::string* evt = nullptr,
-                                       tx::transaction_id_t tid = tx::UNKNOWN);
+
+storage::c_atable_ptr_t executeSQLAndWait(std::string query);
+
+storage::c_atable_ptr_t executeJsonAndWait(std::string jsonString, size_t poolSize = getNumberOfCoresOnSystem(),
+                                           std::string* evt = nullptr, tx::transaction_id_t tid = tx::UNKNOWN);
+
+storage::c_atable_ptr_t executeHttpQueryAndWait(std::string httpQuery, size_t poolSize = getNumberOfCoresOnSystem(),
+                                                std::string* evt = nullptr, tx::transaction_id_t tid = tx::UNKNOWN);
 
 std::string executeStoredProcedureAndWait(std::string storedProcedureName,
                                           std::string httpQuery,
                                           size_t poolSize = getNumberOfCoresOnSystem());
+
+
 }
 }  // namespace hyrise::access

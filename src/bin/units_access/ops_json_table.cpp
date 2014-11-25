@@ -83,7 +83,7 @@ TEST_F(JsonTableTest, builder_should_raise_in_case_of_errors_wrong_type) {
 
 TEST_F(JsonTableTest, load_and_create_from_json) {
   auto data = loadFromFile(_good_file);
-  auto result = executeAndWait(data);
+  auto result = executeJsonAndWait(data);
 
   auto t = io::Loader::shortcuts::load("test/tables/radix_cluster_mpass.tbl");
   EXPECT_RELATION_SCHEMA_EQ(t, result);
@@ -93,7 +93,7 @@ TEST_F(JsonTableTest, load_and_create_from_json) {
 
 TEST_F(JsonTableTest, load_and_create_from_json_store) {
   auto data = loadFromFile(_good_file_store);
-  auto result = executeAndWait(data);
+  auto result = executeJsonAndWait(data);
 
   auto t = io::Loader::shortcuts::load("test/tables/radix_cluster_mpass.tbl");
   EXPECT_RELATION_SCHEMA_EQ(t, result);
