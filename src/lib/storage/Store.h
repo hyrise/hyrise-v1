@@ -11,26 +11,21 @@
 #include <map>
 #include <set>
 
-#include <storage/MutableVerticalTable.h>
-#include <storage/AbstractTable.h>
-#include <storage/TableMerger.h>
-#include <storage/AbstractMergeStrategy.h>
-#include <storage/SequentialHeapMerger.h>
-#include <storage/PrettyPrinter.h>
-
-#include <helper/types.h>
-#include "helper/locking.h"
-
-#include <json.h>
-
-
+#include "json.h"
 #include "tbb/concurrent_vector.h"
+
+#include "helper/types.h"
+#include "helper/locking.h"
+#include "storage/AbstractTable.h"
+#include "storage/TableMerger.h"
+#include "storage/AbstractMergeStrategy.h"
+#include "storage/SequentialHeapMerger.h"
 
 namespace hyrise {
 namespace storage {
 
 /**
- * Store consists of one or more main tables and a delta store and is the
+ * Store consists of one main table and a delta store and is the
  * only entity capable of modifying the content of the table(s) after
  * initialization via the delta store. It can be merged into the main
  * tables using a to-be-set merger.
@@ -81,13 +76,11 @@ class Store : public AbstractTable {
   tx::TX_CODE unmarkForDeletion(const pos_list_t& pos, tx::transaction_id_t tid);
 
   /// AbstractTable interface
-  const ColumnMetadata& metadataAt(const size_t column_index,
-                                   const size_t row_index = 0,
-                                   const table_id_t table_id = 0) const override;
+  const ColumnMetadata& metadataAt(const size_t column_index, const size_t row_index = 0) const override;
+  cpart_t getPart(std::size_t column, std::size_t row) const;
+  void setDictionaryAt(adict_ptr_t dict, size_t column, size_t row = 0) override;
+  const adict_ptr_t& dictionaryAt(size_t column, size_t row = 0) const override;
 
-  void setDictionaryAt(adict_ptr_t dict, size_t column, size_t row = 0, table_id_t table_id = 0) override;
-  const adict_ptr_t& dictionaryAt(size_t column, size_t row = 0, table_id_t table_id = 0) const override;
-  const adict_ptr_t& dictionaryByTableId(size_t column, table_id_t table_id) const override;
   ValueId getValueId(size_t column, size_t row) const override;
   void setValueId(size_t column, size_t row, ValueId vid) override;
   size_t size() const override;
@@ -98,12 +91,14 @@ class Store : public AbstractTable {
   table_id_t subtableCount() const override { return 2; }
   atable_ptr_t copy() const override;
   const attr_vectors_t getAttributeVectors(size_t column) const override;
-  void debugStructure(size_t level = 0) const override;
   void persist_scattered(const pos_list_t& elements, bool new_elements = true) const override;
   void addMainIndex(std::shared_ptr<AbstractIndex> index, std::vector<size_t> columns);
   void addDeltaIndex(std::shared_ptr<AbstractIndex> index, std::vector<size_t> columns);
   void addRowToDeltaIndices(pos_t row);
   std::vector<std::vector<size_t>> getIndexedColumns() const;
+
+  Visitation accept(StorageVisitor&) const override;
+  Visitation accept(MutableStorageVisitor&) override;
 
   virtual void enableLogging();
   virtual void setName(const std::string name);
@@ -122,6 +117,7 @@ class Store : public AbstractTable {
   };
 
 
+  virtual void collectParts(std::list<cpart_t>& parts, size_t col_offset, size_t row_offset) const override;
 
   tbb::concurrent_vector<tx::transaction_cid_t>::iterator cidBeginIteratorForRecovery() {
     return _cidBeginVector.begin();

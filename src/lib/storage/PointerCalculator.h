@@ -50,6 +50,13 @@ class PointerCalculator : public AbstractTable, public SharedFactory<PointerCalc
 
   c_atable_ptr_t getTable() const;
   c_atable_ptr_t getActualTable() const;
+  cpart_t getPart(std::size_t column, std::size_t row) const {
+    if (fields)
+      column = fields->at(column);
+    if (pos_list)
+      row = pos_list->at(row);
+    return getTable()->getPart(column, row);
+  }
 
   /**
   * Checks the internal table of the pointer calculator to only contain valid positions.
@@ -73,15 +80,11 @@ class PointerCalculator : public AbstractTable, public SharedFactory<PointerCalc
                               const bool with_containers = true,
                               const bool compressed = false) const override;
 
-  const ColumnMetadata& metadataAt(const size_t column_index,
-                                   const size_t row_index = 0,
-                                   const table_id_t table_id = 0) const override;
+  const ColumnMetadata& metadataAt(const size_t column_index, const size_t row_index = 0) const override;
 
-  const adict_ptr_t& dictionaryAt(const size_t column, const size_t row = 0, const table_id_t table_id = 0) const
-      override;
-  const adict_ptr_t& dictionaryByTableId(const size_t column, const table_id_t table_id) const override;
-  void setDictionaryAt(adict_ptr_t dict, const size_t column, const size_t row = 0, const table_id_t table_id = 0)
-      override;
+  const adict_ptr_t& dictionaryAt(const size_t column, const size_t row = 0) const override;
+
+  void setDictionaryAt(adict_ptr_t dict, const size_t column, const size_t row = 0) override;
   size_t size() const override;
   size_t columnCount() const override;
   ValueId getValueId(const size_t column, const size_t row) const override;
@@ -89,11 +92,11 @@ class PointerCalculator : public AbstractTable, public SharedFactory<PointerCalc
   size_t partitionWidth(const size_t slice) const override;
   void print(const size_t limit = (size_t) - 1) const override;
   table_id_t subtableCount() const override { return 1; }
-  void debugStructure(size_t level = 0) const override;
-
   void persist_scattered(const pos_list_t& elements, bool new_elements = true) const override {
     STORAGE_NOT_IMPLEMENTED(RawTable, persist_scattered());
   }
+  Visitation accept(StorageVisitor&) const override;
+  Visitation accept(MutableStorageVisitor&) override;
 
  protected:
   void updateFieldMapping();

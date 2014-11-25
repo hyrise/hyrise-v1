@@ -150,37 +150,33 @@ atable_ptr_t Store::getMainTable() const { return _main_table; }
 
 atable_ptr_t Store::getDeltaTable() const { return delta; }
 
-const ColumnMetadata& Store::metadataAt(const size_t column_index,
-                                        const size_t row_index,
-                                        const table_id_t table_id) const {
+const ColumnMetadata& Store::metadataAt(const size_t column_index, const size_t row_index) const {
   size_t offset = _main_table->size();
   if (row_index < offset) {
-    return _main_table->metadataAt(column_index, row_index, table_id);
+    return _main_table->metadataAt(column_index, row_index);
   }
-  return delta->metadataAt(column_index, row_index - offset, table_id);
+  return delta->metadataAt(column_index, row_index - offset);
 }
 
-void Store::setDictionaryAt(adict_ptr_t dict, const size_t column, const size_t row, const table_id_t table_id) {
+AbstractTable::cpart_t Store::getPart(std::size_t column, std::size_t row) const {
+  size_t offset = _main_table->size();
+  return row < offset ? _main_table->getPart(column, row) : delta->getPart(column, row - offset);
+}
+
+void Store::setDictionaryAt(adict_ptr_t dict, const size_t column, const size_t row) {
   size_t offset = _main_table->size();
   if (row < offset) {
-    _main_table->setDictionaryAt(dict, column, row, table_id);
+    _main_table->setDictionaryAt(dict, column, row);
   }
-  delta->setDictionaryAt(dict, column, row - offset, table_id);
+  delta->setDictionaryAt(dict, column, row - offset);
 }
 
-const adict_ptr_t& Store::dictionaryAt(const size_t column, const size_t row, const table_id_t table_id) const {
+const adict_ptr_t& Store::dictionaryAt(const size_t column, const size_t row) const {
   size_t offset = _main_table->size();
   if (row < offset) {
     return _main_table->dictionaryAt(column, row);
   }
   return delta->dictionaryAt(column, row - offset);
-}
-
-const adict_ptr_t& Store::dictionaryByTableId(const size_t column, const table_id_t table_id) const {
-  if (table_id == 0)
-    return _main_table->dictionaryByTableId(column, table_id);
-  else
-    return delta->dictionaryByTableId(column, table_id);
 }
 
 inline Store::table_offset_idx_t Store::responsibleTable(const size_t row) const {
@@ -200,7 +196,7 @@ void Store::setValueId(const size_t column, const size_t row, ValueId vid) {
 ValueId Store::getValueId(const size_t column, const size_t row) const {
   auto location = responsibleTable(row);
   ValueId valueId = location.table->getValueId(column, location.offset_in_table);
-  valueId.table = location.table_index;
+  // valueId.table = location.table_index;
   return valueId;
 }
 
@@ -259,14 +255,6 @@ const attr_vectors_t Store::getAttributeVectors(size_t column) const {
   const auto& subtables = delta->getAttributeVectors(column);
   tables.insert(tables.end(), subtables.begin(), subtables.end());
   return tables;
-}
-
-void Store::debugStructure(size_t level) const {
-  std::cout << std::string(level, '\t') << "Store " << this << std::endl;
-  std::cout << std::string(level, '\t') << "(main) " << this << std::endl;
-  _main_table->debugStructure(level + 1);
-  std::cout << std::string(level, '\t') << "(delta) " << this << std::endl;
-  delta->debugStructure(level + 1);
 }
 
 bool Store::isVisibleForTransaction(pos_t pos, tx::transaction_cid_t last_commit_id, tx::transaction_id_t tid) const {
@@ -523,12 +511,35 @@ void Store::enableLogging() {
   delta->enableLogging();
 }
 
+Visitation Store::accept(StorageVisitor& visitor) const {
+  if (visitor.visitEnter(*this) == Visitation::next) {
+    if (_main_table->accept(visitor) == Visitation::next) {
+      delta->accept(visitor);  // ignore result, nothing to continue
+    }
+  }
+  return visitor.visitLeave(*this);
+}
+
+Visitation Store::accept(MutableStorageVisitor& visitor) {
+  if (visitor.visitEnter(*this) == Visitation::next) {
+    if (_main_table->accept(visitor) == Visitation::next) {
+      delta->accept(visitor);
+    }
+  }
+  return visitor.visitLeave(*this);
+}
+
 void Store::setName(const std::string name) {
   _name = name;
   if (_main_table)
     _main_table->setName(name);
   if (delta)
     delta->setName(name);
+}
+
+void Store::collectParts(std::list<cpart_t>& parts, size_t col_offset, size_t row_offset) const {
+  _main_table->collectParts(parts, col_offset, row_offset);
+  delta->collectParts(parts, col_offset, _main_table->size());
 }
 }
 }

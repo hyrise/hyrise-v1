@@ -7,6 +7,7 @@
 #include "access/expressions/AbstractExpression.h"
 #include "access/expressions/GenericExpressions.inc"
 #include "storage/FixedLengthVector.h"
+#include "storage/BaseDictionary.h"
 #include "storage/Store.h"
 #include "storage/storage_types.h"
 

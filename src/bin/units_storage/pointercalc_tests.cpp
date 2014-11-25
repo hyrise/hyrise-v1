@@ -85,7 +85,6 @@ TEST_F(PointerCalcTests, pc_using_factory) {
   size_t tmp = 0;
   ValueId i = pc->getValueId(tmp, tmp);
   ASSERT_EQ((value_id_t)0, i.valueId);
-  ASSERT_EQ(0, i.table);
 }
 
 

@@ -154,7 +154,7 @@ ValueId Table::getValueId(const size_t column, const size_t row) const {
   assert(column < width);
   ValueId valueId;
   valueId.valueId = tuples->get(column, row);
-  valueId.table = 0;
+  // valueId.table = 0;
   return valueId;
 }
 
@@ -174,22 +174,12 @@ void Table::reserve(const size_t nr_of_values) {
 void Table::resize(const size_t rows) { tuples->resize(rows); }
 
 
-const ColumnMetadata& Table::metadataAt(const size_t column, const size_t row_index, const table_id_t table_id) const {
-  return _metadata[column];
-}
+const ColumnMetadata& Table::metadataAt(const size_t column, const size_t row_index) const { return _metadata[column]; }
 
 
-const adict_ptr_t& Table::dictionaryAt(const size_t column, const size_t row, const table_id_t table_id) const {
-  return _dictionaries[column];
-}
+const adict_ptr_t& Table::dictionaryAt(const size_t column, const size_t row) const { return _dictionaries[column]; }
 
-
-const adict_ptr_t& Table::dictionaryByTableId(const size_t column, const table_id_t table_id) const {
-  return _dictionaries[column];
-}
-
-
-void Table::setDictionaryAt(adict_ptr_t dict, const size_t column, const size_t row, const table_id_t table_id) {
+void Table::setDictionaryAt(adict_ptr_t dict, const size_t column, const size_t row) {
 
   // Swap the dictionaries
   if (_dictionaries[column] == nullptr || _dictionaries[column]->size() != dict->size()) {
@@ -205,7 +195,9 @@ void Table::setDictionaryAt(adict_ptr_t dict, const size_t column, const size_t 
   _dictionaries[column] = dict;
 }
 
-
+AbstractTable::cpart_t Table::getPart(std::size_t column, std::size_t row) const {
+  return {this, column, row};
+}
 
 void Table::setAttributes(SharedAttributeVector doc) { tuples = doc; }
 
@@ -229,8 +221,8 @@ atable_ptr_t Table::copy() const {
 
 void Table::persist_scattered(const pos_list_t& elements, bool new_elements) const {}
 
-void Table::debugStructure(size_t level) const {
-  std::cout << std::string(level, '\t') << "Table " << this << std::endl;
-}
+Visitation Table::accept(StorageVisitor& visitor) const { return visitor.visit(*this); }
+
+Visitation Table::accept(MutableStorageVisitor& visitor) { return visitor.visit(*this); }
 }
 }  // namespace hyrise::storage

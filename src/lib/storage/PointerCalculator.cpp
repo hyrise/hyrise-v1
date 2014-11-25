@@ -141,9 +141,7 @@ void PointerCalculator::setFields(const field_list_t f) {
   updateFieldMapping();
 }
 
-const ColumnMetadata& PointerCalculator::metadataAt(const size_t column_index,
-                                                    const size_t row_index,
-                                                    const table_id_t table_id) const {
+const ColumnMetadata& PointerCalculator::metadataAt(const size_t column_index, const size_t row_index) const {
   size_t actual_column;
 
   if (fields) {
@@ -163,16 +161,11 @@ const ColumnMetadata& PointerCalculator::metadataAt(const size_t column_index,
     return table->metadataAt(actual_column);
 }
 
-void PointerCalculator::setDictionaryAt(adict_ptr_t dict,
-                                        const size_t column,
-                                        const size_t row,
-                                        const table_id_t table_id) {
+void PointerCalculator::setDictionaryAt(adict_ptr_t dict, const size_t column, const size_t row) {
   throw std::runtime_error("Can't set PointerCalculator dictionary");
 }
 
-const adict_ptr_t& PointerCalculator::dictionaryAt(const size_t column,
-                                                   const size_t row,
-                                                   const table_id_t table_id) const {
+const adict_ptr_t& PointerCalculator::dictionaryAt(const size_t column, const size_t row) const {
   size_t actual_column, actual_row;
 
   if (fields) {
@@ -187,19 +180,7 @@ const adict_ptr_t& PointerCalculator::dictionaryAt(const size_t column,
     actual_row = row;
   }
 
-  return table->dictionaryAt(actual_column, actual_row, table_id);
-}
-
-const adict_ptr_t& PointerCalculator::dictionaryByTableId(const size_t column, const table_id_t table_id) const {
-  size_t actual_column;
-
-  if (fields) {
-    actual_column = fields->at(column);
-  } else {
-    actual_column = column;
-  }
-
-  return table->dictionaryByTableId(actual_column, table_id);
+  return table->dictionaryAt(actual_column, actual_row);
 }
 
 size_t PointerCalculator::size() const {
@@ -344,7 +325,7 @@ atable_ptr_t PointerCalculator::copy_structure(const field_list_t* fields,
       metadata.push_back(metadataAt(field));
 
       if (dictionaries != nullptr) {
-        dictionaries->push_back(dictionaryAt(field, 0, 0));
+        dictionaries->push_back(dictionaryAt(field, 0));
       }
     }
   } else {
@@ -352,7 +333,7 @@ atable_ptr_t PointerCalculator::copy_structure(const field_list_t* fields,
       metadata.push_back(metadataAt(i));
 
       if (dictionaries != nullptr) {
-        dictionaries->push_back(dictionaryAt(i, 0, 0));
+        dictionaries->push_back(dictionaryAt(i, 0));
       }
     }
   }
@@ -464,11 +445,6 @@ std::shared_ptr<PointerCalculator> PointerCalculator::concatenate_many(pc_vector
   return create(table, result, nullptr);
 }
 
-void PointerCalculator::debugStructure(size_t level) const {
-  std::cout << std::string(level, '\t') << "PointerCalculator " << this << std::endl;
-  table->debugStructure(level + 1);
-}
-
 
 void PointerCalculator::validate(tx::transaction_id_t tid, tx::transaction_id_t cid) {
   const auto& store = checked_pointer_cast<const Store>(table);
@@ -496,6 +472,20 @@ void PointerCalculator::rename(field_t f, const std::string newName) {
   }
 
   (*_renamed)[f] = ColumnMetadata(newName, table->typeOfColumn(f));
+}
+
+Visitation PointerCalculator::accept(StorageVisitor& visitor) const {
+  if (visitor.visitEnter(*this) == Visitation::next) {
+    table->accept(visitor);
+  }
+  return visitor.visitLeave(*this);
+}
+
+Visitation PointerCalculator::accept(MutableStorageVisitor& visitor) {
+  if (visitor.visitEnter(*this) == Visitation::next) {
+    std::const_pointer_cast<AbstractTable>(table)->accept(visitor);
+  }
+  return visitor.visitLeave(*this);
 }
 }
 }  // namespace hyrise::storage

@@ -42,27 +42,24 @@ inline size_t HorizontalTable::partForRow(const size_t row) const {
   return std::distance(std::begin(_offsets), r) - 1;
 }
 
-const ColumnMetadata& HorizontalTable::metadataAt(const size_t column_index,
-                                                  const size_t row,
-                                                  const table_id_t table_id) const {
-  return _parts[table_id]->metadataAt(column_index);
+
+
+const ColumnMetadata& HorizontalTable::metadataAt(const size_t column_index, const size_t row) const {
+  auto part = partForRow(row);
+  return _parts[part]->metadataAt(column_index, row - _offsets[part]);
 }
 
-const adict_ptr_t& HorizontalTable::dictionaryAt(const size_t column,
-                                                 const size_t row,
-                                                 const table_id_t table_id) const {
+AbstractTable::cpart_t HorizontalTable::getPart(std::size_t column, std::size_t row) const {
+  auto part = partForRow(row);
+  return _parts[part]->getPart(column, row - _offsets[part]);
+}
+
+const adict_ptr_t& HorizontalTable::dictionaryAt(const size_t column, const size_t row) const {
   size_t part = partForRow(row);
-  return _parts[part]->dictionaryAt(column, row - _offsets[part], table_id);
+  return _parts[part]->dictionaryAt(column, row - _offsets[part]);
 }
 
-const adict_ptr_t& HorizontalTable::dictionaryByTableId(const size_t column, const table_id_t table_id) const {
-  return _parts[table_id]->dictionaryByTableId(column, 0);
-}
-
-void HorizontalTable::setDictionaryAt(adict_ptr_t dict,
-                                      const size_t column,
-                                      const size_t row,
-                                      const table_id_t table_id) {
+void HorizontalTable::setDictionaryAt(adict_ptr_t dict, const size_t column, const size_t row) {
   throw std::runtime_error("Cannot set dictionary for HorizontalTable");
 }
 
@@ -73,7 +70,7 @@ size_t HorizontalTable::columnCount() const { return _parts[0]->columnCount(); }
 ValueId HorizontalTable::getValueId(const size_t column, const size_t row) const {
   size_t part = partForRow(row);
   ValueId valueId = _parts[part]->getValueId(column, row - _offsets[part]);
-  valueId.table = _table_id_offsets[part] + valueId.table;
+  // valueId.table = _table_id_offsets[part] + valueId.table;
   return valueId;
 }
 
@@ -89,13 +86,6 @@ size_t HorizontalTable::partitionWidth(const size_t slice) const { return _parts
 
 atable_ptr_t HorizontalTable::copy() const { throw std::runtime_error("Not implemented"); }
 
-void HorizontalTable::debugStructure(size_t level) const {
-  std::cout << std::string(level, '\t') << "HorizontalTable " << this << std::endl;
-  for (const auto& p : _parts) {
-    p->debugStructure(level + 1);
-  }
-}
-
 void HorizontalTable::persist_scattered(const pos_list_t& elements, bool new_elements) const {
   for (const auto& p : _parts) {
     p->persist_scattered(elements, new_elements);
@@ -105,6 +95,36 @@ void HorizontalTable::persist_scattered(const pos_list_t& elements, bool new_ele
 size_t HorizontalTable::computeSize() const {
   return std::accumulate(
       _parts.begin(), _parts.end(), 0, [](size_t r, const c_atable_ptr_t& t) { return r + t->size(); });
+}
+
+void HorizontalTable::collectParts(std::list<cpart_t>& parts, size_t col_offset, size_t row_offset) const {
+  for (auto& part : _parts) {
+    part->collectParts(parts, col_offset, row_offset);
+    row_offset += part->size();
+  }
+}
+
+Visitation HorizontalTable::accept(StorageVisitor& visitor) const {
+  if (visitor.visitEnter(*this) == Visitation::next) {
+    for (auto& c : _parts) {
+      if (c->accept(visitor) == Visitation::skip) {
+        break;
+      }
+    }
+  }
+  return visitor.visitLeave(*this);
+}
+
+Visitation HorizontalTable::accept(MutableStorageVisitor& visitor) {
+  if (visitor.visitEnter(*this) == Visitation::next) {
+    for (auto& part : _parts) {
+      auto c = std::const_pointer_cast<AbstractTable>(part);
+      if (c->accept(visitor) == Visitation::skip) {
+        break;
+      }
+    }
+  }
+  return visitor.visitLeave(*this);
 }
 }
 }

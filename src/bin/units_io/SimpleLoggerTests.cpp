@@ -16,9 +16,9 @@ void simpleLoggerTestWorker(uint64_t tx) {
   SimpleLogger::getInstance().logDictionary<float>("Tabelle", 1, 2.0f, 3);
   SimpleLogger::getInstance().logDictionary<std::string>("Tabelle", 1, "zwei", 3);
   std::vector<ValueId> vids;
-  vids.push_back(ValueId(0, 0));
-  vids.push_back(ValueId(1, 0));
-  vids.push_back(ValueId(2, 0));
+  vids.push_back(ValueId(0));
+  vids.push_back(ValueId(1));
+  vids.push_back(ValueId(2));
   SimpleLogger::getInstance().logValue(tx, "Tabelle", 2, 4, &vids);
   SimpleLogger::getInstance().logCommit(tx);
   SimpleLogger::getInstance().flush();

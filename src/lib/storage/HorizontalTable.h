@@ -22,12 +22,10 @@ class HorizontalTable : public AbstractTable {
  public:
   explicit HorizontalTable(std::vector<c_atable_ptr_t> parts);
   virtual ~HorizontalTable();
-  const ColumnMetadata& metadataAt(const size_t column_index,
-                                   const size_t row_index = 0,
-                                   const table_id_t table_id = 0) const override;
-  const adict_ptr_t& dictionaryAt(size_t column, size_t row = 0, table_id_t table_id = 0) const override;
-  const adict_ptr_t& dictionaryByTableId(size_t column, table_id_t table_id) const override;
-  void setDictionaryAt(adict_ptr_t dict, size_t column, size_t row = 0, table_id_t table_id = 0) override;
+  const ColumnMetadata& metadataAt(const size_t column_index, const size_t row_index = 0) const override;
+  cpart_t getPart(std::size_t column, std::size_t row) const;
+  const adict_ptr_t& dictionaryAt(size_t column, size_t row = 0) const override;
+  void setDictionaryAt(adict_ptr_t dict, size_t column, size_t row = 0) override;
   size_t size() const override;
   size_t columnCount() const override;
   ValueId getValueId(size_t column, size_t row) const override;
@@ -36,7 +34,11 @@ class HorizontalTable : public AbstractTable {
   size_t partitionWidth(size_t slice) const override;
   table_id_t subtableCount() const override;
   atable_ptr_t copy() const override;
-  void debugStructure(size_t level = 0) const override;
+
+  Visitation accept(StorageVisitor&) const override;
+  Visitation accept(MutableStorageVisitor&) override;
+
+  virtual void collectParts(std::list<cpart_t>& parts, size_t col_offset, size_t row_offset) const override;
 
  private:
   size_t partForRow(size_t row) const;

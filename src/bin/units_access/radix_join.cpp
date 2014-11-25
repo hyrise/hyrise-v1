@@ -166,14 +166,14 @@ TEST_F(RadixJoinTest, check_prefixsum_parallel_p3) {
   t1->resize(2);
   t2->resize(2);
   t3->resize(2);
-  t1->setValueId(0, 0, {10, 0});
-  t1->setValueId(0, 1, {20, 0});
+  t1->setValueId(0, 0, {10});
+  t1->setValueId(0, 1, {20});
 
-  t2->setValueId(0, 0, {3, 0});
-  t2->setValueId(0, 1, {7, 0});
+  t2->setValueId(0, 0, {3});
+  t2->setValueId(0, 1, {7});
 
-  t3->setValueId(0, 0, {8, 0});
-  t3->setValueId(0, 1, {3, 0});
+  t3->setValueId(0, 0, {8});
+  t3->setValueId(0, 1, {3});
 
   PrefixSum ps;
   ps.addInput(t1);
@@ -198,14 +198,14 @@ TEST_F(RadixJoinTest, check_prefixsum_parallel_p2) {
   t1->resize(2);
   t2->resize(2);
   t3->resize(2);
-  t1->setValueId(0, 0, {10, 0});
-  t1->setValueId(0, 1, {20, 0});
+  t1->setValueId(0, 0, {10});
+  t1->setValueId(0, 1, {20});
 
-  t2->setValueId(0, 0, {3, 0});
-  t2->setValueId(0, 1, {7, 0});
+  t2->setValueId(0, 0, {3});
+  t2->setValueId(0, 1, {7});
 
-  t3->setValueId(0, 0, {8, 0});
-  t3->setValueId(0, 1, {3, 0});
+  t3->setValueId(0, 0, {8});
+  t3->setValueId(0, 1, {3});
 
   PrefixSum ps;
   ps.addInput(t1);
@@ -230,14 +230,14 @@ TEST_F(RadixJoinTest, check_prefixsum_parallel_p1) {
   t1->resize(2);
   t2->resize(2);
   t3->resize(2);
-  t1->setValueId(0, 0, {10, 0});
-  t1->setValueId(0, 1, {20, 0});
+  t1->setValueId(0, 0, {10});
+  t1->setValueId(0, 1, {20});
 
-  t2->setValueId(0, 0, {3, 0});
-  t2->setValueId(0, 1, {7, 0});
+  t2->setValueId(0, 0, {3});
+  t2->setValueId(0, 1, {7});
 
-  t3->setValueId(0, 0, {8, 0});
-  t3->setValueId(0, 1, {3, 0});
+  t3->setValueId(0, 0, {8});
+  t3->setValueId(0, 1, {3});
 
   PrefixSum ps;
   ps.addInput(t1);
@@ -262,14 +262,14 @@ TEST_F(RadixJoinTest, check_prefixsum_parallel_merge) {
   t1->resize(2);
   t2->resize(2);
   t3->resize(2);
-  t1->setValueId(0, 0, {0, 0});
-  t1->setValueId(0, 1, {10, 0});
+  t1->setValueId(0, 0, {0});
+  t1->setValueId(0, 1, {10});
 
-  t2->setValueId(0, 0, {3, 0});
-  t2->setValueId(0, 1, {11, 0});
+  t2->setValueId(0, 0, {3});
+  t2->setValueId(0, 1, {11});
 
-  t3->setValueId(0, 0, {8, 0});
-  t3->setValueId(0, 1, {18, 0});
+  t3->setValueId(0, 0, {8});
+  t3->setValueId(0, 1, {18});
 
   MergePrefixSum ps;
   ps.addInput(t1);

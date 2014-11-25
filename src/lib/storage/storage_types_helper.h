@@ -19,12 +19,12 @@ struct HyriseHelper {
    * @param column  Column of the cell containing the value.
    * @param valueId ID of the value to be casted.
    */
-  template <typename T>
-  static T castValue(const storage::AbstractTable* table, const size_t column, const ValueId valueId) {
-    storage::cast_functor_by_value_id<T> f(const_cast<storage::AbstractTable*>(table), column, valueId);
-    storage::type_switch<hyrise_basic_types> ts;
-    return ts(table->typeOfColumn(column), f);
-  }
+  /*  template <typename T>
+    static T castValue(const storage::AbstractTable *table, const size_t column, const ValueId valueId) {
+      storage::cast_functor_by_value_id<T> f(const_cast<storage::AbstractTable *>(table), column, valueId);
+      storage::type_switch<hyrise_basic_types> ts;
+      return ts(table->typeOfColumn(column), f);
+      }*/
 
 
   /**

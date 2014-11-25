@@ -38,6 +38,17 @@ c_atable_ptr_t TableRangeView::getTable() const { return _table; }
 
 size_t TableRangeView::size() const { return _end - _start; }
 
+//     /void TableRangeView::setValueId(const size_t column, const size_t row, const ValueId valueId) {
+//   size_t actual_row;
+//   actual_row = row + _start;
+
+//   return _table->setValueId(column, actual_row, valueId);
+// }
+
+AbstractTable::cpart_t TableRangeView::getPart(std::size_t column, std::size_t row) const {
+  return _table->getPart(column, row + _start);
+}
+
 ValueId TableRangeView::getValueId(const size_t column, const size_t row) const {
   size_t actual_row;
   actual_row = row + _start;
@@ -70,32 +81,21 @@ atable_ptr_t TableRangeView::copy_structure(const field_list_t* fields,
   return _table->copy_structure(fields, reuse_dict, initial_size, with_containers, compressed);
 }
 
-const ColumnMetadata& TableRangeView::metadataAt(const size_t column,
-                                                 const size_t row,
-                                                 const table_id_t table_id) const {
+const ColumnMetadata& TableRangeView::metadataAt(const size_t column, const size_t row) const {
   size_t actual_row;
   actual_row = row + _start;
 
-  return _table->metadataAt(column, actual_row, table_id);
+  return _table->metadataAt(column, actual_row);
 };
 
-const adict_ptr_t& TableRangeView::dictionaryAt(const size_t column,
-                                                const size_t row,
-                                                const table_id_t table_id) const {
+const adict_ptr_t& TableRangeView::dictionaryAt(const size_t column, const size_t row) const {
   size_t actual_row;
   actual_row = row + _start;
 
-  return _table->dictionaryAt(column, actual_row, table_id);
+  return _table->dictionaryAt(column, actual_row);
 }
 
-const adict_ptr_t& TableRangeView::dictionaryByTableId(const size_t column, const table_id_t table_id) const {
-  return _table->dictionaryByTableId(column, table_id);
-}
-
-void TableRangeView::setDictionaryAt(adict_ptr_t dict,
-                                     const size_t column,
-                                     const size_t row,
-                                     const table_id_t table_id) {
+void TableRangeView::setDictionaryAt(adict_ptr_t dict, const size_t column, const size_t row) {
   throw std::runtime_error("Can't set dictionary of TableRangeView");
 }
 
@@ -106,11 +106,5 @@ size_t TableRangeView::columnCount() const { return _columnCount; }
 std::string TableRangeView::nameOfColumn(const size_t column) const { return _table->nameOfColumn(column); }
 
 unsigned TableRangeView::partitionCount() const { return _table->partitionCount(); }
-
-
-void TableRangeView::debugStructure(size_t level) const {
-  std::cout << std::string(level, '\t') << "TableRangeView " << this << std::endl;
-  _table->debugStructure(level + 1);
-}
 }
 }

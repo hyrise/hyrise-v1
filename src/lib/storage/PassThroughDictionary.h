@@ -35,7 +35,7 @@ class PassThroughDictionary : public BaseDictionary<T> {
 
   value_id_t addValue(T value) { return pt_dict_union_t(value).vid; }
 
-  T getValueForValueId(value_id_t value_id) { return pt_dict_union_t(value_id).value; }
+  T getValueForValueId(value_id_t value_id) const { return pt_dict_union_t(value_id).value; }
 
   value_id_t getValueIdForValue(const T& value) const { return pt_dict_union_t(value).vid; }
 

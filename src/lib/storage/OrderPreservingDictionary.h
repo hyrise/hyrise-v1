@@ -67,7 +67,7 @@ class OrderPreservingDictionary : public BaseDictionary<T> {
    * @param value the value id
    * @return value of the value
    */
-  T getValueForValueId(value_id_t value_id) {
+  T getValueForValueId(value_id_t value_id) const {
 #ifdef EXPENSIVE_ASSERTIONS
     if (value_id >= _values->size())
       throw std::out_of_range("Trying to access value_id larger than available values");

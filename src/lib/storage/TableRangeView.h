@@ -41,14 +41,13 @@ class TableRangeView : public AbstractTable, public SharedFactory<TableRangeView
   // recalculated rows and routed to underlying table if necessary
   size_t size() const;
   ValueId getValueId(const size_t column, const size_t row) const;
+  cpart_t getPart(std::size_t column, std::size_t row) const;
+  const ColumnMetadata& metadataAt(const size_t column, const size_t row = 0) const override;
 
-  const ColumnMetadata& metadataAt(const size_t column, const size_t row = 0, const table_id_t table_id = 0) const
-      override;
-
-  const adict_ptr_t& dictionaryAt(const size_t column, const size_t row = 0, const table_id_t table_id = 0) const;
+  const adict_ptr_t& dictionaryAt(const size_t column, const size_t row = 0) const;
 
   // throw exceptions if called
-  void setDictionaryAt(adict_ptr_t dict, const size_t column, const size_t row = 0, const table_id_t table_id = 0);
+  void setDictionaryAt(adict_ptr_t dict, const size_t column, const size_t row = 0);
   void sortDictionary();
 
   // just routed to underlying table
@@ -59,13 +58,9 @@ class TableRangeView : public AbstractTable, public SharedFactory<TableRangeView
                               const size_t initial_size = 0,
                               const bool with_containers = true,
                               const bool compressed = false) const;
-  const adict_ptr_t& dictionaryByTableId(const size_t column, const table_id_t table_id) const;
   DataType typeOfColumn(const size_t column) const;
   size_t columnCount() const;
   std::string nameOfColumn(const size_t column) const;
-
-  virtual void debugStructure(size_t level = 0) const;
-
   void persist_scattered(const pos_list_t& elements, bool new_elements = true) const override {
     STORAGE_NOT_IMPLEMENTED(RawTable, persist_scattered());
   }

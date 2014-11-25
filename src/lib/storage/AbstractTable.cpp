@@ -370,10 +370,6 @@ const attr_vectors_t AbstractTable::getAttributeVectors(size_t column) const {
   throw std::runtime_error("getAttributeVectors not implemented");
 }
 
-void AbstractTable::debugStructure(size_t level) const {
-  std::cout << std::string(level, '\t') << "AbstractTable " << this << std::endl;
-}
-
 unique_id AbstractTable::getUuid() const { return _uuid; }
 
 void AbstractTable::setUuid(unique_id u) {
@@ -386,5 +382,14 @@ void AbstractTable::setUuid(unique_id u) {
 void AbstractTable::setName(const std::string name) { _name = name; }
 
 const std::string AbstractTable::getName() const { return _name; }
+
+Visitation AbstractTable::accept(StorageVisitor&) const {
+  throw std::runtime_error(std::string(typeid(*this).name()) + " dis not implement visitParts(StorageVisistor&) const");
+}
+
+Visitation AbstractTable::accept(MutableStorageVisitor&) {
+  throw std::runtime_error(std::string(typeid(*this).name()) +
+                           " dis not implement visitParts(MutableStorageVisistor&)");
+}
 }
 }  // namespace hyrise::storage
