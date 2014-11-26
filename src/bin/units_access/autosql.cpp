@@ -49,6 +49,20 @@ class AutoSQLTest : public TestWithParam<std::string> {
     _sql_file_name = "";
   }
 
+  hyrise::storage::c_atable_ptr_t execute(Json::Value value) {
+    hyrise::storage::c_atable_ptr_t table = nullptr;
+    if (value.isString()) {
+      table = executeSQLAndWait(value.asString());
+    } else if (value.isObject()) {
+      table = executeJsonAndWait(value.toStyledString());
+    } else if (value.isArray()) {
+      for (uint i = 0; i < value.size(); ++i) {
+        table = execute(value[i]);
+      }
+    }
+    return table;
+  }
+
  protected:
   std::string _sql_file_name;
 };
@@ -73,31 +87,17 @@ TEST_P(AutoSQLTest, Query) {
   try {
     hyrise::storage::c_atable_ptr_t test_table, ref_table;
     
-    // Execute prepare argument
+    // Execute prepare argument (TODO: legecy -> remove)
     if (test_config.isMember("prepare")) {
-      ASSERT_TRUE(test_config["prepare"].isString() || test_config["prepare"].isObject());
-
-      if (test_config["prepare"].isString()) {
-        executeSQLAndWait(test_config["prepare"].asString());
-      } else if (test_config["prepare"].isObject()) {
-        ref_table = executeJsonAndWait(test_config["reference"].toStyledString());
-      }
+      this->execute(test_config["prepare"]);
     }
 
     // Execute test and reference arguments
     ASSERT_TRUE(test_config.isMember("test"));
     ASSERT_TRUE(test_config.isMember("reference"));
-    ASSERT_TRUE(test_config["test"].isString());
-    ASSERT_TRUE(test_config["reference"].isString() || test_config["reference"].isObject());
 
-    std::string query = test_config["test"].asString();
-    test_table = executeSQLAndWait(query);
-
-    if (test_config["reference"].isString()) {
-      ref_table = executeSQLAndWait(test_config["reference"].asString());
-    } else if (test_config["reference"].isObject()) {
-      ref_table = executeJsonAndWait(test_config["reference"].toStyledString());
-    }
+    test_table = this->execute(test_config["test"]);
+    ref_table = this->execute(test_config["reference"]);
 
     // Evaluate results
     ASSERT_TRUE((bool) test_table);

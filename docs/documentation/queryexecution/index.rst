@@ -12,6 +12,7 @@ experiments with different settings.
 .. toctree::
     :glob:
     
+    sql_interface
     json_query_execution
     json_queries
     available_operators
