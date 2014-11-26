@@ -46,7 +46,7 @@ task_list_t SQLQueryParser::transformSQLQuery(const std::string& query, task_t* 
   end = std::chrono::system_clock::now();
   std::chrono::duration<double> elapsed_seconds = end-start;
   double ms = elapsed_seconds.count() * 1000.0;
-  // std::cout << "Building the task list took: " << elapsed_seconds.count()*1000 << "ms\n";
+  std::cout << "Building the task list took: " << ms << "ms\n";
 
   return task_list;
 }

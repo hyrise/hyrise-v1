@@ -20,6 +20,7 @@
 #include "access/ProjectionScan.h"
 #include "access/GroupByScan.h"
 #include "access/NoOp.h"
+#include "access/InsertScan.h"
 
 using namespace hsql;
 
@@ -46,7 +47,11 @@ TransformationResult SQLStatementTransformer::transformStatement(Statement* stmt
     case kStmtSelect:
       // printSelectStatementInfo((SelectStatement*)stmt, 0);
       return transformSelectStatement((SelectStatement*)stmt);
-    case kStmtCreate: return transformCreateStatement((CreateStatement*)stmt);
+    case kStmtCreate:
+      return transformCreateStatement((CreateStatement*)stmt);
+    case kStmtInsert:
+      return transformInsertStatement((InsertStatement*)stmt);
+
     default: throwError("Unsupported statement type!\n");
   }
   return ALLOC_TRANSFORMATIONRESULT();
@@ -75,6 +80,67 @@ TransformationResult SQLStatementTransformer::transformCreateStatement(CreateSta
   meta.last_task = no_op;
   return meta;
 }
+
+
+TransformationResult SQLStatementTransformer::transformInsertStatement(hsql::InsertStatement* stmt) {
+  // First get the table into which we want to insert
+  TableRef* table_ref = new TableRef(kTableName);
+  table_ref->name = (char*) stmt->table_name;
+  TransformationResult meta = transformTableRef(table_ref);
+
+
+  if (stmt->insert_type == InsertStatement::kInsertValues) {
+    if (stmt->columns != NULL)
+      throwError("Specifying columns explicitely is not supported");
+
+    // Check if number of values and number of columns in table match
+    if (meta.fields.size() != stmt->values->size()) 
+      throwError("Numbers of values don't match number of columns in table");
+
+    // Check if types of values and columns match
+    for (size_t i = 0; i < meta.fields.size(); ++i) {
+      Expr* expr = stmt->values->at(i);
+      switch (meta.data_types[i]) {
+        case IntegerType: // Expect integer, allow integer
+          if (!(expr->isType(kExprLiteralInt)))
+            throwError("Type of value doesn't match type of column", "value #" + std::to_string(i));
+          break;
+        case FloatType: // Expect Float, allow float or integer
+          if (!(expr->isType(kExprLiteralInt) || expr->isType(kExprLiteralFloat)))
+            throwError("Type of value doesn't match type of column", "value #" + std::to_string(i));
+          break;
+        case StringType: // Expect String, allow all
+          break;
+        default:
+          throwError("Unexpected type of column");
+      }
+    }
+
+   
+    auto insert_scan = std::make_shared<InsertScan>();
+    std::vector<Json::Value> data;
+    for (Expr* expr : stmt->values->vector()) { 
+      switch (expr->type) {
+        case kExprLiteralFloat: data.push_back(expr->fval); break;
+        case kExprLiteralInt: data.push_back(expr->ival); break;
+        case kExprLiteralString: data.push_back(expr->name); break;
+        default: throwError("Unsupported value type in insert!");
+      }
+    }
+    insert_scan->addDataRow(data);
+    insert_scan->addDependency(meta.last_task);
+
+    appendPlanOp(insert_scan, "InsertScan");
+    meta.last_task = insert_scan;
+  } else {
+    throwError("Unsupported insert method");
+  }
+
+  return meta;
+}
+
+
+
 
 /** 
  * Transforms a select statement into tasks

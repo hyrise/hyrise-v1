@@ -46,6 +46,7 @@ class SQLStatementTransformer {
   // Documentation for the protected methods can be found in the .cpp file
   TransformationResult transformCreateStatement(hsql::CreateStatement* stmt);
   TransformationResult transformSelectStatement(hsql::SelectStatement* stmt);
+  TransformationResult transformInsertStatement(hsql::InsertStatement* stmt);
   TransformationResult transformGroupByClause(hsql::SelectStatement* stmt);
   TransformationResult transformSelectionList(hsql::SelectStatement* stmt, TransformationResult info);
   TransformationResult transformTableRef(hsql::TableRef* table);

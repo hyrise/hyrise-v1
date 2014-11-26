@@ -132,5 +132,10 @@ std::shared_ptr<PlanOperation> InsertScan::parse(const Json::Value& data) {
 
   return result;
 }
+
+void InsertScan::addDataRow(std::vector<Json::Value> data) {
+  _raw_data.push_back(data);
+}
+
 }
 }
