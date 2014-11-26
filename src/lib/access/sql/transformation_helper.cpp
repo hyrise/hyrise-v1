@@ -1,6 +1,7 @@
 // Copyright (c) 2014 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "transformation_helper.h"
 
+
 using namespace hsql;
 
 namespace hyrise {
@@ -25,8 +26,8 @@ template std::vector<std::string> combineVectors(std::vector<std::string> v1, st
 
 int identifyTableForColumnRef(Expr* col, TransformationResult t1, TransformationResult t2) {
   if (col->hasTable()) {
-    if (t1.isTable(col->table)) return 0;
-    if (t2.isTable(col->table)) return 1;
+    if (t1.hasName(col->table)) return 0;
+    if (t2.hasName(col->table)) return 1;
     
     SQLStatementTransformer::throwError("Can't find table referenced in column", col->table);
   } 
@@ -46,8 +47,6 @@ std::string buildFunctionRefColumnName(Expr* func_ref) {
   std::string column_name = std::string(func_ref->name) + "(" + std::string(func_ref->expr->name) + ")";
   return column_name;
 }
-
-
 
 
 

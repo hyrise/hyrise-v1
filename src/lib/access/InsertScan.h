@@ -11,6 +11,7 @@ class InsertScan : public PlanOperation {
   virtual ~InsertScan();
   void executePlanOperation();
   void setInputData(const storage::atable_ptr_t& c);
+  void addDataRow(std::vector<Json::Value> data);
   static std::shared_ptr<PlanOperation> parse(const Json::Value& data);
 
  private:

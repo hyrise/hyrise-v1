@@ -25,7 +25,7 @@ TEST_F(SQLTests, grammar_test) {
 
 
 	for (std::string query : valid_queries) {
-		StatementList* result = SQLParser::parseSQLString(query.c_str());
+		SQLStatementList* result = SQLParser::parseSQLString(query.c_str());
 		EXPECT_TRUE(result->isValid);
 		if (!result->isValid) fprintf(stderr, "Parsing failed: %s (%s)\n", query.c_str(), result->parser_msg);
 		delete result;
@@ -37,7 +37,7 @@ TEST_F(SQLTests, grammar_test) {
 	faulty_queries.push_back("SELECT * FROM (SELECT * FROM test);"); // Missing alias for subquery
 
 	for (std::string query : faulty_queries) {
-		StatementList* result = SQLParser::parseSQLString(query.c_str());
+		SQLStatementList* result = SQLParser::parseSQLString(query.c_str());
 		EXPECT_FALSE(result->isValid);
 		if (result->isValid) fprintf(stderr, "Parsing shouldn't have succeeded: %s\n", query.c_str());
 		delete result;
@@ -49,13 +49,13 @@ TEST_F(SQLTests, grammar_test) {
 TEST_F(SQLTests, select_parser_test) {
 	std::string query = "SELECT customer_id, SUM(order_value) FROM customers JOIN orders ON customers.id = orders.customer_id GROUP BY customer_id ORDER BY SUM(order_value) DESC;";
 
-	StatementList* list = SQLParser::parseSQLString(query.c_str());
+	SQLStatementList* list = SQLParser::parseSQLString(query.c_str());
 	EXPECT_TRUE(list->isValid);
 	if (!list->isValid) fprintf(stderr, "Parsing failed: %s (%s)\n", query.c_str(), list->parser_msg);
 
 	
 	EXPECT_EQ(list->size(), 1);
-	EXPECT_EQ(list->at(0)->type, kStmtSelect);
+	EXPECT_EQ(list->at(0)->type(), kStmtSelect);
 
 	SelectStatement* stmt = (SelectStatement*) list->at(0);
 

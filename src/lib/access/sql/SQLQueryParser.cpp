@@ -30,6 +30,7 @@ SQLQueryParser::SQLQueryParser() {
 
 
 task_list_t SQLQueryParser::transformSQLQuery(const std::string& query, task_t* result) {
+  bool logTime = false;
   // Measure time it takes to parse the query into a list of tasks
   std::chrono::time_point<std::chrono::system_clock> start, end;
   start = std::chrono::system_clock::now();
@@ -46,7 +47,7 @@ task_list_t SQLQueryParser::transformSQLQuery(const std::string& query, task_t* 
   end = std::chrono::system_clock::now();
   std::chrono::duration<double> elapsed_seconds = end-start;
   double ms = elapsed_seconds.count() * 1000.0;
-  // std::cout << "Building the task list took: " << elapsed_seconds.count()*1000 << "ms\n";
+  if (logTime) std::cout << "Building the task list took: " << ms << "ms\n";
 
   return task_list;
 }
@@ -56,7 +57,7 @@ task_list_t SQLQueryParser::transformSQLQuery(const std::string& query, task_t* 
 
 task_list_t SQLQueryParser::buildTaskList(const std::string& query) {
   // Parse the sql
-  StatementList* stmt_list = SQLParser::parseSQLString(query.c_str());
+  SQLStatementList* stmt_list = SQLParser::parseSQLString(query.c_str());
 
   // Check if the parsing completed successfully
   if (!stmt_list->isValid) {
@@ -64,10 +65,10 @@ task_list_t SQLQueryParser::buildTaskList(const std::string& query) {
   }
 
   // Build the task list
-  // TODO: Confirm that tasks are executed sequentially
+  // TODO: Confirm that tasks are executed sequentially, link by no-ops
   task_list_t all_tasks;
   int i = 1;
-  for (Statement* stmt : stmt_list->vector()) {
+  for (SQLStatement* stmt : stmt_list->vector()) {
     SQLStatementTransformer transformer = SQLStatementTransformer(std::to_string(i++) + ".");
     transformer.transformStatement(stmt);
     task_list_t tasks = transformer.getTaskList();
