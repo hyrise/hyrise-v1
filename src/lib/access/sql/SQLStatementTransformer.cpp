@@ -11,7 +11,9 @@
 
 // Operators
 #include "access/storage/TableLoad.h"
+#include "access/storage/JsonTable.h"
 #include "access/storage/GetTable.h"
+#include "access/storage/SetTable.h"
 #include "access/HashBuild.h"
 #include "access/HashJoinProbe.h"
 #include "access/SimpleTableScan.h"
@@ -63,21 +65,60 @@ TransformationResult SQLStatementTransformer::transformStatement(Statement* stmt
 TransformationResult SQLStatementTransformer::transformCreateStatement(CreateStatement* stmt) {
   if (io::StorageManager::getInstance()->exists(stmt->table_name)) {
     // TODO: This should be handled by the plan operator that is used
+    // TODO: check for if not exists flag
     throwError("Table already exists");
   }
-
-  std::shared_ptr<TableLoad> table_load = std::make_shared<TableLoad>();
-  table_load->setTableName(std::string(stmt->table_name));
-  table_load->setFileName(std::string(stmt->file_path));
-  appendPlanOp(table_load, "TableLoad");
-
-  std::shared_ptr<NoOp> no_op = std::make_shared<NoOp>();
-  no_op->addDependency(table_load);
-  appendPlanOp(no_op, "NoOp");
-  
   TransformationResult meta = ALLOC_TRANSFORMATIONRESULT();
-  meta.first_task = table_load;
+
+  if (stmt->create_type == CreateStatement::kTableFromTbl) {
+    std::shared_ptr<TableLoad> table_load = std::make_shared<TableLoad>();
+    table_load->setTableName(std::string(stmt->table_name));
+    table_load->setFileName(std::string(stmt->file_path));
+    appendPlanOp(table_load, "TableLoad");
+    
+    meta.first_task = table_load;
+    meta.last_task = table_load;
+
+  } else if (stmt->create_type == CreateStatement::kTable) {
+    std::vector<std::string> names;
+    std::vector<std::string> types;
+    std::vector<unsigned> groups;
+
+    for (ColumnDefinition* def : stmt->columns->vector()) {
+      names.push_back(def->name);
+      groups.push_back(1);
+      switch (def->type) {
+        case ColumnDefinition::INT: types.push_back("INTEGER"); break;
+        case ColumnDefinition::TEXT: types.push_back("STRING"); break;
+        case ColumnDefinition::DOUBLE: types.push_back("FLOAT"); break;
+      }
+    }
+
+    auto json_table = std::make_shared<JsonTable>();
+    json_table->setNames(names);
+    json_table->setTypes(types);
+    json_table->setGroups(groups);
+    json_table->setUseStore(true);
+    appendPlanOp(json_table, "JsonTable");
+    
+    // Give it a name and persist it within Hyrise storage manager
+    auto set_table = std::make_shared<SetTable>(stmt->table_name);
+    set_table->addDependency(json_table);
+    appendPlanOp(set_table, "SetTable");
+
+    meta.first_task = json_table;
+    meta.last_task = set_table;
+
+  } else {
+    throwError("Unsupported create type!");
+  }
+
+  // Add No op, so we don't send data back
+  std::shared_ptr<NoOp> no_op = std::make_shared<NoOp>();
+  no_op->addDependency(meta.last_task);
+  appendPlanOp(no_op, "NoOp");
   meta.last_task = no_op;
+
   return meta;
 }
 
@@ -102,16 +143,20 @@ TransformationResult SQLStatementTransformer::transformInsertStatement(hsql::Ins
       Expr* expr = stmt->values->at(i);
       switch (meta.data_types[i]) {
         case IntegerType: // Expect integer, allow integer
+        case IntegerTypeDelta:
           if (!(expr->isType(kExprLiteralInt)))
             throwError("Type of value doesn't match type of column", "value #" + std::to_string(i));
           break;
         case FloatType: // Expect Float, allow float or integer
+        case FloatTypeDelta:
           if (!(expr->isType(kExprLiteralInt) || expr->isType(kExprLiteralFloat)))
             throwError("Type of value doesn't match type of column", "value #" + std::to_string(i));
           break;
         case StringType: // Expect String, allow all
+        case StringTypeDelta:
           break;
         default:
+          // printf("ColumnType: %u\n", meta.data_types[i]);
           throwError("Unexpected type of column");
       }
     }
@@ -343,6 +388,7 @@ TransformationResult SQLStatementTransformer::transformTableRef(TableRef* table_
 
   switch (table_ref->type) {
     case kTableName: {
+      // TODO: Fix:
       if (!io::StorageManager::getInstance()->exists(table_ref->name)) throwError("Table doesn't exist", table_ref->name);
 
       std::shared_ptr<GetTable> get_table = std::make_shared<GetTable>(table_ref->name);

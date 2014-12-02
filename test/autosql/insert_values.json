@@ -1,6 +1,8 @@
 {
-    "prepare": "CREATE TABLE students FROM TBL FILE 'students.tbl';",
-    "test": "INSERT INTO students VALUES ('Max', 42, 'Musterhausen', 2.3); SELECT * FROM students;",
+    "test": [
+        "CREATE TABLE students FROM TBL FILE 'students.tbl';",
+        "INSERT INTO students VALUES ('Max', 42, 'Musterhausen', 2.3); SELECT * FROM students;"
+    ],
     "reference": {
         "operators": {
             "0": {
@@ -8,10 +10,15 @@
                 "filename": "students.tbl"
             },
             "1": {
-            	"type": "InsertScan",
-            	"data": [
-       				["Max", 42, "Musterhausen", 2.3]
-            	]
+                "type": "InsertScan",
+                "data": [
+                    [
+                        "Max",
+                        42,
+                        "Musterhausen",
+                        2.3
+                    ]
+                ]
             }
         },
         "edges": [

@@ -1,0 +1,26 @@
+{
+    "test": [
+        "CREATE TABLE test (year INTEGER, quarter INTEGER, amount INTEGER);",
+
+        "INSERT INTO test VALUES (2009, 1, 2000);
+         INSERT INTO test VALUES (2009, 2, 2500);
+         INSERT INTO test VALUES (2009, 3, 3000);
+         INSERT INTO test VALUES (2009, 4, 4000);
+         INSERT INTO test VALUES (2010, 1, 2400);
+         INSERT INTO test VALUES (2010, 2, 2800);
+         INSERT INTO test VALUES (2010, 3, 3200);
+         INSERT INTO test VALUES (2010, 4, 3600);",
+
+        "SELECT * FROM test"
+    ],
+    "reference": {
+        "operators": {
+            "0": {
+                "type": "TableLoad",
+                "table": "reference",
+                "filename": "tables/revenue.tbl"
+            }
+        },
+        "edges": []
+    }
+}
