@@ -44,15 +44,23 @@ class SQLStatementTransformer {
 
  protected:
   // Documentation for the protected methods can be found in the .cpp file
-  TransformationResult transformCreateStatement(hsql::CreateStatement* stmt);
+  TransformationResult transformCreateStatement(hsql::CreateStatement* create);
+  TransformationResult transformInsertStatement(hsql::InsertStatement* insert);
+  TransformationResult transformDeleteStatement(hsql::DeleteStatement* del);
   TransformationResult transformSelectStatement(hsql::SelectStatement* stmt);
-  TransformationResult transformInsertStatement(hsql::InsertStatement* stmt);
+
   TransformationResult transformGroupByClause(hsql::SelectStatement* stmt);
   TransformationResult transformSelectionList(hsql::SelectStatement* stmt, TransformationResult info);
-  TransformationResult transformTableRef(hsql::TableRef* table);
+  TransformationResult transformTableRef(hsql::TableRef* table, bool validate = true);
   TransformationResult transformJoinTable(hsql::TableRef* table);
   TransformationResult transformScanJoin(hsql::TableRef* table);
   TransformationResult transformHashJoin(hsql::TableRef* table);
+
+  std::shared_ptr<PlanOperation> addGetTable(std::string name);
+  std::shared_ptr<PlanOperation> addFilterOpFromExpr(hsql::Expr* expr);
+
+  template<typename _T>
+  std::shared_ptr<PlanOperation> addOperator(std::string id, task_t dependency);
 
   
   /**

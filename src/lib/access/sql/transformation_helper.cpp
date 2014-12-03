@@ -1,6 +1,7 @@
 // Copyright (c) 2014 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "transformation_helper.h"
 
+
 using namespace hsql;
 
 namespace hyrise {
@@ -46,8 +47,6 @@ std::string buildFunctionRefColumnName(Expr* func_ref) {
   std::string column_name = std::string(func_ref->name) + "(" + std::string(func_ref->expr->name) + ")";
   return column_name;
 }
-
-
 
 
 

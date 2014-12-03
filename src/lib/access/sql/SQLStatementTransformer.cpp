@@ -10,6 +10,9 @@
 #include "access/expressions/pred_buildExpression.h"
 
 // Operators
+#include "access/tx/ValidatePositions.h"
+#include "access/tx/Commit.h"
+
 #include "access/storage/TableLoad.h"
 #include "access/storage/JsonTable.h"
 #include "access/storage/GetTable.h"
@@ -18,6 +21,7 @@
 #include "access/HashJoinProbe.h"
 #include "access/SimpleTableScan.h"
 #include "access/UnionScan.h"
+#include "access/Delete.h"
 #include "access/JoinScan.h"
 #include "access/ProjectionScan.h"
 #include "access/GroupByScan.h"
@@ -60,6 +64,8 @@ TransformationResult SQLStatementTransformer::transformStatement(SQLStatement* s
       return transformCreateStatement((CreateStatement*)stmt);
     case kStmtInsert:
       return transformInsertStatement((InsertStatement*)stmt);
+    case kStmtDelete:
+      return transformDeleteStatement((DeleteStatement*)stmt);
 
     default: throwError("Unsupported statement type!\n");
   }
@@ -137,11 +143,40 @@ TransformationResult SQLStatementTransformer::transformCreateStatement(CreateSta
 }
 
 
+
+TransformationResult SQLStatementTransformer::transformDeleteStatement(hsql::DeleteStatement* del) {
+  TransformationResult meta = ALLOC_TRANSFORMATIONRESULT();
+
+  auto table = addGetTable(del->table_name);
+  meta.first_task = table;
+  meta.last_task = table;
+
+  meta.last_task = addOperator<ValidatePositions>("ValidatePositions", meta.last_task);
+
+  if (del->expr != NULL) {
+    // Delete whatever matches the expression
+    auto filter = addFilterOpFromExpr(del->expr);
+    filter->addDependency(meta.last_task);
+    meta.last_task = filter;
+  }
+
+  auto delete_op = std::make_shared<DeleteOp>();
+  delete_op->addDependency(meta.last_task);
+  appendPlanOp(delete_op, "Delete");
+  meta.last_task = delete_op;
+
+  meta.last_task = addOperator<Commit>("Commit", meta.last_task);
+  return meta;
+}
+
+
+
 TransformationResult SQLStatementTransformer::transformInsertStatement(hsql::InsertStatement* insert) {
   // First get the table into which we want to insert
+  // TODO: switch to addGetTable
   TableRef* table_ref = new TableRef(kTableName);
   table_ref->name = (char*) insert->table_name;
-  TransformationResult meta = transformTableRef(table_ref);
+  TransformationResult meta = transformTableRef(table_ref, false);
 
 
   if (insert->type == InsertStatement::kInsertValues) {
@@ -199,6 +234,8 @@ TransformationResult SQLStatementTransformer::transformInsertStatement(hsql::Ins
     throwError("Unsupported insert method");
   }
 
+  meta.last_task = addOperator<Commit>("Commit", meta.last_task);
+
   return meta;
 }
 
@@ -219,24 +256,15 @@ TransformationResult SQLStatementTransformer::transformSelectStatement(SelectSta
   // 5. SELECT clause
   // 6. ORDER BY clause (TODO)
 
-
   // FROM clause
   TransformationResult table_res = transformTableRef(stmt->from_table);
   meta = table_res;
 
+
   // WHERE clause  
   if (stmt->where_clause != nullptr) {
-    // If we have a where clause specified, we need to build a simple table scan over the result
-    // Problem: Expression engine only allows comparisons like this: COLUMN = literal
-    // we can't have arithmetic sub expressions or expressions consisting of multiple columns
-    // TODO: Supply the data types to the expression builder from meta information
-    Json::Value predicates;
-    buildPredicatesFromSQLExpr(stmt->where_clause, predicates);
-
-    std::shared_ptr<SimpleTableScan> scan = std::make_shared<SimpleTableScan>();
-    scan->setPredicate(hyrise::access::buildExpression(predicates));
+    auto scan = addFilterOpFromExpr(stmt->where_clause);
     scan->addDependency(meta.last_task);
-    appendPlanOp(scan, "SimpleTableScan");
     meta.last_task = scan;
   } 
 
@@ -286,6 +314,8 @@ TransformationResult SQLStatementTransformer::transformSelectStatement(SelectSta
     appendPlanOp(scan, "UnionScan");
     meta.last_task = scan;
   }
+
+
 
   return meta;
 }
@@ -395,24 +425,26 @@ TransformationResult SQLStatementTransformer::transformSelectionList(hsql::Selec
   return res;
 }
 
+
+
 /**
  * Transform the table ref into the equivalent hyrise taskts
  *
  * @param[in]  table_ref  TableRef that will be transformed
  * @return  Information about the result of the transformation
  */
-TransformationResult SQLStatementTransformer::transformTableRef(TableRef* table_ref) {
+TransformationResult SQLStatementTransformer::transformTableRef(TableRef* table_ref, bool validate) {
   TransformationResult meta = ALLOC_TRANSFORMATIONRESULT();
 
   switch (table_ref->type) {
     case kTableName: {
-      // TODO: Fix:
-      if (!io::StorageManager::getInstance()->exists(table_ref->name)) throwError("Table doesn't exist", table_ref->name);
-
-      std::shared_ptr<GetTable> get_table = std::make_shared<GetTable>(table_ref->name);
-      appendPlanOp(get_table, "GetTable");
+      auto get_table = addGetTable(table_ref->name);
       meta.first_task = get_table;
       meta.last_task = get_table;
+
+      if (validate) {
+        meta.last_task = addOperator<ValidatePositions>("ValidatePositions", get_table);
+      }
 
       // Get table definition, if it is already loaded
       // TODO: currently there is a problem if the table is being loaded/created in the same sql-query
@@ -564,7 +596,38 @@ TransformationResult SQLStatementTransformer::transformHashJoin(TableRef* table)
 }
 
 
+/**
+ * Create a task to get the table specified by the name
+ */
+std::shared_ptr<PlanOperation> SQLStatementTransformer::addGetTable(std::string name) {
+  if (!io::StorageManager::getInstance()->exists(name)) throwError("Table doesn't exist", name);
+  std::shared_ptr<GetTable> get_table = std::make_shared<GetTable>(name);
+  appendPlanOp(get_table, "GetTable");
+  return get_table;
+}
 
+
+std::shared_ptr<PlanOperation> SQLStatementTransformer::addFilterOpFromExpr(Expr* expr) {
+  // If we have a where clause specified, we need to build a simple table scan over the result
+  // Problem: Expression engine only allows comparisons like this: COLUMN = literal
+  // we can't have arithmetic sub expressions or expressions consisting of multiple columns
+  // TODO: Supply the data types to the expression builder from meta information
+  Json::Value predicates;
+  buildPredicatesFromSQLExpr(expr, predicates);
+
+  auto scan = std::make_shared<SimpleTableScan>();
+  scan->setPredicate(hyrise::access::buildExpression(predicates));
+  appendPlanOp(scan, "SimpleTableScan");
+  return scan;
+}
+
+template<typename _T>
+std::shared_ptr<PlanOperation> SQLStatementTransformer::addOperator(std::string id, task_t dependency) {
+  auto op = std::make_shared<_T>();
+  op->addDependency(dependency);
+  appendPlanOp(op, id);
+  return op;
+}
 
 } // namespace sql
 } // namespace access
