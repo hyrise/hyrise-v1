@@ -56,11 +56,11 @@ class SQLStatementTransformer {
   TransformationResult transformScanJoin(hsql::TableRef* table);
   TransformationResult transformHashJoin(hsql::TableRef* table);
 
-  std::shared_ptr<PlanOperation> addGetTable(std::string name);
+  TransformationResult addGetTable(std::string name);
   std::shared_ptr<PlanOperation> addFilterOpFromExpr(hsql::Expr* expr);
 
   template<typename _T>
-  std::shared_ptr<PlanOperation> addOperator(std::string id, task_t dependency);
+  std::shared_ptr<_T> addOperator(std::string id, task_t dependency);
 
   
   /**
@@ -80,10 +80,6 @@ class SQLStatementTransformer {
     _task_list.push_back(task);
   }
 
-
-  std::shared_ptr<PlanOperation> appendNoOp();
-
-
   // Members
   task_list_t _task_list;
   std::string _id_prefix;
@@ -92,25 +88,36 @@ class SQLStatementTransformer {
 };
 
 
-
-struct TransformationResult {
-  task_t first_task;
-  task_t last_task;
-
+struct TableInfo {
   // Information about the table
   std::vector<std::string> fields;
   std::vector<DataType> data_types;
-  std::string table_name;
+  std::string name;
 
   inline void addField(std::string field) { fields.push_back(field); }
   inline void addField(std::string field, DataType type) { addField(field); data_types.push_back(type); }
   inline bool containsField(std::string field) { return std::find(fields.begin(), fields.end(), field) != fields.end(); }
-  inline bool isTable(std::string name) { return name.compare(table_name) == 0; }
+  inline bool hasName(std::string name2) { return name2.compare(name) == 0; }
   inline size_t numColumns() { return fields.size(); }
 };
 
+
+struct TransformationResult : TableInfo {
+  task_t first_task;
+  task_t last_task;
+
+
+  void append(TransformationResult other) {
+    fields     = other.fields;
+    data_types = other.data_types;
+    name       = other.name;
+    last_task  = other.last_task;
+  }
+};
+
 // Zero initializes a Transformation Result struct without causing warnings
-#define ALLOC_TRANSFORMATIONRESULT() { NULL, NULL, std::vector<std::string>(), std::vector<DataType>(), "" }
+// TransformationResult t = ALLOC_TRANSFORMATIONRESULT();
+#define ALLOC_TRANSFORMATIONRESULT() {}
 
 
 

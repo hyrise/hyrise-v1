@@ -44,13 +44,6 @@ SQLStatementTransformer::SQLStatementTransformer(std::string id_prefix) : _id_pr
   _last_task_id = 0;
 }
 
-
-std::shared_ptr<PlanOperation> SQLStatementTransformer::appendNoOp() {
-  auto op = std::make_shared<NoOp>();
-  appendPlanOp(op, "NoOp");
-  return op;
-}
-
 /** 
  * Transforms a statement into tasks. 
  * Figures out the type and calls the appropriate transformation method.
@@ -81,7 +74,7 @@ TransformationResult SQLStatementTransformer::transformCreateStatement(CreateSta
   if (io::StorageManager::getInstance()->exists(create->table_name)) {
     if (create->if_not_exists) {
       // Table already exists so skip this statement
-      auto op = appendNoOp();
+      auto op = addOperator<NoOp>("NoOp", nullptr);
       meta.first_task = op;
       meta.last_task = op;
       return meta;
@@ -135,9 +128,7 @@ TransformationResult SQLStatementTransformer::transformCreateStatement(CreateSta
   }
 
   // Add No op, so we don't send data back
-  auto no_op = appendNoOp();
-  no_op->addDependency(meta.last_task);
-  meta.last_task = no_op;
+  meta.last_task = addOperator<NoOp>("NoOp", meta.last_task);
 
   return meta;
 }
@@ -145,11 +136,7 @@ TransformationResult SQLStatementTransformer::transformCreateStatement(CreateSta
 
 
 TransformationResult SQLStatementTransformer::transformDeleteStatement(hsql::DeleteStatement* del) {
-  TransformationResult meta = ALLOC_TRANSFORMATIONRESULT();
-
-  auto table = addGetTable(del->table_name);
-  meta.first_task = table;
-  meta.last_task = table;
+  TransformationResult meta = addGetTable(del->table_name);
 
   meta.last_task = addOperator<ValidatePositions>("ValidatePositions", meta.last_task);
 
@@ -173,12 +160,8 @@ TransformationResult SQLStatementTransformer::transformDeleteStatement(hsql::Del
 
 TransformationResult SQLStatementTransformer::transformInsertStatement(hsql::InsertStatement* insert) {
   // First get the table into which we want to insert
-  // TODO: switch to addGetTable
-  TableRef* table_ref = new TableRef(kTableName);
-  table_ref->name = (char*) insert->table_name;
-  TransformationResult meta = transformTableRef(table_ref, false);
-
-
+  TransformationResult meta = addGetTable(insert->table_name);
+  
   if (insert->type == InsertStatement::kInsertValues) {
     if (insert->columns != NULL)
       throwError("Specifying columns explicitely is not supported");
@@ -226,10 +209,8 @@ TransformationResult SQLStatementTransformer::transformInsertStatement(hsql::Ins
     appendPlanOp(insert_scan, "InsertScan");
 
     // Don't send result, append noOp
-    auto no_op = appendNoOp();
-    no_op->addDependency(insert_scan);
+    meta.last_task = addOperator<NoOp>("NoOp", insert_scan);
 
-    meta.last_task = no_op;
   } else {
     throwError("Unsupported insert method");
   }
@@ -438,23 +419,12 @@ TransformationResult SQLStatementTransformer::transformTableRef(TableRef* table_
 
   switch (table_ref->type) {
     case kTableName: {
-      auto get_table = addGetTable(table_ref->name);
-      meta.first_task = get_table;
-      meta.last_task = get_table;
+      meta = addGetTable(table_ref->name);
 
       if (validate) {
-        meta.last_task = addOperator<ValidatePositions>("ValidatePositions", get_table);
+        meta.last_task = addOperator<ValidatePositions>("ValidatePositions", meta.last_task);
       }
 
-      // Get table definition, if it is already loaded
-      // TODO: currently there is a problem if the table is being loaded/created in the same sql-query
-      // because the parsing and transformation of subsequent statements will be done before it is actually loaded.
-      if (io::StorageManager::getInstance()->exists(table_ref->name)) {
-        std::shared_ptr<storage::AbstractTable> table = io::StorageManager::getInstance()->getTable(table_ref->name);
-        for (field_t i = 0; i != table->columnCount(); ++i) {
-          meta.addField(table->metadataAt(i).getName(), table->metadataAt(i).getType());
-        }
-      }
       break;
     }
     case kTableSelect:
@@ -467,7 +437,7 @@ TransformationResult SQLStatementTransformer::transformTableRef(TableRef* table_
       throwError("Cross table not supported yet");
   }
   
-  if (table_ref->getName() != NULL) meta.table_name = table_ref->getName();
+  if (table_ref->getName() != NULL) meta.name = table_ref->getName();
   // LOG_META(meta);
   return meta;
 }
@@ -599,11 +569,27 @@ TransformationResult SQLStatementTransformer::transformHashJoin(TableRef* table)
 /**
  * Create a task to get the table specified by the name
  */
-std::shared_ptr<PlanOperation> SQLStatementTransformer::addGetTable(std::string name) {
+TransformationResult SQLStatementTransformer::addGetTable(std::string name) {
   if (!io::StorageManager::getInstance()->exists(name)) throwError("Table doesn't exist", name);
+
   std::shared_ptr<GetTable> get_table = std::make_shared<GetTable>(name);
   appendPlanOp(get_table, "GetTable");
-  return get_table;
+
+  TransformationResult meta = ALLOC_TRANSFORMATIONRESULT();  
+  meta.first_task = get_table;
+  meta.last_task = get_table;
+
+  // Get table definition, if it is already loaded
+  // TODO: currently there is a problem if the table is being loaded/created in the same sql-query
+  // because the parsing and transformation of subsequent statements will be done before it is actually loaded.
+  if (io::StorageManager::getInstance()->exists(name)) {
+    std::shared_ptr<storage::AbstractTable> table = io::StorageManager::getInstance()->getTable(name);
+    for (field_t i = 0; i != table->columnCount(); ++i) {
+      meta.addField(table->metadataAt(i).getName(), table->metadataAt(i).getType());
+    }
+  }
+
+  return meta;
 }
 
 
@@ -615,16 +601,15 @@ std::shared_ptr<PlanOperation> SQLStatementTransformer::addFilterOpFromExpr(Expr
   Json::Value predicates;
   buildPredicatesFromSQLExpr(expr, predicates);
 
-  auto scan = std::make_shared<SimpleTableScan>();
+  auto scan = addOperator<SimpleTableScan>("SimpleTableScan", nullptr);
   scan->setPredicate(hyrise::access::buildExpression(predicates));
-  appendPlanOp(scan, "SimpleTableScan");
   return scan;
 }
 
 template<typename _T>
-std::shared_ptr<PlanOperation> SQLStatementTransformer::addOperator(std::string id, task_t dependency) {
+std::shared_ptr<_T> SQLStatementTransformer::addOperator(std::string id, task_t dependency) {
   auto op = std::make_shared<_T>();
-  op->addDependency(dependency);
+  if (dependency != nullptr) op->addDependency(dependency);
   appendPlanOp(op, id);
   return op;
 }
