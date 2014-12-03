@@ -51,8 +51,8 @@ std::shared_ptr<PlanOperation> SQLStatementTransformer::appendNoOp() {
  * Transforms a statement into tasks. 
  * Figures out the type and calls the appropriate transformation method.
  */
-TransformationResult SQLStatementTransformer::transformStatement(Statement* stmt) {
-  switch (stmt->type) {
+TransformationResult SQLStatementTransformer::transformStatement(SQLStatement* stmt) {
+  switch (stmt->type()) {
     case kStmtSelect:
       // printSelectStatementInfo((SelectStatement*)stmt, 0);
       return transformSelectStatement((SelectStatement*)stmt);
@@ -69,29 +69,37 @@ TransformationResult SQLStatementTransformer::transformStatement(Statement* stmt
 /** 
  * Transforms a create statement into tasks
  */
-TransformationResult SQLStatementTransformer::transformCreateStatement(CreateStatement* stmt) {
-  if (io::StorageManager::getInstance()->exists(stmt->table_name)) {
-    // TODO: This should be handled by the plan operator that is used
-    // TODO: check for if not exists flag
-    throwError("Table already exists");
-  }
+TransformationResult SQLStatementTransformer::transformCreateStatement(CreateStatement* create) {
   TransformationResult meta = ALLOC_TRANSFORMATIONRESULT();
 
-  if (stmt->create_type == CreateStatement::kTableFromTbl) {
+  if (io::StorageManager::getInstance()->exists(create->table_name)) {
+    if (create->if_not_exists) {
+      // Table already exists so skip this statement
+      auto op = appendNoOp();
+      meta.first_task = op;
+      meta.last_task = op;
+      return meta;
+    } else {
+      // Table already exists -> throw error
+      throwError("Table already exists");
+    }
+  }
+
+  if (create->type == CreateStatement::kTableFromTbl) {
     std::shared_ptr<TableLoad> table_load = std::make_shared<TableLoad>();
-    table_load->setTableName(std::string(stmt->table_name));
-    table_load->setFileName(std::string(stmt->file_path));
+    table_load->setTableName(std::string(create->table_name));
+    table_load->setFileName(std::string(create->file_path));
     appendPlanOp(table_load, "TableLoad");
     
     meta.first_task = table_load;
     meta.last_task = table_load;
 
-  } else if (stmt->create_type == CreateStatement::kTable) {
+  } else if (create->type == CreateStatement::kTable) {
     std::vector<std::string> names;
     std::vector<std::string> types;
     std::vector<unsigned> groups;
 
-    for (ColumnDefinition* def : stmt->columns->vector()) {
+    for (ColumnDefinition* def : create->columns->vector()) {
       names.push_back(def->name);
       groups.push_back(1);
       switch (def->type) {
@@ -109,7 +117,7 @@ TransformationResult SQLStatementTransformer::transformCreateStatement(CreateSta
     appendPlanOp(json_table, "JsonTable");
     
     // Give it a name and persist it within Hyrise storage manager
-    auto set_table = std::make_shared<SetTable>(stmt->table_name);
+    auto set_table = std::make_shared<SetTable>(create->table_name);
     set_table->addDependency(json_table);
     appendPlanOp(set_table, "SetTable");
 
@@ -129,24 +137,24 @@ TransformationResult SQLStatementTransformer::transformCreateStatement(CreateSta
 }
 
 
-TransformationResult SQLStatementTransformer::transformInsertStatement(hsql::InsertStatement* stmt) {
+TransformationResult SQLStatementTransformer::transformInsertStatement(hsql::InsertStatement* insert) {
   // First get the table into which we want to insert
   TableRef* table_ref = new TableRef(kTableName);
-  table_ref->name = (char*) stmt->table_name;
+  table_ref->name = (char*) insert->table_name;
   TransformationResult meta = transformTableRef(table_ref);
 
 
-  if (stmt->insert_type == InsertStatement::kInsertValues) {
-    if (stmt->columns != NULL)
+  if (insert->type == InsertStatement::kInsertValues) {
+    if (insert->columns != NULL)
       throwError("Specifying columns explicitely is not supported");
 
     // Check if number of values and number of columns in table match
-    if (meta.fields.size() != stmt->values->size()) 
+    if (meta.fields.size() != insert->values->size()) 
       throwError("Numbers of values don't match number of columns in table");
 
     // Check if types of values and columns match
     for (size_t i = 0; i < meta.fields.size(); ++i) {
-      Expr* expr = stmt->values->at(i);
+      Expr* expr = insert->values->at(i);
       switch (meta.data_types[i]) {
         case IntegerType: // Expect integer, allow integer
         case IntegerTypeDelta:
@@ -170,7 +178,7 @@ TransformationResult SQLStatementTransformer::transformInsertStatement(hsql::Ins
    
     auto insert_scan = std::make_shared<InsertScan>();
     std::vector<Json::Value> data;
-    for (Expr* expr : stmt->values->vector()) { 
+    for (Expr* expr : insert->values->vector()) { 
       switch (expr->type) {
         case kExprLiteralFloat: data.push_back(expr->fval); break;
         case kExprLiteralInt: data.push_back(expr->ival); break;

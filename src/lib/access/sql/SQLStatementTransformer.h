@@ -29,7 +29,7 @@ class SQLStatementTransformer {
    * @param[out] task_list  Reference to total task list
    * @return  Information about the result of the transformation
    */
-  TransformationResult transformStatement(hsql::Statement* stmt);
+  TransformationResult transformStatement(hsql::SQLStatement* stmt);
 
 
   inline task_list_t getTaskList() { return _task_list; }

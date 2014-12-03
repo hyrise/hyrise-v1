@@ -57,7 +57,7 @@ task_list_t SQLQueryParser::transformSQLQuery(const std::string& query, task_t* 
 
 task_list_t SQLQueryParser::buildTaskList(const std::string& query) {
   // Parse the sql
-  StatementList* stmt_list = SQLParser::parseSQLString(query.c_str());
+  SQLStatementList* stmt_list = SQLParser::parseSQLString(query.c_str());
 
   // Check if the parsing completed successfully
   if (!stmt_list->isValid) {
@@ -68,7 +68,7 @@ task_list_t SQLQueryParser::buildTaskList(const std::string& query) {
   // TODO: Confirm that tasks are executed sequentially
   task_list_t all_tasks;
   int i = 1;
-  for (Statement* stmt : stmt_list->vector()) {
+  for (SQLStatement* stmt : stmt_list->vector()) {
     SQLStatementTransformer transformer = SQLStatementTransformer(std::to_string(i++) + ".");
     transformer.transformStatement(stmt);
     task_list_t tasks = transformer.getTaskList();

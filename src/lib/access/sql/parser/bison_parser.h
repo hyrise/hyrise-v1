@@ -68,8 +68,8 @@ typedef void* yyscan_t;
   {
     SQL_IDENTIFIER = 258,
     SQL_STRING = 259,
-    SQL_FLOAT = 260,
-    SQL_INT = 261,
+    SQL_FLOATVAL = 260,
+    SQL_INTVAL = 261,
     SQL_NOTEQUALS = 262,
     SQL_LESSEQ = 263,
     SQL_GREATEREQ = 264,
@@ -164,26 +164,27 @@ typedef void* yyscan_t;
     SQL_ASC = 353,
     SQL_CSV = 354,
     SQL_FOR = 355,
-    SQL_KEY = 356,
-    SQL_NOT = 357,
-    SQL_OFF = 358,
-    SQL_SET = 359,
-    SQL_TBL = 360,
-    SQL_TOP = 361,
-    SQL_AS = 362,
-    SQL_BY = 363,
-    SQL_IF = 364,
-    SQL_IN = 365,
-    SQL_IS = 366,
-    SQL_OF = 367,
-    SQL_ON = 368,
-    SQL_OR = 369,
-    SQL_TO = 370,
-    SQL_EQUALS = 371,
-    SQL_LESS = 372,
-    SQL_GREATER = 373,
-    SQL_NOTNULL = 374,
-    SQL_UMINUS = 375
+    SQL_INT = 356,
+    SQL_KEY = 357,
+    SQL_NOT = 358,
+    SQL_OFF = 359,
+    SQL_SET = 360,
+    SQL_TBL = 361,
+    SQL_TOP = 362,
+    SQL_AS = 363,
+    SQL_BY = 364,
+    SQL_IF = 365,
+    SQL_IN = 366,
+    SQL_IS = 367,
+    SQL_OF = 368,
+    SQL_ON = 369,
+    SQL_OR = 370,
+    SQL_TO = 371,
+    SQL_EQUALS = 372,
+    SQL_LESS = 373,
+    SQL_GREATER = 374,
+    SQL_NOTNULL = 375,
+    SQL_UMINUS = 376
   };
 #endif
 
@@ -200,13 +201,14 @@ union HSQL_STYPE
 	uint uval;
 	bool bval;
 
-	hsql::Statement* statement;
+	hsql::SQLStatement* statement;
 	hsql::SelectStatement* select_stmt;
 	hsql::ImportStatement* import_stmt;
 	hsql::CreateStatement* create_stmt;
 	hsql::InsertStatement* insert_stmt;
 	hsql::DeleteStatement* delete_stmt;
 	hsql::UpdateStatement* update_stmt;
+	hsql::DropStatement*   drop_stmt;
 
 	hsql::TableRef* table;
 	hsql::Expr* expr;
@@ -216,14 +218,14 @@ union HSQL_STYPE
 	hsql::ColumnDefinition* column_t;
 	hsql::UpdateClause* update_t;
 
-	hsql::StatementList* stmt_list;
+	hsql::SQLStatementList* stmt_list;
 	hsql::List<char*>* slist;
 	hsql::List<hsql::Expr*>* expr_list;
 	hsql::List<hsql::TableRef*>* table_list;
 	hsql::List<hsql::ColumnDefinition*>* column_list_t;
 	hsql::List<hsql::UpdateClause*>* update_list_t;
 
-#line 227 "bison_parser.h" /* yacc.c:1909  */
+#line 229 "bison_parser.h" /* yacc.c:1909  */
 };
 # define HSQL_STYPE_IS_TRIVIAL 1
 # define HSQL_STYPE_IS_DECLARED 1
@@ -231,6 +233,6 @@ union HSQL_STYPE
 
 
 
-int hsql_parse (hsql::StatementList** result, yyscan_t scanner);
+int hsql_parse (hsql::SQLStatementList** result, yyscan_t scanner);
 
 #endif /* !YY_HSQL_BISON_PARSER_H_INCLUDED  */
