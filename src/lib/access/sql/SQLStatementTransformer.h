@@ -73,6 +73,9 @@ class SQLStatementTransformer {
   }
 
 
+  std::shared_ptr<PlanOperation> appendNoOp();
+
+
   // Members
   task_list_t _task_list;
   std::string _id_prefix;

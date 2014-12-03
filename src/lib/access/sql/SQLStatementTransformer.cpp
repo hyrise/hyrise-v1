@@ -40,6 +40,13 @@ SQLStatementTransformer::SQLStatementTransformer(std::string id_prefix) : _id_pr
   _last_task_id = 0;
 }
 
+
+std::shared_ptr<PlanOperation> SQLStatementTransformer::appendNoOp() {
+  auto op = std::make_shared<NoOp>();
+  appendPlanOp(op, "NoOp");
+  return op;
+}
+
 /** 
  * Transforms a statement into tasks. 
  * Figures out the type and calls the appropriate transformation method.
@@ -114,9 +121,8 @@ TransformationResult SQLStatementTransformer::transformCreateStatement(CreateSta
   }
 
   // Add No op, so we don't send data back
-  std::shared_ptr<NoOp> no_op = std::make_shared<NoOp>();
+  auto no_op = appendNoOp();
   no_op->addDependency(meta.last_task);
-  appendPlanOp(no_op, "NoOp");
   meta.last_task = no_op;
 
   return meta;
@@ -174,9 +180,13 @@ TransformationResult SQLStatementTransformer::transformInsertStatement(hsql::Ins
     }
     insert_scan->addDataRow(data);
     insert_scan->addDependency(meta.last_task);
-
     appendPlanOp(insert_scan, "InsertScan");
-    meta.last_task = insert_scan;
+
+    // Don't send result, append noOp
+    auto no_op = appendNoOp();
+    no_op->addDependency(insert_scan);
+
+    meta.last_task = no_op;
   } else {
     throwError("Unsupported insert method");
   }
