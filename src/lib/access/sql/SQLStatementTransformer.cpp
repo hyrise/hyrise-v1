@@ -18,6 +18,8 @@
 #include "access/storage/JsonTable.h"
 #include "access/storage/GetTable.h"
 #include "access/storage/SetTable.h"
+
+#include "access/MergeTable.h"
 #include "access/HashBuild.h"
 #include "access/HashJoinProbe.h"
 #include "access/SimpleTableScan.h"
@@ -94,7 +96,7 @@ TransformationResult SQLStatementTransformer::transformDropStatement(DropStateme
 
 
 TransformationResult SQLStatementTransformer::transformUpdateStatement(UpdateStatement* update) {
-  TransformationResult meta = addGetTable(update->table->name);
+  TransformationResult meta = addGetTable(update->table->name, true);
 
   if (update->where == NULL) {
     throwError("Update without WHERE clause not supported yet");
@@ -115,8 +117,7 @@ TransformationResult SQLStatementTransformer::transformUpdateStatement(UpdateSta
       case kExprLiteralString: update_data[clause->column] = clause->value->name; break;
       default:
         throwError("Unsupported Expr type in update clause");    
-    }
-    
+    }  
   }
   update_op->setRawData(update_data);
 
@@ -188,17 +189,15 @@ TransformationResult SQLStatementTransformer::transformCreateStatement(CreateSta
   }
 
   // Add No op, so we don't send data back
+  meta.last_task = addOperator<Commit>("Commit", meta.last_task);
   meta.last_task = addOperator<NoOp>("NoOp", meta.last_task);
-
   return meta;
 }
 
 
 
 TransformationResult SQLStatementTransformer::transformDeleteStatement(DeleteStatement* del) {
-  TransformationResult meta = addGetTable(del->table_name);
-
-  meta.last_task = addOperator<ValidatePositions>("ValidatePositions", meta.last_task);
+  TransformationResult meta = addGetTable(del->table_name, true);
 
   if (del->expr != NULL) {
     // Delete whatever matches the expression
@@ -213,14 +212,15 @@ TransformationResult SQLStatementTransformer::transformDeleteStatement(DeleteSta
   meta.last_task = delete_op;
 
   meta.last_task = addOperator<Commit>("Commit", meta.last_task);
+  meta.last_task = addOperator<NoOp>("NoOp", meta.last_task);
   return meta;
 }
 
 
 
 TransformationResult SQLStatementTransformer::transformInsertStatement(InsertStatement* insert) {
-  // First get the table into which we want to insert
-  TransformationResult meta = addGetTable(insert->table_name);
+  // First get the table into which we want to insert (Important: no validation)
+  TransformationResult meta = addGetTable(insert->table_name, false);
   
   if (insert->type == InsertStatement::kInsertValues) {
     if (insert->columns != NULL)
@@ -267,16 +267,13 @@ TransformationResult SQLStatementTransformer::transformInsertStatement(InsertSta
     insert_scan->addDataRow(data);
     insert_scan->addDependency(meta.last_task);
     appendPlanOp(insert_scan, "InsertScan");
-
-    // Don't send result, append noOp
-    meta.last_task = addOperator<NoOp>("NoOp", insert_scan);
-
+    meta.last_task = insert_scan;
   } else {
     throwError("Unsupported insert method");
   }
 
   meta.last_task = addOperator<Commit>("Commit", meta.last_task);
-
+  meta.last_task = addOperator<NoOp>("NoOp", meta.last_task);
   return meta;
 }
 
@@ -474,19 +471,13 @@ TransformationResult SQLStatementTransformer::transformSelectionList(SelectState
  * @param[in]  table_ref  TableRef that will be transformed
  * @return  Information about the result of the transformation
  */
-TransformationResult SQLStatementTransformer::transformTableRef(TableRef* table_ref, bool validate) {
+TransformationResult SQLStatementTransformer::transformTableRef(TableRef* table_ref) {
   TransformationResult meta = ALLOC_TRANSFORMATIONRESULT();
 
   switch (table_ref->type) {
-    case kTableName: {
-      meta = addGetTable(table_ref->name);
-
-      if (validate) {
-        meta.last_task = addOperator<ValidatePositions>("ValidatePositions", meta.last_task);
-      }
-
+    case kTableName:
+      meta = addGetTable(table_ref->name, true);
       break;
-    }
     case kTableSelect:
       meta = transformSelectStatement(table_ref->select);
       break;
@@ -629,15 +620,21 @@ TransformationResult SQLStatementTransformer::transformHashJoin(TableRef* table)
 /**
  * Create a task to get the table specified by the name
  */
-TransformationResult SQLStatementTransformer::addGetTable(std::string name) {
+TransformationResult SQLStatementTransformer::addGetTable(std::string name, bool validate) {
   if (!io::StorageManager::getInstance()->exists(name)) throwError("Table doesn't exist", name);
 
-  std::shared_ptr<GetTable> get_table = std::make_shared<GetTable>(name);
+  auto get_table = std::make_shared<GetTable>(name);
   appendPlanOp(get_table, "GetTable");
 
   TransformationResult meta = ALLOC_TRANSFORMATIONRESULT();  
   meta.first_task = get_table;
   meta.last_task = get_table;
+
+
+  if (validate) {
+    auto validate_op = addOperator<ValidatePositions>("ValidatePositions", meta.last_task);
+    meta.last_task = validate_op;
+  }
 
   // Get table definition, if it is already loaded
   // TODO: currently there is a problem if the table is being loaded/created in the same sql-query
@@ -662,6 +659,7 @@ std::shared_ptr<PlanOperation> SQLStatementTransformer::addFilterOpFromExpr(Expr
   buildPredicatesFromSQLExpr(expr, predicates);
 
   auto scan = addOperator<SimpleTableScan>("SimpleTableScan", nullptr);
+  scan->setProducesPositions(true);
   scan->setPredicate(hyrise::access::buildExpression(predicates));
   return scan;
 }

@@ -53,12 +53,12 @@ class SQLStatementTransformer {
 
   TransformationResult transformGroupByClause(hsql::SelectStatement* stmt);
   TransformationResult transformSelectionList(hsql::SelectStatement* stmt, TransformationResult info);
-  TransformationResult transformTableRef(hsql::TableRef* table, bool validate = true);
+  TransformationResult transformTableRef(hsql::TableRef* table);
   TransformationResult transformJoinTable(hsql::TableRef* table);
   TransformationResult transformScanJoin(hsql::TableRef* table);
   TransformationResult transformHashJoin(hsql::TableRef* table);
 
-  TransformationResult addGetTable(std::string name);
+  TransformationResult addGetTable(std::string name, bool validate);
   std::shared_ptr<PlanOperation> addFilterOpFromExpr(hsql::Expr* expr);
 
   template<typename _T>

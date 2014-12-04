@@ -1,10 +1,8 @@
 {
 	"test": [
 		"CREATE TABLE companies FROM TBL FILE 'tables/companies.tbl'",
-		"UPDATE companies SET company_name='Muster', company_id=53 WHERE company_name = 'Microsoft';",
-		"UPDATE companies SET company_name='2Apple' WHERE company_name = 'Apple Inc'",
-		"UPDATE companies SET company_name='5Apple' WHERE company_name = '2Apple'",
-		"SELECT * FROM companies"
+		"UPDATE companies SET company_id = 53 WHERE company_name = 'Microsoft';",
+		"SELECT * FROM companies WHERE company_name = 'Microsoft';"
 	],
 	"reference": [
 		"CREATE TABLE reference FROM TBL FILE 'reference/companies_after_one_increments.tbl'",

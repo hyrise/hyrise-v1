@@ -65,17 +65,14 @@ task_list_t SQLQueryParser::buildTaskList(const std::string& query) {
   }
 
   // Build the task list
-  // TODO: Confirm that tasks are executed sequentially
+  // TODO: Confirm that tasks are executed sequentially, link by no-ops
   task_list_t all_tasks;
   int i = 1;
   for (SQLStatement* stmt : stmt_list->vector()) {
     SQLStatementTransformer transformer = SQLStatementTransformer(std::to_string(i++) + ".");
     transformer.transformStatement(stmt);
     task_list_t tasks = transformer.getTaskList();
-    
     all_tasks.insert(all_tasks.end(), tasks.begin(), tasks.end());
-
-
   }
   return all_tasks;
 }
