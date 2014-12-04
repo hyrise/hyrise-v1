@@ -14,6 +14,7 @@
 #include "access/tx/Commit.h"
 
 #include "access/storage/TableLoad.h"
+#include "access/storage/TableUnload.h"
 #include "access/storage/JsonTable.h"
 #include "access/storage/GetTable.h"
 #include "access/storage/SetTable.h"
@@ -39,9 +40,10 @@ namespace sql {
 /**
  * Constructor of the statement transformer.
  */
-SQLStatementTransformer::SQLStatementTransformer(std::string id_prefix) : _id_prefix(id_prefix) {
+SQLStatementTransformer::SQLStatementTransformer(std::string id_prefix) :
+  _id_prefix(id_prefix),
+  _last_task_id(0) {
   // Initialize
-  _last_task_id = 0;
 }
 
 /** 
@@ -59,10 +61,32 @@ TransformationResult SQLStatementTransformer::transformStatement(SQLStatement* s
       return transformInsertStatement((InsertStatement*)stmt);
     case kStmtDelete:
       return transformDeleteStatement((DeleteStatement*)stmt);
+    case kStmtDrop:
+      return transformDropStatement((DropStatement*)stmt);
 
     default: throwError("Unsupported statement type!\n");
   }
   return ALLOC_TRANSFORMATIONRESULT();
+}
+
+TransformationResult SQLStatementTransformer::transformDropStatement(hsql::DropStatement* drop) {
+  TransformationResult meta = ALLOC_TRANSFORMATIONRESULT();
+
+  if (drop->type == DropStatement::kTable) {
+    if (!io::StorageManager::getInstance()->exists(drop->name)) {
+      throwError("Can't drop table. It doesn't exist.", drop->name);
+    }
+
+    auto drop_op = addOperator<TableUnload>("TableUnload", nullptr);
+    drop_op->setTableName(drop->name);
+    meta.first_task = drop_op;
+    meta.last_task = drop_op;
+
+  } else {
+    throwError("Drop type not supported");
+  }
+
+  return meta;
 }
 
 /** 
@@ -80,7 +104,7 @@ TransformationResult SQLStatementTransformer::transformCreateStatement(CreateSta
       return meta;
     } else {
       // Table already exists -> throw error
-      throwError("Table already exists");
+      throwError("Table already exists", create->table_name);
     }
   }
 
