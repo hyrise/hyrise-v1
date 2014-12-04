@@ -23,6 +23,7 @@
 #include "access/SimpleTableScan.h"
 #include "access/UnionScan.h"
 #include "access/Delete.h"
+#include "access/PosUpdateScan.h"
 #include "access/JoinScan.h"
 #include "access/ProjectionScan.h"
 #include "access/GroupByScan.h"
@@ -61,6 +62,8 @@ TransformationResult SQLStatementTransformer::transformStatement(SQLStatement* s
       return transformInsertStatement((InsertStatement*)stmt);
     case kStmtDelete:
       return transformDeleteStatement((DeleteStatement*)stmt);
+    case kStmtUpdate:
+      return transformUpdateStatement((UpdateStatement*)stmt);
     case kStmtDrop:
       return transformDropStatement((DropStatement*)stmt);
 
@@ -69,7 +72,7 @@ TransformationResult SQLStatementTransformer::transformStatement(SQLStatement* s
   return ALLOC_TRANSFORMATIONRESULT();
 }
 
-TransformationResult SQLStatementTransformer::transformDropStatement(hsql::DropStatement* drop) {
+TransformationResult SQLStatementTransformer::transformDropStatement(DropStatement* drop) {
   TransformationResult meta = ALLOC_TRANSFORMATIONRESULT();
 
   if (drop->type == DropStatement::kTable) {
@@ -86,6 +89,39 @@ TransformationResult SQLStatementTransformer::transformDropStatement(hsql::DropS
     throwError("Drop type not supported");
   }
 
+  return meta;
+}
+
+
+TransformationResult SQLStatementTransformer::transformUpdateStatement(UpdateStatement* update) {
+  TransformationResult meta = addGetTable(update->table->name);
+
+  if (update->where == NULL) {
+    throwError("Update without WHERE clause not supported yet");
+  } else {
+    auto filter = addFilterOpFromExpr(update->where);
+    filter->addDependency(meta.last_task);
+    meta.last_task = filter;
+  }
+
+  auto update_op = addOperator<PosUpdateScan>("PosUpdateScan", meta.last_task);
+  meta.last_task = update_op;
+
+  Json::Value update_data;
+  for (UpdateClause* clause : update->updates->vector()) {
+    switch (clause->value->type) {
+      case kExprLiteralInt: update_data[clause->column] = clause->value->ival; break;
+      case kExprLiteralFloat: update_data[clause->column] = clause->value->fval; break;
+      case kExprLiteralString: update_data[clause->column] = clause->value->name; break;
+      default:
+        throwError("Unsupported Expr type in update clause");    
+    }
+    
+  }
+  update_op->setRawData(update_data);
+
+  meta.last_task = addOperator<Commit>("Commit", meta.last_task);
+  meta.last_task = addOperator<NoOp>("NoOp", meta.last_task);
   return meta;
 }
 
@@ -159,7 +195,7 @@ TransformationResult SQLStatementTransformer::transformCreateStatement(CreateSta
 
 
 
-TransformationResult SQLStatementTransformer::transformDeleteStatement(hsql::DeleteStatement* del) {
+TransformationResult SQLStatementTransformer::transformDeleteStatement(DeleteStatement* del) {
   TransformationResult meta = addGetTable(del->table_name);
 
   meta.last_task = addOperator<ValidatePositions>("ValidatePositions", meta.last_task);
@@ -182,7 +218,7 @@ TransformationResult SQLStatementTransformer::transformDeleteStatement(hsql::Del
 
 
 
-TransformationResult SQLStatementTransformer::transformInsertStatement(hsql::InsertStatement* insert) {
+TransformationResult SQLStatementTransformer::transformInsertStatement(InsertStatement* insert) {
   // First get the table into which we want to insert
   TransformationResult meta = addGetTable(insert->table_name);
   
@@ -393,7 +429,7 @@ TransformationResult SQLStatementTransformer::transformGroupByClause(SelectState
  * @param[in]  info       Information about the source for the projection
  * @return  Information about the result of the transformation
  */
-TransformationResult SQLStatementTransformer::transformSelectionList(hsql::SelectStatement* stmt, TransformationResult info) {
+TransformationResult SQLStatementTransformer::transformSelectionList(SelectStatement* stmt, TransformationResult info) {
   TransformationResult res = ALLOC_TRANSFORMATIONRESULT();
   // If we are not selecting everything, we have to perform a projection scan
   // Problem: can't select literals with this operator

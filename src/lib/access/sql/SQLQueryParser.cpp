@@ -72,7 +72,10 @@ task_list_t SQLQueryParser::buildTaskList(const std::string& query) {
     SQLStatementTransformer transformer = SQLStatementTransformer(std::to_string(i++) + ".");
     transformer.transformStatement(stmt);
     task_list_t tasks = transformer.getTaskList();
+    
     all_tasks.insert(all_tasks.end(), tasks.begin(), tasks.end());
+
+
   }
   return all_tasks;
 }

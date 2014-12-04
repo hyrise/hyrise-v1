@@ -48,6 +48,7 @@ class SQLStatementTransformer {
   TransformationResult transformInsertStatement(hsql::InsertStatement* insert);
   TransformationResult transformDeleteStatement(hsql::DeleteStatement* del);
   TransformationResult transformSelectStatement(hsql::SelectStatement* stmt);
+  TransformationResult transformUpdateStatement(hsql::UpdateStatement* update);
   TransformationResult transformDropStatement(hsql::DropStatement* drop);
 
   TransformationResult transformGroupByClause(hsql::SelectStatement* stmt);
