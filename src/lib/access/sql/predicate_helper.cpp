@@ -59,9 +59,9 @@ void parseSimplePredicateIntoJson(Expr* expr, Json::Value& pred) {
   parsePredicateFieldAndValueIntoJson(expr, pred);
 
   switch (expr->op_char) {
-    case '=': pred["type"] = PredicateType::EqualsExpression; break;
-    case '<': pred["type"] = PredicateType::LessThanExpression; break;
-    case '>': pred["type"] = PredicateType::GreaterThanExpression; break;
+    case '=': pred["type"] = PredicateType::EqualsExpressionValue; break;
+    case '<': pred["type"] = PredicateType::LessThanExpressionValue; break;
+    case '>': pred["type"] = PredicateType::GreaterThanExpressionValue; break;
     default:
       throw std::runtime_error("Error when transforming SQL: Currently not supported operator type in where clause");
   }
