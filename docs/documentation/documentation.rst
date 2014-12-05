@@ -195,6 +195,7 @@ alphabetical order :)
   * Marvin Killing
   * Matthias Lleine
   * Maximilian Schneider
+  * Pedro Flemming
   * Robert Strobl
   * Sebastian Blessing
   * Sebastian Hillig
