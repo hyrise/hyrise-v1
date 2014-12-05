@@ -5,7 +5,6 @@
 
 namespace hsql {
 
-void printExpression(Expr* expr, uint num_indent);
 void printOperatorExpression(Expr* expr, uint num_indent);
 
 const char* indent(uint num_indent) { return std::string(num_indent, '\t').c_str(); }
@@ -118,6 +117,29 @@ void printCreateStatementInfo(CreateStatement* stmt, uint num_indent) {
   inprint("CreateStatment", num_indent);
   inprint(stmt->table_name, num_indent+1);
   inprint(stmt->file_path, num_indent+1);
+}
+
+void printInsertStatementInfo(InsertStatement* stmt, uint num_indent) {
+  inprint("InsertStatment", num_indent);
+  inprint(stmt->table_name, num_indent+1);
+  if (stmt->columns != NULL) {
+    inprint("Columns", num_indent+1);
+    for (char* col_name : stmt->columns->vector()) {
+      inprint(col_name, num_indent+2);
+    }
+  }
+  switch (stmt->type) {
+    case InsertStatement::kInsertValues:
+      inprint("Values", num_indent+1);
+      for (Expr* expr : stmt->values->vector()) {
+        printExpression(expr, num_indent+2);
+      }
+      break;
+    case InsertStatement::kInsertSelect:
+      printSelectStatementInfo(stmt->select, num_indent+1);
+      break;
+  }
+
 }
 
 
