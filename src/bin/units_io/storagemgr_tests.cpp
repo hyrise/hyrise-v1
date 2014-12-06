@@ -3,6 +3,7 @@
 
 #include <io/shortcuts.h>
 #include <io/StorageManager.h>
+#include <io/ResourceManager.h>
 #include <storage/MutableVerticalTable.h>
 #include "storage/Store.h"
 #include "helper/checked_cast.h"
@@ -58,6 +59,10 @@ TEST_F(StorageManagerTests, load_table) {
   ASSERT_TRUE(tbl->contentEquals(ref));
   sm->removeTable("LINXXS");
   ASSERT_EQ(0u, sm->getTableNames().size());
+}
+
+TEST_F(StorageManagerTests, load_nonexistent_table) {
+  ASSERT_THROW(sm->getTable("nonexistent"), ResourceNotExistsException);
 }
 
 TEST_F(StorageManagerTests, load_table_header_data) {

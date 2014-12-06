@@ -99,7 +99,7 @@ class WSThreadLevelQueue : virtual public ThreadLevelQueue<QUEUE> {
               std::this_thread::yield();
           } else {
             std::unique_lock<AbstractTaskScheduler::lock_t> locker(ThreadLevelQueue<QUEUE>::_lockqueue);
-            if (_status != AbstractTaskScheduler::RUN)
+            if (_status != AbstractTaskScheduler::RUN && _status != AbstractTaskScheduler::START_UP)
               break;
             ThreadLevelQueue<QUEUE>::_queuecheck.wait(locker);
             retries = 0;

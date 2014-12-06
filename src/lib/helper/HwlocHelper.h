@@ -20,6 +20,7 @@ int getNumberOfCoresOnSystem();
 signed getNodeForCore(unsigned core);
 hwloc_topology_t getHWTopology();
 std::vector<unsigned> getCoresForNode(hwloc_topology_t topology, unsigned node);
+std::vector<hwloc_cpuset_t> getCPUSetsForNode(hwloc_topology_t topology, unsigned node);
 unsigned getNumberOfNodes(hwloc_topology_t topology);
 unsigned getNumberOfCoresPerNumaNode();
 void bindCurrentThreadToCore(int core);

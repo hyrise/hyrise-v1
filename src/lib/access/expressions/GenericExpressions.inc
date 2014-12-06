@@ -48,6 +48,13 @@
         const auto& first_vector = EXPR_DATA_VECTOR_NAME(EXPR_FIELD_VAL(seq_of_fields, 0)); \
         size_t part_size = first_vector.size();\
         part_size -= _with_delta ? 0 : 1;\
+        /* sum up all part's sizes and reserve pl to that size */ \
+        /* avoid costly reallocation. Assumes a high selectivity */ \
+        size_t total_size = 0; \
+        for (size_t part = 0; part < part_size; ++part) { \
+          total_size += first_vector[part]->size(); \
+        } \
+        pl->reserve(total_size); \
         for(size_t part =0; part < part_size; ++part) {\
                 auto rows_in_part = first_vector[part]->size(); \
                 /* if stop is below lower, we are running out of the range we need to scan and can stop! */ \

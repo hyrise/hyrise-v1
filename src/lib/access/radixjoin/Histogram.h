@@ -78,7 +78,7 @@ void _executeRadixHashing(storage::c_atable_ptr_t sourceTab,
     }
   }
 
-  auto store = std::dynamic_pointer_cast<const storage::Store>(tab);
+  const auto& store = std::dynamic_pointer_cast<const storage::Store>(tab);
   if (!store) {
     throw std::runtime_error("Could not cast to store!");
   }

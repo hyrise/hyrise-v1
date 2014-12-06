@@ -29,9 +29,8 @@ class AbstractTaskScheduler {
    */
  public:
   typedef enum {
-    START_UP = -1,
-    RUN = 0,
-    RESIZING = 1,
+    START_UP = 0,
+    RUN = 1,
     TO_STOP = 2,
     STOPPED = 3
   } scheduler_status_t;

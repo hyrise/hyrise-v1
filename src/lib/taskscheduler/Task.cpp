@@ -21,7 +21,7 @@ log4cxx::LoggerPtr _logger(log4cxx::Logger::getLogger("hyrise.taskscheduler"));
 namespace hyrise {
 namespace taskscheduler {
 
-std::vector<std::shared_ptr<Task>> Task::applyDynamicParallelization(size_t dynamicCount) {
+std::vector<std::shared_ptr<Task>> Task::applyDynamicParallelization(DynamicCount dynamicCount) {
   LOG4CXX_ERROR(_logger, "Dynamic Parallelization has not been implemented for this operator.");
   LOG4CXX_ERROR(_logger, "Running without parallelization.");
   return {shared_from_this()};

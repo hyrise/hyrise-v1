@@ -54,7 +54,7 @@ class DynamicTaskQueue : public ThreadLevelQueue<QUEUE> {
       task->lockForNotifications();
       if (task->isReady()) {
         task->unlockForNotifications();
-        uint dynamicCount = task->determineDynamicCount(_maxTaskSize);
+        auto dynamicCount = task->determineDynamicCount(_maxTaskSize);
         auto tasks = task->applyDynamicParallelization(dynamicCount);
         for (const auto& i : tasks) {
           ThreadLevelQueue<QUEUE>::schedule(i);

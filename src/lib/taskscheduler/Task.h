@@ -43,6 +43,22 @@ class TaskDoneObserver {
 };
 
 /*
+ * Used to set the degree of parallelization for dynamically parallelizable
+ * operations. instances is used for all operations but the radix join. The
+ * radix join uses the *_par parameters instead.
+ */
+typedef struct DynamicCount {
+  size_t instances;
+  size_t hash_par;
+  size_t probe_par;
+  size_t join_par;
+  bool operator==(const DynamicCount& rhs) const {
+    return instances == rhs.instances && hash_par == rhs.hash_par && probe_par == rhs.probe_par &&
+           join_par == rhs.join_par;
+  }
+} DynamicCount;
+
+/*
  * a task that can be scheduled by a Task Scheduler
  */
 class Task : public TaskDoneObserver, public std::enable_shared_from_this<Task> {
@@ -53,11 +69,14 @@ class Task : public TaskDoneObserver, public std::enable_shared_from_this<Task> 
   static const int NO_PREFERRED_NODE = -1;
   static const int SESSION_ID_NOT_SET = 0;
   // split up the operator in as many instances as indicated by dynamicCount
-  virtual std::vector<task_ptr_t> applyDynamicParallelization(size_t dynamicCount);
+  virtual std::vector<task_ptr_t> applyDynamicParallelization(DynamicCount dynamicCount);
   // determine the number of instances necessary to adhere to a max task size.
   // should be overridden in operators
   // currently all implementing operators are fine-tuned for server gaza.
-  virtual size_t determineDynamicCount(size_t maxTaskRunTime) { return 1; }
+  virtual DynamicCount determineDynamicCount(size_t maxTaskRunTime) {
+    DynamicCount a{1, 1, 1, 1};
+    return a;
+  }
 
  protected:
   std::vector<task_ptr_t> _dependencies;
