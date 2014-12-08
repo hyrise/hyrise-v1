@@ -1,11 +1,13 @@
 // Copyright (c) 2014 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#include "access/sql/SQLQueryParser.h"
-#include "io/shortcuts.h"
-#include "testing/test.h"
 
+#include <access/sql/SQLQueryParser.h>
+#include <access/sql/parser/SQLParser.h>
+
+#include <io/shortcuts.h>
+
+#include <testing/test.h>
 
 using namespace hsql;
-
 
 namespace hyrise {
 namespace access {

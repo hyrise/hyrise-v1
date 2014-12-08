@@ -104,8 +104,8 @@ void ResponseTask::registerPlanOperation(const std::shared_ptr<PlanOperation>& p
 
 std::shared_ptr<PlanOperation> ResponseTask::getResultTask() {
   // FIXME not thread safe!
-  if (getDependencyCount() > 0) {
-    return std::dynamic_pointer_cast<PlanOperation>(_dependencies[0]);
+  if (getDependencyCount() > _resultTaskIndex) {
+    return std::dynamic_pointer_cast<PlanOperation>(_dependencies[_resultTaskIndex]);
   }
   return nullptr;
 }
@@ -230,7 +230,7 @@ Json::Value ResponseTask::generateResponseJson() {
 void ResponseTask::operator()() {
   Json::Value response;
 
-  if (getDependencyCount() > 0) {
+  if (getDependencyCount() > _resultTaskIndex) {
     response = generateResponseJson();
   }
 

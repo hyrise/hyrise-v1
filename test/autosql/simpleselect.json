@@ -1,6 +1,7 @@
 {
-    "prepare": "CREATE TABLE students FROM TBL FILE 'students.tbl';",
-    "test": "SELECT name, city FROM students WHERE grade <= 2.0",
+    "test": "CREATE TABLE students FROM TBL FILE 'students.tbl';
+             SELECT name, city FROM students WHERE grade <= 2.0",
+                
     "reference": {
         "operators": {
             "0": {

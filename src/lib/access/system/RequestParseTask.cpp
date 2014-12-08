@@ -77,6 +77,7 @@ void RequestParseTask::operator()() {
   performance_vector_t& performance_data = _responseTask->getPerformanceData();
 
   bool recordPerformance = false;
+  bool autocommit = false;
   std::vector<std::shared_ptr<Task> > tasks;
 
   int priority = Task::DEFAULT_PRIORITY;
@@ -127,31 +128,40 @@ void RequestParseTask::operator()() {
 
     // Evaluate the parsed query
     if (parse_was_successful) {
-      _responseTask->setTxContext(ctx);
       recordPerformance = getOrDefault(body_data, "performance", "false") == "true";
-      _responseTask->setRecordPerformanceData(recordPerformance);
 
       // the performance attribute for this operation (at [0])
       if (recordPerformance) {
         performance_data.push_back(std::unique_ptr<performance_attributes_t>(new performance_attributes_t));
       }
 
-      if (is_json_query) LOG4CXX_DEBUG(_query_logger, json_request_data);
-      if (is_sql_query) LOG4CXX_DEBUG(_query_logger, sql_query);
-
       const std::string& final_hash = hash(query_string);
       std::shared_ptr<Task> result = nullptr;
 
+      
       if (is_json_query) {
+        LOG4CXX_DEBUG(_query_logger, json_request_data);
+
         if (json_request_data.isMember("priority"))
           priority = json_request_data["priority"].asInt();
         if (json_request_data.isMember("sessionId"))
           sessionId = json_request_data["sessionId"].asInt();
+
+        auto autocommit_it = body_data.find("autocommit");
+        autocommit = (autocommit_it != body_data.end() && (autocommit_it->second == "true"));
       } // json specific block
 
+      if (is_sql_query) {
+        LOG4CXX_DEBUG(_query_logger, sql_query);
+        
+      } // sql specific block
+
+      _responseTask->setTxContext(ctx);
       _responseTask->setPriority(priority);
       _responseTask->setSessionId(sessionId);
       _responseTask->setRecordPerformanceData(recordPerformance);
+
+
       try {
         // Generate tasks from query
         if (is_json_query) {
@@ -161,12 +171,14 @@ void RequestParseTask::operator()() {
 
         } else if (is_sql_query) {
 
-          sql::SQLQueryParser parser;
-          tasks = parser.transformSQLQuery(sql_query, &result);
+          sql::SQLQueryParser parser(sql_query, _responseTask);
+          tasks = parser.buildSQLQueryTasks();
+          result = tasks.back();
           
         }
-      }
-      catch (const std::exception& ex) {
+
+      } catch (const std::exception& ex) {
+
         // clean up, so we don't end up with a whole mess due to thrown exceptions
         if (is_json_query) LOG4CXX_ERROR(_logger, "Received\n:" << json_request_data);
         if (is_sql_query) LOG4CXX_ERROR(_logger, "Received\n:" << sql_query);
@@ -176,31 +188,38 @@ void RequestParseTask::operator()() {
         result = nullptr;
       }
 
+
+      /**
+       * Autocommit at the end of query if specified
+       */
 #ifdef PERSISTENCY_BUFFEREDLOGGER
       auto group_commit_it = body_data.find("autocommit");
       bool group_commit = (group_commit_it != body_data.end() && (group_commit_it->second == "true"));
       _responseTask->setGroupCommit(group_commit);
 #endif
 
-      auto autocommit_it = body_data.find("autocommit");
-      if (autocommit_it != body_data.end() && (autocommit_it->second == "true")) {
+      if (autocommit) {
         auto commit = std::make_shared<Commit>();
         commit->setOperatorId("__autocommit");
         commit->setPlanOperationName("Commit");
         commit->addDependency(result);
+
 #ifdef PERSISTENCY_BUFFEREDLOGGER
         commit->setFlushLog(!group_commit);
 #endif
+        
         result = commit;
         tasks.push_back(commit);
         _responseTask->setIsAutoCommit(true);
       }
 
 
+      if (tasks.size() == 0) {
+        LOG4CXX_ERROR(_logger, "Parsing of query did not yield result task");
+      }
+
       if (result != nullptr) {
         _responseTask->addDependency(result);
-      } else {
-        LOG4CXX_ERROR(_logger, "Parsing of query did not yield tasks");
       }
 
       for (const auto& func : tasks) {

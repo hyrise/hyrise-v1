@@ -1,11 +1,8 @@
 {
-    "test": [
-    	"CREATE TABLE students FROM TBL FILE 'students.tbl';",
-    	"TRUNCATE students;",
-    	"SELECT * FROM students;"
-    ],
-    "reference": [
-    	"CREATE TABLE empty_students (name TEXT, student_number INT, city TEXT, grade DOUBLE);",
-    	"SELECT * FROM empty_students;"
-    ]
+    "test": "CREATE TABLE students FROM TBL FILE 'students.tbl';
+	    	 TRUNCATE students;
+	    	 SELECT * FROM students;",
+	    	 
+    "reference": "CREATE TABLE empty_students (name TEXT, student_number INT, city TEXT, grade DOUBLE);
+    	 		  SELECT * FROM empty_students;"
 }

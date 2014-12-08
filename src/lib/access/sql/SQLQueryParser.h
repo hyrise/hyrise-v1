@@ -1,44 +1,33 @@
 // Copyright (c) 2014 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-
 #ifndef SRC_LIB_ACCESS_SQL_SQLQUERYPARSER_H_
 #define SRC_LIB_ACCESS_SQL_SQLQUERYPARSER_H_
 
-#include "access/system/QueryParser.h"
-#include "access/sql/parser/SQLParser.h"
-#include "access/system/PlanOperation.h"
+#include <access/sql/typedef_helper.h>
+#include <access/system/ResponseTask.h>
 
 namespace hyrise {
 namespace access {
 namespace sql {
 
-typedef std::shared_ptr<taskscheduler::Task> task_t;
-typedef std::vector<task_t> task_list_t;
 
+/**
+ * This object parses a given SQL query string and creates SQLQueryTask objects.
+ * One task for each statement will be created.
+ */
 class SQLQueryParser {
  public:
-  SQLQueryParser();
+  SQLQueryParser(const std::string& query, std::shared_ptr<ResponseTask> response_task);
 
-  /**
-   * Transforms the SQL string into a list of Hyrise Tasks.
-   * @param[in]  query      SQL query string
-   * @param[out] result  	Last task, the result of which will be the result of the query
-   * @return  List of tasks that were extracted from the query
-   */
-  task_list_t transformSQLQuery(const std::string& query, task_t* result);
-
+  task_list_t buildSQLQueryTasks();
 
  protected:
-  /**
-   * Builds the task list out of the given sql query.
-   * @param[in]  query      SQL query string
-   *
-   */
-  task_list_t buildTaskList(const std::string& query);
+  std::string _query;
+  std::shared_ptr<ResponseTask> _response_task;
+
 };
+
 
 } // namespace sql
 } // namespace access
 } // namespace hyrise
-
-
 #endif

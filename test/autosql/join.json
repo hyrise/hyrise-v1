@@ -1,6 +1,7 @@
 {
-    "prepare": "CREATE TABLE employees FROM TBL FILE 'tables/employees.tbl'; CREATE TABLE companies FROM TBL FILE 'tables/companies.tbl';",
-    "test": "SELECT * FROM employees JOIN companies ON company_id = employee_company_id;",
+    "test": "CREATE TABLE employees FROM TBL FILE 'tables/employees.tbl'; CREATE TABLE companies FROM TBL FILE 'tables/companies.tbl';
+             SELECT * FROM employees JOIN companies ON company_id = employee_company_id;",
+                
     "reference": {
         "operators": {
             "0": {
