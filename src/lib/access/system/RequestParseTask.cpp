@@ -66,6 +66,7 @@ std::string hash(const std::string& v) {
 }
 
 void RequestParseTask::operator()() {
+  auto opStart = get_epoch_nanoseconds();
   assert((_responseTask != nullptr) && "Response needs to be set");
   std::shared_ptr<hyrise::taskscheduler::AbstractTaskScheduler> scheduler;
   if (_scheduler)
@@ -250,7 +251,7 @@ void RequestParseTask::operator()() {
       *(performance_data.at(0)) = {
           0,                                 0,
           "NO_PAPI",                         "RequestParseTask",
-          "requestParse",                    _queryStart,
+          "requestParse",                    opStart,
           get_epoch_nanoseconds(),           boost::lexical_cast<std::string>(std::this_thread::get_id()),
           std::numeric_limits<size_t>::max()};
     }
@@ -280,7 +281,7 @@ void RequestParseTask::operator()() {
       *(performance_data.at(0)) = {
           0,                                 0,
           "NO_PAPI",                         "RequestParseTask",
-          "requestParse",                    _queryStart,
+          "requestParse",                    opStart,
           get_epoch_nanoseconds(),           boost::lexical_cast<std::string>(std::this_thread::get_id()),
           std::numeric_limits<size_t>::max()};
     }

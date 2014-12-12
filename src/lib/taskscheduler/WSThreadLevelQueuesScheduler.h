@@ -37,8 +37,7 @@ class WSThreadLevelQueuesScheduler : virtual public ThreadLevelQueuesScheduler<Q
     // check if task scheduler is about to change structure of scheduler (change number of queues); if yes, return
     // nullptr
     // otherwise copy queues from _taskQueues and cast to WSThreadLevelQueues
-    if (this->_status == AbstractTaskScheduler::RESIZING || this->_status == AbstractTaskScheduler::TO_STOP ||
-        this->_status == AbstractTaskScheduler::STOPPED)
+    if (this->_status == AbstractTaskScheduler::TO_STOP || this->_status == AbstractTaskScheduler::STOPPED)
       return nullptr;
     // return const reference to task queues
     return &_queues;

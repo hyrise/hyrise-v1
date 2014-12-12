@@ -4,10 +4,12 @@
 #include "access/radixjoin/Histogram.h"
 #include "access/radixjoin/RadixCluster.h"
 #include "helper.h"
+#include "helper/types.h"
 #include "io/shortcuts.h"
 #include "access/radixjoin/NestedLoopEquiJoin.h"
 #include "testing/TableEqualityTest.h"
-#include <storage/TableBuilder.h>
+#include "storage/Table.h"
+#include "storage/ColumnMetadata.h"
 #include "access/RadixJoin.h"
 #include "access/storage/TableLoad.h"
 #include "access/Barrier.h"
@@ -16,9 +18,17 @@
 namespace hyrise {
 namespace access {
 
-using storage::TableBuilder;
+class RadixJoinTest : public AccessTest {
 
-class RadixJoinTest : public AccessTest {};
+ public:
+  std::shared_ptr<storage::Table> createOutputTable(const size_t size) {
+    std::vector<storage::ColumnMetadata> meta{
+        storage::ColumnMetadata::metadataFromString(types::integer_name, "count")};
+    auto result = std::make_shared<storage::Table>(&meta, nullptr, size, true, false);
+    result->resize(size);
+    return result;
+  }
+};
 
 TEST_F(RadixJoinTest, histogram_parallel_4x) {
 
@@ -156,16 +166,13 @@ TEST_F(RadixJoinTest, check_prefixsum) {
         << result->getValueId(0, i).valueId << " != " << reference->getValue<unsigned int>(0, i) << " at " << i;
 }
 
-TEST_F(RadixJoinTest, check_prefixsum_parallel_p3) {
-  TableBuilder::param_list list;
-  list.append().set_type("INTEGER").set_name("count");
-  auto t1 = TableBuilder::build(list, false);
-  auto t2 = TableBuilder::build(list, false);
-  auto t3 = TableBuilder::build(list, false);
 
-  t1->resize(2);
-  t2->resize(2);
-  t3->resize(2);
+
+TEST_F(RadixJoinTest, check_prefixsum_parallel_p3) {
+  auto t1 = createOutputTable(2);
+  auto t2 = createOutputTable(2);
+  auto t3 = createOutputTable(2);
+
   t1->setValueId(0, 0, {10, 0});
   t1->setValueId(0, 1, {20, 0});
 
@@ -189,15 +196,10 @@ TEST_F(RadixJoinTest, check_prefixsum_parallel_p3) {
 }
 
 TEST_F(RadixJoinTest, check_prefixsum_parallel_p2) {
-  TableBuilder::param_list list;
-  list.append().set_type("INTEGER").set_name("count");
-  auto t1 = TableBuilder::build(list, false);
-  auto t2 = TableBuilder::build(list, false);
-  auto t3 = TableBuilder::build(list, false);
+  auto t1 = createOutputTable(2);
+  auto t2 = createOutputTable(2);
+  auto t3 = createOutputTable(2);
 
-  t1->resize(2);
-  t2->resize(2);
-  t3->resize(2);
   t1->setValueId(0, 0, {10, 0});
   t1->setValueId(0, 1, {20, 0});
 
@@ -221,15 +223,10 @@ TEST_F(RadixJoinTest, check_prefixsum_parallel_p2) {
 }
 
 TEST_F(RadixJoinTest, check_prefixsum_parallel_p1) {
-  TableBuilder::param_list list;
-  list.append().set_type("INTEGER").set_name("count");
-  auto t1 = TableBuilder::build(list, false);
-  auto t2 = TableBuilder::build(list, false);
-  auto t3 = TableBuilder::build(list, false);
+  auto t1 = createOutputTable(2);
+  auto t2 = createOutputTable(2);
+  auto t3 = createOutputTable(2);
 
-  t1->resize(2);
-  t2->resize(2);
-  t3->resize(2);
   t1->setValueId(0, 0, {10, 0});
   t1->setValueId(0, 1, {20, 0});
 
@@ -253,15 +250,10 @@ TEST_F(RadixJoinTest, check_prefixsum_parallel_p1) {
 }
 
 TEST_F(RadixJoinTest, check_prefixsum_parallel_merge) {
-  TableBuilder::param_list list;
-  list.append().set_type("INTEGER").set_name("count");
-  auto t1 = TableBuilder::build(list, false);
-  auto t2 = TableBuilder::build(list, false);
-  auto t3 = TableBuilder::build(list, false);
+  auto t1 = createOutputTable(2);
+  auto t2 = createOutputTable(2);
+  auto t3 = createOutputTable(2);
 
-  t1->resize(2);
-  t2->resize(2);
-  t3->resize(2);
   t1->setValueId(0, 0, {0, 0});
   t1->setValueId(0, 1, {10, 0});
 
@@ -760,48 +752,77 @@ TEST_F(RadixJoinTest, multi_pass_radix_cluster_parallel) {
   EXPECT_EQ(12u, merged_prx->getValueId(0, 7).valueId);
 }
 
-TEST_F(RadixJoinTest, determine_dynamic_count) {
+class RadixJoinDynamicParallelizationTest : public AccessTest {
+ public:
+  planop_ptr_t createRadixWith(size_t hash_table_size, size_t probe_table_size) {
+    auto tbl = io::Loader::shortcuts::load("test/tables/companies.tbl");
+
+    auto probe_table = tbl->copy_structure();
+    probe_table->resize(probe_table_size);
+    auto probe_fake_task = std::make_shared<Barrier>();
+    probe_fake_task->addInput(probe_table);
+    probe_fake_task->addField(0);
+
+    auto hash_table = tbl->copy_structure();
+    hash_table->resize(hash_table_size);  /// 100k
+    auto hash_fake_task = std::make_shared<Barrier>();
+    hash_fake_task->addInput(hash_table);
+    hash_fake_task->addField(0);
+
+    planop_ptr_t radix = std::make_shared<RadixJoin>();
+    radix->addField(0);
+    radix->addField(0);
+    radix->addDependency(probe_fake_task);
+    radix->addDependency(hash_fake_task);
+
+    (*hash_fake_task)();
+    (*probe_fake_task)();
+
+    return radix;
+  }
+};
+
+
+TEST_F(RadixJoinDynamicParallelizationTest, bigger_join_par_with_bigger_table) {
+  // This is a low mts in order to make sure table sizes still have an effect
+  // on the degree of parallelization.
   size_t MTS = 100;
-  auto tbl = io::Loader::shortcuts::load("test/tables/companies.tbl");
 
-  auto resizedTbl = tbl->copy_structure();
-  resizedTbl->resize(100000);  /// 100k
-  auto fakeTask1 = std::shared_ptr<PlanOperation>(new Barrier());
-  auto fakeTask2 = std::shared_ptr<PlanOperation>(new Barrier());
-  fakeTask1->addInput(resizedTbl);
-  fakeTask1->addField(0);
-  fakeTask2->addInput(resizedTbl);
-  fakeTask2->addField(0);
-  (*fakeTask1)();
-  (*fakeTask2)();
-  std::shared_ptr<PlanOperation> radix = std::shared_ptr<PlanOperation>(new RadixJoin());
-  radix->addField(0);
-  radix->addField(0);
-  radix->addDependency(fakeTask1);
-  radix->addDependency(fakeTask2);
-  auto dynamicCount1 = radix->determineDynamicCount(MTS);
+  auto radix = createRadixWith(100000, 100000);  // 100k
+  auto join_par_1 = radix->determineDynamicCount(MTS).join_par;
 
-  auto resizedTbl2 = tbl->copy_structure();
-  resizedTbl2->resize(10000000);  // 10 million
-  auto fakeTask3 = std::shared_ptr<PlanOperation>(new Barrier());
-  auto fakeTask4 = std::shared_ptr<PlanOperation>(new Barrier());
-  fakeTask3->addInput(resizedTbl2);
-  fakeTask3->addField(0);
-  fakeTask4->addInput(resizedTbl2);
-  fakeTask4->addField(0);
-  (*fakeTask3)();
-  (*fakeTask4)();
-  std::shared_ptr<PlanOperation> radix2 = std::shared_ptr<PlanOperation>(new RadixJoin());
-  radix2->addField(0);
-  radix2->addField(0);
-  radix2->addDependency(fakeTask3);
-  radix2->addDependency(fakeTask4);
-  auto dynamicCount2 = radix2->determineDynamicCount(MTS);
+  auto radix2 = createRadixWith(10000000, 10000000);  // 10 million
+  auto join_par_2 = radix2->determineDynamicCount(MTS).join_par;
 
-  ASSERT_GT(dynamicCount2, dynamicCount1);
+  ASSERT_GT(join_par_2, join_par_1);
 }
 
-class RadixDynamicCountTest : public AccessTest, public ::testing::WithParamInterface<int> {
+TEST_F(RadixJoinDynamicParallelizationTest, bigger_hash_par_with_bigger_hash_table) {
+  size_t MTS = 100;
+
+  auto radix = createRadixWith(100000, 100000);
+  auto hash_par_1 = radix->determineDynamicCount(MTS).hash_par;
+
+  auto radix_2 = createRadixWith(10000000, 100000);
+  auto hash_par_2 = radix_2->determineDynamicCount(MTS).hash_par;
+
+  ASSERT_GT(hash_par_2, hash_par_1);
+}
+
+TEST_F(RadixJoinDynamicParallelizationTest, bigger_probe_par_with_bigger_probe_table) {
+  size_t MTS = 100;
+
+  auto radix = createRadixWith(100000, 100000);
+  auto probe_par_1 = radix->determineDynamicCount(MTS).probe_par;
+
+  auto radix_2 = createRadixWith(100000, 10000000);
+  auto probe_par_2 = radix_2->determineDynamicCount(MTS).probe_par;
+
+  ASSERT_GT(probe_par_2, probe_par_1);
+}
+
+class RadixApplyDynParallelizationTest : public AccessTest,
+                                         public ::testing::WithParamInterface<taskscheduler::DynamicCount> {
  protected:
   virtual void SetUp() {
     AccessTest::SetUp();
@@ -839,20 +860,20 @@ class RadixDynamicCountTest : public AccessTest, public ::testing::WithParamInte
   std::vector<taskscheduler::task_ptr_t> tasks;
 };
 
-TEST_P(RadixDynamicCountTest, virtual_radix_no_longer_dependency) {
+TEST_P(RadixApplyDynParallelizationTest, virtual_radix_no_longer_dependency) {
   // Radix should no longer be a dependency of the waiter.
   // It should have been replaced by a concrete taks of the radix transformation.
   ASSERT_FALSE(waiter->isDependency(radix));
 }
 
-TEST_P(RadixDynamicCountTest, concrete_radix_is_dependency) {
+TEST_P(RadixApplyDynParallelizationTest, concrete_radix_is_dependency) {
   auto finalOp = std::dynamic_pointer_cast<PlanOperation>(tasks.back());
 
   // The final op of the radix transformation tasks should be a new dependency of the waiter
   ASSERT_TRUE(waiter->isDependency(finalOp));
 }
 
-TEST_P(RadixDynamicCountTest, execute_and_check_result) {
+TEST_P(RadixApplyDynParallelizationTest, execute_and_check_result) {
   auto finalOp = std::dynamic_pointer_cast<PlanOperation>(tasks.back());
   tasks.push_back(waiter);
 
@@ -867,14 +888,18 @@ TEST_P(RadixDynamicCountTest, execute_and_check_result) {
   ASSERT_TRUE(referenceTable->contentEquals(resultTable));
 }
 
-INSTANTIATE_TEST_CASE_P(RadixJoinDynamicParallelizationTest, RadixDynamicCountTest, ::testing::Values(1, 4));
+INSTANTIATE_TEST_CASE_P(RadixJoinApplyDynamicParallelizationTest,
+                        RadixApplyDynParallelizationTest,
+                        ::testing::Values(taskscheduler::DynamicCount{1, 1, 1, 1},
+                                          taskscheduler::DynamicCount{4, 4, 4, 4}));
 
 // Test assures that the default MTS value of 0
 // results in a degree of 1. This ensures that applyDynamicParallelization
 // will work properly.
-TEST(RadixDynamicCountTest, mts_0_results_in_degree_1) {
+TEST(RadixJoinApplyDynamicParallelizationTest, mts_0_results_in_degree_1) {
   RadixJoin rj;
-  ASSERT_EQ(rj.determineDynamicCount(0), 1U);
+  taskscheduler::DynamicCount defaultCount{1, 1, 1, 1};
+  ASSERT_EQ(rj.determineDynamicCount(0), defaultCount);
 }
 }
 }

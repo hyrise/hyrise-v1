@@ -45,35 +45,8 @@ class PlanOperation : public OutputTask {
   /* Returns all errors of dependencies as one concatenated std::string */
   std::string getDependencyErrorMessages();
 
-
-  /*
-   * The model used is based on a/x + b as an equation, whereas x
-   * is the number of instances used. The result is the mean task execution time
-   * for this operator. a and b are parameters based on the input table size.
-   * b also denotes the minimal possible mean task execution time.
-   * It thus sets the minimal achievable mts.
-   * for determineDynamicCount
-   */
-  virtual size_t getTotalTableSize();
-  /* determine the b parameter also known as minimal achievable mts */
-  virtual double calcMinMts(double totalTblSizeIn100k);
-  /* determine the a parameter of the model. */
-  virtual double calcA(double totalTblSizeIn100k);
-  /*
-   * The standard implementation of the calc* method assume
-   * a straight line model with a*x + b.
-   * You can either override the following parameters in your operator
-   * or you can supply your calc* methods.
-   */
-  virtual double min_mts_a() { return 0; }
-  virtual double min_mts_b() { return 0; }
-  virtual double a_a() { return 0; }
-  virtual double a_b() { return 0; }
-
  public:
   virtual ~PlanOperation();
-
-  virtual size_t determineDynamicCount(size_t maxTaskRunTime);
 
   void setLimit(uint64_t l);
   void setProducesPositions(bool p);

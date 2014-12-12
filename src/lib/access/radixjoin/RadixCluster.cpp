@@ -28,6 +28,7 @@ void CreateRadixTable::executePlanOperation() {
   auto positions = std::make_shared<storage::Table>(&meta2, nullptr, tableSize, true, false);
   positions->resize(tableSize);
 
+  // TODO use vector literal in constructor
   std::vector<storage::atable_ptr_t> tmp{hashes, positions};
   auto result = std::make_shared<storage::MutableVerticalTable>(tmp);
 

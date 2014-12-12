@@ -50,6 +50,10 @@ Store::Store(atable_ptr_t main_table)
       _cidEndVector(main_table->size(), tx::INF_CID),
       _tidVector(main_table->size(), tx::UNKNOWN) {
   setUuid();
+  _main_pos_list.reserve(main_table->size());
+  for (size_t i = 0; i < _main_table->size(); i++) {
+    _main_pos_list.push_back(i);
+  }
 }
 
 Store::Store(const std::string& tableName, atable_ptr_t main_table)
@@ -59,9 +63,14 @@ Store::Store(const std::string& tableName, atable_ptr_t main_table)
       delta(main_table->copy_structure(create_concurrent_dict, create_concurrent_storage)),
       _cidBeginVector(main_table->size(), 0),
       _cidEndVector(main_table->size(), tx::INF_CID),
-      _tidVector(main_table->size(), tx::UNKNOWN) {
+      _tidVector(main_table->size(), tx::UNKNOWN),
+      _main_dirty(false) {
   setUuid();
   setName(tableName);
+  _main_pos_list.reserve(main_table->size());
+  for (size_t i = 0; i < _main_table->size(); i++) {
+    _main_pos_list.push_back(i);
+  }
 }
 
 
@@ -143,6 +152,14 @@ void Store::merge() {
     sm->persistTable(getName());
   }
 #endif
+
+  _main_pos_list.clear();
+  _main_pos_list.reserve(_main_table->size());
+  for (size_t i = 0; i < _main_table->size(); i++) {
+    _main_pos_list.push_back(i);
+  }
+  // after a merge, _main is clean again (no updates on row in delta)
+  _main_dirty = false;
 }
 
 
@@ -288,10 +305,18 @@ void Store::validatePositions(pos_list_t& pos, tx::transaction_cid_t last_commit
 
 pos_list_t Store::buildValidPositions(tx::transaction_cid_t last_commit_id, tx::transaction_id_t tid) const {
   pos_list_t result;
-  pos_t mysize = size();
-  for (pos_t i = 0; i < mysize; ++i) {
-    if (isVisibleForTransaction(i, last_commit_id, tid))
-      result.push_back(i);
+  if (!_main_dirty) {
+    result.reserve(size());
+    std::copy(_main_pos_list.begin(), _main_pos_list.end(), std::back_inserter(result));
+    for (size_t i = _main_table->size(); i < _cidBeginVector.size(); i++) {
+      if (isVisibleForTransaction(i, last_commit_id, tid))
+        result.push_back(i);
+    }
+  } else {
+    functional::forEachWithIndex(_cidBeginVector, [&](size_t i, tx::transaction_cid_t v) {
+      if (isVisibleForTransaction(i, last_commit_id, tid))
+        result.push_back(i);
+    });
   }
   return std::move(result);
 }
@@ -380,6 +405,8 @@ void Store::commitPositions(const pos_list_t& pos, const tx::transaction_cid_t c
       _cidBeginVector[p] = cid;
       _tidVector[p] = tx::START_TID;
     } else {
+      if (p < _main_table->size())
+        _main_dirty = true;
       _cidEndVector[p] = cid;
     }
   }

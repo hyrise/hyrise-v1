@@ -12,6 +12,7 @@
 #include "access/radixjoin/RadixCluster.h"
 #include "helper/types.h"
 #include "log4cxx/logger.h"
+#include <math.h>
 
 namespace hyrise {
 namespace access {
@@ -21,6 +22,7 @@ auto _ = QueryParser::registerPlanOperation<RadixJoin>("RadixJoin");
 log4cxx::LoggerPtr _logger(log4cxx::Logger::getLogger("hyrise.access"));
 }
 
+// Used to cap the hash_par and join_par degree
 const size_t RadixJoin::MaxParallelizationDegree;
 
 void RadixJoin::executePlanOperation() {}
@@ -42,31 +44,25 @@ uint32_t RadixJoin::bits1() const { return _bits1; }
 
 uint32_t RadixJoin::bits2() const { return _bits2; }
 
-size_t RadixJoin::getTotalTableSize() {
-  const auto& dep = std::dynamic_pointer_cast<PlanOperation>(_dependencies[0]);
-  const auto& dep2 = std::dynamic_pointer_cast<PlanOperation>(_dependencies[1]);
-
-  if (!dep || !dep2) {
-    throw std::runtime_error("RadixJoin needs to have two input dependencies!");
+size_t RadixJoin::getTableSize(size_t dep_index) {
+  const auto& dep = std::dynamic_pointer_cast<PlanOperation>(_dependencies[dep_index]);
+  if (!dep) {
+    throw std::runtime_error("RadixJoin is missing one dependency");
   }
-
   const auto& inputTable = dep->getResultTable();
-  const auto& inputTable2 = dep2->getResultTable();
-
-  // if either input is empty, no parallelization.
-  if (!inputTable || !inputTable2) {
-    return 1;
+  if (!inputTable) {
+    return 0;
   }
-
-  return inputTable->size() + inputTable2->size();
+  return inputTable->size();
 }
 
-double RadixJoin::calcMinMts(double totalTblSizeIn100k) { return min_mts_a() / totalTblSizeIn100k + min_mts_b(); }
+size_t RadixJoin::getHashTableSize() { return getTableSize(1); }
 
-double RadixJoin::calcA(double totalTblSizeIn100k) { return a_a() * std::pow(totalTblSizeIn100k, 2) + a_b(); }
+size_t RadixJoin::getProbeTableSize() { return getTableSize(0); }
 
 // FIXME merge logic with RadixJoinTransformation.
-std::vector<taskscheduler::task_ptr_t> RadixJoin::applyDynamicParallelization(size_t dynamicCount) {
+std::vector<taskscheduler::task_ptr_t> RadixJoin::applyDynamicParallelization(
+    taskscheduler::DynamicCount dynamicCount) {
 
   std::vector<taskscheduler::task_ptr_t> tasks;
 
@@ -84,24 +80,25 @@ std::vector<taskscheduler::task_ptr_t> RadixJoin::applyDynamicParallelization(si
     _doneObservers.clear();
   }
 
+  size_t hash_par = dynamicCount.hash_par;
+  size_t probe_par = dynamicCount.probe_par;
+  size_t join_par = dynamicCount.join_par;
+
   // the original radix join task is not executed
   // instead we create the following tasks for radix join
 
   std::string opIdBase = _operatorId;
 
-  // restrict max degree of parallelism to 24 (MaxParallelizationDegree), as parallel algo for prefix sums does not
-  // really scale well
-  size_t degree = std::min(dynamicCount, RadixJoin::MaxParallelizationDegree);
 
   // create ops and edges for probe side
   auto probe_side = build_probe_side(
-      _operatorId + "_probe", _indexed_field_definition[0], dynamicCount, _bits1, _bits2, _dependencies[0]);
+      _operatorId + "_probe", _indexed_field_definition[0], probe_par, _bits1, _bits2, _dependencies[0]);
 
   tasks.insert(tasks.end(), probe_side.begin(), probe_side.end());
 
   // create ops and edges for hash side
   auto hash_side =
-      build_hash_side(_operatorId + "_hash", _indexed_field_definition[1], degree, _bits1, _bits2, _dependencies[1]);
+      build_hash_side(_operatorId + "_hash", _indexed_field_definition[1], hash_par, _bits1, _bits2, _dependencies[1]);
 
   tasks.insert(tasks.end(), hash_side.begin(), hash_side.end());
 
@@ -118,7 +115,7 @@ std::vector<taskscheduler::task_ptr_t> RadixJoin::applyDynamicParallelization(si
   int hash_prefix = hash_side.size() - 2;
 
   // case 1: no parallel join -> we do not need a union and have to connect the output edges to join
-  if (dynamicCount == 1) {
+  if (join_par == 1) {
     join_name = _operatorId + "_join";
 
     auto j = std::make_shared<NestedLoopEquiJoin>();
@@ -168,11 +165,11 @@ std::vector<taskscheduler::task_ptr_t> RadixJoin::applyDynamicParallelization(si
 
     // calculate partitions that need to be worked by join
     // if join_par > partitions, set join_par to partitions
-    if (dynamicCount > partitions) {
-      dynamicCount = partitions;
+    if (join_par > partitions) {
+      join_par = partitions;
     }
 
-    for (int i = 0; i < (int)dynamicCount; i++) {
+    for (size_t i = 0; i < join_par; i++) {
       std::ostringstream s;
       s << i;
 
@@ -183,7 +180,7 @@ std::vector<taskscheduler::task_ptr_t> RadixJoin::applyDynamicParallelization(si
       j->setBits2(_bits2);
       j->setPlanOperationName("NestedLoopEquiJoin");
 
-      distributePartitions(partitions, dynamicCount, i, first, last);
+      distributePartitions(partitions, join_par, i, first, last);
 
       for (int i = first; i <= last; i++) {
         j->addPartition(i);
@@ -217,6 +214,36 @@ std::vector<taskscheduler::task_ptr_t> RadixJoin::applyDynamicParallelization(si
   }
 
   return tasks;
+}
+
+taskscheduler::DynamicCount RadixJoin::determineDynamicCount(size_t maxTaskRunTime) {
+  // this can never be satisfied. Default to NO parallelization.
+  if (maxTaskRunTime == 0) {
+    return taskscheduler::DynamicCount{1, 1, 1, 1};
+  }
+
+  auto hashTableSize = getHashTableSize() / (double)100000;
+  auto probeTableSize = getProbeTableSize() / (double)100000;
+
+  auto hash_instances = (_cluster_a * hashTableSize) / (maxTaskRunTime - _cluster_b * hashTableSize - _cluster_c);
+  size_t hash_par = std::max(1, static_cast<int>(round(hash_instances)));
+  if (hash_par > MaxParallelizationDegree) {
+    hash_par = MaxParallelizationDegree;
+  }
+
+  auto probe_instances = (_cluster_a * probeTableSize) / (maxTaskRunTime - _cluster_b * probeTableSize - _cluster_c);
+  size_t probe_par = std::max(1, static_cast<int>(round(probe_instances)));
+  if (probe_par > MaxParallelizationDegree) {
+    probe_par = MaxParallelizationDegree;
+  }
+
+  // The overall work is based on probe and hash table sizes
+  // The overhead per instances is based on just the probe table size
+  auto join_instances =
+      (probeTableSize * (_join_d + _join_a * hashTableSize)) / (maxTaskRunTime - _join_b * probeTableSize - _join_c);
+  size_t join_par = std::max(1, static_cast<int>(round(join_instances)));
+
+  return taskscheduler::DynamicCount{1, hash_par, probe_par, join_par};
 }
 
 void RadixJoin::copyTaskAttributesFromThis(std::shared_ptr<PlanOperation> to) {

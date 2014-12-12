@@ -66,6 +66,32 @@ std::vector<unsigned> getCoresForNode(hwloc_topology_t topology, unsigned node) 
   return children;
 }
 
+std::vector<hwloc_cpuset_t> getCPUSetsForNode(hwloc_topology_t topology, unsigned node) {
+  std::vector<hwloc_cpuset_t> children;
+
+  // get number of cores by type
+  unsigned number_of_cores = hwloc_get_nbobjs_by_type(topology, HWLOC_OBJ_CORE);
+  hwloc_obj_t obj = hwloc_get_obj_by_type(topology, HWLOC_OBJ_NODE, node);
+  if (obj == nullptr) {  // in case there is no node...
+    children.resize(number_of_cores);
+    for (unsigned i = 0; i < number_of_cores; i++) {
+      hwloc_obj_t core = hwloc_get_obj_by_type(topology, HWLOC_OBJ_CORE, i);
+      children.push_back(core->cpuset);
+    }
+    return children;
+  }
+
+  // get all cores and check whether core is in subtree of node, if yes, push to vector
+  // iterate over cores and check whether in subtree
+  for (unsigned i = 0; i < number_of_cores; i++) {
+    hwloc_obj_t core = hwloc_get_obj_by_type(topology, HWLOC_OBJ_CORE, i);
+    if (hwloc_obj_is_in_subtree(topology, core, obj)) {
+      children.push_back(core->cpuset);
+    }
+  }
+  return children;
+}
+
 unsigned getNumberOfNodes(hwloc_topology_t topology) { return hwloc_get_nbobjs_by_type(topology, HWLOC_OBJ_NODE); }
 
 signed getNodeForCore(unsigned core) {

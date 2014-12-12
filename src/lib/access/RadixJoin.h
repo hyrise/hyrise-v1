@@ -18,23 +18,30 @@ class RadixJoin : public PlanOperation {
   uint32_t bits1() const;
   uint32_t bits2() const;
 
-  virtual std::vector<taskscheduler::task_ptr_t> applyDynamicParallelization(size_t dynamicCount);
+  virtual taskscheduler::DynamicCount determineDynamicCount(size_t maxTaskRunTime) override;
+  virtual std::vector<taskscheduler::task_ptr_t> applyDynamicParallelization(taskscheduler::DynamicCount dynamicCount)
+      override;
 
  protected:
   // for determineDynamicCount
   // overridden from PlanOperation
-  virtual size_t getTotalTableSize();
-  virtual double calcMinMts(double totalTblSizeIn100k);
-  virtual double calcA(double totalTblSizeIn100k);
-  virtual double min_mts_a() { return -32.7333223568781; }
-  virtual double min_mts_b() { return 20.6071622571548; }
-  virtual double a_a() { return 0.0499042793549051; }
-  virtual double a_b() { return 251.463168551956; }
+  size_t getTableSize(size_t dep_index);
+  size_t getHashTableSize();
+  size_t getProbeTableSize();
 
  private:
+  // Used for fitting model
+  double _cluster_a = 1.77726657e+01;
+  double _cluster_b = -2.20481624e-03;
+  double _cluster_c = 7.40603624e+00;
+  double _join_a = 2.50010360e-01;
+  double _join_b = 5.59605419e-03;
+  double _join_c = 6.33123046e+00;
+  double _join_d = 2.96583603e+00;
+
   uint32_t _bits1;
   uint32_t _bits2;
-  static const size_t MaxParallelizationDegree = 24;
+  static const size_t MaxParallelizationDegree = 200;
 
   void distributePartitions(const int partitions, const int join_count, const int current_join, int& first, int& last)
       const;

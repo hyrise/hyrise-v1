@@ -175,6 +175,10 @@ class Store : public AbstractTable {
   tbb::concurrent_vector<tx::transaction_id_t> _tidVector;
 
   friend class PrettyPrinter;
+  // main table pos_list
+  pos_list_t _main_pos_list;
+  // flag if main was updated
+  bool _main_dirty;
 };
 }
 }

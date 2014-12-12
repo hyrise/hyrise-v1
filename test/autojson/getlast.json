@@ -1,0 +1,20 @@
+{
+    "operators": {
+        "-1": {
+            "type": "TableLoad",
+            "table": "reference",
+            "filename": "tables/companies_last2.tbl"
+        },
+        "0": {
+            "type": "TableLoad",
+            "table": "companies",
+            "filename": "tables/companies.tbl"
+        },
+
+        "1": {
+            "type": "GetLastRecords",
+            "records": 2
+        }
+    },
+    "edges" : [["0", "1"]]
+}

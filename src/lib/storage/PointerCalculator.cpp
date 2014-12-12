@@ -260,11 +260,6 @@ size_t PointerCalculator::getTableRowForRow(const size_t row) const {
   } else {
     actual_row = row;
   }
-  // if underlying table is PointerCalculator, resolve recursively
-  auto p = std::dynamic_pointer_cast<const PointerCalculator>(table);
-  if (p)
-    actual_row = p->getTableRowForRow(actual_row);
-
   return actual_row;
 }
 

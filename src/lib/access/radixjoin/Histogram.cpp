@@ -92,7 +92,7 @@ void Histogram2ndPass::executePlanOperation() {
   auto o_data = getFixedDataVector(result).first;
 
   // Get input vector
-  auto i_data = getFixedDataVector(tab).first;
+  const auto& i_data = getFixedDataVector(tab).first;
 
   // Iterate and hash based on the part description
   size_t start = 0, stop = tableSize;
