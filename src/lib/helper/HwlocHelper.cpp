@@ -73,7 +73,6 @@ std::vector<hwloc_cpuset_t> getCPUSetsForNode(hwloc_topology_t topology, unsigne
   unsigned number_of_cores = hwloc_get_nbobjs_by_type(topology, HWLOC_OBJ_CORE);
   hwloc_obj_t obj = hwloc_get_obj_by_type(topology, HWLOC_OBJ_NODE, node);
   if (obj == nullptr) {  // in case there is no node...
-    children.resize(number_of_cores);
     for (unsigned i = 0; i < number_of_cores; i++) {
       hwloc_obj_t core = hwloc_get_obj_by_type(topology, HWLOC_OBJ_CORE, i);
       children.push_back(core->cpuset);
