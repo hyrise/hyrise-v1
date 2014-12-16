@@ -40,6 +40,7 @@ int identifyTableForColumnRef(hsql::Expr* col, TransformationResult t0, Transfor
 std::string buildFunctionRefColumnName(hsql::Expr* func_ref);
 
 
+std::string stringToUppercase(std::string str);
 
 
 

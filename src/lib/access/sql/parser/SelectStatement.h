@@ -9,9 +9,11 @@
 namespace hsql {
 
 
+
 /**
  * @struct OrderDescription
- * Description of the order by clause within a select statement
+ * @brief Description of the order by clause within a select statement
+ * 
  * TODO: hold multiple expressions to be sorted by
  */
 typedef enum {
@@ -24,7 +26,9 @@ struct OrderDescription {
 		type(type),
 		expr(expr) {}
 		
-	virtual ~OrderDescription(); // defined in destructors.cpp
+	virtual ~OrderDescription() {
+		delete expr;
+	}
 
 	OrderType type;
 	Expr* expr;	
@@ -32,7 +36,7 @@ struct OrderDescription {
 
 /**
  * @struct LimitDescription
- * Description of the limit clause within a select statement
+ * @brief Description of the limit clause within a select statement
  */
 const int64_t kNoLimit = -1;
 const int64_t kNoOffset = -1;
@@ -46,8 +50,26 @@ struct LimitDescription {
 };
 
 /**
+ * @struct GroupByDescription
+ */
+struct GroupByDescription {
+	GroupByDescription() : 
+		columns(NULL),
+		having(NULL) {}
+
+	~GroupByDescription() {
+		delete columns;
+		delete having;
+	}
+
+	List<Expr*>* columns;
+	Expr* having;
+};
+
+/**
  * @struct SelectStatement
- * Representation of a full select statement.
+ * @brief Representation of a full select statement.
+ * 
  * TODO: add union_order and union_limit
  */
 struct SelectStatement : SQLStatement {
@@ -61,12 +83,20 @@ struct SelectStatement : SQLStatement {
 		order(NULL),
 		limit(NULL) {};
 
-	virtual ~SelectStatement(); // defined in destructors.cpp
+	virtual ~SelectStatement() {
+		delete from_table;
+		delete select_list;
+		delete where_clause;
+		delete group_by;
+		delete order;
+		delete limit;
+	}
 
 	TableRef* from_table;
+	bool select_distinct;
 	List<Expr*>* select_list;
 	Expr* where_clause;	
-	List<Expr*>* group_by;
+	GroupByDescription* group_by;
 
 	SelectStatement* union_select;
 	OrderDescription* order;

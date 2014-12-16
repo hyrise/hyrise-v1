@@ -16,11 +16,12 @@ class SortScan : public PlanOperation {
   const std::string vname();
   void setSortField(const unsigned s);
   void setSortField(const std::string& s);
+  void setAsc(const bool asc);
 
  private:
   unsigned _sort_field;
   std::string _sort_field_name;
-  bool asc = true;
+  bool _asc = true;
 };
 }
 }

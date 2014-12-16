@@ -16,13 +16,19 @@ typedef enum {
 	kExprLiteralString,
 	kExprLiteralInt,
 	kExprStar,
+	kExprPlaceholder,
 	kExprColumnRef,
 	kExprFunctionRef,
 	kExprOperator
 } ExprType;
 
+
 typedef struct Expr Expr;
 
+/** 
+ * @class Expr
+ * @brief Represents SQL expressions (i.e. literals, operators, column_refs)
+ */
 struct Expr {
 	/**
 	 * Operator types. These are important for expressions of type kExprOperator
@@ -70,15 +76,18 @@ struct Expr {
 	char* alias;
 	float fval;
 	int64_t ival;
+	int64_t ival2;
 
 	OperatorType op_type;
 	char op_char;
+	bool distinct;
 
 
 	/**
 	 * Convenience accessor methods
 	 */
 	inline bool isType(ExprType e_type) { return e_type == type; }
+	inline bool isLiteral() { return isType(kExprLiteralInt) || isType(kExprLiteralFloat) || isType(kExprLiteralString) || isType(kExprPlaceholder); }
 	inline bool hasAlias() { return alias != NULL; }
 	inline bool hasTable() { return table != NULL; }
 	inline char* getName() {
@@ -102,7 +111,7 @@ struct Expr {
 
 	static Expr* makeColumnRef(char* name);
 	static Expr* makeColumnRef(char* table, char* name);
-	static Expr* makeFunctionRef(char* func_name, Expr* expr);
+	static Expr* makeFunctionRef(char* func_name, Expr* expr, bool distinct);
 };
 
 // Zero initializes an Expr object and assigns it to a space in the heap

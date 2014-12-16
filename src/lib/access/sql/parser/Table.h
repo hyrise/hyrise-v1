@@ -1,6 +1,8 @@
 #ifndef __TABLEREF_H__
 #define __TABLEREF_H__
 
+#include "List.h"
+#include "Expr.h"
 #include <stdio.h>
 
 namespace hsql {
@@ -9,9 +11,10 @@ struct SelectStatement;
 struct JoinDefinition;
 struct TableRef;
 
+
 /**
- * TableRef
- * Holds reference to tables. Can be either table names or a select statement.
+ * @enum TableRefType
+ * Types table references
  */
 typedef enum {
 	kTableName,
@@ -21,8 +24,10 @@ typedef enum {
 } TableRefType;
 
 
-
-
+/**
+ * @struct TableRef
+ * @brief Holds reference to tables. Can be either table names or a select statement.
+ */
 struct TableRef {
 	TableRef(TableRefType type) :
 		type(type),
@@ -33,7 +38,7 @@ struct TableRef {
 		list(NULL),
 		join(NULL) {}
 		
-	virtual ~TableRef(); // defined in destructors.cpp
+	virtual ~TableRef();
 
 	TableRefType type;
 
@@ -59,9 +64,9 @@ struct TableRef {
 
 
 /**
- * Following are definitions needed to specify join tables
+ * @enum JoinType
+ * Types of joins
  */ 
-
 typedef enum {
 	kJoinInner,
 	kJoinOuter,
@@ -69,8 +74,10 @@ typedef enum {
 	kJoinRight,
 } JoinType;
 
+
 /**
- * Definition of a join table
+ * @struct JoinDefinition
+ * @brief Definition of a join table
  */
 struct JoinDefinition {
 	JoinDefinition() :
@@ -79,7 +86,11 @@ struct JoinDefinition {
 		condition(NULL),
 		type(kJoinInner) {}
 
-	virtual ~JoinDefinition(); // defined in destructors.cpp
+	virtual ~JoinDefinition() {
+		delete left;
+		delete right;
+		delete condition;
+	}
 
 	TableRef* left;
 	TableRef* right;

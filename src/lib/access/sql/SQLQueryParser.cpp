@@ -4,7 +4,6 @@
 #include <access/sql/parser/SQLParser.h>
 #include <access/sql/SQLQueryTask.h>
 #include <access/sql/SQLStatementTransformer.h>
-#include <access/sql/predicate_helper.h>
 
 #include <access/system/PlanOperation.h>
 #include <access/storage/TableLoad.h>

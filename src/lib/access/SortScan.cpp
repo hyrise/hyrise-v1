@@ -83,23 +83,23 @@ void SortScan::executePlanOperation() {
   // TODO: fix Table<> template
   auto base_table = std::dynamic_pointer_cast<const storage::Table>(table);
   if ((table->dictionaryAt(_sort_field)->isOrdered()) && (base_table)) {
-    sorted_pos = ColumnSorter<ValueId, ExtractValueId>(table, _sort_field, asc).sort();
+    sorted_pos = ColumnSorter<ValueId, ExtractValueId>(table, _sort_field, _asc).sort();
   } else {
     switch (table->metadataAt(_sort_field).getType()) {
       case IntegerType:
       case IntegerTypeDelta:
       case IntegerTypeDeltaConcurrent:
-        sorted_pos = ColumnSorter<hyrise_int_t, ExtractValue>(table, _sort_field, asc).sort();
+        sorted_pos = ColumnSorter<hyrise_int_t, ExtractValue>(table, _sort_field, _asc).sort();
         break;
       case FloatType:
       case FloatTypeDelta:
       case FloatTypeDeltaConcurrent:
-        sorted_pos = ColumnSorter<hyrise_float_t, ExtractValue>(table, _sort_field, asc).sort();
+        sorted_pos = ColumnSorter<hyrise_float_t, ExtractValue>(table, _sort_field, _asc).sort();
         break;
       case StringType:
       case StringTypeDelta:
       case StringTypeDeltaConcurrent:
-        sorted_pos = ColumnSorter<hyrise_string_t, ExtractValue>(table, _sort_field, asc).sort();
+        sorted_pos = ColumnSorter<hyrise_string_t, ExtractValue>(table, _sort_field, _asc).sort();
         break;
       default:
         throw std::runtime_error("Datatype not supported");
@@ -131,7 +131,7 @@ std::shared_ptr<PlanOperation> SortScan::parse(const Json::Value& data) {
     throw std::runtime_error("Field for SortScan not specified correctly");
 
   if (data.isMember("asc"))
-    s->asc = data["asc"].asBool();
+    s->_asc = data["asc"].asBool();
   return s;
 }
 
@@ -140,5 +140,8 @@ const std::string SortScan::vname() { return "SortScan"; }
 void SortScan::setSortField(const unsigned s) { _sort_field = s; }
 
 void SortScan::setSortField(const std::string& s) { _sort_field_name = s; }
+
+void SortScan::setAsc(const bool asc) { _asc = asc; }
+
 }
 }

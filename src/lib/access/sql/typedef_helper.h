@@ -2,6 +2,7 @@
 #ifndef SRC_LIB_ACCESS_SQL_TYPEDEF_H_
 #define SRC_LIB_ACCESS_SQL_TYPEDEF_H_
 
+#include <access/sql/parser/Expr.h>
 #include <access/system/PlanOperation.h>
 #include <taskscheduler/Task.h>
 #include <storage/storage_types.h>
@@ -20,18 +21,67 @@ typedef std::shared_ptr<taskscheduler::Task> task_t;
 typedef std::vector<task_t> task_list_t;
 
 
-
 struct TableInfo {
+  enum AbstractDataType {
+    kUnknown,
+    kInteger,
+    kFloat,
+    kString
+  };
+
   // Information about the table
+  // TODO: Create Field type
+  // TODO: store aliases
   std::vector<std::string> fields;
-  std::vector<DataType> data_types;
+  std::vector<std::string> keys;
+  std::vector<AbstractDataType> data_types;
   std::string name;
 
-  inline void addField(std::string field) { fields.push_back(field); }
-  inline void addField(std::string field, DataType type) { addField(field); data_types.push_back(type); }
-  inline bool containsField(std::string field) const { return std::find(fields.begin(), fields.end(), field) != fields.end(); }
-  inline bool hasName(std::string name2) const { return name2.compare(name) == 0; }
+  inline void addField(const std::string& field, const std::string& key, AbstractDataType type) {
+    fields.push_back(field);
+    keys.push_back(key);
+    data_types.push_back(type);
+  }
+  inline void addFieldFromInfo(const TableInfo& info, const int id) {
+    addField(info.fields[id], info.keys[id], info.data_types[id]);
+  }
+
+  inline int getFieldID(const hsql::Expr* expr) const {
+    if (expr->table == nullptr) return getFieldID(expr->name);
+    else return getFieldID(expr->name, expr->table);
+  }
+  
+  inline int getFieldID(const std::string& field) const {
+    return getFieldID(field, "");
+
+  }
+  inline int getFieldID(const std::string& field, const std::string& key) const {
+    int count = std::count(fields.begin(), fields.end(), field);
+    if (count == 0) return -1;
+    if (count == 1) return std::find(fields.begin(), fields.end(), field) - fields.begin();
+
+    // Try to find a match over the column keys (table names)
+    for (auto it = std::find(fields.begin(), fields.end(), field);
+         it != fields.end();
+         it = std::find(++it, fields.end(), field)) {
+
+      int id = it - fields.begin();
+      if (key.compare(keys[id]) == 0) return id;
+    }
+
+    // If no match was found return the first column that matched
+    return std::find(fields.begin(), fields.end(), field) - fields.begin();
+  }
+
+  inline bool containsField(const std::string& field) const { return std::find(fields.begin(), fields.end(), field) != fields.end(); }
+  inline bool hasName(const std::string& name2) const { return name2.compare(name) == 0; }
   inline size_t numColumns() const { return fields.size(); }
+
+  void useColumnInfoFrom(const TableInfo& other) {
+    fields      = other.fields;
+    keys        = other.keys;
+    data_types  = other.data_types;
+  }
 };
 
 struct TransformationResult : TableInfo {
@@ -40,6 +90,7 @@ struct TransformationResult : TableInfo {
 
   void append(const TransformationResult& other) {
     fields     = other.fields;
+    keys       = other.keys;
     data_types = other.data_types;
     name       = other.name;
     last_task  = other.last_task;
