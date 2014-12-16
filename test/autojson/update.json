@@ -1,0 +1,60 @@
+{
+    "operators": {
+        "-1": {
+            "type": "TableLoad",
+            "table": "reference",
+            "filename": "tables/revenue_plus1000.tbl"
+        },
+
+        "1-load": {
+            "type": "TableLoad",
+            "table": "revenue",
+            "filename": "tables/revenue.tbl"
+        },
+        "1-select": {
+            "type": "SimpleTableScan",
+            "predicates": [
+                {
+                    "type": 20,
+                    "in": 0,
+                    "f": "year",
+                    "value": 2010
+                }
+            ]
+        },
+        "1-update": {
+            "type": "PosUpdateIncrementScan",
+            "column": "amount",
+            "offset": 1000
+        },
+
+        /*  second part, but same transaction!: read table from store
+			Bug: ValidatePositions doesn't filter the rows that the Update has invalidated!
+        */
+        "2-get": {
+        	"type": "GetTable",
+        	"name": "revenue"
+        },
+        "2-validate": {
+            "type": "ValidatePositions"
+        }
+    },
+    "edges": [
+        [
+            "1-load",
+            "1-select"
+        ],
+        [
+            "1-select",
+            "1-update"
+        ],
+        [
+            "1-update",
+            "2-get"
+        ],
+        [
+            "2-get",
+            "2-validate"
+        ]
+    ]
+}
