@@ -11,7 +11,6 @@
 
 // Operators
 #include "access/tx/ValidatePositions.h"
-#include "access/tx/Commit.h"
 
 #include "access/storage/TableLoad.h"
 #include "access/storage/TableUnload.h"
@@ -38,8 +37,6 @@ namespace hyrise {
 namespace access {
 namespace sql {
 
-
-
 /**
  * Constructor of the statement transformer.
  */
@@ -57,40 +54,40 @@ TransformationResult SQLStatementTransformer::transformStatement(SQLStatement* s
   switch (stmt->type()) {
     case kStmtSelect:
       // printSelectStatementInfo((SelectStatement*)stmt, 0);
-      return transformSelectStatement((SelectStatement*)stmt);
+      return transformSelectStatement((SelectStatement*)stmt); break;
     case kStmtCreate:
-      return transformCreateStatement((CreateStatement*)stmt);
+      return transformCreateStatement((CreateStatement*)stmt); break;
     case kStmtInsert:
-      return transformInsertStatement((InsertStatement*)stmt);
+      return transformInsertStatement((InsertStatement*)stmt); break;
     case kStmtDelete:
-      return transformDeleteStatement((DeleteStatement*)stmt);
+      return transformDeleteStatement((DeleteStatement*)stmt); break;
     case kStmtUpdate:
-      return transformUpdateStatement((UpdateStatement*)stmt);
+      return transformUpdateStatement((UpdateStatement*)stmt); break;
     case kStmtDrop:
-      return transformDropStatement((DropStatement*)stmt);
-
-    default: throwError("Unsupported statement type!\n");
+      return transformDropStatement((DropStatement*)stmt); break;
+    default:
+      throwError("Unsupported statement type!\n");
+      return {};
   }
-  return ALLOC_TRANSFORMATIONRESULT();
 }
 
 TransformationResult SQLStatementTransformer::transformDropStatement(DropStatement* drop) {
-  TransformationResult meta = ALLOC_TRANSFORMATIONRESULT();
+  TransformationResult meta = {};
 
   if (drop->type == DropStatement::kTable) {
     if (!io::StorageManager::getInstance()->exists(drop->name)) {
       throwError("Can't drop table. It doesn't exist.", drop->name);
     }
 
-    auto drop_op = addOperator<TableUnload>("TableUnload", nullptr);
+    auto drop_op = addNewPlanOp<TableUnload>("TableUnload");
     drop_op->setTableName(drop->name);
-    meta.first_task = drop_op;
-    meta.last_task = drop_op;
+    meta.addTask(drop_op);
 
   } else {
     throwError("Drop type not supported");
   }
 
+  addCommit(meta);
   return meta;
 }
 
@@ -98,16 +95,13 @@ TransformationResult SQLStatementTransformer::transformDropStatement(DropStateme
 TransformationResult SQLStatementTransformer::transformUpdateStatement(UpdateStatement* update) {
   TransformationResult meta = addGetTable(update->table->name, true);
 
-  if (update->where == NULL) {
+  if (update->where == nullptr) {
     throwError("Update without WHERE clause not supported yet");
   } else {
-    auto filter = addFilterOpFromExpr(update->where);
-    filter->addDependency(meta.last_task);
-    meta.last_task = filter;
+    auto filter = addFilterOpFromExpr(update->where, meta);
   }
 
-  auto update_op = addOperator<PosUpdateScan>("PosUpdateScan", meta.last_task);
-  meta.last_task = update_op;
+  auto update_op = addNewPlanOp<PosUpdateScan>("PosUpdateScan", meta);
 
   Json::Value update_data;
   for (UpdateClause* clause : update->updates->vector()) {
@@ -121,8 +115,8 @@ TransformationResult SQLStatementTransformer::transformUpdateStatement(UpdateSta
   }
   update_op->setRawData(update_data);
 
-  meta.last_task = addOperator<Commit>("Commit", meta.last_task);
-  meta.last_task = addOperator<NoOp>("NoOp", meta.last_task);
+  addCommit(meta);
+  addNewPlanOp<NoOp>("NoOp", meta);
   return meta;
 }
 
@@ -135,9 +129,7 @@ TransformationResult SQLStatementTransformer::transformCreateStatement(CreateSta
   if (io::StorageManager::getInstance()->exists(create->table_name)) {
     if (create->if_not_exists) {
       // Table already exists so skip this statement
-      auto op = addOperator<NoOp>("NoOp", nullptr);
-      meta.first_task = op;
-      meta.last_task = op;
+      addNewPlanOp<NoOp>("NoOp", meta);
       return meta;
     } else {
       // Table already exists -> throw error
@@ -146,15 +138,13 @@ TransformationResult SQLStatementTransformer::transformCreateStatement(CreateSta
   }
 
   if (create->type == CreateStatement::kTableFromTbl) {
-    std::shared_ptr<TableLoad> table_load = std::make_shared<TableLoad>();
+    // Create TableLoad
+    auto table_load = addNewPlanOp<TableLoad>("TableLoad", meta);
     table_load->setTableName(std::string(create->table_name));
     table_load->setFileName(std::string(create->file_path));
-    appendPlanOp(table_load, "TableLoad");
-    
-    meta.first_task = table_load;
-    meta.last_task = table_load;
 
   } else if (create->type == CreateStatement::kTable) {
+    // Create and SetTable
     std::vector<std::string> names;
     std::vector<std::string> types;
     std::vector<unsigned> groups;
@@ -169,28 +159,28 @@ TransformationResult SQLStatementTransformer::transformCreateStatement(CreateSta
       }
     }
 
-    auto json_table = std::make_shared<JsonTable>();
+    // auto json_table = std::make_shared<JsonTable>();
+    auto json_table = addNewPlanOp<JsonTable>("JsonTable");
     json_table->setNames(names);
     json_table->setTypes(types);
     json_table->setGroups(groups);
     json_table->setUseStore(true);
-    appendPlanOp(json_table, "JsonTable");
     
     // Give it a name and persist it within Hyrise storage manager
     auto set_table = std::make_shared<SetTable>(create->table_name);
     set_table->addDependency(json_table);
-    appendPlanOp(set_table, "SetTable");
+    addPlanOp(set_table, "SetTable");
 
-    meta.first_task = json_table;
-    meta.last_task = set_table;
+    meta.addTask(json_table);
+    meta.addTask(set_table);
 
   } else {
     throwError("Unsupported create type!");
   }
 
   // Add No op, so we don't send data back
-  meta.last_task = addOperator<Commit>("Commit", meta.last_task);
-  meta.last_task = addOperator<NoOp>("NoOp", meta.last_task);
+  addCommit(meta);
+  addNewPlanOp<NoOp>("NoOp", meta);
   return meta;
 }
 
@@ -199,31 +189,25 @@ TransformationResult SQLStatementTransformer::transformCreateStatement(CreateSta
 TransformationResult SQLStatementTransformer::transformDeleteStatement(DeleteStatement* del) {
   TransformationResult meta = addGetTable(del->table_name, true);
 
-  if (del->expr != NULL) {
+  if (del->expr != nullptr) {
     // Delete whatever matches the expression
-    auto filter = addFilterOpFromExpr(del->expr);
-    filter->addDependency(meta.last_task);
-    meta.last_task = filter;
+    auto filter = addFilterOpFromExpr(del->expr, meta);
   }
 
-  auto delete_op = std::make_shared<DeleteOp>();
-  delete_op->addDependency(meta.last_task);
-  appendPlanOp(delete_op, "Delete");
-  meta.last_task = delete_op;
-
-  meta.last_task = addOperator<Commit>("Commit", meta.last_task);
-  meta.last_task = addOperator<NoOp>("NoOp", meta.last_task);
+  addNewPlanOp<DeleteOp>("DeleteOp", meta);
+  addCommit(meta);
+  addNewPlanOp<NoOp>("NoOp", meta);
   return meta;
 }
 
 
 
 TransformationResult SQLStatementTransformer::transformInsertStatement(InsertStatement* insert) {
-  // First get the table into which we want to insert (Important: no validation)
+  // First get the table into which we want to insert (Important: no validation of positions)
   TransformationResult meta = addGetTable(insert->table_name, false);
   
   if (insert->type == InsertStatement::kInsertValues) {
-    if (insert->columns != NULL)
+    if (insert->columns != nullptr)
       throwError("Specifying columns explicitely is not supported");
 
     // Check if number of values and number of columns in table match
@@ -254,7 +238,7 @@ TransformationResult SQLStatementTransformer::transformInsertStatement(InsertSta
     }
 
    
-    auto insert_scan = std::make_shared<InsertScan>();
+    auto insert_scan = addNewPlanOp<InsertScan>("InsertScan", meta);
     std::vector<Json::Value> data;
     for (Expr* expr : insert->values->vector()) { 
       switch (expr->type) {
@@ -265,15 +249,12 @@ TransformationResult SQLStatementTransformer::transformInsertStatement(InsertSta
       }
     }
     insert_scan->addDataRow(data);
-    insert_scan->addDependency(meta.last_task);
-    appendPlanOp(insert_scan, "InsertScan");
-    meta.last_task = insert_scan;
   } else {
     throwError("Unsupported insert method");
   }
 
-  meta.last_task = addOperator<Commit>("Commit", meta.last_task);
-  meta.last_task = addOperator<NoOp>("NoOp", meta.last_task);
+  addCommit(meta);
+  addNewPlanOp<NoOp>("NoOp", meta);
   return meta;
 }
 
@@ -285,7 +266,6 @@ TransformationResult SQLStatementTransformer::transformInsertStatement(InsertSta
  */
 TransformationResult SQLStatementTransformer::transformSelectStatement(SelectStatement* stmt) {
   TransformationResult meta = ALLOC_TRANSFORMATIONRESULT();
-
   // SQL Order of Operations: http://www.bennadel.com/blog/70-sql-query-order-of-operations.htm
   // 1. FROM clause
   // 2. WHERE clause
@@ -301,26 +281,20 @@ TransformationResult SQLStatementTransformer::transformSelectStatement(SelectSta
 
   // WHERE clause  
   if (stmt->where_clause != nullptr) {
-    auto scan = addFilterOpFromExpr(stmt->where_clause);
-    scan->addDependency(meta.last_task);
-    meta.last_task = scan;
+    auto scan = addFilterOpFromExpr(stmt->where_clause, meta);
   } 
 
   // GROUP BY clause
   if (stmt->group_by != nullptr) {
     TransformationResult group_res = transformGroupByClause(stmt);
-    meta.fields = group_res.fields;
-    meta.data_types = group_res.data_types;
-    meta.last_task = group_res.last_task;
+    meta.append(group_res);
   }
 
   // SELECT clause
   // If there is only SELECT * specified we don't have to do a projection
   if (stmt->select_list->at(0)->type != kExprStar || stmt->select_list->size() > 1) {
     TransformationResult res = transformSelectionList(stmt, meta);
-    meta.fields = res.fields;
-    meta.data_types = res.data_types;
-    meta.last_task = res.last_task;
+    meta.append(res);
   }
 
   // ORDER BY clause
@@ -334,26 +308,18 @@ TransformationResult SQLStatementTransformer::transformSelectStatement(SelectSta
     // Problem: Offset not supported by operator
     if (stmt->limit->offset != kNoOffset) throwError("Offset not supported yet");
     
-    std::shared_ptr<ProjectionScan> scan = std::make_shared<ProjectionScan>();
+    auto scan = addNewPlanOp<ProjectionScan>("LimitScan", meta);
     for (std::string column : meta.fields) scan->addField(column);
     scan->setLimit(stmt->limit->limit);
-    scan->addDependency(meta.last_task);
-    appendPlanOp(scan, "LimitScan");
-    meta.last_task = scan;
   }
 
   // UNION
   // Problem: UnionScan can only work on the same table and only if positions have been produced
   if (stmt->union_select != nullptr) {
-    TransformationResult t_res = transformSelectStatement(stmt->union_select);
-    std::shared_ptr<UnionScan> scan = std::make_shared<UnionScan>();
-    scan->addDependency(meta.last_task);
-    scan->addDependency(t_res.last_task);
-    appendPlanOp(scan, "UnionScan");
-    meta.last_task = scan;
+    TransformationResult sub_select = transformSelectStatement(stmt->union_select);
+    auto scan = addNewPlanOp<UnionScan>("UnionScan", meta);
+    scan->addDependency(sub_select.last_task);
   }
-
-
 
   return meta;
 }
@@ -389,7 +355,7 @@ TransformationResult SQLStatementTransformer::transformGroupByClause(SelectState
   for (Expr* expr : stmt->select_list->vector()) {
     if (expr->type == kExprFunctionRef) {
       std::string func_name = expr->name;
-      std::string column_name = (expr->alias == NULL) ? buildFunctionRefColumnName(expr) : expr->alias;
+      std::string column_name = (expr->alias == nullptr) ? buildFunctionRefColumnName(expr) : expr->alias;
       Expr* subexpr = expr->expr;
 
       if (subexpr->type == kExprColumnRef) {
@@ -407,15 +373,14 @@ TransformationResult SQLStatementTransformer::transformGroupByClause(SelectState
 
   // Link tasks and build result
   hash->addDependency(input_task);
-  appendPlanOp(hash, "HashBuild");
+  addPlanOp(hash, "HashBuild");
 
   scan->addDependency(input_task);
   scan->addDependency(hash);
-  appendPlanOp(scan, "GroupByScan");
+  addPlanOp(scan, "GroupByScan");
 
-  meta.first_task = hash;
-  meta.last_task = scan;
-
+  meta.addTask(hash);
+  meta.addTask(scan);
   return meta;
 }
 
@@ -423,44 +388,44 @@ TransformationResult SQLStatementTransformer::transformGroupByClause(SelectState
  * Transform the selection list of a SelectStatement into a ProjectionScan task.
  *
  * @param[in]  stmt       SelectStatement thats selections list will be transformed
- * @param[in]  info       Information about the source for the projection
+ * @param[in]  input       Information about the source for the projection
  * @return  Information about the result of the transformation
  */
-TransformationResult SQLStatementTransformer::transformSelectionList(SelectStatement* stmt, TransformationResult info) {
-  TransformationResult res = ALLOC_TRANSFORMATIONRESULT();
+TransformationResult SQLStatementTransformer::transformSelectionList(SelectStatement* stmt, const TransformationResult& input) {
+  TransformationResult meta = ALLOC_TRANSFORMATIONRESULT();
   // If we are not selecting everything, we have to perform a projection scan
   // Problem: can't select literals with this operator
-
-  std::shared_ptr<ProjectionScan> scan = std::make_shared<ProjectionScan>();
+  auto scan = std::make_shared<ProjectionScan>();
 
   for (Expr* expr : stmt->select_list->vector()) {
     switch (expr->type) {
       case kExprColumnRef:
         scan->addField(expr->name);
-        res.addField(expr->name);
+        meta.addField(expr->name);
         break;
       case kExprStar:
         // This can only work if there is meta information available about the table
-        for (size_t i = 0; i < info.numColumns(); ++i) {
-          scan->addField(info.fields[i]);
-          res.addField(info.fields[i]);
+        for (size_t i = 0; i < input.numColumns(); ++i) {
+          scan->addField(input.fields[i]);
+          meta.addField(input.fields[i]);
         }
         break;
       case kExprFunctionRef: {
         // Assumption: We had a group by previously
-        std::string name = (expr->alias == NULL) ? buildFunctionRefColumnName(expr) : expr->alias;
+        std::string name = (expr->alias == nullptr) ? buildFunctionRefColumnName(expr) : expr->alias;
         scan->addField(name);
-        res.addField(name);
+        meta.addField(name);
         break;
       }
-      default: break;
+      default: 
+        throwError("Expression type not supported in SELECT clause");
+        break;
     }
   }
 
-  scan->addDependency(info.last_task);
-  appendPlanOp(scan, "ProjectionScan");
-  res.last_task = scan;
-  return res;
+  scan->addDependency(input.last_task);
+  meta.addTask(addPlanOp(scan, "ProjectionScan"));
+  return meta;
 }
 
 
@@ -488,7 +453,7 @@ TransformationResult SQLStatementTransformer::transformTableRef(TableRef* table_
       throwError("Cross table not supported yet");
   }
   
-  if (table_ref->getName() != NULL) meta.name = table_ref->getName();
+  if (table_ref->getName() != nullptr) meta.name = table_ref->getName();
   // LOG_META(meta);
   return meta;
 }
@@ -499,16 +464,16 @@ TransformationResult SQLStatementTransformer::transformTableRef(TableRef* table_
  * At the moment we simply use HashJoin.
  */
 TransformationResult SQLStatementTransformer::transformJoinTable(TableRef* table) {
-  TransformationResult res;
-  res = transformHashJoin(table);
-  return res;
+  TransformationResult meta;
+  meta = transformHashJoin(table);
+  return meta;
 }
 
 /**
  * Transforms a join table into a JoinScan operator
  */
 TransformationResult SQLStatementTransformer::transformScanJoin(TableRef* table) {
-  TransformationResult res = ALLOC_TRANSFORMATIONRESULT();
+  TransformationResult meta = ALLOC_TRANSFORMATIONRESULT();
   JoinDefinition* join = table->join;
   Expr* condition = join->condition;
   if (join->type != kJoinInner) throwError("JoinScan only supports inner join");
@@ -548,21 +513,21 @@ TransformationResult SQLStatementTransformer::transformScanJoin(TableRef* table)
 
     scan->addDependency(left.last_task);
     scan->addDependency(right.last_task);
-    appendPlanOp(scan, "ScanJoin");
-    res.first_task = left.first_task;
-    res.last_task = scan;
-    res.fields = combineVectors<std::string>(left.fields, right.fields);
+    addPlanOp(scan, "ScanJoin");
+    meta.addTask(left.first_task);
+    meta.addTask(scan);
+    meta.fields = combineVectors<std::string>(left.fields, right.fields);
   } else {
     throwError("Expression in join condition not supported yet");
   }
-  return res;
+  return meta;
 }
 
 /**
  * Transforms a join table into a HashJoin operator
  */
 TransformationResult SQLStatementTransformer::transformHashJoin(TableRef* table) {
-  TransformationResult res = ALLOC_TRANSFORMATIONRESULT();
+  TransformationResult meta = ALLOC_TRANSFORMATIONRESULT();
   JoinDefinition* join = table->join;
   Expr* condition = join->condition;
 
@@ -603,17 +568,17 @@ TransformationResult SQLStatementTransformer::transformHashJoin(TableRef* table)
     probe->addDependency(build);
     probe->addDependency(right.last_task);
 
-    appendPlanOp(build, "HashBuild");
-    appendPlanOp(probe, "HashJoinProbe");
-    res.first_task = build;
-    res.last_task = probe;
-    for (std::string col : right.fields) res.addField(col);
-    for (std::string col : left.fields) res.addField(col);
+    addPlanOp(build, "HashBuild");
+    addPlanOp(probe, "HashJoinProbe");
+    meta.addTask(build);
+    meta.addTask(probe);
+    for (std::string col : right.fields) meta.addField(col);
+    for (std::string col : left.fields) meta.addField(col);
   } else {
     // TODO: support multi equi join, HashJoin seems to allow that
     throwError("Only support single equi join");
   }
-  return res;
+  return meta;
 }
 
 
@@ -622,35 +587,25 @@ TransformationResult SQLStatementTransformer::transformHashJoin(TableRef* table)
  */
 TransformationResult SQLStatementTransformer::addGetTable(std::string name, bool validate) {
   if (!io::StorageManager::getInstance()->exists(name)) throwError("Table doesn't exist", name);
+  TransformationResult meta = ALLOC_TRANSFORMATIONRESULT();
 
   auto get_table = std::make_shared<GetTable>(name);
-  appendPlanOp(get_table, "GetTable");
+  addPlanOp(get_table, "GetTable");
+  meta.addTask(get_table);
 
-  TransformationResult meta = ALLOC_TRANSFORMATIONRESULT();  
-  meta.first_task = get_table;
-  meta.last_task = get_table;
+  if (validate) addNewPlanOp<ValidatePositions>("ValidatePositions", meta);
 
-
-  if (validate) {
-    auto validate_op = addOperator<ValidatePositions>("ValidatePositions", meta.last_task);
-    meta.last_task = validate_op;
-  }
-
-  // Get table definition, if it is already loaded
-  // TODO: currently there is a problem if the table is being loaded/created in the same sql-query
-  // because the parsing and transformation of subsequent statements will be done before it is actually loaded.
-  if (io::StorageManager::getInstance()->exists(name)) {
-    std::shared_ptr<storage::AbstractTable> table = io::StorageManager::getInstance()->getTable(name);
-    for (field_t i = 0; i != table->columnCount(); ++i) {
-      meta.addField(table->metadataAt(i).getName(), table->metadataAt(i).getType());
-    }
+  // Get meta information about the table
+  std::shared_ptr<storage::AbstractTable> table = io::StorageManager::getInstance()->getTable(name);
+  for (field_t i = 0; i != table->columnCount(); ++i) {
+    meta.addField(table->metadataAt(i).getName(), table->metadataAt(i).getType());
   }
 
   return meta;
 }
 
 
-std::shared_ptr<PlanOperation> SQLStatementTransformer::addFilterOpFromExpr(Expr* expr) {
+plan_op_t SQLStatementTransformer::addFilterOpFromExpr(Expr* expr, TransformationResult& meta) {
   // If we have a where clause specified, we need to build a simple table scan over the result
   // Problem: Expression engine only allows comparisons like this: COLUMN = literal
   // we can't have arithmetic sub expressions or expressions consisting of multiple columns
@@ -658,19 +613,46 @@ std::shared_ptr<PlanOperation> SQLStatementTransformer::addFilterOpFromExpr(Expr
   Json::Value predicates;
   buildPredicatesFromSQLExpr(expr, predicates);
 
-  auto scan = addOperator<SimpleTableScan>("SimpleTableScan", nullptr);
+  auto scan = addNewPlanOp<SimpleTableScan>("SimpleTableScan", meta);
   scan->setProducesPositions(true);
   scan->setPredicate(hyrise::access::buildExpression(predicates));
   return scan;
 }
 
+
 template<typename _T>
-std::shared_ptr<_T> SQLStatementTransformer::addOperator(std::string id, task_t dependency) {
+std::shared_ptr<_T> SQLStatementTransformer::addNewPlanOp(std::string name, task_t dependency) {
   auto op = std::make_shared<_T>();
   if (dependency != nullptr) op->addDependency(dependency);
-  appendPlanOp(op, id);
+  addPlanOp(op, name);
   return op;
 }
+
+
+template<typename _T>
+std::shared_ptr<_T> SQLStatementTransformer::addNewPlanOp(std::string name, TransformationResult& meta) {
+  auto op = addNewPlanOp<_T>(name, meta.last_task);
+  meta.addTask(op);
+  return op;
+}
+
+
+plan_op_t SQLStatementTransformer::addPlanOp(plan_op_t task, std::string name) {
+  task->setPlanOperationName(name);
+  task->setOperatorId(nextTaskId() + " " + name);
+  _task_list.push_back(task);
+  return task;
+}
+
+inline std::shared_ptr<Commit> SQLStatementTransformer::addCommit(TransformationResult& meta) { 
+  _has_commit = true;
+  return addNewPlanOp<Commit>("Commit", meta);
+}
+
+std::string SQLStatementTransformer::nextTaskId() {
+  return _id_prefix + std::to_string(++_last_task_id);
+}
+
 
 } // namespace sql
 } // namespace access

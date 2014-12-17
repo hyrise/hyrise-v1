@@ -10,17 +10,14 @@ namespace hyrise {
 namespace access {
 namespace sql {
 
-
 #define LOG_META(meta) \
   printf("Columns: "); \
   for (std::string col : meta.fields) printf("%s ", col.c_str()); printf("\n");
 
-
-
 /**
  * Combines two vectors into a new single vector
  * Note: since this is a template it has to be explicitely instatiated
- * This happens in the source file. It is instatiated for std::string
+ * This happens in the source file. It is instantiated for std::string
  * @param v1	std::vector
  * @param v2	std::vector
  * @return std::vector

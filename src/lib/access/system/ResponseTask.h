@@ -25,6 +25,9 @@ class ResponseTask : public taskscheduler::Task {
   size_t _transmitLimit = 0;  // Used for serialization only
   size_t _transmitOffset = 0;  // Used for serialization only
 
+  // Indicates which dependency contains the result
+  int _resultTaskIndex = 0;
+
   std::atomic<unsigned long> _affectedRows;
   tx::TXContext _txContext;
   epoch_t queryStart = 0;
@@ -79,6 +82,8 @@ class ResponseTask : public taskscheduler::Task {
   void setTransmitLimit(size_t l) { _transmitLimit = l; }
 
   void setTransmitOffset(size_t o) { _transmitOffset = o; }
+
+  void setResultTaskIndex(int i) { _resultTaskIndex = i; }
 
   void incAffectedRows(unsigned long inc) { _affectedRows += inc; }
 

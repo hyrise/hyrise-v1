@@ -1,15 +1,18 @@
 // Copyright (c) 2014 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 
-#include "access/sql/SQLQueryParser.h"
-#include "access/sql/SQLStatementTransformer.h"
-#include "access/sql/predicate_helper.h"
+#include <access/sql/SQLQueryParser.h>
+#include <access/sql/parser/SQLParser.h>
+#include <access/sql/SQLQueryTask.h>
+#include <access/sql/SQLStatementTransformer.h>
+#include <access/sql/predicate_helper.h>
 
-#include "access/storage/TableLoad.h"
-#include "access/storage/GetTable.h"
-#include "access/SimpleTableScan.h"
-#include "access/ProjectionScan.h"
-#include "access/NoOp.h"
-#include "access/expressions/pred_buildExpression.h"
+#include <access/system/PlanOperation.h>
+#include <access/storage/TableLoad.h>
+#include <access/storage/GetTable.h>
+#include <access/SimpleTableScan.h>
+#include <access/ProjectionScan.h>
+#include <access/NoOp.h>
+#include <access/expressions/pred_buildExpression.h>
 
 using namespace hsql;
 
@@ -22,59 +25,52 @@ namespace {
 }
 
 
-SQLQueryParser::SQLQueryParser() {
-  // Initialize
-  // empty
+SQLQueryParser::SQLQueryParser(const std::string& query, std::shared_ptr<ResponseTask> response_task) :
+  _query(query),
+  _response_task(response_task) {
+
 }
 
 
 
-task_list_t SQLQueryParser::transformSQLQuery(const std::string& query, task_t* result) {
-  bool logTime = false;
-  // Measure time it takes to parse the query into a list of tasks
-  std::chrono::time_point<std::chrono::system_clock> start, end;
-  start = std::chrono::system_clock::now();
+task_list_t SQLQueryParser::buildSQLQueryTasks() {
+  SQLStatementList* stmt_list = SQLParser::parseSQLString(_query.c_str());
 
-
-  // Build the task list
-  task_list_t task_list = buildTaskList(query);
-
-  // Result task is the last item within the task list.
-  if (task_list.size() > 0) *result = task_list.back();
-
-
-  // Print execution time
-  end = std::chrono::system_clock::now();
-  std::chrono::duration<double> elapsed_seconds = end-start;
-  double ms = elapsed_seconds.count() * 1000.0;
-  if (logTime) std::cout << "Building the task list took: " << ms << "ms\n";
-
-  return task_list;
-}
-
-
-
-
-task_list_t SQLQueryParser::buildTaskList(const std::string& query) {
-  // Parse the sql
-  SQLStatementList* stmt_list = SQLParser::parseSQLString(query.c_str());
-
-  // Check if the parsing completed successfully
   if (!stmt_list->isValid) {
     throw std::runtime_error("SQL Parsing failed! " + std::string(stmt_list->parser_msg));
   }
 
-  // Build the task list
-  // TODO: Confirm that tasks are executed sequentially, link by no-ops
-  task_list_t all_tasks;
+  task_list_t task_list;
   int i = 1;
+  std::shared_ptr<SQLQueryTask> last_task = nullptr;
+
   for (SQLStatement* stmt : stmt_list->vector()) {
-    SQLStatementTransformer transformer = SQLStatementTransformer(std::to_string(i++) + ".");
-    transformer.transformStatement(stmt);
-    task_list_t tasks = transformer.getTaskList();
-    all_tasks.insert(all_tasks.end(), tasks.begin(), tasks.end());
+    auto sql_task = std::make_shared<SQLQueryTask>(stmt);
+    sql_task->setId(i);
+    sql_task->setResponseTask(_response_task);
+    sql_task->setPlanOperationName("SQLQueryTask");
+    sql_task->setOperatorId(std::to_string(i) + " SQLQueryTask");
+
+    // Chain tasks
+    if (last_task != nullptr) {
+      sql_task->addDependency(last_task);
+      sql_task->setPrevTask(last_task);
+      last_task->setNextTask(sql_task);
+    }
+
+    task_list.push_back(sql_task);
+    last_task = sql_task;
+    i++;
   }
-  return all_tasks;
+
+  // Last task has successor response task and will commit
+  last_task->setNextTask(_response_task);
+  _response_task->setResultTaskIndex(1);
+
+  // Dependency of response task to the last QueryTask
+  // will be set in RequestParseTask
+
+  return task_list;
 }
 
 

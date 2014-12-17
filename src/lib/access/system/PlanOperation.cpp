@@ -192,10 +192,13 @@ void PlanOperation::setLimit(uint64_t l) { _limit = l; }
 void PlanOperation::setProducesPositions(bool p) { producesPositions = p; }
 
 void PlanOperation::setTXContext(tx::TXContext ctx) { _txContext = ctx; }
+tx::TXContext PlanOperation::getTXContext() { return _txContext; }
 
 void PlanOperation::addInput(storage::c_aresource_ptr_t t) { input.addResource(t); }
 
 void PlanOperation::setPlanId(std::string i) { _planId = i; }
+std::string PlanOperation::getPlanId() { return _planId; }
+
 void PlanOperation::setOperatorId(std::string i) { _operatorId = i; }
 
 const std::string& PlanOperation::getOperatorId() { return _operatorId; }

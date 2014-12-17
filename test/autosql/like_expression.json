@@ -1,7 +1,8 @@
 /* equivalent to autojson/like_expression.json */
 {
-    "prepare": "CREATE TABLE employees FROM TBL FILE 'tables/employees.tbl';",
-    "test": "SELECT * FROM employees WHERE employee_name LIKE '.teve .*' OR employee_name LIKE 'Jeffre. .\\. .*ley';",
+    "test": "CREATE TABLE employees FROM TBL FILE 'tables/employees.tbl';
+             SELECT * FROM employees WHERE employee_name LIKE '.teve .*' OR employee_name LIKE 'Jeffre. .\\. .*ley';",
+        
     "reference": {
         "operators": {
             "load": {

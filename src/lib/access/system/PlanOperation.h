@@ -52,6 +52,7 @@ class PlanOperation : public OutputTask {
   void setProducesPositions(bool p);
 
   void setTXContext(tx::TXContext ctx);
+  tx::TXContext getTXContext();
 
   void addInput(storage::c_aresource_ptr_t t);
 
@@ -65,6 +66,8 @@ class PlanOperation : public OutputTask {
   void addNamedField(const field_name_t& field);
 
   void setPlanId(std::string i);
+  std::string getPlanId();
+  
   void setOperatorId(std::string i);
   const std::string& getOperatorId();
   const std::string& planOperationName() const;

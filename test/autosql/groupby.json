@@ -1,6 +1,7 @@
 {
-    "prepare": "CREATE TABLE dates FROM TBL FILE 'tables/dates.tbl';",
-    "test": "SELECT year, SUM(amount) AS total_amount, COUNT(\"date\") AS count, AVG(amount) as average_amount, MIN(amount) minimum_amount, MAX(amount) maximum_amount, MIN(\"date\") first_of_year FROM dates GROUP BY year",
+    "test": "CREATE TABLE dates FROM TBL FILE 'tables/dates.tbl';
+             SELECT year, SUM(amount) AS total_amount, COUNT(\"date\") AS count, AVG(amount) as average_amount, MIN(amount) minimum_amount, MAX(amount) maximum_amount, MIN(\"date\") first_of_year FROM dates GROUP BY year",
+             
     "reference": {
         "operators": {
             "0": {

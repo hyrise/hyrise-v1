@@ -11,10 +11,9 @@
  will be executed and compared with the result of "test"
  */
 {
-    "test": [
-        "CREATE TABLE students FROM TBL FILE 'students.tbl';",
-        "SELECT * FROM students"
-    ],
+    "test": "CREATE TABLE students FROM TBL FILE 'students.tbl';
+             SELECT * FROM students",
+             
     "reference": {
     	"operators": {
 	        "0": {
