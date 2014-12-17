@@ -44,7 +44,7 @@ road-map.
 
 ## Continuous Integration
 
-Master status: [![Build Status](https://travis-ci.org/hyrise/hyrise.png?branch=master)](https://travis-ci.org/hyrise/hyrise)
+Master status: [![Build Status](http://ares.epic.hpi.uni-potsdam.de/hyrise-build/app/rest/builds/buildType:Hyrise_UnitTests/statusIcon)](http://ares.epic.hpi.uni-potsdam.de/hyrise-build/viewType.html?buildTypeId=Hyrise_UnitTests)
 
 ## Installation
 
