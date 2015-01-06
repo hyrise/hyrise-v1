@@ -27,7 +27,7 @@ class SQLQueryTask : public PlanOperation {
 
   inline void setNextTask(task_t task) { _next_task = task; }
   inline void setPrevTask(std::shared_ptr<SQLQueryTask> task) { _prev_task = task; }
-  inline void setId(int id) { _id = id; }
+  inline void setPrefix(std::string prefix) { _prefix = prefix; }
   inline void setResponseTask(std::shared_ptr<ResponseTask> task) { _response_task = task; }
 
   inline bool hasCommit() const { return _has_commit; }
@@ -36,7 +36,7 @@ class SQLQueryTask : public PlanOperation {
 
  private:
   hsql::SQLStatement* _stmt;
-  int _id;
+  std::string _prefix;
   bool _has_commit;
 
   task_t _next_task;

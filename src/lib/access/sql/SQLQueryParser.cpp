@@ -36,16 +36,18 @@ task_list_t SQLQueryParser::buildSQLQueryTasks() {
   SQLStatementList* stmt_list = SQLParser::parseSQLString(_query.c_str());
 
   if (!stmt_list->isValid) {
-    throw std::runtime_error("SQL Parsing failed! " + std::string(stmt_list->parser_msg));
+    std::string pos = "L" + std::to_string(stmt_list->error_line) + ":" + std::to_string(stmt_list->error_col);
+    throw std::runtime_error("SQL Parsing failed! " + std::string(stmt_list->parser_msg) + " at pos " + pos);
   }
 
   task_list_t task_list;
   int i = 1;
   std::shared_ptr<SQLQueryTask> last_task = nullptr;
 
-  for (SQLStatement* stmt : stmt_list->vector()) {
+  for (SQLStatement* stmt : stmt_list->statements) {
     auto sql_task = std::make_shared<SQLQueryTask>(stmt);
-    sql_task->setId(i);
+    
+    sql_task->setPrefix(std::to_string(i) + ".");
     sql_task->setResponseTask(_response_task);
     sql_task->setPlanOperationName("SQLQueryTask");
     sql_task->setOperatorId(std::to_string(i) + " SQLQueryTask");
@@ -62,7 +64,7 @@ task_list_t SQLQueryParser::buildSQLQueryTasks() {
     i++;
   }
 
-  // Last task has successor response task and will commit
+  // Last task has successor response task
   last_task->setNextTask(_response_task);
   _response_task->setResultTaskIndex(1);
 

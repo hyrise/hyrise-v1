@@ -22,7 +22,7 @@ struct ExecuteStatement : SQLStatement {
 	}
 
 	const char* name;
-	List<Expr*>* parameters;
+	std::vector<Expr*>* parameters;
 };
 
 

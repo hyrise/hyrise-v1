@@ -32,7 +32,8 @@ SQLStatementTransformer::SQLStatementTransformer(std::string id_prefix) :
   _builder(TaskListBuilder(id_prefix)),
   _select_transformer(nullptr),
   _definition_transformer(nullptr),
-  _manipulation_transformer(nullptr) { /* initialize */ }
+  _manipulation_transformer(nullptr),
+  _prepare_transformer(nullptr) { /* initialize */ }
 
 SQLStatementTransformer::~SQLStatementTransformer() {
   delete _select_transformer;
@@ -49,9 +50,15 @@ SQLDataDefinitionTransformer* SQLStatementTransformer::getDataDefinitionTransfor
   if (_definition_transformer == nullptr) _definition_transformer = new SQLDataDefinitionTransformer(*this);
   return _definition_transformer;
 }
+
 SQLDataManipulationTransformer* SQLStatementTransformer::getDataManipulationTransformer() {
   if (_manipulation_transformer == nullptr) _manipulation_transformer = new SQLDataManipulationTransformer(*this);
   return _manipulation_transformer;
+}
+
+SQLPrepareTransformer* SQLStatementTransformer::getPrepareTransformer() {
+  if (_prepare_transformer == nullptr) _prepare_transformer = new SQLPrepareTransformer(*this);
+  return _prepare_transformer;
 }
 
 
@@ -73,6 +80,10 @@ TransformationResult SQLStatementTransformer::transformStatement(SQLStatement* s
       return getDataManipulationTransformer()->transformDeleteStatement((DeleteStatement*)stmt);
     case kStmtUpdate:
       return getDataManipulationTransformer()->transformUpdateStatement((UpdateStatement*)stmt);
+    case kStmtPrepare:
+      return getPrepareTransformer()->transformPrepareStatement((PrepareStatement*)stmt);
+    case kStmtExecute:
+      return getPrepareTransformer()->transformExecuteStatement((ExecuteStatement*)stmt);
     default:
       throwError("Unsupported statement type!\n");
       return {};

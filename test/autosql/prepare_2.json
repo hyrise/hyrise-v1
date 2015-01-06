@@ -1,0 +1,25 @@
+{
+	"prepare": "PREPARE insert_prep: INSERT INTO test VALUES (?, ?, ?);",
+	
+	"test": "CREATE TABLE test (year INTEGER, quarter INTEGER, amount INTEGER);
+			 EXECUTE insert_prep(2009, 1, 2000);
+             EXECUTE insert_prep(2009, 2, 2500);
+             EXECUTE insert_prep(2009, 3, 3000);
+             EXECUTE insert_prep(2009, 4, 4000);
+             EXECUTE insert_prep(2010, 1, 2400);
+             EXECUTE insert_prep(2010, 2, 2800);
+             EXECUTE insert_prep(2010, 3, 3200);
+             EXECUTE insert_prep(2010, 4, 3600);
+             SELECT * FROM test",
+
+    "reference": {
+        "operators": {
+            "0": {
+                "type": "TableLoad",
+                "table": "reference",
+                "filename": "tables/revenue.tbl"
+            }
+        },
+        "edges": []
+    }
+}

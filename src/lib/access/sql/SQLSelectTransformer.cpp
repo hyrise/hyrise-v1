@@ -111,19 +111,19 @@ TransformationResult SQLSelectTransformer::transformSelectStatement(SelectStatem
 TransformationResult SQLSelectTransformer::transformGroupByClause(SelectStatement* stmt, const TransformationResult& input) {
   TransformationResult meta = ALLOC_TRANSFORMATIONRESULT();
   meta.name = input.name;
-  List<Expr*>* groups = stmt->group_by->columns;
+  std::vector<Expr*>* groups = stmt->group_by->columns;
 
   // Build Hash Table
   std::shared_ptr<HashBuild> hash = std::make_shared<HashBuild>();
   hash->setKey("groupby");
-  for (Expr* expr : groups->vector()) {
+  for (Expr* expr : *groups) {
     if (expr->type == kExprColumnRef) hash->addField(expr->name);
     else _server.throwError("Unexpected Expression Type in Group By");
   }
 
   // Build GroupByScan
   std::shared_ptr<GroupByScan> scan = std::make_shared<GroupByScan>();
-  for (Expr* expr : groups->vector()) {
+  for (Expr* expr : *groups) {
     if (expr->type == kExprColumnRef) {
       int id = input.getFieldID(expr);
       scan->addField(id);
@@ -131,7 +131,7 @@ TransformationResult SQLSelectTransformer::transformGroupByClause(SelectStatemen
     } else _server.throwError("Unexpected Expression Type in Group By");
   }
   // aggregations
-  for (Expr* expr : stmt->select_list->vector()) {
+  for (Expr* expr : *stmt->select_list) {
     if (expr->type == kExprFunctionRef) {
       std::string func_name = expr->name;
       std::string column_name = (expr->alias == nullptr) ? buildFunctionRefColumnName(expr) : expr->alias;
@@ -193,12 +193,12 @@ void SQLSelectTransformer::transformDistinctSelection(hsql::SelectStatement* stm
   _builder.addPlanOp(scan, "DistinctScan", meta);
 }
 
-TableInfo SQLSelectTransformer::addFieldsFromExprListToScan(plan_op_t scan, List<Expr*>* list, const TableInfo& input) {
+TableInfo SQLSelectTransformer::addFieldsFromExprListToScan(plan_op_t scan, std::vector<Expr*>* list, const TableInfo& input) {
   // If we are not selecting everything, we have to perform a projection scan
   // Problem: can't select literals with this operator
   TableInfo out_info;
 
-  for (Expr* expr : list->vector()) {
+  for (Expr* expr : *list) {
     switch (expr->type) {
       case kExprColumnRef: {
         int id = input.getFieldID(expr);

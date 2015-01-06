@@ -10,6 +10,7 @@
 #include "access/sql/SQLSelectTransformer.h"
 #include "access/sql/SQLDataDefinitionTransformer.h"
 #include "access/sql/SQLDataManipulationTransformer.h"
+#include "access/sql/SQLPrepareTransformer.h"
 
 namespace hyrise {
 namespace access {
@@ -56,6 +57,7 @@ class SQLStatementTransformer {
   SQLSelectTransformer* getSelectTransformer();
   SQLDataDefinitionTransformer* getDataDefinitionTransformer();
   SQLDataManipulationTransformer* getDataManipulationTransformer();
+  SQLPrepareTransformer* getPrepareTransformer();
 
  protected:
   /**
@@ -84,6 +86,7 @@ class SQLStatementTransformer {
   SQLSelectTransformer* _select_transformer;
   SQLDataDefinitionTransformer* _definition_transformer;
   SQLDataManipulationTransformer* _manipulation_transformer;
+  SQLPrepareTransformer* _prepare_transformer;
 };
 
 

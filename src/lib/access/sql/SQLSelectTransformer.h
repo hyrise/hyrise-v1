@@ -25,7 +25,7 @@ class SQLSelectTransformer {
   void transformSelectionList(hsql::SelectStatement* stmt, TransformationResult& meta);
   void transformDistinctSelection(hsql::SelectStatement* stmt, TransformationResult& meta);
 
-  TableInfo addFieldsFromExprListToScan(plan_op_t scan, hsql::List<hsql::Expr*>* list, const TableInfo& input);
+  TableInfo addFieldsFromExprListToScan(plan_op_t scan, std::vector<hsql::Expr*>* list, const TableInfo& input);
 
   SQLStatementTransformer& _server;
   TaskListBuilder& _builder;

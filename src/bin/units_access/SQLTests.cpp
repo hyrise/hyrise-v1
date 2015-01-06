@@ -56,10 +56,10 @@ TEST_F(SQLTests, select_parser_test) {
 	if (!list->isValid) fprintf(stderr, "Parsing failed: %s (%s)\n", query.c_str(), list->parser_msg);
 
 	
-	EXPECT_EQ(list->size(), 1);
-	EXPECT_EQ(list->at(0)->type(), kStmtSelect);
+	EXPECT_EQ(list->numStatements(), 1);
+	EXPECT_EQ(list->getStatement(0)->type(), kStmtSelect);
 
-	SelectStatement* stmt = (SelectStatement*) list->at(0);
+	SelectStatement* stmt = (SelectStatement*) list->getStatement(0);
 
 	EXPECT_NOTNULL(stmt->select_list);
 	EXPECT_NOTNULL(stmt->from_table);
