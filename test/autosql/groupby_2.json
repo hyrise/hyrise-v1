@@ -1,0 +1,15 @@
+{
+  "test": "CREATE TABLE revenue FROM TBL FILE 'tables/dates.tbl';
+           SELECT year,
+           		  SUM(amount) as total_amount,
+           		  COUNT(\"date\") AS count,
+           		  COUNT(DISTINCT \"date\") AS count_distinct,
+           		  AVG(amount) average_amount,
+           		  MIN(amount) minimum_amount,
+           		  MAX(amount) maximum_amount,
+           		  MIN(\"date\") first_of_year
+           		  FROM revenue GROUP BY year;",
+
+  "reference": "CREATE TABLE ref FROM TBL FILE 'tables/dates_groupby.tbl';
+                SELECT * FROM ref;"
+}

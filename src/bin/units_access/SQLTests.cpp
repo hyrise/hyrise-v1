@@ -91,8 +91,8 @@ TEST_F(SQLTests, select_parser_test) {
 	EXPECT_STREQ(join->condition->expr2->table, "orders");
 
 	// Group By
-	EXPECT_EQ(stmt->group_by->size(), 1);
-	EXPECT_STREQ(stmt->group_by->at(0)->name, "customer_id");
+	EXPECT_EQ(stmt->group_by->columns->size(), 1);
+	EXPECT_STREQ(stmt->group_by->columns->at(0)->name, "customer_id");
 
 	// Order By
 	EXPECT_EQ(stmt->order->type, kOrderDesc);

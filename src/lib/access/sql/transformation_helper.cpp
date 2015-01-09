@@ -1,6 +1,6 @@
 // Copyright (c) 2014 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "transformation_helper.h"
-
+#include <algorithm>
 
 using namespace hsql;
 
@@ -19,7 +19,7 @@ std::vector<_T> combineVectors(std::vector<_T> v1, std::vector<_T> v2) {
   return v;
 }
 
-// Explicit instatiation
+// Explicit instantiation
 template std::vector<std::string> combineVectors(std::vector<std::string> v1, std::vector<std::string> v2);
 
 
@@ -48,7 +48,11 @@ std::string buildFunctionRefColumnName(Expr* func_ref) {
   return column_name;
 }
 
-
+std::string stringToUppercase(std::string str) {
+  std::string copy(str);
+  for_each(copy.begin(), copy.end(), [](char& in){ in = ::toupper(in); });
+  return copy;
+}
 
 } // namespace sql
 } // namespace access
