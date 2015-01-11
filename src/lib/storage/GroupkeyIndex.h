@@ -12,8 +12,11 @@
 #include "storage/AbstractIndex.h"
 #include "storage/AbstractTable.h"
 #include "storage/OrderPreservingDictionary.h"
+#include "storage/ConcurrentUnorderedDictionary.h"
 #include "storage/CompoundValueIdKeyBuilder.h"
 #include "storage/meta_storage.h"
+#include "storage/ConcurrentFixedLengthVector.h"
+#include <storage/Store.h>
 
 #include <memory>
 
@@ -44,7 +47,6 @@ class GroupkeyIndex : public AbstractIndex {
 
   typedef std::pair<typename pos_list_t::const_iterator, typename pos_list_t::const_iterator> range_t;
 
-  std::string _id;
   dict_ptr_t _dictionary;
   std::vector<T> _dictionary_values;
   const std::vector<field_t> _columns;
@@ -54,18 +56,144 @@ class GroupkeyIndex : public AbstractIndex {
  public:
   virtual ~GroupkeyIndex() {}
 
+  std::vector<pos_t>::iterator offsetsBegin() { return _offsets.begin(); }
+
+  std::vector<pos_t>::iterator offsetsEnd() { return _offsets.end(); }
+
+  std::vector<pos_t>::iterator postingsBegin() { return _postings.begin(); }
+
+  std::vector<pos_t>::iterator postingsEnd() { return _postings.end(); }
+
   void shrink() { throw std::runtime_error("Shrink not supported for GroupkeyIndex"); }
 
   void write_lock() {}
 
   void unlock() {}
 
+  void print() {
+    auto postingsIterator = postingsBegin();
+    uint64_t i = 0;
+    for (auto offsetsIterator = offsetsBegin(); offsetsIterator != offsetsEnd(); ++offsetsIterator) {
+      std::cout << i << ": " << *offsetsIterator << ": ";
+      if (offsetsIterator + 1 != offsetsEnd()) {
+        size_t p = *(offsetsIterator + 1) - *offsetsIterator;
+        for (size_t y = 0; y < p; ++y) {
+          std::cout << *postingsIterator << ", ";
+          postingsIterator++;
+        }
+      }
+      std::cout << std::endl;
+      i++;
+    }
+  }
+
+  std::shared_ptr<AbstractIndex> recreateIndex(const c_atable_ptr_t& in, field_t column) {
+    return std::make_shared<GroupkeyIndex<T>>(in, column, true, _id);
+  }
+
+  std::shared_ptr<AbstractIndex> recreateIndexMergeDict(size_t column,
+                                                        std::shared_ptr<Store> store,
+                                                        std::shared_ptr<AbstractDictionary>& newDictReturn,
+                                                        std::vector<value_id_t>& vidMappingMain,
+                                                        std::vector<value_id_t>& vidMappingDelta) override {
+    atable_ptr_t oldMain = store->getMainTable();
+    atable_ptr_t oldDelta = store->getDeltaTable();
+
+    size_t mainTableSize = oldMain->size();
+    auto deltaVector = std::dynamic_pointer_cast<storage::ConcurrentFixedLengthVector<value_id_t>>(
+        oldDelta->getAttributeVectors(column).at(0).attribute_vector);
+
+    auto mainDictionary =
+        std::dynamic_pointer_cast<storage::OrderPreservingDictionary<T>>(oldMain->dictionaryAt(column, 0, 0));
+    auto deltaDictionary =
+        std::dynamic_pointer_cast<storage::ConcurrentUnorderedDictionary<T>>(oldDelta->dictionaryAt(column, 0, 0));
+
+    auto newDict = std::make_shared<OrderPreservingDictionary<T>>(deltaDictionary->size());
+
+    auto it = mainDictionary->begin();
+    auto itDelta = deltaDictionary->begin();
+    auto deltaEnd = deltaDictionary->end();
+
+    groupkey_postings_t newPostings;
+    groupkey_offsets_t newOffsets;
+
+    size_t mainDictSize = mainDictionary->size();
+
+    T mainDictValue;
+
+    ValueId vid;
+
+    uint64_t count, c = 0, m = 0, n = 0;
+    auto postingIterator = postingsBegin();
+    auto offsetIterator = offsetsBegin();
+
+    // mapping of values to positions in deltaVector necessary to be able to build help structure for merging (_Vd)
+    // efficiently
+    std::map<T, std::vector<size_t>> deltaValueMap;
+    for (size_t j = 0; j < deltaVector->size(); ++j) {
+      deltaValueMap[deltaDictionary->getValueForValueId(deltaVector->getRef(0, j))].push_back(j);
+    }
+
+    while (itDelta != deltaEnd || m != mainDictSize) {
+      if (m != mainDictSize)
+        mainDictValue = mainDictionary->getValueForValueId(m);
+
+      bool processM = (itDelta == deltaEnd || (m != mainDictSize && mainDictValue <= *itDelta));
+      bool processD = (m == mainDictSize || *itDelta <= mainDictValue);
+
+      newOffsets.push_back(c);
+
+      if (processM) {
+        vid.valueId = newDict->addValue(mainDictValue);
+
+        vidMappingMain.push_back(n - m);
+        ++m;
+
+        count = *(offsetIterator + 1) - *offsetIterator;
+        c += count;
+        for (size_t j = 0; j < count; ++j) {
+          newPostings.push_back(*postingIterator);
+          ++postingIterator;
+        }
+        ++offsetIterator;
+      }
+
+      if (processD) {
+        if (!processM)
+          vid.valueId = newDict->addValue(*itDelta);
+
+        count = 0;
+        for (auto it = deltaValueMap[*itDelta].cbegin(); it != deltaValueMap[*itDelta].cend(); ++it) {
+          ++count;
+          newPostings.push_back(*it + mainTableSize);
+          vidMappingDelta[*it] = n;
+        }
+
+        c += count;
+        ++itDelta;
+      }
+      ++n;
+    }
+
+    newOffsets.push_back(c);
+
+    newDictReturn = newDict;
+    return std::make_shared<GroupkeyIndex<T>>(column, newDict, newOffsets, newPostings, _id);
+  }
+
+  explicit GroupkeyIndex(field_t column,
+                         dict_ptr_t dictionary,
+                         groupkey_offsets_t offsets,
+                         groupkey_postings_t postings,
+                         std::string id = "volatile_groupkey")
+      : AbstractIndex(id), _dictionary(dictionary), _columns({column}), _offsets(offsets), _postings(postings) {};
+
   explicit GroupkeyIndex(const c_atable_ptr_t& in,
                          field_t column,
                          bool create = true,
                          std::string id = "volatile_groupkey",
                          bool will_recover_from_archive = false)
-      : _id(id), _columns({column}) {
+      : AbstractIndex(id), _columns({column}) {
     if (in != nullptr && create && !will_recover_from_archive) {
       // save pointer to dictionary
       _dictionary = std::static_pointer_cast<dict_t>(in->dictionaryAt(column));
@@ -112,7 +240,7 @@ class GroupkeyIndex : public AbstractIndex {
                          bool create = true,
                          const std::string id = "volatile_groupkey",
                          bool will_recover_from_archive = false)
-      : _id(id), _columns(columns) {
+      : AbstractIndex(id), _columns(columns) {
     _dictionary = std::make_shared<dict_t>();
     if (in != nullptr && create && !will_recover_from_archive) {
       // _dictionary->setValueVector(_dictionary_values);

@@ -162,7 +162,6 @@ void Store::merge() {
   _main_dirty = false;
 }
 
-
 atable_ptr_t Store::getMainTable() const { return _main_table; }
 
 atable_ptr_t Store::getDeltaTable() const { return delta; }
@@ -239,6 +238,8 @@ void Store::setMerger(TableMerger* _merger) {
   delete merger;
   merger = _merger;
 }
+
+void Store::setMain(atable_ptr_t main) { _main_table = main; }
 
 void Store::setDelta(atable_ptr_t _delta) {
   delta = _delta;
@@ -478,6 +479,23 @@ void Store::addDeltaIndex(std::shared_ptr<AbstractIndex> index, std::vector<fiel
   _index_lock.unlock();
 }
 
+void Store::clearIndices() {
+  io::StorageManager* sm = io::StorageManager::getInstance();
+  std::lock_guard<locking::Spinlock> indexLock(_index_lock);
+
+  for (std::vector<std::pair<std::shared_ptr<AbstractIndex>, std::vector<field_t>>>::iterator it =
+           _delta_indices.begin();
+       it != _delta_indices.end();
+       ++it) {
+    sm->remove(it->first->getId());
+  }
+
+  _main_indices.clear();
+  _delta_indices.clear();
+
+  _index_lock.unlock();
+}
+
 struct AddValueToDeltaIndexFunctor {
   typedef bool value_type;
 
@@ -544,6 +562,10 @@ std::vector<std::vector<size_t>> Store::getIndexedColumns() const {
   return indexedColumns;
 }
 
+const std::vector<std::pair<std::shared_ptr<AbstractIndex>, std::vector<field_t>>>& Store::getMainIndices() const {
+  return _main_indices;
+}
+
 void Store::enableLogging() {
   logging = true;
   _main_table->enableLogging();
@@ -557,5 +579,7 @@ void Store::setName(const std::string name) {
   if (delta)
     delta->setName(name);
 }
+
+bool Store::isColumnStore() { return _main_table->columnCount() == _main_table->partitionCount(); }
 }
 }
