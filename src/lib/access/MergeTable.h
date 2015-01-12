@@ -25,14 +25,16 @@ class MergeStore : public PlanOperation {
 
 class MergeColumnStore : public PlanOperation {
  public:
-  MergeColumnStore(bool forceFullIndexRebuild = false);
+  MergeColumnStore(bool forceFullIndexRebuild = false, std::string sortIndexName = "");
   virtual ~MergeColumnStore();
   void executePlanOperation();
   void setForceFullIndexRebuild(bool force);
+  void setSortIndexName(std::string sortIndexName);
   static std::shared_ptr<PlanOperation> parse(const Json::Value& data);
 
  private:
   bool _forceFullIndexRebuild;
+  std::string _sortIndexName;
 };
 }
 }

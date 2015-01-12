@@ -11,12 +11,12 @@
 #include "storage/ConcurrentUnorderedDictionary.h"
 #include "storage/ConcurrentFixedLengthVector.h"
 #include "storage/BitCompressedVector.h"
-
 #include "storage/DictionaryFactory.h"
 #include "storage/Table.h"
-
 #include "storage/meta_storage.h"
 #include "storage/GroupkeyIndex.h"
+#include "storage/DeltaIndex.h"
+#include "storage/CompoundValueKeyBuilder.h"
 
 #include "io/StorageManager.h"
 
@@ -27,12 +27,16 @@ struct MergeColumnFunctor {
   typedef void value_type;
   size_t column;
   ColumnStoreMerger& csm;
+  bool sort;
 
-  MergeColumnFunctor(size_t c, ColumnStoreMerger& csm) : column(c), csm(csm) {}
+  MergeColumnFunctor(size_t c, ColumnStoreMerger& csm, bool sort = false) : column(c), csm(csm), sort(sort) {}
 
   template <typename R>
   value_type operator()() {
-    csm.mergeDictionary<R>(column);
+    if (!sort)
+      csm.mergeDictionary<R>(column);
+    else
+      csm.mergeDictionarySorted<R>(column);
   }
 };
 
@@ -46,7 +50,7 @@ auto create_concurrent_storage = [](std::size_t cols) {
 
 // forceFullIndexRebuild can be passed to the corresponding PlanOp or the Constructor of this class to prevent
 // the merger from calling "recreateIndexMergeDict" and create all indices from scratch.
-ColumnStoreMerger::ColumnStoreMerger(std::shared_ptr<Store> store, bool forceFullIndexRebuild)
+ColumnStoreMerger::ColumnStoreMerger(std::shared_ptr<Store> store, bool forceFullIndexRebuild, std::string sortIndexName)
     : _store(store),
       _main(store->getMainTable()),
       _delta(store->getDeltaTable()),
@@ -56,7 +60,92 @@ ColumnStoreMerger::ColumnStoreMerger(std::shared_ptr<Store> store, bool forceFul
       _forceFullIndexRebuild(forceFullIndexRebuild) {
   _vidMappingDelta.resize(_delta->size());
   _newTables.reserve(_columnCount);
+
+  if (sortIndexName != "") {
+    const std::vector<std::pair<std::shared_ptr<AbstractIndex>, std::vector<field_t>>>& deltaIndices = store->getDeltaIndices();
+    for (auto& deltaIndex : deltaIndices) {
+      if (deltaIndex.first->getId() == sortIndexName)
+        _sortIndex = deltaIndex;
+    }
+
+    if (!_sortIndex)
+      throw std::runtime_error("No index found under given name");
+  }
 };
+
+template <typename T>
+void ColumnStoreMerger::mergeDictionarySorted(size_t column) {
+  auto mainDictionary =
+      std::dynamic_pointer_cast<storage::OrderPreservingDictionary<T>>(_main->dictionaryAt(column, 0, 0));
+  auto deltaDictionary =
+      std::dynamic_pointer_cast<storage::ConcurrentUnorderedDictionary<T>>(_delta->dictionaryAt(column, 0, 0));
+  auto newDict = std::make_shared<OrderPreservingDictionary<T>>(deltaDictionary->size());
+
+  auto it = mainDictionary->begin();
+  auto itDelta = deltaDictionary->begin();
+  auto deltaEnd = deltaDictionary->end();
+
+  size_t mainDictSize = mainDictionary->size();
+
+  T mainDictValue;
+
+  ValueId vid;
+
+  uint64_t m = 0;
+
+  std::vector<value_id_t> mainDictMapping;
+  std::vector<value_id_t> deltaDictMapping;
+
+  mainDictMapping.reserve(mainDictSize);
+  deltaDictMapping.resize(deltaDictionary->size());
+
+  while (itDelta != deltaEnd || m != mainDictSize) {
+    if (m != mainDictSize)
+      mainDictValue = mainDictionary->getValueForValueId(m);
+
+    bool processM = (itDelta == deltaEnd || (m != mainDictSize && mainDictValue <= *itDelta));
+    bool processD = (m == mainDictSize || (itDelta != deltaEnd && *itDelta <= mainDictValue));
+
+    if (processM) {
+      vid.valueId = newDict->addValue(mainDictValue);
+      mainDictMapping.push_back(vid.valueId);
+      ++m;
+    }
+
+    if (processD) {
+      if (!processM)
+        vid.valueId = newDict->addValue(*itDelta);
+
+      deltaDictMapping[deltaDictionary->getValueIdForValue(*itDelta)] = vid.valueId;
+
+      ++itDelta;
+    }
+  }
+
+  _mainDictMappings.push_back(mainDictMapping);
+  _deltaDictMappings.push_back(deltaDictMapping);
+
+  std::shared_ptr<Table> table;
+
+  // Poor man's attribute vector type switch
+  if (std::dynamic_pointer_cast<FixedLengthVector<value_id_t>>(
+          _main->getAttributeVectors(column)[0].attribute_vector)) {
+    table = std::make_shared<Table>(std::vector<ColumnMetadata>{_main->metadataAt(column)},
+                                    std::make_shared<FixedLengthVector<value_id_t>>(1, 0),
+                                    std::vector<adict_ptr_t>{newDict});
+  } else if (std::dynamic_pointer_cast<BitCompressedVector<value_id_t>>(
+                 _main->getAttributeVectors(column)[0].attribute_vector)) {
+    table = std::make_shared<Table>(std::vector<ColumnMetadata>{_main->metadataAt(column)},
+                                    std::make_shared<BitCompressedVector<value_id_t>>(1, 0),
+                                    std::vector<adict_ptr_t>{newDict});
+  } else {
+    throw std::runtime_error("Unsupported attribute vector type in ColumnStoreMerge");
+  }
+
+  _newTables.push_back(table);
+
+  table->resize(_newMainSize);
+}
 
 template <typename T>
 void ColumnStoreMerger::mergeDictionary(size_t column) {
@@ -97,6 +186,7 @@ void ColumnStoreMerger::mergeDictionary(size_t column) {
     size_t mainDictSize = mainDictionary->size();
 
     _vidMappingMain.reserve(mainDictSize);
+    _vidMappingDelta.reserve(deltaDictionary->size());
 
     T mainDictValue;
 
@@ -104,20 +194,12 @@ void ColumnStoreMerger::mergeDictionary(size_t column) {
 
     uint64_t m = 0, n = 0;
 
-    // mapping of values to positions in deltaVector necessary to be able to build help structure for merging
-    // (_vidMappingDelta)
-    // efficiently
-    std::map<T, std::vector<size_t>> deltaValueMap;
-    for (size_t j = 0; j < deltaVector->size(); ++j) {
-      deltaValueMap[deltaDictionary->getValueForValueId(deltaVector->getRef(0, j))].push_back(j);
-    }
-
     while (itDelta != deltaEnd || m != mainDictSize) {
       if (m != mainDictSize)
         mainDictValue = mainDictionary->getValueForValueId(m);
 
       bool processM = (itDelta == deltaEnd || (m != mainDictSize && mainDictValue <= *itDelta));
-      bool processD = (m == mainDictSize || *itDelta <= mainDictValue);
+      bool processD = (m == mainDictSize || (*itDelta <= mainDictValue));
 
       if (processM) {
         vid.valueId = newDictNoIndex->addValue(mainDictValue);
@@ -130,8 +212,7 @@ void ColumnStoreMerger::mergeDictionary(size_t column) {
         if (!processM)
           vid.valueId = newDictNoIndex->addValue(*itDelta);
 
-        for (auto it = deltaValueMap[*itDelta].cbegin(); it != deltaValueMap[*itDelta].cend(); ++it)
-          _vidMappingDelta[*it] = n;
+        _vidMappingDelta[deltaDictionary->getValueIdForValue(*itDelta)] = vid.valueId;
 
         ++itDelta;
       }
@@ -162,7 +243,11 @@ void ColumnStoreMerger::mergeDictionary(size_t column) {
 
   table->resize(_newMainSize);
 
-  mergeValues(column, table);
+  if (!newIndex) {
+    mergeValues(column, table, false);
+  } else {
+    mergeValues(column, table, true);
+  }
 
   // Index present, but recreateIndexMergeDict not implemented or a full rebuild is forced
   if (_currentIndexToMerge < _main_indices.size() && _main_indices[_currentIndexToMerge].second[0] == column &&
@@ -177,11 +262,42 @@ void ColumnStoreMerger::mergeDictionary(size_t column) {
   }
 }
 
-void ColumnStoreMerger::mergeValues(size_t column, atable_ptr_t table) {
+void ColumnStoreMerger::mergeValuesSorted(size_t column, atable_ptr_t table) {
+  auto mainVector = std::dynamic_pointer_cast<storage::BaseAttributeVector<value_id_t>>(
+      _main->getAttributeVectors(column)[0].attribute_vector);
+  auto deltaVector = std::dynamic_pointer_cast<storage::BaseAttributeVector<value_id_t>>(
+      _delta->getAttributeVectors(column)[0].attribute_vector);
+
+  int row = 0;
+  for (auto it = sortPermutations.cbegin(); it != sortPermutations.cend(); ++it) {
+    if ((*it).fromMain)
+      table->setValueId(0, row++, ValueId{_mainDictMappings[column][mainVector->get(0, (*it).position)], 0});
+    else
+      table->setValueId(0, row++, ValueId{_deltaDictMappings[column][deltaVector->get(0, (*it).position)], 0});
+  }
+}
+
+void ColumnStoreMerger::mergeValues(size_t column, atable_ptr_t table, bool indexMaintenance) {
+  size_t mainTableSize = mergeValuesMain(column, table);
+
+  // merge values delta
+  if (indexMaintenance) {
+    for (size_t j = mainTableSize; j < _newMainSize; ++j) {
+      table->setValueId(0, j, ValueId{_vidMappingDelta[j - mainTableSize], 0});
+    }
+  } else {
+    auto deltaVector = std::dynamic_pointer_cast<storage::BaseAttributeVector<value_id_t>>(
+        _delta->getAttributeVectors(column)[0].attribute_vector);
+    for (size_t j = mainTableSize; j < _newMainSize; ++j) {
+      table->setValueId(0, j, ValueId{_vidMappingDelta[deltaVector->get(0, j - mainTableSize)], 0});
+    }
+  }
+}
+
+size_t ColumnStoreMerger::mergeValuesMain(size_t column, atable_ptr_t table) {
   size_t mainTableSize = _main->size();
-  std::shared_ptr<hyrise::storage::BaseAttributeVector<value_id_t>> mainVector =
-      std::dynamic_pointer_cast<storage::BaseAttributeVector<value_id_t>>(
-          _main->getAttributeVectors(column)[0].attribute_vector);
+  auto mainVector = std::dynamic_pointer_cast<storage::BaseAttributeVector<value_id_t>>(
+      _main->getAttributeVectors(column)[0].attribute_vector);
 
   value_id_t currentVid;
   for (size_t j = 0; j < mainTableSize; ++j) {
@@ -189,9 +305,119 @@ void ColumnStoreMerger::mergeValues(size_t column, atable_ptr_t table) {
     table->setValueId(0, j, ValueId{currentVid + _vidMappingMain[currentVid], 0});
   }
 
-  for (size_t j = mainTableSize; j < _newMainSize; ++j) {
-    table->setValueId(0, j, ValueId{_vidMappingDelta[j - mainTableSize], 0});
+  return mainTableSize;
+}
+
+std::vector<struct sortPermutationHelper> ColumnStoreMerger::calculatePermutations(size_t column) {
+  size_t mainTableSize = _main->size();
+  std::vector<std::shared_ptr<storage::BaseAttributeVector<value_id_t>>> mainVectors;
+  std::vector<std::shared_ptr<storage::ConcurrentFixedLengthVector<value_id_t>>> deltaVectors;
+  std::vector<size_t> indexedColumns;
+
+  for (auto it = _sortIndex->second.cbegin(); it != _sortIndex->second.end(); ++it) {
+    mainVectors.push_back(std::dynamic_pointer_cast<storage::BaseAttributeVector<value_id_t>>(
+        _main->getAttributeVectors(*it)[0].attribute_vector));
+    deltaVectors.push_back(std::dynamic_pointer_cast<storage::ConcurrentFixedLengthVector<value_id_t>>(
+        _delta->getAttributeVectors(*it)[0].attribute_vector));
+    indexedColumns.push_back(*it);
   }
+
+  auto sm = io::StorageManager::getInstance();
+  auto indexDelta = std::dynamic_pointer_cast<storage::DeltaIndex<compound_value_key_t>>(
+      sm->getResource(_sortIndex->first->getId()));
+
+  size_t mainI = 0;
+  std::vector<struct sortPermutationHelper> permutation;
+  struct sortPermutationHelper sph;
+
+  CompoundValueKeyBuilder builder;
+
+  auto indexIterators = indexDelta->getIteratorsForKeyBetween(builder.get(), builder.get_upperbound());
+
+  auto deltaIndexIt = indexIterators.first;
+
+
+  while (mainI < mainVectors[0]->size() || deltaIndexIt != indexIterators.second) {
+    bool processM = deltaIndexIt == indexIterators.second;
+    bool processD = mainI >= mainVectors[0]->size();
+
+    if (!processM) {
+      auto itDelta = deltaVectors.cbegin();
+      auto itIndexedColumns = indexedColumns.cbegin();
+      bool checkProcessM = false;
+      for (auto it = mainVectors.cbegin(); it != mainVectors.cend(); ++it) {
+        if (itIndexedColumns + 1 == indexedColumns.cend()) {
+          checkProcessM = (mainI < (*it)->size() &&
+                           _mainDictMappings[*itIndexedColumns][(*it)->get(0, mainI)] <=
+                               _deltaDictMappings[*itIndexedColumns]
+                                                 [(*itDelta)->getRef(0, (*deltaIndexIt).second - mainTableSize)]);
+        } else {
+          checkProcessM = (mainI < (*it)->size() &&
+                           _mainDictMappings[*itIndexedColumns][(*it)->get(0, mainI)] <
+                               _deltaDictMappings[*itIndexedColumns]
+                                                 [(*itDelta)->getRef(0, (*deltaIndexIt).second - mainTableSize)]);
+          if (checkProcessM) {
+            break;
+          } else {
+            if (mainI < (*it)->size() &&
+                _mainDictMappings[*itIndexedColumns][(*it)->get(0, mainI)] !=
+                    _deltaDictMappings[*itIndexedColumns]
+                                      [(*itDelta)->getRef(0, (*deltaIndexIt).second - mainTableSize)])
+              break;
+          }
+        }
+        ++itDelta;
+        ++itIndexedColumns;
+      }
+      processM = processM || checkProcessM;
+    }
+
+    if (!processD) {
+      auto itMain = mainVectors.cbegin();
+      auto itIndexedColumns = indexedColumns.cbegin();
+      bool checkProcessD = false;
+      for (auto it = deltaVectors.cbegin(); it != deltaVectors.cend(); ++it) {
+        if (itIndexedColumns + 1 == indexedColumns.cend())
+          checkProcessD =
+              (deltaIndexIt != indexIterators.second &&
+               _deltaDictMappings[*itIndexedColumns][(*it)->getRef(0, (*deltaIndexIt).second - mainTableSize)] <=
+                   _mainDictMappings[*itIndexedColumns][(*itMain)->get(0, mainI)]);
+        else {
+          checkProcessD =
+              (deltaIndexIt != indexIterators.second &&
+               _deltaDictMappings[*itIndexedColumns][(*it)->getRef(0, (*deltaIndexIt).second - mainTableSize)] <
+                   _mainDictMappings[*itIndexedColumns][(*itMain)->get(0, mainI)]);
+          if (checkProcessD) {
+            break;
+          } else {
+            if (deltaIndexIt != indexIterators.second &&
+                _deltaDictMappings[*itIndexedColumns][(*it)->getRef(0, (*deltaIndexIt).second - mainTableSize)] !=
+                    _mainDictMappings[*itIndexedColumns][(*itMain)->get(0, mainI)])
+              break;
+          }
+        }
+        ++itMain;
+        ++itIndexedColumns;
+      }
+      processD = processD || checkProcessD;
+    }
+
+    if (processM) {
+      sph.fromMain = true;
+      sph.position = mainI;
+      permutation.push_back(sph);
+      ++mainI;
+    }
+
+    if (processD) {
+      sph.fromMain = false;
+      sph.position = (*deltaIndexIt).second - mainTableSize;
+      permutation.push_back(sph);
+      ++deltaIndexIt;
+    }
+  }
+
+  return permutation;
 }
 
 void ColumnStoreMerger::merge() {
@@ -207,13 +433,24 @@ void ColumnStoreMerger::merge() {
 
   _currentIndexToMerge = 0;
 
-  _store->clearIndices();
+  if (!_sortIndex)
+    _store->clearIndices();
 
   for (size_t i = 0; i < _columnCount; ++i) {
-    MergeColumnFunctor fun(i, *this);
+    MergeColumnFunctor fun(i, *this, _sortIndex ? true : false);
     storage::type_switch<hyrise_basic_types> ts;
     ts(_main->typeOfColumn(i), fun);
     _vidMappingMain.clear();
+  }
+
+  if (_sortIndex) {
+    sortPermutations = calculatePermutations(0);
+
+    for (size_t column = 0; column < _columnCount; ++column) {
+      mergeValuesSorted(column, _newTables[column]);
+    }
+
+    _store->clearIndices();
   }
 
   std::shared_ptr<storage::AbstractTable> newMain = std::make_shared<storage::MutableVerticalTable>(_newTables);

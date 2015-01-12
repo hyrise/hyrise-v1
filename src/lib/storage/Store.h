@@ -106,6 +106,7 @@ class Store : public AbstractTable {
   void addRowToDeltaIndices(pos_t row);
   std::vector<std::vector<size_t>> getIndexedColumns() const;
   const std::vector<std::pair<std::shared_ptr<AbstractIndex>, std::vector<field_t>>>& getMainIndices() const;
+  const std::vector<std::pair<std::shared_ptr<AbstractIndex>, std::vector<field_t>>>& getDeltaIndices() const;
   void clearIndices();
 
   virtual void enableLogging();

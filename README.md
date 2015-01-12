@@ -148,6 +148,7 @@ alphabetical order :)
   * Georg Hoefer
   * Henning Lohse
   * Holger Pirk
+  * Jan Kossmann
   * Jan Oberst
   * Jens Krueger
   * Johannes Wust

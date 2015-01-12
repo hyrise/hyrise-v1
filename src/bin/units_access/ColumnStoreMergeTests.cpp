@@ -493,5 +493,262 @@ TEST_F(MergeColumnStoreTests, deltaIndicesGetRemoved) {
   EXPECT_THROW(sm->getInvertedIndex("test_delta_idx_0"), hyrise::io::ResourceNotExistsException);
   EXPECT_THROW(sm->getInvertedIndex("test_delta_idx_1"), hyrise::io::ResourceNotExistsException);
 }
+
+TEST_F(MergeColumnStoreTests, sortedMergeInt) {
+  auto reference = io::Loader::shortcuts::load("test/sortedMerge/reference/two_columns.tbl");
+  auto t = io::Loader::shortcuts::load("test/sortedMerge/tables/sorted_main_two_columns.tbl");
+  auto store = checked_pointer_cast<storage::Store>(t);
+
+  auto delta = io::Loader::shortcuts::load("test/sortedMerge/tables/delta_two_columns.tbl");
+
+  access::CreateDeltaIndex cid;
+  cid.addInput(store);
+  cid.addField(0);
+  cid.addField(1);
+  cid.setIndexName("test_delta_idx_0");
+  cid.execute();
+
+  access::InsertScan is;
+  is.addInput(store);
+  is.setInputData(delta);
+  is.execute();
+
+  access::MergeColumnStore mcs;
+  mcs.addInput(store);
+  mcs.setSortIndexName("test_delta_idx_0");
+  mcs.setForceFullIndexRebuild(true);
+  mcs.execute();
+
+  auto result = mcs.getResultTable();
+
+  ASSERT_TABLE_EQUAL(result, reference);
+}
+
+TEST_F(MergeColumnStoreTests, sortedMergeIntFirstColumnIndifferent) {
+  auto reference = io::Loader::shortcuts::load("test/sortedMerge/reference/two_columns_first_column_indifferent.tbl");
+  auto t = io::Loader::shortcuts::load("test/sortedMerge/tables/sorted_main_two_columns_first_column_indifferent.tbl");
+  auto store = checked_pointer_cast<storage::Store>(t);
+
+  auto delta = io::Loader::shortcuts::load("test/sortedMerge/tables/delta_two_columns_first_column_indifferent.tbl");
+
+  access::CreateDeltaIndex cid;
+  cid.addInput(store);
+  cid.addField(0);
+  cid.addField(1);
+  cid.setIndexName("test_delta_idx_0");
+  cid.execute();
+
+  access::InsertScan is;
+  is.addInput(store);
+  is.setInputData(delta);
+  is.execute();
+
+  access::MergeColumnStore mcs;
+  mcs.addInput(store);
+  mcs.setSortIndexName("test_delta_idx_0");
+  mcs.setForceFullIndexRebuild(true);
+  mcs.execute();
+
+  auto result = mcs.getResultTable();
+
+  ASSERT_TABLE_EQUAL(result, reference);
+}
+
+TEST_F(MergeColumnStoreTests, sortedMergeString) {
+  auto reference = io::Loader::shortcuts::load("test/sortedMerge/reference/string.tbl");
+  auto t = io::Loader::shortcuts::load("test/sortedMerge/tables/sorted_main_string.tbl");
+  auto store = checked_pointer_cast<storage::Store>(t);
+
+  auto delta = io::Loader::shortcuts::load("test/sortedMerge/tables/delta_string.tbl");
+
+  access::CreateDeltaIndex cid;
+  cid.addInput(store);
+  cid.addField(0);
+  cid.addField(1);
+  cid.setIndexName("test_delta_idx_0");
+  cid.execute();
+
+  access::InsertScan is;
+  is.addInput(store);
+  is.setInputData(delta);
+  is.execute();
+
+  access::MergeColumnStore mcs;
+  mcs.addInput(store);
+  mcs.setSortIndexName("test_delta_idx_0");
+  mcs.setForceFullIndexRebuild(true);
+  mcs.execute();
+
+  auto result = mcs.getResultTable();
+
+  ASSERT_TABLE_EQUAL(result, reference);
+}
+
+TEST_F(MergeColumnStoreTests, sortedMergeDoubleAndEmptyMain) {
+  auto reference = io::Loader::shortcuts::load("test/sortedMerge/reference/two_columns.tbl");
+  auto t = io::Loader::shortcuts::load("test/sortedMerge/tables/empty_two_columns.tbl");
+  auto store = checked_pointer_cast<storage::Store>(t);
+
+  auto delta = io::Loader::shortcuts::load("test/sortedMerge/tables/sorted_main_two_columns.tbl");
+
+  access::CreateDeltaIndex cid;
+  cid.addInput(store);
+  cid.addField(0);
+  cid.addField(1);
+  cid.setIndexName("test_delta_idx_0");
+  cid.execute();
+
+  access::InsertScan is;
+  is.addInput(store);
+  is.setInputData(delta);
+  is.execute();
+
+  access::MergeColumnStore mcs;
+  mcs.addInput(store);
+  mcs.setSortIndexName("test_delta_idx_0");
+  mcs.setForceFullIndexRebuild(true);
+  mcs.execute();
+
+  access::CreateDeltaIndex cid2;
+  cid2.addInput(store);
+  cid2.addField(0);
+  cid2.addField(1);
+  cid2.setIndexName("test_delta_idx_0");
+  cid2.execute();
+
+  delta = io::Loader::shortcuts::load("test/sortedMerge/tables/delta_two_columns.tbl");
+
+  is.addInput(store);
+  is.setInputData(delta);
+  is.execute();
+
+  mcs.addInput(store);
+  mcs.setSortIndexName("test_delta_idx_0");
+  mcs.setForceFullIndexRebuild(true);
+  mcs.execute();
+
+  auto result = mcs.getResultTable();
+
+  ASSERT_TABLE_EQUAL(result, reference);
+}
+
+TEST_F(MergeColumnStoreTests, sortedMergeEmptyDelta) {
+  auto reference = io::Loader::shortcuts::load("test/sortedMerge/reference/two_columns.tbl");
+  auto t = io::Loader::shortcuts::load("test/sortedMerge/reference/two_columns.tbl");
+  auto store = checked_pointer_cast<storage::Store>(t);
+
+  auto delta = io::Loader::shortcuts::load("test/sortedMerge/tables/empty_two_columns.tbl");
+
+  access::CreateDeltaIndex cid;
+  cid.addInput(store);
+  cid.addField(0);
+  cid.addField(1);
+  cid.setIndexName("test_delta_idx_0");
+  cid.execute();
+
+  access::InsertScan is;
+  is.addInput(store);
+  is.setInputData(delta);
+  is.execute();
+
+  access::MergeColumnStore mcs;
+  mcs.addInput(store);
+  mcs.setSortIndexName("test_delta_idx_0");
+  mcs.setForceFullIndexRebuild(true);
+  mcs.execute();
+
+  auto result = mcs.getResultTable();
+
+  ASSERT_TABLE_EQUAL(result, reference);
+}
+
+TEST_F(MergeColumnStoreTests, sortedMergeFourColumns) {
+  auto reference = io::Loader::shortcuts::load("test/sortedMerge/reference/four_columns.tbl");
+  auto t = io::Loader::shortcuts::load("test/sortedMerge/tables/sorted_main_four_columns.tbl");
+  auto store = checked_pointer_cast<storage::Store>(t);
+
+  auto delta = io::Loader::shortcuts::load("test/sortedMerge/tables/delta_four_columns.tbl");
+
+  access::CreateDeltaIndex cid;
+  cid.addInput(store);
+  cid.addField(1);
+  cid.addField(2);
+  cid.addField(0);
+  cid.setIndexName("test_delta_idx_0");
+  cid.execute();
+
+  access::InsertScan is;
+  is.addInput(store);
+  is.setInputData(delta);
+  is.execute();
+
+  access::MergeColumnStore mcs;
+  mcs.addInput(store);
+  mcs.setSortIndexName("test_delta_idx_0");
+  mcs.setForceFullIndexRebuild(true);
+  mcs.execute();
+
+  auto result = mcs.getResultTable();
+
+  ASSERT_TABLE_EQUAL(result, reference);
+}
+
+TEST_F(MergeColumnStoreTests, sortedMergeThrowsOnWrongIndexName) {
+  auto reference = io::Loader::shortcuts::load("test/sortedMerge/reference/four_columns.tbl");
+  auto t = io::Loader::shortcuts::load("test/sortedMerge/tables/sorted_main_four_columns.tbl");
+  auto store = checked_pointer_cast<storage::Store>(t);
+
+  auto delta = io::Loader::shortcuts::load("test/sortedMerge/tables/delta_four_columns.tbl");
+
+  access::CreateDeltaIndex cid;
+  cid.addInput(store);
+  cid.addField(1);
+  cid.addField(2);
+  cid.addField(0);
+  cid.setIndexName("test_delta_idx_0");
+  cid.execute();
+
+  access::InsertScan is;
+  is.addInput(store);
+  is.setInputData(delta);
+  is.execute();
+
+  access::MergeColumnStore mcs;
+  mcs.addInput(store);
+  mcs.setSortIndexName("PeterSippelIndex");
+  mcs.setForceFullIndexRebuild(true);
+  EXPECT_THROW(mcs.execute(), std::runtime_error);
+}
+
+TEST_F(MergeColumnStoreTests, unSortedMergeInt) {
+  auto reference = io::Loader::shortcuts::load("test/sortedMerge/reference/two_columns_unsorted.tbl");
+  auto t = io::Loader::shortcuts::load("test/sortedMerge/tables/sorted_main_two_columns.tbl");
+  auto store = checked_pointer_cast<storage::Store>(t);
+
+  auto delta = io::Loader::shortcuts::load("test/sortedMerge/tables/delta_two_columns.tbl");
+
+  access::CreateDeltaIndex cid;
+  cid.addInput(store);
+  cid.addField(0);
+  cid.addField(1);
+  cid.setIndexName("test_delta_idx_0");
+  cid.execute();
+
+  access::InsertScan is;
+  is.addInput(store);
+  is.setInputData(delta);
+  is.execute();
+
+  access::MergeColumnStore mcs;
+  mcs.addInput(store);
+  mcs.setSortIndexName("");
+  mcs.setForceFullIndexRebuild(true);
+  mcs.execute();
+
+  auto result = mcs.getResultTable();
+
+  ASSERT_TABLE_EQUAL(result, reference);
+}
+
 }
 }
