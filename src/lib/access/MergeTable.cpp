@@ -62,14 +62,15 @@ namespace {
 auto _3 = QueryParser::registerPlanOperation<MergeColumnStore>("MergeColumnStore");
 }
 
-MergeColumnStore::MergeColumnStore(bool forceFullIndexRebuild) : _forceFullIndexRebuild(forceFullIndexRebuild) {};
+MergeColumnStore::MergeColumnStore(bool forceFullIndexRebuild, std::string sortIndexName)
+    : _forceFullIndexRebuild(forceFullIndexRebuild), _sortIndexName(sortIndexName) {};
 
 MergeColumnStore::~MergeColumnStore() {}
 
 void MergeColumnStore::executePlanOperation() {
   auto t = checked_pointer_cast<const storage::Store>(getInputTable());
   auto store = std::const_pointer_cast<storage::Store>(t);
-  storage::ColumnStoreMerger merger = storage::ColumnStoreMerger(store, _forceFullIndexRebuild);
+  storage::ColumnStoreMerger merger = storage::ColumnStoreMerger(store, _forceFullIndexRebuild, _sortIndexName);
 
   if (!store->isColumnStore())
     throw std::runtime_error("Column Store Merge applied to a table with row or hybrid layout");
@@ -79,12 +80,20 @@ void MergeColumnStore::executePlanOperation() {
 }
 
 std::shared_ptr<PlanOperation> MergeColumnStore::parse(const Json::Value& data) {
-  if (data.isMember("force_full_index_rebuild"))
-    return std::make_shared<MergeColumnStore>(data["force_full_index_rebuild"].asBool());
+  bool forceFullIndexRebuild = false;
+  std::string sortIndexName = "";
 
-  return std::make_shared<MergeColumnStore>(false);
+  if (data.isMember("force_full_index_rebuild"))
+    forceFullIndexRebuild = data["force_full_index_rebuild"].asBool();
+
+  if (data.isMember("sortIndexName"))
+    sortIndexName = data["sortIndexName"].asBool();
+
+  return std::make_shared<MergeColumnStore>(forceFullIndexRebuild, sortIndexName);
 }
 
 void MergeColumnStore::setForceFullIndexRebuild(bool force) { _forceFullIndexRebuild = force; }
+
+void MergeColumnStore::setSortIndexName(std::string sortIndexName) { _sortIndexName = sortIndexName; }
 }
 }

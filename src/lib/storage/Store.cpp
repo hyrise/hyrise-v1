@@ -566,6 +566,10 @@ const std::vector<std::pair<std::shared_ptr<AbstractIndex>, std::vector<field_t>
   return _main_indices;
 }
 
+const std::vector<std::pair<std::shared_ptr<AbstractIndex>, std::vector<field_t>>>& Store::getDeltaIndices() const {
+  return _delta_indices;
+}
+
 void Store::enableLogging() {
   logging = true;
   _main_table->enableLogging();

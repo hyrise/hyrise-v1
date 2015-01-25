@@ -139,7 +139,7 @@ class GroupkeyIndex : public AbstractIndex {
         mainDictValue = mainDictionary->getValueForValueId(m);
 
       bool processM = (itDelta == deltaEnd || (m != mainDictSize && mainDictValue <= *itDelta));
-      bool processD = (m == mainDictSize || *itDelta <= mainDictValue);
+      bool processD = (m == mainDictSize || (*itDelta <= mainDictValue));
 
       newOffsets.push_back(c);
 

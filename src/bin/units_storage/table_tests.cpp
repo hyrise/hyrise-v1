@@ -131,7 +131,9 @@ TEST_F(TableTests, test_main_storage_is_fixedLengthVector) {
 }
 
 TEST_F(TableTests, test_is_column_store) {
-  std::array<std::tuple<std::string, bool>, 4> testCases = {std::make_tuple("test/tables/dates.tbl", false), std::make_tuple("test/tables/partitions.tbl", false), std::make_tuple("test/tables/filter.tbl", true), std::make_tuple("test/tables/employee_id.tbl", true)};
+  std::array<std::tuple<std::string, bool>, 4> testCases = {
+      std::make_tuple("test/tables/dates.tbl", false), std::make_tuple("test/tables/partitions.tbl", false),
+      std::make_tuple("test/tables/filter.tbl", true), std::make_tuple("test/tables/employee_id.tbl", true)};
   std::vector<std::shared_ptr<Store>> stores;
   for (auto&& testCase : testCases) {
     auto table = io::Loader::shortcuts::load(std::get<0>(testCase));
