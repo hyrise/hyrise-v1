@@ -2,6 +2,7 @@
 #include "access/sql/SQLDataDefinitionTransformer.h"
 #include "access/sql/SQLStatementTransformer.h"
 #include "access/sql/transformation_helper.h"
+#include "access/sql/PreparedStatementManager.h"
 
 #include "io/StorageManager.h"
 
@@ -52,7 +53,7 @@ TransformationResult SQLDataDefinitionTransformer::transformCreateStatement(Crea
     std::vector<std::string> types;
     std::vector<unsigned> groups;
 
-    for (ColumnDefinition* def : create->columns->vector()) {
+    for (ColumnDefinition* def : *create->columns) {
       names.push_back(def->name);
       groups.push_back(1);
       switch (def->type) {
@@ -92,20 +93,33 @@ TransformationResult SQLDataDefinitionTransformer::transformCreateStatement(Crea
 TransformationResult SQLDataDefinitionTransformer::transformDropStatement(DropStatement* drop) {
   TransformationResult meta = {};
 
-  if (drop->type == DropStatement::kTable) {
-    if (!io::StorageManager::getInstance()->exists(drop->name)) {
-      _server.throwError("Can't drop table. It doesn't exist.", drop->name);
+  switch (drop->type) {
+    case DropStatement::kTable: {
+      if (!io::StorageManager::getInstance()->exists(drop->name)) {
+        _server.throwError("Can't drop table. It doesn't exist.", drop->name);
+      }
+
+      auto drop_op = std::make_shared<TableUnload>();
+      drop_op->setTableName(drop->name);
+      _builder.addPlanOp(drop_op, "TableUnload", meta);
+      _builder.addCommit(meta);
+      break;
     }
 
-    auto drop_op = std::make_shared<TableUnload>();
-    drop_op->setTableName(drop->name);
-    _builder.addPlanOp(drop_op, "TableUnload", meta);
+    case DropStatement::kPreparedStatement: {
+      if (PreparedStatementManager::getInstance().hasStatement(drop->name)) {
+        PreparedStatementManager::getInstance().deleteStatement(drop->name);
+      } else {
+        _server.throwError("Can't drop statement. It doesn't exist.", drop->name);
+      }
+      _builder.addNoOp(meta);
+      break;
+    }
 
-  } else {
-    _server.throwError("Drop type not supported");
+    default:
+      _server.throwError("Drop type not supported");
   }
 
-  _builder.addCommit(meta);
   return meta;
 }
 

@@ -83,6 +83,8 @@ class ResponseTask : public taskscheduler::Task {
 
   void setTransmitOffset(size_t o) { _transmitOffset = o; }
 
+  int getResultTaskIndex() { return _resultTaskIndex; }
+
   void setResultTaskIndex(int i) { _resultTaskIndex = i; }
 
   void incAffectedRows(unsigned long inc) { _affectedRows += inc; }

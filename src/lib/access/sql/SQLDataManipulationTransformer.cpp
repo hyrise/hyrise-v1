@@ -55,7 +55,7 @@ TransformationResult SQLDataManipulationTransformer::transformInsertStatement(In
    
     auto insert_scan = std::make_shared<InsertScan>();
     std::vector<Json::Value> data;
-    for (Expr* expr : insert->values->vector()) { 
+    for (Expr* expr : *insert->values) { 
       switch (expr->type) {
         case kExprLiteralFloat: data.push_back(expr->fval); break;
         case kExprLiteralInt: data.push_back(expr->ival); break;
@@ -107,7 +107,7 @@ TransformationResult SQLDataManipulationTransformer::transformUpdateStatement(Up
   auto update_op = std::make_shared<PosUpdateScan>();
 
   Json::Value update_data;
-  for (UpdateClause* clause : update->updates->vector()) {
+  for (UpdateClause* clause : *update->updates) {
     switch (clause->value->type) {
       case kExprLiteralInt: update_data[clause->column] = clause->value->ival; break;
       case kExprLiteralFloat: update_data[clause->column] = clause->value->fval; break;

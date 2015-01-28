@@ -87,7 +87,7 @@ TEST_P(AutoSQLTest, Query) {
   try {
     hyrise::storage::c_atable_ptr_t test_table, ref_table;
     
-    // Execute prepare argument (TODO: legecy -> remove)
+    // Execute prepare argument
     if (test_config.isMember("prepare")) {
       this->execute(test_config["prepare"]);
     }

@@ -18,7 +18,7 @@ namespace sql {
 
 SQLQueryTask::SQLQueryTask(SQLStatement* stmt) :
   _stmt(stmt),
-  _id(0),
+  _prefix(""),
   _has_commit(false),
   _next_task(nullptr),
   _prev_task(nullptr),
@@ -32,7 +32,7 @@ SQLQueryTask::~SQLQueryTask() {
 
 void SQLQueryTask::executePlanOperation() {
   // Transform the statement
-  SQLStatementTransformer transformer = SQLStatementTransformer(std::to_string(_id) + ".");
+  SQLStatementTransformer transformer = SQLStatementTransformer(_prefix);
   transformer.transformStatement(_stmt);
   _has_commit = transformer.hasCommit();
   task_list_t tasks = transformer.getTaskList();
@@ -41,7 +41,7 @@ void SQLQueryTask::executePlanOperation() {
   // TXContext
   // Each SQL statement will be handled as a single transaction
   // If we are the first task in the chain, simply get the context of this SQLQueryTask
-  // If our previouse task had no commit, we can carry over its transaction context
+  // If our previous task had no commit, we can carry over its transaction context
   // If it had a commit we begin a new transaction
   tx::TXContext ctx;
   if (_prev_task == nullptr) {
@@ -55,6 +55,7 @@ void SQLQueryTask::executePlanOperation() {
   // Apply all parameters from query task
   for (task_t task : tasks) {
     if (auto plan_op = std::dynamic_pointer_cast<PlanOperation>(task)) {
+      // printf("Plan Op: %s\n", plan_op->getOperatorId().c_str());
       plan_op->setPriority(getPriority());
       plan_op->setSessionId(getSessionId());
       plan_op->setPlanId(getPlanId());
@@ -66,6 +67,32 @@ void SQLQueryTask::executePlanOperation() {
         _response_task->registerPlanOperation(plan_op);
     }
   }
+
+  // If we are executing a prepared statement
+  // we need to set the response tasks of all QueryTasks
+  // and apply the appropriate chaining
+  if (_stmt->type() == kStmtExecute) {
+    for (uint i = 0; i < tasks.size(); ++i) {
+      if (auto sql_task = std::dynamic_pointer_cast<SQLQueryTask>(tasks[i])) {
+        sql_task->setResponseTask(_response_task);
+        sql_task->setPrefix(_prefix + std::to_string(i+1) + ".");
+      }
+    }
+
+    auto last_task = std::dynamic_pointer_cast<SQLQueryTask>(tasks.back());
+    if (last_task && _next_task) {
+      last_task->setNextTask(_next_task);
+      if (_next_task == _response_task) {
+        // Increment result task index
+        _response_task->setResultTaskIndex(_response_task->getResultTaskIndex() + 1);
+      } else if (auto sql_next_task = std::dynamic_pointer_cast<SQLQueryTask>(_next_task)) {
+        // If our next task is not the response_task, it must be a SQLQueryTask
+        // For transaction management
+        sql_next_task->setPrevTask(last_task); 
+      }
+    }
+  }
+
 
   // Set dependency of following QueryTask/ResponseTask
   if (_next_task != nullptr) {
