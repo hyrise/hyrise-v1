@@ -1,11 +1,13 @@
-Clone the hyrise git repository into ~/workspace/
-run run.sh
+### Prerequisites
+* Linux: Install docker and add your user to the docker group
+* OSX: Install [http://boot2docker.io/](boot2docker) and make sure it is running
 
-the folders ~/workspace and ~/.ssh of your host system will be mounted at /home/dev/workspace and /home/dev/.ssh
-This way, you can use your favorite text editor to change code on the host system while being able to complile hyrise within the container and use your ssh keys inside the container for pushing changes to git.
+### Usage
+* Clone the hyrise git repository to your local machine
+* Per default, the folder ~/workspace of your host system will be mounted at /home/dev/workspace. To change that, copy docker.conf.sample to docker.conf and change the parameters
+* Execute run.sh (again, make sure boot2docker/dockerd is started)
+* You should automatically be connected to your container via SSH and you should be able to build and run hyrise within this container.
+* You can use screen to start multiple processes (e.g. hyrise and the sql web frontend)
 
-To start the container without the run.sh script (e.g. to change the default paths and ports) simply modify and execute the commands from the run.sh script.
-
-Per default, the ports 2222, 8888, 5000 are forwarded to the container.
-
-To connect to a running container, simply execute the ssh command from the run.sh file.
+### Trouble shooting
+* If you're having trouble with boot2docker and its environment variables try running reset_boot2docker.sh. In most cases this should resolve your problems
