@@ -51,6 +51,17 @@ RUN ~/.scm_breeze/install.sh
 
 USER root
 
+# Remove default motd
+RUN rm /etc/update-motd.d/*
+RUN rm /var/run/motd.dynamic
+ADD motd /etc/motd
+RUN sed -i '/motd.dynamic/d' /etc/pam.d/sshd
+RUN sed -i '/motd.dynamic/d' /etc/pam.d/login
+RUN rm /etc/legal
+
+RUN gpasswd -a dev sudo
+RUN echo 'dev:dev123' | chpasswd
+
 ENTRYPOINT /usr/sbin/sshd -D
 
 VOLUME ["/home/dev/workspace"]
