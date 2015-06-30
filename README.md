@@ -16,7 +16,7 @@ our cost-model we can now calculate the best set of partitions for this input
 workload. This optimization allows great speed improvements compared to
 traditional storage models.
 
-This database provides the implementation to the above mentioned ideas. 
+This database provides the implementation to the above mentioned ideas.
 
 ## Current status
 
@@ -34,7 +34,7 @@ database. But no promises, when this will happen.
 
 The following features are currently implemented (not always optimal and convenient):
 
-  * Database loading from CSV, HYRISE text files, binary dumps 
+  * Database loading from CSV, HYRISE text files, binary dumps
   * Most important database operators and indexes including re-compression and dump to disk
   * Automatic layout calculation and layout switch as front-end accessible plan operations
 
@@ -60,6 +60,10 @@ HYRISE expects a C++11-capable compiler. We recommend g++ >=4.7, testing is done
 
 ### Development Environment Setup
 
+#### Docker
+
+You can use the official [HYRISE development image](https://registry.hub.docker.com/u/hyrise/hyrisedev/) to start a docker container with all dependencies for building HYRISE already installed. See [Docker README](docker/README.md) for more information on how to use it.
+
 #### Vagrant
 
 Using [VirtualBox](http://virtualbox.org) and [Vagrant](http://vagrantup.com), you can automatically setup a HYRISE development environment. (This is the recommended way of getting started with HYRISE development).
@@ -69,7 +73,7 @@ Check out [this repository](https://github.com/hyrise/hyrise_puppet/) to easily 
 #### Ubuntu
 
 It should be sufficient to run the `install_$version.sh` script from the `tools/` folder, where version corresponds to a Ubuntu version.
-  
+
 ## Building
 
 First check if all submodules are initialized correctly:
@@ -77,7 +81,7 @@ First check if all submodules are initialized correctly:
     git submodule update --init
 
 To start the build you will only need to execute a simple command line command
-to start. The given make file provides all necessary targets. 
+to start. The given make file provides all necessary targets.
 
 A simple build is executed by
 
@@ -96,7 +100,7 @@ modify settings. The most prominent one is `PRODUCTION` to
 disable the debug build and `HYRISE_ALLOCATOR` for using `tcmalloc` or
 `jemalloc` instead of the libc allocator.
 
-To enable an optimized production build with g++-4.8, a `settings.mk` file 
+To enable an optimized production build with g++-4.8, a `settings.mk` file
 may look as follows:
 
     COMPILER := g++48
@@ -115,7 +119,7 @@ The documentation can be build using:
     make docs
 
 The documentation contains information about how to use HYRISE and how to
-implement own plan operations and table types etc. 
+implement own plan operations and table types etc.
 
 ## Mailing list
 
@@ -161,6 +165,7 @@ alphabetical order :)
   * Martin Faust
   * Martin Grund
   * Martin Linkhorst
+  * Marvin Keller
   * Marvin Killing
   * Matthias Lleine
   * Maximilian Schneider
@@ -175,9 +180,9 @@ alphabetical order :)
 
 ## License
 
-HYRISE is licensed as open source after the OpenSource "Licence of the Hasso-Plattner Institute" declared in the LICENSE file of this project. 
+HYRISE is licensed as open source after the OpenSource "Licence of the Hasso-Plattner Institute" declared in the LICENSE file of this project.
 
-## FAQ 
+## FAQ
 
 ### Why does HYRISE not use MIT or BSD or XX license?
 
