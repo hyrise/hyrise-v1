@@ -9,10 +9,11 @@
 * Execute run.sh (again, make sure boot2docker/dockerd is started)
 * You should automatically be connected to your container via SSH and you should be able to build and run hyrise within this container.
 * You can use screen to start multiple processes (e.g. hyrise and the sql web frontend)
+* If you need to reset the container, simply run reset.sh
 
 ### MySQL
 * To setup MySQL with the credentials from the default config (vagrant:vagrant), execute the setup_mysql.sh script (The script will start and configure mysqld)
 * If you just want to start the the mysql server without configuration, simply run 'sudo mysqld &'. You can connect to mysqld via 'mysql -uroot'
 
 ### Trouble shooting
-* If you're having trouble with boot2docker and its environment variables try running reset_boot2docker.sh. In most cases this should resolve your problems
+* If you're having trouble with boot2docker, try running reset_.sh. In most cases this should resolve your problems
