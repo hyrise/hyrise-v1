@@ -4,6 +4,7 @@
 #include <cstddef>
 #include <string>
 #include <vector>
+#include <stdlib.h>
 
 #define ADD_MEMBER(type, member)                 \
  private:                                        \
@@ -52,6 +53,8 @@ class Settings {
   size_t commit_window_ms;
 
   std::string getPersistencyDir() {
+    char *persistencyDir = getenv("HYRISE_PERSISTENCY_PATH");
+    if(persistencyDir) return persistencyDir;
     return getDBPath() + "/persistency/";
   };
   std::string getLogDir() {
