@@ -14,8 +14,10 @@ public:
   static std::unique_ptr<Expression> creator(const Json::Value& data);
 
   void setup(const storage::c_atable_ptr_t &table);
+
+  std::unique_ptr<Expression> clone();
 private:
-  void evaluateMain(pos_list_t *results);
+  void evaluateMain(pos_list_t *results, const size_t start = 0, const size_t stop = 0);
   void evaluateDelta(pos_list_t *results);
 
   std::array<size_t, NUMBER_OF_COLUMNS> _columns;
@@ -30,6 +32,8 @@ private:
 
   std::shared_ptr<hyrise::storage::FixedLengthVector<value_id_t>> _mainVector[NUMBER_OF_COLUMNS];
   std::shared_ptr<hyrise::storage::ConcurrentFixedLengthVector<value_id_t>> _deltaVector[NUMBER_OF_COLUMNS]; 
+
+  std::shared_ptr<const Json::Value> _jsonData;
 };
 
 }}

@@ -20,13 +20,15 @@ bool {{ expression.name }}::deltaExists() { return _table->size() > _mainVector[
   {% for dataType in expression.dataTypes %}
   _value{{loop.index - 1}} = data["values"][(Json::UInt){{loop.index - 1}}].{{ expression.jsonParseMethods[loop.index - 1] }};
   {% endfor %}
+
+  _jsonData = std::make_shared<const Json::Value>(data);
 }
 
 std::unique_ptr<Expression> {{ expression.name }}::creator(const Json::Value& data) {
   return make_unique<{{ expression.name }}>(data);
 }
 
-void {{ expression.name }}::evaluateMain(pos_list_t *results) {
+void {{ expression.name }}::evaluateMain(pos_list_t *results, const size_t start, const size_t stop) {
   value_id_t valueIds[NUMBER_OF_COLUMNS] = {0};
 
   {#
@@ -56,8 +58,18 @@ void {{ expression.name }}::evaluateMain(pos_list_t *results) {
     {% endif %}
   {% endfor %}
 
-  size_t mainVectorSize = _mainVector[0]->size();
-  for(size_t currentRow = 0; currentRow < mainVectorSize; ++currentRow) {
+  size_t lowerBound = 0;
+  size_t upperBound = _mainVector[0]->size();
+
+  if (start != 0) {
+    lowerBound = start;
+  }
+
+  if (stop != 0) {
+    upperBound = stop;
+  }
+
+  for(size_t currentRow = lowerBound; currentRow < upperBound; ++currentRow) {
     if ( {{expression.evaluationString}} )
       results->push_back(currentRow);
   }
@@ -95,6 +107,10 @@ void {{ expression.name }}::setup(const storage::c_atable_ptr_t &table) {
     _deltaDictionary{{number}} = std::dynamic_pointer_cast<storage::ConcurrentUnorderedDictionary<{{expression.dataTypes[number]}}>>(table->dictionaryAt(_columns[{{number}}], _mainVector[0]->size()));
   {% endfor %}
 
+}
+
+std::unique_ptr<Expression> {{ expression.name }}::clone() {
+  return {{ expression.name }}::creator(*_jsonData);
 }
 
 }}
