@@ -32,7 +32,7 @@ void {{ expression.name }}::evaluateMain(pos_list_t *results) {
   {#
   ## This amount of if-else cluttering is necessary because Hyrise does not
   ## return an error or an obvious wrong value like -1 for calls of
-  ## getValueIdForValueGreater with a value which does not exist in the dictionary.
+  ## getUpperBoundValueIdForValue with a value which does not exist in the dictionary.
   ## Instead it returns std::numeric_limits<value_id_t>::max(). The content of
   ## valueIds[{{number}}] has to be checked in case the operator is not '=='
   ## to deliver the correct results for all expression evaluations
@@ -40,17 +40,17 @@ void {{ expression.name }}::evaluateMain(pos_list_t *results) {
 
   {% for number in range(0,expression.numberOfColumns) %}
     {% if expression.operators[number] == '>' %}
-  valueIds[{{number}}] = _mainDictionary{{number}}->getValueIdForValueGreater(_value{{number}});
+  valueIds[{{number}}] = _mainDictionary{{number}}->getUpperBoundValueIdForValue(_value{{number}});
     {% elif expression.operators[number] == '<' %}
-  valueIds[{{number}}] = _mainDictionary{{number}}->getValueIdForValueSmaller(_value{{number}});
+  valueIds[{{number}}] = _mainDictionary{{number}}->getLowerBoundValueIdForValue(_value{{number}}) - 1;
     {% else %}
   valueIds[{{number}}] = _mainDictionary{{number}}->getValueId(_value{{number}}, false);
       {% if expression.operators[number] != '==' %}
   if (valueIds[{{number}}] == std::numeric_limits<value_id_t>::max())
         {% if expression.operators[number] == '>=' %}
-    valueIds[{{number}}] = _mainDictionary{{number}}->getValueIdForValueGreater(_value{{number}});
+    valueIds[{{number}}] = _mainDictionary{{number}}->getUpperBoundValueIdForValue(_value{{number}});
         {% else %}
-    valueIds[{{number}}] = _mainDictionary{{number}}->getValueIdForValueSmaller(_value{{number}});
+    valueIds[{{number}}] = _mainDictionary{{number}}->getLowerBoundValueIdForValue(_value{{number}}) - 1;
         {% endif %}
       {% endif %}
     {% endif %}
